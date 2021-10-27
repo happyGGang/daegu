@@ -79,7 +79,7 @@
 
     });
 
-    // 예약 취소 버튼
+    // 예약취소 버튼
     function btnCancel(object) {
         if(!confirm("정말 예약을 취소하시겠습니까?\n예약을 취소하시면 다시 되돌릴 수 없습니다.")) return;
 
@@ -100,7 +100,12 @@
 
                     alert(response.message);
 
-                    minusRequestCount(data.lecture_id, $('#request_status_'+data.request_id).text(), data.request_type);
+                    if(data.waitUpdateCnt == 1) {
+                        let requestCount = parseInt($('#wait_request_count_'+data.lecture_id).text());
+                        $('#wait_request_count_'+data.lecture_id).text(requestCount-1);
+                    } else {
+                        minusRequestCount(data.lecture_id, $('#request_status_'+data.request_id).text(), data.request_type);
+                    }
 
                     $('#dialog-4').load('../lectureInfo/applicant.do?lecture_id='+data.lecture_id+'&applicant_type=${applicant_type}', function( response, status, xhr ) {
                         $('#dialog-4').dialog('open');
@@ -124,7 +129,7 @@
         });
     }
 
-    // 숫자 변화
+    // 모달 띄운 페이지의 신청자 숫자 변화
     function minusRequestCount(lecture_id, request_status, request_type) {
         if(request_type == "오프라인") {
             let requestCount = parseInt($('#offline_request_count_'+lecture_id).text());
@@ -192,6 +197,55 @@
         });
     }
 
+    // 예약불참 버튼
+    function btnNoAttendance(object) {
+        if(!confirm("정말 예약불참 상태로 변경하시겠습니까?\n변경 후 다시 이전 상태로 되돌릴 수 없습니다.")) return;
+
+        let dataArr = $(object).data('key').split(",");
+        let request_id = dataArr[0];
+        let lecture_id = dataArr[1];
+
+        var ajaxData = {
+            'lecture_id' : lecture_id,
+            'request_id' : request_id,
+            'editMode' : 'UPDATE',
+            'request_status' : '예약불참'
+        };
+
+        $.ajax({
+            url : '../lectureRequest/noAttendance.do',
+            type : 'POST',
+            data : ajaxData,
+            success: function(response) {
+                if(response.valid) {
+                    let data = response.data;
+                    alert(response.message);
+
+                    let onlineCount = parseInt($('#online_request_count_'+lecture_id).text());
+                    $('#online_request_count_'+lecture_id).text(onlineCount-1);
+
+                    $('#dialog-4').load('../lectureInfo/applicant.do?lecture_id='+lecture_id+'&applicant_type=${applicant_type}', function( response, status, xhr ) {
+                        $('#dialog-4').dialog('open');
+                    });
+
+                } else {
+                    if ( response.message != null ) {
+                        alert(response.message);
+                    } else {
+                        for(var i =0 ; i < response.result.length ; i++) {
+                            alert(response.result[i].code);
+                            $('#'+response.result[i].field).focus();
+                            break;
+                        }
+                    }
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+            }
+        });
+    }
+
     // 신청자 정보 row 템플릿
     function applicantItem(obj) {
 
@@ -214,8 +268,10 @@
 
     // 예약완료, 예약대기 버튼 템플릿
     function btnItem(request_status, request_type, request_id, lecture_id, info_request_type) {
-        if(request_status == '예약대기' && request_type == '온라인' && info_request_type == '선착순') {
-            return `<a href="#" class="btn completion_btn" onclick="btnCompletion(this)" data-key="`+request_id+`,`+lecture_id+`">예약완료</a>`;
+        if (request_status == '예약대기' && request_type == '온라인' && info_request_type == '선착순') {
+            return `<a href="#" class="btn completion_btn" onclick="btnCompletion(this)" data-key="` + request_id + `,` + lecture_id + `">예약완료</a>`;
+        } else if (request_type == "온라인" && request_status == "예약완료") {
+            return `<a href="#" class="btn no_attendance_btn" onclick="btnNoAttendance(this)" data-key="` + request_id + `,` + lecture_id + `">예약불참</a>`;
         } else {
             return ``;
         }
@@ -223,7 +279,7 @@
 
     // 예약취소 버튼 템플릿
     function btnCancelItem(request_status, request_id) {
-        if (request_status == "예약취소") {
+        if (request_status == "예약취소" || request_status == "예약불참") {
             return '';
         }
         return `<a href="#" id="btn_request_cancel_`+request_id+`" class="btn cancel_btn" onclick="btnCancel(this)" data-key="`+request_id+`">예약취소</a>`;

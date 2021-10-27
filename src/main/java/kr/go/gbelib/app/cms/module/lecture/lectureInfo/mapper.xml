@@ -23,7 +23,7 @@
 		    edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,request_end_date,edu_school,
 		    online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,teacher_tel,supporter_name,
 		    supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,edu_address_2,teacher_id,
-		    day_week,edu_second_school
+		    day_week,edu_second_school,auto_sms
 		]]>
 	</sql>
 
@@ -170,7 +170,7 @@
 				edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,request_end_date,edu_school,
 				online_person_count,offline_person_count,wait_person_count,i.request_type,teacher_name,teacher_tel,supporter_name,
 				supporter_tel,edu_school_map,lecture_content,i.add_date,i.add_ip,i.add_id,edu_address_1,edu_address_2,teacher_id,
-				day_week,edu_second_school,r.request_status,r.add_date AS request_add_date,r.request_id
+				day_week,edu_second_school,r.request_status,r.add_date AS request_add_date,r.request_id,i.auto_sms
 			]]>
 		FROM
 		LECTURE_INFO AS i INNER JOIN LECTURE_REQUEST AS r
@@ -210,14 +210,14 @@
 		homepage_id, course_id,lecture_id,lecture_title,edu_start_date,edu_end_date,edu_start_time,edu_end_time,request_start_date,
 		request_end_date,edu_school,online_person_count,offline_person_count,wait_person_count,request_type,teacher_name,
 		teacher_tel,supporter_name,supporter_tel,edu_school_map,lecture_content,add_date,add_ip,add_id,edu_address_1,
-		edu_address_2,teacher_id,day_week,edu_second_school
+		edu_address_2,teacher_id,day_week,edu_second_school,auto_sms
 		)
 		VALUES
 		(
 		#{homepage_id},#{course_id},#{lecture_id},#{lecture_title},#{edu_start_date},#{edu_end_date},#{edu_start_time},#{edu_end_time},
 		#{request_start_date},#{request_end_date},#{edu_school},#{online_person_count},#{offline_person_count},#{wait_person_count},
 		#{request_type},#{teacher_name},#{teacher_tel},#{supporter_name},#{supporter_tel},#{edu_school_map},#{lecture_content},
-		SYSDATE,#{add_ip},#{add_id},#{edu_address_1},#{edu_address_2},#{teacher_id},#{day_week},#{edu_second_school}
+		SYSDATE,#{add_ip},#{add_id},#{edu_address_1},#{edu_address_2},#{teacher_id},#{day_week},#{edu_second_school},#{auto_sms}
 		)
 	</insert>
 
@@ -255,7 +255,8 @@
 			edu_address_2 = #{edu_address_2},
 			day_week = #{day_week},
 			teacher_id = #{teacher_id},
-			edu_second_school = #{edu_second_school}
+			edu_second_school = #{edu_second_school},
+			auto_sms = #{auto_sms}
 		WHERE
 			homepage_id = #{homepage_id}
 		  AND lecture_id = #{lecture_id}

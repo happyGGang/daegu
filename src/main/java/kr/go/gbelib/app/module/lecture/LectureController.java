@@ -7,6 +7,9 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.lecture.SendMessageService;
+import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfo;
+import kr.go.gbelib.app.cms.module.lecture.courseInfo.CourseInfoService;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfo;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.LectureInfoService;
 import kr.go.gbelib.app.cms.module.lecture.lectureInfo.file.LectureInfoFile;
@@ -40,6 +43,9 @@ public class LectureController extends BaseController {
 
     @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private CourseInfoService courseInfoService;
 
     /**
      * 강좌 목록 페이지
@@ -107,7 +113,7 @@ public class LectureController extends BaseController {
         String request_type = request.getParameter("request_type");
 
         if(lecture_id == null || lecture_id.equals("")) {  // 잘못된 접근
-            lectureInfoService.alertMessageAndUrl("강좌 고유번호가 전달되지 않았습니다.\n관리자에게 문의하세요.", String.format("/%s/module/lecture/index.do", homepage.getContext_path()), request, response);
+            lectureInfoService.alertMessageAjax("강좌 고유번호가 전달되지 않았습니다.\n관리자에게 문의하세요.", request, response);
             return null;
         }
 
@@ -126,6 +132,13 @@ public class LectureController extends BaseController {
             lectureRequest.setZip_code(member.getZipcode());
             lectureRequest.setAddress1(member.getAddress1());
             lectureRequest.setAddress2(member.getAddress2());
+        } else {
+            LectureInfo lectureInfo = lectureInfoService.lectureInfoOne(lecture_id);
+            CourseInfo courseInfo = courseInfoService.getCourseInfoByCourseId(lectureInfo.getCourse_id());
+            if(courseInfo.getNon_member_yn() != null && courseInfo.getNon_member_yn().equals("N")) {
+                lectureInfoService.alertMessageAjax("로인인 후 이용할 수 있습니다.", request, response);
+                return null;
+            }
         }
 
         model.addAttribute("lectureInfo", lectureInfoService.lectureInfoOne(lecture_id));
@@ -170,7 +183,11 @@ public class LectureController extends BaseController {
 
             if(!setStatus(lectureRequest, res)) return res;             // 신청 불가 상태면 return
 
-            lectureRequestService.addLectureRequest(lectureRequest);    // 수강신청 추가
+            if(!lectureRequestService.addLectureRequest(lectureRequest)) { // 수강신청 저장
+                res.setValid(false);
+                res.setMessage("수강신청중 문제가 생겼습니다.\n관리자에게 문의하세요.");
+                return res;
+            }
 
             res.setValid(true);
             res.setMessage("수강신청 되었습니다.");
@@ -306,8 +323,14 @@ public class LectureController extends BaseController {
         // 형식 체크
         ValidationUtils.rejectIfNotDate(result, "birthday", "생년월일 형식이 올바르지 않습니다.");
         ValidationUtils.rejectPhone(result, "phone_number", "휴대폰번호 형식이 올바르지 않습니다.");
-        if( lectureRequest.getEmail() != null) {
+        if( lectureRequest.getEmail() != null && !lectureRequest.getEmail().equals("")) {
             ValidationUtils.rejectNotFullEmailType(result, "email", "이메일 형식이 올바르지 않습니다.");
+        }
+        if( lectureRequest.getGuardian_tel() != null && !lectureRequest.getGuardian_tel().equals("")) {
+            ValidationUtils.rejectPhone(result, "guardian_tel", "보호자 휴대폰번호 형식이 올바르지 않습니다.");
+        }
+        if( lectureRequest.getGuardian_email() != null && !lectureRequest.getGuardian_email().equals("")) {
+            ValidationUtils.rejectNotFullEmailType(result, "guardian_email", "보호자이메일 형식이 올바르지 않습니다.");
         }
     }
 

@@ -155,6 +155,15 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>비회원신청(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="non_member_yn" cssClass="selectmenu">
+						<form:option value="Y">허용</form:option>
+						<form:option value="N">비허용</form:option>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
 				<th>사용여부(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:select path="use_yn" cssClass="selectmenu">

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -106,6 +107,7 @@ public class LectureRequestController extends BaseController {
         lectureRequestOne.setSearch_cancel_yn(lectureRequest.getSearch_cancel_yn());
         lectureRequestOne.setSearch_type(lectureRequest.getSearch_type());
         lectureRequestOne.setSearch_text(lectureRequest.getSearch_text());
+        lectureRequestOne.setSearch_request_status(lectureRequest.getSearch_request_status());
 
         model.addAttribute("lectureRequest", lectureRequestOne);
 
@@ -138,10 +140,17 @@ public class LectureRequestController extends BaseController {
 
             if(!setStatus(lectureRequest, res)) return res;             // 신청 불가 상태면 return
 
-            lectureRequestService.addLectureRequest(lectureRequest);    // 수강신청 추가
+            if(!lectureRequestService.addLectureRequest(lectureRequest)) {       // 수강신청 추가
+                res.setValid(false);
+                res.setMessage("수강신청중 문제가 생겼습니다.\n관리자에게 문의하세요.");
+                return res;
+            }
+
+            res.setMessage("수강신청 되었습니다.");
 
         } else if (lectureRequest.getEditMode().equals("UPDATE")) {
             lectureRequestService.updateLectureRequest(lectureRequest);
+            res.setMessage("수정되었습니다.");
         } else {
             res.setValid(false);
             res.setMessage("잘못된 접근입니다.\n관리자에게 문의하세요.");
@@ -149,7 +158,6 @@ public class LectureRequestController extends BaseController {
         }
 
         res.setValid(true);
-        res.setMessage("수강신청 되었습니다.");
         res.setUrl("index.do");
 
         return res;
@@ -262,6 +270,12 @@ public class LectureRequestController extends BaseController {
         if( lectureRequest.getEmail() != null && !lectureRequest.getEmail().equals("")) {
             ValidationUtils.rejectNotFullEmailType(result, "email", "이메일 형식이 올바르지 않습니다.");
         }
+        if( lectureRequest.getGuardian_tel() != null && !lectureRequest.getGuardian_tel().equals("")) {
+            ValidationUtils.rejectPhone(result, "guardian_tel", "보호자 휴대폰번호 형식이 올바르지 않습니다.");
+        }
+        if( lectureRequest.getGuardian_email() != null && !lectureRequest.getGuardian_email().equals("")) {
+            ValidationUtils.rejectNotFullEmailType(result, "guardian_email", "보호자이메일 형식이 올바르지 않습니다.");
+        }
     }
 
     /**
@@ -349,5 +363,92 @@ public class LectureRequestController extends BaseController {
         model.addAttribute("lectureRequestList", lectureRequestList);
 
         new LectureRequestXlsToCsv(lectureRequestList, "LectureRequest.csv", homepage, request, response);
+    }
+
+    /**
+     * 문자전송 모달
+     * */
+    @RequestMapping(value = {"/message.*"})
+    private String message(Model model, LectureRequest lectureRequest, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        checkAuth("R", model, request);
+
+        lectureRequest.setHomepage_id(getAsideHomepageId(request));
+
+        String requestIds = request.getParameter("sendList");
+
+        List<String> requestIdList = Arrays.asList(requestIds.split(","));
+        List<LectureRequest> lectureRequestList = lectureRequestService.getLectureRequestListByRequestIdList(requestIdList);
+
+        lectureRequest.setEditMode("MESSAGE");
+
+        model.addAttribute("lectureRequest", lectureRequest);
+        model.addAttribute("lectureRequestList", lectureRequestList);
+
+        return basePath + "message_ajax";
+    }
+
+    /**
+     * 문자 전송 api
+     * */
+    @RequestMapping (value = {"/sendMessage.*"}, method = RequestMethod.POST)
+    public @ResponseBody JsonResponse sendMessage(LectureRequest lectureRequest, BindingResult result, HttpServletRequest request) {
+        JsonResponse res = new JsonResponse(request);
+
+        lectureRequest.setHomepage_id(getAsideHomepageId(request));
+
+        ValidationUtils.rejectIfEmpty(result, "phone_number", "보내는 번호를 입력하세요.");
+        ValidationUtils.rejectPhone(result, "phone_number", "휴대폰번호 형식이 올바르지 않습니다.");
+        ValidationUtils.rejectIfEmpty(result, "message_content", "보낼 메세시 내용을 입력하세요.");
+
+        if (result.hasErrors()) {                   // 오류가 있으면 return
+            res.setValid(false);
+            res.setResult(result.getAllErrors());
+            return res;
+        }
+
+        if (lectureRequest.getEditMode().equals("MESSAGE")) {
+            res.setValid(true);
+            res.setMessage("문자가 전송되었습니다.");
+            res.setUrl("index.do");
+        } else {
+            res.setValid(false);
+            res.setResult("잘못된 접근입니다.\n관리자에게 문의하세요.");
+        }
+
+        return res;
+    }
+
+    /**
+     * 예약 불참 변경
+     * */
+    @RequestMapping (value = {"/noAttendance.*"}, method = RequestMethod.POST)
+    public @ResponseBody JsonResponse noAttendance(LectureRequest lectureRequest, BindingResult result, HttpServletRequest request) {
+        JsonResponse res = new JsonResponse(request);
+
+        lectureRequest.setHomepage_id(getAsideHomepageId(request));
+
+        if (result.hasErrors()) {                   // 오류가 있으면 return
+            res.setValid(false);
+            res.setResult(result.getAllErrors());
+            return res;
+        }
+
+        if (lectureRequest.getEditMode().equals("UPDATE")) {
+
+            if(lectureRequestService.changeNoAttendance(lectureRequest, getSessionMemberId(request), request.getRemoteAddr()) != 1) {
+                res.setValid(true);
+                res.setMessage("예약상태 변경중 문제가 발생했습니다.\n관리자에게 문의하세요.");
+            }
+
+            res.setValid(true);
+            res.setMessage("예약 상태가 예약불참으로 변경되었습니다.");
+            res.setUrl("index.do");
+
+        } else {
+            res.setValid(false);
+            res.setResult("잘못된 접근입니다.\n관리자에게 문의하세요.");
+        }
+
+        return res;
     }
 }

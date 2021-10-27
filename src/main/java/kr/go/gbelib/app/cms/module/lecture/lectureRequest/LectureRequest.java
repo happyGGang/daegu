@@ -26,15 +26,22 @@ public class LectureRequest extends PagingUtils {
     private Date cancel_date; // 취소날짜
     private String cancel_ip; // 취소 ip
     private String cancel_id; // 취소 id
+    private String guardian_name; // 보호자 이름
+    private String guardian_tel;    // 보호자 휴대전화
+    private String guardian_email;  // 보호자 이메일
 
     /**
      * LECTURE_REQUEST 테이블 외의 값
      * */
-    private int reverse_rownum; // 순번
+    private int rownum_forward; // 순번
+    private int reverse_rownum; // 역 순번
     private String lecture_title; // 강좌명
     private String course_id; // 강좌명
     private String after_raffle_list;
     private String info_request_type; // 강좌 접수방법
+    private int waitUpdateCnt;
+    private String[] check_select;
+    private String message_content; // 문자 내용
 
     /**
      * 검색을 위한 필드
@@ -43,6 +50,7 @@ public class LectureRequest extends PagingUtils {
     private String search_lecture_id; // 강좌 id
     private String search_request_type; // 접수방법
     private String search_cancel_yn; // 취소여부
+    private String search_request_status; // 예약상태
 
     public String getCourse_id() {
         return course_id;
@@ -274,5 +282,69 @@ public class LectureRequest extends PagingUtils {
 
     public void setInfo_request_type(String info_request_type) {
         this.info_request_type = info_request_type;
+    }
+
+    public int getWaitUpdateCnt() {
+        return waitUpdateCnt;
+    }
+
+    public void setWaitUpdateCnt(int waitUpdateCnt) {
+        this.waitUpdateCnt = waitUpdateCnt;
+    }
+
+    public String getGuardian_name() {
+        return guardian_name;
+    }
+
+    public void setGuardian_name(String guardian_name) {
+        this.guardian_name = guardian_name;
+    }
+
+    public String getGuardian_tel() {
+        return guardian_tel;
+    }
+
+    public void setGuardian_tel(String guardian_tel) {
+        this.guardian_tel = guardian_tel;
+    }
+
+    public String getGuardian_email() {
+        return guardian_email;
+    }
+
+    public void setGuardian_email(String guardian_email) {
+        this.guardian_email = guardian_email;
+    }
+
+    public String getSearch_request_status() {
+        return search_request_status;
+    }
+
+    public void setSearch_request_status(String search_request_status) {
+        this.search_request_status = search_request_status;
+    }
+
+    public String[] getCheck_select() {
+        return check_select;
+    }
+
+    public void setCheck_select(String[] check_select) {
+        this.check_select = check_select;
+    }
+
+    public String getMessage_content() {
+        return message_content;
+    }
+
+    public void setMessage_content(String message_content) {
+        this.message_content = message_content;
+    }
+
+    public int getRownum_forward() {
+        return rownum_forward;
+    }
+
+    public void setRownum_forward(int rownum_forward) {
+        this.rownum_forward = rownum_forward;
     }
 }

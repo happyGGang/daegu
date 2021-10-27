@@ -22,6 +22,7 @@ $(function() {
 	<form:hidden path="search_lecture_id"/>
 	<form:hidden path="search_request_type"/>
 	<form:hidden path="search_cancel_yn"/>
+	<form:hidden path="search_request_status"/>
 	<form:hidden path="search_type"/>
 	<form:hidden path="search_text"/>
 	<form:hidden path="viewPage"/>
@@ -115,8 +116,27 @@ $(function() {
 				<th>취소 아이피</th>
 				<td>${lectureRequest.cancel_ip}</td>
 			</tr>
+			<c:if test="${lectureRequest.guardian_name ne null and lectureRequest.guardian_name ne ''}">
+			<tr>
+				<th>보호자이름</th>
+				<td>${lectureRequest.guardian_name}</td>
+			</tr>
+			<tr>
+				<th>보호자연락처</th>
+				<td>${lectureRequest.guardian_tel}</td>
+			</tr>
+			<tr>
+				<th>보호자이메일</th>
+				<td>${lectureRequest.guardian_email}</td>
+			</tr>
+			</c:if>
+
 		</tbody>
 	</table>
+	<br>
+	<div class="ui-state-highlight">
+		<em>※ 보호자 정보는 입력했을 경우에만 표시됩니다.</em>
+	</div>
 	
 	<div class="button bbs-btn" style="margin-top: 10px; text-align: right;">
 		<a href="#" id="list_btn" class="btn btn2">목록으로</a>

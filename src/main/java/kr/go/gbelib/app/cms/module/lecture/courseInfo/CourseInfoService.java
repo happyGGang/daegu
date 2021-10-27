@@ -101,6 +101,15 @@ public class CourseInfoService extends BaseService {
         return courseInfoDao.getOngoingCourseInfoOne(homepage_id);
     }
 
+    /**
+     * course_id로 과정 하나 조회
+     * */
+    @WorkingLogger(comment="과정 하나 조회", type="P")
+    @Transactional(readOnly = true)
+    public CourseInfo getCourseInfoByCourseId(String course_id) {
+        return courseInfoDao.getCourseInfo(course_id);
+    }
+
 
     /**
      * 강좌 과정 등록 사용 불가 날짜 리턴

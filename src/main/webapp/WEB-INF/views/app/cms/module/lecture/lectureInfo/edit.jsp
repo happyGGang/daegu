@@ -192,6 +192,18 @@ $(function() {
 			$('a.delete-file-btn').remove();
 		}
 	});
+
+	// 접수방법 변경 이벤트
+	$('#request_type').on('change', function() {
+		$('#tr_auto_sms').empty();
+
+		if($(this).val() === "선착순") {
+			$('#tr_auto_sms').append(autoSmsForm());
+		}
+	})
+
+	// auto_sms form 초기화
+	initAutoSms();
 });
 	let reg = /\s/g;
 	let onlineRequestCount = ${lectureInfo.online_request_count};
@@ -232,6 +244,34 @@ $(function() {
 	// 기존 파일 변경 이벤트
 	function onFileChange() {
 		$('#existed_file_div').remove();
+	}
+
+	// 자동예약알림 select 폼
+	function autoSmsForm() {
+		return `
+			<th>예약완료 자동알림<br>여부(<span style="color: red;font-weight: bold;">*</span>)</th>
+			<td>
+				<select name="auto_sms" style="width: 10%">
+					<option value="Y">Y</option>
+					<option value="N">N</option>
+				</select>
+				<div class="ui-state-highlight">
+					<em>
+						※ 선착순 강좌일 경우 예약완료 상태의 신청이 취소되었을 때 우선 대기자가 자동으로 예약완료가 되는데 그때 알림문자를 보낼 것인지 설정하는 기능.<br>
+						&nbsp;(단, 모집이 마감된 강좌는 자동예약완료가 되지 않습니다.)
+					</em>
+				</div>
+			</td>
+		`;
+	}
+
+	// auto_sms form 초기화
+	function initAutoSms() {
+		console.log($('#tr_auto_sms').html());
+		if("${lectureInfo.auto_sms}" == "") {
+			$('#tr_auto_sms').empty();
+			$('#tr_auto_sms').append(autoSmsForm());
+		}
 	}
 </script>
 
@@ -290,6 +330,23 @@ $(function() {
 						<form:option value="추첨제">추첨제</form:option>
 					</form:select>
 				</td>
+			</tr>
+			<tr id="tr_auto_sms">
+				<c:if test="${lectureInfo.request_type eq '선착순'}">
+					<th>예약완료 자동알림<br>여부</th>
+					<td>
+						<form:select path="auto_sms" cssStyle="width: 10%;">
+							<form:option value="Y">Y</form:option>
+							<form:option value="N">N</form:option>
+						</form:select>
+						<div class="ui-state-highlight">
+							<em>
+								※ 선착순 강좌일 경우 예약완료 상태의 신청이 취소되었을 때 우선 대기자가 자동으로 예약완료가 되는데 그때 알림문자를 보낼 것인지 설정하는 기능.<br>
+								&nbsp;(단, 모집이 마감된 강좌는 자동예약완료가 되지 않습니다.)
+							</em>
+						</div>
+					</td>
+				</c:if>
 			</tr>
 			<tr>
 				<th>온라인 모집인원(<span style="color: red;font-weight: bold;">*</span>)</th>
@@ -410,7 +467,6 @@ $(function() {
 					<br><span style="float: right;">※ 마우스로 잡아당겨 입력상자 크기를 조절할 수 있습니다 ↑</span>
 				</td>
 			</tr>
-
 			<tr>
 				<th>첨부파일</th>
 				<td class="file1">

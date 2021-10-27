@@ -67,7 +67,10 @@ public class LectureRequestWorkbook {
 		workbook.getSheet(0).setColumnView( 17, 30 );	// 취소일
 		workbook.getSheet(0).setColumnView( 18, 10 );	// 취소아이디
 		workbook.getSheet(0).setColumnView( 19, 20 );	// 취소아이피
-		
+		workbook.getSheet(0).setColumnView( 20, 15 );	// 보호자성함
+		workbook.getSheet(0).setColumnView( 21, 20 );	// 보호자휴대폰
+		workbook.getSheet(0).setColumnView( 22, 30 );	// 보호자이메일
+
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell( new Label( 0, 0, "강좌고유번호", format ) );
 		workbook.getSheet(0).addCell( new Label( 1, 0, "신청고유번호", format ) );
@@ -89,6 +92,9 @@ public class LectureRequestWorkbook {
 		workbook.getSheet(0).addCell( new Label( 17, 0, "취소일", format ) );
 		workbook.getSheet(0).addCell( new Label( 18, 0, "취소ID", format ) );
 		workbook.getSheet(0).addCell( new Label( 19, 0, "취소IP", format ) );
+		workbook.getSheet(0).addCell( new Label( 20, 0, "보호자성함", format ) );
+		workbook.getSheet(0).addCell( new Label( 21, 0, "보호자연락처", format ) );
+		workbook.getSheet(0).addCell( new Label( 22, 0, "보호자이메일", format ) );
 
 		
 		int row = 1;
@@ -113,6 +119,9 @@ public class LectureRequestWorkbook {
 			workbook.getSheet(0).addCell( new Label( 17, row, one.getCancel_date() == null ? "" : one.getCancel_date().toString(), format1 ) );
 			workbook.getSheet(0).addCell( new Label( 18, row, one.getCancel_id() == null ? "" : one.getCancel_id(), format1 ) );
 			workbook.getSheet(0).addCell( new Label( 19, row, one.getCancel_ip() == null ? "" : one.getCancel_ip(), format1 ) );
+			workbook.getSheet(0).addCell( new Label( 20, row, one.getGuardian_name() == null ? "" : one.getGuardian_name(), format1 ) );
+			workbook.getSheet(0).addCell( new Label( 21, row, one.getGuardian_tel() == null ? "" : one.getGuardian_tel(), format1 ) );
+			workbook.getSheet(0).addCell( new Label( 22, row, one.getGuardian_email() == null ? "" : one.getGuardian_email(), format1 ) );
 
 			row++;
 		}

@@ -27,6 +27,20 @@
 			});
 		});
 
+		// 문자 전송 다이얼로그
+		$('a#sendMessage').on('click', function(e){
+			e.preventDefault();
+
+			let sendList = [];
+			$("input[name=check_select]:checked").each(function() {
+				sendList.push($(this).val());
+			});
+
+			$('#dialog-3').load('message.do?sendList='+sendList.toString(), function( response, status, xhr ) {
+				$('#dialog-3').dialog('open');
+			});
+		});
+
 		// 검색 버튼
 		$('button.search_btn').on('click', function(e){
 			e.preventDefault();
@@ -59,7 +73,7 @@
 		});
 
 		// 취소여부 select 변경
-		$('select#search_cancel_yn').on('change', function() {
+		$('select#search_request_status').on('change', function() {
 			$('#viewPage').val(1);
 			doGetLoad('index.do', $('form#lectureRequest').serialize());
 		});
@@ -95,7 +109,40 @@
 				$('form#lectureRequest').attr('action', 'delete.do');
 				$('#request_id').val($(this).data('key'));
 				$('#editMode').val('DELETE');
-				doAjaxPost($('form#lectureRequest'));
+
+				jQuery.ajaxSettings.traditional = true;
+				var formData = serializeObject($('form#lectureRequest'));
+
+				$.ajax({
+					type : 'POST',
+					dataType : 'json',
+					url : $('form#lectureRequest').attr('action'),
+					async : false,
+					data : formData,
+					success : function(response) {
+						if (response.valid) {
+							if (response.message != null && response.message.replace(/\s/g, '').length != 0) {
+								alert(response.message);
+							} else {
+								alert("진행중 오류가 발생하였습니다.\n관리자에게 문의하세요.");
+							}
+						} else {
+							if (response.message != null && response.message.replace(/\s/g, '').length != 0) {
+								alert(response.message);
+							} else {
+								for (var i = 0; i < response.result.length; i++) {
+									alert(response.result[i].code);
+									$('#' + response.result[i].field).focus();
+									break;
+								}
+							}
+						}
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+					}
+				});
+
 				location.reload();
 			}
 		});
@@ -125,6 +172,15 @@
 			$('#lectureRequest').attr('action', 'excelDownload.do').submit();
 		});
 
+		// 제일위에 체크박스 선택
+		$('#check-all').on('change', function() {
+			if ($(this).is(":checked")) {
+				$("input[name='check_select']").prop("checked", true);
+			} else {
+				$("input[name='check_select']").prop("checked", false);
+			}
+		});
+
 	});
 
 	/**
@@ -146,6 +202,7 @@
 		$('#search_text').val("");
 		doGetLoad('index.do', serializeCustom($('form#lectureRequest')));
 	}
+
 </script>
 
 <style>
@@ -182,7 +239,6 @@
 	<form:hidden path="lecture_id"/>
 	<form:hidden path="request_type"/>
 
-
 	<div class="infodesk">
 
 		<div class="search">
@@ -217,11 +273,14 @@
 							<form:option value="오프라인">오프라인</form:option>
 						</form:select>
 					</div>
-					<div class="search-title">취소여부</div>
+					<div class="search-title">예약상태</div>
 					<div class="search-item">
-						<form:select path="search_cancel_yn" cssClass="selectmenu">
-							<form:option value="N">N</form:option>
-							<form:option value="Y">Y</form:option>
+						<form:select path="search_request_status" cssClass="selectmenu">
+							<form:option value="예약완료">예약완료</form:option>
+							<form:option value="예약대기">예약대기</form:option>
+							<form:option value="추첨대기">추첨대기</form:option>
+							<form:option value="예약취소">예약취소</form:option>
+							<form:option value="예약불참">예약불참</form:option>
 						</form:select>
 					</div>
 					<div class="search-text-box">
@@ -249,6 +308,7 @@
 		</form:select>
 
 		<div class="button">
+			<a href="#" id="sendMessage" class="btn btn4"><i class="fa fa-mail-forward"></i><span>선택 문자전송</span></a>
 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 			<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
 			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>오프라인 등록</span></a>
@@ -257,49 +317,49 @@
 	<div>
 		<table class="type1 center">
 			<colgroup>
+				<col width="5%" /> <%--체크박스--%>
 				<col width="5%" />  <%--순번--%>
-				<col width="15%" /> <%--신청강좌--%>
 				<col width="10%" /> <%--신청자 id--%>
 				<col width="10%" /> <%--신청자이름--%>
 				<col width="10%" /> <%--생년월일--%>
 				<col width="15%" /> <%--휴대전화 / 이메일--%>
+				<col width="15%" /> <%--신청강좌--%>
 				<col width=7%" /> <%--예약상태--%>
 				<col width="7%" /> <%--접수방법--%>
 				<col width="8%" /> <%--등록일--%>
-				<col width="5%" /> <%--취소여부--%>
 				<col width="" /> <%--관리--%>
 			</colgroup>
 			<thead>
 				<tr>
+					<th><input type="checkbox" id="check-all"></th>
 					<th>순번</th>
-					<th>신청강좌</th>
 					<th>신청자ID</th>
 					<th>신청자이름</th>
 					<th>생년월일(성별)</th>
 					<th>휴대전화 /<br> 이메일</th>
+					<th>신청강좌</th>
 					<th>예약상태</th>
 					<th>접수방법</th>
 					<th>등록일</th>
-					<th>취소여부</th>
 					<th>관리</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="i" varStatus="status" items="${lectureRequestList}">
 				<tr>
+					<td><form:checkbox path="check_select" value="${i.request_id}"/></td>
 					<td>${i.reverse_rownum}</td>
-					<td>${i.lecture_title}</td>
 					<td><a href="#" class="view_btn" data-key="${i.request_id}">${i.add_id}</a></td>
 					<td><a href="#" class="view_btn" data-key="${i.request_id}">${i.request_name}</a></td>
 					<td>${i.birthday}(${i.gender eq '0' ? '남' : '여'})</td>
 					<td>${i.phone_number} /<br>${!empty i.email ? i.email : '등록된이메일없음'}</td>
+					<td>${i.lecture_title}</td>
 					<td>${i.request_status}</td>
 					<td>${i.request_type}</td>
 					<fmt:formatDate var="formatRegDate" value="${i.add_date}" pattern="yyyy-MM-dd"/>
 					<td>${formatRegDate}</td>
-					<td>${i.cancel_yn}</td>
 					<td>
-						<c:if test="${i.request_status ne '예약취소'}">
+						<c:if test="${i.request_status ne '예약취소' and i.request_status ne '예약불참'}">
 							<a href="#" class="btn modify_btn" data-key="${i.request_id}">신청수정</a>
 							<a href="#" class="btn delete_btn" data-key="${i.request_id}">신청취소</a>
 						</c:if>
@@ -323,3 +383,4 @@
 
 <div id="dialog-1" class="dialog-common" title="수강 신청"></div>
 <div id="dialog-2" class="dialog-common" title="수강 신청 수정"></div>
+<div id="dialog-3" class="dialog-common" title="문자 전송"></div>

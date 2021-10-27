@@ -171,6 +171,7 @@ function selectItem(lecture_id, lecture_title) {
 <form:hidden path="add_id"/>
 <form:hidden path="request_type" value="${lectureRequest.request_type eq null ? '오프라인' : lectureRequest.request_type}"/>
 
+	<h3 style="font-size: 13pt">신청방법</h3>
 	<p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
 	<table class="type2">
 		<colgroup>
@@ -189,13 +190,15 @@ function selectItem(lecture_id, lecture_title) {
 		<tr>
 			<th>강좌선택(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
+				<%--추가일때--%>
 				<c:if test="${lectureRequest.editMode ne 'UPDATE'}">
 					<form:select path="lecture_id" cssClass="selectmenu" cssStyle="width: 80%;">
 						<c:forEach var="i" varStatus="status" items="${lectureInfoList}">
-							<form:option value="${i.lecture_id}">${i.lecture_title}</form:option>
+							<form:option value="${i.lecture_id}">${i.lecture_title} (${i.lecture_status1})(${i.offline_request_count}/${i.offline_person_count})</form:option>
 						</c:forEach>
 					</form:select>
 				</c:if>
+				<%--수정일때--%>
 				<c:if test="${lectureRequest.editMode eq 'UPDATE'}">
 					<c:forEach var="i" varStatus="status" items="${lectureInfoList}">
 						<c:if test="${i.lecture_id eq lectureRequest.lecture_id}">
@@ -274,6 +277,26 @@ function selectItem(lecture_id, lecture_title) {
 					<form:option value="N">N</form:option>
 					<form:option value="Y">Y</form:option>
 				</form:select>
+			</td>
+		</tr>
+		<tr>
+			<th>보호자 성함</th>
+			<td>
+				<form:input path="guardian_name" cssClass="text" maxlength="10"/>
+			</td>
+		</tr>
+		<tr>
+			<th>보호자 휴대전화</th>
+			<td>
+				<form:input path="guardian_tel" cssClass="text" maxlength="13"/>
+				<span>※ 입력 예) 010-1234-1234</span>
+			</td>
+		</tr>
+		<tr>
+			<th>보호자 이메일</th>
+			<td>
+				<form:input path="guardian_email" cssClass="text" maxlength="30"/>
+				<span>※ 입력 예) hong123@email.com</span>
 			</td>
 		</tr>
 		</tbody>

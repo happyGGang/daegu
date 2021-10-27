@@ -9,7 +9,7 @@
             r.request_name, r.birthday, r.gender, r.phone_number,
             r.email, r.zip_code, r.address1, r.address2, r.request_status, r.request_type,
             r.complete_yn, r.cancel_yn, r.add_date, r.add_ip, r.add_id, r.cancel_date,
-            r.cancel_ip, r.cancel_id, i.lecture_title
+            r.cancel_ip, r.cancel_id, i.lecture_title, r.guardian_name, r.guardian_tel, r.guardian_email
         FROM
             LECTURE_REQUEST as r
         INNER JOIN
@@ -33,6 +33,9 @@
         </if>
         <if test="search_cancel_yn != null and search_cancel_yn != ''">
             AND r.cancel_yn = #{search_cancel_yn}
+        </if>
+        <if test="search_request_status != null and search_request_status != ''">
+            AND r.request_status = #{search_request_status}
         </if>
         ORDER BY request_id DESC
         ${pagingBottom}
@@ -65,6 +68,9 @@
         <if test="search_cancel_yn != null and search_cancel_yn != ''">
             AND r.cancel_yn = #{search_cancel_yn}
         </if>
+        <if test="search_request_status != null and search_request_status != ''">
+            AND r.request_status = #{search_request_status}
+        </if>
     </select>
 
     <select id="getLectureRequestOne" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
@@ -73,7 +79,7 @@
             r.request_name, r.birthday, r.gender, r.phone_number,
             r.email, r.zip_code, r.address1, r.address2, r.request_status, r.request_type,
             r.complete_yn, r.cancel_yn, r.add_date, r.add_ip, r.add_id, r.cancel_date,
-            r.cancel_ip, r.cancel_id, i.lecture_title, i.course_id
+            r.cancel_ip, r.cancel_id, i.lecture_title, i.course_id, r.guardian_name, r.guardian_tel, r.guardian_email
         FROM
             LECTURE_REQUEST as r
         INNER JOIN
@@ -94,12 +100,12 @@
             LECTURE_REQUEST
             (
                 lecture_id,request_id,request_name,birthday,gender,phone_number,email,zip_code,address1,address2,
-                request_status,request_type,complete_yn,cancel_yn,add_date,add_ip,add_id,homepage_id
+                request_status,request_type,complete_yn,cancel_yn,add_date,add_ip,add_id,homepage_id, guardian_name, guardian_tel, guardian_email
             )
         VALUES (
                     #{lecture_id},#{request_id},#{request_name},#{birthday},#{gender},#{phone_number},#{email},#{zip_code},
                     #{address1},#{address2},#{request_status},#{request_type},#{complete_yn},
-                    #{cancel_yn},SYSDATE,#{add_ip},#{add_id},#{homepage_id}
+                    #{cancel_yn},SYSDATE,#{add_ip},#{add_id},#{homepage_id},#{guardian_name},#{guardian_tel},#{guardian_email}
                )
     </insert>
 
@@ -117,7 +123,10 @@
             address1 = #{address1},
             address2 = #{address2},
             request_status = #{request_status},
-            complete_yn = #{complete_yn}
+            complete_yn = #{complete_yn},
+            guardian_name = #{guardian_name},
+            guardian_tel = #{guardian_tel},
+            guardian_email = #{guardian_email}
         WHERE
             homepage_id = #{homepage_id}
         AND
@@ -175,7 +184,7 @@
         WHERE
             lecture_id = #{lecture_id} AND
             add_id = #{add_id} AND
-            request_status NOT IN ('예약취소')
+            request_status NOT IN ('예약취소', '예약불참')
     </select>
 
     <select id="getLectureRequestOneLectureIdAndAddId"
@@ -189,21 +198,30 @@
         AND
             add_id = #{param2}
     </select>
-    <update id="changeLatestWait">
+    <update id="changePriorityWait">
         UPDATE
             lecture_request set request_status = '예약완료'
         WHERE
-            request_id = (
-            SELECT min(request_id)
-            FROM lecture_request
-            WHERE
-                    lecture_id = #{lecture_id}
-                AND request_type = #{request_type}
-                AND cancel_yn = 'N'
-                AND request_type = '온라인'
-                AND request_status IN ('예약대기')
-            )
+            request_id = #{request_id}
     </update>
+
+    <select id="getPriorityWaitRequest" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        SELECT
+            *
+        FROM
+            lecture_request
+        WHERE
+            request_id = (
+                SELECT
+                        min(request_id)
+                FROM
+                        lecture_request
+                WHERE
+                        lecture_id = #{lecture_id}
+                    AND cancel_yn = 'N'
+                    AND request_type = '온라인'
+                    AND request_status IN ('예약대기'));
+    </select>
 
     <select id="getRequestCountByLectureId" resultType="int">
         SELECT
@@ -235,8 +253,8 @@
         FROM LECTURE_REQUEST
         WHERE
                 lecture_id = #{param1}
-            AND request_type NOT IN ('오프라인')
-            AND request_status NOT IN ('예약취소','예약완료')
+            AND request_type IN ('온라인')
+            AND request_status IN ('추첨대기')
             AND cancel_yn NOT IN ('Y')
     </select>
 
@@ -248,18 +266,6 @@
         WHERE
                 homepage_id = #{homepage_id}
             AND request_id = #{request_id}
-    </update>
-
-    <update id="resetRequestStatus">
-        UPDATE
-            LECTURE_REQUEST
-        SET
-            request_status = #{request_status}
-        WHERE
-                homepage_id = #{homepage_id}
-            AND lecture_id = #{lecture_id}
-            AND request_type = '온라인'
-            AND request_status NOT IN ('예약취소')
     </update>
 
     <select id="getLectureRequestListByLectureIdAndStatus" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
@@ -293,9 +299,25 @@
                     SELECT COUNT(*)
                     FROM LECTURE_INFO AS i INNER JOIN LECTURE_REQUEST AS r
                     ON i.LECTURE_ID = r.LECTURE_ID
-                    WHERE i.course_id = c.course_id AND r.add_id = #{add_id} AND r.REQUEST_STATUS NOT IN ('예약취소')
+                    WHERE i.course_id = c.course_id AND r.add_id = #{add_id} AND r.REQUEST_STATUS NOT IN ('예약취소', '예약불참')
                ) AS count
         FROM COURSE_INFO AS c
         WHERE course_id = (select course_id from lecture_info where lecture_id = #{lecture_id} AND homepage_id = #{homepage_id})
+    </select>
+
+    <select id="getLectureRequestListByRequestIdList" parameterType="java.util.ArrayList" resultType="kr.go.gbelib.app.cms.module.lecture.lectureRequest.LectureRequest">
+        SELECT
+            ROW_NUMBER() OVER(ORDER BY r.add_id) AS rownum_forward, r.lecture_id, r.request_id,
+            r.request_name, r.birthday, r.gender, r.phone_number,
+            r.email, r.zip_code, r.address1, r.address2, r.request_status, r.request_type,
+            r.complete_yn, r.cancel_yn, r.add_date, r.add_ip, r.add_id, r.cancel_date,
+            r.cancel_ip, r.cancel_id, r.guardian_name, r.guardian_tel, r.guardian_email
+        FROM
+            LECTURE_REQUEST AS r
+        WHERE
+            request_id IN
+                <foreach collection="list" item="request_id" open="(" close=")" index="index" separator=",">
+                    '${request_id}'
+                </foreach>
     </select>
 </mapper>

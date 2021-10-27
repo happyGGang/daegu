@@ -9,7 +9,7 @@ public interface LectureRequestDao {
 
     LectureRequest getLectureRequestOne(String request_id);
 
-    void addLectureRequest(LectureRequest lectureRequest);
+    int addLectureRequest(LectureRequest lectureRequest);
 
     void updateLectureRequest(LectureRequest lectureRequest);
 
@@ -23,8 +23,6 @@ public interface LectureRequestDao {
 
     int getMyLectureRequestCountOfLectureInfo(LectureRequest lectureRequest);
 
-    void changeLatestWait(LectureRequest lectureRequest);
-
     int getRequestCountByLectureId(String lecture_id);
 
     void reapplyLectureRequest(LectureRequest lectureRequest);
@@ -35,11 +33,15 @@ public interface LectureRequestDao {
 
     void updateRequestStatus(LectureRequest request);
 
-    void resetRequestStatus(LectureRequest lectureRequest);
-
     List<LectureRequest> getLectureRequestListByLectureIdAndStatus(String homepage_id, String lecture_id, String request_status, String request_type);
 
-    void changeLectureRequestStatus(LectureRequest lectureRequest);
+    int changeLectureRequestStatus(LectureRequest lectureRequest);
 
     int getMyLeftLectureRequestCount(LectureRequest lectureRequest);
+
+    int changePriorityWait(LectureRequest lectureRequest);
+
+    LectureRequest getPriorityWaitRequest(LectureRequest lectureRequest);
+
+    List<LectureRequest> getLectureRequestListByRequestIdList(List<String> requestIdList);
 }

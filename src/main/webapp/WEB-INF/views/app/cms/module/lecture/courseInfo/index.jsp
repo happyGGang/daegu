@@ -97,7 +97,8 @@ $(function() {
 		<em>※ 참고</em><br>
 		<em>&nbsp;1. 과정노출기간은 중복될 수 없습니다.</em><br>
 		<em>&nbsp;2. 현재 노출기간에 포함된 과정의 강좌만 사용자에게 보여집니다.</em><br>
-		<em>&nbsp;3. 사용여부가 Y인 과정의 강좌만 사용자에게 보여집니다.</em>
+		<em>&nbsp;3. 사용여부가 Y인 과정의 강좌만 사용자에게 보여집니다.</em><br>
+		<em>&nbsp;4. 비회원 여부가 비허용인 경우에는 비회원 강좌 신청이 불가능합니다.</em>
 	</div><br>
 	<div class="infodesk">
 		검색 결과 : 총 ${paging.totalDataCount}건
@@ -121,9 +122,10 @@ $(function() {
 				<col width="5%" />  <%--순번--%>
 				<col width="15%" />  <%--과정고유번호--%>
 				<col width=20%" /> <%--과정명--%>
-				<col width="15%" /> <%--과정노출시작,종료기간--%>
+				<col width="12%" /> <%--과정노출시작,종료기간--%>
 				<col width="10%" /> <%--1인 최대 수강신청--%>
-				<col width="8%" /> <%--사용여부--%>
+				<col width="6%" /> <%--비회원여부--%>
+				<col width="6%" /> <%--사용여부--%>
 				<col width="10%" /> <%--등록일--%>
 				<col width="10%" /> <%--등록ID--%>
 				<col width="" /> <%--기능--%>
@@ -135,7 +137,8 @@ $(function() {
 					<th>과정명</th>
 					<th>과정노출 시작기간<br>과정노출 종료기간</th>
 					<th>1인 최대<br>수강신청</th>
-					<th>사용여부</th>
+					<th>비회원<br>여부</th>
+					<th>사용<br>여부</th>
 					<th>등록일</th>
 					<th>등록ID</th>
 					<th>기능</th>
@@ -156,8 +159,10 @@ $(function() {
 						</td>
 						<%--1인 최대 수강신청--%>
 						<td>${i.limit_count >= 9999 ? '무제한' : i.limit_count}</td>
+						<%--비회원여부--%>
+						<td>${i.non_member_yn eq 'Y' ? '허용' : '비허용'}</td>
 						<%--사용여부--%>
-						<td>${i.use_yn}</td>
+						<td>${i.use_yn eq 'Y' ? '사용' : '미사용'}</td>
 						<%--등록일--%>
 						<fmt:formatDate var="formatRegDate" value="${i.add_date}" pattern="yyyy-MM-dd"/>
 							<td>${formatRegDate}</td>
@@ -174,7 +179,7 @@ $(function() {
 				</c:forEach>
 				<c:if test="${fn:length(courseInfoList) < 1}">
 					<tr>
-						<td colspan="9">등록된 강좌 과정이 없습니다.</td>
+						<td colspan="10">등록된 강좌 과정이 없습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>

@@ -80,6 +80,7 @@ public class LectureInfoWorkbook {
 		workbook.getSheet(0).setColumnView( 28, 20 );	// 등록IP
 		workbook.getSheet(0).setColumnView( 29, 20 );	// 강사ID
 		workbook.getSheet(0).setColumnView( 30, 20 );	// 교육장 부속
+		workbook.getSheet(0).setColumnView( 31, 20 );	// 예약완료 자동 알림 여부
 
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell( new Label( 0, 0, "과정고유번호", format ) );
@@ -113,6 +114,7 @@ public class LectureInfoWorkbook {
 		workbook.getSheet(0).addCell( new Label( 28, 0, "등록IP", format ) );
 		workbook.getSheet(0).addCell( new Label( 29, 0, "강사ID", format ) );
 		workbook.getSheet(0).addCell( new Label( 30, 0, "교육장 부속", format ) );
+		workbook.getSheet(0).addCell( new Label( 31, 0, "예약완료 자동 알림 여부", format ) );
 
 		
 		int row = 1;
@@ -148,6 +150,7 @@ public class LectureInfoWorkbook {
 			workbook.getSheet(0).addCell( new Label( 28, row, one.getAdd_ip(), format1 ) );
 			workbook.getSheet(0).addCell( new Label( 29, row, one.getTeacher_id() == null ? "" : one.getTeacher_id(), format1 ) );
 			workbook.getSheet(0).addCell( new Label( 30, row, one.getEdu_second_school() == null ? "" : one.getEdu_second_school(), format1 ) );
+			workbook.getSheet(0).addCell( new Label( 31, row, one.getAuto_sms(), format1 ) );
 
 			row++;
 		}

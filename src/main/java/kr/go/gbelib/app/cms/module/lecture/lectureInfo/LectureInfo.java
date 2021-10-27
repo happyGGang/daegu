@@ -34,6 +34,7 @@ public class LectureInfo extends PagingUtils {
     private String teacher_id;             // 강사_ID
     private String day_week;            // 교육요일
     private String edu_second_school;   // 교육장_부속
+    private String auto_sms;   // 자동 sms 전송
 
     /**
      * DB 에서 만들어지는 값
@@ -52,7 +53,6 @@ public class LectureInfo extends PagingUtils {
     /**
      * DB에 없는 값
      * */
-
     private String searching_course_id; // 과정 검색을위한 필드
     private String searching_reservation; // 예약상태 검색
     private String searching_edu_status; // 교육상태 검색
@@ -439,5 +439,13 @@ public class LectureInfo extends PagingUtils {
 
     public void setRequest_add_date(Date request_add_date) {
         this.request_add_date = request_add_date;
+    }
+
+    public String getAuto_sms() {
+        return auto_sms;
+    }
+
+    public void setAuto_sms(String auto_sms) {
+        this.auto_sms = auto_sms;
     }
 }

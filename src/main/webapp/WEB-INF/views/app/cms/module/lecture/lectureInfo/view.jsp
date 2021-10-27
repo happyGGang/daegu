@@ -143,6 +143,18 @@ $(function() {
 				<th>첨부파일</th>
 				<td><a href="/cms/module/lecture/lectureInfo/download/${file.homepage_id}/${file.file_server_name}.do">${file.file_original_name}</a></td>
 			</tr>
+			<tr>
+				<th>예약완료 자동알림 여부</th>
+				<td>
+					${lectureInfo.auto_sms}
+					<div class="ui-state-highlight">
+						<em>
+							※ 선착순 강좌일 경우 예약완료 상태의 신청이 취소되었을 때 우선 대기자가 자동으로 예약완료가 되는데 알림문자를 자동으로 보낼 것인지 설정하는 기능.<br>
+							&nbsp;(단, 모집이 마감된 강좌는 자동예약완료가 되지 않습니다.)
+						</em>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

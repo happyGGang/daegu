@@ -117,7 +117,54 @@
             width: 950
         });
 
+        // 선청방법 변경
+        $("input[name='applicant_type']").on('change', function() {
+
+            let type = $(this).val();
+
+            $('#guardian_form').empty();
+            if (type == "보호자신청") {
+                $('#guardian_form').append(guardianForm());
+            }
+        });
     });
+
+    // 보호자 입력 폼
+    function guardianForm() {
+        return `
+            <h3 style="font-size: 13pt">보호자 정보</h3>
+            <p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
+            <table class="type2">
+                <colgroup>
+                    <col width="25%">
+                    <col width="">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>보호자 성함(<span style="color: red;font-weight: bold;">*</span>)</th>
+                        <td>
+                            <input type="text" name="guardian_name" maxlength="10" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>보호자 휴대폰(<span style="color: red;font-weight: bold;">*</span>)</th>
+                        <td>
+                            <input type="text" name="guardian_tel" maxlength="13" required>
+                            <span>※ 입력 예) 010-1234-4321</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>보호자 이메일(<span style="color: red;font-weight: bold;">*</span>)</th>
+                        <td>
+                            <input type="email" name="guardian_email" maxlength="30" required>
+                            <span>※ 입력 예) hong123@email.com</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+        `;
+    }
 
 </script>
 
@@ -130,86 +177,97 @@
     <form:hidden path="add_id"/>
     <form:hidden path="request_type"/>
 
-    <p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
-    <table class="type2">
-        <colgroup>
-            <col width="25%">
-            <col width="">
-        </colgroup>
-        <tbody id="board_tbody">
-        <tr>
-            <th>강좌명</th>
-            <td>
-                ${lectureInfo.lecture_title}
-            </td>
-        </tr>
-        <tr>
-            <th>신청자 이름(<span style="color: red;font-weight: bold;">*</span>)</th>
-            <td>
-                <form:input path="request_name" cssStyle="width: 30%;" maxlength="20"
-                            readonly="${lectureRequest.request_name eq null or lectureRequest.request_name eq '' ? 'false' : 'true'}"/>
-            </td>
-        </tr>
-        <tr>
-            <th>생년월일(<span style="color: red;font-weight: bold;">*</span>)</th>
-            <td>
-                <form:input path="birthday" cssClass="text" maxlength="10"
-                            readonly="${lectureRequest.birthday eq null or lectureRequest.birthday eq '' ? 'false' : 'true'}"/>
-                <span>※ 입력 예) 1990-08-15</span>
-            </td>
-        </tr>
-        <tr>
-            <th>성별(<span style="color: red;font-weight: bold;">*</span>)</th>
-            <td>
-                <c:choose>
-                    <c:when test="${lectureRequest.birthday eq null or lectureRequest.birthday eq ''}">
-                        <form:select path="gender" cssClass="selectmenu">
-                            <form:option value="0">남자</form:option>
-                            <form:option value="1">여자</form:option>
-                        </form:select>
-                    </c:when>
-                    <c:otherwise>
-                        ${lectureRequest.birthday}
-                    </c:otherwise>
-                </c:choose>
-            </td>
-        </tr>
-        <tr>
-            <th>휴대전화(<span style="color: red;font-weight: bold;">*</span>)</th>
-            <td>
-                <form:input path="phone_number" cssClass="text"
-                            readonly="${lectureRequest.phone_number eq null or lectureRequest.phone_number eq '' ? 'false' : 'true'}"/>
-                <span>※ 입력 예) 010-1234-1234</span>
-            </td>
-        </tr>
-        <tr>
-            <th>이메일</th>
-            <td>
-                <form:input path="email" cssClass="text" readonly="${lectureRequest.email eq null or lectureRequest.email eq '' ? 'false' : 'true'}"/>
-                <span>※ 입력 예) hong123@email.com</span>
-            </td>
-        </tr>
-        <tr>
-            <th>주소</th>
-            <td>
-                <form:input path="zip_code" cssClass="text" maxlength="5" readonly="true"/>
-				<c:if test="${lectureRequest.zip_code eq null or lectureRequest.zip_code eq ''}">
-                	<a href="#" id="searchAddress" class="btn">우편번호찾기</a><br/>
-				</c:if>
-                <form:input path="address1" cssClass="text" cssStyle="width:90%; margin:5px 0;" readonly="true"/><br/>
-                <form:input path="address2" cssClass="text" cssStyle="width:90%;" maxlength="200"
-                            readonly="${lectureRequest.address2 eq null or lectureRequest.address2 eq '' ? 'false' : 'true'}"/><br/>
-                <span>※상세주소를 입력해주세요.</span>
-            </td>
-        </tr>
-        <tr>
-            <th>접수방법</th>
-            <td>
-				${lectureRequest.request_type}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        <h3 style="font-size: 13pt">신청방법</h3>
+        <input type="radio" name="applicant_type" value="직접신청" checked>직접신청
+        <input type="radio" name="applicant_type" value="보호자신청">보호자신청
+    </div>
+    <br>
+    <div id="guardian_form"></div>
+
+    <div>
+        <h3 style="font-size: 13pt">수강생정보</h3>
+        <p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
+        <table class="type2">
+            <colgroup>
+                <col width="25%">
+                <col width="">
+            </colgroup>
+            <tbody id="board_tbody">
+            <tr>
+                <th>강좌명</th>
+                <td>
+                    ${lectureInfo.lecture_title}
+                </td>
+            </tr>
+            <tr>
+                <th>신청자 이름(<span style="color: red;font-weight: bold;">*</span>)</th>
+                <td>
+                    <form:input path="request_name" cssStyle="width: 30%;" maxlength="20"
+                                readonly="${lectureRequest.request_name eq null or lectureRequest.request_name eq '' ? 'false' : 'true'}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>생년월일(<span style="color: red;font-weight: bold;">*</span>)</th>
+                <td>
+                    <form:input path="birthday" cssClass="text" maxlength="10"
+                                readonly="${lectureRequest.birthday eq null or lectureRequest.birthday eq '' ? 'false' : 'true'}"/>
+                    <span>※ 입력 예) 1990-08-15</span>
+                </td>
+            </tr>
+            <tr>
+                <th>성별(<span style="color: red;font-weight: bold;">*</span>)</th>
+                <td>
+                    <c:choose>
+                        <c:when test="${lectureRequest.birthday eq null or lectureRequest.birthday eq ''}">
+                            <form:select path="gender" cssClass="selectmenu">
+                                <form:option value="0">남자</form:option>
+                                <form:option value="1">여자</form:option>
+                            </form:select>
+                        </c:when>
+                        <c:otherwise>
+                            ${lectureRequest.birthday}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+            </tr>
+            <tr>
+                <th>휴대전화(<span style="color: red;font-weight: bold;">*</span>)</th>
+                <td>
+                    <form:input path="phone_number" cssClass="text"
+                                readonly="${lectureRequest.phone_number eq null or lectureRequest.phone_number eq '' ? 'false' : 'true'}"/>
+                    <span>※ 입력 예) 010-1234-1234</span>
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td>
+                    <form:input path="email" cssClass="text" readonly="${lectureRequest.email eq null or lectureRequest.email eq '' ? 'false' : 'true'}"/>
+                    <span>※ 입력 예) hong123@email.com</span>
+                </td>
+            </tr>
+            <tr>
+                <th>주소</th>
+                <td>
+                    <form:input path="zip_code" cssClass="text" maxlength="5" readonly="true"/>
+                    <c:if test="${lectureRequest.zip_code eq null or lectureRequest.zip_code eq ''}">
+                        <a href="#" id="searchAddress" class="btn">우편번호찾기</a><br/>
+                    </c:if>
+                    <form:input path="address1" cssClass="text" cssStyle="width:90%; margin:5px 0;" readonly="true"/><br/>
+                    <form:input path="address2" cssClass="text" cssStyle="width:90%;" maxlength="200"
+                                readonly="${lectureRequest.address2 eq null or lectureRequest.address2 eq '' ? 'false' : 'true'}"/><br/>
+                    <span>※상세주소를 입력해주세요.</span>
+                </td>
+            </tr>
+            <tr>
+                <th>접수방법</th>
+                <td>
+                    ${lectureRequest.request_type}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     <br>
     <c:if test="${lectureRequest.add_id ne null and lectureRequest.add_id ne ''}">
         <div class="ui-state-highlight">
