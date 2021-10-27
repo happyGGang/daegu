@@ -435,7 +435,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 							</c:if>
 						</div>
 						<div class="ui-state-highlight" style="margin-top:7px">
-							* 도서관련 알림 및 행사 안내를 받으실 수 있습니다
+							* 도서관련 알림(ex:예약도서, 반납예정일 등) 및 행사 안내를 받으실 수 있습니다.
 						</div>
 					</td>
 				</tr>

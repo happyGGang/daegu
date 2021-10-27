@@ -279,33 +279,40 @@ $(function() {
 
 					<!-- 대출가능 여부 [START] -->
 					<c:choose>
-						<c:when test="${detail.LOAN_CODE eq 'OK'}">
-							대출가능
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
+							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${detail.WORKING_STATUS == 'BOL211O'}">
-									<span style="color:#ff0000">대출불가(관외대출중)</span>
-								</c:when>
-								<c:when test="${detail.WORKING_STATUS == 'BOL213O'}">
-									<span style="color:#ff0000">대출불가(관외대출중)</span>
-								</c:when>
-								<c:when test="${detail.WORKING_STATUS == 'BOL212O'}">
-									<span style="color:#ff0000">대출불가(관내대출중)</span>
-								</c:when>
-								<c:when test="${detail.WORKING_STATUS == 'BOL511O'}">
-									<span style="color:#ff0000">대출불가(타관반납중)</span>
-								</c:when>
-								<c:when test="${detail.WORKING_STATUS == 'BOL611O'}">
-									<span style="color:#ff0000">대출불가(타관대출중)</span>
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+									대출가능
 								</c:when>
 								<c:otherwise>
 									<c:choose>
-										<c:when test="${detail.RESERVATION_CNT > 0}">
-											<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+										<c:when test="${detail.WORKING_STATUS == 'BOL211O'}">
+											<span style="color:#ff0000">대출불가(관외대출중)</span>
+										</c:when>
+										<c:when test="${detail.WORKING_STATUS == 'BOL213O'}">
+											<span style="color:#ff0000">대출불가(관외대출중)</span>
+										</c:when>
+										<c:when test="${detail.WORKING_STATUS == 'BOL212O'}">
+											<span style="color:#ff0000">대출불가(관내대출중)</span>
+										</c:when>
+										<c:when test="${detail.WORKING_STATUS == 'BOL511O'}">
+											<span style="color:#ff0000">대출불가(타관반납중)</span>
+										</c:when>
+										<c:when test="${detail.WORKING_STATUS == 'BOL611O'}">
+											<span style="color:#ff0000">대출불가(타관대출중)</span>
 										</c:when>
 										<c:otherwise>
-											<span style="color:#ff0000">대출불가</span>
+											<c:choose>
+												<c:when test="${detail.RESERVATION_CNT > 0}">
+													<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
+												</c:when>
+												<c:otherwise>
+													<span style="color:#ff0000">대출불가</span>
+												</c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -491,7 +498,7 @@ $(function() {
 			%>
 			 -->
 			<!--비대면도서대출 버튼-->
-			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'}">
+			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'|| sessionScope.member.member_id eq 'hades530'}">
 				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
 			</c:if>
 			
