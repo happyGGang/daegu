@@ -10,6 +10,16 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
+
+		<c:forEach var="i" items="${termsList}" varStatus="status" step="1">
+		<c:if test="${fn:contains(untactBookSetting.terms, i.terms_idx)}">
+		if ($("input:checkbox[id='terms_${i.terms_idx}']").is(":checked") == false) {
+			alert("${i.title}을(를) 동의하셔야 대출하실 수 있습니다.");
+			return;
+		}
+		</c:if>
+		</c:forEach>
+
 		if (!confirm('무인예약 신청을 하시겠습니까?\n도서연체시 대출불가')) {
 			return false;
 		}
@@ -28,13 +38,28 @@ $(function() {
 <div id="contents-title">
 	<h2>비대면 도서대출 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
 </div>
-
+<br>
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="book_isbn" value="${detail.ISBN}"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 
+<div>
+	<c:forEach var="i" items="${termsList}" varStatus="status" step="1">
+		<c:if test="${fn:contains(untactBookSetting.terms, i.terms_idx)}">
+			<h4>${i.title}</h4>
+			<div class="ui-state-default" style="padding: 20px;">
+				${i.contents}
+			</div>
+			<div style="text-align: right; margin: 16px;">
+				<input type="checkbox" name="terms_${i.terms_idx}" id="terms_${i.terms_idx}" >
+				<label for="terms_${i.terms_idx}">${i.title} 동의[필수]</label>
+			</div>
+		</c:if>
+	</c:forEach>
+</div>
+<br>
 <div class="delibery_info">
 
 	<div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 입력값입니다.</div>

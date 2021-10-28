@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1952,7 +1953,11 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("detail", list.get(0));
 		}
 
+		UntactBookSetting untactBookSetting = untactLockerSettingService.getUntactBookSettingOne(homepage.getHomepage_id());
+
 		model.addAttribute("librarySearch", librarySearch);
+		model.addAttribute("termsList", untactLockerSettingService.getUntactBookSettingTerms(homepage.getHomepage_id()));
+		model.addAttribute("untactBookSetting", untactBookSetting);
 
 		return String.format(basePath, homepage.getFolder()) + "untactBook/form";
 	}

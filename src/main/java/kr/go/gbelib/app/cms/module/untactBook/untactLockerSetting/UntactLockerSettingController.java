@@ -82,6 +82,7 @@ public class UntactLockerSettingController extends BaseController {
 			untactBookSetting.setHomepage_id(getAsideHomepageId(request));
 		}
 
+		model.addAttribute("termsList", service.getUntactBookSettingTerms(untactBookSetting.getHomepage_id()));
 		model.addAttribute("untactBookSetting", untactBookSetting);
 
 		return basepath + "bookSettingEdit_ajax";

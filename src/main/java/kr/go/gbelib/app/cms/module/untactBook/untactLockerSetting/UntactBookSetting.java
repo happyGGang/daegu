@@ -9,6 +9,7 @@ public class UntactBookSetting {
 	private int reservation_max_count;  //일일_최대_대출가능_권수
 	private String loan_time;  			//대출가능시간
 	private String locker_use_type;		//사물함 타입
+	private String terms;
 	
 	private String start_hour;			//대출가능 시작(시)
 	private String start_minute;		//대출가능 시작(분)
@@ -110,5 +111,12 @@ public class UntactBookSetting {
 	public void setLocker_use_type(String locker_use_type) {
 		this.locker_use_type = locker_use_type;
 	}
-	
+
+	public String getTerms() {
+		return terms;
+	}
+
+	public void setTerms(String terms) {
+		this.terms = terms;
+	}
 }

@@ -1,11 +1,15 @@
 package kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting;
 
+import kr.co.whalesoft.app.cms.terms.Terms;
+import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseService;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -13,6 +17,9 @@ public class UntactLockerSettingService extends BaseService {
 	
 	@Autowired
 	private UntactLockerSettingDao dao;
+
+	@Autowired
+	private TermsService termsService;
 
 	public List<UntactLockerSetting> getUntactLockerSettingList(String homepage_id) {
 		return dao.getUntactLockerSettingList(homepage_id);
@@ -88,4 +95,22 @@ public class UntactLockerSettingService extends BaseService {
 		return dao.getLockerUseYN(homepage_id);
 	}
 
+	/**
+	 * 비대면대출 이용약관 불러오기
+	 * */
+	public List<Terms> getUntactBookSettingTerms(String homepage_id) {
+		Terms terms = new Terms();
+		terms.setHomepage_id(homepage_id);
+
+		List<Terms> termList = termsService.getTermsList(terms);
+		List<Terms> untactTermList = new ArrayList<Terms>();
+
+		for(Terms item : termList) {
+			if(item.getTerms_type().equals("110")) {
+				untactTermList.add(item);
+			}
+		}
+
+		return untactTermList;
+	}
 }

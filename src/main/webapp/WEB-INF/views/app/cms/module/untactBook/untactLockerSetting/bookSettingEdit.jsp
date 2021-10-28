@@ -115,6 +115,19 @@ function bookSettingSave() {
 					<input type="radio" name="locker_use_type" value="사물함없음" id="locker_use_type3" <c:if test="${untactBookSetting.locker_use_type eq '사물함없음'}">checked</c:if>><label for="locker_use_type3">&nbsp;사물함없음</label>
 				</td>
 			</tr>
+			<tr>
+				<th>약관선택</th>
+				<td>
+					<c:forEach items="${termsList}" var="i" varStatus="status">
+						<input type="checkbox" name="terms" id="terms${status.count}" value="${i.terms_idx}" ${fn:contains(untactBookSetting.terms, i.terms_idx) ? 'checked' : ''}>
+						<label for="terms${status.count}">${i.title}</label>
+						<br>
+					</c:forEach>
+					<div class="ui-state-highlight">
+						<em>홈페이지관리의 이용약관 관리에서 비대면대출 약관을 추가하시면 사용가능한 약관을 체크를 할 수 있습니다.</em>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

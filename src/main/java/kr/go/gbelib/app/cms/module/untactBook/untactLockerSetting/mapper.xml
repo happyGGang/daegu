@@ -89,7 +89,7 @@
 			SUBSTR(loan_time,4,2) AS start_minute,
 			SUBSTR(loan_time,7,2) AS end_hour, 
 			SUBSTR(loan_time,10,2) AS end_minute,
-			locker_use_type
+			locker_use_type, terms
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
@@ -109,12 +109,13 @@
 					a.total_count = #{total_count},
 					a.reservation_max_count = #{reservation_max_count},
 					a.loan_time = #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute},
-					a.locker_use_type = #{locker_use_type}
+					a.locker_use_type = #{locker_use_type},
+		    		a.terms = #{terms}
 			WHEN NOT MATCHED THEN
 				INSERT (
-					homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, loan_time, locker_use_type
+					homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, loan_time, locker_use_type, terms
 				) VALUES (
-					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{reservation_max_count}, #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}, #{locker_use_type}
+					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{reservation_max_count}, #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}, #{locker_use_type}, #{terms}
 				)
 	</update>
 	
