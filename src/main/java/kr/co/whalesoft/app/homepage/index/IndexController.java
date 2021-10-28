@@ -1401,14 +1401,17 @@ public class IndexController extends BaseController {
 				    		  else {
 				    			  teachList = new ArrayList<String>();
 				    		  }
+				    		  
 				    		  if (!teachList.contains("[휴관일]")) {
 				    			  String teachStatus = "[강좌]";
 				    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
-				    				  for ( String string : teach.getHolidays() ) {
-				    					  if (StringUtils.equals(string, planDate +"-"+ startKey)) {
-				    						  teachStatus = "[휴강]";
-				    					  }
-				    				  }
+					    			if(teach.getDisable_holi().equals("N")) {
+					    				  for ( String string : teach.getHolidays() ) {
+					    					  if (StringUtils.equals(string, planDate +"-"+ startKey)) {
+					    						  teachStatus = "[휴강]";
+					    					  }
+					    				  }
+					    			  }
 				    			  }
 				    			  teachList.add(teachStatus + teach.getTeach_name() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
 						    	  planRepo.put(startKey, teachList);
@@ -1437,11 +1440,13 @@ public class IndexController extends BaseController {
 			    		if (!teachList.contains("[휴관일]")) {
 			    			String teachStatus = "[강좌]";
 			    			  if (teach.getHolidays() != null && teach.getHolidays().size() > 0) {
+			    				if(teach.getDisable_holi().equals("N")) {
 			    				  for ( String string : teach.getHolidays() ) {
 			    					  if (StringUtils.equals(string, planDate +"-"+ endKey)) {
 			    						  teachStatus = "[휴강]";
 			    					  }
 			    				  }
+			    				}
 			    			  }
 			    			teachList.add(teachStatus + teach.getTeach_name() + "^^^" + startDateStr.substring(5) + " ~ " + endDateStr.substring(5));
 					    	planRepo.put(endKey, teachList);
