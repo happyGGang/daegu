@@ -159,6 +159,16 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
+			<th>컨텍스트 경로</th>
+			<td>
+				<form:input path="context_path" cssStyle="width:178px;" cssClass="text"/>
+				<em>예) test</em>
+				<div class="ui-state-highlight">
+					<i class="fa fa-question-circle"></i><em>홈페이지 유형(도메인 + 컨텍스트 패스)일 경우에 입력합니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<th>관리코드</th>
 			<td>
 				<form:input path="manage_code" cssClass="text"/>
