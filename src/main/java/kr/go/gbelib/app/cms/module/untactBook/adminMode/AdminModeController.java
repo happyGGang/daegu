@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.cms.module.untactBook.adminMode;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -11,6 +13,8 @@ import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookRe
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +45,9 @@ public class AdminModeController extends BaseController {
 	
 	@Autowired
 	private UntactBookBlackListService blackListService;
+	
+	@Autowired
+	private HomepageService homepageService;
 	
 	@RequestMapping(value = { "/index.*" })
 	public String index(Model model, UntactBookSetting untactBookSetting, UntactLockerSetting untactLockerSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
@@ -147,9 +154,9 @@ public class AdminModeController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/modifyReservationStep.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse modifyReservationStep(UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public @ResponseBody JsonResponse modifyReservationStep(LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
-		
 		JsonResponse res = new JsonResponse(request);
 		
 		if (reservationService.checkPassword(untactBookReservation) > 0) {
@@ -158,7 +165,30 @@ public class AdminModeController extends BaseController {
 		}
 		
 		if (!result.hasErrors()) {
-			reservationService.modifyReservationStep(untactBookReservation);
+			int count = reservationService.modifyReservationStep(untactBookReservation);
+			
+			if (count > 0) {
+				Homepage homepage = new Homepage();
+				homepage.setHomepage_id(getAsideHomepageId(request));
+				
+				homepage = homepageService.getHomepageOne(homepage);
+				
+				librarySearch.setManageCode(homepage.getManage_code());
+				System.out.println(homepage.getManage_code());
+				librarySearch.setUserkey(untactBookReservation.getBook_regno());
+				System.out.println(untactBookReservation.getBook_regno());
+				String userIp = request.getRemoteAddr();
+				System.out.println(request.getRemoteAddr());
+				
+				UntactBookReservation untactBookReservation2 = new UntactBookReservation();
+				untactBookReservation2 = reservationService.getUntactBookReservationOne(untactBookReservation);
+				untactBookReservation2.getRequest_date();
+				System.out.println(untactBookReservation2.getRequest_date());
+				
+				String mes =  "[" +homepage.getHomepage_name() + "]\n\n" + untactBookReservation2.getMember_name() + "님 대출이 완료되었습니다.\n\n대출도서 정보 : "+untactBookReservation2.getBook_name()+"\n\n1. 사물함 번호 : " + untactBookReservation2.getLocker_number() +"\n\n2. 사물함 비밀번호 : " + untactBookReservation2.getLocker_password()+"\n\n반납예정일은 대출일로부터 3일뒤 입니다."; 
+				
+				LibSearchAPI.sendSms(librarySearch, mes, userIp);
+			}
 			res.setValid(true);
 			res.setMessage("수정되었습니다.");
 		} else {
@@ -216,25 +246,6 @@ public class AdminModeController extends BaseController {
 			}
 		
 		return res;
-	}
-	
-	@RequestMapping (value = {"/reservationStepSave.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse reservationStep(UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
-		untactBookReservation = reservationService.getUntactBookReservationOne(untactBookReservation);
-		
-		JsonResponse res = new JsonResponse(request);
-		
-		if (!result.hasErrors()) {
-			reservationService.changeReservationStep(untactBookReservation);
-			res.setValid(true);
-			res.setMessage("비치되었습니다.");
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-		return res;
-
 	}
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)

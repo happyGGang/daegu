@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.untactBook.untactBookReservation;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -55,6 +56,7 @@ public class UntactBookReservationService extends BaseService {
 	public int passwordSetting(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> list = dao.getNonPasswordList(untactBookReservation);
 		Random test = new Random();
+		test.setSeed(new Date().getTime());
 		for(UntactBookReservation untactBookReservationOne : list) {
 			int p = (int)(Math.random()*(9 - 1 + 1))+ 1;
 			String a = Integer.toString(test.nextInt(10));
@@ -110,6 +112,10 @@ public class UntactBookReservationService extends BaseService {
 
 	public List<UntactBookReservation> getUntactBookReservationExcelListNow(UntactBookReservation untactBookReservation) {
 		return dao.getUntactBookReservationExcelListNow(untactBookReservation);
+	}
+
+	public List<UntactBookReservation> smsSendALL(UntactBookReservation untactBookReservation) {
+		return dao.smsSendALL(untactBookReservation);
 	}
 
 }

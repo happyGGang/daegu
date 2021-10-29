@@ -499,7 +499,9 @@ $(function() {
 			 -->
 			<!--비대면도서대출 버튼-->
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'|| sessionScope.member.member_id eq 'hades530'}">
-				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				<c:if test="${not empty untactLockerSetting}">
+					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				</c:if>
 			</c:if>
 			
 			<c:choose>

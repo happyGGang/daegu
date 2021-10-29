@@ -52,4 +52,6 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getUntactBookReservationExcelListNow(UntactBookReservation untactBookReservation);
 
+	public List<UntactBookReservation> smsSendALL(UntactBookReservation untactBookReservation);
+
 }

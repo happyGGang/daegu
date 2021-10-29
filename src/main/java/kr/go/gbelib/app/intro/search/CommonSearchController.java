@@ -47,6 +47,7 @@ import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlac
 import kr.go.gbelib.app.cms.module.untactBook.untactBookPenaltySetting.UntactBookPenaltySettingService;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
+import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -271,7 +272,7 @@ public class CommonSearchController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/detail.*"})
-	public String detail(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+	public String detail(@PathVariable("homepagePath") String homepagePath, Model model, UntactLockerSetting untactLockerSetting, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -285,6 +286,10 @@ public class CommonSearchController extends BaseController {
 
 		librarySearch.setTotalDataCount(count);
 		service.setPaging(model, count, librarySearch);
+		
+		untactLockerSetting.setHomepage_id(homepage.getHomepage_id());
+		
+		model.addAttribute("untactLockerSetting", untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()));
 
 		if ( count > 0 ) {
 			list = LibSearchAPI.getListData(result);
@@ -1881,6 +1886,11 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setBooktype("BO");
 		}
 		
+		if(StringUtils.isEmpty(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()))) {
+			service.alertMessage("비대면 도서대출예약이 불가능한 도서관입니다.", request, response);
+			return null;
+		}
+		
 		//사물함 사용 여부 확인
 		if(!(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("사물함없음"))) {
 			if(untactLockerSettingService.getLockerUseYN(homepage.getHomepage_id()).equals("N")) {
@@ -2034,6 +2044,7 @@ public class CommonSearchController extends BaseController {
 			untactBookReservationService.addUntactBookReservation(untactBookReservation);
 			res.setValid(true);
 			res.setMessage("예약 되었습니다.");
+			
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

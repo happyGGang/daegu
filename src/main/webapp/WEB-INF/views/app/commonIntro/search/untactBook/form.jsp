@@ -43,6 +43,7 @@ $(function() {
 <form:hidden path="bookkey"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="book_isbn" value="${detail.ISBN}"/>
+<form:hidden path="book_regno" value="${member.rec_key}"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 
 <div>
