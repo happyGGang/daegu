@@ -73,7 +73,6 @@ $(function(){
 </script>
 <div class="search">
 <form:form id="untactBookStatistics" modelAttribute="untactBookStatistics" method="POST" action="save.do" style="display:inline-flex">
-<form:hidden id="homepage_id" path="homepage_id"/>
 <label class="blind">검색</label>
 	<c:choose>
 		<c:when test="${member.admin}">

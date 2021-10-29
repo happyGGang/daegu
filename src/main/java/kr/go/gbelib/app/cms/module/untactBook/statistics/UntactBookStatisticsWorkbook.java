@@ -15,7 +15,7 @@ import jxl.write.WritableWorkbook;
 
 public class UntactBookStatisticsWorkbook {
 	
-	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<UntactBookStatistics> untactBookStatisticsList, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<UntactBookStatistics> untactBookStatisticsList, UntactBookStatistics untactBookStatistics, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String sheetName = "비대면 도서대출 통계";	//시트이름
 		workbook.createSheet(sheetName, 0);	//시트설정
 		
@@ -53,19 +53,27 @@ public class UntactBookStatisticsWorkbook {
 				
 		int column = 0;
 		// 헤더 컬럼 지정
-		workbook.getSheet(0).addCell( new Label(column++, 0, "방문수", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비율(%)", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비고", format ) );
-		
+		if(untactBookStatistics.getDate_type().equals("TIME")) {
+			workbook.getSheet(0).addCell( new Label(column++, 0, "시간", format ) );
+			workbook.getSheet(0).addCell( new Label(column++, 0, "방문수", format ) );
+			workbook.getSheet(0).addCell( new Label(column++, 0, "비율(%)", format ) );
+			workbook.getSheet(0).addCell( new Label(column++, 0, "비고", format ) );
+		} else {
+			workbook.getSheet(0).addCell( new Label(column++, 0, "일", format ) );
+			workbook.getSheet(0).addCell( new Label(column++, 0, "방문수", format ) );
+			workbook.getSheet(0).addCell( new Label(column++, 0, "비율(%)", format ) );
+			workbook.getSheet(0).addCell( new Label(column++, 0, "비고", format ) );
+		}
 		int row = 1;
 		
 		for ( UntactBookStatistics one : untactBookStatisticsList ) {
 			
 			column = 0;	
-			
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getDate(), format1));
+
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getResult_date(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getDate(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getResult_count()), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, (one.getTotal_count()==0 ? "0.00" : Float.toString(one.getResult_count()/one.getTotal_count()*100)) + "%", format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, "", format1));
 			
 			row++;
 		}

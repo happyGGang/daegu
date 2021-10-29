@@ -26,7 +26,7 @@ public class UntactBookStatisticsSearchView  extends AbstractJExcelView {
 		response.setHeader("Pragma", "no-cache");
 		response.setContentType("Application/Msexcel");
 
-		new UntactBookStatisticsWorkbook().workbookForm(workbook, list, request, response);
+		new UntactBookStatisticsWorkbook().workbookForm(workbook, list, (UntactBookStatistics)model.get("untactBookStatistics"), request, response);
 
 	}
 
