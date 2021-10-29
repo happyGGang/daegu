@@ -933,6 +933,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         			<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
 	         		</form:select>
 	         	</td>
+	         	<c:if test="${homepage.homepage_id eq 'h7' and menuOne.menu_idx eq '30' }">
+	        	<tr>
+		         	<th>반(<span style="color: red; font-weight: bold;">*</span>)</th>
+		         	<td><form:input path="student_ban" cssClass="text" cssStyle="width: 80px;" title="반 입력" numberOnly="true"/></td>
+	        	</tr>
+        	</c:if>
         	</tr>
         	</c:if>
 			<c:if test="${teach.age_info_yn eq 'Y'}">
