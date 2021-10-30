@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,42 @@ public class LibSearchAPI {
 
 	protected final static Logger log = LoggerFactory.getLogger(LibSearchAPI.class);
 
+	
+	/**
+	 * 도서추천 API
+	 *
+	 * 키워드 도서추천 조회 (능동형추천도서)
+	 *
+	 * @author JJY 2021. 10. 27.
+	 * @param librarySearch
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getBookKeywordSearchList(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("keyword", librarySearch.getKeyword());
+
+		result = CommonAPI.sendKEYWORD("recommendation", param);
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		if (result != null) {
+			try {
+				List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("result");
+				for (int i = 0; i < items.size(); i++) {
+					list.add(items.get(i));
+				}
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		}
+		
+
+		return list;
+	}
+	
 	/**
 	 * K.API - 1
 	 *
@@ -789,6 +826,65 @@ public class LibSearchAPI {
 		} else {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
+	}
+	
+	/**
+	 * K.API - 21
+	 *
+	 * 사서추천
+	 *
+	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static Map<String, Object> getUserreCommBooks(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+		
+		if (StringUtils.isNotEmpty(librarySearch.getUserkey())) {
+			param.put("userkey", librarySearch.getUserkey());
+		}
+		param.put("weight", "5");
+		param.put("gender", librarySearch.getSex());	
+		
+		
+		if (StringUtils.isNotEmpty(librarySearch.getBirth_year())) {
+			String age_code = "9";
+			
+			LocalDate now = LocalDate.now();
+			
+			int now_year = now.getYear();
+			
+			int age = now_year - Integer.parseInt(librarySearch.getBirth_year()) +1;
+			
+			if (age <= 10) {
+				age_code = "0";
+			} else if (age >= 10 && age < 20) {
+				age_code = "1";
+			} else if (age >= 20 && age < 30) {
+				age_code = "2";
+			} else if (age >= 30 && age < 40) {
+				age_code = "3";
+			} else if (age >= 40 && age < 50) {
+				age_code = "4";
+			} else if (age >= 50 && age < 60) {
+				age_code = "5";
+			} else if (age >= 60 && age < 70) {
+				age_code = "6";
+			} else if (age >= 70 && age < 80) {
+				age_code = "7";
+			} else if (age >= 80) {
+				age_code = "8";
+			} else {
+				age_code = "9";
+			}
+			
+			param.put("age", age_code);
+		}
+
+		result = CommonAPI.sendKCMS("getuserrecommbooks", param);
+
+		return result;
 	}
 
 	/**
