@@ -408,7 +408,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FX'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -447,9 +447,9 @@ $(function() {
 			</c:if>
 
 
-
+<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'|| sessionScope.member.member_id eq 'hades530'}">
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'BR'}">
+				<c:when test="${detail.MANAGE_CODE eq 'AG'}">
 
 					<!--워킹스루 시작-->
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
@@ -459,26 +459,39 @@ $(function() {
 
 						</c:when>
 						<c:otherwise>
-							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06' || detail.SHELF_LOC_CODE eq 'BR07'}">
-							<%
-							org.joda.time.DateTime now = new org.joda.time.DateTime();
-							int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
-							int hour = now.getHourOfDay();
+							<c:if test="${detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG17'|| detail.SHELF_LOC_CODE eq 'AG21'|| detail.SHELF_LOC_CODE eq 'AG22'|| detail.SHELF_LOC_CODE eq 'AG23'}">
+							<c:choose>
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'ASX' || detail.SEPARATE_SHELF_CODE eq 'ATD'|| detail.SEPARATE_SHELF_CODE eq 'ATE'|| detail.SEPARATE_SHELF_CODE eq 'ATF'|| detail.SEPARATE_SHELF_CODE eq 'ATG'|| detail.SEPARATE_SHELF_CODE eq 'ATH'|| detail.SEPARATE_SHELF_CODE eq 'ATJ'|| detail.SEPARATE_SHELF_CODE eq 'ATK'|| detail.SEPARATE_SHELF_CODE eq 'ATM'|| detail.SEPARATE_SHELF_CODE eq 'ATS'|| detail.SEPARATE_SHELF_CODE eq 'ATT'|| detail.SEPARATE_SHELF_CODE eq 'ATV'|| detail.SEPARATE_SHELF_CODE eq 'ATW'|| detail.SEPARATE_SHELF_CODE eq 'AUB'|| detail.SEPARATE_SHELF_CODE eq 'AUC'|| detail.SEPARATE_SHELF_CODE eq 'AUK'|| detail.SEPARATE_SHELF_CODE eq 'ARX'|| detail.SEPARATE_SHELF_CODE eq 'ARZ'|| detail.SEPARATE_SHELF_CODE eq 'ASA'|| detail.SEPARATE_SHELF_CODE eq 'ASE'|| detail.SEPARATE_SHELF_CODE eq 'ASM'|| detail.SEPARATE_SHELF_CODE eq 'ASN'|| detail.SEPARATE_SHELF_CODE eq 'ASR'|| detail.SEPARATE_SHELF_CODE eq 'ASS'|| detail.SEPARATE_SHELF_CODE eq 'ASU'|| detail.SEPARATE_SHELF_CODE eq 'ASV'}">
+									
+								</c:when>
+								<c:otherwise>
+									<%
+									org.joda.time.DateTime now = new org.joda.time.DateTime();
+									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+									int hour = now.getHourOfDay();
 
-							if(9 <= hour && hour < 17)
-							{
-							%>
-								<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
-							<%
-							}
-							else
-							{
-							%>
-								<!-- <a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a> -->
-							<%
-							}
-							%>
-							<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+									if(dayOfWeek <= 5 && 14 <= hour && hour < 19)
+									{
+									%>
+										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+									<%
+									}
+									else if(5 < dayOfWeek && 14 <= hour && hour < 18)
+									{
+									%>
+										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+									<%
+									}
+									else
+									{
+									%>
+										<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+									<%
+									}
+									%>
+									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+								</c:otherwise>
+							</c:choose>
 							</c:if>
 						</c:otherwise>
 					</c:choose>
@@ -490,6 +503,7 @@ $(function() {
 
 				</c:otherwise>
 			</c:choose>
+		</c:if>
 <!-- 
 			<%
 				org.joda.time.DateTime now = new org.joda.time.DateTime();
@@ -499,9 +513,7 @@ $(function() {
 			 -->
 			<!--비대면도서대출 버튼-->
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'|| sessionScope.member.member_id eq 'hades530'}">
-				<c:if test="${not empty untactLockerSetting}">
-					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
-				</c:if>
+				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
 			</c:if>
 			
 			<c:choose>
