@@ -157,14 +157,14 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 					}
 
 					// TODO 전자도서관 변경 시 dgElibAPIService 사용하는 부분을 제거하고 아래 주석을 풀어야 함.
-					/*List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
+					List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
 					request.setAttribute("categoryMenuList", categoryList);
 
 					List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
-					request.setAttribute("compMenuList", compList);*/
+					request.setAttribute("compMenuList", compList);
 
-					List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
-					request.setAttribute("categoryMenuList", categoryList);
+//					List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
+//					request.setAttribute("categoryMenuList", categoryList);
 
 					//					List<Book> deviceList = bookService.getBookCountByDevice(book);
 					//					request.setAttribute("deviceMenuList", deviceList);

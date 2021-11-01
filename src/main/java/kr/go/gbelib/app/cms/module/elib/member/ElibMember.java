@@ -12,6 +12,7 @@ public class ElibMember extends PagingUtils {
 	private String library_code;
 	private String sex;
 	private String birth_day;
+	private String lib_code; //도서관 부호 6자리
 	public ElibMember() { }
 	public ElibMember(String member_id) {
 		this.member_id = member_id;
@@ -65,6 +66,12 @@ public class ElibMember extends PagingUtils {
 	}
 	public void setBirth_day(String birth_day) {
 		this.birth_day = birth_day;
+	}
+	public String getLib_code() {
+		return lib_code;
+	}
+	public void setLib_code(String lib_code) {
+		this.lib_code = lib_code;
 	}
 	
 }

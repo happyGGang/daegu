@@ -10,6 +10,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -20,7 +29,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
@@ -35,14 +47,32 @@ public class EcoAPIService extends BaseService {
 	private static final String RETURN_URL = "/ebookPlatform/Homepage/Return.do";
 	private static final String EXTEND_URL = "/ebookPlatform/Homepage/Extension.do";
 	private static final String POLICY_URL = "/ebookPlatform/HompageAdmin/LoanRuleUpdate.do";
+	private static final String APP_URL = "https://elib.daegu.go.kr:8082/B2B_DAEGU/api/device_url.asp";
 	private static final int TIMEOUT = 30 * 1000;
 	
 //	@Autowired
 //	ConfigService configService;
 	
+	@Autowired
+	private Yes24APIService yes24APIService;
+	
 	private String getServerUrl(Book book) {
-		//return "http://e-lib.tglnet.or.kr:8099";
-		return "http://elib.daegu.go.kr:8099";  //또는 8100포트
+		return "http://elib.daegu.go.kr:8099";
+	}
+	
+	private String getText(Document doc, String path) {
+		XPath xPath =  XPathFactory.newInstance().newXPath();
+		XPathExpression resultExpr = null;
+		try {
+			resultExpr = xPath.compile(path);
+		} catch (XPathExpressionException e) {
+			return "";
+		}
+		try {
+			return (String) resultExpr.evaluate(doc, XPathConstants.STRING);
+		} catch (XPathExpressionException e) {
+			return "";
+		}
 	}
 	
 	private Map<String, String> parse(String xml, String encoding) {
@@ -66,6 +96,34 @@ public class EcoAPIService extends BaseService {
 		map.put("result", result);
 		map.put("msg", msgcode);
 		
+		return map;
+	}
+	
+	private Map<String, String> parse2(String xml) {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		ByteArrayInputStream input = null;
+		Document doc = null;
+		Map<String, String> map = new HashMap<String, String>();
+
+		try {
+			builder = factory.newDocumentBuilder();
+			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+			doc = builder.parse(input);
+			map.put("result", getText(doc, "//result/text()"));
+			map.put("appurl", getText(doc, "//appURL/text()"));
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return map;
 	}
 	
@@ -206,6 +264,27 @@ public class EcoAPIService extends BaseService {
 		params.add(new BasicNameValuePair("userEmail", "N"));
 
 		return parse(send(getServerUrl(book) + MEMBER_URL, params, "UTF-8"), "UTF-8");
+	}
+	
+	/**
+	 * 북큐브내서재 앱 호출 URL (YES24와 동일)
+	 * @param book
+	 * @return
+	 */
+	public Map<String, String> appUrl(Book book, ElibMember member, String device) {
+		String member_id = member.getMember_id();
+		String libCode = member.getLibrary_code();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		String site_code = "B2B_DAEGU";
+
+		params.add(new BasicNameValuePair("device_type", device));
+		params.add(new BasicNameValuePair("user_id", member_id));
+		params.add(new BasicNameValuePair("goods_id", book.getBook_code()));
+		params.add(new BasicNameValuePair("libCode", libCode));
+		params.add(new BasicNameValuePair("drm_type", "ECO"));
+//		params.add(new BasicNameValuePair("site_code", site_code));
+
+		return parse2(yes24APIService.send(APP_URL, params));
 	}
 	
 	/**

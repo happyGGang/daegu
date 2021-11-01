@@ -353,12 +353,31 @@ public class APIService extends BaseService {
 		else if(com_code.equals("BQ")) {
 			return catchFail(BOOKCUBE, bookcubeAPIService.appUrl(book, member, device));
 		}
-		else if(com_code.equals("YE")) {
+		else if(com_code.equals("YESB")) {
 			return catchFail(YES24, yes24APIService.appUrl(book, member, device));
+		}
+		else if(com_code.equals("FXLI")) {
+			return catchFail(BOOKCUBE, bookcubeAPIService.appUrl(book, member, device));
+		}
+		else if(com_code.equals("ECO")) {
+			return catchFail(ECO, ecoAPIService.appUrl(book, member, device));
 		}
 		else {
 			return null;
 		}
+	}
+
+	public Map<String, String> view(Book book) throws ElibException {
+//		String com_code = book.getCom_code();
+//
+//		if(com_code == null) {
+//			return null;
+//		} else if(com_code.equals(KYOBO)) {
+//			return catchFail(KYOBO, kyoboAPIService.view(book));
+//		} else {
+//			return null;
+//		}
+		return null;
 	}
 	
 }

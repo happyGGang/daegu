@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,26 +44,30 @@ import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.elib.accessIp.ElibAccessIp;
 import kr.go.gbelib.app.cms.module.elib.accessIp.ElibAccessIpService;
 import kr.go.gbelib.app.cms.module.elib.api.APIService;
-import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.api.ElibException;
+import kr.go.gbelib.app.cms.module.elib.best.BestService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
+import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCodeService;
 import kr.go.gbelib.app.cms.module.elib.comment.Comment;
 import kr.go.gbelib.app.cms.module.elib.comment.CommentService;
+import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
-import kr.go.gbelib.app.common.api.LibSearchAPI;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/elib"})
 public class ElibController extends BaseController {
 
 	private String basePath = "/homepage/%s/module/elib/";
+
+	@Autowired
+	private ElibCategoryService elibCategoryService;
 
 	@Autowired
 	private ElibCodeService elibCodeService;
@@ -73,6 +79,9 @@ public class ElibController extends BaseController {
 	private LendingService lendingService;
 
 	@Autowired
+	private ConfigService configService;
+
+	@Autowired
 	private ElibMemberService elibMemberService;
 
 	@Autowired
@@ -82,6 +91,9 @@ public class ElibController extends BaseController {
 	private ElibAccessIpService elibAccessIpService;
 
 	@Autowired
+	private BestService bestService;
+
+	@Autowired
 	private APIService apiService;
 
 	@Autowired
@@ -89,9 +101,6 @@ public class ElibController extends BaseController {
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
-
-	@Autowired
-	private DgElibAPIService dgElibAPIService;
 
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
@@ -129,13 +138,14 @@ public class ElibController extends BaseController {
 
 		book = withTypeLabels(book);
 
-		if(StringUtils.isEmpty(book.getParent_id()) && categoryList.size() > 0) {
+		if(book.getParent_id().equals("0") && categoryList.size() > 0) {
 			book.setParent_id(categoryList.get(0).getCate_id());
 		}
 
+		String parent_id = book.getParent_id();
+
 		for(ElibCategory cat: categoryList) {
-			if(cat.getCate_id().equals(book.getParent_id())) {
-				book.setParent_id(cat.getCate_id());
+			if(cat.getCate_id() == parent_id) {
 				book.setParent_name(cat.getCate_name());
 			}
 		}
@@ -143,7 +153,7 @@ public class ElibController extends BaseController {
 		return book;
 	}
 
-	private Book withLabels2(Book book, List<ElibCode> compList) {
+	private Book withLabels2(Book book	, List<ElibCode> compList) {
 
 		book = withTypeLabels(book);
 
@@ -164,12 +174,22 @@ public class ElibController extends BaseController {
 		return book;
 	}
 
+	private Map<String, Book> bestBookListToMap(List<Book> bookList) {
+		Map<String, Book> map = new HashMap<String, Book>();
+
+		for(Book book: bookList) {
+			map.put(String.valueOf(book.getPrint_seq()), book);
+		}
+
+		return map;
+	}
+
 	@RequestMapping(value = {"/book/index.*"})
 	public String book_index(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 
-//		if(!checkLogin(request, response, bookService, book)) return null;
+		//		if(!checkLogin(request, response, bookService, book)) return null;
 
 		if("TITLE".equals(book.getSortField())) book.setSortType("ASC");
 		if(StringUtils.equals(book.getSortField(), "TITLE")) book.setSortField("book_name");
@@ -182,52 +202,23 @@ public class ElibController extends BaseController {
 
 		String menu = book.getMenu();
 		if("CATEGORY".equals(menu)) {
-			List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
-			model.addAttribute("book", withLabels(book, categoryList));
+			ElibCategory elibCategory = new ElibCategory(book.getType(), 1);
+			ElibCategory elibSubcategory = new ElibCategory(book.getType(), 2, book.getParent_id().equals("0") ? "1": book.getParent_id());
+			setApporve_yn(elibCategory, request);
+			setApporve_yn(elibSubcategory, request);
 
-//			List<ElibCategory> subcategoryList = dgElibAPIService.getSubCategory(book);
-//			model.addAttribute("subcategoryList", subcategoryList);
+			List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
+			List<ElibCategory> subcategoryList = elibCategoryService.getCategoryWithCntList(elibSubcategory);
 
-			Map<String, Object> categorySearch = dgElibAPIService.categorySearch(book);
-			List<Book> bookList = (List<Book>) categorySearch.get("bookList");
-			int count = book.getTotalDataCount();
-			bookService.setPaging(model, count, book);
+			ElibCategory elibCategory2 = new ElibCategory();
+			elibCategory2.setType(book.getType());
+			elibCategory2.setCate_id(book.getCate_id().equals("0") ? book.getParent_id(): book.getCate_id());
 
-			List<ElibCategory> subcategoryList = (List<ElibCategory>) categorySearch.get("subCategory");
+			model.addAttribute("category", elibCategoryService.getCategoryInfo(elibCategory2));
+			model.addAttribute("categoryBestBookList", bestService.getCategoryBestBookList(book));
+			model.addAttribute("categoryList", categoryList);
 			model.addAttribute("subcategoryList", subcategoryList);
-
-
-//			if("total".equals(book.getCate_id())) {
-				ElibCategory elibCategory = new ElibCategory();
-				for(ElibCategory x: categoryList) {
-					if(x.getCate_id().equals(book.getParent_id())) {
-						elibCategory.setCate_name(x.getCate_name());
-					}
-				}
-//				model.addAttribute("category", elibCategory);
-//			} else {
-//				ElibCategory elibCategory = new ElibCategory();
-				if (subcategoryList != null && subcategoryList.size() > 0) {
-					for(ElibCategory x: subcategoryList) {
-						if (StringUtils.isNotEmpty(x.getCate_id())) {
-							if(x.getCate_id().equals(book.getCate_id())) {
-								try {
-									elibCategory.setCate_name(elibCategory.getCate_name() + " - " + x.getCate_name().replaceAll("\\(.*$", ""));
-								} catch(Exception e) {
-									elibCategory.setCate_name(elibCategory.getCate_name() + " - " + x.getCate_name());
-								}
-							}
-						}
-					}
-				}
-				model.addAttribute("category", elibCategory);
-//			}
-
-
-			model.addAttribute("bookList", setStatus(bookList, request));
-			model.addAttribute("bookListCnt", count);
-
-			return String.format(basePath, homepage.getFolder()) + "book/index";
+			model.addAttribute("book", withLabels(book, categoryList));
 		} else if("PROVIDER".equals(menu)) {
 			ElibCode elibCode = new ElibCode(book.getType());
 			setApporve_yn(elibCode, request);
@@ -236,33 +227,13 @@ public class ElibController extends BaseController {
 			model.addAttribute("compList", compList);
 			model.addAttribute("book", withLabels2(book, compList));
 		} else if("NEW".equals(menu)) {
-			book.setSortField("BOOK_PUBDT");
+			//			book.setSortField("BOOK_PUBDT");
 			book.setSortType("DESC");
-
-			List<Book> bookList = dgElibAPIService.getNewEbook(book);
-
-			int count = book.getTotalDataCount();
-			bookService.setPaging(model, count, book);
-
 			model.addAttribute("book", book);
-			model.addAttribute("bookList", setStatus(bookList, request));
-			model.addAttribute("bookListCnt", count);
-
-			return String.format(basePath, homepage.getFolder()) + "book/index";
-		}  else if("BEST".equals(menu)) {
-			book.setSortField("BOOK_LEND");
+		} else if("BEST".equals(menu)) {
+			//			book.setSortField("BOOK_LEND");
 			book.setSortType("DESC");
-
-			List<Book> bookList = dgElibAPIService.loanBestSearch(book);
-
-			int count = book.getTotalDataCount();
-			bookService.setPaging(model, count, book);
-
 			model.addAttribute("book", book);
-			model.addAttribute("bookList", setStatus(bookList, request));
-			model.addAttribute("bookListCnt", count);
-
-			return String.format(basePath, homepage.getFolder()) + "book/index";
 		} else if("RECOMMEND".equals(menu)) {
 			book.setSortField("RECOMMEND_CNT");
 			book.setSortType("DESC");
@@ -274,21 +245,14 @@ public class ElibController extends BaseController {
 			model.addAttribute("book", book);
 			model.addAttribute("deviceList", deviceList);
 		} else {
-			List<Book> bookList = dgElibAPIService.allBookSearch(book);
-			int count = bookService.getBookListCnt(book);
-			bookService.setPaging(model, count, book);
-
 			model.addAttribute("book", book);
-			model.addAttribute("bookList", setStatus(bookList, request));
-			model.addAttribute("bookListCnt", count);
-
-			return String.format(basePath, homepage.getFolder()) + "book/index";
 		}
 
 		int count = bookService.getBookListCnt(book);
 		bookService.setPaging(model, count, book);
 		List<Book> bookList = bookService.getBookList(book);
 
+		model.addAttribute("bookConfig", configService.getConfig());
 		model.addAttribute("bookList", setStatus(bookList, request));
 		model.addAttribute("bookListCnt", count);
 
@@ -302,6 +266,8 @@ public class ElibController extends BaseController {
 			return true;
 		}
 	}
+
+
 
 	private JsonResponse checkLogin(HttpServletRequest request, BindingResult result, JsonResponse res, BeanUtils bean) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -320,18 +286,21 @@ public class ElibController extends BaseController {
 
 		if(StringUtils.equals(member_class, "2")) {
 			res.setValid(false);
-			res.setMessage("이용자님은 현재 미승인 회원입니다. 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다");
+			res.setMessage("이용자님은 현재 미승인 회원입니다. 대구광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다");
 			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
 			return res;
 		}
 
-//		20200414 - 중앙도서관 대출중지회원도 전자도서관 이용 가능하도록 수정요청
-//		if(StringUtils.equals(user_class, "1")) {
-//			res.setValid(false);
-//			res.setMessage("대출중지 상태입니다.");
-//			res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
-//			return res;
-//		}
+		/**
+		 * 대출중지 회원 체크 기능
+		 *
+		 if(StringUtils.equals(user_class, "1")) {
+		 res.setValid(false);
+		 res.setMessage("대출중지 상태입니다.");
+		 res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+		 return res;
+		 }
+		 */
 
 		res.setValid(true);
 
@@ -370,23 +339,25 @@ public class ElibController extends BaseController {
 
 		if(StringUtils.equals(member_class, "2")) {
 			try {
-				service.alertMessageAndUrl("이용자님은 현재 미승인 회원입니다. 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+				service.alertMessageAndUrl("이용자님은 현재 미승인 회원입니다. 부산광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다", String.format("/%s/index.do", homepage.getContext_path()), request, response);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 			return false;
 		}
 
-		//20200414 - 중앙도서관 대출중지회원도 전자도서관 이용 가능하도록 수정요청
-
-//		if(StringUtils.equals(user_class, "1")) {
-//			try {
-//				service.alertMessageAndUrl("대출중지 상태입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//			return false;
-//		}
+		/**
+		 * 대출중지 회원 체크 기능
+		 *
+		 if(StringUtils.equals(user_class, "1")) {
+		 try {
+		 service.alertMessageAndUrl("대출중지 상태입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+		 } catch(Exception e) {
+		 e.printStackTrace();
+		 }
+		 return false;
+		 }
+		 */
 
 		return true;
 	}
@@ -408,7 +379,7 @@ public class ElibController extends BaseController {
 		String editMode = book.getEditMode();
 		int ret = 0;
 
-		Book book1 = new Book();
+		Book book1 = bookService.getBookInfo(new Book(book.getBook_idx()));
 		book1.setMenu_idx(book.getMenu_idx());
 		book1.setBefore_url(String.format("/%s/module/elib/book/index.do?menu_idx=%s", homepage.getContext_path(), book.getMenu_idx()));
 		res = checkLogin(request, result, res, book1);
@@ -419,12 +390,20 @@ public class ElibController extends BaseController {
 		}
 
 		if(!result.hasErrors()) {
+			try {
+				addMemberIfNotExistsLocal(request);
+			} catch (ElibException e) {
+				res.setValid(false);
+				res.setMessage(e.getMessage());
+				return res;
+			}
 			book.setMember_id(getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
 				res.setMessage("접근이 제한된 IP입니다.");
 			} else if(editMode.equals("RECOMMEND")) {
+				//				book.setUser_idx(elibMemberService.getUserIdxByUserId(book.getUser_id()));
 				ret = bookService.recommendBook(book);
 				if(ret == -1) {
 					res.setValid(false);
@@ -446,12 +425,17 @@ public class ElibController extends BaseController {
 	}
 
 	private String getMobileOS(HttpServletRequest request) {
-		String device = getDevice(request.getHeader("User-Agent"));
+		String ua = request.getHeader("User-Agent");
+		String os = "android";
 
-		if("I".equals(device)) {
+		if(ua.indexOf("iPhone") > -1 || ua.indexOf("iPod") > -1) {
 			return "iOS";
-		} else {
+		} else if(ua.indexOf("iPad") > -1) {
+			return "ipad";
+		} else if(ua.indexOf("Android") > -1 ) {
 			return "Android";
+		} else {
+			return os;
 		}
 	}
 
@@ -468,34 +452,45 @@ public class ElibController extends BaseController {
 		List<Lending> lendingList = null;
 		lending.setMember_id(getSessionMemberId(request));
 
-		Member sessionMember = getSessionMemberInfo(request);
-		lending.setUser_manage_code(sessionMember.getUser_manage_code());
-		Map<String, Object> libSettingInfoView = LibSearchAPI.getLibSettingInfoView(sessionMember.getUser_manage_code(), null, null, null, null, null);
-		List<Map<String, String>> libMap = (List<Map<String, String>>) libSettingInfoView.get("LIB_SETTING_INFO");
-		lending.setLibcode(libMap.get(0).get("LIB_CODE"));
-
 		if("LENDING".equals(menu)) {
-			lendingList = dgElibAPIService.loanList(lending);
-			count = lending.getTotalDataCount();
+			count = lendingService.getLendMemberListCnt(lending);
 			lendingService.setPaging(model, count, lending);
+			lendingList = lendingService.getLendMemberList(lending);
 
 			Device device = DeviceUtils.getCurrentDevice(request);
 			ElibMember member = new ElibMember(getSessionMemberInfo(request));
+			Member my = getSessionMemberInfo(request);
+			member.setLib_code(my.getLib_code());
 
 			boolean isMobile = device.isMobile() || device.isTablet();
 			model.addAttribute("isMobile", isMobile);
 
 			if(isMobile) {
+				model.addAttribute("memberIdBase64", new String(Base64.encodeBase64(lending.getMember_id().getBytes())));
 				List<Map<String, String>> mobileList = new ArrayList<Map<String, String>>();
 				for(Lending l: lendingList) {
-					if(StringUtils.equals(l.getCom_code(), "BQ")) {
+					if(StringUtils.equals(l.getCom_code(), "KYOB")) {
+						try {
+							mobileList.add(apiService.view(new Book(l)));
+						} catch(Exception e) {
+							mobileList.add(null);
+						}
+					} else if(StringUtils.equals(l.getCom_code(), "FXLI")) {
 						try {
 							Map<String, String> map = apiService.appUrl(new Book(l), member, getMobileOS(request));
 							mobileList.add(map);
 						} catch(Exception e) {
 							mobileList.add(null);
 						}
-					} else if(StringUtils.equals(l.getCom_code(), "YE")) {
+					} else if(StringUtils.equals(l.getCom_code(), "YESB")) {
+						try {
+							Map<String, String> map = apiService.appUrl(new Book(l), member, getMobileOS(request));
+							mobileList.add(map);
+						} catch(Exception e) {
+							e.printStackTrace();
+							mobileList.add(null);
+						}
+					} else if(StringUtils.equals(l.getCom_code(), "ECO")) {
 						try {
 							Map<String, String> map = apiService.appUrl(new Book(l), member, getMobileOS(request));
 							mobileList.add(map);
@@ -504,32 +499,25 @@ public class ElibController extends BaseController {
 							mobileList.add(null);
 						}
 					} else {
-							mobileList.add(null);
+						mobileList.add(null);
 					}
 
 				}
 				model.addAttribute("mobileList", mobileList);
 			}
 		} else if("RESERVE".equals(menu)) {
-			lendingList = dgElibAPIService.resvList(lending);
-			count = lending.getTotalDataCount();
+			count = lendingService.getReserveMemberListCnt(lending);
 			lendingService.setPaging(model, count, lending);
+			lendingList = lendingService.getReserveMemberList(lending);
 		} else if("HISTORY".equals(menu)) {
-			lendingList = dgElibAPIService.loanHistoryList(lending);
-			count = lending.getTotalDataCount();
+			lending.setSortField("lend_dt");
+			count = lendingService.getLendMemberListCnt(lending);
 			lendingService.setPaging(model, count, lending);
+			lendingList = lendingService.getLendMemberList(lending);
 		} else if("MYSTUDY".equals(menu)) {
 			count = lendingService.getFavoritesListCnt(lending);
 			lendingService.setPaging(model, count, lending);
-			
-			List<Lending> orig = lendingService.getFavoritesList(lending);
-			List<Lending> list = new ArrayList<Lending>();
-
-			for(Lending x: orig) {
-				list.add(dgElibAPIService.detailInfo(x));
-			}
-
-			lendingList = setStatus(list, request);
+			lendingList = setStatus(lendingService.getFavoritesList(lending), request);
 		}
 
 		model.addAttribute("lending", lending);
@@ -539,49 +527,101 @@ public class ElibController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "lending/index";
 	}
 
-	private Book setStatus(Book book, HttpServletRequest request) {
-		if(book.isLendable() && book.isReservable()) {
-			book.setStatus("대출 가능");
-		} else if(book.isLendable()) {
-			book.setStatus("대출 가능");
-		} else if(book.isReservable()) {
-			book.setStatus("예약 가능");
+	private Book setStatus(Book book, HttpServletRequest request, int max_lend) {
+		Lending lending = new Lending();
+		lending.setBook_idx(book.getBook_idx());
+		lending.setMember_id(getSessionMemberId(request));
+
+		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
+
+		if(book.getBook_lend() < max_lend) {
+			if(!isLoggedIn(request)) {
+				// 로그인 안 한 상태
+				book.setStatus("대출 가능");
+			} else if(lendingService.getNotReturnedCnt(lending) == 0) {
+				// 대출 가능
+				book.setStatus("대출 가능");
+			} else {
+				// 대출 중(연장 가능)
+				book.setStatus("대출 중");
+			}
+			//  status=5: 대출 중(연장 불가)
 		} else {
-			book.setStatus("대출 불가");
+			if(!isLoggedIn(request)) {
+				// 로그인 안 한 상태
+				book.setStatus("예약 가능");
+			} else if(lendingService.getDupReserveCnt(lending) == 0) {
+				// 예약 가능
+				book.setStatus("예약 가능");
+			} else {
+				// 예약 중
+				book.setStatus("예약 중");
+			}
 		}
 
 		return book;
 	}
 
-	private Lending setStatus(Lending lending, HttpServletRequest request) {
-		if(lending.isLendable() && lending.isReservable()) {
-			lending.setStatus("대출 가능");
-		} else if(lending.isLendable()) {
-			lending.setStatus("대출 가능");
-		} else if(lending.isReservable()) {
-			lending.setStatus("예약 가능");
+	private Lending setStatus(Lending lending, HttpServletRequest request, int max_lend) {
+		lending.setMember_id(getSessionMemberId(request));
+		Book book = bookService.getBookInfo(new Book(lending));
+
+		if(book == null) return lending;
+
+		lending.setBook_lend(book.getBook_lend());
+		lending.setBook_reserve(book.getBook_reserve());
+
+		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
+
+		if(book.getBook_lend() < max_lend) {
+			if(!isLoggedIn(request)) {
+				// 로그인 안 한 상태
+				lending.setStatus("대출 가능");
+			} else if(lendingService.getNotReturnedCnt(lending) == 0) {
+				// 대출 가능
+				lending.setStatus("대출 가능");
+			} else {
+				// 대출 중(연장 가능)
+				lending.setStatus("대출 중");
+			}
+			//  status=5: 대출 중(연장 불가)
 		} else {
-			lending.setStatus("대출 불가");
+			if(!isLoggedIn(request)) {
+				// 로그인 안 한 상태
+				lending.setStatus("예약 가능");
+			} else if(lendingService.getDupReserveCnt(lending) == 0) {
+				// 예약 가능
+				lending.setStatus("예약 가능");
+			} else {
+				// 예약 중
+				lending.setStatus("예약 중");
+			}
 		}
 
 		return lending;
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T setStatus(T t, HttpServletRequest request) {
+	private <T> T setStatus(T t, HttpServletRequest request, int max_lend) {
 		if(t instanceof Book) {
-			return (T) setStatus((Book) t, request);
+			return (T) setStatus((Book) t, request, max_lend);
 		} else {
-			return (T) setStatus((Lending) t, request);
+			return (T) setStatus((Lending) t, request, max_lend);
 		}
+	}
+
+	private <T> T setStatus(T t, HttpServletRequest request) {
+		int max_lend = configService.getConfig().getBook_max_lend();
+		return setStatus(t, request, max_lend);
 	}
 
 	private <T> List<T> setStatus(List<T> list, HttpServletRequest request) {
 		if(list == null) {
 			return null;
 		} else {
+			int max_lend = configService.getConfig().getBook_max_lend();
 			for(T t: list) {
-				setStatus(t, request);
+				setStatus(t, request, max_lend);
 			}
 			return list;
 		}
@@ -622,20 +662,31 @@ public class ElibController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 
-		Book book1 = setStatus(dgElibAPIService.detailInfo(book), request);
+		Book book1 = setStatus(bookService.getBookInfo(book), request);
+		if("FXLI".equals(book1.getCom_code())) book1 = setStatus(bookService.getBookInfo(book), request);
 		book1.setBefore_url(book.getBefore_url());
 		book1.setMenu_idx(book.getMenu_idx());
-		book1.setRecommend_cnt(bookService.getBookRecommendCnt(book1));
 
-//		if(!checkLogin(request, response, lendingService, book1)) return null;
+		//		if(!checkLogin(request, response, lendingService, book1)) return null;
 
 		model.addAttribute("book", book1);
 		Device device = DeviceUtils.getCurrentDevice(request);
 		boolean isMobile = device.isMobile() || device.isTablet();
 		model.addAttribute("isMobile", isMobile);
+		model.addAttribute("bookConfig", configService.getConfig());
+
+		if(StringUtils.equals(book.getType(), "ADO")) {
+			List<Book> audioList = bookService.getAudioList(book);
+			model.addAttribute("audioList", audioList);
+		}
+		else if(StringUtils.equals(book.getType(), "WEB")) {
+			List<Book> courseList = bookService.getCourseList(book);
+			model.addAttribute("courseList", courseList);
+		}
 
 		return String.format(basePath, homepage.getFolder()) + "book/view";
 	}
+
 
 	private String koreanDateFormat(String date) {
 		SimpleDateFormat parse = new SimpleDateFormat("yyyy-MM-dd");
@@ -656,7 +707,7 @@ public class ElibController extends BaseController {
 		String editMode = lending.getEditMode();
 		int ret = 0;
 
-		Book book = new Book();
+		Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
 		book.setMenu_idx(lending.getMenu_idx());
 		book.setBefore_url(String.format("/%s/module/elib/lending/index.do?menu_idx=%s", homepage.getContext_path(), lending.getMenu_idx()));
 		res = checkLogin(request, result, res, book);
@@ -665,38 +716,69 @@ public class ElibController extends BaseController {
 		lending.setDevice(getDevice(request.getHeader("user-agent")));
 
 		if(!result.hasErrors()) {
+			try {
+				addMemberIfNotExists(request, book);
+			} catch (ElibException e) {
+				res.setValid(false);
+				res.setMessage(e.getMessage());
+				return res;
+			}
 			lending.setMember_id(getSessionMemberId(request));
-			Member sessionMember = getSessionMemberInfo(request);
-			lending.setUser_manage_code(sessionMember.getUser_manage_code());
-			Map<String, Object> libSettingInfoView = LibSearchAPI.getLibSettingInfoView(sessionMember.getUser_manage_code(), null, null, null, null, null);
-			List<Map<String, String>> libMap = (List<Map<String, String>>) libSettingInfoView.get("LIB_SETTING_INFO");
-			lending.setLibcode(libMap.get(0).get("LIB_CODE"));
+			lending.setCom_code(book.getCom_code());
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
 				res.setValid(false);
 				res.setMessage("접근이 제한된 IP입니다.");
 			} else if(editMode.equals("BORROW")) {
-				Map<String, String> map = dgElibAPIService.loan(lending);
-				if("SUCCESS".equals(map.get("STATUS"))) {
+				try {
+					ret = lendingService.borrowProc(lending, false, homepage);
+				} catch(ElibException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
+				if(ret == -1) {
+					res.setValid(false);
+					res.setMessage("설정에 오류가 발생했습니다. 관리자에게 문의하세요.");
+				} else if(ret == -6) {
+					res.setValid(false);
+					res.setMessage("최대 대출 권수를 초과했습니다.");
+				} else if(ret == -9) {
+					res.setValid(false);
+					res.setMessage("이미 예약된 책은 대출할 수 없습니다.");
+				} else if(ret == -2) {
+					res.setValid(false);
+					res.setMessage("반납하지 않은 책은 대출할 수 없습니다.");
+				} else if(ret == -4) {
+					res.setValid(false);
+					res.setMessage("최대 예약 권수를 초과했습니다.");
+				} else if(ret == -10) {
+					res.setValid(false);
+					res.setMessage("해당 도서가 존재하지 않습니다.");
+				} else if(ret == 1) {
+					res.setValid(false);
+					res.setMessage("최대 대출 권수가 초과된 책으로, 예약하실 수 있습니다.");
+				} else if(ret == 0) {
+					lending = lendingService.getLending(lending);
 					res.setValid(true);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("대출되었습니다. 반납예정일은 " + koreanDateFormat(lending.getReturn_due_dt()) + "입니다.");
 				} else {
 					res.setValid(false);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("알 수 없는 오류가 발생했습니다. 관리자에게 문의하세요.");
 				}
 			} else if(editMode.equals("BORROW_")) {
 				try {
-//					Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
-//					book.setMember_id(lending.getMember_id());
-//					lending.setCom_code(book.getCom_code());
-//					lending.setExtention_count(0);
-//					if (StringUtils.isEmpty(lending.getDevice())) {
-//						lending.setDevice("P");
-//					}
-//					lendingDao.addLending(lending);
+					//					Book book = bookService.getBookInfo(new Book(lending.getBook_idx()));
+					//					book.setMember_id(lending.getMember_id());
+					//					lending.setCom_code(book.getCom_code());
+					//					lending.setExtention_count(0);
+					//					if (StringUtils.isEmpty(lending.getDevice())) {
+					//						lending.setDevice("P");
+					//					}
+					//					lendingDao.addLending(lending);
 
-//					ret = lendingService.borrowProc(lending, false, homepage);
-//					ret = lendingService.returnLending(lending);
+					//					ret = lendingService.borrowProc(lending, false, homepage);
+					//					ret = lendingService.returnLending(lending);
 				} catch(Exception e) {
 				}
 			} else if(editMode.equals("BORROW_RETURN")) {
@@ -720,31 +802,82 @@ public class ElibController extends BaseController {
 					res.setValid(false);
 				}
 			} else if(editMode.equals("RETURN")) {
-				Map<String, String> map = dgElibAPIService.rtn(lending);
-				if("SUCCESS".equals(map.get("STATUS"))) {
+				try {
+					ret = lendingService.returnProc(lending, homepage);
+				} catch (ElibException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
+				if(ret == -1) {
+					res.setValid(false);
+					res.setMessage("설정에 오류가 발생했습니다. 관리자에게 문의하세요.");
+				} else if(ret == -2) {
+					res.setValid(false);
+					res.setMessage("대여 기록이 존재하지 않습니다.");
+				} else if(ret == -3) {
+					res.setValid(false);
+					res.setMessage("이미 반납된 도서입니다.");
+				} else if(ret == -4) {
+					res.setValid(false);
+					res.setMessage("해당 도서가 존재하지 않습니다.");
+				} else if(ret == 0) {
 					res.setValid(true);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("반납되었습니다.");
 				} else {
 					res.setValid(false);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("알 수 없는 오류가 발생했습니다. 관리자에게 문의하세요.");
 				}
 			} else if(editMode.equals("RESERVE")) {
-				Map<String, String> map = dgElibAPIService.resv(lending, getSessionMemberInfo(request));
-				if("SUCCESS".equals(map.get("STATUS"))) {
+				try {
+					ret = lendingService.reserveProc(lending);
+				} catch (ElibException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
+				if(ret == -1) {
+					res.setValid(false);
+					res.setMessage("해당 도서가 존재하지 않습니다.");
+				} else if(ret == -10) {
+					res.setValid(false);
+					res.setMessage("최대 예약 권수를 초과했습니다.");
+				} else if(ret == -5) {
+					res.setValid(false);
+					res.setMessage("이미 예약된 상태입니다.");
+				} else if(ret == -9) {
+					res.setValid(false);
+					res.setMessage("이미 대출된 책으로 예약할 수 없습니다.");
+				} else if(ret == -11) {
+					res.setValid(false);
+					res.setMessage("대출 가능한 책은 예약할 수 없습니다.");
+				} else if(ret == -12) {
+					res.setValid(false);
+					res.setMessage("책의 최대 예약 권수를 초과했습니다.");
+				} else if(ret == 0) {
 					res.setValid(true);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("예약되었습니다.");
 				} else {
 					res.setValid(false);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("알 수 없는 오류가 발생했습니다. 관리자에게 문의하세요.");
 				}
 			} else if(editMode.equals("CANCEL")) {
-				Map<String, String> map = dgElibAPIService.cancel(lending);
-				if("SUCCESS".equals(map.get("STATUS"))) {
+				try {
+					ret = lendingService.reserveCancel(lending);
+				} catch (ElibException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
+				if(ret == -2 || ret == -3) {
+					res.setValid(false);
+					res.setMessage("예약돼 있지 않습니다.");
+				} else if(ret == 0) {
 					res.setValid(true);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("취소되었습니다.");
 				} else {
 					res.setValid(false);
-					res.setMessage(map.get("MSG_KEY"));
+					res.setMessage("알 수 없는 오류가 발생했습니다.");
 				}
 			} else if(editMode.equals("EXTEND")) {
 				try {
@@ -868,7 +1001,7 @@ public class ElibController extends BaseController {
 				res.setMessage(e.getMessage());
 				return res;
 			}
-//			comment.setMember_id(getSessionMemberId(request));
+			//			comment.setMember_id(getSessionMemberId(request));
 			comment.setMember_id(getSessionMemberId(request));
 
 			if(elibAccessIpService.getBannedIpCnt(new ElibAccessIp(request.getRemoteAddr())) > 0) {
@@ -905,10 +1038,38 @@ public class ElibController extends BaseController {
 			int count = 0;
 			int rowCount = book.getRowCount();
 
+			book.setRowCount(5);
+			setApporve_yn(book, request);
+
+			count = bookService.getBookCountByTypeCnt(book);
+			book.setTotalDataCount(count);
+			model.addAttribute("countByType", count);
+			model.addAttribute("moreByType", bookService.getBookCountByType(book));
+
+			count = bookService.getBookCountByAuthorCnt(book);
+			book.setTotalDataCount(count);
+			model.addAttribute("countByAuthor", count);
+			model.addAttribute("moreByAuthor", bookService.getBookCountByAuthor(book));
+
+			count = bookService.getBookCountByPublisherCnt(book);
+			book.setTotalDataCount(count);
+			model.addAttribute("countByPublisher", count);
+			model.addAttribute("moreByPublisher", bookService.getBookCountByPublisher(book));
+
+			count = bookService.getBookCountByYearCnt(book);
+			book.setTotalDataCount(count);
+			model.addAttribute("countByYear", count);
+			model.addAttribute("moreByYear", bookService.getBookCountByYear(book));
+
+			count = bookService.getBookCountByDeviceCnt(book);
+			book.setTotalDataCount(count);
+			model.addAttribute("countByDevice", count);
+			model.addAttribute("moreByDevice", bookService.getBookCountByDevice(book));
+
 			book.setRowCount(rowCount);
-			List<Book> bookList = dgElibAPIService.simpleSearch(book);
-			count = book.getTotalDataCount();
+			count = bookService.getBookSearchedListCnt(book);
 			bookService.setPaging(model, count, book);
+			List<Book> bookList = bookService.getBookSearchedList(book);
 			model.addAttribute("bookList", setStatus(bookList, request));
 			model.addAttribute("bookListCnt", count);
 		}
@@ -922,19 +1083,21 @@ public class ElibController extends BaseController {
 		book.setHomepage_id(homepage.getHomepage_id());
 
 		if ( !StringUtils.isEmpty(book.getSearch_text()) ) {
+
 			setApporve_yn(book, request);
 
-			int count = 0;
-			int rowCount = book.getRowCount();
-
-			book.setRowCount(rowCount);
-			List<Book> bookList = dgElibAPIService.simpleSearch(book);
-			count = book.getTotalDataCount();
+			int count = bookService.getBookSearchedListCnt(book);
 			bookService.setPaging(model, count, book);
+			List<Book> bookList = bookService.getBookSearchedList(book);
 
 			model.addAttribute("libraryList", elibCodeService.getLibraryList());
 			model.addAttribute("bookList", bookList);
 			model.addAttribute("bookListCnt", count);
+
+			//			if ( book.getViewPage() > 1) { // 화면에서 페이지 버튼 클릭
+			//				//librarySearch.setSearch_type("GOPAGE"); // GOPAGE 사용시 검색 카테고리 바꾸면 페이징 안됨. (API가 안됨...)
+			//				viewPage = book.getViewPage();
+			//			}
 
 		}
 
@@ -959,7 +1122,7 @@ public class ElibController extends BaseController {
 				model.addAttribute("countByType", count);
 				model.addAttribute("bookCountByType", bookService.getBookCountByType(book));
 			} else if("AUTHOR".equals(menu)) {
-//				book.setType(null);
+				//				book.setType(null);
 				book.setBook_pubname(null);
 				book.setBook_year(null);
 				book.setDevice(null);
@@ -968,7 +1131,7 @@ public class ElibController extends BaseController {
 				model.addAttribute("countByAuthor", count);
 				model.addAttribute("bookCountByAuthor", bookService.getBookCountByAuthor(book));
 			} else if("PUBLISHER".equals(menu)) {
-//				book.setType(null);
+				//				book.setType(null);
 				book.setAuthor_name(null);
 				book.setBook_year(null);
 				book.setDevice(null);
@@ -977,7 +1140,7 @@ public class ElibController extends BaseController {
 				model.addAttribute("countByPublisher", count);
 				model.addAttribute("bookCountByPublisher", bookService.getBookCountByPublisher(book));
 			} else if("YEAR".equals(menu)) {
-//				book.setType(null);
+				//				book.setType(null);
 				book.setAuthor_name(null);
 				book.setBook_pubname(null);
 				book.setDevice(null);
@@ -1005,7 +1168,7 @@ public class ElibController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 
-//		if(!checkLogin(request, response, bookService, book)) return null;
+		//		if(!checkLogin(request, response, bookService, book)) return null;
 
 		Comment comment = new Comment(book);
 		int count = commentService.getCommentListCnt(comment);
@@ -1024,16 +1187,16 @@ public class ElibController extends BaseController {
 			member.setLoca(loca);
 			loginService.setSessionMember(member, request);
 			member = getSessionMemberInfo(request);
-//			response.getOutputStream().println("loca: " + member.getLoca());
+			//			response.getOutputStream().println("loca: " + member.getLoca());
 		} else {
 			HttpSession session = request.getSession();
 
 			if(StringUtils.equals(debug, "true")) {
 				session.setAttribute("_elib_debug", "true");
-	//			response.getOutputStream().println("debug: " + debug);
+				//			response.getOutputStream().println("debug: " + debug);
 			} else if(StringUtils.equals(debug, "false")) {
 				session.removeAttribute("_elib_debug");
-	//			response.getOutputStream().println("debug: " + debug);
+				//			response.getOutputStream().println("debug: " + debug);
 			}
 		}
 
@@ -1051,11 +1214,11 @@ public class ElibController extends BaseController {
 
 	private String getDevice(String user_agent) {
 		Map<String, String> r = Classifier.parse(user_agent);
-//		String name = r.get("name");
+		//		String name = r.get("name");
 		String category = r.get("category");
 		String os = r.get("os");
-//		String version = r.get("version");
-//		String os_version = r.get("os_version");
+		//		String version = r.get("version");
+		//		String os_version = r.get("os_version");
 		String device = "P";
 
 		if("pc".equals(category)) {
@@ -1081,22 +1244,5 @@ public class ElibController extends BaseController {
 
 		return String.format(basePath, homepage.getFolder()) + d +"/" + f;
 	}
-
-	@RequestMapping(value = {"/book/api/best.*"})
-	@ResponseBody
-	public Object apiBestbook(Model model, HttpServletRequest request) {
-
-		List<Book> bookList = dgElibAPIService.loanBestSearch("10");
-		return bookList;
-	}
-
-	@RequestMapping(value = {"/book/api/new.*"})
-	@ResponseBody
-	public List<Book> apiNewbook(Model model, HttpServletRequest request) {
-
-		List<Book> bookList = dgElibAPIService.getNewEbook("10");
-		return bookList;
-	}
-
 
 }

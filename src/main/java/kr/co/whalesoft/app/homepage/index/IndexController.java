@@ -55,6 +55,7 @@ import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.best.BestService;
+import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
@@ -817,12 +818,12 @@ public class IndexController extends BaseController {
 			model.addAttribute("teachList", teachService.getTeachListForUser(t));
 		}
 
-		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			Member sessionMemberInfo = getSessionMemberInfo(request);
-			if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {// 정회원만 가능
-				dgElibAPIService.elibLogin(sessionMemberInfo);
-			}
-		}
+//		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//			Member sessionMemberInfo = getSessionMemberInfo(request);
+//			if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {// 정회원만 가능
+//				dgElibAPIService.elibLogin(sessionMemberInfo);
+//			}
+//		}
 
 		// 전자도서관
 		
@@ -841,20 +842,20 @@ public class IndexController extends BaseController {
 		}
 		
 		// ECO 전자도서관 API로 변경 후 주석 처리
-/*
+
 		if (homepage.getHomepage_id().equals("h30")) {
 			Book book = new Book();
 			//신착도서
 			book.setType("EBK");
 			book.setSortField("BOOK_PUBDT");
 			book.setSortType("DESC");
-			book.setCate_id_1(74);//유아어린이 제외
+			//book.setCate_id_1(74);//유아어린이 제외
 			model.addAttribute("newBookList1", bestService.getMainBookList(book));
+			//book.setCate_id_1(0);
+			//book.setCate_id(74);//유아어린이만
+			//model.addAttribute("newBookList2", bestService.getMainBookList(book));
 			book.setCate_id_1(0);
-			book.setCate_id(74);//유아어린이만
-			model.addAttribute("newBookList2", bestService.getMainBookList(book));
-			book.setCate_id_1(0);
-			book.setCate_id(0);
+			book.setCate_id("0");
 			book.setType("ADO");
 			model.addAttribute("newBookList3", bestService.getMainBookList(book));
 
@@ -862,17 +863,17 @@ public class IndexController extends BaseController {
 			book.setType("EBK");
 			book.setSortField("BOOK_LEND");
 			book.setSortType("DESC");
-			book.setCate_id_1(74);//유아어린이 제외
+			//book.setCate_id_1(74);//유아어린이 제외
 			model.addAttribute("bestBookList1", bestService.getMainBookList(book));
+			//book.setCate_id_1(0);
+			//book.setCate_id(74);//유아어린이만
+			//model.addAttribute("bestBookList2", bestService.getMainBookList(book));
 			book.setCate_id_1(0);
-			book.setCate_id(74);//유아어린이만
-			model.addAttribute("bestBookList2", bestService.getMainBookList(book));
-			book.setCate_id_1(0);
-			book.setCate_id(0);
+			book.setCate_id("0");
 			book.setType("ADO");
 			model.addAttribute("bestBookList3", bestService.getMainBookList(book));
 		}
-*/
+
 
 		log.debug("jsp Page : "+basePath + filePath);
 
