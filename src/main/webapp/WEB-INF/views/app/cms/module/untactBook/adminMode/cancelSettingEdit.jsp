@@ -29,7 +29,7 @@ function cancelSettingSave() {
 				<th>홈페이지ID</th>
 				<th>신청자ID</th>
 				<th>신청자명</th>
-				<th>패널티사유</th>
+				<th>취소사유</th>
 			</tr>
 			<tr>
 				<td>${untactBookReservation.homepage_id}</td>

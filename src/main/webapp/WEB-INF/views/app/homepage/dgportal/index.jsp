@@ -4,6 +4,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <%@page import="java.util.Random"%>
 <%
 Random rnd = new Random();
@@ -51,6 +52,47 @@ do {
 <script type="text/javascript" src="/resources/common/js/jquery.mCustomScrollbar.js"></script>
 <script type="text/javascript">
 	$(function() {
+		// 로그인 시 팝업 띄우기 위함.
+		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}) {
+			var result = '';
+			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
+			var x = 0;
+			while (x <= document.cookie.length) {
+				var y = (x + nameOfCookie.length);
+				if (document.cookie.substring(x, y) == nameOfCookie) {
+					if ((endOfCookie = document.cookie
+							.indexOf(";", y)) == -1)
+						endOfCookie = document.cookie.length;
+					result = unescape(document.cookie
+							.substring(y, endOfCookie));
+				}
+				x = document.cookie.indexOf(" ", x) + 1;
+				if (x == 0)
+					break;
+			}
+
+			if (result != 'no') {
+				$('div#recom_wrap').show();
+			}
+			
+			var menu_idx = '22';
+			var words = [];
+			var color_rand = ['#82be02', '#71aa99', '#955959' ,'#be0252', '#0077d2', '#d26d00', '#d20000', '#24b732', '#00c6cd', '#a602be'];
+			var weight_rand = ['100','200','300','400', '500', '600', '700', '800', '900'];
+			
+			<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
+				var obj = new Object(); 
+				obj.text = '${i.keyword_name}';
+				obj.color = color_rand[Math.floor(Math.random()*color_rand.length)];
+				obj.weight = weight_rand[Math.floor(Math.random()*weight_rand.length)];
+				obj.link = 'module/bookKeyword/view.do?menu_idx=87&keyword_name=${i.keyword_name}';
+				words.push(obj);
+				$('#demo_word_'+status.index).css('margin','15px')
+			</c:forEach>
+
+			$('#keyword').jQCloud(words, {});
+		}
+		
 		$('#homeup').click(function () {
 			$('body,html').animate({
 				scrollTop: 0
@@ -77,12 +119,38 @@ do {
 
 			$('div#' + popupId).hide();
 		});
+		
+		$('.book-close-btn').on('click', function() {
+			var $this = $(this);
+			var checkInput = $this.parent().parent().find('.pop-close-set input[data-day="'+$this.data('day')+'"]');
+			var popupId = checkInput.val();
+			if (checkInput.prop('checked')) {
+				var todayDate = new Date();
+				todayDate = new Date(
+						parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+				if($this.data('day') == 7) {
+					todayDate.setDate(todayDate.getDate() + 7);
+				}
+				document.cookie = popupId + "=no"
+						+ "; path=/; expires="
+						+ todayDate.toGMTString() + ";";
+			}
+
+			$('div#recom_wrap').hide();
+		});
 
 		$('input[id*=pop]').on('click', function(e) {
 			e.preventDefault();
 			$(this).prop('checked', true);
 			$(this).parent('div').next('a').data('day', $(this).data('day'));
 			$(this).parent('div').next('a').click();
+		});
+		
+		$('input[id*=book]').on('click', function(e) {
+			e.preventDefault();
+			$(this).prop('checked', true);
+			$('.book-close-btn').data('day', $(this).data('day'));
+			$('.book-close-btn').click();
 		});
 
 		$('#popupLayer > div').each(function(i, v) {
@@ -226,9 +294,64 @@ do {
 				$(".libraryCodesSmCheck").prop('checked', false);
 			}
 		});
-
 });
 </script>
+
+<style>
+/* 	.user_pick_info{position:relative;width:100%;margin-top:30px;padding:40px 0;background-color:#f3f4f6;text-align:center;} */
+/* 	.user_pick_info img{position:absolute;top:-30px;left:46%;} */
+/* 	.user_pick_info h2{font-size:30px;color:#39366a;font-weight:600;letter-spacing:0;font-family:'s-core_dream6_bold';} */
+/* 	.user_pick_info p.txt_box01{font-size:16px;color:#39366a;line-height:23px;letter-spacing:0;margin:0 9%;font-family:'s-core_dream5_medium';} */
+	
+/* 	ul.con li{width:calc(100% - 20px);margin-bottom:10px;} */
+/* 	ul.con li a{color:#000;font-size:18px;font-family:'s-core_dream5_medium';} */
+/* 	ul.con li a span{float:right;font-size:15px;font-family:'s-core_dream4_regular';background:url('/data/menuResources/h32/87/1634785476833.png')no-repeat center right;padding-right:55px;} */
+</style>
+
+<!--추천도서 시작-->
+<div id="recom_wrap" class="recom_wrap" style="display:none">
+	<!--닫기버튼-->
+	<div class="close_btn">
+		<a href="javascript:void(0)" tabindex="1" data-day="1" class="book-close-btn"><img src="/resources/common/img/recom_close_btn.png" alt="창 닫기 버튼"></a>
+	</div>
+
+	<!--상단문구-->
+	<div class="recom_txt_box">
+		<p><strong>${member.member_name }</strong>님에 대해 알려주세요!</p>
+		<span>맞춤책 추천으로 <strong>${member.member_name}</strong>님의 독서를 도와드려요.</span>
+	</div>
+
+	<!--키워드 박스-->
+	<div class="recom_a_box">
+		<div id="keyword">
+
+		</div>
+	</div>
+
+	<!--버튼-->
+	<div class="btn_box">
+		<ul>
+<!-- 			<li class="step prev_btn"><a href="">이전단계</a></li> -->
+			<li class="con"><a href="javascript:location.reload()">키워드변경</a></li>
+			<li class="con"><a href="javascript:void(0)" class="book-close-btn">그만끝내기</a></li>
+<!-- 			<li class="step next_btn"><a href="">다음단계</a></li> -->
+		</ul>
+		
+	</div>
+	
+	<!-- 안보기 체크박스-->
+	<div class="pop-close-set">
+		<input name="book_popup_${homepage.homepage_id}" data-day="1" id="book_${homepage.homepage_id}" type="checkbox" value="book_popup_${homepage.homepage_id}">
+		<label for="book_${homepage.homepage_id}" style="line-height: 34px;" title="오늘하루 열지않음">오늘하루 열지않음</label>
+		<input name="book_popup_${homepage.homepage_id}_7" data-day="7" id="book_${homepage.homepage_id}_7" type="checkbox" value="book_popup_${homepage.homepage_id}">
+		<label for="book_${homepage.homepage_id}_7" style="line-height: 34px;" title="7일간 보지 않기">7일간 보지 않기</label>
+	</div>
+	
+	<div class="recom_wrap_bg">
+	</div>
+</div>
+<!--추천도서 끝-->
+
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />

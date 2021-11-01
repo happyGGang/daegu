@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.untactBook.statistics.UntactBookStatisticsDao">
+
+	<sql id="commonWhere">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="homepage_id != null and homepage_id != '' and homepage_id != 'ALL'">
+		AND	homepage_id = #{homepage_id}
+		</if>
+		<if test="member_id != null and member_id != ''">
+		AND	member_id = #{member_id}
+		</if>
+		<choose>
+			<when test="date_type == 'DAY' or date_type == 'WEEK'">
+			AND	TO_CHAR(request_date, 'yyyy-MM') = #{search_date}
+			</when>
+			<when test="date_type == 'MONTH'">
+			AND	TO_CHAR(request_date, 'yyyy') = #{year}
+			</when>
+		</choose>
+		</trim>
+		<choose>
+			<when test="date_type == 'DAY'">
+			GROUP BY TO_CHAR(request_date, 'yyyy-MM-dd')
+			</when>
+			<when test="date_type == 'WEEK'">
+			GROUP BY TO_CHAR(request_date, 'd')
+			</when>
+			<when test="date_type == 'MONTH'">
+			GROUP BY TO_CHAR(request_date, 'yyyy-MM')
+			</when>
+		</choose>
+	</sql>
+
+	<select id="getTimeStatistics" resultType="kr.go.gbelib.app.cms.module.untactBook.statistics.UntactBookStatistics">
+		SELECT
+			result_date, result_count
+		FROM
+			(
+			SELECT
+				DECODE(result_date, '00', '24', result_date) AS result_date, SUM(result_count) AS result_count
+			FROM
+				(
+				SELECT
+					TO_CHAR(TO_DATE('00', 'HH24') + LEVEL / 24, 'HH24') AS result_date, 0 AS result_count
+				FROM
+					DUAL
+				CONNECT BY LEVEL <![CDATA[<=]]> 24
+				UNION ALL
+				SELECT
+					TO_CHAR(request_date, 'HH24') AS result_date, COUNT(*) AS result_count
+				FROM
+					UNTACT_BOOK_RESERVATION
+				<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="homepage_id != null and homepage_id != '' and homepage_id != 'ALL'">
+				AND	homepage_id = #{homepage_id}
+				</if>
+				<if test="member_id != null and member_id != ''">
+				AND	member_id = #{member_id}
+				</if>
+				AND	TO_CHAR(request_date, 'yyyy-MM-dd') = #{search_date}
+				</trim>
+				GROUP BY TO_CHAR(request_date, 'HH24')
+				)
+			GROUP BY result_date
+			)
+		ORDER BY result_date
+	</select>
+	
+	<select id="getArchiveStatistics" resultType="kr.go.gbelib.app.cms.module.untactBook.statistics.UntactBookStatistics">
+		SELECT
+			result_date, SUM(result_count) AS result_count
+		FROM
+			(
+			SELECT
+				<if test="date_type == 'DAY'">
+				TO_CHAR(TO_DATE(#{search_date}, 'yyyy-MM') + (LEVEL - 1), 'yyyy-MM-dd') AS result_date, 0 AS result_count
+				</if>
+				<if test="date_type == 'WEEK'">
+				TO_CHAR(LEVEL) AS result_date, 0 AS result_count
+				</if>
+				<if test="date_type == 'MONTH'">
+				TO_CHAR(ADD_MONTHS(TO_DATE(#{year} || '-01', 'yyyy-MM'), LEVEL - 1), 'yyyy-MM') AS result_date, 0 AS result_count
+				</if>
+			FROM
+				DUAL
+			CONNECT BY LEVEL <![CDATA[<=]]>
+				<if test="date_type == 'DAY'">TO_CHAR(LAST_DAY(TO_DATE(#{search_date}, 'yyyy-MM')), 'dd')</if>
+				<if test="date_type == 'WEEK'">7</if>
+				<if test="date_type == 'MONTH'">12</if>
+			UNION ALL
+			SELECT
+				<if test="date_type == 'DAY'">
+				TO_CHAR(request_date, 'yyyy-MM-dd') AS result_date, COUNT(*) as result_count
+				</if>
+				<if test="date_type == 'WEEK'">
+					TO_CHAR(request_date, 'd') AS result_date, COUNT(*) AS result_count
+				</if>
+				<if test="date_type == 'MONTH'">
+				TO_CHAR(request_date, 'yyyy-MM') AS result_date, COUNT(*) AS result_count
+				</if>
+			FROM
+				UNTACT_BOOK_RESERVATION
+			<include refid="commonWhere" />
+			)
+		GROUP BY result_date
+		ORDER BY result_date
+	</select>
+	
+	<select id="getStatisticsTotalCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_RESERVATION
+		<trim prefix="WHERE" prefixOverrides="OR|AND">
+		<if test="homepage_id != null and homepage_id != '' and homepage_id != 'ALL'">
+		AND	homepage_id = #{homepage_id}
+		</if>
+		<if test="member_id != null and member_id != ''">
+		AND	member_id = #{member_id}
+		</if>
+		<choose>
+			<when test="date_type == 'TIME'">
+			AND	TO_CHAR(request_date, 'yyyy-MM-dd') = #{search_date}
+			</when>
+			<when test="date_type == 'DAY'">
+			AND	TO_CHAR(request_date, 'yyyy-MM') = #{search_date}
+			</when>
+			<when test="date_type == 'MONTH'">
+			AND	TO_CHAR(request_date, 'yyyy') = #{year}
+			</when>
+		</choose>
+		</trim>
+	</select>
+    
+</mapper>

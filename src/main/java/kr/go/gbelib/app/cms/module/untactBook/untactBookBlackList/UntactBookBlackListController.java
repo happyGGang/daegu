@@ -1,8 +1,10 @@
 package kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList;
 
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.StaticVariables;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value="/cms/module/untactBook/untactBookBlackList")
@@ -29,6 +32,11 @@ public class UntactBookBlackListController extends BaseController {
 		checkAuth("R", model, request);
 		
 		untactBookBlackList.setHomepage_id(getAsideHomepageId(request));
+		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookBlackList.setAdmin_member_id(member.getMember_id());
 		
 		int count = service.getUntactBookBlackListCount(untactBookBlackList);
 		service.setPaging(model, count, untactBookBlackList);

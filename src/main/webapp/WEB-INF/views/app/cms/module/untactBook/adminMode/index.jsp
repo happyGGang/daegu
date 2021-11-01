@@ -58,13 +58,16 @@ $(function() {
 });
 
 //진행상황 변경 버튼
-function reservationStepChange(member_id, member_name, reservation_step, request_number, $this) {
+function reservationStepChange(member_id, member_name, reservation_step, request_number, $this, book_name, locker_number, book_regno) {
 	
 	var ajaxData = {
 		'member_id' : member_id,
 		'member_name' : member_name,
 		'reservation_step' : reservation_step,
-		'request_number' : request_number
+		'request_number' : request_number,
+		'book_name' : book_name,
+		'locker_number' : locker_number,
+		'book_regno' : book_regno
 	};
 	
 	if(confirm(reservation_step + ' 하시겠습니까?')) {
@@ -75,10 +78,10 @@ function reservationStepChange(member_id, member_name, reservation_step, request
 			success: function(response) {
 				if(response.valid) {
 					alert(reservation_step + ' 되었습니다.'); 
-					if(reservation_step == '비치') {
+					if(reservation_step == '대출') {
 						$this.hide();
 						$this.parent().children('a#cancelBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('비치');
+						$this.parent().parent().next().children('#reservationStep').text('대출');
 					} 
 				} else {
 					alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
@@ -394,8 +397,8 @@ function randomPassword(passwordCount, nonPasswordCount) {
 										</td>
 										<td>
 										<div class="button">
-											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>
-											<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '비치'?'':' style="display:none;"'}>취소</a>
+											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출', '${i.request_number}', $(this), '${i.book_name}', '${i.locker_number}', '${i.book_regno}');" ${i.reservation_step eq '예약'?'':' style="display:none;"'}>대출</a>
+											<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>취소</a>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 										</div>
 										</td>

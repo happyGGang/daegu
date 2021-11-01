@@ -28,6 +28,10 @@ function cancelReserve(request_number, member_id, member_name) {
 	}
 }
 
+function cancelDetail(request_number, member_id, member_name, cancel_reason) {
+	alert(cancel_reason + '로 인한 예약취소 입니다.');		
+}
+
 function qrCode(locker_password) {
 
 	var ajaxData = {
@@ -87,7 +91,7 @@ function qrCode(locker_password) {
 			<th style="width:12%">신청일</th>
 			<th style="width:8%">예약상태</th>
 			<th style="width:16%">책이름</th>
-			<th style="width:6%">예약취소</th>
+			<th style="width:6%">상태</th>
 		</thead>
 		<tbody>
 		<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
@@ -96,7 +100,18 @@ function qrCode(locker_password) {
 				<td>${i.request_date}</td>
 				<td>${i.reservation_step}</td>
 				<td>${i.book_name}</td>
-				<td><a href="#" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}','${i.member_id}','${i.member_name}')">예약취소</a></td>
+				<td>
+					<c:choose>
+						<c:when test="${i.cancel_yn eq 'Y'}">
+						예약취소
+						<a href="#" class="btn reserveCancel" onclick="cancelDetail('${i.request_number}','${i.member_id}','${i.member_name}','${i.cancel_reason}')">취소사유</a>
+						</c:when>
+						<c:otherwise>
+						예약중
+						<a href="#" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}','${i.member_id}','${i.member_name}')">예약취소</a>
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
 		</c:forEach>
 		</tbody>

@@ -14,6 +14,8 @@ public class UntactBookPenaltySetting extends PagingUtils {
 	private String use_yn;  //사용여부
 	private String save_date;  //수정일
 	
+	private String admin_member_id;
+	
 	public int getPenalty_idx() {
 		return penalty_idx;
 	}
@@ -77,6 +79,13 @@ public class UntactBookPenaltySetting extends PagingUtils {
 	public void setSave_date(String save_date) {
 		this.save_date = save_date;
 	}
-	
+
+	public String getAdmin_member_id() {
+		return admin_member_id;
+	}
+
+	public void setAdmin_member_id(String admin_member_id) {
+		this.admin_member_id = admin_member_id;
+	}
 	
 }

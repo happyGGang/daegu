@@ -12,42 +12,98 @@
     </sql>
 	
 	<select id="getUntactBookCancelHistoryCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			UNTACT_BOOK_RESERVATION
-		WHERE
-			homepage_id = #{homepage_id}
-		AND cancel_yn = 'Y'
-		<include refid="where"/>
+		 SELECT 
+				COUNT(*)
+		   FROM (
+				   SELECT
+						homepage_id, locker_number, request_number, member_id, member_name,
+						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
+						book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
+						cancel_id, cancel_ip, sms_send_yn, sms_send_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_RESERVATION
+					WHERE
+						homepage_id = #{homepage_id}
+					AND cancel_yn = 'Y'
+					<include refid="where"/>
+			)
 	</select>
 	
 	<select id="getUntactBookCancelHistoryList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookCancelHistory.UntactBookCancelHistory">
 		${pagingTop}
-			SELECT
-				homepage_id, locker_number, request_number, member_id, member_name,
-				cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date
-			FROM
-				UNTACT_BOOK_RESERVATION
-			WHERE
-				homepage_id = #{homepage_id}
-			AND cancel_yn = 'Y'
-			<include refid="where"/>
-			ORDER BY request_number DESC
+		   SELECT
+				homepage_id, locker_number, request_number, member_id,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+				admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, locker_number, request_number, member_id, member_name,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_RESERVATION
+					WHERE
+						homepage_id = #{homepage_id}
+					AND cancel_yn = 'Y'
+					<include refid="where"/>
+					ORDER BY request_number DESC
+			)
 		${pagingBottom}	
 	</select>
 	
 	<select id="getUntactBookCancelHistoryExcelList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookCancelHistory.UntactBookCancelHistory">
 		SELECT
-			homepage_id, locker_number, request_number, member_id, member_name,
-			cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date
-		FROM
-			UNTACT_BOOK_RESERVATION
-		WHERE
-			homepage_id = #{homepage_id}
-		AND cancel_yn = 'Y'
-		<include refid="where"/>
-		ORDER BY request_number DESC
+				homepage_id, locker_number, request_number, member_id,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+				admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, locker_number, request_number, member_id, member_name,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_RESERVATION
+					WHERE
+						homepage_id = #{homepage_id}
+					AND cancel_yn = 'Y'
+					<include refid="where"/>
+					ORDER BY request_number DESC
+			)
 	</select>
 	
 </mapper>

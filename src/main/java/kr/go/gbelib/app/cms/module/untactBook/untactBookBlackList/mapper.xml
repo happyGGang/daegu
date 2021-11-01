@@ -27,38 +27,85 @@
 	</insert>
 	
 	<select id="penaltyCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			UNTACT_BOOK_BLACKLIST
-		WHERE
-			homepage_id = #{homepage_id}
-		AND member_id = #{member_id}
-		AND TO_CHAR(penalty_day, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+		SELECT 
+				COUNT(*)
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+			 			penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_BLACKLIST
+					WHERE
+						homepage_id = #{homepage_id}
+					AND member_id = #{member_id}
+					AND TO_CHAR(penalty_day, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+			)
 	</select>
 	
 	<select id="getUntactBookBlackListCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			UNTACT_BOOK_BLACKLIST
-		WHERE
-			homepage_id = #{homepage_id}
-		<include refid="where"/>
+		SELECT 
+				COUNT(*)
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+			 			penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_BLACKLIST
+					WHERE
+						homepage_id = #{homepage_id}
+						<include refid="where"/>
+			)
 	</select>
 	
 	<select id="getUntactBookBlackListList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackList">
 		${pagingTop}
 			SELECT
-				homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
-			 	penalty_register_ip, penalty_register_id
-			FROM
-				UNTACT_BOOK_BLACKLIST
-			WHERE
-				homepage_id = #{homepage_id}
-			<include refid="where"/>
-			ORDER BY penalty_day DESC
-		${pagingBottom}
+				homepage_id, member_id, penalty_reason, penalty_day,
+			 	penalty_register_ip, penalty_register_id, admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+					 	penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_BLACKLIST
+					WHERE
+					homepage_id = #{homepage_id}
+					<include refid="where"/>
+					ORDER BY penalty_day DESC
+			)
+		${pagingBottom}	
 	</select>
 	
 	<delete id="deleteUntactBookBlackList">
@@ -91,14 +138,33 @@
 	</select>
 	
 	<select id="getUntactBookBlackListExcelList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackList">
-		SELECT
-			homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
-		 	penalty_register_ip, penalty_register_id
-		FROM
-			UNTACT_BOOK_BLACKLIST
-		WHERE
-			homepage_id = #{homepage_id}
-		<include refid="where"/>
-		ORDER BY penalty_day DESC
+				SELECT
+				homepage_id, member_id, penalty_reason, penalty_day,
+			 	penalty_register_ip, penalty_register_id, admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+					 	penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						UNTACT_BOOK_BLACKLIST
+					WHERE
+					homepage_id = #{homepage_id}
+					<include refid="where"/>
+					ORDER BY penalty_day DESC
+			)
 	</select>
 </mapper>

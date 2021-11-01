@@ -17,6 +17,8 @@ public class UntactBookBlackList extends PagingUtils {
 	
 	private String[] member_id_arr; //사용자ID_arr
 	
+	private String admin_member_id;
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -76,6 +78,12 @@ public class UntactBookBlackList extends PagingUtils {
 	}
 	public void setMember_id_arr(String[] member_id_arr) {
 		this.member_id_arr = member_id_arr;
+	}
+	public String getAdmin_member_id() {
+		return admin_member_id;
+	}
+	public void setAdmin_member_id(String admin_member_id) {
+		this.admin_member_id = admin_member_id;
 	}
 	
 }

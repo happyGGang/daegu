@@ -54,7 +54,6 @@ public class BookExpressController extends BaseController {
     		service.alertMessageAndUrl("대표도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/portalMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookExpress.getMenu_idx(), bookExpress.getBefore_url()), request, response);
     		return null;
         }
-		
 		bookExpress.setAgency_id(loginPortal.getAgency_id());
 		service.setPaging(model, service.getInterestBookCount(bookExpress), bookExpress);
 

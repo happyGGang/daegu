@@ -49,6 +49,7 @@ public class CommonAPI {
 
 	public final static String ILUS_API_URL = ResourceBundle.getBundle("api").getString("ilus.api.url");
 	public final static String LIBONE_API_URL = ResourceBundle.getBundle("api").getString("libone.api.url");
+	public final static String KEYWORD_API_URL = ResourceBundle.getBundle("api").getString("keyword.api.url");
 
 	public final static String NAVER_LIST_API_URL = "https://openapi.naver.com/v1/search/book.xml";
 	public final static String NAVER_DETAIL_API_URL = "https://openapi.naver.com/v1/search/book_adv.xml";
@@ -98,6 +99,50 @@ public class CommonAPI {
 					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
 				}
 				log.error("@@@@@@@@@@@@@@@@@@ KCMS_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 대구통합도서관 BOOK SEACH API
+	 * @author YONGJU 2021. 10. 27.
+	 * @param requestName - 요청명
+	 * @param param 파라미터
+	 * @return
+	 */
+	public static Map<String, Object> sendKEYWORD(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = KEYWORD_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				
+				
+				for ( String oneKey : keys ) {
+					 paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ keyword.api.url : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
 
 				writer.write(StringUtils.join(paramList, "&"));
 			}
@@ -172,26 +217,6 @@ public class CommonAPI {
 		return resultMap;
 
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public static Document sendILUS(Map<String, Object> param) {
 		return sendILUS(param, "POST");

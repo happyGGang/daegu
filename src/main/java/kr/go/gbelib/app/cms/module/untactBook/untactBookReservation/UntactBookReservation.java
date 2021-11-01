@@ -30,6 +30,10 @@ public class UntactBookReservation extends PagingUtils {
 	private String start_date;
 	private String end_date;
 	
+	private String adminMessage;
+	
+	private String admin_member_id;
+	
 	public UntactBookReservation() {}
 	
 	public String getHomepage_id() {
@@ -215,6 +219,21 @@ public class UntactBookReservation extends PagingUtils {
 	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
-	
+
+	public String getAdminMessage() {
+		return adminMessage;
+	}
+
+	public void setAdminMessage(String adminMessage) {
+		this.adminMessage = adminMessage;
+	}
+
+	public String getAdmin_member_id() {
+		return admin_member_id;
+	}
+
+	public void setAdmin_member_id(String admin_member_id) {
+		this.admin_member_id = admin_member_id;
+	}
 	
 }

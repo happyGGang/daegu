@@ -119,14 +119,6 @@ $(function(){
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 <form:hidden id="penalty_idx_1" path="penalty_idx"/>
 
-	<div class="infodesk">
-		검색 결과 : 총 ${untactBookPenaltySettingCount}건, 홈페이지 ID : ${untactBookPenaltySetting.homepage_id}
-		<div class="button">
-			<c:if test="${authC}">
-				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
-			</c:if>
-		</div>
-	</div>
 	<div class="ui-state-highlight">
 		<em>* 패널티 기간은 중복 설정이 불가능합니다.</em>
 	</div>

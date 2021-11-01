@@ -28,6 +28,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/dgportal/css/sub_design.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jqcloud2.css"  />
 
 <!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_contents.css"/-->
 <!--link rel="stylesheet" type="text/css" href="/resources/common/css/dgportal_default.css"--/>
@@ -47,6 +49,7 @@
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jqcloud2.js"></script>
 </head>
 <body>
 

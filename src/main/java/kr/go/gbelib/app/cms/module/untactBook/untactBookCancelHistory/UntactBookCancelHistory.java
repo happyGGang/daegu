@@ -23,6 +23,8 @@ public class UntactBookCancelHistory extends PagingUtils {
 	private String cancel_start_date;
 	private String cancel_end_date;
 	
+	private String admin_member_id;
+	
 	public UntactBookCancelHistory() {}
 
 	public String getHomepage_id() {
@@ -144,7 +146,13 @@ public class UntactBookCancelHistory extends PagingUtils {
 	public void setCancel_end_date(String cancel_end_date) {
 		this.cancel_end_date = cancel_end_date;
 	}
-	
-	
+
+	public String getAdmin_member_id() {
+		return admin_member_id;
+	}
+
+	public void setAdmin_member_id(String admin_member_id) {
+		this.admin_member_id = admin_member_id;
+	}
 	
 }
