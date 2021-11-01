@@ -390,7 +390,7 @@ function goto_store() {
 					<c:when test="${i.com_code == 'FXLI'}">
 						<c:set var="site_code" value=""/>
 						<c:choose>
-						<c:when test="${isMobile}">
+						<c:when test="${isMobile && i.com_code ne 'ECO'}">
 							<c:set var="data" value="${mobileList[status.index]}"/>
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>
@@ -402,7 +402,7 @@ function goto_store() {
 					<c:when test="${i.com_code == 'YESB'}">
 						<c:set var="site_code" value=""/>
 						<c:choose>
-						<c:when test="${isMobile}">
+						<c:when test="${isMobile && i.com_code ne 'ECO'}">
 							<c:set var="data" value="${mobileList[status.index]}"/>
 							<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}'); return false;"/>
 						</c:when>

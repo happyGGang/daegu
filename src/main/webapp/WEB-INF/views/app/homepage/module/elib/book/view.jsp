@@ -361,308 +361,308 @@ function go_to_login() {
 }
 </script>
 
+
+
 <c:if test="${param.from_search == 'Y'}">
-<form:form modelAttribute="book" id="detailForm" action="../search/index.do" method="post">
-<form:hidden path="menu_idx" value="${param.menu_idx}"/>
-<form:hidden path="book_idx" value="${param.book_idx}"/>
-<form:hidden path="viewPage" value="${param.viewPage}"/>
-<form:hidden path="search_text" value="${param.search_text}"/>
-<form:hidden path="search_type" value="${param.search_type}"/>
-<form:hidden path="type" value="${param.type}"/>
-<form:hidden path="author_name" value="${param.author_name}"/>
-<form:hidden path="book_pubname" value="${param.book_pubname}"/>
-<form:hidden path="book_year" value="${param.book_year}"/>
-<form:hidden path="rowCount" value="${param.rowCount}"/>
-</form:form>
+	<form:form modelAttribute="book" id="detailForm" action="../search/index.do" method="post">
+		<form:hidden path="menu_idx" value="${param.menu_idx}"/>
+		<form:hidden path="book_idx" value="${param.book_idx}"/>
+		<form:hidden path="viewPage" value="${param.viewPage}"/>
+		<form:hidden path="search_text" value="${param.search_text}"/>
+		<form:hidden path="search_type" value="${param.search_type}"/>
+		<form:hidden path="type" value="${param.type}"/>
+		<form:hidden path="author_name" value="${param.author_name}"/>
+		<form:hidden path="book_pubname" value="${param.book_pubname}"/>
+		<form:hidden path="book_year" value="${param.book_year}"/>
+		<form:hidden path="rowCount" value="${param.rowCount}"/>
+	</form:form>
 </c:if>
 
 <form:form modelAttribute="book" method="GET" action="view.do">
-<form:hidden path="editMode"/>
-<form:hidden path="menu_idx" value="${param.menu_idx}"/>
-<form:hidden path="menu" value="${param.menu}"/>
-<form:hidden path="type"/>
-<form:hidden path="sortField" value="${param.sortField}"/>
-<form:hidden path="sortType" value="${param.sortType}"/>
-<form:hidden path="viewPage" value="${param.viewPage}"/>
-<form:hidden path="parent_id" value="${param.parent_id}"/>
-<form:hidden path="com_code" value="${param.com_code}"/>
-<form:hidden path="book_idx" value="${param.book_idx}"/>
-<form:hidden path="lesson_no"/>
-<form:hidden path="audio_no"/>
+	<form:hidden path="editMode"/>
+	<form:hidden path="menu_idx" value="${param.menu_idx}"/>
+	<form:hidden path="menu" value="${param.menu}"/>
+	<form:hidden path="type"/>
+	<form:hidden path="sortField" value="${param.sortField}"/>
+	<form:hidden path="sortType" value="${param.sortType}"/>
+	<form:hidden path="viewPage" value="${param.viewPage}"/>
+	<form:hidden path="parent_id" value="${param.parent_id}"/>
+	<form:hidden path="com_code" value="${param.com_code}"/>
+	<form:hidden path="book_idx" value="${param.book_idx}"/>
+	<form:hidden path="lesson_no"/>
+	<form:hidden path="audio_no"/>
 
-<div class="serial-wrap">
-	<div class="sview">
-		<div class="sinfo">
-			<div class="thumb">
-				<c:if test="${not empty book.book_image}">
-				<c:if test="${book.bestbook_idx > 0}">
-				<img src="/resources/homepage/elib/img/book_best.png" alt="베스트도서" style="position:relative; top: 43px; left: -17px; border: 0px;"/>
-				</c:if>
-				<img src="${book.book_image}" alt="${book.book_name}" onerror="this.src='/resources/homepage/dgportal/img/book_noimg.png'">
-				</c:if>
-				<c:if test="${empty book.book_image}">
-				<p class="noImg">
-					<img src="/resources/common/img/noImg.gif" alt="noImage"/>
-				</p>
-				</c:if>
+	<div class="serial-wrap">
+		<div class="sview">
+			<div class="sinfo">
+				<div class="thumb">
+					<c:if test="${not empty book.book_image}">
+						<c:if test="${book.bestbook_idx > 0}">
+							<img src="/resources/homepage/elib/img/book_best.png" alt="베스트도서" style="position:relative; top: 43px; left: -17px; border: 0px;"/>
+						</c:if>
+						<img src="${book.book_image}" alt="${book.book_name}">
+					</c:if>
+					<c:if test="${empty book.book_image}">
+						<p class="noImg">
+							<img src="/resources/common/img/noImg.gif" alt="noImage"/>
+						</p>
+					</c:if>
+				</div>
+				<div class="info">
+					<ul>
+						<li>
+							<b>${fn:escapeXml(book.book_name)}</b>
+						</li>
+						<li>카테고리 : ${fn:escapeXml(book.parent_name)} &gt; ${fn:escapeXml(book.cate_name)}</li>
+						<li>저자 : ${fn:escapeXml(book.author_name)}<span class="txt-bar">&nbsp;</span>출판사 : ${fn:escapeXml(book.book_pubname)}<span class="txt-bar">&nbsp;</span>출판년도 : ${fn:escapeXml(book.book_pubdt)}</li>
+						<li>공급사 : ${fn:escapeXml(book.comp_name)}
+							<c:if test="${not empty viewer_url}">
+								<span class="txt-bar">&nbsp;</span><a href="/${homepage.context_path}/html.do?menu_idx=58" target="_blank" rel="noopener noreferrer" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a><!-- <a href="${viewer_url}" target="_blank" rel="noopener noreferrer" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a> -->
+							</c:if>
+						</li>
+						<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
+						<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}/${book.max_lend > 0 ? book.max_lend : bookConfig.book_max_lend}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}/${bookConfig.book_max_reserve}</li>
+						<li>지원 기기: ${fn:escapeXml(book.label)}<span class="txt-bar">&nbsp;</span>서비스 형태: ${fn:escapeXml(book.format)}</li>
+						<li>좋아요: ${fn:escapeXml(book.recommend_cnt)}</li>
+					</ul>
+				</div>
+				<br/>
+				<div class="sbtn">
+					<c:choose>
+						<c:when test="${book.type == 'WEB'}">
+						</c:when>
+						<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
+						</c:when>
+						<%--
+                                        <c:when test="${book.type == 'ADO' && book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url)}">
+                                        <a href="#" class="btn btn1" id="book_view" data-url="${book.link_url}"><span>바로보기</span></a>
+                                        </c:when>
+                                        <c:when test="${book.type == 'ADO' && book.com_code == 'HANS' && isMobile}">
+                                        <a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}"><span>바로보기</span></a>
+                                        </c:when>
+                                        <c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && (!isMobile || empty book.mobile_link_url)}">
+                                        <a href="#" class="btn btn1" id="book_view" data-url="${book.link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
+                                        </c:when>
+                                        <c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && isMobile}">
+                                        <a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
+                                        </c:when>
+                        --%>
+						<c:when test="${book.status == '대출 가능'}">
+							<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
+							<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
+							<c:if test="${getIp eq '218.48.151.16'}">
+
+							</c:if>
+
+						</c:when>
+						<c:when test="${book.status == '예약 가능'}">
+							<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
+						</c:when>
+						<c:when test="${book.status == '3'}">
+							<%--
+                                            <a href="#" class="btn btn1" id="book_return"><span>반납하기</span></a>
+                                            <a href="#" class="btn btn1" id="book_extend"><span>대출 연장</span></a>
+                            --%>
+						</c:when>
+						<c:when test="${book.status == '4'}">
+							<%--
+                                            <a href="#" class="btn btn2" id="book_cancel"><span>예약 취소</span></a>
+                            --%>
+						</c:when>
+						<c:when test="${book.status == '5'}">
+						</c:when>
+					</c:choose>
+					<a href="#" class="btn btn3" id="book_recommend"><span>좋아요</span></a>
+					<a href="#" class="btn btn4" id="book_addfavorite"><span>나의 관심도서</span></a>
+				</div>
 			</div>
+			<div class="tabmenu tab1">
+				<c:choose>
+					<c:when test="${book.type == 'WEB'}">
+						<ul>
+							<li class="active"><a href="#" data-target="chapters">회차</a></li>
+							<li class=""><a href="#" data-target="book_info">강좌 소개</a></li>
+							<li class=""><a href="#" data-target="author_info">강사 소개</a></li>
+							<li class=""><a href="#" data-target="book_table">목차</a></li>
+							<!-- <li class=""><a href="#" data-target="comments">서평</a></li> -->
+						</ul>
+					</c:when>
+					<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
+						<ul>
+							<li class="active"><a href="#" data-target="chapters">회차</a></li>
+							<li class=""><a href="#" data-target="book_info">도서 소개</a></li>
+							<li class=""><a href="#" data-target="author_info">저자 소개</a></li>
+							<li class=""><a href="#" data-target="book_table">목차</a></li>
+							<!-- <li class=""><a href="#" data-target="comments">서평</a></li> -->
+						</ul>
+					</c:when>
+					<c:otherwise>
+						<ul>
+							<li class="active"><a href="#" data-target="book_info">도서 소개</a></li>
+							<li class=""><a href="#" data-target="author_info">저자 소개</a></li>
+							<li class=""><a href="#" data-target="book_table">목차</a></li>
+							<!-- <li class=""><a href="#" data-target="comments">서평</a></li> -->
+						</ul>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<c:choose>
+				<c:when test="${book.type == 'WEB'}">
+					<c:if test="${book.com_code == 'YBMN' && isMobile}">
+						<p><a href="https://itunes.apple.com/kr/app/aqua-nmanager/id1048325731?mt=8" target="_blank"><span style="color: red; font-weight: bold;">* 아이폰에서 재생이 되지 않을 경우 [플레이어 수동 설치] 클릭</span></a></p>
+					</c:if>
+					<c:if test="${book.com_code == 'ARTN' && isMobile}">
+						<p><span style="color: red; font-weight: bold;">* 로그인 화면이 나타나면 비밀번호에 아이디를 입력해주세요. 예) 아이디: CPgbelib / 비번: gbelib</span></p>
+					</c:if>
+					<div id="chapters" class="tab_body">
+						<table>
+							<thead>
+							<tr>
+								<th>회차</th>
+								<th>제목</th>
+								<th>내용보기</th>
+							</tr>
+							</thead>
+							<tbody>
+							<c:choose>
+								<c:when test="${empty courseList}">
+									<tr>
+										<td colspan="3">회차가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${courseList}" var="i" varStatus="status">
+										<tr>
+											<td>${i.lesson_no}</td>
+											<td>${i.lesson_name}</td>
+											<c:choose>
+												<c:when test="${book.com_code == 'ARTN'}">
+													<c:choose>
+														<c:when test="${isMobile && member.login && member.member_class eq '0'}">
+															<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}&u=CP${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
+														</c:when>
+														<c:when test="${member.login && member.member_class eq '0'}">
+															<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}&UserID=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
+														</c:when>
+														<c:otherwise>
+															<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:when test="${book.com_code == 'YESB'}">
+													<c:choose>
+														<c:when test="${isMobile && member.login && member.member_class eq '0'}">
+															<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}&user_id=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
+														</c:when>
+														<c:when test="${member.login && member.member_class eq '0'}">
+															<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}&user_id=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
+														</c:when>
+														<c:otherwise>
+															<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<c:choose>
+														<c:when test="${isMobile && member.login && member.member_class eq '0'}">
+															<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
+														</c:when>
+														<c:when test="${member.login && member.member_class eq '0'}">
+															<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
+														</c:when>
+														<c:otherwise>
+															<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
+														</c:otherwise>
+													</c:choose>
+												</c:otherwise>
+											</c:choose>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</c:when>
+				<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
+					<div id="chapters" class="tab_body">
+						<table>
+							<thead>
+							<tr>
+								<th>회차</th>
+								<th>제목</th>
+								<th>내용보기</th>
+							</tr>
+							</thead>
+							<tbody>
+							<c:choose>
+								<c:when test="${empty audioList}">
+									<tr>
+										<td colspan="3">회차가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${audioList}" var="i" varStatus="status">
+										<tr>
+											<td>${i.audio_no}</td>
+											<td>${i.audio_name}</td>
+											<td>
+												<c:choose>
+													<c:when test="${book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url) && member.login && member.member_class eq '0'}">
+														<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+													</c:when>
 
-			<div class="info">
-				<ul>
-					<li>
-						<b>${fn:escapeXml(book.book_name)}</b>
-					</li>
-					<li>저자 : ${fn:escapeXml(book.author_name)}<span class="txt-bar">&nbsp;</span>출판사 : ${fn:escapeXml(book.book_pubname)}<span class="txt-bar">&nbsp;</span>출판년도 : ${fn:escapeXml(book.book_pubdt)}</li>
-					<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
-					<li>대출 가능 여부: ${fn:escapeXml(book.status)}<span class="txt-bar">&nbsp;</span>대출 : ${fn:escapeXml(book.book_lend)}<%-- / ${fn:escapeXml(book.max_lend)}--%><span class="txt-bar">&nbsp;</span>예약 : ${fn:escapeXml(book.book_reserve)}</li>
-					<li>서비스 형태: ${fn:escapeXml(book.format)}</li>
-					<li>좋아요: ${fn:escapeXml(book.recommend_cnt)}</li>
-				</ul>
+													<c:when test="${book.com_code == 'HANS' && isMobile && member.login && member.member_class eq '0'}">
+														<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+													</c:when>
+
+													<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD') && (!isMobile || empty i.mobile_link_url) && member.login && member.member_class eq '0'}">
+														<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&user_id=${member.member_id}&user_name=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+													</c:when>
+
+													<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD') && isMobile && member.login && member.member_class eq '0'}">
+														<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+													</c:when>
+													<%--
+                                                                            <c:when test="${isMobile &&member.login && member.member_class eq '0'}">
+                                                                            <td><a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a></td>
+                                                                            </c:when>
+                                                                            <c:when test="${member.login && member.member_class eq '0'}">
+                                                                            <td><a href="#" class="btn btn1 audio_view" data-url="${i.link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a></td>
+                                                                            </c:when>
+                                                    --%>
+													<c:otherwise>
+														<a href="#" class="btn btn1 audio_view"><span>바로듣기</span></a>
+													</c:otherwise>
+												</c:choose>
+											</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</c:when>
+			</c:choose>
+			<div id="book_info" class="tab_body" <c:if test="${book.type == 'WEB' || (book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD'))}">style="display: none;"</c:if>>
+				<c:set var="book_info" value="${fn:replace(book.book_info, crlf, '<br/>')}"></c:set>
+					${book_info}
+			</div>
+			<div id="author_info" class="tab_body" style="display: none;">
+				<c:set var="author_info" value="${fn:replace(book.author_info, crlf, '<br/>')}"></c:set>
+					${author_info}
+			</div>
+			<div id="book_table" class="tab_body" style="display: none;">
+				<c:set var="book_table" value="${fn:replace(book.book_table, crlf, '<br/>')}"></c:set>
+					${book_table}
+			</div>
+			<div id="comments" class="tab_body" style="display: none;">
 			</div>
 			<br/>
 			<div class="sbtn">
-				<c:choose>
-				<c:when test="${book.type == 'WEB'}">
-				</c:when>
-				<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
-				</c:when>
-<%--
-				<c:when test="${book.type == 'ADO' && book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url)}">
-				<a href="#" class="btn btn1" id="book_view" data-url="${book.link_url}"><span>바로보기</span></a>
-				</c:when>
-				<c:when test="${book.type == 'ADO' && book.com_code == 'HANS' && isMobile}">
-				<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}"><span>바로보기</span></a>
-				</c:when>
-				<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && (!isMobile || empty book.mobile_link_url)}">
-				<a href="#" class="btn btn1" id="book_view" data-url="${book.link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
-				</c:when>
-				<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && isMobile}">
-				<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
-				</c:when>
---%>
-				<c:when test="${book.lendable}">
-					<c:choose>
-					<c:when test="${fn:escapeXml(book.library_name) eq null || fn:escapeXml(book.library_name) eq ''}">
-						
-					</c:when>
-					<c:otherwise>
-					<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
-					</c:otherwise>
-					</c:choose>
-				</c:when>
-				<c:when test="${book.reservable}">
-				<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
-				</c:when>
-				<c:when test="${book.status == '3'}">
-<%--
-				<a href="#" class="btn btn1" id="book_return"><span>반납하기</span></a>
-				<a href="#" class="btn btn1" id="book_extend"><span>대출 연장</span></a>
---%>
-				</c:when>
-				<c:when test="${book.status == '4'}">
-<%--
-				<a href="#" class="btn btn2" id="book_cancel"><span>예약 취소</span></a>
---%>
-				</c:when>
-				<c:when test="${book.status == '5'}">
-				</c:when>
-				</c:choose>
-				<a href="#" class="btn btn3" id="book_recommend"><span>좋아요</span></a>
-				<c:choose>
-				<c:when test="${fn:escapeXml(book.library_name) eq null || fn:escapeXml(book.library_name) eq ''}">
-					
-				</c:when>
-				<c:otherwise>
-				<a href="#" class="btn btn4" id="book_addfavorite"><span>나의 관심도서</span></a>
-				</c:otherwise>
-				</c:choose>
-				
+				<a href="#" id="goto_list" class="btn"><span>목록으로</span></a>
 			</div>
 		</div>
-		<div class="tabmenu tab1">
-			<c:choose>
-			<c:when test="${book.type == 'WEB'}">
-			<ul>
-				<li class="active"><a href="#" data-target="chapters">회차</a></li>
-				<li class=""><a href="#" data-target="book_info">강좌 소개</a></li>
-				<li class=""><a href="#" data-target="author_info">강사 소개</a></li>
-				<li class=""><a href="#" data-target="book_table">목차</a></li>
-				<!-- <li class=""><a href="#" data-target="comments">서평</a></li> -->
-			</ul>
-			</c:when>
-			<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
-			<ul>
-				<li class="active"><a href="#" data-target="chapters">회차</a></li>
-				<li class=""><a href="#" data-target="book_info">도서 소개</a></li>
-				<li class=""><a href="#" data-target="author_info">저자 소개</a></li>
-				<li class=""><a href="#" data-target="book_table">목차</a></li>
-				<!-- <li class=""><a href="#" data-target="comments">서평</a></li> -->
-			</ul>
-			</c:when>
-			<c:otherwise>
-			<ul>
-				<li class="active"><a href="#" data-target="book_info">도서 소개</a></li>
-				<li class=""><a href="#" data-target="author_info">저자 소개</a></li>
-				<li class=""><a href="#" data-target="book_table">목차</a></li>
-				<!-- <li class=""><a href="#" data-target="comments">서평</a></li> -->
-			</ul>
-			</c:otherwise>
-			</c:choose>
-		</div>
-		<c:choose>
-		<c:when test="${book.type == 'WEB'}">
-		<c:if test="${book.com_code == 'YBMN' && isMobile}">
-		<p><a href="https://itunes.apple.com/kr/app/aqua-nmanager/id1048325731?mt=8" target="_blank"><span style="color: red; font-weight: bold;">* 아이폰에서 재생이 되지 않을 경우 [플레이어 수동 설치] 클릭</span></a></p>
-		</c:if>
-		<c:if test="${book.com_code == 'ARTN' && isMobile}">
-		<p><span style="color: red; font-weight: bold;">* 로그인 화면이 나타나면 비밀번호에 아이디를 입력해주세요. 예) 아이디: CPgbelib / 비번: gbelib</span></p>
-		</c:if>
-		<div id="chapters" class="tab_body">
-			<table>
-				<thead>
-					<tr>
-						<th>회차</th>
-						<th>제목</th>
-						<th>내용보기</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose>
-					<c:when test="${empty courseList}">
-					<tr>
-						<td colspan="3">회차가 없습니다.</td>
-					</tr>
-					</c:when>
-					<c:otherwise>
-					<c:forEach items="${courseList}" var="i" varStatus="status">
-					<tr>
-						<td>${i.lesson_no}</td>
-						<td>${i.lesson_name}</td>
-						<c:choose>
-						<c:when test="${book.com_code == 'ARTN'}">
-							<c:choose>
-							<c:when test="${isMobile && member.login && member.member_class eq '0'}">
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}&u=CP${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:when test="${member.login && member.member_class eq '0'}">
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}&UserID=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:otherwise>
-							<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
-							</c:otherwise>
-							</c:choose>
-						</c:when>
-						<c:when test="${book.com_code == 'YESB'}">
-							<c:choose>
-							<c:when test="${isMobile && member.login && member.member_class eq '0'}">
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}&user_id=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:when test="${member.login && member.member_class eq '0'}">
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}&user_id=${member.member_id}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:otherwise>
-							<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
-							</c:otherwise>
-							</c:choose>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-							<c:when test="${isMobile && member.login && member.member_class eq '0'}">
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.mobile_url}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:when test="${member.login && member.member_class eq '0'}">
-							<td><a href="#" class="btn btn1 course_view" data-url="${i.lesson_url}" data-lessonno="${i.lesson_no}"><span>바로보기</span></a></td>
-							</c:when>
-							<c:otherwise>
-							<td><a href="#" class="btn btn1 course_view"><span>바로보기</span></a></td>
-							</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-						</c:choose>
-					</tr>
-					</c:forEach>
-					</c:otherwise>
-					</c:choose>
-				</tbody>
-			</table>
-		</div>
-		</c:when>
-		<c:when test="${book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD')}">
-		<div id="chapters" class="tab_body">
-			<table>
-				<thead>
-					<tr>
-						<th>회차</th>
-						<th>제목</th>
-						<th>내용보기</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:choose>
-					<c:when test="${empty audioList}">
-					<tr>
-						<td colspan="3">회차가 없습니다.</td>
-					</tr>
-					</c:when>
-					<c:otherwise>
-					<c:forEach items="${audioList}" var="i" varStatus="status">
-					<tr>
-						<td>${i.audio_no}</td>
-						<td>${i.audio_name}</td>
-						<td>
-						<c:choose>
-						<c:when test="${book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url) && member.login && member.member_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
-						</c:when>
-						<c:when test="${book.com_code == 'HANS' && isMobile && member.login && member.member_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
-						</c:when>
-						<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD') && (!isMobile || empty i.mobile_link_url) && member.login && member.member_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&user_id=${member.member_id}&user_name=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
-						</c:when>
-						<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD') && isMobile && member.login && member.member_class eq '0'}">
-						<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
-						</c:when>
-<%--
-						<c:when test="${isMobile &&member.login && member.member_class eq '0'}">
-						<td><a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a></td>
-						</c:when>
-						<c:when test="${member.login && member.member_class eq '0'}">
-						<td><a href="#" class="btn btn1 audio_view" data-url="${i.link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a></td>
-						</c:when>
---%>
-						<c:otherwise>
-						<a href="#" class="btn btn1 audio_view"><span>바로듣기</span></a>
-						</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-					</c:forEach>
-					</c:otherwise>
-					</c:choose>
-				</tbody>
-			</table>
-		</div>
-		</c:when>
-		</c:choose>
-		<div id="book_info" class="tab_body" <c:if test="${book.type == 'WEB' || (book.type == 'ADO' && (book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD'))}">style="display: none;"</c:if>>
-			<c:set var="book_info" value="${fn:replace(book.book_info, crlf, '<br/>')}"></c:set>
-			${book_info}
-		</div>
-		<div id="author_info" class="tab_body" style="display: none;">
-			<c:set var="author_info" value="${fn:replace(book.author_info, crlf, '<br/>')}"></c:set>
-			${author_info}
-		</div>
-		<div id="book_table" class="tab_body" style="display: none;">
-			<c:set var="book_table" value="${fn:replace(book.book_table, crlf, '<br/>')}"></c:set>
-			${book_table}
-		</div>
-		<div id="comments" class="tab_body" style="display: none;">
-		</div>
-		<br/>
-		<div class="sbtn">
-			<a href="#" id="goto_list" class="btn"><span>목록으로</span></a>
-		</div>
 	</div>
-</div>
 </form:form>
