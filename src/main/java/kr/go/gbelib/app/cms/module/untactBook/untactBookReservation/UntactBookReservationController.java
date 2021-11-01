@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.StaticVariables;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 
@@ -43,6 +46,10 @@ public class UntactBookReservationController extends BaseController {
 			untactBookReservation = new UntactBookReservation();
 			untactBookReservation.setHomepage_id(getAsideHomepageId(request));  
 		}
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
 		
 		if (StringUtils.isEmpty(untactBookReservation.getEnd_date())) {
 			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -73,6 +80,11 @@ public class UntactBookReservationController extends BaseController {
 		}
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
+		
 		List<UntactBookReservation> smsList = reservationService.smsSendALL(untactBookReservation);
 		
 		model.addAttribute("sms", smsList);
@@ -85,6 +97,11 @@ public class UntactBookReservationController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		JsonResponse res = new JsonResponse(request);
+		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
 		
 		if (!result.hasErrors()) {
 			Homepage homepage = new Homepage();
@@ -112,6 +129,12 @@ public class UntactBookReservationController extends BaseController {
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public UntactBookReservationSearchView excelDownload(Model model, UntactBookReservation untactBookReservation, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
+		
 		model.addAttribute("untactBookReservation", untactBookReservation);
 		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationExcelList(untactBookReservation));
 		

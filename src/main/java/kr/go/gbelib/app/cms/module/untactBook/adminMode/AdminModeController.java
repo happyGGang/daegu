@@ -2,9 +2,11 @@ package kr.go.gbelib.app.cms.module.untactBook.adminMode;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.StaticVariables;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackList;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookBlackList.UntactBookBlackListService;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
@@ -30,6 +32,7 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = {"/cms/module/untactBook/adminMode"})
@@ -57,6 +60,11 @@ public class AdminModeController extends BaseController {
 		
 		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
 		
 		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
 		reservationService.setPaging(model, count, untactBookReservation);
