@@ -2045,6 +2045,14 @@ public class CommonSearchController extends BaseController {
 			res.setValid(true);
 			res.setMessage("예약 되었습니다.");
 			
+			homepage = homepageService.getHomepageOne(homepage);
+			
+			librarySearch.setManageCode(homepage.getManage_code());
+			String userIp = request.getRemoteAddr();
+			librarySearch.setUserkey(untactBookReservation.getReg_no());
+			String mes = untactBookReservation.getMember_id() + "[" + untactBookReservation.getMember_name() + "] 님께서 비대면도서대출 신청을 하셨습니다.\n\n임시 사물함 번호는 " + untactBookReservation.getLocker_number() + "번 입니다.";
+			LibSearchAPI.sendSms(librarySearch, mes, userIp);
+			
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
