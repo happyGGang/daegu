@@ -11,6 +11,9 @@ $(function() {
 		doGetLoad('index.do', serializeCustom($('form#bookExpress')));
 	});
 	
+	$('#sortField').on('change', function(e) {
+		doGetLoad('index.do', serializeCustom($('#bookExpress')));
+	});
 	
 	$('#all-check').on('click', function(e) {
 		e.preventDefault();
@@ -58,7 +61,10 @@ $(function() {
 <form:form modelAttribute="bookExpress" action="save.do" method="POST">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode" value="MODIFY"/>
-
+<form:select path="sortField" cssClass="selectmenu">
+	<form:option value="add_date">생성날짜순 정렬</form:option>
+	<form:option value="library_code">도서관순 정렬</form:option>
+</form:select>
 <div>
 	<table class="type1 center">
 		<colgroup>

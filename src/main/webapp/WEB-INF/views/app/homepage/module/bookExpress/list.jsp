@@ -249,9 +249,14 @@ $(function() {
 			<form:option value="book_name">도서명</form:option>
 			<form:option value="book_call_no">청구기호</form:option>
 			<form:option value="agency_name">요청학교명</form:option>
+			<form:option value="library_code">도서관명</form:option>
 		</form:select>
 		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
 	</fieldset>
+</div>
+<div class="ui-state-highlight">
+		<em>* 도서관명으로 검색 시, 시립 '도서관명'으로 검색해주시기 바랍니다. (ex. 시립 두류/시립 두류도서관)</em><br/>
+		<em>* 2.28기념도서관 검색 시, 반드시 28기념으로 검색해주시기 바랍니다.</em>
 </div>
 </form:form>

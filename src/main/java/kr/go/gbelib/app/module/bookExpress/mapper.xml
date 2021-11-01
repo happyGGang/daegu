@@ -15,7 +15,15 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		ORDER BY add_date DESC
+		ORDER BY 
+		<choose>
+			<when test="sortField == 'library_code'">
+				library_code, add_date desc
+			</when>
+			<otherwise>
+				add_date desc
+			</otherwise>
+		</choose>
 		${pagingBottom}
 	</select>
 	
@@ -126,9 +134,14 @@
 		<if test="agency_id != null and agency_id != ''">
 		AND	agency_id = #{agency_id}
 		</if>
-		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
+		<choose>
+			<when test="search_type == 'library_code'">
+				and library_code = (select lib_code from cms_homepage where homepage_name like '%'||#{search_text}||'%')
+			</when>
+			<when test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</when>
+		</choose>
 		ORDER BY request_date DESC
 		${pagingBottom}
 	</select>
