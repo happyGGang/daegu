@@ -53,7 +53,7 @@ do {
 <script type="text/javascript">
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함.
-		if (${member.login && member.member_id eq 'info8910'}) {
+		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}) {
 			var result = '';
 			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
 			var x = 0;
@@ -77,8 +77,8 @@ do {
 			
 			var menu_idx = '22';
 			var words = [];
-			var color_rand = ['#fdc300', '#5744eb', '#1481ff', '#23a100', '#FF00E0', '#FF5900'];
-			var weight_rand = ['500', '600', '700', '800', '900'];
+			var color_rand = ['#82be02', '#71aa99', '#955959' ,'#be0252', '#0077d2', '#d26d00', '#d20000', '#24b732', '#00c6cd', '#a602be'];
+			var weight_rand = ['100','200','300','400', '500', '600', '700', '800', '900'];
 			
 			<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
 				var obj = new Object(); 
@@ -121,10 +121,8 @@ do {
 		});
 		
 		$('.book-close-btn').on('click', function() {
-			console.log(document.cookie);
-
 			var $this = $(this);
-			var checkInput = $this.parent().parent().find('.checkbox input[data-day="'+$this.data('day')+'"]');
+			var checkInput = $this.parent().parent().find('.pop-close-set input[data-day="'+$this.data('day')+'"]');
 			var popupId = checkInput.val();
 			if (checkInput.prop('checked')) {
 				var todayDate = new Date();
@@ -308,11 +306,6 @@ do {
 /* 	ul.con li{width:calc(100% - 20px);margin-bottom:10px;} */
 /* 	ul.con li a{color:#000;font-size:18px;font-family:'s-core_dream5_medium';} */
 /* 	ul.con li a span{float:right;font-size:15px;font-family:'s-core_dream4_regular';background:url('/data/menuResources/h32/87/1634785476833.png')no-repeat center right;padding-right:55px;} */
-	
-	#keyword {
-		  width:100%;
-		  height:500px;
-		}
 </style>
 
 <!--추천도서 시작-->
@@ -347,7 +340,7 @@ do {
 	</div>
 	
 	<!-- 안보기 체크박스-->
-	<div class="checkbox">
+	<div class="pop-close-set">
 		<input name="book_popup_${homepage.homepage_id}" data-day="1" id="book_${homepage.homepage_id}" type="checkbox" value="book_popup_${homepage.homepage_id}">
 		<label for="book_${homepage.homepage_id}" style="line-height: 34px;" title="오늘하루 열지않음">오늘하루 열지않음</label>
 		<input name="book_popup_${homepage.homepage_id}_7" data-day="7" id="book_${homepage.homepage_id}_7" type="checkbox" value="book_popup_${homepage.homepage_id}">
