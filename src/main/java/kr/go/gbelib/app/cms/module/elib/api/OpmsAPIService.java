@@ -40,8 +40,8 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class OpmsAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.daegu.go.kr:8000/smt_api/eco/execute/%s.asp";
-	private static final String MEMBER_URL = "http://elib.daegu.go.kr:8000/eco/eco_login_sso2.asp";
+	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8000/smt_api/eco/execute/%s.asp";
+	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8000/eco/eco_login_sso2.asp";
 //	private static final String VIEW_URL = "/external/opms_pop.asp";
 	private static final int TIMEOUT = 30 * 1000;
 	

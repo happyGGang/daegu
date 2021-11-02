@@ -38,12 +38,16 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 
 @Service
 public class BookcubeAPIService extends BaseService {
+
+	//private static final String MAIN_DOMAIN = "http://e-lib.tglnet.or.kr:9080";
+
+	private static final String MAIN_DOMAIN = "http://elib.daegu.go.kr:9080"; //또는 9081 포트
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.daegu.go.kr:9080/FxLibrary/RESTful";
-	private static final String MEMBER_URL = "http://elib.daegu.go.kr:9080/FxLibrary/RESTful/userReg";
-	private static final String APP_URL = "https://elib.daegu.go.kr:9081/FxLibrary/app/appCall";
-	private static final String BOOKINFO_URL = "http://elib.daegu.go.kr:9080/FxLibrary/dependency/program/api_book.jsp";
+	private static final String LEND_URL = MAIN_DOMAIN + "/FxLibrary/RESTful";
+	private static final String MEMBER_URL = MAIN_DOMAIN + "/FxLibrary/RESTful/userReg";
+	private static final String APP_URL = MAIN_DOMAIN + "/FxLibrary/app/appCall";
+	private static final String BOOKINFO_URL = MAIN_DOMAIN + "/FxLibrary/dependency/program/api_book.jsp";
 	private static final int TIMEOUT = 30 * 1000;
 	
 	private Map<String, String> parse(String xml) {

@@ -41,10 +41,10 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class Yes24APIService extends BaseService {
 
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://elib.daegu.go.kr:8081/YES24/yes24_action_new.asp";
-	private static final String MEMBER_URL = "http://elib.daegu.go.kr:8081/YES24/yes24_member_sync.asp";
-	private static final String APP_URL = "https://elib.daegu.go.kr:8082/B2B_DAEGU/device_url.asp";
-	private static final String BOOKINFO_URL = "http://elib.daegu.go.kr:8081/YES24/bookinfo.asp";
+	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_action_new.asp";
+	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8081/YES24/yes24_member_sync.asp";
+	private static final String APP_URL = "http://e-lib.tglnet.or.kr:8081/YES24/api/device_url.asp";
+	private static final String BOOKINFO_URL = "http://e-lib.tglnet.or.kr:8081/YES24/bookinfo.asp";
 	private static final int TIMEOUT = 30 * 1000;
 
 	private String getText(Document doc, String path) {
@@ -74,7 +74,7 @@ public class Yes24APIService extends BaseService {
 			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
 			doc = builder.parse(input);
 			map.put("result", getText(doc, "//result/text()"));
-			map.put("msgcode", getText(doc, "//msgcode/text()"));
+			map.put("msgcode", getText(doc, "//Message/text()"));
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (UnsupportedEncodingException e) {
@@ -90,7 +90,7 @@ public class Yes24APIService extends BaseService {
 		return map;
 	}
 
-	protected String send(String url, List<NameValuePair> params) {
+	private String send(String url, List<NameValuePair> params) {
 		RequestConfig config = RequestConfig.custom()
 		  .setConnectTimeout(TIMEOUT)
 		  .setConnectionRequestTimeout(TIMEOUT)
@@ -218,7 +218,7 @@ public class Yes24APIService extends BaseService {
 	private List<NameValuePair> makeParamPairs(String mode, Book book) {
 		String user_id = book.getMember_id();
 		String goods_id = book.getBook_code();
-		String site_code = "B2B_DAEGU";
+		String site_code = "";
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		params.add(new BasicNameValuePair("mode", mode));
@@ -280,7 +280,7 @@ public class Yes24APIService extends BaseService {
 		String user_id = member.getMember_id();
 		String user_pw = member.getSeq_no();
 		String user_nm = member.getMember_id();
-		String site_code = "B2B_DAEGU";
+		String site_code = "";
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 		params.add(new BasicNameValuePair("user_id", user_id));
@@ -321,28 +321,20 @@ public class Yes24APIService extends BaseService {
 	 */
 	public Map<String, String> appUrl(Book book, ElibMember member, String device) {
 		String member_id = member.getMember_id();
-		String libCode = member.getLib_code();
-		
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		String site_code = "B2B_DAEGU";
-
-		params.add(new BasicNameValuePair("device_type", device));
+		
 		params.add(new BasicNameValuePair("user_id", member_id));
 		params.add(new BasicNameValuePair("goods_id", book.getBook_code()));
-		params.add(new BasicNameValuePair("libCode", libCode));
-		params.add(new BasicNameValuePair("drm_type", "YES24"));
-//		params.add(new BasicNameValuePair("site_code", site_code));
+		params.add(new BasicNameValuePair("device_type", device));
 
 		return parse2(send(APP_URL, params));
 	}
 	
 	public Map<String, String> bookinfo(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		String site_code = "B2B_DAEGU";
-
+		
 		params.add(new BasicNameValuePair("bookcode", book.getBook_code()));
-		params.add(new BasicNameValuePair("site_code", site_code));
-
+		
 		return parse3(send(BOOKINFO_URL, params));
 	}
 
