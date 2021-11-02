@@ -361,11 +361,11 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 
 .search-wrap .search-results {}
 .search-wrap .search-results .imageType .row {position:relative;border-bottom:1px solid #dddddd;padding:15px 0;overflow:hidden;}
-.search-wrap .search-results .imageType .row .admin{position:absolute;left:0;top:13px;z-index:1}
-.search-wrap .search-results .imageType .row .admin input{width:14px;height:14px}
-.search-wrap .search-results .imageType .row .thumb {float:left;font-size:0;line-height:0;width:135px;height:197px;border:1px solid #ddd;margin-right:20px}
+.search-wrap .search-results .imageType .row .admin{position:absolute;left:5px;top:20px;z-index:1;cursor:pointer;}
+.search-wrap .search-results .imageType .row .admin input{width:16px;height:16px}
+.search-wrap .search-results .imageType .row .thumb {float:left;font-size:0;line-height:0;width:135px;height:197px;border:1px solid #ddd;margin-right:20px;margin-left:30px;}
 .search-wrap .search-results .imageType .row .thumb img{width:100%}
-.search-wrap .search-results .imageType .row .box{float:left;width:100%;margin-right:-160px}
+.search-wrap .search-results .imageType .row .box{float:left;width:96%;margin-right:-160px}
 .search-wrap .search-results .imageType .row .item {margin-right:160px}
 .search-wrap .search-results .imageType .row .item a.book-title {display:block;font-size:24px;padding-bottom:10px;}
 .search-wrap .search-results .imageType .row .item p {font-size:16px;color:#000000;padding:0;line-height:150%}

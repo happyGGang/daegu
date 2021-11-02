@@ -325,10 +325,10 @@
 					<p style="font-size:14px;color:#ff0000;font-weight:bold;margin-bottom:5px;">※ 코로나 19로 인해 시청각실 영화상영은 중단</p>
 					<div>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=927&homepage_id=h5&module=&rowCount=10">
-							<img src="/data/menuResources/h5/60/1633057260166.png" style="width:130px;">
+							<img src="/data/menuResources/h5/60/1635726897234.png" style="width:130px;">
 						</a>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=927&homepage_id=h5&module=&rowCount=10">
-							<img src="/data/menuResources/h5/60/1633057260166.png" style="width:130px;">
+							<img src="/data/menuResources/h5/60/1635726912239.png" style="width:130px;">
 						</a>
 					</div>
 					<!--//영화 추천 출력 소스-->

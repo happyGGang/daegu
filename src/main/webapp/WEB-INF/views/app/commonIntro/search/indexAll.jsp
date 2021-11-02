@@ -478,7 +478,7 @@
 					</div>
 
 					<div class="title">
-						<h4 class="contTit_line_s mg20t">대구광역시립도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">대구광역시립도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn1">닫기</a>
 					</div>
 					<div>
@@ -524,7 +524,7 @@
 
 					<c:if test="${empty loginPortal or !loginPortal.login}">
 					<div class="title">
-						<h4 class="contTit_line_s mg20t">대구광역시 구·군립도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">대구광역시 구·군립도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn2">닫기</a>
 					</div>
 					<div>
@@ -640,7 +640,7 @@
 
 
 					<div class="title">
-						<h4 class="contTit_line_s mg20t">대구광역시 구·군립 작은도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">대구광역시 구·군립 작은도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn3">닫기</a>
 					</div>
 					<div>
