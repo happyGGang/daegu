@@ -216,7 +216,18 @@
 			request_name = #{request_name},
 			request_phone = #{request_phone}
 		WHERE
+			
+		<choose>
+		<when test="book_express_idx == null or book_express_idx == ''">
+			book_express_idx IN
+			<foreach collection="book_express_arr" item="i" open="(" close=")" separator=",">
+				#{i}
+			</foreach>
+		</when>
+		<otherwise>
 			book_express_idx = #{book_express_idx}
+		</otherwise>
+		</choose>
 	</update>
 	
 	<update id="cancelBookExpress">

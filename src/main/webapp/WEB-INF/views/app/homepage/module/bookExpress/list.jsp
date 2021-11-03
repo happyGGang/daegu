@@ -42,6 +42,47 @@ $(function() {
 			}
 		}
 	});
+	// 일괄 등록
+	$('#all-check2').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('.book_check').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('.book_check').prop('checked', false);
+		}
+	});
+	
+	
+	$('#all_status2').on('click', function(e) {
+		e.preventDefault();
+		if($('.book_check:checked').length == 0) {
+			alert('변경할 항목을 선택하세요.');
+			return false;
+		}
+		var	express_idx = [];
+		var txt_name = $(this).siblings('.txt_name2').val();
+		var txt_phone = $(this).siblings('.txt_phone2').val();
+		
+		if(confirm('선택도서의 신청자를 등록하시겠습니까?')) {
+			e.preventDefault();
+			$('input[name="book_express_arr"]:checked').each(function(){
+				express_idx.push($(this).val());
+			});
+				console.log("배열결과 : " )
+				console.log( express_idx);
+				$('#book_express_arr').val(express_idx);
+				console.log("ajax시작");
+				$('#editMode').val('REQUEST');
+				$('#request_name').val(txt_name);
+				$('#request_phone').val(txt_phone);
+			if(doAjaxPost($('#bookExpress'))){
+				console.log("ajax종료");
+				location.reload();
+			}
+		}
+	});
 	
 	$('.add-reason').on('click', function(e) {
 		e.preventDefault();
@@ -135,7 +176,9 @@ $(function() {
 <div>
 	<table class="type2 center">
 		<colgroup>
-			<col width="60" />
+<%-- 			<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
+				<col width="60" />
+<%-- 			</c:if> --%>
 			<col width="80" />
 			<col width="*" />
 			<col width="150" />
@@ -145,7 +188,9 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
+<%-- 			<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
 				<th>선택</th>
+<%-- 			</c:if> --%>
 				<th>번호</th>
 				<th>도서정보</th>
 				<th>요청학교/신청자</th>
@@ -157,7 +202,9 @@ $(function() {
 		<tbody>
 			<c:forEach items="${bookExpressList}" var="i" varStatus="status">
 			<tr>
-				<td><form:checkbox path="book_express_arr" cssClass="book_check" value="${i.book_express_idx}"/></td>
+<%-- 				<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
+					<td><form:checkbox path="book_express_arr" cssClass="book_check" value="${i.book_express_idx}"/></td>
+<%-- 				</c:if> --%>
 				<td class="num">${paging.listRowNum - status.index}</td>
 				<td class="left">
 					<c:forEach items="${homepageList}" var="j">
@@ -222,8 +269,8 @@ $(function() {
 			</c:if>
 		</tbody>
 	</table>
-	<br>
 	<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}">
+	<br>
 		<a href="#" id="all-check" class="btn" keyValue="N">전체 선택/해제</a>
 		<span>선택도서를</span>
 		<select	id="select_status" class="selectmenu">
@@ -234,8 +281,13 @@ $(function() {
 			<option value="6">반납완료</option>
 		</select>
 		으로
-		<a href="#" id="all_status" class="btn">변경</a>
+		<a href="#" id="all_status" class="btn">변경</a><br>
 	</c:if>
+	<a href="#" id="all-check2" class="btn" keyValue="N">전체 선택/해제</a>
+	<span>선택도서의 신청자명,연락처 등록</span><br>
+	<input type="text" class="txt_name2" placeholder="신청자명"><br>
+	<input type="text" class="txt_phone2" placeholder="연락처"><br>
+	<a href="#" id="all_status2" class="btn">등록</a>
 </div>
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
