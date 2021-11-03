@@ -241,12 +241,15 @@ public class CommonSearchController extends BaseController {
 			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
 				list = LibSearchAPI.getListData(result);
 
-				//알라딘 API 결과 가져오기
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
 				for (Map<String, Object> map : list) {
 					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
 						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
 						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
 						}
 					}
 				}
