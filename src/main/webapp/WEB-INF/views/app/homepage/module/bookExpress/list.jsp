@@ -179,12 +179,12 @@ $(function() {
 <%-- 			<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
 				<col width="60" />
 <%-- 			</c:if> --%>
-			<col width="80" />
+			<col width="70" />
 			<col width="*" />
-			<col width="150" />
+			<col width="170" />
 			<col width="100" />
-			<col width="100" />
-			<col width="100" />
+			<col width="120" />
+			<col width="120" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -283,11 +283,15 @@ $(function() {
 		으로
 		<a href="#" id="all_status" class="btn">변경</a><br>
 	</c:if>
-	<a href="#" id="all-check2" class="btn" keyValue="N">전체 선택/해제</a>
-	<span>선택도서의 신청자명,연락처 등록</span><br>
-	<input type="text" class="txt_name2" placeholder="신청자명"><br>
-	<input type="text" class="txt_phone2" placeholder="연락처"><br>
-	<a href="#" id="all_status2" class="btn">등록</a>
+	<div style="margin-top:10px;">
+		<a href="#" id="all-check2" class="btn" keyValue="N">전체 선택/해제</a>
+		<span style="float:right;">
+			<span style="line-height:170%;">선택한 도서의 신청자명,연락처 정보 입력</span>
+			<input type="text" class="txt_name2" placeholder="신청자명" style="padding:3px 10px 6px;border:1px solid #ddd;width:120px;">
+			<input type="text" class="txt_phone2" placeholder="연락처" style="padding:3px 10px 6px;border:1px solid #ddd;width:120px;">
+			<a href="#" id="all_status2" class="btn">등록</a>
+		</span>
+	</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
@@ -308,7 +312,7 @@ $(function() {
 	</fieldset>
 </div>
 <div class="ui-state-highlight">
-		<em>* 도서관명으로 검색 시, 시립 '도서관명'으로 검색해주시기 바랍니다. (ex. 시립 두류/시립 두류도서관)</em><br/>
-		<em>* 2.28기념도서관 검색 시, 반드시 28기념으로 검색해주시기 바랍니다.</em>
+		<em>* 도서관명으로 검색 시, '시립 도서관명'으로 검색해주시기 바랍니다. (ex. 시립 두류 or 시립 수성도서관)</em><br/>
+		<em>* 2.28기념도서관 검색 시, 반드시 '28기념'으로 검색해주시기 바랍니다.</em>
 </div>
 </form:form>

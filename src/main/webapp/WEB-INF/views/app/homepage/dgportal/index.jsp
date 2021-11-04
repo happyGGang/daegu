@@ -90,7 +90,7 @@ do {
 				$('#demo_word_'+status.index).css('margin','15px')
 			</c:forEach>
 
-			$('#keyword').jQCloud(words, {});
+			$('#keywords').jQCloud(words, {});
 		}
 		
 		$('#homeup').click(function () {
@@ -323,7 +323,7 @@ do {
 
 	<!--키워드 박스-->
 	<div class="recom_a_box">
-		<div id="keyword">
+		<div id="keywords">
 
 		</div>
 	</div>
