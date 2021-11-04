@@ -102,7 +102,7 @@ $(function() {
 			<c:when test="${sessionScope.member.login}">
 
 			<c:choose>
-				<c:when test="${context_path eq 'dssmalllib'||context_path eq 'bolli'}">
+				<c:when test="${context_path eq 'dssmalllib'||context_path eq 'bolli'||context_path eq 'kids'}">
 			<li class="bg bg02"><a href="#" onclick="alert('2021년 도서구입 예산소진으로 희망도서신청을 중단합니다. \n\r그 동안 이용해 주셔서 감사합니다.')"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
 				</c:when>
 				<c:otherwise>
