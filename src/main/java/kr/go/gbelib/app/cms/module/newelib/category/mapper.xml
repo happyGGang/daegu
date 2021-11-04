@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.newelib.category.ElibCategoryDao">
+	
+	<select id="getCategoryListCnt" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND	depth = #{depth}
+		AND	type = #{type}
+		<if test="parent_id != 0">
+		AND	parent_id = #{parent_id}
+		</if>
+		<if test="cate_id != 0">
+		AND	cate_id = #{cate_id}
+		</if>
+	</select>
+	
+	<select id="getCategoryList" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			cate_id, cate_name, depth, display_seq, parent_id, type
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND	depth = #{depth}
+		AND	type = #{type}
+		<if test="parent_id != 0">
+		AND	parent_id = #{parent_id}
+		</if>
+		<if test="cate_id != 0">
+		AND	cate_id = #{cate_id}
+		</if>
+		ORDER BY display_seq
+	</select>
+	
+	<select id="getCategoryWithCntList" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			a.cate_id, a.cate_name, a.depth, a.display_seq, a.parent_id, a.type,
+			(
+				SELECT
+					COUNT(*)
+				FROM
+					ELIB_BOOK b
+				WHERE
+					b.use_yn != 'N'
+				AND	a.type = b.type
+				<choose>
+				<when test="parent_id != 0">
+				AND a.cate_id = b.cate_id
+				AND b.parent_id = #{parent_id}
+				</when>
+				<otherwise>
+				AND a.cate_id = b.parent_id
+				</otherwise>
+				</choose>
+				<if test="approved_yn != null and approved_yn != ''">
+				AND b.approved_yn = #{approved_yn}
+				</if>
+			) AS cnt
+		FROM
+			ELIB_CATEGORY a
+		WHERE
+			delete_yn = 'N'
+		AND depth = #{depth}
+		AND type = #{type}
+		<if test="parent_id != 0">
+		AND parent_id = #{parent_id}
+		</if>
+		<if test="cate_id != 0">
+		AND cate_id = #{cate_id}
+		</if>
+		ORDER BY display_seq
+	</select>
+	
+	<select id="getCategoryInfo" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			a.cate_id, a.cate_name, a.depth, a.display_seq, a.parent_id, a.type
+		FROM
+			ELIB_CATEGORY a
+		WHERE
+			a.delete_yn = 'N'
+		AND a.cate_id = #{cate_id}
+	</select>
+	
+	<select id="getSubcategories" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			cate_id, cate_name, depth, display_seq, parent_id, type
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND parent_id = #{cate_id}
+		ORDER BY display_seq
+	</select>
+	
+	<select id="subCategoryCheck" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND parent_id = #{cate_id}
+	</select>
+	
+	<select id="nameDupCheck" resultType="int">
+		SELECT
+			COUNT(*) AS cnt
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND parent_id = #{parent_id}
+		AND cate_name = #{cate_name}
+		AND type = #{type}
+		<if test="cate_id != null and cate_id != ''">
+		AND cate_id != #{cate_id}
+		</if>
+	</select>
+	
+	<select id="getDepth" resultType="int">
+		SELECT
+			NVL(MAX(depth),0)+1
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND	cate_id = #{parent_id}
+		AND	type = #{type}
+	</select>
+	
+	<select id="getMaxDisplaySeq" resultType="int">
+		SELECT
+			NVL(MAX(display_seq),0)+1 AS display_seq
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND depth = #{depth}
+		AND	type = #{type}
+	</select>
+	
+	<insert id="addCategory">
+		<selectKey keyProperty="cate_id" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(cate_id),0)+1 FROM ELIB_CATEGORY
+		</selectKey>
+		
+		INSERT INTO
+			ELIB_CATEGORY
+		(
+			cate_id, cate_name, depth, display_seq, parent_id, type, add_date, add_id
+		)
+		VALUES
+		(
+			#{cate_id}, #{cate_name}, #{depth}, #{display_seq}, #{parent_id}, #{type}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modifyCategory">
+		UPDATE
+			ELIB_CATEGORY
+		SET
+			cate_name = #{cate_name},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			cate_id = #{cate_id}
+	</update>
+	
+	<delete id="deleteCategory">
+		UPDATE
+			ELIB_CATEGORY
+		SET
+			delete_yn = 'Y'
+		WHERE
+			cate_id = #{cate_id}
+	</delete>
+	
+	<delete id="forceDeleteCategory">
+		DELETE FROM
+			ELIB_CATEGORY
+		WHERE
+			cate_id = #{cate_id}
+		OR	parent_id = #{parent_id}
+	</delete>
+	
+	<update id="modifyDisplaySeq">
+		UPDATE
+			ELIB_CATEGORY
+		SET
+			display_seq = #{display_seq},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			cate_id = #{cate_id}
+	</update>
+	
+	<select id="getParentByName" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			cate_id, cate_name, depth, display_seq, parent_id,
+			type, add_date, add_id
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND type = #{type}
+		AND depth = '1'
+		AND cate_name = #{cate_name}
+		AND ROWNUM = 1
+	</select>
+	
+	<select id="getChildByName" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			cate_id, cate_name, depth, display_seq, parent_id,
+			type, add_date, add_id
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND type = #{type}
+		AND depth = '2'
+		AND parent_id = #{parent_id}
+		AND cate_name = #{cate_name}
+		AND ROWNUM = 1
+	</select>
+	
+	<select id="getStatCategoryList" resultType="kr.go.gbelib.app.cms.module.newelib.category.ElibCategory">
+		SELECT
+			cate_id, cate_name, depth, display_seq, parent_id, type
+		FROM
+			ELIB_CATEGORY
+		WHERE
+			delete_yn = 'N'
+		AND depth = 1
+		ORDER BY DECODE(type, 'EBK', 1, 'ADO', 2, 'WEB', 3, 9), display_seq, cate_id
+	</select>
+	
+</mapper>

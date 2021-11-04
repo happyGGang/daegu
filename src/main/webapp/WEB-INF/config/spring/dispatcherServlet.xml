@@ -87,6 +87,12 @@
   	<task:scheduled-tasks>
         <task:scheduled ref="lendingAutoReturnService" method="autoReturn" cron="0 3 0 * * *"/>
     </task:scheduled-tasks>
+    
+    <!-- 전자도서관 자동 반납 서비스 -->
+  	<bean id="lendingAutoReturnServiceNew" class="kr.go.gbelib.app.cms.module.newelib.lending.LendingAutoReturnServiceNew" />
+  	<task:scheduled-tasks>
+        <task:scheduled ref="lendingAutoReturnServiceNew" method="autoReturn" cron="0 3 0 * * *"/>
+    </task:scheduled-tasks>
 
     <!-- 수강취소 기간안내 서비스 -->
   	<bean id="teachCancleScheduler" class="kr.go.gbelib.app.cms.module.teach.TeachService" />

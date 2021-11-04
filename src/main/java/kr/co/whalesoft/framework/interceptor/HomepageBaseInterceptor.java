@@ -136,7 +136,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				request.setAttribute("menuLeftList", menuLeftList);
 
 				// 전자도서관 좌측 메뉴
-				if("elib".equals(contextPath)) {
+				if("elib".equals(contextPath) || "newelib".equals(contextPath)) {
 					HttpSession session = request.getSession();
 					String type = StringUtils.trimToEmpty(request.getParameter("type"));
 					ElibCategory elibCategory = new ElibCategory(type, 1);
@@ -156,15 +156,17 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						elibCode.setApproved_yn("Y");
 					}
 
-					// TODO 전자도서관 변경 시 dgElibAPIService 사용하는 부분을 제거하고 아래 주석을 풀어야 함.
-					/*List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
-					request.setAttribute("categoryMenuList", categoryList);
+					// 본래 전자도서관과 전자도서관 리뉴얼
+					if("elib".equals(contextPath)) {
+						List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
+						request.setAttribute("categoryMenuList", categoryList);
+					}else if ("newelib".equals(contextPath)) {
+						List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
+						request.setAttribute("categoryMenuList", categoryList);
 
-					List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
-					request.setAttribute("compMenuList", compList);*/
-
-					List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
-					request.setAttribute("categoryMenuList", categoryList);
+						List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
+						request.setAttribute("compMenuList", compList);
+					}
 
 					//					List<Book> deviceList = bookService.getBookCountByDevice(book);
 					//					request.setAttribute("deviceMenuList", deviceList);

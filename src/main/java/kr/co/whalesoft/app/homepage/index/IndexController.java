@@ -839,6 +839,21 @@ public class IndexController extends BaseController {
 			
 			model.addAttribute("bookList", boardService.getBoard(boardManage, board));
 		}
+
+		//전자도서관 리뉴얼
+		//메인페이지 북큐레이션
+		if (homepage.getHomepage_id().equals("h79")) {
+			board = new Board();
+			board.setManage_idx(972);
+			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
+				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
+			}
+			
+			BoardManage boardManage = new BoardManage();
+			boardManage.setBoard_type("BOOK");
+			
+			model.addAttribute("bookList", boardService.getBoard(boardManage, board));
+		}
 		
 		// ECO 전자도서관 API로 변경 후 주석 처리
 /*

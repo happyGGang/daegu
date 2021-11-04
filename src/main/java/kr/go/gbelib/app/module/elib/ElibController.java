@@ -58,7 +58,7 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 
 @Controller
-@RequestMapping(value = {"/{homepagePath}/module/elib"})
+@RequestMapping(value = {"/elib/module/elib"})
 public class ElibController extends BaseController {
 
 	private String basePath = "/homepage/%s/module/elib/";
