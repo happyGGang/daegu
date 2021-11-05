@@ -71,7 +71,7 @@
 
 		<c:if test="${book.type != 'WEB'}">
 		/*웹접근성 커스텀 셀렉트 박스*/
-		function wrapNum(str, val) {
+		/*function wrapNum(str, val) {
 			if (!val || str.toLowerCase().indexOf(val.toLowerCase()) === -1) {
 				return str;
 			}
@@ -97,7 +97,7 @@
 			})
 		};
 		/*********************************/
-		function groupChangeHandler(newGroup) {
+		/*function groupChangeHandler(newGroup) {
 			var groupLabel = newGroup.querySelector('.optgroup-label').innerText;
 			var len = Array.prototype.slice.call(
 					newGroup.querySelectorAll('.option')
@@ -120,7 +120,7 @@
 				e.stopPropagation();
 				inst[inst.isOpen ? 'closeList' : 'openList']();
 			});
-		});
+		});*/
 		</c:if>
 	});
 
