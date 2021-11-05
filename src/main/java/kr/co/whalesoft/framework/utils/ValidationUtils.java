@@ -312,5 +312,14 @@ public class ValidationUtils extends org.springframework.validation.ValidationUt
 	public static void rejectNumbers(Errors errors, String field, String errorCode) {
 		rejectIfRegex(errors, field, errorCode, null, null, "[^0-9]+");
 	}
-
+	
+	/**
+	 * 영어와 숫자, 특수문자를 모두 포함
+	 * @param errors
+	 * @param field
+	 * @param errorCode
+	 */
+	public static void rejectPasswordSpecieal(Errors errors, String field, String errorCode) {
+		rejectIfRegex(errors, field, errorCode, null, null, "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]+$");
+	}
 }

@@ -77,7 +77,7 @@ public class LockerController extends BaseController {
 
 		Member member = getSessionMemberInfo(request);
 		locker.setHomepage_id(homepage.getHomepage_id());
-		locker.setMember_key(member.getSeq_no());
+		locker.setMember_key(member.getUser_no());
 
 		Locker lockerMember = service.getLockerAddFlag(locker);
 
@@ -124,19 +124,22 @@ public class LockerController extends BaseController {
 		lockerReq.setHomepage_id(homepage.getHomepage_id());
 		Member member = getSessionMemberInfo(request);
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			lockerReq.setBefore_url(String.format("http://www.gbelib.kr/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
+			lockerReq.setBefore_url(String.format("/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
 			return null;
 	    }
 
-		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionMemberId(request)), "20")) {
-			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
-			return null;
-		}
+//		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionMemberId(request)), "20")) {
+//			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
+//			return null;
+//		}
 
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
-		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(menuOne.getManage_idx())));
+		Terms terms = new Terms();
+		terms.setModule_idx(menuOne.getManage_idx());
+		terms.setHomepage_id(homepage.getHomepage_id());
+		model.addAttribute("termsList", termsService.getTermsListInModule(terms));
 
 		if(lockerReq.getEditMode().equals("MODIFY")) {
 			model.addAttribute("lockerReq", lockerReq);
@@ -152,7 +155,6 @@ public class LockerController extends BaseController {
 			lockerReq.setPhone2(member.getPhone2());
 			lockerReq.setPhone3(member.getPhone3());
 			lockerReq.setPhone(member.getPhone1()+member.getPhone2()+member.getPhone3()+"");
-
 			model.addAttribute("locker", lockerReq);
 			model.addAttribute("lockerReq", lockerReq);
 		}
@@ -163,7 +165,7 @@ public class LockerController extends BaseController {
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
+		Member member = getSessionMemberInfo(request);
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lockerReq.getEditMode();
 
@@ -184,8 +186,7 @@ public class LockerController extends BaseController {
 		if(!result.hasErrors()) {
 
 			lockerReq.setApply_id(getSessionMemberId(request));
-			lockerReq.setMember_key(getSessionMemberInfo(request).getSeq_no());
-
+			lockerReq.setMember_key(member.getUser_no());
 			if(editMode.equals("ADD")) {
 
 				LockerPre lockerPre = lockerPreService.getLockerPreOne(new LockerPre(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx()));
@@ -209,7 +210,7 @@ public class LockerController extends BaseController {
 				res.setMessage("신청 되었습니다.");
 				res.setUrl("index.do?menu_idx=" + lockerReq.getMenu_idx());
 				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함 배정이 완료 되었습니다.", homepage.getHomepage_send_tell(), true);
+					//PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함 배정이 완료 되었습니다.", homepage.getHomepage_send_tell(), true);
 				}
 			}	else if(editMode.equals("MODIFY")) {
 				lockerReq.setMod_id(getSessionMemberId(request));
@@ -260,12 +261,12 @@ public class LockerController extends BaseController {
 		Member member = getSessionMemberInfo(request);
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			locker.setBefore_url(String.format("http://www.gbelib.kr/%s/module/locker/history.do?menu_idx=%s", homepage.getContext_path(), locker.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), locker.getMenu_idx(), locker.getBefore_url()), request, response);
+			locker.setBefore_url(String.format("/%s/module/locker/history.do?menu_idx=%s", homepage.getContext_path(), locker.getMenu_idx()));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), locker.getMenu_idx(), locker.getBefore_url()), request, response);
 			return null;
 	    }
 
-		model.addAttribute("historyList", lockerReqService.getHistoryOfLockerReq(new LockerReq(homepage.getHomepage_id(), member.getSeq_no())));
+		model.addAttribute("historyList", lockerReqService.getHistoryOfLockerReq(new LockerReq(homepage.getHomepage_id(), member.getUser_no())));
 
 		return String.format(basePath, homepage.getFolder()) + "history";
 	}

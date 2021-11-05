@@ -67,7 +67,7 @@ $(function() {
 				alert(response.resultMsg);	
 			}
 			else {
-				$('#lockerReqEdit #member_key').val(response.memberInfo.SEQ_NO);
+				$('#lockerReqEdit #member_key').val(response.memberInfo.USER_NO);
 				$('#lockerReqEdit #req_name').val(response.memberInfo.USER_NAME);
 			}
 		});

@@ -42,6 +42,7 @@ $(function() {
 	<ul class="con2">
 		<li>본인이 신청 후 배정 완료 : <a href="#" class="btn btn3" onclick="return false;">신청취소</a>, 타인이 신청 후 배정 완료 : <a href="#" class="btn btn5" onclick="return false;">배정완료</a> 로 표시 됩니다.</li> 
 		<li><a href="#" class="btn btn3" onclick="return false;">신청취소</a> 해당 버튼으로 신청 취소 가능합니다.</li>
+		<li>사물함 변경은<a href="#" class="btn btn3" onclick="return false;">신청취소</a> 버튼을 누른뒤 원하시는 사물함을 다시 신청해주시면 됩니다.</li>
 		<c:if test="${lockerPre != null }">
 			<li>신청 기간 : ${lockerPre.apply_start_date} ${lockerPre.apply_start_time} ~ ${lockerPre.apply_end_date} ${lockerPre.apply_end_time}</li>
 			<li>사물함 배정 기간 : ${lockerPre.assign_start_date} ~ ${lockerPre.assign_end_date}</li>

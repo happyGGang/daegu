@@ -112,8 +112,12 @@ public class MemberController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "member_id", "사용자ID를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_name", "사용자명을 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
+			ValidationUtils.rejectPasswordSpecieal(result, "member_pw", "비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.");
 			if ( service.checkMemberId(member) > 0 ) {
 				result.reject("중복된 ID가 있습니다.");
+			}
+			if ( member.getMember_pw().length() >= 8 && member.getMember_pw().length() <=16 ) {
+				result.rejectValue("member_pw", "비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.");
 			}
 		}
 		else if ( "DELETE".equals(member.getEditMode()) ) {
