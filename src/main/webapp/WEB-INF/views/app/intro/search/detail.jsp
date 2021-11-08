@@ -384,9 +384,8 @@ CONTEXT_PATH : ${context_path}
 			</c:if>
 
 
-		<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865'|| sessionScope.member.member_id eq 'hades530'}">
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'AG'}">
+				<c:when test="${detail.MANAGE_CODE eq ''}">
 
 					<!--워킹스루 시작-->
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
@@ -407,13 +406,7 @@ CONTEXT_PATH : ${context_path}
 									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 									int hour = now.getHourOfDay();
 
-									if(dayOfWeek <= 5 && 14 <= hour && hour < 19)
-									{
-									%>
-										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
-									<%
-									}
-									else if(5 < dayOfWeek && 14 <= hour && hour < 18)
+									if(9 <= hour && hour < 24)
 									{
 									%>
 										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
@@ -440,7 +433,6 @@ CONTEXT_PATH : ${context_path}
 
 				</c:otherwise>
 			</c:choose>
-		</c:if>
 
 
 <!--

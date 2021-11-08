@@ -449,7 +449,7 @@ $(function() {
 
 
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'AG'}">
+				<c:when test="${detail.MANAGE_CODE eq ''}">
 
 					<!--워킹스루 시작-->
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
