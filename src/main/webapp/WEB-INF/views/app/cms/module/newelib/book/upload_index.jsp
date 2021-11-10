@@ -183,23 +183,23 @@ function submit(e) {
 <!-- 				&nbsp;<input type="radio" name="operation" value="FD" style="width: 20px;"> 강제 삭제<br/> -->
 			</td>
 		</tr>
-<%--
-		<tr>
+
+		<!-- <tr>
 			<th>1차 카테고리<br/>접두사</th>
 			<td>
 				<input type="text" name="category_prefix" value="" style="width: 200px;"><br/>
 				* 마지막 빈칸은 직접 넣어야 함
 			</td>
-		</tr>
-		<tr>
+		</tr> -->
+		<!-- <tr>
 			<th>타입</th>
 			<td>
 				<input type="radio" name="type" value="EBK" checked="checked" style="width: 20px;"> 전자책(EBK)
 				&nbsp;<input type="radio" name="type" value="ADO" style="width: 20px;"> 오디오북(ADO)
 				&nbsp;<input type="radio" name="type" value="WEB" style="width: 20px;"> 이러닝(WEB)
 			</td>
-		</tr>
-		<tr>
+		</tr> -->
+		<%-- <tr>
 			<th>공급사</th>
 			<td>
 				<select id="upload_com_code" name="com_code" style="width:200px">
@@ -209,8 +209,8 @@ function submit(e) {
 					</c:forEach>
 				</select>
 			</td>
-		</tr>
-		<tr>
+		</tr> --%>
+		<%-- <tr>
 			<th>도서관</th>
 			<td>
 				<select id="upload_library_code" name="library_code" style="width:200px">
@@ -221,8 +221,7 @@ function submit(e) {
 				</select>
 				<br/>
 			</td>
-		</tr>
---%>
+		</tr> --%>
 		<tr>
 			<th>새 카테고리</th>
 			<td>
