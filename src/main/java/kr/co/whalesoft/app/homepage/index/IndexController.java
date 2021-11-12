@@ -63,6 +63,8 @@ import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
+import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
 
 @Controller(value = "userIndexController")
 public class IndexController extends BaseController {
@@ -122,6 +124,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private DgElibAPIService dgElibAPIService;
+	
+	@Autowired
+	private BookKeywordService bookKeywordService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -891,6 +896,10 @@ public class IndexController extends BaseController {
 
 		log.debug("jsp Page : "+basePath + filePath);
 
+		BookKeyword bookKeyword = new BookKeyword();
+		
+		model.addAttribute("bookKeywordList", bookKeywordService.getBookKeywordList(bookKeyword));
+		
 		return basePath + filePath;
 	}
 
