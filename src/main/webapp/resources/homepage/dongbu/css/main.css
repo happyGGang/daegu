@@ -195,7 +195,7 @@
 .movie h3 {font-size:19px;color:#000;font-weight:bold;}
 .movie .more-btn { right:20px;top:0;font-size:0;line-height:0;position:absolute;background:url('/resources/homepage/dongbu/img/more_bt.png') no-repeat 0 0;width:27px;height:24px }
 .movie .movieContent { width:100%;margin:0;padding:24px 0 8px;}
-.movie .movieContent .bx-controls {position:absolute;top:0;left:150px;z-index:150000000;}
+.movie .movieContent .bx-controls {display:none;position:absolute;top:0;left:150px;z-index:150000000;}
 .movie .movieContent .bx-prev, 
 .movie .movieContent .bx-next, 
 .movie .movieContent .bx-start,
@@ -211,7 +211,7 @@
 .movie .movieContent ul li div {float:left;background:#000;color:#fff;padding:5px 10px;font-size:12px;}
 .movie .movieContent ul li span   {display:block;font-size:15px;color:#000;padding:0 0 2px 0 }
 .movie .movieContent ul li strong { clear:both;display:block;font-size:15px;color:#000;padding:10px 0 }
-.movie .movieContent .movieImg {display:inline-block;position:relative;width:110px;margin-right:18px;}
+.movie .movieContent .movieImg {float:left;position:relative;width:110px;margin-right:18px;}
 .movie .movieContent .movieEx {display:inline-block;width:49%;text-align:left;}
 
 

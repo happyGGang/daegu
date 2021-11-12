@@ -318,10 +318,10 @@
 
 				<div class="movie">
 					<div class="title">
-						<h3>이달의 추천 영화</h3>
-						<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=927">더보기</a>
+						<h3>이달의 영화 상영</h3>
+						<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=121">더보기</a>
 					</div>
-					<!-- 영화 추천 출력 소스-->
+					<!-- 추천 영화 출력 소스
 					<p style="font-size:14px;color:#ff0000;font-weight:bold;margin-bottom:5px;">※ 코로나 19로 인해 시청각실 영화상영은 중단</p>
 					<div>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=927&homepage_id=h5&module=&rowCount=10">
@@ -331,9 +331,8 @@
 							<img src="/data/menuResources/h5/60/1635726912239.png" style="width:130px;">
 						</a>
 					</div>
-					<!--//영화 추천 출력 소스-->
+					<!--//추천 영화 출력 소스-->
 
-					<!-- 기존 영화 상영 출력 소스
 					<div class="movieContent">
 						<ul>
 							<c:forEach var="i" varStatus="status" items="${movieList}" >
@@ -405,7 +404,6 @@
 							</c:if>
 						</ul>
 					</div>
-					-->
 				</div>
 
 				<div class="quickLink">
