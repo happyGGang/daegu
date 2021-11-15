@@ -269,6 +269,8 @@ public class EcoAPIService extends BaseService {
 	/**
 	 * ECO내서재 앱 호출 URL (YES24와 동일)
 	 * @param book
+	 * @param member
+	 * @param device
 	 * @return
 	 */
 	public Map<String, String> appUrl(Book book, ElibMember member, String device) {

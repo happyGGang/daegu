@@ -40,7 +40,7 @@ public class APIService extends BaseService {
 			return null;
 		} else if(com_code.equals(OPMS)) {
 			String result = map.get("result");
-			if(StringUtils.equals(result, "Y")) {
+			if(StringUtils.equals(result, "Y") || StringUtils.equals(result, "True") || StringUtils.equals(result, "YES")) {
 				return map;
 			} else {
 				throw new ElibException("[OPMS] " + map.get("message"), map);
@@ -361,6 +361,9 @@ public class APIService extends BaseService {
 		}
 		else if(com_code.equals("ECO")) {
 			return catchFail(ECO, ecoAPIService.appUrl(book, member, device));
+		}
+		else if(com_code.equals("OPMS")) {
+			return catchFail(OPMS, opmsAPIService.appUrl(book, member, device));
 		}
 		else {
 			return null;

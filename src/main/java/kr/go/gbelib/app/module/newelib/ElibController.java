@@ -498,7 +498,17 @@ public class ElibController extends BaseController {
 							e.printStackTrace();
 							mobileList.add(null);
 						}
-					} else {
+					} else if(StringUtils.equals(l.getCom_code(), "OPMS")) {
+						try {
+							Map<String, String> map = apiService.appUrl(new Book(l), member, getMobileOS(request));
+							mobileList.add(map);
+						} catch(Exception e) {
+							e.printStackTrace();
+							mobileList.add(null);
+						}
+					}
+					
+					else {
 						mobileList.add(null);
 					}
 
