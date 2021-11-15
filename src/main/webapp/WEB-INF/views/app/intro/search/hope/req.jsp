@@ -289,8 +289,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'english'}">
 				<form:select path="manageCode">
-					<form:option value="BZ">달서영어도서관</form:option>
-				</form:select>
+					<!--<form:option value="BZ">달서영어도서관</form:option>-->
+				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'dssmalllib'}">
 				<form:select path="manageCode">

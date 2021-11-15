@@ -236,7 +236,7 @@
 					<!--<form:option value="BU">성서도서관</form:option>-->
 					<!-- <form:option value="BX">본리도서관</form:option> -->
 					<!--<form:option value="BY">달서가족문화도서관</form:option>-->
-					<form:option value="BZ">달서영어도서관</form:option>
+					<!--<form:option value="BZ">달서영어도서관</form:option>-->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
