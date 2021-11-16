@@ -365,10 +365,29 @@ do {
 
 				<div class="quickLink02">
 					<ul>
-						<li class="qi1"><a href="/${homepage.context_path}/html.do?menu_idx=49">책나래</a></li>
-						<li class="qi2"><a href="/${homepage.context_path}/html.do?menu_idx=48" class="link01">책바다</a></li>
-						<li class="qi3"><a href="/${homepage.context_path}/html.do?menu_idx=50" class="link02">사서에게물어보세요</a></li>
-						<li class="qi4"><a href="https://www.1365.go.kr/vols/main.do" target="_blank" class="link03">1365자원봉사신청</a></li>
+						<li class="qi1">
+							<a href="/${homepage.context_path}/html.do?menu_idx=49">
+								<p>장애인 무료 택배 서비스</p>
+								책나래
+							</a>
+						</li>
+						<li class="qi2">
+							<a href="/${homepage.context_path}/html.do?menu_idx=48" class="link01">
+								<p>국가 상호대차 서비스</p>
+								책바다
+							</a>
+						</li>
+						<li class="qi3">
+							<a href="/${homepage.context_path}/html.do?menu_idx=50" class="link02">
+								<p>협력형 온라인 지식정보 서비스</p>
+								사서에게물어보세요
+							</a>
+						</li>
+						<li class="qi4">
+							<a href="https://www.1365.go.kr/vols/main.do" target="_blank" class="link03">
+								1365자원봉사신청
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>

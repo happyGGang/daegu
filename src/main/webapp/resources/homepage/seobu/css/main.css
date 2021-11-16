@@ -108,10 +108,10 @@
 .main3 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:5px 75px 3px 23px;}
 .main3 .notice ul.list li.on-notice {background:url('/resources/homepage/jungang/img/on-notice-dot.png') no-repeat 0 center;}
 .main .notice li em,
-.main .notice li span{font-style:normal;vertical-align:middle}
-.main .notice li span{font-size:14px;letter-spacing:-1px;}
-.main .notice li em{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.main .notice li span{position:absolute;right:0;top:3px;padding-right:1px}
+.main .notice li span {font-style:normal;vertical-align:middle}
+.main .notice li span {font-size:14px;letter-spacing:-1px;}
+.main .notice li em   {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.main .notice li span {position:absolute;right:0;top:3px;padding-right:1px}
 
 .main3 .notice ul.list li.on-cont {display:inline-block;width:100%;box-sizing:border-box;padding:20px 15px 10px 15px;background:none;border-bottom:1px solid #dddddd}
 .main3 .notice ul.list li.on-cont a {padding-left:15px;width:80%;display:block;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
@@ -179,6 +179,7 @@
 .quickLink02 ul li:first-child { margin-top: 0; }
 .quickLink02 ul li a {display:block;position:relative;height:63px;padding-left:65px;line-height:62px;font-size:16px;color:#000;background-color:#fff;;letter-spacing:-1px;background:url("../img/btn-go.png") no-repeat 95% 50%;border:3px solid transparent;box-sizing:border-box;}
 .quickLink02 ul li a:hover {border:3px solid #ffbf00;/*color: #fff; background: url("../img/btn-go.png") no-repeat 90% 50%; background-color: #58648d;*/ }
+.quickLink02 ul li a p{font-size:13px;margin:6px 0 -22px;color:#245984;}
 
 
 .main7_banner{padding:15px 0}
