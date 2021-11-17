@@ -253,7 +253,7 @@
 				<c:when test="${homepagePath eq 'donggu' || homepagePath eq 'donggusm'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="CA">안심도서관</option>
-					<option value="CB">신천도서관</option>
+					<!--<option value="CB">신천도서관</option>-->
 					<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
 					<option value="GU">불로어울림 작은도서관</option>
