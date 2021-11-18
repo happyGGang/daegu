@@ -405,13 +405,13 @@ table.border-all tbody td{border-left-width:1px;border-right-width:1px}
 .ui-accordion .ui-accordion-header-active i:before{content:"\f078"}
 
 /* 스케쥴러 */ /* 현재 사용 안함 */
-.scheduler .ui-datepicker{width:inherit}
-.scheduler .ui-widget.ui-widget-content{box-shadow:none}
-.scheduler .ui-datepicker .ui-datepicker-header{padding:0}
-.scheduler .ui-datepicker .ui-datepicker-title{line-height:32px;font-size:14px}
-.scheduler .ui-datepicker .ui-datepicker-next,
-.scheduler .ui-datepicker .ui-datepicker-prev{top:4px;padding:1px}
-.scheduler .ui-datepicker td a,
+.*.java .ui-datepicker{width:inherit}
+.*.java .ui-widget.ui-widget-content{box-shadow:none}
+.*.java .ui-datepicker .ui-datepicker-header{padding:0}
+.*.java .ui-datepicker .ui-datepicker-title{line-height:32px;font-size:14px}
+.*.java .ui-datepicker .ui-datepicker-next,
+.*.java .ui-datepicker .ui-datepicker-prev{top:4px;padding:1px}
+.*.java .ui-datepicker td a,
 .scheduler .ui-datepicker td span{padding:3px;height:70px;text-align:left}
 .scheduler .ui-datepicker table th,
 .scheduler .ui-datepicker table td{border:1px solid #eee;padding:0}

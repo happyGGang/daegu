@@ -4,8 +4,40 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<%--
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jqcloud2.css"  />
 <script type="text/javascript" src="/resources/common/js/jqcloud2.js"></script>
+--%>
+<script type="text/javascript" src="/resources/common/js/jquery.tagcanvas.js"></script>
+
+<script>
+$(function() {
+	if (!$('#myCanvas').tagcanvas({
+		weightGradient: {0:'#f00', 0.33:'#ff0', 0.66:'#0f0', 1:'#00f'},
+		textFont: null,
+		textColour: null,
+		weight: false,
+		outlineoffset: 0,
+		outlineThickness: 0,
+		shape: 'sphere',
+		reverse: true,
+		depth: 0.8,
+		maxSpeed: 0.01,
+		padding: 5,
+		minSpeed: 0.01,
+		textHeight: 50,
+		offsetY: 50,
+		stretchX: 6,
+		initial: [0.2, -0.4],
+		zoom: 0.7,
+		wheelZoom: false,
+
+	}, 'tags')) {
+		// something went wrong, hide the canvas container
+		$('#myCanvasContainer').hide();
+	}
+});
+</script>
 
 <style>
 	.user_pick_info {position:relative;width:100%;margin-top:30px;padding:40px 0;background-color:#f3f4f6;text-align:center;}
@@ -19,7 +51,8 @@
 	#keyword span a {font-family:'S-CoreDream-4Regular';}
 	#keyword {height: 500px;}
 </style>
-<script>
+
+<%--<script>
 		$(function() {
 		
 		var menu_idx = '${bookKeyword.menu_idx}';
@@ -39,7 +72,7 @@
 
 		$('#keyword').jQCloud(words, {});
 		})
-		</script>
+</script>--%>
 
 <form:form modelAttribute="bookKeyword" action="index.do"  onsubmit="return false">
 <div class="user_pick_info">
@@ -50,7 +83,18 @@
 <!-- <img src="/data/menuResources/h32/87/1634785009452.jpg" style="padding:40px 0;"> -->
 
 <div class="keyword-box">
-	<div id="keyword"></div>
+	<div id="myCanvasContainer" style="width:900px;">
+		<canvas width="900px" height="500" id="myCanvas">
+			현재 브라우저는 HTML5를 지원하지 않습니다.
+		</canvas>
+		<div id="tags">
+			<ul>
+				<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
+					<li><a href="view.do?menu_idx=${bookKeyword.menu_idx}&keyword_name=${i.keyword_name}" title="4차 산업혁명">${i.keyword_name}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+	</div>
 </div>
 
 <ul class="con">

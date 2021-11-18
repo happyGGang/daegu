@@ -50,9 +50,11 @@ do {
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/main-visual.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mCustomScrollbar.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.tagcanvas.js"></script>
 <script type="text/javascript">
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함.
+		<%--
 		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}) {
 			var result = '';
 			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
@@ -92,6 +94,41 @@ do {
 
 			$('#keywords').jQCloud(words, {});
 		}
+		--%>
+
+		<c:if test="${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}">
+
+		if (!$('#myCanvas').tagcanvas({
+			weightGradient: {0:'#f00', 0.33:'#ff0', 0.66:'#0f0', 1:'#00f'},
+			textFont: null,
+			textColour: null,
+			weight: false,
+			outlineoffset: 0,
+			outlineThickness: 0,
+			shape: 'sphere',
+			reverse: true,
+			depth: 0.8,
+			maxSpeed: 0.01,
+			padding: 5,
+			minSpeed: 0.01,
+			textHeight: 50,
+			offsetY: 50,
+			stretchX: 6,
+			initial: [0.2, -0.4],
+			zoom: 0.7,
+			wheelZoom: false,
+
+		}, 'tags')) {
+			// something went wrong, hide the canvas container
+			$('#myCanvasContainer').hide();
+			$('div#recom_wrap').hide();
+		}
+
+		$('div#recom_wrap').show();
+
+
+		</c:if>
+
 		
 		$('#homeup').click(function () {
 			$('body,html').animate({
@@ -323,11 +360,22 @@ do {
 	</div>
 
 	<!--키워드 박스-->
+	<c:if test="${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}">
 	<div class="recom_a_box">
-		<div id="keywords">
-
+		<div id="myCanvasContainer" style="width:1074px;">
+			<canvas width="1074px" height="450" id="myCanvas">
+				현재 브라우저는 HTML5를 지원하지 않습니다.
+			</canvas>
+			<div id="tags">
+				<ul>
+					<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
+						<li><a href="view.do?menu_idx=${bookKeyword.menu_idx}&keyword_name=${i.keyword_name}" title="4차 산업혁명">${i.keyword_name}</a></li>
+					</c:forEach>
+				</ul>
+			</div>
 		</div>
 	</div>
+	</c:if>
 
 	<!--버튼-->
 	<div class="btn_box">
