@@ -52,7 +52,7 @@
 					, (SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0) FROM TEACH_BOOK
 						WHERE HOMEPAGE_ID = a.HOMEPAGE_ID AND GROUP_IDX = a.GROUP_IDX AND CATEGORY_IDX = a.CATEGORY_IDX AND TEACH_IDX = a.TEACH_IDX AND STUDENT_IDX = a.STUDENT_IDX) as ATTEND_CNT
 					, student_ban, student_remark, student_family_count,
-					student_location_code, a.vaccines_counter,
+					student_location_code, a.vaccines_counter,a.student_ban,
 					getCodeIdToCodeName('CMS', 'C0022', student_location_code) AS student_location_code_str,
 					student_neis_cd,
 					student_training_num,

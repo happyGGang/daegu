@@ -404,6 +404,9 @@ $(function(){
 			<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
 				<col width="7%" />
 			</c:if>
+			<c:if test="${teachInfo.school_grade_yn eq 'Y'}">
+				<col width="7%" />
+			</c:if>
 			<col width="9%" />
 			<c:if test="${teachInfo.teach_status ne '1'}">
 				<col width="8%" />
@@ -422,6 +425,9 @@ $(function(){
 				<th>상태</th>
 				<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
 					<th>접종상태</th>
+				</c:if>
+				<c:if test="${teachInfo.school_grade_yn eq 'Y'}">
+					<th>반</th>
 				</c:if>
 				<th>신청일</th>
 				<th>취소자ID</th>
@@ -499,6 +505,12 @@ $(function(){
 								미접종자
 							</c:otherwise>
 						</c:choose>
+					</td>
+				</c:if>
+				<c:if test="${teachInfo.school_grade_yn eq 'Y'}">
+					<td>
+						<c:if test="${empty i.student_ban}">없음</c:if>
+						${i.student_ban}
 					</td>
 				</c:if>
 				<td>
