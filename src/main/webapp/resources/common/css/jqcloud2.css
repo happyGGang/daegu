@@ -62,5 +62,5 @@
   text-decoration: none;
 }
 .jqcloud-word a:hover {
-  color: #00ccff;
+  background:linear-gradient(to top, #fffe91 60%, transparent 50%);
 }

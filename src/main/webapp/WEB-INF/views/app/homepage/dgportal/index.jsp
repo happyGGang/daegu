@@ -319,6 +319,7 @@ do {
 	<div class="recom_txt_box">
 		<p><strong>${member.member_name }</strong>님에 대해 알려주세요!</p>
 		<span>맞춤책 추천으로 <strong>${member.member_name}</strong>님의 독서를 도와드려요.</span>
+		<span class="txt">* 중복 선택 가능(최대 3개)</span>
 	</div>
 
 	<!--키워드 박스-->
@@ -342,7 +343,7 @@ do {
 	<!-- 안보기 체크박스-->
 	<div class="pop-close-set">
 		<input name="book_popup_${homepage.homepage_id}" data-day="1" id="book_${homepage.homepage_id}" type="checkbox" value="book_popup_${homepage.homepage_id}">
-		<label for="book_${homepage.homepage_id}" style="line-height: 34px;" title="오늘하루 열지않음">오늘하루 열지않음</label>
+		<label for="book_${homepage.homepage_id}" style="line-height: 34px;" title="오늘하루 열지않음">오늘하루 열지않음</label>&nbsp;&nbsp;&nbsp;
 		<input name="book_popup_${homepage.homepage_id}_7" data-day="7" id="book_${homepage.homepage_id}_7" type="checkbox" value="book_popup_${homepage.homepage_id}">
 		<label for="book_${homepage.homepage_id}_7" style="line-height: 34px;" title="7일간 보지 않기">7일간 보지 않기</label>
 	</div>
