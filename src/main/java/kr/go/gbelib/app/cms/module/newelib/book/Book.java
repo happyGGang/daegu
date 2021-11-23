@@ -90,6 +90,15 @@ public class Book extends PagingUtils {
 
 	private String approved_yn = "Y";
 	private MultipartFile mfile;
+	
+	//공급사가 요청한 API를 위한 book_idx 리스트 2021-11-19
+	private String book_idx_list;
+	private String lend_idx;
+	private String lend_dt;
+	private String return_due_dt;
+	private String orderOption;
+	private String loanExtendsAvailableYn;
+	private String loanExtendsAbleReason;
 
 	public Book() {
 		this.setSortField("book_pubdt");
@@ -585,6 +594,49 @@ public class Book extends PagingUtils {
 	}
 	public void setAudio_name(String audio_name) {
 		this.audio_name = audio_name;
+	}
+	public String getBook_idx_list() {
+		return book_idx_list;
+	}
+	public void setBook_idx_list(String book_idx_list) {
+		this.book_idx_list = book_idx_list;
+	}
+	public String getLend_idx() {
+		return lend_idx;
+	}
+	public void setLend_idx(String lend_idx) {
+		this.lend_idx = lend_idx;
+	}
+	
+	public String getLend_dt() {
+		return lend_dt;
+	}
+	public void setLend_dt(String lend_dt) {
+		this.lend_dt = lend_dt;
+	}
+	public String getReturn_due_dt() {
+		return return_due_dt;
+	}
+	public void setReturn_due_dt(String return_due_dt) {
+		this.return_due_dt = return_due_dt;
+	}
+	public String getOrderOption() {
+		return orderOption;
+	}
+	public void setOrderOption(String orderOption) {
+		this.orderOption = orderOption;
+	}
+	public String getLoanExtendsAvailableYn() {
+		return loanExtendsAvailableYn;
+	}
+	public void setLoanExtendsAvailableYn(String loanExtendsAvailableYn) {
+		this.loanExtendsAvailableYn = loanExtendsAvailableYn;
+	}
+	public String getLoanExtendsAbleReason() {
+		return loanExtendsAbleReason;
+	}
+	public void setLoanExtendsAbleReason(String loanExtendsAbleReason) {
+		this.loanExtendsAbleReason = loanExtendsAbleReason;
 	}
 	@Override
 	public String toString() {

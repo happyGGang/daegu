@@ -736,5 +736,9 @@ public class BookService extends BaseService {
 	public int approveBookAll(Book book) {
 		return dao.approveBookAll(book);
 	}
+
+	public List<Book> getLendingBookListState(Book book) {
+		return dao.getLendingBookListState(book);
+	}
 	
 }

@@ -5,35 +5,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <response>
     <Contents>
-        <c:forEach var="i" begin="1" end="10">
+        <c:forEach items="${lendingBookListState}" var="i">
         <ContentDataList>
-            <ContentKey>1</ContentKey>
-            <UserKey>2</UserKey>
-            <ContentTitle>aa</ContentTitle>
-            <LoanKey></LoanKey>
-            <LoanDate></LoanDate>
-            <ReturnPlanDate></ReturnPlanDate>
-            <LendingIdx></LendingIdx>
-            <ContentAuthor></ContentAuthor>
-            <ContentPublisher></ContentPublisher>
-            <ContentPubDate></ContentPubDate>
-            <OwnerCodeDesc></OwnerCodeDesc>
-            <OwnerCode></OwnerCode>
-            <LibraryUserNo></LibraryUserNo>
-            <LibraryCode></LibraryCode>
-            <ContentType></ContentType>
-            <ContentFileType></ContentFileType>
-            <ContentInfo></ContentInfo>
-            <ContentCoverUrl></ContentCoverUrl>
-            <ContentCoverUrlM></ContentCoverUrlM>
-            <ContentCoverUrlS></ContentCoverUrlS>
-            <LoanExtendsAvailableYn></LoanExtendsAvailableYn>
-            <LoanExtendsAbleReason></LoanExtendsAbleReason>
+            <ContentKey>${i.book_code}</ContentKey>
+            <UserKey>${i.member_id}</UserKey>
+            <ContentTitle>${i.book_name}</ContentTitle>
+            <LoanKey>${i.lend_idx}</LoanKey>
+            <LoanDate>${i.lend_dt}</LoanDate>
+            <ReturnPlanDate>${i.return_due_dt}</ReturnPlanDate>
+            <LendingIdx>${i.lend_idx}</LendingIdx>
+            <ContentAuthor>${i.author_name}</ContentAuthor>
+            <ContentPublisher>${i.book_pubname}</ContentPublisher>
+            <ContentPubDate>${i.book_pubdt}</ContentPubDate>
+            <OwnerCodeDesc>${i.com_code}</OwnerCodeDesc>
+            <OwnerCode>${i.com_code}</OwnerCode>
+            <LibraryUserNo>${i.member_id}</LibraryUserNo>
+            <LibraryCode>${i.library_code}</LibraryCode>
+            <ContentType>${i.type}</ContentType>
+            <ContentFileType>${i.format}</ContentFileType>
+            <ContentInfo>${fn:escapeXml(i.book_info)}</ContentInfo>
+            <ContentCoverUrl>${i.book_image}</ContentCoverUrl>
+            <ContentCoverUrlM>${i.book_image}</ContentCoverUrlM>
+            <ContentCoverUrlS>${i.book_image}</ContentCoverUrlS>
+            <LoanExtendsAvailableYn>${i.loanExtendsAvailableYn}</LoanExtendsAvailableYn>
+            <LoanExtendsAbleReason>${i.loanExtendsAbleReason}</LoanExtendsAbleReason>
         </ContentDataList>
         </c:forEach>
+        <TotalCount>${TotalCount}</TotalCount>
+        <TotalPage>1</TotalPage>
     </Contents>
     <Result>
-        <ResultMessage>OK</ResultMessage>
-        <ResultCode>Y</ResultCode>
+        <ResultMessage>${ResultMessage}</ResultMessage>
+        <ResultCode>${ResultCode}</ResultCode>
     </Result>
 </response>

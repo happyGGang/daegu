@@ -114,5 +114,7 @@ public interface BookDao {
 	public int disapproveBook(Book book);
 	
 	public int approveBookAll(Book book);
+
+	public List<Book> getLendingBookListState(Book book);
 	
 }
