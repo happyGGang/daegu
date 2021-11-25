@@ -151,29 +151,6 @@ $(function() {
 	});
 });
 
-// 모바일일 경우 fullpage 미사용
-if ( $(window).width() < 1025 ) {
-	$('.quickMenu').removeClass('on');
-	$('.notice-box').removeClass('on');
-	$('#more-view-btn').hide();
-} else {
-		$('.quickMenu').addClass('on');
-		$('.notice-box').addClass('on');
-		$('#more-view-btn').hide();
-};
-
-// 리사이즈 될때 모바일 화면에서 fullpage 미사용
-$( window ).resize( function(e) {
-	if ( $(window).width() < 1025 ) {
-		$('.quickMenu').removeClass('on');
-		$('.notice-box').removeClass('on');
-		$('#more-view-btn').hide();
-	} else {
-		$('.quickMenu').addClass('on');
-		$('.notice-box').addClass('on');
-		$('#more-view-btn').hide();
-	};
-});
 
 function getCookie(name){
 	 var nameOfCookie = name;
@@ -202,9 +179,37 @@ $.ajax({
 	}
 });
 
+$(window).load(function(){ 
+
+	// 모바일일 경우 fullpage 미사용
+	if ( $(window).width() < "1025" ) {
+		$('.quickMenu').removeClass('on');
+		$('.notice-box').removeClass('on');
+		$('#more-view-btn').hide();
+	} else {
+			$('.quickMenu').addClass('on');
+			$('.notice-box').addClass('on');
+			$('#more-view-btn').hide();
+	};
+
+	// 리사이즈 될때 모바일 화면에서 fullpage 미사용
+	$( window ).resize( function() {
+		if ( $(window).width() < "1025" ) {
+			$('.quickMenu').removeClass('on');
+			$('.notice-box').removeClass('on');
+			$('#more-view-btn').hide();
+		} else {
+			$('.quickMenu').addClass('on');
+			$('.notice-box').addClass('on');
+			$('#more-view-btn').hide();
+		};
+	});
+
+});
+
 </script>
 <style>
-body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png') no-repeat center top;background-size:cover;}
+body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.png') no-repeat center top;background-size:cover;}
 </style>
 <div id="wrap">
 
@@ -244,15 +249,23 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 			<div class="quickMenu on">
 				<ul>
 					<li class="quick-1">
-						<a href="/${homepage.context_path}/module/newelib/book/index.do?menu_idx=14&menu=NEW&type=EBK" title="E-BOOK 바로가기" class="quick01">
+						<a href="/newelib/module/newelib/book/index.do?menu_idx=14&amp;menu=NEW&amp;type=EBK" title="소장형전자책 바로가기" class="quick01">
 						<div>
-							<p>전자책</p>
-							<h4>E-BOOK</h4>
+							<p>E-BOOK</p>
+							<h4>소장형전자책</h4>
+						</div>
+					</a>
+					</li>
+					<li class="quick-5">
+					<a href="/newelib/html/kyobogudok.do?menu_idx=93" title="구독형전자책 바로가기" class="quick05">
+						<div>
+							<p>E-BOOK</p>
+							<h4>구독형전자책</h4>
 						</div>
 					</a>
 					</li>
 					<li class="quick-2">
-					<a href="/${homepage.context_path}/html/html2.do?menu_idx=90" title="오디오북 바로가기" class="quick02">
+					<a href="/newelib/html/html2.do?menu_idx=90" title="오디오북 바로가기" class="quick02">
 						<div>
 							<p>귀로 듣는 소리책</p>
 							<h4>오디오북</h4>
@@ -260,7 +273,7 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 					</a>
 					</li>
 					<li class="quick-3">
-					<a href="/${homepage.context_path}/module/newelib/asp/contents/elearning.do?menu_idx=27" title="E러닝 학습 바로가기" class="quick03">
+					<a href="/newelib/module/newelib/asp/contents/elearning.do?menu_idx=27" title="E러닝 학습 바로가기" class="quick03">
 						<div>
 							<p>맞춤형 온라인 학습</p>
 							<h4>E-러닝</h4>
@@ -268,23 +281,16 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 					</a>
 					</li>
 					<li class="quick-4">
-					<a href="/${homepage.context_path}/html.do?menu_idx=24" title="웹DB 홈페이지 바로가기" class="quick04">
+					<a href="/newelib/html.do?menu_idx=24" title="웹DB 홈페이지 바로가기" class="quick04">
 						<div>
 							<p>학술논문ㆍ클래식</p>
 							<h4>웹DB</h4>
 						</div>
 					</a>
 					</li>
-					<li class="quick-5">
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284" title="공지사항 바로가기" class="quick05">
-						<div>
-							<p>알려드립니다</p>
-							<h4>공지사항</h4>
-						</div>
-					</a>
-					</li>
+					
 					<li class="quick-6">
-					<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=81" title="모바일회원증 바로가기" class="quick06">
+					<a href="/newelib/intro/login/mobileCard.do?menu_idx=81" title="모바일회원증 바로가기" class="quick06">
 						<div>
 							<p>도서대출카드</p>
 							<h4>모바일회원증</h4>
@@ -292,7 +298,7 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 					</a>
 					</li>
 					<li class="quick-7">
-					<a href="/${homepage.context_path}/html.do?menu_idx=31" title="전자도서관 이용안내 바로가기" class="quick07">
+					<a href="/newelib/html.do?menu_idx=31" title="전자도서관 이용안내 바로가기" class="quick07">
 						<div>
 							<p>이렇게 이용하세요</p>
 							<h4>이용안내</h4>
@@ -300,7 +306,7 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 					</a>
 					</li>
 					<li class="quick-8">
-					<a href="/${homepage.context_path}/module/newelib/lending/index.do?menu_idx=39&menu=LENDING" title="나의도서관 바로가기"class="quick08">
+					<a href="/newelib/module/newelib/lending/index.do?menu_idx=39&amp;menu=LENDING" title="나의도서관 바로가기" class="quick08">
 						<div>
 							<p>대출현황조회</p>
 							<h4>나의도서관</h4>
@@ -331,10 +337,11 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 					<div class="notice-section">
 						<div class="relative">
 							<h4 class="title">공지사항</h4>
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=284" class="more-btn">더보기</a>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=72&manage_idx=973" class="more-btn">더보기</a>
 						</div>
 						<div class="con">
 							<ul>
+							<!--
 								<c:forEach var="i" varStatus="status" items="${noticeList}" >
 								<fmt:formatDate value="${i.add_date}" pattern="yyyy" var="noticeYear"/>
 								<fmt:formatDate value="${i.add_date}" pattern="MM.dd" var="noticeMonth"/>
@@ -344,6 +351,12 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 									</a>
 								</li>
 								</c:forEach>
+							-->
+								<li>
+									<a href="/newelib/board/view.do?menu_idx=72&manage_idx=973&board_idx=457869&viewPage=1&category1=">
+										<span class="day">2021<br/><b>11.04</b></span>대구전자도서관 모바일 서비스 변경 안내(수정)
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -353,6 +366,96 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 							<div class="relative">
 								<h4 class="title">BOOK’ 큐레이션</h4>
 							</div>
+							<div class="relative curation-box-content">
+								<div class="curation-box-left">
+									<div class="curation-box-left-background">
+										
+										<a href="https://library.daegu.go.kr/newelib/module/newelib/book/view.do?menu_idx=80&book_idx=16458&viewPage=1&search_text=%EB%8F%85%EB%A6%BD%EC%9A%B4%EB%8F%99&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y" target="_blank" alt="독립운동 100주년 시집" title="독립운동 100주년 시집"/>
+										<span class="img">
+
+											<img src="/data/board/944/457020/202110271405_vACWGKM.jpg" alt="독립운동 100주년 시집" title="독립운동 100주년 시집"/>
+
+										</span>
+										<span class="txt">
+											<p class="title_info">독립운동 100주년 시집</p>
+										</span>
+										<p><a href="https://library.daegu.go.kr/newelib/module/newelib/book/view.do?menu_idx=80&book_idx=16458&viewPage=1&search_text=%EB%8F%85%EB%A6%BD%EC%9A%B4%EB%8F%99&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y" target="_blank" alt="독립운동 100주년 시집" alt="독립운동 100주년 시집" title="독립운동 100주년 시집"><img src="/resources/homepage/elib/img/cu-more-btn.png" alt="더보기"></a></p>
+										
+									</div>
+								</div>
+								<div class="curation-box-right">
+									<ul>
+
+												<li>
+													<a href="javascript:alert('준비중입니다.');" alt="가장 예쁜 생각을 너에게 주고 싶다" title="가장 예쁜 생각을 너에게 주고 싶다"/>
+														<span class="img">
+															<img src="/data/board/944/457019/202110271404_WlQwC6t.jpg" alt="가장 예쁜 생각을 너에게 주고 싶다" title="가장 예쁜 생각을 너에게 주고 싶다"/>
+														</span>
+														<span class="txt">
+															<p class="title_info">가장 예쁜 생각을 너에게 주고 싶다</p>
+														</span>
+													</a>
+												</li>
+
+												<li>
+													<a href="https://library.daegu.go.kr/newelib/module/newelib/book/view.do?menu_idx=80&book_idx=16711&viewPage=1&search_text=%EA%B0%80%EC%A7%80+%EB%A7%90%EB%9D%BC%EB%8A%94%EB%8D%B0&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y" target="_blank" alt="가지 말라는데 가고 싶은 길이 있다" title="가지 말라는데 가고 싶은 길이 있다"/>
+														<span class="img">
+															<img src="/data/board/944/457018/202110271401_eDyXgXi.jpg" alt="가지 말라는데 가고 싶은 길이 있다" title="가지 말라는데 가고 싶은 길이 있다"/>
+														</span>
+														<span class="txt">
+															<p class="title_info">가지 말라는데 가고 싶은 길이 있다</p>
+														</span>
+													</a>
+												</li>
+
+												<li>
+													<a href="javascript:alert('준비중입니다.');" alt="언어로 세운 집" title="언어로 세운 집"/>
+														<span class="img">
+															<img src="/data/board/944/457017/202110271400_Rvy8DNx.jpg" alt="언어로 세운 집" title="언어로 세운 집"/>
+														</span>
+														<span class="txt">
+															<p class="title_info">언어로 세운 집</p>
+														</span>
+													</a>
+												</li>
+											
+												<li>
+													<a href="https://library.daegu.go.kr/newelib/module/newelib/book/view.do?menu_idx=80&book_idx=8405&viewPage=1&search_text=%EC%98%A4%EB%8A%98%EB%8F%84+%EB%84%A4%EA%B0%80+%EC%9E%88%EC%96%B4&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y" target="_blank" alt="오늘도 네가 있어 마음속 꽃밭이다" title="오늘도 네가 있어 마음속 꽃밭이다"/>
+														<span class="img">
+															<img src="/data/board/944/457016/202110271357_6XRnjNu.jpg" alt="오늘도 네가 있어 마음속 꽃밭이다" title="오늘도 네가 있어 마음속 꽃밭이다"/>
+														</span>
+														<span class="txt">
+															<p class="title_info">오늘도 네가 있어 마음속 꽃밭이다</p>
+														</span>
+													</a>
+												</li>
+											
+												<li>
+													<a href="https://library.daegu.go.kr/newelib/module/newelib/book/view.do?menu_idx=80&book_idx=2417&viewPage=1&search_text=%ED%95%98%EB%8A%98%EA%B3%BC+%EB%B0%94%EB%9E%8C%EA%B3%BC+%EB%B3%84%EA%B3%BC+%EC%8B%9C&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y" target="_blank" alt="하늘과 바람과 별과 시" title="하늘과 바람과 별과 시"/>
+														<span class="img">
+															<img src="/data/board/944/457015/202110271355_gDBA3dq.jpg" alt="하늘과 바람과 별과 시" title="하늘과 바람과 별과 시"/>
+														</span>
+														<span class="txt">
+															<p class="title_info">하늘과 바람과 별과 시</p>
+														</span>
+													</a>
+												</li>
+
+												<li>
+													<a href="https://library.daegu.go.kr/newelib/module/newelib/book/view.do?menu_idx=80&book_idx=16196&viewPage=1&search_text=%EA%B0%90%EC%84%B1%EC%9D%84+%EC%9E%90%EA%B7%B9%ED%95%98%EB%8A%94+%EC%95%84%EB%A6%84%EB%8B%A4%EC%9A%B4+%EB%AA%85%EC%8B%9C&search_type=&type=EBK&author_name=&book_pubname=&book_year=&rowCount=10&from_search=Y" target="_blank" alt="감성을 자극하는 아름다운 명시" title="감성을 자극하는 아름다운 명시"/>
+														<span class="img">
+															<img src="/data/board/944/457014/202110271353_7sa0OqY.jpg" alt="감성을 자극하는 아름다운 명시" title="감성을 자극하는 아름다운 명시"/>
+														</span>
+														<span class="txt">
+															<p class="title_info">감성을 자극하는 아름다운 명시</p>
+														</span>
+													</a>
+												</li>
+
+									</ul>
+								</div>
+							</div>
+							<!--
 							<div class="relative curation-box-content">
 								<div class="curation-box-left">
 									<div class="curation-box-left-background">
@@ -423,6 +526,7 @@ body, html {background:#30706e url('/resources/homepage/elib/img/main-visual.png
 									</ul>
 								</div>
 							</div>
+							-->
 						</div>
 					</div>
 <!--

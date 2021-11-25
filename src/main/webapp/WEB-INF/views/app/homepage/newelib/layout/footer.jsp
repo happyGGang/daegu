@@ -7,27 +7,25 @@
 		<div class="">
 			<div class="info">
 				<a href="http://www.daegu.go.kr/index.do?menu_id=00050250" target="_blank" title="개인정보처리방침 바로가기(새창열림)"><b>개인정보처리방침</b></a>
-
 				<a href="/dgportal/html.do?menu_idx=49" target="_blank" title="새창열림">도서관서비스헌장</a>
-
 				<a href="/dgportal/html.do?menu_idx=52" target="_blank" title="새창열림">저작권정책</a>
-
 				<a href="/dgportal/html.do?menu_idx=50" target="_blank" title="새창열림">이메일무단수집거부</a>
-
+				<a href="/${homepage.context_path}/html.do?menu_idx=87" title="새창열림">뷰어다운로드</a>
+				<a href="#" onClick = "alert('모바일바로가기 안내는 현재 준비중입니다')" title="새창열림" class="newWin pmif">모바일바로가기안내<i class="fa fa-external-link"></i></a>
 			</div>
+			<div class="mmif">
+			<a href="#" onClick = "alert('모바일바로가기 안내는 현재 준비중입니다')" title="새창열림" >모바일바로가기안내</a>
+			</div-->
 		</div>
 
 		<div class="site_address">
 			<address>
-
-				<p>
-					<em><b>PC 문의</b> 070-8768-8902&nbsp;&nbsp;&nbsp;&nbsp;<b>모바일(앱) 문의</b> 02)2024-9791&nbsp;&nbsp;&nbsp;&nbsp;<br class="mobileBr"/><b>일반문의</b> 053)231-2037, 2039&nbsp;&nbsp;&nbsp;&nbsp;</em><br class="mobileBr"/>
+					<em><b>PC(모바일,태블릿)오류문의</b> 070-8768-8902</em>
+					<em><b>일반문의</b> 053)231-2037, 2039</em>
 					<em><b>근무시간</b> 월 ~ 금 09:00 ~ 18:00 (주말/공휴일 휴무)</em>
-				</p> 
-
 			</address>
 		</div>
 		<div class="copyright">
-			<span>© 대구전자도서관. All rights reserved.</span>
-		</div>
+			<span>Copyright © 대구전자도서관. All rights reserved.</span>
+		</div>	
 	</div>
