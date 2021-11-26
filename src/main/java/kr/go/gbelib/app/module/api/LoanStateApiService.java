@@ -32,6 +32,17 @@ public class LoanStateApiService extends BaseService {
 	@Autowired
 	private ConfigService configService;
 	
+	/**
+	 * @param book
+	 * @param request
+	 * @param response
+	 * @param userKey
+	 * @param orderOption
+	 * @param currentCount
+	 * @param pageCount
+	 * @param comCode
+	 * @return
+	 */
 	public Map<String, Object> getData(Book book, HttpServletRequest request, HttpServletResponse response,String userKey,String orderOption,String currentCount,String pageCount,String comCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Book book1 = new Book();

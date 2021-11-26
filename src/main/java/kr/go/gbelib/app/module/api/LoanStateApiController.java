@@ -27,6 +27,17 @@ public class LoanStateApiController extends BaseController {
 	@Autowired
 	private LoanStateApiService loanStateApiService;
 	
+	/**
+	 * @param book
+	 * @param request
+	 * @param response
+	 * @param userKey
+	 * @param orderOption
+	 * @param currentCount
+	 * @param pageCount
+	 * @param comCode
+	 * @return
+	 */
 	@RequestMapping(value = {"/LoanState.*"})
 	public @ResponseBody Map<String, Object> index(Book book,HttpServletRequest request, HttpServletResponse response ,@RequestParam(value="userKey", required=true) String userKey, @RequestParam(value="orderOption", required=false) String orderOption, @RequestParam(value="currentCount", required=false) String currentCount, @RequestParam(value="pageCount", required=false) String pageCount, @RequestParam(value="comCode", required=false) String comCode) {
 		
