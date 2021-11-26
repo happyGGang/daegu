@@ -388,3 +388,9 @@ $(function() {
 //        xhr.setRequestHeader(header, token);
     });
 });
+
+
+function open_magazine(url)
+{
+	window.open(url,"magazine","width=1500,height=1024");
+}
