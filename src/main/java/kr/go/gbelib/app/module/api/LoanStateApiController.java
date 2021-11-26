@@ -19,7 +19,7 @@ import kr.go.gbelib.app.cms.module.newelib.lending.Lending;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 
 @Controller
-@RequestMapping(value = {"/module/api/"})
+@RequestMapping(value = {"/api/"})
 public class LoanStateApiController extends BaseController {
 
 	
