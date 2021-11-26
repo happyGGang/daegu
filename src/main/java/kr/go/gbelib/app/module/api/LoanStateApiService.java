@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.api.ApiLog;
 import kr.go.gbelib.app.cms.module.api.ApiLogService;
 import kr.go.gbelib.app.cms.module.newelib.book.Book;
 import kr.go.gbelib.app.cms.module.newelib.book.BookService;
+import kr.go.gbelib.app.cms.module.newelib.config.Config;
+import kr.go.gbelib.app.cms.module.newelib.config.ConfigService;
 
 @Service
 public class LoanStateApiService extends BaseService {
@@ -26,26 +29,65 @@ public class LoanStateApiService extends BaseService {
 	@Autowired
 	private BookService BookService;
 	
-	public Map<String, Object> getData(Book book, HttpServletRequest request, HttpServletResponse response) {
+	@Autowired
+	private ConfigService configService;
+	
+	public Map<String, Object> getData(Book book, HttpServletRequest request, HttpServletResponse response,String userKey,String orderOption,String currentCount,String pageCount,String comCode) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Book book1 = new Book();
-		book1.setType(book.getType());
-		book1.setRowCount(book.getRowCount());
-		book1.setViewPage(book.getViewPage());
+		book1.setMember_id(userKey);
+		book1.setCom_code(comCode);
+		book1.setOrderOption(orderOption);
+		
+		if(StringUtils.isEmpty(userKey)) {
+			map.put("ResultMessage", "ERROR [userKey가 없습니다.]");
+			map.put("ResultCode", "N");
+		}
+
+		if(!StringUtils.isEmpty(currentCount)) {
+			boolean isNumeric = currentCount.matches("[+-]?\\d*(\\.\\d+)?");
+			if(isNumeric) {
+				book.setStartPageNum(Integer.parseInt(currentCount));
+			}else {
+				map.put("ResultMessage", "ERROR [currentCount에는 숫자만 입력하세요.]");
+				map.put("ResultCode", "N");
+			}
+		}
+		
+		if(!StringUtils.isEmpty(pageCount)) {
+			boolean isNumeric = currentCount.matches("[+-]?\\d*(\\.\\d+)?");
+			if(isNumeric) {
+				book.setListPageCount(Integer.parseInt(pageCount));
+			}else {
+				map.put("ResultMessage", "ERROR [pageCount에는 숫자만 입력하세요.]");
+				map.put("ResultCode", "N");
+			}
+		}
 		
 		book1.setTotalDataCount(BookService.getBookListCnt(book1));
-		List<Book> bookList = BookService.getBookList(book1);
+		List<Book> bookList = BookService.getLendingBookListState(book1);
 		List<Map<String, Object>> bookMapList = new ArrayList<Map<String, Object>>();
 		
+		Config config = configService.getConfig();
+		if(bookList != null && config.getMax_extention() == 0) {
+			for(int i = 0; i < bookList.size(); i++) {
+				bookList.get(i).setLoanExtendsAvailableYn("N");
+				bookList.get(i).setLoanExtendsAbleReason("대출정책상 반납연장 불가합니다.");
+			}
+		}else {
+			for(int i = 0; i < bookList.size(); i++) {
+				bookList.get(i).setLoanExtendsAvailableYn("Y");
+			}
+		}
 		for(Book obj: bookList) {
 			bookMapList.add(toMap(obj));
 		}
 		
-		map.put("code", "1");
-		map.put("msg","");
-		map.put("totalDataCount", book1.getTotalDataCount());
-		map.put("totalPageCount", "1");
-		map.put("data", bookMapList);
+		map.put("ResultCode", "Y");
+		map.put("ResultMessage","OK");
+		map.put("TotalCount", bookMapList.size());
+		map.put("TotalPage", "1");
+		map.put("ContentDataList", bookMapList);
 		
 		apiLogService.addApiLog(new ApiLog("LoanState", "0", "", makeParamUrl(book), request.getRemoteAddr()));
 		
