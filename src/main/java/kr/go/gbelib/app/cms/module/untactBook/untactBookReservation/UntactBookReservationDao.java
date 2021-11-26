@@ -54,4 +54,6 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> smsSendALL(UntactBookReservation untactBookReservation);
 
+	public int getLockerPasswordCheckCount(UntactBookReservation untactBookReservation);
+
 }

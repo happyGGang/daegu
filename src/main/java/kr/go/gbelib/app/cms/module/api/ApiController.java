@@ -1,24 +1,23 @@
 package kr.go.gbelib.app.cms.module.api;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = {"/api/"})
@@ -41,7 +40,10 @@ public class ApiController extends BaseController {
 	
 	@Autowired
 	private ElibLoginApiService elibLoginApiService;
-	
+
+	@Autowired
+	private UntackBookApiService untackBookApiService;
+
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
 	
 	@RequestMapping(value = {"/board.*"})
@@ -62,6 +64,11 @@ public class ApiController extends BaseController {
 	@RequestMapping(value = {"/student.*"})
 	public @ResponseBody Map<String, Object> student(Student student,HttpServletRequest request, HttpServletResponse response) {
 		return teachApiService.getData2(student, request, response);
+	}
+
+	@RequestMapping(value = {"/lockerPasswordCheck.*"})
+	public @ResponseBody Map<String, Object> lockerPasswordCheck(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) {
+		return untackBookApiService.getData(untactBookReservation, request, response);
 	}
 	
 	/**

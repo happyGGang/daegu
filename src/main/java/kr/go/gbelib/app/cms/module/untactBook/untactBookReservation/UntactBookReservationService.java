@@ -118,4 +118,8 @@ public class UntactBookReservationService extends BaseService {
 		return dao.smsSendALL(untactBookReservation);
 	}
 
+	public int getLockerPasswordCheckCount(UntactBookReservation untactBookReservation) {
+		return dao.getLockerPasswordCheckCount(untactBookReservation);
+	}
+
 }

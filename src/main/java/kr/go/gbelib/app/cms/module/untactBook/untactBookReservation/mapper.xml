@@ -461,5 +461,14 @@
 		${i}
 		</foreach>
 	</select>
+
+	<select id="getLockerPasswordCheckCount" resultType="int">
+		SELECT COUNT(*) FROM UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id} AND
+		    TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd') AND
+		    locker_number = #{locker_number} AND
+		    locker_password = #{locker_password}
+	</select>
 	
 </mapper>
