@@ -273,6 +273,32 @@
 		<include refid="search"/>
 		<include refid="sort"/>
 	</select>
+	
+	<select id="getLendingBookListState" resultType="kr.go.gbelib.app.cms.module.newelib.book.Book">
+		SELECT
+			b.book_code, a.member_id, b.book_name, a.lend_idx, a.lend_dt,
+			a.return_due_dt, b.author_name, b.book_pubname, b.book_pubdt, a.com_code,
+			b.library_code, b.type, b.format, c.book_info, b.book_image
+		FROM
+			ELIB_LEND a, ELIB_BOOK b, ELIB_BOOKINFO c
+		WHERE
+			a.book_idx = b.book_idx
+		AND	b.book_idx = c.book_idx
+		AND	a.book_idx = c.book_idx
+		AND	a.member_id = #{member_id}
+		<if test="com_code != null and com_code != ''">
+		AND	a.com_code = #{com_code}
+		</if>
+		AND	a.return_dt IS NULL
+		<choose>
+			<when test="orderOption != null and orderOption != '' and orderOption == '2'.toString() ">
+			ORDER BY b.book_name
+			</when>
+			<otherwise>
+			ORDER BY a.lend_dt DESC
+			</otherwise>
+		</choose>
+	</select>
 
 	<select id="getBookInfo" resultType="kr.go.gbelib.app.cms.module.newelib.book.Book">
 		SELECT
