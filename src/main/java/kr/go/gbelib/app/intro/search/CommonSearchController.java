@@ -965,6 +965,12 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/hope/req.*"})
 	public String reqHope(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
+		
+		// 대구동구통합도서관 예산초과로 인한 희망도서 제한 2021-11-29 YUNHAESU
+		if(homepage.getHomepage_id().equals("h45")) {
+			service.alertMessage("2021년 희망도서 신청이 마감되었습니다.", request, response);
+			return null;
+		}
 
 		Member member = getSessionMemberInfo(request);
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
