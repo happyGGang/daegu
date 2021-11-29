@@ -54,14 +54,18 @@
 <!-- contents-title-->
 <c:choose>
 <c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'buktj' || homepage.context_path eq 'bukdh'}">
-<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;'>
-	<ul>
-		<li>※ 이미 신청 중이거나 소장중인 자료가 아닌 지 먼저 검색하세요</li>
-		<li>※ (    )는 빼고 검색한 후, 희망도서를 신청하세요</li>
-		<li>※ 신청 후 처리 현황은 ‘나의도서관’ → ‘도서관련’ → ‘희망도서신청현황’에서 확인하세요</li>
-	</ul>
-</div>
-
+	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;'>
+		<ul>
+			<li>※ 이미 신청 중이거나 소장중인 자료가 아닌 지 먼저 검색하세요</li>
+			<li>※ (    )는 빼고 검색한 후, 희망도서를 신청하세요</li>
+			<li>※ 신청 후 처리 현황은 ‘나의도서관’ → ‘도서관련’ → ‘희망도서신청현황’에서 확인하세요</li>
+		</ul>
+	</div>
+</c:when>
+<c:when test="${homepage.context_path eq 'dalseolib'}">
+	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+		2021년 달서구립도서관 희망도서 신청은 예산 소진으로 종료하며, 2022년 1월부터 희망도서를 다시 신청할 수 있습니다.
+	</div>
 </c:when>
 <c:otherwise>
 <div id="contents-title">
