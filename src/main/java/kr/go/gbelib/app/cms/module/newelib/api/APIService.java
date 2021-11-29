@@ -92,16 +92,18 @@ public class APIService extends BaseService {
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(OPMS)) {
-			result = opmsAPIService.lend(book);
-			return catchFail(OPMS, result);
+//			result = opmsAPIService.lend(book);
+//			return catchFail(OPMS, result);
+			return null;
 		}
 		else if(com_code.equals(YES24)) {
 			result = yes24APIService.lend(book);
 			return catchFail(YES24, result);
 		}
 		else if(com_code.equals(ECO)) {
-			result = ecoAPIService.lend(book);
-			return catchFail(ECO, result);
+//			result = ecoAPIService.lend(book);
+//			return catchFail(ECO, result);
+			return null;
 		}
 		else if(com_code.equals(IPAPRIKA)) {
 			Map<String, String> map = ipaprikaAPIService.lend(book);
@@ -135,15 +137,16 @@ public class APIService extends BaseService {
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(OPMS)) {
-			Map<String, String> map = opmsAPIService.rtn(book);
-			String result = map.get("result");
-			String message = StringUtils.defaultString(map.get("message"));
-			
-			if(StringUtils.equals(result, "Y") && message.indexOf("반납된 컨텐츠 이거나 반납할 데이타가 없습니다.") > -1) {
-				return map;
-			} else {
-				return catchFail(OPMS, map);
-			}
+//			Map<String, String> map = opmsAPIService.rtn(book);
+//			String result = map.get("result");
+//			String message = StringUtils.defaultString(map.get("message"));
+//			
+//			if(StringUtils.equals(result, "Y") && message.indexOf("반납된 컨텐츠 이거나 반납할 데이타가 없습니다.") > -1) {
+//				return map;
+//			} else {
+//				return catchFail(OPMS, map);
+//			}
+			return null;
 		}
 		else if(com_code.equals(YES24)) {
 			Map<String, String> map = yes24APIService.rtn(book);
@@ -157,15 +160,16 @@ public class APIService extends BaseService {
 			}
 		}
 		else if(com_code.equals(ECO)) {
-			Map<String, String> map = ecoAPIService.rtn(book);
-			String result = map.get("result");
-			String msgcode = map.get("msg");
-			
-			if(!(StringUtils.equals(result, "Y")) && StringUtils.contains(msgcode, "이미")) {
-				return map;
-			} else {
-				return catchFail(ECO, map);
-			}
+//			Map<String, String> map = ecoAPIService.rtn(book);
+//			String result = map.get("result");
+//			String msgcode = map.get("msg");
+//			
+//			if(!(StringUtils.equals(result, "Y")) && StringUtils.contains(msgcode, "이미")) {
+//				return map;
+//			} else {
+//				return catchFail(ECO, map);
+//			}
+			return null;
 		}
 		else if(com_code.equals(IPAPRIKA)) {
 			Map<String, String> map = ipaprikaAPIService.rtn(book);
@@ -198,13 +202,15 @@ public class APIService extends BaseService {
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(OPMS)) {
-			return catchFail(OPMS, opmsAPIService.extend(book));
+//			return catchFail(OPMS, opmsAPIService.extend(book));
+			return null;
 		}
 		else if(com_code.equals(YES24)) {
 			return catchFail(YES24, yes24APIService.extend(book));
 		}
 		else if(com_code.equals(ECO)) {
-			return catchFail(ECO, ecoAPIService.extend(book));
+//			return catchFail(ECO, ecoAPIService.extend(book));
+			return null;
 		}
 		else if(com_code.equals(IPAPRIKA)) {
 			return catchFail(IPAPRIKA, ipaprikaAPIService.extend(book));
@@ -229,7 +235,8 @@ public class APIService extends BaseService {
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(OPMS)) {
-			return catchFail(OPMS, opmsAPIService.reserve(book));
+//			return catchFail(OPMS, opmsAPIService.reserve(book));
+			return null;
 		}
 		else if(com_code.equals(YES24)) {
 			return catchFail(YES24, yes24APIService.reserve(book));
@@ -261,7 +268,8 @@ public class APIService extends BaseService {
 		if(com_code == null) {
 			return null;
 		} else if(com_code.equals(OPMS)) {
-			return catchFail(OPMS, opmsAPIService.cancel(book));
+//			return catchFail(OPMS, opmsAPIService.cancel(book));
+			return null;
 		}
 		else if(com_code.equals(YES24)) {
 			return catchFail(YES24, yes24APIService.cancel(book));
