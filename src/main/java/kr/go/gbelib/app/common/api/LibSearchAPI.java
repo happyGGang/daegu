@@ -37,7 +37,47 @@ public class LibSearchAPI {
 		Map<String, Object> result = null;
 
 		param.put("keyword", librarySearch.getKeyword());
-
+		
+		// 0 남자 1 여자		
+		if (StringUtils.isNotEmpty(librarySearch.getSex())) {
+			if (librarySearch.getSex().equals("0")) {
+				param.put("gender", "남");
+			} else {
+				param.put("gender", "여");
+			}
+		}
+		
+		if (StringUtils.isNotEmpty(librarySearch.getBirth_year())) {
+			LocalDate now = LocalDate.now();
+			
+			int year = now.getYear();
+			int birth_year = Integer.parseInt(librarySearch.getBirth_year());
+			
+			int age = year - birth_year + 1;
+			
+			if (age <= 4) {
+				param.put("age", "영유아");
+			} else if (age >= 5 && age <= 7) {
+				param.put("age", "유아");
+			} else if (age >= 8 && age <= 13) {
+				param.put("age", "초등");
+			} else if (age >= 14 && age <= 19) {
+				param.put("age", "청소년");
+			} else if (age >= 20 && age <= 29) {
+				param.put("age", "20대 이상");
+			} else if (age >= 30 && age <= 39) {
+				param.put("age", "30대 이상");
+			} else if (age >= 40 && age <= 49) {
+				param.put("age", "40대 이상");
+			} else if (age >= 50 && age <= 59) {
+				param.put("age", "50대 이상");
+			} else if (age >= 60) {
+				param.put("age", "60대 이상");
+			} else {
+				param.put("age", "20대 이상");
+			}
+		}
+		
 		result = CommonAPI.sendKEYWORD("recommendation", param);
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

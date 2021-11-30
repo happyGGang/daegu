@@ -51,6 +51,8 @@ do {
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/main-visual.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mCustomScrollbar.js"></script>
 <script type="text/javascript">
+	var keyword = '';
+	
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함.
 		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}) {
@@ -85,13 +87,58 @@ do {
 				obj.text = '${i.keyword_name}';
 				obj.color = color_rand[Math.floor(Math.random()*color_rand.length)];
 				obj.weight = weight_rand[Math.floor(Math.random()*weight_rand.length)];
-				obj.link = 'module/bookKeyword/view.do?menu_idx=87&keyword_name=${i.keyword_name}';
+// 				obj.link = 'module/bookKeyword/view.do?menu_idx=87&keyword_name=${i.keyword_name}';
 				words.push(obj);
 				$('#demo_word_'+status.index).css('margin','15px')
 			</c:forEach>
 
 			$('#keywords').jQCloud(words, {});
 		}
+		
+		$('#search_keyword').on('click',function(e){
+			// 초기화
+			keyword = '';
+			
+			var selected_count= $('#keywords span[select=selected]').length;
+			
+			if (selected_count == 0) {
+				alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
+				return false;
+			}
+			
+			for (var i = 0; i < selected_count; i++) {
+				var keyword_text = $('#keywords span[select=selected]').eq(i).text(); 
+				
+				if (keyword == null || keyword == '') {
+					keyword = keyword_text;
+				} else {
+					keyword= keyword+','+keyword_text;
+				}
+			}
+			
+			doGetLoad('module/bookKeyword/view.do?menu_idx=', "keyword_name="+keyword);
+		});
+		
+		$(document).on("click", "#keywords span[id^=keywords_word_]", function() {
+			var selected_count= $('#keywords span[select=selected]').length;
+			var selectAttr = $(this).attr("select");
+			var text = $(this).text();
+			
+			if (selectAttr == null) {
+				if (selected_count >= 3) {
+					alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
+					return false;
+				}	
+			}
+			
+			if (selectAttr == 'selected') {
+				$(this).css('border', '');
+				$(this).removeAttr('select');
+			} else {
+				$(this).css('border', 'solid');
+				$(this).attr('select', 'selected');
+			}
+		});
 		
 		$('#homeup').click(function () {
 			$('body,html').animate({
@@ -335,6 +382,7 @@ do {
 <!-- 			<li class="step prev_btn"><a href="">이전단계</a></li> -->
 			<li class="con"><a href="javascript:location.reload()">키워드변경</a></li>
 			<li class="con"><a href="javascript:void(0)" class="book-close-btn">그만끝내기</a></li>
+			<li class="con"><a href="javascript:void(0)" id="search_keyword">검색</a></li>
 <!-- 			<li class="step next_btn"><a href="">다음단계</a></li> -->
 		</ul>
 		
