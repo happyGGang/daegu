@@ -140,7 +140,15 @@ public class CommonAPI {
 				
 				
 				for ( String oneKey : keys ) {
-					 paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+					if (oneKey.equals("keyword")) {
+						String[] keywords = param.get(oneKey).toString().split(",");
+						
+						for (int i = 0; i < keywords.length; i++) {
+							paramList.add(String.format("%s=%s", oneKey, keywords[i]));
+						}
+					} else {
+						paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+					}
 				}
 				log.error("@@@@@@@@@@@@@@@@@@ keyword.api.url : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
 

@@ -55,6 +55,7 @@ public class BookKeywordController extends BaseController{
 	@RequestMapping (value = {"/view.*"})
 	public String view(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Member member = (Member) request.getSession().getAttribute("member");
 		
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
@@ -65,6 +66,11 @@ public class BookKeywordController extends BaseController{
 
 		LibrarySearch librarySearch = new LibrarySearch();
 		librarySearch.setKeyword(bookKeyword.getKeyword_name());
+		
+		librarySearch.setSex(member.getSex());
+		if (StringUtils.isNotEmpty(member.getBirth_day())) {
+			librarySearch.setBirth_year(member.getBirth_day().split("-")[0]);
+		}
 		
 		List<Map<String, Object>> list = LibSearchAPI.getBookKeywordSearchList(librarySearch);
 		
@@ -90,8 +96,14 @@ public class BookKeywordController extends BaseController{
 	
 	@RequestMapping(value = { "/excelDownload.*" })
 	public BookKeywordView excel(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Member member = (Member) request.getSession().getAttribute("member");
+		
 		LibrarySearch librarySearch = new LibrarySearch();
 		librarySearch.setKeyword(bookKeyword.getKeyword_name());
+		librarySearch.setSex(member.getSex());
+		if (StringUtils.isNotEmpty(member.getBirth_day())) {
+			librarySearch.setBirth_year(member.getBirth_day().split("-")[0]);
+		}
 		
 		model.addAttribute("bookKeywordXls", LibSearchAPI.getBookKeywordSearchList(librarySearch));
 
