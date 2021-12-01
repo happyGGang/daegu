@@ -393,79 +393,87 @@ body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.pn
 
 					<div class="contents-section">
 						<div class="curation-box">
+<!-- 큐레이션시작 -->
 							<div class="relative">
 								<h4 class="title">BOOK’ 큐레이션</h4>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=94&manage_idx=944" class="m-more-book"><img src="/resources/homepage/elib/img/footer_more.png" alt="더보기"/></a>
 							</div>
 							<div class="relative curation-box-content">
-								<div class="curation-box-left">
-									<div class="curation-box-left-background">
-										<c:if test="${fn:length(bookList) != 0}">
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=94&plan_date=${bookList[0].imsi_v_1}&manage_idx=${bookList[0].manage_idx}&board_idx=${bookList[0].board_idx}" alt="${bookList[0].title}" title="${bookList[0].title}"/>
-										<span class="img">
-											<c:choose>
-												<c:when test="${bookList[0].preview_img ne null}">
-													<c:choose>
-														<c:when test="${fn:contains(bookList[0].preview_img, 'http')}">
-														<img src="${bookList[0].preview_img}" alt="${bookList[0].title}" title="${bookList[0].title}"/>
-														</c:when>
-														<c:otherwise>
-														<img src="/data/board/${bookList[0].manage_idx}/${bookList[0].board_idx}/${bookList[0].preview_img}" alt="${bookList[0].title}" title="${bookList[0].title}"/>
-														</c:otherwise>
-													</c:choose>
-												</c:when>
-												<c:otherwise>
-													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}">
-												</c:otherwise>
-											</c:choose>
-										</span>
-										<span class="txt">
-											<p class="title_info">${bookList[0].title}</p>
-										</span>
-										<p><a href="/${homepage.context_path}/board/view.do?menu_idx=94&plan_date=${bookList[0].imsi_v_1}&manage_idx=${bookList[0].manage_idx}&board_idx=${bookList[0].board_idx}" alt="${bookList[0].title}" alt="${bookList[0].title}" title="${bookList[0].title}"><img src="/resources/homepage/elib/img/cu-more-btn.png" alt="더보기"></a></p>
-										</c:if>
-									</div>
-								</div>
-								<div class="curation-box-right">
-									<ul>
-										<c:forEach items="${bookList}" var="i" varStatus="status">
+								<ul>
+									<c:forEach items="${bookList}" var="i" varStatus="status" begin="0" end="3">
+									<c:choose>
+									<c:when test="${fn:length(bookList) < 0}">
+										이번달 큐레이션이 없습니다.
+									</c:when>
+									<c:otherwise>
+											<li>
+												<a href="/${homepage.context_path}/board/view.do?menu_idx=94&plan_date=${i.imsi_v_1}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" alt="${i.title}" title="${i.title}"/>
+													<span class="img">
+														<c:choose>
+															<c:when test="${i.preview_img ne null}">
+																<c:choose>
+																	<c:when test="${fn:contains(i.preview_img, 'http')}">
+																	<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+																	</c:when>
+																	<c:otherwise>
+																	<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+																	</c:otherwise>
+																</c:choose>
+															</c:when>
+															<c:otherwise>
+																<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}">
+															</c:otherwise>
+														</c:choose>
+													</span>
+													<span class="txt">
+														<p class="title_info">${i.title}</p>
+													</span>
+												</a>
+											</li>
+									</c:otherwise>
+									</c:choose>
+									</c:forEach>
+								</ul>
+							</div>
+<!-- 큐레이션끝 -->
+<!-- 신착자료시작 -->
+					<div style="clear:both;"></div>
+
+							<div class="relative">
+								<h4 class="title">신착자료</h4>
+								<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&menu=NEW&type=EBK" class="m-more-book"><img src="/resources/homepage/elib/img/footer_more.png" alt="더보기"/></a>
+							</div>
+							<div class="relative curation-box-content">
+								<ul>
+									<c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="3">
 										<c:choose>
-										<c:when test="${fn:length(bookList) < 2}">
-										
+										<c:when test="${fn:length(newBookList) < 0}">
+											이번달 신착도서가 없습니다.
 										</c:when>
 										<c:otherwise>
-											<c:if test="${!status.first}">
-												<li>
-													<a href="/${homepage.context_path}/board/view.do?menu_idx=94&plan_date=${i.imsi_v_1}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" alt="${i.title}" title="${i.title}"/>
-														<span class="img">
-															<c:choose>
-																<c:when test="${i.preview_img ne null}">
-																	<c:choose>
-																		<c:when test="${fn:contains(i.preview_img, 'http')}">
-																		<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-																		</c:when>
-																		<c:otherwise>
-																		<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-																		</c:otherwise>
-																	</c:choose>
-																</c:when>
-																<c:otherwise>
-																	<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}">
-																</c:otherwise>
-															</c:choose>
-														</span>
-														<span class="txt">
-															<p class="title_info">${i.title}</p>
-														</span>
-													</a>
-												</li>
-											</c:if>
+										<li>
+											<a href="/${homepage.context_path}/module/elib/book/view.do?menu_idx=14&menu=NEW&type=EBK&book_idx=${i.book_idx}" alt="${i.book_name}" title="${i.book_name}"/>
+												<span class="img">
+													<c:choose>
+														<c:when test="${not empty i.book_image}">
+															<img src="${i.book_image}" alt="${i.book_name}" title="${i.book_name}" onerror="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+														</c:when>
+														<c:otherwise>
+															<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.book_name}" title="${i.book_name}">
+														</c:otherwise>
+													</c:choose>
+												</span>
+												<span class="txt">
+													<p class="title_info">${i.book_name}</p>
+												</span>
+											</a>
+										</li>
 										</c:otherwise>
 										</c:choose>
-										</c:forEach>
-
-									</ul>
-								</div>
+									</c:forEach>
+								</ul>
 							</div>
+<!-- 신착자료끝 -->
 						</div>
 					</div>
 				</div>

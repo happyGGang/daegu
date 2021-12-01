@@ -55,6 +55,8 @@ import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.best.BestService;
+import kr.go.gbelib.app.cms.module.elib.book.Book;
+import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
@@ -127,6 +129,9 @@ public class IndexController extends BaseController {
 	
 	@Autowired
 	private BookKeywordService bookKeywordService;
+	
+	@Autowired
+	private BookService bookService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -843,6 +848,13 @@ public class IndexController extends BaseController {
 			boardManage.setBoard_type("BOOK");
 			
 			model.addAttribute("bookList", boardService.getBoard(boardManage, board));
+			//신착도서
+			Book book = new Book();
+			book.setType("EBK");
+			book.setSortField("ADD_DATE");
+			book.setSortType("DESC");
+			
+			model.addAttribute("newBookList", bookService.getBookList(book));
 		}
 
 		//전자도서관 리뉴얼

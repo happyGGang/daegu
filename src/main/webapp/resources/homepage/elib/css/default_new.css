@@ -169,24 +169,12 @@ a.more-btn {position:absolute;right:0;top:-1px;font-size:0;width:26px;height:26p
 .alarm-box .contents-section {display:block;position:relative;overflow:hidden;margin:15px 0 0 0;}
 
 .alarm-box .contents-section .curation-box {background:linear-gradient(to bottom, #c261a5, #de6e9f);width:100%;height:420px;border-radius:25px;box-sizing:border-box;padding:25px;}
-.alarm-box .contents-section .curation-box h4.title {color:#fff;font-size:17px;}
-
+.alarm-box .contents-section .curation-box h4.title {color:#fff;font-size:17px;display:inline-block;}
+a.m-more-book {}
 .alarm-box .contents-section .curation-box {}
-.alarm-box .contents-section .curation-box .curation-box-left {float:left;width:35%;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background {background:rgba(0,0,0,0.2);box-sizing:border-box;padding:10px;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a {display:block;position:relative;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a img {width:120px;height:180px;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a span {display:block;box-sizing:border-box;position:relative;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a span.img {text-align:center;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a span.txt {width:100%;padding:0;box-sizing:border-box;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a span.txt p {display:block;box-sizing:border-box;text-align:center;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a span.txt p.title_info {color:#fff;letter-spacing:-1px;font-size:14px;padding:0 0 30px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background p {display:block;box-sizing:border-box;text-align:center;}
-.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background p a img {width:26px;height:26px;}
-
-.alarm-box .contents-section .curation-box .curation-box-right {float:left;width:63%;padding-left:2%;}
-.alarm-box .contents-section .curation-box .curation-box-content {padding-top:30px;}
-.alarm-box .contents-section .curation-box li {display:inline-block;width:32%;padding:1%;padding:0;}
+.alarm-box .contents-section .curation-box .curation-box-content {padding-top:20px;}
+.alarm-box .contents-section .curation-box ul {font-size:0;}
+.alarm-box .contents-section .curation-box li {display:inline-block;width:24%;padding:1%;padding:0;}
 .alarm-box .contents-section .curation-box li a {display:block;position:relative;}
 .alarm-box .contents-section .curation-box li a img {width:75px;height:110px;}
 .alarm-box .contents-section .curation-box li a span {display:block;box-sizing:border-box;position:relative;}
@@ -194,7 +182,6 @@ a.more-btn {position:absolute;right:0;top:-1px;font-size:0;width:26px;height:26p
 .alarm-box .contents-section .curation-box li a span.txt {width:100%;padding:0;box-sizing:border-box;}
 .alarm-box .contents-section .curation-box li a span.txt p {display:block;box-sizing:border-box;text-align:center;}
 .alarm-box .contents-section .curation-box li a span.txt p.title_info {color:#fff;letter-spacing:-1px;font-size:14px;padding:0 0 15px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
-
 
 .alarm-box .contents-section .ebook-box {float:left;background:#ca5db3;width:58%;height:215px;border-radius:25px;box-sizing:border-box;padding:25px 20px;}
 .alarm-box .contents-section .ebook-box h4.title {color:#fff;font-size:17px;}
@@ -249,7 +236,7 @@ a.more-btn {position:absolute;right:0;top:-1px;font-size:0;width:26px;height:26p
 .lnb > ul > li > ul {border-bottom:1px solid #d3d7dd;background:#f6f6f6;padding: 10px 0;}
 .lnb > ul > li > ul > li > a {background:url('../img/left_arr_dot.png') no-repeat 15px center;}
 .lnb > ul > li > ul > li > a:hover {font-family: 's-core_dream4_regular';color:#292929;}
-.lnb ul li.active > a {background-color:#b93b74;background-position:95% center;font-family: 's-core_dream4_regular';color:#fff;position:relative;font-size:16px;}
+.lnb ul li.active > a {background-color:#b93b74;background-position:95% center;font-family: 's-core_dream4_regular';color:#fff;position:relative;}
 .lnb ul li.active > a:hover{color:#fff}
 .lnb ul ul li.active > a{color: #414141;}
 
