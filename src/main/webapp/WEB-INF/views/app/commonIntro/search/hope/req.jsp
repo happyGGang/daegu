@@ -42,6 +42,11 @@
 			doAjaxPost($('#reqHopeForm'));
 		});
 
+		$('#not-save-btn').on('click', function(e) {
+			e.preventDefault();
+			alert('2021년도 희망도서 신청이 마감되었습니다.'); return false;
+		});
+
 		doAjaxLoad('div#searchBox', 'search.do');
 	});
 	$(document).on("keyup", "input:text[numberOnly]", function() {
@@ -403,6 +408,13 @@
 </form:form>
 
 <div class="kbtn txt-center">
+<c:choose>
+	<c:when test="${homepagePath eq 'jungang' || homepagePath eq 'seobu'}">
+	<a id="not-save-btn" href="" class="btn btn5"><span>신청하기</span></a>
+	</c:when>
+	<c:otherwise>
 	<a id="save-btn" href="" class="btn btn5"><span>신청하기</span></a>
+	</c:otherwise>
+</c:choose>
 </div>
 

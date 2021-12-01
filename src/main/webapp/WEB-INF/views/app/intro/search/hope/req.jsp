@@ -342,8 +342,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'jungang'}">
 				<form:select path="manageCode">
-					<form:option value="AD">중앙도서관</form:option>
-				</form:select>
+					<!--<form:option value="AD">중앙도서관</form:option>-->
+				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'dongbu'}">
 				<form:select path="manageCode">
@@ -352,8 +352,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'seobu'}">
 				<form:select path="manageCode">
-					<form:option value="AF">서부도서관</form:option>
-				</form:select>
+					<!--<form:option value="AF">서부도서관</form:option>-->
+				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'nambu'}">
 				<form:select path="manageCode">

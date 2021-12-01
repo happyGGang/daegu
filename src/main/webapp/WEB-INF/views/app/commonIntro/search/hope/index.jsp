@@ -42,6 +42,8 @@ $(function() {
 <style>
 	table td{text-align:center;font-size:14px;}
 	table td.left{text-align:left;}
+	table th.first, table td.first{border-left-width:1px;}
+	table th.last, table td.last{border-right-width:1px;}
 </style>
 
 <form id="cancelForm" action="save.do" method="post" onsubmit="return false;">
