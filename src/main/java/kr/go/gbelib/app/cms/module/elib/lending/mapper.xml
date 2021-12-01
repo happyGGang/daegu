@@ -183,7 +183,7 @@
 		WHERE
 			a.member_id = b.member_id
 		AND b.book_idx = c.book_idx
-		AND b.section != '2'
+		AND b.section = '1'
 		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND c.type = #{type}
@@ -216,7 +216,7 @@
 		WHERE
 			a.member_id = b.member_id
 		AND b.book_idx = c.book_idx
-		AND b.section != '2'
+		AND b.section = '1'
 		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
 		<if test="type != null and type != ''">
 		AND c.type = #{type}

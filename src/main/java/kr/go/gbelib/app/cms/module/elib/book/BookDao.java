@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.elib.book;
 
 import java.util.List;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+
 public interface BookDao {
 
 	public int getBookListCnt(Book book);
@@ -111,5 +113,7 @@ public interface BookDao {
 	public int disapproveBook(Book book);
 	
 	public int approveBookAll(Book book);
+
+	public List<Book> getLendingBookListState(Book book);
 	
 }

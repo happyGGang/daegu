@@ -28,6 +28,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -40,10 +41,18 @@ import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 public class OpmsAPIService extends BaseService {
 	
 	private static final String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)";
-	private static final String LEND_URL = "http://e-lib.tglnet.or.kr:8000/smt_api/eco/execute/%s.asp";
-	private static final String MEMBER_URL = "http://e-lib.tglnet.or.kr:8000/eco/eco_login_sso2.asp";
-//	private static final String VIEW_URL = "/external/opms_pop.asp";
+	private static final String LEND_URL = "/external/book_sync.asp";
+	private static final String MEMBER_URL = "/external/member_sync.asp";
+	private static final String VIEW_URL = "/external/opms_pop.asp";
+	private static final String APP_URL = "https://elib.daegu.go.kr:8082/B2B_DAEGU/device_url.asp";
 	private static final int TIMEOUT = 30 * 1000;
+
+	@Autowired
+	private Yes24APIService yes24APIService;
+
+	private String getServerUrl(Book book) {
+		return "http://elib.daegu.go.kr:8000";
+	}
 	
 	private String getText(Document doc, String path) {
 		XPath xPath =  XPathFactory.newInstance().newXPath();
@@ -85,6 +94,34 @@ public class OpmsAPIService extends BaseService {
 			e.printStackTrace();
 		}
 		
+		return map;
+	}
+	
+	private Map<String, String> parse2(String xml) {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		ByteArrayInputStream input = null;
+		Document doc = null;
+		Map<String, String> map = new HashMap<String, String>();
+
+		try {
+			builder = factory.newDocumentBuilder();
+			input = new ByteArrayInputStream(xml.getBytes("UTF-8"));
+			doc = builder.parse(input);
+			map.put("result", getText(doc, "//result/text()"));
+			map.put("appurl", getText(doc, "//appURL/text()"));
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return map;
 	}
 	
@@ -168,10 +205,11 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> lend(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+		params.add(new BasicNameValuePair("cmd", "lent"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse(send(String.format(LEND_URL, "lend"), params, "UTF-8"), "UTF-8");
+		return parse(send(getServerUrl(book) + LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -182,10 +220,11 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> rtn(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+		params.add(new BasicNameValuePair("cmd", "return"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse(send(String.format(LEND_URL, "return"), params, "UTF-8"), "UTF-8");
+		return parse(send(getServerUrl(book) + LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 
 	/**
@@ -196,10 +235,11 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> reserve(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+		params.add(new BasicNameValuePair("cmd", "reserve"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse(send(String.format(LEND_URL, "reserve"), params, "UTF-8"), "UTF-8");
+		return parse(send(getServerUrl(book) + LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -210,10 +250,11 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> cancel(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+		params.add(new BasicNameValuePair("cmd", "cancel"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse(send(String.format(LEND_URL, "cancel"), params, "UTF-8"), "UTF-8");
+		return parse(send(getServerUrl(book) + LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -224,10 +265,11 @@ public class OpmsAPIService extends BaseService {
 	public Map<String, String> extend(Book book) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
+		params.add(new BasicNameValuePair("cmd", "extension"));
 		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
-		params.add(new BasicNameValuePair("book_code", book.getBook_code()));
+		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
 
-		return parse(send(String.format(LEND_URL, "extend"), params, "UTF-8"), "UTF-8");
+		return parse(send(getServerUrl(book) + LEND_URL, params, "UTF-8"), "UTF-8");
 	}
 	
 	/**
@@ -241,11 +283,52 @@ public class OpmsAPIService extends BaseService {
 //		String user_name = member.getMember_id();
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 
-		params.add(new BasicNameValuePair("ID", user_id));
-		params.add(new BasicNameValuePair("NAME", user_id));
-		params.add(new BasicNameValuePair("PW", user_id));
+		params.add(new BasicNameValuePair("cmd", "I"));
+		params.add(new BasicNameValuePair("user_id", user_id));
+		params.add(new BasicNameValuePair("user_name", user_id));
+		params.add(new BasicNameValuePair("user_pw", user_id));
+		params.add(new BasicNameValuePair("group", book.getLibrary_code()));
 		
-		return parse(send(MEMBER_URL, params, "UTF-8"), "UTF-8");
+		return parse(send(getServerUrl(book) + MEMBER_URL, params, "UTF-8"), "UTF-8");
+	}
+
+	/**
+	 * OPMS내서재 앱 호출 URL(미사용)
+	 * @param book
+	 * @param member
+	 * @param device
+	 * @return
+	 */
+//	public Map<String, String> appUrl2(Book book, ElibMember member, String device) {
+//		List<NameValuePair> params = new ArrayList<NameValuePair>();
+//		
+//		params.add(new BasicNameValuePair("user_id", book.getMember_id()));
+//		params.add(new BasicNameValuePair("eancode", book.getBook_code()));
+//		return parse(send(getServerUrl(book) + VIEW_URL, params, "UTF-8"), "UTF-8");
+//	}
+	
+	/**
+	 * ECO내서재 앱 호출 URL (YES24와 동일)
+	 * @param book
+	 * @param member
+	 * @param device
+	 * @return
+	 */
+	public Map<String, String> appUrl(Book book, ElibMember member, String device) {
+		String member_id = member.getMember_id();
+		String libCode = member.getLib_code();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		String site_code = "B2B_DAEGU";
+
+		params.add(new BasicNameValuePair("device_type", device));
+		params.add(new BasicNameValuePair("user_id", member_id));
+		params.add(new BasicNameValuePair("contentsKey", book.getBook_code()));
+		params.add(new BasicNameValuePair("ownerCode", "EC"));
+		params.add(new BasicNameValuePair("libCode", libCode));
+		params.add(new BasicNameValuePair("drm_type", "ECO"));
+//		params.add(new BasicNameValuePair("site_code", site_code));
+
+		return parse2(yes24APIService.send(APP_URL, params));
 	}
 	
 }

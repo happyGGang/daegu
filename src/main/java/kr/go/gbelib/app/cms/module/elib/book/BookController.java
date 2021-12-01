@@ -66,7 +66,7 @@ public class BookController extends BaseController {
 	private ElibCodeService elibCodeService;
 	
 	@Autowired
-	private LendingAutoReturnService lendingAutoReturnService;
+	private LendingAutoReturnService lendingAutoReturnServiceNew;
 	
 	@Autowired
 	private ElibMemberService elibMemberService;
@@ -426,10 +426,11 @@ public class BookController extends BaseController {
 						currParentCategories.add(String.valueOf(parentCategory.getCate_id()));
 					}
 					
-					if("ADO".equals(type)) {
-						book.setCate_id(cate.getCate_id());
-					} else {
+//					if("ADO".equals(type)) {
+//						book.setCate_id(cate.getCate_id());
+//					} else {
 						String child = getStringCellValue(row, 6);
+						cate.setParent_id(parentCategory.getCate_id());
 						cate.setCate_name(child);
 						cate.setType(type);
 						cate.setDepth(2);
@@ -458,7 +459,7 @@ public class BookController extends BaseController {
 								book.setCate_id(childCategory.getCate_id());
 								currChildCategories.add(String.valueOf(childCategory.getCate_id()));
 							}
-					}
+//					}
 					
 	//				book.setParent_id(parentIdMap.get(parent));
 	//				book.setCate_id(cateIdMap.get(child));
@@ -583,12 +584,12 @@ public class BookController extends BaseController {
 	
 	@RequestMapping(value = {"/cms/module/elib/book/auto_return.*"})
 	public void autoReturn(Model model, HttpServletRequest request, HttpServletResponse response) {
-		lendingAutoReturnService.autoReturn();
+		lendingAutoReturnServiceNew.autoReturn();
 	}
 	
 	@RequestMapping(value = {"/cms/module/elib/book/auto_update_lendable_dt.*"})
 	public void autoUpdateLendableDt(Model model, HttpServletRequest request, HttpServletResponse response) {
-		lendingAutoReturnService.autoUpdateLendableDt();
+		lendingAutoReturnServiceNew.autoUpdateLendableDt();
 	}
 	
 	private Map<String, String> getMember(ElibMember elibMember) {

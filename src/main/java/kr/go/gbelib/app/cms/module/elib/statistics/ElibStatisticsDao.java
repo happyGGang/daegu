@@ -3,6 +3,8 @@ package kr.go.gbelib.app.cms.module.elib.statistics;
 import java.util.List;
 import java.util.Map;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+
 public interface ElibStatisticsDao {
 	
 	public List<Map<String, Object>> getStatisticsByCategory(ElibStatistics elibStatistics);

@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.elib.code;
 
 import java.util.List;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+
 public interface ElibCodeDao {
 
 	public List<ElibCode> getProviders();

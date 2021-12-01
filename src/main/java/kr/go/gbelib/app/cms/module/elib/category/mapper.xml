@@ -223,6 +223,7 @@
 			delete_yn = 'N'
 		AND type = #{type}
 		AND depth = '2'
+		AND parent_id = #{parent_id}
 		AND cate_name = #{cate_name}
 		AND ROWNUM = 1
 	</select>

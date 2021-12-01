@@ -208,7 +208,7 @@ public class BestService extends BaseService {
 	/**
 	 * 메인화면용 신착/대출베스트 목록
 	 *
-	 * @author whalesoft YONGJU 2019. 12. 13.
+	 * @author whalesoft 2019. 12. 13.
 	 * @param book
 	 * @return
 	 */

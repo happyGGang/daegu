@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.elib.best;
 
 import java.util.List;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 
 public interface BestDao {
@@ -51,7 +52,7 @@ public interface BestDao {
 	public List<BestBook> getBookList(Book book);
 
 	/**
-	 * @author whalesoft YONGJU 2019. 12. 13.
+	 * @author whalesoft 2019. 12. 13.
 	 * @param book
 	 */
 	public List<Book> getMainBookList(Book book);

@@ -7,7 +7,7 @@ public class Lending extends PagingUtils {
 
 	private int lend_idx;
 	private int book_idx;
-	private String cate_id = "000";
+	private String cate_id;
 	private String lend_dt;
 	private String return_due_dt;
 	private String return_dt;
@@ -33,7 +33,7 @@ public class Lending extends PagingUtils {
 	private int library_idx;
 	private String library_name;
 	private String seq_no;
-	private String parent_id = "000";
+	private String parent_id;
 	private String reserve_yn;
 	private int reserve_idx;
 	private String section;

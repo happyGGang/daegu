@@ -8,10 +8,10 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 
 public class Book extends PagingUtils {
-	
+
 	private int book_idx;
 	private String book_code;
-	private String cate_id = "000";
+	private int cate_id = 0;
 	private int cate_id_1;
 	private String cate_name;
 	private String book_name;
@@ -33,7 +33,7 @@ public class Book extends PagingUtils {
 	private String type_name = "전자책";
 	private String format;
 	private String book_image;
-	private String parent_id = "000";
+	private int parent_id;
 	private String parent_name;
 	private int recommend_cnt = 0;
 	private int library_idx = 0;
@@ -87,12 +87,19 @@ public class Book extends PagingUtils {
 	private String mkSessData;
 	private int audio_no;
 	private String audio_name;
-	private boolean isReservable;
-	private boolean isLendable;
 
 	private String approved_yn = "Y";
 	private MultipartFile mfile;
 	
+	//공급사가 요청한 API를 위한 book_idx 리스트 2021-11-19
+	private String book_idx_list;
+	private String lend_idx;
+	private String lend_dt;
+	private String return_due_dt;
+	private String orderOption;
+	private String loanExtendsAvailableYn;
+	private String loanExtendsAbleReason;
+
 	public Book() {
 		this.setSortField("book_pubdt");
 	}
@@ -113,6 +120,9 @@ public class Book extends PagingUtils {
 	}
 	public String getBook_code() {
 		return book_code;
+	}
+	public int getCate_id() {
+		return cate_id;
 	}
 	public int getCate_id_1() {
 		return cate_id_1;
@@ -176,6 +186,9 @@ public class Book extends PagingUtils {
 	}
 	public String getBook_image() {
 		return book_image;
+	}
+	public int getParent_id() {
+		return parent_id;
 	}
 	public String getParent_name() {
 		return parent_name;
@@ -270,6 +283,9 @@ public class Book extends PagingUtils {
 	public void setBook_code(String book_code) {
 		this.book_code = book_code;
 	}
+	public void setCate_id(int cate_id) {
+		this.cate_id = cate_id;
+	}
 	public void setCate_id_1(int cate_id_1) {
 		this.cate_id_1 = cate_id_1;
 	}
@@ -332,6 +348,9 @@ public class Book extends PagingUtils {
 	}
 	public void setBook_image(String book_image) {
 		this.book_image = book_image;
+	}
+	public void setParent_id(int parent_id) {
+		this.parent_id = parent_id;
 	}
 	public void setParent_name(String parent_name) {
 		this.parent_name = parent_name;
@@ -576,33 +595,52 @@ public class Book extends PagingUtils {
 	public void setAudio_name(String audio_name) {
 		this.audio_name = audio_name;
 	}
-	public boolean isReservable() {
-		return isReservable;
+	public String getBook_idx_list() {
+		return book_idx_list;
 	}
-	public void setReservable(boolean isReservable) {
-		this.isReservable = isReservable;
+	public void setBook_idx_list(String book_idx_list) {
+		this.book_idx_list = book_idx_list;
 	}
-	public boolean isLendable() {
-		return isLendable;
+	public String getLend_idx() {
+		return lend_idx;
 	}
-	public void setLendable(boolean isLendable) {
-		this.isLendable = isLendable;
+	public void setLend_idx(String lend_idx) {
+		this.lend_idx = lend_idx;
 	}
-	public String getCate_id() {
-		return cate_id;
+	
+	public String getLend_dt() {
+		return lend_dt;
 	}
-	public void setCate_id(String cate_id) {
-		this.cate_id = cate_id;
+	public void setLend_dt(String lend_dt) {
+		this.lend_dt = lend_dt;
 	}
-	public String getParent_id() {
-		return parent_id;
+	public String getReturn_due_dt() {
+		return return_due_dt;
 	}
-	public void setParent_id(String parent_id) {
-		this.parent_id = parent_id;
+	public void setReturn_due_dt(String return_due_dt) {
+		this.return_due_dt = return_due_dt;
+	}
+	public String getOrderOption() {
+		return orderOption;
+	}
+	public void setOrderOption(String orderOption) {
+		this.orderOption = orderOption;
+	}
+	public String getLoanExtendsAvailableYn() {
+		return loanExtendsAvailableYn;
+	}
+	public void setLoanExtendsAvailableYn(String loanExtendsAvailableYn) {
+		this.loanExtendsAvailableYn = loanExtendsAvailableYn;
+	}
+	public String getLoanExtendsAbleReason() {
+		return loanExtendsAbleReason;
+	}
+	public void setLoanExtendsAbleReason(String loanExtendsAbleReason) {
+		this.loanExtendsAbleReason = loanExtendsAbleReason;
 	}
 	@Override
 	public String toString() {
 		return String.format("Book [book_idx=%s, book_code=%s, com_code=%s]", book_idx, book_code, com_code);
 	}
-	
+
 }

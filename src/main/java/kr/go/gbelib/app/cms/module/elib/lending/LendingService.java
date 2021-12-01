@@ -223,7 +223,9 @@ public class LendingService extends BaseService {
 			}
 
 			if(result == 0) {
-				if(useApi) apiService.cancel(new Book(reserve));
+				Book book1 = new Book(reserve);
+				book1.setBook_code(book.getBook_code());
+				if(useApi) apiService.cancel(book1);
 				result = dao.reserveToLending(reserve);
 //				dao.setMsgConfirmN(reserve);
 				break;
@@ -515,7 +517,9 @@ public class LendingService extends BaseService {
 			}
 
 			if(result == 0) {
-				if(useApi) apiService.cancel(new Book(reserve));
+				Book book1 = new Book(reserve);
+				book1.setBook_code(book.getBook_code());
+				if(useApi) apiService.cancel(book1);
 				result = dao.reserveToLending(reserve);
 //				dao.setMsgConfirmN(reserve);
 				break;
@@ -558,7 +562,9 @@ public class LendingService extends BaseService {
 			}
 
 			if(result == 0) {
-				if(useApi) apiService.cancel(new Book(reserve));
+				Book book1 = new Book(reserve);
+				book1.setBook_code(lending.getBook_code());
+				if(useApi) apiService.cancel(book1);
 				result = dao.reserveToLending(reserve);
 //				dao.setMsgConfirmN(reserve);
 				break;

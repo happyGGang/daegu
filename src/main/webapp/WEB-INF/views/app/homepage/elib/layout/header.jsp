@@ -23,9 +23,11 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/new_elib_default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_design.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/elib/css/default_new.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/elib/css/sub_design_new.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
+<link rel="apple-touch-icon" href="/resources/common/img/favicon.ico">
+<link rel="shortcut icon" href="/resources/common/img/favicon.ico">
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
 <![endif]-->
@@ -40,7 +42,7 @@
 <script type="text/javascript" src="/resources/common/js/combobo.js" charset="utf-8"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
-<script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
+<script type="text/javascript" src="/resources/homepage/elib/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 </head>
 <body>

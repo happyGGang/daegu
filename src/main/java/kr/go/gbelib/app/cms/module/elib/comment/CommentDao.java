@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.elib.comment;
 
 import java.util.List;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 
 public interface CommentDao {

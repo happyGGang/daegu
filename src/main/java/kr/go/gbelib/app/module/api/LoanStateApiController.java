@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.go.gbelib.app.cms.module.newelib.book.Book;
-import kr.go.gbelib.app.cms.module.newelib.config.ConfigService;
-import kr.go.gbelib.app.cms.module.newelib.lending.Lending;
-import kr.go.gbelib.app.cms.module.teach.Teach;
+import kr.go.gbelib.app.cms.module.elib.book.Book;
 
 @Controller
 @RequestMapping(value = {"/api/"})

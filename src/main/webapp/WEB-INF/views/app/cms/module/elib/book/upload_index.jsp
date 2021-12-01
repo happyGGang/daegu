@@ -190,7 +190,7 @@ function submit(e) {
 				<input type="text" name="category_prefix" value="" style="width: 200px;"><br/>
 				* 마지막 빈칸은 직접 넣어야 함
 			</td>
-		</tr>
+		</tr> --%>
 		<tr>
 			<th>타입</th>
 			<td>
@@ -199,7 +199,7 @@ function submit(e) {
 				&nbsp;<input type="radio" name="type" value="WEB" style="width: 20px;"> 이러닝(WEB)
 			</td>
 		</tr>
-		<tr>
+		<%--<tr>
 			<th>공급사</th>
 			<td>
 				<select id="upload_com_code" name="com_code" style="width:200px">

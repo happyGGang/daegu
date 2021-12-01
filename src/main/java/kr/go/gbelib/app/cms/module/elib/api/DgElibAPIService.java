@@ -198,14 +198,14 @@ public class DgElibAPIService extends BaseService {
 		if((s = date(map.get("reg_date"))) != null) book.setBook_regdt(s);
 		if((s = str(map.get("cover_url"))) != null) book.setBook_image(s);
 		if((i = num(map.get("contents_copy"))) != null) book.setMax_lend(i);
-		if((b = bool(map.get("resv_able"))) != null) book.setReservable(b);
+//		if((b = bool(map.get("resv_able"))) != null) book.setReservable(b);
 		if((s = str(map.get("owner_code"))) != null) book.setCom_code(s);
 		if((s = str(map.get("goods_id"))) != null) book.setBook_code(s);
 		if((i = num(map.get("loan_count"))) != null) book.setBook_lend(i);
 		if((i = num(map.get("resv_count"))) != null) book.setBook_reserve(i);
 		if((s = str(map.get("abstracts_info"))) != null) book.setBook_info(s);
 		if((s = StringUtils.isEmpty(str(map.get("title_info"))) ? str(map.get("title")) : str(map.get("title_info"))) != null) book.setBook_name(s);
-		if((b = bool(map.get("loan_able"))) != null) book.setLendable(b);
+//		if((b = bool(map.get("loan_able"))) != null) book.setLendable(b);
 		if((s = str(map.get("pub_info"))) != null) book.setBook_pubname(s);
 		if((s = str(map.get("lib_code_desc"))) != null) book.setLibrary_name(s);
 		if((s = str(map.get("lib_code"))) != null) book.setLibrary_code(s);
@@ -453,9 +453,9 @@ public class DgElibAPIService extends BaseService {
 				ElibCategory c = new ElibCategory();
 				c.setDepth(1);
 				c.setCate_name(str(m.get("class_name")));
-				c.setCate_id(str(m.get("class_code")));
+//				c.setCate_id(str(m.get("class_code")));
 				c.setParent_name(str(m.get("class_name")));
-				c.setParent_id(str(m.get("class_code")));
+//				c.setParent_id(str(m.get("class_code")));
 				categoryList.add(c);
 			}
 
@@ -473,7 +473,7 @@ public class DgElibAPIService extends BaseService {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("method", "getSubCategory"));
-		params.add(new BasicNameValuePair("majorCategory", book.getParent_id()));
+//		params.add(new BasicNameValuePair("majorCategory", book.getParent_id()));
 
 		Map<String, Object> result = parse(send("http://e-lib.tglnet.or.kr/daegu/Mobile.do", params, "UTF-8"), "UTF-8");
 		List<Map<String, Object>> list = (List<Map<String, Object>>) result.get("CategoryList");
@@ -486,7 +486,7 @@ public class DgElibAPIService extends BaseService {
 				ElibCategory c = new ElibCategory();
 				c.setDepth(2);
 				c.setCate_name(str(m.get("CategoryName")));;
-				c.setCate_id(str(m.get("subCategory")));
+//				c.setCate_id(str(m.get("subCategory")));
 				c.setParent_id(book.getParent_id());
 				categoryList.add(c);
 			}
@@ -507,10 +507,10 @@ public class DgElibAPIService extends BaseService {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("method", "categorySearch"));
-		params.add(new BasicNameValuePair("major_category", book.getParent_id()));
-		if(StringUtils.isNotEmpty(book.getCate_id()) && !StringUtils.equalsIgnoreCase("null", book.getCate_id())) {
-			params.add(new BasicNameValuePair("sub_category", book.getCate_id()));
-		}
+//		params.add(new BasicNameValuePair("major_category", book.getParent_id()));
+//		if(StringUtils.isNotEmpty(book.getCate_id()) && !StringUtils.equalsIgnoreCase("null", book.getCate_id())) {
+//			params.add(new BasicNameValuePair("sub_category", book.getCate_id()));
+//		}
 		params.add(new BasicNameValuePair("sort_field", "sort_title"));
 		params.add(new BasicNameValuePair("sort_option", "asc"));
 		params.add(new BasicNameValuePair("current_page", str(book.getViewPage() - 1)));
@@ -536,7 +536,7 @@ public class DgElibAPIService extends BaseService {
 				ElibCategory c = new ElibCategory();
 				c.setDepth(2);
 				c.setCate_name(str(m.get("sub_category_desc")));;
-				c.setCate_id(str(m.get("sub_category")));
+//				c.setCate_id(str(m.get("sub_category")));
 				c.setParent_id(book.getParent_id());
 				categoryList.add(c);
 			}

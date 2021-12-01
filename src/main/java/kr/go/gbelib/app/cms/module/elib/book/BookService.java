@@ -60,13 +60,7 @@ public class BookService extends BaseService {
 	}
 	
 	public List<Book> getBookList(Book book) {
-		List<Book> bookList = dao.getBookList(book);
-
-		for(Book b: bookList) {
-			updateCnt(b);
-		}
-		
-		return bookList;
+		return dao.getBookList(book);
 	}
 	
 	public int getBookListCntCms(Book book) {
@@ -86,13 +80,7 @@ public class BookService extends BaseService {
 	}
 	
 	public List<Book> getBookListAll(Book book) {
-		List<Book> bookList = dao.getBookListAll(book);
-
-		for(Book b: bookList) {
-			updateCnt(b);
-		}
-		
-		return bookList;
+		return dao.getBookListAll(book);
 	}
 	
 	public List<Book> getCompList(Book book) {
@@ -100,11 +88,7 @@ public class BookService extends BaseService {
 	}
 	
 	public Book getBookInfo(Book book) {
-		Book b = dao.getBookInfo(book);
-
-		updateCnt(b);
-		
-		return b;
+		return dao.getBookInfo(book);
 	}
 
 	@Transactional
@@ -751,6 +735,10 @@ public class BookService extends BaseService {
 	
 	public int approveBookAll(Book book) {
 		return dao.approveBookAll(book);
+	}
+
+	public List<Book> getLendingBookListState(Book book) {
+		return dao.getLendingBookListState(book);
 	}
 	
 }

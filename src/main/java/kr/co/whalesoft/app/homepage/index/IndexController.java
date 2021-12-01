@@ -822,12 +822,12 @@ public class IndexController extends BaseController {
 			model.addAttribute("teachList", teachService.getTeachListForUser(t));
 		}
 
-		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			Member sessionMemberInfo = getSessionMemberInfo(request);
-			if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {// 정회원만 가능
-				dgElibAPIService.elibLogin(sessionMemberInfo);
-			}
-		}
+//		if (homepage.getHomepage_id().equals("h30") && isLogin(request) && "HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+//			Member sessionMemberInfo = getSessionMemberInfo(request);
+//			if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {// 정회원만 가능
+//				dgElibAPIService.elibLogin(sessionMemberInfo);
+//			}
+//		}
 
 		// 전자도서관
 		
@@ -847,18 +847,18 @@ public class IndexController extends BaseController {
 
 		//전자도서관 리뉴얼
 		//메인페이지 북큐레이션
-		if (homepage.getHomepage_id().equals("h79")) {
-			board = new Board();
-			board.setManage_idx(972);
-			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
-				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
-			}
-			
-			BoardManage boardManage = new BoardManage();
-			boardManage.setBoard_type("BOOK");
-			
-			model.addAttribute("bookList", boardService.getBoard(boardManage, board));
-		}
+//		if (homepage.getHomepage_id().equals("h79")) {
+//			board = new Board();
+//			board.setManage_idx(972);
+//			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
+//				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
+//			}
+//			
+//			BoardManage boardManage = new BoardManage();
+//			boardManage.setBoard_type("BOOK");
+//			
+//			model.addAttribute("bookList", boardService.getBoard(boardManage, board));
+//		}
 		
 		// ECO 전자도서관 API로 변경 후 주석 처리
 /*

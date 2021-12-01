@@ -15,10 +15,10 @@ import org.springframework.util.StringUtils;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.api.ApiLog;
 import kr.go.gbelib.app.cms.module.api.ApiLogService;
-import kr.go.gbelib.app.cms.module.newelib.book.Book;
-import kr.go.gbelib.app.cms.module.newelib.book.BookService;
-import kr.go.gbelib.app.cms.module.newelib.config.Config;
-import kr.go.gbelib.app.cms.module.newelib.config.ConfigService;
+import kr.go.gbelib.app.cms.module.elib.book.Book;
+import kr.go.gbelib.app.cms.module.elib.book.BookService;
+import kr.go.gbelib.app.cms.module.elib.config.Config;
+import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
 
 @Service
 public class LoanStateApiService extends BaseService {

@@ -242,7 +242,7 @@ $.ajax({
 
 </script>
 <style>
-body, html {background:#30706e url('/resources/homepage/${homepage.context_path}/img/main-visual.png') no-repeat center top;background-size:cover;}
+body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.png') no-repeat center top;background-size:cover;}
 </style>
 <div id="wrap">
 

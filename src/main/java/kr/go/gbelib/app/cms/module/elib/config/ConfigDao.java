@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.cms.module.elib.config;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+
 public interface ConfigDao {
 	
 	public Config getConfig();

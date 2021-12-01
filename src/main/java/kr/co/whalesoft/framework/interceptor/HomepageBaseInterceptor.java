@@ -158,15 +158,20 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 					// 본래 전자도서관과 전자도서관 리뉴얼
 					if("elib".equals(contextPath)) {
-						List<ElibCategory> categoryList = dgElibAPIService.getLeftCategory();
-						request.setAttribute("categoryMenuList", categoryList);
-					}else if ("newelib".equals(contextPath)) {
 						List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
 						request.setAttribute("categoryMenuList", categoryList);
 
 						List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
 						request.setAttribute("compMenuList", compList);
+
 					}
+//					}else if ("newelib".equals(contextPath)) {
+//						List<ElibCategory> categoryList = elibCategoryService.getCategoryWithCntList(elibCategory);
+//						request.setAttribute("categoryMenuList", categoryList);
+//
+//						List<ElibCode> compList = elibCodeService.getCompWithCntList(elibCode);
+//						request.setAttribute("compMenuList", compList);
+//					}
 
 					//					List<Book> deviceList = bookService.getBookCountByDevice(book);
 					//					request.setAttribute("deviceMenuList", deviceList);

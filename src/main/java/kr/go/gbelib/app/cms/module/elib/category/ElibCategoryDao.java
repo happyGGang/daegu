@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.elib.category;
 
 import java.util.List;
 
+import egovframework.rte.psl.dataaccess.mapper.Mapper;
+
 public interface ElibCategoryDao  {
 
 	public int getCategoryListCnt(ElibCategory cate);
