@@ -390,7 +390,7 @@ function goto_store() {
 				<span class="txt-bar">&nbsp;</span>
 				<span>예약 : ${i.book_reserve}</span>
 				</c:if>
-				<div style="float: right;">${sessionScope.member.lib_code}
+				<div style="float: right;">
 					<c:if test="${lending.menu == 'LENDING'}">
 					<c:choose>
 					<c:when test="${i.com_code == 'FXLI'}">

@@ -11,10 +11,10 @@
 				<a href="/dgportal/html.do?menu_idx=52" target="_blank" title="새창열림">저작권정책</a>
 				<a href="/dgportal/html.do?menu_idx=50" target="_blank" title="새창열림">이메일무단수집거부</a>
 				<a href="/${homepage.context_path}/html.do?menu_idx=87">뷰어다운로드</a>
-				<a href="/${homepage.context_path}/html.do?menu_idx=97">모바일홈화면추가안내</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=95">모바일홈화면추가안내</a>
 			</div>
 			<div class="mmif">
-			<a href="/${homepage.context_path}/html.do?menu_idx=97">모바일 홈화면추가 안내</a>
+			<a href="/${homepage.context_path}/html.do?menu_idx=95">모바일 홈화면추가 안내</a>
 			</div-->
 		</div>
 

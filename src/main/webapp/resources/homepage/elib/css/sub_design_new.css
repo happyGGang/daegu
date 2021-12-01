@@ -307,9 +307,10 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 .tabmenu.tab2 li{width:20%}
 .tabmenu.tab2 li a{border-bottom-width:1px;margin-bottom:-1px}
 
-.tabCon ul li{vertical-align:top;display: inline-block;box-sizing: border-box;width: 49.6%;padding: 35px 30px 30px 30px;margin-top:10px;border:1px solid #e1e1e1;}
-.tabCon ul li:nth-child(1){}
-.tabCon ul li p{background: url('/resources/homepage/dgportal/img/read_list.png') no-repeat 4px 12px;padding: 3px 0 10px 20px;}
+.tabCon ul.mop li{vertical-align:top;display: inline-block;box-sizing: border-box;width: 49.6%;padding: 35px 30px 30px 30px;margin-top:10px;border:1px solid #e1e1e1;}
+.tabCon ul.mop li:nth-child(1){}
+.tabCon ul.mop li p{background: url('/resources/homepage/dgportal/img/read_list.png') no-repeat 4px 12px;padding: 3px 0 10px 20px;}
+ul .img {text-align:center}
 
 @media all and (max-width:1000px){
 	.tabmenu ul{overflow:hidden}
@@ -317,7 +318,7 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 	.tabmenu li{width:33.33%;}
 	.tab-menu.tab3 li{width:50%}
 	.tabmenu.tab3 li a{margin-bottom:0}
-	.tabCon ul li {width:49.6%}
+	.tabCon ul.mop li {width:49.6%}
 }
 @media all and (max-width:900px){
 	.tabmenu.tab3 li{width:50%}
@@ -325,14 +326,14 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 }
 @media all and (max-width:768px){
 	.tabmenu.tab2 li{width:25%}
-	.tabCon ul li {width:49.5%}
+	.tabCon ul.mop li {width:49.5%}
 }
 @media all and (max-width:580px){
 	.tabmenu li{width: 100%;}
 	.tabmenu li a{padding-left:15px;padding-right:15px;}
 	.tab-menu.tab2 li,
 	.tabmenu.tab3 li{width:100%}
-	.tabCon ul li {width:100%}
+	.tabCon ul.mop li {width:100%}
 }
 .tabCon{position:fixed;right:5000px;padding:0 0 15px}
 .tabCon.active{position:static;right:inherit}

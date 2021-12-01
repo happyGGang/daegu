@@ -215,7 +215,7 @@ div.loginBox1 .loginImg { float: left;}
 }
 @media all and (max-width:550px){
 	div.loginBox1 .loginImg { float: none;}
-	.loginBox1 .login div.loginImgBox {text-align: center;}
+	.loginBox1 .login div.loginImgBox {display:none;text-align: center;}
 }
 @media all and (max-width:660px){
 	.login-body2 fieldset button#save-btn span{display:none;}

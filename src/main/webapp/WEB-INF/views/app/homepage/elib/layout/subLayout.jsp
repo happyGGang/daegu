@@ -100,7 +100,7 @@ $(function() {
 				<ul data-call="bxslider" data-breaks="[{screen:0, slides:4},{screen:340, slides:4},{screen:450, slides:5},{screen:600, slides:5},{screen:767, slides:5},{screen:1000, slides:8}]">
 					<li><a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&amp;menu=NEW&amp;type=EBK"><img src="/resources/homepage/elib/img/icon001.png" alt="소장형전자책 바로가기"><br/>소장형전자책</a></li>
 					<li><a href="/${homepage.context_path}/html/kyobogudok.do?menu_idx=93"><img src="/resources/homepage/elib/img/icon010.png" alt="구독형전자책 바로가기"><br/>구독형전자책</a></li>
-					<li><a href="/${homepage.context_path}/html/html2.do?menu_idx=90"><img src="/resources/homepage/elib/img/icon002.png" alt=""><br/>오디오북</a></li>
+					<li><a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=19&menu=NEW&type=ADO"><img src="/resources/homepage/elib/img/icon002.png" alt=""><br/>오디오북</a></li>
 					<li><a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27"><img src="/resources/homepage/elib/img/icon003.png" alt="E-러닝 바로가기"><br/>E-러닝</a></li>
 					<li><a href="/${homepage.context_path}/html.do?menu_idx=24"><img src="/resources/homepage/elib/img/icon004.png" alt="웹DB 바로가기"><br/>웹DB</a></li>
 					<li><a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=81"><img src="/resources/homepage/elib/img/icon006.png" alt="모바일회원증 바로가기"><br/>모바일회원증</a></li>
@@ -149,7 +149,7 @@ $(function() {
 				</ul>
 					<ul class="SubMenu">
 						<c:if test="${not empty categoryMenuList}">
-							<li id="menu_${menu_idx_category}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_category}&menu=CATEGORY&type=${fn:escapeXml(param.type)}"><span>주제별</span></a>
+							<li id="menu_${menu_idx_category}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_category}&menu=CATEGORY&type=${fn:escapeXml(param.type)}">주제별</a>
 								<ul class="SubMenu" style="display: block;">
 									<c:forEach items="${categoryMenuList}" var="i" varStatus="status">
 										<li style="line-height: 0%;"<c:if test="${param.parent_id == i.cate_id}"> class="active"</c:if>>
@@ -164,7 +164,7 @@ $(function() {
 							</li>
 						</c:if>
 						<c:if test="${not empty compMenuList}">
-							<li id="menu_${menu_idx_provider}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_provider}&menu=PROVIDER&type=${fn:escapeXml(param.type)}"><span>유통사별</span></a>
+							<li id="menu_${menu_idx_provider}"><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_provider}&menu=PROVIDER&type=${fn:escapeXml(param.type)}">유통사별</a>
 								<ul class="SubMenu" style="display: block;">
 									<c:forEach items="${compMenuList}" var="i" varStatus="status">
 										<c:if test="${i.com_code ne 'ARTN'}">

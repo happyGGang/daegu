@@ -189,28 +189,32 @@ $(function() {
 	});
 });
 
-// 모바일일 경우 fullpage 미사용
-if ( $(window).width() < 1025 ) {
-	$('.quickMenu').removeClass('on');
-	$('.notice-box').removeClass('on');
-	$('#more-view-btn').hide();
-} else {
-		$('.quickMenu').addClass('on');
-		$('.notice-box').addClass('on');
-		$('#more-view-btn').hide();
-};
+$(window).load(function(){ 
 
-// 리사이즈 될때 모바일 화면에서 fullpage 미사용
-$( window ).resize( function(e) {
-	if ( $(window).width() < 1025 ) {
+	// 모바일일 경우 fullpage 미사용
+	if ( $(window).width() < "1025" ) {
 		$('.quickMenu').removeClass('on');
 		$('.notice-box').removeClass('on');
 		$('#more-view-btn').hide();
 	} else {
-		$('.quickMenu').addClass('on');
-		$('.notice-box').addClass('on');
-		$('#more-view-btn').hide();
+			$('.quickMenu').addClass('on');
+			$('.notice-box').addClass('on');
+			$('#more-view-btn').hide();
 	};
+
+	// 리사이즈 될때 모바일 화면에서 fullpage 미사용
+	$( window ).resize( function() {
+		if ( $(window).width() < "1025" ) {
+			$('.quickMenu').removeClass('on');
+			$('.notice-box').removeClass('on');
+			$('#more-view-btn').hide();
+		} else {
+			$('.quickMenu').addClass('on');
+			$('.notice-box').addClass('on');
+			$('#more-view-btn').hide();
+		};
+	});
+
 });
 
 function getCookie(name){
@@ -288,9 +292,17 @@ body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.pn
 							<h4>소장형전자책</h4>
 						</div>
 					</a>
+					<li class="quick-5">
+					<a href="/${homepage.context_path}/html/kyobogudok.do?menu_idx=93" title="구독형 전자책 바로가기" class="quick05">
+						<div>
+							<p>E-Book</p>
+							<h4>구독형전자책</h4>
+						</div>
+					</a>
+					</li>
 					</li>
 					<li class="quick-2">
-					<a href="/${homepage.context_path}/html/html2.do?menu_idx=90" title="오디오북 바로가기" class="quick02">
+					<a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=19&menu=NEW&type=ADO" title="오디오북 바로가기" class="quick02">
 						<div>
 							<p>귀로 듣는 소리책</p>
 							<h4>오디오북</h4>
@@ -310,14 +322,6 @@ body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.pn
 						<div>
 							<p>학술논문ㆍ클래식</p>
 							<h4>웹DB</h4>
-						</div>
-					</a>
-					</li>
-					<li class="quick-5">
-					<a href="/${homepage.context_path}/html/kyobogudok.do?menu_idx=93" title="구독형 전자책 바로가기" class="quick05">
-						<div>
-							<p>E-Book</p>
-							<h4>구독형전자책</h4>
 						</div>
 					</a>
 					</li>
