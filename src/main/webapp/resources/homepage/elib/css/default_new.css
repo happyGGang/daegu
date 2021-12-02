@@ -174,14 +174,15 @@ a.m-more-book {}
 .alarm-box .contents-section .curation-box {}
 .alarm-box .contents-section .curation-box .curation-box-content {padding-top:20px;}
 .alarm-box .contents-section .curation-box ul {font-size:0;}
-.alarm-box .contents-section .curation-box li {display:inline-block;width:24%;padding:1%;padding:0;}
+.alarm-box .contents-section .curation-box li {display:inline-block;width:23.5%;padding:1%;}
+.alarm-box .contents-section .curation-box li:last-child {padding:0;}
 .alarm-box .contents-section .curation-box li a {display:block;position:relative;}
 .alarm-box .contents-section .curation-box li a img {width:75px;height:110px;}
 .alarm-box .contents-section .curation-box li a span {display:block;box-sizing:border-box;position:relative;}
 .alarm-box .contents-section .curation-box li a span.img {text-align:center;}
 .alarm-box .contents-section .curation-box li a span.txt {width:100%;padding:0;box-sizing:border-box;}
 .alarm-box .contents-section .curation-box li a span.txt p {display:block;box-sizing:border-box;text-align:center;}
-.alarm-box .contents-section .curation-box li a span.txt p.title_info {color:#fff;letter-spacing:-1px;font-size:14px;padding:0 0 15px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+.alarm-box .contents-section .curation-box li a span.txt p.title_info {color:#fff;letter-spacing:-1px;font-size:13px;padding:0 0 15px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 
 .alarm-box .contents-section .ebook-box {float:left;background:#ca5db3;width:58%;height:215px;border-radius:25px;box-sizing:border-box;padding:25px 20px;}
 .alarm-box .contents-section .ebook-box h4.title {color:#fff;font-size:17px;}
@@ -334,13 +335,6 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
 	.alarm-box .date-weather-section > div.date-time {font-size:18px;padding:15px 0 7px 0;letter-spacing:-1.5px;}
 	.alarm-box .date-weather-section > div.date-time b {font-size:41px;}
 	.alarm-box .date-weather-section > div.weather {font-size:38px;}
-}
-
-@media all and (max-width:1665px){
-	.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a span.txt p.title_info {padding:0 0 20px 0;}
-	.alarm-box .contents-section .curation-box .curation-box-left .curation-box-left-background a img {width:90px;height:150px;}
-	.alarm-box .contents-section .curation-box li {display:inline-block;width:31%;padding:1%;padding:0;}
-	.alarm-box .contents-section .curation-box li a img {width:55px;height:80px;}
 }
 
 @media all and (max-width:1500px){

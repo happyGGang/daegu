@@ -3,24 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 function copyToClipboard(s) {
-    var $temp = jQuery("<input>");
-    jQuery("body").append($temp);
-    $temp.val(s).select();
-    document.execCommand("copy");
-    $temp.remove();
-    alert('복사되었습니다.');
+	var $temp = jQuery("<input>");
+	jQuery("body").append($temp);
+	$temp.val(s).select();
+	document.execCommand("copy");
+	$temp.remove();
+	alert('복사되었습니다.');
 }
 $(document).ready(function() {
-	$.get('../calendar9.do?manageCode=BG', function(data) {
-		var li = '<li>등록된 휴관일이 없습니다.</li>';
-		if (data && data.length > 0) {
-			li = '';
-			$.each(data, function(i, v) {
-				li += ('<li>'+v+'</li>');
-			});
-		}
-		$('ul.close_day').html(li);
-	});
+$.get('../calendar9.do?manageCode=BG', function(data) {
+var li = '<li>등록된 휴관일이 없습니다.</li>';
+if (data && data.length > 0) {
+li = '';
+$.each(data, function(i, v) {
+li += ('<li>'+v+'</li>');
+});
+}
+$('ul.close_day').html(li);
+});
 })
 </script>
 <style>
@@ -49,202 +49,203 @@ $(document).ready(function() {
   <div class="time_box">
     <ul>
       <li class="book13 mb10" style="margin-right:20px;">
-        <div> <span>평일 09:00 ~ 18:00</span> </div>
+      <div> <span>평일 09:00 ~ 18:00</span> </div>
       </li>
       <li class="book11 mb10">
-        <div> <span>주말 09:00 ~ 17:00</span> </div>
+      <div> <span>주말 09:00 ~ 17:00</span> </div>
       </li>
       <li class="book08" style="width:100%;">
-        <div> <span class="month_info">이번달 휴관일은</span>
-          <ul class="close_day">
-            <li>불러오는 중...</li>
-          </ul>
-          <span>일 입니다.</span>
-          <p>일요일과 공휴일은 휴관입니다.</p>
-        </div>
+      <div>
+        <span class="month_info">이번달 휴관일은</span>
+        <ul class="close_day">
+          <li>불러오는 중...</li>
+        </ul>
+        <span>일 입니다.</span>
+        <p>일요일과 공휴일은 휴관입니다.</p>
+      </div>
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.10.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.11.30.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
-      <caption class="disnone">
-      파동도서관의 장서현황
-      </caption>
-      <colgroup>
-      <col width="*">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th height="35" scope="col">구분</th>
-          <th scope="col">총류</th>
-          <th scope="col">철학</th>
-          <th scope="col">종교</th>
-          <th scope="col">사회<br>
-            과학</th>
-          <th scope="col">자연<br>
-            과학</th>
-          <th scope="col">기술<br>
-            과학</th>
-          <th scope="col">예술</th>
-          <th scope="col">언어</th>
-          <th scope="col">문학</th>
-          <th scope="col">역사</th>
-          <th scope="col">합계</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>어린이</th>
-          <td>679</td>
-          <td>335</td>
-          <td>143</td>
-          <td>842</td>
-          <td>1,231</td>
-          <td>371</td>
-          <td>314</td>
-          <td>259</td>
-          <td>3,775</td>
-          <td>1,194</td>
-          <td>9,143</td>
-        </tr>
-        <tr>
-          <th>유아</th>
-          <td>65</td>
-          <td>80</td>
-          <td>42</td>
-          <td>834</td>
-          <td>401</td>
-          <td>75</td>
-          <td>77</td>
-          <td>74</td>
-          <td>2,545</td>
-          <td>32</td>
-          <td>4,225</td>
-        </tr>
-        <tr>
-          <th>일반</th>
-          <td>503</td>
-          <td>938</td>
-          <td>301</td>
-          <td>2,150</td>
-          <td>636</td>
-          <td>1,184</td>
-          <td>588</td>
-          <td>321</td>
-          <td>5,292</td>
-          <td>1,051</td>
-          <td>12,964</td>
-        </tr>
-        <tr>
-          <th>합계</th>
-          <td>1,247</td>
-          <td>1,353</td>
-          <td>486</td>
-          <td>3,826</td>
-          <td>2,268</td>
-          <td>1,630</td>
-          <td>979</td>
-          <td>654</td>
-          <td>11,612</td>
-          <td>2,277</td>
-          <td>26,332</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    파동도서관의 장서현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th height="35" scope="col">구분</th>
+      <th scope="col">총류</th>
+      <th scope="col">철학</th>
+      <th scope="col">종교</th>
+      <th scope="col">사회<br>
+      과학</th>
+      <th scope="col">자연<br>
+      과학</th>
+      <th scope="col">기술<br>
+      과학</th>
+      <th scope="col">예술</th>
+      <th scope="col">언어</th>
+      <th scope="col">문학</th>
+      <th scope="col">역사</th>
+      <th scope="col">합계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>어린이</th>
+      <td>679</td>
+      <td>335</td>
+      <td>143</td>
+      <td>842</td>
+      <td>1,231</td>
+      <td>371</td>
+      <td>314</td>
+      <td>259</td>
+      <td>3,777</td>
+      <td>1,194</td>
+      <td>9,145</td>
+    </tr>
+    <tr>
+      <th>유아</th>
+      <td>65</td>
+      <td>80</td>
+      <td>42</td>
+      <td>834</td>
+      <td>401</td>
+      <td>75</td>
+      <td>77</td>
+      <td>74</td>
+      <td>2,545</td>
+      <td>32</td>
+      <td>4,225</td>
+    </tr>
+    <tr>
+      <th>일반</th>
+      <td>503</td>
+      <td>939</td>
+      <td>302</td>
+      <td>2,151</td>
+      <td>638</td>
+      <td>1,186</td>
+      <td>588</td>
+      <td>321</td>
+      <td>5,300</td>
+      <td>1,054</td>
+      <td>12,982</td>
+    </tr>
+    <tr>
+      <th>합계</th>
+      <td>1,247</td>
+      <td>1,354</td>
+      <td>487</td>
+      <td>3,827</td>
+      <td>2,270</td>
+      <td>1,632</td>
+      <td>979</td>
+      <td>654</td>
+      <td>11,622</td>
+      <td>2,280</td>
+      <td>26,352</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 종)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 정기간행물현황을 안내해 드립니다.">
-      <caption class="disnone">
-      파동도서관의 정기간행물현황
-      </caption>
-      <colgroup>
-      <col width="*">
-      <col width="20%">
-      <col width="20%">
-      <col width="20%">
-      <col width="20%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th height="35" scope="col">구분</th>
-          <th scope="col">신문</th>
-          <th scope="col">주간지</th>
-          <th scope="col">월간지</th>
-          <th scope="col">총 계</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>파동도서관</th>
-          <td>3</td>
-          <td>1</td>
-          <td>12</td>
-          <td>16</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    파동도서관의 정기간행물현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th height="35" scope="col">구분</th>
+      <th scope="col">신문</th>
+      <th scope="col">주간지</th>
+      <th scope="col">월간지</th>
+      <th scope="col">총 계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>파동도서관</th>
+      <td>3</td>
+      <td>1</td>
+      <td>12</td>
+      <td>16</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>시설안내</h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관의 시설안내를 나타내는 표">
-      <caption class="disnone">
-      파동도서관의 시설안내
-      </caption>
-      <colgroup>
-      <col width="20%">
-      <col width="*">
-      <col width="30%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th scope="col">층별</th>
-          <th scope="col">공간구성</th>
-          <th scope="col">면적(㎡)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row" rowspan="5">파동평생학습센터 1층</th>
-          <td>어린이 및 일반자료실</td>
-          <td>148.98</td>
-        </tr>
-        <tr>
-          <td>유아자료실</td>
-          <td>44</td>
-        </tr>
-        <tr>
-          <td>문화강좌실</td>
-          <td>21.75</td>
-        </tr>
-        <tr>
-          <td>사무실</td>
-          <td>19.11</td>
-        </tr>
-        <tr>
-          <td>화장실, 계단 등</td>
-          <td>178.01</td>
-        </tr>
-        <tr>
-          <th scope="row" colspan="2">총면적</th>
-          <td>411.85</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    파동도서관의 시설안내
+    </caption>
+    <colgroup>
+    <col width="20%">
+    <col width="*">
+    <col width="30%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th scope="col">층별</th>
+      <th scope="col">공간구성</th>
+      <th scope="col">면적(㎡)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" rowspan="5">파동평생학습센터 1층</th>
+      <td>어린이 및 일반자료실</td>
+      <td>148.98</td>
+    </tr>
+    <tr>
+      <td>유아자료실</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <td>문화강좌실</td>
+      <td>21.75</td>
+    </tr>
+    <tr>
+      <td>사무실</td>
+      <td>19.11</td>
+    </tr>
+    <tr>
+      <td>화장실, 계단 등</td>
+      <td>178.01</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">총면적</th>
+      <td>411.85</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>위치안내</h3>

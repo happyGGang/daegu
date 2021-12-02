@@ -1820,7 +1820,7 @@ ul.close_day li:last-child{margin-right:0;padding-right:0;background:none;}
 .recom_wrap .btn_box ul li.con:last-child{background:#333;}
 .recom_wrap .btn_box ul li.con a{font-family:'s-core_dream4_regular';color:#fff;display:block;}
 
-.keyword-box {background:rgba(0,0,0, 0.1);margin:18px 0;padding:38px;box-sizing:border-box;border-radius:7px;}
+.keyword-box {padding:10px 0 5px;box-sizing:border-box;border-radius:7px;}
 
 @media only screen and (max-width:1150px){
 	.recom_wrap{/*width:auto;*/background-size:cover;}

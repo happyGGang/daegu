@@ -3,24 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 function copyToClipboard(s) {
-    var $temp = jQuery("<input>");
-    jQuery("body").append($temp);
-    $temp.val(s).select();
-    document.execCommand("copy");
-    $temp.remove();
-    alert('복사되었습니다.');
+	var $temp = jQuery("<input>");
+	jQuery("body").append($temp);
+	$temp.val(s).select();
+	document.execCommand("copy");
+	$temp.remove();
+	alert('복사되었습니다.');
 }
 $(document).ready(function() {
-	$.get('../calendar9.do?manageCode=BH', function(data) {
-		var li = '<li>등록된 휴관일이 없습니다.</li>';
-		if (data && data.length > 0) {
-			li = '';
-			$.each(data, function(i, v) {
-				li += ('<li>'+v+'</li>');
-			});
-		}
-		$('ul.close_day').html(li);
-	});
+$.get('../calendar9.do?manageCode=BH', function(data) {
+var li = '<li>등록된 휴관일이 없습니다.</li>';
+if (data && data.length > 0) {
+li = '';
+$.each(data, function(i, v) {
+li += ('<li>'+v+'</li>');
+});
+}
+$('ul.close_day').html(li);
+});
 })
 </script>
 <style>
@@ -49,205 +49,206 @@ $(document).ready(function() {
   <div class="time_box">
     <ul>
       <li class="book13 mb10" style="margin-right:20px;">
-        <div> <span>화~금 09:00 ~ 18:00</span> </div>
+      <div> <span>화~금 09:00 ~ 18:00</span> </div>
       </li>
       <li class="book11 mb10">
-        <div> <span>토~일 09:00 ~ 17:00</span> </div>
+      <div> <span>토~일 09:00 ~ 17:00</span> </div>
       </li>
       <li class="book08" style="width:100%;">
-        <div> <span class="month_info">이번달 휴관일은</span>
-          <ul class="close_day">
-            <li>불러오는 중...</li>
-          </ul>
-          <span>일 입니다.</span>
-          <p>월요일과 공휴일은 휴관입니다.</p>
-        </div>
+      <div>
+        <span class="month_info">이번달 휴관일은</span>
+        <ul class="close_day">
+          <li>불러오는 중...</li>
+        </ul>
+        <span>일 입니다.</span>
+        <p>월요일과 공휴일은 휴관입니다.</p>
+      </div>
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.10.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2021.11.30.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
-      <caption class="disnone">
-      무학숲도서관의 장서현황
-      </caption>
-      <colgroup>
-      <col width="*">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      <col width="8.5%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th height="35" scope="col">구분</th>
-          <th scope="col">총류</th>
-          <th scope="col">철학</th>
-          <th scope="col">종교</th>
-          <th scope="col">사회<br>
-            과학</th>
-          <th scope="col">자연<br>
-            과학</th>
-          <th scope="col">기술<br>
-            과학</th>
-          <th scope="col">예술</th>
-          <th scope="col">언어</th>
-          <th scope="col">문학</th>
-          <th scope="col">역사</th>
-          <th scope="col">합계</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>어린이</th>
-          <td>237</td>
-          <td>124</td>
-          <td>81</td>
-          <td>374</td>
-          <td>1,004</td>
-          <td>362</td>
-          <td>121</td>
-          <td>153</td>
-          <td>1,996</td>
-          <td>722</td>
-          <td>5,174</td>
-        </tr>
-        <tr>
-          <th>유아</th>
-          <td>60</td>
-          <td>116</td>
-          <td>86</td>
-          <td>435</td>
-          <td>420</td>
-          <td>83</td>
-          <td>90</td>
-          <td>73</td>
-          <td>2,060</td>
-          <td>82</td>
-          <td>3,505</td>
-        </tr>
-        <tr>
-          <th>일반</th>
-          <td>236</td>
-          <td>393</td>
-          <td>141</td>
-          <td>889</td>
-          <td>486</td>
-          <td>760</td>
-          <td>269</td>
-          <td>140</td>
-          <td>2,035</td>
-          <td>414</td>
-          <td>5,763</td>
-        </tr>
-        <tr>
-          <th>합계</th>
-          <td>533</td>
-          <td>633</td>
-          <td>308</td>
-          <td>1,698</td>
-          <td>1,910</td>
-          <td>1,205</td>
-          <td>480</td>
-          <td>366</td>
-          <td>6,091</td>
-          <td>1,218</td>
-          <td>14,442</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    무학숲도서관의 장서현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    <col width="8.5%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th height="35" scope="col">구분</th>
+      <th scope="col">총류</th>
+      <th scope="col">철학</th>
+      <th scope="col">종교</th>
+      <th scope="col">사회<br>
+      과학</th>
+      <th scope="col">자연<br>
+      과학</th>
+      <th scope="col">기술<br>
+      과학</th>
+      <th scope="col">예술</th>
+      <th scope="col">언어</th>
+      <th scope="col">문학</th>
+      <th scope="col">역사</th>
+      <th scope="col">합계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>어린이</th>
+      <td>239</td>
+      <td>127</td>
+      <td>82</td>
+      <td>383</td>
+      <td>1,009</td>
+      <td>363</td>
+      <td>121</td>
+      <td>153</td>
+      <td>2,000</td>
+      <td>722</td>
+      <td>5,199</td>
+    </tr>
+    <tr>
+      <th>유아</th>
+      <td>60</td>
+      <td>116</td>
+      <td>86</td>
+      <td>439</td>
+      <td>424</td>
+      <td>85</td>
+      <td>90</td>
+      <td>73</td>
+      <td>2,082</td>
+      <td>82</td>
+      <td>3,537</td>
+    </tr>
+    <tr>
+      <th>일반</th>
+      <td>237</td>
+      <td>393</td>
+      <td>141</td>
+      <td>890</td>
+      <td>486</td>
+      <td>760</td>
+      <td>269</td>
+      <td>140</td>
+      <td>2,036</td>
+      <td>415</td>
+      <td>5,767</td>
+    </tr>
+    <tr>
+      <th>합계</th>
+      <td>536</td>
+      <td>636</td>
+      <td>309</td>
+      <td>1,712</td>
+      <td>1,919</td>
+      <td>1,208</td>
+      <td>480</td>
+      <td>366</td>
+      <td>6,118</td>
+      <td>1,219</td>
+      <td>14,503</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 종)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="무학숲도서관의 정기간행물현황을 안내해 드립니다.">
-      <caption class="disnone">
-      무학숲도서관의 정기간행물현황
-      </caption>
-      <colgroup>
-      <col width="*">
-      <col width="16.6%">
-      <col width="16.6%">
-      <col width="16.6%">
-      <col width="16.6%">
-      <col width="16.6%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th height="35" scope="col">구분</th>
-          <th scope="col">신문</th>
-          <th scope="col">주간지</th>
-          <th scope="col">격주간지</th>
-          <th scope="col">월간지</th>
-          <th scope="col">총 계</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>무학숲도서관</th>
-          <td>5</td>
-          <td>1</td>
-          <td>1</td>
-          <td>15</td>
-          <td>22</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    무학숲도서관의 정기간행물현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="16.6%">
+    <col width="16.6%">
+    <col width="16.6%">
+    <col width="16.6%">
+    <col width="16.6%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th height="35" scope="col">구분</th>
+      <th scope="col">신문</th>
+      <th scope="col">주간지</th>
+      <th scope="col">격주간지</th>
+      <th scope="col">월간지</th>
+      <th scope="col">총 계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>무학숲도서관</th>
+      <td>5</td>
+      <td>1</td>
+      <td>1</td>
+      <td>15</td>
+      <td>22</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>시설안내</h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="무학숲도서관의 시설안내를 나타내는 표">
-      <caption class="disnone">
-      무학숲도서관의 시설안내
-      </caption>
-      <colgroup>
-      <col width="20%">
-      <col width="*">
-      <col width="30%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th scope="col">층별</th>
-          <th scope="col">공간구성</th>
-          <th scope="col">면적(㎡)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row" rowspan="5">1층</th>
-          <td>자료실</td>
-          <td>176.10</td>
-        </tr>
-        <tr>
-          <td>유아자료실</td>
-          <td>39.69</td>
-        </tr>
-        <tr>
-          <td>스토리텔링룸</td>
-          <td>22.54</td>
-        </tr>
-        <tr>
-          <td>사무실</td>
-          <td>17.28</td>
-        </tr>
-        <tr>
-          <td>기타공간(화장실, 수유실 등)</td>
-          <td>45.89</td>
-        </tr>
-        <tr>
-          <th scope="row" colspan="2">총면적</th>
-          <td>301.5</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    무학숲도서관의 시설안내
+    </caption>
+    <colgroup>
+    <col width="20%">
+    <col width="*">
+    <col width="30%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th scope="col">층별</th>
+      <th scope="col">공간구성</th>
+      <th scope="col">면적(㎡)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" rowspan="5">1층</th>
+      <td>자료실</td>
+      <td>176.10</td>
+    </tr>
+    <tr>
+      <td>유아자료실</td>
+      <td>39.69</td>
+    </tr>
+    <tr>
+      <td>스토리텔링룸</td>
+      <td>22.54</td>
+    </tr>
+    <tr>
+      <td>사무실</td>
+      <td>17.28</td>
+    </tr>
+    <tr>
+      <td>기타공간(화장실, 수유실 등)</td>
+      <td>45.89</td>
+    </tr>
+    <tr>
+      <th scope="row" colspan="2">총면적</th>
+      <td>301.5</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>위치안내</h3>

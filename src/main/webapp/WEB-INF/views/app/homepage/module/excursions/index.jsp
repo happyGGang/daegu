@@ -280,7 +280,7 @@ $(function(){
 			  </li>
 			</ul>
 			</c:when>
-			<c:when test="${param.homepage_id eq 'h67'}">
+			<c:when test="${param.homepage_id eq 'h68'}">
 			<!-- 성서 -->
 			<div class="roomicon">
 			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
@@ -289,10 +289,10 @@ $(function(){
 			  </div>
 			</div>
 			<ul class="con">
-			  <li>일시: 매주 화, 목요일 10:00~11:00</li>
-			  <li>장소: 성서도서관 1층 책나라 여행&도란도란 샘터</li>
-			  <li>인원: 20명 이내</li>
-			  <li>문의: 667-4886</li>
+			  <li>일시: 매주 화요일 10:30~11:30</li>
+			  <li>장소: 본리도서관 1층 유아열람실</li>
+			  <li>인원: 20명 이하</li>
+			  <li>문의: 667-4916</li>
 			  <li>주의사항
 			  	<ul class="con2">
 					<li>마스크 착용 필수</li>
@@ -314,6 +314,27 @@ $(function(){
 			  <li>장소: 달서영어도서관 3층 키즈룸</li>
 			  <li>인원: 20명 이내</li>
 			  <li>문의: 667-4871</li>
+			  <li>주의사항
+			  	<ul class="con2">
+					<li>마스크 착용 필수</li>
+					<li>견학 시간 준수</li>
+				</ul>
+			  </li>
+			</ul>
+			</c:when>
+			<c:when test="${param.homepage_id eq 'h67'}">
+			<!-- 성서 -->
+			<div class="roomicon">
+			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
+				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
+				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
+			  </div>
+			</div>
+			<ul class="con">
+			  <li>일시: 매주 화, 목요일 10:00~11:00</li>
+			  <li>장소: 성서도서관 1층 책나라 여행&도란도란 샘터</li>
+			  <li>인원: 20명 이내</li>
+			  <li>문의: 667-4886</li>
 			  <li>주의사항
 			  	<ul class="con2">
 					<li>마스크 착용 필수</li>
