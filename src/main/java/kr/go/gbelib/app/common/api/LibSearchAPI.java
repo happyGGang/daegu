@@ -871,9 +871,9 @@ public class LibSearchAPI {
 	/**
 	 * K.API - 21
 	 *
-	 * 사서추천
+	 * 사서추천(빅데이터)
 	 *
-	 * @author whalesoft YONGJU 2019. 11. 14.
+	 * @author jjy YONGJU 2021. 12. 02.
 	 * @param librarySearch
 	 * @return
 	 */
@@ -922,7 +922,7 @@ public class LibSearchAPI {
 			param.put("age", age_code);
 		}
 
-		result = CommonAPI.sendKCMS("getuserrecommbooks", param);
+		result = CommonAPI.sendKCMS("getuseranalyzedbooks", param);
 
 		return result;
 	}

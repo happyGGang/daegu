@@ -83,27 +83,12 @@
 $(function() {
 
 	var menu_idx = '${bookKeyword.menu_idx}';
-	var words = [];
-	var color_rand = ['#82be02', '#71aa99', '#955959' ,'#be0252', '#0077d2', '#d26d00', '#d20000', '#24b732', '#00c6cd', '#a602be'];
-	var weight_rand = ['100','200','300','400', '500', '600', '700', '800', '900'];
-	
-	<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
-		var obj = new Object();
-		obj.text = '${i.keyword_name}';
-		obj.color = color_rand[Math.floor(Math.random()*color_rand.length)];
-		obj.weight = weight_rand[Math.floor(Math.random()*weight_rand.length)];
-// 		obj.link = 'view.do?menu_idx='+menu_idx+'&keyword_name=${i.keyword_name}';
-		words.push(obj);
-		$('#demo_word_'+status.index).css('margin','15px')
-	</c:forEach>
-	
-	$('#keyword').jQCloud(words, {});
 	
 	$('#search_keyword').on('click',function(e){
 		// 초기화
 		$('#keyword_name').val('');
 		
-		var selected_count= $('#keyword span[select=selected]').length;
+		var selected_count= $('.select-keyword span').length;
 		
 		if (selected_count == 0) {
 			alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
@@ -111,9 +96,7 @@ $(function() {
 		}
 		
 		for (var i = 0; i < selected_count; i++) {
-			console.log($('#keyword span[select=selected]').eq(i).text());
-			
-			var keyword_text = $('#keyword span[select=selected]').eq(i).text(); 
+			var keyword_text = $('.select-keyword span').eq(i).text(); 
 			
 			var keyword_name = $('#keyword_name').val();
 			if (keyword_name == null || keyword_name == '') {
@@ -127,26 +110,41 @@ $(function() {
 		doGetLoad('view.do', param);
 	});
 	
+	$('div.keyword-box').load('bookKeyword.do');
+	
+	$('#reloadKeyword').on('click', function(){
+		$('div.keyword-box').load('bookKeyword.do');
+	});
+	
 	$(document).on("click", "#keyword span[id^=keyword_word_]", function() {
-		var selected_count= $('#keyword span[select=selected]').length;
-		var selectAttr = $(this).attr("select");
+		var selected_count= $('.select-keyword span').length;
 		var text = $(this).text();
+		var keywordCount = $('.select-keyword span:contains("'+text+'")').length;
 		
-		if (selectAttr == null) {
+		if (keywordCount <= 0) {
 			if (selected_count >= 3) {
 				alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
 				return false;
 			}	
 		}
 		
-		if (selectAttr == 'selected') {
+		if (keywordCount >= 1) {
 			$(this).css('border', '');
 			$(this).removeAttr('select');
+			$('.select-keyword span:contains("'+text+'")' ).remove();
 		} else {
 			$(this).css('border', 'solid');
 			$(this).attr('select', 'selected');
+			$('.select-keyword').append('<span style="margin-left: 5px;">' + text + '<i class="fa fa-times" style="margin-left:3px; cursor:pointer;" id="keywordRemove"></i></span>');
 		}
 	});
+	
+	$(document).on('click', '#keywordRemove', function(){
+		var text = $(this).parent("span").text(); 
+		$(this).parent("span").remove();
+		$('#keyword span[id^=keyword_word_]:contains("'+text+'")').css('border', '');
+	});
+	
 })
 </script>
 
@@ -176,25 +174,25 @@ $(function() {
 	<!--/div> -->
 
 	<div class="keyword-box">
-		<div id="keyword"></div>
+		
 	</div>
 
 	<div class="select-keyword">
-		<span>키워드1</span>
-		<span>키워드2</span>
-		<span>키워드3</span>
+<!-- 		<span>키워드1</span> -->
+<!-- 		<span>키워드2</span> -->
+<!-- 		<span>키워드3</span> -->
 	</div>
 
 	<div class="btn-box">
 		<ul>
 			<li class="btn1">
-				<a href="">
+				<a href="javascript:void(0)" id="reloadKeyword">
 					키워드 변경
 					<span>마음에 드는 키워드가 없으시다면 새로운 키워드를 받아보세요</span>
 				</a>
 			</li>
 			<li class="btn2">
-				<a href="">
+				<a href="javascript:void(0)" id="search_keyword">
 					맞춤책 추천
 					<span>선택하신 키워드와 연관된 맞춤책을 추천해드립니다</span>
 				</a>
