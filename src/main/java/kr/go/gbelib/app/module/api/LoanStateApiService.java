@@ -123,7 +123,12 @@ public class LoanStateApiService extends BaseService {
 		map.put("LibraryUserNo", defaultString(book.getMember_id()));
 		map.put("LibraryCode", defaultString(book.getLibrary_code()));
 		map.put("ContentType", defaultString(book.getType()));
-		map.put("ContentInfo", defaultString(book.getBook_info().replaceAll("\\n", "<br/>")));
+		if(book.getBook_info() != null) {
+			map.put("ContentInfo", defaultString(book.getBook_info().replaceAll("\\n", "<br/>")));
+		}else {
+			map.put("ContentInfo", "");
+		}
+		
 		map.put("ContentCoverUrl", makeURL(defaultString(book.getBook_image())));
 		map.put("ContentCoverUrlM", makeURL(defaultString(book.getBook_image())));
 		map.put("ContentCoverUrlS", makeURL(defaultString(book.getBook_image())));
