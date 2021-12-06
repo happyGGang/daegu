@@ -47,9 +47,22 @@ public class BookKeywordController extends BaseController{
 		
 		model.addAttribute("member", sessionMemberInfo);
 		model.addAttribute("bookKeyword", bookKeyword);
-		model.addAttribute("bookKeywordList", service.getBookKeywordList(bookKeyword));
+//		model.addAttribute("bookKeywordList", service.getBookKeywordList(bookKeyword));
 
 		return String.format(basePath, homepage.getFolder()) + "index";
+	}
+	
+	@RequestMapping (value = {"/bookKeyword.*"})
+	public String bookKeyword(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("bookKeyword", bookKeyword);
+		model.addAttribute("bookKeywordList", service.getBookKeywordList(bookKeyword));
+
+		return String.format(basePath, homepage.getFolder()) + "bookKeyword_ajax";
 	}
 	
 	@RequestMapping (value = {"/view.*"})

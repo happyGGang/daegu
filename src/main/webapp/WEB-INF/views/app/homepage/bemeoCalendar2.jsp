@@ -3,24 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
 function copyToClipboard(s) {
-    var $temp = jQuery("<input>");
-    jQuery("body").append($temp);
-    $temp.val(s).select();
-    document.execCommand("copy");
-    $temp.remove();
-    alert('복사되었습니다.');
+	var $temp = jQuery("<input>");
+	jQuery("body").append($temp);
+	$temp.val(s).select();
+	document.execCommand("copy");
+	$temp.remove();
+	alert('복사되었습니다.');
 }
 $(document).ready(function() {
-	$.get('../calendar9.do?manageCode=BK', function(data) {
-		var li = '<li>등록된 휴관일이 없습니다.</li>';
-		if (data && data.length > 0) {
-			li = '';
-			$.each(data, function(i, v) {
-				li += ('<li>'+v+'</li>');
-			});
-		}
-		$('ul.close_day').html(li);
-	});
+$.get('../calendar9.do?manageCode=BK', function(data) {
+var li = '<li>등록된 휴관일이 없습니다.</li>';
+if (data && data.length > 0) {
+li = '';
+$.each(data, function(i, v) {
+li += ('<li>'+v+'</li>');
+});
+}
+$('ul.close_day').html(li);
+});
 })
 </script>
 <style>
@@ -49,268 +49,269 @@ $(document).ready(function() {
   <div class="time_box">
     <ul>
       <li class="book13 mb10" style="margin-right:20px;">
-        <div> <span>평일 09:00 ~ 18:00</span> </div>
+      <div> <span>평일 09:00 ~ 18:00</span> </div>
       </li>
       <li class="book11 mb10">
-        <div> <span>주말 09:00 ~ 17:00</span> </div>
+      <div> <span>주말 09:00 ~ 17:00</span> </div>
       </li>
       <li class="book08" style="width:100%;">
-        <div> <span class="month_info">이번달 휴관일은</span>
-          <ul class="close_day">
-            <li>불러오는 중...</li>
-          </ul>
-          <span>일 입니다.</span>
-          <p>일요일과 공휴일은 휴관입니다.</p>
-        </div>
+      <div>
+        <span class="month_info">이번달 휴관일은</span>
+        <ul class="close_day">
+          <li>불러오는 중...</li>
+        </ul>
+        <span>일 입니다.</span>
+        <p>일요일과 공휴일은 휴관입니다.</p>
+      </div>
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.9.30. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.11.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 장서현황을 나타내는 표">
-      <caption class="disnone">
-      물망이도서관 장서현황
-      </caption>
-      <colgroup>
-      <col width="*">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      <col width="8%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th>구 분</th>
-          <th>000<br>
-            총류</th>
-          <th>100<br>
-            철학</th>
-          <th>200<br>
-            종교</th>
-          <th>300<br>
-            사회<br>
-            과학</th>
-          <th>400<br>
-            자연<br>
-            과학</th>
-          <th>500<br>
-            기술<br>
-            과학</th>
-          <th>600<br>
-            예술</th>
-          <th>700<br>
-            언어</th>
-          <th>800<br>
-            문학</th>
-          <th>900<br>
-            역사</th>
-          <th>총계(권)</th>
-          <th>비율(%)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>일반</th>
-          <td>233</td>
-          <td>489</td>
-          <td>155</td>
-          <td>878</td>
-          <td>320</td>
-          <td>745</td>
-          <td>261</td>
-          <td>185</td>
-          <td>2,601</td>
-          <td>575</td>
-          <td>6,442</td>
-          <td>20.6</td>
-        </tr>
-        <tr>
-          <th>아동</th>
-          <td>714</td>
-          <td>336</td>
-          <td>233</td>
-          <td>1,028</td>
-          <td>1,380</td>
-          <td>318</td>
-          <td>340</td>
-          <td>335</td>
-          <td>5,074</td>
-          <td>1,691</td>
-          <td>11,449</td>
-          <td>36.5</td>
-        </tr>
-        <tr>
-          <th>유아</th>
-          <td>28</td>
-          <td>30</td>
-          <td>7</td>
-          <td>530</td>
-          <td>250</td>
-          <td>44</td>
-          <td>105</td>
-          <td>46</td>
-          <td>2,375</td>
-          <td>150</td>
-          <td>3,565</td>
-          <td>11.4</td>
-        </tr>
-        <tr>
-          <th>영어</th>
-          <td>113</td>
-          <td>1</td>
-          <td>6</td>
-          <td>138</td>
-          <td>243</td>
-          <td>18</td>
-          <td>39</td>
-          <td>1,285</td>
-          <td>1,725</td>
-          <td>22</td>
-          <td>3,590</td>
-          <td>11.5</td>
-        </tr>
-        <tr>
-          <th>보존서고 </th>
-          <td>595</td>
-          <td>210</td>
-          <td>76</td>
-          <td>989</td>
-          <td>593</td>
-          <td>184</td>
-          <td>169</td>
-          <td>160</td>
-          <td>2,585</td>
-          <td>722</td>
-          <td>6,283</td>
-          <td>20.1</td>
-        </tr>
-        <tr>
-          <th>총계(권)</th>
-          <td>1,683</td>
-          <td>1,066</td>
-          <td>477</td>
-          <td>3,563</td>
-          <td>2,786</td>
-          <td>1,309</td>
-          <td>914</td>
-          <td>2,011</td>
-          <td>14,360</td>
-          <td>3,160</td>
-          <td>31,329</td>
-          <td>100</td>
-        </tr>
-        <tr>
-          <th>비율(%)</th>
-          <td>5.4</td>
-          <td>3.4</td>
-          <td>1.5</td>
-          <td>11.4</td>
-          <td>8.9</td>
-          <td>4.2</td>
-          <td>2.9</td>
-          <td>6.4</td>
-          <td>45.8</td>
-          <td>10.1</td>
-          <td>100</td>
-          <td>　</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    물망이도서관 장서현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    <col width="8%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>구 분</th>
+      <th>000<br>
+      총류</th>
+      <th>100<br>
+      철학</th>
+      <th>200<br>
+      종교</th>
+      <th>300<br>
+      사회<br>
+      과학</th>
+      <th>400<br>
+      자연<br>
+      과학</th>
+      <th>500<br>
+      기술<br>
+      과학</th>
+      <th>600<br>
+      예술</th>
+      <th>700<br>
+      언어</th>
+      <th>800<br>
+      문학</th>
+      <th>900<br>
+      역사</th>
+      <th>총계(권)</th>
+      <th>비율(%)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>일반</th>
+      <td>247</td>
+      <td>505</td>
+      <td>159</td>
+      <td>905</td>
+      <td>330</td>
+      <td>760</td>
+      <td>265</td>
+      <td>190</td>
+      <td>2,660</td>
+      <td>583</td>
+      <td>6,604</td>
+      <td>20.6</td>
+    </tr>
+    <tr>
+      <th>아동</th>
+      <td>726</td>
+      <td>351</td>
+      <td>241</td>
+      <td>1,042</td>
+      <td>1,409</td>
+      <td>339</td>
+      <td>346</td>
+      <td>345</td>
+      <td>5,165</td>
+      <td>1,713</td>
+      <td>11,677</td>
+      <td>36.4</td>
+    </tr>
+    <tr>
+      <th>유아</th>
+      <td>28</td>
+      <td>40</td>
+      <td>7</td>
+      <td>579</td>
+      <td>250</td>
+      <td>44</td>
+      <td>105</td>
+      <td>48</td>
+      <td>2,469</td>
+      <td>150</td>
+      <td>3,720</td>
+      <td>11.6</td>
+    </tr>
+    <tr>
+      <th>영어</th>
+      <td>114</td>
+      <td>3</td>
+      <td>6</td>
+      <td>147</td>
+      <td>245</td>
+      <td>22</td>
+      <td>39</td>
+      <td>1,317</td>
+      <td>1,836</td>
+      <td>52</td>
+      <td>3,781</td>
+      <td>11.8</td>
+    </tr>
+    <tr>
+      <th>보존서고 </th>
+      <td>594</td>
+      <td>210</td>
+      <td>76</td>
+      <td>989</td>
+      <td>593</td>
+      <td>184</td>
+      <td>169</td>
+      <td>160</td>
+      <td>2,589</td>
+      <td>722</td>
+      <td>6,286</td>
+      <td>19.6</td>
+    </tr>
+    <tr>
+      <th>총계(권)</th>
+      <td>1,709</td>
+      <td>1,109</td>
+      <td>489</td>
+      <td>3,662</td>
+      <td>2,827</td>
+      <td>1,349</td>
+      <td>924</td>
+      <td>2,060</td>
+      <td>14,719</td>
+      <td>3,220</td>
+      <td>32,068</td>
+      <td>100</td>
+    </tr>
+    <tr>
+      <th>비율(%)</th>
+      <td>5.3</td>
+      <td>3.5</td>
+      <td>1.5</td>
+      <td>11.4</td>
+      <td>8.8</td>
+      <td>4.2</td>
+      <td>2.9</td>
+      <td>6.4</td>
+      <td>45.9</td>
+      <td>10.0</td>
+      <td>100</td>
+      <td>　</td>
+    </tr>
+    </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.9.30. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2021.11.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">
-      <caption class="disnone">
-      물망이도서관 간행물 현황
-      </caption>
-      <colgroup>
-      <col width="*">
-      <col width="13%">
-      <col width="13%">
-      <col width="13%">
-      <col width="13%">
-      <col width="13%">
-      <col width="13%">
-      <col width="13%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th>구분</th>
-          <th>신문</th>
-          <th>주간</th>
-          <th>격주간</th>
-          <th>월간</th>
-          <th>격월간</th>
-          <th>계간</th>
-          <th>계</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>국내</th>
-          <td>3</td>
-          <td>0</td>
-          <td>1</td>
-          <td>11</td>
-          <td>0</td>
-          <td>0</td>
-          <td>15</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    물망이도서관 간행물 현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>구분</th>
+      <th>신문</th>
+      <th>주간</th>
+      <th>격주간</th>
+      <th>월간</th>
+      <th>격월간</th>
+      <th>계간</th>
+      <th>계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>국내</th>
+      <td>3</td>
+      <td>0</td>
+      <td>1</td>
+      <td>11</td>
+      <td>0</td>
+      <td>0</td>
+      <td>15</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>시설안내</h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관의 시설안내를 나타내는 표">
-      <caption class="disnone">
-      물망이도서관의 시설안내
-      </caption>
-      <colgroup>
-      <col width="20%">
-      <col width="*">
-      <col width="30%">
-      </colgroup>
-      <thead>
-        <tr>
-          <th scope="col">층별</th>
-          <th scope="col">공간구성</th>
-          <th scope="col">면적(㎡)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row" rowspan="5">4층</th>
-          <td>어린이 및 일반자료실</td>
-          <td>181</td>
-        </tr>
-        <tr>
-          <td>유아자료실</td>
-          <td>17</td>
-        </tr>
-        <tr>
-          <td>사무실 및 수서실</td>
-          <td>30</td>
-        </tr>
-        <tr>
-          <td>기타공간(복도 및 화장실)</td>
-          <td>79</td>
-        </tr>
-        <tr>
-          <td>총면적</td>
-          <td>307</td>
-        </tr>
-      </tbody>
+    <caption class="disnone">
+    물망이도서관의 시설안내
+    </caption>
+    <colgroup>
+    <col width="20%">
+    <col width="*">
+    <col width="30%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th scope="col">층별</th>
+      <th scope="col">공간구성</th>
+      <th scope="col">면적(㎡)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th scope="row" rowspan="5">4층</th>
+      <td>어린이 및 일반자료실</td>
+      <td>181</td>
+    </tr>
+    <tr>
+      <td>유아자료실</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>사무실 및 수서실</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>기타공간(복도 및 화장실)</td>
+      <td>79</td>
+    </tr>
+    <tr>
+      <td>총면적</td>
+      <td>307</td>
+    </tr>
+    </tbody>
     </table>
   </div>
   <h3>위치안내</h3>

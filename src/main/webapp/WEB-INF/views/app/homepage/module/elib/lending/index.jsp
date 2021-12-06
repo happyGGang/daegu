@@ -140,6 +140,7 @@ $(document).ready(function() {
 });
 
 function yesb_read(url) {
+	alert('뷰어가 설치되어 있지 않은경우 YES24뷰어 다운로드를 통해 뷰어 설치 후 다시 실행해주세요.');
 	var popupPlayer = window.open(url, "YESB", 'width=640,height=480,scrollbars=yes');
 	if (popupPlayer == null) {
 		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n팝업 차단 기능을 해제하지 않으면\n정상적인 전자책을 이용하실 수 없습니다.\n\n* 차단 해제 방법 \n설정 - 인터넷 옵션 - 개인정보 - 팝업차단 설정\n허용할 웹 사이트 주소 : *.daegu.go.kr 추가");
@@ -177,20 +178,20 @@ function checkApp(url, com_code) {
 		_APP_SCHEME = "bookcubedigitallibrary";
 		_APP_PACKAGE_ID = "com.bookcube.digitallibrary";
 	} else if(com_code == 'YESB') {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
+		_APP_INSTALL_URL_IOS = "https://apps.apple.com/kr/app/%EB%8C%80%EA%B5%AC%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80/id1592033310";
+		_APP_INSTALL_URL_IPAD = "https://apps.apple.com/kr/app/%EB%8C%80%EA%B5%AC%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80/id1592033310";
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.yes24.library.daegu";
 		_APP_SCHEME = "yes24lib-daegu";
 		_APP_PACKAGE_ID = "com.yes24.library.daegu";
 	} else if(com_code == 'ECO') {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
+		_APP_INSTALL_URL_IOS = "https://apps.apple.com/kr/app/%EB%8C%80%EA%B5%AC%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80/id1592033310";
+		_APP_INSTALL_URL_IPAD = "https://apps.apple.com/kr/app/%EB%8C%80%EA%B5%AC%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80/id1592033310";
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.yes24.library.daegu";
 		_APP_SCHEME = "yes24lib-daegu";
 		_APP_PACKAGE_ID = "com.yes24.library.daegu";
 	} else {
-		_APP_INSTALL_URL_IOS = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
-		_APP_INSTALL_URL_IPAD = "https://itunes.apple.com/kr/app/yeseu24-doseogwan/id922423783?mt=8";
+		_APP_INSTALL_URL_IOS = "https://apps.apple.com/kr/app/%EB%8C%80%EA%B5%AC%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80/id1592033310";
+		_APP_INSTALL_URL_IPAD = "https://apps.apple.com/kr/app/%EB%8C%80%EA%B5%AC%EC%A0%84%EC%9E%90%EB%8F%84%EC%84%9C%EA%B4%80/id1592033310";
 		_APP_INSTALL_URL_ANDROID = "market://details?id=com.yes24.library.daegu";
 		_APP_SCHEME = "yes24lib-daegu";
 		_APP_PACKAGE_ID = "com.yes24.library.daegu";
@@ -390,7 +391,7 @@ function goto_store() {
 				<span class="txt-bar">&nbsp;</span>
 				<span>예약 : ${i.book_reserve}</span>
 				</c:if>
-				<div style="float: right;">
+				<div style="margin-top:5px;">
 					<c:if test="${lending.menu == 'LENDING'}">
 					<c:choose>
 					<c:when test="${i.com_code == 'FXLI'}">
