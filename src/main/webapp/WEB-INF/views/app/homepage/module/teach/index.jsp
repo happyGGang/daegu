@@ -344,9 +344,12 @@ ${html.html}
 	<c:if test="${param.menu_idx eq '32'}">
 		<c:if test="${param.homepage_id eq 'h74' || param.homepage_id eq '' || param.homepage_id eq null }">
 			<c:if test="${param.searchCate1 eq '17'}">
-				<p style="color:#ff0000;font-weight:bold;text-align:left;margin-left:50px;margin-bottom:30px;font-size:18px;">
+				<p style="color:#ff0000;font-weight:bold;text-align:left;margin-left:10px;margin-bottom:30px;font-size:18px;">
 					※ “직전분기 수강이력 없는 신청자 우선 수강” 기준이 적용됩니다.<br />
 					<span style="color:#000;">따라서 수강신청 시 확인되는 순위는 접수 순서이며,<br />신청기간이 종료된 후 7일 이내 최종 확정 여부를 개별 문자로 안내드릴 예정이오니 양해 부탁드립니다.</span>
+				</p>
+				<p style="text-align:left;margin-left:10px;margin-bottom:30px;font-size:15px;">
+					2021.12.6.부터 도서관 출입 시 백신증명서 또는 PCR 음성확인서 등이 필요합니다. (예외자는 관련서류 확인 후 제외)<br />수강신청 시 확인할 수 있는 사항이 아니므로, 수강이 확정되더라도 향후 고시되는 사회적거리두기 행정명령에 따라 수강확정대상이 변경될 수 있습니다. 이 점 양지하여 주시기 바랍니다.
 				</p>
 			</c:if>
 		</c:if>
