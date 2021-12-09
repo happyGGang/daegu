@@ -366,7 +366,7 @@ function goto_store() {
 				<c:if test="${lending.menu == 'LENDING'}">
 				<label>대출일:</label>
 				<span>${fn:escapeXml(i.lend_dt)}</span>
-				<br/>
+
 				<label>반납예정일:</label>
 				<span>${fn:escapeXml(i.return_due_dt)}</span>
 				</c:if>
@@ -377,7 +377,7 @@ function goto_store() {
 				<c:if test="${lending.menu == 'HISTORY'}">
 				<label>대출일:</label>
 				<span>${fn:escapeXml(i.lend_dt)}</span>
-				<br/>
+
 				<label>반납일:</label>
 				<span>${fn:escapeXml(i.return_dt)}</span>
 				</c:if>
