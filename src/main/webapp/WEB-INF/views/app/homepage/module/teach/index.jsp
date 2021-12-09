@@ -356,6 +356,27 @@ ${html.html}
 	</c:if>
 </c:if>
 
+<c:if test="${homepage.context_path eq 'dalseolib'}">
+	<p style="color:#ff0000;font-weight:bold;font-size:16px;">
+		* 단계적 일상회복 1차 개편에 따라 도서관 백신패스 의무화되었습니다.<br />
+		<p style="color:#555;font-size:14px;font-weight:normal;margin:5px 0 20px 10px;">
+		- 접종완료자 및 완치자(6개월 이내), PCR 음성확인자(48시간 이내)<br />
+		- 18세 이하인 자('22년부터는 11세 이하)(등본확인필요)<br />
+		- 접종불가자(진단서 및 증명서 필요)
+		</p>
+	</p>
+</c:if>
+
+<c:if test="${homepage.context_path eq 'dalseolib'}">
+	<c:if test="${param.menu_idx eq '32'}">
+		<c:if test="${param.homepage_id eq 'h66'}">
+			<p style="margin:20px 0;font-size:15px;">
+				겨울학기 &lt;스토리텔링&성인동화구연&gt;, &lt;생각이 크는 어린이 인문학&gt;은 강사포기로 인하여 휴강하여 접수가 되지 않습니다.<br />많은 양해바랍니다.
+			</p>
+		</c:if>
+	</c:if>
+</c:if>
+
 <div class="op_wrap">
 	<div class="smain">
 		<table class="list01 rwd-table" summary="문화행사신청 게시물. 본 데이터표는 8컬럼, 10로우로 구성되어 있습니다. 각 로우는 번호, 분류,  제목,   등록자, 등록일, 조회로 구성되어 있습니다." cellspacing="0" cellpadding="0" border="0">

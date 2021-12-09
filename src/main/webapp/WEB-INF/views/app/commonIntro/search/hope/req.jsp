@@ -409,7 +409,7 @@
 
 <div class="kbtn txt-center">
 <c:choose>
-	<c:when test="${homepagePath eq 'jungang' || homepagePath eq 'seobu'}">
+	<c:when test="${homepagePath eq 'jungang' || homepagePath eq 'seobu' || homepagePath eq 'dalseonglib'}">
 	<a id="not-save-btn" href="" class="btn btn5"><span>신청하기</span></a>
 	</c:when>
 	<c:otherwise>
