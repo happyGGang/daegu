@@ -1887,6 +1887,7 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		Member member = getSessionMemberInfo(request);
 		untactBookBlackList.setMember_id(member.getMember_id());
+		untactBookBlackList.setHomepage_id(homepage.getHomepage_id());
 		
 		untactBookReservation.setHomepage_id(homepage.getHomepage_id());
 		untactBookReservation.setMember_id(member.getMember_id());
