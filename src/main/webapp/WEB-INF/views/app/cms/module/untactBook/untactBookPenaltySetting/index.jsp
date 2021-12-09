@@ -118,7 +118,15 @@ $(function(){
 <form:hidden id="editMode_1" path="editMode"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 <form:hidden id="penalty_idx_1" path="penalty_idx"/>
-
+	
+	<div class="infodesk">
+		<div class="button">
+			<c:if test="${authC}">
+				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+			</c:if>
+		</div>
+	</div>
+	
 	<div class="ui-state-highlight">
 		<em>* 패널티 기간은 중복 설정이 불가능합니다.</em>
 	</div>
