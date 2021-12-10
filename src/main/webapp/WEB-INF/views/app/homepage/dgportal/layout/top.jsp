@@ -14,6 +14,9 @@
 					<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<li>
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=62"><b>정보수정</b></a>
+						</li>
+						<li>
 							<b>${sessionScope.member.member_name}님</b>
 						</li>
 						<li>
@@ -24,6 +27,9 @@
 						</li-->
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+						<li>
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=62"><b>정보수정</b></a>
+						</li>
 						<li>
 							<b>${sessionScope.member.member_name}님</b>
 						</li>

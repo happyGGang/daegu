@@ -16,12 +16,12 @@ a:focus{color:#2b74c0}
 .tnb h1 {position:absolute;left:59px;top:0;}
 .tnb .section {position:relative;}
 .tnb .util {position:absolute;top: 25px;right:59px;padding:0;margin:0;z-index:1000!important;}
-.tnb .util b {position:absolute;top:2px;right:75px;}
+.tnb .util b {top:2px;right:75px;}
 .tnb .util li {display:inline-block;vertical-align:middle;margin:0;}
 .tnb .util li:nth-child(n+1){padding-right:15px;}
-.tnb .util li:nth-child(n+2){padding-right:16px;}
-.tnb .util li:nth-child(n+3){padding:0;}
-.tnb .util li a {font-family:'Malgun Gothic';display:block;color:#fff;font-size:15px;font-weight:bold;}
+.tnb .util li:nth-child(n+2){padding-right:15px;}
+.tnb .util li:nth-child(n+3){padding-right:15px;}
+/*.tnb .util li a {font-family:'Malgun Gothic';display:block;color:#fff;font-size:15px;font-weight:bold;}*/
 
 h1.web-logo a {display:block;background:url('../img/dgportal_logo_b.png') no-repeat center center;width:240px;height:60px;font-size:0;}
 h1.mobile-logo {display:none;}
