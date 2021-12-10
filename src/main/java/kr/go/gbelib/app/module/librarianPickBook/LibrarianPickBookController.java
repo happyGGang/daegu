@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.module.librarianPickBook;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +58,10 @@ public class LibrarianPickBookController extends BaseController{
 		librarySearch.setSex(sessionMemberInfo.getSex());
 			
 		Map<String, Object> result = LibSearchAPI.getUserreCommBooks(librarySearch);
-		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		if(result != null) {
+			list = (List<Map<String, Object>>)result.get("LIST_DATA");
+		}
 		
 		int searchMenuIdx = 0;
 		
@@ -71,7 +76,7 @@ public class LibrarianPickBookController extends BaseController{
 		}
 		 
 		model.addAttribute("searchMenuIdx", searchMenuIdx);
-		model.addAttribute("list", result.get("LIST_DATA"));
+		model.addAttribute("list", list);
 		
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
