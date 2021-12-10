@@ -10,7 +10,7 @@
 <!-- <h2>이용자 맞춤형 <span style="font-weight:300">추천도서</span></h2> -->
 <div class="user_pick_info">
 	<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
-	<h2>사서추천도서</h2>
+	<h2>맞춤형도서추천</h2>
 </div>
 <!-- <div style="text-align: right; margin-top: 10px; "> -->
 <%-- 	<a href="excelDownload.do?keyword_name=${bookKeyword.keyword_name}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">엑셀다운로드</a> --%>
