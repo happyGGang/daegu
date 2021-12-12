@@ -5,6 +5,8 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -34,6 +36,7 @@ import is.tagomor.woothee.Classifier;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -59,6 +62,7 @@ import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMember;
 import kr.go.gbelib.app.cms.module.elib.member.ElibMemberService;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
 
 @Controller
 @RequestMapping(value = {"/elib/module/elib"})
@@ -101,7 +105,7 @@ public class ElibController extends BaseController {
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
-
+	
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -535,6 +539,39 @@ public class ElibController extends BaseController {
 		model.addAttribute("lendingListCnt", count);
 
 		return String.format(basePath, homepage.getFolder()) + "lending/index";
+	}
+	
+	@RequestMapping(value = {"/lending/interest.*"})
+	public String lending_interest(Model model, Lending lending, HttpServletRequest request, HttpServletResponse response) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		lending.setHomepage_id(homepage.getHomepage_id());
+
+		lending.setBefore_url(String.format("/%s/module/elib/lending/interest.do?menu_idx=%s", homepage.getContext_path(), lending.getMenu_idx()));
+		if(!checkLogin(request, response, lendingService, lending)) return null;
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		Date date = cal.getTime();
+		cal.add(Calendar.YEAR, -1);
+		
+		lending.setRec_key(getSessionMemberInfo(request).getRec_key());
+		lending.setStart_date(sdf.format(cal.getTime()));
+		lending.setEnd_date(sdf.format(date));
+		
+		String com_code = LibSearchAPI.getBookInterestLoanList(lending);
+		
+		Book book = new Book();
+		book.setType("EBK");
+		book.setCom_code(com_code);
+		List<Book> bookList = bookService.getBookInterestList(book);
+		
+		model.addAttribute("book", book);
+		model.addAttribute("bookConfig", configService.getConfig());
+		model.addAttribute("bookList", setStatus(bookList, request));
+		model.addAttribute("bookListCnt", bookList.size());
+		
+
+		return String.format(basePath, homepage.getFolder()) + "lending/interest";
 	}
 
 	private Book setStatus(Book book, HttpServletRequest request, int max_lend) {

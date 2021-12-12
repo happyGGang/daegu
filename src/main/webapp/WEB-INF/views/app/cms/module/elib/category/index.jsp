@@ -29,7 +29,7 @@ $(document).ready(function() {
 			$(data.data).sort(function(a, b) {
 				return parseInt(a.display_seq) > parseInt(b.display_seq);
 			}).each(function(i) {
-				cate2.append($('<option>', { value: this.cate_id, text: this.cate_name }));
+				cate2.append('<option value='+this.cate_id+' data-cate_code='+this.cate_code+'>'+this.cate_name+'</option>');
 			});
 		});
 	});
@@ -71,6 +71,7 @@ $(document).ready(function() {
 	$('a#add_cate').on('click', function(e) {
 		e.preventDefault();
 		$('input#editMode').val('ADD');
+		$('input#cate_code').val('');
 		$('input#cate_name').val('');
 		$('input#depth').val('1');
 		$('#depth_text').text('1');
@@ -86,6 +87,7 @@ $(document).ready(function() {
 		}
 		$('input#editMode').val('MODIFY');
 		$('input#cate_id').val($('select#cate1').val());
+		$('input#cate_code').val($('select#cate1 option:selected').attr('data-cate_code'));
 		$('input#cate_name').val($('select#cate1 option:selected').text());
 		$('input#depth').val('1');
 		$('#depth_text').text('1');
@@ -140,6 +142,7 @@ $(document).ready(function() {
 		$('input#depth').val('2');
 		$('#parent_name').text($('select#cate1 option:selected').text());
 		$('#depth_text').text('2');
+		$('input#cate_code').val('');
 		$('input#cate_name').val('');
 		openAddDialog(addOption('select#cate2'));
 	});
@@ -154,6 +157,7 @@ $(document).ready(function() {
 		$('input#editMode').val('MODIFY');
 		$('input#parent_id').val($('select#cate1').val());
 		$('input#cate_id').val($('select#cate2').val());
+		$('input#cate_code').val($('select#cate2 option:selected').attr('data-cate_code'));
 		$('input#cate_name').val($('select#cate2 option:selected').text());
 		$('input#depth').val('2');
 		$('#parent_name').text($('select#cate1 option:selected').text());
@@ -271,13 +275,14 @@ function openModifyDialog(success, deleteSuccess) {
 function addOption(select) {
 	return function(data) {
 		var cate = data.data;
-		$('<option>', { value: cate.cate_id, text: cate.cate_name }).appendTo(select);
+		$(select).append('<option value='+cate.cate_id+' data-cate_code='+cate.cate_code+'>'+cate.cate_name+'</option>');
 	}
 }
 
 function modifyOption(select) {
 	return function(data) {
 		var cate = data.data;
+		$(select + ' option:selected').attr('data-cate_code', cate.cate_code);
 		$(select + ' option:selected').val(cate.cate_id);
 		$(select + ' option:selected').text(cate.cate_name);
 	}
@@ -364,7 +369,7 @@ function doAjaxPostResponse(form, ajaxBody) {
 				<p class="title" style="text-align: center;">1차 카테고리</p>
 				<select id="cate1" name="cate1" size=2 style="width: 100%; height: 540px;">
 					<c:forEach var="i" varStatus="status" items="${categoryList}">
-					<option value="${i.cate_id}">${i.cate_name}</option>
+					<option value="${i.cate_id}" data-cate_code="${i.cate_code}">${i.cate_name}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -415,6 +420,10 @@ function doAjaxPostResponse(form, ajaxBody) {
 		<tr>
 			<th>상위카테고리</th>
 			<td><span id="parent_name">최상위 카테고리</span></td>
+		</tr>
+		<tr>
+			<th>카테고리 코드</th>
+			<td><form:input path="cate_code" cssStyle="width: 150px;"/></td>
 		</tr>
 		<tr>
 			<th>카테고리명</th>

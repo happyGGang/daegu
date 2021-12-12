@@ -5,6 +5,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 public class ElibCategory extends PagingUtils {
 
 	private int cate_id;
+	private String cate_code;
 	private String cate_name;
 	private int depth = 1;
 	private int display_seq;
@@ -47,6 +48,14 @@ public class ElibCategory extends PagingUtils {
 
 	public void setCate_id(int cate_id) {
 		this.cate_id = cate_id;
+	}
+
+	public String getCate_code() {
+		return cate_code;
+	}
+
+	public void setCate_code(String cate_code) {
+		this.cate_code = cate_code;
 	}
 
 	public String getCate_name() {

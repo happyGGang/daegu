@@ -21,7 +21,8 @@
 	
 	<select id="getCategoryList" resultType="kr.go.gbelib.app.cms.module.elib.category.ElibCategory">
 		SELECT
-			cate_id, cate_name, depth, display_seq, parent_id, type
+			cate_id, cate_code, cate_name, depth, display_seq,
+			parent_id, type
 		FROM
 			ELIB_CATEGORY
 		WHERE
@@ -39,7 +40,8 @@
 	
 	<select id="getCategoryWithCntList" resultType="kr.go.gbelib.app.cms.module.elib.category.ElibCategory">
 		SELECT
-			a.cate_id, a.cate_name, a.depth, a.display_seq, a.parent_id, a.type,
+			a.cate_id, a.cate_code, a.cate_name, a.depth, a.display_seq,
+			a.parent_id, a.type,
 			(
 				SELECT
 					COUNT(*)
@@ -88,7 +90,8 @@
 	
 	<select id="getSubcategories" resultType="kr.go.gbelib.app.cms.module.elib.category.ElibCategory">
 		SELECT
-			cate_id, cate_name, depth, display_seq, parent_id, type
+			cate_id, cate_code, cate_name, depth, display_seq,
+			parent_id, type
 		FROM
 			ELIB_CATEGORY
 		WHERE
@@ -152,11 +155,11 @@
 		INSERT INTO
 			ELIB_CATEGORY
 		(
-			cate_id, cate_name, depth, display_seq, parent_id, type, add_date, add_id
+			cate_id, cate_code, cate_name, depth, display_seq, parent_id, type, add_date, add_id
 		)
 		VALUES
 		(
-			#{cate_id}, #{cate_name}, #{depth}, #{display_seq}, #{parent_id}, #{type}, SYSDATE, #{add_id}
+			#{cate_id}, #{cate_code}, #{cate_name}, #{depth}, #{display_seq}, #{parent_id}, #{type}, SYSDATE, #{add_id}
 		)
 	</insert>
 	
@@ -164,6 +167,7 @@
 		UPDATE
 			ELIB_CATEGORY
 		SET
+			cate_code = #{cate_code},
 			cate_name = #{cate_name},
 			modify_date = SYSDATE,
 			modify_id = #{modify_id}

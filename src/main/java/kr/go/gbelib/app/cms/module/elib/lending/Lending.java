@@ -61,6 +61,8 @@ public class Lending extends PagingUtils {
 	private boolean isLendable;
 	private String viewer_url;
 	private String user_manage_code;
+	
+	private String rec_key;
 
 	public Lending() {}
 	public Lending(int lend_idx) {
@@ -412,5 +414,15 @@ public class Lending extends PagingUtils {
 	public void setUser_manage_code(String user_manage_code) {
 		this.user_manage_code = user_manage_code;
 	}
+	
+	public String getRec_key() {
+		return rec_key;
+	}
+	
+	public void setRec_key(String rec_key) {
+		this.rec_key = rec_key;
+	}
+	
+	
 
 }

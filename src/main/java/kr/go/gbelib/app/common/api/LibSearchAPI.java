@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.utils.PagingUtils;
+import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 public class LibSearchAPI {
@@ -95,6 +96,49 @@ public class LibSearchAPI {
 		
 
 		return list;
+	}
+	
+	/**
+	 * 도서추천 API
+	 *
+	 * 키워드 도서추천 조회 (능동형추천도서)
+	 *
+	 * @author EJT 2021. 12. 13.
+	 * @param lending
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static String getBookInterestLoanList(Lending lending) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		String com_code = "810";
+		Integer maxLoanCnt = 0;
+		int maxIndex = 0;
+
+		param.put("userkey", lending.getRec_key());
+		param.put("startdate", lending.getStart_date());
+		param.put("enddate", lending.getEnd_date());
+		param.put("digit", "2");
+
+		result = CommonAPI.sendKCMS("getinterestloancnt", param);
+		String resultInfo = (String) result.get("RESULT_INFO");
+		
+		if(result != null && "SUCCESS".equals(resultInfo)) {
+			list = (List<Map<String, Object>>) result.get("LIST_DATA");
+			if(list != null && list.size() != 0) {
+				for(int i = 0; i < list.size(); i++) {
+					if((Integer) list.get(i).get("LOAN_CNT") > maxLoanCnt) {
+						maxLoanCnt = (Integer) list.get(i).get("LOAN_CNT");
+						maxIndex = i;
+					}
+				}
+				com_code = (String) list.get(maxIndex).get("CLASS_NO");
+			}
+		}
+
+		return com_code;
+		
 	}
 	
 	/**
