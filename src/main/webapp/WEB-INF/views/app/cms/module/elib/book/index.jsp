@@ -172,6 +172,7 @@ function submit(e) {
 			<col width="80"/>
 			<col width="80"/>
 			<col width="80"/>
+			<col width="80"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -186,6 +187,7 @@ function submit(e) {
 				<th>포맷</th>
 				<th>도서관명</th>
 				<th>공급사</th>
+				<th>등록일자</th>
 				<th>지원기기</th>
 				<th>기능</th>
 			</tr>
@@ -209,6 +211,7 @@ function submit(e) {
 					<td>${i.format}</td>
 					<td>${i.library_name}</td>
 					<td>${i.comp_name}</td>
+					<td>${fn:substring(i.add_date, 0, 10)}</td>
 					<td>${i.label}</td>
 					<td>
 						<c:if test="${authU}">

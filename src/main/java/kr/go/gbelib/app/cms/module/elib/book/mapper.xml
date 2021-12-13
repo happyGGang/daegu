@@ -107,7 +107,7 @@
 		${pagingBottom}
 	</select>
 	
-	<select id="getBookInterestList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
+	<!--<select id="getBookInterestList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
@@ -138,7 +138,7 @@
 		</if>
 		ORDER BY DBMS_RANDOM.VALUE
 		${pagingBottom}
-	</select>
+	</select>-->
 
 	<select id="getBookListCntCms" resultType="int">
 		SELECT
@@ -194,7 +194,8 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label
+			END AS label,
+			a.add_date
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
