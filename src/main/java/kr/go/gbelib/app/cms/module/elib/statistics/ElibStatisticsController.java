@@ -75,7 +75,8 @@ public class ElibStatisticsController extends BaseController {
 //		if ( !getSessionIsAdmin(request) ) {
 			elibStatistics.setHomepage_id(getAsideHomepageId(request));
 //		}
-
+			
+		elibStatistics.setLibrary_code(getSessionHomepageInfo(request).getLib_code());
 		elibStatistics.setMenu(menuParam);
 
 		String menu = elibStatistics.getMenu();
