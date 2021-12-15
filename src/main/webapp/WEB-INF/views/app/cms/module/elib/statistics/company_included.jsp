@@ -25,7 +25,7 @@
 			<tr>
 				<td rowspan="6">전자책</td>
 				<td>교보문고</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.KYOB.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.I']}" pattern="#,###" /></td>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td>영풍문고</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.Y2BK.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.Y2BK.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.Y2BK.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.Y2BK.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.Y2BK.I']}" pattern="#,###" /></td>
@@ -47,7 +47,7 @@
 			</tr>
 			<tr>
 				<td>북큐브</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.FXLI.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.FXLI.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.FXLI.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.FXLI.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.FXLI.I']}" pattern="#,###" /></td>
@@ -58,7 +58,7 @@
 			</tr>
 			<tr>
 				<td>YES24</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.YESB.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.YESB.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.YESB.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.YESB.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.YESB.I']}" pattern="#,###" /></td>
@@ -69,7 +69,7 @@
 			</tr>
 			<tr>
 				<td>ECO</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.ECO.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.I']}" pattern="#,###" /></td>
@@ -80,7 +80,7 @@
 			</tr>
 			<tr>
 				<td>OPMS</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.OPMS.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.OPMS.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.OPMS.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.OPMS.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.OPMS.I']}" pattern="#,###" /></td>
@@ -92,7 +92,7 @@
 			<tr>
 				<th>소계</th>
 				<th>-</th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.-'] + elibStatisticsMap['EBK.Y2BK.-'] + elibStatisticsMap['EBK.FXLI.-'] + elibStatisticsMap['EBK.YESB.-'] + elibStatisticsMap['EBK.ECO.-'] + elibStatisticsMap['EBK.OPMS.-']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.KYOB.-'] + elibStatisticsMap2['EBK.Y2BK.-'] + elibStatisticsMap2['EBK.FXLI.-'] + elibStatisticsMap2['EBK.YESB.-'] + elibStatisticsMap2['EBK.ECO.-'] + elibStatisticsMap2['EBK.OPMS.-']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO.P'] + elibStatisticsMap['EBK.OPMS.P']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I']}" pattern="#,###" /></th>
@@ -104,7 +104,7 @@
 			<tr>
 				<td rowspan="3">오디오북</td>
 				<td>북큐브</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['ADO.FXLI.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.I']}" pattern="#,###" /></td>
@@ -115,7 +115,7 @@
 			</tr>
 			<tr>
 				<td>오디언</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.HANS.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['ADO.HANS.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.HANS.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.HANS.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.HANS.I']}" pattern="#,###" /></td>
@@ -126,7 +126,7 @@
 			</tr>
 			<tr>
 				<td>컨텐츠포탈</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.CONT.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['ADO.CONT.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.CONT.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.CONT.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.CONT.I']}" pattern="#,###" /></td>
@@ -138,7 +138,7 @@
 			<tr>
 				<th>소계</th>
 				<th>-</th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.-'] + elibStatisticsMap['ADO.HANS.-'] + elibStatisticsMap['ADO.CONT.-']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap2['ADO.FXLI.-'] + elibStatisticsMap2['ADO.HANS.-'] + elibStatisticsMap2['ADO.CONT.-']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.P'] + elibStatisticsMap['ADO.HANS.P'] + elibStatisticsMap['ADO.CONT.P']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.A'] + elibStatisticsMap['ADO.HANS.A'] + elibStatisticsMap['ADO.CONT.A']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['ADO.FXLI.I'] + elibStatisticsMap['ADO.HANS.I'] + elibStatisticsMap['ADO.CONT.I']}" pattern="#,###" /></th>
@@ -150,7 +150,7 @@
 			<tr>
 				<td rowspan="7">온라인강좌</td>
 				<td>아트앤스터디</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.ARTN.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.I']}" pattern="#,###" /></td>
@@ -161,7 +161,7 @@
 			</tr>
 			<tr>
 				<td>ECS미디어</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ECSM.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.ECSM.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ECSM.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ECSM.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ECSM.I']}" pattern="#,###" /></td>
@@ -172,7 +172,7 @@
 			</tr>
 			<tr>
 				<td>YBM시사</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YBMN.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.YBMN.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YBMN.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YBMN.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YBMN.I']}" pattern="#,###" /></td>
@@ -183,7 +183,7 @@
 			</tr>
 			<tr>
 				<td>컨텐츠포탈</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.CONT.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.CONT.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.CONT.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.CONT.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.CONT.I']}" pattern="#,###" /></td>
@@ -194,7 +194,7 @@
 			</tr>
 			<tr>
 				<td>글로벌21</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.GLOB.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.GLOB.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.GLOB.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.GLOB.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.GLOB.I']}" pattern="#,###" /></td>
@@ -205,7 +205,7 @@
 			</tr>
 			<tr>
 				<td>에듀윌</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.EDUW.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.EDUW.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.EDUW.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.EDUW.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.EDUW.I']}" pattern="#,###" /></td>
@@ -216,7 +216,7 @@
 			</tr>
 			<tr>
 				<td>YES24북러닝</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YESB.-']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.YESB.-']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YESB.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YESB.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.YESB.I']}" pattern="#,###" /></td>
@@ -228,7 +228,7 @@
 			<tr>
 				<th>소계</th>
 				<th>-</th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.-'] + elibStatisticsMap['WEB.ECSM.-'] + elibStatisticsMap['WEB.YBMN.-'] + elibStatisticsMap['WEB.CONT.-'] + elibStatisticsMap['WEB.GLOB.-'] + elibStatisticsMap['WEB.EDUW.-'] + elibStatisticsMap['WEB.YESB.-']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap2['WEB.ARTN.-'] + elibStatisticsMap2['WEB.ECSM.-'] + elibStatisticsMap2['WEB.YBMN.-'] + elibStatisticsMap2['WEB.CONT.-'] + elibStatisticsMap2['WEB.GLOB.-'] + elibStatisticsMap2['WEB.EDUW.-'] + elibStatisticsMap2['WEB.YESB.-']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.P'] + elibStatisticsMap['WEB.ECSM.P'] + elibStatisticsMap['WEB.YBMN.P'] + elibStatisticsMap['WEB.CONT.P'] + elibStatisticsMap['WEB.GLOB.P'] + elibStatisticsMap['WEB.EDUW.P'] + elibStatisticsMap['WEB.YESB.P']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.A'] + elibStatisticsMap['WEB.ECSM.A'] + elibStatisticsMap['WEB.YBMN.A'] + elibStatisticsMap['WEB.CONT.A'] + elibStatisticsMap['WEB.GLOB.A'] + elibStatisticsMap['WEB.EDUW.A'] + elibStatisticsMap['WEB.YESB.A']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['WEB.ARTN.I'] + elibStatisticsMap['WEB.ECSM.I'] + elibStatisticsMap['WEB.YBMN.I'] + elibStatisticsMap['WEB.CONT.I'] + elibStatisticsMap['WEB.GLOB.I'] + elibStatisticsMap['WEB.EDUW.I'] + elibStatisticsMap['WEB.YESB.I']}" pattern="#,###" /></th>
@@ -241,7 +241,7 @@
 				<td>온라인자료</td>
 				<td>모아진</td>
 				<td>-</td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.P']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap2['EXT.MOAZ.P']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.A']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.I']}" pattern="#,###" /></td>
 				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.S']}" pattern="#,###" /></td>
@@ -252,7 +252,7 @@
 			<tr>
 				<th>소계</th>
 				<th>-</th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.-']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap2['EXT.MOAZ.-']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.P']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.A']}" pattern="#,###" /></th>
 				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EXT.MOAZ.I']}" pattern="#,###" /></th>
@@ -266,9 +266,9 @@
 				<th>-</th>
 				<th>
 					<fmt:formatNumber value="${0 + 
-						elibStatisticsMap['EBK.KYOB.-'] + elibStatisticsMap['EBK.Y2BK.-'] + elibStatisticsMap['EBK.FXLI.-'] + elibStatisticsMap['EBK.YESB.-'] + elibStatisticsMap['EBK.ECO.-'] + elibStatisticsMap['EBK.OPMS.-'] +
-						elibStatisticsMap['ADO.FXLI.-'] + elibStatisticsMap['ADO.HANS.-'] + elibStatisticsMap['ADO.CONT.-'] +
-						elibStatisticsMap['WEB.ARTN.-'] + elibStatisticsMap['WEB.ECSM.-'] + elibStatisticsMap['WEB.YBMN.-'] + elibStatisticsMap['WEB.CONT.-'] + elibStatisticsMap['WEB.GLOB.-'] + elibStatisticsMap['WEB.EDUW.-'] + elibStatisticsMap['WEB.YESB.-']
+						elibStatisticsMap2['EBK.KYOB.-'] + elibStatisticsMap2['EBK.Y2BK.-'] + elibStatisticsMap2['EBK.FXLI.-'] + elibStatisticsMap2['EBK.YESB.-'] + elibStatisticsMap2['EBK.ECO.-'] + elibStatisticsMap2['EBK.OPMS.-'] +
+						elibStatisticsMap2['ADO.FXLI.-'] + elibStatisticsMap2['ADO.HANS.-'] + elibStatisticsMap2['ADO.CONT.-'] +
+						elibStatisticsMap2['WEB.ARTN.-'] + elibStatisticsMap2['WEB.ECSM.-'] + elibStatisticsMap2['WEB.YBMN.-'] + elibStatisticsMap2['WEB.CONT.-'] + elibStatisticsMap2['WEB.GLOB.-'] + elibStatisticsMap2['WEB.EDUW.-'] + elibStatisticsMap2['WEB.YESB.-']
 					}" pattern="#,###" />
 				</th>
 				<th>
