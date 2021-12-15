@@ -264,9 +264,11 @@ $(function(){
 			<div class="roomicon">
 			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
 				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
 			  </div>
 			</div>
+			<p style="color:#ff0000;font-weight:bold;margin-bottom:10px;font-size:16px;">
+				2022년 달서어린이도서관 일반 견학은 별도 실시하지 않고 프로그램 운영에 포함하여 진행할 예정입니다.<br /><span style="font-weight:normal;font-size:14px;">* 신청안내 : 독서문화행사->문화행사->책이랑놀이랑 신청->원하는 날짜 신청</span>
+			</p>
 			<ul class="con">
 			  <li>일시: 매주 월요일 10:00~11:00</li>
 			  <li>장소: 달서어린이도서관 2층 유아자료실</li>

@@ -315,7 +315,7 @@ do {
 									</a>
 								</li>
 								<li>
-									<a href="" target="_blank">
+									<a href="https://pf.kakao.com/_Pfpnl" target="_blank">
 										<img src="/resources/homepage/${homepage.context_path}/img/kakaostory-icon.png" alt="KAKAOSTORY"> <br class="br650"/>KAKAOSTORY
 									</a>
 								</li>
