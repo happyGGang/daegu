@@ -42,5 +42,7 @@ public interface ElibStatisticsDao {
 	public List<ElibStatistics> getStatisticsUniqueSummaryList(ElibStatistics elibStatistics);
 	
 	public List<Map<String, Object>> getStatisticsByCompany(ElibStatistics elibStatistics);
+
+	public List<Map<String, Object>> getStatisticsByCompanyOnlyBookCnt(ElibStatistics elibStatistics);
 	
 }

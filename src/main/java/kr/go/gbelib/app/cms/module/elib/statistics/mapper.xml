@@ -803,4 +803,17 @@
 		GROUP BY type, com_code, device
 	</select>
 	
+	<select id="getStatisticsByCompanyOnlyBookCnt" resultType="HashMap">
+		SELECT library_code AS lib, type, com_code, '-' AS device, COUNT(*) AS cnt
+		FROM ELIB_BOOK
+		WHERE 1=1
+		<if test="library_code != null and library_code != ''">
+		AND library_code = #{library_code}
+		</if>
+		AND type IS NOT NULL
+		AND use_yn = 'Y'
+		AND approved_yn = 'Y'
+		GROUP BY library_code, type, com_code
+	</select>
+	
 </mapper>

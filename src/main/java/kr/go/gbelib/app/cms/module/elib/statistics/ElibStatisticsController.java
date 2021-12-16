@@ -135,11 +135,19 @@ public class ElibStatisticsController extends BaseController {
 			model.addAttribute("elibStatisticsCnt", count);
 		} else if("COMPANY".equals(menu)) {
 			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
+			Map<String, Integer> elibStatisticsMap2 = new HashMap<String, Integer>();
 
 			List<Map<String, Object>> elibStatisticsMapList = service.getStatisticsByCompany(elibStatistics);
 			if(elibStatisticsMapList != null) {
 				for(Map<String, Object> row: elibStatisticsMapList) {
 					elibStatisticsMap.put(row.get("TYPE")+"."+row.get("COM_CODE")+"."+row.get("DEVICE"), Integer.parseInt(String.valueOf(row.get("CNT"))));
+				}
+			}
+			
+			List<Map<String, Object>> elibStatisticsMapList2 = service.getStatisticsByCompanyOnlyBookCnt(elibStatistics);
+			if(elibStatisticsMapList != null) {
+				for(Map<String, Object> row: elibStatisticsMapList2) {
+					elibStatisticsMap2.put(row.get("TYPE")+"."+row.get("COM_CODE")+"."+row.get("DEVICE"), Integer.parseInt(String.valueOf(row.get("CNT"))));
 				}
 			}
 
@@ -152,6 +160,7 @@ public class ElibStatisticsController extends BaseController {
 			}
 
 			model.addAttribute("elibStatisticsMap", elibStatisticsMap);
+			model.addAttribute("elibStatisticsMap2", elibStatisticsMap2);
 		}
 
 		model.addAttribute("elibStatistics", elibStatistics);
