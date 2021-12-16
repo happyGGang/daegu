@@ -349,7 +349,7 @@ function goto_store() {
 					<span class="txt-bar">&nbsp;</span>
 					<span>${fn:escapeXml(i.author_name)}</span>
 					<span class="txt-bar">&nbsp;</span>
-					<span>${fn:escapeXml(i.book_pubdt)}</span>
+					<span>${fn:substring(fn:escapeXml(i.book_pubdt), 0, 10)}</span>
 				</div>
 <%--
 				<c:set var="body" value="${i.book_info}"/>
@@ -453,14 +453,14 @@ function goto_store() {
 					<span><a href="#" class="btn btn4 book_cancel" data-book_idx="${i.book_idx}" data-reserve_idx="${i.lend_idx}" data-type="${i.type}">예약취소</a></span>
 					</c:if>
 					<c:if test="${lending.menu == 'MYSTUDY'}">
-					<c:choose>
+					<%-- <c:choose>
 					<c:when test="${i.type == 'EBK' && i.status == '대출 가능'}">
 					<span><a href="#" class="btn btn1 book_borrow" data-book_idx="${i.book_idx}" data-type="${i.type}">대출하기</a></span>
 					</c:when>
 					<c:when test="${i.type == 'EBK' && i.status == '예약 가능'}">
 					<span><a href="#" class="btn btn2 book_reserve" data-book_idx="${i.book_idx}" data-type="${i.type}">예약하기</a></span>
 					</c:when>
-					</c:choose>
+					</c:choose> --%>
 					<span><a href="#" class="btn btn4 book_deletefavorite" data-book_idx="${i.book_idx}" data-type="${i.type}">삭제</a></span>
 					</c:if>
 				</div>
