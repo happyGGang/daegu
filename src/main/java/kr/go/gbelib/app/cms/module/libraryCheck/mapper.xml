@@ -3,7 +3,6 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheckDao">
 
 	<select id="getLibraryCheckList" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
-		${pagingTop}
 		SELECT
 			library_check_idx, library_check_name, library_check_number, content,
 			org_file_name, server_file_name, file_extension, file_size,
@@ -43,7 +42,6 @@
 			0
 		</if>
 		ORDER BY library_check_number ASC
-		${pagingBottom}
 	</select>
 	
 	<select id="getLibraryCheckCount" resultType="int">

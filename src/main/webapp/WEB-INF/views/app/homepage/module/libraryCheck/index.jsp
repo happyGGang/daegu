@@ -162,9 +162,9 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
   	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a> 
   	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a>
   	</c:if>
-  <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-  <jsp:param name="formId" value="#libraryCheck"/>
-  </jsp:include>
+<%--   <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false"> --%>
+<%--   <jsp:param name="formId" value="#libraryCheck"/> --%>
+<%--   </jsp:include> --%>
 <%--   	<c:if test="${member.admin or authMBS}"> --%>
   <!-- 	<div class="infodesk"> --> 
   <!-- 		<div class="button"> --> 
