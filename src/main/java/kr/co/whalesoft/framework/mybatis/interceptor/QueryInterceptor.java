@@ -19,6 +19,9 @@ import org.apache.ibatis.type.TypeHandlerRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
@@ -43,83 +46,87 @@ public class QueryInterceptor implements Interceptor {
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
 		Object proceed = null;
-		HttpServletRequest request = BeanFinder.getHttpServletRequest();
-		Member member = (Member) request.getSession().getAttribute(StaticVariables.MEMBER);
-
-		// 익명유저 pass
-		if (member == null || !member.isLogin()) {
-			return invocation.proceed();
-		}
-
-		Object[] args = invocation.getArgs();
-		MappedStatement ms = (MappedStatement) args[0];
-
-		// 로그기록 쿼리는 pass
-		if (StringUtils.contains(ms.getId(), "kr.co.whalesoft.app.cms.workingLog.WorkingLogDao")) {
-			return invocation.proceed();
-		}
-
-		Object param = (Object) args[1];
-		BoundSql boundSql = ms.getBoundSql(param);
-		String sql = boundSql.getSql();
-
-		try {
-			String[] methodPath = ms.getId().split("\\.");
-			String beanName = methodPath[methodPath.length - 2];
-			beanName = ms.getId().substring(0, ms.getId().lastIndexOf(".") - 3) + "Service";
-			// beanName = ms.getId().substring(0, ms.getId().lastIndexOf(".") );
-			Class<?> clazz = Class.forName(beanName);
-			String methodName = methodPath[methodPath.length - 1];
-			Method[] methods = clazz.getDeclaredMethods();
-			Method method = null;
-			WorkingLogger annotation = null;
-			for (Method m : methods) {
-				if (methodName.equals(m.getName())) {
-					annotation = (WorkingLogger) m.getAnnotation(WorkingLogger.class);
-					if (annotation != null) {
-						method = m;
-						break;
+		if(RequestContextHolder.getRequestAttributes() != null) {
+			HttpServletRequest request = BeanFinder.getHttpServletRequest();
+			Member member = (Member) request.getSession().getAttribute(StaticVariables.MEMBER);
+	
+			// 익명유저 pass
+			if (member == null || !member.isLogin()) {
+				return invocation.proceed();
+			}
+	
+			Object[] args = invocation.getArgs();
+			MappedStatement ms = (MappedStatement) args[0];
+	
+			// 로그기록 쿼리는 pass
+			if (StringUtils.contains(ms.getId(), "kr.co.whalesoft.app.cms.workingLog.WorkingLogDao")) {
+				return invocation.proceed();
+			}
+	
+			Object param = (Object) args[1];
+			BoundSql boundSql = ms.getBoundSql(param);
+			String sql = boundSql.getSql();
+	
+			try {
+				String[] methodPath = ms.getId().split("\\.");
+				String beanName = methodPath[methodPath.length - 2];
+				beanName = ms.getId().substring(0, ms.getId().lastIndexOf(".") - 3) + "Service";
+				// beanName = ms.getId().substring(0, ms.getId().lastIndexOf(".") );
+				Class<?> clazz = Class.forName(beanName);
+				String methodName = methodPath[methodPath.length - 1];
+				Method[] methods = clazz.getDeclaredMethods();
+				Method method = null;
+				WorkingLogger annotation = null;
+				for (Method m : methods) {
+					if (methodName.equals(m.getName())) {
+						annotation = (WorkingLogger) m.getAnnotation(WorkingLogger.class);
+						if (annotation != null) {
+							method = m;
+							break;
+						}
 					}
 				}
-			}
-			if (method != null && annotation != null) {
-
-				// 파라미터 있는 경우에만 맵핑
-				if (param != null) {
-					sql = getMappedQuery(param, boundSql, sql, ms);
-				}
-
-				try {
-					WorkingLogService bean = (WorkingLogService) BeanFinder.getBean(WorkingLogService.class);
-
-					if (bean != null) {
-						int work_result_count = 0;
-						proceed = invocation.proceed();
-						if (proceed instanceof Integer || proceed instanceof Long || proceed instanceof Float || proceed instanceof Double || proceed instanceof String) {
-							work_result_count = Integer.parseInt(proceed.toString());
-						} else if (proceed instanceof ArrayList) {
-							work_result_count = ((ArrayList<?>) proceed).size();
-						}
-						String asideHomepage_id = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
-						String work_reason = getWorkReason(param, boundSql);
-						if ("NULL".equals(work_reason)) {
-							work_reason = annotation.comment();
-						}
-						bean.addWorkingLog(new WorkingLog(asideHomepage_id, annotation.type(), annotation.comment(), ms.getSqlCommandType().toString(), sql, work_result_count, work_reason, member.getMember_id(), request.getRemoteAddr()));
+				if (method != null && annotation != null) {
+	
+					// 파라미터 있는 경우에만 맵핑
+					if (param != null) {
+						sql = getMappedQuery(param, boundSql, sql, ms);
 					}
-				} catch (BeansException e) {
-					logger.error("Cannot Found WorkingLogService.class");
-				} catch (Exception e) {
-					logger.error("Error");
+	
+					try {
+						WorkingLogService bean = (WorkingLogService) BeanFinder.getBean(WorkingLogService.class);
+	
+						if (bean != null) {
+							int work_result_count = 0;
+							proceed = invocation.proceed();
+							if (proceed instanceof Integer || proceed instanceof Long || proceed instanceof Float || proceed instanceof Double || proceed instanceof String) {
+								work_result_count = Integer.parseInt(proceed.toString());
+							} else if (proceed instanceof ArrayList) {
+								work_result_count = ((ArrayList<?>) proceed).size();
+							}
+							String asideHomepage_id = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
+							String work_reason = getWorkReason(param, boundSql);
+							if ("NULL".equals(work_reason)) {
+								work_reason = annotation.comment();
+							}
+							bean.addWorkingLog(new WorkingLog(asideHomepage_id, annotation.type(), annotation.comment(), ms.getSqlCommandType().toString(), sql, work_result_count, work_reason, member.getMember_id(), request.getRemoteAddr()));
+						}
+					} catch (BeansException e) {
+						logger.error("Cannot Found WorkingLogService.class");
+					} catch (Exception e) {
+						logger.error("Error");
+					}
+				}
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (proceed == null) {
+					proceed = invocation.proceed();
 				}
 			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (proceed == null) {
-				proceed = invocation.proceed();
-			}
+		} else {
+			proceed = invocation.proceed();
 		}
 
 		return proceed;

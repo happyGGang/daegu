@@ -69,6 +69,33 @@
 		</bean>
 	</mvc:interceptors>
 
+
+	<!-- Application Message Bundle -->
+	<bean id="customPropertiesPersister" class="kr.co.whalesoft.framework.custom.spring.CustomPropertiesPersister"/>
+	<bean id="messageSource" class="kr.co.whalesoft.framework.custom.spring.CustomReloadableResourceBundleMessageSource">
+		<property name="propertiesPersister" ref="customPropertiesPersister"/>
+        <property name="basenames">
+            <list>
+                <value>**/*.properties</value>
+                <value>/WEB-INF/config/spring/validator</value>
+            </list>
+        </property>
+        <property name="cacheSeconds" value="100000" /> <!-- 0 다시읽지 않음 -->
+        <property name="defaultEncoding" value="UTF-8" /> <!-- properties 파일 작성시 UTF-8로 작성 -->
+        <property name="fallbackToSystemLocale" value="false" /> <!-- true 라면 (기본값)message_ko_KR.properties 와 message.prorperties를 참조 -->
+        <property name="useCodeAsDefaultMessage" value="true" /> <!-- 메세지가 없는 경우 기본 값 출력 운영환경에 적용  -->
+    </bean>
+
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+        <constructor-arg ref="messageSource"/>
+    </bean>
+
+    <bean id="messageResolver" class="kr.co.whalesoft.framework.utils.MessageResolver">
+        <property name="messageSourceAccessor" ref="messageSourceAccessor"/>
+    </bean>
+    <!-- Application Message Bundle END-->
+
+
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
 	<ehcache:annotation-driven />
@@ -87,13 +114,6 @@
   	<task:scheduled-tasks>
         <task:scheduled ref="lendingAutoReturnService" method="autoReturn" cron="0 3 0 * * *"/>
     </task:scheduled-tasks>
-    
-    <!-- 전자도서관 자동 반납 서비스 -->
-  	<!--<bean id="lendingAutoReturnServiceNew" class="kr.go.gbelib.app.cms.module.newelib.lending.LendingAutoReturnServiceNew" />
-  	<task:scheduled-tasks>
-        <task:scheduled ref="lendingAutoReturnServiceNew" method="autoReturn" cron="0 3 0 * * *"/>
-    </task:scheduled-tasks>-->
-
     <!-- 수강취소 기간안내 서비스 -->
   	<bean id="teachCancleScheduler" class="kr.go.gbelib.app.cms.module.teach.TeachService" />
   	<task:scheduled-tasks>

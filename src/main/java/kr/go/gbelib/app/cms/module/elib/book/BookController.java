@@ -101,6 +101,12 @@ public class BookController extends BaseController {
 		return basePath + "index";
 	}
 	
+	@RequestMapping(value = {"/cms/module/elib/book/test.*"})
+	public String test(Model model, Book book, HttpServletRequest request) {
+		lendingAutoReturnServiceNew.autoReturn();
+		return "test";
+	}
+	
 	@RequestMapping(value = {"/cms/module/elib/book/{type}/edit.*"})
 	public String book_edit(Model model, Book book, HttpServletRequest request) throws AuthException {
 		book.setHomepage_id(getAsideHomepageId(request));	
