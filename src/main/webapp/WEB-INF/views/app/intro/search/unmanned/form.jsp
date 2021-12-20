@@ -114,7 +114,7 @@
 						</c:if>
 						<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
 						<form:option value="DSSUB02">용산역</form:option>
-						<!-- <form:option value="DSSUB01">상인역</form:option> -->
+						<form:option value="DSSUB01">상인역</form:option>
 						</c:if>
 					</form:select>
 				</td>
