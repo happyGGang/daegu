@@ -22,7 +22,7 @@
 <c:set var="menu_idx_best"      value="20"/>
 <c:set var="menu_idx_recommend" value="21"/>
 <c:set var="menu_idx_category"  value="22"/>
-<c:set var="menu_idx_provider"  value="23"/>
+<c:set var="menu_idx_provider"  value="97"/>
 <c:set var="menu_idx_device"    value="50"/>
 </c:when>
 <c:when test="${param.type == 'WEB'}">

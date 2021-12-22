@@ -425,7 +425,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'donggu'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'|| detail.MANAGE_CODE eq 'HP'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -449,7 +449,7 @@ $(function() {
 
 
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq ''}">
+				<c:when test="${detail.MANAGE_CODE eq 'AB'}">
 
 					<!--워킹스루 시작-->
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
@@ -458,19 +458,22 @@ $(function() {
 						<c:when test="${detail.RESERVATION_CNT > '0'}">
 
 						</c:when>
+
 						<c:otherwise>
-							<c:if test="${detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG17'|| detail.SHELF_LOC_CODE eq 'AG21'|| detail.SHELF_LOC_CODE eq 'AG22'|| detail.SHELF_LOC_CODE eq 'AG23'}">
+							<c:if test="${detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02'|| detail.SHELF_LOC_CODE eq 'AB03'|| detail.SHELF_LOC_CODE eq 'AB05'|| detail.SHELF_LOC_CODE eq 'AB06'}">
+
 							<c:choose>
-								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'ASX' || detail.SEPARATE_SHELF_CODE eq 'ATD'|| detail.SEPARATE_SHELF_CODE eq 'ATE'|| detail.SEPARATE_SHELF_CODE eq 'ATF'|| detail.SEPARATE_SHELF_CODE eq 'ATG'|| detail.SEPARATE_SHELF_CODE eq 'ATH'|| detail.SEPARATE_SHELF_CODE eq 'ATJ'|| detail.SEPARATE_SHELF_CODE eq 'ATK'|| detail.SEPARATE_SHELF_CODE eq 'ATM'|| detail.SEPARATE_SHELF_CODE eq 'ATS'|| detail.SEPARATE_SHELF_CODE eq 'ATT'|| detail.SEPARATE_SHELF_CODE eq 'ATV'|| detail.SEPARATE_SHELF_CODE eq 'ATW'|| detail.SEPARATE_SHELF_CODE eq 'AUB'|| detail.SEPARATE_SHELF_CODE eq 'AUC'|| detail.SEPARATE_SHELF_CODE eq 'AUK'|| detail.SEPARATE_SHELF_CODE eq 'ARX'|| detail.SEPARATE_SHELF_CODE eq 'ARZ'|| detail.SEPARATE_SHELF_CODE eq 'ASA'|| detail.SEPARATE_SHELF_CODE eq 'ASE'|| detail.SEPARATE_SHELF_CODE eq 'ASM'|| detail.SEPARATE_SHELF_CODE eq 'ASN'|| detail.SEPARATE_SHELF_CODE eq 'ASR'|| detail.SEPARATE_SHELF_CODE eq 'ASS'|| detail.SEPARATE_SHELF_CODE eq 'ASU'|| detail.SEPARATE_SHELF_CODE eq 'ASV'}">
-									
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ' || detail.SEPARATE_SHELF_CODE eq 'AKX'|| detail.SEPARATE_SHELF_CODE eq 'AKW'|| detail.SEPARATE_SHELF_CODE eq 'AKV'|| detail.SEPARATE_SHELF_CODE eq 'AKU'|| detail.SEPARATE_SHELF_CODE eq 'AKT'|| detail.SEPARATE_SHELF_CODE eq 'AKM'|| detail.SEPARATE_SHELF_CODE eq 'AKL'|| detail.SEPARATE_SHELF_CODE eq 'AKK'|| detail.SEPARATE_SHELF_CODE eq 'AKY'|| detail.SEPARATE_SHELF_CODE eq 'ALD'|| detail.SEPARATE_SHELF_CODE eq 'ALE'|| detail.SEPARATE_SHELF_CODE eq 'ALF'|| detail.SEPARATE_SHELF_CODE eq 'ALG'|| detail.SEPARATE_SHELF_CODE eq 'ALH'|| detail.SEPARATE_SHELF_CODE eq 'ALJ'|| detail.SEPARATE_SHELF_CODE eq 'ALK'|| detail.SEPARATE_SHELF_CODE eq 'ALL'|| detail.SEPARATE_SHELF_CODE eq 'ALN'|| detail.SEPARATE_SHELF_CODE eq 'ALR'|| detail.SEPARATE_SHELF_CODE eq 'ALS'|| detail.SEPARATE_SHELF_CODE eq 'ALV'|| detail.SEPARATE_SHELF_CODE eq 'AMY'|| detail.SEPARATE_SHELF_CODE eq 'AMZ'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'ALX'|| detail.SEPARATE_SHELF_CODE eq 'ALY'|| detail.SEPARATE_SHELF_CODE eq 'ALZ'|| detail.SEPARATE_SHELF_CODE eq 'AMA'|| detail.SEPARATE_SHELF_CODE eq 'AMB'|| detail.SEPARATE_SHELF_CODE eq 'AMC'|| detail.SEPARATE_SHELF_CODE eq 'AMD'|| detail.SEPARATE_SHELF_CODE eq 'AME'|| detail.SEPARATE_SHELF_CODE eq 'AMF'|| detail.SEPARATE_SHELF_CODE eq 'AMH'|| detail.SEPARATE_SHELF_CODE eq 'AMJ'|| detail.SEPARATE_SHELF_CODE eq 'AMK'|| detail.SEPARATE_SHELF_CODE eq 'AML'|| detail.SEPARATE_SHELF_CODE eq 'AMM'|| detail.SEPARATE_SHELF_CODE eq 'AMN'|| detail.SEPARATE_SHELF_CODE eq 'AMP'|| detail.SEPARATE_SHELF_CODE eq 'AMQ'|| detail.SEPARATE_SHELF_CODE eq 'AMR'|| detail.SEPARATE_SHELF_CODE eq 'AMS'|| detail.SEPARATE_SHELF_CODE eq 'AMT'|| detail.SEPARATE_SHELF_CODE eq 'AMU'|| detail.SEPARATE_SHELF_CODE eq 'AMV'|| detail.SEPARATE_SHELF_CODE eq 'AMW'|| detail.SEPARATE_SHELF_CODE eq 'ANA'|| detail.SEPARATE_SHELF_CODE eq 'ANB'|| detail.SEPARATE_SHELF_CODE eq 'ANC'|| detail.SEPARATE_SHELF_CODE eq 'AND'|| detail.SEPARATE_SHELF_CODE eq 'ANE'|| detail.SEPARATE_SHELF_CODE eq 'ANF'|| detail.SEPARATE_SHELF_CODE eq 'ANG'|| detail.SEPARATE_SHELF_CODE eq 'ANH'|| detail.SEPARATE_SHELF_CODE eq 'ANJ'|| detail.SEPARATE_SHELF_CODE eq 'ANK'|| detail.SEPARATE_SHELF_CODE eq 'ANL'|| detail.SEPARATE_SHELF_CODE eq 'ANM'|| detail.SEPARATE_SHELF_CODE eq 'ANN'|| detail.SEPARATE_SHELF_CODE eq 'ANP'|| detail.SEPARATE_SHELF_CODE eq 'ANQ'|| detail.SEPARATE_SHELF_CODE eq 'ANR'|| detail.SEPARATE_SHELF_CODE eq 'ANS'|| detail.SEPARATE_SHELF_CODE eq 'ANT'|| detail.SEPARATE_SHELF_CODE eq 'ANU'|| detail.SEPARATE_SHELF_CODE eq 'ANV'|| detail.SEPARATE_SHELF_CODE eq 'ANW'|| detail.SEPARATE_SHELF_CODE eq 'ANX'|| detail.SEPARATE_SHELF_CODE eq 'ANY'|| detail.SEPARATE_SHELF_CODE eq 'ANZ'|| detail.SEPARATE_SHELF_CODE eq 'APA'|| detail.SEPARATE_SHELF_CODE eq 'APB'|| detail.SEPARATE_SHELF_CODE eq 'APC'|| detail.SEPARATE_SHELF_CODE eq 'APD'|| detail.SEPARATE_SHELF_CODE eq 'APE'|| detail.SEPARATE_SHELF_CODE eq 'APF'|| detail.SEPARATE_SHELF_CODE eq 'APG'|| detail.SEPARATE_SHELF_CODE eq 'APH'|| detail.SEPARATE_SHELF_CODE eq 'APJ'|| detail.SEPARATE_SHELF_CODE eq 'APL'|| detail.SEPARATE_SHELF_CODE eq 'APM'|| detail.SEPARATE_SHELF_CODE eq 'APN'|| detail.SEPARATE_SHELF_CODE eq 'APP'|| detail.SEPARATE_SHELF_CODE eq 'APQ'|| detail.SEPARATE_SHELF_CODE eq 'APR'|| detail.SEPARATE_SHELF_CODE eq 'APS'|| detail.SEPARATE_SHELF_CODE eq 'APT'|| detail.SEPARATE_SHELF_CODE eq 'APV'|| detail.SEPARATE_SHELF_CODE eq 'APW'|| detail.SEPARATE_SHELF_CODE eq 'APX'|| detail.SEPARATE_SHELF_CODE eq 'APY'|| detail.SEPARATE_SHELF_CODE eq 'APZ'|| detail.SEPARATE_SHELF_CODE eq 'AQA'|| detail.SEPARATE_SHELF_CODE eq 'AQB'|| detail.SEPARATE_SHELF_CODE eq 'AQC'|| detail.SEPARATE_SHELF_CODE eq 'AQD'|| detail.SEPARATE_SHELF_CODE eq 'AQE'|| detail.SEPARATE_SHELF_CODE eq 'AQF'|| detail.SEPARATE_SHELF_CODE eq 'AQJ'|| detail.SEPARATE_SHELF_CODE eq 'AQL'|| detail.SEPARATE_SHELF_CODE eq 'AQM'|| detail.SEPARATE_SHELF_CODE eq 'AQN'|| detail.SEPARATE_SHELF_CODE eq 'AQP'|| detail.SEPARATE_SHELF_CODE eq 'AQQ'|| detail.SEPARATE_SHELF_CODE eq 'AQR'|| detail.SEPARATE_SHELF_CODE eq 'AQT'|| detail.SEPARATE_SHELF_CODE eq 'AQU'|| detail.SEPARATE_SHELF_CODE eq 'AQV'|| detail.SEPARATE_SHELF_CODE eq 'AQW'|| detail.SEPARATE_SHELF_CODE eq 'AQX'|| detail.SEPARATE_SHELF_CODE eq 'AQY'|| detail.SEPARATE_SHELF_CODE eq 'AQZ'|| detail.SEPARATE_SHELF_CODE eq 'ARA'|| detail.SEPARATE_SHELF_CODE eq 'ARB'|| detail.SEPARATE_SHELF_CODE eq 'ARC'|| detail.SEPARATE_SHELF_CODE eq 'ARD'|| detail.SEPARATE_SHELF_CODE eq 'ARE'|| detail.SEPARATE_SHELF_CODE eq 'ARF'|| detail.SEPARATE_SHELF_CODE eq 'ARG'|| detail.SEPARATE_SHELF_CODE eq 'ARH'|| detail.SEPARATE_SHELF_CODE eq 'ARJ'|| detail.SEPARATE_SHELF_CODE eq 'ARK'|| detail.SEPARATE_SHELF_CODE eq 'ARL'|| detail.SEPARATE_SHELF_CODE eq 'ARM'|| detail.SEPARATE_SHELF_CODE eq 'ARN'|| detail.SEPARATE_SHELF_CODE eq 'ARP'|| detail.SEPARATE_SHELF_CODE eq 'ARQ'|| detail.SEPARATE_SHELF_CODE eq 'ARR'|| detail.SEPARATE_SHELF_CODE eq 'ARS'|| detail.SEPARATE_SHELF_CODE eq 'ART'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AMX'|| detail.SEPARATE_SHELF_CODE eq 'APK'|| detail.SEPARATE_SHELF_CODE eq 'AQS'}">	
 								</c:when>
+
 								<c:otherwise>
+									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'qksksk0101'|| sessionScope.member.member_id eq 'rlathdus1104'|| sessionScope.member.member_id eq 'wthtest1234'}">
 									<%
 									org.joda.time.DateTime now = new org.joda.time.DateTime();
 									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 									int hour = now.getHourOfDay();
 
-									if(9 <= hour && hour < 24)
+									if(10 <= hour && hour < 14)
 									{
 									%>
 										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
@@ -483,9 +486,11 @@ $(function() {
 									<%
 									}
 									%>
+									</c:if>
 
 									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
 								</c:otherwise>
+
 							</c:choose>
 							</c:if>
 						</c:otherwise>

@@ -176,14 +176,14 @@
 
 				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
 				<form:select path="manageCode">
-					<form:option value="BD">범어도서관</form:option>
-					<form:option value="BE">용학도서관</form:option>
-					<form:option value="BF">고산도서관</form:option>
-					<form:option value="BJ">책숲길도서관</form:option>
+					<!-- <form:option value="BD">범어도서관</form:option>-->
+					<!-- <form:option value="BE">용학도서관</form:option>-->
+					<!-- <form:option value="BF">고산도서관</form:option>-->
+					<!--<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
-					<form:option value="BH">무학숲도서관</form:option>
-				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+					<form:option value="BH">무학숲도서관</form:option>-->
+				</form:select> <!--* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.--> * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.
 				</c:when>
 
 				<c:when test="${context_path eq 'junggu'}">
@@ -305,9 +305,10 @@
 				</c:when>
 				<c:when test="${context_path eq 'donggu' || context_path eq 'donggusm'}">
 				<select id="manageCode" name="manageCode">
-					<option value="CA">안심도서관</option>
+				<form:select path="manageCode">
+					<!--<option value="CA">안심도서관</option>-->
 					<!--<option value="CB">신천도서관</option>-->
-					<option value="GR">신암2동 작은도서관</option>
+					<!--<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
 					<option value="GZ">동구청 작은도서관</option>
 					<option value="GU">불로어울림 작은도서관</option>
@@ -318,14 +319,16 @@
 					<option value="GX">방촌동 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
-					<option value="FK">신천3동 작은도서관</option>
+					<option value="FK">신천3동 작은도서관</option>-->
+				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</select>
 				</c:when>
 				<c:when test="${context_path eq 'sincheon'}">
 				<select id="manageCode" name="manageCode">
+				<form:select path="manageCode">
 					<!--<option value="CB">신천도서관</option>-->
-					<option value="CA">안심도서관</option>
-					<option value="GR">신암2동 작은도서관</option>
+					<!--<option value="CA">안심도서관</option>-->
+					<!--<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
 					<option value="GZ">동구청 작은도서관</option>
 					<option value="GU">불로어울림 작은도서관</option>
@@ -337,7 +340,8 @@
 					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
-					<option value="FK">신천3동 작은도서관</option>
+					<option value="FK">신천3동 작은도서관</option>-->
+				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</select>
 				</c:when>
 				<c:when test="${context_path eq 'jungang'}">
