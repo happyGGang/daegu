@@ -287,7 +287,7 @@ public class BookcubeAPIService extends BaseService {
 		String member_id = member.getMember_id();
 		String fxli_library_code = "bcp00106";
 		
-		return parse2(send(String.format(APP_URL + "/%s/%s/%s/%s/%s/%s/%s/%s", device, fxli_library_code, book.getBook_code(), member_id, member_id, member_id, "general", member_id), new ArrayList<NameValuePair>()));
+		return parse2(send(String.format(APP_URL + "/%s/%s/%s/%s/%s/%s", device, fxli_library_code, book.getBook_code(), member_id, member_id, member_id), new ArrayList<NameValuePair>()));
 	}
 	
 	public Map<String, String> bookinfo(Book book) {
