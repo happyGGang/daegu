@@ -310,7 +310,7 @@ body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.pn
 					</a>
 					</li>
 					<li class="quick-3">
-					<a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27" title="E러닝 학습 바로가기" class="quick03">
+					<a href="/${homepage.context_path}/html/elearning.do?menu_idx=99" title="E러닝 학습 바로가기" class="quick03">
 						<div>
 							<p>맞춤형 온라인 학습</p>
 							<h4>E-러닝</h4>

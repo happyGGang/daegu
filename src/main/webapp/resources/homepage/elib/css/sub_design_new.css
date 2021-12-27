@@ -899,6 +899,7 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .kiss_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/kiss_bg.jpg") no-repeat;background-size: 100%;}
 .naxos_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/naxos_bg.jpg") no-repeat;background-size: 100%;}
 .audiorac_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/audiorac_bg.jpg") no-repeat;background-size: 100%;}
+.cyber_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/cyber.jpg") no-repeat;background-size: 100%;}
 
 .lf-txt {position: absolute;top: 61px;left: 50px;width: 460px;color: #fff;}
 .lf-txt2 {position: absolute;top: 61px;left: 30px;width: 460px;color: #fff;}
