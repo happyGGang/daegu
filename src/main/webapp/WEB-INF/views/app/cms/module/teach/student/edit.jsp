@@ -673,6 +673,16 @@ $(function() {
 					</td>
 				</tr>
 			</c:if>
+			<c:if test="${teach.vaccines_yn eq 'Y'}">
+				<tr>
+					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+					</td>
+				</tr>
+			</c:if>
 			<c:if test="${teach.family_count_yn eq 'Y'}">
 				<tr>
 					<th>가족 인원 수</th>
@@ -720,16 +730,6 @@ $(function() {
 					<td>
 						<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
 						<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/> 
-					</td>
-				</tr>
-				</c:if>
-				<c:if test="${teach.vaccines_yn eq 'Y'}">
-				<tr>
-					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
-	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
-	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
 					</td>
 				</tr>
 				</c:if>
