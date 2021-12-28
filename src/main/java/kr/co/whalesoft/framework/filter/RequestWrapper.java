@@ -69,7 +69,7 @@ public String[] getParameterValues(String parameter) {
 		value = value.replaceAll("<", "&lt");
 		value = value.replaceAll(">", "&gt");
 		value = value.replaceAll("&", "&#38");
-		value = value.replaceAll("#", "&#35");
+//		value = value.replaceAll("#", "&#35");
 		// 채움 요청으로 ( )는 통과하도록 변경 20190612
 //		value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
 		value = value.replaceAll("'", "&#39;");
@@ -82,10 +82,10 @@ public String[] getParameterValues(String parameter) {
 		//You'll need to remove the spaces from the html entities below
 		value = value.replaceAll("<script>", "");
 		value = value.replaceAll("<script type=\"text/javascript\">", "");
-		value = value.replaceAll("<", "&lt");
-		value = value.replaceAll(">", "&gt");
-		value = value.replaceAll("&", "&#38");
-		value = value.replaceAll("#", "&#35");
+//		value = value.replaceAll("<", "&lt");
+//		value = value.replaceAll(">", "&gt");
+//		value = value.replaceAll("&", "&#38");
+//		value = value.replaceAll("#", "&#35");
 		// ( )는 통과하도록 변경 20190612
 //		value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
 //		value = value.replaceAll("&", "&amp;");
