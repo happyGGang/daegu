@@ -9,8 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.co.whalesoft.app.cms.code.CodeService;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
@@ -201,11 +201,11 @@ public class StudentController extends BaseController {
 //			ValidationUtils.rejectIfEmpty(result, "student_zipcode", "수강생 우편번호를 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
 
-			ValidationUtils.rejectIfStringLength(result, "student_name", 20, "수강생명");
+			ValidationUtils.rejectIfStringLength(result, "student_name", 50, "수강생명");
 //			ValidationUtils.rejectIfStringLength(result, "student_address", 200, "수강생 주소");
-			ValidationUtils.rejectIfStringLength(result, "student_name", 20, "수강생명");
+			ValidationUtils.rejectIfStringLength(result, "student_name", 50, "수강생명");
 
-			ValidationUtils.rejectIfStringLength(result, "applicant_name", 20, "신청자명");
+			ValidationUtils.rejectIfStringLength(result, "applicant_name", 50, "신청자명");
 
 //			ValidationUtils.rejectIfStringLength(result, "applicant_address", 200, "신청자 주소");
 
