@@ -323,6 +323,14 @@ $(function() {
 					</c:forEach>
 				</ul>
 			</td>
+			<th><label for="search_date03">간편검색</label></th>
+			<td class="search_left">
+				<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
+				<form:radiobutton path="search_type" value="2" title="2주전" label="2주전"/>
+				<form:radiobutton path="search_type" value="3" title="1달전" label="1달전"/>
+				<form:radiobutton path="search_type" value="4" title="2달전" label="2달전"/>
+			</td>
+			</tr>
 			</tr>
 			</tbody>
 			</table>

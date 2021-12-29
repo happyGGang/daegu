@@ -993,8 +993,9 @@ public class LibSearchAPI {
 			param.put("enddate", librarySearch.getSearch_end_date().replaceAll("-", ""));// YYYYMMDD
 		if (StringUtils.isNotEmpty(librarySearch.getBooktype()))
 			param.put("option", librarySearch.getBooktype());
-		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()))
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()) && !StringUtils.equals(librarySearch.getShelfCode(), "ALL")) {
 			param.put("shelf_loc_code", librarySearch.getShelfCode());
+		}
 		if (StringUtils.isNotEmpty(librarySearch.getRegCode()))
 			param.put("reg_code", librarySearch.getRegCode());
 		if (StringUtils.isNotEmpty(librarySearch.getSubjectCode()))
