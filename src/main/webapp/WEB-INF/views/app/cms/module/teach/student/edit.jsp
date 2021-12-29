@@ -422,6 +422,7 @@ $(function() {
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
+	<form:hidden path="large_category_idx"/>
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="student_idx"/>
 	<form:hidden path="editMode"/>

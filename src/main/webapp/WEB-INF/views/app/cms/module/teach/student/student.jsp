@@ -23,7 +23,7 @@ $(function(){
 		}
 
 		else{
-			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${student.homepage_id}&group_idx=${student.group_idx}&category_idx=${student.category_idx}&teach_idx=${student.teach_idx}', function( response, status, xhr ) {
+			$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${student.homepage_id}&group_idx=${student.group_idx}&category_idx=${student.category_idx}&teach_idx=${student.teach_idx}&large_category_idx=${student.large_category_idx}', function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 		}
@@ -32,7 +32,7 @@ $(function(){
 	});
 
 	$('a.dialog-modify').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${student.homepage_id}&group_idx=${student.group_idx}&category_idx=${student.category_idx}&teach_idx=${student.teach_idx}&student_idx=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${student.homepage_id}&group_idx=${student.group_idx}&category_idx=${student.category_idx}&teach_idx=${student.teach_idx}&large_category_idx=${student.large_category_idx}&student_idx=' + $(this).attr('keyValue1'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
