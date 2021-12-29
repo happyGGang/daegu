@@ -25,6 +25,8 @@
 											+ $this.attr('keyValue3')
 											+ '&teach_idx='
 											+ $this.attr('keyValue4')
+											+ '&large_category_idx='
+											+ $this.attr('keyValue5')
 											+ '&apply_status='
 											+ $this.attr('apply_status')
 											+ '&menu_idx=${teach.menu_idx}');

@@ -7,7 +7,7 @@
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
-		var formData = 'menu_idx='+$('#menu_idx').val()+'&homepage_id='+$('#homepage_id_1').val()+'&group_idx='+$(this).attr('keyValue1')+'&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')
+		var formData = 'menu_idx='+$('#menu_idx').val()+'&homepage_id='+$('#homepage_id_1').val()+'&group_idx='+$(this).attr('keyValue1')+'&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')+'&large_category_idx='+$(this).attr('keyValue4')
 			+'&searchCate1='+$('#searchCate1').val();
 		doGetLoad('/${homepage.context_path}/module/teach/detail.do', formData);
 		e.preventDefault();
@@ -418,7 +418,7 @@ ${html.html}
 							<dl>
 								<dd><span class="ca ty2">${i.group_name}</span></dd>
 								<dt class="title">
-									<a href="#" title="강좌 상세정보 보기" class="detail-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">
+									<a href="#" title="강좌 상세정보 보기" class="detail-btn" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.large_category_idx}">
 										${i.teach_name}
 									</a>
 								</dt>
