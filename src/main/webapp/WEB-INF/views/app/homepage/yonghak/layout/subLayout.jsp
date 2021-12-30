@@ -29,6 +29,18 @@ $(function() {
 		}
 
 	});
+	
+	$('a.sub-qrcode').on('click', function(e) {
+
+		if($('div#share_layer2').css('display') == 'none') {
+			$('div#share_layer2').show();
+			e.preventDefault();
+		} else {
+			$('div#share_layer2').hide();
+			e.preventDefault();
+		}
+
+	});
 
 	$('a#closeshareBox').on('click', function(e) {
 		e.preventDefault();
@@ -85,7 +97,15 @@ $(function() {
 									</div>
 
 							</li>
-							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a></li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a>
+								<div id="share_layer2">
+									<div class="shareAllBtns" >
+										<ul class="shareBox">
+											<li><a href="#"><img src="/resources/common/img/YongHakQRCode.png" alt="${homepage.homepage_name} QR코드" class="QRCodeIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+										</ul>
+									</div>
+								</div>
+							</li>
 						</ul>
 					</div>
 
