@@ -68,9 +68,9 @@
 	</div>
 </c:when>
 <c:when test="${homepage.context_path eq 'dalseolib'}">
-	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+	<!--<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
 		2021년 달서구립도서관 희망도서 신청은 예산 소진으로 종료하며, 2022년 1월부터 희망도서를 다시 신청할 수 있습니다.
-	</div>
+	</div>-->
 </c:when>
 <c:otherwise>
 <div id="contents-title">
@@ -240,12 +240,12 @@
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<form:select path="manageCode" cssClass="new_select_box">
-					<!--<form:option value="BW">도원도서관</form:option>-->
-					<!--<form:option value="BV">달서어린이</form:option>-->
-					<!--<form:option value="BU">성서도서관</form:option>-->
-					<!-- <form:option value="BX">본리도서관</form:option> -->
-					<!--<form:option value="BY">달서가족문화도서관</form:option>-->
-					<!--<form:option value="BZ">달서영어도서관</form:option>-->
+					<form:option value="BW">도원도서관</form:option>
+					<form:option value="BV">달서어린이</form:option>
+					<form:option value="BU">성서도서관</form:option>
+					<form:option value="BX">본리도서관</form:option>
+					<form:option value="BY">달서가족문화도서관</form:option>
+					<form:option value="BZ">달서영어도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
