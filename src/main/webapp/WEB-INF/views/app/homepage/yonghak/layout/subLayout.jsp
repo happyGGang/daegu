@@ -46,6 +46,11 @@ $(function() {
 		e.preventDefault();
 		$('div#share_layer').hide();
 	});
+	
+	$('a#closeshareBox2').on('click', function(e) {
+		e.preventDefault();
+		$('div#share_layer2').hide();
+	});
 
 	$(window).scroll(function(){
 		if($(this).scrollTop() > 0 ) {
@@ -102,6 +107,7 @@ $(function() {
 									<div class="shareAllBtns" >
 										<ul class="shareBox">
 											<li><a href="#"><img src="/resources/common/img/YongHakQRCode.png" alt="${homepage.homepage_name} QR코드" class="QRCodeIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+											<li><a href="#" id="closeshareBox2" class="close shareIconArea" title="닫기" ><img src="/resources/common/img/sns-close.png" alt="sns-close" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"/></a></li>
 										</ul>
 									</div>
 								</div>
