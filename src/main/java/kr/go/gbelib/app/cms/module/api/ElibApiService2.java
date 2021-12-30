@@ -122,31 +122,36 @@ public class ElibApiService2 extends BaseService {
 
 			if("1".equals(cmd)) {
 				// 대출
-				xmlResult = lendingService.borrowProcNoApi(lending, false);
+//				xmlResult = lendingService.borrowProcNoApi(lending, false);
+				xmlResult = lendingService.borrowProc(lending, false);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("2".equals(cmd)) {
 				// 반납
-				xmlResult = lendingService.returnProcNoApi(lending);
+//				xmlResult = lendingService.returnProcNoApi(lending);
+				xmlResult = lendingService.returnProc(lending);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("3".equals(cmd)) {
 				// 예약
-				xmlResult = lendingService.reserveProcNoApi(lending);
+//				xmlResult = lendingService.reserveProcNoApi(lending);
+				xmlResult = lendingService.reserveProc(lending);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("4".equals(cmd)) {
 				// 예약 취소
-				xmlResult = lendingService.reserveCancelNoApi(lending);
+//				xmlResult = lendingService.reserveCancelNoApi(lending);
+				xmlResult = lendingService.reserveCancel(lending);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
 			} else if("5".equals(cmd)) {
 				// 연장
-				xmlResult = lendingService.extendProcNoApi(lending, book);
+//				xmlResult = lendingService.extendProcNoApi(lending, book);
+				xmlResult = lendingService.extendProc(lending, book);
 				msg = getMsg(cmd, xmlResult);
 				apiLogService.addApiLog(new ApiLog("ELIB2", cmd, String.valueOf(xmlResult) + ", " + msg, makeParamUrl(lending), request.getRemoteAddr()));
 				return toXml(xmlResult, msg);
