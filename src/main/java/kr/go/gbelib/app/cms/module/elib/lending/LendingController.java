@@ -40,6 +40,10 @@ public class LendingController extends BaseController {
 			lending.setHomepage_id(getAsideHomepageId(request));	
 		}
 		
+		if ( StringUtils.isEmpty(lending.getLibrary_code())) {
+			lending.setLibrary_code("10000009");
+		}
+		
 		if("LEND".equals(menu)) {
 			if(StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("lend_dt");
 		} else if("RESERVE".equals(menu)) {

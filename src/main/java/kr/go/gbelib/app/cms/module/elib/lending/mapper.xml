@@ -13,10 +13,10 @@
 		</otherwise>
 		</choose>
 		</if>
-		<if test="parent_id != null and parent_id != ''">
+		<if test="parent_id != null and parent_id != '' and parent_id != 0">
 		AND c.parent_id = #{parent_id}
 		</if>
-		<if test="cate_id != null and cate_id != ''">
+		<if test="cate_id != null and cate_id != '' and cate_id != 0">
 		AND c.cate_id = #{cate_id}
 		</if>
 		<if test="com_code != null and com_code != ''">
