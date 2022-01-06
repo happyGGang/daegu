@@ -139,6 +139,11 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 #libraryList label {color:#222;font-size:14px;vertical-align:middle;cursor:pointer;letter-spacing:-1.5px;}
 #libraryList li {display:inline-block;zoom:1;*display:inline;float:left;width:25%;padding:3px 0;box-sizing:border-box;letter-spacing:-1.5px;}
 
+
+/* 211231 키워드 height 추가 */
+#keyword{height:38px !important;}
+
+
 @media all and (max-width:1000px){
 	#libraryList li{width:33.33%}
 }

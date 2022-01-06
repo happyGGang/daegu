@@ -103,10 +103,10 @@ $(function() {
 
 							</li>
 							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a>
-								<div id="share_layer2">
+								<div id="share_layer2" style="display:none;">
 									<div class="shareAllBtns" >
-										<ul class="shareBox">
-											<li><a href="#"><img src="/resources/common/img/YongHakQRCode.png" alt="${homepage.homepage_name} QR코드" class="QRCodeIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+										<ul class="shareBox" style="position:absolute;top:55px;right:-50px;width:210px;">
+											<li style="height:150px;width:150px;"><a href="#" style="height:150px;"><img src="/resources/common/img/YongHakQRCode.png" alt="${homepage.homepage_name} QR코드" class="QRCodeIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
 											<li><a href="#" id="closeshareBox2" class="close shareIconArea" title="닫기" ><img src="/resources/common/img/sns-close.png" alt="sns-close" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"/></a></li>
 										</ul>
 									</div>
