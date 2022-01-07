@@ -73,16 +73,15 @@
         책 읽기</span> </li>
     </ul>
   </div>
-  <h3 class="contTit_line">대출규정</h3>
+  <h3 class="contTit_line">대출규정(소장형)</h3>
   <ul class="con">
-    <li>대출권수 : 1인당 전자책 3권, 오디오북 3권<br>
-    </li>
-    <li>대출기간 : 8일(대출기한이 지나면 자동 반납처리) 연기 없음<br>
-    </li>
-    <li>예약제한 : 1인당 2권<br>
+    <li>대출권수 : 전자책 3권, 오디오북 제한없음</li>
+    <li>대출기간 : 8일(대출일포함)</li>
+    <li>대출기간 : 대출기한 만료 시 자동반납(수동반납 가능)</li>
+    <li>예약제한 : 2권<br>
     </li>
   </ul>
-  <h3 class="contTit_line">모바일도서관 앱 이용 방법</h3>
+  <!-- <h3 class="contTit_line">모바일도서관 앱 이용 방법</h3>
   <h4 class="contSTit_line">대구전자도서관 앱 내려받기 </h4>
   <ul class="con">
     <li>아이폰 : 앱스토어 &quot;대구전자도서관&quot; 검색 후 내려받기<br>
@@ -102,8 +101,26 @@
     <li>대출현황 대출이력 조회 서비스<br>
     </li>
     <li>도서관 소장도서의 통합검색<br>
-    </li-->
+    </li
     <li>모바일회원증으로 도서 대출 (도서회원증 없이도 대출 가능)</li>
+  </ul> -->
+  <h3 class="contTit_line">구독형 전자자료 서비스 이용 방법</h3>
+  <h4 class="contSTit_line">접속방법</h4>
+  <ul class="con">
+    <li>웹(PC, 모바일, 태블릿) : 대구전자도서관 홈페이지 접속 → 로그인 → 구독형 전자책 선택 → 도서검색 후 대출</li>
+    <li>모바일 앱 : 스토어에서 교보문고전자도서관 다운로드 → 도서관찾기에서 대구전자도서관 검색 → 도서관 아이디, 패스워드로 로그인 후 이용</li>
+  </ul>
+  <h4 class="contSTit_line">대출권수</h4>
+  <ul class="con">
+    <li>15권 / 달</li>
+  </ul>
+  <h4 class="contSTit_line">대출기간</h4>
+  <ul class="con">
+    <li>15일(대출일 포함)</li>
+  </ul>
+  <h4 class="contSTit_line">대출반납</h4>
+  <ul class="con">
+    <li>대출기간 만료 시 자동 반납(수동 반납 불가능)</li>
   </ul>
 </c:if>
 
@@ -148,7 +165,7 @@
     <li>이용방법
       <ul>
         <li style="font-size:14px;"><b style="color:#00a459">웹 :</b> 대구전자도서관(<a href="https://library.daegu.go.kr/elib" target="_blank" style="font-size:13px;color:#0097cf;">https://library.daegu.go.kr/elib</a>) 접속 / ID, 비밀번호로 로그인 / 도서 검색·대출 후 읽기
-        <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 대구전자도서관 앱 다운로드 / 설정 / E-BOOK 계정인증(가입도서관, 이름, 아이디) / 도서 검색·대출 후 책읽기</li>
+        <!-- <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 대구전자도서관 앱 다운로드 / 설정 / E-BOOK 계정인증(가입도서관, 이름, 아이디) / 도서 검색·대출 후 책읽기</li> -->
       </ul>
     </li>
   </ul>
