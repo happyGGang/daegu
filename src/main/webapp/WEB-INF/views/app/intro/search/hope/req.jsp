@@ -264,8 +264,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'dalseolib'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BW">도원도서관</form:option>-->
-				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
+					<form:option value="BW">도원도서관</form:option>
+				</form:select><!--<span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>-->
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
@@ -274,8 +274,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BU">성서도서관</form:option>-->
-				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
+					<form:option value="BU">성서도서관</form:option>
+				</form:select><!--<span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>-->
 				</c:when>
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
@@ -284,13 +284,13 @@
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BY">달서가족문화도서관</form:option>-->
-				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
+					<form:option value="BY">달서가족문화도서관</form:option>
+				</form:select><!--<span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>-->
 				</c:when>
 				<c:when test="${context_path eq 'english'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BZ">달서영어도서관</form:option>-->
-				</form:select><span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
+					<form:option value="BZ">달서영어도서관</form:option>
+				</form:select><!--<span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>-->
 				</c:when>
 				<c:when test="${context_path eq 'dssmalllib'}">
 				<form:select path="manageCode">
