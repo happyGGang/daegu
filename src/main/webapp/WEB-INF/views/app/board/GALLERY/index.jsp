@@ -7,6 +7,7 @@
 <script type="text/javascript">
 	$(function() {
 		$(window).resize(function() {
+			
 			$('.bbs_gallery img').height($('.bbs_gallery img').width() * 0.6);
 		}).trigger('resize');
 
@@ -15,13 +16,24 @@
 			$(this).attr('src', src.replace('/thumb', ''));
 			$(this).unbind("error").attr("src", src.replace('/thumb', ''));
 		});
-	});
+		
+		var homepage_id = $("#homepage_id").val();
+		var manage_idx = ${boardManage.manage_idx};		
+		if(homepage_id == "h10" && manage_idx == "328"){
+			$(document).bind("contextmenu", function (e) {
+				e.preventDefault();
+				return false;
+			});
+		}
+	});	
+
 </script>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
+<input type="hidden" id ="homepage_id" value ="${homepage.homepage_id}"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />
@@ -65,7 +77,7 @@ ${boardManage.top_html}
 						<c:set var="user_name" value="${i.user_name}"/>
 						</c:otherwise>
 						</c:choose>
-						${i.secret_yn ne 'Y'? user_name:'비공개'}
+						${i.secret_yn ne 'Y'? user_name:'비공개'} ${homepage.homepage_id } ${boardManage.manage_idx }
 						<span class="txt-bar"></span>
 						<abbr class="published"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></abbr>
 						<span class="txt-bar"></span>
