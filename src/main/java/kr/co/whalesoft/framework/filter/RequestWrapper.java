@@ -68,7 +68,7 @@ public String[] getParameterValues(String parameter) {
 //		value = value.replaceAll("<iframe", "");
 		value = value.replaceAll("<", "&lt");
 		value = value.replaceAll(">", "&gt");
-		value = value.replaceAll("&", "&#38");
+//		value = value.replaceAll("&", "&#38");
 //		value = value.replaceAll("#", "&#35");
 		// 채움 요청으로 ( )는 통과하도록 변경 20190612
 //		value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
