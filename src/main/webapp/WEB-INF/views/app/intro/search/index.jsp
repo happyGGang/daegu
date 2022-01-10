@@ -248,6 +248,10 @@ $(function() {
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_BH').prop('checked',true);
 			</c:when>
+			<c:when test="${context_path eq 'padong'}">
+			$('div#libraryList input:checkbox').prop('checked',false);
+			$('div#libraryList input:checkbox.lib_BG').prop('checked',true);
+			</c:when>
 		</c:choose>
 	</c:if>
 
