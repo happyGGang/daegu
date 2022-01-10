@@ -19,8 +19,9 @@
 		
 		var homepage_id = $("#homepage_id").val();
 		var manage_idx = ${boardManage.manage_idx};		
-		if(homepage_id == "h10" && manage_idx == "993"){
+		if(homepage_id == "h10" && manage_idx == "993"){ //로컬 328
 			$(document).bind("contextmenu", function (e) {
+				alert("우측 마우스를 사용할 수 없습니다.");
 				e.preventDefault();
 				return false;
 			});

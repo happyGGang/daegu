@@ -8,6 +8,21 @@
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
+<script type="text/javascript">
+	$(function() {
+		var homepage_id = $("#homepage_id").val();
+		var manage_idx = ${boardManage.manage_idx};
+		console.log(homepage_id);
+		console.log(manage_idx);
+		if(homepage_id == "h10" && manage_idx == "993"){ //로컬 328
+			$(document).bind("contextmenu", function (e) {
+				alert("우측 마우스를 사용할 수 없습니다.");
+				e.preventDefault();
+				return false;
+			});
+		}
+	});		
+</script>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
@@ -15,6 +30,7 @@ ${boardManage.top_html}
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
+<input type="hidden" id ="homepage_id" value ="${homepage.homepage_id}"/>
 </form:form>
 <div class="wrapper-bbs">
 	<div class="bbs-view">
