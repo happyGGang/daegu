@@ -393,7 +393,8 @@ public class BoardController extends BaseController {
 
 
 		model.addAttribute("board", board);
-
+		model.addAttribute("boardManage", boardManage);
+		
 
 
 		log.debug("retrunPath : " + returnPath);

@@ -19,7 +19,7 @@
 		
 		var homepage_id = $("#homepage_id").val();
 		var manage_idx = ${boardManage.manage_idx};		
-		if(homepage_id == "h10" && manage_idx == "328"){
+		if(homepage_id == "h10" && manage_idx == "993"){
 			$(document).bind("contextmenu", function (e) {
 				e.preventDefault();
 				return false;
@@ -77,7 +77,7 @@ ${boardManage.top_html}
 						<c:set var="user_name" value="${i.user_name}"/>
 						</c:otherwise>
 						</c:choose>
-						${i.secret_yn ne 'Y'? user_name:'비공개'} ${homepage.homepage_id } ${boardManage.manage_idx }
+						${i.secret_yn ne 'Y'? user_name:'비공개'}
 						<span class="txt-bar"></span>
 						<abbr class="published"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></abbr>
 						<span class="txt-bar"></span>
