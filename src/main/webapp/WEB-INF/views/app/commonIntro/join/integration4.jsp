@@ -8,6 +8,7 @@
 var idCheck = false;
 var pwCheck = false;
 var pwCheck2 = false;
+var cardCheck = false;
 $(function() {
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
@@ -36,6 +37,13 @@ $(function() {
 		if (!pwCheck) {
 			alert('비밀번호 확인 후 가능 합니다.');
 			return false;
+		}
+		if ($("#new_card_password_area1").is(':visible')) {
+			if (!cardCheck) {
+				alert('카드 비밀번호는 숫자 4자리만 가능합니다.');
+				$('input#card_password').focus();
+				return false;
+			}
 		}
 
 		doAjaxPost($('#memberJoinForm'));
@@ -132,6 +140,16 @@ $(function() {
 		pwCheck2 = true;
 		return true;
 
+	});
+	$('input#card_password').on('keyup', function() {
+		var val = $(this).val();
+		if (val && val.length == 4 && parseInt(val) ) {
+			$('span#cardcheck').css('color', 'black');
+			cardCheck = true;
+		} else {
+			$('span#cardcheck').css('color', 'red');
+			cardCheck = false;
+		}
 	});
 
 
@@ -324,7 +342,19 @@ $(function() {
 						<form:checkbox path="email_service_yn" value="Y" label="EMAIL 수신여부"/>
 					</td>
 				</tr>
-
+<%-- 				<c:if test="${memberInfo.user_no ne 'null'}"> --%>
+					<tr id="new_card_password_area1">
+						<th>
+							카드 비밀번호
+						</th>
+						<td>
+							<form:password path="card_password" class="text" maxlength="4"/>
+							<div class="ui-state-highlight">
+								<span id="cardcheck">카드비밀번호는 숫자 4자리만 가능</span>
+							</div>
+						</td>
+					</tr>
+<%-- 				</c:if> --%>
 			</tbody>
 		</table>
 
