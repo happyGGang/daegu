@@ -236,7 +236,6 @@
 	<form:hidden path="book_idx"/>
 	<form:hidden path="device"/>
 	<form:hidden path="library_code"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="elib_top">
 		<!-- 전자책 총 권수, 검색 조건 시작-->
 		<div class="sub001">
