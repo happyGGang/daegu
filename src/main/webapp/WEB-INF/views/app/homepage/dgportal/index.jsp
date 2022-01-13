@@ -55,90 +55,90 @@ do {
 	
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함. 메인 팝업 추천도서 잠시 주석 2021-12-02
-// 		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset')}) {
-// 			var result = '';
-// 			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
-// 			var x = 0;
-// 			while (x <= document.cookie.length) {
-// 				var y = (x + nameOfCookie.length);
-// 				if (document.cookie.substring(x, y) == nameOfCookie) {
-// 					if ((endOfCookie = document.cookie
-// 							.indexOf(";", y)) == -1)
-// 						endOfCookie = document.cookie.length;
-// 					result = unescape(document.cookie
-// 							.substring(y, endOfCookie));
-// 				}
-// 				x = document.cookie.indexOf(" ", x) + 1;
-// 				if (x == 0)
-// 					break;
-// 			}
+		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset' || member.member_id eq 'ka1004' || member.member_id eq 'yjoh7012' || member.member_id eq 'blessjheum')}) {
+			var result = '';
+			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
+			var x = 0;
+			while (x <= document.cookie.length) {
+				var y = (x + nameOfCookie.length);
+				if (document.cookie.substring(x, y) == nameOfCookie) {
+					if ((endOfCookie = document.cookie
+							.indexOf(";", y)) == -1)
+						endOfCookie = document.cookie.length;
+					result = unescape(document.cookie
+							.substring(y, endOfCookie));
+				}
+				x = document.cookie.indexOf(" ", x) + 1;
+				if (x == 0)
+					break;
+			}
 
-// 			if (result != 'no') {
-// 				$('div#recom_wrap').show();
-// 			}
+			if (result != 'no') {
+				$('div#recom_wrap').show();
+			}
 			
-// 			var menu_idx = '22';
-// 			var words = [];
-// 			var color_rand = ['#82be02', '#71aa99', '#955959' ,'#be0252', '#0077d2', '#d26d00', '#d20000', '#24b732', '#00c6cd', '#a602be'];
-// 			var weight_rand = ['100','200','300','400', '500', '600', '700', '800', '900'];
+			var menu_idx = '22';
+			var words = [];
+			var color_rand = ['#82be02', '#71aa99', '#955959' ,'#be0252', '#0077d2', '#d26d00', '#d20000', '#24b732', '#00c6cd', '#a602be'];
+			var weight_rand = ['100','200','300','400', '500', '600', '700', '800', '900'];
 			
-// 			<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
-// 				var obj = new Object(); 
-// 				obj.text = '${i.keyword_name}';
-// 				obj.color = color_rand[Math.floor(Math.random()*color_rand.length)];
-// 				obj.weight = weight_rand[Math.floor(Math.random()*weight_rand.length)];
-// // 				obj.link = 'module/bookKeyword/view.do?menu_idx=87&keyword_name=${i.keyword_name}';
-// 				words.push(obj);
-// 				$('#demo_word_'+status.index).css('margin','15px')
-// 			</c:forEach>
+			<c:forEach var="i" varStatus="status" items="${bookKeywordList}">
+				var obj = new Object(); 
+				obj.text = '${i.keyword_name}';
+				obj.color = color_rand[Math.floor(Math.random()*color_rand.length)];
+				obj.weight = weight_rand[Math.floor(Math.random()*weight_rand.length)];
+// 				obj.link = 'module/bookKeyword/view.do?menu_idx=87&keyword_name=${i.keyword_name}';
+				words.push(obj);
+				$('#demo_word_'+status.index).css('margin','15px')
+			</c:forEach>
 
-// 			$('#keywords').jQCloud(words, {});
-// 		}
+			$('#keywords').jQCloud(words, {});
+		}
 		
-// 		$('#search_keyword').on('click',function(e){
-// 			// 초기화
-// 			keyword = '';
+		$('#search_keyword').on('click',function(e){
+			// 초기화
+			keyword = '';
 			
-// 			var selected_count= $('#keywords span[select=selected]').length;
+			var selected_count= $('#keywords span[select=selected]').length;
 			
-// 			if (selected_count == 0) {
-// 				alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
-// 				return false;
-// 			}
+			if (selected_count == 0) {
+				alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
+				return false;
+			}
 			
-// 			for (var i = 0; i < selected_count; i++) {
-// 				var keyword_text = $('#keywords span[select=selected]').eq(i).text(); 
+			for (var i = 0; i < selected_count; i++) {
+				var keyword_text = $('#keywords span[select=selected]').eq(i).text(); 
 				
-// 				if (keyword == null || keyword == '') {
-// 					keyword = keyword_text;
-// 				} else {
-// 					keyword= keyword+','+keyword_text;
-// 				}
-// 			}
+				if (keyword == null || keyword == '') {
+					keyword = keyword_text;
+				} else {
+					keyword= keyword+','+keyword_text;
+				}
+			}
 			
-// 			doGetLoad('module/bookKeyword/view.do?menu_idx=', "keyword_name="+keyword);
-// 		});
+			doGetLoad('module/bookKeyword/view.do?menu_idx=', "keyword_name="+keyword);
+		});
 		
-// 		$(document).on("click", "#keywords span[id^=keywords_word_]", function() {
-// 			var selected_count= $('#keywords span[select=selected]').length;
-// 			var selectAttr = $(this).attr("select");
-// 			var text = $(this).text();
+		$(document).on("click", "#keywords span[id^=keywords_word_]", function() {
+			var selected_count= $('#keywords span[select=selected]').length;
+			var selectAttr = $(this).attr("select");
+			var text = $(this).text();
 			
-// 			if (selectAttr == null) {
-// 				if (selected_count >= 3) {
-// 					alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
-// 					return false;
-// 				}	
-// 			}
+			if (selectAttr == null) {
+				if (selected_count >= 3) {
+					alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
+					return false;
+				}	
+			}
 			
-// 			if (selectAttr == 'selected') {
-// 				$(this).css('border', '');
-// 				$(this).removeAttr('select');
-// 			} else {
-// 				$(this).css('border', 'solid');
-// 				$(this).attr('select', 'selected');
-// 			}
-// 		});
+			if (selectAttr == 'selected') {
+				$(this).css('border', '');
+				$(this).removeAttr('select');
+			} else {
+				$(this).css('border', 'solid');
+				$(this).attr('select', 'selected');
+			}
+		});
 		
 		$('#homeup').click(function () {
 			$('body,html').animate({
