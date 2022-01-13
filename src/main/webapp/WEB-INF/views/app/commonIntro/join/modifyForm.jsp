@@ -178,7 +178,7 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 	<input type="hidden" name="certType">
 	<input type="hidden" name="mode" value="changeTel">
 	<input type="hidden" name="menu_idx" value="${param.menu_idx}">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 <div class="join-wrap" style="padding: 0;">
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="save.do" onsubmit="return false;">

@@ -375,6 +375,7 @@ function go_to_login() {
 		<form:hidden path="book_pubname" value="${param.book_pubname}"/>
 		<form:hidden path="book_year" value="${param.book_year}"/>
 		<form:hidden path="rowCount" value="${param.rowCount}"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form:form>
 </c:if>
 
@@ -391,6 +392,7 @@ function go_to_login() {
 	<form:hidden path="book_idx" value="${param.book_idx}"/>
 	<form:hidden path="lesson_no"/>
 	<form:hidden path="audio_no"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="serial-wrap">
 		<div class="sview">

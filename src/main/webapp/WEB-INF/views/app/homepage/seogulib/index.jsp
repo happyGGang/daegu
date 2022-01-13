@@ -165,6 +165,7 @@ do {
                 <form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
                   <input type="hidden" name="menu_idx" value="9">
                   <input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+                  <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
                   <input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
                 </form>
                 <a href=""><img src="/resources/homepage/seogulib/img/search_btn.jpg"></a> </div>

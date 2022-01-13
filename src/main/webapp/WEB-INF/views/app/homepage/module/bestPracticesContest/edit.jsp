@@ -137,7 +137,7 @@ $(function() {
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
 <form:hidden path="best_practices_idx"/>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="wrapper-bbs">
 		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="독서릴레이 우수사례공모 신청">

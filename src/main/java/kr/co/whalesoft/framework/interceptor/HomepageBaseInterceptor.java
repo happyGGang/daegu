@@ -2,7 +2,9 @@ package kr.co.whalesoft.framework.interceptor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -103,15 +105,20 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 					List<RecommendSite> recommendSiteListAll = recommendSiteService.getRecommendSiteListCache(homepage.getHomepage_id());
 					request.getSession().setAttribute("recommendSiteList", recommendSiteListAll);
 //				}
-
+					
+				
+				//csrf 토큰 생성
+				HttpSession session = request.getSession();
+				session.setAttribute("CSRF_TOKEN",UUID.randomUUID().toString());	
+					
 				/**
 				 * 접속 통계 + 로그 남기기
 				 */
 				addStatisticsCount(request, homepage);
 				/**
 				 *
-				 */
-
+				 */													
+				
 				//Menu 구하기
 				menuTreeList = menuService.getMenuTreeListCache(homepage.getHomepage_id());
 				if(request.getParameter("menu_idx") != null && !request.getParameter("menu_idx").equals("")) {
@@ -137,7 +144,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 
 				// 전자도서관 좌측 메뉴
 				if("elib".equals(contextPath) || "newelib".equals(contextPath)) {
-					HttpSession session = request.getSession();
+					session = request.getSession();
 					String type = StringUtils.trimToEmpty(request.getParameter("type"));
 					ElibCategory elibCategory = new ElibCategory(type, 1);
 					ElibCode elibCode = new ElibCode(type);

@@ -109,6 +109,7 @@ function getNaverData(arg) {
 	<form:hidden path="viewPage"/>
 	<form:hidden path="book_package_idx"/>
 	<form:hidden path="image_link"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />

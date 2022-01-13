@@ -22,8 +22,8 @@ $(function() {
 <form id="renewForm" action="save.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="loan_key" id="loan_key">
 	<input type="hidden" name="editMode" value="RENEW">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
-
 
 <!-- contents-title-->
 <div id="contents-title">
@@ -31,6 +31,7 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="DepthBtn">
 <c:set var="prefix" value="/intro/${context_path}/search/"></c:set>
 <a href="${prefix}loan/index.do" class="bBtn">대출중인도서</a>

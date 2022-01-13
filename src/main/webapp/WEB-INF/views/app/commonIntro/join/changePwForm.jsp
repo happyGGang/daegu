@@ -82,6 +82,7 @@ $(function() {
 	</div>
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="changeMemberPw.do">
 		<form:password path="memberNewPw" cssStyle="display:none;"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<table id="memberForm">
 			<colgroup>
 				<col width="20%"/>

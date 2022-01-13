@@ -68,9 +68,11 @@
     <form:hidden path="request_end_date"/>
     <form:hidden path="search_text"/>
     <form:hidden path="request_type" value="온라인"/>
+    <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <h1 style="font-size: 20pt">강좌정보</h1>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="apply">
     <!-- 강좌정보 -->
     <div class="lec_list dis_table col2">

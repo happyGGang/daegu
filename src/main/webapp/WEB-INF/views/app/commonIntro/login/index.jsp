@@ -42,6 +42,7 @@ $(function() {
 
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 <div class="login-box">
 	<div class="login-head">

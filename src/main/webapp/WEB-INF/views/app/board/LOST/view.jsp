@@ -13,10 +13,13 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${board.delete_yn eq 'Y'}">
 <form:hidden path="boardIdxArray"/>
 </c:if>
 </form:form>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-header">

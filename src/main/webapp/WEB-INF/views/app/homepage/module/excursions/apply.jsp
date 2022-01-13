@@ -47,6 +47,7 @@ $(function() {
 <form:hidden path="apply_idx"/>
 <form:hidden path="pageType"/>
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${fn:length(subHomepageList) > 0}">
 	<div class="tab_menu on">
 		<ul class="no${fn:length(subHomepageList)}">

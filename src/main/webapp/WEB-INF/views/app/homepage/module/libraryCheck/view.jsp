@@ -37,12 +37,14 @@ $(function() {
 <form:form modelAttribute="libraryCheck" id="bookPackageDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>
 <form:hidden path="library_check_idx" id="library_check_idx_d"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
 <form:hidden path="viewPage"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <table>
 	<tr>
 		<th style="text-align: center;">장서점검기 ${libraryCheck.library_check_number}</th>

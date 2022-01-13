@@ -74,7 +74,8 @@ table.bbs tr.notice{background:#f5f6f7}
 <link rel="stylesheet" type="text/css" href="/resources/common/css/libinfo.css" />
 <script type="text/javascript" src="/resources/common/js/libinfo.js"></script>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
-	<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
+<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="library-map-selector innerMap">
 	<div class="">
 		<!-- map -->

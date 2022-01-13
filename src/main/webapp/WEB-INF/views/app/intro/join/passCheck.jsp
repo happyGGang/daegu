@@ -55,6 +55,7 @@ $(function() {
 
 						<form:form modelAttribute="member" action="modifyForm.do" method="post" onsubmit="return false;">
 						<input type="hidden" id="returnURL" name="returnURL" value=""/>
+						<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 						<form:password path="member_pw" cssStyle="display:none;"/>
 
 						<div class="form-box">

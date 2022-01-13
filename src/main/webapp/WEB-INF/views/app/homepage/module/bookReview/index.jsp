@@ -204,13 +204,16 @@ function doAjaxPostSubmit(form, ajaxBody) {
 	<form:hidden path="manage_code" htmlEscape="true"/>
 	<form:hidden path="book_review_content" htmlEscape="true"/>
 	<form:hidden path="book_review_score" htmlEscape="true"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form:form modelAttribute="bookReview" id="bookReviewDel" action="/${homepage.context_path}/module/bookReview/delete.do">
 	<form:hidden path="book_review_idx" id="book_review_idx_d" htmlEscape="true"/>
 	<form:hidden path="editMode" id="editMode_d" value="DELETE" htmlEscape="true"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="bbs-comment-title">
 	<strong>서평 </strong>
 	<em>${fn:length(bookReviewList)}</em>

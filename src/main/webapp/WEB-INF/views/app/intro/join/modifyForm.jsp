@@ -141,6 +141,7 @@ $(function() {
 <div class="join-wrap" style="padding: 0">
 <form:form modelAttribute="memberInfo" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="editTitle">
 		정보수정

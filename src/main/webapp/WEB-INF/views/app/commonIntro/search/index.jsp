@@ -290,7 +290,7 @@ $(function() {
 </style>
 
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/viewStorage.do" method="post" target="myStoragePopup" style="display: none;">
-<input type="hidden" name="_csrf" value="${_csrf.token}">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <input type="hidden" id="editMode" name="editMode" value="ADD">
 <input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
 <input type="hidden" id="author" name="author" value="${detail.AUTHOR}">

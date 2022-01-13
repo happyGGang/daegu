@@ -32,6 +32,7 @@ $(document).ready(function() {
 <input type="hidden" name="editMode" value="CANCEL">
 <input type="hidden" name="study_idx" id="cancel_idx">
 <input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 
@@ -40,6 +41,7 @@ $(document).ready(function() {
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="study_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="table-wrap">
 		<table class="bbs center" summary=">그룹스터디 신청기록">

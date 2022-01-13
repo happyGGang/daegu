@@ -179,6 +179,7 @@ $(function(){
 		<form:hidden path="plan_date"/>
 		<form:hidden id="homepage_id_1" path="homepage_id"/>
 		<form:hidden id="menu_idx" path="menu_idx"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 		<c:set var="subHomepageLength" value="${fn:length(subHomepageList)}"></c:set>
 		<c:if test="${homepage.context_path eq 'junggu'}">

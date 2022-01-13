@@ -163,6 +163,7 @@ $(function(){
 <form:hidden path="plan_date"/>
 <form:hidden id="menu_idx" path="menu_idx"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<c:if test="${homepage.context_path eq 'yonghak'}">
 		<h3 style="margin-top:0;">이용방법</h3>

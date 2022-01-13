@@ -39,6 +39,7 @@ $(document).ready(function() {
 <form:hidden path="popup_yn"/>
 <form:hidden path="survey_open_yn"/>
 <form:hidden path="open_yn"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="infodesk">
 		<span class="bbs-result">총 게시물 : <b>${paging.totalDataCount}</b>건</span>

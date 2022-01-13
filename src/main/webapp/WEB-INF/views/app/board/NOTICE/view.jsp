@@ -15,6 +15,7 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${not empty param.category1}">
 <form:hidden path="category1"/>
 </c:if>

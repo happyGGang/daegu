@@ -35,6 +35,7 @@ $(function() {
 	<input type="hidden" id="loan_key" name="loan_key"/>
 	<input type="hidden" id="hold_lib_code" name="hold_lib_code"/>
 	<input type="hidden" id="local_book_key" name="local_book_key"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 

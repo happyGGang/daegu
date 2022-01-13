@@ -72,6 +72,7 @@ function compactTrim(str) {
 
 
 <form:form modelAttribute="librarySearch" action="allHistory.do" >
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="bbs-notice" style="margin-top:10px;margin-bottom:20px;padding:20px;text-align:center;" >
 	조회기간 :
 		<form:input path="search_start_date" cssClass="text ui-calendar new_text01"/><label for="search_start_date" style="display: none;">시작일</label> ~

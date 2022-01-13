@@ -15,6 +15,8 @@
 <!-- <div style="text-align: right; margin-top: 10px; "> -->
 <%-- 	<a href="excelDownload.do?keyword_name=${bookKeyword.keyword_name}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">엑셀다운로드</a> --%>
 <!-- </div> -->
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="kdcBookList2">
 	<ul class="bookListz">
 		<c:if test="${fn:length(list) < 1}">

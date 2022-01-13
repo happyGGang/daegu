@@ -30,6 +30,7 @@ $(function() {
 	<form:form modelAttribute="relayLecture" id="relayLectureStep" action="edit.do">
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="lecture_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<div>
 		<h2>개인정보 수집 활용 동의서</h2>

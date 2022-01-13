@@ -199,11 +199,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	<form:form id="checkForm" modelAttribute="newMember" action="check.do" onsubmit="return false;">
 		<form:hidden path="member_id"/>
 		<form:hidden path="ageType"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form:form>
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="certType">
 		<input type="hidden" name="menu_idx" value="${param.menu_idx}">
-		<input type="hidden" name="_csrf" value="${_csrf.token}">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form>
 	<form:form id="memberJoinForm" modelAttribute="newMember" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode"/>
@@ -211,6 +212,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<form:hidden path="certType"/>
 		<form:hidden path="before_url"/>
 		<form:hidden path="menu_idx"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 		<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}; border-top:1px solid #ddd;padding:15px 0;">
 			(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.

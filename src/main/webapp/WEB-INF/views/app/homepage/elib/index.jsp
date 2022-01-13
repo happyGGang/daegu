@@ -267,6 +267,7 @@ body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.pn
 				<form id="mainSearchForm" action="/${homepage.context_path}/module/elib/search/index.do">
 					<input type="hidden" name="menu_idx" value="80">
 					<input type="hidden" name="viewPage" value="1">
+					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 					<!-- <input type="hidden" name="type" value="EBK"> -->
 					<fieldset>
 						<legend class="blind">통합검색</legend>

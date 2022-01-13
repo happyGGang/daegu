@@ -110,6 +110,7 @@ do {
 		});
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="wrap">
 	<c:if test="${fn:length(popupZoneTopList) > 0}">
 	<div class="popup_top">
@@ -163,6 +164,7 @@ do {
 				<!-- main_search -->
 				<div class="search-area" id="main_search">
 					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 					<input type="hidden" name="menu_idx" value="9">
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 					<fieldset>

@@ -35,6 +35,7 @@ $(function() {
 <form id="renewForm" action="save.do" method="post" onsubmit="return false;">
 	<input type="hidden" name="loan_key" id="loan_key">
 	<input type="hidden" name="editMode" value="RENEW">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 <form:form modelAttribute="librarySearch" method="get">
@@ -42,6 +43,7 @@ $(function() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="manageCode"/>
 	<form:hidden path="excel_type" value="LOAN"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <!-- contents-title
@@ -49,7 +51,7 @@ $(function() {
 	<h2>대출중인도서<span style="font-weight:300">를 확인하세요.</span></h2>
 </div>
 /contents-title-->
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="loan_box">
 	<ul>
 		<li>

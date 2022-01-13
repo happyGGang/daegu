@@ -39,10 +39,12 @@ $(function() {
 		<input type="hidden" name="certType">
 		<input type="hidden" name="mode" value="findId">
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form>
 	<form:form modelAttribute="memberInfo" action="findId.do" method="post">
 		<form:hidden path="certType"/>
-
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		
 		<div class="identi_select">
 			<table class="center joinSelect">
 				<colgroup>

@@ -11,6 +11,7 @@ function copyToClipboard(s) {
     alert('복사되었습니다.');
 }
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:choose>
 <c:when test="${html ne null}">
 ${html.html}

@@ -93,6 +93,7 @@
 
 <form:form id="reqHopeForm" modelAttribute="librarySearch" action="save.do" method="post">
 	<form:hidden path="editMode" value="ADD"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="homepage_id" value="${homepage.homepage_id}"/>
 	<table class="edit">
 		<tbody>

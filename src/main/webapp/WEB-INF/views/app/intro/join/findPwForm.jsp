@@ -55,11 +55,11 @@ $(function() {
 		<input type="hidden" name="certType">
 		<input type="hidden" name="mode" value="findpw">
 		<input type="hidden" name="member_id">
-		<input type="hidden" name="_csrf" value="${_csrf.token}">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form>
 	<form:form modelAttribute="memberInfo" action="changePwForm.do" method="post" >
 		<form:hidden path="certType"/>
-
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<div class="findpw-login-body">
 			<div class="loginBox1">
 

@@ -77,6 +77,7 @@ $(function(){
 	<form:hidden path="reading_notes_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="wrapper-bbs">
 		<div class="infodesk">

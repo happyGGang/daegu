@@ -18,6 +18,7 @@
 	<input type="hidden" id="libcode" name="libcode" value=""/>
 	<input type="hidden" id="specieskey" name="specieskey" value=""/>
 	<input type="hidden" id="localkey" name="localkey" value=""/>	
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 입력값입니다.</div>
 	<table class="editTbl">

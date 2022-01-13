@@ -40,7 +40,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 });
 </script>
-
 <div class="join-wrap" style="padding: 0">
 
 	<h4>개인정보 제3자 제공 동의(대구시민인증)</h4>
@@ -76,7 +75,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<form:hidden path="certType"/>
 		<form:hidden path="before_url"/>
 		<form:hidden path="menu_idx"/>
-
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		
 		<div style="border-top:2px solid #ccc">
 		<table id="memberForm">
 			<caption>대구시민인증</caption>

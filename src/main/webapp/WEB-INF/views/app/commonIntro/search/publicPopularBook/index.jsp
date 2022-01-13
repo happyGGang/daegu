@@ -77,6 +77,7 @@
 <form:form modelAttribute="librarySearch" action="index.do" onsubmit="return false;">
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="isbn13"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<!-- 도서 필터 -->
 	<div class="bookFilterForm">

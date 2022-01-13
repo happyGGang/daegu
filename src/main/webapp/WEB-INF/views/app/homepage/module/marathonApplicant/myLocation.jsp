@@ -44,6 +44,7 @@ $(function() {
 		<form:hidden path="contest_idx"/>
 		<form:hidden path="contest_type_idx"/>
 		<form:hidden path="applicant_idx"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 			<table class="type2">
 				<colgroup>
 					<col width="15%"/>

@@ -68,6 +68,7 @@ $(function() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="apply_id" value="${facilityReq.apply_id}"/>
 	<form:hidden path="member_key"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type1">
 		<colgroup>
 	       <col width="160" />

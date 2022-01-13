@@ -73,7 +73,7 @@ $(function() {
 
 						<form:form modelAttribute="newMember" action="integration1.do" method="post">
 						<input type="hidden" id="returnURL" name="returnURL" value=""/>
-
+						<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 						<div class="login-type">
 						</div>
 						<div class="form-box">

@@ -176,7 +176,7 @@
     <form:hidden path="request_status"/>
     <form:hidden path="add_id"/>
     <form:hidden path="request_type"/>
-
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
     <div>
         <h3 style="font-size: 13pt">신청방법</h3>
         <input type="radio" name="applicant_type" value="직접신청" checked>직접신청

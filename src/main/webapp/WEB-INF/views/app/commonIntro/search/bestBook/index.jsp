@@ -16,6 +16,7 @@ $(function() {
 <form:form modelAttribute="librarySearch" action="index.do" method="GET">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<!-- contents-title-->
 	<div id="contents-title">

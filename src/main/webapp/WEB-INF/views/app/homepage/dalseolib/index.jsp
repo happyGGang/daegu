@@ -210,6 +210,7 @@ do {
 					<input type="hidden" name="libraryCodes" value="FW">
 					<input type="hidden" name="libraryCodes" value="FX">
 					<input type="hidden" name="libraryCodes" value="GK">
+					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 				<div class="search_bar">
 					<div class="search_bar_text">
 						<!-- <label for="search_txt" class="search_m">검색어(도서명 등)를 입력해주세요.</label> -->

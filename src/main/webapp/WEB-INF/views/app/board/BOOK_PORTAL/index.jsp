@@ -165,6 +165,7 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="plan_date"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <c:if test="${boardManage.manage_idx eq '195'}">
 <div style="float: left;">

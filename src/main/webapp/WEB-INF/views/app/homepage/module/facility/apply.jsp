@@ -28,6 +28,7 @@ $(function() {
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="facility_idx"/>
 	<form:hidden path="facility_req_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <div class="table-wrap">
 	<table class="type1 center">

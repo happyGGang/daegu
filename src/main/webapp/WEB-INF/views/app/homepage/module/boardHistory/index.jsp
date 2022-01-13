@@ -45,6 +45,7 @@ $(document).ready(function() {
 <form:hidden path="historyType"/>
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="table-wrap">
 		<table class="bbs center" summary="게시물/게시글 현황">

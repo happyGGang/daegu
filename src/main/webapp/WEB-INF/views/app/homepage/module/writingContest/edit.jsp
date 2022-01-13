@@ -75,6 +75,7 @@ $(function() {
 <form:form modelAttribute="writingContest" id="writingContestEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="writing_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="wrapper-bbs" style="padding-top:0;">
 		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="백일장 참가 신청">

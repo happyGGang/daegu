@@ -127,7 +127,7 @@ h3.byear { background: none;}
     이 운동이 우리나라에 도입된 것은 2003년으로, 서산시와 순천시의 시범사업이 진행되었고 이듬해부터 부산, 서울, 원주, 익산 등으로 점차 확산되었다. 대구는 2008년 ‘한 도시 한 책 읽기’사업을 시작하여 총 10권의 대구의 책을 선정하였으며, 2017년부터 ‘한 도서관 한 책 읽기’로 전환하였다가 2018년부터 “대구시립도서관 한 책 읽기‘로 독서운동을 전개하고 있다. </p>
 </div>
 </c:if>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:forEach items="${boyList}" var="i" varStatus="status">
 <div class="book-wr mg20t">
     <div class="book-box">

@@ -43,8 +43,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	<input type="hidden" name="certType">
 	<input type="hidden" name="mode" value="findpw">
 	<input type="hidden" name="member_id">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="join-wrap" style="padding: 0;">
 	<div class="txt-box" style="margin-bottom: 20px;">
 		<div id="txt_box_wrapper02">

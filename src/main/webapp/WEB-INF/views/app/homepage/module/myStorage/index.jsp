@@ -206,6 +206,7 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="parent_storage_idx"/>
 	<form:hidden path="storage_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <c:if test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
@@ -225,6 +226,7 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 					<form:hidden path="homepage_id"/>
 					<form:hidden path="storage_idx" class="text"/>
 					<form:hidden path="parent_storage_idx" class="text"/>
+					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 					<table class="border-all">
 						<colgroup>
 							<col width="100"/>

@@ -9,7 +9,7 @@ $(function() {
 	//$('input#user_no').focus();
 });
 </script>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="login-body">
 	<div class="tab">
 		<dl class="tcon t1">

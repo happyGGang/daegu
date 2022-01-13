@@ -123,6 +123,7 @@ $(function() {
 <form:hidden path="menu_idx"/>
 <form:hidden path="book_report_idx"/>
 <form:hidden path="participation_field"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="wrapper-bbs" style="padding-top:0;">
 		<p><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다. / 팀 대표자 기입바랍니다.</p>
 		<table class="bbs-edit" summary="독후감 공모 참가 신청">

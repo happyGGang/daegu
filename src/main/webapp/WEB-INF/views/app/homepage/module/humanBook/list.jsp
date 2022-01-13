@@ -41,6 +41,7 @@ $(function(){
 <form:hidden path="menu_idx"/>
 <form:hidden path="human_book_idx"/>
 <form:hidden path="viewPage"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="top_box">
 	<p>
 		<div class="well well-sm hidden-xs" style="padding:20px;">

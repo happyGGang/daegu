@@ -114,6 +114,7 @@ function removeChar(event) {
 	<form:hidden path="teacher_zipcode"/>
 	<form:hidden path="teacher_address"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />

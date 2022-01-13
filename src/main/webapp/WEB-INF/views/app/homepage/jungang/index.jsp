@@ -124,6 +124,7 @@ do {
 		</div>
 	</div>
 	<div id="container" class="main">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<div class="main_bg">
 			<div class="main1">
 				<div class="section">
@@ -136,6 +137,7 @@ do {
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 							<input type="hidden" name="menu_idx" value="13">
 							<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 							<fieldset>
 								<legend class="blind">통합검색</legend>
 								<div class="main-box">

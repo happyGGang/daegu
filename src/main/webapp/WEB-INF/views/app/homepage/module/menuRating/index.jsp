@@ -40,6 +40,7 @@ $(document).ready(function()
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="menu_rating_score"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <div class="end"></div>
 <div style="box-sizing:border-box;background:#636879;padding:7px 0 7px 15px;margin-top:100px;">

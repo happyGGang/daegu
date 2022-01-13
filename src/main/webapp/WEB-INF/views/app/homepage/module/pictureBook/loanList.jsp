@@ -135,6 +135,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 <form:hidden path="menu_idx"/>
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_loan_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="infodesk">
 		검색 결과 : 총 ${paging.totalDataCount}건
 		<form:select path="loan_year" cssClass="selectmenu">

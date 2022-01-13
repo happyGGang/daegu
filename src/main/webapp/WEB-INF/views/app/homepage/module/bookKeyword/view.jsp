@@ -24,7 +24,7 @@
 	<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
 	<h2>능동형도서추천</h2>
 </div>
-	
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />	
 <div id="wait" class="user_pick_info" >
 	<h2>${member.member_name}님의 관심 키워드 선택 결과를 불러오는 중입니다. </h2>
 </div>

@@ -67,6 +67,7 @@ $(function () {
 	<form:hidden path="teacher_idx"/>
 	<form:hidden path="member_key"/>
 	<form:hidden path="editMode"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />

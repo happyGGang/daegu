@@ -23,6 +23,7 @@
 	<input type="hidden" name="user_type" value ="T1">
 	<input type="hidden" name="user_type_name" value ="회원">
 	<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="btn_area txt-center">
 
 <c:choose>

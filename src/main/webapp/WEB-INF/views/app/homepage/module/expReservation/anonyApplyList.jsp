@@ -74,6 +74,7 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="reservation_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <input type="hidden" name="searchCheck" value="yes"/>
 	<div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
 		조회기간: <form:input path="searchDateFrom" cssClass="text ui-calendar"/><label for="searchDateFrom" class="blind">시작일</label>~

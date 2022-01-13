@@ -126,6 +126,7 @@ $(function() {
 	<form:hidden path="isbn"/>
 	<form:hidden path="book_type"/>
 	<form:hidden path="cancel_reason"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="rsv-info"></div>
 	<div class="auto-scroll">
 	<table class="type2 nohead">

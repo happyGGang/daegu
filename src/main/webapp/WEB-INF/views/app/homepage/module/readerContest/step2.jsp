@@ -30,6 +30,7 @@ $(function() {
 <div class="join-wrap" style="padding: 0px !important;width:970px;">
 	<form:form modelAttribute="readerContest" id="readerContestStep" action="edit.do">
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div>
 		<h2>개인정보 수집 이용 동의서</h2>
 		<div class="Box" style="height:400px;">	

@@ -45,6 +45,7 @@ $(function() {
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="subjectCode"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<!-- contents-title-->
 	<div id="contents-title">

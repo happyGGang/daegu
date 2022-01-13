@@ -16,6 +16,7 @@ $(function() {
 
 <form:form modelAttribute="bookRelayGroup" id="bookRelayGroup" action="step2.do" >
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="roomicon">
 			<div class="inner icowrap"><span class="ico ico5"></span> <strong>독서릴레이</strong>
 				<p>「2021 수성북」을 읽고 싶은 단체(동아리, 기관)의 참여 신청을 받습니다.</p>

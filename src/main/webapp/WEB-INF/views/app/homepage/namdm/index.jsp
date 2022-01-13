@@ -111,6 +111,8 @@ do {
 		});
 });
 </script>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="wrap">
 	<c:if test="${fn:length(popupZoneTopList) > 0}">
 	<div class="popup_top">

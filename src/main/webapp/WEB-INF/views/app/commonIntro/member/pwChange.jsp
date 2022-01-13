@@ -64,6 +64,7 @@ $(function() {
 
 	<form:form id="memberJoinForm" modelAttribute="member" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode" value="pwChange"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 		<table>
 			<tbody>

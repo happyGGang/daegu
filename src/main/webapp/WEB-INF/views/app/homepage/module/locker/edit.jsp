@@ -35,7 +35,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	<form:hidden path="editMode"/>	
 	<form:hidden path="locker_pre_idx"/>
 	<form:hidden path="locker_pre_type"/>	
-	<form:hidden path="menu_idx" value="${lockerReq.menu_idx }"/>							
+	<form:hidden path="menu_idx" value="${lockerReq.menu_idx }"/>	
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />						
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />

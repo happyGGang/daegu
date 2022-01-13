@@ -119,7 +119,7 @@ do {
 	</div>
 
 	<div id="container" class="main">
-
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<div class="main1">
 			<div class="section">
 
@@ -128,6 +128,7 @@ do {
 					<div class="main1box1box1">
 						<div class="search-box">
 							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 								<div class="box0">
 									<label for="search_type" class="search_type">
 										<select id="search_type" name="search_type" style="border:0;font-size:15px">

@@ -27,6 +27,7 @@ $(function() {
 
 	<form:form modelAttribute="newMember" id="memberAgreeForm" action="step3.do" method="post">
 	<form:hidden path="ageType"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<p class="blind">회원가입 단계</p>
 	<table class="joinNoline">

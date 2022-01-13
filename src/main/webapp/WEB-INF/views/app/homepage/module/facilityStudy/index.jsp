@@ -27,6 +27,7 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 <form:form modelAttribute="facilityStudy">
 <form:hidden id="menu_idx" path="menu_idx"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="ym_btns" style="float:right;">
 		<form:input path="plan_date" class="text ui-calendar new_text01"/>

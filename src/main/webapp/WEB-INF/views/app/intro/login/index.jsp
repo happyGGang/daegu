@@ -60,6 +60,7 @@ $(function() {
 							<form:form modelAttribute="member" action="/intro/${context_path}/login/loginProc.do" onsubmit="return false;">
 							<form:hidden path="before_url" htmlEscape="true"/>
 							<form:hidden path="member_id"/>
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 							<form:password path="member_pw" cssStyle="display:none;"/>
 
 							<div class="form-box">

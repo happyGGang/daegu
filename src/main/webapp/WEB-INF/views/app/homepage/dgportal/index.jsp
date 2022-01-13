@@ -496,6 +496,7 @@ do {
 												<form id="mainSearchForm2" action="/dgportal/intro/search/indexAll.do">
 												<input type="hidden" name="menu_idx" value="7">
 												<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+												<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 												<div class="box1">
 													<div class="box2">
 														<label for="search_text_2" class="blind">통합자료검색</label>

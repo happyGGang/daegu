@@ -19,6 +19,7 @@ $(function() {
 <form:form id="teacherListForm" modelAttribute="teacher" action="index.do">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="auto-scroll">
 		<table class="bbs center">
 			<thead>

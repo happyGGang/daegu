@@ -41,12 +41,15 @@ $(function() {
 <form id="cancelForm" action="save.do" method="post">
 	<input type="hidden" name="bookkey" id="bookkey">
 	<input type="hidden" name="editMode" value="CANCEL">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="book-list" style="border-top:none;">
 	<div class="excel_btn_box_wrap02">
 		<a href="#" id="excel-btn" class="btn excel-btn">리스트 다운로드</a>

@@ -17,6 +17,7 @@ $(function() {
 
 <form:form modelAttribute="newMember" action="step2.do" method="post">
 <form:hidden path="ageType"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <table class="joinNoline">

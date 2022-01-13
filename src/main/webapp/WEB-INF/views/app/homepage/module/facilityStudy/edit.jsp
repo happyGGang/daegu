@@ -64,6 +64,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="study_date"/>
 	<form:hidden path="study_time"/>
 	<form:hidden path="study_num"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type1">
 		<colgroup>
 	       <col width="160" />

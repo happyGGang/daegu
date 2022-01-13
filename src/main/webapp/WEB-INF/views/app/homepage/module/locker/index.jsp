@@ -37,6 +37,7 @@ $(function() {
 	<form:hidden path="locker_pre_idx"/>
 	<form:hidden path="locker_idx"/>
 	<form:hidden path="req_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <div class="ui-state-highlight">
 	<ul class="con2">
@@ -59,6 +60,7 @@ $(function() {
 <form:hidden path="apply_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="locker_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:hidden path="locker_pre_type" value="${lockerPre.locker_pre_type}"/>
 	<div class="infodesk">		
 		<div class="button">

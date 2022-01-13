@@ -91,6 +91,7 @@ a.edit-btn{font-size:13px;}
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_idx"/>
 <form:hidden path="picture_book_subject"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div>
 	<div class="group-box">
 		<div class="img-box">
