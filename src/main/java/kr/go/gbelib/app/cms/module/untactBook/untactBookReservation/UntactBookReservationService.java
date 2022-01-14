@@ -70,8 +70,8 @@ public class UntactBookReservationService extends BaseService {
 		return 1;
 	}
 
-	public int modifyReservationStep(UntactBookReservation untactBookReservation) {
-		return dao.modifyReservationStep(untactBookReservation);
+	public int receiptReservationStep(UntactBookReservation untactBookReservation) {
+		return dao.receiptReservationStep(untactBookReservation);
 	}
 
 	public int cancelReservationStep(UntactBookReservation untactBookReservation) {
@@ -120,6 +120,22 @@ public class UntactBookReservationService extends BaseService {
 
 	public int getLockerPasswordCheckCount(UntactBookReservation untactBookReservation) {
 		return dao.getLockerPasswordCheckCount(untactBookReservation);
+	}
+
+	public int bookReservation(UntactBookReservation untactBookReservation) {
+		return dao.bookReservation(untactBookReservation);
+	}
+
+	public int waitingReservationStep(UntactBookReservation untactBookReservation) {
+		return dao.waitingReservationStep(untactBookReservation);
+	}
+
+	public UntactBookReservation getReceiptList(UntactBookReservation untactBookReservation) {
+		return dao.getReceiptList(untactBookReservation);
+	}
+
+	public List<UntactBookReservation> getUntactBookReservationListBefore(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationListBefore(untactBookReservation);
 	}
 
 }

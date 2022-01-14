@@ -30,7 +30,7 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getNonPasswordList(UntactBookReservation untactBookReservation);
 
-	public int modifyReservationStep(UntactBookReservation untactBookReservation);
+	public int receiptReservationStep(UntactBookReservation untactBookReservation);
 
 	public int cancelReservationStep(UntactBookReservation untactBookReservation);
 
@@ -55,5 +55,13 @@ public interface UntactBookReservationDao {
 	public List<UntactBookReservation> smsSendALL(UntactBookReservation untactBookReservation);
 
 	public int getLockerPasswordCheckCount(UntactBookReservation untactBookReservation);
+
+	public int bookReservation(UntactBookReservation untactBookReservation);
+
+	public int waitingReservationStep(UntactBookReservation untactBookReservation);
+
+	public UntactBookReservation getReceiptList(UntactBookReservation untactBookReservation);
+
+	public List<UntactBookReservation> getUntactBookReservationListBefore(UntactBookReservation untactBookReservation);
 
 }

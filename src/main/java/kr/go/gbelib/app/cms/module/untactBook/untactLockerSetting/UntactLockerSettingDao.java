@@ -36,4 +36,16 @@ public interface UntactLockerSettingDao {
 
 	public String getLockerUseYN(String homepage_id);
 
+	public int createUntactBookRound(UntactBookRound untactBookRound);
+
+	public int deleteUntactBookRound(UntactBookRound untactBookRound);
+
+	public String getUntactBookRoundOne(UntactBookRound untactBookRound);
+
+	public UntactBookRound getUntactBookRoundAll(UntactBookRound untactBookRound);
+
+	public String getReturnDate(UntactBookRound untactBookRound);
+
+	public String getRepeatedOne(String homepage_id);
+
 }

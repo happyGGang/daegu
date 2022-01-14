@@ -151,11 +151,10 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
 </form>
 
-<form id="untactBookReqForm" action="untactBook/form.do" method="post">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
-	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" name="regNo" value="${detail.REG_NO}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>

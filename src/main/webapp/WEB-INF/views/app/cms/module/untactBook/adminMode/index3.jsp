@@ -58,83 +58,129 @@ $(function() {
 });
 
 //진행상황 변경 버튼
-function reservationStepChange(member_id, member_name, reservation_step, request_number, round_idx, manage_code, reg_no, user_key, $this) {
+function reservationStepChange(member_id, member_name, reservation_step, request_number, $this, book_name, locker_number) {
 	
 	var ajaxData = {
 		'member_id' : member_id,
 		'member_name' : member_name,
 		'reservation_step' : reservation_step,
 		'request_number' : request_number,
-		'round_idx' : round_idx,
-		'manage_code' : manage_code,
-		'reg_no' : reg_no,
-		'user_key' : user_key
+		'book_name' : book_name,
+		'locker_number' : locker_number
 	};
 	
-	var stepMessage = '';
-	if(reservation_step == '1') {
-		stepMessage = '접수'
-	} else if (reservation_step == '2') {
-		stepMessage = '대기 처리'
-	} else if (reservation_step == '3') {
-		stepMessage = '대출'
-	} else if (reservation_step == '4') {
-		stepMessage = '만기 처리'
-	}
-	
-	if(confirm(stepMessage + ' 하시겠습니까?')) {
-		$.ajax({
-			type: "POST",
-			url: 'modifyReservationStep.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert(stepMessage + ' 되었습니다.'); 
-					if(reservation_step == '1') {
+	if(confirm(reservation_step + ' 하시겠습니까?')) {
+		if(reservation_step == '2') {
+			$.ajax({
+				type: "POST",
+				url: 'modifyReservationStep.do',
+				data: ajaxData,
+				success: function(response) {
+					if(response.valid) {
+						alert(reservation_step + ' 되었습니다.'); 
 						$this.hide();
 						$this.parent().children('a#waitingBook').show();
 						$this.parent().parent().next().children('#reservationStep').text('접수');
-					} else if(reservation_step == '2') {
+					} else {
+						alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
+					}
+				},
+				error : function() {
+					alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+				}
+			});
+		} else if (reservation_step == '3') {
+			$.ajax({
+				type: "POST",
+				url: 'modifyReservationStep.do',
+				data: ajaxData,
+				success: function(response) {
+					if(response.valid) {
+						alert(reservation_step + ' 되었습니다.'); 
 						$this.hide();
 						$this.parent().children('a#loanBook').show();
-						$this.parent().children('a#cancelBook').show();
 						$this.parent().parent().next().children('#reservationStep').text('대기');
+					} else {
+						alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
 					}
-				} else {
-					alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
+				},
+				error : function() {
+					alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
 				}
-			},
-			error : function() {
-				alert(stepMessage + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-			}
-		});
+			});
+		} else if (reservation_step == '4') {
+			$.ajax({
+				type: "POST",
+				url: 'modifyReservationStep.do',
+				data: ajaxData,
+				success: function(response) {
+					if(response.valid) {
+						alert(reservation_step + ' 되었습니다.'); 
+						$this.hide();
+						$this.parent().children('a#loanBook').show();
+						$this.parent().parent().next().children('#reservationStep').text('대출');
+					} else {
+						alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
+					}
+				},
+				error : function() {
+					alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+				}
+			});
+		}
 	}
 }
 
 //취소버튼
-function cancelSettingEdit(request_number, round_idx, manage_code, reg_no, user_key, loankey) {
-	var ajaxData = {
-			'request_number' : request_number,
-			'round_idx' : round_idx,
-			'manage_code' : manage_code,
-			'reg_no' : reg_no,
-			'user_key' : user_key,
-			'loankey' : loankey
+function cancelSettingEdit(member_id, member_name, request_number) {
+	if(confirm(member_name + '(' + member_id + ')님의 신청을 취소하시겠습니까?')) {
+
+		var ajaxData = {
+			'member_id' : member_id,
+			'member_name' : member_name,
+			'request_number' : request_number
 		};
 	
-	if(confirm('만기처리 하시겠습니까?')) {
 		$.ajax({
-			type: "POST",
-			url: 'cancelReservation.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert('만기처리 되었습니다.'); 
-				}
-				location.reload();
-			},
-			error : function() {
-				alert('만기처리에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+			url: 'cancelSettingEdit.do',
+			method: 'GET',
+			data : ajaxData,
+			success: function(html) { 
+					modal_layer_add('dialog_layer');
+					$('#dialog_layer').html(html);
+					
+					$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+						resizable: false,
+						modal: true,
+						title: '신청 취소',
+						open: function(){
+							$('.ui-widget-overlay').addClass('custom-overlay');
+						},
+						close: function(){
+						},
+						buttons: [
+							{
+								text : '저장',
+								'class' : 'btn btn1',
+								click : function() {
+									cancelSettingSave();
+								}
+							},
+							{
+								text: "취소",
+								"class": 'btn btn_round btn_gray',
+								click: function() {
+									$(this).dialog('close');
+								}
+							}
+						]
+					});
+
+					$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+						width: 600,
+						height: 300
+					});
+			},error: function(html) {
 			}
 		});
 	}
@@ -267,25 +313,10 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	.wrapper {overflow:hidden;}
 	.wrapper.wrapper-white {padding:0;margin:0;}
 
-	.untact-box {
-		width:calc(55% - 20px);
-		margin-left:20px;
-		float:left;
-		box-sizing:border-box;
-/* 		max-height:920px;
-		overflow-y:auto; */
-	}
+	.untact-box {width:calc(55% - 20px);margin-left:20px;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
 	.untact-box tbody td {height:45px;line-height:45px;}
 
-	.locker-box-wrap{
-		position:relative;
-		float:left;
-		width:calc(45% - 56px);
-		background:#eee;
-		padding:13px 7px 7px 13px;
-		margin-left:30px;
-		box-sizing: border-box;
-	}
+	.locker-box-wrap{position:relative;float:left;width:calc(45% - 56px);background:#eee;padding:13px 7px 7px 13px;margin-left:30px;}
 
 	.locker-box {box-sizing:border-box;max-height:920px;overflow-y:auto;}
 	.locker-box ul {font-size:0;overflow:hidden;}
@@ -331,27 +362,6 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	@media all and (max-width:330px){
 
 	}
-	
-	.tab{float:left; width:100%;}
-	.tabnav{font-size:0; width:100%; margin-bottom: 10px; border:1px solid #ddd; border-top:0; border-right:0;}
-	.tabnav li{display: inline-block; height:46px; text-align:center; border-right:1px solid #ddd;}
-	.tabnav li a:before{content:""; position:absolute; left:0; top:0px; width:100%; height:3px; }
-	.tabnav li a.active:before{background:#7ea21e;}
-	.tabnav li a.active{border-bottom:1px solid #fff;}
-	.tabnav li a{ 
-		position:relative; 
-		display:block; 
-		background: #f8f8f8; 
-		color: #000; 
-		padding:0 30px; 
-		line-height:46px; 
-		text-decoration:none; 
-		font-size:16px;
-		border-top:1px solid #ddd;
-	}
-	.tabnav li a:hover,
-	.tabnav li a.active{background:#fff; color:#7ea21e; }
-	.tabcontent{padding: 20px; height:244px; border:1px solid #ddd; border-top:none;}
 	</style>
 
 	<div id="wrap">
@@ -382,10 +392,10 @@ function randomPassword(passwordCount, nonPasswordCount) {
 					
 					<!--좌측-->
 					<div class="untact-box">
-						<div class="tab">
-							<ul class="tabnav">
-								<li><a href="http://localhost/cms/module/untactBook/adminMode/index.do" class="active" style="font-size: 13px;">예약, 대기 항목</a></li>
-								<li><a href="http://localhost/cms/module/untactBook/adminMode/index2.do" style="font-size: 13px;">대출, 만기처리 항목</a></li>
+						<div class="tabmenu tab1">
+							<ul>
+								<li class="active"><a href="http://localhost/cms/module/untactBook/adminMode/index.do" style="font-size: 13px;">1</a></li>
+								<li><a href="http://localhost/cms/module/untactBook/adminMode/index.do" style="font-size: 13px;">2</a></li>
 							</ul>
 						</div>
 						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
@@ -424,17 +434,16 @@ function randomPassword(passwordCount, nonPasswordCount) {
 												미등록
 												</c:when>
 												<c:otherwise>
-												${i.locker_password}
+												${i.locker_password}	
 												</c:otherwise>
 											</c:choose>
 										</td>
 										<td>
 										<div class="button">
-											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '1', '${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', $(this));" ${i.reservation_step eq '1'?'':' style="display:none;"'}>접수</a>
-											<a href="javascript:void(0);" id="waitingBook" class="btn btn6 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '2', '${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', $(this));" ${i.reservation_step eq '2'?'':' style="display:none;"'}>대기</a>
-											<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '3', '${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', $(this));" ${i.reservation_step eq '3'?'':' style="display:none;"'}>대출</a>
-											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelSettingEdit('${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', '${i.loankey}');" ${i.reservation_step eq '3'?'':' style="display:none;"'}>만기</a>
-											<%-- <a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>만기</a> --%>
+											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '접수', '${i.request_number}', $(this));" ${i.reservation_step eq '1'?'':' style="display:none;"'}>접수</a>
+											<a href="javascript:void(0);" id="waitingBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대기', '${i.request_number}', $(this));" ${i.reservation_step eq '2'?'':' style="display:none;"'}>대기</a>
+											<a href="javascript:void(0);" id="loanBook" class="btn btn2 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출', '${i.request_number}', $(this));" ${i.reservation_step eq '3'?'':' style="display:none;"'}>대출</a>
+											<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>취소</a>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 										</div>
 										</td>

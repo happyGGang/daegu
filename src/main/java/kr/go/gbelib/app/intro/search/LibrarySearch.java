@@ -146,7 +146,7 @@ public class LibrarySearch extends PagingUtils {
 	private String pageNo;
 	private String pageSize;
 	
-	//TODO Test
+	// 비대면전용
 	private String homepage_id;  //홈페이지ID
 	private int locker_number;  //사물함번호
 	private int request_number;  //신청번호
@@ -160,6 +160,9 @@ public class LibrarySearch extends PagingUtils {
 	private String book_isbn;  //ISBN
 	private String book_name;  //도서명
 	private String cancel_reason;  //대출취소사유
+	private String startdate;  //예약일 검색시작일
+	private String enddate;  //예약일 검색종료일
+	private String workno;  //도서RFID
 
 	private List<String> appendixregnolist;//지역상호대차 부록신청 등록번호 리스트
 
@@ -1158,6 +1161,29 @@ public class LibrarySearch extends PagingUtils {
 	public void setCancel_reason(String cancel_reason) {
 		this.cancel_reason = cancel_reason;
 	}
-	
+
+	public String getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(String startdate) {
+		this.startdate = startdate;
+	}
+
+	public String getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+
+	public String getWorkno() {
+		return workno;
+	}
+
+	public void setWorkno(String workno) {
+		this.workno = workno;
+	}
 	
 }
