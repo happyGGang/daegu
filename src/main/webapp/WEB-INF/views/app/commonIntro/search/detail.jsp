@@ -475,7 +475,7 @@ $(function() {
 								</c:when>
 
 								<c:otherwise>
-									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'qksksk0101'|| sessionScope.member.member_id eq 'rlathdus1104'|| sessionScope.member.member_id eq 'wthtest1234'}">
+									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'qksksk0101'|| sessionScope.member.member_id eq 'rlathdus1104'|| sessionScope.member.member_id eq 'wthtest1234'|| sessionScope.member.member_id eq 'greenbird503'}">
 									<%
 									org.joda.time.DateTime now = new org.joda.time.DateTime();
 									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -507,6 +507,58 @@ $(function() {
 					</c:if>
 
 				</c:when>
+
+				<c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB'}">
+
+					<!--워킹스루 시작-->
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
+
+					<c:choose>
+						<c:when test="${detail.RESERVATION_CNT > '0'}">
+
+						</c:when>
+
+						<c:otherwise>
+							<c:if test="${detail.SHELF_LOC_CODE eq 'CA01' || detail.SHELF_LOC_CODE eq 'CA02'|| detail.SHELF_LOC_CODE eq 'CB01'|| detail.SHELF_LOC_CODE eq 'CB02'}">
+
+							<c:choose>
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ'}">	
+								</c:when>
+
+								<c:otherwise>
+									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'goal0000'|| sessionScope.member.member_id eq 'tayotayo'|| sessionScope.member.member_id eq 'suae0908'|| sessionScope.member.member_id eq 'namepsy'}">
+									<%
+									org.joda.time.DateTime now = new org.joda.time.DateTime();
+									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+									int hour = now.getHourOfDay();
+
+									if(10 <= hour && hour < 20)
+									{
+									%>
+										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+									<%
+									}
+									else
+									{
+									%>
+										<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+									<%
+									}
+									%>
+									</c:if>
+
+									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+								</c:otherwise>
+
+							</c:choose>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+
+					</c:if>
+
+				</c:when>
+
 				<c:otherwise>
 
 				</c:otherwise>
