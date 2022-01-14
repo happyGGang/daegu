@@ -572,7 +572,13 @@ $(function() {
 			 -->
 			<!--비대면도서대출 버튼-->
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'}">
-				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				<c:choose>
+				<c:when test="${detail.LOAN_CODE eq 'OK'}">
+					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+				</c:choose>
 			</c:if>
 			
 			<c:choose>

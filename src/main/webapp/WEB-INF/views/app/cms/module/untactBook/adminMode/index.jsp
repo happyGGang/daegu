@@ -384,8 +384,8 @@ function randomPassword(passwordCount, nonPasswordCount) {
 					<div class="untact-box">
 						<div class="tab">
 							<ul class="tabnav">
-								<li><a href="http://localhost/cms/module/untactBook/adminMode/index.do" class="active" style="font-size: 13px;">예약, 대기 항목</a></li>
-								<li><a href="http://localhost/cms/module/untactBook/adminMode/index2.do" style="font-size: 13px;">대출, 만기처리 항목</a></li>
+								<li><a href="/cms/module/untactBook/adminMode/index.do" class="active" style="font-size: 13px;">예약, 대기 항목</a></li>
+								<li><a href="/cms/module/untactBook/adminMode/index2.do" style="font-size: 13px;">대출, 만기처리 항목</a></li>
 							</ul>
 						</div>
 						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
