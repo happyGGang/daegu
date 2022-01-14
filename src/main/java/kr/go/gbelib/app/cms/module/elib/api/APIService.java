@@ -242,7 +242,8 @@ public class APIService extends BaseService {
 			return catchFail(YES24, yes24APIService.reserve(book));
 		}
 		else if(com_code.equals(ECO)) {
-			throw new ElibException("ECO 전자책은 예약 기능을 지원하지 않습니다.");
+//			throw new ElibException("ECO 전자책은 예약 기능을 지원하지 않습니다.");
+			return null;
 		}
 		else if(com_code.equals(IPAPRIKA)) {
 			return catchFail(IPAPRIKA, ipaprikaAPIService.reserve(book));
@@ -275,7 +276,9 @@ public class APIService extends BaseService {
 			return catchFail(YES24, yes24APIService.cancel(book));
 		}
 		else if(com_code.equals(ECO)) {
-			throw new ElibException("ECO 전자책은 예약 취소 기능을 지원하지 않습니다.");
+			return null;
+//			return catchFail(ECO, ecoAPIService.cancel(book));
+//			throw new ElibException("ECO 전자책은 예약 취소 기능을 지원하지 않습니다.");
 		}
 		else if(com_code.equals(IPAPRIKA)) {
 			return catchFail(IPAPRIKA, ipaprikaAPIService.cancel(book));
