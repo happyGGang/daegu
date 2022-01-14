@@ -68,11 +68,11 @@ $(function() {
 <!-- /contents-title-->
 
 
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+
 
 <c:if test="${fn:length(hopeList) < 1 }"><div class="book-list" style="border-top:none;"><h3 style="margin-top:0;">희망도서신청 내역이 없습니다.</h3></div></c:if>
 

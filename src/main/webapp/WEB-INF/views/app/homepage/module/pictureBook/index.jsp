@@ -89,11 +89,10 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 	</ul>
 </div>
 </c:if>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>
 <form:hidden path="picture_book_idx" id="picture_book_idx_d"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form:form modelAttribute="pictureBook" action="index.do" method="GET">
@@ -101,7 +100,6 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 <form:hidden path="menu_idx"/>
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="search txt-center">
 	<fieldset>
 		<form:select path="search_type" cssClass="selectmenu new_select_box">

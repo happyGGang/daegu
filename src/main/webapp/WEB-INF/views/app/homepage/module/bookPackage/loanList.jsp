@@ -145,11 +145,12 @@ a.return {border: 1px solid #e94949;color: #e94949;}
 a.return2 {background: #e94949;color: #fff;}
 a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 </style>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookPackage" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="book_package_loan_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+
 	<div>
 		<form:checkbox path="return_yn" value="Y" label="반납요청"/>
 	</div>

@@ -92,7 +92,7 @@ $(function(){
 		.pad_left30{padding-left:0;}
 	}
 </style>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${fn:length(teachList) > 0}">
 	<div style="text-align: right">
 		<form:form id="excelDownForm" modelAttribute="teach" action="/${homepage.context_path}/module/teach/excelDownload.do" method="get">
@@ -102,7 +102,7 @@ $(function(){
 			<form:hidden path="teach_idx"/>
 			<form:hidden path="member_key"/>
 			<form:hidden path="menu_idx"/>
-			<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+			
 		</form:form>
 	</div>
 </c:if>
@@ -113,7 +113,7 @@ $(function(){
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	
 
 <div id="libraryList" class="bbs-notice new_apply_box">
 	<c:choose>
