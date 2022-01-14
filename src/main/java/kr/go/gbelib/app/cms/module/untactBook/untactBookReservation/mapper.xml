@@ -461,6 +461,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND member_id = #{member_id}
+		AND request_number = #{request_number}
 		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 		AND locker_password = 0
 	</select>

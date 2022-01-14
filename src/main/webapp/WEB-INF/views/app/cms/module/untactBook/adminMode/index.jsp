@@ -101,7 +101,7 @@ function reservationStepChange(member_id, member_name, reservation_step, request
 						$this.parent().parent().next().children('#reservationStep').text('대기');
 					}
 				} else {
-					alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
+					alert(response.message);
 				}
 			},
 			error : function() {
