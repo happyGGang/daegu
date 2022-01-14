@@ -460,7 +460,7 @@
 						FROM TEACH
 						<trim prefix="WHERE" prefixOverrides="AND">
 						<if test="editMode != null and editMode != '' and editMode != 'ALL'">
-						WHERE HOMEPAGE_ID = #{homepage_id}
+							HOMEPAGE_ID = #{homepage_id}
 						</if>
 						AND DELETE_YN = 'N'
 						</trim>
