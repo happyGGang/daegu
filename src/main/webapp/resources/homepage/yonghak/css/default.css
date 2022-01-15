@@ -49,6 +49,7 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center}
 .Gnb .gnb-menu>li.menu3>ul{margin-left:150px;}
+.Gnb .gnb-menu>li.menu4>ul{width:120%;margin-left:-200px;}
 .Gnb .gnb-menu>li.menu5>ul{margin-left:-100px;}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background: #21409a;}

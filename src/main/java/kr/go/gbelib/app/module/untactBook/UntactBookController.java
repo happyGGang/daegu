@@ -290,7 +290,7 @@ public class UntactBookController extends BaseController {
 				
 			} else {
 				res.setValid(false);
-				res.setResult(apiResult.getMessage());
+				res.setMessage("[KLAS API 오류]\n" + apiResult.getMessage());
 			}
 		} else {
 			res.setValid(false);
