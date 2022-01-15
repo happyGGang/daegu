@@ -11,8 +11,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -43,6 +41,7 @@ import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfig;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigService;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
+import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -2029,19 +2028,11 @@ public class CommonSearchController extends BaseController {
 				String limit_cnt = String.valueOf(nightLoanReserveCnt.get("TOTAL"));
 				try {
 					int limit_count = Integer.parseInt(limit_cnt);
-					if(homepage.getHomepage_id().equals("h73")) {
-						if (limit_count >= 600) {
+						if (limit_count >= 250) {
 							res.setValid(false);
 							res.setMessage("해당 도서관의 금일 워킹스루 예약가능 인원이 모두 찼습니다. 내일 다시 신청해주세요");
 							return res;
 						}
-					} else {
-						if (limit_count >= 100) {
-							res.setValid(false);
-							res.setMessage("해당 도서관의 금일 워킹스루 예약가능 인원이 모두 찼습니다. 내일 다시 신청해주세요");
-							return res;
-						}
-					}
 				} catch (Exception e) {
 					res.setValid(false);
 					res.setMessage("해당 도서관의 금일 워킹스루 예약가능 인원이 모두 찼습니다. 에러코드 060");
