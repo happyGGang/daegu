@@ -466,6 +466,9 @@ function go_to_login() {
 						<c:when test="${book.status == '예약 가능'}">
 							<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
 						</c:when>
+						<c:when test="${book.status == '예약 불가'}">
+							<a href="#" class="btn btn2" id="book_reserve"><span>이용불가</span></a>
+						</c:when>
 						<c:when test="${book.status == '3'}">
 							<%--
                                             <a href="#" class="btn btn1" id="book_return"><span>반납하기</span></a>
