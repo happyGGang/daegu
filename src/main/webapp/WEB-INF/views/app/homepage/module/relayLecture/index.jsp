@@ -31,6 +31,7 @@ $(function() {
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="lecture_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<div class="infodesk">
 		총 <b style="color:#ff0000;">${paging.totalDataCount}</b>건

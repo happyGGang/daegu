@@ -163,6 +163,7 @@ $(function(){
 <form:hidden path="plan_date"/>
 <form:hidden id="menu_idx" path="menu_idx"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<c:if test="${homepage.context_path eq 'yonghak'}">
 		<h3 style="margin-top:0;">이용방법</h3>
@@ -173,7 +174,7 @@ $(function(){
 
 		<h3>신청인원</h3>
 		<ul class="con">
-			<li>3명 이상 신청가능<br />(※ 코로나19로 인해 최대이용가능 인원 : 4명)</li>
+			<li>2명 이상 신청가능<br />(※ 코로나19로 인해 최대이용가능 인원 : 4명)</li>
 		</ul>
 
 		<h3>이용시간</h3>

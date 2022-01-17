@@ -26,7 +26,7 @@ $(function() {
 		</form:form>
 	</div>
 </c:if> --%>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="book-list">
 <c:if test="${fn:length(historyList) < 1 }"> <h3>조회된 내역이 없습니다.</h3></c:if>
 	<c:if test="${fn:length(historyList) > 0 }">

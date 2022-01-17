@@ -25,6 +25,7 @@ $(function() {
 <form:form modelAttribute="teacherAgree" action="save.do" method="POST" onsubmit="return false;">
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<h3 class="tmg">강사이력 정보 제공 동의</h2>
 	<div class="txt-box" style="margin-bottom: 20px;">

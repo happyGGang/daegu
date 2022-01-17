@@ -375,6 +375,7 @@ function go_to_login() {
 		<form:hidden path="book_pubname" value="${param.book_pubname}"/>
 		<form:hidden path="book_year" value="${param.book_year}"/>
 		<form:hidden path="rowCount" value="${param.rowCount}"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form:form>
 </c:if>
 
@@ -391,6 +392,7 @@ function go_to_login() {
 	<form:hidden path="book_idx" value="${param.book_idx}"/>
 	<form:hidden path="lesson_no"/>
 	<form:hidden path="audio_no"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="serial-wrap">
 		<div class="sview">
@@ -463,6 +465,9 @@ function go_to_login() {
 						</c:when>
 						<c:when test="${book.status == '예약 가능'}">
 							<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
+						</c:when>
+						<c:when test="${book.status == '예약 불가'}">
+							<a href="#" class="btn btn2" id="book_reserve"><span>이용불가</span></a>
 						</c:when>
 						<c:when test="${book.status == '3'}">
 							<%--

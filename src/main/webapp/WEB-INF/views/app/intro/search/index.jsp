@@ -262,10 +262,11 @@ $(function() {
 	<form:hidden path="isbn"/>
 	<form:hidden path="regNo"/>
 	<form:hidden path="manageCode"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
-	<form:hidden path="viewPage"/>
+	<form:hidden path="viewPage"/>	
 
 	<!-- contents-title-->
 	<div id="contents-title">

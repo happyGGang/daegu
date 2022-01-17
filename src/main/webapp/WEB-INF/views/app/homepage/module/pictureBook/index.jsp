@@ -89,7 +89,7 @@ div.pay-ul ul {list-style: disc;padding-left: 20px;margin-bottom: 30px;font-weig
 	</ul>
 </div>
 </c:if>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="pictureBook" id="bookPackageDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>
 <form:hidden path="picture_book_idx" id="picture_book_idx_d"/>

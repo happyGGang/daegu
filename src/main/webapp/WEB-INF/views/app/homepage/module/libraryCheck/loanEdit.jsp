@@ -90,6 +90,7 @@ $(function() {
 	<form:hidden path="library_check_loan_idx"/>
 	<form:hidden path="search_type"/>
 	<form:hidden path="search_text"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type2">
 		<colgroup>
 			<col width="130" />

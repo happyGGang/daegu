@@ -73,6 +73,7 @@ $(function() {
 	<form:hidden path="editMode"/>
 	<form:hidden path="viewPage"/>
 	<form:hidden path="library_check_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="type2">
 		<colgroup>
 	       <col width="150"/>

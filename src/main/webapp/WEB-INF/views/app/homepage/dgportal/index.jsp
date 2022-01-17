@@ -55,7 +55,7 @@ do {
 	
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함. 메인 팝업 추천도서 잠시 주석 2021-12-02
-		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset' || member.member_id eq 'ka1004' || member.member_id eq 'yjoh7012' || member.member_id eq 'blessjheum')}) 
+		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset' || member.member_id eq 'pshnoi88' || member.member_id eq 'ka1004' || member.member_id eq 'yjoh7012' || member.member_id eq 'blessjheum')}) 
 		{
 			var result = '';
 			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
@@ -399,22 +399,24 @@ do {
 	.user_pick_info p.txt_box_mini{font-size:14px;color:#39366a;opacity:0.8;font-family:'s-core_dream5_medium';margin-top:5px;}
 
 	#keyword span {font-family:'S-CoreDream-4Regular';cursor:pointer;}
-	#keyword {height: 450px;}
+	#keyword {height: 400px;}
 
-	.select-keyword{position:relative;width:100%;margin-bottom:40px;text-align:center;border-top:1px solid #ddd;padding-top:40px;}
+	.select-keyword{position:relative;width:100%;margin-bottom:30px;text-align:center;padding-top:30px;}
 	.select-keyword span{display:inline-block;font-family:'S-CoreDream-4Regular';color:#fff;font-size:18px;background:#333;width:180px;height:55px;line-height:55px;content:'#';}
 	.select-keyword span::before{content:'#';}
 
-	.btn-box{position:relative;width:100%;clear:both;}
+	.btn-box{position:relative;width:96%;margin:0 auto;clear:both;}
 	.btn-box ul{font-size:0;}
-	.btn-box ul li{display:inline-block;width:49.5%;padding:15px 0;line-height:180%;text-align:center;border-radius:5px;}
+	.btn-box ul li{display:inline-block;width:32%;padding:15px 0;line-height:180%;text-align:center;border-radius:5px;box-sizing:border-box;}
 	.btn-box ul li a{font-family:'s-core_dream5_medium';font-size:19px;letter-spacing:-0.25px;display:block;}
 	.btn-box ul li a span{display:block;font-family:'S-CoreDream-4Regular';font-size:13px;letter-spacing:0;}
-	.btn-box ul li.btn1{box-sizing:border-box;border:1px solid #ccc;margin-right:1%;}
+	.btn-box ul li.btn1{background:#fdf8ee;margin-right:1%;}
 	.btn-box ul li.btn1 a{color:#333;}
-	.btn-box ul li.btn2{background:linear-gradient(to right, #53cce9, #7597ee)}
+	.btn-box ul li.btn2{background:#086cc0;margin-right:1%;}
 	.btn-box ul li.btn2 a{color:#fff;}
-	
+	.btn-box ul li.btn3{background:#7e97ad;}
+	.btn-box ul li.btn3 a{color:#fff;}
+
 	@media only screen and (max-width:550px){
 		.user_pick_info img{position:absolute;top:-30px;left:43%;}
 		.user_pick_info h2{font-size:25px;}
@@ -475,7 +477,7 @@ do {
 					<span>선택하신 키워드와 연관된 맞춤책을 추천해드립니다</span>
 				</a>
 			</li>
-			<li class="con"><a href="javascript:void(0)" class="book-close-btn">그만끝내기</a></li>
+			<li class="btn3"><a href="javascript:void(0)" class="book-close-btn">그만끝내기<span>새로고침시 다시 이용가능합니다.</span></a></li>
 		</ul>
 		
 	</div>

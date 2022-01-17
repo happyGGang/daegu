@@ -27,6 +27,7 @@ $(function() {
 <form:form modelAttribute="relayLectureApply" id="relayLectureApplyEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="lecture_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<table class="type1">
 		<colgroup>

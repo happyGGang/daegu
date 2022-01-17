@@ -16,6 +16,7 @@ $(function() {
 
 <form:form modelAttribute="bookRelayClub" id="bookRelayClub" action="step2.do" >
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="roomicon">
 			<div class="inner icowrap"><span class="ico ico5"></span> <strong>독서동아리 독서릴레이</strong>
 				<p>「2020 수성북」을 동아리의 구성원들과 함께 읽고 싶은 독서동아리의 참여 신청을 받습니다.</p>

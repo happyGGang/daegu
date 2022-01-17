@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="dpt-intro-type02">
   <div class="role-head">
     <div class="ImgBox">

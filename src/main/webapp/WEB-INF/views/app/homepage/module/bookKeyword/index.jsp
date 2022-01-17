@@ -151,6 +151,7 @@ $(function() {
 <form:form modelAttribute="bookKeyword" action="index.do"  onsubmit="return false">
 <form:hidden path="keyword_name"/>
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="user_pick_info">
 		<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
 		<h2>${member.member_name}님의 관심 키워드를 선택해보세요!</h2>

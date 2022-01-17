@@ -101,6 +101,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 .organization_list .lines .downLine{background-color:#dbdbdb}
 .organization_list .node {    padding: 0px;   margin: 0px;}
 </style>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="doc-body con106" id="contentArea">
 	<div class="body">
 		<c:if test="${fn:contains(organization.chart_yn, 'Y')}">

@@ -97,7 +97,7 @@ $(function() {
 </script>
 
 <form id="storageReqForm" action="/${context_path}/module/myStorage/saveItem.do" method="post">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="editMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
 	<input type="hidden" id="author" name="author" value="${detail.AUTHOR}">
@@ -108,14 +108,14 @@ $(function() {
 </form>
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />	
 	<input type="hidden" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
-	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
+	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">	
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -123,7 +123,7 @@ $(function() {
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -131,13 +131,13 @@ $(function() {
 </form>
 
 <form id="basketReqForm" action="/${context_path}/intro/search/saveDeliveryBasket.do">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
 </form>
 
 <form id="sanghoReqForm" action="sangho/form.do" method="post">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="isbn" value="${fn:escapeXml(param.isbn)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
@@ -150,6 +150,7 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="search-wrap">
 	<div class="sview">
 		<div class="sinfo">

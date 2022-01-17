@@ -30,6 +30,7 @@ ${boardManage.top_html}
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <input type="hidden" id ="homepage_id" value ="${homepage.homepage_id}"/>
 </form:form>
 <div class="wrapper-bbs">

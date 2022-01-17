@@ -248,6 +248,7 @@ do {
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 							<input type="hidden" name="menu_idx" value="9">
 							<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 							<div class="dalseong-slogan"><img src="/resources/homepage/${homepage.context_path}/img/dalseong-slogan.png" alt="대구의 미래 달성 꽃피다."></div>
 							<fieldset>
 								<legend>자료검색</legend>

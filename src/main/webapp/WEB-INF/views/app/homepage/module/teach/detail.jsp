@@ -45,6 +45,7 @@
 
 </script>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="teach_wrap">
 	<div class="teach_top">
 		<h3>${teach.teach_name}</h3>

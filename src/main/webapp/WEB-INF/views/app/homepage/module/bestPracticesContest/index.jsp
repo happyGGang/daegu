@@ -36,6 +36,7 @@ $(function() {
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="best_practices_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="button bbs-btn fl_right_btn">
 		<a href="#" id="apply_btn" class="btn btn1">참여신청</a>

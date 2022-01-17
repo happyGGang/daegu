@@ -83,6 +83,7 @@ $(document).ready(function() {
 <div class="myDashBoardWrap">
 <div class="userInfoWrap">
 <h3>이용자 정보</h3>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="userInfo">
 		<ul class="info">
 			<li class="subject"><span>이름</span></li>

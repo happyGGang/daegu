@@ -90,6 +90,7 @@ $(function() {
 
 							<form:form modelAttribute="memberInfo" action="changeMemberPw.do" method="post" onsubmit="return false;">
 							<form:password path="memberNewPw" cssStyle="display:none;"/>
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 							<div class="form-box">
 								<p id="pwp" class="idtype" >

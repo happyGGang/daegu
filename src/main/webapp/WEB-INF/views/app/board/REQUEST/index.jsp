@@ -86,6 +86,7 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <form:hidden path="category1"/>
 <form:hidden path="request_state"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${!member.admin}">
 <hidden id="category2" value="${sessionScope.member.homepage_id}"/>
 </c:if>

@@ -63,6 +63,7 @@ $(function() {
 </script>
 <form id="newLetterApply" method="post" action="/cms/module/pub/newsLetter/apply.do">
 <form hidden="editMode">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table summary="교육소식지 신청">
 		<colgroup>
 			<col width="30%" />
@@ -118,6 +119,7 @@ $(function() {
 
 
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />

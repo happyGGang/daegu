@@ -55,7 +55,7 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 <form:hidden path="viewPage"/>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="book-list">
 
 	<c:if test="${fn:length(sanghoHistory) < 1 }"> <h3>상호대차신청 내역이 없습니다.</h3></c:if>

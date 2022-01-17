@@ -12,6 +12,7 @@ $(document).ready(function() {
 
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-body">

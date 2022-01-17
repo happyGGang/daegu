@@ -12,7 +12,10 @@
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<c:if test="${boardManager.board_add_html_yn eq 'Y'}">
 	${boardManager.board_top_add_html}

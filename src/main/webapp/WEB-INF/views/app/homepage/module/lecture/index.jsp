@@ -74,7 +74,7 @@
 </style>
 <form:form modelAttribute="lectureInfo" method="GET" action="index.do">
 <form:hidden path="lecture_id"/>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
     <div id="apply">
         <div class="detail_search_box col2 dis_table">
             <ul>

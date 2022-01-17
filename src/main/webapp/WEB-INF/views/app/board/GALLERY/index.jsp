@@ -35,6 +35,7 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <input type="hidden" id ="homepage_id" value ="${homepage.homepage_id}"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />

@@ -48,6 +48,7 @@ $(document).ready(function() {
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="category"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>

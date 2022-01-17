@@ -76,4 +76,5 @@
 
 <form name="darakwonForm" id="darakwonForm" method="post" action="http://lms.darakwon.co.kr/tglnet/sso.asp" target="_blank">
 <input type="hidden" name="uid" value="${sessionScope.member.member_id}"><!--사용자 아이디//-->
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>

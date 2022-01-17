@@ -57,6 +57,7 @@ import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCodeService;
 import kr.go.gbelib.app.cms.module.elib.comment.Comment;
 import kr.go.gbelib.app.cms.module.elib.comment.CommentService;
+import kr.go.gbelib.app.cms.module.elib.config.Config;
 import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.elib.lending.LendingService;
@@ -593,6 +594,7 @@ public class ElibController extends BaseController {
 		Lending lending = new Lending();
 		lending.setBook_idx(book.getBook_idx());
 		lending.setMember_id(getSessionMemberId(request));
+		Config config = configService.getConfig();
 
 		if(book.getMax_lend() > 0) max_lend = book.getMax_lend();
 
@@ -611,13 +613,39 @@ public class ElibController extends BaseController {
 		} else {
 			if(!isLoggedIn(request)) {
 				// 로그인 안 한 상태
-				book.setStatus("예약 가능");
-			} else if(lendingService.getDupReserveCnt(lending) == 0) {
-				// 예약 가능
-				book.setStatus("예약 가능");
+				// 개별 책 최대 예약 수 체크
+				int book_max_reserve = config.getBook_max_reserve();
+				int book_reserve = book.getBook_reserve();
+				if(book_reserve >= book_max_reserve) {
+					book.setStatus("예약 불가");
+				} else {
+					book.setStatus("예약 가능");
+				}
 			} else {
-				// 예약 중
-				book.setStatus("예약 중");
+				// 개인 최대 예약 여부 체크
+				int max_reserve = config.getMax_reserve();
+				int member_reserve_cnt = lendingService.getMemberReserveCnt(lending);
+				if(member_reserve_cnt >= max_reserve) {
+					book.setStatus("예약 불가");
+					return book;
+				}
+
+				// 중복 예약 체크
+				int dup_reserve_cnt = lendingService.getDupReserveCnt(lending);
+				if(dup_reserve_cnt > 0) {
+					book.setStatus("예약 불가");
+					return book;
+				}
+				
+				// 개별 책 최대 예약 수 체크
+				int book_max_reserve = config.getBook_max_reserve();
+				int book_reserve = book.getBook_reserve();
+				if(book_reserve >= book_max_reserve) {
+					book.setStatus("예약 불가");
+					return book;
+				}
+				
+				book.setStatus("예약 가능");
 			}
 		}
 

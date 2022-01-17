@@ -17,7 +17,7 @@ $(function() {
 	<h2>아이디 찾기</h2>
 </div>
 <!-- /contents-title-->
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="login-box">
 	<div class="login-body">
 		<div class="tab">

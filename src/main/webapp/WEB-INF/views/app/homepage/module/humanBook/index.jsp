@@ -21,6 +21,7 @@ $(function(){
 <form:hidden path="menu_idx"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<h4 class="h4">휴먼북 등록현황</h4>
 	<table class="tbl">
 		<caption class="hidden">휴먼북 등록현황</caption>

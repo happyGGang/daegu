@@ -129,6 +129,7 @@
 
 <form:form id="reqHopeForm" modelAttribute="librarySearch" action="save.do" method="post">
 	<form:hidden path="editMode" value="ADD"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<table class="edit">
 		<tbody>
 		<!-- 신청도서관 부분 추가 : 한개의 검색대에서 두개 이상의 도서관이 존재하여 신청 도서관을 선택해야하는 경우를 생각하여 CMS관리자에서 신청도서관 설정할수 있도록 하는게 맞을것 같음.  -->

@@ -157,6 +157,7 @@ $(function() {
 <form:hidden path="apply_id"/>
 <form:hidden path="pageType"/>
 <form:hidden path="date_type"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div style="text-align: right">
 	(<span style="color: red; font-weight: bold;">*</span>) 필수 항목 입니다.
 </div>

@@ -101,6 +101,7 @@ function getLasData(arg) {
 <form:hidden path="editMode" id="editMode_theme"/>
 <form:hidden path="theme_imsi_key"/>
 <form:hidden path="theme_imsi_val"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form name="librarySearch" id="themeDetail" action="themeDetail" method="get">
@@ -109,6 +110,7 @@ function getLasData(arg) {
 <input type="hidden" name="board_idx" value="${board.board_idx}">
 <!-- <input type="hidden" name="manageCode" id="manageCode"> -->
 <input type="hidden" name="regNo" id="regNo">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 <form:form modelAttribute="board" method="get">
@@ -117,8 +119,11 @@ function getLasData(arg) {
 <form:hidden path="editMode"/>
 <c:if test="${board.delete_yn eq 'Y'}">
 <form:hidden path="boardIdxArray"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </c:if>
 </form:form>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<h3 style="margin-top:15px;">${board.title}</h3>

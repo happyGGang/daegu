@@ -198,6 +198,7 @@ $(function(){
 <form:hidden path="menu_idx"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="facility_book_name"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>

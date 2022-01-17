@@ -15,6 +15,7 @@ $(function() {
 
 <form:form modelAttribute="readerContest" id="readerContest" action="step2.do" >
   <form:hidden path="menu_idx"/>
+  <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
   <div class="doc-body">
     <h3>개최개요</h3>
     <div class="time_box">

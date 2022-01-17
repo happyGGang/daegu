@@ -78,6 +78,7 @@ $(function() {
 <form:form modelAttribute="readerContest" id="readerContestEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="reader_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="wrapper-bbs" style="padding-top:0;">
 		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
 		<table class="bbs-edit" summary="다독자 공모 참가 신청">

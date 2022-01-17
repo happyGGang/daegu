@@ -40,6 +40,7 @@ $(function() {
 <form:form id="teacherListForm" modelAttribute="teacher" action="index.do">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="button btn-group inline" style="float: left; margin-bottom: 20px;">
 		<span class="bbs-result">과목 계열 : </span>
 		<label for="largeSubjectCode" />

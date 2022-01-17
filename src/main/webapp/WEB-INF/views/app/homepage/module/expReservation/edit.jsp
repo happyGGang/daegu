@@ -92,7 +92,7 @@ $(function() {
 <form:hidden path="member_yn" value="${expApply.member_yn}"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="pageType"/>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <table class="type2">
 	<colgroup>
 		<col width="140"/>

@@ -97,6 +97,7 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="read_page_count_arr"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="wrapper-bbs">
 		<div class="infodesk">

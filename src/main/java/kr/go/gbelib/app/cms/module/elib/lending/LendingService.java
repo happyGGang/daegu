@@ -604,4 +604,8 @@ public class LendingService extends BaseService {
 		return dao.addExtlinkStat(book);
 	}
 
+	public int getMemberReserveCnt(Lending lending) {
+		return dao.getMemberReserveCnt(lending);
+	}
+
 }

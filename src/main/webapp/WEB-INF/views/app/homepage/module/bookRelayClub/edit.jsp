@@ -113,6 +113,7 @@ $(function() {
 <form:form modelAttribute="bookRelayClub" id="bookRelayClubEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="club_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="wrapper-bbs" style="padding-top:0;">
 		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>

@@ -9,6 +9,7 @@ $(function(){
 });
 </script>
 <form:form modelAttribute="teach" method="post" action="anonyApplyList.do" >
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>

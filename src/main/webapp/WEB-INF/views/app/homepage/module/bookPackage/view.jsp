@@ -41,6 +41,7 @@ table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 <form:hidden path="viewPage"/>
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div>
 	<table class="type2">
 		<thead>

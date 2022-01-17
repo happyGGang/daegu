@@ -113,6 +113,7 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
   <form:hidden path="editMode"/>
   <form:hidden path="menu_idx"/>
+  <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
   <form:select path="loan_status" cssClass="selectmenu">
     <form:option value="">상태전체</form:option>
     <form:option value="1">대출중</form:option>

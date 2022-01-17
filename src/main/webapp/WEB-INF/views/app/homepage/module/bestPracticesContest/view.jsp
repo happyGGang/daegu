@@ -51,6 +51,7 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="best_practices_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<table class="type1">
 		<colgroup>

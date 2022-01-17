@@ -92,7 +92,7 @@ $(function() {
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="certType">
 		<input type="hidden" name="mode" value="integration">
-		<input type="hidden" name="_csrf" value="${_csrf.token}">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	</form>
 	<form:form id="memberInfo" modelAttribute="newMember" action="integration4.do">
 		<form:hidden path="editMode"/>

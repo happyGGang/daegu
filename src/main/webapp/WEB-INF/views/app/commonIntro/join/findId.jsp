@@ -15,7 +15,7 @@
 	</c:otherwise>
 </c:choose>
 </div>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="idpwSection" style="text-align:center;">
 	<c:if test="${empty certMember or empty certMember.USER_ID}">
 	<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5" class="btn btn1">신규회원가입</a>

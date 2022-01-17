@@ -152,6 +152,7 @@ do {
 					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 					<input type="hidden" name="libraryCodes" value="CA">
 					<input type="hidden" name="libraryCodes" value="CB">
+					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 					<fieldset>
 						<legend class="blind">통합검색</legend>
 						<div class="main-box">

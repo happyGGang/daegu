@@ -52,6 +52,7 @@ $(document).ready(function() {
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
 	<form:hidden path="teach_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <table class="type2 center" style="">
 	<colgroup>

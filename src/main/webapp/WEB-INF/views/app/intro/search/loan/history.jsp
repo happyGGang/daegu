@@ -55,7 +55,8 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
-
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	
 	<div class="" style="padding:20px;text-align:center;border:1px solid #eaeaea;border-top:2px solid #000;margin-bottom:10px;">
 		<label for="search_start_date" style="display:none1;">시작일</label>
 		<form:input path="search_start_date" cssClass="text ui-calendar" cssStyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/> ~
@@ -66,6 +67,7 @@ $(function() {
 
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="book-list">
 <c:if test="${fn:length(loanList) < 1 }"> <h3>조회된 도서가 없습니다.</h3></c:if>
 	<c:if test="${fn:length(loanList) > 0 }">

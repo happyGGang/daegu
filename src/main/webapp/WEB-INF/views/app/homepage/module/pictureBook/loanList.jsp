@@ -130,6 +130,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	<a href="#" class="listChange ${pictureBook.pay_yn eq 'N' ? 'on' : ''}" keyValue="N">소형액자</a>
 	<a href="#" class="listChange ${pictureBook.pay_yn eq 'Y' ? 'on' : ''}" keyValue="Y">대형액자</a>
 </div>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="pictureBook" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>

@@ -20,6 +20,7 @@ $(function() {
 <form:hidden path="menu_idx"/>
 <form:hidden path="book_report_idx"/>
 <form:hidden path="editMode"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<table class="type1">
 		<colgroup>

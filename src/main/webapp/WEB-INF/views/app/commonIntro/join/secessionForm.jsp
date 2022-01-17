@@ -45,6 +45,7 @@ $(function() {
 	</div>
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" method="post" action="/${homepage.context_path}/intro/join/secession.do" onsubmit="return false;">
 		<form:password path="member_pw" id="security_pw" style="display:none;"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<table id="memberForm">
 			<tbody>
 				<tr>

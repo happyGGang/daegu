@@ -76,6 +76,7 @@ $(function(){
 			<form:hidden path="teach_idx"/>
 			<form:hidden path="member_key"/>
 			<form:hidden path="menu_idx"/>
+			<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		</form:form>
 	</div>
 </c:if>
@@ -87,6 +88,7 @@ $(function(){
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 <div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;text-align:center;padding:20px;" >
 	조회기간 :

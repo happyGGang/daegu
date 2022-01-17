@@ -42,6 +42,7 @@ $(document).ready(function() {
 <form:form modelAttribute="loginLog" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="table-wrap">
 		<table class="bbs center" summary="홈페이지 접속기록">

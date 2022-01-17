@@ -302,6 +302,7 @@ function goto_store() {
 	<input type="hidden" name="pathtype" value="PC">
 	<input type="hidden" name="next" value="bookplayer">
 	<input type="hidden" name="book_num" id="book_num">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 <form:form id="lendingListForm" modelAttribute="lending" action="view.do" method="GET">
 <form:hidden path="editMode"/>
@@ -311,6 +312,7 @@ function goto_store() {
 <form:hidden path="reserve_idx"/>
 <form:hidden path="type"/>
 <form:hidden path="menu"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <%--
 <div class="search" style="text-align: center;">
 	기간 검색:&nbsp;&nbsp;

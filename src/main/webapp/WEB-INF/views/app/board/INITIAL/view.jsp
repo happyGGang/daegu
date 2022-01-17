@@ -15,10 +15,16 @@ ${boardManage.top_html}
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${board.delete_yn eq 'Y'}">
 <form:hidden path="boardIdxArray"/>
 </c:if>
 </form:form>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+
+
+2
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-header">

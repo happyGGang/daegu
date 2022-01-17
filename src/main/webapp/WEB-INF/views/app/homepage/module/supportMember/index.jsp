@@ -52,6 +52,7 @@ $(function() {
 							<form:hidden path="member_password" cssStyle="display:none;" />
 							<form:hidden path="member_id"/>
 							<form:hidden path="before_url"/>
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 							<div class="form-box">
 								<label class="blind" for="member_id_tmp">아이디</label>
 								<input id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="20" /></p>

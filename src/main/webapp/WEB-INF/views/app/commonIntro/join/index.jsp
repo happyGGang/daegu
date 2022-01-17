@@ -107,6 +107,7 @@ $(function() {
 <form:form modelAttribute="newMember" action="step2.do" method="post">
 <form:hidden path="ageType"/>
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <div style="clear:both">

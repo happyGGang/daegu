@@ -478,6 +478,7 @@ $(function(){
 	</c:when>
 	<c:otherwise>
 		<form:form modelAttribute="marathonApplicant" action="save.do" method="POST">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<form:hidden path="homepage_id"/>
 		<form:hidden path="contest_idx"/>
 		<form:hidden path="editMode"/>

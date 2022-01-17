@@ -61,6 +61,7 @@ $(function() {
 <form:form modelAttribute="bookExpress" action="save.do" method="POST">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode" value="MODIFY"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:select path="sortField" cssClass="selectmenu">
 	<form:option value="add_date">생성날짜순 정렬</form:option>
 	<form:option value="library_code">도서관순 정렬</form:option>

@@ -133,7 +133,7 @@ $(function() {
 </script>
 
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
-	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="itemEditMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
 	<input type="hidden" id="author" name="author" value="${detail.AUTHOR}">
@@ -145,20 +145,22 @@ $(function() {
 </form>
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="reserveMode" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
 </form>
 
-<form id="untactBookReqForm" action="untactBook/form.do" method="post">
+<form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
-	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" name="regNo" value="${detail.REG_NO}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -167,6 +169,7 @@ $(function() {
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
@@ -175,12 +178,14 @@ $(function() {
 </form>
 
 <form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
 </form>
 
 
 <form id="sanghoReqForm" action="sangho/form.do" method="post">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="isbn" value="${fn:escapeXml(param.isbn)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
@@ -191,6 +196,7 @@ $(function() {
 
 <c:if test="${not empty loginPortal and loginPortal.login}">
 <form id="bookExpressForm" action="/${homepage.context_path}/module/bookExpress/save.do" method="post">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="editMode" value="INTEREST">
 	<input type="hidden" name="book_name" value="${detail.TITLE_INFO} / ${detail.AUTHOR}">
 	<input type="hidden" name="book_reg_no" value="${detail.REG_NO}">
@@ -206,6 +212,7 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="search-wrap">
 	<div class="sview">
 		<div class="sinfo">
@@ -467,7 +474,7 @@ $(function() {
 								</c:when>
 
 								<c:otherwise>
-									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'qksksk0101'|| sessionScope.member.member_id eq 'rlathdus1104'|| sessionScope.member.member_id eq 'wthtest1234'}">
+									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'qksksk0101'|| sessionScope.member.member_id eq 'rlathdus1104'|| sessionScope.member.member_id eq 'wthtest1234'|| sessionScope.member.member_id eq 'greenbird503'}">
 									<%
 									org.joda.time.DateTime now = new org.joda.time.DateTime();
 									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -499,6 +506,58 @@ $(function() {
 					</c:if>
 
 				</c:when>
+
+				<c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB'}">
+
+					<!--워킹스루 시작-->
+					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
+
+					<c:choose>
+						<c:when test="${detail.RESERVATION_CNT > '0'}">
+
+						</c:when>
+
+						<c:otherwise>
+							<c:if test="${detail.SHELF_LOC_CODE eq 'CA01' || detail.SHELF_LOC_CODE eq 'CA02'|| detail.SHELF_LOC_CODE eq 'CB01'|| detail.SHELF_LOC_CODE eq 'CB02'}">
+
+							<c:choose>
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ'}">	
+								</c:when>
+
+								<c:otherwise>
+									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'goal0000'|| sessionScope.member.member_id eq 'tayotayo'|| sessionScope.member.member_id eq 'suae0908'|| sessionScope.member.member_id eq 'namepsy'}">
+									<%
+									org.joda.time.DateTime now = new org.joda.time.DateTime();
+									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
+									int hour = now.getHourOfDay();
+
+									if(10 <= hour && hour < 20)
+									{
+									%>
+										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
+									<%
+									}
+									else
+									{
+									%>
+										<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
+									<%
+									}
+									%>
+									</c:if>
+
+									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+								</c:otherwise>
+
+							</c:choose>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
+
+					</c:if>
+
+				</c:when>
+
 				<c:otherwise>
 
 				</c:otherwise>
@@ -513,7 +572,13 @@ $(function() {
 			 -->
 			<!--비대면도서대출 버튼-->
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'}">
-				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				<c:choose>
+				<c:when test="${detail.LOAN_CODE eq 'OK'}">
+					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+				</c:choose>
 			</c:if>
 			
 			<c:choose>

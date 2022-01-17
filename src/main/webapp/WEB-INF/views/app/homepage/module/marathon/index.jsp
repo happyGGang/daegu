@@ -77,6 +77,8 @@ $(function(){
 	.mscroll_guide {display: none;}
 </style>
 <h2>대회안내</h2>
+
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="cont_wrap">
 	<div class="icon_box">
 		<div class="area icon01">

@@ -84,11 +84,10 @@
 
 	<select id="getUntactBookSettingOne" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting">
 		SELECT
-			homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, 
-			SUBSTR(loan_time,0,2) AS start_hour,
-			SUBSTR(loan_time,4,2) AS start_minute,
-			SUBSTR(loan_time,7,2) AS end_hour, 
-			SUBSTR(loan_time,10,2) AS end_minute,
+			homepage_id, locker_use_yn, row_count, total_count, round_start_date,
+			round_end_date, reservation_repeated_day,
+			SUBSTR(reservation_repeated_time,0,2) AS start_hour,
+			SUBSTR(reservation_repeated_time,4,2) AS start_minute,
 			locker_use_type, terms
 		FROM
 			UNTACT_BOOK_SETTING
@@ -107,15 +106,19 @@
 				    a.locker_use_yn = #{locker_use_yn},
 					a.row_count = #{row_count},
 					a.total_count = #{total_count},
-					a.reservation_max_count = #{reservation_max_count},
-					a.loan_time = #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute},
+					a.round_start_date = #{round_start_date},
+					a.round_end_date = #{round_end_date},
+					a.reservation_repeated_day = #{reservation_repeated_day},
+					a.reservation_repeated_time = #{start_hour}||':'||#{start_minute},
 					a.locker_use_type = #{locker_use_type},
 		    		a.terms = #{terms}
 			WHEN NOT MATCHED THEN
 				INSERT (
-					homepage_id, locker_use_yn, row_count, total_count, reservation_max_count, loan_time, locker_use_type, terms
+					homepage_id, locker_use_yn, row_count, total_count, round_start_date,
+					round_end_date, reservation_repeated_day, reservation_repeated_time, locker_use_type, terms
 				) VALUES (
-					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{reservation_max_count}, #{start_hour}||':'||#{start_minute}||'~'||#{end_hour}||':'||#{end_minute}, #{locker_use_type}, #{terms}
+					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{round_start_date},
+					#{round_end_date}, #{reservation_repeated_day}, #{start_hour}||':'||#{start_minute}, #{locker_use_type}, #{terms}
 				)
 	</update>
 	
@@ -169,6 +172,65 @@
 	<select id="getLockerUseYN" resultType="String">
 		SELECT
 			locker_use_yn
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<delete id="deleteUntactBookRound">
+		DELETE FROM UNTACT_BOOK_ROUND
+		WHERE
+		    homepage_id = #{homepage_id}
+		AND round_idx >= #{round_idx}
+	</delete>
+	
+	<insert id="createUntactBookRound">
+		INSERT INTO UNTACT_BOOK_ROUND
+		(
+			homepage_id, round_idx, round_start_date, round_end_date, round_start_time,
+			round_end_time
+		) VALUES (
+			#{homepage_id}, #{round_idx}, #{round_start_date}, #{round_end_date}, #{round_start_time},
+			#{round_end_time}
+		)
+	</insert>
+	
+	<select id="getUntactBookRoundOne" resultType="String">
+		SELECT
+			round_idx
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
+		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
+	</select>
+	
+	<select id="getUntactBookRoundAll" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookRound">
+		SELECT
+			TO_CHAR(TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:mi'),'YYYYMMDDHH24miss') AS round_start_date,
+			TO_CHAR(TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:mi'),'YYYYMMDDHH24miss') AS round_end_date
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	round_idx = #{round_idx}
+	</select>
+	
+	<select id="getReturnDate" resultType="String">
+		SELECT
+			round_end_date||' '||round_end_time AS round_end_date
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND round_idx = #{round_idx} 
+	</select>
+	
+	<select id="getRepeatedOne" resultType="String">
+		SELECT
+			reservation_repeated_day
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE

@@ -180,6 +180,7 @@ $(function(){
 <%-- 	<form:hidden path="category_idx"/> --%>
 	<form:hidden path="searchCate1"/>
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib'}">
 		<div class="tab_menu on">

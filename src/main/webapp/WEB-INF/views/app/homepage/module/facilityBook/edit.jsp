@@ -70,6 +70,7 @@ $(function() {
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<h3>신청인 기본정보</h3>
 	<table class="type1">

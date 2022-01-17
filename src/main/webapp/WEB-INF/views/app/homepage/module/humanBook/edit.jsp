@@ -128,6 +128,7 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 
 	<h4>개인정보 수집 및 이용 동의</h4>

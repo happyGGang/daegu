@@ -29,7 +29,6 @@ $(function() {
 	});
 });
 </script>
-
 <div class="doc-body">
   <div class="roomicon">
     <div class="inner icowrap"><span class="ico ico5"></span> <strong>독서디베이트 대회</strong>
@@ -116,6 +115,7 @@ $(function() {
   <form:hidden path="menu_idx"/>
   <form:hidden path="homepage_id"/>
   <form:hidden path="book_report_idx"/>
+  <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
     <div class="link_btn02"> <a href="#" id="apply_btn">참여신청</a> </div>
     <!-- 20210902 게시판 주석처리 YUNHAESU -->
   <%-- 

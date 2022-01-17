@@ -37,6 +37,7 @@ $(function() {
 	<form:form modelAttribute="member" action="modifyForm.do" method="post" onsubmit="return false;">
 	<form:password path="member_pw" cssStyle="display:none;"/>
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<b class='title'>비밀번호 확인</b>
 		<div class="inputWrap">
 			<input type="password" id="member_pw_tmp" maxlength="20" class="txt" value="" placeholder="비밀번호를 입력해주세요" style="border:1px solid #ccc;padding:5px 10px;border-radius:3px"/>

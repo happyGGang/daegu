@@ -20,7 +20,7 @@ $(function() {
 		</c:if>
 		</c:forEach>
 
-		if (!confirm('무인예약 신청을 하시겠습니까?\n도서연체시 대출불가')) {
+		if (!confirm('비대면 도서대출 예약 신청을 하시겠습니까?\n도서연체시 대출불가')) {
 			return false;
 		}
 
@@ -36,14 +36,14 @@ $(function() {
 <fmt:formatDate var="now_date" value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/>
 
 <div id="contents-title">
-	<h2>비대면 도서대출 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
+	<h2>비대면 도서대출 예약 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
 </div>
 <br>
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="book_isbn" value="${detail.ISBN}"/>
-<form:hidden path="book_regno" value="${member.rec_key}"/>
+<form:hidden path="reg_no" value="${detail.REG_NO}"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 
 <div>
@@ -90,7 +90,7 @@ $(function() {
 	</table>
 
 	<div id="" class="" style="text-align: center; padding-top: 15px;">
-		<p style="color: red;font-weight: bold;">* 도서연체중에는 비대면 도서대출 불가 (본인 대출상태 확인필요)</p>
+		<p style="color: red;font-weight: bold;">* 도서연체중에는 비대면 도서대출 예약 불가 (본인 대출상태 확인필요)</p>
 	</div>
 
 	<div class="btnArea" style="text-align: center; padding-top:5px;">

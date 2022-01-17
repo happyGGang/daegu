@@ -36,6 +36,7 @@ $(function() {
 <div class="join-wrap">
 	<form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividualStep" action="edit.do">
 	<form:hidden path="menu_idx"/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div>
 		<h2>개인정보 수집 이용 동의서</h2>
 		<div class="Box" style="height:400px;">	

@@ -1797,7 +1797,7 @@ ul.close_day li:last-child{margin-right:0;padding-right:0;background:none;}
 .recom_wrap .recom_q_box h2{font-family:'s-core_dream5_medium';font-size:55px;margin-top:2%;color:#fff;line-height:130%;}
 .recom_wrap .recom_q_box p{font-family:'s-core_dream4_regular';color:#fff;font-size:20px;}
 
-.recom_wrap .recom_a_box {position:relative;margin-top:2.2%;width:1150px;margin:50px auto 0;background:rgba(255,255,255, 0.4);padding:40px 38px 38px 55px;box-sizing:border-box;border-radius:18px;}
+.recom_wrap .recom_a_box {position:relative;margin-top:2.2%;width:1150px;margin:40px auto 0;background:rgba(255,255,255, 0.4);padding:40px 38px 38px 55px;box-sizing:border-box;border-radius:18px;}
 .recom_wrap .recom_a_box ul{margin-top:3%;}
 .recom_wrap .recom_a_box ul li{display:inline-block;width:150px;height:150px;border-radius:50%;background:#fff;text-align:center;margin-right:10px;}
 .recom_wrap .recom_a_box ul li:last-child{margin-right:0;}

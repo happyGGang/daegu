@@ -63,6 +63,7 @@ $(function() {
 	<form id="procForm" name="procForm" method="post" action="integration2.do" onsubmit="return false;">
 	<input type="hidden" id="user_no" name="user_no" value=""/>
 	<input type="hidden" id="manageCode" name="manageCode" value=""/>
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="search-wrap">
 

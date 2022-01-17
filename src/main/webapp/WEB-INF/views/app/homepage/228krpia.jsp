@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="summaryDesc">
 	<div class="innerBox">
 		<div class="img txt_b02"></div>

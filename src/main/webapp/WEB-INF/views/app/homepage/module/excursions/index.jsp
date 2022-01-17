@@ -210,7 +210,8 @@ $(function(){
 <form:hidden path="menu_idx"/>
 <form:hidden path="pageType"/>
 <form:hidden path="date_type"/>
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
+<form:hidden id="homepage_id_1" path="homepage_id"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">

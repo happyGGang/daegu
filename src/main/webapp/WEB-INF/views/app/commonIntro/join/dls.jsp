@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="utf-8" %>
+\<%@ page language="java" pageEncoding="utf-8" %>
 
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -114,7 +114,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<form:hidden path="certType"/>
 		<form:hidden path="before_url"/>
 		<form:hidden path="menu_idx"/>
-
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		
 		<div style="border-top:2px solid #ccc">
 		<table id="memberForm" style="${param.ageType eq 'under' ? 'display:none;':''}">
 			<caption>대구학생인증</caption>

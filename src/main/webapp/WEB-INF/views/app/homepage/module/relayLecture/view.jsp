@@ -23,6 +23,7 @@ $(function() {
   <form:hidden path="homepage_id"/>
   <form:hidden path="menu_idx"/>
   <form:hidden path="lecture_idx"/>
+  <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
   <table class="tbl-type01">
     <colgroup>
     <col width="20%">

@@ -92,10 +92,12 @@ $(document).ready(function() {
 <%-- </c:choose> --%>
 
 <form:form id="excelDownForm" modelAttribute="bookReview" action="excelDownload.do" method="POST">
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form:form modelAttribute="bookReview" action="index.do" method="GET" onsubmit="return false;">
 <form:hidden path="menu_idx"/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 <div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
 	소장처&nbsp;:&nbsp;

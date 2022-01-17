@@ -216,6 +216,7 @@ ${quiz.top_html}
 		<form:hidden path="search_quiz_type"/>
 		<form:hidden path="search_quiz_year"/>
 		<form:hidden path="search_quiz_month"/>
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<c:if test="${not empty quiz.quiz_name}">
 
 		<table class="quiz-info-table" summary="독서퀴즈" style="margin-bottom: 20px;margin-top:30px;border-top:none;">
