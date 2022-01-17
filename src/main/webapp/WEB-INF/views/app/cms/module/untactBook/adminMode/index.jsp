@@ -29,19 +29,12 @@
 <script type="text/javascript" src="/resources/cms/js/design.js"></script>
 
 <script type="text/javascript">
+//체크박스 전체선택
+function checkAll($this) { 
+	$('input:checkbox[name=request_number_arr]').prop('checked', $this.is(':checked'));
+}
+
 $(function() {
-	//체크박스 전체선택
-	$('#all-check').on('click', function(e) {
-		e.preventDefault();
-		if($(this).attr('keyValue') == 'N') {
-			$(this).attr('keyValue', 'Y');
-			$('.request_idx').prop('checked', true);
-		} else {
-			$(this).attr('keyValue', 'N');
-			$('.request_idx').prop('checked', false);
-		}
-	});
-	
 	//검색버튼
 	$('button#search_btn').on('click', function(e) {
 		e.preventDefault();
@@ -57,107 +50,102 @@ $(function() {
 	});
 });
 
-//진행상황 변경 버튼
-function reservationStepChange(member_id, member_name, reservation_step, request_number, round_idx, manage_code, reg_no, user_key, $this) {
-	
-	var ajaxData = {
-		'member_id' : member_id,
-		'member_name' : member_name,
-		'reservation_step' : reservation_step,
-		'request_number' : request_number,
-		'round_idx' : round_idx,
-		'manage_code' : manage_code,
-		'reg_no' : reg_no,
-		'user_key' : user_key
-	};
-	
-	var stepMessage = '';
-	if(reservation_step == '1') {
-		stepMessage = '접수'
-	} else if (reservation_step == '2') {
-		stepMessage = '대기 처리'
-	} else if (reservation_step == '3') {
-		stepMessage = '대출'
-	} else if (reservation_step == '4') {
-		stepMessage = '만기 처리'
-	}
-	
-	if(confirm(stepMessage + ' 하시겠습니까?')) {
-		$.ajax({
-			type: "POST",
-			url: 'modifyReservationStep.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert(stepMessage + ' 되었습니다.'); 
-					if(reservation_step == '1') {
-						$this.hide();
-						$this.parent().children('a#waitingBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('접수');
-					} else if(reservation_step == '2') {
-						$this.hide();
-						$this.parent().children('a#loanBook').show();
-						$this.parent().children('a#cancelBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('대기');
-					}
-				} else {
-					alert(response.message);
-				}
-			},
-			error : function() {
-				alert(stepMessage + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-			}
-		});
-	}
-}
-
-//취소버튼
-function cancelSettingEdit(request_number, round_idx, manage_code, reg_no, user_key, loankey) {
-	var ajaxData = {
-			'request_number' : request_number,
-			'round_idx' : round_idx,
-			'manage_code' : manage_code,
-			'reg_no' : reg_no,
-			'user_key' : user_key,
-			'loankey' : loankey
-		};
-	
-	if(confirm('만기처리 하시겠습니까?')) {
-		$.ajax({
-			type: "POST",
-			url: 'cancelReservation.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert('만기처리 되었습니다.'); 
-				}
-				location.reload();
-			},
-			error : function() {
-				alert('만기처리에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-			}
-		});
-	}
-}
-
-//체크박스 전체삭제
-function allChange() {
+//신청 -> 접수버튼
+function receiptReservationStep() {
 	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
-		alert('삭제할 아이디를 선택해 주세요.');
+		alert('접수할 아이디를 선택해 주세요.');
 	} else {
-		if(confirm('전체 삭제 하시겠습니까?')) {
+		if(confirm('접수처리 하시겠습니까?')) {
 			$.ajax({
 				type: "POST",
-				url: 'deleteAll.do',
+				url: 'receiptReservationStep.do',
 				data: $('input[name=request_number_arr]').serialize(),
 				success: function(response) {
 					if(response.valid) {
-						alert('전체삭제 되었습니다.');
+						alert('접수처리 되었습니다.');
+					} else {
+						alert(response.message);
 					}
 					location.reload();
 				},
 				error : function() {
-					alert('전체 삭제에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+					alert('접수에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+//접수 -> 대기버튼
+function waitingReservationStep() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('대기 처리할 아이디를 선택해 주세요.');
+	} else {
+		if(confirm('대기처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'waitingReservationStep.do',
+				data: $('input[name=request_number_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('대기처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('대기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+//대기 -> 대출버튼
+function bookReservation() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('대출 처리 하실 아이디를 선택해 주세요.');
+	} else {
+		if(confirm('대출처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'bookReservation.do',
+				data: $('input[name=request_number_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('대출처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+//취소버튼
+function cancelReservation() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('만기 처리할 아이디를 선택해 주세요.');
+	} else {
+		if(confirm('만기처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'cancelReservation.do',
+				data: $('input[name=request_number_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('만기처리 되었습니다.');
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
 				}
 			});
 		} 
@@ -238,11 +226,11 @@ function randomPassword(passwordCount, nonPasswordCount) {
 			url: 'randomPassword.do',
 			success: function(html) {
 				if(html == 'nonPasswordCheck') {
-					alert('비밀번호를 생성할수 없습니다. \n\n사물함 신청내역이 있을 시에 비밀번호 생성이 가능합니다.');
+					alert('비밀번호를 생성할수 없습니다. \n사물함 신청내역이 있을 시에 비밀번호 생성이 가능합니다.');
 				}else if(html == 'passwordCheck') {
 					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
 				} else {
-				alert('전체 ' + passwordCount + '개 중 \n\n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
+				alert('전체 ' + passwordCount + '개 중 \n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
 				location.reload();
 				}
 			},error: function(html) {
@@ -250,7 +238,6 @@ function randomPassword(passwordCount, nonPasswordCount) {
 		});
 	}
 }
-
 </script>
 
 <!--[if IE 7]>
@@ -395,7 +382,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 							<table class="type1 center">
 								<thead>
 									<tr>
-										<th scope="col">선택</th>
+										<th scope="col"><input type="checkbox" onchange="checkAll($(this));"></th>
 										<th scope="col">신청자아이디</th>
 										<th scope="col">신청자명</th>
 										<th scope="col">도서명</th>
@@ -430,11 +417,18 @@ function randomPassword(passwordCount, nonPasswordCount) {
 										</td>
 										<td>
 										<div class="button">
-											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '1', '${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', $(this));" ${i.reservation_step eq '1'?'':' style="display:none;"'}>접수</a>
-											<a href="javascript:void(0);" id="waitingBook" class="btn btn6 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '2', '${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', $(this));" ${i.reservation_step eq '2'?'':' style="display:none;"'}>대기</a>
-											<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '3', '${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', $(this));" ${i.reservation_step eq '3'?'':' style="display:none;"'}>대출</a>
-											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelSettingEdit('${i.request_number}', '${i.round_idx}', '${i.manage_code}', '${i.reg_no}', '${i.user_key}', '${i.loankey}');" ${i.reservation_step eq '3'?'':' style="display:none;"'}>만기</a>
-											<%-- <a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>만기</a> --%>
+										<c:choose>
+											<c:when test="${i.reservation_step eq '1'}">
+												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStep()">접수</a>
+											</c:when>
+											<c:when test="${i.reservation_step eq '2'}">
+												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStep();">대기</a>
+											</c:when>
+											<c:when test="${i.reservation_step eq '3'}">
+												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservation()">대출</a>
+												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservation()">만기</a>
+											</c:when>
+										</c:choose>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 										</div>
 										</td>
@@ -448,9 +442,11 @@ function randomPassword(passwordCount, nonPasswordCount) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
-							<a href="#" id="deleteAll" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
-							<a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
+							<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn7 btnuntact" onclick="receiptReservationStep();">접수</a>
+							<a href="javascript:void(0);" id="waitingReservationStepAll" class="btn btn7 btnuntact" onclick="waitingReservationStep();">대기</a>
+							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn7 btnuntact" onclick="bookReservation();">대출</a>
+							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn1 btnuntact" onclick="cancelReservation();">만기</a>
+							<a href="javascript:void(0);" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 						</div>
 
 						<div class="search txt-center" style="margin-top:25px;">

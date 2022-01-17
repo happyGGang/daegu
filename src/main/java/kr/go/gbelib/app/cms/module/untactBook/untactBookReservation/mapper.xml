@@ -116,7 +116,6 @@
 						UNTACT_BOOK_RESERVATION
 					WHERE
 						homepage_id = #{homepage_id}
-					AND cancel_yn = 'N'
 					AND TO_CHAR(request_date,'YY/MM/DD') = TO_CHAR(SYSDATE,'YY/MM/DD')
 					ORDER BY request_number DESC
 			)
@@ -154,7 +153,6 @@
 						UNTACT_BOOK_RESERVATION
 					WHERE
 						homepage_id = #{homepage_id}
-					AND cancel_yn = 'N'
 					<include refid="where"/>
 					ORDER BY request_number DESC
 			)
@@ -194,7 +192,6 @@
 						UNTACT_BOOK_RESERVATION
 					WHERE
 						homepage_id = #{homepage_id}
-					AND cancel_yn = 'N'
 					AND round_idx = (SELECT
 										 round_idx 
 								     FROM 
@@ -204,6 +201,7 @@
 								     	AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
 								    	AND homepage_id = #{homepage_id}
 								     )
+					<include refid="where"/>			    
 					ORDER BY request_number DESC
 			)
 		${pagingBottom}	
@@ -243,7 +241,6 @@
 						UNTACT_BOOK_RESERVATION
 					WHERE
 						homepage_id = #{homepage_id}
-					AND cancel_yn = 'N'
 					AND round_idx = (SELECT 
 										round_idx 
 									FROM		   
@@ -256,6 +253,7 @@
 										 	BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS')
 										 		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
 										 		AND homepage_id = #{homepage_id})
+										 	AND homepage_id = #{homepage_id}
 								     )
 					ORDER BY request_number DESC
 			)
@@ -332,8 +330,10 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND cancel_yn = 'N'
-		AND member_id = #{member_id}
-		AND request_number = #{request_number}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
 	</select>
 	
 	<update id="changeReservationStep">
@@ -397,8 +397,10 @@
 			reservation_step = #{reservation_step}
 		WHERE
 			homepage_id = #{homepage_id}
-		AND member_id = #{member_id}
-		AND request_number = #{request_number}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
 	</update>
 	
 	<update id="waitingReservationStep">
@@ -412,7 +414,6 @@
 			sms_send_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
-		AND member_id = #{member_id}
 		AND request_number = #{request_number}
 	</update>
 	
@@ -424,9 +425,7 @@
 			loan_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
-		AND member_id = #{member_id}
 		AND request_number = #{request_number}
-		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
 	</update>
 	
 	<update id="cancelReservationStep">
@@ -437,9 +436,11 @@
 			cancel_reason = '만기취소',
 			cancel_id = #{cancel_id},
 			cancel_ip = #{cancel_ip},
-			cancel_date = SYSDATE
+			cancel_date = SYSDATE,
+			reservation_step = '5'
 		WHERE
-			request_number = #{request_number}
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
 	</update>
 	
 	<select id="getCancelReservationList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
@@ -460,10 +461,12 @@
 			UNTACT_BOOK_RESERVATION
 		WHERE
 			homepage_id = #{homepage_id}
-		AND member_id = #{member_id}
-		AND request_number = #{request_number}
-		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND round_idx = #{round_idx}
 		AND locker_password = 0
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
 	</select>
 	
 	<select id="checkPasswordCount" resultType="int">
@@ -473,7 +476,7 @@
 			UNTACT_BOOK_RESERVATION
 		WHERE
 			homepage_id = #{homepage_id}
-		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND round_idx = #{round_idx}
 		AND cancel_yn = 'N'
 	</select>
 	
@@ -484,7 +487,7 @@
 			UNTACT_BOOK_RESERVATION
 		WHERE
 			homepage_id = #{homepage_id}
-		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND round_idx = #{round_idx}
 		AND cancel_yn = 'N'
 		AND locker_password = 0
 	</select>
@@ -496,7 +499,7 @@
 			UNTACT_BOOK_RESERVATION
 		WHERE
 			homepage_id = #{homepage_id}
-		AND TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+		AND round_idx = #{round_idx}
 		AND cancel_yn = 'N'
 		AND member_id = #{member_id}
 	</select>
@@ -560,12 +563,16 @@
 	</select>
 
 	<select id="getLockerPasswordCheckCount" resultType="int">
-		SELECT COUNT(*) FROM UNTACT_BOOK_RESERVATION
+		SELECT 
+			COUNT(*) 
+		FROM UNTACT_BOOK_RESERVATION
 		WHERE
-			homepage_id = #{homepage_id} AND
-		    TO_CHAR(request_date, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd') AND
-		    locker_number = #{locker_number} AND
-		    locker_password = #{locker_password}
+			homepage_id = #{homepage_id} 
+		AND round_idx = #{round_idx}
+		AND locker_number = #{locker_number}
+		AND locker_password = #{locker_password}
+		AND user_key = #{user_key}
+		AND cancel_yn = 'N'
 	</select>
 	
 	<select id="getReceiptList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
@@ -580,6 +587,23 @@
 		WHERE homepage_id = #{homepage_id}
 		AND locker_number = #{locker_number}
 		AND reservation_step = #{reservation_step}
-		AND cancel_yn = 'N';
+		AND cancel_yn = 'N'
+	</select>
+	
+	<select id="getWaitingReservationList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
+		SELECT
+			homepage_id, locker_number, request_number, member_id, member_name,
+			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
+			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
+			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
+			sms_send_date, round_idx, loankey
+		FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
 	</select>
 </mapper>

@@ -64,4 +64,6 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getUntactBookReservationListBefore(UntactBookReservation untactBookReservation);
 
+	public List<UntactBookReservation> getWaitingReservationList(UntactBookReservation untactBookReservation);
+
 }

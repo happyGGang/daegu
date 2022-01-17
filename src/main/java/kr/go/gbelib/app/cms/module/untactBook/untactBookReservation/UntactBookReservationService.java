@@ -138,4 +138,8 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getUntactBookReservationListBefore(untactBookReservation);
 	}
 
+	public List<UntactBookReservation> getWaitingReservationList(UntactBookReservation untactBookReservation) {
+		return dao.getWaitingReservationList(untactBookReservation);
+	}
+
 }

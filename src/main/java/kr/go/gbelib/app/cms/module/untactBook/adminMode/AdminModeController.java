@@ -61,7 +61,7 @@ public class AdminModeController extends BaseController {
 	private CodeService codeService;
 	
 	@RequestMapping(value = { "/index.*" })
-	public String index(Model model, UntactBookSetting untactBookSetting, UntactLockerSetting untactLockerSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
+	public String index(Model model, UntactBookSetting untactBookSetting, UntactBookRound untactBookRound, UntactLockerSetting untactLockerSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		
 		untactBookSetting = settingService.getUntactBookSettingOne(getAsideHomepageId(request));
@@ -69,10 +69,14 @@ public class AdminModeController extends BaseController {
 		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
+		untactBookRound.setHomepage_id(getAsideHomepageId(request));
+		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
+		
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
 		
 		untactBookReservation.setAdmin_member_id(member.getMember_id());
+		untactBookReservation.setRound_idx(round_idx);
 		
 		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
 		reservationService.setPaging(model, count, untactBookReservation);
@@ -132,37 +136,6 @@ public class AdminModeController extends BaseController {
 		return basePath + "nonLockerIndex";
 	}
 	
-	@RequestMapping (value = {"/cancelReservation.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse cancelSettingSave(UntactBookReservation untactBookReservation, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		
-		JsonResponse res = new JsonResponse(request);
-		
-		untactBookReservation.setCancel_id(getSessionMemberId(request));
-		untactBookReservation.setCancel_ip(request.getRemoteAddr());
-		
-		if (!result.hasErrors()) {
-			
-			librarySearch.setUserkey(untactBookReservation.getUser_key());
-			librarySearch.setBookkey(untactBookReservation.getLoankey());
-			ApiResponse apiResult = LibSearchAPI.cancelReservation(librarySearch);
-			
-			if (apiResult.getStatus()) {
-				reservationService.cancelReservationStep(untactBookReservation);
-				res.setValid(true);
-				res.setMessage("취소 되었습니다.");
-			} else {
-				res.setValid(false);
-				res.setMessage(apiResult.getMessage());
-			}
-			
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-		return res;
-
-	}
-	
 	@RequestMapping(value = { "/blackListSettingEdit.*" })
 	public String blackListSettingEdit(Model model, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, HttpServletRequest request,  HttpServletResponse response) throws Exception {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
@@ -208,130 +181,203 @@ public class AdminModeController extends BaseController {
 
 	}
 	
-	@RequestMapping (value = {"/modifyReservationStep.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse modifyReservationStep(LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, UntactBookRound untactBookRound, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	//1번. 신청에서 접수로 변경 
+	@RequestMapping (value = {"/receiptReservationStep.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse receiptReservationStep(LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, UntactBookRound untactBookRound, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		JsonResponse res = new JsonResponse(request);
 		
-		if (reservationService.checkPassword(untactBookReservation) > 0) {
-			res.setValid(false);
-			res.setMessage("사물함 비밀번호를 설정해주세요.");
-			return res;
+		untactBookRound.setHomepage_id(getAsideHomepageId(request));
+		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
+		
+		//당일 회차 사물함 비밀번호 등록여부 체크
+		if(StringUtils.isNotEmpty(round_idx)) {
+			untactBookReservation.setRound_idx(round_idx);
+			if (reservationService.checkPassword(untactBookReservation) > 0) {
+				res.setValid(false);
+				res.setMessage("사물함 비밀번호를 설정해주세요.");
+				return res;
+			}
 		}
 		
 		if (!result.hasErrors()) {
-			String step = untactBookReservation.getReservation_step();
+			untactBookReservation.setReservation_step("2");
+			int modify_result = reservationService.receiptReservationStep(untactBookReservation);
 			
-			if(StringUtils.isNotEmpty(step)) {
-				if(step.equals("1")) {
-					untactBookReservation.setReservation_step("2");
-					int modify_result = reservationService.receiptReservationStep(untactBookReservation);
-					
-					if (modify_result < 1) {
-						res.setValid(false);
-						res.setMessage("접수에 실패하였습니다. 관리자에게 문의하세요");
-					}
-					
-					res.setValid(true);
-					res.setMessage("접수되었습니다.");
-				} else if (step.equals("2")) {
-					untactBookRound.setRound_idx(untactBookReservation.getRound_idx());
-					untactBookRound.setHomepage_id(untactBookReservation.getHomepage_id());
-					UntactBookRound roundTime = settingService.getUntactBookRoundAll(untactBookRound);
-					
-					LibrarySearch loanList = new LibrarySearch();
-					
-					loanList.setManageCode(untactBookReservation.getManage_code());
-					loanList.setSearch_start_date(roundTime.getRound_start_date());
-					loanList.setSearch_end_date(roundTime.getRound_end_date());
-					loanList.setUserkey(untactBookReservation.getUser_key());
-					loanList.setRegNo(untactBookReservation.getReg_no());
-					
-					Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUntactBookLoanReserveList(loanList, null);
-					List<Map<String, Object>> list = null;
-					
-					list = LibSearchAPI.getListData(unmannedLoanReserveList);
-					
-					//여러권일때 여기를 수정하세용
-					if (list != null && list.size() > 0) {
-						if(StringUtils.isNotEmpty(String.valueOf(list.get(0).get("LOAN_KEY")))) {
-							String loanKey = String.valueOf(list.get(0).get("LOAN_KEY"));
+			if (modify_result < 1) {
+				res.setValid(false);
+				res.setMessage("접수에 실패하였습니다. 관리자에게 문의하세요");
+			}
+			
+			res.setValid(true);
+			res.setMessage("접수되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
+	//2번. 접수에서 대기로 변경
+	@RequestMapping (value = {"/waitingReservationStep.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse waitingReservationStep(LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, UntactBookRound untactBookRound, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 
-							untactBookReservation.setLoankey(loanKey);
-							
-							librarySearch.setLoan_key(loanKey);
-							ApiResponse apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
-							
-							if (apiResult.getStatus()) {
-								untactBookReservation.setReservation_step("3");
-								untactBookReservation.setLoankey(loanKey);
-								int modify_result = reservationService.waitingReservationStep(untactBookReservation);
-								
-								Homepage homepage = new Homepage();
-								homepage.setHomepage_id(getAsideHomepageId(request));
-								
-								homepage = homepageService.getHomepageOne(homepage);
-								
-								String userIp = request.getRemoteAddr();
-								
-								UntactBookReservation untactBookReservation2 = new UntactBookReservation();
-								
-								librarySearch.setManageCode(loanList.getManageCode());
-								librarySearch.setUserkey(loanList.getUserkey());
-								
-								untactBookReservation2 = reservationService.getUntactBookReservationOne(untactBookReservation);
-								
-								String loanTime = settingService.getReturnDate(untactBookRound);;
-								
-								String mes =  "[" +homepage.getHomepage_name() + "]\n" + untactBookReservation2.getMember_name() + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+untactBookReservation2.getBook_name()+"\n사물함 번호 : " + untactBookReservation2.getLocker_number() +"\n사물함 비밀번호 : " + untactBookReservation2.getLocker_password()+"\n반납예정일은 " + loanTime + "까지 입니다."; 
-								
-								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-								
-								if (modify_result < 1) {
-									res.setValid(false);
-									res.setMessage("관리자에게 문의하세요");
-								}
-								res.setValid(true);
-								res.setMessage("대기 처리 되었습니다.");
-							} else {
-								res.setValid(false);
-								res.setMessage("대기 상태 변경에 실패하였습니다.\nKLAS API 예약수정 오류 입니다. : " + apiResult.getMessage());
-							}
+		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		JsonResponse res = new JsonResponse(request);
+		
+		untactBookRound.setHomepage_id(getAsideHomepageId(request));
+		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
+		
+		untactBookRound.setRound_idx(round_idx);
+		UntactBookRound roundTime = settingService.getUntactBookRoundAll(untactBookRound);
+		
+		List<UntactBookReservation> waitingReservationList = reservationService.getWaitingReservationList(untactBookReservation);
+		for (int i = 0; i < waitingReservationList.size(); i++) {
+			String request_number = String.valueOf(waitingReservationList.get(i).getRequest_number());
+			String manageCode = String.valueOf(waitingReservationList.get(i).getManage_code());
+			String userKey = String.valueOf(waitingReservationList.get(i).getUser_key());
+			String regNo = String.valueOf(waitingReservationList.get(i).getReg_no());
+			String member_name = String.valueOf(waitingReservationList.get(i).getMember_name());
+			String book_name = String.valueOf(waitingReservationList.get(i).getBook_name());
+			String locker_no = String.valueOf(waitingReservationList.get(i).getLocker_number());
+			String locker_pass = String.valueOf(waitingReservationList.get(i).getLocker_password());
+			
+			librarySearch.setManageCode(manageCode);
+			librarySearch.setUserkey(userKey);
+			librarySearch.setRegNo(regNo);
+			librarySearch.setSearch_start_date(roundTime.getRound_start_date());
+			librarySearch.setSearch_end_date(roundTime.getRound_end_date());
+			//무인대출예약 목록 조회
+			Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUntactBookLoanReserveList(librarySearch, null);
+			List<Map<String, Object>> list = null;
+			
+			list = LibSearchAPI.getListData(unmannedLoanReserveList);
+			
+			if (list != null && list.size() > 0) {
+				String loanKey = String.valueOf(list.get(0).get("LOAN_KEY"));
+				
+				untactBookReservation.setLoankey(loanKey);
+				
+				librarySearch.setLoan_key(loanKey);
+				
+				//loanKey 가져와서 예약대출기 상태 수정
+				ApiResponse apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
+				
+				Homepage homepage = new Homepage();
+				homepage.setHomepage_id(getAsideHomepageId(request));
+				
+				homepage = homepageService.getHomepageOne(homepage);
+				
+				String userIp = request.getRemoteAddr();
+				
+				librarySearch.setManageCode(manageCode);
+				librarySearch.setUserkey(userKey);
+				
+				String loanTime = settingService.getReturnDate(untactBookRound);
+				
+				String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
+				
+				LibSearchAPI.sendSms(librarySearch, mes, userIp);
+				
+				if(apiResult.getStatus()){
+					if (!result.hasErrors()) {
+						untactBookReservation.setReservation_step("3");
+						untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+						int modify_result = reservationService.waitingReservationStep(untactBookReservation);
+						
+						if (modify_result < 1) {
+							res.setValid(false);
+							res.setMessage("대기 처리에 실패하였습니다. 관리자에게 문의하세요");
 						}
+						res.setValid(true);
+						res.setMessage("대기 처리 되었습니다.");
 					} else {
 						res.setValid(false);
-						res.setMessage("예약키 조회에 실패하였습니다.\n홈페이지에서 예약 상태를 확인해주세요.");
-					}
-				} else if (step.equals("3")) {
-					
-						untactBookReservation.setReservation_step("4");
-						
-						librarySearch.setManageCode(untactBookReservation.getManage_code());
-						librarySearch.setUserkey(untactBookReservation.getUser_key());
-						librarySearch.setReg_no(untactBookReservation.getReg_no());
-						String ip = request.getRemoteAddr();
-						ApiResponse apiResult = LibSearchAPI.unmannedloan(librarySearch, ip);
-						
-						if (apiResult.getStatus()) {
-							int count = reservationService.bookReservation(untactBookReservation);
-							
-							if(count < 1) {
-								res.setValid(false);
-								res.setMessage("대출에 실패 하였습니다. 관리자에게 문의하세요");
-							}
-							res.setValid(true);
-							res.setMessage("대출되었습니다.");
-						} else {
-							res.setValid(false);
-							res.setMessage("대출에 실패하였습니다.\nKLAS API 무인대출 오류 입니다. : " + apiResult.getMessage());
-						}
+						res.setResult(result.getAllErrors());
 					}
 				} else {
 					res.setValid(false);
-					res.setResult(result.getAllErrors());
+					res.setMessage("대기 상태 변경에 실패하였습니다.\nKLAS API 예약수정 오류 입니다. : " + apiResult.getMessage());
 				}
+			} else {
+				res.setValid(false);
+				res.setMessage("예약키 조회에 실패하였습니다.\n홈페이지에서 예약 상태를 확인해주세요.");
+			}
+		}
+		return res;
+	}
+	
+	//3번. 대기에서 대출로 변경
+	@RequestMapping (value = {"/bookReservation.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse bookReservation(LibrarySearch librarySearch, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, UntactBookRound untactBookRound, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		
+		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		JsonResponse res = new JsonResponse(request);
+
+		List<UntactBookReservation> waitingReservationList = reservationService.getWaitingReservationList(untactBookReservation);
+		
+		for (int i = 0; i < waitingReservationList.size(); i++) {
+			String request_number = String.valueOf(waitingReservationList.get(i).getRequest_number());
+			String manageCode = String.valueOf(waitingReservationList.get(i).getManage_code());
+			String userKey = String.valueOf(waitingReservationList.get(i).getUser_key());
+			String regNo = String.valueOf(waitingReservationList.get(i).getReg_no());
+			
+			librarySearch.setManageCode(manageCode);
+			librarySearch.setUserkey(userKey);
+			librarySearch.setReg_no(regNo);
+			String ip = request.getRemoteAddr();
+			ApiResponse apiResult = LibSearchAPI.unmannedloan(librarySearch, ip);
+			if (apiResult.getStatus()) {
+				untactBookReservation.setReservation_step("4");
+				untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+				int count = reservationService.bookReservation(untactBookReservation);
 				
+				if(count < 1) {
+					res.setValid(false);
+					res.setMessage("대출에 실패 하였습니다. 관리자에게 문의하세요");
+				}
+				res.setValid(true);
+				res.setMessage("대출되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage("대출에 실패하였습니다.\nKLAS API 무인대출 오류 입니다. : " + apiResult.getMessage());
+			}
+		}
+		return res;
+	}
+	
+	//예약취소
+	@RequestMapping (value = {"/cancelReservation.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse cancelSettingSave(UntactBookReservation untactBookReservation, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		
+		JsonResponse res = new JsonResponse(request);
+		
+		untactBookReservation.setCancel_id(getSessionMemberId(request));
+		untactBookReservation.setCancel_ip(request.getRemoteAddr());
+		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		
+		if (!result.hasErrors()) {
+			List<UntactBookReservation> waitingReservationList = reservationService.getWaitingReservationList(untactBookReservation);
+			
+			for (int i = 0; i < waitingReservationList.size(); i++) {
+				String request_number = String.valueOf(waitingReservationList.get(i).getRequest_number());
+				String userKey = String.valueOf(waitingReservationList.get(i).getUser_key());
+				String bookKey = String.valueOf(waitingReservationList.get(i).getLoankey());
+				
+				librarySearch.setUserkey(userKey);
+				librarySearch.setBookkey(bookKey);
+				ApiResponse apiResult = LibSearchAPI.cancelReservation(librarySearch);
+				if (apiResult.getStatus()) {
+					untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+					reservationService.cancelReservationStep(untactBookReservation);
+					res.setValid(true);
+					res.setMessage("취소 되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage("예약취소에 실패하였습니다.\nKLAS API 예약취소 오류 입니다. : " + apiResult.getMessage());
+				}
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
@@ -362,19 +408,25 @@ public class AdminModeController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/randomPassword.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse randomPassword(UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public @ResponseBody JsonResponse randomPassword(UntactBookRound untactBookRound, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		JsonResponse res = new JsonResponse(request);
 		
-		if(reservationService.checkPasswordCount(untactBookReservation) == 0) {
-			reservationService.alertMessageOnly("nonPasswordCheck", request, response);
-			return null;
-		}
+		untactBookRound.setHomepage_id(getAsideHomepageId(request));
+		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
 		
-		if (reservationService.checkNonPasswordCount(untactBookReservation) == 0) {
-			reservationService.alertMessageOnly("passwordCheck", request, response);
-			return null;
+		if(StringUtils.isNotEmpty(round_idx)) {
+			untactBookReservation.setRound_idx(round_idx);
+			if(reservationService.checkPasswordCount(untactBookReservation) == 0) {
+				reservationService.alertMessageOnly("nonPasswordCheck", request, response);
+				return null;
+			}
+			
+			if (reservationService.checkNonPasswordCount(untactBookReservation) == 0) {
+				reservationService.alertMessageOnly("passwordCheck", request, response);
+				return null;
+			}
 		}
 		
 		if (!result.hasErrors()) {

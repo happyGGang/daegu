@@ -39,17 +39,25 @@ public class UntackBookApiService extends BaseService {
         String success_yn = "N"; // Y 성공 N 실패
         String msg = "";
 
-        if(!StringUtils.isEmpty(untackBookReservation.getHomepage_id()) && untackBookReservation.getLocker_number() > 0 && untackBookReservation.getLocker_password() > 0) {
-            if(service.getLockerPasswordCheckCount(untackBookReservation) > 0) {
-                success_yn = "Y";
-                msg = "성공";
-            } else {
-                success_yn = "N";
-                msg = "사물함 비밀번호가 맞지 않습니다.";
-            }
+        if(!StringUtils.isEmpty(untackBookReservation.getHomepage_id()) && untackBookReservation.getLocker_number() > 0 && untackBookReservation.getLocker_password() > 0 && !StringUtils.isEmpty(untackBookReservation.getUser_key())) {
+        	UntactBookRound untactBookRound = new UntactBookRound();
+        	untactBookRound.setHomepage_id(untackBookReservation.getHomepage_id());
+    		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
+    		
+    		if(StringUtils.isNotEmpty(round_idx)) {
+    			untackBookReservation.setRound_idx(round_idx);
+    			
+    			if(service.getLockerPasswordCheckCount(untackBookReservation) > 0) {
+    				success_yn = "Y";
+    				msg = "성공";
+    			} else {
+    				success_yn = "N";
+    				msg = "사물함 비밀번호 비교에 실패하였습니다.관리자에게 문의해주세요.";
+    			}
+    		}
         } else {
             success_yn = "N";
-            msg = "잘못된 homepage_id,locker_number,locker_password 파라미터";
+            msg = "잘못된 homepage_id,locker_number,locker_password,user_key 파라미터";
         }
 
         map.put("success_yn", success_yn);
