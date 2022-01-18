@@ -12,18 +12,28 @@ public class UntactBookReservation extends PagingUtils {
 	private String request_date;  //신청일
 	private int locker_password;  //사물함비밀번호
 	private String reservation_step;  //대출단계
-	private String reg_no;  //대출번호
-	private String book_regno;  //제어번호
+	private String rec_key;  //대출KEY
+	private String manage_code;  //도서관관리구분코드
+	private String user_key;  //이용자KEY
+	private String reg_no;  //도서등록번호
 	private String book_isbn;  //ISBN
 	private String book_name;  //도서명
 	private String loan_date;  //대출일
 	private String cancel_yn;  //대출취소여부
 	private String cancel_reason;  //대출취소사유
 	private String cancel_id;  //대출취소아이디
-	private String cancel_ip;  //대출취소아이피
-	private String cancel_date; //대출취소시간
+	private String cancel_ip;  //대출취소IP
+	private String cancel_date;  //대출취소시간
 	private String sms_send_yn;  //SMS발송여부
 	private String sms_send_date;  //SMS발송일시
+	private String round_idx;  //신청회차
+	
+	//코드명
+	private String reservation_step_code_name;  //대출단계 코드명
+	
+	//KLAS 예약상태변경용 변수
+	private String loankey;  //예약상태키
+	private String reserve_type;  //예약타입
 	
 	private int[] request_number_arr;  //신청번호_arr
 	
@@ -35,123 +45,139 @@ public class UntactBookReservation extends PagingUtils {
 	private String admin_member_id;
 	
 	public UntactBookReservation() {}
-	
+
 	public String getHomepage_id() {
 		return homepage_id;
 	}
-	
+
 	public void setHomepage_id(String homepage_id) {
 		this.homepage_id = homepage_id;
 	}
-	
+
 	public int getLocker_number() {
 		return locker_number;
 	}
-	
+
 	public void setLocker_number(int locker_number) {
 		this.locker_number = locker_number;
 	}
-	
+
 	public int getRequest_number() {
 		return request_number;
 	}
-	
+
 	public void setRequest_number(int request_number) {
 		this.request_number = request_number;
 	}
-	
+
 	public String getMember_id() {
 		return member_id;
 	}
-	
+
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	
+
 	public String getMember_name() {
 		return member_name;
 	}
-	
+
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
 	}
-	
+
 	public String getRequest_date() {
 		return request_date;
 	}
-	
+
 	public void setRequest_date(String request_date) {
 		this.request_date = request_date;
 	}
-	
+
 	public int getLocker_password() {
 		return locker_password;
 	}
-	
+
 	public void setLocker_password(int locker_password) {
 		this.locker_password = locker_password;
 	}
-	
+
 	public String getReservation_step() {
 		return reservation_step;
 	}
-	
+
 	public void setReservation_step(String reservation_step) {
 		this.reservation_step = reservation_step;
 	}
-	
+
+	public String getRec_key() {
+		return rec_key;
+	}
+
+	public void setRec_key(String rec_key) {
+		this.rec_key = rec_key;
+	}
+
+	public String getManage_code() {
+		return manage_code;
+	}
+
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
+	}
+
+	public String getUser_key() {
+		return user_key;
+	}
+
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
+
 	public String getReg_no() {
 		return reg_no;
 	}
-	
+
 	public void setReg_no(String reg_no) {
 		this.reg_no = reg_no;
 	}
-	
-	public String getBook_regno() {
-		return book_regno;
-	}
-	
-	public void setBook_regno(String book_regno) {
-		this.book_regno = book_regno;
-	}
-	
+
 	public String getBook_isbn() {
 		return book_isbn;
 	}
-	
+
 	public void setBook_isbn(String book_isbn) {
 		this.book_isbn = book_isbn;
 	}
-	
+
 	public String getBook_name() {
 		return book_name;
 	}
-	
+
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
-	
+
 	public String getLoan_date() {
 		return loan_date;
 	}
-	
+
 	public void setLoan_date(String loan_date) {
 		this.loan_date = loan_date;
 	}
-	
+
 	public String getCancel_yn() {
 		return cancel_yn;
 	}
-	
+
 	public void setCancel_yn(String cancel_yn) {
 		this.cancel_yn = cancel_yn;
 	}
-	
+
 	public String getCancel_reason() {
 		return cancel_reason;
 	}
-	
+
 	public void setCancel_reason(String cancel_reason) {
 		this.cancel_reason = cancel_reason;
 	}
@@ -180,14 +206,6 @@ public class UntactBookReservation extends PagingUtils {
 		this.cancel_date = cancel_date;
 	}
 
-	public int[] getRequest_number_arr() {
-		return request_number_arr;
-	}
-
-	public void setRequest_number_arr(int[] request_number_arr) {
-		this.request_number_arr = request_number_arr;
-	}
-
 	public String getSms_send_yn() {
 		return sms_send_yn;
 	}
@@ -202,6 +220,22 @@ public class UntactBookReservation extends PagingUtils {
 
 	public void setSms_send_date(String sms_send_date) {
 		this.sms_send_date = sms_send_date;
+	}
+
+	public String getRound_idx() {
+		return round_idx;
+	}
+
+	public void setRound_idx(String round_idx) {
+		this.round_idx = round_idx;
+	}
+
+	public int[] getRequest_number_arr() {
+		return request_number_arr;
+	}
+
+	public void setRequest_number_arr(int[] request_number_arr) {
+		this.request_number_arr = request_number_arr;
 	}
 
 	public String getStart_date() {
@@ -234,6 +268,30 @@ public class UntactBookReservation extends PagingUtils {
 
 	public void setAdmin_member_id(String admin_member_id) {
 		this.admin_member_id = admin_member_id;
+	}
+
+	public String getLoankey() {
+		return loankey;
+	}
+
+	public void setLoankey(String loankey) {
+		this.loankey = loankey;
+	}
+
+	public String getReserve_type() {
+		return reserve_type;
+	}
+
+	public void setReserve_type(String reserve_type) {
+		this.reserve_type = reserve_type;
+	}
+
+	public String getReservation_step_code_name() {
+		return reservation_step_code_name;
+	}
+
+	public void setReservation_step_code_name(String reservation_step_code_name) {
+		this.reservation_step_code_name = reservation_step_code_name;
 	}
 	
 }

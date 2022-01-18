@@ -70,6 +70,11 @@ public class ApiController extends BaseController {
 	public @ResponseBody Map<String, Object> lockerPasswordCheck(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) {
 		return untackBookApiService.getData(untactBookReservation, request, response);
 	}
+
+	@RequestMapping(value = {"/changeUntactBookLoanStatus.*"})
+	public @ResponseBody Map<String, Object> changeUntactBookLoanStatus(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) {
+		return untackBookApiService.getData2(untactBookReservation, request, response);
+	}
 	
 	/**
 	 * 전자도서관 공급사 앱에서 대출, 반납 등 API 호출 시

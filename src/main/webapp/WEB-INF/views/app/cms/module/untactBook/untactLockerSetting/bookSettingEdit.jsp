@@ -6,33 +6,35 @@
 
 <script type="text/javascript">
 function bookSettingSave() {
-	var start = $(start_hour).val() + ':' + $(start_minute).val();
-	var end = $(end_hour).val() + ':' + $(end_minute).val();
- 	
-	if(start == end){
- 		$('input#start_hour').focus();
- 		alert('대출가능 시작시간과 대출가능 종료시간이 같을수 없습니다.');
- 		return false;
- 	}
-	
-	if(start > end){
- 		$('input#start_hour').focus();
- 		alert('대출가능 시작시간은 대출가능 종료시간보다 이후일 수 없습니다.');
- 		return false;
- 	}
- 	
 	if ( doAjaxPost($('#untactBookSetting')) ) {
 		location.reload();
 	}
 }
+
+$('input#round_start_date').datepicker({
+	dateFormat:'yy-mm-dd',
+	minDate: 0,
+	maxDate: $('input#round_end_date').val(), 
+	onClose: function(selectedDate){
+		$('input#round_end_date').datepicker('option', 'minDate', selectedDate);
+	}
+}).datepicker('setDate', '${untactBookSetting.round_start_date}');
+
+$('input#round_end_date').datepicker({
+	dateFormat:'yy-mm-dd',
+	minDate: $('input#round_start_date').val(),
+	onClose: function(selectedDate){
+		$('input#round_start_date').datepicker('option', 'maxDate', selectedDate);
+	}
+}).datepicker('setDate', '${untactBookSetting.round_end_date}');
 </script>
 
 <form:form modelAttribute="untactBookSetting" action="bookSettingSave.do" >
 	<p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수입력항목입니다.</p>
 	<table class="type2">
 		<colgroup>
-			<col width="25%">
-			<col width="75%">
+			<col width="30%">
+			<col width="70%">
 		</colgroup>
 		<tbody id="board_tbody">
 			<tr>
@@ -68,17 +70,16 @@ function bookSettingSave() {
 				</td>
 			</tr>
 			<tr>
-				<th>하루최대 대출가능 권수(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>예약기준 시간 설정(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="reservation_max_count" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>권
-					<div class="ui-state-highlight">
-						<em>숫자만 입력가능합니다.</em>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<th>대출가능 시간 설정(<span style="color: red;font-weight: bold;">*</span>)</th>
-				<td>
+					기준일 : 
+					<form:input path="round_start_date" class="text ui-calendar" readonly="true" /> ~
+					<form:input path="round_end_date" class="text ui-calendar" readonly="true" /> 
+					<br>
+					반복일 : 
+					<form:input path="reservation_repeated_day" style="width:30px;"/>일
+					<br>
+					반복시간 : 
 					<form:select path="start_hour" id="start_hour">
 						<c:forEach var="hour" begin="0" end="23">
 							<option value="<c:if test='${hour < 10}'>0</c:if>${hour}" ${untactBookSetting.start_hour eq hour ? 'selected' : ''}><c:if test='${hour < 10}'>0</c:if>${hour}</option>
@@ -91,28 +92,18 @@ function bookSettingSave() {
 						<form:option value="30">30</form:option>
 						<form:option value="40">40</form:option>
 						<form:option value="50">50</form:option>
-					</form:select>~
-					<form:select path="end_hour" id="end_hour">
-						<c:forEach var="hour" begin="0" end="23">
-							<option value="<c:if test="${hour < 10}">0</c:if>${hour}" ${untactBookSetting.end_hour eq hour ? 'selected' : ''} ><c:if test="${hour < 10}">0</c:if>${hour}
-						</c:forEach>
-					</form:select>:
-					<form:select path="end_minute" id="end_minute">
-						<form:option value="00">00</form:option>
-						<form:option value="10">10</form:option>
-						<form:option value="20">20</form:option>
-						<form:option value="30">30</form:option>
-						<form:option value="40">40</form:option>
-						<form:option value="50">50</form:option>
 					</form:select>
+					<div class="ui-state-highlight">
+						<em>선택하신 기준일로부터 지정하신 일수와 시간에 맞춰 예약 기준 시간이 반복됩니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>
 				<th>사물함 타입 설정(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<input type="radio" name="locker_use_type" value="비밀번호" id="locker_use_type1" <c:if test="${untactBookSetting.locker_use_type eq '비밀번호'}">checked</c:if>><label for="locker_use_type1">&nbsp;비밀번호</label>&nbsp;
-					<input type="radio" name="locker_use_type" value="QR코드" id="locker_use_type2" <c:if test="${untactBookSetting.locker_use_type eq 'QR코드'}">checked</c:if>><label for="locker_use_type2">&nbsp;QR코드</label>&nbsp;
-					<input type="radio" name="locker_use_type" value="사물함없음" id="locker_use_type3" <c:if test="${untactBookSetting.locker_use_type eq '사물함없음'}">checked</c:if>><label for="locker_use_type3">&nbsp;사물함없음</label>
+					<input type="radio" name="locker_use_type" value="0" id="비밀번호" <c:if test="${untactBookSetting.locker_use_type eq '0'}">checked</c:if>><label for="비밀번호">&nbsp;비밀번호</label>&nbsp;
+					<input type="radio" name="locker_use_type" value="1" id="QR코드" <c:if test="${untactBookSetting.locker_use_type eq '1'}">checked</c:if>><label for="QR코드">&nbsp;QR코드</label>&nbsp;
+					<input type="radio" name="locker_use_type" value="2" id="사물함없음" <c:if test="${untactBookSetting.locker_use_type eq '2'}">checked</c:if>><label for="사물함없음">&nbsp;사물함없음</label>
 				</td>
 			</tr>
 			<tr>

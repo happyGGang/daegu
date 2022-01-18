@@ -4,6 +4,8 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -96,14 +102,35 @@ public class UntactLockerSettingController extends BaseController {
 
 		ValidationUtils.rejectIfEmpty(result, "locker_use_yn", "사물함 사용여부를 선택하세요.");
 		ValidationUtils.rejectIfEmpty(result, "row_count", "사물함 한줄당 갯수를 입력하세요.");
+		ValidationUtils.rejectIfEmpty(result, "total_count", "총 사물함 갯수를 입력하세요.");
 		ValidationUtils.rejectIfZero(result, "total_count", "총 사물함 갯수를 입력하세요.");
-		ValidationUtils.rejectIfZero(result, "reservation_max_count", "하루최대 대출가능 권수를 입력하세요.");
+		ValidationUtils.rejectIfEmpty(result, "round_start_date", "예약기준 기준일을 선택하세요.");
+		ValidationUtils.rejectIfEmpty(result, "round_end_date", "예약기준 기준일을 선택하세요.");
+		ValidationUtils.rejectIfEmpty(result, "reservation_repeated_day", "예약기준 반복일수를 입력하세요.");
+		ValidationUtils.rejectIfZero(result, "reservation_repeated_day", "예약기준 반복일수를 입력하세요.");
+		ValidationUtils.rejectIfZero(result, "start_hour", "예약기준 반복시간을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "locker_use_type", "사물함 타입을 설정해주세요.");
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+			Date start = sdf.parse(untactBookSetting.getRound_start_date());
+			UntactBookRound untactBookRound = new UntactBookRound();
+			untactBookRound.setHomepage_id(untactBookSetting.getHomepage_id());
+			untactBookRound.setRound_idx(DateFormatUtils.format(start.getTime(), "yyyyMMdd"));
+			service.deleteUntactBookRound(untactBookRound);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		if (!result.hasErrors()) {
-			service.mergeUntactBookSetting(untactBookSetting);
-			res.setValid(true);
-			res.setMessage("수정 되었습니다.");
+			if(service.createUntactBookRound(untactBookSetting) > 0) {
+				service.mergeUntactBookSetting(untactBookSetting);
+				res.setValid(true);
+				res.setMessage("수정 되었습니다.");
+			} else {
+				res.setMessage("저장에 실패하였습니다.\n관리자에게 문의해주세요.");
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

@@ -6,70 +6,96 @@ public class UntactBookSetting {
 	private String locker_use_yn;  		//사물함 사용여부
 	private int row_count;  			//가로_갯수
 	private int total_count; 			//총_갯수
-	private int reservation_max_count;  //일일_최대_대출가능_권수
-	private String loan_time;  			//대출가능시간
+	private String round_start_date;	//회차시작일
+	private String round_end_date;	//회차종료일
+	private int reservation_repeated_day;	//회차반복일
+	private String reservation_repeated_time;	//예약기준시간
 	private String locker_use_type;		//사물함 타입
 	private String terms;
+
+	private String start_hour;
+	private String start_minute;
 	
-	private String start_hour;			//대출가능 시작(시)
-	private String start_minute;		//대출가능 시작(분)
-	private String end_hour;			//대출가능 종료(시)
-	private String end_minute;			//대출가능 종료(분)
+	private String round_idx;  		//회차_idx
+	
+	public String getHomepage_id() {
+		return homepage_id;
+	}
+	
+	public void setHomepage_id(String homepage_id) {
+		this.homepage_id = homepage_id;
+	}
 	
 	public String getLocker_use_yn() {
 		return locker_use_yn;
 	}
-
+	
 	public void setLocker_use_yn(String locker_use_yn) {
 		this.locker_use_yn = locker_use_yn;
 	}
-
-	public String getHomepage_id() {
-		return homepage_id;
-	}
-
-	public void setHomepage_id(String homepage_id) {
-		this.homepage_id = homepage_id;
-	}
-
-	public Integer getRow_count() {
+	
+	public int getRow_count() {
 		return row_count;
 	}
-
-	public void setRow_count(Integer row_count) {
-		this.row_count = row_count;
-	}
-
-	public Integer getTotal_count() {
-		return total_count;
-	}
-
-	public void setTotal_count(Integer total_count) {
-		this.total_count = total_count;
-	}
-
-	public int getReservation_max_count() {
-		return reservation_max_count;
-	}
-
-	public void setReservation_max_count(int reservation_max_count) {
-		this.reservation_max_count = reservation_max_count;
-	}
-
-	public String getLoan_time() {
-		return loan_time;
-	}
-
-	public void setLoan_time(String loan_time) {
-		this.loan_time = loan_time;
-	}
-
+	
 	public void setRow_count(int row_count) {
 		this.row_count = row_count;
 	}
-
+	
+	public int getTotal_count() {
+		return total_count;
+	}
+	
 	public void setTotal_count(int total_count) {
 		this.total_count = total_count;
+	}
+	
+	public String getRound_start_date() {
+		return round_start_date;
+	}
+	
+	public void setRound_start_date(String round_start_date) {
+		this.round_start_date = round_start_date;
+	}
+	
+	public String getRound_end_date() {
+		return round_end_date;
+	}
+	
+	public void setRound_end_date(String round_end_date) {
+		this.round_end_date = round_end_date;
+	}
+	
+	public int getReservation_repeated_day() {
+		return reservation_repeated_day;
+	}
+	
+	public void setReservation_repeated_day(int reservation_repeated_day) {
+		this.reservation_repeated_day = reservation_repeated_day;
+	}
+	
+	public String getReservation_repeated_time() {
+		return reservation_repeated_time;
+	}
+	
+	public void setReservation_repeated_time(String reservation_repeated_time) {
+		this.reservation_repeated_time = reservation_repeated_time;
+	}
+	
+	public String getLocker_use_type() {
+		return locker_use_type;
+	}
+	
+	public void setLocker_use_type(String locker_use_type) {
+		this.locker_use_type = locker_use_type;
+	}
+	
+	public String getTerms() {
+		return terms;
+	}
+	
+	public void setTerms(String terms) {
+		this.terms = terms;
 	}
 
 	public String getStart_hour() {
@@ -88,35 +114,12 @@ public class UntactBookSetting {
 		this.start_minute = start_minute;
 	}
 
-	public String getEnd_hour() {
-		return end_hour;
+	public String getRound_idx() {
+		return round_idx;
 	}
 
-	public void setEnd_hour(String end_hour) {
-		this.end_hour = end_hour;
+	public void setRound_idx(String round_idx) {
+		this.round_idx = round_idx;
 	}
-
-	public String getEnd_minute() {
-		return end_minute;
-	}
-
-	public void setEnd_minute(String end_minute) {
-		this.end_minute = end_minute;
-	}
-
-	public String getLocker_use_type() {
-		return locker_use_type;
-	}
-
-	public void setLocker_use_type(String locker_use_type) {
-		this.locker_use_type = locker_use_type;
-	}
-
-	public String getTerms() {
-		return terms;
-	}
-
-	public void setTerms(String terms) {
-		this.terms = terms;
-	}
+	
 }

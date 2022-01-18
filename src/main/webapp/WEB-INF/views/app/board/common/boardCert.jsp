@@ -97,26 +97,26 @@ $(function() {
 	<c:when test="${homepage.context_path eq '228'}">
 		<c:choose>
 		<c:when test="${param.manage_idx eq '293'}">
-	<div class="Box">
-		<p>♣ 개인정보의 수집·이용 목적 : 오너(Owner)의 작은 책장 서비스 운영</p>
-		<p>♣ 수집하려는 개인정보의 항목 : 업체명, 이름, 업체전화번호, 휴대전화번호, 주소</p>
-		<p>♣ 개인정보의 보유 및 이용 기간 : 오너(Owner)의 작은 책장 서비스 이용 철회 시까지</p>
-		<p>♣ 개인정보 수집 및 이용에 거부할 권리가 있습니다. 다만 동의를 거부하는 경우 오너(Owner)의 작은 책장 서비스 이용에 제한이 있습니다.</p>
-	</div>
+			<div class="Box">
+				<p>♣ 개인정보의 수집·이용 목적 : 오너(Owner)의 작은 책장 서비스 운영</p>
+				<p>♣ 수집하려는 개인정보의 항목 : 업체명, 이름, 업체전화번호, 휴대전화번호, 주소</p>
+				<p>♣ 개인정보의 보유 및 이용 기간 : 오너(Owner)의 작은 책장 서비스 이용 철회 시까지</p>
+				<p>♣ 개인정보 수집 및 이용에 거부할 권리가 있습니다. 다만 동의를 거부하는 경우 오너(Owner)의 작은 책장 서비스 이용에 제한이 있습니다.</p>
+			</div>
 
-	<div class="agree_codes">
-		<div class="checkbox">
-			<input id="agree_codes" name="agree_codes" req="0001" type="checkbox" value="2">
-			<label for="agree_codes">위 내용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
-		</div>
-	</div>
+			<div class="agree_codes">
+				<div class="checkbox">
+					<input id="agree_codes" name="agree_codes" req="0001" type="checkbox" value="2">
+					<label for="agree_codes">위 내용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+				</div>
+			</div>
 
-	<div class="notice" style="margin:20px 0; padding: 1.5%; border: 2px solid navy; background: #f3f3f3;">
-		<p>
-			오너의 책장 서비스 신청 및 대출희망 도서를 올리는 곳으로, 휴대폰 본인인증 또는 공공아이핀을 사용하여 본인 확인 후 글을 쓰시면 됩니다.<br/>
-			게시되는 글의 본문이나 첨부파일에 개인정보가 포함되어 있는 경우 반드시 비밀글로 작성해주세요.
-		</p>
-	</div>		
+			<div class="notice" style="margin:20px 0; padding: 1.5%; border: 2px solid navy; background: #f3f3f3;">
+				<p>
+					오너의 책장 서비스 신청 및 대출희망 도서를 올리는 곳으로, 휴대폰 본인인증 또는 공공아이핀을 사용하여 본인 확인 후 글을 쓰시면 됩니다.<br/>
+					게시되는 글의 본문이나 첨부파일에 개인정보가 포함되어 있는 경우 반드시 비밀글로 작성해주세요.
+				</p>
+			</div>		
 		</c:when>
 		<c:otherwise>
 	<div class="Box" style="height:200px">
@@ -162,7 +162,7 @@ $(function() {
 
 	<div class="notice" style="margin-top: 20px; padding: 1.5%; border: 2px solid navy; background: #f3f3f3;">
 		<p>
-			도서관을 이용하시면서 <span class="blue">불편한 사항, 개선할 사항, 건의할 사항</span>을 올리는 곳으로 <span class="color5">휴대폰 본인인증</span> 또는
+			<c:if test="${param.menu_idx ne '226'}">도서관을 이용하시면서 <span class="blue">불편한 사항, 개선할 사항, 건의할 사항</span>을 올리는 곳으로 </c:if><span class="color5">휴대폰 본인인증</span> 또는
 			<span class="color5">공공아이핀</span>을 사용하여 본인 확인 후 글을 쓰시면 됩니다.
 
 			<br>
@@ -258,8 +258,8 @@ $(function() {
 			</p>
 			<p class="identy_b">
 				<a href="#" class="certtype" id="parentGpin">
-					<img src="/resources/common/img/identy2.png" alt="공공 I-PIN인증"/>
-					<span>${parentNameTag}공공 I-PIN(아이핀)인증</span>
+					<img src="/resources/common/img/identy2.png" alt="I-PIN인증"/>
+					<span>${parentNameTag}I-PIN(아이핀)인증</span>
 				</a>
 			</p>
 		</div>

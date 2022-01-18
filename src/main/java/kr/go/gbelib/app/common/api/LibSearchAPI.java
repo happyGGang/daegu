@@ -880,6 +880,33 @@ public class LibSearchAPI {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
 	}
+	
+	/**
+	 * K.API - 16
+	 *
+	 * 비대면예약취소
+	 *
+	 * @author HWAN 2022. 01. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse cancelReservation(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userkey", librarySearch.getUserkey());// 이용자key
+		param.put("reckey", librarySearch.getBookkey());// 대출key
+		param.put("type", "1");// 만기취소
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("bookreservecancel", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 
 	/**
 	 * K.API - 17
@@ -1447,7 +1474,37 @@ public class LibSearchAPI {
 		}
 	}
 
+	/**
+	 * 비대면도서대출
+	 * @author whalesoft HWAN 2022. 1. 12.
+	 * @param isbn
+	 * @return
+	 */
+	public static ApiResponse untactloanreserve(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
 
+		param.put("userkey", librarySearch.getUserkey());// 이용자key
+		param.put("bookkey", librarySearch.getBookkey());// 책key
+		String booktype = librarySearch.getBooktype();
+		if (!StringUtils.equals(booktype, "BO") && !StringUtils.equals(booktype, "SE")) {
+			booktype = StringUtils.equals(booktype, "BOOK") ? "BO" : "SE";
+		}
+		param.put("booktype", booktype);// 자료타입 BO:단행본, SE:연속간행물
+		param.put("worker", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+		param.put("expire_date_cnt", librarySearch.getExprire_date_cnt());// 예약만기일수
+
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedloanreserve", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+	
 	/**
 	 * K.API - 64
 	 *
@@ -1487,6 +1544,44 @@ public class LibSearchAPI {
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		param.put("worker", librarySearch.getWorker());// 장비ID
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
+			param.put("startdate", librarySearch.getSearch_start_date());//예약일 검색시작일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) {
+			param.put("enddate", librarySearch.getSearch_end_date());//예약일 검색종료일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
+		}
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+		if (StringUtils.isNotEmpty(librarySearch.getBookkey())) {
+			param.put("bookkey", librarySearch.getBookkey());
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getRegNo())) {
+			param.put("reg_no", librarySearch.getRegNo());
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getUserkey())) {
+			param.put("userkey", librarySearch.getUserkey());
+		}
+		if (StringUtils.isNotEmpty(workno)) {
+			param.put("workno", workno);
+		}
+
+		return CommonAPI.sendKCMS("getunmannedloanreservelist", param);
+	}
+	
+	/**
+	 * K.API - 63
+	 *
+	 * 무인대출예약 목록 조회
+	 *
+	 * @author whalesoft YONGJU 2020. 4. 9.
+	 * @param librarySearch
+	 * @param workno
+	 * @return
+	 */
+	public static Map<String, Object> getUntactBookLoanReserveList(LibrarySearch librarySearch, String workno) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("worker", "UT"+librarySearch.getManageCode()+"01");// 장비ID
 		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
 			param.put("startdate", librarySearch.getSearch_start_date());//예약일 검색시작일 YYYYMMDDHH24MISS 형식 (14자리)	(미입력시 기본값 : 검색당일)
 		}
@@ -2345,6 +2440,69 @@ public class LibSearchAPI {
 
 		return CommonAPI.sendData4Library(param, "recommandList");
 	}
+	
+	/**
+	 * K.API - 63
+	 *
+	 * 예약대출기 상태 수정
+	 *
+	 * @author whalesoft HWAN 2022. 01. 12.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse bookreserveUpdateStatus(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
 
+		param.put("loankey", librarySearch.getLoan_key());// 이용자key
+		param.put("reserve_type", "unmanned");// 예약종류
+		param.put("reserve_status", "O");// 예약상태
+		if(StringUtils.isNotEmpty(librarySearch.getExprire_date_cnt())) {
+			param.put("expire_date", librarySearch.getExprire_date_cnt());// 예약만기일
+		}
 
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("bookreserveUpdateStatus", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+	
+	/**
+	 * K.API - 48
+	 *
+	 * 무인대출
+	 *
+	 * @author whalesoft HWAN 2022. 01. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse unmannedloan(LibrarySearch librarySearch, String ip) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("manage_code", librarySearch.getManageCode());// 도서관 관리구분코드
+		param.put("userkey", librarySearch.getUserkey());// 이용자KEY
+		param.put("reg_no", librarySearch.getReg_no());// 대출자료 등록번호
+		if(StringUtils.isNotEmpty(librarySearch.getLoan_date())) {
+			param.put("loan_date", librarySearch.getLoan_date());// 대출일 YYYYMMDDHHmmSS (미입력시 기본값 : sysdate)
+		}
+		if(StringUtils.isNotEmpty(librarySearch.getReturn_plan_date())) {
+			param.put("return_plan_date", librarySearch.getReturn_plan_date());// 반납예정일 YYYYMMDDHHmmSS (미입력시 대출일 기준으로 계산)
+		}
+		param.put("device_name", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+		param.put("client_ip", ip);
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedloan", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 }
