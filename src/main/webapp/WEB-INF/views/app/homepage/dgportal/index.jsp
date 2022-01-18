@@ -23,7 +23,7 @@ int cuNum1 = rnd.nextInt(9);
 int cuNum2 = 0;
 
 do {
-	cuNum2 = rnd.nextInt(9);
+	cuNum2 = rnd.nextInt(11);
 } while (cuNum1 == cuNum2);
 %>
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
@@ -55,7 +55,8 @@ do {
 	
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함. 메인 팝업 추천도서 잠시 주석 2021-12-02
-		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset' || member.member_id eq 'ka1004' || member.member_id eq 'yjoh7012' || member.member_id eq 'blessjheum')}) {
+		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset' || member.member_id eq 'pshnoi88' || member.member_id eq 'ka1004' || member.member_id eq 'yjoh7012' || member.member_id eq 'blessjheum')}) 
+		{
 			var result = '';
 			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
 			var x = 0;
@@ -94,12 +95,41 @@ do {
 
 			$('#keywords').jQCloud(words, {});
 		}
-		
+
+		$('div.keyword-box').load('module/bookKeyword/bookKeyword.do');
+
+		$('#reloadKeyword').on('click', function(){
+			$('div.keyword-box').load('module/bookKeyword/bookKeyword.do');
+		});
+
+		$(document).on("click", "#keyword span[id^=keyword_word_]", function() {
+			var selected_count= $('.select-keyword span').length;
+			var text = $(this).text();
+			var keywordCount = $('.select-keyword span:contains("'+text+'")').length;
+			
+			if (keywordCount <= 0) {
+				if (selected_count >= 3) {
+					alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
+					return false;
+				}	
+			}
+			
+			if (keywordCount >= 1) {
+				$(this).css('border', '');
+				$(this).removeAttr('select');
+				$('.select-keyword span:contains("'+text+'")' ).remove();
+			} else {
+				$(this).css('border', 'solid');
+				$(this).attr('select', 'selected');
+				$('.select-keyword').append('<span style="margin-left: 5px;">' + text + '<i class="fa fa-times" style="margin-left:3px; cursor:pointer;" id="keywordRemove"></i></span>');
+			}
+		});
+
 		$('#search_keyword').on('click',function(e){
 			// 초기화
-			keyword = '';
+			$('#keyword_name').val('');
 			
-			var selected_count= $('#keywords span[select=selected]').length;
+			var selected_count= $('.select-keyword span').length;;
 			
 			if (selected_count == 0) {
 				alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
@@ -107,16 +137,17 @@ do {
 			}
 			
 			for (var i = 0; i < selected_count; i++) {
-				var keyword_text = $('#keywords span[select=selected]').eq(i).text(); 
+				var keyword_text = $('.select-keyword span').eq(i).text(); 
 				
-				if (keyword == null || keyword == '') {
-					keyword = keyword_text;
+				var keyword_name = $('#keyword_name').val();
+				if (keyword_name == null || keyword_name == '') {
+					$('#keyword_name').val(keyword_text);
 				} else {
-					keyword= keyword+','+keyword_text;
+					$('#keyword_name').val(keyword_name+','+keyword_text);
 				}
 			}
 			
-			doGetLoad('module/bookKeyword/view.do?menu_idx=', "keyword_name="+keyword);
+			doGetLoad('module/bookKeyword/view.do', "menu_idx=87&keyword_name="+$('#keyword_name').val());
 		});
 		
 		$(document).on("click", "#keywords span[id^=keywords_word_]", function() {
@@ -139,7 +170,13 @@ do {
 				$(this).attr('select', 'selected');
 			}
 		});
-		
+
+		$(document).on('click', '#keywordRemove', function(){
+			var text = $(this).parent("span").text(); 
+			$(this).parent("span").remove();
+			$('#keyword span[id^=keyword_word_]:contains("'+text+'")').css('border', '');
+		});
+
 		$('#homeup').click(function () {
 			$('body,html').animate({
 				scrollTop: 0
@@ -354,9 +391,48 @@ do {
 /* 	ul.con li a{color:#000;font-size:18px;font-family:'s-core_dream5_medium';} */
 /* 	ul.con li a span{float:right;font-size:15px;font-family:'s-core_dream4_regular';background:url('/data/menuResources/h32/87/1634785476833.png')no-repeat center right;padding-right:55px;} */
 </style>
+<style>
+	.user_pick_info {position:relative;width:100%;margin-top:30px;padding:40px 0 35px;background-color:#f3f4f6;text-align:center;}
+	.user_pick_info img{position:absolute;top:-30px;left:46%;}
+	.user_pick_info h2{font-size:30px;color:#39366a;font-weight:600;letter-spacing:0;font-family:'s-core_dream6_bold';}
+	.user_pick_info p.txt_box01{font-size:16px;color:#39366a;line-height:23px;letter-spacing:0;margin:0 9%;font-family:'s-core_dream5_medium';}
+	.user_pick_info p.txt_box_mini{font-size:14px;color:#39366a;opacity:0.8;font-family:'s-core_dream5_medium';margin-top:5px;}
 
+	#keyword span {font-family:'S-CoreDream-4Regular';cursor:pointer;}
+	#keyword {height: 400px;}
+
+	.select-keyword{position:relative;width:100%;margin-bottom:30px;text-align:center;padding-top:30px;}
+	.select-keyword span{display:inline-block;font-family:'S-CoreDream-4Regular';color:#fff;font-size:18px;background:#333;width:180px;height:55px;line-height:55px;content:'#';}
+	.select-keyword span::before{content:'#';}
+
+	.btn-box{position:relative;width:96%;margin:0 auto;clear:both;}
+	.btn-box ul{font-size:0;}
+	.btn-box ul li{display:inline-block;width:32%;padding:15px 0;line-height:180%;text-align:center;border-radius:5px;box-sizing:border-box;}
+	.btn-box ul li a{font-family:'s-core_dream5_medium';font-size:19px;letter-spacing:-0.25px;display:block;}
+	.btn-box ul li a span{display:block;font-family:'S-CoreDream-4Regular';font-size:13px;letter-spacing:0;}
+	.btn-box ul li.btn1{background:#fdf8ee;margin-right:1%;}
+	.btn-box ul li.btn1 a{color:#333;}
+	.btn-box ul li.btn2{background:#086cc0;margin-right:1%;}
+	.btn-box ul li.btn2 a{color:#fff;}
+	.btn-box ul li.btn3{background:#7e97ad;}
+	.btn-box ul li.btn3 a{color:#fff;}
+
+	@media only screen and (max-width:550px){
+		.user_pick_info img{position:absolute;top:-30px;left:43%;}
+		.user_pick_info h2{font-size:25px;}
+
+		.select-keyword{margin-bottom:10px;}
+		.select-keyword span{font-size:14px;margin-bottom:5px;width:32%;height:40px;line-height:40px;}
+		
+		.btn-box ul li{display:block;width:100%;line-height:160%;}
+		.btn-box ul li.btn1{margin-right:0;margin-bottom:5px;}
+		.btn-box ul li a{font-size:16px;}
+		.btn-box ul li a span{font-size:12px;}
+	}
+</style>
 <!--추천도서 시작-->
-<div id="recom_wrap" class="recom_wrap" style="display:none">
+<div id="recom_wrap" class="recom_wrap" style="display:none;">
+	<input type="hidden" id="keyword_name">
 	<!--닫기버튼-->
 	<div class="close_btn">
 		<a href="javascript:void(0)" tabindex="1" data-day="1" class="book-close-btn"><img src="/resources/common/img/recom_close_btn.png" alt="창 닫기 버튼"></a>
@@ -371,19 +447,37 @@ do {
 
 	<!--키워드 박스-->
 	<div class="recom_a_box">
-		<div id="keywords">
+		<div class="keyword-box">
 
 		</div>
 	</div>
 
+	<div class="select-keyword">
+
+	</div>
+
 	<!--버튼-->
-	<div class="btn_box">
+	<div class="btn-box">
 		<ul>
 <!-- 			<li class="step prev_btn"><a href="">이전단계</a></li> -->
-			<li class="con"><a href="javascript:location.reload()">키워드변경</a></li>
-			<li class="con"><a href="javascript:void(0)" class="book-close-btn">그만끝내기</a></li>
-			<li class="con"><a href="javascript:void(0)" id="search_keyword">검색</a></li>
+			<!-- <li class="con"><a href="javascript:location.reload()">키워드변경</a></li>
+			
+			<li class="con"><a href="javascript:void(0)" id="search_keyword">검색</a></li> -->
 <!-- 			<li class="step next_btn"><a href="">다음단계</a></li> -->
+			
+			<li class="btn1">
+				<a href="javascript:void(0)" id="reloadKeyword">
+					키워드 변경
+					<span>마음에 드는 키워드가 없으시다면 새로운 키워드를 받아보세요</span>
+				</a>
+			</li>
+			<li class="btn2">
+				<a href="javascript:void(0)" id="search_keyword">
+					맞춤책 추천
+					<span>선택하신 키워드와 연관된 맞춤책을 추천해드립니다</span>
+				</a>
+			</li>
+			<li class="btn3"><a href="javascript:void(0)" class="book-close-btn">그만끝내기<span>새로고침시 다시 이용가능합니다.</span></a></li>
 		</ul>
 		
 	</div>
@@ -496,7 +590,6 @@ do {
 												<form id="mainSearchForm2" action="/dgportal/intro/search/indexAll.do">
 												<input type="hidden" name="menu_idx" value="7">
 												<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
-												<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 												<div class="box1">
 													<div class="box2">
 														<label for="search_text_2" class="blind">통합자료검색</label>
@@ -643,8 +736,23 @@ do {
 											<span class="">큐레이션</span>
 										</div>
 										<div class="cont">
-
 												<ul>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/86" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu11.png" alt="추운 겨울, 방구석 독서"></div>
+														<p class="book-title">추운 겨울, 방구석 독서</p>
+														<p class="book-desc">방구석 독서로 따뜻한 겨울나기</p>
+														<p class="reg-date">2022-01-17</p>
+													</a>
+												</li>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/85" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu10.png" alt="대구 전시관 여행"></div>
+														<p class="book-title">관,관,관</p>
+														<p class="book-desc">대구에서 만날 수 있는 전시관 여행</p>
+														<p class="reg-date">2022-01-17</p>
+													</a>
+												</li>
 												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/79" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu06.png" alt="3호선여행"></div>
@@ -2198,7 +2306,23 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
-                        <li>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/86" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu11.png" alt="추운 겨울, 방구석 독서"></div>
+								<h3 class="book-title">추운 겨울, 방구석 독서</h3>
+								<p class="book-desc">방구석 독서로 따뜻한 겨울나기</p>
+								<p class="reg-date">2022-01-17</p>
+							</a>
+						</li>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/85" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu10.png" alt="대구 전시관 여행"></div>
+								<h3 class="book-title">관,관,관</h3>
+								<p class="book-desc">대구에서 만날 수 있는 전시관 여행</p>
+								<p class="reg-date">2022-01-17</p>
+							</a>
+						</li>
+						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/79" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu06.png" alt="3호선여행"></div>
 								<h3 class="book-title">3호선여행</h3>

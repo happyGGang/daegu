@@ -151,11 +151,10 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
 </form>
 
-<form id="untactBookReqForm" action="untactBook/form.do" method="post">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
-	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" name="regNo" value="${detail.REG_NO}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
@@ -526,13 +525,13 @@ $(function() {
 								</c:when>
 
 								<c:otherwise>
-									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'goal0000'|| sessionScope.member.member_id eq 'tayotayo'|| sessionScope.member.member_id eq 'suae0908'|| sessionScope.member.member_id eq 'namepsy'}">
+									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'}">
 									<%
 									org.joda.time.DateTime now = new org.joda.time.DateTime();
 									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 									int hour = now.getHourOfDay();
 
-									if(10 <= hour && hour < 20)
+									if(10 <= hour && hour < 14)
 									{
 									%>
 										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
@@ -546,8 +545,8 @@ $(function() {
 									}
 									%>
 									</c:if>
-
 									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
+									
 								</c:otherwise>
 
 							</c:choose>
@@ -573,7 +572,13 @@ $(function() {
 			 -->
 			<!--비대면도서대출 버튼-->
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'}">
-				<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				<c:choose>
+				<c:when test="${detail.LOAN_CODE eq 'OK'}">
+					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+				</c:choose>
 			</c:if>
 			
 			<c:choose>
