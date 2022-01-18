@@ -84,12 +84,12 @@ $(function() {
 	
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="libraryCheck" action="loanList.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
 <form:hidden path="viewPage"/>
 <form:hidden path="library_check_loan_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="infodesk">
 		검색 결과 : 총 ${paging.totalDataCount}건
 		<form:select path="library_check_number" cssClass="selectmenu">

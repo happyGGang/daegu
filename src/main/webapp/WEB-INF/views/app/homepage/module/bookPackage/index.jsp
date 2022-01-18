@@ -151,11 +151,12 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookPackage" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+
 <div id="category-box">
 	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackage.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll" class="customCheck"/>
 	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackage.category, '000') ? 'checked' : ''}" label="총류" class="customCheck categoryChk"/>

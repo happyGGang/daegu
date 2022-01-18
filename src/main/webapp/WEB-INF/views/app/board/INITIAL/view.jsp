@@ -23,8 +23,6 @@ ${boardManage.top_html}
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
-
-2
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-header">
