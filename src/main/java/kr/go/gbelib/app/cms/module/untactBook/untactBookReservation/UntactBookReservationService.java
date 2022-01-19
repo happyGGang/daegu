@@ -24,28 +24,20 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getUntactBookReservationList(untactBookReservation);
 	}
 	
-	public int getUntactBookReservationCount(String homepage_id) {
-		return dao.getUntactBookReservationCount(homepage_id);
+	public int getUntactBookReservationCount(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationCount(untactBookReservation);
 	}
 
 	public int getUntactBookReservationListCount(UntactBookReservation untactBookReservation) {
 		return dao.getUntactBookReservationListCount(untactBookReservation);
 	}
 	
-	public int getUntactBookReservationLockerNumber(String homepage_id) {
-		return dao.getUntactBookReservationLockerNumber(homepage_id);
+	public int getUntactBookReservationLockerNumber(UntactBookReservation untactBookReservation) {
+		return dao.getUntactBookReservationLockerNumber(untactBookReservation);
 	}
 	
 	public UntactBookReservation getUntactBookReservationOne(UntactBookReservation untactBookReservation) {
 		return dao.getUntactBookReservationOne(untactBookReservation);
-	}
-
-	public int changeReservationStep(UntactBookReservation untactBookReservation) {
-		return dao.changeReservationStep(untactBookReservation);
-	}
-
-	public int deleteAllReservation(UntactBookReservation untactBookReservation) {
-		return dao.deleteAllReservation(untactBookReservation);
 	}
 
 	public List<UntactBookReservation> getUntactBookReservationListNow(UntactBookReservation untactBookReservation) {

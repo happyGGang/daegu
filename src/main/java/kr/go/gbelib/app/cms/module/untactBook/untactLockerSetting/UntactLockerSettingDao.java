@@ -48,4 +48,8 @@ public interface UntactLockerSettingDao {
 
 	public String getRepeatedOne(String homepage_id);
 
+	public String getUntactBookRoundBefore(UntactBookRound untactBookRound);
+
+	public int checkUntactBookRoundCount(UntactBookRound untactBookRound);
+
 }

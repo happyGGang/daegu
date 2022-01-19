@@ -111,12 +111,21 @@ public class UntactLockerSettingController extends BaseController {
 		ValidationUtils.rejectIfZero(result, "start_hour", "예약기준 반복시간을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "locker_use_type", "사물함 타입을 설정해주세요.");
 		
+		UntactBookRound untactBookRound = new UntactBookRound();
+		untactBookRound.setHomepage_id(untactBookSetting.getHomepage_id());
+		
+		if(untactBookSetting.getReservation_repeated_day() > 1) {
+			if(service.checkUntactBookRoundCount(untactBookRound) > 1) {
+				res.setValid(false);
+				res.setMessage("중복되는 기존 반복일이 있어 수정이 불가능합니다.\n관리자에게 문의해주세요.");
+				return res;
+			}
+		}
+		
 		try {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 			Date start = sdf.parse(untactBookSetting.getRound_start_date());
-			UntactBookRound untactBookRound = new UntactBookRound();
-			untactBookRound.setHomepage_id(untactBookSetting.getHomepage_id());
 			untactBookRound.setRound_idx(DateFormatUtils.format(start.getTime(), "yyyyMMdd"));
 			service.deleteUntactBookRound(untactBookRound);
 		} catch (ParseException e) {

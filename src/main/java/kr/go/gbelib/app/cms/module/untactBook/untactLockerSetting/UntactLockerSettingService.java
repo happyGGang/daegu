@@ -192,4 +192,12 @@ public class UntactLockerSettingService extends BaseService {
 	public String getRepeatedOne(String homepage_id) {
 		return dao.getRepeatedOne(homepage_id);
 	}
+
+	public String getUntactBookRoundBefore(UntactBookRound untactBookRound) {
+		return dao.getUntactBookRoundBefore(untactBookRound);
+	}
+
+	public int checkUntactBookRoundCount(UntactBookRound untactBookRound) {
+		return dao.checkUntactBookRoundCount(untactBookRound);
+	}
 }

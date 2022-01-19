@@ -37,6 +37,9 @@ public class UntactBookReservation extends PagingUtils {
 	
 	private int[] request_number_arr;  //신청번호_arr
 	
+	private String before_round_idx;  //이전회차
+	private String now_round_idx;  //현재회차
+	
 	private String start_date;
 	private String end_date;
 	
@@ -292,6 +295,22 @@ public class UntactBookReservation extends PagingUtils {
 
 	public void setReservation_step_code_name(String reservation_step_code_name) {
 		this.reservation_step_code_name = reservation_step_code_name;
+	}
+
+	public String getBefore_round_idx() {
+		return before_round_idx;
+	}
+
+	public void setBefore_round_idx(String before_round_idx) {
+		this.before_round_idx = before_round_idx;
+	}
+
+	public String getNow_round_idx() {
+		return now_round_idx;
+	}
+
+	public void setNow_round_idx(String now_round_idx) {
+		this.now_round_idx = now_round_idx;
 	}
 	
 }

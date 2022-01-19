@@ -168,7 +168,7 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 			data : ajaxData,
 			success: function(html) { 
 				if(html == 'penaltyFalse') {
-					alert(member_name + '(' + member_id + ')님은 이미 페널티가 부여되었습니다.\n\n패널티 부여는 한 아이디당 하루에 한번만 가능합니다.');
+					alert(member_name + '(' + member_id + ')님은 이미 페널티가 부여되었습니다.\n패널티 부여는 한 아이디당 하루에 한번만 가능합니다.');
 				} else {
 					modal_layer_add('dialog_layer');
 					$('#dialog_layer').html(html);
@@ -373,6 +373,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 							<ul class="tabnav">
 								<li><a href="/cms/module/untactBook/adminMode/index.do" class="active" style="font-size: 13px;">예약, 대기 항목</a></li>
 								<li><a href="/cms/module/untactBook/adminMode/index2.do" style="font-size: 13px;">대출, 만기처리 항목</a></li>
+								<li><a href="/cms/module/untactBook/adminMode/index3.do" style="font-size: 13px;">미처리 항목</a></li>
 							</ul>
 						</div>
 						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">

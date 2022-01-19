@@ -80,7 +80,7 @@ $(function(){
 	<tbody>
 	<c:if test="${fn:length(untactBookCancelHistoryList) < 1}">
 		<tr style="height:100%">
-			<td colspan="10" style="background:#f8fafb;">비대면 사물함 취소내역이 없습니다.</td>
+			<td colspan="8" style="background:#f8fafb;">비대면 사물함 취소내역이 없습니다.</td>
 		</tr>
 	</c:if>
 	<c:forEach var="i" varStatus="status" items="${untactBookCancelHistoryList}">

@@ -69,22 +69,19 @@ public class AdminModeController extends BaseController {
 		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
-		untactBookRound.setHomepage_id(getAsideHomepageId(request));
-		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
-		
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
 		
 		untactBookReservation.setAdmin_member_id(member.getMember_id());
-		untactBookReservation.setRound_idx(round_idx);
 		
-		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
-		reservationService.setPaging(model, count, untactBookReservation);
+		untactBookRound.setHomepage_id(getAsideHomepageId(request));
+		String round_idx = settingService.getUntactBookRoundBefore(untactBookRound);
+		untactBookReservation.setRound_idx(round_idx);
 		
 		model.addAttribute("untactBookSetting", untactBookSetting);
 		model.addAttribute("untactLockerSetting", untactLockerSetting);
 		model.addAttribute("untactLockerSettingList", settingService.showLockerState(getAsideHomepageId(request)));
-		model.addAttribute("untactBookReservationListCount", count);
+		//금일기준 그전 회차를 가지고 와야함
 		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationListNow(untactBookReservation));
 		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
 		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
@@ -95,8 +92,6 @@ public class AdminModeController extends BaseController {
 				return basePath + "index";
 			}
 		}
-		
-		
 		return basePath + "nonLockerIndex";
 	}
 	
@@ -114,13 +109,9 @@ public class AdminModeController extends BaseController {
 		
 		untactBookReservation.setAdmin_member_id(member.getMember_id());
 		
-		int count = reservationService.getUntactBookReservationListCount(untactBookReservation);
-		reservationService.setPaging(model, count, untactBookReservation);
-		
 		model.addAttribute("untactBookSetting", untactBookSetting);
 		model.addAttribute("untactLockerSetting", untactLockerSetting);
 		model.addAttribute("untactLockerSettingList", settingService.showLockerState(getAsideHomepageId(request)));
-		model.addAttribute("untactBookReservationListCount", count);
 		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationListBefore(untactBookReservation));
 		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
 		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
@@ -131,8 +122,36 @@ public class AdminModeController extends BaseController {
 				return basePath + "index2";
 			}
 		}
+		return basePath + "nonLockerIndex";
+	}
+	
+	@RequestMapping(value = { "/index3.*" })
+	public String index3(Model model, UntactBookSetting untactBookSetting, UntactLockerSetting untactLockerSetting, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
 		
+		untactBookSetting = settingService.getUntactBookSettingOne(getAsideHomepageId(request));
 		
+		untactLockerSetting.setHomepage_id(getAsideHomepageId(request));
+		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
+		
+		model.addAttribute("untactBookSetting", untactBookSetting);
+		model.addAttribute("untactLockerSetting", untactLockerSetting);
+		model.addAttribute("untactLockerSettingList", settingService.showLockerState(getAsideHomepageId(request)));
+		model.addAttribute("untactBookReservationList", reservationService.getUntactBookReservationListBefore(untactBookReservation));
+		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
+		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
+		model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
+		
+		if (StringUtils.isNotEmpty(settingService.getLockerUseType(getAsideHomepageId(request)))) {
+			if(!(settingService.getLockerUseType(getAsideHomepageId(request)).equals("사물함없음"))) {
+				return basePath + "index3";
+			}
+		}
 		return basePath + "nonLockerIndex";
 	}
 	
@@ -226,12 +245,6 @@ public class AdminModeController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		JsonResponse res = new JsonResponse(request);
 		
-		untactBookRound.setHomepage_id(getAsideHomepageId(request));
-		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
-		
-		untactBookRound.setRound_idx(round_idx);
-		UntactBookRound roundTime = settingService.getUntactBookRoundAll(untactBookRound);
-		
 		List<UntactBookReservation> waitingReservationList = reservationService.getWaitingReservationList(untactBookReservation);
 		for (int i = 0; i < waitingReservationList.size(); i++) {
 			String request_number = String.valueOf(waitingReservationList.get(i).getRequest_number());
@@ -242,12 +255,18 @@ public class AdminModeController extends BaseController {
 			String book_name = String.valueOf(waitingReservationList.get(i).getBook_name());
 			String locker_no = String.valueOf(waitingReservationList.get(i).getLocker_number());
 			String locker_pass = String.valueOf(waitingReservationList.get(i).getLocker_password());
+			String round_idx = String.valueOf(waitingReservationList.get(i).getRound_idx());
 			
 			librarySearch.setManageCode(manageCode);
 			librarySearch.setUserkey(userKey);
 			librarySearch.setRegNo(regNo);
-			librarySearch.setSearch_start_date(roundTime.getRound_start_date());
-			librarySearch.setSearch_end_date(roundTime.getRound_end_date());
+			
+			untactBookRound.setRound_idx(round_idx);
+			untactBookRound.setHomepage_id(getAsideHomepageId(request));
+			untactBookRound = settingService.getUntactBookRoundAll(untactBookRound);
+			
+			librarySearch.setSearch_start_date(untactBookRound.getRound_start_date());
+			librarySearch.setSearch_end_date(untactBookRound.getRound_end_date());
 			//무인대출예약 목록 조회
 			Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUntactBookLoanReserveList(librarySearch, null);
 			List<Map<String, Object>> list = null;
@@ -386,27 +405,6 @@ public class AdminModeController extends BaseController {
 
 	}
 	
-	@RequestMapping (value = {"/deleteAll.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse deleteAllReservation(UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
-		
-		untactBookReservation.setCancel_id(getSessionMemberId(request));
-		untactBookReservation.setCancel_ip(request.getRemoteAddr());
-		
-		JsonResponse res = new JsonResponse(request);
-		
-		if (!result.hasErrors()) {
-			reservationService.deleteAllReservation(untactBookReservation);
-			res.setValid(true);
-			res.setMessage("삭제되었습니다.");
-		} else {
-			res.setValid(false);
-			res.setResult(result.getAllErrors());
-		}
-		return res;
-
-	}
-	
 	@RequestMapping (value = {"/randomPassword.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse randomPassword(UntactBookRound untactBookRound, UntactBookBlackList untactBookBlackList, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
@@ -414,7 +412,7 @@ public class AdminModeController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		
 		untactBookRound.setHomepage_id(getAsideHomepageId(request));
-		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
+		String round_idx = settingService.getUntactBookRoundBefore(untactBookRound);
 		
 		if(StringUtils.isNotEmpty(round_idx)) {
 			untactBookReservation.setRound_idx(round_idx);
