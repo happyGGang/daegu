@@ -146,7 +146,7 @@ public class UntackBookApiService extends BaseService {
 			        		msg = "성공";
 						} else {
 							success_yn = "N";
-			        		msg = "실패";
+			        		msg = "KLAS API오류" + apiResult.getMessage();
 						}
 					} else {
 						success_yn = "N";
@@ -165,7 +165,6 @@ public class UntackBookApiService extends BaseService {
         		
         		if(receiptList != null) {
         			receiptList.setReservation_step("4");
-        			System.out.println(receiptList.getRequest_number());
 					librarySearch.setManageCode(receiptList.getManage_code());
 					librarySearch.setUserkey(receiptList.getUser_key());
 					librarySearch.setReg_no(receiptList.getReg_no());
@@ -181,6 +180,9 @@ public class UntackBookApiService extends BaseService {
 						}
 						success_yn = "Y";
 		        		msg = "성공";
+					} else {
+						success_yn = "N";
+		        		msg = "KLAS API오류" + apiResult.getMessage();
 					}
         		} else {
         			success_yn = "N";
