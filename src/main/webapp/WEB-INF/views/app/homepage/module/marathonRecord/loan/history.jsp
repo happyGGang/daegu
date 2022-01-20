@@ -42,7 +42,7 @@ $(function() {
 			</tr>
 		</thead>
 		<tbody>
-		<c:if test="${fn:length(loanList) < 1}"><td colspan="6">대출한 도서가 없습니다.</td></c:if>
+		<c:if test="${fn:length(loanList) < 1}"><tr><td colspan="6">대출한 도서가 없습니다.</td></tr></c:if>
 		<c:forEach items="${loanList}" var="i" varStatus="status">
 			<tr>
 				<td>${i.LIB_NAME}</td>

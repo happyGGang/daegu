@@ -184,7 +184,8 @@ public class MarathonRecordController extends BaseController{
 		return null;
 	}
 	
-	@RequestMapping(value = {"/loan/history.*"})
+	
+	@RequestMapping(value = {"/loan/index.*", "/loan/history.*"})
 	public String myLoan(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
@@ -195,53 +196,96 @@ public class MarathonRecordController extends BaseController{
 		}
 
 		Member member = getSessionMemberInfo(request);
-
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.YEAR, -1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
-			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
-		}
-		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
-			librarySearch.setSearch_end_date(sdf.format(new Date()));
-		}
-
-		librarySearch.setUserkey(member.getRec_key());
-		Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
-
-		List<Map<String, Object>> list = null;
-
-		int count = LibSearchAPI.getSearchCount(result);
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
-
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			list = LibSearchAPI.getListData(result);
-		}
-
-		int minIndex;
-		for (int i = 0; i < list.size() - 1; i++) {
-			minIndex = i;
-			for (int j = i + 1; j < list.size(); j++) {
-				String a = (String) list.get(minIndex).get("LOAN_DATE");
-				a = a.replaceAll("/", "-");
-				Date firstDate = sdf.parse(a);
-				String b = (String) list.get(j).get("LOAN_DATE");
-				b = b.replaceAll("/", "-");
-				Date secondDate = sdf.parse(b);
-				int compare = firstDate.compareTo(secondDate);
-				if (compare < 0) {
-					minIndex = j;
-				}
-			}
-			Map<String, Object> temp = list.get(minIndex);
-			list.set(minIndex, list.get(i));
-			list.set(i, temp);
-		}
-		model.addAttribute("loanList", list);
 		
-		return String.format(basePath, homepage.getFolder()) + "loan/history_ajax";
+		librarySearch.setManageCode("BU,BV,BW,BX,BY,BZ,FA,FB,GC,FD,FW,FX,GK");
+		
+		if (request.getRequestURI().endsWith("/loan/history.do")) {
+
+    		Calendar cal = Calendar.getInstance();
+    		cal.add(Calendar.YEAR, -1);
+    
+    		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+    			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+    		}
+    		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+    			librarySearch.setSearch_end_date(sdf.format(new Date()));
+    		}
+    
+    		librarySearch.setUserkey(member.getRec_key());
+    		Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
+    
+    		List<Map<String, Object>> list = null;
+    
+    		int count = LibSearchAPI.getSearchCount(result);
+    		librarySearch.setTotalDataCount(count);
+    		service.setPaging(model, count, librarySearch);
+    
+    		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+    			list = LibSearchAPI.getListData(result);
+    		}
+    		//대출일 오름차순 정렬로 수정
+    		int minIndex;
+    		for (int i = 0; i < list.size() - 1; i++) {
+    			minIndex = i;
+    			for (int j = i + 1; j < list.size(); j++) {
+    				String a = (String) list.get(minIndex).get("LOAN_DATE");
+    				a = a.replaceAll("/", "-");
+    				Date firstDate = sdf.parse(a);
+    				String b = (String) list.get(j).get("LOAN_DATE");
+    				b = b.replaceAll("/", "-");
+    				Date secondDate = sdf.parse(b);
+    				int compare = firstDate.compareTo(secondDate);
+    				if (compare < 0) {
+    					minIndex = j;
+    				}
+    			}
+    			Map<String, Object> temp = list.get(minIndex);
+    			list.set(minIndex, list.get(i));
+    			list.set(i, temp);
+    		}
+    		model.addAttribute("loanList", list);
+    		
+    		return String.format(basePath, homepage.getFolder()) + "loan/history_ajax";
+    		
+		} else {
+			
+			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = LibSearchAPI.getListData(result);
+			}
+			//대출일 오름차순 정렬로 수정
+    		int minIndex;
+    		for (int i = 0; i < list.size() - 1; i++) {
+    			minIndex = i;
+    			for (int j = i + 1; j < list.size(); j++) {
+    				String a = (String) list.get(minIndex).get("LOAN_DATE");
+    				a = a.replaceAll("/", "-");
+    				Date firstDate = sdf.parse(a);
+    				String b = (String) list.get(j).get("LOAN_DATE");
+    				b = b.replaceAll("/", "-");
+    				Date secondDate = sdf.parse(b);
+    				int compare = firstDate.compareTo(secondDate);
+    				if (compare < 0) {
+    					minIndex = j;
+    				}
+    			}
+    			Map<String, Object> temp = list.get(minIndex);
+    			list.set(minIndex, list.get(i));
+    			list.set(i, temp);
+    		}
+
+			model.addAttribute("loanList", list);
+
+			return String.format(basePath, homepage.getFolder()) + "loan/index_ajax";
+		}
 	}
 
 
