@@ -86,7 +86,6 @@ public class UntactBookController extends BaseController {
 		model.addAttribute("untactBookReservationList", untactBookReservationService.getUntactBookReservationInfo(untactBookReservation));
 		
 		if(StringUtils.isNotEmpty(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()))) {
-			System.out.println(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()));
 			if(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("1")) {
 				return String.format(basePath, homepage.getFolder()) + "qrIndex";
 			} else if (untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("0")) {
