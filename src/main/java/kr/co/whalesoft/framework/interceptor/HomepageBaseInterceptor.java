@@ -1,15 +1,14 @@
 package kr.co.whalesoft.framework.interceptor;
 
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -35,6 +34,7 @@ import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
 import kr.go.gbelib.app.cms.module.elib.category.ElibCategory;
+import kr.go.gbelib.app.cms.module.elib.category.ElibCategoryService;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCode;
 import kr.go.gbelib.app.cms.module.elib.code.ElibCodeService;
 
@@ -78,6 +78,16 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 		Menu menuOne = null;
 		List<Menu> menuLeftList = null;
 		uri = request.getRequestURI().substring(request.getContextPath().length());
+		
+		String queryString = request.getQueryString();
+		
+		if (queryString != null) {
+			if (queryString.contains("javascript")) {
+				return alertMessage("보안상 잘못된 요청이 발생했습니다.", request, response);
+			} else if (queryString.contains("script")) {
+				return alertMessage("보안상 잘못된 요청이 발생했습니다.", request, response);
+			}
+		}
 
 		if(homepageUrl(uri)) { // 홈페이지 관련 URL 일때
 			if ( uri.startsWith("/index.do") ) {
@@ -348,6 +358,18 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private boolean alertMessage(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
+		PrintWriter writer = response.getWriter();
+		writer.println("<script>");
+		writer.println("alert('" + message + "');"); 
+		writer.println("history.back();");
+		writer.println("</script>");
+		writer.flush();
+		
+		return false;
 	}
 
 }

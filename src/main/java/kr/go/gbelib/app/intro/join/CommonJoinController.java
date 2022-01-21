@@ -597,7 +597,7 @@ public class CommonJoinController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = {"/findId.*"})
+	@RequestMapping(value = {"/findId.*"}, method = RequestMethod.POST)
 	public String findId(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
@@ -710,7 +710,7 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "integration";
 	}
 
-	@RequestMapping(value = {"/integration1.*"})
+	@RequestMapping(value = {"/integration1.*"}, method=RequestMethod.POST)
 	public String integration1(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 		// 동일인 목록 가져오기
@@ -907,11 +907,11 @@ public class CommonJoinController extends BaseController {
 			return null;
 		}
 
-		Member sessionMemberInfo = getSessionMemberInfo(request);
-		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
-			joinService.alertMessageAndUrl("이미 인증된 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-			return null;
-		}
+//		Member sessionMemberInfo = getSessionMemberInfo(request);
+//		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+//			joinService.alertMessageAndUrl("이미 인증된 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+//			return null;
+//		}
 
 		return String.format(basePath, homepage.getFolder()) + "dls";
 	}
@@ -1028,11 +1028,11 @@ public class CommonJoinController extends BaseController {
 
 		//정회원여부확인
 		//정회원은 이용불가
-		Member sessionMemberInfo = getSessionMemberInfo(request);
-		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
-			joinService.alertMessageAndUrl("이미 인증 받은 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-			return null;
-		}
+//		Member sessionMemberInfo = getSessionMemberInfo(request);
+//		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+//			joinService.alertMessageAndUrl("이미 인증 받은 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+//			return null;
+//		}
 
 
 		return String.format(basePath, homepage.getFolder()) + "untactForm";
@@ -1062,9 +1062,9 @@ public class CommonJoinController extends BaseController {
 		//정회원여부확인
 		//정회원은 이용불가
 		Member sessionMemberInfo = getSessionMemberInfo(request);
-		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
-			result.reject("이미 인증 받은 회원입니다.");
-		}
+//		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
+//			result.reject("이미 인증 받은 회원입니다.");
+//		}
 
 		String jumin1 = request.getParameter("jumin1");
 		if (StringUtils.isEmpty(jumin1)) {
