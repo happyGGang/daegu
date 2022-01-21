@@ -62,4 +62,14 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getWaitingReservationList(UntactBookReservation untactBookReservation);
 
+	public int checkPasswordCountBefore(UntactBookReservation untactBookReservation);
+
+	public int checkNonPasswordCountBefore(UntactBookReservation untactBookReservation);
+
+	public List<UntactBookReservation> getNonPasswordListBefore(UntactBookReservation untactBookReservation);
+
+	public void insertPasswordBefore(UntactBookReservation untactBookReservationOne);
+
+	public List<UntactBookReservation> getUnprocessedList(UntactBookReservation untactBookReservation);
+
 }

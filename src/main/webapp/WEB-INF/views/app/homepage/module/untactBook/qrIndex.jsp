@@ -32,9 +32,12 @@ function cancelDetail(request_number, member_id, member_name, cancel_reason) {
 	alert(cancel_reason + '로 인한 예약취소 입니다.');		
 }
 
-function qrCode(locker_password) {
+function qrCode(user_key, homepage_id, locker_number, locker_password) {
 
 	var ajaxData = {
+			'user_key' : user_key,
+			'homepage_id' : homepage_id,
+			'locker_number' : locker_number,
 			'locker_password' : locker_password
 	};
 	
@@ -106,7 +109,7 @@ function qrCode(locker_password) {
 				<td>${i.book_name}</td>
 				<td>
 					<div class="button">
-						<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.locker_password}');">클릭</a>
+						<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.user_key}', '${i.homepage_id}', '${i.locker_number}', '${i.locker_password}');">클릭</a>
 					</div>
 				</td>
 				<td>

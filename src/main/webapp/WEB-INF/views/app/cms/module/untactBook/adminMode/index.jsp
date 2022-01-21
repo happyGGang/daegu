@@ -141,6 +141,8 @@ function cancelReservation() {
 				success: function(response) {
 					if(response.valid) {
 						alert('만기처리 되었습니다.');
+					} else {
+						alert(response.message);
 					}
 					location.reload();
 				},
@@ -238,6 +240,10 @@ function randomPassword(passwordCount, nonPasswordCount) {
 		});
 	}
 }
+
+function bookName(book_name) {
+	alert('도서명 : '+book_name);
+}
 </script>
 
 <!--[if IE 7]>
@@ -253,40 +259,46 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	/*비대면관련 스타일*/
 	.wrapper {overflow:hidden;}
 	.wrapper.wrapper-white {padding:0;margin:0;}
-
-	.untact-box {
-		width:calc(55% - 20px);
-		margin-left:20px;
-		float:left;
-		box-sizing:border-box;
-/* 		max-height:920px;
-		overflow-y:auto; */
+	.wrapper.wrapper-white .cont-box::after {
+		content: '';
+		display: block;
+		width: 100%;
+		clear: both;
 	}
-	.untact-box tbody td {height:45px;line-height:45px;}
-
-	.locker-box-wrap{
+	.wrapper.wrapper-white .cont-box {
+		width: 100%;
+		padding: 0 20px;
+		box-sizing:border-box;
+	}
+	.wrapper.wrapper-white .cont-box .locker-box-wrap{
 		position:relative;
 		float:left;
-		width:calc(45% - 56px);
+		width: 40%;
 		background:#eee;
+		margin: 0;
 		padding:13px 7px 7px 13px;
-		margin-left:30px;
 		box-sizing: border-box;
 	}
-
+	.wrapper.wrapper-white .cont-box .untact-box {
+		float:left;
+		width: 60%;
+		padding-left:20px;
+		box-sizing:border-box;
+	}
+		
+	.untact-box tbody td {height:45px;line-height:45px;}
 	.locker-box {box-sizing:border-box;max-height:920px;overflow-y:auto;}
 	.locker-box ul {font-size:0;overflow:hidden;}
 	.locker-box li {position:relative;margin-right:6px !important;margin-bottom:6px !important;display:inline-block;background:#fff;height:145px;padding:0;margin:0;border:1px solid #ccc;box-sizing:border-box;border-radius:5px;}
 	.locker-box li p {display:block;box-sizing:border-box;text-align:center;}
 	.locker-box li p.locknumber {position:absolute;top:10px;left:10px;font-size:12px;color:#fff;font-weight:bold;background:#223c63;border-radius:50%;width:27px;height:27px;line-height:27px;}
 	.locker-box li p.name {font-size:15px;color:#333;text-align:center;margin-top:70px;}
-
 	.locker-box li.divide2 {width:calc(50% - 6px);}
 	.locker-box li.divide3 {width:calc(33.33333333333% - 6px);}
 	.locker-box li.divide4 {width:calc(25% - 6px);}
 	.locker-box li.divide5 {width:calc(20% - 6px);}
 	.locker-box li.notuse {background:#2e2e2e url('/resources/common/img/locker-no-bg.png') no-repeat center center;}
-
+	.locker-box li.use {background:#BDBDBD no-repeat center center;}
 	a.btnuntact {border-radius:0;padding:7px 10px;}
 
 	@media all and (max-width:1280px){
@@ -301,8 +313,14 @@ function randomPassword(passwordCount, nonPasswordCount) {
 
 	@media all and (max-width:768px){
 		.locker-box{width:100%;float:none;}
-		.untact-box {width:95%;}
-		.locker-box-wrap{float:unset;width:calc(100% - 56px);margin-left:0;margin:0 auto;}
+		.wrapper.wrapper-white .cont-box .untact-box {
+			width:100%;
+			margin:0 0 30px;
+		}
+		.wrapper.wrapper-white .cont-box .locker-box-wrap {
+			width:100%;
+			margin:0;
+		}
 	}
 
 	@media all and (max-width:600px){
@@ -387,6 +405,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 										<th scope="col">신청자아이디</th>
 										<th scope="col">신청자명</th>
 										<th scope="col">도서명</th>
+										<th scope="col">도서등록번호</th>
 										<th scope="col">사물함번호</th>
 										<th scope="col">비밀번호</th>
 										<th scope="col">관리</th>
@@ -396,7 +415,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 								<tbody>
 								<c:if test="${fn:length(untactBookReservationList) < 1}">
 									<tr style="height:100%">
-										<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
+										<td colspan="11" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
 									</tr>
 								</c:if>
 								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
@@ -404,7 +423,15 @@ function randomPassword(passwordCount, nonPasswordCount) {
 										<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
 										<td>${i.member_id}</td>
 										<td>${i.member_name}</td>
-										<td>${i.book_name}</td>
+										<c:choose>
+											<c:when test="${fn:length(i.book_name) > 8}">
+												<td><a href="javascript:void(0);" id="bookName" onclick="bookName('${i.book_name}');">${fn:substring(i.book_name,0,7)}..</a></td>
+											</c:when>
+											<c:otherwise>
+												<td>${i.book_name}</td>
+											</c:otherwise>
+										</c:choose>
+										<td>${i.reg_no}</td>
 										<td>${i.locker_number}</td>
 										<td>
 											<c:choose>
@@ -443,10 +470,10 @@ function randomPassword(passwordCount, nonPasswordCount) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn7 btnuntact" onclick="receiptReservationStep();">접수</a>
-							<a href="javascript:void(0);" id="waitingReservationStepAll" class="btn btn7 btnuntact" onclick="waitingReservationStep();">대기</a>
-							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn7 btnuntact" onclick="bookReservation();">대출</a>
-							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn1 btnuntact" onclick="cancelReservation();">만기</a>
+							<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStep();">접수</a>
+							<a href="javascript:void(0);" id="waitingReservationStepAll" class="btn btn2 btnuntact" onclick="waitingReservationStep();">대기</a>
+							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn4 btnuntact" onclick="bookReservation();">대출</a>
+							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
 							<a href="javascript:void(0);" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 						</div>
 

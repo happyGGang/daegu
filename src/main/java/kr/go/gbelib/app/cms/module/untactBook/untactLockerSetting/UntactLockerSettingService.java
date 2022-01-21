@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,11 +194,19 @@ public class UntactLockerSettingService extends BaseService {
 		return dao.getRepeatedOne(homepage_id);
 	}
 
+	public String getUntactBookRound(UntactBookRound untactBookRound) {
+		return dao.getUntactBookRound(untactBookRound);
+	}
+
 	public String getUntactBookRoundBefore(UntactBookRound untactBookRound) {
 		return dao.getUntactBookRoundBefore(untactBookRound);
 	}
 
 	public int checkUntactBookRoundCount(UntactBookRound untactBookRound) {
 		return dao.checkUntactBookRoundCount(untactBookRound);
+	}
+
+	public List<UntactLockerSetting> showLockerStateBefore(UntactBookReservation untactBookReservation) {
+		return dao.showLockerStateBefore(untactBookReservation);
 	}
 }

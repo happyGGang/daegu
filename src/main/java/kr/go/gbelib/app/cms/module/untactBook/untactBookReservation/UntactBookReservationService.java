@@ -134,4 +134,35 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getWaitingReservationList(untactBookReservation);
 	}
 
+	public int checkPasswordCountBefore(UntactBookReservation untactBookReservation) {
+		return dao.checkPasswordCountBefore(untactBookReservation);
+	}
+
+	public int checkNonPasswordCountBefore(UntactBookReservation untactBookReservation) {
+		return dao.checkNonPasswordCountBefore(untactBookReservation);
+	}
+
+	@Transactional
+	public int passwordSettingBefore(UntactBookReservation untactBookReservation) {
+		List<UntactBookReservation> list = dao.getNonPasswordListBefore(untactBookReservation);
+		Random test = new Random();
+		test.setSeed(new Date().getTime());
+		for(UntactBookReservation untactBookReservationOne : list) {
+			int p = (int)(Math.random()*(9 - 1 + 1))+ 1;
+			String a = Integer.toString(test.nextInt(10));
+			String s = Integer.toString(test.nextInt(10));
+			String ss = Integer.toString(test.nextInt(10));
+			int pass = Integer.parseInt(p+a+s+ss);
+			untactBookReservationOne.setLocker_password(pass);
+			untactBookReservationOne.setRound_idx(untactBookReservation.getRound_idx());;
+			dao.insertPasswordBefore(untactBookReservationOne);
+		}
+		
+		return 1;
+	}
+
+	public List<UntactBookReservation> getUnprocessedList(UntactBookReservation untactBookReservation) {
+		return dao.getUnprocessedList(untactBookReservation);
+	}
+
 }

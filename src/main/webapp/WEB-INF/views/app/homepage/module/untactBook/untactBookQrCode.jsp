@@ -12,7 +12,7 @@
         render : "canvas",      //table, canvas 형식 두 종류가 있다. 
         width : 350,            //넓이 조절
         height : 350,           //높이 조절
-        text   : "${untactBookReservation.locker_password}"     //QR코드에 실릴 문자열
+        text   : "${untactBookReservation.user_key}"+"^"+"${untactBookReservation.homepage_id}"+"^"+"${untactBookReservation.locker_number}"+"^"+"${untactBookReservation.locker_password}"     //QR코드에 실릴 문자열
     });
 </script>
 <div id="gcDiv"></div>

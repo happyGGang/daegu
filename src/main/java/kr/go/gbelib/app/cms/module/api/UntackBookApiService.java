@@ -42,7 +42,7 @@ public class UntackBookApiService extends BaseService {
         if(!StringUtils.isEmpty(untackBookReservation.getHomepage_id()) && untackBookReservation.getLocker_number() > 0 && untackBookReservation.getLocker_password() > 0 && !StringUtils.isEmpty(untackBookReservation.getUser_key())) {
         	UntactBookRound untactBookRound = new UntactBookRound();
         	untactBookRound.setHomepage_id(untackBookReservation.getHomepage_id());
-    		String round_idx = settingService.getUntactBookRoundBefore(untactBookRound);
+    		String round_idx = settingService.getUntactBookRound(untactBookRound);
     		
     		if(StringUtils.isNotEmpty(round_idx)) {
     			untackBookReservation.setRound_idx(round_idx);

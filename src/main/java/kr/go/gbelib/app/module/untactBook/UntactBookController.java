@@ -86,10 +86,11 @@ public class UntactBookController extends BaseController {
 		model.addAttribute("untactBookReservationList", untactBookReservationService.getUntactBookReservationInfo(untactBookReservation));
 		
 		if(StringUtils.isNotEmpty(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()))) {
-			if(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("QR코드")) {
-				return String.format(basePath, homepage.getFolder()) + "untactBook/qrIndex";
-			} else if (untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("비밀번호")) {
-				return String.format(basePath, homepage.getFolder()) + "untactBook/passwordIndex";
+			System.out.println(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()));
+			if(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("1")) {
+				return String.format(basePath, homepage.getFolder()) + "qrIndex";
+			} else if (untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("0")) {
+				return String.format(basePath, homepage.getFolder()) + "passwordIndex";
 			}
 		}
 		
@@ -99,7 +100,7 @@ public class UntactBookController extends BaseController {
 	@RequestMapping(value = { "/untactBookQrCode.*" })
 	public String qrCode(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		return String.format(basePath, homepage.getFolder()) + "untactBook/untactBookQrCode_ajax";
+		return String.format(basePath, homepage.getFolder()) + "untactBookQrCode_ajax";
 	}
 	
 	@RequestMapping (value = {"/cancelReserve.*"}, method = RequestMethod.POST)
