@@ -72,12 +72,12 @@ $(function(){
 	});
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="readingNotes" action="index.do" method="GET" onsubmit="return false;">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="reading_notes_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="wrapper-bbs">
 		<div class="infodesk">

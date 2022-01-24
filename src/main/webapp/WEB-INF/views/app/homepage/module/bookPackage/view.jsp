@@ -36,12 +36,12 @@ table.type2 th, table.type2 td{padding:10px 15px;}
 table.type2 tbody tr td dl dt {display: inline-block;border-right: 1px solid silver;padding-right: 5px;margin-right: 5px;}
 table.type2 tbody tr td dl dd {display: inline-block;margin-right: 15px;}
 </style>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookPackage" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="viewPage"/>
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div>
 	<table class="type2">
 		<thead>

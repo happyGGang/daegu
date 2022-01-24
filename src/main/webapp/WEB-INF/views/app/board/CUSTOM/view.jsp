@@ -12,7 +12,6 @@
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />

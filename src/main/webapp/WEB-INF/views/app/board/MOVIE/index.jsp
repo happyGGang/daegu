@@ -213,10 +213,10 @@ $(function() {
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="category1"/>
 <form:hidden path="plan_date"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <c:if test="${fn:length(category1List) > 0}">
 <div class="tabmenu tab1">

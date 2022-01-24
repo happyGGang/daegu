@@ -107,14 +107,12 @@ $(function() {
 </form>
 
 
-
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />

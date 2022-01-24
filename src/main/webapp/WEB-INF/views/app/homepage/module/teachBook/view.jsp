@@ -47,12 +47,12 @@ $(document).ready(function() {
 	});	
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form id="excelDownForm" modelAttribute="teachBook" action="excelDownload.do" method="get">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
 	<form:hidden path="teach_idx"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <table class="type2 center" style="">
 	<colgroup>

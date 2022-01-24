@@ -82,11 +82,11 @@ $(document).ready(function() {
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <form:hidden path="category1"/>
 <form:hidden path="request_state"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${!member.admin}">
 <hidden id="category2" value="${sessionScope.member.homepage_id}"/>
 </c:if>

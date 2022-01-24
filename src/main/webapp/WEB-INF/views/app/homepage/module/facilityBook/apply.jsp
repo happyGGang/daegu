@@ -7,10 +7,10 @@ $(function() {
 	
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="facilityBook" action="apply.do" method="GET">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="menu_idx"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="table-wrap">
 		<table class="type1 center">
 			<colgroup>

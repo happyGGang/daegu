@@ -379,6 +379,7 @@ function go_to_login() {
 	</form:form>
 </c:if>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="book" method="GET" action="view.do">
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx" value="${param.menu_idx}"/>
@@ -392,7 +393,6 @@ function go_to_login() {
 	<form:hidden path="book_idx" value="${param.book_idx}"/>
 	<form:hidden path="lesson_no"/>
 	<form:hidden path="audio_no"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="serial-wrap">
 		<div class="sview">

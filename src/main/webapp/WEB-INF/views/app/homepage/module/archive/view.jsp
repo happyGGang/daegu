@@ -93,10 +93,10 @@
 </head>
 <body>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form id="frm_sch" action="index.do"  method="get">
 	<input type="hidden" name="is_size" value="max" />
-	<input type="hidden" name="search_type" value="subject">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	<input type="hidden" name="search_type" value="subject">	
 	<div id="fbFooter">
 
 		<div id="logo">

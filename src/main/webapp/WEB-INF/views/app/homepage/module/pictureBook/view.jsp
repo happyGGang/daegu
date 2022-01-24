@@ -84,6 +84,7 @@ a.edit-btn{font-size:13px;}
 <form:hidden path="picture_book_idx" id="picture_book_idx_d"/>
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="pictureBook" action="index.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>
@@ -91,7 +92,6 @@ a.edit-btn{font-size:13px;}
 <form:hidden path="pay_yn"/>
 <form:hidden path="picture_book_idx"/>
 <form:hidden path="picture_book_subject"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div>
 	<div class="group-box">
 		<div class="img-box">

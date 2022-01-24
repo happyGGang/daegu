@@ -40,11 +40,11 @@ $(function() {
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="editMode"/>
 <form:hidden path="viewPage"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <table>
 	<tr>
 		<th style="text-align: center;">장서점검기 ${libraryCheck.library_check_number}</th>

@@ -40,7 +40,6 @@ $(document).ready(function() {
 <form:hidden path="category1"/>
 <form:hidden path="target_category"/>
 <form:hidden path="user_password"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />

@@ -55,7 +55,6 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	
 	<div class="" style="padding:20px;text-align:center;border:1px solid #eaeaea;border-top:2px solid #000;margin-bottom:10px;">
 		<label for="search_start_date" style="display:none1;">시작일</label>

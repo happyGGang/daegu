@@ -88,6 +88,7 @@ $(function(){
 		table.bbs th, table.bbs td{display:table-cell;}
 	}
 </style>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="marathonRecord" action="index.do" method="GET" onsubmit="return false;">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="contest_idx"/>
@@ -97,7 +98,6 @@ $(function(){
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="read_page_count_arr"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<div class="wrapper-bbs">
 		<div class="infodesk">

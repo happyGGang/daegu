@@ -13,10 +13,10 @@ $(function() {
 	});
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="libraryCheck" action="loanList.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="viewPage"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 <div>
 	<table class="type1">

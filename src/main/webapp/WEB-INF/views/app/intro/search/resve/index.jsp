@@ -49,9 +49,9 @@ $(function() {
 <a href="${prefix}hope/index.do" class="bBtn">희망도서신청조회</a>
 </div>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <div class="book-list">

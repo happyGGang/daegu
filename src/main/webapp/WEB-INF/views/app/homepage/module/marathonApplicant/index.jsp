@@ -32,6 +32,7 @@ $(function(){
 	});
 });
 </script>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="marathonApplicant" action="index.do" method="GET" >
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="contest_idx"/>
@@ -39,7 +40,6 @@ $(function(){
 	<form:hidden path="selectedType"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div id="cont_head" style="padding-bottom:0;">
 		<h3 style="font-weight:bold;">참가신청 현황</h3>
 	</div>

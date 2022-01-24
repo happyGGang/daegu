@@ -40,7 +40,6 @@ $(document).ready(function() {
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
 <form:hidden path="boardIdxArray"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />

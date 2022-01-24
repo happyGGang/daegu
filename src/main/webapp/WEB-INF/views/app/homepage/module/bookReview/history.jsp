@@ -95,9 +95,9 @@ $(document).ready(function() {
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookReview" action="index.do" method="GET" onsubmit="return false;">
 <form:hidden path="menu_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 <div id="libraryList" class="bbs-notice" style="margin-top:10px;margin-bottom:20px;" >
 	소장처&nbsp;:&nbsp;

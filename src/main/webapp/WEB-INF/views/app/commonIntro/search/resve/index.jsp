@@ -46,7 +46,6 @@ $(function() {
 
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />

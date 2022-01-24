@@ -39,13 +39,12 @@ $(document).ready(function() {
 	</ul>
 </div>
 
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="boardHistory" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <form:hidden path="historyType"/>
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="table-wrap">
 		<table class="bbs center" summary="게시물/게시글 현황">

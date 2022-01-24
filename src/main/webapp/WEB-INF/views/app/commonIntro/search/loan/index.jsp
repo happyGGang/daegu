@@ -43,7 +43,6 @@ $(function() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="manageCode"/>
 	<form:hidden path="excel_type" value="LOAN"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <!-- contents-title

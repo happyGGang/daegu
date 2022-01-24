@@ -67,16 +67,16 @@ $(function(){
 });
 </script>
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${fn:length(teachList) > 0}">
-	<div style="text-align: right">
+	<div style="text-align: right">	
 		<form:form id="excelDownForm" modelAttribute="teach" action="/${homepage.context_path}/module/teach/anonyExcelDownload.do" method="get">
 			<form:hidden path="homepage_id"/>
 			<form:hidden path="group_idx"/>
 			<form:hidden path="category_idx"/>
 			<form:hidden path="teach_idx"/>
 			<form:hidden path="member_key"/>
-			<form:hidden path="menu_idx"/>
-			<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+			<form:hidden path="menu_idx"/>		
 		</form:form>
 	</div>
 </c:if>

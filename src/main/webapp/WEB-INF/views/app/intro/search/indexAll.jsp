@@ -265,9 +265,9 @@ $(function() {
 <div id="contents-title"></div>
 <!-- /contents-title-->
 
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="librarySearch" action="indexAll.do" method="get">
 	<form:hidden path="viewPage"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 <div class="search-wrap">
 

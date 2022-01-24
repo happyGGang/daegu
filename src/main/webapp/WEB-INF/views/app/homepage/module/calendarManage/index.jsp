@@ -175,11 +175,11 @@ $(function(){
 });
 </script>
 	<c:set var="plan_date" value="${fn:split(calendarManage.plan_date, '-')}" />
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<form:form modelAttribute="calendarManage" method="GET">
 		<form:hidden path="plan_date"/>
 		<form:hidden id="homepage_id_1" path="homepage_id"/>
 		<form:hidden id="menu_idx" path="menu_idx"/>
-		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 		<c:set var="subHomepageLength" value="${fn:length(subHomepageList)}"></c:set>
 		<c:if test="${homepage.context_path eq 'junggu'}">

@@ -135,13 +135,13 @@ $(document).ready(function() {
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <form:form id="resveReqForm" modelAttribute="librarySearch" action="/${homepage.context_path}/intro/search/resve/save.do">
@@ -154,7 +154,6 @@ ${boardManage.top_html}
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="search-wrap">
 	<div class="sview">
 		<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />

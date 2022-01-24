@@ -52,6 +52,7 @@ $(function() {
 	</ul>
 </div>	
 <br/>
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form  modelAttribute="locker" id="lockerForm" action="edit.do" onsubmit="return false;" method="GET">
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 <form:hidden path="locker_pre_idx"/>
@@ -60,7 +61,6 @@ $(function() {
 <form:hidden path="apply_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="locker_idx"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:hidden path="locker_pre_type" value="${lockerPre.locker_pre_type}"/>
 	<div class="infodesk">		
 		<div class="button">
