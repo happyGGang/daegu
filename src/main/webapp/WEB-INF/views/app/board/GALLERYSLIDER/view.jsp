@@ -16,7 +16,6 @@ ${boardManage.top_html}
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -65,23 +64,6 @@ ${boardManage.top_html}
 		</div>
 
 		<link rel="stylesheet" href="/resources/common/css/swiper.min.css">
-		<style>
-		.swiper-wrap {position:relative;margin-top:30px;height: 100%;border:1px solid #ddd;padding:30px;}
-		.swiper-container {width: 100%;height: 300px;margin-left: auto;margin-right: auto;}
-		.swiper-slide {background-size:cover;background-position:center;background-repeat:no-repeat;}
-		.swiper-sthum {background-size:cover;background-position:center;background-repeat:no-repeat;}
-		.swiper-pagination-current{font-weight:600;font-size: 20px;color:#ff9900;letter-spacing: 5px;}
-		.swiper-pagination-total{margin-left:5px;}
-		.gallery-top {height:600px;width:100%;}
-		.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 15px 1px 5px 1px;}
-		.gallery-thumbs .swiper-slide {height: 100%;opacity: 0.2;}
-		.gallery-thumbs .swiper-slide-thumb-active {opacity: 1; border: 2px solid #ff9900;}
-		
-		@media all and (max-width:1024px){
-			.gallery-top {height:500px;width:100%;}
-		}
-
-		</style>
 
 		<div class='swiper-wrap'>
 			<!-- Swiper -->

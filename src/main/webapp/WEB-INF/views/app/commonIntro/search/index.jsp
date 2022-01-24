@@ -279,16 +279,6 @@ $(function() {
 });
 </script>
 
-<style>
-	@media (max-width: 767px){
-		.ws-toolbar{height:auto;}
-	}
-
-	@media (max-width: 650px){
-		.search-form .detail_search .section dl dt{font-size:13px;}
-	}
-</style>
-
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/viewStorage.do" method="post" target="myStoragePopup" style="display: none;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <input type="hidden" id="editMode" name="editMode" value="ADD">
@@ -327,9 +317,6 @@ $(function() {
 			<c:when test="${homepage.context_path eq 'donggu'}">
 				<c:choose>
 					<c:when test="${param.menu_idx eq '11'}">
-					<style>
-
-					</style>
 						<input id="subjectCode" name="subjectCode" type="hidden" value=""/>
 						<input id="booktype" name="booktype" type="hidden" value="BOOKANDNONBOOK"/>
 

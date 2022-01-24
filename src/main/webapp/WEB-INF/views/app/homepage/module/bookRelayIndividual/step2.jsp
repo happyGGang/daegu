@@ -23,16 +23,6 @@ $(function() {
 });
 </script>
 
-<style>
-	.tbl-type01 thead tr td{background:#fafafa;font-weight:bold;}
-	.tbl-type01 tbody tr td{background:#fafafa;font-size:13px;text-align:left;}
-
-	.join-wrap{padding: 0px !important;width:100%;}
-	
-	@media (max-width: 1024px) {
-		.join-wrap{padding:0 20px;width:calc(100% - 40px);}
-	}
-</style>
 <div class="join-wrap">
 	<form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividualStep" action="edit.do">
 	<form:hidden path="menu_idx"/>

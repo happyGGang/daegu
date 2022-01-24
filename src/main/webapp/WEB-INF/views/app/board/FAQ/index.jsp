@@ -37,38 +37,12 @@ $(function(){
 
 });
 </script>
-<style>
-.faqArea{clear:both;margin:0 auto;border-top:2px solid #3970b8;border-bottom:1px solid #d6d6d6;}
-.faq{margin:0;padding:0;list-style:none;}
-.faq .q{margin:0;border-top:1px solid #ddd;}
-.faq .q a.trigger{display:block;padding:15px;font-weight:bold;color:#333;text-align:left;text-decoration:none !important;font-size:14px;}
-.faq .q span{font-size:14px;font-weight:bold;color:#e32c2c;margin-right:5px;}
-.faq .hidden .q a.trigger{background:none;font-size:14px;}
-.faq .q a.trigger:hover{background:#f5fbfd;color:#e32c2c;}
-.faq .a{position:relative;margin:0;padding:10px 15px;line-height:1.5;background:#fdfcf5;overflow:hidden;padding-bottom:10px;padding-top:10px;border-top:1px dashed #ddd;}
-.faq .a .tit{font-size:14px;font-weight:bold;color:#e32c2c;display:inline-block;width:14px;position:absolute;top:14px;left:15px;}
-.faq .a .aContent{margin-left:25px;padding:5px 0;}
-.faq .a .aContent p{line-height:28px;}
-.faq .a .aContent span, .faq .a .aContent p, .faq .a .aContent strong{font-size:15px !important;}
-.faq .goQna{
-width:650px;padding:10px 0 10px 35px;margin:10px 0 7px 25px;border:1px dashed #ccc;background:url('/resources/board/img/ico_tip.gif') #fff no-repeat 10px 12px;font-size:13px;font-weight:bold;
--webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;
-}
-.faq .goQna span{vertical-align:top;margin-right:7px;font-size:13px;}
-
-.faq .q.blue span{color:#2e91ed;}
-.faq .q.blue a.trigger:hover,
-.faq .q.blue a.trigger:active,
-.faq .q.blue a.trigger:focus{color:#2e91ed;}
-.faq .a.blue .tit{color:#2e91ed !important;}
-
-</style>
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
-<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <form:hidden path="board_mode"/>
 <div class="wrapper-bbs">

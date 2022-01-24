@@ -23,26 +23,6 @@ $('ul.close_day').html(li);
 });
 })
 </script>
-<style>
-.mb10 {
-	margin-bottom: 20px;
-}
-.time_box ul li div {
-	background-position: 40px 20px !important;
-}
-
-@media all and (min-width: 768px) and (max-width: 1023px) {
-.time_box ul li:first-child div, .time_box ul li:nth-child(2) div {
-	padding: 30px 20px 30px 120px
-}
-.time_box ul li:last-child div {
-	padding: 20px 20px 40px 120px
-}
-.time_box ul li.book08 div {
-	background-position: 40px 15px !important;
-}
-}
-</style>
 
 <div class="doc-body">
   <h3>이용시간</h3>

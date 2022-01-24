@@ -2145,3 +2145,26 @@ input.new_text01 ::placeholder{font-size:15px;}
 
 	.new_apply_box .con{margin-bottom:10px;}
 }
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/yonghakCalendar1.jsp */
+/* homepage/yonghakCalendar2.jsp */
+
+.mb10 {
+	margin-bottom: 20px;
+}
+.time_box ul li div {
+	background-position: 40px 20px !important;
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	.time_box ul li:first-child div, .time_box ul li:nth-child(2) div {
+		padding: 30px 20px 30px 120px
+	}
+	.time_box ul li:last-child div {
+		padding: 20px 20px 40px 120px
+	}
+	.time_box ul li.book08 div {
+		background-position: 40px 15px !important;
+	}
+}

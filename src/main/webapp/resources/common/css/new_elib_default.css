@@ -1969,3 +1969,8 @@ table td.leftblank { padding-left: 18px; }
 .pd30b {padding-bottom:30px;}
 
 .end {clear:both;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/elib/index.jsp */	
+
+body, html {background:#387f7d url('/resources/homepage/elib/img/main-visual2.png') no-repeat center top;background-size:cover;}

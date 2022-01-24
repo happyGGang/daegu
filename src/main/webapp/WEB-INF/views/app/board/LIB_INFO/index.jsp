@@ -56,26 +56,11 @@ $(function() {
 ${boardManage.top_html}
 </c:if>
 
-<style>
-table.bbs tr.notice{background:#f5f6f7}
-@media (max-width: 430px) and (min-width: 0px) {
-	table.bbs col.col2 {
-	    width : 1%
-	}
-	td.title{width: 100%;float:left;border-bottom: none;margin-bottom: -5px;}
-	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
-	table.bbs tbody tr:hover {background:#f8f8f8}
-	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
-}
-</style>
-
 <link rel="stylesheet" type="text/css" href="/resources/common/css/libinfo.css" />
 <script type="text/javascript" src="/resources/common/js/libinfo.js"></script>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
-<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <div class="library-map-selector innerMap">
 	<div class="">
 		<!-- map -->

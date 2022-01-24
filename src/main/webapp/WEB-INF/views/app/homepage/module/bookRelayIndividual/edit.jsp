@@ -71,9 +71,6 @@ $(function() {
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 });
 </script>
-<style>
-	.bbs-edit th, .bbs-edit td{font-size:14px;}
-</style>
 
 <form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividualEdit" action="save.do" >
 <form:hidden path="menu_idx"/>

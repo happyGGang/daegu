@@ -3,16 +3,14 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
-	.table-wrap table td.td2 img{width:100px;}
-</style>
+
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
 <c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
-<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />

@@ -5,15 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/default.css"/>
 <script src="/resources/common/js/moment.min.js"></script>
-<style>
-	.clearfix {
-	    clear: both;
-	    overflow: hidden;
-	}
-	.inputDate {
-		padding: 0 10px 0 5px;
-	}
-</style>
+
 <script type="text/javascript">
 	$(function() {
 		$('input#searchStartDate').datepicker({

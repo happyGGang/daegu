@@ -7,20 +7,10 @@
 ${boardManage.top_html}
 </c:if>
 
-<style>
-table.bbs tr.notice{background:#f5f6f7}
-@media (max-width: 430px) and (min-width: 0px) {
-	table.bbs col.col2 {
-	    width : 1%
-	}
-	td.title{width: 100%;border-bottom: none;margin-bottom: -5px;border:none;}
-	td.adddate{font-size: 12px !important;border:none;}
-}
-</style>
 <c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
-<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />

@@ -23,10 +23,6 @@ $(function() {
 });
 </script>
 
-<style>
-	.tbl-type01 thead tr td{background:#fafafa;font-weight:bold;}
-	.tbl-type01 tbody tr td{background:#fafafa;font-size:13px;text-align:left;}
-</style>
 <div class="join-wrap" style="padding: 0px !important;width:970px;">
 	<form:form modelAttribute="readerContest" id="readerContestStep" action="edit.do">
 	<form:hidden path="menu_idx"/>

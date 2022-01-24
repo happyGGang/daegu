@@ -25,13 +25,6 @@ $(document).ready(function() {
 	});
 })
 </script>
-<style>
-@media all and (min-width: 768px) and (max-width: 1023px) {
-	.time_box ul li > div {
-		background-position: 30px 10px !important;
-	}
-}
-</style>
 
 <div class="doc-body">
   <div class="time_box">

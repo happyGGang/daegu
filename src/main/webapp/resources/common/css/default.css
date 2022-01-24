@@ -2330,3 +2330,296 @@ input.new_text01 ::placeholder{font-size:15px;}
 
 	.new_apply_box .con{margin-bottom:10px;}
 }
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* commonIntro/join/step2.jsp */
+
+.join-wrap2{padding:0;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/AUDIO/index.jsp */
+
+table.bbs tr.notice{background:#f5f6f7}
+@media (max-width: 430px) and (min-width: 0px) {
+	table.bbs col.col2 {
+	    width : 1%
+	}
+	td.title{width: 100%;float:left;border-bottom: none;margin-bottom: -5px;}
+	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	table.bbs tbody tr:hover {background:#f8f8f8}
+	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/FAQ/index.jsp */
+
+.faqArea{clear:both;margin:0 auto;border-top:2px solid #3970b8;border-bottom:1px solid #d6d6d6;}
+.faq{margin:0;padding:0;list-style:none;}
+.faq .q{margin:0;border-top:1px solid #ddd;}
+.faq .q a.trigger{display:block;padding:15px;font-weight:bold;color:#333;text-align:left;text-decoration:none !important;font-size:14px;}
+.faq .q span{font-size:14px;font-weight:bold;color:#e32c2c;margin-right:5px;}
+.faq .hidden .q a.trigger{background:none;font-size:14px;}
+.faq .q a.trigger:hover{background:#f5fbfd;color:#e32c2c;}
+.faq .a{position:relative;margin:0;padding:10px 15px;line-height:1.5;background:#fdfcf5;overflow:hidden;padding-bottom:10px;padding-top:10px;border-top:1px dashed #ddd;}
+.faq .a .tit{font-size:14px;font-weight:bold;color:#e32c2c;display:inline-block;width:14px;position:absolute;top:14px;left:15px;}
+.faq .a .aContent{margin-left:25px;padding:5px 0;}
+.faq .a .aContent p{line-height:28px;}
+.faq .a .aContent span, .faq .a .aContent p, .faq .a .aContent strong{font-size:15px !important;}
+.faq .goQna{
+width:650px;padding:10px 0 10px 35px;margin:10px 0 7px 25px;border:1px dashed #ccc;background:url('/resources/board/img/ico_tip.gif') #fff no-repeat 10px 12px;font-size:13px;font-weight:bold;
+-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;
+}
+.faq .goQna span{vertical-align:top;margin-right:7px;font-size:13px;}
+
+.faq .q.blue span{color:#2e91ed;}
+.faq .q.blue a.trigger:hover,
+.faq .q.blue a.trigger:active,
+.faq .q.blue a.trigger:focus{color:#2e91ed;}
+.faq .a.blue .tit{color:#2e91ed !important;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/INITIAL/index.jsp */
+
+.tab-board-odb {text-align:center;padding:38px 0;}
+.tab-board-odb li {display:inline-block;}
+.tab-board-odb li a {display:block;border:1px solid #ddd;box-sizing:border-box;padding:5px 10px;}
+.tab-board-odb li.on a {background:#0060ff;color:#fff;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/LOST/index.jsp */
+
+table.bbs tr.notice{background:#f5f6f7}
+@media (max-width: 430px) and (min-width: 0px) {
+	table.bbs col.col2 {
+	    width : 1%
+	}
+	td.title{width: 100%;float:left;border-bottom: none;margin-bottom: -5px;}
+	td.username{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.adddate{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	td.viewCount{float:left;display: table-cell !important;border-top: none;font-size: 12px !important;}
+	table.bbs tbody tr:hover {background:#f8f8f8}
+	td.txtBar{display: inline-block;width: 1px;height: 10px;font-size: 0px;line-height: 0;text-indent: -9999px;vertical-align: top;margin: 3px 5px;background: rgb(217, 217, 217);}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/LOST/index.jsp */
+
+.table-wrap table td.td2 img{width:100px;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/NORMAL/index.jsp */
+
+table.bbs tr.notice{background:#f5f6f7}
+@media (max-width: 430px) and (min-width: 0px) {
+	table.bbs col.col2 {
+	    width : 1%
+	}
+	td.title{width: 100%;border-bottom: none;margin-bottom: -5px;border:none;}
+	td.adddate{font-size: 12px !important;border:none;}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/quizReq/index.jsp */
+
+	.join-wrap h1 {position: relative;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookPackage/index.jsp */
+
+
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/pictureBook/index.jsp */
+
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/survey/index.jsp */
+
+@media (max-width:430px) and (min-width:0px){
+	table.bbs th.mm100{width:100%;}
+}
+	
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/marathonApplicant/viewContestTypeApplicant.jsp */
+
+.doc-body h3{padding-left:0px;}
+#cont_wrap{padding:20px 0 60px;font-size:15px;font-weight:bold;font-family:'NotoKrR';line-height:160%;letter-spacing:-0.02em;}
+.event_all{width:100%;}
+.event_all > h3{margin-bottom: -16px;}
+h3.tit{padding-top:20px;background:url(/resources/board/img/h3_bar.png) no-repeat 0 0;font-weight:bold;font-family:'NotoKrM';font-size:23px;color:#222;line-height:1.2;letter-spacing:-0.05em;}
+.event_all .event01{position:relative;padding-top:20px;margin-bottom:50px;}
+.event_all .event01.course01{background:url(/resources/board/img/mara_event01.gif) no-repeat 30% 0;}
+.event_all .event01.course02{background:url(/resources/board/img/mara_event02.gif) no-repeat 51% 0;}
+.event_all .event01.course03{background:url(/resources/board/img/mara_event03.gif) no-repeat 10% 0;}
+.event_all .event01.course04{background:url(/resources/board/img/mara_event02.gif) no-repeat 80% 0;margin-bottom:0;}
+.event_all .event01 .bar_bg{position:relative;margin-right:70px;height:20px;background:#c8c8c8;}
+.event_all .event01 .bar_bg .pink_bar{position: absolute;top: 0;left: 0;height: 20px;font-family:'Roboto';font-size:15px;font-weight:bold;color:#fff;line-height:20px;text-align:right;padding-right:5px;background: #ee005e;}
+.event_all .event01 em{position:absolute;right:0;top:20px;font-size: 17px;font-family: 'Roboto','NotoKrB';font-weight: bold;color:#222;letter-spacing: 0;font-style: normal;}	
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/GALLERYSLIDER/view.jsp */
+
+.swiper-wrap {position:relative;margin-top:30px;height: 100%;border:1px solid #ddd;padding:30px;}
+.swiper-container {width: 100%;height: 300px;margin-left: auto;margin-right: auto;}
+.swiper-slide {background-size:cover;background-position:center;background-repeat:no-repeat;}
+.swiper-sthum {background-size:cover;background-position:center;background-repeat:no-repeat;}
+.swiper-pagination-current{font-weight:600;font-size: 20px;color:#ff9900;letter-spacing: 5px;}
+.swiper-pagination-total{margin-left:5px;}
+.gallery-top {height:600px;width:100%;}
+.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 15px 1px 5px 1px;}
+.gallery-thumbs .swiper-slide {height: 100%;opacity: 0.2;}
+.gallery-thumbs .swiper-slide-thumb-active {opacity: 1; border: 2px solid #ff9900;}
+
+@media all and (max-width:1024px){
+	.gallery-top {height:500px;width:100%;}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/THEMEBOOK/view.jsp */		
+		
+#theme-list li{position:relative;display:inline-block;margin-right:10px;}
+#theme-list li:nth-child(5), #theme-list li:nth-child(10), #theme-list li:nth-child(15), #theme-list li:nth-child(20){margin-right:0;}
+#theme-list li img{width:186px !important;}
+#theme-list li p{text-align:center;width:186px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#theme-list li input{position:absolute;top:10px;left:10px;z-index:99;}
+
+@media all and (max-width:425px){
+	#theme-list li{display:block;width:100%;}
+	#theme-list li p{width:100%;}
+	#theme-list li img{display:block;width:100% !important;height:auto;}
+}
+	
+	
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* commonIntro/join/changeover.jsp */
+	
+table.integration2Table tbody th, table.integration2Table tbody td {text-align: center;padding:6px 0px!important;}
+
+
+/*조언*/
+.doc-body .txt-box-adv2 {border: 1px solid #e8e5e2;padding: 2% 2% 1% 2%;margin: 0 0 1% 0;border-radius: 5px;color: #c10064;overflow: hidden;background: #f9f7f5;font-size: 14px;}
+.doc-body .txt-box-adv:after {background: url('/resources/homepage/dgportal/img/icon_adv.png') no-repeat 0 0;}
+
+/*인증*/
+.dataF-wr{position: relative;}
+.ataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 135px;height: 134px;margin-left: -70px;margin-top: 210px;transition: all 0.3s;}
+.dataF-wr .tit {background-color:#2c469c;color:#fff;text-align:center;font-size:20px;max-width:35%;padding:10px 30px;margin:auto;font-weight:normal;}
+span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:10px 10px;margin:20px auto;display:block;width:30%;}
+
+.dataF-wr .info_list{/* margin-top: 35px; */}
+.dataF-wr .info_list:after{content:'';display:block;clear:both;}
+.dataF-wr .info_list > li{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 450px;text-align:center;}
+.dataF-wr .info_list > li.dw01{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 400px;text-align:center;}
+.dataF-wr .info_list > li.dw02{float:left;width:50%;padding: 40px 25px 25px 25px;box-sizing:border-box;border:1px solid #e0e0e0;margin: -1px 0 0 -1px;min-height: 400px;text-align:center;}
+.dataF-wr .info_list .title{font-size: 1.5em;color:#333;font-weight:500;line-height:30px;margin-top:10px;font-weight: bold;}
+.dataF-wr .info_list .dot_txt_list{margin-top:20px;padding: 0 15px 0 15px;}
+.dataF-wr .info_list .dot_txt_list > li{line-height: 25px;text-align:left;}
+
+@media screen and (max-width:1024px){
+.dataF-wr .info_list{display: flex;flex-wrap:wrap;}
+.dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+.dataF-wr .info_list > li{padding:30px 15px;height:auto;margin: -1px 0 0 0;}
+}
+
+@media screen and (max-width:768px){
+.dataF-wr .info_list:before {content:'';position:absolute;left:50%;width: 167px;height: 238px;margin-left: -90px;margin-top: -150px;}
+.doc-body .txt-box-adv2 {padding: 5% 2% 2% 2%;background: #f9f7f5;}
+}
+
+@media screen and (max-width:690px){
+.dataF-wr .info_list{/* margin-top: 145px; */}
+.dataF-wr .info_list > li{width:100%;padding:30px 15px;margin:-1px 0 0 0;min-height:340px}
+.dataF-wr .info_list .title{font-size:18px;line-height:26px;margin-top:8px;}
+.dataF-wr .info_list .dot_txt_list{margin-top:15px}
+.dataF-wr .info_list .dot_txt_list > li{line-height:22px}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookOfYear/index.jsp */
+
+.book-wr {background:url('/resources/homepage/dgportal/img/book_pttr.gif') repeat;padding:3px;}
+.book-wr .book-box {position:relative;background:#fdfdfd;padding: 30px 30px 35px 30px;min-height: 230px;}
+.book-wr .book-box .book-thum {position:absolute;top:30px;left:30px;width:340px;height:auto;}
+.book-wr .book-box .book-thum .img {display:block;position:relative;width: 180px;height: 228px;padding-bottom: 0;overflow:hidden;box-shadow:10px 10px 0px #eee;}
+.book-wr .book-box .book-thum .img img {position: relative;top:0;left:0;width: 180px;height: 228px;}
+.book-wr .book-box .book-cont {position:relative;margin-left: 220px;}
+.book-wr .book-box .book-cont .byear {font-size: 1.125em;line-height:1;color: #ed145b;padding-top: 0;padding-left: 0;}
+.book-wr .book-box .book-cont .btit {font-size: 1.375em;line-height:1;color:#222;font-weight: bold;padding-top: 10px;padding-left: 0;}
+.book-wr .book-box .book-cont .stit {font-size:20px;line-height:1;margin-top:30px;margin-bottom:5px;}
+.book-wr .book-box .book-cont .stit span {display:inline-block;vertical-align:top;border-top:2px solid #005baa;color:#005baa;padding-top:7px;}
+.book-wr .book-box .book-cont .bname {margin-top: 10px;}
+.book-wr .book-box .book-cont .btxt {margin-top:20px}
+
+.book-wr .book-box .book-thum2 {position:absolute;top:30px;left:30px;width: 280px;height:auto;}
+.book-wr .book-box .book-thum2 .img {display:block;position:relative;width: 100%;height: 375px;padding-bottom: 0;overflow:hidden;box-shadow:10px 10px 0px #eee;}
+.book-wr .book-box .book-thum2 .img img {position: relative;top:0;left:0;width: 280px;height: 375px;}
+.book-wr .book-box .book-cont2 {position:relative;margin-left: 320px;}
+.book-wr .book-box .book-cont2 .byear {font-size: 1.375em;line-height:1;color: #000;padding-bottom: 20px;padding-top:0;padding-left: 0;}
+.book-wr .book-box .book-cont2 .btit {font-size: 1.375em;line-height:1;color:#222;font-weight: bold;padding-top: 5px;padding-left: 0;}
+.book-wr .book-box .book-cont2 .stit {font-size:20px;line-height:1;margin-top:30px;margin-bottom:5px;}
+.book-wr .book-box .book-cont2 .stit span {display:inline-block;vertical-align:top;border-top:2px solid #005baa;color:#005baa;padding-top:7px;}
+.book-wr .book-box .book-cont2 .bname {margin-top:20px}
+.book-wr .book-box .book-cont2 .btxt {margin-top:20px}
+
+@media only screen and (max-width:1199px){
+	.book-wr .book-box {padding-left:25px;padding-right:25px;}
+	.book-wr .book-box .book-thum {left:25px;}
+	.book-wr .book-box .book-thum2 {left:25px;}
+}
+@media only screen and (max-width:999px){
+	.book-wr .book-box {padding-bottom:55px;}
+	.book-wr .book-box .book-thum {position:static;top:auto;left:auto;float:left;margin-right:30px;width:38%;margin-bottom:0;}
+	.book-wr .book-box .book-cont {margin-left:0;}
+	.book-wr .book-box .book-cont .btit {font-size:25px}
+	.book-wr .book-box .book-cont .stit {margin-top:35px}
+
+	.book-wr .book-box .book-thum2 {position:static;top:auto;left:auto;float:left;margin-right:30px;width:38%;margin-bottom:0;}
+	 .book-wr .book-box .book-cont2 {margin-left:0;}
+}
+@media only screen and (max-width:899px){
+	.book-wr .book-box {padding:30px 20px 55px;}
+	.book-wr .book-box .book-thum {width:28%;margin-bottom:10px;}
+	.book-wr .book-box .book-thum .img {box-shadow:7px 7px 0 #eee;}
+	.book-wr .book-box .book-thum {float:none;width:auto;max-width: 180px;min-height: 228px;margin:0 auto 20px;}
+
+    .book-wr .book-box .book-thum2 {width:28%;margin-bottom:10px;}
+	.book-wr .book-box .book-thum2 .img {box-shadow:7px 7px 0 #eee;height: 228px;}
+	.book-wr .book-box .book-thum2 {float:none;width:auto;max-width: 180px;min-height: 228px;margin:0 auto 20px;}
+
+	.book-wr .book-box .book-cont {text-align:center;}
+	.book-wr .book-box .book-cont:nth-child(2) {min-height:auto;}
+	.book-wr .book-box .book-cont .btit, .book-wr .book-box .book-cont .btn-home {display:inline-block;vertical-align:middle;margin-bottom:10px;}
+	.book-wr .book-box .book-cont .btit {margin-top:-4px;margin-right:10px;}
+	.book-wr .book-box .book-cont .stit {text-align:left;margin-top:20px;}
+	.book-wr .book-box .book-cont .btxt, .book-wr .book-box .book-cont p {margin-top:5px;text-align:left;}
+	.book-wr .book-box .book-cont .bname {margin-top:5px;text-align:left;}
+	.book-wr .book-box .book-cont .c-txt {text-align:left;}
+	.book-wr .book-box .book-thum2 .img img {height: 228px;}
+
+}
+@media only screen and (max-width:649px){
+	.book-wr .book-box {padding-left:10px;padding-right:10px;padding-top: 20px;}
+	.book-wr .book-box .book-cont .btit {font-size:22px;padding-top:10px;}
+	.book-wr .book-box .book-cont .stit {font-size:17px;margin-bottom:10px}
+	.book-wr .book-box .book-cont .btxt, .book-wr .book-box .book-cont p {margin-top:5px;text-align:left;}
+	.book-wr .book-box .book-cont .c-txt {line-height:22px;font-size:14px;}
+}
+@media only screen and (max-width:599px){
+	.book-wr .book-box .book-thum .gradu-info {margin-bottom:5px}
+	.book-wr .book-box .book-cont .btit {margin-right:5px;font-size:20px}
+}
+@media only screen and (max-width:499px){
+	.book-wr .book-box {padding-bottom: 20px;}
+}
+h3.byear { background: none;}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/humanBook/list.jsp */
+
+	.Gnb .mask{margin-top:-10px;}
+	.tnb a:hover{color:#fff;}
+	
+	
+	

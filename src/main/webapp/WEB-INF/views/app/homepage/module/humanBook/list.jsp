@@ -30,18 +30,14 @@ $(function(){
 
 });
 </script>
-<style>
-	.Gnb .mask{margin-top:-10px;}
-	.tnb a:hover{color:#fff;}
-</style>
 
 <!-- 검색시작 -->
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="humanBook" action="list.do" method="GET">
 <form:hidden path="homepage_id"/>
 <form:hidden path="menu_idx"/>
 <form:hidden path="human_book_idx"/>
 <form:hidden path="viewPage"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="top_box">
 	<p>
 		<div class="well well-sm hidden-xs" style="padding:20px;">

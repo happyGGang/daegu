@@ -10,3 +10,93 @@
 	html,body{width:1260px;margin:0 auto;}
 	.tnb, .Gnb {width:1260px;margin:0 auto;}
 }
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/bemeoCalendar3.jsp */
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	.time_box ul li > div {
+		background-position: 30px 10px !important;
+	}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/bemeoCalendar1.jsp */
+/* homepage/bemeoCalendar2.jsp */
+/* 두개 경로 style 소스 동일 */
+
+.mb10 {
+	margin-bottom: 20px;
+}
+.time_box ul li div {
+	background-position: 40px 20px !important;
+}
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	.time_box ul li:first-child div, .time_box ul li:nth-child(2) div {
+		padding: 30px 20px 30px 120px
+	}
+	.time_box ul li:last-child div {
+		padding: 20px 20px 40px 120px
+	}
+	.time_box ul li.book08 div {
+		background-position: 40px 15px !important;
+	}
+}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookRelayIndividual/step2.jsp */
+
+.tbl-type01 thead tr td{
+	background:#fafafa;
+	font-weight:bold;
+	}
+.tbl-type01 tbody tr td{
+	background:#fafafa;
+	font-size:13px;
+	text-align:left;
+	}
+
+.join-wrap{
+	padding: 0px !important;
+	width:100%;
+	}
+	
+@media (max-width: 1024px) {
+	.join-wrap{
+		padding:0 20px;
+		width:calc(100% - 40px);
+		}
+	}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/readerContest/step2.jsp */
+
+.tbl-type01 thead tr td{
+	background:#fafafa;
+	font-weight:bold;
+	}
+.tbl-type01 tbody tr td{
+	background:#fafafa;
+	font-size:13px;
+	text-align:left;
+	}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookRelayIndividual/edit.jsp */
+
+.bbs-edit th, .bbs-edit td{
+	font-size:14px;
+	}
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookRelayGroup/edit.jsp */
+/* homepage/module/readerContest/edit.jsp */
+
+.bbs-edit th, .bbs-edit td{
+	font-size:14px;
+	}
+
+
+
+

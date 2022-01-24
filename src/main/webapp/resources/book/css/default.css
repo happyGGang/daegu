@@ -118,3 +118,14 @@ select::-ms-expand {display:none}
 	.viewBookArea .bookInfoList .bookTitle {clear:both;margin-bottom:5px}
 	.book-view .bookContent {padding:15px 0}
 }
+
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* commonIntro/search/publicPopularBook/index.jsp */
+
+.clearfix {
+	    clear: both;
+	    overflow: hidden;
+	}
+.inputDate {
+		padding: 0 10px 0 5px;
+	}

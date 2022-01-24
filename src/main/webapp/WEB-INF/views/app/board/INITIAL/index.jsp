@@ -27,17 +27,10 @@ $(document).ready(function() {
 ${boardManage.top_html}
 </c:if>
 
-<style>
-.tab-board-odb {text-align:center;padding:38px 0;}
-.tab-board-odb li {display:inline-block;}
-.tab-board-odb li a {display:block;border:1px solid #ddd;box-sizing:border-box;padding:5px 10px;}
-.tab-board-odb li.on a {background:#0060ff;color:#fff;}
-</style>
-
 <c:set var="categoryMovae" value="${not empty authMBA and authMBA and boardManage.category_use_yn eq 'Y'}"></c:set>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
-<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <form:hidden path="initSearch"/>
 

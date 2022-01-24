@@ -78,20 +78,6 @@ function getLasData(arg) {
 }
 </script>
 
-<style>
-	#theme-list li{position:relative;display:inline-block;margin-right:10px;}
-	#theme-list li:nth-child(5), #theme-list li:nth-child(10), #theme-list li:nth-child(15), #theme-list li:nth-child(20){margin-right:0;}
-	#theme-list li img{width:186px !important;}
-	#theme-list li p{text-align:center;width:186px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-	#theme-list li input{position:absolute;top:10px;left:10px;z-index:99;}
-	
-	@media all and (max-width:425px){
-		#theme-list li{display:block;width:100%;}
-		#theme-list li p{width:100%;}
-		#theme-list li img{display:block;width:100% !important;height:auto;}
-	}
-</style>
-
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
 
 <form:form modelAttribute="board" id="boardTheme" method="POST" action="save.do">
@@ -110,7 +96,6 @@ function getLasData(arg) {
 <input type="hidden" name="board_idx" value="${board.board_idx}">
 <!-- <input type="hidden" name="manageCode" id="manageCode"> -->
 <input type="hidden" name="regNo" id="regNo">
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 <form:form modelAttribute="board" method="get">
@@ -119,7 +104,6 @@ function getLasData(arg) {
 <form:hidden path="editMode"/>
 <c:if test="${board.delete_yn eq 'Y'}">
 <form:hidden path="boardIdxArray"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </c:if>
 </form:form>
 

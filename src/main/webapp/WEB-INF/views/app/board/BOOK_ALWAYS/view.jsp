@@ -7,72 +7,7 @@
 <% pageContext.setAttribute("crlf", "\r\n"); %>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css">
-<style type="text/css">
-.graphArea{clear:both;padding:15px 0 20px}
-.graphArea ul.num{width:52px;overflow:hidden}
-.graphArea ul.num li{text-align:right;padding-right:8px;height:30px;line-height:30px}
-.graphArea ul.num,
-.graphArea .graphWrap .graph,
-.graphArea .graphWrap .graph li,
-.graphArea li .barWrap{height:210px;position:relative}
-.graphArea ul.num,
-.graphArea .graphWrap .graph{border-color:#ccc}
-.graphArea .graphWrap{width:100%;float:left;margin-right:-52px}
-.graphArea .graphWrap .graph{border:1px solid #ccc;border-right-width:0;border-top-width:0;margin-right:52px;background:url('../img/graphLine.gif') repeat-x}
-.graphArea .graphWrap .graph li{float:left;text-align:center}
-.graphArea ul.num{float:left;width:52px}
-.graphArea ul.num li,
-.graphArea *{
--webkit-transition:all 100ms ease;
--moz-transition:all 100ms ease;
--ms-transition:all 100ms ease;
--o-transition:all 100ms ease;
-transition:all 100ms ease}
-.graphArea li{z-index:9}
-.graphArea li.on{z-index:10}
-.graphArea li .txt{position:absolute;left:0;width:100%;color:#999;text-align:center;text-decoration:none;padding:5px 0 0;line-height:120%}
-.graphArea li .txt:hover,.graphArea li .txt:active,.graphArea li .txt:visited{text-decoration:none}
-.graphArea li.most .txt,
-.graphArea li.on .txt{color:#000}
-.graphArea li .barWrap{padding:0 1px}
-.graphArea li .gauge{position:absolute;z-index:11;bottom:0;left:50%;width:70%;margin-left:-35%;background-color:#ccc;cursor:pointer}
-.graphArea li .gauge1,
-.graphArea li .gauge2{width:25%}
-.graphArea li .gauge1{left:35%;margin-left:-15%}
-.graphArea li .gauge2{left:25%;margin-left:30%}
-.graphArea li .gauge_ly{display:none;position:absolute;z-index:12;top:-28px;height:28px;left:4px;background:url('../img/gauge_ly_line.gif') no-repeat 0 bottom;font-size:85%}
-.graphArea li .gauge_ly p{padding:3px 6px 3px 7px;margin-left:5px;color:#fff;white-space:nowrap;display:block;background-color:#666867}
-.graphArea li .gauge_ly p em{position:relative;top:1px;margin-right:-3px;font-weight:bold;font-family:arial;font-size:110%}
-.graphArea li.on .gauge,
-.graphArea li.on .gauge:hover{background-color:#78ac39}
-.graphArea li.on .gauge1 .gauge_ly,
-.graphArea li.on .gauge2 .gauge_ly{display:none}
-.graphArea li.on .gauge_ly,
-.graphArea li.on .gauge1:hover .gauge_ly,
-.graphArea li.on .gauge2:hover .gauge_ly,
-.graphArea li .gauge.most .gauge_ly{display:block}
-.graphArea li.on .gauge1,
-.graphArea li .gauge1{background-color:#343434}
-.graphArea li.on .gauge2,
-.graphArea li .gauge2{background-color:#78ac39}
-.graphArea li .gauge1:hover{background-color:#5d5d5d!important}
-.graphArea li .gauge2:hover{background-color:#93bd61!important}
 
-.graphArea .graphLegend{clear:both;overflow:hidden;padding:35px 0 0;text-align:center}
-.graphArea .graphLegend li,
-.graphArea .graphLegend i,
-.graphArea .graphLegend span{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
-.graphArea .graphLegend li{zoom:1;*display:inline;font-size:85%;margin:0 5px}
-.graphArea .graphLegend i{font-style:normal;width:12px;height:12px;font-size:0;line-height:0;background-color:#ccc;border-radius:50%}
-.graphArea .graphLegend span{margin-left:5px}
-
-.resve-req{padding: 5px 13px;border: 1px solid #d5d5d5;border-radius: 3px;color: #4c4c4c;}
-.resve-req:hover {color: #000;}
-
-.bbs-view-header dd.file{padding:9px 15px;background:#f3f3f3}
-.bbs-view-header dd.file li{padding:1px 0}
-.bbs-view-header dd.file i{font-size:110%}
-</style>
 <script type="text/javascript" src="http://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 $(window).trigger('resize');
@@ -139,16 +74,15 @@ $(document).ready(function() {
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
 <form:hidden path="editMode"/>
 <form:hidden path="target_manage_idx"/>
 <form:hidden path="category1"/>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="search-wrap">
 	<div class="sview">
 		<jsp:include page="/WEB-INF/views/app/board/common/view/moveOrCopy.jsp" flush="false" />

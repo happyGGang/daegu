@@ -8,21 +8,6 @@ $(function() {
 
 });
 </script>
-<style>
-	.doc-body h3{padding-left:0px;}
-	#cont_wrap{padding:20px 0 60px;font-size:15px;font-weight:bold;font-family:'NotoKrR';line-height:160%;letter-spacing:-0.02em;}
-	.event_all{width:100%;}
-	.event_all > h3{margin-bottom: -16px;}
-	h3.tit{padding-top:20px;background:url(/resources/board/img/h3_bar.png) no-repeat 0 0;font-weight:bold;font-family:'NotoKrM';font-size:23px;color:#222;line-height:1.2;letter-spacing:-0.05em;}
-	.event_all .event01{position:relative;padding-top:20px;margin-bottom:50px;}
-	.event_all .event01.course01{background:url(/resources/board/img/mara_event01.gif) no-repeat 30% 0;}
-	.event_all .event01.course02{background:url(/resources/board/img/mara_event02.gif) no-repeat 51% 0;}
-	.event_all .event01.course03{background:url(/resources/board/img/mara_event03.gif) no-repeat 10% 0;}
-	.event_all .event01.course04{background:url(/resources/board/img/mara_event02.gif) no-repeat 80% 0;margin-bottom:0;}
-	.event_all .event01 .bar_bg{position:relative;margin-right:70px;height:20px;background:#c8c8c8;}
-	.event_all .event01 .bar_bg .pink_bar{position: absolute;top: 0;left: 0;height: 20px;font-family:'Roboto';font-size:15px;font-weight:bold;color:#fff;line-height:20px;text-align:right;padding-right:5px;background: #ee005e;}
-	.event_all .event01 em{position:absolute;right:0;top:20px;font-size: 17px;font-family: 'Roboto','NotoKrB';font-weight: bold;color:#222;letter-spacing: 0;font-style: normal;}
-</style>
 <h3 style="padding-left:30px;margin-top:0;">종목별 현황</h3>
 <c:choose>
 	<c:when test="${ing eq true}">
