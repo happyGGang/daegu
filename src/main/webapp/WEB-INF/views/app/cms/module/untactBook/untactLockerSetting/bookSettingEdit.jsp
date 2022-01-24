@@ -13,7 +13,7 @@ function bookSettingSave() {
 
 $('input#round_start_date').datepicker({
 	dateFormat:'yy-mm-dd',
-	minDate: 0,
+	minDate: '${untactBookSetting.round_start_date}',
 	maxDate: $('input#round_end_date').val(), 
 	onClose: function(selectedDate){
 		$('input#round_end_date').datepicker('option', 'minDate', selectedDate);

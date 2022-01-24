@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting;
 
 import java.util.List;
 
+import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
+
 public interface UntactLockerSettingDao {
 
 	public List<UntactLockerSetting> getUntactLockerSettingList(String homepage_id);
@@ -47,5 +49,13 @@ public interface UntactLockerSettingDao {
 	public String getReturnDate(UntactBookRound untactBookRound);
 
 	public String getRepeatedOne(String homepage_id);
+
+	public String getUntactBookRound(UntactBookRound untactBookRound);
+
+	public String getUntactBookRoundBefore(UntactBookRound untactBookRound);
+
+	public int checkUntactBookRoundCount(UntactBookRound untactBookRound);
+
+	public List<UntactLockerSetting> showLockerStateBefore(UntactBookReservation untactBookReservation);
 
 }

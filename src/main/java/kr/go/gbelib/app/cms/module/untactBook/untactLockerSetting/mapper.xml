@@ -13,12 +13,38 @@
 			locker_number
 	</select>
 	
+	<select id="showLockerStateBefore" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting">
+		SELECT
+			a.locker_number, a.locker_type, b.reservation_step
+		FROM
+			UNTACT_BOOK_LOCKER_SETTING A
+			LEFT JOIN UNTACT_BOOK_RESERVATION B
+			ON a.homepage_id = b.homepage_id
+			AND a.locker_number = b.locker_number
+			AND b.round_idx = (SELECT
+										round_idx
+									FROM
+										UNTACT_BOOK_ROUND
+									WHERE
+										homepage_id = #{homepage_id}
+									AND round_end_date = (SELECT
+																round_start_date
+															FROM
+																UNTACT_BOOK_ROUND
+															WHERE 1=1		
+															AND homepage_id = #{homepage_id}
+															AND round_idx = #{round_idx}
+														  )
+							         )
+			WHERE a.homepage_id = #{homepage_id}
+	</select>
+	
 	<select id="showLockerState" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting">
 		SELECT
 			locker_number, locker_type
 		FROM
 			UNTACT_BOOK_LOCKER_SETTING
-		WHERE
+		WHERE 
 			homepage_id = #{homepage_id}
 	</select>
 
@@ -80,7 +106,6 @@
 			homepage_id = #{homepage_id}
 		AND locker_type = '도서대출'
 	</select>
-	
 
 	<select id="getUntactBookSettingOne" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting">
 		SELECT
@@ -207,6 +232,39 @@
 		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
 	</select>
 	
+	<select id="getUntactBookRound" resultType="String">
+		SELECT
+			round_idx
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND ROUND_END_DATE = (SELECT
+									ROUND_START_DATE
+								FROM
+									UNTACT_BOOK_ROUND
+								WHERE 1=1		
+								AND homepage_id = #{homepage_id}
+								AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
+								AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS'))
+	</select>
+	
+	<select id="getUntactBookRoundBefore" resultType="String">
+		SELECT
+			round_idx
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND ROUND_END_DATE = (SELECT
+									ROUND_START_DATE
+								FROM
+									UNTACT_BOOK_ROUND
+								WHERE 1=1		
+								AND homepage_id = #{homepage_id}
+								AND	round_idx = #{round_idx})
+	</select>
+	
 	<select id="getUntactBookRoundAll" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookRound">
 		SELECT
 			TO_CHAR(TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:mi'),'YYYYMMDDHH24miss') AS round_start_date,
@@ -236,4 +294,16 @@
 		WHERE
 			homepage_id = #{homepage_id}
 	</select>
+	
+	<select id="checkUntactBookRoundCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND #{round_start_date} BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
+		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
+	</select>
+	
 </mapper>

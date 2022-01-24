@@ -8,17 +8,13 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getUntactBookReservationList(UntactBookReservation untactBookReservation);
 
-	public int getUntactBookReservationCount(String homepage_id);
+	public int getUntactBookReservationCount(UntactBookReservation untactBookReservation);
 
 	public int getUntactBookReservationListCount(UntactBookReservation untactBookReservation);
 	
-	public int getUntactBookReservationLockerNumber(String homepage_id);
+	public int getUntactBookReservationLockerNumber(UntactBookReservation untactBookReservation);
 
 	public UntactBookReservation getUntactBookReservationOne(UntactBookReservation untactBookReservation);
-
-	public int changeReservationStep(UntactBookReservation untactBookReservation);
-
-	public int deleteAllReservation(UntactBookReservation untactBookReservation);
 
 	public List<UntactBookReservation> getUntactBookReservationListNow(UntactBookReservation untactBookReservation);
 
@@ -65,5 +61,15 @@ public interface UntactBookReservationDao {
 	public List<UntactBookReservation> getUntactBookReservationListBefore(UntactBookReservation untactBookReservation);
 
 	public List<UntactBookReservation> getWaitingReservationList(UntactBookReservation untactBookReservation);
+
+	public int checkPasswordCountBefore(UntactBookReservation untactBookReservation);
+
+	public int checkNonPasswordCountBefore(UntactBookReservation untactBookReservation);
+
+	public List<UntactBookReservation> getNonPasswordListBefore(UntactBookReservation untactBookReservation);
+
+	public void insertPasswordBefore(UntactBookReservation untactBookReservationOne);
+
+	public List<UntactBookReservation> getUnprocessedList(UntactBookReservation untactBookReservation);
 
 }

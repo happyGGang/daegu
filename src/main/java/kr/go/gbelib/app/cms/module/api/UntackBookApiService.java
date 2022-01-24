@@ -42,7 +42,7 @@ public class UntackBookApiService extends BaseService {
         if(!StringUtils.isEmpty(untackBookReservation.getHomepage_id()) && untackBookReservation.getLocker_number() > 0 && untackBookReservation.getLocker_password() > 0 && !StringUtils.isEmpty(untackBookReservation.getUser_key())) {
         	UntactBookRound untactBookRound = new UntactBookRound();
         	untactBookRound.setHomepage_id(untackBookReservation.getHomepage_id());
-    		String round_idx = settingService.getUntactBookRoundOne(untactBookRound);
+    		String round_idx = settingService.getUntactBookRound(untactBookRound);
     		
     		if(StringUtils.isNotEmpty(round_idx)) {
     			untackBookReservation.setRound_idx(round_idx);
@@ -82,24 +82,34 @@ public class UntackBookApiService extends BaseService {
         		LibrarySearch librarySearch = new LibrarySearch();
         		
         		if(receiptList != null) {
-        			untactBookRound.setRound_idx(receiptList.getRound_idx());
+        			int request_number = receiptList.getRequest_number();
+        			String manageCode = receiptList.getManage_code();
+        			String userKey = receiptList.getUser_key();
+        			String regNo = receiptList.getReg_no();
+        			String member_name = receiptList.getMember_name();
+        			String book_name = receiptList.getBook_name();
+        			int locker_no = receiptList.getLocker_number();
+        			int locker_pass = receiptList.getLocker_password();
+        			String round_idx = receiptList.getRound_idx();
+        			
+        			untactBookRound.setRound_idx(round_idx);
         			untactBookRound.setHomepage_id(receiptList.getHomepage_id());
         			UntactBookRound roundTime = settingService.getUntactBookRoundAll(untactBookRound);
         		
         			LibrarySearch loanList = new LibrarySearch();
         			
-        			loanList.setManageCode(receiptList.getManage_code());
+        			loanList.setManageCode(manageCode);
 					loanList.setSearch_start_date(roundTime.getRound_start_date());
 					loanList.setSearch_end_date(roundTime.getRound_end_date());
-					loanList.setUserkey(receiptList.getUser_key());
-					loanList.setRegNo(receiptList.getReg_no());
+					loanList.setUserkey(userKey);
+					loanList.setRegNo(regNo);
 					
 					Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUntactBookLoanReserveList(loanList, null);
 					List<Map<String, Object>> list = null;
 					
 					list = LibSearchAPI.getListData(unmannedLoanReserveList);
 					
-					if (list != null) {
+					if (list != null && list.size() > 0) {
 						String loanKey = String.valueOf(list.get(0).get("LOAN_KEY"));
 						receiptList.setLoankey(loanKey);
 						
@@ -109,6 +119,7 @@ public class UntackBookApiService extends BaseService {
 						if (apiResult.getStatus()) {
 							receiptList.setReservation_step("3");
 							receiptList.setLoankey(loanKey);
+							receiptList.setRequest_number(request_number);
 							int modify_result = service.waitingReservationStep(receiptList);
 							
 							Homepage homepage = new Homepage();
@@ -118,31 +129,33 @@ public class UntackBookApiService extends BaseService {
 							
 							String userIp = request.getRemoteAddr();
 							
-							UntactBookReservation untactBookReservation2 = new UntactBookReservation();
-							
 							librarySearch.setManageCode(loanList.getManageCode());
 							librarySearch.setUserkey(loanList.getUserkey());
 							
-							untactBookReservation2 = service.getUntactBookReservationOne(receiptList);
-							
 							String loanTime = settingService.getReturnDate(untactBookRound);;
 							
-							String mes =  "[" +homepage.getHomepage_name() + "]\n" + untactBookReservation2.getMember_name() + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+untactBookReservation2.getBook_name()+"\n사물함 번호 : " + untactBookReservation2.getLocker_number() +"\n사물함 비밀번호 : " + untactBookReservation2.getLocker_password()+"\n반납예정일은 " + loanTime + "까지 입니다."; 
+							String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
 							
 							LibSearchAPI.sendSms(librarySearch, mes, userIp);
 							
 							if (modify_result < 1) {
 								success_yn = "N";
-				        		msg = "상태변경에 실패하였습니다.";
+				        		msg = "대기처리에 실패하였습니다.";
 							}
 							success_yn = "Y";
 			        		msg = "성공";
-						}else {
+						} else {
 							success_yn = "N";
-			        		msg = "실패";
+			        		msg = "KLAS API오류" + apiResult.getMessage();
 						}
+					} else {
+						success_yn = "N";
+		        		msg = "예약키 조회에 실패하였습니다.";
 					}
 					
+        		} else {
+        			success_yn = "N";
+	        		msg = "조회되는 사물함이 없습니다.";
         		}
         	} else if (untactBookReservation.getReservation_step().equals("4")) {
         		untactBookReservation.setReservation_step("3");
@@ -152,7 +165,6 @@ public class UntackBookApiService extends BaseService {
         		
         		if(receiptList != null) {
         			receiptList.setReservation_step("4");
-					
 					librarySearch.setManageCode(receiptList.getManage_code());
 					librarySearch.setUserkey(receiptList.getUser_key());
 					librarySearch.setReg_no(receiptList.getReg_no());
@@ -168,7 +180,13 @@ public class UntackBookApiService extends BaseService {
 						}
 						success_yn = "Y";
 		        		msg = "성공";
+					} else {
+						success_yn = "N";
+		        		msg = "KLAS API오류" + apiResult.getMessage();
 					}
+        		} else {
+        			success_yn = "N";
+        			msg = "조회되는 사물함이 없습니다.";
         		}
         		
         	} else {

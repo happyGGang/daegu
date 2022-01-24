@@ -11,6 +11,8 @@ public class UntactLockerSetting extends PagingUtils {
 	
 	private String member_name;
 
+	private String reservation_step;  //신청상태
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -50,5 +52,13 @@ public class UntactLockerSetting extends PagingUtils {
 	public void setMember_name(String member_name) {
 		this.member_name = member_name;
 	}
-	
+
+	public String getReservation_step() {
+		return reservation_step;
+	}
+
+	public void setReservation_step(String reservation_step) {
+		this.reservation_step = reservation_step;
+	}
+
 }

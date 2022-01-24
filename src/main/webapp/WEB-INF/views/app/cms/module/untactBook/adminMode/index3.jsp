@@ -29,24 +29,17 @@
 <script type="text/javascript" src="/resources/cms/js/design.js"></script>
 
 <script type="text/javascript">
+//체크박스 전체선택
+function checkAll($this) { 
+	$('input:checkbox[name=request_number_arr]').prop('checked', $this.is(':checked'));
+}
+
 $(function() {
-	//체크박스 전체선택
-	$('#all-check').on('click', function(e) {
-		e.preventDefault();
-		if($(this).attr('keyValue') == 'N') {
-			$(this).attr('keyValue', 'Y');
-			$('.request_idx').prop('checked', true);
-		} else {
-			$(this).attr('keyValue', 'N');
-			$('.request_idx').prop('checked', false);
-		}
-	});
-	
 	//검색버튼
 	$('button#search_btn').on('click', function(e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#untactBookReservation').serialize());
+		doGetLoad('index3.do', $('form#untactBookReservation').serialize());
 	});
 	
 	//엑셀저장
@@ -57,153 +50,51 @@ $(function() {
 	});
 });
 
-//진행상황 변경 버튼
-function reservationStepChange(member_id, member_name, reservation_step, request_number, $this, book_name, locker_number) {
-	
-	var ajaxData = {
-		'member_id' : member_id,
-		'member_name' : member_name,
-		'reservation_step' : reservation_step,
-		'request_number' : request_number,
-		'book_name' : book_name,
-		'locker_number' : locker_number
-	};
-	
-	if(confirm(reservation_step + ' 하시겠습니까?')) {
-		if(reservation_step == '2') {
-			$.ajax({
-				type: "POST",
-				url: 'modifyReservationStep.do',
-				data: ajaxData,
-				success: function(response) {
-					if(response.valid) {
-						alert(reservation_step + ' 되었습니다.'); 
-						$this.hide();
-						$this.parent().children('a#waitingBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('접수');
-					} else {
-						alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
-					}
-				},
-				error : function() {
-					alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-				}
-			});
-		} else if (reservation_step == '3') {
-			$.ajax({
-				type: "POST",
-				url: 'modifyReservationStep.do',
-				data: ajaxData,
-				success: function(response) {
-					if(response.valid) {
-						alert(reservation_step + ' 되었습니다.'); 
-						$this.hide();
-						$this.parent().children('a#loanBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('대기');
-					} else {
-						alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
-					}
-				},
-				error : function() {
-					alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-				}
-			});
-		} else if (reservation_step == '4') {
-			$.ajax({
-				type: "POST",
-				url: 'modifyReservationStep.do',
-				data: ajaxData,
-				success: function(response) {
-					if(response.valid) {
-						alert(reservation_step + ' 되었습니다.'); 
-						$this.hide();
-						$this.parent().children('a#loanBook').show();
-						$this.parent().parent().next().children('#reservationStep').text('대출');
-					} else {
-						alert('사물함 비밀번호가 등록되어있지 않습니다. \n\n비밀번호 랜덤생성 버튼을 눌러주세요.');
-					}
-				},
-				error : function() {
-					alert(reservation_step + ' 에 실패했습니다.\n\n관리자에게 문의해 주세요.');
-				}
-			});
-		}
-	}
-}
-
 //취소버튼
-function cancelSettingEdit(member_id, member_name, request_number) {
-	if(confirm(member_name + '(' + member_id + ')님의 신청을 취소하시겠습니까?')) {
-
-		var ajaxData = {
-			'member_id' : member_id,
-			'member_name' : member_name,
-			'request_number' : request_number
-		};
-	
-		$.ajax({
-			url: 'cancelSettingEdit.do',
-			method: 'GET',
-			data : ajaxData,
-			success: function(html) { 
-					modal_layer_add('dialog_layer');
-					$('#dialog_layer').html(html);
-					
-					$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
-						resizable: false,
-						modal: true,
-						title: '신청 취소',
-						open: function(){
-							$('.ui-widget-overlay').addClass('custom-overlay');
-						},
-						close: function(){
-						},
-						buttons: [
-							{
-								text : '저장',
-								'class' : 'btn btn1',
-								click : function() {
-									cancelSettingSave();
-								}
-							},
-							{
-								text: "취소",
-								"class": 'btn btn_round btn_gray',
-								click: function() {
-									$(this).dialog('close');
-								}
-							}
-						]
-					});
-
-					$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-						width: 600,
-						height: 300
-					});
-			},error: function(html) {
-			}
-		});
-	}
-}
-
-//체크박스 전체삭제
-function allChange() {
+function cancelReservation() {
 	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
-		alert('삭제할 아이디를 선택해 주세요.');
+		alert('만기 처리할 아이디를 선택해 주세요.');
 	} else {
-		if(confirm('전체 삭제 하시겠습니까?')) {
+		if(confirm('만기처리 하시겠습니까?')) {
 			$.ajax({
 				type: "POST",
-				url: 'deleteAll.do',
+				url: 'cancelReservation.do',
 				data: $('input[name=request_number_arr]').serialize(),
 				success: function(response) {
 					if(response.valid) {
-						alert('전체삭제 되었습니다.');
+						alert('만기처리 되었습니다.');
+					} else {
+						alert(response.message);
 					}
 					location.reload();
 				},
 				error : function() {
-					alert('전체 삭제에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+					alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+function cancelRequest() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('취소 처리할 아이디를 선택해 주세요.');
+	} else {
+		if(confirm('만기처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'cancelReservation.do',
+				data: $('input[name=request_number_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('만기처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
 				}
 			});
 		} 
@@ -226,7 +117,7 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 			data : ajaxData,
 			success: function(html) { 
 				if(html == 'penaltyFalse') {
-					alert(member_name + '(' + member_id + ')님은 이미 페널티가 부여되었습니다.\n\n패널티 부여는 한 아이디당 하루에 한번만 가능합니다.');
+					alert(member_name + '(' + member_id + ')님은 이미 페널티가 부여되었습니다.\n패널티 부여는 한 아이디당 하루에 한번만 가능합니다.');
 				} else {
 					modal_layer_add('dialog_layer');
 					$('#dialog_layer').html(html);
@@ -271,32 +162,9 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 	
 }
 
-//비밀번호 랜덤생성 버튼
-function randomPassword(passwordCount, nonPasswordCount) {
-	if(confirm('비밀번호를 생성하시겠습니까?')) {
-		var ajaxData = {
-				'passwordCount' : passwordCount,
-				'nonPasswordCount' : nonPasswordCount
-		};
-		
-		$.ajax({
-			type: "POST",
-			url: 'randomPassword.do',
-			success: function(html) {
-				if(html == 'nonPasswordCheck') {
-					alert('비밀번호를 생성할수 없습니다. \n\n사물함 신청내역이 있을 시에 비밀번호 생성이 가능합니다.');
-				}else if(html == 'passwordCheck') {
-					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
-				} else {
-				alert('전체 ' + passwordCount + '개 중 \n\n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
-				location.reload();
-				}
-			},error: function(html) {
-			}
-		});
-	}
+function bookName(book_name) {
+	alert('도서명 : '+book_name);
 }
-
 </script>
 
 <!--[if IE 7]>
@@ -312,25 +180,46 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	/*비대면관련 스타일*/
 	.wrapper {overflow:hidden;}
 	.wrapper.wrapper-white {padding:0;margin:0;}
-
-	.untact-box {width:calc(55% - 20px);margin-left:20px;float:left;box-sizing:border-box;max-height:920px;overflow-y:auto;}
+	.wrapper.wrapper-white .cont-box::after {
+		content: '';
+		display: block;
+		width: 100%;
+		clear: both;
+	}
+	.wrapper.wrapper-white .cont-box {
+		width: 100%;
+		padding: 0 20px;
+		box-sizing:border-box;
+	}
+	.wrapper.wrapper-white .cont-box .locker-box-wrap{
+		position:relative;
+		float:left;
+		width: 40%;
+		background:#eee;
+		margin: 0;
+		padding:13px 7px 7px 13px;
+		box-sizing: border-box;
+	}
+	.wrapper.wrapper-white .cont-box .untact-box {
+		float:left;
+		width: 60%;
+		padding-left:20px;
+		box-sizing:border-box;
+	}
+		
 	.untact-box tbody td {height:45px;line-height:45px;}
-
-	.locker-box-wrap{position:relative;float:left;width:calc(45% - 56px);background:#eee;padding:13px 7px 7px 13px;margin-left:30px;}
-
 	.locker-box {box-sizing:border-box;max-height:920px;overflow-y:auto;}
 	.locker-box ul {font-size:0;overflow:hidden;}
 	.locker-box li {position:relative;margin-right:6px !important;margin-bottom:6px !important;display:inline-block;background:#fff;height:145px;padding:0;margin:0;border:1px solid #ccc;box-sizing:border-box;border-radius:5px;}
 	.locker-box li p {display:block;box-sizing:border-box;text-align:center;}
 	.locker-box li p.locknumber {position:absolute;top:10px;left:10px;font-size:12px;color:#fff;font-weight:bold;background:#223c63;border-radius:50%;width:27px;height:27px;line-height:27px;}
 	.locker-box li p.name {font-size:15px;color:#333;text-align:center;margin-top:70px;}
-
 	.locker-box li.divide2 {width:calc(50% - 6px);}
 	.locker-box li.divide3 {width:calc(33.33333333333% - 6px);}
 	.locker-box li.divide4 {width:calc(25% - 6px);}
 	.locker-box li.divide5 {width:calc(20% - 6px);}
 	.locker-box li.notuse {background:#2e2e2e url('/resources/common/img/locker-no-bg.png') no-repeat center center;}
-
+	.locker-box li.use {background:#BDBDBD no-repeat center center;}
 	a.btnuntact {border-radius:0;padding:7px 10px;}
 
 	@media all and (max-width:1280px){
@@ -345,8 +234,14 @@ function randomPassword(passwordCount, nonPasswordCount) {
 
 	@media all and (max-width:768px){
 		.locker-box{width:100%;float:none;}
-		.untact-box {width:95%;}
-		.locker-box-wrap{float:unset;width:calc(100% - 56px);margin-left:0;margin:0 auto;}
+		.wrapper.wrapper-white .cont-box .untact-box {
+			width:100%;
+			margin:0 0 30px;
+		}
+		.wrapper.wrapper-white .cont-box .locker-box-wrap {
+			width:100%;
+			margin:0;
+		}
 	}
 
 	@media all and (max-width:600px){
@@ -362,6 +257,27 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	@media all and (max-width:330px){
 
 	}
+	
+	.tab{float:left; width:100%;}
+	.tabnav{font-size:0; width:100%; margin-bottom: 10px; border:1px solid #ddd; border-top:0; border-right:0;}
+	.tabnav li{display: inline-block; height:46px; text-align:center; border-right:1px solid #ddd;}
+	.tabnav li a:before{content:""; position:absolute; left:0; top:0px; width:100%; height:3px; }
+	.tabnav li a.active:before{background:#7ea21e;}
+	.tabnav li a.active{border-bottom:1px solid #fff;}
+	.tabnav li a{ 
+		position:relative; 
+		display:block; 
+		background: #f8f8f8; 
+		color: #000; 
+		padding:0 30px; 
+		line-height:46px; 
+		text-decoration:none; 
+		font-size:16px;
+		border-top:1px solid #ddd;
+	}
+	.tabnav li a:hover,
+	.tabnav li a.active{background:#fff; color:#7ea21e; }
+	.tabcontent{padding: 20px; height:244px; border:1px solid #ddd; border-top:none;}
 	</style>
 
 	<div id="wrap">
@@ -392,23 +308,22 @@ function randomPassword(passwordCount, nonPasswordCount) {
 					
 					<!--좌측-->
 					<div class="untact-box">
-						<div class="tabmenu tab1">
-							<ul>
-								<li class="active"><a href="http://localhost/cms/module/untactBook/adminMode/index.do" style="font-size: 13px;">1</a></li>
-								<li><a href="http://localhost/cms/module/untactBook/adminMode/index.do" style="font-size: 13px;">2</a></li>
+						<div class="tab">
+							<ul class="tabnav">
+								<li><a href="/cms/module/untactBook/adminMode/index.do" style="font-size: 13px;">예약, 대기 항목</a></li>
+								<li><a href="/cms/module/untactBook/adminMode/index2.do" style="font-size: 13px;">대출, 만기처리 항목</a></li>
+								<li><a href="/cms/module/untactBook/adminMode/index3.do" class="active" style="font-size: 13px;">미처리 항목</a></li>
 							</ul>
-						</div>
-						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
-							<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
 						</div>
 						<div class="table-wrap">
 							<table class="type1 center">
 								<thead>
 									<tr>
-										<th scope="col">선택</th>
+										<th scope="col"><input type="checkbox" onchange="checkAll($(this));"></th>
 										<th scope="col">신청자아이디</th>
 										<th scope="col">신청자명</th>
 										<th scope="col">도서명</th>
+										<th scope="col">도서등록번호</th>
 										<th scope="col">사물함번호</th>
 										<th scope="col">비밀번호</th>
 										<th scope="col">관리</th>
@@ -418,7 +333,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 								<tbody>
 								<c:if test="${fn:length(untactBookReservationList) < 1}">
 									<tr style="height:100%">
-										<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
+										<td colspan="11" style="background:#f8fafb;">미처리 항목이 없습니다.</td>
 									</tr>
 								</c:if>
 								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
@@ -426,7 +341,15 @@ function randomPassword(passwordCount, nonPasswordCount) {
 										<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
 										<td>${i.member_id}</td>
 										<td>${i.member_name}</td>
-										<td>${i.book_name}</td>
+										<c:choose>
+											<c:when test="${fn:length(i.book_name) > 8}">
+												<td><a href="javascript:void(0);" id="bookName" onclick="bookName('${i.book_name}');">${fn:substring(i.book_name,0,7)}..</a></td>
+											</c:when>
+											<c:otherwise>
+												<td>${i.book_name}</td>
+											</c:otherwise>
+										</c:choose>
+										<td>${i.reg_no}</td>
 										<td>${i.locker_number}</td>
 										<td>
 											<c:choose>
@@ -434,16 +357,13 @@ function randomPassword(passwordCount, nonPasswordCount) {
 												미등록
 												</c:when>
 												<c:otherwise>
-												${i.locker_password}	
+												${i.locker_password}
 												</c:otherwise>
 											</c:choose>
 										</td>
 										<td>
 										<div class="button">
-											<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '접수', '${i.request_number}', $(this));" ${i.reservation_step eq '1'?'':' style="display:none;"'}>접수</a>
-											<a href="javascript:void(0);" id="waitingBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대기', '${i.request_number}', $(this));" ${i.reservation_step eq '2'?'':' style="display:none;"'}>대기</a>
-											<a href="javascript:void(0);" id="loanBook" class="btn btn2 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '대출', '${i.request_number}', $(this));" ${i.reservation_step eq '3'?'':' style="display:none;"'}>대출</a>
-											<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '대출'?'':' style="display:none;"'}>취소</a>
+											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservation()">만기</a>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 										</div>
 										</td>
@@ -457,9 +377,8 @@ function randomPassword(passwordCount, nonPasswordCount) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
-							<a href="#" id="deleteAll" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
-							<a href="#" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
+							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
+							<a href="javascript:void(0);" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 						</div>
 
 						<div class="search txt-center" style="margin-top:25px;">

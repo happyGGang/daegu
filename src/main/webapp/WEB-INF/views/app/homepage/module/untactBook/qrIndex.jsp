@@ -32,9 +32,12 @@ function cancelDetail(request_number, member_id, member_name, cancel_reason) {
 	alert(cancel_reason + '로 인한 예약취소 입니다.');		
 }
 
-function qrCode(locker_password) {
+function qrCode(rec_key, homepage_id, locker_number, locker_password) {
 
 	var ajaxData = {
+			'rec_key' : rec_key,
+			'homepage_id' : homepage_id,
+			'locker_number' : locker_number,
 			'locker_password' : locker_password
 	};
 	
@@ -102,11 +105,11 @@ function qrCode(locker_password) {
 				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.request_date}</td>
 				<td>${i.locker_number}</td>
-				<td>${i.reservation_step}</td>
+				<td>${i.reservation_step_code_name}</td>
 				<td>${i.book_name}</td>
 				<td>
 					<div class="button">
-						<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.locker_password}');">클릭</a>
+						<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.rec_key}', '${i.homepage_id}', '${i.locker_number}', '${i.locker_password}');">클릭</a>
 					</div>
 				</td>
 				<td>
@@ -126,7 +129,7 @@ function qrCode(locker_password) {
 						<a href="#" class="btn reserveCancel" onclick="cancelDetail('${i.request_number}','${i.member_id}','${i.member_name}','${i.cancel_reason}')">취소사유</a>
 						</c:when>
 						<c:otherwise>
-						예약중
+						${i.reservation_step_code_name}
 						<a href="#" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}','${i.member_id}','${i.member_name}')">예약취소</a>
 						</c:otherwise>
 					</c:choose>

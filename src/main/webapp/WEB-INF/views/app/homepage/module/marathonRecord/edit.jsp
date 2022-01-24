@@ -232,8 +232,23 @@ $(function() {
 		}
 	});
 	
-	/* doAjaxLoad('div#searchBox', 'search.do'); */
+	/* doAjaxLoad('div#historyBox', 'loan/history.do'); */
+	doAjaxLoad('div#loanBox', 'loan/index.do');
 	doAjaxLoad('div#historyBox', 'loan/history.do');
+	$('div#historyBox').css('display', 'none');
+	
+	$('#loanBtn').on('click', function(e) {
+		e.preventDefault();
+		$('div#historyBox').css('display', 'none');
+		$('div#loanBox').css('display', '');
+	});
+	
+	$('#historyBtn').on('click', function(e) {
+		e.preventDefault();
+		$('div#loanBox').css('display', 'none');
+		$('div#historyBox').css('display', '');
+	});
+	
 	
 	<c:if test="${marathonRecord.loan_choice eq 'Y'}">
 		$('span#writing').hide();
@@ -241,12 +256,16 @@ $(function() {
 	</c:if>
 });
 </script>
-<div id="historyBox">
-
-</div>
 <!-- <div id="searchBox">
 
 </div> -->
+<div>
+	<ul>
+		<li>일지를 직접 작성할 경우(학교, 사립작은도서관,구입, 소장도서), 분류기호만 선택! (청구기호는 필수입력 x)</li>
+		<li>달서구립 외 공공도서관, 사립작은도서관, 전자도서관 → “기타도서관” 선택> “해당도서관명 입력”> 대출일 설정</li>
+		<li>작성 시, 대회기간에 대출/반납한 도서인지 날짜를 꼭 확인하고 도서선택-작성바랍니다.</li>
+	</ul>
+</div>
 <form:form modelAttribute="marathonRecord" action="save.do" method="POST">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="contest_idx"/>
@@ -285,7 +304,7 @@ $(function() {
 				<td>
 					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/>
 					<span id="writing">☆</span><span id="selectButton" style="display:none;">★</span><br/>
-					<span class="text2">*상단의 대출내역선택을 통해 도서명, 저자, 출판사, 대출구입처, 청구기호, 등록번호를 자동으로 입력할 수 있습니다.</span>
+					<span class="text2">*하단의 대출내역을 통해 도서명, 저자, 출판사, 대출구입처, 청구기호를 자동으로 입력할 수 있습니다.</span>
 				</td>
 			</tr>
 			<tr>
@@ -321,6 +340,10 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>청구기호</th>
+				<td><form:input path="call_no" cssClass="text" cssStyle="width:90%;"/></td>
+			</tr>
+			<tr>
 				<th>*분류번호</th>
 				<td>
 					<form:select path="book_type" cssClass="selectmenu">
@@ -335,15 +358,8 @@ $(function() {
 						<form:option value="800">800(문학)</form:option>
 						<form:option value="900">900(역사)</form:option>
 					</form:select>
+					<span class="text2">위 청구기호를 참고하여 선택해주세요. 예)청구기호 710.xx→분류기호 700</span>
 				</td>
-			</tr>
-			<tr>
-				<th>청구기호</th>
-				<td><form:input path="call_no" cssClass="text" cssStyle="width:90%;"/></td>
-			</tr>
-			<tr>
-				<th>등록번호</th>
-				<td><form:input path="reg_no" cssClass="text" cssStyle="width:90%;"/></td>
 			</tr>
 			<tr>
 				<th>*독서감상문</th>
@@ -365,3 +381,11 @@ $(function() {
 	</div>
 
 </form:form>
+<input type="button" id="loanBtn" value="대출중"><input type="button" id="historyBtn" value="대출이력">
+
+<div id="loanBox">
+
+</div>
+<div id="historyBox">
+
+</div>

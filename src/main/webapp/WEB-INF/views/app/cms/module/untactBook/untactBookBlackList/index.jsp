@@ -154,7 +154,7 @@ function deletePenalty(member_id, member_name) {
 	<tbody>
 	<c:if test="${fn:length(untactBookBlackListList) < 1}">
 		<tr style="height:100%">
-			<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
+			<td colspan="8" style="background:#f8fafb;">블랙리스트 내역이 없습니다.</td>
 		</tr>
 	</c:if>
 	<c:forEach var="i" varStatus="status" items="${untactBookBlackListList}">

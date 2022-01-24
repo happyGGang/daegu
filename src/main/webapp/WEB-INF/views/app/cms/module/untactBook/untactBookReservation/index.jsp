@@ -146,7 +146,7 @@ function smsWrite() {
 	<tbody>
 	<c:if test="${fn:length(untactBookReservationList) < 1}">
 		<tr style="height:100%">
-			<td colspan="10" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
+			<td colspan="11" style="background:#f8fafb;">비대면 사물함 신청내역이 없습니다.</td>
 		</tr>
 	</c:if>
 	<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
@@ -168,7 +168,7 @@ function smsWrite() {
 					<td width="40">${i.locker_password}</td>
 				</c:otherwise>
 			</c:choose>
-			<td width="30">${i.reservation_step}</td>
+			<td width="30">${i.reservation_step_code_name}</td>
 		</tr>
 	</c:forEach>
 	</tbody>
