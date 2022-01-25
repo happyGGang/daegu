@@ -82,16 +82,22 @@ public class AdminModeController extends BaseController {
 		model.addAttribute("untactBookSetting", untactBookSetting);
 		model.addAttribute("untactLockerSetting", untactLockerSetting);
 		model.addAttribute("untactLockerSettingList", settingService.showLockerStateBefore(untactBookReservation));
-
-		int rowCount = untactBookSetting.getRow_count();
-		int totalCount = untactBookSetting.getTotal_count();
-		int remainder = totalCount%rowCount;
-		int quotient = totalCount/rowCount;
 		
-		 if(remainder > 0) { 
-			 model.addAttribute("quotient", quotient+1);
-		} else {
-			model.addAttribute("quotient", quotient);
+		try {
+			if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
+				int rowCount = untactBookSetting.getRow_count();
+				int totalCount = untactBookSetting.getTotal_count();
+				int remainder = totalCount%rowCount;
+				int quotient = totalCount/rowCount;
+				
+				if(remainder > 0) { 
+					model.addAttribute("quotient", quotient+1);
+				} else {
+					model.addAttribute("quotient", quotient);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e + "에러");
 		}
 		
 		//금일기준 그전 회차를 가지고 와야함
@@ -130,15 +136,21 @@ public class AdminModeController extends BaseController {
 		model.addAttribute("untactLockerSetting", untactLockerSetting);
 		model.addAttribute("untactLockerSettingList", settingService.showLockerStateBefore(untactBookReservation));
 		
-		int rowCount = untactBookSetting.getRow_count();
-		int totalCount = untactBookSetting.getTotal_count();
-		int remainder = totalCount%rowCount;
-		int quotient = totalCount/rowCount;
-		
-		 if(remainder > 0) { 
-			 model.addAttribute("quotient", quotient+1);
-		} else {
-			model.addAttribute("quotient", quotient);
+		try {
+			if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
+				int rowCount = untactBookSetting.getRow_count();
+				int totalCount = untactBookSetting.getTotal_count();
+				int remainder = totalCount%rowCount;
+				int quotient = totalCount/rowCount;
+				
+				if(remainder > 0) { 
+					model.addAttribute("quotient", quotient+1);
+				} else {
+					model.addAttribute("quotient", quotient);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e + "에러");
 		}
 		
 		//전회차 idx로 전전회차 List구함
@@ -172,15 +184,21 @@ public class AdminModeController extends BaseController {
 		model.addAttribute("untactBookSetting", untactBookSetting);
 		model.addAttribute("untactLockerSetting", untactLockerSetting);
 		
-		int rowCount = untactBookSetting.getRow_count();
-		int totalCount = untactBookSetting.getTotal_count();
-		int remainder = totalCount%rowCount;
-		int quotient = totalCount/rowCount;
-		
-		 if(remainder > 0) { 
-			 model.addAttribute("quotient", quotient+1);
-		} else {
-			model.addAttribute("quotient", quotient);
+		try {
+			if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
+				int rowCount = untactBookSetting.getRow_count();
+				int totalCount = untactBookSetting.getTotal_count();
+				int remainder = totalCount%rowCount;
+				int quotient = totalCount/rowCount;
+				
+				if(remainder > 0) { 
+					model.addAttribute("quotient", quotient+1);
+				} else {
+					model.addAttribute("quotient", quotient);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e + "에러");
 		}
 		
 		untactBookRound.setHomepage_id(getAsideHomepageId(request));
