@@ -4,6 +4,7 @@ public class UntactBookSetting {
 
 	private String homepage_id;  		//홈페이지ID
 	private String locker_use_yn;  		//사물함 사용여부
+	private String locker_type;  		//가로, 세로 사물함 종류선택 
 	private int row_count;  			//가로_갯수
 	private int total_count; 			//총_갯수
 	private String round_start_date;	//회차시작일
@@ -120,6 +121,14 @@ public class UntactBookSetting {
 
 	public void setRound_idx(String round_idx) {
 		this.round_idx = round_idx;
+	}
+
+	public String getLocker_type() {
+		return locker_type;
+	}
+
+	public void setLocker_type(String locker_type) {
+		this.locker_type = locker_type;
 	}
 	
 }

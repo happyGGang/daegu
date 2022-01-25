@@ -108,9 +108,16 @@ function qrCode(rec_key, homepage_id, locker_number, locker_password) {
 				<td>${i.reservation_step_code_name}</td>
 				<td>${i.book_name}</td>
 				<td>
-					<div class="button">
-						<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.rec_key}', '${i.homepage_id}', '${i.locker_number}', '${i.locker_password}');">클릭</a>
-					</div>
+					<c:choose>
+						<c:when test="${i.locker_password eq 0}">
+						미등록
+						</c:when>
+						<c:otherwise>
+						<div class="button">
+							<a href="javascript:void(0);" class="btn btn1" onclick="qrCode('${i.rec_key}', '${i.homepage_id}', '${i.locker_number}', '${i.locker_password}');">클릭</a>
+						</div>
+						</c:otherwise>
+					</c:choose>
 				</td>
 				<td>
 					<c:choose>

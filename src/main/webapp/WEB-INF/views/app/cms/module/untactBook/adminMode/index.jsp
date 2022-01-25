@@ -154,6 +154,106 @@ function cancelReservation() {
 	}
 }
 
+//신청 -> 접수버튼 한개
+function receiptReservationStepOne(request_number) {
+	var ajaxData = {
+		'request_number_arr' : request_number
+	};
+	if(confirm('접수처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'receiptReservationStep.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('접수처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('접수에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+//접수 -> 대기버튼 한개
+function waitingReservationStepOne(request_number) {
+	var ajaxData = {
+		'request_number_arr' : request_number
+	};
+	if(confirm('대기처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'waitingReservationStep.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('대기처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('대기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+//대기 -> 대출버튼 한개
+function bookReservationOne(request_number) {
+	var ajaxData = {
+			'request_number_arr' : request_number
+	};
+	if(confirm('대출처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'bookReservation.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('대출처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+//취소버튼
+function cancelReservationOne(request_number) {
+	var ajaxData = {
+			'request_number_arr' : request_number
+	};
+	if(confirm('만기처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'cancelReservation.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('만기처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+}
+
 //패널티버튼
 function blackListSettingEdit(member_id, member_name, request_number) {
 	if(confirm(member_name + '(' + member_id + ')님에 패널티를 부여하시겠습니까?')) {
@@ -369,18 +469,40 @@ function bookName(book_name) {
 					<div class="locker-box-wrap">
 						<div class="locker-box">
 							<ul>
-								<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
-								<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">
-								<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if>">
-									<p class="locknumber">${i.locker_number}</p>
-									<p class="name">
-										<c:choose>
-										<c:when test="${i.locker_type eq '사용안함'}">&nbsp;</c:when>
-										<c:otherwise>${i.locker_type}</c:otherwise>
-										</c:choose>
-									</p>
-								</li>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${untactBookSetting.locker_type eq 'R'}">
+										<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
+										<!-- 가로 -->
+										<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">
+										<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if><c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">use</c:if>">
+											<p class="locknumber">${i.locker_number}</p>
+											<p class="name">
+												<c:choose>
+												<c:when test="${i.locker_type eq '사용안함'}">&nbsp;</c:when>
+												<c:otherwise>${i.locker_type}</c:otherwise>
+												</c:choose>
+											</p>
+										</li>
+										</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<!-- 세로 -->
+										<c:forEach var="j" varStatus="status" begin="0" end="${quotient-1}">
+											<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}" begin="${j}"  step="${quotient}">
+											<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if><c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">use</c:if>">
+												<p class="locknumber">${i.locker_number}</p>
+												<p class="name">
+												<c:choose>
+												<c:when test="${i.locker_type eq '사용안함'}">&nbsp;</c:when>
+												<c:otherwise>${i.locker_type}</c:otherwise>
+												</c:choose>
+											</p>
+											</li>
+											</c:forEach>
+											<br>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
 							</ul>
 						</div>
 					</div>
@@ -401,7 +523,7 @@ function bookName(book_name) {
 							<table class="type1 center">
 								<thead>
 									<tr>
-										<th scope="col"><input type="checkbox" onchange="checkAll($(this));"></th>
+										<th scope="col"><input type="checkbox" id="checkbox" onchange="checkAll($(this));"></th>
 										<th scope="col">신청자아이디</th>
 										<th scope="col">신청자명</th>
 										<th scope="col">도서명</th>
@@ -420,7 +542,11 @@ function bookName(book_name) {
 								</c:if>
 								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 									<tr>
-										<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
+										
+										<td>
+											<label for="request_number_arr" style="cursor:pointer">
+												<form:checkbox path="request_number_arr" id="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
+											</label>
 										<td>${i.member_id}</td>
 										<td>${i.member_name}</td>
 										<c:choose>
@@ -447,14 +573,14 @@ function bookName(book_name) {
 										<div class="button">
 										<c:choose>
 											<c:when test="${i.reservation_step eq '1'}">
-												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStep()">접수</a>
+												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOne('${i.request_number}')">접수</a>
 											</c:when>
 											<c:when test="${i.reservation_step eq '2'}">
-												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStep();">대기</a>
+												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStepOne('${i.request_number}');">대기</a>
 											</c:when>
 											<c:when test="${i.reservation_step eq '3'}">
-												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservation()">대출</a>
-												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservation()">만기</a>
+												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservationOne('${i.request_number}')">대출</a>
+												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}')">만기</a>
 											</c:when>
 										</c:choose>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>

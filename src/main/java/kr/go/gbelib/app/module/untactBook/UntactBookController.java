@@ -103,18 +103,40 @@ public class UntactBookController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/cancelReserve.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse cancelReserve(UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+	public @ResponseBody JsonResponse cancelReserve(LibrarySearch librarySearch, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
-		
-		untactBookReservation.setHomepage_id(homepage.getHomepage_id());
-		untactBookReservation.setCancel_ip(request.getRemoteAddr());
 		
 		JsonResponse res = new JsonResponse(request);
 		
+		Member member = getSessionMemberInfo(request);
+		
 		if (!result.hasErrors()) {
-			untactBookReservationService.cancelReserve(untactBookReservation);
-			res.setValid(true);
-			res.setMessage("취소되었습니다.");
+			untactBookReservation.setHomepage_id(homepage.getHomepage_id());
+			untactBookReservation.setCancel_ip(request.getRemoteAddr());
+			List<UntactBookReservation> reservationList = untactBookReservationService.getReservationList(untactBookReservation);
+			
+			String request_number = String.valueOf(reservationList.get(0).getRequest_number());
+			
+			Map<String, Object> resultList = LibSearchAPI.getReserveList(member.getRec_key());
+			List<Map<String, Object>> list = null;
+			if(resultList != null && !resultList.isEmpty() && resultList.get("LIST_DATA") != null){
+				list = LibSearchAPI.getListData(resultList);
+				String reckey = String.valueOf(list.get(0).get("PK"));
+				librarySearch.setUserkey(member.getRec_key());
+				librarySearch.setBookkey(reckey);
+				ApiResponse apiResult = LibSearchAPI.cancelReservation2(librarySearch);
+				
+				if (apiResult.getStatus()) {
+					untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+					untactBookReservationService.cancelReserve(untactBookReservation);
+					res.setValid(true);
+					res.setMessage("취소 되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage("예약취소에 실패하였습니다.\nKLAS API 예약취소 오류 입니다. : " + apiResult.getMessage());
+				}
+			}
+			
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

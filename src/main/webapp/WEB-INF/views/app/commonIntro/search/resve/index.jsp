@@ -68,105 +68,113 @@ $(function() {
 			<th style="width:8%">예약취소</th>
 		</thead>
 		<tbody>
+		<!-- 비대면도서대출과 무인예약 구분을 위해 장비키 값으로 구분 2022-01-24 UTBA01는 북구구수산도서관 장비키값 -->
 		<c:forEach items="${resveList}" var="i">
-			<tr>
-				<td>${i.RNUM}</td>
-				<td>${i.TITLE_INFO}</td>
-				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
-				<td>${i.LIB_NAME}</td>
-				<td>${i.RESERVATION_DATE}</td>
-				<td>${i.RESERVE_RANK}</td>
-				<td>${i.RESERVATION_EXPIRE_DATE }</td>
-				<td>
-				<c:choose>
-					<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-
-						<c:choose>
-							<c:when test="${homepage.context_path eq 'dmsl'}">
-							별관 이동도서관 신청
-							</c:when>
-							<c:otherwise>
-							무인예약신청
-							</c:otherwise>
-						</c:choose>
-
-					</c:when>
-					<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-
-						<c:choose>
-							<c:when test="${homepage.context_path eq 'dmsl'}">
-							별관 이동도서관 신청 예약대기
-							</c:when>
-							<c:otherwise>
-							무인예약대기
-							</c:otherwise>
-						</c:choose>
-					
-					</c:when>
-					<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-
-						워킹스루예약신청
-					
-					</c:when>
-					<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
-
-						워킹스루예약대기
-					
-					</c:when>
-					<c:otherwise>
-					일반예약
-					</c:otherwise>
-				</c:choose>
-				</td>
-				<td>
 			<c:choose>
-				<c:when test="${i.MANAGE_CODE eq 'BR'}">
-
+				<c:when test="${i.L_WORKER ne 'UTBA01'}">
+					<tr>
+						<td>${i.RNUM}</td>
+						<td>${i.TITLE_INFO}</td>
+						<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
+						<td>${i.LIB_NAME}</td>
+						<td>${i.RESERVATION_DATE}</td>
+						<td>${i.RESERVE_RANK}</td>
+						<td>${i.RESERVATION_EXPIRE_DATE }</td>
+						<td>
+						<c:choose>
+							<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+		
+								<c:choose>
+									<c:when test="${homepage.context_path eq 'dmsl'}">
+									별관 이동도서관 신청
+									</c:when>
+									<c:otherwise>
+									무인예약신청
+									</c:otherwise>
+								</c:choose>
+		
+							</c:when>
+							<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+		
+								<c:choose>
+									<c:when test="${homepage.context_path eq 'dmsl'}">
+									별관 이동도서관 신청 예약대기
+									</c:when>
+									<c:otherwise>
+									무인예약대기
+									</c:otherwise>
+								</c:choose>
+							
+							</c:when>
+							<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+		
+								워킹스루예약신청
+							
+							</c:when>
+							<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+		
+								워킹스루예약대기
+							
+							</c:when>
+							<c:otherwise>
+							일반예약
+							</c:otherwise>
+						</c:choose>
+						</td>
+						<td>
 					<c:choose>
-						<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-						</c:when>
-						<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-						</c:when>
-						<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-						</c:when>
-						<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+						<c:when test="${i.MANAGE_CODE eq 'BR'}">
+		
+							<c:choose>
+								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+								</c:when>
+								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+								</c:when>
+								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+								</c:when>
+								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+								</c:when>
+								<c:otherwise>
+									<c:if test="${i.STATUS eq '3'}">
+										<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+		
 						</c:when>
 						<c:otherwise>
-							<c:if test="${i.STATUS eq '3'}">
-								<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-							</c:if>
+		
+							<c:choose>
+								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+		
+									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+		
+								</c:when>
+								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+								</c:when>
+								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+		
+									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+		
+								</c:when>
+								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+								</c:when>
+								<c:otherwise>
+									<c:if test="${i.STATUS eq '3'}">
+									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+									</c:if>
+								</c:otherwise>
+							</c:choose>
+		
 						</c:otherwise>
 					</c:choose>
-
+						</td>
+					</tr>
 				</c:when>
 				<c:otherwise>
-
-					<c:choose>
-						<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-
-							<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-
-						</c:when>
-						<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-						</c:when>
-						<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-
-							<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-
-						</c:when>
-						<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
-						</c:when>
-						<c:otherwise>
-							<c:if test="${i.STATUS eq '3'}">
-							<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-
+					 <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3>
 				</c:otherwise>
 			</c:choose>
-				</td>
-			</tr>
 		</c:forEach>
 		</tbody>
 	</table>

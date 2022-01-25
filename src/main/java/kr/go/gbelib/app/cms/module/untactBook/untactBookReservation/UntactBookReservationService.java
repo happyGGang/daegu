@@ -165,4 +165,8 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getUnprocessedList(untactBookReservation);
 	}
 
+	public List<UntactBookReservation> getReservationList(UntactBookReservation untactBookReservation) {
+		return dao.getReservationList(untactBookReservation);
+	}
+
 }

@@ -110,6 +110,7 @@ public class UntactLockerSettingController extends BaseController {
 		ValidationUtils.rejectIfZero(result, "reservation_repeated_day", "예약기준 반복일수를 입력하세요.");
 		ValidationUtils.rejectIfZero(result, "start_hour", "예약기준 반복시간을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "locker_use_type", "사물함 타입을 설정해주세요.");
+		ValidationUtils.rejectIfEmpty(result, "locker_type", "사물함 방향을 설정해주세요.");
 		
 		UntactBookRound untactBookRound = new UntactBookRound();
 		untactBookRound.setHomepage_id(untactBookSetting.getHomepage_id());

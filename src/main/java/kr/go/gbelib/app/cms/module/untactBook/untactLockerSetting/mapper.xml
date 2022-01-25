@@ -21,6 +21,7 @@
 			LEFT JOIN UNTACT_BOOK_RESERVATION B
 			ON a.homepage_id = b.homepage_id
 			AND a.locker_number = b.locker_number
+			AND b.cancel_yn = 'N'
 			AND b.round_idx = (SELECT
 										round_idx
 									FROM
@@ -113,7 +114,7 @@
 			round_end_date, reservation_repeated_day,
 			SUBSTR(reservation_repeated_time,0,2) AS start_hour,
 			SUBSTR(reservation_repeated_time,4,2) AS start_minute,
-			locker_use_type, terms
+			locker_use_type, locker_type, terms
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
@@ -136,14 +137,15 @@
 					a.reservation_repeated_day = #{reservation_repeated_day},
 					a.reservation_repeated_time = #{start_hour}||':'||#{start_minute},
 					a.locker_use_type = #{locker_use_type},
+					a.locker_type = #{locker_type},
 		    		a.terms = #{terms}
 			WHEN NOT MATCHED THEN
 				INSERT (
 					homepage_id, locker_use_yn, row_count, total_count, round_start_date,
-					round_end_date, reservation_repeated_day, reservation_repeated_time, locker_use_type, terms
+					round_end_date, reservation_repeated_day, reservation_repeated_time, locker_use_type, locker_type, terms
 				) VALUES (
 					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{round_start_date},
-					#{round_end_date}, #{reservation_repeated_day}, #{start_hour}||':'||#{start_minute}, #{locker_use_type}, #{terms}
+					#{round_end_date}, #{reservation_repeated_day}, #{start_hour}||':'||#{start_minute}, #{locker_use_type}, #{locker_type}, #{terms}
 				)
 	</update>
 	

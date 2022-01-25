@@ -4,12 +4,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
-function cancelReserve(request_number, member_id, member_name) {
+function cancelReserve(request_number) {
 	if(confirm('예약 취소 하시겠습까?')) {
 		var ajaxData = {
-				'request_number' : request_number,
-				'member_id' : member_id,
-				'member_name' : member_name
+				'request_number' : request_number
 		};
 		
 		$.ajax({

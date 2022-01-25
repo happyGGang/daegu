@@ -49,6 +49,13 @@ $('input#round_end_date').datepicker({
 				</td>
 			</tr>
 			<tr>
+				<th>가로,세로 사물함 선택(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:radiobutton path="locker_type" value="R" label="가로" />
+					<form:radiobutton path="locker_type" value="C" label="세로" />
+				</td>
+			</tr>
+			<tr>
 				<th>사물함 한줄당 갯수(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:select path="row_count">

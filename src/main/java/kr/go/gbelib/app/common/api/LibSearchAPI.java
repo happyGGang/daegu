@@ -907,6 +907,33 @@ public class LibSearchAPI {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
 	}
+	
+	/**
+	 * K.API - 16
+	 *
+	 * 비대면예약취소
+	 *
+	 * @author HWAN 2022. 01. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse cancelReservation2(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userkey", librarySearch.getUserkey());// 이용자key
+		param.put("reckey", librarySearch.getBookkey());// 대출key
+		param.put("type", "0");// 이용자취소
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("bookreservecancel", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 
 	/**
 	 * K.API - 17

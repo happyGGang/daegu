@@ -72,4 +72,6 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getUnprocessedList(UntactBookReservation untactBookReservation);
 
+	public List<UntactBookReservation> getReservationList(UntactBookReservation untactBookReservation);
+
 }
