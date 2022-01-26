@@ -215,6 +215,106 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 	
 }
 
+//신청 -> 접수버튼 한개
+function receiptReservationStepOne(request_number) {
+	var ajaxData = {
+		'request_number_arr' : request_number
+	};
+	if(confirm('접수처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'receiptReservationStep.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('접수처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('접수에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+//접수 -> 대기버튼 한개
+function waitingReservationStepOne(request_number) {
+	var ajaxData = {
+		'request_number_arr' : request_number
+	};
+	if(confirm('대기처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'waitingReservationStep.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('대기처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('대기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+//대기 -> 대출버튼 한개
+function bookReservationOne(request_number) {
+	var ajaxData = {
+			'request_number_arr' : request_number
+	};
+	if(confirm('대출처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'bookReservation.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('대출처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+//취소버튼 한개
+function cancelReservationOne(request_number) {
+	var ajaxData = {
+			'request_number_arr' : request_number
+	};
+	if(confirm('만기처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'cancelReservation.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('만기처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+}
+
 //비밀번호 랜덤생성 버튼
 function randomPassword(passwordCount, nonPasswordCount) {
 	if(confirm('비밀번호를 생성하시겠습니까?')) {
@@ -442,7 +542,11 @@ function bookName(book_name) {
 								</c:if>
 								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 									<tr>
-										<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
+										<td>
+											<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">
+												<form:checkbox path="request_number_arr" id="request_number_arr" cssClass="request_idx" value="${i.request_number}"/>
+											</c:if>
+										</td>
 										<td>${i.member_id}</td>
 										<td>${i.member_name}</td>
 										<c:choose>
@@ -469,14 +573,14 @@ function bookName(book_name) {
 										<div class="button">
 										<c:choose>
 											<c:when test="${i.reservation_step eq '1'}">
-												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStep()">접수</a>
+												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOne('${i.request_number}');">접수</a>
 											</c:when>
 											<c:when test="${i.reservation_step eq '2'}">
-												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStep();">대기</a>
+												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStepOne('${i.request_number}');">대기</a>
 											</c:when>
 											<c:when test="${i.reservation_step eq '3'}">
-												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservation()">대출</a>
-												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservation()">만기</a>
+												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservationOne('${i.request_number}');">대출</a>
+												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}');">만기</a>
 											</c:when>
 										</c:choose>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>

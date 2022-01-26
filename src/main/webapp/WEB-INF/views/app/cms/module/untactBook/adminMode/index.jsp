@@ -229,7 +229,7 @@ function bookReservationOne(request_number) {
 	} 
 }
 
-//취소버튼
+//취소버튼 한개
 function cancelReservationOne(request_number) {
 	var ajaxData = {
 			'request_number_arr' : request_number
@@ -542,11 +542,11 @@ function bookName(book_name) {
 								</c:if>
 								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 									<tr>
-										
 										<td>
-											<label for="request_number_arr" style="cursor:pointer">
-												<form:checkbox path="request_number_arr" id="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
-											</label>
+											<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">
+												<form:checkbox path="request_number_arr" id="request_number_arr" cssClass="request_idx" value="${i.request_number}"/>
+											</c:if>
+										</td>
 										<td>${i.member_id}</td>
 										<td>${i.member_name}</td>
 										<c:choose>
@@ -573,14 +573,14 @@ function bookName(book_name) {
 										<div class="button">
 										<c:choose>
 											<c:when test="${i.reservation_step eq '1'}">
-												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOne('${i.request_number}')">접수</a>
+												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOne('${i.request_number}');">접수</a>
 											</c:when>
 											<c:when test="${i.reservation_step eq '2'}">
 												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStepOne('${i.request_number}');">대기</a>
 											</c:when>
 											<c:when test="${i.reservation_step eq '3'}">
-												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservationOne('${i.request_number}')">대출</a>
-												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}')">만기</a>
+												<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservationOne('${i.request_number}');">대출</a>
+												<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}');">만기</a>
 											</c:when>
 										</c:choose>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>

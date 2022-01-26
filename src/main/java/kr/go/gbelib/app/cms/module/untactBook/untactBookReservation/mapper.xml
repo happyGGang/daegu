@@ -768,14 +768,21 @@
 					WHERE
 						homepage_id = #{homepage_id}
 					AND reservation_step <![CDATA[<]]> 4
-					AND round_idx > (SELECT 
-										round_idx 
-									 FROM 
-										UNTACT_BOOK_ROUND 
-									 WHERE SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS')
-										 		   AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
-										 		   AND homepage_id = #{homepage_id}
-								     )
+					AND round_idx <![CDATA[<]]> (SELECT
+													round_idx
+												FROM
+													UNTACT_BOOK_ROUND
+												WHERE
+													homepage_id = #{homepage_id}
+												AND round_end_date = (SELECT
+																			round_start_date
+																		FROM
+																			UNTACT_BOOK_ROUND
+																		WHERE 1=1		
+																		AND homepage_id = #{homepage_id}
+																		AND round_idx = #{round_idx}
+																	  )
+										         )
 					<include refid="where"/>
 					AND reservation_step != '6'	
 					ORDER BY request_number DESC

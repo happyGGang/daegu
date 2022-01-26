@@ -285,7 +285,21 @@
 			UNTACT_BOOK_ROUND
 		WHERE
 			homepage_id = #{homepage_id}
-		AND round_idx = #{round_idx} 
+		AND round_idx = (SELECT
+							round_idx
+						FROM
+							UNTACT_BOOK_ROUND
+						WHERE
+							homepage_id = 'h46'
+						AND round_start_date = (SELECT
+													round_end_date
+												FROM
+													UNTACT_BOOK_ROUND
+												WHERE 1=1		
+												AND homepage_id = #{homepage_id}
+												AND round_idx = #{round_idx}
+											  )
+				         ) 
 	</select>
 	
 	<select id="getRepeatedOne" resultType="String">

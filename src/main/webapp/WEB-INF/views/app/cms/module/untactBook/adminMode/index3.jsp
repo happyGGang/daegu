@@ -101,6 +101,30 @@ function cancelRequest() {
 	}
 }
 
+function cancelReservationOne(request_number) {
+	var ajaxData = {
+			'request_number_arr' : request_number
+	};
+	if(confirm('만기처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'cancelReservation.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('만기처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+}
+
 //패널티버튼
 function blackListSettingEdit(member_id, member_name, request_number) {
 	if(confirm(member_name + '(' + member_id + ')님에 패널티를 부여하시겠습니까?')) {
@@ -360,7 +384,11 @@ function bookName(book_name) {
 								</c:if>
 								<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 									<tr>
-										<td><form:checkbox path="request_number_arr" cssClass="request_idx" value="${i.request_number}"/></td>
+										<td>
+											<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">
+												<form:checkbox path="request_number_arr" id="request_number_arr" cssClass="request_idx" value="${i.request_number}"/>
+											</c:if>
+										</td>
 										<td>${i.member_id}</td>
 										<td>${i.member_name}</td>
 										<c:choose>
@@ -385,7 +413,7 @@ function bookName(book_name) {
 										</td>
 										<td>
 										<div class="button">
-											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservation()">만기</a>
+											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}');">만기</a>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 										</div>
 										</td>
