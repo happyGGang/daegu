@@ -24,7 +24,7 @@ public class LendingAutoReturnService {
 	 * dispatcherServlet.xml 에서 on, off 설정
 	 */
 	public void autoReturn() {
-		// WAS2_HOMEPAGE2 컨테이너에서만 실행(운영서버 libwas계정 접속 후 alias jcfg 경로에서 domain.xml에서 whalesoft.container)
+		// WAS2_HOMEPAGE2 컨테이너에서만 실행
 		if(StringUtils.equals(System.getProperty("whalesoft.container"), "WAS2_HOMEPAGE2")) {
         	logger.info("### autoReturn starts ###");
         	System.out.println("### autoReturn starts ###");
