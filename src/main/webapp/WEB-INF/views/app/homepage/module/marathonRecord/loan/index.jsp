@@ -20,17 +20,27 @@ $(function() {
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form:form>
 
-<!-- contents-title
-<div id="contents-title">
-	<h2>대출중인도서<span style="font-weight:300">를 확인하세요.</span></h2>
-</div>
-/contents-title-->
+<style>
+	table thead th{text-align:center;}
+</style>
 
-<div id="contents-title">
-	<h2><span style="font-weight:300">대출내역을 통해 </span>도서를 선택<span style="font-weight:300">하실 수 있습니다.</span></h2>
-</div>
+<h4>
+	<span style="font-weight:300">대출내역을 통해 </span>도서를 선택<span style="font-weight:300">하실 수 있습니다.</span>
+</h4>
 
-	<table summary="신청정보">
+<div class="rsv-info"></div>
+<div class="auto-scroll">
+	<table>
+		<colgroup>
+			<col width="3%">
+			<col width="">
+			<col width="15%">
+			<col width="13%">
+			<col width="11%">
+			<col width="11%">
+			<col width="7%">
+			<col width="8%">
+		</colgroup>
 		<thead>
 			<th>순번</th>
 			<th>제목</th>
@@ -45,13 +55,13 @@ $(function() {
 			<c:if test="${fn:length(loanList) < 1}"><tr><td colspan="8">대출중인 도서가 없습니다.</td></tr></c:if>
 			<c:forEach items="${loanList}" var="i">
 			<tr>
-				<td>${i.RNUM}</td>
+				<th style="text-align:center;">${i.RNUM}</th>
 				<td>${i.TITLE_INFO}</td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
-				<td>${i.LIB_NAME}</td>
-				<td>${i.LOAN_DATE}</td>
-				<td>${i.RETURN_PLAN_DATE}</td>
-				<td>
+				<td style="text-align:center;">${i.LIB_NAME}</td>
+				<td style="text-align:center;">${i.LOAN_DATE}</td>
+				<td style="text-align:center;">${i.RETURN_PLAN_DATE}</td>
+				<td style="text-align:center;">
 				<fmt:parseDate value="${i.RETURN_PLAN_DATE}" pattern="yyyy/MM/dd" var="rpd"/>
 				<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate"/>
 				<fmt:formatDate value="${rpd}" pattern="yyyyMMdd" var="endDate"/>
@@ -65,8 +75,8 @@ $(function() {
 					<c:otherwise></c:otherwise>
 				</c:choose>
 				</td>
-				<td>
-					<a href="#" id="selectOne" class="btn btn1" style="width:30%;height:10%;">선택</a>
+				<td style="text-align:center;">
+					<a href="#" id="selectOne" class="btn btn1">선택</a>
 					<span data="${fn:replace(fn:replace(i.TITLE_INFO, '</b>', ''), '<b>', '')}//${i.AUTHOR}//${i.PUBLISHER}//${i.CALL_NO}//${i.REG_NO}//${i.MANAGE_CODE}//${i.LIB_NAME}"></span>
 				</td>
 			</tr>
@@ -74,3 +84,59 @@ $(function() {
 		</tbody>
 	</table>
 </div>
+
+<script>
+	$(function() {
+
+		$('div#board_paging a').on('click', function(e) {
+			e.preventDefault();
+			$('#viewPage').attr('value', $(this).attr('keyValue'));
+			doAjaxLoad('div#loanBox', 'loan/index.do', $('form#librarySearch').serialize());
+		});
+
+		$('a#selectOne').on('click', function(e) {
+			e.preventDefault();
+			var data = $(this).next('span').attr('data').split('//');
+			$('input#book_name').val(data[0].replace(/(<([^>]+)>)/ig,""));
+			$('input#book_author').val(data[1].replace(/(<([^>]+)>)/ig,""));
+			$('input#publisher').val(data[2].replace(/(<([^>]+)>)/ig,""));
+			$('input#call_no').val(data[3].replace(/(<([^>]+)>)/ig,""));
+			$('input#reg_no').val(data[4].replace(/(<([^>]+)>)/ig,""));
+			
+			$('input#book_name').attr('readonly', true);
+			$('input#book_author').attr('readonly', true);
+			$('input#publisher').attr('readonly', true);
+			$('input#call_no').attr('readonly', true);
+			$('input#reg_no').attr('readonly', true);
+			$('input#book_name').focus();
+			
+			var manage_code = data[5].replace(/(<([^>]+)>)/ig,"");
+			
+			$('span#writing').hide();
+			$('span#selectButton').show();
+			if (manage_code == 'BY') {
+				$('select#book_resources').val('100').prop('selected', true);
+			} else if (manage_code == 'BW') {
+				$('select#book_resources').val('200').prop('selected', true);
+			} else if (manage_code == 'BV') {
+				$('select#book_resources').val('300').prop('selected', true);
+			} else if (manage_code == 'BZ') {
+				$('select#book_resources').val('400').prop('selected', true);
+			} else if (manage_code == 'BX') {
+				$('select#book_resources').val('600').prop('selected', true);
+			} else if (manage_code == 'BU') {
+				$('select#book_resources').val('700').prop('selected', true);
+			} else {
+				$('select#book_resources').val('write').prop('selected', true);
+				$('input#book_resources_1').css('display', '');
+				$('input#book_resources_1').val(data[6].replace(/(<([^>]+)>)/ig,""));
+			}
+			
+			$('select#book_resources').attr('onfocus', 'this.initialSelect = this.selectedIndex');
+			$('select#book_resources').attr('onchange', 'this.selectedIndex = this.initialSelect');
+			$('input#book_resources_1').attr('readonly', true);
+			
+			$('input#loan_choice').val('Y');
+		});
+	});
+</script>

@@ -128,50 +128,7 @@ $(function(){
 	});
 });
 </script>
-<style>
-	.new_search_box{position:relative;}
-
-	.list01 td .btn{width:95px;padding:5px 8px;}
-
-	.btn.btn8.disabled:hover,
-	.btn.btn8{background-color:#666;border-color:#444;color:#fff}
-	.btn.btn8:hover{background-color:#555;border-color:#444}
-
-	.srch_category_box{margin-top:10px;}
-
-	.srch_name_box .new_text01{width:600px;}
-
-	.search select{width:150px;}
-
-	.m_br{display:none;}
-
-	.ml10{margin-left:10px;}
-
-	.td1{width:auto;}
-	.td2{width:15%;}
-	.td3{width:25%;}
-	.td4{width:20%;}
-	.td5{width:10%;}
-
-	@media all and (max-width:1100px){
-		.search{text-align:left;}
-		.new_search_box{padding:30px !important;}
-		.srch_category_box{margin-top:3px;}
-		.srch_name_box .new_text01{width:100%;}
-		.m_br{height:4px;display:block;}
-		.ml10{margin-left:0;}
-		#search_btn{position:absolute;bottom:30px;}
-		.srch_day_box{text-align:left;margin-bottom:50px;}
-	}
-
-	@media all and (max-width:768px){
-		.td1, .td2, .td3, .td4, .td5{width:100%;}
-
-	@media all and (max-width:425px){
-		.srch_category_box select{width:150px !important;margin-bottom:0;}
-		.srch_day_box{width:100%;}
-	}
-</style>
+<link rel="stylesheet" href="/resources/common/css/teach.css" />
 
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
 <%-- 	<form:hidden path="group_idx"/> --%>
@@ -357,7 +314,7 @@ ${html.html}
 	</c:if>
 </c:if>
 
-<c:if test="${homepage.context_path eq 'dalseolib'}">
+<!-- <c:if test="${homepage.context_path eq 'dalseolib'}">
 	<p style="color:#ff0000;font-weight:bold;font-size:16px;">
 		* 단계적 일상회복 1차 개편에 따라 도서관 백신패스 의무화되었습니다.<br />
 		<p style="color:#555;font-size:14px;font-weight:normal;margin:5px 0 20px 10px;">
@@ -366,7 +323,7 @@ ${html.html}
 		- 접종불가자(진단서 및 증명서 필요)
 		</p>
 	</p>
-</c:if>
+</c:if> -->
 
 <c:if test="${homepage.context_path eq 'dalseolib'}">
 	<c:if test="${param.menu_idx eq '32'}">

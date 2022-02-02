@@ -9,6 +9,16 @@
 
 <style>
 	span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
+
+	.tbl-type01 tbody td{text-align:left;}
+
+	.selectmenu, textarea{border:1px solid #ddd;border-radius:3px;}
+
+	.fl-btn{float:right;}
+
+	@media (max-width:650px){
+		.fl-btn{float:none;}
+	}
 </style>
 <script type="text/javascript">
 $(function() {
@@ -259,11 +269,11 @@ $(function() {
 <!-- <div id="searchBox">
 
 </div> -->
-<div>
-	<ul>
-		<li>일지를 직접 작성할 경우(학교, 사립작은도서관,구입, 소장도서), 분류기호만 선택! (청구기호는 필수입력 x)</li>
-		<li>달서구립 외 공공도서관, 사립작은도서관, 전자도서관 → “기타도서관” 선택> “해당도서관명 입력”> 대출일 설정</li>
-		<li>작성 시, 대회기간에 대출/반납한 도서인지 날짜를 꼭 확인하고 도서선택-작성바랍니다.</li>
+<div style="border:1px solid #ddd;margin-bottom:20px;">
+	<ul class="con2" style="margin:20px 20px 10px 20px;">
+		<li><b>일지를 직접 작성할 경우(학교, 사립작은도서관,구입, 소장도서), 분류기호만 선택!</b> (청구기호는 필수입력 x)</li>
+		<li><b>달서구립 외 공공도서관, 사립작은도서관, 전자도서관 → “기타도서관” 선택> “해당도서관명 입력”> 대출일 설정</b></li>
+		<li style="color:blue;">작성 시, 대회기간에 대출/반납한 도서인지 날짜를 꼭 확인하고 도서선택-작성바랍니다.</li>
 	</ul>
 </div>
 <form:form modelAttribute="marathonRecord" action="save.do" method="POST">
@@ -278,15 +288,17 @@ $(function() {
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="rsv-info"></div>
 	<div class="auto-scroll">
-	<table class="type2 nohead">
+	<table class="tbl-type01">
 		<colgroup>
-			<col width="20%" class="col1">
+			<col width="22%" class="col1">
 			<col width="*" class="col2">
 		</colgroup>
-		<tbody>
+		<thead>
 			<tr>
-				<td colspan="2" class="last td1" style="text-align:center;">일지작성</th>
+				<th colspan="2" style="text-align:center;">일지작성</th>
 			</tr>
+		</thead>
+		<tbody>
 			<tr>
 				<th>참가종목</th>
 				<td>${marathonApplicant.contest_type} (<fmt:formatNumber value="${marathonApplicant.page_count}" pattern="#,###"/>쪽) / 누적 : <b><fmt:formatNumber value="${page_count_total}" pattern="#,###"/></b>쪽</td>
@@ -304,7 +316,7 @@ $(function() {
 				<td>
 					<form:input path="book_name" cssClass="text" cssStyle="width:90%"/>
 					<span id="writing">☆</span><span id="selectButton" style="display:none;">★</span><br/>
-					<span class="text2">*하단의 대출내역을 통해 도서명, 저자, 출판사, 대출구입처, 청구기호를 자동으로 입력할 수 있습니다.</span>
+					<span class="text2">* 하단의 대출내역을 통해 도서명, 저자, 출판사, 대출구입처, 청구기호를 자동으로 입력할 수 있습니다.</span>
 				</td>
 			</tr>
 			<tr>
@@ -317,7 +329,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>*읽은 쪽수</th>
-				<td><form:input path="read_page_count" cssClass="text"/></td>
+				<td style="border-right:none;"><form:input path="read_page_count" cssClass="text"/></td>
 				<form:hidden path="read_page_count_beforeChange" value="${marathonRecord.read_page_count}"/>
 			</tr>
 			<tr>
@@ -364,8 +376,8 @@ $(function() {
 			<tr>
 				<th>*독서감상문</th>
 				<td>
-					<div style="padding-left:1%"><span id="textLength">0</span>/${marathonApplicant.contest_type_idx eq 1 ? '30' : '50'}자 &nbsp;&nbsp;&nbsp; 로그인 유지 시간 : <span id="demo"></span></div>
-					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;width:100%;"></form:textarea><br/>
+					<div><span id="textLength">0</span>/${marathonApplicant.contest_type_idx eq 1 ? '30' : '50'}자 &nbsp;&nbsp;&nbsp; 로그인 유지 시간 : <span id="demo"></span></div>
+					<form:textarea path="book_journals" rows="10" cols="100" cssStyle="padding:10px 10px;width:calc(100% - 20px);"></form:textarea><br/>
 					<div style="font-size:13px;">
 						* 독서감상문은 띄어쓰기 빈칸을 포함하여 ${marathonApplicant.contest_type_idx eq 1 ? '30' : '50'}자 이상 기록하여야 합니다.<br/>
 						* 30분간 사용이 없으면 자동으로 로그아웃되므로 작성이 길어질 경우 미리 작성하신 내용을 복사해서 등록하시기 바랍니다.
@@ -381,7 +393,10 @@ $(function() {
 	</div>
 
 </form:form>
-<input type="button" id="loanBtn" value="대출중"><input type="button" id="historyBtn" value="대출이력">
+<div style="height:50px;"></div>
+<div class="fl-btn">
+	<input type="button" id="loanBtn" value="대출중도서보기" class="btn btn3" style="cursor:pointer;"><input type="button" id="historyBtn" value="대출이력보기" class="btn btn3" style="cursor:pointer;">
+</div>
 
 <div id="loanBox">
 

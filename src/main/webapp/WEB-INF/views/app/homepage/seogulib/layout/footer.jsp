@@ -32,7 +32,8 @@
 						<em><b>비산도서관</b> : (41809) <br class="mobileBr"/>대구광역시 서구 달서로 14길 13</em><br class="mobileBr"/><em>전화 : 053-663-3721</em><em>FAX : 053-663-3729</em><br/>
 						<em><b>비원도서관</b> : (41718) <br class="mobileBr"/>대구광역시 서구 달서천로 61안길 10</em><br class="mobileBr"/><em>전화 : 053-663-3871</em><em>FAX : 053-663-3879</em><br/>
 						<em><b>영어도서관</b> : (41842) <br class="mobileBr"/>대구광역시 서구 평리로35길 90-6</em><br class="mobileBr"/><em>전화 : 053-663-3861</em><em>FAX : 053-663-3869</em><br/>
-						<em><b>원고개도서관</b> : (41743) <br class="mobileBr"/>대구광역시 서구 달서로 43길 12</em><br class="mobileBr"/><em>전화 : 053-663-3941</em><em>FAX : 053-663-3949</em>
+						<em><b>원고개도서관</b> : (41743) <br class="mobileBr"/>대구광역시 서구 달서로 43길 12</em><br class="mobileBr"/><em>전화 : 053-663-3941</em><em>FAX : 053-663-3949</em><br/>
+						<em style="font-size:90%;"><b>대구 서구청</b> : (41777) <br class="mobileBr"/>대구광역시 서구 국채보상로 257 (평리동)</em><br class="mobileBr"/><em style="font-size:90%;">사업자등록번호: 503-83-00220</em>
 					</p>
 					<span>Copyright ⓒ 서구통합도서관. All rights reserved.</span>
 				</address>

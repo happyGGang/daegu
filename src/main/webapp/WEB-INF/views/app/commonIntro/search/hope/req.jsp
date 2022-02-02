@@ -201,7 +201,7 @@
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseonglib'}">
 				<form:select path="manageCode" cssClass="new_select_box">
-					<form:option value="BR">달성군립도서관</form:option>
+					<!-- <form:option value="BR">달성군립도서관</form:option> -->
 					<form:option value="GA">화원읍작은도서관</form:option>
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
@@ -211,7 +211,7 @@
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
 					<form:option value="FN">달성군청소년센터</form:option>
-					<form:option value="FJ">달성군청도서관</form:option>
+					<!--<form:option value="FJ">달성군청도서관</form:option>-->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseongsmall'}">
@@ -263,7 +263,7 @@
 				<c:when test="${homepagePath eq 'donggu' || homepagePath eq 'donggusm'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="CA">안심도서관</option>
-					<!--<option value="CB">신천도서관</option>-->
+					<option value="CB">신천도서관</option>
 					<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
 					<option value="GU">불로어울림 작은도서관</option>
@@ -410,8 +410,7 @@
 
 <div class="kbtn txt-center">
 <c:choose>
-	<c:when test="${homepagePath eq 'dalseonglib' || homepagePath eq 'beomeo' || homepagePath eq 'yonghak
-' || homepagePath eq 'gosan'}">
+	<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan'}">
 	<a id="not-save-btn" href="" class="btn btn5"><span>신청하기</span></a>
 	</c:when>
 	<c:otherwise>

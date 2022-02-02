@@ -10,19 +10,22 @@ $(function() {
 });
 </script>
 
-<!-- contents-title-->
-<div id="contents-title">
-	<h2><span style="font-weight:300">대출내역을 통해 </span>도서를 선택<span style="font-weight:300">하실 수 있습니다.</span></h2>
-</div>
+<style>
+	table thead th{text-align:center;}
+</style>
 
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
 </form:form>
 
-<div class="wrapper-bbs">
-<div class="table-wrap">
-	<table class="marathon_bbs center">
+<h4>
+	<span style="font-weight:300">대출내역을 통해 </span>도서를 선택<span style="font-weight:300">하실 수 있습니다.</span>
+</h4>
+
+<div class="rsv-info"></div>
+<div class="auto-scroll">
+	<table>
 		<colgroup>
 			<col width="15%"/>
 			<col width="25%"/>
@@ -57,7 +60,6 @@ $(function() {
 		</c:forEach>
 		</tbody>
 	</table>
-</div>
 </div>
 
 <div id="board_paging" class="dataTables_paginate" style="margin-bottom: 5%">

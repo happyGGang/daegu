@@ -155,20 +155,24 @@ $('ul.close_day').html(li);
     </caption>
     <colgroup>
     <col width="*">
-    <col width="16.6%">
-    <col width="16.6%">
-    <col width="16.6%">
-    <col width="16.6%">
-    <col width="16.6%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
     </colgroup>
     <thead>
     <tr>
-      <th height="35" scope="col">구분</th>
-      <th scope="col">신문</th>
-      <th scope="col">주간지</th>
-      <th scope="col">격주간지</th>
-      <th scope="col">월간지</th>
-      <th scope="col">총 계</th>
+      <th>구분</th>
+      <th>신문</th>
+      <th>주간지</th>
+      <th>격주간지</th>
+      <th>월간지</th>
+      <th>격월간지</th>
+      <th>계간지</th>
+      <th>총 계</th>
     </tr>
     </thead>
     <tbody>
@@ -176,9 +180,11 @@ $('ul.close_day').html(li);
       <th>무학숲도서관</th>
       <td>5</td>
       <td>1</td>
-      <td>1</td>
+      <td>0</td>
       <td>15</td>
-      <td>22</td>
+      <td>0</td>
+      <td>0</td>
+      <td>21</td>
     </tr>
     </tbody>
     </table>
