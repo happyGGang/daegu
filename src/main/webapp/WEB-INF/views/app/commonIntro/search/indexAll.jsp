@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -1109,6 +1109,7 @@
 													<p><font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}</p>
 													<p><font style="color:#5e5e5e">소장도서관</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 													<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
+													<c:if test="${i.SHELF_LOC_CODE ne 'AD36'}">
 													<p><font style="color:#5e5e5e">대출가능여부</font> :
 													<!-- 대출가능 여부 [START] -->
 													<c:choose>
@@ -1151,6 +1152,7 @@
 													</c:choose>
 													<!-- 대출가능 여부 [ END ] -->
 													</p>
+													</c:if>
 													<!--
                                                     JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, TE : 청소년, 기타 :
                                                     -->

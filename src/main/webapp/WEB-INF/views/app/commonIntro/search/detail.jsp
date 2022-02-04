@@ -265,7 +265,9 @@ $(function() {
 				<col width="15%">
 				<col width="20%">
 				<col width="15%">
+				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<col width="20%">
+				</c:if>
 			</colgroup>
 			<thead>
 			<tr>
@@ -273,7 +275,9 @@ $(function() {
 				<th>등록번호</th>
 				<th>자료실</th>
 				<th>반납예정일</th>
+				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<th>대출상태</th>
+				</c:if>
 			</tr>
 			</thead>
 			<tbody>
@@ -282,6 +286,7 @@ $(function() {
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>
+				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<td>
 
 					<!-- 대출가능 여부 [START] -->
@@ -329,6 +334,7 @@ $(function() {
 					<!-- 대출가능 여부 [ END ] -->
 
 				</td>
+				</c:if>
 			</tr>
 			</tbody>
 			</table>
@@ -571,7 +577,7 @@ $(function() {
 			%>
 			 -->
 			<!--비대면도서대출 버튼-->
-			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'}">
+			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
 				<c:choose>
 				<c:when test="${detail.LOAN_CODE eq 'OK'}">
 					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
