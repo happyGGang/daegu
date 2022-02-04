@@ -75,11 +75,11 @@ ${boardManage.top_html}
 					<c:if test="${member.admin or authMBA}">
 					<th><input type="checkbox" id="checkAll"></th>
 					</c:if>
-					<th>번호</th>
+					<th class="m-none">번호</th>
 					<th>간행물명</th>
-					<th>발행처</th>
-					<th>간별</th>
-					<th>자료실명</th>
+					<th class="m-none">발행처</th>
+					<th class="wid">간별</th>
+					<th class="m-none">자료실명</th>
 				</tr>
 			</thead>
 			<tbody id="board_tbody">
@@ -88,14 +88,14 @@ ${boardManage.top_html}
 					<c:if test="${member.admin or authMBA}">
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
-					<td scope="row">${paging.listRowNum - status.index}</td>
+					<td scope="row" class="m-none">${paging.listRowNum - status.index}</td>
 					<td>
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
 						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">${i.title}</a>
 					</td>
-					<td>${i.imsi_v_1}</td>
+					<td class="m-none">${i.imsi_v_1}</td>
 					<td>${i.imsi_v_2}</td>
-					<td>${i.imsi_v_3}</td>
+					<td class="m-none">${i.imsi_v_3}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
