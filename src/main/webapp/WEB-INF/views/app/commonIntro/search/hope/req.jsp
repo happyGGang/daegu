@@ -142,14 +142,14 @@
 
 				<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan' || homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol'}">
 				<form:select path="manageCode" cssClass="new_select_box">
-					<!-- <form:option value="BD">범어도서관</form:option> -->
-					<!-- <form:option value="BE">용학도서관</form:option> -->
-					<!-- <form:option value="BF">고산도서관</form:option> -->
-					<!-- <form:option value="BJ">책숲길도서관</form:option>
+					<form:option value="BD">범어도서관</form:option>
+					<form:option value="BE">용학도서관</form:option>
+					<form:option value="BF">고산도서관</form:option>
+					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
-					<form:option value="BH">무학숲도서관</form:option> -->
-				</form:select> <!--* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.--> * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.
+					<form:option value="BH">무학숲도서관</form:option>
+				</form:select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
 				<c:when test="${homepagePath eq 'junggu'}">
@@ -410,7 +410,7 @@
 
 <div class="kbtn txt-center">
 <c:choose>
-	<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan'}">
+	<c:when test="${homepagePath eq '' || homepagePath eq '' || homepagePath eq ''}">
 	<a id="not-save-btn" href="" class="btn btn5"><span>신청하기</span></a>
 	</c:when>
 	<c:otherwise>
