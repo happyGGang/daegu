@@ -3,6 +3,7 @@ package kr.go.gbelib.app.module.librarianPickBook;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
+import kr.go.gbelib.app.intro.search.LibrarySearchService;
 
 @Controller
 @RequestMapping(value = { "/{homepagePath}/module/librarianPickBook" })
@@ -30,6 +32,9 @@ public class LibrarianPickBookController extends BaseController{
 	
 	@Autowired
 	private LibrarianPickBookService service;
+	
+	@Autowired
+	private LibrarySearchService librarySearchService;
 	
 	@Autowired
 	private MenuService menuService;
@@ -61,6 +66,32 @@ public class LibrarianPickBookController extends BaseController{
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if(result != null) {
 			list = (List<Map<String, Object>>)result.get("LIST_DATA");
+		}
+		
+		
+		for (Map<String, Object> map : list) {
+			
+			String isbn = map.get("ISBN").toString(); 
+			
+			if (StringUtils.isNotEmpty(isbn)) {
+				
+				String[] isbnArr = isbn.split("\\s+");
+				
+				for(int i=0; i < isbnArr.length; i++) {
+					if (i == (isbnArr.length -1)) {
+						isbnArr[i].replaceAll("세트", "");
+						isbnArr[i].replaceAll("셋트", "");
+						isbnArr[i].replaceAll("SET", "");
+						isbnArr[i].replaceAll("set", "");
+						map.put("ISBN",isbnArr[i]);
+					}
+				}
+				
+				map.put("imageUrl", librarySearchService.getImageUrl(map));
+			}
+			
+			map.put("ISBN", isbn);
+			
 		}
 		
 		int searchMenuIdx = 0;
