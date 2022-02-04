@@ -1,0 +1,19 @@
+.mid-bar {margin:60px 0px;}
+.doc-body-title h3 {font-size: 25px;padding: 20px 0;color: #333;background: none;}
+.organization_list {width:90%; margin: auto;}
+.organization_list .node .title{font-weight: bold;border-radius: 20px; line-height: 30px;font-size: 16px;height: 30px;padding: 5px 0px;margin: 0px;position: relative;background-color: #a8a8a8;/*top:2px;*/}
+.organization_list .node .title.level1 {background-color: #30347d; color: #fff;}
+.organization_list .node .title.level2 {background-color: #ef8a22; color: #fff;}
+.organization_list .node .title.level3 {background-color: #41b903; color: #fff;}
+.organization_list .node .title.level4 {background-color: #d9b502; color: #fff;}
+.organization_list .node .title.level5 {background-color: #61b4db; color: #fff;}
+.organization_list .node .title.level6 {background-color: #4b6e39; color: #fff;}
+.organization_list .node .title.level7 {background-color: #9c5ba4; color: #fff;}
+.organization_list .node .title.level8 {background-color: #829fd3; color: #fff;}
+.organization_list .node .title.level9 {background-color: #fc8a8a; color: #fff;}
+.organization_list .node .title.level10 {background-color: #00c6cf; color: #fff;}
+.organization_list .lines .leftLine {    border-left: 1px solid #dbdbdb;}
+.organization_list .lines .rightLine {    border-right: 1px solid #dbdbdb;}
+.organization_list .lines .topLine {    border-top: 2px solid #dbdbdb;}
+.organization_list .lines .downLine{background-color:#dbdbdb}
+.organization_list .node {    padding: 0px;   margin: 0px;}

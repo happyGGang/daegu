@@ -10,23 +10,9 @@ ${boardManage.top_html}
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
-<style>
-	.state_wid{width:9%;}
-
-	@media all and (max-width:425px){
-		.state_wid{width:25%;}
-	}
-</style>
+<link rel="stylesheet" href="/resources/board/css/qna_board.css" />
 <c:if test="${boardManage.manage_idx eq '742'}">
-	<style>
-		.category span.ca.bg-0000 {background-color:#7a6e61;color:#fff;}
-		.category span.ca.bg-0001 {background-color:#2f55d4;color:#fff;}
-		.category span.ca.bg-0002 {background-color:#089916;color:#fff;}
-		.category span.ca.bg-0003 {background-color:#a536d9;color:#fff;}
-		.category span.ca.bg-0004 {background-color:#ff2222;color:#fff;}
-		.category span.ca.bg-0005 {background-color:#edce00;color:#fff;}
-		.category span.ca.bg-0006 {background-color:#ff70ba;color:#fff;}
-	</style>
+<link rel="stylesheet" href="/resources/board/css/qna_board_02.css" />
 </c:if>
 <div class="wrapper-bbs">
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />

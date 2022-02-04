@@ -107,43 +107,7 @@ $(function() {
 
 });
 </script>
-<style>
-div#category-box {padding-bottom: 20px;border-bottom: 2px solid #554246;margin-bottom: 20px;}
-input[type="checkbox"].customCheck {display: none;}
-input[type="checkbox"].customCheck + label, input[type="checkbox"].customCheck:checked + label {display: inline-block;cursor: pointer;padding-left: 30px;padding-right: 15px;}
-input#chkAll + label {display: block;}
-input[type="checkbox"].customCheck + label {color: #222;background: url("/resources/common/img/icon_cate_chk.png") no-repeat;}
-input[type="checkbox"].customCheck:checked + label {color: #1ba8ed;background: url("/resources/common/img/icon_cate_chk_on.png") no-repeat;}
-
-.group-box {position: relative;padding: 20px 10px;border-bottom: 1px solid #e5e5e5;}
-.book_check {position: absolute;left: 0;}
-.img-box {display:inline-block;float:left;width: 120px;height: 170px;border: 1px solid #ccc;margin-left: 10px;padding: 0px;}
-.content-box {display: inline-block;width: 75%;padding: 0 20px;}
-.subject a {display: inline-block;margin-right: 20px;font-size: 19px;font-weight: bold;color: #222;}
-.subject .ing {display: inline-block;width: 35px;height: 35px;margin: 0 10px 8px 0;border-radius: 100%;background: #ff5700;font-size: 11px;line-height: 35px;color: #fff;letter-spacing: -0.075em;text-align: center;}
-.step1 {border: 1px solid #1ec0b0;color: #1ec0b0;}
-.step2 {border: 1px solid #f9a406;color: #f9a406;}
-.step1, .step2 {display: inline-block;margin-right: 5px;padding: 3px 5px;font-family: 'dotum';font-size: 11px;line-height: 1;letter-spacing: -1px;text-align: center;}
-ul.pub_info {padding: 10px 0 15px;}
-ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
-.book-desc {font-size: 13px;}
-.keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 14px;margin-top: 18px;}
-.content-box span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {position: absolute;top: 20px;right: 0;text-align: center;font-size:14px;}
-.btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;margin-bottom: 3px;}
-.btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
-.btn-box a.reserv {border: 2px solid #cbbcf2;color: #7d57de;background: url(/resources/common/img/icon_bt_apply01_3.png) no-repeat 14px 50%;}
-.btn-box a.docfile {border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 25px;}
-.btn-box a.tit-search-btn {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply02.png) no-repeat 14px 50%;}
-/*.btn-box a.tit-search-btn{border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 23px;}*/
-span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 30px auto 0;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
-span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat',sans-serif;font-size: 20px;letter-spacing: 0;color: #fff;}
-
-@media all and (max-width:400px){
-.content-box {display: inline-block;width: 95%;padding: 0 10px;}
-}
-
-</style>
+<link rel="stylesheet" href="/resources/common/css/bookPackage.css" />
 
 <form:form modelAttribute="bookPackage" id="bookPackageDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>

@@ -1,0 +1,5 @@
+.state_wid{width:9%;}
+
+@media all and (max-width:425px){
+	.state_wid{width:25%;}
+}
