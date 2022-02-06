@@ -40,18 +40,18 @@ ${boardManage.top_html}
 						<c:choose>
 							<c:when test="${fn:contains(i.preview_img, 'http')}">
 						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
-							<img src="${i.preview_img}" alt="${i.title}"/>
+							<img src="${i.preview_img}" alt="${i.title}1"/>
 						</a>
 							</c:when>
 							<c:otherwise>
 						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
-							<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" alt="${i.title}"/>
+							<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/noimg-gall.png'"/>
 						</a>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}"></a>
+						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}3"></a>
 					</c:otherwise>
 					</c:choose>
 				</div>
