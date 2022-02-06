@@ -272,7 +272,7 @@ $.ajax({
 						<div class="main-box">
 							<div class="box1">
 								<label for="search_text_1" class="blind">통합자료검색</label>
-								<input name="search_text" id="search_text_1" type="text" class="text" placeholder="검색" style="ime-mode:active;"/>
+								<input name="search_text" id="search_text_1" type="text" class="text" placeholder="찾으시는 도서정보를 입력해주세요!" style="ime-mode:active;"/>
 							</div>
 							<button id="main-search-btn">검색</button>
 						</div>

@@ -112,7 +112,7 @@
   </ul>
   <h4 class="contSTit_line">대출권수</h4>
   <ul class="con">
-    <li>15권 / 달</li>
+    <li>14권 / 달</li>
   </ul>
   <h4 class="contSTit_line">대출기간</h4>
   <ul class="con">
