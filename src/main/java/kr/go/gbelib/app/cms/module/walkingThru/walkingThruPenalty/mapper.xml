@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.walkingThru.walkingThruPenalty.WalkingThruPenaltyDao">
+
+	<select id="getWalkingThruPenaltyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_PENALTY
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getWalkingThruPenaltyList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruPenalty.WalkingThruPenalty">
+		${pagingTop}
+			SELECT
+				penalty_idx, homepage_id, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, penalty_count, penalty_day, 
+				use_yn, TO_CHAR(SYSDATE, 'yyyy-MM-dd') AS save_date
+			FROM
+				WALKING_THRU_PENALTY
+			WHERE
+				homepage_id = #{homepage_id}
+			
+			ORDER BY
+				start_date DESC, 
+				end_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getWalkingThruPenaltyOne" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruPenalty.WalkingThruPenalty">
+		SELECT
+			penalty_idx, homepage_id, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, penalty_count, penalty_day, 
+			use_yn, TO_CHAR(SYSDATE, 'yyyy-MM-dd') AS save_date
+		FROM
+			WALKING_THRU_PENALTY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx = #{penalty_idx}
+	</select>
+
+	<insert id="addWalkingThruPenalty">
+		<selectKey keyProperty="penalty_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(penalty_idx),0)+1 FROM WALKING_THRU_PENALTY WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO
+			WALKING_THRU_PENALTY
+		(
+			penalty_idx, homepage_id, start_date, end_date, penalty_count, penalty_day, 
+			use_yn, save_date
+		)
+			VALUES
+		(
+			#{penalty_idx}, #{homepage_id}, #{start_date}, #{end_date}, #{penalty_count}, #{penalty_day},
+			#{use_yn}, SYSDATE
+		)
+
+	</insert>
+
+	<update id="modifyWalkingThruPenalty">
+		UPDATE
+			WALKING_THRU_PENALTY
+		SET
+			start_date = #{start_date},
+			end_date = #{end_date},
+			penalty_count = #{penalty_count},
+			penalty_day = #{penalty_day},
+			use_yn = #{use_yn},
+			save_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx = #{penalty_idx}
+	</update>
+
+	<delete id="deleteWalkingThruPenalty">
+		DELETE FROM
+			WALKING_THRU_PENALTY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx = #{penalty_idx}
+	</delete>
+	
+	<select id="duplicateCheck" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			WALKING_THRU_PENALTY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	penalty_idx != #{penalty_idx}		
+		AND ((start_date <![CDATA[<=]]> #{start_date} AND end_date >= #{start_date})
+		OR (start_date <![CDATA[<=]]> #{end_date} AND end_date >= #{end_date}))
+	</select>
+	
+	<select id="getPenaltyCount" resultType="int">
+		SELECT
+			NVL(MAX(penalty_count),0)
+		FROM
+			WALKING_THRU_PENALTY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND SYSDATE BETWEEN start_date AND end_date 
+	</select>
+	
+	<select id="getEndDate" resultType="String">
+		SELECT
+			TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date
+		FROM
+			WALKING_THRU_PENALTY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND SYSDATE BETWEEN start_date AND end_date 
+	</select>
+	
+</mapper>

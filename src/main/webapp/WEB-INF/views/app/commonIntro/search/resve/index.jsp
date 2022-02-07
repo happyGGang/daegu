@@ -71,7 +71,7 @@ $(function() {
 		<!-- 비대면도서대출과 무인예약 구분을 위해 장비키 값으로 구분 2022-01-24 UTBA01는 북구구수산도서관 장비키값 -->
 		<c:forEach items="${resveList}" var="i">
 			<c:choose>
-				<c:when test="${i.L_WORKER ne 'UTBA01'}">
+				<c:when test="${fn:substring(i.L_WORKER,0,2) ne 'UT'}">
 					<tr>
 						<td>${i.RNUM}</td>
 						<td>${i.TITLE_INFO}</td>
@@ -170,6 +170,9 @@ $(function() {
 					</c:choose>
 						</td>
 					</tr>
+				</c:when>
+				<c:when test="${fn:substring(i.L_WORKER,0,2) eq 'UT'}">
+				
 				</c:when>
 				<c:otherwise>
 					 <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3>

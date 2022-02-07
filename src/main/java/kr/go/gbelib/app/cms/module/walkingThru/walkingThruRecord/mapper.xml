@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecordDao">
+	
+	<sql id="where">
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(request_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="reservation_step != null and reservation_step != ''">
+			AND reservation_step LIKE '%'||#{reservation_step}||'%'
+		</if>
+    </sql>
+	
+	<select id="getWalkingThruRecordListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND SYSDATE = TO_DATE(request_date, 'YY/MM/DD')
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getWalkingThruRecordList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getWalkingThruRecordListBeforeCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getWalkingThruRecordListBefore" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getWalkingThruRecordListAllCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getWalkingThruRecordListAll" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		<include refid="where"/>
+		ORDER BY request_number DESC
+	</select>
+	
+	<select id="getWalkingThruRecordUnprocessedList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '2' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+		AND reservation_step &lt; 4
+		ORDER BY request_number DESC
+	</select>
+	
+	<insert id="addWalkingThruRecord">
+		<selectKey keyProperty="request_number" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(request_number),0)+1 FROM WALKING_THRU_RECORD WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO WALKING_THRU_RECORD
+		(
+			homepage_id, request_number, member_id, member_name, request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date
+		) VALUES (
+			#{homepage_id}, #{request_number}, #{member_id}, #{member_name}, SYSDATE,
+			#{password}, '1', #{rec_key}, #{manage_code}, #{user_key},
+			#{loan_key}, #{reg_no}, #{book_isbn}, #{book_name}, #{loan_date},
+			'N', #{cancel_reason}, #{cancel_id}, #{cancel_ip}, #{cancel_date},
+			#{sms_send_yn}, #{sms_send_date}
+		)
+	</insert>
+	
+	<select id="getWalkingThruRecordOne" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+	</select>
+	
+	<select id="getWaitingReservationList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date, TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYYMMDDHH24MISS') AS start_date
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</select>
+	
+	<update id="waitingReservationStep">
+		UPDATE
+			WALKING_THRU_RECORD
+		SET
+			reservation_step = #{reservation_step},
+			loan_key = #{loankey},
+			sms_send_yn = 'Y',
+			sms_send_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+	</update>
+	
+	<update id="bookReservation">
+		UPDATE
+			WALKING_THRU_RECORD
+		SET
+			reservation_step = #{reservation_step},
+			loan_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+	</update>
+	
+	<update id="cancelReservationStep">
+		UPDATE
+			WALKING_THRU_RECORD
+		SET
+			cancel_yn = 'Y',
+			cancel_reason = '만기취소',
+			cancel_id = #{cancel_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = SYSDATE,
+			reservation_step = '5'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+	</update>
+	
+	<select id="checkPasswordCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</select>
+	
+	<select id="checkNonPasswordCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND password = 0
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</select>
+	
+	<select id="getNonPasswordList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND password = 0
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</select>
+	
+	<update id="insertPassword">
+		UPDATE
+			WALKING_THRU_RECORD
+		SET
+			password = #{password}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(SYSDATE, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</update>
+	
+	<select id="getWalkingThruRecordExcelListNow" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT 
+				homepage_id, request_number, member_id, member_name, request_date,
+    			password, reservation_step, rec_key, manage_code, user_key,
+	    		loan_key, reg_no, book_isbn, book_name, loan_date,
+	    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+	    		sms_send_yn, sms_send_date,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, request_number, member_id, member_name, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+			    		password, reservation_step, rec_key, manage_code, user_key,
+			    		loan_key, reg_no, book_isbn, book_name, loan_date,
+			    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+			    		sms_send_yn, sms_send_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_RECORD
+					WHERE
+						homepage_id = #{homepage_id}
+					AND TO_CHAR(request_date,'YY/MM/DD') = TO_CHAR(SYSDATE,'YY/MM/DD')
+					AND cancel_yn = 'N'
+					ORDER BY request_number DESC
+			)
+	</select>
+	
+	<select id="checkPassword" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND password = 0
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</select>
+	
+	<select id="checkPasswordCountBefore" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</select>
+	
+	<select id="checkNonPasswordCountBefore" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+		AND password = 0
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</select>
+	
+	<select id="getNonPasswordListBefore" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND password = 0
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</select>
+	
+	<update id="insertPasswordBefore">
+		UPDATE
+			WALKING_THRU_RECORD
+		SET
+			password = #{password}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number}
+		AND cancel_yn = 'N'
+		AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'YYYY/MM/DD') - INTERVAL '1' DAY, 'YYYY/MM/DD'), 'YYYY/MM/DD') = TO_DATE(request_date, 'YYYY/MM/DD')
+	</update>
+	
+	<select id="getWalkingThruRecordInfoCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+	</select>
+	
+	<select id="getWalkingThruRecordInfo" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		${pagingTop}
+			SELECT
+				homepage_id, request_number, member_id, member_name, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+	    		password, reservation_step, rec_key, manage_code, user_key,
+	    		loan_key, reg_no, book_isbn, book_name, loan_date,
+	    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+	    		sms_send_yn, sms_send_date, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+			FROM
+				WALKING_THRU_RECORD
+			WHERE
+				homepage_id = #{homepage_id}
+			AND member_id = #{member_id}
+			ORDER BY request_number DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getReservationList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruRecord.WalkingThruRecord">
+		SELECT
+			homepage_id, request_number, member_id, member_name, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+    		password, reservation_step, rec_key, manage_code, user_key,
+    		loan_key, reg_no, book_isbn, book_name, loan_date,
+    		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+    		sms_send_yn, sms_send_date
+		FROM
+			WALKING_THRU_RECORD
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number = #{request_number} 
+	</select>
+	
+	<update id="cancelReserve">
+		UPDATE
+			WALKING_THRU_RECORD
+		SET
+			cancel_yn = 'Y',
+			cancel_reason = '사용자본인취소',
+			cancel_id = #{member_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = SYSDATE,
+			reservation_step = '6'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+		AND request_number = #{request_number}
+	</update>
+</mapper>

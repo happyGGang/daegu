@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.walkingThru.walkingThruBlackList.WalkingThruBlackListDao">
+	
+	<sql id="where">
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(penalty_day,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="penalty_reason != null and penalty_reason != ''">
+		AND penalty_reason = #{penalty_reason}
+		</if>
+    </sql>
+	
+	<insert id="grantPenalty">
+		INSERT INTO WALKING_THRU_BLACKLIST
+		(
+		 	homepage_id, member_id, member_name, penalty_reason, penalty_day,
+		 	penalty_register_ip, penalty_register_id
+		) VALUES
+		(
+			#{homepage_id}, #{member_id}, #{member_name}, #{penalty_reason}, TO_DATE(#{penalty_day},'yyyy-MM-dd HH24:MI:SS'),
+			#{penalty_register_ip}, #{penalty_register_id}
+		)
+	</insert>
+	
+	<select id="penaltyCount" resultType="int">
+		SELECT 
+				COUNT(*)
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+			 			penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_BLACKLIST
+					WHERE
+						homepage_id = #{homepage_id}
+					AND member_id = #{member_id}
+					AND TO_CHAR(penalty_day, 'YY/MM/DD') = TO_CHAR(SYSDATE, 'YY/MM/DD')
+			)
+	</select>
+	
+	<select id="getWalkingThruBlackListCount" resultType="int">
+		SELECT 
+				COUNT(*)
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+			 			penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_BLACKLIST
+					WHERE
+						homepage_id = #{homepage_id}
+						<include refid="where"/>
+			)
+	</select>
+	
+	<select id="getWalkingThruBlackListList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruBlackList.WalkingThruBlackList">
+		${pagingTop}
+			SELECT
+				homepage_id, member_id, penalty_reason, penalty_day,
+			 	penalty_register_ip, penalty_register_id, admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+					 	penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_BLACKLIST
+					WHERE
+					homepage_id = #{homepage_id}
+					<include refid="where"/>
+					ORDER BY penalty_day DESC
+			)
+		${pagingBottom}	
+	</select>
+	
+	<delete id="deleteWalkingThruBlackList">
+		DELETE FROM WALKING_THRU_BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id = #{member_id}
+	</delete>
+	
+	<delete id="deleteAllWalkingThruBlackList">
+		DELETE FROM WALKING_THRU_BLACKLIST
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_id IN
+		<foreach collection="member_id_arr" item="i" open="(" close=")" separator=",">
+		'${i}'
+		</foreach>		
+	</delete>
+	
+	<select id="getPenaltyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_BLACKLIST a, WALKING_THRU_PENALTY b
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.homepage_id = b.homepage_id
+		AND a.member_id = #{member_id}
+		AND a.penalty_day BETWEEN b.start_date and b.end_date
+	</select>
+	
+	<select id="getWalkingThruBlackListExcelList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruBlackList.WalkingThruBlackList">
+				SELECT
+				homepage_id, member_id, penalty_reason, penalty_day,
+			 	penalty_register_ip, penalty_register_id, admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, member_id, member_name, penalty_reason, TO_CHAR(penalty_day,'yyyy-MM-dd HH24:MI:SS') AS penalty_day,
+					 	penalty_register_ip, penalty_register_id,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_BLACKLIST
+					WHERE
+					homepage_id = #{homepage_id}
+					<include refid="where"/>
+					ORDER BY penalty_day DESC
+			)
+	</select>
+</mapper>

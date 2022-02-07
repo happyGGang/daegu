@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.walkingThru.walkingThruCancelHistory.WalkingThruCancelHistoryDao">
+	
+	<sql id="where">
+		<if test="cancel_start_date != null and cancel_start_date != '' and cancel_end_date != null and cancel_end_date != ''">
+			AND TO_DATE(cancel_date,'yyyy-MM-dd') BETWEEN #{cancel_start_date} AND #{cancel_end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+    </sql>
+	
+	<select id="getWalkingThruCancelHistoryCount" resultType="int">
+		 SELECT 
+				COUNT(*)
+		   FROM (
+				   SELECT
+						homepage_id, request_number, member_id, member_name, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+				  		password, reservation_step, rec_key, manage_code, user_key,
+				  		loan_key, reg_no, book_isbn, book_name, loan_date,
+				  		cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+				  		sms_send_yn, sms_send_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_RECORD
+					WHERE
+						homepage_id = #{homepage_id}
+					AND cancel_yn = 'Y'
+					<include refid="where"/>
+			)
+	</select>
+	
+	<select id="getWalkingThruCancelHistoryList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruCancelHistory.WalkingThruCancelHistory">
+		${pagingTop}
+		   SELECT
+				homepage_id, request_number, member_id,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+				admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, request_number, member_id, member_name,
+						cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_RECORD
+					WHERE
+						homepage_id = #{homepage_id}
+					AND cancel_yn = 'Y'
+					<include refid="where"/>
+					ORDER BY request_number DESC
+			)
+		${pagingBottom}	
+	</select>
+	
+	<select id="getWalkingThruCancelHistoryExcelList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruCancelHistory.WalkingThruCancelHistory">
+		SELECT
+				homepage_id, request_number, member_id,
+				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
+				admin_yn,
+				CASE 
+					WHEN admin_yn = 'N'
+					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
+					ELSE member_name
+				END AS member_name
+		   FROM (
+				   SELECT
+						homepage_id, request_number, member_id, member_name,
+						cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
+						(SELECT
+								DECODE(COUNT(*), 0, 'N' ,'Y')
+							FROM
+								WB_MEMBER_GROUP A
+							INNER JOIN WB_MEMBER_GROUP_SUBORD B
+							ON A.MEMBER_GROUP_IDX = B.MEMBER_GROUP_IDX
+							WHERE B.MEMBER_ID = #{admin_member_id}
+							AND A.MEMBER_GROUP_NAME = '최고관리자'
+							AND A.SITE_ID = #{homepage_id}) AS admin_yn
+					FROM
+						WALKING_THRU_RECORD
+					WHERE
+						homepage_id = #{homepage_id}
+					AND cancel_yn = 'Y'
+					<include refid="where"/>
+					ORDER BY request_number DESC
+			)
+	</select>
+	
+</mapper>

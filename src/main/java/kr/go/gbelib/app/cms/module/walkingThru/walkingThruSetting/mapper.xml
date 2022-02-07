@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.walkingThru.walkingThruSetting.WalkingThruSettingDao">
+	
+	<select id="getWalkingThruSettingList" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruSetting.WalkingThruSetting">
+		SELECT
+			homepage_id, password_yn, reservation_time, loan_time, loan_time_choice,
+			terms
+		FROM
+			WALKING_THRU_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getWalkingThruSettingOne" resultType="kr.go.gbelib.app.cms.module.walkingThru.walkingThruSetting.WalkingThruSetting">
+		SELECT
+			homepage_id, password_yn, loan_time_choice, terms,
+			SUBSTR(reservation_time,0,2) AS reserve_start_hour,
+			SUBSTR(reservation_time,4,2) AS reserve_start_minute,
+			SUBSTR(reservation_time,7,2) AS reserve_end_hour,
+			SUBSTR(reservation_time,10,2) AS reserve_end_minute,
+			SUBSTR(loan_time,0,2) AS loan_start_hour,
+			SUBSTR(loan_time,4,2) AS loan_start_minute,
+			SUBSTR(loan_time,7,2) AS loan_end_hour,
+			SUBSTR(loan_time,10,2) AS loan_end_minute,
+			reservation_time, password_yn, loan_time
+		FROM
+			WALKING_THRU_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<update id="modifyWalkingThruSetting">
+		MERGE INTO
+			WALKING_THRU_SETTING a
+			USING dual
+			ON
+				(a.homepage_id = #{homepage_id})
+			WHEN MATCHED THEN
+				UPDATE SET
+				    a.password_yn = #{password_yn},
+					a.reservation_time = #{reserve_start_hour}||':'||#{reserve_start_minute}||'~'||#{reserve_end_hour}||':'||#{reserve_end_minute},
+					a.loan_time = #{loan_start_hour}||':'||#{loan_start_minute}||'~'||#{loan_end_hour}||':'||#{loan_end_minute},
+					a.loan_time_choice = #{loan_time_choice},
+		    		a.terms = #{terms}
+			WHEN NOT MATCHED THEN
+				INSERT (
+					homepage_id, password_yn, reservation_time, loan_time, loan_time_choice,
+					terms
+				) VALUES (
+					#{homepage_id}, #{password_yn}, #{reserve_start_hour}||':'||#{reserve_start_minute}||'~'||#{reserve_end_hour}||':'||#{reserve_end_minute},
+					#{loan_start_hour}||':'||#{loan_start_minute}||'~'||#{loan_end_hour}||':'||#{loan_end_minute}, #{loan_time_choice},
+					#{terms}
+				)
+	</update>
+	
+	<select id="checkReserveTime" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			WALKING_THRU_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND TO_DATE(TO_CHAR(SYSDATE, 'HH24:MI'), 'HH24:MI') BETWEEN TO_DATE(#{reserve_start_hour}||':'||#{reserve_start_minute}, 'HH24:MI') AND TO_DATE(#{reserve_end_hour}||':'||#{reserve_end_minute}, 'HH24:MI')
+	</select>
+</mapper>

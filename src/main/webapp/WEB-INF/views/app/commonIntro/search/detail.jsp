@@ -35,6 +35,12 @@ $(function() {
 		$('form#untactBookReqForm').submit();
 	});
 	
+	<%-- 워킹스루 도서대출 신청 --%>
+	$('a#walkingThru-req').on('click', function(e) {
+		e.preventDefault();
+		$('form#walkingThruReqForm').submit();
+	});
+	
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
@@ -193,6 +199,13 @@ $(function() {
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
+<form id="walkingThruReqForm" action="/${homepage.context_path}/module/walkingThru/form.do" method="post">
+	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
+	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+	<input type="hidden" name="regNo" value="${detail.REG_NO}">
+	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+</form>
 
 <c:if test="${not empty loginPortal and loginPortal.login}">
 <form id="bookExpressForm" action="/${homepage.context_path}/module/bookExpress/save.do" method="post">
@@ -581,6 +594,17 @@ $(function() {
 				<c:choose>
 				<c:when test="${detail.LOAN_CODE eq 'OK'}">
 					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 도서대출</span></a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
+
+			<!--워킹스루 도서대출 버튼-->
+			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
+				<c:choose>
+				<c:when test="${detail.LOAN_CODE eq 'OK'}">
+					<a href="#walkingThru" id="walkingThru-req" class="btn"><span>워킹스루 도서대출${detail.PK }</span></a>
 				</c:when>
 				<c:otherwise>
 				</c:otherwise>
