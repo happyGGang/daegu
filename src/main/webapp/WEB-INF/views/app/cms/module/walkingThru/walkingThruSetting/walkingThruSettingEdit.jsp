@@ -6,6 +6,50 @@
 
 <script type="text/javascript">
 function walkingThruSettingSave() {
+	var rsh = $('select#reserve_start_hour').val();
+	var rsm = $('select#reserve_start_minute').val();
+	
+	var start_time = rsh + ':' + rsm;
+	
+	var reh = $('select#reserve_end_hour').val();
+	var rem = $('select#reserve_end_minute').val();
+	
+	var end_time = reh + ':' + rem;
+	
+	if(start_time > end_time){
+		$('select#reserve_start_hour').focus();
+		alert('예약가능 시작 시간은 예약가능 종료 시간보다 이후일 수 없습니다.');
+		return false;
+	}
+	
+	if(start_time == end_time){
+		$('select#reserve_start_hour').focus();
+		alert('예약가능 시작 시간과 예약가능 종료 시간이 같을수 없습니다.');
+		return false;
+	}
+	
+	var lsh = $('select#loan_start_hour').val();
+	var lsm = $('select#loan_start_minute').val();
+	
+	var loan_start_time = lsh + ':' + lsm;
+	
+	var leh = $('select#loan_end_hour').val();
+	var lem = $('select#loan_end_minute').val();
+	
+	var loan_end_time = leh + ':' + lem;
+	
+	if(loan_start_time > loan_end_time){
+		$('select#loan_start_hour').focus();
+		alert('대출가능 시작 시간은 대출가능 종료 시간보다 이후일 수 없습니다.');
+		return false;
+	}
+	
+	if(loan_start_time == loan_end_time){
+		$('select#loan_start_hour').focus();
+		alert('대출가능 시작 시간과 대출가능 종료 시간이 같을수 없습니다.');
+		return false;
+	}
+	
 	if ( doAjaxPost($('#walkingThruSetting')) ) {
 		location.reload();
 	}

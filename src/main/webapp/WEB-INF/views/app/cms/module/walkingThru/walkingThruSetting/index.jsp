@@ -20,7 +20,7 @@ function walkingThruSettingEdit() {
 	$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
 		resizable: false,
 		modal: true,
-		title: '비대면 도서관리 기본설정',
+		title: '워킹스루 도서대출관리 기본설정',
 		open: function(){
 			$('.ui-widget-overlay').addClass('custom-overlay');
 		},

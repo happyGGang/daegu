@@ -148,7 +148,7 @@ function smsWrite() {
 	<tbody>
 	<c:if test="${fn:length(walkingThruRecordList) < 1}">
 		<tr style="height:100%">
-			<td colspan="11" style="background:#f8fafb;">비대면 도서대출 신청내역이 없습니다.</td>
+			<td colspan="11" style="background:#f8fafb;">워킹스루 도서대출 신청내역이 없습니다.</td>
 		</tr>
 	</c:if>
 	<c:forEach var="i" varStatus="status" items="${walkingThruRecordList}">
