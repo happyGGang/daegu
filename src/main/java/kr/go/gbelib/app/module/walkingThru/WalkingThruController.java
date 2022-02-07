@@ -182,6 +182,7 @@ public class WalkingThruController extends BaseController {
 
 		model.addAttribute("librarySearch", librarySearch);
 		model.addAttribute("termsList", walkingThruSettingService.getWalkingThruSettingTerms(homepage.getHomepage_id()));
+		model.addAttribute("walkingThruSetting", walkingThruSetting);
 
 		return String.format(basePath, homepage.getFolder()) + "form";
 	}
