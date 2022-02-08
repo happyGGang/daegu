@@ -97,7 +97,7 @@
 		fileListAreaID = $('#boardFileArray')[0];		//select 박스 id
 	    previewAreaID = $('#previewFile')[0];			//미리보기 ID
 	    fileSizeViewID = $('#fileSizeView')[0];			//파일사이즈 ID
-	    defaultPath = "${board.editMode eq 'MODIFY'?boardStoragePath:'/data/boardTemp/'}";	// 파일 미리보기 폴더
+	    defaultPath = "${board.editMode eq 'MODIFY' ? boardStoragePath : '/data/boardTemp/'}";	// 파일 미리보기 폴더
 	    //defaultPath = "/data/board/";
 	    /* totalFileSize = '10';  	// 파일 총용량 사이즈(MB)
 	    singleFileSize = '5';		// 파일당 사이즈(MB)

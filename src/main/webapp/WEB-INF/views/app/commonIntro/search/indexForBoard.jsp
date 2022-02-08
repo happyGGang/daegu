@@ -500,16 +500,18 @@ $(function() {
 									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
 								</p>
 								<div class="thumb">
-									<c:set var="imageUrl" value="/resources/common/img/noImg2.png"/>
+									<c:set var="imageUrl" value="/resources/common/img/noimg-gall.png"/>
 									<c:choose>
-										<c:when test="${empty i.aladin or empty i.aladin.cover}">
-												<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}"/>
-												<span>등록된 이미지가<br/>없습니다.</span>
+										<c:when test="${empty i.IMAGE}">
+											<img src="/resources/common/img/noimg-gall.png" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:when>
+										<c:when test="${fn:contains(i.IMAGE, 'noimg')}">
+											<img src="/resources/common/img/noimg-gall.png" alt="${i.TITLE_INFO}"/>
+										</c:when>
 										<c:otherwise>
-												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
-												<c:set var="imageUrl" value="${i.aladin.cover}"/>
+											<img src="${i.IMAGE}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+											<c:set var="imageUrl" value="${i.IMAGE}"/>
 										</c:otherwise>
 									</c:choose>
 								</div>

@@ -100,10 +100,21 @@ ${boardManage.top_html}
 			<div class="thumb">
 				<c:choose>
 					<c:when test="${fn:contains(board.preview_img, 'http')}">
-				<img src="${board.preview_img}" alt="${board.title}">
+						<c:choose>
+							<c:when test="${fn:contains(board.preview_img, 'noimg')}">
+								<a href="" keyValue="${board.board_idx}">
+									<img src="/resources/common/img/noimg-gall.png" alt="${board.title}" title="${board.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="" keyValue="${board.board_idx}">
+									<img src="${board.preview_img}" alt="${board.title}" title="${board.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:otherwise>
-				<img src="/data/board/${board.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].server_file_name}" alt="${board.title}">
+						<img src="/data/board/${board.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].server_file_name}" alt="${board.title}" onError="this.src='/resources/common/img/noimg-gall.png'">
 					</c:otherwise>
 				</c:choose>
 <!-- 				<p class="noImg"> -->
