@@ -172,22 +172,42 @@ public class UntactBookController extends BaseController {
 			return null;
 		}
 		
-		//휴관일 예약 불가(회차 반복일이 하루일경우)
-		Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
-        //TODO 회차 반복일이 하루가 아니라면 수정필요
-        cal.add(Calendar.DATE, 1);
-        
-		if(!(sdf.format(cal.getTime()).isEmpty())) {
-			librarySearch.setManageCode(homepage.getManage_code());
-			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
-			
-			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-			
-			if(holiDays.get("RESULT_CODE").equals("1")) {
-				service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
-				return null;
+		//북구 구수산도서관에만 휴관일 당일 신청 불가
+		if(homepage.getManage_code().equals("h46")){
+			//휴관일 예약 불가(회차 반복일이 하루일경우)
+			Calendar cal = Calendar.getInstance();
+	        cal.setTime(new Date());
+	        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
+	        
+			if(!(sdf.format(cal.getTime()).isEmpty())) {
+				librarySearch.setManageCode(homepage.getManage_code());
+				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+				
+				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+				
+				if(holiDays.get("RESULT_CODE").equals("1")) {
+					service.alertMessage("휴관일은 비대면 예약신청이 불가능 합니다.", request, response);
+					return null;
+				}
+			}
+		} else {
+			//휴관일 예약 불가(회차 반복일이 하루일경우)
+			Calendar cal = Calendar.getInstance();
+	        cal.setTime(new Date());
+	        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
+	        //TODO 회차 반복일이 하루가 아니라면 수정필요
+	        cal.add(Calendar.DATE, 1);
+	        
+			if(!(sdf.format(cal.getTime()).isEmpty())) {
+				librarySearch.setManageCode(homepage.getManage_code());
+				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+				
+				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+				
+				if(holiDays.get("RESULT_CODE").equals("1")) {
+					service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
+					return null;
+				}
 			}
 		}
 		
