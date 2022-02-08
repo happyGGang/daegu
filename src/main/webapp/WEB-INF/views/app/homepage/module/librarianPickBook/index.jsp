@@ -11,6 +11,7 @@
 <div class="user_pick_info">
 	<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
 	<h2>맞춤형도서추천</h2>
+	<p class="txt_box01">현재 추천도서는 나의 도서활동 이력과 성별, 나이, 지역등의 실시간 자료를 바탕으로 추천되는 도서입니다. </p>
 </div>
 <!-- <div style="text-align: right; margin-top: 10px; "> -->
 <%-- 	<a href="excelDownload.do?keyword_name=${bookKeyword.keyword_name}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">엑셀다운로드</a> --%>
