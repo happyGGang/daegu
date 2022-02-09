@@ -107,7 +107,7 @@
 		${pagingBottom}
 	</select>
 	
-	<!--<select id="getBookInterestList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
+	<select id="getBookInterestList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
@@ -115,9 +115,8 @@
 			a.book_reserve, a.com_code, TO_CHAR(a.book_pubdt, 'YYYY-MM-DD') AS book_pubdt,
 			a.book_regdt, a.use_yn, a.type, a.format, a.book_image,
 			a.parent_id, a.recommend_cnt, a.library_code, a.approved_yn, b.cate_name,
-			(SELECT z.homepage_name FROM cms_homepage z WHERE a.library_code = z.lib_code) AS library_name,
+			c.homepage_name, d.book_info, 
 			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.parent_id) AS parent_name,
-			(SELECT z.book_info FROM ELIB_BOOKINFO z WHERE z.book_idx = a.book_idx) AS book_info,
 			(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
 			a.device,
 			CASE a.device
@@ -127,10 +126,14 @@
 			END AS label
 		FROM
 			ELIB_BOOK a,
-			ELIB_CATEGORY b
+			ELIB_CATEGORY b,
+			CMS_HOMEPAGE c,
+			ELIB_BOOKINFO d
 		WHERE
 			a.use_yn != 'N'
 		AND	a.approved_yn != 'N'
+		AND	a.library_code = SUBSTR(c.lib_code, 1, 8)
+		AND	a.book_idx = d.book_idx
 		AND a.cate_id = b.cate_id
 		AND	b.cate_code LIKE '%'||#{com_code}||'%'
 		<if test="type != null and type != ''">
@@ -138,7 +141,7 @@
 		</if>
 		ORDER BY DBMS_RANDOM.VALUE
 		${pagingBottom}
-	</select>-->
+	</select>
 
 	<select id="getBookListCntCms" resultType="int">
 		SELECT
