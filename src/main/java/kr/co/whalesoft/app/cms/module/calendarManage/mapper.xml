@@ -168,6 +168,27 @@
 			)
 		ORDER BY DD
 	</select>
+	
+	<select id="getClosedDate5" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
+		SELECT
+			start_date
+		FROM (
+			SELECT
+				start_date
+			FROM (
+				SELECT
+					distinct start_date
+				FROM
+					CMS_CALENDAR_MANAGE
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	date_type = '1'
+				AND	delete_yn = 'N'
+				)
+			)
+	</select>
+	
+	
 
 	<!-- 행사 가져오기 -->
 	<select id="getCalendarManageDetail" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">

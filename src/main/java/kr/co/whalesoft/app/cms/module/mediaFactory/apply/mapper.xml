@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApplyDao">
+
+	<!-- 견학신청자 컬럼  -->
+	<sql id="field">
+		homepage_id, apply_idx, mediafactory_idx, agency_name, agency_tel,
+		agency_address, applicant_name, applicant_tel, applicant_email, age,
+		guide_name, guide_tel, start_date, use_time, end_date,
+		personnel, apply_state, ip, remarks,
+		add_id, add_date, apply_id, applicant_member_id, self_info_yn
+	</sql>
+
+	<!-- 견학신청자 list -->
+	<select id="getApply" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND use_time = #{use_time}
+		<if test="plan_date != null and plan_date != ''">		
+		AND	start_date <![CDATA[>=]]> #{plan_date}
+		AND	end_date <![CDATA[<=]]> #{plan_date}
+		</if>
+	</select>
+
+	<select id="getApplyMonth" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+		AND	start_date <![CDATA[>=]]> #{start_date}
+		AND	end_date <![CDATA[<=]]> #{end_date}
+		</if>
+	</select>
+
+	<!-- 사용자 신청내역 list -->
+	<select id="getUserApply" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="member_key != null and member_key != ''">
+		AND	applicant_member_id	= #{member_key}
+		</if>
+	</select>
+
+	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</select>
+
+	<select id="checkApply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	MEDIAFACTORY_IDX = #{mediaFactory_idx}
+		AND	applicant_member_id = #{applicant_member_id}
+	</select>
+
+	<!-- 견학신청자 등록 -->
+	<insert id="addApply">
+		INSERT INTO
+			CMS_MEDIAFACTORY_APPLY
+		(
+			<include refid="field" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_MEDIAFACTORY_APPLY), #{mediaFactory_idx}, #{agency_name}, #{agency_tel},
+			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+			#{guide_name}, #{guide_tel}, #{start_date}, #{use_time}, #{end_date},
+			#{personnel}, '1', #{ip}, #{remarks},
+			#{add_id}, SYSDATE, #{apply_id}, #{applicant_member_id}, #{self_info_yn}
+		)
+	</insert>
+
+	<update id="modifyApply">
+		UPDATE
+			CMS_MEDIAFACTORY_APPLY
+		SET
+			agency_name = #{agency_name},
+			agency_tel = #{agency_tel},
+			agency_address = #{agency_address},
+			applicant_name = #{applicant_name},
+			applicant_tel = #{applicant_tel},
+			applicant_email = #{applicant_email},
+			age = #{age},
+			guide_name = #{guide_name},
+			guide_tel = #{guide_tel},
+			use_time = #{use_time},
+			personnel = #{personnel},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</update>
+
+	<update id="modifyApplyState">
+		UPDATE
+			CMS_MEDIAFACTORY_APPLY
+		SET
+			apply_state = #{apply_state},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</update>
+
+	<delete id="deleteApply">
+		DELETE FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</delete>
+	
+	<delete id="deleteApplyAll">
+		DELETE FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	mediafactory_idx = #{mediaFactory_idx}
+	</delete>
+
+	<!-- 견학신청자 list -->
+	<select id="getOkApply" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
+		SELECT
+			A.start_date, A.end_date, A.AGENCY_NAME, A.APPLY_IDX, A.MEDIAFACTORY_IDX, B.DATE_TYPE,
+			(SELECT CODE_NAME FROM CMS_CODE C WHERE B.homepage_id = C.homepage_id AND C.CODE_ID = B.DATE_TYPE AND C.GROUP_ID = 'H0001') AS CODE_NAME,
+			A.APPLICANT_MEMBER_ID
+		FROM
+			CMS_MEDIAFACTORY_APPLY A, CMS_MEDIAFACTORY B
+		WHERE
+			A.MEDIAFACTORY_IDX = B.MEDIAFACTORY_IDX
+		AND	A.homepage_id = B.homepage_id
+		AND	A.homepage_id = #{homepage_id}
+		AND	A.APPLY_STATE = '3'
+		<if test="plan_date != null and plan_date != ''">
+ 		AND (
+ 				substr(A.start_date,1,7) = #{plan_date}
+			OR	substr(A.end_date,1,7) = #{plan_date}
+			)
+		</if>
+		<if test="plan_day != null and plan_day != ''">
+ 		AND (
+ 				A.start_date = #{plan_day}
+			OR	A.end_date = #{plan_day}
+			)
+		</if>
+	</select>
+</mapper>
