@@ -1243,6 +1243,19 @@ $(function() {
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>
 													</c:when>
+													<c:when test="${homepage.context_path eq 'gosan'}">
+														<c:if test="${i.CODE eq 'BF01' or
+																		i.CODE eq 'BF02' or
+																		i.CODE eq 'BF03' or
+																		i.CODE eq 'BF04' or
+																		i.CODE eq 'BF05' or
+																		i.CODE eq 'BF06' or
+																		i.CODE eq 'BF07' or
+																		i.CODE eq 'BF08'
+																		}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
 													<c:otherwise>
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 													</c:otherwise>
