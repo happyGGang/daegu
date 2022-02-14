@@ -984,7 +984,7 @@ $(function() {
 										<form:checkbox path="libraryCodes" value="FD" class="libCheck lib_FD" label="죽전동공립작은도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="FW" class="libCheck lib_FW" label="웃는얼굴아트센터 도서실"/>
+										<form:checkbox path="libraryCodes" value="FW" class="libCheck lib_FW" label="달서아트센터 도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="FX" class="libCheck lib_FX" label="행정정보문고센터"/>

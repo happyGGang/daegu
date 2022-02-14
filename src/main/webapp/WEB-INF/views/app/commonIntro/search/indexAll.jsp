@@ -809,7 +809,7 @@
 								<form:checkbox path="libraryCodes" class="libCheck lib_FD" value="FD" label="죽전동공립작은도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_FW" value="FW" label="웃는얼굴아트센터도서실" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_FW" value="FW" label="달서아트센터 도서관" />
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_FX" value="FX" label="행정정보문고센터" />
