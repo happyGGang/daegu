@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactory;
@@ -55,7 +56,7 @@ public class MediaFactoryController extends BaseController {
 	private CalendarManageService calendarManageService;
 
 	@Autowired
-	private HomepageService homepageService;
+	private HomepageService homepageService;	
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, MediaFactory mediaFactory, HttpServletRequest request) throws AuthException {
@@ -128,7 +129,7 @@ public class MediaFactoryController extends BaseController {
 //		}
 		
 		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
-			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("cert.do?menu_idx=%s&editMode=ADD&mediaFactory_idx=%d", apply.getMenu_idx(), apply.getMediaFactory_idx()), request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/"+homepage.getContext_path()+"/intro/login/index.do?menu_idx=69", request, response);
 			return null;
 		}
 
