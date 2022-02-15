@@ -984,7 +984,7 @@ $(function() {
 										<form:checkbox path="libraryCodes" value="FD" class="libCheck lib_FD" label="죽전동공립작은도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="FW" class="libCheck lib_FW" label="웃는얼굴아트센터 도서실"/>
+										<form:checkbox path="libraryCodes" value="FW" class="libCheck lib_FW" label="달서아트센터 도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="FX" class="libCheck lib_FX" label="행정정보문고센터"/>
@@ -1239,6 +1239,19 @@ $(function() {
 																		i.CODE eq 'BE06' or
 																		i.CODE eq 'BE09' or
 																		i.CODE eq 'BE13'
+																		}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
+													<c:when test="${homepage.context_path eq 'gosan'}">
+														<c:if test="${i.CODE eq 'BF01' or
+																		i.CODE eq 'BF02' or
+																		i.CODE eq 'BF03' or
+																		i.CODE eq 'BF04' or
+																		i.CODE eq 'BF05' or
+																		i.CODE eq 'BF06' or
+																		i.CODE eq 'BF07' or
+																		i.CODE eq 'BF08'
 																		}">
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>

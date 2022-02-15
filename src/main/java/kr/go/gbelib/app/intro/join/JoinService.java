@@ -90,7 +90,186 @@ public class JoinService extends BaseService {
 
 		    final String sSiteCode = "BQ437";				// NICE로부터 부여받은 사이트 코드 - 대구시청
 		    final String sSitePassword = "7fdpBlHmR0Ee";			// NICE로부터 부여받은 사이트 패스워드 - 대구시청
+		    
+		    String sCipherTime = "";			// 복호화한 시간
+		    String sRequestNumber = "";			// 요청 번호
+		    String sResponseNumber = "";		// 인증 고유번호
+		    String sAuthType = "";				// 인증 수단
+		    String sName = "";					// 성명
+		    String sDupInfo = "";				// 중복가입 확인값 (DI_64 byte)
+		    String sConnInfo = "";				// 연계정보 확인값 (CI_88 byte)
+		    String sBirthDate = "";				// 생년월일(YYYYMMDD)
+		    String sGender = "";				// 성별
+		    String sNationalInfo = "";			// 내/외국인정보 (개발가이드 참조)
+			String sMobileNo = "";				// 휴대폰번호
+			String sMobileCo = "";				// 통신사
+		    String sMessage = "";
+		    String sPlainData = "";
 
+		    int iReturn = niceCheck.fnDecode(sSiteCode, sSitePassword, sEncodeData);
+
+		    if( iReturn == 0 )
+		    {
+		        sPlainData = niceCheck.getPlainData();
+		        sCipherTime = niceCheck.getCipherDateTime();
+
+		        // 데이타를 추출합니다.
+		        java.util.HashMap mapresult = niceCheck.fnParse(sPlainData);
+
+		        sRequestNumber  = (String)mapresult.get("REQ_SEQ");
+		        sResponseNumber = (String)mapresult.get("RES_SEQ");
+		        sAuthType		= (String)mapresult.get("AUTH_TYPE");
+		        sName			= (String)mapresult.get("NAME");
+//				sName			= (String)mapresult.get("UTF8_NAME"); //charset utf8 사용시 주석 해제 후 사용
+		        sBirthDate		= (String)mapresult.get("BIRTHDATE");
+		        sGender			= (String)mapresult.get("GENDER");
+		        sNationalInfo  	= (String)mapresult.get("NATIONALINFO");
+		        sDupInfo		= (String)mapresult.get("DI");
+		        sConnInfo		= (String)mapresult.get("CI");
+		        sMobileNo		= (String)mapresult.get("MOBILE_NO");
+		        sMobileCo		= (String)mapresult.get("MOBILE_CO");
+
+		        String session_sRequestNumber = (String)session.getAttribute("REQ_SEQ");
+		        if(!sRequestNumber.equals(session_sRequestNumber))
+		        {
+		            sMessage = "세션값이 다릅니다. 올바른 경로로 접근하시기 바랍니다.";
+		            sResponseNumber = "";
+		            sAuthType = "";
+		            System.out.println("@@@@@@@@@@ smsCertProc " + sMessage);
+		            System.out.println("@@@@@@@@@@ smsCertProc sAuthType: " + sAuthType);
+		            System.out.println("@@@@@@@@@@ smsCertProc sName: " + sName);
+		            System.out.println("@@@@@@@@@@ smsCertProc sBirthDate: " + sBirthDate);
+		            System.out.println("@@@@@@@@@@ smsCertProc sConnInfo: " + sConnInfo);
+		            System.out.println("@@@@@@@@@@ smsCertProc sMobileNo: " + sMobileNo);
+		            member.setCertComplete(false);
+		            sci_result = "N";
+		            return member;
+		        }
+
+		        member.setCertComplete(true);
+		        sci_result = "Y";
+		    }
+		    else if( iReturn == -1)
+		    {
+		        sMessage = "복호화 시스템 에러입니다.";
+		    }
+		    else if( iReturn == -4)
+		    {
+		        sMessage = "복호화 처리오류입니다.";
+		    }
+		    else if( iReturn == -5)
+		    {
+		        sMessage = "복호화 해쉬 오류입니다.";
+		    }
+		    else if( iReturn == -6)
+		    {
+		        sMessage = "복호화 데이터 오류입니다.";
+		    }
+		    else if( iReturn == -9)
+		    {
+		        sMessage = "입력 데이터 오류입니다.";
+		    }
+		    else if( iReturn == -12)
+		    {
+		        sMessage = "사이트 패스워드 오류입니다.";
+		    }
+		    else
+		    {
+		        sMessage = "알수 없는 에러 입니다. iReturn : " + iReturn;
+		    }
+
+			if (iReturn != 0) {
+				System.out.println("@@@@@@@@@@ smsCertProc " + sMessage);
+				System.out.println("@@@@@@@@@@ smsCertProc sAuthType: " + sAuthType);
+				System.out.println("@@@@@@@@@@ smsCertProc iReturn: " + iReturn);
+	            System.out.println("@@@@@@@@@@ smsCertProc sName: " + sName);
+	            System.out.println("@@@@@@@@@@ smsCertProc sBirthDate: " + sBirthDate);
+	            System.out.println("@@@@@@@@@@ smsCertProc sConnInfo: " + sConnInfo);
+	            System.out.println("@@@@@@@@@@ smsCertProc sMobileNo: " + sMobileNo);
+	            sci_result = "N";
+				member.setCertComplete(false);
+			}
+
+			member.setMember_name(sName);
+			member.setDi_value(sDupInfo);
+			member.setCi_value(sConnInfo);
+			member.setCell_phone(sMobileNo);
+			member.setBirth_day(sBirthDate);
+			member.setSex(sGender);
+			member.setCertType(String.valueOf(request.getSession().getAttribute("certType")));
+			member.setSci_result(sci_result);
+
+			int birthYear = Integer.parseInt(sBirthDate.substring(0, 4));
+			int birthMonth = Integer.parseInt(sBirthDate.substring(4, 6));
+			int birthDay = Integer.parseInt(sBirthDate.substring(6));
+
+			Calendar current = Calendar.getInstance();
+			int currentYear = current.get(Calendar.YEAR);
+			int currentMonth = current.get(Calendar.MONTH) + 1;
+			int currentDay = current.get(Calendar.DAY_OF_MONTH);
+
+			int age = currentYear - birthYear;
+			// 생일 안 지난 경우 -1
+			if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
+				age--;
+			}
+			if (age >= 20) {
+				age = 7;
+			} else if (age <= 13) {
+				age = 2;
+			} else if (age > 13 && age < 20) {
+				age = 5;
+			}
+			member.setAge(String.valueOf(age));
+
+
+			String sci_cellNo = sMobileNo;
+			if (sci_cellNo != null) {
+				member.setCell_phone1(sci_cellNo.substring(0,3));
+				if (sci_cellNo.length() == 10) {
+					member.setCell_phone2(sci_cellNo.substring(3,6));
+					member.setCell_phone3(sci_cellNo.substring(6));
+				} else {
+					member.setCell_phone2(sci_cellNo.substring(3,7));
+					member.setCell_phone3(sci_cellNo.substring(7));
+				}
+			}
+
+			session.setAttribute("certMember", member);
+			session.setAttribute("certType", sAuthType);
+		} catch (Exception ex) {
+//			ex.printStackTrace();
+			member.setCertComplete(false);
+			member.setSci_result("N");
+			return member;
+		}
+
+		return member;
+	}
+	
+	/**
+	 * SMS 본인인증
+	 * @param request
+	 * @param member
+	 * @return
+	 */
+	public Member smsCertProc2(HttpServletRequest request, Member member) {
+        HttpSession session = request.getSession();
+        String sci_result = "N";
+
+		try {
+			//인증 후 결과값이 null로 나오는 부분은 관리담당자에게 문의 바랍니다.
+		    NiceID.Check.CPClient niceCheck = new  NiceID.Check.CPClient();
+
+		    String sEncodeData = requestReplace(request.getParameter("EncodeData"), "encodeData");
+
+		    String sReservedParam1  = requestReplace(request.getParameter("param_r1"), "");
+			String sReservedParam2  = requestReplace(request.getParameter("param_r2"), "");
+			String sReservedParam3  = requestReplace(request.getParameter("param_r3"), "");
+
+		    final String sSiteCode = "G7048";				// 달서구립도서관
+		    final String sSitePassword = "ZS6ZT29YXOFY";	// 달서구립도서관
+		    
 		    String sCipherTime = "";			// 복호화한 시간
 		    String sRequestNumber = "";			// 요청 번호
 		    String sResponseNumber = "";		// 인증 고유번호
@@ -414,6 +593,93 @@ public class JoinService extends BaseService {
 
 	    final String sSiteCode = "BQ437";			// NICE로부터 부여받은 사이트 코드 - 대구시청핸드폰인증
 	    final String sSitePassword = "7fdpBlHmR0Ee";		// NICE로부터 부여받은 사이트 패스워드 대구시청핸드폰인증
+
+	    String sRequestNumber = "REQ0000000001";        	// 요청 번호, 이는 성공/실패후에 같은 값으로 되돌려주게 되므로
+	                                                    	// 업체에서 적절하게 변경하여 쓰거나, 아래와 같이 생성한다.
+	    sRequestNumber = niceCheck.getRequestNO(sSiteCode);
+	  	HttpSession session = request.getSession();
+	    session.setAttribute("REQ_SEQ" , sRequestNumber);	// 해킹등의 방지를 위하여 세션을 쓴다면, 세션에 요청번호를 넣는다.
+
+	   	String sAuthType = "M";      	// 없으면 기본 선택화면, M: 핸드폰, C: 신용카드, X: 공인인증서
+
+	   	String popgubun 	= "N";		//Y : 취소버튼 있음 / N : 취소버튼 없음
+		String customize 	= "";		//없으면 기본 웹페이지 / Mobile : 모바일페이지
+
+		String sGender = ""; 			//없으면 기본 선택 값, 0 : 여자, 1 : 남자
+
+	    // CheckPlus(본인인증) 처리 후, 결과 데이타를 리턴 받기위해 다음예제와 같이 http부터 입력합니다.
+		//리턴url은 인증 전 인증페이지를 호출하기 전 url과 동일해야 합니다. ex) 인증 전 url : http://www.~ 리턴 url : http://www.~
+//	    String sReturnUrl = "http://www.test.co.kr/checkplus_success.jsp";      // 성공시 이동될 URL
+//	    String sErrorUrl = "http://www.test.co.kr/checkplus_fail.jsp";          // 실패시 이동될 URL
+
+	    // 입력될 plain 데이타를 만든다.
+	    String sPlainData = "7:REQ_SEQ" + sRequestNumber.getBytes().length + ":" + sRequestNumber +
+	                        "8:SITECODE" + sSiteCode.getBytes().length + ":" + sSiteCode +
+	                        "9:AUTH_TYPE" + sAuthType.getBytes().length + ":" + sAuthType +
+	                        "7:RTN_URL" + sReturnUrl.getBytes().length + ":" + sReturnUrl +
+	                        "7:ERR_URL" + sErrorUrl.getBytes().length + ":" + sErrorUrl +
+	                        "11:POPUP_GUBUN" + popgubun.getBytes().length + ":" + popgubun +
+	                        "9:CUSTOMIZE" + customize.getBytes().length + ":" + customize +
+							"6:GENDER" + sGender.getBytes().length + ":" + sGender;
+
+	    String sMessage = "";
+	    String sEncData = "";
+
+	    int iReturn = niceCheck.fnEncode(sSiteCode, sSitePassword, sPlainData);
+	    if( iReturn == 0 )
+	    {
+	        sEncData = niceCheck.getCipherData();
+	    }
+	    else if( iReturn == -1)
+	    {
+//	        sMessage = "암호화 시스템 에러입니다.";
+	        sMessage = "본인인증 과정 중에 오류가 발생했습니다. 오류코드: 000";
+	    }
+	    else if( iReturn == -2)
+	    {
+//	        sMessage = "암호화 처리오류입니다.";
+	    	sMessage = "본인인증 과정 중에 오류가 발생했습니다. 오류코드: 001";
+	    }
+	    else if( iReturn == -3)
+	    {
+//	        sMessage = "암호화 데이터 오류입니다.";
+	    	sMessage = "본인인증 과정 중에 오류가 발생했습니다. 오류코드: 002";
+	    }
+	    else if( iReturn == -9)
+	    {
+//	        sMessage = "입력 데이터 오류입니다.";
+	    	sMessage = "본인인증 과정 중에 오류가 발생했습니다. 오류코드: 003";
+	    }
+	    else
+	    {
+//	        sMessage = "알 수 없는 에러입니다. iReturn : " + iReturn;
+	    	sMessage = "본인인증 과정 중에 오류가 발생했습니다. 오류코드: 004, " + iReturn;
+	    }
+
+	    if(iReturn != 0) {
+	    	System.out.println("@@@@@@@@@@ getSmsEncData iReturn: " + iReturn);
+	    	System.out.println("@@@@@@@@@@ getSmsEncData sMessage: " + sMessage);
+	    }
+
+	    result.put("return", String.valueOf(iReturn));
+	    result.put("message", sMessage);
+	    result.put("encData", sEncData);
+
+	    return result;
+	}
+	
+	/**
+	 * SMS인증시 전송할 암호화된 키
+	 *
+	 * @param request
+	 * @return
+	 */
+	public Map<String, String> getSmsEncData2(HttpServletRequest request, String sReturnUrl, String sErrorUrl) {
+		Map<String, String> result = new HashMap<String, String>();
+		NiceID.Check.CPClient niceCheck = new  NiceID.Check.CPClient();
+
+	    final String sSiteCode = "G7048";			// NICE로부터 부여받은 사이트 코드 - 대구시청핸드폰인증
+	    final String sSitePassword = "ZS6ZT29YXOFY";		// NICE로부터 부여받은 사이트 패스워드 대구시청핸드폰인증
 
 	    String sRequestNumber = "REQ0000000001";        	// 요청 번호, 이는 성공/실패후에 같은 값으로 되돌려주게 되므로
 	                                                    	// 업체에서 적절하게 변경하여 쓰거나, 아래와 같이 생성한다.

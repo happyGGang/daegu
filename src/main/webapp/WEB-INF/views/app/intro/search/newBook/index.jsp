@@ -245,7 +245,7 @@ $(function() {
 					<form:radiobutton path="manageCode" value='FB' label="용산1동작은도서관" /><br/>
 					<form:radiobutton path="manageCode" value='FC' label="장기동작은도서관" /><br/>
 					<form:radiobutton path="manageCode" value='FD' label="죽전동공립작은도서관" /><br/>
-					<form:radiobutton path="manageCode" value='FW' label="웃는얼굴아트센터 도서실" /><br/>
+					<form:radiobutton path="manageCode" value='FW' label="달서아트센터 도서관" /><br/>
 					<form:radiobutton path="manageCode" value='FX' label="행정정보문고센터" /><br/>
 					<form:radiobutton path="manageCode" value='GK' label="학산작은도서관" />
 				</c:when>
@@ -269,7 +269,7 @@ $(function() {
 					<form:radiobutton path="manageCode" value='FB' label="용산1동작은도서관" /><br/>
 					<form:radiobutton path="manageCode" value='FC' label="장기동작은도서관" /><br/>
 					<form:radiobutton path="manageCode" value='FD' label="죽전동공립작은도서관" /><br/>
-					<form:radiobutton path="manageCode" value='FW' label="웃는얼굴아트센터 도서실" /><br/>
+					<form:radiobutton path="manageCode" value='FW' label="달서아트센터 도서관" /><br/>
 					<form:radiobutton path="manageCode" value='FX' label="행정정보문고센터" /><br/>
 					<form:radiobutton path="manageCode" value='GK' label="학산작은도서관" />
 				</c:when>

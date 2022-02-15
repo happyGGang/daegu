@@ -345,7 +345,7 @@ $(function() {
 							<option value="FB">용산1동작은도서관</option>
 							<option value="FC">장기동작은도서관</option>
 							<option value="FD">죽전동공립작은도서관</option>
-							<option value="FW">웃는얼굴아트센터 도서실</option>
+							<option value="FW">달서아트센터 도서관</option>
 							<option value="FX">행정정보문고센터</option>
 							<option value="GK">학산작은도서관</option>
 						</select>
