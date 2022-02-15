@@ -101,8 +101,15 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/step3.*"}, method = RequestMethod.POST)
 	public String step3(Model model, Member member, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
-		model.addAttribute("newMember", member);
-		return String.format(basePath, homepage.getFolder()) + "step3";
+		
+		if(homepage.getHomepage_id().equals("h37")) {
+			model.addAttribute("newMember", member);
+			return String.format(basePath, homepage.getFolder()) + "step4";
+		} else {
+			model.addAttribute("newMember", member);
+			return String.format(basePath, homepage.getFolder()) + "step3";
+		}
+		
 	}
 
 	/**

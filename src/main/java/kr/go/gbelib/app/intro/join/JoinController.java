@@ -97,10 +97,13 @@ public class JoinController extends BaseController {
 	 */
 	@RequestMapping (value = {"/step3.*"}, method = RequestMethod.POST)
 	public String step3(@PathVariable String context_path, Model model, Member member, HttpServletRequest request) {
-
-		model.addAttribute("newMember", member);
-
-		return basePath + "step3";
+		if(context_path.equals("bolli") || context_path.equals("dalseolib") || context_path.equals("seongseo")|| context_path.equals("kids") || context_path.equals("family") || context_path.equals("english") || context_path.equals("dssmalllib")) {
+			model.addAttribute("newMember", member);
+			return basePath + "step4";
+		} else {
+			model.addAttribute("newMember", member);
+			return basePath + "step3";
+		}
 	}
 
 	/**
@@ -114,21 +117,18 @@ public class JoinController extends BaseController {
 	@RequestMapping (value = {"/cert.*"}, method = RequestMethod.POST)
 	public String cert(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String certType = request.getParameter("certType");
+		
+		Homepage homepage = getSessionHomepage(request);
+		
 		if (StringUtils.isEmpty(certType)) {
 			codeService.alertMessagePopup("잘못된 접근입니다.", request, response);
 			return null;
 		}
-
+		
 		String returnUrl = String.format("%s://%s:%d/intro/join/certResponse.do", request.isSecure() ? "https" : "http", request.getServerName(), request.getServerPort());
-		Homepage homepage = getSessionHomepage(request);
+		
 		if (!StringUtils.isEmpty(certType) && certType.toLowerCase().contains("sms")) {
-			if(StringUtils.isNotEmpty(homepage.getHomepage_id())) {
-				if(homepage.getHomepage_id().equals("h37")) {
-					model.addAttribute("result", joinService.getSmsEncData2(request, returnUrl, returnUrl));
-				} else {
-					model.addAttribute("result", joinService.getSmsEncData(request, returnUrl, returnUrl));
-				}
-			}
+			model.addAttribute("result", joinService.getSmsEncData(request, returnUrl, returnUrl));
 		} else if (certType.toLowerCase().contains("gpin")) {
 			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
 		}
@@ -155,6 +155,52 @@ public class JoinController extends BaseController {
 		return basePath + "cert_ajax";
 	}
 
+	/**
+	 * 회원구분에 따른 본인인증
+	 *
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/cert2.*"}, method = RequestMethod.POST)
+	public String cert2(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String certType = request.getParameter("certType");
+		if (StringUtils.isEmpty(certType)) {
+			codeService.alertMessagePopup("잘못된 접근입니다.", request, response);
+			return null;
+		}
+
+		String returnUrl = String.format("%s://%s:%d/intro/join/certResponse2.do", request.isSecure() ? "https" : "http", request.getServerName(), request.getServerPort());
+		Homepage homepage = getSessionHomepage(request);
+		if (!StringUtils.isEmpty(certType) && certType.toLowerCase().contains("sms")) {
+			model.addAttribute("result", joinService.getSmsEncData2(request, returnUrl, returnUrl));
+		} else if (certType.toLowerCase().contains("gpin")) {
+			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
+		}
+		if (homepage != null) {
+			request.getSession().setAttribute("currentContext", homepage.getContext_path());
+		} else {
+			request.getSession().setAttribute("currentContext", "null");
+		}
+
+		request.getSession().setAttribute("certType", certType);
+		String mode = String.valueOf(request.getParameter("mode"));
+		request.getSession().setAttribute("certMode", mode);
+		if (StringUtils.equals(mode, "findpw")) {
+			// 비밀번호 찾기 시 아이디와 한번더 비교한다.
+			String member_id = String.valueOf(request.getParameter("member_id"));
+			request.getSession().setAttribute("findPwMemberId", member_id);
+		}
+
+		if (StringUtils.equals(mode.toLowerCase(), "changename")) {
+			request.getSession().setAttribute("changeNameMenuIdx", request.getParameter("menu_idx"));
+			request.getSession().setAttribute("changeNameContextPath", request.getParameter("contextPath"));
+		}
+
+		return basePath + "cert_ajax";
+	}
+	
 	/**
 	 * 회원구분에 따른 본인인증 수신
 	 *
@@ -194,15 +240,338 @@ public class JoinController extends BaseController {
 		// member.setAge("7");
 		//
 		// } else {
-		Homepage homepage = getSessionHomepage(request);
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
-			if(StringUtils.isNotEmpty(homepage.getHomepage_id())) {
-				if(homepage.getHomepage_id().equals("h37")) {
-					member = joinService.smsCertProc2(request, member);
+			member = joinService.smsCertProc(request, member);
+		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {
+			member = joinService.ipinCertProc(request, member);
+		}
+		// }
+
+		// 본인인증 실패
+		if (!member.isCertComplete()) {
+			model.addAttribute("certFailed", true);
+			return basePath + "certReseponse_ajax";
+		}
+
+		// System.out.println("@@@@@@@@@@@@@@@@ mode : " + mode);
+		// System.out.println("@@@@@@@@@@@@@@@@ certType : " + certType);
+		// System.out.println("@@@@@@@@@@@@@@@@ 인증 성명 : " + member.getMember_name());
+		// System.out.println("@@@@@@@@@@@@@@@@ 인증 생년월일 : " + member.getBirth_day());
+		// System.out.println("@@@@@@@@@@@@@@@@ 인증 전화번호 : " + member.getCell_phone());
+		// System.out.println("@@@@@@@@@@@@@@@@ 인증 CI : " + member.getCi_value());
+
+		// 개명으로인한 성명변경
+		if (StringUtils.isNotEmpty(mode) && mode.equals("changename")) {
+			Member sessionMember = getSessionMemberInfo(request);
+
+			// 1. 인증받은 CI와 로그인session CI 비교
+			if (!StringUtils.equals(sessionMember.getCi_value(), member.getCi_value())) {
+				// 본인 아님!
+				model.addAttribute("changeName1", true);
+				return basePath + "certReseponse_ajax";
+			} else {
+				// 로그인session ci_value와 인증받은 session_value가 같다면
+				// 2.본인인증결과와 session의 이름 비교
+				if (StringUtils.equals(sessionMember.getMember_name(), member.getMember_name())) {
+					// 이름이 동일함!
+					model.addAttribute("changeName2", true);
+					return basePath + "certReseponse_ajax";
 				} else {
-					member = joinService.smsCertProc(request, member);
+					// 3. 이름이 다른 경우
+					request.getSession().setAttribute("oldName", sessionMember.getMember_name());
+					request.getSession().setAttribute("newName", member.getMember_name());
+					model.addAttribute("changeName", true);
+					return basePath + "certReseponse_ajax";
 				}
 			}
+
+		}
+
+		// 아이디찾기 본인인증
+		// mode = "findId";
+		if (StringUtils.isNotEmpty(mode) && mode.equals("findid")) {
+			model.addAttribute("findId", true);
+			request.getSession().setAttribute("findId", "o");
+			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
+			if (memberInfo == null || memberInfo.isEmpty() || memberInfo.size() == 0) {
+				model.addAttribute("dupCheck2", true);
+			} else {
+				request.getSession().setAttribute("certMember", memberInfo.get(0));
+			}
+			return basePath + "certReseponse_ajax";
+		}
+
+		// 패스워드찾기 본인인증
+		// mode = "findPw";
+		if (StringUtils.isNotEmpty(mode) && mode.equals("findpw")) {
+			model.addAttribute("findPw", true);
+			request.getSession().setAttribute("findPw", "o");
+			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
+			model.addAttribute("dupCheck2", true);
+			if (CollectionUtils.isNotEmpty(memberInfo)) {
+				String member_id = (String) request.getSession().getAttribute("findPwMemberId");
+				for (Map<String, Object> map : memberInfo) {
+					if (StringUtils.equals(member_id, String.valueOf(map.get("USER_ID")))) {
+						request.getSession().setAttribute("certMember", memberInfo.get(0));
+						model.addAttribute("dupCheck2", false);
+						break;
+					}
+				}
+			}
+			return basePath + "certReseponse_ajax";
+		}
+
+		// 핸드폰 인증 변경
+		// mode = "changeTel";
+		if (StringUtils.isNotEmpty(mode) && mode.equals("changetel")) {
+			model.addAttribute("changeTel", true);
+//			request.getSession().setAttribute("changeTel", "o");
+
+			Member sessionMember = getSessionMemberInfo(request);
+			Map<String, Object> certMember = MemberAPI.checkDupUser("1", member).get(0);
+
+			if (StringUtils.equals(sessionMember.getRec_key(), String.valueOf(certMember.get("REC_KEY")))
+					&& StringUtils.equals(sessionMember.getMember_id(), String.valueOf(certMember.get("USER_ID")))) {
+				String cell_phone = member.getCell_phone();
+				if (StringUtils.isNotEmpty(cell_phone) && !StringUtils.equals(cell_phone, "null")) {
+					sessionMember.setCell_phone(cell_phone);
+					sessionMember.setCell_phone1(member.getCell_phone1());
+					sessionMember.setCell_phone2(member.getCell_phone2());
+					sessionMember.setCell_phone3(member.getCell_phone3());
+				}
+			}
+
+			return basePath + "certReseponse_ajax";
+		}
+
+		// 비회원 게시판 글쓰기
+		// mode = "board";
+		if (StringUtils.isNotEmpty(mode) && mode.equals("board")) {
+			model.addAttribute("board", true);
+			request.getSession().setAttribute("board", "o");
+			request.getSession().setAttribute("certMember", member);
+			return basePath + "certReseponse_ajax";
+		}
+		// 비회원 게시판 글삭제
+		// mode = "boardReply";
+		if (StringUtils.isNotEmpty(mode) && mode.equals("boardReply")) {
+			model.addAttribute("boardReply", true);
+			request.getSession().setAttribute("boardReply", "o");
+			request.getSession().setAttribute("certMember", member);
+			return basePath + "certReseponse_ajax";
+		}
+
+		// 재인증
+		if (StringUtils.isNotEmpty(mode) && mode.equals("recert")) {
+			model.addAttribute("reCert", true);
+			request.getSession().setAttribute("reCert", "o");
+
+			Member sessionMember = (Member) request.getSession().getAttribute("tempMemberSession");
+			sessionMember.setCi_value(member.getCi_value());
+			sessionMember.setIn_ip(request.getRemoteAddr());
+			Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMember.getMember_id(), sessionMember.getMember_pw());
+
+			Map<String, Object> memberInfo = LibSearchAPI.getListData(userInfo, "USER_DATA").get(0);
+
+			sessionMember.setMember_id(String.valueOf(memberInfo.get("USER_ID")));
+			sessionMember.setMember_name(String.valueOf(memberInfo.get("NAME")));
+			sessionMember.setSex(String.valueOf(memberInfo.get("GPIN_SEX")));
+			sessionMember.setBirth_day(String.valueOf(memberInfo.get("BIRTHDAY")));
+			try {
+				String[] handphone = String.valueOf(memberInfo.get("HANDPHONE")).split("-");
+				if (String.valueOf(memberInfo.get("HANDPHONE")) != null && !String.valueOf(memberInfo.get("HANDPHONE")).equals("")) {
+					sessionMember.setCell_phone(String.valueOf(memberInfo.get("HANDPHONE")));
+				}
+				if (handphone[0] != null && !handphone[0].equals("null") && !handphone[0].equals("")) {
+					sessionMember.setCell_phone1(handphone[0]);
+				} else {
+					sessionMember.setCell_phone1("");
+				}
+				if (handphone[1] != null && !handphone[1].equals("null") && !handphone[1].equals("")) {
+					sessionMember.setCell_phone2(handphone[1]);
+				} else {
+					sessionMember.setCell_phone2("");
+				}
+				if (handphone[2] != null && !handphone[2].equals("null") && !handphone[2].equals("")) {
+					sessionMember.setCell_phone3(handphone[2]);
+				} else {
+					sessionMember.setCell_phone3("");
+				}
+			} catch (Exception e) {}
+			sessionMember.setSms_service_yn(String.valueOf(memberInfo.get("SMS_USE_YN")));
+			sessionMember.setEmail_service_yn(String.valueOf(memberInfo.get("MAILING_USE_YN")));
+			if (String.valueOf(memberInfo.get("H_ZIPCODE")) != null && !String.valueOf(memberInfo.get("H_ZIPCODE")).equals("")) {
+				sessionMember.setZipcode(String.valueOf(memberInfo.get("H_ZIPCODE")));
+			} else {
+				sessionMember.setZipcode("");
+			}
+
+			if (String.valueOf(memberInfo.get("H_ADDR1")) != null && !String.valueOf(memberInfo.get("H_ADDR1")).equals("")) {
+				sessionMember.setAddress1(String.valueOf(memberInfo.get("H_ADDR1")));
+			} else {
+				sessionMember.setAddress1("");
+			}
+
+			MemberAPI.updateMember(sessionMember);
+
+			request.getSession().setAttribute("certMember", member);
+			return basePath + "certReseponse_ajax";
+		}
+
+		// 통합인증
+		if (StringUtils.isNotEmpty(mode) && mode.equals("integration")) {
+
+			//보호자 인증
+			if (!StringUtils.isEmpty(certType) && certType.contains("parent")) {
+				model.addAttribute("integration", true);
+				model.addAttribute("parent", true);
+				request.getSession().setAttribute("parentInfo", member);
+			} else {
+				//통합 선택한 회원
+				@SuppressWarnings ("unchecked")
+				Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
+
+				int order = 0;
+				try {
+					order = Integer.parseInt(String.valueOf(integrationMember.get("INTEGRATION_ORDER")));
+				} catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@@@ integrationMember : " + integrationMember);
+				}
+
+				if (order == 1 || order == 2) {//1순위 - 책이음회원 //2순위 - CI 있는 경우
+					request.getSession().setAttribute("integration", "o");
+					request.getSession().setAttribute("certMemberintegration", member);
+
+					String selectedCi = (String) integrationMember.get("IPIN_HASH");
+
+					if (member.getCi_value().equals(selectedCi)) {
+						model.addAttribute("integration", true);
+						if (StringUtils.equals(member.getAge(), "2")) {//만14세미만인경우 보호자 인증을 받아야한다.
+							model.addAttribute("needParentCert", true);
+						}
+					} else {
+						model.addAttribute("integrationFailed2", true);
+					}
+
+				} else {//3순위 - CI 없는 경우
+					List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", member);
+					if (CollectionUtils.isEmpty(checkDupUser)) {
+						if (StringUtils.equals(member.getAge(), "2")) {//만14세미만인경우 보호자 인증을 받아야한다.
+							model.addAttribute("needParentCert", true);
+						}
+						model.addAttribute("integration", true);
+						request.getSession().setAttribute("integration", "o");
+						request.getSession().setAttribute("certMember", member);
+					} else {
+						model.addAttribute("integrationFailedUserNo", checkDupUser.get(0).get("USER_NO"));
+						model.addAttribute("integrationFailed", true);
+						request.getSession().setAttribute("integrationFailed", "o");
+					}
+					request.getSession().setAttribute("certMemberintegration", member);
+				}
+			}
+
+			return basePath + "certReseponse_ajax";
+		}
+
+		// 책 이음 회원 WEB ID 생성
+		// if(StringUtils.isNotEmpty(mode) && mode.equals("createwebid")) {
+		// model.addAttribute("createWebId", true);
+		//
+		// return basePath + "certReseponse_ajax";
+		// }
+
+		model.addAttribute("member", member);
+		request.getSession().setAttribute("certMember", member);
+		request.getSession().setAttribute("certType", certType);
+		model.addAttribute("parent", false);
+		// certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), sb.toString(), request.getRemoteAddr()));
+
+		if (!StringUtils.isEmpty(certType) && certType.contains("parent")) {
+			// 보호자 인증
+			model.addAttribute("parent", true);
+			request.getSession().setAttribute("parentInfo", member);
+		} else if (!StringUtils.isEmpty(certType) && !certType.contains("parent")) {
+			// 실제 가입자 인증
+			// 1. ci중복자 확인(책이음 가입자 확인)
+//			List<Map<String, Object>> memberInfoKl = MemberAPI.checkDupUser("3", member);
+//			if (memberInfoKl != null && memberInfoKl.size() > 0) {
+//				model.addAttribute("dupCheckKl", true);
+//				model.addAttribute("dupUser", memberInfoKl.get(0));
+//			}
+
+			// 2. ci중복자 확인
+			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
+			if (memberInfo != null && memberInfo.size() > 0) {
+				certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), "", request.getRemoteAddr()));
+				model.addAttribute("dupCheck", true);
+				model.addAttribute("dupUser", memberInfo.get(0));
+			}
+
+			String currentContext  = String.valueOf(request.getSession().getAttribute("currentContext"));
+
+			// 3. 책이음 중복자 확인
+			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
+			if (!StringUtils.equals(currentContext, "daegu")) {
+				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+					model.addAttribute("dupCheckKl", true);
+					model.addAttribute("dupUser", klmemberInfo.get(0));
+				}
+			}
+
+			model.addAttribute("parent", false);
+		} else {
+			model.addAttribute("parent", false);
+			model.addAttribute("certFailed", certResult);
+		}
+
+		return basePath + "certReseponse_ajax";
+	}
+	
+	/**
+	 * 회원구분에 따른 본인인증 수신
+	 *
+	 * @param model
+	 * @param member
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = {"/certResponse2.*"})
+	public String certResponse2(Model model, Member member, HttpServletRequest request, HttpServletResponse response) {
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("Pragma", "no-cache");
+		response.setDateHeader("Expires", 0);
+		if (request.getProtocol().equals("HTTP/1.1")) {
+			response.setHeader("Cache-Control", "no-cache");
+		}
+
+		String certType = String.valueOf(request.getSession().getAttribute("certType")).toLowerCase();
+		String mode = String.valueOf(request.getSession().getAttribute("certMode")).toLowerCase();
+		boolean certResult = false;
+
+		// if(StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
+		// member.setCertComplete(true);
+		//// member.setMember_name("구봉민");
+		//// member.setCi_value("5O7+3vUCnFviqI5tPLgL4lYLbVFp+VEIB6sv8rjdA1M/gtq5xLgFE1oip/AMBGp2McakHtjHpyuZAn/cg4+dug==");
+		//// member.setCell_phone("01091992743");
+		//// member.setBirth_day("19740228");
+		//
+		// member.setMember_name("홍길동");
+		// member.setDi_value("MC0GCCqGSIb3DQIJAyEAYuPiGVkAsssdflLedxFexNBXOurjsNwVEXZcAABBB=");
+		//// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA+BVvYeAiYH1rR9fqdz6CkE8k0wnOC/Jg==");
+		// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA BVvYeAiYH1rR9fqdz6CBBBAA");
+		//// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA+BVvYeAiYH1rR9fqdz6CkE8k0");
+		// member.setCell_phone("01085069542");
+		// member.setBirth_day("19870607");
+		// member.setSex("1");
+		// member.setAge("7");
+		//
+		// } else {
+		Homepage homepage = getSessionHomepage(request);
+		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
+			member = joinService.smsCertProc2(request, member);
 		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {
 			member = joinService.ipinCertProc(request, member);
 		}
