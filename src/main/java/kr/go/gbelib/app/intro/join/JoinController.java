@@ -120,12 +120,18 @@ public class JoinController extends BaseController {
 		}
 
 		String returnUrl = String.format("%s://%s:%d/intro/join/certResponse.do", request.isSecure() ? "https" : "http", request.getServerName(), request.getServerPort());
+		Homepage homepage = getSessionHomepage(request);
 		if (!StringUtils.isEmpty(certType) && certType.toLowerCase().contains("sms")) {
-			model.addAttribute("result", joinService.getSmsEncData(request, returnUrl, returnUrl));
+			if(StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+				if(homepage.getHomepage_id().equals("h37")) {
+					model.addAttribute("result", joinService.getSmsEncData2(request, returnUrl, returnUrl));
+				} else {
+					model.addAttribute("result", joinService.getSmsEncData(request, returnUrl, returnUrl));
+				}
+			}
 		} else if (certType.toLowerCase().contains("gpin")) {
 			model.addAttribute("result", joinService.getIpinEncData(request, returnUrl));
 		}
-		Homepage homepage = getSessionHomepage(request);
 		if (homepage != null) {
 			request.getSession().setAttribute("currentContext", homepage.getContext_path());
 		} else {
@@ -188,8 +194,15 @@ public class JoinController extends BaseController {
 		// member.setAge("7");
 		//
 		// } else {
+		Homepage homepage = getSessionHomepage(request);
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
-			member = joinService.smsCertProc(request, member);
+			if(StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+				if(homepage.getHomepage_id().equals("h37")) {
+					member = joinService.smsCertProc2(request, member);
+				} else {
+					member = joinService.smsCertProc(request, member);
+				}
+			}
 		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {
 			member = joinService.ipinCertProc(request, member);
 		}
