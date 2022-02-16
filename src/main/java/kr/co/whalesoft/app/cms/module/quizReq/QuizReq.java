@@ -27,6 +27,7 @@ public class QuizReq extends PagingUtils {
 	private String add_date;  //등록일
 	private String terms_yn;	//약관동의여부
 	private String chosen_yn;	//당첨자여부
+	private String applicant_id; // 참여자ID
 	
 	public QuizReq() { }
 	
@@ -180,5 +181,12 @@ public class QuizReq extends PagingUtils {
 				quiz_idx, quiz_req_idx, quiz_answer, name, school, hak, ban, phone, zip_code, address, winner_yn,
 				add_ip, add_id, add_date, terms_yn, chosen_yn);
 	}
-	
+
+	public String getApplicant_id() {
+		return applicant_id;
+	}
+
+	public void setApplicant_id(String applicant_id) {
+		this.applicant_id = applicant_id;
+	}
 }

@@ -8,7 +8,7 @@
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 			school, hak, ban, gender, age, phone, zip_code,
 			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
-			chosen_yn
+			chosen_yn, applicant_id
 		FROM
 			QUIZ_REQ
 		WHERE 
@@ -26,7 +26,7 @@
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 			school, hak, ban, gender, age, phone, zip_code,
 			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
-			chosen_yn
+			chosen_yn, applicant_id
 		FROM
 			QUIZ_REQ
 		WHERE 
@@ -43,7 +43,7 @@
 				homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 				school, hak, ban, phone, zip_code,
 				address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
-				chosen_yn, DBMS_RANDOM.VALUE AS rand
+				chosen_yn, DBMS_RANDOM.VALUE AS rand, applicant_id
 			FROM
 				QUIZ_REQ
 			WHERE 
@@ -70,7 +70,7 @@
 	
 	<select id="getQuizReqOne" resultType="kr.co.whalesoft.app.cms.module.quizReq.QuizReq">
 		SELECT
-			HOMEPAGE_ID, QUIZ_IDX, QUIZ_REQ_IDX, QUIZ_ANSWER, NAME, SCHOOL, HAK, BAN, PHONE, ZIP_CODE, ADDRESS, WINNER_YN, ADD_IP, ADD_ID, ADD_DATE, CHOSEN_YN
+			HOMEPAGE_ID, QUIZ_IDX, QUIZ_REQ_IDX, QUIZ_ANSWER, NAME, SCHOOL, HAK, BAN, PHONE, ZIP_CODE, ADDRESS, WINNER_YN, ADD_IP, ADD_ID, ADD_DATE, CHOSEN_YN, applicant_id
 		FROM
 			QUIZ_REQ
 		WHERE 
@@ -85,11 +85,11 @@
 		(
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 			school, hak, ban, gender, age, phone, zip_code,
-			address, add_ip, add_id, add_date, chosen_yn
+			address, add_ip, add_id, add_date, chosen_yn, applicant_id
 		) VALUES (
 			#{homepage_id}, #{quiz_idx}, #{quiz_req_idx}, #{quiz_answer}, #{name},
 			#{school}, #{hak}, #{ban}, #{gender}, #{age}, #{phone}, #{zip_code},
-			#{address}, #{add_ip}, #{add_id}, SYSDATE, 'N'
+			#{address}, #{add_ip}, #{add_id}, SYSDATE, 'N', #{applicant_id}
 		)
 	</insert>
 	

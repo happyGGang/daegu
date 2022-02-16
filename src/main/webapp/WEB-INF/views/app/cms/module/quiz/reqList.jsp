@@ -172,7 +172,6 @@ $(function() {
 			<col width="50" />
 			<col width="135" />
 			<col width="80" />
-			<col width="" />
 			<col width="100" />
 			<col width="50" />
 			<col width="50" />
@@ -192,6 +191,7 @@ $(function() {
        			<th>번호</th>
        			<th>등록ID</th>
        			<th>신청자명</th>
+				<th>신청자ID</th>
        			<th>제출답안</th>
        			<th>학교</th>
        			<th>학년</th>
@@ -214,6 +214,7 @@ $(function() {
 				         	<td>${i.quiz_req_idx}</td>
 				         	<td>${i.add_id}</td>
 				         	<td>${i.name}</td>
+							<td>${i.applicant_id}</td>
 				         	<td class="left">
 								<c:forTokens items="${i.quiz_answer}" delims="|" var="oneAnswer" varStatus="status">
 				         			<span <c:if test="${fn:replace(fn:trim(quizQuestionList[status.index].quiz_question_answer), ' ', '') eq fn:replace(fn:trim(oneAnswer), ' ', '')}">style="background:#0f0"</c:if>>${status.count}번 답: ${oneAnswer}</span><br/>

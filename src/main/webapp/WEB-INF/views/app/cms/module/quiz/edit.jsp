@@ -143,6 +143,13 @@ function getLasData(arg) {
 	        		<form:radiobutton path="age_yn"  value="Y" label="예"/>
 	        	</td>
 	        </tr>
+			<tr>
+				<th>아이디 입력 여부</th>
+				<td>
+					<form:radiobutton path="applicant_id_yn"  value="N" label="아니오"/>
+					<form:radiobutton path="applicant_id_yn"  value="Y" label="예"/>
+				</td>
+			</tr>
 	        <tr>
 				<th>도서검색</th>
 				<td>

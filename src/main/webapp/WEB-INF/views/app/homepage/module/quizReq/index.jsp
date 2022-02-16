@@ -267,7 +267,17 @@ ${quiz.top_html}
 					<td>
 						<label for="name"></label>
 						<form:input path="name" cssClass="text" title="이름" value="${member.member_name}"/>
+					</td>
 				</tr>
+				<c:if test="${quiz.applicant_id_yn eq 'Y'}">
+				<tr>
+					<th>아이디</th>
+					<td>
+						<label for="applicant_id"></label>
+						<form:input path="applicant_id" cssClass="text" title="이름" value="${member.member_id}" maxlength="30"/>
+					</td>
+				</tr>
+				</c:if>
 				<tr>
 					<th>휴대전화번호 </th>
 					<td>
@@ -282,6 +292,7 @@ ${quiz.top_html}
 							<form:input path="phone" class="text" title="휴대전화번호 입력" value=""/>
 						</c:otherwise>
 					</c:choose>
+					</td>
 				</tr>
 				<%-- <tr>
 					<th>주소</th>
