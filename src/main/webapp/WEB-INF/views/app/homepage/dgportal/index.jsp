@@ -55,7 +55,7 @@ do {
 	
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함. 메인 팝업 추천도서 잠시 주석 2021-12-02
-		if (${member.login && (member.member_id eq 'info8910' || member.member_id eq 'infoset' || member.member_id eq 'pshnoi88' || member.member_id eq 'ka1004' || member.member_id eq 'yjoh7012' || member.member_id eq 'blessjheum')}) 
+		if (${member.login && (member.member_id eq 'infoset')}) 
 		{
 			var result = '';
 			var nameOfCookie = "book_popup_${homepage.homepage_id}=";
