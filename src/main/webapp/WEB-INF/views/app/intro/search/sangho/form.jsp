@@ -155,7 +155,8 @@ $(function() {
 <form:option value="127031">반야월역사 작은도서관</form:option>
 <!-- <form:option value="727070">동구청 작은도서관</form:option> -->
 <form:option value="727073">늘푸른 도서관</form:option>
-<form:option value="727072">초록우산도서관</form:option>
+<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+<%-- <form:option value="727072">초록우산도서관</form:option> --%>
 <form:option value="727074">행복도서관</form:option>
 <form:option value="727068">방촌동 작은도서관</form:option>
 <!-- <form:option value="727076">율하5주민도서관</form:option> -->

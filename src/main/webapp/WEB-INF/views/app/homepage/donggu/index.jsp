@@ -523,7 +523,8 @@ do {
 						<area shape="circle" coords="360,408,7" href="#lib-selector" alt="(사립)꿈날자문고" class="maps" data-value="20"/>
 						<area shape="circle" coords="67,399,7" href="#lib-selector" alt="(사립)행복도서관" class="maps" data-value="21"/>
 						<area shape="circle" coords="143,337,7" href="#lib-selector" alt="(사립)늘푸른 도서관" class="maps" data-value="22"/>
-						<area shape="circle" coords="337,413,7" href="#lib-selector" alt="(사립)초록우산도서관" class="maps" data-value="23"/>
+						<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+						<!-- <area shape="circle" coords="337,413,7" href="#lib-selector" alt="(사립)초록우산도서관" class="maps" data-value="23"/> -->
 						</map>
 					</div>
 					<div class="map-info">
@@ -556,7 +557,8 @@ do {
 									<option value="20">(사립)꿈날자문고</option> 
 									<option value="21">(사립)행복도서관</option>
 									<option value="22">(사립)늘푸른 도서관</option>
-									<option value="23">(사립)초록우산도서관</option>
+									<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+									<!-- <option value="23">(사립)초록우산도서관</option> -->
 								</select>
 							</li>
 							<li>
