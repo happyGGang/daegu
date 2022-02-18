@@ -273,7 +273,12 @@ $(function() {
 		</tr>
 		<tr>
 			<th>비고</th>
-			<td><form:input path="remarks" class="text" cssStyle="width:80%"/> </td>
+			<td>
+				<form:input path="remarks" class="text" cssStyle="width:80%"/><br />
+				<c:if test="${homepage.context_path eq '228'}">
+					기관 위치를 입력해주세요 (동구, 수성구, 중구, 북구 등)
+				</c:if>
+			</td>
 		</tr>
 	</tbody>
 </table>
