@@ -94,6 +94,9 @@ $(function() {
 			<c:when test="${mc.manage_code eq 'BW'}">
 			<option value="${mc.manage_code},BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK" ${librarySearch.manageCode eq 'BW,BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK' ? 'selected' : ''}>${mc.homepage_name}</option>
 			</c:when>
+			<c:when test="${mc.manage_code eq 'BL'}">
+			<option value="${mc.manage_code},BQ,BP,BM,BN,GQ,FU,FZ,FH" ${librarySearch.manageCode eq 'BW,BU,BV,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK' ? 'selected' : ''}>${mc.homepage_name}</option>
+			</c:when>
 			<c:otherwise>
 				<option value="${mc.manage_code}" ${librarySearch.manageCode eq mc.manage_code ? 'selected' : ''}>${mc.homepage_name}</option>
 			</c:otherwise>
