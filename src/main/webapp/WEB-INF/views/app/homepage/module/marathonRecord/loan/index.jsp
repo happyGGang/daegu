@@ -34,16 +34,18 @@ $(function() {
 		<colgroup>
 			<col width="3%">
 			<col width="">
+			<col width="5">
 			<col width="15%">
-			<col width="13%">
-			<col width="11%">
-			<col width="11%">
+			<col width="10%">
+			<col width="10%">
+			<col width="10%">
 			<col width="7%">
 			<col width="8%">
 		</colgroup>
 		<thead>
 			<th>순번</th>
 			<th>제목</th>
+			<th>청구기호</th>
 			<th>저자 / 발행자</th>
 			<th>도서관명</th>
 			<th>대출일</th>
@@ -52,11 +54,12 @@ $(function() {
 			<th>선택</th>
 		</thead>
 		<tbody>
-			<c:if test="${fn:length(loanList) < 1}"><tr><td colspan="8">대출중인 도서가 없습니다.</td></tr></c:if>
+			<c:if test="${fn:length(loanList) < 1}"><tr><td colspan="9">대출중인 도서가 없습니다.</td></tr></c:if>
 			<c:forEach items="${loanList}" var="i">
 			<tr>
 				<th style="text-align:center;">${i.RNUM}</th>
 				<td>${i.TITLE_INFO}</td>
+				<td>${i.CALL_NO}</td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td style="text-align:center;">${i.LIB_NAME}</td>
 				<td style="text-align:center;">${i.LOAN_DATE}</td>
