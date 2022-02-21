@@ -41,7 +41,7 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
 
-						<a href="https://www.instagram.com/duryulib/" target="_blank" class="sitemap-img2" style="padding-left:18px;" title="카카오톡채널 바로가기(새창열림)">
+						<a href="https://pf.kakao.com/_xbIxlJb" target="_blank" class="sitemap-img2" style="padding-left:18px;" title="카카오톡채널 바로가기(새창열림)">
 						<img src="/resources/homepage/${homepage.context_path}/img/kakaoch-btn.jpg" alt="카카오톡채널" /></a>
 
 						<a href="https://www.instagram.com/duryulib/" target="_blank" class="sitemap-img2" title="인스타그램 바로가기(새창열림)">
