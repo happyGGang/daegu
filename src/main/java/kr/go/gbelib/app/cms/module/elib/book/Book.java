@@ -87,6 +87,7 @@ public class Book extends PagingUtils {
 	private String mkSessData;
 	private int audio_no;
 	private String audio_name;
+	private int view_count;
 
 	private String approved_yn = "Y";
 	private MultipartFile mfile;
@@ -637,6 +638,12 @@ public class Book extends PagingUtils {
 	}
 	public void setLoanExtendsAbleReason(String loanExtendsAbleReason) {
 		this.loanExtendsAbleReason = loanExtendsAbleReason;
+	}
+	public int getView_count() {
+		return view_count;
+	}
+	public void setView_count(int view_count) {
+		this.view_count = view_count;
 	}
 	@Override
 	public String toString() {

@@ -161,6 +161,7 @@ function submit(e) {
 		<colgroup>
 			<col width="100"/>
 			<col width="50"/>
+			<col width="50"/>
 			<col width="200"/>
 			<col width="150"/>
 			<col width="100"/>
@@ -177,7 +178,8 @@ function submit(e) {
 		<thead>
 			<tr>
 				<th>카테고리</th>
-				<th>${countName}</th>	
+				<th>${countName}</th>
+				<th>조회수</th>
 				<th>책제목</th>
 				<th>저자</th>	
 				<th>출판사</th>
@@ -202,6 +204,7 @@ function submit(e) {
 				<tr>
 					<td>${i.cate_name}</td>
 					<td>${i.lend_total}</td>
+					<td>${i.view_count}</td>
 					<td>${i.book_name}</td>
 					<td>${i.author_name}</td>
 					<td>${i.book_pubname}</td>

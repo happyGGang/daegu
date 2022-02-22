@@ -412,6 +412,9 @@
 							<c:if test="${i.book_reserve > 0}">
 							</c:if>
 						</c:if>
+						<span class="txt-bar">&nbsp;</span>
+						<label>조회수 : </label>
+						<span>${fn:escapeXml(i.view_count)}</span>
 					</div>
 				</div>
 			</li>

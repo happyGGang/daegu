@@ -751,6 +751,8 @@ public class ElibController extends BaseController {
 	public String lending_view(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
+		//조회수증가
+		bookService.addViewCount(book);
 
 		Book book1 = setStatus(bookService.getBookInfo(book), request);
 		if("FXLI".equals(book1.getCom_code())) book1 = setStatus(bookService.getBookInfo(book), request);

@@ -744,5 +744,9 @@ public class BookService extends BaseService {
 	public List<Book> getBookInterestList(Book book) {
 		return dao.getBookInterestList(book);
 	}
+
+	public int addViewCount(Book book) {
+		return dao.addViewCount(book);
+	}
 	
 }

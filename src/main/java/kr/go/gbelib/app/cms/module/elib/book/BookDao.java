@@ -117,5 +117,7 @@ public interface BookDao {
 	public List<Book> getLendingBookListState(Book book);
 
 	public List<Book> getBookInterestList(Book book);
+
+	public int addViewCount(Book book);
 	
 }
