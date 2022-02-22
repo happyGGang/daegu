@@ -139,27 +139,27 @@ $(function() {
 					</c:when>
 					<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' ||context_path eq 'donggusm'}">
 					<form:select path="uselibcode">
-<form:option value="127049">안심도서관</form:option>
-<form:option value="127087">신천도서관</form:option>
-<form:option value="727061">신암2동 작은도서관</form:option>
-<form:option value="727062">신암3동 작은도서관</form:option>
-<form:option value="727071">신암5동 작은도서관</form:option>
-<form:option value="127029">신천3동 작은도서관</form:option>
-<form:option value="727064">효목1동 작은도서관</form:option>
-<form:option value="127048">효목2동 작은도서관</form:option>
-<form:option value="127030">도평동 작은도서관</form:option>
-<form:option value="727065">불로어울림 작은도서관</form:option>
-<form:option value="727066">지저동 작은도서관</form:option>
-<form:option value="727067">동촌역사 작은도서관</form:option>
-<form:option value="727069">해안동 작은도서관</form:option>
-<form:option value="127031">반야월역사 작은도서관</form:option>
-<!-- <form:option value="727070">동구청 작은도서관</form:option> -->
-<form:option value="727073">늘푸른 도서관</form:option>
-<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
-<%-- <form:option value="727072">초록우산도서관</form:option> --%>
-<form:option value="727074">행복도서관</form:option>
-<form:option value="727068">방촌동 작은도서관</form:option>
-<!-- <form:option value="727076">율하5주민도서관</form:option> -->
+						<form:option value="127049">안심도서관</form:option>
+						<form:option value="127087">신천도서관</form:option>
+						<form:option value="727061">신암2동 작은도서관</form:option>
+						<form:option value="727062">신암3동 작은도서관</form:option>
+						<form:option value="727071">신암5동 작은도서관</form:option>
+						<form:option value="127029">신천3동 작은도서관</form:option>
+						<form:option value="727064">효목1동 작은도서관</form:option>
+						<form:option value="127048">효목2동 작은도서관</form:option>
+						<form:option value="127030">도평동 작은도서관</form:option>
+						<form:option value="727065">불로어울림 작은도서관</form:option>
+						<form:option value="727066">지저동 작은도서관</form:option>
+						<form:option value="727067">동촌역사 작은도서관</form:option>
+						<!--<form:option value="727069">해안동 작은도서관</form:option>-->
+						<form:option value="127031">반야월역사 작은도서관</form:option>
+						<!-- <form:option value="727070">동구청 작은도서관</form:option> -->
+						<form:option value="727073">늘푸른 도서관</form:option>
+						<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+						<%-- <form:option value="727072">초록우산도서관</form:option> --%>
+						<form:option value="727074">행복도서관</form:option>
+						<form:option value="727068">방촌동 작은도서관</form:option>
+						<!-- <form:option value="727076">율하5주민도서관</form:option> -->
 					</form:select>
 					</c:when>
 					<c:otherwise>

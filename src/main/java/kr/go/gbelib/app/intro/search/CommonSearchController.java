@@ -1002,24 +1002,32 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping (value = { "/hope/allHistory.*" })
 	public String hopeHistoryLib(@PathVariable ("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
-		if(librarySearch.getLibraryCodes() == null) {
-			List<String> libraryCodes = new ArrayList<String>();
-			Homepage h1 = new Homepage();
-			h1.setHomepage_id(homepage.getHomepage_id());
-			h1.setHomepage_group(homepage.getHomepage_id());
-			h1.setTemp_use_yn(null);
-			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
-			if (CollectionUtils.isNotEmpty(subHomepageList)) {
-				for (Homepage homepage1 : subHomepageList) {
-					if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
-						libraryCodes.add(homepage1.getManage_code());
+			
+			if(librarySearch.getLibraryCodes() == null) {
+				List<String> libraryCodes = new ArrayList<String>();
+				
+				if(homepagePath.equals("yonghak") && librarySearch.getLibraryCodes() == null) {
+					libraryCodes.add("BE");
+					libraryCodes.add("BG");
+					libraryCodes.add("BH");
+					librarySearch.setLibraryCodes(libraryCodes);
+				} else {
+					Homepage h1 = new Homepage();
+					h1.setHomepage_id(homepage.getHomepage_id());
+					h1.setHomepage_group(homepage.getHomepage_id());
+					h1.setTemp_use_yn(null);
+					List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+					if (CollectionUtils.isNotEmpty(subHomepageList)) {
+						for (Homepage homepage1 : subHomepageList) {
+							if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+								libraryCodes.add(homepage1.getManage_code());
+							}
+						}
 					}
+					librarySearch.setLibraryCodes(libraryCodes);
 				}
-			}
-			librarySearch.setLibraryCodes(libraryCodes);
 		}
-
+		
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, -1);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
