@@ -21,7 +21,7 @@ $(function(){
 		var $this = $(this);
 		doGetLoad('/'+$this.attr('keyValue5')+'/module/teach/student/edit.do',
 				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
-				+'&teach_idx='+$this.attr('keyValue4')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$this.attr('keyValue6'));
+				+'&teach_idx='+$this.attr('keyValue4')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$this.attr('keyValue6'))+'&large_category_idx='+$this.attr('keyValue7')) ;
 
 		e.preventDefault();
 	});
@@ -285,11 +285,11 @@ $(function(){
 				<div class="stat">
 							<c:choose>
 								<c:when test="${i.teach_status eq '0'}">
-									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" apply_status="1">
+									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" keyValue7="${i.large_category_idx}" apply_status="1">
 									<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '1'}">
-									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" apply_status="2">
+									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" keyValue7="${i.large_category_idx}" apply_status="2">
 									<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '2'}">
