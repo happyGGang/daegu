@@ -91,7 +91,9 @@ public class Student extends PagingUtils {
 	private String end_time;
 
 	private String vaccines_counter = "0";
-
+	private String vaccines_counter_1;
+	private String vaccines_counter_2;
+	
 	private String teach_status;
 	private String student_status;
 	private int cert_percent = 70;
@@ -878,6 +880,22 @@ public class Student extends PagingUtils {
 
 	public void setVaccines_counter(String vaccines_counter) {
 		this.vaccines_counter = vaccines_counter;
+	}
+
+	public String getVaccines_counter_1() {
+		return vaccines_counter_1;
+	}
+
+	public void setVaccines_counter_1(String vaccines_counter_1) {
+		this.vaccines_counter_1 = vaccines_counter_1;
+	}
+
+	public String getVaccines_counter_2() {
+		return vaccines_counter_2;
+	}
+
+	public void setVaccines_counter_2(String vaccines_counter_2) {
+		this.vaccines_counter_2 = vaccines_counter_2;
 	}
 	
 

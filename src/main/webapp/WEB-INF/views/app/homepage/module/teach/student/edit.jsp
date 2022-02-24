@@ -109,6 +109,17 @@ $(function() {
 				return false;
 			}
 		}
+		
+		var agent_yn = $('#agent_yn').val();
+		var vaccines_yn = $('#vaccines_yn').val();
+		var vaccines_counter_1 = $('#vaccines_counter_1').val();
+		var vaccines_counter_2 = $('#vaccines_counter_2').val();
+		
+		if(agent_yn == "N" && vaccines_yn == "Y"){
+			$('#vaccines_counter').val($('input[name="vaccines_counter_1"]:checked').val());
+		}else if(agent_yn == "Y" && vaccines_yn == "Y"){
+			$('#vaccines_counter').val($('input[name="vaccines_counter_2"]:checked').val());
+		}		
 
 		var $form = {};
 		$form = $.extend(true, $form, $('#studentForm'));
@@ -144,6 +155,14 @@ $(function() {
 		if ( $("input:radio[name = applicant_sex]").length > 0 && $("input:radio[name = applicant_sex]:checked").length < 1 ) {
 			$form.find('input:radio[name = applicant_sex]').focus();
 			alert('신청자 성별을 입력해 주세요.');
+			return false;
+		}
+		</c:if>
+		
+		<c:if test="${teach.vaccines_yn eq 'Y'}">
+		if ($('#vaccines_counter').val() == '') {
+			$form.find('input:radio[name = vaccines_counter]').focus();
+			alert('백신 접종여부를 선택해 주세요.');
 			return false;
 		}
 		</c:if>
@@ -538,6 +557,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="apply_status"/>
 	<form:hidden path="member_key" />
 	<form:hidden path="agree_codes"/>
+	<form:hidden path="vaccines_counter" id="vaccines_counter"/>
+	<input type="hidden" id="agent_yn" value="${teach.agent_yn }"/>
+	<input type="hidden" id="vaccines_yn" value="${teach.vaccines_yn }"/>
 	
 	<c:choose>
 		<c:when test="${teach.detail_address_yn eq 'Y'}">
@@ -810,13 +832,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					</td>
 				</tr>
 			</c:if>
-			<c:if test="${teach.vaccines_yn eq 'Y'}">
+			<c:if test="${teach.vaccines_yn eq 'Y' and teach.agent_yn eq 'N'}">			
 				<tr>
 					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
-	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
-	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+					<td>						
+						<form:radiobutton path="vaccines_counter_1" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+	         			<form:radiobutton path="vaccines_counter_1" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+	         			<form:radiobutton path="vaccines_counter_1" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+	         			<form:radiobutton path="vaccines_counter_1" value="3" label="3회접종" cssStyle="vertical-align: middle;" title="3회접종"/>
 					</td>
 				</tr>
 			</c:if>
@@ -1013,9 +1036,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 				<tr>
 					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
-						<form:radiobutton path="vaccines_counter" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
-	         			<form:radiobutton path="vaccines_counter" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
-	         			<form:radiobutton path="vaccines_counter" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+						<form:radiobutton path="vaccines_counter_2" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+	         			<form:radiobutton path="vaccines_counter_2" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+	         			<form:radiobutton path="vaccines_counter_2" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+	         			<form:radiobutton path="vaccines_counter_2" value="3" label="3회접종" cssStyle="vertical-align: middle;" title="3회접종"/>
 					</td>
 				</tr>
 			</c:if>

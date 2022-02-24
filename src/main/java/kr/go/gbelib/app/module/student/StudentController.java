@@ -62,6 +62,9 @@ public class StudentController extends BaseController {
 	
 	@Autowired
 	private BlackListService blackListService;
+	
+	@Autowired
+	private StudentService studentService;
 
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
@@ -155,12 +158,29 @@ public class StudentController extends BaseController {
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-
+	
+	
+	@RequestMapping(value = {"/edit_mod.*"})
+	public String edit_mod(Model model, Student student, HttpServletRequest request, HttpServletResponse response){
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		int menu_idx = student.getMenu_idx();
+		student = studentService.getStudentOne(student);
+		student.setEditMode("MODIFY");
+		student.setMenu_idx(menu_idx);	
+		model.addAttribute("student", student);
+		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
+		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
+		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
+		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
+		model.addAttribute("termsList", termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
+		
+		return String.format(basePath, homepage.getFolder()) + "edit_mod";
+	}
+	
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Student student, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
-
+		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));		
 		if (teachOne == null) {
 			res.setValid(false);
 			result.reject("잘못된 경로로 접근하였습니다.");
@@ -190,6 +210,11 @@ public class StudentController extends BaseController {
 			if (StringUtils.equals(teachOne.getTeach_age_type(), "child") && StringUtils.equals(teachOne.getFamily_yn(), "Y")) {
 				ValidationUtils.rejectPhone(result, "family_cell_phone", "보호자 휴대전화번호 형식이 잘못되었습니다.");
 			}
+			
+			if(StringUtils.equals(teachOne.getVaccines_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "vaccines_counter", "백신접종 여부를 선택하세요.");
+			}
+			
 
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
@@ -330,6 +355,40 @@ public class StudentController extends BaseController {
 				} else {
 					res.setMessage((String) addResult[1]);
 				}
+			}else if (student.getEditMode().equals("MODIFY")) {
+				String memberId = getSessionMemberId(request);
+				
+				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+					memberId = "ANONYMOUS";
+					student.setApplicant_name(student.getApplicant_name().trim());
+				}
+				
+				if (StringUtils.isNotEmpty(memberId)) {
+					student.setModify_id(getSessionMemberId(request));
+					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+						student.setModify_id(memberId);
+					}
+				} else {
+					student.setModify_id(getSessionMemberId(request));
+				}
+				
+				service.updateStudent(student);
+				Homepage homepage = getSessionHomepage(request);
+				res.setValid(true);
+				res.setMessage("수정 되었습니다.");
+				
+				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+					Teach teach = (Teach) request.getSession().getAttribute("studentAnonyCert");
+					student.setApplicant_name(teach.getApply_name());
+					student.setStudent_password(teach.getApply_password());
+					res.setUrl(String.format("/%s/module/teach/anonyApplyList.do", homepage.getContext_path()));
+					res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx() + "&homepage_id=" + student.getHomepage_id());
+				}else {				
+					res.setUrl(String.format("/%s/module/teach/applyList.do", homepage.getContext_path()));
+					res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx() + "&homepage_id=" + student.getHomepage_id());
+	//				res.setUrl(String.format("/%s/module/teach/index.do", homepage.getContext_path()));
+	//				res.setData("menu_idx=" + student.getMenu_idx());
+				}
 			} else if (student.getEditMode().equals("CANCEL") || student.getEditMode().equals("CANCEL_ALL")) {
 				student.setMember_key(getSessionMemberId(request));
 				student.setCancel_id(getSessionMemberId(request));
@@ -355,7 +414,7 @@ public class StudentController extends BaseController {
 				res.setValid(true);
 				res.setMessage("취소 되었습니다.");
 				res.setUrl("anonyApplyList.do");
-				res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx());
+				res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx() + "&homepage_id=" + student.getHomepage_id());
 			}
 		} else {
 			res.setValid(false);

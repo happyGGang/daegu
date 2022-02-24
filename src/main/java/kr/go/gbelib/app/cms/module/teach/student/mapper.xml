@@ -601,5 +601,43 @@
 		AND	teach_idx = #{teach_idx} 
 		AND	APPLY_STATUS='1'
 	</select>
+	
+	<update id="updateStudent">
+		UPDATE
+			STUDENT
+		SET					
+			<if test="student_school != null and student_school != ''">
+			STUDENT_SCHOOL 			= #{student_school},
+			</if>
+			<if test="student_hack != null and student_hack != ''">
+			STUDENT_HACK 			= #{student_hack},
+			</if>
+			STUDENT_AGE				= #{student_age},
+			sms_service_yn          = #{sms_service_yn},
+			<if test="student_remark != null and student_remark != ''">
+			student_remark = #{student_remark},
+			</if>
+			<if test="student_organization != null and student_organization != ''">			
+			student_organization = #{student_organization},
+			</if>
+			<if test="student_organization_tel != null and student_organization_tel != ''">
+			student_organization_tel = #{student_organization_tel},
+			</if>
+			<if test="student_rank != null and student_rank != ''">
+			student_rank = #{student_rank},
+			</if>			
+			<if test="family_desc != null and family_desc != ''">				
+			FAMILY_DESC				= #{family_desc},
+			</if>
+			modify_id				= #{modify_id},
+			modify_date				= SYSDATE
+		WHERE
+			HOMEPAGE_ID 		= #{homepage_id}
+			AND GROUP_IDX 		= #{group_idx}
+			AND CATEGORY_IDX 	= #{category_idx}
+			AND TEACH_IDX 		= #{teach_idx}
+			AND STUDENT_IDX 	= #{student_idx}
+			AND DELETE_YN 		= 'N'
+	</update>
 
 </mapper>

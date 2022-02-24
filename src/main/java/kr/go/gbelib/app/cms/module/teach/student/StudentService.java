@@ -1131,4 +1131,9 @@ public class StudentService extends BaseService {
 		return dao.getTeachStudentApiList(student);
 	}
 
+	public int updateStudent(Student student) {
+		return dao.updateStudent(student);
+		
+	}
+
 }
