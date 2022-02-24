@@ -21,7 +21,7 @@ $(function(){
 		var $this = $(this);
 		doGetLoad('/'+$this.attr('keyValue5')+'/module/teach/student/edit.do',
 				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
-				+'&teach_idx='+$this.attr('keyValue4')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$this.attr('keyValue6'))+'&large_category_idx='+$this.attr('keyValue7')) ;
+				+'&teach_idx='+$this.attr('keyValue4')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$this.attr('keyValue6')+'&large_category_idx='+$this.attr('keyValue7')) ;
 
 		e.preventDefault();
 	});
