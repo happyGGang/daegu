@@ -501,6 +501,9 @@ $(function(){
 							<c:when test="${i.vaccines_counter eq '2' }">
 								2회접종자
 							</c:when>
+							<c:when test="${i.vaccines_counter eq '3' }">
+								3회접종자
+							</c:when>
 							<c:otherwise>
 								미접종자
 							</c:otherwise>

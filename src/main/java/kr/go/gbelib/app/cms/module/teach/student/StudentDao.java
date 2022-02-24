@@ -59,4 +59,6 @@ public interface StudentDao  {
 	
 	// Teach Student
 	public List<Student> getTeachStudentApiList(Student student);
+
+	public int updateStudent(Student student);
 }

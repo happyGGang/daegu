@@ -691,9 +691,10 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_HK" value="HK" label="늘푸른작은도서관" />
 							</li>
-							<li>
+							<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+							<%-- <li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_HL" value="HL" label="초록우산작은도서관" />
-							</li>
+							</li> --%>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_HM" value="HM" label="꿈날자문고작은도서관" />
 							</li>

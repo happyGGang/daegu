@@ -99,6 +99,7 @@ public class MarathonApplicantService extends BaseService{
 		for(int i = 0; i < applicant_idx_arr.length; i++) {
 			marathonApplicant.setApplicant_idx(applicant_idx_arr[i]);
 			marathonApplicant.setContest_type_idx(contest_type_idx_arr[i]);
+			marathonApplicant.setContest_idx(contest_idx_arr[i]);
 			dao.deleteMarathonApplicant(marathonApplicant);
 			
 			MarathonRecord marathonRecord = new MarathonRecord();

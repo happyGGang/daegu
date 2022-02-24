@@ -62,6 +62,10 @@ $(function() {
 		doGetLoad('allHistory.do', param);
 	});
 
+	//전체 선택
+	$('#checkAll').change(function(e) {
+		$('div#libraryList input:checkbox').prop('checked', $(this).prop('checked'));
+	});
 
 });
 

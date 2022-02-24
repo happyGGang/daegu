@@ -1240,7 +1240,8 @@ do {
 												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
-										<li>
+										<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+										<%-- <li>
 											<input id="libraryCodes120" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HL"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">작은</span>
@@ -1249,7 +1250,7 @@ do {
 												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
-										</li>
+										</li> --%>
 										<li>
 											<input id="libraryCodes121" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HM"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>

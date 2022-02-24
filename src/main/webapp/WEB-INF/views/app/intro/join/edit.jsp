@@ -372,7 +372,8 @@ $(function() {
 							<option value="FM">반야월역사 작은도서관</option>
 							<option value="GZ">동구청 작은도서관</option>
 							<option value="HK">늘푸른 도서관</option>
-							<option value="HL">초록우산도서관</option>
+							<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+							<!-- <option value="HL">초록우산도서관</option> -->
 							<option value="HM">꿈날자 문고</option>
 							<option value="HN">행복도서관</option>
 							<option value="GX">방촌동 작은도서관</option>

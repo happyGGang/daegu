@@ -280,9 +280,10 @@ $(function() {
 											<li>
 												<form:checkbox path="libraryCodes" value="HK" class="libCheck lib_HK" label="늘푸른작은도서관"/>
 											</li>
-											<li>
+											<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+											<%-- <li>
 												<form:checkbox path="libraryCodes" value="HL" class="libCheck lib_HL" label="초록우산작은도서관"/>
-											</li>
+											</li> --%>
 											<li>
 												<form:checkbox path="libraryCodes" value="HM" class="libCheck lib_HM" label="꿈날자문고작은도서관"/>
 											</li>

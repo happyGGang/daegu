@@ -5,7 +5,7 @@
 	<select id="getTeachListForCalendar" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		SELECT
 			a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.start_date, a.end_date,
-			a.teach_name, a.teach_day, a.disable_holi, b.group_name, a.vaccines_yn
+			a.teach_name, a.teach_day, a.disable_holi, b.group_name, a.vaccines_yn, a.start_time
 		FROM
 			TEACH a, TEACH_CATEGORY_GROUP b
 		WHERE
@@ -24,7 +24,7 @@
 			AND	a.group_idx = b.group_idx(+)
 			AND b.homepage_id = #{homepage_id}
 		ORDER BY
-			a.start_date, a.end_date
+			a.start_time
 	</select>
 
 	<select id="getTeachListAll" resultType="kr.go.gbelib.app.cms.module.teach.Teach">

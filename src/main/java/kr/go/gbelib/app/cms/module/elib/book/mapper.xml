@@ -86,7 +86,7 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label
+			END AS label, a.view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -123,7 +123,7 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label
+			END AS label, a.view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_CATEGORY b,
@@ -198,7 +198,7 @@
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
 			END AS label,
-			a.add_date
+			a.add_date, a.view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -297,7 +297,7 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label
+			END AS label, a.view_count
 		FROM
 			ELIB_BOOK a,
 <!-- 			ELIB_BOOKINFO d, -->
@@ -356,7 +356,7 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label
+			END AS label, a.view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -972,6 +972,13 @@
 			approved_yn = 'Y'
 		WHERE
 			approved_yn != 'Y'
+	</update>
+	
+	<update id="addViewCount">
+		UPDATE ELIB_BOOK SET
+			view_count = view_count + 1
+		WHERE
+			book_idx = #{book_idx}
 	</update>
 	
 </mapper>

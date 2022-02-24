@@ -31,6 +31,7 @@ $(function(){
 			$('input#group_idx').val($(this).attr('keyValue2'));
 			$('input#category_idx').val($(this).attr('keyValue3'));
 			$('input#teach_idx').val($(this).attr('keyValue4'));
+			$('input#student_idx').val($(this).attr('keyValue5'));
 			if('${homepage.homepage_id}' == 'h32') {
 				$('input#editMode').val('CANCEL_ALL');
 			} else {
@@ -40,6 +41,21 @@ $(function(){
 			doAjaxPost($('form#teach'));
 		}
 	});
+		
+	$('a.modify').on('click', function(e) {
+		e.preventDefault();
+		if (confirm("신청 내용을 수정 하시겠습니까?")) {
+			$('input#homepage_id').val($(this).attr('keyValue1'));
+			$('input#group_idx').val($(this).attr('keyValue2'));
+			$('input#category_idx').val($(this).attr('keyValue3'));
+			$('input#teach_idx').val($(this).attr('keyValue4'));
+			$('input#student_idx').val($(this).attr('keyValue5'));
+			$('input#editMode').val('MODIFY');
+
+			doGetLoad('/${homepage.context_path}/module/teach/student/edit_mod.do', serializeCustom($('form#teach')));
+		}
+	});
+	
 	
 	$('a.dialog-certificate').on('click', function(e) { 
 		$('#dialog-1').load('student/certificate.do?homepage_id=' + $(this).attr('keyValue1') + '&group_idx=' + $(this).attr('keyValue2') + '&category_idx=' + $(this).attr('keyValue3') + '&teach_idx=' + $(this).attr('keyValue4') + '&student_idx=' + $(this).attr('keyValue5'), function( response, status, xhr ) {
@@ -113,7 +129,7 @@ $(function(){
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
-	
+	<form:hidden path="student_idx"/>
 
 <div id="libraryList" class="bbs-notice new_apply_box">
 	<c:choose>
@@ -257,13 +273,17 @@ $(function(){
 						<c:when test="${i.teach_status eq '2'}">
 <!-- 							<a href="javascript:void(0);" class="btn btn2" style="cursor: default;"> -->
 <!-- 							<i class="fa fa-circle-o"></i><span>신청완료</span></a> -->
-							<a href="" class="btn btn5 cancel" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}">
-							<i class="fa fa-times"></i><span>신청취소</span></a>
+							<a style="top:40%;" href="" class="btn btn3 modify" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
+							<i class="fa fa-pencil"></i><span>신청수정</span></a>
+							<a href="" class="btn btn5 cancel" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">							
+							<i class="fa fa-times"></i><span>신청취소</span></a>							
 						</c:when>
 						<c:when test="${i.teach_status eq '3'}">
 <!-- 							<a href="javascript:void(0);" class="btn btn3" style="cursor: default;"> -->
 <!-- 							<i class="fa fa-sign-in"></i><span>대기자</span></a> -->
-							<a href="" class="btn btn5 cancel" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}">
+							<a style="top:40%;" href="" class="btn btn3 modify" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
+							<i class="fa fa-pencil"></i><span>신청수정</span></a>
+							<a href="" class="btn btn5 cancel" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
 							<i class="fa fa-times"></i><span>대기자 신청취소</span></a>
 						</c:when>
 						<c:when test="${i.teach_status eq '4'}">
