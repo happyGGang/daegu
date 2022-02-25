@@ -604,7 +604,7 @@ ul a i.kakaostory{height:17px;background:url('../img/contents/icon_kakao.png') n
 .doc-body table tbody tr.last th.item,
 .doc-body table tbody tr.last td.item{border-bottom-width:2px;border-bottom-color:#ccc}
 .doc-body h2{
-	background:url('/resources/common/img/h3arr.gif') no-repeat 0 0;
+	/*background:url('/resources/common/img/h3arr.gif') no-repeat 0 0;*/
 	font-size:150%;font-weight:bold;color:#313131;padding:9px 0;margin-top:15px;letter-spacing:-1px}
 .doc-body h2.txt-center{background:none;margin-top:10px}
 .doc-body h2 span.sdate2{font-size:80%;font-weight:normal;color:#666}
