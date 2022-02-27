@@ -40,8 +40,6 @@ public interface UntactLockerSettingDao {
 
 	public int createUntactBookRound(UntactBookRound untactBookRound);
 
-	public int deleteUntactBookRound(UntactBookRound untactBookRound);
-
 	public String getUntactBookRoundOne(UntactBookRound untactBookRound);
 
 	public UntactBookRound getUntactBookRoundAll(UntactBookRound untactBookRound);
@@ -57,5 +55,17 @@ public interface UntactLockerSettingDao {
 	public int checkUntactBookRoundCount(UntactBookRound untactBookRound);
 
 	public List<UntactLockerSetting> showLockerStateBefore(UntactBookReservation untactBookReservation);
+
+	public List<UntactBookSetting> getHomepageList();
+
+	public int dateCheck(String homepage_id);
+
+	public int checkSetting(UntactBookSetting untactBookSetting);
+
+	public String getReservationTime(String homepage_id);
+
+	public String getUntactBookRoundToday(UntactBookRound untactBookRound);
+
+	public String getReturnDateToday(UntactBookRound untactBookRound);
 
 }

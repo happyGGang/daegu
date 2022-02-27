@@ -128,6 +128,7 @@ public class UntactBookController extends BaseController {
 				
 				if (apiResult.getStatus()) {
 					untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+					untactBookReservation.setMember_id(member.getMember_id());
 					untactBookReservationService.cancelReserve(untactBookReservation);
 					res.setValid(true);
 					res.setMessage("취소 되었습니다.");
@@ -172,42 +173,22 @@ public class UntactBookController extends BaseController {
 			return null;
 		}
 		
-		//북구 구수산도서관에만 휴관일 당일 신청 불가
-		if(homepage.getManage_code().equals("h46")){
-			//휴관일 예약 불가(회차 반복일이 하루일경우)
-			Calendar cal = Calendar.getInstance();
-	        cal.setTime(new Date());
-	        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
-	        
-			if(!(sdf.format(cal.getTime()).isEmpty())) {
-				librarySearch.setManageCode(homepage.getManage_code());
-				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
-				
-				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-				
-				if(holiDays.get("RESULT_CODE").equals("1")) {
-					service.alertMessage("휴관일은 비대면 예약신청이 불가능 합니다.", request, response);
-					return null;
-				}
-			}
-		} else {
-			//휴관일 예약 불가(회차 반복일이 하루일경우)
-			Calendar cal = Calendar.getInstance();
-	        cal.setTime(new Date());
-	        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
-	        //TODO 회차 반복일이 하루가 아니라면 수정필요
-	        cal.add(Calendar.DATE, 1);
-	        
-			if(!(sdf.format(cal.getTime()).isEmpty())) {
-				librarySearch.setManageCode(homepage.getManage_code());
-				librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
-				
-				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-				
-				if(holiDays.get("RESULT_CODE").equals("1")) {
-					service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
-					return null;
-				}
+		//휴관일 예약 불가(회차 반복일이 하루일경우)
+		Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
+        //TODO 회차 반복일이 하루가 아니라면 수정필요
+        cal.add(Calendar.DATE, 1);
+        
+		if(!(sdf.format(cal.getTime()).isEmpty())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+			
+			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+			
+			if(holiDays.get("RESULT_CODE").equals("1")) {
+				service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
+				return null;
 			}
 		}
 		
@@ -249,7 +230,7 @@ public class UntactBookController extends BaseController {
 		if(untactBookBlackListService.getPenaltyCount(untactBookBlackList) > 0 && untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id()) > 0) {
 			if (untactBookBlackListService.getPenaltyCount(untactBookBlackList) >= untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id())) {
 				service.alertMessage("현재 이용자님 께서는 관리자에 의해\\n\\n" + penaltyEndDate + "일 까지 비대면 도서대출 이용이 제한되어 있습니다.", request, response);
-				return null; 
+				return null;
 			}
 		}
 		
@@ -258,6 +239,13 @@ public class UntactBookController extends BaseController {
 		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(untactBookReservation)) {
 			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
 			return null; 
+		}
+		
+		//예약가능시간 체크
+		if (untactLockerSettingService.reservationTimeCount(homepage.getHomepage_id()) > 0) {
+			String reservation_time = untactLockerSettingService.getReservationTime(homepage.getHomepage_id());
+			service.alertMessage("지금은 비대면 도서대출예약 시간이 아닙니다.\\n예약 가능시간은 " + reservation_time + " 입니다.", request, response);
+			return null;
 		}
 		
 		Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
@@ -316,6 +304,11 @@ public class UntactBookController extends BaseController {
 			}
 		}
 		
+		if (untactLockerSettingService.reservationTimeCount(homepage.getHomepage_id()) > 0) {
+			String reservation_time = untactLockerSettingService.getReservationTime(homepage.getHomepage_id());
+			result.reject("지금은 비대면 도서대출예약 시간이 아닙니다.\\n예약 가능시간은 " + reservation_time + " 입니다.");
+		}
+		
 		//회차
 		if(StringUtils.isNotEmpty(untactLockerSettingService.getUntactBookRoundOne(untactBookRound))) {
 			untactBookReservation.setRound_idx(untactLockerSettingService.getUntactBookRoundOne(untactBookRound));
@@ -340,8 +333,14 @@ public class UntactBookController extends BaseController {
 			untactBookReservation.setUser_key(member.getRec_key());
 			untactBookReservation.setReg_no(librarySearch.getReg_no());
 			
-			int locker_number = untactBookReservationService.getUntactBookReservationLockerNumber(untactBookReservation);
-			untactBookReservation.setLocker_number(locker_number);
+			//만약 같은 회차내에서 예약을 한 사용자가 있다면 사물함 번호를 그대로 가져오고 아니라면 생성
+			if(untactBookReservationService.checkLockerNumber(untactBookReservation) > 0) {
+				int locker_number = untactBookReservationService.getUntactBookReservationLockerNumber(untactBookReservation);
+				untactBookReservation.setLocker_number(locker_number);
+			} else {
+				int locker_number = untactBookReservationService.setUntactBookReservationLockerNumber(untactBookReservation);
+				untactBookReservation.setLocker_number(locker_number);
+			}
 			
 			librarySearch.setUserkey(untactBookReservation.getUser_key());
 			librarySearch.setManageCode(untactBookReservation.getManage_code());

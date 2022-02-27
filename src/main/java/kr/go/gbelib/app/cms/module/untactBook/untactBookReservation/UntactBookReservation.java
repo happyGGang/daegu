@@ -47,6 +47,13 @@ public class UntactBookReservation extends PagingUtils {
 	
 	private String admin_member_id;
 	
+	private int unused_locker_number;
+	
+	private int unity_loanable_cnt; //통합대출가능권수
+	private int unity_loan_cnt;	//통합대출중권수
+	private int local_loanable_cnt;	//자관대출가능권수
+	private int local_loan_cnt;	//자관대출중권수
+	
 	public UntactBookReservation() {}
 
 	public String getHomepage_id() {
@@ -311,6 +318,46 @@ public class UntactBookReservation extends PagingUtils {
 
 	public void setNow_round_idx(String now_round_idx) {
 		this.now_round_idx = now_round_idx;
+	}
+
+	public int getUnused_locker_number() {
+		return unused_locker_number;
+	}
+
+	public void setUnused_locker_number(int unused_locker_number) {
+		this.unused_locker_number = unused_locker_number;
+	}
+
+	public int getLocal_loanable_cnt() {
+		return local_loanable_cnt;
+	}
+
+	public void setLocal_loanable_cnt(int local_loanable_cnt) {
+		this.local_loanable_cnt = local_loanable_cnt;
+	}
+
+	public int getUnity_loan_cnt() {
+		return unity_loan_cnt;
+	}
+
+	public void setUnity_loan_cnt(int unity_loan_cnt) {
+		this.unity_loan_cnt = unity_loan_cnt;
+	}
+
+	public int getUnity_loanable_cnt() {
+		return unity_loanable_cnt;
+	}
+
+	public void setUnity_loanable_cnt(int unity_loanable_cnt) {
+		this.unity_loanable_cnt = unity_loanable_cnt;
+	}
+
+	public int getLocal_loan_cnt() {
+		return local_loan_cnt;
+	}
+
+	public void setLocal_loan_cnt(int local_loan_cnt) {
+		this.local_loan_cnt = local_loan_cnt;
 	}
 	
 }

@@ -76,6 +76,31 @@ function receiptReservationStep() {
 	}
 }
 
+function receiptReservationStepToday() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('접수할 아이디를 선택해 주세요.');
+	} else {
+		if(confirm('접수처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'receiptReservationStepToday.do',
+				data: $('input[name=request_number_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('접수처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('접수에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
 //접수 -> 대기버튼
 function waitingReservationStep() {
 	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
@@ -163,6 +188,30 @@ function receiptReservationStepOne(request_number) {
 		$.ajax({
 			type: "POST",
 			url: 'receiptReservationStep.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('접수처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('접수에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
+
+function receiptReservationStepOneToday(request_number) {
+	var ajaxData = {
+		'request_number_arr' : request_number
+	};
+	if(confirm('접수처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'receiptReservationStepToday.do',
 			data: ajaxData,
 			success: function(response) {
 				if(response.valid) {
@@ -341,8 +390,61 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	}
 }
 
+function randomPasswordToday(passwordCount, nonPasswordCount) {
+	if(confirm('비밀번호를 생성하시겠습니까?')) {
+		var ajaxData = {
+				'passwordCount' : passwordCount,
+				'nonPasswordCount' : nonPasswordCount
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: 'randomPasswordToday.do',
+			success: function(html) {
+				if(html == 'nonPasswordCheck') {
+					alert('비밀번호를 생성할수 없습니다. \n사물함 신청내역이 있을 시에 비밀번호 생성이 가능합니다.');
+				}else if(html == 'passwordCheck') {
+					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
+				} else {
+				alert('전체 ' + passwordCount + '개 중 \n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
+				location.reload();
+				}
+			},error: function(html) {
+			}
+		});
+	}
+}
+
 function bookName(book_name) {
 	alert('도서명 : '+book_name);
+}
+
+//사물함 번호변경
+function changeLockerNumber(member_id, locker_number, $this) {
+
+	var unused_locker_number = $this.val();
+	
+	var ajaxData = {
+			'member_id' : member_id,
+			'locker_number' : locker_number
+	};
+	
+	if(confirm('사물함 번호를 '+locker_number+'번에서 '+unused_locker_number+'번으로 변경하시겠습니까?')){
+		$.ajax({
+			type: "POST",
+			url: 'changeLockerNumber.do',
+			data: {'member_id' : member_id, 'locker_number' : locker_number, 'unused_locker_number':unused_locker_number},
+			success: function(response) {
+				if(response.valid) {
+					alert('변경 되었습니다.');
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('사물함 번호 변경에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
 }
 </script>
 
@@ -474,7 +576,8 @@ function bookName(book_name) {
 										<!-- 3 x n 으로 혹은 4 x n으로 갈떄 CLASS를 divide3 혹은 divide4 등으로 주면 됩니다. 즉 3xn하면 divide3, 4xn하면 divide4 -->
 										<!-- 가로 -->
 										<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}">
-										<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if><c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">use</c:if>">
+										<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if>
+										<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">use</c:if>">
 											<p class="locknumber">${i.locker_number}</p>
 											<p class="name">
 												<c:choose>
@@ -489,7 +592,8 @@ function bookName(book_name) {
 										<!-- 세로 -->
 										<c:forEach var="j" varStatus="status" begin="0" end="${quotient-1}">
 											<c:forEach var="i" varStatus="status" items="${untactLockerSettingList}" begin="${j}"  step="${quotient}">
-											<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if><c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">use</c:if>">
+											<li class="divide${untactBookSetting.row_count} <c:if test="${i.locker_type eq '사용안함'}">notuse</c:if>
+											<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">use</c:if>">
 												<p class="locknumber">${i.locker_number}</p>
 												<p class="name">
 												<c:choose>
@@ -517,7 +621,14 @@ function bookName(book_name) {
 							</ul>
 						</div>
 						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
-							<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
+							<c:choose>
+								<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
+									<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPasswordToday('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="table-wrap">
 							<table class="type1 center">
@@ -532,6 +643,7 @@ function bookName(book_name) {
 										<th scope="col">비밀번호</th>
 										<th scope="col">관리</th>
 										<th scope="col">상태</th>
+										<th scope="col">자관/통합 대출가능권수</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -558,7 +670,20 @@ function bookName(book_name) {
 											</c:otherwise>
 										</c:choose>
 										<td>${i.reg_no}</td>
-										<td>${i.locker_number}</td>
+										<td>
+											<c:choose>
+												<c:when test="${i.reservation_step eq '1'}">
+												<form:select path="locker_number" id="locker_number" data-number="${i.unused_locker_number}" onchange="changeLockerNumber('${i.member_id}', '${i.locker_number}', $(this));">
+													<c:forEach var="j" varStatus="status" items="${unusedLockerList}">
+														<option value="${j.unused_locker_number}"<c:if test="${i.locker_number eq j.unused_locker_number}">selected</c:if>>${j.unused_locker_number}</option>
+													</c:forEach>
+												</form:select>
+												</c:when>
+												<c:otherwise>
+												${i.locker_number}
+												</c:otherwise>
+											</c:choose>
+										</td>
 										<td>
 											<c:choose>
 												<c:when test="${i.locker_password eq 0}">
@@ -573,7 +698,14 @@ function bookName(book_name) {
 										<div class="button">
 										<c:choose>
 											<c:when test="${i.reservation_step eq '1'}">
-												<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOne('${i.request_number}');">접수</a>
+												<c:choose>
+													<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
+														<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOneToday('${i.request_number}');">접수</a>
+													</c:when>
+													<c:otherwise>
+														<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="receiptReservationStepOne('${i.request_number}');">접수</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${i.reservation_step eq '2'}">
 												<a href="javascript:void(0);" id="waitingBook" class="btn btn2 btnuntact" onclick="waitingReservationStepOne('${i.request_number}');">대기</a>
@@ -589,6 +721,9 @@ function bookName(book_name) {
 										<td>
 											<span id="reservationStep">${i.reservation_step_code_name}</span>
 										</td>
+										<td>
+											${i.local_loanable_cnt - i.local_loan_cnt} / ${i.unity_loanable_cnt - i.unity_loan_cnt}
+										</td>
 									</tr>
 								</c:forEach>
 								</tbody>
@@ -596,7 +731,14 @@ function bookName(book_name) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStep();">접수</a>
+							<c:choose>
+								<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
+									<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStepToday();">접수</a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStep();">접수</a>
+								</c:otherwise>
+							</c:choose>
 							<a href="javascript:void(0);" id="waitingReservationStepAll" class="btn btn2 btnuntact" onclick="waitingReservationStep();">대기</a>
 							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn4 btnuntact" onclick="bookReservation();">대출</a>
 							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
