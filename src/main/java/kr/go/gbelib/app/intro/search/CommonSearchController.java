@@ -641,90 +641,174 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setManageCode(homepage.getManage_code());
 		}
 
+		if(librarySearch.getManageCode().equals("BX")) {
+			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
+			if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+				List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
 
-		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
-		if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
-			List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+				List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig("h68"));
+				for (Map<String, Object> map : shelfList) {
+					if(code_arr == null) {
+						break;
+					}
 
-			List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
-			for (Map<String, Object> map : shelfList) {
-				if(code_arr == null) {
-					break;
+					if(code_arr.contains(map.get("CODE"))) {
+						map.put("CHECKED", true);
+					}
 				}
 
-				if(code_arr.contains(map.get("CODE"))) {
-					map.put("CHECKED", true);
-				}
+				model.addAttribute("shelfList", shelfList);
 			}
 
-			model.addAttribute("shelfList", shelfList);
-		}
 
+			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
+				librarySearch.setShelfCode("ALL");
+			}
 
-		if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
-			librarySearch.setShelfCode("ALL");
-		}
+			//기본값 '2달 전'
+			if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
+				librarySearch.setSearch_type("4");
+			}
 
-		//기본값 '2달 전'
-		if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
-			librarySearch.setSearch_type("4");
-		}
+			//검색기간 설정
+			if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-		//검색기간 설정
-		if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+				int beforeDays = -60;
+				if (librarySearch.getSearch_type().equals("1")) {
+					//1주전
+					beforeDays = -7;
+				} else if (librarySearch.getSearch_type().equals("2")) {
+					//2주전
+					beforeDays = -14;
+				} else if (librarySearch.getSearch_type().equals("3")) {
+					//1달전
+					beforeDays = -30;
+				} else if (librarySearch.getSearch_type().equals("4")) {
+					//2달전
+					beforeDays = -60;
+				} 
+				librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+				librarySearch.setSearch_end_date(sf.format(new Date()));
+			}
 
-			int beforeDays = -60;
-			if (librarySearch.getSearch_type().equals("1")) {
-				//1주전
-				beforeDays = -7;
-			} else if (librarySearch.getSearch_type().equals("2")) {
-				//2주전
-				beforeDays = -14;
-			} else if (librarySearch.getSearch_type().equals("3")) {
-				//1달전
-				beforeDays = -30;
-			} else if (librarySearch.getSearch_type().equals("4")) {
-				//2달전
-				beforeDays = -60;
-			} 
-			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
-			librarySearch.setSearch_end_date(sf.format(new Date()));
-		}
+			//서지형태 분류코드 설정.
+			//기본값 도서 "0"
+			//0 : 단행, 1: 연속간행물, 2:비도서
+			if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+				librarySearch.setBooktype("0");
+			}
 
-		//서지형태 분류코드 설정.
-		//기본값 도서 "0"
-		//0 : 단행, 1: 연속간행물, 2:비도서
-		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
-			librarySearch.setBooktype("0");
-		}
+			Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
+			List<Map<String, Object>> list = null;
 
-		Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
-		List<Map<String, Object>> list = null;
+			int count = LibSearchAPI.getSearchCount(result);
 
-		int count = LibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-
-			list = LibSearchAPI.getListData(result);
-			for (Map<String, Object> map : list) {
-				if (map.containsKey("ISBN")) {
-					//알라딘 API 결과 가져오기
-					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-							map.put("aladin", aladinData.get("item"));
+				list = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
 						}
 					}
 				}
 			}
+			model.addAttribute("newBookList", list);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
+			if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+				List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+
+				List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+				for (Map<String, Object> map : shelfList) {
+					if(code_arr == null) {
+						break;
+					}
+
+					if(code_arr.contains(map.get("CODE"))) {
+						map.put("CHECKED", true);
+					}
+				}
+
+				model.addAttribute("shelfList", shelfList);
+			}
+
+
+			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
+				librarySearch.setShelfCode("ALL");
+			}
+
+			//기본값 '2달 전'
+			if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
+				librarySearch.setSearch_type("4");
+			}
+
+			//검색기간 설정
+			if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+				int beforeDays = -60;
+				if (librarySearch.getSearch_type().equals("1")) {
+					//1주전
+					beforeDays = -7;
+				} else if (librarySearch.getSearch_type().equals("2")) {
+					//2주전
+					beforeDays = -14;
+				} else if (librarySearch.getSearch_type().equals("3")) {
+					//1달전
+					beforeDays = -30;
+				} else if (librarySearch.getSearch_type().equals("4")) {
+					//2달전
+					beforeDays = -60;
+				} 
+				librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+				librarySearch.setSearch_end_date(sf.format(new Date()));
+			}
+
+			//서지형태 분류코드 설정.
+			//기본값 도서 "0"
+			//0 : 단행, 1: 연속간행물, 2:비도서
+			if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+				librarySearch.setBooktype("0");
+			}
+
+			Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+				list = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+						}
+					}
+				}
+			}
+			model.addAttribute("newBookList", list);
+			model.addAttribute("librarySearch", librarySearch);
 		}
 
-		model.addAttribute("newBookList", list);
-		model.addAttribute("librarySearch", librarySearch);
 		return String.format(basePath, homepage.getFolder()) + "newBook/index";
 	}
 
