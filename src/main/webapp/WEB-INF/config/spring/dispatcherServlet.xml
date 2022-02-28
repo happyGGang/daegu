@@ -83,7 +83,7 @@
         <property name="cacheSeconds" value="100000" /> <!-- 0 다시읽지 않음 -->
         <property name="defaultEncoding" value="UTF-8" /> <!-- properties 파일 작성시 UTF-8로 작성 -->
         <property name="fallbackToSystemLocale" value="false" /> <!-- true 라면 (기본값)message_ko_KR.properties 와 message.prorperties를 참조 -->
-        <property name="useCodeAsDefaultMessage" value="true" /> <!-- 메세지가 없는 경우 기본 값 출력 운영환경에 적용  -->
+        <property name="useCodeAsDefaultMessage" value="true" /> <!-- 메세지가 없는 경우 기본 값 출력 운영환경에 적용 --> 
     </bean>
 
     <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
@@ -130,7 +130,7 @@
   	<!-- 비대면 도서대출 회차 자동생성 서비스 -->
   	<bean id="untactLockerSettingScheduler" class="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService" />
   	<task:scheduled-tasks>
-  		<task:scheduled ref="untactLockerSettingScheduler" method="mergeSetting" cron="0/1 0 0 * * *"/>
+  		<task:scheduled ref="untactLockerSettingScheduler" method="mergeSetting" cron="1 0 0 * * *"/>
   	</task:scheduled-tasks>
 
 </beans>
