@@ -18,7 +18,7 @@
 	<repositories>
 		<repository>
 			<id>public</id>
-			<url>http://www.whalesoft.co.kr:3081/content/groups/public</url>
+			<url>http://www.whalesoft.co.kr:7081/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -42,7 +42,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>public</id>
-			<url>http://www.whalesoft.co.kr:3081/content/groups/public</url>
+			<url>http://www.whalesoft.co.kr:7081/content/groups/public</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
