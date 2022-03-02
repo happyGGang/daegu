@@ -4,12 +4,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
-function cancelReserve(request_number, member_id, member_name) {
+function cancelReserve(request_number) {
 	if(confirm('예약 취소 하시겠습까?')) {
 		var ajaxData = {
-				'request_number' : request_number,
-				'member_id' : member_id,
-				'member_name' : member_name
+				'request_number' : request_number
 		};
 		
 		$.ajax({
@@ -101,7 +99,7 @@ function qrCode(locker_password) {
 				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.request_date}</td>
 				<td>${i.locker_number}</td>
-				<td>${i.reservation_step}</td>
+				<td>${i.reservation_step_code_name}</td>
 				<td>${i.book_name}</td>
 				<td>
 					<c:choose>
@@ -117,11 +115,13 @@ function qrCode(locker_password) {
 					<c:choose>
 						<c:when test="${i.cancel_yn eq 'Y'}">
 						예약취소
-						<a href="#" class="btn reserveCancel" onclick="cancelDetail('${i.request_number}','${i.member_id}','${i.member_name}','${i.cancel_reason}')">취소사유</a>
+						<a href="javascript:void(0);" class="btn reserveCancel" onclick="cancelDetail('${i.request_number}','${i.member_id}','${i.member_name}','${i.cancel_reason}')">취소사유</a>
 						</c:when>
 						<c:otherwise>
-						예약중
-						<a href="#" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}','${i.member_id}','${i.member_name}')">예약취소</a>
+						${i.reservation_step_code_name}
+						<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">
+							<a href="javascript:void(0);" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}');">예약취소</a>
+						</c:if>
 						</c:otherwise>
 					</c:choose>
 				</td>

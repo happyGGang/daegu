@@ -96,17 +96,19 @@ function qrCode(locker_password) {
 			<tr>
 				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.request_date}</td>
-				<td>${i.reservation_step}</td>
+				<td>${i.reservation_step_code_name}</td>
 				<td>${i.book_name}</td>
 				<td>
 					<c:choose>
 						<c:when test="${i.cancel_yn eq 'Y'}">
 						예약취소
-						<a href="#" class="btn reserveCancel" onclick="cancelDetail('${i.request_number}','${i.member_id}','${i.member_name}','${i.cancel_reason}')">취소사유</a>
+						<a href="javascript:void(0);" class="btn reserveCancel" onclick="cancelDetail('${i.request_number}','${i.member_id}','${i.member_name}','${i.cancel_reason}')">취소사유</a>
 						</c:when>
 						<c:otherwise>
-						예약중
-						<a href="#" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}','${i.member_id}','${i.member_name}')">예약취소</a>
+						${i.reservation_step_code_name}
+						<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">
+							<a href="javascript:void(0);" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}');">예약취소</a>
+						</c:if>
 						</c:otherwise>
 					</c:choose>
 				</td>

@@ -110,11 +110,16 @@
 
 	<select id="getUntactBookSettingOne" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting">
 		SELECT
-			homepage_id, locker_use_yn, row_count, total_count, round_start_date,
-			round_end_date, reservation_repeated_day,
-			SUBSTR(reservation_repeated_time,0,2) AS start_hour,
-			SUBSTR(reservation_repeated_time,4,2) AS start_minute,
-			locker_use_type, locker_type, terms
+			homepage_id, locker_use_yn, locker_type, row_count, total_count, reservation_repeated_day,
+			SUBSTR(reservation_time,0,2) AS reserve_start_hour,
+			SUBSTR(reservation_time,4,2) AS reserve_start_minute,
+			SUBSTR(reservation_time,7,2) AS reserve_end_hour,
+			SUBSTR(reservation_time,10,2) AS reserve_end_minute,
+			SUBSTR(loan_time,0,2) AS loan_end_hour,
+			SUBSTR(loan_time,4,2) AS loan_end_minute,
+			SUBSTR(reservation_repeated_time,0,2) AS repeated_start_hour,
+			SUBSTR(reservation_repeated_time,4,2) AS repeated_start_minute,
+			locker_use_type, locker_type, terms, night_loan_yn
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
@@ -130,22 +135,25 @@
 			WHEN MATCHED THEN
 				UPDATE SET
 				    a.locker_use_yn = #{locker_use_yn},
+					a.locker_type = #{locker_type},
 					a.row_count = #{row_count},
 					a.total_count = #{total_count},
-					a.round_start_date = #{round_start_date},
-					a.round_end_date = #{round_end_date},
 					a.reservation_repeated_day = #{reservation_repeated_day},
-					a.reservation_repeated_time = #{start_hour}||':'||#{start_minute},
+					a.reservation_time = #{reserve_start_hour}||':'||#{reserve_start_minute}||'~'||#{reserve_end_hour}||':'||#{reserve_end_minute},
+					a.loan_time = #{loan_end_hour}||':'||#{loan_end_minute},
+					a.reservation_repeated_time = #{repeated_start_hour}||':'||#{repeated_start_minute},
 					a.locker_use_type = #{locker_use_type},
-					a.locker_type = #{locker_type},
-		    		a.terms = #{terms}
+		    		a.terms = #{terms},
+		    		a.night_loan_yn = #{night_loan_yn}
 			WHEN NOT MATCHED THEN
 				INSERT (
-					homepage_id, locker_use_yn, row_count, total_count, round_start_date,
-					round_end_date, reservation_repeated_day, reservation_repeated_time, locker_use_type, locker_type, terms
+					homepage_id, locker_use_yn, row_count, total_count, locker_type,
+					reservation_repeated_day, reservation_time, loan_time, locker_use_type,
+					terms, night_loan_yn, reservation_repeated_time
 				) VALUES (
-					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{round_start_date},
-					#{round_end_date}, #{reservation_repeated_day}, #{start_hour}||':'||#{start_minute}, #{locker_use_type}, #{locker_type}, #{terms}
+					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{locker_type},
+					#{reservation_repeated_day}, #{reserve_start_hour}||':'||#{reserve_start_minute}||'~'||#{reserve_end_hour}||':'||#{reserve_end_minute}, #{loan_end_hour}||':'||#{loan_end_minute}, #{locker_use_type},
+					#{terms}, #{night_loan_yn}, #{repeated_start_hour}||':'||#{repeated_start_minute}
 				)
 	</update>
 	
@@ -156,8 +164,8 @@
 			UNTACT_BOOK_SETTING
 		WHERE
 			homepage_id = #{homepage_id}
-		AND (TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<]]> TO_CHAR(SUBSTR(loan_time,0,2)||':'||SUBSTR(loan_time,4,2))
-		OR TO_CHAR(SYSDATE, 'HH24:MI') > TO_CHAR(SUBSTR(loan_time,7,2)||':'||SUBSTR(loan_time,10,2)))
+		AND (TO_CHAR(SYSDATE, 'HH24:MI') <![CDATA[<]]> TO_CHAR(SUBSTR(reservation_time,0,2)||':'||SUBSTR(reservation_time,4,2))
+		OR TO_CHAR(SYSDATE, 'HH24:MI') > TO_CHAR(SUBSTR(reservation_time,7,2)||':'||SUBSTR(reservation_time,10,2)))
 	</select>
 	
 	<select id="reservationMaxCount" resultType="int">
@@ -205,13 +213,6 @@
 			homepage_id = #{homepage_id}
 	</select>
 	
-	<delete id="deleteUntactBookRound">
-		DELETE FROM UNTACT_BOOK_ROUND
-		WHERE
-		    homepage_id = #{homepage_id}
-		AND round_idx >= #{round_idx}
-	</delete>
-	
 	<insert id="createUntactBookRound">
 		INSERT INTO UNTACT_BOOK_ROUND
 		(
@@ -234,6 +235,25 @@
 		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
 	</select>
 	
+	<select id="getUntactBookRoundToday" resultType="String">
+		SELECT
+			round_idx
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND round_idx = ( 
+	 					SELECT
+							round_idx
+						FROM
+							UNTACT_BOOK_ROUND
+						WHERE 1=1		
+						AND homepage_id = #{homepage_id}
+						AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
+						AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
+					     )
+	</select>
+	
 	<select id="getUntactBookRound" resultType="String">
 		SELECT
 			round_idx
@@ -241,14 +261,23 @@
 			UNTACT_BOOK_ROUND
 		WHERE
 			homepage_id = #{homepage_id}
-		AND ROUND_END_DATE = (SELECT
-									ROUND_START_DATE
-								FROM
-									UNTACT_BOOK_ROUND
-								WHERE 1=1		
-								AND homepage_id = #{homepage_id}
-								AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
-								AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS'))
+		AND round_idx = (SELECT
+							MAX(round_idx) as round_idx
+						 FROM
+							UNTACT_BOOK_ROUND
+						 WHERE
+							homepage_id = #{homepage_id}
+						 AND round_idx &lt; (
+						 					SELECT
+												round_idx
+											FROM
+												UNTACT_BOOK_ROUND
+											WHERE 1=1		
+											AND homepage_id = #{homepage_id}
+											AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
+											AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
+										    )
+					     )
 	</select>
 	
 	<select id="getUntactBookRoundBefore" resultType="String">
@@ -269,8 +298,8 @@
 	
 	<select id="getUntactBookRoundAll" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookRound">
 		SELECT
-			TO_CHAR(TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:mi'),'YYYYMMDDHH24miss') AS round_start_date,
-			TO_CHAR(TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:mi'),'YYYYMMDDHH24miss') AS round_end_date
+			TO_CHAR(TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DD HH24:MI:SS'),'YYYYMMDDHH24miss') AS round_start_date,
+			TO_CHAR(TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DD HH24:MI:SS'),'YYYYMMDDHH24miss') AS round_end_date
 		FROM
 			UNTACT_BOOK_ROUND
 		WHERE
@@ -280,17 +309,18 @@
 	
 	<select id="getReturnDate" resultType="String">
 		SELECT
-			round_end_date||' '||round_end_time AS round_end_date
+			a.round_end_date||' '||b.loan_time AS round_end_date
 		FROM
-			UNTACT_BOOK_ROUND
+			UNTACT_BOOK_ROUND a, UNTACT_BOOK_SETTING b
 		WHERE
-			homepage_id = #{homepage_id}
+			a.homepage_id = b.homepage_id
+		AND	a.homepage_id = #{homepage_id}
 		AND round_idx = (SELECT
 							round_idx
 						FROM
 							UNTACT_BOOK_ROUND
 						WHERE
-							homepage_id = 'h46'
+							homepage_id = #{homepage_id}
 						AND round_start_date = (SELECT
 													round_end_date
 												FROM
@@ -300,6 +330,17 @@
 												AND round_idx = #{round_idx}
 											  )
 				         ) 
+	</select>
+
+	<select id="getReturnDateToday" resultType="String">
+		SELECT
+			a.round_end_date||' '||b.loan_time AS round_end_date
+		FROM
+			UNTACT_BOOK_ROUND a, UNTACT_BOOK_SETTING b
+		WHERE
+			a.homepage_id = b.homepage_id
+		AND	a.homepage_id = #{homepage_id}
+		AND a.round_idx = #{round_idx}
 	</select>
 	
 	<select id="getRepeatedOne" resultType="String">
@@ -322,4 +363,48 @@
 		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
 	</select>
 	
+	<select id="getHomepageList" resultType="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookSetting">
+		SELECT
+			homepage_id, row_count, total_count, reservation_repeated_day,
+			reservation_time, locker_use_type, locker_type, loan_time,
+			night_loan_yn, terms,
+			SUBSTR(reservation_time,0,2) AS reserve_start_hour,
+			SUBSTR(reservation_time,4,2) AS reserve_start_minute,
+			SUBSTR(reservation_time,7,2) AS reserve_end_hour,
+			SUBSTR(reservation_time,10,2) AS reserve_end_minute,
+			SUBSTR(reservation_repeated_time,0,2) AS repeated_start_hour,
+			SUBSTR(reservation_repeated_time,4,2) AS repeated_start_minute
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			locker_use_yn = 'Y'
+	</select>
+	
+	<select id="dateCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_ROUND
+		WHERE
+			homepage_id = #{homepage_id}
+		AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DD HH24:MI:SS')
+	</select>
+	
+	<select id="checkSetting" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+	
+	<select id="getReservationTime" resultType="String">
+		SELECT
+			reservation_time
+		FROM
+			UNTACT_BOOK_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
 </mapper>

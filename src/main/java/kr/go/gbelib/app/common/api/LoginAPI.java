@@ -214,4 +214,55 @@ public class LoginAPI {
 		}
 
 	}
+	
+	public static Object login2(Member member) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("option", 3);
+		param.put("user_no", member.getUser_no());
+		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+
+		Map<String, Object> loginMap = CommonAPI.sendKCMS("userlogin", param);
+
+		String resultInfo = String.valueOf(loginMap.get("RESULT_INFO"));
+
+		if (StringUtils.equals(resultInfo, "SUCCESS")) {
+			@SuppressWarnings ("unchecked")
+			Map<String, Object> userMap = (Map<String, Object>) loginMap.get("USER_DATA");
+			if (userMap != null && !userMap.isEmpty()) {
+				if ("1".equals(String.valueOf(userMap.get("MEMBER_CLASS")))) {
+					return new ApiResponse(false, "해당 회원은 제적회원 또는 탈퇴회원입니다.");
+				}
+				member.setUser_no(String.valueOf(userMap.get("USER_NO")));
+				member.setUser_class(String.valueOf(userMap.get("USER_CLASS")));
+				member.setKl_member_yn(String.valueOf(userMap.get("KL_MEMBER_YN")));
+				member.setUser_class_code(String.valueOf(userMap.get("USER_CLASS_CODE")));
+				member.setAgreement_yn(String.valueOf(userMap.get("AGREEMENT_YN")));
+				member.setRec_key(String.valueOf(userMap.get("REC_KEY")));
+				member.setAgree_yn(String.valueOf(userMap.get("AGREE_YN")));
+				member.setCert_yn(String.valueOf(userMap.get("CERT_YN")));
+				member.setExpiredate_yn(String.valueOf(userMap.get("EXPIREDATE_YN")));
+				member.setMember_id(String.valueOf(userMap.get("USER_ID")));
+				member.setMember_name(String.valueOf(userMap.get("NAME")));
+				member.setLoan_stop_date(String.valueOf(userMap.get("LOAN_STOP_DATE")));
+				member.setOverdue_cnt(String.valueOf(userMap.get("OVERDUE_CNT")));
+				member.setLocal_loanable_cnt(String.valueOf(userMap.get("LOCAL_LOANABLE_CNT")));
+				member.setUnity_loanable_cnt(String.valueOf(userMap.get("UNITY_LOANABLE_CNT")));
+				member.setLocal_loan_cnt(String.valueOf(userMap.get("LOCAL_LOAN_CNT")));
+				member.setUnity_loan_cnt(String.valueOf(userMap.get("UNITY_LOAN_CNT")));
+				member.setLost_card_yn(String.valueOf(userMap.get("LOST_CARD_YN")));
+				member.setMember_class(String.valueOf(userMap.get("MEMBER_CLASS")));
+				member.setUser_position_code(String.valueOf(userMap.get("USER_POSITION_CODE")));
+				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
+				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
+				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
+
+				return member;
+			}
+			return null;
+		} else {
+			return new ApiResponse(false, String.valueOf(loginMap.get("RESULT_MESSAGE")));
+		}
+
+	}
 }

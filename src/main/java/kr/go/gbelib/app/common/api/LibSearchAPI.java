@@ -2532,4 +2532,31 @@ public class LibSearchAPI {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
 	}
+	
+	/**
+	 *  55) 무인대출 가능여부 확인
+	 * @author whalesoft HWAN 2022. 2. 27.
+	 * @param isbn
+	 * @return
+	 */
+	public static ApiResponse unmannedloancheck(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("manage_code", librarySearch.getManageCode());// 도서관 관리구분코드
+		param.put("userkey", librarySearch.getUserkey());// 이용자KEY
+		param.put("reg_no", librarySearch.getReg_no());// 대출자료 등록번호
+		param.put("device_name", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+		param.put("client_ip", "127.0.0.1");// 작업IP
+
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedloancheck", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("OK".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 }

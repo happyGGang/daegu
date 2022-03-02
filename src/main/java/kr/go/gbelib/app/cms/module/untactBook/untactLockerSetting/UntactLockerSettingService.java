@@ -4,20 +4,25 @@ import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
-
 import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class UntactLockerSettingService extends BaseService {
+	
+	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private UntactLockerSettingDao dao;
@@ -118,64 +123,30 @@ public class UntactLockerSettingService extends BaseService {
 		return untactTermList;
 	}
 	
-	@Transactional
-	public int createUntactBookRound(UntactBookSetting untactBookSetting) {
+	public int createUntactBookRound(UntactBookSetting untactBookSetting) throws ParseException {
 		int result = 0;
+		Date start = new Date();
 		
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			
-			Date start = sdf.parse(untactBookSetting.getRound_start_date());
-			Date end = sdf.parse(untactBookSetting.getRound_end_date());
-			
-			long date = end.getTime() - start.getTime();
-			
-			long days = date / (24*60*60*1000);
-			days = Math.abs(days);
-			
-			int roundDay = (int) Math.round((long)days / untactBookSetting.getReservation_repeated_day());
-			
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(start);
-			
-			Calendar calendar2 = Calendar.getInstance();
-			calendar2.setTime(start);
-			
-			UntactBookRound untactBookRound = new UntactBookRound();
-			untactBookRound.setHomepage_id(untactBookSetting.getHomepage_id());
-			untactBookRound.setRound_start_time(untactBookSetting.getStart_hour() + ":" + untactBookSetting.getStart_minute());
-			untactBookRound.setRound_end_time(untactBookSetting.getStart_hour() + ":" + untactBookSetting.getStart_minute());
-			for (int i = 0; i <= roundDay; i++) {
-				if(i == 0) {
-					untactBookRound.setRound_idx(DateFormatUtils.format(start.getTime(), "yyyyMMdd"));
-					
-					calendar2.add(Calendar.DATE, untactBookSetting.getReservation_repeated_day());
-					DateFormatUtils.format(calendar2.getTime(), "yyyyMMdd");
-					//처음 시작 시간을 2022-01-11 반복일 2라고 설정시 처음은 2022-01-11 2022-01-13
-					untactBookRound.setRound_start_date(untactBookSetting.getRound_start_date());
-					untactBookRound.setRound_end_date(DateFormatUtils.format(calendar2.getTime(), "yyyy-MM-dd"));
-				} else {
-					calendar.add(Calendar.DATE, untactBookSetting.getReservation_repeated_day());
-					
-					untactBookRound.setRound_idx(DateFormatUtils.format(calendar.getTime(), "yyyyMMdd"));
-					
-					calendar2.add(Calendar.DATE, untactBookSetting.getReservation_repeated_day());
-					DateFormatUtils.format(calendar2.getTime(), "yyyyMMdd");
-					
-					untactBookRound.setRound_start_date(DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd"));
-					untactBookRound.setRound_end_date(DateFormatUtils.format(calendar2.getTime(), "yyyy-MM-dd"));
-				}
-				result += dao.createUntactBookRound(untactBookRound);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(start);
 		
-		return result;
-	}
+		Calendar calendar2 = Calendar.getInstance();
+		calendar2.setTime(start);
+		
+		UntactBookRound untactBookRound = new UntactBookRound();
+		calendar2.add(Calendar.DATE, untactBookSetting.getReservation_repeated_day());
+		DateFormatUtils.format(calendar2.getTime(), "yyyyMMdd");
 
-	public int deleteUntactBookRound(UntactBookRound untactBookRound) {
-		return dao.deleteUntactBookRound(untactBookRound);
+		untactBookRound.setHomepage_id(untactBookSetting.getHomepage_id());
+		untactBookRound.setRound_idx(DateFormatUtils.format(start.getTime(), "yyyyMMdd"));
+		
+		untactBookRound.setRound_start_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":00");
+		untactBookRound.setRound_end_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":01");
+		untactBookRound.setRound_start_date(DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd"));
+		untactBookRound.setRound_end_date(DateFormatUtils.format(calendar2.getTime(), "yyyy-MM-dd"));
+		
+		result += dao.createUntactBookRound(untactBookRound);
+		return result;
 	}
 
 	public String getUntactBookRoundOne(UntactBookRound untactBookRound) {
@@ -207,6 +178,61 @@ public class UntactLockerSettingService extends BaseService {
 	}
 
 	public List<UntactLockerSetting> showLockerStateBefore(UntactBookReservation untactBookReservation) {
-		return dao.showLockerStateBefore(untactBookReservation);
+		
+		List<UntactLockerSetting> list = dao.showLockerStateBefore(untactBookReservation);
+		
+		int temp = 0;
+		
+		for(Iterator<UntactLockerSetting> it=list.iterator(); it.hasNext();){
+			UntactLockerSetting item = it.next();
+			
+            if(item.getLocker_number() == temp) it.remove();
+            
+            temp = item.getLocker_number();
+        }
+		
+		return list;
+	}
+	
+	public void mergeSetting() {
+		
+		List<UntactBookSetting> untactBookSettingList = dao.getHomepageList();
+		// WAS2_HOMEPAGE2 컨테이너에서만 실행
+		if(StringUtils.equals(System.getProperty("whalesoft.container"), "WAS2_HOMEPAGE2")) {
+			try {
+				if(untactBookSettingList != null) {
+					for (UntactBookSetting untactBookSetting : untactBookSettingList) {
+						int dateCheck = dao.dateCheck(untactBookSetting.getHomepage_id());
+						
+						if(dateCheck == 0) {
+							int res= createUntactBookRound(untactBookSetting);
+	
+							if (res == 0) {
+								logger.error("###### 비대면 도서대출 회차 생성 에러 ######");
+							}
+						}
+					}
+				}
+			} catch (Exception e) {
+				logger.error("###### 비대면 도서대출 세팅 에러 ######" + e);
+			}
+		}
+
+	}
+
+	public int checkSetting(UntactBookSetting untactBookSetting) {
+		return dao.checkSetting(untactBookSetting);
+	}
+
+	public String getReservationTime(String homepage_id) {
+		return dao.getReservationTime(homepage_id);
+	}
+
+	public String getUntactBookRoundToday(UntactBookRound untactBookRound) {
+		return dao.getUntactBookRoundToday(untactBookRound);
+	}
+
+	public String getReturnDateToday(UntactBookRound untactBookRound) {
+		return dao.getReturnDateToday(untactBookRound);
 	}
 }

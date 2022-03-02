@@ -118,8 +118,8 @@ function smsWrite() {
 	대출단계 : 
 	<form:select path="reservation_step" cssClass="selectmenu">
 		<form:option value="">전체보기</form:option>
-		<form:option value="예약">예약</form:option>
-		<form:option value="대출">대출</form:option>
+		<form:option value="1">예약</form:option>
+		<form:option value="4">대출</form:option>
 	</form:select>
 	신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
 	<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
