@@ -832,6 +832,7 @@ public class AdminModeController extends BaseController {
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
 			member.setUser_no(reservationList.get(0).getRec_key());
+			member.setManage_code(reservationList.get(0).getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -860,6 +861,7 @@ public class AdminModeController extends BaseController {
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
 			member.setUser_no(reservationList.get(0).getRec_key());
+			member.setManage_code(reservationList.get(0).getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -888,6 +890,7 @@ public class AdminModeController extends BaseController {
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
 			member.setUser_no(reservationList.get(0).getRec_key());
+			member.setManage_code(reservationList.get(0).getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
