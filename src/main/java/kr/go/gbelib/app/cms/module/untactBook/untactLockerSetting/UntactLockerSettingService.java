@@ -141,7 +141,7 @@ public class UntactLockerSettingService extends BaseService {
 		untactBookRound.setRound_idx(DateFormatUtils.format(start.getTime(), "yyyyMMdd"));
 		
 		untactBookRound.setRound_start_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":00");
-		untactBookRound.setRound_end_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":01");
+		untactBookRound.setRound_end_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":00");
 		untactBookRound.setRound_start_date(DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd"));
 		untactBookRound.setRound_end_date(DateFormatUtils.format(calendar2.getTime(), "yyyy-MM-dd"));
 		
@@ -204,7 +204,7 @@ public class UntactLockerSettingService extends BaseService {
 					for (UntactBookSetting untactBookSetting : untactBookSettingList) {
 						int dateCheck = dao.dateCheck(untactBookSetting.getHomepage_id());
 						
-						if(dateCheck == 0) {
+						if(dateCheck > 0) {
 							int res= createUntactBookRound(untactBookSetting);
 	
 							if (res == 0) {
