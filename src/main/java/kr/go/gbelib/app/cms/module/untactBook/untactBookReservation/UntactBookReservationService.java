@@ -257,4 +257,8 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getReceiptListToday(untactBookReservation);
 	}
 
+	public int checkLockerNumberForChange(UntactBookReservation untactBookReservation) {
+		return dao.checkLockerNumberForChange(untactBookReservation);
+	}
+
 }

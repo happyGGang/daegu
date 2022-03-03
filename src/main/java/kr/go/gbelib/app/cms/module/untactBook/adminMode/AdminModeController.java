@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -799,6 +798,12 @@ public class AdminModeController extends BaseController {
 		int[] source = new int[] {now, before, temp};
 		int[] target = new int[] {temp, now, before};
 		
+		if(reservationService.checkLockerNumberForChange(untactBookReservation) > 0) {
+			res.setValid(false);
+			reservationService.alertMessage("대기상태의 사물함은 사물함 번호 수정이 불가능합니다.", request, response);
+			return null;
+		}
+		
 		if (!result.hasErrors()) {
 			if(reservationService.checkLockerNumberCount(untactBookReservation) > 0){
 				swapLockerNumberByBubble(untactBookReservation, source, target);
@@ -828,11 +833,10 @@ public class AdminModeController extends BaseController {
 	private List<UntactBookReservation> reservationList(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> reservationList = reservationService.getUntactBookReservationListToday(untactBookReservation);
 		
-		List<UntactBookReservation> list = new ArrayList<UntactBookReservation>();
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
-			member.setUser_no(reservationList.get(0).getRec_key());
-			member.setManage_code(reservationList.get(0).getManage_code());
+			member.setUser_no(untactBookReservationOne.getRec_key());
+			member.setManage_code(untactBookReservationOne.getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -844,24 +848,22 @@ public class AdminModeController extends BaseController {
 				//자관대출권수
 				untactBookReservationOne.setLocal_loanable_cnt(Integer.parseInt(memberInfo.getLocal_loanable_cnt()));
 				untactBookReservationOne.setLocal_loan_cnt(Integer.parseInt(memberInfo.getLocal_loan_cnt()));
-				
-				list.add(untactBookReservationOne);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return list;
+		return reservationList;
 	}
 
 	private List<UntactBookReservation> reservationListNow(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> reservationList = reservationService.getUntactBookReservationListNow(untactBookReservation);
 		
-		List<UntactBookReservation> list = new ArrayList<UntactBookReservation>();
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
-			member.setUser_no(reservationList.get(0).getRec_key());
-			member.setManage_code(reservationList.get(0).getManage_code());
+			member.setUser_no(untactBookReservationOne.getRec_key());
+			member.setManage_code(untactBookReservationOne.getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -874,23 +876,21 @@ public class AdminModeController extends BaseController {
 				untactBookReservationOne.setLocal_loanable_cnt(Integer.parseInt(memberInfo.getLocal_loanable_cnt()));
 				untactBookReservationOne.setLocal_loan_cnt(Integer.parseInt(memberInfo.getLocal_loan_cnt()));
 				
-				list.add(untactBookReservationOne);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return list;
+		return reservationList;
 	}
 
 	private List<UntactBookReservation> reservationListBefore(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> reservationList = reservationService.getUntactBookReservationListBefore(untactBookReservation);
 		
-		List<UntactBookReservation> list = new ArrayList<UntactBookReservation>();
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
-			member.setUser_no(reservationList.get(0).getRec_key());
-			member.setManage_code(reservationList.get(0).getManage_code());
+			member.setUser_no(untactBookReservationOne.getRec_key());
+			member.setManage_code(untactBookReservationOne.getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -903,13 +903,12 @@ public class AdminModeController extends BaseController {
 				untactBookReservationOne.setLocal_loanable_cnt(Integer.parseInt(memberInfo.getLocal_loanable_cnt()));
 				untactBookReservationOne.setLocal_loan_cnt(Integer.parseInt(memberInfo.getLocal_loan_cnt()));
 				
-				list.add(untactBookReservationOne);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return list;
+		return reservationList;
 	}
 	
 }
