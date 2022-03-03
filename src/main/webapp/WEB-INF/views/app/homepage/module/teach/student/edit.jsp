@@ -294,6 +294,16 @@ $(function() {
 			return false;
 		}
 		</c:if>
+		
+		<c:if test="${teach.age_info_yn eq 'Y'}">
+		var student_age = $form.find('#student_age').val();
+		var student_age = student_age.replace(/^0/,'');
+		if ( student_age == '' ) {
+			$form.find('#student_age').focus();
+			alert('나이를 입력해 주세요.');
+			return false;
+		}
+		</c:if>
 		<c:if test="${teach.school_grade_yn eq 'Y'}">
 		var schoolHak = $form.find('#student_hack option:selected').val();
 		if ( schoolHak == '0' ) {
