@@ -568,7 +568,7 @@ public class ElibController extends BaseController {
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Date date = cal.getTime();
-		cal.add(Calendar.YEAR, -1);
+		cal.add(Calendar.YEAR, -3);
 		
 		lending.setRec_key(getSessionMemberInfo(request).getRec_key());
 		lending.setStart_date(sdf.format(cal.getTime()));
