@@ -110,40 +110,40 @@ public class AdminModeController extends BaseController {
 				model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
 				model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
 				model.addAttribute("unusedLockerList", reservationService.getUnusedLockerList(untactBookReservation));
-				} 
-		} else {
-		//그전회차 idx가져오기
-		String round_idx = untactLockerSettingService.getUntactBookRound(untactBookRound);
-		untactBookReservation.setRound_idx(round_idx);
-		
-		model.addAttribute("untactBookSetting", untactBookSetting);
-		model.addAttribute("untactLockerSetting", untactLockerSetting);
-		model.addAttribute("untactLockerSettingList", untactLockerSettingService.showLockerStateBefore(untactBookReservation));
-		
-		//사물함 가로세로 표시
-		try {
-			if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
-				int rowCount = untactBookSetting.getRow_count();
-				int totalCount = untactBookSetting.getTotal_count();
-				int remainder = totalCount%rowCount;
-				int quotient = totalCount/rowCount;
+			} else {
+				//그전회차 idx가져오기
+				String round_idx = untactLockerSettingService.getUntactBookRound(untactBookRound);
+				untactBookReservation.setRound_idx(round_idx);
 				
-				if(remainder > 0) { 
-					model.addAttribute("quotient", quotient+1);
-				} else {
-					model.addAttribute("quotient", quotient);
+				model.addAttribute("untactBookSetting", untactBookSetting);
+				model.addAttribute("untactLockerSetting", untactLockerSetting);
+				model.addAttribute("untactLockerSettingList", untactLockerSettingService.showLockerStateBefore(untactBookReservation));
+				
+				//사물함 가로세로 표시
+				try {
+					if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
+						int rowCount = untactBookSetting.getRow_count();
+						int totalCount = untactBookSetting.getTotal_count();
+						int remainder = totalCount%rowCount;
+						int quotient = totalCount/rowCount;
+						
+						if(remainder > 0) { 
+							model.addAttribute("quotient", quotient+1);
+						} else {
+							model.addAttribute("quotient", quotient);
+						}
+					}
+				} catch (Exception e) {
+					System.out.println(e + "에러");
 				}
-			}
-		} catch (Exception e) {
-			System.out.println(e + "에러");
-		}
-		
-		//금일기준 그전 회차를 가지고 와야함
-		model.addAttribute("untactBookReservationList", reservationListNow(untactBookReservation));
-		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
-		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
-		model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
-		model.addAttribute("unusedLockerList", reservationService.getUnusedLockerList(untactBookReservation));
+				
+				//금일기준 그전 회차를 가지고 와야함
+				model.addAttribute("untactBookReservationList", reservationListNow(untactBookReservation));
+				model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
+				model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
+				model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
+				model.addAttribute("unusedLockerList", reservationService.getUnusedLockerList(untactBookReservation));
+				}
 		}
 		
 		if (StringUtils.isNotEmpty(untactLockerSettingService.getLockerUseType(getAsideHomepageId(request)))) {
