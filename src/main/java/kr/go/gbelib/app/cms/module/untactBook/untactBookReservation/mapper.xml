@@ -759,19 +759,20 @@
 		AND locker_number = #{locker_number}
 		AND reservation_step = #{reservation_step}
 		AND cancel_yn = 'N'
-		AND round_idx = (SELECT 
-							round_idx 
-						FROM		   
+		AND round_idx = (SELECT
+							round_idx
+						FROM
 							UNTACT_BOOK_ROUND
 						WHERE
-							TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS') = (SELECT TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS')
-							FROM 
-								UNTACT_BOOK_ROUND 
-							 WHERE SYSDATE 
-							 	BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS')
-							 		AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS')
-							 		AND homepage_id = #{homepage_id})
-							 	AND homepage_id = #{homepage_id}
+							homepage_id = #{homepage_id}
+						AND round_end_date = (SELECT
+													round_start_date
+												FROM
+													UNTACT_BOOK_ROUND
+												WHERE 1=1		
+												AND homepage_id = #{homepage_id}
+												AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DDHH24:MI:SS') 
+												AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DDHH24:MI:SS'))
 					     )
 	</select>
 

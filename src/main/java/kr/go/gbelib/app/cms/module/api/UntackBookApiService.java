@@ -331,6 +331,7 @@ public class UntackBookApiService extends BaseService {
         					
         					if (apiResult.getStatus()) {
         						untactBookReservation.setRequest_number(receiptList.get(i).getRequest_number());
+        						untactBookReservation.setReservation_step("4");
         						int count = service.bookReservation(untactBookReservation);
         						
         						if(count < 1) {
