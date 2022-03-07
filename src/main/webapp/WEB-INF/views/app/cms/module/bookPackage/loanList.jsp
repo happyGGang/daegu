@@ -199,7 +199,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<colgroup>
 			<col width="5%" />
 			<col width="5%" />
-			<col />
+			<col width="5%" />
 			<col />
 			<col width="10%" />
 			<col width="12%" />
@@ -213,8 +213,8 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<tr>
 				<th>선택</th>
 				<th>번호</th>
+				<th>주제</th>
 				<th>책꾸러미명</th>
-				<th>주제명</th>
 				<th>대출기간</th>
 				<th>학교명/신청자</th>
 				<th>신청일자</th>
@@ -232,6 +232,24 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					</td>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="left">
+					<c:forTokens items="${i.category}" delims="," var="category">
+					<span class="step2">
+					<c:choose>
+						<c:when test="${category eq '000'}">총류</c:when>
+						<c:when test="${category eq '100'}">철학</c:when>
+						<c:when test="${category eq '200'}">종교</c:when>
+						<c:when test="${category eq '300'}">사회과학</c:when>
+						<c:when test="${category eq '400'}">자연과학</c:when>
+						<c:when test="${category eq '500'}">기술과학</c:when>
+						<c:when test="${category eq '600'}">예술</c:when>
+						<c:when test="${category eq '700'}">언어</c:when>
+						<c:when test="${category eq '800'}">문학</c:when>
+						<c:when test="${category eq '900'}">역사</c:when>
+					</c:choose>
+					</span>
+					</c:forTokens>
+					</td>
+					<td class="left">
 						<a href="#" class="dialog-edit" keyValue="${i.book_package_loan_idx}">
 							${i.book_package_subject}
 							<br/>
@@ -240,7 +258,6 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 							</c:if>
 						</a>
 					</td>
-					<td class="left">${i.keyword}</td>
 					<td class="center">
 						<c:if test="${i.request_status ne '1'}">
 						${i.loan_start_date}<br/>

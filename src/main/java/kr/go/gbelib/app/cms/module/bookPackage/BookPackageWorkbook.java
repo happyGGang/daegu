@@ -128,8 +128,8 @@ public class BookPackageWorkbook {
 			}
 		} else if(editMode.equals("bookPackageLoan")) {
 			// 컬럼 폭 지정
-			workbook.getSheet(0).setColumnView(0,  35);
-			workbook.getSheet(0).setColumnView(1,  25);
+			workbook.getSheet(0).setColumnView(0,  10);
+			workbook.getSheet(0).setColumnView(1,  35);
 			workbook.getSheet(0).setColumnView(2,  25);
 			workbook.getSheet(0).setColumnView(3,  30);
 			workbook.getSheet(0).setColumnView(4,  20);
@@ -141,8 +141,8 @@ public class BookPackageWorkbook {
 			workbook.getSheet(0).setColumnView(10, 10);
 			
 			// 헤더 컬럼 지정
-			workbook.getSheet(0).addCell(new Label(0, 0, "책꾸러미명", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "주제명", format));
+			workbook.getSheet(0).addCell(new Label(0, 0, "주제", format));
+			workbook.getSheet(0).addCell(new Label(1, 0, "책꾸러미명", format));
 			workbook.getSheet(0).addCell(new Label(2, 0, "대출기간", format));
 			workbook.getSheet(0).addCell(new Label(3, 0, "학교명", format));
 			workbook.getSheet(0).addCell(new Label(4, 0, "신청자", format));
@@ -157,8 +157,37 @@ public class BookPackageWorkbook {
 			
 			int row = 1;
 			for(BookPackage one : bookPackageList) {
-				workbook.getSheet(0).addCell(new Label(0, row, one.getBook_package_subject()));
-				workbook.getSheet(0).addCell(new Label(1, row, one.getKeyword()));
+				String category = "";
+				if(one.getCategory() != null) {
+					String[] cateArr = one.getCategory().split(",");
+					for(int i = 0; i < cateArr.length; i++) {
+						String cate = cateArr[i];
+						if(cate.equals("000")) {
+							category += "총류";
+						} else if(cate.equals("100")) {
+							category += "철학";
+						} else if(cate.equals("200")) {
+							category += "종교";
+						} else if(cate.equals("300")) {
+							category += "사회과학";
+						} else if(cate.equals("400")) {
+							category += "자연과학";
+						} else if(cate.equals("500")) {
+							category += "기술과학";
+						} else if(cate.equals("600")) {
+							category += "예술";
+						} else if(cate.equals("700")) {
+							category += "언어";
+						} else if(cate.equals("800")) {
+							category += "문학";
+						} else if(cate.equals("900")) {
+							category += "역사";
+						}
+						category += i != cateArr.length-1 ? "," : "";
+					}
+				}
+				workbook.getSheet(0).addCell(new Label(0, row, category));
+				workbook.getSheet(0).addCell(new Label(1, row, one.getBook_package_subject()));
 				workbook.getSheet(0).addCell(new Label(2, row, one.getLoan_start_date() + " ~ " + one.getLoan_end_date()));
 				workbook.getSheet(0).addCell(new Label(3, row, one.getSchool_name()));
 				workbook.getSheet(0).addCell(new Label(4, row, one.getRequest_name()));
