@@ -18,17 +18,50 @@ $(function() {
 <form:hidden path="menu_idx"/>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="roomicon">
-			<div class="inner icowrap"><span class="ico ico5"></span> <strong>독서릴레이</strong>
-				<p>「2021 수성북」을 읽고 싶은 단체(동아리, 기관)의 참여 신청을 받습니다.</p>
-			</div>
+		<div class="inner icowrap"><span class="ico ico5"></span> <strong>독서릴레이</strong>
+			<p>「2022 수성북」을 읽고 싶은 단체(동아리, 기관)의 참여 신청을 받습니다.</p>
 		</div>
+	</div>
 
-		<ul class="con">
-			<li>대상 : 단체</li>
-			<li>운영기간 : 2021. 3. 24.(수) ~ 9. 30.(목)</li>
-			<li>운영방법 : 수성구립도서관 홈페이지 신청 → 방문수령(수성북, 독서노트) → 릴레이 진행 → 반납<br /><span style="margin-left:80px;font-size:15px;">※ 독서노트 : 책자형(수성구립도서관 배부), SNS(인스타그램) 활용</span><br /><span style="margin-left:80px;font-size:15px;">※ 인스타그램 활용시(@suseong_lib 게시물 확인)</span></li>
-			<li>문의 : 668-1600</li>
-		</ul>
+	<ul class="con">
+		<li>대상 : 지역의 단체 / 1단체 10권 이하</li>
+		<li>운영기간 : 2022. 3. 16.(수) ~ 9. 30.(금)</li>
+	</ul>
+
+	<div class="step_box">
+      <ol class="no4">
+        <li>
+        <div class="box">
+          <p class="num">STEP 01</p>
+          수성구립도서관<br>홈페이지 신청
+        </div>
+        </li>
+        <li>
+        <div class="box">
+          <p class="num">STEP 02</p>
+          도서관 방문수령<br>(수성북, 독서노트)
+        </div>
+        </li>
+        <li>
+        <div class="box">
+          <p class="num">STEP 03</p>
+          독서릴레이<br>진행
+        </div>
+        </li>
+        <li>
+        <div class="box style1">
+          <p class="num">STEP 04</p>
+          도서관<br>방문 반납
+        </div>
+        </li>
+      </ol>
+    </div>
+	<p>※ 독서노트 : 책자형(범어, 용학, 고산도서관에서 배부), SNS(인스타그램: @suseong_lib) 활용</p>
+
+	<ul class="con">
+		<li>문의 : 053-668-1600</li>
+	</ul>
+
 	<div class="link_btn02">
 		<a href="#" id="apply_btn" >참여신청</a>
 	</div>
