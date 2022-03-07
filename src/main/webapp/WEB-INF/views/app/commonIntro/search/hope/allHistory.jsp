@@ -444,6 +444,7 @@ function compactTrim(str) {
 						<tr>
 							<th class="center">순번</th>
 							<th class="center">서명</th>
+							<th class="center">도서관명</th>
 							<th class="center">저자</th>
 							<th class="center">출판사</th>
 							<th class="center">신청일</th>
@@ -467,6 +468,7 @@ function compactTrim(str) {
 						<tr>
 							<th>${paging.listRowNum - status.index}</th>
 							<td>${i.TITLE}</td>
+							<td>${i.LIB_NAME}</td>
 							<td>${i.AUTHOR}</td>
 							<td>${i.PUBLISHER}</td>
 							<td>${i.APPLICANT_DATE}</td>
