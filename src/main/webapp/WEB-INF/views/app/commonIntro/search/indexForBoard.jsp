@@ -501,20 +501,30 @@ $(function() {
 									<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
 								</p>
 								<div class="thumb">
-									<c:set var="imageUrl" value="/resources/common/img/noimg-gall.png"/>
+									<c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+												<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
+										</c:when>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+										</c:when>
+										<c:otherwise>
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+										</c:otherwise>
+									</c:choose>	
+<!--  									<c:set var="imageUrl" value="/resources/common/img/noimg-gall.png"/>
 									<c:choose>
 										<c:when test="${empty i.IMAGE}">
 											<img src="/resources/common/img/noimg-gall.png" alt="${i.TITLE_INFO}"/>
-											</a>
 										</c:when>
 										<c:when test="${fn:contains(i.IMAGE, 'noimg')}">
 											<img src="/resources/common/img/noimg-gall.png" alt="${i.TITLE_INFO}"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.IMAGE}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
-											<c:set var="imageUrl" value="${i.IMAGE}"/>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+ 											<c:set var="imageUrl" value="${i.IMAGE}"/>
 										</c:otherwise>
-									</c:choose>
+									</c:choose>		-->
 								</div>
 								<div class="box">
 									<div class="item">
