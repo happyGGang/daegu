@@ -130,39 +130,42 @@ public class BookPackageWorkbook {
 			// 컬럼 폭 지정
 			workbook.getSheet(0).setColumnView(0,  35);
 			workbook.getSheet(0).setColumnView(1,  25);
-			workbook.getSheet(0).setColumnView(2,  30);
-			workbook.getSheet(0).setColumnView(3,  20);
-			workbook.getSheet(0).setColumnView(4,  15);
+			workbook.getSheet(0).setColumnView(2,  25);
+			workbook.getSheet(0).setColumnView(3,  30);
+			workbook.getSheet(0).setColumnView(4,  20);
 			workbook.getSheet(0).setColumnView(5,  15);
-			workbook.getSheet(0).setColumnView(6,  30);
-			workbook.getSheet(0).setColumnView(7,  15);
-			workbook.getSheet(0).setColumnView(8,  10);
-			workbook.getSheet(0).setColumnView(9, 10);
+			workbook.getSheet(0).setColumnView(6,  15);
+			workbook.getSheet(0).setColumnView(7,  30);
+			workbook.getSheet(0).setColumnView(8,  15);
+			workbook.getSheet(0).setColumnView(9,  10);
+			workbook.getSheet(0).setColumnView(10, 10);
 			
 			// 헤더 컬럼 지정
 			workbook.getSheet(0).addCell(new Label(0, 0, "책꾸러미명", format));
-			workbook.getSheet(0).addCell(new Label(1, 0, "대출기간", format));
-			workbook.getSheet(0).addCell(new Label(2, 0, "학교명", format));
-			workbook.getSheet(0).addCell(new Label(3, 0, "신청자", format));
-			workbook.getSheet(0).addCell(new Label(4, 0, "휴대폰", format));
-			workbook.getSheet(0).addCell(new Label(5, 0, "학교 연락처", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "신청사유", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "신청일자", format));
-			workbook.getSheet(0).addCell(new Label(8, 0, "상태", format));
-			workbook.getSheet(0).addCell(new Label(9, 0, "권수", format));
+			workbook.getSheet(0).addCell(new Label(1, 0, "주제명", format));
+			workbook.getSheet(0).addCell(new Label(2, 0, "대출기간", format));
+			workbook.getSheet(0).addCell(new Label(3, 0, "학교명", format));
+			workbook.getSheet(0).addCell(new Label(4, 0, "신청자", format));
+			workbook.getSheet(0).addCell(new Label(5, 0, "휴대폰", format));
+			workbook.getSheet(0).addCell(new Label(6, 0, "학교 연락처", format));
+			workbook.getSheet(0).addCell(new Label(7, 0, "신청사유", format));
+			workbook.getSheet(0).addCell(new Label(8, 0, "신청일자", format));
+			workbook.getSheet(0).addCell(new Label(9, 0, "상태", format));
+			workbook.getSheet(0).addCell(new Label(10, 0, "권수", format));
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			
 			int row = 1;
 			for(BookPackage one : bookPackageList) {
 				workbook.getSheet(0).addCell(new Label(0, row, one.getBook_package_subject()));
-				workbook.getSheet(0).addCell(new Label(1, row, one.getLoan_start_date() + " ~ " + one.getLoan_end_date()));
-				workbook.getSheet(0).addCell(new Label(2, row, one.getSchool_name()));
-				workbook.getSheet(0).addCell(new Label(3, row, one.getRequest_name()));
-				workbook.getSheet(0).addCell(new Label(4, row, one.getPhone()));
-				workbook.getSheet(0).addCell(new Label(5, row, one.getSchool_tel()));
-				workbook.getSheet(0).addCell(new Label(6, row, one.getRequest_content()));
-				workbook.getSheet(0).addCell(new Label(7, row, sdf.format(one.getAdd_date())));
+				workbook.getSheet(0).addCell(new Label(1, row, one.getKeyword()));
+				workbook.getSheet(0).addCell(new Label(2, row, one.getLoan_start_date() + " ~ " + one.getLoan_end_date()));
+				workbook.getSheet(0).addCell(new Label(3, row, one.getSchool_name()));
+				workbook.getSheet(0).addCell(new Label(4, row, one.getRequest_name()));
+				workbook.getSheet(0).addCell(new Label(5, row, one.getPhone()));
+				workbook.getSheet(0).addCell(new Label(6, row, one.getSchool_tel()));
+				workbook.getSheet(0).addCell(new Label(7, row, one.getRequest_content()));
+				workbook.getSheet(0).addCell(new Label(8, row, sdf.format(one.getAdd_date())));
 				String request_status = "";
 				switch (Integer.parseInt(one.getRequest_status())) {
 					case 0 :
@@ -184,8 +187,8 @@ public class BookPackageWorkbook {
 						request_status = "반납요청완료";
 						break;
 				}
-				workbook.getSheet(0).addCell(new Label(8, row, request_status));
-				workbook.getSheet(0).addCell(new Label(9, row, one.getLoan_count() + "권"));
+				workbook.getSheet(0).addCell(new Label(9, row, request_status));
+				workbook.getSheet(0).addCell(new Label(10, row, one.getLoan_count() + "권"));
 				
 				row++;
 			}
