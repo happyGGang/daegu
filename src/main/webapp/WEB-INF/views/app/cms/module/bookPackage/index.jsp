@@ -108,8 +108,9 @@ input[type="checkbox"].customCheck + label {color: #222;background: url("/resour
 input[type="checkbox"].customCheck:checked + label {color: #1ba8ed;background: url("/resources/common/img/icon_cate_chk_on.png") no-repeat;}
 
 .group-box {position: relative;padding: 20px 10px;border-bottom: 1px solid #e5e5e5;}
+.group-box::after {content:''; display:block; clear:both;}
 .book_check {position: absolute;left: 0;}
-.img-box {display:inline-block;float:left;width: 120px;height: 170px;border: 1px solid #ccc;margin-left: 10px;}
+.img-box {display:block;float:left;width: 120px;height: 170px;border: 1px solid #ccc;margin-left: 10px;}
 .content-box {display: inline-block;width: 75%;padding: 0 20px;}
 .subject a {display: inline-block;margin-right: 20px;font-size: 19px;font-weight: bold;color: #222;}
 .subject .ing {display: inline-block;width: 35px;height: 35px;margin: 0 10px 8px 0;border-radius: 100%;background: #ff5700;font-size: 11px;line-height: 35px;color: #fff;letter-spacing: -0.075em;text-align: center;}

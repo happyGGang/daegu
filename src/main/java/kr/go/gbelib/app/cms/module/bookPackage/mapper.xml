@@ -197,7 +197,7 @@
 			a.quantity, a.loan_count,
 			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
 			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
-			b.add_id, b.add_date
+			b.add_id, b.add_date, a.keyword
 		FROM
 			BOOK_PACKAGE a, BOOK_PACKAGE_LOAN b
 		WHERE

@@ -200,8 +200,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<col width="5%" />
 			<col width="5%" />
 			<col />
+			<col />
+			<col width="10%" />
 			<col width="12%" />
-			<col width="15%" />
 			<col width="12%"/>
 			<col width="9%" />
 			<col width="5%" />
@@ -213,6 +214,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 				<th>선택</th>
 				<th>번호</th>
 				<th>책꾸러미명</th>
+				<th>주제명</th>
 				<th>대출기간</th>
 				<th>학교명/신청자</th>
 				<th>신청일자</th>
@@ -238,6 +240,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 							</c:if>
 						</a>
 					</td>
+					<td class="left">${i.keyword}</td>
 					<td class="center">
 						<c:if test="${i.request_status ne '1'}">
 						${i.loan_start_date}<br/>
