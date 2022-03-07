@@ -73,7 +73,7 @@ $(function() {
 		doGetLoad('loanList.do', $('form#bookPackage').serialize());
 	});
 	
-	$('select#request_status, select#loan_start_date, select#rowCount').on('change', function() {
+	$('select#request_status, select#loan_start_date, select#rowCount, select#category').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('loanList.do', $('form#bookPackage').serialize());
 	});
@@ -167,6 +167,19 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<form:option value="3">반납완료</form:option>
 			<form:option value="4">관리자취소</form:option>
 			<form:option value="5">반납요청완료</form:option>
+		</form:select>
+		<form:select path="category" cssClass="selectmenu">
+			<form:option value="">주제전체</form:option>
+			<form:option value="000">총류</form:option>
+			<form:option value="100">철학</form:option>
+			<form:option value="200">종교</form:option>
+			<form:option value="300">사회과학</form:option>
+			<form:option value="400">자연과학</form:option>
+			<form:option value="500">기술과학</form:option>
+			<form:option value="600">예술</form:option>
+			<form:option value="700">언어</form:option>
+			<form:option value="800">문학</form:option>
+			<form:option value="900">역사</form:option>
 		</form:select>
 		<form:select path="rowCount" cssClass="selectmenu">
 			<form:option value="10">10개씩보기</form:option>

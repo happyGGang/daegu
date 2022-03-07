@@ -220,6 +220,9 @@
 		<if test="add_id != null and add_id != ''">
 		AND b.add_id = #{add_id}
 		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+		</if>
 		ORDER BY b.book_package_loan_idx DESC
 		${pagingBottom}
 	</select>
@@ -248,6 +251,9 @@
 		</if>
 		<if test="add_id != null and add_id != ''">
 		AND b.add_id = #{add_id}
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
 		</if>
 	</select>
 
@@ -352,6 +358,9 @@
 			a.book_package_idx = b.book_package_idx
 		<if test="add_id != null and add_id != ''">
 		AND	b.add_id = #{add_id}
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
 		</if>
 		ORDER BY b.book_package_loan_idx DESC
 	</select>
