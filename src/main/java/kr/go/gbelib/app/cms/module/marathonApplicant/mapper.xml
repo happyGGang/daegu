@@ -169,6 +169,9 @@
 		AND	B.contest_type_idx = #{contest_type_idx}
 		AND	B.applicant_idx = #{applicant_idx}
 		AND	B.homepage_id = #{homepage_id}
+		AND	A.del_yn = 'N'
+		AND	B.del_yn = 'N'
+		AND	C.del_yn = 'N'
 	</select>
 	
 	<select id="getMarathonApplicantOneById" resultType="kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant">
@@ -238,6 +241,7 @@
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
 		AND	member_id = #{member_id}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getContestType" resultType="string">
@@ -249,6 +253,7 @@
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
 		ANd	contest_type_idx = #{contest_type_idx}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getContestApplicationSubject" resultType="string">
@@ -260,6 +265,7 @@
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getContestApplicationSubjectModify" resultType="string">
@@ -271,6 +277,7 @@
 			homepage_id = #{homepage_id}
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="checkApplicantId" resultType="integer">
@@ -282,6 +289,7 @@
 			contest_idx = #{contest_idx}
 		AND	homepage_id = #{homepage_id}
 		AND	member_id = #{member_id}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getMarathonApplicantIdx" resultType="integer">
@@ -294,6 +302,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	member_id = #{member_id}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getMarathonApplicantId" resultType="string">
@@ -306,6 +315,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getMarathonApplicantName" resultType="string">
@@ -318,6 +328,7 @@
 		AND	contest_idx = #{contest_idx}
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	member_id = #{member_id}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getReadPageCountTotal" resultType="integer">

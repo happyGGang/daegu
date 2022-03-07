@@ -220,6 +220,7 @@ public class LoginAPI {
 
 		param.put("option", 3);
 		param.put("user_no", member.getUser_no());
+		param.put("manage_code", member.getManage_code());
 		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
 
 		Map<String, Object> loginMap = CommonAPI.sendKCMS("userlogin", param);

@@ -437,6 +437,8 @@ function changeLockerNumber(member_id, locker_number, $this) {
 			success: function(response) {
 				if(response.valid) {
 					alert('변경 되었습니다.');
+				} else {
+					alert('대기상태의 사물함은 사물함 번호 수정이 불가능합니다.');
 				}
 				location.reload();
 			},
@@ -672,7 +674,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 										<td>${i.reg_no}</td>
 										<td>
 											<c:choose>
-												<c:when test="${i.reservation_step eq '1'}">
+												<c:when test="${i.reservation_step eq '1' || i.reservation_step eq '2'}">
 												<form:select path="locker_number" id="locker_number" data-number="${i.unused_locker_number}" onchange="changeLockerNumber('${i.member_id}', '${i.locker_number}', $(this));">
 													<c:forEach var="j" varStatus="status" items="${unusedLockerList}">
 														<option value="${j.unused_locker_number}"<c:if test="${i.locker_number eq j.unused_locker_number}">selected</c:if>>${j.unused_locker_number}</option>

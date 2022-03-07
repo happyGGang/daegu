@@ -220,7 +220,12 @@
 			round_end_time
 		) VALUES (
 			#{homepage_id}, #{round_idx}, #{round_start_date}, #{round_end_date}, #{round_start_time},
-			#{round_end_time}
+			(
+			SELECT
+				TO_CHAR(TO_DATE(#{round_end_time}, 'HH24:MI:SS')-1/(24*60*60), 'HH24:MI:SS') as round_end_time
+			FROM
+				DUAL
+			)
 		)
 	</insert>
 	
@@ -386,8 +391,8 @@
 		FROM
 			UNTACT_BOOK_ROUND
 		WHERE
-			homepage_id = #{homepage_id}
-		AND SYSDATE BETWEEN TO_DATE(round_start_date||round_start_time, 'YYYY-MM-DD HH24:MI:SS') AND TO_DATE(round_end_date||round_end_time, 'YYYY-MM-DD HH24:MI:SS')
+			homepage_id = 'h46'
+		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') = round_end_date
 	</select>
 	
 	<select id="checkSetting" resultType="int">

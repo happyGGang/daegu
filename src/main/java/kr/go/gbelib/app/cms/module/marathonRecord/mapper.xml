@@ -85,6 +85,7 @@
 		AND	contest_type_idx = #{contest_type_idx}
 		AND	applicant_idx = #{applicant_idx}
 		AND	record_idx = #{record_idx}
+		AND	del_yn = 'N'
 	</select>
 	
 	<select id="getTotalPageCount" resultType="integer">

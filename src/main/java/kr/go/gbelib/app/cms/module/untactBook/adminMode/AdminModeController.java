@@ -32,7 +32,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -111,40 +110,40 @@ public class AdminModeController extends BaseController {
 				model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
 				model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
 				model.addAttribute("unusedLockerList", reservationService.getUnusedLockerList(untactBookReservation));
-				} 
-		} else {
-		//그전회차 idx가져오기
-		String round_idx = untactLockerSettingService.getUntactBookRound(untactBookRound);
-		untactBookReservation.setRound_idx(round_idx);
-		
-		model.addAttribute("untactBookSetting", untactBookSetting);
-		model.addAttribute("untactLockerSetting", untactLockerSetting);
-		model.addAttribute("untactLockerSettingList", untactLockerSettingService.showLockerStateBefore(untactBookReservation));
-		
-		//사물함 가로세로 표시
-		try {
-			if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
-				int rowCount = untactBookSetting.getRow_count();
-				int totalCount = untactBookSetting.getTotal_count();
-				int remainder = totalCount%rowCount;
-				int quotient = totalCount/rowCount;
+			} else {
+				//그전회차 idx가져오기
+				String round_idx = untactLockerSettingService.getUntactBookRound(untactBookRound);
+				untactBookReservation.setRound_idx(round_idx);
 				
-				if(remainder > 0) { 
-					model.addAttribute("quotient", quotient+1);
-				} else {
-					model.addAttribute("quotient", quotient);
+				model.addAttribute("untactBookSetting", untactBookSetting);
+				model.addAttribute("untactLockerSetting", untactLockerSetting);
+				model.addAttribute("untactLockerSettingList", untactLockerSettingService.showLockerStateBefore(untactBookReservation));
+				
+				//사물함 가로세로 표시
+				try {
+					if(StringUtils.isNotEmpty(Integer.toString(untactBookSetting.getRow_count()))) {
+						int rowCount = untactBookSetting.getRow_count();
+						int totalCount = untactBookSetting.getTotal_count();
+						int remainder = totalCount%rowCount;
+						int quotient = totalCount/rowCount;
+						
+						if(remainder > 0) { 
+							model.addAttribute("quotient", quotient+1);
+						} else {
+							model.addAttribute("quotient", quotient);
+						}
+					}
+				} catch (Exception e) {
+					System.out.println(e + "에러");
 				}
-			}
-		} catch (Exception e) {
-			System.out.println(e + "에러");
-		}
-		
-		//금일기준 그전 회차를 가지고 와야함
-		model.addAttribute("untactBookReservationList", reservationListNow(untactBookReservation));
-		model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
-		model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
-		model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
-		model.addAttribute("unusedLockerList", reservationService.getUnusedLockerList(untactBookReservation));
+				
+				//금일기준 그전 회차를 가지고 와야함
+				model.addAttribute("untactBookReservationList", reservationListNow(untactBookReservation));
+				model.addAttribute("passwordCount", reservationService.checkPasswordCount(untactBookReservation));
+				model.addAttribute("nonPasswordCount", reservationService.checkNonPasswordCount(untactBookReservation));
+				model.addAttribute("untactStatusCodeList", codeService.getCode("CMS", "UT000"));
+				model.addAttribute("unusedLockerList", reservationService.getUnusedLockerList(untactBookReservation));
+				}
 		}
 		
 		if (StringUtils.isNotEmpty(untactLockerSettingService.getLockerUseType(getAsideHomepageId(request)))) {
@@ -799,6 +798,12 @@ public class AdminModeController extends BaseController {
 		int[] source = new int[] {now, before, temp};
 		int[] target = new int[] {temp, now, before};
 		
+		if(reservationService.checkLockerNumberForChange(untactBookReservation) > 0) {
+			res.setValid(false);
+			reservationService.alertMessage("대기상태의 사물함은 사물함 번호 수정이 불가능합니다.", request, response);
+			return null;
+		}
+		
 		if (!result.hasErrors()) {
 			if(reservationService.checkLockerNumberCount(untactBookReservation) > 0){
 				swapLockerNumberByBubble(untactBookReservation, source, target);
@@ -828,10 +833,10 @@ public class AdminModeController extends BaseController {
 	private List<UntactBookReservation> reservationList(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> reservationList = reservationService.getUntactBookReservationListToday(untactBookReservation);
 		
-		List<UntactBookReservation> list = new ArrayList<UntactBookReservation>();
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
-			member.setUser_no(reservationList.get(0).getRec_key());
+			member.setUser_no(untactBookReservationOne.getRec_key());
+			member.setManage_code(untactBookReservationOne.getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -843,23 +848,22 @@ public class AdminModeController extends BaseController {
 				//자관대출권수
 				untactBookReservationOne.setLocal_loanable_cnt(Integer.parseInt(memberInfo.getLocal_loanable_cnt()));
 				untactBookReservationOne.setLocal_loan_cnt(Integer.parseInt(memberInfo.getLocal_loan_cnt()));
-				
-				list.add(untactBookReservationOne);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return list;
+		return reservationList;
 	}
 
 	private List<UntactBookReservation> reservationListNow(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> reservationList = reservationService.getUntactBookReservationListNow(untactBookReservation);
 		
-		List<UntactBookReservation> list = new ArrayList<UntactBookReservation>();
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
-			member.setUser_no(reservationList.get(0).getRec_key());
+			member.setUser_no(untactBookReservationOne.getRec_key());
+			member.setManage_code(untactBookReservationOne.getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -872,22 +876,21 @@ public class AdminModeController extends BaseController {
 				untactBookReservationOne.setLocal_loanable_cnt(Integer.parseInt(memberInfo.getLocal_loanable_cnt()));
 				untactBookReservationOne.setLocal_loan_cnt(Integer.parseInt(memberInfo.getLocal_loan_cnt()));
 				
-				list.add(untactBookReservationOne);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return list;
+		return reservationList;
 	}
 
 	private List<UntactBookReservation> reservationListBefore(UntactBookReservation untactBookReservation) {
 		List<UntactBookReservation> reservationList = reservationService.getUntactBookReservationListBefore(untactBookReservation);
 		
-		List<UntactBookReservation> list = new ArrayList<UntactBookReservation>();
 		for (UntactBookReservation untactBookReservationOne : reservationList) {
 			Member member = new Member();
-			member.setUser_no(reservationList.get(0).getRec_key());
+			member.setUser_no(untactBookReservationOne.getRec_key());
+			member.setManage_code(untactBookReservationOne.getManage_code());
 			try {
 				Object result = LoginAPI.login2(member);
 				
@@ -900,13 +903,12 @@ public class AdminModeController extends BaseController {
 				untactBookReservationOne.setLocal_loanable_cnt(Integer.parseInt(memberInfo.getLocal_loanable_cnt()));
 				untactBookReservationOne.setLocal_loan_cnt(Integer.parseInt(memberInfo.getLocal_loan_cnt()));
 				
-				list.add(untactBookReservationOne);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		
-		return list;
+		return reservationList;
 	}
 	
 }

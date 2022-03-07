@@ -96,4 +96,6 @@ public interface UntactBookReservationDao {
 
 	public List<UntactBookReservation> getReceiptListToday(UntactBookReservation untactBookReservation);
 
+	public int checkLockerNumberForChange(UntactBookReservation untactBookReservation);
+
 }
