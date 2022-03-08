@@ -19,6 +19,7 @@ public class Book extends PagingUtils {
 	private String author_name;
 	private String book_pubname;
 	private String isbn13;
+	private String isbn;
 	private int book_lend = 0;
 	private int lend_total = 0;
 	private int max_lend = 0;
@@ -648,6 +649,12 @@ public class Book extends PagingUtils {
 	@Override
 	public String toString() {
 		return String.format("Book [book_idx=%s, book_code=%s, com_code=%s]", book_idx, book_code, com_code);
+	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 
 }

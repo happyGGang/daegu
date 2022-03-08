@@ -6,4 +6,6 @@ public interface LibrarySearchDao {
 
 	String getImageUrl(Map<String, Object> map);
 
+	String getImageUrl(String isbn);
+
 }

@@ -17,4 +17,8 @@ public class LibrarySearchService extends BaseService {
 		return dao.getImageUrl(map);
 	}
 
+	public String getImageUrl(String isbn) {
+		return dao.getImageUrl(isbn);
+	}
+
 }

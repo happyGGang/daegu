@@ -103,6 +103,11 @@ public class ApiController extends BaseController {
 		}
 	}
 	
+	@RequestMapping(value = {"bookImage.*"})
+	public @ResponseBody Map<String, Object> bookImage(Book book, HttpServletRequest request, HttpServletResponse response) {
+		return untackBookApiService.getImage(book , request, response);
+	}
+		
 	public static Map<String, Object> modeError() {
 		return error("-1", "잘못된 유형입니다.");
 	}

@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.api;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactBookRound;
@@ -11,6 +12,7 @@ import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSe
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
+import kr.go.gbelib.app.intro.search.LibrarySearchService;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class UntackBookApiService extends BaseService {
     
     @Autowired
 	private HomepageService homepageService;
+    
+    @Autowired
+	private LibrarySearchService librarySearchservice;
 
     public Map<String, Object> getData(UntactBookReservation untackBookReservation, HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -365,5 +370,21 @@ public class UntackBookApiService extends BaseService {
         map.put("msg", msg);
 
         return map;
+	}
+
+	public Map<String, Object> getImage(Book book, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = new LinkedHashMap<String, Object>();	
+		String isbn = book.getIsbn();		
+		String url = librarySearchservice.getImageUrl(isbn);
+		String noimg = "https://library.daegu.go.kr/resources/homepage/dgportal/img/book_noimg.png";
+		if(url != null && !"".equals(url)) {
+			map.put("RESULT_INFO", "SUCCESS");
+			map.put("IMAGE", url);
+		}else {
+			map.put("RESULT_INFO", "SUCCESS");
+			map.put("IMAGE", noimg);
+		}
+		
+		return  map;
 	}
 }
