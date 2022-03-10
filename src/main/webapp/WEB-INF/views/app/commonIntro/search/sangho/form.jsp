@@ -142,7 +142,7 @@ $(function() {
 						<form:option value="127049">안심도서관</form:option>
 						<form:option value="127087">신천도서관</form:option>
 						<form:option value="727061">신암2동 작은도서관</form:option>
-						<!--<form:option value="727062">신암3동 작은도서관</form:option>-->
+						<form:option value="727062">신암3동 작은도서관</form:option>
 						<form:option value="727071">신암5동 작은도서관</form:option>
 						<form:option value="127029">신천3동 작은도서관</form:option>
 						<form:option value="727064">효목1동 작은도서관</form:option>

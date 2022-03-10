@@ -1529,18 +1529,13 @@ $(function() {
 								<div class="bci" style="display:none;">
 									<table summary="도서 상태 및 등록 정보" style="text-align:center" class="statusBox">
 										<caption>도서 상태 및 등록 정보</caption>
-										<colgroup>
-											<col width="20%">
-											<col width="20%">
-											<col width="20%">
-											<col width="20%">
-											<col width="20%">
-										</colgroup>
 										<thead>
 											<tr>
 												<th>소장<br class="mBr"/>위치</th>
 												<th>등록<br class="mBr"/>번호</th>
+												<c:if test="${i.SHELF_LOC_CODE ne 'AD36'}">
 												<th>대출가능<br class="mBr"/>여부</th>
+												</c:if>
 												<th>반납<br class="mBr"/>예정일</th>
 <%--												<th>자료위치<br class="mBr"/>인쇄</th>--%>
 											</tr>
@@ -1549,6 +1544,7 @@ $(function() {
 											<tr>
 												<td>${i.SHELF_LOC_NAME}</td>
 												<td>${i.REG_NO}</td>
+												<c:if test="${i.SHELF_LOC_CODE ne 'AD36'}">
 												<td>
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
@@ -1601,6 +1597,7 @@ $(function() {
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 												</td>
+												</c:if>
 												<td>
 													${i.RETURN_PLAN_DATE}
 												</td>

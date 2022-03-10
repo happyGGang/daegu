@@ -451,7 +451,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'donggu'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'GS'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
