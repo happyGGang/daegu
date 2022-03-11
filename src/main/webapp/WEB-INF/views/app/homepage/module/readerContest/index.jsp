@@ -88,7 +88,7 @@ $(function() {
         </ul>
         <li>[책자형]</li>
         <ul style="padding-bottom:0;">
-          <li class="dep01">배부기간 : 3. 16.(수) ~ 소진시까지</li>
+          <li class="dep01">배부기간 : 3. 22.(화) ~ 소진시까지</li>
           <li class="dep01">배부처 : 수성구립도서관(범어·용학·고산)</li>
           <li class="dep01">배부방법 : 홈페이지 신청서 작성 → 방문수령</li>
         </ul>

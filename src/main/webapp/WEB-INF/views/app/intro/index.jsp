@@ -102,8 +102,11 @@ $(function() {
 			<c:when test="${sessionScope.member.login}">
 
 			<c:choose>
-				<c:when test="${context_path eq 'dssmalllib'||context_path eq 'bolli'||context_path eq 'kids'}">
+				<c:when test="${context_path eq 'bolli'||context_path eq 'kids'}">
 			<li class="bg bg02"><a href="#" onclick="alert('2021년 도서구입 예산소진으로 희망도서신청을 중단합니다. \n\r그 동안 이용해 주셔서 감사합니다.')"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
+				</c:when>
+				<c:when test="${context_path eq 'dssmalllib'}">
+			<li class="bg bg02"><a href="/intro/${context_path}/search/newBook/index.do"><img src="/resources/common/img/bt006.png" alt="신착자료" class="wbt"/><img src="/resources/common/img/mbt006.png" alt="신착자료" class="mbt"/></a></li>
 				</c:when>
 				<c:otherwise>
 			<li class="bg bg02"><a href="/intro/${context_path}/search/hope/req.do"><img src="/resources/common/img/bt004.png" alt="희망도서신청" class="wbt"/><img src="/resources/common/img/mbt004.png" alt="희망도서신청" class="mbt"/></a></li>
