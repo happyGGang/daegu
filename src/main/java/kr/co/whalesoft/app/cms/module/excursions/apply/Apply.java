@@ -44,7 +44,7 @@ public class Apply extends PagingUtils {
 	private String date_type;
 	private String code_name;
 	private String apply_id;
-
+ 
 	private String pageType;
 
 	private String sun;
@@ -56,6 +56,14 @@ public class Apply extends PagingUtils {
 	private String sat;
 	private String plan_date;
 	private String plan_day;
+	private String plan_year;
+	private String plan_month;
+	private String plan_year1;
+	private String plan_month1;
+	private String plan_year2;
+	private String plan_month2;
+	private String plan_year3;
+	private String plan_month3;
 
 	private String search_api_type = "WEBID";
 
@@ -471,6 +479,70 @@ public class Apply extends PagingUtils {
 
 	public void setPlan_day(String plan_day) {
 		this.plan_day = plan_day;
+	}
+
+	public String getPlan_year() {
+		return plan_year;
+	}
+
+	public void setPlan_year(String plan_year) {
+		this.plan_year = plan_year;
+	}
+
+	public String getPlan_month() {
+		return plan_month;
+	}
+
+	public void setPlan_month(String plan_month) {
+		this.plan_month = plan_month;
+	}
+
+	public String getPlan_year1() {
+		return plan_year1;
+	}
+
+	public void setPlan_year1(String plan_year1) {
+		this.plan_year1 = plan_year1;
+	}
+
+	public String getPlan_month1() {
+		return plan_month1;
+	}
+
+	public void setPlan_month1(String plan_month1) {
+		this.plan_month1 = plan_month1;
+	}
+
+	public String getPlan_year2() {
+		return plan_year2;
+	}
+
+	public void setPlan_year2(String plan_year2) {
+		this.plan_year2 = plan_year2;
+	}
+
+	public String getPlan_month2() {
+		return plan_month2;
+	}
+
+	public void setPlan_month2(String plan_month2) {
+		this.plan_month2 = plan_month2;
+	}
+
+	public String getPlan_year3() {
+		return plan_year3;
+	}
+
+	public void setPlan_year3(String plan_year3) {
+		this.plan_year3 = plan_year3;
+	}
+
+	public String getPlan_month3() {
+		return plan_month3;
+	}
+
+	public void setPlan_month3(String plan_month3) {
+		this.plan_month3 = plan_month3;
 	}
 
 }

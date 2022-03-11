@@ -7,9 +7,11 @@
 $(function(){
 	var sysDate = new Date();
 	var year = sysDate.getFullYear();
-	var month = sysDate.getMonth()+1;
+	var month = sysDate.getMonth()+1;	
 	//년도 초기화 (내년 일정 까지 볼수 있게 하려고 + 1함)
 	var planDate = '${excursions.plan_date}'.split('-');
+	var planDateMonth = '${excursions.plan_date}';
+	
 	for ( var i = 0; i < 15; i ++ ) {
 		var optionYear = (year + 1 - i);
 		var selectedAttr = '';
@@ -76,17 +78,39 @@ $(function(){
 
 		event.preventDefault();
 	});
+	
+	<%--엑셀 다운로드 기간선택--%>
+	$('a#excelDownloadDate').on('click', function(event) {
+		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
+			alert("홈페이지를 선택 해 주세요.");
+			return false;
+		}
+		$('#dialog-5').load('/cms/module/excursions/apply/excelDownloadDate.do?homepage_id='+$('#homepage_id_1').val() + '&plan_year=' + $('#plan_year').val() + '&plan_month=' + $('#plan_month').val() , function( response, status, xhr ) {
+			$('#dialog-5').dialog('open');
+		});
+		event.preventDefault();
+	});
 
-	$('a#excelDownload').on('click', function(event) {
+	/* $('a#excelDownload').on('click', function(event) {
 		event.preventDefault();
 
 		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
-		}
-
+		}		
+		
 		$('#excursions').attr('action','/cms/module/excursions/apply/excelDownloadMonth.do').submit();
 	});
+	
+	$('a#excelDownload2').on('click', function(event) {
+		event.preventDefault();
+
+		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
+			alert("홈페이지를 선택 해 주세요.");
+			return false;
+		}		
+		$('#excursions').attr('action','/cms/module/excursions/apply/excelDownloadMonth.do').submit();
+	}); */
 
 	$('a#totalExcelDownload').on('click', function(event) {
 		event.preventDefault();
@@ -230,7 +254,7 @@ $(function(){
 		<a href="#" id="allChecked" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체선택/취소</span></a>&nbsp;&nbsp;
 		<a href="#" id="checkedDelete" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>선택삭제</span></a>&nbsp;&nbsp;
 		<a href="#" id="totalExcelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체 엑셀저장</span></a>&nbsp;&nbsp;
-		<a href="#" id="excelDownload" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>&nbsp;&nbsp;
+		<a href="#" id="excelDownloadDate" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>&nbsp;&nbsp;
 		<a href="#" id="totalCsvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체 CSV저장</span></a>&nbsp;&nbsp;
 		<a href="#" id="csvDownload" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>&nbsp;&nbsp;
 		<c:if test="${authC}">
@@ -353,4 +377,6 @@ $(function(){
 <div id="dialog-2" class="dialog-common" title="견학신청">
 </div>
 <div id="dialog-3" class="dialog-common" title="신청자확인">
+</div>
+<div id="dialog-5" class="dialog-common" title="엑셀저장(기간선택)">
 </div>

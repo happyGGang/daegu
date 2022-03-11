@@ -1,5 +1,7 @@
 package kr.co.whalesoft.app.cms.module.excursions.apply;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,22 +54,35 @@ public class ApplyController extends BaseController {
 		return basePath + "applyEdit_ajax";
 	}
 
+	@RequestMapping(value = {"/excelDownloadDate.*"})
+	public String excelDownloadDate(Model model, Apply apply) {
+		Excursions excursions = new Excursions();
+		excursions.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
+		model.addAttribute("excursions", excursions);		
+		model.addAttribute("apply", apply);
+		return basePath + "excelDownloadDate_ajax";
+	}
+	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public ApplySearchView excel(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception{
 
 		model.addAttribute("apply", apply);
 		model.addAttribute("applyResult", service.getApply(apply));
 		return new ApplySearchView();
-	}
+	}		
 
-	@RequestMapping(value = {"/excelDownloadMonth.*"}, method = RequestMethod.POST)
+	@RequestMapping(value = {"/excelDownloadMonth.*"})
 	public ApplySearchView excelDownloadMonth(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception{
 
+		if("default".equals(apply.getEditMode())){
+			apply.setStart_date(apply.getPlan_year1() + "-" +apply.getPlan_month1() + "-01");
+			apply.setEnd_date(apply.getPlan_year1() + "-" +apply.getPlan_month1() + "-31");
+		}else if ("select".equals(apply.getEditMode())) {
+			apply.setStart_date(apply.getPlan_year2() + "-" +apply.getPlan_month2() + "-01");
+			apply.setEnd_date(apply.getPlan_year3() + "-" +apply.getPlan_month3() + "-31");
+		}
+		
 		model.addAttribute("apply", apply);
-
-		apply.setStart_date(apply.getPlan_date() + "-01");
-		apply.setEnd_date(apply.getPlan_date() + "-31");
-
 		model.addAttribute("applyResult", service.getApplyMonth(apply));
 		return new ApplySearchView();
 	}
