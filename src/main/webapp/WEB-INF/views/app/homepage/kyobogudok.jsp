@@ -5,45 +5,105 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<h3 class="contTit_line">구독형 전자책</h3>
-<br/>
+<div class="kyobo_bgbox bgbox">
+	<div class="lf-txt">
+		<p>
+			<span class="tt">제한없는 전자책서비스</span><br>
+			<span class="btit">구독형 전자책</span>
+		</p>
+		<br>
+		<form name="frm_kyobo_ebook" id="frm_kyobo_ebook" method="post" action="https://daegu.dkyobobook.co.kr/frontapi/mmbrLnkg.ink" accept-charset="UTF-8" target="_blank">
+		<input id="user_id" name="user_id" type="hidden" value="${sessionScope.member.member_id}"/>
+		<input type="hidden" name="user_type" value ="T1">
+		<input type="hidden" name="user_type_name" value ="회원">
+		<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+			<ul class="btns_wrap_tac">
+				<li>		
+					<c:choose>
+						<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
+							<c:choose>
+								<c:when test="${sessionScope.member.member_id eq 'ebookadmin'}">
+									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+								</c:when>
+								<c:otherwise>
+									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="alert('정회원만 이용가능합니다.');"> <span>구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
+
+<h3 class="contTit_line">구독형 전자책이란?</h3>
 <ul class="con">
-	<!-- <li> 구독형 전자책은 매년 도서목록을 갱신하여 연간단위로 이용하는 전자책서비스</li> -->
-	<li> 이용대상: 도서관 회원(대출카드 소지자)</li>
-	<li> 대출정책: 월(月) 14권<!-- <br/>※ 현재 한시적 10권, 소장형 전자책과 별도 이용 가능--></li>
-	<li> 한 도서 당 이용자 수 제한 없이 이용 가능</li>
-	<li> 전자책 대출 시 15일 후 자동반납</li>
-	<li> PC에서 이용 시 실행프로그램 다운로드(최초 1회) 후 읽기 가능</li>
-	<!-- <li> 예산 소진 시 서비스 조기 종료될 수 있음.</li> -->
+	<li>한도서당 이용자 수 제한이 없어 원하는 도서를 기다림없이 바로 이용할 수 있는 서비스</li>
+</ul>
+
+<h3 class="contTit_line">이용안내</h3>
+<ul class="con">
+	<li><strong>이용대상 :</strong> 대구통합도서관 정회원</li>
+	<li><strong>대출정책</strong>
+		<ul class="con2">
+			<li>대출권수 : 월 1인 14권</li>
+			<li>대출기간 : 15일(대출일포함)</li>
+			<li>반납방법 : 자동반납(수동반납 불가)</li>
+			<li>PC에서 이용 시 실행프로그램 다운로드(최초1회) 후 읽기 가능</li>
+		</ul>
+	</li>
+</ul>
+
+<h3 class="contTit_line">이용방법</h3>
+<h4>PC 이용방법</h4>
+<ul class="con kyobo_img">
+	<li style="margin-top:0;">
+		대구전자도서관 홈페이지 접속 후 대구통합도서관 아이디로 로그인<br />※ 회원가입, 로그인에 대한 문의는 공공도서관 담당자에게 문의<br />
+		<img src="/data/menuResources/h30/93/1646958946090.png">
+	</li>
+	<li>
+		구독형 전자책 아이콘 선택 후 구독형 전자책 바로가기를 클릭<br />
+		<img src="/data/menuResources/h30/93/1646958960944.png">
+	</li>
+	<li>
+		원하는 도서 선택 후 대출하기<br />
+		<img src="/data/menuResources/h30/93/1646958969013.jpg">
+		<img src="/data/menuResources/h30/93/1646958975398.png">
+	</li>
+	<li>
+		대출완료 후 다운보기 또는 바로보기 선택하여 책읽기(대출기한이 만료되면 자동반납)<br />
+		<img src="/data/menuResources/h30/93/1646958984250.png">
+	</li>
+</ul>
+<h4>모바일 앱 이용방법</h4>
+<ul class="con kyobo_img">
+	<li style="margin-top:0;">
+		스토어에서 교보문고 전자도서관을 설치
+	</li>
+	<li class="twin_img" style="margin-top:0;">
+		도서관 검색 창에 대구전자도서관 검색 후 선택<br />
+		<img src="/data/menuResources/h30/93/1646959032382.jpg">
+		<img src="/data/menuResources/h30/93/1646962238279.jpg">
+	</li>
+	<li class="twin_img">
+		대구통합도서관 아이디와 비밀번호를 입력 후 로그인<br />※ 회원가입, 로그인에 대한 문의는 공공도서관 담당자에게 문의<br />
+		<img src="/data/menuResources/h30/93/1646959044241.jpg">
+		<img src="/data/menuResources/h30/93/1646962247307.jpg">
+	</li>
+	<li class="twin_img">
+		원하는 도서선택, 대출완료 후 바로보기 또는 다운보기 선택하여 책읽기 (대출기한이 만료되면 자동반납)<br />
+		<img src="/data/menuResources/h30/93/1646962255458.jpg">
+		<img src="/data/menuResources/h30/93/1646962262238.jpg">
+	</li>
 </ul>
 
 
-<form name="frm_kyobo_ebook" id="frm_kyobo_ebook" method="post" action="https://daegu.dkyobobook.co.kr/frontapi/mmbrLnkg.ink" accept-charset="UTF-8" target="_blank">
-	<input id="user_id" name="user_id" type="hidden" value="${sessionScope.member.member_id}"/>
-	<input type="hidden" name="user_type" value ="T1">
-	<input type="hidden" name="user_type_name" value ="회원">
-	<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-	<div class="btn_area txt-center">
 
-<c:choose>
-	<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
-		<c:choose>
-			<c:when test="${sessionScope.member.member_id eq 'ebookadmin'}">
-				<a href="#" class="btn btn2 newWin" onclick="dwfrmsubmit();"> <b>구독형 전자책</b> <span>바로가기</span> <i class="fa fa-external-link"></i></a>
-			</c:when>
-			<c:otherwise>
-				<a href="#" class="btn btn2 newWin" onclick="alert('정회원만 이용가능합니다.');"> <b>구독형 전자책</b> <span>바로가기</span> <i class="fa fa-external-link"></i></a>
-			</c:otherwise>
-		</c:choose>
-	</c:when>
-	<c:otherwise>
-		<a href="#" class="btn btn2 newWin" onclick="dwfrmsubmit();"> <b>구독형 전자책</b> <span>바로가기</span> <i class="fa fa-external-link"></i></a>
-	</c:otherwise>
-</c:choose>
-
-	</div>
-</form>
 
 
 <script type="text/javascript">
@@ -51,3 +111,30 @@
 		$('#frm_kyobo_ebook').submit();
 	}
 </script>
+
+
+
+<!-- <form name="frm_kyobo_ebook" id="frm_kyobo_ebook" method="post" action="https://daegu.dkyobobook.co.kr/frontapi/mmbrLnkg.ink" accept-charset="UTF-8" target="_blank">
+	<input id="user_id" name="user_id" type="hidden" value="${sessionScope.member.member_id}"/>
+	<input type="hidden" name="user_type" value ="T1">
+	<input type="hidden" name="user_type_name" value ="회원">
+	<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	<div class="btn_area txt-center">
+	<c:choose>
+		<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
+			<c:choose>
+				<c:when test="${sessionScope.member.member_id eq 'ebookadmin'}">
+					<a href="#" class="btn btn2 newWin" onclick="dwfrmsubmit();"> <b>구독형 전자책</b> <span>바로가기</span> <i class="fa fa-external-link"></i></a>
+				</c:when>
+				<c:otherwise>
+					<a href="#" class="btn btn2 newWin" onclick="alert('정회원만 이용가능합니다.');"> <b>구독형 전자책</b> <span>바로가기</span> <i class="fa fa-external-link"></i></a>
+				</c:otherwise>
+			</c:choose>
+		</c:when>
+		<c:otherwise>
+			<a href="#" class="btn btn2 newWin" onclick="dwfrmsubmit();"> <b>구독형 전자책</b> <span>바로가기</span> <i class="fa fa-external-link"></i></a>
+		</c:otherwise>
+	</c:choose>
+	</div>
+</form> -->

@@ -40,6 +40,8 @@
 				<span class="txt-bar"></span>
 				<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
 				<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="more-btbtbt"><img src="/resources/homepage/${homepage.context_path}/img/more_btbtbt.png" alt="사이트맵"/></a>
+				<!--SNS-->
+				<a href="http://pf.kakao.com/_WPCfb" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/kakaoch-icon-btn.png" alt="카카오톡채널" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
 				<a href="https://twitter.com/nbl5539" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
 				<a href="https://www.facebook.com/nbl5539/" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
 			</div>

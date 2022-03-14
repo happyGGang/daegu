@@ -900,6 +900,7 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .naxos_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/naxos_bg.jpg") no-repeat;background-size: 100%;}
 .audiorac_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/audiorac_bg.jpg") no-repeat;background-size: 100%;}
 .cyber_bgbox {position: relative;height: 317px;background: url("/resources/homepage/elib/img/cyber.jpg") no-repeat;background-size: 100%;}
+.kyobo_bgbox {position: relative;height: 317px;background: url("/data/menuResources/h30/93/1646960355615.jpg") no-repeat;background-size: 100%;}
 
 .lf-txt {position: absolute;top: 61px;left: 50px;width: 460px;color: #fff;}
 .lf-txt2 {position: absolute;top: 61px;left: 30px;width: 460px;color: #fff;}
@@ -1108,3 +1109,8 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 .gd-col2:after {display: block; width: 0; height: 0; content: ''; clear: both;}
 .gd-col2 >.left {float: left; width:50%;}
 .gd-col2 >.right {float: right; width:50%;}
+
+/*구독형전자책 이미지*/
+.kyobo_img li{margin-top:20px;}
+.kyobo_img li img{border:1px solid #ddd;margin-top:10px;}
+.kyobo_img li.twin_img img{border:1px solid #ddd;width:49%;margin-right:0.5%;}
