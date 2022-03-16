@@ -167,7 +167,7 @@ $(function() {
 			</tbody>
 		</table>
 
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2021 수성인문학제> 독서릴레이를 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2022 수성인문학제> 독서릴레이를 신청합니다.</strong>
 		
 		<div class="button bbs-btn center">
 			<a href="#" id="save_btn" class="btn btn1">신청하기</a>
