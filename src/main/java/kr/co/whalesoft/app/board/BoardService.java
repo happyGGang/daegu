@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.whalesoft.app.cms.boardManage.BoardManageDao;
@@ -356,7 +357,10 @@ public class BoardService extends BaseService {
 		if(dao.addBoard(board) > 0) {
 
 			if(board.getBoardFileArray()!=null && board.getBoardFileArray().length > 0) {
-				boardFileService.fileProcess(board.getBoardFileArray(), board, "ADD", request);
+				if (board.getManage_idx() == 365) {
+					boardFileService.fileProcess(board.getBoardFileArray(), board, "ADD", request);
+					
+				}
 				board.setFile_count(board.getBoardFileArray().length);
 				dao.modifyBoardFileCount(board);
 			}

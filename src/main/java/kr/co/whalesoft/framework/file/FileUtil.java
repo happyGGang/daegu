@@ -134,6 +134,50 @@ public class FileUtil {
 			}
 		}
 	}
+	
+	/**
+	 * 필요없는 파일 삭제(PDF)
+	 * @param filePath
+	 * @param fileName
+	 * @throws IOException
+	 */
+	public static void noUseFileDeletePdf(String filePath, String fileArray[]) throws IOException {
+		File defaultfolder = new File( filePath );
+		String children[] = defaultfolder.list();
+		
+		if((children != null && children.length > 0)) {
+			for(int i=0; i<children.length; i++) {
+				boolean exist = false;
+				if(fileArray != null && fileArray.length > 0) {
+					for(int j=0; j<fileArray.length; j++) {
+						String fileName[] = fileArray[j].split("//");
+						if(fileName != null && fileName.length > 4) {
+							if(children[i].equals(fileName[1])) {
+								exist = true;
+								break;
+							}else{
+								String replace = fileName[1].replace(".pdf", ".jpg");
+								if(children[i].equals(replace)) {
+									exist = true;
+									break;
+								}else {
+								replace = fileName[1].replace(".jpg", ".pdf");
+									exist = true;
+									break;
+								}
+							}
+						}
+					}
+				}
+				if(!exist) {
+					File deleteFile = new File(filePath + children[i]);
+					if(deleteFile.isFile()) {
+						deleteFile.delete();
+					}
+				}
+			}
+		}
+	}
 
 	/**
 	 * 필요없는 파일 삭제

@@ -1,5 +1,6 @@
 package kr.co.whalesoft.app.board.boardFile;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -7,13 +8,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
@@ -70,33 +78,79 @@ public class BoardFileService extends BaseService {
 		String filePath = "";
 
 		String fileName = generateUniqueFileName("") + multiFile.getOriginalFilename().substring(multiFile.getOriginalFilename().lastIndexOf("."));
-
+				
 		if(request.getParameter("mode").equals("ADD") || request.getParameter("mode").equals("REPLY")) {
 			filePath = boardTempStorage.getRootPath() + "/" + request.getSession().getId() + "/";
 			Map<String, Object> fileMap = fileCheck(filePath, multiFile.getOriginalFilename(), multiFile.getSize(), request);
-
+			
 			if((Boolean)fileMap.get("valid")) {
+				String filePath2 = filePath;
 				filePath = request.getSession().getId();
 				boardFile = new BoardFile(boardTempStorage.addFile(multiFile, fileName, filePath), fileName, filePath);
 				boardFile.setFile_size((int)multiFile.getSize());
+				
+				
+				if(boardManage.getManage_idx() == 365){
+					File file2 = new File(filePath2 + "\\"+ fileName);//어떤 경로의 어떤 파일을 읽을것인지 설정하고 해당 파일객체 생성
+					try {
+						
+						PDDocument document = PDDocument.load(file2);//pdf문서 객체 생성
+						
+						PDFRenderer pdfRenderer = new PDFRenderer(document);
+						
+						BufferedImage imageObj = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB);//pdf파일의 페이지를돌면서 이미지 파일 변환
+						File outputfile = new File(filePath2 + "\\" + 
+									boardFile.getOrg_file_name().substring(0,boardFile.getOrg_file_name().length()-4) + ".jpg");
+						
+						ImageIO.write(imageObj, "jpg", outputfile);//변환한 파일 업로드
+						document.close();
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			} else {
 				boardFile = new BoardFile((Boolean)fileMap.get("valid"), (String)fileMap.get("msg"));
 			}
 		} else if(request.getParameter("mode").equals("MODIFY")) {
 			int board_idx = Integer.parseInt(request.getParameter("board_idx"));
 			filePath = boardStorage.getRootPath() + "/" + boardManage.getManage_idx() + "/" + board_idx + "/";
+			String filePath2 = boardStorage.getRootPath() + "/" + boardManage.getManage_idx() + "/" + board_idx + "/";
 
 			Map<String, Object> fileMap = fileCheck(filePath, multiFile.getOriginalFilename(), multiFile.getSize(), request);
 
 			if((Boolean)fileMap.get("valid")) {
 				filePath = "/" + boardManage.getManage_idx() + "/" + board_idx;
 				boardFile = new BoardFile(boardStorage.addFile(multiFile, fileName, filePath), fileName, filePath);
+				
+				if(boardManage.getManage_idx() == 365){
+					File file2 = new File(filePath2 + "\\"+ fileName);//어떤 경로의 어떤 파일을 읽을것인지 설정하고 해당 파일객체 생성
+					try {
+						
+						PDDocument document = PDDocument.load(file2);//pdf문서 객체 생성
+						
+						PDFRenderer pdfRenderer = new PDFRenderer(document);
+						
+						BufferedImage imageObj = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB);//pdf파일의 페이지를돌면서 이미지 파일 변환
+						File outputfile = new File(filePath2 + "\\" + 
+									boardFile.getOrg_file_name().substring(0,boardFile.getOrg_file_name().length()-4) + ".jpg");
+						
+						ImageIO.write(imageObj, "jpg", outputfile);//변환한 파일 업로드
+						document.close();
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
 				boardFile.setFile_size((int)multiFile.getSize());
 			} else {
 				boardFile = new BoardFile((Boolean)fileMap.get("valid"), (String)fileMap.get("msg"));
 			}
 		}
-
+		
 		return boardFile;
 	}
 
@@ -158,38 +212,60 @@ public class BoardFileService extends BaseService {
 	public void fileProcess(String[] boardFileArray, Board board, String mode, HttpServletRequest request) {
 		try {
 			//String date_file_path = boardService.getAddBoardDate(board.getBoard_idx());
-
-			if(mode.equals("ADD")) {
+			
+ 			if(mode.equals("ADD")) {
 				String beforePath = boardTempStorage.getRootPath() + "/" + request.getSession().getId() + "/";
 				String afterPath = boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/";
-
+				
 				for(String fileInfo : boardFileArray) {
+					
 					BoardFile boardFile = new BoardFile(fileInfo.split("//"), board);
-
+					
 					FileUtil.fileMove(beforePath, afterPath, fileInfo.split("//")[1]);
-					FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
-					dao.addBoardFile(boardFile);
+					if(board.getManage_idx() == 365) {
+						String replace = fileInfo.split("//")[1].replace(".pdf", ".jpg");
+						FileUtil.fileMove(beforePath, afterPath, replace);
+						
+						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
+						boardFile.setServer_file_name(replace);
+						dao.addBoardFile(boardFile);
+					}
+					else {
+						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
+						dao.addBoardFile(boardFile);
+					}
 				}
 
 				/**
 				 * 파일의 이동이 끝나면 임시폴더는 삭제한다.
 				 */
-				boardTempStorage.deleteFolder(request.getSession().getId());
+				 boardTempStorage.deleteFolder(request.getSession().getId()); 
 			} else if(mode.equals("MODIFY")) {
 				//String beforePath = boardTempStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/";
 				String afterPath = boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/";
 
 				for(String fileInfo : boardFileArray) {
 					BoardFile boardFile = new BoardFile(fileInfo.split("//"), board);
+					if(board.getManage_idx() == 365) {
+						
+						String replace = fileInfo.split("//")[1].replace(".pdf", ".jpg");
+						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
+						boardFile.setServer_file_name(replace);
+						dao.addBoardFile(boardFile);
+						
+						FileUtil.noUseFileDeletePdf(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/", boardFileArray);	// 필요없는 파일 삭제
+						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/thumb/", boardFileArray);	// 필요없는 파일 삭제(썸네일)
+					}
+					
+					else {
+						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
+						dao.addBoardFile(boardFile);
+						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/", boardFileArray);	// 필요없는 파일 삭제
+						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/thumb/", boardFileArray);	// 필요없는 파일 삭제(썸네일)
+					}
 
-					//FileUtil.fileMove(beforePath, afterPath, fileInfo.split("//")[1]);
-
-					FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
-					dao.addBoardFile(boardFile);
 				}
-
-				FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/", boardFileArray);	// 필요없는 파일 삭제
-				FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/thumb/", boardFileArray);	// 필요없는 파일 삭제(썸네일)
+				
 
 				/**
 				 * 파일의 이동이 끝나면 임시폴더는 삭제한다.
@@ -239,6 +315,14 @@ public class BoardFileService extends BaseService {
 			String fileName = boardFile.getServer_file_name();
 			String filePath = request.getSession().getId() + "/";
 			boardTempStorage.deleteFile(fileName, filePath);
+			
+			String fileLastName = fileName.substring(fileName.length()-3, fileName.length());
+			if (fileLastName.equals("pdf")) {
+			String changFileName = fileName.replace(".pdf", ".jpg"); 
+			boardTempStorage.deleteFile(changFileName, filePath);
+				
+			}
+			
 		} else if (mode.equals("MODIFY")) {
 			String fileName = boardFile.getServer_file_name();
 			String filePath = request.getParameter("manage_idx") + "/" + boardFile.getBoard_idx() + "/";
@@ -248,6 +332,13 @@ public class BoardFileService extends BaseService {
 			dao.deleteBoardFile(board_idx);
 			
 			boardTempStorage.deleteFolder(filePath);
+			
+			int boardNum = Integer.parseInt(filePath.split("/")[0]); 
+			if (boardNum == 365) {
+				String replace = fileName.replace(".jpg", ".pdf");
+				boardStorage.deleteFile(replace, filePath);
+				
+			}
 		}
 	}
 

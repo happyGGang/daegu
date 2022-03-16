@@ -48,14 +48,14 @@ public class BoardFileController extends BaseController {
 		response.setContentType("application/x-json;  charset=UTF-8");
 
 		MultipartFile mfile = mpRequest.getFileMap().get("multiFile");
-
+		
 		BoardFile boardFile = service.upload(mfile, request);
 
 		PrintWriter out = response.getWriter();
 
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String jsonOutput = gson.toJson(boardFile);
-
+		
 		out.println(jsonOutput);
 		out.flush();
 		out.close();
@@ -73,9 +73,15 @@ public class BoardFileController extends BaseController {
 			service.alertMessage("파일이 존재하지 않습니다.", request, response);
 			return null;
 		}
-		String filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + boardFile.getServer_file_name();
-		File file = new File(filePath);
+		String filePath;
+		if(manage_idx == 365) {
+			String replace = boardFile.getServer_file_name().replace(".jpg", ".pdf");
+			filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + replace;
+		}else {
+			filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + boardFile.getServer_file_name();
+		}
 
+		File file = new File(filePath);
 		byte[] bytes = null;
 
 		if(file.length() > 0) {
