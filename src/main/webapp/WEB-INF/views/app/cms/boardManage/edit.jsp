@@ -256,8 +256,8 @@ $(function(){
 						<td>
 							<form:select path="file_size_total" cssClass="selectmenu">
 							<c:choose>
-								<c:when test="${boardManage.manage_idx eq 1008}">
-									<c:forEach var="i" begin="1" end="600">
+								<c:when test="${boardManage.manage_idx eq 365}">
+									<c:forEach var="i" begin="1" end="800">
 										<form:option value="${i}">${i}MB</form:option>
 									</c:forEach>
 								</c:when>
