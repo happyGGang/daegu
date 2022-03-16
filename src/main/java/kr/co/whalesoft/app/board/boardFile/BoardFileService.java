@@ -90,7 +90,7 @@ public class BoardFileService extends BaseService {
 				boardFile.setFile_size((int)multiFile.getSize());
 				
 				
-				if(boardManage.getManage_idx() == 365){
+				if(boardManage.getManage_idx() == 1008){
 					File file2 = new File(filePath2 + "\\"+ fileName);//어떤 경로의 어떤 파일을 읽을것인지 설정하고 해당 파일객체 생성
 					try {
 						
@@ -124,7 +124,7 @@ public class BoardFileService extends BaseService {
 				filePath = "/" + boardManage.getManage_idx() + "/" + board_idx;
 				boardFile = new BoardFile(boardStorage.addFile(multiFile, fileName, filePath), fileName, filePath);
 				
-				if(boardManage.getManage_idx() == 365){
+				if(boardManage.getManage_idx() == 1008){
 					File file2 = new File(filePath2 + "\\"+ fileName);//어떤 경로의 어떤 파일을 읽을것인지 설정하고 해당 파일객체 생성
 					try {
 						
@@ -222,7 +222,7 @@ public class BoardFileService extends BaseService {
 					BoardFile boardFile = new BoardFile(fileInfo.split("//"), board);
 					
 					FileUtil.fileMove(beforePath, afterPath, fileInfo.split("//")[1]);
-					if(board.getManage_idx() == 365) {
+					if(board.getManage_idx() == 1008) {
 						String replace = fileInfo.split("//")[1].replace(".pdf", ".jpg");
 						FileUtil.fileMove(beforePath, afterPath, replace);
 						
@@ -246,7 +246,7 @@ public class BoardFileService extends BaseService {
 
 				for(String fileInfo : boardFileArray) {
 					BoardFile boardFile = new BoardFile(fileInfo.split("//"), board);
-					if(board.getManage_idx() == 365) {
+					if(board.getManage_idx() == 1008) {
 						
 						String replace = fileInfo.split("//")[1].replace(".pdf", ".jpg");
 						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
@@ -334,7 +334,7 @@ public class BoardFileService extends BaseService {
 			boardTempStorage.deleteFolder(filePath);
 			
 			int boardNum = Integer.parseInt(filePath.split("/")[0]); 
-			if (boardNum == 365) {
+			if (boardNum == 1008) {
 				String replace = fileName.replace(".jpg", ".pdf");
 				boardStorage.deleteFile(replace, filePath);
 				

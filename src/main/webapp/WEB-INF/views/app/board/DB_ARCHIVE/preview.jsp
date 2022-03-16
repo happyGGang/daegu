@@ -5,9 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 <% pageContext.setAttribute("crlf", "\r\n"); %>
-<c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
-${boardManage.top_html}
-</c:if>
+
+
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-header">

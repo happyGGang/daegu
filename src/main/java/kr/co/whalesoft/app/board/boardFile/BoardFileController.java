@@ -74,7 +74,7 @@ public class BoardFileController extends BaseController {
 			return null;
 		}
 		String filePath;
-		if(manage_idx == 365) {
+		if(manage_idx == 1008) {
 			String replace = boardFile.getServer_file_name().replace(".jpg", ".pdf");
 			filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + replace;
 		}else {

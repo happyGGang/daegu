@@ -252,11 +252,11 @@ $(function(){
 							</c:forEach>
 							</form:select>
 						</td>
-						<th>파일 총 용량제한dd</th>
+						<th>파일 총 용량제한</th>
 						<td>
 							<form:select path="file_size_total" cssClass="selectmenu">
 							<c:choose>
-								<c:when test="${boardManage.manage_idx eq 365}">
+								<c:when test="${boardManage.manage_idx eq 1008}">
 									<c:forEach var="i" begin="1" end="600">
 										<form:option value="${i}">${i}MB</form:option>
 									</c:forEach>

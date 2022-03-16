@@ -357,7 +357,7 @@ public class BoardService extends BaseService {
 		if(dao.addBoard(board) > 0) {
 
 			if(board.getBoardFileArray()!=null && board.getBoardFileArray().length > 0) {
-				if (board.getManage_idx() == 365) {
+				if (board.getManage_idx() == 365 || board.getManage_idx() == 1008) {
 					boardFileService.fileProcess(board.getBoardFileArray(), board, "ADD", request);
 					
 				}
