@@ -186,7 +186,7 @@ do {
 									</a>
 								</li>
 								<li class="qm2">
-									<a href="/${homepage.context_path}/html.do?menu_idx=27">
+									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=28">
 										<span>문화행사</span>
 									</a>
 								</li>

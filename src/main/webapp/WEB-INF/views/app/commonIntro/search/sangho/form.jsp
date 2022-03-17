@@ -86,7 +86,7 @@ $(function() {
 						<form:option value="127088">태전도서관</form:option>
 						<!-- <form:option value="727033">태전1동 작은도서관</form:option> -->
 						<form:option value="727038">산격1동 작은도서관</form:option>
-						<!-- <form:option value="727040">북구영어작은도서관</form:option> -->
+						<form:option value="727040">북구영어작은도서관</form:option>
 						<form:option value="727054">침산1동 작은도서관</form:option>
 						<form:option value="727055">노원동 작은도서관</form:option>
 						<form:option value="727088">서변동작은도서관</form:option>
