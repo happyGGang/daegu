@@ -264,7 +264,7 @@ public class TeachSettingService extends BaseService{
 			}
 			
 			//신청한 수
-			int applyCount = studentService.checkStudentSetting3(student);
+			int applyCount = studentService.checkStudentSetting2(student);
 			
 			if (category.getReq_limit_count() <= applyCount) {
 				return String.format("%s 분류의 강좌는 1인당 %s회 까지 신청 가능합니다.", category.getGroup_name(), category.getReq_limit_count());
