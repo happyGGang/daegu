@@ -69,7 +69,7 @@ $(function() {
     <li>
       <dl>
         <dt class="icon02">최대 대출기간</dt>
-        <dd><span class="eng">1</span>주</dd>
+        <dd><span class="eng">1~2</span>주</dd>
       </dl>
     </li>
   </ul>
