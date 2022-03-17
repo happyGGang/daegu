@@ -310,13 +310,14 @@
 					<option value="CB">신천도서관</option>
 					<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
-					<option value="GZ">동구청 작은도서관</option>
+					<!-- <option value="GZ">동구청 작은도서관</option> -->
 					<option value="GU">불로어울림 작은도서관</option>
 					<option value="GV">지저동 작은도서관</option>
 					<option value="FM">반야월역사 작은도서관</option>
 					<option value="FL">도평동 작은도서관</option>
 					<option value="GY">해안동 작은도서관</option>
 					<option value="GX">방촌동 작은도서관</option>
+					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
 					<option value="FK">신천3동 작은도서관</option>
@@ -329,7 +330,7 @@
 					<option value="CA">안심도서관</option>
 					<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
-					<option value="GZ">동구청 작은도서관</option>
+					<!-- <option value="GZ">동구청 작은도서관</option> -->
 					<option value="GU">불로어울림 작은도서관</option>
 					<option value="GV">지저동 작은도서관</option>
 					<option value="FM">반야월역사 작은도서관</option>
