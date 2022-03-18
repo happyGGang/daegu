@@ -66,6 +66,13 @@ ${boardManage.top_html}
 					<form:input type="text" path="imsi_v_3" cssClass="text ui-calendar"/>
 				</td>
 			</tr>
+			<th>비밀글 여부</th>
+				<td>
+					<form:radiobutton path="secret_yn" id="secret_yn_yes" value="Y"/>
+					<label for="secret_yn_yes">예</label>
+					<form:radiobutton path="secret_yn" id="secret_yn_no" value="N" />
+					<label for="secret_yn_no">아니오</label>
+				</td>
 				<c:if test="${sessionScope.member.anonymous}">
 					<th>
 						<c:if test="${board.editMode eq 'ADD'}">임시 비밀번호</c:if>
