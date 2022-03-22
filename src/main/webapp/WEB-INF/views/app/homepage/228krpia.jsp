@@ -11,14 +11,14 @@
 			<h3>KRpia 전자저널</h3>
 			<p>228민주도서관에서는 지역민의 활발한 학습활동과 연구활동 지원을 위하여<br>
 			국내간행물 학술분야 2천여종, 전문잡지 50여 종, 학술논문 230여만편 등을 제공하는<br>
-			KRpia 전자저널 서비스 제공합니다.<br><br>228민주도서관 홈페이지 로그인한 후 아래의 바로가기 클릭 해주세요.</p>
+			KRpia 전자저널 서비스 제공합니다.</p>
 			<ul class="btns_wrap_tac">
 			<li>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<c:choose>
 							<c:when test="${sessionScope.member.user_no eq '' or sessionScope.member.user_no eq null}">
-								<a href="javascript:alert('정회원(대출회원) 전용입니다.');" class="btn_link02"  title="KRpia 전자저널 바로가기(새창열림)"><span>KRpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
+								<a href="https://www.krpia.co.kr" class="btn_link02"  title="KRpia 전자저널 바로가기(새창열림)"><span>KRpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
 							</c:when>
 							<c:otherwise>
 								<script type="text/javascript" src="http://www.krpia.co.kr/js/krpia_outconn.js"></script>
@@ -27,7 +27,7 @@
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="#" onclick="alert('로그인후 이용가능합니다.'); location.href='http://library.daegu.go.kr/228lib/intro/login/index.do?menu_idx=4&before_url=/228lib/html/228krpia.do?menu_idx=122';" class="btn_link02"  title="KRpia 전자저널 바로가기(새창열림)"><span>KRpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
+						<a href="https://www.krpia.co.kr" class="btn_link02"  title="KRpia 전자저널 바로가기(새창열림)"><span>KRpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
 					</c:otherwise>
 				</c:choose>
 			</li>
@@ -36,3 +36,13 @@
 	</div>
 </div>
 
+<ul class="con">
+	<li><strong>관내 이용 방법 :</strong> KRpia 전자저널 바로가기 클릭하면 자동 인증되어 원문 검색 및 열람 가능</li>
+	<li><strong>관외 이용 방법</strong>
+		<ul class="con2">
+			<li>① 도서관 내부에서 KRpia 전자저널 바로가기 클릭</li>
+			<li>② 기관인증 된 상태로 개인 로그인 시 관외 이용 승인</li>
+			<li>③ 관외에서 www.krpia.co.kr 접속하여 개인계정으로 로그인 후 열람 가능<br />* 1회 인증 시 90일 관외 이용 가능</li>
+		</ul>
+	</li>
+</ul>
