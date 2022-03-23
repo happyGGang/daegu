@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundleDao">
+
+	<select id="getBookPackageBundleCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			BOOK_PACKAGE_BUNDLE
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getBookPackageBundleList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			homepage_id, book_package_bundle_idx, book_package_bundle_title, loan_count, quantity,
+			grade
+		FROM
+			BOOK_PACKAGE_BUNDLE
+		WHERE
+			homepage_id = #{homepage_id}
+		ORDER BY book_package_bundle_idx DESC
+	</select>
+
+	<select id="getBookPackageBundleOne" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			homepage_id, book_package_bundle_idx, book_package_bundle_title, loan_count, quantity,
+			grade
+		FROM
+			BOOK_PACKAGE_BUNDLE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_package_bundle_idx = #{book_package_bundle_idx}
+	</select>
+	
+	<insert id="createBookPackageBundle">
+		<selectKey keyProperty="book_package_bundle_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_package_bundle_idx), 0) + 1 FROM BOOK_PACKAGE_BUNDLE
+		</selectKey>
+		INSERT INTO
+			BOOK_PACKAGE_BUNDLE
+		(
+			homepage_id, book_package_bundle_idx, book_package_bundle_title, loan_count, quantity,
+			grade
+		)
+		VALUES
+		(
+			#{homepage_id}, #{book_package_bundle_idx}, #{book_package_bundle_title}, #{loan_count}, #{quantity},
+			#{grade}
+		)
+	</insert>
+
+	<delete id="deleteBookPackage">
+		DELETE FROM
+			BOOK_PACKAGE_BUNDLE
+		WHERE
+			book_package_bundle_idx = #{book_package_bundle_idx}
+	</delete>
+	
+	<update id="modifyBookPackageBundle">
+		UPDATE
+			BOOK_PACKAGE_BUNDLE
+		SET
+			book_package_bundle_title = #{book_package_bundle_title}
+		WHERE
+			book_package_bundle_idx = #{book_package_bundle_idx}
+	</update>
+	
+	<select id="getBookPackage" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			<![CDATA[
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, b.book_package_name,
+			b.author, b.publisher, b.publish_year, a.loan_count, a.quantity, a.grade,
+			b.category, b.keyword, b.desc_link, b.image_link, REGEXP_REPLACE(b.content, '<[^>]*>', '') AS content,
+			b.org_file_name, b.server_file_name, b.file_extension, b.file_size, b.doc_org_file_name,
+			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size, b.book_package_bundle_detail_idx
+			]]>
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.book_package_bundle_idx = b.book_package_bundle_idx
+		AND a.book_package_bundle_idx = #{book_package_bundle_idx}
+	</select>
+
+	<insert id="addBookPackageBundle">
+		<selectKey keyProperty="book_package_bundle_detail_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_package_bundle_detail_idx), 0) + 1 FROM BOOK_PACKAGE_BUNDLE_DETAIL
+		</selectKey>
+		INSERT INTO
+			BOOK_PACKAGE_BUNDLE_DETAIL
+		(
+			book_package_bundle_idx, book_package_bundle_detail_idx, book_package_name, author,
+			publisher, publish_year, category, keyword, desc_link, image_link, content,
+			<if test="doc_org_file_name != null and doc_org_file_name != ''">
+			doc_org_file_name, doc_server_file_name, doc_file_extension, doc_file_size,
+			</if>
+			<if test="org_file_name != null and org_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size,
+			</if>
+			add_date
+		)
+		VALUES
+		(
+			#{book_package_bundle_idx}, #{book_package_bundle_detail_idx}, #{book_package_name}, #{author},
+			#{publisher}, #{publish_year}, #{category}, REPLACE(#{keyword}, ' ', ''), #{desc_link}, #{image_link}, #{content},
+			<if test="doc_org_file_name != null and doc_org_file_name != ''">
+			#{doc_org_file_name}, #{doc_server_file_name}, #{doc_file_extension}, #{doc_file_size},
+			</if>
+			<if test="org_file_name != null and org_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if>
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="getBookPackageDetailCount" resultType="int">
+		SELECT
+			count(*)
+			FROM
+			(
+			SELECT
+				count(*)	 	   
+			FROM
+				BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b,
+				(
+				SELECT
+					book_package_bundle_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
+				FROM
+					BOOK_PACKAGE_BUNDLE_LOAN
+				WHERE
+					request_status IN (0, 1, 2)
+				GROUP BY book_package_bundle_idx
+				) c
+			WHERE 
+				a.homepage_id = #{homepage_id}
+				AND a.book_package_bundle_idx = b.book_package_bundle_idx
+				AND a.book_package_bundle_idx = c.book_package_bundle_idx(+)
+				<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
+				<if test="category != null and category != '' and category != 'all'">
+				AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+				</if>
+				<if test="grade != null and grade != ''">
+				AND	grade = #{grade}
+				</if>
+				<if test="lender_count != -1">
+				AND	#{lender_count}
+				<choose>
+					<when test="lender_count == 0"><![CDATA[=]]></when>
+					<when test="lender_count == 1"><![CDATA[<=]]></when>
+				</choose>
+				(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+				</if>
+			GROUP BY b.book_package_bundle_idx,a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity,
+					a.grade, c.loan_start_date, c.loan_end_date,c.lender_count
+			)
+	</select>
+	
+	<select id="getBookPackageDetailList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity,
+			a.grade,
+			LISTAGG(b.book_package_name,',') WITHIN GROUP (ORDER BY b.book_package_bundle_idx ) AS book_package_name,
+			LISTAGG(b.category,',') WITHIN GROUP (ORDER BY b.book_package_bundle_idx ) AS category,
+			LISTAGG(b.keyword,',') WITHIN GROUP (ORDER BY b.book_package_bundle_idx ) AS keyword,
+			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			NVL(c.lender_count, 0) AS lender_count	 	   
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b,
+			(
+			SELECT
+				book_package_bundle_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
+			FROM
+				BOOK_PACKAGE_BUNDLE_LOAN
+			WHERE
+				request_status IN (0, 1, 2)
+			GROUP BY book_package_bundle_idx
+			) c
+		WHERE 
+			a.homepage_id = #{homepage_id}
+			AND a.book_package_bundle_idx = b.book_package_bundle_idx
+			AND a.book_package_bundle_idx = c.book_package_bundle_idx(+)
+			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+			<if test="category != null and category != '' and category != 'all'">
+			AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+			</if>
+			<if test="grade != null and grade != ''">
+			AND	grade = #{grade}
+			</if>
+			<if test="lender_count != -1">
+			AND	#{lender_count}
+			<choose>
+				<when test="lender_count == 0"><![CDATA[=]]></when>
+				<when test="lender_count == 1"><![CDATA[<=]]></when>
+			</choose>
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+			</if>
+		GROUP BY b.book_package_bundle_idx, a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count,
+				 a.quantity, a.grade, c.loan_start_date, c.loan_end_date,
+				 c.lender_count
+		ORDER BY book_package_bundle_idx DESC
+	</select>
+
+	<select id="getBookPackageCategoryList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			a.book_package_bundle_idx,
+			(select REGEXP_REPLACE(LISTAGG(category, ',') WITHIN GROUP (ORDER BY book_package_bundle_idx), '([^,]+)(,\1)*(,|$)', '\1\3') as a  FROM BOOK_PACKAGE_BUNDLE_DETAIL WHERE book_package_bundle_idx = a.book_package_bundle_idx) AS category
+			,(select LISTAGG(book_package_name, ', ') WITHIN GROUP(ORDER BY book_package_bundle_idx) as book_package_name  FROM BOOK_PACKAGE_BUNDLE_DETAIL WHERE book_package_bundle_idx = a.book_package_bundle_idx) AS book_package_name
+			,(select LISTAGG(keyword, ', ') WITHIN GROUP(ORDER BY book_package_bundle_idx) as keyword  FROM BOOK_PACKAGE_BUNDLE_DETAIL WHERE book_package_bundle_idx = a.book_package_bundle_idx) AS keyword
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.book_package_bundle_idx = b.book_package_bundle_idx
+		GROUP BY a.book_package_bundle_idx
+	</select>
+
+	<insert id="addBookPackageLoan">
+		<selectKey keyProperty="book_package_bundle_loan_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_package_bundle_loan_idx), 0) + 1 FROM BOOK_PACKAGE_BUNDLE_LOAN
+		</selectKey>
+		INSERT INTO
+			BOOK_PACKAGE_BUNDLE_LOAN
+		(
+			book_package_bundle_idx, book_package_bundle_loan_idx, request_name, school_name,
+			loan_start_date, loan_end_date, phone, school_tel, request_content,
+			request_status, return_yn, add_id, add_date
+		)
+		VALUES
+		(
+			#{book_package_bundle_idx}, #{book_package_bundle_loan_idx}, #{request_name}, #{school_name},
+			#{loan_start_date}, #{loan_end_date}, #{phone}, #{school_tel}, #{request_content},
+			#{request_status}, 'N', #{add_id}, SYSDATE
+		)
+	</insert>
+
+	<update id="modifyBookPackageLoan">
+		UPDATE
+			BOOK_PACKAGE_BUNDLE_LOAN
+		SET
+			request_name = #{request_name},
+			school_name = #{school_name},
+			loan_start_date = #{loan_start_date},
+			loan_end_date = #{loan_end_date},
+			phone = #{phone},
+			school_tel = #{school_tel},
+			request_content = #{request_content},
+			request_status = #{request_status},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			book_package_bundle_loan_idx = #{book_package_bundle_loan_idx}
+	</update>
+
+	<update id="modifyReturnReq">
+		UPDATE
+			BOOK_PACKAGE_BUNDLE_LOAN
+		SET
+			return_yn = #{return_yn}
+		WHERE
+			book_package_bundle_loan_idx = #{book_package_bundle_loan_idx}
+	</update>
+
+	<delete id="deleteBookPackageLoan">
+		DELETE FROM
+			BOOK_PACKAGE_BUNDLE_LOAN
+		WHERE
+			book_package_bundle_loan_idx = #{book_package_bundle_loan_idx}
+	</delete>
+
+	<update id="statusChangeAll">
+		UPDATE
+			BOOK_PACKAGE_BUNDLE_LOAN
+		SET
+			request_status = #{request_status}
+		WHERE
+			book_package_bundle_loan_idx IN
+			<foreach collection="book_package_bundle_loan_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</update>
+	
+	<select id="getBookPackageLoanOne" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			a.book_package_bundle_title, b.book_package_bundle_idx, b.book_package_bundle_loan_idx, b.request_name, b.school_name, a.quantity,
+			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
+			b.add_id, b.add_date
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_LOAN b
+		WHERE
+			a.book_package_bundle_idx = b.book_package_bundle_idx
+		AND	book_package_bundle_loan_idx = #{book_package_bundle_loan_idx}
+	</select>
+	
+	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity,
+			a.grade,
+			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			NVL(c.lender_count, 0) AS lender_count
+		FROM
+			BOOK_PACKAGE_BUNDLE a,
+			(
+			SELECT
+				book_package_bundle_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
+			FROM
+				BOOK_PACKAGE_BUNDLE_LOAN
+			WHERE
+				request_status NOT IN (3, 4, 5)
+			GROUP BY book_package_bundle_idx
+			) c
+		WHERE
+			a.book_package_bundle_idx = c.book_package_bundle_idx(+)
+		AND	a.book_package_bundle_idx = #{book_package_bundle_idx}
+	</select>
+	
+	<select id="getBookPackageLoanCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_LOAN b
+		WHERE
+			a.book_package_bundle_idx = b.book_package_bundle_idx
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<choose>
+			<when test="return_yn != null and return_yn != ''">
+			AND	return_yn = #{return_yn}
+			AND	request_status = '2'
+			</when>
+			<when test="request_status != null and request_status != ''">
+			AND	request_status = #{request_status}
+			</when>
+		</choose>
+		<if test="loan_start_date != null and loan_start_date != ''">
+		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND b.add_id = #{add_id}
+		</if>
+	</select>
+	
+	<select id="getBookPackageLoanList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		${pagingTop}
+		SELECT
+			b.book_package_bundle_idx, b.book_package_bundle_loan_idx, a.book_package_bundle_title, b.request_name, b.school_name,
+			a.quantity, a.loan_count,
+			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
+			b.add_id, b.add_date,
+			LISTAGG(c.category,',') WITHIN GROUP (ORDER BY c.book_package_bundle_idx ) AS category
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_LOAN b, BOOK_PACKAGE_BUNDLE_DETAIL c
+		WHERE
+			a.book_package_bundle_idx = b.book_package_bundle_idx
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<choose>
+			<when test="return_yn != null and return_yn != ''">
+			AND	return_yn = #{return_yn}
+			AND	request_status = '2'
+			</when>
+			<when test="request_status != null and request_status != ''">
+			AND	request_status = #{request_status}
+			</when>
+		</choose>
+		<if test="loan_start_date != null and loan_start_date != ''">
+		AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+		</if>
+		<if test="add_id != null and add_id != ''">
+		AND b.add_id = #{add_id}
+		</if>
+		GROUP BY b.book_package_bundle_idx, b.book_package_bundle_loan_idx, a.book_package_bundle_title,  b.request_name, b.school_name,
+				 a.quantity, a.loan_count, b.loan_start_date, b.loan_end_date, b.phone,
+				 b.school_tel, b.request_content, b.request_status, b.return_yn, b.add_id,
+				 b.add_date
+		ORDER BY b.book_package_bundle_loan_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getBookPackageDetailOne" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			<![CDATA[
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, b.book_package_name,
+			b.author, b.publisher, b.publish_year, a.loan_count, a.quantity, a.grade,
+			b.category, b.keyword, b.desc_link, b.image_link, REGEXP_REPLACE(b.content, '<[^>]*>', '') AS content,
+			b.org_file_name, b.server_file_name, b.file_extension, b.file_size, b.doc_org_file_name,
+			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size
+			]]>
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.book_package_bundle_idx = b.book_package_bundle_idx
+		AND b.book_package_bundle_detail_idx = #{book_package_bundle_detail_idx}
+	</select>
+	
+	<update id="modifyBookPackage">
+		UPDATE
+			BOOK_PACKAGE_BUNDLE_DETAIL
+		SET
+			book_package_name = #{book_package_name},
+			author = #{author},
+			publisher = #{publisher},
+			publish_year = #{publish_year},
+			category = #{category},
+			keyword = #{keyword},
+			desc_link = #{desc_link},
+			image_link = #{image_link},
+			content = #{content},
+			<if test="doc_org_file_name != null and doc_org_file_name != ''">
+			doc_org_file_name = #{doc_org_file_name},
+			doc_server_file_name = #{doc_server_file_name},
+			doc_file_extension = #{doc_file_extension},
+			doc_file_size = #{doc_file_size},
+			</if>
+			<if test="org_file_name != null and org_file_name != ''">
+			org_file_name = #{org_file_name}, 
+			server_file_name = #{server_file_name}, 
+			file_extension = #{file_extension}, 
+			file_size = #{file_size},
+			</if>
+			add_date = SYSDATE
+		WHERE
+			book_package_bundle_detail_idx = #{book_package_bundle_detail_idx}
+	</update>
+	
+	<select id="getBookPackageBundleExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			<![CDATA[
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, b.book_package_name,
+			b.author, b.publisher, b.publish_year, a.loan_count, a.quantity, a.grade,
+			b.category, b.keyword, b.desc_link, b.image_link, REGEXP_REPLACE(b.content, '<[^>]*>', '') AS content,
+			b.org_file_name, b.server_file_name, b.file_extension, b.file_size, b.doc_org_file_name,
+			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size,
+			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			c.phone, c.school_tel, c.request_content, c.request_status, c.return_yn,
+			c.add_id, c.add_date
+			]]>
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b, BOOK_PACKAGE_BUNDLE_LOAN c
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.book_package_bundle_idx = b.book_package_bundle_idx
+		AND a.book_package_bundle_idx = c.book_package_bundle_idx
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+		</if>
+		<if test="grade != null and grade != ''">
+		AND	grade = #{grade}
+		</if>
+		<if test="lender_count != -1">
+		AND	#{lender_count}
+		<choose>
+			<when test="lender_count == 0"><![CDATA[=]]></when>
+			<when test="lender_count == 1"><![CDATA[<=]]></when>
+		</choose>
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+		</if>
+	</select>
+	
+	<select id="getBookPackageBundleLoanExcelList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			<![CDATA[
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, b.book_package_name,
+			b.author, b.publisher, b.publish_year, a.loan_count, a.quantity, a.grade,
+			b.category, b.keyword, b.desc_link, b.image_link, REGEXP_REPLACE(b.content, '<[^>]*>', '') AS content,
+			b.org_file_name, b.server_file_name, b.file_extension, b.file_size, b.doc_org_file_name,
+			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size,
+			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			c.phone, c.school_tel, c.request_content, c.request_status, c.return_yn,
+			c.add_id, c.add_date, c.school_name, c.request_name
+			]]>
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BOOK_PACKAGE_BUNDLE_DETAIL b, BOOK_PACKAGE_BUNDLE_LOAN c
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.book_package_bundle_idx = b.book_package_bundle_idx
+		AND a.book_package_bundle_idx = c.book_package_bundle_idx
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+		</if>
+		<if test="grade != null and grade != ''">
+		AND	grade = #{grade}
+		</if>
+		<if test="lender_count != -1">
+		AND	#{lender_count}
+		<choose>
+			<when test="lender_count == 0"><![CDATA[=]]></when>
+			<when test="lender_count == 1"><![CDATA[<=]]></when>
+		</choose>
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+		</if>
+	</select>
+	
+	<delete id="deleteBookPackageBundle">
+		DELETE FROM
+			BOOK_PACKAGE_BUNDLE
+		WHERE
+			book_package_bundle_idx IN
+			<foreach collection="book_package_bundle_idx_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</delete>
+	
+	<delete id="deleteBookPackageBundleDetail">
+		DELETE FROM
+			BOOK_PACKAGE_BUNDLE_DETAIL
+		WHERE
+			book_package_bundle_idx IN
+			<foreach collection="book_package_bundle_idx_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</delete>
+
+	<delete id="deleteBookPackageBundleDetailOne">
+		DELETE FROM
+			BOOK_PACKAGE_BUNDLE_DETAIL
+		WHERE
+			book_package_bundle_detail_idx = #{book_package_bundle_detail_idx}
+	</delete>
+</mapper>
