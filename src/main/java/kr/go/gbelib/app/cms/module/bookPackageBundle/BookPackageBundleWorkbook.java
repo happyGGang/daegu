@@ -126,7 +126,8 @@ public class BookPackageBundleWorkbook {
 				}
 				workbook.getSheet(0).addCell(new Label(8, row, category));
 				String request_status = "";
-				switch (Integer.parseInt(one.getRequest_status())) {
+				if (one.getRequest_status() != null) {
+					switch (Integer.parseInt(one.getRequest_status())) {
 					case 0 :
 						request_status = "신청중";
 						break;
@@ -145,7 +146,11 @@ public class BookPackageBundleWorkbook {
 					case 5 :
 						request_status = "반납요청완료";
 						break;
+					}
+				} else {
+					request_status = "";
 				}
+				
 				workbook.getSheet(0).addCell(new Label(9, row, request_status));
 				row++;
 			}
