@@ -3,6 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
 <script type="text/javascript">
 $(function() {
 	var $form = $('form#bookPackageBundle');
@@ -14,88 +16,22 @@ $(function() {
 });
 </script>
 <style type="text/css">
-dl dt {display: inline-block;border-right: 1px solid silver;padding-right: 5px;margin-right: 5px;}
-dl dd {display: inline-block;margin-right: 15px;}
-
-.bookPackageBundleAll {border: 1px solid #e5e8eb;border-left-width: 0px;border-right-width: 0px;}
 .bookPackageBundleSubject {font-size: 20px;background: #f6f6f6;font-weight: bold;text-align: center;height: 42px;width: 1000px;display: table-cell;vertical-align: middle;border: 1px solid #e5e8eb;}
-.bookPackageBundleList::after {
-	content: '';
-	display: block;
-	width: 100%;
-	clear: both;
-}
-.bookPackageBundleList .bookPackageBundleListItem {
-	float: left;
-	width: 48%;
-	margin: 1em 0;
-}
-.bookPackageBundleList .bookPackageBundleListItem:nth-child(odd) {clear: left;}
-.bookPackageBundleList .bookPackageBundleListItem:nth-child(2n) {margin-left: 4%;}
-.bookPackageBundleList .bookPackageBundleListItem dl {border: 1px solid #e5e8eb;border-left-width: 0px;border-right-width: 0px;}
-
-@media screen and (max-width: 540px){
-	.bookPackageBundleList .bookPackageBundleListItem {
-		float: none;
-		width: 100%;
-	}
-	.bookPackageBundleList .bookPackageBundleListItem:nth-child(2n) {margin-left: 0;}
-}
-
 </style>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookPackageBundle" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
-<form:hidden path="viewPage"/>
 
-<div class="bookPackageBundleAll">
+<div class="serial-wrap" style="margin-top:20px;">
 	<div class="bookPackageBundleSubject">
-		꾸러미명 : ${bookPackageBundle.book_package_bundle_title}
+		${bookPackageBundle.book_package_bundle_title}
 	</div>
-	<div class="bookPackageBundleList">
-		<c:forEach var="j" varStatus="status" begin="0" end="1">
-			<c:forEach items="${bookPackageBundleList}" var="i" varStatus="status" begin="${j}" step="2">
-			<div class="bookPackageBundleListItem">
-				<dl style="background: #f6f6f6;">
-					도서명 : ${i.book_package_name}
-				</dl>
-				<dl>
-					<dt>작가</dt><dd>${i.author}</dd>
-					<dt>출판사</dt><dd>${i.publisher}</dd>
-					<dt>출판 연도</dt><dd>${i.publish_year}</dd>
-				</dl>
-				<dl>
-					<dt>대출가능권수</dt><dd>${i.loan_count}권</dd>
-					<dt>소장권수</dt><dd>${i.quantity}</dd>
-				</dl>
-				<dl>
-					<dt>수준법</dt>
-					<dd>
-						<c:choose>
-							<c:when test="${i.grade eq '3'}">초</c:when>
-							<c:when test="${i.grade eq '4'}">중</c:when>
-							<c:when test="${i.grade eq '5'}">고</c:when>
-						</c:choose>
-					</dd>
-					<dt>주류법</dt>
-					<dd>
-						<c:forTokens items="${i.category}" delims="," var="category">
-						<c:choose>
-							<c:when test="${category eq '000'}">총류</c:when>
-							<c:when test="${category eq '100'}">철학</c:when>
-							<c:when test="${category eq '200'}">종교</c:when>
-							<c:when test="${category eq '300'}">사회과학</c:when>
-							<c:when test="${category eq '400'}">자연과학</c:when>
-							<c:when test="${category eq '500'}">기술과학</c:when>
-							<c:when test="${category eq '600'}">예술</c:when>
-							<c:when test="${category eq '700'}">언어</c:when>
-							<c:when test="${category eq '800'}">문학</c:when>
-							<c:when test="${category eq '900'}">역사</c:when>
-						</c:choose>
-						</c:forTokens>
-					</dd>
-				</dl>
-				<dl>
+	<div class="smain">
+		<div class="box">
+			<div class="search-results">
+			<c:forEach items="${bookPackageBundleList}" var="i" varStatus="status">
+			<div class="row">
+				<div class="thumb">
 					<c:choose>
 						<c:when test="${not empty i.image_link}">
 						<a href="${i.desc_link}" target="_blank">
@@ -108,12 +44,52 @@ dl dd {display: inline-block;margin-right: 15px;}
 						</a>
 						</c:when>
 					</c:choose>
-					<br>
-					${i.content}
-				</dl>
+				</div>
+				<div class="box">
+					<div class="item">
+						<div class="bif">
+							<a class="name" title="${i.book_package_name}">
+								${fn:substring(i.book_package_name, 0, 30)}<c:if test="${fn:length(i.book_package_name) > 30}">...</c:if>
+							</a>
+							<ul class="con2">
+								<li>저자 : ${fn:substring(i.author, 0, 20)}<c:if test="${fn:length(i.author) > 20}">...</c:if></li>
+								<li>출판사 : ${fn:substring(i.publisher, 0, 20)}<c:if test="${fn:length(i.publisher) > 20}">...</c:if></li>
+								<li>출판년도 : ${i.publish_year}</li>
+								<li>
+									주제 :
+									<c:forTokens items="${i.category}" delims="," var="category">
+									<c:choose>
+										<c:when test="${category eq '000'}">총류</c:when>
+										<c:when test="${category eq '100'}">철학</c:when>
+										<c:when test="${category eq '200'}">종교</c:when>
+										<c:when test="${category eq '300'}">사회과학</c:when>
+										<c:when test="${category eq '400'}">자연과학</c:when>
+										<c:when test="${category eq '500'}">기술과학</c:when>
+										<c:when test="${category eq '600'}">예술</c:when>
+										<c:when test="${category eq '700'}">언어</c:when>
+										<c:when test="${category eq '800'}">문학</c:when>
+										<c:when test="${category eq '900'}">역사</c:when>
+									</c:choose>
+									</c:forTokens>
+								</li>
+								<li>
+									대상 : 
+									<c:choose>
+										<c:when test="${i.grade eq '3'}">초등1-2학년</c:when>
+										<c:when test="${i.grade eq '4'}">초등3-4학년</c:when>
+										<c:when test="${i.grade eq '5'}">초등5-6학년</c:when>
+										<c:when test="${i.grade eq '6'}">중학생</c:when>
+										<c:when test="${i.grade eq '7'}">고등학생</c:when>
+									</c:choose>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 			</c:forEach>
-		</c:forEach>
+			</div>
+		</div>
 	</div>
 </div>
 </form:form>

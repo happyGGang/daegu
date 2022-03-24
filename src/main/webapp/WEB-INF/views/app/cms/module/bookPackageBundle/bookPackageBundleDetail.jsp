@@ -141,7 +141,7 @@ function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bu
 				<th>도서명</th>
 				<th>작가</th>
 				<th>출판사</th>
-				<th>출판 연도</th>
+				<th>출판년도</th>
 				<th>키워드</th>
 				<th>기능</th>
 			</tr>

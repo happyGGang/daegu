@@ -55,9 +55,11 @@ function bookPackageBundleSave() {
 	        	<td>
 	        		<form:select path="grade">
 	        			<form:option value="">수준별보기</form:option>
-	        			<form:option value="3">초</form:option>
-	        			<form:option value="4">중</form:option>
-	        			<form:option value="5">고</form:option>
+	        			<form:option value="3">초등1-2학년</form:option>
+	        			<form:option value="4">초등3-4학년</form:option>
+	        			<form:option value="5">초등5-6학년</form:option>
+	        			<form:option value="6">중학생</form:option>
+	        			<form:option value="7">고등학생</form:option>
 	        		</form:select>
 	        	</td>
 	        </tr>

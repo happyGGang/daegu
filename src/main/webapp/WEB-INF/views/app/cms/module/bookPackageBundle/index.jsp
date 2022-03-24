@@ -328,9 +328,11 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 				<c:if test="${not empty i.grade}">
 				<span class="step1">
 				<c:choose>
-					<c:when test="${i.grade eq '3'}">초</c:when>
-					<c:when test="${i.grade eq '4'}">중</c:when>
-					<c:when test="${i.grade eq '5'}">고</c:when>
+					<c:when test="${i.grade eq '3'}">초등1-2학년</c:when>
+					<c:when test="${i.grade eq '4'}">초등3-4학년</c:when>
+					<c:when test="${i.grade eq '5'}">초등5-6학년</c:when>
+					<c:when test="${i.grade eq '6'}">중학생</c:when>
+					<c:when test="${i.grade eq '7'}">고등학생</c:when>
 				</c:choose>
 				</span>
 				</c:if>

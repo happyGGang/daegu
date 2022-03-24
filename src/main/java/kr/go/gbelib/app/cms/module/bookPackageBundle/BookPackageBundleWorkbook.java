@@ -84,12 +84,16 @@ public class BookPackageBundleWorkbook {
 				String grade = "";
 				if(one.getGrade() != null) {
 					if(one.getGrade().equals("3")) {
-						grade = "초등";
+						grade = "초등1-2학년";
 					} else if(one.getGrade().equals("4")) {
-						grade = "중등";
+						grade = "초등3-4학년";
 					} else if(one.getGrade().equals("5")) {
-						grade = "고등";
-					}
+						grade = "초등5-6학년";
+					} else if(one.getGrade().equals("6")) {
+						grade = "중학생";
+					} else if(one.getGrade().equals("7")) {
+						grade = "고등학생";
+					} 
 				} else {
 					grade = "";
 				}
