@@ -101,338 +101,378 @@ $(function() {
 		$('#applicant_sex').val($(this).val());
 	});
 
+	var doubleSubmit = false;
+
 	$('#save-btn').on('click', function() {
-		var agreeLength = $('div.agree_codes input.agree_check').length;
-		for(var i = 1; i <= agreeLength; i++) {
-			if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
-				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
-				return false;
-			}
-		}
-		
-		var agent_yn = $('#agent_yn').val();
-		var vaccines_yn = $('#vaccines_yn').val();
-		var vaccines_counter_1 = $('#vaccines_counter_1').val();
-		var vaccines_counter_2 = $('#vaccines_counter_2').val();
-		
-		if(agent_yn == "N" && vaccines_yn == "Y"){
-			$('#vaccines_counter').val($('input[name="vaccines_counter_1"]:checked').val());
-		}else if(agent_yn == "Y" && vaccines_yn == "Y"){
-			$('#vaccines_counter').val($('input[name="vaccines_counter_2"]:checked').val());
-		}		
 
-		var $form = {};
-		$form = $.extend(true, $form, $('#studentForm'));
-		
+		if(doubleSubmit) {
+			return false;
+		}else{
+			doubleSubmit = true;
 
-		$form.find('input#student_old').val('0');
-		<c:if test="${teach.birth_yn eq 'Y'}">
-			if ($("#student_birth").length > 0) {
-				var selectedYear = $form.find ("#student_birth").val().split('-')[0];
-				var currentYear = new Date().getUTCFullYear();
-				$form.find('input#student_old').val((currentYear - selectedYear) + 1);
-			} else {
-				var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];
-				var currentYear = new Date().getUTCFullYear();
-				$form.find('input#student_old').val((currentYear - selectedYear) + 1);
-			}
-		</c:if>
-
-		<c:if test="${teach.birth_yn eq 'Y'}">
-		if ( $form.find ("#applicant_birth").val() == '--' ) {
-			alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
-			return false;
-		}
-		</c:if>
-
-		if ( $form.find ("#applicant_name").val() == '' ) {
-			$form.find("#applicant_name").focus();
-			alert('신청자 성명을 입력해 주세요.');
-			return false;
-		}
-
-		<c:if test="${teach.sex_yn eq 'Y'}">
-		if ( $("input:radio[name = applicant_sex]").length > 0 && $("input:radio[name = applicant_sex]:checked").length < 1 ) {
-			$form.find('input:radio[name = applicant_sex]').focus();
-			alert('신청자 성별을 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		
-		<c:if test="${teach.vaccines_yn eq 'Y'}">
-		if ($('#vaccines_counter').val() == '') {
-			$form.find('input:radio[name = vaccines_counter]').focus();
-			alert('백신 접종여부를 선택해 주세요.');
-			return false;
-		}
-		</c:if>
-
-		<c:if test="${teach.birth_yn eq 'Y'}">
-		if ( $form.find ("#applicant_birth").val() == '' ) {
-			$form.find('#applicant_birth').focus();
-			alert('신청자 생년월일을 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		
-		var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
-		if ( cellPhone1 == '' ) {
-			$form.find('#applicant_cell_phone_1').focus();
-			alert('신청자 휴대전화번호를 입력해 주세요.');
-			return false;
-		}
-		var cellPhone2 = $form.find('#applicant_cell_phone_2').val();
-		if ( cellPhone2 == '' ) {
-			$form.find('#applicant_cell_phone_2').focus();
-			alert('신청자 휴대전화번호를 입력해 주세요.');
-			return false;
-		}
-		var cellPhone3 = $form.find('#applicant_cell_phone_3').val();
-		if ( cellPhone3 == '' ) {
-			$form.find('#applicant_cell_phone_3').focus();
-			alert('신청자 휴대전화번호를 입력해 주세요.');
-			return false;
-		}
-
-		<c:if test="${teach.sms_service_yn eq 'Y'}">
-		if ( $("input:radio[name = sms_service_yn]").length > 0 && $("input:radio[name=sms_service_yn]:checked").length < 1 ) {
-			$form.find ("input:radio[name = sms_service_yn]").focus();
-			alert('sms 수신동의여부를 선택해 주세요.');
-			return false;
-		}
-		</c:if>
-
-		<c:if test="${teach.picture_use_yn eq 'Y'}">
-		if ( $("input:radio[name = picture_use_yn]").length > 0 && $("input:radio[name = picture_use_yn]:checked").length < 1 ) {
-			$form.find ('input:radio[name = picture_use_yn]').focus();
-			alert('사진 촬영 동의 여부를 선택해 주세요.');
-			return false;
-		}
-		</c:if>
-
-// 		if ( $form.find('#self_info_yn').val() != 'Y' ) {
-// 			alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
-// 			return false;
-// 		}
-
-		
-
-		var applyFile = $('#apply_file');
-		if ($('#apply_file').val() == '') {
-			$('#apply_file').remove();
-		}
-
-		<c:if test="${teach.agent_yn eq 'Y'}">
-		
-		if ( $form.find ('#student_name').val() == ''){
-			$form.find('#student_name').focus();
-			alert('수강생 이름을 입력해 주세요.');
-			return false;
-		}
-		
-		// 수강생 연락처 처리
-		if($('#student_cell_phone_1').val() != '' && $('#student_cell_phone_3').val() != '' && $('#student_cell_phone_3').val() != '') {
-			$('#student_cell_phone').val($('#student_cell_phone_1').val() + '-' + $('#student_cell_phone_2').val() + '-' + $('#student_cell_phone_3').val());
-		}
-
-		<c:if test="${teach.birth_yn eq 'Y'}">
-		if ( $form.find ("#student_birth").val() == '' ) {
-			$form.find('#student_birth').focus();
-			alert('수강생 생년월일을 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		
-		<c:if test="${teach.sex_yn eq 'Y'}">
-		if ( $form.find ('input:radio[name = student_sex]:checked').length < 1){
-			$form.find ('input:radio[name = student_sex]').focus();
-			alert('수강생 성별을 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		
-		<c:if test="${teach.address_yn eq 'Y'}">
-		if ( $form.find ("#student_address").val() == ''){
-			$form.find('#student_address').focus();
-			alert('수강생 주소를 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		
-		if($('#self_yn1').is(':checked')){
-			if($('#applicant_name').val() != $('#student_name').val()){
-				alert('신청자 성명과 수강생 성명이 동일하지 않습니다.');
-				return false;
-			}
-			<c:choose>
-				<c:when test="${!sessionScope.member.login}">
-				else if($('input:radio[name = applicant_sex]:checked').val() != $('input:radio[name = student_sex]:checked').val()){
-					alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+			var agreeLength = $('div.agree_codes input.agree_check').length;
+			for(var i = 1; i <= agreeLength; i++) {
+				if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
+					alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+					doubleSubmit = false;
 					return false;
-				</c:when>
-				<c:otherwise>
-				else if($('input#applicant_sex').val() != $('input:radio[name = student_sex]:checked').val()){
-					alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+				}
+			}
+		
+			var agent_yn = $('#agent_yn').val();
+			var vaccines_yn = $('#vaccines_yn').val();
+			var vaccines_counter_1 = $('#vaccines_counter_1').val();
+			var vaccines_counter_2 = $('#vaccines_counter_2').val();
+
+			if(agent_yn == "N" && vaccines_yn == "Y"){
+				$('#vaccines_counter').val($('input[name="vaccines_counter_1"]:checked').val());
+			}else if(agent_yn == "Y" && vaccines_yn == "Y"){
+				$('#vaccines_counter').val($('input[name="vaccines_counter_2"]:checked').val());
+			}
+
+			var $form = {};
+			$form = $.extend(true, $form, $('#studentForm'));
+
+
+			$form.find('input#student_old').val('0');
+			<c:if test="${teach.birth_yn eq 'Y'}">
+				if ($("#student_birth").length > 0) {
+					var selectedYear = $form.find ("#student_birth").val().split('-')[0];
+					var currentYear = new Date().getUTCFullYear();
+					$form.find('input#student_old').val((currentYear - selectedYear) + 1);
+				} else {
+					var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];
+					var currentYear = new Date().getUTCFullYear();
+					$form.find('input#student_old').val((currentYear - selectedYear) + 1);
+				}
+			</c:if>
+
+			<c:if test="${teach.birth_yn eq 'Y'}">
+			if ( $form.find ("#applicant_birth").val() == '--' ) {
+				alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			if ( $form.find ("#applicant_name").val() == '' ) {
+				$form.find("#applicant_name").focus();
+				alert('신청자 성명을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+
+			<c:if test="${teach.sex_yn eq 'Y'}">
+			if ( $("input:radio[name = applicant_sex]").length > 0 && $("input:radio[name = applicant_sex]:checked").length < 1 ) {
+				$form.find('input:radio[name = applicant_sex]').focus();
+				alert('신청자 성별을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			<c:if test="${teach.vaccines_yn eq 'Y'}">
+			if ($('#vaccines_counter').val() == '') {
+				$form.find('input:radio[name = vaccines_counter]').focus();
+				alert('백신 접종여부를 선택해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			<c:if test="${teach.birth_yn eq 'Y'}">
+			if ( $form.find ("#applicant_birth").val() == '' ) {
+				$form.find('#applicant_birth').focus();
+				alert('신청자 생년월일을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
+			if ( cellPhone1 == '' ) {
+				$form.find('#applicant_cell_phone_1').focus();
+				alert('신청자 휴대전화번호를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			var cellPhone2 = $form.find('#applicant_cell_phone_2').val();
+			if ( cellPhone2 == '' ) {
+				$form.find('#applicant_cell_phone_2').focus();
+				alert('신청자 휴대전화번호를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			var cellPhone3 = $form.find('#applicant_cell_phone_3').val();
+			if ( cellPhone3 == '' ) {
+				$form.find('#applicant_cell_phone_3').focus();
+				alert('신청자 휴대전화번호를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+
+			<c:if test="${teach.sms_service_yn eq 'Y'}">
+			if ( $("input:radio[name = sms_service_yn]").length > 0 && $("input:radio[name=sms_service_yn]:checked").length < 1 ) {
+				$form.find ("input:radio[name = sms_service_yn]").focus();
+				alert('sms 수신동의여부를 선택해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			<c:if test="${teach.picture_use_yn eq 'Y'}">
+			if ( $("input:radio[name = picture_use_yn]").length > 0 && $("input:radio[name = picture_use_yn]:checked").length < 1 ) {
+				$form.find ('input:radio[name = picture_use_yn]').focus();
+				alert('사진 촬영 동의 여부를 선택해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+// 			if ( $form.find('#self_info_yn').val() != 'Y' ) {
+// 				alert('이용약관 및 개인정보의 수집·이용 동의 하여야 신청이 가능합니다.');
+// 				return false;
+// 			}
+
+
+
+			var applyFile = $('#apply_file');
+			if ($('#apply_file').val() == '') {
+				$('#apply_file').remove();
+			}
+
+			<c:if test="${teach.agent_yn eq 'Y'}">
+
+			if ( $form.find ('#student_name').val() == ''){
+				$form.find('#student_name').focus();
+				alert('수강생 이름을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+
+			// 수강생 연락처 처리
+			if($('#student_cell_phone_1').val() != '' && $('#student_cell_phone_3').val() != '' && $('#student_cell_phone_3').val() != '') {
+				$('#student_cell_phone').val($('#student_cell_phone_1').val() + '-' + $('#student_cell_phone_2').val() + '-' + $('#student_cell_phone_3').val());
+			}
+
+			<c:if test="${teach.birth_yn eq 'Y'}">
+			if ( $form.find ("#student_birth").val() == '' ) {
+				$form.find('#student_birth').focus();
+				alert('수강생 생년월일을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			<c:if test="${teach.sex_yn eq 'Y'}">
+			if ( $form.find ('input:radio[name = student_sex]:checked').length < 1){
+				$form.find ('input:radio[name = student_sex]').focus();
+				alert('수강생 성별을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			<c:if test="${teach.address_yn eq 'Y'}">
+			if ( $form.find ("#student_address").val() == ''){
+				$form.find('#student_address').focus();
+				alert('수강생 주소를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
+
+			if($('#self_yn1').is(':checked')){
+				if($('#applicant_name').val() != $('#student_name').val()){
+					alert('신청자 성명과 수강생 성명이 동일하지 않습니다.');
+					doubleSubmit = false;
 					return false;
-				</c:otherwise>
-			</c:choose>
-			}else if($('#applicant_birth').val() != $('#student_birth').val()){
-				alert('신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.');
+				}
+				<c:choose>
+					<c:when test="${!sessionScope.member.login}">
+					else if($('input:radio[name = applicant_sex]:checked').val() != $('input:radio[name = student_sex]:checked').val()){
+						alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+						doubleSubmit = false;
+						return false;
+					</c:when>
+					<c:otherwise>
+					else if($('input#applicant_sex').val() != $('input:radio[name = student_sex]:checked').val()){
+						alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+						doubleSubmit = false;
+						return false;
+					</c:otherwise>
+				</c:choose>
+				}else if($('#applicant_birth').val() != $('#student_birth').val()){
+					alert('신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.');
+					doubleSubmit = false;
+					return false;
+				}
+			}
+			$('#applicant_zipcode').val($('#student_zipcode').val());
+			$('#applicant_address').val($('#student_address').val());
+
+			</c:if>
+
+			<c:if test="${teach.school_info_yn eq 'Y'}">
+			var schoolName = $form.find('#student_school').val();
+			if ( schoolName == '' ) {
+				$form.find('#student_school').focus();
+				alert('학교명을 입력해 주세요.');
+				doubleSubmit = false;
 				return false;
 			}
-		}
-		$('#applicant_zipcode').val($('#student_zipcode').val());
-		$('#applicant_address').val($('#student_address').val());
+			</c:if>
 
-		</c:if>
-
-		<c:if test="${teach.school_info_yn eq 'Y'}">
-		var schoolName = $form.find('#student_school').val();
-		if ( schoolName == '' ) {
-			$form.find('#student_school').focus();
-			alert('학교명을 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		
-		<c:if test="${teach.age_info_yn eq 'Y'}">
-		var student_age = $form.find('#student_age').val();
-		var student_age = student_age.replace(/^0/,'');
-		if ( student_age == '' ) {
-			$form.find('#student_age').focus();
-			alert('나이를 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-		<c:if test="${teach.school_grade_yn eq 'Y'}">
-		var schoolHak = $form.find('#student_hack option:selected').val();
-		if ( schoolHak == '0' ) {
-			$form.find('#student_hack option:selected').focus();
-			alert('학년을 선택해 주세요.');
-			return false;
-		}
-		var schoolHak = $form.find('#student_ban').val();
-		if ( schoolHak == '' ) {
-			$form.find('#student_ban').focus();
-			alert('반을 입력해 주세요.');
-			return false;
-		}
-		</c:if>
-
-		$form.find('#applicant_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
-
-		<c:if test="${teach.family_yn eq 'Y'}">
-		if ( $form.find ('#family_relation').val() == ''){
-			$form.find('#family_relation').focus();
-			alert('보호자 관계를 입력해 주세요.');
-			return false;
-		}
-		if ( $form.find ('#family_name').val() == ''){
-			$form.find('#family_name').focus();
-			alert('보호자 이름을 입력해 주세요.');
-			return false;
-		}
-		cellPhone1 = $form.find('#family_cell_phone_1').val();
-		if ( cellPhone1 == '' ) {
-			$form.find('#family_cell_phone_1').focus();
-			alert('보호자 연락처를 입력해 주세요.');
-			return false;
-		}
-		cellPhone2 = $form.find('#family_cell_phone_2').val();
-		if ( cellPhone2 == '' ) {
-			$form.find('#family_cell_phone_2').focus();
-			alert('보호자 연락처를 입력해 주세요.');
-			return false;
-		}
-		cellPhone3 = $form.find('#family_cell_phone_3').val();
-		if ( cellPhone3 == '' ) {
-			$form.find('#family_cell_phone_3').focus();
-			alert('보호자 연락처를 입력해 주세요.');
-			return false;
-		}
-
-		$form.find('#family_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
-		
-		if ($form.find ('input:radio[name = family_confirm_yn]:checked').length < 1){
-			$form.find('input:radio[name = family_confirm_yn]').focus();
-			alert('해당 강좌는 보호자 동의를 받아야 합니다.');
-			return false;
-		}
-		if($('#self_parent_yn1').is(':checked')){
-			if($('#applicant_name').val() != $('#family_name').val()){
-				alert('신청자 성명과 보호자 이름이 동일하지 않습니다.');
-				return false;
-			}else if($('#applicant_cell_phone').val() != $('#family_cell_phone').val()){
-				alert('신청자 휴대전화번호와 보호자 휴대전화번호가 동일하지 않습니다.');
+			<c:if test="${teach.age_info_yn eq 'Y'}">
+			var student_age = $form.find('#student_age').val();
+			var student_age = student_age.replace(/^0/,'');
+			if ( student_age == '' ) {
+				$form.find('#student_age').focus();
+				alert('나이를 입력해 주세요.');
+				doubleSubmit = false;
 				return false;
 			}
-		}
-		</c:if>
-		
-		// 기관 연락처 처리
-		if($('#student_organization_tel1').val() != '' && $('#student_organization_tel2').val() != '' && $('#student_organization_tel3').val() != '') {
-			$('#student_organization_tel').val($('#student_organization_tel1').val() + '-' + $('#student_organization_tel2').val() + '-' + $('#student_organization_tel3').val());
-		}
+			</c:if>
+			<c:if test="${teach.school_grade_yn eq 'Y'}">
+			var schoolHak = $form.find('#student_hack option:selected').val();
+			if ( schoolHak == '0' ) {
+				$form.find('#student_hack option:selected').focus();
+				alert('학년을 선택해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			var schoolHak = $form.find('#student_ban').val();
+			if ( schoolHak == '' ) {
+				$form.find('#student_ban').focus();
+				alert('반을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
 
-		var agree_codes = [];
-		$('input.agree_check:checked').each(function() {
-			agree_codes.push($(this).attr('keyValue3'));
-		});
-		$form.find('#agree_codes').val(agree_codes.join(','));
+			$form.find('#applicant_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
 
-		$form.find('#student_name').prop('disabled', false);
-		$form.find('input[name = student_sex]').prop('disabled', false);
-		$form.find("#student_birth").prop('disabled', false);
-		$form.find('#family_name').prop('disabled', false);
+			<c:if test="${teach.family_yn eq 'Y'}">
+			if ( $form.find ('#family_relation').val() == ''){
+				$form.find('#family_relation').focus();
+				alert('보호자 관계를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			if ( $form.find ('#family_name').val() == ''){
+				$form.find('#family_name').focus();
+				alert('보호자 이름을 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			cellPhone1 = $form.find('#family_cell_phone_1').val();
+			if ( cellPhone1 == '' ) {
+				$form.find('#family_cell_phone_1').focus();
+				alert('보호자 연락처를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			cellPhone2 = $form.find('#family_cell_phone_2').val();
+			if ( cellPhone2 == '' ) {
+				$form.find('#family_cell_phone_2').focus();
+				alert('보호자 연락처를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			cellPhone3 = $form.find('#family_cell_phone_3').val();
+			if ( cellPhone3 == '' ) {
+				$form.find('#family_cell_phone_3').focus();
+				alert('보호자 연락처를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
 
-		var option = {
-			url : 'save.do',
-			type : 'POST',
-			success: function(response) {
-				if(response.valid) {
-					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-						alert(response.message);
-					}
+			$form.find('#family_cell_phone').val(cellPhone1+'-'+cellPhone2+'-'+cellPhone3);
 
-// 					doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
-					try {
-						if (document.referrer.startsWith(location.origin)) {
-							history.back();
-						} else {
+			if ($form.find ('input:radio[name = family_confirm_yn]:checked').length < 1){
+				$form.find('input:radio[name = family_confirm_yn]').focus();
+				alert('해당 강좌는 보호자 동의를 받아야 합니다.');
+				doubleSubmit = false;
+				return false;
+			}
+			if($('#self_parent_yn1').is(':checked')){
+				if($('#applicant_name').val() != $('#family_name').val()){
+					alert('신청자 성명과 보호자 이름이 동일하지 않습니다.');
+					doubleSubmit = false;
+					return false;
+				}else if($('#applicant_cell_phone').val() != $('#family_cell_phone').val()){
+					alert('신청자 휴대전화번호와 보호자 휴대전화번호가 동일하지 않습니다.');
+					doubleSubmit = false;
+					return false;
+				}
+			}
+			</c:if>
+
+			// 기관 연락처 처리
+			if($('#student_organization_tel1').val() != '' && $('#student_organization_tel2').val() != '' && $('#student_organization_tel3').val() != '') {
+				$('#student_organization_tel').val($('#student_organization_tel1').val() + '-' + $('#student_organization_tel2').val() + '-' + $('#student_organization_tel3').val());
+			}
+
+			var agree_codes = [];
+			$('input.agree_check:checked').each(function() {
+				agree_codes.push($(this).attr('keyValue3'));
+			});
+			$form.find('#agree_codes').val(agree_codes.join(','));
+
+			$form.find('#student_name').prop('disabled', false);
+			$form.find('input[name = student_sex]').prop('disabled', false);
+			$form.find("#student_birth").prop('disabled', false);
+			$form.find('#family_name').prop('disabled', false);
+
+			var option = {
+				url : 'save.do',
+				type : 'POST',
+				success: function(response) {
+					if(response.valid) {
+						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
+							alert(response.message);
+						}
+
+// 						doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
+						try {
+							if (document.referrer.startsWith(location.origin)) {
+								history.back();
+							} else {
+								doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
+							}
+						} catch (e) {
 							doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
 						}
-					} catch (e) {
-						doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
-					}
-				} else {
-					$('td.applyFile').append(applyFile);
-					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-						alert(response.message);
 					} else {
-						if (response.result != null && response.result.length > 0) {
-							for(var i =0 ; i < response.result.length ; i++) {
-								alert(response.result[i].code);
-								$('#'+response.result[i].field).focus();
-								$('#'+response.result[i].field, $form).css('border-color', 'red');
-								$('#'+response.result[i].field, $form).on('change', function() {
-									$(this).css('border-color', '');
-								});
-								break;
+						$('td.applyFile').append(applyFile);
+						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
+							alert(response.message);
+						} else {
+							if (response.result != null && response.result.length > 0) {
+								for(var i =0 ; i < response.result.length ; i++) {
+									alert(response.result[i].code);
+									$('#'+response.result[i].field).focus();
+									$('#'+response.result[i].field, $form).css('border-color', 'red');
+									$('#'+response.result[i].field, $form).on('change', function() {
+										$(this).css('border-color', '');
+									});
+									break;
+								}
 							}
 						}
 					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					$('td.applyFile').append(applyFile);
+					alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+					doubleSubmit = false;
 				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				$('td.applyFile').append(applyFile);
-				alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+			};
+			$form.ajaxSubmit(option);
 			}
-		};
-		$form.ajaxSubmit(option);
-
-// 		if (doAjaxPost($form)) {
-// 			doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
-// 		}
+// 			if (doAjaxPost($form)) {
+// 				doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
+// 			}
 	});
 
 	$('.findPostCode').on('click', function(e){
