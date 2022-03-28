@@ -93,7 +93,11 @@ public class MediaFactoryApplyService extends BaseService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Dao.addApply(apply);
+		if(!apply.getHomepage_id().equals("h50")) {
+			Dao.addApplyDonggu(apply);
+		}else {
+			Dao.addApply(apply);
+		}
 		return filterCheck;
 	}
 
@@ -143,6 +147,12 @@ public class MediaFactoryApplyService extends BaseService {
 	
 	public int checkApply(MediaFactoryApply apply) {
 		return Dao.checkApply(apply);
+	}
+	public int checkApplyDay(MediaFactoryApply apply) {
+		return Dao.checkApplyDay(apply);
+	}
+	public int checkApplyMonth(MediaFactoryApply apply) {
+		return Dao.checkApplyMonth(apply);
 	}
 
 }

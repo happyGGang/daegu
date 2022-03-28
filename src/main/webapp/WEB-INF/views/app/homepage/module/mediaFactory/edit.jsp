@@ -65,9 +65,19 @@ $(function() {
 				return false;
 			}
 		}
+
+		$('#wr_2').on('keyup', function() {
+		
+		    this.value = this.value.replace(/\D/g, '');
+		
+		    if (this.value > 4) this.value = 150;
+		
+		});
+		
 		
 		$('#applicant_tel').val($('#applicant_tel_1').val()+'-'+$('#applicant_tel_2').val()+'-'+$('#applicant_tel_3').val());
 		$('#agency_tel').val($('#agency_tel_1').val()+'-'+$('#agency_tel_2').val()+'-'+$('#agency_tel_3').val());
+		$('input[type=number]').val;
 		$.ajax({
 			url : '/${homepage.context_path}/module/mediaFactory/save.do',
 			async : false,
@@ -157,6 +167,8 @@ $(function() {
 <form:hidden path="apply_id"/>
 <form:hidden path="pageType"/>
 <form:hidden path="date_type"/>
+<form:hidden path="start_time"/>
+<form:hidden path="end_time"/>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div style="text-align: right">
 	(<span style="color: red; font-weight: bold;">*</span>) 필수 항목 입니다.
@@ -240,6 +252,7 @@ $(function() {
 				<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
 			</td>
 		</tr>
+		<c:if test="${homepage.context_path ne 'donggu'}">
 		<tr>
 			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
@@ -261,16 +274,41 @@ $(function() {
 				<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
 			</td>
 		</tr>
-		<tr>
-			<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="age" class="text" cssStyle="width:50px" />
-			</td>
-		</tr>
-		<tr>
-			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *숫자만 입력가능합니다.</td>
-		</tr>
+		</c:if>
+		<c:choose>
+		<c:when test="${homepage.context_path eq 'donggu'}">
+			<tr>
+				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:radiobutton path="age" value="성인"/>만18세 이상
+					<form:radiobutton path="age" value="미성년자"/>만18 이하
+				</td>
+			</tr>
+			<tr>
+				<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="personnel">
+						<form:option value="1">1</form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+						<form:option value="4">4</form:option>
+					</form:select> *최대 4명까지 가능합니다.
+				</td>
+			</tr>
+		</c:when>
+		<c:otherwise>
+			<tr>
+				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="age" class="text" cssStyle="width:50px" />
+				</td>
+			</tr>
+			<tr>
+				<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *숫자만 입력가능합니다.</td>
+			</tr>
+		</c:otherwise>
+		</c:choose>
 		<tr>
 			<th>비고</th>
 			<td><form:input path="remarks" class="text" cssStyle="width:80%"/> </td>

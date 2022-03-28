@@ -10,7 +10,7 @@
 	<!-- 견학신청 list -->
 	<select id="getMediaFactory" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactory">
 		SELECT
-			A.homepage_id, A.mediafactory_idx, A.start_date, A.use_time,
+			A.homepage_id, A.mediafactory_idx, A.start_date, A.use_time, A.start_time, A.end_time,
 			A.end_date, A.max_apply, A.add_date, A.add_id, A.modify_date, A.modify_id, A.date_type, A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time,
 			(SELECT code_name FROM CMS_CODE B WHERE B.homepage_id = A.homepage_id AND B.code_id = A.date_type AND B.group_id = 'M0001') AS code_name,
 			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.homepage_id = B.homepage_id AND A.homepage_id = #{homepage_id} AND B.date_type = '1' AND B.delete_yn = 'N' AND A.start_date <![CDATA[<=]]> B.end_date AND A.end_date <![CDATA[>=]]> B.start_date) AS closed_day,
@@ -35,13 +35,26 @@
 	 			SUBSTR(A.start_date,1,7) = #{plan_date}
 	 		OR	SUBSTR(A.end_date,1,7) = #{plan_date}
 	 		)
-	 	ORDER BY start_date, use_time;	
+	 	ORDER BY start_date, use_time
 		 </if>
 	</select>
 	
 	<select id="getMediaFactoryOne" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactory">
 		SELECT
 			<include refid="field" />,
+			(SELECT COUNT(*) FROM CMS_MEDIAFACTORY_APPLY WHERE homepage_id = A.homepage_id AND mediafactory_idx = A.mediafactory_idx) AS apply_count	
+		FROM 
+			CMS_MEDIAFACTORY A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	mediafactory_idx = #{mediaFactory_idx}
+	</select>
+
+	<select id="getTimeMediaFactoryOne" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactory">
+		SELECT
+			homepage_id, mediafactory_idx, apply_yn, start_date, end_date, 
+			max_apply, add_date, add_id, date_type, apply_start_date, 
+			apply_start_time, apply_end_date, apply_end_time, start_time, end_time,
 			(SELECT COUNT(*) FROM CMS_MEDIAFACTORY_APPLY WHERE homepage_id = A.homepage_id AND mediafactory_idx = A.mediafactory_idx) AS apply_count	
 		FROM 
 			CMS_MEDIAFACTORY A
@@ -61,6 +74,14 @@
 		AND	apply_yn = 'Y'
 		AND	(start_date <![CDATA[<=]]> #{start_date} AND end_date <![CDATA[>=]]> #{start_date})
 		AND	(end_date <![CDATA[>=]]> #{start_date} AND start_date <![CDATA[<=]]> #{start_date})		
+		AND	(
+				TO_DATE(start_date || start_time, 'yyyy-MM-ddHH24:MI') <![CDATA[<=]]> TO_DATE(end_date || #{end_time}, 'yyyy-MM-ddHH24:MI')
+			AND	TO_DATE(end_date || end_time, 'yyyy-MM-ddHH24:MI') <![CDATA[>=]]> TO_DATE(end_date || #{end_time}, 'yyyy-MM-ddHH24:MI')
+			)
+		AND	(
+				TO_DATE(end_date || end_time, 'yyyy-MM-ddHH24:MI') <![CDATA[>=]]> TO_DATE(start_date || #{start_time}, 'yyyy-MM-ddHH24:MI')
+			AND	TO_DATE(start_date || start_time, 'yyyy-MM-ddHH24:MI') <![CDATA[<=]]> TO_DATE(start_date || #{start_time}, 'yyyy-MM-ddHH24:MI')
+			)
 	</select>
 	
 	<!-- 견학신청 등록 -->
@@ -73,7 +94,24 @@
 		VALUES
 		(
 			#{homepage_id}, (SELECT NVL(MAX(mediafactory_idx),0)+1 FROM CMS_MEDIAFACTORY), #{apply_yn}, #{start_date}, #{use_time},
-			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}
+			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, 
+			#{apply_end_date}, #{apply_end_time}
+		)
+	</insert>
+	<!--견학신청 등록(이용시간 추가 쿼리)  -->
+	<insert id="addTimeMediaFactory">
+		INSERT INTO
+			CMS_MEDIAFACTORY
+		(
+			homepage_id, mediafactory_idx, apply_yn, start_date, end_date, 
+			max_apply, add_date, add_id, date_type, apply_start_date, 
+			apply_start_time, apply_end_date, apply_end_time, start_time, end_time
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(mediafactory_idx),0)+1 FROM CMS_MEDIAFACTORY), #{apply_yn}, #{start_date},
+			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, 
+			#{apply_end_date}, #{apply_end_time}, #{start_time}, #{end_time}
 		)
 	</insert>
 	
@@ -83,8 +121,10 @@
 		SET
 			apply_yn = #{apply_yn},
 			start_date = #{start_date},
+			start_time = #{start_time},
 			use_time = #{use_time},
-			end_date = #{end_date},			
+			end_date = #{end_date},
+			end_time = #{end_time},			
 			max_apply = #{max_apply},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE,			
@@ -146,6 +186,10 @@
 		AND	date_type = #{date_type}
 		AND use_time = #{use_time}
 		AND start_date = #{start_date}
+		AND	(
+				(start_time <![CDATA[ < ]]> #{start_time} AND end_time > #{start_time})
+			OR	(start_time <![CDATA[ < ]]> #{end_time} AND end_time > #{end_time})
+			)
 	</select>
 	
 	<select id="countClosedMediaFactory" resultType="int">

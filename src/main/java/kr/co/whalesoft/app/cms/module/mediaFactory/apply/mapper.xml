@@ -6,21 +6,32 @@
 	<sql id="field">
 		homepage_id, apply_idx, mediafactory_idx, agency_name, agency_tel,
 		agency_address, applicant_name, applicant_tel, applicant_email, age,
-		guide_name, guide_tel, start_date, use_time, end_date,
-		personnel, apply_state, ip, remarks,
-		add_id, add_date, apply_id, applicant_member_id, self_info_yn
+		start_date, use_time, end_date, personnel, apply_state,
+		ip, remarks, add_id, add_date, apply_id, 
+		applicant_member_id, self_info_yn, guide_name, guide_tel
+	</sql>
+	<!-- 견학신청자 컬럼(동구통합전용)  -->
+	<sql id="dongguField">
+		homepage_id, apply_idx, mediafactory_idx,
+		applicant_name, applicant_tel, applicant_email, age,
+		start_date, start_time, end_date, end_time,
+		personnel, apply_state, ip, remarks, add_id, add_date,
+		apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel
 	</sql>
 
 	<!-- 견학신청자 list -->
 	<select id="getApply" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
 		SELECT
-			<include refid="field" />
+			homepage_id, apply_idx, mediafactory_idx, use_time,
+			applicant_name, applicant_tel, applicant_email, age,
+			start_date, start_time, end_date, end_time,
+			personnel, apply_state, ip, remarks, add_id, add_date,
+			apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel
 		FROM
 			CMS_MEDIAFACTORY_APPLY
 		WHERE
 			homepage_id = #{homepage_id}
-		AND use_time = #{use_time}
-		<if test="plan_date != null and plan_date != ''">		
+		<if test="plan_date != null and plan_date != ''">
 		AND	start_date <![CDATA[>=]]> #{plan_date}
 		AND	end_date <![CDATA[<=]]> #{plan_date}
 		</if>
@@ -28,7 +39,14 @@
 
 	<select id="getApplyMonth" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
 		SELECT
-			<include refid="field" />
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
 		FROM
 			CMS_MEDIAFACTORY_APPLY
 		WHERE
@@ -42,7 +60,14 @@
 	<!-- 사용자 신청내역 list -->
 	<select id="getUserApply" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
 		SELECT
-			<include refid="field" />
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
 		FROM
 			CMS_MEDIAFACTORY_APPLY
 		WHERE
@@ -54,7 +79,14 @@
 
 	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.mediaFactory.apply.MediaFactoryApply">
 		SELECT
-			<include refid="field" />
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
 		FROM
 			CMS_MEDIAFACTORY_APPLY
 		WHERE
@@ -72,23 +104,85 @@
 		AND	MEDIAFACTORY_IDX = #{mediaFactory_idx}
 		AND	applicant_member_id = #{applicant_member_id}
 	</select>
+	
+	<!--1일 1회신청가능 조건 확인  -->
+	<select id="checkApplyDay" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_MEDIAFACTORY_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	start_date = #{start_date}
+		AND	applicant_member_id = #{applicant_member_id}
+	</select>
+	
+	
+	<select id="checkApplyMonth" resultType="int">
+		SELECT 
+	COUNT(*)
+		FROM
+			(
+			SELECT 
+				START_DATE_MONTH
+			FROM 
+				(	
+				SELECT 
+					SUBSTR(start_date,1,7) as START_DATE_MONTH
+				FROM 
+					CMS_MEDIAFACTORY_APPLY
+				WHERE 
+					homepage_id = #{homepage_id}
+				AND applicant_member_id = #{applicant_member_id}
+				AND apply_state = '3'
+				)
+				where start_date_month = #{checkMonth}
+			)
+	</select>
 
 	<!-- 견학신청자 등록 -->
 	<insert id="addApply">
 		INSERT INTO
 			CMS_MEDIAFACTORY_APPLY
 		(
-			<include refid="field" />
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
 		)
 		VALUES
 		(
 			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_MEDIAFACTORY_APPLY), #{mediaFactory_idx}, #{agency_name}, #{agency_tel},
 			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
-			#{guide_name}, #{guide_tel}, #{start_date}, #{use_time}, #{end_date},
-			#{personnel}, '1', #{ip}, #{remarks},
-			#{add_id}, SYSDATE, #{apply_id}, #{applicant_member_id}, #{self_info_yn}
+			#{start_date}, #{use_time}, #{end_date}, #{personnel}, '1',
+			#{ip}, #{remarks}, #{add_id}, SYSDATE, #{apply_id}, 
+			#{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel}
 		)
 	</insert>
+	
+	<!-- 견학신청자 등록(동구통합전용) -->
+	<insert id="addApplyDonggu">
+		INSERT INTO
+			CMS_MEDIAFACTORY_APPLY
+		(
+			<include refid="dongguField" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_MEDIAFACTORY_APPLY), #{mediaFactory_idx},
+			#{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+			#{start_date}, #{start_time}, #{end_date}, #{end_time},
+			#{personnel}, '1', #{ip}, #{remarks}, #{add_id}, SYSDATE,
+		 	#{apply_id}, #{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel}
+		
+		)
+	</insert>
+	
+	
 
 	<update id="modifyApply">
 		UPDATE

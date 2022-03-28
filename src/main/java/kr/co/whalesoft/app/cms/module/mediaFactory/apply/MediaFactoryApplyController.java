@@ -47,6 +47,11 @@ public class MediaFactoryApplyController extends BaseController {
 
 	@RequestMapping(value = {"/applyEdit.*"})
 	public String applyEdit(Model model, MediaFactoryApply apply) {
+		
+		if(apply.getEditMode().equals("VIEW")) {
+			service.deleteApply(apply);
+		}
+		
 		apply.setPlan_date(apply.getStart_date());
 		model.addAttribute("applyList", service.getApply(apply));
 		return basePath + "applyEdit_ajax";
@@ -133,21 +138,53 @@ public class MediaFactoryApplyController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
+			if(apply.getHomepage_id().equals("h50")) {
 			ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
+			}else {
+				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 선택해주세요.");
+				
+			}
 			ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력하세요.");
 		}
+		
+
+
 		if(!result.hasErrors()) {
 			if(apply.getEditMode().equals("ADD")) {
-				if ( service.checkApply(apply) > 0 ) {
+				
+				if (service.checkApply(apply) > 0 ) {
 					res.setValid(false);
 					res.setMessage("이미 신청 되었습니다.");
 					return res;
 				}
-				MediaFactory mediaFactory = mediaFactoryService.getMediaFactoryOne(new MediaFactory(apply.getHomepage_id(), apply.getMediaFactory_idx()));
+				
+				if (service.checkApplyDay(apply) > 0 ) {
+					res.setValid(false);
+					res.setMessage("1일 1회만 신청 가능합니다." );
+					return res;
+				}
+				
+				String chekMonth = apply.getStart_date(); 
+				apply.setCheckMonth(chekMonth.substring(0,7));
+				
+				if (service.checkApplyMonth(apply) > 3 ) {
+					res.setValid(false);
+					res.setMessage("월 4 회 까지만 신청 가능합니다.");
+					return res;
+				}
+				
+				
+				MediaFactory mediaFactory; 
+				if (apply.getHomepage_id().equals("h50")) {
+					 mediaFactory = mediaFactoryService.getMediaFactoryOne(new MediaFactory(apply.getHomepage_id(), apply.getMediaFactory_idx()));
+				}
+				else {
+					 mediaFactory = mediaFactoryService.getTimeMediaFactoryOne(new MediaFactory(apply.getHomepage_id(), apply.getMediaFactory_idx()));
+				}
 
 				if ( mediaFactory.getMax_apply() > 0 ) {
 					if (mediaFactory.getMax_apply() <= mediaFactory.getApply_count() ) {

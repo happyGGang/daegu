@@ -56,6 +56,7 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 				
 				int maxApplyCount = mediaFactory.getMax_apply();
 				int curApplyCount = mediaFactory.getApply_count();
+				
 				String use_time = "";
 				if("am".equals(mediaFactory.getUse_time())) {
 					use_time = "- 오전";
@@ -66,8 +67,11 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 				if (planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
 					sb.append("<li title=\"" + mediaFactory.getCode_name() + "\">");
 					sb.append("[" + mediaFactory.getCode_name() + "]<br>");
-					sb.append("" + use_time + "<br>");
-
+					if(mediaFactory.getHomepage_id().equals("h50")) {
+						sb.append("" + use_time + "<br>");
+					}else {
+						sb.append("" + mediaFactory.getStart_time() + "" + "~" + "" + mediaFactory.getEnd_time() + "<br>");
+					}
 					boolean flag = true;
 					for (int j = 0; j < applyList.size(); j++) {
 						MediaFactoryApply apply = applyList.get(j);
@@ -92,10 +96,10 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (mediaFactory.getApply_yn().equals("Y") && mediaFactory.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}
@@ -106,7 +110,11 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 				} else if (planDay >= startDay && planDay <= endDay) {
 					sb.append("<li title=\"" + mediaFactory.getCode_name() + "\">");
 					sb.append("[" + mediaFactory.getCode_name() + "]<br>");
-					sb.append("" + use_time + "<br>");
+					if(mediaFactory.getHomepage_id().equals("h50")) {
+						sb.append("" + use_time + "<br>");
+					}else {
+						sb.append("" + mediaFactory.getStart_time() + "" + "~" + "" + mediaFactory.getEnd_time() + "<br>");
+					}
 
 					boolean flag = true;
 					for (int j = 0; j < applyList.size(); j++) {
@@ -132,10 +140,10 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (mediaFactory.getApply_yn().equals("Y") && mediaFactory.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}
@@ -146,7 +154,11 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 				} else if (!planMonth.equals(startMonth) && planMonth.equals(endMonth)) {
 					sb.append("<li title=\"" + mediaFactory.getCode_name() + "\">");
 					sb.append("[" + mediaFactory.getCode_name() + "]<br>");
-					sb.append("" + use_time + "<br>");
+					if(mediaFactory.getHomepage_id().equals("h50")) {
+						sb.append("" + use_time + "<br>");
+					}else {
+						sb.append("" + mediaFactory.getStart_time() + "" + "~" + "" + mediaFactory.getEnd_time() + "<br>");
+					}
 
 					boolean flag = true;
 					for (int j = 0; j < applyList.size(); j++) {
@@ -172,10 +184,10 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (mediaFactory.getApply_yn().equals("Y") && mediaFactory.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}

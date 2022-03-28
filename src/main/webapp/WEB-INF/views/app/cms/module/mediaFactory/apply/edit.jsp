@@ -135,6 +135,8 @@ $(function() {
 <form:hidden path="homepage_id"/>
 <form:hidden path="apply_idx"/>
 <form:hidden path="use_time"/>
+<form:hidden path="start_time" value="${mediaFactoryApply.start_time }"/>
+<form:hidden path="end_time" value="${mediaFactoryApply.end_time }"/>
 <%-- <form:hidden path="member_key"/> --%>
 <form:hidden path="mediaFactory_idx" value="${mediaFactoryApply.mediaFactory_idx }"/>
 <form:hidden path="start_date" value="${mediaFactoryApply.start_date }"/>
@@ -186,6 +188,7 @@ $(function() {
 				<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
 			</td>
 		</tr>
+		<c:if test="${mediaFactoryApply.homepage_id eq 'h50'}">
 		<tr>
 			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
@@ -195,6 +198,7 @@ $(function() {
 		<tr>
 			<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
+				<form:hidden path="agency_tel"/>
 				<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
 				<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
 				<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
@@ -203,19 +207,44 @@ $(function() {
 		<tr>
 			<th>기관 주소</th>
 			<td>
-				<form:input path="agency_address" class="text" cssStyle="width:60%"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
+				<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
 			</td>
 		</tr>
-		<tr>
-			<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="age" class="text" cssStyle="width:50px"/>
-			</td>
-		</tr>
-		<tr>
-			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3"/></td>
-		</tr>
+		</c:if>
+		<c:choose>
+		<c:when test="${mediaFactoryApply.homepage_id ne 'h50'}">
+			<tr>
+				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:radiobutton path="age" value="성인"/>만18세 이상
+					<form:radiobutton path="age" value="미성년자"/>만18 이하
+				</td>
+			</tr>
+			<tr>
+				<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="personnel">
+						<form:option value="1">1</form:option>
+						<form:option value="2">2</form:option>
+						<form:option value="3">3</form:option>
+						<form:option value="4">4</form:option>
+					</form:select> *최대 4명까지 가능합니다.
+				</td>
+			</tr>
+		</c:when>
+		<c:otherwise>
+			<tr>
+				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="age" class="text" cssStyle="width:50px" />
+				</td>
+			</tr>
+			<tr>
+				<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *숫자만 입력가능합니다.</td>
+			</tr>
+		</c:otherwise>
+		</c:choose>
 		<tr>
 			<th>개인정보 동의 여부</th>
 			<td>

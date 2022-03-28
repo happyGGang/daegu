@@ -54,12 +54,6 @@ $(function() {
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>기관명</th>
-			<td>
-				<form:input path="agency_name" maxlength="10" cssClass="text" cssStyle="width:100px;" />
-			</td>
-		</tr>
-		<tr>
 			<th>승인상태</th>
 			<td>
 				<form:radiobutton path="apply_state" value="1"/><label for="apply_state1" style="cursor:pointer;">대기</label>&nbsp;

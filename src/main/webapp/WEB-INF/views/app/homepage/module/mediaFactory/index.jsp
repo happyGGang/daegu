@@ -64,9 +64,9 @@ $(function(){
 	<%--대관신청--%>
 	$('a#apply').on('click', function(event) {
 		if($('#pageType').val() == 'ajax') {
-			$('#tabCon2').load('/${homepage.context_path}/module/mediaFactory/edit.do', 'editMode=ADD&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val()+'&homepage_id=' + $('input#homepage_id_1').val());
+			$('#tabCon2').load('/${homepage.context_path}/module/mediaFactory/edit.do', 'editMode=ADD&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&start_time=' + $(this).attr('keyValue3') +'&end_time=' + $(this).attr('keyValue4') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val()+'&homepage_id=' + $('input#homepage_id_1').val());
 		} else {
-			doGetLoad('/${homepage.context_path}/module/mediaFactory/edit.do', 'editMode=ADD&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() + '&date_type=' + $('#date_type').val()+'&homepage_id=' + $('input#homepage_id_1').val());
+			doGetLoad('/${homepage.context_path}/module/mediaFactory/edit.do', 'editMode=ADD&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&start_time=' + $(this).attr('keyValue3') +'&end_time=' + $(this).attr('keyValue4') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() + '&date_type=' + $('#date_type').val()+'&homepage_id=' + $('input#homepage_id_1').val());
 		}
 
 		event.preventDefault();
@@ -212,6 +212,31 @@ $(function(){
 <form:hidden path="date_type"/>
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+
+<c:if test="${fn:length(subHomepageList) > 0}">
+		<div class="tab_menu on">
+			<ul class="no${fn:length(subHomepageList)}">
+				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
+					<c:choose>
+						<c:when test="${i.homepage_id eq 'h73'}">
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">안심도서관</a></li>
+						</c:when>
+						<c:when test="${i.homepage_id eq 'h59'}">
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">신천도서관</a></li>
+						</c:when>
+						<c:when test="${i.homepage_id eq 'h60'}">
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">반야월역사</a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		</div>
+		<div class="mg30t"></div>
+	</c:if>
+
 
 	<%-- <c:if test="${fn:length(subHomepageList) > 0}">
 		<div class="tab_menu on">

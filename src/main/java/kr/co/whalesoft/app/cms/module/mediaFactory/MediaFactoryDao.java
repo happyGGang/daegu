@@ -13,9 +13,13 @@ public interface MediaFactoryDao {
 	
 	public MediaFactory getMediaFactoryOne(MediaFactory mediaFactory);
 	
+	public MediaFactory getTimeMediaFactoryOne(MediaFactory mediaFactory);
+
 	public int getMediaFactoryDateCheck(MediaFactoryApply apply);
 	
 	public int addMediaFactory(MediaFactory mediaFactory);
+	
+	public int addTimeMediaFactory(MediaFactory mediaFactory);
 	
 	public int modifyMediaFactory(MediaFactory mediaFactory);
 	
@@ -32,4 +36,6 @@ public interface MediaFactoryDao {
 	public List<CalendarStatus> getMediaFactoryYearStatus(CalendarStatus calendarStatus);
 
 	String getCodeName(MediaFactory mediaFactory);
+
+
 }

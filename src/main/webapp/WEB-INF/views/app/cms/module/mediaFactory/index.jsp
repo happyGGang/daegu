@@ -61,7 +61,7 @@ $(function(){
 
 	<%--대관신청--%>
 	$('a#apply').on('click', function(event) {
-		$('#dialog-2').load('/cms/module/mediaFactory/apply/edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
+		$('#dialog-2').load('/cms/module/mediaFactory/apply/edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') +'&start_time=' + $(this).attr('keyValue3') +'&end_time=' + $(this).attr('keyValue4'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
 
@@ -70,7 +70,7 @@ $(function(){
 
 	<%--신청자확인--%>
 	$('a#check_apply').on('click', function(event) {
-		$('#dialog-3').load('/cms/module/mediaFactory/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&use_time=' + $(this).attr('keyValue3'), function( response, status, xhr ) {
+		$('#dialog-3').load('/cms/module/mediaFactory/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&use_time=' + $(this).attr('keyValue3') +'&start_time=' + $(this).attr('keyValue4') +'&end_time=' + $(this).attr('keyValue5'), function( response, status, xhr ) {
 			$('#dialog-3').dialog('open');
 		});
 

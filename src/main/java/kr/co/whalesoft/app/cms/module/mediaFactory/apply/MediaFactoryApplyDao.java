@@ -17,6 +17,8 @@ public interface MediaFactoryApplyDao {
 	
 	public int addApply(MediaFactoryApply apply);
 	
+	public int addApplyDonggu(MediaFactoryApply apply);
+	
 	public int modifyApply(MediaFactoryApply apply);
 	
 	public int modifyApplyState(MediaFactoryApply apply);
@@ -26,4 +28,8 @@ public interface MediaFactoryApplyDao {
 	public int checkApply(MediaFactoryApply apply);
 
 	public int deleteApplyAll(MediaFactoryApply apply);
+	
+	public int checkApplyDay(MediaFactoryApply apply);
+	
+	public int checkApplyMonth(MediaFactoryApply apply);
 }

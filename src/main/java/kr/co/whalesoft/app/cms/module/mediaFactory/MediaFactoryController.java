@@ -79,14 +79,17 @@ public class MediaFactoryController extends BaseController {
 		if(mediaFactory.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			model.addAttribute("editMode", mediaFactory.getEditMode());
-			model.addAttribute("mediaFactory", service.copyObjectPaging(mediaFactory, service.getMediaFactoryOne(mediaFactory)));
+			if(mediaFactory.getHomepage_id().equals("h50")) {
+				model.addAttribute("mediaFactory", service.copyObjectPaging(mediaFactory, service.getMediaFactoryOne(mediaFactory)));
+			}else {
+				model.addAttribute("mediaFactory", service.copyObjectPaging(mediaFactory, service.getTimeMediaFactoryOne(mediaFactory)));
+			}
 		} else {
 			checkAuth("C", model, request);
 			model.addAttribute("editMode", mediaFactory.getEditMode());
 			model.addAttribute("mediaFactory", mediaFactory);
 		}
-		
-		model.addAttribute("dateTypeList", codeService.getCode(getAsideHomepageId(request), "M0001"));
+			model.addAttribute("dateTypeList", codeService.getCode(getAsideHomepageId(request), "M0001"));
 		
 		return basePath + "edit_ajax";
 	}
@@ -97,7 +100,12 @@ public class MediaFactoryController extends BaseController {
 		
 		if(mediaFactory.getEditMode().equals("ADD") || mediaFactory.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "start_date", "대관일자를 선택하세요.");
-			ValidationUtils.rejectIfEmpty(result, "use_time", "대관시간을 선택하세요.");
+			if(mediaFactory.getHomepage_id().equals("h50")) {
+				ValidationUtils.rejectIfEmpty(result, "use_time", "대관시간을 선택하세요.");
+			}else {
+				ValidationUtils.rejectIfEmpty(result, "start_time", "대관가능시작시간을 선택하세요.");
+				ValidationUtils.rejectIfEmpty(result, "end_time", "대관가능종료시간을 선택하세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "end_date", "대관일자를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_start_date", "신청시작일자를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_start_time", "신청시작시간을 입력하세요.");
@@ -107,9 +115,13 @@ public class MediaFactoryController extends BaseController {
 			
 			SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
 			sfTime.setLenient(false);
-			try {							
+			try {
 				sfTime.parse(mediaFactory.getApply_start_time());
 				sfTime.parse(mediaFactory.getApply_end_time());
+				if(!mediaFactory.getHomepage_id().equals("h50")) {
+					sfTime.parse(mediaFactory.getStart_time());
+					sfTime.parse(mediaFactory.getEnd_time());
+				}
 			} catch (Exception e) {
 				result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
 			}
@@ -154,7 +166,12 @@ public class MediaFactoryController extends BaseController {
 							} 
 							else {
 								addCount ++;
-								service.addMediaFactory(mediaFactory);
+								if (mediaFactory.getHomepage_id().equals("h50")) {
+									service.addMediaFactory(mediaFactory);
+								}
+								else {
+									service.addTimeMediaFactory(mediaFactory);
+								}
 							}
 						}
 					}
@@ -166,7 +183,11 @@ public class MediaFactoryController extends BaseController {
 						} 
 						else {
 							addCount ++;
-							service.addMediaFactory(mediaFactory);
+							if (mediaFactory.getHomepage_id().equals("h50")) {
+								service.addMediaFactory(mediaFactory);
+							}else {
+								service.addTimeMediaFactory(mediaFactory);
+							}
 						}
 					}
 					startDate = DateUtils.addDays(startDate, 1);	

@@ -67,7 +67,7 @@ $(function() {
 			$('input#editMode').val('DELETE');
 			$('input#apply_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#apply_edit2'))) {
-				$('#dialog-3').load('/cms/module/mediaFactory/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('plan_date'), function( response, status, xhr ) {
+				$('#dialog-3').load('/cms/module/mediaFactory/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id').val() + '&mediaFactory_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('plan_date'), function( response, status, xhr ) {
 					$('#dialog-3').dialog('open');
 				});
 			}
@@ -86,20 +86,20 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
-			<col width="150"/>
-			<col width="90"/>
-			<col width="120"/>
 			<col width="100"/>
+			<col width="120"/>
+			<col width="120"/>
+			<col width="120"/>
 			<col width="75"/>
 			<col width="75"/>
 			<col width=""/>
 		</colgroup>
 		<thead>
 			<tr>
-				<th>기관명</th>
 				<th>신청자 성명</th>
 				<th>신청자 전화번호</th>
 				<th>방문일자</th>
+				<th>이용시간</th>
 				<th>방문인원</th>
 				<th>승인여부</th>
 				<c:if test="${mediaFactoryApply.editMode ne 'VIEW' }">
@@ -115,10 +115,19 @@ $(function() {
 				</tr>
 				</c:if>
 				<tr>
-					<td>${i.agency_name}</td>
 					<td>${i.applicant_name}</td>
 					<td>${i.applicant_tel}</td>
 					<td>${i.start_date}</td>
+					<td>
+						<c:choose>
+							<c:when test="${hompage_id ne 'h50' }">
+								${i.start_time} ~ ${i.end_time }
+							</c:when>
+							<c:otherwise>
+								${i.use_time }							
+							</c:otherwise>
+						</c:choose>
+					</td>
 					<td>${i.personnel}</td>
 					<td>
 						<c:set var="apply_state" value="${i.apply_state}" />

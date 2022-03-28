@@ -51,6 +51,10 @@ public class MediaFactoryService extends BaseService {
 	public MediaFactory getMediaFactoryOne(MediaFactory mediaFactory) {
 		return Dao.getMediaFactoryOne(mediaFactory);
 	}
+
+	public MediaFactory getTimeMediaFactoryOne(MediaFactory mediaFactory) {
+		return Dao.getTimeMediaFactoryOne(mediaFactory);
+	}
 	
 	public int getMediaFactoryDateCheck(MediaFactoryApply apply) {
 		return Dao.getMediaFactoryDateCheck(apply);
@@ -58,6 +62,9 @@ public class MediaFactoryService extends BaseService {
 	
 	public int addMediaFactory(MediaFactory mediaFactory) {
 		return Dao.addMediaFactory(mediaFactory);
+	}
+	public int addTimeMediaFactory(MediaFactory mediaFactory) {
+		return Dao.addTimeMediaFactory(mediaFactory);
 	}
 	
 	public int modifyCalendarManage(MediaFactory mediaFactory) {

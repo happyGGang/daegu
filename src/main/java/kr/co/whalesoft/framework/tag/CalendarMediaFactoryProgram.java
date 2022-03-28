@@ -37,6 +37,7 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 
 				int calendarDay = Integer.parseInt(plan_date.replaceAll("-", ""));
 				int to_day = Integer.parseInt(toDay);
+				
 				String use_time = "";
 				if("am".equals(mediaFactory.getUse_time())) {
 					use_time = "오전";
@@ -49,10 +50,14 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 						sb.append("<input type='checkbox' name='mediaFactory_idx_arr' value='"+mediaFactory.getMediaFactory_idx()+"'>");
 						sb.append("<a href=\"#\" class=\"btn btn1 modify\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\"><span style=\"margin-left : 5px; font-size:13px;\">수정</span></a><br>");
 						sb.append("[" + mediaFactory.getCode_name() + "]<br>");
-						sb.append("" + use_time + "<br>");
+						if(mediaFactory.getHomepage_id().equals("h50")) {
+							sb.append("" + use_time + "<br>");
+						}else {
+							sb.append("" + mediaFactory.getStart_time() + "" + "~" + "" + mediaFactory.getEnd_time() + "<br>");
+						}
 						if (mediaFactory.getApply_yn().equals("Y")) {
 							if (calendarDay >= to_day) {
-								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
+								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
 							} else {
 								sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 							}
@@ -60,7 +65,7 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 							sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 						}
 						if (plan_date.equals(mediaFactory.getStart_date())) {
-							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + mediaFactory.getMediaFactory_idx() + "\" id=\"check_apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\" keyValue3=\"" + mediaFactory.getUse_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + mediaFactory.getApply_count() + ")</span></a>");
+							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + mediaFactory.getMediaFactory_idx() + "\" id=\"check_apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\" keyValue3=\"" + mediaFactory.getUse_time() + "\" keyValue4=\"" + mediaFactory.getStart_time() + "\" keyValue5=\"" + mediaFactory.getEnd_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + mediaFactory.getApply_count() + ")</span></a>");
 						}
 						sb.append("<ul class=\"schedule\">");
 						sb.append("</ul>");
@@ -69,10 +74,15 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 					sb.append("<input type='checkbox' name='mediaFactory_idx_arr' value='"+mediaFactory.getMediaFactory_idx()+"'>");
 					sb.append("<a href=\"#\" class=\"btn btn1 modify\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\"><span style=\"margin-left : 5px; font-size:13px;\">수정</span></a><br>");
 					sb.append("[" + mediaFactory.getCode_name() + "]<br>");
-					sb.append("" + use_time + "<br>");
+					if(mediaFactory.getHomepage_id().equals("h50")) {
+						sb.append("" + use_time + "<br>");
+					}else {
+						sb.append("" + mediaFactory.getStart_time() + "" + "~" + "" + mediaFactory.getEnd_time() + "<br>");
+						
+					}
 					if (mediaFactory.getApply_yn().equals("Y")) {
 						if (calendarDay >= to_day) {
-							sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
+							sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
 						} else {
 							sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 						}
@@ -80,7 +90,7 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 						sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 					}
 					if (plan_date.equals(mediaFactory.getStart_date())) {
-						sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + mediaFactory.getMediaFactory_idx() + "\" id=\"check_apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() +  "\" keyValue3=\"" + mediaFactory.getUse_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + mediaFactory.getApply_count() + ")</span></a>");
+						sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + mediaFactory.getMediaFactory_idx() + "\" id=\"check_apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() +  "\" keyValue3=\"" + mediaFactory.getUse_time() + "\" keyValue4=\"" + mediaFactory.getStart_time() + "\" keyValue5=\"" + mediaFactory.getEnd_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + mediaFactory.getApply_count() + ")</span></a>");
 					}
 					sb.append("<ul class=\"schedule\">");
 					sb.append("</ul>");
@@ -89,10 +99,14 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 						sb.append("<input type='checkbox' name='mediaFactory_idx_arr' value='"+mediaFactory.getMediaFactory_idx()+"'>");
 						sb.append("<a href=\"#\" class=\"btn btn1 modify\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\"><span style=\"margin-left : 5px; font-size:13px;\">수정</span></a><br>");
 						sb.append("[" + mediaFactory.getCode_name() + "]<br>");
-						sb.append("" + use_time + "<br>");
+						if(mediaFactory.getHomepage_id().equals("h50")) {
+							sb.append("" + use_time + "<br>");
+						}else {
+							sb.append("" + mediaFactory.getStart_time() + "" + "~" + "" + mediaFactory.getEnd_time() + "<br>");
+						}
 						if (mediaFactory.getApply_yn().equals("Y")) {
 							if (calendarDay >= to_day) {
-								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
+								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
 							} else {
 								sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 							}
@@ -100,7 +114,7 @@ public class CalendarMediaFactoryProgram extends BodyTagSupport {
 							sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 						}
 						if (plan_date.equals(mediaFactory.getStart_date())) {
-							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + mediaFactory.getMediaFactory_idx() + "\" id=\"check_apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() +  "\" keyValue3=\"" + mediaFactory.getUse_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + mediaFactory.getApply_count() + ")</span></a>");
+							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + mediaFactory.getMediaFactory_idx() + "\" id=\"check_apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + mediaFactory.getStart_date() +  "\" keyValue3=\"" + mediaFactory.getUse_time() + "\" keyValue4=\"" + mediaFactory.getStart_time() + "\" keyValue5=\"" + mediaFactory.getEnd_time() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + mediaFactory.getApply_count() + ")</span></a>");
 						}
 
 						sb.append("<ul class=\"schedule\">");

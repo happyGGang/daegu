@@ -9,7 +9,7 @@ $(function() {
 	$('a#delete-btn').on('click', function(event) {
 		if(confirm("해당 신청내역을 삭제 하시겠습니까?\n삭제된 데이터는 복구가 불가합니다.")) {
 			$.ajax({
-				url : '/${homepage.context_path}/module/excursions/save.do?editMode=DELETE&apply_idx=' + $(this).attr("keyValue") + '&homepage_id=' + $('#homepage_id').val(),
+				url : '/${homepage.context_path}/module/mediaFactory/save.do?editMode=DELETE&apply_idx=' + $(this).attr("keyValue") + '&homepage_id=' + $('#homepage_id').val(),
 				async : false,
 				method : 'POST',
 				success : function(data) {
@@ -40,7 +40,7 @@ $(function() {
 <style>
 	table tbody td{padding:10px 5px;}
 </style>
-<form:form modelAttribute="apply" id="applyEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post">
+<form:form modelAttribute="apply" id="applyEdit" action="/${homepage.context_path}/module/mediaFactory/save.do" method="post">
 <form:hidden path="homepage_id"/>
 <form:hidden path="editMode"/>
 <form:hidden path="plan_date"/>
@@ -72,11 +72,10 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
-				<th>기관명</th>
 				<th>신청자 성명</th>
 				<th>신청자 전화번호</th>
 				<th>방문 일자</th>
-				<th>견학 시간</th>
+				<th>이용 시간</th>
 				<th>방문 인원</th>
 				<th>승인 여부</th>
 				<th>신청</th>
@@ -85,11 +84,19 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${applyList}">
 				<tr>
-					<td>${i.agency_name}</td>
 					<td>${i.applicant_name}</td>
 					<td>${i.applicant_tel}</td>
 					<td>${i.start_date}</td>
-					<td>${i.use_time}</td>
+					<td>
+						<c:choose>
+							<c:when test="${hompage_id ne 'h50' }">
+								${i.start_time} ~ ${i.end_time }
+							</c:when>
+							<c:otherwise>
+								${i.use_time }							
+							</c:otherwise>
+						</c:choose>
+					</td>
 					<td>${i.personnel}</td>
 					<td>
 						<c:set var="apply_state" value="${i.apply_state}" />

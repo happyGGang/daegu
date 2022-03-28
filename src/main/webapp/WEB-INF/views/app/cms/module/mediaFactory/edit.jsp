@@ -145,8 +145,23 @@ $(function() {
 					</div>
 				</td>
 		</tr>
+		<c:choose>
+		<c:when test="${mediaFactory.homepage_id ne 'h50'}">
 		<tr>
 			<th>대관시간(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:input path="start_time" maxlength="5" cssClass="text" cssStyle="width:50px;" />
+				<span id="tilde" style="font-size:12px">~</span>
+				<form:input path="end_time" maxlength="5" cssClass="text" cssStyle="width:50px;" />
+				<div class="ui-state-highlight">
+					<em>* 이용 가능 시간 입력 ex) 10:30</em>
+				</div>			
+			</td>
+		</tr>
+		</c:when>
+		<c:otherwise>
+		<tr>
+			<th>대관가능시간(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<form:select path="use_time">
 					<form:option value="am" label="오전"></form:option>
@@ -154,6 +169,8 @@ $(function() {
 				</form:select>					
 			</td>
 		</tr>
+		</c:otherwise>
+		</c:choose>
 		<tr>
 			<th>대관신청기간(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
