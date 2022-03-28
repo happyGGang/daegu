@@ -103,7 +103,7 @@
   	<!-- 비대면 도서대출 회차 자동생성 서비스 -->
   	<bean id="untactLockerSettingScheduler" class="kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService" />
   	<task:scheduled-tasks>
-  		<task:scheduled ref="untactLockerSettingScheduler" method="mergeSetting" cron="1 0 0 * * *"/>
+  		<task:scheduled ref="untactLockerSettingScheduler" method="mergeSetting" cron="10 0 0 * * *"/>
   	</task:scheduled-tasks>
 
 </beans>

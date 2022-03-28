@@ -196,6 +196,9 @@ public class UntactLockerSettingService extends BaseService {
 	
 	public void mergeSetting() {
 		
+		logger.info("### untactBookMergeSetting starts ###");
+    	System.out.println("### untactBookMergeSetting starts ###");
+		
 		List<UntactBookSetting> untactBookSettingList = dao.getHomepageList();
 		// WAS2_HOMEPAGE2 컨테이너에서만 실행
 		if(StringUtils.equals(System.getProperty("whalesoft.container"), "WAS2_HOMEPAGE2")) {
@@ -209,12 +212,14 @@ public class UntactLockerSettingService extends BaseService {
 	
 							if (res == 0) {
 								logger.error("###### 비대면 도서대출 회차 생성 에러 ######");
+								System.out.println("###### 비대면 도서대출 회차 생성 에러 ######");
 							}
 						}
 					}
 				}
 			} catch (Exception e) {
 				logger.error("###### 비대면 도서대출 세팅 에러 ######" + e);
+				System.out.println("###### 비대면 도서대출 세팅 에러 ######" + e);
 			}
 		}
 
