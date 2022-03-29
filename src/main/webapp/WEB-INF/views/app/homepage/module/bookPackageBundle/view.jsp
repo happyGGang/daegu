@@ -16,7 +16,15 @@ $(function() {
 });
 </script>
 <style type="text/css">
-.bookPackageBundleSubject {font-size: 20px;background: #f6f6f6;font-weight: bold;text-align: center;height: 42px;width: 1000px;display: table-cell;vertical-align: middle;border: 1px solid #e5e8eb;}
+	.bookPackageBundleSubject {font-size: 20px;background: #f6f6f6;font-weight: bold;text-align: center;height: 42px;width: 1000px;display: table-cell;vertical-align: middle;border: 1px solid #e5e8eb;}
+
+	span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
+
+	.serial-wrap .search-results .row{height:225px;}
+
+	@media all and (max-width:550px){
+		.serial-wrap .search-results .row{border-bottom:1px solid #e5e5e5;height:auto;margin-top:10px;}
+	}
 </style>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookPackageBundle" action="index.do" method="GET">
@@ -48,7 +56,7 @@ $(function() {
 				<div class="box">
 					<div class="item">
 						<div class="bif">
-							<a class="name" title="${i.book_package_name}">
+							<a class="name" title="${i.book_package_name}" style="display:block;">
 								${fn:substring(i.book_package_name, 0, 30)}<c:if test="${fn:length(i.book_package_name) > 30}">...</c:if>
 							</a>
 							<ul class="con2">
@@ -85,6 +93,11 @@ $(function() {
 							</ul>
 						</div>
 					</div>
+				</div>
+				<div style="float:left;margin-top:10px;">
+					<c:forTokens items="${i.keyword}" delims="," var="keyword">
+					<span class="keyword">${keyword}</span>
+					</c:forTokens>
 				</div>
 			</div>
 			</c:forEach>

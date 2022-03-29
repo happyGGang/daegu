@@ -116,7 +116,7 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_bundle_idx"/>
 
-<div id="category-box">
+<%-- <div id="category-box">
 	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackageBundle.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll" class="customCheck"/>
 	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackageBundle.category, '000') ? 'checked' : ''}" label="총류" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="100" checked="${fn:contains(bookPackageBundle.category, '100') ? 'checked' : ''}" label="철학" class="customCheck categoryChk"/>
@@ -128,33 +128,39 @@ $(function() {
 	<form:checkbox path="category" value="700" checked="${fn:contains(bookPackageBundle.category, '700') ? 'checked' : ''}" label="언어" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="800" checked="${fn:contains(bookPackageBundle.category, '800') ? 'checked' : ''}" label="문학" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="900" checked="${fn:contains(bookPackageBundle.category, '900') ? 'checked' : ''}" label="역사" class="customCheck categoryChk"/>
-</div>
-<div class="search txt-center" style="margin-top:25px;">
-	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu new_select_box">
-			<form:option value="book_package_name">서명</form:option>
-			<form:option value="keyword">키워드</form:option>
-		</form:select>
-		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
-		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
-	</fieldset>
-</div>
+</div> --%>
+
+<div class="doc-body">
+  <div class="summaryDesc" style="margin-right:10px;">
+    <div class="innerBox" style="padding:10px;">
+      <div class="img ticon_02" style="top:10px;"></div>
+      <div class="desc">
+        <h3 style="margin-top:-10px;">「학생추천도서꾸러미」</h3>
+        <p>책꾸러미 제목을 클릭하시면 책꾸러미 도서 상세정보들이 나옵니다.</p>
+      </div>
+    </div>
+  </div>
+ </div>
+
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu new_select_box">
 		<form:option value="">수준별보기</form:option>
-		<form:option value="3">초</form:option>
-		<form:option value="4">중</form:option>
-		<form:option value="5">고</form:option>
+		<form:option value="3">초등1-2학년</form:option>
+		<form:option value="4">초등3-4학년</form:option>
+		<form:option value="5">초등5-6학년</form:option>
+		<form:option value="6">중학생</form:option>
+		<form:option value="7">고등학생</form:option>
 	</form:select>
 	<form:select path="lender_count" cssClass="selectmenu new_select_box">
 		<form:option value="-1">상태전체</form:option>
 		<form:option value="1">대출중</form:option>
 		<form:option value="0">대출가능</form:option>
 	</form:select>
-	<div class="button">
+	<div class="button" style="margin-right:10px;">
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
 	</div>
 </div>
+
 <div>
 	<c:forEach items="${bookPackageBundleList}" var="i" varStatus="status">
 	<div class="group-box">
@@ -164,7 +170,7 @@ $(function() {
 				<a href="#" class="view-btn" keyValue="${i.book_package_bundle_idx}">${i.book_package_bundle_title}</a>
 			</div>
 			<div>
-				<c:if test="${not empty i.grade}">
+				<%-- <c:if test="${not empty i.grade}">
 				<span class="step1">
 				<c:choose>
 					<c:when test="${i.grade eq '3'}">초등1-2학년</c:when>
@@ -174,8 +180,8 @@ $(function() {
 					<c:when test="${i.grade eq '7'}">고등학생</c:when>
 				</c:choose>
 				</span>
-				</c:if>
-				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
+				</c:if> --%>
+				<%-- <c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
 					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
 					<c:forTokens items="${j.category}" delims="," var="category">
 						<span class="step2">
@@ -194,9 +200,9 @@ $(function() {
 						</span>
 					</c:forTokens>
 					</c:if>
-				</c:forEach>
+				</c:forEach> --%>
 			</div>
-			<div class="book-desc">
+			<%-- <div class="book-desc">
 				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
 					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
 						${fn:substring(j.book_package_name, 0, 85)}<c:if test="${fn:length(j.book_package_name) > 85}">...</c:if>
@@ -211,7 +217,7 @@ $(function() {
 						</c:forTokens>
 					</c:if>
 				</c:forEach>
-			</div>
+			</div> --%>
 		</div>
 		<div class="btn-box">
 			<c:choose>
@@ -222,10 +228,10 @@ $(function() {
 					<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">대출신청</a>
 				</c:otherwise>
 			</c:choose>
-			<span class="loan-cnt">
-				<strong>${i.loan_count}</strong>권
-			</span>
 		</div>
+		<span class="loan-cnt">
+			<strong>${i.loan_count}</strong>권
+		</span>
 	</div>
 	</c:forEach>
 	<c:if test="${fn:length(bookPackageBundleList) < 1}">
@@ -238,5 +244,16 @@ $(function() {
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#bookPackageBundle"/>
 </jsp:include>
+
+<div class="search txt-center" style="margin-top:25px;clear:both;">
+	<fieldset>
+		<form:select path="search_type" cssClass="selectmenu new_select_box">
+			<form:option value="book_package_name">서명</form:option>
+			<form:option value="keyword">키워드</form:option>
+		</form:select>
+		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
+		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
+	</fieldset>
+</div>
 
 </form:form>
