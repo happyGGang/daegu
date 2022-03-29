@@ -11,93 +11,9 @@ function bookPackageBundleSave() {
 	}
 }
 
-function modifyBookPackage(book_package_bundle_detail_idx, book_package_bundle_idx) {
-	
+function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bundle_idx, bundle_idx) {
 	var ajaxData = {
-		'book_package_bundle_detail_idx' : book_package_bundle_detail_idx
-	};
-	
-	modal_layer_add('dialog_layer');
-
-	$.ajax({
-		type: "POST",
-		url: 'getBookPackageOne.do',
-		data: ajaxData,
-		success: function(html){
-			$('#dialog_layer').html(html);
-		},error: function(html){
-		}
-	});
-
-	$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
-		width: 800,
-		height: 510,
-		resizable: false,
-		modal: true,
-		title: '학생추천도서 꾸러미 등록',
-		open: function(){
-			$('.ui-widget-overlay').addClass('custom-overlay');
-		},
-		close: function(){
-		},
-		buttons: [
-			{
-				text: "수정",
-				"class": 'btn btn1',
-				click: function() {
-					oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
-
-					if($('#doc_file').val() == '') {
-						$('#doc_file').remove();
-					}
-
-					var file = $('#mfile');
-					if ( $('#mfile').val() == '' ) {
-						$('#mfile').remove();
-					}
-
-					jQuery.ajaxSettings.traditional = true;
-					var option = {
-						url : 'modifyBookPackage.do?book_package_bundle_detail_idx=' + book_package_bundle_detail_idx,
-						type : "POST",
-						success: function(response) {
-							 if(response.valid) {
-				                 if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-									alert(response.message);
-									drawBookPackageDetailData(book_package_bundle_idx);
-									$('#dialog_layer').dialog('destroy');
-									$('#dialog_layer').remove();
-				                 }
-							} else {
-				                for(var i =0 ; i < response.result.length ; i++) {
-									alert(response.result[i].code);
-									$('#'+response.result[i].field).focus();
-									break;
-								}
-								$('td#doc_file_td').html('<input type="file" id="doc_file" name="doc_file" class="text" title="파일선택">');
-							}
-				         },
-				         error: function(jqXHR, textStatus, errorThrown) {
-				             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-				         }
-					};
-					$('#bookPackageEdit').ajaxSubmit(option);
-				}
-			},{
-				text: "취소",
-				"class": 'btn',
-				click: function() {
-					$(this).dialog('destroy');
-					$('#dialog_layer').remove();
-				}
-			}
-		]
-	});
-}
-
-function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bundle_idx) {
-	var ajaxData = {
-			'book_package_bundle_detail_idx' : book_package_bundle_detail_idx
+			'bundle_idx' : bundle_idx
 	};
 	if(confirm('삭제 하시겠습니까?')) {
 		$.ajax({
@@ -167,7 +83,7 @@ function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bu
 							</span>
 						</c:forTokens>
 					</td>
-					<td class="left"  onclick="modifyBookPackage('${i.book_package_bundle_detail_idx}', '${i.book_package_bundle_idx}');" style="cursor:pointer;">${i.book_package_name}</td>
+					<td class="left">${i.book_package_name}</td>
 					<td>${i.author}</td>
 					<td>${i.publisher}</td>
 					<td>${i.publish_year}</td>
@@ -176,7 +92,7 @@ function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bu
 							<span class="keyword">${keyword}</span>
 						</c:forTokens>
 					</td>
-					<td><a href="javascript:void(0);" class="btn btn5" onclick="deleteBookPackageDetail('${i.book_package_bundle_detail_idx}', '${i.book_package_bundle_idx}')">삭제</a></td>
+					<td><a href="javascript:void(0);" class="btn btn5" onclick="deleteBookPackageDetail('${i.book_package_bundle_detail_idx}', '${i.book_package_bundle_idx}', '${i.bundle_idx}')">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

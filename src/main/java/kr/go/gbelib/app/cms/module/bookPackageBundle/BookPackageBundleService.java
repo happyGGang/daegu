@@ -186,4 +186,44 @@ public class BookPackageBundleService extends BaseService {
 		return dao.deleteBookPackageBundleDetailOne(bookPackageBundle);
 	}
 
+	public List<BookPackageBundle> getBookPackageBundleDetailList(BookPackageBundle bookPackageBundle) {
+		return dao.getBookPackageBundleDetailList(bookPackageBundle);
+	}
+
+	public int addBook(BookPackageBundle bookPackageBundle) {
+		return dao.addBook(bookPackageBundle);
+	}
+
+	public BookPackageBundle getBookDetail(BookPackageBundle bookPackageBundle) {
+		return dao.getBookDetail(bookPackageBundle);
+	}
+
+	public int getBookPackageBundleDetailCount(BookPackageBundle bookPackageBundle) {
+		return dao.getBookPackageBundleDetailCount(bookPackageBundle);
+	}
+
+	public int modifyBook(BookPackageBundle bookPackageBundle) {
+		return dao.modifyBook(bookPackageBundle);
+	}
+
+	public int addBookPackageDetail(BookPackageBundle bookPackageBundle) {
+		return dao.addBookPackageDetail(bookPackageBundle);
+	}
+
+	public List<BookPackageBundle> getBookDetailAll(BookPackageBundle bookPackageBundle) {
+		return dao.getBookDetailAll(bookPackageBundle);
+	}
+
+	public int addBookPackageDetailAll(BookPackageBundle bookPackageBundle) {
+		return dao.addBookPackageDetailAll(bookPackageBundle);
+	}
+
+	public List<BookPackageBundle> getDetailList(BookPackageBundle bookPackageBundle) {
+		return dao.getDetailList(bookPackageBundle);
+	}
+
+	public List<BookPackageBundle> bundleExcelList(BookPackageBundle bookPackageBundle) {
+		return dao.bundleExcelList(bookPackageBundle);
+	}
+
 }

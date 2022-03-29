@@ -1,0 +1,127 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="${getContextPath}/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/resources/common/smart_editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+var oEditors = [];
+$(function() {
+	
+	nhn.husky.EZCreator.createInIFrame({
+		oAppRef: oEditors,
+		elPlaceHolder: "content",
+		sSkinURI: "/resources/common/smart_editor/SmartEditor2Skin.html",	
+		htParams : {
+			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+			bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+			//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
+			fOnBeforeUnload : function(){
+				//alert("완료!");
+			}
+		}, //boolean
+		fCreator: "createSEditor2"
+	});
+	
+	$('a#naver-search').on('click', function(e) {
+		e.preventDefault();
+		var lasList = window.open('search.do', 'searchBook', 'width=1000 height=600,scrollbars=yes');
+	});
+	
+	$('#thumbnail').hide();
+
+});
+
+function getNaverData(arg) {
+	arg = arg.split('//');
+	$('input#book_package_name').val(arg[0].replace(/(<([^>]+)>)/ig,""));
+	$('input#author').val(arg[1]);
+	$('input#publisher').val(arg[2]);
+	$('input#publish_year').val(arg[3]);
+	oEditors.getById["content"].exec("SET_IR", [arg[6]]);
+	$('input#desc_link').val(arg[7] + '//' + arg[8]);
+	if(arg[9] != null && arg[9] != '') {
+		$('#thumbnail').show();
+		$('#thumbnail td').html('<img src="'+(arg[9] + '//' + arg[10]) +'" alt="'+arg[0].replace(/(<([^>]+)>)/ig,"")+'">');
+		$('input#image_link').val(arg[9] + '//' + arg[10]);
+	}
+	
+	return false;
+}
+
+</script>
+<form:form id="bookPackageEdit" modelAttribute="bookPackageBundle" action="save.do" method="POST">
+	<form:hidden path="image_link"/>
+	<table class="type2">
+		<colgroup>
+	       <col width="130" />
+	       <col width="*"/>
+       	</colgroup>
+       	<tbody>
+	        <tr>
+				<th>도서검색</th>
+				<td>
+					<a href="#" class="btn btn2" id="naver-search"><i class="fa fa-plus"></i><span>도서검색</span></a>&nbsp;&nbsp;<span id="img_file"></span>
+				</td>
+	        </tr>
+	        <tr>
+	        	<th>도서명(<span style="color: red;font-weight: bold;">*</span>)</th>
+	        	<td>
+		        	<form:input path="book_package_name" cssClass="text" cssStyle="width:100px;"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>작가</th>
+	        	<td>
+	        		<form:input path="author" cssClass="text" cssStyle="width:100px;"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>출판사</th>
+	        	<td>
+	        		<form:input path="publisher" cssClass="text" cssStyle="width:100px;"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>출판년도</th>
+	        	<td>
+	        		<form:input path="publish_year" cssClass="text" cssStyle="width:100px;"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>주류별</th>
+	        	<td>
+	        		<form:checkbox path="category" id="cate1" value="000" label="총류" checked="${fn:contains(bookPackageBundle.category, '000') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate2" value="100" label="철학" checked="${fn:contains(bookPackageBundle.category, '100') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate3" value="200" label="종교" checked="${fn:contains(bookPackageBundle.category, '200') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate4" value="300" label="사회과학" checked="${fn:contains(bookPackageBundle.category, '300') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate5" value="400" label="자연과학" checked="${fn:contains(bookPackageBundle.category, '400') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate6" value="500" label="기술과학" checked="${fn:contains(bookPackageBundle.category, '500') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate7" value="600" label="예술" checked="${fn:contains(bookPackageBundle.category, '600') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate8" value="700" label="언어" checked="${fn:contains(bookPackageBundle.category, '700') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate9" value="800" label="문학" checked="${fn:contains(bookPackageBundle.category, '800') ? 'checked' : ''}"/>
+	        		<form:checkbox path="category" id="cate10" value="900" label="역사" checked="${fn:contains(bookPackageBundle.category, '900') ? 'checked' : ''}"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>키워드</th>
+	        	<td>
+	        		<form:input path="keyword" cssClass="text" cssStyle="width:300px;"/> * 쉼표(,)로 구분지어 주세요.
+	        	</td>
+	        </tr>
+	        <tr style="display:none;">
+	        	<th>도서 설명 페이지 링크 주소</th>
+	        	<td>
+	        		<form:input path="desc_link" cssClass="text" cssStyle="width:300px;"/> * http://부터 입력해주세요.
+	        	</td>
+	        </tr>
+	        <tr style="display:none;">
+	        	<td colspan="2">
+	        		<form:textarea path="content" rows="10" cols="100" cssStyle="width:95%;"/>
+	        	</td>
+	        </tr>
+		</tbody>
+	</table>
+</form:form>

@@ -62,7 +62,7 @@ public class BookPackageBundleController extends BaseController {
 
 		return basePath + "index";
 	}
-
+	
 	private List<BookPackageBundle> bookPackageDetail(List<BookPackageBundle> bookPackageDetailList) {
 		int temp = 0;
 		
@@ -76,6 +76,30 @@ public class BookPackageBundleController extends BaseController {
 		
 		return bookPackageDetailList;
 	}
+
+	@RequestMapping (value = {"/bundleList.*"}, method = RequestMethod.GET)
+	public String bundleList(Model model, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
+		
+		if (bookPackageBundle == null) {
+			bookPackageBundle = new BookPackageBundle();
+			bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		}
+		
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		
+		int count = bookPackageBundleService.getBookPackageBundleDetailCount(bookPackageBundle);
+		bookPackageBundleService.setPaging(model, count, bookPackageBundle);
+		bookPackageBundle.setTotalDataCount(count);
+		
+		List<BookPackageBundle> bundleList = bookPackageBundleService.getBookPackageBundleDetailList(bookPackageBundle);
+		
+		model.addAttribute("bookPackageBundle", bookPackageBundle);
+		model.addAttribute("bundleList", bundleList);
+		
+		return basePath + "bundleList";
+	}
+
 
 	@RequestMapping(value = { "/bookPackageBundleDetail.*" })
 	public String bookPackageBundleDetail(Model model, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
@@ -93,6 +117,23 @@ public class BookPackageBundleController extends BaseController {
 		model.addAttribute("bookPackageDetailList", bookPackageDetailList);
 		
 		return basePath + "bookPackageBundleDetail_ajax";
+	}
+
+	@RequestMapping(value = { "/getBookDetail.*" })
+	public String getBookDetail(Model model, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+		
+		if (bookPackageBundle == null) {
+			bookPackageBundle = new BookPackageBundle();
+			bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		}
+		
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		
+		bookPackageBundle = bookPackageBundleService.getBookDetail(bookPackageBundle);
+		
+		model.addAttribute("bookPackageBundle", bookPackageBundle);
+		
+		return basePath + "bookDetail_ajax";
 	}
 
 	@RequestMapping(value = { "/bookPackageBundleEdit.*" })
@@ -170,15 +211,111 @@ public class BookPackageBundleController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/getBookPackage.*" })
-	public String bookSearch(Model model, LibrarySearch librarySearch, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+	public String getBookPackage(Model model, LibrarySearch librarySearch, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
 		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
 		
 		List<BookPackageBundle> bookPackageBundleList = bookPackageBundleService.getBookPackageBundleList(bookPackageBundle);
+
+		bookPackageBundle = bookPackageBundleService.getBookDetail(bookPackageBundle);
 		
 		model.addAttribute("bookPackageBundle", bookPackageBundle);
 		model.addAttribute("bookPackageBundleList", bookPackageBundleList);
 
-		return basePath + "bookPackage_ajax";
+		return basePath + "bundleEdit_ajax";
+	}
+
+	@RequestMapping (value = {"/addBookPackageDetail.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse addBookPackageDetail(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		
+		JsonResponse res = new JsonResponse(request);
+		
+		if (!result.hasErrors()) {
+			bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+			if(bookPackageBundleService.addBookPackageDetail(bookPackageBundle) > 0) {
+				res.setValid(true);
+				res.setMessage("등록 되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage("등록에 실패하였습니다.\n관리자에게 문의해주세요.");
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = { "/getBookPackageAll.*" })
+	public String getBookPackageAll(Model model, LibrarySearch librarySearch, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		
+		List<BookPackageBundle> bookPackageBundleList = bookPackageBundleService.getBookPackageBundleList(bookPackageBundle);
+		
+		List<BookPackageBundle> bookPackageDetailList = bookPackageBundleService.getBookDetailAll(bookPackageBundle);
+		
+		model.addAttribute("bookPackageBundle", bookPackageBundle);
+		model.addAttribute("bookPackageDetailList", bookPackageDetailList);
+		model.addAttribute("bookPackageBundleList", bookPackageBundleList);
+		
+		return basePath + "bundleEditAll_ajax";
+	}
+	
+	@RequestMapping (value = {"/addBookPackageDetailAll.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse addBookPackageDetailAll(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		JsonResponse res = new JsonResponse(request);
+		
+		List<BookPackageBundle> detailList = bookPackageBundleService.getDetailList(bookPackageBundle);
+		
+		if (!result.hasErrors()) {
+			for(int i = 0; i < detailList.size(); i++) {
+				bookPackageBundle.setBook_package_bundle_detail_idx(detailList.get(i).getBook_package_bundle_detail_idx());
+				int addResult = bookPackageBundleService.addBookPackageDetail(bookPackageBundle);
+				if(addResult > 0) {
+					res.setValid(true);
+					res.setMessage("등록 되었습니다.");
+				} else {
+					res.setValid(false);
+					res.setMessage("등록에 실패하였습니다.\n관리자에게 문의해주세요.");
+				}
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
+	@RequestMapping (value = {"/modifyBook.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse modifyBook(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
+			bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+			if(bookPackageBundleService.modifyBook(bookPackageBundle) > 0) {
+				res.setValid(true);
+				res.setMessage("수정 되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage("수정에 실패하였습니다.\n관리자에게 문의해주세요.");
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+
+	@RequestMapping(value = { "/addBook.*" })
+	public String addBook(Model model, LibrarySearch librarySearch, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		
+		model.addAttribute("bookPackageBundle", bookPackageBundle);
+		
+		return basePath + "addBook_ajax";
 	}
 
 	@RequestMapping(value = { "/getBookPackageOne.*" })
@@ -249,6 +386,25 @@ public class BookPackageBundleController extends BaseController {
 			res.setResult(result.getAllErrors());
 		}
 
+		return res;
+	}
+
+	@RequestMapping (value = {"/saveBook.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse saveBook(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+		ValidationUtils.rejectIfEmpty(result, "book_package_name", "도서명을 입력하세요.");
+		
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		
+		if (!result.hasErrors()) {
+			bookPackageBundleService.addBook(bookPackageBundle);
+			res.setValid(true);
+			res.setMessage("등록되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		
 		return res;
 	}
 	
@@ -397,6 +553,8 @@ public class BookPackageBundleController extends BaseController {
 		
 		if(bookPackageBundle.getEditMode().equals("bookPackage")) {
 			bookPackageBundleList = bookPackageBundleService.getBookPackageBundleExcelList(bookPackageBundle);
+		} else if(bookPackageBundle.getEditMode().equals("bundleList")) {
+			bookPackageBundleList = bookPackageBundleService.bundleExcelList(bookPackageBundle);
 		} else {
 			bookPackageBundleList = bookPackageBundleService.getBookPackageBundleLoanExcelList(bookPackageBundle);
 		}

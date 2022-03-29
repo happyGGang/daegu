@@ -293,7 +293,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			</c:forEach>
 			<c:if test="${fn:length(loanList) < 1}">
 				<tr>
-					<td colspan="9">조회된 자료가 없습니다.</td>
+					<td colspan="10">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

@@ -12,7 +12,13 @@ public class BookPackageBundle extends PagingUtils {
 	private int book_package_bundle_idx;  //책꾸러미묶음IDX
 	private int[] book_package_bundle_idx_arr;
 	private int book_package_bundle_detail_idx;  //책꾸러미묶음상세IDX
+	private int[] book_package_bundle_detail_idx_arr;
 	private String book_package_bundle_title;  //책꾸러미묶음제목
+	private int book_package_bundle_seq;  //꾸러미 출력순서
+	
+	//학생추천도서꾸러미 도서모음 변수
+	private int bundle_idx;  //꾸러미IDX
+	private int[] bundle_idx_arr;
 	
 	//학생추천도서꾸러미 상세정보 변수
 	private String book_package_name;  //책제목명
@@ -35,6 +41,7 @@ public class BookPackageBundle extends PagingUtils {
 	private String doc_server_file_name;  //문서서버파일명
 	private String doc_file_extension;  //문서파일확장자
 	private long doc_file_size;  //문서파일크기
+	private int book_package_bundle_detail_seq;  //꾸러미 상세보기 출력순서
 	
 	private MultipartFile mfile;
 	private MultipartFile doc_file;
@@ -455,6 +462,46 @@ public class BookPackageBundle extends PagingUtils {
 
 	public void setSchool_tel_3(String school_tel_3) {
 		this.school_tel_3 = school_tel_3;
+	}
+
+	public int getBundle_idx() {
+		return bundle_idx;
+	}
+
+	public void setBundle_idx(int bundle_idx) {
+		this.bundle_idx = bundle_idx;
+	}
+
+	public int[] getBundle_idx_arr() {
+		return bundle_idx_arr;
+	}
+
+	public void setBundle_idx_arr(int[] bundle_idx_arr) {
+		this.bundle_idx_arr = bundle_idx_arr;
+	}
+
+	public int getBook_package_bundle_seq() {
+		return book_package_bundle_seq;
+	}
+
+	public void setBook_package_bundle_seq(int book_package_bundle_seq) {
+		this.book_package_bundle_seq = book_package_bundle_seq;
+	}
+
+	public int getBook_package_bundle_detail_seq() {
+		return book_package_bundle_detail_seq;
+	}
+
+	public void setBook_package_bundle_detail_seq(int book_package_bundle_detail_seq) {
+		this.book_package_bundle_detail_seq = book_package_bundle_detail_seq;
+	}
+
+	public int[] getBook_package_bundle_detail_idx_arr() {
+		return book_package_bundle_detail_idx_arr;
+	}
+
+	public void setBook_package_bundle_detail_idx_arr(int[] book_package_bundle_detail_idx_arr) {
+		this.book_package_bundle_detail_idx_arr = book_package_bundle_detail_idx_arr;
 	}
 	
 }

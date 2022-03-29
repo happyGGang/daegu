@@ -302,9 +302,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<form:option value="0">대출가능</form:option>
 	</form:select>
 	<div class="button">
-		<a href="javascript:void(0);" class="btn btn1 left" onclick="bookPackageBundleEdit();"><i class="fa fa-plus"></i><span>꾸러미 생성</span></a>
 		<a href="javascript:void(0);" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>꾸러미 도서목록 다운받기</span></a>
-		<a href="javascript:void(0);" class="btn btn5 left" onclick="getBookPackage();"><i class="fa fa-plus"></i><span>꾸러미 리스트 등록</span></a>
 	</div>
 </div>
 <div>
@@ -319,10 +317,8 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		</c:choose>
 		<div class="content-box">
 			<div class="subject">
-				<a href="javascript:void(0);" onclick="getBookPackageDetail('${i.book_package_bundle_idx}');">${i.book_package_bundle_title}</a>
-			</div>
-			<div class="subject">
 				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span></c:if>
+				<a href="javascript:void(0);" onclick="getBookPackageDetail('${i.book_package_bundle_idx}');">${i.book_package_bundle_title}</a>
 			</div>
 			<div>
 				<c:if test="${not empty i.grade}">

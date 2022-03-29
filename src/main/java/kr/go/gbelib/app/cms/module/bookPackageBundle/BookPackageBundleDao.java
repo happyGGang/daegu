@@ -56,4 +56,24 @@ public interface BookPackageBundleDao {
 
 	int deleteBookPackageBundleDetailOne(BookPackageBundle bookPackageBundle);
 
+	List<BookPackageBundle> getBookPackageBundleDetailList(BookPackageBundle bookPackageBundle);
+
+	int addBook(BookPackageBundle bookPackageBundle);
+
+	BookPackageBundle getBookDetail(BookPackageBundle bookPackageBundle);
+
+	int getBookPackageBundleDetailCount(BookPackageBundle bookPackageBundle);
+
+	int modifyBook(BookPackageBundle bookPackageBundle);
+
+	int addBookPackageDetail(BookPackageBundle bookPackageBundle);
+
+	List<BookPackageBundle> getBookDetailAll(BookPackageBundle bookPackageBundle);
+
+	int addBookPackageDetailAll(BookPackageBundle bookPackageBundle);
+
+	List<BookPackageBundle> getDetailList(BookPackageBundle bookPackageBundle);
+
+	List<BookPackageBundle> bundleExcelList(BookPackageBundle bookPackageBundle);
+
 }

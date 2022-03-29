@@ -108,11 +108,8 @@ public class BookPackageBundleController extends BaseController {
 		
 		bookPackageBundle = bookPackageBundleService.getBookPackageOne(bookPackageBundle);
 		
-		int test = 1;
-		
 		model.addAttribute("bookPackageBundle", bookPackageBundle);
 		model.addAttribute("bookPackageBundleList", bookPackageBundleList);
-		model.addAttribute("test", test);
 	
 		return String.format(basePath, homepage.getFolder()) + "view";
 	}
@@ -145,18 +142,17 @@ public class BookPackageBundleController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "loanList";
 	}
 
-	/*
-	 * @RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET) public
-	 * String loanView(Model model, BookPackage bookPackage, HttpServletRequest
-	 * request) throws AuthException { checkAuth("R", model, request); Homepage
-	 * homepage = (Homepage) request.getAttribute("homepage");
-	 * 
-	 * bookPackage = (BookPackage)service.copyObjectPaging(bookPackage,
-	 * service.getBookPackageLoanOne(bookPackage));
-	 * model.addAttribute("bookPackage", bookPackage);
-	 * 
-	 * return String.format(basePath, homepage.getFolder()) + "loanView"; }
-	 */
+	
+	@RequestMapping (value = {"/loanView.*"}, method = RequestMethod.GET)
+	public String loanView(Model model, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+	checkAuth("R", model, request); 
+	Homepage homepage = (Homepage) request.getAttribute("homepage");
+	
+	bookPackageBundle = (BookPackageBundle)bookPackageBundleService.copyObjectPaging(bookPackageBundle, bookPackageBundleService.getBookPackageLoanOne(bookPackageBundle));
+	model.addAttribute("bookPackageBundle", bookPackageBundle);
+	
+	return String.format(basePath, homepage.getFolder()) + "loanView"; 
+	}
 
 	@RequestMapping(value = {"/loanEdit.*"})
 	public String bookPackageReq(Model model, BookPackageBundle bookPackageBundle, HttpServletRequest request, HttpServletResponse response) throws Exception {

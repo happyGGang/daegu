@@ -19,9 +19,11 @@ public class BookPackageBundleWorkbook {
 	protected WritableWorkbook workbookForm(WritableWorkbook workbook, String editMode, List<BookPackageBundle> bookPackageBundleList, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String sheetName = "";
 		if(editMode.equals("bookPackage")) {
-			sheetName = "책 꾸러미 리스트";
+			sheetName = "학생추천도서꾸러미 리스트";
 		} else if(editMode.equals("bookPackageLoan")) {
-			sheetName = "책 꾸러미 대출신청";
+			sheetName = "학생추천도서꾸러미 대출신청";
+		} else {
+			sheetName = "학생추천도서꾸러미 책 리스트";
 		}
 		
 		workbook.createSheet(sheetName, 0);	//시트설정
@@ -253,6 +255,63 @@ public class BookPackageBundleWorkbook {
 				}
 				workbook.getSheet(0).addCell(new Label(10, row, request_status));
 				workbook.getSheet(0).addCell(new Label(11, row, one.getLoan_count() + "권"));
+				
+				row++;
+			}
+		} else {
+			// 컬럼 폭 지정
+			workbook.getSheet(0).setColumnView(0,  25);
+			workbook.getSheet(0).setColumnView(1,  15);
+			workbook.getSheet(0).setColumnView(2,  15);
+			workbook.getSheet(0).setColumnView(3,  20);
+			workbook.getSheet(0).setColumnView(4,  20);
+			workbook.getSheet(0).setColumnView(5,  20);
+			
+			// 헤더 컬럼 지정
+			workbook.getSheet(0).addCell(new Label(0, 0, "도서명", format));
+			workbook.getSheet(0).addCell(new Label(1, 0, "작가", format));
+			workbook.getSheet(0).addCell(new Label(2, 0, "출판사", format));
+			workbook.getSheet(0).addCell(new Label(3, 0, "출판년도", format));
+			workbook.getSheet(0).addCell(new Label(4, 0, "주류", format));
+			workbook.getSheet(0).addCell(new Label(5, 0, "키워드", format));
+			
+			int row = 1;
+			for(BookPackageBundle one : bookPackageBundleList) {
+				String category = "";
+				if(one.getCategory() != null) {
+					String[] cateArr = one.getCategory().split(",");
+					for(int i = 0; i < cateArr.length; i++) {
+						String cate = cateArr[i];
+						if(cate.equals("000")) {
+							category += "총류";
+						} else if(cate.equals("100")) {
+							category += "철학";
+						} else if(cate.equals("200")) {
+							category += "종교";
+						} else if(cate.equals("300")) {
+							category += "사회과학";
+						} else if(cate.equals("400")) {
+							category += "자연과학";
+						} else if(cate.equals("500")) {
+							category += "기술과학";
+						} else if(cate.equals("600")) {
+							category += "예술";
+						} else if(cate.equals("700")) {
+							category += "언어";
+						} else if(cate.equals("800")) {
+							category += "문학";
+						} else if(cate.equals("900")) {
+							category += "역사";
+						}
+						category += i != cateArr.length-1 ? "," : "";
+					}
+				}
+				workbook.getSheet(0).addCell(new Label(0, row, one.getBook_package_name()));
+				workbook.getSheet(0).addCell(new Label(1, row, one.getAuthor()));
+				workbook.getSheet(0).addCell(new Label(2, row, one.getPublisher()));
+				workbook.getSheet(0).addCell(new Label(3, row, String.valueOf(one.getPublish_year())));
+				workbook.getSheet(0).addCell(new Label(4, row, category));
+				workbook.getSheet(0).addCell(new Label(5, row, one.getKeyword()));
 				
 				row++;
 			}

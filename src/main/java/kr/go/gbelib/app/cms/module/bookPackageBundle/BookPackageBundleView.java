@@ -23,9 +23,11 @@ public class BookPackageBundleView extends AbstractJExcelView {
 		String name = "";
 		
 		if(editMode.equals("bookPackage")) {
-			name = "책 꾸러미 리스트.xls";
+			name = "학생추천도서꾸러미 리스트.xls";
 		} else if(editMode.equals("bookPackageLoan")) {
-			name = "책 꾸러미 대출신청.xls";
+			name = "학생추천도서꾸러미 대출신청.xls";
+		} else {
+			name = "학생추천도서꾸러미 책 리스트.xls";
 		}
 		
 		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(name, request.getHeader("user-agent")));
