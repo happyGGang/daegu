@@ -226,4 +226,12 @@ public class BookPackageBundleService extends BaseService {
 		return dao.bundleExcelList(bookPackageBundle);
 	}
 
+	public int deleteBook(BookPackageBundle bookPackageBundle) {
+		return dao.deleteBook(bookPackageBundle);
+	}
+
+	public int deleteBookDetail(BookPackageBundle bookPackageBundle) {
+		return dao.deleteBookDetail(bookPackageBundle);
+	}
+
 }

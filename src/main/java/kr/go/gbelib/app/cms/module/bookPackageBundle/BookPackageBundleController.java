@@ -210,6 +210,22 @@ public class BookPackageBundleController extends BaseController {
 		return res;
 	}
 
+	@RequestMapping(value = {"/deleteBook.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse deleteBook(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+		if(!result.hasErrors()) {
+			bookPackageBundleService.deleteBookDetail(bookPackageBundle);
+			bookPackageBundleService.deleteBook(bookPackageBundle);
+			res.setValid(true);
+			res.setMessage("삭제 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		
+		return res;
+	}
+
 	@RequestMapping(value = { "/getBookPackage.*" })
 	public String getBookPackage(Model model, LibrarySearch librarySearch, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
 		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));

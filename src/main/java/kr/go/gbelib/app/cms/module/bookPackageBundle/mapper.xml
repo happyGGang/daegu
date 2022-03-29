@@ -711,4 +711,24 @@
 		</if>
 		ORDER BY book_package_bundle_detail_idx DESC
 	</select>
+	
+	<delete id="deleteBook">
+		DELETE FROM
+			BUNDLE_LIST
+		WHERE
+			book_package_bundle_detail_idx IN
+		<foreach collection="book_package_bundle_detail_idx_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</delete>
+
+	<delete id="deleteBookDetail">
+		DELETE FROM
+			BOOK_PACKAGE_BUNDLE_DETAIL
+		WHERE
+			book_package_bundle_detail_idx IN
+		<foreach collection="book_package_bundle_detail_idx_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</delete>
 </mapper>

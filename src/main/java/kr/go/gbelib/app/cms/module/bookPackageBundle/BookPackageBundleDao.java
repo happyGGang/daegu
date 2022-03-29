@@ -76,4 +76,8 @@ public interface BookPackageBundleDao {
 
 	List<BookPackageBundle> bundleExcelList(BookPackageBundle bookPackageBundle);
 
+	int deleteBook(BookPackageBundle bookPackageBundle);
+
+	int deleteBookDetail(BookPackageBundle bookPackageBundle);
+
 }

@@ -14,7 +14,6 @@ function addBookPackageDetailAll() {
 </script>
 <form:form id="bookPackageBundle" modelAttribute="bookPackageBundle" action="addBookPackageDetailAll.do" method="POST">
 <form:hidden path="book_package_bundle_detail_idx_arr"/>
-${bookPackageBundle.book_package_bundle_detail_idx_arr}
 	<p>(<span style="color: red;font-weight: bold;">*</span>)</b>표시항목은 필수선택항목입니다.</p>
 	<table class="type2">
 		<colgroup>

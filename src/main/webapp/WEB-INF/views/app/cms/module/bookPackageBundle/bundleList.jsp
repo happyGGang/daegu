@@ -51,7 +51,7 @@ $(function() {
 	$('#delete-check').on('click', function(e) {
 		e.preventDefault();
 		if(confirm('선택 항목들을 삭제하시겠습니까?\n꾸러미내 도서정보도 전부 삭제됩니다.')) {
-			$('form#bundleList').attr('action', 'delete.do');
+			$('form#bundleList').attr('action', 'deleteBook.do');
 			$('form#bundleList').attr('method', 'POST');
 			$('#editMode').val('DELETE_CHECK');
 			if(doAjaxPost($('form#bundleList'))) {
@@ -413,6 +413,11 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<a href="javascript:void(0);" class="btn btn5 left" onclick="addBook();"><i class="fa fa-plus"></i><span>도서 등록</span></a>
 	</div>
 </div>
+<c:if test="${fn:length(bundleList) < 1}">
+<div align="center">
+	<h3>등록된 학생추천도서꾸러미 책 리스트가 없습니다.</h3>
+</div>
+</c:if>
 <div>
 	<c:forEach items="${bundleList}" var="i" varStatus="status">
 	<div class="group-box">
@@ -496,11 +501,6 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<em>* 꾸러미 담기를 클릭하시면 선택하신 도서가 꾸러미에 추가됩니다.(여러권을 선택 하셨다면 전체꾸러미 담기를 클릭해주세요.)</em>
 	</div>
 	<br>
-	<c:if test="${fn:length(bundleList) < 1}">
-	<div align="center">
-		<h3>등록된 학생추천도서꾸러미 책 리스트가 없습니다.</h3>
-	</div>
-	</c:if>
 	<a href="javascript:void(0);" id="all-check" class="btn" keyValue="N">전체 선택/해제</a>
 	<a href="javascript:void(0);" id="delete-check" class="btn">선택 게시글삭제</a>
 	<a href="javascript:void(0);" id="addBook" class="btn" onclick="waitingReservationStep();">전체 꾸러미 담기</a>
