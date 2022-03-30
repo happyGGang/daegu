@@ -195,31 +195,38 @@ public class UntactLockerSettingService extends BaseService {
 	}
 	
 	public void mergeSetting() {
-		
-		logger.info("### untactBookMergeSetting starts ###");
-    	System.out.println("### untactBookMergeSetting starts ###");
-		
-		List<UntactBookSetting> untactBookSettingList = dao.getHomepageList();
 		// WAS2_HOMEPAGE2 컨테이너에서만 실행
 		if(StringUtils.equals(System.getProperty("whalesoft.container"), "WAS2_HOMEPAGE2")) {
+			List<UntactBookSetting> untactBookSettingList = dao.getHomepageList();
+			
+			logger.info("### untactBookMergeSetting starts ###");
+	    	System.out.println("### untactBookMergeSetting starts ###");
+	    	
 			try {
 				if(untactBookSettingList != null) {
 					for (UntactBookSetting untactBookSetting : untactBookSettingList) {
-						int dateCheck = dao.dateCheck(untactBookSetting.getHomepage_id());
 						
+						System.out.println("### untactBookMergeSetting dateCheck ###");
+						
+						int dateCheck = dao.dateCheck(untactBookSetting.getHomepage_id());
 						if(dateCheck > 0) {
+							
 							int res= createUntactBookRound(untactBookSetting);
-	
+							
+							System.out.println("### untactBookMergeSetting createUntactBookRound ###");
+							
 							if (res == 0) {
 								logger.error("###### 비대면 도서대출 회차 생성 에러 ######");
 								System.out.println("###### 비대면 도서대출 회차 생성 에러 ######");
 							}
 						}
+						logger.error("###### 비대면 도서대출 회차 생성 에러2 ######");
+						System.out.println("###### 비대면 도서대출 회차 생성 에러2 ######");
 					}
 				}
 			} catch (Exception e) {
-				logger.error("###### 비대면 도서대출 세팅 에러 ######" + e);
-				System.out.println("###### 비대면 도서대출 세팅 에러 ######" + e);
+				logger.error("###### 비대면 도서대출 세팅 에러3 ######" + e);
+				System.out.println("###### 비대면 도서대출 세팅 에러3 ######" + e);
 			}
 		}
 

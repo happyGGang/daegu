@@ -1974,3 +1974,7 @@ table td.leftblank { padding-left: 18px; }
 /* homepage/elib/index.jsp */	
 
 body, html {background:#387f7d url('/resources/homepage/elib/img/main-bg.png') no-repeat center top;background-size:cover;}
+
+
+/* 220329 - 봄이왔나봄 팝업 관련 임시 css */
+#popup_h30_25 .popup-func{margin-top:-6px;}
