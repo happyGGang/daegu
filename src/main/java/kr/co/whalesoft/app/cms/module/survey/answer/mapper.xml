@@ -121,6 +121,33 @@
 		ORDER BY rand
 	</select>
 	
+	<select id="getRandomShuffledAnswers" resultType="kr.co.whalesoft.app.cms.module.survey.answer.Answer">
+		SELECT
+			*
+		FROM
+			(
+			SELECT
+				a.homepage_id, a.add_id, a.add_date, a.add_user_div, a.add_user_ip, a.add_user_name,
+				a.chosen_yn, DBMS_RANDOM.VALUE AS rand,
+				(
+				SELECT
+					DISTINCT FIRST_VALUE(z.short_answer) OVER (ORDER BY z.quest_idx DESC, z.answer_idx DESC)
+				FROM
+					cms_survey_answer_detail z
+				WHERE
+					z.survey_idx = A.survey_idx
+				AND	z.add_id = a.add_id
+				) AS last_short_answer
+			FROM
+				CMS_SURVEY_ANSWER_USER a
+			WHERE
+				a.survey_idx = #{survey_idx}
+			AND	a.homepage_id = #{homepage_id}
+			ORDER BY DBMS_RANDOM.VALUE
+			)
+		WHERE ROWNUM <![CDATA[<=]]> #{randomCount}
+	</select>
+	
 	<select id="getSurveyAnswerUser2" resultType="kr.co.whalesoft.app.cms.module.survey.answer.Answer">
 		SELECT
 			a.add_id, a.add_date, a.add_user_div, a.add_user_ip,

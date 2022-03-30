@@ -63,8 +63,18 @@ public class Quest extends PagingUtils {
 	
 	private String imgData;
 	
-
+	private int randomCount;
 	
+	
+
+	public int getRandomCount() {
+		return randomCount;
+	}
+
+	public void setRandomCount(int randomCount) {
+		this.randomCount = randomCount;
+	}
+
 	public int getAnswer_count() {
 		return answer_count;
 	}

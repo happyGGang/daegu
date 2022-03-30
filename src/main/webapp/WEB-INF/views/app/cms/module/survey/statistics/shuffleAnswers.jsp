@@ -22,7 +22,7 @@ $(document).ready(function() {
 				"class": 'btn',
 				click: function() {
 					if(confirm('새로 추첨합니다. 추첨 횟수가 증가합니다. (현재: ${survey.select_cnt+1}회)\n계속 하시겠습니까?')) {
-						$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}',
+						$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}&randomCount=' + $('#randomCount').val(),
 							function( response, status, xhr ) {
 								$('#dialog-7').dialog('open');
 						});

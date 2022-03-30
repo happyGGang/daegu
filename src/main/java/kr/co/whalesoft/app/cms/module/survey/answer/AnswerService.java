@@ -333,6 +333,10 @@ public class AnswerService extends BaseService {
 		return dao.getShuffledAnswers(quest);
 	}
 	
+	public List<Answer> getRandomShuffledAnswers(Quest quest) {
+		return dao.getRandomShuffledAnswers(quest);
+	}
+	
 	public List<Answer> getSurveyAnswerUser2(int survey_idx) {
 		return dao.getSurveyAnswerUser2(survey_idx);
 	}

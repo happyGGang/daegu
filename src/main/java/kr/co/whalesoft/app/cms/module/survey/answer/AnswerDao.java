@@ -24,6 +24,8 @@ public interface AnswerDao {
 	
 	public List<Answer> getShuffledAnswers(Quest quest);
 	
+	public List<Answer> getRandomShuffledAnswers(Quest quest);
+	
 	public List<Answer> getSurveyAnswerUser2(int survey_idx);
 	
 }

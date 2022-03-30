@@ -160,10 +160,26 @@ $(function () {
 		if('${selectedUsersCnt > 0}' == 'true') {
 			alert('이미 당첨자 등록이 된 상태입니다. 당첨자를 변경할 수 없습니다.');
 		} else {
-			if(confirm('당첨자 추첨을 시작합니다. 추첨 횟수가 증가하며 무작위 순서로 응답자 목록이 나옵니다.\n계속 하시겠습니까?')) {
-				$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}', function( response, status, xhr ) {
-					$('#dialog-7').dialog('open');
-				});
+			if ('${param.homepage_id}' == 'h30') {
+				if(confirm('당첨자 추첨을 시작합니다.\n 추첨 횟수가 증가하며 무작위 순서로 응답자 목록이 나옵니다.\n계속 하시겠습니까?')) {
+					var number = $('.number').val();
+					
+					if ('#randomCount' < 'number') {
+					$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}&randomCount=' + $('#randomCount').val(), function( response, status, xhr ) {
+						$('#dialog-7').dialog('open');
+						});
+					}
+					else {
+						alert('응답자가 당첨인원보다 적습니다.');	
+						return false;
+					}
+				}
+			}else {
+				if(confirm('당첨자 추첨을 시작합니다.\n 추첨 횟수가 증가하며 무작위 순서로 응답자 목록이 나옵니다.\n계속 하시겠습니까?')) {
+						$('#dialog-7').load('/cms/survey/surveyStatistics/shuffleAnswers.do?survey_idx=${param.survey_idx}&homepage_id=${param.homepage_id}', function( response, status, xhr ) {
+							$('#dialog-7').dialog('open');
+					});
+				}
 			}
 		}
 		
@@ -301,9 +317,12 @@ $(function () {
 					</c:if>
 				</td>
 				<th>응답자 현황</th>
-				<td colspan="3">
-					<span class="number">${survey.answer_count}명</span>				
-					<a href="" class="btn btn5" id="btn_check"><span>응답자 확인</span></a>
+				<td colspan="4">
+					<span class="number" style="width: 30px">${survey.answer_count}명</span>				
+					<a href="" class="btn btn5" id="btn_check"><span>응답자 확인</span></a><br>
+					<c:if test="${survey.homepage_id eq 'h30' }">
+						<input id="randomCount" style="width:30px;" numberonly="true"/>
+					</c:if>
 					<a href="" class="btn btn4" id="btn_pick"><span>당첨자 추첨</span></a>
 				</td>
 			</tr>

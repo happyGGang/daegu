@@ -293,9 +293,20 @@ public class StatisticsController extends BaseController {
 		Survey surveyBean = surveyService.getSurveyOne(survey);
 		surveyBean.setSurvey_content(StringUtils.defaultString(surveyBean.getSurvey_content()).replace("\r\n", "<br />"));
 		surveyService.add_select_cnt(surveyBean);
-
+		
 		model.addAttribute("survey", surveyBean);
-		model.addAttribute("answerUser", answerService.getShuffledAnswers(quest));
+		if(survey.getHomepage_id().equals("h30")) {
+			if(quest.getRandomCount() > surveyBean.getAnswer_count()) {
+				service.alertMessage("당첨자 수가 응답자 보다 많습니다.", request, response);
+				
+			}
+			model.addAttribute("answerUser", answerService.getRandomShuffledAnswers(quest));
+			
+		}else {
+			model.addAttribute("answerUser", answerService.getShuffledAnswers(quest));
+			
+		}
+		
 		return basePath + "shuffleAnswers_ajax";
 	}
 
