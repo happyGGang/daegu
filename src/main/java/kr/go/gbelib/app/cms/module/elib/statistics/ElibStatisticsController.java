@@ -76,7 +76,9 @@ public class ElibStatisticsController extends BaseController {
 			elibStatistics.setHomepage_id(getAsideHomepageId(request));
 //		}
 			
-		elibStatistics.setLibrary_code(getSessionHomepageInfo(request).getLib_code());
+		if (StringUtils.isEmpty(elibStatistics.getLibrary_code())) {
+			elibStatistics.setLibrary_code(getSessionHomepageInfo(request).getLib_code());
+		}
 		elibStatistics.setMenu(menuParam);
 
 		String menu = elibStatistics.getMenu();
@@ -179,6 +181,9 @@ public class ElibStatisticsController extends BaseController {
 //		if ( !getSessionIsAdmin(request) ) {
 		elibStatistics.setHomepage_id(getAsideHomepageId(request));
 //		}
+		if (StringUtils.isEmpty(elibStatistics.getLibrary_code())) {
+			elibStatistics.setLibrary_code(getSessionHomepageInfo(request).getLib_code());
+		}
 
 		Map<String, Integer> elibStatisticsSummary = new HashMap<String, Integer>();
 		Map<String, Integer> elibStatisticsUniqueSummary = new HashMap<String, Integer>();

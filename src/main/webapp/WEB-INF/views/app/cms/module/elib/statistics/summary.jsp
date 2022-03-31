@@ -104,6 +104,8 @@ function formatDate(date, withoutDay) {
 }
 
 $(function() {
+	$('div.page-subtitle h3').text('연령별 통계');
+	
 	$('a#excelDownload').on('click', function(e) {
 		$('input#hiddenForm_library_code').val($('#library_code').val());
 		$('input#hiddenForm_search_sdt').val($('input#search_sdt').val());
@@ -167,6 +169,11 @@ $(function() {
 
 function submit(e) {
 	e.preventDefault();
+	if($('select#library_code option:selected').val() == '0') {
+		alert('도서관을 선택해주세요.');
+		return;
+	}
+	
 	if($('input#search_sdt').val() == '') {
 		alert('조회 시작일을 선택해주세요.');
 		return;

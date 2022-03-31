@@ -145,6 +145,11 @@ $(function() {
 function submit(e) {
 	e.preventDefault();
 	e.preventDefault();
+	if($('select#library_code option:selected').val() == '0') {
+		alert('도서관을 선택해주세요.');
+		return;
+	}
+	
 	if($('input#search_sdt').val() == '') {
 		alert('조회 시작일을 선택해주세요.');
 		return;
