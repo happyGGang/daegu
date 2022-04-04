@@ -40,8 +40,8 @@
 
 <div class="user_pick_info">
 	<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
-	<h2>추천도서</h2>
-	<p class="txt_box01">추천 전자도서는 최근 3년간의 나의 도서활동 이력을 바탕으로 추천되는 도서입니다. </p>
+	<h2>도서추천</h2>
+	<p class="txt_box01">전자도서의 도서추천은 최근 3년간의 나의 도서활동 이력을 바탕으로 추천되는 도서입니다. </p>
 </div>
 <br/>
 <form:form id="bookListForm" modelAttribute="book" action="index.do" method="GET" autocomplete="off">
