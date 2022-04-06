@@ -211,9 +211,9 @@ do {
 									</a>
 								</li>
 								<li class="bg-blue">
-									<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">
-									<span class="wt">영화상영</span>
-									<span class="wc">재미있는 영화 감상</span>
+									<a href="https://app.gather.town/app/18A3bUuFZxLvoQnX/Daegu_Bukbu_library" target="_blank">
+									<span class="wt">메타북스</span>
+									<span class="wc">메타버스 북부도서관</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick07-bg.png" class="mi">
 									</a>
 								</li>
