@@ -712,6 +712,12 @@ $(function() {
 			</c:if>
 		</div>
 
+		<c:if test="${homepage.context_path eq '228'}">
+			<p style="font-weight:bold;text-align:center;">
+				※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.
+			</p>
+		</c:if>
+
 		<%-- <div style="padding-top:30px ;text-align:right">
 			<a href="${detail.aladin.link}" target="_blank" style="color:#000">도서 정보 제공 : 알라딘 인터넷서점(www.aladin.co.kr)</a> <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
 		</div> --%>
