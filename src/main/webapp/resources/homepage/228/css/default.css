@@ -44,6 +44,11 @@ a:focus{color:#2b74c0}
 .main1 .section .txt .t2{padding-top:5px;padding-bottom:15px}
 .main .bx-controls.mainImg .bx-pager{display:block}
 
+span.img-416{display:block;float:left;margin-top:15px;margin-left:280px;}
+
+@media (max-width:1024px){
+	span.img-416{display:none;}
+}
 
 
 /*
