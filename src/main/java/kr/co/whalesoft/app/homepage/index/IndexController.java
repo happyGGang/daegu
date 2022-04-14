@@ -63,6 +63,7 @@ import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
+import kr.go.gbelib.app.intro.search.LibrarySearchService;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
@@ -72,7 +73,10 @@ import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
 public class IndexController extends BaseController {
 
 	private final String basePath = "/homepage/";
-
+	
+	@Autowired
+	private LibrarySearchService librarySearchService;
+	
 	@Autowired
 	private BoardService boardService;
 
@@ -392,6 +396,9 @@ public class IndexController extends BaseController {
 						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
 						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", librarySearchService.getImageUrl(map));
 						}
 					}
 				}
