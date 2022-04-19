@@ -198,7 +198,7 @@ public class MarathonRecordController extends BaseController{
 		Member member = getSessionMemberInfo(request);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		librarySearch.setManageCode("BU,BV,BW,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK");
+		librarySearch.setManageCode("BU,BV,BW,BX,BY,BZ,FA,FB,FC,FD,FW,FX,GK,AB");
 		
 		if (request.getRequestURI().endsWith("/loan/history.do")) {
 
