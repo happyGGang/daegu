@@ -44,13 +44,80 @@ $(function() {
 </div>
 <!-- /contents-title-->
 
+<!--범어-->
+<c:if test="${homepage.context_path eq 'beomeo'}">
+	<h3>상호대차 이송 절차</h3>
+	<ul class="con">
+		<li>도서의 이송은 화요일~토요일 운행됩니다.</li>
+	</ul>
+	<h3>접수 기준 시간</h3>
+	<ul class="con">
+		<li>전일 00시 기준(예:화요일 오전 11시 신청 → 수요일 접수처리)</li>
+		<li>토, 일, 월요일은 신청만 가능하며 화~금요일 접수 처리됩니다.</li>
+	</ul>
+	<div class="rsv-info"></div>
+	<div class="auto-scroll">
+		<table class="tbl-type01" summary="수성구립 도서관들의 문의전화번호를 나타내는 표">
+		  <caption class="disnone">
+		  문의전화
+		  </caption>
+		  <colgroup>
+		  <col width="">
+		  <col width="16%">
+		  <col width="16%">
+		  <col width="16%">
+		  <col width="16%">
+		  <col width="16%">
+		  </colgroup>
+		  <thead>
+			<tr>
+			  <th>신청일</th>
+			  <th>토, 일, 월</th>
+			  <th>화</th>
+			  <th>수</th>
+			  <th>목</th>
+			  <th>금</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+			  <th>접수 기준</th>
+			  <td>월 24:00</td>
+			  <td>화 24:00</td>
+			  <td>화 24:00</td>
+			  <td>화 24:00</td>
+			  <td>화 24:00</td>
+			</tr>
+			<tr>
+			  <th>자료 이송</th>
+			  <td>화</td>
+			  <td>수</td>
+			  <td>목</td>
+			  <td>금</td>
+			  <td>토</td>
+			</tr>
+			<tr>
+			  <th>이용 가능</th>
+			  <td>화, 수, 목</td>
+			  <td>수, 목, 금</td>
+			  <td>목, 금, 토</td>
+			  <td>금, 토, 일</td>
+			  <td>일, 화, 수</td>
+			</tr>
+		  </tbody>
+		</table>
+	</div>
+	<p style="margin-bottom:30px;">※ 공휴일은 접수기준, 자료이송이 다음 운영일로 변경됩니다.<br />※ 제공 도서관 사정에 의해 지연 될 수 있습니다.</p>
+</c:if>
+<!--//범어-->
+
 <form:form modelAttribute="librarySearch" action="../sanghoSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
 <form:hidden path="isbn" />
 <form:hidden path="regNo" />
 <form:hidden path="booktype" />
 <form:hidden path="manageCode" />
-	<input type="hidden" name="libCode" value="${detail.LIB_CODE}">
+<input type="hidden" name="libCode" value="${detail.LIB_CODE}">
 
 <div class="delibery_info">
 	<h3>상호대차 정보 입력</h3>
@@ -76,7 +143,7 @@ $(function() {
 			 <tr>
 			 	<th>이용도서관(<span style="color: red;">*</span>)</th>
 			 	<td>
-<!-- 도서관 선택 분기처리 시작 -->
+					<!-- 도서관 선택 분기처리 시작 -->
 					<c:choose>
 					<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 			 		<form:select path="uselibcode">

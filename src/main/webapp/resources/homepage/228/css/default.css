@@ -35,6 +35,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center}
+.Gnb .gnb-menu > li:first-child > ul{width:120%;left:-100px;}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background: #cccccc;}
 .Gnb .gnb-menu>li.on>a,

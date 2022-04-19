@@ -150,7 +150,7 @@
 									</a>
 								</li>
 								<li class="bg-dorange">
-									<a href="http://web.daegu228.flybookscreen.kr/" target="_blank">
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=245&manage_idx=1018">
 									<span class="wt">AI도서추천서비스</span>
 									<span class="wc">빅데이터를 기반으로<br />책을 추천해드립니다.</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
