@@ -8,6 +8,8 @@
 	<div class="tnb">
 		<div class="section">
 			<h1><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo.png" alt="${homepage.homepage_name}"/></a></h1>
+			
+			<span class="img-416"><img src="/resources/homepage/${homepage.context_path}/img/416_img.png" alt="세월호 8주기 추모"/></span>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
