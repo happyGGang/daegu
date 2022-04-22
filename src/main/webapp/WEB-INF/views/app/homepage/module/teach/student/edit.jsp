@@ -524,12 +524,16 @@ $(function() {
 		history.back();
 	});
 
+	let regExp = /^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
+	<c:choose>
+	<c:when test="${homepage.homepage_id ne 'h7'}">
 	$('input#applicant_birth').datepicker({
 		yearRange: 'c-120:c',
 		maxDate:0,
 		onClose: function(selectedDate){
 			var tmp =  selectedDate.replace(/[^0-9]/g,'');
 			var tmp2 = '';
+
 			if(tmp.length < 8 ||  tmp.length > 8){
 				alert('YYYY-MM-DD 형식으로 입력해 주세요');
 			}else{
@@ -541,9 +545,27 @@ $(function() {
  				$('input#applicant_birth').val(tmp2);
  				$('input#student_zipcode').focus();
 			}
+
 				$('input#student_zipcode').focus();
 		}
 	});
+	</c:when>
+	<c:otherwise>
+		let birth = $('input#applicant_birth');
+		birth.keyup(function () {
+			birth.val(birth.val().replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'));
+		})
+		birth.blur(function () {
+			if(!regExp.exec(birth.val())) {
+				!document.hasFocus() ? '' : alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
+				setTimeout(() => { birth.focus(); }, 10)
+			}
+		})
+	</c:otherwise>
+	</c:choose>
+
+	<c:choose>
+	<c:when test="${homepage.homepage_id ne 'h7'}">
 	$('input#student_birth').datepicker({
 		yearRange: 'c-120:c',
 		maxDate:0,
@@ -564,7 +586,20 @@ $(function() {
 				$('input#student_zipcode').focus();
 		}
 	});
-
+	</c:when>
+	<c:otherwise>
+		let student_birth = $('input#student_birth');
+		student_birth.keyup(function() {
+			student_birth.val(student_birth.val().replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3'));
+		})
+		student_birth.blur(function() {
+			if(!regExp.exec(student_birth.val())) {
+				!document.hasFocus() ? '' : alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
+				setTimeout(() => { student_birth.focus(); }, 10)
+			}
+		})
+	</c:otherwise>
+	</c:choose>
 	<c:if test="${sessionScope.member.login}">
 	
 	</c:if>
@@ -574,6 +609,7 @@ $(function() {
 	});
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
+
 </script>
 <c:forEach items="${termsList}" var="terms" varStatus="status">
 	<c:if test="${status.first}">
@@ -681,8 +717,19 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	         		${sessionScope.member.birth_day}
 	         		</c:when>
 	         		<c:otherwise>
+					<c:choose>
+					<c:when test="${homepage.homepage_id ne 'h7'}">
 	         		<form:input path="applicant_birth" value="${memberInfo.birth_day}" cssClass="text ui-calendar" />
-	         		</c:otherwise>
+					</c:when>
+					<c:otherwise>
+						<form:input path="applicant_birth" value="${memberInfo.birth_day}" cssClass="text" />
+						<div class="ui-state-highlight">
+							* '-' 없이 생년월일 8자리 입력 시 자동으로 '-' 생성<br>
+							* 예) 19990905
+						</div>
+					</c:otherwise>
+					</c:choose>
+					</c:otherwise>
 		         	</c:choose>
 	         	</td>
         	</tr>
@@ -938,7 +985,20 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td><form:input path="student_birth" cssClass="text ui-calendar" maxlength="6" title="생년월일 입력"/></td>
+	         	<td>
+					<c:choose>
+					<c:when test="${homepage.homepage_id ne 'h7'}">
+						<form:input path="student_birth" cssClass="text ui-calendar" maxlength="6" title="생년월일 입력"/>
+					</c:when>
+					<c:otherwise>
+						<form:input path="student_birth" cssClass="text" title="생년월일 입력"/>
+						<div class="ui-state-highlight">
+							* '-' 없이 생년월일 8자리 입력 시 자동으로 '-' 생성<br>
+							* 예) 19990905
+						</div>
+					</c:otherwise>
+					</c:choose>
+				</td>
         	</tr>
         	</c:if>
         	<c:if test="${teach.sex_yn eq 'Y'}">
