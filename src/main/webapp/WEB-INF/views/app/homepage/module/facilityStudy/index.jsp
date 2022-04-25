@@ -39,7 +39,7 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 			<thead>
 				<tr>
 					<th>구분</th>
-					<th>좌석수</th>
+					<th>인원</th>
 					<th>오전</th>
 					<th>오후</th>
 					<th>야간</th>
@@ -47,8 +47,8 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 			</thead>
 			<tbody>
 				<tr>
-					<td>스터디룸 1팀</td>
-					<td>8석</td>
+					<td>스터디룸</td>
+					<td>4~12명</td>
 					<td>
 						<c:choose>
 						<c:when test="${not empty closedDay}">
@@ -98,110 +98,110 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 						</c:choose>
 					</td>
 				</tr>
-				<tr>
-					<td>스터디룸 2팀</td>
-					<td>8석</td>
-					<td>
-						<c:choose>
-						<c:when test="${not empty closedDay}">
-						휴관
-						</c:when>
-						<c:when test="${empty applicableList.num21}">
-						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=2&study_time=1&menu_idx=${facilityStudy.menu_idx}">신청</a>
-						</c:when>
-						<c:when test="${not empty applicableList.num21 and applicableList.num21 eq '0'}">
-						대기
-						</c:when>
-						<c:when test="${not empty applicableList.num21 and applicableList.num21 eq '1'}">
-						신청완료
-						</c:when>
-						</c:choose>
-					</td>
-					<td>
-						<c:choose>
-						<c:when test="${not empty closedDay}">
-						휴관
-						</c:when>
-						<c:when test="${empty applicableList.num22}">
-						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=2&study_time=2&menu_idx=${facilityStudy.menu_idx}">신청</a>
-						</c:when>
-						<c:when test="${not empty applicableList.num22 and applicableList.num22 eq '0'}">
-						대기
-						</c:when>
-						<c:when test="${not empty applicableList.num22 and applicableList.num22 eq '1'}">
-						신청완료
-						</c:when>
-						</c:choose>
-					</td>
-					<td>
-						<c:choose>
-						<c:when test="${not empty closedDay}">
-						휴관
-						</c:when>
-						<c:when test="${empty applicableList.num23}">
-						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=2&study_time=3&menu_idx=${facilityStudy.menu_idx}">신청</a>
-						</c:when>
-						<c:when test="${not empty applicableList.num23 and applicableList.num23 eq '0'}">
-						대기
-						</c:when>
-						<c:when test="${not empty applicableList.num23 and applicableList.num23 eq '1'}">
-						신청완료
-						</c:when>
-						</c:choose>
-					</td>
-				</tr>
-				<tr>
-					<td>스터디룸 3팀</td>
-					<td>8석</td>
-					<td>
-						<c:choose>
-						<c:when test="${not empty closedDay}">
-						휴관
-						</c:when>
-						<c:when test="${empty applicableList.num31}">
-						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=3&study_time=1&menu_idx=${facilityStudy.menu_idx}">신청</a>
-						</c:when>
-						<c:when test="${not empty applicableList.num31 and applicableList.num31 eq '0'}">
-						대기
-						</c:when>
-						<c:when test="${not empty applicableList.num31 and applicableList.num31 eq '1'}">
-						신청완료
-						</c:when>
-						</c:choose>
-					</td>
-					<td>
-						<c:choose>
-						<c:when test="${not empty closedDay}">
-						휴관
-						</c:when>
-						<c:when test="${empty applicableList.num32}">
-						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=3&study_time=2&menu_idx=${facilityStudy.menu_idx}">신청</a>
-						</c:when>
-						<c:when test="${not empty applicableList.num32 and applicableList.num32 eq '0'}">
-						대기
-						</c:when>
-						<c:when test="${not empty applicableList.num32 and applicableList.num32 eq '1'}">
-						신청완료
-						</c:when>
-						</c:choose>
-					</td>
-					<td>
-						<c:choose>
-						<c:when test="${not empty closedDay}">
-						휴관
-						</c:when>
-						<c:when test="${empty applicableList.num33}">
-						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=3&study_time=3&menu_idx=${facilityStudy.menu_idx}">신청</a>
-						</c:when>
-						<c:when test="${not empty applicableList.num33 and applicableList.num33 eq '0'}">
-						대기
-						</c:when>
-						<c:when test="${not empty applicableList.num33 and applicableList.num33 eq '1'}">
-						신청완료
-						</c:when>
-						</c:choose>
-					</td>
-				</tr>
+<!-- 				<tr> -->
+<!-- 					<td>스터디룸 2팀</td> -->
+<!-- 					<td>8석</td> -->
+<!-- 					<td> -->
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${not empty closedDay}"> --%>
+<!-- 						휴관 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${empty applicableList.num21}"> --%>
+<%-- 						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=2&study_time=1&menu_idx=${facilityStudy.menu_idx}">신청</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num21 and applicableList.num21 eq '0'}"> --%>
+<!-- 						대기 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num21 and applicableList.num21 eq '1'}"> --%>
+<!-- 						신청완료 -->
+<%-- 						</c:when> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 					<td> -->
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${not empty closedDay}"> --%>
+<!-- 						휴관 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${empty applicableList.num22}"> --%>
+<%-- 						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=2&study_time=2&menu_idx=${facilityStudy.menu_idx}">신청</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num22 and applicableList.num22 eq '0'}"> --%>
+<!-- 						대기 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num22 and applicableList.num22 eq '1'}"> --%>
+<!-- 						신청완료 -->
+<%-- 						</c:when> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 					<td> -->
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${not empty closedDay}"> --%>
+<!-- 						휴관 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${empty applicableList.num23}"> --%>
+<%-- 						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=2&study_time=3&menu_idx=${facilityStudy.menu_idx}">신청</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num23 and applicableList.num23 eq '0'}"> --%>
+<!-- 						대기 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num23 and applicableList.num23 eq '1'}"> --%>
+<!-- 						신청완료 -->
+<%-- 						</c:when> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td>스터디룸 3팀</td> -->
+<!-- 					<td>8석</td> -->
+<!-- 					<td> -->
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${not empty closedDay}"> --%>
+<!-- 						휴관 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${empty applicableList.num31}"> --%>
+<%-- 						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=3&study_time=1&menu_idx=${facilityStudy.menu_idx}">신청</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num31 and applicableList.num31 eq '0'}"> --%>
+<!-- 						대기 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num31 and applicableList.num31 eq '1'}"> --%>
+<!-- 						신청완료 -->
+<%-- 						</c:when> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 					<td> -->
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${not empty closedDay}"> --%>
+<!-- 						휴관 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${empty applicableList.num32}"> --%>
+<%-- 						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=3&study_time=2&menu_idx=${facilityStudy.menu_idx}">신청</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num32 and applicableList.num32 eq '0'}"> --%>
+<!-- 						대기 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num32 and applicableList.num32 eq '1'}"> --%>
+<!-- 						신청완료 -->
+<%-- 						</c:when> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 					<td> -->
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${not empty closedDay}"> --%>
+<!-- 						휴관 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${empty applicableList.num33}"> --%>
+<%-- 						<a class="btn" href="edit.do?study_date=${facilityStudy.plan_date}&study_num=3&study_time=3&menu_idx=${facilityStudy.menu_idx}">신청</a> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num33 and applicableList.num33 eq '0'}"> --%>
+<!-- 						대기 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${not empty applicableList.num33 and applicableList.num33 eq '1'}"> --%>
+<!-- 						신청완료 -->
+<%-- 						</c:when> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</td> -->
+<!-- 				</tr> -->
 			</tbody>
 		</table>
 	</div>

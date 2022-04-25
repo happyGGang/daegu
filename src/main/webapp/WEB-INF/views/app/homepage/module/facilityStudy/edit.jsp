@@ -9,10 +9,22 @@
 $(function() {
 
 	$('#save-btn').on('click', function() {
-
-		$('input#editMode').val('ADD');
-		doAjaxPost($('#facilityStudy'));
-
+		var today = new Date();
+		
+		var hours = ('0' + today.getHours()).slice(-2); 
+		var minutes = ('0' + today.getMinutes()).slice(-2);
+		var seconds = ('0' + today.getSeconds()).slice(-2); 
+		
+		var nowTime = hours + ':' + minutes  + ':' + seconds;
+		
+		if(nowTime < '09:00:00'){
+			alert("매월 20일 오전 9시부터 신청 가능하십니다.");
+			history.back();
+		} else {
+			$('input#editMode').val('ADD');
+			doAjaxPost($('#facilityStudy'));
+		}
+		
 	});
 
 	$('button#cancel-btn').on('click', function(e) {
@@ -95,15 +107,15 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
        		</tr>
 	        <tr>
 	         	<th>사용시설</th>
-	         	<td>301호실 스터디룸 ${fn:escapeXml(facilityStudy.study_num)}팀</td>
+	         	<td>301호실 스터디룸</td>
 	        </tr>
 	        <tr>
 	         	<th>이용시간</th>
 	         	<td>
         			신청일 : ${fn:escapeXml(facilityStudy.study_date)}<br/>
         			신청시간 :
-        			<c:if test="${fn:escapeXml(facilityStudy.study_time) eq '1'}">오전 09:00 ~ 14:00</c:if>
-        			<c:if test="${fn:escapeXml(facilityStudy.study_time) eq '2'}">오후 14:00 ~ 18:00</c:if>
+        			<c:if test="${fn:escapeXml(facilityStudy.study_time) eq '1'}">오전 09:00 ~ 13:00</c:if>
+        			<c:if test="${fn:escapeXml(facilityStudy.study_time) eq '2'}">오후 13:30 ~ 17:30</c:if>
         			<c:if test="${fn:escapeXml(facilityStudy.study_time) eq '3'}">야간 18:00 ~ 22:00</c:if>
          		</td>
 	        </tr>
@@ -121,18 +133,34 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					남:
 					<form:select path="man_count">
 						<form:option value="0">0명</form:option>
+						<form:option value="1">1명</form:option>
 						<form:option value="2">2명</form:option>
+						<form:option value="3">3명</form:option>
 						<form:option value="4">4명</form:option>
+						<form:option value="5">5명</form:option>
 						<form:option value="6">6명</form:option>
+						<form:option value="7">7명</form:option>
 						<form:option value="8">8명</form:option>
+						<form:option value="9">9명</form:option>
+						<form:option value="10">10명</form:option>
+						<form:option value="11">11명</form:option>
+						<form:option value="12">12명</form:option>
 					</form:select>/
 					여:
        				<form:select path="woman_count">
 						<form:option value="0">0명</form:option>
+						<form:option value="1">1명</form:option>
 						<form:option value="2">2명</form:option>
+						<form:option value="3">3명</form:option>
 						<form:option value="4">4명</form:option>
+						<form:option value="5">5명</form:option>
 						<form:option value="6">6명</form:option>
+						<form:option value="7">7명</form:option>
 						<form:option value="8">8명</form:option>
+						<form:option value="9">9명</form:option>
+						<form:option value="10">10명</form:option>
+						<form:option value="11">11명</form:option>
+						<form:option value="12">12명</form:option>
 					</form:select>
        				총 <span id="apply_count">0</span>명
 				</td>
