@@ -67,7 +67,7 @@ $(document).ready(function() {
 				<tr>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td class="important num"><fmt:formatDate value="${i.apply_date}" pattern="yyyy.MM.dd" /></td>
-					<td class="important num">스터디룸 ${i.study_num}팀</td>
+					<td class="important num">301호실 스터디룸</td>
 					<td class="important num">${i.study_date} /
 						<c:if test="${i.study_time eq '1'}">오전</c:if>
 						<c:if test="${i.study_time eq '2'}">오후</c:if>
