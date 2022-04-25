@@ -1213,6 +1213,11 @@ $(function() {
 											<form:option value="">전체</form:option>
 											<c:forEach items="${shelfCodeList}" var="i" varStatus="status">
 												<c:choose>
+													<c:when test="${(homepage.context_path eq 'suseong') and (param.menu_idx eq '128')}">
+														<c:if test="${i.CODE eq 'AE52'}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
 													<c:when test="${homepage.context_path eq 'suseong'}">
 														<c:if test="${i.CODE eq 'AE01' or
 																		i.CODE eq 'AE01' or
