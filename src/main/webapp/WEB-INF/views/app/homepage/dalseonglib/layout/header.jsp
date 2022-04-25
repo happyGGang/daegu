@@ -55,37 +55,62 @@ body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none;
 
 <c:choose>
 <c:when test="${param.manage_idx eq '897'}">
-				<script>
+			<script>
 
-				$(document).ready(function(){
+			$(document).ready(function(){
 
-					$(document).bind("contextmenu", function(e) {
-						return false;
-					});
-
+				$(document).bind("contextmenu", function(e) {
+					return false;
 				});
 
-				$(document)[0].oncontextmenu = function() { return false; }
+			});
 
-				$(document).mousedown(function(e) {
+			$(document)[0].oncontextmenu = function() { return false; }
 
-					if( e.button == 2 ) 
-					{
-						alert('우측 마우스를 사용할 수 없습니다.');
-						return false;
-					} else {
-						return true;
-					}
+			$(document).mousedown(function(e) {
 
-				});
+				if( e.button == 2 ) 
+				{
+					alert('우측 마우스를 사용할 수 없습니다.');
+					return false;
+				} else {
+					return true;
+				}
 
-				</script>
+			});
+
+			</script>
             </head>
             <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 </c:when>
 <c:otherwise>
-            </head>
-            <body>
+			<script>
+
+			$(document).ready(function(){
+
+				$(document).bind("contextmenu", function(e) {
+					return false;
+				});
+
+			});
+
+			$(document)[0].oncontextmenu = function() { return false; }
+
+			$(document).mousedown(function(e) {
+
+				if( e.button == 2 ) 
+				{
+					alert('우측 마우스를 사용할 수 없습니다.');
+					return false;
+				} else {
+					return true;
+				}
+
+			});
+
+			</script>
+			</head>
+			<body oncontextmenu='return false'>
 </c:otherwise>
 </c:choose>
 

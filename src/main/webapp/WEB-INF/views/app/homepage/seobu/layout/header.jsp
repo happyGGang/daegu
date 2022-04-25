@@ -50,7 +50,7 @@
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 
 <c:choose>
-<c:when test="${param.menu_idx eq '143'}">
+<c:when test="${param.menu_idx eq '143' || param.menu_idx eq '184'}">
 <script>
 
 $(document).ready(function(){
@@ -80,8 +80,33 @@ $(document).mousedown(function(e) {
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 </c:when>
 <c:otherwise>
+<script>
+
+$(document).ready(function(){
+
+	$(document).bind("contextmenu", function(e) {
+		return false;
+	});
+
+});
+
+$(document)[0].oncontextmenu = function() { return false; }
+
+$(document).mousedown(function(e) {
+
+	if( e.button == 2 ) 
+	{
+		alert('우측 마우스를 사용할 수 없습니다.');
+		return false;
+	} else {
+		return true;
+	}
+
+});
+
+</script>
 </head>
-<body>
+<body oncontextmenu='return false'>
 </c:otherwise>
 </c:choose>
 
