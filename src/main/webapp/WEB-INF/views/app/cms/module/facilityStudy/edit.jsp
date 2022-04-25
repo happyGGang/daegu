@@ -93,9 +93,7 @@ $(function() {
 	         	<th>사용시설</th>
 	         	<td>
 	         		<form:select path="study_num">
-	         		<form:option value="1">301호실 스터디룸 1팀</form:option>
-	         		<form:option value="2">301호실 스터디룸 2팀</form:option>
-	         		<form:option value="3">301호실 스터디룸 3팀</form:option>
+	         		<form:option value="1">301호실 스터디룸	</form:option>
 	         		</form:select>
 	         	</td>
 	        </tr>
@@ -105,8 +103,8 @@ $(function() {
         			신청일 : <form:input path="study_date"/><br/>
         			신청시간 :
         			<form:select path="study_time">
-	         		<form:option value="1">오전 09:00 ~ 14:00</form:option>
-	         		<form:option value="2">오후 14:00 ~ 18:00</form:option>
+	         		<form:option value="1">오전 09:00 ~ 13:00</form:option>
+	         		<form:option value="2">오후 13:30 ~ 17:30</form:option>
 	         		<form:option value="3">야간 18:00 ~ 22:00</form:option>
 	         		</form:select>
          		</td>
@@ -125,18 +123,34 @@ $(function() {
 					남:
 					<form:select path="man_count">
 						<form:option value="0">0명</form:option>
+						<form:option value="1">1명</form:option>
 						<form:option value="2">2명</form:option>
+						<form:option value="3">3명</form:option>
 						<form:option value="4">4명</form:option>
+						<form:option value="5">5명</form:option>
 						<form:option value="6">6명</form:option>
+						<form:option value="7">7명</form:option>
 						<form:option value="8">8명</form:option>
+						<form:option value="9">9명</form:option>
+						<form:option value="10">10명</form:option>
+						<form:option value="11">11명</form:option>
+						<form:option value="12">12명</form:option>
 					</form:select>/
 					여:
        				<form:select path="woman_count">
 						<form:option value="0">0명</form:option>
+						<form:option value="1">1명</form:option>
 						<form:option value="2">2명</form:option>
+						<form:option value="3">3명</form:option>
 						<form:option value="4">4명</form:option>
+						<form:option value="5">5명</form:option>
 						<form:option value="6">6명</form:option>
+						<form:option value="7">7명</form:option>
 						<form:option value="8">8명</form:option>
+						<form:option value="9">9명</form:option>
+						<form:option value="10">10명</form:option>
+						<form:option value="11">11명</form:option>
+						<form:option value="12">12명</form:option>
 					</form:select>
 					총 <span id="apply_count">0</span>명
 				</td>

@@ -168,9 +168,7 @@ $(function(){
 				<td width="50">${paging.listRowNum - status.index}</td>
 				<td width="200">${i.study_date}</td>
 				<td width="200">
-					<c:if test="${i.study_num eq 1}">스터디룸 1팀</c:if>
-					<c:if test="${i.study_num eq 2}">스터디룸 2팀</c:if>
-					<c:if test="${i.study_num eq 3}">스터디룸 3팀</c:if>
+					<c:if test="${i.study_num eq 1}">301호실 스터디룸</c:if>
 				</td>
 				<td width="50">
 					<c:if test="${i.study_time eq 1}">오전</c:if>
