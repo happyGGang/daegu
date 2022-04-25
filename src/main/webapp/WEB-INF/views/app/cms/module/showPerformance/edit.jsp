@@ -168,10 +168,10 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
-			<th>공연신청 인원제한(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<th>공연신청 팀 수 제한(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="max_apply" class="text" cssStyle="width:30px"/>
-				<em>* 공연신청 가능인원에 제한이 없다면 0을 입력해주세요.</em>
+				<em>* 공연 신청 가능팀에 제한이 없다면 0을 입력해주세요.</em>
 			</td>
 		</tr>
 	</tbody>

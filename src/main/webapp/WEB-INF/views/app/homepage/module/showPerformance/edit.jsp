@@ -128,7 +128,7 @@ $(function() {
 		            var sum7 = parseInt($("#six").val() || 0);
 		            var sum8 = parseInt($("#seven").val() || 0);
 		
-		            var sum = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7;
+		            var sum = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7 + sum8;
 		            console.log(sum);
 		            $("#total").val(sum);
 		        });
