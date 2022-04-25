@@ -203,6 +203,61 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<description>공연신청</description>
+		<name>showPerformance</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarShowPerformanceProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>showPerformanceList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>공연신청(사용자)</description>
+		<name>showPerformanceUser</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarShowPerformanceUserProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>showPerformanceList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>calendarManageList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>showApplyList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	
 
 	<tag>
 		<description>현장지원신청</description>

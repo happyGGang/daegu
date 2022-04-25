@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApplyDao">
+
+	<!-- 견학신청자 컬럼  -->
+	<sql id="field">
+		homepage_id, apply_idx, showPerformance_idx, agency_name, agency_tel,
+		agency_address, applicant_name, applicant_tel, applicant_email, 
+		start_date, start_time, end_date, end_time, apply_state, 
+		ip, remarks, add_date, add_id, apply_id,
+		applicant_member_id, self_info_yn, 
+		age_zero, age_one, age_two, age_three, age_four, 
+		age_five, age_six, age_seven, total_peple, member_check
+	</sql>
+	
+	<!-- 견학신청자 list -->
+	<select id="getApply" resultType="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="plan_date != null and plan_date != ''">
+		AND	start_date <![CDATA[>=]]> #{plan_date}
+		AND	end_date <![CDATA[<=]]> #{plan_date}
+		</if>
+	</select>
+
+	<select id="getApplyMonth" resultType="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+		AND	start_date <![CDATA[>=]]> #{start_date}
+		AND	end_date <![CDATA[<=]]> #{end_date}
+		</if>
+	</select>
+
+	<!-- 사용자 신청내역 list -->
+	<select id="getUserApply" resultType="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_check = #{member_check}
+		<if test="member_key != null and member_key != ''">
+		AND	applicant_member_id	= #{member_key}
+		</if>
+	</select>
+	
+	<select id="getNoMemberApply" resultType="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND member_check = #{member_check}
+		AND APPLICANT_NAME = #{applicant_name}
+		AND PASSWORD = #{password}
+		
+	</select>
+
+	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</select>
+
+	<select id="checkApply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	SHOWPERFORMANCE_IDX = #{showPerformance_idx}
+		AND	applicant_member_id = #{applicant_member_id}
+	</select>
+	
+	<!--1일 1회신청가능 조건 확인  -->
+	<select id="checkApplyDay" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	start_date = #{start_date}
+		AND	applicant_member_id = #{applicant_member_id}
+	</select>
+	
+	<select id="checkApplyMonth" resultType="int">
+		SELECT 
+	COUNT(*)
+		FROM
+			(
+			SELECT 
+				START_DATE_MONTH
+			FROM 
+				(	
+				SELECT 
+					SUBSTR(start_date,1,7) as START_DATE_MONTH
+				FROM 
+					CMS_SHOW_PERFORMANCE_APPLY
+				WHERE 
+					homepage_id = #{homepage_id}
+				AND applicant_member_id = #{applicant_member_id}
+				AND apply_state = '3'
+				)
+				where start_date_month = #{checkMonth}
+			)
+	</select>
+
+	<!-- 견학신청자 등록 -->
+	<insert id="addApply">
+		INSERT INTO
+			CMS_SHOW_PERFORMANCE_APPLY
+		(
+			<include refid="field" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_SHOW_PERFORMANCE_APPLY), #{showPerformance_idx}, #{agency_name}, #{agency_tel},
+			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email},
+			#{start_date}, #{start_time}, #{end_date}, #{end_time}, '1',
+			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{apply_id}, 
+			#{applicant_member_id}, #{self_info_yn}, 
+			#{age_zero}, #{age_one}, #{age_two}, #{age_three}, #{age_four}, 
+			#{age_five}, #{age_six}, #{age_seven}, #{total_peple}, #{member_check}
+		)
+	</insert>
+	<insert id="addNoMemberApply">
+		INSERT INTO
+			CMS_SHOW_PERFORMANCE_APPLY
+		(
+			homepage_id, apply_idx, showPerformance_idx, agency_name, agency_tel,
+			agency_address, applicant_name, applicant_tel, applicant_email, 
+			start_date, start_time, end_date, end_time, apply_state, 
+			ip, remarks, add_date, add_id, self_info_yn, password,
+			age_zero, age_one, age_two, age_three, age_four, 
+			age_five, age_six, age_seven, total_peple, member_check
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_SHOW_PERFORMANCE_APPLY), #{showPerformance_idx}, #{agency_name}, #{agency_tel},
+			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email},
+			#{start_date}, #{start_time}, #{end_date}, #{end_time}, '1',
+			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{self_info_yn}, #{password},
+			#{age_zero}, #{age_one}, #{age_two}, #{age_three}, #{age_four}, 
+			#{age_five}, #{age_six}, #{age_seven}, #{total_peple}, #{member_check}
+		)
+	</insert>
+	
+	<update id="modifyApply">
+		UPDATE
+			CMS_SHOW_PERFORMANCE_APPLY
+		SET
+			agency_name = #{agency_name},
+			agency_tel = #{agency_tel},
+			agency_address = #{agency_address},
+			applicant_name = #{applicant_name},
+			applicant_tel = #{applicant_tel},
+			applicant_email = #{applicant_email},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE,
+			remarks = #{remarks},
+			age_zero = #{age_zero}, 
+			age_one = #{age_one}, 
+			age_two = #{age_two}, 
+			age_three = #{age_three}, 
+			age_four = #{age_four}, 
+			age_five = #{age_five},
+			age_six = #{age_six}, 
+			age_seven = #{age_seven},
+			total_peple = #{total_peple},
+			member_check = #{member_check}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</update>
+
+	<update id="modifyApplyState">
+		UPDATE
+			CMS_SHOW_PERFORMANCE_APPLY
+		SET
+			apply_state = #{apply_state},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</update>
+
+	<delete id="deleteApply">
+		DELETE FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</delete>
+	
+	<delete id="deleteApplyAll">
+		DELETE FROM
+			CMS_SHOW_PERFORMANCE_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	showPerformance_idx = #{showPerformance_idx}
+	</delete>
+
+	<!-- 견학신청자 list -->
+	<select id="getOkApply" resultType="kr.co.whalesoft.app.cms.module.showPerformance.apply.ShowApply">
+		SELECT
+			A.start_date, A.end_date, A.AGENCY_NAME, A.APPLY_IDX, A.SHOWPERFORMANCE_IDX, B.DATE_TYPE,
+			(SELECT CODE_NAME FROM CMS_CODE C WHERE B.homepage_id = C.homepage_id AND C.CODE_ID = B.DATE_TYPE AND C.GROUP_ID = 'H0001') AS CODE_NAME,
+			A.APPLICANT_MEMBER_ID
+		FROM
+			CMS_SHOW_PERFORMANCE_APPLY A, CMS_SHOW_PERFORMANCE B
+		WHERE
+			A.SHOWPERFORMANCE_IDX = B.SHOWPERFORMANCE_IDX
+		AND	A.homepage_id = B.homepage_id
+		AND	A.homepage_id = #{homepage_id}
+		AND	A.APPLY_STATE = '3'
+		<if test="plan_date != null and plan_date != ''">
+ 		AND (
+ 				substr(A.start_date,1,7) = #{plan_date}
+			OR	substr(A.end_date,1,7) = #{plan_date}
+			)
+		</if>
+		<if test="plan_day != null and plan_day != ''">
+ 		AND (
+ 				A.start_date = #{plan_day}
+			OR	A.end_date = #{plan_day}
+			)
+		</if>
+	</select>
+</mapper>
