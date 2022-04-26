@@ -734,9 +734,7 @@ public class CommonJoinController extends BaseController {
 
 			Member integrationMember = new Member();
 			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
-			//통합회원인증 오류로 인한 주석처리 2022-04-26
-			//integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
-			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")));
+			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
 			String birthday = String.valueOf(checkDupUser.get(0).get("BIRTHDAY"));
 			if (StringUtils.containsIgnoreCase(birthday, "null")) {
 				joinService.alertMessage("해당 정보의 생년월일 정보가 누락되었습니다. 데스크에서 생년월일 정보 보정후 다시 통합인증을 진행해주세요.", request, response);
