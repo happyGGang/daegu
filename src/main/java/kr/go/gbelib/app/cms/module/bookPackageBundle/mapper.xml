@@ -61,7 +61,10 @@
 		UPDATE
 			BOOK_PACKAGE_BUNDLE
 		SET
-			book_package_bundle_title = #{book_package_bundle_title}
+			book_package_bundle_title = #{book_package_bundle_title},
+			loan_count = #{loan_count},
+			quantity = #{quantity},
+			grade = #{grade}
 		WHERE
 			book_package_bundle_idx = #{book_package_bundle_idx}
 	</update>
@@ -450,10 +453,12 @@
 			(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status = 2) AS lender_count
 			]]>
 		FROM
-			BOOK_PACKAGE_BUNDLE a, BUNDLE_LIST b, BOOK_PACKAGE_BUNDLE_LOAN c
+			BOOK_PACKAGE_BUNDLE a, BUNDLE_LIST b, BOOK_PACKAGE_BUNDLE_LOAN c, BOOK_PACKAGE_BUNDLE_DETAIL d
 		WHERE
 			a.homepage_id = #{homepage_id}
 		AND a.book_package_bundle_idx = c.book_package_bundle_idx(+)
+		AND a.book_package_bundle_idx = d.book_package_bundle_idx
+		AND b.book_package_bundle_detail_idx = d.book_package_bundle_detail_idx
 		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
@@ -622,15 +627,20 @@
 
 	<select id="getBookDetailAll" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
 		SELECT
-			(select LISTAGG(book_package_name, ', ') WITHIN GROUP(ORDER BY book_package_bundle_detail_idx) as book_package_name  FROM BUNDLE_LIST) AS book_package_name
+			(
+			SELECT LISTAGG(book_package_name, ', ') WITHIN GROUP(ORDER BY book_package_bundle_detail_idx) as book_package_name 
+				FROM 
+			BUNDLE_LIST
+			WHERE
+				book_package_bundle_detail_idx IN
+				<foreach collection="book_package_bundle_detail_idx_arr" item="i" open="(" close=")" separator=",">
+				${i}
+				</foreach>
+			) AS book_package_name
 		FROM
 			BUNDLE_LIST
 		WHERE
 			homepage_id = #{homepage_id}
-		AND book_package_bundle_detail_idx IN
-		<foreach collection="book_package_bundle_detail_idx_arr" item="i" open="(" close=")" separator=",">
-		${i}
-		</foreach>
 		 GROUP BY homepage_id
 	</select>
 	
@@ -702,7 +712,7 @@
 		FROM
 			BUNDLE_LIST
 		WHERE
-			a.homepage_id = #{homepage_id}
+			homepage_id = #{homepage_id}
 		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>

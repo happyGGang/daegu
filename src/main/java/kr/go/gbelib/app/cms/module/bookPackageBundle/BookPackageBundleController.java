@@ -173,12 +173,27 @@ public class BookPackageBundleController extends BaseController {
 		return res;
 	}
 	
-	@RequestMapping (value = {"/bookPackageBundleModify.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse bookPackageBundleModify(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
+	@RequestMapping(value = { "/bookPackageBundleModify.*" })
+	public String bookPackageBundleModify(Model model, BookPackageBundle bookPackageBundle, HttpServletRequest request) throws AuthException {
+		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
+		BookPackageBundle bookPackageBundleDetail = bookPackageBundleService.getBookPackageBundleOne(bookPackageBundle);
+		
+		model.addAttribute("bookPackageBundle", bookPackageBundleDetail);
+		
+		return basePath + "bookPackageBundleModify_ajax";
+	}
+	
+	@RequestMapping (value = {"/modifyBookPackageBundle.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse modifyBookPackageBundle(BookPackageBundle bookPackageBundle, BindingResult result, HttpServletRequest request) {
 		bookPackageBundle.setHomepage_id(getAsideHomepageId(request));
 
 		JsonResponse res = new JsonResponse(request);
-
+		
+		ValidationUtils.rejectIfEmpty(result, "book_package_bundle_title", "학생추천도서 꾸러미 제목를 입력하세요.");
+		ValidationUtils.rejectIfEmpty(result, "grade", "수준별 보기를 선택해주세요.");
+		ValidationUtils.rejectIfEmpty(result, "loan_count", "대출가능권수를 선택해주세요.");
+		ValidationUtils.rejectIfEmpty(result, "quantity", "소장권수를 선택해주세요.");
+		
 		if (!result.hasErrors()) {
 			if(bookPackageBundleService.modifyBookPackageBundle(bookPackageBundle) > 0) {
 				res.setValid(true);

@@ -63,6 +63,11 @@ $(function() {
 	
 	$('#delete-check').on('click', function(e) {
 		e.preventDefault();
+		if($('input[name="book_package_bundle_idx_arr"]:checked').length < 1) {
+			alert('삭제할 꾸러미를 선택하세요.');
+			return false;
+		}
+		
 		if(confirm('선택 항목들을 삭제하시겠습니까?\n꾸러미내 도서정보도 전부 삭제됩니다.')) {
 			$('form#bookPackageBundle_1').attr('action', 'delete.do');
 			$('form#bookPackageBundle_1').attr('method', 'POST');
@@ -74,11 +79,15 @@ $(function() {
 	});
 	
 });
-function bookPackageBundleEdit() {
+function bookPackageBundleModify(book_package_bundle_idx) {
+	var ajaxData = {
+		'book_package_bundle_idx' : book_package_bundle_idx
+	}; 
+	
 	modal_layer_add('dialog_layer');
 
 	$.ajax({
-		url: 'bookPackageBundleEdit.do',
+		url: 'bookPackageBundleModify.do?book_package_bundle_idx=' + book_package_bundle_idx,
 		method: 'GET',
 		success: function(html){
 			$('#dialog_layer').html(html);
@@ -97,10 +106,10 @@ function bookPackageBundleEdit() {
 		},
 		buttons: [
 			{
-				text : '저장',
+				text : '수정',
 				'class' : 'btn btn1',
 				click : function() {
-					bookPackageBundleSave();
+					modifyBookPackageBundle();
 				}
 			},
 			{
@@ -117,6 +126,7 @@ function bookPackageBundleEdit() {
 		width: 600,
 		height: 360
 	});
+	
 }
 
 function getBookPackage() {
@@ -267,10 +277,11 @@ ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
 .content-box span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
 .btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
 .btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
+.btn-box a.modify {display: block;height: 31px;padding: 0 20px 0 22px;border-radius: 50px;line-height: 32px;}
 .btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
 .btn-box a.reserv {border: 2px solid #cbbcf2;color: #7d57de;background: url(/resources/common/img/icon_bt_apply01_3.png) no-repeat 14px 50%;}
 .btn-box a.docfile {border: 2px solid #d2dfe8;color: #5c90b5;position: absolute;top: 0px;right: 130px;padding: 0 20px 0 25px;}
-span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 37px auto 0;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
+span.loan-cnt {display: inline-block;width: 60px;height: 60px;margin: 18px auto 19px;border-radius: 100%;background: #1ba8ed;text-align: center;font-size: 13px;color: #8dd4f6;}
 span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat',sans-serif;font-size: 20px;letter-spacing: 0;color: #fff;}
 </style>
 
@@ -386,6 +397,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 			<span class="loan-cnt">
 				<strong>${i.loan_count}</strong>권
 			</span>
+			<a href="javascript:void(0);" class="btn btn1 modify" onclick="bookPackageBundleModify('${i.book_package_bundle_idx}');">꾸러미 수정</a>
 		</div>
 	</div>
 	</c:forEach>

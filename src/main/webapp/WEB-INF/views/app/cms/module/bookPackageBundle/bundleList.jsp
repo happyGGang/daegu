@@ -393,6 +393,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 </style>
 
 <form:form id="bundleList" modelAttribute="bookPackageBundle" action="bundleList.do" method="GET">
+<form:hidden path="editMode"/>
 <div id="category-box">
 	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackageBundle.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll" class="customCheck"/>
 	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackageBundle.category, '000') ? 'checked' : ''}" label="총류" class="customCheck categoryChk"/>
