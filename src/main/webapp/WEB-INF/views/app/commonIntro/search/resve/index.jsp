@@ -146,9 +146,14 @@ $(function() {
 		
 							<c:choose>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-		
-									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-		
+									<c:choose>
+										<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02')}">
+											취소불가
+										</c:when>
+										<c:otherwise>
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+										</c:otherwise>
+									</c:choose>
 								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
 								</c:when>

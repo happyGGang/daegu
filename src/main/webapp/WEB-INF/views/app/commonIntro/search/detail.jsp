@@ -46,6 +46,55 @@ $(function() {
 		e.preventDefault();
 		$('form#unmannedReqForm').submit();
 	});
+	
+	<%-- 달서구립도서관 무인대출예약 신청 --%>
+	$('a#dalseo-unmanned-req').on('click', function(e) {
+		e.preventDefault();
+		
+		modal_layer_add('dialog_layer');
+
+		$.ajax({
+			url: 'popup.do',
+			method: 'GET',
+			success: function(html){
+				$('#dialog_layer').html(html);
+			},error: function(html){
+			}
+		});
+
+		$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+			resizable: false,
+			modal: true,
+			title: '무인예약신청 주의사항 안내',
+			open: function(){
+				$('.ui-widget-overlay').addClass('custom-overlay');
+			},
+			close: function(){
+			},
+			buttons: [
+				{
+					text : '예',
+					'class' : 'btn btn1',
+					click : function() {
+						$('form#unmannedReqForm').submit();
+					}
+				},
+				{
+					text: "아니오",
+					"class": 'btn btn_round btn_gray',
+					click: function() {
+						$(this).dialog('close');
+					}
+				}
+			]
+		});
+
+		$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+			width: 600,
+			height: 360
+		});
+// 		$('form#unmannedReqForm').submit();
+	});
 
 	<%-- 야간대출예약 신청 --%>
 	$('a#night-req').on('click', function(e) {
@@ -663,7 +712,7 @@ $(function() {
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
 									<!-- <a href="#" class="btn btn1" onclick="alert('무인예약 이용자가 많아 신청이 불가합니다');">무인예약신청</a> -->
 								</c:when>
 								<c:otherwise>

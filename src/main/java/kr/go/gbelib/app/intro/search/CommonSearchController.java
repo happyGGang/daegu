@@ -2394,6 +2394,12 @@ public class CommonSearchController extends BaseController {
 		return content;
 	}
 
+	@RequestMapping(value = { "/popup.*" })
+	public String popup(Model model, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
+		
+		return String.format(basePath, homepage.getFolder()) + "popup_ajax";
+	}
 
 	/**
 	 *
