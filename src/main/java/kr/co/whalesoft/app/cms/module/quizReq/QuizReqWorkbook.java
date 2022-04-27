@@ -50,6 +50,7 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).setColumnView( i++, 20 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 20 );
+		workbook.getSheet(0).setColumnView( i++, 20 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
@@ -65,6 +66,7 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).addCell( new Label( i++, 0, "번호", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "등록ID", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "신청자명", format ) );
+		workbook.getSheet(0).addCell( new Label( i++, 0, "신청자ID", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "학교", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "학년", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "반", format ) );
@@ -84,6 +86,7 @@ public class QuizReqWorkbook {
 			workbook.getSheet(0).addCell( new Label( i++,  row, String.valueOf(row)));
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getAdd_id(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getName(),format1 ) );
+			workbook.getSheet(0).addCell( new Label( i++,  row, org.getApplicant_id(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getSchool(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, String.valueOf(org.getHak()),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, String.valueOf(org.getBan()),format1 ) );
