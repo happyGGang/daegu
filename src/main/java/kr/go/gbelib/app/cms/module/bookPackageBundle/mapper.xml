@@ -166,6 +166,7 @@
 	</select>
 	
 	<select id="getBookPackageDetailList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		${pagingTop}
 		SELECT
 			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity,
 			a.grade, c.bundle_idx,
@@ -211,6 +212,7 @@
 				 a.quantity, a.grade, d.loan_start_date, d.loan_end_date, c.bundle_idx,
 				 d.lender_count
 		ORDER BY book_package_bundle_idx DESC
+		${pagingBottom}
 	</select>
 
 	<select id="getBookPackageCategoryList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
