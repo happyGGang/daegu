@@ -190,7 +190,6 @@ $(function() {
 				return false;
 			} else if(!regExp.exec($form.find ("#applicant_birth").val())) {
 				alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
-				setTimeout(() => { $form.find ("#applicant_birth").focus(); }, 10);
 				doubleSubmit = false;
 				return false;
 			}
@@ -273,7 +272,6 @@ $(function() {
 				return false;
 			} else if(!regExp.exec($form.find ('#student_birth').val())) {
 				alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
-				setTimeout(() => { $form.find ("#student_birth").focus(); }, 10);
 				doubleSubmit = false;
 				return false;
 			}
