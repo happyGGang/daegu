@@ -17,8 +17,8 @@
 	</properties>
 	<repositories>
 		<repository>
-			<id>public</id>
-			<url>http://www.whalesoft.co.kr:7081/content/groups/public</url>
+			<id>whalesoft</id>
+			<url>https://whalesoft.co.kr:7081/repository/maven-public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -29,7 +29,7 @@
 
 		<repository>
 			<id>egovframe</id>
-			<url>http://maven.egovframe.kr:8080/maven/</url>
+			<url>https://maven.egovframe.go.kr/maven/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -41,17 +41,14 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>public</id>
-			<url>http://www.whalesoft.co.kr:7081/content/groups/public</url>
+			<id>whalesoft</id>
+			<url>https://whalesoft.co.kr:7081/repository/maven-public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
+&
 	<dependencies>
 		<!-- 실행환경 라이브러리 -->
 		<!-- mybatis를 사용하는 데 jdk1.5로 컴파일 할 경우 아래와 같이 변경해 주시기 바랍니다. (3.2.X 버전에서
@@ -621,7 +618,6 @@
 			<artifactId>libgpkiapi_jni</artifactId>
 			<version>1.5</version>
 		</dependency>
-
 	</dependencies>
 	<build>
 		<plugins>
