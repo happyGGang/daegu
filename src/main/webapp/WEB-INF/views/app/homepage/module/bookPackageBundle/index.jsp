@@ -131,16 +131,27 @@ $(function() {
 </div> --%>
 
 <div class="doc-body">
-  <div class="summaryDesc" style="margin-right:10px;">
+  <div class="summaryDesc">
     <div class="innerBox" style="padding:10px;">
       <div class="img ticon_02" style="top:10px;"></div>
       <div class="desc">
         <h3 style="margin-top:-10px;">「학생추천도서꾸러미」</h3>
-        <p>책꾸러미 제목을 클릭하시면 책꾸러미 도서 상세정보들이 나옵니다.</p>
+        <p><b>학생추천도서 목록에 수록된 도서</b>를 <b>각각 다른 도서 1권씩, 총 30~35권으로 구성</b>한 꾸러미입니다.<br />학생추천도서꾸러미를 무료 택배로 받아보세요! 배송비는 우리 도서관에서 부담합니다.</p>
       </div>
     </div>
   </div>
  </div>
+
+ <div class="search txt-center" style="margin:25px 0;clear:both;">
+	<fieldset>
+		<form:select path="search_type" cssClass="selectmenu new_select_box">
+			<form:option value="book_package_name">서명</form:option>
+			<form:option value="keyword">키워드</form:option>
+		</form:select>
+		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
+		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
+	</fieldset>
+</div>
 
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu new_select_box">
@@ -156,7 +167,7 @@ $(function() {
 		<form:option value="1">대출중</form:option>
 		<form:option value="0">대출가능</form:option>
 	</form:select>
-	<div class="button" style="margin-right:10px;">
+	<div class="button">
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
 	</div>
 </div>
@@ -222,10 +233,10 @@ $(function() {
 		<div class="btn-box">
 			<c:choose>
 				<c:when test="${i.lender_count > 0}">
-					<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">예약신청하기</a>
+					<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">예약신청</a>
 				</c:when>
 				<c:otherwise>
-					<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">대출신청하기</a>
+					<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">대출신청</a>
 				</c:otherwise>
 			</c:choose>
 			<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
@@ -244,17 +255,9 @@ $(function() {
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#bookPackageBundle"/>
+	<jsp:param name="pagingUrl" value="index.do"/>
 </jsp:include>
 
-<div class="search txt-center" style="margin-top:25px;clear:both;">
-	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu new_select_box">
-			<form:option value="book_package_name">서명</form:option>
-			<form:option value="keyword">키워드</form:option>
-		</form:select>
-		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
-		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
-	</fieldset>
-</div>
+
 
 </form:form>
