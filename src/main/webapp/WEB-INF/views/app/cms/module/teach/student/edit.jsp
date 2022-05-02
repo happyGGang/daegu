@@ -610,6 +610,12 @@ $(function() {
 	         	</td>
         	</tr>
         	</c:if>
+        	<c:if test="${teach.school_grade_yn eq 'Y'}">
+        	<tr>
+	         	<th>반</th>
+	         	<td><form:input path="student_ban" class="text" cssStyle="width:100px;" /></td>
+        	</tr>
+        	</c:if>
 			<c:if test="${teach.age_info_yn eq 'Y'}">
 			<tr>
 				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>

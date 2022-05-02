@@ -622,6 +622,9 @@
 			<if test="student_hack != null and student_hack != ''">
 			STUDENT_HACK 			= #{student_hack},
 			</if>
+			<if test="student_ban != null and student_hack != ''">
+			STUDENT_BAN 			= #{student_ban},
+			</if>
 			STUDENT_AGE				= #{student_age},
 			sms_service_yn          = #{sms_service_yn},
 			<if test="student_remark != null and student_remark != ''">

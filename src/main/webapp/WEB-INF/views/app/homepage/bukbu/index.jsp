@@ -254,7 +254,7 @@ do {
 							</div>
 							<div class="bottom">
 								<span><h4>자유학습실</h4></span>
-								<span><strong>08:00~21:00</strong></span>
+								<span><strong>07:00~22:00</strong></span>
 							</div>
 						</div>
 					</div>
