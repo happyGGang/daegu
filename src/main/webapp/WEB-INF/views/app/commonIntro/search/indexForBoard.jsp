@@ -433,7 +433,7 @@ $(function() {
 		<div id="search_result" class="search_result">
 
 			<div class="search-info" >
-				검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건이 검색되었습니다.
+				검색결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>${paging.totalDataCount}건이 검색되었습니다.
 			</div>
 
 			<div>
@@ -587,7 +587,7 @@ $(function() {
 											<p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 											<div class="stat">
 
-												<a href="#showSlide" class="selectBook" keyValue="${i.TITLE_INFO}///${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${imageUrl}///${i.SHELF_LOC_NAME}///${fn:escapeXml(i.REG_NO)}"><span>선택하기</span></a>
+												<a href="#showSlide" class="selectBook" keyValue="${i.TITLE_INFO}///${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${i.imageUrl}///${i.SHELF_LOC_NAME}///${fn:escapeXml(i.REG_NO)}"><span>선택하기</span></a>
 											</div>
 										</div>
 									</div>
@@ -787,7 +787,7 @@ $(function() {
 											</p>
 
 											<div class="stat">
-												<a href="#showSlide" class="selectBook" keyValue="${i.TITLE_INFO}///${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${imageUrl}"><span>선택하기</span></a>
+												<a href="#showSlide" class="selectBook" keyValue="${i.TITLE_INFO}///${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${i.imageUrl}"><span>선택하기</span></a>
 											</div>
 										</div>
 									</div>
