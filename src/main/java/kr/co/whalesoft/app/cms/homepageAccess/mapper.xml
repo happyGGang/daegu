@@ -158,7 +158,7 @@
 
 	<select id="getStatisticsCountLog" resultType="kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess">
 		SELECT
-			access_idx, homepage_id, access_date, session_id, access_ip, referer_url, user_agent, access_cnt
+			access_idx, homepage_id, TO_DATE(access_date, 'YYYY-MM-DD') as access_date, session_id, access_ip, referer_url, user_agent, access_cnt
 		FROM
 			STATISTICS_COUNT_LOG
 		WHERE
