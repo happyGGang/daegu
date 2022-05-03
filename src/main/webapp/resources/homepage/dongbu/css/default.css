@@ -205,3 +205,6 @@ a.btnStyle{float: right;margin-top: 6px;}
 @media all and (max-width:330px){
 
 }
+
+/* 독서퀴즈 팝업 관련 */
+#popupLayer #popup_h5_200 .popup-func{margin-top:-6px}

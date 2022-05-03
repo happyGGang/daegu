@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.1.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -102,47 +102,47 @@ $('ul.close_day').html(li);
     <tr>
       <th>일반</th>
     <td>481</td>
-    <td>684</td>
-    <td>232</td>
-    <td>1,535</td>
-    <td>303</td>
-    <td>1,508</td>
-    <td>467</td>
-    <td>247</td>
-    <td>4,614</td>
-    <td>795</td>
-    <td>10,866</td>
-    <td>33.5</td>
+    <td>663</td>
+    <td>219</td>
+    <td>1,453</td>
+    <td>317</td>
+    <td>1,510</td>
+    <td>472</td>
+    <td>252</td>
+    <td>4,416</td>
+    <td>776</td>
+    <td>10,559</td>
+    <td>32.1</td>
     </tr>
     <tr>
       <th>아동</th>
-    <td>738</td>
-    <td>261</td>
-    <td>110</td>
-    <td>793</td>
-    <td>1,139</td>
-    <td>256</td>
-    <td>247</td>
-    <td>268</td>
-    <td>3,737</td>
-    <td>1,258</td>
-    <td>8,807</td>
-    <td>27.2</td>
+    <td>745</td>
+    <td>265</td>
+    <td>115</td>
+    <td>802</td>
+    <td>1,148</td>
+    <td>266</td>
+    <td>251</td>
+    <td>273</td>
+    <td>3,783</td>
+    <td>1,269</td>
+    <td>8,917</td>
+    <td>27.1</td>
     </tr>
     <tr>
       <th>유아</th>
     <td>67</td>
-    <td>53</td>
+    <td>54</td>
     <td>19</td>
-    <td>883</td>
-    <td>614</td>
-    <td>97</td>
+    <td>893</td>
+    <td>619</td>
+    <td>104</td>
     <td>67</td>
     <td>34</td>
-    <td>2,885</td>
+    <td>2,946</td>
     <td>25</td>
-    <td>4,744</td>
-    <td>14.6</td>
+    <td>4,828</td>
+    <td>14.7</td>
     </tr>
     <tr>
       <th>영어</th>
@@ -157,36 +157,36 @@ $('ul.close_day').html(li);
     <td>1,274</td>
     <td>37</td>
     <td>2,536</td>
-    <td>7.8</td>
+    <td>7.7</td>
     </tr>
     <tr>
       <th>보존서고 </th>
-    <td>149</td>
-    <td>125</td>
-    <td>58</td>
-    <td>970</td>
-    <td>791</td>
-    <td>248</td>
-    <td>218</td>
-    <td>349</td>
-    <td>2,076</td>
-    <td>499</td>
-    <td>5,483</td>
-    <td>16.9</td>
+    <td>164</td>
+    <td>162</td>
+    <td>76</td>
+    <td>1,115</td>
+    <td>797</td>
+    <td>281</td>
+    <td>220</td>
+    <td>353</td>
+    <td>2,327</td>
+    <td>534</td>
+    <td>6,029</td>
+    <td>18.3</td>
     </tr>
     <tr>
       <th>총계(권)</th>
-    <td>1,436</td>
-    <td>1,124</td>
-    <td>422</td>
-    <td>4,336</td>
-    <td>3,008</td>
-    <td>2,127</td>
-    <td>1,040</td>
-    <td>1,743</td>
-    <td>14,586</td>
-    <td>2,614</td>
-    <td>32,436</td>
+    <td>1,458</td>
+    <td>1,145</td>
+    <td>432</td>
+    <td>4,418</td>
+    <td>3,042</td>
+    <td>2,179</td>
+    <td>1,051</td>
+    <td>1,757</td>
+    <td>14,746</td>
+    <td>2,641</td>
+    <td>32,869</td>
     <td>100</td>
     </tr>
     <tr>
@@ -198,16 +198,16 @@ $('ul.close_day').html(li);
     <td>9.3</td>
     <td>6.6</td>
     <td>3.2</td>
-    <td>5.4</td>
-    <td>45.0</td>
-    <td>8.1</td>
+    <td>5.3</td>
+    <td>44.9</td>
+    <td>8.0</td>
     <td>100</td>
     <td>　</td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.1.31. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
@@ -299,9 +299,88 @@ $('ul.close_day').html(li);
     </table>
   </div>
   <h3>위치안내</h3>
-  <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:100%; height:auto; color:#333; position:relative">
-    <div style="height: auto;"> <a href="https://map.kakao.com/?urlX=864171.0&amp;urlY=655073.0&amp;itemId=12296217&amp;q=%EC%88%98%EC%84%B1%EA%B5%AC%EB%A6%BD%20%EC%B1%85%EC%88%B2%EA%B8%B8%EB%8F%84%EC%84%9C%EA%B4%80&amp;srcid=12296217&amp;map_type=TYPE_MAP&amp;from=roughmap" target="_blank"> <img class="map" src="//t1.daumcdn.net/roughmap/imgmap/227cf995a7796d24750d1e7d5e7ce6d91b4b6f2cf653aa617604435fb7d283d5" width="100%" height="auto"> </a> </div>
-  </div>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
+
+<div class="map_wrap">
+<div id="map" style="position:relative;border:1px solid #ebebeb;height:500px;">
+
+<!-- 지도 확대, 축소 컨트롤 div 입니다 -->
+<div class="custom_zoomcontrol radius_border"> 
+<a href="#" onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></a>  
+<a href="#" onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></a>
+</div>
+<div style="position:absolute;right:10px;bottom:10px;z-index:181818"><a href="https://map.kakao.com/link/to/책숲길도서관, 35.84484253,128.6123766" class="btn btn4" target="_blank">길찾기</a></div>
+</div>
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=93baba79f6b6154b2068eb7550666f5f"></script> 
+<script>
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	mapOption = { 
+	center: new daum.maps.LatLng(35.84484253,128.6123766), // 지도의 중심좌표
+	level: 2 // 지도의 확대 레벨
+	};
+
+	var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+	var mapTypeControl = new daum.maps.MapTypeControl();
+
+	// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+	function setMapType(maptype) { 
+	    var roadmapControl = document.getElementById('btnRoadmap');
+	    var skyviewControl = document.getElementById('btnSkyview'); 
+	    if (maptype === 'roadmap') {
+		map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
+		roadmapControl.className = 'selected_btn';
+		skyviewControl.className = 'btn';
+	    } else {
+		map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
+		skyviewControl.className = 'selected_btn';
+		roadmapControl.className = 'btn';
+	    }
+	}
+
+	// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+	function zoomIn() {
+	    map.setLevel(map.getLevel() - 1);
+	}
+
+	// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
+	function zoomOut() {
+	    map.setLevel(map.getLevel() + 1);
+	}
+
+	// 마커를 표시할 위치와 title 객체 배열입니다 
+	var positions = [
+	    {
+		title: '책숲길도서관', 
+		latlng: new daum.maps.LatLng(35.84484253,128.6123766)
+	    }
+	];
+
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	    
+	for (var i = 0; i < positions.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new daum.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
+	    
+	    // 마커를 생성합니다
+	    var marker = new daum.maps.Marker({
+		map: map, // 마커를 표시할 지도
+		position: positions[i].latlng, // 마커를 표시할 위치
+		title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		image : markerImage // 마커 이미지 
+	    });
+	}
+</script>
+
+
+
   <div class="info_box">
     <p class="info_add">대구시 수성구 수성로215(중동) 수옥빌딩 4층</p>
     <p class="info_tel">053-668-1811</p>
