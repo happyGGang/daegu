@@ -512,7 +512,7 @@ $(function() {
 										</c:when>
 										<c:otherwise>
 												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" data-ref="las"/>
-												<c:set var="https://library.daegu.go.kr/imageUrl" value="${i.imageUrl}"/>
+												<c:set var="imageUrl" value="https://library.daegu.go.kr${i.imageUrl}"/>
 										</c:otherwise>
 									</c:choose>	
 								</div>
