@@ -707,7 +707,7 @@
 	<select id="smsSendALL" resultType="kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation">
 		SELECT
 			homepage_id, locker_number, request_number, member_id, member_name,
-			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no, book_regno,
+			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, reg_no,
 			book_isbn, book_name, loan_date, cancel_yn, cancel_reason,
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date
 		FROM
