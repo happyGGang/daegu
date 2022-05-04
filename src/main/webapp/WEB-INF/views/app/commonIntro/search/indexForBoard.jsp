@@ -512,22 +512,9 @@ $(function() {
 										</c:when>
 										<c:otherwise>
 												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" data-ref="las"/>
-												<c:set var="imageUrl" value="${i.imageUrl}"/>
+												<c:set var="https://library.daegu.go.kr/imageUrl" value="${i.imageUrl}"/>
 										</c:otherwise>
 									</c:choose>	
-<!--  									<c:set var="imageUrl" value="/resources/common/img/noimg-gall.png"/>
-									<c:choose>
-										<c:when test="${empty i.IMAGE}">
-											<img src="/resources/common/img/noimg-gall.png" alt="${i.TITLE_INFO}"/>
-										</c:when>
-										<c:when test="${fn:contains(i.IMAGE, 'noimg')}">
-											<img src="/resources/common/img/noimg-gall.png" alt="${i.TITLE_INFO}"/>
-										</c:when>
-										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
- 											<c:set var="imageUrl" value="${i.IMAGE}"/>
-										</c:otherwise>
-									</c:choose>		-->
 								</div>
 								<div class="box">
 									<div class="item">
