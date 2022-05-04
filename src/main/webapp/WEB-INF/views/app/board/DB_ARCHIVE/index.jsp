@@ -22,10 +22,11 @@
 				</c:if>
 				<col width="6%">
 				<col width="*">
-				<col width="14%">
+				<col width="12%">
 				<col width="8%">
 				<col width="7%">
-				<col width="6%">
+				<col width="7%">
+				<col width="12%">
 			</colgroup>
 			<thead>
 				<tr>
@@ -36,10 +37,11 @@
 					<th>번호</th>
 					<th class="">제목</th>
 					<!-- <th>처리상태</th> -->
+					<th class="mmm2">등록번호</th>
 					<th class="mmm2">작성자</th>
 					<th class="">작성일</th>
 					<th class="mmm1">조회수</th>
-					<th class="mmm1">파일</th>
+					<th class="mmm1">ebook 파일명</th>
 				</tr>
 			</thead>
 			<tbody id="board_tbody">
@@ -52,7 +54,7 @@
 					<td class="num notice"><span>공지</span></td>
 					<td class="important left title">
 						<c:set var="boardIdx" value="${i.parent_idx > 0 ? i.parent_idx : i.board_idx}"></c:set>
-						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
+						<a href="${i.imsi_v_6 }" target="_blank">
 							<span>${i.title}</span>
 							<c:if test="${i.date_gap <= boardManage.new_date_count}"><em class="new">새글</em></c:if>
 							<c:if test="${i.comment_count > 0}">
@@ -87,7 +89,8 @@
 								</c:if>
 							</c:forEach>
 						</c:if>
-						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
+						<a href="${i.imsi_v_6 }" target="_blank">
+
 						<c:if test="${i.group_depth > 0}">
 							<i class="fa fa-reply"></i>
 						</c:if>
@@ -98,6 +101,7 @@
 							</c:if>
 						</a>
 					</td>
+					<td>${i.imsi_v_4 }</td>
 				
 					<c:choose>
 						<c:when test="${authMBA or portalAuth eq '2'}">
@@ -113,11 +117,7 @@
 					<td class="mmm2 username">${i.secret_yn ne 'Y'? user_name : (authMBA or portalAuth eq '2' ? i.user_name : '비공개')}</td>
 					<td class="important num adddate"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td class="num mmm1">${i.view_count}</td>
-					<td class="file mmm1">
-					<c:if test="${i.file_count > 0}">
-						<i class="fa fa-floppy-o"></i>
-					</c:if>
-					</td>
+					<td>${i.imsi_v_7}</td>
 				</tr>
 			</c:forEach>
 			</tbody>

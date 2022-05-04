@@ -68,6 +68,10 @@ $(document).ready(function() {
 				<td>
 					<form:input path="imsi_v_6" cssClass="text" maxlength="100"/>
 				</td>
+				<th>ebook 파일명</th>
+				<td>
+					<form:input path="imsi_v_7" cssClass="text" maxlength="100"/>
+				</td>
 			</tr>
 			
 			<c:if test="${boardManage.secret_use_yn eq 'Y'}">

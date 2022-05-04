@@ -1268,6 +1268,13 @@ public class BoardController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "category5", "게시판 분류5을 입력하세요.");
 			}
 		}
+		
+		if (board.getManage_idx() == 883) {
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_4", "등록번호를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_6", "주소(링크)를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_7", "ebook 파일명을 입력하세요.");
+			
+		}
 
 		if(boardManage.getBoard_type().equals("LOSTCARD") && board.getEditMode().equals("REPLY")) {
 			ValidationUtils.rejectIfEmpty(result, "request_state", "처리상태를 입력해주세요.");
@@ -1499,6 +1506,7 @@ public class BoardController extends BaseController {
 			}
 		} else {
 			res.setValid(false);
+
 			res.setResult(result.getAllErrors());
 		}
 
