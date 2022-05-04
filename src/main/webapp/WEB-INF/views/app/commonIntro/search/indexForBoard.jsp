@@ -504,12 +504,15 @@ $(function() {
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 												<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
+												<c:set var="imageUrl" value="/resources/homepage/dgportal/img/book_noimg.png"/>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" data-ref="alidin"/>
+												<c:set var="imageUrl" value="${i.aladin.cover}"/>
 										</c:when>
 										<c:otherwise>
-												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" data-ref="las"/>
+												<c:set var="imageUrl" value="${i.imageUrl}"/>
 										</c:otherwise>
 									</c:choose>	
 <!--  									<c:set var="imageUrl" value="/resources/common/img/noimg-gall.png"/>
@@ -587,7 +590,7 @@ $(function() {
 											<p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 											<div class="stat">
 
-												<a href="#showSlide" class="selectBook" keyValue="${i.TITLE_INFO}///${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${i.IMAGE}///${i.SHELF_LOC_NAME}///${fn:escapeXml(i.REG_NO)}"><span>선택하기</span></a>
+												<a href="#showSlide" class="selectBook" keyValue="${i.TITLE_INFO}///${i.PUB_YEAR}///${i.AUTHOR}///${i.PUBLISHER}///${fn:escapeXml(i.ST_CODE)}///${i.CALL_NO}///${imageUrl}///${i.SHELF_LOC_NAME}///${fn:escapeXml(i.REG_NO)}"><span>선택하기</span></a>
 											</div>
 										</div>
 									</div>
