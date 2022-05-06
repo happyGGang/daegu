@@ -803,7 +803,7 @@ dt,dd{;word-break:keep-all}
 .time_box ul li.book13 div{background:url('/resources/common/img/book_icon13.png')no-repeat 40px 33px;}	
 .time_box ul li.book14 div{background:url('/resources/common/img/book_icon14.png')no-repeat 40px 33px;}	
 
-.time_box .weekend{width:100%;margin-top:20px;padding:15px 0;background:#f9f9f9;text-align:center;border:1px solid #e5e5e5;}
+.time_box .weekend{width:100%;box-sizing:border-box;margin-top:20px;padding:15px 0;background:#f9f9f9;text-align:center;border:1px solid #e5e5e5;}
 
 @media all and (min-width: 768px) and (max-width: 1023px) {
 	.time_box ul li{position:relative;width:100%;display:inline-block;background:#f9f9f9;}
@@ -1032,9 +1032,28 @@ ul.con_ask li:last-child{margin-right:0;}
 .tab_menu ul.no7 li{width:14.4%;}
 .tab_menu ul.no7 li:first-child{width:13.6%;}
 .tab_menu ul.no8 li{width:12.55%;}
-.tabConts, .tabConts2, .tabConts3 {display:none;padding:0 0 15px}
 
+.tab_meme {display:inline-block;width:100%;font-size:15px;}
+.tab_meme ul li{float:left;width:50%;margin-right:-1px;}
+.tab_meme ul li a{position:relative;display:block;height:53px;font-size:15px;line-height:53px;color:#444;text-align:center;border:1px solid #dfdfdf;background:#f6f6f6;}
+.tab_meme ul li.active a,
+.tab_meme ul li a:hover {border: 1px solid #22386b;background: #fff;color: #222;font-weight: 600;box-shadow: 3px 3px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
+.tab_meme ul.no2 li{width:50%;}
+.tab_meme ul.no3 li{width:33.3%;}
+.tab_meme ul.no3 li:first-child{width:33.4%;}
+.tab_meme ul.no4 li{width:25%;}
+.tab_meme ul.no5 li{width:20%;}
+.tab_meme ul.no6 li{width:16.6%;}
+.tab_meme ul.no6 li:first-child{width:17.6%;}
+.tab_meme ul.no7 li{width:14.4%;}
+.tab_meme ul.no7 li:first-child{width:13.6%;}
+.tab_meme ul.no8 li{width:12.55%;}
+
+.tabConts, .tabConts2, .tabConts3 {display:none;padding:0 0 15px}
 .tabConts h3:first-child{margin-top:30px;}
+
+.tabContss, .tabContss2, .tabContss3 {z-index:1;padding:0 0 15px}
+.tabContss h3:first-child{margin-top:30px;}
 
 .tab_menu2, .tab_menu3{display:inline-block;width:100%;}
 .tab_menu2 ul, .tab_menu3 ul{text-align:center;}
@@ -1044,8 +1063,17 @@ ul.con_ask li:last-child{margin-right:0;}
 .tab_menu2 ul li.active a, .tab_menu2 ul li a:hover,
 .tab_menu3 ul li.active a, .tab_menu3 ul li a:hover{font-weight:bold;color:#2b74c0;}
 
+.tab_meme2, .tab_meme3{display:inline-block;width:100%;}
+.tab_meme2 ul, .tab_meme3 ul{text-align:center;}
+.tab_meme2 ul li, .tab_meme3 ul li{display:inline-block;}
+.tab_meme2 ul li span.line, .tab_meme3 ul li span.line{color:#ddd;padding:0 8px 0 10px;}
+.tab_meme2 ul li a, .tab_meme3 ul li a{position:relative;font-size:15px;line-height:53px;color:#666;text-align:center;}
+.tab_meme2 ul li.active a, .tab_meme2 ul li a:hover,
+.tab_meme3 ul li.active a, .tab_meme3 ul li a:hover{font-weight:bold;color:#2b74c0;}
+
 @media all and (min-width: 768px) and (max-width: 1023px) {
 	.tab_menu ul.no7 li a, .tab_menu ul.no8 li a{font-size:11px;}
+	.tab_meme ul.no7 li a, .tab_meme ul.no8 li a{font-size:11px;}
 }
 
 @media all and (max-width: 767px) {
@@ -1072,7 +1100,37 @@ ul.con_ask li:last-child{margin-right:0;}
 	.tab_menu ul.no5 li.active a, .tab_menu ul.no5 li a:hover, 
 	.tab_menu ul.no7 li.active a, .tab_menu ul.no7 li a:hover, 
 	.tab_menu ul.no8 li.active a, .tab_menu ul.no8 li a:hover{border-bottom:1px solid #22386b !important;}	
+
+
+
+
+
+	.tab_meme ul.no3 li, .tab_meme ul.no3 li:first-child,
+	.tab_meme ul.no4 li, 
+	.tab_meme ul.no5 li, 
+	.tab_meme ul.no7 li, .tab_meme ul.no7 li:first-child,
+	.tab_meme ul.no8 li, .tab_meme ul.no8 li:first-child{width:100%;}
+
+	.tab_meme ul.no3 li a, 
+	.tab_meme ul.no4 li a, 
+	.tab_meme ul.no5 li a, 
+	.tab_meme ul.no7 li a,
+	.tab_meme ul.no8 li a{border-bottom:none;}
+
+	.tab_meme ul.no3 li:last-child a,
+	.tab_meme ul.no5 li:last-child a,
+	.tab_meme ul.no4 li:last-child a,
+	.tab_meme ul.no7 li:last-child a,
+	.tab_meme ul.no8 li:last-child a{border-bottom:1px solid #dfdfdf !important;}
+
+	.tab_meme ul.no3 li.active a, .tab_meme ul.no3 li a:hover, 
+	.tab_meme ul.no4 li.active a, .tab_meme ul.no4 li a:hover, 
+	.tab_meme ul.no5 li.active a, .tab_meme ul.no5 li a:hover, 
+	.tab_meme ul.no7 li.active a, .tab_meme ul.no7 li a:hover, 
+	.tab_meme ul.no8 li.active a, .tab_meme ul.no8 li a:hover{border-bottom:1px solid #22386b !important;}	
 }
+
+
 
 
 /*도서관서비스 절차*/
