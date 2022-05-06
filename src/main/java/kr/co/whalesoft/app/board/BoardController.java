@@ -1269,7 +1269,7 @@ public class BoardController extends BaseController {
 			}
 		}
 		
-		if (board.getManage_idx() == 883) {
+		if (board.getManage_idx() == 1008) {
 			ValidationUtils.rejectIfEmpty(result, "imsi_v_4", "등록번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "imsi_v_6", "주소(링크)를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "imsi_v_7", "ebook 파일명을 입력하세요.");
