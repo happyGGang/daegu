@@ -71,7 +71,7 @@ $(document).ready(function() {
         </tr>
         <tr>
           <th scope="row">종합자료실 1, 2, 3</th>
-          <td>09:00 ~ 20:00</td>
+          <td>09:00 ~ 22:00</td>
         </tr>
         <tr>
           <th scope="row">크리에이티브팩토리 범어</th>

@@ -267,7 +267,7 @@ caption {position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;font-si
 				<form:hidden path="answer_list[${questIdx}].quest_type" value="${i.quest_type}" disabled="${i.branch > 0 ? true : false}"/>
 				<form:hidden path="answer_list[${questIdx}].quest_idx" value="${i.quest_idx}" disabled="${i.branch > 0 ? true : false}"/>
 				<label for="answer_list[${questIdx}].short_answer" class="screen_out">서술형문항</label>
-				<form:input path="answer_list[${questIdx}].short_answer" size="90" maxlength="100" style="width:80%" disabled="${i.branch > 0 ? true : false}"/>
+				<form:input path="answer_list[${questIdx}].short_answer" size="90" maxlength="100" disabled="${i.branch > 0 ? true : false}"/>
 			</td>
 		</tr>
 		<c:set var="questIdx" value="${questIdx+1}" />

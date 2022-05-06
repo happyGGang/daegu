@@ -25,7 +25,6 @@ $(document).ready(function() {
 	});
 });
 </script>
-
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="survey" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="survey_idx"/>
@@ -49,14 +48,14 @@ $(document).ready(function() {
 	<div class="table-wrap">
 		<table class="bbs center" summary="설문조사">
 			<caption></caption>
-			<colgroup>
+			<!-- <colgroup>
 				<col width="10%">
 				<col width="">
 				<col width="12%">
 				<col width="12%">
 				<col width="12%">
 				<col width="10%">
-			</colgroup>
+			</colgroup> -->
 			<thead>
 				<tr>
 					<th>번호</th>

@@ -217,3 +217,15 @@ ul.mysurvey_list{list-style-type: decimal;}
 
 .clrB {clear:both}
 .screen_out {font-size:0;line-height:0}
+
+.surveyList .list tbody td input[type="text"]{width:100%;}
+
+@media (max-width:320px) {
+	.brdTop_02 h1{font-size:14px;}
+
+	.surveyList .list{border-top:none;border-bottom:none;}
+	.surveyList .list tbody td.qustionNum{background:#009ae1;}
+	.surveyList .list tbody td.qustion{padding-right:0;}
+	.surveyList .list tbody td.aL > ul > li{width:100%;}
+	.surveyList .list tbody td.aL > ul > li label{font-size:13px;}
+}

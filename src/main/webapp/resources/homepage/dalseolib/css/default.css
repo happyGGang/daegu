@@ -60,6 +60,7 @@ a:focus{color:#2b74c0}
 #foot .addr ul li:first-child a{padding-left:0;margin-left:0;}
 #foot .addr ul li.personinfo a{color:#b8c9ff;}
 #foot .addr ul li a{color:#fff;display:block;padding:0 10px; background:url('../img/copy_line.gif') no-repeat 0 50%;}
+#foot .addr ul li:first-child a{background:none;}
 
 #foot .addr_bottom{width:100%;display:inline-block;}
 #foot .addr_bottom .flogo{float:left;padding-top:20px;font-size:0;line-height:0;}
@@ -193,7 +194,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 
 /******************************480******************************/
 @media all and (max-width:480px){
-	#foot .wsize .addr{display:none;}
+	#foot .wsize{padding:20px 0 40px;}
+	#foot .wsize .addr{margin-bottom:30px;}
+	#foot .addr{width:90%;}
+	#foot .addr ul li a{font-size:13px;}
 
 	#footer .info a, #footer .info span{font-size:13px;line-height:0;}
 	#footer .info{width:calc(100% - 40px);}
@@ -230,3 +234,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 .category span.ca.bg-005 {background-color:#52a34f !important;color:#fff;}
 .category span.ca.bg-006 {background-color:#f56c15 !important;color:#fff;}
 .category span.ca.bg-007 {background-color:#8b399c !important;color:#fff;}
+
+@media (max-width:320px) {
+	#foot{min-width:100%}
+}
