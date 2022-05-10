@@ -186,6 +186,30 @@ public class MyStorageController extends BaseController {
 		myItem.setMember_key(getSessionMemberId(request));
 
 		if ( !result.hasErrors() ) {
+			if(!(myItem.getEditMode().equals("DELETE"))) {
+				String[] allow_urls = {"localhost/%s/board/view.do", "library.daegu.go.kr/%s/board/view.do"};
+				boolean param_err_flg = false;
+					String redirectURL = request.isSecure() ? "https://" : "http://";
+					for (String url_tmp : allow_urls) {
+						url_tmp = redirectURL + String.format(url_tmp, homepage.getContext_path());
+						int paramIdx = myItem.getImg_url().indexOf('?');
+						if(paramIdx > -1 && StringUtils.equals(url_tmp, myItem.getImg_url().substring(0, paramIdx))) {
+							param_err_flg = true;
+							break;
+						}
+					}
+					
+					if(!param_err_flg) {
+						try {
+							res.setValid(false);
+							res.setMessage("보관함에 담을 수 없습니다.");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						return res;
+					}
+			}
+			
 			if ( myItem.getEditMode().equals("ADD") ) {
 				if (myItem.getStrList() == null || myItem.getStrList().size() < 1) {
 					myItemService.addMyItem(myItem);
