@@ -410,13 +410,13 @@ public class BoardService extends BaseService {
 		if(dao.modifyBoard(board) > 0) {
 			boardFileService.deleteBoardFile(board.getBoard_idx());
 
-			if(board.getBoardFileArray()!=null) {
+			if(board.getBoardFileArray()!=null && board.getBoardFileArray().length > 0) {
 				boardFileService.fileProcess(board.getBoardFileArray(), board, "MODIFY", request);
 				board.setFile_count(board.getBoardFileArray().length);
 				dao.modifyBoardFileCount(board);
 			}
 			if(boardManage.getBoard_type().equals("QNA")){
-				dao.modifyQnaBoard(board);
+				dao.modifyQnaBoard(board)
 			}
 		}
 
