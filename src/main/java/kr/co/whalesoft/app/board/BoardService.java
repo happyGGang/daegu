@@ -416,7 +416,7 @@ public class BoardService extends BaseService {
 				dao.modifyBoardFileCount(board);
 			}
 			if(boardManage.getBoard_type().equals("QNA")){
-				dao.modifyQnaBoard(board)
+				dao.modifyQnaBoard(board);
 			}
 		}
 
