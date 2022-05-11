@@ -187,13 +187,17 @@ public class MyStorageController extends BaseController {
 
 		if ( !result.hasErrors() ) {
 			if(!(myItem.getEditMode().equals("DELETE"))) {
-				String[] allow_urls = {"localhost/%s/board/view.do", "library.daegu.go.kr/%s/board/view.do"};
+				String[] allow_urls = {"localhost/%s/board/view.do", "localhost/%s/intro/search/detail.do", "library.daegu.go.kr/%s/board/view.do", "library.daegu.go.kr/%s/intro/search/detail.do"};
 				boolean param_err_flg = false;
 					String redirectURL = request.isSecure() ? "https://" : "http://";
 					for (String url_tmp : allow_urls) {
 						url_tmp = redirectURL + String.format(url_tmp, homepage.getContext_path());
 						int paramIdx = myItem.getImg_url().indexOf('?');
 						if(paramIdx > -1 && StringUtils.equals(url_tmp, myItem.getImg_url().substring(0, paramIdx))) {
+							param_err_flg = true;
+							break;
+						//관심도서 추가시 menu_idx 로 받아오기때문에 분기처리용 숫자확인 메서드 추가
+						} else if(StringUtils.isNumeric(myItem.getImg_url())) {
 							param_err_flg = true;
 							break;
 						}
