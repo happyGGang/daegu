@@ -414,6 +414,7 @@ public class BoardService extends BaseService {
 				boardFileService.fileProcess(board.getBoardFileArray(), board, "MODIFY", request);
 				board.setFile_count(board.getBoardFileArray().length);
 				dao.modifyBoardFileCount(board);
+				
 			}
 			if(boardManage.getBoard_type().equals("QNA")){
 				dao.modifyQnaBoard(board);
