@@ -112,7 +112,7 @@ $(document).ready(function() {
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		if(isEditorOn()) {
 			
-			var text = oEditors.getById["content"].getIR().replace(/on|script|alert|SCRIPT|Script|EMBED/g, '');
+			var text = oEditors.getById["content"].getIR().replace(/onE|onM|script|alert|SCRIPT|Script|EMBED/g, '');
 			
 			oEditors.getById["content"].exec("SET_IR", ['']);
 		 	oEditors.getById["content"].exec("PASTE_HTML", [text]);
