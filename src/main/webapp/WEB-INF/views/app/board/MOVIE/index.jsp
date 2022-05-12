@@ -324,7 +324,7 @@ ${boardManage.top_html}
 									<li>장르 : ${fn:substring(i.imsi_v_9, 0, 15)}<c:if test="${fn:length(i.imsi_v_9) > 15}">...</c:if></li>
 									</c:if>
 									<c:if test="${i.imsi_v_12 ne null and i.imsi_v_12 ne '0'}">
-									<li>등급 :${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></li>
+									<li>등급 : ${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></li>
 									</c:if>
 								</ul>
 							</div>
