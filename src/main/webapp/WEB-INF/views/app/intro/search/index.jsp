@@ -819,21 +819,26 @@ $(function() {
 						<div class="imageType">
 							<c:forEach items="${bookSearch}" var="i">
 							<!-- 검색결과 루프 시작 -->
-							<c:set var="detailURL" value="detail.do?isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 							<div class="row">
 								<p class="admin">
-									<input name="print_param" type="checkbox" class="checkBook" value="${i.ST_CODE}_${i.MANAGE_CODE}"/>
+									<input name="print_param" type="checkbox" class="checkBook" id="print_param${status.index}" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}///${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}///${fn:escapeXml(i.MANAGE_CODE)}///${fn:escapeXml(i.REG_NO)}///${fn:escapeXml(i.CALL_NO)}///${fn:escapeXml(param.menu_idx)}" title="책 선택"/>
 								</p>
 								<div class="thumb">
 									<c:choose>
-										<c:when test="${empty i.aladin or empty i.aladin.cover}">
-											<a href="${detailURL}">
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<a href="${detailURL}" class="noImg">
 												<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
+											</a>
+										</c:when>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+											<a href="${detailURL}">
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:when>
 										<c:otherwise>
 											<a href="${detailURL}">
-												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
 											</a>
 										</c:otherwise>
 									</c:choose>
