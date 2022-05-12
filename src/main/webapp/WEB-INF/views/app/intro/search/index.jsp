@@ -266,6 +266,7 @@ $(function() {
 </form:form>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
+	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>	
 
 	<!-- contents-title-->
