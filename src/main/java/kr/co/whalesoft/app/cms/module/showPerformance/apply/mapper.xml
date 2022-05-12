@@ -8,7 +8,7 @@
 		agency_address, applicant_name, applicant_tel, applicant_email, 
 		start_date, start_time, end_date, end_time, apply_state, 
 		ip, remarks, add_date, add_id, apply_id,
-		applicant_member_id, self_info_yn, 
+		applicant_member_id, self_info_yn, show_name, 
 		age_zero, age_one, age_two, age_three, age_four, 
 		age_five, age_six, age_seven, total_peple, member_check
 	</sql>
@@ -135,7 +135,7 @@
 			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email},
 			#{start_date}, #{start_time}, #{end_date}, #{end_time}, '1',
 			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{apply_id}, 
-			#{applicant_member_id}, #{self_info_yn}, 
+			#{applicant_member_id}, #{self_info_yn}, #{code_name},
 			#{age_zero}, #{age_one}, #{age_two}, #{age_three}, #{age_four}, 
 			#{age_five}, #{age_six}, #{age_seven}, #{total_peple}, #{member_check}
 		)
@@ -147,8 +147,8 @@
 			homepage_id, apply_idx, showPerformance_idx, agency_name, agency_tel,
 			agency_address, applicant_name, applicant_tel, applicant_email, 
 			start_date, start_time, end_date, end_time, apply_state, 
-			ip, remarks, add_date, add_id, self_info_yn, password,
-			age_zero, age_one, age_two, age_three, age_four, 
+			ip, remarks, add_date, add_id, self_info_yn, password, show_name,
+			age_zero, age_one, age_two, age_three, age_four,
 			age_five, age_six, age_seven, total_peple, member_check
 		)
 		VALUES
@@ -156,7 +156,7 @@
 			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_SHOW_PERFORMANCE_APPLY), #{showPerformance_idx}, #{agency_name}, #{agency_tel},
 			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email},
 			#{start_date}, #{start_time}, #{end_date}, #{end_time}, '1',
-			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{self_info_yn}, #{password},
+			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{self_info_yn}, #{password}, #{code_name},
 			#{age_zero}, #{age_one}, #{age_two}, #{age_three}, #{age_four}, 
 			#{age_five}, #{age_six}, #{age_seven}, #{total_peple}, #{member_check}
 		)
@@ -184,7 +184,8 @@
 			age_six = #{age_six}, 
 			age_seven = #{age_seven},
 			total_peple = #{total_peple},
-			member_check = #{member_check}
+			member_check = #{member_check},
+			show_name = #{code_name}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	apply_idx = #{apply_idx}

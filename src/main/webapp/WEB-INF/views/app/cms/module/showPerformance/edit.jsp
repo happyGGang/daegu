@@ -103,25 +103,6 @@ $(function() {
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>공연 목록(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<c:choose>
-					<c:when test="${showPerformance.editMode eq 'ADD'}">
-						<form:select path="date_type" class="selectmenu">
-							<form:options items="${dateTypeList}" itemValue="code_id" itemLabel="code_name"/>
-						</form:select>	
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="i" items="${dateTypeList}">
-							<c:if test="${i.code_id eq showPerformance.date_type}">${i.code_name}</c:if>
-						</c:forEach>
-							<form:hidden path="date_type"/>
-						</c:otherwise>
-				</c:choose>
-				
-			</td>
-		</tr>
-		<tr>
 			<th>공연가능 일자(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input type="text" id="start_date" path="start_date" class="text ui-calendar"/>

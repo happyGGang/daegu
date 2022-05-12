@@ -61,6 +61,7 @@ public class ShowApply extends PagingUtils {
 	private String applicant_agency_tel_3;
 	private String applicant_agency_address;
 	private String member_check;
+	private String show_name;
 	
 	private String pageType;
 	
@@ -75,6 +76,14 @@ public class ShowApply extends PagingUtils {
 	private String plan_day;
 	private String checkMonth;
 	
+	public String getShow_name() {
+		return show_name;
+	}
+
+	public void setShow_name(String show_name) {
+		this.show_name = show_name;
+	}
+
 	public String getMember_check() {
 		return member_check;
 	}

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.showPerformance.ShowPerformance;
 import kr.co.whalesoft.app.cms.module.showPerformance.ShowPerformanceService;
@@ -31,31 +32,25 @@ public class ShowApplyController extends BaseController {
 
 	@Autowired
 	private ShowApplyService service;
-
+	
+	@Autowired
+	private CodeService codeService;
+	
 	@Autowired
 	private ShowPerformanceService showPerformanceService;
 
 	@RequestMapping(value = {"/edit.*"})
-	public String edit(Model model, ShowApply showApply) {
+	public String edit(Model model, ShowApply showApply, HttpServletRequest request) {
 		if(showApply.getEditMode().equals("MODIFY")) {
 			model.addAttribute("showApply", service.copyObjectPaging(showApply, service.getApplyOne(showApply)));
 		} else {
 			showApply.setMember_check("y");
 			model.addAttribute("showApply", showApply);
 		}
+		model.addAttribute("dateTypeList", codeService.getCode(getAsideHomepageId(request), "S0001"));
 		return basePath + "edit_ajax";
 	}
-	@RequestMapping(value = {"/noMemberApply.*"})
-	public String noMemberApply(Model model, ShowApply showApply) {
-		showApply.setMember_check("n");
-		if(showApply.getEditMode().equals("MODIFY")) {
-			model.addAttribute("showApply", service.copyObjectPaging(showApply, service.getApplyOne(showApply)));
-		} else {
-			model.addAttribute("showApply", showApply);
-		}
-		return basePath + "edit_ajax";
-	}
-
+	
 	@RequestMapping(value = {"/applyEdit.*"})
 	public String applyEdit(Model model, ShowApply showApply) {
 		
@@ -187,7 +182,7 @@ public class ShowApplyController extends BaseController {
 						return res;
 					}
 				}
-
+				
 				showApply.setAdd_id(getSessionMemberId(request));
 				showApply.setStart_date(showPerformance.getStart_date());
 				showApply.setStart_time(showPerformance.getStart_time());

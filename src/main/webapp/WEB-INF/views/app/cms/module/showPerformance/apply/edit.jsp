@@ -157,6 +157,14 @@ $(function() {
 		<col width="*"/>
 	</colgroup>
 	<tbody>
+		<tr>
+			<th>공연 목록(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:select path="code_name" class="selectmenu">
+						<form:options items="${dateTypeList}" itemValue="code_name" itemLabel="code_name"/>
+				</form:select>	
+			</td>
+		</tr>
 		<c:if test="${showApply.member_check eq 'y'}">
 		<tr>
          	<th>신청자ID(<span style="color: red; font-weight: bold;">*</span>)</th>

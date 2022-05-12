@@ -61,6 +61,7 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
+			<col width="10%"/>
 			<col width="*"/>
 			<col width="12%"/>
 			<col width="15%"/>
@@ -72,6 +73,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
+				<th>공연 제목</th>
 				<th>신청 기관명</th>
 				<th>신청자 성명</th>
 				<th>신청자 전화번호</th>
@@ -85,6 +87,7 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${showApplyList}">
 				<tr>
+					<td>${i.show_name}</td>
 					<td>${i.agency_name}</td>
 					<td>${i.applicant_name}</td>
 					<td>${i.applicant_tel}</td>

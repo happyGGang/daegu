@@ -86,6 +86,7 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
+			<col width="100"/>
 			<col width="150"/>
 			<col width="90"/>
 			<col width="120"/>
@@ -97,6 +98,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
+				<th>공연 제목</th>
 				<th>신청 기관명</th>
 				<th>신청자 성명</th>
 				<th>신청자 연락처</th>
@@ -117,6 +119,7 @@ $(function() {
 				</tr>
 				</c:if>
 				<tr>
+					<td>${i.show_name}</td>
 					<td>${i.agency_name}</td>
 					<td>${i.applicant_name}</td>
 					<td>${i.applicant_tel}</td>

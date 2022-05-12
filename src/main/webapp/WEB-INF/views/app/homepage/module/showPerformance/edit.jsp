@@ -197,6 +197,24 @@ $(function() {
 		<col width="*"/>
 	</colgroup>
 	<tbody>
+		<tr>
+			<th>공연 목록(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<c:choose>
+					<c:when test="${showPerformance.editMode eq 'ADD'}">
+						<form:select path="code_name" class="selectmenu">
+							<form:options items="${dateTypeList}" itemValue="code_name" itemLabel="code_name"/>
+						</form:select>	
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="i" items="${dateTypeList}">
+							<c:if test="${i.code_id eq showPerformance.date_type}">${i.code_name}</c:if>
+						</c:forEach>
+						<form:hidden path="code_name"/>
+					</c:otherwise>
+				</c:choose>
+			</td>
+		</tr>
 		<c:choose>
 		<c:when test="${showApply.member_check eq 'y' }">
 		<tr>

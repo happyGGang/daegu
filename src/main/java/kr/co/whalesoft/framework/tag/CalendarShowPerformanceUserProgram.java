@@ -59,8 +59,8 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 				
 
 				if (planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
-					sb.append("<li title=\"" + showPerformance.getCode_name() + "\">");
-					sb.append("[" + showPerformance.getCode_name() + "]<br>");
+					/*sb.append("<li title=\"" + showPerformance.getCode_name() + "\">");
+					sb.append("[" + showPerformance.getCode_name() + "]<br>");*/
 					sb.append("" + showPerformance.getStart_time() + "" + "~" + "" + showPerformance.getEnd_time() + "<br>");
 					
 					boolean flag = true;
@@ -87,12 +87,12 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (showPerformance.getApply_yn().equals("Y") && showPerformance.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>회원신청</em></span></a><br>");
-								sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>회원신청</em></span></a><br>");
-									sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}
@@ -101,8 +101,8 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 					}
 					sb.append("</li>");
 				} else if (planDay >= startDay && planDay <= endDay) {
-					sb.append("<li title=\"" + showPerformance.getCode_name() + "\">");
-					sb.append("[" + showPerformance.getCode_name() + "]<br>");
+					/*sb.append("<li title=\"" + showPerformance.getCode_name() + "\">");
+					sb.append("[" + showPerformance.getCode_name() + "]<br>");*/
 					sb.append("" + showPerformance.getStart_time() + "" + "~" + "" + showPerformance.getEnd_time() + "<br>");
 
 					
@@ -130,12 +130,12 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (showPerformance.getApply_yn().equals("Y") && showPerformance.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>회원신청</em></span></a><br>");
-								sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>회원신청</em></span></a><br>");
-									sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}
@@ -144,8 +144,8 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 					}
 					sb.append("</li>");
 				} else if (!planMonth.equals(startMonth) && planMonth.equals(endMonth)) {
-					sb.append("<li title=\"" + showPerformance.getCode_name() + "\">");
-					sb.append("[" + showPerformance.getCode_name() + "]<br>");
+					/*sb.append("<li title=\"" + showPerformance.getCode_name() + "\">");
+					sb.append("[" + showPerformance.getCode_name() + "]<br>");*/
 					sb.append("" + showPerformance.getStart_time() + "" + "~" + "" + showPerformance.getEnd_time() + "<br>");
 
 					boolean flag = true;
@@ -172,12 +172,12 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (showPerformance.getApply_yn().equals("Y") && showPerformance.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>회원신청</em></span></a><br>");
-								sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>회원신청</em></span></a><br>");
-									sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}

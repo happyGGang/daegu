@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
@@ -46,6 +47,9 @@ public class ShowPerformanceController extends BaseController {
 
 	@Autowired
 	private ShowApplyService showApplyService;
+	
+	@Autowired
+	private CodeService codeService;
 
 	@Autowired
 	private TermsService termsService;
@@ -118,19 +122,22 @@ public class ShowPerformanceController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
 		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
-			service.alertMessageAndUrl("회원만 신청가능합니다.", String.format("index.do?menu_idx=%s&editMode=ADD&showPerformance_idx=%d", showApply.getMenu_idx(), showApply.getShowPerformance_idx()), request, response);
-			return null;
-		}
+			showApply.setMember_check("n");
 		
-		Member certMember = (Member) request.getSession().getAttribute("certMember");
-		if (certMember != null) {
-			showApply.setApply_id(certMember.getCi_value());
 		} else {
-			showApply.setApply_id(getSessionMemberId(request));
+			
+			Member certMember = (Member) request.getSession().getAttribute("certMember");
+			if (certMember != null) {
+				showApply.setApply_id(certMember.getCi_value());
+			} else {
+				showApply.setApply_id(getSessionMemberId(request));
+			}
+			
+			Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
+			model.addAttribute("member", memberInfo);
+			showApply.setMember_check("y");
 		}
 
-		Member memberInfo = certMember == null ? getSessionMemberInfo(request) : certMember;
-		model.addAttribute("member", memberInfo);
 		
 		if (StringUtils.isEmpty(showApply.getHomepage_id())) {
 			showApply.setHomepage_id(homepage.getHomepage_id());
@@ -141,11 +148,10 @@ public class ShowPerformanceController extends BaseController {
 		} else {
 			model.addAttribute("showApply", showApply);
 		}
-
 		ShowPerformance showPerformance = new ShowPerformance();
 		showPerformance.setHomepage_id(showApply.getHomepage_id());
 		showPerformance.setShowPerformance_idx(showApply.getShowPerformance_idx());
-		showApply.setMember_check("y");
+		model.addAttribute("dateTypeList", codeService.getCode(showPerformance.getHomepage_id(), "S0001"));
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(showApply.getHomepage_id(), menuOne.getManage_idx(), "module")));
@@ -171,7 +177,7 @@ public class ShowPerformanceController extends BaseController {
 		ShowPerformance showPerformance = new ShowPerformance();
 		showPerformance.setHomepage_id(showApply.getHomepage_id());
 		showPerformance.setShowPerformance_idx(showApply.getShowPerformance_idx());
-		showApply.setMember_check("n");
+		
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(showApply.getHomepage_id(), menuOne.getManage_idx(), "module")));
