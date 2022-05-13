@@ -228,7 +228,7 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 .tab-menu li,
 .tabmenu li{display:inline-block;zoom:1;*display:inline;vertical-align:bottom}
 .tab-menu li a,
-.tabmenu li a{position:relative;z-index:1;display:block;background:#fafafa;border:1px solid #d2d2d2;border-bottom-width:0;padding:8px 13px 9px;font-weight:bold;color:#2f3743;margin:0 0 0 -1px}
+.tabmenu li a{position:relative;z-index:1;display:block;background:#fafafa;border:1px solid #d2d2d2;border-bottom-width:0;padding:8px 11px 9px;font-weight:bold;color:#2f3743;margin:0 0 0 -1px}
 .tab-menu li a:hover,
 .tab-menu li a:focus,
 .tabmenu li a:hover,
@@ -641,7 +641,7 @@ h4.tit.h4_t{margin-top:35px;}
 .location .box .tit.icon02{background:url('/resources/common/img/map_bus.gif') no-repeat center top;}
 .location .box .tit.icon03{background:url('/resources/common/img/map_sub.gif') no-repeat center top;}
 .location .box .tit.icon04{background:url('/resources/common/img/map_car.png') no-repeat center top;}
-.location .box .area{float:right;width:750px;}
+.location .box .area{float:right;width:820px;}
 .location .box .area .add_num{width:100%;display:inline-block;}
 .location .box .area .add_num li{overflow:hidden;float:left;width:50%;margin-bottom:10px;}
 .location .box .area .add_num li dl{width:100%;}
@@ -1076,3 +1076,11 @@ div.inputWrap input {width:49%;height:30px;padding:3px;}
 	.loan-status {position:inherit;margin-bottom:5px;}
 	.check-btn-box {text-align:center;margin-bottom:5px;}
 }
+
+/* 찾아오시는길 시각장애인용 버튼 추가 */
+.map-btn{position:absolute;top:5px;right:5px;z-index:99999;width:45px;text-align:center;background:#fff;border-radius:5px;border:1px solid #666;}
+.map-btn li{display:block;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.3);}
+.map-btn li.img-li{padding:5px 0;background:#666;border-bottom:1px solid rgba(255,255,255,0.5);}
+.map-btn li:nth-child(3), .map-btn li:last-child{border-bottom:none;}
+.map-btn li a{display:block;color:#000;font-size:12px;letter-spacing:-0.5px;font-weight:bold;}
+.map-btn li a img{display:inline-block;padding-top:4px;}
