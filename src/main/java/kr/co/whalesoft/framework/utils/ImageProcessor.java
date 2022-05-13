@@ -14,7 +14,17 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.FileImageOutputStream;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.MetadataException;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.jpeg.JpegDirectory;
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
+
+import static kr.co.whalesoft.framework.utils.ImageUtils.getOrientation;
 
 public class ImageProcessor {
 
@@ -30,8 +40,7 @@ public class ImageProcessor {
 		saveJpeg(new File(file), image, quality);
 	}
 
-	public static void saveJpeg(File file, BufferedImage image, float quality) {
-
+	public static void saveJpeg(File file, BufferedImage image, float quality) throws ImageProcessingException, MetadataException {
 		FileImageOutputStream output = null;
 		ImageWriter writer = null;
 		String extension = FilenameUtils.getExtension(file.getName());
@@ -65,7 +74,7 @@ public class ImageProcessor {
 		}
 	}
 
-	public static BufferedImage scaling(Image image, int new_width, int new_height) throws Exception {
+	public static BufferedImage scaling(Image image, int new_width, int new_height, int orientation) throws Exception {
 
 		int org_width = image.getWidth(null);
 		int org_height = image.getHeight(null);
@@ -86,13 +95,14 @@ public class ImageProcessor {
 		scalingProcess(org_pixels, org_width, org_height, new_pixels, new_width, new_height);
 
 		BufferedImage bi = new BufferedImage(new_width, new_height, BufferedImage.TYPE_INT_RGB);
-
 		bi.setRGB(0, 0, new_width, new_height, new_pixels, 0, new_width);
-		return bi;
+		BufferedImage rotateImage = rotateImage(orientation, bi);
+		return rotateImage;
 	}
 
 	private static void scalingProcess(int[] pixels, int width, int height, int[] new_pixels, int new_width, int new_height) {
 		int i, j;
+
 		int value = 10000;
 		int pos_h = value;
 		int pos_w = value;
@@ -134,4 +144,20 @@ public class ImageProcessor {
 		}
 	}
 
+	public static BufferedImage rotateImage(int orientation, BufferedImage bi) {
+		switch (orientation) {
+			case 1:
+				break;
+			case 3:
+				bi = Scalr.rotate(bi, Scalr.Rotation.CW_180, null);
+				break;
+			case 6:
+				bi = Scalr.rotate(bi, Scalr.Rotation.CW_90, null);
+				break;
+			case 8:
+				bi = Scalr.rotate(bi, Scalr.Rotation.CW_270, null);
+				break;
+		}
+		return bi;
+	}
 }
