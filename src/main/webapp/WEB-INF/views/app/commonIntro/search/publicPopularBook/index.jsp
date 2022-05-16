@@ -280,6 +280,7 @@
 	<!-- 도서 목록 -->
 	<div class="">
 		<ul class="book-list">
+			<c:if test="${fn:length(popularBookList) < 1 }"> <h1 style="text-align:center; margin-top:10px;">검색결과가 없습니다.</h1></c:if>
 			<c:forEach items="${popularBookList}" var="i" varStatus="status">
 					<li>
 						<div class="thumb">
@@ -308,8 +309,9 @@
 		</ul>
 	</div>
 	<!-- //도서 목록 -->
-	
-	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#librarySearch"/>
-	</jsp:include>	
+	<c:if test="${fn:length(popularBookList) > 1 }">
+		<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+			<jsp:param name="formId" value="#librarySearch"/>
+		</jsp:include>	
+	</c:if>
 </form:form>
