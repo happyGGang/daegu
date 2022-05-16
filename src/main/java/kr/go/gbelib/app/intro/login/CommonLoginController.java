@@ -102,10 +102,12 @@ public class CommonLoginController extends BaseController {
 		}
 
 		String returnUrl = member.getBefore_url();
-		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
-			returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
-			if (request.getRequestURL().toString().contains("localhost")) {
-				returnUrl = String.format("%s/%s/index.do", "http://localhost", homepagePath);
+		if(!(returnUrl.toString().contains("mobileCard"))) {
+			if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
+				returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
+				if (request.getRequestURL().toString().contains("localhost")) {
+					returnUrl = String.format("%s/%s/index.do", "http://localhost", homepagePath);
+				}
 			}
 		}
 
@@ -392,7 +394,11 @@ public class CommonLoginController extends BaseController {
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/" + homepage.getContext_path() + "/intro/login/index.do?menu_idx="+loginMenuIdx, request, response);
+			String beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
+			if (request.getRequestURI().endsWith("/intro/login/mobileCard.do")) {
+				beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
+			}
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/" + homepage.getContext_path() + String.format("/intro/login/index.do?menu_idx="+loginMenuIdx+"&before_url=%s", beforeUrl), request, response);
 			return null;
 		}
 
