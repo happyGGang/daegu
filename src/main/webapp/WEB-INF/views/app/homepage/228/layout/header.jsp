@@ -29,6 +29,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
 
+
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
 <![endif]-->
@@ -46,7 +47,7 @@
 
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-
+<!--
 <script>
 
 $(document).ready(function(){
@@ -72,8 +73,10 @@ $(document).mousedown(function(e) {
 });
 
 </script>
+-->
 </head>
-<body oncontextmenu='return false'>
+<!--<body oncontextmenu='return false'>-->
+<body>
 
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>

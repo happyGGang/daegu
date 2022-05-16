@@ -52,7 +52,7 @@
 <!--슬라이드효과-->
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/swiper.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/swiper.min.css" />
-<script>
+<!-- <script>
 
 $(document).ready(function(){
 
@@ -76,9 +76,9 @@ $(document).mousedown(function(e) {
 
 });
 
-</script>
+</script> -->
 </head>
-<body oncontextmenu='return false'>
-
+<!-- <body oncontextmenu='return false'> -->
+<body>
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>

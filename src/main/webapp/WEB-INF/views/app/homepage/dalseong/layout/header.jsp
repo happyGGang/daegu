@@ -47,7 +47,7 @@
 
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-<script>
+<!-- <script>
 
 $(document).ready(function(){
 
@@ -63,7 +63,7 @@ $(document).mousedown(function(e) {
 
 	if( e.button == 2 ) 
 	{
-		alert('우측 마우스를 사용할 수 없습니다.');
+		//alert('우측 마우스를 사용할 수 없습니다.');
 		return false;
 	} else {
 		return true;
@@ -71,10 +71,10 @@ $(document).mousedown(function(e) {
 
 });
 
-</script>
+</script> -->
 </head>
-<body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
-
+<!-- <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'> -->
+<body>
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>
 

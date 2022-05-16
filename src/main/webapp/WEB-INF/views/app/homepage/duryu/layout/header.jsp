@@ -63,7 +63,7 @@ $(document).mousedown(function(e) {
 
 	if( e.button == 2 ) 
 	{
-		alert('우측 마우스를 사용할 수 없습니다.');
+		//alert('우측 마우스를 사용할 수 없습니다.');
 		return false;
 	} else {
 		return true;

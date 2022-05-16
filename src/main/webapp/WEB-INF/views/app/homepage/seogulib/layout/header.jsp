@@ -47,7 +47,7 @@
 
 <script type="text/javascript" src="/resources/homepage/seogulib/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-<script>
+<!-- <script>
 
 $(document).ready(function(){
 
@@ -71,9 +71,9 @@ $(document).mousedown(function(e) {
 
 });
 
-</script>
+</script> -->
 </head>
-<body oncontextmenu='return false'>
-
+<!-- <body oncontextmenu='return false'> -->
+<body>
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>
