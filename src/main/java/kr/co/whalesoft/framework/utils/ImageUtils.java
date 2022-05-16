@@ -1,5 +1,14 @@
 package kr.co.whalesoft.framework.utils;
 
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.MetadataException;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.jpeg.JpegDirectory;
+import org.imgscalr.Scalr;
+
 import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -81,8 +90,9 @@ public class ImageUtils {
 			// 새이미지의 크기를 결정한다.     
 			int scaledW = (int) (scale * inImage.getWidth(null));
 			int scaledH = (int) (scale * inImage.getHeight(null));
-			// 이미지 버퍼를 생성한다.			 
-			 BufferedImage outImage = ImageProcessor.scaling(inImage, scaledW, scaledH);
+			// 이미지 버퍼를 생성한다.
+			int orientation = getOrientation(filePath, fileName);
+			 BufferedImage outImage = ImageProcessor.scaling(inImage, scaledW, scaledH, orientation);
 			 ImageProcessor.saveJpeg(filePath + "thumb/" + fileName , outImage, 0.7f);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -90,5 +100,17 @@ public class ImageUtils {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public static int getOrientation(String filePath, String fileName) throws ImageProcessingException, IOException, MetadataException {
+		int orientation = 1;
+		File imageFile = new File(filePath + fileName);
+		Metadata metadata = ImageMetadataReader.readMetadata(imageFile);
+		Directory directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+		if(directory != null) {
+			orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+		}
+		return orientation;
+	}
+
+
 }
