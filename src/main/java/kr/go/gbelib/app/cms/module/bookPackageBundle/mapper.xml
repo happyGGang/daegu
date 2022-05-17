@@ -518,6 +518,45 @@
 		ORDER BY c.book_package_bundle_loan_idx DESC
 	</select>
 	
+	<select id="getBookPackageBundleLoanExcelList2" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			<![CDATA[
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, b.book_package_name,
+			b.author, b.publisher, b.publish_year, a.loan_count, a.quantity, a.grade,
+			b.category, b.keyword, b.desc_link, b.image_link, REGEXP_REPLACE(b.content, '<[^>]*>', '') AS content,
+			b.org_file_name, b.server_file_name, b.file_extension, b.file_size, b.doc_org_file_name,
+			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size,
+			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			c.phone, c.school_tel, c.request_content, c.request_status, c.return_yn,
+			c.add_id, c.add_date, c.school_name, c.request_name
+			]]>
+		FROM
+			BOOK_PACKAGE_BUNDLE a, BUNDLE_LIST b, BOOK_PACKAGE_BUNDLE_LOAN c, BOOK_PACKAGE_BUNDLE_DETAIL d
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.book_package_bundle_idx = d.book_package_bundle_idx
+		AND d.book_package_bundle_detail_idx = b.book_package_bundle_detail_idx
+		AND a.book_package_bundle_idx = c.book_package_bundle_idx
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="category != null and category != '' and category != 'all'">
+		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+		</if>
+		<if test="grade != null and grade != ''">
+		AND	grade = #{grade}
+		</if>
+		<if test="lender_count != -1">
+		AND	#{lender_count}
+		<choose>
+			<when test="lender_count == 0"><![CDATA[=]]></when>
+			<when test="lender_count == 1"><![CDATA[<=]]></when>
+		</choose>
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+		</if>
+		ORDER BY c.book_package_bundle_loan_idx DESC
+	</select>
+	
 	<delete id="deleteBookPackageBundle">
 		DELETE FROM
 			BOOK_PACKAGE_BUNDLE

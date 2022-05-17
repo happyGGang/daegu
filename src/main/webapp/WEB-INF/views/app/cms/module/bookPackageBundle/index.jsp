@@ -265,17 +265,18 @@ input[type="checkbox"].customCheck:checked + label {color: #1ba8ed;background: u
 .group-box::after {content:''; display:block; clear:both;}
 .book_check {position: absolute;left: 0;}
 .content-box {display: inline-block;width: 75%;padding: 0 11px;}
-.subject a {display: inline-block;margin-right: 20px;font-size: 19px;font-weight: bold;color: #222;}
+.subject a {display: inline-block;margin-right: 20px;font-size: 20px;font-weight: bold;color: #222;}
 .subject .ing {display: inline-block;width: 35px;height: 35px;margin: 0 10px 8px 0;border-radius: 100%;background: #ff5700;font-size: 11px;line-height: 35px;color: #fff;letter-spacing: -0.075em;text-align: center;}
 .step1 {border: 1px solid #1ec0b0;color: #1ec0b0;}
 .step2 {border: 1px solid #f9a406;color: #f9a406;}
 .step1, .step2 {display: inline-block;margin-right: 5px;padding: 3px 5px;font-family: 'dotum';font-size: 11px;line-height: 1;letter-spacing: -1px;text-align: center;}
 ul.pub_info {padding: 10px 0 15px;}
 ul.pub_info li {display: inline-block;font-size: 13px;padding-right: 15px;}
-.book-desc {font-size: 13px;}
+/* .book-desc {font-size: 13px;} */
+.book-desc {border-top: 1px dashed #e5e5e5;padding-top: 14px;margin-top: 18px;}
 .keyword-box {border-top: 1px dashed #e5e5e5;padding-top: 14px;margin-top: 18px;}
 .content-box span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
-.btn-box {position: absolute;top: 35px;right: 0;text-align: center;}
+.btn-box {position: absolute;top: 15px;right: 0;text-align: center;}
 .btn-box a {display: block;height: 31px;padding: 0 20px 0 35px;border-radius: 50px;line-height: 32px;}
 .btn-box a.modify {display: block;height: 31px;padding: 0 20px 0 22px;border-radius: 50px;line-height: 32px;}
 .btn-box a.loan {border: 2px solid #d2dfe8;color: #5c90b5;background: url(/resources/common/img/icon_bt_apply01.png) no-repeat 14px 50%;}
@@ -331,8 +332,8 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span></c:if>
 				<a href="javascript:void(0);" onclick="getBookPackageDetail('${i.book_package_bundle_idx}');">${i.book_package_bundle_title}</a>
 			</div>
-			<div>
-				<c:if test="${not empty i.grade}">
+			<%-- <div>
+				 <c:if test="${not empty i.grade}">
 				<span class="step1">
 				<c:choose>
 					<c:when test="${i.grade eq '3'}">초등1-2학년</c:when>
@@ -362,30 +363,32 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 						</span>
 					</c:forTokens>
 					</c:if>
-				</c:forEach>
+				</c:forEach> 
 			</div>
 			<div>
 				<ul class="pub_info">
 				</ul>
-			</div>
+			</div> --%>
 			<div class="book-desc">
 				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
 					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
-						${fn:substring(j.book_package_name, 0, 85)}<c:if test="${fn:length(j.book_package_name) > 85}">...</c:if>
+						<c:forTokens items="${j.book_package_bundle_idx}" delims="," var="book_package_name">
+						<span class="keyword">${fn:substring(j.book_package_name, 0, 85)}<c:if test="${fn:length(j.book_package_name) > 85}">...</c:if></span>
+						</c:forTokens>
 					</c:if>
 				</c:forEach>
 			</div>
 			<div class="keyword-box">
-				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
+				<%-- <c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
 					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
 						<c:forTokens items="${j.keyword}" delims="," var="keyword">
 						<span class="keyword">${keyword}</span>
 						</c:forTokens>
 					</c:if>
-				</c:forEach>
+				</c:forEach> --%>
 			</div>
 		</div>
-		<div class="btn-box">
+		<div class="btn-box" style="margin-top: 10px;">
 			<c:choose>
 				<c:when test="${i.lender_count > 0}">
 					<a href="javascript:void(0);" class="dialog-req reserv" keyValue="${i.book_package_bundle_idx}">예약신청</a>

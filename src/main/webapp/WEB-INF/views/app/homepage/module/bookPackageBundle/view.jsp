@@ -7,32 +7,50 @@
 <link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
 <script type="text/javascript">
 $(function() {
+	
+	$('.request-btn').on('click', function(e) {
+		e.preventDefault();
+		var formData = 'editMode=ADD&menu_idx=230' + '&book_package_bundle_idx='+$(this).attr('keyValue');
+		doGetLoad('loanEdit.do', formData);
+	});
+	
 	var $form = $('form#bookPackageBundle');
 	
 	$('#list_btn').on('click', function(e) {
 		e.preventDefault();
 		history.back();
 	});
+
+
 });
+
 </script>
+<link rel="stylesheet" href="/resources/common/css/bookPackageBundle.css" />
 <style type="text/css">
-	.bookPackageBundleSubject {font-size: 20px;background: #f6f6f6;font-weight: bold;text-align: center;height: 42px;width: 1000px;display: table-cell;vertical-align: middle;border: 1px solid #e5e8eb;}
+	.bookPackageBundleSubject {font-size: 25px;background: #f6f6f6;font-weight: bold;text-align: center;height: 65px;width: 1000px;display: table-cell;vertical-align: middle;border: 1px solid #e5e8eb;}
 
 	span.keyword {display: inline-block;padding: 0 10px;background: #e8f2f7;border-radius: 20px;font-size: 12px;color: #7e8c93;}
 
 	.serial-wrap .search-results .row{height:225px;}
-
+	
+	.btn-box {font-size: 18px;position:relative;margin-top:50px;text-align:center;}
+	.btn-box a {display: inline-block;height: 38px;width:100px;padding: 0 30px 0 45px;border-radius: 50px;line-height: 40px;margin:0 3px;}
+	.
 	@media all and (max-width:550px){
 		.serial-wrap .search-results .row{border-bottom:1px solid #e5e5e5;height:auto;margin-top:10px;}
 	}
 </style>
+
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="bookPackageBundle" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
-
+<form:hidden path="editMode"/>
 <div class="serial-wrap" style="margin-top:20px;">
-	<div class="bookPackageBundleSubject">
+	<div class="bookPackageBundleSubject" >
 		${bookPackageBundle.book_package_bundle_title}
+		<span class="btn-box">
+			<a href="#" class="request-btn loan" keyValue="${bookPackageBundle.book_package_bundle_idx}">대출신청</a>
+		</span>		
 	</div>
 	<div class="smain">
 		<div class="box">

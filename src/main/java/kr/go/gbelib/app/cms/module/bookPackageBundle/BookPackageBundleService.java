@@ -177,6 +177,9 @@ public class BookPackageBundleService extends BaseService {
 	public List<BookPackageBundle> getBookPackageBundleLoanExcelList(BookPackageBundle bookPackageBundle) {
 		return dao.getBookPackageBundleLoanExcelList(bookPackageBundle);
 	}
+	public List<BookPackageBundle> getBookPackageBundleLoanExcelList2(BookPackageBundle bookPackageBundle) {
+		return dao.getBookPackageBundleLoanExcelList2(bookPackageBundle);
+	}
 
 	public int deleteBookPackageBundleDetail(BookPackageBundle bookPackageBundle) {
 		return dao.deleteBookPackageBundleDetail(bookPackageBundle);

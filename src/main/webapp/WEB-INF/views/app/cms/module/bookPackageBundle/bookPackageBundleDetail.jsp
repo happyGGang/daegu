@@ -44,6 +44,7 @@ function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bu
 	<table class="type1 center">
 		<colgroup>
 			<col width="10%" />
+			<col width="10%" />
 			<col />
 			<col width="10%" />
 			<col width="10%" />
@@ -53,6 +54,7 @@ function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bu
 		</colgroup>
 		<thead>
 			<tr>
+				<th>번호</th>
 				<th>주제</th>
 				<th>도서명</th>
 				<th>작가</th>
@@ -65,6 +67,7 @@ function deleteBookPackageDetail(book_package_bundle_detail_idx, book_package_bu
 		<tbody>
 			<c:forEach items="${bookPackageDetailList}" var="i" varStatus="status">
 				<tr>
+					<td>${status.count }</td>
 					<td>
 						<c:forTokens items="${i.category}" delims="," var="category">
 							<span class="step2">

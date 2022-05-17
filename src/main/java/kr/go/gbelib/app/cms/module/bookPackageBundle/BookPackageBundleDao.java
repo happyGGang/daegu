@@ -50,6 +50,8 @@ public interface BookPackageBundleDao {
 
 	List<BookPackageBundle> getBookPackageBundleExcelList(BookPackageBundle bookPackageBundle);
 
+	List<BookPackageBundle> getBookPackageBundleLoanExcelList2(BookPackageBundle bookPackageBundle);
+	
 	List<BookPackageBundle> getBookPackageBundleLoanExcelList(BookPackageBundle bookPackageBundle);
 
 	int deleteBookPackageBundleDetail(BookPackageBundle bookPackageBundle);
@@ -79,5 +81,6 @@ public interface BookPackageBundleDao {
 	int deleteBook(BookPackageBundle bookPackageBundle);
 
 	int deleteBookDetail(BookPackageBundle bookPackageBundle);
+
 
 }

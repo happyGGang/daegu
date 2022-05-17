@@ -119,7 +119,9 @@ public class BookPackageBundleController extends BaseController {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		SupportMember loginSupport = sessionLoginSupport(request);
-
+		int menu_idx = bookPackageBundle.getMenu_idx();
+		bookPackageBundle.setMenu_idx(menu_idx);
+		
 		if (loginSupport == null && !getSessionIsAdmin(request)) {
 			bookPackageBundle.setBefore_url(String.format("/%s/module/bookPackage/loanList.do?menu_idx=%s", homepage.getContext_path(), bookPackageBundle.getMenu_idx()));
 			bookPackageBundleService.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackageBundle.getMenu_idx(), bookPackageBundle.getBefore_url()), request, response);
@@ -164,7 +166,7 @@ public class BookPackageBundleController extends BaseController {
 			bookPackageBundleService.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bookPackageBundle.getMenu_idx(), bookPackageBundle.getBefore_url()), request, response);
 			return null;
 		}
-
+		
 		int menu_idx = bookPackageBundle.getMenu_idx();
 
 		if(bookPackageBundle.getEditMode().equals("MODIFY")) {
