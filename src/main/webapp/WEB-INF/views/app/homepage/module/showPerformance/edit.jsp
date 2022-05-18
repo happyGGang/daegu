@@ -302,7 +302,7 @@ $(function() {
 		</tr>
 		<tr>
 			<th>관람인원(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>총인원<form:input path="total_peple" type="text"  class="form-control num_only num_comma num_sum" id="total" name="total" cssStyle="width:50px" readonly="true"/>명<br>
+			<td>
 				(0세<form:input path="age_zero" type="text" 	class="form-control num_only num_comma num_sum"	id="zero" name="zero" cssStyle="width:25px" maxlength="2"/>명/
 				1세<form:input path="age_one" type="text" 	class="form-control num_only num_comma num_sum"	id="one" name="one" cssStyle="width:25px" maxlength="2"/>명/
 				2세<form:input path="age_two" type="text" 	class="form-control num_only num_comma num_sum"	id="two" name="two" cssStyle="width:25px" maxlength="2"/>명/
@@ -310,7 +310,8 @@ $(function() {
 				4세<form:input path="age_four" type="text" 	class="form-control num_only num_comma num_sum"	id="four" name="four" cssStyle="width:25px" maxlength="2"/>명/
 				5세<form:input path="age_five" type="text" 	class="form-control num_only num_comma num_sum"	id="five" name="five" cssStyle="width:25px" maxlength="2"/>명/
 				6세<form:input path="age_six" type="text" 	class="form-control num_only num_comma num_sum"	id="six" name="six" cssStyle="width:25px" maxlength="2"/>명/
-				7세<form:input path="age_seven" type="text"	class="form-control num_only num_comma num_sum"	id="seven" name="seven" cssStyle="width:25px" maxlength="2"/>명)
+				7세<form:input path="age_seven" type="text"	class="form-control num_only num_comma num_sum"	id="seven" name="seven" cssStyle="width:25px" maxlength="2"/>명)<br>
+				총인원<form:input path="total_peple" type="text"  class="form-control num_only num_comma num_sum" id="total" name="total" cssStyle="width:50px" readonly="true"/>명
 			 </td>
 		</tr>
 		<tr>
