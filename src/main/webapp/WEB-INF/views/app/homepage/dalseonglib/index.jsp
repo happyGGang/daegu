@@ -406,6 +406,7 @@ do {
 								</c:if>
 								<c:forEach items="${teachList1}" var="i" varStatus="status" begin="0" end="2">
 									<li>
+										<span class="ca ty2" style="background-color: #3f4f82;color: #fff;display: inline-block;padding: 3px 20px;border-radius: 20px;width: auto;text-align: center;font-weight: bold;box-sizing: border-box;letter-spacing: -1px;">${i.group_name}</span>
 										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=16">
 											<c:if test="${i.teach_status eq '0'}">
 												<em>접수중</em>
@@ -450,6 +451,7 @@ do {
 								</c:if>
 								<c:forEach items="${teachList2}" var="i" varStatus="status" begin="0" end="2">
 									<li>
+										<span class="ca ty2" style="background-color: #3f4f82;color: #fff;display: inline-block;padding: 3px 20px;border-radius: 20px;width: auto;text-align: center;font-weight: bold;box-sizing: border-box;letter-spacing: -1px;">${i.group_name}</span>
 										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=17">
 											<c:if test="${i.teach_status eq '0'}">
 												<em>접수중</em>
