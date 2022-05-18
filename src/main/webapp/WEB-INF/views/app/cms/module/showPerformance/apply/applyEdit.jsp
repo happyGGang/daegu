@@ -106,9 +106,7 @@ $(function() {
 				<th>관람 인원</th>
 				<th>승인여부</th>
 				<th>비고</th>
-				<c:if test="${showApply.editMode ne 'VIEW' }">
-					<th>신청</th>
-				</c:if>
+				<th>신청</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -140,13 +138,11 @@ $(function() {
 						</c:choose>
 					</td>
 					<td>${i.remarks }</td>
-					<c:if test="${showApply.editMode ne 'VIEW' }">
-						<td>
-							<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
-							<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
-							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
-						</td>
-					</c:if>
+					<td>
+						<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
+						<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
+						<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
