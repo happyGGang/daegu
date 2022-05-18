@@ -1995,3 +1995,12 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 
 	table.bbs th.wid{width:5%;}
 }
+
+
+/* 찾아오시는길 시각장애인용 버튼 추가 */
+.map-btn{position:absolute;top:5px;right:5px;z-index:99999;width:45px;text-align:center;background:#fff;border-radius:5px;border:1px solid #666;}
+.map-btn li{display:block;padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.3);}
+.map-btn li.img-li{padding:5px 0;background:#666;border-bottom:1px solid rgba(255,255,255,0.5);}
+.map-btn li:nth-child(3), .map-btn li:last-child{border-bottom:none;}
+.map-btn li a{display:block;color:#000;font-size:12px;letter-spacing:-0.5px;font-weight:bold;}
+.map-btn li a img{display:inline-block;padding-top:4px;}

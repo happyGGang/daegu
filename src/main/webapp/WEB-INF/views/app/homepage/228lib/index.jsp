@@ -265,13 +265,13 @@ do {
 					<div class="information">
 						<h3>도서관 이용안내</h3>
 
-						<h4>유아·어린이자료실, 디지털자료실</h4>
+						<h4>유아ㆍ어린이ㆍ일반자료실</h4>
 						<ul>
-							<li><span class="dot">-</span> <span class="txt">화 ~ 금</span> 09:00 ~ 18:00</li>
+							<li><span class="dot">-</span> <span class="txt">화 ~ 금</span> 09:00 ~ 19:00</li>
 							<li><span class="dot">-</span> <span class="txt">토 ~ 일</span> 09:00 ~ 17:00</li>
 						</ul>
 
-						<h4>일반자료실</h4>
+						<h4>디지털자료실</h4>
 						<ul>
 							<li><span class="dot">-</span> <span class="txt">화 ~ 금</span> 09:00 ~ 18:00</li>
 							<li><span class="dot">-</span> <span class="txt">토 ~ 일</span> 09:00 ~ 17:00</li>
