@@ -116,13 +116,14 @@ public class UntactBookController extends BaseController {
 			List<UntactBookReservation> reservationList = untactBookReservationService.getReservationList(untactBookReservation);
 			
 			String request_number = String.valueOf(reservationList.get(0).getRequest_number());
+			String userKey = String.valueOf(reservationList.get(0).getUser_key());
 			
-			Map<String, Object> resultList = LibSearchAPI.getReserveList(member.getRec_key());
+			Map<String, Object> resultList = LibSearchAPI.getReserveList(userKey);
 			List<Map<String, Object>> list = null;
 			if(resultList != null && !resultList.isEmpty() && resultList.get("LIST_DATA") != null){
 				list = LibSearchAPI.getListData(resultList);
 				String reckey = String.valueOf(list.get(0).get("PK"));
-				librarySearch.setUserkey(member.getRec_key());
+				librarySearch.setUserkey(userKey);
 				librarySearch.setBookkey(reckey);
 				ApiResponse apiResult = LibSearchAPI.cancelReservation2(librarySearch);
 				
