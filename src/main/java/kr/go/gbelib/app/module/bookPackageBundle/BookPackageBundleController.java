@@ -293,6 +293,8 @@ public class BookPackageBundleController extends BaseController {
 		
 		if(bookPackageBundle.getEditMode().equals("bookPackage")) {
 			bookPackageBundleList = bookPackageBundleService.getBookPackageBundleExcelList(bookPackageBundle);
+		} else if (bookPackageBundle.getEditMode().equals("bookPackageLoan")) {
+			bookPackageBundleList = bookPackageBundleService.getBookPackageBundleLoanExcelList2(bookPackageBundle);
 		} else {
 			bookPackageBundleList = bookPackageBundleService.getBookPackageBundleLoanExcelList(bookPackageBundle);
 		}
