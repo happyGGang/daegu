@@ -94,7 +94,7 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 									/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 								} else {
-									sb.append("<a href=\"#\"><span style=\"type-r\"><i><em>신청 마감</em></i></span></a>");
+									sb.append("<a href=\"#\"><span style=\"type-r\"><i><em>신청마감</em></i></span></a><br>");
 								}
 							}
 						}
@@ -137,7 +137,7 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 									/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 								} else {
-									sb.append("<a href=\"#\"><span style=\"type-r\"><i><em>신청 마감</em></i></span></a>");
+									sb.append("<a href=\"#\"><span style=\"type-r\"><i><em>신청마감</em></i></span></a><br>");
 								}
 							}
 						}
@@ -179,7 +179,7 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 									/*sb.append("<a href=\"\" class=\"\" id=\"noMemberApply\" keyValue=\"" + showPerformance.getShowPerformance_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + showPerformance.getStart_time() + "\" keyValue4=\"" + showPerformance.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>비회원신청</em></span></a><br>");*/
 								} else {
-									sb.append("<a href=\"#\"><span style=\"type-r\"><i><em>신청 마감</em></i></span></a>");
+									sb.append("<a href=\"#\"><span style=\"type-r\"><i><em>신청마감</em></i></span></a><br>");
 								}
 							}
 						}
