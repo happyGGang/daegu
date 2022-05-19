@@ -131,7 +131,7 @@ public class ShowPerformanceController extends BaseController {
 				Calendar c = Calendar.getInstance(); //시작 날짜와 종료 날짜 가 같을때까지 반복한다.
 				int addCount = 0;				
 				
-				CalendarManage calendarManage = new CalendarManage();
+				/*CalendarManage calendarManage = new CalendarManage();
 				calendarManage.setHomepage_id(request.getParameter("homepage_id"));				
 				List<CalendarManage> cm = calendarManageService.getClosedDate5(calendarManage);
 				for(int i = 0; i < cm.size(); i++) {
@@ -140,7 +140,7 @@ public class ShowPerformanceController extends BaseController {
 						res.setMessage("휴관일은 대관등록을 할 수 없습니다.");
 						return res;
 					}
-				}
+				}*/
 			
 				
 				

@@ -317,11 +317,11 @@ public class ShowPerformanceController extends BaseController {
 			calendarManage.setEnd_date(showApply.getEnd_date());
 
 
-			if (calendarManageService.closedDateCheck(calendarManage) > 0) {
+			/*if (calendarManageService.closedDateCheck(calendarManage) > 0) {
 				res.setValid(true);
 				res.setMessage("휴관일에는 시설물 이용을 하실 수 없습니다.");
 				return res;
-			}
+			}*/
 		}
 
 		if(!result.hasErrors()) {
