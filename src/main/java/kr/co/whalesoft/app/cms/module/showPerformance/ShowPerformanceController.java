@@ -131,6 +131,7 @@ public class ShowPerformanceController extends BaseController {
 				Calendar c = Calendar.getInstance(); //시작 날짜와 종료 날짜 가 같을때까지 반복한다.
 				int addCount = 0;				
 				
+				
 				/*CalendarManage calendarManage = new CalendarManage();
 				calendarManage.setHomepage_id(request.getParameter("homepage_id"));				
 				List<CalendarManage> cm = calendarManageService.getClosedDate5(calendarManage);

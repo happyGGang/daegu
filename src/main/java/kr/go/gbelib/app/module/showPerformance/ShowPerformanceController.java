@@ -316,7 +316,6 @@ public class ShowPerformanceController extends BaseController {
 			calendarManage.setStart_date(showApply.getStart_date());
 			calendarManage.setEnd_date(showApply.getEnd_date());
 
-
 			/*if (calendarManageService.closedDateCheck(calendarManage) > 0) {
 				res.setValid(true);
 				res.setMessage("휴관일에는 시설물 이용을 하실 수 없습니다.");
