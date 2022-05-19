@@ -188,7 +188,7 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 				}
 			}
 
-			// 도서관일정
+			/*// 도서관일정
 			for (int i = 0; i < calendarManageList.size(); i++) {
 				CalendarManage cm = calendarManageList.get(i);
 				String planMonth = plan_date.substring(0, 7);
@@ -234,8 +234,8 @@ public class CalendarShowPerformanceUserProgram extends BodyTagSupport {
 						sb.append("</li>");
 					}
 				}
-
-			}
+			
+			}*/
 		}
 
 		try {
