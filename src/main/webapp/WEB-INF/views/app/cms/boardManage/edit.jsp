@@ -5,6 +5,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cmsTag" uri="/WEB-INF/config/tld/cmsTag.tld" %>
 <script type="text/javascript">
+$(document).ready(function(){
+	$('select#board_type').on('change', function() {
+		var val = $(this).val();
+		if (val == 'MOVIE') {
+			$('.normal').hide();
+			$('.movie_date').show();
+			$('.movie_form').show();
+		} else {
+			$('.normal').show();
+			$('.movie_date').hide();
+			$('.movie_form').hide();
+		}
+	});
+	
+	$('select#board_type').trigger("change");
+});
+
+$(document).on("keyup", "input:text[numberOnly]", function() {
+	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
+});
+
 $(function(){
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
@@ -279,9 +300,17 @@ $(function(){
 							<form:radiobutton path="terms_yn" value="Y" label="사용함" />
 							<form:radiobutton path="terms_yn" value="N" label="사용안함" />
 						</td>
-						<th></th>
-						<td></td>
+							<th class="normal"></th>
+							<td class="normal"></td>
+							<th class="movie_date" style="display:none;">영화 상영 일시</th>
+							<td class="movie_date" style="display:none;"><form:input path="movie_hour" cssClass="text" cssStyle="width:30px;" maxlength="2" numberOnly="true"/>시&nbsp;<form:input path="movie_minute" cssClass="text" cssStyle="width:30px;" maxlength="2" numberOnly="true"/>분</td>
 					</tr>
+						<tr class="movie_form" style="display:none;">
+							<th>상영장소</th>
+							<td colspan="3">
+								<form:input path="movie_place" cssClass="text" cssStyle="width:99%;" maxlength="100"/>
+							</td>
+						</tr>
 					<tr>
 						<th>금지 확장자 파일</th>
 						<td colspan="3">

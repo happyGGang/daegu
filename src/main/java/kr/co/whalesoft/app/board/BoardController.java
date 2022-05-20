@@ -544,6 +544,10 @@ public class BoardController extends BaseController {
 			h.setHomepage_group(homepage.getHomepage_id());
 			h.setTemp_use_yn("Y");
 			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
+		} else if(boardManage.getBoard_type().equals("MOVIE")) {
+			board.setImsi_v_3(boardManage.getMovie_hour());
+			board.setImsi_v_4(boardManage.getMovie_minute());
+			board.setImsi_v_6(boardManage.getMovie_place());
 		}
 		//테마게시판
 		if (boardManage.getBoard_type().equals("THEMEBOOK")){

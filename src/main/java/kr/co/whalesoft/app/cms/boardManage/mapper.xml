@@ -96,7 +96,8 @@
 			category1, category2, category3, category4, category5,
 			rss_yn, recommend_yn, ebook_yn, charge_sms_receive_yn, write_sms_receive_yn,
 			charge_email_receive_yn, write_email_receive_yn, board_email_send_yn, satisfy_yn, board_etc1,
-			add_only_yn, approval_yn, anonymize_yn, write_only_yn, terms_yn
+			add_only_yn, approval_yn, anonymize_yn, write_only_yn, terms_yn,
+			movie_hour, movie_minute, movie_place
 		FROM
 			CMS_BOARD_MANAGE
 		WHERE
@@ -124,7 +125,8 @@
 			ebook_yn, charge_sms_receive_yn, write_sms_receive_yn, charge_email_receive_yn, write_email_receive_yn,
 			board_email_send_yn, satisfy_yn, board_etc1, approval_yn,
 			manager_name, manager_dept, manager_phone, reply_list_yn,
-			board_skin, request_code, anonymize_yn, write_only_yn, terms_yn
+			board_skin, request_code, anonymize_yn, write_only_yn, terms_yn,
+			movie_hour, movie_minute, movie_place
 		)
 			VALUES
 		(
@@ -139,7 +141,8 @@
 			#{ebook_yn}, #{charge_sms_receive_yn}, #{write_sms_receive_yn}, #{charge_email_receive_yn}, #{write_email_receive_yn},
 			#{board_email_send_yn}, #{satisfy_yn}, #{board_etc1}, #{approval_yn},
 			#{manager_name}, #{manager_dept}, #{manager_phone}, #{reply_list_yn},
-			#{board_type}, #{request_code}, #{anonymize_yn}, #{write_only_yn}, #{terms_yn}
+			#{board_type}, #{request_code}, #{anonymize_yn}, #{write_only_yn}, #{terms_yn},
+			#{movie_hour}, #{movie_minute}, #{movie_place}
 		)
 
     </insert>
@@ -194,7 +197,10 @@
 			modify_date = SYSDATE,
 			anonymize_yn = #{anonymize_yn},
 			write_only_yn = #{write_only_yn},
-			terms_yn = #{terms_yn}
+			terms_yn = #{terms_yn},
+			movie_hour = #{movie_hour},
+			movie_minute = #{movie_minute},
+			movie_place = #{movie_place}
 		WHERE
 			homepage_id = #{homepage_id} AND
 			manage_idx = #{manage_idx}

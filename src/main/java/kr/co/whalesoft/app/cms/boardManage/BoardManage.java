@@ -69,7 +69,12 @@ public class BoardManage extends BoardManageExt {
 	private String category3;
 	private String category4;
 	private String category5;
-
+	
+	/*** 영화상영 게시판 일시, 상영장소 설정 ***/
+	private String movie_hour;
+	private String movie_minute;
+	private String movie_place;
+	
 	public BoardManage() {
 	}
 
@@ -508,4 +513,28 @@ public class BoardManage extends BoardManageExt {
 		this.terms_yn = terms_yn;
 	}
 
+	public String getMovie_hour() {
+		return movie_hour;
+	}
+
+	public void setMovie_hour(String movie_hour) {
+		this.movie_hour = movie_hour;
+	}
+
+	public String getMovie_minute() {
+		return movie_minute;
+	}
+
+	public void setMovie_minute(String movie_minute) {
+		this.movie_minute = movie_minute;
+	}
+
+	public String getMovie_place() {
+		return movie_place;
+	}
+
+	public void setMovie_place(String movie_place) {
+		this.movie_place = movie_place;
+	}
+	
 }
