@@ -21,6 +21,7 @@
 			CMS_SHOW_PERFORMANCE_APPLY
 		WHERE
 			homepage_id = #{homepage_id}
+		AND showPerformance_idx = #{showPerformance_idx}
 		<if test="plan_date != null and plan_date != ''">
 		AND	start_date <![CDATA[>=]]> #{plan_date}
 		AND	end_date <![CDATA[<=]]> #{plan_date}
