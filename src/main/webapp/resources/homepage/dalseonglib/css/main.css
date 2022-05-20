@@ -341,7 +341,7 @@
 }
 
 @media screen and (min-width:1025px){
-	#wrap {min-width:1260px;}
+	#wrap {min-width:1260px;background:#fff;}
 
 	.left-box {float:left;width:400px;height:540px;}
 	.center-box {float:left;width:600px;height:540px;}
@@ -354,3 +354,6 @@
 	.culture-box {float:right;width:750px;}
 	#calendar2 {width:355px;}
 }
+
+/* 문화행사,평생학습프로그램 중분류 디자인 추가 */
+.culture-box > .cont ul li span.ca{background-color: #3f4f82;color: #fff;display: inline-block;padding: 3px 20px;border-radius: 20px;width: auto;text-align: center;font-weight: bold;box-sizing: border-box;letter-spacing: -1px;}

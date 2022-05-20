@@ -85,36 +85,137 @@
 
 <!-- 도서관 선택 분기처리 시작 -->
 <c:choose>
-<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
+<c:when test="${context_path eq 'bukgs'}">
 <div class="hopeWarning" style="margin-bottom:20px;">
-<h3 style="font-weight:bold;font-size:15px;">※ 이용안내</h3>
-<div style="font-size:13px;">
-· 신청방법 : 도서관 홈페이지 로그인 후 신청 ※ 신청 시 기입한 휴대폰번호로 도착알림문자 수신<br/>
-· 신청권수 : 매월 2권(동일도서 신청불가)<br/>
-· 신청기준 <br/>
-&nbsp;&nbsp;&nbsp;→ 1인 권당 25,000원 이하, 월 신청도서 정가의 합이 40,000원 이하<br/>
-&nbsp;&nbsp;&nbsp;→ 발행년도가 신청일 기준 3년(당해년도 제외) 이내 발간자료(2017~2019년) <br/>
-&nbsp;&nbsp;&nbsp;* 단, 컴퓨터, 지리(여행), 과학분야는 2년 미만 자료<br/>
-· 이용방법 : 홈페이지 공지사항 확인 및 희망도서 도착알림 문자 수신 후, 우선대출기간(5일, 휴관일 제외)내에 회원증 지참하여 대출 <br/>
-&nbsp;&nbsp;&nbsp;* 미 대출 시 우선대출기간 다음날부터 10일간 희망도서 신청에서 제외<br/><br/><br/>
+	<h3 style="font-weight:bold;font-size:15px;">※ 신청안내</h3>
+	<div style="font-size:13px;">
+		<b>- 신청방법 :</b> 도서관 홈페이지 로그인 후 신청 ※ 신청 시 기입한 휴대폰번호로 도착 알림문자 수신<br />
+		<b>- 신청권수 :</b> 1인당 매월 2권 ※ 북구 구립도서관내에서 동일도서 중복 신청 불가<br />
+		<b>- 신청기준</b><br />
+		&nbsp;&nbsp;&nbsp;-> 1인 기준 1권당 50,000원 미만, 월 신청도서 정가의 합이 100,000원 미만<br />
+		&nbsp;&nbsp;&nbsp;-> 신청일 기준 발행년도 제외 3년 이내 발간자료(2019~2022년)<br /><br />
+	</div>
+	<h3 style="font-weight:bold;font-size:15px;">※ 이용안내</h3>
+	<div style="font-size:13px;">
+		<b>- 이용방법</b><br />
+		&nbsp;&nbsp;&nbsp;-> 희망도서 취소된 경우, 홈페이지 ‘나의도서관’에서 취소 사유 확인<br />
+		&nbsp;&nbsp;&nbsp;-> 희망도서 선정되어 도착한 경우, 홈페이지 공지사항 게시 및 도착 알림문자 발송<br />
+		&nbsp;&nbsp;&nbsp;-> 우선대출기간(5일, 휴관일 제외)내에 회원증 지참하여 대출<br />
+		&nbsp;&nbsp;&nbsp;-> 희망도서 미대출 시 우선대출기간 다음날부터 1달간 희망도서 신청 제한<br />
+		<b>- 처리기간 :</b> 근무일 기준 매월 1, 11, 21일에 이전 희망도서 신청 10일분을 취합하여 15일 이내 희망도서 비치함<br />
+		&nbsp;&nbsp;&nbsp;※ 작은도서관 : 근무일 기준 매월 1, 16일에 이전 희망도서 신청 15일분 취합<br /><br />
+	</div>
+	<h3 style="font-weight:bold;font-size:15px;">※ 선정제외기준</h3>
+	<div style="font-size:13px;">
+		- 도서관운영본부 장서개발 계획(2021~2023)에 근거함<br />
+		- 선정 제외 원칙<br /><br />
+	</div>
+	<table class="tbl-type01" summary="이 표는도서관운영본부 장서개발계획 원칙을 정리한 표입니다">
+	<caption>
+	도서관운영본부 장서개발계획 원칙
+	</caption>
+	<colgroup>
+	<col width="30%" class="col1">
+	<col width="70%" class="col2">
+	</colgroup>
+	<thead>
+	  <tr>
+		<th style="text-align:center;">구분</th>
+		<th style="text-align:center;">세부지침</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr>
+		<th style="text-align:center;">관내 소장 자료</th>
+		<td>도서관 소장자료, 구입예정 및 정리 중인 자료<br>
+		  (개정판이라도 내용변화가 미비하다고 판단될 시 구입 제외)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">중복신청 자료</th>
+		<td>희망도서 처리 기간 중 타 이용자와 중복 신청된 자료<br>
+		  (신청일자순 반영)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">서지사항 미비</th>
+		<td>서지사항이 불분명한 도서(서명, 저자, 출판사, 출판년 등)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">품절 및 절판</th>
+		<td>품절 및 절판된 도서로 구입이 불가능한 자료</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">3년 이상된 자료</th>
+		<td>발행 연도가 3년 이상된 자료(당해 연도 제외)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">시리즈 및 전집류</th>
+		<td>3권 이상의 시리즈 및 전집자료</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">개인학습자료</th>
+		<td>참고서, 문제집,수험서,대학교재, 각종 시험대비 도서 등</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">미풍양속 저해</th>
+		<td>유해자료 및 19세 이하 이용 불가능한 자료이거나 역사적 사실을 왜곡하는 자료</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">보존가치가 없는 자료</th>
+		<td>판타지, 무협, 로맨스, 성인, 인터넷소설 등 단순 유흥적 자료<br>(교육만화,교양만화는 가능)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">정치적 목적</th>
+		<td>편향된 관점의 특정 종교 및 정치 도서</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">보존이 어려운 제본상태</th>
+		<td>물리적 형태가 부적합한 자료<br>(포켓형,카드형,병풍형,스프링형,퍼즐북 등)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">다중이용 불가자료</th>
+		<td>다중이용이 곤란한 자료(스티커책, 워크북 등)</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">정기수서 자료</th>
+		<td>국외도서,비도서(DVD,정기간행물</td>
+	  </tr>
+	  <tr>
+		<th style="text-align:center;">자료선정기준 결격</th>
+		<td>그 외 도서관의 장서로 부적합한 자료</td>
+	  </tr>
+	</tbody>
+  </table>
 </div>
+</c:when>
+<c:when test="${context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
+<div class="hopeWarning" style="margin-bottom:20px;">
+	<h3 style="font-weight:bold;font-size:15px;">※ 이용안내</h3>
+	<div style="font-size:13px;">
+	· 신청방법 : 도서관 홈페이지 로그인 후 신청 ※ 신청 시 기입한 휴대폰번호로 도착알림문자 수신<br/>
+	· 신청권수 : 매월 2권(동일도서 신청불가)<br/>
+	· 신청기준 <br/>
+	&nbsp;&nbsp;&nbsp;→ 1인 권당 25,000원 이하, 월 신청도서 정가의 합이 40,000원 이하<br/>
+	&nbsp;&nbsp;&nbsp;→ 발행년도가 신청일 기준 3년(당해년도 제외) 이내 발간자료(2017~2019년) <br/>
+	&nbsp;&nbsp;&nbsp;* 단, 컴퓨터, 지리(여행), 과학분야는 2년 미만 자료<br/>
+	· 이용방법 : 홈페이지 공지사항 확인 및 희망도서 도착알림 문자 수신 후, 우선대출기간(5일, 휴관일 제외)내에 회원증 지참하여 대출 <br/>
+	&nbsp;&nbsp;&nbsp;* 미 대출 시 우선대출기간 다음날부터 10일간 희망도서 신청에서 제외<br/><br/><br/>
+	</div>
 
-<h3 style="font-weight:bold;font-size:15px;">※ 선정제외기준</h3>
-
-<div style="font-size:13px;">
-· 도서관 소장자료, 구입예정 및 정리중인 자료, 품절 및 절판 자료, 희귀자료, 비매품 <br/>
-&nbsp;&nbsp;&nbsp;* 개정판이라도 내용변화가 미비하다고 판단될 시 구입 제외<br/>
-· 3권 이상의 시리즈 및 전집자료 <br/>
-· 서지사항이 불분명한 경우(서명, 저자, 출판사, 출판년 등)<br/>
-· 개인의 학습 목적인 자료(참고서, 문제집, 수험서, 수기서, 대학교재, 각종 시험 대비 도서 등)  <br/>
-· 미풍양속을 저해하고 역사적 사실을 왜곡하는 자료 <br/>
-· 판타지, 무협, 로맨스, 웹툰, 성인소설, 공포소설, 만화책 등 단순 유흥적 자료(교육만화, 교양만화는 가능)<br/>
-· 편향된 관점의 특정 종교 및 정치 도서<br/>
-· 물리적 형태가 부적합한 자료(포켓형, 카드형, 병풍형, 스프링형, 퍼즐북 등)<br/>
-· 다중이용이 곤란한 자료(스티커책, 워크북 등)<br/>
-· 국외도서, 비도서(DVD), 정기간행물<br/>
-· 그 외 도서관의 장서로 부적합한 자료
-</div>
+	<h3 style="font-weight:bold;font-size:15px;">※ 선정제외기준</h3>
+	<div style="font-size:13px;">
+	· 도서관 소장자료, 구입예정 및 정리중인 자료, 품절 및 절판 자료, 희귀자료, 비매품 <br/>
+	&nbsp;&nbsp;&nbsp;* 개정판이라도 내용변화가 미비하다고 판단될 시 구입 제외<br/>
+	· 3권 이상의 시리즈 및 전집자료 <br/>
+	· 서지사항이 불분명한 경우(서명, 저자, 출판사, 출판년 등)<br/>
+	· 개인의 학습 목적인 자료(참고서, 문제집, 수험서, 수기서, 대학교재, 각종 시험 대비 도서 등)  <br/>
+	· 미풍양속을 저해하고 역사적 사실을 왜곡하는 자료 <br/>
+	· 판타지, 무협, 로맨스, 웹툰, 성인소설, 공포소설, 만화책 등 단순 유흥적 자료(교육만화, 교양만화는 가능)<br/>
+	· 편향된 관점의 특정 종교 및 정치 도서<br/>
+	· 물리적 형태가 부적합한 자료(포켓형, 카드형, 병풍형, 스프링형, 퍼즐북 등)<br/>
+	· 다중이용이 곤란한 자료(스티커책, 워크북 등)<br/>
+	· 국외도서, 비도서(DVD), 정기간행물<br/>
+	· 그 외 도서관의 장서로 부적합한 자료
+	</div>
 </div>
 </c:when>
 <c:otherwise>
