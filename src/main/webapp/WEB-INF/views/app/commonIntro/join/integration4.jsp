@@ -352,6 +352,9 @@ $(function() {
 							<div class="ui-state-highlight">
 								<span id="cardcheck">카드비밀번호는 숫자 4자리만 가능</span>
 							</div>
+							<div class="ui-state-highlight">
+								<span id="cardcheck">무인대출반납기 등 자동화 장비 사용 시 사용되는 비밀번호입니다.</span>
+							</div>
 						</td>
 					</tr>
 <%-- 				</c:if> --%>
