@@ -638,6 +638,25 @@ $(function() {
 	         		<form:select items="${teachAgeDivCodeList}" path="program_age_div_arr" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:10px;"/>
          		</td>
         	</tr>
+        	<tr style="display: none;">
+				<th>접수취소 사용여부</th>
+				<td>
+					<form:radiobutton path="cancle_use_yn" cssClass="cancle_yn" value="Y" label="사용" cssStyle="cursor: pointer;"/>
+					<form:radiobutton path="cancle_use_yn" cssClass="cancle_yn" value="N" label="미사용" cssStyle="cursor: pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 접수취소 기능 사용 시 취소기간 중 최초 1회한 SMS를 발송합니다. (오전 10:00)</em>
+					</div>
+				</td>
+			</tr>
+			<tr style="display: none;">
+				<th>접수취소기간</th>
+				<td>
+					<form:input path="start_cancle_date" class="text ui-calendar"/> <form:input path="start_cancle_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_cancle_date" class="text ui-calendar"/> <form:input path="end_cancle_time" class="text" style="width:50px;" maxlength="5"/>
+					<div class="ui-state-highlight">
+						<em>* 시간 입력 ex) 10:30</em>
+					</div>
+				</td>
+			</tr>
         	<tr>
 	         	<th>강의 대분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
@@ -696,6 +715,30 @@ $(function() {
 	   				</c:choose>
         		</td>
        		</tr>
+       		<tr>
+	         	<th>출력순서</th>
+	         	<td>
+	         		<form:input path="print_seq" class="text" cssStyle="width:30px" maxlength="5"/>
+				</td>
+	        </tr>
+	        <tr>
+	         	<th>홈페이지 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:radiobutton path="use_yn" class="Y" value="Y"/> <label for="use_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+					<form:radiobutton path="use_yn" class="N" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
+				</td>
+	        </tr>
+	        <tr>
+	         	<th>이달의 행사 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:radiobutton path="calendar_view_yn" class="Y" value="Y"/> <label for="calendar_view_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+					<form:radiobutton path="calendar_view_yn" class="N" value="N"/> <label for="calendar_view_yn2" style="cursor:pointer;">사용안함</label>
+				</td>
+	        </tr>
+	        <tr>
+	         	<th>강의대상</th>
+	         	<td><form:input path="teach_target" class="text" cssStyle="width:100%"/></td>
+	        </tr>
 			<tr>
 	         	<th>강의명 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="teach_name" class="text" cssStyle="width:70%" maxlength="33"/> <a class="btn btn1 sameTeach-btn">동일강좌 확인</a></td>
@@ -720,45 +763,8 @@ $(function() {
 	         	<td><form:textarea path="teach_desc" class="text" cssStyle="width:100%;" rows="5" /></td>
 	        </tr>
 	        <tr>
-	         	<th>준비물 및 재료비</th>
-	         	<td><form:input path="teach_etc" class="text" cssStyle="width:100%"/></td>
-	        </tr>
-	        <tr>
 	         	<th>강의장소 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="teach_stage" class="text" cssStyle="width:100%"/></td>
-	        </tr>
-	        <tr>
-	         	<th>강의대상</th>
-	         	<td><form:input path="teach_target" class="text" cssStyle="width:100%"/></td>
-	        </tr>
-        	<tr>
-	         	<th>모집인원 (<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:input path="teach_limit_count" class="text" cssStyle="width:30px" maxlength="5"/>
-	         		<%-- <c:choose>
-	         			<c:when test="${(teach.editMode eq 'ADD') or (teach.teach_join_count < 1)}">
-	         				<form:input path="teach_limit_count" class="text" cssStyle="width:30px" maxlength="5"/>
-         				</c:when>
-	         			<c:otherwise>${teach.teach_limit_count}</c:otherwise>
-	         		</c:choose> --%>
-         		</td>
-	        </tr>
-	        <tr>
-	         	<th>모집후보인원</th>
-	         	<td><form:input path="teach_backup_count" class="text" cssStyle="width:30px" maxlength="5"/></td>
-	        </tr>
-	        <tr>
-	         	<th>모집오프라인인원</th>
-	         	<td><form:input path="teach_offline_count" class="text" cssStyle="width:30px" maxlength="5"/></td>
-	        </tr>
-	        <tr>
-	        	<th>약관선택 </th>
-	        	<td>
-	        		<c:forEach items="${termsList}" var="i" varStatus="status">
-	        			<input type="checkbox" name="terms" id="terms${status.count}" value="${i.terms_idx}" ${fn:contains(teach.terms, i.terms_idx) ? 'checked' : ''}>
-	        			<label for="terms${status.count}">${i.title}</label>
-	        		</c:forEach>
-	        	</td>
 	        </tr>
 	        <tr>
 	         	<th>강사명</th>
@@ -766,6 +772,10 @@ $(function() {
 	         		<form:hidden path="teacher_idx"/>
  	         		<form:input path="teacher_name" class="text" /> <a class="btn btn1 teacher-btn">검색</a>
 	         	</td>
+	        </tr>
+	        <tr>
+	         	<th>준비물 및 재료비</th>
+	         	<td><form:input path="teach_etc" class="text" cssStyle="width:100%"/></td>
 	        </tr>
 	        <tr>
 				<th>접수기간 (<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -781,42 +791,136 @@ $(function() {
 					<div class="ui-state-highlight">
 						<em>* 시간 입력 ex) 10:30</em>
 					</div>
-					<%-- <c:choose>
-						<c:when test="${(teach.editMode eq 'ADD') or (teach.teach_join_count < 1)}">
-							<form:input path="start_join_date" class="text ui-calendar"/> <form:input path="start_join_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_join_date" class="text ui-calendar"/> <form:input path="end_join_time" class="text" style="width:50px;" maxlength="5"/>
-							<div class="ui-state-highlight">
-								<em>* 시간 입력 ex) 10:30</em>
-							</div>
-						</c:when>
-						<c:otherwise>
-							${teach.start_join_date} ${teach.start_join_time} ~ ${teach.end_join_date} ${teach.end_join_time}
-							<form:hidden path="start_join_date"/><form:hidden path="start_join_time"/><form:hidden path="end_join_date"/><form:hidden path="end_join_time"/>
-						</c:otherwise>
-					</c:choose> --%>
 				</td>
 			</tr>
-			<tr style="display: none;">
-				<th>접수취소 사용여부</th>
+			<tr>
+				<th>강의기간 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					<form:radiobutton path="cancle_use_yn" cssClass="cancle_yn" value="Y" label="사용" cssStyle="cursor: pointer;"/>
-					<form:radiobutton path="cancle_use_yn" cssClass="cancle_yn" value="N" label="미사용" cssStyle="cursor: pointer;"/>
+					<form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
+				</td>
+			</tr>
+			<tr>
+				<th>강의시간 (<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:hidden path="start_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="start_time1" class="text" style="width:20px;" maxlength="2"/> :
+					<form:input path="start_time2" class="text" style="width:20px;" maxlength="2"/> ~
+					<form:hidden path="end_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:input path="end_time1" class="text" style="width:20px;" maxlength="2"/> :
+					<form:input path="end_time2" class="text" style="width:20px;" maxlength="2"/>
+				</td>
+			</tr>
+			<tr>
+				<th>강의요일 (<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<c:forEach var="i" varStatus="status" begin="1" end="7" step="1">
+						<c:set var="label" value=""/>
+						<c:set var="checked" value="" />
+						<c:choose>
+							<c:when test="${i eq '1'}"><c:set var="label" value="일" /></c:when>
+							<c:when test="${i eq '2'}"><c:set var="label" value="월" /></c:when>
+							<c:when test="${i eq '3'}"><c:set var="label" value="화" /></c:when>
+							<c:when test="${i eq '4'}"><c:set var="label" value="수" /></c:when>
+							<c:when test="${i eq '5'}"><c:set var="label" value="목" /></c:when>
+							<c:when test="${i eq '6'}"><c:set var="label" value="금" /></c:when>
+							<c:when test="${i eq '7'}"><c:set var="label" value="토" /></c:when>
+						</c:choose>
+						<c:forEach var="j" varStatus="stats_j" items="${teach.teach_day_arr}">
+							<c:if test="${i eq j}">
+								<c:set var="checked" value="checked=\"checked\"" />
+							</c:if>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${teach.editMode eq 'ADD'}">
+								<input type="checkbox" name="teach_day" id="day${i}" value="${i}" checked="checked" /><label for="day${i}">${label}</label>&nbsp;							
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" name="teach_day" id="day${i}" value="${i}" ${checked} /><label for="day${i}">${label}</label>&nbsp;		
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</td>
+			</tr>
+			<tr>
+				<th>강의요일 직집지정</th>
+				<td>
+					<form:radiobutton path="teach_day_yn" value="Y" label="사용"/>
+					<form:radiobutton path="teach_day_yn" value="N" label="미사용"/>
+					<form:input path="teach_day_txt" cssClass="text" placeholder="ex) 격주 월, 수" cssStyle="width:50%"/>
+				</td>
+			</tr>
+			<tr>
+	         	<th>강의 총 횟수 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:input path="teach_count" class="text" cssStyle="width:30px" maxlength="5"/> 회
+				</td>
+	        </tr>
+        	<tr>
+	         	<th>모집인원 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	         		<form:input path="teach_limit_count" class="text" cssStyle="width:30px" maxlength="5"/>
+         		</td>
+	        </tr>
+	        <tr>
+	         	<th>모집후보인원</th>
+	         	<td><form:input path="teach_backup_count" class="text" cssStyle="width:30px" maxlength="5"/></td>
+	        </tr>
+	        <tr>
+	         	<th>모집오프라인인원</th>
+	         	<td><form:input path="teach_offline_count" class="text" cssStyle="width:30px" maxlength="5"/></td>
+	        </tr>
+	        <tr>
+	         	<th>강의계획서</th>
+	         	<td class="planFile">
+	         		<c:if test="${teach.org_file_name ne null and teach.org_file_name ne ''}">
+	         			<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do"><i class="fa fa-floppy-o"></i>${teach.org_file_name}</a><a class="btn btn1 delete-file-btn">삭제</a>
+	         			<br/>
+	         		</c:if>
+	         		<input type="file" id="plan_file" name="plan_file" class="text"/><form:hidden path="org_file_name"/>
+	         		<button id="cancelFile">등록취소</button>
+         		</td>
+	        </tr>
+			<tr>
+				<th>첨부파일</th>
+				<td class="attachFile">
+					<c:if test="${teach.attach_org_file_name ne null and teach.attach_org_file_name ne ''}">
+						<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do?file_type=attach"><i class="fa fa-floppy-o"></i>${teach.attach_org_file_name}</a><a class="btn btn1 delete-attach-btn">삭제</a>
+						<br/>
+					</c:if>
+					<input type="file" id="attach_file" name="attach_file" class="text"><form:hidden path="attach_org_file_name"/>
+					<button id="attachCancelFile">등록취소</button>
+				</td>
+			</tr>
+			<tr>
+				<th>하이퍼링크</th>
+				<td>
+					<form:input path="link_url" cssClass="text" cssStyle="width:90%" />
 					<div class="ui-state-highlight">
-						<em>* 접수취소 기능 사용 시 취소기간 중 최초 1회한 SMS를 발송합니다. (오전 10:00)</em>
+						<em>
+							* 클릭시 이동 할 URL 입니다.<br>
+							* http:// 부터 전체 URL을 입력하세요.
+						</em>
 					</div>
 				</td>
 			</tr>
-			<tr style="display: none;">
-				<th>접수취소기간</th>
+	        <tr>
+	        	<th>약관선택 </th>
+	        	<td>
+	        		<c:forEach items="${termsList}" var="i" varStatus="status">
+	        			<input type="checkbox" name="terms" id="terms${status.count}" value="${i.terms_idx}" ${fn:contains(teach.terms, i.terms_idx) ? 'checked' : ''}>
+	        			<label for="terms${status.count}">${i.title}</label>
+	        		</c:forEach>
+	        	</td>
+	        </tr>
+	        <tr>
+				<th>비회원 신청여부</th>
 				<td>
-					<form:input path="start_cancle_date" class="text ui-calendar"/> <form:input path="start_cancle_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_cancle_date" class="text ui-calendar"/> <form:input path="end_cancle_time" class="text" style="width:50px;" maxlength="5"/>
+					<form:radiobutton path="member_yn" value="Y"/> <label for="member_yn1" style="cursor:pointer;">Y</label>&nbsp;
+					<form:radiobutton path="member_yn" value="N"/> <label for="member_yn2" style="cursor:pointer;">N</label>
 					<div class="ui-state-highlight">
-						<em>* 시간 입력 ex) 10:30</em>
+						<em>* Y 일 경우 해당 강좌는 비회원도 신청 가능합니다.</em>
 					</div>
 				</td>
-			</tr>
-			<tr style="display: none;">
-				<th>취소 안내 SMS</th>
-				<td><form:textarea path="cancle_guid" class="text" cssStyle="width:100%;" rows="5" /></td>
 			</tr>
 			<tr>
 				<th>동일강좌접수제한 횟수</th>
@@ -896,16 +1000,6 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>비회원 신청여부</th>
-				<td>
-					<form:radiobutton path="member_yn" value="Y"/> <label for="member_yn1" style="cursor:pointer;">Y</label>&nbsp;
-					<form:radiobutton path="member_yn" value="N"/> <label for="member_yn2" style="cursor:pointer;">N</label>
-					<div class="ui-state-highlight">
-						<em>* Y 일 경우 해당 강좌는 비회원도 신청 가능합니다.</em>
-					</div>
-				</td>
-			</tr>
-			<tr>
 				<th>강의유형 (<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:radiobutton path="teach_age_type" value="adult"/> <label for="teach_age_type1" style="cursor:pointer;">성인 강의</label>&nbsp;
@@ -913,176 +1007,26 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>강의요일 (<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<%-- <c:choose>
-						<c:when test="${(teach.editMode eq 'ADD') or (teach.teach_join_count < 1)}"> --%>
-							<c:forEach var="i" varStatus="status" begin="1" end="7" step="1">
-								<c:set var="label" value=""/>
-								<c:set var="checked" value="" />
-								<c:choose>
-									<c:when test="${i eq '1'}"><c:set var="label" value="일" /></c:when>
-									<c:when test="${i eq '2'}"><c:set var="label" value="월" /></c:when>
-									<c:when test="${i eq '3'}"><c:set var="label" value="화" /></c:when>
-									<c:when test="${i eq '4'}"><c:set var="label" value="수" /></c:when>
-									<c:when test="${i eq '5'}"><c:set var="label" value="목" /></c:when>
-									<c:when test="${i eq '6'}"><c:set var="label" value="금" /></c:when>
-									<c:when test="${i eq '7'}"><c:set var="label" value="토" /></c:when>
-								</c:choose>
-								<c:forEach var="j" varStatus="stats_j" items="${teach.teach_day_arr}">
-									<c:if test="${i eq j}">
-										<c:set var="checked" value="checked=\"checked\"" />
-									</c:if>
-								</c:forEach>
-								<c:choose>
-									<c:when test="${teach.editMode eq 'ADD'}">
-										<input type="checkbox" name="teach_day" id="day${i}" value="${i}" checked="checked" /><label for="day${i}">${label}</label>&nbsp;							
-									</c:when>
-									<c:otherwise>
-										<input type="checkbox" name="teach_day" id="day${i}" value="${i}" ${checked} /><label for="day${i}">${label}</label>&nbsp;		
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						<%-- </c:when>
-						<c:otherwise>
-							<c:forEach var="i" varStatus="status" items="${teach.teach_day_arr}">
-								<c:choose>
-									<c:when test="${i eq '1'}">일</c:when>
-									<c:when test="${i eq '2'}">월</c:when>
-									<c:when test="${i eq '3'}">화</c:when>
-									<c:when test="${i eq '4'}">수</c:when>
-									<c:when test="${i eq '5'}">목</c:when>
-									<c:when test="${i eq '6'}">금</c:when>
-									<c:when test="${i eq '7'}">토</c:when>
-								</c:choose>
-								<c:if test="${ !status.last }">,</c:if>
-
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-					 --%>
-				</td>
-			</tr>
-			<tr>
-				<th>강의요일 직집지정</th>
-				<td>
-					<form:radiobutton path="teach_day_yn" value="Y" label="사용"/>
-					<form:radiobutton path="teach_day_yn" value="N" label="미사용"/>
-					<form:input path="teach_day_txt" cssClass="text" placeholder="ex) 격주 월, 수" cssStyle="width:50%"/>
-				</td>
-			</tr>
-			<tr>
-				<th>강의기간 (<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<%-- <c:choose> --%>
-						<form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
-						<%-- <c:when test="${(teach.editMode eq 'ADD') or (teach.teach_join_count < 1)}">
-							<form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
-						</c:when>
-						<c:otherwise>
-							${teach.start_date} ~ ${teach.end_date}
-							<form:hidden path="start_date"/><form:hidden path="end_date"/>
-						</c:otherwise>
-					</c:choose> --%>
-				</td>
-			</tr>
-			<tr>
-				<th>강의시간 (<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<form:hidden path="start_time" class="text" style="width:50px;" maxlength="5"/>
-					<form:input path="start_time1" class="text" style="width:20px;" maxlength="2"/> :
-					<form:input path="start_time2" class="text" style="width:20px;" maxlength="2"/> ~
-					<form:hidden path="end_time" class="text" style="width:50px;" maxlength="5"/>
-					<form:input path="end_time1" class="text" style="width:20px;" maxlength="2"/> :
-					<form:input path="end_time2" class="text" style="width:20px;" maxlength="2"/>
-					<%-- <c:choose>
-						<c:when test="${teach.editMode eq 'ADD'}">
-							<form:input path="start_time" class="text" style="width:50px;" maxlength="5"/> ~ <form:input path="end_time" class="text" style="width:50px;" maxlength="5"/>
-							<div class="ui-state-highlight">
-								<em>* 시간 입력 ex) 10:30</em>
-							</div>
-						</c:when>
-						<c:otherwise>
-							${teach.start_time} ~ ${teach.end_time}
-							<form:hidden path="start_time"/><form:hidden path="end_time"/>
-						</c:otherwise>
-					</c:choose> --%>
-				</td>
-			</tr>
-			<tr>
-	         	<th>강의 총 횟수 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<th>대리신청여부</th>
 	         	<td>
-	         		<form:input path="teach_count" class="text" cssStyle="width:30px" maxlength="5"/> 회
-		         	<%-- <c:choose>
-						<c:when test="${(teach.editMode eq 'ADD') or (teach.teach_join_count < 1)}">
-	         				<form:input path="teach_count" class="text" cssStyle="width:30px" maxlength="5"/> 회
-	         				<div class="ui-state-highlight">
-								<em>* 출석부와 연계 됩니다.</em>
-							</div>
-         				</c:when>
-						<c:otherwise>${teach.teach_count} 회</c:otherwise>
-					</c:choose> --%>
-				</td>
-	        </tr>
-	        <tr>
-	         	<th>강의계획서</th>
-	         	<td class="planFile">
-	         		<c:if test="${teach.org_file_name ne null and teach.org_file_name ne ''}">
-	         			<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do"><i class="fa fa-floppy-o"></i>${teach.org_file_name}</a><a class="btn btn1 delete-file-btn">삭제</a>
-	         			<br/>
-	         		</c:if>
-	         		<input type="file" id="plan_file" name="plan_file" class="text"/><form:hidden path="org_file_name"/>
-	         		<button id="cancelFile">등록취소</button>
-         		</td>
-	        </tr>
-			<tr>
-				<th>첨부파일</th>
-				<td class="attachFile">
-					<c:if test="${teach.attach_org_file_name ne null and teach.attach_org_file_name ne ''}">
-						<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do?file_type=attach"><i class="fa fa-floppy-o"></i>${teach.attach_org_file_name}</a><a class="btn btn1 delete-attach-btn">삭제</a>
-						<br/>
-					</c:if>
-					<input type="file" id="attach_file" name="attach_file" class="text"><form:hidden path="attach_org_file_name"/>
-					<button id="attachCancelFile">등록취소</button>
-				</td>
-			</tr>
-			<tr>
-				<th>하이퍼링크</th>
-				<td>
-					<form:input path="link_url" cssClass="text" cssStyle="width:90%" />
+	         		<form:radiobutton path="agent_yn" class="Y" value="Y"/> <label for="agent_yn1" style="cursor:pointer;">사용</label>&nbsp;
+					<form:radiobutton path="agent_yn" class="N" value="N"/> <label for="agent_yn2" style="cursor:pointer;">미사용</label>
 					<div class="ui-state-highlight">
-						<em>
-							* 클릭시 이동 할 URL 입니다.<br>
-							* http:// 부터 전체 URL을 입력하세요.
+						<em>* 사용 시 '수강생' 입력항목이 노출됩니다. 아닌경우 신청자 정보만으로 신청합니다.
 						</em>
 					</div>
 				</td>
-			</tr>
-	        <%-- <tr>
-	         	<th>모집분류</th>
-	         	<td>
-	         		<form:radiobutton path="member_yn" class="Y" value="Y"/> <label for="member_yn1" style="cursor:pointer;">회원만</label>&nbsp;
-					<form:radiobutton path="member_yn" class="N" value="N"/> <label for="member_yn2" style="cursor:pointer;">전체</label>
-				</td>
-	        </tr> --%>
-	        <tr>
-	         	<th>홈페이지 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:radiobutton path="use_yn" class="Y" value="Y"/> <label for="use_yn1" style="cursor:pointer;">사용함</label>&nbsp;
-					<form:radiobutton path="use_yn" class="N" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
-				</td>
 	        </tr>
-	        <tr>
-	         	<th>이달의 행사 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+	         <tr>
+	        	<th>법정대리인동의여부</th>
 	         	<td>
-	         		<form:radiobutton path="calendar_view_yn" class="Y" value="Y"/> <label for="calendar_view_yn1" style="cursor:pointer;">사용함</label>&nbsp;
-					<form:radiobutton path="calendar_view_yn" class="N" value="N"/> <label for="calendar_view_yn2" style="cursor:pointer;">사용안함</label>
-				</td>
-	        </tr>
-	        <tr>
-	         	<th>출력순서</th>
-	         	<td>
-	         		<form:input path="print_seq" class="text" cssStyle="width:30px" maxlength="5"/>
+	         		<form:radiobutton path="family_yn" class="Y" value="Y"/> <label for="family_yn1" style="cursor:pointer;">사용</label>&nbsp;
+					<form:radiobutton path="family_yn" class="N" value="N"/> <label for="family_yn2" style="cursor:pointer;">미사용</label>
+					<div class="ui-state-highlight">
+						<em>* 해당 항목 사용시 수강생 입력 또는 신청 화면에서 보호자 정보 및 승인을 입력받는 항목이 노출됩니다.<br/>
+						* 성인 강의일 경우 보호자가 필요하지 않아 미사용으로 고정되고 어린이 강의일 경우 보호자가 필요하여 사용에 고정됩니다.
+						</em>
+					</div>
 				</td>
 	        </tr>
 	        <tr>
@@ -1105,39 +1049,6 @@ $(function() {
 					</div>
 				</td>
 	        </tr>
-
-	        <tr>
-	        	<th>법정대리인동의여부</th>
-	         	<td>
-	         		<form:radiobutton path="family_yn" class="Y" value="Y"/> <label for="family_yn1" style="cursor:pointer;">사용</label>&nbsp;
-					<form:radiobutton path="family_yn" class="N" value="N"/> <label for="family_yn2" style="cursor:pointer;">미사용</label>
-					<div class="ui-state-highlight">
-						<em>* 해당 항목 사용시 수강생 입력 또는 신청 화면에서 보호자 정보 및 승인을 입력받는 항목이 노출됩니다.<br/>
-						* 성인 강의일 경우 보호자가 필요하지 않아 미사용으로 고정되고 어린이 강의일 경우 보호자가 필요하여 사용에 고정됩니다.
-						</em>
-					</div>
-				</td>
-	        </tr>
-	        <tr>
-	         	<th>수료증 발급 여부</th>
-	         	<td>
-	         		<form:radiobutton path="certificate_yn" class="Y" value="Y"/> <label for="certificate_yn1" style="cursor:pointer;">가능</label>&nbsp;
-					<form:radiobutton path="certificate_yn" class="N" value="N"/> <label for="certificate_yn2" style="cursor:pointer;">불가능</label>
-					<!-- <div class="ui-state-highlight">
-						<em>* 수료증 발급이 가능한 경우 설문조사를 선택 하셔야 합니다.</em>
-					</div> -->
-				</td>
-	        </tr>
-	        <%-- <tr style="display:none;">
-	         	<th>설문조사</th>
-	         	<td>
-	         		<form:select path="survey_idx" cssClass="selectmenu">
-	         			<form:option value="0" label="==선택==" />
-	         			<form:options itemValue="survey_idx" itemLabel="survey_title" items="${surveyList}"/>
-	         		</form:select>
-	         		<form:input path="survey_idx" class="text"/>
-				</td>
-	        </tr> --%>
 	        <tr>
 	         	<th>주소입력여부</th>
 	         	<td>
@@ -1150,51 +1061,6 @@ $(function() {
 						<em>* 사용 시 '주소' 입력항목이 노출됩니다.</em>
 					</div>
 				</td>
-	        </tr>
-	        <tr>
-	         	<th>가족프로그램여부</th>
-	         	<td>
-	         		<form:radiobutton path="family_count_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
-					<form:radiobutton path="family_count_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
-					<div class="ui-state-highlight">
-						<em>* 가족프로그램의 경우 가족 '인원 수' 입력 항목이 노출됩니다.</em>
-					</div>
-				</td>
-	        </tr>
-	        <tr>
-	         	<th>대리신청여부</th>
-	         	<td>
-	         		<form:radiobutton path="agent_yn" class="Y" value="Y"/> <label for="agent_yn1" style="cursor:pointer;">사용</label>&nbsp;
-					<form:radiobutton path="agent_yn" class="N" value="N"/> <label for="agent_yn2" style="cursor:pointer;">미사용</label>
-					<div class="ui-state-highlight">
-						<em>* 사용 시 '수강생' 입력항목이 노출됩니다. 아닌경우 신청자 정보만으로 신청합니다.
-						</em>
-					</div>
-				</td>
-	        </tr>
-	        <tr>
-	        	<th>sms 수신동의여부</th>
-	        	<td>
-	        		<form:radiobutton path="sms_service_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
-	        		<form:radiobutton path="sms_service_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>&nbsp;
-	        		<div class="ui-state-highlight">
-	        			<em>* 사용 시 'sms 수신동의여부' 입력항목이 노출됩니다.<br/>
-	        			* 어린이 강의일 경우 보호자 정보에 입력항목이 노출됩니다. 성인 강의이고 대리신청일 경우 수강생 정보에 입력항목이 노출됩니다.
-	        			</em>
-	        		</div>
-	        	</td>
-	        </tr>
-	        <tr>
-	        	<th>사진 촬영 동의 여부</th>
-	        	<td>
-	        		<form:radiobutton path="picture_use_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
-	        		<form:radiobutton path="picture_use_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>&nbsp;
-	        		<div class="ui-state-highlight">
-	        			<em>* 사용 시 '사진 촬영 동의 여부' 입력항목이 노출됩니다.<br/>
-	        			* 어린이 강의일 경우 수강생 정보에 입력항목이 노출됩니다. 성인 강의이고 대리신청일 경우 수강생 정보에 입력항목이 노출됩니다.
-	        			</em>
-	        		</div>
-	        	</td>
 	        </tr>
 	        <tr>
 	         	<th>학교 입력여부</th>
@@ -1216,16 +1082,6 @@ $(function() {
 					</div>
 				</td>
 	        </tr>
-			<tr>
-				<th>나이입력여부</th>
-				<td>
-					<form:radiobutton path="age_info_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
-					<form:radiobutton path="age_info_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
-					<div class="ui-state-highlight">
-						<em>* 사용 시 '나이' 입력항목이 노출됩니다.</em>
-					</div>
-				</td>
-			</tr>
 	        <tr>
 	         	<th>비고입력여부</th>
 	         	<td>
@@ -1244,6 +1100,51 @@ $(function() {
 						<em>* '비고' 입력 사용 시 안내 문구를 입력할 수 있습니다.</em>
 					</div>
 				</td>
+	        </tr>
+	        <tr>
+	         	<th>가족프로그램여부</th>
+	         	<td>
+	         		<form:radiobutton path="family_count_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+					<form:radiobutton path="family_count_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 가족프로그램의 경우 가족 '인원 수' 입력 항목이 노출됩니다.</em>
+					</div>
+				</td>
+	        </tr>
+	        <tr>
+	         	<th>수료증 발급 여부</th>
+	         	<td>
+	         		<form:radiobutton path="certificate_yn" class="Y" value="Y"/> <label for="certificate_yn1" style="cursor:pointer;">가능</label>&nbsp;
+					<form:radiobutton path="certificate_yn" class="N" value="N"/> <label for="certificate_yn2" style="cursor:pointer;">불가능</label>
+				</td>
+	        </tr>
+	        <tr>
+	        	<th>sms 수신동의여부</th>
+	        	<td>
+	        		<form:radiobutton path="sms_service_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+	        		<form:radiobutton path="sms_service_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>&nbsp;
+	        		<div class="ui-state-highlight">
+	        			<em>* 사용 시 'sms 수신동의여부' 입력항목이 노출됩니다.<br/>
+	        			* 어린이 강의일 경우 보호자 정보에 입력항목이 노출됩니다. 성인 강의이고 대리신청일 경우 수강생 정보에 입력항목이 노출됩니다.
+	        			</em>
+	        		</div>
+	        	</td>
+	        </tr>
+	        <tr style="display: none;">
+				<th>취소 안내 SMS</th>
+				<td><form:textarea path="cancle_guid" class="text" cssStyle="width:100%;" rows="5" /></td>
+			</tr>
+	        <tr>
+	        	<th>사진 촬영 동의 여부</th>
+	        	<td>
+	        		<form:radiobutton path="picture_use_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+	        		<form:radiobutton path="picture_use_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>&nbsp;
+	        		<div class="ui-state-highlight">
+	        			<em>* 사용 시 '사진 촬영 동의 여부' 입력항목이 노출됩니다.<br/>
+	        			* 어린이 강의일 경우 수강생 정보에 입력항목이 노출됩니다. 성인 강의이고 대리신청일 경우 수강생 정보에 입력항목이 노출됩니다.
+	        			</em>
+	        		</div>
+	        	</td>
 	        </tr>
 	        <tr>
 	         	<th>지역입력여부</th>
@@ -1355,6 +1256,16 @@ $(function() {
 					</div>
 				</td>
 	        </tr>
+			<tr>
+				<th>나이입력여부</th>
+				<td>
+					<form:radiobutton path="age_info_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+					<form:radiobutton path="age_info_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '나이' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </form:form>
