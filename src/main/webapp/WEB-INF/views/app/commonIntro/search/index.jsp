@@ -1571,6 +1571,9 @@ $(function() {
 																			<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
 																				귀중자료(관내열람만가능)
 																			</c:when>
+																			<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																				대출불가
+																			</c:when>
 																			<c:otherwise>
 																				대출가능
 																			</c:otherwise>
@@ -1674,6 +1677,9 @@ $(function() {
 																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
 																		귀중자료(관내열람만가능)
 																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																		대출불가
+																	</c:when>
 																	<c:otherwise>
 																		대출가능
 																	</c:otherwise>
@@ -1748,6 +1754,9 @@ $(function() {
 																	</c:when>
 																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
 																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																		대출불가
 																	</c:when>
 																	<c:otherwise>
 																		대출가능

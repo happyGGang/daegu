@@ -999,6 +999,9 @@ $(function() {
 																			<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
 																				귀중자료(관내열람만가능)
 																			</c:when>
+																			<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																				대출불가
+																			</c:when>
 																			<c:otherwise>
 																				<c:choose>
 																					<c:when test="${i.SHELF_LOC_CODE eq 'AK03'}">
@@ -1114,6 +1117,9 @@ $(function() {
 																	</c:when>
 																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
 																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																		대출불가
 																	</c:when>
 																	<c:otherwise>
 																			<c:choose>
@@ -1233,6 +1239,9 @@ $(function() {
 																	</c:when>
 																	<c:when test="${i.USE_LIMIT_CODE eq 'IZ'}">
 																		귀중자료(관내열람만가능)
+																	</c:when>
+																	<c:when test="${i.USE_LIMIT_CODE eq 'CA'}">
+																		대출불가
 																	</c:when>
 																	<c:otherwise>
 																		<c:choose>
