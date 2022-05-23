@@ -75,6 +75,28 @@ $(function(){
 		doAjaxPost($('form#popup_zone_print_seq'));
 	});
 });
+
+function savePrintSeq(popup_zone_idx, print_seq, index, homepage_id) {
+
+	var ajaxData = {
+		'popup_zone_idx' : popup_zone_idx,
+		'print_seq' : $('input#print_seq'+index).val(),
+		'homepage_id' : homepage_id
+	};
+	
+	$.ajax({
+		type: "POST",
+		url: 'printSeq.do',
+		data: ajaxData,
+		success: function(response) {
+				alert('수정 되었습니다.');
+				location.reload();
+		},
+		error : function() {
+			alert('수정에 실패했습니다.\n\n관리자에게 문의해 주세요.');
+		}
+	});
+}
 </script>
 <form:form id="popup_zone_print_seq" modelAttribute="popupZone" method="POST" action="printSeq.do">
 <form:hidden path="homepage_id" id="homepage_id_print" value="${homepage.homepage_id}"/>
@@ -148,9 +170,10 @@ $(function(){
 				<td>${i.use_yn eq 'Y' ? '사용함' : '사용안함'}</td>
 				<td class="center">${i.start_date} ~ ${i.end_date}</td>
 				<td>
-					<a href="#" class="btn mod_print" data-idx="${i.popup_zone_idx}" data-printseq="${i.print_seq + 1}">↑</a>
-					<a href="#" class="btn mod_print" data-idx="${i.popup_zone_idx}" data-printseq="${i.print_seq - 1}">↓</a>
-					${i.print_seq}
+					<a href="#" class="btn mod_print" data-idx="${i.popup_zone_idx}" data-printseq="${i.print_seq - 1}">↑</a>
+					<a href="#" class="btn mod_print" data-idx="${i.popup_zone_idx}" data-printseq="${i.print_seq + 1}">↓</a>
+					<form:input path="print_seq" id="print_seq${status.index}" style="width:40px;" value="${i.print_seq}"/>
+					<a href="javascript:void(0);" class="btn btn1" onclick="savePrintSeq('${i.popup_zone_idx}','${i.print_seq}','${status.index}', '${homepage.homepage_id}');">저장</a>
 				</td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
 				<td>
