@@ -2559,4 +2559,54 @@ public class LibSearchAPI {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
 	}
+	
+	/**
+	 * K.API - 37
+	 *
+	 * 도서관 설정정보 조회
+	 *
+	 * @author whalesoft HWAN 2022. 5. 24.
+	 * @param manage_code 검색대상 도서관 관리코드 여러 개인 경우 comma(,)로 연결 미입력시 전체도서관 검색
+	 * @param option 0 : KBILL 미사용 조회, 1 : KBILL 사용 조회 (미입력시 기본값 : 0)
+	 * @return
+	 */
+	public static Map<String, Object> getLibSettingInfoView(String manage_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("manage_code", manage_code);
+		return CommonAPI.sendKCMS("libsettinginfoview", param);
+	}
+	
+	/**
+	 * K.API
+	 *
+	 *  복본조사 조회
+	 *
+	 * @author whalesoft HWAN 2022. 05. 23.
+	 * @param search_type
+	 * @param isbn
+	 * @param manage_code
+	 * @return
+	 */
+	public static ApiResponse duplicateSurvey(String isbn, String lib_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("search_type", "equal");
+		if(StringUtils.isNotEmpty(isbn)) {
+			param.put("isbn", isbn);
+		}
+		if(StringUtils.isNotEmpty(lib_code)) {
+			param.put("lib_code", lib_code);
+		}
+
+		Map<String, Object> sendLibraryapi = CommonAPI.libraryapi("barodupbookfinfolist.do", param);
+
+		int dup_cnt = (Integer) sendLibraryapi.get("dup_cnt");
+
+		if (dup_cnt > 0) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendLibraryapi.get("result_msg")));
+		}
+
+	}
 }
