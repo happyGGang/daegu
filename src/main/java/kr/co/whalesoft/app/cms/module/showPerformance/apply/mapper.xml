@@ -209,7 +209,7 @@
 			CMS_SHOW_PERFORMANCE_APPLY
 		WHERE
 			homepage_id = #{homepage_id}
-		AND	apply_idx = #{apply_idx}
+		AND	showPerformance_idx = #{showPerformance_idx}
 	</delete>
 	
 	<delete id="deleteApplyAll">

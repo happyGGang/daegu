@@ -9,7 +9,7 @@ $(function() {
 	$('a#delete-btn').on('click', function(event) {
 		if(confirm("해당 신청내역을 삭제 하시겠습니까?\n삭제된 데이터는 복구가 불가합니다.")) {
 			$.ajax({
-				url : '/${homepage.context_path}/module/showPerformance/save.do?editMode=DELETE&apply_idx=' + $(this).attr("keyValue") + '&homepage_id=' + $('#homepage_id').val(),
+				url : '/${homepage.context_path}/module/showPerformance/save.do?editMode=DELETE&showPerformance_idx=' + $(this).attr("keyValue") +'&menu_idx=' + $('#menu_idx').val() + '&homepage_id=' + $('#homepage_id').val(),
 				async : false,
 				method : 'POST',
 				success : function(data) {
