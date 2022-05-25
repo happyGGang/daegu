@@ -67,7 +67,7 @@ $(function() {
 			$('input#editMode').val('DELETE');
 			$('input#apply_idx').val($(this).attr('keyValue'));
 			if(doAjaxPost($('#apply_edit2'))) {
-				$('#dialog-3').load('/cms/module/showPerformance/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('plan_date'), function( response, status, xhr ) {
+				$('#dialog-3').load('/cms/module/showPerformance/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id').val() + '&showPerformance_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('plan_date'), function( response, status, xhr ) {
 					$('#dialog-3').dialog('open');
 				});
 			}
@@ -141,7 +141,7 @@ $(function() {
 					<td>
 						<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
 						<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
-						<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
+						<a href="" class="btn" id="delete-btn" keyValue="${i.showPerformance_idx}" plan_date="${i.start_date}">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>
