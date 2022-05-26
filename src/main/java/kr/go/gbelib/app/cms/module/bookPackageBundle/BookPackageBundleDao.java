@@ -82,5 +82,9 @@ public interface BookPackageBundleDao {
 
 	int deleteBookDetail(BookPackageBundle bookPackageBundle);
 
+	List<BookPackageBundle> getBookPackageLoanCountCheck(BookPackageBundle bookPackageBundle);
+	
+	List<BookPackageBundle> getBookPackageBundleTitleList(BookPackageBundle bookPackageBundle);
+
 
 }

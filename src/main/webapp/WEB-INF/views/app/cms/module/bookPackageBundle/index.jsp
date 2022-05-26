@@ -288,7 +288,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 
 <form:form id="bookPackageBundle_1" modelAttribute="bookPackageBundle" action="index.do" method="GET">
 <form:hidden path="editMode"/>
-<div id="category-box">
+<%-- <div id="category-box">
 	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackage.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll" class="customCheck"/>
 	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackage.category, '000') ? 'checked' : ''}" label="총류" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="100" checked="${fn:contains(bookPackage.category, '100') ? 'checked' : ''}" label="철학" class="customCheck categoryChk"/>
@@ -300,7 +300,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 	<form:checkbox path="category" value="700" checked="${fn:contains(bookPackage.category, '700') ? 'checked' : ''}" label="언어" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="800" checked="${fn:contains(bookPackage.category, '800') ? 'checked' : ''}" label="문학" class="customCheck categoryChk"/>
 	<form:checkbox path="category" value="900" checked="${fn:contains(bookPackage.category, '900') ? 'checked' : ''}" label="역사" class="customCheck categoryChk"/>
-</div>
+</div> --%>
 <div class="infodesk">
 	<form:select path="grade" cssClass="selectmenu">
 		<form:option value="">수준별보기</form:option>
@@ -308,30 +308,48 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 		<form:option value="4">중</form:option>
 		<form:option value="5">고</form:option>
 	</form:select>
-	<form:select path="lender_count" cssClass="selectmenu">
+	<%-- <form:select path="lender_count" cssClass="selectmenu">
 		<form:option value="-1">상태전체</form:option>
 		<form:option value="1">대출중</form:option>
 		<form:option value="0">대출가능</form:option>
-	</form:select>
+	</form:select> --%>
 	<div class="button">
 		<a href="javascript:void(0);" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>꾸러미 도서목록 다운받기</span></a>
 	</div>
 </div>
 <div>
-	<c:forEach items="${bookPackageBundleList}" var="i" varStatus="status">
+	<c:forEach items="${bookPackageTitleList}" var="i" varStatus="status">
 	<div class="group-box">
-		<c:choose>
+		<%-- <c:choose>
 			<c:when test="${i.lender_count > 0}">
 			</c:when>
 			<c:otherwise>
 				<form:checkbox path="book_package_bundle_idx_arr" cssClass="book_check" value="${i.book_package_bundle_idx}"/>
 			</c:otherwise>
-		</c:choose>
+		</c:choose> --%>
 		<div class="content-box">
-			<div class="subject">
-				<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span></c:if>
-				<a href="javascript:void(0);" onclick="getBookPackageDetail('${i.book_package_bundle_idx}');">${i.book_package_bundle_title}</a>
-			</div>
+			<c:forEach items="${getBookPackageLoanCountCheck}" var="c" varStatus="status">
+				<c:choose>
+					<c:when test="${i.book_package_bundle_idx == c.book_package_bundle_idx }">
+						<c:if test="${bookPackageBundle.lender_count != 0 }">
+							<div class="subject">
+								<c:if test="${c.lender_count > 0}"><span class="ing">대출중</span></c:if>
+							</div>
+						</c:if>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+				<div class="subject">
+					<form:checkbox path="book_package_bundle_idx_arr" cssClass="book_check" value="${i.book_package_bundle_idx}"/>
+					<a href="javascript:void(0);" onclick="getBookPackageDetail('${i.book_package_bundle_idx}');">${i.book_package_bundle_title}</a>
+				</div>
+				<div class="btn-box" style="margin-top: 10px;">
+					<a href="javascript:void(0);" class="dialog-req loan" keyValue="${i.book_package_bundle_idx}">신청하기</a>
+						<span class="loan-cnt">
+							<strong>${i.loan_count}</strong>권
+						</span>
+					<a href="javascript:void(0);" class="btn btn1 modify" onclick="bookPackageBundleModify('${i.book_package_bundle_idx}');">꾸러미 수정</a>
+				</div>
 			<%-- <div>
 				 <c:if test="${not empty i.grade}">
 				<span class="step1">
@@ -388,7 +406,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 				</c:forEach> --%>
 			</div>
 		</div>
-		<div class="btn-box" style="margin-top: 10px;">
+		<%-- <div class="btn-box" style="margin-top: 10px;">
 			<c:choose>
 				<c:when test="${i.lender_count > 0}">
 					<a href="javascript:void(0);" class="dialog-req reserv" keyValue="${i.book_package_bundle_idx}">예약신청</a>
@@ -401,7 +419,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 				<strong>${i.loan_count}</strong>권
 			</span>
 			<a href="javascript:void(0);" class="btn btn1 modify" onclick="bookPackageBundleModify('${i.book_package_bundle_idx}');">꾸러미 수정</a>
-		</div>
+		</div> --%>
 	</div>
 	</c:forEach>
 	<c:if test="${fn:length(bookPackageBundleList) < 1}">
@@ -421,7 +439,7 @@ span.loan-cnt strong {display: block;padding-top: 10px;font-family: 'Montserrat'
 	<fieldset>
 		<form:select path="search_type" cssClass="selectmenu">
 			<form:option value="book_package_bundle_title">꾸러미 제목</form:option>
-			<form:option value="keyword">키워드</form:option>
+			<%-- <form:option value="keyword">키워드</form:option> --%>
 		</form:select>
 		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>

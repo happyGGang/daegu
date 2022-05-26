@@ -161,6 +161,10 @@ public class BookPackageBundleService extends BaseService {
 	public List<BookPackageBundle> getBookPackageLoanList(BookPackageBundle bookPackageBundle) {
 		return dao.getBookPackageLoanList(bookPackageBundle);
 	}
+	
+	public List<BookPackageBundle> getBookPackageLoanCountCheck(BookPackageBundle bookPackageBundle) {
+		return dao.getBookPackageLoanCountCheck(bookPackageBundle);
+	}
 
 	public BookPackageBundle getBookPackageDetailOne(BookPackageBundle bookPackageBundle) {
 		return dao.getBookPackageDetailOne(bookPackageBundle);
@@ -235,6 +239,10 @@ public class BookPackageBundleService extends BaseService {
 
 	public int deleteBookDetail(BookPackageBundle bookPackageBundle) {
 		return dao.deleteBookDetail(bookPackageBundle);
+	}
+
+	public List<BookPackageBundle> getBookPackageBundleTitleList(BookPackageBundle bookPackageBundle) {
+		return dao.getBookPackageBundleTitleList(bookPackageBundle);
 	}
 
 }

@@ -145,8 +145,8 @@ $(function() {
  <div class="search txt-center" style="margin:25px 0;clear:both;">
 	<fieldset>
 		<form:select path="search_type" cssClass="selectmenu new_select_box">
-			<form:option value="book_package_name">서명</form:option>
-			<form:option value="keyword">키워드</form:option>
+			<form:option value="book_package_bundle_title">꾸러미 제목</form:option>
+			<%-- <form:option value="keyword">키워드</form:option> --%>
 		</form:select>
 		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
 		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
@@ -162,26 +162,43 @@ $(function() {
 		<form:option value="6">중학생</form:option>
 		<form:option value="7">고등학생</form:option>
 	</form:select>
-	<form:select path="lender_count" cssClass="selectmenu new_select_box">
+	<%-- <form:select path="lender_count" cssClass="selectmenu new_select_box">
 		<form:option value="-1">상태전체</form:option>
 		<form:option value="1">대출중</form:option>
 		<form:option value="0">대출가능</form:option>
-	</form:select>
+	</form:select> --%>
 	<div class="button">
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
 	</div>
 </div>
 
 <div>
-	<c:forEach items="${bookPackageBundleList}" var="i" varStatus="status">
-	<div class="group-box">
-		<div class="content-box">
-			<div class="subject">
-				<a href="#" class="view-btn" keyValue="${i.book_package_bundle_idx}">${i.book_package_bundle_title}</a><br />
-				<div class="ing-box"><c:if test="${i.lender_count > 0}"><span class="ing">대출중</span>(${i.loan_start_date}~${i.loan_end_date})</c:if></div>
-			</div>
-			<div>
-				<%-- <c:if test="${not empty i.grade}">
+	<c:forEach items="${bookPackageTitleList}" var="i" varStatus="status">
+	<div class="group-box" style="height: 165px;">
+		<div class="content-box" style="line-height: 350%">
+			<a href="#" class="view-btn" keyValue="${i.book_package_bundle_idx}">${i.book_package_bundle_title}</a><br/>
+				<c:forEach items="${getBookPackageLoanCountCheck}" var="c" varStatus="status">
+					<c:choose>
+						<c:when test="${i.book_package_bundle_idx == c.book_package_bundle_idx }">
+							<div class="ing-box">
+								<c:if test="${c.lender_count > 0}"><span class="ing">대출중</span>(${c.loan_start_date}~${c.loan_end_date})</c:if>
+							</div>
+							
+						</c:when>
+					</c:choose>
+							<%-- <div class="ing-box"><span class="ing2">대출가능</span></div>
+							<div class="btn-box" style="text-align: left; width: 400px;" >
+								<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">대출신청</a>
+								<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
+							</div> --%>
+				</c:forEach>
+				<div class="btn-box" style="text-align: left; width: 400px;">
+					<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">신청하기</a>
+					<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
+				</div>
+		</div>
+			<%-- <div>
+				<c:if test="${not empty i.grade}">
 				<span class="step1">
 				<c:choose>
 					<c:when test="${i.grade eq '3'}">초등1-2학년</c:when>
@@ -191,8 +208,8 @@ $(function() {
 					<c:when test="${i.grade eq '7'}">고등학생</c:when>
 				</c:choose>
 				</span>
-				</c:if> --%>
-				<%-- <c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
+				</c:if>
+				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
 					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
 					<c:forTokens items="${j.category}" delims="," var="category">
 						<span class="step2">
@@ -211,8 +228,8 @@ $(function() {
 						</span>
 					</c:forTokens>
 					</c:if>
-				</c:forEach> --%>
-			</div>
+				</c:forEach>
+			</div> --%>
 			<%-- <div class="book-desc">
 				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
 					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
@@ -229,8 +246,8 @@ $(function() {
 					</c:if>
 				</c:forEach>
 			</div> --%>
-		</div>
-		<div class="btn-box">
+		
+		<%-- <div class="btn-box">
 			<c:choose>
 				<c:when test="${i.lender_count > 0}">
 					<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">예약신청</a>
@@ -240,7 +257,7 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 			<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
-		</div>
+		</div> --%>
 		<span class="loan-cnt">
 			<strong>${i.loan_count}</strong>권
 		</span>
@@ -251,6 +268,7 @@ $(function() {
 		<h3>등록된 책 꾸러미 리스트가 없습니다.</h3>
 	</div>
 	</c:if>
+</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">

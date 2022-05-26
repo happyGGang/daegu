@@ -53,9 +53,13 @@ public class BookPackageBundleController extends BaseController {
 		
 		List<BookPackageBundle> bookPackageDetailList = bookPackageBundleService.getBookPackageDetailList(bookPackageBundle);
 		List<BookPackageBundle> bookPackageCategoryList = bookPackageBundleService.getBookPackageCategoryList(bookPackageBundle);
+		List<BookPackageBundle> bookPackageTitleList = bookPackageBundleService.getBookPackageBundleTitleList(bookPackageBundle);
+		List<BookPackageBundle> getBookPackageLoanCountCheck = bookPackageBundleService.getBookPackageLoanCountCheck(bookPackageBundle);
 		
 		bookPackageDetail(bookPackageDetailList);
 		
+		model.addAttribute("bookPackageTitleList", bookPackageTitleList);
+		model.addAttribute("getBookPackageLoanCountCheck", getBookPackageLoanCountCheck);
 		model.addAttribute("bookPackageBundle", bookPackageBundle);
 		model.addAttribute("bookPackageBundleList", bookPackageDetailList);
 		model.addAttribute("bookPackageCategoryList", bookPackageCategoryList);

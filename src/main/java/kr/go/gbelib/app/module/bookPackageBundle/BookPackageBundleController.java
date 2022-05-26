@@ -48,20 +48,24 @@ public class BookPackageBundleController extends BaseController {
 		}
 		
 		bookPackageBundle.setHomepage_id(homepage.getHomepage_id());
-		
+
 		int count = bookPackageBundleService.getBookPackageDetailCount(bookPackageBundle);
 		bookPackageBundleService.setPaging(model, count, bookPackageBundle);
 		bookPackageBundle.setTotalDataCount(count);
 		
 		List<BookPackageBundle> bookPackageDetailList = bookPackageBundleService.getBookPackageDetailList(bookPackageBundle);
 		List<BookPackageBundle> bookPackageCategoryList = bookPackageBundleService.getBookPackageCategoryList(bookPackageBundle);
+		List<BookPackageBundle> bookPackageTitleList = bookPackageBundleService.getBookPackageBundleTitleList(bookPackageBundle);
+		List<BookPackageBundle> getBookPackageLoanCountCheck = bookPackageBundleService.getBookPackageLoanCountCheck(bookPackageBundle);
 		
 		bookPackageDetail(bookPackageDetailList);
 		
+		model.addAttribute("bookPackageTitleList", bookPackageTitleList);
+		model.addAttribute("getBookPackageLoanCountCheck", getBookPackageLoanCountCheck);
 		model.addAttribute("bookPackageBundle", bookPackageBundle);
 		model.addAttribute("bookPackageBundleList", bookPackageDetailList);
 		model.addAttribute("bookPackageCategoryList", bookPackageCategoryList);
-
+		
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 	

@@ -33,6 +33,16 @@
 		AND book_package_bundle_idx = #{book_package_bundle_idx}
 	</select>
 	
+	<select id="getBookPackageLoanCountCheck" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			book_package_bundle_idx, COUNT(request_status) AS lender_count, TO_CHAR(MAX(loan_start_date), 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(MAX(loan_end_date), 'yyyy-MM-dd') AS loan_end_date
+		FROM
+			BOOK_PACKAGE_BUNDLE_LOAN
+		WHERE
+			request_status IN (0, 1, 2)
+		GROUP BY book_package_bundle_idx
+	</select>
+	
 	<insert id="createBookPackageBundle">
 		<selectKey keyProperty="book_package_bundle_idx" resultType="int" order="BEFORE">
 			SELECT (NVL(MAX(book_package_bundle_idx), 0) + 1) AS book_package_bundle_idx FROM BOOK_PACKAGE_BUNDLE
@@ -121,47 +131,17 @@
 	
 	<select id="getBookPackageDetailCount" resultType="int">
 		SELECT
-			count(*)
-			FROM
+			COUNT(*)
+		FROM
 			(
+			
 			SELECT
-				count(*)	 	   
+				homepage_id, book_package_bundle_idx, book_package_bundle_title, loan_count, quantity,
+				grade
 			FROM
-				BOOK_PACKAGE_BUNDLE a, BUNDLE_LIST b, BOOK_PACKAGE_BUNDLE_DETAIL c,
-				(
-				SELECT
-					book_package_bundle_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
-				FROM
-					BOOK_PACKAGE_BUNDLE_LOAN
-				WHERE
-					request_status IN (0, 1, 2)
-				GROUP BY book_package_bundle_idx
-				) d
-			WHERE 
-				a.homepage_id = #{homepage_id}
-			AND a.book_package_bundle_idx = c.book_package_bundle_idx
-			AND b.book_package_bundle_detail_idx = c.book_package_bundle_detail_idx
-			AND a.book_package_bundle_idx = d.book_package_bundle_idx(+)
-			<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			<if test="category != null and category != '' and category != 'all'">
-			AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
-			</if>
-			<if test="grade != null and grade != ''">
-			AND	grade = #{grade}
-			</if>
-			<if test="lender_count != -1">
-			AND	#{lender_count}
-			<choose>
-				<when test="lender_count == 0"><![CDATA[=]]></when>
-				<when test="lender_count == 1"><![CDATA[<=]]></when>
-			</choose>
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
-			</if>
-			GROUP BY c.book_package_bundle_idx, a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count,
-					 a.quantity, a.grade, d.loan_start_date, d.loan_end_date, c.bundle_idx,
-					 d.lender_count
+				BOOK_PACKAGE_BUNDLE
+			WHERE
+				homepage_id = #{homepage_id}
 			)
 	</select>
 	
@@ -585,6 +565,7 @@
 	</delete>
 	
 	<select id="getBookPackageBundleDetailCount" resultType="int">
+		${pagingTop}
 		SELECT
 			count(*)
 		FROM
@@ -597,6 +578,25 @@
 		<if test="category != null and category != '' and category != 'all'">
 		AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
 		</if>
+		${pagingBottom}
+	</select>
+	
+	<select id= "getBookPackageBundleTitleList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		${pagingTop}
+		SELECT
+			homepage_id, book_package_bundle_idx, book_package_bundle_title, loan_count, quantity,
+			grade
+		FROM
+			BOOK_PACKAGE_BUNDLE
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="grade != null and grade != ''">
+		AND	grade = #{grade}
+		</if>
+		${pagingBottom}
 	</select>
 	
 	<select id="getBookPackageBundleDetailList" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
