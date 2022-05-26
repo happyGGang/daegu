@@ -773,12 +773,9 @@ public class IndexController extends BaseController {
 		
 		//달성군립
 		if (homepage.getHomepage_id().equals("h44")) {
-			Calendar cal = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 			Board b = new Board();
-			b.setHomepage_id(homepage.getHomepage_id());
-			b.setImsi_v_1(sdf.format(cal.getTime()));
-			model.addAttribute("movieList", boardService.getCalendarBoardMovie(b));
+			b.setManage_idx(685);
+			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
 		}
 
 		//서구도서관

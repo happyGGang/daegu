@@ -83,7 +83,7 @@ do {
 				$(v).show();
 			}
 		});
-		
+
 		$('#popupLayer > div').draggable();
 		// 팝업 관련 코드 END
 
@@ -252,7 +252,7 @@ do {
 							<div class="dalseong-slogan"><img src="/resources/homepage/${homepage.context_path}/img/dalseong-slogan.png" alt="대구의 미래 달성 꽃피다."></div>
 							<fieldset>
 								<legend>자료검색</legend>
-								
+
 								<div class="main-box">
 									<div class="box1">
 										<label for="search_text_1" class="blind">통합자료검색</label>
@@ -312,7 +312,7 @@ do {
 					</div>
 
 					<div class="movie-box">
-				
+
 						<h2>영화상영</h2>
                         <a href="https://library.daegu.go.kr/dalseonglib/board/index.do?menu_idx=34&manage_idx=685" class="btn-more btn-b btn-more_right20 top258"  >더보기</a>
 						<div class="movieContent">
@@ -332,12 +332,12 @@ do {
 																<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
 															</c:when>
 															<c:otherwise>
-																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img"/>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
 															</c:otherwise>
 														</c:choose>
 													</c:when>
 													<c:otherwise>
-														<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img">
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:otherwise>
 												</c:choose>
 											</span>
@@ -361,7 +361,7 @@ do {
 								</c:if>
 							</ul>
 						</div>
-                 
+
 					</div>
 
 				</div>
@@ -383,7 +383,7 @@ do {
 				<div class="schedule-box">
 
 					<div id="holiday-box" class="calendar-box">
-						
+
 					</div>
 
 					<div class="culture-box tabSS">
