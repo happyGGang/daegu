@@ -38,8 +38,6 @@ $(function() {
 			</colgroup>
 			<tbody>
 			<tr>
-
-
 				<th><label for="option01">도서관명</label></th>
 				<td class="search_left">
 					<c:choose>
@@ -316,25 +314,34 @@ $(function() {
 			</td>
 
 			</tr>
-			<th><label for="option01">자료실</label></th>
-			<td class="search_left" >
-				<ul>
-					<li style="margin-bottom: 3px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
-					<c:forEach items="${shelfList}" var="i" varStatus="status">
-						<c:if test="${not empty i.CHECKED and i.CHECKED}">
-						<li style="width: 100%; margin-bottom:3px;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
-						</c:if>
-					</c:forEach>
-				</ul>
-			</td>
-			<th><label for="search_date03">간편검색</label></th>
-			<td class="search_left">
-				<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
-				<form:radiobutton path="search_type" value="2" title="2주전" label="2주전"/>
-				<form:radiobutton path="search_type" value="3" title="1달전" label="1달전"/>
-				<form:radiobutton path="search_type" value="4" title="2달전" label="2달전"/>
-			</td>
+			<tr>
+				<th><label for="option01">자료실</label></th>
+				<td class="search_left" >
+					<ul>
+						<li style="margin-bottom: 3px;"><form:radiobutton path="shelfCode" value="ALL" label="전체"/></li>
+						<c:forEach items="${shelfList}" var="i" varStatus="status">
+							<c:if test="${not empty i.CHECKED and i.CHECKED}">
+							<li style="width: 100%; margin-bottom:3px;"><form:radiobutton path="shelfCode" value="${i.CODE}" label="${i.DESCRIPTION}"/></li>
+							</c:if>
+						</c:forEach>
+					</ul>
+				</td>
+				<th><label for="search_date03">간편검색</label></th>
+				<td class="search_left">
+					<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
+					<form:radiobutton path="search_type" value="2" title="2주전" label="2주전"/>
+					<form:radiobutton path="search_type" value="3" title="1달전" label="1달전"/>
+					<form:radiobutton path="search_type" value="4" title="2달전" label="2달전"/>
+				</td>
 			</tr>
+			<tr>
+				<th><label for="search_date04">검색조건</label></th>
+				<td class="search_left" colspan="3">
+					<form:radiobutton path="rowCount" value="10" title="10개씩보기" label="10개씩보기"/>
+					<form:radiobutton path="rowCount" value="20" title="20개씩보기" label="20개씩보기"/>
+					<form:radiobutton path="rowCount" value="30" title="30개씩보기" label="30개씩보기"/>
+					<form:radiobutton path="rowCount" value="50" title="50개씩보기" label="50개씩보기"/>
+				</td>
 			</tr>
 			</tbody>
 			</table>
@@ -392,7 +399,7 @@ $(function() {
 									</div>
 								</div>
 								</c:forEach>
-								<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" />
+<%-- 								<jsp:include page="/WEB-INF/views/app/intro/search/paging.jsp" flush="false" /> --%>
 							</c:when>
 							<c:otherwise>
 								<br/>
