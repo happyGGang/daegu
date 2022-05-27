@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/cmsTag.tld" %>
 <link rel="stylesheet" type="text/css" 	href="/resources/common/css/culture-list.css" />
+<script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
@@ -65,12 +66,12 @@ $(function(){
 	});
 	
 	$('a#search_btn').on('click', function(e) {
+		e.preventDefault();
 		$('#viewPage').val(1);
 		var hid = $(this).data('hid');
 		$('input#homepage_id_1').val(hid);
 		doGetLoad('index.do', serializeCustom($('form#teach')));
 
-		e.preventDefault();
 	});
 
 	<c:if test="${fn:length(subHomepageList) > 0 or
@@ -137,7 +138,7 @@ $(function(){
 <%-- 	<form:hidden path="category_idx"/> --%>
 	<form:hidden path="searchCate1"/>
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<%-- 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/> --%>
 
 	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib'}">
 		<div class="tab_menu on">
@@ -223,11 +224,13 @@ $(function(){
 			<div style="margin-bottom:10px;">
 				<div class="srch_name_box">
 					<form:select path="search_type" cssClass="selectmenu new_select_box">
-						<form:option value="teach_name"><c:choose>
-						<c:when test="${param.searchCate1 eq '16'}">행사명</c:when>
-						<c:when test="${param.searchCate1 eq '17'}">강좌명</c:when>
-						<c:when test="${param.searchCate1 eq '18'}">강좌명</c:when>
-						<c:otherwise>강좌명</c:otherwise></c:choose>
+						<form:option value="teach_name">
+						<c:choose>
+							<c:when test="${param.searchCate1 eq '16'}">행사명</c:when>
+							<c:when test="${param.searchCate1 eq '17'}">강좌명</c:when>
+							<c:when test="${param.searchCate1 eq '18'}">강좌명</c:when>
+							<c:otherwise>강좌명</c:otherwise>
+						</c:choose>
 						</form:option>
 					</form:select>
 					<p class="m_br"></p>
