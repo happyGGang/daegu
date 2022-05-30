@@ -262,6 +262,12 @@ public class TeachController extends BaseController{
 			return String.format(basePath, homepage.getFolder()) + "index";
 		}
 	}
+	
+	@RequestMapping(value = {"/index_real.*"})
+	public String ready(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		return String.format(basePath, homepage.getFolder()) + "ready";
+	}
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
