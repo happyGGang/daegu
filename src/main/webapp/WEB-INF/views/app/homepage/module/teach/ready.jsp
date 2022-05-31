@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function load()
 {
-NetFunnel_Action({action_id:"index"},"index.do?menu_idx=30");
+NetFunnel_Action({},"index.do?menu_idx=30");
 }
 </script>
 </head>
