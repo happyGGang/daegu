@@ -54,8 +54,8 @@ select::-ms-expand {display:none}
 .bookCategoryList li a.on {text-decoration:underline}
 
 /* book list */
-.cover .rank {position:absolute;top:1px;left:2px;width:36px;height:44px;font-size:1.154em;line-height:32px;color:#fff;text-align:center;border-radius:0 0 20px 0;background:url(/include/image/board/bg_rank.png) 0 0 no-repeat;background-size:cover}
-.cover .rank.top {background-image:url(/include/image/board/bg_rank_top.png)}
+ul.book-list li:first-child div a em.top{background:#7200ff;font-weight:bold;}
+.cover .rank {position:absolute;top:0;left:0;width:30px;height:30px;font-size:0.85em;font-style:normal !important;line-height:30px;color:#fff;text-align:center;border-radius:0 0 5px 0;background:#333;}
 .book-list > li {overflow:hidden;position:relative;padding:17px 20px;border:1px solid #e2e2e2}
 .book-list > li + li {margin-top:20px}
 .book-list .thumb {position:absolute;top:20px;left:20px}

@@ -345,6 +345,7 @@
 					<form:option value="GA">화원읍작은도서관</form:option>
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
+					<form:option value="HG">다사읍작은도서관</form:option>
 					<form:option value="GF">유가읍작은도서관</form:option>
 					<form:option value="GH">옥포읍작은도서관</form:option>
 					<form:option value="FR">가창면참꽃작은도서관</form:option>

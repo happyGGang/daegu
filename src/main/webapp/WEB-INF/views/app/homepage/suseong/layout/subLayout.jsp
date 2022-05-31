@@ -110,13 +110,14 @@ function link()
 
          <!--퀵메뉴-->
 		 <div id="quick-slide">
-			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
+			<h4><img src="/resources/homepage/suseong/img/quick-title.png" alt="퀵메뉴"></h4>
 			<ul>
-				<li><a href="/${homepage.context_path}/elib.do?menu_idx=46"><span class="txt">전자도서관</span></a></li>
+				<li><a href="/suseong/elib.do?menu_idx=46"><span class="txt">전자도서관</span></a></li>
 				<!--li><a href="#"><span class="txt">디지털자료실<br/>좌석예약</span></a></li-->
-				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=58"><span class="txt">영화상영</span></a></li>
-				<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
-				<li><a href="https://www.1365.go.kr/vols/main.do" target="_blank"><span class="txt">청소년<br/>자원봉사신청</span></a></li>
+				<li><a href="/suseong/board/index.do?menu_idx=60&amp;manage_idx=58"><span class="txt">영화상영</span></a></li>
+				<li><a href="/suseong/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
+				<li><a href="http://www.youth.go.kr" target="_blank" class="newWin" title="새창으로 열립니다."><span class="txt">청소년<br>자원봉사신청</span><i class="fa fa-external-link"></i></a></li>
+				<li><a href="http://dgelib.dkyobobook.co.kr" target="_blank" class="newWin" title="새창으로 열립니다."><span class="txt">대구학생<br>전자도서관</span><i class="fa fa-external-link"></i></a></li>
 			</ul>
 		</div>
         <!--//퀵메뉴-->
