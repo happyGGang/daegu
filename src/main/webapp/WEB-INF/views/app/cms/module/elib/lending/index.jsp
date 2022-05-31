@@ -169,12 +169,9 @@ function submit(e) {
 <form:hidden path="search_edt" id="hiddenForm_search_edt"/>
 </form:form>
 <form:form id="lendingListForm"  modelAttribute="lending" action="index.do" >
-<c:if test="${!member.admin}">
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
-</c:if>
+<form:hidden id="homepage_id_1" path="homepage_id"/>
 <form:hidden path="isReserve"/>
 
-<c:if test="${member.admin}">
 	<div class="search">
 		<fieldset>
 			<label class="blind">검색</label>
@@ -194,7 +191,6 @@ function submit(e) {
 			<a href="#" id="search" class="btn"><span>조회</span></a>
 		</fieldset>
 	</div>
-</c:if>
 
 	<div class="infodesk">
 		검색 결과 : 총 <fmt:formatNumber value="${lendingListCnt}" pattern="#,###" />건
