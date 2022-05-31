@@ -178,9 +178,9 @@
 						<div class="con" data-tab="tab1">
 							<div class="news">
 								<div class="box">
-
 									<ul>
 									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+									<c:if test="${i.board_idx ne '471387'}">
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<c:choose>
@@ -195,15 +195,14 @@
 												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 											</a>
 										</li>
-										</c:forEach>
-
-										<c:if test="${fn:length(noticeList) < 1}">
+									</c:if>
+									</c:forEach>
+									<c:if test="${fn:length(noticeList) < 1}">
 										<li>
 											<em>등록된 공지사항이 없습니다.</em>
 										</li>
 									</c:if>
 									</ul>
-
 								</div>
 							</div>
 						</div>
