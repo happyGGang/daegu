@@ -175,8 +175,8 @@ public class ElibStatisticsController extends BaseController {
 		return view;
 	}
 
-	@RequestMapping(value = {"/summary{url}.*"})
-	public String summary(Model model, ElibStatistics elibStatistics, @PathVariable("url") String url, HttpServletRequest request) throws AuthException {
+	@RequestMapping(value = {"{menuParam}/summary{url}.*"})
+	public String summary(Model model, ElibStatistics elibStatistics, @PathVariable String menuParam, @PathVariable("url") String url, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 //		if ( !getSessionIsAdmin(request) ) {
 		elibStatistics.setHomepage_id(getAsideHomepageId(request));
