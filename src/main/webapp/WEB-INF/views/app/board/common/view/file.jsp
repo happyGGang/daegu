@@ -7,7 +7,7 @@
 
 
 <c:choose>
-	<c:when test="${param.manage_idx eq '897'}">
+	<c:when test="${param.manage_idx eq '897' || param.manage_idx eq '426' || param.manage_idx eq '364'}">
 		<c:if test="${fn:length(boardFile) > 0}">
 		<dd class="file">
 			<ul style='height:110px;overflow-y:scroll;'>
@@ -22,6 +22,7 @@
 		</dd>
 		</c:if>
 	</c:when>
+
 	<c:otherwise>
 		<c:if test="${fn:length(boardFile) > 0}">
 		<dd class="file">

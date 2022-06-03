@@ -9,6 +9,11 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
+
+		<c:if test="${context_path eq 'junggu'}">
+			alert('도서에 포함된 부록자료(CD 등)는 분실 및 파손 위험으로 제외됩니다.');
+		</c:if>
+
 		if (!confirm('상호대차신청을 하시겠습니까?')) {
 			return false;
 		}
@@ -20,13 +25,8 @@ $(function() {
 		}
 
 		if (doAjaxPost($('form#librarySearch'))) {
-			location.href='index.do?menu_idx=${sanghoMenuIdx}';
+			location.href='index.do';
 		}
-	});
-	
-	$('#cancel-btn').on('click', function(e) {
-		e.preventDefault();
-		history.go(-1);
 	});
 
 	$('select#uselibcode option').each(function() {
@@ -78,10 +78,10 @@ $(function() {
 			 	<td>
 <!-- 도서관 선택 분기처리 시작 -->
 					<c:choose>
-					<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
-						<form:option value="127009">구수산도서관</form:option>
+						<!-- <form:option value="127009">구수산도서관</form:option> -->
 						<form:option value="127084">대현도서관</form:option>
 						<form:option value="127088">태전도서관</form:option>
 						<!-- <form:option value="727033">태전1동 작은도서관</form:option> -->
@@ -94,7 +94,7 @@ $(function() {
 						<form:option value="727102">한강공원부키도서관</form:option>
 					</form:select>
 					</c:when>
-					<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
+					<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127072">범어도서관</form:option>
@@ -107,7 +107,7 @@ $(function() {
 						<form:option value="127021">사월역도서관</form:option>
 					</form:select>
 					</c:when>
-					<c:when test="${homepage.context_path eq 'junggu'}">
+					<c:when test="${context_path eq 'junggu'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127016">남산4동작은도서관</form:option>
@@ -119,7 +119,7 @@ $(function() {
 						<form:option value="727107">대봉2동작은도서관</form:option>
 					</form:select>
 					</c:when>
-					<c:when test="${homepage.context_path eq 'dalseolib'}">
+					<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127005">성서도서관</form:option>
@@ -137,7 +137,7 @@ $(function() {
 						<form:option value="727036">학산작은도서관</form:option>
 					</form:select>
 					</c:when>
-					<c:when test="${homepage.context_path eq 'donggu'}">
+					<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' ||context_path eq 'donggusm'}">
 					<form:select path="uselibcode">
 						<form:option value="127049">안심도서관</form:option>
 						<form:option value="127087">신천도서관</form:option>
@@ -180,35 +180,39 @@ $(function() {
 			 	</td>
 			 </tr>
 			 <c:if test="${not empty detail.APPENDIX_INFO}">
-			 <tr>
-			 	<th>부록대출</th>
-			 	<td>
-<%-- 			 		<form:checkbox path="appendixregnolist" value="y" label="(해당 도서에 부록이 있을 시 부록도 같이 대출하겠습니다.)"/> --%>
-			 		<c:forEach items="${detail.APPENDIX_LIST}" var="i" varStatus="status">
-						<c:if test="${i.KBILL_APPENDIX_LILL_YN eq 'O'}">
-							<c:set var="media_desc" value=""></c:set>
-							<c:forEach items="${detail.APPENDIX_INFO}" var="j">
-								<c:if test="${empty j.value}">
-									<c:set var="media_desc" value="${j.DESCRIPTION}"></c:set>
-								</c:if>
-								<c:if test="${not empty j.value and j.value eq i.MEDIA_CODE and j.key eq 'DESCRIPTION'}">
-									<c:set var="media_desc" value="${j.value}"></c:set>
-								</c:if>
-							</c:forEach>
-							<form:checkbox path="appendixregnolist" label="${media_desc }" value="${i.REG_NO}"/>
-						</c:if>
-						<c:if test="${i.KBILL_APPENDIX_LILL_YN ne 'O'}">
-						부록대출불가
-						</c:if>
-					</c:forEach>
-			 	</td>
-			 </tr>
+
+			<c:choose>
+			<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'junggu'}">
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<th>부록대출</th>
+					<td>
+						<c:forEach items="${detail.APPENDIX_LIST}" var="i" varStatus="status">
+							<c:if test="${i.KBILL_APPENDIX_LILL_YN eq 'O'}">
+								<c:set var="media_desc" value=""></c:set>
+								<c:forEach items="${detail.APPENDIX_INFO}" var="j">
+									<c:if test="${empty j.value}">
+										<c:set var="media_desc" value="${j.DESCRIPTION}"></c:set>
+									</c:if>
+									<c:if test="${not empty j.value and j.value eq i.MEDIA_CODE and j.key eq 'DESCRIPTION'}">
+										<c:set var="media_desc" value="${j.value}"></c:set>
+									</c:if>
+								</c:forEach>
+								<form:checkbox path="appendixregnolist" label="${media_desc }" value="${i.REG_NO}"/>
+							</c:if>
+						</c:forEach>
+					</td>
+				</tr>
+			</c:otherwise>
+			</c:choose>
+
 			 </c:if>
        	</tbody>
 	</table>
 
 	<div class="btnArea" style="text-align: center; padding-top: 25px;">
-		<a href="#" id="cancel-btn" class="btn btn02">취소</a>
+		<a href="/intro/${context_path}/index.do" id="cancel-btn" class="btn btn02">취소</a>
 		<a href="#" id="save-btn" class="btn btn1">신청</a>
 	</div>
 </div>
