@@ -2,15 +2,51 @@ package kr.go.gbelib.app.module.myStorage;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
-public class MyStorage extends PagingUtils {
+public class MyStorage {
 
 	private String member_key;
 	private int storage_idx;
 	private int parent_storage_idx;
 	private String storage_name;
+	private String homepage_id;
+	private String editMode;
+	private String before_url;
+	private String menu_idx;
 
 	public MyStorage() { }
-	
+
+	public String getHomepage_id() {
+		return homepage_id;
+	}
+
+	public void setHomepage_id(String homepage_id) {
+		this.homepage_id = homepage_id;
+	}
+
+	public String getEditMode() {
+		return editMode;
+	}
+
+	public String getMenu_idx() {
+		return menu_idx;
+	}
+
+	public void setMenu_idx(String menu_idx) {
+		this.menu_idx = menu_idx;
+	}
+
+	public String getBefore_url() {
+		return before_url;
+	}
+
+	public void setBefore_url(String before_url) {
+		this.before_url = before_url;
+	}
+
+	public void setEditMode(String editMode) {
+		this.editMode = editMode;
+	}
+
 	public MyStorage(String homepage_id, String member_key) {
 		setHomepage_id(homepage_id);
 		this.setMember_key(member_key);
