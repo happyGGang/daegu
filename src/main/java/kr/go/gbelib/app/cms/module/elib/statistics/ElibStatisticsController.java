@@ -187,10 +187,12 @@ public class ElibStatisticsController extends BaseController {
 
 		Map<String, Integer> elibStatisticsSummary = new HashMap<String, Integer>();
 		Map<String, Integer> elibStatisticsUniqueSummary = new HashMap<String, Integer>();
+		Map<String, Integer> elibStatisticsPersonalSummary = new HashMap<String, Integer>();
 
 		if(StringUtils.isNotEmpty(elibStatistics.getSearch_sdt()) || StringUtils.isNotEmpty(elibStatistics.getSearch_edt())) {
 			List<ElibStatistics> elibStatisticsSummaryList = service.getStatisticsSummaryList(elibStatistics);
 			List<ElibStatistics> elibStatisticsUniqueSummaryList = service.getStatisticsUniqueSummaryList(elibStatistics);
+			List<ElibStatistics> elibStatisticsPersonalSummaryList = service.getStatisticsPersonalSummaryList(elibStatistics);
 
 			for(ElibStatistics elem: elibStatisticsSummaryList) {
 				elibStatisticsSummary.put(elem.getType() + "." + elem.getAge_group() + "." + elem.getSex(), elem.getLend_cnt());
@@ -200,12 +202,17 @@ public class ElibStatisticsController extends BaseController {
 				elibStatisticsUniqueSummary.put(elem.getType() + "." + elem.getAge_group() + "." + elem.getSex(), elem.getLend_cnt());
 			}
 
+			for(ElibStatistics elem: elibStatisticsPersonalSummaryList) {
+				elibStatisticsPersonalSummary.put(elem.getType() + "." + elem.getAge_group() + "." + elem.getSex(), elem.getLend_cnt());
+			}
+
 		}
 
 		model.addAttribute("elibStatistics", elibStatistics);
 		model.addAttribute("obj", elibStatistics);
 		model.addAttribute("elibStatisticsSummary", elibStatisticsSummary);
 		model.addAttribute("elibStatisticsUniqueSummary", elibStatisticsUniqueSummary);
+		model.addAttribute("elibStatisticsPersonalSummary", elibStatisticsPersonalSummary);
 		model.addAttribute("cateList", elibCategoryService.getCategoryList(new ElibCategory(elibStatistics.getType())));
 		model.addAttribute("compList", elibCodeService.getCompList(new ElibCode(elibStatistics.getType())));
 		model.addAttribute("library_code", getLibraryCode(request));

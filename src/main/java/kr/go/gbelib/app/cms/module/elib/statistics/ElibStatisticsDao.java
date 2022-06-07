@@ -40,6 +40,8 @@ public interface ElibStatisticsDao {
 	public List<ElibStatistics> getStatisticsSummaryList(ElibStatistics elibStatistics);
 	
 	public List<ElibStatistics> getStatisticsUniqueSummaryList(ElibStatistics elibStatistics);
+
+	public List<ElibStatistics> getStatisticsPersonalSummaryList(ElibStatistics elibStatistics);
 	
 	public List<Map<String, Object>> getStatisticsByCompany(ElibStatistics elibStatistics);
 

@@ -69,6 +69,10 @@ public class ElibStatisticsService extends BaseService {
 	public List<ElibStatistics> getStatisticsUniqueSummaryList(ElibStatistics elibStatistics) {
 		return dao.getStatisticsUniqueSummaryList(elibStatistics);
 	}
+
+	public List<ElibStatistics> getStatisticsPersonalSummaryList(ElibStatistics elibStatistics) {
+		return dao.getStatisticsPersonalSummaryList(elibStatistics);
+	}
 	
 	public List<Map<String, Object>> getStatisticsByCompany(ElibStatistics elibStatistics) {
 		return dao.getStatisticsByCompany(elibStatistics);

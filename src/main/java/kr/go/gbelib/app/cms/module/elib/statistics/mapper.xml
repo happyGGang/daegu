@@ -759,6 +759,124 @@
 		</if>
 		GROUP BY type, age, sex
 	</select>
+
+	<select id="getStatisticsPersonalSummaryList" resultType="kr.go.gbelib.app.cms.module.elib.statistics.ElibStatistics">
+		SELECT
+		CASE
+		WHEN type = '1' THEN '전자책'
+		WHEN type = '2' THEN '오디오북'
+		WHEN type = '3' THEN '온라인강좌'
+		WHEN type = '4' THEN '전자저널'
+		ELSE '불명'
+		END AS type,
+		CASE
+		WHEN age_group = '1' THEN '어린이'
+		WHEN age_group = '2' THEN '청소년'
+		WHEN age_group = '3' THEN '성인'
+		ELSE '불명'
+		END AS age_group,
+		CASE
+		WHEN sex = '2' THEN '여'
+		WHEN sex = '1' THEN '남'
+		ELSE '불명'
+		END AS sex,
+		SUM(lend_cnt)
+
+		FROM (
+		SELECT
+		type, age_group, sex, SUM(lend_cnt) AS lend_cnt
+		FROM (
+		SELECT
+		type, age_group, sex, 1 AS lend_cnt, member_id
+		FROM (
+		SELECT
+		CASE
+		WHEN type = 'EBK' THEN '1'
+		WHEN type = 'ADO' THEN '2'
+		WHEN type = 'WEB' THEN '3'
+		WHEN type = 'EXT' THEN '4'
+		ELSE '9'
+		END AS type,
+		CASE
+		WHEN age <![CDATA[<=]]> 13 THEN '1'
+		WHEN age <![CDATA[<=]]> 19 THEN '2'
+		WHEN age <![CDATA[>=]]> 20 THEN '3'
+		ELSE '9'
+		END AS age_group,
+		CASE
+		WHEN sex = '1' THEN '2'
+		WHEN sex = '0' THEN '1'
+		ELSE '9'
+		END AS sex,
+		member_id
+		FROM (
+		SELECT
+		TO_NUMBER(TO_CHAR(a.lend_dt, 'YYYY')) - TO_NUMBER(SUBSTR(b.birth_day, 1, 4)) + 1 AS age,
+		c.type, b.member_id, b.sex
+		FROM elib_lend a, elib_member b, elib_book c
+		WHERE 1=1
+		AND a.member_id IS NOT NULL
+		AND a.member_id = b.member_id
+		AND A.BOOK_IDX = C.BOOK_IDX
+		<if test="search_sdt != null and search_sdt != ''">
+			AND TO_CHAR(a.lend_dt, 'YYYY-MM-DD') <![CDATA[>=]]> #{search_sdt}
+		</if>
+		<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(a.lend_dt, 'YYYY-MM-DD') <![CDATA[<=]]> #{search_edt}
+		</if>
+		UNION ALL
+		SELECT
+		TO_NUMBER(TO_CHAR(a.add_date, 'YYYY')) - TO_NUMBER(SUBSTR(b.birth_day, 1, 4)) + 1 AS age,
+		c.type, b.member_id, b.sex
+		FROM elib_audio_stat a, elib_member b, elib_book c
+		WHERE 1=1
+		AND a.member_id IS NOT NULL
+		AND a.member_id = b.member_id
+		AND a.book_idx = c.book_idx
+		<if test="search_sdt != null and search_sdt != ''">
+			AND TO_CHAR(a.add_date, 'YYYY-MM-DD') <![CDATA[>=]]> #{search_sdt}
+		</if>
+		<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(a.add_date, 'YYYY-MM-DD') <![CDATA[<=]]> #{search_edt}
+		</if>
+		UNION ALL
+		SELECT
+		TO_NUMBER(TO_CHAR(a.add_date, 'YYYY')) - TO_NUMBER(SUBSTR(b.birth_day, 1, 4)) + 1 AS age,
+		c.type, b.member_id, b.sex
+		FROM elib_elearn_stat a, elib_member b, elib_book c
+		WHERE 1=1
+		AND a.member_id IS NOT NULL
+		AND a.member_id = b.member_id
+		AND a.book_idx = c.book_idx
+		<if test="search_sdt != null and search_sdt != ''">
+			AND TO_CHAR(a.add_date, 'YYYY-MM-DD') <![CDATA[>=]]> #{search_sdt}
+		</if>
+		<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(a.add_date, 'YYYY-MM-DD') <![CDATA[<=]]> #{search_edt}
+		</if>
+		UNION ALL
+		SELECT
+		TO_NUMBER(TO_CHAR(a.add_date, 'YYYY')) - TO_NUMBER(SUBSTR(b.birth_day, 1, 4)) + 1 AS age,
+		'EXT' AS type, b.member_id, b.sex
+		FROM elib_extlink_stat a, elib_member b
+		WHERE 1=1
+		AND a.member_id IS NOT NULL
+		AND a.member_id = b.member_id
+		<if test="search_sdt != null and search_sdt != ''">
+			AND TO_CHAR(a.add_date, 'YYYY-MM-DD') <![CDATA[>=]]> #{search_sdt}
+		</if>
+		<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(a.add_date, 'YYYY-MM-DD') <![CDATA[<=]]> #{search_edt}
+		</if>
+		)
+		)
+		GROUP BY type, age_group, sex, member_id
+		)
+		GROUP BY type, age_group, sex
+		)
+		GROUP BY type, age_group, sex
+		ORDER BY type, age_group, sex
+	</select>
 	
 	<select id="getStatisticsByCompany" resultType="HashMap">
 		SELECT
