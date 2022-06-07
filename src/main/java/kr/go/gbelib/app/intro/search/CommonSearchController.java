@@ -842,7 +842,39 @@ public class CommonSearchController extends BaseController {
 		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
 			librarySearch.setBooktype("0");
 		}
-
+		
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMdd");
+		Date now  = new Date();
+		String nowDate = sdf.format(now);
+		
+		if(StringUtils.isNotEmpty(librarySearch.getSearch_type())) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+			
+			if(librarySearch.getSearch_type().equals("1")) {
+				cal.add(Calendar.DATE, -7);
+				String calDate = sdf.format(cal.getTime());
+				librarySearch.setSearch_start_date(calDate);
+				librarySearch.setSearch_end_date(nowDate);
+			} else if(librarySearch.getSearch_type().equals("2")) {
+				cal.add(Calendar.DATE, -14);
+				String calDate = sdf.format(cal.getTime());
+				librarySearch.setSearch_start_date(calDate);
+				librarySearch.setSearch_end_date(nowDate);
+			} else if (librarySearch.getSearch_type().equals("3")){
+				cal.add(Calendar.MONTH, -1);
+				String calDate = sdf.format(cal.getTime());
+				librarySearch.setSearch_start_date(calDate);
+				librarySearch.setSearch_end_date(nowDate);
+			} else if (librarySearch.getSearch_type().equals("4")){
+				cal.add(Calendar.MONTH, -2);
+				String calDate = sdf.format(cal.getTime());
+				librarySearch.setSearch_start_date(calDate);
+				librarySearch.setSearch_end_date(nowDate);
+			}
+		}
+		
 		Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch);
 		List<Map<String, Object>> list = null;
 
@@ -1234,7 +1266,6 @@ public class CommonSearchController extends BaseController {
 	 * @param response
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "null" })
 	@RequestMapping(value = {"/hope/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveHope(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 
@@ -1291,35 +1322,6 @@ public class CommonSearchController extends BaseController {
 //					return res;
 //				}
 
-				Map<String, Object> map = LibSearchAPI.getLibSettingInfoView(librarySearch.getManageCode());
-				
-				if(map.get("RESULT_INFO").equals("SUCCESS")) {
-					List<Map<String, Object>> list =  (List<Map<String, Object>>) map.get("LIB_SETTING_INFO");
-					
-					String lib_code = (String) list.get(0).get("LIB_CODE");
-					
-					if(lib_code != null && !(lib_code.isEmpty()) && StringUtils.isNotEmpty(lib_code)) {
-						if(librarySearch.getIsbn() != null && StringUtils.isNotEmpty(librarySearch.getIsbn())) {
-							ApiResponse duplicateSurvey = LibSearchAPI.duplicateSurvey(librarySearch.getIsbn(), lib_code);
-							
-							ApiResponse apiResult = null;
-							if(duplicateSurvey.getStatus()) {
-								res.setValid(false);
-								res.setMessage("희망도서 바로대출제 서비스를 통해 신청된 도서입니다.");
-								return res;
-							} else {
-								res.setValid(false);
-								res.setMessage(apiResult.getMessage());
-								return res;
-							}
-						}
-					} else {
-						res.setValid(false);
-						res.setMessage("KAPI오류 : 도서관 설정정보 조회에 실패하였습니다. 관리자에게 문의해 주세요.");
-						return res;
-					}
-				}
-				
 				ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
 
 				if (hopeUserCheck.getStatus()) {
