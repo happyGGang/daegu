@@ -1,7 +1,9 @@
 package kr.co.whalesoft.app.cms.module.mediaFactory.apply;
 
+import com.drew.lang.StringUtil;
 import java.util.List;
 
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
@@ -9,10 +11,17 @@ import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
+import kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactory;
+import kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactoryDao;
+import kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactoryService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PushAPI;
 
+import kr.go.gbelib.app.intro.search.LibrarySearch;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +33,9 @@ public class MediaFactoryApplyService extends BaseService {
 	
 	@Autowired
 	private HomepageService homepageService;
+
+	@Autowired
+	private MediaFactoryService mediaFactoryService;
 	
 	@Autowired
 	private LoginService loginService;
@@ -122,14 +134,23 @@ public class MediaFactoryApplyService extends BaseService {
 			
 			MediaFactoryApply apply_temp = new MediaFactoryApply();
 			apply_temp = getApplyOne(apply);
-			
-			/**
-			 * 신청자의 SMS 수신여부에 따라 발송한다.
-			 */
-			if (isSmsReceive("USERID", apply_temp.getApply_id())) {
-				Homepage homepage = new Homepage(apply.getHomepage_id());
-				homepage = homepageService.getHomepageOne(homepage);
-				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "["+apply_temp.getApplicant_name() + "] 도서관 견학 신청이 승인 되었습니다.", homepage.getHomepage_send_tell(), true);
+
+			MediaFactory mediaFactory = new MediaFactory();
+
+			mediaFactory.setHomepage_id(apply.getHomepage_id());
+			mediaFactory.setMediaFactory_idx(apply.getMediaFactory_idx());
+
+			mediaFactory = mediaFactoryService.getMediaFactoryOne(mediaFactory);
+
+			if (StringUtils.isNotEmpty(mediaFactory.getSms_yn()) && "Y".equals(mediaFactory.getSms_yn())) {
+				List<Map<String, Object>> member =  MemberAPI.checkDupUser("0", new Member(apply.getApplicant_member_id()));
+
+				LibrarySearch librarySearch = new LibrarySearch();
+
+				librarySearch.setUserkey(String.valueOf(member.get(0).get("REC_KEY")));
+				librarySearch.setManageCode(String.valueOf(member.get(0).get("MANAGE_CODE")));
+
+				LibSearchAPI.sendSms(librarySearch, mediaFactory.getSms_contents(), apply.getIp());
 			}
 		}
 		
