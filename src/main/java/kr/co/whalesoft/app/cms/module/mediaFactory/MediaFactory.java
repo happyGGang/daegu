@@ -46,6 +46,9 @@ public class MediaFactory extends PagingUtils {
 
 	private String pageType;
 
+	private String sms_yn;
+	private String sms_contents;
+
 	public MediaFactory() {
 	}
 
@@ -340,7 +343,21 @@ public class MediaFactory extends PagingUtils {
 
 	public void setUse_time(String use_time) {
 		this.use_time = use_time;
-	}	
-	
-	
+	}
+
+	public String getSms_yn() {
+		return sms_yn;
+	}
+
+	public void setSms_yn(String sms_yn) {
+		this.sms_yn = sms_yn;
+	}
+
+	public String getSms_contents() {
+		return sms_contents;
+	}
+
+	public void setSms_contents(String sms_contents) {
+		this.sms_contents = sms_contents;
+	}
 }

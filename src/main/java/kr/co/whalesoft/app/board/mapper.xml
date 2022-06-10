@@ -2210,7 +2210,15 @@
 			AND imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')
 			AND imsi_v_2 >= TO_CHAR(SYSDATE, 'DD')
 		</if>
-		ORDER BY board_idx DESC
+		ORDER BY
+		<choose>
+			<when test="homepage_id == 'h44' and manage_idx == 685">
+				imsi_v_1||imsi_v_2 DESC
+			</when>
+			<otherwise>
+				board_idx DESC
+			</otherwise>
+		</choose>
 		${pagingBottom}
 
 	</select>

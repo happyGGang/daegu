@@ -17,6 +17,8 @@ $(document).ready(function() {
 			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
 			bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 			//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
+			//웹취약점 발생시 삭제처리해야함
+			bSkipXssFilter : true,
 			fOnBeforeUnload : function(){
 				//alert("완료!");
 			}
@@ -112,7 +114,8 @@ $(document).ready(function() {
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		if(isEditorOn()) {
 			
-			var text = oEditors.getById["content"].getIR().replace(/onE|onM|script|alert|SCRIPT|Script|EMBED/g, '');
+			//유튜브 업로드시 iframe 사용시 사용가능하게
+			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED/g, '');
 			
 			oEditors.getById["content"].exec("SET_IR", ['']);
 		 	oEditors.getById["content"].exec("PASTE_HTML", [text]);

@@ -775,6 +775,7 @@ public class IndexController extends BaseController {
 		if (homepage.getHomepage_id().equals("h44")) {
 			Board b = new Board();
 			b.setManage_idx(685);
+			b.setHomepage_id(homepage.getHomepage_id());
 			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
 		}
 
