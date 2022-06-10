@@ -61,6 +61,7 @@ public class Lending extends PagingUtils {
 	private boolean isLendable;
 	private String viewer_url;
 	private String user_manage_code;
+	private String add_date;
 	
 	private String rec_key;
 
@@ -422,7 +423,12 @@ public class Lending extends PagingUtils {
 	public void setRec_key(String rec_key) {
 		this.rec_key = rec_key;
 	}
-	
-	
 
+	public String getAdd_date() {
+		return add_date;
+	}
+
+	public void setAdd_date(String add_date) {
+		this.add_date = add_date;
+	}
 }

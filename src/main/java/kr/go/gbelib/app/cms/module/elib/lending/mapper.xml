@@ -19,6 +19,9 @@
 		<if test="cate_id != null and cate_id != '' and cate_id != 0">
 		AND c.cate_id = #{cate_id}
 		</if>
+		<if test="add_date != null and add_date != '' and add_date != 0">
+			AND c.add_date = #{add_date}
+		</if>
 		<if test="com_code != null and com_code != ''">
 		AND c.com_code = #{com_code}
 		</if>
@@ -105,6 +108,28 @@
 		</choose>
 	</sql>
 
+	<sql id="sort3">
+		<choose>
+			<when test="sortField != null and sortField != ''">
+				<if test="sortField == 'book_name'">
+					ORDER BY c.book_name NULLS LAST
+				</if>
+				<if test="sortField == 'author_name'">
+					ORDER BY c.author_name NULLS LAST
+				</if>
+				<if test="sortField == 'add_date'">
+					ORDER BY b.add_date DESC NULLS LAST
+				</if>
+				<if test="sortField == 'member_id'">
+					ORDER BY a.member_id NULLS LAST
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY b.add_date DESC NULLS LAST
+			</otherwise>
+		</choose>
+	</sql>
+
 	<sql id="lendMemberList">
 		SELECT
 			a.user_idx, b.lend_idx, b.book_idx, TO_CHAR(b.lend_dt, 'YYYY-MM-DD') AS lend_dt, TO_CHAR(b.return_due_dt, 'YYYY-MM-DD') AS return_due_dt,
@@ -138,6 +163,38 @@
 		<include refid="sort"/>
 	</sql>
 
+	<sql id="audioMemberList">
+		SELECT
+		a.member_id, a.user_idx, DECODE(b.device, 'P', 'PC', 'S', '(구)스마트폰', 'A', 'Android', 'I', 'iOS', 'E', '불명') AS device,
+		TO_CHAR(b.add_date, 'YYYY-MM-DD') AS add_date, b.book_idx, c.book_name, c.author_name, c.book_pubname,
+		TO_CHAR(c.book_pubdt, 'YYYY-MM-DD') AS book_pubdt, TO_CHAR(c.book_regdt, 'YYYY-MM-DD') AS book_regdt,
+	    c.com_code, (SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = c.cate_id) AS cate_name,
+		(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = c.parent_id) AS parent_name, c.book_image,
+		CASE WHEN c.library_code = '9999999' THEN '통합' ELSE e.homepage_name END AS library_name,
+		(SELECT comp_name FROM ELIB_COMPANY f where INSTR(f.com_code, c.com_code) > 0) as comp_name,
+		c.library_code, c.format, c.type, DECODE(c.type, 'EBK', '전자책', 'ADO', '오디오북', 'WEB', '온라인강좌') AS type_name
+		FROM
+		ELIB_MEMBER a,
+		ELIB_AUDIO_STAT b,
+		ELIB_BOOK c,
+		CMS_HOMEPAGE e
+		WHERE
+		a.member_id = b.member_id
+		AND b.book_idx = c.book_idx
+		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
+		<if test="type != null and type != ''">
+			AND c.type = #{type}
+		</if>
+		<include refid="search"/>
+		<if test="search_sdt != null and search_sdt != ''">
+			AND #{search_sdt} &lt;= TO_CHAR(b.add_date, 'YYYY-MM-DD')
+		</if>
+		<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(b.add_date, 'YYYY-MM-DD') &lt;= #{search_edt}
+		</if>
+		<include refid="sort3"/>
+	</sql>
+
 	<select id="getLendMemberListAll" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		<include refid="lendMemberList"/>
 	</select>
@@ -145,6 +202,12 @@
 	<select id="getLendMemberList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
 		${pagingTop}
 		<include refid="lendMemberList"/>
+		${pagingBottom}
+	</select>
+
+	<select id="getAudioMemberList" resultType="kr.go.gbelib.app.cms.module.elib.lending.Lending">
+		${pagingTop}
+		<include refid="audioMemberList"/>
 		${pagingBottom}
 	</select>
 
@@ -169,6 +232,30 @@
 		</if>
 		<if test="search_edt != null and search_edt != ''">
 		AND TO_CHAR(b.lend_dt, 'YYYY-MM-DD') &lt;= #{search_edt}
+		</if>
+	</select>
+
+	<select id="getAudioMemberListCnt" resultType="int">
+		SELECT
+		COUNT(*) AS cnt
+		FROM
+		ELIB_MEMBER a,
+		ELIB_AUDIO_STAT b,
+		ELIB_BOOK c,
+		CMS_HOMEPAGE e
+		WHERE
+		a.member_id = b.member_id
+		AND b.book_idx = c.book_idx
+		AND c.library_code = SUBSTR(e.lib_code, 1, 8)
+		<if test="type != null and type != ''">
+			AND c.type = #{type}
+		</if>
+		<include refid="search"/>
+		<if test="search_sdt != null and search_sdt != ''">
+			AND #{search_sdt} &lt;= TO_CHAR(b.add_date, 'YYYY-MM-DD')
+		</if>
+		<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(b.add_date, 'YYYY-MM-DD') &lt;= #{search_edt}
 		</if>
 	</select>
 

@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.elib.lending;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import kr.go.gbelib.app.cms.module.elib.code.ElibCodeService;
 public class LendingController extends BaseController {
 	
 	private final String basePath = "/cms/module/elib/lending/";
+	private final String audioBasePath = "/cms/module/elib/lending/audio/";
 
 	@Autowired
 	private LendingService service;
@@ -36,48 +38,61 @@ public class LendingController extends BaseController {
 	@RequestMapping(value = {"/index.*"})
 	public String book_index(Model model, @PathVariable String menu, Lending lending, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
-		if ( !getSessionIsAdmin(request) ) {
-			lending.setHomepage_id(getAsideHomepageId(request));	
+		if (!getSessionIsAdmin(request)) {
+			lending.setHomepage_id(getAsideHomepageId(request));
 		}
-		
-		if ( StringUtils.isEmpty(lending.getLibrary_code())) {
+
+		if (StringUtils.isEmpty(lending.getLibrary_code())) {
 			lending.setLibrary_code("10000009");
 		}
-		
-		if("LEND".equals(menu)) {
-			if(StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("lend_dt");
-		} else if("RESERVE".equals(menu)) {
+
+		if ("LEND".equals(menu)) {
+			if (StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("lend_dt");
+		} else if ("RESERVE".equals(menu)) {
 			lending.setIsReserve("Y");
-			if(StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("reserve_dt");
+			if (StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("reserve_dt");
+		} else if ("ADO".equals(menu)) {
+			if(StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("add_date");
 		} else {
 			if(StringUtils.equals(lending.getSortField(), "TITLE")) lending.setSortField("lend_dt");
 		}
 		
 		int count = 0;
-		
-		if("Y".equals(lending.getIsReserve())) {
-			count = service.getReserveMemberListCnt(lending);
+		if("ADO".equals(menu)) {
+			count = service.getAudioMemberListCnt(lending);
 		} else {
-			count = service.getLendMemberListCnt(lending);
+			if("Y".equals(lending.getIsReserve())) {
+				count = service.getReserveMemberListCnt(lending);
+			} else {
+				count = service.getLendMemberListCnt(lending);
+			}
 		}
-		
+
 		service.setPaging(model, count, lending);
 		List<Lending> lendingList = null;
-		
-		if("Y".equals(lending.getIsReserve())) {
-			lendingList = service.getReserveMemberList(lending);
+
+		if("ADO".equals(menu)) {
+			lendingList = service.getAudioMemberList(lending);
 		} else {
-			lendingList = service.getLendMemberList(lending);
+			if("Y".equals(lending.getIsReserve())) {
+				lendingList = service.getReserveMemberList(lending);
+			} else {
+				lendingList = service.getLendMemberList(lending);
+			}
 		}
-		
+
 		model.addAttribute("lending", lending);
 		model.addAttribute("obj", lending);
 		model.addAttribute("lendingListCnt", count);
 		model.addAttribute("lendingList", lendingList);
 		model.addAttribute("cateList", elibCategoryService.getCategoryList(new ElibCategory(lending.getType())));
 		model.addAttribute("compList", elibCodeService.getCompList(new ElibCode(lending.getType())));
-		
-		return basePath + "index";
+
+		if("ADO".equals(menu)) {
+			return audioBasePath + "index";
+		} else {
+			return basePath + "index";
+		}
 	}
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)

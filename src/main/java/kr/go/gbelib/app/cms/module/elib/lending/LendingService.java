@@ -42,6 +42,14 @@ public class LendingService extends BaseService {
 		return dao.getLendMemberListCnt(lending);
 	}
 
+	public List<Lending> getAudioMemberList(Lending lending) {
+		return dao.getAudioMemberList(lending);
+	}
+
+	public int getAudioMemberListCnt(Lending lending) {
+		return dao.getAudioMemberListCnt(lending);
+	}
+
 	public List<Lending> getReserveMemberList(Lending lending) {
 		return dao.getReserveMemberList(lending);
 	}

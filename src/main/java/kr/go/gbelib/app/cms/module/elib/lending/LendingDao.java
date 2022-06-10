@@ -11,6 +11,10 @@ public interface LendingDao {
 	
 	public int getLendMemberListCnt(Lending lending);
 
+	public List<Lending> getAudioMemberList(Lending lending);
+
+	public int getAudioMemberListCnt(Lending lending);
+
 	public List<Lending> getReserveMemberList(Lending lending);
 
 	public int getReserveMemberListCnt(Lending lending);

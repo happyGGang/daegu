@@ -16,10 +16,12 @@ $(document).ready(function(e) {
 });
 </script>
 <select class="selectmenu-search" style="width:200px" name="type" id="type${sym}">
+	<c:if test="${noADO eq 'Y'}">
 	<option value="">콘텐츠 선택</option>
 	<option value="EBK" <c:if test="${obj.type == 'EBK'}">selected="selected"</c:if>>전자책</option>
 	<option value="WEB" <c:if test="${obj.type == 'WEB'}">selected="selected"</c:if>>온라인강좌</option>
-	<c:if test="${not empty noADO}">
+	</c:if>
+	<c:if test="${noADO eq 'N'}">
 	<option value="ADO" <c:if test="${obj.type == 'ADO'}">selected="selected"</c:if>>오디오북</option>
 	</c:if>
 	<c:if test="${not empty JRN}">
