@@ -84,7 +84,7 @@ function savePrintSeq(popup_zone_idx, print_seq, index, homepage_id) {
 	var ajaxData = {
 		'popup_zone_idx' : popup_zone_idx,
 		'print_seq' : $('input#print_seq'+index).val(),
-		'homepage_id' : homepage_id
+		'homepage_id' : $('#homepage_id_1').val()
 	};
 	
 	$.ajax({
