@@ -29,13 +29,16 @@ $(function(){
 	});
 
 	$('a#delete').on('click', function(e) {
-		if(confirm('선택된 팝업존을 삭제 하시겠습니까?')) {
-			$('input#popup_zone_idx_1').val($(this).attr('keyValue'));
-
+		if(confirm('선택된 팝업존을 삭제 하시겠습니까?')) {		
+			var ajaxData = {
+					'popup_zone_idx' : $(this).attr('keyValue'),
+					'homepage_id' : $('#homepage_id_1').val()
+				};
+			
 			$.ajax({
 				url : 'delete.do',
 				async : false,
-				data : serializeObject($('#popup_zone_1')),
+				data : ajaxData,
 				method : 'POST',
 				success : function(data) {
 					if(data.valid) {
