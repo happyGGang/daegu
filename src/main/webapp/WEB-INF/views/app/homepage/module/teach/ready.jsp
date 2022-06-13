@@ -10,9 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js"></script>
 <script type="text/javascript">
-function load()
-{
-NetFunnel_Action({},"index.do?menu_idx=30");
+function load(){
+	var homepage = '${homepage.context_path}';
+	NetFunnel_Action({action_id:homepage},"index_real.do?menu_idx=${teach.menu_idx}");
 }
 </script>
 </head>
