@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function load(){
 	var homepage = '${homepage.context_path}';
-	NetFunnel_Action({action_id:homepage},"index_real.do?menu_idx=${teach.menu_idx}");
+	NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&homepage_id=${teach.homepage_id}");
 }
 </script>
 </head>
