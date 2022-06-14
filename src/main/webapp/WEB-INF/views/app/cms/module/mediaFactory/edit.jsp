@@ -87,16 +87,6 @@ $(function() {
 			$('input#apply_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-
-	$('input[name=sms_yn]').on('change', function(e) {
-		var value = $(this).val();
-
-		if (value == 'Y') {
-			$('#sms_contents').removeAttr('disabled');
-		} else {
-			$('#sms_contents').attr('disabled', 'disabled');
-		}
-	})
 	
 });
 </script>
@@ -197,21 +187,6 @@ $(function() {
 			<td>
 				<form:input path="max_apply" class="text" cssStyle="width:30px"/>
 				<em>* 신청수에 제한이 없다면 0을 입력해주세요.</em>
-			</td>
-		</tr>
-		<tr>
-			<th>문자발송여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:radiobutton path="sms_yn" value="Y" label="사용" checked="${mediaFactory.sms_yn eq 'Y' ? 'true':''}"></form:radiobutton>
-				<form:radiobutton path="sms_yn" value="N" label="미사용" checked="${(empty mediaFactory.sms_yn or mediaFactory.sms_yn eq 'N') or mediaFactory.editMode eq 'ADD'  ? 'true':''}"></form:radiobutton>
-				<em>* 신청자 승인시 문자발송 여부를 선택해주세요.</em>
-			</td>
-		</tr>
-		<tr>
-			<th>최대신청팀수(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:textarea path="sms_contents" rows="7" cols="100" cssStyle="width:100%;" disabled="${mediaFactory.sms_yn eq 'N' or empty mediaFactory.sms_yn? 'true':'false'}"/>
-				<em>* 신청자 승인시 발송될 문자메시지를 입력해주세요.</em>
 			</td>
 		</tr>
 	</tbody>

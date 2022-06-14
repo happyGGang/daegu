@@ -47,8 +47,6 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="apply_idx"/>
 <form:hidden path="applicant_tel"/>
-<form:hidden path="mediaFactory_idx"/>
-<form:hidden path="applicant_member_id"/>
 	<table class="type2">
 		<colgroup>
 		<col width="140"/>
