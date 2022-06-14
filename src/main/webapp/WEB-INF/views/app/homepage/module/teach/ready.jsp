@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function load(){
 	var homepage = '${homepage.context_path}';
-	NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&homepage_id=${teach.homepage_id}");
+	NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&viewPage=${teach.viewPage}");
 }
 </script>
 </head>
