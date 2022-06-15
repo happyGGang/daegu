@@ -1192,7 +1192,7 @@ do {
 											<input id="libraryCodes114" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GW"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">작은</span>
-											<label for="libraryCodes114">동천역사작은도서관</label>
+											<label for="libraryCodes114">동촌역사작은도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/donggusm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
@@ -1228,6 +1228,7 @@ do {
 												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
+										<!--
 										<li>
 											<input id="libraryCodes118" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GZ"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
@@ -1238,6 +1239,7 @@ do {
 												<a href="/donggu/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
+										-->
 										<li>
 											<input id="libraryCodes119" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="HK"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
