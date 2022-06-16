@@ -69,9 +69,9 @@
 .library-info-box ul li .info-box{}
 .library-info-box ul li .info-box{display:block;position:relative;border:1px solid #e5e5e5;overflow:hidden;}
 .library-info-box ul li .info-box .tit{border-bottom:1px solid #e5e5e5;}
-.library-info-box ul li .info-box .tit p{font-size:17px;color:#333;padding:20px 0 20px 60px;letter-spacing:-0.5px;}
+.library-info-box ul li .info-box .tit p{font-size:17px;color:#333;padding:20px 0 20px 65px;letter-spacing:-0.5px;}
 	
-.library-info-box ul li .info-box .tit{background-position:3px 8px !important;background-size:60px !important;}
+.library-info-box ul li .info-box .tit{background-position:8px 8px !important;background-size:60px !important;}
 
 .library-info-box ul li .info-box .tit.num01{background:url('/resources/common/img/map/num001.png')no-repeat;}
 .library-info-box ul li .info-box .tit.num02{background:url('/resources/common/img/map/num002.png')no-repeat;}
@@ -98,7 +98,7 @@
 .library-info-box ul li .info-box .tit.num23{background:url('/resources/common/img/map/num023.png')no-repeat;}
 
 .library-info-box ul li .info-box .txt{padding:10px;}
-.library-info-box ul li .info-box .txt p{font-size:14px;color:#666;padding:5px 0 3px 40px;background-position:10px !important;}
+.library-info-box ul li .info-box .txt p{font-size:14px;color:#666;padding:5px 0 3px 45px;background-position:15px 3px !important;}
 .library-info-box ul li .info-box .txt p.add{background:url('/resources/common/img/map/info-add-icon.jpg')no-repeat;}
 .library-info-box ul li .info-box .txt p.tel{background:url('/resources/common/img/map/info-tel-icon.jpg')no-repeat;}
 
@@ -113,10 +113,10 @@
 @media (max-width:650px){
 	.map_wrap{height:350px;}
 	.daegu_map {height:350px;}
-	.library-info-box ul li .info-box .tit{background-size:50px !important;background-position:5px 10px !important;}
+	.library-info-box ul li .info-box .tit{background-size:50px !important;background-position:8px 10px !important;}
 
-	.library-info-box ul li .info-box .tit p{font-size:15px;padding:20px 0 20px 55px;}
-	.library-info-box ul li .info-box .txt p{font-size:12px;}
+	.library-info-box ul li .info-box .tit p{font-size:15px;padding:20px 0 20px 58px;}
+	.library-info-box ul li .info-box .txt p{font-size:12px;padding:5px 0 3px 40px;background-position:10px 3px !important;}
 
 	.library-info-box ul li{width:100%;}
 	.library-info-box ul li:nth-child(odd){margin-right:0;}
