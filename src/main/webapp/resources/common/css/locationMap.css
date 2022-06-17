@@ -1,6 +1,123 @@
-.map_wrap {position:relative;overflow:hidden;width:100%;height:500px;}
+.map_wrap {position:relative;overflow:hidden;width:100%;height:600px;}
+
 .radius_border{border:1px solid #919191;border-radius:5px;}       
+
 .custom_zoomcontrol {position:absolute;top:10px;right:10px;width:36px;height:80px;overflow:hidden;z-index:100;background-color:#f5f5f5;} 
 .custom_zoomcontrol a {display:block;width:36px;height:40px;text-align:center;cursor:pointer;}     
 .custom_zoomcontrol a img {width:15px;height:15px;padding:12px 0;border:none;}             
 .custom_zoomcontrol a:first-child{border-bottom:1px solid #bfbfbf;}            
+
+/* 여행맵 20160216. 20160919. 20170310 */
+.tour2map1{z-index:1;float:left;position:relative;width:100%;height:250px;margin:0 auto 10px;border-radius:3px;background:#d1d7db;overflow:hidden;}
+.tour2map1 img{max-width:none;} /* 20160919 */
+.tour2map1 #daum_map{ /* ★ 맵API 보정 */
+	position:absolute !important;left:0;right:0;top:0;bottom:0;width:100%;height:100%;
+}
+
+/* 맵레이어창 */
+.tour2map1layer1{z-index:100;position:absolute;left:50%;top:50%;
+	width:250px;min-height:180px;
+	margin:-100px 0 0 -120px;
+	padding:0;line-height:1.333;overflow:hidden;
+}
+.tour2map1layer1 img{max-width:100%;} /* 20160919 */
+.tour2map1layer1 .wrap1{display:block;position:relative;padding:0 .6em;border:1px solid #333;border-radius:3px;background:#fff;overflow:hidden;}
+.tour2map1layer1 .a1{display:block;height:100%;text-decoration:none;}
+.tour2map1layer1 .wrap1>.h1{display:block;margin:.666em 30px 0 0;padding:0;color:#333;font-weight:bold;font-size:1.071em;}
+.tour2map1layer1 .f1{display:block;position:relative;width:100%;height:auto;margin:0 auto;padding:0 0 56.25% 0;background:#fff;text-align:center;}
+.tour2map1layer1 .f1 .f1p1{display:block;position:absolute;left:0;right:0;top:0;bottom:0;height:100%;overflow:hidden;}
+.tour2map1layer1 .f1 img{display:block;position:absolute;left:0;top:0;width:100%;height:auto;min-height:100%;margin:0 auto;}
+.tour2map1layer1 .text1{display:block;min-height:1.333em;padding:.666em 0;color:#777;font-size:.835em;overflow:hidden;white-space: pre-line;letter-spacing:0.5px;}
+.tour2map1layer1 .text1 .t1{float:left;width:100%;}
+.tour2map1layer1 .b1.close{float:left;position:absolute;right:0;top:0;width:40px;height:40px;
+	background:transparent;
+	border:0;
+	color:#999;
+	font:normal 40px helvatica,arial,sans-serif;
+	text-decoration:none;
+	line-height:40px;
+	text-align:center;
+}
+
+/* 맵마커.여기 */
+.tour2map1marker1here1{z-index:10;float:left;position:absolute;left:50%;top:50%; /* 맵마커 가리키는 곳 */
+	width:30px;height:36px;
+	margin:-36px 0 0 -15px; /* 가리키는 곳에서 이거 좌상단거리 */
+	background:url(../../img/lib1tour2/ic100mapmarker1here1.png) no-repeat center center;
+	background-size:contain;
+}
+
+/* 맵마커.번호 */
+.tour2map1marker1{z-index:10;float:left;position:absolute;left:50%;top:50%; /* 맵마커 가리키는 곳 */
+	width:30px;height:30px;
+	padding:6px 0 0 0;
+	margin:-36px 0 0 -15px; /* 가리키는 곳에서 이거 좌상단거리 */
+	background:url(../../img/lib1tour2/ic100mapmarker1bg.png) no-repeat center center;background-size:contain;
+	color:#fff;font:bold 16px helvatica,arial,sans-serif;text-align:center;
+	letter-spacing:0;
+	overflow:hidden;
+	text-shadow:0 0 2px rgba(0,0,0,.5);
+}
+
+/* 리스트 */
+.library-info-box{position:relative;margin-top:30px;}
+
+.library-info-box ul{}
+.library-info-box ul li{position:relative;box-sizing:border-box;vertical-align:top;display:inline-block;width:32.5%;margin-bottom:10px !important;}
+.library-info-box ul li.mg{margin:0 0.8%;}
+
+.library-info-box ul li .info-box{}
+.library-info-box ul li .info-box{display:block;position:relative;border:1px solid #e5e5e5;overflow:hidden;}
+.library-info-box ul li .info-box .tit{border-bottom:1px solid #e5e5e5;}
+.library-info-box ul li .info-box .tit p{font-size:17px;color:#333;padding:20px 0 20px 65px;letter-spacing:-0.5px;}
+	
+.library-info-box ul li .info-box .tit{background-position:8px 8px !important;background-size:60px !important;}
+
+.library-info-box ul li .info-box .tit.num01{background:url('/resources/common/img/map/num001.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num02{background:url('/resources/common/img/map/num002.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num03{background:url('/resources/common/img/map/num003.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num04{background:url('/resources/common/img/map/num004.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num05{background:url('/resources/common/img/map/num005.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num06{background:url('/resources/common/img/map/num006.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num07{background:url('/resources/common/img/map/num007.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num08{background:url('/resources/common/img/map/num008.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num09{background:url('/resources/common/img/map/num009.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num10{background:url('/resources/common/img/map/num010.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num11{background:url('/resources/common/img/map/num011.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num12{background:url('/resources/common/img/map/num012.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num13{background:url('/resources/common/img/map/num013.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num14{background:url('/resources/common/img/map/num014.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num15{background:url('/resources/common/img/map/num015.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num16{background:url('/resources/common/img/map/num016.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num17{background:url('/resources/common/img/map/num017.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num18{background:url('/resources/common/img/map/num018.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num19{background:url('/resources/common/img/map/num019.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num20{background:url('/resources/common/img/map/num020.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num21{background:url('/resources/common/img/map/num021.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num22{background:url('/resources/common/img/map/num022.png')no-repeat;}
+.library-info-box ul li .info-box .tit.num23{background:url('/resources/common/img/map/num023.png')no-repeat;}
+
+.library-info-box ul li .info-box .txt{padding:10px;}
+.library-info-box ul li .info-box .txt p{font-size:14px;color:#666;padding:5px 0 3px 45px;background-position:15px 3px !important;}
+.library-info-box ul li .info-box .txt p.add{background:url('/resources/common/img/map/info-add-icon.jpg')no-repeat;}
+.library-info-box ul li .info-box .txt p.tel{background:url('/resources/common/img/map/info-tel-icon.jpg')no-repeat;}
+
+.daegu_map {position:relative;border:1px solid #ebebeb;height:600px;}
+
+@media (max-width:990px){
+	.library-info-box ul li{width:49.5%;}
+	.library-info-box ul li:nth-child(odd){margin-right:0.3%;}
+	.library-info-box ul li.mg{margin:0;}
+}
+
+@media (max-width:650px){
+	.map_wrap{height:350px;}
+	.daegu_map {height:350px;}
+	.library-info-box ul li .info-box .tit{background-size:50px !important;background-position:8px 10px !important;}
+
+	.library-info-box ul li .info-box .tit p{font-size:15px;padding:20px 0 20px 58px;}
+	.library-info-box ul li .info-box .txt p{font-size:12px;padding:5px 0 3px 40px;background-position:10px 3px !important;}
+
+	.library-info-box ul li{width:100%;}
+	.library-info-box ul li:nth-child(odd){margin-right:0;}
+}

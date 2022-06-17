@@ -89,59 +89,59 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>어린이</th>
-    <td>241</td>
-    <td>128</td>
-    <td>83</td>
-    <td>387</td>
-    <td>1,038</td>
-    <td>383</td>
-    <td>126</td>
-    <td>162</td>
-    <td>2,077</td>
-    <td>740</td>
-    <td>5,365</td>
+      <td>241</td>
+      <td>128</td>
+      <td>83</td>
+      <td>387</td>
+      <td>1,038</td>
+      <td>383</td>
+      <td>126</td>
+      <td>162</td>
+      <td>2,077</td>
+      <td>740</td>
+      <td>5,365</td>
     </tr>
     <tr>
       <th>유아</th>
-    <td>60</td>
-    <td>116</td>
-    <td>86</td>
-    <td>441</td>
-    <td>428</td>
-    <td>85</td>
-    <td>90</td>
-    <td>73</td>
-    <td>2,127</td>
-    <td>83</td>
-    <td>3,589</td>
+      <td>60</td>
+      <td>116</td>
+      <td>86</td>
+      <td>441</td>
+      <td>428</td>
+      <td>85</td>
+      <td>90</td>
+      <td>73</td>
+      <td>2,127</td>
+      <td>83</td>
+      <td>3,589</td>
     </tr>
     <tr>
       <th>일반</th>
-    <td>245</td>
-    <td>405</td>
-    <td>145</td>
-    <td>936</td>
-    <td>511</td>
-    <td>804</td>
-    <td>280</td>
-    <td>149</td>
-    <td>2,099</td>
-    <td>431</td>
-    <td>6,005</td>
+      <td>245</td>
+      <td>405</td>
+      <td>145</td>
+      <td>936</td>
+      <td>511</td>
+      <td>804</td>
+      <td>280</td>
+      <td>149</td>
+      <td>2,099</td>
+      <td>431</td>
+      <td>6,005</td>
     </tr>
     <tr>
       <th>합계</th>
-    <td>546</td>
-    <td>649</td>
-    <td>314</td>
-    <td>1,764</td>
-    <td>1,977</td>
-    <td>1,272</td>
-    <td>496</td>
-    <td>384</td>
-    <td>6,303</td>
-    <td>1,254</td>
-    <td>14,959</td>
+      <td>546</td>
+      <td>649</td>
+      <td>314</td>
+      <td>1,764</td>
+      <td>1,977</td>
+      <td>1,272</td>
+      <td>496</td>
+      <td>384</td>
+      <td>6,303</td>
+      <td>1,254</td>
+      <td>14,959</td>
     </tr>
     </tbody>
     </table>
@@ -229,15 +229,63 @@ $('ul.close_day').html(li);
     </table>
   </div>
   <h3>위치안내</h3>
-  <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:100%; height:auto; color:#333; position:relative">
-    <div style="height: 100%;"><a href="https://map.kakao.com/?urlX=868325.0&amp;urlY=652481.0&amp;itemId=2037913572&amp;q=%EC%88%98%EC%84%B1%EA%B5%AC%EB%A6%BD%EB%AC%B4%ED%95%99%EC%88%B2%EB%8F%84%EC%84%9C%EA%B4%80&amp;srcid=2037913572&amp;map_type=TYPE_MAP&amp;from=roughmap" target="_blank"><img class="map" src="//t1.daumcdn.net/roughmap/imgmap/90c5c96721d6cfb7de64d8d465fd3a771e29841852dfc4856845c165d66ae7c0" width="100%" height="auto"></a></div>
+  <link rel="stylesheet" href="/resources/common/css/emap/OpenLayers-6.4.3.css" type="text/css">
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+  <script type="text/javascript" src="/resources/common/js/emap/OpenLayers-6.4.3.js"></script>
+  <script type="text/javascript" src="/resources/common/js/emap/proj4.js"></script>
+  <script type="text/javascript" src="/resources/common/js/emap/wmts_ngiiMap_v6.4.3.js?apikey=2375C203D51981F12172FEAB7D7AFD44"></script>
+  <script>
+  var map1;
+  window.onload = function(){
+  	map1 = new ngii_wmts.map("map1",{mapMode:3});
+  	map1._setMapMode('0');
+  	map1._showpoint(1102109.6226, 1760451.6197,7);
+  }
+  ;
+  </script>
+
+  <div class="mapWrap" style="position:relative;">
+    <div id="map1" style="width:100%;height:500px;"></div>
+    <ul class="map-btn">
+      <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('0');">일반</a></li>
+      <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('1');">색약</a></li>
+      <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('2');">큰글</a></li>
+      <li class="img-li"><a href="javascript:map1.zoomIn();"><img src="/resources/common/img/map-plus-icon.png" alt="지도 확대 버튼" title="지도 확대 버튼"></a></li>
+      <li class="img-li"><a href="javascript:map1.zoomOut();"><img src="/resources/common/img/map-minus-icon.png" alt="지도 축소 버튼" title="지도 축소 버튼"></a></li>
+    </ul>
   </div>
+
   <div class="info_box">
     <p class="info_add">대구광역시 수성구 청수로40길 73-10(지산동)</p>
     <p class="info_tel">053-668-1821</p>
+    <p class="info_fax">053-668-1739</p>
   </div>
-  <div style="text-align:center;">
-    <div class="link_btn02" style="display:inline-block;"> <a href="https://library.daegu.go.kr/yonghak/board/index.do?menu_idx=35&manage_idx=677&board_idx=0&group_idx=0&category1=003&rowCount=10&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&viewPage=1&searchStartDate=2019-12-28&searchEndDate=2020-12-28&search_type=title%2Bcontent">공지사항 바로가기 </a> </div>
-    <div class="link_btn02" style="display:inline-block;"> <a href="/yonghak/module/teach/index.do?menu_idx=100&searchCate1=30&homepage_id=h51">문화강좌 바로가기</a> </div>
-  </div>
+
+  <h3>교통편 안내</h3>
+  <h4>버스 이용</h4>
+  <ul class="con">
+    <li>교통연수원 앞(622m, 도보 9분-휠체어 18분) / 교통연수원 건너(746m, 도보 11분-휠체어 22분) : 204, 403, 449, 814
+    <li>캐슬골드파크(1102동)(619m, 도보 10분-휠체어 20분) / 캐슬골드파크(1504동)(498m, 도보 7분-휠체어 14분) : 100, 100-1, 234, 349, 수성3-1, 순환3, 수성4</li>
+    <li>대우트럼프월드수성 앞(846m, 도보 14분-휠체어 28분) / 대우트럼프월드수성 건너(732m, 도보 11분-휠체어 22분) : 수성3, 수성3-1, 204, 814, 수성1, 수성1-1, 8140</li>
+  </ul>
+  <p class="basic_btn" style="margin-top:0;">
+  <a href="https://businfo.daegu.go.kr:8095/dbms_web/content/businfo/lowfloorbus" class="btn_go newWin" target="_blank" title="저상버스 운행정보 바로가기(새창열림)"> <span>저상버스 운행정보 바로가기</span> <i class="fa fa-external-link"></i></a>
+  </p>
+  <br />
+  <h4>지하철 이용</h4>
+  <ul>
+    <li><span class="ico_subway3">황금역</span>황금역 출구(964m, 도보 16분-휠체어 32분)</li>
+  </ul>
+  <br />
+  <h4>자가용 이용</h4>
+  <ul class="con">
+    <li>수성구청에서 무학숲도서관으로 자가용을 이용해서 오시는 길을 안내해드립니다.</li>
+    <li>수성구청입구에서 출발 → 달구벌대로에서 우회전 → 0.68km 직진 후 우회전 → 1.9km 직진 후 우회전 → 1km 직진 후 북성교회에서 유턴 → 0.14km 직진 후 올리브영에서 우회전 → 0.35km 직진 후 좌회전</li>
+  </ul>
+</div>
+
+<div style="text-align:center;">
+  <div class="link_btn02" style="display:inline-block;"> <a href="https://library.daegu.go.kr/yonghak/board/index.do?menu_idx=35&manage_idx=677&board_idx=0&group_idx=0&category1=003&rowCount=10&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&viewPage=1&searchStartDate=2019-12-28&searchEndDate=2020-12-28&search_type=title%2Bcontent">공지사항 바로가기 </a> </div>
+  <div class="link_btn02" style="display:inline-block;"> <a href="/yonghak/module/teach/index.do?menu_idx=100&searchCate1=30&homepage_id=h51">문화강좌 바로가기</a> </div>
+</div>
 </div>

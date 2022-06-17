@@ -101,108 +101,108 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>일반</th>
-    <td>245</td>
-    <td>484</td>
-    <td>155</td>
-    <td>952</td>
-    <td>335</td>
-    <td>731</td>
-    <td>267</td>
-    <td>201</td>
-    <td>2,719</td>
-    <td>604</td>
-    <td>6,693</td>
-    <td>20.3</td>
+      <td>245</td>
+      <td>484</td>
+      <td>155</td>
+      <td>952</td>
+      <td>335</td>
+      <td>731</td>
+      <td>267</td>
+      <td>201</td>
+      <td>2,719</td>
+      <td>604</td>
+      <td>6,693</td>
+      <td>20.3</td>
     </tr>
     <tr>
       <th>아동</th>
-    <td>738</td>
-    <td>362</td>
-    <td>258</td>
-    <td>1,067</td>
-    <td>1,427</td>
-    <td>362</td>
-    <td>352</td>
-    <td>356</td>
-    <td>5,355</td>
-    <td>1,725</td>
-    <td>12,002</td>
-    <td>36.4</td>
+      <td>738</td>
+      <td>362</td>
+      <td>258</td>
+      <td>1,067</td>
+      <td>1,427</td>
+      <td>362</td>
+      <td>352</td>
+      <td>356</td>
+      <td>5,355</td>
+      <td>1,725</td>
+      <td>12,002</td>
+      <td>36.4</td>
     </tr>
     <tr>
       <th>유아</th>
-    <td>28</td>
-    <td>43</td>
-    <td>7</td>
-    <td>622</td>
-    <td>256</td>
-    <td>52</td>
-    <td>105</td>
-    <td>56</td>
-    <td>2,592</td>
-    <td>152</td>
-    <td>3,913</td>
-    <td>11.9</td>
+      <td>28</td>
+      <td>43</td>
+      <td>7</td>
+      <td>622</td>
+      <td>256</td>
+      <td>52</td>
+      <td>105</td>
+      <td>56</td>
+      <td>2,592</td>
+      <td>152</td>
+      <td>3,913</td>
+      <td>11.9</td>
     </tr>
     <tr>
       <th>영어</th>
-    <td>114</td>
-    <td>3</td>
-    <td>6</td>
-    <td>147</td>
-    <td>245</td>
-    <td>22</td>
-    <td>39</td>
-    <td>1,317</td>
-    <td>1,836</td>
-    <td>52</td>
-    <td>3,781</td>
-    <td>11.5</td>
+      <td>114</td>
+      <td>3</td>
+      <td>6</td>
+      <td>147</td>
+      <td>245</td>
+      <td>22</td>
+      <td>39</td>
+      <td>1,317</td>
+      <td>1,836</td>
+      <td>52</td>
+      <td>3,781</td>
+      <td>11.5</td>
     </tr>
     <tr>
       <th>보존서고 </th>
-    <td>618</td>
-    <td>257</td>
-    <td>94</td>
-    <td>1,012</td>
-    <td>610</td>
-    <td>246</td>
-    <td>178</td>
-    <td>162</td>
-    <td>2,642</td>
-    <td>734</td>
-    <td>6,553</td>
-    <td>19.9</td>
+      <td>618</td>
+      <td>257</td>
+      <td>94</td>
+      <td>1,012</td>
+      <td>610</td>
+      <td>246</td>
+      <td>178</td>
+      <td>162</td>
+      <td>2,642</td>
+      <td>734</td>
+      <td>6,553</td>
+      <td>19.9</td>
     </tr>
     <tr>
       <th>총계(권)</th>
-    <td>1,743</td>
-    <td>1,149</td>
-    <td>520</td>
-    <td>3,800</td>
-    <td>2,873</td>
-    <td>1,413</td>
-    <td>941</td>
-    <td>2,092</td>
-    <td>15,144</td>
-    <td>3,267</td>
-    <td>32,942</td>
-    <td>100</td>
+      <td>1,743</td>
+      <td>1,149</td>
+      <td>520</td>
+      <td>3,800</td>
+      <td>2,873</td>
+      <td>1,413</td>
+      <td>941</td>
+      <td>2,092</td>
+      <td>15,144</td>
+      <td>3,267</td>
+      <td>32,942</td>
+      <td>100</td>
     </tr>
     <tr>
       <th>비율(%)</th>
-    <td>5.3</td>
-    <td>3.5</td>
-    <td>1.6</td>
-    <td>11.5</td>
-    <td>8.7</td>
-    <td>4.3</td>
-    <td>2.9</td>
-    <td>6.4</td>
-    <td>46.0</td>
-    <td>9.9</td>
-    <td>100</td>
-    <td>　</td>
+      <td>5.3</td>
+      <td>3.5</td>
+      <td>1.6</td>
+      <td>11.5</td>
+      <td>8.7</td>
+      <td>4.3</td>
+      <td>2.9</td>
+      <td>6.4</td>
+      <td>46.0</td>
+      <td>9.9</td>
+      <td>100</td>
+      <td>　</td>
     </tr>
     </tbody>
     </table>
@@ -295,92 +295,80 @@ $('ul.close_day').html(li);
     </table>
   </div>
   <h3>위치안내</h3>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
+  <link rel="stylesheet" href="/resources/common/css/emap/OpenLayers-6.4.3.css" type="text/css">
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+  <script type="text/javascript" src="/resources/common/js/emap/OpenLayers-6.4.3.js"></script>
+  <script type="text/javascript" src="/resources/common/js/emap/proj4.js"></script>
+  <script type="text/javascript" src="/resources/common/js/emap/wmts_ngiiMap_v6.4.3.js?apikey=2375C203D51981F12172FEAB7D7AFD44"></script>
+  <script>
+  var map1;
+  window.onload = function(){
+  	map1 = new ngii_wmts.map("map1",{mapMode:3});
+  	map1._setMapMode('0');
+  	map1._showpoint(1101040.1159, 1762603.0005,7);
+  }
+  ;
+  </script>
 
-
-<div class="map_wrap">
-<div id="map" style="position:relative;border:1px solid #ebebeb;height:500px;">
-
-<!-- 지도 확대, 축소 컨트롤 div 입니다 -->
-<div class="custom_zoomcontrol radius_border"> 
-<a href="#" onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></a>  
-<a href="#" onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></a>
-</div>
-<div style="position:absolute;right:10px;bottom:10px;z-index:181818"><a href="https://map.kakao.com/link/to/물망이도서관, 35.85476577,128.6190075" class="btn btn4" target="_blank">길찾기</a></div>
-</div>
-</div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=93baba79f6b6154b2068eb7550666f5f"></script> 
-<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
-	mapOption = { 
-	center: new daum.maps.LatLng(35.85476577,128.6190075), // 지도의 중심좌표
-	level: 2 // 지도의 확대 레벨
-	};
-
-	var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-	// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-	var mapTypeControl = new daum.maps.MapTypeControl();
-
-	// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
-	function setMapType(maptype) { 
-	    var roadmapControl = document.getElementById('btnRoadmap');
-	    var skyviewControl = document.getElementById('btnSkyview'); 
-	    if (maptype === 'roadmap') {
-		map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
-		roadmapControl.className = 'selected_btn';
-		skyviewControl.className = 'btn';
-	    } else {
-		map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
-		skyviewControl.className = 'selected_btn';
-		roadmapControl.className = 'btn';
-	    }
-	}
-
-	// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-	function zoomIn() {
-	    map.setLevel(map.getLevel() - 1);
-	}
-
-	// 지도 확대, 축소 컨트롤에서 축소 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
-	function zoomOut() {
-	    map.setLevel(map.getLevel() + 1);
-	}
-
-	// 마커를 표시할 위치와 title 객체 배열입니다 
-	var positions = [
-	    {
-		title: '물망이도서관', 
-		latlng: new daum.maps.LatLng(35.85476577,128.6190075)
-	    }
-	];
-
-	// 마커 이미지의 이미지 주소입니다
-	var imageSrc = "http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-	    
-	for (var i = 0; i < positions.length; i ++) {
-	    
-	    // 마커 이미지의 이미지 크기 입니다
-	    var imageSize = new daum.maps.Size(24, 35); 
-	    
-	    // 마커 이미지를 생성합니다    
-	    var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize); 
-	    
-	    // 마커를 생성합니다
-	    var marker = new daum.maps.Marker({
-		map: map, // 마커를 표시할 지도
-		position: positions[i].latlng, // 마커를 표시할 위치
-		title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-		image : markerImage // 마커 이미지 
-	    });
-	}
-</script>
-
-
+  <div class="mapWrap" style="position:relative;">
+    <div id="map1" style="width:100%;height:500px;"></div>
+    <ul class="map-btn">
+      <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('0');">일반</a></li>
+      <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('1');">색약</a></li>
+      <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('2');">큰글</a></li>
+      <li class="img-li"><a href="javascript:map1.zoomIn();"><img src="/resources/common/img/map-plus-icon.png" alt="지도 확대 버튼" title="지도 확대 버튼"></a></li>
+      <li class="img-li"><a href="javascript:map1.zoomOut();"><img src="/resources/common/img/map-minus-icon.png" alt="지도 축소 버튼" title="지도 축소 버튼"></a></li>
+    </ul>
+  </div>
 
   <div class="info_box">
     <p class="info_add">대구광역시 수성구 명덕로 443-2(수성동3가) 수성2,3가동 행정복지센터 4층</p>
     <p class="info_tel">053-666-4390</p>
   </div>
+
+  <h3>교통편 안내</h3>
+  <h4>주변 지하철역</h4>
+  <ul>
+    <li><span class="ico_subway3">수성시장</span>4번 출구</li>
+  </ul>
+  <br />
+  <h4>주변 버스정류장<span class="sm_text">버스번호를 클릭하시면 노선도를 보실 수 있습니다.</span></h4>
+  <ul class="bus_list">
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000309000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="234번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">234</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000449000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="323번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">323</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000509000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="413번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">413</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000609005&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="509번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">509</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000649000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="323-1번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">323-1</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000649000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="403번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">403</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000849102&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=0&amp;view_cp_num=N" target="_blank" title="410번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">410</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000909002&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="410-1번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_m">간선<span class="num">410-1</span></span><i class="fa fa-external-link"></i></a></li>
+    <div class="clear"></div>
+  </ul>
+  <ul class="bus_list">
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000309000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="동구1번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_j">지선<span class="num">동구1</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000309000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="동구1-1번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_j">지선<span class="num">동구1-1</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000309000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="순환2번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_j">지선<span class="num">순환2</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000309000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="순환2-1번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_j">지선<span class="num">순환2-1</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/route/mainSec.do?act=list&amp;route_id=3000309000&amp;stop_busyn=N&amp;move_dir=1&amp;d_t_cd=1&amp;view_cp_num=N" target="_blank" title="수성4번 버스 운행경로 보기(새창)" class="newWin"><span class="ico_bus_j">지선<span class="num">수성4</span></span><i class="fa fa-external-link"></i></a></li>
+    <div class="clear"></div>
+  </ul>
+  <p class="basic_btn">
+  <a href="https://businfo.daegu.go.kr:8095/dbms_web/content/businfo/lowfloorbus" class="btn_go newWin" target="_blank" title="저상버스 운행정보 바로가기(새창열림)"> <span>저상버스 운행정보 바로가기</span> <i class="fa fa-external-link"></i></a>
+  </p>
+  <br />
+  <h4>자가용 이용시</h4>
+  <ul class="con">
+    <li>시내방향에서 오시는 경우 : 달구벌대로를 따라 이동 후 삼덕네거리에서 ‘수성교’ 방면으로 약 1.1km 지점 좌회전 한 뒤, 명덕로 방면으로 600m 지점</li>
+    <li>시지, 사월역 오시는 경우 : 달구벌대로로 따라 범어네거리에서 ‘어린이회관’ 방면으로 좌회전 한 뒤, ‘대봉교’ 방면으로 우회전 후 600m 지점</li>
+    <li>지산동 방향에서 오시는 경우 : 지범로로 499m 이동 후, ‘대봉교’ 방면으로 약 3.5km 지점  좌회전 후 600m 지점</li>
+  </ul>
+  <br />
+
+  <h3>휠체어 사용 시 소요시간</h3>
+  <ul class="con">
+    <li>수성3가롯데캐슬 건너(길건너 8분) : 234, 323-1, 413, 509, 동구1-1, 순환2-1</li>
+    <li>수성3가롯데캐슬 앞(5분) : 234, 323, 413, 509, 동구1, 순환2</li>
+    <li>수성시장 앞(길건너 8분) : 403, 410, 수성4</li>
+    <li>수성시장 건너(6분) : 410-1</li>
+  </ul>
 </div>
-<h1></h1>

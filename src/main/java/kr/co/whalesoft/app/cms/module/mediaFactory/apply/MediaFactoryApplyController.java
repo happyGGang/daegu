@@ -15,7 +15,6 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
-import kr.go.gbelib.app.intro.search.LibrarySearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -218,7 +217,6 @@ public class MediaFactoryApplyController extends BaseController {
 			}
 			else if(apply.getEditMode().equals("STATEMODIFY")) {
 				apply.setModify_id(getSessionMemberId(request));
-				apply.setIp(request.getRemoteAddr());
 				service.modifyApplyState(apply);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
