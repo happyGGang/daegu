@@ -513,7 +513,7 @@
 		</table>
 	</div>
 
-	<div style="width: 45%; float: right; text-align: center; margin-top: 50px;">
+	<%--<div style="width: 45%; float: right; text-align: center; margin-top: 50px;">
 		<h1>
 			이용자수(일별누적)
 			<if test="${not empty param.search_sdt}">
@@ -525,7 +525,7 @@
 		</h1>
 		<br/>
 		<table class="type1 center" id="data-table3">
-	<%--
+	&lt;%&ndash;
 			<colgroup>
 				<col width="100"/>
 				<col width="100"/>
@@ -535,7 +535,7 @@
 				<col width="100"/>
 				<col width="100"/>
 			</colgroup>
-	--%>
+	&ndash;%&gt;
 			<thead>
 				<tr>
 					<th>구분</th>
@@ -581,7 +581,7 @@
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['온라인강좌.어린이.남'] + elibStatisticsUniqueSummary['온라인강좌.어린이.여'] + elibStatisticsUniqueSummary['온라인강좌.어린이.불명']}" pattern="#,###" /></th>
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['전자저널.어린이.남'] + elibStatisticsUniqueSummary['전자저널.어린이.여'] + elibStatisticsUniqueSummary['전자저널.어린이.불명']}" pattern="#,###" /></th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자책.어린이.남'] + elibStatisticsUniqueSummary['오디오북.어린이.남'] + elibStatisticsUniqueSummary['온라인강좌.어린이.남'] + elibStatisticsUniqueSummary['전자저널.어린이.남'] +
 							elibStatisticsUniqueSummary['전자책.어린이.여'] + elibStatisticsUniqueSummary['오디오북.어린이.여'] + elibStatisticsUniqueSummary['온라인강좌.어린이.여'] + elibStatisticsUniqueSummary['전자저널.어린이.여'] +
 							elibStatisticsUniqueSummary['전자책.어린이.불명'] + elibStatisticsUniqueSummary['오디오북.어린이.불명'] + elibStatisticsUniqueSummary['온라인강좌.어린이.불명'] + elibStatisticsUniqueSummary['전자저널.어린이.불명']
@@ -621,7 +621,7 @@
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['온라인강좌.청소년.남'] + elibStatisticsUniqueSummary['온라인강좌.청소년.여'] + elibStatisticsUniqueSummary['온라인강좌.청소년.불명']}" pattern="#,###" /></th>
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['전자저널.청소년.남'] + elibStatisticsUniqueSummary['전자저널.청소년.여'] + elibStatisticsUniqueSummary['전자저널.청소년.불명']}" pattern="#,###" /></th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자책.청소년.남'] + elibStatisticsUniqueSummary['오디오북.청소년.남'] + elibStatisticsUniqueSummary['온라인강좌.청소년.남'] + elibStatisticsUniqueSummary['전자저널.청소년.남'] +
 							elibStatisticsUniqueSummary['전자책.청소년.여'] + elibStatisticsUniqueSummary['오디오북.청소년.여'] + elibStatisticsUniqueSummary['온라인강좌.청소년.여'] + elibStatisticsUniqueSummary['전자저널.청소년.여'] +
 							elibStatisticsUniqueSummary['전자책.청소년.불명'] + elibStatisticsUniqueSummary['오디오북.청소년.불명'] + elibStatisticsUniqueSummary['온라인강좌.청소년.불명'] + elibStatisticsUniqueSummary['전자저널.청소년.불명']
@@ -661,7 +661,7 @@
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['온라인강좌.성인.남'] + elibStatisticsUniqueSummary['온라인강좌.성인.여'] + elibStatisticsUniqueSummary['온라인강좌.성인.불명']}" pattern="#,###" /></th>
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['전자저널.성인.남'] + elibStatisticsUniqueSummary['전자저널.성인.여'] + elibStatisticsUniqueSummary['전자저널.성인.불명']}" pattern="#,###" /></th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자책.성인.남'] + elibStatisticsUniqueSummary['오디오북.성인.남'] + elibStatisticsUniqueSummary['온라인강좌.성인.남'] + elibStatisticsUniqueSummary['전자저널.성인.남'] +
 							elibStatisticsUniqueSummary['전자책.성인.여'] + elibStatisticsUniqueSummary['오디오북.성인.여'] + elibStatisticsUniqueSummary['온라인강좌.성인.여'] + elibStatisticsUniqueSummary['전자저널.성인.여'] +
 							elibStatisticsUniqueSummary['전자책.성인.불명'] + elibStatisticsUniqueSummary['오디오북.성인.불명'] + elibStatisticsUniqueSummary['온라인강좌.성인.불명'] + elibStatisticsUniqueSummary['전자저널.성인.불명']
@@ -701,7 +701,7 @@
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['온라인강좌.불명.남'] + elibStatisticsUniqueSummary['온라인강좌.불명.여'] + elibStatisticsUniqueSummary['온라인강좌.불명.불명']}" pattern="#,###" /></th>
 					<th><fmt:formatNumber value="${0 + elibStatisticsUniqueSummary['전자저널.불명.남'] + elibStatisticsUniqueSummary['전자저널.불명.여'] + elibStatisticsUniqueSummary['전자저널.불명.불명']}" pattern="#,###" /></th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자책.불명.남'] + elibStatisticsUniqueSummary['오디오북.불명.남'] + elibStatisticsUniqueSummary['온라인강좌.불명.남'] + elibStatisticsUniqueSummary['전자저널.불명.남'] +
 							elibStatisticsUniqueSummary['전자책.불명.여'] + elibStatisticsUniqueSummary['오디오북.불명.여'] + elibStatisticsUniqueSummary['온라인강좌.불명.여'] + elibStatisticsUniqueSummary['전자저널.불명.여'] +
 							elibStatisticsUniqueSummary['전자책.불명.불명'] + elibStatisticsUniqueSummary['오디오북.불명.불명'] + elibStatisticsUniqueSummary['온라인강좌.불명.불명'] + elibStatisticsUniqueSummary['전자저널.불명.불명']
@@ -712,7 +712,7 @@
 					<th>합계</th>
 					<th>-</th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자책.어린이.남'] + elibStatisticsUniqueSummary['전자책.어린이.여'] + elibStatisticsUniqueSummary['전자책.어린이.불명'] +
 							elibStatisticsUniqueSummary['전자책.청소년.남'] + elibStatisticsUniqueSummary['전자책.청소년.여'] + elibStatisticsUniqueSummary['전자책.청소년.불명'] +
 							elibStatisticsUniqueSummary['전자책.성인.남'] + elibStatisticsUniqueSummary['전자책.성인.여'] + elibStatisticsUniqueSummary['전자책.성인.불명'] +
@@ -720,7 +720,7 @@
 						}" pattern="#,###" />
 					</th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['오디오북.어린이.남'] + elibStatisticsUniqueSummary['오디오북.어린이.여'] + elibStatisticsUniqueSummary['오디오북.어린이.불명'] +
 							elibStatisticsUniqueSummary['오디오북.청소년.남'] + elibStatisticsUniqueSummary['오디오북.청소년.여'] + elibStatisticsUniqueSummary['오디오북.청소년.불명'] +
 							elibStatisticsUniqueSummary['오디오북.성인.남'] + elibStatisticsUniqueSummary['오디오북.성인.여'] + elibStatisticsUniqueSummary['오디오북.성인.불명'] +
@@ -728,7 +728,7 @@
 						}" pattern="#,###" />
 					</th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['온라인강좌.어린이.남'] + elibStatisticsUniqueSummary['온라인강좌.어린이.여'] + elibStatisticsUniqueSummary['온라인강좌.어린이.불명'] +
 							elibStatisticsUniqueSummary['온라인강좌.청소년.남'] + elibStatisticsUniqueSummary['온라인강좌.청소년.여'] + elibStatisticsUniqueSummary['온라인강좌.청소년.불명'] +
 							elibStatisticsUniqueSummary['온라인강좌.성인.남'] + elibStatisticsUniqueSummary['온라인강좌.성인.여'] + elibStatisticsUniqueSummary['온라인강좌.성인.불명'] +
@@ -736,7 +736,7 @@
 						}" pattern="#,###" />
 					</th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자저널.어린이.남'] + elibStatisticsUniqueSummary['전자저널.어린이.여'] + elibStatisticsUniqueSummary['전자저널.어린이.불명'] +
 							elibStatisticsUniqueSummary['전자저널.청소년.남'] + elibStatisticsUniqueSummary['전자저널.청소년.여'] + elibStatisticsUniqueSummary['전자저널.청소년.불명'] +
 							elibStatisticsUniqueSummary['전자저널.성인.남'] + elibStatisticsUniqueSummary['전자저널.성인.여'] + elibStatisticsUniqueSummary['전자저널.성인.불명'] +
@@ -744,7 +744,7 @@
 						}" pattern="#,###" />
 					</th>
 					<th>
-						<fmt:formatNumber value="${0 + 
+						<fmt:formatNumber value="${0 +
 							elibStatisticsUniqueSummary['전자책.어린이.남'] + elibStatisticsUniqueSummary['전자책.어린이.여'] + elibStatisticsUniqueSummary['전자책.어린이.불명'] +
 							elibStatisticsUniqueSummary['전자책.청소년.남'] + elibStatisticsUniqueSummary['전자책.청소년.여'] + elibStatisticsUniqueSummary['전자책.청소년.불명'] +
 							elibStatisticsUniqueSummary['전자책.성인.남'] + elibStatisticsUniqueSummary['전자책.성인.여'] + elibStatisticsUniqueSummary['전자책.성인.불명'] +
@@ -756,7 +756,7 @@
 							elibStatisticsUniqueSummary['온라인강좌.어린이.남'] + elibStatisticsUniqueSummary['온라인강좌.어린이.여'] + elibStatisticsUniqueSummary['온라인강좌.어린이.불명'] +
 							elibStatisticsUniqueSummary['온라인강좌.청소년.남'] + elibStatisticsUniqueSummary['온라인강좌.청소년.여'] + elibStatisticsUniqueSummary['온라인강좌.청소년.불명'] +
 							elibStatisticsUniqueSummary['온라인강좌.성인.남'] + elibStatisticsUniqueSummary['온라인강좌.성인.여'] + elibStatisticsUniqueSummary['온라인강좌.성인.불명'] +
-							elibStatisticsUniqueSummary['온라인강좌.불명.남'] + elibStatisticsUniqueSummary['온라인강좌.불명.여'] + elibStatisticsUniqueSummary['온라인강좌.불명.불명'] + 
+							elibStatisticsUniqueSummary['온라인강좌.불명.남'] + elibStatisticsUniqueSummary['온라인강좌.불명.여'] + elibStatisticsUniqueSummary['온라인강좌.불명.불명'] +
 							elibStatisticsUniqueSummary['전자저널.어린이.남'] + elibStatisticsUniqueSummary['전자저널.어린이.여'] + elibStatisticsUniqueSummary['전자저널.어린이.불명'] +
 							elibStatisticsUniqueSummary['전자저널.청소년.남'] + elibStatisticsUniqueSummary['전자저널.청소년.여'] + elibStatisticsUniqueSummary['전자저널.청소년.불명'] +
 							elibStatisticsUniqueSummary['전자저널.성인.남'] + elibStatisticsUniqueSummary['전자저널.성인.여'] + elibStatisticsUniqueSummary['전자저널.성인.불명'] +
@@ -766,7 +766,7 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
+	</div>--%>
 	<br/>
 	<br/>
 </div>
