@@ -743,6 +743,16 @@ $(function() {
 	         	<th>강의명 (<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="teach_name" class="text" cssStyle="width:70%" maxlength="33"/> <a class="btn btn1 sameTeach-btn">동일강좌 확인</a></td>
         	</tr>
+			<tr>
+				<th>상단 노출 </th>
+				<td colspan="3">
+					<div class="checkbox-original">
+						<form:checkbox id="teach_code_yn" path="teach_code_yn" value="Y"/>
+						<label for="teach_code_yn">상단 노출 여부</label>
+						<em class="info">체크 시 목록 상단에 표시됩니다.</em>
+					</div>
+				</td>
+			</tr>
 	        <tr>
 	         	<th>강의이미지</th>
 	         	<td class="imagePlanFile">

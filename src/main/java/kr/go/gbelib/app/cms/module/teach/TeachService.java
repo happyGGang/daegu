@@ -327,6 +327,24 @@ public class TeachService extends BaseService {
 		}
 		return list;
 	}
+	public List<Teach> getTeachListHomepage(Teach teach) {
+		teach.setSearchCate1(numbersOnly(teach.getSearchCate1()));
+		teach.setSearchCate2(numbersOnly(teach.getSearchCate2()));
+		teach.setSearchCate3(numbersOnly(teach.getSearchCate3()));
+		teach.setGroup_idx_list(numbersOnly(teach.getGroup_idx_list()));
+
+		List<Teach> list = dao.getTeachListHomepage(teach);
+		if (list != null && list.size() > 0) {
+			for (Teach result : list) {
+				result.setTeach_day_arr(result.getTeach_day().split(","));
+				result.setHolidays(dao.getHolidays(result));
+				if (StringUtils.isEmpty(result.getTeacher_name())) {
+					result.setTeacher_name(dao.getTeacherName(result));
+				}
+			}
+		}
+		return list;
+	}
 
 	public List<Teach> getTeachListForAllHomepage(Teach teach) {
 		List<Teach> list = dao.getTeachListForAllHomepage(teach);

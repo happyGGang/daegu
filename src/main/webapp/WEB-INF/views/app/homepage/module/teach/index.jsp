@@ -127,9 +127,18 @@ $(function(){
 			$('tr.status_' + v[i]).show();
 		}
 	});
+
+	$('select#sortType').on('change',function(){
+		$('#teach #search_text').val('');
+		$('#teach #viewPage').val(1);
+		doGetLoad('index_real.do', serializeCustom($('form#teach')));
+	});
+
 });
+
 </script>
 <link rel="stylesheet" href="/resources/common/css/teach.css" />
+<form
 
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
 <%-- 	<form:hidden path="group_idx"/> --%>
@@ -268,6 +277,20 @@ $(function(){
 					</span>
 					<p class="m_br"></p>
 					<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
+				</div>
+
+				<div class="srch_category_box" >
+					<span class="ml10"> 정렬 기준 :
+					<form:select path="sortField" cssClass="new_select_box">
+						<form:option value="start_join_date">접수시작일</form:option>
+						<form:option value="end_join_date">접수종료일</form:option>
+					</form:select>
+						<p class="m_br"></p>
+					<form:select path="sortType" cssClass="new_select_box">
+						<form:option value="ASC">오름차순</form:option>
+						<form:option value="DESC">내림차순</form:option>
+					</form:select>
+					</span>
 				</div>
 			</div>
 			<div class="srch_day_box">

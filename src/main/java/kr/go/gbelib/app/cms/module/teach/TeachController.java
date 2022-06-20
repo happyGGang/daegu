@@ -101,6 +101,11 @@ public class TeachController extends BaseController {
 //		if ( !getSessionIsAdmin(request) ) {
 //			teach.setHomepage_id(getAsideHomepageId(request));
 //		}
+		String sortField = teach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			teach.setSortField("");
+			teach.setSortType("");
+		}
 
 		if ((getAsideHomepageId(request).equals("h37") || getAsideHomepageId(request).equals("h49") || getAsideHomepageId(request).equals("h45") || getAsideHomepageId(request).equals("h53"))) {
 			Homepage sessionHomepageInfo = getSessionHomepageInfo(request);

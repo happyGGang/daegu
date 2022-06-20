@@ -91,13 +91,15 @@ public class Teach extends PagingUtils {
 	private String member_yn = "N";  //정회원전용여부
 	private String teach_age_type = "adult";  //강의유형(성인강의, 어린이강의)
 	private String use_yn = "Y";  //사용여부
-	private int print_seq;
+	private int print_seq;	//출력 순서
 	private String certificate_yn = "N";  //수료증발급여부
 	private String survey_idx;  //설문조사IDX
 	private String add_date;  //등록일
 	private String add_id;  //등록자
 	private String mod_date;  //수정일
 	private String modify_id;  //수정자
+
+	private String teach_code_yn; // 강좌 상단 노출 여부
 
 	private String family_yn = "N"; //가족 프로그램 여부(부모동의)
 	private String family_count_yn = "N"; //가족 프로그램 여부
@@ -1596,5 +1598,12 @@ public class Teach extends PagingUtils {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
+
+	public String getTeach_code_yn() {
+		return teach_code_yn;
+	}
+
+	public void setTeach_code_yn(String teach_code_yn) {
+		this.teach_code_yn = teach_code_yn;
+	}
 }

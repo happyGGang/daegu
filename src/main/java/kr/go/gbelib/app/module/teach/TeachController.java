@@ -2,10 +2,7 @@ package kr.go.gbelib.app.module.teach;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -104,6 +101,13 @@ public class TeachController extends BaseController{
 		}
 
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
+
+		String sortField = teach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			teach.setSortField("");
+			teach.setSortType("");
+		}
+
 		if ( menuOne != null ) {
 			model.addAttribute("html", menuHtmlService.getLastMenuHtmlOne(new MenuHtml(homepage.getHomepage_id(), menuOne.getMenu_idx())));
 		}
@@ -238,7 +242,7 @@ public class TeachController extends BaseController{
 				teach.setHomepage_id(homepage.getHomepage_id());
 			}
 			model.addAttribute("teach", teach);
-			model.addAttribute("teachList", teachService.getTeachListForUser(teach));
+			model.addAttribute("teachList", teachService.getTeachListHomepage(teach));
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx
 			
 			// 분류별 검색
@@ -262,13 +266,23 @@ public class TeachController extends BaseController{
 			return String.format(basePath, homepage.getFolder()) + "index";
 		}
 	}
-	
+
 	@RequestMapping(value = {"/index.*"})
 	public String ready(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		String sortField = teach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			teach.setSortField("");
+			teach.setSortType("");
+		}
+
+
+
 		model.addAttribute("teach", teach);
 		return String.format(basePath, homepage.getFolder()) + "ready";
 	}
+
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {

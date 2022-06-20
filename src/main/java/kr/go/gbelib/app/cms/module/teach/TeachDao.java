@@ -26,6 +26,8 @@ public interface TeachDao  {
 
 	public List<Teach> getTeachListForUser(Teach teach);
 
+	public List<Teach> getTeachListHomepage(Teach teach);
+
 	public List<Teach> getTeachListForAllHomepage(Teach teach);
 
 	public Teach getTeachDetailForUser(Teach teach);
