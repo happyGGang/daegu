@@ -5,7 +5,7 @@
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/cmsTag.tld" %>
 <link rel="stylesheet" type="text/css" 	href="/resources/common/css/culture-list.css" />
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js"></script>
-<script type="text/javascript" src="/resources/common/netFunnel/netfunnel_skin.js"></script>
+<script type="text/javascript" src="/resources/common/netFunnel/test_skin.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
