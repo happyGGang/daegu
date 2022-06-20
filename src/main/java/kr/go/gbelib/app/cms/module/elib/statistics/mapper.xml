@@ -780,7 +780,7 @@
 		WHEN sex = '1' THEN '남'
 		ELSE '불명'
 		END AS sex,
-		SUM(lend_cnt)
+		SUM(lend_cnt) AS lend_cnt
 
 		FROM (
 		SELECT
