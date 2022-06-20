@@ -99,7 +99,7 @@ public class Teach extends PagingUtils {
 	private String mod_date;  //수정일
 	private String modify_id;  //수정자
 
-	private String teach_code_yn; // 강좌 상단 노출 여부
+	private String teach_code_yn = "N"; // 강좌 상단 노출 여부
 
 	private String family_yn = "N"; //가족 프로그램 여부(부모동의)
 	private String family_count_yn = "N"; //가족 프로그램 여부
