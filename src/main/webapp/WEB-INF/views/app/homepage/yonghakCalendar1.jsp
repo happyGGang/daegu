@@ -229,13 +229,58 @@ $('ul.close_day').html(li);
     </table>
   </div>
   <h3>위치안내</h3>
-  <div style="font:normal normal 400 12px/normal dotum, sans-serif; width:100%; height:auto; color:#333; position:relative">
-    <div style="height: 100%;"><a href="https://map.kakao.com/?urlX=865655.0&amp;urlY=645547.0&amp;itemId=12364926&amp;q=%ED%8C%8C%EB%8F%99%EB%8F%84%EC%84%9C%EA%B4%80&amp;srcid=12364926&amp;map_type=TYPE_MAP&amp;from=roughmap" target="_blank"><img class="map" src="//t1.daumcdn.net/roughmap/imgmap/7b0723edb6d2359b38b180f8b82fb26473f04ea195b405fe2b43da2dffdc0790" width="100%" height="auto" ></a></div>
-  </div>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
+
+<link rel="stylesheet" href="/resources/common/css/emap/OpenLayers-6.4.3.css" type="text/css">
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+<script type="text/javascript" src="/resources/common/js/emap/OpenLayers-6.4.3.js"></script>
+<script type="text/javascript" src="/resources/common/js/emap/proj4.js"></script>
+<script type="text/javascript" src="/resources/common/js/emap/wmts_ngiiMap_v6.4.3.js?apikey=2375C203D51981F12172FEAB7D7AFD44"></script>
+<script>
+var map1;
+window.onload = function(){
+	map1 = new ngii_wmts.map("map1",{mapMode:3});
+	map1._setMapMode('0');
+	map1._showpoint(1101018.5015, 1757687.1205,7);
+}
+;
+</script>
+
+<div class="mapWrap" style="position:relative;">
+  <div id="map1" style="width:100%;height:500px;"></div>
+  <ul class="map-btn">
+    <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('0');">일반</a></li>
+    <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('1');">색약</a></li>
+    <li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('2');">큰글</a></li>
+    <li class="img-li"><a href="javascript:map1.zoomIn();"><img src="/resources/common/img/map-plus-icon.png" alt="지도 확대 버튼" title="지도 확대 버튼"></a></li>
+    <li class="img-li"><a href="javascript:map1.zoomOut();"><img src="/resources/common/img/map-minus-icon.png" alt="지도 축소 버튼" title="지도 축소 버튼"></a></li>
+  </ul>
+</div>
+
   <div class="info_box">
     <p class="info_add">대구광역시 수성구 파동로3길 62 파동평생학습센터 1층</p>
     <p class="info_tel">053-668-1801</p>
   </div>
+
+  <h3>버스 이용</h3>
+  <h4>2차대자연맨션건너(162m, 도보 2분-휠체어 4분)</h4>
+  <ul class="con">
+    <li>240, 304, 405, 413, 449, 가창2, 0</li>
+  </ul>
+  <h4>2차대자연맨션앞(185m, 도보 2분-휠체어 4분)</h4>
+  <ul class="con">
+    <li>240, 304, 405, 413, 449, 가창2, 0</li>
+	<p class="basic_btn">
+    <a href="https://businfo.daegu.go.kr:8095/dbms_web/content/businfo/lowfloorbus" class="btn_go newWin" target="_blank" title="저상버스 운행정보 바로가기(새창열림)"> <span>저상버스 운행정보 바로가기</span> <i class="fa fa-external-link"></i></a>
+    </p>
+  </ul>
+
+  <h3>버스 이용</h3>
+  <h4>수성구청에서 파동도서관으로 자가용을 이용해서 오시는 길을 안내해드립니다.</h4>
+  <ul class="con">
+    <li>수성구청 입구에서 출발 → ‘달구벌대로’방면으로 우회전 → 0.43km 직진 후 수성구청역에서 유턴 → 0.8km 직진 후 범어네거리에서 ‘어린이회관, 수성구민운동장’방면으로 좌회전 → 3.2km 직진 후 두산오거리에서 ‘파동’방면으로 우회전 → 1.4km 직진 후 ‘청도, 가창’방면으로 좌회전 → 2.2km 직진 후 우회전 → 71m 직진 후 ‘파동로3길’방면으로 좌회전 → 60m 직진 후 수성구립 파동도서관 도착</li>
+  </ul>
+
   <div style="text-align:center;">
     <div class="link_btn02" style="display:inline-block;"> <a href="https://library.daegu.go.kr/yonghak/board/index.do?menu_idx=35&manage_idx=677&board_idx=0&group_idx=0&category1=002&rowCount=10&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&viewPage=1&searchStartDate=2019-12-28&searchEndDate=2020-12-28&search_type=title%2Bcontent">공지사항 바로가기 </a> </div>
     <div class="link_btn02" style="display:inline-block;"> <a href="/yonghak/module/teach/index.do?menu_idx=100&searchCate1=30&homepage_id=h51">문화강좌 바로가기</a> </div>
