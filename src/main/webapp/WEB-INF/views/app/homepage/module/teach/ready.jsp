@@ -9,6 +9,7 @@
 <title>NetFUNNEL Wait Page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js"></script>
+<script type="text/javascript" src=/resources/common/netFunnel/test_skin.js></script>
 <script type="text/javascript">
 function load(){
 	var homepage = '${homepage.context_path}';

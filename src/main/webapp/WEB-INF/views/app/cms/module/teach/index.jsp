@@ -162,8 +162,14 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	$('select#sortField').on('change',submit);
+	$('select#sortType').on('change',submit);
 
 });
+function submit(e) {
+	e.preventDefault();
+	$('#teachListForm').submit();
+}
 </script>
 <form:form id="hiddenForm" modelAttribute="teach" action="save.do">
 	<form:hidden path="editMode" value="DELETE"/>
@@ -230,6 +236,15 @@ $(function() {
 
 		검색 결과 : 총 ${teachListCount}건
 		<div class="button">
+				<form:select path="sortField" cssClass="selectmenu">
+					<form:option value="start_join_date">접수시작일</form:option>
+					<form:option value="end_join_date">접수종료일</form:option>
+				</form:select>
+
+				<form:select path="sortType" cssClass="selectmenu">
+					<form:option value="ASC">오름차순</form:option>
+					<form:option value="DESC">내림차순</form:option>
+				</form:select>
 			<span>대분류 :
 				<form:select path="large_category_idx">
 					<form:option class="all" value="0" label="전체" />
@@ -269,24 +284,26 @@ $(function() {
 	<!-- 교육소식 관리 table -->
 	<table class="type1 center">
 		<colgroup>
+			<col width="30" />
 			<col width="50" />
 			<col width="50" />
 			<col width="120" />
-			<col width=""/>
+			<col width="100"/>
 			<col width="100" />
 			<col width="100" />
 			<col width="200" />
 			<col width="120" />
 			<col width="100" />
-			<col width="100" />
-			<col width="100" />
-			<col width="100" />
-			<col width="150" />
+			<col width="90" />
+			<col width="90" />
+			<col width="90" />
+			<col width="120" />
 		</colgroup>
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="checkAll"></th>
 				<th>번호</th>
+				<th>상단노출여부</th>
 				<th>강의분류</th>
 				<th>강의명</th>
 				<th>강의계획서</th>
@@ -309,6 +326,7 @@ $(function() {
 						<form:checkbox path="teach_idx_arr" value="${i.teach_idx}" class="teach_idx_arr"/>
 					</td>
 					<td>${teach.listRowNum - status.index}</td>
+					<td>${i.teach_code_yn}</td>
 					<td>${i.large_category_name}<br/>${i.group_name}<br/>${i.category_name}</td>
 					<td>
 						${i.teach_name}

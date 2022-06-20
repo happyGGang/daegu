@@ -608,7 +608,12 @@ public class IndexController extends BaseController {
 
 	private String doIndexProc(Model model, HttpServletRequest request, Board board) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
+		Teach indexteach = new Teach();
+		String sortField = indexteach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			indexteach.setSortField("");
+			indexteach.setSortType("");
+		}
 		String filePath = "";
 
 		if (homepage != null) {

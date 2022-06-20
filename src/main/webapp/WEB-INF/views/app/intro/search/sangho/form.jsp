@@ -122,7 +122,7 @@ $(function() {
 					<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
-						<form:option value="127005">성서도서관</form:option>
+						<!-- <form:option value="127005">성서도서관</form:option> -->
 						<form:option value="127002">달서어린이도서관</form:option>
 						<form:option value="127001">도원도서관</form:option>
 						<form:option value="127012">본리도서관</form:option>
