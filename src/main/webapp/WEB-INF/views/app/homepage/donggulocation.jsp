@@ -28,12 +28,13 @@
 
 <div class="map_wrap">
 	<div id="daegu_map" class="daegu_map">
-	<!-- 지도 확대, 축소 컨트롤 div 입니다
-	<div class="custom_zoomcontrol radius_border"> 
-	<a href="#" onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></a>  
-	<a href="#" onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></a>
-	</div>
-	 -->
+		<!-- 지도 확대, 축소 컨트롤 div 입니다
+		<div class="custom_zoomcontrol radius_border"> 
+		<a href="#" onclick="zoomIn()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_plus.png" alt="확대"></a>  
+		<a href="#" onclick="zoomOut()"><img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/ico_minus.png" alt="축소"></a>
+		</div>
+		 -->
+		<div class="custom_mapcontrol"><a href="/dgportal/donggu/donggumap.html" target="_blank">&nbsp;</a></div>
 	</div>
 </div>
 
@@ -43,7 +44,7 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num01">
-					<p>동부도서관</p>
+					<p>대구광역시립동부도서관</p>
 				</div>
 				<div class="txt">
 					<p class="add">동구 신암북로 11길 54</p>
@@ -55,7 +56,7 @@
 		<li class="mg">
 			<div class="info-box">
 				<div class="tit num02">
-					<p>2ㆍ28기념학생도서관</p>
+					<p>대구2ㆍ28기념학생도서관</p>
 				</div>
 				<div class="txt">
 					<p class="add">동구 금호강변로 360</p>
@@ -67,7 +68,7 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num03">
-					<p>안심도서관</p>
+					<p>대구안심도서관</p>
 				</div>
 				<div class="txt">
 					<p class="add">동구 아양로41길 56</p>
@@ -79,7 +80,7 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num04">
-					<p>신천도서관</p>
+					<p>대구신천도서관</p>
 				</div>
 				<div class="txt">
 					<p class="add">동구 동부로6길 65</p>
@@ -324,13 +325,13 @@ jQuery(function($){
 		optionss.x='35.8901537';
 		optionss.y='128.6216009';
 
-		daegu_map_data.push({idx:'59',title:'동부도서관', tel : '053-231-2200', point:{x:'35.8901537',y:'128.6216009'}, address:'대구광역시 동구 신암북로 11길 54',no:'1' });
+		daegu_map_data.push({idx:'59',title:'대구광역시립동부도서관', tel : '053-231-2200', point:{x:'35.8901537',y:'128.6216009'}, address:'대구광역시 동구 신암북로 11길 54',no:'1' });
 	
-		daegu_map_data.push({idx:'58',title:'2ㆍ28기념학생도서관', tel : '053-980-2600', point:{x:'35.8905698',y:'128.6337372'}, address:'대구광역시 동구 금호강변로 360',no:'2' });
+		daegu_map_data.push({idx:'58',title:'대구2ㆍ28기념학생도서관', tel : '053-980-2600', point:{x:'35.8905698',y:'128.6337372'}, address:'대구광역시 동구 금호강변로 360',no:'2' });
 	
-		daegu_map_data.push({idx:'57',title:'안심도서관', tel : '053-231-2841', point:{x:'35.864646',y:'128.7025332'}, address:'대구광역시 동구 아양로41길 56',no:'3' });
+		daegu_map_data.push({idx:'57',title:'대구안심도서관', tel : '053-231-2841', point:{x:'35.864646',y:'128.7025332'}, address:'대구광역시 동구 아양로41길 56',no:'3' });
 	
-		daegu_map_data.push({idx:'56',title:'신천도서관', tel : '053-980-2600', point:{x:'35.871436',y:'128.617776'}, address:'대구광역시 동구 동부로6길 65',no:'4' });
+		daegu_map_data.push({idx:'56',title:'대구신천도서관', tel : '053-980-2600', point:{x:'35.871436',y:'128.617776'}, address:'대구광역시 동구 동부로6길 65',no:'4' });
 	
 		daegu_map_data.push({idx:'55',title:'신암2동작은도서관', tel : '053-662-3633', point:{x:'35.8799695',y:'128.6127068'}, address:'대구광역시 동구 신성로 56(신암2동행정복지센터 2층)',no:'5' });
 	
