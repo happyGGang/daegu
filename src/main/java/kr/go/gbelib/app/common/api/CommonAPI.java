@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -76,6 +77,22 @@ public class CommonAPI {
 		connection.setReadTimeout(10000);
 		return connection;
 	}
+	
+	public static HttpsURLConnection initHttpsConn(String urlStr) throws Exception {
+		URL url = new URL(urlStr);
+		
+		HttpsURLConnection connection = null;
+		connection = (HttpsURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Accept-Charset", "UTF-8");
+		connection.setRequestProperty("Accept-Language", "utf-8,ko;q=0.8,en-us;q=0.5,en;q=0.3");
+		connection.setRequestProperty("User-Agent", "Mozilla/5.0"); // https를 호출시 user-agent 필요
+		
+		connection.setDoOutput(true);
+		connection.setConnectTimeout(10000);
+		connection.setReadTimeout(10000);
+		return connection;
+	}
 
 	/**
 	 * 인천 통합도서관 KCMS API
@@ -118,7 +135,7 @@ public class CommonAPI {
 		}
 		return resultMap;
 	}
-	
+
 	/**
 	 * 대구통합도서관 BOOK SEACH API
 	 * @author YONGJU 2021. 10. 27.
@@ -942,23 +959,22 @@ public class CommonAPI {
 
 	}
 
-	
 	/**
 	 * 대구 통합도서관 희망도서 바로대출 서비스 API
-	 * @author YONGJU 2017. 12. 13.
+	 * @author HWAN 2022. 06. 22.
 	 * @param requestName - 요청명
 	 * @param param 파라미터
 	 * @return
 	 */
 	public static Map<String, Object> libraryapi(String requestName, Map<String, Object> param) {
-		HttpURLConnection connection = null;
+		HttpsURLConnection connection = null;
 		Map<String, Object> resultMap = null;
 		try {
 			String apiUrl = LIBRARY_API_URL + requestName;
-			connection = initConn(apiUrl);
+			connection = initHttpsConn(apiUrl);
 
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
 
 			if ( param != null ) {
 				Set<String> keys = param.keySet();

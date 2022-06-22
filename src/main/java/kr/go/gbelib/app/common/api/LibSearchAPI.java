@@ -2603,9 +2603,9 @@ public class LibSearchAPI {
 		int dup_cnt = (Integer) sendLibraryapi.get("dup_cnt");
 
 		if (dup_cnt > 0) {
-			return new ApiResponse(true);
-		} else {
 			return new ApiResponse(false, String.valueOf(sendLibraryapi.get("result_msg")));
+		} else {
+			return new ApiResponse(true);
 		}
 
 	}
