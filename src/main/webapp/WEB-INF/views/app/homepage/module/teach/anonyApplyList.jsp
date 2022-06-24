@@ -198,7 +198,8 @@ $(function(){
 							</c:if>
 							<li>
 								<div>
-									<label>수강생</label> : ${i.student_name} ( ${i.student_sex eq 'M' ? '남' : '여'} )
+									<label>수강생</label> : ${i.student_name}
+<%-- 									<label>수강생</label> : ${i.student_name} ( ${i.student_sex eq 'M' ? '남' : '여'} ) --%>
 									<c:if test="${i.teach_status eq '2' and i.wait_num != 0}">
 									<span>${i.wait_num}번째 참여자로 신청되었습니다.</span>
 									</c:if>
