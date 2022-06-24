@@ -209,6 +209,19 @@ $(function(){
 			</div>
 		</c:when>
 
+		<c:when test="${homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '29'}">
+			<div class="tab_menu on">
+				<ul class="no6">
+					<li><a href="#tabCon0" data-hid="h72">도원</a></li>
+					<li><a href="#tabCon1" data-hid="h67">성서</a></li>
+					<li><a href="#tabCon2" data-hid="h68">본리</a></li>
+					<li><a href="#tabCon3" data-hid="h69">달서가족문화</a></li>
+					<li><a href="#tabCon4" data-hid="h66">달서어린이</a></li>
+					<li><a href="#tabCon5" data-hid="h70">달서영어</a></li>
+				</ul>
+			</div>
+		</c:when>
+
 
 
 	</c:choose>
