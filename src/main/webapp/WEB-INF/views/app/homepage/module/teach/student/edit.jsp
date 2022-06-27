@@ -588,6 +588,8 @@ $(function() {
 	$(document).on("keyup", "input:text[numberOnly]", function() {
 		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 	});
+
+	
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 
@@ -1036,7 +1038,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			<c:if test="${teach.age_info_yn eq 'Y'}">
 			<tr>
 				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
-				<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true"/></td>
+				<c:choose>
+					<c:when test="${teach.teach_age_type eq 'infants' }">
+						<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>개월</td>
+					</c:when>
+					<c:otherwise>
+						<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true"/></td>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 			</c:if>
 			<c:if test="${teach.remark_yn eq 'Y'}">
