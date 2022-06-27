@@ -69,8 +69,6 @@ $(function(){
 	$('a#search_btn').on('click', function(e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
-		var hid = $(this).data('hid');
-		$('input#homepage_id_1').val(hid);
 		doGetLoad('index.do', serializeCustom($('form#teach')));
 
 	});
@@ -128,8 +126,12 @@ $(function(){
 			$('tr.status_' + v[i]).show();
 		}
 	});
-
 	$('select#sortType').on('change',function(){
+		$('#teach #search_text').val('');
+		$('#teach #viewPage').val(1);
+		doGetLoad('index_real.do', serializeCustom($('form#teach')));
+	});
+	$('select#sortField').on('change',function(){
 		$('#teach #search_text').val('');
 		$('#teach #viewPage').val(1);
 		doGetLoad('index_real.do', serializeCustom($('form#teach')));
@@ -296,11 +298,13 @@ $(function(){
 				<div class="srch_category_box" >
 					<span class="ml10"> 정렬 기준 :
 					<form:select path="sortField" cssClass="new_select_box">
+						<form:option value="">전체</form:option>
 						<form:option value="start_join_date">접수시작일</form:option>
 						<form:option value="end_join_date">접수종료일</form:option>
 					</form:select>
 						<p class="m_br"></p>
 					<form:select path="sortType" cssClass="new_select_box">
+						<form:option value="">정렬기준</form:option>
 						<form:option value="ASC">오름차순</form:option>
 						<form:option value="DESC">내림차순</form:option>
 					</form:select>

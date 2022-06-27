@@ -162,14 +162,8 @@ $(function() {
 		
 		e.preventDefault();
 	});
-	$('select#sortField').on('change',submit);
-	$('select#sortType').on('change',submit);
 
 });
-function submit(e) {
-	e.preventDefault();
-	$('#teachListForm').submit();
-}
 </script>
 <form:form id="hiddenForm" modelAttribute="teach" action="save.do">
 	<form:hidden path="editMode" value="DELETE"/>
@@ -236,15 +230,6 @@ function submit(e) {
 
 		검색 결과 : 총 ${teachListCount}건
 		<div class="button">
-				<form:select path="sortField" cssClass="selectmenu">
-					<form:option value="start_join_date">접수시작일</form:option>
-					<form:option value="end_join_date">접수종료일</form:option>
-				</form:select>
-
-				<form:select path="sortType" cssClass="selectmenu">
-					<form:option value="ASC">오름차순</form:option>
-					<form:option value="DESC">내림차순</form:option>
-				</form:select>
 			<span>대분류 :
 				<form:select path="large_category_idx">
 					<form:option class="all" value="0" label="전체" />
