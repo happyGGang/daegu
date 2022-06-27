@@ -77,7 +77,8 @@ $(function(){
 		(homepage.context_path eq 'beomeo' and teach.searchCate1 eq '17') or
 		(homepage.context_path eq 'yonghak' and teach.searchCate1 eq '17') or
 		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '16') or
-		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '17')}">
+		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '17') or
+		(homepage.context_path eq 'dalseolib' and teach.searchCate1 eq '29')}">
 	var a = '${fn:escapeXml(param.homepage_id)}';
 	if (a == '') {
 		a = '${fn:escapeXml(teach.homepage_id)}';
