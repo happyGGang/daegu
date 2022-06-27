@@ -601,7 +601,7 @@ $(function() {
 		var value = $('input[name="teach_age_type"]:checked').val();
 		if (value == "infants") {
 			$('.limit_text1').text("개월 이상");
-			$('.limit_text2').text("개울 이하");
+			$('.limit_text2').text("개월 이하");
 		}else {
 			$('.limit_text1').text("세 이상");
 			$('.limit_text2').text("세 이하");
