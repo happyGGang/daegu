@@ -971,25 +971,25 @@ $(function() {
 								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
 									<c:choose>
 										<c:when test="${teach.teach_age_type eq 'infants' }">
-											<span class="limit_text1">개월 이상</span>~ 
+											<span class="limit_text1" style="display: inline-block;">개월 이상</span> ~
 										</c:when>									
 										<c:otherwise>
-											<span class="limit_text1">세 이상</span>
+											<span class="limit_text1" style="display: inline-block;">세 이상</span>
 										</c:otherwise>
 									</c:choose>
 						  		<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="3"/>
 						  			<c:choose>
 										<c:when test="${teach.teach_age_type eq 'infants' }">
-											<span class="limit_text2">개월 이하</span> 
+											<span class="limit_text2" style="display: inline-block;">개월 이하</span> 
 										</c:when>									
 										<c:otherwise>
-											<span class="limit_text2">세 이하</span>
+											<span class="limit_text2" style="display: inline-block;">세 이하</span>
 										</c:otherwise>
 									</c:choose>
 							</c:when>
 							<c:otherwise>
-								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text1"></p>~
-					  			<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text2"></p>
+								: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >세 이상</p> ~
+					  			<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">세 이하 </p>
 							</c:otherwise>
 						</c:choose>
 					</div>
