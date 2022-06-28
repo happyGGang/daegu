@@ -3,6 +3,7 @@ package kr.go.gbelib.app.module.student;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -370,6 +371,18 @@ public class StudentController extends BaseController {
 					}
 				} else {
 					student.setModify_id(getSessionMemberId(request));
+				}
+				
+				if (teachOne.getTeach_age_type().equals("infants") && teachOne.getTeach_age_type().equals("OLD")) {
+					String[] limitValue = teachOne.getTeach_join_limit_value().split(",");
+					if (Integer.parseInt(limitValue[0]) <= Integer.parseInt(student.getStudent_age()) && Integer.parseInt(limitValue[1]) >= Integer.parseInt(student.getStudent_age())) {
+						
+					}
+					else  {
+					res.setValid(false);
+					res.setMessage(String.format("해당강좌는 %s 개월 이상 %s 개월 이하 만 신청 가능합니다.", limitValue[0], limitValue[1]));
+					return res;
+					}
 				}
 				
 				service.updateStudent(student);
