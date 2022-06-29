@@ -948,7 +948,7 @@ $(function() {
 						<div class="end" style="padding:7px 0;"></div>
 						</c:when>
 						<c:when test="${homepage.context_path eq 'dalseolib'}">
-						<p style="text-align:left;font-size:100%;padding:5px 0 10px;height:auto;">* 성서도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(6/18 09:00 ~ 6/28 18:00)를 안내드리오니, 많은 양해 부탁드립니다.(성서도서관 소장자료만 해당)</p>
+						<!--<p style="text-align:left;font-size:100%;padding:5px 0 10px;height:auto;">* 성서도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(6/18 09:00 ~ 6/28 18:00)를 안내드리오니, 많은 양해 부탁드립니다.(성서도서관 소장자료만 해당)</p>-->
 						<div id="libraryList" class="libraryList">
 							<div>
 								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>

@@ -29,10 +29,10 @@ $('ul.close_day').html(li);
   <div class="time_box">
     <ul>
       <li class="book13 mb10" style="margin-right:20px;">
-      <div> <span>평일 09:00 ~ 18:00</span> </div>
+      <div> <span>월~금 09:00 ~ 18:00</span> </div>
       </li>
       <li class="book11 mb10">
-      <div> <span>주말 09:00 ~ 17:00</span> </div>
+      <div> <span>토 09:00 ~ 17:00</span> </div>
       </li>
       <li class="book08" style="width:100%;">
       <div>
@@ -275,14 +275,14 @@ window.onload = function(){
     </p>
   </ul>
 
-  <h3>버스 이용</h3>
+  <h3>자가용 이용</h3>
   <h4>수성구청에서 파동도서관으로 자가용을 이용해서 오시는 길을 안내해드립니다.</h4>
   <ul class="con">
     <li>수성구청 입구에서 출발 → ‘달구벌대로’방면으로 우회전 → 0.43km 직진 후 수성구청역에서 유턴 → 0.8km 직진 후 범어네거리에서 ‘어린이회관, 수성구민운동장’방면으로 좌회전 → 3.2km 직진 후 두산오거리에서 ‘파동’방면으로 우회전 → 1.4km 직진 후 ‘청도, 가창’방면으로 좌회전 → 2.2km 직진 후 우회전 → 71m 직진 후 ‘파동로3길’방면으로 좌회전 → 60m 직진 후 수성구립 파동도서관 도착</li>
   </ul>
 
-  <div style="text-align:center;">
+  <!-- <div style="text-align:center;">
     <div class="link_btn02" style="display:inline-block;"> <a href="https://library.daegu.go.kr/yonghak/board/index.do?menu_idx=35&manage_idx=677&board_idx=0&group_idx=0&category1=002&rowCount=10&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&_boardIdxArray=on&viewPage=1&searchStartDate=2019-12-28&searchEndDate=2020-12-28&search_type=title%2Bcontent">공지사항 바로가기 </a> </div>
     <div class="link_btn02" style="display:inline-block;"> <a href="/yonghak/module/teach/index.do?menu_idx=100&searchCate1=30&homepage_id=h51">문화강좌 바로가기</a> </div>
-  </div>
+  </div> -->
 </div>

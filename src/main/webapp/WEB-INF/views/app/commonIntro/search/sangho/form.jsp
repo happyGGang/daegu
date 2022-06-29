@@ -45,7 +45,7 @@ $(function() {
 <!-- /contents-title-->
 
 <!--범어-->
-<c:if test="${homepage.context_path eq 'beomeo'}">
+<c:if test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
 	<h3>상호대차 이송 절차</h3>
 	<ul class="con">
 		<li>도서의 이송은 화요일~토요일 운행됩니다.</li>
@@ -63,11 +63,11 @@ $(function() {
 		  </caption>
 		  <colgroup>
 		  <col width="">
-		  <col width="16%">
-		  <col width="16%">
-		  <col width="16%">
-		  <col width="16%">
-		  <col width="16%">
+		  <col width="15%">
+		  <col width="15%">
+		  <col width="15%">
+		  <col width="15%">
+		  <col width="25%">
 		  </colgroup>
 		  <thead>
 			<tr>
@@ -80,30 +80,36 @@ $(function() {
 			</tr>
 		  </thead>
 		  <tbody>
-			<tr>
-			  <th>접수 기준</th>
-			  <td>월 24:00</td>
-			  <td>화 24:00</td>
-			  <td>화 24:00</td>
-			  <td>화 24:00</td>
-			  <td>화 24:00</td>
-			</tr>
-			<tr>
-			  <th>자료 이송</th>
-			  <td>화</td>
-			  <td>수</td>
-			  <td>목</td>
-			  <td>금</td>
-			  <td>토</td>
-			</tr>
-			<tr>
-			  <th>이용 가능</th>
-			  <td>화, 수, 목</td>
-			  <td>수, 목, 금</td>
-			  <td>목, 금, 토</td>
-			  <td>금, 토, 일</td>
-			  <td>일, 화, 수</td>
-			</tr>
+		  <tr>
+			<th>접수 기준</th>
+			<td>월    24:00</td>
+			<td>화    24:00</td>
+			<td>수    24:00</td>
+			<td>목    24:00</td>
+			<td>금    24:00</td>
+		  </tr>
+		  <tr>
+			<th>자료 이송</th>
+			<td>화</td>
+			<td>수</td>
+			<td>목</td>
+			<td>금</td>
+			<td>토</td>
+		  </tr>
+		  <tr>
+			<th rowspan="3">이용 가능</th>
+			<td rowspan="3">화, 수, 목</td>
+			<td rowspan="3">수, 목, 금</td>
+			<td rowspan="3">목, 금, 토</td>
+			<td rowspan="3">금, 토, 일</td>
+			<td>일, 화, 수<br />(범어)</td>
+		  </tr>
+		  <tr>
+			<td>토, 일, 화<br />(용학, 고산, 무학숲)</td>
+		  </tr>
+		  <tr>
+			<td>토, 월, 화<br />(책숲길, 물망이, 파동, 사월역)</td>
+		  </tr>
 		  </tbody>
 		</table>
 	</div>
@@ -189,7 +195,7 @@ $(function() {
 					<c:when test="${homepage.context_path eq 'dalseolib'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
-						<!-- <form:option value="127005">성서도서관</form:option> -->
+						<form:option value="127005">성서도서관</form:option>
 						<form:option value="127002">달서어린이도서관</form:option>
 						<form:option value="127001">도원도서관</form:option>
 						<form:option value="127012">본리도서관</form:option>
