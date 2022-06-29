@@ -736,9 +736,9 @@
 
 
 
-							<li>
+							<!-- <li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_GJ" value="GJ" label="태전1동 작은도서관" />
-							</li>
+							</li> -->
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_GL" value="GL" label="산격1동 작은도서관" />
 							</li>
@@ -818,7 +818,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_GK" value="GK" label="학산작은도서관" />
 							</li>
-
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AK" value="AK" label="학생문화센터" />
+							</li>
 
 
 
