@@ -282,6 +282,55 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 	.tablink.col2 li{width:96%}
 }
 
+.tab-menu2,
+.tabmenu2{padding-bottom:20px}
+.tab-menu2>ul{padding:10px 0 0}
+.tab-menu2>ul,
+.tabmenu2>ul{border-bottom:1px solid #1a518b;padding-left:1px}
+.tab-menu2 li,
+.tabmenu2 li{display:inline-block;zoom:1;*display:inline;vertical-align:bottom}
+.tab-menu2 li a,
+.tabmenu2 li a{position:relative;z-index:1;display:block;background:#fafafa;border:1px solid #d2d2d2;border-bottom-width:0;padding:8px 11px 9px;font-weight:bold;color:#2f3743;margin:0 0 0 -1px}
+.tab-menu2 li a:hover,
+.tab-menu2 li a:focus,
+.tabmenu2 li a:hover,
+.tabmenu2 li a:focus{background:#f1f1f1}
+.tab-menu2 li.active a,
+.tabmenu2 li.active a{color:#fff;z-index:2;background:#3661c4;border-color:#3661c4}
+.tab-menu2>ul{border:0}
+.tab-menu2 li a{font-weight:normal;margin:2px;border-bottom-width:1px;padding:6px 17px 7px;color:#888}
+.tab-menu2 li.active a{font-weight:bold;color:#222;background:#fff;color:#1f5d97}
+.tab-menu2.tab2 li{width:50%}
+.tabmenu2.tab3 li,
+.tab-menu2.tab3 li{width:33.33%}
+.tabmenu2.tab3>ul{border:0;overflow:visible}
+.tabmenu2.tab3>ul li a{border-bottom-width:1px;margin-top:-1px}
+.tabmenu2.tab4 li{width:50%}
+.tabmenu2.tab4>ul{border:0}
+.tabmenu2.tab4>ul li a{border-bottom-width:1px;margin-top:-1px}
+.tabmenu2.tab2 ul{overflow:hidden}
+.tabmenu2.tab2 li{width:20%}
+.tabmenu2.tab2 li a{border-bottom-width:1px;margin-bottom:-1px}
+@media all and (max-width:1000px){
+	.tabmenu2 ul{overflow:hidden}
+	.tabmenu2 li a{border-bottom-width:1px;margin-bottom:-1px}
+	.tabmenu2 li{width:33.33%}
+	.tab-menu2.tab3 li{width:50%}
+	.tabmenu2.tab3 li a{margin-bottom:0}
+}
+@media all and (max-width:900px){
+	.tabmenu2.tab3 li{width:50%}
+}
+@media all and (max-width:767px){
+	.tabmenu2.tab2 li{width:25%}
+}
+@media all and (max-width:580px){
+	.tabmenu2 li{width:50%}
+	.tabmenu2 li a{padding-left:15px;padding-right:15px}
+	.tab-menu2.tab2 li,
+	.tabmenu2.tab3 li{width:100%}
+}
+
 /*책바다 이용방법*/
 .img-box{border:1px solid #e1e1e1; background:#f8f8f8; text-align:center; padding-bottom:20px;padding:30px 30px 40px 30px;}
 .img-box2{border:1px solid #e1e1e1;text-align:center; padding-bottom:20px;padding:30px 30px 40px 30px;}
