@@ -40,6 +40,7 @@
 
 
 			doAjaxPost($('#reqHopeForm'));
+			location.reload();
 		});
 
 		$('#not-save-btn').on('click', function(e) {
