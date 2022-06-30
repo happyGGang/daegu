@@ -220,26 +220,26 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 	}
 
 /* 탭메뉴 */
-.tab-menu,
+.tab-menu, .tabmenu1-2,
 .tabmenu{padding-bottom:20px}
 .tab-menu>ul{padding:10px 0 0}
-.tab-menu>ul,
+.tab-menu>ul, .tabmenu1-2>ul,
 .tabmenu>ul{border-bottom:1px solid #1a518b;padding-left:1px}
-.tab-menu li,
+.tab-menu li, .tabmenu1-2 li,
 .tabmenu li{display:inline-block;zoom:1;*display:inline;vertical-align:bottom}
-.tab-menu li a,
+.tab-menu li a, .tabmenu1-2 li a,
 .tabmenu li a{position:relative;z-index:1;display:block;background:#fafafa;border:1px solid #d2d2d2;border-bottom-width:0;padding:8px 11px 9px;font-weight:bold;color:#2f3743;margin:0 0 0 -1px}
 .tab-menu li a:hover,
 .tab-menu li a:focus,
-.tabmenu li a:hover,
+.tabmenu li a:hover, .tabmenu1-2 li a:hover, .tabmenu1-2 li a:focus,
 .tabmenu li a:focus{background:#f1f1f1}
-.tab-menu li.active a,
+.tab-menu li.active a, .tabmenu1-2 li.active a,
 .tabmenu li.active a{color:#fff;z-index:2;background:#3661c4;border-color:#3661c4}
 .tab-menu>ul{border:0}
 .tab-menu li a{font-weight:normal;margin:2px;border-bottom-width:1px;padding:6px 17px 7px;color:#888}
 .tab-menu li.active a{font-weight:bold;color:#222;background:#fff;color:#1f5d97}
 .tab-menu.tab2 li{width:50%}
-.tabmenu.tab3 li,
+.tabmenu.tab3 li
 .tab-menu.tab3 li{width:33.33%}
 .tabmenu.tab3>ul{border:0;overflow:visible}
 .tabmenu.tab3>ul li a{border-bottom-width:1px;margin-top:-1px}
@@ -250,9 +250,9 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 .tabmenu.tab2 li{width:20%}
 .tabmenu.tab2 li a{border-bottom-width:1px;margin-bottom:-1px}
 @media all and (max-width:1000px){
-	.tabmenu ul{overflow:hidden}
-	.tabmenu li a{border-bottom-width:1px;margin-bottom:-1px}
-	.tabmenu li{width:33.33%}
+	.tabmenu ul, .tabmenu1-2 ul{overflow:hidden}
+	.tabmenu li a, .tabmenu1-2 li a{border-bottom-width:1px;margin-bottom:-1px}
+	.tabmenu li, .tabmenu1-2 li{width:33.33%}
 	.tab-menu.tab3 li{width:50%}
 	.tabmenu.tab3 li a{margin-bottom:0}
 }
@@ -263,11 +263,12 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 	.tabmenu.tab2 li{width:25%}
 }
 @media all and (max-width:580px){
-	.tabmenu li{width:50%}
-	.tabmenu li a{padding-left:15px;padding-right:15px}
+	.tabmenu li, .tabmenu1-2 li{width:50%}
+	.tabmenu li a. .tabmenu1-2 li a{padding-left:15px;padding-right:15px}
 	.tab-menu.tab2 li,
 	.tabmenu.tab3 li{width:100%}
 }
+
 .tabCon{position:fixed;right:5000px;padding:0 0 15px}
 .tabCon.active{position:static;right:inherit}
 
