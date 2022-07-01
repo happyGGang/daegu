@@ -1554,6 +1554,15 @@ public class BoardController extends BaseController {
 //			if (isBoardAdmin(board, request)) {
 //
 //			}
+			SupportMember loginSupport = sessionLoginSupport(request);
+			boolean supportAdmin = false;
+			if(loginSupport != null && !supportAdmin){
+				if(!loginSupport.getMember_id().equals(boardOne.getAdd_id())) {
+					res.setValid(false);
+					res.setMessage("관리자 혹은 본인만 삭제 할수있습니다.");
+					return res;
+				}
+			}
 			
 			try {
 				checkAuth("D", model, request);
