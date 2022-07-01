@@ -84,7 +84,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">대구광역시 중구 남산로1길 42, 남산4동 행정복지센터 2층</p>
-					<p class="tel">대구광역시 중구 동덕로 38길 47</p>
+					<p class="tel">053-661-3765</p>
 				</div>
 			</div>
 		</li>

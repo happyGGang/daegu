@@ -399,8 +399,8 @@ do {
 								</div>
 							</div>
 							<div class="banner-box4">
-								<!-- <homepageTag:banner bannerList="${bannerList}"/> -->
-								<ul class="banner-roll">
+								<homepageTag:banner bannerList="${bannerList}"/>
+								<!-- <ul class="banner-roll">
 								<li>
 								<span>
 								<a href="http://www.daegu.go.kr/intro.jsp" target="_blank">
@@ -456,7 +456,8 @@ do {
 								<li>
 								<span>
 								<a href="http://www.kpipa.or.kr/main/main.do" target="_blank">
-								<img src="/data/banner/h34/1602739450899" alt="한국출판문화산업진흥원"/></a></span></li></ul>
+								<img src="/data/banner/h34/1602739450899" alt="한국출판문화산업진흥원"/></a></span></li>
+								</ul> -->
 							</div>
 						</div>
 					</div>

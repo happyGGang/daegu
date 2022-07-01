@@ -216,7 +216,7 @@ jQuery(function($){
 	daegu_map_data.push({idx:'51',title:'비산7동작은도서관', tel : '053-663-3649', point:{x:'35.8858973495298',y:'128.553897616805'}, address:'대구광역시 서구 서대구로63안길 30-22(비산동)',no:'9' });
 	daegu_map_data.push({idx:'49',title:'<span style="font-size:85%;">새마을문고대구서구지부작은도서관</span>', tel : '053-663-3865', point:{x:'35.867994',y:'128.544266'}, address:'대구광역시 서구 평리로35길 90-6(영어도서관 2층)',no:'10' });
 	daegu_map_data.push({idx:'48',title:'서구청작은도서관', tel : '053-663-3637', point:{x:'35.8723219470535',y:'128.559289496989'}, address:'대구광역시 서구 국채보상로 257(평리동)',no:'11' });
-	daegu_map_data.push({idx:'47',title:'달성토성마을다락방작은도서관', tel : '053-663-3645', point:{x:'35.8733150060675',y:'128.575372901347'}, address:'대구광역시 서구 국채보상로83길 21(비산2.3동)',no:'12' });
+	daegu_map_data.push({idx:'47',title:'<span style="font-size:95%;">달성토성마을다락방작은도서관</span>', tel : '053-663-3645', point:{x:'35.8733150060675',y:'128.575372901347'}, address:'대구광역시 서구 국채보상로83길 21(비산2.3동)',no:'12' });
 
 	daegu_map = new map_app();
 	

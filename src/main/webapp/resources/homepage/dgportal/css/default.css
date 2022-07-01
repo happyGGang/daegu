@@ -23,7 +23,7 @@ a:focus{color:#2b74c0}
 .tnb .util li:nth-child(n+3){padding-right:15px;}
 /*.tnb .util li a {font-family:'Malgun Gothic';display:block;color:#fff;font-size:15px;font-weight:bold;}*/
 
-h1.web-logo a {display:block;background:url('../img/dgportal_logo_b.png') no-repeat center center;width:240px;height:60px;font-size:0;}
+h1.web-logo a {display:block;background:url('../img/dgportal_logo_b.png') no-repeat center center;width:255px;height:60px;font-size:0;}
 h1.mobile-logo {display:none;}
 .Gnb .g-menu a.last-box_w {display:none;}
 .Gnb .g-menu a.last-box_b {display:block;}
