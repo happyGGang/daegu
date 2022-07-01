@@ -28,7 +28,7 @@ $(function() {
 						<label class="first th1">행사일자</label>
 						<span class="important td1">
 							<c:if test="${calendarManage.start_date eq calendarManage.end_date}">
-								${calendarManage.start_date}
+								${calendarManage.start_date} ${calendarManage.start_time}~${calendarManage.end_time}
 							</c:if>
 							<c:if test="${calendarManage.start_date ne calendarManage.end_date}">
 								${calendarManage.start_date} ~ ${calendarManage.end_date}
