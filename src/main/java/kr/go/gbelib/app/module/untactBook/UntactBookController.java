@@ -177,7 +177,7 @@ public class UntactBookController extends BaseController {
 		//휴관일 예약 불가(회차 반복일이 하루일경우)
 		Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMDD");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         //TODO 회차 반복일이 하루가 아니라면 수정필요
         cal.add(Calendar.DATE, 1);
         
