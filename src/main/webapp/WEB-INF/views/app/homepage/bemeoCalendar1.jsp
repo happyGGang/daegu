@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.5.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.6.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -104,60 +104,60 @@ $('ul.close_day').html(li);
     <td>485</td>
     <td>666</td>
     <td>219</td>
-    <td>1,457</td>
+    <td>1,462</td>
     <td>318</td>
-    <td>1,517</td>
+    <td>1,522</td>
     <td>473</td>
     <td>252</td>
-    <td>4,432</td>
-    <td>776</td>
-    <td>10,595</td>
-    <td>32.2</td>
+    <td>4,435</td>
+    <td>779</td>
+    <td>10,611</td>
+    <td>32.0</td>
     </tr>
     <tr>
       <th>아동</th>
-    <td>746</td>
+    <td>745</td>
     <td>265</td>
     <td>115</td>
-    <td>804</td>
+    <td>803</td>
     <td>1,149</td>
-    <td>266</td>
+    <td>267</td>
     <td>251</td>
     <td>273</td>
-    <td>3,782</td>
-    <td>1,269</td>
-    <td>8,920</td>
-    <td>27.1</td>
+    <td>3,784</td>
+    <td>1,272</td>
+    <td>8,924</td>
+    <td>26.9</td>
     </tr>
     <tr>
       <th>유아</th>
-    <td>67</td>
+    <td>68</td>
     <td>54</td>
     <td>19</td>
-    <td>893</td>
+    <td>895</td>
     <td>618</td>
     <td>104</td>
     <td>67</td>
     <td>34</td>
-    <td>2,957</td>
+    <td>2,962</td>
     <td>25</td>
-    <td>4,838</td>
-    <td>14.7</td>
+    <td>4,846</td>
+    <td>14.6</td>
     </tr>
     <tr>
       <th>영어</th>
-    <td>1</td>
+    <td>2</td>
     <td>1</td>
     <td>3</td>
-    <td>155</td>
+    <td>157</td>
     <td>161</td>
     <td>18</td>
-    <td>41</td>
-    <td>845</td>
-    <td>1,274</td>
+    <td>42</td>
+    <td>854</td>
+    <td>1,452</td>
     <td>37</td>
-    <td>2,536</td>
-    <td>7.7</td>
+    <td>2,727</td>
+    <td>8.2</td>
     </tr>
     <tr>
       <th>보존서고 </th>
@@ -172,21 +172,21 @@ $('ul.close_day').html(li);
     <td>2,327</td>
     <td>534</td>
     <td>6,029</td>
-    <td>18.3</td>
+    <td>18.2</td>
     </tr>
     <tr>
       <th>총계(권)</th>
-    <td>1,463</td>
+    <td>1,464</td>
     <td>1,148</td>
     <td>432</td>
-    <td>4,424</td>
+    <td>4,432</td>
     <td>3,043</td>
-    <td>2,186</td>
-    <td>1,052</td>
-    <td>1,757</td>
-    <td>14,772</td>
-    <td>2,641</td>
-    <td>32,918</td>
+    <td>2,192</td>
+    <td>1,053</td>
+    <td>1,766</td>
+    <td>14,960</td>
+    <td>2,647</td>
+    <td>33,137</td>
     <td>100</td>
     </tr>
     <tr>
@@ -199,7 +199,7 @@ $('ul.close_day').html(li);
     <td>6.6</td>
     <td>3.2</td>
     <td>5.3</td>
-    <td>44.9</td>
+    <td>45.1</td>
     <td>8.0</td>
     <td>100</td>
     <td>　</td>
@@ -207,7 +207,7 @@ $('ul.close_day').html(li);
     </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.5.31. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.6.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
