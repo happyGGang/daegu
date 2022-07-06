@@ -24,8 +24,6 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
 
-<h3>지도</h3>
-
 <div class="map_wrap">
 	<div id="daegu_map" class="daegu_map">
 		<!-- 지도 확대, 축소 컨트롤 div 입니다

@@ -297,6 +297,8 @@
 
 .librarySearch {float:left;position:relative;width:650px;padding:0;margin:0;box-sizing:border-box;overflow:hidden;text-align:left;}
 .librarySearch .name {background:url('../img/map-icon.png') no-repeat left center;font-size:35px;font-weight:bold;color:#2e2e2e;padding:10px 0 10px 40px;border-bottom:1px solid #c7cac9;}
+.librarySearch .libraryInfo{position:relative;}
+.librarySearch .libraryInfo a.detail-map-btn{position:absolute;top:15px;right:20px;font-size:14px;color:#333;letter-spacing:-0.5px;font-weight:bold;border:1px solid rgba(0,0,0,0.5);border-radius:3px;background:url('../img/map-icon-sm-b.png')no-repeat 85% 9px;padding:7px 43px 5px 18px;}
 .librarySearch .libraryInfo .selection01 {margin:15px 0;}
 .librarySearch .libraryInfo .selection01 label {font-size:17px;}
 .librarySearch .libraryInfo .comment {text-align:right;padding-bottom:10px;padding-right: 30px;}
@@ -842,6 +844,7 @@
 	#main2 .search-area .main2-box.right-box {float:none;display:block;width:90%;margin:0 auto;}
 	.main2-box div.searchArea-box {display:block;padding-top:5px;}
 	.librarySearch {float:none;width:100%;}
+	.librarySearch .libraryInfo a.detail-map-btn{right:0;}
 
 	#main2 .search-area .main-box input {padding-left:20px;font-size:17px;}
 	#main2 .search-area .main-box input {height:70px;line-height:70px;}
@@ -902,6 +905,7 @@
 	#main6 h2.title {font-size: 23px;line-height: normal;}
 	#main6 .tit_text {font-size: 14px;/*letter-spacing:-1.5px;*/}
 	.librarySearch .name {font-size:25px;}
+	.librarySearch .libraryInfo a.detail-map-btn{font-size:12px;top:10px;right:0;}
 
 	#main1 .popZone {width:525px;margin:0 auto;}
 	#main1 .popZone ul li a img {width:260px;height:370px;}
@@ -947,7 +951,7 @@
 
 	#main2 .search-area .main-box {margin:10px auto 0;}
 	.libraryInfo h3.name {font-size:17px;margin-top:5px;background-size:5%;padding: 3% 0 2% 6%}
-	.librarySearch .libraryInfo .comment img{width: 35%;}
+	/*.librarySearch .libraryInfo .comment img{width: 35%;}*/
 	.librarySearch .libraryInfo .comment{padding: 0 10px 5px 0;}
 
     #main6{padding: 0px 0 30px 0}
@@ -981,6 +985,8 @@
 }
 
 @media all and (max-width:550px){
+	.librarySearch .libraryInfo a.detail-map-btn{top:5px;}
+
 	#main6 .mIcon ul li a {font-size: 13px;}
 	#main6 .mBtn ul li {display:inline-block;border:1px solid #b9b9ba;width:24%;margin-right:1%;}
 }
@@ -1004,6 +1010,8 @@
 }
 
 @media all and (max-width:425px){
+	.librarySearch .libraryInfo a.detail-map-btn{top:3px;padding:5px 33px 3px 12px;background-position:88% 6px;}
+
 	#main4 .main4_wrap .recommand-box .book li {width:160px;height:230px;margin:20px 5px 0 5px;}
 	#main4 .main4_wrap .recommand-box .book li a img {width:160px;height:230px;}
 

@@ -738,6 +738,14 @@ do {
 										<div class="cont">
 												<ul>
 												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/88" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu13.png" alt="대구의 봄"></div>
+														<p class="book-title">대구의 축제</p>
+														<p class="book-desc">다시 찾아온 대구의 축제</p>
+														<p class="reg-date">2022-07-01</p>
+													</a>
+												</li>
+												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/87" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu12.png" alt="대구의 봄"></div>
 														<p class="book-title">대구의 봄</p>
@@ -1045,6 +1053,7 @@ do {
 
 								<div id="lib1" class="libraryInfo">
 									<h3 class="name">동구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/donggulocation.do?menu_idx=90" title="동구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll1" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll1">전체</label> 
 										<input id="libraryCodesSi1" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi1">시립</label> 
@@ -1307,6 +1316,7 @@ do {
 
 								<div id="lib2" class="libraryInfo" style="display:none;">
 									<h3 class="name">서구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/seogulocation.do?menu_idx=91" title="서구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll2" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll2">전체</label> 
 										<input id="libraryCodesSi2" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi2">시립</label> 
@@ -1446,6 +1456,7 @@ do {
 
 								<div id="lib3" class="libraryInfo" style="display:none;">
 									<h3 class="name">남구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/namgulocation.do?menu_idx=92" title="남구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll3" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll3">전체</label> 
 										<input id="libraryCodesSi3" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi3">시립</label> 
@@ -1504,6 +1515,7 @@ do {
 
 								<div id="lib4" class="libraryInfo" style="display:none;">
 									<h3 class="name">북구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/bukgulocation.do?menu_idx=93" title="북구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll4" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll4">전체</label> 
 										<input id="libraryCodesSi4" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi4">시립</label> 
@@ -1645,6 +1657,7 @@ do {
 
 								<div id="lib5" class="libraryInfo" style="display:none;">
 									<h3 class="name">수성구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/suseonggulocation.do?menu_idx=95" title="수성구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll5" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll5">전체</label> 
 										<input id="libraryCodesSi5" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi5">시립</label> 
@@ -1753,6 +1766,7 @@ do {
 
 								<div id="lib6" class="libraryInfo" style="display:none;">
 									<h3 class="name">중구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/junggulocation.do?menu_idx=94" title="중구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll6" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll6">전체</label> 
 										<input id="libraryCodesSi6" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi6">시립</label> 
@@ -1872,6 +1886,7 @@ do {
 
 								<div id="lib7" class="libraryInfo" style="display:none;">
 									<h3 class="name">달서구</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/dalseogulocation.do?menu_idx=96" title="달서구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll7" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll7">전체</label> 
 										<input id="libraryCodesSi7" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi7">시립</label> 
@@ -1997,7 +2012,7 @@ do {
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
-										<li>
+										<!-- <li>
 											<input id="libraryCodes712" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FW"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">작은</span>
@@ -2006,7 +2021,7 @@ do {
 												<a href="https://library.daegu.go.kr/intro/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/dalseolib/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
-										</li>
+										</li> -->
 										<li>
 											<input id="libraryCodes713" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FX"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
@@ -2043,6 +2058,7 @@ do {
 
 								<div id="lib8" class="libraryInfo" style="display:none;">
 									<h3 class="name">달성군</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/dalseonggunlocation.do?menu_idx=97" title="달성군 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
 										<input id="libraryCodesAll8" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll8">전체</label> 
 										<input id="libraryCodesSi8" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi8">시립</label> 
@@ -2329,6 +2345,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/88" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu13.png" alt="대구의 봄"></div>
+								<h3 class="book-title">대구의 축제</h3>
+								<p class="book-desc">다시 찾아온 대구의 축제</p>
+								<p class="reg-date">2022-07-01</p>
+							</a>
+						</li>						
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/87" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu12.png" alt="대구의 봄"></div>
