@@ -1301,6 +1301,11 @@ $(function() {
 						<form:radiobutton path="disable_holi" value="Y" label="사용"/>
 						<form:radiobutton path="disable_holi" value="N" label="미사용"/>
 					</div>
+					<div>
+						휴강일 달력 표시 여부
+						<form:radiobutton path="disable_holi_calendar" value="Y" label="사용"/>
+						<form:radiobutton path="disable_holi_calendar" value="N" label="미사용"/>
+					</div>
 					
 					<div class="ui-state-highlight" style="clear: both;">
 						<em>* '이달의 행사' 메뉴에서 '(휴강)강좌명' 으로 표시됩니다.<br/>* Ctrl+클릭 시 다중선택 가능합니다.<br/>*  표시안함여부를 사용함으로 바꾸면 '이달의 행사'메뉴에서 '(강좌)강좌명'으로 표시됩니다.</em>

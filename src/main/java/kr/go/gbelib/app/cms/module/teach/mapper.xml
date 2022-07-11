@@ -12,7 +12,7 @@
 	<select id="getTeachListForCalendar" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		SELECT
 			a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.start_date, a.end_date,
-			a.teach_name, a.teach_day, a.disable_holi, b.group_name, a.vaccines_yn, a.start_time
+			a.teach_name, a.teach_day, a.disable_holi, b.group_name, a.vaccines_yn, a.start_time,a.disable_holi_calendar
 		FROM
 			TEACH a, TEACH_CATEGORY_GROUP b
 		WHERE
@@ -366,7 +366,7 @@
 				a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID,
 				a.terms, a.apply_file_yn, a.teach_addr_limit, a.teach_addr_limit_value, a.age_info_yn,
 				a.attach_org_file_name, a.attach_server_file_name, a.attach_file_extension, a.attach_file_size,
-				a.link_url, a.disable_holi, a.teach_day_yn, a.teach_day_txt
+				a.link_url, a.disable_holi, a.teach_day_yn, a.teach_day_txt,a.disable_holi_calendar
 			FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 			WHERE a.homepage_id = b.homepage_id(+)
@@ -420,7 +420,7 @@
 			neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 			program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 			terms, apply_file_yn, teach_addr_limit, teach_addr_limit_value, age_info_yn, link_url,
-			disable_holi, teach_day_yn, teach_day_txt
+			disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar
 		) VALUES (
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{teach_name}, #{teach_desc}, #{teach_etc}, #{teach_stage}, #{teach_target}, #{limit_hak}, #{limit_hak2}, #{calendar_view_yn},
 			#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
@@ -447,7 +447,7 @@
 			#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{organization_yn}, #{course_taken_yn}, #{birth_yn}, #{sex_yn},
 			#{program_classification1}, #{program_classification2}, #{program_classification3}, #{program_subject}, #{program_age_div},
 			#{terms}, #{apply_file_yn}, #{teach_addr_limit}, #{teach_addr_limit_value}, #{age_info_yn}, #{link_url},
-			#{disable_holi}, #{teach_day_yn}, #{teach_day_txt}
+			#{disable_holi}, #{teach_day_yn}, #{teach_day_txt},#{disable_holi_calendar}
 		)
 	</insert>
 
@@ -580,6 +580,7 @@
 			age_info_yn = #{age_info_yn},
 			link_url = #{link_url},
 			disable_holi = #{disable_holi},
+			disable_holi_calendar = #{disable_holi_calendar},
 			teach_day_yn = #{teach_day_yn},
 			teach_day_txt = #{teach_day_txt}
 		WHERE

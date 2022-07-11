@@ -131,6 +131,8 @@ public class Teach extends PagingUtils {
 	private String age_info_yn = "N"; // 나이입력여부
 	private String disable_holi = "N"; // 휴관일 사용안함
 
+	private String disable_holi_calendar = "N"; // 휴관일 달력 표시 여 부
+
 	private String delete_yn;
 
 	private MultipartFile plan_file;
@@ -1605,5 +1607,13 @@ public class Teach extends PagingUtils {
 
 	public void setTeach_code_yn(String teach_code_yn) {
 		this.teach_code_yn = teach_code_yn;
+	}
+
+	public String getDisable_holi_calendar() {
+		return disable_holi_calendar;
+	}
+
+	public void setDisable_holi_calendar(String disable_holi_calendar) {
+		this.disable_holi_calendar = disable_holi_calendar;
 	}
 }
