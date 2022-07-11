@@ -139,7 +139,7 @@ html {
 
 /*신청서 다운로드박스2*/
 a.cw-btn span, a.cg-btn span, a.cp-btn span, a.cdp-btn span {display:block;padding:14px 45px 15px 15px;line-height:1;}
-.cw-btn, .cg-btn, .cp-btn, .cdp-btn, .ck-btn, .cb-btn {position:relative;display:inline-block;font-size: 13px;font-weight:400;vertical-align:middle;transition:all .25s ease;line-height: 2.7;border-radius: 100px;}
+.cw-btn, .cg-btn, .cp-btn, .cdp-btn, .ck-btn, .cb-btn {position:relative;display:inline-block;font-size: 13px;font-weight:400;vertical-align:middle;transition:all .25s ease;line-height: 2.4;border-radius: 100px;}
 .cg-btn, a.cg-btn {background:#17a981;border:1px solid #17a981;color:#fff;}
 .cg-btn:hover, .cg-btn:focus {background:#008f68;border:1px solid #008f68;color:#fff;}
 .cg-btn:hover, .cg-btn:focus {background:#008f68;border:1px solid #008f68;color:#fff;}

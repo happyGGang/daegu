@@ -365,7 +365,7 @@ do {
 		<div class="main6_bg">
 			<div class="main6 section">
 				<!-- <div class="lt1"><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=178">문화가 있는 도서관<br/><span class="">영화상영</span></a></div> -->
-				<div class="lt2"><a href="/${homepage.context_path}/html.do?menu_idx=212">동영상으로 만나는 사람책<br/><span class="">랜선 타고 ON 사람도서관</span></a></div>
+				<!-- <div class="lt2"><a href="/${homepage.context_path}/html.do?menu_idx=212">동영상으로 만나는 사람책<br/><span class="">랜선 타고 ON 사람도서관</span></a></div> -->
 				<div class="lt3"><a href="/${homepage.context_path}/html.do?menu_idx=152">어린이 1:1 맞춤형 독서정보안내<br/><span class="">북코디네이터</span></a></div>
 				<div class="lt4"><a href="/${homepage.context_path}/html.do?menu_idx=49">장애인 무료 택배 서비스<br/><span class="">책나래</span></a></div>
 				<div class="lt5"><a href="/${homepage.context_path}/html.do?menu_idx=48">국가상호대차 서비스<br/><span class="">책바다</span></a></div>
