@@ -110,7 +110,7 @@
 					</form:select>
 					<c:if test="${homepage.context_path eq '228'}">
 						<p style="font-weight:bold;">
-							※ 1층 현관 옆 스마트도서관에서 회원증 비밀번호 입력 후 수령
+							※ 후 수령가능 문자를 받으시면 스마트도서관(1층 현관 좌측)에서 대출 가능합니다.
 						</p>
 					</c:if>
 				</td>
