@@ -202,7 +202,7 @@ $(function() {
 				<li class="2Depth menu_93"><a href="/elib/html/kyobogudok.do?menu_idx=93" ><span>구독형전자책</span></a></li></ul></li>
 				</c:if>
 				<c:if test="${param.type == 'ADO'}">
-				<li id="menu_86"><a href="/elib/module/elib/asp/contents/audio.do?menu_idx=86" ><span>오디언소리</span></a></li>
+				<!-- <li id="menu_86"><a href="/elib/module/elib/asp/contents/audio.do?menu_idx=86" ><span>오디언소리</span></a></li> -->
 				</c:if>
 			</ul>
 				</c:when>

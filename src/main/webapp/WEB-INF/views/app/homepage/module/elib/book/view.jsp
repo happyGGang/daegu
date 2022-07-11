@@ -259,9 +259,50 @@ $(document).ready(function() {
 		$('#editMode').val('BORROW_RETURN');
 		$form.prop('action', '../lending/save.do');
 		doAjaxPost($form);
+
 		<c:choose>
 		<c:when test="${book.com_code == 'HANS'}">
-		hans_read($(this).data('url'));
+			<c:choose>
+				<c:when test="${isMobile}">
+					var varUA = navigator.userAgent.toLowerCase();
+					var datano = $(this).data('audiono');
+					var dataurl = $(this).data('url');
+					let param = new URLSearchParams(dataurl);
+					let id = param.get('bookId');
+
+					if (varUA.match('android') != null) 
+					{ 
+						//안드로이드 일때 처리
+						//location.href="intent://?void="+id+"&paId=245d07133fb8b6983f98&user_id=122003__${sessionScope.member.member_id}#Intent;scheme=iaudienb2b;package=com.app.audiobook.startup;end";
+						location.href="intent://?paid=245d07133fb8b6983f98&void="+id+"&user_id=${sessionScope.member.member_id}#Intent;scheme=iaudienb2b;package=com.app.audiobook.startup;end";
+						//location.href='iaudienb2b://?paid=245d07133fb8b6983f98&void='+id;
+					} 
+					else if (varUA.indexOf("iphone")>-1 || varUA.indexOf("ipad")>-1 || varUA.indexOf("ipod")>-1) 
+					{ 
+						//IOS 일때 처리
+						$('a.audio_view').on('click',function(){
+							var contxt = confirm("오디언 앱이 설치되어 있으면 확인을 설치되어 있지 않으면 취소를 눌러 설치해주세요.");
+
+							if(contxt)
+							{
+								location.href='iaudienb2b://?user_id=${sessionScope.member.member_id}&paid=245d07133fb8b6983f98&void='+id;
+							}
+							else
+							{
+								location.href='http://goo.gl/YxlLt';
+							}
+						});
+					} 
+					else 
+					{
+						//아이폰, 안드로이드 외 처리
+						hans_read("http://m.asp.audien.com/mpoc/web/main.htm?paId=245d07133fb8b6983f98&userId=${sessionScope.member.member_id}");
+					}
+				</c:when>
+				<c:otherwise>
+					hans_read($(this).data('url'));
+				</c:otherwise>
+			</c:choose>
 		</c:when>
 		<c:when test="${book.com_code == 'CONT'}">
 		cont_read($(this).data('url'));
@@ -620,11 +661,11 @@ function go_to_login() {
 											<td>
 												<c:choose>
 													<c:when test="${book.com_code == 'HANS' && (!isMobile || empty i.mobile_link_url) && member.login && member.member_class eq '0'}">
-														<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+														<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}&userId=122003__${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 													</c:when>
 
 													<c:when test="${book.com_code == 'HANS' && isMobile && member.login && member.member_class eq '0'}">
-														<a href="#" class="btn btn1 audio_view" data-url="${i.mobile_link_url}&userId=${member.member_id}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
+														<a href="#" class="btn btn1 audio_view" data-url="${i.link_url}" data-audiono="${i.audio_no}"><span>바로듣기</span></a>
 													</c:when>
 
 													<c:when test="${(book.com_code ne 'FXLI' and book.com_code ne 'KYOB' and book.com_code ne 'ALAD') && (!isMobile || empty i.mobile_link_url) && member.login && member.member_class eq '0'}">
