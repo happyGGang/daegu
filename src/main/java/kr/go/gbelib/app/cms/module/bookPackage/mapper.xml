@@ -193,11 +193,12 @@
 	<select id="getBookPackageLoanList" resultType="kr.go.gbelib.app.cms.module.bookPackage.BookPackage">
 		${pagingTop}
 		SELECT
-			b.book_package_idx, b.book_package_loan_idx, a.book_package_subject, b.request_name, b.school_name,
+			b.book_package_idx, b.book_package_loan_idx, a.book_package_subject, b.school_name,
 			a.quantity, a.loan_count,
 			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
 			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
-			b.add_id, b.add_date, a.category
+			b.add_id, b.add_date, a.category,
+			(substr(b.request_name,1,1) || lpad('*',length(b.request_name)-2,'*') || substr(b.request_name, length(b.request_name), 1)) AS request_name
 		FROM
 			BOOK_PACKAGE a, BOOK_PACKAGE_LOAN b
 		WHERE
