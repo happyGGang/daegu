@@ -1452,8 +1452,18 @@ public class CommonSearchController extends BaseController {
 			if(StringUtils.isNotEmpty(homepage.getContext_path())){
 				if(homepage.getContext_path().equals("dalseonglib")) {
 					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key());
+					List<Map<String, Object>> list = null;
+					list = LibSearchAPI.getListData(reserveList);
 					int count = LibSearchAPI.getSearchCount(reserveList);
-					if(count >=2) {
+					
+					int reserveCount = 0 ;
+					for(int i = 0; i < count; i++) {
+						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+							reserveCount =+ 1;
+						}
+					}
+					
+					if(reserveCount >= 2) {
 						res.setValid(false);
 						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 						return res;
