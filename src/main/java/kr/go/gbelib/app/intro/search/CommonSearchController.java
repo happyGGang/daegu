@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.intro.search;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -1445,7 +1446,21 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-
+			
+			//달성군립도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
+			Homepage homepage = getSessionHomepage(request);
+			if(StringUtils.isNotEmpty(homepage.getContext_path())){
+				if(homepage.getContext_path().equals("dalseonglib")) {
+					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key());
+					int count = LibSearchAPI.getSearchCount(reserveList);
+					if(count >=2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+				}
+			}
+			
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
 
@@ -1456,7 +1471,7 @@ public class CommonSearchController extends BaseController {
 					res.setMessage(lasReqConfig.getRes_msg());
 					return res;
 				}
-
+				
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
 					res.setValid(true);
@@ -1976,9 +1991,10 @@ public class CommonSearchController extends BaseController {
 	 * @param result
 	 * @param request
 	 * @return
+	 * @throws ParseException 
 	 */
 	@RequestMapping(value = {"/unmanned/save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse saveUnmanned(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse saveUnmanned(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) throws ParseException {
 		JsonResponse res = new JsonResponse(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -2064,9 +2080,49 @@ public class CommonSearchController extends BaseController {
     						return res;
     					}
 					}// 20210826 무인예약 하루 권수 제한해제*/
-				}else {
+				} else {
 					res.setValid(false);
 					res.setMessage(String.valueOf(unmannedLoanReserveCnt.get("RESULT_MESSAGE")));
+					return res;
+				}
+			}
+
+			if(StringUtils.equals(librarySearch.getWorker(), "DSGLIB01")) {
+				LibrarySearch ls = new LibrarySearch();
+				ls.setWorker("DSGLIB01");
+				ls.setUserkey(librarySearch.getUserkey());
+
+				Map<String, Object> unmannedLoanReserveListForOne = LibSearchAPI.getUnmannedLoanReserveList(ls, null);
+				int searchCountForOne = LibSearchAPI.getSearchCount(unmannedLoanReserveListForOne);
+
+				if (searchCountForOne >= 5) {
+					res.setValid(false);
+					res.setMessage("무인 예약은 하루에 5권까지만 가능합니다.");
+					return res;
+				}
+				
+				LibrarySearch ls2 = new LibrarySearch();
+				ls2.setWorker("DSGLIB01");
+
+				Map<String, Object> unmannedLoanReserveListForDalseung = LibSearchAPI.getUnmannedLoanReserveList(ls2, null);
+				int searchCountForDalseung = LibSearchAPI.getSearchCount(unmannedLoanReserveListForDalseung);
+				
+				if (searchCountForDalseung >= 30) {
+					res.setValid(false);
+					res.setMessage("금일 무인예약은 마감되었습니다.\n1일 30명 까지 예약이 가능합니다.");
+					return res;
+				}
+				
+				Date now = new Date();
+				String start = "09:00:00";
+				String end = "18:00:00";
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+				Date start_time = sdf.parse(start);
+				Date end_time = sdf.parse(end);
+				
+				if (now.getTime() <= start_time.getTime() || now.getTime() >= end_time.getTime()) {
+					res.setValid(false);
+					res.setMessage("금일 무인예약은 마감되었습니다.\n예약 가능 시간은 09:00~18:00 입니다.");
 					return res;
 				}
 			}
