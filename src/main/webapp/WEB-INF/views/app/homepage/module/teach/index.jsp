@@ -434,7 +434,7 @@ ${html.html}
 								</span>
 								</c:if>
 								<c:if test="${i.teach_backup_count > 0}">
-								<span>(후보자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
+								<span>(대기자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
 								</span>
 								</c:if>
 								</dd>
@@ -448,7 +448,7 @@ ${html.html}
 								<!--
 								<span><strong>온라인</strong> ${i.teach_limit_count}명 </span>
 								<c:if test="${i.teach_offline_count > 0}"><span>, <strong>오프라인</strong> ${i.teach_offline_count}명</span></c:if>
-								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>후보자</strong> ${i.teach_backup_count}명 )</span></c:if>
+								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>대기자</strong> ${i.teach_backup_count}명 )</span></c:if>
 								<br/>
 								-->
 								<span>온라인
@@ -460,7 +460,7 @@ ${html.html}
 								</span>
 								</c:if>
 								<c:if test="${i.teach_backup_count > 0}">
-								<span>(후보자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
+								<span>(대기자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
 								</span>
 								</c:if>
 								<!--
