@@ -1450,7 +1450,7 @@ public class CommonSearchController extends BaseController {
 			//달성군립도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
 			Homepage homepage = getSessionHomepage(request);
 			if(StringUtils.isNotEmpty(homepage.getContext_path())){
-				if(homepage.getContext_path().equals("dalseonglib")) {
+				if(homepage.getContext_path().equals("dalseonglib") && librarySearch.getEditMode().equals("ADD")) {
 					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key());
 					List<Map<String, Object>> list = null;
 					list = LibSearchAPI.getListData(reserveList);
@@ -1459,7 +1459,7 @@ public class CommonSearchController extends BaseController {
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
 						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
-							reserveCount =+ 1;
+							reserveCount++;
 						}
 					}
 					
@@ -2125,14 +2125,14 @@ public class CommonSearchController extends BaseController {
 				
 				Date now = new Date();
 				String start = "09:00:00";
-				String end = "18:00:00";
+				String end = "21:00:00";
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Date start_time = sdf.parse(start);
 				Date end_time = sdf.parse(end);
 				
-				if (now.getTime() <= start_time.getTime() || now.getTime() >= end_time.getTime()) {
+				if (now.getTime() < start_time.getTime() && now.getTime() > end_time.getTime()) {
 					res.setValid(false);
-					res.setMessage("금일 무인예약은 마감되었습니다.\n예약 가능 시간은 09:00~18:00 입니다.");
+					res.setMessage("금일 무인예약은 마감되었습니다.\n예약 가능 시간은 09:00~21:00 입니다.");
 					return res;
 				}
 			}

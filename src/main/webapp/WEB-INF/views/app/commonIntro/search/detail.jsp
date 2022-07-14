@@ -725,7 +725,7 @@ $(function() {
 				<!-- 달성군립 무인예약 버튼은 토,일,월 제외한 09:00~12:00 까지만 활성화 -->
 				<jsp:useBean id="toDay" class="java.util.Date" />
 				<c:set var="startTime" value="09:00:00"></c:set>
-				<c:set var="endTime" value="18:00:00"></c:set>
+				<c:set var="endTime" value="21:00:00"></c:set>
 				<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
 				<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
 				<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
