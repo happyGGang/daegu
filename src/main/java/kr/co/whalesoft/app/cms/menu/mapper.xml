@@ -504,6 +504,7 @@
 			homepage_id = #{homepage_id}
 		AND	MENU_TYPE = 'PROGRAM'
 		AND manage_idx = #{menu_idx}
+		AND MENU_URL_PARAM IS NULL
 		AND	use_yn = 'Y'
 		<if test="menu_url_param != null and menu_url_param != ''">
 		AND	(
