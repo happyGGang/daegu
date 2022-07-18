@@ -106,10 +106,6 @@
 						<c:if test="${homepage.context_path eq '228'}">
 						<form:option value="DBECOBOXLIB01">스마트도서관</form:option> 
 						</c:if>
-						<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
-						<form:option value="DSSUB02">용산역</form:option>
-						<form:option value="DSSUB01">상인역</form:option>
-						</c:if>
 						<c:if test="${homepage.context_path eq 'dalseonglib'}">
 						<form:option value="DSGLIB01">지하1층 자전거보관대옆</form:option>
 						</c:if>
