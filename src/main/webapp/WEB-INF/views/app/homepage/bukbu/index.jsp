@@ -185,7 +185,7 @@ do {
 								<li class="bg-lgray">
 									<a href="https://library.daegu.go.kr/bukbu/intro/search/loan/index.do?menu_idx=16">
 									<span class="wt">나의도서관</span>
-									<span class="wc">대출 및 도서신청 정보</span>
+									<span class="wc">대출, 예약현황 조회</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick02-bg.png" class="mi">
 									</a>
 								</li>
