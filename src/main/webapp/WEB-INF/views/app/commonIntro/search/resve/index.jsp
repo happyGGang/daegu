@@ -127,6 +127,7 @@ $(function() {
 		
 							<c:choose>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
 								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
 								</c:when>

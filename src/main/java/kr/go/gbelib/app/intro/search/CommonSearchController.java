@@ -2123,6 +2123,14 @@ public class CommonSearchController extends BaseController {
 					return res;
 				}
 				
+				Map<String, Object> loanList = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
+				int loanListCount = LibSearchAPI.getSearchCount(loanList);
+				if(searchCountForOne + loanListCount >= 10) {
+					res.setValid(false);
+					res.setMessage("대출가능 횟수를 초과하셨습니다.");
+					return res;
+				}
+				
 				Date now = new Date();
 				String start = "09:00:00";
 				String end = "21:00:00";
