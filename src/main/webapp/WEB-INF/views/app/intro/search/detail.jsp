@@ -496,7 +496,7 @@ AD20 종합자료실
 									if(dayOfWeek == 1 || dayOfWeek == 7)
 									{
 									%>
-										<!-- <a href="#muin" onclick="alert('무인예약 신청가능 요일이 아닙니다.');" class="btn">무인예약신청</a> -->
+										<a href="#muin" onclick="alert('무인예약 신청가능 요일이 아닙니다.');" class="btn">무인예약신청</a>
 									<%
 									}
 									else
@@ -506,8 +506,8 @@ AD20 종합자료실
 									<%
 									}
 									%>
-									<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
-									<a href="#" class="btn btn1" onclick="alert('장비 점검으로 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a>
+									<!--<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>-->
+									<!--<a href="#" class="btn btn1" onclick="alert('24일까지 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a>-->
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
