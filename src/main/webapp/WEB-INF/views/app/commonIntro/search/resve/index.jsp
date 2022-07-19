@@ -57,7 +57,7 @@ $(function() {
 	<c:if test="${fn:length(resveList) < 1 }"> <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3></c:if>
 	<table summary="신청정보">
 		<thead>
-			<th style="width:6%">순번</th>
+			<th style="width:5%">순번</th>
 			<th style="width:18%">제목</th>
 			<th style="width:15%">저자 / 발행자</th>
 			<th style="width:17%">도서관명</th>
@@ -65,7 +65,7 @@ $(function() {
 			<th style="width:8%">예약순위</th>
 			<th style="width:10%">예약만기일</th>
 			<th style="width:8%">예약형태</th>
-			<th style="width:8%">예약취소</th>
+			<th style="width:9%">예약취소</th>
 		</thead>
 		<tbody>
 		<!-- 비대면도서대출과 무인예약 구분을 위해 장비키 값으로 구분 2022-01-24 UTBA01는 북구구수산도서관 장비키값 -->
