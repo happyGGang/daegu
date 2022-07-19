@@ -89,7 +89,7 @@ $(function() {
 			<div class="sectionxs">
 				<h1>
 					<span class="line"></span>
-					${fn:escapeXml(menuLeftList[1].menu_name)}
+					${fn:escapeXml(menuLeftList[0].menu_name)}
 				</h1>
 			</div>
 
