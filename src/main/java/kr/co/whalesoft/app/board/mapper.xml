@@ -2210,10 +2210,13 @@
 			AND imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')
 			AND imsi_v_2 >= TO_CHAR(SYSDATE, 'DD')
 		</if>
+		<if test="homepage_id == 'h44' and manage_idx == 685">
+			AND TO_DATE(imsi_v_1||'-'||imsi_v_2, 'YYYY-MM-DD') >= TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')
+		</if>
 		ORDER BY
 		<choose>
 			<when test="homepage_id == 'h44' and manage_idx == 685">
-				imsi_v_1||imsi_v_2 DESC
+				TO_DATE(imsi_v_1||'-'||imsi_v_2, 'YYYY-MM-DD') ASC
 			</when>
 			<otherwise>
 				board_idx DESC
