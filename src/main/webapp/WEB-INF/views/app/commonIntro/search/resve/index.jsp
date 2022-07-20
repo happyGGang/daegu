@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
@@ -127,7 +128,20 @@ $(function() {
 		
 							<c:choose>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+									<c:if test="${i.L_WORKER eq 'DSGLIB01'}">
+										<jsp:useBean id="toDay" class="java.util.Date" />
+										<c:set var="startTime" value="09:00:00"></c:set>
+										<c:set var="endTime" value="21:00:00"></c:set>
+										<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
+										<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
+										<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
+										<fmt:formatDate var="day" value="${toDay}" pattern="E"/>
+										<fmt:formatDate var="startTime" value="${dateStr1}" pattern="HH:mm:ss"/>
+										<fmt:formatDate var="endTime" value="${dateStr2}" pattern="HH:mm:ss"/>
+										<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime and (day ne '토' and day ne '일' and day ne '월')}">
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+										</c:if>
+									</c:if>
 								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
 								</c:when>
