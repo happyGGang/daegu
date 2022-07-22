@@ -71,7 +71,7 @@
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
 <c:if test="${homepage.context_path eq 'dalseonglib'}">
-<input type="hidden" name="exprire_date_cnt" value="7"/>
+<input type="hidden" name="exprire_date_cnt" value="1"/>
 </c:if>
 
 <div class="delibery_info">
