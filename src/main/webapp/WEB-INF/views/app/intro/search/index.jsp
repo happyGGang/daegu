@@ -254,9 +254,41 @@ $(function() {
 			</c:when>
 		</c:choose>
 	</c:if>
-
-
 });
+
+function resveReq(bookkey, booktype, editMode) {
+	<c:choose>
+	<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'HOMEPAGE'}">
+	if(confirm('예약 신청 하시겠습니까?')) {
+		var ajaxData = {
+				'bookkey' : bookkey,
+				'booktype' : booktype,
+				'editMode' : editMode
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: 'resve/save.do',
+			data: ajaxData,
+			success:  function(response) {
+				if(response.valid) {
+					alert(response.message);
+					location.reload();
+				} else {
+					alert(response.message);
+				}
+			},error: function() {
+				alert('예약 신청에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+	</c:when>
+	<c:otherwise>
+	alert('로그인 후 이용 가능합니다.');
+	location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
+	</c:otherwise>
+	</c:choose>
+}
 </script>
 <form:form modelAttribute="librarySearch" id="detailForm" action="detail.do" method="post" >
 	<form:hidden path="isbn"/>
@@ -903,6 +935,11 @@ $(function() {
 													</c:otherwise>
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
+												<c:choose>
+													<c:when test="${homepage.context_path eq 'bukbu' and i.RESERVE_CODE eq 'OK'}">
+														<a href="javascript:void(0);" class="btn btn1" style="padding:3px 7px 4px 7px;background:#fe6d02;border-color:#fe6d02;font-size:12px;" onclick="resveReq('${i.BOOK_KEY}', '${fn:startsWith(i.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}', 'ADD');">예약신청</a>
+													</c:when>
+												</c:choose>
 											</p>
 											<c:if test="${not empty i.APPENDIX_INFO}">
 											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'} ">
@@ -1052,6 +1089,11 @@ $(function() {
 													</c:otherwise>
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
+												<c:choose>
+													<c:when test="${homepage.context_path eq 'bukbu' and i.RESERVE_CODE eq 'OK'}">
+														<a href="javascript:void(0);" class="btn btn1" style="padding:3px 7px 4px 7px;background:#fe6d02;border-color:#fe6d02;font-size:12px;" onclick="resveReq('${i.BOOK_KEY}', '${fn:startsWith(i.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}', 'ADD');">예약신청</a>
+													</c:when>
+												</c:choose>
 												</td>
 												<td>
 													${i.RETURN_PLAN_DATE}
@@ -1193,6 +1235,11 @@ $(function() {
 																<span style="">기타</span>
 															</c:otherwise>
 														</c:choose>
+														<c:choose>
+															<c:when test="${homepage.context_path eq 'bukbu' and i.RESERVE_CODE eq 'OK'}">
+																<a href="javascript:void(0);" class="btn btn1" style="padding:3px 7px 4px 7px;background:#fe6d02;border-color:#fe6d02;font-size:12px;" onclick="resveReq('${i.BOOK_KEY}', '${fn:startsWith(i.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}', 'ADD');">예약신청</a>
+															</c:when>
+														</c:choose>
 											</p>
 
 											<div class="stat">
@@ -1281,6 +1328,11 @@ $(function() {
 													</c:otherwise>
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
+												<c:choose>
+													<c:when test="${homepage.context_path eq 'bukbu' and i.RESERVE_CODE eq 'OK'}">
+														<a href="javascript:void(0);" class="btn btn1" style="padding:3px 7px 4px 7px;background:#fe6d02;border-color:#fe6d02;font-size:12px;" onclick="resveReq('${i.BOOK_KEY}', '${fn:startsWith(i.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}', 'ADD');">예약신청</a>
+													</c:when>
+												</c:choose>
 												</td>
 												<td>
 													${i.RETURN_PLAN_DATE}
