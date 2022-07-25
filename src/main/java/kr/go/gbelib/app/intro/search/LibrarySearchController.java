@@ -1679,48 +1679,49 @@ public class LibrarySearchController extends BaseController {
 		String content = "";
 		//TODO marc보기
 		Map<String, Object> marcView = LibSearchAPI.getMarc(regno);
-
-		if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
-			if(marcView.get("collection") != null) {
-				Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
-				if(collection.get("record") != null) {
-					Map<String, Object> record = (Map<String, Object>)collection.get("record");
-					if(record.get("datafield") != null) {
-						list = new ArrayList<Map<String, Object>>();
-						list.addAll((List<Map<String, Object>>) record.get("datafield"));
-					}
-				}
-			}
-
-			if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
-				// tag 521 추출
-				for (Map<String, Object> map : list) {
-					String tag = String.valueOf(map.get("tag"));
-
-					if(tag.equals("521")) {
-						ArrayList<String> subfieldList = new ArrayList<String>();
-						Object test = map.get("subfield");
-						if (test instanceof ArrayList) {
-							List<Map<String, Object>> subfield = (List<Map<String, Object>>)map.get("subfield");
-							for (Map<String, Object> stringObjectMap : subfield) {
-								subfieldList.add(String.valueOf(stringObjectMap.get("content")));
-							}
-							content = StringUtils.join(subfieldList, ",");
-							break;
-						} else {
-							Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
-							content = String.valueOf(subfield.get("content"));
-						}
-
-						break;
-					}
-				}
-			}
-
-		}
-
-
 		
+		try {
+			if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
+				if(marcView.get("collection") != null) {
+					Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
+					if(collection.get("record") != null) {
+						Map<String, Object> record = (Map<String, Object>)collection.get("record");
+						if(record.get("datafield") != null) {
+							list = new ArrayList<Map<String, Object>>();
+							list.addAll((List<Map<String, Object>>) record.get("datafield"));
+						}
+					}
+				}
+
+				if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
+					// tag 521 추출
+					for (Map<String, Object> map : list) {
+						String tag = String.valueOf(map.get("tag"));
+
+						if(tag.equals("521")) {
+							ArrayList<String> subfieldList = new ArrayList<String>();
+							Object test = map.get("subfield");
+							if (test instanceof ArrayList) {
+								List<Map<String, Object>> subfield = (List<Map<String, Object>>)map.get("subfield");
+								for (Map<String, Object> stringObjectMap : subfield) {
+									subfieldList.add(String.valueOf(stringObjectMap.get("content")));
+								}
+								content = StringUtils.join(subfieldList, ",");
+								break;
+							} else {
+								Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
+								content = String.valueOf(subfield.get("content"));
+							}
+
+							break;
+						}
+					}
+				}
+
+			}
+		} catch (Exception e) {
+			return content;
+		}
 		return content;
 	}
 
