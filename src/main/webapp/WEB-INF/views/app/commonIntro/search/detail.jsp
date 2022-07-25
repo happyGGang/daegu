@@ -707,6 +707,20 @@ $(function() {
 					</c:if>
 					</c:if>
 				</c:when>
+				<c:when test="${homepage.context_path eq 'dalseolib'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+							<c:choose>
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
+									<!-- <a href="#" class="btn btn1" onclick="alert('장비 점검으로 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a> -->
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:if>
+				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseonglib'}">
 				<!-- 달성군립 무인예약 버튼은 토,일,월 제외한 09:00~12:00 까지만 활성화 -->
 				<jsp:useBean id="toDay" class="java.util.Date" />
