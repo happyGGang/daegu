@@ -48,14 +48,7 @@ ${boardManage.top_html}
 			<tr>
 				<th>작성자</th>
 				<td>
-					<c:choose>
-						<c:when test="${authMBA or sessionScope.member.admin}">
-							<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
-						</c:when>
-						<c:otherwise>
-							<form:input path="user_name" value="${member.member_name}" cssClass="text" readonly="true"/>						
-						</c:otherwise>
-					</c:choose>
+					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
 				</td>
 				<th>작성일</th>
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
