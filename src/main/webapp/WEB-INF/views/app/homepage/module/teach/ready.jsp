@@ -13,17 +13,10 @@
 <script type="text/javascript">
 function load(){
 	var homepage = '${homepage.context_path}';
-	if(homepage == 'bukgs' || homepage == 'bukdh' || homepage == 'buktj'){
-		homepage = 'bukgs';
-		NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&search_type=${teach.search_type}&viewPage=${teach.viewPage}&group_idx=${teach.group_idx}&category_idx=${teach.category_idx}");
-	} else if (homepage == 'beomeo' || homepage == 'yonghak' || homepage == 'gosan') {
-		homepage = 'beomeo';
-		NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&search_type=${teach.search_type}&viewPage=${teach.viewPage}&group_idx=${teach.group_idx}&category_idx=${teach.category_idx}");
-	} else if (homepage == 'namic' || homepage == 'namdm') {
-		homepage = 'namic';
-		NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&search_type=${teach.search_type}&viewPage=${teach.viewPage}&group_idx=${teach.group_idx}&category_idx=${teach.category_idx}");
+	if(homepage == 'dgportal' || homepage == 'bukdh' || homepage == 'dmsl' || homepage == 'junggu'){
+		NetFunnel_Action({action_id:homepage, service_id:'service_2'},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&search_type=${teach.search_type}&viewPage=${teach.viewPage}&group_idx=${teach.group_idx}&category_idx=${teach.category_idx}");
 	} else {
-		NetFunnel_Action({action_id:homepage},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&search_type=${teach.search_type}&viewPage=${teach.viewPage}&group_idx=${teach.group_idx}&category_idx=${teach.category_idx}");
+		NetFunnel_Action({action_id:homepage, service_id:'service_1'},"index_real.do?searchCate1=${teach.searchCate1}&menu_idx=${teach.menu_idx}&editMode=${teach.editMode}&homepage_id=${teach.homepage_id}&teach_idx=${teach.teach_idx}&start_join_date=${teach.start_join_date}&end_join_date=${teach.end_join_date}&start_date=${teach.start_date}&end_date=${teach.end_date}&status=${teach.status}&search_text=${teach.search_text}&search_type=${teach.search_type}&viewPage=${teach.viewPage}&group_idx=${teach.group_idx}&category_idx=${teach.category_idx}");
 	}
 }
 </script>
