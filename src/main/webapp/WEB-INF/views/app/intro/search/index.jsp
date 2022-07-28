@@ -285,7 +285,7 @@ function resveReq(bookkey, booktype, editMode) {
 	</c:when>
 	<c:otherwise>
 	alert('로그인 후 이용 가능합니다.');
-	location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
+	location.href='/intro/${homepage.context_path}/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
 	</c:otherwise>
 	</c:choose>
 }
