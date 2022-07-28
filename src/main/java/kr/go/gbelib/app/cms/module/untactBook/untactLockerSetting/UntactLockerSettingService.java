@@ -1,9 +1,15 @@
 package kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.utils.DateUtil;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
+
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UntactLockerSettingService extends BaseService {
@@ -29,6 +36,9 @@ public class UntactLockerSettingService extends BaseService {
 
 	@Autowired
 	private TermsService termsService;
+	
+	 @Autowired
+	private HomepageService homepageService;
 
 	public List<UntactLockerSetting> getUntactLockerSettingList(String homepage_id) {
 		return dao.getUntactLockerSettingList(homepage_id);
@@ -143,7 +153,23 @@ public class UntactLockerSettingService extends BaseService {
 		untactBookRound.setRound_start_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":00");
 		untactBookRound.setRound_end_time(untactBookSetting.getRepeated_start_hour() + ":" + untactBookSetting.getRepeated_start_minute()+":00");
 		untactBookRound.setRound_start_date(DateFormatUtils.format(calendar.getTime(), "yyyy-MM-dd"));
-		untactBookRound.setRound_end_date(DateFormatUtils.format(calendar2.getTime(), "yyyy-MM-dd"));
+		
+		//회차반복일 마지막날이 휴관일이라면 +1일씩 대출가능기한을 늘리기 위해 회차 기간추가
+		Homepage homepage = new Homepage();
+		homepage.setHomepage_id(untactBookSetting.getHomepage_id());
+		homepage = homepageService.getHomepageOne(homepage);
+		
+		LibrarySearch librarySearch = new LibrarySearch();
+		librarySearch.setManageCode(homepage.getManage_code());
+		librarySearch.setSearch_start_date(DateFormatUtils.format(calendar2.getTime(), "yyyyMMdd"));
+		
+		Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+		
+		if(holiDays.get("RESULT_CODE").equals("1")) {
+			untactBookRound.setRound_end_date(checkHoliday(librarySearch));
+		} else {
+			untactBookRound.setRound_end_date(DateFormatUtils.format(calendar2.getTime(), "yyyy-MM-dd"));
+		}
 		
 		result += dao.createUntactBookRound(untactBookRound);
 		return result;
@@ -246,5 +272,20 @@ public class UntactLockerSettingService extends BaseService {
 
 	public String getReturnDateToday(UntactBookRound untactBookRound) {
 		return dao.getReturnDateToday(untactBookRound);
+	}
+	
+	public String checkHoliday(LibrarySearch librarySearch) throws ParseException {
+		Map<String, Object> checkHoliday = LibSearchAPI.getCheckHoliday(librarySearch);
+
+		for (Map.Entry<String, Object> check : checkHoliday.entrySet()) {
+			if(check.getKey().equals("RESULT_CODE")) {
+				if (check.getValue().equals("1")) {
+					String request_date = DateUtil.addDateOneDay(librarySearch.getSearch_start_date());
+					librarySearch.setSearch_start_date(request_date);
+					return checkHoliday(librarySearch);
+				}
+			}
+		}
+		return DateUtil.dashFormat(librarySearch.getSearch_start_date());
 	}
 }

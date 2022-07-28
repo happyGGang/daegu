@@ -467,17 +467,6 @@ public class AdminModeController extends BaseController {
 				untactBookRound.setRound_idx(round_idx);
 				untactBookRound.setHomepage_id(getAsideHomepageId(request));
 				
-				//TODO API만 성공시 문자 안날라가게 수정필요
-				if(untactBookSetting.getNight_loan_yn().equals("Y")) {
-					String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);
-					String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
-					LibSearchAPI.sendSms(librarySearch, mes, userIp);
-				} else {
-					String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);
-					String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
-					LibSearchAPI.sendSms(librarySearch, mes, userIp);
-				}
-				
 				if(apiResult.getStatus()){
 					if (!result.hasErrors()) {
 						untactBookReservation.setReservation_step("3");
@@ -488,8 +477,19 @@ public class AdminModeController extends BaseController {
 							res.setValid(false);
 							res.setMessage("대기 처리에 실패하였습니다. 관리자에게 문의하세요");
 						}
+						
 						res.setValid(true);
 						res.setMessage("대기 처리 되었습니다.");
+						
+						if(untactBookSetting.getNight_loan_yn().equals("Y")) {
+							String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);
+							String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
+							LibSearchAPI.sendSms(librarySearch, mes, userIp);
+						} else {
+							String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);
+							String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
+							LibSearchAPI.sendSms(librarySearch, mes, userIp);
+						}
 					} else {
 						res.setValid(false);
 						res.setResult(result.getAllErrors());

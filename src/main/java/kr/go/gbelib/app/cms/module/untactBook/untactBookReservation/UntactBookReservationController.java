@@ -115,7 +115,7 @@ public class UntactBookReservationController extends BaseController {
 			List<UntactBookReservation> smsList = reservationService.smsSendALL(untactBookReservation);
 			for(int i =0; i < smsList.size(); i++) {
 				UntactBookReservation one = smsList.get(i);
-				librarySearch.setUserkey(one.getRec_key());
+				librarySearch.setUserkey(one.getUser_key());
 				String mes = "대출하신 [" + one.getBook_name() + "]\n\n"+ untactBookReservation.getAdminMessage() +"입니다.";
 				LibSearchAPI.sendSms(librarySearch, mes, userIp);
 			}
