@@ -91,7 +91,7 @@ public class TeachController extends BaseController{
 		return recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id()));
 	}
 
-	@RequestMapping(value = {"/index_real.*"})
+	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		checkAuth("R", model, request);
 
@@ -267,7 +267,7 @@ public class TeachController extends BaseController{
 		}
 	}
 
-	@RequestMapping(value = {"/index.*"})
+	@RequestMapping(value = {"/ready.*"})
 	public String ready(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
