@@ -1,99 +1,39 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
-<link rel="stylesheet" href="/resources/common/css/search/jqcloud.css" type="text/css">
-<script type="text/javascript" src="/resources/common/js/jqcloud.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default2.css"/>
+
 <script type="text/javascript">
 $(function() {
 
 	$('a#resve-req').on('click', function(e) {
 		e.preventDefault();
-		<c:choose>
-		<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'HOMEPAGE'}">
 		if (!confirm('예약 신청 하시겠습니까?')) {
 			return false;
 		}
+
 		if ( doAjaxPost($('#resveReqForm')) ) {
 			location.reload();
 		}
-		</c:when>
-		<c:otherwise>
-		alert('로그인 후 이용 가능합니다.');
-		location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
-		</c:otherwise>
-		</c:choose>
+	});
 
-	});
-	
-	<%-- 비대면 도서대출 신청 --%>
-	$('a#untactBook-req').on('click', function(e) {
+	$('a#resve-req-not').on('click', function(e) {
 		e.preventDefault();
-		$('form#untactBookReqForm').submit();
+		alert('허용 예약인원이 다 찼습니다. 이용에 불편함을 드려 죄송합니다.');
 	});
-	
-	<%-- 워킹스루 도서대출 신청 --%>
-	$('a#walkingThru-req').on('click', function(e) {
+
+	$('a#service-noreq').on('click', function(e) {
 		e.preventDefault();
-		$('form#walkingThruReqForm').submit();
+		alert('비대면인증 회원은 서비스 이용이 불가능 하며 전자도서관만 이용가능 합니다.');
+		return;
 	});
-	
+
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
 		$('form#unmannedReqForm').submit();
-	});
-	
-	<%-- 달서구립도서관 무인대출예약 신청 --%>
-	$('a#dalseo-unmanned-req').on('click', function(e) {
-		e.preventDefault();
-		
-		modal_layer_add('dialog_layer');
-
-		$.ajax({
-			url: 'popup.do',
-			method: 'GET',
-			success: function(html){
-				$('#dialog_layer').html(html);
-			},error: function(html){
-			}
-		});
-
-		$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
-			resizable: false,
-			modal: true,
-			title: '무인예약신청 주의사항 안내',
-			open: function(){
-				$('.ui-widget-overlay').addClass('custom-overlay');
-			},
-			close: function(){
-			},
-			buttons: [
-				{
-					text : '예',
-					'class' : 'btn btn1',
-					click : function() {
-						$('form#unmannedReqForm').submit();
-					}
-				},
-				{
-					text: "아니오",
-					"class": 'btn btn_round btn_gray',
-					click: function() {
-						$(this).dialog('close');
-					}
-				}
-			]
-		});
-
-		$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-			width: 600,
-			height: 360
-		});
-// 		$('form#unmannedReqForm').submit();
 	});
 
 	<%-- 야간대출예약 신청 --%>
@@ -102,27 +42,33 @@ $(function() {
 		$('form#nightReqForm').submit();
 	});
 
-	<%-- 야간대출예약 신청제한 --%>
-	$('a#service-noreq').on('click', function(e) {
+	$('a.addBasket').on('click', function(e) {
 		e.preventDefault();
-		alert('비대면인증 회원은 서비스 이용이 불가능 하며 전자도서관만 이용가능 합니다.');
-		return;
+		if (!confirm('택배 보관함에  추가 하시겠습니까?')) {
+			return false;
+		}
+		$('#basketReqForm #book_key').val($(this).data('basket'));
+
+		if ( doAjaxPost($('#basketReqForm')) ) {
+			if (confirm('보관함에 추가되었습니다. 보관함으로 이동하시겠습니까?')) {
+				location.href = '/${context_path}/intro/search/deliveryBasket/index.do?menu_idx=${deliveryMenuMenuIdx}';
+			}
+		}
 	});
 
-	$('a#addStorage').on('click', function(e) {
+	$('a.addStorage').on('click', function(e) {
 		e.preventDefault();
 		/* if ( doAjaxPost($('storageReqForm')) ) {
 
 		} */
 
-		window.open("/${homepage.context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=450, height=400");
+		window.open("/${context_path}/module/myStorage/viewStorage.do?"+serializeCustom($('#storageReqForm')), "", "width=450, height=400");
 	});
 
 	$('a.addDelivery').on('click', function(e) {
 		e.preventDefault();
 
 	});
-
 
 	<%--상호대차 신청--%>
 	$('a.sangho').on('click', function(e) {
@@ -136,91 +82,44 @@ $(function() {
 		</c:if>
 	});
 
-	try {
-		var words = JSON.parse('${data4ItemList}');
-		$('#cloud').jQCloud(words, {
-			autoResize: true
-		});
-	} catch (e) {
-		// TODO: handle exception
-	}
-
-	<c:if test="${not empty loginPortal and loginPortal.login}">
-	<%-- 대표도서관 택배대출 관심도서 --%>
-	$('#interest').on('click', function(e) {
+	<%--청구기호 인쇄--%>
+	$('a#btn_print').on('click', function(e) {
 		e.preventDefault();
-		if(confirm('택배서비스 관심도서 추가하겠습니까?')) {
-			doAjaxPost($('#bookExpressForm'));
-		}
+		var url = location.href.replace('detail', 'print');
+
+		window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
 	});
-	</c:if >
 
-	if (document.referrer.indexOf('/intro/search/index.do') > -1) {
-		$('a#goBack').on('click', function(e) {
-			e.preventDefault();
-			history.back();
-		});
-	}
+
 	
-	if (document.referrer.indexOf('/intro/search/indexAll.do') > -1) {
-		$('a#goBack').on('click', function(e) {
-			e.preventDefault();
-			history.back();
-		});
-	}
-
-	if (document.referrer.indexOf('/intro/search/newBook/index.do') > -1) {
-		$('a#goBack').on('click', function(e) {
-			e.preventDefault();
-			history.back();
-		});
-	}
-
-	if (document.referrer.indexOf('/intro/search/bestBook/index.do') > -1) {
-		$('a#goBack').on('click', function(e) {
-			e.preventDefault();
-			history.back();
-		});
-	}
- 	//$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
 });
 
 </script>
 
-<form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
+<form id="storageReqForm" action="/${context_path}/module/myStorage/saveItem.do" method="post">
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-	<input type="hidden" id="itemEditMode" name="editMode" value="ADD">
+	<input type="hidden" id="editMode" name="editMode" value="ADD">
 	<input type="hidden" id="item_name" name="item_name" value="${detail.TITLE_INFO}">
 	<input type="hidden" id="author" name="author" value="${detail.AUTHOR}">
-	<input type="hidden" id="publer" name="publer" value="${fn:escapeXml(param.booktype)}">
+	<input type="hidden" id="publer" name="publer" value="${detail.PUBLISHER}">
 	<input type="hidden" id="loca" name="loca" value="${detail.MANAGE_CODE}">
-	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${fn:escapeXml(param.regNo)}">
-	<input type="hidden" id="call_no" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}">
-	<input type="hidden" id="img_url" name="img_url" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${detail.ST_CODE}">
+	<input type="hidden" id="img_url" name="img_url" value="${detail.IMAGE}">
 </form>
 
 <form id="resveReqForm" action="resve/save.do" method="post" onsubmit="return false;">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-	<input type="hidden" id="reserveMode" name="editMode" value="ADD">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />	
+	<input type="hidden" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
-	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
-</form>
-
-<form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
-	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
-	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
-	<input type="hidden" name="regNo" value="${detail.REG_NO}">
-	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
-	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">	
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
-	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
@@ -229,15 +128,13 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
-	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
 
-<form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
+<form id="basketReqForm" action="/${context_path}/intro/search/saveDeliveryBasket.do">
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
 </form>
-
 
 <form id="sanghoReqForm" action="sangho/form.do" method="post">
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -245,28 +142,7 @@ $(function() {
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
-	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 </form>
-
-<form id="walkingThruReqForm" action="/${homepage.context_path}/module/walkingThru/form.do" method="post">
-	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
-	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
-	<input type="hidden" name="regNo" value="${detail.REG_NO}">
-	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
-	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
-</form>
-
-<c:if test="${not empty loginPortal and loginPortal.login}">
-<form id="bookExpressForm" action="/${homepage.context_path}/module/bookExpress/save.do" method="post">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-	<input type="hidden" name="editMode" value="INTEREST">
-	<input type="hidden" name="book_name" value="${detail.TITLE_INFO} / ${detail.AUTHOR}">
-	<input type="hidden" name="book_reg_no" value="${detail.REG_NO}">
-	<input type="hidden" name="book_call_no" value="${detail.CALL_NO}">
-	<input type="hidden" name="thumb_image" value="${detail.IMAGE}">
-	<input type="hidden" name="library_code" value="${detail.LIB_CODE}">
-</form>
-</c:if>
 
 <!-- contents-title-->
 <div id="contents-title">
@@ -297,7 +173,7 @@ $(function() {
 			</div>
 			<div class="info">
 				<ul>
-					<li style="line-height: 150%;font-size:20px;"><b>${detail.TITLE_INFO}</b></li>
+					<li style="line-height:150%;"><b>${detail.TITLE_INFO}</b></li>
 					<li><strong>저자사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.AUTHOR}</li>
 					<li><strong>발행사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.PUBLISHER}, ${detail.PUB_YEAR},  ${detail.MEDIA_NAME}, \ ${detail.PRICE}</li>
 					<li><strong>형태사항</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.PAGE} : ${detail.BOOK_SIZE}</li>
@@ -305,20 +181,13 @@ $(function() {
 					<li><strong>표준부호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ISBN : ${detail.ISBN}</li>
 					</c:if>
 					<li><strong>분류기호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;한국십진분류법 : ${detail.CLASS_NO}</li>
-					<c:if test="${not empty detail.APPENDIX_INFO}">
-					<c:if test="${detail.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">
-					<li><strong>부록여부</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.APPENDIX_INFO[0].DESCRIPTION} (${detail.APPENDIX_INFO[0].APPENDIX_CNT}개)</li>
-					</c:if>
-					</c:if>
-					<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+					<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 					<li><strong>영어독서 레벨</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.marc}</li>
 					</c:if>
 				</ul>
 			</div>
 		</div>
-		<c:if test="${detail.SHELF_LOC_CODE eq 'AD36'}">
-			* 소장위치가 대구전자도서관인 경우, 실시간 대출가능 확인이 어렵습니다. 정확한 대출가능여부 확인은 대구전자도서관에 접속 대출가능 확인이 가능합니다.
-		</c:if>
+
 		<div class="bookDetailInfo">
 			<table class="bookDetailInfoTbl">
 			<caption>도서 상태 및 등록 정보</caption>
@@ -327,9 +196,7 @@ $(function() {
 				<col width="15%">
 				<col width="20%">
 				<col width="15%">
-				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<col width="20%">
-				</c:if>
 			</colgroup>
 			<thead>
 			<tr>
@@ -337,18 +204,33 @@ $(function() {
 				<th>등록번호</th>
 				<th>자료실</th>
 				<th>반납예정일</th>
-				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<th>대출상태</th>
-				</c:if>
 			</tr>
 			</thead>
 			<tbody>
 			<tr>
-				<td>${detail.CALL_NO}</td>
+				<td>${detail.CALL_NO}<br/>
+				<c:choose>
+					<c:when test="${detail.WORKING_STATUS eq 'BOL112N'}">
+						<c:choose>
+							<c:when test="${detail.RESERVATION_CNT > 0}">
+
+							</c:when>
+							<c:otherwise>
+
+											<a href="#" id="btn_print" class="btn btn2">청구기호출력</a>
+
+								
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
+				</td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
 				<td>${detail.RETURN_PLAN_DATE}</td>
-				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<td>
 
 					<!-- 대출가능 여부 [START] -->
@@ -396,52 +278,36 @@ $(function() {
 					<!-- 대출가능 여부 [ END ] -->
 
 				</td>
-				</c:if>
 			</tr>
 			</tbody>
 			</table>
 		</div>
-		<div style="margin-top:20px;">
+		<div>
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
-
 			<c:if test="${getIp eq '218.48.151.16'}">
-			<ul class="con">
-				<li style="background:none;">
-					<ul>
-						<li>KBILL_LILL_YN : ${detail.KBILL_LILL_YN} </li>
-						<li>SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} </li>
-						<li>SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} </li>
-						<li>REG_CODE : ${detail.REG_CODE}</li>
-						<li>LOAN_CODE : ${detail.LOAN_CODE}</li>
-						<li>RESERVE_CODE : ${detail.RESERVE_CODE}</li>
-						<li>CONTEXT_PATH : ${homepage.context_path}</li>
-						<li>MANAGE_CODE : ${detail.MANAGE_CODE}</li>
-					</ul>
-				</li>
-			</ul>
+KBILL_LILL_YN : ${detail.KBILL_LILL_YN} <br/>
+SHELF_LOC_CODE : ${detail.SHELF_LOC_CODE} <br/>
+SEPARATE_SHELF_CODE : ${detail.SEPARATE_SHELF_CODE} <br/>
+REG_CODE : ${detail.REG_CODE}<br/>
+LOAN_CODE : ${detail.LOAN_CODE}<br/>
+RESERVE_CODE : ${detail.RESERVE_CODE}<br/>
+CONTEXT_PATH : ${context_path}
 			</c:if>
 		</div>
 
-		<!-- <c:if test="${homepage.context_path eq 'dalseolib'}">
-			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 본리도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(7/6~7/16)를 안내드리오니, 많은 양해 부탁드립니다.
-			</p>
-		</c:if> -->
+<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
 
-		<p></p>
-		
-		
+</c:if>
+
+
 		<div class="sbtn" style="text-align:center;">
-			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
-			<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
-			</c:if>
 
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
 			<!-- 북구통합도서관 상호대차 설정시작-->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+				<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'GM'  || detail.MANAGE_CODE eq 'GJ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'GJ'}">
 						<!-- 북구영어  제외 -->
 						</c:when>
 						<c:otherwise>
@@ -458,8 +324,7 @@ $(function() {
 					</c:choose>
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
-	
+				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -470,7 +335,7 @@ $(function() {
 
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'junggu'}">
+				<c:when test="${context_path eq 'junggu'}">
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -480,10 +345,9 @@ $(function() {
 					</c:choose>
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'dalseolib'}">
-
+				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -497,10 +361,11 @@ $(function() {
 					</c:choose>
 				</c:when>
 
-				<c:when test="${homepage.context_path eq 'donggu'}">
+				
+				<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'|| detail.MANAGE_CODE eq 'HP'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -514,6 +379,7 @@ $(function() {
 					</c:choose>
 
 				</c:when>
+				
 
 				<c:otherwise>
 
@@ -522,9 +388,8 @@ $(function() {
 			</c:if>
 
 
-
 			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'AB'}">
+				<c:when test="${detail.MANAGE_CODE eq ''}">
 
 					<!--워킹스루 시작-->
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
@@ -533,22 +398,19 @@ $(function() {
 						<c:when test="${detail.RESERVATION_CNT > '0'}">
 
 						</c:when>
-
 						<c:otherwise>
-							<c:if test="${detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02'|| detail.SHELF_LOC_CODE eq 'AB03'|| detail.SHELF_LOC_CODE eq 'AB05'|| detail.SHELF_LOC_CODE eq 'AB06'}">
-
+							<c:if test="${detail.SHELF_LOC_CODE eq 'AG01' || detail.SHELF_LOC_CODE eq 'AG17'|| detail.SHELF_LOC_CODE eq 'AG21'|| detail.SHELF_LOC_CODE eq 'AG22'|| detail.SHELF_LOC_CODE eq 'AG23'}">
 							<c:choose>
-								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ' || detail.SEPARATE_SHELF_CODE eq 'AKX'|| detail.SEPARATE_SHELF_CODE eq 'AKW'|| detail.SEPARATE_SHELF_CODE eq 'AKV'|| detail.SEPARATE_SHELF_CODE eq 'AKU'|| detail.SEPARATE_SHELF_CODE eq 'AKT'|| detail.SEPARATE_SHELF_CODE eq 'AKM'|| detail.SEPARATE_SHELF_CODE eq 'AKL'|| detail.SEPARATE_SHELF_CODE eq 'AKK'|| detail.SEPARATE_SHELF_CODE eq 'AKY'|| detail.SEPARATE_SHELF_CODE eq 'ALD'|| detail.SEPARATE_SHELF_CODE eq 'ALE'|| detail.SEPARATE_SHELF_CODE eq 'ALF'|| detail.SEPARATE_SHELF_CODE eq 'ALG'|| detail.SEPARATE_SHELF_CODE eq 'ALH'|| detail.SEPARATE_SHELF_CODE eq 'ALJ'|| detail.SEPARATE_SHELF_CODE eq 'ALK'|| detail.SEPARATE_SHELF_CODE eq 'ALL'|| detail.SEPARATE_SHELF_CODE eq 'ALN'|| detail.SEPARATE_SHELF_CODE eq 'ALR'|| detail.SEPARATE_SHELF_CODE eq 'ALS'|| detail.SEPARATE_SHELF_CODE eq 'ALV'|| detail.SEPARATE_SHELF_CODE eq 'AMY'|| detail.SEPARATE_SHELF_CODE eq 'AMZ'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'ALX'|| detail.SEPARATE_SHELF_CODE eq 'ALY'|| detail.SEPARATE_SHELF_CODE eq 'ALZ'|| detail.SEPARATE_SHELF_CODE eq 'AMA'|| detail.SEPARATE_SHELF_CODE eq 'AMB'|| detail.SEPARATE_SHELF_CODE eq 'AMC'|| detail.SEPARATE_SHELF_CODE eq 'AMD'|| detail.SEPARATE_SHELF_CODE eq 'AME'|| detail.SEPARATE_SHELF_CODE eq 'AMF'|| detail.SEPARATE_SHELF_CODE eq 'AMH'|| detail.SEPARATE_SHELF_CODE eq 'AMJ'|| detail.SEPARATE_SHELF_CODE eq 'AMK'|| detail.SEPARATE_SHELF_CODE eq 'AML'|| detail.SEPARATE_SHELF_CODE eq 'AMM'|| detail.SEPARATE_SHELF_CODE eq 'AMN'|| detail.SEPARATE_SHELF_CODE eq 'AMP'|| detail.SEPARATE_SHELF_CODE eq 'AMQ'|| detail.SEPARATE_SHELF_CODE eq 'AMR'|| detail.SEPARATE_SHELF_CODE eq 'AMS'|| detail.SEPARATE_SHELF_CODE eq 'AMT'|| detail.SEPARATE_SHELF_CODE eq 'AMU'|| detail.SEPARATE_SHELF_CODE eq 'AMV'|| detail.SEPARATE_SHELF_CODE eq 'AMW'|| detail.SEPARATE_SHELF_CODE eq 'ANA'|| detail.SEPARATE_SHELF_CODE eq 'ANB'|| detail.SEPARATE_SHELF_CODE eq 'ANC'|| detail.SEPARATE_SHELF_CODE eq 'AND'|| detail.SEPARATE_SHELF_CODE eq 'ANE'|| detail.SEPARATE_SHELF_CODE eq 'ANF'|| detail.SEPARATE_SHELF_CODE eq 'ANG'|| detail.SEPARATE_SHELF_CODE eq 'ANH'|| detail.SEPARATE_SHELF_CODE eq 'ANJ'|| detail.SEPARATE_SHELF_CODE eq 'ANK'|| detail.SEPARATE_SHELF_CODE eq 'ANL'|| detail.SEPARATE_SHELF_CODE eq 'ANM'|| detail.SEPARATE_SHELF_CODE eq 'ANN'|| detail.SEPARATE_SHELF_CODE eq 'ANP'|| detail.SEPARATE_SHELF_CODE eq 'ANQ'|| detail.SEPARATE_SHELF_CODE eq 'ANR'|| detail.SEPARATE_SHELF_CODE eq 'ANS'|| detail.SEPARATE_SHELF_CODE eq 'ANT'|| detail.SEPARATE_SHELF_CODE eq 'ANU'|| detail.SEPARATE_SHELF_CODE eq 'ANV'|| detail.SEPARATE_SHELF_CODE eq 'ANW'|| detail.SEPARATE_SHELF_CODE eq 'ANX'|| detail.SEPARATE_SHELF_CODE eq 'ANY'|| detail.SEPARATE_SHELF_CODE eq 'ANZ'|| detail.SEPARATE_SHELF_CODE eq 'APA'|| detail.SEPARATE_SHELF_CODE eq 'APB'|| detail.SEPARATE_SHELF_CODE eq 'APC'|| detail.SEPARATE_SHELF_CODE eq 'APD'|| detail.SEPARATE_SHELF_CODE eq 'APE'|| detail.SEPARATE_SHELF_CODE eq 'APF'|| detail.SEPARATE_SHELF_CODE eq 'APG'|| detail.SEPARATE_SHELF_CODE eq 'APH'|| detail.SEPARATE_SHELF_CODE eq 'APJ'|| detail.SEPARATE_SHELF_CODE eq 'APL'|| detail.SEPARATE_SHELF_CODE eq 'APM'|| detail.SEPARATE_SHELF_CODE eq 'APN'|| detail.SEPARATE_SHELF_CODE eq 'APP'|| detail.SEPARATE_SHELF_CODE eq 'APQ'|| detail.SEPARATE_SHELF_CODE eq 'APR'|| detail.SEPARATE_SHELF_CODE eq 'APS'|| detail.SEPARATE_SHELF_CODE eq 'APT'|| detail.SEPARATE_SHELF_CODE eq 'APV'|| detail.SEPARATE_SHELF_CODE eq 'APW'|| detail.SEPARATE_SHELF_CODE eq 'APX'|| detail.SEPARATE_SHELF_CODE eq 'APY'|| detail.SEPARATE_SHELF_CODE eq 'APZ'|| detail.SEPARATE_SHELF_CODE eq 'AQA'|| detail.SEPARATE_SHELF_CODE eq 'AQB'|| detail.SEPARATE_SHELF_CODE eq 'AQC'|| detail.SEPARATE_SHELF_CODE eq 'AQD'|| detail.SEPARATE_SHELF_CODE eq 'AQE'|| detail.SEPARATE_SHELF_CODE eq 'AQF'|| detail.SEPARATE_SHELF_CODE eq 'AQJ'|| detail.SEPARATE_SHELF_CODE eq 'AQL'|| detail.SEPARATE_SHELF_CODE eq 'AQM'|| detail.SEPARATE_SHELF_CODE eq 'AQN'|| detail.SEPARATE_SHELF_CODE eq 'AQP'|| detail.SEPARATE_SHELF_CODE eq 'AQQ'|| detail.SEPARATE_SHELF_CODE eq 'AQR'|| detail.SEPARATE_SHELF_CODE eq 'AQT'|| detail.SEPARATE_SHELF_CODE eq 'AQU'|| detail.SEPARATE_SHELF_CODE eq 'AQV'|| detail.SEPARATE_SHELF_CODE eq 'AQW'|| detail.SEPARATE_SHELF_CODE eq 'AQX'|| detail.SEPARATE_SHELF_CODE eq 'AQY'|| detail.SEPARATE_SHELF_CODE eq 'AQZ'|| detail.SEPARATE_SHELF_CODE eq 'ARA'|| detail.SEPARATE_SHELF_CODE eq 'ARB'|| detail.SEPARATE_SHELF_CODE eq 'ARC'|| detail.SEPARATE_SHELF_CODE eq 'ARD'|| detail.SEPARATE_SHELF_CODE eq 'ARE'|| detail.SEPARATE_SHELF_CODE eq 'ARF'|| detail.SEPARATE_SHELF_CODE eq 'ARG'|| detail.SEPARATE_SHELF_CODE eq 'ARH'|| detail.SEPARATE_SHELF_CODE eq 'ARJ'|| detail.SEPARATE_SHELF_CODE eq 'ARK'|| detail.SEPARATE_SHELF_CODE eq 'ARL'|| detail.SEPARATE_SHELF_CODE eq 'ARM'|| detail.SEPARATE_SHELF_CODE eq 'ARN'|| detail.SEPARATE_SHELF_CODE eq 'ARP'|| detail.SEPARATE_SHELF_CODE eq 'ARQ'|| detail.SEPARATE_SHELF_CODE eq 'ARR'|| detail.SEPARATE_SHELF_CODE eq 'ARS'|| detail.SEPARATE_SHELF_CODE eq 'ART'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AMX'|| detail.SEPARATE_SHELF_CODE eq 'APK'|| detail.SEPARATE_SHELF_CODE eq 'AQS'}">	
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'ASX' || detail.SEPARATE_SHELF_CODE eq 'ATD'|| detail.SEPARATE_SHELF_CODE eq 'ATE'|| detail.SEPARATE_SHELF_CODE eq 'ATF'|| detail.SEPARATE_SHELF_CODE eq 'ATG'|| detail.SEPARATE_SHELF_CODE eq 'ATH'|| detail.SEPARATE_SHELF_CODE eq 'ATJ'|| detail.SEPARATE_SHELF_CODE eq 'ATK'|| detail.SEPARATE_SHELF_CODE eq 'ATM'|| detail.SEPARATE_SHELF_CODE eq 'ATS'|| detail.SEPARATE_SHELF_CODE eq 'ATT'|| detail.SEPARATE_SHELF_CODE eq 'ATV'|| detail.SEPARATE_SHELF_CODE eq 'ATW'|| detail.SEPARATE_SHELF_CODE eq 'AUB'|| detail.SEPARATE_SHELF_CODE eq 'AUC'|| detail.SEPARATE_SHELF_CODE eq 'AUK'|| detail.SEPARATE_SHELF_CODE eq 'ARX'|| detail.SEPARATE_SHELF_CODE eq 'ARZ'|| detail.SEPARATE_SHELF_CODE eq 'ASA'|| detail.SEPARATE_SHELF_CODE eq 'ASE'|| detail.SEPARATE_SHELF_CODE eq 'ASM'|| detail.SEPARATE_SHELF_CODE eq 'ASN'|| detail.SEPARATE_SHELF_CODE eq 'ASR'|| detail.SEPARATE_SHELF_CODE eq 'ASS'|| detail.SEPARATE_SHELF_CODE eq 'ASU'|| detail.SEPARATE_SHELF_CODE eq 'ASV'}">
+								
 								</c:when>
-
 								<c:otherwise>
-									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'qksksk0101'|| sessionScope.member.member_id eq 'rlathdus1104'|| sessionScope.member.member_id eq 'wthtest1234'|| sessionScope.member.member_id eq 'greenbird503'}">
 									<%
 									org.joda.time.DateTime now = new org.joda.time.DateTime();
 									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 									int hour = now.getHourOfDay();
 
-									if(10 <= hour && hour < 14)
+									if(9 <= hour && hour < 24)
 									{
 									%>
 										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
@@ -561,11 +423,8 @@ $(function() {
 									<%
 									}
 									%>
-									</c:if>
-
 									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
 								</c:otherwise>
-
 							</c:choose>
 							</c:if>
 						</c:otherwise>
@@ -574,131 +433,51 @@ $(function() {
 					</c:if>
 
 				</c:when>
-
-				<c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB'}">
-
-					<!--워킹스루 시작-->
-					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' }">
-
-					<c:choose>
-						<c:when test="${detail.RESERVATION_CNT > '0'}">
-
-						</c:when>
-
-						<c:otherwise>
-							<c:if test="${detail.SHELF_LOC_CODE eq 'CA01' || detail.SHELF_LOC_CODE eq 'CA02'|| detail.SHELF_LOC_CODE eq 'CB01'|| detail.SHELF_LOC_CODE eq 'CB02'}">
-
-							<c:choose>
-								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ'}">	
-								</c:when>
-
-								<c:otherwise>
-									<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'}">
-									<%
-									org.joda.time.DateTime now = new org.joda.time.DateTime();
-									int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
-									int hour = now.getHourOfDay();
-
-									if(10 <= hour && hour < 14)
-									{
-									%>
-										<a href="#night" id="night-req" class="btn">워킹스루예약신청</a>
-									<%
-									}
-									else
-									{
-									%>
-										<a href="#" class="btn btn1" onclick="alert('신청가능 시간이 아닙니다.');">워킹스루예약신청</a>
-									<%
-									}
-									%>
-									</c:if>
-									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
-									
-								</c:otherwise>
-
-							</c:choose>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-
-					</c:if>
-
-				</c:when>
-
 				<c:otherwise>
 
 				</c:otherwise>
 			</c:choose>
 
-<!-- 
+
+<!--
+AD02  고전(인문)
+AD03 북큐레이션(인문)
+AD04 인문자료실
+AD06 어린이실
+AD07 아동인문코너
+AD08 북큐레이션(어린이)
+AD14 유아실
+AD18 치매도서코너
+AD19 북큐레이션(종합)
+AD20 종합자료실
+-->
 			<%
 				org.joda.time.DateTime now = new org.joda.time.DateTime();
 				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
 				int hour = now.getHourOfDay();
 			%>
-			 -->
-			<!--비대면도서대출 버튼-->
-			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
-				<c:choose>
-				<c:when test="${detail.LOAN_CODE eq 'OK'}">
-					<a href="#untact" id="untactBook-req" class="btn btn2"><span>비대면 사물함 도서대출</span></a>
-				</c:when>
-				<c:otherwise>
-				</c:otherwise>
-				</c:choose>
-			</c:if>
-
-			<!--워킹스루 도서대출 버튼-->
-			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
-				<c:choose>
-				<c:when test="${detail.LOAN_CODE eq 'OK'}">
-					<a href="#walkingThru" id="walkingThru-req" class="btn"><span>워킹스루 도서대출${detail.PK }</span></a>
-				</c:when>
-				<c:otherwise>
-				</c:otherwise>
-				</c:choose>
-			</c:if>
-			
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'jungang'}">
+				<c:when test="${context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AD46' || detail.SHELF_LOC_CODE eq 'AD47' || detail.SHELF_LOC_CODE eq 'AD48' || detail.SHELF_LOC_CODE eq 'AD49' || detail.SHELF_LOC_CODE eq 'AD51' || detail.SHELF_LOC_CODE eq 'AD52' || detail.SHELF_LOC_CODE eq 'AD19' || detail.SHELF_LOC_CODE eq 'AD03' || detail.SHELF_LOC_CODE eq 'AD43' || detail.SHELF_LOC_CODE eq 'AD08'}">
-
-						<c:choose>
-							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
-							</c:when>
-							<c:otherwise>
-								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-							</c:otherwise>
-						</c:choose>
-
-
+						<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
 					</c:if>
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq '228'}">
+				<c:when test="${context_path eq '228'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23'}">
-					
-						<c:choose>
-							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
-							</c:when>
-							<c:otherwise>
-								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-							</c:otherwise>
-						</c:choose>
-					
+					<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+					<!-- <a href="#night" id="night-req" class="btn">야간예약신청</a> -->
 					</c:if>
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dmsl'}">
+				<c:when test="${context_path eq 'dmsl'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${sessionScope.member.user_class_code eq '701'}">
@@ -707,13 +486,28 @@ $(function() {
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dalseolib'}">
+
+				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
 					<c:if test="${detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
-									<!-- <a href="#" class="btn btn1" onclick="alert('장비 점검으로 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a> -->
+									<%
+									if(dayOfWeek == 1 || dayOfWeek == 7)
+									{
+									%>
+										<!-- <a href="#muin" onclick="alert('무인예약 신청가능 요일이 아닙니다.');" class="btn">무인예약신청</a> -->
+									<%
+									}
+									else
+									{
+									%>
+										<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> ->>
+									<%
+									}
+									%>
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<!--<a href="#" class="btn btn1" onclick="alert('24일까지 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a>-->
 								</c:when>
 								<c:otherwise>
 								</c:otherwise>
@@ -721,37 +515,7 @@ $(function() {
 						</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dalseonglib'}">
-				<!-- 달성군립 무인예약 버튼은 토,일,월 제외한 09:00~12:00 까지만 활성화 -->
-				<jsp:useBean id="toDay" class="java.util.Date" />
-				<c:set var="startTime" value="09:00:00"></c:set>
-				<c:set var="endTime" value="21:00:00"></c:set>
-				<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
-				<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
-				<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
-				<fmt:formatDate var="day" value="${toDay}" pattern="E"/>
-				<fmt:formatDate var="startTime" value="${dateStr1}" pattern="HH:mm:ss"/>
-				<fmt:formatDate var="endTime" value="${dateStr2}" pattern="HH:mm:ss"/>
-				<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
-				<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime and (day ne '토' and day ne '일' and day ne '월')}">
-					<c:if test="${getIp eq '211.60.168.2' or getIp eq '218.48.151.16' or getIp eq '0:0:0:0:0:0:0:1'}">
-						<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
-							<c:if test="${detail.RESERVATION_CNT eq '0' and detail.LOAN_CODE eq 'OK'}">
-								<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06' || detail.SHELF_LOC_CODE eq 'BR07' || detail.SHELF_LOC_CODE eq 'BR10'}">
-								<c:choose>
-									<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-										<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
-									</c:when>
-									<c:otherwise>
-										<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-									</c:otherwise>
-								</c:choose>
-								</c:if>
-							</c:if>
-						</c:if>
-					</c:if>
-				</c:if>
-				</c:when>
+
 				<c:otherwise>
 
 				</c:otherwise>
@@ -763,108 +527,28 @@ $(function() {
 
 				</c:when>
 				<c:otherwise>
-
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FP'||detail.MANAGE_CODE eq 'FW'}">
+					<c:when test="${detail.MANAGE_CODE eq 'FP'|| detail.MANAGE_CODE eq 'FW'}">
 
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${detail.RESERVE_CODE eq 'OK'}">
-									<a href="#" id="resve-req" class="btn btn1" style="padding:8.5px 2%">예약신청(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${detail.RESERVE_CODE eq 'OK'}">
+								<a href="#" id="resve-req" class="btn">예약신청</a>
+							</c:when>
+							<c:otherwise>
+								<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
 					</c:choose>
-
 				</c:otherwise>
 			</c:choose>
 
-			<a href="#" id="addStorage" class="btn btn4"><span>관심도서 추가</span></a>
-
-			<a href="index.do?menu_idx=${param.menu_idx}" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
-
-			<c:if test="${not empty loginPortal and loginPortal.login}">
-			<a href="#" id="interest" class="btn"><span>교수학습 택배용 관심도서</span></a>
+			<c:if test="${detail.WORKING_STATUS ne 'BOL112N' and param.booktype ne 'NONBOOK'}">
 			</c:if>
+
+			<a href="javascript:history.back();" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 		</div>
-
-		<c:if test="${homepage.context_path eq '228'}">
-			<p style="font-weight:bold;text-align:center;">
-				※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.
-			</p>
-		</c:if>
-
-		<%-- <div style="padding-top:30px ;text-align:right">
-			<a href="${detail.aladin.link}" target="_blank" style="color:#000">도서 정보 제공 : 알라딘 인터넷서점(www.aladin.co.kr)</a> <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
-		</div> --%>
-
-		<!-- 선호도정보 -->
-		<h5 class="bookTitle">연령별 대출선호도 정보</h5>
-		<div class="graphWrap">
-			<!-- 막대그래프 -->
-			<c:if test="${not empty data4ageList}">
-			<div class="barGraph">
-				<div class="graphBox">
-					<ul class="axis-x clearfix">
-						<c:forEach var="i" varStatus="stauts" items="${data4ageList}">
-						<li>
-							<span class="bar"><span class="fill" style="height:${(i.loanCnt/data4LoanCnt)*100}%;"><em class="num">${i.loanCnt}건</em></span></span>
-							<p class="txt">${i.name}</p>
-						</li>
-						</c:forEach>
-					</ul>
-					<div class="axis-y">
-						<span class="line"><span class="txt">100</span></span>
-						<span class="line"><span class="txt">80</span></span>
-						<span class="line"><span class="txt">60</span></span>
-						<span class="line"><span class="txt">40</span></span>
-						<span class="line"><span class="txt">20</span></span>
-						<span class="line"><span class="txt">0</span></span>
-					</div>
-					<div class="end"></div>
-				</div>
-				<div class="end"></div>
-			</div>
-			</c:if>
-			<c:if test="${empty data4ageList}">
-			<div>데이터가 없습니다.</div>
-			</c:if>
-			<!-- //막대그래프 -->
-		</div>
-		<!-- 선호도정보 -->
-		<div class="end"></div>
-
-		<h5 class="bookTitle">이 책의 주요키워드</h5>
-		<div class="tagCloud">
-			<div id="cloud" class="jqcloud"></div>
-		</div>
-		<div class="end"></div>
-
-		<!-- 도서정보목록 -->
-		<h5 class="bookTitle">이 책과 같이 빌린 도서 정보</h5>
-		<div class="kdcBookList">
-			<ul class="bookListz">
-				<c:forEach items="${data4recommandList}" var="i" varStatus="status" begin="1" end="5" step="1">
-					<li>
-						<div class="thumb">
-							<a href="#None" class="cover" onclick="alert('이 책과 같이 빌린 도서 정보는 상세페이지를 지원하지 않습니다.')">
-								<span class="img">
-									<img src="${i.bookImageURL}" alt="${i.bookname}" >
-								</span>
-							</a>
-						</div>
-						<span class="tit">${i.bookname}</span>
-						<span class="author">${i.authors}</span>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
-
-		<h3 style="border-top: 1px solid #ccc; display: none;">서평</h3>
-		<div class="showFoldDiv" id="bookReviewDiv"></div>
 	</div>
 </div>
