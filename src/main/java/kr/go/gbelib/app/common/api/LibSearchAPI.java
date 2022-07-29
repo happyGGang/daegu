@@ -854,6 +854,24 @@ public class LibSearchAPI {
 
 		return CommonAPI.sendKCMS("bookreservelist", param);
 	}
+	
+	/**
+	 * K.API - 15
+	 *
+	 * 예약자료조회
+	 *
+	 * @author whalesoft HWAN 2022. 07. 29.
+	 * @param userkey, manage_code
+	 * @return
+	 */
+	public static Map<String, Object> getReserveList(String userkey, String manage_code) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("userkey", userkey);
+		param.put("manage_code", manage_code);
+
+		return CommonAPI.sendKCMS("bookreservelist", param);
+	}
 
 	/**
 	 * K.API - 16

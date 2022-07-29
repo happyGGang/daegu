@@ -1451,7 +1451,7 @@ public class CommonSearchController extends BaseController {
 			Homepage homepage = getSessionHomepage(request);
 			if(StringUtils.isNotEmpty(homepage.getContext_path())){
 				if(homepage.getContext_path().equals("dalseonglib") && librarySearch.getEditMode().equals("ADD")) {
-					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key());
+					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
 					List<Map<String, Object>> list = null;
 					list = LibSearchAPI.getListData(reserveList);
 					int count = LibSearchAPI.getSearchCount(reserveList);
