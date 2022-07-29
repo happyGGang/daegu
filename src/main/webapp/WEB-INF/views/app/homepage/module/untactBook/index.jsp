@@ -106,7 +106,7 @@ function qrCode(locker_password) {
 						</c:when>
 						<c:otherwise>
 						${i.reservation_step_code_name}
-						<c:if test="${i.reservation_step eq '1' || i.reservation_step eq '2' || i.reservation_step eq '3'}">
+						<c:if test="${i.reservation_step eq '1'}">
 							<a href="javascript:void(0);" class="btn reserveCancel" onclick="cancelReserve('${i.request_number}');">예약취소</a>
 						</c:if>
 						</c:otherwise>

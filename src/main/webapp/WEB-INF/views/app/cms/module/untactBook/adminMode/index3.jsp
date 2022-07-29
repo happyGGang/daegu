@@ -189,6 +189,55 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 function bookName(book_name) {
 	alert('도서명 : '+book_name);
 }
+
+function bookReservation() {
+	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
+		alert('대출 처리 하실 아이디를 선택해 주세요.');
+	} else {
+		if(confirm('대출처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'bookReservation.do',
+				data: $('input[name=request_number_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('대출처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+function bookReservationOne(request_number) {
+	var ajaxData = {
+			'request_number_arr' : request_number
+	};
+	if(confirm('대출처리 하시겠습니까?')) {
+		$.ajax({
+			type: "POST",
+			url: 'bookReservation.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('대출처리 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	} 
+}
 </script>
 
 <!--[if IE 7]>
@@ -413,6 +462,7 @@ function bookName(book_name) {
 										</td>
 										<td>
 										<div class="button">
+											<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservationOne('${i.request_number}');">대출</a>
 											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}');">만기</a>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
 										</div>
@@ -427,6 +477,7 @@ function bookName(book_name) {
 						</div>
 						
 						<div style="padding-top:10px;">
+							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn4 btnuntact" onclick="bookReservation();">대출</a>
 							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
 							<a href="javascript:void(0);" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 						</div>
