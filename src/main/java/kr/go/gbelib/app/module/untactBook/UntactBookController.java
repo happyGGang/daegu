@@ -1,8 +1,5 @@
 package kr.go.gbelib.app.module.untactBook;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -174,54 +171,48 @@ public class UntactBookController extends BaseController {
 			return null;
 		}
 		
-		//휴관일 예약 불가(회차 반복일이 하루일경우)
-		Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        //TODO 회차 반복일이 하루가 아니라면 수정필요
-        cal.add(Calendar.DATE, 1);
-        
-		if(!(sdf.format(cal.getTime()).isEmpty())) {
-			librarySearch.setManageCode(homepage.getManage_code());
-			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
-			
-			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-			
-			if(holiDays.get("RESULT_CODE").equals("1")) {
-				service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
-				return null;
-			}
-		}
+//		//휴관일 예약 불가(회차 반복일이 하루일경우)
+//		Calendar cal = Calendar.getInstance();
+//        cal.setTime(new Date());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//        //TODO 회차 반복일이 하루가 아니라면 수정필요
+//        cal.add(Calendar.DATE, 1);
+//        
+//		if(!(sdf.format(cal.getTime()).isEmpty())) {
+//			librarySearch.setManageCode(homepage.getManage_code());
+//			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
+//			
+//			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+//			
+//			if(holiDays.get("RESULT_CODE").equals("1")) {
+//				service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
+//				return null;
+//			}
+//		}
 		
 		//사물함 사용 여부 확인
 		if(!(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("사물함없음"))) {
 			if(untactLockerSettingService.getLockerUseYN(homepage.getHomepage_id()).equals("N")) {
-				service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
+				service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.\\n사용가능한 사물함이 없습니다. 관리자에게 문의해주세요.", request, response);
 				return null;
 			}
 		}
 		
 		//비대면 도서대출 예약 가능한 사물함 count
 		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) == 0) {
-			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
+			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.\\n예약가능한 사물함이 없습니다. 관리자에게 문의해주세요.", request, response);
 			return null;
 		}
 		
 		//회차
 		if((untactLockerSettingService.getUntactBookRoundOne(untactBookRound)) == null || "".equals(untactLockerSettingService.getUntactBookRoundOne(untactBookRound))) {
-			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
+			service.alertMessage("비대면 도서대출 설정이 되지 않았습니다.\\n관리자에게 문의해주세요.", request, response);
 			return null;
 		}
 		
 		//비대면 도서대출 설정유무 확인
 		if (untactLockerSettingService.getLockerMaxCount(homepage.getHomepage_id()) == 0) {
 			service.alertMessage("비대면 도서대출예약이 불가능한 도서관입니다.", request, response);
-			return null;
-		}
-		
-		//비대면 도서대출 예약 가능한 사물함 count
-		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) == 0) {
-			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
 			return null;
 		}
 		

@@ -339,7 +339,7 @@
 	
 	<select id="getUntactBookReservationCount" resultType="int">
 		SELECT
-			COUNT(*)
+			COUNT(DISTINCT locker_number)
 		FROM
 			UNTACT_BOOK_RESERVATION
 		WHERE
