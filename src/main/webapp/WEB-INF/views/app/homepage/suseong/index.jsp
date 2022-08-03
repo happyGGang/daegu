@@ -357,12 +357,17 @@ do {
 								<a href="https://www.instagram.com/suseonglib/?hl=ko" target="_blank">
 									<img src="/resources/homepage/${homepage.context_path}/img/instargram-icon.png" alt="INSTAGRAM"> <br class="br650"/>INSTAGRAM
 								</a>
-							</li>
+							</li> 
 							<li>
+								<a href="https://blog.naver.com/suseonglib" target="_blank">
+									<img src="/resources/homepage/${homepage.context_path}/img/naverblog-icon.png" alt="NAVER BLOG"> <br class="br650"/>NAVER BLOG
+								</a>
+							</li>
+							<!-- <li>
 								<a href="https://twitter.com/suseonglib2500" target="_blank">
 									<img src="/resources/homepage/${homepage.context_path}/img/twitter-icon.png" alt="TWITTER"> <br class="br650"/>TWITTER
 								</a>
-							</li>
+							</li> -->
 							<li>
 								<a href="https://www.youtube.com/channel/UCcsjxHtIVulortb8xu6bnCQ" target="_blank">
 									<img src="/resources/homepage/${homepage.context_path}/img/youtube-icon.png" alt="YOUTUBE"> <br class="br650"/>YOUTUBE
