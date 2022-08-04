@@ -44,36 +44,36 @@ $(document).ready(function() {
 				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
 			</tr>
 			<tr>
-				<th>서명</th>
-				<td>
-					<form:input path="imsi_v_2" cssClass="text" maxlength="100" /> 
-				</td>
-				<th>저자</th>
-				<td>
-					<form:input path="imsi_v_3" cssClass="text" maxlength="100"/>
-				</td>
-			</tr>
-			<tr>
+<!-- 				<th>서명</th> -->
+<!-- 				<td> -->
+<%-- 					<form:input path="imsi_v_2" cssClass="text" maxlength="100" />  --%>
+<!-- 				</td> -->
 				<th>등록번호</th>
 				<td>
 					<form:input path="imsi_v_4" cssClass="text" maxlength="100"/>
 				</td>
-				<th>출판사</th>
-				<td>
-					<form:input path="imsi_v_5" cssClass="text" maxlength="100"/>
-				</td>
-			</tr>
-			<tr>
 				<th>주소(링크)</th>
 				<td>
 					<form:input path="imsi_v_6" cssClass="text" maxlength="100"/>
 				</td>
-				<th>ebook 파일명</th>
-				<td>
-					<form:input path="imsi_v_7" cssClass="text" maxlength="100"/>
-				</td>
 			</tr>
-			
+<!-- 			<tr> -->
+<!-- 				<th>저자</th> -->
+<!-- 				<td> -->
+<%-- 					<form:input path="imsi_v_3" cssClass="text" maxlength="100"/> --%>
+<!-- 				</td> -->
+				
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<th>출판사</th> -->
+<!-- 				<td> -->
+<%-- 					<form:input path="imsi_v_5" cssClass="text" maxlength="100"/> --%>
+<!-- 				</td> -->
+<!-- 				<th>ebook 파일명</th> -->
+<!-- 				<td> -->
+<%-- 					<form:input path="imsi_v_7" cssClass="text" maxlength="100"/> --%>
+<!-- 				</td> -->
+<!-- 			</tr> -->
 			<c:if test="${boardManage.secret_use_yn eq 'Y'}">
 			<tr>
 				<th>비밀글 여부</th>

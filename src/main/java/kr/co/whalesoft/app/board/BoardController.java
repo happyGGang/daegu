@@ -1878,5 +1878,16 @@ public class BoardController extends BaseController {
 		}
 		return "/board/rss_ajax";
 	}
+	
+	@RequestMapping(value = {"/addBoardCountForNwjSource.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse addBoardCountForNwjSource(Board board, BindingResult result, HttpServletRequest request) throws Exception {
+		JsonResponse res = new JsonResponse(request);
+
+		if(service.addViewCount(board) > 0) {
+			res.setValid(true);
+		}
+
+		return res;
+	}
 
 }
