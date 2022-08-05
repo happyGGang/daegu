@@ -1223,7 +1223,8 @@ public class CommonSearchController extends BaseController {
 
 		Map<String, Object> map = null;
 		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-			map = LibSearchAPI.getNaverList(librarySearch);
+//			map = LibSearchAPI.getNaverList(librarySearch);
+			map = LibSearchAPI.getKaKaoList(librarySearch);
 			int totalCount = (Integer) map.get("totalCount");
 			@SuppressWarnings ("unchecked")
 			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
@@ -1233,13 +1234,6 @@ public class CommonSearchController extends BaseController {
 					for (int i = 0; i < isbnArr.length; i++) {
 						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
 						map2.put("isbn"+isbn.length(), isbn);
-
-//						LibrarySearch bookSerach = new LibrarySearch();
-//						bookSerach.setManageCode(librarySearch.getManageCode());
-//						bookSerach.setIsbn(isbn);
-//						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
-//
-//						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
 						ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
 						if (!code.getStatus()) {
 							map2.put("already"+isbn.length(), true);
@@ -1250,7 +1244,7 @@ public class CommonSearchController extends BaseController {
 				}
 				
 				service.setPaging(model, totalCount, librarySearch);
-				model.addAttribute("naverResult", map);
+				model.addAttribute("kakaoResult", map);
 			}
 		}
 

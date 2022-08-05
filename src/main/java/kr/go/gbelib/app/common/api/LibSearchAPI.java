@@ -2232,6 +2232,45 @@ public class LibSearchAPI {
 
 		return cnt;
 	}
+	
+	/**
+	 * 카카오 책검색 - list
+	 *
+	 * @param pagingUtils search_text
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static Map<String, Object> getKaKaoList(PagingUtils pagingUtils) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		try {
+			param.put("query", URLEncoder.encode(pagingUtils.getSearch_text(), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			param.put("query", "");
+		}
+		param.put("start", (pagingUtils.getViewPage() - 1) + 1);
+
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("totalCount", 0);
+		returnMap.put("list", null);
+		List<Map<String, Object>> returnList = null;
+
+		Map<String, Object> resultMap = CommonAPI.sendKAKAO(param, "list");
+
+		if(resultMap != null) {
+			Object documents = resultMap.get("documents");
+			if (documents instanceof Map) {
+				returnList = new ArrayList<Map<String, Object>>();
+				returnList.add((Map<String, Object>) documents);
+			} else {
+				returnList = (List<Map<String, Object>>) documents;
+			}
+			Map<String, Object> meta = (Map<String, Object>) resultMap.get("meta");
+			returnMap.put("totalCount", meta.get("pageable_count"));
+			returnMap.put("list", returnList);
+		}
+
+		return returnMap;
+	}
 
 	/********************************************************************************************************************/
 	/********************************************* 이하 네이버 ***************************************************************/
