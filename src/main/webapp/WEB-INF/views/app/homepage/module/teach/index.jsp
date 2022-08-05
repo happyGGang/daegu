@@ -229,6 +229,16 @@ $(function(){
 
 	</c:choose>
 
+	<c:if test="${homepage.context_path eq 'bukbu'}">
+		<h3>유의사항</h3>
+		<ul class="con">
+			<li>수강신청시 수강생 정보에는 실제 수업에 참석 하는 사람의 정보를 입력해 주시기 바랍니다. 수강생 정보로 출석부를 작성합니다.</li>
+			<li>수강신청 뒤 강의계획서는 도서관 홈페이지 휴관일 및 행사 달력에서 강좌를 선택하여 확인할 수 있습니다.</li>
+			<li>첫강좌 무단 불참시 수강제한될 수 있으며, 취소시 대기자 연락을 위해 전화부탁드립니다.</li>
+			<li>도서관 주차장이 협소하오니 강의수강시 대중교통을 이용해 주시기 바랍니다.</li>
+		</ul>
+	</c:if>
+
 	<c:choose>
 	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl'}">
 

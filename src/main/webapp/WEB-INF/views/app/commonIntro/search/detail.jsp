@@ -641,7 +641,7 @@ $(function() {
 			<!--비대면도서대출 버튼-->
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'bukgs' and detail.LOAN_CODE eq 'OK'}">
-					<a href="#untact" id="untactBook-req" class="btn btn2" style="display:none;"><span>무인예약대출 신청</span></a>
+					<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
 				</c:when>
 				<c:otherwise>
 				</c:otherwise>
