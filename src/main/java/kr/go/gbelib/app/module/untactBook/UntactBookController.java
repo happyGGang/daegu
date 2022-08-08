@@ -156,6 +156,18 @@ public class UntactBookController extends BaseController {
 
 		untactBookRound.setHomepage_id(homepage.getHomepage_id());
 		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setUserkey(member.getRec_key());
+
+		Map<String, Object> untactBookLoanReserveListForOne = LibSearchAPI.getUntactBookLoanReserveList(ls, null);
+		int searchCountForOne = LibSearchAPI.getSearchCount(untactBookLoanReserveListForOne);
+
+		if (searchCountForOne >= 2) {
+			service.alertMessage("무인예약대출은 하루에 2건 가능합니다.", request, response);
+			return null;
+		}
+		
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
