@@ -166,6 +166,11 @@ public class LibrarySearch extends PagingUtils {
 
 	private List<String> appendixregnolist;//지역상호대차 부록신청 등록번호 리스트
 
+	// 드론대출
+	private String device_code;
+	private int request_idx;
+	private String request_status;
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -1185,5 +1190,28 @@ public class LibrarySearch extends PagingUtils {
 	public void setWorkno(String workno) {
 		this.workno = workno;
 	}
-	
+
+	public String getDevice_code() {
+		return device_code;
+	}
+
+	public void setDevice_code(String device_code) {
+		this.device_code = device_code;
+	}
+
+	public int getRequest_idx() {
+		return request_idx;
+	}
+
+	public void setRequest_idx(int request_idx) {
+		this.request_idx = request_idx;
+	}
+
+	public String getRequest_status() {
+		return request_status;
+	}
+
+	public void setRequest_status(String request_status) {
+		this.request_status = request_status;
+	}
 }

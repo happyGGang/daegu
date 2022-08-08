@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequestDao">
+  <sql id="where">
+    <if test="search_request_status != null and search_request_status != ''">
+      AND REQUEST_STATUS = #{search_request_status}
+    </if>
+    <if test="search_request_date != null and search_request_date != ''">
+      AND TRUNC(ADD_DATE) = #{search_request_date}
+    </if>
+  </sql>
+
+  <sql id="homepage_where">
+    <if test="search_start_date != null and search_start_date != '' and search_end_date != null and search_end_date != ''">
+      AND TRUNC(ADD_DATE) BETWEEN #{search_start_date} and #{search_end_date}
+    </if>
+  </sql>
+
+  <select id="getLoanRequestList" resultType="kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest">
+    ${pagingTop}
+    SELECT
+      REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
+      REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS,REQUEST_STATUS_NAME,
+      DELETE_YN, DEVICE_CODE, PICKUP_PLACE,ADD_DATE, ADD_ID,
+      ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP, NEXT_REQUEST_STATUS,
+      (SELECT
+         LISTAGG(code.CODE_NAME, ',') WITHIN GROUP (ORDER BY code.PRINT_SEQ)
+       FROM
+        CMS_CODE code
+       WHERE code.HOMEPAGE_ID = 'CMS'
+       AND code.GROUP_ID = 'DR000'
+       AND code.CODE_ID IN (SELECT REGEXP_SUBSTR(a.NEXT_REQUEST_STATUS,'[^,]+', 1, LEVEL) FROM DUAL CONNECT BY INSTR(a.NEXT_REQUEST_STATUS, ',', 1, LEVEL - 1) > 0)) AS NEXT_REQUEST_STATUS_NAME,
+      PREV_REQUEST_STATUS,
+      REQUEST_RANK
+    FROM (
+      SELECT
+          REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
+          REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',REQUEST_STATUS) AS REQUEST_STATUS_NAME,
+          DELETE_YN, DEVICE_CODE, (SELECT PICKUP_PLACE FROM DRONE_LOAN_DEVICE_SETTING WHERE MANAGE_CODE = DLR.MANAGE_CODE AND DEVICE_CODE = DLR.DEVICE_CODE AND USE_YN = 'Y') AS PICKUP_PLACE,
+          ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP,
+          CASE
+            WHEN REQUEST_STATUS = '1000' -- 신청
+              THEN '1001' -- 다음 발송
+            WHEN REQUEST_STATUS = '1001' -- 발송
+              THEN '2000' -- 다음 수령
+            WHEN REQUEST_STATUS = '2000' -- 수령
+              THEN '2001,2002' -- 다음 대출 또는 미수령시 복귀
+            WHEN REQUEST_STATUS = '2001' -- 대출
+              THEN '2002' -- 다음 복귀
+            WHEN REQUEST_STATUS = '2002' -- 대출
+              THEN '1002' -- 다음 반납
+            ELSE '1000' -- 아무것도 아니면 신청으로
+          END AS NEXT_REQUEST_STATUS,
+          (SELECT
+                PREV_REQUEST_STATUS
+            FROM (
+                  SELECT
+                    PREV_REQUEST_STATUS
+                  FROM
+                    DRONE_LOAN_REQUEST_LOG a
+                  WHERE a.REQUEST_IDX = DLR.REQUEST_IDX
+                  AND a.MANAGE_CODE = DLR.MANAGE_CODE
+                  AND a.USER_KEY = DLR.USER_KEY
+                  ORDER BY WORK_DATE DESC
+            ) WHERE ROWNUM = 1) AS PREV_REQUEST_STATUS,
+            (
+              SELECT REQUEST_RANK FROM
+              (
+                SELECT
+                    DECODE(REQUEST_STATUS, '0000', '', RANK() OVER (ORDER BY ADD_DATE ASC)) AS REQUEST_RANK, REQUEST_IDX
+                FROM
+                    DRONE_LOAN_REQUEST
+                WHERE
+                MANAGE_CODE = DLR.MANAGE_CODE
+                AND TRUNC(ADD_DATE) = TRUNC(DLR.ADD_DATE)
+              ) a
+              WHERE a.REQUEST_IDX = DLR.REQUEST_IDX
+            ) AS REQUEST_RANK
+      FROM
+          DRONE_LOAN_REQUEST DLR
+      WHERE
+          MANAGE_CODE = #{manage_code}
+      <include refid="where"></include>
+    ) a
+    ${pagingBottom}
+  </select>
+
+  <select id="getLoanRequestCount" resultType="int">
+    SELECT
+        COUNT(*)
+    FROM
+        DRONE_LOAN_REQUEST DLR
+    WHERE
+        MANAGE_CODE = #{manage_code}
+    <include refid="where"></include>
+  </select>
+
+  <select id="getHomepageLoneReqeustList" resultType="kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest">
+    ${pagingTop}
+    SELECT
+      REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
+      REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',REQUEST_STATUS) AS REQUEST_STATUS_NAME,
+      DELETE_YN, DEVICE_CODE, (SELECT PICKUP_PLACE FROM DRONE_LOAN_DEVICE_SETTING WHERE MANAGE_CODE = DLR.MANAGE_CODE AND DEVICE_CODE = DLR.DEVICE_CODE AND USE_YN = 'Y') AS PICKUP_PLACE,
+      ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP,
+      (
+        SELECT REQUEST_RANK FROM
+        (
+          SELECT
+            DECODE(REQUEST_STATUS, '0000', '', RANK() OVER (ORDER BY ADD_DATE ASC)) AS REQUEST_RANK, REQUEST_IDX
+          FROM
+            DRONE_LOAN_REQUEST
+          WHERE
+            MANAGE_CODE = DLR.MANAGE_CODE
+          AND TRUNC(ADD_DATE) = TRUNC(DLR.ADD_DATE)
+        ) a
+        WHERE a.REQUEST_IDX = DLR.REQUEST_IDX
+      ) AS REQUEST_RANK
+    FROM
+      DRONE_LOAN_REQUEST DLR
+    WHERE
+      MANAGE_CODE = #{manage_code}
+      AND MEMBER_ID = #{member_id}
+    <include refid="homepage_where"></include>
+    ORDER BY
+        ADD_DATE DESC
+    ${pagingBottom}
+  </select>
+
+  <select id="getHomepageLoneReqeustCount" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      DRONE_LOAN_REQUEST DLR
+    WHERE
+      MANAGE_CODE = #{manage_code}
+      AND MEMBER_ID = #{member_id}
+    <include refid="homepage_where"></include>
+    ORDER BY
+      ADD_DATE DESC
+  </select>
+
+  <select id="getLoanRequestOne" resultType="kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest">
+    SELECT
+      REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
+      REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',REQUEST_STATUS) AS REQUEST_STATUS_NAME,
+      DELETE_YN, DEVICE_CODE, (SELECT PICKUP_PLACE FROM DRONE_LOAN_DEVICE_SETTING WHERE MANAGE_CODE = DLR.MANAGE_CODE AND DEVICE_CODE = DLR.DEVICE_CODE AND USE_YN = 'Y') AS PICKUP_PLACE,
+      ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP
+    FROM
+        DRONE_LOAN_REQUEST DLR
+    WHERE  REQUEST_IDX = #{request_idx}
+    AND MANAGE_CODE = #{manage_code}
+    AND USER_KEY = #{user_key}
+  </select>
+
+  <select id="getLoanRequestLogList" resultType="kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest">
+    SELECT
+      REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',REQUEST_STATUS) AS REQUEST_STATUS_NAME,
+      PREV_REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',PREV_REQUEST_STATUS) AS PREV_REQUEST_STATUS_NAME,
+      WORK_DATE, WORK_ID, WORK_IP
+    FROM
+      DRONE_LOAN_REQUEST_LOG
+    WHERE REQUEST_IDX = #{request_idx}
+      AND MANAGE_CODE = #{manage_code}
+      AND USER_KEY = #{user_key}
+    ORDER BY WORK_DATE DESC
+  </select>
+
+  <select id="getDayLoanCount" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      DRONE_LOAN_REQUEST
+    WHERE
+        MANAGE_CODE = #{manage_code}
+    AND TRUNC(ADD_DATE) = TRUNC(SYSDATE)
+    AND REQUEST_STATUS != '0000'
+  </select>
+
+	<select id="getPersonalLoanCount" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      DRONE_LOAN_REQUEST
+    WHERE
+        MANAGE_CODE = #{manage_code}
+    AND TRUNC(ADD_DATE) = TRUNC(SYSDATE)
+    AND REQUEST_STATUS != '0000'
+    AND MEMBER_ID = #{member_id}
+  </select>
+
+  <select id="getReqeustBookYn" resultType="string">
+    SELECT
+      DECODE(COUNT(*), 0, 'N' , 'Y')
+    FROM
+        DRONE_LOAN_REQUEST
+    WHERE MANAGE_CODE = #{manage_code}
+    AND MEMBER_ID = #{member_id}
+    AND TRUNC(ADD_DATE) = TRUNC(SYSDATE)
+    AND REG_NO = #{reg_no}
+    AND REQUEST_STATUS != '0000'
+  </select>
+
+  <insert id="insertLoanRequest">
+    <selectKey keyProperty="request_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(request_idx),0)+1 FROM DRONE_LOAN_REQUEST
+    </selectKey>
+    INSERT INTO
+      DRONE_LOAN_REQUEST
+    (
+      REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
+      REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS, DELETE_YN, DEVICE_CODE, ADD_DATE,
+      ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP
+    )
+    VALUES
+    (
+     #{request_idx}, #{manage_code}, #{user_key}, #{member_id}, #{member_name},
+     #{reg_no}, #{book_name}, #{author},  #{request_status}, #{delete_yn}, #{device_code}, SYSDATE,
+     #{member_id}, #{add_ip}, '', '', ''
+    )
+  </insert>
+
+  <insert id="insertLoanRequestLog">
+    <selectKey keyProperty="request_log_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(REQUEST_LOG_IDX),0)+1 FROM DRONE_LOAN_REQUEST_LOG
+    </selectKey>
+    INSERT INTO
+      DRONE_LOAN_REQUEST_LOG
+    (
+      REQUEST_LOG_IDX, REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID,
+      MEMBER_NAME, REG_NO, BOOK_NAME, AUTHOR, PREV_REQUEST_STATUS, REQUEST_STATUS,
+      DELETE_YN, DEVICE_CODE, ADD_DATE, ADD_ID, ADD_IP,
+      MODIFY_DATE, MODIFY_ID, MODIFY_IP, WORK_DATE, WORK_ID, WORK_IP
+    )
+    SELECT
+      #{request_log_idx}, REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID,
+      MEMBER_NAME, REG_NO, BOOK_NAME, AUTHOR, #{prev_request_status}, REQUEST_STATUS,
+      DELETE_YN, DEVICE_CODE, ADD_DATE, ADD_ID, ADD_IP,
+      MODIFY_DATE, MODIFY_ID, MODIFY_IP, SYSDATE AS WORK_DATE, #{work_id} AS WORK_ID,#{work_ip} AS WORK_IP
+    FROM
+      DRONE_LOAN_REQUEST
+    WHERE REQUEST_IDX = #{request_idx}
+      AND MANAGE_CODE = #{manage_code}
+      AND USER_KEY = #{user_key}
+  </insert>
+
+  <update id="updateLoanRequestStatus">
+    UPDATE
+      DRONE_LOAN_REQUEST
+    SET
+      REQUEST_STATUS = #{request_status},
+      MODIFY_DATE = SYSDATE,
+      MODIFY_ID = #{modify_id},
+      MODIFY_IP = #{modify_ip}
+    WHERE REQUEST_IDX = #{request_idx}
+      AND MANAGE_CODE = #{manage_code}
+      AND USER_KEY = #{user_key}
+  </update>
+
+</mapper>

@@ -28,29 +28,29 @@ $(function() {
 		</c:choose>
 
 	});
-	
+
 	<%-- 비대면 도서대출 신청 --%>
 	$('a#untactBook-req').on('click', function(e) {
 		e.preventDefault();
 		$('form#untactBookReqForm').submit();
 	});
-	
+
 	<%-- 워킹스루 도서대출 신청 --%>
 	$('a#walkingThru-req').on('click', function(e) {
 		e.preventDefault();
 		$('form#walkingThruReqForm').submit();
 	});
-	
+
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
 		$('form#unmannedReqForm').submit();
 	});
-	
+
 	<%-- 달서구립도서관 무인대출예약 신청 --%>
 	$('a#dalseo-unmanned-req').on('click', function(e) {
 		e.preventDefault();
-		
+
 		modal_layer_add('dialog_layer');
 
 		$.ajax({
@@ -123,6 +123,19 @@ $(function() {
 
 	});
 
+	$('a#drone-lone-req').on('click',function(e) {
+		e.preventDefault();
+		<c:choose>
+		<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'HOMEPAGE'}">
+		$('form#droneReqForm').submit();
+		</c:when>
+		<c:otherwise>
+		alert('로그인 후 이용 가능합니다.');
+		location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
+		</c:otherwise>
+		</c:choose>
+	})
+
 
 	<%--상호대차 신청--%>
 	$('a.sangho').on('click', function(e) {
@@ -161,7 +174,7 @@ $(function() {
 			history.back();
 		});
 	}
-	
+
 	if (document.referrer.indexOf('/intro/search/indexAll.do') > -1) {
 		$('a#goBack').on('click', function(e) {
 			e.preventDefault();
@@ -236,6 +249,16 @@ $(function() {
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" id="book_key" name="book_key">
 	<input type="hidden" name="editMode" value="ADD">
+</form>
+
+<form id="droneReqForm" action="drone/req.do" method="post">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
+	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="book_name" value="${fn:escapeXml(detail.TITLE_INFO)}">
+	<input type="hidden" name="author" value="${fn:escapeXml(detail.AUTHOR)}">
 </form>
 
 
@@ -429,8 +452,8 @@ $(function() {
 		</c:if> -->
 
 		<p></p>
-		
-		
+
+
 		<div class="sbtn" style="text-align:center;">
 			<c:if test="${detail.SANGHO_REQ_YN eq 'Y'}">
 			<!-- <a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a> -->
@@ -459,7 +482,7 @@ $(function() {
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
-	
+
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -538,7 +561,7 @@ $(function() {
 							<c:if test="${detail.SHELF_LOC_CODE eq 'AB01' || detail.SHELF_LOC_CODE eq 'AB02'|| detail.SHELF_LOC_CODE eq 'AB03'|| detail.SHELF_LOC_CODE eq 'AB05'|| detail.SHELF_LOC_CODE eq 'AB06'}">
 
 							<c:choose>
-								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ' || detail.SEPARATE_SHELF_CODE eq 'AKX'|| detail.SEPARATE_SHELF_CODE eq 'AKW'|| detail.SEPARATE_SHELF_CODE eq 'AKV'|| detail.SEPARATE_SHELF_CODE eq 'AKU'|| detail.SEPARATE_SHELF_CODE eq 'AKT'|| detail.SEPARATE_SHELF_CODE eq 'AKM'|| detail.SEPARATE_SHELF_CODE eq 'AKL'|| detail.SEPARATE_SHELF_CODE eq 'AKK'|| detail.SEPARATE_SHELF_CODE eq 'AKY'|| detail.SEPARATE_SHELF_CODE eq 'ALD'|| detail.SEPARATE_SHELF_CODE eq 'ALE'|| detail.SEPARATE_SHELF_CODE eq 'ALF'|| detail.SEPARATE_SHELF_CODE eq 'ALG'|| detail.SEPARATE_SHELF_CODE eq 'ALH'|| detail.SEPARATE_SHELF_CODE eq 'ALJ'|| detail.SEPARATE_SHELF_CODE eq 'ALK'|| detail.SEPARATE_SHELF_CODE eq 'ALL'|| detail.SEPARATE_SHELF_CODE eq 'ALN'|| detail.SEPARATE_SHELF_CODE eq 'ALR'|| detail.SEPARATE_SHELF_CODE eq 'ALS'|| detail.SEPARATE_SHELF_CODE eq 'ALV'|| detail.SEPARATE_SHELF_CODE eq 'AMY'|| detail.SEPARATE_SHELF_CODE eq 'AMZ'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'ALX'|| detail.SEPARATE_SHELF_CODE eq 'ALY'|| detail.SEPARATE_SHELF_CODE eq 'ALZ'|| detail.SEPARATE_SHELF_CODE eq 'AMA'|| detail.SEPARATE_SHELF_CODE eq 'AMB'|| detail.SEPARATE_SHELF_CODE eq 'AMC'|| detail.SEPARATE_SHELF_CODE eq 'AMD'|| detail.SEPARATE_SHELF_CODE eq 'AME'|| detail.SEPARATE_SHELF_CODE eq 'AMF'|| detail.SEPARATE_SHELF_CODE eq 'AMH'|| detail.SEPARATE_SHELF_CODE eq 'AMJ'|| detail.SEPARATE_SHELF_CODE eq 'AMK'|| detail.SEPARATE_SHELF_CODE eq 'AML'|| detail.SEPARATE_SHELF_CODE eq 'AMM'|| detail.SEPARATE_SHELF_CODE eq 'AMN'|| detail.SEPARATE_SHELF_CODE eq 'AMP'|| detail.SEPARATE_SHELF_CODE eq 'AMQ'|| detail.SEPARATE_SHELF_CODE eq 'AMR'|| detail.SEPARATE_SHELF_CODE eq 'AMS'|| detail.SEPARATE_SHELF_CODE eq 'AMT'|| detail.SEPARATE_SHELF_CODE eq 'AMU'|| detail.SEPARATE_SHELF_CODE eq 'AMV'|| detail.SEPARATE_SHELF_CODE eq 'AMW'|| detail.SEPARATE_SHELF_CODE eq 'ANA'|| detail.SEPARATE_SHELF_CODE eq 'ANB'|| detail.SEPARATE_SHELF_CODE eq 'ANC'|| detail.SEPARATE_SHELF_CODE eq 'AND'|| detail.SEPARATE_SHELF_CODE eq 'ANE'|| detail.SEPARATE_SHELF_CODE eq 'ANF'|| detail.SEPARATE_SHELF_CODE eq 'ANG'|| detail.SEPARATE_SHELF_CODE eq 'ANH'|| detail.SEPARATE_SHELF_CODE eq 'ANJ'|| detail.SEPARATE_SHELF_CODE eq 'ANK'|| detail.SEPARATE_SHELF_CODE eq 'ANL'|| detail.SEPARATE_SHELF_CODE eq 'ANM'|| detail.SEPARATE_SHELF_CODE eq 'ANN'|| detail.SEPARATE_SHELF_CODE eq 'ANP'|| detail.SEPARATE_SHELF_CODE eq 'ANQ'|| detail.SEPARATE_SHELF_CODE eq 'ANR'|| detail.SEPARATE_SHELF_CODE eq 'ANS'|| detail.SEPARATE_SHELF_CODE eq 'ANT'|| detail.SEPARATE_SHELF_CODE eq 'ANU'|| detail.SEPARATE_SHELF_CODE eq 'ANV'|| detail.SEPARATE_SHELF_CODE eq 'ANW'|| detail.SEPARATE_SHELF_CODE eq 'ANX'|| detail.SEPARATE_SHELF_CODE eq 'ANY'|| detail.SEPARATE_SHELF_CODE eq 'ANZ'|| detail.SEPARATE_SHELF_CODE eq 'APA'|| detail.SEPARATE_SHELF_CODE eq 'APB'|| detail.SEPARATE_SHELF_CODE eq 'APC'|| detail.SEPARATE_SHELF_CODE eq 'APD'|| detail.SEPARATE_SHELF_CODE eq 'APE'|| detail.SEPARATE_SHELF_CODE eq 'APF'|| detail.SEPARATE_SHELF_CODE eq 'APG'|| detail.SEPARATE_SHELF_CODE eq 'APH'|| detail.SEPARATE_SHELF_CODE eq 'APJ'|| detail.SEPARATE_SHELF_CODE eq 'APL'|| detail.SEPARATE_SHELF_CODE eq 'APM'|| detail.SEPARATE_SHELF_CODE eq 'APN'|| detail.SEPARATE_SHELF_CODE eq 'APP'|| detail.SEPARATE_SHELF_CODE eq 'APQ'|| detail.SEPARATE_SHELF_CODE eq 'APR'|| detail.SEPARATE_SHELF_CODE eq 'APS'|| detail.SEPARATE_SHELF_CODE eq 'APT'|| detail.SEPARATE_SHELF_CODE eq 'APV'|| detail.SEPARATE_SHELF_CODE eq 'APW'|| detail.SEPARATE_SHELF_CODE eq 'APX'|| detail.SEPARATE_SHELF_CODE eq 'APY'|| detail.SEPARATE_SHELF_CODE eq 'APZ'|| detail.SEPARATE_SHELF_CODE eq 'AQA'|| detail.SEPARATE_SHELF_CODE eq 'AQB'|| detail.SEPARATE_SHELF_CODE eq 'AQC'|| detail.SEPARATE_SHELF_CODE eq 'AQD'|| detail.SEPARATE_SHELF_CODE eq 'AQE'|| detail.SEPARATE_SHELF_CODE eq 'AQF'|| detail.SEPARATE_SHELF_CODE eq 'AQJ'|| detail.SEPARATE_SHELF_CODE eq 'AQL'|| detail.SEPARATE_SHELF_CODE eq 'AQM'|| detail.SEPARATE_SHELF_CODE eq 'AQN'|| detail.SEPARATE_SHELF_CODE eq 'AQP'|| detail.SEPARATE_SHELF_CODE eq 'AQQ'|| detail.SEPARATE_SHELF_CODE eq 'AQR'|| detail.SEPARATE_SHELF_CODE eq 'AQT'|| detail.SEPARATE_SHELF_CODE eq 'AQU'|| detail.SEPARATE_SHELF_CODE eq 'AQV'|| detail.SEPARATE_SHELF_CODE eq 'AQW'|| detail.SEPARATE_SHELF_CODE eq 'AQX'|| detail.SEPARATE_SHELF_CODE eq 'AQY'|| detail.SEPARATE_SHELF_CODE eq 'AQZ'|| detail.SEPARATE_SHELF_CODE eq 'ARA'|| detail.SEPARATE_SHELF_CODE eq 'ARB'|| detail.SEPARATE_SHELF_CODE eq 'ARC'|| detail.SEPARATE_SHELF_CODE eq 'ARD'|| detail.SEPARATE_SHELF_CODE eq 'ARE'|| detail.SEPARATE_SHELF_CODE eq 'ARF'|| detail.SEPARATE_SHELF_CODE eq 'ARG'|| detail.SEPARATE_SHELF_CODE eq 'ARH'|| detail.SEPARATE_SHELF_CODE eq 'ARJ'|| detail.SEPARATE_SHELF_CODE eq 'ARK'|| detail.SEPARATE_SHELF_CODE eq 'ARL'|| detail.SEPARATE_SHELF_CODE eq 'ARM'|| detail.SEPARATE_SHELF_CODE eq 'ARN'|| detail.SEPARATE_SHELF_CODE eq 'ARP'|| detail.SEPARATE_SHELF_CODE eq 'ARQ'|| detail.SEPARATE_SHELF_CODE eq 'ARR'|| detail.SEPARATE_SHELF_CODE eq 'ARS'|| detail.SEPARATE_SHELF_CODE eq 'ART'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AMX'|| detail.SEPARATE_SHELF_CODE eq 'APK'|| detail.SEPARATE_SHELF_CODE eq 'AQS'}">	
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ' || detail.SEPARATE_SHELF_CODE eq 'AKX'|| detail.SEPARATE_SHELF_CODE eq 'AKW'|| detail.SEPARATE_SHELF_CODE eq 'AKV'|| detail.SEPARATE_SHELF_CODE eq 'AKU'|| detail.SEPARATE_SHELF_CODE eq 'AKT'|| detail.SEPARATE_SHELF_CODE eq 'AKM'|| detail.SEPARATE_SHELF_CODE eq 'AKL'|| detail.SEPARATE_SHELF_CODE eq 'AKK'|| detail.SEPARATE_SHELF_CODE eq 'AKY'|| detail.SEPARATE_SHELF_CODE eq 'ALD'|| detail.SEPARATE_SHELF_CODE eq 'ALE'|| detail.SEPARATE_SHELF_CODE eq 'ALF'|| detail.SEPARATE_SHELF_CODE eq 'ALG'|| detail.SEPARATE_SHELF_CODE eq 'ALH'|| detail.SEPARATE_SHELF_CODE eq 'ALJ'|| detail.SEPARATE_SHELF_CODE eq 'ALK'|| detail.SEPARATE_SHELF_CODE eq 'ALL'|| detail.SEPARATE_SHELF_CODE eq 'ALN'|| detail.SEPARATE_SHELF_CODE eq 'ALR'|| detail.SEPARATE_SHELF_CODE eq 'ALS'|| detail.SEPARATE_SHELF_CODE eq 'ALV'|| detail.SEPARATE_SHELF_CODE eq 'AMY'|| detail.SEPARATE_SHELF_CODE eq 'AMZ'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'AQG'|| detail.SEPARATE_SHELF_CODE eq 'ALX'|| detail.SEPARATE_SHELF_CODE eq 'ALY'|| detail.SEPARATE_SHELF_CODE eq 'ALZ'|| detail.SEPARATE_SHELF_CODE eq 'AMA'|| detail.SEPARATE_SHELF_CODE eq 'AMB'|| detail.SEPARATE_SHELF_CODE eq 'AMC'|| detail.SEPARATE_SHELF_CODE eq 'AMD'|| detail.SEPARATE_SHELF_CODE eq 'AME'|| detail.SEPARATE_SHELF_CODE eq 'AMF'|| detail.SEPARATE_SHELF_CODE eq 'AMH'|| detail.SEPARATE_SHELF_CODE eq 'AMJ'|| detail.SEPARATE_SHELF_CODE eq 'AMK'|| detail.SEPARATE_SHELF_CODE eq 'AML'|| detail.SEPARATE_SHELF_CODE eq 'AMM'|| detail.SEPARATE_SHELF_CODE eq 'AMN'|| detail.SEPARATE_SHELF_CODE eq 'AMP'|| detail.SEPARATE_SHELF_CODE eq 'AMQ'|| detail.SEPARATE_SHELF_CODE eq 'AMR'|| detail.SEPARATE_SHELF_CODE eq 'AMS'|| detail.SEPARATE_SHELF_CODE eq 'AMT'|| detail.SEPARATE_SHELF_CODE eq 'AMU'|| detail.SEPARATE_SHELF_CODE eq 'AMV'|| detail.SEPARATE_SHELF_CODE eq 'AMW'|| detail.SEPARATE_SHELF_CODE eq 'ANA'|| detail.SEPARATE_SHELF_CODE eq 'ANB'|| detail.SEPARATE_SHELF_CODE eq 'ANC'|| detail.SEPARATE_SHELF_CODE eq 'AND'|| detail.SEPARATE_SHELF_CODE eq 'ANE'|| detail.SEPARATE_SHELF_CODE eq 'ANF'|| detail.SEPARATE_SHELF_CODE eq 'ANG'|| detail.SEPARATE_SHELF_CODE eq 'ANH'|| detail.SEPARATE_SHELF_CODE eq 'ANJ'|| detail.SEPARATE_SHELF_CODE eq 'ANK'|| detail.SEPARATE_SHELF_CODE eq 'ANL'|| detail.SEPARATE_SHELF_CODE eq 'ANM'|| detail.SEPARATE_SHELF_CODE eq 'ANN'|| detail.SEPARATE_SHELF_CODE eq 'ANP'|| detail.SEPARATE_SHELF_CODE eq 'ANQ'|| detail.SEPARATE_SHELF_CODE eq 'ANR'|| detail.SEPARATE_SHELF_CODE eq 'ANS'|| detail.SEPARATE_SHELF_CODE eq 'ANT'|| detail.SEPARATE_SHELF_CODE eq 'ANU'|| detail.SEPARATE_SHELF_CODE eq 'ANV'|| detail.SEPARATE_SHELF_CODE eq 'ANW'|| detail.SEPARATE_SHELF_CODE eq 'ANX'|| detail.SEPARATE_SHELF_CODE eq 'ANY'|| detail.SEPARATE_SHELF_CODE eq 'ANZ'|| detail.SEPARATE_SHELF_CODE eq 'APA'|| detail.SEPARATE_SHELF_CODE eq 'APB'|| detail.SEPARATE_SHELF_CODE eq 'APC'|| detail.SEPARATE_SHELF_CODE eq 'APD'|| detail.SEPARATE_SHELF_CODE eq 'APE'|| detail.SEPARATE_SHELF_CODE eq 'APF'|| detail.SEPARATE_SHELF_CODE eq 'APG'|| detail.SEPARATE_SHELF_CODE eq 'APH'|| detail.SEPARATE_SHELF_CODE eq 'APJ'|| detail.SEPARATE_SHELF_CODE eq 'APL'|| detail.SEPARATE_SHELF_CODE eq 'APM'|| detail.SEPARATE_SHELF_CODE eq 'APN'|| detail.SEPARATE_SHELF_CODE eq 'APP'|| detail.SEPARATE_SHELF_CODE eq 'APQ'|| detail.SEPARATE_SHELF_CODE eq 'APR'|| detail.SEPARATE_SHELF_CODE eq 'APS'|| detail.SEPARATE_SHELF_CODE eq 'APT'|| detail.SEPARATE_SHELF_CODE eq 'APV'|| detail.SEPARATE_SHELF_CODE eq 'APW'|| detail.SEPARATE_SHELF_CODE eq 'APX'|| detail.SEPARATE_SHELF_CODE eq 'APY'|| detail.SEPARATE_SHELF_CODE eq 'APZ'|| detail.SEPARATE_SHELF_CODE eq 'AQA'|| detail.SEPARATE_SHELF_CODE eq 'AQB'|| detail.SEPARATE_SHELF_CODE eq 'AQC'|| detail.SEPARATE_SHELF_CODE eq 'AQD'|| detail.SEPARATE_SHELF_CODE eq 'AQE'|| detail.SEPARATE_SHELF_CODE eq 'AQF'|| detail.SEPARATE_SHELF_CODE eq 'AQJ'|| detail.SEPARATE_SHELF_CODE eq 'AQL'|| detail.SEPARATE_SHELF_CODE eq 'AQM'|| detail.SEPARATE_SHELF_CODE eq 'AQN'|| detail.SEPARATE_SHELF_CODE eq 'AQP'|| detail.SEPARATE_SHELF_CODE eq 'AQQ'|| detail.SEPARATE_SHELF_CODE eq 'AQR'|| detail.SEPARATE_SHELF_CODE eq 'AQT'|| detail.SEPARATE_SHELF_CODE eq 'AQU'|| detail.SEPARATE_SHELF_CODE eq 'AQV'|| detail.SEPARATE_SHELF_CODE eq 'AQW'|| detail.SEPARATE_SHELF_CODE eq 'AQX'|| detail.SEPARATE_SHELF_CODE eq 'AQY'|| detail.SEPARATE_SHELF_CODE eq 'AQZ'|| detail.SEPARATE_SHELF_CODE eq 'ARA'|| detail.SEPARATE_SHELF_CODE eq 'ARB'|| detail.SEPARATE_SHELF_CODE eq 'ARC'|| detail.SEPARATE_SHELF_CODE eq 'ARD'|| detail.SEPARATE_SHELF_CODE eq 'ARE'|| detail.SEPARATE_SHELF_CODE eq 'ARF'|| detail.SEPARATE_SHELF_CODE eq 'ARG'|| detail.SEPARATE_SHELF_CODE eq 'ARH'|| detail.SEPARATE_SHELF_CODE eq 'ARJ'|| detail.SEPARATE_SHELF_CODE eq 'ARK'|| detail.SEPARATE_SHELF_CODE eq 'ARL'|| detail.SEPARATE_SHELF_CODE eq 'ARM'|| detail.SEPARATE_SHELF_CODE eq 'ARN'|| detail.SEPARATE_SHELF_CODE eq 'ARP'|| detail.SEPARATE_SHELF_CODE eq 'ARQ'|| detail.SEPARATE_SHELF_CODE eq 'ARR'|| detail.SEPARATE_SHELF_CODE eq 'ARS'|| detail.SEPARATE_SHELF_CODE eq 'ART'|| detail.SEPARATE_SHELF_CODE eq 'AMG'|| detail.SEPARATE_SHELF_CODE eq 'AMX'|| detail.SEPARATE_SHELF_CODE eq 'APK'|| detail.SEPARATE_SHELF_CODE eq 'AQS'}">
 								</c:when>
 
 								<c:otherwise>
@@ -589,7 +612,7 @@ $(function() {
 							<c:if test="${detail.SHELF_LOC_CODE eq 'CA01' || detail.SHELF_LOC_CODE eq 'CA02'|| detail.SHELF_LOC_CODE eq 'CB01'|| detail.SHELF_LOC_CODE eq 'CB02'}">
 
 							<c:choose>
-								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ'}">	
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'AKQ'}">
 								</c:when>
 
 								<c:otherwise>
@@ -614,7 +637,7 @@ $(function() {
 									%>
 									</c:if>
 									<!-- <a href="#night" id="night-req" class="btn">워킹스루예약신청</a> -->
-									
+
 								</c:otherwise>
 
 							</c:choose>
@@ -631,7 +654,7 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-<!-- 
+<!--
 			<%
 				org.joda.time.DateTime now = new org.joda.time.DateTime();
 				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
@@ -657,7 +680,7 @@ $(function() {
 					</c:otherwise>
 				</c:choose>
 			</c:if>
-			
+
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
@@ -682,7 +705,7 @@ $(function() {
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23'}">
-					
+
 						<c:choose>
 							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
 								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
@@ -691,7 +714,7 @@ $(function() {
 								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 							</c:otherwise>
 						</c:choose>
-					
+
 					</c:if>
 					</c:if>
 					</c:if>
@@ -778,6 +801,32 @@ $(function() {
 						</c:otherwise>
 					</c:choose>
 
+				</c:otherwise>
+			</c:choose>
+
+			<c:choose>
+				<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
+
+				</c:when>
+				<c:otherwise>
+					<jsp:useBean id="droneNow" class="java.util.Date" />
+					<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
+					<c:set var="requestStartTime" value="${today}0000"></c:set>
+					<c:set var="requestEndTime" value="${today}1450"></c:set>
+					<fmt:parseDate value="${requestStartTime}" pattern="yyyyMMddHHmm" var="requestStartDate" />
+					<fmt:parseDate value="${requestEndTime}" pattern="yyyyMMddHHmm" var="requestEndDate" />
+
+					<fmt:formatDate value="${droneNow}" pattern="yyyyMMddHHmm" var="nowDate" />         <%-- 오늘날짜 --%>
+					<fmt:formatDate value="${requestStartDate}" pattern="yyyyMMddHHmm" var="openDate"/>       <%-- 시작날짜--%>
+					<fmt:formatDate value="${requestEndDate}" pattern="yyyyMMddHHmm" var="closeDate"/>         <%--마감날짜--%>
+					<!-- 드론대출 기능 노출 도서관-->
+					<c:if test="${openDate <= nowDate and closeDate > nowDate}">
+						<c:if test="${(detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF') && droneDayLoanCount <= 20}">
+							<c:if test="${detail.LOAN_CODE eq 'OK'}">
+								<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
+							</c:if>
+						</c:if>
+					</c:if>
 				</c:otherwise>
 			</c:choose>
 

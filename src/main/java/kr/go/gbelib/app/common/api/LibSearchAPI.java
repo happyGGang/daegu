@@ -2537,10 +2537,49 @@ public class LibSearchAPI {
 		if(StringUtils.isNotEmpty(librarySearch.getReturn_plan_date())) {
 			param.put("return_plan_date", librarySearch.getReturn_plan_date());// 반납예정일 YYYYMMDDHHmmSS (미입력시 대출일 기준으로 계산)
 		}
-		param.put("device_name", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+
+		if (StringUtils.isNotEmpty(librarySearch.getDevice_code())) {
+			param.put("device_name", librarySearch.getDevice_code());// 장비ID
+		} else {
+			param.put("device_name", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+		}
+
 		param.put("client_ip", ip);
 
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedloan", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	/**
+	 * K.API - 49
+	 *
+	 * 무인반납
+	 *
+	 * @author whalesoft jjy 2022. 08. 03.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse unmannedreturn(LibrarySearch librarySearch, String ip) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("manage_code", librarySearch.getManageCode());// 도서관 관리구분코드
+		param.put("userkey", librarySearch.getUserkey());// 이용자KEY
+		param.put("reg_no", librarySearch.getReg_no());// 대출자료 등록번호
+
+		if (StringUtils.isNotEmpty(librarySearch.getDevice_code())) {
+			param.put("device_name", librarySearch.getDevice_code());// 장비ID
+		}
+
+		param.put("client_ip", ip);
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedreturn", param);
 
 		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
 

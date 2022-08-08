@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSettingDao">
+  <select id="getDeviceList" resultType="kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSetting">
+    SELECT
+      device_idx, manage_code, device_code, pickup_place, use_yn, add_date, add_id
+    FROM
+      DRONE_LOAN_DEVICE_SETTING
+    WHERE manage_code = #{manage_code}
+    AND use_yn = #{use_yn};
+  </select>
+
+  <insert id="insertDevice">
+    <selectKey keyProperty="device_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(DEVICE_IDX),0)+1 FROM DRONE_LOAN_DEVICE_SETTING
+    </selectKey>
+    INSERT INTO
+        DRONE_LOAN_DEVICE_SETTING
+    (
+        DEVICE_IDX, MANAGE_CODE, DEVICE_CODE, PICKUP_PLACE, USE_YN, ADD_DATE, ADD_ID
+    )
+    VALUES
+    (
+        #{device_idx}, #{manage_code}, #{device_code}, #{pickup_place}, #{use_yn},SYSDATE,#{add_id}
+    )
+  </insert>
+</mapper>

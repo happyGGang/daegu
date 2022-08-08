@@ -12,6 +12,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSetting;
+import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSettingService;
+import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest;
+import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequestService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -77,6 +81,12 @@ public class CommonSearchController extends BaseController {
 	
 	@Autowired
 	private UntactLockerSettingService untactLockerSettingService;
+
+	@Autowired
+	private DeviceSettingService deviceSettingService;
+
+	@Autowired
+	private LoanRequestService loanRequestService;
 	
 	/**
 	 * 자료검색
@@ -458,6 +468,8 @@ public class CommonSearchController extends BaseController {
 //			}
 
 			model.addAttribute("detail", map);
+			model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
+			model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
 		}
 		return String.format(basePath, homepage.getFolder()) + "detail";
 	}
@@ -1873,8 +1885,6 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "sangho/form";
 	}
 
-
-
 	/**
 	 * 지역상호대차 신청, 신청취소
 	 * @author YONGJU 2018. 2. 4.
@@ -2539,6 +2549,121 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		
 		return String.format(basePath, homepage.getFolder()) + "popup_ajax";
+	}
+
+	/**
+	 * 드론 대출 신청 페이지
+	 */
+	@RequestMapping (value = { "/drone/req.*" }, method = RequestMethod.POST)
+	public String droneReq(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = getSessionHomepage(request);
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		if ("Y".equals(loanRequestService.getReqeustBookYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), getSessionMemberId(request), librarySearch.getRegNo())))) {
+			service.alertMessage("이미 드론대출 신청이 완료된 책입니다.", request, response);
+			return null;
+		}
+
+		int personalLoanCount = loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request)));
+		int dayLoanCount = loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code()));
+
+		if (personalLoanCount >= 2) {
+			service.alertMessage("드론대출은 하루에 개인 2권 까지만 신청이 가능합니다.", request, response);
+			return null;
+		}
+
+		if (dayLoanCount >= 20) {
+			service.alertMessage("드론대출은 하루에 20권 까지만 신청이 가능합니다.", request, response);
+			return null;
+		}
+
+		model.addAttribute("librarySearch", librarySearch);
+		model.addAttribute("deviceList", deviceSettingService.getDeviceList(new DeviceSetting(homepage.getManage_code())));
+
+		return String.format(basePath, homepage.getFolder()) + "drone/req";
+	}
+
+	/**
+	 * 드론 대출 현황
+	 */
+	@RequestMapping (value = { "/drone/loan.*" })
+	public String droneLoan(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = getSessionHomepage(request);
+		Member member = getSessionMemberInfo(request);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		LoanRequest loanRequest = LoanRequest.ofHomepageRequest(homepage.getManage_code(),member.getMember_id(), librarySearch.getSearch_start_date(), librarySearch.getSearch_end_date());
+
+		service.setPaging(model, loanRequestService.getHomepageLoneReqeustCount(loanRequest), loanRequest);
+		model.addAttribute("loanList", loanRequestService.getHomepageLoneReqeustList(loanRequest));
+		model.addAttribute("loanRequest",loanRequest);
+
+		return String.format(basePath, homepage.getFolder()) + "drone/loan";
+	}
+
+	/**
+	 * 드론 대출 신청
+	 */
+	@RequestMapping (value = { "/drone/save.*" }, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse droneSave(LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			result.reject("로그인 후 이용가능합니다.");
+		}
+
+		if (!"CANCEL".equals(librarySearch.getEditMode())) {
+			Map<String, Object> bookInfo = new HashMap<String, Object>();
+			bookInfo = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
+			int count = LibSearchAPI.getSearchCount(bookInfo);
+			if ( count > 0 ) {
+				list = LibSearchAPI.getListData(bookInfo);
+			}
+
+			if (!"OK".equals(list.get(0).get("LOAN_CODE"))){
+				result.reject("이미 대출이 되었거나, 대출 불가 책입니다. 다시 한번 확인해주세요.");
+			};
+		}
+
+		if (!result.hasErrors()) {
+			Member member = getSessionMemberInfo(request);
+			if ("ADD".equals(librarySearch.getEditMode())) {
+				int insertCount = 0;
+
+				insertCount = loanRequestService.insertLoanRequest(LoanRequest.ofCreate(librarySearch.getManageCode(),member.getRec_key(),member.getMember_id(),member.getMember_name(),librarySearch.getRegNo(),librarySearch.getBook_name(),librarySearch.getAuthor(),librarySearch.getDevice_code(),request.getRemoteAddr()));
+
+				if (insertCount > 0) {
+					res.setValid(true);
+					res.setMessage("드론대출 신청이 되었습니다.");
+				}
+			} else if ("CANCEL".equals(librarySearch.getEditMode())) {
+				String message = loanRequestService.updateStatus(LoanRequest.ofUpdateStatus(librarySearch.getRequest_idx(), librarySearch.getManageCode(),librarySearch.getUserkey(), member.getMember_id(), request.getRemoteAddr(), "0000"));
+				res.setValid(true);
+				if ("success".equals(message)) {
+					res.setMessage("드론대출 신청이 취소되었습니다.");
+				} else {
+					res.setMessage("드론대출 취소에 실패 하였습니다. 관리자에게문의 해주세요. \nAPI 오류 : "+message);
+				}
+			}
+
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
 	}
 
 	/**
