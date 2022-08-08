@@ -1481,12 +1481,12 @@ public class CommonSearchController extends BaseController {
 			if (librarySearch.getEditMode().equals("ADD")) {
 
 				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
-				if(lasReqConfig != null) {
-					res.setValid(false);
-					res.setMessage(lasReqConfig.getRes_msg());
-					return res;
-				}
+//				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
+//				if(lasReqConfig != null) {
+//					res.setValid(false);
+//					res.setMessage(lasReqConfig.getRes_msg());
+//					return res;
+//				}
 				
 				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
 				if (apiResult.getStatus()) {
