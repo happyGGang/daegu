@@ -41,7 +41,7 @@
 		$('#save-btn').on('click', function(e) {
 			
 			<c:if test="${context_path eq 'bukgs' or context_path eq 'bukdh' or context_path eq 'buktj'}">
-				var isbn = $('input#isbn').val();
+				var isbn = reqHopeForm.isbn.value;
 				if (isbn == '') {
 					alert('ISBN을 입력하세요.');
 					$('input#isbn').focus();
