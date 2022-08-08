@@ -2247,7 +2247,7 @@ public class LibSearchAPI {
 		} catch (UnsupportedEncodingException e) {
 			param.put("query", "");
 		}
-		param.put("start", (pagingUtils.getViewPage() - 1) + 1);
+		param.put("page", (pagingUtils.getViewPage() - 1) + 1);
 
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		returnMap.put("totalCount", 0);
