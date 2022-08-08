@@ -18,6 +18,15 @@
 	$(function() {
 		$('#save-btn').on('click', function(e) {
 			e.preventDefault();
+			
+			<c:if test="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj'}">
+				var isbn = reqHopeForm.isbn.value;
+				if (isbn == '') {
+					alert('ISBN을 입력하세요.');
+					$('input#isbn').focus();
+					return false;
+				}
+			</c:if>
 
 			if ($('input#price').val() != '') {
 				var price = $('input#price').val();
@@ -389,7 +398,7 @@
 			<td><form:input path="publer_year" style="width:10%" class="text" type="text" numberOnly="true" maxlength="4"/></td>
 		</tr>
 		<tr>
-			<th>ISBN</th>
+			<th>ISBN<c:if test="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj'}"><em><font color="red">(*)</font></em></c:if></th>
 			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13"/></td>
 		</tr>
 		<tr>

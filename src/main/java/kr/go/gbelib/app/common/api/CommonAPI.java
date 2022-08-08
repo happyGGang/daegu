@@ -65,6 +65,8 @@ public class CommonAPI {
 
 	public final static String LIBRARY_API_URL = ResourceBundle.getBundle("api").getString("libraryapi.api.url");
 
+	public final static String KAKAO_LIST_API_URL = "https://dapi.kakao.com/v3/search/book";
+	
 	public static HttpURLConnection initConn(String urlStr) throws Exception {
 		URL url = new URL(urlStr);
 
@@ -506,6 +508,69 @@ public class CommonAPI {
 		}
 		connection.disconnect();
 		return resultMap;
+	}
+	
+	public static Map<String, Object> sendKAKAO(Map<String, Object> param, String mode) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpsURLConnection connection = null;
+		String authorization = "KakaoAK 7469655c1f5e6608afccf48b46aabf0c";
+		BufferedReader br = null;
+		try {
+			String url = KAKAO_LIST_API_URL;
+			List<String> paramList = new ArrayList<String>();
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+			}
+			connection = initHttpsConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Content-Type", "application/json; UTF-8");
+			connection.setRequestProperty("Accept-Charset", "UTF-8");
+			connection.setRequestProperty("Authorization", authorization);
+			int responseCode = connection.getResponseCode();
+
+			if (responseCode == 200) {
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else {
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.error("@@@@@@@@@@@@@@@@@@ KAKAO API : " + url + "?" + StringUtils.join(paramList, "&"));
+			resultMap = toMap(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			try {
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		connection.disconnect();
+		return resultMap;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static Map<String, Object> toMap(StringBuffer response) {
+		Map<String, Object> map = null;
+	    
+		  try {
+		       map = new ObjectMapper().readValue(response.toString(), Map.class);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return map;
 	}
 
 	@SuppressWarnings ("unchecked")
