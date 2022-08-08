@@ -1126,7 +1126,7 @@ public class LibrarySearchController extends BaseController {
 
 		Map<String, Object> map = null;
 		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-			map = LibSearchAPI.getNaverList(librarySearch);
+			map = LibSearchAPI.getKaKaoList(librarySearch);
 			int totalCount = (Integer) map.get("totalCount");
 			@SuppressWarnings ("unchecked")
 			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
@@ -1136,25 +1136,17 @@ public class LibrarySearchController extends BaseController {
 					for (int i = 0; i < isbnArr.length; i++) {
 						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
 						map2.put("isbn"+isbn.length(), isbn);
-
-						LibrarySearch bookSerach = new LibrarySearch();
-						bookSerach.setManageCode(librarySearch.getManageCode());
-						bookSerach.setIsbn(isbn);
-						Map<String, Object> sameBook = (Map<String, Object>) LibSearchAPI.getBookDetail(bookSerach);
-
-						int sameBookCount = LibSearchAPI.getSearchCount(sameBook);
-
-						boolean already = false;
-						if (sameBookCount > 0) {
-							already = true;
+						ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+						if (!code.getStatus()) {
+							map2.put("already"+isbn.length(), true);
+							map2.put("errorMessage", code.getMessage());
 						}
-						map2.put("already"+isbn.length(), already);
-
 					}
 
 				}
+				
 				service.setPaging(model, totalCount, librarySearch);
-				model.addAttribute("naverResult", map);
+				model.addAttribute("kakaoResult", map);
 			}
 		}
 		return basePath + "hope/search_ajax";
