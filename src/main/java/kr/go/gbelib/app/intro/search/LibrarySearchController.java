@@ -659,27 +659,31 @@ public class LibrarySearchController extends BaseController {
 			}
 			
 			//달성군립도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
-			Homepage homepage = getSessionHomepage(request);
-			if(StringUtils.isNotEmpty(homepage.getContext_path())){
-				if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs")) && librarySearch.getEditMode().equals("ADD")) {
-					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
-					List<Map<String, Object>> list = null;
-					list = LibSearchAPI.getListData(reserveList);
-					int count = LibSearchAPI.getSearchCount(reserveList);
-					
-					int reserveCount = 0 ;
-					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
-							reserveCount++;
+			try {
+				Homepage homepage = getSessionHomepage(request);
+				if(StringUtils.isNotEmpty(homepage.getContext_path())){
+					if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs")) && librarySearch.getEditMode().equals("ADD")) {
+						Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
+						List<Map<String, Object>> list = null;
+						list = LibSearchAPI.getListData(reserveList);
+						int count = LibSearchAPI.getSearchCount(reserveList);
+						
+						int reserveCount = 0 ;
+						for(int i = 0; i < count; i++) {
+							if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+								reserveCount++;
+							}
+						}
+						
+						if(reserveCount >= 2) {
+							res.setValid(false);
+							res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+							return res;
 						}
 					}
-					
-					if(reserveCount >= 2) {
-						res.setValid(false);
-						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
-						return res;
-					}
 				}
+			} catch (Exception e) {
+				System.out.println("도서관 context_path 없음 : " + e);
 			}
 			
 			librarySearch.setUserkey(member.getRec_key());
