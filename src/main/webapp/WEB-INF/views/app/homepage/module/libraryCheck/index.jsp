@@ -143,27 +143,15 @@ function libraryCheckloanList(library_check_idx, library_check_number) {
 
 <div>
 <h3>장서점검기 대여 신청 안내</h3>
-<ul class="rent_box">
-	<li >
- 		<dl>
-			<dt class="icon01">최대 신청대수</dt>
-			<dd><span class="eng">2</span>대</dd>
-		</dl>
-	</li>
-	<li>
-		<dl>
-			<dt class="icon02">최대 대출기간</dt>
-			<dd><span class="eng">1~2</span>주</dd>
-		</dl>
-	</li>
-</ul>
+	<h4 style="display:inline;">최대 신청대수</h4> : 2대<br>
+	<h4 style="display:inline;">최대 대출기간</h4> : 1~2주
 <h4><strong class="red">대여일은 금요일, 반납일은 목요일</strong>로 지정되어 있습니다</h4>
 <ul class="con">
 	<li>사용 희망일이 금요일이 아닌 경우, 사용 희망일 전 주 금요일에 미리 대여 신청 하십시오.</li>
 	<li>대여 신청은 대여하시려는 날짜의 2주 전부터 가능합니다.</li>
 </ul>
 <p>※ 앞의 학교의 대여 기간에 따라 원하시는 일자에 대여 신청이 불가할 수 있습니다.</p>
-<div style="margin-left:-11px;"><img src="/resources/common/img/support_calendar.jpg" alt="일주일 대여 예시" class="mimg"></div>
+<!-- <div style="margin-left:-11px;"><img src="/resources/common/img/support_calendar.jpg" alt="일주일 대여 예시" class="mimg"></div> -->
 <h4>예) 20일(화)이 사용희망일일 경우</h4>
 <ul class="con">
 	<li>20일(화) 전 주 금요일인 16일이 장서점검기 대여일</li>
