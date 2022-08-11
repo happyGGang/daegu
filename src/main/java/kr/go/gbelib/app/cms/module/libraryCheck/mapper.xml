@@ -8,57 +8,15 @@
 			org_file_name, server_file_name, file_extension, file_size,
 			add_id, add_date
 		FROM
-			LIBRARY_CHECK a
-		<if test="loan_status != null and loan_status != ''">
-		WHERE
-			<choose>
-				<when test="loan_status == 0">
-				(
-					SELECT
-						COUNT(*)
-					FROM 
-						LIBRARY_CHECK_LOAN 
-					WHERE 
-						library_check_idx = a.library_check_idx 
-						AND TO_DATE(SYSDATE, 'yyyy/MM/dd') <![CDATA[>=]]> TO_DATE(loan_start_date, 'yyyy/MM/dd') 
-						AND TO_date(SYSDATE, 'yyyy/MM/dd')  <![CDATA[<=]]> TO_date(loan_end_date, 'yyyy/MM/dd')
-				)
-					<![CDATA[=]]>
-				</when>
-				<when test="loan_status == 1">
-				(
-					SELECT 
-						COUNT(*) 
-					FROM 
-						LIBRARY_CHECK_LOAN 
-					WHERE 
-						library_check_idx = a.library_check_idx 
-						AND TO_DATE(SYSDATE, 'yyyy/MM/dd') <![CDATA[>=]]> TO_DATE(loan_start_date, 'yyyy/MM/dd') 
-						AND TO_DATE(SYSDATE, 'yyyy/MM/dd')  <![CDATA[<=]]> TO_date(loan_end_date, 'yyyy/MM/dd')
-				)
-					<![CDATA[>]]>
-				</when>
-			</choose>
-			0
-		</if>
-		ORDER BY library_check_number ASC
+			LIBRARY_CHECK
+		ORDER BY library_check_number
 	</select>
 	
 	<select id="getLibraryCheckCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
-			LIBRARY_CHECK a
-		<if test="loan_status != null and loan_status != ''">
-		WHERE
-			(SELECT COUNT(*) FROM LIBRARY_CHECK_LOAN WHERE library_check_idx = a.library_check_idx)
-			
-			<choose>
-				<when test="loan_status == 0"><![CDATA[=]]></when>
-				<when test="loan_status == 1"><![CDATA[>]]></when>
-			</choose>
-			0
-		</if>
+			LIBRARY_CHECK
 	</select>
 	
 	<select id="getLibraryCheckOne" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
@@ -139,9 +97,9 @@
 		${pagingTop}
 		SELECT
 			b.library_check_idx, library_check_loan_idx, a.library_check_number, TO_CHAR(loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
-			TO_CHAR(hope_date, 'yyyy-MM-dd') AS hope_date, school_name, phone, school_tel,
-			request_status, b.add_id, b.add_date,
-			(substr(request_name,1,1) || lpad('*',length(request_name)-2,'*') || substr(request_name, length(request_name), 1)) AS request_name
+			TO_CHAR(hope_date, 'yyyy-MM-dd') AS hope_date, b.hope_start_time, b.hope_start_minute, b.school_name, b.phone,
+			b.school_tel, b.request_status, b.add_id, b.add_date, b.remark,
+			(substr(b.request_name,1,1) || lpad('*',length(b.request_name)-2,'*') || substr(b.request_name, length(b.request_name), 1)) AS request_name
 		FROM
 			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
 		WHERE
@@ -185,9 +143,9 @@
 	
 	<select id="getLibraryCheckLoanOne" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
 		SELECT
-			b.library_check_idx, library_check_loan_idx, a.library_check_number, TO_CHAR(loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
-			TO_CHAR(hope_date, 'yyyy-MM-dd') AS hope_date, school_name, request_name, phone, school_tel,
-			request_status, b.add_id, b.add_date
+			b.library_check_idx, library_check_loan_idx, a.library_check_number, TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			TO_CHAR(hope_date, 'yyyy-MM-dd') AS hope_date, b.hope_start_time, b.hope_start_minute, b.school_name, b.request_name,
+			b.phone, b.school_tel, b.request_status, b.add_id, b.add_date, b.remark
 		FROM
 			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
 		WHERE
@@ -203,14 +161,14 @@
 			LIBRARY_CHECK_LOAN
 		(
 			library_check_idx, library_check_loan_idx, loan_start_date, loan_end_date, hope_date,
-			school_name, request_name, phone, school_tel, request_status,
-			add_id, add_date
+			hope_start_time, hope_start_minute, school_name, request_name, phone,
+			school_tel, request_status, add_id, add_date, remark
 		)
 		VALUES
 		(
 			#{library_check_idx}, #{library_check_loan_idx}, #{loan_start_date}, #{loan_end_date}, #{hope_date},
-			#{school_name}, #{request_name}, #{phone}, #{school_tel}, #{request_status},
-			#{add_id}, SYSDATE
+			#{hope_start_time}, #{hope_start_minute}, #{school_name}, #{request_name}, #{phone},
+			#{school_tel}, #{request_status}, #{add_id}, SYSDATE, #{remark}
 		)
 	</insert>
 	
@@ -221,13 +179,16 @@
 			loan_start_date = #{loan_start_date},
 			loan_end_date = #{loan_end_date},
 			hope_date = #{hope_date},
+			hope_start_time = #{hope_start_time},
+			hope_start_minute = #{hope_start_minute},
 			school_name = #{school_name},
 			request_name = #{request_name},
 			phone = #{phone},
 			school_tel = #{school_tel},
 			request_status = #{request_status},
 			modify_id = #{modify_id},
-			modify_date = SYSDATE
+			modify_date = SYSDATE,
+			remark = #{remark}
 		WHERE
 			library_check_loan_idx = #{library_check_loan_idx}
 	</update>
@@ -253,9 +214,9 @@
 	
 	<select id="getLibraryCheckLoanExcelList" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
 		SELECT
-			b.library_check_idx, library_check_loan_idx, a.library_check_number, TO_CHAR(loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
-			TO_CHAR(hope_date, 'yyyy-MM-dd') AS hope_date, school_name, request_name, phone, school_tel,
-			request_status, b.add_id, b.add_date
+			b.library_check_idx, b.library_check_loan_idx, a.library_check_number, TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			TO_CHAR(b.hope_date, 'yyyy-MM-dd') AS hope_date, b.school_name, b.request_name, b.phone, b.school_tel,
+			b.request_status, b.add_id, b.add_date, b.hope_start_time, b.hope_start_minute, b.remark
 		FROM
 			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
 		WHERE
@@ -266,53 +227,49 @@
 		ORDER BY b.add_date DESC
 	</select>
 	
-	<select id="getMySqlList" resultType="map">
-		select * from board_28
-	</select>
-	
-	<insert id="addParseTibero">
-		INSERT INTO
-			LIBRARY_CHECK
-		(
-			library_check_idx, library_check_name, library_check_number, content,
-			add_id, add_date
-		)
-		VALUES
-		(
-			#{library_check_idx}, #{library_check_name}, #{library_check_number}, #{content},
-			#{add_id}, #{add_date}
-		)
-	</insert>
-	
-	<select id="getMySqlList2" resultType="map">
-		select * from board_rental_loan
-	</select>
-	
-	<insert id="addParseTibero2">
-		INSERT INTO
+	<select id="getLibraryCheckLoanStatus" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck" parameterType="map">
+		SELECT
+			request_status,TO_CHAR(loan_start_date, 'YYYY-MM-DD') AS loan_start_date,TO_CHAR(loan_end_date, 'YYYY-MM-DD') AS loan_end_date
+		FROM
 			LIBRARY_CHECK_LOAN
-		(
-			library_check_idx, library_check_loan_idx, loan_start_date, loan_end_date, hope_date,
-			school_name, request_name, phone, school_tel, request_status,
-			add_id, add_date
-		)
-		VALUES
-		(
-			#{library_check_idx}, #{library_check_loan_idx}, #{loan_start_date}, #{loan_end_date}, #{hope_date},
-			#{school_name}, #{request_name}, #{phone}, #{school_tel}, #{request_status},
-			#{add_id}, #{add_date}
-		)
-	</insert>
+		WHERE
+			library_check_idx = #{library_check_idx}
+		AND	TO_DATE(#{dayofWeekFriday}, 'YYYY-MM-DD') BETWEEN TO_DATE(loan_start_date, 'YYYY-MM-DD') AND TO_DATE(loan_end_date, 'YYYY-MM-DD')
+	</select>
 	
-	<select id="getPossibleDate" resultType="int" parameterType="map">
+	<select id="getLibraryCheckReservedList" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
+		SELECT
+			b.library_check_idx, TO_CHAR(loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+			b.request_status
+		FROM
+			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+			a.library_check_idx = b.library_check_idx
+		AND	TO_DATE(SYSDATE, 'YYYY-MM-DD') &lt; TO_DATE(b.loan_start_date, 'YYYY-MM-DD')
+		AND	b.library_check_idx = #{library_check_idx}
+	</select>
+	
+	<select id="getLibraryCheckLoanDupl" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
 			LIBRARY_CHECK_LOAN
 		WHERE
 			library_check_idx = #{library_check_idx}
-		AND	loan_start_date <![CDATA[<=]]> TO_DATE(#{loan_start_date})
-		AND	loan_end_date <![CDATA[>=]]> TO_DATE(#{loan_start_date})
+		AND	TO_DATE(#{loan_start_date}, 'YYYY-MM-DD') &lt;= TO_DATE(loan_end_date, 'YYYY-MM-DD')
+		AND TO_DATE(#{loan_end_date}, 'YYYY-MM-DD') >= TO_DATE(loan_start_date, 'YYYY-MM-DD')
+	</select>
+
+	<select id="checkLoanCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+			a.library_check_idx = b.library_check_idx
+		AND b.request_status = 1
+		AND b.school_name = #{school_name}
+		AND	TO_DATE(SYSDATE, 'YYYY-MM-DD') &lt; TO_DATE(b.loan_start_date, 'YYYY-MM-DD')
 	</select>
 	
 </mapper>

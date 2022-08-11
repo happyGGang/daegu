@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.base.BaseService;
-import kr.co.whalesoft.framework.dataSource.DataSource;
-import kr.co.whalesoft.framework.dataSource.DataSourceType;
 import kr.co.whalesoft.framework.file.FileStorage;
 import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
 
@@ -33,46 +31,20 @@ public class LibraryCheckService extends BaseService {
 		
 		List<LibraryCheck> result = dao.getLibraryCheckList(libraryCheck);
 		
-		for (LibraryCheck one : result) {
-    		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    		String week_fri1 = "";
-    		String week_fri2 = "";
-    		
-    		Calendar cal = Calendar.getInstance();
-    		int fri_num = 6 - cal.get(Calendar.DAY_OF_WEEK);
-    		cal.add(Calendar.DATE, fri_num);
-    		week_fri1 = sdf.format(cal.getTime());
-    		
-    		cal.add(Calendar.DATE, 7);
-    		week_fri2 = sdf.format(cal.getTime());
-    		
-    		String possible_date = "";
-    		Map<String, Object> map = new HashMap<String, Object>();
-    		map.put("library_check_idx", one.getLibrary_check_idx());
-    		map.put("loan_start_date", week_fri1);
-    		if(!getPossibleDate(map)) {
-    			possible_date = week_fri1;
-    		}
-    		map.put("loan_start_date", week_fri2);
-    		if(!getPossibleDate(map)) {
-    			possible_date += (possible_date.equals("") ? "" : ",")+ week_fri2;
-    		}
-    		
-    		if(possible_date.equals("")) {
-    			one.setLender_count(0);
-    		} else if(possible_date.indexOf(",") > -1) {
-    			one.setLender_count(2);
-    			one.setLoan_start_date(week_fri2);
-    			
-    			cal.add(Calendar.DATE, 6);
-    			String week_fri3 = sdf.format(cal.getTime());
-    			one.setLoan_end_date(week_fri3);
-    		} else {
-    			one.setLender_count(1);
-    		}
-    		
+		for(int i = 0; i < result.size(); i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("library_check_idx", result.get(i).getLibrary_check_idx());
+    		try {
+    			List<LibraryCheck> libraryCheckLoanList = getLibraryCheckLoanStatus(map);
+    			if(!(libraryCheckLoanList.isEmpty()) && libraryCheckLoanList != null) {
+    				result.get(i).setRequest_status(libraryCheckLoanList.get(0).getRequest_status());
+        			result.get(i).setLoan_start_date(libraryCheckLoanList.get(0).getLoan_start_date());
+        			result.get(i).setLoan_end_date(libraryCheckLoanList.get(0).getLoan_end_date());
+    			}
+			} catch (Exception e) {
+				System.out.print(e);
+			}
 		}
-		
 		return result;
 	}
 	
@@ -95,7 +67,6 @@ public class LibraryCheckService extends BaseService {
 			String fileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String realFileName = Long.toString((System.currentTimeMillis()));
 			String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
-//			String filePath = "/" + bookPackage.getHomepage_id();
 			String filePath = "/";
 
 			File f = libraryCheckStorage.addFile(mFile, realFileName, filePath);
@@ -116,7 +87,6 @@ public class LibraryCheckService extends BaseService {
 			String fileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String realFileName = Long.toString((System.currentTimeMillis()));
 			String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
-//			String filePath = "/" + bookPackage.getHomepage_id();
 			String filePath = "/";
 
 			File f = libraryCheckStorage.addFile(mFile, realFileName, filePath);
@@ -187,26 +157,26 @@ public class LibraryCheckService extends BaseService {
 		return dao.getLibraryCheckLoanExcelList(libraryCheck);
 	}
 
-	@DataSource(DataSourceType.SLAVE1)
-	public List<Map<String, Object>> getMySqlList() {
-		return dao.getMySqlList();
+	public List<LibraryCheck> getLibraryCheckLoanStatus(Map<String, Object> map) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+		
+		map.put("dayofWeekFriday", sdf.format(cal.getTime()));
+		
+		return dao.getLibraryCheckLoanStatus(map);
 	}
 
-	@DataSource(DataSourceType.SLAVE1)
-	public List<Map<String, Object>> getMySqlList2() {
-		return dao.getMySqlList2();
+	public List<LibraryCheck> getLibraryCheckReservedList(LibraryCheck libraryCheck) {
+		return dao.getLibraryCheckReservedList(libraryCheck);
 	}
 
-	public int addParseTibero(LibraryCheck lc) {
-		return dao.addParseTibero(lc);
-	}
-	
-	public int addParseTibero2(LibraryCheck lc) {
-		return dao.addParseTibero2(lc);
+	public int getLibraryCheckLoanDupl(LibraryCheck libraryCheck) {
+		return dao.getLibraryCheckLoanDupl(libraryCheck);
 	}
 
-	public boolean getPossibleDate(Map<String, Object> map) {
-		return dao.getPossibleDate(map) > 0 ? false : true;
+	public int checkLoanCount(LibraryCheck libraryCheck) {
+		return dao.checkLoanCount(libraryCheck);
 	}
 
 }

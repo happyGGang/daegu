@@ -2,11 +2,10 @@ package kr.go.gbelib.app.module.libraryCheck;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +48,7 @@ public class LibraryCheckController extends BaseController {
 		
 		model.addAttribute("libraryCheck", libraryCheck);
 		model.addAttribute("libraryCheckList", service.getLibraryCheckList(libraryCheck));
-
+		
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 	
@@ -68,29 +67,25 @@ public class LibraryCheckController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
 	
-	@RequestMapping (value = {"/view.*"}, method = RequestMethod.GET)
+	@RequestMapping (value = {"/view.*"}, method = RequestMethod.POST)
 	public String view(Model model, LibraryCheck libraryCheck, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		int menu_idx = libraryCheck.getMenu_idx();
 
 		libraryCheck = (LibraryCheck)service.copyObjectPaging(libraryCheck, service.getLibraryCheckOne(libraryCheck));
-		libraryCheck.setMenu_idx(menu_idx);
 
 		model.addAttribute("libraryCheck", libraryCheck);
 
-		return String.format(basePath, homepage.getFolder()) + "view";
+		return String.format(basePath, homepage.getFolder()) + "view_ajax";
 	}
 	
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(LibraryCheck libraryCheck, BindingResult result, HttpServletRequest request) {
-		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		if(libraryCheck.getEditMode().equals("ADD") || libraryCheck.getEditMode().equals("MODIFY")) {
     		ValidationUtils.rejectIfEmpty(result, "library_check_name", "이름이 없습니다.");
     		ValidationUtils.rejectIfEmpty(result, "library_check_number", "선택한 장서점검기가 없습니다.");
 		}
-		/* <<<<< 유효성 검증 */
 		
 		if(libraryCheck.getEditMode().equals("ADD") && service.getLibraryCheckDupl(libraryCheck) > 0) {
 			result.reject("해당 장서점검기는 등록되어있습니다.");
@@ -181,54 +176,43 @@ public class LibraryCheckController extends BaseController {
 			int menu_idx = libraryCheck.getMenu_idx();
 			libraryCheck = (LibraryCheck)service.copyObjectPaging(libraryCheck, service.getLibraryCheckLoanOne(libraryCheck));
 			libraryCheck.setMenu_idx(menu_idx);
-		} else {
-			checkAuth("C", model, request);
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String week_fri1 = "";
-			String week_fri2 = "";
-			
-			Calendar cal = Calendar.getInstance();
-			int fri_num = 6 - cal.get(Calendar.DAY_OF_WEEK);
-			cal.add(Calendar.DATE, fri_num == 0 ? 7 : fri_num);
-			week_fri1 = sdf.format(cal.getTime());
-			
-			cal.add(Calendar.DATE, 7);
-			week_fri2 = sdf.format(cal.getTime());
-			
-			String possible_date = "";
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("library_check_idx", libraryCheck.getLibrary_check_idx());
-			map.put("loan_start_date", week_fri1);
-			if(service.getPossibleDate(map)) {
-				possible_date = week_fri1;
-			}
-			map.put("loan_start_date", week_fri2);
-			if(service.getPossibleDate(map)) {
-				possible_date += (possible_date.equals("") ? "" : ",")+ week_fri2;
-			}
-			
-			if(possible_date.equals("")) {
-				service.alertMessage("이미 예약중인 장서점검기는 예약할 수 없습니다", request, response);
+		}
+		
+		List<String> list = checkDisabledList(libraryCheck);
+
+		//TODO 해당 주로부터 2주뒤의예약이 가득 차있으면 메세지...
+		if(libraryCheck.getEditMode().equals("ADD")) {
+			if(list.size() > 6) {
+				service.alertMessage("현재 예약이 최대로 되어 예약이 불가합니다.\n(문의 전화 053-231-2857)", request, response);
 				return null;
 			}
-			
-			model.addAttribute("possible_date", possible_date);
+		}
+
+		if(libraryCheck.getEditMode().equals("ADD") && loginSupport != null && !getSessionIsAdmin(request)) {
+			libraryCheck.setSchool_name(loginSupport.getSchool_name());
+			if(service.checkLoanCount(libraryCheck) >= 2) {
+				service.alertMessage("최대 신청대수는 2대 입니다.예약 현황을 확인해주세요.\n(문의 전화 053-231-2857)", request, response);
+				return null;
+			}
 		}
 		
 		model.addAttribute("libraryCheck", libraryCheck);
+		model.addAttribute("loginSupport", loginSupport);
+		model.addAttribute("disabledList", list);
 
 		return String.format(basePath, homepage.getFolder()) + "loanEdit";
 	}
-	
+
 	@RequestMapping (value = {"/loanSave.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse loanSave(LibraryCheck libraryCheck, BindingResult result, HttpServletRequest request) {
-		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		if(libraryCheck.getEditMode().equals("ADD") || libraryCheck.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "hope_date", "방문예정일자를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "hope_start_time", "방문예정시간을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "hope_start_minute", "방문예정시간을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "school_name", "학교명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "request_name", "신청자를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "phone_2", "휴대폰을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
@@ -242,8 +226,8 @@ public class LibraryCheckController extends BaseController {
     				Date startDate = sdf.parse(libraryCheck.getLoan_start_date());
     				Date endDate = sdf.parse(libraryCheck.getLoan_end_date());
     				
-    				if((int)(endDate.getTime() - startDate.getTime()) / (24*60*60*1000) > 6) {
-    					result.reject("대출기간은 일주일을 넘길 수 없습니다.");
+    				if((int)(endDate.getTime() - startDate.getTime()) / (24*60*60*1000) > 13) {
+    					result.reject("대출기간은 최대 2주까지 대여 가능합니다.");
     				}
     			} catch (ParseException e) {
     				e.printStackTrace();
@@ -267,7 +251,12 @@ public class LibraryCheckController extends BaseController {
     			result.rejectValue("school_tel_2", "학교 연락처 형식이 올바르지 않습니다.");
     		}
 		}
-		/* <<<<< 유효성 검증 */
+		
+		if(libraryCheck.getEditMode().equals("ADD") || libraryCheck.getEditMode().equals("MODIFY")) {
+			if(service.getLibraryCheckLoanDupl(libraryCheck) > 0) {
+				result.reject("해당 날짜의 장서점검기는 이미 예약중 입니다.");
+			}
+		}
 
 		if (!result.hasErrors()) {
 			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
@@ -294,6 +283,8 @@ public class LibraryCheckController extends BaseController {
 			} else if(libraryCheck.getEditMode().equals("STATUS")) {
 				service.modifyLibraryCheckStatus(libraryCheck);
 				res.setValid(true);
+				res.setUrl("loanList.do");
+				res.setData(param);
 				res.setMessage("선택 상태 변경되었습니다.");
 			}
 		} else {
@@ -302,6 +293,24 @@ public class LibraryCheckController extends BaseController {
 		}
 
 		return res;
+	}
+	
+	@RequestMapping (value = {"/libraryCheckloanList.*"}, method = RequestMethod.POST)
+	public String libraryCheckloanList(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		SupportMember supportMember = sessionLoginSupport(request);
+		if ( supportMember == null && !getSessionIsAdmin(request) ) {
+			libraryCheck.setBefore_url(String.format("/%s/module/libraryCheck/loanList.do?menu_idx=%s", homepage.getContext_path(), libraryCheck.getMenu_idx()));
+			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
+			return null;
+		}
+		
+		model.addAttribute("libraryCheck", libraryCheck);
+		model.addAttribute("libraryCheckList", service.getLibraryCheckReservedList(libraryCheck));
+
+		return String.format(basePath, homepage.getFolder()) + "libraryCheckloanList_ajax";
 	}
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
@@ -320,57 +329,36 @@ public class LibraryCheckController extends BaseController {
 		return new LibraryCheckView();
 	}
 	
-	@RequestMapping(value = {"/mysql_to_tibero.*"}, method = RequestMethod.GET)
-	public void mysqlToTibero() {
+	private List<String> checkDisabledList(LibraryCheck libraryCheck) throws ParseException {
+		List<LibraryCheck> disableList = service.getLibraryCheckReservedList(libraryCheck);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		List<Map<String, Object>> list = service.getMySqlList();
+		List<String> list = new ArrayList<String>();
 		
-		for (Map<String, Object> map : list) {
-			LibraryCheck lc = new LibraryCheck();
+		for(int i = 0; i < disableList.size(); i++) {
+			String loan_start_date = disableList.get(i).getLoan_start_date();
+			String loan_end_date = disableList.get(i).getLoan_end_date();
 			
-			lc.setLibrary_check_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
-			lc.setLibrary_check_name(String.valueOf(map.get("b_name")));
-			lc.setLibrary_check_number(Integer.parseInt(String.valueOf(map.get("b_subject"))));
-			lc.setContent(String.valueOf(map.get("b_content")));
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-M-d");
 			
-			try {
-				lc.setAdd_id(String.valueOf(map.get("b_id")));
-				lc.setAdd_date(sdf.parse(String.valueOf(map.get("b_regdate"))));
-			} catch(ParseException e) {
-				e.printStackTrace();
+			Date start = format.parse(loan_start_date);
+			Date end = format.parse(loan_end_date);
+			
+			long Sec = end.getTime() - start.getTime();
+			long Days = Sec / (24*60*60*1000);
+			
+			Days = Math.abs(Days);
+			
+			if(Days > 6) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(start);
+				cal.add(Calendar.DATE, 7);
+				
+				list.add("\""+format.format(start)+"\"");
+				list.add("\""+format.format(cal.getTime()).toString()+"\"");
+			} else {
+				list.add("\""+format.format(start)+"\"");
 			}
-			
-			System.out.println("@@@@@@@@@@ : " + lc.toString());
-			service.addParseTibero(lc);
 		}
-		
-		List<Map<String, Object>> list2 = service.getMySqlList2();
-		for (Map<String, Object> map : list2) {
-			LibraryCheck lc = new LibraryCheck();
-			
-			lc.setLibrary_check_idx(Integer.parseInt(String.valueOf(map.get("b_num"))));
-			lc.setLibrary_check_loan_idx(Integer.parseInt(String.valueOf(map.get("bb_num"))));
-			lc.setLoan_start_date(String.valueOf(map.get("bb_sdate")));
-			lc.setLoan_end_date(String.valueOf(map.get("bb_edate")));
-			lc.setHope_date(String.valueOf(map.get("bb_hope_date")));
-			lc.setSchool_name(String.valueOf(map.get("bb_school")));
-			lc.setRequest_name(String.valueOf(map.get("bb_manager")));
-			lc.setPhone(String.valueOf(map.get("bb_phone")));
-			lc.setSchool_tel(String.valueOf(map.get("bb_school_tel")));
-			lc.setRequest_status(String.valueOf(map.get("bb_status")));
-			
-			try {
-				lc.setAdd_id(String.valueOf(map.get("m_id")));
-				lc.setAdd_date(sdf.parse(String.valueOf(map.get("bb_regdate"))));
-			} catch(ParseException e) {
-				e.printStackTrace();
-			}
-			
-			System.out.println("@@@@@@@@@@ : " + lc.toString2());
-			service.addParseTibero2(lc);
-		}
-		
+		return list;
 	}
-
 }

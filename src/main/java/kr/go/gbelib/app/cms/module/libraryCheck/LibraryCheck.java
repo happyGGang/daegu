@@ -28,6 +28,8 @@ public class LibraryCheck extends PagingUtils {
 	private String loan_start_date; // 대출시작기간
 	private String loan_end_date; // 대출종료기간
 	private String hope_date; // 방문희망일자
+	private String hope_start_time; // 방문희망시간
+	private String hope_start_minute; // 방문희망시간
 	private String school_name; // 학교명
 	private String request_name; // 신청자명
 	private String phone; // 연락처
@@ -39,11 +41,14 @@ public class LibraryCheck extends PagingUtils {
 	private String school_tel_2;
 	private String school_tel_3;
 	private String request_status; // 진행상태
+	private String remark; // 비고
 
 	private String add_id; // 등록ID
 	private Date add_date; // 등록일시
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
+	
+	private String dayofWeekFriday;	//매주금요일
 
 	public int getLibrary_check_idx() {
 		return library_check_idx;
@@ -301,6 +306,38 @@ public class LibraryCheck extends PagingUtils {
 		this.modify_date = modify_date;
 	}
 
+	public String getHope_start_time() {
+		return hope_start_time;
+	}
+
+	public void setHope_start_time(String hope_start_time) {
+		this.hope_start_time = hope_start_time;
+	}
+
+	public String getHope_start_minute() {
+		return hope_start_minute;
+	}
+
+	public void setHope_start_minute(String hope_start_minute) {
+		this.hope_start_minute = hope_start_minute;
+	}
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getDayofWeekFriday() {
+		return dayofWeekFriday;
+	}
+
+	public void setDayofWeekFriday(String dayofWeekFriday) {
+		this.dayofWeekFriday = dayofWeekFriday;
+	}
+
 	@Override
 	public String toString() {
 		return "LibraryCheck [library_check_idx=" + library_check_idx + ", library_check_name=" + library_check_name + ", library_check_number=" + library_check_number + ", content=" + content + ", add_id=" + add_id + ", add_date=" + add_date + "]";
@@ -309,5 +346,4 @@ public class LibraryCheck extends PagingUtils {
 	public String toString2() {
 		return "LibraryCheck [library_check_idx=" + library_check_idx + ", library_check_loan_idx=" + library_check_loan_idx + ", loan_start_date=" + loan_start_date + ", loan_end_date=" + loan_end_date + ", hope_date=" + hope_date + ", school_name=" + school_name + ", request_name=" + request_name + ", phone=" + phone + ", school_tel=" + school_tel + ", request_status=" + request_status + ", add_id=" + add_id + ", add_date=" + add_date + "]";
 	}
-
 }

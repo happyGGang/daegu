@@ -16,70 +16,62 @@ $(function() {
 		history.back();
 	});
 	
-<c:choose>
-	<c:when test="${(not empty loginSupport and loginSupport.auth_group eq '1') or member.admin}">
-	$('input#loan_start_date').datepicker({
-		maxDate: $('input#loan_end_date').val(),
-		onClose: function(selectedDate){
-			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
-		}
-	});
-
-	$('input#loan_end_date').datepicker({
-		minDate: $('input#loan_start_date').val(),
-		onClose: function(selectedDate){
-			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
-	});
-	</c:when>
-	<c:otherwise>
-	$('input#loan_start_date').datepicker({
-		onClose: function(selectedDate){
-			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
-			var date = $(this).datepicker('getDate');
-			if(date != null) {
-				date.setDate(date.getDate() + 6);
-				var end_year = date.getFullYear();
-				var end_month = (date.getMonth()+1 < 10 ? '0' : '') + (date.getMonth()+1);
-				var end_date = (date.getDate() < 10 ? '0' : '') + date.getDate();
-				$('input#loan_end_date').val(end_year+'-'+end_month+'-'+end_date);
+	if(${disabledList} =="" || ${disabledList} == null){
+		$('input#loan_start_date').datepicker({
+			minDate: 0,
+			maxDate: $('input#loan_start_date').val() + 21,
+			beforeShowDay: function(date){
+				//매주 금요일만 예약날짜 활성화
+				var day = date.getDay();
+				return [(day != 0 && day != 1 && day != 2 && day != 3 && day != 4 && day != 6)];
+			},
+			onClose: function(selectedDate){
+				var loanMinDate = $('input#loan_start_date').datepicker("getDate");
+				loanMinDate.setDate(loanMinDate.getDate() + 6);
+				$('input#loan_end_date').datepicker('option', 'minDate', loanMinDate);
+				
+				var loanMaxDate = $('input#loan_start_date').datepicker("getDate");
+				loanMaxDate.setDate(loanMaxDate.getDate() + 14);
+				$('input#loan_end_date').datepicker('option', 'maxDate', loanMaxDate);
 			}
+		});
+	} else {
+		$('input#loan_start_date').datepicker({
+			minDate: 0,
+			maxDate: $('input#loan_start_date').val() + 21,
+			beforeShowDay: function(date){
+				//매주 금요일이며 예약이 되어있지 않은 날짜들만 예약날짜 활성화
+				var day = date.getDay();
+				var disabledDays = ${disabledList};
+				var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+			    for (i = 0; i < disabledDays.length; i++) {
+			        if($.inArray(y + '-' +(m+1) + '-' + d,disabledDays) != -1 || day == 0 || day == 1 || day == 2 || day == 3 || day == 4 || day == 6) {
+			            return [false];
+			        }
+			    }
+			    return [true];
+			},
+			onClose: function(selectedDate){
+				var loanMinDate = $('input#loan_start_date').datepicker("getDate");
+				loanMinDate.setDate(loanMinDate.getDate() + 6);
+				$('input#loan_end_date').datepicker('option', 'minDate', loanMinDate);
+				
+				var loanMaxDate = $('input#loan_start_date').datepicker("getDate");
+				loanMaxDate.setDate(loanMaxDate.getDate() + 14);
+				$('input#loan_end_date').datepicker('option', 'maxDate', loanMaxDate);
+			}
+		});
+	}
+	
+	$('input#loan_end_date').datepicker({
+		beforeShowDay: function(date){
+			var day = date.getDay();
+			return [(day != 0 && day != 1 && day != 2 && day != 3 && day != 5 && day != 6)];
 		},
-		beforeShowDay: available
+		onClose: function(){
+			$('input#hope_date').val($('input#loan_start_date').val());
+		}
 	});
-	
-	//선택가능 날짜 
-	var availableDates = [];
-	try {
-		var a = '${possible_date}'.split(',');
-		for (var i = 0; i < a.length; i++) {
-			availableDates[i] = a[i];
-		}
-	} catch (e) {
-	}
-	function available(date) { // date <--- calendar의 일자(예:'2020-04-17')를 하나씩 가져온다.
-		var thismonth = date.getMonth()+1;
-		var thisday = date.getDate();
-		if(thismonth<10){
-			thismonth = "0"+thismonth;
-		}
-
-		if(thisday<10){
-			thisday = "0"+thisday;
-		}
-
-	    ymd = date.getFullYear() + "-" + thismonth + "-" + thisday;
-	    if ($.inArray(ymd, availableDates) >= 0) {
-	        return [true];
-	    } else {
-	        return [false];
-	    }
-	}
-	</c:otherwise>
-</c:choose>
-	
-	$('input#hope_date').datepicker();
-	
 });
 </script>
 <form:form id="libraryCheckLoan" modelAttribute="libraryCheck" action="loanSave.do" method="POST">
@@ -109,18 +101,45 @@ $(function() {
 					<form:input path="loan_end_date" cssClass="text ui-calendar" readonly="true"/>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
-						<em>대출 요일은 금요일, 반납요일은 목요일로 대출기간은 1주입니다.</em>
+						<em>대출 요일은 금요일, 반납요일은 목요일로 최대 2주동안 대출이 가능합니다.</em>
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<th>방문예정일자(<span style="color: red;font-weight: bold;">*</span>)</th>
-				<td><form:input path="hope_date" cssClass="text ui-calendar"/></td>
+				<td>
+					<form:input path="hope_date" cssClass="text" readonly="true" cssStyle="width:100px;"/>
+					<div class="ui-state-highlight">
+						<i class="fa fa-question-circle"></i>
+						<em>방문예정일자는 자동으로 대출시작일로 입력됩니다.</em>
+					</div>
+				</td>
 			</tr>
 			<tr>
-				<th>학교명</th>
+				<th>방문예정시간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="school_name" cssClass="text" cssStyle="width:200px;"/>
+					<form:select path="hope_start_time" cssStyle="selectmenu">
+						<c:forEach var="i"  begin="9" end="18">
+					        <form:option value="${i}">${i>9?i:'0'}${i>9?'':i}</form:option>
+					    </c:forEach>
+					</form:select>&nbsp;:
+					<form:select path="hope_start_minute" cssStyle="selectmenu">
+						<form:option value="00">00</form:option>
+						<form:option value="30">30</form:option>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<th>학교명(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<c:choose>
+						<c:when test="${(not empty loginSupport and loginSupport.auth_group eq '1') or member.admin}">
+							<form:input path="school_name" cssClass="text" cssStyle="width:200px;"/>
+						</c:when>
+						<c:otherwise>
+							<form:hidden path="school_name" value="${loginSupport.school_name}"/>${loginSupport.school_name}
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 			<tr>
@@ -156,30 +175,32 @@ $(function() {
 					<form:input path="school_tel_2" cssClass="text" cssStyle="width:50px;"/>
 					<span>-</span>
 					<form:input path="school_tel_3" cssClass="text" cssStyle="width:50px;"/>
-					<div class="ui-state-highlight">
-						<i class="fa fa-question-circle"></i>
-						<em>연락처는 원화택배 발송을 위한 필수 정보입니다. 꼭 기입하여 주세요.</em>
-					</div>
 				</td>
 			</tr>
+			<c:choose>
+				<c:when test="${(not empty loginSupport and loginSupport.auth_group eq '1') or member.admin}">
+					<tr>
+						<th>진행상태</th>
+						<td>
+							<form:select path="request_status" cssClass="selectmenu">
+								<form:option value="1">신청중</form:option>
+								<form:option value="2">대출중</form:option>
+								<form:option value="3">반납완료</form:option>
+								<form:option value="4">관리자취소</form:option>
+								<form:option value="5">반납요청완료</form:option>
+								<form:option value="6">수리중</form:option>
+							</form:select>
+						</td>
+					</tr>
+				</c:when>
+				<c:otherwise>
+					<form:hidden path="request_status" value="1"/>
+				</c:otherwise>
+			</c:choose>
 			<tr>
-				<th>진행상태</th>
+				<th>비고</th>
 				<td>
-				<c:choose>
-					<c:when test="${loginSupport.auth_group eq '3'}">
-					<form:hidden path="request_status" value="0"/>신청중
-					</c:when>
-					<c:otherwise>
-					<form:select path="request_status" cssClass="selectmenu">
-						<form:option value="0">신청중</form:option>
-						<form:option value="1">예약상담중</form:option>
-						<form:option value="2">대출중</form:option>
-						<form:option value="3">반납완료</form:option>
-						<form:option value="4">관리자취소</form:option>
-						<form:option value="5">반납요청완료</form:option>
-					</form:select>
-					</c:otherwise>
-				</c:choose>
+					<form:textarea path="remark" rows="10" cols="100" cssStyle="width:100%; height:100px;" title="장서점검기 대여 비고란" placeholder="대출기간 및 방문예정일자 조정을 원하시는 분들은 기입 바랍니다."/>
 				</td>
 			</tr>
 		</tbody>

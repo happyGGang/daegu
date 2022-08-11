@@ -100,12 +100,12 @@ $(function() {
 		</form:select>
 		<form:select path="request_status" cssClass="selectmenu">
 			<form:option value="">상태전체</form:option>
-			<form:option value="0">신청중</form:option>
-			<form:option value="1">예약상담중</form:option>
+			<form:option value="1">신청중</form:option>
 			<form:option value="2">대출중</form:option>
 			<form:option value="3">반납완료</form:option>
 			<form:option value="4">관리자취소</form:option>
 			<form:option value="5">반납요청완료</form:option>
+			<form:option value="6">수리중</form:option>
 		</form:select>
 		<form:select path="rowCount" cssClass="selectmenu">
 			<form:option value="10">10개씩보기</form:option>
@@ -127,11 +127,21 @@ $(function() {
 			</c:if>
 			<col width="6%" />
 			<col width="12%" />
-			<col />
-			<col width="12%"/>
+			<c:choose>
+				<c:when test="${member.admin or loginSupport.auth_group eq '1'}">
+					<col width="11%"/>
+				</c:when>
+				<c:otherwise>
+					<col width="20%"/>
+				</c:otherwise>
+			</c:choose>
+			<col width="14%"/>
 			<col width="15%" />
 			<col width="12%" />
 			<col width="10%" />
+			<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+			<col width="8%" />
+			</c:if>
 			<col width="8%" />
 		</colgroup>
 		<thead>
@@ -146,6 +156,9 @@ $(function() {
 				<th>학교명/신청자</th>
 				<th>신청일자</th>
 				<th>상태</th>
+				<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+				<th>비고</th>
+				</c:if>
 				<th>취소</th>
 			</tr>
 		</thead>
@@ -162,19 +175,29 @@ $(function() {
 						<a href="#" class="btn-view" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
 					</td>
 					<td class="center">${i.loan_start_date}~${i.loan_end_date}</td>
-					<td>${i.hope_date}</td>
+					<td>${i.hope_date}<c:if test="${i.hope_start_time ne null}"> ${i.hope_start_time}:${i.hope_start_minute}</c:if></td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:choose>
 							<c:when test="${i.request_status eq '0'}">신청중</c:when>
-							<c:when test="${i.request_status eq '1'}">예약상담중</c:when>
+							<c:when test="${i.request_status eq '1'}">신청중</c:when>
 							<c:when test="${i.request_status eq '2'}">대출중</c:when>
 							<c:when test="${i.request_status eq '3'}">반납완료</c:when>
 							<c:when test="${i.request_status eq '4'}">관리자취소</c:when>
 							<c:when test="${i.request_status eq '5'}">반납요청완료</c:when>
+							<c:when test="${i.request_status eq '6'}">수리중</c:when>
 						</c:choose>
 					</td>
+					<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+					<td>
+						<c:choose>
+							<c:when test="${not empty i.remark}">
+								<a href="javascript:void(0);" class="btn btn5" onclick="alert('${i.remark}');">보기</a>
+							</c:when>
+						</c:choose>
+					</td>
+					</c:if>
 					<td>
 						<c:if test="${i.request_status eq '0' or i.request_status eq '1'}">
 						<a href="#" class="cancle-btn" keyValue="${i.library_check_loan_idx}">취소</a>
@@ -184,7 +207,14 @@ $(function() {
 			</c:forEach>
 			<c:if test="${fn:length(libraryCheckLoanList) < 1}">
 				<tr>
-					<td colspan="9">조회된 자료가 없습니다.</td>
+					<c:choose>
+						<c:when test="${member.admin or loginSupport.auth_group eq '1'}">
+							<td colspan="10">조회된 자료가 없습니다.</td>
+						</c:when>
+						<c:otherwise>
+							<td colspan="8">조회된 자료가 없습니다.</td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:if>
 		</tbody>
@@ -194,15 +224,14 @@ $(function() {
 	
 	<select id="statusAll" class="selectmenu">
 		<option value="">상태변경</option>
-		<option value="0">신청중</option>
-		<option value="1">예약상담중</option>
+		<option value="1">신청중</option>
 		<option value="2">대출중</option>
 		<option value="3">반납완료</option>
 		<option value="4">관리자취소</option>
 		<option value="5">반납요청완료</option>
+		<option value="6">수리중</option>
 	</select>
 	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
-<!-- 		<a href="#" id="delete-all" class="btn btn2">일괄삭제</a> -->
 	</c:if>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">

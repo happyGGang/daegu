@@ -45,5 +45,12 @@ public interface LibraryCheckDao {
 	
 	public int addParseTibero2(LibraryCheck lc);
 
-	public int getPossibleDate(Map<String, Object> map);
+	public List<LibraryCheck> getLibraryCheckLoanStatus(Map<String, Object> map);
+
+	public List<LibraryCheck> getLibraryCheckReservedList(LibraryCheck libraryCheck);
+
+	public int getLibraryCheckLoanDupl(LibraryCheck libraryCheck);
+
+	public int checkLoanCount(LibraryCheck libraryCheck);
+
 }

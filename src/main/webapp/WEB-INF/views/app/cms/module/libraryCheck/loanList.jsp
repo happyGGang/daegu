@@ -109,12 +109,12 @@ $(function() {
 		</form:select>
 		<form:select path="request_status" cssClass="selectmenu">
 			<form:option value="">상태전체</form:option>
-			<form:option value="0">신청중</form:option>
-			<form:option value="1">예약상담중</form:option>
+			<form:option value="1">신청중</form:option>
 			<form:option value="2">대출중</form:option>
 			<form:option value="3">반납완료</form:option>
 			<form:option value="4">관리자취소</form:option>
 			<form:option value="5">반납요청완료</form:option>
+			<form:option value="6">수리중</form:option>
 		</form:select>
 		<form:select path="rowCount" cssClass="selectmenu">
 			<form:option value="10">10개씩보기</form:option>
@@ -151,7 +151,8 @@ $(function() {
 				<th>학교명/신청자</th>
 				<th>신청일자</th>
 				<th>상태</th>
-				<th>취소</th>
+				<th>비고</th>
+				<th>기능</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -162,25 +163,34 @@ $(function() {
 					</td>
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<td>
-						<a href="#" class="dialog-edit" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
+						<a href="javascript:void(0);" class="dialog-edit" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
 					</td>
 					<td class="center">${i.loan_start_date}<br/>~${i.loan_end_date}</td>
-					<td>${i.hope_date}</td>
+					<td>
+						${i.hope_date}<c:if test="${i.hope_start_time ne null}"> ${i.hope_start_time}:${i.hope_start_minute}</c:if>
+					</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:choose>
-							<c:when test="${i.request_status eq '0'}">신청중</c:when>
-							<c:when test="${i.request_status eq '1'}">예약상담중</c:when>
+							<c:when test="${i.request_status eq '1'}">신청중</c:when>
 							<c:when test="${i.request_status eq '2'}">대출중</c:when>
 							<c:when test="${i.request_status eq '3'}">반납완료</c:when>
 							<c:when test="${i.request_status eq '4'}">관리자취소</c:when>
 							<c:when test="${i.request_status eq '5'}">반납요청완료</c:when>
+							<c:when test="${i.request_status eq '6'}">수리중</c:when>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${not empty i.remark}">
+								<a href="javascript:void(0);" class="btn btn1" onclick="alert('${i.remark}');">보기</a>
+							</c:when>
 						</c:choose>
 					</td>
 					<td>
 						<c:if test="${i.request_status eq '0' or i.request_status eq '1'}">
-						<a href="#" class="cancle-btn" keyValue="${i.library_check_loan_idx}">취소</a>
+						<a href="javascript:void(0);" class="btn btn5" keyValue="${i.library_check_loan_idx}">취소</a>
 						</c:if>
 					</td>
 				</tr>
@@ -192,18 +202,19 @@ $(function() {
 			</c:if>
 		</tbody>
 	</table>
-	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
+	
+	<a href="javascript:void(0);" id="allChk" keyValue="N">전체 선택/해제</a>
 	
 	<select id="statusAll" class="selectmenu">
 		<option value="">상태변경</option>
-		<option value="0">신청중</option>
-		<option value="1">예약상담중</option>
+		<option value="1">신청중</option>
 		<option value="2">대출중</option>
 		<option value="3">반납완료</option>
 		<option value="4">관리자취소</option>
 		<option value="5">반납요청완료</option>
+		<option value="6">수리중</option>
 	</select>
-	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
+	<a href="javascript:void(0);" id="status-change" class="btn btn4">선택상태변경</a>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#libraryCheck"/>

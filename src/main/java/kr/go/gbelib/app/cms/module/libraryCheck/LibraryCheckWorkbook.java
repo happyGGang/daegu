@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+
 import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
@@ -41,14 +43,15 @@ public class LibraryCheckWorkbook {
 
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView(0,  12);
-		workbook.getSheet(0).setColumnView(1,  30);
-		workbook.getSheet(0).setColumnView(2,  15);
+		workbook.getSheet(0).setColumnView(1,  25);
+		workbook.getSheet(0).setColumnView(2,  20);
 		workbook.getSheet(0).setColumnView(3,  20);
 		workbook.getSheet(0).setColumnView(4,  10);
 		workbook.getSheet(0).setColumnView(5,  15);
 		workbook.getSheet(0).setColumnView(6,  15);
 		workbook.getSheet(0).setColumnView(7,  20);
 		workbook.getSheet(0).setColumnView(8,  10);
+		workbook.getSheet(0).setColumnView(9,  20);
 		
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell(new Label(0, 0, "장서점검기", format));
@@ -60,6 +63,7 @@ public class LibraryCheckWorkbook {
 		workbook.getSheet(0).addCell(new Label(6, 0, "학교연락처", format));
 		workbook.getSheet(0).addCell(new Label(7, 0, "신청일자", format));
 		workbook.getSheet(0).addCell(new Label(8, 0, "상태", format));
+		workbook.getSheet(0).addCell(new Label(9, 0, "비고", format));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
@@ -67,7 +71,11 @@ public class LibraryCheckWorkbook {
 		for(LibraryCheck one : libraryCheckLoanList) {
 			workbook.getSheet(0).addCell(new Label(0, row, "장서점검기" + one.getLibrary_check_number()));
 			workbook.getSheet(0).addCell(new Label(1, row, one.getLoan_start_date() + " ~ " + one.getLoan_end_date()));
-			workbook.getSheet(0).addCell(new Label(2, row, one.getHope_date()));
+			if(StringUtils.isNotEmpty(one.getHope_start_time())) {
+				workbook.getSheet(0).addCell(new Label(2, row, one.getHope_date() + " " + one.getHope_start_time() + ":" + one.getHope_start_minute()));
+			} else {
+				workbook.getSheet(0).addCell(new Label(2, row, one.getHope_date()));
+			}
 			workbook.getSheet(0).addCell(new Label(3, row, one.getSchool_name()));
 			workbook.getSheet(0).addCell(new Label(4, row, one.getRequest_name()));
 			workbook.getSheet(0).addCell(new Label(5, row, one.getPhone()));
@@ -78,7 +86,7 @@ public class LibraryCheckWorkbook {
 			switch (Integer.valueOf(one.getRequest_status())) {
 				case 0 : status = "신청중";
 					break;
-				case 1 : status = "예약상담중";
+				case 1 : status = "신청중";
 					break;
 				case 2 : status = "대출중";
 					break;
@@ -88,10 +96,13 @@ public class LibraryCheckWorkbook {
 					break;
 				case 5 : status = "반납요청완료";
 					break;
+				case 6 : status = "수리중";
+				break;
 				default :
 					break;
 			}
 			workbook.getSheet(0).addCell(new Label(8, row, status));
+			workbook.getSheet(0).addCell(new Label(9, row, one.getRemark()));
 			
 			row++;
 		}

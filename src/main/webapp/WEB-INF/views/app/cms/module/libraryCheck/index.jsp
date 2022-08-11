@@ -67,42 +67,11 @@ div.img-box {position: relative;display:inline-block;border: 1px solid #ccc;}
 div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;height: 18px;padding: 4px 4px;font-family: 'Montserrat',sans-serif;font-weight: 700;text-align: center;line-height: 17px;color: #fff;background-color: red;border-radius: 50%;}
 </style>
 <div>
-	<h4 class="tit">장서점검기 대여 신청 안내</h4>
-	<ul class="rent_box">
+	<ul>
 		<li>
-			<dl>
-				<dt class="icon01">최대 신청대수</dt>
-				<dd><span class="eng">2</span>대</dd>
-			</dl>
-		</li>
-		<li>
-			<dl>
-				<dt class="icon02">최대 대출기간</dt>
-				<dd><span class="eng">1</span>주</dd>
-			</dl>
-		</li>
-	</ul>
-	<ul class="list mb40">
-		<li><strong class="red">대여일은 금요일, 반납일은 목요일</strong>로 지정되어 있습니다.
 			<ul class="list2">
-				<li>사용 희망일이 금요일이 아닌 경우, 사용 희망일 전 주 금요일에 미리 대여 신청 하십시오.</li>
-				<li>대여 신청은 대여하시려는 날짜의 2주 전부터 가능합니다.</li>
-			</ul>
-			<p>▶ 앞의 학교의 대여 기간에 따라 원하시는 일자에 대여 신청이 불가할 수 있습니다.</p>
-			<div style="margin-left:-11px;"><img src="/resources/common/img/support_calendar.jpg" alt="일주일 대여 예시" class="mimg"></div>
-		</li>
-		<li>예) 20일(화)이 사용희망일일 경우
-			<ul class="list2">
-				<li>20일(화) 전 주 금요일인 16일이 장서점검기 대여일</li>
-				<li>대여 신청은 16일의 2주 전 금요일인 2일부터 가능</li>
-				<li>목요일인 22일에 반납</li>
-			</ul>
-		</li>
-		<li>담당자 본인이 도서관에 방문하여 대출 / 직접 반납</li>
-		<li>장서점검기 2가지 모델이 있으니 이용에 참고바랍니다.
-			<ul class="list2">
-				<li>DT-970 모델 : 1, 2, 3, 8, 9번 장서점검기</li>
-				<li>북체커 모델 : 4, 5, 6, 7번 장서점검기</li>
+				<li>DT-970 모델 : 1, 2, 3, 8, 9번 장서점검기<b>(별도의 전송 프로그램 필요)</b></li>
+				<li>북체커 모델 : 4, 5, 6, 7번 장서점검기<b>(별도의 전송 프로그램 불필요)</b></li>
 			</ul>
 		</li>
 	</ul>
@@ -110,11 +79,11 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
 <form:hidden path="editMode"/>
 
-	<form:select path="loan_status" cssClass="selectmenu">
-		<form:option value="">상태전체</form:option>
-		<form:option value="1">대출중</form:option>
-		<form:option value="0">대출가능</form:option>
-	</form:select>
+	<div class="infodesk">
+		<div class="button">
+			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+		</div>
+	</div>
 
 	<div>
 		<c:forEach items="${libraryCheckList}" var="i">
@@ -138,24 +107,19 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 					<h3>장서점검기${i.library_check_number}</h3>
 				</a>
 				<div>
-					<c:choose>
-						<c:when test="${i.lender_count == 0}">
+				<c:choose>
+					<c:when test="${i.request_status == 1}">
+						<a href="#" class="dialog-req" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">
+						예약중<br/>${i.loan_start_date}~${i.loan_end_date}
+						</a>
+					</c:when>
+					<c:when test="${i.request_status == 6}">
+						수리중<br/>${i.loan_start_date}<br/>~${i.loan_end_date}
+					</c:when>
+					<c:otherwise>
 						<a href="#" class="dialog-req" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="0">신청하기</a>
-						</c:when>
-						<c:otherwise>
-							<c:choose>
-								<c:when test="${i.lender_count == 1}">
-								<a href="#" class="dialog-req" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a>
-								</c:when>
-								<c:otherwise>
-								<a href="#" class="dialog-req" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">
-									예약중<br/>${i.loan_start_date}~${i.loan_end_date}
-								</a>
-								</c:otherwise>
-							</c:choose>
-						</c:otherwise>
-					</c:choose>
-					
+					</c:otherwise>
+				</c:choose>
 				</div>
 			</div>
 		</div>
@@ -167,17 +131,11 @@ div.img-box span.num {position: absolute;top: 30px;right: 22px;width: 18px;heigh
 		</c:if>
 	</div>
 	<a href="#" class="btn" id="allChk" keyValue="N">전체 선택/해제</a>
-	<a href="#" class="btn" id="delete-chk">선택 게시글 삭제</a>
+	<a href="#" class="btn" id="delete-chk">선택 삭제</a>
 	
-	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#libraryCheck"/>
-	</jsp:include>
-	
-	<div class="infodesk">
-		<div class="button">
-			<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
-		</div>
-	</div>
+<%-- 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false"> --%>
+<%-- 		<jsp:param name="formId" value="#libraryCheck"/> --%>
+<%-- 	</jsp:include> --%>
 </form:form>
 
 <div id="dialog-1" class="dialog-common" title="장기점검기  등록"></div>
