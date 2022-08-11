@@ -115,10 +115,10 @@ $(document).ready(function() {
 											<a class="btn btn1 request" index="${status.index}" href="#">선택하기</a>
 											<c:choose>
 												<c:when test="${i.isbn13 ne null}">
-													<span data="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}//${i.authors}//${i.publisher}//${fn:substring(i.datetime,0,4)}//${i.isbn13}//${i.price}"></span>
+													<span data="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}//${fn:replace(fn:replace(i.authors, '[', ''), ']', '')}//${i.publisher}//${fn:substring(i.datetime,0,4)}//${i.isbn13}//${i.price}"></span>
 												</c:when>
 												<c:when test="${i.isbn20 ne null}">
-													<span data="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}//${i.authors}//${i.publisher}//${fn:substring(i.datetime,0,4)}//${i.isbn20}//${i.price}"></span>
+													<span data="${fn:replace(fn:replace(i.title, '</b>', ''), '<b>', '')}//${fn:replace(fn:replace(i.authors, '[', ''), ']', '')}//${i.publisher}//${fn:substring(i.datetime,0,4)}//${i.isbn20}//${i.price}"></span>
 												</c:when>
 											</c:choose>											
 										</li>
