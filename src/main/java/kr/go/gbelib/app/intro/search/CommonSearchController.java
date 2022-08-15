@@ -2121,9 +2121,9 @@ public class CommonSearchController extends BaseController {
 				Map<String, Object> unmannedLoanReserveListForDalseung = LibSearchAPI.getUnmannedLoanReserveList(ls2, null);
 				int searchCountForDalseung = LibSearchAPI.getSearchCount(unmannedLoanReserveListForDalseung);
 				
-				if (searchCountForDalseung >= 30) {
+				if (searchCountForDalseung >= 40) {
 					res.setValid(false);
-					res.setMessage("금일 무인예약은 마감되었습니다.\n1일 30명 까지 예약이 가능합니다.");
+					res.setMessage("금일 무인예약은 마감되었습니다.\n1일 40명 까지 예약이 가능합니다.");
 					return res;
 				}
 				
@@ -2137,14 +2137,14 @@ public class CommonSearchController extends BaseController {
 				
 				Date now = new Date();
 				String start = "09:00:00";
-				String end = "21:00:00";
+				String end = "12:00:00";
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Date start_time = sdf.parse(start);
 				Date end_time = sdf.parse(end);
 				
 				if (now.getTime() < start_time.getTime() && now.getTime() > end_time.getTime()) {
 					res.setValid(false);
-					res.setMessage("금일 무인예약은 마감되었습니다.\n예약 가능 시간은 09:00~21:00 입니다.");
+					res.setMessage("금일 무인예약은 마감되었습니다.\n예약 가능 시간은 09:00~12:00 입니다.");
 					return res;
 				}
 			}
