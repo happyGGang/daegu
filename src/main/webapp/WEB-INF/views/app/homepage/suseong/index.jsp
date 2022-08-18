@@ -453,6 +453,7 @@ do {
 		 <div id="quick-slide">
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
+				<li><a href="/${homepage.context_path}/html.do?menu_idx=104"><span class="txt">이용안내</span></a></li>
 				<li><a href="/${homepage.context_path}/elib.do?menu_idx=46"><span class="txt">전자도서관</span></a></li>
 				<!--li><a href="#"><span class="txt">디지털자료실<br/>좌석예약</span></a></li-->
 				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=58"><span class="txt">영화상영</span></a></li>
