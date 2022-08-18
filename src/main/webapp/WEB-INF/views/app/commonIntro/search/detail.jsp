@@ -746,7 +746,7 @@ $(function() {
 				<!-- 달성군립 무인예약 버튼은 토,일,월 제외한 09:00~12:00 까지만 활성화 -->
 				<jsp:useBean id="toDay" class="java.util.Date" />
 				<c:set var="startTime" value="09:00:00"></c:set>
-				<c:set var="endTime" value="12:00:00"></c:set>
+				<c:set var="endTime" value="21:00:00"></c:set>
 				<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
 				<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
 				<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
@@ -755,17 +755,19 @@ $(function() {
 				<fmt:formatDate var="endTime" value="${dateStr2}" pattern="HH:mm:ss"/>
 				<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 				<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime and (day ne '토' and day ne '일' and day ne '월')}">
-					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
-						<c:if test="${detail.RESERVATION_CNT eq '0' and detail.LOAN_CODE eq 'OK'}">
-							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06' || detail.SHELF_LOC_CODE eq 'BR07' || detail.SHELF_LOC_CODE eq 'BR10'}">
-							<c:choose>
-								<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-									<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-								</c:otherwise>
-							</c:choose>
+					<c:if test="${getIp eq '211.60.168.2' or getIp eq '218.48.151.16' or getIp eq '0:0:0:0:0:0:0:1'}">
+						<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
+							<c:if test="${detail.RESERVATION_CNT eq '0' and detail.LOAN_CODE eq 'OK'}">
+								<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06' || detail.SHELF_LOC_CODE eq 'BR07' || detail.SHELF_LOC_CODE eq 'BR10'}">
+								<c:choose>
+									<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
+										<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									</c:otherwise>
+								</c:choose>
+								</c:if>
 							</c:if>
 						</c:if>
 					</c:if>
@@ -810,15 +812,17 @@ $(function() {
 					<jsp:useBean id="droneNow" class="java.util.Date" />
 					<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
 					<c:set var="requestStartTime" value="${today}0000"></c:set>
-					<c:set var="requestEndTime" value="${today}1450"></c:set>
+					<c:set var="requestEndTime" value="${today}1430"></c:set>
 					<fmt:parseDate value="${requestStartTime}" pattern="yyyyMMddHHmm" var="requestStartDate" />
 					<fmt:parseDate value="${requestEndTime}" pattern="yyyyMMddHHmm" var="requestEndDate" />
 
 					<fmt:formatDate value="${droneNow}" pattern="yyyyMMddHHmm" var="nowDate" />         <%-- 오늘날짜 --%>
 					<fmt:formatDate value="${requestStartDate}" pattern="yyyyMMddHHmm" var="openDate"/>       <%-- 시작날짜--%>
 					<fmt:formatDate value="${requestEndDate}" pattern="yyyyMMddHHmm" var="closeDate"/>         <%--마감날짜--%>
-					<!-- 드론대출 기능 노출 도서관-->
-					<c:if test="${openDate <= nowDate and closeDate > nowDate}">
+					<!-- 드론대출 기능 노출 도서관
+					openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
+					-->
+					<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693'}">
 						<c:if test="${(detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF') && droneDayLoanCount <= 20}">
 							<c:if test="${detail.LOAN_CODE eq 'OK'}">
 								<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
