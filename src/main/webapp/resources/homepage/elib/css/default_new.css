@@ -296,6 +296,13 @@ ul.shareBox img.shareIcon {margin-top:-1px;}
 
 span.txt-bar{padding:1px 0;background:#ccc;vertical-align:middle}
 
+.tabMenuT {position:relative;width:100%;text-align:left;margin-bottom:-18px;z-index:13579;}
+.tabMenuT li {position:relative;display:inline-block;width:15%;text-align:center;}
+.tabMenuT li:first-child {margin-left:40px;}
+.tabMenuT li:first-child a {padding-left:0;}
+.tabMenuT li.on a {color:#fff;font-weight:bold;background:#f03271;}
+.tabMenuT li a {position:relative;display:block;font-size:15px;color:#fff;font-weight:normal;padding:10px 0;background:#898989;border-radius:25px; }
+
 /*메인 footer*/
 #footer {padding:0;}
 #footer .address {padding: 0 0 25px;}
@@ -352,6 +359,9 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
 	.Gnb .gnb-menu > li {padding:0 5%;text-align:center;position:static}
 	.search-box {width:100%;margin-top:100px;}
 	.sub-search {display:none;}
+
+	.tabMenuT {margin-bottom:-13px;}
+	.tabMenuT li a {font-size:15px;padding:10px 0;}
 }
 
 @media all and (max-width:1300px){
@@ -434,6 +444,9 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
 
 	.sublink {display:block;}
 	.sublink img{width:65%}
+
+	.tabMenuT {margin-bottom:-13px;}
+	.tabMenuT li a {font-size:13px;padding:5px 0;}
 }
 
 @media all and (max-width:768px){

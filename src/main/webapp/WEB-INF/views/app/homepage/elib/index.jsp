@@ -262,7 +262,13 @@ $.ajax({
 	<div id="container" class="main container">
 		<div class="sectionxs">
 			<div class="search-box">
-				<form id="mainSearchForm" action="/${homepage.context_path}/module/elib/search/index.do">
+				<div class="searchBox tabT">
+					<ul class="tabMenuT">
+						<li class="on"><a href="#tab1">소장자료</a></li>
+						<li><a href="#tab2">구독자료</a></li>
+					</ul>
+				</div>
+				<form id="mainSearchForm" class="mainSearchForm01" action="/${homepage.context_path}/module/elib/search/index.do">
 					<input type="hidden" name="menu_idx" value="80">
 					<input type="hidden" name="viewPage" value="1">
 					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -276,6 +282,22 @@ $.ajax({
 							</div>
 							<button id="main-search-btn">검색</button>
 						</div>
+					</fieldset>
+				</form>
+
+				<form id="mainSearchForm02" class="mainSearchForm02" action="https://daegu.dkyobobook.co.kr/search/searchList.ink" method="get" target="_blank" style="display:none">
+					<input type="hidden" name="schClst" value="all">
+					<input type="hidden" name="schDvsn" value="000">
+					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+					<fieldset>
+						<legend class="blind">통합검색</legend>
+						<div class="main-box">
+							<div class="box1">
+								<input type="text" class="text" name="schTxt" id="schTxt" placeholder="구독형 전자자료를 검색할 수 있습니다."/>
+							</div>
+							<button id="main-kyobo-search-btn">검색</button>
+						</div>
+					</div>
 					</fieldset>
 				</form>
 			</div>
