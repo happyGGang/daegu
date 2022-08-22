@@ -381,8 +381,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<form:option value="BV">달서어린이</form:option>
-				</form:select>
+					<!--<form:option value="BV">달서어린이</form:option>-->
+				</form:select><span style="color:#ff0000"> * 2022년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
