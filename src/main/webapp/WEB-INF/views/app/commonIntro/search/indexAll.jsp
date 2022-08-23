@@ -1066,10 +1066,10 @@
 							<div class="imageType">
 								<c:forEach items="${bookSearch}" var="i">
 									<!-- 검색결과 루프 시작 -->
-									<c:set var="detailURL" value="detail.do?&menu_idx=7&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+									<c:set var="detailURL" value="detail.do?&menu_idx=7&isbn=${i.ISBN}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
 									<div class="row">
 										<p class="admin">
-											<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ST_CODE)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
+											<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ISBN)}_${fn:escapeXml(i.MANAGE_CODE)}"/>
 											<c:if test="${not empty loginPortal and loginPortal.login}">
 												<input type="hidden" id="bex1" value="${i.TITLE_INFO} / ${i.AUTHOR}">
 												<input type="hidden" id="bex2" value="${i.REG_NO}">
