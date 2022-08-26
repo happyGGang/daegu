@@ -101,5 +101,7 @@ public interface LendingDao {
 	public int addElearnStat(Lending lending);
 	
 	public int addExtlinkStat(Book book);
+
+	public String getBookName(Lending lending);
 	
 }

@@ -763,4 +763,13 @@
 		)
 	</insert>
 
+	<select id="getBookName" resultType="String">
+		SELECT
+			book_name
+		FROM
+			ELIB_BOOK
+		WHERE
+			book_idx = #{book_idx}
+	</select>
+	
 </mapper>

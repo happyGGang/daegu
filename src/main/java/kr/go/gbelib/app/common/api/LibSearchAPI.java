@@ -2705,4 +2705,27 @@ public class LibSearchAPI {
 		}
 
 	}
+	
+	/**
+	 * K.API - 66
+	 *
+	 * 휴관일 여부 조회
+	 *
+	 * @author whalesoft HWAN 2022. 08. 26.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static String getUserkey(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("id", librarySearch.getMember_id());
+
+		Map<String, Object> userData = CommonAPI.sendKCMS("getuserkey", param);
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Object> userKey = (Map<String, Object>) userData.get("USER_DATA");
+		String user_key = String.valueOf(userKey.get("USER_KEY"));
+
+		return user_key;
+	}
 }

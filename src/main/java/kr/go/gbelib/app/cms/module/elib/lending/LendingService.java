@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.qos.logback.classic.Logger;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.elib.api.APIService;
@@ -18,6 +19,8 @@ import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.elib.config.Config;
 import kr.go.gbelib.app.cms.module.elib.config.ConfigService;
+import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 @Service
 public class LendingService extends BaseService {
@@ -575,6 +578,25 @@ public class LendingService extends BaseService {
 				if(useApi && !book1.getCom_code().equals("YESB") && !book1.getCom_code().equals("FXLI")) apiService.cancel(book1);
 				result = dao.reserveToLending(reserve);
 //				dao.setMsgConfirmN(reserve);
+				
+				try {
+					LibrarySearch librarySearch = new LibrarySearch();
+					librarySearch.setMember_id(reserve.getMember_id());
+					
+					String userKey = LibSearchAPI.getUserkey(librarySearch);
+					librarySearch.setUserkey(userKey);
+					librarySearch.setManageCode("AD");
+					
+					lending.setBook_idx(reserve.getBook_idx());
+					String book_name = dao.getBookName(lending);
+					String ip = "100.31.35.29";
+					
+					String mes = "전자도서관에 예약하신 도서[" + book_name + "]가 대출되었습니다.";
+	                LibSearchAPI.sendSms(librarySearch, mes, ip);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				break;
 			}
 		}
