@@ -451,10 +451,10 @@ $(function() {
 							if (document.referrer.startsWith(location.origin)) {
 								history.back();
 							} else {
-								doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
+								doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
 							}
 						} catch (e) {
-							doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val());
+							doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
 						}
 					} else {
 						$('td.applyFile').append(applyFile);
