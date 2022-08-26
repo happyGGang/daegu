@@ -849,6 +849,7 @@ $(function() {
 		</div> --%>
 
 		<!-- 선호도정보 -->
+		<c:if test="${not empty data4ageList}">
 		<h5 class="bookTitle">연령별 대출선호도 정보</h5>
 		<div class="graphWrap">
 			<!-- 막대그래프 -->
@@ -881,15 +882,19 @@ $(function() {
 			</c:if>
 			<!-- //막대그래프 -->
 		</div>
+		</c:if>
 		<!-- 선호도정보 -->
 		<div class="end"></div>
 
+		<c:if test="${not empty data4ItemList}">
 		<h5 class="bookTitle">이 책의 주요키워드</h5>
 		<div class="tagCloud">
 			<div id="cloud" class="jqcloud"></div>
 		</div>
 		<div class="end"></div>
-
+		</c:if>
+		
+		<c:if test="${not empty data4recommandList}">
 		<!-- 도서정보목록 -->
 		<h5 class="bookTitle">이 책과 같이 빌린 도서 정보</h5>
 		<div class="kdcBookList">
@@ -909,7 +914,8 @@ $(function() {
 				</c:forEach>
 			</ul>
 		</div>
-
+		</c:if>
+		
 		<h3 style="border-top: 1px solid #ccc; display: none;">서평</h3>
 		<div class="showFoldDiv" id="bookReviewDiv"></div>
 	</div>
