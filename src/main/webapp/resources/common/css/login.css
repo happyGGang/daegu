@@ -74,7 +74,7 @@
 
 .login-body .loginBox1 { background-color: #f7f7f7; overflow: hidden; }
 .login-body .tab .call .callImg { float: left; padding: 5px 30px 5px 0px;}
-.login-type label { color: 325a8f;}
+.login-type label { color: #325a8f;}
 
 /* 로그인 수정*/
 div.loginBox1 .loginImg { float: left;}
@@ -202,7 +202,7 @@ background:url('/resources/homepage/dge/img/login-c.jpg') no-repeat center 0}
 
 .login-body2 .loginBox1 {background-color: #f7f7f7;overflow: hidden;height: 300px;text-align:  center;margin: 0 auto!important;}
 .login-body2 .tab .call .callImg {width: 100px;float: left;padding: 5px 15px 5px 0px;}
-.login-type label { color: 325a8f;}
+.login-type label { color: #325a8f;}
 
 .login-body2 .tit{font-size: 135%;padding: 15px 30px 0px 35px;text-align: left;}
 

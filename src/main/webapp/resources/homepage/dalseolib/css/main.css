@@ -81,7 +81,7 @@
 .main_notice_wrap .mnotive_banner p.add_img_wrap{margin-top:30px;float:right;}
 .main_notice_wrap .mnotive_banner p.add_img_wrap a{font-size:0;text-indent:-9999px;width:31px; height:31px; display:block;}
 .main_notice_wrap .mnotive_banner p.add_img_wrap a img{display:block;}
-.main_notice_wrap .mnotive_banner p.tit{color:#fff;font-family:'Noto Sans'font-size:18px;line-height:90px;}
+.main_notice_wrap .mnotive_banner p.tit{color:#fff;font-family:'Noto Sans'; font-size:18px;line-height:90px;}
 
 /* 공지사항 상단바-모바일 */
 .main_notice_wrap .mnotive_banner .mobile_cd{display:none;height:90px;float:left;width:445px;}

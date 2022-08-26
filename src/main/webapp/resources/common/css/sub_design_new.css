@@ -1,3 +1,5 @@
+@charset "utf-8";
+
 @font-face {
      font-family: 'S-CoreDream-9Black';
      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-9Black.woff') format('woff');
@@ -40,8 +42,6 @@
      font-weight: normal;
      font-style: normal;
 }
-
-@charset "utf-8";
 
 /*마진*/
 .noMgf, .no_mgf {margin-bottom:0px !important;}
@@ -310,7 +310,7 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 .location .box .area .add_num li{width:100%}
 .location .box .area .bus_num li{float:none;width:100%;margin-bottom:0;}
 .location .box .area .bus_num li dl dt{width:15%;margin:0;padding:2px 0 1px 0;font-size:11px;font-weight:bold;color:#fff;box-sizing:border-box;}
-.location .box .area .bus_num li dl dd{width:85%;margin:0;padding-left:15px;line-height:auto;box-sizing:border-box;}
+.location .box .area .bus_num li dl dd{width:85%;margin:0;padding-left:15px;/*line-height:auto;*/box-sizing:border-box;}
 .location .box .area .bus_num li.wi100 dl dd{width:auto;}
 .location .box .area .bus_num li dl dd span{font-size:12px;}
 .location .box .area .bus_num li dl dd span.end{background:none;padding-right:0;margin-right:0;}
@@ -410,7 +410,7 @@ ul.bus_list a span.num{display:block;background:#f1f1f1;height:30px;line-height:
 /*라인박스*/
 .line_box { border:1px solid #ddd; padding:60px 40px;margin:20px 0; }
 .photo_box { border:1px solid #ddd; padding:15px;margin:20px 0; }
-.photo_box img{ width:100%;height:100%;vertical }
+.photo_box img{ width:100%;height:100%;/*vertical*/}
 .blue_box{padding:35px 40px;border:1px solid #dcdfe4;background:#f8fafe;color:#222;}
 
 @media all and (max-width:480px) {
@@ -1368,7 +1368,7 @@ a.link_btn img{margin-left:5px;}
 }
 
 /*달서_주부수필공모전*/
-.contestBox{clear:both:overflow:hidden;width:100%;}
+.contestBox{clear:both;overflow:hidden;width:100%;}
 .contestBox .box{float:left;width:25%;text-align:center;margin-bottom:60px;}
 .contestBox .box .contest_thum{position:relative;display:inline-block;width:146px;top:0;font-size:0;line-height:0;transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
 .contestBox .box .contest_num{margin-top:30px;display:inline-block;width:120px;height:30px;line-height:30px;letter-spacing:0;font-size:14px;border:1px solid #6556e9;color:#6556e9;border-radius:20px;}
@@ -1988,7 +1988,7 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 .tab-board-odb li.on a {background:#0060ff;color:#fff;}
 @media (max-width:430px) and (min-width:0px){
 	table.bbs th,
-	table.bbs td{display:revert;}
+	table.bbs td{/*display:revert;*/}
 
 	table.bbs th.m-none,
 	table.bbs td.m-none{display:none;}

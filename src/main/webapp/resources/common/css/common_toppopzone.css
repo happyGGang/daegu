@@ -5,7 +5,7 @@
 .popup_top .popup p.close{position:absolute;font-size:12px;right:20px;z-index:400000;top:20px;color:#333;}
 .popup_top .popup p.close img {vertical-align:middle;margin-top:-4px;}
 .popup_top .topPopZone {}
-.popup_top .topPopZone .bx-controls {position:absolute;top:26%;z-index:150;width:100%;text-align:center;box-sizing:border-box;opacity: 40%;}
+.popup_top .topPopZone .bx-controls {position:absolute;top:26%;z-index:150;width:100%;text-align:center;box-sizing:border-box;opacity:0.4;}
 .popup_top .topPopZone .bx-prev {position:absolute;width:40px;height:60px;font-size:0;background-image:url("../img/prev-popupzone-top.png");background-repeat:no-repeat;background-position:0 0;background-size:cover;}
 .popup_top .topPopZone .bx-next {position:absolute;width:40px;height:60px;font-size:0;background-image:url("../img/next-popupzone-top.png");background-repeat:no-repeat;background-position:0 0;background-size:initial;}
 .popup_top .topPopZone .bx-start {position:absolute;width:40px;height:35px;font-size:0;background-image:url("../img/popupzone-start-btn.png");background-repeat:no-repeat;background-position:0 0;background-size:initial;bottom:8px;}
