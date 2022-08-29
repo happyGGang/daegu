@@ -41,6 +41,9 @@
 		<if test="imsi_v_3 != null and imsi_v_3 != ''">
 			AND imsi_v_3 = #{imsi_v_3}
 		</if>
+		<if test="imsi_v_4 != null and imsi_v_4 != ''">
+			AND imsi_v_4 = #{imsi_v_4}
+		</if>
 		<if test='reply_list_yn == "N"'>
 		</if>
 			AND parent_idx = 0

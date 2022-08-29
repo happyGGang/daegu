@@ -50,6 +50,9 @@
 				<c:if test="${boardManage.board_type ne 'FAQ'}">
 				<form:option value="user_name">글작성자</form:option>
 				</c:if>
+				<c:if test="${boardManage.board_type eq 'DB_ARCHIVE'}">
+				<form:option value="imsi_v_4">등록번호</form:option>
+				</c:if>
 			</c:otherwise>
 			</c:choose>
 		</form:select>
