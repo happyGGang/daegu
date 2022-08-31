@@ -130,12 +130,12 @@ $(function(){
 	$('select#sortType').on('change',function(){
 		$('#teach #search_text').val('');
 		$('#teach #viewPage').val(1);
-		doGetLoad('index_real.do', serializeCustom($('form#teach')));
+		doGetLoad('index.do', serializeCustom($('form#teach')));
 	});
 	$('select#sortField').on('change',function(){
 		$('#teach #search_text').val('');
 		$('#teach #viewPage').val(1);
-		doGetLoad('index_real.do', serializeCustom($('form#teach')));
+		doGetLoad('index.do', serializeCustom($('form#teach')));
 	});
 
 });
