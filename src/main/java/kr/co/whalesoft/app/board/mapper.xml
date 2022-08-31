@@ -773,8 +773,7 @@
 
 		AND	delete_yn = 'N'
 		<if test='dept_cd != null and dept_cd == "MOVIE"'>
-		AND	imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')
-		AND	imsi_v_2 >= TO_CHAR(SYSDATE, 'DD')
+		 AND	imsi_v_1 ||'-'|| imsi_v_2 >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		</if>
 		<if test='dept_cd != null and dept_cd == "PORTAL"'>
 		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
@@ -2210,7 +2209,8 @@
 			AND category1 = #{category1}
 		</if>
 		<if test="manage_idx == 627">
-			AND	imsi_v_1 ||'-'|| imsi_v_2 >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			AND	imsi_v_1 >= TO_CHAR(SYSDATE, 'YYYY-MM')
+			AND	imsi_v_2 >= TO_CHAR(SYSDATE, 'DD')
 		</if>
 		<if test="homepage_id == 'h44' and manage_idx == 685">
 			AND TO_DATE(imsi_v_1||'-'||imsi_v_2, 'YYYY-MM-DD') >= TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')
