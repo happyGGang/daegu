@@ -423,10 +423,10 @@ public class AdminModeController extends BaseController {
 			String userKey = String.valueOf(waitingReservationList.get(i).getUser_key());
 			String regNo = String.valueOf(waitingReservationList.get(i).getReg_no());
 			String member_name = String.valueOf(waitingReservationList.get(i).getMember_name());
-			String book_name = String.valueOf(waitingReservationList.get(i).getBook_name());
 			String locker_no = String.valueOf(waitingReservationList.get(i).getLocker_number());
 			String locker_pass = String.valueOf(waitingReservationList.get(i).getLocker_password());
 			String round_idx = String.valueOf(waitingReservationList.get(i).getRound_idx());
+			String book_full_name = String.valueOf(waitingReservationList.get(i).getBook_name());
 
 			librarySearch.setManageCode(manageCode);
 			librarySearch.setUserkey(userKey);
@@ -483,12 +483,26 @@ public class AdminModeController extends BaseController {
 						
 						if(untactBookSetting.getNight_loan_yn().equals("Y")) {
 							String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);
-							String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
-							LibSearchAPI.sendSms(librarySearch, mes, userIp);
+							if(book_full_name.length() > 5) {
+								String book_name = book_full_name.substring(0, 5) + "...";
+								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+							} else {
+								String book_name = book_full_name;
+								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+							}
 						} else {
 							String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);
-							String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
-							LibSearchAPI.sendSms(librarySearch, mes, userIp);
+							if(book_full_name.length() > 5) {
+								String book_name = book_full_name.substring(0, 5) + "...";
+								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+							} else {
+								String book_name = book_full_name;
+								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+							}
 						}
 					} else {
 						res.setValid(false);

@@ -124,7 +124,7 @@ public class UntackBookApiService extends BaseService {
             				String userKey = receiptList.get(i).getUser_key();
             				String regNo = receiptList.get(i).getReg_no();
             				String member_name = receiptList.get(i).getMember_name();
-            				String book_name = receiptList.get(i).getBook_name();
+            				String book_full_name = receiptList.get(i).getBook_name();
             				int locker_no = receiptList.get(i).getLocker_number();
             				int locker_pass = receiptList.get(i).getLocker_password();
             				String round_idx = receiptList.get(i).getRound_idx();
@@ -171,9 +171,15 @@ public class UntackBookApiService extends BaseService {
             						
             						String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);;
             						
-            						String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
-            						
-            						LibSearchAPI.sendSms(librarySearch, mes, userIp);
+            						if(book_full_name.length() > 5) {
+        								String book_name = book_full_name.substring(0, 5) + "...";
+        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+        							} else {
+        								String book_name = book_full_name;
+        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+        							}
             						
             						if (modify_result < 1) {
             							success_yn = "N";
@@ -249,7 +255,7 @@ public class UntackBookApiService extends BaseService {
             				String userKey = receiptList.get(i).getUser_key();
             				String regNo = receiptList.get(i).getReg_no();
             				String member_name = receiptList.get(i).getMember_name();
-            				String book_name = receiptList.get(i).getBook_name();
+            				String book_full_name = receiptList.get(i).getBook_name();
             				int locker_no = receiptList.get(i).getLocker_number();
             				int locker_pass = receiptList.get(i).getLocker_password();
             				String round_idx = receiptList.get(i).getRound_idx();
@@ -296,9 +302,15 @@ public class UntackBookApiService extends BaseService {
             						
             						String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);;
             						
-            						String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출만기일은 " + loanTime + "까지 입니다."; 
-            						
-            						LibSearchAPI.sendSms(librarySearch, mes, userIp);
+            						if(book_full_name.length() > 5) {
+        								String book_name = book_full_name.substring(0, 5) + "...";
+        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+        							} else {
+        								String book_name = book_full_name;
+        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
+        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
+        							}
             						
             						if (modify_result < 1) {
             							success_yn = "N";

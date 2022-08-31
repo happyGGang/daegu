@@ -314,7 +314,7 @@
 	
 	<select id="getReturnDate" resultType="String">
 		SELECT
-			a.round_end_date||' '||b.loan_time AS round_end_date
+			TO_CHAR(TO_DATE(a.round_start_date, 'YYYY-MM-DD'), 'MM-DD')||' 18:00 ~ '||TO_CHAR(TO_DATE(a.round_end_date, 'YYYY-MM-DD'), 'MM-DD')||' '||b.loan_time AS round_end_date
 		FROM
 			UNTACT_BOOK_ROUND a, UNTACT_BOOK_SETTING b
 		WHERE
@@ -339,7 +339,7 @@
 
 	<select id="getReturnDateToday" resultType="String">
 		SELECT
-			a.round_end_date||' '||b.loan_time AS round_end_date
+			TO_CHAR(TO_DATE(a.round_start_date, 'YYYY-MM-DD'), 'MM-DD')||' 18:00 ~ '||TO_CHAR(TO_DATE(a.round_end_date, 'YYYY-MM-DD'), 'MM-DD')||' '||b.loan_time AS round_end_date
 		FROM
 			UNTACT_BOOK_ROUND a, UNTACT_BOOK_SETTING b
 		WHERE
