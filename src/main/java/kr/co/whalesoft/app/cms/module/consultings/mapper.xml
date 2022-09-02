@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.consultings.ConsultingsDao">
+	<!-- 상담신청 컬럼  -->
+	<sql id="field">
+		homepage_id, consultings_idx, apply_yn, start_date, start_time,
+		end_date, end_time, apply_start_date, apply_start_time, apply_end_date, apply_end_time, max_apply, add_id, add_date, date_type
+	</sql>
+	
+	<!-- 상담신청 list -->
+	<select id="getConsultings" resultType="kr.co.whalesoft.app.cms.module.consultings.Consultings">
+		SELECT
+			A.homepage_id, A.consultings_idx, A.start_date, A.start_time,
+			A.end_date, A.end_time,A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time, A.max_apply, A.add_date, A.date_type,
+			(SELECT code_name FROM CMS_CODE B WHERE B.homepage_id = A.homepage_id AND B.code_id = A.date_type AND B.group_id = 'CO001') AS code_name,
+			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.homepage_id = B.homepage_id AND A.homepage_id = #{homepage_id} AND B.date_type = '1' AND B.delete_yn = 'N' AND A.start_date <![CDATA[<=]]> B.end_date AND A.end_date <![CDATA[>=]]> B.start_date) AS closed_day,
+			(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY C WHERE A.homepage_id = C.homepage_id AND A.homepage_id = #{homepage_id} AND A.consultings_idx = C.consultings_idx) AS apply_count,
+			CASE
+				WHEN A.apply_start_date IS NULL
+				THEN apply_yn
+				WHEN SYSDATE BETWEEN TO_DATE(A.apply_start_date || ' ' || A.apply_start_time, 'yyyy-MM-dd HH24:mi') AND TO_DATE(A.apply_end_date || ' ' || A.apply_end_time, 'yyyy-MM-dd HH24:mi')
+				THEN 'Y'
+				ELSE 'N'
+			END AS apply_yn
+		FROM
+			CMS_CONSULTINGS A
+		WHERE
+			1=1
+		AND	A.homepage_id = #{homepage_id}
+		<if test="date_type != null and date_type != ''">
+	 	AND	A.date_type = #{date_type}
+		</if>
+		<if test="plan_date != null and plan_date != ''">
+	 	AND	(
+	 			SUBSTR(A.start_date,1,7) = #{plan_date}
+	 		OR	SUBSTR(A.end_date,1,7) = #{plan_date}
+	 		)
+		 </if>
+	</select>
+	
+	<select id="getConsultingsOne" resultType="kr.co.whalesoft.app.cms.module.consultings.Consultings">
+		SELECT
+			<include refid="field" />,
+			(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY WHERE homepage_id = A.homepage_id AND consultings_idx = A.consultings_idx) AS apply_count	
+		FROM 
+			CMS_CONSULTINGS A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	consultings_idx = #{consultings_idx}
+	</select>
+	
+	<select id="getConsultingsuDateCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CONSULTINGS
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	consultings_idx = #{consultings_idx}
+		AND	apply_yn = 'Y'
+		AND	(start_date <![CDATA[<=]]> #{start_date} AND end_date <![CDATA[>=]]> #{start_date})
+		AND	(end_date <![CDATA[>=]]> #{start_date} AND start_date <![CDATA[<=]]> #{start_date})
+		AND	(
+				TO_DATE(start_date || start_time, 'yyyy-MM-ddHH24:MI') <![CDATA[<=]]> TO_DATE(end_date || #{end_time}, 'yyyy-MM-ddHH24:MI')
+			AND	TO_DATE(end_date || end_time, 'yyyy-MM-ddHH24:MI') <![CDATA[>=]]> TO_DATE(end_date || #{end_time}, 'yyyy-MM-ddHH24:MI')
+			)
+		AND	(
+				TO_DATE(end_date || end_time, 'yyyy-MM-ddHH24:MI') <![CDATA[>=]]> TO_DATE(start_date || #{start_time}, 'yyyy-MM-ddHH24:MI')
+			AND	TO_DATE(start_date || start_time, 'yyyy-MM-ddHH24:MI') <![CDATA[<=]]> TO_DATE(start_date || #{start_time}, 'yyyy-MM-ddHH24:MI')
+			)
+	</select>
+	
+	<!-- 상담신청 등록 -->
+	<insert id="addConsultings">
+		INSERT INTO
+			CMS_CONSULTINGS
+		(
+			<include refid="field" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(consultings_idx),0)+1 FROM CMS_CONSULTINGS), #{apply_yn}, #{start_date}, #{start_time},
+			#{end_date}, #{end_time}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{max_apply}, #{add_id}, SYSDATE, #{date_type}
+		)
+	</insert>
+	
+	<update id="modifyConsultings">
+		UPDATE
+			CMS_CONSULTINGS
+		SET
+			apply_yn = #{apply_yn},
+			start_date = #{start_date},
+			start_time = #{start_time},
+			end_date = #{end_date},
+			end_time = #{end_time},
+			apply_start_date = #{apply_start_date},
+			apply_start_time = #{apply_start_time},
+			apply_end_date = #{apply_end_date},
+			apply_end_time = #{apply_end_time},
+			max_apply = #{max_apply},
+			date_type = #{date_type},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			consultings_idx = #{consultings_idx}
+		AND	homepage_id = #{homepage_id}
+	</update>
+	
+	<delete id="deleteConsultings">
+		DELETE FROM
+			CMS_CONSULTINGS
+		WHERE
+			consultings_idx = #{consultings_idx}
+		AND	homepage_id = #{homepage_id}
+	</delete>
+	
+	<select id="getCalendar" resultType="kr.co.whalesoft.app.cms.module.consultings.Consultings">
+		SELECT 
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) AS sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) AS mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) AS tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) AS wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) AS thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) AS fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) AS sat
+   		FROM
+			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days,
+				A.base_mon,
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
+			FROM
+				(
+				SELECT
+					TO_DATE (#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
+				) A, DICTIONARY B
+			) C
+		WHERE
+			C.days <![CDATA[<=]]> LAST_DAY(base_mon)
+  		GROUP BY week_num
+  		ORDER BY week_num 
+	</select>
+	
+	<select id="countConsultings" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			CMS_CONSULTINGS
+		WHERE 
+			1=1
+		AND	homepage_id = #{homepage_id}
+		AND	date_type = #{date_type}
+		AND start_date = #{start_date}
+		AND	(
+				(start_time <![CDATA[ < ]]> #{start_time} AND end_time > #{start_time})
+			OR	(start_time <![CDATA[ < ]]> #{end_time} AND end_time > #{end_time})
+			)
+	</select>
+	
+	<select id="countClosedConsultings" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+	 	AND	delete_yn = 'N'
+	 	AND	date_type = '1'
+	 	AND	start_date BETWEEN #{start_date} AND #{end_date}
+	</select>
+	
+	<!--상담 일별 통계 -->
+	<select id="getConsultingsStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT
+			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4, SUM(imsi_v1+imsi_v2+imsi_v3+imsi_v4) AS imsi_v5
+		FROM
+			(
+			SELECT
+				DISTINCT(start_date + LEVEL -1) AS start_date, imsi_v1, imsi_v2, imsi_v3, imsi_v4
+			FROM
+				(
+				SELECT
+					TO_DATE(A.start_date, 'yyyy-MM-dd') AS start_date,
+					TO_DATE(A.end_date, 'yyyy-MM-dd') AS end_date,
+					(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 1 ) AS imsi_v1,
+					(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 2 ) AS imsi_v2,
+					(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 3 ) AS imsi_v3,
+					(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id ) AS imsi_v4
+				FROM
+					CMS_CONSULTINGS A
+				WHERE
+					A.homepage_id = #{homepage_id}
+				)
+			CONNECT BY start_date + LEVEL -1 <![CDATA[<=]]> end_date
+			ORDER BY start_date DESC
+			)
+		WHERE
+			start_date BETWEEN TO_DATE(#{start_date},'yyyy-MM-dd') AND TO_DATE(#{end_date}, 'yyyy-MM-dd')
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
+	</select>
+	
+	<!--상담 월별 통계 -->
+	<select id="getConsultingsMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT
+			start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4, SUM(imsi_v1+imsi_v2+imsi_v3+imsi_v4) AS imsi_v5
+		FROM
+			(
+			SELECT
+				TO_CHAR(start_date, 'YYYY-MM') AS start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4
+			FROM
+				(
+				SELECT
+					DISTINCT(start_date + LEVEL -1) AS start_date, imsi_v1,imsi_v2,imsi_v3,imsi_v4
+				FROM
+					(
+					SELECT
+						TO_DATE(A.start_date, 'yyyy-MM-dd') AS start_date,
+						TO_DATE(A.end_date, 'yyyy-MM-dd') AS end_date,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 1 ) AS imsi_v1,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 2 ) AS imsi_v2,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 3 ) AS imsi_v3,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id ) AS imsi_v4
+					FROM
+						CMS_CONSULTINGS A
+					WHERE
+						A.homepage_id = #{homepage_id}
+					)
+				CONNECT BY start_date + LEVEL -1 <![CDATA[<=]]> end_date
+				ORDER BY start_date DESC
+				)
+			WHERE
+				TO_CHAR(start_date,'YYYY') = #{start_year}
+			GROUP BY ROLLUP (start_date)
+			)
+		GROUP BY start_date, imsi_v1, imsi_v2, imsi_v3, imsi_v4
+		ORDER BY start_date DESC
+	</select>
+	
+	<!--상담 연도별 통계 -->
+	<select id="getConsultingsYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT
+			start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4, SUM(imsi_v1+imsi_v2+imsi_v3+imsi_v4) AS imsi_v5
+		FROM
+			(
+			SELECT
+				TO_CHAR(start_date, 'YYYY') AS start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4
+			FROM
+				(
+				SELECT
+					DISTINCT(start_date + LEVEL -1) AS start_date, imsi_v1,imsi_v2,imsi_v3,imsi_v4
+				FROM
+					(
+					SELECT
+						TO_DATE(A.start_date, 'yyyy-MM-dd') AS start_date,
+						TO_DATE(A.end_date, 'yyyy-MM-dd') AS end_date,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 1 ) AS imsi_v1,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 2 ) AS imsi_v2,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 3 ) AS imsi_v3,
+						(SELECT COUNT(*) FROM CMS_CONSULTINGS_APPLY B WHERE B.consultings_idx = A.consultings_idx AND B.homepage_id = A.homepage_id ) AS imsi_v4
+					FROM
+						CMS_CONSULTINGS A
+					WHERE
+						A.homepage_id = #{homepage_id}
+					)
+				CONNECT BY start_date + LEVEL -1 <![CDATA[<=]]> end_date
+				ORDER BY start_date DESC
+				)
+			WHERE
+				TO_CHAR(start_date,'YYYY') BETWEEN #{start_year} AND #{end_year}
+			GROUP BY  start_date
+			)
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
+	</select>
+
+	<select id="getCodeName" resultType="string">
+		SELECT
+			code_name
+		FROM
+			CMS_CODE
+		WHERE
+			group_id = 'CO001'
+		AND code_id = #{date_type}
+		AND	homepage_id = (
+				SELECT
+					homepage_group
+				FROM
+					CMS_HOMEPAGE
+				WHERE
+					homepage_id = #{homepage_id}
+			)
+	</select>
+		
+</mapper>

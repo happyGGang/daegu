@@ -317,6 +317,60 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<description>상담</description>
+		<name>consultings</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarConsultingsProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>consultingsList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>상담(사용자)</description>
+		<name>consultingsUser</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarConsultingsUserProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>consultingsList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>calendarManageList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>applyList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 
 	<tag>
 		<description>출석부설정</description>
