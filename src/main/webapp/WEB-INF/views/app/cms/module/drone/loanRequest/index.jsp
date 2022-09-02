@@ -6,8 +6,14 @@
 
 <script type="text/javascript">
   $(function(){
-    $('input#search_request_date').datepicker({
-      dateFormat:'yy-mm-dd',
+    $('input#search_start_request_date').datepicker({
+      maxDate: $('input#search_end_request_date').val(),
+      dateFormat:'yy-mm-dd'
+    });
+
+    $('input#search_end_request_date').datepicker({
+      minDate: $('input#search_start_request_date').val(),
+      dateFormat:'yy-mm-dd'
     });
 
     $('a.modifyStatus').on('click', function(e) {
@@ -34,6 +40,18 @@
       }
     });
 
+    $('#search_start_request_date').change(function(e) {
+      e.preventDefault();
+      $('#viewPage').val(1);
+      doGetLoad('index.do', $('form#loanRequest').serialize());
+    });
+
+    $('#search_end_request_date').change(function(e) {
+      e.preventDefault();
+      $('#viewPage').val(1);
+      doGetLoad('index.do', $('form#loanRequest').serialize());
+    });
+
     $('select#search_request_status').change(function(e) {
       e.preventDefault();
       $('#viewPage').val(1);
@@ -54,8 +72,39 @@
       e.preventDefault();
     });
 
+    $('#requestCancel').on('click',function(e) {
+      e.preventDefault();
+
+      var editMode = 'CANCEL';
+      var requestIdx = $(this).attr('keyValue1');
+      var manageCode = $(this).attr('keyValue2');
+      var userkey = $(this).attr('keyValue3');
+      var requestStatus = $(this).attr('keyValue4');
+
+      $('form#cancelLoanForm #cancelEditMode').val(editMode);
+      $('form#cancelLoanForm #cancelRequestIdx').val(requestIdx);
+      $('form#cancelLoanForm #cancelManageCode').val(manageCode);
+      $('form#cancelLoanForm #cancelUserkey').val(userkey);
+
+      if (!confirm('드론대출 신청을 취소 하시겠습니까?')) {
+        return false;
+      }
+
+      if (doAjaxPost($('form#cancelLoanForm'))) {
+        location.reload();
+      }
+    })
+
   });
 </script>
+
+<form:form id="cancelLoanForm" modelAttribute="loanRequest" method="post" action="save.do">
+    <form:hidden id="cancelEditMode"   path="editMode" />
+    <form:hidden id="cancelManageCode" path="manage_code" />
+    <form:hidden id="cancelRequestIdx" path="request_idx" />
+    <form:hidden id="cancelUserkey"    path="user_key" />
+    <form:hidden id="cancelrequestStatus" path="request_status" />
+</form:form>
 
 <form:form id="modifyStatus" modelAttribute="loanRequest" method="post" action="save.do">
     <form:hidden path="editMode"/>
@@ -73,7 +122,8 @@
         <label class="blind">검색</label>
         <c:set var="today" value="<%=new java.util.Date()%>" />
         <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set>
-        신청일 : <form:input path="search_request_date" value="${empty loanRequest.search_request_date ? date : loanRequest.search_request_date}" class="text ui-calendar" readonly="true"/>
+        신청일 : <form:input path="search_start_request_date" value="${empty loanRequest.search_start_request_date ? date : loanRequest.search_start_request_date}" class="text ui-calendar" readonly="true"/>
+        ~ <form:input path="search_end_request_date" value="${empty loanRequest.search_end_request_date ? date : loanRequest.search_end_request_date}" class="text ui-calendar" readonly="true"/>
         상태 :
         <form:select path="search_request_status">
             <form:option value="">전체</form:option>
@@ -90,9 +140,11 @@
             <th width="180">책이름 / 저자(등록번호)</th>
             <th width="100">수령장소(장비코드)</th>
             <th width="100">현재상태 -> 다음상태</th>
-            <th width="30">신청순번</th>
-            <th width="70">신청일</th>
-            <th width="30">기능</th>
+            <th width="10">신청순번</th>
+            <th width="75">신청일</th>
+            <th width="50">대출일</th>
+            <th width="50">반납일</th>
+            <th width="45">기능</th>
         </tr>
         </thead>
         <tbody>
@@ -108,7 +160,7 @@
                         미대출
                     </c:if>
                         ${i.request_status_name}
-                    <c:if test="${i.request_status ne '0000' and i.request_status ne '1002' and (i.prev_request_status ne '2000' or i.request_status ne '2002')}">
+                    <c:if test="${i.request_status ne '0000' and i.request_status ne '1002'and i.request_status ne '2002' and (i.prev_request_status ne '2000' or i.request_status ne '2002')}">
                     ->
                         <c:choose>
                             <c:when test="${i.request_status eq '2000'}">
@@ -127,7 +179,12 @@
                 </td>
                 <td>${i.request_rank}</td>
                 <td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd HH:mm"/></td>
+                <td>${i.loan_date}</td>
+                <td>${i.return_date}</td>
                 <td>
+                    <c:if test="${i.request_status eq '1000'}">
+                        <a href="" class="btn btn5" id="requestCancel" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">신청취소</a>
+                    </c:if>
                     <a href="" class="btn btn3" id="dialog-modify" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">상태이력</a>
                 </td>
             </tr>

@@ -28,4 +28,6 @@ public interface LoanRequestDao {
 
     public String getReqeustBookYn(LoanRequest loanRequest);
 
+    public String getBookLoanYn(LoanRequest loanRequest);
+
 }

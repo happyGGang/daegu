@@ -5,8 +5,9 @@
     <if test="search_request_status != null and search_request_status != ''">
       AND REQUEST_STATUS = #{search_request_status}
     </if>
-    <if test="search_request_date != null and search_request_date != ''">
-      AND TRUNC(ADD_DATE) = #{search_request_date}
+    <if test="search_start_request_date != null and search_start_request_date != '' and search_end_request_date != null and search_end_request_date != ''">
+      AND TO_DATE(TO_CHAR(ADD_DATE, 'YYYY-MM-DD')) >= TO_DATE(#{search_start_request_date}, 'YYYY-MM-DD')
+      AND TO_DATE(#{search_end_request_date}, 'YYYY-MM-DD') >= TO_DATE(TO_CHAR(ADD_DATE, 'YYYY-MM-DD'))
     </if>
   </sql>
 
@@ -31,13 +32,14 @@
        AND code.GROUP_ID = 'DR000'
        AND code.CODE_ID IN (SELECT REGEXP_SUBSTR(a.NEXT_REQUEST_STATUS,'[^,]+', 1, LEVEL) FROM DUAL CONNECT BY INSTR(a.NEXT_REQUEST_STATUS, ',', 1, LEVEL - 1) > 0)) AS NEXT_REQUEST_STATUS_NAME,
       PREV_REQUEST_STATUS,
-      REQUEST_RANK
+      REQUEST_RANK,
+      LOAN_DATE
     FROM (
       SELECT
           REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
           REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',REQUEST_STATUS) AS REQUEST_STATUS_NAME,
           DELETE_YN, DEVICE_CODE, (SELECT PICKUP_PLACE FROM DRONE_LOAN_DEVICE_SETTING WHERE MANAGE_CODE = DLR.MANAGE_CODE AND DEVICE_CODE = DLR.DEVICE_CODE AND USE_YN = 'Y') AS PICKUP_PLACE,
-          ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP,
+          ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP, LOAN_DATE,
           CASE
             WHEN REQUEST_STATUS = '1000' -- 신청
               THEN '1001' -- 다음 발송
@@ -81,6 +83,7 @@
       WHERE
           MANAGE_CODE = #{manage_code}
       <include refid="where"></include>
+      ORDER BY ADD_DATE DESC
     ) a
     ${pagingBottom}
   </select>
@@ -101,7 +104,7 @@
       REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID, MEMBER_NAME,
       REG_NO, BOOK_NAME, AUTHOR, REQUEST_STATUS, GETCODEIDTOCODENAME('CMS', 'DR000',REQUEST_STATUS) AS REQUEST_STATUS_NAME,
       DELETE_YN, DEVICE_CODE, (SELECT PICKUP_PLACE FROM DRONE_LOAN_DEVICE_SETTING WHERE MANAGE_CODE = DLR.MANAGE_CODE AND DEVICE_CODE = DLR.DEVICE_CODE AND USE_YN = 'Y') AS PICKUP_PLACE,
-      ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP,
+      ADD_DATE, ADD_ID, ADD_IP, MODIFY_DATE, MODIFY_ID, MODIFY_IP, LOAN_DATE,
       (
         SELECT REQUEST_RANK FROM
         (
@@ -229,13 +232,13 @@
       REQUEST_LOG_IDX, REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID,
       MEMBER_NAME, REG_NO, BOOK_NAME, AUTHOR, PREV_REQUEST_STATUS, REQUEST_STATUS,
       DELETE_YN, DEVICE_CODE, ADD_DATE, ADD_ID, ADD_IP,
-      MODIFY_DATE, MODIFY_ID, MODIFY_IP, WORK_DATE, WORK_ID, WORK_IP
+      MODIFY_DATE, MODIFY_ID, MODIFY_IP, WORK_DATE, WORK_ID, WORK_IP, LOAN_DATE
     )
     SELECT
       #{request_log_idx}, REQUEST_IDX, MANAGE_CODE, USER_KEY, MEMBER_ID,
       MEMBER_NAME, REG_NO, BOOK_NAME, AUTHOR, #{prev_request_status}, REQUEST_STATUS,
       DELETE_YN, DEVICE_CODE, ADD_DATE, ADD_ID, ADD_IP,
-      MODIFY_DATE, MODIFY_ID, MODIFY_IP, SYSDATE AS WORK_DATE, #{work_id} AS WORK_ID,#{work_ip} AS WORK_IP
+      MODIFY_DATE, MODIFY_ID, MODIFY_IP, SYSDATE AS WORK_DATE, #{work_id} AS WORK_ID,#{work_ip} AS WORK_IP, LOAN_DATE
     FROM
       DRONE_LOAN_REQUEST
     WHERE REQUEST_IDX = #{request_idx}
@@ -249,11 +252,26 @@
     SET
       REQUEST_STATUS = #{request_status},
       MODIFY_DATE = SYSDATE,
+      <if test="loan_date != null and loan_date != ''">
+        LOAN_DATE = #{loan_date},
+      </if>
       MODIFY_ID = #{modify_id},
       MODIFY_IP = #{modify_ip}
     WHERE REQUEST_IDX = #{request_idx}
       AND MANAGE_CODE = #{manage_code}
       AND USER_KEY = #{user_key}
   </update>
+
+  <select id="getBookLoanYn" resultType="String">
+    -- 신청,발송,수령일 경우 조건 처리
+    SELECT
+        DECODE(COUNT(*), 0 , 'N', 'Y')
+    FROM
+         DRONE_LOAN_REQUEST
+    WHERE
+          REG_NO = #{reg_no}
+    AND MANAGE_CODE = #{manage_code}
+    AND REQUEST_STATUS IN ('1000', '1001', '2000')
+  </select>
 
 </mapper>

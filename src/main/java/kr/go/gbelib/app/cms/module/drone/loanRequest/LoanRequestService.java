@@ -1,10 +1,12 @@
 package kr.go.gbelib.app.cms.module.drone.loanRequest;
 
 import java.util.List;
+import java.util.Map;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +17,50 @@ public class LoanRequestService extends BaseService {
     private LoanRequestDao dao;
 
     public List<LoanRequest> getLoanRequestList(LoanRequest loanRequest) {
-        return dao.getLoanRequestList(loanRequest);
+        List<LoanRequest> loanRequests = dao.getLoanRequestList(loanRequest);
+
+        LibrarySearch librarySearch = new LibrarySearch();
+
+        librarySearch.setSearch_start_date(loanRequest.getSearch_start_request_date());
+        librarySearch.setSearch_end_date(loanRequest.getSearch_end_request_date());
+
+
+        for (LoanRequest one: loanRequests) {
+            // 복귀 상태 이거나 반납 상태일때만 대출 상태 관련해서 가져오도록 설정
+            if ("2002".equals(one.getRequest_status()) || "1002".equals(one.getRequest_status())) {
+                try {
+                    librarySearch.setUserkey(one.getUser_key());
+
+                    Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
+                    List<Map<String, Object>> list = null;
+
+                    if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+                        list = LibSearchAPI.getListData(result);
+
+                        for (Map<String, Object> retrunData : list) {
+                            if (one.getLoan_date() != null) {
+                                String db_loan_date = one.getLoan_date().replaceAll("-", "");
+                                String map_loan_date = (String) retrunData.get("LOAN_DATE");
+                                String map_manage_code = (String) retrunData.get("MANAGE_CODE");
+                                String map_reg_no = (String) retrunData.get("REG_NO");
+
+                                if (map_loan_date.replaceAll("/", "").equals(db_loan_date) && map_manage_code.equals(one.getManage_code()) && map_reg_no.equals(one.getReg_no())) {
+                                    String map_return_date = (String) retrunData.get("RETURN_DATE");
+                                    one.setReturn_date(map_return_date.replaceAll("/", "-"));
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return loanRequests;
     }
 
     public int getLoanRequestCount(LoanRequest loanRequest) {
@@ -45,7 +90,25 @@ public class LoanRequestService extends BaseService {
                 ApiResponse apiResult = LibSearchAPI.unmannedloan(apiParameter(one, loanRequest.getRequest_status()), one.getAdd_ip());
 
                 if (apiResult.getStatus()) {
-                    success = apiResult.getStatus();
+                    Map<String, Object> loanResult = LibSearchAPI.getBookLoanList(one.getUser_key(), one.getManage_code(), 1 ,10);
+
+                    List<Map<String, Object>> listData = LibSearchAPI.getListData(loanResult);
+
+                    if (listData.size() > 0) {
+
+                        for (Map<String, Object> loneData : listData) {
+                            String reg_no =(String) loneData.get("REG_NO");
+
+                            if (reg_no.equals(one.getReg_no())) {
+                                String loan_date = (String) loneData.get("LOAN_DATE");
+
+                                if (StringUtils.isNotEmpty(loan_date)) {
+                                    loanRequest.setLoan_date((String) ((String) loneData.get("LOAN_DATE")).replaceAll("/", "-"));
+                                    success = apiResult.getStatus();
+                                }
+                            }
+                        }
+                    }
                 } else {
                     message = apiResult.getMessage();
                 }
@@ -118,5 +181,9 @@ public class LoanRequestService extends BaseService {
 
     public String getReqeustBookYn(LoanRequest loanRequest) {
         return dao.getReqeustBookYn(loanRequest);
+    }
+
+    public String getBookLoanYn(LoanRequest loanRequest) {
+        return dao.getBookLoanYn(loanRequest);
     }
 }

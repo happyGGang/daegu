@@ -173,7 +173,7 @@ public class CommonSearchController extends BaseController {
 							map.put("imageUrl", service.getImageUrl(map));
 						}
     				}
-    				
+					map.put("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
     				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
 				}
     		}
@@ -468,6 +468,7 @@ public class CommonSearchController extends BaseController {
 //			}
 
 			model.addAttribute("detail", map);
+			model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
 			model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
 			model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
 		}

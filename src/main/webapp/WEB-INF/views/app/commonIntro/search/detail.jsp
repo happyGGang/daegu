@@ -376,6 +376,9 @@ $(function() {
 
 					<!-- 대출가능 여부 [START] -->
 					<c:choose>
+						<c:when test="${homepage.context_path eq 'yonghak' and droneLoanYn eq 'Y'}">
+							<span style="color:#ff0000">대출불가(드론대출중)</span>
+						</c:when>
 						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
@@ -482,8 +485,10 @@ $(function() {
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
-
 					<c:choose>
+						<c:when test="${homepage.context_path eq 'yonghak' and droneLoanYn eq 'Y'}">
+
+						</c:when>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>
@@ -671,7 +676,7 @@ $(function() {
 			</c:choose>
 
 			<!--워킹스루 도서대출 버튼-->
-			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
+			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
 				<c:choose>
 					<c:when test="${detail.LOAN_CODE eq 'OK'}">
 						<a href="#walkingThru" id="walkingThru-req" class="btn"><span>워킹스루 도서대출${detail.PK }</span></a>
@@ -806,23 +811,25 @@ $(function() {
 
 				</c:when>
 				<c:otherwise>
-					<jsp:useBean id="droneNow" class="java.util.Date" />
-					<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
-					<c:set var="requestStartTime" value="${today}0000"></c:set>
-					<c:set var="requestEndTime" value="${today}1430"></c:set>
-					<fmt:parseDate value="${requestStartTime}" pattern="yyyyMMddHHmm" var="requestStartDate" />
-					<fmt:parseDate value="${requestEndTime}" pattern="yyyyMMddHHmm" var="requestEndDate" />
+					<c:if test="${detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF'}">
+						<jsp:useBean id="droneNow" class="java.util.Date" />
+						<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
+						<c:set var="requestStartTime" value="${today}0000"></c:set>
+						<c:set var="requestEndTime" value="${today}1430"></c:set>
+						<fmt:parseDate value="${requestStartTime}" pattern="yyyyMMddHHmm" var="requestStartDate" />
+						<fmt:parseDate value="${requestEndTime}" pattern="yyyyMMddHHmm" var="requestEndDate" />
 
-					<fmt:formatDate value="${droneNow}" pattern="yyyyMMddHHmm" var="nowDate" />         <%-- 오늘날짜 --%>
-					<fmt:formatDate value="${requestStartDate}" pattern="yyyyMMddHHmm" var="openDate"/>       <%-- 시작날짜--%>
-					<fmt:formatDate value="${requestEndDate}" pattern="yyyyMMddHHmm" var="closeDate"/>         <%--마감날짜--%>
-					<!-- 드론대출 기능 노출 도서관
-					openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
-					-->
-					<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693'}">
-						<c:if test="${(detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF') && droneDayLoanCount <= 20}">
-							<c:if test="${detail.LOAN_CODE eq 'OK'}">
-								<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
+						<fmt:formatDate value="${droneNow}" pattern="yyyyMMddHHmm" var="nowDate" />         <%-- 오늘날짜 --%>
+						<fmt:formatDate value="${requestStartDate}" pattern="yyyyMMddHHmm" var="openDate"/>       <%-- 시작날짜--%>
+						<fmt:formatDate value="${requestEndDate}" pattern="yyyyMMddHHmm" var="closeDate"/>         <%--마감날짜--%>
+						<!-- 드론대출 기능 노출 도서관
+						openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
+						-->
+						<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693'}">
+							<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N'}">
+								<c:if test="${detail.LOAN_CODE eq 'OK'}">
+									<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
+								</c:if>
 							</c:if>
 						</c:if>
 					</c:if>

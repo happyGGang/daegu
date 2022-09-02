@@ -36,7 +36,8 @@ public class LoanRequest extends PagingUtils {
     private String work_id;
     private String work_ip;
 
-    private String search_request_date;
+    private String search_start_request_date;
+    private String search_end_request_date;
     private String search_request_status;
 
     private String next_request_status;
@@ -47,6 +48,9 @@ public class LoanRequest extends PagingUtils {
 
     private String search_start_date;
     private String search_end_date;
+
+    private String loan_date;
+    private String return_date;
 
     public LoanRequest() {}
 
@@ -327,16 +331,28 @@ public class LoanRequest extends PagingUtils {
         this.pickup_place = pickup_place;
     }
 
-    public String getSearch_request_date() {
-        if (StringUtils.isEmpty(search_request_date)) {
+    public String getSearch_start_request_date() {
+        if (StringUtils.isEmpty(search_start_request_date)) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date now = new Date();
-            search_request_date = dateFormat.format(now);
+            Calendar c = Calendar.getInstance();
+            c.add(c.DATE, -7);
+            search_start_request_date = dateFormat.format(c.getTime() );
         }
-        return search_request_date;
+        return search_start_request_date;
     }
 
-    public void setSearch_request_date(String search_request_date) { this.search_request_date = search_request_date; }
+    public void setSearch_start_request_date(String search_start_request_date) { this.search_start_request_date = search_start_request_date; }
+
+    public String getSearch_end_request_date() {
+        if (StringUtils.isEmpty(search_end_request_date)) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date now = new Date();
+            search_end_request_date = dateFormat.format(now);
+        }
+        return search_end_request_date;
+    }
+
+    public void setSearch_end_request_date(String search_end_request_date) { this.search_end_request_date = search_end_request_date; }
 
     public String getSearch_request_status() {
         return search_request_status;
@@ -400,5 +416,21 @@ public class LoanRequest extends PagingUtils {
 
     public void setRequest_rank(String request_rank) {
         this.request_rank = request_rank;
+    }
+
+    public String getLoan_date() {
+        return loan_date;
+    }
+
+    public void setLoan_date(String loan_date) {
+        this.loan_date = loan_date;
+    }
+
+    public String getReturn_date() {
+        return return_date;
+    }
+
+    public void setReturn_date(String return_date) {
+        this.return_date = return_date;
     }
 }

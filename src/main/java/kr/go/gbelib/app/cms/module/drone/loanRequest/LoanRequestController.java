@@ -66,23 +66,37 @@ public class LoanRequestController extends BaseController {
 
         if (!result.hasErrors()) {
             HttpSession session = request.getSession();
-            Member member = (Member)session.getAttribute(StaticVariables.MEMBER);
+            Member member = (Member) session.getAttribute(StaticVariables.MEMBER);
 
-            if ("MODIFY_STATUS".equals(loanRequest.getEditMode())) {
-                String message = service.updateStatus(LoanRequest.ofUpdateStatus(loanRequest.getRequest_idx(), loanRequest.getManage_code(),loanRequest.getUser_key(), member.getMember_id(), request.getRemoteAddr(), loanRequest.getRequest_status()));
-                res.setValid(true);
-                if ("success".equals(message)) {
-                    res.setMessage("대출상태가 변경되었습니다.");
-                } else {
-                    res.setMessage("대출상태가 변경에 실패 하였습니다. 관리자에게문의 해주세요. \nAPI 오류 : "+message);
+                if ("MODIFY_STATUS".equals(loanRequest.getEditMode())) {
+                    String message = service.updateStatus(
+                        LoanRequest.ofUpdateStatus(loanRequest.getRequest_idx(),
+                            loanRequest.getManage_code(), loanRequest.getUser_key(),
+                            member.getMember_id(), request.getRemoteAddr(),
+                            loanRequest.getRequest_status()));
+                    res.setValid(true);
+                    if ("success".equals(message)) {
+                        res.setMessage("대출상태가 변경되었습니다.");
+                    } else {
+                        res.setMessage("대출상태가 변경에 실패 하였습니다. 관리자에게문의 해주세요. \nAPI 오류 : " + message);
+                    }
+                } else if ("CANCEL".equals(loanRequest.getEditMode())) {
+                    String message = service.updateStatus(
+                        LoanRequest.ofUpdateStatus(loanRequest.getRequest_idx(),
+                            loanRequest.getManage_code(), loanRequest.getUser_key(),
+                            member.getMember_id(), request.getRemoteAddr(), "0000"));
+                    res.setValid(true);
+                    if ("success".equals(message)) {
+                        res.setMessage("드론대출 신청이 취소되었습니다.");
+                    } else {
+                        res.setMessage("드론대출 취소에 실패 하였습니다. 관리자에게문의 해주세요. \nAPI 오류 : " + message);
+                    }
                 }
-
+            } else {
+                res.setValid(false);
+                res.setResult(result.getAllErrors());
             }
-        } else {
-            res.setValid(false);
-            res.setResult(result.getAllErrors());
-        }
 
-        return res;
+            return res;
+        }
     }
-}
