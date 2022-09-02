@@ -238,6 +238,23 @@ public class LendingService extends BaseService {
 				book1.setBook_code(book.getBook_code());
 				if(useApi && !book1.getCom_code().equals("YESB") && !book1.getCom_code().equals("FXLI")) apiService.cancel(book1);
 				result = dao.reserveToLending(reserve);
+				try {
+					LibrarySearch librarySearch = new LibrarySearch();
+					librarySearch.setMember_id(reserve.getMember_id());
+					
+					String userKey = LibSearchAPI.getUserkey(librarySearch);
+					librarySearch.setUserkey(userKey);
+					librarySearch.setManageCode("AD");
+					
+					lending.setBook_idx(reserve.getBook_idx());
+					String book_name = dao.getBookName(lending);
+					String ip = "100.31.35.29";
+					
+					String mes = "전자도서관에 예약하신 도서[" + book_name + "]가 대출되었습니다.";
+	                LibSearchAPI.sendSms(librarySearch, mes, ip);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 //				dao.setMsgConfirmN(reserve);
 				break;
 			}
@@ -532,6 +549,23 @@ public class LendingService extends BaseService {
 				book1.setBook_code(book.getBook_code());
 				if(useApi && !book1.getCom_code().equals("YESB") && !book1.getCom_code().equals("FXLI")) apiService.cancel(book1);
 				result = dao.reserveToLending(reserve);
+				try {
+					LibrarySearch librarySearch = new LibrarySearch();
+					librarySearch.setMember_id(reserve.getMember_id());
+					
+					String userKey = LibSearchAPI.getUserkey(librarySearch);
+					librarySearch.setUserkey(userKey);
+					librarySearch.setManageCode("AD");
+					
+					lending.setBook_idx(reserve.getBook_idx());
+					String book_name = dao.getBookName(lending);
+					String ip = "100.31.35.29";
+					
+					String mes = "전자도서관에 예약하신 도서[" + book_name + "]가 대출되었습니다.";
+	                LibSearchAPI.sendSms(librarySearch, mes, ip);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 //				dao.setMsgConfirmN(reserve);
 				break;
 			}
