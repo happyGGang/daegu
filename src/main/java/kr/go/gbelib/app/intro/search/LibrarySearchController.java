@@ -1158,23 +1158,27 @@ public class LibrarySearchController extends BaseController {
 			int totalCount = (Integer) map.get("totalCount");
 			@SuppressWarnings ("unchecked")
 			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-			if (itemList != null && itemList.size() > 0) {
-				for (Map<String, Object> map2 : itemList) {
-					String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
-					for (int i = 0; i < isbnArr.length; i++) {
-						String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
-						map2.put("isbn"+isbn.length(), isbn);
-						ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
-						if (!code.getStatus()) {
-							map2.put("already"+isbn.length(), true);
-							map2.put("errorMessage", code.getMessage());
+			try {
+				if (itemList != null && itemList.size() > 0) {
+					for (Map<String, Object> map2 : itemList) {
+						String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
+						for (int i = 0; i < isbnArr.length; i++) {
+							String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
+							map2.put("isbn"+isbn.length(), isbn);
+							ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+							if (!code.getStatus()) {
+								map2.put("already"+isbn.length(), true);
+								map2.put("errorMessage", code.getMessage());
+							}
 						}
-					}
 
+					}
+					
+					service.setPaging(model, totalCount, librarySearch);
+					model.addAttribute("kakaoResult", map);
 				}
-				
-				service.setPaging(model, totalCount, librarySearch);
-				model.addAttribute("kakaoResult", map);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return basePath + "hope/search_ajax";
