@@ -1234,13 +1234,14 @@ public class CommonSearchController extends BaseController {
 		model.addAttribute("librarySearch", librarySearch);
 
 		Map<String, Object> map = null;
-		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-//			map = LibSearchAPI.getNaverList(librarySearch);
-			map = LibSearchAPI.getKaKaoList(librarySearch);
-			int totalCount = (Integer) map.get("totalCount");
-			@SuppressWarnings ("unchecked")
-			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-			try {
+		
+		try {
+			if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+//				map = LibSearchAPI.getNaverList(librarySearch);
+				map = LibSearchAPI.getKaKaoList(librarySearch);
+				int totalCount = (Integer) map.get("totalCount");
+				@SuppressWarnings ("unchecked")
+				List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
 				if (itemList != null && itemList.size() > 0) {
 					for (Map<String, Object> map2 : itemList) {
 						String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
@@ -1259,11 +1260,12 @@ public class CommonSearchController extends BaseController {
 					service.setPaging(model, totalCount, librarySearch);
 					model.addAttribute("kakaoResult", map);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("kakaoResult", map);
 		}
-
+		
 		return String.format(basePath, homepage.getFolder()) + "hope/search_ajax";
 	}
 
