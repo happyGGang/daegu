@@ -930,6 +930,7 @@
 
 		<if test="homepage_id == 'h5'">
 			ORDER BY
+			print_seq ASC,
 			<if test="sortField != null and sortField != ''">
 				${sortField} ${sortType},
 			</if>
@@ -937,7 +938,6 @@
 			TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI') -
 			TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI') DESC,
 			TO_NUMBER(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
-			print_seq ASC,
 			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC,
 			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC
 		</if>
