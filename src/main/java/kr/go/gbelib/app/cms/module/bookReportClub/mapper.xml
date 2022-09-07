@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bookReportClub.BookReportClubDao">
+	
+	<select id="bookReportClubList" resultType="kr.go.gbelib.app.cms.module.bookReportClub.BookReportClub">
+		${pagingTop}
+		SELECT
+			homepage_id, book_club_idx, participation_field, club_name, rep_name,
+			user_phone, user_phone2, user_email, postcode, address_base,
+			address_detailed, approval_status, delete_yn,
+			org_file_name, server_file_name, file_extension, file_size,
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			org_file_name3, server_file_name3, file_extension3, file_size3,
+			add_id, add_date
+		FROM
+			BOOK_REPORT_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY book_club_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getExcelList" resultType="kr.go.gbelib.app.cms.module.bookReportClub.BookReportClub">
+		SELECT
+			homepage_id, book_club_idx, participation_field, club_name, rep_name,
+			user_phone, user_phone2, user_email, postcode, address_base,
+			address_detailed, approval_status, delete_yn,
+			org_file_name, server_file_name, file_extension, file_size,
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			org_file_name3, server_file_name3, file_extension3, file_size3,
+			add_id, add_date
+		FROM
+			BOOK_REPORT_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+	</select>
+	
+	<select id="bookReportClubCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_REPORT_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+	
+	<select id="getBookReportClub" resultType="kr.go.gbelib.app.cms.module.bookReportClub.BookReportClub">
+		SELECT
+			homepage_id, book_club_idx, participation_field, club_name, rep_name,
+			user_phone, user_phone2, user_email, postcode, address_base,
+			address_detailed, approval_status, delete_yn,
+			org_file_name, server_file_name, file_extension, file_size,
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			org_file_name3, server_file_name3, file_extension3, file_size3,
+			add_id, add_date
+		FROM
+			BOOK_REPORT_CLUB
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_report_idx = #{book_report_idx}	
+	</select>
+	
+	<insert id="addBookReportClub">
+		INSERT INTO
+			BOOK_REPORT_CLUB
+		(
+			homepage_id, book_club_idx, participation_field, club_name, rep_name,
+			user_phone, user_phone2, user_email, postcode, address_base,
+			address_detailed, approval_status, delete_yn,
+			<if test="server_file_name != null and server_file_name != ''">
+			org_file_name, server_file_name, file_extension, file_size, 
+			</if>
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			</if>
+			<if test="server_file_name3 != null and server_file_name3 != ''">
+			org_file_name3, server_file_name3, file_extension3, file_size3,
+			</if>
+			add_id, add_date
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(book_club_idx), 0)+1 FROM BOOK_REPORT_CLUB), #{participation_field}, #{club_name}, #{rep_name},
+			#{user_phone}, #{user_phone2}, #{user_email}, #{postcode}, #{address_base}, 
+			#{address_detailed}, #{approval_status}, #{delete_yn},
+			<if test="server_file_name != null and server_file_name != ''">
+			#{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+			</if>
+			<if test="server_file_name2 != null and server_file_name2 != ''">
+			#{org_file_name2}, #{server_file_name2}, #{file_extension2}, #{file_size2},
+			</if>
+			<if test="server_file_name3 != null and server_file_name3 != ''">
+			#{org_file_name3}, #{server_file_name3}, #{file_extension3}, #{file_size3},
+			</if>
+			#{add_id}, SYSDATE
+		)
+	</insert>
+	
+	<update id="deleteBookReportClub">
+		UPDATE 
+			BOOK_REPORT_CLUB
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_club_idx = #{book_club_idx}
+	</update>
+	
+	<update id="statusChangeBookReportClub">
+		UPDATE
+			BOOK_REPORT_CLUB
+		SET
+			approval_status = #{approval_status}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND book_club_idx = #{book_club_idx}
+	</update>
+	
+</mapper>
