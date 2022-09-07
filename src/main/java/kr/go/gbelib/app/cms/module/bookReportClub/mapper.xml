@@ -66,7 +66,7 @@
 			BOOK_REPORT_CLUB
 		WHERE
 			homepage_id = #{homepage_id}
-		AND book_report_idx = #{book_report_idx}	
+		AND book_club_idx = #{book_club_idx}	
 	</select>
 	
 	<insert id="addBookReportClub">
