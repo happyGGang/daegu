@@ -32,42 +32,56 @@ $(function() {
 <div class="doc-body">
   <div class="roomicon">
     <div class="inner icowrap"><span class="ico ico5"></span> <strong>독서디베이트 대회</strong>
-      <p>「2021 수성인문학제」 독서디베이트 참여 사례를 작성하여 제출해주세요.</p>
+      <p>「2022 수성인문학제」 독서디베이트 참여 사례를 작성하여 제출해주세요.</p>
     </div>
   </div>
-  <h3>참여방법</h3>
+  <h3>모집요강</h3>
   <ul class="con">
-    <li>모집기간 : 9. 1.(수) ~ 9. 25.(토)</li>
-    <li>제출서류 : 참가신청서, 토론개요서(요약서, 입론서), 규정 준수 및 심사결과 동의서</li>
-    <li>참여방법 : 수성구립도서관(범어·용학·고산) 홈페이지 신청 및 방문<br>
-      ※ 수성구립도서관(범어·용학·고산) 홈페이지에서 대회규정, 작성방법 등 숙지한 후 제출서류 작성 후 제출</li>
-    <li>참가대상 : 초등 5~6학년, 중학생(2인 1팀)</li>
-    <li>참가방법 : 주어진 논제에 따라 팀별 대전(예선 및 본선)</li>
+    <li>모집기간 : 9. 13.(화) ~ 9. 30.(금)</li>
+    <li>참가대상 : 선착순 30팀(2인 1조)
+		<ul class="con2">
+			<li>초등 5~6학년 15팀 / 중등 1~3학년 15팀</li>
+		</ul>
+	</li>
+    <li>참가방법 : 주어진 논제에 따라 대전
+		<ul class="con2">
+			<li>1차 예선전 : 개인전 / 2차 결승전 : 팀전</li>
+		</ul>
+	</li>
+    <li>제출서류 : 참가신청서, 토론개요서, 참가동의서</li>
+    <li>접수방법 : 수성구립도서관(범어·용학·고산) 홈페이지 신청 및 방문 접수<br />※ 수성구립도서관(범어·용학·고산) 홈페이지에서 대회규정, 작성방법 숙지 후 서류 제출</li>
   </ul>
   <div class="sm_box02">
     <h4>대회개요</h4>
     <ul class="con">
-      <li>2021 : 논제</li>
-      <ul>
-        <li class="dep01">예선 : 꿈은 꼭 있어야 할까?</li>
-        <li class="dep01">본선 : 미래를 위해 현재를 참아야 할까?</li>
+      <li>도서 : 단톡방을 나갔습니다</li>
+      <li>논제 : SNS는 우정을 쌓는데 반드시 필요하다.</li>
       </ul>
     </ul>
   </div>
 </div>
-<h3>1차 예선</h3>
+<h3>1차 예선전</h3>
 <ul class="con">
-  <li> 방 법 : 온라인 신청서 및 토론개요소 평가 후 본선 진출자 4팀 선정</li>
-  <li>결 과 : 2021. 9. 30.(목) ※ 홈페이지 결과 발표 및 유선연락 <br>
-    ※ 본선 진출 4팀 사전교육 토론역량강화 및 K-CEDA 디베이트 기법 2021. 10. 2.(토) 예정 </li>
+  <li>대회일시 : 2022. 10. 8.(토) 14:00</li>
+  <li>심사방법 : 개인전 – 토론개요서 평가 및 원탁토의(20분)</li>
+  <li>결과발표 : 홈페이지 공고 및 유선연락 </li>
 </ul>
-<h3>본선 </h3>
+<h3>독서 디베이트 특강</h3>
 <ul class="con">
-  <li>대회일시 : 2021. 10. 16.(토) 11:00</li>
+  <li>강연일시 : 2022. 10. 15.(토) 14:00 ~ 16:00</li>
+  <li>대상 : 예선전 합격 8팀 / 총 16명</li>
+  <li>주제 : 토론 역량 강화를 위한 워크숍</li>
 </ul>
-<h3>시상</h3>
+<h3>2차 결승전</h3>
 <ul class="con">
-  <li>시상식 : 2021. 10. 16.(토) 15:30(예정)</li>
+  <li>대회일시 : 2022. 10. 22.(토) 10:00 ~ 12:00</li>
+  <li>참가대상 : 예선전 합격 8팀 / 총 16명</li>
+  <li>심사방법 : 팀별 리그전 및 4강 토너먼트(30분)</li>
+  <li>결과발표 : 홈페이지 공고 및 유선연락</li>
+</ul>
+<h3>시상식</h3>
+<ul class="con">
+  <li>시상일자 : - 2022. 10. 22.(토) 오후 예정</li>
   <li>시상내역</li>
 </ul>
 <div class="rsv-info"></div>
@@ -77,40 +91,53 @@ $(function() {
     독후감 공모 시상내역
     </caption>
     <colgroup>
-    <col width="15%">
-    <col width="">
-    <col width="">
-    <col width="">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="25%">
+    <col width="25%">
+    <col width="25%">
     </colgroup>
     <thead>
       <tr>
-        <th scope="col">구 분</th>
+        <th scope="col" colspan="2">구분</th>
+        <th scope="col">대상</th>
         <th scope="col">최우수</th>
         <th scope="col">우수</th>
-        <th scope="col">장려</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th>시상팀</th>
-        <td>1팀</td>
-        <td>1팀</td>
-        <td>2팀</td>
-      </tr>
-      <tr>
-        <th>상품</th>
-        <td>문화상품권 40만원</td>
-        <td>문화상품권 20만원</td>
-        <td>문화상품권 10만원</td>
-      </tr>
+	  <tr>
+		<th rowspan="2">시상팀</th>
+		<th>초등부</th>
+		<td>1팀</td>
+		<td>1팀</td>
+		<td>2팀</td>
+	  </tr>
+	  <tr>
+		<th>중등부</th>
+		<td>1팀</td>
+		<td>1팀</td>
+		<td>2팀</td>
+	  </tr>
+	  <tr>
+		<th colspan="2">상품</th>
+		<td>문화상품권 50만원</td>
+		<td>문화상품권 30만원</td>
+		<td>문화상품권 20만원</td>
+	  </tr>
+	  <tr>
+		<th colspan="2">훈격</th>
+		<td>수성구청장</td>
+		<td>수성구의회의장</td>
+		<td>범어도서관장</td>
+	  </tr>
     </tbody>
   </table>
 </div>
 <ul class="con">
-  <li class="bg_none" style="padding:10px 0 2px;">※ 상품금액에 의한 제세공과금 본인부담</li>
-  <li class="bg_none" style="padding-left:0;">※ 훈격과 시상인원은 참여인원 및 심사결과에 따라 조정 가능</li>
+  <li class="bg_none" style="padding:10px 0 2px;">※ 훈격과 시상인원은 참여인원 및 심사결과에 따라 조절될 수 있음</li>
 </ul>
-<a href="https://library.daegu.go.kr/board/boardFile/download/761/453990/258556.do" target="_blank" class="newWin" title="새창으로 열립니다." style="border:1px solid #ddd;padding:7px 15px;font-size:14px;"> 신청서 다운로드&nbsp;&nbsp;<img src="/resources/common/img/download_icon.png"></a>
+<a href="https://library.daegu.go.kr/board/boardFile/download/949/480113/292442.do" target="_blank" class="newWin" title="새창으로 열립니다." style="border:1px solid #ddd;padding:7px 15px;font-size:14px;"> 신청서 다운로드&nbsp;&nbsp;<img src="/resources/common/img/download_icon.png"></a>
 <form:form modelAttribute="bookReportContest" id="bookReportContest" action="edit.do" >
   <form:hidden path="menu_idx"/>
   <form:hidden path="homepage_id"/>
