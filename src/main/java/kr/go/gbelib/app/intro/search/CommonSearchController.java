@@ -19,6 +19,7 @@ import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequestService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -2139,6 +2140,18 @@ public class CommonSearchController extends BaseController {
 				if(searchCountForOne + loanListCount >= 10) {
 					res.setValid(false);
 					res.setMessage("대출가능 횟수를 초과하셨습니다.");
+					return res;
+				}
+				
+				Date dt = new Date();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(dt);
+				ls.setSearch_start_date(DateFormatUtils.format(cal.getTime(), "yyyyMMdd"));
+				ls.setManageCode(homepage.getManage_code());
+				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(ls);
+				if(holiDays.get("RESULT_CODE").equals("1")) {
+					res.setValid(false);
+					res.setMessage("휴관일에는 무인예약 신청이 불가능합니다.");
 					return res;
 				}
 				
