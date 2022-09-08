@@ -209,7 +209,15 @@ $(function(){
 			<div class="item" id="${i.homepage_id}_${i.group_idx}_${i.category_idx}_${i.teach_idx}">
 				<div class="op_title category">
 					<span class="ca ${i.context_path}">${i.homepage_alias}</span><span class="ca ty2">${i.group_name} ${i.category_name}</span>
-					<a href="#" class="name detail-btn" keyValue="${i.homepage_id}" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.context_path}" keyValue5="${i.menu_idx}">${i.teach_name}</a>
+					<c:choose>
+						<c:when test="${i.context_path eq 'junggu'}">
+							<a href="#" class="name detail-btn" keyValue="${i.homepage_id}" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.context_path}" keyValue5="32">${i.teach_name}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="#" class="name detail-btn" keyValue="${i.homepage_id}" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.context_path}" keyValue5="${i.menu_idx}">${i.teach_name}</a>
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 				<div class="box">
 					<div class="box2">
@@ -283,13 +291,17 @@ $(function(){
 					</div>
 				</div>
 				<div class="stat">
+							<c:set var="menu_idx" value="${i.menu_idx}"></c:set>
+							<c:if test="${i.context_path eq 'junggu'}">
+								<c:set var="menu_idx" value="32"></c:set>
+							</c:if>
 							<c:choose>
 								<c:when test="${i.teach_status eq '0'}">
-									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" keyValue7="${i.large_category_idx}" apply_status="1">
+									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${menu_idx}" keyValue7="${i.large_category_idx}" apply_status="1">
 									<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '1'}">
-									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${i.menu_idx}" keyValue7="${i.large_category_idx}" apply_status="2">
+									<a href="#" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.context_path}" keyValue6="${menu_idx}" keyValue7="${i.large_category_idx}" apply_status="2">
 									<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
 								</c:when>
 								<c:when test="${i.teach_status eq '2'}">
