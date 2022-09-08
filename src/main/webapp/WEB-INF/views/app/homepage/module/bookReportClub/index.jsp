@@ -29,60 +29,65 @@ $(function() {
 	});
 });
 </script>
+<style>
+	.step_box ol li{background:url("/resources/common/img/bu_arrow.png") no-repeat 8px 50px}
+</style>
 <div class="doc-body">
   <div class="roomicon">
-    <div class="inner icowrap"><span class="ico ico5"></span> <strong>독서디베이트 대회</strong>
-      <p>「2022 수성인문학제」 독서디베이트 참여 사례를 작성하여 제출해주세요.</p>
+    <div class="inner icowrap"><span class="ico ico5"></span> <strong>인문독서동아리 경연대회</strong>
+      <p>우수한 독서동아리 사례를 발표하는 자리를 마련하여 독서동아리 활성화 계기 마련 및 사기 진작</p>
     </div>
   </div>
   <h3>모집요강</h3>
   <ul class="con">
-    <li>모집기간 : 9. 13.(화) ~ 9. 30.(금)</li>
-    <li>참가대상 : 선착순 30팀(2인 1조)
+    <li>운영기간 : 9월 ~ 10월  </li>
+    <li>참여대상 : 전국에서 활동 중인 인문독서동아리 
 		<ul class="con2">
-			<li>초등 5~6학년 15팀 / 중등 1~3학년 15팀</li>
-		</ul>
-	</li>
-    <li>참가방법 : 주어진 논제에 따라 대전
-		<ul class="con2">
-			<li>1차 예선전 : 개인전 / 2차 결승전 : 팀전</li>
-		</ul>
-	</li>
-    <li>제출서류 : 참가신청서, 토론개요서, 참가동의서</li>
-    <li>접수방법 : 수성구립도서관(범어·용학·고산) 홈페이지 신청 및 방문 접수<br />※ 수성구립도서관(범어·용학·고산) 홈페이지에서 대회규정, 작성방법 숙지 후 서류 제출</li>
+			<li>상시 활동 중인 8인 이상의 동아리</li>
+			<li>2년 이상의 활동실적이 경과한 동아리</li>
+			<li>매월 1회 이상 독서모임 진행 중인 동아리<br />※ 정치, 종교, 상업 등 특수 목적 동아리는 신청불가</li>
+    <li>방법 : 현장발표 및 심사</li>
   </ul>
-  <div class="sm_box02">
-    <h4>대회개요</h4>
-    <ul class="con">
-      <li>도서 : 단톡방을 나갔습니다</li>
-      <li>논제 : SNS는 우정을 쌓는데 반드시 필요하다.</li>
-      </ul>
-    </ul>
+  <h4>추진절차</h4>
+  <div class="step_box">
+    <ol class="no3">
+      <li>
+        <div class="box">
+          <p class="num">모집</p>
+          9.13.(화)~9.30(금)</div>
+      </li>
+      <li>
+        <div class="box">
+          <p class="num">발표 및 심사</p>
+          10.15.(토)</div>
+      </li>
+      <li>
+        <div class="box">
+          <p class="num">시상식</p>
+          10.22.(토)</div>
+      </li>
+    </ol>
   </div>
 </div>
-<h3>1차 예선전</h3>
+<h3>모집</h3>
 <ul class="con">
-  <li>대회일시 : 2022. 10. 8.(토) 14:00</li>
-  <li>심사방법 : 개인전 – 토론개요서 평가 및 원탁토의(20분)</li>
-  <li>결과발표 : 홈페이지 공고 및 유선연락 </li>
+  <li>모집기간 : 9. 13.(화) ~ 9. 30.(금)</li>
+  <li>모집방법 : 도서관 홈페이지 게시판 신청 및 방문접수</li>
+  <li>참여대상 : 선착순 20팀(소년부 및 장년부 각 10팀정도)</li>
+  <li>제출서류 : 참가신청서, 독서동아리 소개서, 발표개요서</li>
 </ul>
-<h3>독서 디베이트 특강</h3>
+<h3>발표 및 심사</h3>
 <ul class="con">
-  <li>강연일시 : 2022. 10. 15.(토) 14:00 ~ 16:00</li>
-  <li>대상 : 예선전 합격 8팀 / 총 16명</li>
-  <li>주제 : 토론 역량 강화를 위한 워크숍</li>
-</ul>
-<h3>2차 결승전</h3>
-<ul class="con">
-  <li>대회일시 : 2022. 10. 22.(토) 10:00 ~ 12:00</li>
-  <li>참가대상 : 예선전 합격 8팀 / 총 16명</li>
-  <li>심사방법 : 팀별 리그전 및 4강 토너먼트(30분)</li>
-  <li>결과발표 : 홈페이지 공고 및 유선연락</li>
+  <li>발표일자 : 10. 15.(토) 10:00~12:00</li>
+  <li>참가대상 : 전국민 독서동아리</li>
+  <li>방법 : 독서동아리 활동내용을 5분이상 발표, 자유형식</li>
+  <li>결과발표 : 홈페이지 공고 및 유선연락  </li>
 </ul>
 <h3>시상식</h3>
 <ul class="con">
-  <li>시상일자 : - 2022. 10. 22.(토) 오후 예정</li>
-  <li>시상내역</li>
+  <li>시상일시 : 10. 22.(토) 15:00  </li>
+  <li>장소 : 1층 야외광장 무대</li>
+  <li>시상사항(5팀)</li>
 </ul>
 <div class="rsv-info"></div>
 <div class="auto-scroll">
@@ -108,22 +113,21 @@ $(function() {
     <tbody>
 	  <tr>
 		<th rowspan="2">시상팀</th>
-		<th>초등부</th>
+		<th>소년부</th>
+		<td rowspan="2">1팀</td>
 		<td>1팀</td>
 		<td>1팀</td>
-		<td>2팀</td>
 	  </tr>
 	  <tr>
-		<th>중등부</th>
+		<th>장년부</th>
 		<td>1팀</td>
 		<td>1팀</td>
-		<td>2팀</td>
 	  </tr>
 	  <tr>
 		<th colspan="2">상품</th>
-		<td>문화상품권 50만원</td>
-		<td>문화상품권 30만원</td>
-		<td>문화상품권 20만원</td>
+		<td>문화상품권 500,000원</td>
+		<td>문화상품권 300,000원</td>
+		<td>문화상품권 200,000원</td>
 	  </tr>
 	  <tr>
 		<th colspan="2">훈격</th>
@@ -137,7 +141,7 @@ $(function() {
 <ul class="con">
   <li class="bg_none" style="padding:10px 0 2px;">※ 훈격과 시상인원은 참여인원 및 심사결과에 따라 조절될 수 있음</li>
 </ul>
-<a href="https://library.daegu.go.kr/board/boardFile/download/949/480113/292442.do" target="_blank" class="newWin" title="새창으로 열립니다." style="border:1px solid #ddd;padding:7px 15px;font-size:14px;"> 신청서 다운로드&nbsp;&nbsp;<img src="/resources/common/img/download_icon.png"></a>
+<a href="https://library.daegu.go.kr/board/boardFile/download/949/480172/292543.do" target="_blank" class="newWin" title="새창으로 열립니다." style="border:1px solid #ddd;padding:7px 15px;font-size:14px;"> 신청서 다운로드&nbsp;&nbsp;<img src="/resources/common/img/download_icon.png"></a>
 <form:form modelAttribute="bookReportClub" id="bookReportClub" action="edit.do" >
   <form:hidden path="menu_idx"/>
   <form:hidden path="homepage_id"/>
