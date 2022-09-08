@@ -14,7 +14,7 @@ do {
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <li>
-	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
+	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=126&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
 			<c:when test="${(empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover) and empty newBookList[listNum1].imageUrl}">
 				<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" />

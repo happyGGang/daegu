@@ -198,9 +198,9 @@ do {
 							<div class="book tabS">
 								<div class="title">
 									<ul class="tabMenuS">
-										<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신간도서</a></li>
+										<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=126" class='t-tabs'>신간도서</a></li>
 										<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=94" class='t-tabs'>추천도서</a></li>
-										<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+										<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=126" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 									</ul>
 								</div>
 
@@ -213,9 +213,10 @@ do {
 								<div class="box con" data-tab="tab2" style="display:none;">
 									<ul class="book_photo">
 										<li>
-											<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=94&board_idx=${newBookBoardList[listNum1].board_idx}">
+											
 												<c:choose>
 												<c:when test="${newBookBoardList[listNum1].preview_img ne null}">
+													<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=94&board_idx=${newBookBoardList[listNum1].board_idx}">
 													<c:choose>
 														<c:when test="${fn:contains(newBookBoardList[listNum1].preview_img, 'http')}">
 														<img src="${newBookBoardList[listNum1].preview_img}" alt="${newBookBoardList[listNum1].title}" />
@@ -224,13 +225,16 @@ do {
 														<img src="/data/board/${newBookBoardList[listNum1].manage_idx}/${newBookBoardList[listNum1].board_idx}/${newBookBoardList[listNum1].preview_img}" alt="${newBookBoardList[listNum1].title}" title="${newBookBoardList[listNum1].title}"/>
 														</c:otherwise>
 													</c:choose>
+													<span class="title">${newBookBoardList[listNum1].title}</span>
+													</a>
 												</c:when>
 												<c:otherwise>
-													<img src="/resources/common/img/noimg-gall.png" alt="${newBookBoardList[listNum1].title}" title="${newBookBoardList[listNum1].title}">
+													<a class="goDetail" href="javascript:alert('등록된 정보가 없습니다.')">
+													<img src="/resources/common/img/noImg2.png" alt="등록된 정보가 없습니다.">
+													</a>
 												</c:otherwise>
 												</c:choose>
-												<span class="title">${newBookBoardList[listNum1].title}</span>
-											</a>
+												
 										</li>
 									</ul>
 								</div>
