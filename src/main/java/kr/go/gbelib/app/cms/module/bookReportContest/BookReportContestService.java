@@ -67,6 +67,7 @@ public class BookReportContestService extends BaseService {
 	private void multipartFile(BookReportContest bookReportContest, MultipartHttpServletRequest mpRequest) {
 		MultipartFile mFile = mpRequest.getFileMap().get("org_file_name_temp");
 		MultipartFile mFile2 = mpRequest.getFileMap().get("org_file_name_temp2");
+		MultipartFile mFile3 = mpRequest.getFileMap().get("org_file_name_temp3");
 		
 		if ( mFile != null ) {
 			String realFileName 	= Long.toString((System.currentTimeMillis()));
@@ -97,6 +98,21 @@ public class BookReportContestService extends BaseService {
 			bookReportContest.setFile_size2(f2.length()); 
 		} else {
 			bookReportContest.setOrg_file_name2(null);
+		}
+		if ( mFile3 != null ) {
+			String realFileName3 	= Long.toString((System.currentTimeMillis()));
+			String fileName3		= mFile2.getOriginalFilename().substring(0, mFile3.getOriginalFilename().lastIndexOf("."));
+			String fileExtension3	= FilenameUtils.getExtension(mFile3.getOriginalFilename());
+			String filePath3		= "/" + bookReportContest.getHomepage_id();
+			
+			File f3 = bookReportContestStorage.addFile(mFile3, realFileName3, filePath3);
+			
+			bookReportContest.setServer_file_name2(realFileName3);
+			bookReportContest.setOrg_file_name2(fileName3);
+			bookReportContest.setFile_extension2(fileExtension3);
+			bookReportContest.setFile_size2(f3.length()); 
+		} else {
+			bookReportContest.setOrg_file_name3(null);
 		}
 	}
 	

@@ -10,6 +10,7 @@
 			postcode, address_base, address_detailed, approval_status, delete_yn, 
 			org_file_name, server_file_name, file_extension, file_size, 
 			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			org_file_name3, server_file_name3, file_extension3, file_size3, 
 			add_id, add_date 
 		FROM
 			BOOK_REPORT_CONTEST
@@ -29,7 +30,8 @@
 			school_name, school_year, user_phone, protector_phone, user_email, 
 			postcode, address_base, address_detailed, approval_status, delete_yn, 
 			org_file_name, server_file_name, file_extension, file_size, 
-			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			org_file_name3, server_file_name3, file_extension3, file_size3,
 			add_id, add_date 
 		FROM
 			BOOK_REPORT_CONTEST
@@ -57,7 +59,8 @@
 			school_name, school_year, user_phone, protector_phone, user_email, 
 			postcode, address_base, address_detailed, approval_status, delete_yn, 
 			org_file_name, server_file_name, file_extension, file_size, 
-			org_file_name2, server_file_name2, file_extension2, file_size2, 
+			org_file_name2, server_file_name2, file_extension2, file_size2,
+			org_file_name3, server_file_name3, file_extension3, file_size3,
 			add_id, add_date 
 		FROM
 			BOOK_REPORT_CONTEST
@@ -79,6 +82,9 @@
 			<if test="server_file_name2 != null and server_file_name2 != ''">
 			org_file_name2, server_file_name2, file_extension2, file_size2,
 			</if>
+			<if test="server_file_name3 != null and server_file_name3 != ''">
+			org_file_name3, server_file_name3, file_extension3, file_size3,
+			</if>
 			add_id, add_date
 		)
 		VALUES
@@ -91,6 +97,9 @@
 			</if> 
 			<if test="server_file_name2 != null and server_file_name2 != ''">
 			#{org_file_name2}, #{server_file_name2}, #{file_extension2}, #{file_size2},
+			</if> 
+			<if test="server_file_name3 != null and server_file_name3 != ''">
+			#{org_file_name3}, #{server_file_name3}, #{file_extension3}, #{file_size3},
 			</if> 
 			#{add_id}, SYSDATE
 		)

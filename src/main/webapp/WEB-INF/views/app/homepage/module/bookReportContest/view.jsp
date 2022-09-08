@@ -82,6 +82,17 @@ $(function() {
 					</c:if>
 				</td>
 			</tr>
+			<tr>
+				<th>첨부파일3</th>
+				<td>
+					<c:if test="${getBookReportContest.server_file_name3 ne NULL}">
+						<a href="/cms/module/bookReportContest/download/${getBookReportContest.homepage_id}/${getBookReportContest.book_report_idx}3.do"><i class="fa fa-floppy-o"></i>${getBookReportContest.org_file_name3}.${getBookReportContest.file_extension3}</a>
+					</c:if>
+					<c:if test="${getBookReportContest.server_file_name3 eq NULL}">
+						첨부파일이 없습니다.
+					</c:if>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	

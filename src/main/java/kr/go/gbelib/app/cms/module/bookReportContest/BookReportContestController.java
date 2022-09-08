@@ -171,7 +171,6 @@ public class BookReportContestController extends BaseController {
 		
 		String filePath = service.getRootPath()+ "/" + homepage_id + "/" + bookReportContest.getServer_file_name();
 		File file = new File(filePath);
-		System.out.println(filePath);
 		byte[] bytes = null;
 
 		if(file.length() > 0) {
@@ -199,7 +198,6 @@ public class BookReportContestController extends BaseController {
 		
 		String filePath = service.getRootPath()+ "/" + homepage_id + "/" + bookReportContest.getServer_file_name2();
 		File file = new File(filePath);
-		System.out.println(filePath);
 		byte[] bytes = null;
 		
 		if(file.length() > 0) {
@@ -211,6 +209,33 @@ public class BookReportContestController extends BaseController {
 		}
 		
 		String fileName = String.format("%s.%s", bookReportContest.getOrg_file_name2(),bookReportContest.getFile_extension2() );
+		
+		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
+		response.setHeader("Content-Length", Long.toString(file.length()));
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Content-Type", "application/octet-stream");
+		
+		return bytes;
+	}
+
+	@RequestMapping(value = "/download/{homepage_id}/{book_report_idx}3.*", method = RequestMethod.GET)
+	@ResponseBody
+	public byte[] getFile3(@PathVariable("homepage_id") String homepage_id, @PathVariable("book_report_idx") int book_report_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BookReportContest bookReportContest = service.getBookReportContest(new BookReportContest(homepage_id, book_report_idx));
+		
+		String filePath = service.getRootPath()+ "/" + homepage_id + "/" + bookReportContest.getServer_file_name3();
+		File file = new File(filePath);
+		byte[] bytes = null;
+		
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			response.setHeader("Content-type", "text/html");
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+		
+		String fileName = String.format("%s.%s", bookReportContest.getOrg_file_name3(),bookReportContest.getFile_extension3() );
 		
 		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
 		response.setHeader("Content-Length", Long.toString(file.length()));

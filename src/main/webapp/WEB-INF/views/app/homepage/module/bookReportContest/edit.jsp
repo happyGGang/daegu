@@ -194,6 +194,12 @@ $(function() {
 		         		<input type="file" id="org_file_name_temp2" name="org_file_name_temp2" class="text" title="파일 첨부" /><form:hidden path="org_file_name2"/>
 	         		</td>
 				</tr>
+				<tr>
+					<th>첨부파일3</th>
+					<td class="file3">
+		         		<input type="file" id="org_file_name_temp3" name="org_file_name_temp3" class="text" title="파일 첨부" /><form:hidden path="org_file_name3"/>
+	         		</td>
+				</tr>
 			</tbody>
 		</table>
 		

@@ -30,6 +30,10 @@ public class BookReportContest extends PagingUtils {
 	private String add_id;  //등록ID
 	private Date add_date;  //등록일
 	private String delete_id;  //삭제ID
+	private String org_file_name3;  //원본파일명3
+	private String server_file_name3;  //서버파일명3
+	private String file_extension3;  //파일확장자3
+	private long file_size3;  //파일크기3
 	
 	public BookReportContest() {}
 	
@@ -230,4 +234,36 @@ public class BookReportContest extends PagingUtils {
 		this.delete_id = delete_id;
 	}
 
+	public String getOrg_file_name3() {
+		return org_file_name3;
+	}
+
+	public void setOrg_file_name3(String org_file_name3) {
+		this.org_file_name3 = org_file_name3;
+	}
+
+	public String getServer_file_name3() {
+		return server_file_name3;
+	}
+
+	public void setServer_file_name3(String server_file_name3) {
+		this.server_file_name3 = server_file_name3;
+	}
+
+	public String getFile_extension3() {
+		return file_extension3;
+	}
+
+	public void setFile_extension3(String file_extension3) {
+		this.file_extension3 = file_extension3;
+	}
+
+	public long getFile_size3() {
+		return file_size3;
+	}
+
+	public void setFile_size3(long file_size3) {
+		this.file_size3 = file_size3;
+	}
+	
 }
