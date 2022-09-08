@@ -87,7 +87,7 @@ public class PictureBookController extends BaseController {
 			pictureBook.setPay_yn("N");
 		}
 		
-		if(!getSessionIsAdmin(request) && !loginSupport.getAuth_group().equals("1")) {
+		if(!getSessionIsAdmin(request) && !"1".equals(loginSupport.getAuth_group())) {
 			pictureBook.setAdd_id(loginSupport.getMember_id());
 		}
 		
@@ -225,7 +225,7 @@ public class PictureBookController extends BaseController {
 	public PictureBookView excel(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		SupportMember sm = sessionLoginSupport(request);
 		
-		if(sm != null && !sm.getAuth_group().equals("1")) {
+		if(sm != null && !"1".equals(sm.getAuth_group())) {
 			pictureBook.setAdd_id(sm.getMember_id());
 		}
 		

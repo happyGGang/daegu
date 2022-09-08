@@ -132,7 +132,7 @@ public class BookPackageBundleController extends BaseController {
     		return null;
         }
 
-		if(!getSessionIsAdmin(request) && !loginSupport.getAuth_group().equals("1")) {
+		if(!getSessionIsAdmin(request) && !"1".equals(loginSupport.getAuth_group())) {
 			bookPackageBundle.setAdd_id(loginSupport.getMember_id());
 		}
 		bookPackageBundle.setHomepage_id(homepage.getHomepage_id());
@@ -288,7 +288,7 @@ public class BookPackageBundleController extends BaseController {
 		SupportMember sm = sessionLoginSupport(request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		
-		if(sm != null && !sm.getAuth_group().equals("1")) {
+		if(sm != null && !"1".equals(sm.getAuth_group())) {
 			bookPackageBundle.setAdd_id(sm.getMember_id());
 		}
 		

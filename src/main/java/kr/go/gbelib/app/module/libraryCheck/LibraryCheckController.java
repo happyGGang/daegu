@@ -136,7 +136,7 @@ public class LibraryCheckController extends BaseController {
 			return null;
 		}
 		
-		if(!getSessionIsAdmin(request) && !supportMember.getAuth_group().equals("1")) {
+		if(!getSessionIsAdmin(request) && !"1".equals(supportMember.getAuth_group())) {
 			libraryCheck.setAdd_id(supportMember.getMember_id());
 		}
 		
@@ -220,7 +220,7 @@ public class LibraryCheckController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "school_tel_3", "학교 연락처를 입력하세요.");
     		
     		SupportMember loginSupport = sessionLoginSupport(request);
-    		if (loginSupport != null && !loginSupport.getAuth_group().equals("1") && !getSessionIsAdmin(request)) {
+    		if (loginSupport != null && !getSessionIsAdmin(request) && !"1".equals(loginSupport.getAuth_group())) {
         		try {
         			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     				Date startDate = sdf.parse(libraryCheck.getLoan_start_date());
@@ -317,7 +317,7 @@ public class LibraryCheckController extends BaseController {
 	public LibraryCheckView excel(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		SupportMember sm = sessionLoginSupport(request);
 		
-		if(sm != null && !sm.getAuth_group().equals("1")) {
+		if(sm != null && !("1").equals(sm.getAuth_group())) {
 			libraryCheck.setAdd_id(sm.getMember_id());
 		}
 		
