@@ -726,7 +726,7 @@ do {
 											<ul>
 												<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='2'>
 												<li>
-													<a href="/${i.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" target="_blank">
+													<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" target="_blank">
 														<span class="txt">
 															<span class="lib-name link teach_${i.homepage_id}">${i.homepage_name}</span>
 															<span class="tit">${fn:substring(i.teach_name, 0, 21)}<c:if test="${fn:length(i.teach_name) > 21}">...</c:if></span>
