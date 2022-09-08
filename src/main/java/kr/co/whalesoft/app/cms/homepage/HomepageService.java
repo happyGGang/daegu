@@ -72,11 +72,13 @@ public class HomepageService extends BaseService {
 			
 			// 서브 홈페이지 homepage_id, context path
 			if(StringUtils.isEmpty(homepage2.getContext_path()) && homepage2.getHomepage_group().charAt(0) == 'h') {
-				Homepage parentHome = new Homepage();
-				parentHome.setHomepage_id(homepage2.getHomepage_group());
-				parentHome = dao.getHomepageOne(parentHome);
-				homepage2.setHomepage_id(parentHome.getHomepage_id());
-				homepage2.setContext_path(parentHome.getContext_path());
+				if(!(homepage.getHomepage_id().equals("h74") && !(homepage.getHomepage_id().equals("h75")) && !(homepage.getHomepage_id().equals("h76")))) {
+					Homepage parentHome = new Homepage();
+					parentHome.setHomepage_id(homepage2.getHomepage_group());
+					parentHome = dao.getHomepageOne(parentHome);
+					homepage2.setHomepage_id(parentHome.getHomepage_id());
+					homepage2.setContext_path(parentHome.getContext_path());
+				}
 			}
 		}
 
