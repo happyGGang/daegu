@@ -113,8 +113,11 @@ ${boardManage.top_html}
 							</c:otherwise>
 						</c:choose>
 					</c:when>
-					<c:otherwise>
+					<c:when test="${not empty boardFile[0].server_file_name}">
 						<img src="/data/board/${board.manage_idx}/${boardFile[0].board_idx}/${boardFile[0].server_file_name}" alt="${board.title}" onError="this.src='/resources/common/img/noimg-gall.png'">
+					</c:when>
+					<c:otherwise>
+						<img src="/resources/common/img/noimg-gall.png" alt="${board.title}" onError="this.src='/resources/common/img/noimg-gall.png'">
 					</c:otherwise>
 				</c:choose>
 <!-- 				<p class="noImg"> -->

@@ -121,19 +121,28 @@ ${boardManage.top_html}
 							<c:when test="${i.preview_img ne null}">
 								<c:choose>
 									<c:when test="${fn:contains(i.preview_img, 'http')}">
-								<a href="" keyValue="${i.board_idx}">
-									<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-								</a>
+										<c:choose>
+											<c:when test="${fn:contains(i.preview_img, 'noimg')}">
+												<a href="" keyValue="${i.board_idx}">
+													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a href="" keyValue="${i.board_idx}">
+													<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+												</a>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
-								<a href="" keyValue="${i.board_idx}">
-									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
-								</a>
+										<a href="" keyValue="${i.board_idx}">
+											<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+										</a>
 									</c:otherwise>
 								</c:choose>
 							</c:when>
 							<c:otherwise>
-								<a href="" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}"></a>
+								<a href="" keyValue="${i.board_idx}"><img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"></a>
 							</c:otherwise>
 						</c:choose>
 					</div>
