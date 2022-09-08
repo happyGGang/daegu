@@ -65,7 +65,7 @@ article.jsDiv .btn_area .btn {float: none;}
 %>
 
 <style>
-	.hopeBook_box{position:relative;background:url('/resources/common/img/hopeBook_img.png')no-repeat;padding:90px 0 60px 515px;}
+	.hopeBook_box{position:relative;background:url('/resources/common/img/hopeBook_img.png')no-repeat;padding:90px 0 60px 515px;min-height:300px;}
 	.hopeBook_box p.txt1{font-family:'s-core_dream6_bold';color:#000;font-size:28px;margin-bottom:15px;}
 	.hopeBook_box p.txt1 span{color:#0085d9;}
 	.hopeBook_box p.txt2{font-family:'s-core_dream4_regular';color:#000;font-size:16px;margin-bottom:15px;}
@@ -96,23 +96,23 @@ $(document).ready(function () {
 
 <div class="hopeBook_box">
 	<p class="txt1"><span>희망도서 바로대출</span> 서비스란?</p>
-	<p class="txt2">내가 희망도서 신청한 도서를 <br />협약된 지역서점을 통해 바로 대출가능한 서비스를 의미합니다.</p>
+	<p class="txt2">내가 신청한 희망도서를 <br />협약된 지역서점에서 바로 대출하는 서비스 입니다.</p>
 	<div class="move">
 		<c:choose>
 			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 
 				<c:choose>
 				<c:when test="${ sessionScope.member.member_class ne '0' }">
-					<a href="#none" onclick="alert('정회원만 사용가능한 서비스 입니다.')" class="ebook_links cw-btn newWin"><span style="margin-right:5px;">희망도서바로대출 바로가기</span><span class="ico arr"></span><i class="fa fa-external-link"></i></a>
+					<a href="#none" onclick="alert('정회원만 사용가능한 서비스 입니다.')" class="ebook_links newWin"><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span><span class="ico arr"></span><i class="fa fa-external-link"></i></a>
 				</c:when>
 				<c:otherwise>
-					<a href="#" id="btn_ebook" title="새창열림" class="ebook_links cw-btn newWin hopeBook" target="_blank"><span style="margin-right:5px;">희망도서바로대출 바로가기</span><span class="ico arr"></span><i class="fa fa-external-link"></i></a>
+					<a href="#" id="btn_ebook" title="새창열림" class="ebook_links newWin hopeBook" target="_blank"><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span><span class="ico arr"></span><i class="fa fa-external-link"></i></a>
 				</c:otherwise>
 				</c:choose>
 
 			</c:when>
 			<c:otherwise>
-				<a href="#none" onclick="alert('로그인후 이용바랍니다.');location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${param.menu_idx}&before_url=/${homepage.context_path}/html/hopeBook.do?menu_idx=119';" class="ebook_links cw-btn" /><span style="margin-right:5px;">희망도서바로대출 바로가기</span><span class="ico arr"></span><i class="fa fa-external-link"></i></a> 
+				<a href="#none" onclick="alert('로그인후 이용바랍니다.');location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${param.menu_idx}&before_url=/${homepage.context_path}/html/hopeBook.do?menu_idx=119';" class="ebook_links" /><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span><span class="ico arr"></span><i class="fa fa-external-link"></i></a> 
 			</c:otherwise>
 		</c:choose>
 	</div>

@@ -2458,6 +2458,23 @@ h3.tit{padding-top:20px;background:url(/resources/board/img/h3_bar.png) no-repea
 .event_all .event01 .bar_bg .pink_bar{position: absolute;top: 0;left: 0;height: 20px;font-family:'Roboto';font-size:15px;font-weight:bold;color:#fff;line-height:20px;text-align:right;padding-right:5px;background: #ee005e;}
 .event_all .event01 em{position:absolute;right:0;top:20px;font-size: 17px;font-family: 'Roboto','NotoKrB';font-weight: bold;color:#222;letter-spacing: 0;font-style: normal;}	
 
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* board/GALLERYSLIDER/view.jsp */
+
+.swiper-wrap {position:relative;margin-top:30px;height: 100%;border:1px solid #ddd;padding:30px;}
+.swiper-container {width: 100%;height: 300px;margin-left: auto;margin-right: auto;}
+.swiper-slide {background-size:cover;background-position:center;background-repeat:no-repeat;}
+.swiper-sthum {background-size:cover;background-position:center;background-repeat:no-repeat;}
+.swiper-pagination-current{font-weight:600;font-size: 20px;color:#ff9900;letter-spacing: 5px;}
+.swiper-pagination-total{margin-left:5px;}
+.gallery-top {height:600px;width:100%;}
+.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 15px 1px 5px 1px;}
+.gallery-thumbs .swiper-slide {height: 100%;opacity: 0.2;}
+.gallery-thumbs .swiper-slide-thumb-active {opacity: 1; border: 2px solid #ff9900;}
+
+@media all and (max-width:1024px){
+	.gallery-top {height:500px;width:100%;}
+}
 
 /*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
 /* board/THEMEBOOK/view.jsp */		
@@ -2528,7 +2545,7 @@ span.dts{font-size:13px;color: #555;border-radius:30px;background:#eee;padding:1
 .book-wr .book-box .book-thum .img {display:block;position:relative;width: 180px;height: 228px;padding-bottom: 0;overflow:hidden;box-shadow:10px 10px 0px #eee;}
 .book-wr .book-box .book-thum .img img {position: relative;top:0;left:0;width: 180px;height: 228px;}
 .book-wr .book-box .book-cont {position:relative;margin-left: 220px;}
-.book-wr .book-box .book-cont .byear {font-size: 1.125em;line-height:1;color: #ed145b;padding-top: 0;padding-left: 0;}
+.book-wr .book-box .book-cont .byear {font-size: 1.125em;line-height:1;color: #ed145b;padding-top: 0;padding-left: 0;background:none;}
 .book-wr .book-box .book-cont .btit {font-size: 1.375em;line-height:1;color:#222;font-weight: bold;padding-top: 10px;padding-left: 0;}
 .book-wr .book-box .book-cont .stit {font-size:20px;line-height:1;margin-top:30px;margin-bottom:5px;}
 .book-wr .book-box .book-cont .stit span {display:inline-block;vertical-align:top;border-top:2px solid #005baa;color:#005baa;padding-top:7px;}
@@ -2601,8 +2618,9 @@ h3.byear { background: none;}
 /*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
 /* homepage/module/humanBook/list.jsp */
 
-	.Gnb .mask{margin-top:-10px;}
-	.tnb a:hover{color:#fff;}
-	
+/*
+.Gnb .mask{margin-top:-10px;}
+.tnb a:hover{color:#fff;}
+*/
 	
 	

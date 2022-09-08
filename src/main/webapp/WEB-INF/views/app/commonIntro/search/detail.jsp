@@ -196,6 +196,14 @@ $(function() {
 		});
 	}
  	//$('div#bookReviewDiv').load('/${homepage.context_path}/module/bookReview/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&manage_code=${fn:escapeXml(detail.MANAGE_CODE)}&reg_no=${fn:escapeXml(detail.REG_NO)}');
+
+	$('a.booksearchdgportal').on('click', function(e) {
+		e.preventDefault();
+
+		var txt = $(this).data('roll');
+		$('input#search_text_2').val(txt);
+		$('form#dgportalSearchForm').submit();
+	});
 });
 
 </script>
@@ -290,6 +298,107 @@ $(function() {
 	<input type="hidden" name="library_code" value="${detail.LIB_CODE}">
 </form>
 </c:if>
+
+<form id="dgportalSearchForm" action="/dgportal/intro/search/indexAll.do" target="_blank">
+<input type="hidden" name="menu_idx" value="7">
+<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+<input type="hidden" name="libraryCodes" class="libCheck lib_AA" value="AA"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AL" value="AL"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AG" value="AG"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AJ" value="AJ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AH" value="AH"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AB" value="AB"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AC" value="AC"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AF" value="AF"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AE" value="AE"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AD" value="AD"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_CA" value="CA"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_CB" value="CB"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BL" value="BL"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BQ" value="BQ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BP" value="BP"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BM" value="BM"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BN" value="BN"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BT" value="BT"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BS" value="BS"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BA" value="BA"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BB" value="BB"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BC" value="BC"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FS" value="FS"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BD" value="BD"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BE" value="BE"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BF" value="BF"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BG" value="BG"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BH" value="BH"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BJ" value="BJ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BK" value="BK"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BU" value="BU"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BV" value="BV"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BW" value="BW"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BX" value="BX"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BY" value="BY"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BZ" value="BZ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_BR" value="BR"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GR" value="GR"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GS" value="GS"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HJ" value="HJ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FK" value="FK"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GT" value="GT"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FP" value="FP"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FL" value="FL"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GU" value="GU"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GV" value="GV"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GW" value="GW"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GX" value="GX"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GY" value="GY"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FM" value="FM"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HK" value="HK"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HM" value="HM"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HN" value="HN"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HP" value="HP"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HQ" value="HQ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GQ" value="GQ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FU" value="FU"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FZ" value="FZ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FH" value="FH"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FT" value="FT"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HC" value="HC"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FE" value="FE"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GL" value="GL"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GM" value="GM"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GN" value="GN"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GP" value="GP"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HB" value="HB"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HD" value="HD"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HE" value="HE"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FF" value="FF"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FQ" value="FQ"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FY" value="FY"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GG" value="GG"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HA" value="HA"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HF" value="HF"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FV" value="FV"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FG" value="FG"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FA" value="FA"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FB" value="FB"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FC" value="FC"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FD" value="FD"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FX" value="FX"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GK" value="GK"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_AK" value="AK"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GA" value="GA"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GB" value="GB"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_HG" value="HG"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GD" value="GD"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GF" value="GF"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GH" value="GH"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FR" value="FR"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GE" value="GE"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_GC" value="GC"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FN" value="FN"/>
+<input type="hidden" name="libraryCodes" class="libCheck lib_FJ" value="FJ"/>
+<input type="hidden" name="title" id="search_text_2"/>
+</form>
 
 <!-- contents-title-->
 <div id="contents-title">
@@ -825,7 +934,7 @@ $(function() {
 						<!-- 드론대출 기능 노출 도서관
 						openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
 						-->
-						<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693'}">
+						<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693' or sessionScope.member.member_id eq 'infoset'}">
 							<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N'}">
 								<c:if test="${detail.LOAN_CODE eq 'OK'}">
 									<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
@@ -909,7 +1018,7 @@ $(function() {
 				<c:forEach items="${data4recommandList}" var="i" varStatus="status" begin="1" end="5" step="1">
 					<li>
 						<div class="thumb">
-							<a href="#None" class="cover" onclick="alert('이 책과 같이 빌린 도서 정보는 상세페이지를 지원하지 않습니다.')">
+							<a href="#" data-roll="${i.bookname}" class="cover booksearchdgportal">
 								<span class="img">
 									<img src="${i.bookImageURL}" alt="${i.bookname}" >
 								</span>

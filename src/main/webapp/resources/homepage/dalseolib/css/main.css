@@ -122,9 +122,9 @@ background: url('../img/select_btn2.png') no-repeat right 50%;color:#616161;}
 .notice_text li:first-child {margin-top:0;}
 .notice_text li span {float:left;font-size:15px;margin-top:1px;font-family:'Noto Sans';}
 .notice_text li span.lib_name {float:left;text-align:center;margin-right:8px;padding:0 7px;font-size:13px;font-family:'맑은 고딕';font-weight:bold;}
-.notice_text li span.lib_txt, .notice_text li span.lib_txt1{width:220px;overflow:hidden;font-size:15px;}
+.notice_text li span.lib_txt, .notice_text li span.lib_txt1{width:220px;font-size:15px;text-overflow:ellipsis;}
 .notice_text li span.lib_date, .notice_text li span.lib_date1 {float:right;font-size:14px;color:#999;font-weight:normal;font-family:'Roboto',sans-serif;margin-top:3px;}
-.notice_text li span.lib_txt1 {width:188px; overflow:hidden;}
+.notice_text li span.lib_txt1 {width:188px; overflow:hidden; text-overflow:ellipsis;}
 .notice_text li span.lib_txt1 {float:left;}
 .notice_text li span.lib_date1 {float:right;}
 .notice_text li.lib00 span.lib_name, .notice_text li.fes_lib00 span.lib_name{border:1px solid #7a6e61; color:#7a6e61;}
