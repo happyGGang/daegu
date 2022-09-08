@@ -26,12 +26,15 @@ do {
 <li>
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
-		<c:when test="${empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
-		</c:when>
-		<c:otherwise>
-		<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" width="100px" height="150px"/>
-		</c:otherwise>
+			<c:when test="${(empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover) and empty newBookList[listNum1].imageUrl}">
+				<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" />
+			</c:when>
+			<c:when test="${not empty newBookList[listNum1].aladin or not empty newBookList[listNum1].aladin.cover}">
+				<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" width="100px" height="150px">
+			</c:when>
+			<c:otherwise>
+				<img src="${newBookList[listNum1].imageUrl}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+			</c:otherwise>
 		</c:choose>
 		<c:set var="text01" value="${newBookList[listNum1].TITLE_INFO}"/>
 		<span class="title">
@@ -49,12 +52,15 @@ do {
 <li>
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
-		<c:when test="${empty newBookList[listNum2].aladin or empty newBookList[listNum2].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
-		</c:when>
-		<c:otherwise>
-		<img src="${newBookList[listNum2].aladin.cover}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기" width="100px" height="150px"/>
-		</c:otherwise>
+			<c:when test="${(empty newBookList[listNum2].aladin or empty newBookList[listNum2].aladin.cover) and empty newBookList[listNum2].imageUrl}">
+				<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" />
+			</c:when>
+			<c:when test="${not empty newBookList[listNum2].aladin or not empty newBookList[listNum2].aladin.cover}">
+				<img src="${newBookList[listNum2].aladin.cover}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기" width="100px" height="150px">
+			</c:when>
+			<c:otherwise>
+				<img src="${newBookList[listNum2].imageUrl}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+			</c:otherwise>
 		</c:choose>
 		<c:set var="text02" value="${newBookList[listNum2].TITLE_INFO}"/>
 		<span class="title">
@@ -72,12 +78,15 @@ do {
 <li>
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum3].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum3].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum3].MANAGE_CODE)}&booktype=BO" >
 		<c:choose>
-		<c:when test="${empty newBookList[listNum3].aladin or empty newBookList[listNum3].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
-		</c:when>
-		<c:otherwise>
-		<img src="${newBookList[listNum3].aladin.cover}" alt="${newBookList[listNum3].TITLE_INFO} 상세보기" width="100px" height="150px"/>
-		</c:otherwise>
+		<c:when test="${(empty newBookList[listNum3].aladin or empty newBookList[listNum3].aladin.cover) and empty newBookList[listNum3].imageUrl}">
+				<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" />
+			</c:when>
+			<c:when test="${not empty newBookList[listNum3].aladin or not empty newBookList[listNum3].aladin.cover}">
+				<img src="${newBookList[listNum3].aladin.cover}" alt="${newBookList[listNum3].TITLE_INFO} 상세보기" width="100px" height="150px">
+			</c:when>
+			<c:otherwise>
+				<img src="${newBookList[listNum3].imageUrl}" alt="${newBookList[listNum3].TITLE_INFO} 상세보기" width="100px" height="150px"/>
+			</c:otherwise>
 		</c:choose>
 		<c:set var="text03" value="${newBookList[listNum3].TITLE_INFO}"/>
 		<span class="title">

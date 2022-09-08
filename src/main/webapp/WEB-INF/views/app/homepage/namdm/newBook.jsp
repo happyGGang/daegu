@@ -7,11 +7,14 @@
 		<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=10&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO" >
 			<span class="con-image">
 				<c:choose>
-					<c:when test="${empty i.aladin or empty i.aladin.cover}">
+					<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 						<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
 					</c:when>
-					<c:otherwise>
+					<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
 						<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+					</c:when>
+					<c:otherwise>
+						<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 					</c:otherwise>
 				</c:choose>
 			</span>

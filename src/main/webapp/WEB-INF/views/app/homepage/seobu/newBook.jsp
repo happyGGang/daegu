@@ -17,12 +17,15 @@ do {
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum1].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum1].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum1].MANAGE_CODE)}&booktype=BO" >
 		<span class="img">
 		<c:choose>
-		<c:when test="${empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-		</c:when>
-		<c:otherwise>
-		<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기" />
-		</c:otherwise>
+			<c:when test="${(empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover) and empty newBookList[listNum1].imageUrl}">
+				<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
+			</c:when>
+			<c:when test="${not empty newBookList[listNum1].aladin or not empty newBookList[listNum1].aladin.cover}">
+				<img src="${newBookList[listNum1].aladin.cover}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기">
+			</c:when>
+			<c:otherwise>
+				<img src="${newBookList[listNum1].imageUrl}" alt="${newBookList[listNum1].TITLE_INFO} 상세보기"/>
+			</c:otherwise>
 		</c:choose>
 		</span>
 		<span class="contents">
@@ -46,12 +49,15 @@ do {
 	<a class="goDetail" href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNum2].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNum2].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNum2].MANAGE_CODE)}&booktype=BO" >
 		<span class="img">
 		<c:choose>
-		<c:when test="${empty newBookList[listNum2].aladin or empty newBookList[listNum2].aladin.cover}">
-		<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
-		</c:when>
-		<c:otherwise>
-		<img src="${newBookList[listNum2].aladin.cover}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기" />
-		</c:otherwise>
+			<c:when test="${(empty newBookList[listNum2].aladin or empty newBookList[listNum2].aladin.cover) and empty newBookList[listNum2].imageUrl}">
+				<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기"/>
+			</c:when>
+			<c:when test="${not empty newBookList[listNum2].aladin or not empty newBookList[listNum2].aladin.cover}">
+				<img src="${newBookList[listNum2].aladin.cover}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기">
+			</c:when>
+			<c:otherwise>
+				<img src="${newBookList[listNum2].imageUrl}" alt="${newBookList[listNum2].TITLE_INFO} 상세보기"/>
+			</c:otherwise>
 		</c:choose>
 		</span>
 		<span class="contents">

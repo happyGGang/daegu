@@ -10,11 +10,14 @@
 			<div class="book" onclick="">
 				<div class="img_box">
 					<c:choose>
-						<c:when test="${empty i.aladin or empty i.aladin.cover}">
-							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
+						<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+						</c:when>
+						<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:when>
 						<c:otherwise>
-							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+							<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -32,11 +35,14 @@
 			<div class="book" onclick="">
 				<div class="img_box">
 					<c:choose>
-						<c:when test="${empty i.aladin or empty i.aladin.cover}">
-							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
+						<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+						</c:when>
+						<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:when>
 						<c:otherwise>
-							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+							<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -54,11 +60,14 @@
 			<div class="book" onclick="">
 				<div class="img_box">
 					<c:choose>
-						<c:when test="${empty i.aladin or empty i.aladin.cover}">
-							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
+						<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+						</c:when>
+						<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:when>
 						<c:otherwise>
-							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+							<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -76,11 +85,14 @@
 			<div class="book" onclick="">
 				<div class="img_box">
 					<c:choose>
-						<c:when test="${empty i.aladin or empty i.aladin.cover}">
-							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
+						<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+						</c:when>
+						<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:when>
 						<c:otherwise>
-							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+							<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -98,11 +110,14 @@
 			<div class="book" onclick="">
 				<div class="img_box">
 					<c:choose>
-						<c:when test="${empty i.aladin or empty i.aladin.cover}">
-							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." />
+						<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+							<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+						</c:when>
+						<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:when>
 						<c:otherwise>
-							<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+							<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
