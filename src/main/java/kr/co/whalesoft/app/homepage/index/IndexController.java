@@ -75,6 +75,9 @@ public class IndexController extends BaseController {
 	private final String basePath = "/homepage/";
 	
 	@Autowired
+	private LibrarySearchService service;
+	
+	@Autowired
 	private LibrarySearchService librarySearchService;
 	
 	@Autowired
@@ -491,6 +494,9 @@ public class IndexController extends BaseController {
 						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
 						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
 						}
 					}
 				}
