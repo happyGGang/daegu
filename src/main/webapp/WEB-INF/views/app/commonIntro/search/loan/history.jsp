@@ -140,10 +140,24 @@ $(function() {
 			</c:if>
 		</thead>
 		<tbody>
+		<c:choose>
+			<c:when test="${homepage.context_path eq 'dgportal'}">
+				<c:set var="menuIdx" value="7"/>
+			</c:when>
+			<c:when test="${homepage.context_path eq '228lib'}">
+				<c:set var="menuIdx" value="125"/>
+			</c:when>
+			<c:when test="${homepage.context_path eq 'dmsl' || homepage.context_path eq 'namdm' || homepage.context_path eq 'namic' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'donggu' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buks' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'junggu'}">
+				<c:set var="menuIdx" value="9"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="menuIdx" value="13"/>
+			</c:otherwise>
+		</c:choose>
 		<c:forEach items="${loanList}" var="i" varStatus="status">
 			<tr>
 				<td>${i.RNUM}</td>
-				<td>${i.TITLE}</td>
+				<td><a href="https://library.daegu.go.kr/${homepage.context_path}/intro/search/detail.do?menu_idx=${menuIdx}&isbn=${i.ISBN}&regNo=${i.REG_NO}&manageCode=${i.MANAGE_CODE}">${i.TITLE}</a></td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.LIB_NAME}</td>
 				<td>${i.LOAN_DATE}</td>
