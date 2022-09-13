@@ -258,10 +258,10 @@ do {
 											<c:when test="${recommendBookList[listNum1].preview_img ne null}">
 												<c:choose>
 													<c:when test="${fn:contains(recommendBookList[listNum1].preview_img, 'http')}">
-													<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" />
+													<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:when>
 													<c:otherwise>
-													<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}"/>
+													<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:otherwise>
 												</c:choose>
 											</c:when>
@@ -279,10 +279,10 @@ do {
 											<c:when test="${recommendBookList[listNum2].preview_img ne null}">
 												<c:choose>
 													<c:when test="${fn:contains(recommendBookList[listNum2].preview_img, 'http')}">
-													<img src="${recommendBookList[listNum2].preview_img}" alt="${recommendBookList[listNum2].title}" />
+													<img src="${recommendBookList[listNum2].preview_img}" alt="${recommendBookList[listNum2].title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:when>
 													<c:otherwise>
-													<img src="/data/board/${recommendBookList[listNum2].manage_idx}/${recommendBookList[listNum2].board_idx}/${recommendBookList[listNum2].preview_img}" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}"/>
+													<img src="/data/board/${recommendBookList[listNum2].manage_idx}/${recommendBookList[listNum2].board_idx}/${recommendBookList[listNum2].preview_img}" alt="${recommendBookList[listNum2].title}" title="${recommendBookList[listNum2].title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:otherwise>
 												</c:choose>
 											</c:when>
@@ -300,10 +300,10 @@ do {
 											<c:when test="${recommendBookList[listNum3].preview_img ne null}">
 												<c:choose>
 													<c:when test="${fn:contains(recommendBookList[listNum3].preview_img, 'http')}">
-													<img src="${recommendBookList[listNum3].preview_img}" alt="${recommendBookList[listNum3].title}" />
+													<img src="${recommendBookList[listNum3].preview_img}" alt="${recommendBookList[listNum3].title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:when>
 													<c:otherwise>
-													<img src="/data/board/${recommendBookList[listNum3].manage_idx}/${recommendBookList[listNum3].board_idx}/${recommendBookList[listNum3].preview_img}" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}"/>
+													<img src="/data/board/${recommendBookList[listNum3].manage_idx}/${recommendBookList[listNum3].board_idx}/${recommendBookList[listNum3].preview_img}" alt="${recommendBookList[listNum3].title}" title="${recommendBookList[listNum3].title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 													</c:otherwise>
 												</c:choose>
 											</c:when>

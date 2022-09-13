@@ -275,10 +275,10 @@
 								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=130&manage_idx=${curation1.manage_idx}&board_idx=${curation1.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
 									<c:choose>
 									<c:when test="${empty curation1.preview_img}">
-									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
 									</c:when>
 									<c:otherwise>
-									<img src="/data/board/${curation1.manage_idx}/${curation1.board_idx}/${curation1.preview_img}" alt="${curation1.title}" width="100px" height="150px"/>
+									<img src="/data/board/${curation1.manage_idx}/${curation1.board_idx}/${curation1.preview_img}" alt="${curation1.title}" width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
 									</c:otherwise>
 									</c:choose>
 									<span class="title">${curation1.title}</span>
@@ -290,10 +290,10 @@
 								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=132&manage_idx=${curation2.manage_idx}&board_idx=${curation2.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
 									<c:choose>
 									<c:when test="${empty curation2.preview_img}">
-									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px"/>
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
 									</c:when>
 									<c:otherwise>
-									<img src="/data/board/${curation2.manage_idx}/${curation2.board_idx}/${curation2.preview_img}" alt="${curation2.title}" width="100px" height="150px"/>
+									<img src="/data/board/${curation2.manage_idx}/${curation2.board_idx}/${curation2.preview_img}" alt="${curation2.title}" width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
 									</c:otherwise>
 									</c:choose>
 									<span class="title">${curation2.title}</span>

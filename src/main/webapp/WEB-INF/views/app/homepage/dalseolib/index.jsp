@@ -459,13 +459,13 @@ do {
 													<c:when test="${i.preview_img ne null}">
 														<c:choose>
 															<c:when test="${fn:contains(i.preview_img, 'http')}">
-																<img src="${i.preview_img}" alt="${i.title}" style="width:110px;height:170px;" />
+																<img src="${i.preview_img}" alt="${i.title}" style="width:110px;height:170px;" onError="this.src='/resources/common/img/noImg2.png'"/>
 															</c:when>
 															<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
-																<img src="${i.preview_img}" alt="${i.title}" style="width:110px;height:170px;" />
+																<img src="${i.preview_img}" alt="${i.title}" style="width:110px;height:170px;" onError="this.src='/resources/common/img/noImg2.png'"/>
 															</c:when>
 															<c:otherwise>
-																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" style="width:110px;height:170px;" />
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" style="width:110px;height:170px;" onError="this.src='/resources/common/img/noImg2.png'"/>
 															</c:otherwise>
 														</c:choose>
 													</c:when>
