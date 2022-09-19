@@ -115,7 +115,7 @@ $(document).ready(function() {
 		if(isEditorOn()) {
 			
 			//유튜브 업로드시 iframe 사용시 사용가능하게
-			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED/g, '');
+			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED|onerror|error/g, '');
 			
 			oEditors.getById["content"].exec("SET_IR", ['']);
 		 	oEditors.getById["content"].exec("PASTE_HTML", [text]);
