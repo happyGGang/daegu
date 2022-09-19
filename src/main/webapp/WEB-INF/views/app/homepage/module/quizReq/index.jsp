@@ -132,9 +132,18 @@ ${quiz.top_html}
 					<c:if test="${quiz.book_name ne '' and quiz.book_name ne null}">
 					<div class="quiz_list">
 						<div class="pic">
-							<p>
-								<img src="${quiz.book_image}" height="192" width="155" alt="${quiz.book_name}" />
-							</p>
+							<c:choose>
+								<c:when test="${not empty quiz.book_image}">
+									<p>
+										<img src="${quiz.book_image}" height="192" width="155" alt="${quiz.book_name}" onError="this.src='/resources/common/img/noImg2.png'"/>
+									</p>
+								</c:when>
+								<c:otherwise>
+									<p class="noImg">
+										<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="noImage" height="192" width="155" onError="this.src='/resources/common/img/noImg2.png'"/>
+									</p>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="data_info">
 							<h3>${quiz.book_name}</h3>
