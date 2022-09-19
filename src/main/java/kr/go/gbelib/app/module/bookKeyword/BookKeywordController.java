@@ -93,10 +93,10 @@ public class BookKeywordController extends BaseController{
 			if (homepage.getContext_path().equals("dgportal")) {
 				searchMenuIdx = 7 ;
 			} else {
-				searchMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 11));
+				searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
 			}
 		} else {
-			searchMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 11));
+			searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
 		}
 		 
 		model.addAttribute("searchMenuIdx", searchMenuIdx);

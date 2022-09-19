@@ -228,4 +228,8 @@ public class MenuService extends BaseService {
 		return list;
 	}
 
+	public int getMenuIdxByProgramIdx2(Menu menu) {
+		return dao.getMenuIdxByProgramIdx2(menu);
+	}
+
 }

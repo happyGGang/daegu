@@ -70,4 +70,6 @@ public interface MenuDao {
 	 * @param menu
 	 */
 	public int modifyMenuFullPathName(Menu menu);
+
+	public int getMenuIdxByProgramIdx2(Menu menu);
 }

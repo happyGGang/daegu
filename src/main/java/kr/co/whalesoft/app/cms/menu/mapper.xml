@@ -513,6 +513,25 @@
 		</if>
 	</select>
 
+	<select id="getMenuIdxByProgramIdx2" resultType="int">
+		SELECT
+			NVL(max(menu_idx), 0)
+		FROM
+			CMS_MENU
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	MENU_TYPE = 'PROGRAM'
+		<if test="menu_idx != null and menu_idx != ''">
+		AND manage_idx = #{menu_idx}
+		</if>
+		AND	use_yn = 'Y'
+		<if test="menu_url_param != null and menu_url_param != ''">
+		AND	(
+				menu_url_param LIKE '%'||#{menu_url_param}||'%'
+			)
+		</if>
+	</select>
+
 	<select id="getMenuTreeListWithAuth" resultType="kr.co.whalesoft.app.cms.menu.Menu">
 		SELECT LEVEL AS MENU_LEVEL, A.*,
 		decode(A.menu_type, 'PROGRAM', (SELECT module_name FROM WB_MODULE_MNGT B WHERE module_type = 'SITE' and A.manage_idx = b.module_idx AND A.menu_type = 'PROGRAM'),

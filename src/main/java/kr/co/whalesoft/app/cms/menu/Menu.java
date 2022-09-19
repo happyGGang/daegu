@@ -82,6 +82,12 @@ public class Menu extends PagingUtils {
 		this.link_url = link_url;
 	}
 
+	public Menu(String homepage_id, String link_url, String menu_url_param) {
+		setHomepage_id(homepage_id);
+		this.link_url = link_url;
+		this.menu_url_param = menu_url_param;
+	}
+
 	public int getGroup_idx() {
 		return group_idx;
 	}
