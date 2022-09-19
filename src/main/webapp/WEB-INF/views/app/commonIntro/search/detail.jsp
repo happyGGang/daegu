@@ -645,8 +645,14 @@ $(function() {
 
 				<c:when test="${homepage.context_path eq 'junggu'}">
 					<c:choose>
-						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+						<c:when test="${detail.MANAGE_CODE eq 'FS'  || detail.MANAGE_CODE eq 'FY' || detail.MANAGE_CODE eq 'FF' || detail.MANAGE_CODE eq 'FQ' || detail.MANAGE_CODE eq 'GG' || detail.MANAGE_CODE eq 'HA' || detail.MANAGE_CODE eq 'HF' || detail.MANAGE_CODE eq 'FV'}">
+							<c:choose>
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
@@ -658,7 +664,7 @@ $(function() {
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW' ||detail.MANAGE_CODE eq 'BV'}">
 						</c:when>
-						<c:otherwise>
+						<c:when test="${detail.MANAGE_CODE eq 'BW'||detail.MANAGE_CODE eq 'BU' ||detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FX' ||detail.MANAGE_CODE eq 'FC' ||detail.MANAGE_CODE eq 'GK'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -666,16 +672,17 @@ $(function() {
 								<c:otherwise>
 								</c:otherwise>
 							</c:choose>
+						</c:when>
+						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'donggu'}">
-
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 						</c:when>
-						<c:otherwise>
+						<c:when test="${detail.MANAGE_CODE eq 'CA'|| detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GR' || detail.MANAGE_CODE eq 'GS' || detail.MANAGE_CODE eq 'FK' || detail.MANAGE_CODE eq 'GT' || detail.MANAGE_CODE eq 'FP' || detail.MANAGE_CODE eq 'FL' || detail.MANAGE_CODE eq 'GU' || detail.MANAGE_CODE eq 'GV' || detail.MANAGE_CODE eq 'GW' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'FL' || detail.MANAGE_CODE eq 'HJ' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HL' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -683,13 +690,13 @@ $(function() {
 								<c:otherwise>
 								</c:otherwise>
 							</c:choose>
+						</c:when>
+						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-
 				</c:when>
 
 				<c:otherwise>
-
 				</c:otherwise>
 			</c:choose>
 			</c:if>
