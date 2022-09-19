@@ -579,8 +579,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'GM'  || detail.MANAGE_CODE eq 'GJ'}">
 						<!-- 북구영어  제외 -->
 						</c:when>
-						<c:otherwise>
-
+						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'GP' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -588,23 +587,60 @@ $(function() {
 								<c:otherwise>
 								</c:otherwise>
 							</c:choose>
-
-						</c:otherwise>
-					</c:choose>
-				</c:when>
-
-				<c:when test="${homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan'}">
-					<c:choose>
-						<c:when test="${homepage.context_path eq 'yonghak' and droneLoanYn eq 'Y'}">
-
-						</c:when>
-						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
+				</c:when>
 
+				<c:when test="${homepage.context_path eq 'beomeo'}">
+					<c:choose>
+						<c:when test="${detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG'}">
+							<c:choose>
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+
+				<c:when test="${homepage.context_path eq 'yonghak'}">
+					<c:choose>
+						<c:when test="${homepage.context_path eq 'yonghak' and droneLoanYn eq 'Y'}">
+						</c:when>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<c:choose>
+								<c:when test="${detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+
+				<c:when test="${homepage.context_path eq 'gosan'}">
+					<c:choose>
+						<c:when test="${detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG'}">
+							<c:choose>
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 
 				<c:when test="${homepage.context_path eq 'junggu'}">
@@ -620,7 +656,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW' ||detail.MANAGE_CODE eq 'BV'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -777,7 +813,7 @@ $(function() {
 			 -->
 			<!--비대면도서대출 버튼-->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukgs' and detail.LOAN_CODE eq 'OK'}">
+				<c:when test="${homepage.context_path eq 'bukgs' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
 					<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
 				</c:when>
 				<c:otherwise>
@@ -843,7 +879,7 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
-					<c:if test="${detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BZ'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
