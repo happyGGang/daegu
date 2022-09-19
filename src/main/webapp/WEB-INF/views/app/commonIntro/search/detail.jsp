@@ -958,35 +958,28 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
+			<c:if test="${detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BG'  || detail.MANAGE_CODE eq 'BH'}">
+				<jsp:useBean id="droneNow" class="java.util.Date" />
+				<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
+				<c:set var="requestStartTime" value="${today}0000"></c:set>
+				<c:set var="requestEndTime" value="${today}1430"></c:set>
+				<fmt:parseDate value="${requestStartTime}" pattern="yyyyMMddHHmm" var="requestStartDate" />
+				<fmt:parseDate value="${requestEndTime}" pattern="yyyyMMddHHmm" var="requestEndDate" />
 
-				</c:when>
-				<c:otherwise>
-					<c:if test="${detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF'}">
-						<jsp:useBean id="droneNow" class="java.util.Date" />
-						<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
-						<c:set var="requestStartTime" value="${today}0000"></c:set>
-						<c:set var="requestEndTime" value="${today}1430"></c:set>
-						<fmt:parseDate value="${requestStartTime}" pattern="yyyyMMddHHmm" var="requestStartDate" />
-						<fmt:parseDate value="${requestEndTime}" pattern="yyyyMMddHHmm" var="requestEndDate" />
-
-						<fmt:formatDate value="${droneNow}" pattern="yyyyMMddHHmm" var="nowDate" />         <%-- 오늘날짜 --%>
-						<fmt:formatDate value="${requestStartDate}" pattern="yyyyMMddHHmm" var="openDate"/>       <%-- 시작날짜--%>
-						<fmt:formatDate value="${requestEndDate}" pattern="yyyyMMddHHmm" var="closeDate"/>         <%--마감날짜--%>
-						<!-- 드론대출 기능 노출 도서관
-						openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
-						-->
-						<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693' or sessionScope.member.member_id eq 'infoset'}">
-							<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N'}">
-								<c:if test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
-								</c:if>
-							</c:if>
+				<fmt:formatDate value="${droneNow}" pattern="yyyyMMddHHmm" var="nowDate" />         <%-- 오늘날짜 --%>
+				<fmt:formatDate value="${requestStartDate}" pattern="yyyyMMddHHmm" var="openDate"/>       <%-- 시작날짜--%>
+				<fmt:formatDate value="${requestEndDate}" pattern="yyyyMMddHHmm" var="closeDate"/>         <%--마감날짜--%>
+				<!-- 드론대출 기능 노출 도서관
+				openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
+				-->
+				<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693' or sessionScope.member.member_id eq 'infoset'}">
+					<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N'}">
+						<c:if test="${detail.LOAN_CODE eq 'OK'}">
+							<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
 						</c:if>
 					</c:if>
-				</c:otherwise>
-			</c:choose>
+				</c:if>
+			</c:if>
 
 			<a href="#" id="addStorage" class="btn btn4"><span>관심도서 추가</span></a>
 
