@@ -355,7 +355,7 @@ Date.prototype.format = function(f) {
 							<li>
 								<dl>
 									<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
-									<dt>${ty[0]}${fn:length(ty) > 1 ? ']' : ''}</dt>
+									<dt>${ty[0]}${(fn:startsWith(ty[0], '[') ? ']' : '')}</dt>
 									<dd>${fn:length(ty) > 1 ? ty[1] : ''}</dd>
 								</dl>
 							</li>

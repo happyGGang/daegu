@@ -282,7 +282,7 @@ Date.prototype.format = function(f) {
 									${ty[1]}]${ty[2]}
 								</c:when>
 								<c:otherwise>
-									${ty[1]}
+									${ty[1]}]
 								</c:otherwise>
 							</c:choose>	
 						</p>
