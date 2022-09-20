@@ -837,6 +837,14 @@ do {
 										<div class="cont">
 												<ul>
 												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/89" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu14.png" alt="9월은 독서의 달"></div>
+														<p class="book-title">9월은 독서의 달</p>
+														<p class="book-desc">가을엔 독서, 독서의 달 행사</p>
+														<p class="reg-date">2022-09-16</p>
+													</a>
+												</li>
+												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/88" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu13.png" alt="대구의 봄"></div>
 														<p class="book-title">대구의 축제</p>
@@ -2443,7 +2451,16 @@ do {
 
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
-					<ul>
+					<ul>							
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/89" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu14.png" alt="9월은 독서의 달"></div>
+								<h3 class="book-title">9월은 독서의 달</h3>
+								<p class="book-desc">가을엔 독서, 독서의 달 행사</p>
+								<p class="reg-date">2022-09-16</p>
+							</a>
+						</li>							
+						
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/88" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu13.png" alt="대구의 봄"></div>
