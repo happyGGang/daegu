@@ -291,6 +291,13 @@ function goto_store() {
 	}
 
 }
+
+$(function(){
+	$('select#search_type').change(function(e) {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#lendingListForm').serialize());
+	});
+});
 </script>
 <span style="color: white;">${lending.libcode }</span>
 <c:set var='user_id' value = "${fn:toUpperCase(lending.member_id)}" />
@@ -328,6 +335,14 @@ function goto_store() {
 		<span><fmt:formatNumber value="${lendingListCnt}" pattern="#,###" /></span> 권의 <%--${lending.type_name}--%>전자책이 있습니다.    &nbsp; <span>${lending.viewPage}</span>  of <fmt:formatNumber value="${lending.totalPageCount}" pattern="#,###" /> page
 	</div>
 </div>
+<c:if test="${lending.menu == 'MYSTUDY'}">
+<div class="search">
+	<form:select path="search_type" class="selectmenu" style="width:150px;">
+		<form:option value="add_date">최신순</form:option>
+		<form:option value="book_name">제목순</form:option>
+	</form:select>
+</div>
+</c:if>
 <ul class="bbs_webzine elib">
 	<c:forEach items="${lendingList}" var="i" varStatus="status">
 	<li>

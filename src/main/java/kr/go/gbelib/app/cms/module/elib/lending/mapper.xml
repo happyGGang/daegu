@@ -592,6 +592,12 @@
 		<if test="end_date != null and end_date != ''">
 		AND TO_CHAR(a.add_date, 'YYYY-MM-DD') &lt;= #{end_date}
 		</if>
+		<if test="search_type != null and search_type != '' and search_type != 'add_date' and search_type != 'add_date'">
+			ORDER BY ${search_type} DESC
+		</if>
+		<if test="search_type != 'book_name' and search_type != 'book_name'">
+			ORDER BY a.add_date DESC
+		</if>
 	</sql>
 
 	<select id="getFavoritesListCnt" resultType="int">
