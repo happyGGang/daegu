@@ -1,6 +1,8 @@
 package kr.go.gbelib.app.cms.module.elib.statistics;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +77,22 @@ public class ElibStatisticsController extends BaseController {
 //		if ( !getSessionIsAdmin(request) ) {
 			elibStatistics.setHomepage_id(getAsideHomepageId(request));
 //		}
+
+		if (StringUtils.isEmpty(elibStatistics.getSearch_sdt()) && StringUtils.isEmpty(elibStatistics.getSearch_edt())) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar calendar = Calendar.getInstance();
+			//현재 날짜로 설정
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH);
+			int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+			calendar.set(year, month, day-31);
+			String startdate =  dateFormat.format(calendar.getTime());
+			elibStatistics.setSearch_sdt(startdate);
+			calendar.set(year, month, day);
+			String enddate = dateFormat.format(calendar.getTime());
+			elibStatistics.setSearch_edt(enddate);
+		}
 			
 		if (StringUtils.isEmpty(elibStatistics.getLibrary_code())) {
 			elibStatistics.setLibrary_code(getSessionHomepageInfo(request).getLib_code());
@@ -163,6 +181,42 @@ public class ElibStatisticsController extends BaseController {
 
 			model.addAttribute("elibStatisticsMap", elibStatisticsMap);
 			model.addAttribute("elibStatisticsMap2", elibStatisticsMap2);
+		} else if ("VIEWS".equals(menu)) {
+			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
+			List<Map<String, Object>> elibStatisticsMapList = service.getStatisticsByViews(elibStatistics);
+			if(elibStatisticsMapList != null) {
+				for(Map<String, Object> row: elibStatisticsMapList) {
+					elibStatisticsMap.put(row.get("TYPE")+"."+row.get("COM_CODE")+"."+row.get("DEVICE"), Integer.parseInt(String.valueOf(row.get("CNT"))));
+				}
+			}
+
+			if("_excel".equals(url)) {
+				view = basePath + "views_excel_ajax";
+			} else if("_csv".equals(url)) {
+				view = basePath + "csv_ajax";
+			} else {
+				view = basePath + "views";
+			}
+
+			model.addAttribute("elibStatisticsMap", elibStatisticsMap);
+		} else if ("VIEWER".equals(menu)){
+			Map<String, Integer> elibStatisticsMap = new HashMap<String, Integer>();
+			List<Map<String, Object>> elibStatisticsMapList = service.getStatisticsByViewer(elibStatistics);
+			if(elibStatisticsMapList != null) {
+				for(Map<String, Object> row: elibStatisticsMapList) {
+					elibStatisticsMap.put(row.get("TYPE")+"."+row.get("COM_CODE")+"."+row.get("DEVICE"), Integer.parseInt(String.valueOf(row.get("CNT"))));
+				}
+			}
+
+			if("_excel".equals(url)) {
+				view = basePath + "viewer_excel_ajax";
+			} else if("_csv".equals(url)) {
+				view = basePath + "csv_ajax";
+			} else {
+				view = basePath + "viewer";
+			}
+
+			model.addAttribute("elibStatisticsMap", elibStatisticsMap);
 		}
 
 		model.addAttribute("elibStatistics", elibStatistics);

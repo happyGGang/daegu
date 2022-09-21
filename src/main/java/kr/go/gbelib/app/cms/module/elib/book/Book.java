@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.elib.book;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
@@ -92,7 +93,7 @@ public class Book extends PagingUtils {
 
 	private String approved_yn = "Y";
 	private MultipartFile mfile;
-	
+
 	//공급사가 요청한 API를 위한 book_idx 리스트 2021-11-19
 	private String book_idx_list;
 	private String lend_idx;
@@ -102,6 +103,9 @@ public class Book extends PagingUtils {
 	private String loanExtendsAvailableYn;
 	private String loanExtendsAbleReason;
 
+	private String member_name;
+	private String add_ip;
+	private int book_access_idx;
 	public Book() {
 		this.setSortField("book_pubdt");
 	}
@@ -116,6 +120,19 @@ public class Book extends PagingUtils {
 		this.book_code = lending.getBook_code();
 		this.com_code = lending.getCom_code();
 		this.library_code = lending.getLibrary_code();
+	}
+
+	public Book(int book_idx, String book_code, String member_id, String member_name, String device, String add_ip) {
+		this.book_idx = book_idx;
+		this.book_code = book_code;
+		if (StringUtils.isNotEmpty(member_id)) {
+			this.member_id = member_id;
+		} else {
+			this.member_id = "anonymous";
+		}
+		this.member_name = member_name;
+		this.device = device;
+		this.add_ip = add_ip;
 	}
 	public int getBook_idx() {
 		return book_idx;
@@ -609,7 +626,7 @@ public class Book extends PagingUtils {
 	public void setLend_idx(String lend_idx) {
 		this.lend_idx = lend_idx;
 	}
-	
+
 	public String getLend_dt() {
 		return lend_dt;
 	}
@@ -657,4 +674,27 @@ public class Book extends PagingUtils {
 		this.isbn = isbn;
 	}
 
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getAdd_ip() {
+		return add_ip;
+	}
+
+	public void setAdd_ip(String add_ip) {
+		this.add_ip = add_ip;
+	}
+
+	public int getBook_access_idx() {
+		return book_access_idx;
+	}
+
+	public void setBook_access_idx(int book_access_idx) {
+		this.book_access_idx = book_access_idx;
+	}
 }

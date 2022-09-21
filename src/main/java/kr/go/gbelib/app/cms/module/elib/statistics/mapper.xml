@@ -933,5 +933,49 @@
 		AND approved_yn = 'Y'
 		GROUP BY library_code, type, com_code
 	</select>
+
+	<select id="getStatisticsByViews" resultType="HashMap">
+		SELECT
+		type, com_code, device, SUM(cnt) AS cnt
+		FROM
+		(
+			SELECT
+				B.library_code, B.type, B.com_code, NVL(A.device,'E') AS device, COUNT(*) AS cnt
+			FROM
+				ELIB_BOOK_ACCESS A
+			INNER JOIN ELIB_BOOK B
+			ON A.book_idx = B.book_idx
+			WHERE #{search_sdt} <![CDATA[<=]]> TRUNC(A.add_date)
+			AND TRUNC(A.add_date) <![CDATA[<=]]> #{search_edt}
+			GROUP BY B.com_code,B.library_code, B.type, A.device
+		)
+		WHERE 1=1
+		<if test="library_code != null and library_code != ''">
+			AND library_code = #{library_code}
+		</if>
+		GROUP BY type, com_code, device
+	</select>
+
+	<select id="getStatisticsByViewer" resultType="HashMap">
+		SELECT
+			type, com_code, device, viewer_type, SUM(cnt) AS cnt
+		FROM
+		(
+		SELECT
+			B.library_code, B.type, B.com_code, NVL(A.device,'E') AS device, A.viewer_type, COUNT(*) AS cnt
+		FROM
+		ELIB_BOOK_VIEWER_ACCESS A
+		INNER JOIN ELIB_BOOK B
+		ON A.book_idx = B.book_idx
+		WHERE #{search_sdt} <![CDATA[<=]]> TRUNC(A.add_date)
+		AND TRUNC(A.add_date) <![CDATA[<=]]> #{search_edt}
+		GROUP BY B.com_code,B.library_code, B.type, A.device, A.viewer_type
+		)
+		WHERE 1=1
+		<if test="library_code != null and library_code != ''">
+			AND library_code = #{library_code}
+		</if>
+		GROUP BY type, com_code, device,viewer_type
+	</select>
 	
 </mapper>

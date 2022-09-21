@@ -46,5 +46,8 @@ public interface ElibStatisticsDao {
 	public List<Map<String, Object>> getStatisticsByCompany(ElibStatistics elibStatistics);
 
 	public List<Map<String, Object>> getStatisticsByCompanyOnlyBookCnt(ElibStatistics elibStatistics);
-	
+
+	public List<Map<String,Object>> getStatisticsByViews(ElibStatistics elibStatistics);
+
+	public List<Map<String,Object>> getStatisticsByViewer(ElibStatistics elibStatistics);
 }

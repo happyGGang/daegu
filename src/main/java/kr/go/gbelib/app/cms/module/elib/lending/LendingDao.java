@@ -103,5 +103,13 @@ public interface LendingDao {
 	public int addExtlinkStat(Book book);
 
 	public String getBookName(Lending lending);
+
+	/**
+	 * 뷰어 이용 이력
+	 * @author YONGJU 2022. 09. 19.
+	 * @param lending
+	 * @return
+	 */
+	public int addBookViewerAccess(Lending lending);
 	
 }

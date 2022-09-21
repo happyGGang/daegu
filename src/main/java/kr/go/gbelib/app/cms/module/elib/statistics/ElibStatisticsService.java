@@ -81,5 +81,13 @@ public class ElibStatisticsService extends BaseService {
 	public List<Map<String, Object>> getStatisticsByCompanyOnlyBookCnt(ElibStatistics elibStatistics) {
 		return dao.getStatisticsByCompanyOnlyBookCnt(elibStatistics);
 	}
+
+	public List<Map<String,Object>> getStatisticsByViews(ElibStatistics elibStatistics) {
+		return dao.getStatisticsByViews(elibStatistics);
+	}
+
+	public List<Map<String,Object>> getStatisticsByViewer(ElibStatistics elibStatistics) {
+		return dao.getStatisticsByViewer(elibStatistics);
+	}
 	
 }

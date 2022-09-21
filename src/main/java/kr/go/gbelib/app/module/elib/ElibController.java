@@ -590,6 +590,28 @@ public class ElibController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "lending/interest";
 	}
 
+	@RequestMapping(value = {"/lending/viewerAccess.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse lendingViewerAccess(Model model, Lending lending,  BindingResult result, HttpServletRequest request) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		lending.setHomepage_id(homepage.getHomepage_id());
+		JsonResponse res = new JsonResponse(request);
+
+		if(!result.hasErrors()) {
+			Member member = getSessionMemberInfo(request);
+			lending.setDevice(getDevice(request.getHeader("user-agent")));
+			lending.setAdd_ip(request.getRemoteAddr());
+			lending.setMember_id(member.getMember_id());
+			lending.setMember_name(member.getMember_name());
+			lendingService.addBookViewerAccess(lending);
+			res.setValid(true);
+			res.setMessage("뷰어 접속자 수 증가 완료");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+
 	private Book setStatus(Book book, HttpServletRequest request, int max_lend) {
 		Lending lending = new Lending();
 		lending.setBook_idx(book.getBook_idx());
@@ -752,13 +774,12 @@ public class ElibController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 		//조회수증가
-		bookService.addViewCount(book);
+		// bookService.addViewCount(book);
 
 		Book book1 = setStatus(bookService.getBookInfo(book), request);
 		if("FXLI".equals(book1.getCom_code())) book1 = setStatus(bookService.getBookInfo(book), request);
 		book1.setBefore_url(book.getBefore_url());
 		book1.setMenu_idx(book.getMenu_idx());
-
 		//		if(!checkLogin(request, response, lendingService, book1)) return null;
 
 		model.addAttribute("book", book1);
@@ -766,6 +787,14 @@ public class ElibController extends BaseController {
 		boolean isMobile = device.isMobile() || device.isTablet();
 		model.addAttribute("isMobile", isMobile);
 		model.addAttribute("bookConfig", configService.getConfig());
+
+		// 조회수증가
+		try{
+			Member member = getSessionMemberInfo(request);
+			bookService.addBookAccess(new Book(book1.getBook_idx(), book1.getBook_code(), member.getMember_id(), member.getMember_name(),getDevice(request.getHeader("user-agent")), request.getRemoteAddr()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		if(StringUtils.equals(book.getType(), "ADO")) {
 			List<Book> audioList = bookService.getAudioList(book);

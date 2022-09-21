@@ -198,7 +198,8 @@
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
 			END AS label,
-			a.add_date, a.view_count
+			a.add_date,
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -297,7 +298,8 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label, a.view_count
+			END AS label,
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
 		FROM
 			ELIB_BOOK a,
 <!-- 			ELIB_BOOKINFO d, -->
@@ -356,7 +358,8 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label, a.view_count
+			END AS label,
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -980,5 +983,18 @@
 		WHERE
 			book_idx = #{book_idx}
 	</update>
+
+	<insert id="addBookAccess">
+		<selectKey keyProperty="book_access_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(book_access_idx),0)+1 FROM ELIB_BOOK_ACCESS
+		</selectKey>
+		INSERT INTO ELIB_BOOK_ACCESS (
+			book_access_idx, book_idx, book_code, member_id, member_name,
+			device, add_ip, add_date
+		) VALUES (
+			#{book_access_idx}, #{book_idx}, #{book_code}, #{member_id}, #{member_name},
+			#{device}, #{add_ip}, SYSDATE
+		)
+	</insert>
 	
 </mapper>

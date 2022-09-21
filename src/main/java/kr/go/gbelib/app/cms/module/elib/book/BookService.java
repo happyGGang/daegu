@@ -28,13 +28,13 @@ public class BookService extends BaseService {
 	
 //	@Autowired
 //	private ElibCategoryService elibCategoryService;
-	
+
 	@Autowired
 	private Yes24APIService yes24APIService;
 	
 	@Autowired
 	private BookcubeAPIService bookcubeAPIService;
-	
+
 	private void updateCnt(Book book) {
 		if("YESB".equals(book.getCom_code())) {
 			Map<String, String> bookinfo = yes24APIService.bookinfo(book);
@@ -747,6 +747,10 @@ public class BookService extends BaseService {
 
 	public int addViewCount(Book book) {
 		return dao.addViewCount(book);
+	}
+
+	public int addBookAccess(Book book) {
+		return dao.addBookAccess(book);
 	}
 	
 }

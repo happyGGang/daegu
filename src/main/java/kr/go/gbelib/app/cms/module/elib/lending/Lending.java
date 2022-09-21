@@ -65,6 +65,11 @@ public class Lending extends PagingUtils {
 	
 	private String rec_key;
 
+	private int book_viewer_access_idx;
+	private String add_ip;
+	private String member_name;
+	private String viewer_type;
+
 	public Lending() {}
 	public Lending(int lend_idx) {
 		this.lend_idx = lend_idx;
@@ -430,5 +435,37 @@ public class Lending extends PagingUtils {
 
 	public void setAdd_date(String add_date) {
 		this.add_date = add_date;
+	}
+
+	public int getBook_viewer_access_idx() {
+		return book_viewer_access_idx;
+	}
+
+	public void setBook_viewer_access_idx(int book_viewer_access_idx) {
+		this.book_viewer_access_idx = book_viewer_access_idx;
+	}
+
+	public String getAdd_ip() {
+		return add_ip;
+	}
+
+	public void setAdd_ip(String add_ip) {
+		this.add_ip = add_ip;
+	}
+
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
+	public String getViewer_type() {
+		return viewer_type;
+	}
+
+	public void setViewer_type(String viewer_type) {
+		this.viewer_type = viewer_type;
 	}
 }

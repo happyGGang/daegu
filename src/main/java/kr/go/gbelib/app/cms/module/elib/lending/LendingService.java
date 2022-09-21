@@ -672,4 +672,8 @@ public class LendingService extends BaseService {
 		return dao.getMemberReserveCnt(lending);
 	}
 
+	public int addBookViewerAccess(Lending lending) {
+		return dao.addBookViewerAccess(lending);
+	}
+
 }

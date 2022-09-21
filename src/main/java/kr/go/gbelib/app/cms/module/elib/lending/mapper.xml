@@ -777,5 +777,19 @@
 		WHERE
 			book_idx = #{book_idx}
 	</select>
+
+	<insert id="addBookViewerAccess">
+		<selectKey keyProperty="book_viewer_access_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_viewer_access_idx),0)+1 FROM ELIB_BOOK_VIEWER_ACCESS
+		</selectKey>
+		INSERT INTO ELIB_BOOK_VIEWER_ACCESS
+		(
+		BOOK_VIEWER_ACCESS_IDX, LEND_IDX, USER_IDX, BOOK_IDX, BOOK_CODE, VIEWER_TYPE,
+		MEMBER_ID, MEMBER_NAME, DEVICE, ADD_IP, ADD_DATE
+		) VALUES (
+		#{book_viewer_access_idx}, #{lend_idx}, #{user_idx}, #{book_idx}, #{book_code}, #{viewer_type},
+		#{member_id}, #{member_name}, #{device}, #{add_ip}, SYSDATE
+		)
+	</insert>
 	
 </mapper>
