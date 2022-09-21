@@ -5,6 +5,7 @@
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<div style="position:relative;">
 <script>
 $(document).ready(function() {
 	$('a.book_link').on('click', function(e) {
@@ -332,11 +333,11 @@ $(function(){
 <div class="elib_top">
 	<!-- 전자책 총 권수, 검색 조건 시작-->
 	<div class="sub001">
-		<span><fmt:formatNumber value="${lendingListCnt}" pattern="#,###" /></span> 권의 <%--${lending.type_name}--%>전자책이 있습니다.    &nbsp; <span>${lending.viewPage}</span>  of <fmt:formatNumber value="${lending.totalPageCount}" pattern="#,###" /> page
+		총 <span><fmt:formatNumber value="${lendingListCnt}" pattern="#,###" /></span> 권<!--의 <%--${lending.type_name}--%>전자책이 있습니다.-->    &nbsp; <span>${lending.viewPage}</span>  / <fmt:formatNumber value="${lending.totalPageCount}" pattern="#,###" /> page
 	</div>
 </div>
 <c:if test="${lending.menu == 'MYSTUDY'}">
-<div class="search">
+<div style="position:absolute;top:0;right:0;">
 	<form:select path="search_type" class="selectmenu" style="width:150px;">
 		<form:option value="add_date">최신순</form:option>
 		<form:option value="book_name">제목순</form:option>
@@ -486,6 +487,7 @@ $(function(){
 	</li>
 	</c:forEach>
 </ul>
+</div>
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#lendingListForm"/>
 	<jsp:param name="pagingUrl" value="index.do"/>
