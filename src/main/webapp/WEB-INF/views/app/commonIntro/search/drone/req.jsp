@@ -74,7 +74,7 @@
             </tbody>
         </table>
         <div class="btnArea" style="text-align: center; padding-top: 25px;">
-            <a href="/yjbooks/" id="cancel-btn" class="btn btn02">취소</a>
+            <a href="javascript:history.back();" id="cancel-btn" class="btn btn02">취소</a>
             <a href="#" id="save-btn" class="btn btn03">확인</a>
         </div>
     </div>
