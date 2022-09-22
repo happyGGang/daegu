@@ -249,7 +249,14 @@
 		FROM
 			BOOK_EXPRESS be, CMS_HOMEPAGE ch
 		WHERE
+		<choose>
+			<when test="request_status == null or request_status == ''">
 			request_status != '0'
+			</when>
+			<otherwise>
+			request_status = #{request_status}
+			</otherwise>
+		</choose>
 		<if test="library_code != null and library_code != ''">
 		AND	library_code = #{library_code}
 		</if>

@@ -118,7 +118,7 @@ $(function() {
 	
 	$('a#btn-excel').on('click', function(e) {
 		e.preventDefault();
-		$('#excelDownForm').attr('action', 'excelDownload.do');
+		$('#excelDownForm').attr('action', 'excelDownload.do?request_status='+$('#request_status').val());
 		$('#excelDownForm').submit();
 	});
 	
