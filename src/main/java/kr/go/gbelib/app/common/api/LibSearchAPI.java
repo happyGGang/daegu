@@ -737,9 +737,12 @@ public class LibSearchAPI {
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("bookfurnishrequestcheck", param);
 
 		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
-
+		String error_code = String.valueOf(sendKCMS.get("RESULT_CODE"));
+		
 		if ("SUCCESS".equals(code)) {
 			return new ApiResponse(true);
+		} else if ("K0133014".equals(error_code)) {
+			return new ApiResponse(false, "대출이 제한되었거나 분실, 파손 등의 이유로 이용이 불가능한 도서입니다. 직원에게 문의하여 주시기 바랍니다.");
 		} else {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
@@ -805,9 +808,12 @@ public class LibSearchAPI {
 		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("bookfurnishrequest", param);
 
 		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+		String error_code = String.valueOf(sendKCMS.get("RESULT_CODE"));
 
 		if ("SUCCESS".equals(code)) {
 			return new ApiResponse(true);
+		} else if ("K0133014".equals(error_code)) {
+			return new ApiResponse(false, "대출이 제한되었거나 분실, 파손 등의 이유로 이용이 불가능한 도서입니다. 직원에게 문의하여 주시기 바랍니다.");
 		} else {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
