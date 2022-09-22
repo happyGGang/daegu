@@ -58,15 +58,31 @@ $(function() {
 	<c:if test="${fn:length(resveList) < 1 }"> <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3></c:if>
 	<table summary="신청정보">
 		<thead>
-			<th style="width:5%">순번</th>
-			<th style="width:18%">제목</th>
-			<th style="width:15%">저자 / 발행자</th>
-			<th style="width:17%">도서관명</th>
-			<th style="width:10%">예약일</th>
-			<th style="width:8%">예약순위</th>
-			<th style="width:10%">예약만기일</th>
-			<th style="width:8%">예약형태</th>
-			<th style="width:9%">예약취소</th>
+			<c:choose>
+				<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
+					<th style="width:5%">순번</th>
+					<th style="width:18%">제목</th>
+					<th style="width:15%">저자 / 발행자</th>
+					<th style="width:10%">도서관명</th>
+					<th style="width:10%">예약일</th>
+					<th style="width:5%">예약순위</th>
+					<th style="width:10%">예약만기일</th>
+					<th style="width:8%">예약형태</th>
+					<th style="width:9%">예약취소</th>
+					<th style="width:5%">수령장소</th>
+				</c:when>
+				<c:otherwise>
+					<th style="width:5%">순번</th>
+					<th style="width:18%">제목</th>
+					<th style="width:15%">저자 / 발행자</th>
+					<th style="width:17%">도서관명</th>
+					<th style="width:10%">예약일</th>
+					<th style="width:8%">예약순위</th>
+					<th style="width:10%">예약만기일</th>
+					<th style="width:8%">예약형태</th>
+					<th style="width:9%">예약취소</th>
+				</c:otherwise>
+			</c:choose>
 		</thead>
 		<tbody>
 		<!-- 비대면도서대출과 무인예약 구분을 위해 장비키 값으로 구분 2022-01-24 UTBA01는 북구구수산도서관 장비키값 -->
@@ -131,7 +147,7 @@ $(function() {
 									<c:if test="${i.L_WORKER eq 'DSGLIB01'}">
 										<jsp:useBean id="toDay" class="java.util.Date" />
 										<c:set var="startTime" value="09:00:00"></c:set>
-										<c:set var="endTime" value="21:00:00"></c:set>
+										<c:set var="endTime" value="12:00:00"></c:set>
 										<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
 										<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
 										<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
@@ -189,6 +205,18 @@ $(function() {
 						</c:otherwise>
 					</c:choose>
 						</td>
+						<c:if test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02')}">
+						<td>
+							<c:choose>
+								<c:when test="${i.L_WORKER eq 'DSSUB01'}">
+									상인역
+								</c:when>
+								<c:otherwise>
+									용산역
+								</c:otherwise>
+							</c:choose>
+						</td>
+						</c:if>
 					</tr>
 				</c:when>
 				<c:when test="${fn:substring(i.L_WORKER,0,2) eq 'UT'}">
