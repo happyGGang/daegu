@@ -7,13 +7,12 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
-import kr.co.whalesoft.app.cms.boardManage.BoardManageDao;
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -212,6 +211,22 @@ public class BoardService extends BaseService {
 
 	public List<Board> getAllHomepageBoardListByMain(PagingUtils pagingUtils) {
 		return dao.getAllHomepageBoardListByMain(pagingUtils);
+	}
+
+	public List<Board> getAllHomepageBoardListByMain2(PagingUtils pagingUtils) {
+		List<Board> list = dao.getAllHomepageBoardListByMain(pagingUtils);
+		
+		int temp = 0;
+		
+		for(Iterator<Board> it=list.iterator(); it.hasNext();){
+			Board item = it.next();
+			
+            if(item.getManage_idx() == temp) it.remove();
+            
+            temp = item.getManage_idx();
+        }
+		
+		return list;
 	}
 
 	public int getBoardCount(BoardManage boardManage, Board board) {

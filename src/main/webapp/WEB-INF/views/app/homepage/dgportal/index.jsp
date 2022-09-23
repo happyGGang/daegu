@@ -529,7 +529,7 @@ do {
 										</div>
 										<div class="cont">
 											<ul>
-												<c:forEach items="${noticeBoardList}" var="i" varStatus="status" begin="0" end="1">
+												<c:forEach items="${noticeBoardListRandom}" var="i" varStatus="status" begin="0" end="1">
 												<li>
 													<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" target="_blank">
 														<div class="contTop">
@@ -548,7 +548,7 @@ do {
 														</div>
 												</li>
 												</c:forEach>
-												<c:if test="${fn:length(noticeBoardList) < 1}">
+												<c:if test="${fn:length(noticeBoardListRandom) < 1}">
 												<li>
 													<a href="javascript:void(0)">
 														<div class="contMiddle">
@@ -724,7 +724,7 @@ do {
 
 										<div class="con">
 											<ul>
-												<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='2'>
+												<c:forEach items="${teachListRandom}" var="i" varStatus="status" begin='0' end='4'>
 												<li>
 													<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" target="_blank">
 														<span class="txt">

@@ -4,8 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -16,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +36,6 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.mainImg.MainImg;
 import kr.co.whalesoft.app.cms.mainImg.MainImgService;
-import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
@@ -53,8 +53,6 @@ import kr.co.whalesoft.app.cms.popupZoneTop.PopupZoneTopService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.go.gbelib.app.cms.module.elib.api.DgElibAPIService;
-import kr.go.gbelib.app.cms.module.elib.best.BestService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
@@ -64,7 +62,6 @@ import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
 import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
@@ -117,9 +114,6 @@ public class IndexController extends BaseController {
 	private FacilityReqService facilityReqService;
 
 	@Autowired
-	private BestService bestService;
-
-	@Autowired
 	private BoardManageService boardManageService;
 
 	@Autowired
@@ -131,9 +125,6 @@ public class IndexController extends BaseController {
 	@Autowired
 	private CodeService codeService;
 
-	@Autowired
-	private DgElibAPIService dgElibAPIService;
-	
 	@Autowired
 	private BookKeywordService bookKeywordService;
 	
@@ -749,10 +740,57 @@ public class IndexController extends BaseController {
 			}
 			model.addAttribute("teachList", teachListForAllHomepage);
 
+			//홈페이지 상단부분 평생교육강좌 랜덤표출
+			List<Teach> teachListForAllHomepageForRandom = teachService.getTeachListForAllHomepage(t);
+			for (Teach teach : teachListForAllHomepageForRandom) {
+				Homepage h = new Homepage(teach.getHomepage_id());
+				h = homepageService.getHomepageOne(h);
+				teach.setHomepage_name(h.getHomepage_name());
+				teach.setHomepage_id(h.getHomepage_id());
+				
+				if (!h.getHomepage_group().equals("ALL")) {
+					h = homepageService.getHomepageOne(new Homepage(h.getHomepage_group()));
+				}
+				
+				teach.setContext_path(h.getContext_path());
+				if (teach.getHomepage_id().equals("h7")) {
+					teach.setMenu_idx(30);
+				} else {
+					Menu m = new Menu();
+					m.setHomepage_id(h.getHomepage_id());
+					m.setMenu_idx(97);
+					teach.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
+				}
+			}
+			
+			List<Teach> list = teachListForAllHomepageForRandom;
+			
+			String temp = "";
+			for(Iterator<Teach> it=list.iterator(); it.hasNext();){
+				Teach item = it.next();
+				
+	            if(item.getHomepage_id().equals(temp)) it.remove();
+	            
+	            temp = item.getHomepage_id();
+	        }
+			
+			Collections.shuffle(list);
+			model.addAttribute("teachListRandom", list);
+
 			Board b = new Board();
 			b.setRowCount(5);
 			b.setTotalDataCount(5);
-			model.addAttribute("noticeBoardList", boardService.getAllHomepageBoardListByMain(b));
+			List<Board> allHomepageBoardListByMain = boardService.getAllHomepageBoardListByMain(b);
+			model.addAttribute("noticeBoardList", allHomepageBoardListByMain);
+
+			//홈페이지 상단부분 도서관알리미 랜덤표출
+			Board b2 = new Board();
+			b2.setRowCount(20);
+			b2.setTotalDataCount(20);
+			List<Board> boardListByMainForRandom = boardService.getAllHomepageBoardListByMain2(b2);
+			Collections.shuffle(boardListByMainForRandom);
+			
+			model.addAttribute("noticeBoardListRandom", boardListByMainForRandom);
 
 			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 299)).getCategory2();
 			List<Code> category2List = codeService.getCode(homepage.getHomepage_id(), boardCategory2);
