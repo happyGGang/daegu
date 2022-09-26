@@ -240,16 +240,33 @@ $(function() {
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+								<c:when test="${detail.LOAN_CODE eq 'OK' and detail.MEDIA_NAME ne 'DVD' and detail.MANAGE_CODE ne 'BR'}">
 									대출가능
+								</c:when>
+								<c:when test="${detail.LOAN_CODE eq 'OK' and detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
+									관내대출가능
 								</c:when>
 								<c:otherwise>
 									<c:choose>
 										<c:when test="${detail.WORKING_STATUS == 'BOL211O'}">
-											<span style="color:#ff0000">대출불가(관외대출중)</span>
+											<c:choose>
+												<c:when test="${detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
+													<span style="color:#ff0000">대출불가(관내대출중)</span>
+												</c:when>
+												<c:otherwise>
+													<span style="color:#ff0000">대출불가(관외대출중)</span>
+												</c:otherwise>
+											</c:choose>
 										</c:when>
 										<c:when test="${detail.WORKING_STATUS == 'BOL213O'}">
-											<span style="color:#ff0000">대출불가(관외대출중)</span>
+											<c:choose>
+												<c:when test="${detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
+													<span style="color:#ff0000">대출불가(관내대출중)</span>
+												</c:when>
+												<c:otherwise>
+													<span style="color:#ff0000">대출불가(관외대출중)</span>
+												</c:otherwise>
+											</c:choose>
 										</c:when>
 										<c:when test="${detail.WORKING_STATUS == 'BOL212O'}">
 											<span style="color:#ff0000">대출불가(관내대출중)</span>
