@@ -86,8 +86,8 @@
 .content-03-box h3 {position:absolute;left:0;top:0;font-size:27px;}
 .content-03-box .box .title {text-align:center;font-size:32px;font-weight:800;color:#333333;}
 .content-03-box .box .title span {display:block;width:40%;margin:0 auto;border-bottom:1px solid #a1a1a1;padding:10px 0;}
-.content-03-box .box .con {width:90%;margin: 70px auto 0;}
-.content-03-box .box .con li {position:relative;display:block;width:100%;border-bottom:1px solid #e1e1e1;padding:20px 0;}
+.content-03-box .box .con {width:90%;margin: 40px auto 0;}
+.content-03-box .box .con li {position:relative;display:block;width:100%;border-bottom:1px solid #e1e1e1;padding:10px 0;}
 .content-03-box .box .con li a {display:block;width:100%;}
 .content-03-box .box .con li a span {font-size:22px;}
 .content-03-box .box .con li a span.lib-name {float:left;font-size:17px;display:block;background:#eee;padding: 3px 2%;color:#fff;border-radius: 100px;}
