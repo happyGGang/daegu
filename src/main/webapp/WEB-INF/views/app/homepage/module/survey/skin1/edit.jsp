@@ -148,7 +148,6 @@ caption {position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;font-si
 				<form:hidden path="answer_list[${questIdx}].quest_idx" value="${i.quest_idx}" disabled="${i.branch > 0 ? true : false}"/>
 				<form:hidden path="answer_list[${questIdx}].required_yn" value="${i.required_yn}"/>
 					<ul class="mysurvey_list">
-					<form:hidden path="answer_list[${questIdx}].required_yn" value="${i.required_yn}"/>${i.required_yn}${i.required_yn}${i.required_yn}ho
 					<c:forEach var="j" varStatus="status2" items="${i.quest_detail_list}">
 						<li>
 							<form:radiobutton id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" branchIdx="${j.branch_idx}" disabled="${i.branch > 0 ? true : false}" />

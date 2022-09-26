@@ -134,10 +134,8 @@ table td { border: none !important;}
 
 		<c:when test="${i.quest_type eq 'ONE'}">
 			<tr>
-				<td class="qustionNum"><span>Q${questIdx+1}hahah</span>sadada</td>
-				<c:set value="필수" var="required"></c:set>
-				<c:if test="${i.required_yn eq 'N'}"><c:set value="선택" var="required"></c:set></c:if>
-				<td class="qustion">${i.quest_content} (${required})</td>
+				<td class="qustionNum"><span>Q${questIdx + 1}</span></td>
+				<td class="qustion">${i.quest_content}</td>
 			</tr>
 			<tr>
 				<td></td>
