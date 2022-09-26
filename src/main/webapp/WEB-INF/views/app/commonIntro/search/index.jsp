@@ -1476,16 +1476,33 @@ function resveReq(bookkey, booktype, editMode) {
 													</c:when>
 													<c:otherwise>
 														<c:choose>
-															<c:when test="${i.LOAN_CODE eq 'OK'}">
+															<c:when test="${i.LOAN_CODE eq 'OK' and i.MEDIA_NAME ne 'DVD' and homepage.context_path ne 'dalseonglib'}">
 																대출가능
+															</c:when>
+															<c:when test="${i.LOAN_CODE eq 'OK' and i.MEDIA_NAME eq 'DVD' and homepage.context_path eq 'dalseonglib'}">
+																관내대출가능
 															</c:when>
 															<c:otherwise>
 																<c:choose>
 																	<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
-																		<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																		<c:choose>
+																			<c:when test="${i.MEDIA_NAME eq 'DVD' and homepage.context_path eq 'dalseonglib'}">
+																				<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			</c:when>
+																			<c:otherwise>
+																				<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			</c:otherwise>
+																		</c:choose>
 																	</c:when>
 																	<c:when test="${i.WORKING_STATUS == 'BOL213O'}">
-																		<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																		<c:choose>
+																			<c:when test="${i.MEDIA_NAME eq 'DVD' and homepage.context_path eq 'dalseonglib'}">
+																				<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			</c:when>
+																			<c:otherwise>
+																				<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			</c:otherwise>
+																		</c:choose>
 																	</c:when>
 																	<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
 																		<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
