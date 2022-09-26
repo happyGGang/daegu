@@ -146,7 +146,9 @@ caption {position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;font-si
 				<td class="aL" questIdx="${i.quest_idx}">
 				<form:hidden path="answer_list[${questIdx}].quest_type" value="${i.quest_type}" disabled="${i.branch > 0 ? true : false}"/>
 				<form:hidden path="answer_list[${questIdx}].quest_idx" value="${i.quest_idx}" disabled="${i.branch > 0 ? true : false}"/>
+				<form:hidden path="answer_list[${questIdx}].required_yn" value="${i.required_yn}"/>
 					<ul class="mysurvey_list">
+					<form:hidden path="answer_list[${questIdx}].required_yn" value="${i.required_yn}"/>${i.required_yn}${i.required_yn}${i.required_yn}ho
 					<c:forEach var="j" varStatus="status2" items="${i.quest_detail_list}">
 						<li>
 							<form:radiobutton id="questIdx_${questIdx}_${status2.count}" path="answer_list[${questIdx}].quest_idx_list" value="${status2.count}" branchIdx="${j.branch_idx}" disabled="${i.branch > 0 ? true : false}" />
@@ -182,6 +184,7 @@ caption {position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;font-si
 				<td class="aL" questIdx="${i.quest_idx}">
 				<form:hidden path="answer_list[${questIdx}].quest_type" value="${i.quest_type}" disabled="${i.branch > 0 ? true : false}"/>
 				<form:hidden path="answer_list[${questIdx}].quest_idx" value="${i.quest_idx}" disabled="${i.branch > 0 ? true : false}"/>
+				<form:hidden path="answer_list[${questIdx}].required_yn" value="${i.required_yn}"/>
 					<ul class="mysurvey_list">
 					<c:forEach var="j" varStatus="status2" items="${i.quest_detail_list}">
 						<li>
@@ -217,6 +220,7 @@ caption {position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;font-si
 				<td class="aL" questIdx="${i.quest_idx}">
 				<form:hidden path="answer_list[${questIdx}].quest_type" value="${i.quest_type}" disabled="${i.branch > 0 ? true : false}"/>
 				<form:hidden path="answer_list[${questIdx}].quest_idx" value="${i.quest_idx}" disabled="${i.branch > 0 ? true : false}"/>
+				<form:hidden path="answer_list[${questIdx}].required_yn" value="${i.required_yn}"/>	
 					<table class="in_tbl" summary="매트릭스형의 세부질문과 보기 내용을 확인할 수 있습니다.">
 						<caption>매트릭스형 세부질문 및 보기</caption>
 						<colgroup>

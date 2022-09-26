@@ -1,7 +1,5 @@
 package kr.co.whalesoft.app.cms.module.survey.answer;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +21,6 @@ import kr.co.whalesoft.app.cms.module.survey.SurveyService;
 import kr.co.whalesoft.app.cms.module.survey.quest.Quest;
 import kr.co.whalesoft.app.cms.module.survey.quest.QuestService;
 import kr.co.whalesoft.app.cms.module.survey.statistics.StatisticsService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -391,14 +386,18 @@ public class AnswerController extends BaseController {
 			if(questType != null) {
 				if (questType.equals("ONE")) {
 					if (answerOne.getQuest_idx_list() == null || answerOne.getQuest_idx_list().size() != 1) {
-						result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						if("Y".equals(questRequied)) {
+							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						}
 					}
 				} else if (questType.equals("MULTI")) {
 					if (answerOne.getQuest_idx_list() == null || answerOne.getQuest_idx_list().size() < 1) {
-						result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						if("Y".equals(questRequied)) {
+							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						}
 					} else {
 						boolean hasAnswer = false;
-						for ( String multiAnswer : answerOne.getQuest_idx_list() ) {
+						for ( String multiAnswer : answerOne.getQuest_idx_list()) {
 							if (StringUtils.isNotEmpty(multiAnswer)) {
 								hasAnswer = true;
 								break;
@@ -422,7 +421,9 @@ public class AnswerController extends BaseController {
 					quest.setQuest_idx(answerOne.getQuest_idx());
 					int matrix_count = questService.getQuestMatrixCount(quest);
 					if (answerOne.getQuest_idx_list() == null || (answerOne.getQuest_idx_list().size() != matrix_count)) {
-						result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						if("Y".equals(questRequied)) {
+							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						}
 					}
 					if (!result.hasErrors()) {
 						for (String matrix_answer : answerOne.getQuest_idx_list()) {

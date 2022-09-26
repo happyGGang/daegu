@@ -108,6 +108,14 @@ $(function() {
 					</span>
 				</td>
 			</tr>
+			<tr>
+				<th>필수여부</th>
+				<td class="aL">
+					<form:radiobutton path="required_yn" value="Y" label="필수"/>
+					<form:radiobutton path="required_yn" value="N" label="선택"/>
+					<span class="em">*반드시 응답해야 하는 문항이면 필수를 선택해 주세요.</span>
+				</td>
+			</tr>
 			<tr style="display: none;">
 				<th>권한설정</th>
 				<td class="aL">
