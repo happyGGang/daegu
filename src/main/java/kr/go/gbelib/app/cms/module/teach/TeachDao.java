@@ -83,5 +83,7 @@ public interface TeachDao  {
 	
 	// Teach API 쿼리
 	public List<Teach> getTeachApiList(Teach teach);
+
+	public List<Teach> getTeachListForAllHomepageRamdom(Teach teach);
 	
 }

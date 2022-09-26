@@ -76,7 +76,7 @@ public class HomepageService extends BaseService {
 				parentHome.setHomepage_id(homepage2.getHomepage_group());
 				parentHome = dao.getHomepageOne(parentHome);
 
-				if(!"h74".equals(homepage.getHomepage_id()) && !"h75".equals(homepage.getHomepage_id()) && !"h76".equals(homepage.getHomepage_id())) {
+				if(!"h74".equals(homepage.getHomepage_id()) && !"h75".equals(homepage.getHomepage_id()) && !"h76".equals(homepage.getHomepage_id()) && !"h72".equals(homepage.getHomepage_id()) && !"h67".equals(homepage.getHomepage_id()) && !"h68".equals(homepage.getHomepage_id()) && !"h69".equals(homepage.getHomepage_id()) && !"h66".equals(homepage.getHomepage_id()) && !"h70".equals(homepage.getHomepage_id()) && !"h41".equals(homepage.getHomepage_id())) {
 					homepage2.setHomepage_id(parentHome.getHomepage_id());
 					homepage2.setContext_path(parentHome.getContext_path());
 				} else {

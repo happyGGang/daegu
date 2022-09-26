@@ -710,8 +710,8 @@ public class IndexController extends BaseController {
 		//대표도서관
 		if (homepage.getHomepage_id().equals("h32")) {
 			Teach t = new Teach();
-			t.setRowCount(16);
-			t.setTotalDataCount(16);
+			t.setRowCount(5);
+			t.setTotalDataCount(5);
 			List<String> statusArr = new ArrayList<String>();
 			statusArr.add("0");//신청
 			statusArr.add("1");//대기자신청
@@ -741,7 +741,7 @@ public class IndexController extends BaseController {
 			model.addAttribute("teachList", teachListForAllHomepage);
 
 			//홈페이지 상단부분 평생교육강좌 랜덤표출
-			List<Teach> teachListForAllHomepageForRandom = teachService.getTeachListForAllHomepage(t);
+			List<Teach> teachListForAllHomepageForRandom = teachService.getTeachListForAllHomepageRamdom(t);
 			for (Teach teach : teachListForAllHomepageForRandom) {
 				Homepage h = new Homepage(teach.getHomepage_id());
 				h = homepageService.getHomepageOne(h);
