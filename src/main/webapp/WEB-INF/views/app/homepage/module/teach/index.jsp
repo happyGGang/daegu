@@ -239,6 +239,71 @@ $(function(){
 		</ul>
 	</c:if>
 
+	<!-- 범어 > 글로벌문화행사 -->
+	<c:if test="${homepage.context_path eq 'beomeo'}">
+		<c:choose>
+			<c:when test="${param.searchCate1 eq '23'}">
+				<div class="roomicon">
+					<div class="inner icowrap">
+						<span class="ico ico4"></span> <strong>글로벌프로그램 운영 안내</strong>
+						<p class="basic_btn">
+							<a href="https://library.daegu.go.kr/beomeo/module/teach/index.do?menu_idx=98&searchCate1=16" class="btn_go"> <span>강연신청 바로가기</span> </a>
+						</p>
+					</div>
+				</div>
+				<ul class="con">
+					<li>글로벌 유스 아카데미(Global Youth Academy)
+						<ul class="con2">
+							<li>중·고등학생들을 대상으로 다양한 분야의 외국인 교수 및 주제분야 전문가를 초청하여 진행하는 영어강연 프로그램</li>
+						</ul>
+					</li>
+					<li>국제 리더 초청 강연회
+						<ul class="con2">
+							<li>세계적으로 활동을 펼치고 있는 각 분야의 명사를 초청하여 경험담을 공유하는 프로그램</li>
+						</ul>
+					</li>
+					<li>국제 부모교육 특강
+						<ul class="con2">
+							<li>국제적 교육방법 및 외국어 ·미래 교육 분야의 전문가에게 듣는 최신 트렌드 및 미래 방향성 강연</li>
+						</ul>
+					</li>
+					<li>유명대학 재학생의 해외대학 진학기(탐방 등)
+						<ul class="con2">
+							<li>해외 유명대학 재학생들의 진학 성공담 및 관련 정보공유, 실시간 질의응답 프로그램</li>
+						</ul>
+					</li>
+					<li>내 방에서 떠나는 세계여행
+						<ul class="con2">
+							<li>세계 유명 도시의 역사·문화 등을 만날 수 있는 온라인 실시간 탐방 프로그램</li>
+						</ul>
+					</li>
+					<li>국제인증교육과정(IB)프로그램
+						<ul class="con2">
+							<li>IB분야의 전문가의 PYP(초등), MYP(중등), DP(고등) 및 IB관련 최신동향 강연</li>
+						</ul>
+					</li>
+					<li>원어민 선생님과 함께하는 범어 어학당
+						<ul class="con2">
+							<li>유아·성인 대상의 연령별 맞춤형 원어민 영어강좌</li>
+						</ul>
+					</li>
+					<li>영어 독서캠프
+						<ul class="con2">
+							<li>원어민 선생님과 원서를 활용한 영어 독서캠프</li>
+						</ul>
+					</li>
+					<li>국제 문화교류 프로그램(버디버디)
+						<ul class="con2">
+							<li>외국인-한국인 매칭 후, 함께 언어·문화를 교류하며 한국문화를 탐방하는 프로그램</li>
+						</ul>
+					</li>
+				</ul>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
+	</c:if>
+
 	<c:choose>
 	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl'}">
 
