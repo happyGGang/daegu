@@ -741,41 +741,41 @@ public class IndexController extends BaseController {
 			model.addAttribute("teachList", teachListForAllHomepage);
 
 			//홈페이지 상단부분 평생교육강좌 랜덤표출
-			List<Teach> teachListForAllHomepageForRandom = teachService.getTeachListForAllHomepageRamdom(t);
-			for (Teach teach : teachListForAllHomepageForRandom) {
-				Homepage h = new Homepage(teach.getHomepage_id());
-				h = homepageService.getHomepageOne(h);
-				teach.setHomepage_name(h.getHomepage_name());
-				teach.setHomepage_id(h.getHomepage_id());
-				
-				if (!h.getHomepage_group().equals("ALL")) {
-					h = homepageService.getHomepageOne(new Homepage(h.getHomepage_group()));
-				}
-				
-				teach.setContext_path(h.getContext_path());
-				if (teach.getHomepage_id().equals("h7")) {
-					teach.setMenu_idx(30);
-				} else {
-					Menu m = new Menu();
-					m.setHomepage_id(h.getHomepage_id());
-					m.setMenu_idx(97);
-					teach.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
-				}
-			}
-			
-			List<Teach> list = teachListForAllHomepageForRandom;
-			
-			String temp = "";
-			for(Iterator<Teach> it=list.iterator(); it.hasNext();){
-				Teach item = it.next();
-				
-	            if(item.getHomepage_id().equals(temp)) it.remove();
-	            
-	            temp = item.getHomepage_id();
-	        }
-			
-			Collections.shuffle(list);
-			model.addAttribute("teachListRandom", list);
+//			List<Teach> teachListForAllHomepageForRandom = teachService.getTeachListForAllHomepageRamdom(t);
+//			for (Teach teach : teachListForAllHomepageForRandom) {
+//				Homepage h = new Homepage(teach.getHomepage_id());
+//				h = homepageService.getHomepageOne(h);
+//				teach.setHomepage_name(h.getHomepage_name());
+//				teach.setHomepage_id(h.getHomepage_id());
+//				
+//				if (!h.getHomepage_group().equals("ALL")) {
+//					h = homepageService.getHomepageOne(new Homepage(h.getHomepage_group()));
+//				}
+//				
+//				teach.setContext_path(h.getContext_path());
+//				if (teach.getHomepage_id().equals("h7")) {
+//					teach.setMenu_idx(30);
+//				} else {
+//					Menu m = new Menu();
+//					m.setHomepage_id(h.getHomepage_id());
+//					m.setMenu_idx(97);
+//					teach.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
+//				}
+//			}
+//			
+//			List<Teach> list = teachListForAllHomepageForRandom;
+//			
+//			String temp = "";
+//			for(Iterator<Teach> it=list.iterator(); it.hasNext();){
+//				Teach item = it.next();
+//				
+//	            if(item.getHomepage_id().equals(temp)) it.remove();
+//	            
+//	            temp = item.getHomepage_id();
+//	        }
+//			
+//			Collections.shuffle(list);
+//			model.addAttribute("teachListRandom", list);
 
 			Board b = new Board();
 			b.setRowCount(5);

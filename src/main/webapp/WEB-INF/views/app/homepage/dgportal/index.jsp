@@ -724,7 +724,7 @@ do {
 
 										<div class="con">
 											<ul>
-												<c:forEach items="${teachListRandom}" var="i" varStatus="status" begin='0' end='4'>
+												<c:forEach items="${teachList}" var="i" varStatus="status" begin='0' end='4'>
 												<li>
 													<a href="/${i.context_path}/module/teach/detail.do?homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=${i.menu_idx}&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}" target="_blank">
 														<span class="txt">
