@@ -27,7 +27,7 @@
 			$('#sortType').val('DESC');
 
 			var url = 'index.do';
-			var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
+			var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code', 'cate_id']);
 			doGetLoad(url, formData);
 		});
 		$('a#by_title').on('click', function(e) {
@@ -36,7 +36,7 @@
 			$('#sortType').val('ASC');
 
 			var url = 'index.do';
-			var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
+			var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code', 'cate_id']);
 			doGetLoad(url, formData);
 		});
 		$('a#by_date').on('click', function(e) {
@@ -45,7 +45,7 @@
 			$('#sortType').val('DESC');
 
 			var url = 'index.do';
-			var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code']);
+			var formData = serializeParameter(['menu_idx', 'menu', 'type', 'sortField', 'sortType', 'parent_id', 'com_code', 'device', 'library_code', 'cate_id']);
 			doGetLoad(url, formData);
 		});
 
