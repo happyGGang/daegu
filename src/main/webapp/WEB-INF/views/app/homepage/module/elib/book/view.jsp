@@ -460,7 +460,7 @@ function go_to_login() {
 						<li>저자 : ${fn:escapeXml(book.author_name)}<span class="txt-bar">&nbsp;</span>출판사 : ${fn:escapeXml(book.book_pubname)}<span class="txt-bar">&nbsp;</span>출판년도 : ${fn:escapeXml(book.book_pubdt)}</li>
 						<li>공급사 : ${fn:escapeXml(book.comp_name)}
 							<c:if test="${not empty viewer_url}">
-								<span class="txt-bar">&nbsp;</span><a href="/${homepage.context_path}/html.do?menu_idx=58" target="_blank" rel="noopener noreferrer" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a><!-- <a href="${viewer_url}" target="_blank" rel="noopener noreferrer" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a> -->
+								<span class="txt-bar">&nbsp;</span><a href="/${homepage.context_path}/html.do?menu_idx=87" target="_blank" rel="noopener noreferrer" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a><!-- <a href="${viewer_url}" target="_blank" rel="noopener noreferrer" style="color:#fe6d02;">뷰어 다운로드 페이지 이동</a> -->
 							</c:if>
 						</li>
 						<li>소속도서관: ${fn:escapeXml(book.library_name)}</li>
