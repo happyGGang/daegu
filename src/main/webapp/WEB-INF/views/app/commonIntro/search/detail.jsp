@@ -493,11 +493,11 @@ $(function() {
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq 'OK' and detail.MEDIA_NAME ne 'DVD' and detail.MANAGE_CODE ne 'BR'}">
-									대출가능
-								</c:when>
 								<c:when test="${detail.LOAN_CODE eq 'OK' and detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
 									관내대출가능
+								</c:when>
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+									대출가능
 								</c:when>
 								<c:otherwise>
 									<c:choose>

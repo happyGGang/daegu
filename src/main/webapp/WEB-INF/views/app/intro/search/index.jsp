@@ -899,11 +899,11 @@ function resveReq(bookkey, booktype, editMode) {
 													</c:when>
 													<c:otherwise>
 														<c:choose>
-															<c:when test="${i.LOAN_CODE eq 'OK' and i.MEDIA_NAME ne 'DVD' and i.MANAGE_CODE ne 'BR'}">
-																대출가능
-															</c:when>
 															<c:when test="${i.LOAN_CODE eq 'OK' and i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
 																관내대출가능
+															</c:when>
+															<c:when test="${i.LOAN_CODE eq 'OK'}">
+																대출가능
 															</c:when>
 															<c:otherwise>
 																<c:choose>
