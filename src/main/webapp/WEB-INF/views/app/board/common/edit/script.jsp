@@ -110,7 +110,9 @@ $(document).ready(function() {
 		}
 
 		$('#boardFileArray > option').prop('selected', true);
-
+		
+		$('#content').val($('#content').val().replace(/onE|onM|alert|EMBED|onerror|error/g, ''));
+		
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		if(isEditorOn()) {
 			
