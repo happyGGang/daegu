@@ -34,7 +34,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main0 .main-visual .quickmenu-box {position:absolute;top:72%;left:0;width:100%;text-align:center;z-index:99999;background:transparent;}
 #main0 .main-visual .quickmenu-box .main-box {position:relative;width:1260px;margin:0 auto;}
 #main0 .main-visual .quickmenu-box .main-box .qmenu {box-sizing:border-box;overflow:hidden;height:200px;text-align:center;}
-#main0 .main-visual .quickmenu-box .main-box .qmenu li {display:inline-block;text-align:center;float:left;width:20%;height:200px;margin:0;box-sizing:border-box;}
+#main0 .main-visual .quickmenu-box .main-box .qmenu li {display:inline-block;text-align:center;float:left;width:16.6%;height:200px;margin:0;box-sizing:border-box;}
 #main0 .main-visual .quickmenu-box .main-box .qmenu li a {height:100%;background:no-repeat center top;display:block;margin:0;font-size:17px;color:#fff;font-weight:400;box-sizing:border-box;letter-spacing:-2px;text-align:center;}
 #main0 .main-visual .quickmenu-box .main-box .qmenu li a span{padding-top:180px;display:block;position:relative;font-weight:bold;}
 
@@ -480,11 +480,12 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 	#main0 .main-visual .search-area{top:40%;}
 	#main0 .main-visual .search-area .main-box input{font-size:15px;}
 
-	#main0 .main-visual .quickmenu-box{top:70%;}
+	#main0 .main-visual .quickmenu-box{top:55%;}
 	#main0 .main-visual .quickmenu-box .main-box .qmenu{width:100%;margin:0 auto;}
+	#main0 .main-visual .quickmenu-box .main-box .qmenu li{width:33.3%;}
 	#main0 .main-visual .quickmenu-box .main-box .qmenu li, #main0 .main-visual .quickmenu-box .main-box .qmenu li:first-child, #main0 .main-visual .quickmenu-box .main-box .qmenu li:last-child{height:140px;}
 	#main0 .main-visual .quickmenu-box .main-box .qmenu li a{background-size:80% !important;font-size:12px;letter-spacing:-1px;}
-	#main0 .main-visual .quickmenu-box .main-box .qmenu li a span{padding-top:70px;}
+	#main0 .main-visual .quickmenu-box .main-box .qmenu li a span{padding-top:110px;}
 
 	#main1 .btn-more2{top:15px;}
 	#main1 .notice-box > .con{padding-top:0;}
