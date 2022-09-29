@@ -37,6 +37,8 @@ public class BoardComment {
 	private int file_count;//첨부파일갯수
 	private List<BoardCommentFile> fileList = new ArrayList<BoardCommentFile>();
 
+	private String member_id;
+	
 	public String getUrlParam(String mode) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("board_idx=" + board_idx);
@@ -281,4 +283,12 @@ public class BoardComment {
 		this.las_user_seq = las_user_seq;
 	}
 
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+	
 }

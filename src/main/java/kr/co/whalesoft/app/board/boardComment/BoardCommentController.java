@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,6 +99,12 @@ public class BoardCommentController extends BaseController {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		/* <<<<< 유효성 검증 */
+		
+		if(!(boardComment.getUser_id().equals(boardComment.getMember_id()))) {
+			res.setValid(false);
+			res.setMessage("타 사용자의 댓글은 삭제가 불가능합니다.");
+			return res;
+		}
 		
 		if(!result.hasErrors()) {
 			service.deleteBoardComment(boardComment);

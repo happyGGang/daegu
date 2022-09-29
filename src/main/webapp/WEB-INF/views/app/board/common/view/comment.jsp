@@ -27,46 +27,6 @@ $(document).ready(function() {
 		</c:choose>
 	});
 
-	<%-- 댓글 삭제 --%>
-	$('a#boardComment_delete_btn').on('click', function(e) {
-		e.preventDefault();
-		try {
-			$('#boardCommentFileArray > option').prop('selected', true);
-		} catch (e) {
-		}
-		if(confirm('삭제 하시겠습니까?')) {
-			var param =
-			{
-				'board_idx' : $('input#comment_board_idx').val(),
-				'comment_idx' : $(this).attr('keyValue')
-			};
-
-			$.ajax({
-		        type: 'post',
-		        url: '/board/boardComment/delete.do',
-		        async: false,
-		        data: param,
-		        success: function(response) {
-		            if(response.valid) {
-						alert(response.message);
-						var url = '/board/boardComment/index.do';
-						var formData = 'board_idx=' + board_idx + '&manage_idx=' + manage_idx;
-						doAjaxLoad('div#bbs-comment',url, formData);
-					} else {
-		                for(var i =0 ; i < response.result.length ; i++) {
-							alert(response.result[i].code);
-							$('#'+response.result[i].field).focus();
-							break;
-						}
-					}
-		         },
-		         error: function(jqXHR, textStatus, errorThrown) {
-		             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-		         }
-		    });
-		}
-	});
-
 	<%-- 댓글 수정 --%>
 	$('a#boardComment_modify_btn').on('click', function(e) {
 		e.preventDefault();
@@ -147,6 +107,54 @@ $(document).ready(function() {
 	    });
 	}
 });
+
+<%-- 댓글 삭제 --%>
+function boardComment_delete(comment_idx, user_id, member_id){
+	try {
+		$('#boardCommentFileArray > option').prop('selected', true);
+	} catch (e) {
+	}
+	
+	if(user_id == member_id){
+		if(confirm('삭제 하시겠습니까?')) {
+			var param =
+			{
+				'board_idx' : $('input#comment_board_idx').val(),
+				'comment_idx' : comment_idx,
+				'user_id' : user_id,
+				'member_id' : member_id
+			};
+
+			$.ajax({
+		        type: 'post',
+		        url: '/board/boardComment/delete.do',
+		        async: false,
+		        data: param,
+		        success: function(response) {
+		            if(response.valid) {
+						alert(response.message);
+						var url = '/board/boardComment/index.do';
+						var formData = 'board_idx=' + board_idx + '&manage_idx=' + manage_idx;
+						doAjaxLoad('div#bbs-comment',url, formData);
+					} else if(response.message.length > 10){
+						alert(response.message);
+					} else {
+		                for(var i =0 ; i < response.result.length ; i++) {
+							alert(response.result[i].code);
+							$('#'+response.result[i].field).focus();
+							break;
+						}
+					}
+		         },
+		         error: function(jqXHR, textStatus, errorThrown) {
+		             alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+		         }
+		    });
+		}
+	} else {
+		alert("타 사용자의 댓글은 삭제가 불가능합니다.");
+	}
+}
 </script>
 <div class="bbs-comment-title">
 	<strong>댓글 </strong>
@@ -251,7 +259,7 @@ $(document).ready(function() {
 			<div class="bcl-btns">
 				<a href="" class="b1" id="boardComment_modify_btn" keyValue="${i.comment_idx}">수정</a>
 				<span class="txt-bar"></span>
-				<a href="" class="b2" id="boardComment_delete_btn" keyValue="${i.comment_idx}">삭제</a>
+				<a href="" class="b2" id="boardComment_delete_btn" onclick="boardComment_delete('${i.comment_idx}', '${i.user_id}', '${sessionScope.member.member_id}')">삭제</a>
 			</div>
 			</c:if>
 		</div>
