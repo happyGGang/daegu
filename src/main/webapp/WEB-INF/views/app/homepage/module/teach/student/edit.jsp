@@ -1123,8 +1123,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			</c:if>
 	        <c:if test="${teach.family_count_yn eq 'Y'}">
 				<tr>
-					<th>가족 인원 수</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="가족인원수"/></td>
+					<th>참여가족 인원 수</th>
+					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
 				</tr>
 			</c:if>
 		</tbody>
