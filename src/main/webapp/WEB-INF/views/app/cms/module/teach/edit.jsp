@@ -1158,7 +1158,7 @@ $(function() {
 	         		<form:radiobutton path="family_count_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
 					<form:radiobutton path="family_count_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
 					<div class="ui-state-highlight">
-						<em>* 가족프로그램의 경우 가족 '인원 수' 입력 항목이 노출됩니다.</em>
+						<em>* 가족프로그램의 경우 가족 '참여가족 인원 수' 입력 항목이 노출됩니다.</em>
 					</div>
 				</td>
 	        </tr>

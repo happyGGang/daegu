@@ -693,7 +693,7 @@ $(function() {
 			</c:if>
 			<c:if test="${teach.family_count_yn eq 'Y'}">
 				<tr>
-					<th>가족 인원 수</th>
+					<th>참여가족 인원 수</th>
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true"/></td>
 				</tr>
 			</c:if>

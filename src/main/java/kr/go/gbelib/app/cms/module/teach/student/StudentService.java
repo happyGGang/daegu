@@ -700,7 +700,7 @@ public class StudentService extends BaseService {
     		sheet.addCell( new Label( row++, 0, "보호자 동의 여부(Y,N)" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
     		sheet.addCell( new Label( row++, 0, "보호자 비고" + (teachOne.getFamily_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_yn().equals("Y") ? requied : format ) );
 		}
-		sheet.addCell( new Label( row++, 0, "가족 인원 수" + (teachOne.getFamily_count_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_count_yn().equals("Y") ? requied : format ) );
+		sheet.addCell( new Label( row++, 0, "참여가족 인원 수" + (teachOne.getFamily_count_yn().equals("Y") ? "(*)" : ""), teachOne.getFamily_count_yn().equals("Y") ? requied : format ) );
 		sheet.addCell( new Label( row++, 0, "학교" + (teachOne.getSchool_info_yn().equals("Y") ? "(*)" : ""), teachOne.getSchool_info_yn().equals("Y") ? requied : format ) );
 
 

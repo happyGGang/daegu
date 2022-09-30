@@ -792,8 +792,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			<c:if test="${teach.agent_yn ne 'Y'}">
 	        <c:if test="${teach.family_count_yn eq 'Y'}">
 				<tr>
-					<th>가족 인원 수(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="가족인원수"/></td>
+					<th>참여가족 인원 수(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
 				</tr>
 			</c:if>
         	<c:if test="${teach.school_info_yn eq 'Y'}">
