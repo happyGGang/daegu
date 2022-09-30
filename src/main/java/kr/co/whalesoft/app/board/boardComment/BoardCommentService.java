@@ -209,4 +209,8 @@ public class BoardCommentService extends BaseService {
 		return dao.deleteBoardComment(boardComment);
 	}
 
+	public String getBoardCommentId(BoardComment boardComment) {
+		return dao.getBoardCommentId(boardComment);
+	}
+
 }

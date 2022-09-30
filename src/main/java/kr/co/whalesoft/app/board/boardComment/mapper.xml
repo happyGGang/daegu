@@ -82,4 +82,14 @@
 		SELECT CMS_BOARD_COMMENT_IDX_SEQ.NEXTVAL FROM DUAL
 	</select>
 
+	<select id="getBoardCommentId" resultType="String">
+		SELECT
+			user_id
+		FROM
+			CMS_BOARD_COMMENT
+		WHERE
+			board_idx = #{board_idx}
+		AND comment_idx = #{comment_idx}
+		AND	delete_yn = 'N'
+	</select>
 </mapper>

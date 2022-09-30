@@ -100,9 +100,17 @@ public class BoardCommentController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		/* <<<<< 유효성 검증 */
 		
-		if(!(boardComment.getUser_id().equals(boardComment.getMember_id()))) {
+		try {
+			String comment_id = service.getBoardCommentId(boardComment);
+			
+			if(!(boardComment.getUser_id().equals(comment_id))) {
+				res.setValid(false);
+				res.setMessage("타 사용자의 댓글은 삭제가 불가능합니다.");
+				return res;
+			}
+		} catch (Exception e) {
 			res.setValid(false);
-			res.setMessage("타 사용자의 댓글은 삭제가 불가능합니다.");
+			res.setMessage("사용자의 댓글을 삭제하는중에 오류가 발생하였습니다. 관리자에게 문의해주세요.");
 			return res;
 		}
 		

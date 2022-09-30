@@ -17,5 +17,7 @@ public interface BoardCommentDao {
 	public int deleteBoardComment(BoardComment boardComment);
 
 	public int getCommentIdx(BoardComment boardComment);
+
+	public String getBoardCommentId(BoardComment boardComment);
 	
 }
