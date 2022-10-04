@@ -173,6 +173,15 @@
   <h4 class="contSTit_line">문의 : 대구시립중앙도서관 도서관정책과(☎231-2037, 2039)</h4>
 </c:if>
 
+<!--달성-->
+<c:if test="${homepage.context_path eq 'dalseong'}">
+	<ul class="btns_wrap_tac">
+	  <li>
+	  <a href="https://dgelib.dkyobobook.co.kr/main.ink" class="btn_link02 newWin" title="학생전자도서관 바로가기(새창열림)" target="_blank"><span>학생전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a>
+	  </li>
+	</ul>
+</c:if>
+
 <c:choose>
 	<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 		<c:choose>
