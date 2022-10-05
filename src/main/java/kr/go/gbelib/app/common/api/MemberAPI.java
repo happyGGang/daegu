@@ -583,7 +583,8 @@ public class MemberAPI {
 
 		//필수입력값
 		param.put("id", member.getMember_id());
-		param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));
+		//2022-10-05 비밀번호 필수파라미터에서 제외
+		//param.put("password", CalculateHashUtils.calculateHashSHA256(member.getMember_pw()));
 		param.put("name", member.getMember_name());
 		param.put("birthday_year", member.getBirth_day().substring(0, 4));
 		param.put("birthday_month", member.getBirth_day().substring(4, 6));

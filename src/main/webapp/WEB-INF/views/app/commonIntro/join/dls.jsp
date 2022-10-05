@@ -1,5 +1,4 @@
-\<%@ page language="java" pageEncoding="utf-8" %>
-
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
@@ -26,11 +25,6 @@ $(function() {
 		if ($('input#member_id').val() == '') {
 			alert('DLS 아이디를 입력하세요.');
 			$('input#member_id').focus();
-			return false;
-		}
-		if ($('input#member_pw').val() == '') {
-			alert('DLS 패스워드를 입력하세요.');
-			$('input#member_pw').focus();
 			return false;
 		}
 
@@ -128,7 +122,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<div style="padding-top: 5px; padding-bottom: 5px; " id="dlsForm">
 							DLS 회원명 : <input type="text" id="member_name" name="member_name" class="text" style="width: 100px;" title="DLS성명 입력">
 							DLS 아이디 : <input type="text" id="member_id" name="member_id" class="text" style="width: 100px;" title="DLS아이디 입력">
-							DLS 패스워드 : <input type="password" id="member_pw" name="member_pw" class="text" title="DLS 패스워드 입력 ">
+						<!-- DLS 패스워드 : <input type="password" id="member_pw" name="member_pw" class="text" title="DLS 패스워드 입력 "> -->
 						</div>
 						<div id="dlsCmt" class="ui-state-highlight">
 							* 회원가입일 기준, 학교도서관지원시스템(DLS) 회원일 경우에만 인증을 통해 정회원으로 등록하시기 바랍니다.

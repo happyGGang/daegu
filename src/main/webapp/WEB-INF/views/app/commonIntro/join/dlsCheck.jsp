@@ -29,6 +29,6 @@ $(function() {
 <form id="dlsForm" action="http://reading.edunavi.kr/r/reading/search/ebookView_dg_ck.jsp" method="post">
 <input type="hidden" id="return_url" name="return_url" value="http://library.daegu.go.kr/${homepage.context_path}/intro/join/dlsCheckA.do" />
 <input type="hidden" id="reading_id" name="reading_id" value="${dlsMember.member_id}" />
-<input type="hidden" id="reading_pw" name="reading_pw" value="${dlsMember.member_pw}">
+<%-- <input type="hidden" id="reading_pw" name="reading_pw" value="${dlsMember.member_pw}"> --%>
 <input type="hidden" id="reading_name" name="reading_name" value="${dlsMember.member_name}">
 </form>
