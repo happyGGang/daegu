@@ -79,7 +79,12 @@
 </c:when>
 <c:when test="${homepage.context_path eq 'dalseolib'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
-		2022년 도원,본리,성서,달서어린이도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
+		2022년 도원,본리,성서,달서어린이,달서가족문화도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
+	</div>
+</c:when>
+<c:when test="${homepage.context_path eq 'dalseonglib'}">
+	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+		2022년 달성군립 작은도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
 	</div>
 </c:when>
 <c:otherwise>
@@ -212,7 +217,7 @@
 				<c:when test="${homepagePath eq 'dalseonglib'}">
 				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BR">달성군립도서관</form:option>
-					<form:option value="GA">화원읍작은도서관</form:option>
+					<!--<form:option value="GA">화원읍작은도서관</form:option>
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="HG">다사읍작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
@@ -222,7 +227,7 @@
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
 					<form:option value="FN">달성군청소년센터</form:option>
-					<form:option value="FJ">달성군청도서관</form:option>
+					<form:option value="FJ">달성군청도서관</form:option>-->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseongsmall'}">
