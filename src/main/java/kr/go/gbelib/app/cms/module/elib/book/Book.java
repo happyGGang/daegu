@@ -106,6 +106,10 @@ public class Book extends PagingUtils {
 	private String member_name;
 	private String add_ip;
 	private int book_access_idx;
+	
+	private int audio_book_access_idx;
+	private int audio_viewer_view_count;
+	
 	public Book() {
 		this.setSortField("book_pubdt");
 	}
@@ -697,4 +701,21 @@ public class Book extends PagingUtils {
 	public void setBook_access_idx(int book_access_idx) {
 		this.book_access_idx = book_access_idx;
 	}
+	
+	public int getAudio_book_access_idx() {
+		return audio_book_access_idx;
+	}
+	
+	public void setAudio_book_access_idx(int audio_book_access_idx) {
+		this.audio_book_access_idx = audio_book_access_idx;
+	}
+	
+	public int getAudio_viewer_view_count() {
+		return audio_viewer_view_count;
+	}
+	
+	public void setAudio_viewer_view_count(int audio_viewer_view_count) {
+		this.audio_viewer_view_count = audio_viewer_view_count;
+	}
+	
 }

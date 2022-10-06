@@ -37,7 +37,7 @@
 		ORDER BY a.isbn13, a.book_idx DESC
 		</when>
 		<when test="sortField != null and sortField != ''">
-		ORDER BY DECODE(a.library_code,'9999999',1,99) ASC, a.${sortField} ${sortType} NULLS LAST, a.book_idx DESC
+		ORDER BY DECODE(a.library_code,'9999999',1,99) ASC, ${sortField} ${sortType} NULLS LAST, a.book_idx DESC
 		</when>
 		<otherwise>
 		ORDER BY DECODE(a.library_code,'9999999',1,99) ASC, a.book_idx DESC NULLS LAST, a.book_name
@@ -68,6 +68,7 @@
 
 	<select id="getBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
+		SELECT * FROM (
 		SELECT
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
 			a.book_pubname, a.isbn13, a.book_lend,
@@ -86,7 +87,9 @@
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label, a.view_count
+			END AS label,
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count,
+			NVL((SELECT COUNT(*) FROM ELIB_AUDIO_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) AS audio_viewer_view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -104,6 +107,7 @@
 		</if>
 		<include refid="search"/>
 		<include refid="sort"/>
+		)
 		${pagingBottom}
 	</select>
 	
@@ -199,7 +203,8 @@
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
 			END AS label,
 			a.add_date,
-			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count,
+			NVL((SELECT COUNT(*) FROM ELIB_AUDIO_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) AS audio_viewer_view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -299,7 +304,8 @@
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
 			END AS label,
-			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count,
+			NVL((SELECT COUNT(*) FROM ELIB_AUDIO_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) AS audio_viewer_view_count
 		FROM
 			ELIB_BOOK a,
 <!-- 			ELIB_BOOKINFO d, -->
@@ -359,7 +365,8 @@
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
 			END AS label,
-			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
+			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count,
+			NVL((SELECT COUNT(*) FROM ELIB_AUDIO_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) AS audio_viewer_view_count
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -993,6 +1000,19 @@
 			device, add_ip, add_date
 		) VALUES (
 			#{book_access_idx}, #{book_idx}, #{book_code}, #{member_id}, #{member_name},
+			#{device}, #{add_ip}, SYSDATE
+		)
+	</insert>
+	
+	<insert id="addAudioBookAccess">
+		<selectKey keyProperty="audio_book_access_idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(audio_book_access_idx),0)+1 FROM ELIB_AUDIO_BOOK_ACCESS
+		</selectKey>
+		INSERT INTO ELIB_AUDIO_BOOK_ACCESS (
+			audio_book_access_idx, book_idx, book_code, member_id, member_name,
+			device, add_ip, add_date
+		) VALUES (
+			#{audio_book_access_idx}, #{book_idx}, #{book_code}, #{member_id}, #{member_name},
 			#{device}, #{add_ip}, SYSDATE
 		)
 	</insert>

@@ -752,5 +752,9 @@ public class BookService extends BaseService {
 	public int addBookAccess(Book book) {
 		return dao.addBookAccess(book);
 	}
+
+	public int addAudioBookAccess(Book book) {
+		return dao.addAudioBookAccess(book);
+	}
 	
 }

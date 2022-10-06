@@ -121,4 +121,6 @@ public interface BookDao {
 	public int addViewCount(Book book);
 
 	public int addBookAccess(Book book);
+
+	public int addAudioBookAccess(Book book);
 }

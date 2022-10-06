@@ -36,7 +36,6 @@ import is.tagomor.woothee.Classifier;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -233,15 +232,15 @@ public class ElibController extends BaseController {
 			model.addAttribute("book", withLabels2(book, compList));
 		} else if("NEW".equals(menu)) {
 			//			book.setSortField("BOOK_PUBDT");
-			book.setSortType("DESC");
+//			book.setSortType("DESC");
 			model.addAttribute("book", book);
 		} else if("BEST".equals(menu)) {
 			//			book.setSortField("BOOK_LEND");
 			book.setSortType("DESC");
 			model.addAttribute("book", book);
 		} else if("RECOMMEND".equals(menu)) {
-			book.setSortField("RECOMMEND_CNT");
-			book.setSortType("DESC");
+//			book.setSortField("RECOMMEND_CNT");
+//			book.setSortType("DESC");
 			model.addAttribute("book", book);
 		} else if("DEVICE".equals(menu)) {
 			setApporve_yn(book, request);
@@ -908,6 +907,13 @@ public class ElibController extends BaseController {
 				 */
 				ret = lendingService.borrowImmedReturnProc(lending);
 				if (ret > 0) {
+					//오디오북 인기순 정렬을 위한 데이터 누적
+					try {
+						Member member = getSessionMemberInfo(request);
+						bookService.addAudioBookAccess(new Book(book.getBook_idx(), book.getBook_code(), member.getMember_id(), member.getMember_name(), getDevice(request.getHeader("user-agent")), request.getRemoteAddr()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					res.setValid(true);
 				} else {
 					res.setValid(false);
