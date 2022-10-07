@@ -14,7 +14,7 @@
 					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=141" class="last-box_w"><img src="/resources/common/img/sitemap_icon_white.png" alt="사이트맵" /></a>
 					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=141" class="last-box_b"><img src="/resources/common/img/sitemap_icon_black.png" alt="사이트맵" /></a>
 					<div class="mmode">
-							<a href="http://donggu-lib-onbook.kr/ " target="_blank" class="onbook_box_m onbook_btn">ON BOOK</a>
+							<a href="http://donggu-lib-archive.kr/" target="_blank" class="onbook_box_m onbook_btn">ON BOOK</a>
 							<p style="height:3px;"></p>
 							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=68" class="btn4">
 								<i class="fa fa-bookmark"></i>
