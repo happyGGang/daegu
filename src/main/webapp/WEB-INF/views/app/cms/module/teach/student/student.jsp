@@ -426,7 +426,10 @@ $(function(){
 				<c:if test="${teachInfo.vaccines_yn eq 'Y'}">
 					<th>접종상태</th>
 				</c:if>
-				<c:if test="${teachInfo.school_grade_yn eq 'Y'}">
+				<c:if test="${teachInfo.school_grade_yn eq 'Y' && teachInfo.homepage_id eq 'h7'}">
+					<th>학년</th>
+				</c:if>
+				<c:if test="${teachInfo.school_grade_yn eq 'Y' && teachInfo.homepage_id ne 'h7'}">
 					<th>반</th>
 				</c:if>
 				<th>신청일</th>
