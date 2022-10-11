@@ -513,7 +513,13 @@ $(function(){
 						</c:choose>
 					</td>
 				</c:if>
-				<c:if test="${teachInfo.school_grade_yn eq 'Y'}">
+				<c:if test="${teachInfo.school_grade_yn eq 'Y' && teachInfo.homepage_id eq 'h7'}">
+					<td>
+						<c:if test="${empty i.student_hack}">없음</c:if>
+						${i.student_hack}
+					</td>
+				</c:if>
+				<c:if test="${teachInfo.school_grade_yn eq 'Y' && teachInfo.homepage_id ne 'h7'}">
 					<td>
 						<c:if test="${empty i.student_ban}">없음</c:if>
 						${i.student_ban}
