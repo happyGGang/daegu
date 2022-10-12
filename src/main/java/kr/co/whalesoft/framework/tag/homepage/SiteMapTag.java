@@ -42,7 +42,7 @@ public class SiteMapTag extends BodyTagSupport {
 		HtmlTag ulTag_lvl3 = null;
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
-
+		
 		int ulMenuCount = 1;
 		if(menuList != null) {
 			// 하위 메뉴가 있나 없나
@@ -80,7 +80,7 @@ public class SiteMapTag extends BodyTagSupport {
 				else if ( menu.getMenu_type().equals("LINK_OUTER") ) {
 					link_url = menu.getLink_url();
 				}
-				else if ( menu.getMenu_type().equals("NONE") ) {
+				else if ( menu.getMenu_type().equals("NONE")) {
 					link_url = "#";
 				}
 				else {
@@ -131,8 +131,8 @@ public class SiteMapTag extends BodyTagSupport {
 					liTag_lvl2 = new HtmlTag("li");
 					liTag_lvl2.setContent("<a href=\"" + link_url + "\" " + targetStr + ">" + menu.getMenu_name() + "</a>");
 					ulTag_lvl2.addSubTag(liTag_lvl2);
-				} else if(menu.getMenu_level() == 3) {
-					if(!check_lvl3) {
+				} else {
+					if(!check_lvl3 && menu.getMenu_level() == 3) {
 						check_lvl3 = true;
 						ulTag_lvl3 = new HtmlTag("ul");
 						liTag_lvl2.addSubTag(ulTag_lvl3);
@@ -140,9 +140,21 @@ public class SiteMapTag extends BodyTagSupport {
 					if(menu.getMenu_type().equals("LINK_OUTER")) {
 						targetStr = "target=\"_blank\"";
 					}
-					liTag_lvl3 = new HtmlTag("li");
-					liTag_lvl3.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
-					ulTag_lvl3.addSubTag(liTag_lvl3);
+					if(hasChildren.containsKey(menu.getMenu_idx())) {
+						// 2뎁스이고 하위 메뉴가 있으면 링크 없앰
+						link_url = "#";
+						targetStr = "";
+					}
+					if (menu.getMenu_level() == 3) {
+						liTag_lvl3 = new HtmlTag("li");
+						liTag_lvl3.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
+						ulTag_lvl3.addSubTag(liTag_lvl3);
+					}
+					if (menu.getMenu_level() == 4) {
+						liTag_lvl3 = new HtmlTag("ul");
+						liTag_lvl3.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
+						ulTag_lvl3.addSubTag(liTag_lvl3);
+					}
 				}
 			}
 		}
