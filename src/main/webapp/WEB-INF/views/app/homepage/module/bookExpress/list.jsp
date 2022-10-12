@@ -258,8 +258,8 @@ $(function() {
 					<a href="#" style="display: block;" class="cancel" keyValue="${i.book_express_idx}">신청취소</a>
 					</c:if>
 				</td>
-				<td><fmt:formatDate value="${i.request_date}" pattern="yyyy.MM.dd"/></td>
 				<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
+				<td><fmt:formatDate value="${i.request_date}" pattern="yyyy.MM.dd"/></td>
 			</tr>
 			</c:forEach>
 			<c:if test="${fn:length(bookExpressList) < 1}">

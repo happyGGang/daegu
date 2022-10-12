@@ -115,8 +115,8 @@ public class BookExpressView extends AbstractJExcelView {
 					break;
 			}
 			workbook.getSheet(0).addCell(new Label(8, row, status));
-			workbook.getSheet(0).addCell(new Label(9, row, sdf.format(one.getRequest_date())));
-			workbook.getSheet(0).addCell(new Label(10, row, sdf.format(one.getAdd_date())));
+			workbook.getSheet(0).addCell(new Label(9, row, sdf.format(one.getAdd_date())));
+			workbook.getSheet(0).addCell(new Label(10, row, sdf.format(one.getRequest_date())));
 			row++;
 		}
 		
