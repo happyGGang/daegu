@@ -37,6 +37,14 @@
 							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon.png" alt="로그아웃"  class="tnb-logout"/></a>
 						</li>
 					</c:when>
+					<c:when test="${loginPortal.login}">
+						<li>
+							<b>${loginPortal.agency_id}님</b>
+						</li>
+						<li>
+							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon.png" alt="로그아웃"  class="tnb-logout"/></a>
+						</li>
+					</c:when>
 					<c:otherwise>
 						<li>
 							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=41" title="로그인"><img src="/resources/homepage/${homepage.context_path}/img/login_icon.png" alt="로그인" class="tnb-login"/></a>
