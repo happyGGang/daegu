@@ -1022,6 +1022,7 @@
 			homepage_id = #{homepage_id}
 		AND locker_number = #{locker_number}
      	AND cancel_yn = 'N'
+     	AND member_id = #{member_id}
      	AND reservation_step &lt; 3
 	</update>
 	
@@ -1032,6 +1033,8 @@
 			UNTACT_BOOK_RESERVATION
 		WHERE
 			homepage_id = #{homepage_id}
+		AND cancel_yn = 'N'
+     	AND member_id = #{member_id}
 		AND locker_number = #{unused_locker_number}
 	</select>
 	
