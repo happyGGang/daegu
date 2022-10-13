@@ -37,12 +37,12 @@
 							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon.png" alt="로그아웃"  class="tnb-logout"/></a>
 						</li>
 					</c:when>
-					<c:when test="${loginPortal.login}">
+					<c:when test="${not empty sessionScope.loginPortal and sessionScope.loginPortal.login}">
 						<li>
-							<b>${loginPortal.agency_id}님</b>
+							<b>${sessionScope.loginPortal.agency_id}님</b>
 						</li>
 						<li>
-							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon.png" alt="로그아웃"  class="tnb-logout"/></a>
+							<a href="/${homepage.context_path}/module/portalMember/logout.do">교수학습 로그아웃</a>
 						</li>
 					</c:when>
 					<c:otherwise>
