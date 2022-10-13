@@ -192,10 +192,10 @@
 				<if test="agency_id != null and agency_id != ''">
 				AND	agency_id = #{agency_id}
 				</if>
+				<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND	${search_type} LIKE '%'||#{search_text}||'%'
+				</if>
 			</trim>
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
 			GROUP BY request_status
 			)
 	</select>
