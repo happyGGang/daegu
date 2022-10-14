@@ -469,6 +469,7 @@ public class CommonSearchController extends BaseController {
 //			}
 
 			model.addAttribute("detail", map);
+			model.addAttribute("droneDeviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
 			model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
 			model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
 			model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
@@ -2582,6 +2583,11 @@ public class CommonSearchController extends BaseController {
 			return null;
 		}
 
+		if (deviceSettingService.getDeviceUsedCount(new DeviceSetting()) <= 0) {
+			service.alertMessage("드론대출 신청 기간이 아닙니다.", request, response);
+			return null;
+		}
+
 		int personalLoanCount = loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request)));
 		int dayLoanCount = loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code()));
 
@@ -2635,6 +2641,10 @@ public class CommonSearchController extends BaseController {
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			result.reject("로그인 후 이용가능합니다.");
+		}
+
+		if (deviceSettingService.getDeviceUsedCount(new DeviceSetting()) <= 0) {
+			result.reject("드론대출 신청 기간이 아닙니다.");
 		}
 
 		if (!"CANCEL".equals(librarySearch.getEditMode())) {

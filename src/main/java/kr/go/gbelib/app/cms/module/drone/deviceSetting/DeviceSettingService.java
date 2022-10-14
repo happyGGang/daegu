@@ -18,4 +18,12 @@ public class DeviceSettingService extends BaseService {
     public int insertDevice(DeviceSetting deviceSetting) {
         return dao.insertDevice(deviceSetting);
     }
+
+    public int updateDeviceUseYn(DeviceSetting deviceSetting) {
+        return dao.updateDeviceUseYn(deviceSetting);
+    }
+
+    public int getDeviceUsedCount(DeviceSetting deviceSetting) {
+        return dao.getDeviceUsedCount(deviceSetting);
+    }
 }

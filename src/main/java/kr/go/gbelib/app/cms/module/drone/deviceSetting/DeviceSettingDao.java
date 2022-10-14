@@ -7,5 +7,9 @@ public interface DeviceSettingDao {
 
     public List<DeviceSetting> getDeviceList(DeviceSetting deviceSetting);
 
+    public int getDeviceUsedCount(DeviceSetting deviceSetting);
+
     public int insertDevice(DeviceSetting deviceSetting);
+
+    public int updateDeviceUseYn(DeviceSetting deviceSetting);
 }

@@ -10,6 +10,15 @@
     AND use_yn = #{use_yn};
   </select>
 
+  <select id="getDeviceUsedCount" resultType="int">
+    SELECT
+        COUNT(*)
+    FROM
+        DRONE_LOAN_DEVICE_SETTING
+    WHERE
+        USE_YN = 'Y'
+  </select>
+
   <insert id="insertDevice">
     <selectKey keyProperty="device_idx" resultType="int" order="BEFORE">
       SELECT NVL(MAX(DEVICE_IDX),0)+1 FROM DRONE_LOAN_DEVICE_SETTING
@@ -24,4 +33,11 @@
         #{device_idx}, #{manage_code}, #{device_code}, #{pickup_place}, #{use_yn},SYSDATE,#{add_id}
     )
   </insert>
+
+  <update id="updateDeviceUseYn">
+    UPDATE
+        DRONE_LOAN_DEVICE_SETTING
+    SET
+        USE_YN = #{use_yn}
+  </update>
 </mapper>

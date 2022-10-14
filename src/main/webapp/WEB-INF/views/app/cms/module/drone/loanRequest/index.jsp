@@ -95,6 +95,16 @@
       }
     })
 
+    $('.modifyApplyStatus').on('click',function(e) {
+      if(confirm('드론대출 신청가능여부를 변경하시겠습니까?')) {
+        $('form#modifyApplyStatus #use_yn').val($(this).attr('keyValue1'));
+
+        if (doAjaxPost($('form#modifyApplyStatus'))) {
+          location.reload();
+        }
+      }
+    });
+
   });
 </script>
 
@@ -114,6 +124,10 @@
     <form:hidden path="request_status"/>
 </form:form>
 
+<form:form id="modifyApplyStatus" modelAttribute="loanRequest" method="post" action="modifyApplyStatus.do">
+    <form:hidden path="device_idx"/>
+    <form:hidden path="use_yn"/>
+</form:form>
 
 <form:form modelAttribute="loanRequest" method="get" action="index.do">
     <form:hidden id="homepage_id" path="homepage_id"/>
@@ -129,6 +143,11 @@
             <form:option value="">전체</form:option>
             <form:options items="${status}" itemLabel="code_name" itemValue="code_id"/>
         </form:select>
+
+        <span style="font-size:14px; float: right;">
+            <span>${deviceUsedCount > 0 ? '신청가능' : '신청불가능'}</span>
+            <a href="#" class="btn btn1 modifyApplyStatus" keyValue1="${deviceUsedCount > 0 ? 'N' : 'Y'}">신청여부변경</a>
+        </span>
     </div>
 
     <table class="type1 center">
@@ -191,7 +210,7 @@
         </c:forEach>
         <c:if test="${fn:length(loanRequestList) < 1}">
             <tr>
-                <td colspan="8" style="height:100%">조회된 데이터가 없습니다.</td>
+                <td colspan="11" style="height:100%">조회된 데이터가 없습니다.</td>
             </tr>
         </c:if>
         </tbody>

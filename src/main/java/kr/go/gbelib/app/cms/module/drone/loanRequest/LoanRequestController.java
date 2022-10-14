@@ -11,6 +11,8 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StaticVariables;
+import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSetting;
+import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,8 @@ public class LoanRequestController extends BaseController {
     private CodeService codeService;
 
     @Autowired
+    private DeviceSettingService deviceSettingService;
+    @Autowired
     private HomepageService homepageService;
 
     @RequestMapping(value = {"/index.*"})
@@ -44,6 +48,7 @@ public class LoanRequestController extends BaseController {
         service.setPaging(model, service.getLoanRequestCount(loanRequest), loanRequest);
         model.addAttribute("loanRequest", loanRequest);
         model.addAttribute("loanRequestList", service.getLoanRequestList(loanRequest));
+        model.addAttribute("deviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
 
         Code code = new Code();
         code.setHomepage_id("CMS");
@@ -99,4 +104,21 @@ public class LoanRequestController extends BaseController {
 
             return res;
         }
+
+    @RequestMapping (value = {"/modifyApplyStatus.*"}, method = RequestMethod.POST)
+    public @ResponseBody JsonResponse modifyApplyStatus(LoanRequest loanRequest, BindingResult result, HttpServletRequest request) {
+        /* 유효성 검증 >>>>> */
+        JsonResponse res = new JsonResponse(request);
+
+        if (!result.hasErrors()) {
+            deviceSettingService.updateDeviceUseYn(DeviceSetting.ofDeviceIdxAndUseYn(loanRequest.getDevice_idx(),  loanRequest.getUse_yn()));
+            res.setValid(true);
+            res.setMessage("드론대출신청 사용유무가 변경되었습니다.");
+        } else {
+            res.setValid(false);
+            res.setResult(result.getAllErrors());
+        }
+
+        return res;
+    }
     }

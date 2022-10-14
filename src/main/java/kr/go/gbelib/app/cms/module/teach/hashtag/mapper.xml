@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.cultureTeach.hashtag.HashtagDao">
+  <select id="getHashtagList" resultType="kr.go.gbelib.app.cms.module.cultureTeach.hashtag.Hashtag">
+    SELECT
+      HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
+      ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
+    FROM
+      CULTURE_TEACH_HASHTAG
+  </select>
+
+  <select id="getHashtagOne" resultType="kr.go.gbelib.app.cms.module.cultureTeach.hashtag.Hashtag">
+    SELECT
+      HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
+      ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
+    FROM
+      CULTURE_TEACH_HASHTAG
+    WHERE
+      HASHTAG_IDX = #{hashtag_idx}
+  </select>
+
+  <insert id="insertHashtag">
+    INSERT INTO CULTURE_TEACH_HASHTAG
+    (
+      HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
+      ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
+    ) VALUES (
+       #{hashtag_idx}, #{hashtag_code},#{hashtag_name}, #{use_yn}, #{homepage_id},
+       #{add_ip}, #{add_id}, SYSDATE, #{modify_ip}, #{modify_id}, SYSDATE
+     )
+  </insert>
+</mapper>

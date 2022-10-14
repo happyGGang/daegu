@@ -18,6 +18,15 @@ public class DeviceSetting extends PagingUtils {
         this.manage_code = manage_code;
     }
 
+    private DeviceSetting(int device_idx, String use_yn) {
+        this.device_idx = device_idx;
+        this.use_yn = use_yn;
+    }
+
+    public static DeviceSetting ofDeviceIdxAndUseYn(int device_idx, String use_yn) {
+        return new DeviceSetting(device_idx, use_yn);
+    }
+
     public int getDevice_idx() {
         return device_idx;
     }

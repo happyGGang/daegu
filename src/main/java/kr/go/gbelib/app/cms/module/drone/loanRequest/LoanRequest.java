@@ -52,6 +52,9 @@ public class LoanRequest extends PagingUtils {
     private String loan_date;
     private String return_date;
 
+    private int device_idx;
+    private String use_yn;
+
     public LoanRequest() {}
 
     private LoanRequest(String manage_code) {
@@ -432,5 +435,21 @@ public class LoanRequest extends PagingUtils {
 
     public void setReturn_date(String return_date) {
         this.return_date = return_date;
+    }
+
+    public int getDevice_idx() {
+        return device_idx;
+    }
+
+    public void setDevice_idx(int device_idx) {
+        this.device_idx = device_idx;
+    }
+
+    public String getUse_yn() {
+        return use_yn;
+    }
+
+    public void setUse_yn(String use_yn) {
+        this.use_yn = use_yn;
     }
 }
