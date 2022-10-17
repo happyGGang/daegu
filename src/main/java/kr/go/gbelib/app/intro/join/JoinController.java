@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.intro.join;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -222,30 +224,11 @@ public class JoinController extends BaseController {
 		String mode = String.valueOf(request.getSession().getAttribute("certMode")).toLowerCase();
 		boolean certResult = false;
 
-		// if(StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
-		// member.setCertComplete(true);
-		//// member.setMember_name("구봉민");
-		//// member.setCi_value("5O7+3vUCnFviqI5tPLgL4lYLbVFp+VEIB6sv8rjdA1M/gtq5xLgFE1oip/AMBGp2McakHtjHpyuZAn/cg4+dug==");
-		//// member.setCell_phone("01091992743");
-		//// member.setBirth_day("19740228");
-		//
-		// member.setMember_name("홍길동");
-		// member.setDi_value("MC0GCCqGSIb3DQIJAyEAYuPiGVkAsssdflLedxFexNBXOurjsNwVEXZcAABBB=");
-		//// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA+BVvYeAiYH1rR9fqdz6CkE8k0wnOC/Jg==");
-		// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA BVvYeAiYH1rR9fqdz6CBBBAA");
-		//// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA+BVvYeAiYH1rR9fqdz6CkE8k0");
-		// member.setCell_phone("01085069542");
-		// member.setBirth_day("19870607");
-		// member.setSex("1");
-		// member.setAge("7");
-		//
-		// } else {
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
 			member = joinService.smsCertProc(request, member);
 		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {
 			member = joinService.ipinCertProc(request, member);
 		}
-		// }
 
 		// 본인인증 실패
 		if (!member.isCertComplete()) {
@@ -255,9 +238,6 @@ public class JoinController extends BaseController {
 
 		// System.out.println("@@@@@@@@@@@@@@@@ mode : " + mode);
 		// System.out.println("@@@@@@@@@@@@@@@@ certType : " + certType);
-		// System.out.println("@@@@@@@@@@@@@@@@ 인증 성명 : " + member.getMember_name());
-		// System.out.println("@@@@@@@@@@@@@@@@ 인증 생년월일 : " + member.getBirth_day());
-		// System.out.println("@@@@@@@@@@@@@@@@ 인증 전화번호 : " + member.getCell_phone());
 		// System.out.println("@@@@@@@@@@@@@@@@ 인증 CI : " + member.getCi_value());
 
 		// 개명으로인한 성명변경
@@ -510,17 +490,38 @@ public class JoinController extends BaseController {
 
 			String currentContext  = String.valueOf(request.getSession().getAttribute("currentContext"));
 
-			// 3. 책이음 중복자 확인
-			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
-			if (!StringUtils.equals(currentContext, "daegu")) {
-				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
-				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-				if (klmemberInfo != null && klmemberInfo.size() > 0) {
-					model.addAttribute("dupCheckKl", true);
-					model.addAttribute("dupUser", klmemberInfo.get(0));
+			//책이음 서비스 대구지역센터 DB 통합 작업 일시중단으로 인해 2022.10.18(화) 9:00 ~ 2022.10.31(월) 23:00까지 사용중지
+			try {
+				Date toDate = new Date();
+				String start = "2022-10-18 09:00:00";
+				String end = "2022-10-31 23:00:00";
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				toDate = sdf.parse(sdf.format(toDate));
+				Date startDate = sdf.parse(start);
+				Date endDate = sdf.parse(end);
+				
+				int compare1 = toDate.compareTo(startDate);
+				int compare2 = endDate.compareTo(toDate);
+				
+				if(compare1 >= 0 && compare2 >= 0) {
+					
+				} else {
+					// 3. 책이음 중복자 확인
+					// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
+					if (!StringUtils.equals(currentContext, "daegu")) {
+						// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+						List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+						if (klmemberInfo != null && klmemberInfo.size() > 0) {
+							model.addAttribute("dupCheckKl", true);
+							model.addAttribute("dupUser", klmemberInfo.get(0));
+						}
+					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-
+			
 			model.addAttribute("parent", false);
 		} else {
 			model.addAttribute("parent", false);
@@ -551,24 +552,6 @@ public class JoinController extends BaseController {
 		String mode = String.valueOf(request.getSession().getAttribute("certMode")).toLowerCase();
 		boolean certResult = false;
 
-		// if(StringUtils.equals(System.getProperty("spring.profiles.active"), "localServer")) {
-		// member.setCertComplete(true);
-		//// member.setMember_name("구봉민");
-		//// member.setCi_value("5O7+3vUCnFviqI5tPLgL4lYLbVFp+VEIB6sv8rjdA1M/gtq5xLgFE1oip/AMBGp2McakHtjHpyuZAn/cg4+dug==");
-		//// member.setCell_phone("01091992743");
-		//// member.setBirth_day("19740228");
-		//
-		// member.setMember_name("홍길동");
-		// member.setDi_value("MC0GCCqGSIb3DQIJAyEAYuPiGVkAsssdflLedxFexNBXOurjsNwVEXZcAABBB=");
-		//// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA+BVvYeAiYH1rR9fqdz6CkE8k0wnOC/Jg==");
-		// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA BVvYeAiYH1rR9fqdz6CBBBAA");
-		//// member.setCi_value("eMHOwvyxxkueaTHdBNJcb7L4g2lg8S1p1uTZWoM7LOoHvB2KbvPdzA+BVvYeAiYH1rR9fqdz6CkE8k0");
-		// member.setCell_phone("01085069542");
-		// member.setBirth_day("19870607");
-		// member.setSex("1");
-		// member.setAge("7");
-		//
-		// } else {
 		Homepage homepage = getSessionHomepage(request);
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
 			member = joinService.smsCertProc2(request, member);
@@ -585,9 +568,6 @@ public class JoinController extends BaseController {
 
 		// System.out.println("@@@@@@@@@@@@@@@@ mode : " + mode);
 		// System.out.println("@@@@@@@@@@@@@@@@ certType : " + certType);
-		// System.out.println("@@@@@@@@@@@@@@@@ 인증 성명 : " + member.getMember_name());
-		// System.out.println("@@@@@@@@@@@@@@@@ 인증 생년월일 : " + member.getBirth_day());
-		// System.out.println("@@@@@@@@@@@@@@@@ 인증 전화번호 : " + member.getCell_phone());
 		// System.out.println("@@@@@@@@@@@@@@@@ 인증 CI : " + member.getCi_value());
 
 		// 개명으로인한 성명변경
@@ -840,15 +820,36 @@ public class JoinController extends BaseController {
 
 			String currentContext  = String.valueOf(request.getSession().getAttribute("currentContext"));
 
-			// 3. 책이음 중복자 확인
-			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
-			if (!StringUtils.equals(currentContext, "daegu")) {
-				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
-				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-				if (klmemberInfo != null && klmemberInfo.size() > 0) {
-					model.addAttribute("dupCheckKl", true);
-					model.addAttribute("dupUser", klmemberInfo.get(0));
+			//책이음 서비스 대구지역센터 DB 통합 작업 일시중단으로 인해 2022.10.18(화) 9:00 ~ 2022.10.31(월) 23:00까지 사용중지
+			try {
+				Date toDate = new Date();
+				String start = "2022-10-18 09:00:00";
+				String end = "2022-10-31 23:00:00";
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				
+				toDate = sdf.parse(sdf.format(toDate));
+				Date startDate = sdf.parse(start);
+				Date endDate = sdf.parse(end);
+				
+				int compare1 = toDate.compareTo(startDate);
+				int compare2 = endDate.compareTo(toDate);
+				
+				if(compare1 >= 0 && compare2 >= 0) {
+					
+				} else {
+					// 3. 책이음 중복자 확인
+					// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
+					if (!StringUtils.equals(currentContext, "daegu")) {
+						// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+						List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+						if (klmemberInfo != null && klmemberInfo.size() > 0) {
+							model.addAttribute("dupCheckKl", true);
+							model.addAttribute("dupUser", klmemberInfo.get(0));
+						}
+					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 			model.addAttribute("parent", false);

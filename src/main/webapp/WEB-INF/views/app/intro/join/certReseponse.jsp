@@ -32,18 +32,21 @@ $(function() {
 		}
 	}
 
-
-	if ('${dupCheckKl}' == 'true') {
-		if ('${dupUser.USER_NO}' != '') {
-			alert('회원님의 대출번호는 ${dupUser.USER_NO}이며 책이음회원으로 이미 가입되어 있습니다.');
-		} else {
-			alert('이미 가입되어 있습니다.');
+	<c:choose>
+		<c:when test="${not empty dupCheckKl}">
+		if ('${dupCheckKl}' == 'true') {
+			if ('${dupUser.USER_NO}' != '') {
+				alert('회원님의 대출번호는 ${dupUser.USER_NO}이며 책이음회원으로 이미 가입되어 있습니다.');
+			} else {
+				alert('이미 가입되어 있습니다.');
+			}
+	
+			window.close();
+			return false;
 		}
-
-		window.close();
-		return false;
-	}
-
+		</c:when>
+	</c:choose>
+	
 	if ('${dupCheck}' == 'true') {
 		if ('${dupUser.USER_CLASS}' == '3') {
 			alert('탈퇴 회원입니다. 도서관으로 문의 바랍니다.');
