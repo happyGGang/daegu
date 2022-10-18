@@ -2259,12 +2259,14 @@
 			<when test="member_key != null and member_key != ''">
 			member_key = #{member_key}
 			</when>
+			<when test="student_idx != null and student_idx != ''">
+			student_idx = #{student_idx}
+			</when>
 			<otherwise>
 			applicant_name = #{apply_name}
 		AND	student_password = #{apply_password}
 			</otherwise>
 		</choose>
-		AND	ROWNUM = 1
 	</select>
 
 	<select id="getTeacherName" resultType="string">
