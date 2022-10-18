@@ -210,6 +210,79 @@ $(function() {
 	</tbody>
 </table>
 </c:when>
+<c:when test="${homepage.context_path eq 'bukdh'}">
+<table class="type1">
+	<colgroup>
+		<col width="140"/>
+		<col width="*"/>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th>신청자 성명</th>
+			<td>
+				<form:hidden path="applicant_name" value="${member.member_name}"/>
+				${member.member_name}
+
+			</td>
+		</tr>
+		<tr>
+			<th>신청자 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:hidden path="applicant_tel"/>
+				<form:input path="applicant_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="3" numberonly="true" value="${fn:substring(member.mobile_no, 0, 3)}"/> -
+				<form:input path="applicant_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 3, 7)}"/> -
+				<form:input path="applicant_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 7, 11)}"/>
+			</td>
+		</tr>
+		<tr>
+			<th>신청자 이메일</th>
+			<td>
+				<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
+			</td>
+		</tr>
+		<tr>
+			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
+			</td>
+		</tr>
+		<tr>
+			<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:hidden path="agency_tel"/>
+				<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+				<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+				<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<th>기관 주소</th>
+			<td>
+				<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
+			</td>
+		</tr>
+		<tr>
+			<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:input path="age" class="text" cssStyle="width:50px" />
+			</td>
+		</tr>
+		<tr>
+			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *최대 20명 제한, 숫자만 입력가능</td>
+		</tr>
+		<tr>
+			<th>비고</th>
+			<td>
+				<form:input path="remarks" class="text" cssStyle="width:80%"/><br />
+				<c:if test="${homepage.context_path eq '228'}">
+					기관 위치를 입력해주세요 (동구, 수성구, 중구, 북구 등)
+				</c:if>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</c:when>
 <c:otherwise>
 <table class="type1">
 	<colgroup>
