@@ -532,23 +532,23 @@
 		<!-- 신청도서관 부분 추가 -->
 		<tr>
 			<th>제목 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="title" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' ? 'true' : 'false'}"/></td>
+			<td><form:input path="title" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
 		<tr>
 			<th>저자 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="author" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' ? 'true' : 'false'}"/></td>
+			<td><form:input path="author" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
 		<tr>
 			<th>출판사 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="publer" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' ? 'true' : 'false'}"/></td>
+			<td><form:input path="publer" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
 		<tr>
 			<th>연도 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="publer_year" style="width:40%" class="text" type="text" numberOnly="true" maxlength="4" readonly="${homepage.context_path eq 'bukgs' ? 'true' : 'false'}"/></td>
+			<td><form:input path="publer_year" style="width:40%" class="text" type="text" numberOnly="true" maxlength="4" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
 		<tr>
 			<th>ISBN<c:if test="${context_path eq 'bukgs' or context_path eq 'bukdh' or context_path eq 'buktj'}"><em><font color="red">(*)</font></em></c:if></th>
-			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13" readonly="${homepage.context_path eq 'bukgs' ? 'true' : 'false'}"/></td>
+			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
 		<tr>
 			<th>비고</th>
@@ -556,7 +556,7 @@
 		</tr>
 		<tr>
 			<th>가격 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="price" style="width:40%" class="text" type="text" maxlength="10" numberOnly="true" readonly="${homepage.context_path eq 'bukgs' ? 'true' : 'false'}"/></td>
+			<td><form:input path="price" style="width:40%" class="text" type="text" maxlength="10" numberOnly="true" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
 		<c:if test="${context_path ne 'nambu' and context_path ne 'std'}">
 		<tr>
