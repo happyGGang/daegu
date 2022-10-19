@@ -1925,6 +1925,8 @@
 			THEN '3'
 			WHEN A.status = 1 AND	A.apply_status = '99' AND	A.CANCEL_ID IS NOT NULL AND A.CANCEL_ID = A.MEMBER_KEY
 			THEN '7'
+			WHEN A.status = 1 AND	A.apply_status = '99' AND	A.CANCEL_ID IS NULL
+			THEN '7'
 			WHEN A.status = 1 AND	A.apply_status = '99'
 			THEN '8'
 			WHEN A.status = 1
