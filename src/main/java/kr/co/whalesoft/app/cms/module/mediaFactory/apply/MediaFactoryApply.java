@@ -60,7 +60,13 @@ public class MediaFactoryApply extends PagingUtils {
 	private String plan_day;
 	private String checkMonth;
 	
-	
+	private String protector_name;
+	private String protector_relation;
+	private String protector_address;
+	private String protector_tel;
+	private String protector_tel_1;
+	private String protector_tel_2;
+	private String protector_tel_3;
 
 	public String getCheckMonth() {
 		return checkMonth;
@@ -498,6 +504,62 @@ public class MediaFactoryApply extends PagingUtils {
 
 	public void setUse_time(String use_time) {
 		this.use_time = use_time;
+	}
+
+	public String getProtector_name() {
+		return protector_name;
+	}
+
+	public void setProtector_name(String protector_name) {
+		this.protector_name = protector_name;
+	}
+
+	public String getProtector_relation() {
+		return protector_relation;
+	}
+
+	public void setProtector_relation(String protector_relation) {
+		this.protector_relation = protector_relation;
+	}
+
+	public String getProtector_address() {
+		return protector_address;
+	}
+
+	public void setProtector_address(String protector_address) {
+		this.protector_address = protector_address;
+	}
+
+	public String getProtector_tel() {
+		return protector_tel;
+	}
+
+	public void setProtector_tel(String protector_tel) {
+		this.protector_tel = protector_tel;
+	}
+
+	public String getProtector_tel_1() {
+		return protector_tel_1;
+	}
+
+	public void setProtector_tel_1(String protector_tel_1) {
+		this.protector_tel_1 = protector_tel_1;
+	}
+
+	public String getProtector_tel_2() {
+		return protector_tel_2;
+	}
+
+	public void setProtector_tel_2(String protector_tel_2) {
+		this.protector_tel_2 = protector_tel_2;
+	}
+
+	public String getProtector_tel_3() {
+		return protector_tel_3;
+	}
+
+	public void setProtector_tel_3(String protector_tel_3) {
+		this.protector_tel_3 = protector_tel_3;
 	}
 	
 }

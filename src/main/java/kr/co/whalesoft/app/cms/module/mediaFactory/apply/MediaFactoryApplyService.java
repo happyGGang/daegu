@@ -84,6 +84,9 @@ public class MediaFactoryApplyService extends BaseService {
 		if ( apply.getGuide_tel_1() != "" && apply.getGuide_tel_2() != "" && apply.getGuide_tel_3() != "" ) {
 			apply.setGuide_tel(String.format("%s-%s-%s", apply.getGuide_tel_1(), apply.getGuide_tel_2(), apply.getGuide_tel_3()));
 		}
+		if ( apply.getProtector_tel_1() != "" && apply.getProtector_tel_2() != "" && apply.getProtector_tel_3() != "" ) {
+			apply.setProtector_tel(String.format("%s-%s-%s", apply.getProtector_tel_1(), apply.getProtector_tel_2(), apply.getProtector_tel_3()));
+		}
 		
 		String filterCheck = null;
 		try {
@@ -111,6 +114,9 @@ public class MediaFactoryApplyService extends BaseService {
 		}
 		if ( apply.getGuide_tel_1() != "" && apply.getGuide_tel_2() != "" && apply.getGuide_tel_3() != "" ) {
 			apply.setGuide_tel(String.format("%s-%s-%s", apply.getGuide_tel_1(), apply.getGuide_tel_2(), apply.getGuide_tel_3()));
+		}
+		if ( apply.getProtector_tel_1() != "" && apply.getProtector_tel_2() != "" && apply.getProtector_tel_3() != "" ) {
+			apply.setProtector_tel(String.format("%s-%s-%s", apply.getProtector_tel_1(), apply.getProtector_tel_2(), apply.getProtector_tel_3()));
 		}
 		return Dao.modifyApply(apply);
 	}

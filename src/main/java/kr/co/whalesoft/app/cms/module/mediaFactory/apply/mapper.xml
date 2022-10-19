@@ -16,7 +16,26 @@
 		applicant_name, applicant_tel, applicant_email, age,
 		start_date, start_time, end_date, end_time,
 		personnel, apply_state, ip, remarks, add_id, add_date,
-		apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel
+		apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel,
+		protector_name, protector_relation, protector_address, protector_tel
+	</sql>
+
+	<!-- 견학신청자 컬럼  -->
+	<sql id="insertfield">
+		#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_MEDIAFACTORY_APPLY), #{mediaFactory_idx}, #{agency_name}, #{agency_tel},
+		#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+		#{start_date}, #{use_time}, #{end_date}, #{personnel}, '1',
+		#{ip}, #{remarks}, #{add_id}, SYSDATE, #{apply_id}, 
+		#{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel}
+	</sql>
+	<!-- 견학신청자 컬럼(동구통합전용)  -->
+	<sql id="dongguInsertField">
+		#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_MEDIAFACTORY_APPLY), #{mediaFactory_idx}, #{agency_name}, #{agency_tel},
+		#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+		#{start_date}, #{use_time}, #{end_date}, #{personnel}, '1',
+		#{ip}, #{remarks}, #{add_id}, SYSDATE, #{apply_id}, 
+		#{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel},
+		#{protector_name}, #{protector_relation}, #{protector_address}, #{protector_tel}
 	</sql>
 
 	<!-- 견학신청자 list -->
@@ -26,7 +45,8 @@
 			applicant_name, applicant_tel, applicant_email, age,
 			start_date, start_time, end_date, end_time,
 			personnel, apply_state, ip, remarks, add_id, add_date,
-			apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel
+			apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel,
+			protector_name, protector_relation, protector_address, protector_tel
 		FROM
 			CMS_MEDIAFACTORY_APPLY
 		WHERE
@@ -156,11 +176,14 @@
 		)
 		VALUES
 		(
-			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_MEDIAFACTORY_APPLY), #{mediaFactory_idx}, #{agency_name}, #{agency_tel},
-			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
-			#{start_date}, #{use_time}, #{end_date}, #{personnel}, '1',
-			#{ip}, #{remarks}, #{add_id}, SYSDATE, #{apply_id}, 
-			#{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel}
+		<choose>
+			<when test="homepage_id != 'h50'">
+				<include refid="dongguInsertField" />
+			</when>
+			<otherwise>
+				<include refid="insertfield" />
+			</otherwise>
+		</choose>
 		)
 	</insert>
 	
@@ -177,12 +200,10 @@
 			#{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
 			#{start_date}, #{start_time}, #{end_date}, #{end_time},
 			#{personnel}, '1', #{ip}, #{remarks}, #{add_id}, SYSDATE,
-		 	#{apply_id}, #{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel}
-		
+		 	#{apply_id}, #{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel},
+		 	#{protector_name}, #{protector_relation}, #{protector_address}, #{protector_tel}
 		)
 	</insert>
-	
-	
 
 	<update id="modifyApply">
 		UPDATE
@@ -200,7 +221,11 @@
 			use_time = #{use_time},
 			personnel = #{personnel},
 			modify_id = #{modify_id},
-			modify_date = SYSDATE
+			modify_date = SYSDATE,
+			protector_name = #{protector_name},
+			protector_relation = #{protector_relation},
+			protector_address = #{protector_address},
+			protector_tel = #{protector_tel}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	apply_idx = #{apply_idx}

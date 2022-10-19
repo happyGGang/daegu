@@ -5,6 +5,36 @@
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+$(document).ready(function(){
+	if($('input:radio[id=minor]').is(':checked')){
+		$('#hide1').show();
+		$('#hide2').show();
+		$('#hide3').show();
+		$('#hide4').show();
+	} else {
+		$('#hide1').hide();
+		$('#hide2').hide();
+		$('#hide3').hide();
+		$('#hide4').hide();
+	}
+});
+
+function showDisplay(){
+    if($('input:radio[id=minor]').is(':checked')){
+    	$('#hide1').show();
+		$('#hide2').show();
+		$('#hide3').show();
+		$('#hide4').show();
+    }
+}
+
+function hideDisplay(){
+	$('#hide1').hide();
+	$('#hide2').hide();
+	$('#hide3').hide();
+	$('#hide4').hide();
+}
+
 $(function() {
 	$('#dialog-2').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
@@ -53,10 +83,19 @@ $(function() {
 	if('${mediaFactoryApply.guide_tel}' == '') {
 		$('#guide_tel_1').val("010");
 	} else {
-		var guide_tel = '${mediaFctoryApply.guide_tel}'.split('-');
+		var guide_tel = '${mediaFactoryApply.guide_tel}'.split('-');
 		$('#guide_tel_1').val(guide_tel[0]);
 		$('#guide_tel_2').val(guide_tel[1]);
 		$('#guide_tel_3').val(guide_tel[2]);
+	}
+
+	if('${mediaFactoryApply.protector_tel}' == '') {
+		$('#protector_tel_1').val("010");
+	} else {
+		var protector_tel = '${mediaFactoryApply.protector_tel}'.split('-');
+		$('#protector_tel_1').val(protector_tel[0]);
+		$('#protector_tel_2').val(protector_tel[1]);
+		$('#protector_tel_3').val(protector_tel[2]);
 	}
 
 	$('a.idCheck').on('click', function(e) {
@@ -85,7 +124,6 @@ $(function() {
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 
 	$('.findPostCode').on('click', function(e){
-		console.log("123123123");
 		e.preventDefault();
 		var zipcodeInput 	= $(this).attr('keyValue1');
 		var addressInput 	= $(this).attr('keyValue2');
@@ -137,7 +175,6 @@ $(function() {
 <form:hidden path="use_time"/>
 <form:hidden path="start_time" value="${mediaFactoryApply.start_time }"/>
 <form:hidden path="end_time" value="${mediaFactoryApply.end_time }"/>
-<%-- <form:hidden path="member_key"/> --%>
 <form:hidden path="mediaFactory_idx" value="${mediaFactoryApply.mediaFactory_idx }"/>
 <form:hidden path="start_date" value="${mediaFactoryApply.start_date }"/>
 <table class="type2">
@@ -216,8 +253,47 @@ $(function() {
 			<tr>
 				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
-					<form:radiobutton path="age" value="성인"/>만18세 이상
-					<form:radiobutton path="age" value="미성년자"/>만18 이하
+					<form:radiobutton path="age" value="성인" id="adult" onchange="hideDisplay()"/>만18세 이상
+					<form:radiobutton path="age" value="미성년자" id="minor" onchange="showDisplay()"/>만18 이하
+				</td>
+			</tr>
+			<tr id="hide1">
+				<th>보호자 동의서(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					본 법정대리인(또는 보호자)은 다음사항을 확인합니다.<br/>
+					① 본인은 「미디어팩토리」 운영지침을 숙지하셨습니다.<br/>
+					② 본인은 상기 미성년자 또는 외국인이 「미디어팩토리」의 시설 및 장비를 대여함에 동의합니다.<br/>
+					③ 본인은 상기 미성년자 또는 외국인이 「미디어팩토리」의 시설 및 장비를 이용함에 있어서 모든 책임이<br/>
+					&nbsp;&nbsp;&nbsp; 본인에게 있음을 확인합니다.<br>
+					<p style="color:red;">※ 초등학생 이하는 반드시 보호자가 함께 입실하여야 합니다.</p>
+					<div style="text-align: right; margin-bottom: 5px;">
+						<c:out value="${today}" /> 보호자 : <form:input path="protector_name" class="text" cssStyle="width:80px"/>
+					</div>
+				</td>
+			</tr>
+			<tr id="hide2">
+				<th>신청인과의 관계(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:select path="protector_relation">
+						<form:option value="1">부모</form:option>
+						<form:option value="2">교사</form:option>
+					</form:select>
+				</td>
+			</tr>
+			<tr id="hide3">
+				<th>보호자 주소(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="protector_address" class="text" cssStyle="width:250px"/>
+					<button class="btn btn2 findPostCode" keyValue1="#protector_zipcode" keyValue2="#protector_address" keyValue3="#age">주소 찾기</button>
+				</td>
+			</tr>
+			<tr id="hide4">
+				<th>보호자 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:hidden path="protector_tel"/>
+					<form:input path="protector_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+					<form:input path="protector_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+					<form:input path="protector_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
 				</td>
 			</tr>
 			<tr>

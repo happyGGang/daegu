@@ -39,7 +39,7 @@ $(function() {
 	});
 	
 	$("#dialog-3").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 900,
+		width: 1200,
 		height: 500
 	});
 	
@@ -86,13 +86,29 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
-			<col width="100"/>
-			<col width="120"/>
-			<col width="120"/>
-			<col width="120"/>
-			<col width="75"/>
-			<col width="75"/>
-			<col width=""/>
+			<c:choose>
+				<c:when test="${mediaFactoryApply.homepage_id ne 'h50'}">
+					<col width="80"/>
+					<col width="100"/>
+					<col width="90"/>
+					<col width="90"/>
+					<col width="60"/>
+					<col width="60"/>
+					<col width="80"/>
+					<col width="75"/>
+					<col width="100"/>
+					<col width="100"/>
+				</c:when>
+				<c:otherwise>
+					<col width="100"/>
+					<col width="120"/>
+					<col width="120"/>
+					<col width="120"/>
+					<col width="75"/>
+					<col width="75"/>
+					<col width=""/>
+				</c:otherwise>
+			</c:choose>
 		</colgroup>
 		<thead>
 			<tr>
@@ -102,6 +118,11 @@ $(function() {
 				<th>이용시간</th>
 				<th>방문인원</th>
 				<th>승인여부</th>
+				<c:if test="${mediaFactoryApply.homepage_id ne 'h50'}">
+					<th>보호자 성명</th>
+					<th>신청인과의 관계</th>
+					<th>보호자 전화번호</th>
+				</c:if>
 				<c:if test="${mediaFactoryApply.editMode ne 'VIEW' }">
 					<th>신청</th>
 				</c:if>
@@ -143,6 +164,20 @@ $(function() {
 						    </c:otherwise>
 						</c:choose>
 					</td>
+					<c:if test="${mediaFactoryApply.homepage_id ne 'h50'}">
+						<td>${i.protector_name}</td>
+						<td>
+							<c:choose>
+								<c:when test="${i.protector_relation eq '1'}">
+									부모
+								</c:when>
+								<c:otherwise>
+									교사
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>${i.protector_tel}</td>
+					</c:if>
 					<c:if test="${mediaFactoryApply.editMode ne 'VIEW' }">
 						<td>
 							<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>

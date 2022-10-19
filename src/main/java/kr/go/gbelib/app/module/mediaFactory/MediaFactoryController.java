@@ -248,6 +248,14 @@ public class MediaFactoryController extends BaseController {
 			}else {
 				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
 			}
+			if("h45".equals(apply.getHomepage_id()) || "h73".equals(apply.getHomepage_id()) || "h59".equals(apply.getHomepage_id()) || "h60".equals(apply.getHomepage_id())) {
+				ValidationUtils.rejectIfEmpty(result, "protector_name", "보호자동의서에 보호자이름을 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "protector_relation", "신청인과의 관계를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "protector_address", "보호자 주소를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "protector_tel_1", "보호자 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "protector_tel_2", "보호자 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "protector_tel_3", "보호자 전화번호를 입력하세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력해주세요.");
 
 			CalendarManage calendarManage = new CalendarManage();
