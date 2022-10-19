@@ -343,7 +343,7 @@ public class ElibController extends BaseController {
 
 		if(StringUtils.equals(member_class, "2")) {
 			try {
-				service.alertMessageAndUrl("이용자님은 현재 미승인 회원입니다. 부산광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다", String.format("/%s/index.do", homepage.getContext_path()), request, response);
+				service.alertMessageAndUrl("이용자님은 현재 미승인 회원입니다. 대구광역시 소속도서관에서 정회원으로 승인 받은 후 전자도서관을 이용 바랍니다", String.format("/%s/index.do", homepage.getContext_path()), request, response);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
