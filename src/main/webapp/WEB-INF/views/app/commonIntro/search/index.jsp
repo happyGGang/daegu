@@ -1479,6 +1479,7 @@ function resveReq(bookkey, booktype, editMode) {
 											<p><font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}</p>
 											<p><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">자료실</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
 											<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
+											<p><font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}</p>
 											<c:if test="${i.SHELF_LOC_CODE ne 'AD36'}">
 											<p><font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
@@ -1726,6 +1727,10 @@ function resveReq(bookkey, booktype, editMode) {
 												<br class="mobileBr"/>
 												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
 												<font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}
+
+												<br class="mobileBr"/>
+												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+												<font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}
 
 												<br class="mobileBr"/>
 												<span class="webGuideLine" style="color:#dddddd">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
