@@ -932,7 +932,7 @@ $(function() {
 	        	<td>
 	        		<c:forEach items="${termsList}" var="i" varStatus="status">
 	        			<input type="checkbox" name="terms" id="terms${status.count}" value="${i.terms_idx}" ${fn:contains(teach.terms, i.terms_idx) ? 'checked' : ''}>
-	        			<label for="terms${status.count}">${i.title}</label>
+	        			<label for="terms${status.count}">${i.title}</label><br />
 	        		</c:forEach>
 	        	</td>
 	        </tr>
