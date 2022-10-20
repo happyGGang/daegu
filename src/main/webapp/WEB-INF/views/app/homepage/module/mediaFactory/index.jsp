@@ -213,174 +213,51 @@ $(function(){
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
-<c:if test="${fn:length(subHomepageList) > 0}">
-		<div class="tab_menu on">
-			<ul class="no${fn:length(subHomepageList)}">
-				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
-					<c:choose>
-						<c:when test="${i.homepage_id eq 'h73'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">안심도서관</a></li>
-						</c:when>
-						<c:when test="${i.homepage_id eq 'h59'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">신천도서관</a></li>
-						</c:when>
-						<c:when test="${i.homepage_id eq 'h60'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">반야월역사</a></li>
-						</c:when>
-						<c:otherwise>
+	<c:choose>
+		<c:when test="${homepage.context_path eq 'donggu'}">
+			<div class="tab_menu on">
+				<ul class="no1">
+					<li class="active" style="width:100%;"><a href="#tabCon1" data-hid="h73">안심도서관</a></li>
+				</ul>
+			</div>
+			<div class="mg30t"></div>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${fn:length(subHomepageList) > 0}">
+				<div class="tab_menu on">
+					<ul class="no${fn:length(subHomepageList)}">
+						<c:forEach items="${subHomepageList}" var="i" varStatus="status">
 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</ul>
-		</div>
-		<div class="mg30t"></div>
-	</c:if>
-
-
-	<%-- <c:if test="${fn:length(subHomepageList) > 0}">
-		<div class="tab_menu on">
-			<ul class="no${fn:length(subHomepageList)}">
-				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
-					<c:choose>
-						<c:when test="${i.homepage_id eq 'h73'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">안심도서관</a></li>
-						</c:when>
-						<c:when test="${i.homepage_id eq 'h59'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">신천도서관</a></li>
-						</c:when>
-						<c:when test="${i.homepage_id eq 'h60'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">반야월역사</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</ul>
-		</div>
-		<div class="mg30t"></div>
-	</c:if>
-
-	<c:if test="${homepage.context_path eq 'dalseolib'}">
-		<c:choose>
-			<c:when test="${param.homepage_id eq 'h72' || param.homepage_id eq '' || param.homepage_id eq null}">
-			<!-- 도원 -->
-			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
-			  </div>
-			</div>
-			<ul class="con">
-			  <li>일시: 매주 목요일 11:00~12:00</li>
-			  <li>장소: 도원도서관 1층 유아자료실</li>
-			  <li>인원: 20명 이내</li>
-			  <li>문의: 667-4830</li>
-			  <li>주의사항
-			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
-					<li>견학 시간 준수</li>
-				</ul>
-			  </li>
-			</ul>
-			</c:when>
-			<c:when test="${param.homepage_id eq 'h66'}">
-			<!-- 어린이 -->
-			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-			  </div>
-			</div>
-			<p style="color:#ff0000;font-weight:bold;margin-bottom:10px;font-size:16px;">
-				2022년 달서어린이도서관 일반 견학은 별도 실시하지 않고 프로그램 운영에 포함하여 진행할 예정입니다.<br /><span style="font-weight:normal;font-size:14px;">* 신청안내 : 독서문화행사->문화행사->책이랑놀이랑 신청->원하는 날짜 신청</span>
-			</p>
-			<ul class="con">
-			  <li>일시: 매주 월요일 10:00~11:00</li>
-			  <li>장소: 달서어린이도서관 2층 유아자료실</li>
-			  <li>인원: 20명 이내</li>
-			  <li>문의: 667-4850~53</li>
-			  <li>주의사항
-			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
-					<li>견학 시간 준수</li>
-				</ul>
-			  </li>
-			</ul>
-			</c:when>
-			<c:when test="${param.homepage_id eq 'h68'}">
-			<!-- 성서 -->
-			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
-			  </div>
-			</div>
-			<ul class="con">
-			  <li>일시: 매주 화요일 10:30~11:30</li>
-			  <li>장소: 본리도서관 1층 유아열람실</li>
-			  <li>인원: 20명 이하</li>
-			  <li>문의: 667-4916</li>
-			  <li>주의사항
-			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
-					<li>견학 시간 준수</li>
-				</ul>
-			  </li>
-			</ul>
-			</c:when>
-			<c:when test="${param.homepage_id eq 'h70'}">
-			<!-- 영어 -->
-			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
-			  </div>
-			</div>
-			<ul class="con">
-			  <li>일시: 매주 월,목요일 10:00~11:00</li>
-			  <li>장소: 달서영어도서관 3층 키즈룸</li>
-			  <li>인원: 20명 이내</li>
-			  <li>문의: 667-4875</li>
-			  <li>주의사항
-			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
-					<li>견학 시간 준수</li>
-				</ul>
-			  </li>
-			</ul>
-			</c:when>
-			<c:when test="${param.homepage_id eq 'h67'}">
-			<!-- 성서 -->
-			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
-			  </div>
-			</div>
-			<ul class="con">
-			  <li>일시: 매주 화, 목요일 10:00~11:00</li>
-			  <li>장소: 성서도서관 1층 책나라 여행&도란도란 샘터</li>
-			  <li>인원: 20명 이내</li>
-			  <li>문의: 667-4886</li>
-			  <li>주의사항
-			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
-					<li>견학 시간 준수</li>
-				</ul>
-			  </li>
-			</ul>
-			</c:when>
-			<c:otherwise>
-			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
-			  </div>
-			</div>
-			</c:otherwise>
-		</c:choose>
-	</c:if> --%>
+						</c:forEach>
+					</ul>
+				</div>
+				<div class="mg30t"></div>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+<%-- 	<c:if test="${fn:length(subHomepageList) > 0}"> --%>
+<!-- 		<div class="tab_menu on"> -->
+<%-- 			<ul class="no${fn:length(subHomepageList)}"> --%>
+<%-- 				<c:forEach items="${subHomepageList}" var="i" varStatus="status"> --%>
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${i.homepage_id eq 'h73'}"> --%>
+<%-- 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">안심도서관</a></li> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${i.homepage_id eq 'h59'}"> --%>
+<%-- 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">신천도서관</a></li> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:when test="${i.homepage_id eq 'h60'}"> --%>
+<%-- 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">반야월역사</a></li> --%>
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+<%-- 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li> --%>
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+<%-- 				</c:forEach> --%>
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 		<div class="mg30t"></div> -->
+<%-- 	</c:if> --%>
 
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
