@@ -394,10 +394,10 @@ $(function(){
 	</div>
 	<table class="type1 center">
 		<colgroup>
-			<col width="5%">
-			<col width="6%" />
+			<col width="2%">
+			<col width="4%" />
 			<col width="10%" />
-			<col width="11%" />
+			<col width="10%" />
 			<col width="8%" />
 			<col width="13%" />
 			<col width="7%" />
@@ -407,10 +407,10 @@ $(function(){
 			<c:if test="${teachInfo.school_grade_yn eq 'Y'}">
 				<col width="7%" />
 			</c:if>
-			<col width="9%" />
+			<col width="10%" />
 			<c:if test="${teachInfo.teach_status ne '1'}">
 				<col width="8%" />
-				<col width="9%" />
+				<col width="10%" />
 			</c:if>
 			<col width="10%" />
 		</colgroup>
@@ -526,7 +526,8 @@ $(function(){
 					</td>
 				</c:if>
 				<td>
-					${i.add_date}
+					${fn:substringBefore(i.add_date, ' ')}<br/>
+					${fn:substringAfter(i.add_date, ' ')}
 				</td>
 				<td>${i.cancel_id}</td>
 				<td><fmt:formatDate value="${i.cancel_date}" pattern="yyyy-MM-dd"/></td>
