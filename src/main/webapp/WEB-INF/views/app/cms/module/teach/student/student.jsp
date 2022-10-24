@@ -412,7 +412,7 @@ $(function(){
 				<col width="8%" />
 				<col width="9%" />
 			</c:if>
-			<col width="13%" />
+			<col width="10%" />
 		</colgroup>
 		<thead>
 			<tr>
