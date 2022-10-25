@@ -530,7 +530,7 @@ $(function(){
 					${fn:substringAfter(i.add_date, ' ')}
 				</td>
 				<td>${i.cancel_id}</td>
-				<td><fmt:formatDate value="${i.cancel_date}" pattern="yyyy-MM-dd"/></td>
+				<td><fmt:formatDate value="${i.cancel_date}" pattern="yyyy"/><br/><fmt:formatDate value="${i.cancel_date}" pattern="MM-dd"/></td>
 				<td>
 					<c:if test="${authU}">
 					<a href="" class="btn dialog-modify" keyValue1="${i.student_idx}">수정</a>
