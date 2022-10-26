@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.module.untactBook;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -183,24 +185,21 @@ public class UntactBookController extends BaseController {
 			return null;
 		}
 		
-//		//휴관일 예약 불가(회차 반복일이 하루일경우)
-//		Calendar cal = Calendar.getInstance();
-//        cal.setTime(new Date());
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//        //TODO 회차 반복일이 하루가 아니라면 수정필요
-//        cal.add(Calendar.DATE, 1);
-//        
-//		if(!(sdf.format(cal.getTime()).isEmpty())) {
-//			librarySearch.setManageCode(homepage.getManage_code());
-//			librarySearch.setSearch_start_date(sdf.format(cal.getTime()));
-//			
-//			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-//			
-//			if(holiDays.get("RESULT_CODE").equals("1")) {
-//				service.alertMessage("휴관일 이전은 비대면 예약신청이 불가능 합니다.", request, response);
-//				return null;
-//			}
-//		}
+		//신청하는 날짜가 휴관일 경우 예약 불가
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Date now = new Date();
+        
+        String today = sdf.format(now);
+        
+		librarySearch.setManageCode(homepage.getManage_code());
+		librarySearch.setSearch_start_date(today);
+		
+		Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+		
+		if(holiDays.get("RESULT_CODE").equals("1")) {
+			service.alertMessage("휴관일 비대면 예약신청이 불가능 합니다.", request, response);
+			return null;
+		}
 		
 		//사물함 사용 여부 확인
 		if(!(untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()).equals("사물함없음"))) {
