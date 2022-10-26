@@ -136,6 +136,20 @@ public class CommonSearchController extends BaseController {
 
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
+		
+		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
+		
+		if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode()))) {
+			List<String> shelfCodes = new ArrayList<String>();
+			List<Map<String, Object>> libraryCodes = LibSearchAPI.getListData(shelfInfo);
+			
+			for(int i=0; i < libraryCodes.size(); i++) {
+				shelfCodes.add(i, (String) libraryCodes.get(i).get("CODE"));
+			}
+			
+			librarySearch.setShelfCodes(shelfCodes);
+		}
 
  		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
     		Map<String, Object> result = new HashMap<String, Object>();
@@ -185,9 +199,6 @@ public class CommonSearchController extends BaseController {
 
 		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
 		List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
-
-		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
 
 		model.addAttribute("mediaCodeList", mediaCodeList);
 		model.addAttribute("shelfCodeList", shelfInfoList);

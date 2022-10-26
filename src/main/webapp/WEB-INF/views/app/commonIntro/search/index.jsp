@@ -850,7 +850,23 @@ function resveReq(bookkey, booktype, editMode) {
 											<form:select path="shelfCode">
 												<form:option value="">전체</form:option>
 												<c:forEach items="${shelfCodeList}" var="i" varStatus="status">
+													<c:if test="${i.CODE eq 'CA01' or
+																	i.CODE eq 'CA02' or
+																	i.CODE eq 'CA03' or
+																	i.CODE eq 'CA04' or
+																	i.CODE eq 'CA06' or
+																	i.CODE eq 'CA08' or
+																	i.CODE eq 'CA10' or
+																	i.CODE eq 'CB01' or
+																	i.CODE eq 'CB02' or
+																	i.CODE eq 'CB03' or
+																	i.CODE eq 'CB04' or
+																	i.CODE eq 'CB08' or
+																	i.CODE eq 'CB10' or
+																	i.CODE eq 'CB12'
+																	}">
 													<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+													</c:if>
 												</c:forEach>
 											</form:select>
 										</dd>

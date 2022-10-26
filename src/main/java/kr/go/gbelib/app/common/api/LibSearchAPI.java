@@ -263,9 +263,20 @@ public class LibSearchAPI {
 			// 신착도서 등 자료검색 제외
 			param.put("manage_code", librarySearch.getManageCode());
 		}
+		
+		try {
+			// 자료검색용
+			param.put("search_shelf", StringUtils.join(librarySearch.getShelfCodes(), ","));
+		} catch (Exception e) {
+			param.put("search_shelf", librarySearch.getShelfCode());
+		}
 
 		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
 			param.put("search_shelf", librarySearch.getShelf_list());
+		}
+		
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode())) {
+			param.put("search_shelf", librarySearch.getShelfCode());
 		}
 
 		param.put("pageno", librarySearch.getViewPage());
@@ -526,11 +537,6 @@ public class LibSearchAPI {
 		// 등록구분. 여러개인 경우 comma(,)로 연결
 		if (StringUtils.isNotEmpty(librarySearch.getRegCode()))
 			param.put("reg_code", librarySearch.getRegCode());
-
-		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
-			param.put("search_shelf", librarySearch.getShelf_list());
-		}
-
 		if (StringUtils.isNotEmpty(librarySearch.getFacet_manage_code()))
 			param.put("facet_manage_code", librarySearch.getFacet_manage_code());
 		if (StringUtils.isNotEmpty(librarySearch.getFacet_author()))
@@ -550,6 +556,21 @@ public class LibSearchAPI {
 		} catch (Exception e) {
 			// 신착도서 등 자료검색 제외
 			param.put("manage_code", librarySearch.getManageCode());
+		}
+		
+		try {
+			// 자료검색용
+			param.put("search_shelf", StringUtils.join(librarySearch.getShelfCodes(), ","));
+		} catch (Exception e) {
+			param.put("search_shelf", librarySearch.getShelfCode());
+		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
+			param.put("search_shelf", librarySearch.getShelf_list());
+		}
+		
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode())) {
+			param.put("search_shelf", librarySearch.getShelfCode());
 		}
 
 		//매체구분
@@ -1352,9 +1373,6 @@ public class LibSearchAPI {
 		// 발행년종료 - YYYY
 		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date()))
 			param.put("search_year_end", librarySearch.getSearch_end_date());
-		// 자료실코드
-		if (StringUtils.isNotEmpty(librarySearch.getShelfCode()))
-			param.put("search_shelf", librarySearch.getShelfCode());
 		//검색 제외 자료실코드. 여러개인 경우 comma(,)로 연결
 		if (StringUtils.isNotEmpty(librarySearch.getNotShelfCode()))
 			param.put("not_search_shelf", librarySearch.getNotShelfCode());
@@ -1391,9 +1409,20 @@ public class LibSearchAPI {
 			// 신착도서 등 자료검색 제외
 			param.put("manage_code", librarySearch.getManageCode());
 		}
+		
+		try {
+			// 자료검색용
+			param.put("search_shelf", StringUtils.join(librarySearch.getShelfCodes(), ","));
+		} catch (Exception e) {
+			param.put("search_shelf", librarySearch.getShelfCode());
+		}
 
 		if (StringUtils.isNotEmpty(librarySearch.getShelf_list())) {
 			param.put("search_shelf", librarySearch.getShelf_list());
+		}
+		
+		if (StringUtils.isNotEmpty(librarySearch.getShelfCode())) {
+			param.put("search_shelf", librarySearch.getShelfCode());
 		}
 
 		param.put("pageno", librarySearch.getViewPage());

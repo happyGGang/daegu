@@ -9,6 +9,7 @@ public class LibrarySearch extends PagingUtils {
 
 	private String allBookListStr;
 	private List<String> libraryCodes;
+	private List<String> shelfCodes;
 	private String search_year;
 	private String search_library;
 	private String search_form_code;
@@ -653,6 +654,23 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setShelfCode(String shelfCode) {
 		this.shelfCode = shelfCode;
+	}
+	
+	public List<String> getShelfCodes() {
+		if (shelfCodes != null) {
+			List<String> arrayList = new ArrayList<String>();
+			arrayList.addAll(this.shelfCodes);
+			return arrayList;
+		} else {
+			return null;
+		}
+	}
+
+	public void setShelfCodes(List<String> shelfCodes) {
+		if (shelfCodes != null) {
+			this.shelfCodes = new ArrayList<String>();
+			this.shelfCodes.addAll(shelfCodes);
+		}
 	}
 
 	public String getSubjectCode() {
