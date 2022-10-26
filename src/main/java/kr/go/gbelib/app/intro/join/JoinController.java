@@ -1,7 +1,5 @@
 package kr.go.gbelib.app.intro.join;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -490,38 +488,17 @@ public class JoinController extends BaseController {
 
 			String currentContext  = String.valueOf(request.getSession().getAttribute("currentContext"));
 
-			//책이음 서비스 대구지역센터 DB 통합 작업 일시중단으로 인해 2022.10.18(화) 9:00 ~ 2022.10.31(월) 23:00까지 사용중지
-			try {
-				Date toDate = new Date();
-				String start = "2022-10-18 09:00:00";
-				String end = "2022-10-31 23:00:00";
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
-				toDate = sdf.parse(sdf.format(toDate));
-				Date startDate = sdf.parse(start);
-				Date endDate = sdf.parse(end);
-				
-				int compare1 = toDate.compareTo(startDate);
-				int compare2 = endDate.compareTo(toDate);
-				
-				if(compare1 >= 0 && compare2 >= 0) {
-					
-				} else {
-					// 3. 책이음 중복자 확인
-					// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
-					if (!StringUtils.equals(currentContext, "daegu")) {
-						// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
-						List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-						if (klmemberInfo != null && klmemberInfo.size() > 0) {
-							model.addAttribute("dupCheckKl", true);
-							model.addAttribute("dupUser", klmemberInfo.get(0));
-						}
-					}
+			// 3. 책이음 중복자 확인
+			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
+			if (!StringUtils.equals(currentContext, "daegu")) {
+				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+					model.addAttribute("dupCheckKl", true);
+					model.addAttribute("dupUser", klmemberInfo.get(0));
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-			
+
 			model.addAttribute("parent", false);
 		} else {
 			model.addAttribute("parent", false);
@@ -820,36 +797,15 @@ public class JoinController extends BaseController {
 
 			String currentContext  = String.valueOf(request.getSession().getAttribute("currentContext"));
 
-			//책이음 서비스 대구지역센터 DB 통합 작업 일시중단으로 인해 2022.10.18(화) 9:00 ~ 2022.10.31(월) 23:00까지 사용중지
-			try {
-				Date toDate = new Date();
-				String start = "2022-10-18 09:00:00";
-				String end = "2022-10-31 23:00:00";
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				
-				toDate = sdf.parse(sdf.format(toDate));
-				Date startDate = sdf.parse(start);
-				Date endDate = sdf.parse(end);
-				
-				int compare1 = toDate.compareTo(startDate);
-				int compare2 = endDate.compareTo(toDate);
-				
-				if(compare1 >= 0 && compare2 >= 0) {
-					
-				} else {
-					// 3. 책이음 중복자 확인
-					// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
-					if (!StringUtils.equals(currentContext, "daegu")) {
-						// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
-						List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
-						if (klmemberInfo != null && klmemberInfo.size() > 0) {
-							model.addAttribute("dupCheckKl", true);
-							model.addAttribute("dupUser", klmemberInfo.get(0));
-						}
-					}
+			// 3. 책이음 중복자 확인
+			// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
+			if (!StringUtils.equals(currentContext, "daegu")) {
+				// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+					model.addAttribute("dupCheckKl", true);
+					model.addAttribute("dupUser", klmemberInfo.get(0));
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 
 			model.addAttribute("parent", false);
