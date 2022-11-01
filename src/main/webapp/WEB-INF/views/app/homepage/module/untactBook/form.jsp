@@ -86,6 +86,10 @@ $(function() {
 				<th>등록번호</th>
 				<td class="left">${detail.REG_NO}</td>
 			 </tr>
+			 <tr>
+				<th>이용안내</th>
+				<td class="left"><a href="/bukgs/html.do?menu_idx=136" class="btn btn2" target="_blank"><span>무인예약대출서비스 이용방법</span></a></td>
+			 </tr>
 		</tbody>
 	</table>
 

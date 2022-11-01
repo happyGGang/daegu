@@ -975,7 +975,7 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-			<c:if test="${detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BG'  || detail.MANAGE_CODE eq 'BH'}">
+			<c:if test="${detail.MANAGE_CODE eq 'BE'}">
 				<c:if test="${droneDeviceUsedCount > 0}">
 					<jsp:useBean id="droneNow" class="java.util.Date" />
 					<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
@@ -990,10 +990,10 @@ $(function() {
 					<!-- 드론대출 기능 노출 도서관
 					openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
 					-->
-					<c:if test="${sessionScope.member.member_id eq 'hwani6865' or sessionScope.member.member_id eq 'geumhs' or sessionScope.member.member_id eq 'nwyr2165' or sessionScope.member.member_id eq 'wodms4693' or sessionScope.member.member_id eq 'infoset'}">
+					<c:if test="${openDate <= nowDate and closeDate > nowDate }">
 						<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N'}">
 							<c:if test="${detail.LOAN_CODE eq 'OK'}">
-								<a href="" class="btn" id="drone-lone-req">드론대출(개인 : ${dronePersonalLoanCount} / 2 전체 : ${droneDayLoanCount} / 20)</a>
+								<a href="" class="btn" id="drone-lone-req">드론대출</a>
 							</c:if>
 						</c:if>
 					</c:if>
@@ -1014,6 +1014,17 @@ $(function() {
 				※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.
 			</p>
 		</c:if>
+
+		<c:choose>
+			<c:when test="${homepage.context_path eq 'bukgs' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
+			<h3>무인예약대출 신청안내</h3>
+			<ul class="con">
+				<li><b>대출시간 : </b>당일 18:00 ~ 다음날 09:00</li>
+				<li><b>대출장소 : </b>지하 1층 도서무인예약기 부스</li>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
 
 		<%-- <div style="padding-top:30px ;text-align:right">
 			<a href="${detail.aladin.link}" target="_blank" style="color:#000">도서 정보 제공 : 알라딘 인터넷서점(www.aladin.co.kr)</a> <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
