@@ -142,7 +142,7 @@
 				AND	${search_type} LIKE '%'||#{search_text}||'%'
 			</when>
 		</choose>
-		ORDER BY request_date DESC
+		ORDER BY add_date DESC
 		${pagingBottom}
 	</select>
 	
