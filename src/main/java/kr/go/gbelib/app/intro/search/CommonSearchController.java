@@ -1299,13 +1299,19 @@ public class CommonSearchController extends BaseController {
 
 		JsonResponse res = new JsonResponse(request);
 
+		Homepage h = getSessionHomepage(request);
+		
 		if(librarySearch.getEditMode().equals("ADD")) {
-			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "author", "저자를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "publer", "출판사를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "publer_year", "연도를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "price", "가격을 입력하세요.");
-			ValidationUtils.rejectExceptNumber(result, "price", "가격은 숫자만 입력가능합니다.");
+			if("bukgs".equals(h.getContext_path()) || "bukdh".equals(h.getContext_path()) || "buktj".equals(h.getContext_path())) {
+				ValidationUtils.rejectIfEmpty(result, "publer_year", "연도를 입력하세요.");
+			} else {
+				ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "author", "저자를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "publer", "출판사를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "publer_year", "연도를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "price", "가격을 입력하세요.");
+				ValidationUtils.rejectExceptNumber(result, "price", "가격은 숫자만 입력가능합니다.");
+			}
 		}
 
 		if(!result.hasErrors()) {
