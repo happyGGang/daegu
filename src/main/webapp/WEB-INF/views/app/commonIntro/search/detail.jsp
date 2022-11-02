@@ -976,6 +976,10 @@ $(function() {
 			</c:choose>
 
 			<c:if test="${detail.MANAGE_CODE eq 'BE'}">
+			<c:choose>
+			<c:when test="${detail.SHELF_LOC_CODE eq 'BE06'}">
+			</c:when>
+			<c:otherwise>
 				<c:if test="${droneDeviceUsedCount > 0}">
 					<jsp:useBean id="droneNow" class="java.util.Date" />
 					<fmt:formatDate value="${droneNow}" pattern="yyyyMMdd" var="today"/>
@@ -998,6 +1002,8 @@ $(function() {
 						</c:if>
 					</c:if>
 				</c:if>
+			</c:otherwise>
+			</c:choose>
 			</c:if>
 
 			<a href="#" id="addStorage" class="btn btn4"><span>관심도서 추가</span></a>
