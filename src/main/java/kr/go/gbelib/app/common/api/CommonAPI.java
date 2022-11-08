@@ -58,6 +58,7 @@ public class CommonAPI {
 	public final static String ALADIN_DETAIL_API_URL = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx";
 
 	public final static String KCMS_API_URL = ResourceBundle.getBundle("api").getString("kcms.api.url");
+	public final static String KCMS_PRIVATE_API_URL = ResourceBundle.getBundle("api").getString("kcms.private.api.url");
 	public final static String SANGHO_API_URL = ResourceBundle.getBundle("api").getString("sangho.api.url");
 
 	public final static String DATA_4_LIBRARY_API_URL = ResourceBundle.getBundle("api").getString("data4library.api.url");
@@ -97,8 +98,8 @@ public class CommonAPI {
 	}
 
 	/**
-	 * 인천 통합도서관 KCMS API
-	 * @author YONGJU 2017. 12. 13.
+	 * 대구 통합도서관 KCMS API
+	 * @author SUNGHWAN 2022. 11. 02.
 	 * @param requestName - 요청명
 	 * @param param 파라미터
 	 * @return
@@ -729,7 +730,6 @@ public class CommonAPI {
 					decrypted = new String(g.decrypt(validated), "UTF-8");
 					decrypted = decrypted.replace("><", ">\n<");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1059,6 +1059,91 @@ public class CommonAPI {
 			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
 			ObjectMapper om = new ObjectMapper();
 			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 대구 사립도서관 KCMS API
+	 * @author SUNGHWAN 2022. 11. 08.
+	 * @param requestName - 요청명
+	 * @param param 파라미터
+	 * @return
+	 */
+	public static Map<String, Object> sendPrivateKCMS(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = KCMS_PRIVATE_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for ( String oneKey : keys ) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ KCMS_PRIVATE_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 대구 사립도서관 KCMS API
+	 * @author SUNGHWAN 2022. 11. 08.
+	 * @param requestName - 요청명
+	 * @param param 파라미터
+	 * @return
+	 */
+	public static Map<String, Object> sendPrivateMARC(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = KCMS_PRIVATE_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+			
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for ( String oneKey : keys ) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ KCMS_PRIVATE_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			result = result.replace("&", "&amp;");
+			
+			resultMap = xmlToJson(result).toMap();
 		}
 		catch ( Exception e ) {
 			e.printStackTrace();
