@@ -1289,6 +1289,13 @@ public class BoardController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "user_password", "비밀번호를 입력하세요.");
 		}
 
+		if ("FESTIVAL".equals(boardManage.getBoard_type())) {
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_1", "축제기간을 입력해주세요.");
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_2", "주소를 입력해주세요.");
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_3", "전화번호를 입력해주세요.");
+			ValidationUtils.rejectIfEmpty(result, "imsi_v_4", "홈페이지를 입력해주세요.");
+		}
+
 		if(!result.hasErrors()) {
 			boolean isSiteAdmin = false;
 			try {

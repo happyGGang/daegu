@@ -77,6 +77,9 @@
 			AND	(title LIKE #{initSearch} || '%' OR title >= #{initSearch2})
 			AND	title <![CDATA[<]]> #{initSearchNext}
 		</if>
+		<if test='search_month != null and search_month != "" and search_month != "ALL"'>
+			AND imsi_v_1 LIKE '%'||#{search_month}||'%'
+		</if>
     </sql>
 
 	<select id="getBoard" resultType="kr.co.whalesoft.app.board.Board">

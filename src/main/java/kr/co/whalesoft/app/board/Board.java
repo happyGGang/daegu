@@ -151,6 +151,9 @@ public class Board extends BoardExt {
 	private String theme_imsi_val; // 테마북 val
 	private String[] theme_imsi_key_arr; // 테마북 key_arr
 
+	// 축제게시판 월검색
+	private String search_month;
+
 	public Board(int manage_idx, int row_count) {
 		this.manage_idx = manage_idx;
 		setRowCount(row_count);
@@ -1119,4 +1122,11 @@ public class Board extends BoardExt {
 		this.theme_imsi_key_arr = theme_imsi_key_arr;
 	}
 
+	public String getSearch_month() {
+		return search_month;
+	}
+
+	public void setSearch_month(String search_month) {
+		this.search_month = search_month;
+	}
 }
