@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.Gnb {position:relative;}
+#header {position:relative;}
+#container.subpage {position:relative;box-sizing:border-box;}
+
+@media all and (max-width:1260px){
+	html,body{width:1260px;margin:0 auto;}
+	.tnb, .Gnb {width:1260px;margin:0 auto;}
+}
+
+@media all and (max-width:1024px){
+	html,body{width:100%;margin:0;}
+	.tnb, .Gnb {width:100%;margin:0;}
+	#header .Gnb {background:#fff;}
+}
+
+
