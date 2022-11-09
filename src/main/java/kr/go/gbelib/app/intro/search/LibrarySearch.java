@@ -3,6 +3,7 @@ package kr.go.gbelib.app.intro.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class LibrarySearch extends PagingUtils {
@@ -1231,5 +1232,12 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setRequest_status(String request_status) {
 		this.request_status = request_status;
+	}
+
+	public boolean getPrivateLibraryYn(Homepage homepage) {
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			return true;
+		}
+		return false;
 	}
 }
