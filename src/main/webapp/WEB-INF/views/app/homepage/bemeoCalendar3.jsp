@@ -76,7 +76,7 @@ $(document).ready(function() {
         <tr>
           <th scope="row">크리에이티브팩토리 범어</th>
           <td>10:00 ~ 19:00</td>
-          <td>10:00 ~ 16:00</td>
+          <td>휴관</td>
         </tr>
         <tr>
           <th scope="row">카페 더 로즈 범어</th>
