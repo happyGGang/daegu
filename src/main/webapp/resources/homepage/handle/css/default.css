@@ -151,8 +151,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:1024px){
 	.tnb {height:65px;padding:10px 0;}
 
-	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
+	h1.mobile-logo {display:block;width:90px;height:40px;margin:3px 0;}
+	h1.mobile-logo a {display:block;background:url('../img/logo.png') no-repeat center center;font-size:0;background-size:90px;height:40px;}
 
 	/* SNS 추가 */
 	.sns-box {position:absolute;display:block;left:220px;top:7px;}

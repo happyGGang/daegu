@@ -10,8 +10,8 @@
 #main0 .main0-wrap .main0-box .main0-box-left ul li {width:100%;display:block;height:25%;box-sizing:border-box;}
 #main0 .main0-wrap .main0-box .main0-box-left ul li:nth-child(1), #main0 .main0-wrap .main0-box .main0-box-left ul li:nth-child(3) {background:rgba(57,57,57,0.3)}
 #main0 .main0-wrap .main0-box .main0-box-left ul li:nth-child(2), #main0 .main0-wrap .main0-box .main0-box-left ul li:nth-child(4) {background:rgba(3,165,107,0.3)}
-#main0 .main0-wrap .main0-box .main0-box-left ul li a {display:block;width:100%;height:100%;color:#fff;font-family:'Noto Sans';font-size:18px;}
-#main0 .main0-wrap .main0-box .main0-box-left ul li a img {padding-top:18%;}
+#main0 .main0-wrap .main0-box .main0-box-left ul li a {display:block;width:100%;height:100%;color:#fff;font-family:'Noto Sans';font-size:18px;font-weight:500;}
+#main0 .main0-wrap .main0-box .main0-box-left ul li a img {padding-top:15%;display:block;margin:0 auto;margin-bottom:0;}
 
 #main0 .main0-wrap .main0-box .main0-box-right {display:inline-block;float:left;width:85%;box-sizing:border-box;padding:0 4%;}
 #main0 .main0-wrap .main0-box .main0-box-right {height:100%;}
@@ -51,12 +51,12 @@
 #main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-right .popZone .bx-start { right:50px; background-image:url("../img/popupzone-start-btn.png");background-repeat: no-repeat; background-position:0 0;background-size:initial; }
 #main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-right .popZone .bx-stop { right:50px; background-image:url("../img/popupzone-stop-btn.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
 
-#main1 {background:#f1f8ff;}
+#main1 {background:#f1f8ff;padding-top:80px;}
 #main1 .book-box {position:relative;float:left;width:830px;}
 #main1 .book-box .book-title {position:relative;padding-top:20px;padding-bottom:20px;}
 #main1 .book-box .book-title h3 {font-family:'s-core_dream4_regular';font-size:23px;font-weight:100;}
 #main1 .book-box .book-title h3 b {font-family:'s-core_dream6_bold';font-size:33px}
-#main1 .book-box .book-title a.more-btn {position:absolute;right:10px;top:33px;}
+#main1 .book-box .book-title a.more-btn {position:absolute;right:0;top:33px;}
 #main1 .book-box .book-contents {padding-top:15px;}
 #main1 .book-box .book-contents ul {font-size:0;}
 #main1 .book-box .book-contents ul li {display:inline-block;width:32%;margin:0 2% 0 0;}
@@ -84,7 +84,7 @@
 #main1 .calendar-box {float:right;width:570px;height:auto;box-sizing:border-box;position:relative;}
 
 #calendar2 .calendar-info {position:absolute;bottom:20px;left:0;text-align:center;color:#555;padding:13px 0 7px;width:100%;}
-#calendar2 .calendar-info span {display:inline-block;padding-left:7px;}
+#calendar2 .calendar-info span {display:inline-block;padding-left:10px;color:#767676;font-family:'s-core_dream5_medium';}
 #calendar2 .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;margin-right:10px;}
 #calendar2 .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat left center;}
 
@@ -106,7 +106,7 @@
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
 
 #calendar2 .cal-func2 {float:left;position:relative;width:27%;height:100%;text-align:center;padding:20px 0 10px 0;box-sizing:border-box;}
-#calendar2 .cal-func2 a.btn {padding:0;color:#fff;font-size:15px;}
+#calendar2 .cal-func2 a.btn {padding:0;color:#fff;font-size:15px;margin-top:10px;;}
 #calendar2 .cal-func2 a.btn:focus,
 #calendar2 .cal-func2 a.btn:hover{color:#fff}
 #calendar2 .cal-func2 a {}
@@ -117,7 +117,7 @@
 #calendar2 .cal-func2 b {display:block;}
 #calendar2 .cal-func2 b.year {font-family:'s-core_dream4_regular';color:#333333;font-size:14px;font-weight:normal;padding-bottom:3px;}
 #calendar2 .cal-func2 b.month {font-family:'s-core_dream6_bold';color:#000;font-size:35px;font-weight:bold;}
-#calendar2 .cal-func2 .cal-btn-more {background:#f6c65f;border-radius:25px;box-sizing:border-box;padding:5px 10px;font-size:15px;font-family:'s-core_dream4_regular';color:#000;font-size:14px;font-weight:bold;margin-top:30px;}
+#calendar2 .cal-func2 .cal-btn-more {background:#f6c65f;border-radius:25px;box-sizing:border-box;padding:10px 23px;font-family:'s-core_dream4_regular';color:#000;font-size:14px;font-weight:bold;margin-top:30px;}
 
 #calendar2 .cal-tbl {float:left;width:73%;margin-top:10px;text-align:center;}
 #calendar2 .cal-tbl thead th {font-family:'s-core_dream6_bold';width:14%;height:40px;line-height:40px;color:#333;font-size:15px;text-align:center;}
@@ -131,15 +131,13 @@
 #calendar2 .planView .inbox {position:relative;box-sizing:border-box;padding:25px}
 #calendar2 .planView .inbox .planList {padding:17px 0;border-bottom:1px solid #ddd;}
 #calendar2 .planView .inbox .planList:first-child{padding-top:0;}
-#calendar2 .planView .inbox .planList p {font-size:15px;color:#fff;}
-#calendar2 .planView .inbox .planList p.datetime {font-weight:bold;margin-bottom:5px;width:80px;text-align:center;height:40px;line-height:40px;font-size:18px;border:1px solid #333;color:#333;float:left;margin-right:15px;font-family:'s-core_dream5_medium';}
+#calendar2 .planView .inbox .planList p {font-size:14px;color:#fff;}
+#calendar2 .planView .inbox .planList p.datetime {margin-bottom:5px;width:80px;text-align:center;height:40px;line-height:40px;font-size:16px;border:1px solid #333;color:#333;float:left;margin-right:15px;font-family:'s-core_dream5_medium';}
 #calendar2 .planView .inbox .planList p.datetime.cul {border:1px solid #3368ff;color:#3368ff;}
 #calendar2 .planView .inbox .planList p.datetime.hol {border:1px solid #ff4040;color:#ff4040;}
-#calendar2 .planView .inbox .planList p.title {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;line-height:150%;color:#666;}
+#calendar2 .planView .inbox .planList p.title {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;line-height:150%;color:#666;font-family:'s-core_dream4_regular';}
 #calendar2 .planView .inbox .planList p.title em {font-style:normal;color:#333;}
 #calendar2 .planView .inbox .planList li {margin:2px 0;font-size:14px;color:#666;letter-spacing:-0.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
-
-
 
 #calendar2 .planViewLayer {position:absolute;width:40%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
 #calendar2 .planViewLayer .inbox{position:relative;border:1px solid #ccc;padding:10px}
@@ -252,8 +250,22 @@
 #s_foot_section .sFooter .f_info .in .f_logo {position:absolute;top:0;right:0;}
 
 
-@media all and (max-width:1260px){
+@media all and (max-width:1810px){
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left{float:none;width:835px;margin:0 auto;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .search-box{padding:20px 0;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left h3{display:none;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .info-box{display:none;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-right{float:none;margin:0 auto;}
+}
 
+@media all and (max-width:1450px){
+	#main1 .book-box{width:calc(100% - 600px);}
+	#main1 .book-box .book-contents ul li a img{width:100%;height:330px;}
+}
+
+@media all and (max-width:1200px){
+	#main0 .main0-wrap .main0-box{width:100%;height:100%;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .search-box{padding:0 0 20px;}
 }
 
 @media all and (max-width:1024px){
@@ -262,7 +274,7 @@
 	#header h1 {position:relative;height:auto;position:absolute;left:0;}
 	#header h1 img {display:block}
 
-	.m-menu a {position:absolute;right:10px;display:inline-block;text-align:center;vertical-align:middle;color:#fff;}
+	.m-menu a {position:absolute;right:10px;display:inline-block;text-align:center;vertical-align:middle;color:#000;}
 	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;}
 
 	.main .section{margin:0}
@@ -271,28 +283,97 @@
 	.tnb .util, .tnb .libSite, .Gnb, .main7_banner{display:none}
 	.mmode {display:block;}
 	.main_scroll {display:none;}
-	.webBr {display:none;}
+	.web-view {display:none;}
+
+	#main0 .main0-wrap{padding-top:65px;}
+	#main0 .main0-wrap .main0-box .main0-box-left{float:none;width:100%;height:150px;}
+	#main0 .main0-wrap .main0-box .main0-box-left ul{height:auto;}
+	#main0 .main0-wrap .main0-box .main0-box-left ul li{width:25%;height:150px;display:inline-block;}
+	#main0 .main0-wrap .main0-box .main0-box-left ul li a img{padding-top:10%;}
+	
+	#main0 .main0-wrap .main0-box{padding-bottom:70px;}
+	#main0 .main0-wrap .main0-box .main0-box-right{position:relative;float:none;width:98%;margin:0 auto;padding:0;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left h3{display:block;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .info-box{display:block;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left h3{font-size:40px;text-align:center;margin:20px 0;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left h3 b{font-size:40px;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .info-box{padding:0 0 20px;}
+
+	#main1 .book-box{float:none;width:95%;margin:0 auto;}
+	#main1 .book-box .book-title{padding-bottom:10px;}
+	#main1 .book-box .book-title h3{font-size:18px;}
+	#main1 .book-box .book-title h3 b{font-size:25px;}
+	#main1 .book-box .book-contents{padding-top:5px;}
+	#main1 .book-box .book-contents ul li a img{height:375px;}
+	#main1 .book-box .book-contents ul li a .book-contents-bottom{font-size:17px;}
+	
+	#main1{padding-top:10px;}
+	#main1 .main-section3{width:100%;}
+
+	#main1 .calendar-box{float:none;margin:30px auto 40px;}
+
+	#foot_section .mFooter .middle .info a{font-size:15px;}
+	#foot_section .mFooter .middle p em{font-size:15px;}
 }
 
-@media all and (max-width:768px){
+@media all and (max-width:860px){	
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left{width:100%;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .search-box{text-align:center;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .search-box .main-box{width:80%;margin:0 auto;}
 
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-right .popZone{width:500px;height:auto;margin:0 auto;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-right .popZone img{width:500px;height:280px;}
+	#main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-left .info-box{width:50%;margin:0 auto;}
+}
+
+@media all and (max-width:840px){	
+	#main0 .main0-wrap{width:100%;}
+	#main0 .main0-wrap .main0-box .main0-box-left ul{width:100%;}
+	#main0 .main0-wrap .main0-box .main0-box-left ul li a{font-size:15px;}
+}
+
+@media all and (max-width:768px){	
+	#main1 .book-box .book-title{padding-top:0;}
+	#main1 .book-box .book-title a.more-btn{top:0;}
+	#main1 .book-box .book-contents ul li{width:100%;text-align:center;margin-bottom:10px;}
+	#main1 .book-box .book-contents ul li a{width:265px;margin:0 auto;}
+	#main1 .book-box .book-contents ul li a img{width:265px;}
+
+	#foot_section .mFooter .middle .info{text-align:center;}
+	#foot_section .mFooter .middle .address{text-align:center;}
+	#foot_section .mFooter .middle .site_link{position:relative;text-align:center;}
 }
 
 @media all and (max-width:650px){
 	.webList {display:none}
 	.mobileList {display:block}
-
 	.mobileBr {display:block;}
+	
+	#main1 .calendar-box{width:100%;}
+	
+	#foot_section .mFooter .middle{padding:20px 0;}
+	#foot_section .mFooter .middle .info a{font-size:13px;}
+	#foot_section .mFooter .middle p em{font-size:13px;}
+	#foot_section .mFooter .middle p.copyright{font-size:12px;}
+	#foot_section .mFooter .site_link > div > div > a > span, #foot_section .mFooter .site_link > div > div > a > span{font-size:13px;}
 }
 
-@media all and (max-width:550px){
+@media all and (max-width:500px){
+	#main1 .book-box .book-title h3{font-size:15px;}
+	#main1 .book-box .book-title h3 b{font-size:20px;}
+	#main1 .book-box .book-contents ul li a .book-contents-bottom{font-size:15px;}
 
+	#calendar2 .cal-bord{padding:10px;}
+	#calendar2 .cal-func2 b.year{font-size:12px;}
+	#calendar2 .cal-func2 b.month{font-size:30px;}
+	#calendar2 .cal-func2 .cal-btn-more{font-size:12px;}
+	#calendar2 .planView .inbox .planList p.datetime{font-size:15px;}
+	#calendar2 .cal-func2 a, #calendar2 .cal-func2 b, #calendar2 .cal-func2 span, #calendar2 .cal-func2 em{font-size:13px;}
+	#calendar2 .cal-tbl thead th{font-size:13px;}
+	#calendar2 .cal-tbl td div{font-size:12px;}
+	#calendar2 .cal-func2 a.btn{width:18px;}
+	#calendar2 .cal-func2 .cal-btn-more{padding:8px 19px;}
 }
 
 @media all and (max-width:425px){
-
-}
-
-@media all and (max-width:320px){
-
 }

@@ -11,7 +11,7 @@
 #main0 .main0-inner-left .search-box .main-box {position:relative;box-sizing:border-box;display:inline-block;width:100%;border:2px solid #234e85;border-radius:0;}
 #main0 .main0-inner-left .search-box .main-box fieldset{position:relative;overflow:hidden;}
 #main0 .main0-inner-left .search-box .main-box legend {background:#21409a;color:#fff;}
-#main0 .main0-inner-left .search-box .main-box input {font-family:'S-Core Dream 4';border:0;background:#fff;width:100%;padding-left:40px;font-size:17px;color:#666;box-sizing:border-box;border-radius:0;}
+#main0 .main0-inner-left .search-box .main-box input {border:0;background:#fff;width:100%;padding-left:25px;font-size:17px;color:#666;box-sizing:border-box;border-radius:0;}
 #main0 .main0-inner-left .search-box .main-box input {height:66px;line-height:66px;}
 #main0 .main0-inner-left .search-box .main-box input::placeholder{font-weight:500;color:#333;}
 #main0 .main0-inner-left .search-box .main-box button {height:66px;line-height:66px;}
@@ -20,7 +20,7 @@
 #main0 .main0-inner-left .qmenu ul {font-size:0;}
 #main0 .main0-inner-left .qmenu ul li {display:inline-block;width:32%;padding:4px 0;text-align:center;transition:all 0.3s}
 #main0 .main0-inner-left .qmenu li a {width:100%;position:relative;zoom:1;display:block;text-align:center;transition:all 0.3s}
-#main0 .main0-inner-left .qmenu li a div {font-family:'S-Core Dream 5';font-size:17px;width:100%;text-align:center;padding-top:10px;letter-spacing:-0.25px;color:#fff;transition:all 0.3s}
+#main0 .main0-inner-left .qmenu li a div {font-size:17px;width:100%;text-align:center;padding-top:10px;letter-spacing:-0.25px;color:#fff;transition:all 0.3s}
 #main0 .main0-inner-left .qmenu li a div.imgage, #main0 .main0-inner-left .qmenu li a div.qtxt {transition:all 0.3s}
 #main0 .main0-inner-left .qmenu li a:hover,
 #main0 .main0-inner-left .qmenu li a:focus {color:#fff;transition:all 0.3s;}
@@ -43,22 +43,22 @@
 #main0 .main0-inner-right .popZone .bx-stop { right:50px; background-position:-100px 0;}
 
 
-#main1 {background:#f1f8ff;}
+#main1 {background:#f1f8ff;padding-top:80px;}
 #main1 .culture-box {position:relative;float:left;width:830px;}
 #main1 .culture-box .culture-title {position:relative;padding-bottom:20px;}
-#main1 .culture-box .culture-title h3 {font-family:'s-core_dream6_bold';font-size:33px}
-#main1 .culture-box .culture-title a.more-btn {position:absolute;right:10px;top:13px;}
+#main1 .culture-box .culture-title h3 {font-family:'s-core_dream6_bold';font-size:33px;color:#222;}
+#main1 .culture-box .culture-title a.more-btn {position:absolute;right:0;top:15px;}
 #main1 .culture-box .culture-contents ul {font-size:0;}
 #main1 .culture-box .culture-contents ul li {display:inline-block;}
 #main1 .culture-box .culture-contents ul li a {display:block;width:100%;}
 #main1 .culture-box .culture-contents ul li a .culture-contents-top, #main1 .culture-box .culture-contents ul li a .culture-contents-bottom {position:relative;}
 #main1 .culture-box .culture-contents ul li a .culture-contents-bottom {background:transparent;}
-#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt {width:80%;margin-top:-50px;background:#fff;box-sizing:border-box;padding:10px;}
+#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt {width:90%;margin-top:-50px;background:#f1f8ff;box-sizing:border-box;padding:10px;}
 #main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-top {font-family:'s-core_dream6_bold';font-size:20px;color:#000;box-sizing:border-box;padding:10px;}
 #main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-middle {font-family:'s-core_dream4_regular';font-size:15px;color:#666;box-sizing:border-box;padding:10px;}
 #main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-bottom {font-family:'s-core_dream4_regular';font-size:15px;color:#333;box-sizing:border-box;padding:10px;}
 #main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-bottom p {font-family:'s-core_dream4_regular';font-size:15px;color:#333;}
-#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-bottom p b {color:#126ec3;}
+#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-bottom p b {font-family:'s-core_dream5_medium';color:#126ec3;font-weight:normal;}
 
 #main1 .culture-box .bx-controls-direction a {font-size:0;}
 #main1 .culture-box .bx-controls-direction a.bx-prev {position:absolute;right:90px;top:10px;display:block;font-size:0;width:20px;height:34px;background:url('../img/prev-btn.png') no-repeat center center;}
@@ -72,7 +72,7 @@
 #main1 .calendar-box {float:right;width:570px;height:auto;box-sizing:border-box;position:relative;}
 
 #calendar2 .calendar-info {position:absolute;bottom:20px;left:0;text-align:center;color:#555;padding:13px 0 7px;width:100%;}
-#calendar2 .calendar-info span {display:inline-block;padding-left:7px;}
+#calendar2 .calendar-info span {display:inline-block;padding-left:10px;color:#767676;font-family:'s-core_dream5_medium';}
 #calendar2 .calendar-info span.hu {background:url('/resources/homepage/duryu/img/red-dot.png') no-repeat left center;margin-right:10px;}
 #calendar2 .calendar-info span.ev {background:url('/resources/homepage/duryu/img/blue-dot.png') no-repeat left center;}
 
@@ -94,7 +94,7 @@
 #planList span{float:left;margin:5px 3px 0;width:25px;height:25px;font-weight:bold;line-height:25px;display:block;background-color:#ee882c;color:#fff;border-radius:100%;font-size:12px}
 
 #calendar2 .cal-func2 {float:left;position:relative;width:27%;height:100%;text-align:center;padding:20px 0 10px 0;box-sizing:border-box;}
-#calendar2 .cal-func2 a.btn {padding:0;color:#fff;font-size:15px;}
+#calendar2 .cal-func2 a.btn {padding:0;color:#fff;font-size:15px;margin-top:10px;;}
 #calendar2 .cal-func2 a.btn:focus,
 #calendar2 .cal-func2 a.btn:hover{color:#fff}
 #calendar2 .cal-func2 a {}
@@ -105,7 +105,7 @@
 #calendar2 .cal-func2 b {display:block;}
 #calendar2 .cal-func2 b.year {font-family:'s-core_dream4_regular';color:#333333;font-size:14px;font-weight:normal;padding-bottom:3px;}
 #calendar2 .cal-func2 b.month {font-family:'s-core_dream6_bold';color:#000;font-size:35px;font-weight:bold;}
-#calendar2 .cal-func2 .cal-btn-more {background:#f6c65f;border-radius:25px;box-sizing:border-box;padding:5px 10px;font-size:15px;font-family:'s-core_dream4_regular';color:#000;font-size:14px;font-weight:bold;margin-top:30px;}
+#calendar2 .cal-func2 .cal-btn-more {background:#f6c65f;border-radius:25px;box-sizing:border-box;padding:10px 23px;font-family:'s-core_dream4_regular';color:#000;font-size:14px;font-weight:bold;margin-top:30px;}
 
 #calendar2 .cal-tbl {float:left;width:73%;margin-top:10px;text-align:center;}
 #calendar2 .cal-tbl thead th {font-family:'s-core_dream6_bold';width:14%;height:40px;line-height:40px;color:#333;font-size:15px;text-align:center;}
@@ -119,15 +119,13 @@
 #calendar2 .planView .inbox {position:relative;box-sizing:border-box;padding:25px}
 #calendar2 .planView .inbox .planList {padding:17px 0;border-bottom:1px solid #ddd;}
 #calendar2 .planView .inbox .planList:first-child{padding-top:0;}
-#calendar2 .planView .inbox .planList p {font-size:15px;color:#fff;}
-#calendar2 .planView .inbox .planList p.datetime {font-weight:bold;margin-bottom:5px;width:80px;text-align:center;height:40px;line-height:40px;font-size:18px;border:1px solid #333;color:#333;float:left;margin-right:15px;font-family:'s-core_dream5_medium';}
+#calendar2 .planView .inbox .planList p {font-size:14px;color:#fff;}
+#calendar2 .planView .inbox .planList p.datetime {margin-bottom:5px;width:80px;text-align:center;height:40px;line-height:40px;font-size:16px;border:1px solid #333;color:#333;float:left;margin-right:15px;font-family:'s-core_dream5_medium';}
 #calendar2 .planView .inbox .planList p.datetime.cul {border:1px solid #3368ff;color:#3368ff;}
 #calendar2 .planView .inbox .planList p.datetime.hol {border:1px solid #ff4040;color:#ff4040;}
-#calendar2 .planView .inbox .planList p.title {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;line-height:150%;color:#666;}
+#calendar2 .planView .inbox .planList p.title {white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;line-height:150%;color:#666;font-family:'s-core_dream4_regular';}
 #calendar2 .planView .inbox .planList p.title em {font-style:normal;color:#333;}
 #calendar2 .planView .inbox .planList li {margin:2px 0;font-size:14px;color:#666;letter-spacing:-0.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
-
-
 
 #calendar2 .planViewLayer {position:absolute;width:40%;left:50%;top:30%;background:#fff;margin-left:-40%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5)}
 #calendar2 .planViewLayer .inbox{position:relative;border:1px solid #ccc;padding:10px}
@@ -240,9 +238,21 @@
 #s_foot_section .sFooter .f_info .in .f_logo {position:absolute;top:0;right:0;}
 
 
-@media all and (max-width:1260px){
+@media all and (max-width:1450px){
+	#main0 .main0-inner-left{width:35%;}
 
+	#main1 .culture-box{width:400px;}
+	#main1 .quick-box{float:left;margin-left:40px;}
+
+	#main1 .main-section3{width:1010px;}
 }
+
+@media all and (max-width:1300px){
+	#main0 .main0-inner-left{width:35%;}
+	#main0 .main0-inner-right{width:60%;}
+	#main0 .main0-inner-right .popZone{width:100%;}
+}
+
 
 @media all and (max-width:1024px){
 	h1 img{display:none}
@@ -250,7 +260,7 @@
 	#header h1 {position:relative;height:auto;position:absolute;left:0;}
 	#header h1 img {display:block}
 
-	.m-menu a {position:absolute;right:10px;display:inline-block;text-align:center;vertical-align:middle;color:#fff;}
+	.m-menu a {position:absolute;right:10px;display:inline-block;text-align:center;vertical-align:middle;color:#000;}
 	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;}
 
 	.main .section{margin:0}
@@ -260,29 +270,81 @@
 	.mmode {display:block;}
 	.main_scroll {display:none;}
 	.webBr {display:none;}
+	
+	#main0 .main-section3.main0{padding-top:100px}
+	#main0 .main0-inner-left .qmenu{margin-top:20px;}
 
+	#main0 .main0-inner-left{float:none;width:100%;}
+	#main0 .main0-inner-right{float:none;width:800px;margin:20px auto 40px;}
+	#main0 .main0-inner-right .popZone{width:100%;margin:0 auto;}
+	
+	#main1{padding-top:30px;}
+	#main1 .main-section3{width:100%;}
+
+	#main1 .culture-box{float:none;margin:0 auto;}
+	#main1 .culture-box .culture-title h3{font-size:25px;}
+	#main1 .culture-box .culture-title a.more-btn{top:5px;}
+	#main1 .culture-box .bx-controls-direction a.bx-prev{top:0;}
+	#main1 .culture-box .bx-controls-direction a.bx-next{top:0;}
+
+	#main1 .calendar-box{float:none;margin:20px auto 40px;}
+
+	#foot_section .mFooter .middle .info a{font-size:15px;}
+	#foot_section .mFooter .middle p em{font-size:15px;}
 }
 
-@media all and (max-width:768px){
+@media all and (max-width:850px){	
+	#main0 .main0-inner-right{width:500px;}
+	#main0 .main0-inner-right .popZone{height:350px;}
+	#main0 .main0-inner-right .popZone img{width:500px;height:350px;}
+}
 
+@media all and (max-width:768px){	
+	#main0 .main0-inner-left .search-box .main-box input{font-size:14px;}
+	#main0 .main0-inner-left .qmenu li a div{font-size:15px;}
+
+	#foot_section .mFooter .middle .info{text-align:center;}
+	#foot_section .mFooter .middle .address{text-align:center;}
+	#foot_section .mFooter .middle .site_link{position:relative;text-align:center;}
 }
 
 @media all and (max-width:650px){
-	
 	.webList {display:none}
 	.mobileList {display:block}
-
 	.mobileBr {display:block;}
+	
+	#main1 .calendar-box{width:100%;}
+
+	#main1 .culture-box .culture-title h3{font-size:20px;}
+	#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-top{font-size:17px;}
+	#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-middle{font-size:14px;}
+	#main1 .culture-box .culture-contents ul li a .culture-contents-bottom .culture-contents-txt .culture-contents-txt-bottom p{font-size:14px;}
+	
+	#foot_section .mFooter .middle{padding:20px 0;}
+	#foot_section .mFooter .middle .info a{font-size:13px;}
+	#foot_section .mFooter .middle p em{font-size:13px;}
+	#foot_section .mFooter .middle p.copyright{font-size:12px;}
+	#foot_section .mFooter .site_link > div > div > a > span, #foot_section .mFooter .site_link > div > div > a > span{font-size:13px;}
 }
 
-@media all and (max-width:550px){
+@media all and (max-width:530px){
+	#main0 .main0-inner-right{width:350px;}
+	#main0 .main0-inner-right .popZone{height:245px;}
+	#main0 .main0-inner-right .popZone img{width:350px;height:245px;}
+}
 
+@media all and (max-width:500px){
+	#calendar2 .cal-bord{padding:10px;}
+	#calendar2 .cal-func2 b.year{font-size:12px;}
+	#calendar2 .cal-func2 b.month{font-size:30px;}
+	#calendar2 .cal-func2 .cal-btn-more{font-size:12px;}
+	#calendar2 .planView .inbox .planList p.datetime{font-size:15px;}
+	#calendar2 .cal-func2 a, #calendar2 .cal-func2 b, #calendar2 .cal-func2 span, #calendar2 .cal-func2 em{font-size:13px;}
+	#calendar2 .cal-tbl thead th{font-size:13px;}
+	#calendar2 .cal-tbl td div{font-size:12px;}
+	#calendar2 .cal-func2 a.btn{width:18px;}
+	#calendar2 .cal-func2 .cal-btn-more{padding:8px 19px;}
 }
 
 @media all and (max-width:425px){
-
-}
-
-@media all and (max-width:320px){
-
 }

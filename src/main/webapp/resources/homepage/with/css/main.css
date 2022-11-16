@@ -1,12 +1,10 @@
 @charset "utf-8"; 
 
-#main0, #main1, #main2, #main1 {position:relative;width:100%;overflow:hidden;background:#fff;}
-
-#main0, #main1, #main2, #main1 {position:relative;width:100%;overflow:hidden;background:#fff;}
+#main0, #main1{position:relative;width:100%;overflow:hidden;background:#fff;}
 
 #main0 .main0-wrap {height:100%;box-sizing:border-box;padding-top:148px;}
 #main0 .main0-top {background:#f1f8f2;height:30%;box-sizing:border-box;}
-#main0 .main0-top .main0-txt {font-weight:normal;font-size:35px;padding-top:50px;}
+#main0 .main0-top .main0-txt {font-weight:normal;font-size:35px;padding-top:50px;color:#000;}
 #main0 .main0-top .search-area {position:relative;width:100%;text-align:left;z-index:99999;background:transparent;}
 #main0 .main0-top .search-area .main-box {position:relative;width:100%;margin:10px 0 0 0;}
 #main0 .main0-top .search-area .main-box fieldset{position:relative;overflow:hidden;}

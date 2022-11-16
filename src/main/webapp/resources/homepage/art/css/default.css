@@ -21,7 +21,7 @@
 .tnb .util b {color:#000;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('../img/logo.png') no-repeat center center;width:145px;height:50px;font-size:0;}
+h1.web-logo a {display:block;background:url('../img/logo-w.png') no-repeat center center;width:145px;height:50px;font-size:0;}
 h1.mobile-logo {display:none;width:145px;height:50px;}
 .Gnb .g-menu a.last-box_w{display:none;}
 .Gnb .g-menu a.last-box_b{display:block;}
@@ -158,10 +158,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:1024px){
-	.tnb {height:65px;padding:10px 0;}
+	.tnb {height:65px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.5);}
 
-	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
+	h1.mobile-logo {display:block;width:150px;height:40px;margin:3px 0;margin-left:15px;}
+	h1.mobile-logo a {display:block;background:url('../img/logo.png') no-repeat center center;font-size:0;background-size:150px;height:40px;}
 
 	/* SNS 추가 */
 	.sns-box {position:absolute;display:block;left:220px;top:7px;}
