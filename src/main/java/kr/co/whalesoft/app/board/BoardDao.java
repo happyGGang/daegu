@@ -179,4 +179,6 @@ public interface BoardDao {
 	public int delThemeBook(Board board);
 
 	public List<Board> getBoardBookJungu(Board board);
+
+	public List<Board> getSubBoardByMainDotory(Board board);
 }

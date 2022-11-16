@@ -3,11 +3,29 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 	<div class="mFooter">
-		<div class="top">
-			<div class="sections">
+		<div class="middle">
+			<div class="main-section">
+				<div class="scroll-x">
+					<div class="info">
+						<a href="/lib/html.do?menu_idx=76"><b>개인정보처리방침</b></a>
+						<span class="barss">|</span>
+						<a href="/lib/html.do?menu_idx=77">영상정보처리기기운영관리방침</a>
+						<span class="barss">|</span>
+						<a href="/lib/html.do?menu_idx=78">행정서비스헌장</a>
+					</div>
+				</div>
+
+				<div class="address">
+					<p>
+						<em>(${homepage.zipcode}) ${homepage.address1}</em><br class="mobileBr"/>
+						<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
+						<em>팩스 <b>${homepage.homepage_fax }</b></em>
+					</p>
+					<p class="copyright">Copyright 2022. 한들마을공공도서관 All Rights Reserved.</p>
+				</div>
+
 				<div class="site_link">
 					<div>
-						<!-- <homepageTag:siteLink homepageList="${homepageList}" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id},h30,h31,h33"/> -->
 						<div>
 							<a class="fsite type1">
 							<span class="f1">대구광역시 공공도서관</span>
@@ -24,8 +42,6 @@
 							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/seobu/index.do">대구광역시립 서부도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 중앙도서관" href="http://library.daegu.go.kr/jungang/index.do">대구광역시립 중앙도서관</a></li>
-
-							<!-- <li class="disabled"><a href="#">대구광역시 공공도서관</a></li> -->
 							<li class="disabled"><a title="남구대명어울림도서관" href="http://library.daegu.go.kr/namdm/index.do">남구대명어울림도서관</a></li>
 							<li class="disabled"><a title="남구이천어울림도서관" href="http://library.daegu.go.kr/namic/index.do">남구이천어울림도서관</a></li>
 							<li class="disabled"><a title="달서구립도서관" href="http://library.daegu.go.kr/dalseolib/index.do">달서구통합도서관</a></li>
@@ -43,41 +59,8 @@
 						</div>
 						<a href="#" class="btn">이동</a>
 					</div>
-					<div>
-						<homepageTag:siteLink recommendSiteList="${recommendSiteList}" defaultStr="교육 및 지역관련기관"/>
-					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="middle">
-			<div class="sections">
-				<div class="info">
-					<a href="/${homepage.context_path}/html.do?menu_idx=75"><b>개인정보처리방침</b></a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=109">영상정보처리방침</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=78">도서관서비스헌장</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=80">뷰어다운로드</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="bottom">
-			<div class="sections">
-				<p>
-					<em>(${homepage.zipcode}) ${homepage.address1}</em><br class="mobileBr"/>
-					<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
-					<em>팩스 <b>${homepage.homepage_fax }</b></em>
-				</p>
-				<p class="copyright">Copyright ⓒ 행복북구문화재단 구수산도서관. All rights reserved.</p>
-			<p class="f_logo"><img src="/resources/homepage/${homepage.context_path}/img/footer_logo.png" alt="구수산도서관"></p>
-			</div>
-		</div>
-
-	</div>
-
-	<div class="home-up">
-		<img src="/resources/homepage/${homepage.context_path}/img/m-top-btn.png" alt="위로" id="homeup">
+		<div class="end"></div>
 	</div>

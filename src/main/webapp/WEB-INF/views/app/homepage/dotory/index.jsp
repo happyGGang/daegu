@@ -121,22 +121,22 @@
 							<div class="main0-box-left">
 								<ul>
 									<li>
-										<a href="">
+										<a href="/dotory/html.do?menu_idx=33">
 											<img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt=""><Br/>도서관소개
 										</a>
 									</li>
 									<li>
-										<a href="">
+										<a href="/dotory/intro/join/index.do?menu_idx=43">
 											<img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt=""><Br/>회원가입
 										</a>
 									</li>
 									<li>
-										<a href="">
+										<a href="/dotory/html.do?menu_idx=16">
 											<img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt=""><Br/>희망도서신청
 										</a>
 									</li>
 									<li>
-										<a href="">
+										<a href="/dotory/module/teach/index.do?menu_idx=26">
 											<img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt=""><Br/>강좌신청
 										</a>
 									</li>
@@ -151,9 +151,7 @@
 											<!-- main_search -->
 											<div class="search-box" id="main_search">
 												<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-												<input type="hidden" name="menu_idx" value="9">
-												<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
-												<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+												<input type="hidden" name="menu_idx" value="7">
 												<fieldset>
 													<legend class="blind">통합검색</legend>
 													<div class="main-box">
@@ -194,7 +192,6 @@
 													<c:otherwise>
 														<ul>
 															<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupnone.png" alt="등록된 팝업이 없습니다." /></a></li>
-															<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/popupnone.png" alt="등록된 팝업이 없습니다." /></a></li>
 														</ul>
 													</c:otherwise>
 												</c:choose>
@@ -214,112 +211,136 @@
 		<!-- section1 -->
 		<div class="section" id="main1">
 			<div class='main-section3'>
-
 				<div class="book-box">
 					<div class="book-title">
 						<h3><b>북큐레이션</b> 이달의 추천도서</h3>
-						<a href="" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+						<a href="/dotory/board/index.do?menu_idx=11&manage_idx=1058" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 					</div>
 
 					<div class="book-contents">
 						<div class="bookList">
 							<ul>
+								<c:forEach var="i" varStatus="status" items="${recommendedBookKids}" >
 								<li>
-									<a href="">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=11&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 										<div class="book-contents-top">
 											<p class="book0001">어린이</p>
-											<img src="/resources/homepage/${homepage.context_path}/img/book1.gif" alt="">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+													</c:otherwise>
+												</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+												</c:otherwise>
+											</c:choose>
 										</div>
 										<div class="book-contents-bottom">
-											[성인, 학부모] 자녀와 함께 읽는 인문고전 독서코칭
+											${i.title}
 										</div>
 									</a>
 								</li>
+								</c:forEach>
+								<c:if test="${empty recommendedBookKids}">
+									<li>등록된 추천도서가 없습니다.</li>
+								</c:if>
+								
+								<c:forEach var="i" varStatus="status" items="${recommendedBookTeenager}" >
+ 								<li>
+								<a href="/${homepage.context_path}/board/view.do?menu_idx=11&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+ 										<div class="book-contents-top">
+ 											<p class="book0002">청소년</p>
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+													</c:otherwise>
+												</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+												</c:otherwise>
+											</c:choose>
+ 										</div>
+ 										<div class="book-contents-bottom">
+										${i.title}
+ 										</div>
+ 									</a>
+ 								</li>
+								</c:forEach>
+								<c:if test="${empty recommendedBookTeenager}">
+ 									<li>등록된 추천도서가 없습니다.</li>
+								</c:if>
+								
+								<c:forEach var="i" varStatus="status" items="${recommendedBookAdult}" >
 								<li>
-									<a href="">
-										<div class="book-contents-top">
-											<p class="book0002">청소년</p>
-											<img src="/resources/homepage/${homepage.context_path}/img/book1.gif" alt="">
-										</div>
-										<div class="book-contents-bottom">
-											[성인, 학부모] 자녀와 함께 읽는 인문고전 독서코칭
-										</div>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<div class="book-contents-top">
-											<p class="book0003">일반</p>
-											<img src="/resources/homepage/${homepage.context_path}/img/book1.gif" alt="">
-										</div>
-										<div class="book-contents-bottom">
-											[성인, 학부모] 자녀와 함께 읽는 인문고전 독서코칭
-										</div>
-									</a>
-								</li>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=11&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+ 										<div class="book-contents-top">
+ 											<p class="book0003">일반</p>
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+													</c:otherwise>
+												</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+												</c:otherwise>
+											</c:choose>
+ 										</div>
+ 										<div class="book-contents-bottom">
+											${i.title}
+ 										</div>
+ 									</a>
+ 								</li>
+								</c:forEach>
+								<c:if test="${empty recommendedBookAdult}">
+ 									<li>등록된 추천도서가 없습니다.</li>
+								</c:if>
 							</ul>
 						</div>
-						<!-- 
-						<ul>
-							<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="4">
-								<li>
-									<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
-										<div class="culture-contents-top">
-											<img src="/resources/homepage/${homepage.context_path}/img/list-bg2.jpg" alt="">${}
-										</div>
-										<div class="culture-contents-bottom">
-											<div class="culture-contents-txt">
-												<div class="culture-contents-txt-top">
-													${i.teach_name}
-												</div>
-												<div class="culture-contents-txt-middle">
-													${}자녀들과 함께 가정에서 다양한 책읽기를 즐길 수 있는 방안과 그것을 인문학과 연결시킬 수 있는 방법을 찾을 수 있다.
-												</div>
-												<div class="culture-contents-txt-bottom">
-													<p>강좌기간 : <b>${i.start_date} ~ ${i.end_date}</b></p>
-													<p>접수기간 : <b>${} ~ ${}</b></p>
-												</div>
-											</div>
-										</div>
-									</a>
-								</li>
-							</c:forEach>
-							<c:if test="${fn:length(teachList) < 1}">
-								<li>
-									등록된 행사가 없습니다.
-								</li>
-							</c:if>
-						</ul>
-						-->
 					</div>
 				</div>
-
 				<div class="calendar-box" id="calendar-box">
-				</div>
-
-			</div>
-			<div class="banner-box">
-				<div class="main-section3">
-					<div class="banner-wrap type5">
-						<div class="banner-t5">
-							<h3>배너모음</h3>
-							<div class="control">
-								<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
-								<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
-								<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
-								<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
-							</div>
-						</div>
-						<div class="banner-box5">
-							<homepageTag:banner bannerList="${bannerList}"/>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 		<!-- //main1 -->
 
 		<!-- footer_section -->
+		<div class="banner-box">
+			<div class="main-section3">
+				<div class="banner-wrap type5">
+					<div class="banner-t5">
+						<h3>배너모음</h3>
+						<div class="control">
+							<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
+							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
+							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
+							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+						</div>
+					</div>
+					<div class="banner-box5">
+						<homepageTag:banner bannerList="${bannerList}"/>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
 		</div>

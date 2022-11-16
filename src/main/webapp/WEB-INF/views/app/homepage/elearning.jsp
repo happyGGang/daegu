@@ -25,6 +25,16 @@
 							</c:otherwise>
 						</c:choose>
 					</c:when>
+					<c:when test="${sessionScope.member.loginType eq 'PRIVATEHOMEPAGE' and sessionScope.member.login}">
+						<c:choose>
+							<c:when test="${sessionScope.member.user_no eq '' or sessionScope.member.user_no eq null}">
+								<a href="javascript:alert('정회원만 이용가능합니다.');" class="btn_link04"  title="사이버학습관 바로가기(새창열림)"  target="_blank"><span>사이버학습관 바로가기</span><span class="ico ico_link"></span></a>
+							</c:when>
+							<c:otherwise>
+								<a href="#" class="btn_link04" id="go-cyber" title="사이버학습관 바로가기(새창열림)"  target="_blank"><span>사이버학습관 바로가기</span><span class="ico ico_link"></span></a>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
 					<c:otherwise>
 						<a href="javascript:alert('로그인후 이용가능합니다.');" class="btn_link04"  title="사이버 학습관 바로가기(새창열림)" ><span>사이버학습관 바로가기</span><span class="ico ico_link"></span></a>
 					</c:otherwise>

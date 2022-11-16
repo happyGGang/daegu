@@ -109,7 +109,7 @@ Date.prototype.format = function(f) {
 				<span><b class="year">${fn:split(calendar.plan_date, '-')[0]}</b><b class="month">${fn:split(calendar.plan_date, '-')[1]}</b></span>
 				<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/next-btn.png" alt="다음달"><span class="blind">다음달</span></a>
 
-				<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36" class="cal-btn-more">더보기 +</a>
+				<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=30" class="cal-btn-more">더보기 +</a>
 
 				<div class="calendar-info">
 					<span class="hu">휴관</span>
@@ -266,29 +266,30 @@ Date.prototype.format = function(f) {
 
 		<div class="planView">
 			<div class="inbox">
-
-				<div class="planList">
-					<p class="datetime cul">강좌</p>
-
-					<p class="title"><em>2022-08-05</em><br>[성인,학부모] 자녀와 함께 읽는 인문고전 독서 코칭</p>
-				</div>
-				<div class="planList">
-					<p class="datetime hol">휴관</p>
-
-					<p class="title"><em>2022-08-05</em><br>정기휴관일</p>
-				</div>
-
-			</div>
-			<div class="inbox">
 				<c:forEach var="i" begin="1" end="31" varStatus="status">
 					<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
 					<c:set var="idx" value="${i < 10 ? '':''}${i}"></c:set>
-					<c:forEach var="j" items="${calendarResult[idx]}">
+					<c:forEach var="j" items="${calendarResult2[idx]}">
 						<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
 						<div class="planList">
-							<p class="datetime">${calendar.plan_date}-${key}</p>
-
-							<p class="title"><em>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</em>${ty[1]}${fn:length(ty) > 1 ? (fn:startsWith(ty[1], '[') ? ']' : '') : ''}${ty[2]}${fn:length(ty) > 1 ? (fn:startsWith(ty[2], '[') ? ']' : '') : ''}</p>
+							<c:choose>
+								<c:when test="${fn:contains(ty[0], '강좌')}">
+									<p class="datetime cul">강좌</p>
+								</c:when>
+								<c:when test="${fn:contains(ty[0], '휴관')}">
+									<p class="datetime hol">휴관</p>
+								</c:when>
+								<c:when test="${fn:contains(ty[0], '휴강')}">
+									<p class="datetime cul">휴강</p>
+								</c:when>
+								<c:when test="${fn:contains(ty[0], '행사')}">
+									<p class="datetime">행사</p>
+								</c:when>
+								<c:otherwise>
+									<p class="datetime">${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</p>
+								</c:otherwise>
+							</c:choose>
+							<p class="title"><em>${calendar.plan_date}-${key}</em><br>${ty[1]}${fn:length(ty) > 1 ? (fn:startsWith(ty[1], '[') ? ']' : '') : ''}${ty[2]}${fn:length(ty) > 1 ? (fn:startsWith(ty[2], '[') ? ']' : '') : ''}</p>
 						</div>
 					</c:forEach>
 				</c:forEach>

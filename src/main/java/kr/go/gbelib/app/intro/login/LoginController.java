@@ -22,6 +22,7 @@ import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LoginAPI;
+import kr.go.gbelib.app.common.api.PrivateLoginAPI;
 import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
 
@@ -81,37 +82,74 @@ public class LoginController extends BaseController {
 			homepage = new Homepage();
 			homepage.setHomepage_id("h00");
 		}
-		member.setLoginType("HOMEPAGE");
-		Object result = LoginAPI.login(member);
-		if (result instanceof Member) {
-			accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
-			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			member.setLoginType("PRIVATEHOMEPAGE");
+			Object result = PrivateLoginAPI.login(member);
+			if (result instanceof Member) {
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
-			member = (Member) result;
-			member.setLogin(true);
-			service.setSessionMember(member, request);
-			service.redirectUrl(returnUrl, request, response);
-			return null;
-		} else {
-			if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
-				member.setHomepage_id(homepage.getHomepage_id());
+				member = (Member) result;
+				member.setLogin(true);
+				service.setSessionMember(member, request);
+				service.redirectUrl(returnUrl, request, response);
+				return null;
 			} else {
-				member.setHomepage_id("h00");
+				if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+					member.setHomepage_id(homepage.getHomepage_id());
+				} else {
+					member.setHomepage_id("h00");
+				}
+				member.setLoginType("PRIVATEHOMEPAGE");
+				accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
+				ApiResponse errorResult = (ApiResponse) result;
+
+				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+					codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+					return null;
+				} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
+					AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
+					codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
+					return null;
+				} else {
+					codeService.alertMessage(errorResult.getMessage(), request, response);
+					return null;
+				}
 			}
+		} else {
 			member.setLoginType("HOMEPAGE");
-			accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
-			ApiResponse errorResult = (ApiResponse) result;
+			Object result = LoginAPI.login(member);
+			if (result instanceof Member) {
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
-			if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
-				codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
-				return null;
-			} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
-				AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
-				codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
+				member = (Member) result;
+				member.setLogin(true);
+				service.setSessionMember(member, request);
+				service.redirectUrl(returnUrl, request, response);
 				return null;
 			} else {
-				codeService.alertMessage(errorResult.getMessage(), request, response);
-				return null;
+				if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+					member.setHomepage_id(homepage.getHomepage_id());
+				} else {
+					member.setHomepage_id("h00");
+				}
+				member.setLoginType("HOMEPAGE");
+				accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
+				ApiResponse errorResult = (ApiResponse) result;
+
+				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+					codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+					return null;
+				} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
+					AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
+					codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
+					return null;
+				} else {
+					codeService.alertMessage(errorResult.getMessage(), request, response);
+					return null;
+				}
 			}
 		}
 	}

@@ -75,7 +75,7 @@
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
-				alert('검색어를 입력하세요.');
+				alert('찾으시는 도서의 정보를 입력해주세요.');
 				$('input#search_text_1').focus();
 				return false;
 			}
@@ -101,7 +101,7 @@
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
-	<div class="popupWrap main-section4">
+	<div class="popupWrap main-section3">
 		<div id="popupLayer">
 			<homepageTag:popup popupList="${popupList}" />
 		</div>
@@ -114,8 +114,7 @@
 
 			<div class="main0-wrap">
 				<div class="main0-top">
-					<div class="main-section4">
-
+					<div class="main-section3">
 						<div class="main0-top-left">
 							<div class="main0-txt">
 								<p class='green-txt'>Daegu Private Public Library</p>
@@ -126,15 +125,13 @@
 							<div class="search-area" id="main_search">
 								<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 								<input type="hidden" name="menu_idx" value="9">
-								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
-								<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
 										<div class="box1">
 											<div class="box2">
 												<label for="search_text_1" class="blind">통합자료검색</label>
-												<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode:active;"/>
+												<input name="title" id="search_text_1" type="text" class="text" placeholder="찾으시는 도서의 정보를 입력해주세요." style="ime-mode:active;"/>
 											</div>
 										</div>
 										<button id="main-search-btn">검색하기</button>
@@ -156,33 +153,33 @@
 						<div class="quick-menu">
 							<ul>
 								<li class="quick01">
-									<a href="/bukgs/html.do?menu_idx=15" class="q01">
-										<span>희망도서신청</span>
+									<a href="/saebut/html.do?menu_idx=11" class="q01">
+										<span>이용안내</span>
 									</a>
 								</li>
 								<li class="quick02">
-									<a href="/bukgs/html.do?menu_idx=92" class="q02">
-										<span>상호대차서비스</span>
+									<a href="/saebut/intro/search/loan/index.do?menu_idx=43" class="q02">
+										<span>대출·조회예약</span>
 									</a>
 								</li>
 								<li class="quick03">
-									<a href="/bukgs/module/teach/index.do?menu_idx=32" class="q03">
-										<span>독서문화행사</span>
+									<a href="/saebut/module/teach/index.do?menu_idx=32" class="q03">
+										<span>새벗이야기</span>
 									</a>
 								</li>
 								<li class="quick04">
-									<a href="/bukgs/intro/search/loan/history.do?menu_idx=53" class="q04">
-										<span>대출정보조회</span>
+									<a href="https://library.daegu.go.kr/dgportal/index.do" class="q04">
+										<span>통합도서관</span>
 									</a>
 								</li>
 								<li class="quick05">
-									<a href="/bukgs/html.do?menu_idx=91" class="q05">
-										<span>스마트도서관</span>
+									<a href="https://library.daegu.go.kr/elib/index.do" class="q05">
+										<span>전자도서관</span>
 									</a>
 								</li>
 								<li class="quick06">
-									<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
-										<span>블로그</span>
+									<a href="/saebut/intro/search/loan/index.do?menu_idx=43" class="q06">
+										<span>MY도서관</span>
 									</a>
 								</li>
 							</ul>
@@ -196,113 +193,90 @@
 
 		<!-- section1 -->
 		<div class="section" id="main1">
-			<div class='main-section4'>
+			<div class='main-section3'>
 
 				<div class="notice-box">
-
 					<div class="notice-title">
 						<h3>NOTICE</h3>
-						<a href="" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+						<a href="/saebut/board/index.do?menu_idx=22&manage_idx=1071" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 					</div>
-
 					<div class="notice-contents">
-
 						<div class="notice-list">
 							<ul>
-								<li>
-									<a href="">
-										<h4>긴급신고 통합서비스 안내</h4>
-										<em>이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-										<span class="date">2022-11-01</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<h4>긴급신고 통합서비스 안내</h4>
-										<em> 이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-										<span class="date">2022-11-01</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<h4>긴급신고 통합서비스 안내</h4>
-										<em> 이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-										<span class="date">2022-11-01</span>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<h4>긴급신고 통합서비스 안내</h4>
-										<em> 이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-										<span class="date">2022-11-01</span>
-									</a>
-								</li>
+								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=22&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<h4>${i.title}</h4>
+											<em>${i.content_summary}</em>
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></span>
+										</a>
+									</li>
+								</c:forEach>
+								<c:if test="${empty noticeList}">
+ 									<li>등록된 공지사항이 없습니다.</li>
+								</c:if>
 							</ul>
 						</div>
-
 					</div>
 				</div>
-
 				<div class="quick-box">
 					<ul>
 						<li class="quick01">
-							<a href="" class="q01">
-								<span>희망도서신청</span>
+							<a href="/saebut/html.do?menu_idx=11" class="q01">
+								<span>회원가입안내</span>
 							</a>
 						</li>
 						<li class="quick02">
-							<a href=" class="q02">
-								<span>상호대차서비스</span>
+							<a href="/saebut/html.do?menu_idx=18" class="q02">
+								<span>문화행사</span>
 							</a>
 						</li>
 						<li class="quick03">
-							<a href="" class="q03">
-								<span>독서문화행사</span>
+							<a href="/saebut/board/index.do?menu_idx=24&manage_idx=1072" class="q03">
+								<span>자주하는질문</span>
 							</a>
 						</li>
 						<li class="quick04">
-							<a href="" class="q04">
-								<span>대출정보조회</span>
+							<a href="/saebut/html.do?menu_idx=26" class="q04">
+								<span>자원봉사신청</span>
 							</a>
 						</li>
 						<li class="quick05">
-							<a href="" class="q05">
-								<span>대출정보조회</span>
+							<a href="/saebut/intro/search/loan/index.do?menu_idx=43" class="q05">
+								<span>도서대출·반납</span>
 							</a>
 						</li>
 						<li class="quick06">
-							<a href="" class="q06">
-								<span>대출정보조회</span>
+							<a href="/saebut/html.do?menu_idx=58" class="q06">
+								<span>소모임·공간사용신청</span>
 							</a>
 						</li>
 					</ul>
 				</div>
 				<div class="end"></div>
-
-			</div>
-
-			<div class="banner-box">
-				<div class="main-section3">
-					<div class="banner-wrap type5">
-						<div class="banner-t5">
-							<h3>배너모음</h3>
-							<div class="control">
-								<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
-								<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
-								<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
-								<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
-							</div>
-						</div>
-						<div class="banner-box5">
-							<homepageTag:banner bannerList="${bannerList}"/>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<!-- //main1 -->
 
 		<!-- footer_section -->
+		<div class="banner-box">
+			<div class="main-section3">
+				<div class="banner-wrap type5">
+					<div class="banner-t5">
+						<h3>배너모음</h3>
+						<div class="control">
+							<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
+							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
+							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
+							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+						</div>
+					</div>
+					<div class="banner-box5">
+						<homepageTag:banner bannerList="${bannerList}"/>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
 		</div>

@@ -21,7 +21,7 @@
 						<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
 						<em>팩스 <b>${homepage.homepage_fax }</b></em>
 					</p>
-					<p class="copyright">Copyright 2022. DAEGUBRAILLELIBRARY All Rights Reserved.</p>
+					<p class="copyright">Copyright 2022. DOTORY All Rights Reserved.</p>
 				</div>
 
 				<div class="site_link">

@@ -13,7 +13,7 @@
 				<a href="/bukgs/html.do?menu_idx=25" target="_blank">전자도서관</a>
 			</div>
 
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">점자 도서관</a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">아트 도서관</a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
@@ -21,7 +21,7 @@
 
 			<div class="util">
 				<c:choose>
-					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<c:when test="${sessionScope.member.loginType eq 'PRIVATEHOMEPAGE' and sessionScope.member.login}">
 						<b>${sessionScope.member.member_name}님</b>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>

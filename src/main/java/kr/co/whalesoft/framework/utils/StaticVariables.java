@@ -9,4 +9,6 @@ public class StaticVariables {
 
 	public static final String MEMBER = "member";
 	
+	public static final String PRIVATEMEMBER = "member";
+	
 }

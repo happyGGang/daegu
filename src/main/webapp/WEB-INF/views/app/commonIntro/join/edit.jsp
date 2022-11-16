@@ -354,6 +354,38 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:if test="${homepage.context_path eq 'jungang'}">
 				대구광역시립 중앙도서관<input type="hidden" name="manage_code" value='AD' />
 				</c:if>
+				
+				<!-- 대구사립도서관 -->
+				<c:if test="${homepage.context_path eq 'with'}">
+				더불어숲도서관<input type="hidden" name="manage_code" value='NA'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'dotory'}">
+				도토리도서관<input type="hidden" name="manage_code" value='NB'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'dongil'}">
+				동일도서관<input type="hidden" name="manage_code" value='NC'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'vision'}">
+				비전도서관<input type="hidden" name="manage_code" value='NF'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'saebut'}">
+				새벗도서관<input type="hidden" name="manage_code" value='NE'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'art'}">
+				아트도서관<input type="hidden" name="manage_code" value='NK'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'yeonam'}">
+				연암도서관<input type="hidden" name="manage_code" value='ND'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'daegubraillelibrary'}">
+				점자도서관<input type="hidden" name="manage_code" value='NG'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'wasabi'}">
+				푸른초장도서관<input type="hidden" name="manage_code" value='NH'/>
+				</c:if>
+				<c:if test="${homepage.context_path eq 'handle'}">
+				한들마을도서관<input type="hidden" name="manage_code" value='NJ'/>
+				</c:if>
 				</td>
 				</tr>
 				<tr>
@@ -457,15 +489,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						</div>
 					</td>
 				</tr>
-
-				<!-- <tr>
-					<th>
-						<span style="color: red;">*</span> 소속도서관
-					</th>
-					<td>
-						${homepage.homepage_name}
-					</td>
-				</tr> -->
 				<tr>
 					<th>
 						집전화번호

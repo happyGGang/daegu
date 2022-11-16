@@ -32,6 +32,7 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LoginAPI;
+import kr.go.gbelib.app.common.api.PrivateLoginAPI;
 import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
 
@@ -117,124 +118,224 @@ public class CommonLoginController extends BaseController {
 			return null;
 		}
 
-		member.setManage_code(homepage.getManage_code());
-		member.setLoginType("HOMEPAGE");
-		Object result = LoginAPI.login(member);
-		if (result instanceof Member) {
-			accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
-			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
+		if(member.getPrivateMemberYn(homepage)) {
+			member.setManage_code(homepage.getManage_code());
+			member.setLoginType("PRIVATEHOMEPAGE");
+			
+			Object result = PrivateLoginAPI.login(member);
+			if (result instanceof Member) {
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
-			try {
+				try {
 
-				member = (Member) result;
-				member.setLogin(true);
+					member = (Member) result;
+					member.setLogin(true);
 
-				member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
-				memberService.addMemberLastLogin(member, request);
+					member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
+					memberService.addMemberLastLogin(member, request);
 
-				// 관리자확인
-				Member adminMember = memberService.getMemberOne(member);
-				if (adminMember != null) {
-					member.setAdmin(adminMember.isAdmin());
-					member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
-				}
-
-				if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
-
-					if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
-						member.setAuthGroupIdxList(new ArrayList<Integer>());
-
-//						관리자 링크회원이면 기존 그룹에 추가
-						if(adminMember != null) {
-							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
-						}
-						//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-						if (!member.getAuthGroupIdxList().contains(3)) {
-							member.getAuthGroupIdxList().add(3);
-						}
-
-						MemberGroup memberGroup = new MemberGroup();
-						memberGroup.setSite_id(homepage.getHomepage_id());
-
-						//내 소속도서관의 사용자 그룹에만 지정한다.
-//						member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
-
-						//그룹-멤버 관계 테이블에 넣는다.
-						memberGroupSubordService.addAuthGroupMember(member);
-						//권한맵을 새로 불러온다.
-						member.setAuthMap(memberService.getMemberAuth(member));
-
-					} else {
-						//그룹-회원 관계테이블에 넣는다.
-						memberGroupSubordService.addAuthGroupMember(member);
-//					//권한정보를 다시 가져온다.
-						member.setAuthMap(memberService.getMemberAuth(member));
-
+					// 관리자확인
+					Member adminMember = memberService.getMemberOne(member);
+					if (adminMember != null) {
+						member.setAdmin(adminMember.isAdmin());
+						member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
 					}
 
+					if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
+
+						if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
+							member.setAuthGroupIdxList(new ArrayList<Integer>());
+
+//							관리자 링크회원이면 기존 그룹에 추가
+							if(adminMember != null) {
+								member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
+							}
+							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+							if (!member.getAuthGroupIdxList().contains(3)) {
+								member.getAuthGroupIdxList().add(3);
+							}
+
+							MemberGroup memberGroup = new MemberGroup();
+							memberGroup.setSite_id(homepage.getHomepage_id());
+
+							//그룹-멤버 관계 테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+							//권한맵을 새로 불러온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						} else {
+							//그룹-회원 관계테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+//						//권한정보를 다시 가져온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						}
+
+					}
+				} catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@@@ private loginProcFailed : " + e.getMessage());
 				}
-			} catch (Exception e) {
-				System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
-			}
 
-			request.getSession().removeAttribute("loginSupport");
-			request.getSession().removeAttribute("loginPortal");
-			service.setSessionMember(member, request);
+				request.getSession().removeAttribute("loginSupport");
+				request.getSession().removeAttribute("loginPortal");
+				service.setSessionPrivateMember(member, request);
 
-			Device device = DeviceUtils.getCurrentDevice(request);
-			model.addAttribute("isMobile", device.isMobile() || device.isTablet());
-			boolean isMobile = device.isMobile() || device.isTablet();
-			if (!isMobile) {
-				request.getSession().setAttribute("showUserInfo", true);
-			}
-			request.getSession().removeAttribute("certMember");
+				Device device = DeviceUtils.getCurrentDevice(request);
+				model.addAttribute("isMobile", device.isMobile() || device.isTablet());
+				boolean isMobile = device.isMobile() || device.isTablet();
+				if (!isMobile) {
+					request.getSession().setAttribute("showUserInfo", true);
+				}
+				request.getSession().removeAttribute("certMember");
 
-			/**
-			 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
-			 */
-			// try {
-			// if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
-			// DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
-			//
-			// DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
-			// DateTime currentDate = DateTime.now();
-			//
-			// Days daysBetween = Days.daysBetween(updateDate, currentDate);
-			//
-			// int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
-			// if (daysBetween.getDays() > expiryDay) {
-			// int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
-			// returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
-			// }
-			// }
-			// } catch (Exception e) {
-			// e.printStackTrace();
-			// }
+				if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
+					int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+					service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+					return null;
+				}
 
-			if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
-				int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
-				service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
-				return null;
-			}
+				return "redirect:" + returnUrl;
 
-			return "redirect:" + returnUrl;
-
-		} else {
-			member.setHomepage_id(homepage.getHomepage_id());
-			member.setLoginType("HOMEPAGE");
-			accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
-			ApiResponse errorResult = (ApiResponse) result;
-
-			if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
-				codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
-				return null;
-			} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
-				AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
-				codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
-				return null;
 			} else {
-				codeService.alertMessage(errorResult.getMessage(), request, response);
-				return null;
+				member.setHomepage_id(homepage.getHomepage_id());
+				member.setLoginType("HOMEPAGE");
+				accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
+				ApiResponse errorResult = (ApiResponse) result;
+
+				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+					codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+					return null;
+				} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
+					AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
+					codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
+					return null;
+				} else {
+					codeService.alertMessage(errorResult.getMessage(), request, response);
+					return null;
+				}
+			}
+		} else {
+			member.setManage_code(homepage.getManage_code());
+			member.setLoginType("HOMEPAGE");
+			
+			Object result = LoginAPI.login(member);
+			if (result instanceof Member) {
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
+
+				try {
+
+					member = (Member) result;
+					member.setLogin(true);
+
+					member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
+					memberService.addMemberLastLogin(member, request);
+
+					// 관리자확인
+					Member adminMember = memberService.getMemberOne(member);
+					if (adminMember != null) {
+						member.setAdmin(adminMember.isAdmin());
+						member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
+					}
+
+					if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
+
+						if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
+							member.setAuthGroupIdxList(new ArrayList<Integer>());
+
+//							관리자 링크회원이면 기존 그룹에 추가
+							if(adminMember != null) {
+								member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
+							}
+							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+							if (!member.getAuthGroupIdxList().contains(3)) {
+								member.getAuthGroupIdxList().add(3);
+							}
+
+							MemberGroup memberGroup = new MemberGroup();
+							memberGroup.setSite_id(homepage.getHomepage_id());
+
+							//내 소속도서관의 사용자 그룹에만 지정한다.
+//							member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
+
+							//그룹-멤버 관계 테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+							//권한맵을 새로 불러온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						} else {
+							//그룹-회원 관계테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+//						//권한정보를 다시 가져온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						}
+
+					}
+				} catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
+				}
+
+				request.getSession().removeAttribute("loginSupport");
+				request.getSession().removeAttribute("loginPortal");
+				service.setSessionMember(member, request);
+
+				Device device = DeviceUtils.getCurrentDevice(request);
+				model.addAttribute("isMobile", device.isMobile() || device.isTablet());
+				boolean isMobile = device.isMobile() || device.isTablet();
+				if (!isMobile) {
+					request.getSession().setAttribute("showUserInfo", true);
+				}
+				request.getSession().removeAttribute("certMember");
+
+				/**
+				 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
+				 */
+				// try {
+				// if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
+				// DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
+				//
+				// DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
+				// DateTime currentDate = DateTime.now();
+				//
+				// Days daysBetween = Days.daysBetween(updateDate, currentDate);
+				//
+				// int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
+				// if (daysBetween.getDays() > expiryDay) {
+				// int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
+				// returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
+				// }
+				// }
+				// } catch (Exception e) {
+				// e.printStackTrace();
+				// }
+
+				if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
+					int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+					service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+					return null;
+				}
+
+				return "redirect:" + returnUrl;
+
+			} else {
+				member.setHomepage_id(homepage.getHomepage_id());
+				member.setLoginType("HOMEPAGE");
+				accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
+				ApiResponse errorResult = (ApiResponse) result;
+
+				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+					codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+					return null;
+				} else if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
+					AccountLock accountLock = accountLockService.getAccountLock(new AccountLock(member, request.getRemoteAddr()));
+					codeService.alertMessage(String.format("로그인 5회 중 %d회 실패\\n아이디 또는 비밀번호를 다시 확인하세요", accountLock.getCount()), request, response);
+					return null;
+				} else {
+					codeService.alertMessage(errorResult.getMessage(), request, response);
+					return null;
+				}
 			}
 		}
 	}
@@ -249,100 +350,196 @@ public class CommonLoginController extends BaseController {
 		String ipin_hash = request.getParameter("ipin_hash");
 		member.setCi_value(ipin_hash);
 		member.setManage_code(homepage.getManage_code());
-		member.setLoginType("HOMEPAGE");
-		Object result = LoginAPI.login(member);
-		if (result instanceof Member) {
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			member.setLoginType("PRIVATEHOMEPAGE");
+			Object result = PrivateLoginAPI.login(member);
+			if (result instanceof Member) {
 
-			// 비번 틀려서 계정이 잠김
-			if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
-				codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
-				return null;
-			}
-
-			accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
-			loginLogService.addLoginLog(new LoginLog(member, request, homepage));
-
-			try {
-
-				member = (Member) result;
-				member.setLogin(true);
-
-				member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
-				memberService.addMemberLastLogin(member, request);
-
-				// 관리자확인
-				Member adminMember = memberService.getMemberOne(member);
-				if (adminMember != null) {
-					member.setAdmin(adminMember.isAdmin());
-					member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
+				// 비번 틀려서 계정이 잠김
+				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+					codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+					return null;
 				}
 
-				if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
-					if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
-						member.setAuthGroupIdxList(new ArrayList<Integer>());
+				try {
 
-//						관리자 링크회원이면 기존 그룹에 추가
-						if(adminMember != null) {
-							member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
-						}
-						//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-						if (!member.getAuthGroupIdxList().contains(3)) {
-							member.getAuthGroupIdxList().add(3);
-						}
+					member = (Member) result;
+					member.setLogin(true);
 
-						MemberGroup memberGroup = new MemberGroup();
-						memberGroup.setSite_id(homepage.getHomepage_id());
+					member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
+					memberService.addMemberLastLogin(member, request);
 
-						//내 소속도서관의 사용자 그룹에만 지정한다.
-//						member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
-
-						//그룹-멤버 관계 테이블에 넣는다.
-						memberGroupSubordService.addAuthGroupMember(member);
-						//권한맵을 새로 불러온다.
-						member.setAuthMap(memberService.getMemberAuth(member));
-
-					} else {
-						//그룹-회원 관계테이블에 넣는다.
-						memberGroupSubordService.addAuthGroupMember(member);
-//					//권한정보를 다시 가져온다.
-						member.setAuthMap(memberService.getMemberAuth(member));
-
+					// 관리자확인
+					Member adminMember = memberService.getMemberOne(member);
+					if (adminMember != null) {
+						member.setAdmin(adminMember.isAdmin());
+						member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
 					}
 
+					if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
+
+						if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
+							member.setAuthGroupIdxList(new ArrayList<Integer>());
+
+//							관리자 링크회원이면 기존 그룹에 추가
+							if(adminMember != null) {
+								member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
+							}
+							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+							if (!member.getAuthGroupIdxList().contains(3)) {
+								member.getAuthGroupIdxList().add(3);
+							}
+
+							MemberGroup memberGroup = new MemberGroup();
+							memberGroup.setSite_id(homepage.getHomepage_id());
+
+							//그룹-멤버 관계 테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+							//권한맵을 새로 불러온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						} else {
+							//그룹-회원 관계테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+//						//권한정보를 다시 가져온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						}
+
+					}
+				} catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@@@ private loginProcFailed : " + e.getMessage());
 				}
-			} catch (Exception e) {
-				System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
-			}
 
-			request.getSession().removeAttribute("loginSupport");
-			request.getSession().removeAttribute("loginPortal");
-			service.setSessionMember(member, request);
+				request.getSession().removeAttribute("loginSupport");
+				request.getSession().removeAttribute("loginPortal");
+				service.setSessionPrivateMember(member, request);
 
-			Device device = DeviceUtils.getCurrentDevice(request);
-			model.addAttribute("isMobile", device.isMobile() || device.isTablet());
-			boolean isMobile = device.isMobile() || device.isTablet();
-			if (!isMobile) {
-				request.getSession().setAttribute("showUserInfo", true);
-			}
-			request.getSession().removeAttribute("certMember");
+				Device device = DeviceUtils.getCurrentDevice(request);
+				model.addAttribute("isMobile", device.isMobile() || device.isTablet());
+				boolean isMobile = device.isMobile() || device.isTablet();
+				if (!isMobile) {
+					request.getSession().setAttribute("showUserInfo", true);
+				}
+				request.getSession().removeAttribute("certMember");
 
 
-			if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
-				int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
-				service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+				if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
+					int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+					service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+					return null;
+				}
+
+				return "redirect:" + returnUrl;
+
+			} else {
+				member.setHomepage_id(homepage.getHomepage_id());
+				member.setLoginType("PRIVATEHOMEPAGE");
+				ApiResponse errorResult = (ApiResponse) result;
+
+				codeService.alertMessage(errorResult.getMessage(), request, response);
 				return null;
 			}
-
-			return "redirect:" + returnUrl;
-
 		} else {
-			member.setHomepage_id(homepage.getHomepage_id());
 			member.setLoginType("HOMEPAGE");
-			ApiResponse errorResult = (ApiResponse) result;
+			Object result = LoginAPI.login(member);
+			if (result instanceof Member) {
 
-			codeService.alertMessage(errorResult.getMessage(), request, response);
-			return null;
+				// 비번 틀려서 계정이 잠김
+				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
+					codeService.alertMessage("로그인 5회 중 5회 이상 실패\\n입력하신 아이디에 대해서 10분간 접속을 차단합니다.", request, response);
+					return null;
+				}
+
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
+
+				try {
+
+					member = (Member) result;
+					member.setLogin(true);
+
+					member.setLast_login_ip(homepageAccessService.getLastHomepageAccess(member));
+					memberService.addMemberLastLogin(member, request);
+
+					// 관리자확인
+					Member adminMember = memberService.getMemberOne(member);
+					if (adminMember != null) {
+						member.setAdmin(adminMember.isAdmin());
+						member.setAuthorityHomepageList(adminMember.getAuthorityHomepageList());
+					}
+
+					if ((member.getAuthMap() == null || member.getAuthMap().isEmpty()) && !member.isAdmin()) {
+
+						if (member.getAuthGroupIdxList() == null || member.getAuthGroupIdxList().size() < 1) {
+							member.setAuthGroupIdxList(new ArrayList<Integer>());
+
+//							관리자 링크회원이면 기존 그룹에 추가
+							if(adminMember != null) {
+								member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
+							}
+							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
+							if (!member.getAuthGroupIdxList().contains(3)) {
+								member.getAuthGroupIdxList().add(3);
+							}
+
+							MemberGroup memberGroup = new MemberGroup();
+							memberGroup.setSite_id(homepage.getHomepage_id());
+
+							//내 소속도서관의 사용자 그룹에만 지정한다.
+//							member.getAuthGroupIdxList().add(memberGroupService.getSiteUserGroupOne(memberGroup).getMember_group_idx());
+
+							//그룹-멤버 관계 테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+							//권한맵을 새로 불러온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						} else {
+							//그룹-회원 관계테이블에 넣는다.
+							memberGroupSubordService.addAuthGroupMember(member);
+//						//권한정보를 다시 가져온다.
+							member.setAuthMap(memberService.getMemberAuth(member));
+
+						}
+
+					}
+				} catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@@@ loginProcFailed : " + e.getMessage());
+				}
+
+				request.getSession().removeAttribute("loginSupport");
+				request.getSession().removeAttribute("loginPortal");
+				service.setSessionMember(member, request);
+
+				Device device = DeviceUtils.getCurrentDevice(request);
+				model.addAttribute("isMobile", device.isMobile() || device.isTablet());
+				boolean isMobile = device.isMobile() || device.isTablet();
+				if (!isMobile) {
+					request.getSession().setAttribute("showUserInfo", true);
+				}
+				request.getSession().removeAttribute("certMember");
+
+
+				if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
+					int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+					service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
+					return null;
+				}
+
+				return "redirect:" + returnUrl;
+
+			} else {
+				member.setHomepage_id(homepage.getHomepage_id());
+				member.setLoginType("HOMEPAGE");
+				ApiResponse errorResult = (ApiResponse) result;
+
+				codeService.alertMessage(errorResult.getMessage(), request, response);
+				return null;
+			}
 		}
 	}
 

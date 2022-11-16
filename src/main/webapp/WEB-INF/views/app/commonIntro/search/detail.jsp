@@ -21,6 +21,14 @@ $(function() {
 			location.reload();
 		}
 		</c:when>
+		<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'PRIVATEHOMEPAGE'}">
+		if (!confirm('예약 신청 하시겠습니까?')) {
+			return false;
+		}
+		if ( doAjaxPost($('#resveReqForm')) ) {
+			location.reload();
+		}
+		</c:when>
 		<c:otherwise>
 		alert('로그인 후 이용 가능합니다.');
 		location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
@@ -127,6 +135,9 @@ $(function() {
 		e.preventDefault();
 		<c:choose>
 		<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'HOMEPAGE'}">
+		$('form#droneReqForm').submit();
+		</c:when>
+		<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'PRIVATEHOMEPAGE'}">
 		$('form#droneReqForm').submit();
 		</c:when>
 		<c:otherwise>
@@ -838,10 +849,15 @@ $(function() {
 			<!--비대면도서대출 버튼-->
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'bukgs' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
-					<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
+					<c:choose>
+						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
+						
+						</c:when>
+						<c:otherwise>
+							<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
-				<c:otherwise>
-				</c:otherwise>
 			</c:choose>
 
 			<!--워킹스루 도서대출 버튼-->

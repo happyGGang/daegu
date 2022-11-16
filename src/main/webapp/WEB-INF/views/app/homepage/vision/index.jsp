@@ -118,9 +118,8 @@
 				<div class="main0-inner-left">
 					<div class="search-box">
 						<div class="main-box">
-						<form id="mainSearchForm" action="/ycgh/intro/search/index.do">
-							<input type="hidden" name="menu_idx" value="8">
-							<input type="hidden" name="search_type2" value="L_TITLEAUTHOR">
+						<form id="mainSearchForm" action="/vision/intro/search/index.do">
+							<input type="hidden" name="menu_idx" value="9">
 							<fieldset>
 								<div class="box1">
 									<div class="box2">
@@ -136,7 +135,7 @@
 					<div class="qmenu">
 						<ul>
 							<li class="qm1">
-									<a href="#" title="이용안내">
+									<a href="/vision/html.do?menu_idx=19" title="이용안내">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="이용안내"></div>
@@ -147,7 +146,7 @@
 
 							</li>
 							<li class="qm2">
-									<a href="#" title="대출조회">
+									<a href="/vision/intro/search/loan/index.do?menu_idx=51" title="대출조회">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="대출조회"></div>
@@ -157,7 +156,7 @@
 								</a>
 							</li>
 							<li class="qm3">
-									<a href="#" title="희망도서신청">
+									<a href="/vision/intro/search/hope/req.do?menu_idx=18" title="희망도서신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="희망도서신청"></div>
@@ -167,7 +166,7 @@
 								</a>
 							</li>
 							<li class="qm4">
-									<a href="#" title="문화행사신청">
+									<a href="/vision/module/teach/index.do?menu_idx=26" title="문화행사신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="문화행사신청"></div>
@@ -177,7 +176,7 @@
 								</a>
 							</li>
 							<li class="qm5">
-									<a href="#" title="평생교육신청">
+									<a href="/vision/module/teach/index.do?menu_idx=27" title="평생교육신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="평생교육신청"></div>
@@ -188,7 +187,7 @@
 
 							</li>
 							<li class="qm6">
-									<a href="#" title="독서퀴즈">
+									<a href="/vision/module/quizReq/index.do?menu_idx=68" title="독서퀴즈">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="독서퀴즈"></div>
@@ -198,7 +197,7 @@
 								</a>
 							</li>
 							<li class="qm7">
-									<a href="#" title="자원봉사신청">
+									<a href="/vision/html.do?menu_idx=69" title="자원봉사신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="자원봉사신청"></div>
@@ -208,7 +207,7 @@
 								</a>
 							</li>
 							<li class="qm8">
-									<a href="#" title="통합도서관 새창으로 열립니다." target="_blank">
+									<a href="https://library.daegu.go.kr/dgportal/index.do" title="통합도서관 새창으로 열립니다." target="_blank">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="통합도서관"></div>
@@ -218,7 +217,7 @@
 								</a>
 							</li>
 							<li class="qm8">
-									<a href="https://www.gbelib.kr/elib/index.do" title="전자도서관 새창으로 열립니다." target="_blank">
+									<a href="https://library.daegu.go.kr/elib/index.do" title="전자도서관 새창으로 열립니다." target="_blank">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q9.png" alt="전자도서관"></div>
@@ -252,11 +251,10 @@
 		<!-- section1 -->
 		<div class="section" id="main1">
 			<div class='main-section3'>
-
 				<div class="culture-box">
 					<div class="culture-title">
 						<h3>문화행사</h3>
-						<a href="" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+						<a href="/vision/module/teach/index.do?menu_idx=26" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 					</div>
 
 					<div class="culture-contents">
@@ -344,111 +342,71 @@
 						</script>
 						<div class="cultureList">
 							<ul>
-								<li>
-									<a href="">
-										<div class="culture-contents-top">
-											<img src="/resources/homepage/${homepage.context_path}/img/list-bg1.jpg" alt="">
-										</div>
-										<div class="culture-contents-bottom">
-											<div class="culture-contents-txt">
-												<div class="culture-contents-txt-top">
-													[성인, 학부모] 자녀와 함께 읽는 인문고전 독서코칭
-												</div>
-												<div class="culture-contents-txt-middle">
-													자녀들과 함께 가정에서 다양한 책읽기를 즐길 수 있는 방안과 그것을 인문학과 연결시킬 수 있는 방법을 찾을 수 있다.
-												</div>
-												<div class="culture-contents-txt-bottom">
-													<p>강좌기간 : <b>2022-05-13 ~ 2022-05-20</b></p>
-													<p>접수기간 : <b>2022-04-20 ~ 2022-05-10</b></p>
+								<c:forEach var="i" varStatus="status" items="${teachList1}" begin="0" end="3">
+									<li>
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<div class="culture-contents-top">
+												<c:choose>
+													<c:when test="${status.index eq '0' || status.index eq '2'}">
+														<img src="/resources/homepage/${homepage.context_path}/img/list-bg1.jpg" alt="문화행사이미지">
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/homepage/${homepage.context_path}/img/list-bg2.jpg" alt="문화행사이미지">
+													</c:otherwise>
+												</c:choose>
+											</div>
+											<div class="culture-contents-bottom">
+												<div class="culture-contents-txt">
+													<div class="culture-contents-txt-top">
+														[${i.category_name}] ${i.teach_name}
+													</div>
+													<div class="culture-contents-txt-middle">
+														${i.teach_desc}
+													</div>
+													<div class="culture-contents-txt-bottom">
+														<p>강좌기간 : <b>${i.start_date} ~ ${i.end_date}</b></p>
+														<p>접수기간 : <b>${i.start_join_date} ~ ${i.end_join_date}</b></p>
+													</div>
 												</div>
 											</div>
-										</div>
-									</a>
-								</li>
-								<li>
-									<a href="">
-										<div class="culture-contents-top">
-											<img src="/resources/homepage/${homepage.context_path}/img/list-bg2.jpg" alt="">
-										</div>
-										<div class="culture-contents-bottom">
-											<div class="culture-contents-txt">
-												<div class="culture-contents-txt-top">
-													[성인, 학부모] 자녀와 함께 읽는 인문고전 독서코칭
-												</div>
-												<div class="culture-contents-txt-middle">
-													자녀들과 함께 가정에서 다양한 책읽기를 즐길 수 있는 방안과 그것을 인문학과 연결시킬 수 있는 방법을 찾을 수 있다.
-												</div>
-												<div class="culture-contents-txt-bottom">
-													<p>강좌기간 : <b>2022-05-13 ~ 2022-05-20</b></p>
-													<p>접수기간 : <b>2022-04-20 ~ 2022-05-10</b></p>
-												</div>
-											</div>
-										</div>
-									</a>
-								</li>
+										</a>
+									</li>
+								</c:forEach>
+	
+								<c:if test="${empty teachList1}">
+									<li>
+										등록된 문화행사가 없습니다.
+									</li>
+								</c:if>
 							</ul>
 						</div>
-						<!-- 
-						<ul>
-							<c:forEach items="${teachList}" var="i" varStatus="status" begin="0" end="4">
-								<li>
-									<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=${teachMenuIdx}&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
-										<div class="culture-contents-top">
-											<img src="/resources/homepage/${homepage.context_path}/img/list-bg2.jpg" alt="">${}
-										</div>
-										<div class="culture-contents-bottom">
-											<div class="culture-contents-txt">
-												<div class="culture-contents-txt-top">
-													${i.teach_name}
-												</div>
-												<div class="culture-contents-txt-middle">
-													${}자녀들과 함께 가정에서 다양한 책읽기를 즐길 수 있는 방안과 그것을 인문학과 연결시킬 수 있는 방법을 찾을 수 있다.
-												</div>
-												<div class="culture-contents-txt-bottom">
-													<p>강좌기간 : <b>${i.start_date} ~ ${i.end_date}</b></p>
-													<p>접수기간 : <b>${} ~ ${}</b></p>
-												</div>
-											</div>
-										</div>
-									</a>
-								</li>
-							</c:forEach>
-							<c:if test="${fn:length(teachList) < 1}">
-								<li>
-									등록된 행사가 없습니다.
-								</li>
-							</c:if>
-						</ul>
-						-->
 					</div>
 				</div>
-
 				<div class="calendar-box" id="calendar-box">
 				</div>
-
-			</div>
-			<div class="banner-box">
-				<div class="main-section3">
-					<div class="banner-wrap type5">
-						<div class="banner-t5">
-							<h3>배너모음</h3>
-							<div class="control">
-								<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
-								<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
-								<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
-								<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
-							</div>
-						</div>
-						<div class="banner-box5">
-							<homepageTag:banner bannerList="${bannerList}"/>
-						</div>
-					</div>
-				</div>
-			</div>
+			</div>			
 		</div>
 		<!-- //main1 -->
 
 		<!-- footer_section -->
+		<div class="banner-box">
+			<div class="main-section3">
+				<div class="banner-wrap type5">
+					<div class="banner-t5">
+						<h3>배너모음</h3>
+						<div class="control">
+							<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
+							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
+							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
+							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+						</div>
+					</div>
+					<div class="banner-box5">
+						<homepageTag:banner bannerList="${bannerList}"/>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
 		</div>

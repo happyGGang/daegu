@@ -5,7 +5,7 @@
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
 			<div class="main-section2">
-				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
+				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">아트 도서관</a></h1>
 
 				<!-- menu S -->
 				<div class="g-menu">
@@ -19,7 +19,7 @@
 								<span>모바일회원증</span>
 							</a>
 					<c:choose>
-						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+						<c:when test="${sessionScope.member.loginType eq 'PRIVATEHOMEPAGE' and sessionScope.member.login}">
 							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66" class="mobilemeberinfo">
 								<i class="fa fa-user"></i>
 									<span>${sessionScope.member.member_name}님</span>

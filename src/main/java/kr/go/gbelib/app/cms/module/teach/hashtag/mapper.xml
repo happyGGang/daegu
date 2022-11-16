@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.go.gbelib.app.cms.module.cultureTeach.hashtag.HashtagDao">
-  <select id="getHashtagList" resultType="kr.go.gbelib.app.cms.module.cultureTeach.hashtag.Hashtag">
+<mapper namespace="kr.go.gbelib.app.cms.module.teach.hashtag.HashtagDao">
+  <select id="getHashtagList" resultType="kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag">
     SELECT
       HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
       ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
@@ -9,7 +9,7 @@
       CULTURE_TEACH_HASHTAG
   </select>
 
-  <select id="getHashtagOne" resultType="kr.go.gbelib.app.cms.module.cultureTeach.hashtag.Hashtag">
+  <select id="getHashtagOne" resultType="kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag">
     SELECT
       HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
       ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE

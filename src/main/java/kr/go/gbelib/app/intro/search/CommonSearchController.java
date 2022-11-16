@@ -41,17 +41,13 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
-import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
-import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfig;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigService;
-import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
-import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
-import kr.go.gbelib.app.common.api.MemberAPI;
+import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/intro/search"})
@@ -69,13 +65,7 @@ public class CommonSearchController extends BaseController {
 	private MenuService menuService;
 
 	@Autowired
-	private LasReqConfigService lasReqConfigService;
-
-	@Autowired
 	private HopebookConfigService hopebookConfigService;
-
-	@Autowired
-	private SmsReceptionService smsReceptionService;
 
 	@Autowired
 	private NewBookConfigService newBookConfigService;
@@ -103,7 +93,7 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
+		
 		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
 		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
@@ -137,71 +127,140 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 		
-		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
-		
-		if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
-			List<String> shelfCodes = new ArrayList<String>();
-			List<Map<String, Object>> libraryCodes = LibSearchAPI.getListData(shelfInfo);
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> shelfInfo = PrivateLibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+			List<Map<String, Object>> shelfInfoList = PrivateLibSearchAPI.getListData(shelfInfo);
 			
-			for(int i=0; i < libraryCodes.size(); i++) {
-				shelfCodes.add(i, (String) libraryCodes.get(i).get("CODE"));
-			}
-			
-			librarySearch.setShelfCodes(shelfCodes);
-		}
-
- 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
-    		Map<String, Object> result = new HashMap<String, Object>();
-    		
-    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
-    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
-
-    		if ( librarySearch.getBooktype().equals("BOOK") ) {
-    			result = LibSearchAPI.getBookDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
-    			result = LibSearchAPI.getNonBookDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
-    			result = LibSearchAPI.getSerialDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
-    			result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
-    		}
-
-    		List<Map<String, Object>> list = null;
-
-    		int count = LibSearchAPI.getSearchCount(result);
-
-    		librarySearch.setTotalDataCount(count);
-    		service.setPaging(model, count, librarySearch);
-
-    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-    			list = LibSearchAPI.getListData(result);
-
-    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
-    			for (Map<String, Object> map : list) {
-    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-    						map.put("aladin", aladinData.get("item"));
-    					}
-    					if (map.get("aladin") == null) {
-							map.put("imageUrl", service.getImageUrl(map));
-						}
-    				}
-					map.put("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
-    				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
+				List<String> shelfCodes = new ArrayList<String>();
+				List<Map<String, Object>> libraryCodes = PrivateLibSearchAPI.getListData(shelfInfo);
+				
+				for(int i=0; i < libraryCodes.size(); i++) {
+					shelfCodes.add(i, (String) libraryCodes.get(i).get("CODE"));
 				}
-    		}
+				
+				librarySearch.setShelfCodes(shelfCodes);
+			}
 
-    		model.addAttribute("bookSearch", list);
-    		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
+	 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+	    		Map<String, Object> result = new HashMap<String, Object>();
+	    		
+	    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
+	    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
+
+	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
+	    			result = PrivateLibSearchAPI.getBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+	    			result = PrivateLibSearchAPI.getNonBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
+	    			result = PrivateLibSearchAPI.getSerialDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+	    			result = PrivateLibSearchAPI.getBookAndNonbookDetail(librarySearch);
+	    		}
+
+	    		List<Map<String, Object>> list = null;
+
+	    		int count = PrivateLibSearchAPI.getSearchCount(result);
+
+	    		librarySearch.setTotalDataCount(count);
+	    		service.setPaging(model, count, librarySearch);
+
+	    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+	    			list = PrivateLibSearchAPI.getListData(result);
+
+	    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+	    			for (Map<String, Object> map : list) {
+	    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+	    					Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+	    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+	    						map.put("aladin", aladinData.get("item"));
+	    					}
+	    					if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
+	    				}
+						map.put("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
+	    				map.put("marc", private_marc_view(model, String.valueOf(map.get("REG_NO")), request));
+					}
+	    		}
+
+	    		model.addAttribute("bookSearch", list);
+	    		model.addAttribute("facetGroup", PrivateLibSearchAPI.getFacetGroup(result));
+			}
+
+			Map<String, Object> subLocaInfo = PrivateLibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
+			List<Map<String, Object>> mediaCodeList = PrivateLibSearchAPI.getListData(subLocaInfo);
+
+			model.addAttribute("mediaCodeList", mediaCodeList);
+			model.addAttribute("shelfCodeList", shelfInfoList);
+		} else {
+			Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+			List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
+			
+			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
+				List<String> shelfCodes = new ArrayList<String>();
+				List<Map<String, Object>> libraryCodes = LibSearchAPI.getListData(shelfInfo);
+				
+				for(int i=0; i < libraryCodes.size(); i++) {
+					shelfCodes.add(i, (String) libraryCodes.get(i).get("CODE"));
+				}
+				
+				librarySearch.setShelfCodes(shelfCodes);
+			}
+
+	 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+	    		Map<String, Object> result = new HashMap<String, Object>();
+	    		
+	    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
+	    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
+
+	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
+	    			result = LibSearchAPI.getBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+	    			result = LibSearchAPI.getNonBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
+	    			result = LibSearchAPI.getSerialDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+	    			result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+	    		}
+
+	    		List<Map<String, Object>> list = null;
+
+	    		int count = LibSearchAPI.getSearchCount(result);
+
+	    		librarySearch.setTotalDataCount(count);
+	    		service.setPaging(model, count, librarySearch);
+
+	    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+	    			list = LibSearchAPI.getListData(result);
+
+	    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+	    			for (Map<String, Object> map : list) {
+	    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+	    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+	    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+	    						map.put("aladin", aladinData.get("item"));
+	    					}
+	    					if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
+	    				}
+						map.put("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
+	    				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+					}
+	    		}
+
+	    		model.addAttribute("bookSearch", list);
+	    		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
+			}
+
+			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
+			List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
+
+			model.addAttribute("mediaCodeList", mediaCodeList);
+			model.addAttribute("shelfCodeList", shelfInfoList);
 		}
 
-		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
-		List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
-
-		model.addAttribute("mediaCodeList", mediaCodeList);
-		model.addAttribute("shelfCodeList", shelfInfoList);
 
 		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
@@ -289,202 +348,291 @@ public class CommonSearchController extends BaseController {
 	public String detail(@PathVariable("homepagePath") String homepagePath, Model model, UntactLockerSetting untactLockerSetting, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();
-
-		result = LibSearchAPI.getBookInfo(librarySearch);
-
-		model.addAttribute("librarySearch", librarySearch);
-
-		List<Map<String, Object>> list = null;
-
-		int count = LibSearchAPI.getSearchCount(result);
-
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
 		
-		untactLockerSetting.setHomepage_id(homepage.getHomepage_id());
-		
-		model.addAttribute("untactLockerSetting", untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()));
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			result = PrivateLibSearchAPI.getBookInfo(librarySearch);
 
-		if ( count > 0 ) {
-			list = LibSearchAPI.getListData(result);
-			Map<String, Object> map = list.get(0);
+			model.addAttribute("librarySearch", librarySearch);
 
-			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
-			if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-				Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-				if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-					map.put("aladin", aladinData.get("item"));
-				}
-				if (map.get("aladin") == null) {
-					map.put("imageUrl", service.getImageUrl(map));
-				}
-			}
+			List<Map<String, Object>> list = null;
+
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 			
-			map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+			untactLockerSetting.setHomepage_id(homepage.getHomepage_id());
+			
+			model.addAttribute("untactLockerSetting", untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()));
 
-			librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
-			librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
-			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
-			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+			if ( count > 0 ) {
+				list = PrivateLibSearchAPI.getListData(result);
+				Map<String, Object> map = list.get(0);
 
-//			Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
-//			@SuppressWarnings ("unchecked")
-//			Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
-
-			map.put("SANGHO_REQ_YN", "N");
-//			if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
-//				// 정상 신청가능
-//				map.put("SANGHO_REQ_YN", "Y");
-//			}
-
-			//도서관정보나루 도서별 이용분석
-			Map<String, Object> srchDtlList = LibSearchAPI.getSrchDtlList(librarySearch.getIsbn());
-			if (srchDtlList != null && !srchDtlList.isEmpty()) {
-				@SuppressWarnings ("unchecked")
-				Map<String, Object> data4Response = (Map<String, Object>) srchDtlList.get("response");
-				try {
-//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"dfsdf\"): " + data4Response.get("sdfsdf"));
-//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
-					if(data4Response.get("error") == null) {
-						//함께 대출된 도서 - recBooks
-						@SuppressWarnings ("unchecked")
-						Map<String, Object> data4loanInfo =  (Map<String, Object>) data4Response.get("loanInfo");
-
-						@SuppressWarnings ("unchecked")
-						Map<String, Object> data4TotalInfo =  (Map<String, Object>) data4loanInfo.get("Total");
-
-						int data4LoanCnt =  Integer.parseInt(String.valueOf(data4TotalInfo.get("loanCnt")));
-						model.addAttribute("data4LoanCnt", data4LoanCnt);
-
-
-						@SuppressWarnings ("unchecked")
-						Map<String, Object> data4ageResult =  (Map<String, Object>) data4loanInfo.get("ageResult");
-						@SuppressWarnings ("unchecked")
-						List<Map<String, Object>> data4ageList =  (List<Map<String, Object>>) data4ageResult.get("age");
-						//연령별
-						model.addAttribute("data4ageList", data4ageList);
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
 					}
-				}catch ( Exception e ) {
-//					log.error("@@@@@@@@@@@@@@@@ srchDtlList : " + srchDtlList);
-//					log.error(e.getMessage());
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
 				}
+				
+				map.put("marc", private_marc_view(model, String.valueOf(map.get("REG_NO")), request));
 
-				model.addAttribute("srchDtlList", srchDtlList);
-			}
+				librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+				librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+				librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+				librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
 
-			//도서관정보나루 키워드
-			Map<String, Object> keywordList = LibSearchAPI.getKeywordList(librarySearch.getIsbn());
-			if (keywordList != null && !keywordList.isEmpty()) {
-				@SuppressWarnings ("unchecked")
-				Map<String, Object> data4Response = (Map<String, Object>) keywordList.get("response");
-				try {
-//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
-					if(data4Response.get("error") == null) {
-						//키워드
-						@SuppressWarnings ("unchecked")
-						Map<String, Object> data4items =  (Map<String, Object>) data4Response.get("items");
-						@SuppressWarnings ("unchecked")
-						List<Map<String, Object>> data4ItemList =  (List<Map<String, Object>>) data4items.get("item");
-						List<JSONObject> jsonList = new ArrayList<JSONObject>();
-						for (Map<String, Object> map4 : data4ItemList) {
-							JSONObject jo = new JSONObject();
-							String text = String.valueOf(map4.get("word")).trim();
+				map.put("SANGHO_REQ_YN", "N");
 
-							jo.put("text", text);
+				//도서관정보나루 도서별 이용분석
+				Map<String, Object> srchDtlList = PrivateLibSearchAPI.getSrchDtlList(librarySearch.getIsbn());
+				if (srchDtlList != null && !srchDtlList.isEmpty()) {
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> data4Response = (Map<String, Object>) srchDtlList.get("response");
+					try {
+						if(data4Response.get("error") == null) {
+							//함께 대출된 도서 - recBooks
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4loanInfo = (Map<String, Object>) data4Response.get("loanInfo");
 
-							map4.put("text", "\""+text+"\"");
-							map4.remove("word");
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4TotalInfo = (Map<String, Object>) data4loanInfo.get("Total");
 
-							String weight = String.valueOf(map4.get("weight")).trim();
-							map4.put("weight", weight);
+							int data4LoanCnt =  Integer.parseInt(String.valueOf(data4TotalInfo.get("loanCnt")));
+							model.addAttribute("data4LoanCnt", data4LoanCnt);
 
-							jo.put("weight", Double.parseDouble(weight));
-
-							jsonList.add(jo);
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4ageResult =  (Map<String, Object>) data4loanInfo.get("ageResult");
+							@SuppressWarnings ("unchecked")
+							List<Map<String, Object>> data4ageList =  (List<Map<String, Object>>) data4ageResult.get("age");
+							//연령별
+							model.addAttribute("data4ageList", data4ageList);
 						}
-
-						model.addAttribute("data4ItemList", data4ItemList);
-						model.addAttribute("data4ItemList", jsonList);
+					}catch ( Exception e ) {
+						e.printStackTrace();
 					}
-				}catch ( Exception e ) {
-//					log.error("@@@@@@@@@@@@@@@@ keywordList : " + keywordList);
-//					log.error(e.getMessage());
+					model.addAttribute("srchDtlList", srchDtlList);
 				}
 
-				model.addAttribute("keywordList", keywordList);
-			}
+				//도서관정보나루 키워드
+				Map<String, Object> keywordList = PrivateLibSearchAPI.getKeywordList(librarySearch.getIsbn());
+				if (keywordList != null && !keywordList.isEmpty()) {
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> data4Response = (Map<String, Object>) keywordList.get("response");
+					try {
+						if(data4Response.get("error") == null) {
+							//키워드
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4items =  (Map<String, Object>) data4Response.get("items");
+							@SuppressWarnings ("unchecked")
+							List<Map<String, Object>> data4ItemList =  (List<Map<String, Object>>) data4items.get("item");
+							List<JSONObject> jsonList = new ArrayList<JSONObject>();
+							for (Map<String, Object> map4 : data4ItemList) {
+								JSONObject jo = new JSONObject();
+								String text = String.valueOf(map4.get("word")).trim();
 
-			//도서관정보나루 추천도서
-			Map<String, Object> recommandList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
-			if (recommandList != null && !recommandList.isEmpty()) {
-				@SuppressWarnings ("unchecked")
-				Map<String, Object> data4Response = (Map<String, Object>) recommandList.get("response");
-				try {
-//					log.debug("@@@@@@@@@@@@@@@@@ data4Response.get(\"error\"): " + data4Response.get("error"));
-					if(data4Response.get("error") == null) {
-						@SuppressWarnings ("unchecked")
-						Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
-						@SuppressWarnings ("unchecked")
-						List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
-						model.addAttribute("data4recommandList", data4recommandList);
+								jo.put("text", text);
+
+								map4.put("text", "\""+text+"\"");
+								map4.remove("word");
+
+								String weight = String.valueOf(map4.get("weight")).trim();
+								map4.put("weight", weight);
+
+								jo.put("weight", Double.parseDouble(weight));
+
+								jsonList.add(jo);
+							}
+
+							model.addAttribute("data4ItemList", data4ItemList);
+							model.addAttribute("data4ItemList", jsonList);
+						}
+					}catch ( Exception e ) {
+						e.printStackTrace();
 					}
-				}catch ( Exception e ) {
-//					e.printStackTrace();
-//					log.error("@@@@@@@@@@@@@@@@ recommandList : " + recommandList);
-//					log.error(e.getMessage());
+
+					model.addAttribute("keywordList", keywordList);
 				}
 
-				model.addAttribute("recommandList", recommandList);
-			}
+				//도서관정보나루 추천도서
+				Map<String, Object> recommandList = PrivateLibSearchAPI.getRecommandList(librarySearch.getIsbn());
+				if (recommandList != null && !recommandList.isEmpty()) {
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> data4Response = (Map<String, Object>) recommandList.get("response");
+					try {
+						if(data4Response.get("error") == null) {
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
+							@SuppressWarnings ("unchecked")
+							List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
+							model.addAttribute("data4recommandList", data4recommandList);
+						}
+					}catch ( Exception e ) {
+						e.printStackTrace();
+					}
 
-			//도서관정보나루 도서별 이용분석
-//			Map<String, Object> usageAnalysisList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
-//			if (usageAnalysisList != null && !usageAnalysisList.isEmpty()) {
+					model.addAttribute("recommandList", recommandList);
+				}
+
+				model.addAttribute("detail", map);
+				model.addAttribute("droneDeviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
+				model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
+				model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
+				model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
+			}
+		} else {
+			result = LibSearchAPI.getBookInfo(librarySearch);
+
+			model.addAttribute("librarySearch", librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+			
+			untactLockerSetting.setHomepage_id(homepage.getHomepage_id());
+			
+			model.addAttribute("untactLockerSetting", untactLockerSettingService.getLockerUseType(homepage.getHomepage_id()));
+
+			if ( count > 0 ) {
+				list = LibSearchAPI.getListData(result);
+				Map<String, Object> map = list.get(0);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
+				}
+				
+				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+
+				librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+				librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+				librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+				librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+
+//				Map<String, Object> sanghoReqYn = LibSearchAPI.sanghoReqYn(librarySearch);
 //				@SuppressWarnings ("unchecked")
-//				Map<String, Object> data4Response = (Map<String, Object>) usageAnalysisList.get("response");
-//				try {
-//					//함께 대출된 도서 - recBooks
-//					@SuppressWarnings ("unchecked")
-//					Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
-//					@SuppressWarnings ("unchecked")
-//					List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
-//
-////					for ( Map<String, Object> map2 : data4recBooksList ) {
-////						Map<String, Object> data4Map = new HashMap<String, Object>();
-////						data4Map.put("ISBN", map2.get("isbn13"));
-////						Map<String, Object> data4aladinDetail = LibSearchAPI.getAladinDetail(data4Map);
-////						map2.put("aladin", data4aladinDetail.get("item"));
-////					}
-//					//함께 빌려본도서.
-//					model.addAttribute("data4recommandList", data4recommandList);
-//
-//
-//				}catch ( Exception e ) {
-//					log.error(e.getMessage());
-//				}
-//
-//				try {
-//					//연령별선호도 - loanGrps
-//					@SuppressWarnings ("unchecked")
-//					Map<String, Object> data4loanGrps =  (Map<String, Object>) data4Response.get("loanGrps");
-//					@SuppressWarnings ("unchecked")
-//					List<Map<String, Object>> data4loanGrpsList =  (List<Map<String, Object>>) data4loanGrps.get("loanGrp");
-//					//연령별 선호도
-//					model.addAttribute("data4loanGrpsList", data4loanGrpsList);
-//				}catch ( Exception e ) {
-//					log.error(e.getMessage());
-//				}
-//
-//
-//				model.addAttribute("usageAnalysisList", usageAnalysisList);
-//			}
+//				Map<String, Object> sanghoReqYnResult = (Map<String, Object>) sanghoReqYn.get("ITEM");
 
-			model.addAttribute("detail", map);
-			model.addAttribute("droneDeviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
-			model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
-			model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
-			model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
+				map.put("SANGHO_REQ_YN", "N");
+//				if (sanghoReqYnResult.containsKey("RESULT") && String.valueOf(sanghoReqYnResult.get("RESULT")).equals("OK")) {
+//					// 정상 신청가능
+//					map.put("SANGHO_REQ_YN", "Y");
+//				}
+
+				//도서관정보나루 도서별 이용분석
+				Map<String, Object> srchDtlList = LibSearchAPI.getSrchDtlList(librarySearch.getIsbn());
+				if (srchDtlList != null && !srchDtlList.isEmpty()) {
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> data4Response = (Map<String, Object>) srchDtlList.get("response");
+					try {
+						if(data4Response.get("error") == null) {
+							//함께 대출된 도서 - recBooks
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4loanInfo =  (Map<String, Object>) data4Response.get("loanInfo");
+
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4TotalInfo =  (Map<String, Object>) data4loanInfo.get("Total");
+
+							int data4LoanCnt =  Integer.parseInt(String.valueOf(data4TotalInfo.get("loanCnt")));
+							model.addAttribute("data4LoanCnt", data4LoanCnt);
+
+
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4ageResult =  (Map<String, Object>) data4loanInfo.get("ageResult");
+							@SuppressWarnings ("unchecked")
+							List<Map<String, Object>> data4ageList =  (List<Map<String, Object>>) data4ageResult.get("age");
+							//연령별
+							model.addAttribute("data4ageList", data4ageList);
+						}
+					}catch ( Exception e ) {
+						e.printStackTrace();
+					}
+
+					model.addAttribute("srchDtlList", srchDtlList);
+				}
+
+				//도서관정보나루 키워드
+				Map<String, Object> keywordList = LibSearchAPI.getKeywordList(librarySearch.getIsbn());
+				if (keywordList != null && !keywordList.isEmpty()) {
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> data4Response = (Map<String, Object>) keywordList.get("response");
+					try {
+						if(data4Response.get("error") == null) {
+							//키워드
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> data4items =  (Map<String, Object>) data4Response.get("items");
+							@SuppressWarnings ("unchecked")
+							List<Map<String, Object>> data4ItemList =  (List<Map<String, Object>>) data4items.get("item");
+							List<JSONObject> jsonList = new ArrayList<JSONObject>();
+							for (Map<String, Object> map4 : data4ItemList) {
+								JSONObject jo = new JSONObject();
+								String text = String.valueOf(map4.get("word")).trim();
+
+								jo.put("text", text);
+
+								map4.put("text", "\""+text+"\"");
+								map4.remove("word");
+
+								String weight = String.valueOf(map4.get("weight")).trim();
+								map4.put("weight", weight);
+
+								jo.put("weight", Double.parseDouble(weight));
+
+								jsonList.add(jo);
+							}
+
+							model.addAttribute("data4ItemList", data4ItemList);
+							model.addAttribute("data4ItemList", jsonList);
+						}
+					}catch ( Exception e ) {
+						e.printStackTrace();
+					}
+
+					model.addAttribute("keywordList", keywordList);
+				}
+
+				//도서관정보나루 추천도서
+				Map<String, Object> recommandList = LibSearchAPI.getRecommandList(librarySearch.getIsbn());
+				if (recommandList != null && !recommandList.isEmpty()) {
+					@SuppressWarnings ("unchecked")
+					Map<String, Object> data4Response = (Map<String, Object>) recommandList.get("response");
+					try {
+						if(data4Response.get("error") == null) {
+							@SuppressWarnings ("unchecked")
+							Map<String, Object> docs =  (Map<String, Object>) data4Response.get("docs");
+							@SuppressWarnings ("unchecked")
+							List<Map<String, Object>> data4recommandList =  (List<Map<String, Object>>) docs.get("book");
+							model.addAttribute("data4recommandList", data4recommandList);
+						}
+					}catch ( Exception e ) {
+						e.printStackTrace();
+					}
+
+					model.addAttribute("recommandList", recommandList);
+				}
+
+				model.addAttribute("detail", map);
+				model.addAttribute("droneDeviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
+				model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
+				model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
+				model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
+			}
 		}
+		
 		return String.format(basePath, homepage.getFolder()) + "detail";
 	}
 
@@ -520,42 +668,80 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 
-		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
-    		Map<String, Object> result = new HashMap<String, Object>();
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+	    		Map<String, Object> result = new HashMap<String, Object>();
 
-    		if ( librarySearch.getBooktype().equals("BOOK") ) {
-    			result = LibSearchAPI.getBookDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
-    			result = LibSearchAPI.getNonBookDetail(librarySearch);
-    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
-    			result = LibSearchAPI.getSerialDetail(librarySearch);
-    		}
+	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
+	    			result = PrivateLibSearchAPI.getBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+	    			result = PrivateLibSearchAPI.getNonBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
+	    			result = PrivateLibSearchAPI.getSerialDetail(librarySearch);
+	    		}
 
-    		List<Map<String, Object>> list = null;
+	    		List<Map<String, Object>> list = null;
 
-    		int count = LibSearchAPI.getSearchCount(result);
+	    		int count = PrivateLibSearchAPI.getSearchCount(result);
 
-    		librarySearch.setTotalDataCount(count);
-    		service.setPaging(model, count, librarySearch);
+	    		librarySearch.setTotalDataCount(count);
+	    		service.setPaging(model, count, librarySearch);
 
-    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-    			list = LibSearchAPI.getListData(result);
-    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
-    			for (Map<String, Object> map : list) {
-    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-    						map.put("aladin", aladinData.get("item"));
-    					}
-    					if (map.get("aladin") == null) {
-							map.put("imageUrl", service.getImageUrl(map));
-    					}
-    				}
-				}
-    		}    		    	
-    		model.addAttribute("bookSearch", list);
+	    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+	    			list = LibSearchAPI.getListData(result);
+	    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+	    			for (Map<String, Object> map : list) {
+	    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+	    					Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+	    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+	    						map.put("aladin", aladinData.get("item"));
+	    					}
+	    					if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+	    					}
+	    				}
+					}
+	    		}    		    	
+	    		model.addAttribute("bookSearch", list);
+			}
+		} else {
+			if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+	    		Map<String, Object> result = new HashMap<String, Object>();
+
+	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
+	    			result = LibSearchAPI.getBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+	    			result = LibSearchAPI.getNonBookDetail(librarySearch);
+	    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
+	    			result = LibSearchAPI.getSerialDetail(librarySearch);
+	    		}
+
+	    		List<Map<String, Object>> list = null;
+
+	    		int count = LibSearchAPI.getSearchCount(result);
+
+	    		librarySearch.setTotalDataCount(count);
+	    		service.setPaging(model, count, librarySearch);
+
+	    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+	    			list = LibSearchAPI.getListData(result);
+	    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+	    			for (Map<String, Object> map : list) {
+	    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+	    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+	    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+	    						map.put("aladin", aladinData.get("item"));
+	    					}
+	    					if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+	    					}
+	    				}
+					}
+	    		}    		    	
+	    		model.addAttribute("bookSearch", list);
+			}
 		}
-
+		
 		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
 
@@ -575,14 +761,25 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/hotTrend.*"})
 	public String hotTrend(Model model, LibrarySearch librarySearch, HttpServletRequest request, @PathVariable("homepagePath") String homepagePath) {
 		Homepage homepage = getSessionHomepage(request);
-		Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> hotTrendWordList = PrivateLibSearchAPI.getHotTrendWordList(homepage.getManage_code());
 
-		int count = LibSearchAPI.getSearchCount(hotTrendWordList);
+			int count = PrivateLibSearchAPI.getSearchCount(hotTrendWordList);
 
-		if ( count > 0 ) {
-			model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+			if ( count > 0 ) {
+				model.addAttribute("hotTrendList", PrivateLibSearchAPI.getListData(hotTrendWordList));
+			}
+		} else {
+			Map<String, Object> hotTrendWordList = LibSearchAPI.getHotTrendWordList(homepage.getManage_code());
+
+			int count = LibSearchAPI.getSearchCount(hotTrendWordList);
+
+			if ( count > 0 ) {
+				model.addAttribute("hotTrendList", LibSearchAPI.getListData(hotTrendWordList));
+			}
 		}
-
+		
 		return String.format(basePath, homepage.getFolder()) + "hotTrend_ajax";
 	}
 
@@ -608,47 +805,86 @@ public class CommonSearchController extends BaseController {
 		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
 			librarySearch.setBooktype("0");
 		}
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getBestBookList(librarySearch);
+			List<Map<String, Object>> list = null;
 
-		Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch);
-		List<Map<String, Object>> list = null;
+			int count = PrivateLibSearchAPI.getSearchCount(result);
 
-		int count = LibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-
-			list = LibSearchAPI.getListData(result);
-			for ( Map<String, Object> map : list ) {
-				if ( map.containsKey("ISBN") ) {
-					LibrarySearch book = new LibrarySearch();
-					book.setIsbn(String.valueOf(map.get("ISBN")));
-					book.setManageCode(librarySearch.getManageCode());
-					book.setRowCount(1);
-					Map<String, Object> bookDetail = null;
-					if (librarySearch.getBooktype().equals("0")) {
-						//도서 상세정보
-						bookDetail = LibSearchAPI.getBookDetail(book);
-					} else if (librarySearch.getBooktype().equals("1")) {
-						//간행물 상세정보
-						bookDetail = LibSearchAPI.getSerialDetail(book);
-					} else if (librarySearch.getBooktype().equals("2")) {
-						//비도서 상세정보
-						bookDetail = LibSearchAPI.getNonBookDetail(book);
-					}
-					List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
-					if ( detailList != null && detailList.size() > 0 ) {
-						map.put("IMAGE", detailList.get(0).get("IMAGE"));
+				list = PrivateLibSearchAPI.getListData(result);
+				for ( Map<String, Object> map : list ) {
+					if ( map.containsKey("ISBN") ) {
+						LibrarySearch book = new LibrarySearch();
+						book.setIsbn(String.valueOf(map.get("ISBN")));
+						book.setManageCode(librarySearch.getManageCode());
+						book.setRowCount(1);
+						Map<String, Object> bookDetail = null;
+						if (librarySearch.getBooktype().equals("0")) {
+							//도서 상세정보
+							bookDetail = PrivateLibSearchAPI.getBookDetail(book);
+						} else if (librarySearch.getBooktype().equals("1")) {
+							//간행물 상세정보
+							bookDetail = PrivateLibSearchAPI.getSerialDetail(book);
+						} else if (librarySearch.getBooktype().equals("2")) {
+							//비도서 상세정보
+							bookDetail = PrivateLibSearchAPI.getNonBookDetail(book);
+						}
+						List<Map<String, Object>> detailList = PrivateLibSearchAPI.getListData(bookDetail);
+						if ( detailList != null && detailList.size() > 0 ) {
+							map.put("IMAGE", detailList.get(0).get("IMAGE"));
+						}
 					}
 				}
 			}
+			
+			model.addAttribute("bestBookList", list);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+				list = LibSearchAPI.getListData(result);
+				for ( Map<String, Object> map : list ) {
+					if ( map.containsKey("ISBN") ) {
+						LibrarySearch book = new LibrarySearch();
+						book.setIsbn(String.valueOf(map.get("ISBN")));
+						book.setManageCode(librarySearch.getManageCode());
+						book.setRowCount(1);
+						Map<String, Object> bookDetail = null;
+						if (librarySearch.getBooktype().equals("0")) {
+							//도서 상세정보
+							bookDetail = LibSearchAPI.getBookDetail(book);
+						} else if (librarySearch.getBooktype().equals("1")) {
+							//간행물 상세정보
+							bookDetail = LibSearchAPI.getSerialDetail(book);
+						} else if (librarySearch.getBooktype().equals("2")) {
+							//비도서 상세정보
+							bookDetail = LibSearchAPI.getNonBookDetail(book);
+						}
+						List<Map<String, Object>> detailList = LibSearchAPI.getListData(bookDetail);
+						if ( detailList != null && detailList.size() > 0 ) {
+							map.put("IMAGE", detailList.get(0).get("IMAGE"));
+						}
+					}
+				}
+			}
+			
+			model.addAttribute("bestBookList", list);
+			model.addAttribute("librarySearch", librarySearch);
 		}
-
-
-		model.addAttribute("bestBookList", list);
-
-		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "bestBook_ajax";
 	}
@@ -689,7 +925,6 @@ public class CommonSearchController extends BaseController {
 				model.addAttribute("shelfList", shelfList);
 			}
 
-
 			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
 				librarySearch.setShelfCode("ALL");
 			}
@@ -757,91 +992,179 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("newBookList", list);
 			model.addAttribute("librarySearch", librarySearch);
 		} else {
-			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
-			if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
-				List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				Map<String, Object> subLocaInfo = PrivateLibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
+				if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+					List<Map<String, Object>> shelfList = PrivateLibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
 
-				List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
-				for (Map<String, Object> map : shelfList) {
-					if(code_arr == null) {
-						break;
+					List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+					for (Map<String, Object> map : shelfList) {
+						if(code_arr == null) {
+							break;
+						}
+
+						if(code_arr.contains(map.get("CODE"))) {
+							map.put("CHECKED", true);
+						}
 					}
 
-					if(code_arr.contains(map.get("CODE"))) {
-						map.put("CHECKED", true);
-					}
+					model.addAttribute("shelfList", shelfList);
 				}
 
-				model.addAttribute("shelfList", shelfList);
-			}
 
+				if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
+					librarySearch.setShelfCode("ALL");
+				}
 
-			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
-				librarySearch.setShelfCode("ALL");
-			}
+				//기본값 '2달 전'
+				if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
+					librarySearch.setSearch_type("4");
+				}
 
-			//기본값 '2달 전'
-			if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
-				librarySearch.setSearch_type("4");
-			}
+				//검색기간 설정
+				if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
-			//검색기간 설정
-			if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
-				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+					int beforeDays = -60;
+					if (librarySearch.getSearch_type().equals("1")) {
+						//1주전
+						beforeDays = -7;
+					} else if (librarySearch.getSearch_type().equals("2")) {
+						//2주전
+						beforeDays = -14;
+					} else if (librarySearch.getSearch_type().equals("3")) {
+						//1달전
+						beforeDays = -30;
+					} else if (librarySearch.getSearch_type().equals("4")) {
+						//2달전
+						beforeDays = -60;
+					} 
+					librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+					librarySearch.setSearch_end_date(sf.format(new Date()));
+				}
 
-				int beforeDays = -60;
-				if (librarySearch.getSearch_type().equals("1")) {
-					//1주전
-					beforeDays = -7;
-				} else if (librarySearch.getSearch_type().equals("2")) {
-					//2주전
-					beforeDays = -14;
-				} else if (librarySearch.getSearch_type().equals("3")) {
-					//1달전
-					beforeDays = -30;
-				} else if (librarySearch.getSearch_type().equals("4")) {
-					//2달전
-					beforeDays = -60;
-				} 
-				librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
-				librarySearch.setSearch_end_date(sf.format(new Date()));
-			}
+				//서지형태 분류코드 설정.
+				//기본값 도서 "0"
+				//0 : 단행, 1: 연속간행물, 2:비도서
+				if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+					librarySearch.setBooktype("0");
+				}
 
-			//서지형태 분류코드 설정.
-			//기본값 도서 "0"
-			//0 : 단행, 1: 연속간행물, 2:비도서
-			if (StringUtils.isEmpty(librarySearch.getBooktype())) {
-				librarySearch.setBooktype("0");
-			}
+				Map<String, Object> result = PrivateLibSearchAPI.getNewBookList(librarySearch);
+				List<Map<String, Object>> list = null;
 
-			Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
-			List<Map<String, Object>> list = null;
+				int count = PrivateLibSearchAPI.getSearchCount(result);
 
-			int count = LibSearchAPI.getSearchCount(result);
+				librarySearch.setTotalDataCount(count);
+				service.setPaging(model, count, librarySearch);
 
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
+				if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 
-			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-
-				list = LibSearchAPI.getListData(result);
-				for (Map<String, Object> map : list) {
-					if (map.containsKey("ISBN")) {
-						//알라딘 API 결과 가져오기
-						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-								map.put("aladin", aladinData.get("item"));
-							}
-							if (map.get("aladin") == null) {
-								map.put("imageUrl", service.getImageUrl(map));
+					list = PrivateLibSearchAPI.getListData(result);
+					for (Map<String, Object> map : list) {
+						if (map.containsKey("ISBN")) {
+							//알라딘 API 결과 가져오기
+							if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+								Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+								if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+									map.put("aladin", aladinData.get("item"));
+								}
+								if (map.get("aladin") == null) {
+									map.put("imageUrl", service.getImageUrl(map));
+								}
 							}
 						}
 					}
 				}
+				model.addAttribute("newBookList", list);
+				model.addAttribute("librarySearch", librarySearch);
+			} else {
+				Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
+				if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+					List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+
+					List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+					for (Map<String, Object> map : shelfList) {
+						if(code_arr == null) {
+							break;
+						}
+
+						if(code_arr.contains(map.get("CODE"))) {
+							map.put("CHECKED", true);
+						}
+					}
+
+					model.addAttribute("shelfList", shelfList);
+				}
+
+
+				if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
+					librarySearch.setShelfCode("ALL");
+				}
+
+				//기본값 '2달 전'
+				if (StringUtils.isEmpty(librarySearch.getSearch_type())) {
+					librarySearch.setSearch_type("4");
+				}
+
+				//검색기간 설정
+				if ( StringUtils.isEmpty(librarySearch.getSearch_start_date()) ) {
+					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+
+					int beforeDays = -60;
+					if (librarySearch.getSearch_type().equals("1")) {
+						//1주전
+						beforeDays = -7;
+					} else if (librarySearch.getSearch_type().equals("2")) {
+						//2주전
+						beforeDays = -14;
+					} else if (librarySearch.getSearch_type().equals("3")) {
+						//1달전
+						beforeDays = -30;
+					} else if (librarySearch.getSearch_type().equals("4")) {
+						//2달전
+						beforeDays = -60;
+					} 
+					librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+					librarySearch.setSearch_end_date(sf.format(new Date()));
+				}
+
+				//서지형태 분류코드 설정.
+				//기본값 도서 "0"
+				//0 : 단행, 1: 연속간행물, 2:비도서
+				if (StringUtils.isEmpty(librarySearch.getBooktype())) {
+					librarySearch.setBooktype("0");
+				}
+
+				Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
+				List<Map<String, Object>> list = null;
+
+				int count = LibSearchAPI.getSearchCount(result);
+
+				librarySearch.setTotalDataCount(count);
+				service.setPaging(model, count, librarySearch);
+
+				if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+					list = LibSearchAPI.getListData(result);
+					for (Map<String, Object> map : list) {
+						if (map.containsKey("ISBN")) {
+							//알라딘 API 결과 가져오기
+							if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+								Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+								if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+									map.put("aladin", aladinData.get("item"));
+								}
+								if (map.get("aladin") == null) {
+									map.put("imageUrl", service.getImageUrl(map));
+								}
+							}
+						}
+					}
+				}
+				model.addAttribute("newBookList", list);
+				model.addAttribute("librarySearch", librarySearch);
 			}
-			model.addAttribute("newBookList", list);
-			model.addAttribute("librarySearch", librarySearch);
 		}
 
 		return String.format(basePath, homepage.getFolder()) + "newBook/index";
@@ -869,7 +1192,6 @@ public class CommonSearchController extends BaseController {
 		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
 			librarySearch.setBooktype("0");
 		}
-		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMdd");
 		Date now  = new Date();
@@ -902,57 +1224,108 @@ public class CommonSearchController extends BaseController {
 			}
 		}
 		
-		Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch);
-		List<Map<String, Object>> list = null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getBestBookList(librarySearch);
+			List<Map<String, Object>> list = null;
 
-		int count = LibSearchAPI.getSearchCount(result);
+			int count = PrivateLibSearchAPI.getSearchCount(result);
 
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
 
-			list = LibSearchAPI.getListData(result);
-			for ( Map<String, Object> map : list ) {
-				if ( map.containsKey("ISBN") ) {
-					//알라딘 API 결과 가져오기
-					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-							map.put("aladin", aladinData.get("item"));
-						}
-						if (map.get("aladin") == null) {
-							map.put("imageUrl", service.getImageUrl(map));
+				list = PrivateLibSearchAPI.getListData(result);
+				for ( Map<String, Object> map : list ) {
+					if ( map.containsKey("ISBN") ) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
 						}
 					}
 				}
 			}
-		}
-		
-		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
-		if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
-			List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+			
+			Map<String, Object> subLocaInfo = PrivateLibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
+			if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+				List<Map<String, Object>> shelfList = PrivateLibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
 
-			List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
-			for (Map<String, Object> map : shelfList) {
-				if(code_arr == null) {
-					break;
+				List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+				for (Map<String, Object> map : shelfList) {
+					if(code_arr == null) {
+						break;
+					}
+
+					if(code_arr.contains(map.get("CODE"))) {
+						map.put("CHECKED", true);
+					}
 				}
 
-				if(code_arr.contains(map.get("CODE"))) {
-					map.put("CHECKED", true);
-				}
+				model.addAttribute("shelfList", shelfList);
 			}
 
-			model.addAttribute("shelfList", shelfList);
+			model.addAttribute("bestBookList", list);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getBestBookList(librarySearch);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+				list = LibSearchAPI.getListData(result);
+				for ( Map<String, Object> map : list ) {
+					if ( map.containsKey("ISBN") ) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
+						}
+					}
+				}
+			}
+			
+			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("19", librarySearch.getManageCode());
+			if (!"ERROR".equals(subLocaInfo.get("RESULT_INFO"))) {
+				List<Map<String, Object>> shelfList = LibSearchAPI.getListData(subLocaInfo, "LIST_DATA");
+
+				List<String> code_arr = newBookConfigService.getShelfCodeList(new NewBookConfig(homepage.getHomepage_id()));
+				for (Map<String, Object> map : shelfList) {
+					if(code_arr == null) {
+						break;
+					}
+
+					if(code_arr.contains(map.get("CODE"))) {
+						map.put("CHECKED", true);
+					}
+				}
+
+				model.addAttribute("shelfList", shelfList);
+			}
+
+			model.addAttribute("bestBookList", list);
+			model.addAttribute("librarySearch", librarySearch);
 		}
-
-		model.addAttribute("bestBookList", list);
-
-		model.addAttribute("librarySearch", librarySearch);
+		
 		return String.format(basePath, homepage.getFolder()) + "bestBook/index";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"/publicPopularBook/index.*"})
 	public String publicPopularBook(Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -982,70 +1355,133 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setLibCode("");
 		}
 		
-		// 정보나루 인기도서 전체 50개 제한
-		librarySearch.setRowCount(50);
-		
-		Map<String, Object> result = LibSearchAPI.getPopularBookList(librarySearch);
-		Map<String, Object> resultMap = null;
-		List<Map<String, Object>> list = null;
-		
-		if(result != null) {
-			resultMap = (Map<String, Object>)result.get("response");
-		}
-		
-		if(resultMap != null) {
-			if(resultMap.get("docs") != null && !resultMap.get("docs").equals("")) {
-				resultMap = (Map<String, Object>)resultMap.get("docs");
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			// 정보나루 인기도서 전체 50개 제한
+			librarySearch.setRowCount(50);
+			
+			Map<String, Object> result = PrivateLibSearchAPI.getPopularBookList(librarySearch);
+			Map<String, Object> resultMap = null;
+			List<Map<String, Object>> list = null;
+			
+			if(result != null) {
+				resultMap = (Map<String, Object>)result.get("response");
 			}
-		}
-
-		if(result != null && !result.isEmpty() && resultMap != null) {
-			list = (ArrayList<Map<String, Object>>)resultMap.get("doc");
-		}
-		
-		// 페이징을 위한 처리 
-		librarySearch.setRowCount(10);
-		service.setPaging(model, 50, librarySearch);
-		List<Map<String, Object>> countList = new ArrayList<Map<String, Object>>();
-		if (list != null) {
-			int startNum = ( librarySearch.getViewPage() - 1 ) * 10;
-			for(int i = startNum; i < (startNum + 10); i++) {
-				countList.add(list.get(i));
+			
+			if(resultMap != null) {
+				if(resultMap.get("docs") != null && !resultMap.get("docs").equals("")) {
+					resultMap = (Map<String, Object>)resultMap.get("docs");
+				}
 			}
 
+			if(result != null && !result.isEmpty() && resultMap != null) {
+				list = (ArrayList<Map<String, Object>>)resultMap.get("doc");
+			}
+			
+			// 페이징을 위한 처리 
+			librarySearch.setRowCount(10);
+			service.setPaging(model, 50, librarySearch);
+			List<Map<String, Object>> countList = new ArrayList<Map<String, Object>>();
+			if (list != null) {
+				int startNum = ( librarySearch.getViewPage() - 1 ) * 10;
+				for(int i = startNum; i < (startNum + 10); i++) {
+					countList.add(list.get(i));
+				}
+
+			}
+			
+			model.addAttribute("popularBookList", countList);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			// 정보나루 인기도서 전체 50개 제한
+			librarySearch.setRowCount(50);
+			
+			Map<String, Object> result = LibSearchAPI.getPopularBookList(librarySearch);
+			Map<String, Object> resultMap = null;
+			List<Map<String, Object>> list = null;
+			
+			if(result != null) {
+				resultMap = (Map<String, Object>)result.get("response");
+			}
+			
+			if(resultMap != null) {
+				if(resultMap.get("docs") != null && !resultMap.get("docs").equals("")) {
+					resultMap = (Map<String, Object>)resultMap.get("docs");
+				}
+			}
+
+			if(result != null && !result.isEmpty() && resultMap != null) {
+				list = (ArrayList<Map<String, Object>>)resultMap.get("doc");
+			}
+			
+			// 페이징을 위한 처리 
+			librarySearch.setRowCount(10);
+			service.setPaging(model, 50, librarySearch);
+			List<Map<String, Object>> countList = new ArrayList<Map<String, Object>>();
+			if (list != null) {
+				int startNum = ( librarySearch.getViewPage() - 1 ) * 10;
+				for(int i = startNum; i < (startNum + 10); i++) {
+					countList.add(list.get(i));
+				}
+
+			}
+			
+			model.addAttribute("popularBookList", countList);
+			model.addAttribute("librarySearch", librarySearch);
 		}
 		
-		model.addAttribute("popularBookList", countList);
-//		model.addAttribute("countList", countList);
-		model.addAttribute("librarySearch", librarySearch);
 		return String.format(basePath, homepage.getFolder()) + "publicPopularBook/index";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = {"/publicPopularBook/detail.*"})
 	public String detail(Model model, LibrarySearch librarySearch, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		Map<String, Object> result = LibSearchAPI.getPopularBook(librarySearch);
-		Map<String, Object> resultMap = null;
-		Map<String, Object> detailMap = null;
-		Map<String, Object> loanInfoMap = null;
-		if(result != null) {
-			resultMap = (Map<String, Object>)result.get("response");
-		}
-		if(resultMap != null) {
-			loanInfoMap = (Map<String, Object>)resultMap.get("loanInfo");
-			if(loanInfoMap != null) {
-				loanInfoMap = (Map<String, Object>)loanInfoMap.get("Total");
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getPopularBook(librarySearch);
+			Map<String, Object> resultMap = null;
+			Map<String, Object> detailMap = null;
+			Map<String, Object> loanInfoMap = null;
+			if(result != null) {
+				resultMap = (Map<String, Object>)result.get("response");
 			}
-			detailMap = (Map<String, Object>)resultMap.get("detail");
-			if(detailMap != null) {
-				detailMap = (Map<String, Object>)detailMap.get("book");
+			if(resultMap != null) {
+				loanInfoMap = (Map<String, Object>)resultMap.get("loanInfo");
+				if(loanInfoMap != null) {
+					loanInfoMap = (Map<String, Object>)loanInfoMap.get("Total");
+				}
+				detailMap = (Map<String, Object>)resultMap.get("detail");
+				if(detailMap != null) {
+					detailMap = (Map<String, Object>)detailMap.get("book");
+				}
 			}
+			
+			model.addAttribute("loanInfo", loanInfoMap);
+			model.addAttribute("detailBook", detailMap);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getPopularBook(librarySearch);
+			Map<String, Object> resultMap = null;
+			Map<String, Object> detailMap = null;
+			Map<String, Object> loanInfoMap = null;
+			if(result != null) {
+				resultMap = (Map<String, Object>)result.get("response");
+			}
+			if(resultMap != null) {
+				loanInfoMap = (Map<String, Object>)resultMap.get("loanInfo");
+				if(loanInfoMap != null) {
+					loanInfoMap = (Map<String, Object>)loanInfoMap.get("Total");
+				}
+				detailMap = (Map<String, Object>)resultMap.get("detail");
+				if(detailMap != null) {
+					detailMap = (Map<String, Object>)detailMap.get("book");
+				}
+			}
+			
+			model.addAttribute("loanInfo", loanInfoMap);
+			model.addAttribute("detailBook", detailMap);
+			model.addAttribute("librarySearch", librarySearch);
 		}
-		
-		model.addAttribute("loanInfo", loanInfoMap);
-		model.addAttribute("detailBook", detailMap);
-		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "publicPopularBook/detail";
 	}
@@ -1074,23 +1510,43 @@ public class CommonSearchController extends BaseController {
 
 		Member member = getSessionMemberInfo(request);
 		librarySearch.setUserkey(member.getRec_key());
-		Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getBookFurnishList(librarySearch);
 
-		List<Map<String, Object>> list = null;
+			List<Map<String, Object>> list = null;
 
-		int count = LibSearchAPI.getSearchCount(result);
+			int count = PrivateLibSearchAPI.getSearchCount(result);
 
-		librarySearch.setTotalDataCount(count);
+			librarySearch.setTotalDataCount(count);
 
-		service.setPaging(model, count, librarySearch);
+			service.setPaging(model, count, librarySearch);
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
-			list = LibSearchAPI.getListData(result);
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = PrivateLibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("hopeList", list);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("hopeList", list);
+			model.addAttribute("librarySearch", librarySearch);
 		}
-
-		model.addAttribute("hopeList", list);
-		model.addAttribute("librarySearch", librarySearch);
-
+		
 		return String.format(basePath, homepage.getFolder()) + "hope/index";
 	}
 
@@ -1108,12 +1564,6 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/hope/req.*"})
 	public String reqHope(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		
-		// 대구동구통합도서관 예산초과로 인한 희망도서 제한 2021-11-29 YUNHAESU
-//		if(homepage.getHomepage_id().equals("h45")) {
-//			service.alertMessage("2021년 희망도서 신청이 마감되었습니다.", request, response);
-//			return null;
-//		}
 
 		Member member = getSessionMemberInfo(request);
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1139,11 +1589,6 @@ public class CommonSearchController extends BaseController {
 			return null;
 		}
 
-//		if ( !homepage.getHomepage_code().contains(member.getLoca())) {
-//			service.alertMessage("희망도서 신청은 소속도서관에서만 가능합니다.", request, response);
-//			return null;
-//		}
-
 		Homepage h = new Homepage();
 		h.setHomepage_id(homepage.getHomepage_id());
 		h.setHomepage_group(homepage.getHomepage_id());
@@ -1161,29 +1606,29 @@ public class CommonSearchController extends BaseController {
 	public String hopeHistoryLib(@PathVariable ("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 			
-			if(librarySearch.getLibraryCodes() == null) {
-				List<String> libraryCodes = new ArrayList<String>();
-				
-				if(homepagePath.equals("yonghak") && librarySearch.getLibraryCodes() == null) {
-					libraryCodes.add("BE");
-					libraryCodes.add("BG");
-					libraryCodes.add("BH");
-					librarySearch.setLibraryCodes(libraryCodes);
-				} else {
-					Homepage h1 = new Homepage();
-					h1.setHomepage_id(homepage.getHomepage_id());
-					h1.setHomepage_group(homepage.getHomepage_id());
-					h1.setTemp_use_yn(null);
-					List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
-					if (CollectionUtils.isNotEmpty(subHomepageList)) {
-						for (Homepage homepage1 : subHomepageList) {
-							if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
-								libraryCodes.add(homepage1.getManage_code());
-							}
+		if(librarySearch.getLibraryCodes() == null) {
+			List<String> libraryCodes = new ArrayList<String>();
+			
+			if(homepagePath.equals("yonghak") && librarySearch.getLibraryCodes() == null) {
+				libraryCodes.add("BE");
+				libraryCodes.add("BG");
+				libraryCodes.add("BH");
+				librarySearch.setLibraryCodes(libraryCodes);
+			} else {
+				Homepage h1 = new Homepage();
+				h1.setHomepage_id(homepage.getHomepage_id());
+				h1.setHomepage_group(homepage.getHomepage_id());
+				h1.setTemp_use_yn(null);
+				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+				if (CollectionUtils.isNotEmpty(subHomepageList)) {
+					for (Homepage homepage1 : subHomepageList) {
+						if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+							libraryCodes.add(homepage1.getManage_code());
 						}
 					}
-					librarySearch.setLibraryCodes(libraryCodes);
 				}
+				librarySearch.setLibraryCodes(libraryCodes);
+			}
 		}
 		
 		Calendar cal = Calendar.getInstance();
@@ -1197,24 +1642,43 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setSearch_end_date(sdf.format(new Date()));
 		}
 		librarySearch.setManageCode(homepage.getManage_code());
-		Map<String, Object> result = LibSearchAPI.getAllBookFurnishList(librarySearch);
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getAllBookFurnishList(librarySearch);
 
-		List<Map<String, Object>> list = null;
+			List<Map<String, Object>> list = null;
 
-		int count = LibSearchAPI.getSearchCount(result);
+			int count = PrivateLibSearchAPI.getSearchCount(result);
 
-		librarySearch.setTotalDataCount(count);
+			librarySearch.setTotalDataCount(count);
 
-		service.setPaging(model, count, librarySearch);
+			service.setPaging(model, count, librarySearch);
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = PrivateLibSearchAPI.getListData(result);
+			}
 
-			list = LibSearchAPI.getListData(result);
+			model.addAttribute("hopeList", list);
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getAllBookFurnishList(librarySearch);
 
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("hopeList", list);
+			model.addAttribute("librarySearch", librarySearch);
 		}
-
-		model.addAttribute("hopeList", list);
-		model.addAttribute("librarySearch", librarySearch);
+		
 		return String.format(basePath, homepage.getFolder()) + "hope/allHistory";
 	}
 
@@ -1249,35 +1713,64 @@ public class CommonSearchController extends BaseController {
 
 		Map<String, Object> map = null;
 		
-		try {
-			if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-//				map = LibSearchAPI.getNaverList(librarySearch);
-				map = LibSearchAPI.getKaKaoList(librarySearch);
-				int totalCount = (Integer) map.get("totalCount");
-				@SuppressWarnings ("unchecked")
-				List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-				if (itemList != null && itemList.size() > 0) {
-					for (Map<String, Object> map2 : itemList) {
-						String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
-						for (int i = 0; i < isbnArr.length; i++) {
-							String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
-							map2.put("isbn"+isbn.length(), isbn);
-							ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
-							if (!code.getStatus()) {
-								map2.put("already"+isbn.length(), true);
-								map2.put("errorMessage", code.getMessage());
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			try {
+				if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+					map = PrivateLibSearchAPI.getKaKaoList(librarySearch);
+					int totalCount = (Integer) map.get("totalCount");
+					@SuppressWarnings ("unchecked")
+					List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
+					if (itemList != null && itemList.size() > 0) {
+						for (Map<String, Object> map2 : itemList) {
+							String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
+							for (int i = 0; i < isbnArr.length; i++) {
+								String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
+								map2.put("isbn"+isbn.length(), isbn);
+								ApiResponse code = PrivateLibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+								if (!code.getStatus()) {
+									map2.put("already"+isbn.length(), true);
+									map2.put("errorMessage", code.getMessage());
+								}
 							}
 						}
-
+						
+						service.setPaging(model, totalCount, librarySearch);
+						model.addAttribute("kakaoResult", map);
 					}
-					
-					service.setPaging(model, totalCount, librarySearch);
-					model.addAttribute("kakaoResult", map);
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("kakaoResult", map);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("kakaoResult", map);
+		} else {
+			try {
+				if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
+					map = LibSearchAPI.getKaKaoList(librarySearch);
+					int totalCount = (Integer) map.get("totalCount");
+					@SuppressWarnings ("unchecked")
+					List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
+					if (itemList != null && itemList.size() > 0) {
+						for (Map<String, Object> map2 : itemList) {
+							String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
+							for (int i = 0; i < isbnArr.length; i++) {
+								String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
+								map2.put("isbn"+isbn.length(), isbn);
+								ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+								if (!code.getStatus()) {
+									map2.put("already"+isbn.length(), true);
+									map2.put("errorMessage", code.getMessage());
+								}
+							}
+						}
+						
+						service.setPaging(model, totalCount, librarySearch);
+						model.addAttribute("kakaoResult", map);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("kakaoResult", map);
+			}
 		}
 		
 		return String.format(basePath, homepage.getFolder()) + "hope/search_ajax";
@@ -1293,7 +1786,7 @@ public class CommonSearchController extends BaseController {
 	 * @param response
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "null" })
+	@SuppressWarnings({"unchecked"})
 	@RequestMapping(value = {"/hope/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveHope(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 
@@ -1323,9 +1816,7 @@ public class CommonSearchController extends BaseController {
 			}
 
 			if ( librarySearch.getEditMode().equals("ADD") ) {
-
-				Homepage homepage = getSessionHomepage(request);
-				String homepageId = homepage.getHomepage_id();
+				String homepageId = h.getHomepage_id();
 				if (StringUtils.isNotEmpty(librarySearch.getHomepage_id())) {
 					homepageId = librarySearch.getHomepage_id();
 				}
@@ -1356,53 +1847,107 @@ public class CommonSearchController extends BaseController {
 //					return res;
 //				}
 
-				Map<String, Object> map = LibSearchAPI.getLibSettingInfoView(librarySearch.getManageCode());
-				
-				if(map.get("RESULT_INFO").equals("SUCCESS")) {
-					List<Map<String, Object>> list =  (List<Map<String, Object>>) map.get("LIB_SETTING_INFO");
+				if(librarySearch.getPrivateLibraryYn(h)) {
+					Map<String, Object> map = PrivateLibSearchAPI.getLibSettingInfoView(librarySearch.getManageCode());
 					
-					String lib_code = (String) list.get(0).get("LIB_CODE");
-					
-					if(lib_code != null && !(lib_code.isEmpty()) && StringUtils.isNotEmpty(lib_code)) {
-						if(librarySearch.getIsbn() != null && StringUtils.isNotEmpty(librarySearch.getIsbn())) {
-							ApiResponse duplicateSurvey = LibSearchAPI.duplicateSurvey(librarySearch.getIsbn(), lib_code);
-							
-							if(!(duplicateSurvey.getStatus())) {
-								res.setValid(false);
-								res.setMessage("희망도서 바로대출제 서비스를 통해 신청된 도서입니다.");
-								return res;
+					if(map.get("RESULT_INFO").equals("SUCCESS")) {
+						List<Map<String, Object>> list =  (List<Map<String, Object>>) map.get("LIB_SETTING_INFO");
+						
+						String lib_code = (String) list.get(0).get("LIB_CODE");
+						
+						if(lib_code != null && !(lib_code.isEmpty()) && StringUtils.isNotEmpty(lib_code)) {
+							if(librarySearch.getIsbn() != null && StringUtils.isNotEmpty(librarySearch.getIsbn())) {
+								ApiResponse duplicateSurvey = PrivateLibSearchAPI.duplicateSurvey(librarySearch.getIsbn(), lib_code);
+								
+								if(!(duplicateSurvey.getStatus())) {
+									res.setValid(false);
+									res.setMessage("희망도서 바로대출제 서비스를 통해 신청된 도서입니다.");
+									return res;
+								}
 							}
+						} else {
+							res.setValid(false);
+							res.setMessage("KAPI오류 : 사립도서관 설정정보 조회에 실패하였습니다. 관리자에게 문의해 주세요.");
+							return res;
+						}
+					}
+					
+					ApiResponse hopeUserCheck = PrivateLibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
+					
+					if (hopeUserCheck.getStatus()) {
+						ApiResponse apiResult = PrivateLibSearchAPI.reqHope(librarySearch, member);
+						if (apiResult.getStatus()) {
+							res.setValid(true);
+							res.setMessage("신청 되었습니다.");
+						} else {
+							res.setValid(false);
+							res.setMessage(apiResult.getMessage());
 						}
 					} else {
 						res.setValid(false);
-						res.setMessage("KAPI오류 : 도서관 설정정보 조회에 실패하였습니다. 관리자에게 문의해 주세요.");
-						return res;
+						res.setMessage(hopeUserCheck.getMessage());
+					}
+				} else {
+					Map<String, Object> map = LibSearchAPI.getLibSettingInfoView(librarySearch.getManageCode());
+					
+					if(map.get("RESULT_INFO").equals("SUCCESS")) {
+						List<Map<String, Object>> list =  (List<Map<String, Object>>) map.get("LIB_SETTING_INFO");
+						
+						String lib_code = (String) list.get(0).get("LIB_CODE");
+						
+						if(lib_code != null && !(lib_code.isEmpty()) && StringUtils.isNotEmpty(lib_code)) {
+							if(librarySearch.getIsbn() != null && StringUtils.isNotEmpty(librarySearch.getIsbn())) {
+								ApiResponse duplicateSurvey = LibSearchAPI.duplicateSurvey(librarySearch.getIsbn(), lib_code);
+								
+								if(!(duplicateSurvey.getStatus())) {
+									res.setValid(false);
+									res.setMessage("희망도서 바로대출제 서비스를 통해 신청된 도서입니다.");
+									return res;
+								}
+							}
+						} else {
+							res.setValid(false);
+							res.setMessage("KAPI오류 : 도서관 설정정보 조회에 실패하였습니다. 관리자에게 문의해 주세요.");
+							return res;
+						}
+					}
+					
+					ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
+					
+					if (hopeUserCheck.getStatus()) {
+						ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
+						if (apiResult.getStatus()) {
+							res.setValid(true);
+							res.setMessage("신청 되었습니다.");
+						} else {
+							res.setValid(false);
+							res.setMessage(apiResult.getMessage());
+						}
+					} else {
+						res.setValid(false);
+						res.setMessage(hopeUserCheck.getMessage());
 					}
 				}
 				
-				ApiResponse hopeUserCheck = LibSearchAPI.hopeUserCheck(member.getRec_key(), librarySearch.getIsbn(), librarySearch.getManageCode());
-
-				if (hopeUserCheck.getStatus()) {
-					ApiResponse apiResult = LibSearchAPI.reqHope(librarySearch, member);
+			} else if (librarySearch.getEditMode().equals("CANCEL")) {
+				if(librarySearch.getPrivateLibraryYn(h)) {
+					ApiResponse apiResult = PrivateLibSearchAPI.modHope(librarySearch);
 					if (apiResult.getStatus()) {
 						res.setValid(true);
-						res.setMessage("신청 되었습니다.");
+						res.setMessage("취소 되었습니다.");
 					} else {
 						res.setValid(false);
 						res.setMessage(apiResult.getMessage());
 					}
 				} else {
-					res.setValid(false);
-					res.setMessage(hopeUserCheck.getMessage());
-				}
-			} else if (librarySearch.getEditMode().equals("CANCEL")) {
-				ApiResponse apiResult = LibSearchAPI.modHope(librarySearch);
-				if (apiResult.getStatus()) {
-					res.setValid(true);
-					res.setMessage("취소 되었습니다.");
-				} else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
+					ApiResponse apiResult = LibSearchAPI.modHope(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("취소 되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				}
 			}
 		} else {
@@ -1435,19 +1980,34 @@ public class CommonSearchController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getReserveList(member.getRec_key());
+			List<Map<String, Object>> list = null;
 
-		Map<String, Object> result = LibSearchAPI.getReserveList(member.getRec_key());
-		List<Map<String, Object>> list = null;
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		int count = LibSearchAPI.getSearchCount(result);
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = PrivateLibSearchAPI.getListData(result);
+			}
 
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			list = LibSearchAPI.getListData(result);
+			model.addAttribute("resveList", list);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getReserveList(member.getRec_key());
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = LibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("resveList", list);
 		}
-
-		model.addAttribute("resveList", list);
 
 		return String.format(basePath, homepage.getFolder()) + "resve/index";
 	}
@@ -1463,6 +2023,7 @@ public class CommonSearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/resve/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveResve(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1480,7 +2041,6 @@ public class CommonSearchController extends BaseController {
 			}
 			
 			//달성군립도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
-			Homepage homepage = getSessionHomepage(request);
 			if(StringUtils.isNotEmpty(homepage.getContext_path())){
 				if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs")) && librarySearch.getEditMode().equals("ADD")) {
 					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
@@ -1505,31 +2065,44 @@ public class CommonSearchController extends BaseController {
 			
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
-
-				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-//				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0001");
-//				if(lasReqConfig != null) {
-//					res.setValid(false);
-//					res.setMessage(lasReqConfig.getRes_msg());
-//					return res;
-//				}
-				
-				ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
-				if (apiResult.getStatus()) {
-					res.setValid(true);
-					res.setMessage("예약되었습니다. 단, 대출 가능일은 자료반납 여부에 따라 변동될 수 있습니다.");
+				if(librarySearch.getPrivateLibraryYn(homepage)) {
+					ApiResponse apiResult = PrivateLibSearchAPI.reqResve(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("예약되었습니다. 단, 대출 가능일은 자료반납 여부에 따라 변동될 수 있습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				} else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
+					ApiResponse apiResult = LibSearchAPI.reqResve(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("예약되었습니다. 단, 대출 가능일은 자료반납 여부에 따라 변동될 수 있습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				}
 			} else if (librarySearch.getEditMode().equals("CANCEL")) {
-				ApiResponse apiResult = LibSearchAPI.cancelResve(librarySearch);
-				if (apiResult.getStatus()) {
-					res.setValid(true);
-					res.setMessage("취소 되었습니다.");
+				if(librarySearch.getPrivateLibraryYn(homepage)) {
+					ApiResponse apiResult = PrivateLibSearchAPI.cancelResve(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("취소 되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				} else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
+					ApiResponse apiResult = LibSearchAPI.cancelResve(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("취소 되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				}
 			}
 		} else {
@@ -1577,41 +2150,73 @@ public class CommonSearchController extends BaseController {
 			}
 
 			librarySearch.setUserkey(member.getRec_key());
-			Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
-
-			List<Map<String, Object>> list = null;
-
-			int count = LibSearchAPI.getSearchCount(result);
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
 			
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				Map<String, Object> result = PrivateLibSearchAPI.getBookLoanHistory(librarySearch);
 
-			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-				list = LibSearchAPI.getListData(result);
+				List<Map<String, Object>> list = null;
+
+				int count = PrivateLibSearchAPI.getSearchCount(result);
+				librarySearch.setTotalDataCount(count);
+				service.setPaging(model, count, librarySearch);
+				
+				if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+					list = PrivateLibSearchAPI.getListData(result);
+				}
+				
+				model.addAttribute("loanList", list);
+			} else {
+				Map<String, Object> result = LibSearchAPI.getBookLoanHistory(librarySearch);
+
+				List<Map<String, Object>> list = null;
+
+				int count = LibSearchAPI.getSearchCount(result);
+				librarySearch.setTotalDataCount(count);
+				service.setPaging(model, count, librarySearch);
+				
+				if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+					list = LibSearchAPI.getListData(result);
+				}
+				
+				model.addAttribute("loanList", list);
 			}
 			
 			int noteMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 170));
 			
 			model.addAttribute("noteMenuIdx", noteMenuIdx);
-			model.addAttribute("loanList", list);
 			return String.format(basePath, homepage.getFolder()) + "loan/history";
 
 		} else {
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				Map<String, Object> result = PrivateLibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
+				List<Map<String, Object>> list = null;
 
-			Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
-			List<Map<String, Object>> list = null;
+				int count = PrivateLibSearchAPI.getSearchCount(result);
 
-			int count = LibSearchAPI.getSearchCount(result);
+				librarySearch.setTotalDataCount(count);
+				service.setPaging(model, count, librarySearch);
 
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
+				if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+					list = PrivateLibSearchAPI.getListData(result);
+				}
 
-			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-				list = LibSearchAPI.getListData(result);
+				model.addAttribute("loanList", list);
+			} else {
+				Map<String, Object> result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
+				List<Map<String, Object>> list = null;
+
+				int count = LibSearchAPI.getSearchCount(result);
+
+				librarySearch.setTotalDataCount(count);
+				service.setPaging(model, count, librarySearch);
+
+				if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+					list = LibSearchAPI.getListData(result);
+				}
+
+				model.addAttribute("loanList", list);
 			}
-
-			model.addAttribute("loanList", list);
-
+			
 			return String.format(basePath, homepage.getFolder()) + "loan/index";
 		}
 
@@ -1628,27 +2233,30 @@ public class CommonSearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/loan/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse renewLoan(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
 		if (!result.hasErrors()) {
-
 			if (librarySearch.getEditMode().equals("RENEW")) {
 
-				// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-				LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0002");
-				if(lasReqConfig != null) {
-					res.setValid(false);
-					res.setMessage(lasReqConfig.getRes_msg());
-					return res;
-				}
-
-				ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
-				if (apiResult.getStatus()) {
-					res.setValid(true);
-					res.setMessage("반납 연기 되었습니다.");
+				if(librarySearch.getPrivateLibraryYn(homepage)) {
+					ApiResponse apiResult = PrivateLibSearchAPI.renewLoan(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("반납 연기 되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				} else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
+					ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("반납 연기 되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				}
 			}
 		} else {
@@ -1684,8 +2292,6 @@ public class CommonSearchController extends BaseController {
 			return null;
 		}
 
-		model.addAttribute("librarySearch", librarySearch);
-
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 
 		Calendar cal = Calendar.getInstance();
@@ -1699,19 +2305,36 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setSearch_end_date(sdf.format(new Date()));
 		}
 
-		Map<String, Object> result = LibSearchAPI.lillRequestList(librarySearch, "0");
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.lillRequestList(librarySearch, "0");
 
-		List<Map<String, Object>> list = null;
+			List<Map<String, Object>> list = null;
 
-		int count = LibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			int count = PrivateLibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			list = LibSearchAPI.getListData(result);
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = PrivateLibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("sanghoHistory", list);
+		} else {
+			Map<String, Object> result = LibSearchAPI.lillRequestList(librarySearch, "0");
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = LibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("sanghoHistory", list);
 		}
-
-		model.addAttribute("sanghoHistory", list);
+		
 		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "sangho/index";
@@ -1729,7 +2352,6 @@ public class CommonSearchController extends BaseController {
 	 */
 	@RequestMapping (value = {"/sangho/history.*"}, method = RequestMethod.GET)
 	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
-
 		Homepage homepage = getSessionHomepage(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -1757,20 +2379,36 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setSearch_end_date(sdf.format(new Date()));
 		}
 
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.lillRequestList(librarySearch, "1");
 
-		Map<String, Object> result = LibSearchAPI.lillRequestList(librarySearch, "1");
+			List<Map<String, Object>> list = null;
 
-		List<Map<String, Object>> list = null;
+			int count = PrivateLibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		int count = LibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = PrivateLibSearchAPI.getListData(result);
+			}
 
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			list = LibSearchAPI.getListData(result);
+			model.addAttribute("sanghoHistory", list);
+		} else {
+			Map<String, Object> result = LibSearchAPI.lillRequestList(librarySearch, "1");
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result, "LIST_DATA", "TOTAL");
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = LibSearchAPI.getListData(result);
+			}
+
+			model.addAttribute("sanghoHistory", list);
 		}
-
-		model.addAttribute("sanghoHistory", list);
+		
 		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "sangho/history";
@@ -1804,7 +2442,6 @@ public class CommonSearchController extends BaseController {
 			return null;
 		}
 
-		/**/
 		String overdueCnt = member.getOverdue_cnt();
 		try {
 			if (Integer.parseInt(overdueCnt) > 0) {
@@ -1832,65 +2469,99 @@ public class CommonSearchController extends BaseController {
 		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
 			librarySearch.setSearch_end_date(sdf.format(new Date()));
 		}
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> lillRequestList = PrivateLibSearchAPI.lillRequestList(librarySearch, "0");
+			int lillRequestListCount = PrivateLibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
+			int sanghoPossiCnt = 5;
 
-		Map<String, Object> lillRequestList = LibSearchAPI.lillRequestList(librarySearch, "0");
-		int lillRequestListCount = LibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
-//		if (lillRequestListCount >= 3) {
-//			service.alertMessage("상호대차 신청권수는 3권까지입니다.", request, response);
-//			return null;
-//		}
-
-		////
-		int sanghoPossiCnt = 5;
-
-		// 달서구립도서관, 중구 상호대차 3권
-		String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
-		for (String libOne : sangho3cnt) {
-			if(homepage.getContext_path().equals(libOne)) {
-				sanghoPossiCnt = 3;
-				break;
+			// 달서구립도서관, 중구 상호대차 3권
+			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
+			for (String libOne : sangho3cnt) {
+				if(homepage.getContext_path().equals(libOne)) {
+					sanghoPossiCnt = 3;
+					break;
+				}
 			}
-		}
 
-		if (lillRequestListCount >= sanghoPossiCnt) {
-			service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
-			return null;
-		}
-		////
+			if (lillRequestListCount >= sanghoPossiCnt) {
+				service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
+				return null;
+			}
 
+			Map<String, Object> result = new HashMap<String, Object>();
 
-		Map<String, Object> result = new HashMap<String, Object>();
+			if ( librarySearch.getBooktype() == null ) {
+				librarySearch.setBooktype("BOOK");
+			}
 
-		if ( librarySearch.getBooktype() == null ) {
-			librarySearch.setBooktype("BOOK");
-		}
+			result = PrivateLibSearchAPI.getBookInfo(librarySearch);
 
-		//		if ( librarySearch.getBooktype().equals("BOOK") ) {
-		//			result = LibSearchAPI.getBookDetail(librarySearch);
-		//		} else {
-		//			result = LibSearchAPI.getNonBookDetail(librarySearch);
-		//		}
+			model.addAttribute("librarySearch", librarySearch);
 
-		result = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
 
-		model.addAttribute("librarySearch", librarySearch);
+			int count = PrivateLibSearchAPI.getSearchCount(result);
 
-		List<Map<String, Object>> list = null;
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		int count = LibSearchAPI.getSearchCount(result);
+			if ( count > 0 ) {
+				list = PrivateLibSearchAPI.getListData(result);
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("ISBN", librarySearch.getIsbn());
+				//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
+				//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
+				//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
+				//			}
+				model.addAttribute("detail", list.get(0));
+			}
+		} else {
+			Map<String, Object> lillRequestList = LibSearchAPI.lillRequestList(librarySearch, "0");
+			int lillRequestListCount = LibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
+			int sanghoPossiCnt = 5;
 
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			// 달서구립도서관, 중구 상호대차 3권
+			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
+			for (String libOne : sangho3cnt) {
+				if(homepage.getContext_path().equals(libOne)) {
+					sanghoPossiCnt = 3;
+					break;
+				}
+			}
 
-		if ( count > 0 ) {
-			list = LibSearchAPI.getListData(result);
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("ISBN", librarySearch.getIsbn());
-			//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
-			//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
-			//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
-			//			}
-			model.addAttribute("detail", list.get(0));
+			if (lillRequestListCount >= sanghoPossiCnt) {
+				service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
+				return null;
+			}
+
+			Map<String, Object> result = new HashMap<String, Object>();
+
+			if ( librarySearch.getBooktype() == null ) {
+				librarySearch.setBooktype("BOOK");
+			}
+
+			result = LibSearchAPI.getBookInfo(librarySearch);
+
+			model.addAttribute("librarySearch", librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( count > 0 ) {
+				list = LibSearchAPI.getListData(result);
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("ISBN", librarySearch.getIsbn());
+				//			Map<String, Object> aladinDetail =  aladinApiService.getAladinApiOne(String.valueOf(map.get("ISBN")), homepage.getContext_path());
+				//			if (aladinDetail != null && !aladinDetail.isEmpty() && aladinDetail.containsKey("item")) {
+				//				list.get(0).put("aladinDetail", aladinDetail.get("item"));
+				//			}
+				model.addAttribute("detail", list.get(0));
+			}
 		}
 
 		Menu m = new Menu();
@@ -1935,42 +2606,65 @@ public class CommonSearchController extends BaseController {
 		if (!result.hasErrors()) {
 
 			Homepage homepage = getSessionHomepage(request);
-			SmsReception smsReception = new SmsReception();
-			smsReception.setHomepage_id(homepage.getHomepage_id());
-			smsReception.setWork_code("0001");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
-			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
 
 			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
-
-				ApiResponse apiResult = LibSearchAPI.lillRequestCancel(librarySearch);
-				if (apiResult.getStatus()) {
-					res.setValid(true);
-					res.setMessage("취소되었습니다.");
-				} else {
-					res.setValid(false);
-					res.setMessage(apiResult.getMessage());
-				}
-
-			} else {
-
-				Member sessionMemberInfo = getSessionMemberInfo(request);
-				librarySearch.setUserkey(sessionMemberInfo.getUser_no());
-				ApiResponse lillRequestCheck = LibSearchAPI.lillRequestCheck(librarySearch);
-
-				if (lillRequestCheck.getStatus()) {
-					ApiResponse apiResult = LibSearchAPI.lillRequest(librarySearch);
+				if(librarySearch.getPrivateLibraryYn(homepage)) {
+					ApiResponse apiResult = PrivateLibSearchAPI.lillRequestCancel(librarySearch);
 					if (apiResult.getStatus()) {
 						res.setValid(true);
-						res.setMessage("신청되었습니다.");
+						res.setMessage("취소되었습니다.");
 					} else {
 						res.setValid(false);
 						res.setMessage(apiResult.getMessage());
 					}
 				} else {
-					res.setValid(false);
-					res.setMessage(lillRequestCheck.getMessage());
+					ApiResponse apiResult = LibSearchAPI.lillRequestCancel(librarySearch);
+					if (apiResult.getStatus()) {
+						res.setValid(true);
+						res.setMessage("취소되었습니다.");
+					} else {
+						res.setValid(false);
+						res.setMessage(apiResult.getMessage());
+					}
 				}
+			} else {
+				if(librarySearch.getPrivateLibraryYn(homepage)) {
+					Member sessionMemberInfo = getSessionMemberInfo(request);
+					librarySearch.setUserkey(sessionMemberInfo.getUser_no());
+					ApiResponse lillRequestCheck = PrivateLibSearchAPI.lillRequestCheck(librarySearch);
 
+					if (lillRequestCheck.getStatus()) {
+						ApiResponse apiResult = PrivateLibSearchAPI.lillRequest(librarySearch);
+						if (apiResult.getStatus()) {
+							res.setValid(true);
+							res.setMessage("신청되었습니다.");
+						} else {
+							res.setValid(false);
+							res.setMessage(apiResult.getMessage());
+						}
+					} else {
+						res.setValid(false);
+						res.setMessage(lillRequestCheck.getMessage());
+					}
+				} else {
+					Member sessionMemberInfo = getSessionMemberInfo(request);
+					librarySearch.setUserkey(sessionMemberInfo.getUser_no());
+					ApiResponse lillRequestCheck = LibSearchAPI.lillRequestCheck(librarySearch);
+
+					if (lillRequestCheck.getStatus()) {
+						ApiResponse apiResult = LibSearchAPI.lillRequest(librarySearch);
+						if (apiResult.getStatus()) {
+							res.setValid(true);
+							res.setMessage("신청되었습니다.");
+						} else {
+							res.setValid(false);
+							res.setMessage(apiResult.getMessage());
+						}
+					} else {
+						res.setValid(false);
+						res.setMessage(lillRequestCheck.getMessage());
+					}
+				}
 			}
 
 		} else {
@@ -2005,20 +2699,36 @@ public class CommonSearchController extends BaseController {
 		if (librarySearch.getBooktype() == null) {
 			librarySearch.setBooktype("BO");
 		}
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
 
-		Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
-		List<Map<String, Object>> list = null;
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		int count = LibSearchAPI.getSearchCount(result);
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if (count > 0) {
+				list = PrivateLibSearchAPI.getListData(result);
+				model.addAttribute("detail", list.get(0));
+			}
 
-		if (count > 0) {
-			list = LibSearchAPI.getListData(result);
-			model.addAttribute("detail", list.get(0));
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (count > 0) {
+				list = LibSearchAPI.getListData(result);
+				model.addAttribute("detail", list.get(0));
+			}
+
+			model.addAttribute("librarySearch", librarySearch);
 		}
-
-		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "unmanned/form";
 	}
@@ -2052,22 +2762,8 @@ public class CommonSearchController extends BaseController {
 			}
 
 			Homepage homepage = getSessionHomepage(request);
-			SmsReception smsReception = new SmsReception();
-			smsReception.setHomepage_id(homepage.getHomepage_id());
-			smsReception.setWork_code("0002");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
-			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
-
-			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
-			if(lasReqConfig != null) {
-				res.setValid(false);
-				res.setMessage(lasReqConfig.getRes_msg());
-				return res;
-			}
 
 			librarySearch.setUserkey(member.getRec_key());
-
-
 
 			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02")) {
 				LibrarySearch l = new LibrarySearch();
@@ -2191,23 +2887,6 @@ public class CommonSearchController extends BaseController {
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
-
-				// 신청자에게 SMS 전송
-				String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
-//				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
-//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
-//				}
-
-				// 관리자에게 SMS 전송
-				String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
-				for(SmsReception one : receptionsList) {
-					//TODO 테스트 후 sysout 삭제 및 주석 취소
-					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
-					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
-					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
-					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
-//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
-				}
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());
@@ -2243,20 +2922,36 @@ public class CommonSearchController extends BaseController {
 		if (librarySearch.getBooktype() == null) {
 			librarySearch.setBooktype("BO");
 		}
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
 
-		Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
-		List<Map<String, Object>> list = null;
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		int count = LibSearchAPI.getSearchCount(result);
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if (count > 0) {
+				list = PrivateLibSearchAPI.getListData(result);
+				model.addAttribute("detail", list.get(0));
+			}
 
-		if (count > 0) {
-			list = LibSearchAPI.getListData(result);
-			model.addAttribute("detail", list.get(0));
+			model.addAttribute("librarySearch", librarySearch);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (count > 0) {
+				list = LibSearchAPI.getListData(result);
+				model.addAttribute("detail", list.get(0));
+			}
+
+			model.addAttribute("librarySearch", librarySearch);
 		}
-
-		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "night/form";
 	}
@@ -2272,6 +2967,7 @@ public class CommonSearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/night/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveNight(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
+		//Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -2285,20 +2981,6 @@ public class CommonSearchController extends BaseController {
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
 				res.setValid(false);
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
-				return res;
-			}
-
-			Homepage homepage = getSessionHomepage(request);
-			SmsReception smsReception = new SmsReception();
-			smsReception.setHomepage_id(homepage.getHomepage_id());
-			smsReception.setWork_code("0003");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
-			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
-
-			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
-			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0003");
-			if(lasReqConfig != null) {
-				res.setValid(false);
-				res.setMessage(lasReqConfig.getRes_msg());
 				return res;
 			}
 
@@ -2324,30 +3006,11 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 
-
-
 			librarySearch.setUserkey(member.getRec_key());
 			ApiResponse apiResult = LibSearchAPI.nightloanreserve(librarySearch);
 			if (apiResult.getStatus()) {
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
-
-				// 신청자에게 SMS 전송
-//				String message = "야간대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
-//				if (isSmsReceive("WEBID", getSessionMemberId(request))) {
-//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, member.getMobile_no(), message, homepage.getHomepage_send_tell(), true);
-//				}
-
-				// 관리자에게 SMS 전송
-//				String adminMessage = "야간대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
-//				for(SmsReception one : receptionsList) {
-//					//TODO 테스트 후 sysout 삭제 및 주석 취소
-//					System.out.println("@@@@@@@@@@ sms homepage : " + homepage.getHomepage_name() + "/" + homepage.getHomepage_id());
-//					System.out.println("@@@@@@@@@@ sms reception : " + one.getReception_phone());
-//					System.out.println("@@@@@@@@@@ sms homepage tel : " + homepage.getHomepage_send_tell());
-//					System.out.println("@@@@@@@@@@ sms message : " + adminMessage);
-//					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, one.getReception_phone(), adminMessage, homepage.getHomepage_send_tell(), true);
-//				}
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());
@@ -2376,37 +3039,58 @@ public class CommonSearchController extends BaseController {
 	public String print(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			result = PrivateLibSearchAPI.getBookInfo(librarySearch);
 
-		result = LibSearchAPI.getBookInfo(librarySearch);
+			model.addAttribute("librarySearch", librarySearch);
 
-		model.addAttribute("librarySearch", librarySearch);
+			List<Map<String, Object>> list = null;
 
-		List<Map<String, Object>> list = null;
+			int count = PrivateLibSearchAPI.getSearchCount(result);
 
-		int count = LibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
 
-		librarySearch.setTotalDataCount(count);
-		service.setPaging(model, count, librarySearch);
+			if ( count > 0 ) {
+				list = PrivateLibSearchAPI.getListData(result);
+				model.addAttribute("detail", list.get(0));
+			}
+		} else {
+			result = LibSearchAPI.getBookInfo(librarySearch);
 
-		if ( count > 0 ) {
-			list = LibSearchAPI.getListData(result);
-			model.addAttribute("detail", list.get(0));
+			model.addAttribute("librarySearch", librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( count > 0 ) {
+				list = LibSearchAPI.getListData(result);
+				model.addAttribute("detail", list.get(0));
+			}
 		}
-
+		
 		return String.format(basePath, homepage.getFolder()) + "print_ajax";
 	}
 
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.GET)
 	public LibrarySearchView excel(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
 		Member member = getSessionMemberInfo(request);
 		Map<String, Object> result = null;
 		List<Map<String, Object>> list = null;
 		
 		String excel_type = librarySearch.getExcel_type();
 		if(excel_type.equals("LOAN")) {
-			
-			result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
-			
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				result = PrivateLibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
+			} else {
+				result = LibSearchAPI.getBookLoanList(member.getRec_key(), librarySearch.getManageCode(), librarySearch.getViewPage(), librarySearch.getRowCount());
+			}
 		} else if(excel_type.equals("HISTORY")) {
 			
 			Calendar cal = Calendar.getInstance();
@@ -2423,21 +3107,32 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setRowCount(99999);
 
 			librarySearch.setUserkey(member.getRec_key());
-			result = LibSearchAPI.getBookLoanHistory(librarySearch);
-			
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				result = PrivateLibSearchAPI.getBookLoanHistory(librarySearch);
+			} else {
+				result = LibSearchAPI.getBookLoanHistory(librarySearch);
+			}
 		} else if(excel_type.equals("RESVE")) {
-			
-			result = LibSearchAPI.getReserveList(member.getRec_key());
-			
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				result = PrivateLibSearchAPI.getReserveList(member.getRec_key());
+			} else {
+				result = LibSearchAPI.getReserveList(member.getRec_key());
+			}
 		} else if(excel_type.equals("HOPE")) {
-			
 			librarySearch.setUserkey(member.getRec_key());
-			result = LibSearchAPI.getBookFurnishList(librarySearch);
-			
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				result = PrivateLibSearchAPI.getBookFurnishList(librarySearch);
+			} else {
+				result = LibSearchAPI.getBookFurnishList(librarySearch);
+			}
 		}
 		
 		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-			list = LibSearchAPI.getListData(result);
+			if(librarySearch.getPrivateLibraryYn(homepage)) {
+				list = PrivateLibSearchAPI.getListData(result);
+			} else {
+				list = LibSearchAPI.getListData(result);
+			}
 		}
 		
 		model.addAttribute("resultList", list);
@@ -2450,68 +3145,12 @@ public class CommonSearchController extends BaseController {
 	public void csv(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Map<String, Object>> result = null;
 
-//		if (StringUtils.equals(librarySearch.getExcel_type(), "POUCH")) {
-//			result = LibSearchAPI.getPouchList("WEB", getSessionUserId(request), "req", librarySearch.getvLoca(), "");
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "HOPE")) {
-//
-//			Map<String, String> paramMap = new HashMap<String, String>();
-//			paramMap.put("vSrchDateS", librarySearch.getSearch_start_date().replaceAll("-", ""));
-//			paramMap.put("vSrchDateE", librarySearch.getSearch_end_date().replaceAll("-", ""));
-//			paramMap.put("vSrchDateKey", "INSERT_DATE");
-//			paramMap.put("vSortKey", "INSERT_DATE");
-//			paramMap.put("vSortDir", "DESC");
-//
-//			result = LibSearchAPI.getMyLibrarySearchList("WEB", getSessionUserId(request), "HOPE", null, paramMap);
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "NEWBOOK")) {
-//
-//			// 소장처 코드
-//			Homepage homepage = getSessionHomepage(request);
-//			if (StringUtils.isEmpty(librarySearch.getvLoca())) {
-//				librarySearch.setvLoca(homepage.getHomepage_code());
-//			}
-//
-//			Map<String, Object> newBookResult = LibSearchAPI.getNewBookList(librarySearch, null);
-//			@SuppressWarnings ("unchecked")
-//			List<Map<String, String>> newBookCnt = (List<Map<String, String>>) newBookResult.get("dsNewBookListCnt");
-//			int totalCnt = Integer.parseInt(String.valueOf(newBookCnt.get(0).get("CNT")));
-//			librarySearch.setEndRowNum(totalCnt);
-//			newBookResult = LibSearchAPI.getNewBookList(librarySearch, null);
-//			@SuppressWarnings ("unchecked")
-//			List<Map<String, String>> newBookListTmp = (List<Map<String, String>>) newBookResult.get("dsNewBookList");
-//			List<Map<String, Object>> newBookList = new ArrayList<Map<String, Object>>();
-//			for ( Map<String, String> map : newBookListTmp ) {
-//				LibrarySearch tmp = new LibrarySearch();
-//				tmp.setvLoca(map.get("LOCA"));
-//				tmp.setvCtrl(map.get("CTRLNO"));
-//				Map<String, Object> detailResult = LibSearchAPI.getBookDetail(tmp);
-//				@SuppressWarnings ("unchecked")
-//				List<Map<String, Object>> detailList = (List<Map<String, Object>>) detailResult.get("dsItemDetail");
-//				for ( Map<String, Object> map2 : detailList ) {
-//					newBookList.add(map2);
-//				}
-//			}
-//			Map<String, Object> newBook = new HashMap<String, Object>();
-//			newBook.put("newBook", newBookList);
-//
-//			result = newBook;
-//
-//		} else if (StringUtils.equals(librarySearch.getExcel_type(), "CLOSE")) {
-//
-//			result = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), "CLOSE", null);
-//		}else {
-//			result = LibSearchAPI.getMyLibraryList("WEB", getSessionUserId(request), librarySearch.getExcel_type(), librarySearch.getExcel_type_detail());
-//		}
-
 		new LibrarySearchXlsToCsv(librarySearch, result, request, response);
 	}
 
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
 	public LibrarySearchView excelDownload(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-//		Map<String, Object> result	 				= null;
-//		result = LibSearchAPI.getSearch(librarySearch, librarySearch.getViewPage()); // API로 Request 보냄
-//		model.addAttribute("result", result);
-//		model.addAttribute("librarySearch", librarySearch);
 
 		return new LibrarySearchView();
 	}
@@ -2519,17 +3158,68 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = { "/csvDownload.*" }, method = RequestMethod.POST)
 	public void csvDownload(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<Map<String, Object>> result = null;
-//		result = LibSearchAPI.getSearch(librarySearch, librarySearch.getViewPage()); // API로 Request 보냄
 
 		new LibrarySearchXlsToCsv(librarySearch, result, request, response);
 	}
-
 	
+	@SuppressWarnings("unchecked")
 	public String marc_view(Model model, String regno, HttpServletRequest request) {
 		List<Map<String, Object>> list = null;
 		String content = "";
-		//TODO marc보기
+		//marc보기
 		Map<String, Object> marcView = LibSearchAPI.getMarc(regno);
+
+		try {
+			if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
+				if(marcView.get("collection") != null) {
+					Map<String, Object> collection = (Map<String, Object>)marcView.get("collection");
+					if(collection.get("record") != null) {
+						Map<String, Object> record = (Map<String, Object>)collection.get("record");
+						if(record.get("datafield") != null) {
+							list = new ArrayList<Map<String, Object>>();
+							list.addAll((List<Map<String, Object>>) record.get("datafield"));
+						}
+					}
+				}
+
+				if (CollectionUtils.isNotEmpty(list) && list.size() > 0) {
+					// tag 521 추출
+					for (Map<String, Object> map : list) {
+						String tag = String.valueOf(map.get("tag"));
+
+						if(tag.equals("521")) {
+							ArrayList<String> subfieldList = new ArrayList<String>();
+							Object test = map.get("subfield");
+							if (test instanceof ArrayList) {
+								List<Map<String, Object>> subfield = (List<Map<String, Object>>)map.get("subfield");
+								for (Map<String, Object> stringObjectMap : subfield) {
+									subfieldList.add(String.valueOf(stringObjectMap.get("content")));
+								}
+								content = StringUtils.join(subfieldList, ",");
+								break;
+							} else {
+								Map<String, Object> subfield = (Map<String, Object>)map.get("subfield");
+								content = String.valueOf(subfield.get("content"));
+							}
+
+							break;
+						}
+					}
+				}
+
+			}
+		} catch (Exception e) {
+			return content;
+		}
+		return content;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String private_marc_view(Model model, String regno, HttpServletRequest request) {
+		List<Map<String, Object>> list = null;
+		String content = "";
+		//marc보기
+		Map<String, Object> marcView = PrivateLibSearchAPI.getMarc(regno);
 
 		try {
 			if (MapUtils.isNotEmpty(marcView) && marcView.containsKey("collection")) {
@@ -2705,31 +3395,5 @@ public class CommonSearchController extends BaseController {
 		}
 
 		return res;
-	}
-
-	/**
-	 *
-	 * @param mode WEBID, USERID
-	 * @param id webid, user_id
-	 * @return
-	 */
-	public boolean isSmsReceive(String mode, String id) {
-		Member member = new Member();
-		Map<String, String> map = null;
-		if ("WEBID".equals(mode)) {
-//			member.setCheck_certify_type("WEBID");
-//			member.setCheck_certify_data(id);
-//			map = MemberAPI.getMemberCertify("WEB", member);
-//			member.setUser_id(map.get("USER_ID"));
-		} else {
-			member.setUser_id(id);
-		}
-		map = MemberAPI.getMember("WEB", member);
-
-		if(map != null) {
-			return StringUtils.equals(map.get("SMS_CHECK"), "Y");
-		} else {
-			return false;
-		}
 	}
 }

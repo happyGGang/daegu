@@ -295,66 +295,6 @@ $(function() {
 				<input id="agree_codes1" name="agree_codes" req="0001" type="checkbox" value="1"><label for="agree_codes1">통합회원 이용약관에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
 			</div>
 
-<!--
-			<h4>대구광역시 도서관 통합회원 개인정보 수집 ‧ 이용 및 제공 동의</h4>
-
-			<div class="Box" style="height:200px">
-				<strong>개인정보 수집·이용 내역</strong><br><br>
-
-				<table class="t_list tac" summary="개인정보 수집·이용 내역">
-				  <caption class="disnone">
-				  개인정보 수집·이용 내역
-				  </caption>
-				  <colgroup>
-				  <col width="10%"/>
-				  <col width="10%"/>
-				  <col width=""/>
-				  <col width="15%"/>
-				  <col width="10%"/>
-				  </colgroup>
-				  <thead>
-					<tr>
-					<td>구분</td>
-					<td colspan="2">항목</td>
-					<td>수집목적</td>
-					<td>보유기간</td>
-					</tr>
-				  </thead>
-				  <tbody>
-					<tr>
-					<td rowspan="3">필수</td>
-					<td>14세 이상</td>
-					<td>아이디, 비밀번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, 도서회원번호, CI값, 도서대출내역, SMS수신여부, E-mail수신여부</td>
-					<td rowspan="2">도서대출 및 반납 등
-					  도서관 서비스</td>
-					<td rowspan="4">회원 탈퇴시까지</td>
-					</tr>
-					<tr>
-					<td>14세 미만</td>
-					<td>아이디, 비밀번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, 도서회원번호, CI값, 도서대출내역 법정대리인 성명 및 연락처, SMS수신여부, E-mail수신여부</td>
-					</tr>
-					<tr>
-					<td colspan="2">성명, 연락처</td>
-					<td>만 14세 미만 신청자 관련 안내</td>
-					</tr>
-					<tr>
-					<td>선택</td>
-					<td colspan="2">이메일, 전화번호(자택)</td>
-					<td>도서관 서비스 안내</td>
-					</tr>
-				  </tbody>
-				</table>
-
-				<br>
-				※ 휴대폰번호는 나이스평가정보에서 인증 받은 휴대폰 번호를 사용 하고 있습니다.
-				<br/>
-				<br/>
-			</div>
-
-			<div class="agree_codes">
-				<input id="agree_codes2" name="agree_codes" req="0001" type="checkbox" value="2"><label for="agree_codes2">개인정보 수집·이용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
-			</div>
--->
 			<h4>개인정보 공동이용(제공) 내역</h4>
 			<div class="Box" style="height:200px">
 

@@ -18,6 +18,7 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 
 @Service
@@ -207,31 +208,58 @@ public class CalendarManageService extends BaseService {
 		LibrarySearch librarySearch = new LibrarySearch();
 		librarySearch.setManageCode(homepage.getManage_code());
 
-		for(int i = 1; i <= endDay; i++) {
-			String search_day = "0";
-			if(i < 10) {
-				search_day += i;
-			} else {
-				search_day = String.valueOf(i);
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			for(int i = 1; i <= endDay; i++) {
+				String search_day = "0";
+				if(i < 10) {
+					search_day += i;
+				} else {
+					search_day = String.valueOf(i);
+				}
+				librarySearch.setSearch_start_date(plan_date.replace("-", "") + search_day);
+				Map<String, Object> holiDays = PrivateLibSearchAPI.getCheckHoliday(librarySearch);
+
+				if(holiDays.get("RESULT_CODE").equals("1")) {
+					calendarManage.setStart_date(plan_date + "-" + search_day);
+					calendarManage.setEnd_date(plan_date + "-" + search_day);
+					calendarManage.setStart_time("");
+					calendarManage.setEnd_time("");
+
+					calendarManage.setTitle("휴관일");
+					calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
+
+					calendarManage.setDate_type("1");//휴관
+					addCalendarManage(calendarManage);
+					resultRow++;
+				}
 			}
-			librarySearch.setSearch_start_date(plan_date.replace("-", "") + search_day);
-			Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+		} else {
+			for(int i = 1; i <= endDay; i++) {
+				String search_day = "0";
+				if(i < 10) {
+					search_day += i;
+				} else {
+					search_day = String.valueOf(i);
+				}
+				librarySearch.setSearch_start_date(plan_date.replace("-", "") + search_day);
+				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
 
-			if(holiDays.get("RESULT_CODE").equals("1")) {
-				calendarManage.setStart_date(plan_date + "-" + search_day);
-				calendarManage.setEnd_date(plan_date + "-" + search_day);
-				calendarManage.setStart_time("");
-				calendarManage.setEnd_time("");
+				if(holiDays.get("RESULT_CODE").equals("1")) {
+					calendarManage.setStart_date(plan_date + "-" + search_day);
+					calendarManage.setEnd_date(plan_date + "-" + search_day);
+					calendarManage.setStart_time("");
+					calendarManage.setEnd_time("");
 
-				calendarManage.setTitle("휴관일");
-				calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
+					calendarManage.setTitle("휴관일");
+					calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
 
-				calendarManage.setDate_type("1");//휴관
-				addCalendarManage(calendarManage);
-				resultRow++;
+					calendarManage.setDate_type("1");//휴관
+					addCalendarManage(calendarManage);
+					resultRow++;
+				}
 			}
 		}
-
+		
 		return resultRow;
 	}
 
@@ -245,29 +273,52 @@ public class CalendarManageService extends BaseService {
 
 		String y = plan_date.split("-")[0];
 
-		for (int i = 1; i <= 12; i++) {
-			String m = i < 10 ? "0" + i : "" + i;
-			for (int j = 1; j <= 31; j++) {
-				String d = j < 10 ? "0" + j : "" + j;
-				librarySearch.setSearch_start_date(y+m+d);
-				Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
-				if(holiDays.get("RESULT_CODE").equals("1")) {
-					calendarManage.setStart_date(y+ "-" +m+ "-" +d);
-					calendarManage.setEnd_date(y+ "-" +m+ "-" +d);
-					calendarManage.setStart_time("");
-					calendarManage.setEnd_time("");
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			for (int i = 1; i <= 12; i++) {
+				String m = i < 10 ? "0" + i : "" + i;
+				for (int j = 1; j <= 31; j++) {
+					String d = j < 10 ? "0" + j : "" + j;
+					librarySearch.setSearch_start_date(y+m+d);
+					Map<String, Object> holiDays = PrivateLibSearchAPI.getCheckHoliday(librarySearch);
+					if(holiDays.get("RESULT_CODE").equals("1")) {
+						calendarManage.setStart_date(y+ "-" +m+ "-" +d);
+						calendarManage.setEnd_date(y+ "-" +m+ "-" +d);
+						calendarManage.setStart_time("");
+						calendarManage.setEnd_time("");
 
-					calendarManage.setTitle("휴관일");
-					calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
+						calendarManage.setTitle("휴관일");
+						calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
 
-					calendarManage.setDate_type("1");//휴관
-					addCalendarManage(calendarManage);
-					resultRow++;
+						calendarManage.setDate_type("1");//휴관
+						addCalendarManage(calendarManage);
+						resultRow++;
+					}
+				}
+			}
+		} else {
+			for (int i = 1; i <= 12; i++) {
+				String m = i < 10 ? "0" + i : "" + i;
+				for (int j = 1; j <= 31; j++) {
+					String d = j < 10 ? "0" + j : "" + j;
+					librarySearch.setSearch_start_date(y+m+d);
+					Map<String, Object> holiDays = LibSearchAPI.getCheckHoliday(librarySearch);
+					if(holiDays.get("RESULT_CODE").equals("1")) {
+						calendarManage.setStart_date(y+ "-" +m+ "-" +d);
+						calendarManage.setEnd_date(y+ "-" +m+ "-" +d);
+						calendarManage.setStart_time("");
+						calendarManage.setEnd_time("");
+
+						calendarManage.setTitle("휴관일");
+						calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
+
+						calendarManage.setDate_type("1");//휴관
+						addCalendarManage(calendarManage);
+						resultRow++;
+					}
 				}
 			}
 		}
-
-
+		
 		return resultRow;
 	}
 

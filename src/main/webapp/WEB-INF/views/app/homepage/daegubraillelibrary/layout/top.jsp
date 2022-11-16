@@ -21,7 +21,7 @@
 
 			<div class="util">
 				<c:choose>
-					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<c:when test="${sessionScope.member.loginType eq 'PRIVATEHOMEPAGE' and sessionScope.member.login}">
 						<b>${sessionScope.member.member_name}님</b>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>

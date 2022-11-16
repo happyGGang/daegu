@@ -119,7 +119,6 @@
 		<div class="section" id="main0">
 
 			<div class="main0-visual">
-
 				<div class="main0-wrap">
 					<div class="main-section3">
 						<div class="main0-left">
@@ -157,7 +156,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="main0-right">
 							<!-- main_search -->
 							<div class="search-area" id="main_search">
@@ -181,81 +179,66 @@
 							</div>
 							<!-- //Main_search -->
 						</div>
-
 						<div class="end"></div>
 					</div>
 				</div>
-
 			</div>
 
 		</div>
 		<!-- //main0 -->
 
 		<!-- main1 -->
-		<div class="section" id="main1">
-			
+		<div class="section" id="main1">			
 			<div class="main1_tit">
 				<p class="tit_text">GREEN PASTURES PUBLIC LIBRARY</p>
 				<h2 class="title">푸른초장공공도서관 <b>주요서비스</b></h2>
-			</div>
-			
+			</div>		
 			<div class="mIcon">
 				<ul>
 					<li>
 						<a href="/bukgs/html.do?menu_idx=15" class="q01">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"><br class="webBr"/>희망도서신청</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-1.png" alt="이용안내"><br class="webBr"/>이용안내<p>GUIDE</p></span>
 						</a>
 					</li>
 					<li>
 						<a href="/bukgs/html.do?menu_idx=92" class="q02">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="상호대차서비스"><br class="webBr"/>상호대차서비스</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-2.png" alt="자원봉사신청"><br class="webBr"/>자원봉사신청<p>VOLUNTEER</p></span>
 						</a>
 					</li>
 					<li>
 						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="q03">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="독서문화행사"><br class="webBr"/>독서문화행사</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-3.png" alt="회원가입안내"><br class="webBr"/>회원가입안내<p>JOIN</p></span>
 						</a>
 					</li>
 					<li>
 						<a href="/bukgs/intro/search/loan/history.do?menu_idx=53" class="q04">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="대출정보조회"><br class="webBr"/>대출정보조회</span>
-						</a>
-					</li>
-					<li>
-						<a href="/bukgs/html.do?menu_idx=91" class="q05">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="스마트도서관"><br class="webBr"/>스마트도서관</span>
-						</a>
-					</li>
-					<li>
-						<a href="https://blog.naver.com/bukguarts" class="q06" target="_blank">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="블로그"><br class="webBr"/>블로그</span>
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-4.png" alt="이용시간·휴관일"><br class="webBr"/>이용시간·휴관일<p>TIME</p></span>
 						</a>
 					</li>
 				</ul>
-			</div>
-
-			<div class="banner-box">
-				<div class="main-section3">
-					<div class="banner-wrap type5">
-						<div class="banner-t5">
-							<h3>배너모음</h3>
-							<div class="control">
-								<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
-								<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
-								<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
-								<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
-							</div>
-						</div>
-						<div class="banner-box5">
-							<homepageTag:banner bannerList="${bannerList}"/>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<!-- //main1 -->
 
 		<!-- footer_section -->
+		<div class="banner-box">
+			<div class="main-section3">
+				<div class="banner-wrap type5">
+					<div class="banner-t5">
+						<h3>배너모음</h3>
+						<div class="control">
+							<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
+							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
+							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
+							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+						</div>
+					</div>
+					<div class="banner-box5">
+						<homepageTag:banner bannerList="${bannerList}"/>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
 		</div>

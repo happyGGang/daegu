@@ -14,11 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Kisinfo.Check.IPIN2Client;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.member.MemberDao;
 import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.common.api.MemberAPI;
+import kr.go.gbelib.app.common.api.PrivateMemberAPI;
 
 @Service
 public class JoinService extends BaseService {
@@ -856,7 +858,6 @@ public class JoinService extends BaseService {
 	}
 
 	public String addMember(HttpServletRequest request, Member member) {
-
 		String returnMsg = "0";
 
 		HttpSession session = request.getSession();
@@ -993,6 +994,136 @@ public class JoinService extends BaseService {
 
 	public int integrationMember(Member member) {
 		return dao.integrationMember(member);
+	}
+
+	public String addPrivateMember(HttpServletRequest request, Member member) {
+		String returnMsg = "0";
+
+		HttpSession session = request.getSession();
+		Member certMember = (Member)session.getAttribute("certMember");
+		String cert_type = member.getCertType();
+		member.setMember_name(certMember.getMember_name());
+		member.setSex(StringUtils.equals(certMember.getSex(), "1") ? "0" : "1");
+		member.setBirth_day(certMember.getBirth_day());
+		member.setIn_ip(request.getRemoteAddr());
+
+		if (cert_type.toLowerCase().contains("gpin")) {
+			//중복확인코드
+			String dupInfo = certMember.getDi_value();
+			//개인식별번호
+			String virtualNo = certMember.getCi_value();
+
+			if(!dupInfo.equals("") && !virtualNo.equals("")) {
+				member.setDi_value(certMember.getDi_value());
+				member.setCi_value(certMember.getCi_value());
+
+				List<Map<String, Object>> checkDupUser = PrivateMemberAPI.checkDupUser("1", member);
+
+				if (CollectionUtils.isNotEmpty(checkDupUser)) {
+					return "이미 가입되어 있습니다";
+				}
+
+				//일반회원가입
+				Map<String, Object> addMember = PrivateMemberAPI.addMember(member);
+				String result = String.valueOf(addMember.get("RESULT_INFO"));
+				if (StringUtils.equals(result, "SUCCESS")) {
+					/**
+					 * 대구는 신규회원가입 시 무조건 책이음회원 Y
+					 * 2019.12.19
+					 */
+					PrivateMemberAPI.agreeInfo(member.getManage_code(), String.valueOf(addMember.get("USER_KEY")), "Y");
+					String sBirthDate = member.getBirth_day();
+					int birthYear = Integer.parseInt(sBirthDate.substring(0, 4));
+					int birthMonth = Integer.parseInt(sBirthDate.substring(4, 6));
+					int birthDay = Integer.parseInt(sBirthDate.substring(6));
+
+					Calendar current = Calendar.getInstance();
+					int currentYear = current.get(Calendar.YEAR);
+					int currentMonth = current.get(Calendar.MONTH) + 1;
+					int currentDay = current.get(Calendar.DAY_OF_MONTH);
+
+					int age = currentYear - birthYear;
+					// 생일 안 지난 경우 -1
+					if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
+//						age--;
+					}
+					if (age >= 20) {
+						age = 7;
+					} else if (age <= 13) {
+						age = 2;
+						Member parentInfo = (Member)session.getAttribute("parentInfo");
+						PrivateMemberAPI.useragentinfoinsert(String.valueOf(addMember.get("USER_KEY")), parentInfo.getMember_name(), member.getManage_code());
+					} else if (age > 13 && age < 20) {
+						age = 5;
+					}
+				} else {
+					return String.valueOf(addMember.get("RESULT_MESSAGE"));
+				}
+
+			} else {
+				return "인증에 실패하였습니다. 오류코드: 012";
+			}
+		} else if (cert_type.toLowerCase().contains("sms")) {
+
+			String sci_result = certMember.getSci_result();
+			if (sci_result.equals("N")) {
+				return "인증에 실패하였습니다. 오류코드: 013";
+			} else if (sci_result.equals("Y")) {
+				String ci = certMember.getCi_value();
+				if(ci != null && !ci.equals("")) {
+					member.setMember_name(certMember.getMember_name());
+					member.setBirth_day(certMember.getBirth_day());
+					member.setDi_value(certMember.getDi_value());
+					member.setCi_value(certMember.getCi_value());
+
+					List<Map<String, Object>> checkDupUser = PrivateMemberAPI.checkDupUser("1", member);
+
+					if (CollectionUtils.isNotEmpty(checkDupUser)) {
+						return "이미 가입되어 있습니다";
+					}
+
+					//일반회원가입
+					Map<String, Object> addMember = PrivateMemberAPI.addMember(member);
+					String result = String.valueOf(addMember.get("RESULT_INFO"));
+					if (StringUtils.equals(result, "SUCCESS")) {
+						PrivateMemberAPI.agreeInfo(member.getManage_code(), String.valueOf(addMember.get("USER_KEY")), "N");
+						String sBirthDate = member.getBirth_day();
+						int birthYear = Integer.parseInt(sBirthDate.substring(0, 4));
+						int birthMonth = Integer.parseInt(sBirthDate.substring(4, 6));
+						int birthDay = Integer.parseInt(sBirthDate.substring(6));
+
+						Calendar current = Calendar.getInstance();
+						int currentYear = current.get(Calendar.YEAR);
+						int currentMonth = current.get(Calendar.MONTH) + 1;
+						int currentDay = current.get(Calendar.DAY_OF_MONTH);
+
+						int age = currentYear - birthYear;
+						// 생일 안 지난 경우 -1
+						if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
+//							age--;
+						}
+						if (age >= 20) {
+							age = 7;
+						} else if (age <= 13) {
+							age = 2;
+							Member parentInfo = (Member)session.getAttribute("parentInfo");
+							PrivateMemberAPI.useragentinfoinsert(String.valueOf(addMember.get("USER_KEY")), parentInfo.getMember_name(), member.getManage_code());
+						} else if (age > 13 && age < 20) {
+							age = 5;
+						}
+					} else {
+						return String.valueOf(addMember.get("RESULT_MESSAGE"));
+					}
+
+				} else {
+					return "인증에 실패하였습니다. 오류코드: 015";
+				}
+			}
+
+		} else {
+			return "잘못된 경로로 접근하였습니다.";
+		}
+		return returnMsg;
 	}
 
 }

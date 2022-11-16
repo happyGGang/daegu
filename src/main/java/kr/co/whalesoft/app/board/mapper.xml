@@ -2228,9 +2228,7 @@
 			</otherwise>
 		</choose>
 		${pagingBottom}
-
 	</select>
-	
 
 	<select id="getSubBoardByMainDalseo" resultType="kr.co.whalesoft.app.board.Board">
 		${pagingTop}
@@ -2340,7 +2338,27 @@
 		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
 		ORDER BY board_idx DESC
 		${pagingBottom}
-
+	</select>
+	
+	<select id="getSubBoardByMainDotory" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT * FROM(
+			SELECT
+			manage_idx, board_idx, group_idx, view_count, notice_yn,
+			title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+			imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+			imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
+			category1
+			FROM
+				CMS_BOARD
+			WHERE
+				manage_idx = #{manage_idx}
+			AND	delete_yn = 'N'
+			AND category1 = #{category1}
+			AND imsi_v_1 <![CDATA[=]]> TO_CHAR(SYSDATE,'yyyy-MM')
+			ORDER BY DBMS_RANDOM.RANDOM()
+		) WHERE ROWNUM = 1
 	</select>
 
 </mapper>

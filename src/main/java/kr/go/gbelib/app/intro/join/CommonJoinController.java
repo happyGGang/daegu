@@ -35,6 +35,8 @@ import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
+import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
+import kr.go.gbelib.app.common.api.PrivateMemberAPI;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/intro/join"})
@@ -164,20 +166,33 @@ public class CommonJoinController extends BaseController {
 	 */
 	@RequestMapping(value = { "/check.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse check(Member member, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
 		ValidationUtils.rejectIfEmpty(result, "member_id", "사용자ID를 입력해주세요.");
 		ValidationUtils.rejectOnlyEngNum(result, "member_id", 6, 20, "아이디는 영문, 숫자 조합 6자 이상 20자 이하로 입력하세요.");
 
 		if (!result.hasErrors()) {
-			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", member);
-			if (CollectionUtils.isEmpty(checkDupUser)) {
-				res.setValid(true);
-				res.setMessage("사용 가능한 ID 입니다.");
-				res.setData(true);
+			if(member.getPrivateMemberYn(homepage)) {
+				List<Map<String, Object>> checkDupUser = PrivateMemberAPI.checkDupUser("0", member);
+				if (CollectionUtils.isEmpty(checkDupUser)) {
+					res.setValid(true);
+					res.setMessage("사용 가능한 ID 입니다.");
+					res.setData(true);
+				} else {
+					res.setValid(false);
+					res.setMessage("사용 불가능한 ID 입니다.");
+				}
 			} else {
-				res.setValid(false);
-				res.setMessage("사용 불가능한 ID 입니다.");
+				List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", member);
+				if (CollectionUtils.isEmpty(checkDupUser)) {
+					res.setValid(true);
+					res.setMessage("사용 가능한 ID 입니다.");
+					res.setData(true);
+				} else {
+					res.setValid(false);
+					res.setMessage("사용 불가능한 ID 입니다.");
+				}
 			}
 		} else {
 			res.setValid(false);
@@ -238,20 +253,26 @@ public class CommonJoinController extends BaseController {
 
 		//비밀번호 확인
 		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			Map<String, Object> userInfo = PrivateMemberAPI.getUserInfo(sessionMemberInfo.getMember_id(), member.getMember_pw());
 
-		Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMemberInfo.getMember_id(), member.getMember_pw());
+			String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
 
-		String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
+			if (!"SUCCESS".equals(resultInfo)) {
+				joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
+				return null;
+			}
+		} else {
+			Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMemberInfo.getMember_id(), member.getMember_pw());
 
-		if (!"SUCCESS".equals(resultInfo)) {
-			joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
-			return null;
+			String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
+
+			if (!"SUCCESS".equals(resultInfo)) {
+				joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
+				return null;
+			}
 		}
-
-//		if (!member.getMember_pw().equals(sessionMemberInfo.getMember_pw())) {
-//			joinService.alertMessage("비밀번호가 일치하지 않습니다.", request, response);
-//			return null;
-//		}
 
 		sessionMemberInfo.setMenu_idx(member.getMenu_idx());
 		sessionMemberInfo.setEditMode("MODIFY");
@@ -306,80 +327,108 @@ public class CommonJoinController extends BaseController {
 			if (StringUtils.isNotEmpty(member.getCard_password())) {
 				ValidationUtils.rejectExceptNumber(result, "card_password", 4, "대출증 비밀번호 설정은 숫자 4자리로 입력해주세요.");
 			}
-//			ValidationUtils.rejectIfEmpty(result, "member_pw", "비밀번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
-//			ValidationUtils.rejectExceptNumber(result, "cell_phone2", 3, 4, "휴대전화 4자리로 입력해주세요.");
-//			ValidationUtils.rejectExceptNumber(result, "cell_phone3", 4, "휴대전화 4자리로 입력해주세요.");
-//			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
-//			ValidationUtils.rejectIfEmpty(result, "address1", "주소를 입력해주세요.");
-
-//			Lending lending = new Lending();
-//			lending.setMember_id(getSessionMemberId(request));
-//			lending.setMenu("LENDING");
-//			int elibLendCnt = lendingService.getLendMemberListCnt(lending);
-//			lending.setMenu("RESERVE");
-//			int elibReserveCnt = lendingService.getReserveMemberListCnt(lending);
-//
-//			if ((elibLendCnt + elibReserveCnt) > 0) {
-//				String currLoca = getSessionMemberInfo(request).getLoca();
-//				String modLoca = member.getLoca();
-//				if (StringUtils.isNotEmpty(modLoca)) {
-//					if (!StringUtils.equals(currLoca, modLoca)) {
-//						result.reject("대출, 예약중인 전자 콘텐츠가 있는 경우 소속도서관을 변경할 수 없습니다.");
-//					}
-//				}
-//			}
 		}
 
 		if ( !result.hasErrors() ) {
 			if (member.getEditMode().equals("ADD")) {
-//				member.setManage_code(homepage.getManage_code());
-				String addResult = joinService.addMember(request, member);
-				if (addResult.equals("0")) {
-					res.setValid(true);
-					res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
-					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 123));
-					if(homepage.getContext_path().equals("dalseolib")) {
-						res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
-					} else {
+				if(member.getPrivateMemberYn(homepage)) {
+					String addResult = joinService.addPrivateMember(request, member);
+					
+					if (addResult.equals("0")) {
+						res.setValid(true);
+						res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
+						int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 123));
 						res.setUrl(String.format("http%s://%s/%s/intro/join/changeover.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+						request.getSession().invalidate();
+					} else {
+						res.setValid(true);
+						res.setMessage(addResult);
 					}
-					request.getSession().invalidate();
 				} else {
-					res.setValid(true);
-					res.setMessage(addResult);
+					String addResult = joinService.addMember(request, member);
+					
+					if (addResult.equals("0")) {
+						res.setValid(true);
+						res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
+						int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 123));
+						if(homepage.getContext_path().equals("dalseolib")) {
+							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+						} else {
+							res.setUrl(String.format("http%s://%s/%s/intro/join/changeover.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+						}
+						request.getSession().invalidate();
+					} else {
+						res.setValid(true);
+						res.setMessage(addResult);
+					}
 				}
 			} else if ( member.getEditMode().equals("MODIFY") ) {
 				member.setRec_key(getSessionMemberInfo(request).getRec_key());
 				member.setIn_ip(request.getRemoteAddr());
-				if (MemberAPI.updateMember(member)) {
-					Member sessionMember = getSessionMemberInfo(request);
-					sessionMember.setPhone1(member.getPhone1());
-					sessionMember.setPhone2(member.getPhone2());
-					sessionMember.setPhone3(member.getPhone3());
-					sessionMember.setCell_phone1(member.getCell_phone1());
-					sessionMember.setCell_phone2(member.getCell_phone2());
-					sessionMember.setCell_phone3(member.getCell_phone3());
-					sessionMember.setEmail1(member.getEmail1());
-					sessionMember.setEmail2(member.getEmail2());
-					sessionMember.setSms_service_yn(member.getSms_service_yn());
-					sessionMember.setEmail_service_yn(member.getEmail_service_yn());
-					if (StringUtils.isNotBlank(member.getMemberNewPw())) {
-						ApiResponse updateMemberPasswd = MemberAPI.updateMemberPasswd(member);
-						if (updateMemberPasswd.getStatus()) {
-							sessionMember.setMember_pw(member.getMemberNewPw());
+				if(member.getPrivateMemberYn(homepage)) {
+					if (PrivateMemberAPI.updateMember(member)) {
+						Member sessionMember = getSessionMemberInfo(request);
+						sessionMember.setPhone1(member.getPhone1());
+						sessionMember.setPhone2(member.getPhone2());
+						sessionMember.setPhone3(member.getPhone3());
+						sessionMember.setCell_phone1(member.getCell_phone1());
+						sessionMember.setCell_phone2(member.getCell_phone2());
+						sessionMember.setCell_phone3(member.getCell_phone3());
+						sessionMember.setEmail1(member.getEmail1());
+						sessionMember.setEmail2(member.getEmail2());
+						sessionMember.setSms_service_yn(member.getSms_service_yn());
+						sessionMember.setEmail_service_yn(member.getEmail_service_yn());
+						if (StringUtils.isNotBlank(member.getMemberNewPw())) {
+							ApiResponse updateMemberPasswd = PrivateMemberAPI.updateMemberPasswd(member);
+							if (updateMemberPasswd.getStatus()) {
+								sessionMember.setMember_pw(member.getMemberNewPw());
+							}
 						}
+						res.setValid(true);
+						res.setMessage("수정되었습니다.");
+						loginService.setSessionMember(sessionMember, request);
+						res.setUrl(String.format("/%s/intro/join/modifyCheck.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
+					} else {
+						res.setValid(false);
+						res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
 					}
-					res.setValid(true);
-					res.setMessage("수정되었습니다.");
-					loginService.setSessionMember(sessionMember, request);
-					res.setUrl(String.format("/%s/intro/join/modifyCheck.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
 				} else {
-					res.setValid(false);
-					res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
+					if (MemberAPI.updateMember(member)) {
+						Member sessionMember = getSessionMemberInfo(request);
+						sessionMember.setPhone1(member.getPhone1());
+						sessionMember.setPhone2(member.getPhone2());
+						sessionMember.setPhone3(member.getPhone3());
+						sessionMember.setCell_phone1(member.getCell_phone1());
+						sessionMember.setCell_phone2(member.getCell_phone2());
+						sessionMember.setCell_phone3(member.getCell_phone3());
+						sessionMember.setEmail1(member.getEmail1());
+						sessionMember.setEmail2(member.getEmail2());
+						sessionMember.setSms_service_yn(member.getSms_service_yn());
+						sessionMember.setEmail_service_yn(member.getEmail_service_yn());
+						if (StringUtils.isNotBlank(member.getMemberNewPw())) {
+							ApiResponse updateMemberPasswd = MemberAPI.updateMemberPasswd(member);
+							if (updateMemberPasswd.getStatus()) {
+								sessionMember.setMember_pw(member.getMemberNewPw());
+							}
+						}
+						res.setValid(true);
+						res.setMessage("수정되었습니다.");
+						loginService.setSessionMember(sessionMember, request);
+						res.setUrl(String.format("/%s/intro/join/modifyCheck.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx()));
+					} else {
+						res.setValid(false);
+						res.setMessage("수정 실패하였습니다. 잠시후 다시 시도해주세요.");
+					}
 				}
 			} else if ( member.getEditMode().equals("INTEGRATION") ) {//통합회원 전환
+				//TODO 사립도서관 회원은 통합회원전환을 막아야함..이 맞는지 확인하기
+				if(member.getPrivateMemberYn(homepage)) {
+					res.setValid(false);
+					res.setMessage("사립도서관 회원은 통합회원 전환이 불가능합니다.");
+				}
+				
 				Member certMember = (Member) request.getSession().getAttribute("certMember");
 				if (certMember != null) {
 					member.setCi_value(certMember.getCi_value());
@@ -494,27 +543,49 @@ public class CommonJoinController extends BaseController {
 				res.setMessage("비밀번호가 올바르지 않습니다.");
 				return res;
 			}
-			Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMember.getMember_id(), member.getMember_pw());
+			
+			if(member.getPrivateMemberYn(homepage)) {
+				Map<String, Object> userInfo = PrivateMemberAPI.getUserInfo(sessionMember.getMember_id(), member.getMember_pw());
 
-			String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
-
-//			boolean isChild = false;
-			if ("SUCCESS".equals(resultInfo)) {
-				try {
-					List<Map<String, Object>> listData = LibSearchAPI.getListData(userInfo, "USER_DATA");
-					if (listData != null && listData.size() > 0) {
-//						Map<String, Object> map = listData.get(0);
-//						String birth = String.valueOf(map.get("BIRTHDAY"));
-//						birth = birth.substring(0, 4);
-//						SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-//						String format = sdf.format(new Date());
-//						isChild = ((Integer.parseInt(format) - Integer.parseInt(birth)) + 1) < 14;
-					}
-				} catch (NumberFormatException e) {} catch (Exception e2) {}
+				String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
+				if ("SUCCESS".equals(resultInfo)) {
+					try {
+						List<Map<String, Object>> listData = LibSearchAPI.getListData(userInfo, "USER_DATA");
+						if (listData != null && listData.size() > 0) {
+//							Map<String, Object> map = listData.get(0);
+//							String birth = String.valueOf(map.get("BIRTHDAY"));
+//							birth = birth.substring(0, 4);
+//							SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+//							String format = sdf.format(new Date());
+//							isChild = ((Integer.parseInt(format) - Integer.parseInt(birth)) + 1) < 14;
+						}
+					} catch (NumberFormatException e) {} catch (Exception e2) {}
+				} else {
+					res.setValid(false);
+					res.setMessage("비밀번호가 올바르지 않습니다.");
+					return res;
+				}
 			} else {
-				res.setValid(false);
-				res.setMessage("비밀번호가 올바르지 않습니다.");
-				return res;
+				Map<String, Object> userInfo = MemberAPI.getUserInfo(sessionMember.getMember_id(), member.getMember_pw());
+
+				String resultInfo = String.valueOf(userInfo.get("RESULT_INFO"));
+				if ("SUCCESS".equals(resultInfo)) {
+					try {
+						List<Map<String, Object>> listData = LibSearchAPI.getListData(userInfo, "USER_DATA");
+						if (listData != null && listData.size() > 0) {
+//							Map<String, Object> map = listData.get(0);
+//							String birth = String.valueOf(map.get("BIRTHDAY"));
+//							birth = birth.substring(0, 4);
+//							SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+//							String format = sdf.format(new Date());
+//							isChild = ((Integer.parseInt(format) - Integer.parseInt(birth)) + 1) < 14;
+						}
+					} catch (NumberFormatException e) {} catch (Exception e2) {}
+				} else {
+					res.setValid(false);
+					res.setMessage("비밀번호가 올바르지 않습니다.");
+					return res;
+				}
 			}
 
 			if (!StringUtils.equals("0", sessionMember.getOverdue_cnt())) {
@@ -523,47 +594,97 @@ public class CommonJoinController extends BaseController {
 				return res;
 			}
 
-			Map<String, Object> loanResult = LibSearchAPI.getBookLoanList(sessionMember.getRec_key());
+			if(member.getPrivateMemberYn(homepage)) {
+				Map<String, Object> loanResult = PrivateLibSearchAPI.getBookLoanList(sessionMember.getRec_key());
 
-			List<Map<String, Object>> listData = LibSearchAPI.getListData(loanResult);
+				List<Map<String, Object>> listData = PrivateLibSearchAPI.getListData(loanResult);
 
-			if (listData != null && listData.size() > 0) {
-				res.setValid(false);
-				res.setMessage("미반납 도서가 있는 경우 탈퇴 하실 수 없습니다.");
-				return res;
-			}
-
-			Map<String, Object> reserveResult = LibSearchAPI.getReserveList(sessionMember.getRec_key());
-
-			List<Map<String, Object>> reserveData = LibSearchAPI.getListData(reserveResult);
-
-			if (reserveData != null && reserveData.size() > 0) {
-				res.setValid(false);
-				res.setMessage("예약 중 도서가 있는 경우 탈퇴 하실 수 없습니다.");
-				return res;
-			}
-
-			Map<String, Object> apiResult = MemberAPI.secessionUser(sessionMember.getRec_key(), request.getRemoteAddr());
-
-			if (apiResult == null) {
-				res.setValid(false);
-				res.setMessage("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				if (listData != null && listData.size() > 0) {
+					res.setValid(false);
+					res.setMessage("미반납 도서가 있는 경우 탈퇴 하실 수 없습니다.");
+					return res;
+				}
 			} else {
-				try {
-					String RESULT_INFO = String.valueOf(apiResult.get("RESULT_INFO"));
+				Map<String, Object> loanResult = LibSearchAPI.getBookLoanList(sessionMember.getRec_key());
 
-					if ("SUCCESS".equals(RESULT_INFO)) {
-						res.setValid(true);
-						res.setMessage("탈퇴되었습니다.");
-						res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
-						loginService.logout(request);
-					} else {
-						res.setValid(false);
-						res.setMessage(String.valueOf(apiResult.get("RESULT_MESSAGE") + " [" + String.valueOf(apiResult.get("RESULT_CODE")) + "]"));
-					}
-				} catch (Exception e) {
+				List<Map<String, Object>> listData = LibSearchAPI.getListData(loanResult);
+
+				if (listData != null && listData.size() > 0) {
+					res.setValid(false);
+					res.setMessage("미반납 도서가 있는 경우 탈퇴 하실 수 없습니다.");
+					return res;
+				}
+			}
+			
+			if(member.getPrivateMemberYn(homepage)) {
+				Map<String, Object> reserveResult = PrivateLibSearchAPI.getReserveList(sessionMember.getRec_key());
+
+				List<Map<String, Object>> reserveData = PrivateLibSearchAPI.getListData(reserveResult);
+
+				if (reserveData != null && reserveData.size() > 0) {
+					res.setValid(false);
+					res.setMessage("예약 중 도서가 있는 경우 탈퇴 하실 수 없습니다.");
+					return res;
+				}
+			} else {
+				Map<String, Object> reserveResult = LibSearchAPI.getReserveList(sessionMember.getRec_key());
+
+				List<Map<String, Object>> reserveData = LibSearchAPI.getListData(reserveResult);
+
+				if (reserveData != null && reserveData.size() > 0) {
+					res.setValid(false);
+					res.setMessage("예약 중 도서가 있는 경우 탈퇴 하실 수 없습니다.");
+					return res;
+				}
+			}
+			
+			if(member.getPrivateMemberYn(homepage)) {
+				Map<String, Object> apiResult = PrivateMemberAPI.secessionUser(sessionMember.getRec_key(), request.getRemoteAddr());
+
+				if (apiResult == null) {
 					res.setValid(false);
 					res.setMessage("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				} else {
+					try {
+						String RESULT_INFO = String.valueOf(apiResult.get("RESULT_INFO"));
+
+						if ("SUCCESS".equals(RESULT_INFO)) {
+							res.setValid(true);
+							res.setMessage("탈퇴되었습니다.");
+							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+							loginService.logout(request);
+						} else {
+							res.setValid(false);
+							res.setMessage(String.valueOf(apiResult.get("RESULT_MESSAGE") + " [" + String.valueOf(apiResult.get("RESULT_CODE")) + "]"));
+						}
+					} catch (Exception e) {
+						res.setValid(false);
+						res.setMessage("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+					}
+				}
+			} else {
+				Map<String, Object> apiResult = MemberAPI.secessionUser(sessionMember.getRec_key(), request.getRemoteAddr());
+
+				if (apiResult == null) {
+					res.setValid(false);
+					res.setMessage("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				} else {
+					try {
+						String RESULT_INFO = String.valueOf(apiResult.get("RESULT_INFO"));
+
+						if ("SUCCESS".equals(RESULT_INFO)) {
+							res.setValid(true);
+							res.setMessage("탈퇴되었습니다.");
+							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+							loginService.logout(request);
+						} else {
+							res.setValid(false);
+							res.setMessage(String.valueOf(apiResult.get("RESULT_MESSAGE") + " [" + String.valueOf(apiResult.get("RESULT_CODE")) + "]"));
+						}
+					} catch (Exception e) {
+						res.setValid(false);
+						res.setMessage("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+					}
 				}
 			}
 		} else {
@@ -690,14 +811,26 @@ public class CommonJoinController extends BaseController {
 			member.setRec_key(String.valueOf(certMember.get("REC_KEY")));
 			member.setIn_ip(request.getRemoteAddr());
 
-			ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
-			res.setValid(apiResult.getStatus());
-			if (apiResult.getStatus()) {
-				res.setMessage("비밀번호가 변경되었습니다.");
-				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+			if(member.getPrivateMemberYn(homepage)) {
+				ApiResponse apiResult = PrivateMemberAPI.updateMemberPasswd(member);
+				res.setValid(apiResult.getStatus());
+				if (apiResult.getStatus()) {
+					res.setMessage("비밀번호가 변경되었습니다.");
+					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+					res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+				} else {
+					res.setMessage(apiResult.getMessage());
+				}
 			} else {
-				res.setMessage(apiResult.getMessage());
+				ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
+				res.setValid(apiResult.getStatus());
+				if (apiResult.getStatus()) {
+					res.setMessage("비밀번호가 변경되었습니다.");
+					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+					res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
+				} else {
+					res.setMessage(apiResult.getMessage());
+				}
 			}
 		} else {
 			res.setValid(false);
@@ -720,39 +853,77 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/integration1.*"}, method=RequestMethod.POST)
 	public String integration1(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-		// 동일인 목록 가져오기
-		List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("2", member);
-		if (checkDupUser == null || CollectionUtils.isEmpty(checkDupUser)) {
-			joinService.alertMessage("일치하는 회원이 없습니다.", request, response);
-			return null;
-		} else {
-			String userId = String.valueOf(checkDupUser.get(0).get("USER_ID"));
-			if (StringUtils.isNotEmpty(userId) && !StringUtils.containsIgnoreCase(userId, "null")) {
-				joinService.alertMessage("이미 통합인증을 완료한 정보입니다.", request, response);
-				return null;
-			}
-
-			Member integrationMember = new Member();
-			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
-			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
-			String birthday = String.valueOf(checkDupUser.get(0).get("BIRTHDAY"));
-			if (StringUtils.containsIgnoreCase(birthday, "null")) {
-				joinService.alertMessage("해당 정보의 생년월일 정보가 누락되었습니다. 데스크에서 생년월일 정보 보정후 다시 통합인증을 진행해주세요.", request, response);
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			// 사립도서관 동일인 목록 가져오기
+			List<Map<String, Object>> checkDupUser = PrivateMemberAPI.checkDupUser("2", member);
+			if (checkDupUser == null || CollectionUtils.isEmpty(checkDupUser)) {
+				joinService.alertMessage("일치하는 회원이 없습니다.", request, response);
 				return null;
 			} else {
-				integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
-			}
-
-			List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("4", integrationMember);
-			for (Map<String, Object> map : integrationMemberList) {
-				map.put("ORDER2", "N");
-				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
-				if (ipin_hash.length() > 80) {
-					map.put("ORDER2", "Y");
+				String userId = String.valueOf(checkDupUser.get(0).get("USER_ID"));
+				if (StringUtils.isNotEmpty(userId) && !StringUtils.containsIgnoreCase(userId, "null")) {
+					joinService.alertMessage("이미 통합인증을 완료한 정보입니다.", request, response);
+					return null;
 				}
-			}
 
-			request.getSession().setAttribute("integrationMemberList", integrationMemberList);
+				Member integrationMember = new Member();
+				integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
+				integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
+				String birthday = String.valueOf(checkDupUser.get(0).get("BIRTHDAY"));
+				if (StringUtils.containsIgnoreCase(birthday, "null")) {
+					joinService.alertMessage("해당 정보의 생년월일 정보가 누락되었습니다. 데스크에서 생년월일 정보 보정후 다시 통합인증을 진행해주세요.", request, response);
+					return null;
+				} else {
+					integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
+				}
+
+				List<Map<String, Object>> integrationMemberList = PrivateMemberAPI.checkDupUser("4", integrationMember);
+				for (Map<String, Object> map : integrationMemberList) {
+					map.put("ORDER2", "N");
+					String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
+					if (ipin_hash.length() > 80) {
+						map.put("ORDER2", "Y");
+					}
+				}
+
+				request.getSession().setAttribute("integrationMemberList", integrationMemberList);
+			}
+		} else {
+			// 동일인 목록 가져오기
+			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("2", member);
+			if (checkDupUser == null || CollectionUtils.isEmpty(checkDupUser)) {
+				joinService.alertMessage("일치하는 회원이 없습니다.", request, response);
+				return null;
+			} else {
+				String userId = String.valueOf(checkDupUser.get(0).get("USER_ID"));
+				if (StringUtils.isNotEmpty(userId) && !StringUtils.containsIgnoreCase(userId, "null")) {
+					joinService.alertMessage("이미 통합인증을 완료한 정보입니다.", request, response);
+					return null;
+				}
+
+				Member integrationMember = new Member();
+				integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
+				integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
+				String birthday = String.valueOf(checkDupUser.get(0).get("BIRTHDAY"));
+				if (StringUtils.containsIgnoreCase(birthday, "null")) {
+					joinService.alertMessage("해당 정보의 생년월일 정보가 누락되었습니다. 데스크에서 생년월일 정보 보정후 다시 통합인증을 진행해주세요.", request, response);
+					return null;
+				} else {
+					integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
+				}
+
+				List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("4", integrationMember);
+				for (Map<String, Object> map : integrationMemberList) {
+					map.put("ORDER2", "N");
+					String ipin_hash = String.valueOf(map.get("IPIN_HASH"));
+					if (ipin_hash.length() > 80) {
+						map.put("ORDER2", "Y");
+					}
+				}
+
+				request.getSession().setAttribute("integrationMemberList", integrationMemberList);
+			}
 		}
 
 		model.addAttribute("newMember", member);
@@ -796,8 +967,6 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/integration3.*"}, method=RequestMethod.POST)
 	public String integration3(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		// TODO 본인인증
     	// -> 1순위로 선택한 책이음 회원 정보일 경우에는 중복체크 하지 않고 통과
     	// -> 2순위로 선택한 자관 CI있는 회원정보일 경우에는 중복체크 하지 않고 통과
     	// -> 3순위로 여러 정보 가운데 정보를 선택한 경우에는 반드시 CI중복체크를 진행
@@ -914,12 +1083,6 @@ public class CommonJoinController extends BaseController {
 			return null;
 		}
 
-//		Member sessionMemberInfo = getSessionMemberInfo(request);
-//		if (StringUtils.equals(sessionMemberInfo.getMember_class(), "0")) {
-//			joinService.alertMessageAndUrl("이미 인증된 회원입니다.", String.format("/%s/index.do", homepage.getContext_path()), request, response);
-//			return null;
-//		}
-
 		return String.format(basePath, homepage.getFolder()) + "dls";
 	}
 
@@ -975,37 +1138,69 @@ public class CommonJoinController extends BaseController {
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);//로그인한 사용자정보
 
-		if (StringUtils.equals(ck_flag, "true")) {
-			model.addAttribute("certFailed", false);
+		if(sessionMemberInfo.getPrivateMemberYn(homepage)) {
+			if (StringUtils.equals(ck_flag, "true")) {
+				model.addAttribute("certFailed", false);
 
-			HttpSession session = request.getSession();
-			Member dlsMember = (Member) session.getAttribute("dlsMember");//dls 인증 데이터(아이디, 이름, 패스워드)
+				HttpSession session = request.getSession();
+				Member dlsMember = (Member) session.getAttribute("dlsMember");//dls 인증 데이터(아이디, 이름, 패스워드)
 
-			//dls id 세팅
-			sessionMemberInfo.setIntegrationId(dlsMember.getMember_id());//인증받은 dls id 세팅
+				//dls id 세팅
+				sessionMemberInfo.setIntegrationId(dlsMember.getMember_id());//인증받은 dls id 세팅
 
-			//ci 세팅
-			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
-			String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
-			sessionMemberInfo.setCi_value(ci);//ci 세팅
+				//ci 세팅
+				List<Map<String, Object>> checkDupUser = PrivateMemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
+				String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
+				sessionMemberInfo.setCi_value(ci);//ci 세팅
 
-			String birth_day = sessionMemberInfo.getBirth_day();
-			sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
-			sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
-			sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
+				String birth_day = sessionMemberInfo.getBirth_day();
+				sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
+				sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
+				sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
 
-			Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo, "DLS");
+				Map<String, Object> regularUserInfoInsert = PrivateMemberAPI.regularUserInfoInsert(sessionMemberInfo, "DLS");
 
-			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
-			if (StringUtils.equals(regular, "SUCCESS")) {
-				model.addAttribute("certResult", true);
+				String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
+				if (StringUtils.equals(regular, "SUCCESS")) {
+					model.addAttribute("certResult", true);
+				} else {
+					System.out.println("@@@@@@@@@@@@@@@@ private dlsCheckA regular false : " + regularUserInfoInsert);
+				}
 			} else {
-				System.out.println("@@@@@@@@@@@@@@@@ dlsCheckA regular false : " + regularUserInfoInsert);
+				System.out.println("@@@@@@@@@@@@@@@@ private dlsCheckA ck_flag false : " + sessionMemberInfo.getMember_id());
 			}
 		} else {
-			System.out.println("@@@@@@@@@@@@@@@@ dlsCheckA ck_flag false : " + sessionMemberInfo.getMember_id());
-		}
+			if (StringUtils.equals(ck_flag, "true")) {
+				model.addAttribute("certFailed", false);
 
+				HttpSession session = request.getSession();
+				Member dlsMember = (Member) session.getAttribute("dlsMember");//dls 인증 데이터(아이디, 이름, 패스워드)
+
+				//dls id 세팅
+				sessionMemberInfo.setIntegrationId(dlsMember.getMember_id());//인증받은 dls id 세팅
+
+				//ci 세팅
+				List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
+				String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
+				sessionMemberInfo.setCi_value(ci);//ci 세팅
+
+				String birth_day = sessionMemberInfo.getBirth_day();
+				sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
+				sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
+				sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
+
+				Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo, "DLS");
+
+				String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
+				if (StringUtils.equals(regular, "SUCCESS")) {
+					model.addAttribute("certResult", true);
+				} else {
+					System.out.println("@@@@@@@@@@@@@@@@ dlsCheckA regular false : " + regularUserInfoInsert);
+				}
+			} else {
+				System.out.println("@@@@@@@@@@@@@@@@ dlsCheckA ck_flag false : " + sessionMemberInfo.getMember_id());
+			}
+		}
 
 		return String.format(basePath, homepage.getFolder()) + "dlsCheckA_ajax";
 	}
@@ -1057,7 +1252,7 @@ public class CommonJoinController extends BaseController {
 	@SuppressWarnings ("unchecked")
 	@RequestMapping (value = {"/untactCheck.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse untactCheck(Member member, BindingResult result, HttpServletRequest request) {
-
+		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
 		//로그인여부확인
@@ -1087,90 +1282,160 @@ public class CommonJoinController extends BaseController {
 			result.reject("비정상적인 접근입니다.");
 		}
 
-
 		if (!result.hasErrors()) {
 			String member_name = sessionMemberInfo.getMember_name();
+			
+			if(member.getPrivateMemberYn(homepage)) {
+				//TODO sendUntact 찾아보기
+				Map<String, Object> sendUntact = CommonAPI.sendUntact(jumin1 + jumin2, member_name);
+				
+				Map<String, Object> envelope = (Map<String, Object>) sendUntact.get("soap:Envelope");
+				Map<String, Object> body = (Map<String, Object>) envelope.get("soap:Body");
+				Map<String, Object> getResideInsttCnfirmResponse = (Map<String, Object>) body.get("getResideInsttCnfirmResponse");
 
-			Map<String, Object> sendUntact = CommonAPI.sendUntact(jumin1 + jumin2, member_name);
-//			System.out.println("@@@@@@@@@@@@@@@@ sendUntact : " + sendUntact);
+				//TODO 사립도서관 테스트후 System.out.print삭제
+				System.out.println("@@@@@@@@@@@@@@@@ private untact result serviceResult : " + getResideInsttCnfirmResponse.get("serviceResult"));
+				System.out.println("@@@@@@@@@@@@@@@@ private untact result name : " + getResideInsttCnfirmResponse.get("name"));
+				System.out.println("@@@@@@@@@@@@@@@@ private untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
 
-			Map<String, Object> envelope = (Map<String, Object>) sendUntact.get("soap:Envelope");
-			Map<String, Object> body = (Map<String, Object>) envelope.get("soap:Body");
-			Map<String, Object> getResideInsttCnfirmResponse = (Map<String, Object>) body.get("getResideInsttCnfirmResponse");
+				String serviceResult = String.valueOf(getResideInsttCnfirmResponse.get("serviceResult"));
+				
+				/**
+				 * 서비스 결과
+				 * 1:성공
+				 * 2:주민등록번호오류
+				 * 3:성명오류
+				 * 4:거주자아님
+				 * 9:시스템오류
+				 * 99:등록된이용기관이아님
+				 */
+				if (!StringUtils.equals(serviceResult, "1")) {
+					System.out.println("@@@@@@@@@@@@@@@@ private untact result serviceResult : " + serviceResult);
+					System.out.println("@@@@@@@@@@@@@@@@ private untact failed MemberId : " + getSessionMemberId(request));
+					res.setValid(false);
+					res.setMessage("주민등록번호를 확인해주세요.");
+					return res;
+				}
 
-//			System.out.println("@@@@@@@@@@@@@@@@ untact result serviceResult : " + getResideInsttCnfirmResponse.get("serviceResult"));
-//			System.out.println("@@@@@@@@@@@@@@@@ untact result name : " + getResideInsttCnfirmResponse.get("name"));
-//			System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
+				//행정동코드
+				String hangkikCd = String.valueOf(getResideInsttCnfirmResponse.get("hangkikCd"));
 
-			String serviceResult = String.valueOf(getResideInsttCnfirmResponse.get("serviceResult"));
+				if (StringUtils.isEmpty(hangkikCd) || StringUtils.equalsIgnoreCase(hangkikCd, "null")) {
+					System.out.println("@@@@@@@@@@@@@@@@ private untact result hangkikCd is empty : " + getResideInsttCnfirmResponse);
+					res.setValid(false);
+					res.setMessage("인증에 오류가 발생하였습니다. 다시 시도해주세요.");
+					return res;
+				}
 
-			/**
-			 * 서비스 결과
-			 * 1:성공
-			 * 2:주민등록번호오류
-			 * 3:성명오류
-			 * 4:거주자아님
-			 * 9:시스템오류
-			 * 99:등록된이용기관이아님
-			 */
-			if (!StringUtils.equals(serviceResult, "1")) {
-				System.out.println("@@@@@@@@@@@@@@@@ untact result serviceResult : " + serviceResult);
-				System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId : " + getSessionMemberId(request));
-				res.setValid(false);
-				res.setMessage("주민등록번호를 확인해주세요.");
-				return res;
-			}
+				if (!StringUtils.startsWith(hangkikCd, "27")) {
+					System.out.println("@@@@@@@@@@@@@@@@ private untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
+					System.out.println("@@@@@@@@@@@@@@@@ private untact result name : " + getResideInsttCnfirmResponse.get("name"));
+					res.setValid(false);
+					res.setMessage("대구광역시 거주자만 인증 가능합니다.");
+					return res;
+				}
 
-			//행정동코드
-			String hangkikCd = String.valueOf(getResideInsttCnfirmResponse.get("hangkikCd"));
+				//ci 세팅
+				List<Map<String, Object>> checkDupUser = PrivateMemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
+				String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
+				sessionMemberInfo.setCi_value(ci);//ci 세팅
 
-			if (StringUtils.isEmpty(hangkikCd) || StringUtils.equalsIgnoreCase(hangkikCd, "null")) {
-				System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd is empty : " + getResideInsttCnfirmResponse);
-				res.setValid(false);
-				res.setMessage("인증에 오류가 발생하였습니다. 다시 시도해주세요.");
-				return res;
-			}
+				String birth_day = sessionMemberInfo.getBirth_day();
+				sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
+				sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
+				sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
 
-			if (!StringUtils.startsWith(hangkikCd, "27")) {
-				System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
-				System.out.println("@@@@@@@@@@@@@@@@ untact result name : " + getResideInsttCnfirmResponse.get("name"));
-				res.setValid(false);
-				res.setMessage("대구광역시 거주자만 인증 가능합니다.");
-				return res;
-			}
+				Map<String, Object> regularUserInfoInsert = PrivateMemberAPI.regularUserInfoInsert(sessionMemberInfo, "UNTACT");
 
-			//ci 세팅
-			List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
-			String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
-			sessionMemberInfo.setCi_value(ci);//ci 세팅
+				String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
+				if (StringUtils.equals(regular, "SUCCESS")) {
+					res.setValid(true);
+					res.setMessage("인증이 완료되었습니다."+System.getProperty("line.separator")+"※ 재로그인 후 이용 가능하며, 현재 비대면 인증 회원은 전자도서관만 이용 가능합니다.");
+	    			res.setUrl(String.format("/%s/intro/login/logout.do", homepage.getContext_path()));
 
-			String birth_day = sessionMemberInfo.getBirth_day();
-			sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
-			sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
-			sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
-
-			Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo, "UNTACT");
-
-			String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
-			if (StringUtils.equals(regular, "SUCCESS")) {
-				res.setValid(true);
-				res.setMessage("인증이 완료되었습니다."+System.getProperty("line.separator")+"※ 재로그인 후 이용 가능하며, 현재 비대면 인증 회원은 전자도서관만 이용 가능합니다.");
-    			Homepage homepage = getSessionHomepage(request);
-//    			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-//    			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
-    			res.setUrl(String.format("/%s/intro/login/logout.do", homepage.getContext_path()));
-
+				} else {
+					res.setValid(false);
+					try {
+						System.out.println("@@@@@@@@@@@@@@@@ private untact failed MemberId 1 : " + getSessionMemberId(request));
+						res.setMessage(String.valueOf(regularUserInfoInsert.get("RESULT_MESSAGE")));
+					} catch (Exception e) {
+						res.setMessage("인증에 실패하였습니다. 도서관으로 문의 바랍니다.");
+						System.out.println("@@@@@@@@@@@@@@@@ private untact failed MemberId 2 : " + getSessionMemberId(request));
+					}
+				}
 			} else {
-				res.setValid(false);
-				try {
-					System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId 1 : " + getSessionMemberId(request));
-					res.setMessage(String.valueOf(regularUserInfoInsert.get("RESULT_MESSAGE")));
-				} catch (Exception e) {
-					res.setMessage("인증에 실패하였습니다. 도서관으로 문의 바랍니다.");
-					System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId 2 : " + getSessionMemberId(request));
+				Map<String, Object> sendUntact = CommonAPI.sendUntact(jumin1 + jumin2, member_name);
+				
+				Map<String, Object> envelope = (Map<String, Object>) sendUntact.get("soap:Envelope");
+				Map<String, Object> body = (Map<String, Object>) envelope.get("soap:Body");
+				Map<String, Object> getResideInsttCnfirmResponse = (Map<String, Object>) body.get("getResideInsttCnfirmResponse");
+
+				String serviceResult = String.valueOf(getResideInsttCnfirmResponse.get("serviceResult"));
+				
+				/**
+				 * 서비스 결과
+				 * 1:성공
+				 * 2:주민등록번호오류
+				 * 3:성명오류
+				 * 4:거주자아님
+				 * 9:시스템오류
+				 * 99:등록된이용기관이아님
+				 */
+				if (!StringUtils.equals(serviceResult, "1")) {
+					System.out.println("@@@@@@@@@@@@@@@@ untact result serviceResult : " + serviceResult);
+					System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId : " + getSessionMemberId(request));
+					res.setValid(false);
+					res.setMessage("주민등록번호를 확인해주세요.");
+					return res;
+				}
+
+				//행정동코드
+				String hangkikCd = String.valueOf(getResideInsttCnfirmResponse.get("hangkikCd"));
+
+				if (StringUtils.isEmpty(hangkikCd) || StringUtils.equalsIgnoreCase(hangkikCd, "null")) {
+					System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd is empty : " + getResideInsttCnfirmResponse);
+					res.setValid(false);
+					res.setMessage("인증에 오류가 발생하였습니다. 다시 시도해주세요.");
+					return res;
+				}
+
+				if (!StringUtils.startsWith(hangkikCd, "27")) {
+					System.out.println("@@@@@@@@@@@@@@@@ untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
+					System.out.println("@@@@@@@@@@@@@@@@ untact result name : " + getResideInsttCnfirmResponse.get("name"));
+					res.setValid(false);
+					res.setMessage("대구광역시 거주자만 인증 가능합니다.");
+					return res;
+				}
+
+				//ci 세팅
+				List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", sessionMemberInfo);//아이디로 조회
+				String ci = String.valueOf(checkDupUser.get(0).get("IPIN_HASH"));//ci값 꺼내기
+				sessionMemberInfo.setCi_value(ci);//ci 세팅
+
+				String birth_day = sessionMemberInfo.getBirth_day();
+				sessionMemberInfo.setBirth_day(birth_day.replaceAll("-", ""));//생년월일세팅
+				sessionMemberInfo.setManage_code(sessionMemberInfo.getUser_manage_code());//도서관부호 세팅
+				sessionMemberInfo.setIn_ip(request.getRemoteAddr());//아이피 세팅
+
+				Map<String, Object> regularUserInfoInsert = MemberAPI.regularUserInfoInsert(sessionMemberInfo, "UNTACT");
+
+				String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
+				if (StringUtils.equals(regular, "SUCCESS")) {
+					res.setValid(true);
+					res.setMessage("인증이 완료되었습니다."+System.getProperty("line.separator")+"※ 재로그인 후 이용 가능하며, 현재 비대면 인증 회원은 전자도서관만 이용 가능합니다.");
+	    			res.setUrl(String.format("/%s/intro/login/logout.do", homepage.getContext_path()));
+
+				} else {
+					res.setValid(false);
+					try {
+						System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId 1 : " + getSessionMemberId(request));
+						res.setMessage(String.valueOf(regularUserInfoInsert.get("RESULT_MESSAGE")));
+					} catch (Exception e) {
+						res.setMessage("인증에 실패하였습니다. 도서관으로 문의 바랍니다.");
+						System.out.println("@@@@@@@@@@@@@@@@ untact failed MemberId 2 : " + getSessionMemberId(request));
+					}
 				}
 			}
-
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
@@ -1200,10 +1465,7 @@ public class CommonJoinController extends BaseController {
 		}
 
 		model.addAttribute("newMember", member);
-		//		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
-		//		model.addAttribute("libraryList", LibSearchAPI.getLibraryList());
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
-//		menuOne.setMenu_name("이용약관 및 개인정보 수집·이용 재동의");
 		request.setAttribute("menuOne", menuOne);
 		return String.format(basePath, homepage.getFolder()) + "reAgree";
 	}
@@ -1233,16 +1495,30 @@ public class CommonJoinController extends BaseController {
 				sessionMember = getSessionMemberInfo(request);
 			}
 
-			//개인정보 수집이용에 대한 동의
-			ApiResponse agreeInfo = MemberAPI.agreeInfo(sessionMember.getManage_code(), sessionMember.getRec_key(), "Y");
+			if(member.getPrivateMemberYn(homepage)) {
+				//개인정보 수집이용에 대한 동의
+				ApiResponse agreeInfo = PrivateMemberAPI.agreeInfo(sessionMember.getManage_code(), sessionMember.getRec_key(), "Y");
 
-			if (agreeInfo.getStatus()) {
-				res.setValid(true);
-				res.setMessage("동의가 완료되었습니다.");
-				res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+				if (agreeInfo.getStatus()) {
+					res.setValid(true);
+					res.setMessage("동의가 완료되었습니다.");
+					res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+				} else {
+					res.setValid(false);
+					res.setMessage(agreeInfo.getMessage());
+				}
 			} else {
-				res.setValid(false);
-				res.setMessage(agreeInfo.getMessage());
+				//개인정보 수집이용에 대한 동의
+				ApiResponse agreeInfo = MemberAPI.agreeInfo(sessionMember.getManage_code(), sessionMember.getRec_key(), "Y");
+
+				if (agreeInfo.getStatus()) {
+					res.setValid(true);
+					res.setMessage("동의가 완료되었습니다.");
+					res.setUrl(String.format("/%s/index.do", homepage.getContext_path()));
+				} else {
+					res.setValid(false);
+					res.setMessage(agreeInfo.getMessage());
+				}
 			}
 
 		}

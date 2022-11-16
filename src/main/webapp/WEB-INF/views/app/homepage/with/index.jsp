@@ -175,43 +175,27 @@
 
 						<div class="notice-title">
 							<h3>NOTICE</h3>
-							<a href="" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=1105" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 						</div>
 
 						<div class="notice-contents">
 
 							<div class="notice-list">
 								<ul>
-									<li>
-										<a href="">
-											<em>이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-											<span class="date">2022-11-01</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<em>이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-											<span class="date">2022-11-01</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<em>이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-											<span class="date">2022-11-01</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<em>이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-											<span class="date">2022-11-01</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<em>이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.이태원 참사 피해자분들께 깊은 위로와 애도를 표합니다.</em>
-											<span class="date">2022-11-01</span>
-										</a>
-									</li>
+									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=32&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<em>${i.title}</em>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></span>
+											</a>
+										</li>
+									</c:forEach>
+		
+									<c:if test="${empty noticeList}">
+										<li>
+											<em>등록된 공지사항이 없습니다.</em>
+										</li>
+									</c:if>
 								</ul>
 							</div>
 
@@ -225,42 +209,42 @@
 				<div class="quick-menu">
 					<ul>
 						<li class="quick01">
-							<a href="" class="q01">
+							<a href="/${homepage.context_path}/html.do?menu_idx=20" class="q01">
 								<span>책이음</span>
 							</a>
 						</li>
 						<li class="quick02">
-							<a href="" class="q02">
+							<a href="/${homepage.context_path}/html.do?menu_idx=22" class="q02">
 								<span>책바다</span>
 							</a>
 						</li>
 						<li class="quick03">
-							<a href="" class="q03">
+							<a href="/${homepage.context_path}/html.do?menu_idx=21" class="q03">
 								<span>책나래</span>
 							</a>
 						</li>
 						<li class="quick04">
-							<a href="" class="q04">
+							<a href="/${homepage.context_path}/html.do?menu_idx=23" class="q04">
 								<span>사서에게물어보세요</span>
 							</a>
 						</li>
 						<li class="quick05">
-							<a href="" class="q05">
+							<a href="https://library.daegu.go.kr/dgportal/index.do" class="q05">
 								<span>통합도서관</span>
 							</a>
 						</li>
 						<li class="quick06">
-							<a href="" class="q06">
+							<a href="/${homepage.context_path}/html.do?menu_idx=24" class="q06">
 								<span>전자도서관</span>
 							</a>
 						</li>
 						<li class="quick07">
-							<a href="" class="q07">
+							<a href="/${homepage.context_path}/intro/search/hope/req.do?menu_idx=16" class="q07">
 								<span>희망도서신청</span>
 							</a>
 						</li>
 						<li class="quick08">
-							<a href="" class="q08">
+							<a href="/${homepage.context_path}/html.do?menu_idx=38" class="q08">
 								<span>자원봉사신청</span>
 							</a>
 						</li>

@@ -101,7 +101,7 @@
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
-	<div class="popupWrap main-section">
+	<div class="popupWrap main-section3">
 		<div id="popupLayer">
 			<homepageTag:popup popupList="${popupList}" />
 		</div>
@@ -111,9 +111,7 @@
 
 		<!-- main0 -->
 		<div class="section" id="main0">
-
-			<div class="main-section2">
-
+			<div class="main-section3">
 				<div class="main0-left">
 					<img src="/resources/homepage/${homepage.context_path}/img/art-lachivium.png" alt="">
 				</div>
@@ -126,8 +124,6 @@
 					<div class="search-area" id="main_search">
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 						<input type="hidden" name="menu_idx" value="9">
-						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
-						<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 						<fieldset>
 							<legend class="blind">통합검색</legend>
 							<div class="main-box">
@@ -144,7 +140,6 @@
 					</div>
 					<!-- //Main_search -->
 				</div>
-
 			</div>
 			<div class="main_scroll"><div class="main_scroll_wp_white">scroll down</div></div>
 		</div>
@@ -153,133 +148,112 @@
 		<!-- section1 -->
 		<div class="section" id="main1">
 			<div class='main-section3'>
-
 				<div class="notice-title">
 					<h3>Notice</h3>
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=699" class="btn-more2 more-more">더보기</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=33&manage_idx=1076" class="btn-more2 more-more">더보기</a>
 				</div>
 				<div class="con">
 					<div class="box">
 						<ul>
-							<li>
-								<a href="">
-									<span class="time"><b>2022.09.13</b></span>
-									<span class="contents">
-										<p class='tit'>아트도서관 관람시간 안내</p>
-										<p class='cont'>아트도서관 관람 시간을  다음과 같이 운영합니다. 화요일~토요일:  오전11시~오후9시 일요일~월요일 : 오후2시 ~ 오후9시 문화행사 및 특강 대관등의 마침 시간은 연장할 수 있습니다. 차후 월요일은 휴관 할 예정이오니 참고  바랍니다. 감사합니다. 문의: 010-3588-5252 (허두환 관장) </p>
-									</span>
-								</a>
-							</li>
-							<li>
-								<a href="">
-									<span class="time"><b>2022.09.13</b></span>
-									<span class="contents">
-										<p class='tit'>아트도서관 관람시간 안내</p>
-										<p class='cont'>아트도서관 관람 시간을  다음과 같이 운영합니다. 화요일~토요일:  오전11시~오후9시 일요일~월요일 : 오후2시 ~ 오후9시 문화행사 및 특강 대관등의 마침 시간은 연장할 수 있습니다. 차후 월요일은 휴관 할 예정이오니 참고  바랍니다. 감사합니다. 문의: 010-3588-5252 (허두환 관장) </p>
-									</span>
-								</a>
-							</li>
-							<li>
-								<a href="">
-									<span class="time"><b>2022.09.13</b></span>
-									<span class="contents">
-										<p class='tit'>아트도서관 관람시간 안내</p>
-										<p class='cont'>아트도서관 관람 시간을  다음과 같이 운영합니다. 화요일~토요일:  오전11시~오후9시 일요일~월요일 : 오후2시 ~ 오후9시 문화행사 및 특강 대관등의 마침 시간은 연장할 수 있습니다. 차후 월요일은 휴관 할 예정이오니 참고  바랍니다. 감사합니다. 문의: 010-3588-5252 (허두환 관장) </p>
-									</span>
-								</a>
-							</li>
 							<c:forEach items="${noticeList}" var="i" varStatus="status">
 								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=699&board_idx=${i.board_idx}">
-										<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b><br/><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></span>
-										<em>${i.title}</em>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=33&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></b></span>
+										<span class="contents">
+										<p class='tit'>${i.title}</p>
+										<p class='cont'>${i.content_summary}</p>
+									</span>
 									</a>
 								</li>
 							</c:forEach>
+							<c:if test="${empty noticeList}">
+								<li>
+									등록된 공지사항이 없습니다.
+								</li>
+							</c:if>
 						</ul>
 					</div>
 				</div>
-
 				<div class="qmenu">
 					<ul>
 						<li class="qm1">
-								<a href="#" title="이용안내">
+								<a href="/art/html.do?menu_idx=44" title="도서관갤러리">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu1.png" alt="이용안내"></div>
-										<div class="qtxt">이용안내</div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu1.png" alt="도서관갤러리"></div>
+										<div class="qtxt">도서관갤러리</div>
 									</div>
 								</div>
 							</a>
 
 						</li>
 						<li class="qm2">
-								<a href="#" title="대출조회">
+								<a href="/art/html.do?menu_idx=17" title="희망도서신청">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu2.png" alt="대출조회"></div>
-										<div class="qtxt">대출조회</div>
-									</div>
-								</div>
-							</a>
-						</li>
-						<li class="qm3">
-								<a href="#" title="희망도서신청">
-								<div class="outer">
-									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu3.png" alt="희망도서신청"></div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu2.png" alt="희망도서신청"></div>
 										<div class="qtxt">희망도서신청</div>
 									</div>
 								</div>
 							</a>
 						</li>
-						<li class="qm4">
-								<a href="#" title="문화행사신청">
+						<li class="qm3">
+								<a href="/art/html.do?menu_idx=19" title="회원가입안내">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu4.png" alt="문화행사신청"></div>
-										<div class="qtxt">문화행사신청</div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu3.png" alt="회원가입안내"></div>
+										<div class="qtxt">회원가입안내</div>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="qm4">
+								<a href="/art/module/calendarManage/index.do?menu_idx=34" title="이용시간·휴관일">
+								<div class="outer">
+									<div class="inner">
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu4.png" alt="이용시간·휴관일"></div>
+										<div class="qtxt">이용시간·휴관일</div>
 									</div>
 								</div>
 							</a>
 						</li>
 						<li class="qm5">
-								<a href="#" title="평생교육신청">
+								<a href="/art/html.do?menu_idx=40" title="인사말">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu5.png" alt="평생교육신청"></div>
-										<div class="qtxt">평생교육신청</div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu5.png" alt="인사말"></div>
+										<div class="qtxt">인사말</div>
 									</div>
 								</div>
 							</a>
 
 						</li>
 						<li class="qm6">
-								<a href="#" title="독서퀴즈">
+								<a href="/art/html.do?menu_idx=45" title="찾아오시는길">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu6.png" alt="독서퀴즈"></div>
-										<div class="qtxt">독서퀴즈</div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu6.png" alt="찾아오시는길"></div>
+										<div class="qtxt">찾아오시는길</div>
 									</div>
 								</div>
 							</a>
 						</li>
 						<li class="qm7">
-								<a href="#" title="자원봉사신청">
+								<a href="/art/html.do?menu_idx=38" title="도서관견학신청">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu7.png" alt="자원봉사신청"></div>
-										<div class="qtxt">자원봉사신청</div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu7.png" alt="도서관견학신청"></div>
+										<div class="qtxt">도서관견학신청</div>
 									</div>
 								</div>
 							</a>
 						</li>
 						<li class="qm8">
-								<a href="#" title="통합도서관 새창으로 열립니다." target="_blank">
+								<a href="/art/board/index.do?menu_idx=35&manage_idx=1077" title="자주묻는질문">
 								<div class="outer">
 									<div class="inner">
-										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu8.png" alt="통합도서관"></div>
-										<div class="qtxt">통합도서관</div>
+										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu8.png" alt="자주묻는질문"></div>
+										<div class="qtxt">자주묻는질문</div>
 									</div>
 								</div>
 							</a>
@@ -287,18 +261,16 @@
 					</ul>
 				</div>
 			</div>
-
 			<div class="main_scroll"><div class="main_scroll_wp">scroll down</div></div>
 		</div>
 		<!-- //main1 -->
 
 		<!-- main2 -->
 		<div class="section" id="main2">
-
 			<div class="main-section3">
 				<div class="book-title">
 					<h3>NEW BOOK</h3>
-					<a href="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697" class="btn-more2 more-more">더보기</a>
+					<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="btn-more2 more-more">더보기</a>
 				</div>
 
 				<script>
@@ -390,96 +362,54 @@
 				</script>
 				<div class="bookList">
 					<ul>
-						<li>
-							<a href="">
-								<img src="/resources/homepage/${homepage.context_path}/img/bookimg01.png" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<img src="/resources/homepage/${homepage.context_path}/img/bookimg01.png" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<img src="/resources/homepage/${homepage.context_path}/img/bookimg01.png" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<img src="/resources/homepage/${homepage.context_path}/img/bookimg01.png" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<img src="/resources/homepage/${homepage.context_path}/img/bookimg01.png" alt="">
-							</a>
-						</li>
-						<li>
-							<a href="">
-								<img src="/resources/homepage/${homepage.context_path}/img/bookimg01.png" alt="">
-							</a>
-						</li>
-					<!--
-						<c:if test="${fn:length(bookList1) < 1}">
-							<li>등록된 데이터가 없습니다.</li>
-						</c:if>
-						<c:forEach items="${bookList1}" var="i" varStatus="status">
-							<li>
-								<a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-								<span class="con-image">
-									<c:choose>
-										<c:when test="${i.preview_img ne null}">
-											<c:choose>
-												<c:when test="${fn:contains(i.preview_img, 'http')}">
-													<img src="${i.preview_img}" alt="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
-												</c:when>
-												<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
-													<img src="${i.preview_img}" alt="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
-												</c:when>
-												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
-												</c:otherwise>
-											</c:choose>
-										</c:when>
-										<c:otherwise>
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-										</c:otherwise>
-									</c:choose>
-								</span>
-									<span class="con-title">${fn:length(i.title) > 11 ? fn:substring(i.title, 0, 12) : i.title}<c:if test="${fn:length(i.title) > 11 }">...</c:if></span>
+						<c:forEach items="${newBookList}" var="i" begin="0" end="9">
+						<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+							<c:choose>
+								<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+								<a href="${detailURL}">
+									<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 								</a>
-							</li>
+								</c:when>
+								<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+								<a href="${detailURL}">
+									<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+								</a>
+								</c:when>
+								<c:otherwise>
+								<a href="${detailURL}">
+									<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
+								</a>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
-					-->
+						<c:if test="${empty newBookList}">
+							<li>등록된 신착도서가 없습니다.</li>
+						</c:if>
 					</ul>
 				</div>
-
-
 			</div>
-			<div class="banner-box">
-				<div class="main-section3">
-					<div class="banner-wrap type5">
-						<div class="banner-t5">
-							<h3>배너모음</h3>
-							<div class="control">
-								<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
-								<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
-								<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
-								<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
-							</div>
-						</div>
-						<div class="banner-box5">
-							<homepageTag:banner bannerList="${bannerList}"/>
-						</div>
-					</div>
-				</div>
-			</div>
-
 		</div>
 		<!-- //main3 -->
 
 		<!-- footer_section -->
+		<div class="banner-box">
+			<div class="main-section3">
+				<div class="banner-wrap type5">
+					<div class="banner-t5">
+						<h3>배너모음</h3>
+						<div class="control">
+							<a class="prev" href="#prev"><img src="/resources/common/img/banner-prev-btn.png" alt="이전" /><span class="blind">이전</span></a>
+							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
+							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
+							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+						</div>
+					</div>
+					<div class="banner-box5">
+						<homepageTag:banner bannerList="${bannerList}"/>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
 		</div>

@@ -657,20 +657,23 @@ public class MemberAPI {
 		}
 
 		String user_position_code = "001"; //중앙, 228학생
-		if (member.getUser_manage_code().equals("AA") || member.getUser_manage_code().equals("AH")) {
-			user_position_code = "002"; //228기념, 동부
-		} else if (member.getUser_manage_code().equals("AF")) {
-			user_position_code = "003"; //서부
-		} else if (member.getUser_manage_code().equals("AG")) {
+		if (member.getUser_manage_code().equals("AA") || member.getUser_manage_code().equals("AH") || member.getUser_manage_code().equals("CA") || member.getUser_manage_code().equals("CB")) {
+			user_position_code = "002"; //228기념, 동부, 안심, 신천
+		} else if (member.getUser_manage_code().equals("AF") || member.getUser_manage_code().equals("BL") || member.getUser_manage_code().equals("BM") || member.getUser_manage_code().equals("BN")
+				 || member.getUser_manage_code().equals("BP") || member.getUser_manage_code().equals("BQ")) {
+			user_position_code = "003"; //서부, 대구서구어린이, 비원, 원고개, 서구영어, 비산
+		} else if (member.getUser_manage_code().equals("AG") || member.getUser_manage_code().equals("BS") || member.getUser_manage_code().equals("BT")) {
 			user_position_code = "004"; //남부
-		} else if (member.getUser_manage_code().equals("AC")) {
-			user_position_code = "005"; //북부
-		} else if (member.getUser_manage_code().equals("AE")) {
-			user_position_code = "006"; //수성
-		} else if (member.getUser_manage_code().equals("AB")) {
-			user_position_code = "007"; //두류
-		} else if (member.getUser_manage_code().equals("AJ")) {
-			user_position_code = "008"; //달성
+		} else if (member.getUser_manage_code().equals("AC") || member.getUser_manage_code().equals("BA") || member.getUser_manage_code().equals("BB") || member.getUser_manage_code().equals("BC")) {
+			user_position_code = "005"; //북부, 구수산, 대현, 태전
+		} else if (member.getUser_manage_code().equals("AE") || member.getUser_manage_code().equals("BD") || member.getUser_manage_code().equals("BE") || member.getUser_manage_code().equals("BF")
+				 || member.getUser_manage_code().equals("BG") || member.getUser_manage_code().equals("BH") || member.getUser_manage_code().equals("BJ") || member.getUser_manage_code().equals("BK")) {
+			user_position_code = "006"; //수성, 범어, 용학, 고산, 파동, 무학숲, 책숲길, 물망이
+		} else if (member.getUser_manage_code().equals("AB") || member.getUser_manage_code().equals("BU") || member.getUser_manage_code().equals("BV") || member.getUser_manage_code().equals("BW")
+				 || member.getUser_manage_code().equals("BX") || member.getUser_manage_code().equals("BY") || member.getUser_manage_code().equals("BZ")) {
+			user_position_code = "007"; //두류, 성서, 달서어린이, 도원, 본리, 달서가족문화, 달서영어
+		} else if (member.getUser_manage_code().equals("AJ") || member.getUser_manage_code().equals("BR")) {
+			user_position_code = "008"; //달성, 달성군립
 		}
 		param.put("user_position_code", user_position_code);//이용자소속코드
 		param.put("worker", "통합도서관홈페이지");

@@ -857,4 +857,8 @@ public class BoardService extends BaseService {
 	public List<Board> getBoardBookJungu() {
 		return dao.getBoardBookJungu(new Board());
 	}
+
+	public List<Board> getSubBoardByMainDotory(Board b) {
+		return dao.getSubBoardByMainDotory(b);
+	}
 }

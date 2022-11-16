@@ -43,7 +43,12 @@ public class SiteMapTag extends BodyTagSupport {
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
 		
+		HtmlTag ulTag_lvl4 = null;
+		HtmlTag liTag_lvl4 = null;
+		boolean check_lvl4 = false;
+		
 		int ulMenuCount = 1;
+		
 		if(menuList != null) {
 			// 하위 메뉴가 있나 없나
 			Map<Integer, Boolean> hasChildren = new HashMap<Integer, Boolean>();
@@ -131,8 +136,8 @@ public class SiteMapTag extends BodyTagSupport {
 					liTag_lvl2 = new HtmlTag("li");
 					liTag_lvl2.setContent("<a href=\"" + link_url + "\" " + targetStr + ">" + menu.getMenu_name() + "</a>");
 					ulTag_lvl2.addSubTag(liTag_lvl2);
-				} else {
-					if(!check_lvl3 && menu.getMenu_level() == 3) {
+				} else if(menu.getMenu_level() == 3) {
+					if(!check_lvl3) {
 						check_lvl3 = true;
 						ulTag_lvl3 = new HtmlTag("ul");
 						liTag_lvl2.addSubTag(ulTag_lvl3);
@@ -140,21 +145,21 @@ public class SiteMapTag extends BodyTagSupport {
 					if(menu.getMenu_type().equals("LINK_OUTER")) {
 						targetStr = "target=\"_blank\"";
 					}
-					if(hasChildren.containsKey(menu.getMenu_idx())) {
-						// 2뎁스이고 하위 메뉴가 있으면 링크 없앰
-						link_url = "#";
-						targetStr = "";
+					liTag_lvl3 = new HtmlTag("li");
+					liTag_lvl3.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
+					ulTag_lvl3.addSubTag(liTag_lvl3);
+				} else if(menu.getMenu_level() == 4) {
+					if(!check_lvl4) {
+						check_lvl4 = true;
+						ulTag_lvl4 = new HtmlTag("ul");
+						liTag_lvl3.addSubTag(ulTag_lvl4);
 					}
-					if (menu.getMenu_level() == 3) {
-						liTag_lvl3 = new HtmlTag("li");
-						liTag_lvl3.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
-						ulTag_lvl3.addSubTag(liTag_lvl3);
+					if(menu.getMenu_type().equals("LINK_OUTER")) {
+						targetStr = "target=\"_blank\"";
 					}
-					if (menu.getMenu_level() == 4) {
-						liTag_lvl3 = new HtmlTag("ul");
-						liTag_lvl3.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
-						ulTag_lvl3.addSubTag(liTag_lvl3);
-					}
+					liTag_lvl4 = new HtmlTag("li");
+					liTag_lvl4.setContent("<a href=\"" + link_url + "\" " + targetStr + "><span>" + menu.getMenu_name() + "</span></a>");
+					ulTag_lvl4.addSubTag(liTag_lvl4);
 				}
 			}
 		}
