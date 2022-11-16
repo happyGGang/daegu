@@ -14,6 +14,9 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
+import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
+import kr.go.gbelib.app.common.api.CultureAPI;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -62,6 +65,7 @@ import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
 import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
@@ -130,6 +134,9 @@ public class IndexController extends BaseController {
 	
 	@Autowired
 	private BookService bookService;
+
+	@Autowired
+	private SpecializedServicesService specializedServicesService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -1011,7 +1018,13 @@ public class IndexController extends BaseController {
 				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
 		}
-		
+
+		if ("h89".equals(homepage.getHomepage_id())) {
+			Code code = new Code();
+			code.setGroup_id("A0000");
+			model.addAttribute("areaCodeList", codeService.getCodeList(code));
+		}
+
 		log.debug("jsp Page : "+basePath + filePath);
 
 		BookKeyword bookKeyword = new BookKeyword();
@@ -1805,5 +1818,83 @@ public class IndexController extends BaseController {
 			    }
 			}
 		return planRepo;
+	}
+
+	/*
+	 * 문화포털 최상단 강좌(노출여부에따라 표현)
+	 */
+	@RequestMapping(value = { "/{contextPath}/education.*" })
+	public String education(Model model, HttpServletRequest request,
+		@PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(new Teach(), "Y"));
+		return basePath + homepage.getFolder() + "/education_ajax";
+	}
+
+	/*
+	 * 특화서비스
+	 */
+	@RequestMapping(value = { "/{contextPath}/culture.*" })
+	public String culture(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		model.addAttribute("serviceViewList", specializedServicesService.getSpecializedServicesMainList(new SpecializedServices()));
+		return basePath + homepage.getFolder() + "/culture_ajax";
+	}
+	/*
+	 * 전시
+	 */
+	@RequestMapping(value = { "/{contextPath}/exhibition.*" })
+	public String exhibition(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Board board = new Board();
+		board.setEndRowNum(20);
+		model.addAttribute("exhibitionViewList", boardService.getBoardExhibitionList(board));
+		return basePath + homepage.getFolder() + "/exhibition_ajax";
+	}
+
+	/*
+	 * 영화
+	 */
+	@RequestMapping(value = { "/{contextPath}/movie.*" })
+	public String movie(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Board board = new Board();
+		board.setEndRowNum(20);
+		model.addAttribute("movieViewList", boardService.getBoardMovieList(board));
+		return basePath + homepage.getFolder() + "/movie_ajax";
+	}
+
+	/*
+	 * 공연전시
+	 */
+	@RequestMapping(value = { "/{contextPath}/areaexhibition.*" })
+	public String areaexhibition(Model model, @RequestParam("search_area") String search_area, HttpServletRequest request,
+		@PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Map<String, Object> parameter = new HashMap<String, Object>();
+		parameter.put("gugun", search_area);
+
+		model.addAttribute("area", CultureAPI.areaRequest(parameter));
+		return basePath + homepage.getFolder() + "/areaexhibition_ajax";
+	}
+
+	/*
+	 * 행사축제
+	 */
+	@RequestMapping(value = { "/{contextPath}/areacarnival.*" })
+	public String areacarnival(Model model, @RequestParam("search_area") String search_area, HttpServletRequest request,
+		@PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Board board = new Board();
+		board.setManage_idx(1101);
+		board.setDept_cd("CULTURE");
+		board.setImsi_v_2(search_area);
+
+		model.addAttribute("festivalList", boardService.getBoardByMain(board));
+		return basePath + homepage.getFolder() + "/areacarnival_ajax";
 	}
 }

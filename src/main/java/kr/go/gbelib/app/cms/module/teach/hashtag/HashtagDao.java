@@ -1,4 +1,4 @@
-package kr.go.gbelib.app.cms.module.cultureTeach.hashtag;
+package kr.go.gbelib.app.cms.module.teach.hashtag;
 
 import java.util.List;
 
@@ -13,4 +13,8 @@ public interface HashtagDao {
     public int updateHashtag(Hashtag hashtag);
 
     public int deleteHashtag(Hashtag hashtag);
+
+    public String checkHashtag(Hashtag hashtag);
+
+    public List<Hashtag> getHashtagCodeList(Hashtag hashtag);
 }

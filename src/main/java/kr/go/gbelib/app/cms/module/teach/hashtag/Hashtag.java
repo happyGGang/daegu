@@ -1,6 +1,7 @@
-package kr.go.gbelib.app.cms.module.cultureTeach.hashtag;
+package kr.go.gbelib.app.cms.module.teach.hashtag;
 
 import java.util.Date;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Hashtag extends PagingUtils {
@@ -14,6 +15,46 @@ public class Hashtag extends PagingUtils {
     private String modify_ip;           // 수정IP
     private String modify_id;           // 수정ID
     private Date modify_date;         // 수정일
+
+    private String double_check_yn = "N";     // 해시태그 중복확인 여부
+
+    public Hashtag() {}
+
+    private Hashtag(int hashtag_idx, String hashtag_name, String use_yn, String modify_id, String modify_ip) {
+        this.hashtag_idx = hashtag_idx;
+        this.hashtag_name = hashtag_name;
+        this.use_yn = use_yn;
+        this.modify_id = modify_id;
+        this.modify_ip = modify_ip;
+    }
+
+    private Hashtag(String hashtag_code, String hashtag_name, String use_yn, String add_ip, String add_id,String modify_ip, String modify_id, String homepage_id) {
+        this.hashtag_code = hashtag_code;
+        this.hashtag_name = hashtag_name;
+        this.use_yn = use_yn;
+        this.add_ip = add_ip;
+        this.add_id = add_id;
+        this.modify_ip = modify_ip;
+        this.modify_id = modify_id;
+        setHomepage_id(homepage_id);
+    }
+
+    public static Hashtag ofcreate(Hashtag hashtag, Member member, String ip) {
+        String member_id = member.getMember_id();
+        String hashtag_code = hashtag.getHashtag_code();
+        String hashtag_name = hashtag.getHashtag_name();
+        String use_yn = hashtag.getUse_yn();
+        String homepage_id = hashtag.getHomepage_id();
+        return new Hashtag(hashtag_code,hashtag_name,use_yn,ip,member_id,ip,member_id,homepage_id);
+    }
+
+    public static Hashtag ofupdate(Hashtag hashtag, Member member, String ip) {
+        String member_id = member.getMember_id();
+        int hashtag_idx = hashtag.getHashtag_idx();
+        String hashtag_name = hashtag.getHashtag_name();
+        String use_yn = hashtag.getUse_yn();
+        return new Hashtag(hashtag_idx, hashtag_name, use_yn, member_id, ip);
+    }
 
     public int getHashtag_idx() {
         return hashtag_idx;
@@ -93,5 +134,13 @@ public class Hashtag extends PagingUtils {
 
     public void setModify_date(Date modify_date) {
         this.modify_date = modify_date;
+    }
+
+    public String getDouble_check_yn() {
+        return double_check_yn;
+    }
+
+    public void setDouble_check_yn(String double_check_yn) {
+        this.double_check_yn = double_check_yn;
     }
 }

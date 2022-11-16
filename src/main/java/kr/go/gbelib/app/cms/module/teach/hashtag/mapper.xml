@@ -3,30 +3,68 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.teach.hashtag.HashtagDao">
   <select id="getHashtagList" resultType="kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag">
     SELECT
-      HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
-      ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
+      hashtag_idx, hashtag_code, hashtag_name, use_yn, homepage_id,
+      add_ip, add_id, add_date, modify_ip, modify_id, modify_date
     FROM
-      CULTURE_TEACH_HASHTAG
+      teach_hashtag
+    ORDER BY
+      add_date asc
   </select>
 
   <select id="getHashtagOne" resultType="kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag">
     SELECT
-      HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
-      ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
+      hashtag_idx, hashtag_code, hashtag_name, use_yn, homepage_id,
+      add_ip, add_id, add_date, modify_ip, modify_id, modify_date
     FROM
-      CULTURE_TEACH_HASHTAG
+      teach_hashtag
     WHERE
-      HASHTAG_IDX = #{hashtag_idx}
+      hashtag_idx = #{hashtag_idx}
+  </select>
+
+  <select id="checkHashtag" resultType="string">
+    SELECT
+      DECODE(COUNT(*), 0, 'N', 'Y')
+    FROM
+      teach_hashtag
+    WHERE
+      hashtag_code = #{hashtag_code}
+  </select>
+
+  <select id="getHashtagCodeList" resultType="kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag">
+    SELECT
+      hashtag_idx, hashtag_code, hashtag_name, use_yn, homepage_id,
+      add_ip, add_id, add_date, modify_ip, modify_id, modify_date
+    FROM
+      teach_hashtag
+    WHERE
+      use_yn = 'Y'
+    ORDER BY
+      hashtag_idx ASC
   </select>
 
   <insert id="insertHashtag">
-    INSERT INTO CULTURE_TEACH_HASHTAG
+    <selectKey keyProperty="hashtag_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(hashtag_idx),0)+1 FROM teach_hashtag
+    </selectKey>
+    INSERT INTO teach_hashtag
     (
-      HASHTAG_IDX, HASHTAG_CODE, HASHTAG_NAME, USE_YN, HOMEPAGE_ID,
-      ADD_IP, ADD_ID, ADD_DATE, MODIFY_IP, MODIFY_ID, MODIFY_DATE
+    hashtag_idx, hashtag_code, hashtag_name, use_yn, homepage_id,
+    add_ip, add_id, add_date, modify_ip, modify_id, modify_date
     ) VALUES (
-       #{hashtag_idx}, #{hashtag_code},#{hashtag_name}, #{use_yn}, #{homepage_id},
-       #{add_ip}, #{add_id}, SYSDATE, #{modify_ip}, #{modify_id}, SYSDATE
-     )
+    #{hashtag_idx}, #{hashtag_code},#{hashtag_name}, #{use_yn}, #{homepage_id},
+    #{add_ip}, #{add_id}, SYSDATE, #{modify_ip}, #{modify_id}, SYSDATE
+    )
   </insert>
+
+  <update id="updateHashtag">
+    UPDATE
+      teach_hashtag
+    SET
+      hashtag_name = #{hashtag_name},
+      use_yn = #{use_yn},
+      modify_ip = #{modify_ip},
+      modify_date = SYSDATE
+    WHERE
+      hashtag_idx = #{hashtag_idx}
+  </update>
 </mapper>

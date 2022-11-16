@@ -20,6 +20,14 @@
       e.preventDefault();
     });
 
+    $('a.dialog-modify').on('click', function(e) {
+      $('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&hashtag_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+        $('#dialog-1').dialog('open');
+      });
+
+      e.preventDefault();
+    });
+
 
   });
 </script>
@@ -35,13 +43,13 @@
     <table class="type1 center">
         <colgroup>
             <col width="50" />
-            <col width="150" />
-            <col width="120">
             <col width="" />
-            <col width="" />
-            <col width="100" />
-            <col width="100" />
-            <col width="100" />
+            <col width="">
+            <col width="120" />
+            <col width="120" />
+            <col width="120" />
+            <col width="120" />
+            <col width="120" />
             <col width="150" />
         </colgroup>
         <thead>
@@ -60,20 +68,17 @@
         <tbody>
         <c:forEach var="i" varStatus="status" items="${hashtagList}">
             <tr>
-                <td>${paging.listRowNum - status.index}</td>
+                <td>${status.count}</td>
                 <td>${i.hashtag_code}</td>
                 <td>${i.hashtag_name}</td>
-                <td>${i.use_yn}</td>
-                <td>${i.add_date}</td>
+                <td>${i.use_yn eq 'Y' ? '사용' : '미사용'}</td>
+                <td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
                 <td>${i.add_id}</td>
-                <td>${i.modify_date}</td>
+                <td><fmt:formatDate value="${i.modify_date}" pattern="yyyy.MM.dd"/></td>
                 <td>${i.modify_id}</td>
                 <td>
                     <c:if test="${authU}">
-                        <a href="" class="btn dialog-modify" keyValue="${i.quiz_idx}">수정</a>
-                    </c:if>
-                    <c:if test="${authD}">
-                        <a href="" class="btn delete-btn" keyValue="${i.quiz_idx}">삭제</a>
+                        <a href="" class="btn dialog-modify" keyValue="${i.hashtag_idx}">수정</a>
                     </c:if>
                 </td>
             </tr>

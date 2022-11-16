@@ -66,6 +66,9 @@ public class CommonAPI {
 
 	public final static String LIBRARY_API_URL = ResourceBundle.getBundle("api").getString("libraryapi.api.url");
 
+	public final static String CULTURE_API_URL = ResourceBundle.getBundle("api").getString("culture.api.url");
+	public final static String CULTURE_API_KEY = ResourceBundle.getBundle("api").getString("culture.api.key");
+
 	public final static String KAKAO_LIST_API_URL = "https://dapi.kakao.com/v3/search/book";
 	
 	public static HttpURLConnection initConn(String urlStr) throws Exception {
@@ -229,6 +232,63 @@ public class CommonAPI {
 			}
 			resultMap = xmlToJson(response.toString()).toMap();
 			resultMap = (Map<String, Object>) resultMap.get("DATA");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (connection != null) {
+					connection.disconnect();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resultMap;
+
+	}
+
+	public static Map<String, Object> sendCULTURE(Map<String, Object> param, String serviceName) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		BufferedReader br = null;
+
+		try {
+			String url = CULTURE_API_URL;
+			List<String> paramList = new ArrayList<String>();
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				paramList.add("serviceKey="+CULTURE_API_KEY);
+				for (String oneKey : keys) {
+					paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
+				}
+			}
+
+			connection = initConn(url+serviceName+ "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.error("@@@@@@@@@@@@@@@@@@ CULTURE API : "+url+serviceName+ "?" + StringUtils.join(paramList, "&"));
+			try {
+				resultMap = xmlToJson(response.toString()).toMap();
+			}
+			catch ( Exception e ) {
+			}
+			resultMap = xmlToJson(response.toString()).toMap();
+			resultMap = (Map<String, Object>) resultMap.get("response");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

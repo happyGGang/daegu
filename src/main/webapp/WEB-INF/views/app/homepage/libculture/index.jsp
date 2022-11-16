@@ -4,6 +4,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <tiles:insertAttribute name="header" />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.mhportal.css"/>
@@ -11,6 +12,7 @@
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.mhportal.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/commons.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/slick_ui.js"></script>
+
 
 <c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 <c:if test="${getIp eq '218.48.151.16'}">
@@ -175,13 +177,15 @@ $(function() {
 		}
 		
 	});
-
+	$('div#visual-load-box').load('education.do');
 	// main0 - 최상단 이벤트
 	$(document).on('click', '.tabMenuT a', function(e){
 		e.preventDefault();
 		var target = this.getAttribute('href').replace('#','');
 		$(this).closest('.tabMenuT').find('li').removeClass('on');
 		$(this).parent('li').addClass('on');
+
+		$('div#visual-load-box').empty();
 
 		if(target == 'tab1')
 		{
@@ -237,43 +241,47 @@ $(function() {
 		$(this).closest('.tabMenuA').find('li').removeClass('on');
 		$(this).parent('li').addClass('on');
 
+		var area = $('#daeguArea option:selected').val();
+
 		if(target == 'tabs01')
 		{
-			$('div#areaculture').load('areaexhibition.do?daeguarea=');
+			$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area='+area);
 		}
 		else if(target == 'tabs02')
 		{
-			$('div#areaculture').load('areacarnival.do?daeguarea=');
+			$('div#areaculture .areaCultureSlideList').load('areacarnival.do?search_area='+area);
 		}
 		else if(target == 'tabs03')
 		{
-			$('div#areaculture').load('areaculture.do?daeguarea=');
+			$('div#areaculture .areaCultureSlideList').load('areaculture.do?daeguarea=');
 		}
 		else
 		{
-			$('div#areaculture').load('education.do?daeguarea=');
+			$('div#areaculture .areaCultureSlideList').load('education.do?daeguarea=');
 		}
 	});
 
-	// 지역별 문화체험 select 이벤트
-	$('select#daeguArea').on('change', function() {
+	$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area=');
 
-		if($('#tabs001').hasClass('on'))
-		{
-			$('div#areaculture').load('areaexhibition.do?daeguarea=');
-		}
-		else if($('#tabs002').hasClass('on'))
-		{
-			$('div#areaculture').load('areacarnival.do?daeguarea=');
-		}
-		else if($('#tabs003').hasClass('on'))
-		{
-			$('div#areaculture').load('areaculture.do?daeguarea=');
-		}
-		else
-		{
-			$('div#areaculture').load('areaexhibition.do?daeguarea=');
-		}
+	$('#daeguArea').on('change',function(){
+		var area = $(this).find('option:selected').val();
+		var id = '';
+
+		$('#main3 .areaculturetab .tabMenuA ul li').each(function(index, item){
+			if($(item).hasClass('on')) {
+				id = $(item).attr('id');
+
+				if (id == 'tabs001') {
+					$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area='+area)
+				} else if (id == 'tabs002') {
+					$('div#areaculture .areaCultureSlideList').load('areacarnival.do?search_area='+area)
+				} else if (id == 'tabs003') {
+
+				}
+			}
+		})
+
+		console.log(id);
 
 	});
 });
@@ -317,124 +325,6 @@ $(function() {
 								</ul>
 							</div>
 							<div id="visual-load-box">
-
-								<h3>EDUCATION</h3>
-								<div class="slideList mainSec00 main0Section01">
-									<div class="innerBox">
-										<div class="arrowBtn">
-											<a href="#" class="prev">이전</a>
-											<a href="#" class="next">다음</a>
-										</div>
-
-										<div class="slickPlay">
-											<p class="status"><span>01</span> / 020</p>
-											<a href="#" class="play">시작</a>
-											<a href="#" class="pause">멈춤</a>
-										</div>
-										<div class="slickWrap" data-animation="fadeInUp">
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-											<div>
-												<a href="">
-													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-												</a>
-											</div>
-										</div>
-									</div>
-								</div>
 
 							</div>
 
@@ -1012,16 +902,11 @@ $(function() {
 							<h2>지역별 문화체험</h2>
 							<div class="areaculturetab">
 								<div class="select-box">
-									<select name="daeguArea" id="daeguArea" class="daegu-area">
-										<option>지역을 선택해주세요</option>
-										<option>남구</option>
-										<option>달서구</option>
-										<option>달성군</option>
-										<option>동구</option>
-										<option>북구</option>
-										<option>서구</option>
-										<option>수성구</option>
-										<option>중구/option>
+									<select id="daeguArea" class="daegu-area">
+										<option value="">지역을 선택해주세요</option>
+										<c:forEach var="i" items="${areaCodeList}">
+											<option value="${i.code_name}">${i.code_name}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div class="tabMenuA">
@@ -1036,80 +921,9 @@ $(function() {
 						</div>
 					</div>
 					<div id="areaculture" class="mainSec03-contents">
-
 						<div class="areaCultureSlideList">
-							<ul>
 
-								<li>
-									<h4>대구 학생문화센터</h4>
-									<a href="/gosan/module/teach/detail.do?homepage_id=h52&group_idx=9&teach_idx=9769&menu_idx=129&category_idx=0&large_category_idx=16" class="border bgimg001" target="_blank">
-										<div class="imgae-box">
-											<img src="/resources/homepage/${homepage.context_path}/img/1.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-										</div>
-										<div class="txt-box">
-											<p class="txt-box-title">스마일 마스크 신드롬</p>
-											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<h4>대구 학생문화센터</h4>
-									<a href="/beomeo/module/teach/detail.do?homepage_id=h50&group_idx=11&teach_idx=9755&menu_idx=141&category_idx=0&large_category_idx=16" class="border bgimg002" target="_blank">
-										<div class="imgae-box">
-											<img src="/resources/homepage/${homepage.context_path}/img/2.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-										</div>
-										<div class="txt-box">
-											<p class="txt-box-title">DSAC아트 페스티벌, 피아노 위크</p>
-											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<h4>대구 학생문화센터</h4>
-									<a href="/seogulib/module/teach/detail.do?homepage_id=h49&group_idx=9&teach_idx=9775&menu_idx=132&category_idx=0&large_category_idx=16" class="border bgimg003" target="_blank">
-										<div class="imgae-box">
-											<img src="/resources/homepage/${homepage.context_path}/img/3.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-										</div>
-										<div class="txt-box">
-											<p class="txt-box-title">Once upon a time in 발레</p>
-											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<h4>대구 학생문화센터</h4>
-									<a href="/seogulib/module/teach/detail.do?homepage_id=h49&group_idx=12&teach_idx=5912&menu_idx=132&category_idx=0&large_category_idx=17" class="border bgimg004" target="_blank">
-										<div class="imgae-box">
-											<img src="/resources/homepage/${homepage.context_path}/img/4.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-										</div>
-										<div class="txt-box">
-											<p class="txt-box-title">원맨쇼 햄릿</p>
-											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<h4>대구 학생문화센터</h4>
-									<a href="/junggu/module/teach/detail.do?homepage_id=h75&group_idx=2&teach_idx=9757&menu_idx=32&category_idx=0&large_category_idx=17" class="border bgimg001" target="_blank">
-										<div class="imgae-box">
-											<img src="/resources/homepage/${homepage.context_path}/img/5.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-										</div>
-										<div class="txt-box">
-											<p class="txt-box-title">유앤잇</p>
-											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
-										</div>
-									</a>
-								</li>
-
-
-							</ul>
 						</div>
-
-
 					</div>
 				</div>
 

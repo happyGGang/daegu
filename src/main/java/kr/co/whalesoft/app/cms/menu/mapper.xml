@@ -532,6 +532,29 @@
 		</if>
 	</select>
 
+	<!-- 메뉴IDX 가져오기(program - manage_idx) -->
+	<select id="getMenuIdxByProgramIdx3" resultType="int">
+		SELECT
+		NVL(max(menu_idx), 0)
+		FROM
+		CMS_MENU
+		WHERE
+		homepage_id = (SELECT
+											DECODE(HOMEPAGE_GROUP, 'ALL', HOMEPAGE_ID, HOMEPAGE_GROUP)
+								   FROM
+								       CMS_HOMEPAGE
+								   WHERE HOMEPAGE_ID = #{homepage_id})
+		AND	MENU_TYPE = 'PROGRAM'
+		AND manage_idx = #{menu_idx}
+		AND	use_yn = 'Y'
+		<if test="menu_url_param != null and menu_url_param != ''">
+			AND	(
+			menu_url_param LIKE '%'||#{menu_url_param}||'%'
+			OR	menu_url_param is null
+			)
+		</if>
+	</select>
+
 	<select id="getMenuTreeListWithAuth" resultType="kr.co.whalesoft.app.cms.menu.Menu">
 		SELECT LEVEL AS MENU_LEVEL, A.*,
 		decode(A.menu_type, 'PROGRAM', (SELECT module_name FROM WB_MODULE_MNGT B WHERE module_type = 'SITE' and A.manage_idx = b.module_idx AND A.menu_type = 'PROGRAM'),

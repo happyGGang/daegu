@@ -37,6 +37,10 @@ public class HomepageService extends BaseService {
 		return dao.getHomepage();
 	}
 
+	public List<Homepage> getHomepage2(){
+		return dao.getHomepage2();
+	}
+
 	public List<Homepage> getNormalHomepage() {
 		return dao.getNormalHomepage();
 	}

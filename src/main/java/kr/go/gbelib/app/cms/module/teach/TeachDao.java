@@ -85,5 +85,7 @@ public interface TeachDao  {
 	public List<Teach> getTeachApiList(Teach teach);
 
 	public List<Teach> getTeachListForAllHomepageRamdom(Teach teach);
+
+	public List<Teach> getTeachListForAllCulture(Teach teach);
 	
 }

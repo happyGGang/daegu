@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesDao">
+  <select id="getSpecializedServicesList" resultType="kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices">
+    ${pagingTop}
+    SELECT
+      specialized_services_idx, service_homepage_id,
+      (SELECT homepage_name FROM CMS_HOMEPAGE WHERE homepage_id = service_homepage_id) AS service_homepage_name,
+      service_name,description, link_url,
+      view_yn, org_file_name, server_file_name, file_extension, file_size,
+      add_id, add_date, modify_id, modify_date
+    FROM
+      CMS_SPECIALIZED_SERVICES
+    WHERE 1 = 1
+    <if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+      AND	${search_type} LIKE '%'||#{search_text}||'%'
+    </if>
+    <if test="search_view_yn != null and search_view_yn != ''">
+      AND	view_yn = #{search_view_yn}
+    </if>
+    ORDER BY
+        add_date DESC
+    ${pagingBottom}
+  </select>
+
+  <select id="getSpecializedServicesCount" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      CMS_SPECIALIZED_SERVICES
+    WHERE 1 = 1
+    <if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+      AND	${search_type} LIKE '%'||#{search_text}||'%'
+    </if>
+    <if test="search_view_yn != null and search_view_yn != ''">
+      AND	view_yn = #{view_yn}
+    </if>
+  </select>
+
+  <select id="getSpecializedServicesOne" resultType="kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices">
+    SELECT
+      specialized_services_idx, service_homepage_id, service_name, description, link_url,
+      view_yn, org_file_name, server_file_name, file_extension, file_size,
+      add_id, add_date, modify_id, modify_date
+    FROM
+      CMS_SPECIALIZED_SERVICES
+    WHERE
+      specialized_services_idx = #{specialized_services_idx}
+  </select>
+
+  <insert id="addSpecializedServices">
+    <selectKey keyProperty="specialized_services_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(specialized_services_idx),0)+1 FROM CMS_SPECIALIZED_SERVICES
+    </selectKey>
+    INSERT INTO CMS_SPECIALIZED_SERVICES
+    (
+      specialized_services_idx, service_homepage_id, service_name, description, link_url,
+      view_yn, org_file_name, server_file_name, file_extension, file_size,
+      add_id, add_date, modify_id, modify_date
+    ) VALUES (
+       #{specialized_services_idx}, #{service_homepage_id}, #{service_name}, #{description}, #{link_url},
+       #{view_yn}, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+       #{add_id}, SYSDATE, #{modify_id}, SYSDATE
+     )
+  </insert>
+
+  <update id="modifySpecializedServices">
+    UPDATE
+      CMS_SPECIALIZED_SERVICES
+    SET
+        service_name = #{service_name},
+        description = #{description},
+        link_url = #{link_url},
+        view_yn = #{view_yn},
+        <if test="server_file_name != null and server_file_name != ''">
+         org_file_name = #{org_file_name},
+         server_file_name = #{server_file_name},
+         file_extension = #{file_extension},
+         file_size = #{file_size},
+        </if>
+         modify_id = #{modify_id},
+         modify_date = SYSDATE
+    WHERE
+        specialized_services_idx = #{specialized_services_idx}
+  </update>
+
+  <delete id="deleteSpecializedServices">
+    DELETE
+        FROM CMS_SPECIALIZED_SERVICES
+    WHERE
+        specialized_services_idx = #{specialized_services_idx}
+  </delete>
+
+  <select id="getSpecializedServicesMainList" resultType="kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices">
+    SELECT
+      specialized_services_idx, service_homepage_id, service_name, description,
+      (SELECT homepage_name FROM CMS_HOMEPAGE WHERE homepage_id = service_homepage_id) AS service_homepage_name,
+      link_url, view_yn, org_file_name, server_file_name, file_extension,
+      file_size, add_id, add_date, modify_id, modify_date
+    FROM
+      CMS_SPECIALIZED_SERVICES
+    WHERE
+      view_yn = 'Y'
+    AND
+        ROWNUM <![CDATA[<=]]> 20
+    ORDER BY
+      add_date ASC
+  </select>
+</mapper>

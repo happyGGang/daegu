@@ -72,4 +72,6 @@ public interface MenuDao {
 	public int modifyMenuFullPathName(Menu menu);
 
 	public int getMenuIdxByProgramIdx2(Menu menu);
+
+	public int getMenuIdxByProgramIdx3(Menu menu);
 }

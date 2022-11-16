@@ -200,7 +200,13 @@ public class Teach extends PagingUtils {
 	private String vaccines_yn = "N";	// 백신 여부
 
 	private List<String> homepage_ids;
-	
+
+	private String hashtag_codes;
+	private String hashtag_names;
+	private String age_div_codes;
+
+	private String culture_view_yn = "N"; // 문화포털 노출여부
+
 	private String date; // api 날짜값
 	public Teach() {}
 
@@ -1615,5 +1621,37 @@ public class Teach extends PagingUtils {
 
 	public void setDisable_holi_calendar(String disable_holi_calendar) {
 		this.disable_holi_calendar = disable_holi_calendar;
+	}
+
+	public String getHashtag_codes() {
+		return hashtag_codes;
+	}
+
+	public void setHashtag_codes(String hashtag_codes) {
+		this.hashtag_codes = hashtag_codes;
+	}
+
+	public String getHashtag_names() {
+		return hashtag_names;
+	}
+
+	public void setHashtag_names(String hashtag_names) {
+		this.hashtag_names = hashtag_names;
+	}
+
+	public String getAge_div_codes() {
+		return age_div_codes;
+	}
+
+	public void setAge_div_codes(String age_div_codes) {
+		this.age_div_codes = age_div_codes;
+	}
+
+	public String getCulture_view_yn() {
+		return culture_view_yn;
+	}
+
+	public void setCulture_view_yn(String culture_view_yn) {
+		this.culture_view_yn = culture_view_yn;
 	}
 }

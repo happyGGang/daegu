@@ -143,6 +143,7 @@
 				AND H.menu_type = 'BOARD'
 			) AS imsi_n_2
 			</if>
+				, content_summary
 			FROM
 		(
 			${pagingTop}
@@ -156,7 +157,7 @@
 					file_count, preview_img, secret_yn, file_download_count, --content_summary,
 					category1, category2, category3, category4, category5,
 					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
-					imsi_v_6, imsi_v_7, user_phone
+					imsi_v_6, imsi_v_7, user_phone, content_summary
 				FROM
 					CMS_BOARD
 				WHERE
@@ -775,6 +776,12 @@
 
 
 		AND	delete_yn = 'N'
+		<if test='dept_cd != null and dept_cd == "CULTURE"'>
+			AND	imsi_v_2 IS NOT NULL
+			<if test="imsi_v_2 != null and imsi_v_2 != ''">
+				AND imsi_v_2 LIKE '%'||#{imsi_v_2}||'%'
+			</if>
+		</if>
 		<if test='dept_cd != null and dept_cd == "MOVIE"'>
 		 AND	imsi_v_1 ||'-'|| imsi_v_2 >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 		</if>
@@ -2359,6 +2366,80 @@
 			AND imsi_v_1 <![CDATA[=]]> TO_CHAR(SYSDATE,'yyyy-MM')
 			ORDER BY DBMS_RANDOM.RANDOM()
 		) WHERE ROWNUM = 1
+	</select>
+
+	<select id="getBoardExhibitionList" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+			A.*, (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE cm WHERE A.homepage_id = cm.HOMEPAGE_ID) as context_path
+		FROM (
+					 SELECT
+						 (SELECT HOMEPAGE_ID FROM CMS_BOARD_MANAGE BM WHERE BM.manage_idx = a.manage_idx) as homepage_id,
+						 manage_idx, board_idx, group_idx, view_count, notice_yn,
+						 title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+						 imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+						 imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+						 imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+						 imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
+						 category1, category2, category3, category4, category5, request_state,
+						 (
+							 SELECT
+								 MAX(H.menu_idx)
+							 FROM
+								 CMS_MENU H, CMS_BOARD_MANAGE M
+							 WHERE
+								 H.homepage_id = M.homepage_id
+								 AND	M.manage_idx = A.manage_idx
+								 AND	H.manage_idx = M.manage_idx
+								 AND H.menu_type = 'BOARD'
+						 ) AS imsi_n_2
+					 FROM
+						 CMS_BOARD A
+					 WHERE
+						 delete_yn = 'N'
+						 AND
+						 manage_idx in (426, 849, 850, 916, 977, 993, 1002, 1034)
+					 ORDER BY ADD_DATE DESC
+				 ) A
+			${pagingBottom}
+	</select>
+
+	<select id="getBoardMovieList" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+			A.*, (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE cm WHERE A.homepage_id = cm.HOMEPAGE_ID) as context_path
+		FROM (
+					 SELECT
+						 (SELECT HOMEPAGE_ID FROM CMS_BOARD_MANAGE BM WHERE BM.manage_idx = a.manage_idx) as homepage_id,
+						 A.manage_idx, A.board_idx, A.group_idx, A.view_count, A.notice_yn,
+						 A.title, A.add_id, A.add_date, A.preview_img, REGEXP_REPLACE(A.content_summary,'&lt;[^>]*>','') as content_summary,
+						 imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+						 imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+						 imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+						 imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
+						 A.category1, A.category2, A.category3, A.category4, A.category5, A.request_state,
+						 (
+							 SELECT
+								 MAX(H.menu_idx)
+							 FROM
+								 CMS_MENU H, CMS_BOARD_MANAGE M
+							 WHERE
+								 H.homepage_id = M.homepage_id
+								 AND	M.manage_idx = A.manage_idx
+								 AND	H.manage_idx = M.manage_idx
+								 AND H.menu_type = 'BOARD'
+						 ) AS imsi_n_2
+					 FROM
+						 CMS_BOARD A, CMS_BOARD_MANAGE B
+					 WHERE
+						 A.delete_yn = 'N'
+						 AND
+						 A.manage_idx = B.manage_idx
+						 AND
+						 B.board_type = 'MOVIE'
+					 ORDER BY add_date DESC
+				 ) A
+			${pagingBottom}
 	</select>
 
 </mapper>

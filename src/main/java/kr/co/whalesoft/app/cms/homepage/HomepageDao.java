@@ -7,6 +7,8 @@ public interface HomepageDao  {
 
 	public List<Homepage> getHomepage();
 
+	public List<Homepage> getHomepage2();
+
 	public List<Homepage> getNormalHomepage();
 
 	public List<Homepage> getHomepageList(Homepage homepage);

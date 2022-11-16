@@ -270,8 +270,9 @@ $(function() {
 	<table class="type1 center">
 		<colgroup>
 			<col width="30" />
-			<col width="50" />
-			<col width="50" />
+			<col width="30" />
+			<col width="30" />
+			<col width="120" />
 			<col width="120" />
 			<col width="100"/>
 			<col width="100" />
@@ -290,6 +291,7 @@ $(function() {
 				<th>번호</th>
 				<th>상단노출여부</th>
 				<th>강의분류</th>
+				<th>해시태그</th>
 				<th>강의명</th>
 				<th>강의계획서</th>
 				<th>강의대상</th>
@@ -313,6 +315,7 @@ $(function() {
 					<td>${teach.listRowNum - status.index}</td>
 					<td>${i.teach_code_yn}</td>
 					<td>${i.large_category_name}<br/>${i.group_name}<br/>${i.category_name}</td>
+					<td>${i.hashtag_names}</td>
 					<td>
 						${i.teach_name}
 					</td>

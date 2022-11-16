@@ -12,6 +12,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.code.Code;
+import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
+import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -86,6 +89,9 @@ public class TeachController extends BaseController {
 	
 	@Autowired
 	private TermsService termsService;
+
+	@Autowired
+	private HashtagService hashtagService;
 
 	@RequestMapping(value = {"/getTeachList.*"})
 	public @ResponseBody Map<String, Object> getTeachList(Model model, Teach teach, HttpServletRequest request) {
@@ -201,7 +207,13 @@ public class TeachController extends BaseController {
 		model.addAttribute("teachMidCodeList", teachCodeService.getMidCodeList(teachCode));
 		//프로그램 소분류
 		model.addAttribute("teachSmallCodeList", teachCodeService.getSmallCodeList(teachCode));
-
+		// 해시코드
+		model.addAttribute("hashtagList", hashtagService.getHashtagCodeList(new Hashtag()));
+		// 연령구분코드
+		Code code = new Code();
+		code.setHomepage_id("CMS");
+		code.setGroup_id("TC000");
+		model.addAttribute("ageDivList", codeService.getCodeList(code));
 		//프로그램 주제구분
 		TeachCode2 teachCode2 = new TeachCode2(1);
 		teachCode2.setHomepage_id(teach.getHomepage_id());
@@ -268,7 +280,8 @@ public class TeachController extends BaseController {
 			ValidationUtils.rejectIfStringLength(result, "teach_target", 200, "강의대상");
 
 			if ( editMode.equals("ADD") || editMode.equals("MODIFY") ) {
-				ValidationUtils.rejectIfEmpty(result, "program_age_div_arr","연령구분을 선택해주세요");
+				ValidationUtils.rejectIfEmpty(result, "hashtag_codes", "강좌 해시코드를 선택해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "age_div_codes","연령구분을 선택해주세요");
 				ValidationUtils.rejectIfZero(result, "group_idx", "중분류를 선택해 주세요.");
 				ValidationUtils.rejectExceptNumber(result, "teach_limit_count","모집인원은 숫자만 입력 가능 합니다.");
 				ValidationUtils.rejectExceptNumber(result, "teach_backup_count","모집후보인원은 숫자만 입력 가능 합니다.");

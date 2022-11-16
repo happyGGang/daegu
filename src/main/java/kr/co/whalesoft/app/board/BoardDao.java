@@ -181,4 +181,8 @@ public interface BoardDao {
 	public List<Board> getBoardBookJungu(Board board);
 
 	public List<Board> getSubBoardByMainDotory(Board board);
+
+	public List<Board> getBoardExhibitionList(Board board);
+
+	public List<Board> getBoardMovieList(Board board);
 }

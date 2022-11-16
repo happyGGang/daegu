@@ -17,6 +17,23 @@
 			print_seq, homepage_type, homepage_name
 	</select>
 
+	<select id="getHomepage2" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
+			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
+			domain, context_path, folder, remark, temp_use_yn,
+			TO_CHAR(TO_DATE(temp_start_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_start_date,
+			TO_CHAR(TO_DATE(temp_end_date,'yyyyMMddHHmi'), 'MM.dd hh:mi') AS temp_end_date, print_seq
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			homepage_type != '0'
+		AND
+			manage_code IS NOT NULL
+		ORDER BY
+			print_seq, homepage_type, homepage_name
+	</select>
+
 	<select id="getNormalHomepage" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,

@@ -1,4 +1,4 @@
-package kr.go.gbelib.app.cms.module.cultureTeach.hashtag;
+package kr.go.gbelib.app.cms.module.teach.hashtag;
 
 import java.util.List;
 import kr.co.whalesoft.framework.base.BaseService;
@@ -29,5 +29,13 @@ public class HashtagService extends BaseService {
 
     public int deleteHashtag(Hashtag hashtag) {
         return dao.deleteHashtag(hashtag);
+    }
+
+    public String checkHashtag(Hashtag hashtag) {
+        return dao.checkHashtag(hashtag);
+    }
+
+    public List<Hashtag> getHashtagCodeList(Hashtag hashtag) {
+        return dao.getHashtagCodeList(hashtag);
     }
 }

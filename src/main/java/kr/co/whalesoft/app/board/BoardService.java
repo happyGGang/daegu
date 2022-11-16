@@ -861,4 +861,13 @@ public class BoardService extends BaseService {
 	public List<Board> getSubBoardByMainDotory(Board b) {
 		return dao.getSubBoardByMainDotory(b);
 	}
+	public List<Board> getBoardExhibitionList(Board board) {
+		return dao.getBoardExhibitionList(board);
+	}
+
+	public List<Board> getBoardMovieList(Board board) {
+		return dao.getBoardMovieList(board);
+	}
+
+
 }
