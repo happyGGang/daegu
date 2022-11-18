@@ -118,8 +118,10 @@
 				<div class="main0-inner-left">
 					<div class="search-box">
 						<div class="main-box">
-						<form id="mainSearchForm" action="/vision/intro/search/index.do">
+						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 							<input type="hidden" name="menu_idx" value="9">
+							<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+							<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 							<fieldset>
 								<div class="box1">
 									<div class="box2">
@@ -135,7 +137,7 @@
 					<div class="qmenu">
 						<ul>
 							<li class="qm1">
-									<a href="/vision/html.do?menu_idx=19" title="이용안내">
+									<a href="/${homepage.context_path}/html.do?menu_idx=19" title="이용안내">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="이용안내"></div>
@@ -146,7 +148,7 @@
 
 							</li>
 							<li class="qm2">
-									<a href="/vision/intro/search/loan/index.do?menu_idx=51" title="대출조회">
+									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=51" title="대출조회">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="대출조회"></div>
@@ -156,7 +158,7 @@
 								</a>
 							</li>
 							<li class="qm3">
-									<a href="/vision/intro/search/hope/req.do?menu_idx=18" title="희망도서신청">
+									<a href="/${homepage.context_path}/html.do?menu_idx=17" title="희망도서신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="희망도서신청"></div>
@@ -166,7 +168,7 @@
 								</a>
 							</li>
 							<li class="qm4">
-									<a href="/vision/module/teach/index.do?menu_idx=26" title="문화행사신청">
+									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26" title="문화행사신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="문화행사신청"></div>
@@ -176,7 +178,7 @@
 								</a>
 							</li>
 							<li class="qm5">
-									<a href="/vision/module/teach/index.do?menu_idx=27" title="평생교육신청">
+									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=28&searchCate1=17" title="평생교육신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="평생교육신청"></div>
@@ -187,7 +189,7 @@
 
 							</li>
 							<li class="qm6">
-									<a href="/vision/module/quizReq/index.do?menu_idx=68" title="독서퀴즈">
+									<a href="/${homepage.context_path}/module/quizReq/index.do?menu_idx=68" title="독서퀴즈">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="독서퀴즈"></div>
@@ -197,7 +199,7 @@
 								</a>
 							</li>
 							<li class="qm7">
-									<a href="/vision/html.do?menu_idx=69" title="자원봉사신청">
+									<a href="/${homepage.context_path}/html.do?menu_idx=69" title="자원봉사신청">
 									<div class="outer">
 										<div class="inner">
 											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="자원봉사신청"></div>
@@ -254,7 +256,7 @@
 				<div class="culture-box">
 					<div class="culture-title">
 						<h3>문화행사</h3>
-						<a href="/vision/module/teach/index.do?menu_idx=26" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+						<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 					</div>
 
 					<div class="culture-contents">
@@ -399,6 +401,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=64"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

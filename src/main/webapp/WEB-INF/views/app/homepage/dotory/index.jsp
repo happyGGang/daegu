@@ -152,6 +152,8 @@
 											<div class="search-box" id="main_search">
 												<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 												<input type="hidden" name="menu_idx" value="7">
+												<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+												<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 												<fieldset>
 													<legend class="blind">통합검색</legend>
 													<div class="main-box">
@@ -232,7 +234,7 @@
 														<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
 													</c:when>
 													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 													</c:otherwise>
 												</c:choose>
 												</c:when>
@@ -248,7 +250,17 @@
 								</li>
 								</c:forEach>
 								<c:if test="${empty recommendedBookKids}">
-									<li>등록된 추천도서가 없습니다.</li>
+ 									<li>		
+										<a>
+										<div class="book-contents-top">
+											<p class="book0001">어린이</p>
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+										</div>
+										<div class="book-contents-bottom">
+											등록된 추천도서가 없습니다.
+										</div>
+										</a>
+									</li>
 								</c:if>
 								
 								<c:forEach var="i" varStatus="status" items="${recommendedBookTeenager}" >
@@ -263,7 +275,7 @@
 														<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
 													</c:when>
 													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 													</c:otherwise>
 												</c:choose>
 												</c:when>
@@ -279,7 +291,17 @@
  								</li>
 								</c:forEach>
 								<c:if test="${empty recommendedBookTeenager}">
- 									<li>등록된 추천도서가 없습니다.</li>
+ 									<li>				
+										<a>
+										<div class="book-contents-top">
+											<p class="book0002">청소년</p>
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+										</div>
+										<div class="book-contents-bottom">
+											등록된 추천도서가 없습니다.
+										</div>
+										</a>
+									</li>
 								</c:if>
 								
 								<c:forEach var="i" varStatus="status" items="${recommendedBookAdult}" >
@@ -294,7 +316,7 @@
 														<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
 													</c:when>
 													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 													</c:otherwise>
 												</c:choose>
 												</c:when>
@@ -310,7 +332,17 @@
  								</li>
 								</c:forEach>
 								<c:if test="${empty recommendedBookAdult}">
- 									<li>등록된 추천도서가 없습니다.</li>
+ 									<li>	
+										<a>
+										<div class="book-contents-top">
+											<p class="book0003">일반</p>
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+										</div>
+										<div class="book-contents-bottom">
+											등록된 추천도서가 없습니다.
+										</div>
+										</a>
+									</li>
 								</c:if>
 							</ul>
 						</div>
@@ -333,6 +365,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=51"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

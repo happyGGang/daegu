@@ -7,11 +7,11 @@
 			<div class="main-section">
 				<div class="scroll-x">
 					<div class="info">
-						<a href="/with/html.do?menu_idx=64"><b>개인정보처리방침</b></a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=64"><b>개인정보처리방침</b></a>
 						<span class="barss">|</span>
-						<a href="/lib/html.do?menu_idx=65">영상정보처리기기운영관리방침</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=65">영상정보처리방침</a>
 						<span class="barss">|</span>
-						<a href="/lib/html.do?menu_idx=66">행정서비스헌장</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=66">저작권보호정책</a>
 					</div>
 				</div>
 

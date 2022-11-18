@@ -141,7 +141,7 @@
 											</a>
 										</li>
 										<li class="q3">
-											<a href="/${homepage.context_path}/html.do?menu_idx=27">
+											<a href="https://library.daegu.go.kr/elib/index.do" target="_blank">
 												<p class="tit">전자도서관</p>
 												<p class="cont">전자책, 오디오북 등 다양한 컨텐츠를 편리하게 이용해보세요!</p>
 											</a>
@@ -204,6 +204,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=67"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

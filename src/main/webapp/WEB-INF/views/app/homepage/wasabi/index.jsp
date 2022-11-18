@@ -129,25 +129,25 @@
 								<div class="quick-box">
 									<ul>
 										<li class="q1">
-											<a href="">
+											<a href="/${homepage.context_path}/html.do?menu_idx=18">
 												<p class="tit">희망도서신청</p>
 												<p class="cont">이용하고자 하는 도서가 도서관에 없을 경우, 원하는 도서를 신청할 수 있습니다! </p>
 											</a>
 										</li>
 										<li class="q2">
-											<a href="">
+											<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=55">
 												<p class="tit">대출조회·예약</p>
 												<p class="cont">이용자 본인의 대출 및 반납내역을 상세하게 확인할 수 있습니다!</p>
 											</a>
 										</li>
 										<li class="q3">
-											<a href="">
+											<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=28">
 												<p class="tit">강좌신청</p>
 												<p class="cont">다양한 강좌프로그램을 통해 책과 한걸음 더 친해져보세요!</p>
 											</a>
 										</li>
 										<li class="q4">
-											<a href="">
+											<a href="/${homepage.context_path}/board/index.do?menu_idx=31&manage_idx=1093">
 												<p class="tit">공지사항</p>
 												<p class="cont">푸른초장공공도서관의 주요 소식을 빠르게 확인해보세요! </p>
 											</a>
@@ -196,22 +196,22 @@
 			<div class="mIcon">
 				<ul>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=15" class="q01">
+						<a href="/${homepage.context_path}/html.do?menu_idx=20" class="q01">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-1.png" alt="이용안내"><br class="webBr"/>이용안내<p>GUIDE</p></span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/html.do?menu_idx=92" class="q02">
+						<a href="/${homepage.context_path}/html.do?menu_idx=35" class="q02">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-2.png" alt="자원봉사신청"><br class="webBr"/>자원봉사신청<p>VOLUNTEER</p></span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/module/teach/index.do?menu_idx=32" class="q03">
+						<a href="/${homepage.context_path}/html.do?menu_idx=20" class="q03">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-3.png" alt="회원가입안내"><br class="webBr"/>회원가입안내<p>JOIN</p></span>
 						</a>
 					</li>
 					<li>
-						<a href="/bukgs/intro/search/loan/history.do?menu_idx=53" class="q04">
+						<a href="/${homepage.context_path}/html.do?menu_idx=21" class="q04">
 							<span><img src="/resources/homepage/${homepage.context_path}/img/q2-4.png" alt="이용시간·휴관일"><br class="webBr"/>이용시간·휴관일<p>TIME</p></span>
 						</a>
 					</li>
@@ -231,6 +231,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=68"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

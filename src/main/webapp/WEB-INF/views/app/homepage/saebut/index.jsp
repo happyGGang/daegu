@@ -125,6 +125,8 @@
 							<div class="search-area" id="main_search">
 								<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 								<input type="hidden" name="menu_idx" value="9">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+								<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
@@ -153,32 +155,32 @@
 						<div class="quick-menu">
 							<ul>
 								<li class="quick01">
-									<a href="/saebut/html.do?menu_idx=11" class="q01">
+									<a href="/${homepage.context_path}/html.do?menu_idx=11" class="q01">
 										<span>이용안내</span>
 									</a>
 								</li>
 								<li class="quick02">
-									<a href="/saebut/intro/search/loan/index.do?menu_idx=43" class="q02">
+									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=43" class="q02">
 										<span>대출·조회예약</span>
 									</a>
 								</li>
 								<li class="quick03">
-									<a href="/saebut/module/teach/index.do?menu_idx=32" class="q03">
+									<a href="/${homepage.context_path}/html.do?menu_idx=28" class="q03">
 										<span>새벗이야기</span>
 									</a>
 								</li>
 								<li class="quick04">
-									<a href="https://library.daegu.go.kr/dgportal/index.do" class="q04">
+									<a href="https://library.daegu.go.kr/dgportal/index.do" target="_blank" class="q04">
 										<span>통합도서관</span>
 									</a>
 								</li>
 								<li class="quick05">
-									<a href="https://library.daegu.go.kr/elib/index.do" class="q05">
+									<a href="https://library.daegu.go.kr/elib/index.do" target="_blank" class="q05">
 										<span>전자도서관</span>
 									</a>
 								</li>
 								<li class="quick06">
-									<a href="/saebut/intro/search/loan/index.do?menu_idx=43" class="q06">
+									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=43" class="q06">
 										<span>MY도서관</span>
 									</a>
 								</li>
@@ -198,12 +200,12 @@
 				<div class="notice-box">
 					<div class="notice-title">
 						<h3>NOTICE</h3>
-						<a href="/saebut/board/index.do?menu_idx=22&manage_idx=1071" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=22&manage_idx=1071" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 					</div>
 					<div class="notice-contents">
 						<div class="notice-list">
 							<ul>
-								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+								<c:forEach var="i" varStatus="status" items="${noticeList}" begin="0" end="3">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=22&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<h4>${i.title}</h4>
@@ -222,32 +224,32 @@
 				<div class="quick-box">
 					<ul>
 						<li class="quick01">
-							<a href="/saebut/html.do?menu_idx=11" class="q01">
+							<a href="/${homepage.context_path}/html.do?menu_idx=11" class="q01">
 								<span>회원가입안내</span>
 							</a>
 						</li>
 						<li class="quick02">
-							<a href="/saebut/html.do?menu_idx=18" class="q02">
+							<a href="/${homepage.context_path}/html.do?menu_idx=18" class="q02">
 								<span>문화행사</span>
 							</a>
 						</li>
 						<li class="quick03">
-							<a href="/saebut/board/index.do?menu_idx=24&manage_idx=1072" class="q03">
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=24&manage_idx=1072" class="q03">
 								<span>자주하는질문</span>
 							</a>
 						</li>
 						<li class="quick04">
-							<a href="/saebut/html.do?menu_idx=26" class="q04">
+							<a href="/${homepage.context_path}/html.do?menu_idx=26" class="q04">
 								<span>자원봉사신청</span>
 							</a>
 						</li>
 						<li class="quick05">
-							<a href="/saebut/intro/search/loan/index.do?menu_idx=43" class="q05">
+							<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=43" class="q05">
 								<span>도서대출·반납</span>
 							</a>
 						</li>
 						<li class="quick06">
-							<a href="/saebut/html.do?menu_idx=58" class="q06">
+							<a href="/${homepage.context_path}/html.do?menu_idx=58" class="q06">
 								<span>소모임·공간사용신청</span>
 							</a>
 						</li>
@@ -269,6 +271,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=56"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

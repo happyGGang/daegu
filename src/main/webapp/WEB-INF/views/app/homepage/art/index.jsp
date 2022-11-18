@@ -123,7 +123,9 @@
 					<!-- main_search -->
 					<div class="search-area" id="main_search">
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-						<input type="hidden" name="menu_idx" value="9">
+						<input type="hidden" name="menu_idx" value="9"
+						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+						<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 						<fieldset>
 							<legend class="blind">통합검색</legend>
 							<div class="main-box">
@@ -155,13 +157,13 @@
 				<div class="con">
 					<div class="box">
 						<ul>
-							<c:forEach items="${noticeList}" var="i" varStatus="status">
+							<c:forEach items="${noticeList}" var="i" varStatus="status" begin="0" end="3">
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=33&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 										<span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></b></span>
 										<span class="contents">
 										<p class='tit'>${i.title}</p>
-										<p class='cont'>${i.content_summary}</p>
+										<!-- <p class='cont'>${i.content_summary}</p> -->
 									</span>
 									</a>
 								</li>
@@ -177,7 +179,7 @@
 				<div class="qmenu">
 					<ul>
 						<li class="qm1">
-								<a href="/art/html.do?menu_idx=44" title="도서관갤러리">
+								<a href="/${homepage.context_path}/html.do?menu_idx=44" title="도서관갤러리">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu1.png" alt="도서관갤러리"></div>
@@ -188,7 +190,7 @@
 
 						</li>
 						<li class="qm2">
-								<a href="/art/html.do?menu_idx=17" title="희망도서신청">
+								<a href="/${homepage.context_path}/html.do?menu_idx=17" title="희망도서신청">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu2.png" alt="희망도서신청"></div>
@@ -198,7 +200,7 @@
 							</a>
 						</li>
 						<li class="qm3">
-								<a href="/art/html.do?menu_idx=19" title="회원가입안내">
+								<a href="/${homepage.context_path}/html.do?menu_idx=19" title="회원가입안내">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu3.png" alt="회원가입안내"></div>
@@ -208,7 +210,7 @@
 							</a>
 						</li>
 						<li class="qm4">
-								<a href="/art/module/calendarManage/index.do?menu_idx=34" title="이용시간·휴관일">
+								<a href="/${homepage.context_path}/html.do?menu_idx=20" title="이용시간·휴관일">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu4.png" alt="이용시간·휴관일"></div>
@@ -218,7 +220,7 @@
 							</a>
 						</li>
 						<li class="qm5">
-								<a href="/art/html.do?menu_idx=40" title="인사말">
+								<a href="/${homepage.context_path}/html.do?menu_idx=40" title="인사말">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu5.png" alt="인사말"></div>
@@ -229,7 +231,7 @@
 
 						</li>
 						<li class="qm6">
-								<a href="/art/html.do?menu_idx=45" title="찾아오시는길">
+								<a href="/${homepage.context_path}/html.do?menu_idx=45" title="찾아오시는길">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu6.png" alt="찾아오시는길"></div>
@@ -239,7 +241,7 @@
 							</a>
 						</li>
 						<li class="qm7">
-								<a href="/art/html.do?menu_idx=38" title="도서관견학신청">
+								<a href="/${homepage.context_path}/module/excursions/index.do?menu_idx=38" title="도서관견학신청">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu7.png" alt="도서관견학신청"></div>
@@ -249,7 +251,7 @@
 							</a>
 						</li>
 						<li class="qm8">
-								<a href="/art/board/index.do?menu_idx=35&manage_idx=1077" title="자주묻는질문">
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=1077" title="자주묻는질문">
 								<div class="outer">
 									<div class="inner">
 										<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/qu8.png" alt="자주묻는질문"></div>
@@ -292,24 +294,24 @@
 									speed: 500,
 									pager:false,
 									moveSlides:1,
-									maxSlides: 1,
-									slideWidth: 270,
-									slideMargin: 0
+									maxSlides: 3,
+									slideWidth: 200,
+									slideMargin: 20
 								});
 							}
-							else if( _width <= 550 && _width > 320 ){
+							else if( _width <= 768 && _width > 320 ){
 								_books = $('.bookList ul').bxSlider({
 									auto: true,
 									autoHover: true,
 									speed: 500,
 									pager:false,
 									moveSlides:1,
-									maxSlides: 1,
-									slideWidth: 270,
-									slideMargin: 0
+									maxSlides: 3,
+									slideWidth: 200,
+									slideMargin: 20
 								});
 							}
-							else if( _width <= 1024 && _width > 550 ){
+							else if( _width <= 1024 && _width > 768 ){
 								_books = $('.bookList ul').bxSlider({
 									auto: true,
 									autoHover: true,
@@ -366,19 +368,25 @@
 						<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
 							<c:choose>
 								<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+								<li>
 								<a href="${detailURL}">
 									<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 								</a>
+								</li>
 								</c:when>
 								<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+								<li>
 								<a href="${detailURL}">
 									<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
 								</a>
+								</li>
 								</c:when>
 								<c:otherwise>
+								<li>
 								<a href="${detailURL}">
 									<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 								</a>
+								</li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -402,6 +410,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=69"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">
@@ -437,17 +446,20 @@ function fullPage() {
 			var cur_page = destination.index+1;
 			if (destination.index == 0 ) {
 				$('#header').addClass("background-white");
-				$('.Gnb').css('border-bottom','1px solid #626262');
+				$('.Gnb').css('border-top','1px solid rgba(255,255,255,0.4)');
+				$('.Gnb').css('border-bottom','1px solid rgba(255,255,255,0.4)');
 				$('.Gnb').css('background','none');
 				$('.tnb').css('background','none');
 			} else if( destination.index == 1 ) {
 				$('#header').removeClass("background-white");
-				$('.Gnb').css('border-bottom','1px solid #626262');
+				$('.Gnb').css('border-top','1px solid #ddd');
+				$('.Gnb').css('border-bottom','1px solid #ddd');
 				$('.Gnb').css('background','#fff');
 				$('.tnb').css('background','#fff');
 			} else if( destination.index == 2 ) {				
 				$('#header').removeClass("background-white");
-				$('.Gnb').css('border-bottom','1px solid #626262');
+				$('.Gnb').css('border-top','1px solid #ddd');
+				$('.Gnb').css('border-bottom','1px solid #ddd');
 				$('.Gnb').css('background','#fff');
 				$('.tnb').css('background','#fff');
 			} else {

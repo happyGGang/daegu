@@ -138,6 +138,8 @@
 							<div class="search-area" id="main_search">
 								<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 								<input type="hidden" name="menu_idx" value="9">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+								<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
@@ -168,7 +170,7 @@
 				<div class="culture-box">
 					<div class="culture-title">
 						<h3>문화행사</h3>
-						<a href="" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+						<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=27&searchCate1=16" class="more-btn"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 					</div>
 
 					<div class="culture-contents">
@@ -258,7 +260,7 @@
 							<ul>
 								<c:forEach var="i" varStatus="status" items="${teachList1}" begin="0" end="3">
 									<li>
-										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=27&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
 											<div class="culture-contents-top">
 												<c:choose>
 													<c:when test="${status.index eq '0' || status.index eq '2'}">
@@ -337,6 +339,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=66"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

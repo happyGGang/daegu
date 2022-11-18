@@ -209,37 +209,37 @@
 				<div class="quick-menu">
 					<ul>
 						<li class="quick01">
-							<a href="/${homepage.context_path}/html.do?menu_idx=20" class="q01">
+							<a href="/${homepage.context_path}/html.do?menu_idx=70" class="q01">
 								<span>책이음</span>
 							</a>
 						</li>
 						<li class="quick02">
-							<a href="/${homepage.context_path}/html.do?menu_idx=22" class="q02">
+							<a href="/${homepage.context_path}/html.do?menu_idx=71" class="q02">
 								<span>책바다</span>
 							</a>
 						</li>
 						<li class="quick03">
-							<a href="/${homepage.context_path}/html.do?menu_idx=21" class="q03">
+							<a href="/${homepage.context_path}/html.do?menu_idx=72" class="q03">
 								<span>책나래</span>
 							</a>
 						</li>
 						<li class="quick04">
-							<a href="/${homepage.context_path}/html.do?menu_idx=23" class="q04">
+							<a href="/${homepage.context_path}/html.do?menu_idx=73" class="q04">
 								<span>사서에게물어보세요</span>
 							</a>
 						</li>
 						<li class="quick05">
-							<a href="https://library.daegu.go.kr/dgportal/index.do" class="q05">
+							<a href="https://library.daegu.go.kr/dgportal/index.do" target="_blank" class="q05">
 								<span>통합도서관</span>
 							</a>
 						</li>
 						<li class="quick06">
-							<a href="/${homepage.context_path}/html.do?menu_idx=24" class="q06">
+							<a href="https://library.daegu.go.kr/elib/index.do" target="_blank" class="q06">
 								<span>전자도서관</span>
 							</a>
 						</li>
 						<li class="quick07">
-							<a href="/${homepage.context_path}/intro/search/hope/req.do?menu_idx=16" class="q07">
+							<a href="/${homepage.context_path}/html.do?menu_idx=15" class="q07">
 								<span>희망도서신청</span>
 							</a>
 						</li>
@@ -266,7 +266,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/salip/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/salip/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/salip/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
-							<a class="more" href=""><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=68"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

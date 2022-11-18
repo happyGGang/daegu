@@ -7,11 +7,11 @@
 			<div class="main-section">
 				<div class="scroll-x">
 					<div class="info">
-						<a href="/lib/html.do?menu_idx=76"><b>개인정보처리방침</b></a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=65"><b>개인정보처리방침</b></a>
 						<span class="barss">|</span>
-						<a href="/lib/html.do?menu_idx=77">영상정보처리기기운영관리방침</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=66">영상정보처리방침</a>
 						<span class="barss">|</span>
-						<a href="/lib/html.do?menu_idx=78">행정서비스헌장</a>
+						<a href="/${homepage.context_path}/html.do?menu_idx=67">저작권보호정책</a>
 					</div>
 				</div>
 
@@ -21,7 +21,7 @@
 						<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
 						<em>팩스 <b>${homepage.homepage_fax }</b></em>
 					</p>
-					<p class="copyright">Copyright 2022. DAEGUBRAILLELIBRARY All Rights Reserved.</p>
+					<p class="copyright">Copyright 2022. 푸른초장공공도서관 All Rights Reserved.</p>
 				</div>
 
 				<div class="site_link">

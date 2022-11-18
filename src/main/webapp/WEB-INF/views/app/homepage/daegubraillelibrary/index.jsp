@@ -182,7 +182,7 @@
 							</div>
 							<div class="main2-notice-contents">
 								<ul>
-									<c:forEach items="${noticeList}" var="i" varStatus="status">
+									<c:forEach items="${noticeList}" var="i" varStatus="status" begin="0" end="2">
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=33&manage_idx=1087&board_idx=${i.board_idx}">
 												<em>${i.title} ${i.content_summary}</em>
@@ -218,42 +218,42 @@
 				<div class="quick-menu">
 					<ul>
 						<li class="quick01">
-							<a href="https://library.daegu.go.kr/dgportal/index.do" class="q01">
+							<a href="https://library.daegu.go.kr/dgportal/index.do" target="_blank" class="q01">
 								<span>대구통합도서관</span>
 							</a>
 						</li>
 						<li class="quick02">
-							<a href="/daegubraillelibrary/intro/search/index.do?menu_idx=9" class="q02">
+							<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=9" class="q02">
 								<span>통합자료검색</span>
 							</a>
 						</li>
 						<li class="quick03">
-							<a href="https://library.daegu.go.kr/elib/index.do" class="q03">
+							<a href="https://library.daegu.go.kr/elib/index.do" target="_blank" class="q03">
 								<span>대구전자도서관</span>
 							</a>
 						</li>
 						<li class="quick04">
-							<a href="/daegubraillelibrary/board/index.do?menu_idx=33&manage_idx=1087" class="q04">
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=33&manage_idx=1087" class="q04">
 								<span>공지사항</span>
 							</a>
 						</li>
 						<li class="quick05">
-							<a href="/daegubraillelibrary/html.do?menu_idx=29" class="q05">
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="q05">
 								<span>프로그램신청</span>
 							</a>
 						</li>
 						<li class="quick06">
-							<a href="/daegubraillelibrary/html.do?menu_idx=23" class="q06">
+							<a href="/${homepage.context_path}/html.do?menu_idx=23" class="q06">
 								<span>책나래</span>
 							</a>
 						</li>
 						<li class="quick07">
-							<a href="/daegubraillelibrary/html.do?menu_idx=22" class="q07">
+							<a href="/${homepage.context_path}/html.do?menu_idx=22" class="q07">
 								<span>도서대출·반납</span>
 							</a>
 						</li>
 						<li class="quick08">
-							<a href="/daegubraillelibrary/html.do?menu_idx=21" class="q08">
+							<a href="/${homepage.context_path}/html.do?menu_idx=21" class="q08">
 								<span>이용시간·휴관일</span>
 							</a>
 						</li>
@@ -275,6 +275,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=70"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">

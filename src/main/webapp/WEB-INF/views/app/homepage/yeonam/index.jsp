@@ -126,6 +126,8 @@
 							<div class="search-area" id="main_search">
 								<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
 								<input type="hidden" name="menu_idx" value="9">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+								<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 								<fieldset>
 									<legend class="blind">통합검색</legend>
 									<div class="main-box">
@@ -192,7 +194,7 @@
 					<div id="main-slide" class="main-floor1">
 						<div class="book-box-title">
 							<h4>신착도서</h4>
-							<a href="#" class="more-btn">신착도서 더보기 +</a>
+							<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="more-btn">신착도서 더보기 +</a>
 						</div>
 						<div class="swiper-container gallery-top-main">
 							<div class="swiper-wrapper">
@@ -354,7 +356,7 @@
 				<div class="book-box mobile-view">
 					<div class="book-box-title">
 						<h4>신착도서</h4>
-						<a href="/yeonam/intro/search/newBook/index.do?menu_idx=11" class="more-btn">신착도서 더보기 +</a>
+						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="more-btn">신착도서 더보기 +</a>
 					</div>
 					<div class="cont">
 						<ul>
@@ -362,6 +364,7 @@
 							<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
 								<c:choose>
 									<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+									<li>
 									<a href="${detailURL}">
 										<div class="thumbnails">
 											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
@@ -384,16 +387,19 @@
 										</div>
 										<h3 class="book-title">${i.TITLE_INFO}</h3>
 									</a>
+									</li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 							<c:if test="${empty newBookList}">
+							<li>
 								<a href="#">
 									<div class="thumbnails">
 										<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 신착도서가 없습니다."/>
 									</div>
 									<h3 class="book-title">등록된 신착도서가 없습니다.</h3>
 								</a>
+							</li>
 							</c:if>
 						</ul>
 					</div>
@@ -436,6 +442,7 @@
 							<a class="next" href="#next"><img src="/resources/common/img/banner-next-btn.png" alt="다음" /><span class="blind">다음</span></a>
 							<a class="stop active" href="#stop"><img src="/resources/common/img/banner-stop-btn.png" alt="정지" /><span class="blind">정지</span></a>
 							<a class="play" href="#play"><img src="/resources/common/img/banner-start-btn.png" alt="시작" /><span class="blind">시작</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=67"><img src="/resources/common/img/salip/banner-more-btn.png" alt="목록보기" /><span class="blind">목록보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box5">
