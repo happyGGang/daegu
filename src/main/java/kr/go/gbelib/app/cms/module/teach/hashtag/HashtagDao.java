@@ -8,6 +8,8 @@ public interface HashtagDao {
 
     public Hashtag getHashtagOne(Hashtag hashtag);
 
+    public List<Hashtag> getHashtagUsedList(Hashtag hashtag);
+
     public int insertHashtag(Hashtag hashtag);
 
     public int updateHashtag(Hashtag hashtag);

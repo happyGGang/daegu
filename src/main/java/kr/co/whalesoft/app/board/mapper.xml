@@ -2401,6 +2401,7 @@
 						 manage_idx in (426, 849, 850, 916, 977, 993, 1002, 1034)
 					 ORDER BY ADD_DATE DESC
 				 ) A
+				WHERE homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88') -- 사립도서관 제외
 			${pagingBottom}
 	</select>
 
@@ -2439,6 +2440,7 @@
 						 B.board_type = 'MOVIE'
 					 ORDER BY add_date DESC
 				 ) A
+				WHERE homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88') -- 사립도서관 제외
 			${pagingBottom}
 	</select>
 

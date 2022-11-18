@@ -16,10 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
+import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
+import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
 import kr.go.gbelib.app.common.api.CultureAPI;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -74,13 +77,13 @@ import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
 public class IndexController extends BaseController {
 
 	private final String basePath = "/homepage/";
-	
+
 	@Autowired
 	private LibrarySearchService service;
-	
+
 	@Autowired
 	private LibrarySearchService librarySearchService;
-	
+
 	@Autowired
 	private BoardService boardService;
 
@@ -89,7 +92,7 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private PopupZoneService popupZoneService;
-	
+
 	@Autowired
 	private PopupZoneTopService popupZoneTopService;
 
@@ -131,12 +134,15 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private BookKeywordService bookKeywordService;
-	
+
 	@Autowired
 	private BookService bookService;
 
 	@Autowired
 	private SpecializedServicesService specializedServicesService;
+
+	@Autowired
+	private HashtagService hashtagService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -685,14 +691,14 @@ public class IndexController extends BaseController {
 					t.setHomepage_ids(homepage_ids);
 				} else {
 					t.setHomepage_id(homepage.getHomepage_id());
-					
+
 				}
 
 				// 고산 문화행사만 조회
 				if(th.equals("h52")) t.setSearchCate1("16");
-				
+
 				model.addAttribute("teachList", teachService.getTeachListForUser(t));
-				
+
 				// 고산 특성화프로그램
 				if(th.equals("h52")) {
 					Teach t2 = new Teach();
@@ -716,7 +722,7 @@ public class IndexController extends BaseController {
 				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
 		}
-		
+
 		//강좌목록3
 		//h82 비전공공도서관
 		String[] teachHomepage3 = {"h82"};
@@ -771,11 +777,11 @@ public class IndexController extends BaseController {
 //				h = homepageService.getHomepageOne(h);
 //				teach.setHomepage_name(h.getHomepage_name());
 //				teach.setHomepage_id(h.getHomepage_id());
-//				
+//
 //				if (!h.getHomepage_group().equals("ALL")) {
 //					h = homepageService.getHomepageOne(new Homepage(h.getHomepage_group()));
 //				}
-//				
+//
 //				teach.setContext_path(h.getContext_path());
 //				if (teach.getHomepage_id().equals("h7")) {
 //					teach.setMenu_idx(30);
@@ -786,18 +792,18 @@ public class IndexController extends BaseController {
 //					teach.setMenu_idx(menuService.getMenuIdxByProgramIdx(m));
 //				}
 //			}
-//			
+//
 //			List<Teach> list = teachListForAllHomepageForRandom;
-//			
+//
 //			String temp = "";
 //			for(Iterator<Teach> it=list.iterator(); it.hasNext();){
 //				Teach item = it.next();
-//				
+//
 //	            if(item.getHomepage_id().equals(temp)) it.remove();
-//	            
+//
 //	            temp = item.getHomepage_id();
 //	        }
-//			
+//
 //			Collections.shuffle(list);
 //			model.addAttribute("teachListRandom", list);
 
@@ -813,13 +819,13 @@ public class IndexController extends BaseController {
 			b2.setTotalDataCount(20);
 			List<Board> boardListByMainForRandom = boardService.getAllHomepageBoardListByMain2(b2);
 			Collections.shuffle(boardListByMainForRandom);
-			
+
 			model.addAttribute("noticeBoardListRandom", boardListByMainForRandom);
 
 			String boardCategory2 = boardManageService.getBoardManageOne(new BoardManage(homepage.getHomepage_id(), 299)).getCategory2();
 			List<Code> category2List = codeService.getCode(homepage.getHomepage_id(), boardCategory2);
 			model.addAttribute("category2List", category2List);
-			
+
 			// 도서서비스 사서추천
 			Board bookBoard = new Board();
 			bookBoard.setManage_idx(299);
@@ -843,7 +849,7 @@ public class IndexController extends BaseController {
 		if (homepage.getHomepage_id().equals("h53")) {
 			model.addAttribute("bookList1", boardService.getBoardBookJungu());
 		}
-		
+
 		//달성군립
 		if (homepage.getHomepage_id().equals("h44")) {
 			Board b = new Board();
@@ -912,20 +918,20 @@ public class IndexController extends BaseController {
 			if(board.getPlan_date() == null || board.getPlan_date().equals("")) {
 				board.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 			}
-			
+
 			BoardManage boardManage = new BoardManage();
 			boardManage.setBoard_type("BOOK");
-			
+
 			model.addAttribute("bookList", boardService.getBoard(boardManage, board));
 			//신착도서
 			Book book = new Book();
 			book.setType("EBK");
 			book.setSortField("a.ADD_DATE");
 			book.setSortType("DESC");
-			
+
 			model.addAttribute("newBookList", bookService.getBookList(book));
 		}
-		
+
 		//도토리도서관 북큐레이션
 		if (homepage.getHomepage_id().equals("h80")) {
 			Board b = new Board();
@@ -937,14 +943,14 @@ public class IndexController extends BaseController {
 			b.setCategory1("0003");
 			model.addAttribute("recommendedBookAdult", boardService.getSubBoardByMainDotory(b));
 		}
-		
+
 		//새벗도서관
 		if (homepage.getHomepage_id().equals("h83")) {
 			Board b = new Board();
 			b.setManage_idx(1071);
 			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
 		}
-		
+
 		//아트도서관, 연암도서관 신착도서
 		if(homepage.getHomepage_id().equals("h84") || homepage.getHomepage_id().equals("h85") ) {
 			LibrarySearch librarySearch = new LibrarySearch();
@@ -958,7 +964,7 @@ public class IndexController extends BaseController {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			//1주전
 			int beforeDays = -30;
-			
+
 			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
 			librarySearch.setSearch_end_date(sf.format(new Date()));
 
@@ -992,7 +998,7 @@ public class IndexController extends BaseController {
 			model.addAttribute("newBookList", list);
 			model.addAttribute("librarySearch", librarySearch);
 		}
-		
+
 		//연암마을도서관
 		String[] teachHomepage4 = {"h85"};
 		for (String th: teachHomepage4 ) {
@@ -1005,7 +1011,7 @@ public class IndexController extends BaseController {
 				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
 		}
-		
+
 		//한들마을도서관
 		String[] teachHomepage5 = {"h88"};
 		for (String th: teachHomepage5 ) {
@@ -1023,14 +1029,20 @@ public class IndexController extends BaseController {
 			Code code = new Code();
 			code.setGroup_id("A0000");
 			model.addAttribute("areaCodeList", codeService.getCodeList(code));
+
+			code.setGroup_id("TC000");
+			model.addAttribute("ageCodeList", codeService.getCodeList(code));
+
+			model.addAttribute("hashtagCodeList", hashtagService.getHashtagUsedList(new Hashtag()));
+			model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(new Teach(), "N"));
 		}
 
 		log.debug("jsp Page : "+basePath + filePath);
 
 		BookKeyword bookKeyword = new BookKeyword();
-		
+
 		model.addAttribute("bookKeywordList", bookKeywordService.getBookKeywordList(bookKeyword));
-		
+
 		return basePath + filePath;
 	}
 
@@ -1136,7 +1148,7 @@ public class IndexController extends BaseController {
 				planRepo.put(key, closedList);
 			}
 		}
-		
+
 		for (CalendarManage event : eventDay) {
 			List<String> eventList = null;
 
@@ -1258,7 +1270,7 @@ public class IndexController extends BaseController {
 		    	planRepo.put(endKey, excursionsList);
 		    }
 		}
-		
+
 			for (Teach teach : teachDay) {
 				List<String> teachList = null;
 				String[] teachDays 	= teach.getTeach_day().split(",");
@@ -1267,15 +1279,15 @@ public class IndexController extends BaseController {
 				String startKey 	= teach.getStart_date().substring(8,10);
 				String endKey 		= teach.getEnd_date().substring(8,10);
 				SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 				Date startDate 	= DateUtils.parseDate(startDateStr, pattern);
 				Date endDate 	= DateUtils.parseDate(endDateStr, pattern);
-	
+
 				while( !DateUtils.isSameDay(startDate, endDate) ) {
 					if ( startDate.after(endDate) ) {
 						break;
 					}
-					
+
 					if ( sf.format(startDate).startsWith(planDate) ) {
 				    	 Calendar cal = Calendar.getInstance() ;
 					     cal.setTime(startDate);
@@ -1319,7 +1331,7 @@ public class IndexController extends BaseController {
 					    	  }
 					     }
 				     }
-	
+
 				     startDate = DateUtils.addDays(startDate, 1);
 				}
 				if ( sf.format(startDate).startsWith(planDate) ) {
@@ -1357,7 +1369,7 @@ public class IndexController extends BaseController {
 				    	}
 				    }
 			    }
-	
+
 			}
 
 		for (FacilityReq facility : facilityDayList) {
@@ -1562,7 +1574,7 @@ public class IndexController extends BaseController {
 				    		  else {
 				    			  teachList = new ArrayList<String>();
 				    		  }
-				    		  
+
 				    		  if (!teachList.contains("[휴관일]")) {
 								  boolean holidayCheck = false;
 				    			  String teachStatus = "[강좌]";
@@ -1652,7 +1664,7 @@ public class IndexController extends BaseController {
 		}
 		return planRepo;
 	}
-	
+
 	private Map<String, List<String>> getCalendarMarkPrivate(String planDate, CalendarManage closedDay, List<CalendarManage> eventDay, List<Board> movieDay, List<Apply> applyDay, List<Teach> teachDay, List<FacilityReq> facilityDayList) throws ParseException {
 		Map<String, List<String>> planRepo = new HashMap<String, List<String>>();
 		String[] pattern = {"yyyy-MM-dd"};
@@ -1676,7 +1688,7 @@ public class IndexController extends BaseController {
 				planRepo.put(key, closedList);
 			}
 		}
-		
+
 		for (CalendarManage event : eventDay) {
 			List<String> eventList = null;
 
@@ -1744,7 +1756,7 @@ public class IndexController extends BaseController {
 				if ( startDate.after(endDate) ) {
 					break;
 				}
-				
+
 				if ( sf.format(startDate).startsWith(planDate) ) {
 			    	 Calendar cal = Calendar.getInstance() ;
 				     cal.setTime(startDate);
@@ -1785,7 +1797,7 @@ public class IndexController extends BaseController {
 
 			     startDate = DateUtils.addDays(startDate, 1);
 				}
-				
+
 				if ( sf.format(startDate).startsWith(planDate) ) {
 					Calendar cal = Calendar.getInstance() ;
 				    cal.setTime(endDate);
@@ -1819,6 +1831,27 @@ public class IndexController extends BaseController {
 			}
 		return planRepo;
 	}
+	/*
+	* 다드림
+	 */
+	@RequestMapping(value = { "/{contextPath}/searchCulture.*" })
+	public String searchCulture(Model model, HttpServletRequest request, @PathVariable String contextPath, Teach teach) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.set(Integer.parseInt(teach.getSearch_yy()), Integer.parseInt(teach.getSearch_mm())-1, 1); //월은 -1해줘야 해당월로 인식
+
+		String yy = teach.getSearch_yy();
+		String mm = teach.getSearch_mm();
+
+		teach.setSearch_start_date(yy+mm+String.format("%02d", 1));
+		teach.setSearch_end_date(yy+mm+cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+		model.addAttribute("searchTeachList",teachService.getTeachListForAllSearchCulture(teach));
+		model.addAttribute("count", teachService.getTeachListForAllSearchCultureCount(teach));
+		return basePath + homepage.getFolder() + "/searchCulture_ajax";
+	}
+
 
 	/*
 	 * 문화포털 최상단 강좌(노출여부에따라 표현)

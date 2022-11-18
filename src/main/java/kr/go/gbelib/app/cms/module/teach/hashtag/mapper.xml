@@ -21,6 +21,15 @@
       hashtag_idx = #{hashtag_idx}
   </select>
 
+  <select id="getHashtagUsedList" resultType="kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag">
+    SELECT
+        hashtag_code,hashtag_name
+    FROM
+        TEACH_HASHTAG
+    WHERE
+        use_yn = 'Y'
+  </select>
+
   <select id="checkHashtag" resultType="string">
     SELECT
       DECODE(COUNT(*), 0, 'N', 'Y')

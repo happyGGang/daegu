@@ -19,6 +19,10 @@ public class HashtagService extends BaseService {
         return dao.getHashtagOne(hashtag);
     }
 
+    public List<Hashtag> getHashtagUsedList(Hashtag hashtag) {
+        return dao.getHashtagUsedList(hashtag);
+    }
+
     public int insertHashtag(Hashtag hashtag) {
         return dao.insertHashtag(hashtag);
     }

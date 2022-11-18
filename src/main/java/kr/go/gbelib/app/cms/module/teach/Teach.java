@@ -208,6 +208,15 @@ public class Teach extends PagingUtils {
 	private String culture_view_yn = "N"; // 문화포털 노출여부
 
 	private String date; // api 날짜값
+
+	// 문화포털 다드림 검색조건
+	private String search_yy;
+	private String search_mm;
+	private String search_start_date;
+	private String search_end_date;
+	private String search_area;
+	private String search_target;
+	private String search_hashtag;
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -1653,5 +1662,61 @@ public class Teach extends PagingUtils {
 
 	public void setCulture_view_yn(String culture_view_yn) {
 		this.culture_view_yn = culture_view_yn;
+	}
+
+	public String getSearch_start_date() {
+		return search_start_date;
+	}
+
+	public void setSearch_start_date(String search_start_date) {
+		this.search_start_date = search_start_date;
+	}
+
+	public String getSearch_end_date() {
+		return search_end_date;
+	}
+
+	public void setSearch_end_date(String search_end_date) {
+		this.search_end_date = search_end_date;
+	}
+
+	public void setSearch_area(String search_area) {
+		this.search_area = search_area;
+	}
+
+	public void setSearch_target(String search_target) {
+		this.search_target = search_target;
+	}
+
+	public void setSearch_hashtag(String search_hashtag) {
+		this.search_hashtag = search_hashtag;
+	}
+
+	public String getSearch_yy() {
+		return search_yy;
+	}
+
+	public void setSearch_yy(String search_yy) {
+		this.search_yy = search_yy;
+	}
+
+	public String getSearch_mm() {
+		return search_mm;
+	}
+
+	public void setSearch_mm(String search_mm) {
+		this.search_mm = search_mm;
+	}
+
+	public String getSearch_area() {
+		return search_area;
+	}
+
+	public String getSearch_target() {
+		return search_target;
+	}
+
+	public String getSearch_hashtag() {
+		return search_hashtag;
 	}
 }
