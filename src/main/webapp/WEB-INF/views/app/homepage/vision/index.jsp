@@ -125,7 +125,7 @@
 							<fieldset>
 								<div class="box1">
 									<div class="box2">
-										<input name="search_text" id="search_text_1" type="text" class="text" placeholder="찾으시는 도서 정보를 입력하세요." title="통합검색"/>
+										<input name="title" id="search_text_1" type="text" class="text" placeholder="찾으시는 도서 정보를 입력하세요." title="통합검색"/>
 									</div>
 								</div>
 								<button id="main-search-btn">통합검색</button>
