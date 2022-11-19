@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <c:choose>
@@ -46,7 +47,11 @@
 			if ($('select#manageCode option:selected').val() != '') {
 				$('input[name="homepage_id"]').val($('select#manageCode option:selected').data('hid'));
 			}
-
+			
+// 			if ($('select#manageCode option:selected').val() == 'BF') {
+// 				alert('도서구입비 예산 소진으로 2022년 희망도서 신청이 종료되었습니다.');
+// 				return false;
+// 			}
 
 			doAjaxPost($('#reqHopeForm'));
 			location.reload();
@@ -54,7 +59,7 @@
 
 		$('#not-save-btn').on('click', function(e) {
 			e.preventDefault();
-			alert('2021년도 희망도서 신청이 마감되었습니다.'); return false;
+			alert('도서구입비 예산 소진으로 2022년 희망도서 신청이 종료되었습니다.'); return false;
 		});
 
 		doAjaxLoad('div#searchBox', 'search.do');
@@ -65,8 +70,9 @@
 	</script>
 	</c:otherwise>
 </c:choose>
-
 <!-- contents-title-->
+<jsp:useBean id="toDay" class="java.util.Date" />
+<fmt:formatDate var="tt" value="${toDay}" pattern="yyyy-MM-dd"/>
 <c:choose>
 <c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'buktj' || homepage.context_path eq 'bukdh'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;'>
@@ -85,6 +91,11 @@
 <c:when test="${homepage.context_path eq 'dalseonglib'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
 		2022년 달성군립 작은도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
+	</div>
+</c:when>
+<c:when test="${homepage.context_path eq 'gosan' && tt eq '2022-11-21'}">
+	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+		도서구입비 예산 소진으로 2022년 희망도서 신청이 종료되었습니다.
 	</div>
 </c:when>
 <c:otherwise>
@@ -424,9 +435,17 @@
 </form:form>
 
 <div class="kbtn txt-center">
+
 <c:choose>
-	<c:when test="${homepagePath eq '' || homepagePath eq '' || homepagePath eq ''}">
-	<a id="not-save-btn" href="" class="btn btn5"><span>신청하기</span></a>
+	<c:when test="${homepagePath eq 'gosan'}">
+		<c:choose>
+			<c:when test="${tt eq '2022-11-21'}">
+				<a id="not-save-btn" href="" class="btn btn5"><span>신청하기</span></a>
+			</c:when>
+			<c:otherwise>
+				<a id="save-btn" href="" class="btn btn5"><span>신청하기</span></a>
+			</c:otherwise>
+		</c:choose>
 	</c:when>
 	<c:otherwise>
 	<a id="save-btn" href="" class="btn btn5"><span>신청하기</span></a>
