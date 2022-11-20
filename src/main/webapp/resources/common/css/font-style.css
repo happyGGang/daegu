@@ -93,25 +93,6 @@
 }
 
 @font-face {
-    font-family: 'S-Core Dream 6';
-    src: url(../font/S-CoreDream-6Bold.eot);
-    src: url(../font/S-CoreDream-6Bold.eot?#iefix) format('embedded-opentype'),
-        url(../font/S-CoreDream-6Bold.woff2) format('woff2'),
-        url(../font/S-CoreDream-6Bold.woff) format('woff');
-    font-weight: 600;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'S-Core Dream 5';
-    src: url(../font/S-CoreDream-5Medium.eot);
-    src: url(../font/S-CoreDream-5Medium.eot?#iefix) format('embedded-opentype'),
-        url(../font/S-CoreDream-5Medium.woff2) format('woff2'),
-        url(../font/S-CoreDream-5Medium.woff) format('woff');
-    font-weight: 500;
-    font-style: normal;
-}
-
-@font-face {
 	font-family: 'NanumSquare';
 	font-weight: 700;
 	font-style: normal;
@@ -166,8 +147,8 @@
 
 @font-face {
     font-family: 's-core_dream1_thin';
-    src: url('../font/scdream1.woff2') format('woff2'),
-         url('../font/scdream1.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream1.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream1.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -175,8 +156,8 @@
 
 @font-face {
     font-family: 's-core_dream2_extralight';
-    src: url('../font/scdream2.woff2') format('woff2'),
-         url('../font/scdream2.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream2.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream2.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -184,8 +165,8 @@
 
 @font-face {
     font-family: 's-core_dream3_light';
-    src: url('../font/scdream3.woff2') format('woff2'),
-         url('../font/scdream3.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream3.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream3.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -193,8 +174,8 @@
 
 @font-face {
     font-family: 's-core_dream4_regular';
-    src: url('../font/scdream4.woff2') format('woff2'),
-         url('../font/scdream4.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream4.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream4.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -202,8 +183,8 @@
 
 @font-face {
     font-family: 's-core_dream5_medium';
-    src: url('../font/scdream5.woff2') format('woff2'),
-         url('../font/scdream5.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream5.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream5.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -211,8 +192,8 @@
 
 @font-face {
     font-family: 's-core_dream6_bold';
-    src: url('../font/scdream6.woff2') format('woff2'),
-         url('../font/scdream6.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream6.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream6.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -220,8 +201,8 @@
 
 @font-face {
     font-family: 's-core_dream7_extrabold';
-    src: url('../font/scdream7.woff2') format('woff2'),
-         url('../font/scdream7.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream7.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream7.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -229,8 +210,8 @@
 
 @font-face {
     font-family: 's-core_dream8_heavy';
-    src: url('../font/scdream8.woff2') format('woff2'),
-         url('../font/scdream8.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream8.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream8.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -238,8 +219,8 @@
 
 @font-face {
     font-family: 's-core_dream9_black';
-    src: url('../font/scdream9.woff2') format('woff2'),
-         url('../font/scdream9.woff') format('woff');
+    src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream9.woff2) format('woff2'),
+         url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream9.woff) format('woff');
     font-weight: normal;
     font-style: normal;
 
