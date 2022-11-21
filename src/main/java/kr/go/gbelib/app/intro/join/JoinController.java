@@ -964,12 +964,19 @@ public class JoinController extends BaseController {
 	@RequestMapping (value = {"/passCheck.*"}, method = RequestMethod.GET)
 	public String passCheck(@PathVariable String context_path, Member member, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
-			return null;
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				return null;
+			}
 		}
-
+		
 		return basePath + "passCheck";
 	}
 
@@ -994,9 +1001,16 @@ public class JoinController extends BaseController {
 			return null;
 		}
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
-			return null;
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				return null;
+			}
 		}
 		
 		if(member.getPrivateMemberYn(homepage)) {

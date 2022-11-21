@@ -1501,13 +1501,21 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/hope/index.*"})
 	public String hopeIndex(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
-
+		
 		Member member = getSessionMemberInfo(request);
 		librarySearch.setUserkey(member.getRec_key());
 		
@@ -1566,10 +1574,19 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		Member member = getSessionMemberInfo(request);
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		if (!StringUtils.equals(member.getMember_class(), "0")) {
@@ -1697,11 +1714,18 @@ public class CommonSearchController extends BaseController {
 	public String hopeSearch(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + homepage.getContext_path() + "/login/index.do", request, response);
+				return null;
+			}
 		}
-
+		
 		Member member = getSessionMemberInfo(request);
 		if (!StringUtils.equals(member.getMember_class(), "0")) {
 			service.alertMessage("희망도서 신청 가능한 회원이 아닙니다.", request, response);
@@ -1973,10 +1997,19 @@ public class CommonSearchController extends BaseController {
 	public String myResve(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		Member member = getSessionMemberInfo(request);
@@ -2026,12 +2059,20 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			return res;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
 		}
-
+		
 		if (!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
@@ -2128,12 +2169,21 @@ public class CommonSearchController extends BaseController {
 	public String myLoan(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
-		}
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 
+		}
+		
 		Member member = getSessionMemberInfo(request);
 
 		if (request.getRequestURI().endsWith("/loan/history.do")) {
@@ -2281,12 +2331,20 @@ public class CommonSearchController extends BaseController {
 	public String sanghoHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
-
+		
 		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
 			service.alertMessage("책이음회원이 아니므로 상호대차 신청내역 조회가 불가능합니다", request, response);
 			return null;
@@ -2354,10 +2412,18 @@ public class CommonSearchController extends BaseController {
 	public String sanghoUsedHistory(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
@@ -2430,10 +2496,18 @@ public class CommonSearchController extends BaseController {
 
 		model.addAttribute("librarySearch", librarySearch);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		Member member = getSessionMemberInfo(request);
@@ -2588,6 +2662,8 @@ public class CommonSearchController extends BaseController {
 	public @ResponseBody JsonResponse sanghoSave(LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 
+		Homepage homepage = getSessionHomepage(request);
+		
 		if (!StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
 			ValidationUtils.rejectIfEmpty(result, "uselibcode", "제공받을 도서관을 선택해주세요.");
 			if (StringUtils.isEmpty(librarySearch.getManageCode()) || StringUtils.isEmpty(librarySearch.getUselibcode())) {
@@ -2595,17 +2671,21 @@ public class CommonSearchController extends BaseController {
 			}
 		}
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			result.reject("로그인 후 이용가능합니다.");
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+			}
 		}
-
+		
 		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
 			result.reject("책이음회원이 아니므로 상호대차 신청이 불가능합니다");
 		}
 
 		if (!result.hasErrors()) {
-
-			Homepage homepage = getSessionHomepage(request);
 
 			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
 				if(librarySearch.getPrivateLibraryYn(homepage)) {
@@ -2690,10 +2770,18 @@ public class CommonSearchController extends BaseController {
 	public String unmannedForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		if (librarySearch.getBooktype() == null) {
@@ -2746,13 +2834,23 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/unmanned/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveUnmanned(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) throws ParseException {
 		JsonResponse res = new JsonResponse(request);
+		
+		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			return res;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
 		}
-
+		
 		if (!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
@@ -2760,8 +2858,6 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
-
-			Homepage homepage = getSessionHomepage(request);
 
 			librarySearch.setUserkey(member.getRec_key());
 
@@ -2913,10 +3009,18 @@ public class CommonSearchController extends BaseController {
 	public String nightForm(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		if (librarySearch.getBooktype() == null) {
@@ -2967,15 +3071,24 @@ public class CommonSearchController extends BaseController {
 	 */
 	@RequestMapping(value = {"/night/save.*"}, method=RequestMethod.POST)
 	public @ResponseBody JsonResponse saveNight(Model model, LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
-		//Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
+		
+		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			return res;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
 		}
-
+		
 		if (!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
@@ -3279,10 +3392,19 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping (value = { "/drone/req.*" }, method = RequestMethod.POST)
 	public String droneReq(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		Homepage homepage = getSessionHomepage(request);
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		if ("Y".equals(loanRequestService.getReqeustBookYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), getSessionMemberId(request), librarySearch.getRegNo())))) {
@@ -3324,10 +3446,18 @@ public class CommonSearchController extends BaseController {
 
 		model.addAttribute("librarySearch", librarySearch);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		LoanRequest loanRequest = LoanRequest.ofHomepageRequest(homepage.getManage_code(),member.getMember_id(), librarySearch.getSearch_start_date(), librarySearch.getSearch_end_date());
@@ -3345,9 +3475,17 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping (value = { "/drone/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse droneSave(LibrarySearch librarySearch, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			result.reject("로그인 후 이용가능합니다.");
+		
+		Homepage homepage = getSessionHomepage(request);
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+			}
 		}
 
 		if (deviceSettingService.getDeviceUsedCount(new DeviceSetting()) <= 0) {

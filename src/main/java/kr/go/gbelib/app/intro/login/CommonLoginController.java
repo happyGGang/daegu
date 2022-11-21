@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,9 +152,9 @@ public class CommonLoginController extends BaseController {
 							if(adminMember != null) {
 								member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
 							}
-							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-							if (!member.getAuthGroupIdxList().contains(3)) {
-								member.getAuthGroupIdxList().add(3);
+							//사립도서관 회원그룹에 속하게 한다
+							if (!member.getAuthGroupIdxList().contains(100)) {
+								member.getAuthGroupIdxList().add(100);
 							}
 
 							MemberGroup memberGroup = new MemberGroup();
@@ -179,7 +180,7 @@ public class CommonLoginController extends BaseController {
 
 				request.getSession().removeAttribute("loginSupport");
 				request.getSession().removeAttribute("loginPortal");
-				service.setSessionPrivateMember(member, request);
+				service.setSessionMember(member, request);
 
 				Device device = DeviceUtils.getCurrentDevice(request);
 				model.addAttribute("isMobile", device.isMobile() || device.isTablet());
@@ -355,6 +356,8 @@ public class CommonLoginController extends BaseController {
 			member.setLoginType("PRIVATEHOMEPAGE");
 			Object result = PrivateLoginAPI.login(member);
 			if (result instanceof Member) {
+				HttpSession session = request.getSession();
+				session.invalidate();
 
 				// 비번 틀려서 계정이 잠김
 				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
@@ -389,9 +392,9 @@ public class CommonLoginController extends BaseController {
 							if(adminMember != null) {
 								member.setAuthGroupIdxList(memberGroupSubordService.getAuthGroupIdxList(adminMember));
 							}
-							//통합회원그룹에 속하게 한다. 도서관은 하드코딩한다...
-							if (!member.getAuthGroupIdxList().contains(3)) {
-								member.getAuthGroupIdxList().add(3);
+							//사립도서관 회원그룹에 속하게 한다
+							if (!member.getAuthGroupIdxList().contains(100)) {
+								member.getAuthGroupIdxList().add(100);
 							}
 
 							MemberGroup memberGroup = new MemberGroup();
@@ -417,7 +420,7 @@ public class CommonLoginController extends BaseController {
 
 				request.getSession().removeAttribute("loginSupport");
 				request.getSession().removeAttribute("loginPortal");
-				service.setSessionPrivateMember(member, request);
+				service.setSessionMember(member, request);
 
 				Device device = DeviceUtils.getCurrentDevice(request);
 				model.addAttribute("isMobile", device.isMobile() || device.isTablet());
@@ -448,6 +451,8 @@ public class CommonLoginController extends BaseController {
 			member.setLoginType("HOMEPAGE");
 			Object result = LoginAPI.login(member);
 			if (result instanceof Member) {
+				HttpSession session = request.getSession();
+				session.invalidate();
 
 				// 비번 틀려서 계정이 잠김
 				if ("Y".equals(accountLockService.isLocked(new AccountLock(member, request.getRemoteAddr())))) {
@@ -588,19 +593,31 @@ public class CommonLoginController extends BaseController {
 	@RequestMapping (value = {"/mobileCard.*"})
 	public String mobileCard(@PathVariable ("homepagePath") String homepagePath, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			String beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
-			if (request.getRequestURI().endsWith("/intro/login/mobileCard.do")) {
-				beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
-			}
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/" + homepage.getContext_path() + String.format("/intro/login/index.do?menu_idx="+loginMenuIdx+"&before_url=%s", beforeUrl), request, response);
-			return null;
-		}
-
+		
 		Member member = getSessionMemberInfo(request);
 
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				String beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
+				if (request.getRequestURI().endsWith("/intro/login/mobileCard.do")) {
+					beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
+				}
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/" + homepage.getContext_path() + String.format("/intro/login/index.do?menu_idx="+loginMenuIdx+"&before_url=%s", beforeUrl), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				String beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
+				if (request.getRequestURI().endsWith("/intro/login/mobileCard.do")) {
+					beforeUrl = String.format("/%s/intro/login/mobileCard.do?menu_idx=%s", homepage.getContext_path(), loginMenuIdx);
+				}
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/" + homepage.getContext_path() + String.format("/intro/login/index.do?menu_idx="+loginMenuIdx+"&before_url=%s", beforeUrl), request, response);
+				return null;
+			}
+		}
+		
 		if (StringUtils.isBlank(member.getUser_no())) {
 			service.alertMessage("대출회원만 가능합니다.", request, response);
 			return null;

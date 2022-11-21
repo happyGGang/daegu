@@ -2,6 +2,7 @@ package kr.go.gbelib.app.intro.login;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,10 @@ public class LoginController extends BaseController {
 			member.setLoginType("PRIVATEHOMEPAGE");
 			Object result = PrivateLoginAPI.login(member);
 			if (result instanceof Member) {
+				//TODO 세션지우기..
+				HttpSession session = request.getSession();
+				session.invalidate();
+				
 				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
 				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
@@ -121,6 +126,10 @@ public class LoginController extends BaseController {
 			member.setLoginType("HOMEPAGE");
 			Object result = LoginAPI.login(member);
 			if (result instanceof Member) {
+				//TODO 세션지우기..
+				HttpSession session = request.getSession();
+				session.invalidate();
+				
 				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
 				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
@@ -179,14 +188,21 @@ public class LoginController extends BaseController {
 	@RequestMapping (value = {"/mobileCard.*"})
 	public String mobileCard(@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
-			return null;
-		}
-
+		
 		Member member = getSessionMemberInfo(request);
 
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				return null;
+			}
+		}
+		
 		if (StringUtils.isBlank(member.getUser_no())) {
 			service.alertMessage("대출회원만 가능합니다.", request, response);
 			return null;

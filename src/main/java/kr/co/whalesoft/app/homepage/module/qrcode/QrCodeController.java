@@ -176,10 +176,18 @@ public class QrCodeController extends BaseController {
 	public String app(Model model, QRCode qrcode, HttpServletRequest request,HttpServletResponse response) throws Exception{
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			qrcode.setBefore_url(String.format("/%s/module/qrcode/app.do?menu_idx=%s", homepage.getContext_path(), qrcode.getMenu_idx()));
-			homepageService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), qrcode.getMenu_idx(), qrcode.getBefore_url()), request, response);
-			return null;
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				qrcode.setBefore_url(String.format("/%s/module/qrcode/app.do?menu_idx=%s", homepage.getContext_path(), qrcode.getMenu_idx()));
+				homepageService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), qrcode.getMenu_idx(), qrcode.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				qrcode.setBefore_url(String.format("/%s/module/qrcode/app.do?menu_idx=%s", homepage.getContext_path(), qrcode.getMenu_idx()));
+				homepageService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), qrcode.getMenu_idx(), qrcode.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 		model.addAttribute("qrcode", qrcode);

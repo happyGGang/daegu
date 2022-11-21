@@ -247,23 +247,4 @@ public class LoginService extends BaseService {
 		return (Member)session.getAttribute(StaticVariables.MEMBER);
 	}
 	
-	/**
-	 * 세션에 member 객체를 담는다.
-	 * @param member
-	 * @param request
-	 */
-	public void setSessionPrivateMember(Member member, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.setAttribute(StaticVariables.PRIVATEMEMBER, member);
-	}
-
-	/**
-	 * 세션에서 member 객체를 가져온다.
-	 * @param request
-	 * @return
-	 */
-	public Member getSessionPrivateMember(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		return (Member)session.getAttribute(StaticVariables.PRIVATEMEMBER);
-	}
 }

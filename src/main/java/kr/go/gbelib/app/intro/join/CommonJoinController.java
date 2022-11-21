@@ -214,13 +214,21 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping (value = {"/modifyCheck.*"}, method = RequestMethod.GET)
 	public String modifyCheck(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
-
+		
 		return String.format(basePath, homepage.getFolder()) + "modifyCheck";
 	}
 
@@ -245,10 +253,18 @@ public class CommonJoinController extends BaseController {
 		}
 
 		//로그인확인
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), loginMenuIdx), request, response);
-			return null;
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http%s://%s/%s/intro/login/index.do?menu_idx=%d", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path(), member.getMenu_idx(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 
 		//비밀번호 확인
@@ -499,13 +515,21 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/secessionForm.*"})
 	public String secessionForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
-
+		
 		model.addAttribute("memberInfo", new Member());
 		return String.format(basePath, homepage.getFolder()) + "secessionForm";
 	}
@@ -527,14 +551,24 @@ public class CommonJoinController extends BaseController {
 
 		JsonResponse res = new JsonResponse(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			res.setValid(true);
-			res.setMessage("로그인 후 이용가능합니다.");
-			res.setUrl(String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
-			return res;
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				res.setValid(true);
+				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+				return res;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				res.setValid(true);
+				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("http://%s/%s/intro/login/index.do?menu_idx=%d", homepage.getDomainWithoutProtocol(), homepage.getContext_path(), loginMenuIdx));
+				return res;
+			}
 		}
-
+		
 		if (!result.hasErrors()) {
 			Member sessionMember = getSessionMemberInfo(request);
 
@@ -1076,13 +1110,22 @@ public class CommonJoinController extends BaseController {
 	public String dls(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			String before_url = String.format("/%s/intro/join/dls.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
-			return null;
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				String before_url = String.format("/%s/intro/join/dls.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				String before_url = String.format("/%s/intro/join/dls.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
+				return null;
+			}
 		}
-
+		
 		return String.format(basePath, homepage.getFolder()) + "dls";
 	}
 
@@ -1102,8 +1145,15 @@ public class CommonJoinController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		model.addAttribute("loginCheck", true);
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			model.addAttribute("loginCheck", false);
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				model.addAttribute("loginCheck", false);
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				model.addAttribute("loginCheck", false);
+			}
 		}
 
 		model.addAttribute("memberClass", true);
@@ -1221,13 +1271,22 @@ public class CommonJoinController extends BaseController {
 
 		//로그인여부확인
 		//비로그인은 이용불가
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			String before_url = String.format("/%s/intro/join/untactForm.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
-			return null;
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				String before_url = String.format("/%s/intro/join/untactForm.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				String before_url = String.format("/%s/intro/join/untactForm.do?menu_idx=%d", homepage.getContext_path(), member.getMenu_idx());
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
+				return null;
+			}
 		}
-
+		
 		//정회원여부확인
 		//정회원은 이용불가
 //		Member sessionMemberInfo = getSessionMemberInfo(request);
@@ -1257,8 +1316,14 @@ public class CommonJoinController extends BaseController {
 
 		//로그인여부확인
 		//비로그인은 이용불가
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			result.reject("로그인 후 이용가능합니다.");
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+			}
 		}
 
 		//정회원여부확인
@@ -1456,14 +1521,23 @@ public class CommonJoinController extends BaseController {
 	@RequestMapping(value = {"/reAgree.*"})
 	public String reAgree(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
-			member.setBefore_url(String.format("/%s/intro/join/reAgree.do?menu_idx=%s", homepage.getContext_path(), member.getMenu_idx()));
-			joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, member.getBefore_url()), request, response);
-			return null;
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+				member.setBefore_url(String.format("/%s/intro/join/reAgree.do?menu_idx=%s", homepage.getContext_path(), member.getMenu_idx()));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, member.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
+				member.setBefore_url(String.format("/%s/intro/join/reAgree.do?menu_idx=%s", homepage.getContext_path(), member.getMenu_idx()));
+				joinService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, member.getBefore_url()), request, response);
+				return null;
+			}
 		}
-
+		
 		model.addAttribute("newMember", member);
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
 		request.setAttribute("menuOne", menuOne);
