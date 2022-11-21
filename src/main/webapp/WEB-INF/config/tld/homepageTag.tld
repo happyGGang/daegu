@@ -121,6 +121,23 @@
 	</tag>
 
 	<tag>
+		<description>홈페이지 DocTopInfo</description>
+		<name>docInfoTopTag</name>
+		<tag-class>kr.co.whalesoft.framework.tag.homepage.DocInfoTopTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>menuList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>oneMenu</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
 		<description>홈페이지 퀵메뉴</description>
 		<name>quickMenu</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.QuickMenuTag</tag-class>

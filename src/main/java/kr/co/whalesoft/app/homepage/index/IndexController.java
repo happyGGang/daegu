@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.go.gbelib.app.cms.module.culture.Culture;
+import kr.go.gbelib.app.cms.module.culture.CultureService;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
@@ -143,6 +145,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private HashtagService hashtagService;
+
+	@Autowired
+	private CultureService cultureService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -1929,5 +1934,16 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("festivalList", boardService.getBoardByMain(board));
 		return basePath + homepage.getFolder() + "/areacarnival_ajax";
+	}
+
+	/*
+	 * 문화공간
+	 */
+	@RequestMapping(value = { "/{contextPath}/areaculture.*" })
+	public String areaculture(Model model, Culture culture, HttpServletRequest request,
+		@PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		model.addAttribute("areaCultureList", cultureService.getAreaCultureList(culture));
+		return basePath + homepage.getFolder() + "/areaculture_ajax";
 	}
 }

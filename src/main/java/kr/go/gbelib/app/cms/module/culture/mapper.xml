@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.culture.CultureDao">
+  <select id="getAreaCultureList" resultType="kr.go.gbelib.app.cms.module.culture.Culture">
+    SELECT
+        *
+    FROM (
+      SELECT
+        DBMS_RANDOM.VALUE AS rand, idx, name, catename, catecode, address,
+        areaname, areacode, tel, locationx, locationy,
+        url, contents, etc, use_yn, img_url
+      FROM
+        CULTURE_INFO_TBL
+      WHERE
+        1 = 1
+      <if test="search_area != null and search_area != ''">
+        AND areaname = #{search_area}
+      </if>
+      ORDER BY
+        DBMS_RANDOM.VALUE
+    )
+     WHERE ROWNUM  <![CDATA[ <= ]]> 10
+  </select>
+</mapper>

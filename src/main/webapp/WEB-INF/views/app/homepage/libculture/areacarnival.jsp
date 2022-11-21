@@ -244,7 +244,7 @@
                         <div class="imgae-box">
                             <c:choose>
                                 <c:when test="${i.preview_img ne null}">
-                                    <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+                                    <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
                                 </c:when>
                                 <c:otherwise>
                                     <img src="/resources/homepage/${homepage.context_path}/img/book_noimg.png" alt="등록된 이미지가 없습니다.  상세보기"/>

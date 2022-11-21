@@ -299,11 +299,11 @@ $(function() {
 		}
 		else if(target == 'tabs03')
 		{
-			$('div#areaculture .areaCultureSlideList').load('areaculture.do?daeguarea=');
+			$('div#areaculture .areaCultureSlideList').load('areaculture.do?search_area='+area);
 		}
 		else
 		{
-			$('div#areaculture .areaCultureSlideList').load('education.do?daeguarea=');
+			$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area='+area);
 		}
 	});
 
@@ -322,7 +322,7 @@ $(function() {
 				} else if (id == 'tabs002') {
 					$('div#areaculture .areaCultureSlideList').load('areacarnival.do?search_area='+area)
 				} else if (id == 'tabs003') {
-
+					$('div#areaculture .areaCultureSlideList').load('areaculture.do?search_area='+area)
 				}
 			}
 		})
