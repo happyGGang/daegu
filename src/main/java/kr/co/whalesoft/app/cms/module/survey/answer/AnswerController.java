@@ -428,7 +428,9 @@ public class AnswerController extends BaseController {
 
 
 						if (!hasAnswer && !result.hasErrors()) {
-							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+							if("Y".equals(questRequied)) {
+								result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+							}
 						}
 					}
 				} else if (questType.equals("MATRIX")) {

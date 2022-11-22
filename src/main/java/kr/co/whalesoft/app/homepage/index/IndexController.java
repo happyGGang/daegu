@@ -931,7 +931,7 @@ public class IndexController extends BaseController {
 			//신착도서
 			Book book = new Book();
 			book.setType("EBK");
-			book.setSortField("a.ADD_DATE");
+			book.setSortField("ADD_DATE");
 			book.setSortType("DESC");
 
 			model.addAttribute("newBookList", bookService.getBookList(book));
