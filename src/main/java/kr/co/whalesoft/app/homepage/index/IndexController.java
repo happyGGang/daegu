@@ -1857,7 +1857,6 @@ public class IndexController extends BaseController {
 		return basePath + homepage.getFolder() + "/searchCulture_ajax";
 	}
 
-
 	/*
 	 * 문화포털 최상단 강좌(노출여부에따라 표현)
 	 */

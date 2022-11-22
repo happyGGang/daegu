@@ -869,5 +869,12 @@ public class BoardService extends BaseService {
 		return dao.getBoardMovieList(board);
 	}
 
+	public int getBoardExhibitionCount(Board board) {
+		return dao.getBoardExhibitionCount(board);
+	}
+
+	public int getBoardMovieCount(Board board) {
+		return dao.getBoardMovieCount(board);
+	}
 
 }

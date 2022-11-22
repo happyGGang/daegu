@@ -14,4 +14,15 @@ public class CultureService extends BaseService {
     public List<Culture> getAreaCultureList(Culture culture) {
         return dao.getAreaCultureList(culture);
     }
+
+    public Culture getCultureOne(Culture culture) {
+        return dao.getCultureOne(culture);
+    }
+    public List<Culture> getCultureList(Culture culture) {
+        return dao.getCultureList(culture);
+    }
+
+    public int getCultureCount(Culture culture) {
+        return dao.getCultureCount(culture);
+    }
 }

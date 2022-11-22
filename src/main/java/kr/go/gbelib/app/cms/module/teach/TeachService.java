@@ -1,7 +1,10 @@
 package kr.go.gbelib.app.cms.module.teach;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -400,8 +403,29 @@ public class TeachService extends BaseService {
 		return list;
 	}
 
+	private Teach getSearchDate(Teach teach) {
+		if (StringUtils.isNotEmpty(teach.getSearch_yy()) && StringUtils.isNotEmpty(teach.getSearch_mm())) {
+
+			Calendar cal = Calendar.getInstance();
+			cal.set(Integer.parseInt(teach.getSearch_yy()), Integer.parseInt(teach.getSearch_mm()) - 1, 1); //월은 -1해줘야 해당월로 인식
+
+			String yy = teach.getSearch_yy();
+			String mm = teach.getSearch_mm();
+
+			teach.setSearch_start_date(yy + mm + String.format("%02d", 1));
+			teach.setSearch_end_date(yy + mm + cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		}
+
+		return teach;
+	}
+
 	public List<Teach> getTeachListForAllSearchCulture(Teach teach) {
-		teach.setEndRowNum(8);
+
+		teach = getSearchDate(teach);
+
+		teach.setRowCount(8);
+
+
 		List<Teach> list = dao.getTeachListForAllSearchCulture(teach);
 
 		if (list != null && list.size() > 0) {
@@ -426,7 +450,9 @@ public class TeachService extends BaseService {
 		return list;
 	}
 
-	public List<Teach> getTeachListForAllSearchCultureCount(Teach teach) {
+	public int getTeachListForAllSearchCultureCount(Teach teach) {
+		teach = getSearchDate(teach);
+
 		return dao.getTeachListForAllSearchCultureCount(teach);
 	}
 

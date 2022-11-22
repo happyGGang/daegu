@@ -91,6 +91,6 @@ public interface TeachDao  {
 
 	public List<Teach> getTeachListForAllSearchCulture(Teach teach);
 
-	public List<Teach> getTeachListForAllSearchCultureCount(Teach teach);
+	public int getTeachListForAllSearchCultureCount(Teach teach);
 	
 }

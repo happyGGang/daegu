@@ -181,8 +181,13 @@ public interface BoardDao {
 	public List<Board> getBoardBookJungu(Board board);
 
 	public List<Board> getSubBoardByMainDotory(Board board);
-
+ 	// 문화포털 전시
 	public List<Board> getBoardExhibitionList(Board board);
 
+	public int getBoardExhibitionCount(Board board);
+
+	// 문화포털 영화
 	public List<Board> getBoardMovieList(Board board);
+
+	public int getBoardMovieCount(Board board);
 }

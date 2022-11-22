@@ -277,6 +277,26 @@ $(function() {
 		hashtag = $('#hashtag option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
+		$('.mobile-selector select').val(culture_mm).prop('selected', true);
+
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+	});
+
+	$('.mobile-selector select').on('change', function(e){
+		e.preventDefault();
+
+		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
+		culture_mm = $.trim($(this).find('option:selected').val());
+
+		$('.culture-search-condition-box-cal ul li').removeClass('on');
+		$('.culture-search-condition-box-cal ul li a[keyvalue='+culture_mm+']').parent('li').addClass('on');
+
+
+		area = $('#area option:selected').val();
+		target = $('#target option:selected').val();
+		hashtag = $('#hashtag option:selected').val();
+		sortType = $('#sortType option:selected').val();
+
 		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
 	});
 
@@ -491,10 +511,12 @@ $(function() {
 											<div class="mobile-selector">
 												<h4><c:set var="now" value="<%=new java.util.Date()%>" />
 													<fmt:formatDate value="${now}" pattern="yyyy" type="date"/><!--년도 함수--></h4>&nbsp;
-												<select name="">
+												<select name="" id="">
+													<fmt:formatDate value="${now}" pattern="MM" type="date" var="mm"/>
+													<fmt:formatNumber var="mm" minIntegerDigits="2" value="${mm}" type="number"/>
 													<c:forEach var="i" begin="1" end="12">
 														<fmt:formatNumber var="no" minIntegerDigits="2" value="${i}" type="number"/>
-														<option value="">${no}월</option>
+														<option value="${no}" ${mm == no ? 'selected' : ''}>${no}월</option>
 													</c:forEach>
 												</select>
 											</div>

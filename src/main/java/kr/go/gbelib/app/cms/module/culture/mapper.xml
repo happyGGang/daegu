@@ -21,4 +21,45 @@
     )
      WHERE ROWNUM  <![CDATA[ <= ]]> 10
   </select>
+
+  <select id="getCultureOne" resultType="kr.go.gbelib.app.cms.module.culture.Culture">
+    SELECT
+        idx, name, catename, catecode, address,
+        areaname, areacode, tel, locationx, locationy,
+        url, contents, etc, use_yn, img_url
+    FROM
+        CULTURE_INFO_TBL
+    WHERE
+        1 = 1
+    AND
+        idx = #{idx}
+  </select>
+
+  <select id="getCultureList" resultType="kr.go.gbelib.app.cms.module.culture.Culture">
+    ${pagingTop}
+      SELECT
+        idx, name, catename, catecode, address,
+        areaname, areacode, tel, locationx, locationy,
+        url, contents, etc, use_yn, img_url
+      FROM
+      CULTURE_INFO_TBL
+      WHERE
+        1 = 1
+      <if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+        AND	${search_type} LIKE '%'||#{search_text}||'%'
+      </if>
+    ${pagingBottom}
+  </select>
+
+  <select id="getCultureCount" resultType="int">
+      SELECT
+        COUNT(*)
+      FROM
+      CULTURE_INFO_TBL
+      WHERE
+      1 = 1
+      <if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+        AND	${search_type} LIKE '%'||#{search_text}||'%'
+      </if>
+  </select>
 </mapper>
