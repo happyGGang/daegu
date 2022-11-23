@@ -11,14 +11,21 @@
   <div class="detail">
     <div class="detail__header detail_header-place">
       <div class="detail_flags">
-        <span class="detail_flag">기타문화공간</span>
+        <span class="detail_flag">${cultureOne.catename}</span>
       </div>
       <p class="detail_title">${cultureOne.name}</p>
 
     </div>
     <div class="detail_group detail_group--place">
       <div class="detail__thumnail">
-        <img class="detail__img" src="/assets/images/main/noimg_600_old.jpg" onError="src='http://211.224.118.223:8010/resources/homepage/libculture/img/book_noimg.png'" alt="기타문화공간"/>
+        <c:choose>
+          <c:when test="${cultureOne.img_url ne null}">
+            <img src="${cultureOne.img_url}" alt="${cultureOne.name}" title="${cultureOne.name}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" class="detail__img" />
+          </c:when>
+          <c:otherwise>
+            <img src="/resources/homepage/${homepage.context_path}/img/book_noimg.png" alt="등록된 이미지가 없습니다.  상세보기" class="product__img"/>
+          </c:otherwise>
+        </c:choose>
       </div>
       <dl class="detail__info">
         <dt>주소</dt>
@@ -27,10 +34,13 @@
         <dd>${cultureOne.tel}</dd>
         <dt>홈페이지</dt>
         <dd>
-          <a href="${cultureOne.url}" target="_blank" title="${i.name} 관련사이트 새창 이동" class="font--green">${cultureOne.url}</a>
+          <a href="${cultureOne.url}" target="_blank" title="${cultureOne.name} 관련사이트 새창 이동" class="font--green">${cultureOne.url}</a>
         </dd>
-        <dt>휴관일</dt>
-        <dd>${cultureOne.etc}</dd>
+        <c:if test="${not empty cultureOne.etc}">
+          <dt>휴관일</dt>
+          <dd>${cultureOne.etc}</dd>
+        </c:if>
+
         <dt>시설소개</dt>
         <dd>${cultureOne.contents}</dd>
       </dl>
@@ -47,29 +57,29 @@
       <tbody>
       <tr>
         <th class="content-tbl-th">행사장명</th>
-        <td class="content-tbl-td">국립고궁박물관 고궁뜨락</td>
+        <td class="content-tbl-td">${cultureOne.name}</td>
       </tr>
       <tr>
         <th class="content-tbl-th">주소</th>
-        <td class="content-tbl-td">서울특별시 종로구 효자로 12 </td>
+        <td class="content-tbl-td">${cultureOne.address}</td>
       </tr>
       <tr>
         <th class="content-tbl-th">전화번호</th>
-        <td class="content-tbl-td">02-720-0486</td>
+        <td class="content-tbl-td">${cultureOne.tel}</td>
       </tr>
       <tr>
         <th class="content-tbl-th">홈페이지</th>
-        <td class="content-tbl-td">https://www..go.kr</td>
+        <td class="content-tbl-td">${cultureOne.url}</td>
       </tr>
       </tbody>
     </table>
 
     <!-- 지도 -->
     <div class="map map_wrap" >
-      <input type="hidden" id="cul_gps_y" name="cul_gps_y" value="37.57659026675304"/>
-      <input type="hidden" id="cul_gps_x" name="cul_gps_x" value="126.97497029731278"/>
-      <input type="hidden" id="contentVenue" name="contentVenue" value="국립고궁박물관 고궁뜨락"/>
-      <input type="hidden" id="contentAddr" name="contentAddr" value="서울특별시 종로구 효자로 12 고궁뜨락"/>
+      <input type="hidden" id="cul_gps_y" name="cul_gps_y" value="${cultureOne.locationx}"/>
+      <input type="hidden" id="cul_gps_x" name="cul_gps_x" value="${cultureOne.locationy}"/>
+      <input type="hidden" id="contentVenue" name="contentVenue" value="${cultureOne.name}"/>
+      <input type="hidden" id="contentAddr" name="contentAddr" value="${cultureOne.address}"/>
       <div id="map" class="map__inner" style="width:100%;height:400px;"></div>
     </div>
 
@@ -129,7 +139,7 @@
 
                 mapOption = {
                   // 지도의 중심좌표
-                  center: new daum.maps.LatLng(37.576073, 126.976923),
+                  center: new daum.maps.LatLng(${cultureOne.locationx}, ${cultureOne.locationy}),
                   level: 3 // 지도의 확대 레벨
                 };
 
@@ -166,6 +176,6 @@
   <!-- 위치정보 : E -->
 
   <div class="buttons">
-    <a href="" class="btn btn1">뒤로</a>
+    <a href="javascript:history.back();" class="btn btn1">뒤로</a>\
   </div>
 </div>
