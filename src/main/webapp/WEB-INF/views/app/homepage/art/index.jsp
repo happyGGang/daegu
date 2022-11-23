@@ -75,7 +75,7 @@
 
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
-				alert('검색어를 입력하세요.');
+				alert('찾으시는 도서의 정보를 입력해주세요.');
 				$('input#search_text_1').focus();
 				return false;
 			}
@@ -123,7 +123,7 @@
 					<!-- main_search -->
 					<div class="search-area" id="main_search">
 						<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-						<input type="hidden" name="menu_idx" value="9"
+						<input type="hidden" name="menu_idx" value="9">
 						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
 						<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 						<fieldset>
