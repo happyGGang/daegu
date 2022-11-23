@@ -1,16 +1,29 @@
 
 .mobile-selector {display:none;}
+
+.table-wrap .area-box {padding-top:38px;}
+.table-wrap .area-box ul {overflow:hidden;padding:18px 38px;box-sizing:border-box;border:1px solid #ddd;border-radius:5px;}
+.table-wrap .area-box ul li {display:inline-block;float:left;width:25%;}
+.btn-wrap {text-align:center;padding:10px 0;}
+
+@media only screen and (max-width: 550px) {
+	.table-wrap .area-box ul li{display:block;float:none;width:100%;}
+}	
+
 .sub-culture-search-condition {height:100%;box-sizing:border-box;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel {box-sizing:border-box;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul {font-size:0;height:100%;}
-.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li {display:inline-block;height:100%;width:24%;margin-right:1%;}
-.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select {display:inline-block;background:transparent;border-radius:0;border:1px solid rgba(0,0,0,0.25);font-family:'SCoreDream';font-weight:500;font-size:18px;color:#333;width:100%;padding:18px 10px !important;box-sizing:border-box;vertical-align:middle;border-radius:3px;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li {display:inline-block;height:100%;width:24.5%;margin-right:0.5%;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child {margin-right:0;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select {display:inline-block;-moz-appearance:none;-webkit-appearance:none;appearance:none;background:url("/resources/homepage/libculture/img/select-arrow-b.png") no-repeat 95% 50% #fff;border-radius:0;border:1px solid rgba(0,0,0,0.25);font-family:'SCoreDream';font-weight:500;font-size:18px;color:#333;width:100%;padding:18px 10px !important;box-sizing:border-box;vertical-align:middle;border-radius:3px;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select::-ms-expand { display: none; }
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select::placeholder {color:#fff;}
 
 .sub-culture-search-condition .sub-culture-search-condition-box-cal {box-sizing:border-box;padding-top:18px;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal .web-selector {background:#eee;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal ul {font-size:0;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal ul li {display:inline-block;height:100%;color:#fff;margin:0 10px}
+.sub-culture-search-condition .sub-culture-search-condition-box-cal ul li:first-child {width:65px;height:65px;line-height:65px;font-family:'SCoreDream';font-weight:600;font-size:24px;color:#333;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal ul li a {display:block;width:65px;height:65px;line-height:65px;font-family:'SCoreDream';font-weight:600;font-size:20px;color:#333;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal ul li a:hover {background:#333;color:#fff;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal ul li.on a {background:#333;color:#fff;}
@@ -39,7 +52,7 @@
 .result-list .product__info dt, 
 .result-list .product__info dd { float: left; font-size: 13px; line-height: 24px; }
 .result-list .product__info dt:not(:first-of-type), .result-list .product__info dd:not(:first-of-type) { margin-top: 5px; }
-.result-list .product__info dt { width: 85px; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
+.result-list .product__info dt { width: 85px; font-family: 'SCoreDream'; }
 .result-list .product__info dt:not(:first-of-type) { clear: left; }
 .result-list .product__info dd { width: calc(100% - 85px); color: #000; white-space: nowrap; word-wrap: break-word; display: block; overflow: hidden; text-overflow: ellipsis; }
 .result-list .product__buttons { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; margin-top: 25px; }
@@ -48,11 +61,10 @@
 .result-list .product__button--ticket { border-color: #2f4d05; background-color: #4e8007; color: #fff; }
 
 .search-form { display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 70px; margin-top: 20px; background-color: #f3f3f3; }
-.search-form__text { position: relative; padding-left: 38px; color: #666; font-size: 18px; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
- .search-form__text:before { content: ''; position: absolute; left: 0; top: 50%; width: 24px; height: 24px; margin-top: -12px; background: url("../images/common/ico_header_search.png") no-repeat 0 0; }
-.search-form__select { max-width: 180px; margin-left: 20px; border-radius: 4px; }
-.search-form__input { max-width: 240px; margin-left: 10px; border-radius: 4px; }
-.search-form__button { min-width: 60px; height: 42px; margin-left: 10px; border-radius: 4px; background-color: #555; color: #fff; font-size: 17px; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
+.search-form__text { position: relative; padding-left: 38px; color: #666; font-size: 18px; font-family: 'SCoreDream'; }
+.search-form__select { max-width: 180px; margin-left: 5px; border-radius: 2px; height: 42px;}
+.search-form__input { max-width: 380px; margin-left: 5px; border-radius: 4px; }
+.search-form__button { min-width: 60px; height: 42px; text-align:center; line-height:42px; margin-left: 10px; border-radius: 2px; background-color: #555; color: #fff; font-size: 17px; font-family: 'SCoreDream'; }
 
 .contents__header-group + .product-detail { padding-top: 0; }
 .product-detail + .map { margin-top: 0; }
@@ -66,7 +78,7 @@
 .product-detail .detail_flag {display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align: center;align-items:center;height:30px;margin:5px 5px 0 0;padding:0 15px;border:1px solid #2e4c03;border-radius:45px;background-color:#4e8006;color:#fff;font-size:15px;line-height:1;font-family:'SCoreDream';}
 .product-detail .detail_flag--mixed { padding-left: 0; border-color: #ccc; background-color: #fff; color: #000; }
 .product-detail .detail_flag--mixed span { padding-left: 10px; color: inherit; font-size: inherit; line-height: inherit; }
-.product-detail .detail_flag-label { display: -webkit-inline-box; display: -ms-inline-flexbox; display: inline-flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 28px; min-width: 56px; padding: 0 15px 0 14px; border-radius: 45px; background-color: #e8e8e8; color: #333; font-size: inherit; line-height: inherit; text-align: center; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
+.product-detail .detail_flag-label { display: -webkit-inline-box; display: -ms-inline-flexbox; display: inline-flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; height: 28px; min-width: 56px; padding: 0 15px 0 14px; border-radius: 45px; background-color: #e8e8e8; color: #333; font-size: inherit; line-height: inherit; text-align: center; font-family: 'SCoreDream'; }
 
 .product-detail .detail_group { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; margin-top: 40px; }
 .product-detail .detail_group-place { -webkit-box-align: normal; -ms-flex-align: normal; align-items: normal; margin-top: 30px; }
@@ -77,14 +89,14 @@
 .product-detail .detail__img { width: 100%; height: 100%; }
 .product-detail .detail__info dt, .product-detail .detail__info dd { float: left; font-size: 16px; line-height: 24px; }
 .product-detail .detail__info dt:not(:first-of-type), .product-detail .detail__info dd:not(:first-of-type) { margin-top: 15px; }
-.product-detail .detail__info dt { width: 90px; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
+.product-detail .detail__info dt { width: 90px; font-family: 'SCoreDream'; }
 .product-detail .detail__info dt:not(:first-of-type) { clear: left; }
 .product-detail .detail__info dd { width: calc(100% - 90px); }
 .product-detail .detail__info .group { display: -webkit-box; display: -ms-flexbox; display: flex; color: inherit; font-size: inherit; }
-.product-detail .detail__info .group span { position: relative; margin-left: 14px; padding-left: 14px; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
+.product-detail .detail__info .group span { position: relative; margin-left: 14px; padding-left: 14px; font-family: 'SCoreDream'; }
 .product-detail .detail__info .group span:before { content: ''; display: block; position: absolute; left: 0; top: 50%; width: 1px; height: 14px; margin-top: -7px; background-color: #999; }
 .product-detail .detail__buttons { display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; -ms-flex-item-align: end; align-self: flex-end; -webkit-box-flex: 0; -ms-flex: none; flex: none; width: 240px; margin-left: auto; }
-.product-detail .detail__button { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 100%; height: 60px; border: 1px solid #999; border-radius: 4px; background-color: #f8f8f8; font-size: 16px; font-family: 'NGBold','Malgun Gothic',Dotum,'돋움',AppleGothicNeoSD,'Apple SD 산돌고딕 Neo','굴림',arial,sans-serif; }
+.product-detail .detail__button { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; width: 100%; height: 60px; border: 1px solid #999; border-radius: 4px; background-color: #f8f8f8; font-size: 16px; font-family: 'SCoreDream'; }
 .product-detail .detail__button:not(:first-child) { margin-top: 10px; }
 .product-detail .detail__button--blue { border-color: #4e8cff; background-color: #ebf4ff; }
 .product-detail .detail__button--green { border-color: #2e4c03; background-color: #4e8006; color: #fff; }
@@ -98,6 +110,59 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 .map__inner { position: relative; height: 500px; border: 1px solid #aaa; }
 .buttons { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; margin-top: 50px; }
 .buttons .button__item { min-width: 200px; margin: 0 10px; border-radius: 4px; height: 60px; font-size: 18px; line-height: 60px; }
+
+/*대시보드*/
+.myDashboardTop {display:relative;}
+.myDashboardTop ul {font-size:0;}
+.myDashboardTop li {display:inline-block;width:49%;margin-right:1%;height:230px;box-sizing:border-box;vertical-align:top;padding:40px;}
+.myDashboardTop li:last-child {margin-right:0;}
+.myDashboardTop li span {display:block;line-height:150%;}
+.myDashboardTop li.point span.top, .myDashboardTop li.mylibselect span.top {font-family:'SCoreDream';font-weight:600;font-size:20px;line-height:100%;padding-bottom:18px;}
+.myDashboardTop li.point span.middle {font-family:'GmarketSansBold';font-weight:600;font-size:40px;line-height:150%;padding-bottom:10px;}
+.myDashboardTop li.point span.bottom {font-family:'SCoreDream';font-weight:600;color:#337bf6;font-size:16px;line-height:200%;}
+.myDashboardTop li.point span.bottom b {font-weight:800;}
+.myDashboardTop li.point {border:1px solid #475ab9;background:url('/resources/homepage/libculture/img/dashboard-img01.png') no-repeat 95% bottom;border-radius:7px;}
+.myDashboardTop li.mylibselect span.middle {font-family:'SCoreDream';font-weight:600;font-size:16px;line-height:200%;border:1px solid #000;box-sizing:border-box;padding:4px 15px;border-radius:20px;width:69%;}
+.myDashboardTop li.mylibselect span.bottom {font-family:'SCoreDream';font-weight:400;font-size:16px;color:#5d5c5c;width:69%;padding-top:18px;}
+.myDashboardTop li.mylibselect {border:1px solid #475ab9;background:url('/resources/homepage/libculture/img/dashboard-img02.png') no-repeat 95% bottom;border-radius:7px;}
+
+.myDashboard-pointbox {margin-top:50px;}
+.myDashboard-pointbox .myDashboard-pointbox-title {position:relative;}
+.myDashboard-pointbox .myDashboard-pointbox-title h5 {display:block;font-family:'SCoreDream';font-weight:600;font-size:22px;padding-bottom:10px;}
+.myDashboard-pointbox .myDashboard-pointbox-title a.more-btn {position:absolute;right:0;top:0;font-family:'SCoreDream';font-weight:600;font-size:16px;color:#666;}
+.myDashboard-pointbox .myDashboard-pointbox-searchbox {display:table;background:#f0f0f0;text-align:center;box-sizing:border-box;width:100%;height:120px;border-radius:4px;}
+.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox {position:relative;display:table-cell;vertical-align:middle;text-align:center;}
+.search-submit-btn {position:absolute;height:100%;width:5%;right:0;top:0;background:#475ab9;border-top-right-radius:7px;border-bottom-right-radius:7px;}
+.search-submit-btn a {position:absolute;color:#fff;left:0;top:40%;width:100%;vertical-align:middle;}
+.myDashboard-pointbox input.ui-calendar-input {width:15%;background:#fff url('/resources/homepage/libculture/img/ui-calendar-icon.png') no-repeat 95% center;border-radius:7px;vertical-align:middle;}
+.btn.bttn {background:#fff;height:42px;line-height:42px;box-sizing:border-box;padding:0 11px;vertical-align:middle;border-radius:7px;}
+
+
+.myDashboard-pointbox-listbox {position:relative;margin-top:50px;}
+.myDashboard-pointbox-listbox span em {font-style:normal;font-family:'SCoreDream';font-weight:bold;}
+.myDashboard-pointbox-listbox span em b {font-weight:800;color:#f15a48;}
+.myDashboard-pointbox-listbox .sortbox {position:absolute;right:0;top:0;}
+.myDashboard-pointbox-listbox table thead th {text-align:center;font-weight:800;border-right:0;border-left:0;}
+.myDashboard-pointbox-listbox table tbody td {text-align:center;font-weight:400;border-right:0;border-left:0;box-sizing:border-box;padding:10px 0;}
+.myDashboard-pointbox-listbox table tbody td b.get {}
+.myDashboard-pointbox-listbox table tbody td b.use {}
+
+.myDashboard-culturebox {position:relative;margin-top:50px;}
+.myDashboard-culturebox h5 {display:block;font-family:'SCoreDream';font-weight:600;font-size:22px;}
+.myDashboard-culturebox .myDashboard-culturebox-title {position:relative;}
+.myDashboard-culturebox .myDashboard-culturebox-title a.more-btn {position:absolute;right:0;top:5px;font-family:'SCoreDream';font-weight:600;font-size:16px;color:#666;}
+.myDashboard-culturebox .myDashboard-culturebox-sortbox {position:relative;text-align:right;}
+
+.myDashboard-culturebox .myDashboard-culturebox-searchbox {display:table;background:#f0f0f0;text-align:center;box-sizing:border-box;width:100%;height:120px;border-radius:4px;}
+.myDashboard-culturebox .myDashboard-culturebox-searchbox .myDashboard-culturebox-searchbox-innerbox {position:relative;display:table-cell;vertical-align:middle;text-align:center;}
+.search-submit-btn {position:absolute;height:100%;width:5%;right:0;top:0;background:#475ab9;border-top-right-radius:7px;border-bottom-right-radius:7px;}
+.search-submit-btn a {position:absolute;color:#fff;left:0;top:40%;width:100%;vertical-align:middle;}
+.myDashboard-culturebox input.ui-calendar-input {width:15%;background:#fff url('/resources/homepage/libculture/img/ui-calendar-icon.png') no-repeat 95% center;border-radius:7px;vertical-align:middle;}
+.myDashboard-culturebox select {width:100px;height: 42px;-moz-appearance:none;-webkit-appearance:none;appearance:none;background:#fff url("/resources/homepage/libculture/img/select-arrow-b.png") no-repeat 95% 50%;}
+.btn.bttn {background:#fff;height:42px;line-height:42px;box-sizing:border-box;padding:0 11px;vertical-align:middle;border-radius:7px;}
+
+.myDashboard-culturebox table thead th {text-align:center;font-weight:800;border-right:0;border-left:0;}
+.myDashboard-culturebox table tbody td {text-align:center;font-weight:400;border-right:0;border-left:0;box-sizing:border-box;padding:10px 0;}
 
 
 @media screen and (min-width: 1024px) { 
@@ -137,4 +202,38 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 	.map__inner { padding-top: 56.25%; height: auto; }
 	.buttons { margin-top: 25px; }
 	.buttons .button__item { height: 35px; min-width: 95px; font-size: 12px; line-height: 35px; }
+}
+
+@media screen and (max-width: 900px) { 
+	.myDashboardTop li {display:block;width:100%;margin-right:0;height:200px;box-sizing:border-box;vertical-align:top;padding:30px;}
+	.myDashboardTop li:last-child {margin-top:10px;}
+	.search-submit-btn {width:50px;}
+	.myDashboard-pointbox-searchbox-innerbox {padding:10px 0;}
+	.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox span {display:block;}
+	.myDashboard-pointbox-listbox table thead th, .myDashboard-pointbox-listbox table tbody td, .myDashboard-culturebox table thead th, .myDashboard-culturebox table tbody td {font-size:13px;}
+
+}
+
+@media screen and (max-width: 768px) { 
+	.myDashboardTop li {padding:25px;height:auto;}
+	.myDashboardTop li.point, .myDashboardTop li.mylibselect {background:none;}
+	.myDashboardTop li.point span.top, .myDashboardTop li.mylibselect span.top {font-size:16px;padding-bottom:10px;}
+	.myDashboardTop li.point span.bottom {font-size:14px;}
+	.myDashboardTop li.point span.bottom img {width:20px;}
+	.myDashboardTop li.mylibselect span.bottom {font-size:14px;width:100%;padding-top:10px;}
+	.myDashboardTop li.mylibselect span.middle {font-size:14px;width:100%;}
+	.myDashboard-pointbox-listbox table thead th, .myDashboard-pointbox-listbox table tbody td, .myDashboard-culturebox table thead th, .myDashboard-culturebox table tbody td {font-size:12px;}
+	.myDashboard-pointbox .myDashboard-pointbox-title h5, .myDashboard-culturebox h5 {font-size:18px;}
+	.myDashboard-pointbox .myDashboard-pointbox-title a.more-btn, .myDashboard-culturebox .myDashboard-culturebox-title a.more-btn  {font-size:13px;}
+}
+
+@media screen and (max-width: 550px) { 
+	.myDashboardTop li {padding:25px;}
+	.myDashboardTop li.point span.top, .myDashboardTop li.mylibselect span.top {font-size:15px;}
+	.myDashboardTop li.point span.bottom {font-size:13px;}
+	.myDashboardTop li.point span.bottom img {width:18px;}
+	.myDashboardTop li.mylibselect span.bottom {font-size:13px;}
+	.myDashboardTop li.mylibselect span.middle {font-size:13px;}
+	.myDashboard-pointbox .myDashboard-pointbox-title h5, .myDashboard-culturebox h5 {font-size:16px;}
+	.myDashboard-pointbox .myDashboard-pointbox-title a.more-btn, .myDashboard-culturebox .myDashboard-culturebox-title a.more-btn  {font-size:12px;}
 }

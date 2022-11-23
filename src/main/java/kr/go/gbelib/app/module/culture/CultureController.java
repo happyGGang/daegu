@@ -3,6 +3,8 @@ package kr.go.gbelib.app.module.culture;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kr.co.whalesoft.app.board.Board;
@@ -19,11 +21,13 @@ import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
 import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
+import kr.go.gbelib.app.common.api.CultureAPI;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller(value="userCulture")
 @RequestMapping(value = {"/{homepagePath}/module/culture"})
@@ -80,9 +84,24 @@ public class CultureController extends BaseController {
     }
 
     @RequestMapping(value = {"/performanceExhibition.*"})
-    public String carnival(Model model, Board board, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String carnival(Model model, Culture culture, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage)request.getAttribute("homepage");
 
+        Map<String, Object> parameter = new HashMap<String, Object>();
+        if (StringUtils.isNotEmpty(culture.getSearch_area())) {
+            parameter.put("gugun", culture.getSearch_area());
+        }
+
+        if (StringUtils.isNotEmpty(culture.getKeyword())) {
+            parameter.put("keyword", culture.getKeyword());
+        }
+
+        Code code = new Code();
+        code.setGroup_id("A0000");
+        model.addAttribute("areaCodeList", codeService.getCodeList(code));
+
+        model.addAttribute("list", CultureAPI.areaRequestDetails(new HashMap<>(), CultureAPI.areaRequest(parameter)));
+        model.addAttribute("culture", culture);
         return String.format(basePath, homepage.getFolder()) + "performanceExhibition";
     }
 
