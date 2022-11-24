@@ -52,13 +52,13 @@ public class CultureAPI {
 
         Map<String, Object> msgBody = (Map<String, Object>) result.get("msgBody");
 
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         if (msgBody != null) {
-            List<Map<String, Object>> perforList = new ArrayList<>();;
+            List<Map<String, Object>> perforList = new ArrayList<Map<String, Object>>();
 
-            if ((int) msgBody.get("totalCount") > 0) {
-                if ((int) msgBody.get("totalCount") == 1) {
+            if ((Integer) msgBody.get("totalCount") > 0) {
+                if ((Integer) msgBody.get("totalCount") == 1) {
                     perforList.add((Map<String, Object>) msgBody.get("perforList"));
                 } else {
                     perforList = (List<Map<String, Object>>) msgBody.get("perforList");

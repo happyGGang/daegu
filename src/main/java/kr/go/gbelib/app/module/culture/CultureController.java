@@ -100,7 +100,7 @@ public class CultureController extends BaseController {
         code.setGroup_id("A0000");
         model.addAttribute("areaCodeList", codeService.getCodeList(code));
 
-        model.addAttribute("list", CultureAPI.areaRequestDetails(new HashMap<>(), CultureAPI.areaRequest(parameter)));
+        model.addAttribute("list", CultureAPI.areaRequestDetails(new HashMap<String, Object>(), CultureAPI.areaRequest(parameter)));
         model.addAttribute("culture", culture);
         return String.format(basePath, homepage.getFolder()) + "performanceExhibition";
     }
