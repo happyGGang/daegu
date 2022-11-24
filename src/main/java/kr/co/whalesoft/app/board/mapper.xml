@@ -2477,7 +2477,8 @@
 	<select id="getBoardMovieList" resultType="kr.co.whalesoft.app.board.Board">
 		${pagingTop}
 		SELECT
-			A.*, (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE cm WHERE A.homepage_id = cm.HOMEPAGE_ID) as context_path
+			A.*, (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE cm WHERE A.homepage_id = cm.HOMEPAGE_ID) as context_path,
+			(SELECT HOMEPAGE_NAME FROM CMS_HOMEPAGE cm WHERE A.homepage_id = cm.HOMEPAGE_ID) as homepage_name
 		FROM (
 					 SELECT
 						 (SELECT HOMEPAGE_ID FROM CMS_BOARD_MANAGE BM WHERE BM.manage_idx = a.manage_idx) as homepage_id,

@@ -379,14 +379,7 @@ $(function() {
 						<div class='wide-1600-sections'>
 
 							<div class="searchBox tabT">
-								<c:choose>
-								<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-								<h2>${sessionScope.member.member_name}님의</h2>
-								</c:when>
-								<c:otherwise>
 								<h2>대구통합도서관의</h2>
-								</c:otherwise>
-								</c:choose>
 								<ul class="tabMenuT">
 									<li class="on"><a href="#tab1">강좌</a></li>
 									<li><a href="#tab2">문화</a></li>
@@ -459,7 +452,6 @@ $(function() {
 									<div class="inner">
 										<h3>다多<Br class="web-br2"/>드림Dream</h3>
 										<p>다양한 문화 활동과 경험으로 <Br/>꿈을 키워보세요.</p>
-										<span class="dream-img-box"><img src="/resources/homepage/${homepage.context_path}/img/dream-img.png" alt=""></span>
 									</div>
 								</div>
 							</div>
@@ -558,20 +550,11 @@ $(function() {
 							<div class="tabMenu">
 								<ul>
 									<li class="on"><a href="#tab01" class='curationtab' keyValue="01">전체</a></li>
-									<li><a href="#tab02" class='curationtab' keyValue="02">그림책</a></li>
-									<li><a href="#tab03" class='curationtab' keyValue="03">독서</a></li>
-									<li><a href="#tab04" class='curationtab' keyValue="04">영어/외국어</a></li>
-									<li><a href="#tab05" class='curationtab' keyValue="05">문화예술</a></li>
-									<li><a href="#tab06" class='curationtab' keyValue="06">제작체험</a></li>
-									<li><a href="#tab07" class='curationtab' keyValue="07">동화</a></li>
-									<!-- 
-									<li><a href="#tab08" class='curationtab' keyValue="08">교육</a></li>
-									<li><a href="#tab09" class='curationtab' keyValue="09">인문</a></li>
-									<li><a href="#tab10" class='curationtab' keyValue="10">역사</a></li>
-									<li><a href="#tab11" class='curationtab' keyValue="11">과학</a></li>
-									<li><a href="#tab12" class='curationtab' keyValue="12">IT</a></li>
-									<li><a href="#tab13" class='curationtab' keyValue="13">힐링</a></li>
-									-->
+									<li><a href="#tab02" class='curationtab' keyValue="02">문화생활</a></li>
+									<li><a href="#tab03" class='curationtab' keyValue="03">무료전시</a></li>
+									<li><a href="#tab04" class='curationtab' keyValue="04">특별강연</a></li>
+									<li><a href="#tab05" class='curationtab' keyValue="05">역사인문</a></li>
+									<li><a href="#tab06" class='curationtab' keyValue="06">IT체험</a></li>
 								</ul>
 							</div>
 						</div>
@@ -840,7 +823,6 @@ $(function() {
 							</div>
 						</div>
 					</div>
-					<span class="curation-img-box"><img src="/resources/homepage/${homepage.context_path}/img/curation-img.png" alt=""></span>
 				</div>
 				<div class="main2-empty">
 				</div>

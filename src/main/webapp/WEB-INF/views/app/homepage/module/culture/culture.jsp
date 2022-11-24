@@ -91,13 +91,13 @@
 			</div>
 		</div>
 		<dl class="product__info">
-			<dt class="bullet__text--arrow">명칭</dt>
+			<dt class="bullet__text--arrow"><b>명칭</b></dt>
 			<dd>${i.name}</dd>
 
-			<dt class="bullet__text--arrow">주소</dt>
+			<dt class="bullet__text--arrow"><b>주소</b></dt>
 			<dd>${i.address}</dd>
 
-			<dt class="bullet__text--arrow">구분</dt>
+			<dt class="bullet__text--arrow"><b>구분</b></dt>
 			<dd>${i.catename}</dd>
 		</dl>
 	</div>

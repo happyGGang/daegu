@@ -82,6 +82,3 @@
 		</div>
 	</div>
 </div>
-<div class="point-img">
-	<img src="/resources/homepage/${homepage.context_path}/img/culture-img.png" alt="">
-</div>

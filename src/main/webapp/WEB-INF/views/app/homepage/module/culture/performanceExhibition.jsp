@@ -50,22 +50,23 @@
 			<div class="product product--stretch">
 				<div class="product__header">
 					<div class="product__filters">
-						<span class="product__filter product__filter--class">${i.realmName}/ </span>
-						<span class="product__filter product__filter--visit">${i.title}</span>
+						<span class="product__filter product__filter--visit">${fn:substring(i.title, 0, 21)}<c:if test="${fn:length(i.title) > 21}">...</c:if></span>
 					</div>
 					<div class="product__thumnail">
 					<img alt="${i.title}" class="product__img" src="${i.imgUrl}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';">
 					</div>
 				</div>
 				<dl class="product__info">
+					<dt class="bullet__text--arrow"><b>장르</b></dt>
+					<dd>${i.realmName}</dd>
 
-					<dt class="bullet__text--arrow">장소</dt>
+					<dt class="bullet__text--arrow"><b>장소</b></dt>
 					<dd>${i.placeAddr}</dd>
 
-					<dt class="bullet__text--arrow">기간</dt>
+					<dt class="bullet__text--arrow"><b>기간</b></dt>
 					<dd class="period">${i.startDate}~${i.endDate}</dd>
 
-					<dt class="bullet__text--arrow">문의처</dt>
+					<dt class="bullet__text--arrow"><b>문의처</b></dt>
 					<dd>${i.phone}</dd>
 				</dl>
 				<div class="product__buttons">

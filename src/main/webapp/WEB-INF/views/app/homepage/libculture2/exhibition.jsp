@@ -57,8 +57,7 @@
 	});
 </script>
 
-
-<h3>CULTURE</h3>
+<h3>EXHIBITION</h3>
 <div class="slideList mainSec00 main0Section01">
 	<div class="innerBox">
 		<div class="arrowBtn">
@@ -67,21 +66,18 @@
 		</div>
 
 		<div class="slickPlay">
-			<p class="status"><span> 01</span> / <fmt:formatNumber var="no" minIntegerDigits="2" value="${fn:length(serviceViewList)}" type="number"/> ${no}</p>
+			<p class="status"><span> 01</span> / <fmt:formatNumber var="no" minIntegerDigits="2" value="${fn:length(exhibitionViewList)}" type="number"/> ${no}</p>
 			<a href="#" class="play">시작</a>
 			<a href="#" class="pause">멈춤</a>
 		</div>
 		<div class="slickWrap" data-animation="fadeInUp">
-			<c:forEach var="i" items="${serviceViewList}">
+			<c:forEach var="i" items="${exhibitionViewList}">
 				<div>
-					<a href="${i.link_url}" target="_blank">
-						<img src="/data/specializedServices/${homepage.homepage_id}/${i.server_file_name}" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+					<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+						<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" alt="${i.title}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';"/>
 					</a>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-</div>
-<div class="point-img">
-	<img src="/resources/homepage/${homepage.context_path}/img/culture-img.png" alt="">
 </div>

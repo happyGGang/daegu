@@ -73,11 +73,14 @@
 		<div class="slickWrap" data-animation="fadeInUp">
 			<c:forEach var="i" items="${exhibitionViewList}">
 				<div>
-					<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+					<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" target="_blank">
 						<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" alt="${i.title}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';"/>
 					</a>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
+</div>
+<div class="point-img">
+	<img src="/resources/homepage/${homepage.context_path}/img/exhibition-img.png" alt="">
 </div>

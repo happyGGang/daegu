@@ -91,14 +91,17 @@
 			</div>
 		</div>
 		<dl class="product__info">
-			<dt class="bullet__text--arrow">제목</dt>
+			<dt class="bullet__text--arrow"><b>기관명</b></dt>
+			<dd></dd>
+
+			<dt class="bullet__text--arrow"><b>제목</b></dt>
 			<dd>${i.title}</dd>
 
-			<dt class="bullet__text--arrow">게시일</dt>
+			<dt class="bullet__text--arrow"><b>게시일</b></dt>
 			<dd><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></dd>
 
-			<dt class="bullet__text--arrow">구분</dt>
-			<dd>${i}</dd>
+			<!-- <dt class="bullet__text--arrow">구분</dt>
+			<dd>${i}</dd> -->
 		</dl>
 		<div class="product__buttons">
 			<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" keyValue="${i.board_idx}" target="_blank" class="product__button">정보상세보기</a>

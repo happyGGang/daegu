@@ -58,7 +58,7 @@
 </script>
 
 
-<h3>CULTURE</h3>
+<h3>EDUCATION</h3>
 <div class="slideList mainSec00 main0Section01">
 	<div class="innerBox">
 		<div class="arrowBtn">
@@ -67,21 +67,18 @@
 		</div>
 
 		<div class="slickPlay">
-			<p class="status"><span> 01</span> / <fmt:formatNumber var="no" minIntegerDigits="2" value="${fn:length(serviceViewList)}" type="number"/> ${no}</p>
+			<p class="status"><span> 01</span> / <fmt:formatNumber var="no" minIntegerDigits="2" value="${fn:length(teachViewList)}" type="number"/> ${no}</p>
 			<a href="#" class="play">시작</a>
 			<a href="#" class="pause">멈춤</a>
 		</div>
 		<div class="slickWrap" data-animation="fadeInUp">
-			<c:forEach var="i" items="${serviceViewList}">
+			<c:forEach var="i" items="${teachViewList}">
 				<div>
-					<a href="${i.link_url}" target="_blank">
-						<img src="/data/specializedServices/${homepage.homepage_id}/${i.server_file_name}" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+					<a href="/${i.context_path}/module/teach/detail.do?menu_idx=${i.menu_idx}&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+						<img src="/data/teach/${i.homepage_id}/img/${i.image_server_file_name}" alt="${i.teach_name}" title="${i.teach_name}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
 					</a>
 				</div>
 			</c:forEach>
 		</div>
 	</div>
-</div>
-<div class="point-img">
-	<img src="/resources/homepage/${homepage.context_path}/img/culture-img.png" alt="">
 </div>

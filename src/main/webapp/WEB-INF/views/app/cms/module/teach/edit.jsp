@@ -663,6 +663,21 @@
 			}
 		});
 
+		$('#age_div_all').change(function() {
+			$('input#age_div_codes1').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes2').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes3').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes4').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
+		});
+		
+		$('#age_div_normal_all').change(function() {
+			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
+		});
 	});
 
 </script>
@@ -784,7 +799,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>해시태그 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<th>주제해시태그 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<c:choose>
 					<c:when test="${teach.editMode eq 'MODIFY' and not empty teach.hashtag_names}">
@@ -827,11 +842,32 @@
 			</td>
 		</tr>
 		<tr>
-			<th>연령구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
+			<th>대상 분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td class="age_div_target">
+				<div class="" style="box-sizing:border-box;padding:10px 0;border-bottom:1px dashed #000;">
+					<input id="age_div_all" name="age_div_codes" type="checkbox" value="">
+					<label for="age_div_all">전체</label>&nbsp;
+					<input id="age_div_normal_all" name="age_div_codes" type="checkbox" value="">
+					<label for="age_div_normal_all">일반전체</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="age_div_codes8" name="age_div_codes" type="checkbox" value="0010"/> <label for="age_div_codes8"> 학부모</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes9" name="age_div_codes" type="checkbox" value="0011"/> <label for="age_div_codes9"> 다문화</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes10" name="age_div_codes" type="checkbox" value="0012"/> <label for="age_div_codes10"> 가족</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+				</div>
+				<div class="" style="box-sizing:border-box;padding:10px 0;">
+					<input id="age_div_codes1" name="age_div_codes" type="checkbox" value="0001"/> <label for="age_div_codes1"> 유아</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes2" name="age_div_codes" type="checkbox" value="0002"/> <label for="age_div_codes2"> 초등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes3" name="age_div_codes" type="checkbox" value="0003"/> <label for="age_div_codes3"> 중학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes4" name="age_div_codes" type="checkbox" value="0004"/> <label for="age_div_codes4"> 고등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes5" name="age_div_codes" type="checkbox" value="0006"/> <label for="age_div_codes5"> 청년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes6" name="age_div_codes" type="checkbox" value="0007"/> <label for="age_div_codes6"> 중년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes7" name="age_div_codes" type="checkbox" value="0008"/> <label for="age_div_codes7"> 노년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+				</div>
+				<!--
 				<c:forEach items="${ageDivList}" var="i" varStatus="status">
-					<form:checkbox path="age_div_codes" value="${i.code_id}" label="${i.code_name}" checked="${fn:contains(teach.age_div_codes, i.code_id) ? 'checked' : ''}"/> &nbsp;
+					<form:checkbox path="age_div_codes" value="${i.code_id}" label=" ${i.code_name}" checked="${fn:contains(teach.age_div_codes, i.code_id) ? 'checked' : ''}"/> &nbsp;
 				</c:forEach>
+				-->
 			</td>
 		</tr>
 		<tr>

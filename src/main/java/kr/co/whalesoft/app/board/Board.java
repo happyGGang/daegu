@@ -15,6 +15,8 @@ public class Board extends BoardExt {
 	}
 
 	private String homepage_id;
+
+	private String homepage_name;
 	private int menu_idx;
 	private int manage_idx; // 게시판 관리번호
 	private int board_idx; // 게시물 번호
@@ -222,6 +224,14 @@ public class Board extends BoardExt {
 			this.managerList = new ArrayList();
 			this.managerList.addAll(managerList);
 		}
+	}
+
+	public String getHomepage_name() {
+		return homepage_name;
+	}
+
+	public void setHomepage_name(String homepage_name) {
+		this.homepage_name = homepage_name;
 	}
 
 	public int getManage_idx() {

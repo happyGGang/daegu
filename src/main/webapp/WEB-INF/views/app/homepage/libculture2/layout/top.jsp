@@ -20,7 +20,7 @@
 							<b>${sessionScope.member.member_name}님</b>
 						</li>
 						<li>
-							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon_b.png" alt="로그아웃"  class="tnb-logout"/></a>
+							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon.png" alt="로그아웃"  class="tnb-logout"/></a>
 						</li>
 						<!--li>
 							<a href="/${homepage.context_path}/module/myDashBoard/index.do?menu_idx=73">MY Library</a>
@@ -34,7 +34,7 @@
 							<b>${sessionScope.member.member_name}님</b>
 						</li>
 						<li>
-							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon_b.png" alt="로그아웃"  class="tnb-logout"/></a>
+							<a href="/${homepage.context_path}/intro/login/logout.do"><img src="/resources/homepage/${homepage.context_path}/img/logout_icon.png" alt="로그아웃"  class="tnb-logout"/></a>
 						</li>
 					</c:when>
 					<c:otherwise>

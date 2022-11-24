@@ -93,14 +93,27 @@
 			</div>
 		</div>
 		<dl class="product__info">
-			<dt class="bullet__text--arrow">기관명</dt>
-			<dd></dd>
+			<dt class="bullet__text--arrow"><b>기관명</b></dt>
+			<dd>${i.homepage_name}</dd>
 
-			<dt class="bullet__text--arrow">제목</dt>
+			<dt class="bullet__text--arrow"><b>제목</b></dt>
 			<dd>${i.title}</dd>
 
-			<dt class="bullet__text--arrow">상영일</dt>
-			<dd></dd>
+			<dt class="bullet__text--arrow"><b>상영일</b></dt>
+			<dd>
+				${i.imsi_v_1}-${i.imsi_v_2}
+				<c:if test="${i.imsi_v_3 ne '' and i.imsi_v_4 ne ''}">
+					<fmt:formatNumber var="imsi_v_3" minIntegerDigits="2" value="${i.imsi_v_3}" type="number"/>
+					<fmt:formatNumber var="imsi_v_4" minIntegerDigits="2" value="${i.imsi_v_4}" type="number"/>
+					${imsi_v_3}:${imsi_v_4}
+				</c:if>
+			</dd>
+			<c:if test="${i.imsi_v_13 ne null and i.imsi_v_13 ne '0'}">
+			<dt class="bullet__text--arrow"><b>상영시간</b></dt>
+			<dd>
+				${i.imsi_v_13}(분)
+			</dd>
+			</c:if>
 		</dl>
 		<div class="product__buttons">
 			<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" keyValue="${i.board_idx}" target="_blank" class="product__button">정보상세보기</a>

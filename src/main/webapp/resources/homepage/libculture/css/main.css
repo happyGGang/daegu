@@ -60,7 +60,7 @@
 #main0 .main0-center .main0-top-box .slideList li a:hover {background:#dad9da;}
 #main0 .main0-center .main0-top-box .slideList li a img {width:160px;height:225px;}
 
-#main0 .main0-center .main0-top-box .point-img {position:absolute;width:30%;bottom:-64px;left:50%;margin-left:-15%;text-align:center;}
+#main0 .main0-center .main0-top-box .point-img {position:absolute;width:30%;bottom:-5px;left:50%;margin-left:-15%;text-align:center;}
 #main0 .main0-center .main0-top-box .innerBox {position:relative;max-width:1660px;margin:0 auto;padding:0;}
 #main0 .main0-center .main0-top-box .mainSec00 {overflow:hidden;position:relative;}
 #main0 .main0-center .main0-top-box .mainSecNav {display:none;}
@@ -155,11 +155,12 @@
 #main1 .main1-center .main1-bottom-box .culture-search-result ul li a {display:block;width:100%;height:100%;background:#fff;box-sizing:border-box;border:3px solid transparent;}
 #main1 .main1-center .main1-bottom-box .culture-search-result ul li a div {position:relative;height:100%;box-sizing:border-box;padding:30px 35px;}
 #main1 .main1-center .main1-bottom-box .culture-search-result ul li a:hover {border: 3px solid transparent;background-image: linear-gradient(#fff, #fff), linear-gradient(to right, #4bd1cd 0%,  #47a2d5 100%);background-origin: border-box;background-clip: content-box, border-box;}
-#main1 .main1-center .main1-bottom-box .culture-search-result ul li a h4 {display:block;font-family:'s-core_dream6_bold';font-weight:bold;font-size:17px;padding-bottom:23px;color:#000;}
-#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days {display:block;font-family:'Roboto';font-size:20px;padding-bottom:10px;color:#9fa3ab;}
+#main1 .main1-center .main1-bottom-box .culture-search-result ul li a h4 {display:block;font-family:'s-core_dream6_bold';font-weight:bold;font-size:17px;padding-bottom:18px;color:#000;}
+#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days {display:block;font-family:'Roboto';font-size:17px;padding-bottom:10px;color:#9fa3ab;}
+#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days span{font-family:'s-core_dream4_regular';padding-right:20px;}
 #main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days b {color:#000;}
-#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.conte {display:block;font-family:'s-core_dream4_regular';font-size:20px;height:60px;line-height:30px;color:#000;}
-#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.more {position:absolute;right:35px;bottom:30px;font-family:'GmarketSansBold';font-size:11px;color:#005453;}
+#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.conte {display:block;font-family:'s-core_dream4_regular';font-size:20px;height:60px;line-height:30px;color:#000;margin-top:5px;}
+#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.more {position:absolute;right:35px;bottom:25px;font-family:'GmarketSansBold';font-size:11px;color:#005453;}
 #main1 .main1-center .main1-bottom-box .culture-search-result-count {position:relative;font-family:'s-core_dream4_regular';font-size:16px;padding-top:10px;}
 #main1 .main1-center .main1-bottom-box .culture-search-result-count b {font-family:'s-core_dream5_medium';font-size:20px;}
 #main1 .main1-center .main1-bottom-box .culture-search-result-count span.more-box {position:absolute;right:0;top:10px;}
@@ -240,8 +241,16 @@
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a div.imgae-box {position:relative;width:240px;height:340px;}
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a div.imgae-box img {width:240px;height:340px;}
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a div.imgae-box .realnamebox {position:absolute;left:0;top:-10px;display:block;width:60px;height:60px;line-height:60px;color:#fff;font-family:'SCoreDream';font-size:15px;font-style:bold;background:#274395;text-align:center;}
+
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li.areaculture, 
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li.areacarnival  {padding-top:90px;}
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li.areaculture a div.imgae-box, 
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li.areacarnival a div.imgae-box {position:relative;width:240px;height:180px;}
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li.areaculture a div.imgae-box img,
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li.areacarnival a div.imgae-box img {width:240px;height:180px;}
+
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a div.txt-box {box-sizing:border-box;padding:5px;}
-#main3 .main3-center .mainSec03-contents .areaCultureSlideList li a p.txt-box-title {display:block;font-family:'s-core_dream5_medium';font-size:20px;padding:5px 0;}
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li a p.txt-box-title {display:block;font-family:'s-core_dream5_medium';font-size:18px;padding:5px 0;}
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a p.txt-box-day {display:block;font-family:'s-core_dream5_medium';font-size:15px;}
 #main3 .main3-center .mainSec03-contents .bx-controls-direction a {font-size:0;}
 #main3 .main3-center .mainSec03-contents .bx-controls-direction a.bx-prev {position:absolute;top:55%;left:30px;display:block;font-size:0;width:60px;height:110px;background:url('/resources/homepage/libculture/img/area-prev-arrow.png') no-repeat center center;}
