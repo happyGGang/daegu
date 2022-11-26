@@ -134,40 +134,42 @@ $(function() {
 						<ul class="etc_area clearfix">
 							<li class="share_box">
 								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="http://211.224.118.223:8010//resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
-								<ul class="snb_sns">								
+								<ul class="snb_sns">
 									<li>
-										<a href="javascript:void(0);" onclick="javascript:genSortUrl('facebook'); return false;" class="share_facebook" target="_blank" title="페이스북 공유하기 새창">
+										<a href="javascript:void(0);"  class="share_facebook sub-facebook" target="_blank" title="페이스북 공유하기 새창">
 											<img src="https://www.chf.or.kr/_static/chf1/img/sub/sh_facebook.png" alt="Facebook">
 											<span class="hide">페이스북으로 공유</span>
 										</a>
-									</li> 								
+									</li>
 									<li>
-										<a href="javascript:void(0);" onclick="javascript:genSortUrl('twitter'); return false;" class="share_twitter" target="_blank" title="트위터 공유하기 새창">
+										<a href="javascript:void(0);" class="share_twitter sub-twitter" target="_blank" title="트위터 공유하기 새창">
 											<img src="https://www.chf.or.kr/_static/chf1/img/sub/sh_twitter.png" alt="Twitter">
 											<span class="hide">트위터 공유하기</span>
 										</a>
 									</li>
 									<li>
-										<a href="javascript:void(0);" onclick="javascript:genSortUrl('kakao'); return false;" class="share_kakao" target="_blank" title="카카오 공유하기 새창">
+										<a href="javascript:void(0);" class="share_kakao sub-kakao" target="_blank" title="카카오 공유하기 새창">
 											<img src="https://www.chf.or.kr/_static/chf1/img/sub/sh_kakao.png" alt="Kakao">
 											<span class="hide">카카오 공유하기</span>
 										</a>
 									</li>
-								</ul> 
+								</ul>
 							</li>
 							<li>
-								<a href="javascript:void(0);" onclick="javascript:genSortUrl('qr', '문화유산이야기', '' );" class="qr_cord" title="QR코드"><img src="http://211.224.118.223:8010//resources/homepage/libculture/img/sub-icon03.png" alt="QR코드"></a>
+								<a href="javascript:void(0);" class="qr_cord sub-qrcode" title="QR코드" keyValue="true" ><img src="/resources/homepage/libculture/img/sub-icon03.png" alt="QR코드"></a>
 								<div class="qrBox">
 									<a href="javascript:void(0);" class="qrBoxClose" title="QR 코드 닫기">X</a>
-									<img src="" alt=""/>
+									<div id="qrcodeView">
+
+									</div>
 									<p>모바일로 QR코드를 스캔하면<br>이 페이지로 바로접속할 수 있습니다.</p>
 								</div>
 							</li>
 							<li>
 								<a href="javascript:void(0);" onclick="javascript:window.print();" title="새창 열림">
-									<img src="http://211.224.118.223:8010//resources/homepage/libculture/img/sub-icon02.png" alt="프린트출력하기">
+									<img src="/resources/homepage/libculture/img/sub-icon02.png" alt="프린트출력하기">
 								</a>
-							</li> 
+							</li>
 						</ul>
 					</div><!-- // sub_rtop -->
 				</div>

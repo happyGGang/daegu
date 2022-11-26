@@ -34,6 +34,13 @@
 	  }
 	});
 
+	 $('#search_homepage').on('change',function(e){
+		 e.preventDefault();
+		 $('#viewPage').attr('value', '1');
+		 var param = serializeCustom($('form#board'));
+		 doGetLoad('exhibition.do', param);
+	 });
+
  });
 
 </script>
@@ -44,10 +51,12 @@
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 
 <div class="search-form showNot01">
-	<select name="libcode" class="search-form__select">
-		<option value="">전체</option>
-		<option value="">228기념학생</option>
-	</select>
+	<form:select path="search_homepage" cssClass="search-form__select">
+		<form:option value="">전체</form:option>
+		<c:forEach var="i" items="${homepageList}">
+			<form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
+		</c:forEach>
+	</form:select>
 
 	<form:select path="search_type" cssClass="search-form__select">
 		<form:option value="title+content">제목+내용</form:option>
@@ -92,7 +101,7 @@
 		</div>
 		<dl class="product__info">
 			<dt class="bullet__text--arrow"><b>기관명</b></dt>
-			<dd></dd>
+			<dd>${i.homepage_name}</dd>
 
 			<dt class="bullet__text--arrow"><b>제목</b></dt>
 			<dd>${i.title}</dd>

@@ -76,7 +76,7 @@ ${boardManage.top_html}
 							</c:choose>
 						</div>
 						<div class="txt">
-							<h4><a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}">${i.title}</a></h4>
+							<h2><a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}">${i.title}</a></h2>
 							<ul>
 								<li>
                                     <c:set var = "months" value = "${fn:replace(i.imsi_v_1, 'JAN', '1')}" />
@@ -99,7 +99,7 @@ ${boardManage.top_html}
 							</ul>
 
 							<c:set value="${fn:replace(i.content, crlf, '<br/>')}" var="content"></c:set>
-							${i.content}
+							${i.content_summary}
 
 						</div>
 					</div>

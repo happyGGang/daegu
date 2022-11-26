@@ -48,6 +48,12 @@
       <if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
         AND	${search_type} LIKE '%'||#{search_text}||'%'
       </if>
+      <if test="search_cate != null and search_cate != ''">
+        AND catecode = #{search_cate}
+      </if>
+      <if test="search_area != null and search_area != ''">
+        AND areacode = #{search_area}
+      </if>
     ${pagingBottom}
   </select>
 
@@ -60,6 +66,12 @@
       1 = 1
       <if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
         AND	${search_type} LIKE '%'||#{search_text}||'%'
+      </if>
+      <if test="search_cate != null and search_cate != ''">
+        AND catecode = #{search_cate}
+      </if>
+      <if test="search_area != null and search_area != ''">
+        AND areacode = #{search_area}
       </if>
   </select>
 </mapper>

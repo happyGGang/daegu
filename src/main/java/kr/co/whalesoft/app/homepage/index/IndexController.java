@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.go.gbelib.app.cms.module.culture.Culture;
 import kr.go.gbelib.app.cms.module.culture.CultureService;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
@@ -21,6 +22,8 @@ import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesServic
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
 import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
 import kr.go.gbelib.app.common.api.CultureAPI;
+import kr.go.gbelib.app.module.myLibrary.MyLibrary;
+import kr.go.gbelib.app.module.myLibrary.MyLibraryService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -148,6 +151,9 @@ public class IndexController extends BaseController {
 
 	@Autowired
 	private CultureService cultureService;
+
+	@Autowired
+	private MyLibraryService myLibraryService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -1039,7 +1045,21 @@ public class IndexController extends BaseController {
 			model.addAttribute("ageCodeList", codeService.getCodeList(code));
 
 			model.addAttribute("hashtagCodeList", hashtagService.getHashtagUsedList(new Hashtag()));
-			model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(new Teach(), "N"));
+
+			Member sessionMemberInfo = getSessionMemberInfo(request);
+
+			Teach teach = new Teach();
+
+			if (isLogin(request) && "HOMEPAGE".equals(sessionMemberInfo.getLoginType())) {
+				MyLibrary myLibrary = myLibraryService.getMyLibrary(new MyLibrary(sessionMemberInfo.getLoginType(), sessionMemberInfo.getMember_id()));
+
+				if (myLibrary != null) {
+					if (StringUtils.isNotEmpty(myLibrary.getManage_codes())) {
+						teach.setManage_codes(myLibrary.getManage_codes().split(","));
+					}
+				}
+			}
+			model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(teach, "N"));
 		}
 
 		log.debug("jsp Page : "+basePath + filePath);
@@ -1864,7 +1884,23 @@ public class IndexController extends BaseController {
 	public String education(Model model, HttpServletRequest request,
 		@PathVariable String contextPath) throws ParseException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(new Teach(), "Y"));
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		Teach teach = new Teach();
+
+		if (isLogin(request) && "HOMEPAGE".equals(sessionMemberInfo.getLoginType())) {
+			MyLibrary myLibrary =myLibraryService.getMyLibrary(new MyLibrary(sessionMemberInfo.getLoginType(), sessionMemberInfo.getMember_id()));
+
+			if (myLibrary != null) {
+				if (StringUtils.isNotEmpty(myLibrary.getManage_codes())) {
+					teach.setManage_codes(myLibrary.getManage_codes().split(","));
+				}
+			}
+
+		}
+
+		model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(teach, "Y"));
 		return basePath + homepage.getFolder() + "/education_ajax";
 	}
 
@@ -1914,7 +1950,7 @@ public class IndexController extends BaseController {
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("gugun", search_area);
 
-		model.addAttribute("area", CultureAPI.areaRequest(parameter));
+		model.addAttribute("list", CultureAPI.areaRequestDetails(new HashMap<String, Object>(), CultureAPI.areaRequest(parameter)));
 		return basePath + homepage.getFolder() + "/areaexhibition_ajax";
 	}
 

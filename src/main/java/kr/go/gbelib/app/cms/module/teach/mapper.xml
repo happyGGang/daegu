@@ -1313,6 +1313,19 @@
 				</if>
 			</if>
 			AND a.homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88') -- 사립도서관 제외
+			<if test="manage_codes != null and manage_codes != ''">
+				AND a.homepage_id IN (
+			    SELECT
+						HOMEPAGE_ID
+					FROM
+						CMS_HOMEPAGE
+					WHERE
+						MANAGE_CODE IN
+							<foreach collection="manage_codes" item="i" open="(" close=")" separator=",">
+								#{i}
+							</foreach>
+					)
+			</if>
 			ORDER BY
 			ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC
@@ -2878,5 +2891,188 @@
 		ORDER BY
 		ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 		ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC
+	</select>
+
+	<select id="getApplyListAll" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
+		${pagingTop}
+		SELECT * FROM (
+			SELECT
+				CASE
+					WHEN STUDENT_STATUS = 1
+					THEN '수료'
+					WHEN APPLY_STATUS = '1'
+					THEN '미수료'
+					ELSE APPLY_STATUS_NAME
+				END
+				AS student_status_name,
+			A.*
+		FROM (
+				SELECT
+					(SELECT HOMEPAGE_NAME FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = A.HOMEPAGE_ID) AS homepage_name, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name, A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
+					A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
+					A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
+					A.end_date, A.END_TIME, A.CANCLE_use_yn, A.START_CANCLE_DATE, A.START_CANCLE_TIME, A.END_CANCLE_DATE, A.END_CANCLE_TIME, A.CANCLE_GUID,
+					A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,
+					A.CATEGORY_NAME, A.GROUP_NAME, A.STUDENT_IDX,A.STUDENT_NAME, A.STUDENT_BIRTH, A.STUDENT_SEX,
+					CASE
+					WHEN A.CNT = 0
+					THEN '2'
+					WHEN (A.ATTEND_CNT/A.CNT)*100 >= 70 AND	a.end_date &lt;= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+					THEN '1'
+					ELSE '2'
+					END AS STUDENT_STATUS,
+					A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size,
+					a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
+					getCodeIdToCodeName('CMS', 'C0005', a.APPLY_STATUS) AS APPLY_STATUS_NAME,
+					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
+					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+					A.add_date, A.CANCEL_DATE,A.APPLY_STATUS
+				FROM
+				(
+				SELECT
+				<choose>
+					<when test="member_key != null and member_key != ''">
+						(SELECT COUNT(*) FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX AND	MEMBER_KEY = e.MEMBER_KEY) as STATUS,
+					</when>
+					<otherwise>
+						(SELECT COUNT(*) FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX AND	applicant_name = e.applicant_name AND student_password = e.student_password) as STATUS,
+					</otherwise>
+				</choose>
+				e.APPLY_STATUS,
+				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
+				a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+				a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
+				a.end_date, a.END_TIME, a.cancle_use_yn, a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
+				a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+				b.TEACHER_NAME, e.CANCEL_ID, e.student_name, e.student_birth, e.student_sex, e.member_key,
+				c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+				(SELECT COUNT(*) FROM TEACH_BOOK_TIME WHERE homepage_id = e.homepage_id AND	group_idx = e.group_idx AND	category_idx = e.category_idx
+				and teach_idx = e.teach_idx) CNT,
+				(SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0)
+				FROM TEACH_BOOK
+				WHERE homepage_id = e.homepage_id AND	group_idx = e.group_idx AND	category_idx = e.category_idx AND	teach_idx = e.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX) as ATTEND_CNT
+				, e.student_idx, a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
+				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+				e.add_date, e.CANCEL_DATE
+				FROM
+				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
+				WHERE a.homepage_id = b.homepage_id(+)
+				AND	a.teacher_idx = b.teacher_idx(+)
+				AND	a.homepage_id = c.homepage_id(+)
+				AND	a.group_idx = c.group_idx(+)
+				AND	a.category_idx = c.category_idx(+)
+				AND	a.homepage_id = d.homepage_id(+)
+				AND	a.group_idx = d.group_idx(+)
+				AND	a.homepage_id = e.homepage_id
+				AND	a.group_idx = e.group_idx
+				AND	a.category_idx = e.category_idx
+				AND	a.teach_idx = e.teach_idx
+				AND	e.MEMBER_KEY = #{member_id}
+				AND	e.delete_yn = 'N'
+				AND a.homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88')
+				ORDER BY
+				ADD_DATE DESC
+				) A
+			) A
+		)
+		WHERE
+		    1 = 1
+		<if test="search_student_status != null and search_student_status != ''">
+			AND student_status_name = #{search_student_status}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		${pagingBottom}
+	</select>
+
+	<select id="getApplyListAllCount" resultType="int">
+		SELECT COUNT(*) FROM (
+			SELECT
+				CASE
+					WHEN STUDENT_STATUS = 1
+						THEN '수료'
+					WHEN APPLY_STATUS = '1'
+						THEN '미수료'
+					ELSE APPLY_STATUS_NAME
+					END AS student_status_name,
+				A.*
+			FROM (
+						 SELECT
+							 (SELECT HOMEPAGE_NAME FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = A.HOMEPAGE_ID) AS homepage_name, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name, A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
+							 A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
+							 A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
+							 A.end_date, A.END_TIME, A.CANCLE_use_yn, A.START_CANCLE_DATE, A.START_CANCLE_TIME, A.END_CANCLE_DATE, A.END_CANCLE_TIME, A.CANCLE_GUID,
+							 A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,
+							 A.CATEGORY_NAME, A.GROUP_NAME, A.STUDENT_IDX,A.STUDENT_NAME, A.STUDENT_BIRTH, A.STUDENT_SEX,
+							 CASE
+								 WHEN A.CNT = 0
+									 THEN '2'
+								 WHEN (A.ATTEND_CNT/A.CNT)*100 >= 70 AND	a.end_date &lt;= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+									 THEN '1'
+								 ELSE '2'
+								 END AS STUDENT_STATUS,
+							 A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size,
+							 a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+							 getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
+							 getCodeIdToCodeName('CMS', 'C0005', a.APPLY_STATUS) AS APPLY_STATUS_NAME,
+							 getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
+							 a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+							 A.add_date, A.CANCEL_DATE,A.APPLY_STATUS
+		FROM
+		(
+		SELECT
+
+		(SELECT COUNT(*) FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX AND	MEMBER_KEY = e.MEMBER_KEY) as STATUS,
+
+		e.APPLY_STATUS,
+		a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
+		a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+		a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
+		a.end_date, a.END_TIME, a.cancle_use_yn, a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
+		a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+		b.TEACHER_NAME, e.CANCEL_ID, e.student_name, e.student_birth, e.student_sex, e.member_key,
+		c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+		(SELECT COUNT(*) FROM TEACH_BOOK_TIME WHERE homepage_id = e.homepage_id AND	group_idx = e.group_idx AND	category_idx = e.category_idx
+		and teach_idx = e.teach_idx) CNT,
+		(SELECT NVL(SUM(DECODE(status, '1', 1, '2', 1, 0)) - TRUNC(SUM(DECODE(status, '2', 1, 0))/3), 0)
+		FROM TEACH_BOOK
+		WHERE homepage_id = e.homepage_id AND	group_idx = e.group_idx AND	category_idx = e.category_idx AND	teach_idx = e.teach_idx AND	STUDENT_IDX = e.STUDENT_IDX) as ATTEND_CNT
+		, e.student_idx,
+		a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
+		a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+		e.add_date, e.CANCEL_DATE
+		FROM
+		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
+		WHERE a.homepage_id = b.homepage_id(+)
+		AND	a.teacher_idx = b.teacher_idx(+)
+		AND	a.homepage_id = c.homepage_id(+)
+		AND	a.group_idx = c.group_idx(+)
+		AND	a.category_idx = c.category_idx(+)
+		AND	a.homepage_id = d.homepage_id(+)
+		AND	a.group_idx = d.group_idx(+)
+		AND	a.homepage_id = e.homepage_id
+		AND	a.group_idx = e.group_idx
+		AND	a.category_idx = e.category_idx
+		AND	a.teach_idx = e.teach_idx
+		AND	e.MEMBER_KEY = #{member_id}
+		AND	e.delete_yn = 'N'
+		AND a.homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88')
+		ORDER BY
+		ADD_DATE DESC
+		) A
+		) A
+		)
+		WHERE
+		1 = 1
+		<if test="search_student_status != null and search_student_status != ''">
+			AND student_status_name = #{search_student_status}
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
 	</select>
 </mapper>

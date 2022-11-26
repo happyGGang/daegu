@@ -217,6 +217,18 @@ public class Teach extends PagingUtils {
 	private String search_area;
 	private String search_target;
 	private String search_hashtag;
+
+	private String[] manage_codes;
+	private String cancel_date;
+
+	private String apply_status;
+
+	private  String apply_status_name;
+
+	private String search_student_status;
+
+	private String student_status_name;
+
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -1718,5 +1730,53 @@ public class Teach extends PagingUtils {
 
 	public String getSearch_hashtag() {
 		return search_hashtag;
+	}
+
+	public String[] getManage_codes() {
+		return manage_codes;
+	}
+
+	public void setManage_codes(String[] manage_codes) {
+		this.manage_codes = manage_codes;
+	}
+
+	public String getCancel_date() {
+		return cancel_date;
+	}
+
+	public void setCancel_date(String cancel_date) {
+		this.cancel_date = cancel_date;
+	}
+
+	public String getApply_status() {
+		return apply_status;
+	}
+
+	public void setApply_status(String apply_status) {
+		this.apply_status = apply_status;
+	}
+
+	public String getApply_status_name() {
+		return apply_status_name;
+	}
+
+	public void setApply_status_name(String apply_status_name) {
+		this.apply_status_name = apply_status_name;
+	}
+
+	public String getSearch_student_status() {
+		return search_student_status;
+	}
+
+	public void setSearch_student_status(String search_student_status) {
+		this.search_student_status = search_student_status;
+	}
+
+	public String getStudent_status_name() {
+		return student_status_name;
+	}
+
+	public void setStudent_status_name(String student_status_name) {
+		this.student_status_name = student_status_name;
 	}
 }

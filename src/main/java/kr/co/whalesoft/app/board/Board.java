@@ -144,17 +144,18 @@ public class Board extends BoardExt {
 	private String logicFunction3;// searchKeyowrd3 뒤의 조건절 (AND, OR, NOT 중 택 1)
 	private String logicFunction4;// searchKeyowrd4 뒤의 조건절 (AND, OR, NOT 중 택 1)
 	private boolean paggingUsed;
-	
+
 	private String initSearch;//초성검색용 변수. 초성+ㅏ
 	private String initSearch2;//초성검색용 변수. 초성
 	private String initSearchNext;//초성검색용변수. 다음 글자
-	
+
 	private String theme_imsi_key; // 테마북 key
 	private String theme_imsi_val; // 테마북 val
 	private String[] theme_imsi_key_arr; // 테마북 key_arr
 
 	// 축제게시판 월검색
 	private String search_month;
+	private String search_homepage;
 
 	public Board(int manage_idx, int row_count) {
 		this.manage_idx = manage_idx;
@@ -1087,7 +1088,7 @@ public class Board extends BoardExt {
 	public String getInitSearch() {
 		return initSearch;
 	}
-	
+
 	public void setInitSearch(String initSearch) {
 		this.initSearch = initSearch;
 	}
@@ -1107,7 +1108,7 @@ public class Board extends BoardExt {
 	public void setInitSearchNext(String initSearchNext) {
 		this.initSearchNext = initSearchNext;
 	}
-	
+
 	public String getTheme_imsi_key() {
 		return theme_imsi_key;
 	}
@@ -1138,5 +1139,13 @@ public class Board extends BoardExt {
 
 	public void setSearch_month(String search_month) {
 		this.search_month = search_month;
+	}
+
+	public String getSearch_homepage() {
+		return search_homepage;
+	}
+
+	public void setSearch_homepage(String search_homepage) {
+		this.search_homepage = search_homepage;
 	}
 }

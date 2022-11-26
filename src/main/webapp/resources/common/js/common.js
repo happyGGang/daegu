@@ -348,6 +348,8 @@ $(document).ready(function() {
 				$('div#container div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			} else if ( url.indexOf('elib') != -1) {
 				$('div#sub-container div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
+			} else if ( url.indexOf('libculture') != -1 || url.indexOf('nearbylib') != -1 ) {
+
 			} else {
 				$('div#container > div.section > div.content > div.doc').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			}
@@ -357,12 +359,22 @@ $(document).ready(function() {
 			url = encodeURIComponent(url);
 			var src = 'http://chart.apis.google.com/chart?cht=qr&chof=gif&chl='+url+'&choe=UTF-8&chld=H|0&chs=' + size + 'x' + size;
 
-			$('div#qrcodeView').html('<img style="position:absolute; right:0px;max-width:'+size+'px; max-height:'+size+'px; width:'+size+'px; height:'+size+'px;" alt="QR코드" src="' + src + '">');
+			if (url.indexOf('libculture') != -1 || url.indexOf('nearbylib') != -1 ) {
+				$('div#qrcodeView').html('<img style="max-width:'+size+'px; max-height:'+size+'px; width:'+size+'px; height:'+size+'px;" alt="QR코드" src="' + src + '">');
+			} else {
+				$('div#qrcodeView').html('<img style="position:absolute; right:0px;max-width:'+size+'px; max-height:'+size+'px; width:'+size+'px; height:'+size+'px;" alt="QR코드" src="' + src + '">');
+			}
+
 			$('div#qrcodeView').show();
 			$(this).attr('keyValue', false);
 		}
 		else {
-			$('div#qrcodeView').remove();
+			if (url.indexOf('libculture') != -1 || url.indexOf('nearbylib') != -1 ) {
+				$('div#qrcodeView').empty();
+			} else {
+				$('div#qrcodeView').remove();
+			}
+
 			$(this).attr('keyValue', true);
 		}
 

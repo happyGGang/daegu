@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.module.myLibrary.MyLibraryDao">
+  <select id="getMyLibrary" resultType="kr.go.gbelib.app.module.myLibrary.MyLibrary">
+    SELECT 
+        library_idx, manage_codes, member_id, login_type, 
+        add_date, add_id, add_ip 
+    FROM 
+        MY_LIBRARY 
+    WHERE 
+        member_id = #{member_id} 
+    AND login_type = #{login_type}
+  </select>
+  
+  <insert id="addMyLibrary">
+    <selectKey keyProperty="library_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(LIBRARY_IDX),0)+1 FROM MY_LIBRARY
+    </selectKey>
+    INSERT INTO MY_LIBRARY
+    (
+        library_idx, manage_codes, member_id, login_type, add_date, add_id, add_ip
+    ) VALUES (
+        #{library_idx}, #{manage_codes}, #{member_id}, #{login_type}, SYSDATE, #{add_id}, #{add_ip}
+    )
+  </insert>
+
+  <update id="modifyLibrary">
+    UPDATE
+      MY_LIBRARY
+    SET
+      manage_codes = #{manage_codes}
+    WHERE
+        member_id = #{member_id}
+      AND login_type = #{login_type}
+  </update>
+</mapper>

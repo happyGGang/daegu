@@ -149,7 +149,7 @@
 	  <c:forEach var="i" items="${areaCultureList}">
 		<li class="areaculture">
 		  <h4>${i.areaname}</h4>
-		  <a href="#" class="border bgimg001" target="_blank">
+		  <a href="/libculture/module/culture/cultureView.do?menu_idx=7&idx=${i.idx}" class="border bgimg001" target="_blank">
 			<div class="imgae-box">
 			  <c:choose>
 				<c:when test="${i.img_url ne null}">

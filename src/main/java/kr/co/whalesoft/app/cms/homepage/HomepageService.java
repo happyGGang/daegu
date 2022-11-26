@@ -195,4 +195,11 @@ public class HomepageService extends BaseService {
 		return dao.getSubNextPrintSeq(homepage);
 	}
 
+	public List<Homepage> cultureHomepageList(Homepage homepage) {
+		return dao.cultureHomepageList(homepage);
+	}
+
+	public String getHomepageNameInManageCode(Homepage homepage) {
+		return dao.getHomepageNameInManageCode(homepage);
+	}
 }

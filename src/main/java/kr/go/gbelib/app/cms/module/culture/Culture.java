@@ -19,9 +19,9 @@ public class Culture extends PagingUtils {
     private String etc;
     private String use_yn;
     private String img_url;
-
     private String search_area;
 
+    private String search_cate;
     private String keyword;
 
     public int getIdx() {
@@ -159,5 +159,13 @@ public class Culture extends PagingUtils {
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public String getSearch_cate() {
+        return search_cate;
+    }
+
+    public void setSearch_cate(String search_cate) {
+        this.search_cate = search_cate;
     }
 }

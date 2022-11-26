@@ -44,6 +44,8 @@ public class Homepage extends PagingUtils implements Serializable {
 	private String manage_code;
 	private String lib_code;
 
+	private String[] manage_codes;
+
 	public Homepage() {
 	}
 
@@ -318,6 +320,14 @@ public class Homepage extends PagingUtils implements Serializable {
 
 	public void setLib_code(String lib_code) {
 		this.lib_code = lib_code;
+	}
+
+	public String[] getManage_codes() {
+		return manage_codes;
+	}
+
+	public void setManage_codes(String[] manage_codes) {
+		this.manage_codes = manage_codes;
 	}
 
 	@Override

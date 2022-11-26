@@ -27,34 +27,50 @@
 	  $('#viewPage').val(1);
 	  doGetLoad('culture.do', serializeCustom($('form#culture')));
 	});
+
+	  $('#search_area').on('change',function(e){
+		  e.preventDefault();
+		  $('#viewPage').attr('value', '1');
+		  var param = serializeCustom($('form#culture'));
+		  doGetLoad('culture.do', param);
+	  });
+
+	  $('#search_cate').on('change',function(e){
+		  e.preventDefault();
+		  $('#viewPage').attr('value', '1');
+		  var param = serializeCustom($('form#culture'));
+		  doGetLoad('culture.do', param);
+	  });
   });
 </script>
 
 <form:form modelAttribute="culture" action="culture.do" method="GET">
 <form:hidden path="menu_idx"></form:hidden>
 <div class="search-form showNot01">
-	<select name="areacode" class="search-form__select">
-		<option value="">지역전체</option>
-		<option value="0001">동구</option>
-		<option value="0002">서구</option>
-		<option value="0003">남구</option>
-		<option value="0004">북구</option>
-		<option value="0005">수성구</option>
-		<option value="0006">중구</option>
-		<option value="0007">달서구</option>
-		<option value="0008">달성군</option>
-	</select>
-	<select name="" class="search-form__select">
-		<option value="">시설전체</option>
-		<option value="0001">공연장</option>
-		<option value="0006">박물관</option>
-		<option value="0007">영화관</option>
-		<option value="0003">도서관</option>
-		<option value="0005">미술관</option>
-		<option value="0004">문화·복지시군구회관</option>
-		<option value="0008">문화비 소득공제</option>
-		<option value="0002">기타문화공간</option>
-	</select>
+	<form:select path="search_area" cssClass="search-form__select">
+		<form:option value="">지역전체</form:option>
+		<form:option value="0001">동구</form:option>
+		<form:option value="0002">서구</form:option>
+		<form:option value="0003">남구</form:option>
+		<form:option value="0004">북구</form:option>
+		<form:option value="0005">수성구</form:option>
+		<form:option value="0006">중구</form:option>
+		<form:option value="0007">달서구</form:option>
+		<form:option value="0008">달성군</form:option>
+	</form:select>
+
+	<form:select path="search_cate" cssClass="search-form__select">
+		<form:option value="">시설전체</form:option>
+		<form:option value="0001">공연장</form:option>
+		<form:option value="0006">박물관</form:option>
+		<form:option value="0007">영화관</form:option>
+		<form:option value="0003">도서관</form:option>
+		<form:option value="0005">미술관</form:option>
+		<form:option value="0004">문화·복지시군구회관</form:option>
+		<form:option value="0008">문화비 소득공제</form:option>
+		<form:option value="0002">기타문화공간</form:option>
+	</form:select>
+
 	<form:select path="search_type" cssClass="search-form__select" title="검색 조건">
 		<form:option value="">전체</form:option>
 		<form:option value="NAME">명칭</form:option>

@@ -229,8 +229,10 @@ $(function(){
 	});
 
 	$(".qrBoxClose").click(function(){
+		$(this).parent('div').parent('li').find('a').attr('keyValue', 'true');
 		$(".qrBox").removeClass("on");
 	});
+
 
 
 	//tab 클릭시 id 값으로 이동.

@@ -146,28 +146,14 @@
 </script>
 <ul>
 	<c:choose>
-		<c:when test="${area.msgBody.totalCount == 1}">
-			<li>
-				<h4>${area.msgBody.perforList.place}</h4>
-				<a href="javascript:alert('준비중입니다.')" class="border bgimg001">
-					<div class="imgae-box">
-						<img src="${area.msgBody.perforList.thumbnail}" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
-					</div>
-					<div class="txt-box">
-						<p class="txt-box-title">${area.msgBody.perforList.title}</p>
-						<p class="txt-box-day">${area.msgBody.perforList.startDate} ~ ${area.msgBody.perforList.endDate}</p>
-					</div>
-				</a>
-			</li>
-		</c:when>
-		<c:when test="${area.msgBody.totalCount > 1}">
-			<c:forEach var="i" items="${area.msgBody.perforList}">
+		<c:when test="${fn:length(list) > 1}">
+			<c:forEach var="i" items="${list}">
 				<li>
 					<h4>${i.place}</h4>
-					<a href="javascript:alert('준비중입니다.')" class="border bgimg001">
+					<a href="${i.placeUrl}" class="border bgimg001">
 						<div class="imgae-box">
 							<span class="realnamebox">${i.realmName}</span>
-							<img src="${i.thumbnail}" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+							<img src="${i.imgUrl}" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
 						</div>
 						<div class="txt-box">
 							<p class="txt-box-title">${i.title}</p>

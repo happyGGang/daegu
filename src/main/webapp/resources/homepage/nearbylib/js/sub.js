@@ -229,6 +229,7 @@ $(function(){
 	});
 
 	$(".qrBoxClose").click(function(){
+		$(this).parent('div').parent('li').find('a').attr('keyValue', 'true');
 		$(".qrBox").removeClass("on");
 	});
 

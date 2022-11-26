@@ -243,4 +243,31 @@
 			homepage_type = '0'
 		AND	homepage_group = #{homepage_group}
 	</select>
+
+	<select id="cultureHomepageList" resultType="kr.co.whalesoft.app.cms.homepage.Homepage">
+		SELECT
+			*
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			CONTEXT_PATH IS NOT NULL
+			AND LIB_CODE IS NOT NULL
+			AND homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88', 'h30', 'h31', 'h32')
+			AND HOMEPAGE_GROUP = 'ALL'
+		ORDER BY PRINT_SEQ
+	</select>
+
+	<select id="getHomepageNameInManageCode" resultType="String">
+		SELECT
+		    LISTAGG(homepage_name,',') WITHIN GROUP (ORDER BY homepage_id) AS homepage_name
+		FROM
+		    CMS_HOMEPAGE
+		WHERE
+		    1 = 1
+		AND
+		    MANAGE_CODE IN
+		    <foreach collection="manage_codes" item="i" open="(" close=")" separator=",">
+					#{i}
+				</foreach>
+	</select>
 </mapper>

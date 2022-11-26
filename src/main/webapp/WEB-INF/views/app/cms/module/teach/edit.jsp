@@ -672,7 +672,7 @@
 			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
 			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
 		});
-		
+
 		$('#age_div_normal_all').change(function() {
 			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
 			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
@@ -845,23 +845,31 @@
 			<th>대상 분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td class="age_div_target">
 				<div class="" style="box-sizing:border-box;padding:10px 0;border-bottom:1px dashed #000;">
-					<input id="age_div_all" name="age_div_codes" type="checkbox" value="">
+					<c:set var="all_yn" value="N"></c:set>
+					<c:set var="normal_all_yn" value="N"></c:set>
+					<c:if test="${fn:contains(teach.age_div_codes, '0001') and fn:contains(teach.age_div_codes, '0002') and fn:contains(teach.age_div_codes, '0003') and fn:contains(teach.age_div_codes, '0004') and fn:contains(teach.age_div_codes, '0006') and fn:contains(teach.age_div_codes, '0007') and fn:contains(teach.age_div_codes, '0008')}">
+						<c:set var="all_yn" value="Y"></c:set>
+					</c:if>
+					<c:if test="${fn:contains(teach.age_div_codes, '0006') and fn:contains(teach.age_div_codes, '0007') and fn:contains(teach.age_div_codes, '0008')}">
+						<c:set var="normal_all_yn" value="Y"></c:set>
+					</c:if>
+					<input id="age_div_all" type="checkbox" value="" ${all_yn eq 'Y' ? 'checked' : ''}>
 					<label for="age_div_all">전체</label>&nbsp;
-					<input id="age_div_normal_all" name="age_div_codes" type="checkbox" value="">
+					<input id="age_div_normal_all" type="checkbox" value="" ${all_yn eq 'N' and normal_all_yn eq 'Y' ? 'checked' : ''}>
 					<label for="age_div_normal_all">일반전체</label>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input id="age_div_codes8" name="age_div_codes" type="checkbox" value="0010"/> <label for="age_div_codes8"> 학부모</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes9" name="age_div_codes" type="checkbox" value="0011"/> <label for="age_div_codes9"> 다문화</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes10" name="age_div_codes" type="checkbox" value="0012"/> <label for="age_div_codes10"> 가족</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes8" name="age_div_codes" type="checkbox" value="0010" ${fn:contains(teach.age_div_codes, '0010') ? 'checked': ''}/> <label for="age_div_codes8"> 학부모</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes9" name="age_div_codes" type="checkbox" value="0011" ${fn:contains(teach.age_div_codes, '0011') ? 'checked': ''}/> <label for="age_div_codes9"> 다문화</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes10" name="age_div_codes" type="checkbox" value="0012" ${fn:contains(teach.age_div_codes, '0012') ? 'checked': ''}/> <label for="age_div_codes10"> 가족</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
 				</div>
 				<div class="" style="box-sizing:border-box;padding:10px 0;">
-					<input id="age_div_codes1" name="age_div_codes" type="checkbox" value="0001"/> <label for="age_div_codes1"> 유아</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes2" name="age_div_codes" type="checkbox" value="0002"/> <label for="age_div_codes2"> 초등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes3" name="age_div_codes" type="checkbox" value="0003"/> <label for="age_div_codes3"> 중학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes4" name="age_div_codes" type="checkbox" value="0004"/> <label for="age_div_codes4"> 고등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes5" name="age_div_codes" type="checkbox" value="0006"/> <label for="age_div_codes5"> 청년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes6" name="age_div_codes" type="checkbox" value="0007"/> <label for="age_div_codes6"> 중년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
-					<input id="age_div_codes7" name="age_div_codes" type="checkbox" value="0008"/> <label for="age_div_codes7"> 노년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes1" name="age_div_codes" type="checkbox" value="0001" ${fn:contains(teach.age_div_codes, '0001') ? 'checked': ''}/> <label for="age_div_codes1"> 유아</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes2" name="age_div_codes" type="checkbox" value="0002" ${fn:contains(teach.age_div_codes, '0002') ? 'checked': ''}/> <label for="age_div_codes2"> 초등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes3" name="age_div_codes" type="checkbox" value="0003" ${fn:contains(teach.age_div_codes, '0003') ? 'checked': ''}/> <label for="age_div_codes3"> 중학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes4" name="age_div_codes" type="checkbox" value="0004" ${fn:contains(teach.age_div_codes, '0004') ? 'checked': ''}/> <label for="age_div_codes4"> 고등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes5" name="age_div_codes" type="checkbox" value="0006" ${fn:contains(teach.age_div_codes, '0006') ? 'checked': ''}/> <label for="age_div_codes5"> 청년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes6" name="age_div_codes" type="checkbox" value="0007" ${fn:contains(teach.age_div_codes, '0007') ? 'checked': ''}/> <label for="age_div_codes6"> 중년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes7" name="age_div_codes" type="checkbox" value="0008" ${fn:contains(teach.age_div_codes, '0008') ? 'checked': ''}/> <label for="age_div_codes7"> 노년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
 				</div>
 				<!--
 				<c:forEach items="${ageDivList}" var="i" varStatus="status">

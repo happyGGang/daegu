@@ -669,4 +669,11 @@ public class TeachService extends BaseService {
 		return dao.getTeachApiList(teach);
 	}
 
+	public List<Teach> getApplyListAll(Teach teach) {
+		return dao.getApplyListAll(teach);
+	}
+
+	public int getApplyListAllCount(Teach teach) {
+		return dao.getApplyListAllCount(teach);
+	}
 }

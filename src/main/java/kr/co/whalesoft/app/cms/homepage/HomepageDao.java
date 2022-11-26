@@ -63,4 +63,8 @@ public interface HomepageDao  {
 	 */
 	public int getSubNextPrintSeq(Homepage homepage);
 
+	public List<Homepage> cultureHomepageList(Homepage homepage);
+
+	public String getHomepageNameInManageCode(Homepage homepage);
+
 }
