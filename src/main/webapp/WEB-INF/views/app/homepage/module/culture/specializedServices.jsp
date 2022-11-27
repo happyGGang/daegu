@@ -28,6 +28,7 @@
 </script>
 
 <form:form modelAttribute="specializedServices" action="specializedServices.do" method="GET">
+	<form:hidden path="menu_idx"></form:hidden>
   <div class="search-form showNot01">
 	<form:select path="search_type" cssClass="search-form__select" title="검색 조건">
 	<form:option value="">전체</form:option>
