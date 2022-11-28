@@ -43,7 +43,10 @@ private final String basePath = "/cms/module/neighborhoodLibrary/neighborhoodLib
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, NeighborhoodLibraryLocker neighborhoodLibraryLocker, HttpServletRequest request) {
 		//개별 사물함 불러오기
-		List<NeighborhoodLibraryLocker> lockerOneList = service.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);
+		NeighborhoodLibraryLocker neighborhoodLibraryLocker2 = new NeighborhoodLibraryLocker();
+		neighborhoodLibraryLocker2.setEditMode("LockerAll");
+		neighborhoodLibraryLocker2.setDevice_idx(neighborhoodLibraryLocker.getDevice_idx());
+		List<NeighborhoodLibraryLocker> lockerOneList = service.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker2);
 		NeighborhoodLibraryLocker lockerOne = service.getNeighborhoodLibraryLockerOne(neighborhoodLibraryLocker);
 		
 		//

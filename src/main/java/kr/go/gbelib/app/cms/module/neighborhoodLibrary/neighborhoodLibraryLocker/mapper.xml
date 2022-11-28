@@ -62,8 +62,9 @@
 			WHERE
 				1=1
 			AND DEVICE_IDX = #{device_idx}	
+			<if test='editMode != "LockerAll"'>
 			AND USE_YN = 'Y' 
-			
+			</if>
 	</select>
 	
 	<select id="getNeighborhoodLibraryLockerEachOneListCount" resultType="int">

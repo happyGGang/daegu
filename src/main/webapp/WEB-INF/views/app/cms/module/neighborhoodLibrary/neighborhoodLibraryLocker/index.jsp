@@ -23,7 +23,7 @@ $(function() {
 			}
 		}
 		e.preventDefault();	
-	});			
+	});
 
 });
 
@@ -145,23 +145,23 @@ table .table_left_td > .table_td_use_yn{
 </div>
 <div class="locker_wrap_left">
 	<table class="type1 table_left">
-		<thead>			
+		<thead>	
 			<tr>
 				<c:forEach var="i" varStatus="status" begin="1" end="${lockerOne.col_no }">
-				<th>${status.index }열</th>				
-				</c:forEach>		
+				<th>${status.index }열</th>
+				</c:forEach>
 			</tr>
 		</thead>
-		<tbody>			
-			<c:forEach var="j" varStatus="status_row" begin="1" end="${lockerOne.row_no }">	<!--세로줄 그리기 -->	
+		<tbody>
+			<c:forEach var="j" varStatus="status_row" begin="1" end="${lockerOne.row_no }">	<!--세로줄 그리기 -->
 				<tr class="table_left_tr">
 					<c:forEach var="k" varStatus="status_col" begin="1" end="${lockerOne.col_no}"> <!-- 가로줄 그리기 -->
 						<td class="table_left_td" id="${status_col.index eq lockerOne.monitor_position and status_row.index eq 1 ? 'locker_td':'' }" style="${status_col.index eq lockerOne.monitor_position and status_row.index lt (lockerOne.row_no - lockerOne.add_row_no)? 'border-bottom-color:#e7e7e7;':'' }${status_col.index eq lockerOne.monitor_position and status_row.index lt ((lockerOne.row_no + 1) - lockerOne.add_row_no)?'background-color: #e7e7e7;':''}"> <!-- 사물함 display가 들어갈 위치만큼 칸수 합치고 스타일 주기 -->														
-							<c:forEach var="v" items="${lockerOneList }"> <!-- 사물함 정보 가져오기(행번호,열번호,사물함번호,사용유무) -->																
+							<c:forEach var="v" items="${lockerOneList }"> <!-- 사물함 정보 가져오기(행번호,열번호,사물함번호,사용유무) -->
 									<c:choose>
 										<c:when test="${v.col_num eq status_col.index and v.row_num eq status_row.index }">	<!-- 사물함 정보에서 가로,세로 번호에 맞게 데이터 가져오기 -->
 											<div class="table_td_use_yn" style="${v.use_yn eq 'N'? 'background-color:#ff000021;':''}"> <!-- 사용하지 않으면 칸 배경을 붉은색으로 -->
-												<div class="table_td_div1" style="color:#4e4e4ead; font-weight:bold; position: absolute; top:8px; left:13px; width:22px; height:24px; text-align:center; outline:2px solid #999; border-radius: 5px 5px 5px 5px;">											
+												<div class="table_td_div1" style="color:#4e4e4ead; font-weight:bold; position: absolute; top:8px; left:13px; width:22px; height:24px; text-align:center; outline:2px solid #999; border-radius: 5px 5px 5px 5px;">
 													${v.locker_each_idx } <!-- 사물함번호 -->
 												</div>
 												<div class="table_td_div2" style="position: absolute; top:8px; left:48px; width:72%; height:24px;">
@@ -172,11 +172,11 @@ table .table_left_td > .table_td_use_yn{
 															<c:if test="${v.locker_each_idx eq k.locker_idx }">	<!-- 현재 사물함 번호와 대출정보에 사물함 번호가 같은 데이터가 있을경우 -->
 																<c:set var="editYn" value="N"/>
 																<c:set var="bookCount" value="${bookCount + 1 }"/> <!-- 현재 사물함에 도서가 몇개 들어가는지 카운트 -->
-			 													<c:if test="${reserveBundleIdx ne k.reserve_bundle_idx }"> <!--  -->
+			 													<c:if test="${reserveBundleIdx ne k.reserve_bundle_idx }"> 
 			 														<c:set var="reserveBundleIdx" value="${k.reserve_bundle_idx }"/>
 				 													<c:choose>
 																		<c:when test="${k.reserve_status eq '2' }">
-																			<p class="reserve_status" style="background-color: #439bed; margin:0 auto; color: white;">대출승인</p>
+																			<p class="reserve_status" style="background-color: #439bed; margin:0 auto; color: white;">예약확정</p>
 																		</c:when>
 																		<c:when test="${k.reserve_status eq '3' }">
 																			<p class="reserve_status" style="background-color: #f5a639; margin:0 auto; color: white;">사물함투입</p>
@@ -192,9 +192,9 @@ table .table_left_td > .table_td_use_yn{
 													<div class="table_td_div2_div2 use_btn">	
 														<c:if test="${'0' lt bookCount}">
 															<p class="reserve_bookInfo1" style="font-size: 12px;">
-																수량 : ${bookCount } 권															
+																수량 : ${bookCount } 권
 															</p>
-														</c:if>																						
+														</c:if>
 													</div>
 													<c:if test="${v.use_yn eq 'N' }">
 														<div class="table_td_div2_div3">
@@ -204,8 +204,8 @@ table .table_left_td > .table_td_use_yn{
 														</div>		
 													</c:if>
 												</div>
-												<div class="table_td_div3" style="position: absolute; top:28px; right:5px; width:155px; height:30px; z-index: 1;">												 											
-		 											<div class="table_td_div2_div1 use_btn">		 															 											
+												<div class="table_td_div3" style="position: absolute; top:28px; right:5px; width:155px; height:30px; z-index: 1;">
+		 											<div class="table_td_div2_div1 use_btn">
 			 											<c:if test="${v.use_yn eq 'N' and '0' eq bookCount }"> <!-- 사물함 사용중지일 경우 -->
 															<a href="#" class="btn use_locker" keyValue1="${v.locker_idx }" keyValue2="${v.locker_each_idx }">사용하기</a>
 														</c:if>
@@ -218,7 +218,7 @@ table .table_left_td > .table_td_use_yn{
 												</div>
 											</div>
 										</c:when>
-									</c:choose>								
+									</c:choose>
 							</c:forEach>
 						</td>
 					</c:forEach>
@@ -231,7 +231,7 @@ table .table_left_td > .table_td_use_yn{
 	<table class="type1 center">
 		<colgroup>
 			<col width="50" />
-			<col width="50" />			
+			<col width="50" />
 			<col width="200" />
 			<col width="120" />
 			<col width="110" />
@@ -241,14 +241,14 @@ table .table_left_td > .table_td_use_yn{
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="8">사물함별 대출정보</th>						
+				<th colspan="8">사물함별 대출정보</th>
 			</tr>
 			<tr style="outline:white 1px solid">
 				<th>번호</th>
 				<th>사물함번호</th>
 				<th>도서명</th>
 				<th>소장도서관</th>
-				<th>등록번호</th>				
+				<th>등록번호</th>
 				<th>대출자ID</th>
 				<th>예약확정일</th>
 				<th>상태</th>
@@ -262,8 +262,8 @@ table .table_left_td > .table_td_use_yn{
 					<td>${i.locker_idx }</td>
 					<td>${i.book_name }</td>
 					<td>${i.lib_name }</td>
-					<td>${i.reg_no }</td>					
-					<td>${i.member_id }</td>					
+					<td>${i.reg_no }</td>
+					<td>${i.member_id }</td>
 					<td>
 						<fmt:formatDate value="${i.lend_date}" pattern="yyyy.MM.dd" />
 					</td>
