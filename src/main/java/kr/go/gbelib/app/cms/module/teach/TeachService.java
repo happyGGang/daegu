@@ -423,9 +423,6 @@ public class TeachService extends BaseService {
 
 		teach = getSearchDate(teach);
 
-		teach.setRowCount(8);
-
-
 		List<Teach> list = dao.getTeachListForAllSearchCulture(teach);
 
 		if (list != null && list.size() > 0) {
