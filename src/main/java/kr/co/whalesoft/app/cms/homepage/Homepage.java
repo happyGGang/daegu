@@ -46,6 +46,8 @@ public class Homepage extends PagingUtils implements Serializable {
 
 	private String[] manage_codes;
 
+	private String point_api_key;
+
 	public Homepage() {
 	}
 
@@ -328,6 +330,14 @@ public class Homepage extends PagingUtils implements Serializable {
 
 	public void setManage_codes(String[] manage_codes) {
 		this.manage_codes = manage_codes;
+	}
+
+	public String getPoint_api_key() {
+		return point_api_key;
+	}
+
+	public void setPoint_api_key(String point_api_key) {
+		this.point_api_key = point_api_key;
 	}
 
 	@Override
