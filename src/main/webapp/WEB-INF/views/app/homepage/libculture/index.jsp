@@ -590,10 +590,10 @@ $(function() {
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
-									<a href="">
+									<a href="http://www.icuration.co.kr:81/curation/w/96" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>전체</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
-										<span class="link">Q-Basic<i></i></span>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_1.png" alt="" /></p>
+										<span class="link">그림책 책방이야기<i></i></span>
 									</a>
 								</div>
 								<div>
@@ -634,31 +634,31 @@ $(function() {
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
-									<a href="">
-										<h2>문화생활</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
-										<span class="link">Q-Basic<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/96" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_1.png" alt="" /></p>
+										<span class="link">그림책 책방이야기<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
-										<h2>문화생활</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
-										<span class="link">Q-Advance<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/92" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_2.png" alt="" /></p>
+										<span class="link">그림책 작가<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
-										<h2>문화생활</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
-										<span class="link">Q-Pro<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/94" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_3.png" alt="" /></p>
+										<span class="link">영유아를 위한 그림책 추천<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
-										<h2>문화생활</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
-										<span class="link">Q-Mass<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/95" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_4.png" alt="" /></p>
+										<span class="link">어른들을 위한 그림책 추천<i></i></span>
 									</a>
 								</div>
 							</div>
@@ -679,28 +679,28 @@ $(function() {
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
 									<a href="">
-										<h2>무료전시</h2>
+										<h2>독서</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
 										<span class="link">Q-Basic<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>무료전시</h2>
+										<h2>독서</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
 										<span class="link">Q-Advance<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>무료전시</h2>
+										<h2>독서</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
 										<span class="link">Q-Pro<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>무료전시</h2>
+										<h2>독서</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
 										<span class="link">Q-Mass<i></i></span>
 									</a>
@@ -723,28 +723,28 @@ $(function() {
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
 									<a href="">
-										<h2>특별강연</h2>
+										<h2>영어/외국어</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
 										<span class="link">Q-Basic<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>특별강연</h2>
+										<h2>영어/외국어</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
 										<span class="link">Q-Advance<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>특별강연</h2>
+										<h2>영어/외국어</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
 										<span class="link">Q-Pro<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>특별강연</h2>
+										<h2>영어/외국어</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
 										<span class="link">Q-Mass<i></i></span>
 									</a>
@@ -767,28 +767,28 @@ $(function() {
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
 									<a href="">
-										<h2>역사인문</h2>
+										<h2>문화예술</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
 										<span class="link">Q-Basic<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>역사인문</h2>
+										<h2>문화예술</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
 										<span class="link">Q-Advance<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>역사인문</h2>
+										<h2>문화예술</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
 										<span class="link">Q-Pro<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>역사인문</h2>
+										<h2>문화예술</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
 										<span class="link">Q-Mass<i></i></span>
 									</a>
@@ -811,28 +811,28 @@ $(function() {
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
 									<a href="">
-										<h2>IT체험</h2>
+										<h2>제작체험</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
 										<span class="link">Q-Basic<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>IT체험</h2>
+										<h2>제작체험</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
 										<span class="link">Q-Advance<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>IT체험</h2>
+										<h2>제작체험</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
 										<span class="link">Q-Pro<i></i></span>
 									</a>
 								</div>
 								<div>
 									<a href="">
-										<h2>IT체험</h2>
+										<h2>제작체험</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
 										<span class="link">Q-Mass<i></i></span>
 									</a>

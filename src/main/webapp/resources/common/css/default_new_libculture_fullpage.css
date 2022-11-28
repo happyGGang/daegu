@@ -440,7 +440,7 @@ transform:translatez(0);
 */
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:220px;box-sizing:border-box;background: url('/resources/homepage/libculture/img/sub-visual.png') no-repeat 35% 50%;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
+.sub-visual{position:relative;height:180px;box-sizing:border-box;background: url('/resources/homepage/libculture/img/sub-visual.png') no-repeat 35% 50%;background-size:cover;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
 
 #container .sections,
 #container {clear:both;}
@@ -465,6 +465,8 @@ transform:translatez(0);
 .wide-1600-sections {position:relative;max-width:1600px;margin:0 auto;}
 .wide-1400-sections {position:relative;max-width:1400px;margin:0 auto;}
 .wide-1260-sections {position:relative;max-width:1260px;margin:0 auto;}
+
+#main0 .main0-center .main0-top-box .wide-1600-sections{height:100%;}
 
 .doc-info {width:1260px;margin:0 auto;}
 
@@ -582,7 +584,7 @@ transform:translatez(0);
 .doc-title ol{margin-top:-6px;}
 
 .doc-name {}
-.doc-name h3 {display:block;width:100%;font-size:30px;color:#fff;font-weight:600;padding:65px 0 0 0;}
+.doc-name h3 {display:block;width:100%;font-size:27px;color:#fff;font-weight:600;padding:45px 0 0 0;}
 .doc-info-bg {width:100%;position:absolute;bottom:0;background-color:rgba(0,0,0,0.35);}
 .doc-info {width:1260px;margin:0 auto;position:relative;padding:0;box-sizing:border-box;z-index:2;}
 .doc-info ol { float:left;}

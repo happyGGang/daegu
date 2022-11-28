@@ -194,7 +194,7 @@
 					<div id="main-slide" class="main-floor1">
 						<div class="book-box-title">
 							<h4>신착도서</h4>
-							<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="more-btn">신착도서 더보기 +</a>
+							<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="more-btn">더보기 +</a>
 						</div>
 						<div class="swiper-container gallery-top-main">
 							<div class="swiper-wrapper">

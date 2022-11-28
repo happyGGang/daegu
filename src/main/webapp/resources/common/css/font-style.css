@@ -44,7 +44,7 @@
 		url(../font/NotoSansKR-Thin.otf) format('opentype');
 }
 @font-face {
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans KR';
 	font-weight: 200;
 	font-style: normal;
 	src: url(../font/NotoSansKR-Light.woff2) format('woff2'),
@@ -52,7 +52,7 @@
 		url(../font/NotoSansKR-Light.otf) format('opentype');
 }
 @font-face {
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans KR';
 	font-weight: normal;
 	font-style: normal;
 	src: url(../font/NotoSansKR-DemiLight.woff2) format('woff2'),
@@ -60,7 +60,7 @@
 		url(../font/NotoSansKR-DemiLight.otf) format('opentype');
 }
 @font-face {
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans KR';
 	font-weight: 300;
 	font-style: normal;
 	src: url(../font/NotoSansKR-Regular.woff2) format('woff2'),
@@ -68,7 +68,7 @@
 		url(../font/NotoSansKR-Regular.otf) format('opentype');
 }
 @font-face {
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans KR';
 	font-weight: 500;
 	font-style: normal;
 	src: url(../font/NotoSansKR-Medium.woff2) format('woff2'),
@@ -76,7 +76,7 @@
 		url(../font/NotoSansKR-Medium.otf) format('opentype');
 }
 @font-face {
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans KR';
 	font-weight: 700;
 	font-style: normal;
 	src: url(../font/NotoSansKR-Bold.woff2) format('woff2'),
@@ -84,7 +84,7 @@
 		url(../font/NotoSansKR-Bold.otf) format('opentype');
 }
 @font-face {
-	font-family: 'Noto Sans';
+	font-family: 'Noto Sans KR';
 	font-weight: 900;
 	font-style: normal;
 	src: url(../font/NotoSansKR-Black.woff2) format('woff2'),
@@ -298,3 +298,18 @@
          url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream9.woff) format('woff');
     font-display: swap;
 }
+
+
+@font-face {
+    font-family: 'JalpullineunOneul';
+    font-weight: normal;
+    font-style: normal;
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.eot');
+    src: url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.eot?#iefix') format('embedded-opentype'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.woff') format('woff');
+    font-display: swap;
+}
+
+
+
