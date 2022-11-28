@@ -16,9 +16,9 @@ import kr.co.whalesoft.framework.base.BaseController;
  *
  */
 @Controller(value="userNeighborhoodLibrary")
-@RequestMapping(value = {"/{homepagePath}/module/neighborhoodLibrary"})
+@RequestMapping(value = {"/{homepagePath}/module/nearLib"})
 public class NeighborhoodLibraryController extends BaseController {
-	private String basePath = "/homepage/%s/module/nearLib/";
+	private String basePath = "/homepage/%s/module/neighborhoodLibrary/";
 	
 	@RequestMapping(value = {"/bacode.*"})
 	public String bacode(Model model,@RequestParam(required = false) int pass, HttpServletRequest request, HttpServletResponse response) throws Exception {
