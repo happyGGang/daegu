@@ -4,6 +4,8 @@ import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibraryService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
@@ -43,6 +45,9 @@ public class ApiController extends BaseController {
 
 	@Autowired
 	private UntackBookApiService untackBookApiService;
+	
+	@Autowired
+	private NeighborhoodLibraryService neigborhoodLibraryService;
 
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
 	
@@ -124,6 +129,20 @@ public class ApiController extends BaseController {
 		map.put("data", new ArrayList<Map<String, Object>>());
 		
 		return map;
+	}
+	
+	@RequestMapping(value = {"nearLib/edit.*"})
+	public @ResponseBody Map<String, Object> neighborhoodLibraryEdit(NeighborhoodLibrary neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
+		return neigborhoodLibraryService.updateNeighborhoodLibraryApi(neighborhoodLibrary);
+	}
+	
+	@RequestMapping(value = {"nearLibCheck/edit.*"})
+	public @ResponseBody Map<String, Object> neighborhoodLibraryCheckLocker(@RequestParam(required = false) int pass, HttpServletRequest request, HttpServletResponse response) {
+		NeighborhoodLibrary neighborhoodLibrary = new NeighborhoodLibrary();
+		neighborhoodLibrary.setDevice_password(Integer.parseInt(String.valueOf(pass).substring(0, 4)));
+		neighborhoodLibrary.setLocker_idx(Integer.parseInt(String.valueOf(pass).substring(4)));
+		
+		return neigborhoodLibraryService.checkReserveLocker(neighborhoodLibrary);
 	}
 	
 }

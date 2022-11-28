@@ -1,4 +1,4 @@
-<%@ page language="java" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,6 +12,17 @@ $(function() {
 		if ( confirm("예약 취소 하시겠습니까?") ) {
 			$('input#bookkey').val($(this).attr('keyValue'));
 			if (doAjaxPost($('form#cancelForm'))) {
+				location.reload();
+			}
+		}
+	});
+	
+	$('a.reserveCancel2').on('click', function(e) {
+		e.preventDefault();
+		if ( confirm("예약 취소 하시겠습니까?") ) {
+			$('input#book_key').val($(this).attr('keyValue2'));
+			$('input#pk').val($(this).attr('keyValue1'));
+			if (doAjaxPost($('form#neighborhoodLibraryCancelForm'))) {
 				location.reload();
 			}
 		}
@@ -38,10 +49,16 @@ $(function() {
 	<h2>현재 예약중인 자료<span style="font-weight:300">를 확인하세요.</span></h2>
 </div>
  /contents-title-->
+<form id="neighborhoodLibraryCancelForm" action="/${homepage.context_path}/intro/search/resve/nearby_save.do" method="post">
+	<input type="hidden" name="book_key" id="book_key"/>
+	<input type="hidden" name="pk" id="pk"/>
+	<input type="hidden" name="editMode" value="memberCancel"/>
+	<input type="hidden" name="reserve_status" value="8"/>
+</form> 
 
 <form id="cancelForm" action="save.do" method="post">
-	<input type="hidden" name="bookkey" id="bookkey">
-	<input type="hidden" name="editMode" value="CANCEL">
+	<input type="hidden" name="bookkey" id="bookkey"/>
+	<input type="hidden" name="editMode" value="CANCEL"/>
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
@@ -98,7 +115,16 @@ $(function() {
 						<td>${i.RESERVE_RANK}</td>
 						<td>${i.RESERVATION_EXPIRE_DATE }</td>
 						<td>
+						<c:set var="nearLib_yn" value="0"/>
+						<c:forEach var="j" items="${deviceList}">
+							<c:if test="${j.device_code eq i.L_WORKER }">
+								<c:set var="nearLib_yn" value="1"/>
+							</c:if>
+						</c:forEach>
 						<c:choose>
+							<c:when test="${nearLib_yn eq 1 }">
+									내집앞도서관예약
+							</c:when>
 							<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
 		
 								<c:choose>
@@ -176,6 +202,13 @@ $(function() {
 						<c:otherwise>
 		
 							<c:choose>
+								<c:when test="${nearLib_yn eq 1 }">
+									<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+										<c:if test="${i.STATUS eq '3'}">
+											<a href="#" class="reserveCancel2" keyValue1="${i.PK}" keyValue2="${i.BOOK_KEY }">예약취소</a>
+										</c:if> 											
+									</c:if>
+								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
 									<c:choose>
 										<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02')}">
@@ -197,7 +230,7 @@ $(function() {
 								</c:when>
 								<c:otherwise>
 									<c:if test="${i.STATUS eq '3'}">
-									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+										<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
 									</c:if>
 								</c:otherwise>
 							</c:choose>

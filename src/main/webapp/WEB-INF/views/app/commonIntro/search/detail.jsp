@@ -36,6 +36,12 @@ $(function() {
 		</c:choose>
 
 	});
+	
+	<%-- 내집앞도서관 대출 신청 --%>	
+	$('a#neighborhoodLibrary-req').on('click',function(e){
+		e.preventDefault();
+		$('form#neighborhoodLibrary').submit();
+	});
 
 	<%-- 비대면 도서대출 신청 --%>
 	$('a#untactBook-req').on('click', function(e) {
@@ -218,6 +224,33 @@ $(function() {
 });
 
 </script>
+
+<form id="neighborhoodLibrary" action="neighborhoodLibrary/edit.do" method="post">
+	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}"/>
+	<input type="hidden" id="book_isbn" name="book_isbn" value="${param.isbn}"/>
+	<input type="hidden" id="reg_no" name="reg_no" value="${detail.REG_NO}"/>
+	<input type="hidden" id="shelf_loc_name" name="shelf_loc_name" value="${detail.SHELF_LOC_NAME}"/>
+	<input type="hidden" id="ctrl_no" name="ctrl_no" value="${fn:escapeXml(param.regNo)}"/>
+	<input type="hidden" id="return_plan_date" name="return_plan_date" value="${detail.RETURN_PLAN_DATE}"/>
+	<input type="hidden" id="call_no" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
+	<input type="hidden" id="img_url" name="img_url" value="${fn:escapeXml(detail.imageUrl)}"/>
+	<input type="hidden" id="manage_code" name="manage_code" value="${detail.MANAGE_CODE}"/>
+	<input type="hidden" id="lib_name" name="lib_name" value="${detail.LIB_NAME}"/>
+	<input type="hidden" id="publer" name="publer" value="${fn:escapeXml(param.booktype)}"/>
+	<input type="hidden" id="publisher" name="publisher" value="${detail.PUBLISHER}"/>
+	<input type="hidden" id="pub_year" name="pub_year" value="${detail.PUB_YEAR}"/>
+	<input type="hidden" id="media_name" name="media_name" value="${detail.MEDIA_NAME}"/>
+	<input type="hidden" id="media_code" name="media_code" value="${detail.MEDIA_CODE}"/>
+	<input type="hidden" id="price" name="price" value="${detail.PRICE}"/>
+	<input type="hidden" id="title_info" name="title_info" value="${detail.TITLE_INFO}"/>
+	<input type="hidden" id="author" name="author" value="${detail.AUTHOR}"/>
+	<input type="hidden" id="page" name="page" value="${detail.PAGE }"/>
+	<input type="hidden" id="book_size" name="book_size" value="${detail.BOOK_SIZE }">
+	<input type="hidden" id="book_key" name="book_key" value="${fn:escapeXml(detail.BOOK_KEY)}"/>
+	<input type="hidden" id="class_no" name="class_no" value="${detail.CLASS_NO}"/>
+	<input type="hidden" id="booktype" name="booktype" value="${fn:escapeXml(param.booktype)}"/>
+	<input type="hidden" id="appendix_info" name="appendix_info" value="${detail.APPENDIX_INFO}"/>		
+</form>
 
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -966,6 +999,21 @@ $(function() {
 			</c:choose>
 
 
+			<c:choose>
+				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
+					<c:if test="${reserveConfig.reserve_start_time le nowTime or reserveConfig.reserve_end_time gt nowTime  }">
+						<c:choose>
+							<c:when test="${reserveData == 0 }">
+								<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내집앞도서예약</a>
+							</c:when>
+							<c:otherwise>
+								<a href="javascript:void(0);" id="" class="btn" style="padding:8.5px 2%">내집앞도서예약(신청불가)</a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>	
+				</c:when>
+			</c:choose>
+			
 			<c:choose>
 				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10'}">
 

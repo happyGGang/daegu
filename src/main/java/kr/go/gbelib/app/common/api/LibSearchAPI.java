@@ -2674,7 +2674,11 @@ public class LibSearchAPI {
 		param.put("manage_code", librarySearch.getManageCode());// 도서관 관리구분코드
 		param.put("userkey", librarySearch.getUserkey());// 이용자KEY
 		param.put("reg_no", librarySearch.getReg_no());// 대출자료 등록번호
-		param.put("device_name", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+		if("nearbySave".equals(librarySearch.getEditMode())) {//내집앞도서대출예약
+			param.put("device_name", librarySearch.getDevice_code());// 장비ID
+		}else {
+			param.put("device_name", "UT"+librarySearch.getManageCode()+"01");// 장비ID
+		}
 		param.put("client_ip", "127.0.0.1");// 작업IP
 
 

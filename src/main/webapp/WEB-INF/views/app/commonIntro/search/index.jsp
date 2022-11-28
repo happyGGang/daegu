@@ -916,16 +916,226 @@ function resveReq(bookkey, booktype, editMode) {
 				</c:choose>
 
 			</c:when>
+			<c:when test="${homepage.context_path eq 'nearbylib'}">
+				<div class="search-form">
+
+					<!-- 검색하기_일반 -->
+					<div class="searchbox detail_search" id="div_detail">
+						<div class="section">
+
+							<div class="title-box">
+								<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+							</div>
+
+							<div class="vk-btn">
+
+							</div>
+
+						<c:choose>
+						<c:when test="${homepage.context_path eq 'nearbylib'}">
+						<div id="libraryList" class="libraryList">
+							<div>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+							</div>
+							<div>
+								<ul>
+									<li>
+										<input id="libraryCodes3" name="libraryCodes" class="libCheck lib_AA" type="checkbox" value="AA" checked="checked"/><label for="libraryCodes3">228기념학생도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+									</li>
+									<li>
+										<input id="libraryCodes3" name="libraryCodes" class="libCheck lib_AH" type="checkbox" value="AH" checked="checked"/><label for="libraryCodes3">동부도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+									</li>
+									<li>
+										<input id="libraryCodes3" name="libraryCodes" class="libCheck lib_CA" type="checkbox" value="CA" checked="checked"/><label for="libraryCodes3">안심도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+									</li>
+									<li>
+										<input id="libraryCodes3" name="libraryCodes" class="libCheck lib_CB" type="checkbox" value="CB" checked="checked"/><label for="libraryCodes3">신천도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+									</li>
+									<li>
+										<input id="libraryCodes3" name="libraryCodes" class="libCheck lib_BA" type="checkbox" value="BA" checked="checked"/><label for="libraryCodes3">구수산도서관</label><input type="hidden" name="_libraryCodes" value="on"/>
+									</li>
+								</ul>
+							</div>
+							<div class="end"></div>
+						</div>
+						<div class="end" style="padding:7px 0;"></div>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+						</c:choose>
+
+							<dl>
+								<dt><label for="author" class="title">저자</label></dt>
+								<dd><form:input path="author" class="text-area"/></dd>
+							</dl>
+
+							<dl>
+								<dt><label for="publer" class="title">발행처</label></dt>
+								<dd><form:input path="publer" class="text-area"/></dd>
+							</dl>
+							<dl>
+								<dt><label for="keyword" class="title">키워드</label></dt>
+								<dd><form:input path="keyword" class="text-area"/></dd>
+							</dl>
+
+							<dl>
+								<dt><label for="search_start_date" class="title">발행년도</label></dt>
+								<dd>
+									<div class="box">
+										<form:input path="search_start_date" class="text-area2" title="시작년도" numberOnly="true" maxlength="4" />
+										<span style="width:8%;text-align:center;">~</span>
+										<form:input path="search_end_date" class="text-area2" title="마지막년도" numberOnly="true" maxlength="4" />
+									</div>
+								</dd>
+							</dl>
+
+							<dl>
+								<dt><label for="subjectCode" class="title">주제</label></dt>
+								<dd>
+									<form:select path="subjectCode">
+										<form:option value="">전체</form:option>
+										<form:option value="0">총류</form:option>
+										<form:option value="1">철학</form:option>
+										<form:option value="2">종교</form:option>
+										<form:option value="3">사회과학</form:option>
+										<form:option value="4">순수과학</form:option>
+										<form:option value="5">기술과학</form:option>
+										<form:option value="6">예술</form:option>
+										<form:option value="7">언어</form:option>
+										<form:option value="8">문학</form:option>
+										<form:option value="9">역사</form:option>
+									</form:select>
+								</dd>
+							</dl>
+
+							<dl>
+								<dt>자료형태</dt>
+								<dd>
+									<div class="" style="padding:10px 0 0 0;">
+									<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
+									<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
+									<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
+									<%--<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype4" class="booktype">간행물</label> --%>
+									</div>
+								</dd>
+							</dl>
+							
+							<c:if test="${fn:length(shelfCodeList) > 0}">
+							<c:choose>
+								<c:when test="${(homepage.context_path eq '228' && param.menu_idx eq '130') or (homepage.context_path eq '228' && param.menu_idx eq '131')}">
+								<form:hidden path="shelfCode"/>
+								</c:when>
+								<c:otherwise>
+								<dl>
+									<dt><label for="keyword" class="title">자료실구분</label></dt>
+									<dd>
+										<form:select path="shelfCode">
+											<form:option value="">전체</form:option>
+											<c:forEach items="${shelfCodeList}" var="i" varStatus="status">
+												<c:choose>
+													<c:when test="${(homepage.context_path eq 'suseong') and (param.menu_idx eq '181')}">
+														<c:if test="${i.CODE eq 'AE52'}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
+													<c:when test="${homepage.context_path eq 'suseong'}">
+														<c:if test="${i.CODE eq 'AE01' or
+																		i.CODE eq 'AE01' or
+																		i.CODE eq 'AE03' or
+																		i.CODE eq 'AE04' or
+																		i.CODE eq 'AE05' or
+																		i.CODE eq 'AE11' or
+																		i.CODE eq 'AE12' or
+																		i.CODE eq 'AE14' or
+																		i.CODE eq 'AE18' or
+																		i.CODE eq 'AE19' or
+																		i.CODE eq 'AE20' or
+																		i.CODE eq 'AE22' or
+																		i.CODE eq 'AE23'
+																		}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
+													<c:when test="${homepage.context_path eq 'yonghak'}">
+														<c:if test="${i.CODE eq 'BE01' or
+																		i.CODE eq 'BE02' or
+																		i.CODE eq 'BE03' or
+																		i.CODE eq 'BE04' or
+																		i.CODE eq 'BE05' or
+																		i.CODE eq 'BE06' or
+																		i.CODE eq 'BE09' or
+																		i.CODE eq 'BE13'
+																		}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
+													<c:when test="${homepage.context_path eq 'gosan'}">
+														<c:if test="${i.CODE eq 'BF01' or
+																		i.CODE eq 'BF02' or
+																		i.CODE eq 'BF03' or
+																		i.CODE eq 'BF04' or
+																		i.CODE eq 'BF05' or
+																		i.CODE eq 'BF06' or
+																		i.CODE eq 'BF07' or
+																		i.CODE eq 'BF08'
+																		}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
+													<c:otherwise>
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+													</c:otherwise>
+												</c:choose>
+
+											</c:forEach>
+
+										</form:select>
+									</dd>
+								</dl>
+								</c:otherwise>
+							</c:choose>
+							</c:if>
+
+							<c:if test="${fn:length(mediaCodeList) > 0}">
+							<dl id="nonBookMedia" ${fn:escapeXml(param.booktype) eq 'NONBOOK' ? '' : 'style="display: none;"'}>
+								<dt><label for="keyword" class="title">매체구분</label></dt>
+								<dd>
+									<form:select path="media_code">
+										<form:option value="">전체</form:option>
+										<c:forEach items="${mediaCodeList}" var="i" varStatus="status">
+											<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+										</c:forEach>
+									</form:select>
+								</dd>
+							</dl>
+							</c:if>
+
+
+							<div class="end"></div>
+						</div>
+						<p class="btn_w">
+							<a id="search-btn" class="btnNew4">검색하기</a>
+							<a id="vk-popup" class="btnNew2">다국어입력기</a>
+							<a id="reset-btn" class="btnNew2">검색초기화</a>
+						</p>
+					</div>
+					<!--// 검색하기_일반 -->
+
+					<br/>
+					<div id="autoFill">
+					</div>
+				</div>
+			</c:when>
 			<c:otherwise>
 
-			<c:if test="${homepage.context_path eq '228' && param.menu_idx eq '203'}">
-			<div  class="tabmenu">
-				<ul>
-					<li class="active"><a href="/228/intro/search/index.do?menu_idx=203&&shelfCode=AA55&booktype=BOOKANDNONBOOK#search_result">인물도서목록</a> </li>
-					<li><a href="/228/board/index.do?menu_idx=204&manage_idx=425">인물소개</a> </li>
-				</ul>
-			</div>
-			</c:if>
+				<c:if test="${homepage.context_path eq '228' && param.menu_idx eq '203'}">
+				<div  class="tabmenu">
+					<ul>
+						<li class="active"><a href="/228/intro/search/index.do?menu_idx=203&&shelfCode=AA55&booktype=BOOKANDNONBOOK#search_result">인물도서목록</a> </li>
+						<li><a href="/228/board/index.do?menu_idx=204&manage_idx=425">인물소개</a> </li>
+					</ul>
+				</div>
+				</c:if>
 
 				<div class="search-form">
 
@@ -1481,7 +1691,7 @@ function resveReq(bookkey, booktype, editMode) {
 						<div class="imageType">
 							<c:forEach items="${bookSearch}" var="i">
 							<!-- 검색결과 루프 시작 -->
-							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}&bookkey=${i.BOOK_KEY}"></c:set>
 							<div class="row">
 								<p class="admin">
 									<input name="print_param" type="checkbox" class="checkBook" id="print_param${status.index}" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}///${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}///${fn:escapeXml(i.MANAGE_CODE)}///${fn:escapeXml(i.REG_NO)}///${fn:escapeXml(i.CALL_NO)}///${fn:escapeXml(param.menu_idx)}" title="책 선택"/>
@@ -1490,17 +1700,17 @@ function resveReq(bookkey, booktype, editMode) {
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<a href="${detailURL}" class="noImg">
-												<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO}"/>
+												<img src="/resources/homepage/libculture/img/book_noimg.png" alt="${i.TITLE_INFO}" onError="src='/resources/homepage/libculture/img/book_noimg.png';"/>
 											</a>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
 											<a href="${detailURL}">
-												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="src='/resources/homepage/libculture/img/book_noimg.png';"/>
 											</a>
 										</c:when>
 										<c:otherwise>
 											<a href="${detailURL}">
-												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="src='/resources/homepage/libculture/img/book_noimg.png';"/>
 											</a>
 										</c:otherwise>
 									</c:choose>

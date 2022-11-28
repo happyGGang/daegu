@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +43,14 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibraryService;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDeviceService;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryLocker.NeighborhoodLibraryLocker;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryLocker.NeighborhoodLibraryLockerService;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryReserveConfig.NeighborhoodLibraryReserveConfig;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryReserveConfig.NeighborhoodLibraryReserveConfigService;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfig;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
@@ -78,6 +88,18 @@ public class CommonSearchController extends BaseController {
 
 	@Autowired
 	private LoanRequestService loanRequestService;
+	
+	@Autowired
+	private NeighborhoodLibraryDeviceService neighborhoodLibraryDeviceService;
+	
+	@Autowired
+	private NeighborhoodLibraryService neighborhoodLibraryService; 
+	
+	@Autowired
+	private NeighborhoodLibraryReserveConfigService neighborhoodLibraryReserveConfigService;
+	
+	@Autowired
+	private NeighborhoodLibraryLockerService neighborhoodLibraryLockerService;
 	
 	/**
 	 * 자료검색
@@ -624,7 +646,24 @@ public class CommonSearchController extends BaseController {
 
 					model.addAttribute("recommandList", recommandList);
 				}
-
+				
+				//내집앞도서관 예약설정
+				NeighborhoodLibraryReserveConfig defaultConfig = new NeighborhoodLibraryReserveConfig();
+				NeighborhoodLibraryReserveConfig reserveConfig = neighborhoodLibraryReserveConfigService.getNeighborhoodLibraryReserveConfigOne(defaultConfig);
+				Date nowDate = new Date();
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmm");
+				int nowTime = Integer.parseInt(simpleDateFormat.format(nowDate));
+				
+				NeighborhoodLibrary searchBookOne = new NeighborhoodLibrary();
+				searchBookOne.setBook_key(librarySearch.getBookkey());
+				NeighborhoodLibrary neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
+				int reserveData = 0;
+				if(neighborhoodLibraryOne != null) {
+					reserveData = 1;
+				}
+				model.addAttribute("reserveData", reserveData);
+				model.addAttribute("nowTime", nowTime);
+				model.addAttribute("reserveConfig", reserveConfig);
 				model.addAttribute("detail", map);
 				model.addAttribute("droneDeviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
 				model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
@@ -635,7 +674,7 @@ public class CommonSearchController extends BaseController {
 		
 		return String.format(basePath, homepage.getFolder()) + "detail";
 	}
-
+	
 	/**
 	 * 추천도서, 테마도서 검색용
 	 * @param model
@@ -1981,7 +2020,184 @@ public class CommonSearchController extends BaseController {
 
 		return res;
 	}
+	
+	/**
+	 * 내집앞도서 신청내역
+	 * @author whalesoft SeongHyeon and YONGJU♡ 2022. 11. 23.
+	 * @param homepagePath
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/resve/nearby_index.*"})
+	public String myNearbyList(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
 
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		} else {
+			
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
+		}
+
+		Member member = getSessionMemberInfo(request);
+		NeighborhoodLibraryDevice neighborhoodLibraryDevice = new NeighborhoodLibraryDevice();
+		List<NeighborhoodLibraryDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
+		
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			Map<String, Object> result = PrivateLibSearchAPI.getReserveList(member.getRec_key());
+			List<Map<String, Object>> list = null;
+
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = PrivateLibSearchAPI.getListData(result);
+			}
+			model.addAttribute("deviceList", deviceList);
+			model.addAttribute("resveList", list);
+		} else {
+			Map<String, Object> result = LibSearchAPI.getReserveList(member.getRec_key());
+			List<Map<String, Object>> list = null;
+
+			
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				list = LibSearchAPI.getListData(result);
+			}
+			
+			int check = 0;
+			for(int i = 0; i < list.size(); i++) {
+				for(int j = 0; j < deviceList.size(); j++) {
+					if(String.valueOf(list.get(i).get("L_WORKER")).equals(deviceList.get(j).getDevice_code())) {
+						check = 1;
+					}
+				}
+				if(check == 0) {
+					list.remove(i);
+				}
+				check = 0;
+			}
+			int count = list.size();
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+			
+			
+			model.addAttribute("deviceList", deviceList);
+			model.addAttribute("resveList", list);
+		}
+
+		return String.format(basePath, homepage.getFolder()) + "resve/nearby_index";
+	}
+	
+	/**
+	 * 내집앞도서 신청 취소
+	 * @author whalesoft SeongHyeon 2022. 11. 24.
+	 * @param homepagePath
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = {"/resve/nearby_save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse nearby_save(Model model,LibrarySearch librarySearch, NeighborhoodLibrary neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
+		JsonResponse res = new JsonResponse(request);
+		Member member = getSessionMemberInfo(request);
+		int resultData = 0;
+		if(librarySearch.getPrivateLibraryYn(homepage)) {
+			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
+		} else {
+			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
+		}
+		
+		if (!result.hasErrors()) {
+			NeighborhoodLibrary neighborhoodLibraryDelete = new NeighborhoodLibrary();
+			neighborhoodLibraryDelete.setCancel_id(member.getMember_id());
+			neighborhoodLibraryDelete.setCancel_ip(request.getRemoteAddr());
+			neighborhoodLibraryDelete.setCancel_yn("Y");
+			neighborhoodLibraryDelete.setEditMode(neighborhoodLibrary.getEditMode());
+			neighborhoodLibraryDelete.setPk(neighborhoodLibrary.getPk());
+			neighborhoodLibraryDelete.setReserve_status(neighborhoodLibrary.getReserve_status());
+			
+			NeighborhoodLibrary searchOne = new NeighborhoodLibrary();
+			searchOne.setPk(neighborhoodLibrary.getPk());
+			NeighborhoodLibrary reserveOne = neighborhoodLibraryService.getSameNeighborhoodLibraryPkData(searchOne); //해당 건 데이터 가져오기		
+			if(reserveOne == null) { //KLAS에는 데이터가 존재하지만 내집앞도서관예약 TABLE에서 조회 결과가 없는 경우, 쿼리 SELECT ID -> getSameNeighborhoodLibraryPkData
+				res.setValid(false);
+				res.setMessage("홈페이지 데이터에 내역이 존재하지 않습니다. 관리자에게 문의하여 현재 메세지를 전달 해주세요. ERROR CODE: 7512"); 
+				return res;
+			}
+			
+			LibrarySearch library_search1 = new LibrarySearch();			
+			library_search1.setUserkey(member.getRec_key());
+			library_search1.setBookkey(reserveOne.getPk());
+			ApiResponse apiResult = null;
+			try {
+				/*예약취소 API 호출*/
+				apiResult = LibSearchAPI.cancelResve(library_search1);
+				if (apiResult.getStatus()) { //취소 API 성공					
+					/*홈페이지DB 예약취소 */
+					resultData = neighborhoodLibraryService.updateNeighborhoodLibrary(neighborhoodLibraryDelete);
+					if(resultData == 0) {
+						System.out.println("@@@@@@@@@@@@@@@ updateNeighborhoodLibrary : Fail");						
+					}
+				} else { //취소 API 실패
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+					return res;
+				}
+			}catch (Exception e) { //API 호출에 오류가 나서 실패
+				e.printStackTrace();
+				res.setValid(false);
+				res.setMessage(apiResult.getMessage());
+				return res;
+			}
+						
+	        LibrarySearch library_search = new LibrarySearch();
+	        library_search.setManageCode(reserveOne.getManage_code());
+	        library_search.setUserkey(member.getRec_key());
+	        String userIp = reserveOne.getAdd_ip();
+	        String book_name = reserveOne.getBook_name();
+	        String mes ="[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 취소 되었습니다."
+						+ "\n도서 정보 : "+book_name;
+			LibSearchAPI.sendSms(library_search, mes, userIp);	 
+			NeighborhoodLibrary sms_send = new NeighborhoodLibrary();
+			sms_send.setSms_send_yn("Y");
+			sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
+			neighborhoodLibraryService.updateNeighborhoodLibrarySms(sms_send);
+
+			res.setValid(true);
+			res.setMessage("취소 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
 	/**
 	 * 예약중 도서 조회
 	 * @author whalesoft YONGJU 2019. 11. 29.
@@ -2013,6 +2229,8 @@ public class CommonSearchController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
+		NeighborhoodLibraryDevice neighborhoodLibraryDevice = new NeighborhoodLibraryDevice();
+		List<NeighborhoodLibraryDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
 		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			Map<String, Object> result = PrivateLibSearchAPI.getReserveList(member.getRec_key());
@@ -2025,7 +2243,7 @@ public class CommonSearchController extends BaseController {
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = PrivateLibSearchAPI.getListData(result);
 			}
-
+			model.addAttribute("deviceList", deviceList);
 			model.addAttribute("resveList", list);
 		} else {
 			Map<String, Object> result = LibSearchAPI.getReserveList(member.getRec_key());
@@ -2038,7 +2256,8 @@ public class CommonSearchController extends BaseController {
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = LibSearchAPI.getListData(result);
 			}
-
+			
+			model.addAttribute("deviceList", deviceList);
 			model.addAttribute("resveList", list);
 		}
 
@@ -2859,6 +3078,7 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 
+
 			librarySearch.setUserkey(member.getRec_key());
 
 			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02")) {
@@ -3136,6 +3356,391 @@ public class CommonSearchController extends BaseController {
 		return res;
 	}
 
+	/**
+	 * 내집앞도서관 예약 신청 폼
+	 * @author whalesoft SEONGHYEON 2022. 11. 09.
+	 * @param model
+	 * @param neighborhoodLibrary
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Throwable
+	 */
+	@RequestMapping (value = {"/neighborhoodLibrary/edit.*"}, method = RequestMethod.POST)
+	public String neigborhoodLibraryEdit(Model model, NeighborhoodLibrary neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		if (neighborhoodLibrary.getBooktype() == null) {
+			neighborhoodLibrary.setBooktype("BO");
+		}			
+		
+		model.addAttribute("deviceList", neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(new NeighborhoodLibraryDevice()));
+		model.addAttribute("neighborhoodLibrary", neighborhoodLibrary);
+
+		return String.format(basePath, homepage.getFolder()) + "neighborhoodLibrary/edit";
+	}
+	
+	/**
+	 * 내집앞도서관 대출예약
+	 * @author whalesoft SEONGHYEON 2022. 11. 09.
+	 * @param model
+	 * @param librarySearch
+	 * @param result
+	 * @param request
+	 * @return
+	 */
+	
+	@RequestMapping(value = {"/neighborhoodLibrary/save.*"}, method=RequestMethod.POST)
+	public @ResponseBody JsonResponse neighborhoodLibrarySave(Model model, NeighborhoodLibrary neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+		Member member = getSessionMemberInfo(request);
+		
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			res.setValid(false);
+			res.setMessage("로그인 후 이용가능합니다.");
+			return res;
+		}
+		
+		LibrarySearch nearbySearch = new LibrarySearch();
+		nearbySearch.setEditMode("nearbySave");
+		nearbySearch.setManageCode(neighborhoodLibrary.getManage_code());
+		nearbySearch.setUserkey(member.getRec_key());
+		nearbySearch.setReg_no(neighborhoodLibrary.getReg_no());
+		nearbySearch.setDevice_code(neighborhoodLibrary.getDevice_code());
+		
+		/*KLAS 무인예약 가능여부 api 호출*/
+		try {
+			ApiResponse apiResponse = LibSearchAPI.unmannedloancheck(nearbySearch);
+			if(!apiResponse.getStatus()) {
+				res.setValid(false);
+				res.setMessage(apiResponse.getMessage());
+				return res;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			res.setValid(false);
+			res.setMessage("KLAS 무인예약 사용가능 여부 api 호출 실패.");
+			return res;
+		}
+		
+		/*정회원만 신청 가능*/
+		if (!StringUtils.equals(member.getMember_class(), "0")) {
+			res.setValid(false);
+			res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+			return res;
+		}
+		
+		Map<String, Object> loanInfo = new HashMap<String, Object>(); 
+			
+		/*KLAS 회원 정보 확인*/
+		try {
+			loanInfo = LibSearchAPI.getBookLoanList(member.getRec_key());
+			if(loanInfo == null) {
+				res.setValid(false);
+				res.setMessage("회원키 정보가 존재하지 않습니다.");
+				return res;
+			}else {
+				List<Map<String,Object>> listData = (List<Map<String,Object>>)loanInfo.get("LIST_DATA");
+				Map<String,Object> loanCount = (Map<String,Object>)listData.get(0);
+				Object value = (Object)loanCount.get("SEARCH_COUNT");
+				if(Integer.parseInt(String.valueOf(value)) > 2 ) {
+					res.setValid(false);
+					res.setMessage("대출가능 횟수를 초과하였습니다.");
+					return res;
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			res.setValid(false);
+			res.setMessage("KLAS 회원정보 조회 api 호출 실패.");
+			return res;
+		}
+		
+		/*신청 내역이 있는지 검색(신청 가능시간 최대 24시간)--->>>>>>> */ 
+		boolean emptyLocker = false; //빈 사물함 유무 선언			
+		Homepage homepage = getSessionHomepage(request);	
+		neighborhoodLibrary.setMember_id(member.getMember_id());
+		NeighborhoodLibraryReserveConfig neighborhoodLibraryReserveConfig = new NeighborhoodLibraryReserveConfig();
+		NeighborhoodLibraryReserveConfig configOne = neighborhoodLibraryReserveConfigService.getNeighborhoodLibraryReserveConfigOne(neighborhoodLibraryReserveConfig); //예약 설정 정보 가져오기
+		
+		
+		Date nowDate = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH24mm");
+		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyyMMdd");
+		int now = Integer.parseInt(simpleDateFormat.format(nowDate));
+		int startTime = Integer.parseInt(configOne.getReserve_start_time()); //RESERVE_START_TIME -> DB컬럼 타입 : String, 데이터 삽입 형식 : 0900, 1212
+		int endTime = Integer.parseInt(configOne.getReserve_end_time());
+		Calendar cal = Calendar.getInstance();			
+		
+		if("Y".equals(configOne.getTomorrow_end_day_yn())) { // 예약 시작부터 예약 종료시간이 00시를 넘어간다면 "Y"(이틀날짜내로 검색)
+			if(now >= startTime){ //신청 가능시간이 최대 24시간이므로 현재시간이 예약시작시간 보다 크거나 같으면 오늘 날짜로 검색
+				neighborhoodLibrary.setSearch_tomorrow_type("N"); //오늘 날짜만 내역 검색
+				neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time()); //신청가능시간
+				//neighborhoodLibrary.setSearch_date2(simpleDateFormat2.format(nowDate));//현재시간
+			}
+			if(now < endTime) { //신청 가능시간이 최대 24시간이므로 현재시간이 종료시간보다 적으면(00시부터 종료시 까지는 하루가 지났으므로) 검색시 -1일로 검색 & 현재날짜 00시부터 종료시간까지 검색
+				neighborhoodLibrary.setSearch_tomorrow_type("Y"); //어제 and 오늘 내역 검색
+				/*하루 전날 신청 가능시간부터 00시까지 && 00시부터 오늘 신청 마감시간 전까지 검색 검색*/
+				cal.setTime(nowDate);
+		        cal.add(Calendar.DATE, -1); 
+				neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(cal.getTime()) + configOne.getReserve_start_time()); //하루전 신청 가능시간
+				neighborhoodLibrary.setSearch_date2(simpleDateFormat1.format(nowDate) + configOne.getReserve_end_time()); //오늘 신청 종료시간
+			}
+		}
+		if("N".equals(configOne.getTomorrow_end_day_yn())) { //예약 시작과 종료 시간이 하루안에 이루어지면 "N"
+			if(now >= startTime && now < endTime) { //현재 시간이 9시 이상이면 오늘날짜 검색을 오늘날짜로(한건 예약가능 시간은 09시부터 다음날 09시까지) 			
+				neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time()); //신청가능시간	
+			}
+		}
+		neighborhoodLibrary.setTomorrow_end_day_yn(configOne.getTomorrow_end_day_yn());
+		List<NeighborhoodLibrary> nowReserveList= neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary); //신청내역이 있는지 조회 
+		/* <<<<<<<----신청 내역이 있는지 검색*/
+		
+		
+			
+		NeighborhoodLibraryLocker neighborhoodLibraryLocker = new NeighborhoodLibraryLocker();				
+		neighborhoodLibraryLocker.setDevice_idx(neighborhoodLibrary.getDevice_idx());
+		NeighborhoodLibrary neighborhoodLibrary2 = new NeighborhoodLibrary();
+		neighborhoodLibrary2.setEditMode("lockerEmptycheck");
+		List<NeighborhoodLibraryLocker> lockerOneList = neighborhoodLibraryLockerService.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);//사물함 번호&갯수 가져오기		 
+		
+		if(lockerOneList.size() > nowReserveList.size()) {
+			emptyLocker = true;
+		}
+//		for(int i = 0; i < lockerOneList.size(); i++ ){ //총 사물함 갯수만큼 루프
+//			if(lockerOneList.size() > 0) { //사물함 갯수가 1개 이상이면
+//				if(usedLockerList.size() > 0) { //사물함을 사용하는 예약내역이 1개 이상이면
+//					for(int j = 0; j < usedLockerList.size(); j ++) { //사용중인 사물함 갯수만큼 루프
+//						if(lockerOneList.get(i).getLocker_each_idx() == usedLockerList.get(j).getLocker_idx()) { //현재 루프중인 사물함 idx가 사용중인 사물함 idx리스트에 포함되어 있으면 다음 루프로 이동
+//							continue;
+//						}else {
+//							emptyLocker = true;
+//							break loopOut;	//모든 루프 스탑
+//						}
+//					}
+//					
+//				}else { //사물함 갯수가 1개 이상이고 사용중인 예약 내역이 없을때
+//					emptyLocker = true;
+//					break;
+//				}
+//			}else { //사물함 갯수가 0개 이면
+//				break;
+//			}
+//		}
+		
+		if(!emptyLocker) {
+			res.setValid(false);
+			res.setMessage("빈 사물함이 없습니다.");
+			return res;
+		}
+		
+		
+		if (!result.hasErrors()) {
+			
+			/*신청 내역이 있는지 검색(신청 가능시간 최대 12시간)--->>>>>>> */ 
+			if("Y".equals(configOne.getTomorrow_end_day_yn())) { // 예약 시작부터 예약 종료시간이 00시를 넘어간다면 "Y"(이틀날짜내로 검색)
+				if(now >= startTime){ //신청 가능시간이 최대 24시간이므로 현재시간이 예약시작시간 보다 크거나 같으면 오늘 날짜로 검색
+					neighborhoodLibrary.setSearch_tomorrow_type("N"); //오늘 날짜만 내역 검색
+					neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time()); //신청가능시간
+					//neighborhoodLibrary.setSearch_date2(simpleDateFormat2.format(nowDate));//현재시간
+				}
+				if(now < endTime) { //신청 가능시간이 최대 24시간이므로 현재시간이 종료시간보다 적으면(00시부터 종료시 까지는 하루가 지났으므로) 검색시 -1일로 검색 & 현재날짜 00시부터 종료시간까지 검색
+					neighborhoodLibrary.setSearch_tomorrow_type("Y"); //어제 and 오늘 내역 검색
+					/*하루 전날 신청 가능시간부터 00시까지 && 00시부터 오늘 신청 마감시간 전까지 검색 검색*/
+					cal.setTime(nowDate);
+			        cal.add(Calendar.DATE, -1); 
+					neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(cal.getTime()) + configOne.getReserve_start_time()); //하루전 신청 가능시간
+					neighborhoodLibrary.setSearch_date2(simpleDateFormat1.format(nowDate) + configOne.getReserve_end_time()); //오늘 신청 종료시간
+				}
+			}
+			if("N".equals(configOne.getTomorrow_end_day_yn())) { //예약 시작과 종료 시간이 하루안에 이루어지면 "N"
+				if(now >= startTime && now < endTime) { //현재 시간이 9시 이상이면 오늘날짜 검색을 오늘날짜로(한건 예약가능 시간은 09시부터 다음날 09시까지) 			
+					neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time()); //신청가능시간	
+				}
+			}
+			neighborhoodLibrary.setTomorrow_end_day_yn(configOne.getTomorrow_end_day_yn());
+			List<NeighborhoodLibrary> reserveDataList = neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary); //신청내역이 있는지 조회 
+			/* <<<<<<<----신청 내역이 있는지 검색*/
+			
+			if(reserveDataList != null) { //현재 신청내역이 있다면	
+				if(reserveDataList.size() > 0 && reserveDataList.size() < 2 ) { //신청내역이 1건일때(1건 더 신청 가능)
+					
+					if(reserveDataList.get(0).getReg_no().equals(neighborhoodLibrary.getReg_no())) { //동일한 도서일때
+						res.setValid(false);
+						res.setMessage("이미 신청한 도서입니다.");
+						return res;
+					}
+					
+					if(reserveDataList.get(0).getDevice_idx() != neighborhoodLibrary.getDevice_idx()) { //신청되어 있는 내역과 현재 신청 장비idx가 다르다면
+					/*	res.setValid(false);
+						res.setMessage("현재 다른장비에 신청 내역이 존재합니다.");
+						return res;		*/
+						int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary); //bundle_idx 값 max+1 값 추출
+						neighborhoodLibrary.setReserve_bundle_idx(bundleIdx); //신청장비가 다르면 다른 건으로 idx 배정
+					}else {
+						neighborhoodLibrary.setReserve_bundle_idx(reserveDataList.get(0).getReserve_bundle_idx()); // 신청내역 하나로 묶기(reserve_bundle_idx를 같은 값으로 준다)
+					}
+					
+					
+				}
+				if(reserveDataList.size() > 1) { //신청내역이 2건 이상일때
+					res.setValid(false);
+					res.setMessage("한건에 신청 가능한 도서는 최대 2권 입니다.");
+					return res;
+				}
+				if(reserveDataList.size() == 0) { //신청내역이 0건 이라면
+					int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary); //bundle_idx 값 max+1 값 추출
+					neighborhoodLibrary.setReserve_bundle_idx(bundleIdx); //예약idx처럼 +1씩 쌓이지만 1건에 두권이면 bundle_idx를 동일하게 준다
+				}
+			}else {
+				int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary);
+				neighborhoodLibrary.setReserve_bundle_idx(bundleIdx);
+			}
+			
+			
+			NeighborhoodLibraryDevice neighborhoodLibraryDevice = new NeighborhoodLibraryDevice();
+			neighborhoodLibraryDevice.setDevice_idx(neighborhoodLibrary.getDevice_idx());
+			NeighborhoodLibraryDevice deviceOne = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);	//장비정보 가져오기		
+
+			neighborhoodLibrary.setHomepage_id(homepage.getHomepage_id());
+			neighborhoodLibrary.setDevice_code(deviceOne.getDevice_code());
+			neighborhoodLibrary.setDevice_name(deviceOne.getDevice_name());			
+			neighborhoodLibrary.setAdd_id(member.getMember_id());
+			neighborhoodLibrary.setMember_name(member.getMember_name());
+			neighborhoodLibrary.setUser_key(member.getRec_key());
+			neighborhoodLibrary.setAdd_ip(request.getRemoteAddr());
+			neighborhoodLibrary.setExpire_date_cnt(configOne.getExpire_date_cnt());
+			neighborhoodLibrary.setTake_term(configOne.getTake_term());
+			
+			String sell_phone = "";
+			if(homepage.getHomepage_tell() != null && !"".equals(homepage.getHomepage_tell())){
+				try {					
+					sell_phone = homepage.getHomepage_tell().replaceAll(" ", "");
+					sell_phone = sell_phone.replaceAll("[^0-9]", "");
+					int phoneLength = sell_phone.replaceAll(" ", "").length();
+					if(phoneLength > 10) {
+						sell_phone = sell_phone.substring(0, 10);
+						StringBuffer sp = new StringBuffer();
+						if(sell_phone.startsWith("010")) {
+							sp.append(sell_phone);
+							sp.insert(3, "-");
+							sp.insert(8, "-");
+						}else {
+							sp.append(sell_phone);
+							sp.insert(3, "-");
+							sp.insert(7, "-");		
+						}
+						sell_phone = sp.toString();
+					}else if (phoneLength <= 10) {
+						sell_phone = sell_phone.substring(0, phoneLength);
+						StringBuffer sp = new StringBuffer();
+						if(sell_phone.startsWith("010")) {
+							sp.append(sell_phone);
+							sp.insert(3, "-");
+							sp.insert(8, "-");
+						}else {
+							sp.append(sell_phone);
+							sp.insert(3, "-");
+							sp.insert(7, "-");		
+						}
+						sell_phone = sp.toString();
+					}
+				}catch (Exception e) {
+					System.out.println("@@@@@@@@@@@@@@ homepage_tell data error");
+				}				
+			}else {
+				System.out.println("@@@@@@@@@@@@@@ homepage_tell null");
+			}
+			
+			neighborhoodLibrary.setHomepage_send_tell(sell_phone);
+			neighborhoodLibrary.setApplicant_cell_phone(member.getCell_phone());
+			
+			LibrarySearch librarySearch = new LibrarySearch();
+			librarySearch.setUserkey(member.getRec_key());
+			librarySearch.setBookkey(neighborhoodLibrary.getBook_key());
+			librarySearch.setBooktype(neighborhoodLibrary.getBooktype());
+			librarySearch.setExprire_date_cnt(String.valueOf(configOne.getExpire_date_cnt()));
+			librarySearch.setWorker(String.valueOf(deviceOne.getDevice_code()));
+			
+			
+			ApiResponse apiResult = null;
+			/*무인대출 예약 api 호출*/
+			try {
+				apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
+			
+				if(apiResult.getStatus()) {							
+					if(neighborhoodLibraryService.insertNeighborhoodLibrary(neighborhoodLibrary) > 0) {
+						res.setValid(true);
+						res.setMessage("예약 되었습니다.");
+						System.out.println("@@@@@@@@@@@@ NeighborhoodLibrary Reserve API : Success, insertNeighborhoodLibrary : Success");
+					}else {
+						System.out.println("@@@@@@@@@@@@ NeighborhoodLibrary Reserve API : Success, insertNeighborhoodLibrary : Fail");
+					}
+				}else {
+					res.setValid(false);
+					res.setMessage(apiResult.getMessage());
+					return res;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+				res.setValid(false);
+				res.setMessage("KLAS 무인대출 예약 api 호출 실패.");
+				return res;
+			}
+			
+			String PK = "";
+			String USER_NO = "";
+			Map<String, Object>  reserveList = null;
+			try {
+				//KLAS에서 예약리스트 불러온다	
+				reserveList = LibSearchAPI.getReserveList(member.getRec_key()); 			
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			if(reserveList != null) {
+				List<Map<String,Object>> listData = (List<Map<String,Object>>)reserveList.get("LIST_DATA");
+				for(int i = 0; i < listData.size(); i++) {
+					if(i == 0) {
+						continue;
+					}else {
+						if(String.valueOf(listData.get(i).get("BOOK_KEY")).equals(neighborhoodLibrary.getBook_key())) { //예약리스트에서 홈페이지DB에 INSERT한 책 정보랑 같은 건수 있으면 KLAS 예약키 가져오기
+							PK = String.valueOf(listData.get(i).get("PK")); //KLAS 예약KEY
+							USER_NO = String.valueOf(listData.get(i).get("USER_NO")); //KLAS 대출자번호
+							
+						}
+					}
+				}
+			}
+			//홈페이지DB에 방금 INSERT한 예약 IDX값 가져오기
+			int reserveIdx = neighborhoodLibraryService.getSameNeighborhoodLibraryReserveCallIdx(neighborhoodLibrary); 
+			if(reserveIdx > 0) {
+				System.out.println("@@@@@@@@@@@@ getSameNeighborhoodLibraryReserveCallIdx : Success");
+			}else {				System.out.println("@@@@@@@@@@@@ getSameNeighborhoodLibraryReserveCallIdx : Fail");
+			}
+			NeighborhoodLibrary pk_reserve = new NeighborhoodLibrary();
+			pk_reserve.setReserve_idx(reserveIdx);
+			pk_reserve.setPk(PK);
+			pk_reserve.setUser_no(USER_NO);
+			//KLAS 예약키를 가져와서 홈페이지DB 방금 INSERT한 데이터에 UPDATE하기
+			
+			if(neighborhoodLibraryService.updateNeighborhoodLibraryPK(pk_reserve) > 0) {
+				System.out.println("@@@@@@@@@@@@ updateNeighborhoodLibraryPK : Success");
+			}else {
+				System.out.println("@@@@@@@@@@@@ updateNeighborhoodLibraryPK : Fail");
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
 
 	/**
 	 * 청구기호 출력

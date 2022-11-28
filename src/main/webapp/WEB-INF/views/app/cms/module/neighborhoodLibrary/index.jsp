@@ -1,0 +1,366 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script type="text/javascript">
+$(function() {
+	$('.selectmenu-search').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#neighborhoodLibrary').submit();
+		e.preventDefault();
+	});
+
+	$('.reserve_save').on('click',function(e){
+		e.preventDefault();
+		if (!confirm('[ 예약번호 : ' + $(this).attr('keyValue1') + '번 ]을 예약확정 하시겠습니까?')) {
+			return false;
+		}
+		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue4'));
+		$('#neighborhoodLibraryEdit #reserve_bundle_idx').val($(this).attr('keyValue3'));
+		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		$('#neighborhoodLibraryEdit #reserve_idx').val($(this).attr('keyValue1'));
+		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
+			location.reload();
+		}
+	});	
+	
+	$('.reserve_edit').on('click',function(e){
+		e.preventDefault();
+		var status = "default message";
+		if($(this).attr('keyValue2') == '3'){
+			status = "해당기능은 예비기능입니다. 예약번호 " + $(this).attr('keyValue1') + "번을 [사물함투입]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '4'){
+			status = "해당기능은 예비기능입니다. 예약번호 " + $(this).attr('keyValue1') + "번을 [대출]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '5'){
+			status = "해당기능은 예비기능입니다. 예약번호 " + $(this).attr('keyValue1') + "번을 [회수대기]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '6'){
+			status = "해당기능은 예비기능입니다. 예약번호 " + $(this).attr('keyValue1') + "번을 [회수완료]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '7'){
+			status = "해당기능은 예비기능입니다. 예약번호 " + $(this).attr('keyValue1') + "번을 [회수완료]상태로 값을 변경 하시겠습니까?";
+		}
+		if (!confirm(status)) {
+			return false;
+		}
+		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue3'));		
+		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		$('#neighborhoodLibraryEdit #reserve_idx').val($(this).attr('keyValue1'));
+		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
+			location.reload();
+		}
+	});
+	
+	
+	$('.reserve_cancel').on('click',function(e){
+		$('#dialog-1').load('delete.do?reserve_idx=' + $(this).attr('keyValue1') + '&reserve_status=' + $(this).attr('keyValue2') + '&device_idx=' + $(this).attr('keyValue3') , function( response, status, xhr ) {
+			$('#dialog-1').dialog('open');
+		});
+		e.preventDefault();
+	});	
+
+});
+</script>
+<style>
+	.status_btn{
+		border-radius: 10px 10px 10px 10px;
+    	color: white;
+    	margin: 0 auto;
+	}
+	.reserve_status1{
+		background-color:#e74e40; 
+		width:50px;
+	}
+	.reserve_status2{
+		background-color:#439bed;
+		width:70px;
+	}
+	.reserve_status3{
+		background-color:#f5a639;
+		width:80px;
+	}
+	.reserve_status4{
+		background-color:#17ad57;
+		width:50px;
+	}
+	.reserve_status5{
+		background-color:#888;
+		width:70px;
+	}
+	.reserve_status6{
+		background-color:#fd7a7ad4;
+		width:70px;
+	}
+	.reserve_status7{
+		background-color:#cc4ae7;
+		width:70px;
+	}
+	.reserve_status8{
+		background-color:#222;
+		width:50px;
+	}
+	.status_info{
+		float: right;
+	    border: #999999a3 1px solid;
+	    border-radius: 15px;
+	    width: 560px;
+	    height: 27px;
+	    text-align: center;
+    	color: white;
+	}
+	.status_info_all{
+		display: inline-block;
+		border-radius: 10px 10px 10px 10px;
+		margin-top:2px;
+	}
+</style>
+<form:form modelAttribute="neighborhoodLibrary" id="neighborhoodLibraryEdit" action="save.do">
+<form:hidden path="reserve_status"/>
+<form:hidden path="reserve_idx"/>
+<form:hidden path="reserve_bundle_idx"/>
+<form:hidden path="device_idx"/>
+</form:form>
+
+<form:form modelAttribute="neighborhoodLibrary" id="neighborhoodLibrary" action="index.do">
+			장비명 : 
+			<form:select class="selectmenu-search" style="width:300px" path="device_idx">
+				<c:forEach var="i" varStatus="status" items="${deviceList}">
+					<option value="${i.device_idx}" <c:if test="${i.device_idx eq neighborhoodLibrary.device_idx }">selected="selected"</c:if>>${i.device_name}</option>
+				</c:forEach>
+			</form:select>
+			대출상태 : 
+			<form:select class="selectmenu-search" style="width:150px;" path="reserve_status">
+				<form:option value="" label="전체"/>
+				<form:option value="1" label="예약"/>
+				<form:option value="2" label="예약확정"/>
+				<form:option value="3" label="사물함투입"/>
+				<form:option value="4" label="대출"/>
+				<form:option value="5" label="회수중"/>
+				<form:option value="6" label="회수대기"/>
+				<form:option value="7" label="회수완료"/>
+				<form:option value="8" label="취소(미승인)"/>
+			</form:select>
+			&nbsp;&nbsp;&nbsp;
+			<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>
+			
+			<div class="status_info">
+				<p class="status_info_all reserve_status1">예약</p> 
+				<p class="status_info_all reserve_status2">예약확정</p>
+				<p class="status_info_all reserve_status3">사물함투입</p>
+				<p class="status_info_all reserve_status4">대출</p>
+				<p class="status_info_all reserve_status5">회수대기</p>
+				<p class="status_info_all reserve_status6">회수중</p>
+				<p class="status_info_all reserve_status7">회수완료</p>
+				<p class="status_info_all reserve_status8">취소</p>
+			</div>
+	</div>
+	<div class="infodesk">
+		<span class="bbs-result">총 게시물 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </b>건</span>
+		<span>(페이지 ${paging.viewPage}/${paging.totalPageCount})</span>
+<!-- 		<div class="button"> -->
+<!-- 				<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>&nbsp;&nbsp; -->
+<!-- 				<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>&nbsp;&nbsp;						 -->				
+<%--  			<c:if test="${fn:length(reserveConfigList) <= 0 }">  --%>
+<!--  				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>예약설정 등록</span></a> -->
+<%--  			</c:if>							  --%>
+<!-- 		</div> -->
+	</div>
+	<!-- 운영장비관리 table -->
+	<table class="type1 center">
+		<colgroup>
+ 			<col width="3%" />
+ 			<col width="3%" />
+ 			<col width="8%" />
+ 			<col width="3%" />
+ 			<col width="4%" />
+			<col width="5%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="9%" />
+			<col width="8%" />
+			<col width="8%" />
+			<col width="3%" />
+			<col width="4%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+		</colgroup>
+		<thead>
+			<tr>
+ 				<th>번호</th>
+				<th>예약번호</th>				
+				<th>소장처</th>
+				<th>사물함</th>
+				<th>비밀번호</th>
+				<th>회원ID</th>
+				<th>등록번호</th>
+				<th>ISBN</th>
+				<th>도서명</th>
+				<th>신청날짜</th>
+				<th>예약확정시간</th>
+				<th>취소
+				<th>SMS발송여부</th>
+				<th style="background-color: #2b74c08a;">대출상태</th>
+				<th>기능</th>
+				<th style="background-color: #f93703c7;">예비기능</th>				
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="i" varStatus="status" items="${reserveList }">
+				<tr>
+					<td>${neighborhoodLibrary.listRowNum - status.index}</td>
+					<td>${i.reserve_idx }</td>					
+					<td>${i.lib_name }</td>
+					<td>
+						<c:choose>
+							<c:when test="${i.locker_idx eq '0' }">
+								-
+							</c:when>
+							<c:otherwise>
+								${i.locker_idx}
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${i.device_password ne null and i.device_password ne ''}">
+								${i.device_password }
+							</c:when>
+							<c:otherwise>
+								-
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td>${i.member_id }</td>
+					<td>${i.reg_no }</td>
+					<td>${i.book_isbn }</td>
+					<td>${i.book_name }</td>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></td>
+					<td>
+						<c:choose>
+							<c:when test="${i.lend_date eq null or i.lend_date eq ''}">
+								-
+							</c:when>
+							<c:otherwise>
+								<fmt:formatDate value="${i.lend_date}" pattern="yyyy.MM.dd HH:mm" />
+							</c:otherwise>					
+						</c:choose>					
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${i.cancel_yn eq 'Y'}">
+								취소됨
+							</c:when>
+							<c:otherwise>
+								-
+							</c:otherwise>					
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${i.sms_send_yn eq 'Y'}">
+								발송완료
+							</c:when>
+							<c:otherwise>
+								미발송
+							</c:otherwise>					
+						</c:choose>
+					</td>
+					<td style="background-color: #15ff000f;">
+					<!-- (1:예약신청, 2:대출승인(사물함 배정), 3:사물함투입(배송기사가 사물함에 도서 투입), 4:대출(대출신청자가 도서를 가져감), 5:회수대기(대출자가 책을 가져가지 않아 회수로 바뀜), 6:회수(배송기사가 사물함에서 도서 회수), 7:미승인(취소) -->
+						<c:choose>
+							<c:when test="${i.reserve_status eq '1'}">
+								<p class="status_btn reserve_status1">예약</p>
+							</c:when>
+							<c:when test="${i.reserve_status eq '2'}">
+								<p class="status_btn reserve_status2">예약확정</p>
+							</c:when>
+							<c:when test="${i.reserve_status eq '3'}">
+								<p class="status_btn reserve_status3">사물함투입</p>
+							</c:when>
+							<c:when test="${i.reserve_status eq '4'}">
+								<p class="status_btn reserve_status4">대출</p>
+							</c:when>
+							<c:when test="${i.reserve_status eq '5'}">
+								<p class="status_btn reserve_status5">회수대기</p>
+							</c:when>
+							<c:when test="${i.reserve_status eq '6'}">
+								<p class="status_btn reserve_status6">회수중</p>
+							</c:when>
+							<c:when test="${i.reserve_status eq '7'}">
+								<p class="status_btn reserve_status7">회수완료</p>
+							</c:when>							
+							<c:when test="${i.reserve_status eq '8'}">
+								<p class="status_btn reserve_status8">취소</p>
+							</c:when>					
+						</c:choose>
+					</td>
+					<td>		
+						<c:choose>
+							<c:when test="${i.reserve_status eq '1'}">
+								<!-- 예약상태 -->
+								<c:choose>
+									<c:when test="${nowLocker > 0 }">
+										<a href="#" class="btn reserve_save" style="background-color: #439bed; color:white;" keyValue1="${i.reserve_idx }" keyValue2="2" keyValue3="${i.reserve_bundle_idx }" keyValue4="${i.device_idx }">예약확정</a>
+									</c:when>
+									<c:when test="${nowLocker <= 0 }">
+										<a href="javascript:void(0);" class="btn" >사물함없음</a>
+									</c:when>
+								</c:choose>
+							</c:when>					
+						</c:choose>	
+					</td>
+					<td style="background-color:#f9d9d982;">
+						<c:choose>
+							<c:when test="${i.reserve_status eq '1'}">
+								<!-- 예약상태 -->
+								<c:choose>
+									<c:when test="${nowLocker > 0 }">
+										<a href="#" class="btn reserve_cancel" style="background-color: #222; color:white;" keyValue1="${i.reserve_idx }" keyValue2="8"  keyValue3="${i.device_idx }">취소</a>
+									</c:when>
+									<c:when test="${nowLocker <= 0 }">
+									</c:when>
+								</c:choose>
+							</c:when>
+							<c:when test="${i.reserve_status eq '2'}">
+								<!-- 예약확정상태 -->
+								<a href="#" class="btn reserve_edit"  style="background-color:#f5a639; color:white; " keyValue1="${i.reserve_idx }" keyValue2="3" keyValue3="${i.device_idx }">사물함투입</a>
+							</c:when>
+							<c:when test="${i.reserve_status eq '3'}">
+								<!-- 사물함투입상태 -->
+								<a href="#" class="btn reserve_edit" style="background-color:#17ad57; color:white; " keyValue1="${i.reserve_idx }" keyValue2="4" keyValue3="${i.device_idx }">대출</a>
+							</c:when>
+							<c:when test="${i.reserve_status eq '4'}">
+								<!-- 대출상태 -->
+								<a href="#" class="btn reserve_edit" style="background-color:#888; color:white; " keyValue1="${i.reserve_idx }" keyValue2="5" keyValue3="${i.device_idx }">회수대기</a>
+							</c:when>
+							<c:when test="${i.reserve_status eq '5'}">
+								<!-- 회수대기상태(기간내에 회원이 책을 가져가지 않은 도서) -->
+								<a href="#" class="btn reserve_edit" style="background-color:#fd7a7ad4; color:white; " keyValue1="${i.reserve_idx }" keyValue2="6" keyValue3="${i.device_idx }">회수중</a>
+							</c:when>
+							<c:when test="${i.reserve_status eq '6'}">
+								<!-- 배송기사가 도서를 회수 한 상태 -->
+								<a href="#" class="btn reserve_edit" style="background-color:#cc4ae7; color:white; " keyValue1="${i.reserve_idx }" keyValue2="7" keyValue3="${i.device_idx }">반납완료</a>
+							</c:when>
+							<c:when test="${i.reserve_status eq '7'}">
+								<!-- 배송기사가 도서를 도서관에 반납 한 상태 -->
+							</c:when>
+							<c:when test="${i.reserve_status eq '8'}">
+								<!-- 취소된 상태 -->
+							</c:when>					
+						</c:choose>	
+					</td>					
+				</tr>					
+			</c:forEach>
+			<c:if test="${paging.totalDataCount <= 0}">
+				<tr>
+					<td colspan="16">조회된 자료가 없습니다.</td>
+				</tr>
+			</c:if>
+		</tbody>
+	</table>
+	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+		<jsp:param name="formId" value=""/>
+	</jsp:include>
+</form:form>
+
+<div id="dialog-1" class="dialog-common" title="예약 취소"></div>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDeviceDao">
+
+	<select id="getNeighborhoodLibraryDeviceList" resultType="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice">
+			SELECT
+				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
+				LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
+				USE_YN, DELETE_ID, DELETE_YN, DELETE_DATE, DELETE_IP
+			FROM
+				NEIGHBORHOOD_LIBRARY_DEVICE
+			WHERE
+				1=1
+			AND DEVICE_IDX IN (SELECT DEVICE_IDX FROM NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG)
+			AND DELETE_YN = 'N' OR DELETE_YN IS NULL
+			ORDER BY 
+				DEVICE_IDX DESC
+	</select>
+	
+		<select id="getNeighborhoodLibraryDeviceAll" resultType="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice">
+			${pagingTop}
+				SELECT
+					DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
+					LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
+					USE_YN, DELETE_ID, DELETE_YN, DELETE_DATE, DELETE_IP
+				FROM
+					NEIGHBORHOOD_LIBRARY_DEVICE
+				WHERE
+					1=1
+				AND DELETE_YN = 'N' OR DELETE_YN IS NULL
+				ORDER BY 
+					DEVICE_IDX DESC
+			${pagingBottom}
+	</select>
+	
+	<insert id="addNeighborhoodLibraryDevice">
+		<selectKey keyProperty="device_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(device_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_DEVICE
+		</selectKey>	
+		INSERT INTO NEIGHBORHOOD_LIBRARY_DEVICE
+		(
+			DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
+			ADD_DATE, ADD_ID, USE_YN, DELETE_YN
+		) VALUES (
+			#{device_idx}, #{device_code}, #{device_name}, #{device_place}, #{device_area},
+			SYSDATE, #{add_id}, #{use_yn}, 'N'
+		)
+	</insert>
+	
+	<select id="getNeighborhoodLibraryDeviceCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_DEVICE
+		WHERE 
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}	
+		</if>
+		AND DELETE_YN = 'N' OR DELETE_YN IS NULL			
+		ORDER BY 
+			DEVICE_IDX DESC
+	</select>
+	
+	<select id="getNeighborhoodLibraryDeviceOne" resultType="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice">
+			SELECT
+				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
+				LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
+				USE_YN, DELETE_ID, DELETE_YN, DELETE_DATE, DELETE_IP
+			FROM
+				NEIGHBORHOOD_LIBRARY_DEVICE
+			WHERE
+				1=1
+			AND DEVICE_IDX = #{device_idx}
+			AND DELETE_YN = 'N' OR DELETE_YN IS NULL	
+	</select>
+	
+	<update id="modifyNeighborhoodLibraryDevice">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_DEVICE
+		SET
+			DEVICE_CODE = #{device_code},
+			DEVICE_NAME = #{device_name},
+			DEVICE_PLACE = #{device_place},
+			DEVICE_AREA = #{device_area},
+			LINK_INSTITUTION = #{link_institution},
+			MODIFY_DATE = SYSDATE, 
+			MODIFY_ID = #{modify_id},
+			USE_YN = #{use_yn}
+		WHERE
+			DEVICE_IDX = #{device_idx}
+	</update>
+	
+	<delete id="deleteNeighborhoodLibraryDevice">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_DEVICE
+		SET
+			DELETE_YN = 'Y',
+			DELETE_ID = #{delete_id},
+			DELETE_IP = #{delete_ip},
+			DELETE_DATE = SYSDATE
+		WHERE
+			device_idx = #{device_idx}
+	</delete>
+	
+</mapper>
