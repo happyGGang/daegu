@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.common.api.PointApi;
+import kr.go.gbelib.app.common.api.PointReqeust;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -206,10 +208,14 @@ public class BoardController extends BaseController {
 		log.debug("sortField : " + board.getSortField());
 		log.debug("sortType : " + board.getSortType());
 
+
+
 		String basePath = attributeInit(request, model, board, null);
 		String returnPath = basePath + "index";
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + PointApi.rule(PointReqeust.formApikey(homepage.getPoint_api_key())));
 		if (homepage == null) {
 			//cms에서는 homepage 객체가 없어서 따로 가져옴.
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));

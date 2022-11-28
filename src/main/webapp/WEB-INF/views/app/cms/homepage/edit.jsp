@@ -218,6 +218,12 @@ $(function() {
 				<form:input path="lib_code" cssClass="text"/>
 			</td>
 		</tr>
+		<tr>
+			<th>포인트APIKEY</th>
+			<td>
+				<form:input path="point_api_key" cssClass="text" cssStyle="width:50%;"/>
+			</td>
+		</tr>
 <!-- 		<tr> -->
 <!-- 			<th>SNS 계정관리</th> -->
 <!-- 			<td> -->

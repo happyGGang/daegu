@@ -9,7 +9,7 @@
 .libSite {position:absolute;top:0;z-index:96;height:44px;line-height:44px;overflow:hidden;}
 .libSite ul li {display:inline-block;float:left;border-left:1px solid #ccc;padding:0;margin:0;}
 .libSite ul li:last-child {border-right:1px solid #ccc;}
-.libSite ul li a {display:block;color:#000;text-align:center;line-height:44px;padding:0 15px;}
+.libSite ul li a {display:block;text-align:center;line-height:44px;padding:0 15px;}
 .libSite ul li.on a {background:#000;color:#fff;}
 
 .tnb {position:relative;padding:0;margin:0;z-index:9999999!important;text-align:right;}
@@ -29,7 +29,7 @@ h1.mobile-logo {display:none;}
 .Gnb .g-menu a.last-box_b {display:block;}
 
 #header.background-white .libSite ul li a {color:#fff;}
-#header.background-white .libSite ul li.on a {background:#fff;color:#000;font-weight:bold;}
+#header.background-white .libSite ul li.on a {background:#fff;font-weight:bold;}
 #header.background-white .tnb .util a {color:#fff;}
 #header.background-white .tnb .util b {color:#fff;}
 #header.background-white h1.web-logo a {display:block;background:url('../img/logo.png') no-repeat center center;}
@@ -44,28 +44,28 @@ h1.mobile-logo {display:none;}
 #fullpage {background:#fff}
 
 /* Gnb */
-.Gnb {clear:both;width:100%;height:80px;background:#eee;overflow:inherit;position:absolute;z-index:1!important;text-align:center;border-bottom:0}
+.Gnb {clear:both;width:100%;height:80px;background:#fff;overflow:inherit;position:absolute;z-index:1!important;text-align:center;border-bottom:0}
 .Gnb .g-menu {position:relative;}
 .Gnb .gnb-menu {position:relative;text-align:center;}
 .Gnb .gnb-menu > li{padding:0 2%;text-align:center;position:static;}
 
-.Gnb .gnb-menu > li > a {padding:0;line-height:80px;height:78px;font-size:20px;color:#000;font-weight:bold;border-bottom:3px solid transparent}
+.Gnb .gnb-menu > li > a {padding:0;line-height:80px;height:78px;font-family:'JalpullineunOneul',sans-serif;font-weight:normal;font-size:20px;color:#454545;border-bottom:3px solid transparent}
 .Gnb .gnb-menu > li > a:hover,
 .Gnb .gnb-menu > li > a:focus{background:none;color:#21409a;border-bottom:3px solid #21409a;}
 .Gnb .gnb-menu > li > ul {display:none;border:0;left:0;white-space:nowrap;text-align:center;}
 .Gnb .gnb-menu > li.active > ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 1px;}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
-.Gnb .gnb-menu>li>.SubMenu>li>a{font-size:16px;padding:0 5px;color:#eee;}
+.Gnb .gnb-menu>li>.SubMenu>li>a{font-family:'JalpullineunOneul',sans-serif;font-weight:normal;font-size:15px;letter-spacing: 0.06rem;padding:0 5px;color:#eee;}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
-.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fad107;}
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fad107;font-weight:normal;}
 .Gnb .mask,
 .Gnb .gnb-menu > li > ul{box-sizing:border-box;}
-.Gnb .gnb-menu > li.menu1 > ul {margin-left:-360px}
-.Gnb .gnb-menu > li.menu2 > ul {margin-left:-300px}
+.Gnb .gnb-menu > li.menu1 > ul {margin-left:-200px}
+.Gnb .gnb-menu > li.menu2 > ul {margin-left:-80px}
 .Gnb .gnb-menu > li.menu3 > ul {}
-.Gnb .gnb-menu > li.menu4 > ul {}
-.Gnb .gnb-menu > li.menu5 > ul {padding-left:350px;}
+.Gnb .gnb-menu > li.menu4 > ul { }
+.Gnb .gnb-menu > li.menu5 > ul {}
 .Gnb .gnb-menu > li.menu6 > ul {}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{background:#21409a;}

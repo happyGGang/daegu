@@ -1872,6 +1872,8 @@ public class IndexController extends BaseController {
 		teach.setSearch_start_date(yy+mm+String.format("%02d", 1));
 		teach.setSearch_end_date(yy+mm+cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 
+		teach.setRowCount(8);
+		teachService.setPaging(model, teachService.getTeachListForAllSearchCultureCount(teach), teach);
 		model.addAttribute("searchTeachList",teachService.getTeachListForAllSearchCulture(teach));
 		model.addAttribute("count", teachService.getTeachListForAllSearchCultureCount(teach));
 		return basePath + homepage.getFolder() + "/searchCulture_ajax";

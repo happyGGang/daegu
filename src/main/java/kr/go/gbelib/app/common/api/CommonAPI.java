@@ -69,6 +69,8 @@ public class CommonAPI {
 	public final static String CULTURE_API_URL = ResourceBundle.getBundle("api").getString("culture.api.url");
 	public final static String CULTURE_API_KEY = ResourceBundle.getBundle("api").getString("culture.api.key");
 
+	public final static String POINT_API_KEY = ResourceBundle.getBundle("api").getString("point.api.url");
+
 	public final static String KAKAO_LIST_API_URL = "https://dapi.kakao.com/v3/search/book";
 	
 	public static HttpURLConnection initConn(String urlStr) throws Exception {
@@ -1204,6 +1206,48 @@ public class CommonAPI {
 			result = result.replace("&", "&amp;");
 			
 			resultMap = xmlToJson(result).toMap();
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+
+	/**
+	 * 대구 통합도서관 POINT API
+	 * @author SUNGHWAN 2022. 11. 26.
+	 * @param requestName - 요청명
+	 * @param param 파라미터
+	 * @return
+	 */
+	public static Map<String, Object> sendPOINT(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = POINT_API_KEY + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for ( String oneKey : keys ) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ POINT_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
 		}
 		catch ( Exception e ) {
 			e.printStackTrace();

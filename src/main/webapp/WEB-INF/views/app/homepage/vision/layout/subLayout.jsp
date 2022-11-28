@@ -61,31 +61,17 @@ $(function() {
 					<h3>${menuOne.menu_name}</h3>
 					</c:if>
 					<ol>
-						<li class="first"><a href="/${homepage.context_path}/index.do"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
+						<li class="first"><a href="/${homepage.context_path}/index.do">H</a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
 
 					<div class="shareArea">
 						<ul>
-							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/sub-icon02.png" alt="현재페이지 인쇄"></a></li>
-							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sub-icon01.png" alt="sns 바로가기"></a>
-
-									<div id="share_layer">
-										<div class="shareAllBtns" >
-											<ul class="shareBox">
-												<li><a href="" class="sub-facebook" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_facebook_btn.png" alt="${homepage.homepage_name} 페이스북 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
-
-												<li><a href="" class="sub-twitter" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_twitter_btn.png" alt="${homepage.homepage_name} 트위터로 공유하기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
-
-												<li class="last"><a href="" class="sub-kakao" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_kakaostory_btn.png" alt="${homepage.homepage_name} 카카오스토리 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
-
-												<li><a href="#" id="closeshareBox" class="close shareIconArea" title="닫기" ><img src="/resources/common/img/sns-close.png" alt="sns-close" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"/></a></li>
-											</ul>
-										</div>
-									</div>
-
-							</li>
-							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a></li>
+							<li><a href="" class="sub-facebook" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/salip/sns-facebook-icon.png" alt="${homepage.homepage_name} 페이스북 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+							<li><a href="" class="sub-twitter" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/salip/sns-twitter-icon.png" alt="${homepage.homepage_name} 트위터로 공유하기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+							<li class="last"><a href="" class="sub-kakao" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/salip/sns-kakaostory-icon.png" alt="${homepage.homepage_name} 카카오스토리 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/salip/print-icon.png" alt="현재페이지 인쇄"></a></li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/salip/qrcode-icon.png" alt="qr코드 보기"></a></li>
 						</ul>
 					</div>
 

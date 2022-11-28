@@ -177,11 +177,11 @@ $(function() {
 			<span class="yeongyeong"><a href="/nearbylib/html.do?menu_idx=15"><img src="/resources/homepage/${homepage.context_path}/img/yeongyeon.png" alt=""></a></span>
 			<span class="bayawol"><a href="/nearbylib/html.do?menu_idx=17"><img src="/resources/homepage/${homepage.context_path}/img/bayawol.png" alt=""></a></span>
 			<span class="isia"><a href="/nearbylib/html.do?menu_idx=16"><img src="/resources/homepage/${homepage.context_path}/img/isia.png" alt=""></a></span>
-			<span class="lib01"><a href="https://library.daegu.go.kr/donggu/html.do?menu_idx=132" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/lib01.png" alt=""></a></span>
-			<span class="lib02"><a href="https://library.daegu.go.kr/dongbu/html.do?menu_idx=109" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/lib02.png" alt=""></a></span>
-			<span class="lib03"><a href="https://library.daegu.go.kr/228/html.do?menu_idx=165" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/lib03.png" alt=""></a></span>
-			<span class="lib04"><a href="https://library.daegu.go.kr/bukgs/html.do?menu_idx=49" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/lib04.png" alt=""></a></span>
-			<span class="lib05"><a href="https://library.daegu.go.kr/donggu/html.do?menu_idx=132" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/lib05.png" alt=""></a></span>
+			<span class="lib01"><a href="/${homepage.context_path}/html.do?menu_idx=22"><img src="/resources/homepage/${homepage.context_path}/img/lib01.png" alt=""></a></span>
+			<span class="lib02"><a href="/${homepage.context_path}/html.do?menu_idx=20"><img src="/resources/homepage/${homepage.context_path}/img/lib02.png" alt=""></a></span>
+			<span class="lib03"><a href="/${homepage.context_path}/html.do?menu_idx=19"><img src="/resources/homepage/${homepage.context_path}/img/lib03.png" alt=""></a></span>
+			<span class="lib04"><a href="/${homepage.context_path}/html.do?menu_idx=23"><img src="/resources/homepage/${homepage.context_path}/img/lib04.png" alt=""></a></span>
+			<span class="lib05"><a href="/${homepage.context_path}/html.do?menu_idx=21"><img src="/resources/homepage/${homepage.context_path}/img/lib05.png" alt=""></a></span>
 			<span class="bal01"><a href="/nearbylib/html.do?menu_idx=7" class="info01-btn-open"><img src="/resources/homepage/${homepage.context_path}/img/bal01.png" alt=""></a></span>
 			<span class="bal02"><a href="/nearbylib/html.do?menu_idx=6" class="info02-btn-open"><img src="/resources/homepage/${homepage.context_path}/img/bal02.png" alt=""></a></span>
 			<span class="bal03"><a href="#" class="btn-open"><img src="/resources/homepage/${homepage.context_path}/img/bal03.png" alt=""></a></span>

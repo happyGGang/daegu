@@ -72,6 +72,15 @@ h1.mobile-logo {display:none;}
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color:#21409a;}
 
+@media (max-width:1650px){
+	.Gnb .gnb-menu > li{padding:0 15px;}
+	.Gnb .gnb-menu > li > a{font-size:18px;}
+}
+
+@media (max-width:1400px){
+	.Gnb .gnb-menu{display:none;}
+}
+
 .home-up {position:absolute;bottom:0;right:20px;z-index:999999;}
 
 /* 도서관 둘러보기 */

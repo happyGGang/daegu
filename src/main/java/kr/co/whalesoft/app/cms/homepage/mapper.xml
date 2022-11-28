@@ -89,7 +89,7 @@
 			a.homepage_tell, a.homepage_fax, a.homepage_send_tell, a.zipcode, a.address1,
 			a.address2, a.eng_address, a.homepage_type, a.manage_code, lib_code, a.domain,
 			a.context_path, a.folder, a.remark, a.temp_use_yn, a.temp_start_date,
-			a.temp_end_date, a.print_seq
+			a.temp_end_date, a.print_seq, a.point_api_key
 		FROM
 			CMS_HOMEPAGE a
 		WHERE
@@ -100,7 +100,7 @@
 		SELECT
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias, homepage_tell,
 			homepage_fax, homepage_send_tell, zipcode, address1, address2, eng_address, homepage_type, manage_code, lib_code,
-			domain, context_path, folder, remark, temp_use_yn, temp_start_date, temp_end_date, print_seq
+			domain, context_path, folder, remark, temp_use_yn, temp_start_date, temp_end_date, print_seq, point_api_key
 		FROM
 			CMS_HOMEPAGE
 		WHERE
@@ -121,13 +121,13 @@
 			homepage_id, homepage_group, homepage_name, homepage_eng_name, homepage_alias,
 			homepage_tell, homepage_fax, homepage_send_tell, homepage_type, manage_code, lib_code,
 			zipcode, address1, address2, eng_address, domain,
-			context_path, folder, remark, print_seq, temp_use_yn
+			context_path, folder, remark, print_seq, temp_use_yn, point_api_key
 		) VALUES
 		(
 			#{homepage_id}, #{homepage_group}, #{homepage_name}, #{homepage_eng_name}, #{homepage_alias},
 			#{homepage_tell}, #{homepage_fax}, #{homepage_send_tell}, #{homepage_type}, #{manage_code}, #{lib_code},
 			#{zipcode}, #{address1}, #{address2}, #{eng_address}, #{domain},
-			#{context_path}, #{folder}, #{remark}, #{print_seq}, #{temp_use_yn}
+			#{context_path}, #{folder}, #{remark}, #{print_seq}, #{temp_use_yn}, #{point_api_key}
 		)
 	</insert>
 
@@ -154,7 +154,8 @@
 			folder = #{folder},
 			remark = #{remark},
 			print_seq = #{print_seq},
-			temp_use_yn = #{temp_use_yn}
+			temp_use_yn = #{temp_use_yn},
+			point_api_key = #{point_api_key}
 		WHERE
 			homepage_id = #{homepage_id}
 	</update>

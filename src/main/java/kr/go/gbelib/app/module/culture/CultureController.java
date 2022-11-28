@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,8 @@ import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
 import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
 import kr.go.gbelib.app.common.api.CultureAPI;
+import kr.go.gbelib.app.common.api.PointApi;
+import kr.go.gbelib.app.common.api.PointReqeust;
 import kr.go.gbelib.app.module.myLibrary.MyLibrary;
 import kr.go.gbelib.app.module.myLibrary.MyLibraryDao;
 import kr.go.gbelib.app.module.myLibrary.MyLibraryService;
@@ -213,7 +216,7 @@ public class CultureController extends BaseController {
     }
 
     @RequestMapping(value = {"/mypage/dashboard.*"})
-    public String myLibrary(Model model, Culture culture, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String myLibrary(Model model, Culture culture, PointReqeust pointReqeust, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage)request.getAttribute("homepage");
         if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
             int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
@@ -240,6 +243,25 @@ public class CultureController extends BaseController {
         teach.setEndRowNum(5);
         teach.setMember_id(sessionMemberInfo.getMember_id());
 
+        // 포인트 시스템 연동
+        pointReqeust.setUser_id(sessionMemberInfo.getMember_id());
+        pointReqeust.setRecord_type("U");
+        pointReqeust.setPageNo(1);
+
+        List<Map<String, Object>> resultDataList = new LinkedList<Map<String, Object>>();
+        int total_point = 0;
+
+        try {
+            if (PointApi.record(pointReqeust) != null) {
+                resultDataList = (List<Map<String, Object>>) PointApi.record(pointReqeust).get("resultDataList");
+                total_point = (Integer) PointApi.record(pointReqeust).get("total_point");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("pointList", resultDataList);
+        model.addAttribute("total_point", total_point);
         model.addAttribute("applyList", teachService.getApplyListAll(teach));
         model.addAttribute("homepage_name", homepage_name);
         model.addAttribute("culture", culture);
