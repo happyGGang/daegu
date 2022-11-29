@@ -1001,6 +1001,7 @@ $(function() {
 
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
+					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset'}">
 					<c:if test="${reserveConfig.reserve_start_time le nowTime or reserveConfig.reserve_end_time gt nowTime  }">
 						<c:choose>
 							<c:when test="${reserveData == 0 }">
@@ -1010,7 +1011,8 @@ $(function() {
 								<a href="javascript:void(0);" id="" class="btn" style="padding:8.5px 2%">내집앞도서예약(신청불가)</a>
 							</c:otherwise>
 						</c:choose>
-					</c:if>	
+					</c:if>
+					</c:if>
 				</c:when>
 			</c:choose>
 			
