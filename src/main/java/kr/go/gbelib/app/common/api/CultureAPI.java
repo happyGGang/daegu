@@ -53,32 +53,37 @@ public class CultureAPI {
         Map<String, Object> msgBody = (Map<String, Object>) result.get("msgBody");
 
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        
+        try {
+        	if (msgBody != null) {
+                List<Map<String, Object>> perforList = new ArrayList<Map<String, Object>>();
 
-        if (msgBody != null) {
-            List<Map<String, Object>> perforList = new ArrayList<Map<String, Object>>();
+                if ((Integer) msgBody.get("totalCount") > 0) {
+                    if ((Integer) msgBody.get("totalCount") == 1) {
+                        perforList.add((Map<String, Object>) msgBody.get("perforList"));
+                    } else {
+                        perforList = (List<Map<String, Object>>) msgBody.get("perforList");
+                    }
 
-            if ((Integer) msgBody.get("totalCount") > 0) {
-                if ((Integer) msgBody.get("totalCount") == 1) {
-                    perforList.add((Map<String, Object>) msgBody.get("perforList"));
-                } else {
-                    perforList = (List<Map<String, Object>>) msgBody.get("perforList");
-                }
+                    if (perforList.size() > 0) {
+                        for (Map<String, Object> map : perforList) {
 
-                if (perforList.size() > 0) {
-                    for (Map<String, Object> map : perforList) {
+                            parameter.put("seq", map.get("seq"));
 
-                        parameter.put("seq", map.get("seq"));
+                            Map<String, Object> detaile = (Map<String, Object>) CommonAPI.sendCULTURE(parameter, "publicperformancedisplays/d/").get("msgBody");
+                            if ((Map<String, Object>) detaile.get("perforInfo") != null) {
+                                detaile = (Map<String, Object>) detaile.get("perforInfo");
+                            }
 
-                        Map<String, Object> detaile = (Map<String, Object>) CommonAPI.sendCULTURE(parameter, "publicperformancedisplays/d/").get("msgBody");
-                        if ((Map<String, Object>) detaile.get("perforInfo") != null) {
-                            detaile = (Map<String, Object>) detaile.get("perforInfo");
+                            list.add(detaile);
                         }
-
-                        list.add(detaile);
                     }
                 }
             }
-        }
+		} catch (Exception e) {
+			System.out.println(e);
+			log.error("@@@@@@@@@@@@@@@@@@ areaRequestDetails : " + e);
+		}
 
         return list;
     }
