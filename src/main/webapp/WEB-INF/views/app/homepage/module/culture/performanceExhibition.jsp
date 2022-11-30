@@ -26,6 +26,27 @@
 	});
 </script>
 
+<style>
+	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';}
+	select{padding:6px 5px !important;}
+
+	@media screen and (max-width: 1024px) {
+		.search-form__input{min-width:40%;}
+	}
+
+	@media screen and (max-width: 768px) {
+		.search-form__input{min-width:30%;}
+	}
+
+	@media screen and (max-width: 600px) {
+		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
+		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
+		.search-form__input{margin-left:0;font-size:14px;}
+		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	}
+</style>
+
 <form:form modelAttribute="culture" action="performanceExhibition.do" method="GET">
 	<from:hidden path="menu_idx"/>
 	<div class="search-form showNot01">
@@ -49,11 +70,11 @@
 		<c:forEach items="${list}" var="i">
 			<div class="product product--stretch">
 				<div class="product__header">
+					<div class="product__thumnail">
+						<img alt="${i.title}" class="product__img" src="${i.imgUrl}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';">
+					</div>
 					<div class="product__filters">
 						<span class="product__filter product__filter--visit">${fn:substring(i.title, 0, 21)}<c:if test="${fn:length(i.title) > 21}">...</c:if></span>
-					</div>
-					<div class="product__thumnail">
-					<img alt="${i.title}" class="product__img" src="${i.imgUrl}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';">
 					</div>
 				</div>
 				<dl class="product__info">
@@ -70,7 +91,7 @@
 					<dd>${i.phone}</dd>
 				</dl>
 				<div class="product__buttons">
-					<a href="${i.placeUrl}" title="${i.title} 새창보기" target="_blank" class="product__button">자세히보기</a>
+					<a href="${i.placeUrl}" title="${i.title} 새창보기" target="_blank" class="product__button product__button--ticket">자세히보기</a>
 				</div>
 			</div>
 		</c:forEach>

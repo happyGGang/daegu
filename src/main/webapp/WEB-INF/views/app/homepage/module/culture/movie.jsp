@@ -47,6 +47,27 @@
 	});
 </script>
 
+<style>
+	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';}
+	select{padding:6px 5px !important;}
+
+	@media screen and (max-width: 1024px) {
+		.search-form__input{min-width:40%;}
+	}
+
+	@media screen and (max-width: 768px) {
+		.search-form__input{min-width:30%;}
+	}
+
+	@media screen and (max-width: 600px) {
+		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
+		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
+		.search-form__input{margin-left:0;font-size:14px;}
+		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	}
+</style>
+
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="movie.do" method="get" onsubmit="return false;">
 <input type="hidden" id ="homepage_id" value ="${homepage.homepage_id}"/>
@@ -71,7 +92,7 @@
 </div>
 
 <div class="result-count">
-	검색 결과가 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건 이있습니다.
+	검색 결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건
 </div>
 
 <div class="result-list">
@@ -101,13 +122,13 @@
 					</c:choose>
 				</a>
 			</div>
+			<div class="product__filters">
+				<span class="product__filter product__filter-topic">${i.title}</span>
+			</div>
 		</div>
 		<dl class="product__info">
 			<dt class="bullet__text--arrow"><b>기관명</b></dt>
-			<dd>${i.homepage_name}</dd>
-
-			<dt class="bullet__text--arrow"><b>제목</b></dt>
-			<dd>${i.title}</dd>
+			<dd class="lib-cate">${i.homepage_name}</dd>
 
 			<dt class="bullet__text--arrow"><b>상영일</b></dt>
 			<dd>
@@ -126,7 +147,7 @@
 			</c:if>
 		</dl>
 		<div class="product__buttons">
-			<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" keyValue="${i.board_idx}" target="_blank" class="product__button">정보상세보기</a>
+			<a href="/${i.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" keyValue="${i.board_idx}" target="_blank" class="product__button product__button--ticket">정보상세보기</a>
 		</div>
 	</div>
 	</c:forEach>

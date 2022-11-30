@@ -70,13 +70,13 @@
 			<tr>
 				<td>ECO</td>
 				<td style="border-right: solid 2px silver;"><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.ECO.-']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.P']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.A']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.I']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.S']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.ECO.S']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.E']}" pattern="#,###" /></td>
-				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO.P'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.ECO.E']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .P']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .A']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .I']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .S']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.ECO .S']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .E']}" pattern="#,###" /></td>
+				<td><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.ECO .P'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.ECO .E']}" pattern="#,###" /></td>
 			</tr>
 			<tr>
 				<td>OPMS</td>
@@ -93,13 +93,13 @@
 				<th>소계</th>
 				<th>-</th>
 				<th style="border-right: solid 2px silver;"><fmt:formatNumber value="${0 + elibStatisticsMap2['EBK.KYOB.-'] + elibStatisticsMap2['EBK.Y2BK.-'] + elibStatisticsMap2['EBK.FXLI.-'] + elibStatisticsMap2['EBK.YESB.-'] + elibStatisticsMap2['EBK.ECO.-'] + elibStatisticsMap2['EBK.OPMS.-']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO.P'] + elibStatisticsMap['EBK.OPMS.P']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.OPMS.S']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A'] + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I'] + elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.OPMS.S']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO.E'] + elibStatisticsMap['EBK.OPMS.E']}" pattern="#,###" /></th>
-				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO.P'] + elibStatisticsMap['EBK.OPMS.P'] + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A'] + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I'] + elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.OPMS.S'] + elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO.E'] + elibStatisticsMap['EBK.OPMS.E']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO .P'] + elibStatisticsMap['EBK.OPMS.P']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.OPMS.A']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.OPMS.I']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.OPMS.S']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.OPMS.A'] + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.OPMS.I'] + elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.OPMS.S']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO .E'] + elibStatisticsMap['EBK.OPMS.E']}" pattern="#,###" /></th>
+				<th><fmt:formatNumber value="${0 + elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO .P'] + elibStatisticsMap['EBK.OPMS.P'] + elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.OPMS.A'] + elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.OPMS.I'] + elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.OPMS.S'] + elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO .E'] + elibStatisticsMap['EBK.OPMS.E']}" pattern="#,###" /></th>
 			</tr>
 			<tr>
 				<td rowspan="3">오디오북</td>
@@ -276,7 +276,7 @@
 				</th>
 				<th  style="border-right: solid 2px silver;">
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO.P'] + elibStatisticsMap['EBK.OPMS.P'] +
+						elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO .P'] + elibStatisticsMap['EBK.OPMS.P'] +
 						elibStatisticsMap['ADO.FXLI.P'] + elibStatisticsMap['ADO.HANS.P'] + elibStatisticsMap['ADO.CONT.P'] +
 						elibStatisticsMap['WEB.ARTN.P'] + elibStatisticsMap['WEB.ECSM.P'] + elibStatisticsMap['WEB.YBMN.P'] + elibStatisticsMap['WEB.CONT.P'] + elibStatisticsMap['WEB.GLOB.P'] + elibStatisticsMap['WEB.EDUW.P'] + elibStatisticsMap['WEB.YESB.P'] +
 						elibStatisticsMap['EXT.MOAZ.P']
@@ -284,7 +284,7 @@
 				</th>
 				<th>
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A'] +
+						elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.OPMS.A'] +
 						elibStatisticsMap['ADO.FXLI.A'] + elibStatisticsMap['ADO.HANS.A'] + elibStatisticsMap['ADO.CONT.A'] +
 						elibStatisticsMap['WEB.ARTN.A'] + elibStatisticsMap['WEB.ECSM.A'] + elibStatisticsMap['WEB.YBMN.A'] + elibStatisticsMap['WEB.CONT.A'] + elibStatisticsMap['WEB.GLOB.A'] + elibStatisticsMap['WEB.EDUW.A'] + elibStatisticsMap['WEB.YESB.A'] +
 						elibStatisticsMap['EXT.MOAZ.A']
@@ -292,7 +292,7 @@
 				</th>
 				<th>
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I'] +
+						elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.OPMS.I'] +
 						elibStatisticsMap['ADO.FXLI.I'] + elibStatisticsMap['ADO.HANS.I'] + elibStatisticsMap['ADO.CONT.I'] +
 						elibStatisticsMap['WEB.ARTN.I'] + elibStatisticsMap['WEB.ECSM.I'] + elibStatisticsMap['WEB.YBMN.I'] + elibStatisticsMap['WEB.CONT.I'] + elibStatisticsMap['WEB.GLOB.I'] + elibStatisticsMap['WEB.EDUW.I'] + elibStatisticsMap['WEB.YESB.I'] +
 						elibStatisticsMap['EXT.MOAZ.I']
@@ -300,7 +300,7 @@
 				</th>
 				<th>
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.OPMS.S'] +
+						elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.OPMS.S'] +
 						elibStatisticsMap['ADO.FXLI.S'] + elibStatisticsMap['ADO.HANS.S'] + elibStatisticsMap['ADO.CONT.S'] +
 						elibStatisticsMap['WEB.ARTN.S'] + elibStatisticsMap['WEB.ECSM.S'] + elibStatisticsMap['WEB.YBMN.S'] + elibStatisticsMap['WEB.CONT.S'] + elibStatisticsMap['WEB.GLOB.S'] + elibStatisticsMap['WEB.EDUW.S'] + elibStatisticsMap['WEB.YESB.S'] +
 						elibStatisticsMap['EXT.MOAZ.S']
@@ -308,13 +308,13 @@
 				</th>
 				<th>
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A'] +
+						elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.OPMS.A'] +
 						elibStatisticsMap['ADO.FXLI.A'] + elibStatisticsMap['ADO.HANS.A'] + elibStatisticsMap['ADO.CONT.A'] +
 						elibStatisticsMap['WEB.ARTN.A'] + elibStatisticsMap['WEB.ECSM.A'] + elibStatisticsMap['WEB.YBMN.A'] + elibStatisticsMap['WEB.CONT.A'] + elibStatisticsMap['WEB.GLOB.A'] + elibStatisticsMap['WEB.EDUW.A'] + elibStatisticsMap['WEB.YESB.A'] +
-						elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I'] +
+						elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.OPMS.I'] +
 						elibStatisticsMap['ADO.FXLI.I'] + elibStatisticsMap['ADO.HANS.I'] + elibStatisticsMap['ADO.CONT.I'] +
 						elibStatisticsMap['WEB.ARTN.I'] + elibStatisticsMap['WEB.ECSM.I'] + elibStatisticsMap['WEB.YBMN.I'] + elibStatisticsMap['WEB.CONT.I'] + elibStatisticsMap['WEB.GLOB.I'] + elibStatisticsMap['WEB.EDUW.I'] + elibStatisticsMap['WEB.YESB.I'] +
-						elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.OPMS.S'] +
+						elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.OPMS.S'] +
 						elibStatisticsMap['ADO.FXLI.S'] + elibStatisticsMap['ADO.HANS.S'] + elibStatisticsMap['ADO.CONT.S'] +
 						elibStatisticsMap['WEB.ARTN.S'] + elibStatisticsMap['WEB.ECSM.S'] + elibStatisticsMap['WEB.YBMN.S'] + elibStatisticsMap['WEB.CONT.S'] + elibStatisticsMap['WEB.GLOB.S'] + elibStatisticsMap['WEB.EDUW.S'] + elibStatisticsMap['WEB.YESB.S'] +
 						elibStatisticsMap['EXT.MOAZ.A'] + elibStatisticsMap['EXT.MOAZ.I'] + elibStatisticsMap['EXT.MOAZ.S']
@@ -322,7 +322,7 @@
 				</th>
 				<th>
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO.E'] + elibStatisticsMap['EBK.OPMS.E'] +
+						elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO .E'] + elibStatisticsMap['EBK.OPMS.E'] +
 						elibStatisticsMap['ADO.FXLI.E'] + elibStatisticsMap['ADO.HANS.E'] + elibStatisticsMap['ADO.CONT.E'] +
 						elibStatisticsMap['WEB.ARTN.E'] + elibStatisticsMap['WEB.ECSM.E'] + elibStatisticsMap['WEB.YBMN.E'] + elibStatisticsMap['WEB.CONT.E'] + elibStatisticsMap['WEB.GLOB.E'] + elibStatisticsMap['WEB.EDUW.E'] + elibStatisticsMap['WEB.YESB.E'] +
 						elibStatisticsMap['EXT.MOAZ.E']
@@ -330,19 +330,19 @@
 				</th>
 				<th>
 					<fmt:formatNumber value="${0 +
-						elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO.P'] + elibStatisticsMap['EBK.OPMS.P'] +
+						elibStatisticsMap['EBK.KYOB.P'] + elibStatisticsMap['EBK.Y2BK.P'] + elibStatisticsMap['EBK.FXLI.P'] + elibStatisticsMap['EBK.YESB.P'] + elibStatisticsMap['EBK.ECO .P'] + elibStatisticsMap['EBK.OPMS.P'] +
 						elibStatisticsMap['ADO.FXLI.P'] + elibStatisticsMap['ADO.HANS.P'] + elibStatisticsMap['ADO.CONT.P'] +
 						elibStatisticsMap['WEB.ARTN.P'] + elibStatisticsMap['WEB.ECSM.P'] + elibStatisticsMap['WEB.YBMN.P'] + elibStatisticsMap['WEB.CONT.P'] + elibStatisticsMap['WEB.GLOB.P'] + elibStatisticsMap['WEB.EDUW.P'] + elibStatisticsMap['WEB.YESB.P'] +
-						elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO.A'] + elibStatisticsMap['EBK.OPMS.A'] +
+						elibStatisticsMap['EBK.KYOB.A'] + elibStatisticsMap['EBK.Y2BK.A'] + elibStatisticsMap['EBK.FXLI.A'] + elibStatisticsMap['EBK.YESB.A'] + elibStatisticsMap['EBK.ECO .A'] + elibStatisticsMap['EBK.OPMS.A'] +
 						elibStatisticsMap['ADO.FXLI.A'] + elibStatisticsMap['ADO.HANS.A'] + elibStatisticsMap['ADO.CONT.A'] +
 						elibStatisticsMap['WEB.ARTN.A'] + elibStatisticsMap['WEB.ECSM.A'] + elibStatisticsMap['WEB.YBMN.A'] + elibStatisticsMap['WEB.CONT.A'] + elibStatisticsMap['WEB.GLOB.A'] + elibStatisticsMap['WEB.EDUW.A'] + elibStatisticsMap['WEB.YESB.A'] +
-						elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO.I'] + elibStatisticsMap['EBK.OPMS.I'] +
+						elibStatisticsMap['EBK.KYOB.I'] + elibStatisticsMap['EBK.Y2BK.I'] + elibStatisticsMap['EBK.FXLI.I'] + elibStatisticsMap['EBK.YESB.I'] + elibStatisticsMap['EBK.ECO .I'] + elibStatisticsMap['EBK.OPMS.I'] +
 						elibStatisticsMap['ADO.FXLI.I'] + elibStatisticsMap['ADO.HANS.I'] + elibStatisticsMap['ADO.CONT.I'] +
 						elibStatisticsMap['WEB.ARTN.I'] + elibStatisticsMap['WEB.ECSM.I'] + elibStatisticsMap['WEB.YBMN.I'] + elibStatisticsMap['WEB.CONT.I'] + elibStatisticsMap['WEB.GLOB.I'] + elibStatisticsMap['WEB.EDUW.I'] + elibStatisticsMap['WEB.YESB.I'] +
-						elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO.S'] + elibStatisticsMap['EBK.OPMS.S'] +
+						elibStatisticsMap['EBK.KYOB.S'] + elibStatisticsMap['EBK.Y2BK.S'] + elibStatisticsMap['EBK.FXLI.S'] + elibStatisticsMap['EBK.YESB.S'] + elibStatisticsMap['EBK.ECO .S'] + elibStatisticsMap['EBK.OPMS.S'] +
 						elibStatisticsMap['ADO.FXLI.S'] + elibStatisticsMap['ADO.HANS.S'] + elibStatisticsMap['ADO.CONT.S'] +
 						elibStatisticsMap['WEB.ARTN.S'] + elibStatisticsMap['WEB.ECSM.S'] + elibStatisticsMap['WEB.YBMN.S'] + elibStatisticsMap['WEB.CONT.S'] + elibStatisticsMap['WEB.GLOB.S'] + elibStatisticsMap['WEB.EDUW.S'] + elibStatisticsMap['WEB.YESB.S'] +
-						elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO.E'] + elibStatisticsMap['EBK.OPMS.E'] +
+						elibStatisticsMap['EBK.KYOB.E'] + elibStatisticsMap['EBK.Y2BK.E'] + elibStatisticsMap['EBK.FXLI.E'] + elibStatisticsMap['EBK.YESB.E'] + elibStatisticsMap['EBK.ECO .E'] + elibStatisticsMap['EBK.OPMS.E'] +
 						elibStatisticsMap['ADO.FXLI.E'] + elibStatisticsMap['ADO.HANS.E'] + elibStatisticsMap['ADO.CONT.E'] +
 						elibStatisticsMap['WEB.ARTN.E'] + elibStatisticsMap['WEB.ECSM.E'] + elibStatisticsMap['WEB.YBMN.E'] + elibStatisticsMap['WEB.CONT.E'] + elibStatisticsMap['WEB.GLOB.E'] + elibStatisticsMap['WEB.EDUW.E'] + elibStatisticsMap['WEB.YESB.E'] +
 						elibStatisticsMap['EXT.MOAZ.P'] + elibStatisticsMap['EXT.MOAZ.A'] + elibStatisticsMap['EXT.MOAZ.I'] + elibStatisticsMap['EXT.MOAZ.S'] + elibStatisticsMap['EXT.MOAZ.E']

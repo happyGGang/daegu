@@ -27,6 +27,27 @@
   });
 </script>
 
+<style>
+	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';}
+	select{padding:6px 5px !important;}
+
+	@media screen and (max-width: 1024px) {
+		.search-form__input{min-width:40%;}
+	}
+
+	@media screen and (max-width: 768px) {
+		.search-form__input{min-width:30%;}
+	}
+
+	@media screen and (max-width: 600px) {
+		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
+		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
+		.search-form__input{margin-left:0;font-size:14px;}
+		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	}
+</style>
+
 <form:form modelAttribute="specializedServices" action="specializedServices.do" method="GET">
 	<form:hidden path="menu_idx"></form:hidden>
   <div class="search-form showNot01">
@@ -41,7 +62,7 @@
 </div>
 
 <div class="result-count">
-  검색 결과가 총 <b>${paging.totalDataCount}</b>건 이있습니다.
+  검색 결과 총 <b>${paging.totalDataCount}</b>건
 </div>
 
 <div class="result-list">
@@ -59,11 +80,11 @@
 			  <img src="${getContextPath}/data/specializedServices/h89/${i.server_file_name}" alt="${i.server_file_name}" class="product__img" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';">
 			</c:if>
 		  </div>
+			<div class="product__filters">
+				<span class="product__filter product__filter-topic">${i.service_name}</span>
+			</div>
 		</div>
 	  <dl class="product__info">
-		<dt class="bullet__text--arrow"><b>서비스명</b></dt>
-		<dd>${i.service_name}</dd>
-
 		<dt class="bullet__text--arrow"><b>설명</b></dt>
 		<dd class="period">${i.description}</dd>
 
