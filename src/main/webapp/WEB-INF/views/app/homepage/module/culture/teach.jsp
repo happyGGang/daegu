@@ -86,6 +86,11 @@
 	});
 });
 </script>
+
+<style>
+	.selectmenu{min-width:12%;}
+</style>
+
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 <form:form modelAttribute="teach" action="teach.do" method="GET">
 <form:hidden path="search_yy"></form:hidden>
@@ -171,7 +176,7 @@
 
 
 <div class="result-count">
-	검색 결과가 총 <b>${paging.totalDataCount}</b>건 이있습니다.
+	검색 결과 총 <b>${paging.totalDataCount}</b>건
 </div>
 
 <div class="result-list">
@@ -181,28 +186,27 @@
 	<c:forEach var="i" items="${teachList}" varStatus="status">
 	<div class="product product--stretch">
 		<div class="product__header">
+			<div class="product__thumnail">
+				<p class="lib-cate">${i.homepage_alias}</p>
+				<img src="/data/teach/${i.homepage_id}/img/${i.image_server_file_name}" alt="${i.teach_name}" title="${i.teach_name}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" class="product__img"/>
+			</div>
 			<div class="product__filters">
 				<span class="product__filter product__filter-topic">${i.teach_name}</span>
 			</div>
-			<div class="product__thumnail">
-				<img src="/data/teach/${i.homepage_id}/img/${i.image_server_file_name}" alt="${i.teach_name}" title="${i.teach_name}" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" class="product__img"/>
-			</div>
 		</div>
 		<dl class="product__info">
-			<dt class="bullet__text--arrow">기관명</dt>
-			<dd>${i.homepage_alias}</dd>
 
-			<dt class="bullet__text--arrow">모집기간</dt>
-			<dd class="period">${i.start_join_date}~${i.end_join_date}</dd>
+			<dt class="bullet__text--arrow">· 모집기간</dt>
+			<dd class="period">${i.start_join_date} ~ ${i.end_join_date}</dd>
 
-			<dt class="bullet__text--arrow">교육기간</dt>
-			<dd class="period">${i.start_date}~${i.end_date}</dd>
+			<dt class="bullet__text--arrow">· 교육기간</dt>
+			<dd class="period">${i.start_date} ~ ${i.end_date}</dd>
 
-			<dt class="bullet__text--arrow">접수자/정원</dt>
-			<dd class="period">${i.teach_join_count} / ${i.teach_limit_count}</dd>
+			<dt class="bullet__text--arrow">· 접수자/정원</dt>
+			<dd class="period"><b>${i.teach_join_count}</b> / ${i.teach_limit_count}</dd>
 
-			<dt class="bullet__text--arrow">대기자/정원</dt>
-			<dd class="period">${i.teach_backup_join_count} / ${i.teach_backup_count}</dd>
+			<dt class="bullet__text--arrow">· 대기자/정원</dt>
+			<dd class="period"><b>${i.teach_backup_join_count}</b> / ${i.teach_backup_count}</dd>
 		</dl>
 		<div class="product__buttons">
 			<a href="/${i.context_path}/module/teach/detail.do?menu_idx=${i.menu_idx}&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}"" target="_blank" class="product__button product__button--ticket">신청하기</a>

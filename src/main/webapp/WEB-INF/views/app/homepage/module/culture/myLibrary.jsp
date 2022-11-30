@@ -48,7 +48,7 @@
         </ul>
       </div>
 
-      <div class="area-box">
+      <div class="area-box fl-right">
         <h3>서구</h3>
         <ul>
           <%--h8 // BM--%>
@@ -96,7 +96,7 @@
         </ul>
       </div>
 
-      <div class="area-box">
+      <div class="area-box fl-right">
         <h3>북구</h3>
         <ul>
           <%--h7 // AC--%>
@@ -156,7 +156,7 @@
         </ul>
       </div>
 
-      <div class="area-box">
+      <div class="area-box fl-right">
         <h3>중구</h3>
         <ul>
           <%--h10,대구광역시립 중앙도서관,AD--%>
@@ -220,9 +220,7 @@
         </ul>
       </div>
 
-
-
-      <div class="area-box">
+      <div class="area-box fl-right">
         <h3>달성군</h3>
         <ul>
           <%--h4,대구광역시립 달성도서관,AJ--%>
@@ -238,9 +236,9 @@
 
     </div>
   </div>
-
+  <div class="end"></div>
   <div class="btn-wrap">
-    <a href="javascript:void(0)" id="save-btn" class="btn btn1" title="나만의 도서관 설정 저장">저장</a>
+    <a href="javascript:void(0)" id="save-btn" class="btn btn1" title="나만의 도서관 설정 저장">나만의 도서관 지정하기</a>
   </div>
 </div>
 </form:form>

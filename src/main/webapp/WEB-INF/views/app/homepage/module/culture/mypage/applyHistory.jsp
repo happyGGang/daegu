@@ -43,21 +43,39 @@
   });
 </script>
 
+<style>
+	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';}
+	select{padding:6px 5px !important;}
+	.search-form__button{display:inline-block;}
+
+	@media screen and (max-width: 1024px) {
+		.search-form__input{min-width:40%;}
+	}
+
+	@media screen and (max-width: 768px) {
+		.search-form__input{min-width:30%;}
+	}
+
+	@media screen and (max-width: 600px) {
+		.search-form__input{margin-left:0;font-size:14px;}
+		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	}
+</style>
+
 <form:form modelAttribute="teach" action="applyHistory.do" method="get" onsubmit="return false;">
 <form:hidden path="menu_idx"></form:hidden>
 <div class="myDashboard-culturebox">
     <div class="myDashboard-culturebox-searchbox">
         <div class="myDashboard-culturebox-searchbox-innerbox">
-            <span class="">
-                <form:select path="search_student_status">
-                    <form:option value="">전체</form:option>
-                    <form:option value="참여">참여</form:option>
-                    <form:option value="후보">후보</form:option>
-                    <form:option value="수료">수료</form:option>
-                    <form:option value="미수료">미수료</form:option>
-                    <form:option value="취소">취소</form:option>
-                </form:select>
-            </span>
+			<form:select path="search_student_status" class="search-form__select">
+				<form:option value="">전체</form:option>
+				<form:option value="참여">참여</form:option>
+				<form:option value="후보">후보</form:option>
+				<form:option value="수료">수료</form:option>
+				<form:option value="미수료">미수료</form:option>
+				<form:option value="취소">취소</form:option>
+			</form:select>
 
             <form:select path="search_type" cssClass="search-form__select">
                 <form:option value="TEACH_NAME">행사명</form:option>
@@ -70,7 +88,7 @@
 </div>
 
 <div class="result-count">
-    검색 결과가 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건 이있습니다.
+    검색 결과 총 <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/></b>건
 </div>
 
 <div class="myDashboard-culturebox">

@@ -10,7 +10,7 @@
     <div class="culture-search-result">
       <ul>
         <c:if test="${fn:length(searchTeachList) < 1}">
-          <li>등록된 데이터가 없습니다.</li>
+          <li><a><div><h4>등록된 데이터가 없습니다.</h4></div></a></li>
         </c:if>
         <c:forEach var="i" items="${searchTeachList}">
           <li>
@@ -29,7 +29,6 @@
     </div>
     <div class="culture-search-result-count">
 		<span class="">찾고계시는 검색 결과가 총 <b>${count}</b>건 이있습니다.</span>
-		<span class="more-box"><a href="/libculture/module/culture/teach.do?menu_idx=1">더보기 +</a></span>
     </div>
   </div>
 </div>

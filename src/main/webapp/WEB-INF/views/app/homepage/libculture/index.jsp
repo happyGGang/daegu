@@ -412,7 +412,7 @@ $(function() {
 										<ul>
 											<c:if test="${fn:length(teachViewList) < 1}">
 												<li>
-													등록된 데이터가 없습니다
+													<a>등록된 데이터가 없습니다</a>
 												</li>
 											</c:if>
 
@@ -532,6 +532,7 @@ $(function() {
 									</div>
 								</div>
 							</div>
+							<span class="more-box"><a href="/libculture/module/culture/teach.do?menu_idx=1">더보기 <span>+</span></a></span>
 							<div class="end"></div>
 						</div>
 					</div>
@@ -560,11 +561,12 @@ $(function() {
 									<li class="on"><a href="#tab01" class='curationtab' keyValue="01">전체</a></li>
 									<li><a href="#tab02" class='curationtab' keyValue="02">그림책</a></li>
 									<li><a href="#tab03" class='curationtab' keyValue="03">독서</a></li>
+									<!-- 
 									<li><a href="#tab04" class='curationtab' keyValue="04">영어/외국어</a></li>
 									<li><a href="#tab05" class='curationtab' keyValue="05">문화예술</a></li>
 									<li><a href="#tab06" class='curationtab' keyValue="06">제작체험</a></li>
 									<li><a href="#tab07" class='curationtab' keyValue="07">동화</a></li>
-									<!-- 
+									
 									<li><a href="#tab08" class='curationtab' keyValue="08">교육</a></li>
 									<li><a href="#tab09" class='curationtab' keyValue="09">인문</a></li>
 									<li><a href="#tab10" class='curationtab' keyValue="10">역사</a></li>
@@ -591,30 +593,58 @@ $(function() {
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/96" target="_blank" class="newWin" title="새창으로 열립니다.">
-										<h2>전체</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_1.png" alt="" /></p>
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_1.png" alt="그림책 책방이야기" /></p>
 										<span class="link">그림책 책방이야기<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
-										<h2>전체</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
-										<span class="link">Q-Advance<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/92" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_2.png" alt="그림책 작가" /></p>
+										<span class="link">그림책 작가<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
-										<h2>전체</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
-										<span class="link">Q-Pro<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/94" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_3.png" alt="영유아를 위한 그림책 추천" /></p>
+										<span class="link">영유아를 위한 그림책 추천<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
-										<h2>전체</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
-										<span class="link">Q-Mass<i></i></span>
+									<a href="http://www.icuration.co.kr:81/curation/w/95" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_4.png" alt="어른들을 위한 그림책 추천" /></p>
+										<span class="link">어른들을 위한 그림책 추천<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/98" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>독서</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_1.png" alt="독서모임" /></p>
+										<span class="link">독서모임<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/99" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>독서</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_2.png" alt="겨울방학 유아 추천도서" /></p>
+										<span class="link">겨울방학 유아 추천도서<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/100" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>독서</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_3.png" alt="겨울방학 청소년 추천도서" /></p>
+										<span class="link">겨울방학 청소년 추천도서<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/101" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>독서</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_4.png" alt="겨울방학 성인 추천도서" /></p>
+										<span class="link">겨울방학 성인 추천도서<i></i></span>
 									</a>
 								</div>
 							</div>
@@ -678,31 +708,31 @@ $(function() {
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
-									<a href="">
+									<a href="http://www.icuration.co.kr:81/curation/w/98" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>독서</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_1.png" alt="" /></p>
-										<span class="link">Q-Basic<i></i></span>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_1.png" alt="독서모임" /></p>
+										<span class="link">독서모임<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
+									<a href="http://www.icuration.co.kr:81/curation/w/99" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>독서</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_2.png" alt="" /></p>
-										<span class="link">Q-Advance<i></i></span>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_2.png" alt="겨울방학 유아 추천도서" /></p>
+										<span class="link">겨울방학 유아 추천도서<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
+									<a href="http://www.icuration.co.kr:81/curation/w/100" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>독서</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_3.png" alt="" /></p>
-										<span class="link">Q-Pro<i></i></span>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_3.png" alt="겨울방학 청소년 추천도서" /></p>
+										<span class="link">겨울방학 청소년 추천도서<i></i></span>
 									</a>
 								</div>
 								<div>
-									<a href="">
+									<a href="http://www.icuration.co.kr:81/curation/w/101" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>독서</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/img_4.png" alt="" /></p>
-										<span class="link">Q-Mass<i></i></span>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_4.png" alt="겨울방학 성인 추천도서" /></p>
+										<span class="link">겨울방학 성인 추천도서<i></i></span>
 									</a>
 								</div>
 							</div>
