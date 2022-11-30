@@ -1951,8 +1951,14 @@ public class IndexController extends BaseController {
 
 		Map<String, Object> parameter = new HashMap<String, Object>();
 		parameter.put("gugun", search_area);
-
-		model.addAttribute("list", CultureAPI.areaRequestDetails(new HashMap<String, Object>(), CultureAPI.areaRequest(parameter)));
+		//TODO 요청카운트 제한으로 인한 오류로 인해 임시 조치
+		try {
+			model.addAttribute("list", CultureAPI.areaRequestDetails(new HashMap<String, Object>(), CultureAPI.areaRequest(parameter)));
+		} catch (Exception e) {
+			log.error("@@@@@@@@@@@@@@@@@@ areaRequestDetails : " + e);
+			model.addAttribute("list", "");
+		}
+		
 		return basePath + homepage.getFolder() + "/areaexhibition_ajax";
 	}
 
