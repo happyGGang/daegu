@@ -20,6 +20,18 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
+					var col = $('#col_no').val();
+					var mp = $('#monitor_position').val();
+					var row = $('#row_no').val();
+					var arn = $('#add_row_no').val();
+					if(col < mp){
+						alert("모니터 위치값은 열 갯수보다 많을 수 없습니다.");
+						return false;
+					}
+					if(row < arn){
+						alert('추가행은 행 갯수보다 많을 수 없습니다.');
+						return false;
+					}
 					if ( doAjaxPost($('#LockerAdd')) ) {
 						location.reload();
 					}
