@@ -107,8 +107,11 @@ $(document).ready(function () {
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-						<c:when test="${homepage.context_path eq 'jungang' or homepage.context_path eq 'dongbu' or homepage.context_path eq 'nambu' or homepage.context_path eq '228' or homepage.context_path eq 'seobu' or homepage.context_path eq 'suseong' or homepage.context_path eq 'bukbu' or homepage.context_path eq 'duryu' or homepage.context_path eq 'dalseong' or homepage.context_path eq 'gosan'}">
+						<c:when test="${homepage.context_path eq 'jungang' or homepage.context_path eq 'dongbu' or homepage.context_path eq 'nambu' or homepage.context_path eq '228' or homepage.context_path eq 'seobu' or homepage.context_path eq 'suseong' or homepage.context_path eq 'bukbu' or homepage.context_path eq 'duryu' or homepage.context_path eq 'dalseong'}">
 							<a href="#" id="btn_ebook" title="새창열림" target="_blank" onclick="alert('2022년 대구시립도서관 희망도서 바로대출 서비스 신청 마감을 안내드립니다.\n- 대구시립도서관(9개관) 및 구군립도서관 : 중앙, 동부, 남부, 2·28기념학생, 서부, 수성, 북부, 두류, 달성, 고산도서관\n- 2022년 신청 마감일 : 2022. 11. 30.(수) 24:00\n- 2023년 신청 시작일 : 2023. 1. 2.(월) 9:00');" class="ebook_links newWin hopeBook" /><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span></a> 
+						</c:when>
+						<c:when test="${homepage.context_path eq 'gosan'}">
+							<a href="#" id="btn_ebook" title="새창열림" target="_blank" onclick="alert('2022년 대구시립도서관 희망도서 바로대출 서비스 신청 마감을 안내드립니다.\n- 대구시립도서관(9개관) 및 구군립도서관 : 중앙, 동부, 남부, 2·28기념학생, 서부, 수성, 북부, 두류, 달성, 고산도서관\n- 2022년 신청 마감일 : 2022. 11. 30.(수) 24:00\n- 2023년 신청 시작일 : 2023년 2월 중 별도 안내 예정');" class="ebook_links newWin hopeBook" /><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span></a> 
 						</c:when>
 						<c:otherwise>
 							<a href="#" id="btn_ebook" title="새창열림" class="ebook_links newWin hopeBook" target="_blank"><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span></a>
