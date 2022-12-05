@@ -96,6 +96,7 @@
 			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
 			file_download_count, user_phone,
 			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5, imsi_v_6, imsi_v_7,
+			imsi_v_8, imsi_v_9, imsi_v_10, imsi_v_11, imsi_v_12,
 			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
 			(
 				SELECT COUNT(*)
@@ -157,7 +158,8 @@
 					file_count, preview_img, secret_yn, file_download_count, --content_summary,
 					category1, category2, category3, category4, category5,
 					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
-					imsi_v_6, imsi_v_7, user_phone, content_summary
+					imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+					imsi_v_11, imsi_v_12, user_phone, content_summary
 				FROM
 					CMS_BOARD
 				WHERE

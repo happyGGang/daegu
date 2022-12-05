@@ -379,7 +379,8 @@ public class BoardController extends BaseController {
 		}
 
 		//겔러리게시판, 갤러리슬라이더 게시판
-		if (boardManage.getBoard_type().equals("GALLERY") || boardManage.getBoard_type().equals("GALLERYSLIDER")) {
+		if (boardManage.getBoard_type().equals("GALLERY") || boardManage.getBoard_type().equals("GALLERYSLIDER") || 
+			boardManage.getBoard_type().equals("LACHIVIUM01") || boardManage.getBoard_type().equals("LACHIVIUM02")) {
 			service.setPagingGallery(model, service.getBoardCount(boardManage, board), board);
 		}else if (boardManage.getBoard_type().equals("LIB_INFO")) {
 			service.setPaging(model, service.getBoardCount(boardManage, board), board);
