@@ -974,7 +974,7 @@ public class IndexController extends BaseController {
 			//검색기간 설정
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 			//1주전
-			int beforeDays = -30;
+			int beforeDays = -60;
 
 			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
 			librarySearch.setSearch_end_date(sf.format(new Date()));
