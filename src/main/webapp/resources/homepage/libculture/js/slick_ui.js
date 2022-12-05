@@ -307,3 +307,360 @@ function CurationList06()
 		return false;
 	});
 }
+
+function CurationList07()
+{
+	const length = $('.mainSection07 .slickWrap > div').length
+	$('.mainSection07 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection07 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection07 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection07 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection07 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection07 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection07 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection07 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}
+
+function CurationList08()
+{
+	const length = $('.mainSection08 .slickWrap > div').length
+	$('.mainSection08 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection08 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection08 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection08 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection08 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection08 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection08 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection08 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}
+
+function CurationList09()
+{
+	const length = $('.mainSection09 .slickWrap > div').length
+	$('.mainSection09 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection09 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection09 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection09 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection09 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection09 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection09 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection09 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}
+
+function CurationList10()
+{
+	const length = $('.mainSection10 .slickWrap > div').length
+	$('.mainSection10 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection10 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection10 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection10 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection10 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection10 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection10 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection10 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}
+
+function CurationList11()
+{
+	const length = $('.mainSection11 .slickWrap > div').length
+	$('.mainSection11 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection11 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection11 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection11 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection11 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection11 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection11 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection11 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}
+
+function CurationList12()
+{
+	const length = $('.mainSection12 .slickWrap > div').length
+	$('.mainSection12 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection12 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection12 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection12 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection12 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection12 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection12 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection12 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}
+
+function CurationList13()
+{
+	const length = $('.mainSection13 .slickWrap > div').length
+	$('.mainSection13 .slickWrap').slick({
+		dots: false,
+		arrows:false,
+		infinite: true,
+		speed: 300,
+		slidesToShow: 3,
+		variableWidth: true,
+		autoplay: true,
+		autoplaySpeed: 5000,
+		responsive: [
+			{
+			  breakpoint: 1024,
+			  settings: {
+				slidesToShow: 2
+			  }
+			},
+			{
+			  breakpoint: 550,
+			  settings: {
+				slidesToShow: 1,
+				variableWidth: false
+			  }
+			},
+		  ]
+	  }).on('beforeChange',function(event, slick, currentSlide, nextSlide){
+		$('.mainSection13 .slickPlay .status').html('<span>0' + (nextSlide + 1) + '</span> / 0' + length)
+	  });
+
+	$('.mainSection13 .arrowBtn a').click(function(){
+		if($(this).index() == 0){
+			$('.mainSection13 .slickWrap').slick('slickPrev')
+		}else{
+			$('.mainSection13 .slickWrap').slick('slickNext')
+		}
+		return false;
+	});
+
+	$('.mainSection13 .slickPlay a').click(function(){
+		if($(this).hasClass('play')){
+			$('.mainSection13 .slickWrap').slick('slickPlay');
+		}else {
+			$('.mainSection13 .slickWrap').slick('slickPause');
+		}
+		$(this).hide().siblings('a').show();
+		return false;
+	});
+}

@@ -58,12 +58,13 @@ h1.mobile-logo {display:none;width:153px;height:50px;}
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color: #333;}
 
-.Gnb .gnb-menu>li.menu1>ul{left:-70px}
-.Gnb .gnb-menu>li.menu2>ul{left:40px}
-.Gnb .gnb-menu>li.menu3>ul{left:45px}
-.Gnb .gnb-menu>li.menu4>ul{left:}
-.Gnb .gnb-menu>li.menu5>ul{left:}
-.Gnb .gnb-menu>li.menu6>ul{left:}
+.Gnb .gnb-menu>li.menu1>ul{left:-240px}
+.Gnb .gnb-menu>li.menu2>ul{left:-110px}
+.Gnb .gnb-menu>li.menu3>ul{left:-120px}
+.Gnb .gnb-menu>li.menu4>ul{left:-200px}
+.Gnb .gnb-menu>li.menu5>ul{left:-50px}
+.Gnb .gnb-menu>li.menu6>ul{left:-140px}
+.Gnb .gnb-menu>li.menu7>ul{left:100px}
 
 
 /*공통 푸터*/

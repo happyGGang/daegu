@@ -10,7 +10,7 @@
 			<div class="libSite">
 				<a href="https://library.daegu.go.kr/dgportal/index.do" target="_blank">통합도서관</a>
 				<span class="txt-bar"></span>
-				<a href="/dongil/html.do?menu_idx=24" target="_blank">전자도서관</a>
+				<a href="https://library.daegu.go.kr/elib/index.do" target="_blank">전자도서관</a>
 			</div>
 
 			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">동일공공도서관</a></h1>
@@ -26,7 +26,7 @@
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66">정보수정</a>
+						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=71">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
 						<b>관리자 로그인 중</b>

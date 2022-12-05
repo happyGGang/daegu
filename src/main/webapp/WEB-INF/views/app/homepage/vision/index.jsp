@@ -137,83 +137,73 @@
 					<div class="qmenu">
 						<ul>
 							<li class="qm1">
-									<a href="/${homepage.context_path}/html.do?menu_idx=19" title="이용안내">
+									<a href="/${homepage.context_path}/html.do?menu_idx=17" title="희망도서신청">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="이용안내"></div>
-											<div class="qtxt">이용안내</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="희망도서신청"></div>
+											<div class="qtxt">희망도서신청</div>
 										</div>
 									</div>
 								</a>
 
 							</li>
 							<li class="qm2">
-									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=51" title="대출조회">
+									<a href="/${homepage.context_path}/html.do?menu_idx=20" title="이용시간·휴관일">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="대출조회"></div>
-											<div class="qtxt">대출조회</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="이용시간·휴관일"></div>
+											<div class="qtxt">이용시간·휴관일</div>
 										</div>
 									</div>
 								</a>
 							</li>
 							<li class="qm3">
-									<a href="/${homepage.context_path}/html.do?menu_idx=17" title="희망도서신청">
+									<a href="/${homepage.context_path}/html.do?menu_idx=19" title="회원가입안내">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="희망도서신청"></div>
-											<div class="qtxt">희망도서신청</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q3.png" alt="회원가입안내"></div>
+											<div class="qtxt">회원가입안내</div>
 										</div>
 									</div>
 								</a>
 							</li>
 							<li class="qm4">
-									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26" title="문화행사신청">
+									<a href="/${homepage.context_path}/html.do?menu_idx=21" title="도서대출·반납">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="문화행사신청"></div>
-											<div class="qtxt">문화행사신청</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q4.png" alt="도서대출·반납"></div>
+											<div class="qtxt">도서대출·반납</div>
 										</div>
 									</div>
 								</a>
 							</li>
 							<li class="qm5">
-									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=28&searchCate1=17" title="평생교육신청">
+									<a href="/${homepage.context_path}/html.do?menu_idx=38" title="시설현황">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="평생교육신청"></div>
-											<div class="qtxt">평생교육신청</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q5.png" alt="시설현황"></div>
+											<div class="qtxt">시설현황</div>
 										</div>
 									</div>
 								</a>
 
 							</li>
 							<li class="qm6">
-									<a href="/${homepage.context_path}/module/quizReq/index.do?menu_idx=68" title="독서퀴즈">
+									<a href="/${homepage.context_path}/html.do?menu_idx=40" title="찾아오시는길">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="독서퀴즈"></div>
-											<div class="qtxt">독서퀴즈</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q6.png" alt="찾아오시는길"></div>
+											<div class="qtxt">찾아오시는길</div>
 										</div>
 									</div>
 								</a>
 							</li>
 							<li class="qm7">
-									<a href="/${homepage.context_path}/html.do?menu_idx=69" title="자원봉사신청">
+									<a href="/${homepage.context_path}/module/excursions/index.do?menu_idx=33" title="도서관견학신청">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="자원봉사신청"></div>
-											<div class="qtxt">자원봉사신청</div>
-										</div>
-									</div>
-								</a>
-							</li>
-							<li class="qm8">
-									<a href="https://library.daegu.go.kr/dgportal/index.do" title="통합도서관 새창으로 열립니다." target="_blank">
-									<div class="outer">
-										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="통합도서관"></div>
-											<div class="qtxt">통합도서관</div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q7.png" alt="도서관견학신청"></div>
+											<div class="qtxt">도서관견학신청</div>
 										</div>
 									</div>
 								</a>
@@ -222,8 +212,18 @@
 									<a href="https://library.daegu.go.kr/elib/index.do" title="전자도서관 새창으로 열립니다." target="_blank">
 									<div class="outer">
 										<div class="inner">
-											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q9.png" alt="전자도서관"></div>
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q8.png" alt="전자도서관"></div>
 											<div class="qtxt">전자도서관</div>
+										</div>
+									</div>
+								</a>
+							</li>
+							<li class="qm8">
+									<a href="https://library.daegu.go.kr/dgportal/index.do" title="통합도서관 새창으로 열립니다." target="_blank">
+									<div class="outer">
+										<div class="inner">
+											<div class="image"><img src="/resources/homepage/${homepage.context_path}/img/q9.png" alt="통합도서관"></div>
+											<div class="qtxt">통합도서관</div>
 										</div>
 									</div>
 								</a>

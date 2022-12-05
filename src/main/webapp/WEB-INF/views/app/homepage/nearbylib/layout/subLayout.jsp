@@ -133,7 +133,7 @@ $(function() {
 					<div class="sub_rtop">
 						<ul class="etc_area clearfix">
 							<li class="share_box">
-								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="http://211.224.118.223:8010//resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
+								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="/resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
 								<ul class="snb_sns">
 									<li>
 										<a href="javascript:void(0);"  class="share_facebook sub-facebook" target="_blank" title="페이스북 공유하기 새창">

@@ -154,27 +154,27 @@
 						<div class="quick-menu">
 							<ul>
 								<li class="quick01">
-									<a href="/yeonam/html.do?menu_idx=20" class="q01">
+									<a href="/${homepage.context_path}/html.do?menu_idx=20" class="q01">
 										<span>이용안내</span>
 									</a>
 								</li>
 								<li class="quick02">
-									<a href="/yeonam/intro/search/loan/index.do?menu_idx=54" class="q02">
+									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=54" class="q02">
 										<span>대출정보조회</span>
 									</a>
 								</li>
 								<li class="quick03">
-									<a href="/yeonam/html.do?menu_idx=18" class="q03">
+									<a href="/${homepage.context_path}/html.do?menu_idx=18" class="q03">
 										<span>희망도서신청</span>
 									</a>
 								</li>
 								<li class="quick04">
-									<a href="/yeonam/intro/search/loan/index.do?menu_idx=54" class="q04">
+									<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=70" class="q04">
 										<span>MY도서관</span>
 									</a>
 								</li>
 								<li class="quick05">
-									<a href="/yeonam/html.do?menu_idx=43" class="q05">
+									<a href="/${homepage.context_path}/html.do?menu_idx=43" class="q05">
 										<span>찾아오는길</span>
 									</a>
 								</li>
