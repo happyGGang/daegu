@@ -6,8 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
 <script type="text/javascript">
   $(function() {
@@ -28,37 +28,30 @@
 </script>
 
 <style>
-	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';}
-	select{padding:6px 5px !important;}
+	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
 
-	@media screen and (max-width: 1024px) {
-		.search-form__input{min-width:40%;}
-	}
+	input.new_text01{height:80px !important;}
+	
+	@media screen and (max-width: 1024px) { 
+		input[type="text"]{font-size:15px;}
+		input[type="text"]::placeholder{font-size:15px;}
 
-	@media screen and (max-width: 768px) {
-		.search-form__input{min-width:30%;}
-	}
-
-	@media screen and (max-width: 600px) {
-		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
-		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
-		.search-form__input{margin-left:0;font-size:14px;}
-		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+		input.new_text01{height:50px !important;}
 	}
 </style>
 
 <form:form modelAttribute="specializedServices" action="specializedServices.do" method="GET">
 	<form:hidden path="menu_idx"></form:hidden>
   <div class="search-form showNot01">
-	<form:select path="search_type" cssClass="search-form__select" title="검색 조건">
+	<form:select path="search_type" cssClass="search-form__select new_select_box" title="검색 조건">
 	<form:option value="">전체</form:option>
 	<form:option value="SERVICE_NAME">서비스명</form:option>
 	<form:option value="DESCRIPTION">설명</form:option>
   </form:select>
 
-  <form:input path="search_text" cssClass="search-form__input" placeholder="검색어를 입력하세요." title="검색어 입력"></form:input>
-  <button id="search_btn" type="button" class="search-form__button">검색</button>
+  <form:input path="search_text" cssClass="text new_text01 search-form__input" placeholder="검색어를 입력하세요." title="검색어 입력"></form:input>
+  <button id="search_btn" type="button" class="search-form__button"><img src="/resources/homepage/${homepage.context_path}/img/sub_srch_ico.png"></button>
 </div>
 
 <div class="result-count">

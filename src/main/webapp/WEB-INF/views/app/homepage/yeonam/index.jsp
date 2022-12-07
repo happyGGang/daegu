@@ -410,7 +410,7 @@
 						<c:forEach var="i" varStatus="status" items="${teachList1}" begin="0" end="1">
 							<li>
 								<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=29&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
-									<span class="culture-tit">[${i.category_name}] ${i.teach_name}</span>
+									<span class="culture-tit"><!--[${i.category_name}]-->${i.teach_name}</span>
 									<span class="culture-cot">
 										<p>강좌기간 : <b>${i.start_date} ~ ${i.end_date}</b></p>
 										<p>접수기간 : <b>${i.start_join_date} ~ ${i.end_join_date}</b></p>

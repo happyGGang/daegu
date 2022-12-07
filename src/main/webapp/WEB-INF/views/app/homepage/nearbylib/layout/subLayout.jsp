@@ -131,7 +131,7 @@ $(function() {
 						</li>--%>
 					</ul>
 					<div class="sub_rtop">
-						<ul class="etc_area clearfix">
+						<ul class="etc_area">
 							<li class="share_box">
 								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="/resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
 								<ul class="snb_sns">

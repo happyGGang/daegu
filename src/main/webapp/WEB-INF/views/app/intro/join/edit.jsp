@@ -425,6 +425,39 @@ $(function() {
 						<c:when test="${context_path eq 'daegu'}">
 						대구시청<input type="hidden" id="" name="manage_code" value="ZA" />
 						</c:when>
+
+
+						<c:when test="${context_path eq 'with'}">
+						더불어숲<input type="hidden" id="" name="manage_code" value="NA" />
+						</c:when>
+						<c:when test="${context_path eq 'dotory'}">
+						도토리도서관<input type="hidden" id="" name="manage_code" value="NB" />
+						</c:when>
+						<c:when test="${context_path eq 'dongil'}">
+						동일도서관<input type="hidden" id="" name="manage_code" value="NC" />
+						</c:when>
+						<c:when test="${context_path eq 'vision'}">
+						비전도서관<input type="hidden" id="" name="manage_code" value="NF" />
+						</c:when>
+						<c:when test="${context_path eq 'saebut'}">
+						새벗도서관<input type="hidden" id="" name="manage_code" value="NE" />
+						</c:when>
+						<c:when test="${context_path eq 'art'}">
+						아트도서관<input type="hidden" id="" name="manage_code" value="NK" />
+						</c:when>
+						<c:when test="${context_path eq 'yeonam'}">
+						연암도서관<input type="hidden" id="" name="manage_code" value="ND" />
+						</c:when>						
+						<c:when test="${context_path eq 'daegubraillelibrary'}">
+						점자도서관<input type="hidden" id="" name="manage_code" value="NG" />
+						</c:when>
+						<c:when test="${context_path eq 'wasabi'}">
+						푸른초장도서관<input type="hidden" id="" name="manage_code" value="NH" />
+						</c:when>
+						<c:when test="${context_path eq 'handle'}">
+						한들마을도서관<input type="hidden" id="" name="manage_code" value="NJ" />
+						</c:when>
+
 						<c:otherwise>
 							<select name="manage_code">
 								<option value="AD">중앙도서관</option>

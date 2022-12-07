@@ -5,8 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
 <script type="text/javascript">
  $(function() {
@@ -46,23 +46,12 @@
 </script>
 
 <style>
-	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';}
-	select{padding:6px 5px !important;}
-
-	@media screen and (max-width: 1024px) {
-		.search-form__input{min-width:40%;}
-	}
-
-	@media screen and (max-width: 768px) {
-		.search-form__input{min-width:30%;}
-	}
-
-	@media screen and (max-width: 600px) {
-		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
-		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
-		.search-form__input{margin-left:0;font-size:14px;}
-		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
+	
+	@media screen and (max-width: 1024px) { 
+		input[type="text"]{font-size:15px;}
+		input[type="text"]::placeholder{font-size:15px;}
 	}
 </style>
 
@@ -72,20 +61,21 @@
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 
 <div class="search-form showNot01">
-	<form:select path="search_homepage" cssClass="search-form__select">
+	<form:select path="search_homepage" cssClass="search-form__select new_select_box nsb2">
 		<form:option value="">전체</form:option>
 		<c:forEach var="i" items="${homepageList}">
 			<form:option value="${i.homepage_id}">${i.homepage_name}</form:option>
 		</c:forEach>
 	</form:select>
 
-	<form:select path="search_type" cssClass="search-form__select">
+	<form:select path="search_type" cssClass="search-form__select new_select_box left2 nsb2">
 		<form:option value="title+content">제목+내용</form:option>
 		<form:option value="title">제목</form:option>
 		<form:option value="content">내용</form:option>
 	</form:select>
-	<form:input path="search_text" id="search_text_board" cssClass="search-form__input" accesskey="s" title="검색어" placeholder="검색어를 입력하세요" />
-	<a href="#" class="search-form__button" id="board_btn_search">검색</a>
+
+	<form:input path="search_text" id="search_text_board" cssClass="text new_text02 search-form__input2" accesskey="s" title="검색어" placeholder="검색어를 입력하세요" />
+	<a href="#" class="search-form__button top2" id="board_btn_search"><img src="/resources/homepage/${homepage.context_path}/img/sub_srch_ico.png"></a>
 </div>
 
 <div class="result-count">

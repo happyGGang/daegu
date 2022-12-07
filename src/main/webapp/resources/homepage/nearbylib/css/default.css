@@ -61,10 +61,10 @@ h1.mobile-logo {display:none;}
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fad107;font-weight:normal;}
 .Gnb .mask,
 .Gnb .gnb-menu > li > ul{box-sizing:border-box;}
-.Gnb .gnb-menu > li.menu1 > ul {margin-left:-200px}
-.Gnb .gnb-menu > li.menu2 > ul {margin-left:-80px}
-.Gnb .gnb-menu > li.menu3 > ul {}
-.Gnb .gnb-menu > li.menu4 > ul { }
+.Gnb .gnb-menu > li.menu1 > ul {left:-230px}
+.Gnb .gnb-menu > li.menu2 > ul {left:-65px}
+.Gnb .gnb-menu > li.menu3 > ul {left:105px;}
+.Gnb .gnb-menu > li.menu4 > ul {left:250px;}
 .Gnb .gnb-menu > li.menu5 > ul {}
 .Gnb .gnb-menu > li.menu6 > ul {}
 .Gnb .mask,

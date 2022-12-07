@@ -110,6 +110,12 @@ html {
 .btn_link .ico {position:absolute;right:0px;top:0px;padding:0;width:50px;height:53px;background-color:#4443a6;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
 .btn_link:hover .ico {right:-10px;top:-1px;height:54px;}
 
+.btn_link01 {position:relative;display:inline-block;transition:all .25s ease;background-color: #fff;color:#fff;border: 1px solid #ca0464;box-sizing:border-box;font-size:90%;}
+.btn_link01:hover, .btn_link01:focus {border: 1px solid #ca0464;background-color:#fff;color: #ca0464;}
+.btn_link01 span {display:block;padding: 0 72px 0px 23px;height:53px;line-height:53px;color:#ca0464;}
+.btn_link01 .ico {position:absolute;right:0px;top:0;padding:0;width:50px;height:53px;background-color: #ca0464;-webkit-transition:right .25s ease;transition:right .25s ease-out;}
+.btn_link01:hover .ico {right:-10px;height:53px;}
+
 .btn_link02 {position:relative;display:inline-block;transition:all .25s ease;background-color: #ca0464;color:#fff;border: 1px solid #ca0464;box-sizing:border-box;}
 .btn_link02:hover, .btn_link02:focus {border: 1px solid #ca0464;background-color:#fff;color: #ca0464;}
 .btn_link02 span {display:block;padding: 0 60px 0px 20px;height:53px;line-height:53px;}
@@ -1334,6 +1340,7 @@ h3.dgtit{background:none !important;padding-left:0 !important;;}
 
 
 /* 이용시간 */
+.nbl-use-time{margin-bottom:30px;}
 .nbl-use-time li{border:1px solid rgba(63,54,132,0.7);padding:30px 2%;display:inline-block;text-align:center;}
 .nbl-use-time.no2 li{width:45%;margin-right:0.5%;}
 .nbl-use-time.no3 li{width:28.5%;margin-right:0.5%;}

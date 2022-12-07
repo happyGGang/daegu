@@ -99,40 +99,6 @@
 <div class="sub-culture-search-condition">
 	<div class="outer">
 		<div class="inner">
-			<div class="sub-culture-search-condition-box-sel">
-				<ul>
-					<li>
-						<form:select path="search_area" cssClass="cultureSelectBox">
-							<form:option value="">지역을 선택해주세요.</form:option>
-							<c:forEach var="i" items="${areaCodeList}">
-								<form:option value="${i.code_name}">${i.code_name}</form:option>
-							</c:forEach>
-						</form:select>
-					</li>
-					<li>
-						<form:select path="search_target" cssClass="cultureSelectBox">
-							<form:option value="">대상을 선택해주세요.</form:option>
-							<c:forEach var="i" items="${ageCodeList}">
-								<form:option value="${i.code_id}">${i.code_name}</form:option>
-							</c:forEach>
-						</form:select>
-					</li>
-					<li>
-						<form:select path="search_hashtag" cssClass="cultureSelectBox">
-							<form:option value="">주제를 선택해주세요.</form:option>
-							<c:forEach var="i" items="${hashtagCodeList}">
-								<form:option value="${i.hashtag_code}">${i.hashtag_name}</form:option>
-							</c:forEach>
-						</form:select>
-					</li>
-					<li>
-						<form:select path="sortType" cssClass="cultureSelectBox">
-							<form:option value="REQUEST">신청일</form:option>
-							<form:option value="OPERATE">운영일</form:option>
-						</form:select>
-					</li>
-				</ul>
-			</div>
 			<div class="sub-culture-search-condition-box-cal" id="culture_cal">
 				<div class="web-selector">
 					<ul>
@@ -156,19 +122,49 @@
 						</c:forEach>
 					</select>
 				</div>
-				<!-- 
-				<div class="search-form showNot01"> 
-					<input type="text" class="search-form__input" placeholder="검색어를 입력하세요." id="searchKeyword" name="searchKeyword" value="" titile="검색어 입력">
-					<button id="searchSubmit2btn" type="button" class="search-form__button">검색</button>
-				</div>
-				-->
-				<div class="search-form showNot01">
-					<form:select path="search_type" cssClass="selectmenu new_select_box">
-						<form:option value="teach_name">강좌명</form:option>
-					</form:select>
-					<form:input path="search_text" cssClass="text new_text01 search-form__input"/>
-					<button href="#" class="search-form__button" id="search_btn">검색</button>
-				</div>
+			</div>
+			<div class="sub-culture-search-condition-box-sel">
+				<ul>
+					<li>
+						<form:select path="search_area" cssClass="cultureSelectBox">
+							<form:option value="">지역 선택</form:option>
+							<c:forEach var="i" items="${areaCodeList}">
+								<form:option value="${i.code_name}">${i.code_name}</form:option>
+							</c:forEach>
+						</form:select>
+					</li>
+					<li>
+						<form:select path="search_target" cssClass="cultureSelectBox">
+							<form:option value="">대상 선택</form:option>
+							<c:forEach var="i" items="${ageCodeList}">
+								<form:option value="${i.code_id}">${i.code_name}</form:option>
+							</c:forEach>
+						</form:select>
+					</li>
+					<li>
+						<form:select path="search_hashtag" cssClass="cultureSelectBox">
+							<form:option value="">주제 선택</form:option>
+							<c:forEach var="i" items="${hashtagCodeList}">
+								<form:option value="${i.hashtag_code}">${i.hashtag_name}</form:option>
+							</c:forEach>
+						</form:select>
+					</li>
+					<!--
+					<li>
+						<form:select path="sortType" cssClass="cultureSelectBox">
+							<form:option value="REQUEST">신청일</form:option>
+							<form:option value="OPERATE">운영일</form:option>
+						</form:select>
+					</li>
+					-->
+				</ul>
+			</div>
+			<div class="search-form showNot01">
+				<form:select path="search_type" cssClass="selectmenu new_select_box">
+					<form:option value="teach_name">강좌명</form:option>
+				</form:select>
+				<form:input path="search_text" cssClass="text new_text01 search-form__input" placeholder="검색어를 입력하세요" />
+				<button href="#" class="search-form__button" id="search_btn"><img src="/resources/homepage/${homepage.context_path}/img/sub_srch_ico.png"></button>
 			</div>
 		</div>
 	</div>

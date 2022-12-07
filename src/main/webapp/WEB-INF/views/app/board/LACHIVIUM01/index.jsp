@@ -10,8 +10,16 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
-<div class="wrapper-bbs">
 
+<style>
+	.exhibit_list .list-box{border-top:1px solid #ccc;}
+	.exhibit_list .list-box ul li.list .photobox{border:none;}
+	.exhibit_list .list-box ul li.list .photobox.style01{box-shadow:5px 5px 7px 5px rgb(0 0 0 / 10%);}
+
+	.exhibit_list .list-box ul li.list .textbox .titlebox .title .title_text a{font-weight:normal;}
+</style>
+
+<div class="wrapper-bbs">
 
 	<jsp:include page="/WEB-INF/views/app/board/common/index/infodesk.jsp" flush="false" />
 
@@ -56,17 +64,17 @@ ${boardManage.top_html}
 								</span>
 							</div>
 							<div class="contentsbox">
-								<em>작성자</em>
+								<em>작성자 :</em>
 								<span>${i.user_name}</span>
 								<br class="lachibr"/>
-								<em>작성일</em>
+								<em>작성일 :</em>
 								<span><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 								<br class="lachibr"/>
-								<em>조회수</em>
+								<em>조회수 :</em>
 								<span>${i.view_count}</span>
 							</div>
 							<div class="buttonbox">
-								<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" class="btn link2 small">VIEW MORE <img src="/resources/common/img/more-arrow.jpg" alt=""></a>
+								<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" class="btn link2 small">VIEW MORE</a>
 							</div>
 						</div>
 					</li>

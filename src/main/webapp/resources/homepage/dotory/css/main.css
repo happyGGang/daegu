@@ -52,17 +52,17 @@
 #main0 .main0-wrap .main0-box .main0-box-right .main0-box-right-right .popZone .bx-stop { right:50px; background-image:url("../img/popupzone-stop-btn.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;}
 
 #main1 {background:#f1f8ff;padding-top:80px;}
-#main1 .book-box {position:relative;float:left;width:830px;}
-#main1 .book-box .book-title {position:relative;padding-top:20px;padding-bottom:20px;}
-#main1 .book-box .book-title h3 {font-family:'s-core_dream4_regular';font-size:23px;font-weight:100;}
+#main1 .book-box {position:relative;float:left;width:860px;}
+#main1 .book-box .book-title {position:relative;padding-top:0;padding-bottom:10px;}
+#main1 .book-box .book-title h3 {font-family:'s-core_dream4_regular';font-size:23px;font-weight:100;margin-top:-10px;}
 #main1 .book-box .book-title h3 b {font-family:'s-core_dream6_bold';font-size:33px}
-#main1 .book-box .book-title a.more-btn {position:absolute;right:0;top:33px;}
+#main1 .book-box .book-title a.more-btn {position:absolute;right:0;top:12px;}
 #main1 .book-box .book-contents {padding-top:15px;}
 #main1 .book-box .book-contents ul {font-size:0;}
 #main1 .book-box .book-contents ul li {position:relative;display:inline-block;width:32%;margin:0 2% 0 0;text-align:center;}
 #main1 .book-box .book-contents ul li:last-child {margin:0;}
 #main1 .book-box .book-contents ul li a {display:block;width:100%;}
-#main1 .book-box .book-contents ul li a img {width:265px;height:375px;}
+#main1 .book-box .book-contents ul li a img {width:300px;height:430px;}
 #main1 .book-box .book-contents ul li a .book-contents-top, #main1 .book-box .book-contents ul li a .book-contents-bottom {position:relative;}
 #main1 .book-box .book-contents ul li a .book-contents-bottom {font-family:'s-core_dream5_medium';font-size:18px;color:#333;box-sizing: border-box;padding:5px 10px;height:34px;word-break:break-all;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;text-align:center;}
 #main1 .book-box .book-contents .book-contents-top {position:relative;}
@@ -81,7 +81,7 @@
 #main1 .banner-box .bx-viewport {padding:25px 10px;text-align:center;box-sizing: border-box;}
 
 
-#main1 .calendar-box {float:right;width:570px;height:auto;box-sizing:border-box;position:relative;}
+#main1 .calendar-box {float:right;width:550px;height:auto;box-sizing:border-box;position:relative;}
 
 #calendar2 .calendar-info {position:absolute;bottom:20px;left:0;text-align:center;color:#555;padding:13px 0 7px;width:100%;}
 #calendar2 .calendar-info span {display:inline-block;padding-left:10px;color:#767676;font-family:'s-core_dream5_medium';}
@@ -90,7 +90,7 @@
 
 #calendar2 {width:100%;margin:0 auto;position:relative}
 #calendar2 .calendar-wrap {overflow:hidden;border-radius:5px;}
-#calendar2 .cal-bord {position:relative;width:100%;height:370px;background:#fff;box-sizing:border-box;padding:18px;border-bottom:1px solid #d0d0d0;}
+#calendar2 .cal-bord {position:relative;width:100%;height:350px;background:#fff;box-sizing:border-box;padding:18px;border-bottom:1px solid #d0d0d0;}
 #calendar2 .title {position:relative;}
 #calendar2 .title h2 {width:50%;position:relative;display:block;box-sizing:border-box;font-size:21px;font-weight:normal;letter-spacing:-2px;padding:5px 20px;border:3px solid #fff;border-radius:35px;color:#fff;text-align:center;margin:0 auto;}
 .calendar2 {position:absolute;top:0px;z-index:800;width:1000px}
@@ -303,8 +303,9 @@
 
 	#main1 .book-box{float:none;width:95%;margin:0 auto;}
 	#main1 .book-box .book-title{padding-bottom:10px;}
-	#main1 .book-box .book-title h3{font-size:18px;}
+	#main1 .book-box .book-title h3{font-size:18px;margin-top:20px;}
 	#main1 .book-box .book-title h3 b{font-size:25px;}
+	#main1 .book-box .book-title a.more-btn{top:0;}
 	#main1 .book-box .book-contents{padding-top:5px;}
 	#main1 .book-box .book-contents ul li a img{height:375px;}
 	#main1 .book-box .book-contents ul li a .book-contents-bottom{font-size:17px;}
@@ -345,8 +346,8 @@
 }
 
 @media all and (max-width:768px){	
-	#main1 .book-box .book-title{padding-top:20px;}
-	#main1 .book-box .book-title a.more-btn{top:20px;}
+	#main1 .book-box .book-title{padding-top:10px;}
+	#main1 .book-box .book-title a.more-btn{top:30px;}
 	#main1 .book-box .book-contents ul li{width:32%;text-align:center;margin-bottom:10px;}
 	#main1 .book-box .book-contents ul li a{width:100%;margin:0 auto;}
 	#main1 .book-box .book-contents ul li a img{width:100%;height:330px;}

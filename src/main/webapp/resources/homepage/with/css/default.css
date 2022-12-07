@@ -20,8 +20,8 @@ a:focus{color:#2b74c0}
 .tnb .util b {color:#333;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('../img/logo.png') no-repeat center center;width:105px;height:50px;font-size:0;}
-h1.mobile-logo {display:none;width:105px;height:50px;}
+h1.web-logo a {display:block;background:url('../img/logo.png') no-repeat center center;width:210px;height:50px;font-size:0;}
+h1.mobile-logo {display:none;width:210px;height:50px;}
 .Gnb .g-menu a.last-box_w{display:none;}
 .Gnb .g-menu a.last-box_b{display:block;}
 
@@ -158,8 +158,8 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:1024px){
 	.tnb {height:65px;padding:10px 0;border-bottom:1px solid #ddd;}
 
-	h1.mobile-logo {display:block;width:90px;height:40px;margin:3px 0;}
-	h1.mobile-logo a {display:block;background:url('../img/logo.png') no-repeat center center !important;font-size:0;background-size:90px !important;height:40px;}
+	h1.mobile-logo {display:block;width:150px;height:40px;margin:3px 0;}
+	h1.mobile-logo a {display:block;background:url('../img/logo.png') no-repeat center center !important;font-size:0;background-size:150px !important;height:40px;}
 
 	/* SNS 추가 */
 	.sns-box {position:absolute;display:block;left:220px;top:7px;}

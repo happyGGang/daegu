@@ -9,6 +9,7 @@
 ${boardManage.top_html}
 </c:if>
 <jsp:include page="/WEB-INF/views/app/board/common/view/script.jsp" flush="false" />
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" method="get">
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
 <jsp:include page="/WEB-INF/views/app/board/common/form_paging_param.jsp" flush="false" />
@@ -20,7 +21,6 @@ ${boardManage.top_html}
 </c:if>
 </form:form>
 
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="wrapper-bbs">
 	<div class="bbs-view">
 		<div class="bbs-view-header">
@@ -38,7 +38,7 @@ ${boardManage.top_html}
 						</c:otherwise>
 						</c:choose>
 						<i>작성자</i><span>${user_name}<c:if test="${authMBA}">(${board.add_id})</c:if></span>
-						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd HH:mm"/></span>
+						<i>작성일</i><span><fmt:formatDate value="${board.add_date}" pattern="yyyy.MM.dd"/></span>
 						<c:if test="${not empty board.user_phone and authMBA}">
 						<i>연락처</i><span>${board.user_phone }</span>
 						</c:if>

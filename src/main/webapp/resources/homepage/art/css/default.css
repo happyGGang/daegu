@@ -165,7 +165,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:1024px){
-	.tnb {height:65px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.5);}
+	.tnb {height:65px;padding:10px 0;}
 
 	h1.mobile-logo {display:block;width:130px;height:40px;margin:3px 0;margin-left:15px;}
 	h1.mobile-logo a {display:block;background:url('../img/logo.png') no-repeat center center !important;font-size:0;background-size:130px !important;height:40px;}

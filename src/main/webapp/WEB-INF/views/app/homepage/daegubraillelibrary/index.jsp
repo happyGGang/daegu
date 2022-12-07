@@ -219,6 +219,16 @@
 				<img src="/resources/homepage/${homepage.context_path}/img/main3-jj1.png" alt="" class="jjchar01">
 				<div class="quick-menu">
 					<ul>
+						<li class="quick03">
+							<a href="/${homepage.context_path}/html.do?menu_idx=73" target="_blank" class="q03">
+								<span>일상속의점자</span>
+							</a>
+						</li>
+						<li class="quick04">
+							<a href="/${homepage.context_path}/html.do?menu_idx=76" class="q04">
+								<span>특화서비스</span>
+							</a>
+						</li>
 						<li class="quick01">
 							<a href="https://library.daegu.go.kr/dgportal/index.do" target="_blank" class="q01">
 								<span>대구통합도서관</span>
@@ -227,16 +237,6 @@
 						<li class="quick02">
 							<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=9" class="q02">
 								<span>통합자료검색</span>
-							</a>
-						</li>
-						<li class="quick03">
-							<a href="https://library.daegu.go.kr/elib/index.do" target="_blank" class="q03">
-								<span>대구전자도서관</span>
-							</a>
-						</li>
-						<li class="quick04">
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=33&manage_idx=1087" class="q04">
-								<span>공지사항</span>
 							</a>
 						</li>
 						<li class="quick05">

@@ -130,7 +130,7 @@ input[type="radio"][disabled],input[type="checkbox"][disabled],input[type="radio
 .slider .box .control .pager a,
 .control a,
 #footer{position:relative;z-index:5}
-#foot_section{position:relative;}
+#foot_section{position:relative;border-top:1px solid #ddd;}
 
 /* 페이징 */
 .dataTables_paginate{overflow:hidden;padding:25px 0 0;text-align:center;font-size:0}
@@ -440,7 +440,7 @@ transform:translatez(0);
 */
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:180px;box-sizing:border-box;background: url('/resources/homepage/libculture/img/sub-visual.png') no-repeat 35% 50%;background-size:cover;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
+.sub-visual{position:relative;height:180px;box-sizing:border-box;background: url('/resources/homepage/libculture/img/sub-visual.png') no-repeat 35% 50%;background-size:cover;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;z-index:99;}
 
 #container .sections,
 #container {clear:both;}
@@ -680,7 +680,7 @@ h3.sub_top_tit span:after{content: ''; position: absolute; bottom: 0; left: 50%;
 
 /* quick_wrap -  QR cord */
 .qr_cord {position:relative;}
-.qrBox{display: none; position:absolute; top:204px; right:-1px; z-index:99999; margin-top:-150px; margin-left:-115px; width: 300px; height: 258px; padding: 28px; background-color: #fff; border: 1px solid #ddd; border-top:0; text-align: center; cursor: pointer;}
+.qrBox{display: none; position:absolute; top:204px; right:-1px; z-index:99999; margin-top:-150px; margin-left:-115px; width: 240px; height: 220px; padding: 28px; background-color: #fff; border: 1px solid #ddd; border-top:0; text-align: center; cursor: pointer;}
 .qrBox.on {display:block;}
 .qrBox a.qrBoxClose{ position: absolute;  top: 6px; right: 6px; width: 30px; height:30px; line-height:28px;  background-color: #414141; color: #fff; text-align: center; text-decoration: none;}
 .qrBox p{margin: 13px auto 0; font-size:0.96em; word-break:keep-all;}

@@ -350,6 +350,37 @@ $(function() {
 							<form:radiobutton path="manageCode" value="HP" label="율하5주민도서관 "/><br/>
 							<form:radiobutton path="manageCode" value="HQ" label="방촌어린이 작은도서관 "/>
 						</c:when>
+						<c:when test="${homepagePath eq 'with'}">
+						더불어숲<input type="hidden" id="" name="manage_code" value="NA" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dotory'}">
+						도토리도서관<input type="hidden" id="" name="manage_code" value="NB" />
+						</c:when>
+						<c:when test="${homepagePath eq 'dongil'}">
+						동일도서관<input type="hidden" id="" name="manage_code" value="NC" />
+						</c:when>
+						<c:when test="${homepagePath eq 'vision'}">
+						비전도서관<input type="hidden" id="" name="manage_code" value="NF" />
+						</c:when>
+						<c:when test="${homepagePath eq 'saebut'}">
+						새벗도서관<input type="hidden" id="" name="manage_code" value="NE" />
+						</c:when>
+						<c:when test="${homepagePath eq 'art'}">
+						아트도서관<input type="hidden" id="" name="manage_code" value="NK" />
+						</c:when>
+						<c:when test="${homepagePath eq 'yeonam'}">
+						연암도서관<input type="hidden" id="" name="manage_code" value="ND" />
+						</c:when>						
+						<c:when test="${homepagePath eq 'daegubraillelibrary'}">
+						점자도서관<input type="hidden" id="" name="manage_code" value="NG" />
+						</c:when>
+						<c:when test="${homepagePath eq 'wasabi'}">
+						푸른초장도서관<input type="hidden" id="" name="manage_code" value="NH" />
+						</c:when>
+						<c:when test="${homepagePath eq 'handle'}">
+						한들마을도서관<input type="hidden" id="" name="manage_code" value="NJ" />
+						</c:when>
+
 						<c:otherwise>
 							<form:hidden path="manageCode" value="" />
 						</c:otherwise>

@@ -34,7 +34,7 @@ ${boardManage.top_html}
 							</c:choose>
 							</div>
 						</div>
-						<div class="textbox">
+						<div class="textbox style02">
 							<div class="titlebox">
 								<span class="title">
 									<span class="title_text">
@@ -53,16 +53,16 @@ ${boardManage.top_html}
 							</div>
 							<ul>
 								<li class="clearfix">
-									<em>기간</em>
+									<em>기　　간</em>
 									<span>${i.imsi_v_2}(${i.imsi_v_11}) ~ ${i.imsi_v_3}(${i.imsi_v_12}) ${i.imsi_v_4} ${i.imsi_v_5}시</span>
 								</li>
 								<li class="clearfix">
-									<em>장소</em>
+									<em>장　　소</em>
 									<span>${i.imsi_v_6}</span>
 								</li>
 							</ul>
 							<div class="buttonbox">
-								<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" class="btn link2 small">>VIEW MORE <img src="http://211.224.118.223:8010/resources/common/img/more-arrow.jpg" alt=""></a>
+								<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" class="btn link2 small">VIEW MORE <img src="http://211.224.118.223:8010/resources/common/img/more-arrow.jpg" alt=""></a>
 							</div>
 						</div>
 					</li>

@@ -274,7 +274,7 @@
 											<div class="culture-contents-bottom">
 												<div class="culture-contents-txt">
 													<div class="culture-contents-txt-top">
-														[${i.category_name}] ${i.teach_name}
+														<!--[${i.category_name}]--->${i.teach_name}
 													</div>
 													<div class="culture-contents-txt-middle">
 														${i.teach_desc}

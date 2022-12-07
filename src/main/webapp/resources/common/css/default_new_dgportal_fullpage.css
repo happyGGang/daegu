@@ -440,7 +440,7 @@ transform:translatez(0);
 .bx-wrapper .bx-loading {min-height:50px;background:url('../imb/bx_loader.gif') center center no-repeat #fff;height:100%;width:100%;position:absolute;top:0;left:0;z-index:9999}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:343px;background: url('/resources/homepage/dgportal/img/sub-visual.png') no-repeat 35% 50%;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
+.sub-visual{position:relative;height:250px;background: url('/resources/homepage/dgportal/img/sub-visual.png') no-repeat 35% 50%;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
 
 #container .sections,
 #container {clear:both;}
@@ -488,7 +488,7 @@ transform:translatez(0);
 
 @media all and (max-width:1024px){
 	#container.subpage > .sections {padding-top:0px;}
-	.sub-visual{position:relative;height:200px}
+	.sub-visual{position:relative;height:120px}
 	.doc-name {display:none;}
 }
 
@@ -558,7 +558,7 @@ transform:translatez(0);
 .doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 28px;color: #222;letter-spacing:-1px;font-weight:bold;}
 .doc-title ol{margin-top:-6px;}
 
-.doc-name {padding-top:170px;}
+.doc-name {padding-top:120px;}
 .doc-name h3 {display:block;font-size:30px;color:#fff;font-weight:600;padding:5px 0;}
 .doc-info-bg {width:100%;position:absolute;bottom:0;background-color:rgba(0,0,0,0.35);}
 .doc-info {width:1260px;margin:0 auto;position:relative;padding:0;box-sizing:border-box;z-index:2;}

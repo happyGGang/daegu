@@ -53,7 +53,7 @@ ${boardManage.top_html}
 		.swiper-container {width: 100%;height: 300px;margin-left: auto;margin-right: auto;}
 		.swiper-slide {background-size:cover;background-position:center;background-repeat:no-repeat;}
 		.swiper-sthum {background-size:cover;background-position:center;background-repeat:no-repeat;}
-		.swiper-pagination-current{font-weight:600;font-size: 20px;color:#ff9900;letter-spacing: 5px;}
+		.swiper-pagination-current{font-weight:600;font-size:16px;letter-spacing: 5px;}
 		.swiper-pagination-total{margin-left:5px;}
 		.gallery-top {height:600px;width:100%;}
 		.gallery-thumbs {height: 20%;box-sizing: border-box;padding: 15px 1px 5px 1px;}

@@ -146,6 +146,10 @@
 #s_foot_section .sFooter .f_info .in .copyright {font-size:15px;color:#aaa;padding-top:20px;}
 #s_foot_section .sFooter .f_info .in .f_logo {position:absolute;top:0;right:0;}
 
+@media all and (min-width:1921px){
+	#main1{background:#faf8e1 url('../img/main1-bg2.png') no-repeat center bottom;}
+	#main1 .quick-box ul {border-left:1px solid #fadecc;border-right:1px solid #fadecc;}
+}
 
 @media all and (max-width:1880px){
 	#main1{background:#faf8e1 url('../img/main1-bg2.png') no-repeat center bottom;}

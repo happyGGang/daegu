@@ -8,8 +8,8 @@
 <%@ taglib prefix="from" uri="http://www.springframework.org/tags/form" %>
 
 
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
 
 <script type="text/javascript">
@@ -27,38 +27,31 @@
 </script>
 
 <style>
-	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';}
-	select{padding:6px 5px !important;}
+	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
 
-	@media screen and (max-width: 1024px) {
-		.search-form__input{min-width:40%;}
-	}
+	input.new_text01{height:80px !important;}
+	
+	@media screen and (max-width: 1024px) { 
+		input[type="text"]{font-size:15px;}
+		input[type="text"]::placeholder{font-size:15px;}
 
-	@media screen and (max-width: 768px) {
-		.search-form__input{min-width:30%;}
-	}
-
-	@media screen and (max-width: 600px) {
-		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
-		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
-		.search-form__input{margin-left:0;font-size:14px;}
-		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+		input.new_text01{height:50px !important;}
 	}
 </style>
 
 <form:form modelAttribute="culture" action="performanceExhibition.do" method="GET">
 	<from:hidden path="menu_idx"/>
 	<div class="search-form showNot01">
-		<form:select path="search_area" cssClass="search-form__select">
-			<form:option value="">지역을 선택해주세요 </form:option>
+		<form:select path="search_area" cssClass="search-form__select new_select_box">
+			<form:option value="">지역</form:option>
 			<c:forEach var="i" items="${areaCodeList}">
 				<form:option value="${i.code_name}">${i.code_name}</form:option>
 			</c:forEach>
 		</form:select>
 
-		<form:input path="Keyword" placeholder="검색어를 입력하세요." cssClass="search-form__input" ></form:input>
-		<button id="search_btn" class="search-form__button">검색</button>
+		<form:input path="Keyword" placeholder="검색어를 입력하세요." cssClass="text new_text01 search-form__input" ></form:input>
+		<button id="search_btn" class="search-form__button"><img src="/resources/homepage/${homepage.context_path}/img/sub_srch_ico.png"></button>
 	</div>
 
 	<div class="result-list">

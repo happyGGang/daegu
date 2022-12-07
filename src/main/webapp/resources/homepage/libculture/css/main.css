@@ -134,18 +134,25 @@
 #main1 .main1-center .main1-top-box .culture-search-condition {float:right;height:100%;box-sizing:border-box;}
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel {box-sizing:border-box;}
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul {font-size:0;height:100%;}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li {display:inline-block;height:100%;}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {display:inline-block;-moz-appearance:none;-webkit-appearance:none;appearance:none;background:url("../img/select-arrow-b-2.png") no-repeat 95% 50%;border-radius:0;border:1px solid rgba(0,0,0,0.25);font-family:'s-core_dream4_regular';font-size:18px;color:#333;width:400px;padding:23px 20px !important;box-sizing:border-box;vertical-align:middle;border-right:none;}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select option {color:#666;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li {display:inline-block;height:100%;width:33%;border:1px solid rgba(0,0,0,0.25);transition:all 0.5s;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:hover{background:#fff;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:first-child{border-top-left-radius:100px;border-bottom-left-radius:100px;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:nth-child(2){border-left:none;border-right:none;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:last-child{border-top-right-radius:100px;border-bottom-right-radius:100px;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {display:inline-block;-moz-appearance:none;-webkit-appearance:none;appearance:none;font-family:'SCoreDream';font-weight:400;font-size:19px;color:#555;width:100%;height:80px;line-height:60px;box-sizing:border-box;vertical-align:middle;text-align:center;border:none;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select::-ms-expand { display: none; }
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select::placeholder {color:#fff;}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:last-child select{border-right:1px solid rgba(0,0,0,0.25);}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 35% 27px;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 35% 27px;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 35% 27px;}
 
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal {box-sizing:border-box;padding-top:18px;}
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul {font-size:0;}
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li {display:inline-block;height:100%;color:#333;margin:0 10px}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li:first-child {font-family:'s-core_dream6_bold';font-size:30px;font-weight:bold;}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a {display:block;width:73px;height:65px;line-height:65px;font-family:'s-core_dream4_regular';font-size:18px;color:#333;}
-#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a:hover {background:#333;color:#fff;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li:first-child a{font-family:'s-core_dream6_bold';font-size:26px;font-weight:bold;cursor:auto;box-shadow:none;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li:first-child a:hover{background:none;color:#333;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a {display:block;width:73px;height:73px;line-height:73px;font-family:'s-core_dream4_regular';font-size:17px;color:#333;box-shadow:5px 5px 7px 5px rgb(0,0,0,0.05);border-radius:50%;transition:all 0.5s;}
+#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a:hover {background:#fff;color:#333;}
 #main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li.on a {background:#333;color:#fff;}
 #main1 .main1-center .main1-top-box span.more-box {position:absolute;right:-40px;bottom:15px;}
 #main1 .main1-center .main1-top-box span.more-box a:hover{color:#000;}
@@ -323,7 +330,13 @@
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li {width:33%;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {width:100%;padding:20px 30px !important;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a {width:55px;height:55px;line-height:55px;}
+	
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select{line-height:40px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 30% 18px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 30% 18px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 30% 18px;}
 
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li:first-child a{font-size:18px;}
 }
 
 @media all and (max-width:1620px){
@@ -367,7 +380,7 @@
 	#main1 .main1-center .main1-top-box .culture-search-title  h3 {font-size:30px;line-height:40px;}
 	#main1 .main1-center .main1-top-box .culture-search-title  p {font-size:18px;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {width:100%;padding:15px !important;font-size:16px;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a {width:40px;height:40px;line-height:40px;font-size:16px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a {font-size:16px;}
 
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a h4 {font-size:16px;padding-bottom:20px;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days {font-size:18px;}
@@ -387,7 +400,8 @@
 	#main1 .main1-center .main1-top-box .culture-search-title  h3 {font-family:'GmarketSansBold';color:#333333;text-align:center;}
 	#main1 .main1-center .main1-top-box .culture-search-title  p {display:none;}
 	#main1 .main1-center .main1-top-box .culture-search-condition {float:none;height:60%;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal {padding-top:7px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal {padding:20px 0;}
+	#main1 .main1-center .main1-top-box .culture-search-title  h3 {background:linear-gradient(#ff831f 20%, #ec0080 100%);-webkit-background-clip: text;-webkit-text-fill-color:transparent;-webkit-box-decoration-break:clone;}
 }
 
 @media all and (max-width:1024px){
@@ -422,10 +436,12 @@
 	#main1 .main1-center .main1-top-box {padding:25px 0;}
 	#main1 .main1-center .main1-top-box .culture-search-title .dream-img-box{display:none;}
 	#main1 .main1-center .main1-top-box .culture-search-condition{margin-top:15px;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li{width:20%;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {padding:15px !important;font-size:15px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li{}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {padding:10px !important;font-size:15px;height:50px;line-height:30px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 30% 13px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 30% 13px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 30% 13px;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li a{font-size:15px;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal ul li.on a{padding:3px 10px 3px 8px;}
 	#main1 .main1-center .main1-top-box span.more-box{position:relative;text-align:center;margin:0 auto;right:0;bottom:0;display:block;}
 	
 	#main1 .main1-center .main1-bottom-box .culture-search-result{width:96%;margin:0 auto;padding:23px 0 0;}
@@ -434,7 +450,7 @@
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(3n){margin-right:0;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(4n){margin-right:2%;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a div{padding:20px;}
-	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days{font-size:15px;}
+	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days{font-size:14px;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days span{padding-right:5px;}
 
 	#main2 .main2-wrap {position:relative;height:auto;box-sizing:border-box;padding-top:0;}
@@ -442,8 +458,8 @@
 	#main2 .main2-center .mainSec02-title h2 {display:block;padding:40px 0 20px;}
 	#main2 .main2-center .mainSec02-title p.bt {display:block;font-size:30px;}
 	#main2 .main2-center .mainSec02-title p.st {font-size:18px;padding-top:7px;}
-	#main2 .main2-center .tabMenu {position:relative;top:0;}
-	#main2 .main2-center .tabMenu ul li {width:90px;margin:0 2px;text-align:center;}
+	#main2 .main2-center .tabMenu {position:relative;top:0;left:0;}
+	#main2 .main2-center .tabMenu ul li {width:13%;margin:0 2px;text-align:center;margin-bottom:5px;}
 	#main2 .main2-center .tabMenu ul li a {padding:7px 0;font-size:13px;}
 	#main2 .main2-center .curation-img-box{left:23%;width:130px;height:auto;}
 	
@@ -500,7 +516,13 @@
 
 	#main1 .main1-center .main1-top-box .culture-search-title  h3 {font-size:24px;line-height:40px;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel {width:96%;margin:0 auto;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li{width:100%;border-radius:100px;margin:5px 0;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:nth-child(2){border:1px solid rgba(0,0,0,0.25);}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {padding:14px !important;font-size:14px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select{font-size:13px;text-align:left;padding:6px 5px 6px 25px !important;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 94% 12px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 94% 12px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 94% 12px;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal .web-selector {display:none;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal .mobile-selector {display:block;margin-top:10px;}
 	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal .mobile-selector h4 {font-family:'s-core_dream6_bold';font-size:24px;font-weight:bold;}
@@ -510,16 +532,22 @@
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li {width:49%;height:220px;margin:0 2% 2% 0;vertical-align:top;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(2n) {margin-right:0;}	
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(3n){margin-right:2%;}
+	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(6){margin-right:0;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(5),
-	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(6){margin-bottom:2%;}
+	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(6),
+	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(7),
+	#main1 .main1-center .main1-bottom-box .culture-search-result ul li:nth-child(8){margin-bottom:2%;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a h4 {font-size:16px;padding-bottom:15px;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.days {font-size:15px;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a p.conte {font-size:15px;height:40px;line-height:20px;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result-count {display:none;font-size:15px;padding-top:10px;text-align:center;}
 
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal{padding:0;}
+	#main1 .main1-center .main1-top-box span.more-box{margin-top:10px;}
+
 	#main2 .main2-center .mainSec02-title p.bt {font-size:24px;}
 	#main2 .main2-center .mainSec02-title p.st {font-size:15px;padding-top:7px;}
-	#main2 .main2-center .tabMenu ul li {width:80px;margin:0 2px;}
+	#main2 .main2-center .tabMenu ul li {width:80px;}
 	#main2 .main2-center .tabMenu ul li a {padding:5px 0;font-size:12px;letter-spacing:-1.5px;}
 
 	#main2 .main2-center .mainSec02 .slickWrap h2 {font-size:15px;}
@@ -580,8 +608,8 @@
 	#main0 .main0-center .main0-bottom-box .ing-slide-box{padding:30px 0 10px;}
 
 	#main1 .main1-center .main1-top-box .culture-search-title  h3 {font-size:20px;line-height:40px;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {padding:13px !important;font-size:13px;}
-	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal .mobile-selector h4 {font-size:20px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-sel ul li select {padding:13px !important;font-size:13px;line-height:27px;}
+	#main1 .main1-center .main1-top-box .culture-search-condition .culture-search-condition-box-cal .mobile-selector h4 {font-size:16px;}
 	
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li{height:240px;}
 	#main1 .main1-center .main1-bottom-box .culture-search-result ul li a h4{padding-bottom:10px;}
