@@ -72,7 +72,7 @@
       e.preventDefault();
     });
 
-    $('#requestCancel').on('click',function(e) {
+    $('.requestCancel').on('click',function(e) {
       e.preventDefault();
 
       var editMode = 'CANCEL';
@@ -202,7 +202,7 @@
                 <td>${i.return_date}</td>
                 <td>
                     <c:if test="${i.request_status eq '1000'}">
-                        <a href="" class="btn btn5" id="requestCancel" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">신청취소</a>
+                        <a href="" class="btn btn5 requestCancel" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">신청취소</a>
                     </c:if>
                     <a href="" class="btn btn3" id="dialog-modify" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">상태이력</a>
                 </td>
