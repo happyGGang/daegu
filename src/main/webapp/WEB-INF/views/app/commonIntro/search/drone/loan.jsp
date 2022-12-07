@@ -39,7 +39,7 @@
       doGetLoad('/${homepage.context_path}/intro/search/excelDownload.do', param);
     });*/
 
-    $('#cancelLoan').on('click',function(e) {
+    $('.cancelLoan').on('click',function(e) {
       e.preventDefault();
 
       var editMode = 'CANCEL';
@@ -132,7 +132,7 @@
                     <td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd HH:mm"/></td>
                     <td>
                         <c:if test="${i.request_status eq '1000'}">
-                            <a href="#" class="btn btn1" id="cancelLoan" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">취소</a>
+                            <a href="#" class="btn btn1 cancelLoan" keyValue1="${i.request_idx}" keyValue2="${i.manage_code}" keyValue3="${i.user_key}">취소</a>
                         </c:if>
                     </td>
                 </tr>

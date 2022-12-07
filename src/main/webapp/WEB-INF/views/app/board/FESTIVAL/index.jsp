@@ -65,7 +65,7 @@ ${boardManage.top_html}
 										</c:when>
 										<c:otherwise>
 											<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
-												<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+												<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" alt="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
 											</a>
 										</c:otherwise>
 									</c:choose>
