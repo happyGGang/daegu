@@ -331,11 +331,13 @@
 			WHERE
 				LOCKER_IDX = #{locker_idx}
 			AND DEVICE_PASSWORD = #{device_password}
+			AND DEVICE_IDX = #{device_idx}
 			AND RESERVE_STATUS = '2'
 			AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
 								FROM NEIGHBORHOOD_LIBRARY_RESERVE 
 								WHERE LOCKER_IDX = #{locker_idx}
 								AND DEVICE_PASSWORD = #{device_password}
+								AND DEVICE_IDX = #{device_idx}
 								AND RESERVE_STATUS = '2');	
 		</select>
 		

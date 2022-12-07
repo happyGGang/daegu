@@ -21,7 +21,7 @@ public class NeighborhoodLibraryController extends BaseController {
 	private String basePath = "/homepage/%s/module/neighborhoodLibrary/";
 	
 	@RequestMapping(value = {"/bacode.*"})
-	public String bacode(Model model,@RequestParam(required = false) int pass, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String bacode(Model model,@RequestParam(required = false) String pass, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		model.addAttribute("param", pass);

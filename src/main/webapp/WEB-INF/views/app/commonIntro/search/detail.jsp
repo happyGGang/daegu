@@ -1001,7 +1001,7 @@ $(function() {
 
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
-					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset'}">
+					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1'}">
 					<c:if test="${reserveConfig.reserve_start_time le nowTime or reserveConfig.reserve_end_time gt nowTime  }">
 						<c:choose>
 							<c:when test="${reserveData == 0 }">

@@ -137,10 +137,11 @@ public class ApiController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"nearLibCheck/edit.*"})
-	public @ResponseBody Map<String, Object> neighborhoodLibraryCheckLocker(@RequestParam(required = false) int pass, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Map<String, Object> neighborhoodLibraryCheckLocker(@RequestParam(required = false)String pass, HttpServletRequest request, HttpServletResponse response) {
 		NeighborhoodLibrary neighborhoodLibrary = new NeighborhoodLibrary();
 		neighborhoodLibrary.setDevice_password(Integer.parseInt(String.valueOf(pass).substring(0, 4)));
-		neighborhoodLibrary.setLocker_idx(Integer.parseInt(String.valueOf(pass).substring(4)));
+		neighborhoodLibrary.setLocker_idx(Integer.parseInt(String.valueOf(pass).substring(4, 7)));
+		neighborhoodLibrary.setDevice_idx(Integer.parseInt(String.valueOf(pass).substring(7)));
 		
 		return neigborhoodLibraryService.checkReserveLocker(neighborhoodLibrary);
 	}

@@ -11,11 +11,11 @@ $(function(){
 
 	var settings = {
 		barWidth: 2,
-		barHeight: 70,
+		barHeight: 80,
 		fontSize : 12,
 		output : 'bmp'
 	};
-	$("#barcodeTarget").barcode("${param}", "code128", settings);	//''안에 비밀번호 셋팅
+	$("#barcodeTarget").barcode("${param.pass}", "code128", settings);	//''안에 비밀번호 셋팅
 	$("#barcodeTarget").css("margin","0 auto");
 
 });

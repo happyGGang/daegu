@@ -168,7 +168,7 @@ public class NeighborhoodLibraryService extends BaseService {
 			        librarySearch.setUserkey(reserveOne.getUser_key());
 			        String userIp = reserveOne.getAdd_ip();
 			        String book_name = reserveOne.getBook_name();
-					String mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + reserveOne.getLocker_idx() 
+					String mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + "^" + reserveOne.getLocker_idx() + "^" + reserveOne.getDevice_idx()
 							+ "\n[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 확정되었습니다."
 							+ "\n도서 정보 : " + book_name 
 							+ "\n장비명 : " + reserveOne.getDevice_name()
@@ -204,7 +204,7 @@ public class NeighborhoodLibraryService extends BaseService {
 			        librarySearch.setUserkey(reserveOne.getUser_key());
 			        String userIp = reserveOne.getAdd_ip();
 			        String book_name = reserveOne.getBook_name();
-					String mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + reserveOne.getLocker_idx() 
+					String mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + "^" + reserveOne.getLocker_idx() + "^" + reserveOne.getDevice_idx() 
 							+ "\n[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 확정되었습니다."
 							+ "\n도서 정보 : " + book_name 
 							+ "\n장비명 : " + reserveOne.getDevice_name()
@@ -283,7 +283,7 @@ public class NeighborhoodLibraryService extends BaseService {
 				        String book_name = bundleList.get(i).getBook_name();
 				        String mes = "";
 				        if(i == 0 ) {
-							mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + bundleList.get(i).getLocker_idx() 
+							mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + "^" + bundleList.get(i).getLocker_idx() + "^" + bundleList.get(i).getDevice_idx() 
 									+ "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
 									+ "\n도서 정보 : " + book_name 
 									+ "\n장비명 : " + bundleList.get(i).getDevice_name()
@@ -296,7 +296,7 @@ public class NeighborhoodLibraryService extends BaseService {
 									+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다. ";
 				        }
 						LibSearchAPI.sendSms(librarySearch, mes, userIp);	
-						status3_update.setReserve_idx(bundleList.get(i).getReserve_idx());;
+						status3_update.setReserve_idx(bundleList.get(i).getReserve_idx());
 						status3_update.setSms_send_yn("Y");
 						dao.updateNeighborhoodLibrarySms(status3_update);
 			        }
@@ -516,7 +516,7 @@ public class NeighborhoodLibraryService extends BaseService {
 					        String book_name = bundleList.get(i).getBook_name();
 					        String mes = "";
 					        if(i == 0 ) {
-								mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + bundleList.get(i).getLocker_idx() 
+								mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + "^" + bundleList.get(i).getLocker_idx() + "^" + bundleList.get(i).getDevice_idx() 
 										+ "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
 										+ "\n도서 정보 : " + book_name 
 										+ "\n장비명 : " + bundleList.get(i).getDevice_name()
@@ -598,8 +598,7 @@ public class NeighborhoodLibraryService extends BaseService {
 			result.put("result", "fail");
 			result.put("message", "사물함번호 번호 오류");			
 		}
-		
-		if(neighborhoodLibrary.getDevice_password() == 0 || neighborhoodLibrary.getDevice_password() < 1000 || neighborhoodLibrary.getDevice_password() > 9999) {
+		if(String.valueOf(neighborhoodLibrary.getDevice_password()).length() != 4) {
 			result.put("result", "fail");
 			result.put("message", "비밀번호가 일치하지 않습니다.");
 		}
@@ -608,8 +607,14 @@ public class NeighborhoodLibraryService extends BaseService {
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 			resultMap.put("user_no", resultReserve.getUser_no());
 			resultMap.put("member_id", resultReserve.getMember_id());
+			resultMap.put("device_idx", resultReserve.getDevice_idx());
 			resultMap.put("locker_idx", resultReserve.getLocker_idx());
-			resultMap.put("locker_password", resultReserve.getDevice_password());
+			resultMap.put("pk", resultReserve.getPk());
+			resultMap.put("lib_name", resultReserve.getLib_name());
+			resultMap.put("manage_code", resultReserve.getManage_code());
+			resultMap.put("book_name", resultReserve.getBook_name());
+			resultMap.put("book_key", resultReserve.getBook_key());
+			resultMap.put("reg_no", resultReserve.getReg_no());
 			result.put("result", "success");
 			result.put("result-data", resultMap);
 		}else {
