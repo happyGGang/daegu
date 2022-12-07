@@ -264,10 +264,24 @@
 											<div class="culture-contents-top">
 												<c:choose>
 													<c:when test="${status.index eq '0' || status.index eq '2'}">
-														<img src="/resources/homepage/${homepage.context_path}/img/list-bg1.jpg" alt="문화행사이미지">
+														<c:choose>
+															<c:when test="${not empty i.image_server_file_name}">
+																<img src="/data/teach/${i.homepage_id}/img/${i.image_server_file_name}" style="width: 100%;" alt="강의이미지">
+															</c:when>
+															<c:otherwise>
+																<img src="/resources/homepage/${homepage.context_path}/img/list-bg1.jpg" alt="문화행사이미지">
+															</c:otherwise>
+														</c:choose>
 													</c:when>
 													<c:otherwise>
-														<img src="/resources/homepage/${homepage.context_path}/img/list-bg2.jpg" alt="문화행사이미지">
+														<c:choose>
+															<c:when test="${not empty i.image_server_file_name}">
+																<img src="/data/teach/${i.homepage_id}/img/${i.image_server_file_name}" style="width: 100%;" alt="강의이미지">
+															</c:when>
+															<c:otherwise>
+																<img src="/resources/homepage/${homepage.context_path}/img/list-bg2.jpg" alt="문화행사이미지">
+															</c:otherwise>
+														</c:choose>
 													</c:otherwise>
 												</c:choose>
 											</div>
