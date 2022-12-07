@@ -215,7 +215,7 @@ public class BoardController extends BaseController {
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + PointApi.rule(PointReqeust.formApikey(homepage.getPoint_api_key())));
+		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + PointApi.rule(PointReqeust.formApikey(homepage.getPoint_api_key())));
 		if (homepage == null) {
 			//cms에서는 homepage 객체가 없어서 따로 가져옴.
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
@@ -379,7 +379,8 @@ public class BoardController extends BaseController {
 		}
 
 		//겔러리게시판, 갤러리슬라이더 게시판
-		if (boardManage.getBoard_type().equals("GALLERY") || boardManage.getBoard_type().equals("GALLERYSLIDER")) {
+		if (boardManage.getBoard_type().equals("GALLERY") || boardManage.getBoard_type().equals("GALLERYSLIDER") || 
+			boardManage.getBoard_type().equals("LACHIVIUM01") || boardManage.getBoard_type().equals("LACHIVIUM02")) {
 			service.setPagingGallery(model, service.getBoardCount(boardManage, board), board);
 		}else if (boardManage.getBoard_type().equals("LIB_INFO")) {
 			service.setPaging(model, service.getBoardCount(boardManage, board), board);

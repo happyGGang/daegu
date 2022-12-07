@@ -155,7 +155,7 @@
 						<div class="quick-menu">
 							<ul>
 								<li class="quick01">
-									<a href="/${homepage.context_path}/html.do?menu_idx=11" class="q01">
+									<a href="/${homepage.context_path}/html.do?menu_idx=12" class="q01">
 										<span>이용안내</span>
 									</a>
 								</li>
@@ -165,7 +165,7 @@
 									</a>
 								</li>
 								<li class="quick03">
-									<a href="/${homepage.context_path}/html.do?menu_idx=28" class="q03">
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=65&manage_idx=1124" class="q03">
 										<span>새벗이야기</span>
 									</a>
 								</li>
@@ -180,7 +180,7 @@
 									</a>
 								</li>
 								<li class="quick06">
-									<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=43" class="q06">
+									<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=68" class="q06">
 										<span>MY도서관</span>
 									</a>
 								</li>
@@ -224,12 +224,12 @@
 				<div class="quick-box">
 					<ul>
 						<li class="quick01">
-							<a href="/${homepage.context_path}/html.do?menu_idx=11" class="q01">
-								<span>회원가입안내</span>
+							<a href="/${homepage.context_path}/html.do?menu_idx=12" class="q01">
+								<span>이용시간·휴관일</span>
 							</a>
 						</li>
 						<li class="quick02">
-							<a href="/${homepage.context_path}/html.do?menu_idx=18" class="q02">
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=19" class="q02">
 								<span>문화행사</span>
 							</a>
 						</li>
@@ -244,12 +244,12 @@
 							</a>
 						</li>
 						<li class="quick05">
-							<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=43" class="q05">
+							<a href="/${homepage.context_path}/html.do?menu_idx=13" class="q05">
 								<span>도서대출·반납</span>
 							</a>
 						</li>
 						<li class="quick06">
-							<a href="/${homepage.context_path}/html.do?menu_idx=58" class="q06">
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=1121" class="q06">
 								<span>소모임·공간사용신청</span>
 							</a>
 						</li>

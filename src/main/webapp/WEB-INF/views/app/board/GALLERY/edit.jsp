@@ -66,25 +66,29 @@ ${boardManage.top_html}
 					<form:input type="text" path="imsi_v_3" cssClass="text ui-calendar"/>
 				</td>
 			</tr>
+			<c:if test="${boardManage.secret_use_yn eq 'Y'}">
+			<tr>
 			<th>비밀글 여부</th>
+			<td>
+				<form:radiobutton path="secret_yn" id="secret_yn_yes" value="Y"/>
+				<label for="secret_yn_yes">예</label>
+				<form:radiobutton path="secret_yn" id="secret_yn_no" value="N" />
+				<label for="secret_yn_no">아니오</label>
+			</td>
+			<c:if test="${sessionScope.member.anonymous}">
+				<th>
+					<c:if test="${board.editMode eq 'ADD'}">임시 비밀번호</c:if>
+					<c:if test="${board.editMode eq 'MODIFY'}">비밀번호 확인</c:if>
+				</th>
+			</c:if>
+			<c:if test="${sessionScope.member.anonymous}">
 				<td>
-					<form:radiobutton path="secret_yn" id="secret_yn_yes" value="Y"/>
-					<label for="secret_yn_yes">예</label>
-					<form:radiobutton path="secret_yn" id="secret_yn_no" value="N" />
-					<label for="secret_yn_no">아니오</label>
+					<form:password path="user_password" cssStyle="width:40%" Class="text" maxlength="20"/>
+					<c:if test="${board.editMode eq 'MODIFY'}"><p>글 등록 시 입력한 비밀번호를 입력해주세요.</p></c:if>
 				</td>
-				<c:if test="${sessionScope.member.anonymous}">
-					<th>
-						<c:if test="${board.editMode eq 'ADD'}">임시 비밀번호</c:if>
-						<c:if test="${board.editMode eq 'MODIFY'}">비밀번호 확인</c:if>
-					</th>
-				</c:if>
-				<c:if test="${sessionScope.member.anonymous}">
-					<td>
-						<form:password path="user_password" cssStyle="width:40%" Class="text" maxlength="20"/>
-						<c:if test="${board.editMode eq 'MODIFY'}"><p>글 등록 시 입력한 비밀번호를 입력해주세요.</p></c:if>
-					</td>
-				</c:if>
+			</c:if>
+			</tr>
+			</c:if>
 			<tr>
 				<td colspan="4" class="editor">
 					<div class="bbs-textarea">

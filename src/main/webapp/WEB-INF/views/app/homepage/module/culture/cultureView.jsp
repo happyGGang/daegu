@@ -83,7 +83,7 @@
       <div id="map" class="map__inner" style="width:100%;height:400px;"></div>
     </div>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=707a1b8df7e9f80807c2386e6f431d97"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f3a83e1950d589167de7d3c15d485dae"></script>
     <script type='text/javascript'>
       var settingMapOption = function (culGpsY, culGpsX, contentVenue, map) {
         //=================================지도 확대 축소=============================================
@@ -176,6 +176,6 @@
   <!-- 위치정보 : E -->
 
   <div class="buttons">
-    <a href="javascript:history.back();" class="btn btn1">뒤로</a>\
+    <a href="javascript:history.back();" class="btn btn1">뒤로</a>
   </div>
 </div>

@@ -146,7 +146,7 @@
 </script>
 <ul>
 	<c:choose>
-		<c:when test="${fn:length(list) > 1}">
+		<c:when test="${fn:length(list) > 0}">
 			<c:forEach var="i" items="${list}">
 				<li>
 					<h4>${i.place}</h4>

@@ -81,6 +81,32 @@
 			AND imsi_v_1 LIKE '%'||#{search_month}||'%'
 		</if>
     </sql>
+    
+    <sql id="private_homepage_id_list">
+		AND	homepage_id != 'h79'
+		AND	homepage_id != 'h80'
+		AND	homepage_id != 'h81'
+		AND	homepage_id != 'h82'
+		AND	homepage_id != 'h83'
+		AND	homepage_id != 'h84'
+		AND	homepage_id != 'h85'
+		AND	homepage_id != 'h86'
+		AND	homepage_id != 'h87'
+		AND	homepage_id != 'h88'
+    </sql>
+    
+    <sql id="private_homepage_id_list_M">
+		AND	M.homepage_id != 'h79'
+		AND	M.homepage_id != 'h80'
+		AND	M.homepage_id != 'h81'
+		AND	M.homepage_id != 'h82'
+		AND	M.homepage_id != 'h83'
+		AND	M.homepage_id != 'h84'
+		AND	M.homepage_id != 'h85'
+		AND	M.homepage_id != 'h86'
+		AND	M.homepage_id != 'h87'
+		AND	M.homepage_id != 'h88'
+    </sql>
 
 	<select id="getBoard" resultType="kr.co.whalesoft.app.board.Board">
 		SELECT
@@ -96,6 +122,7 @@
 			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
 			file_download_count, user_phone,
 			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5, imsi_v_6, imsi_v_7,
+			imsi_v_8, imsi_v_9, imsi_v_10, imsi_v_11, imsi_v_12,
 			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
 			(
 				SELECT COUNT(*)
@@ -113,6 +140,7 @@
 				WHERE
 					H.homepage_id = M.homepage_id
 				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_v_20,
 			(
 				SELECT
@@ -121,6 +149,7 @@
 					CMS_BOARD_MANAGE M
 				WHERE
 					M.manage_idx = CMS_BOARD_T.manage_idx
+					<include refid="private_homepage_id_list_M"/>
 			) AS imsi_n_1,
 			(
 				SELECT
@@ -130,6 +159,7 @@
 				WHERE
 					H.homepage_id = M.homepage_id
 				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_v_19,
 			(
 				SELECT
@@ -141,6 +171,7 @@
 				AND	M.manage_idx = CMS_BOARD_T.manage_idx
 				AND	H.manage_idx = M.manage_idx
 				AND H.menu_type = 'BOARD'
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_n_2
 			</if>
 				, content_summary
@@ -157,7 +188,8 @@
 					file_count, preview_img, secret_yn, file_download_count, --content_summary,
 					category1, category2, category3, category4, category5,
 					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
-					imsi_v_6, imsi_v_7, user_phone, content_summary
+					imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+					imsi_v_11, imsi_v_12, user_phone, content_summary
 				FROM
 					CMS_BOARD
 				WHERE
@@ -173,6 +205,7 @@
 										<if test="manage_idx == 282">
 										board_type = 'NOTICE'
 										AND	homepage_id != 'h30'
+										<include refid="private_homepage_id_list"/>
 										<if test="homepage_id != null and homepage_id != 'h32'">
 										AND	homepage_id = #{homepage_id}
 										</if>
@@ -898,6 +931,7 @@
 				WHERE
 					H.homepage_id = M.homepage_id
 				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_v_19,
 			(
 				SELECT
@@ -907,6 +941,7 @@
 				WHERE
 					H.homepage_id = M.homepage_id
 				AND	M.manage_idx = CMS_BOARD_T.manage_idx
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_v_20,
 			(
 				SELECT
@@ -918,6 +953,7 @@
 				AND	M.manage_idx = CMS_BOARD_T.manage_idx
 				AND	H.manage_idx = M.manage_idx
 				AND H.menu_type = 'BOARD'
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_n_2,
 			(
 				SELECT
@@ -926,6 +962,7 @@
 					CMS_BOARD_MANAGE M
 				WHERE
 					M.manage_idx = CMS_BOARD_T.manage_idx
+				<include refid="private_homepage_id_list_M"/>
 			) AS homepage_id,
 			(
 				SELECT
@@ -934,6 +971,7 @@
 					CMS_BOARD_MANAGE M
 				WHERE
 					M.manage_idx = CMS_BOARD_T.manage_idx
+				<include refid="private_homepage_id_list_M"/>
 			) AS imsi_n_1
 			FROM
 		(
@@ -954,6 +992,7 @@
 									WHERE
 										board_type = 'NOTICE'
 									AND	homepage_id != 'h30'
+									<include refid="private_homepage_id_list"/>
 									)
 				AND	delete_yn = 'N'
 			 ) A
@@ -976,6 +1015,7 @@
 								<if test="manage_idx == 282">
 								board_type = 'NOTICE'
 								AND	homepage_id != 'h30'
+								<include refid="private_homepage_id_list"/>
 								<if test="homepage_id != null and homepage_id != 'h32'">
 								AND	homepage_id = #{homepage_id}
 								</if>

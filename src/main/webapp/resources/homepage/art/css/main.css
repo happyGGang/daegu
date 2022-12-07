@@ -4,7 +4,21 @@
 
 #main0 {background:#000;}
 #main0 .main0-left {float:left;padding-top:100px;}
-#main0 .main0-right {float:left;padding-top:200px;padding-left:50px;}
+#main0 .main0-left .circle-box {position:relative;width:655px;height:655px;}
+#main0 .main0-left .circle-box span.onedepth {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:7;width:216px;height:216px;}
+#main0 .main0-left .circle-box span.twodepth {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;width:374px;height:374px;}
+#main0 .main0-left .circle-box span.threedepth {position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;width:514px;height:514px;}
+#main0 .main0-left .circle-box span.fourdepth {position:absolute;left:0;top:0;z-index:1;width:655px;height:655px;}
+#main0 .main0-left .circle-box a.txt-circle {position:absolute;display:block;box-sizing:border-box;width:250px;height:110px;line-height:110px;text-align:center;border-radius:125px;font-size:20px;color:#fff;font-family:'GmarketSansMedium';transition:all 0.3s}
+#main0 .main0-left .circle-box a.txt-circle.orange-box {background:#f36c2a;left:30px;top:180px;z-index:6;transition:all 0.3s}
+#main0 .main0-left .circle-box a.txt-circle.red-box {background:#f32b5a;left:450px;top:390px;z-index:4;transition:all 0.3s}
+#main0 .main0-left .circle-box a.txt-circle.blue-box {background:#2c4acb;left:10px;top:530px;z-index:2;transition:all 0.3s}
+#main0 .main0-left .circle-box a:hover.txt-circle {height:250px;line-height:260px;}
+#main0 .main0-left .circle-box a:hover.txt-circle.orange-box {top:90px;z-index:7;}
+#main0 .main0-left .circle-box a:hover.txt-circle.red-box {top:300px;z-index:7;}
+#main0 .main0-left .circle-box a:hover.txt-circle.blue-box {top:440px;z-index:7;}
+
+#main0 .main0-right {float:right;padding-top:200px;}
 #main0 .main0-right .comment p.stxt {display:block;font-family:'GmarketSansLight';font-size:23px;color:#fff;letter-spacing:5px;}
 #main0 .main0-right .comment p.ltxt {display:block;font-family:'GmarketSansLight';font-size:98px;color:#fff;line-height:120%;padding-top:10px;}
 #main0 .main0-right .comment p.ltxt b {font-family:'GmarketSansMedium';}
@@ -159,14 +173,37 @@
 
 
 @media all and (max-width:1450px){
-	#main0 .main0-left{}
-	#main0 .main0-left img{width:500px;}
+	#main0 .main0-left .circle-box {width:500px;height:500px;}
+	#main0 .main0-left .circle-box span.onedepth {width:166px;height:166px;}
+	#main0 .main0-left .circle-box span.twodepth {width:287px;height:287px;}
+	#main0 .main0-left .circle-box span.threedepth {width:393px;height:393px;}
+	#main0 .main0-left .circle-box span.fourdepth {position:absolute;left:0;top:0;z-index:1;width:500px;height:500px;}
+	#main0 .main0-left .circle-box a.txt-circle {width:200px;height:80px;line-height:80px;border-radius:120px;font-size:18px;}
+	#main0 .main0-left .circle-box a.txt-circle.orange-box {left:30px;top:140px;}
+	#main0 .main0-left .circle-box a.txt-circle.red-box {left:350px;top:300px;}
+	#main0 .main0-left .circle-box a.txt-circle.blue-box {left:0px;top:410px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle {height:200px;line-height:200px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.orange-box {top:50px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.red-box {top:260px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.blue-box {top:360px;}
 
-	#main0 .main0-right{padding-top:100px;padding-left:4%;}
+	#main0 .main0-right{padding-top:100px;}
 }
 
 @media all and (max-width:1260px){
-	#main0 .main0-left img{width:430px;}
+	#main0 .main0-left .circle-box {width:400px;height:400px;}
+	#main0 .main0-left .circle-box span.onedepth {width:134px;height:134px;}
+	#main0 .main0-left .circle-box span.twodepth {width:231px;height:231px;}
+	#main0 .main0-left .circle-box span.threedepth {width:315px;height:315px;}
+	#main0 .main0-left .circle-box span.fourdepth {position:absolute;left:0;top:0;z-index:1;width:400px;height:400px;}
+	#main0 .main0-left .circle-box a.txt-circle {width:180px;height:70px;line-height:70px;border-radius:120px;font-size:16px;}
+	#main0 .main0-left .circle-box a.txt-circle.orange-box {left:10px;top:110px;}
+	#main0 .main0-left .circle-box a.txt-circle.red-box {left:250px;top:250px;}
+	#main0 .main0-left .circle-box a.txt-circle.blue-box {left:0px;top:330px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle {height:180px;line-height:180px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.orange-box {top:50px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.red-box {top:220px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.blue-box {top:300px;}
 
 	#main0 .main0-right{padding-top:130px;padding-left:2%;}
 	#main0 .main0-right .comment p.stxt{font-size:18px;}
@@ -215,8 +252,6 @@
 }
 
 @media all and (max-width:1000px){
-	#main0 .main0-left img{width:350px;}
-
 	#main0 .main0-right{padding-top:125px;}
 	#main0 .main0-right .comment p.stxt{font-size:11px;}
 	#main0 .main0-right .comment p.ltxt{font-size:55px;}
@@ -228,14 +263,28 @@
 	#main1 .qmenu ul li{width:25%;}
 }
 
-@media all and (max-width:768px){
-	#main0 .main-section3{background:url('/resources/homepage/art/img/art-lachivium.png')no-repeat center 280px;background-size:300px;}
-	#main0 .main0-left{float:none;}
-	#main0 .main0-left img{opacity:0;}
-	
-	#main0 .main0-right{float:none;padding-top:0;text-align:center;margin-top:-330px;padding-left:0;}
-	#main0 .main0-right .search-area{padding-top:330px;}
+@media all and (max-width:840px){
+	#main0 .main0-left{float:none;padding-top:280px;}
+	#main0 .main0-right {float:none;padding-top:0;text-align:center;margin-top:-470px;padding-left:0;}
+	#main0 .main0-right .search-area{margin-top:330px;}
 
+	#main0 .main0-left .circle-box {width:300px;height:300px;margin:0 auto;}
+	#main0 .main0-left .circle-box span.onedepth {width:102px;height:102px;}
+	#main0 .main0-left .circle-box span.twodepth {width:174px;height:174px;}
+	#main0 .main0-left .circle-box span.threedepth {width:237px;height:237px;}
+	#main0 .main0-left .circle-box span.fourdepth {position:absolute;left:0;top:0;z-index:1;width:300px;height:300px;}
+	#main0 .main0-left .circle-box a.txt-circle {width:150px;height:50px;line-height:50px;border-radius:120px;font-size:13px;}
+	#main0 .main0-left .circle-box a.txt-circle.orange-box {left:0;top:80px;}
+	#main0 .main0-left .circle-box a.txt-circle.red-box {left:190px;top:200px;}
+	#main0 .main0-left .circle-box a.txt-circle.blue-box {left:0px;top:250px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle {height:150px;line-height:150px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.orange-box {top:20px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.red-box {top:160px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.blue-box {top:200px;}
+}
+
+@media all and (max-width:768px){
+	#main0 .main0-left{float:none;padding-top:250px;}
 	#main1 .notice-title h3{font-size:35px;}
 	#main1 .notice-title a.btn-more2{top:37px;}
 
@@ -252,8 +301,7 @@
 
 	.mobileBr {display:block;}
 
-	#main0 .main-section3{background:url('/resources/homepage/art/img/art-lachivium.png')no-repeat center 235px;background-size:300px;}
-
+	#main0 .main0-right {float:none;padding-top:0;text-align:center;margin-top:-440px;padding-left:0;}
 	#main0 .main0-right .comment p.ltxt{font-size:35px;}
 
 	#main1 .con li a span.contents p.tit{font-size:14px;}
@@ -269,6 +317,12 @@
 	#main1 .con li a span.time{font-size:13px;}
 	#main1 .con li a span.contents{padding:0 0 0 100px;}
 	#main1 .qmenu li a div{font-size:13px;}
+
+	#main0 .main0-left .circle-box a.txt-circle {width:120px;height:50px;line-height:50px;border-radius:120px;font-size:12px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle {height:120px;line-height:120px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.orange-box {top:40px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.red-box {top:160px;}
+	#main0 .main0-left .circle-box a:hover.txt-circle.blue-box {top:200px;}
 }
 
 @media all and (max-width:425px){

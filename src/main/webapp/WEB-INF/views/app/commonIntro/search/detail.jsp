@@ -1068,7 +1068,7 @@ $(function() {
 					openDate <= nowDate and closeDate > nowDate 오픈하면 이걸로 바꿔야함
 					-->
 					<c:if test="${openDate <= nowDate and closeDate > nowDate }">
-						<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N'}">
+						<c:if test="${droneDayLoanCount <= 20 && droneLoanYn eq 'N' && dronePersonalLoanCount < 2}">
 							<c:if test="${detail.LOAN_CODE eq 'OK'}">
 								<a href="" class="btn" id="drone-lone-req">드론대출</a>
 							</c:if>

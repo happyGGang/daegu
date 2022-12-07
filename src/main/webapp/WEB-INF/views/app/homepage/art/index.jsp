@@ -113,7 +113,15 @@
 		<div class="section" id="main0">
 			<div class="main-section3">
 				<div class="main0-left">
-					<img src="/resources/homepage/${homepage.context_path}/img/art-lachivium.png" alt="">
+					<div class="circle-box">
+						<span class="onedepth"><img src="/resources/homepage/${homepage.context_path}/img/1dep.png" alt=""></span>
+						<a href="#" class="txt-circle orange-box">LIBRARY</a>
+						<span class="twodepth"><img src="/resources/homepage/${homepage.context_path}/img/2dep.png" alt=""></span>
+						<a href="#" class="txt-circle red-box">ARCHIVE</a>
+						<span class="threedepth"><img src="/resources/homepage/${homepage.context_path}/img/3dep.png" alt=""></span>
+						<a href="#" class="txt-circle blue-box">MUSEUM</a>
+						<span class="fourdepth"><img src="/resources/homepage/${homepage.context_path}/img/4dep.png" alt=""></span>
+					</div>
 				</div>
 				<div class="main0-right">
 					<div class="comment">
