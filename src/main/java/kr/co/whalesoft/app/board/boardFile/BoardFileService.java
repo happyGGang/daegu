@@ -229,8 +229,10 @@ public class BoardFileService extends BaseService {
 						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
 						boardFile.setServer_file_name(replace);
 						dao.addBoardFile(boardFile);
-					}
-					else {
+					} else if(board.getManage_idx() == 1133 || board.getManage_idx() == 1134 || board.getManage_idx() == 1135) {
+						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 2000, 1381);
+						dao.addBoardFile(boardFile);
+					} else {
 						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
 						dao.addBoardFile(boardFile);
 					}

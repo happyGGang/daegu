@@ -27,13 +27,11 @@ ${boardManage.top_html}
 	<div class="exhibit_list">
 		<div class="list-box">
 			<ul>
+				<c:if test="${member.admin or authMBA}">
+					<input type="checkbox" id="checkAll">
+				</c:if>
 				<c:forEach items="${boardList}" var="i" varStatus="status">
-
 					<li class="list clearfix">
-						<c:if test="${member.admin or authMBA}">
-							<input type="checkbox" id="checkAll">
-							<form:checkbox path="boardIdxArray" value="${i.board_idx}"/>
-						</c:if>
 						<div class="photobox style01">
 							<div class="inner">
 							<c:choose>
@@ -50,6 +48,9 @@ ${boardManage.top_html}
 							<div class="titlebox">
 								<span class="title">
 									<span class="title_text">
+										<c:if test="${member.admin or authMBA}">
+											<form:checkbox path="boardIdxArray" value="${i.board_idx}"/>
+										</c:if>
 										<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" >
 											${i.title}
 										</a>
