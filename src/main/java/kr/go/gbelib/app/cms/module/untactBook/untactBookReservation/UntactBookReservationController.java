@@ -81,7 +81,7 @@ public class UntactBookReservationController extends BaseController {
 		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
 		
 		HttpSession session = request.getSession();
-		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);
 		
 		untactBookReservation.setAdmin_member_id(member.getMember_id());
 		
