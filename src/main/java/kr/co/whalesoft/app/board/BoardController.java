@@ -1316,7 +1316,10 @@ public class BoardController extends BaseController {
 				return null;
 			}
 
+
+
 			if(board.getEditMode().equals("MODIFY")) {
+				Homepage homepage = getSessionHomepage(request);
 				checkAuth("U", model, request);
 				if ( StringUtils.isEmpty(board.getNotice_yn()) ) {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
@@ -1326,7 +1329,7 @@ public class BoardController extends BaseController {
 						board.setImsi_v_1("N");
 					}
 				}
-				Homepage homepage = getSessionHomepage(request);
+
 				Board boardOne = (Board)service.copyObjectPaging(boardManage, board, service.getBoardOne(board));
 //				Object certObject = request.getSession().getAttribute("certMember");
 //				if (certObject != null && certObject instanceof Member) {
@@ -1410,6 +1413,40 @@ public class BoardController extends BaseController {
 					res.setTargetOpener(true);
 					return res;
 				}
+
+				boolean isBoardAdmin = false;
+				try {
+					isBoardAdmin = (Boolean) model.asMap().get("authMBA");
+				} catch ( Exception e ) {
+				}
+				if (getSessionIsAdmin(request)) {
+					isBoardAdmin = true;
+				}
+
+				// 비회원
+				if (!"ANONYMOUS".equals(board.getAdd_id()) && !isBoardAdmin) {
+					Homepage homepage = getSessionHomepage(request);
+
+					if (StringUtils.isNotEmpty(homepage.getPoint_api_key())) {
+						// 묻고 답하기 에만 적용
+						if ("QNA".equals(boardManage.getBoard_type())) {
+
+							PointReqeust pointReqeust = new PointReqeust();
+							pointReqeust.setApiKey(homepage.getPoint_api_key());
+							pointReqeust.setUser_id(member.getMember_id());
+							pointReqeust.setRule_code("ABDG");
+							pointReqeust.setRule_desc("게시글 작성에 의한 포인트 지급");
+
+							try {
+								PointApi.proc(pointReqeust);
+							} catch (Exception e) {
+								e.printStackTrace();
+								log.error("포인트 적립실패");
+							}
+						}
+					}
+				}
+
 				res.setValid(true);
 				res.setUrl(getBoardContext(request) + "/board/index.do");
 				res.setData(board.getUrlParam(boardManage, "index"));
@@ -1533,6 +1570,8 @@ public class BoardController extends BaseController {
 
 	@RequestMapping(value = {"/delete.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse delete(Board board, BindingResult result, Model model, HttpServletRequest request) {
+
+		//427201 427200
 		attributeInit(request, null, board, null);
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		/* 유효성 검증 >>>>> */
@@ -1649,10 +1688,32 @@ public class BoardController extends BaseController {
 				} else {
 					board.setDelete_id("ANONYMOUS");
 				}
-
 			}
 
+			if (!sessionMemberInfo.isAdmin()) {
+				if (boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id()) && !"ANONYMOUS".equals(boardOne.getAdd_id())) {
+					Homepage homepage = getSessionHomepage(request);
+					if (StringUtils.isNotEmpty(homepage.getPoint_api_key())) {
+						// 게시글이 묻고답하기 이고 원글일 경우
+						if ("QNA".equals(boardManage.getBoard_type())) {
+							if (boardOne.getBoard_idx() == boardOne.getGroup_idx()) {
+								PointReqeust pointReqeust = new PointReqeust();
+								pointReqeust.setApiKey(homepage.getPoint_api_key());
+								pointReqeust.setUser_id(boardOne.getAdd_id());
+								pointReqeust.setRule_code("ABDC");
+								pointReqeust.setRule_desc("게시글 삭제에 의한 포인트 차감");
 
+								try {
+									PointApi.proc(pointReqeust);
+								} catch (Exception e) {
+									e.printStackTrace();
+									log.error("포인트 차감실패");
+								}
+							}
+						}
+					}
+				}
+			}
 
 			service.deleteBoard(board, request);
 			res.setValid(true);
@@ -1665,6 +1726,7 @@ public class BoardController extends BaseController {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
+
 
 		return res;
 	}

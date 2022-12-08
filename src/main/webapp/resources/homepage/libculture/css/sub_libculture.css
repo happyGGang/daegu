@@ -1,4 +1,3 @@
-
 .mobile-selector {display:none;}
 
 .table-wrap .area-box {padding-top:38px;width:49%;height:130px;float:left;}
@@ -133,56 +132,62 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 .buttons .button__item { min-width: 200px; margin: 0 10px; border-radius: 4px; height: 60px; font-size: 18px; line-height: 60px; }
 
 /*대시보드*/
-.myDashboardTop {display:relative;}
+.myDashboardTop {display:relative;margin-top:30px;}
 .myDashboardTop ul {font-size:0;}
-.myDashboardTop li {display:inline-block;width:49%;margin-right:1%;height:230px;box-sizing:border-box;vertical-align:top;padding:40px;}
+.myDashboardTop li {display:inline-block;width:49%;margin-right:2%;height:230px;box-sizing:border-box;vertical-align:top;padding:40px;box-shadow:5px 5px 10px 10px rgba(0,0,0,0.03);}
 .myDashboardTop li:last-child {margin-right:0;}
 .myDashboardTop li span {display:block;line-height:150%;}
-.myDashboardTop li.point span.top, .myDashboardTop li.mylibselect span.top {font-family:'SCoreDream';font-weight:600;font-size:20px;line-height:100%;padding-bottom:18px;}
+.myDashboardTop li.point span.top,
+.myDashboardTop li.mylibselect span.top {font-family:'SCoreDream';font-weight:400;font-size:20px;line-height:100%;padding-bottom:18px;}
 .myDashboardTop li.point span.middle {font-family:'GmarketSansBold';font-weight:600;font-size:40px;line-height:150%;padding-bottom:10px;}
 .myDashboardTop li.point span.bottom {font-family:'SCoreDream';font-weight:600;color:#337bf6;font-size:16px;line-height:200%;}
 .myDashboardTop li.point span.bottom b {font-weight:800;}
-.myDashboardTop li.point {border:1px solid #475ab9;background:url('/resources/homepage/libculture/img/dashboard-img01.png') no-repeat 95% bottom;border-radius:7px;}
-.myDashboardTop li.mylibselect span.middle {font-family:'SCoreDream';font-weight:600;font-size:16px;line-height:200%;border:1px solid #000;box-sizing:border-box;padding:4px 15px;border-radius:20px;width:69%;}
-.myDashboardTop li.mylibselect span.bottom {font-family:'SCoreDream';font-weight:400;font-size:16px;color:#5d5c5c;width:69%;padding-top:18px;}
-.myDashboardTop li.mylibselect {border:1px solid #475ab9;background:url('/resources/homepage/libculture/img/dashboard-img02.png') no-repeat 95% bottom;border-radius:7px;}
+.myDashboardTop li.point {border:1px solid #475ab9;background:url('/resources/homepage/libculture/img/nearbylib-dashboard-img1-1.png') no-repeat 95% bottom;border-radius:7px;}
+.myDashboardTop li.mylibselect span.middle {font-family:'SCoreDream';font-weight:600;font-size:16px;line-height:200%;border:1px solid #ddd;box-sizing:border-box;padding:4px 15px;border-radius:100px;width:65%;}
+.myDashboardTop li.mylibselect span.middle select{font-family:'GmarketSansMedium';font-weight:400;font-size:18px;line-height:35px;border:none;-webkit-appearance:none; -moz-appearance:none; appearance:none;background:url('/resources/homepage/libculture/img/naerbylib-lib-arr.png') no-repeat 100% center;width:100%;height:40px;}
+.myDashboardTop li.mylibselect span.middle select option{font-family:'GmarketSansMedium';font-weight:400;}
+.myDashboardTop li.mylibselect span.bottom {font-family:'SCoreDream';font-weight:400;font-size:16px;color:#5d5c5c;width:65%;padding-top:18px;}
+.myDashboardTop li.mylibselect {border:1px solid #475ab9;background:url('/resources/homepage/libculture/img/nearbylib-dashboard-img1-2.png') no-repeat 95% bottom;border-radius:7px;}
 
 .myDashboard-pointbox {margin-top:50px;}
 .myDashboard-pointbox .myDashboard-pointbox-title {position:relative;}
 .myDashboard-pointbox .myDashboard-pointbox-title h5 {display:block;font-family:'SCoreDream';font-weight:600;font-size:22px;padding-bottom:10px;}
 .myDashboard-pointbox .myDashboard-pointbox-title a.more-btn {position:absolute;right:0;top:0;font-family:'SCoreDream';font-weight:600;font-size:16px;color:#666;}
-.myDashboard-pointbox .myDashboard-pointbox-searchbox {display:table;background:#f0f0f0;text-align:center;box-sizing:border-box;width:100%;height:120px;border-radius:4px;}
+.myDashboard-pointbox .myDashboard-pointbox-searchbox {display:table;background:#f5f5f5;text-align:center;box-sizing:border-box;width:100%;height:120px;border-radius:4px;}
 .myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox {position:relative;display:table-cell;vertical-align:middle;text-align:center;}
+.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox span{margin:0 10px;}
+.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox span a{display:inline-block;width:90px;font-weight:400;}
 .search-submit-btn {position:absolute;height:100%;width:5%;right:0;top:0;background:#475ab9;border-top-right-radius:7px;border-bottom-right-radius:7px;}
 .search-submit-btn a {position:absolute;color:#fff;left:0;top:40%;width:100%;vertical-align:middle;}
-.myDashboard-pointbox input.ui-calendar-input {width:15%;background:#fff url('/resources/homepage/libculture/img/ui-calendar-icon.png') no-repeat 95% center;border-radius:7px;vertical-align:middle;}
-.btn.bttn {background:#fff;height:42px;line-height:42px;box-sizing:border-box;padding:0 11px;vertical-align:middle;border-radius:7px;}
+.myDashboard-pointbox input.ui-calendar-input {font-weight:400;width:10%;background:#fff url('/resources/homepage/libculture/img/point-cal-ico.png') no-repeat 90% center;border-radius:7px;vertical-align:middle;}
+.btn.bttn {background:#fff;height:42px;line-height:42px;box-sizing:border-box;padding:0 11px;vertical-align:middle;border-radius:7px;font-weight:400;}
 
 
-.myDashboard-pointbox-listbox {position:relative;margin-top:50px;}
-.myDashboard-pointbox-listbox span em {font-style:normal;font-family:'SCoreDream';font-weight:bold;}
+.myDashboard-pointbox-listbox {position:relative;margin-top:20px;}
+.myDashboard-pointbox-listbox span{font-size:18px;}
+.myDashboard-pointbox-listbox span em {font-style:normal;font-family:'SCoreDream';font-weight:500;}
 .myDashboard-pointbox-listbox span em b {font-weight:800;color:#f15a48;}
 .myDashboard-pointbox-listbox .sortbox {position:absolute;right:0;top:0;}
-.myDashboard-pointbox-listbox table thead th {text-align:center;font-weight:800;border-right:0;border-left:0;}
+.myDashboard-pointbox-listbox table thead th {text-align:center;font-weight:800;border-right:0;border-left:0;background:#fff;}
 .myDashboard-pointbox-listbox table tbody td {text-align:center;font-weight:400;border-right:0;border-left:0;box-sizing:border-box;padding:10px 0;}
 .myDashboard-pointbox-listbox table tbody td b.get {}
 .myDashboard-pointbox-listbox table tbody td b.use {}
 
-.myDashboard-culturebox {position:relative;margin-top:15px;}
+.myDashboard-culturebox {position:relative;margin-top:50px;}
 .myDashboard-culturebox h5 {display:block;font-family:'SCoreDream';font-weight:600;font-size:22px;}
 .myDashboard-culturebox .myDashboard-culturebox-title {position:relative;}
-.myDashboard-culturebox .myDashboard-culturebox-title a.more-btn {position:absolute;right:0;top:5px;font-family:'SCoreDream';font-weight:600;font-size:16px;color:#666;}
+.myDashboard-culturebox .myDashboard-culturebox-title a.more-btn {position:absolute;right:0;top:10px;font-family:'SCoreDream';font-weight:400;font-size:15px;color:#666;}
 .myDashboard-culturebox .myDashboard-culturebox-sortbox {position:relative;text-align:right;}
 
 .myDashboard-culturebox .myDashboard-culturebox-searchbox {display:table;background:#f0f0f0;text-align:center;box-sizing:border-box;width:100%;height:120px;border-radius:4px;}
 .myDashboard-culturebox .myDashboard-culturebox-searchbox .myDashboard-culturebox-searchbox-innerbox {position:relative;display:table-cell;vertical-align:middle;text-align:center;}
-.search-submit-btn {position:absolute;height:100%;width:5%;right:0;top:0;background:#475ab9;border-top-right-radius:7px;border-bottom-right-radius:7px;}
-.search-submit-btn a {position:absolute;color:#fff;left:0;top:40%;width:100%;vertical-align:middle;}
+.search-submit-btn {position:absolute;height:100%;width:6%;right:0;top:0;background:#475ab9;border-top-right-radius:7px;border-bottom-right-radius:7px;margin:0 !important;}
+.search-submit-btn a {position:absolute;color:#fff;left:0;top:40%;width:100% !important;vertical-align:middle;}
 .myDashboard-culturebox input.ui-calendar-input {width:15%;background:#fff url('/resources/homepage/libculture/img/ui-calendar-icon.png') no-repeat 95% center;border-radius:7px;vertical-align:middle;}
 .myDashboard-culturebox select {width:100px;height: 42px;-moz-appearance:none;-webkit-appearance:none;appearance:none;background:#fff url("/resources/homepage/libculture/img/select-arrow-b.png") no-repeat 95% 50%;}
-.btn.bttn {background:#fff;height:42px;line-height:42px;box-sizing:border-box;padding:0 11px;vertical-align:middle;border-radius:7px;}
+.btn.bttn {background:#fff;height:42px;line-height:42px;box-sizing:border-box;padding:0 11px;vertical-align:middle;border-radius:7px;font-weight:400;}
 
-.myDashboard-culturebox table thead th {text-align:center;font-weight:800;border-right:0;border-left:0;}
+.myDashboard-culturebox table thead th {text-align:center;font-weight:800;border-right:0;border-left:0;background:#fff;}
 .myDashboard-culturebox table tbody td {text-align:center;font-weight:400;border-right:0;border-left:0;box-sizing:border-box;padding:10px 0;}
 
 @media screen and (max-width: 1350px) { 
@@ -246,6 +251,10 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 	input.new_text02{padding-left:30px;margin-top:10px;height:50px !important;}
 	.search-form__input2{min-width:calc(97% - 30px);}
 	.new_select_box.left2{left:0;}
+	
+	.myDashboardTop{margin-top:0;}
+	.myDashboardTop li{width:100%;margin-right:0;margin-bottom:10px;}
+	.myDashboard-pointbox input.ui-calendar-input{width:15%;}
 }
 
 @media screen and (max-width: 900px) { 
@@ -293,6 +302,8 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 	.result-list .product__info dt, .result-list .product__info dd{font-size:14px;}
 
 	.nsb2{min-width:49%;}
+
+	.myDashboard-pointbox input.ui-calendar-input{width:110px;}
 }
 
 @media screen and (max-width: 650px) { 
@@ -323,4 +334,58 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-cal ul{width:80%;margin:0 auto;}
 
 	.nsb2{min-width:48%;left:0;padding-left:0;}
+
+	.myDashboardTop li.mylibselect span.middle select{font-size:14px;}
+	
+	.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox span{margin-bottom:10px;}
+	.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox span a{width:65px;font-size:13px;}
+
+	.myDashboard-pointbox input.ui-calendar-input{font-size:13px;}
+	
+	.myDashboard-pointbox-searchbox-innerbox{padding:20px 0 0;}
+	.search-submit-btn{position:relative;width:100%;height:45px;line-height:10px;border-radius:0;}
+	.search-submit-btn a{font-size:13px;}
+
+	.myDashboard-pointbox-listbox span{font-size:14px;}
+
+	.myDashboardTop li.mylibselect span.middle{padding:4px;}
 }
+
+/* 나만의도서관 */
+.mylibrary-table-wrap{position:relative;width:100%;height:auto;}
+.mylibrary-table-wrap .area-box {padding:30px 16px;width:calc(12.4% - 32px);height:310px;float:left;border-right:1px solid rgba(0,0,0,0.1);}
+.mylibrary-table-wrap .area-box h3{background:none;text-align:center;letter-spacing:0;font-size:24px;padding-left:0;padding-bottom:5px;}
+.mylibrary-table-wrap .area-box.last-box{margin-right:0;border-right:none;}
+.mylibrary-table-wrap .area-box.fl-right{}
+.mylibrary-table-wrap .area-box ul {overflow:hidden;box-sizing:border-box;}
+.mylibrary-table-wrap .area-box ul li {display:inline-block;width:100%;cursor:pointer;margin-bottom:10px;font-size:14px;letter-spacing:-0.25px;}
+.mylibrary-table-wrap .area-box ul li input[type="checkbox"]{cursor:pointer;}
+.mylibrary-table-wrap .area-box ul li label{cursor:pointer;}
+
+.mylibrary-btn-wrap{position:relative;text-align:center;margin-top:30px;}
+.mylibrary-btn-wrap a{background-color:#475ab9 !important;border:none;font-size:15px;padding:15px 30px;}
+
+@media only screen and (max-width: 1300px) {
+	.mylibrary-table-wrap .area-box {padding:30px 20px;width:calc(24.8% - 50px);border:1px solid rgba(0,0,0,0.1);margin:0 5px 10px;}
+	.mylibrary-table-wrap .area-box.last-box{border-right:1px solid rgba(0,0,0,0.1);}
+	.mylibrary-table-wrap .area-box ul li {width:50%;}
+}	
+
+@media only screen and (max-width: 1024px) {
+	.mylibrary-table-wrap .area-box{padding:30px 20px;width:calc(49.5% - 50px);height:170px;}
+	.mylibrary-table-wrap .area-box ul li {width:49%;}
+}	
+
+@media only screen and (max-width: 768px) {
+	.mylibrary-table-wrap .area-box{padding:30px 20px;width:calc(99.5% - 50px);height:auto;}
+	.mylibrary-table-wrap .area-box h3{font-size:20px;}
+	.mylibrary-table-wrap .area-box ul li {width:24%;font-size:13px;}
+}	
+
+@media only screen and (max-width: 650px) {
+	.mylibrary-table-wrap .area-box ul li {width:32.5%;margin-bottom:5px;}
+}		
+
+@media only screen and (max-width: 650px) {
+	.mylibrary-table-wrap .area-box ul li {width:49%;}
+}	

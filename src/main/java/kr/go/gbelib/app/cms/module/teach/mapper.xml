@@ -1335,7 +1335,7 @@
 			ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC
 			) A
-		)
+		) A
 		WHERE TEACH_STATUS IN (0,1,6)
 		${pagingBottom}
 	</select>
@@ -1501,7 +1501,7 @@
 											</otherwise>
 										</choose>
 								) A
-		)
+		) A
 		WHERE TEACH_STATUS IN (0,1,6)
 		<if test="search_area != null and search_area != ''">
 			AND address LIKE '%'||#{search_area}||'%'

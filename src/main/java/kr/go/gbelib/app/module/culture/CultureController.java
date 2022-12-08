@@ -210,7 +210,17 @@ public class CultureController extends BaseController {
         myLibrary.setLogin_type(sessionMemberInfo.getLoginType());
         myLibrary.setMember_id(sessionMemberInfo.getMember_id());
 
-        model.addAttribute("myLibraryOne", myLibraryService.getMyLibrary(myLibrary));
+        String homepage_name = "";
+
+        MyLibrary one = myLibraryService.getMyLibrary(myLibrary);
+
+        if (StringUtils.isNotEmpty(one.getManage_codes())) {
+            homepage.setManage_codes(one.getManage_codes().split(","));
+            homepage_name = homepageService.getHomepageNameInManageCode(homepage);
+        }
+
+        model.addAttribute("myLibraryOne", one);
+        model.addAttribute("homepage_name", homepage_name);
         model.addAttribute("myLibrary", myLibrary);
         return String.format(basePath, homepage.getFolder()) + "myLibrary";
     }
