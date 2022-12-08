@@ -91,7 +91,17 @@
     <li class="mylibselect">
       <div class="">
         <span class="top">${sessionScope.member.member_name}님의 지정도서관입니다.</span>
-        <span class="middle">${homepage_name}</span>
+        <span class="middle">
+          <c:set var="name" value="${fn:split(homepage_name,',')}" />
+          <select>
+            <c:if test="${empty homepage_name or homepage_name == ''}">
+              <option value="">등록된 나만의도서관이 없습니다.</option>
+            </c:if>
+            <c:forEach var="i" items="${name}" varStatus="g">
+              <option value="${i}">${i}</option>
+            </c:forEach>
+          </select>
+        </span>
         <span class="bottom">지정도서관을 설정하시면 해당 도서관의 문화정보를 한눈에 보실 수 있습니다. </span>
       </div>
     </li>
