@@ -101,7 +101,7 @@
 			a.homepage_id, a.homepage_group, a.homepage_name, a.homepage_eng_name, a.homepage_alias,
 			a.homepage_tell, a.homepage_fax, a.homepage_send_tell, a.zipcode, a.address1,
 			a.address2, a.eng_address, a.homepage_type, a.manage_code, lib_code, a.domain,
-			a.context_path, a.folder, a.remark, a.temp_use_yn, a.temp_start_date,
+			a.folder, a.remark, a.temp_use_yn, a.temp_start_date,
 			a.temp_end_date, a.print_seq, a.point_api_key,
 			CASE
 				WHEN homepage_group != 'ALL'
