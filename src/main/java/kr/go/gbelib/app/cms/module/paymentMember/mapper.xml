@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.paymentMember.PaymentMemberDao">
+
+	<select id="getPaymentMemberCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			PAYMENT_MEMBER
+		WHERE
+			delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="join_start_date != null and join_start_date != '' and join_end_date != null and join_end_date != ''">
+			AND TO_DATE(join_start_date,'yyyy-MM-dd') BETWEEN #{join_start_date} AND #{join_end_date}
+		</if>
+	</select>
+	
+	<select id="getPaymentMemberFamilyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			PAYMENT_MEMBER A, PAYMENT_FAMILY_MEMBER B
+		WHERE
+			A.delete_yn = 'N'
+		AND B.family_delete_yn = 'N'
+		AND	A.pay_family_member_idx = B.pay_family_member_idx
+		AND A.pay_member_idx = #{pay_member_idx}
+	</select>
+	
+	<select id="getPaymentMemberList" resultType="kr.go.gbelib.app.cms.module.paymentMember.PaymentMember">
+		${pagingTop}
+		SELECT
+			homepage_id, pay_member_idx, pay_family_member_idx, pay_member_name, phone,
+		    tel, loan_number, birth,
+		    TO_CHAR(join_start_date,'yyyy-MM-dd') AS join_start_date,
+		    TO_CHAR(join_end_date,'yyyy-MM-dd') AS join_end_date,
+		    use_type, sex,
+		    REGEXP_REPLACE(REVERSE(REGEXP_REPLACE(REVERSE(TO_CHAR(sponsorship_amount)), '(\d{3})','\1,')), '^,','') AS sponsorship_amount,
+		    approve_yn, add_id,
+		    add_date, add_ip, modify_id, modify_date, delete_id,
+		    delete_date, delete_ip, delete_yn, etc, email_address,
+		    family_yn, family_count
+		FROM
+			PAYMENT_MEMBER
+		WHERE
+			delete_yn = 'N'
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="join_start_date != null and join_start_date != '' and join_end_date != null and join_end_date != ''">
+			AND TO_DATE(join_start_date,'yyyy-MM-dd') BETWEEN #{join_start_date} AND #{join_end_date}
+		</if>
+		ORDER BY pay_member_idx DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getPaymentMemberFamilyList" resultType="kr.go.gbelib.app.cms.module.paymentMember.PaymentMember">
+		SELECT
+			homepage_id, pay_family_member_idx, family_idx, family_name,
+		    family_phone, family_tel,
+		    TO_CHAR(family_birth,'yyyy-MM-dd') AS family_birth,
+		    family_sex, family_email_address,
+		    family_etc, family_add_id, family_add_date, family_add_ip, family_modify_id,
+		    family_modify_date, family_delete_id, family_delete_date, family_delete_ip, family_delete_yn,
+		    SUBSTR(family_phone, 1, INSTR(family_phone, '-', 1, 1) - 1) AS family_phone1,
+      		SUBSTR(family_phone, INSTR(family_phone, '-', 1, 1) + 1, INSTR(family_phone, '-', 1, 2) - INSTR(family_phone, '-', 1, 1) - 1) AS family_phone2,
+       		SUBSTR(family_phone, INSTR(family_phone, '-', 1, 2) + 1) AS family_phone3
+		FROM
+			PAYMENT_FAMILY_MEMBER
+		WHERE
+			family_delete_yn = 'N'
+		AND	pay_family_member_idx = #{pay_family_member_idx}
+		ORDER BY family_idx
+	</select>
+	
+	<select id="getPaymentMemberOne" resultType="kr.go.gbelib.app.cms.module.paymentMember.PaymentMember">
+		SELECT
+			homepage_id, pay_member_idx, pay_family_member_idx, pay_member_name,
+			SUBSTR(phone, 1, INSTR(phone, '-', 1, 1) - 1) AS phone1,
+      		SUBSTR(phone, INSTR(phone, '-', 1, 1) + 1, INSTR(phone, '-', 1, 2) - INSTR(phone, '-', 1, 1) - 1) AS phone2,
+       		SUBSTR(phone, INSTR(phone, '-', 1, 2) + 1) AS phone3,
+       		SUBSTR(tel, 1, INSTR(tel, '-', 1, 1) - 1) AS tel1,
+      		SUBSTR(tel, INSTR(tel, '-', 1, 1) + 1, INSTR(tel, '-', 1, 2) - INSTR(tel, '-', 1, 1) - 1) AS tel2,
+       		SUBSTR(tel, INSTR(tel, '-', 1, 2) + 1) AS tel3,
+       		SUBSTR(use_type, 1, INSTR(use_type, ',', 1, 1) - 1) AS use_type1,
+      		SUBSTR(use_type, INSTR(use_type, ',', 1, 1) + 1, INSTR(use_type, ',', 1, 2) - INSTR(use_type, ',', 1, 1) - 1) AS use_type2,
+       		SUBSTR(use_type, INSTR(use_type, ',', 1, 2) + 1) AS use_type3,
+       		loan_number, birth, join_start_date, join_end_date,
+		    use_type, sex, sponsorship_amount, approve_yn, add_id,
+		    add_date, add_ip, modify_id, modify_date, delete_id,
+		    delete_date, delete_ip, delete_yn, etc, family_yn,
+		    REGEXP_SUBSTR (email_address, '[^@]+', 1, 1) AS email1,
+       		REGEXP_SUBSTR (email_address, '[^@]+', 1, 2) AS email2,
+       		family_count
+		FROM
+			PAYMENT_MEMBER
+		WHERE
+			delete_yn = 'N'
+		AND	pay_member_idx = #{pay_member_idx}
+	</select>
+	
+	<insert id="addPaymentMember">
+		INSERT INTO
+			PAYMENT_MEMBER
+		(
+			homepage_id, pay_member_idx, pay_family_member_idx, pay_member_name, phone,
+		    tel, loan_number, birth, join_start_date, join_end_date,
+		    use_type, sex, sponsorship_amount, approve_yn, add_id,
+		    add_date, add_ip, modify_id, modify_date, delete_id,
+		    delete_date, delete_ip, delete_yn, etc, email_address,
+		    family_yn, family_count
+		)
+		VALUES
+		(
+			#{homepage_id}, #{pay_member_idx}, #{pay_member_idx}, #{pay_member_name}, #{phone},
+			#{tel}, #{loan_number}, #{birth}, #{join_start_date}, #{join_end_date},
+			#{use_type}, #{sex}, #{sponsorship_amount}, 'Y', #{add_id},
+			SYSDATE, #{add_ip}, #{modify_id}, #{modify_date}, #{delete_id},
+			#{delete_date}, #{delete_ip}, 'N', #{etc}, #{email_address},
+			#{family_yn}, #{family_count}
+		)
+	</insert>
+	
+	<update id="modifyPaymentMember">
+		UPDATE
+			PAYMENT_MEMBER
+		SET
+			pay_member_name = #{pay_member_name},
+			phone = #{phone},
+			tel = #{tel},
+			loan_number = #{loan_number},
+			join_start_date = #{join_start_date},
+			join_end_date = #{join_end_date},
+			use_type = #{use_type},
+			sponsorship_amount = #{sponsorship_amount},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE,
+			email_address = #{email_address}
+		WHERE
+			delete_yn = 'N'
+		AND	pay_member_idx = #{pay_member_idx}
+	</update>
+	
+	<update id="modifyPaymentFamilyMember">
+		UPDATE
+			PAYMENT_FAMILY_MEMBER
+		SET
+			family_name = #{family_name},
+			family_phone = #{family_phone},
+			family_tel = #{family_tel},
+			family_birth = #{family_birth},
+			family_sex = #{family_sex},
+			family_email_address = #{family_email_address},
+			family_etc = #{family_etc},
+			family_modify_date = SYSDATE
+		WHERE
+			family_delete_yn = 'N'
+		AND	pay_family_member_idx = #{pay_family_member_idx}
+	</update>
+	
+	<update id="deletePaymentMember">
+		UPDATE
+			PAYMENT_MEMBER
+		SET
+			delete_id = #{delete_id},
+			delete_ip = #{delete_ip},
+			delete_yn = 'Y',
+			delete_date = SYSDATE
+		WHERE
+			delete_yn = 'N'
+		AND	pay_member_idx = #{pay_member_idx}
+	</update>
+	
+	<update id="updateFamilyMemberYn">
+		UPDATE
+			PAYMENT_MEMBER
+		SET
+			family_yn = #{family_yn}
+		WHERE
+			pay_member_idx = #{pay_member_idx}
+	</update>
+	
+	<update id="deletePaymentFamilyMember">
+		UPDATE
+			PAYMENT_FAMILY_MEMBER
+		SET
+			family_delete_id = #{delete_id},
+			family_delete_ip = #{delete_ip},
+			family_delete_yn = 'Y',
+			family_delete_date = SYSDATE
+		WHERE
+			family_delete_yn = 'N'
+		AND	pay_family_member_idx = #{pay_member_idx}
+	</update>
+	
+	<select id="getFamilyIdx" resultType="int">
+		SELECT
+			NVL(MAX(family_idx), 0) + 1
+		FROM
+			PAYMENT_FAMILY_MEMBER
+		WHERE pay_family_member_idx = #{pay_family_member_idx}
+	</select>
+	
+	<select id="getPayMemberIdx" resultType="int">
+		SELECT
+			NVL(MAX(pay_member_idx), 0) + 1
+		FROM
+			PAYMENT_MEMBER
+	</select>
+	
+	<insert id="addPaymentFamilyMember">
+		INSERT INTO
+			PAYMENT_FAMILY_MEMBER
+		(
+			homepage_id, pay_family_member_idx, family_idx, family_name,
+		    family_phone, family_tel, family_birth, family_sex, family_email_address,
+		    family_etc, family_add_id, family_add_date, family_add_ip, family_modify_id,
+		    family_modify_date, family_delete_id, family_delete_date, family_delete_ip, family_delete_yn
+		)
+		VALUES
+		(
+			#{homepage_id}, #{pay_family_member_idx}, #{family_idx}, #{family_name},
+			#{family_phone}, #{family_tel}, #{family_birth}, #{family_sex}, #{family_email_address},
+			#{family_etc}, #{family_add_id}, SYSDATE, #{family_add_ip}, #{family_modify_id},
+			#{family_modify_date}, #{family_delete_id}, #{family_delete_date}, #{family_delete_ip}, 'N'
+		)
+	</insert>
+	
+	<update id="changeApprovePaymentMember">
+		UPDATE
+			PAYMENT_MEMBER
+		SET
+			approve_yn = #{approve_yn}
+		WHERE
+			pay_member_idx = #{pay_member_idx}
+	</update>
+</mapper>
