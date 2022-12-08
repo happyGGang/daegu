@@ -407,7 +407,7 @@
 
 				<div class="culture-box">
 					<ul>
-						<c:forEach var="i" varStatus="status" items="${teachList1}" begin="0" end="1">
+						<c:forEach var="i" varStatus="status" items="${teachList1}" begin="0" end="2">
 							<li>
 								<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=29&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
 									<span class="culture-tit"><!--[${i.category_name}]-->${i.teach_name}</span>
