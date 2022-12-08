@@ -107,7 +107,7 @@
 				WHEN homepage_group != 'ALL'
 			    THEN (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = a.HOMEPAGE_GROUP)
 				ELSE a.context_path
-				END
+				END AS context_path
 		FROM
 			CMS_HOMEPAGE a
 		WHERE
