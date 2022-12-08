@@ -382,7 +382,7 @@ public class TeachService extends BaseService {
 
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
-				Homepage homepage = homepageService.getHomepageOne(new Homepage(result.getHomepage_id()));
+				Homepage homepage = homepageService.getHomepageOne2(new Homepage(result.getHomepage_id()));
 				result.setContext_path(homepage.getContext_path());
 				result.setTeach_day_arr(result.getTeach_day().split(","));
 				result.setHolidays(dao.getHolidays(result));
@@ -427,7 +427,7 @@ public class TeachService extends BaseService {
 
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
-				Homepage homepage = homepageService.getHomepageOne(new Homepage(result.getHomepage_id()));
+				Homepage homepage = homepageService.getHomepageOne2(new Homepage(result.getHomepage_id()));
 				result.setContext_path(homepage.getContext_path());
 				result.setTeach_day_arr(result.getTeach_day().split(","));
 				result.setHolidays(dao.getHolidays(result));

@@ -1177,7 +1177,12 @@
 	<select id="getTeachListForAllCulture" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		${pagingTop}
 		SELECT
-		    *
+		A.*,
+		CASE
+		WHEN A.HOMEPAGE_GROUP = 'ALL'
+		THEN (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = A.homepage_id)
+		ELSE (SELECT CONTEXT_PATH FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = A.HOMEPAGE_GROUP)
+		END AS context_path
 		FROM (
 			SELECT
 			CASE
@@ -1234,7 +1239,7 @@
 			A.GROUP_NAME,
 			A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size,
 			(SELECT homepage_alias FROM CMS_HOMEPAGE WHERE homepage_id = A.homepage_id) AS homepage_alias,
-			(SELECT context_path FROM CMS_HOMEPAGE WHERE homepage_id = A.homepage_id) AS context_path,
+			(SELECT HOMEPAGE_GROUP FROM CMS_HOMEPAGE WHERE homepage_id = A.homepage_id) AS HOMEPAGE_GROUP,
 			req_start_date, req_end_date, APPLY_STATUS, a.LIMIT_HAK_YN,
 			a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 			getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,

@@ -202,4 +202,8 @@ public class HomepageService extends BaseService {
 	public String getHomepageNameInManageCode(Homepage homepage) {
 		return dao.getHomepageNameInManageCode(homepage);
 	}
+
+	public Homepage getHomepageOne2(Homepage homepage) {
+		return dao.getHomepageOne2(homepage);
+	}
 }
