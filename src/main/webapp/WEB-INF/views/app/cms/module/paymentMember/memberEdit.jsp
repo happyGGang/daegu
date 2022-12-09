@@ -155,10 +155,6 @@ function savePaymentMember() {
 <form:hidden id="homepage_id" path="homepage_id"/>
 
 <table class="type3">
-	<colgroup>
-		<col width="160" />
-		<col width="*"/>
-	</colgroup>
 	<thead>
 	<tr>
 		<th colspan="2">신청인</th>
@@ -166,12 +162,12 @@ function savePaymentMember() {
 	</thead>
 	<tbody>
 	<tr>
-		<th>이름 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="width:15%;">이름 (<span style="color: red; font-weight: bold;">*</span>)</th>
 		<td><form:input path="pay_member_name" class="text"/></td>
 	</tr>
 	<tr>
 		<th>대출번호</th>
-		<td><form:input path="loan_number" class="text" numberonly="true"/></td>
+		<td><form:input path="loan_number" class="text"/></td>
 	</tr>
 	<tr>
 		<th>본인 연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -224,10 +220,10 @@ function savePaymentMember() {
 	<tr>
 		<th>이용구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
 		<td>
-			<form:input path="use_type" class="text"/>
-			<div class="ui-state-highlight">
-				<em>* ex) 열람, 대출, 후원</em>
-			</div>
+			<form:select path="use_type" cssClass="selectmenu">
+				<form:option value="대출">대출</form:option>
+				<form:option value="후원">후원</form:option>
+			</form:select>
 		</td>
 	</tr>
 	<tr>
@@ -236,13 +232,13 @@ function savePaymentMember() {
 	</tr>
 	<tr>
 		<th>비고</th>
-		<td><form:textarea path="etc" class="text" cssStyle="width:100%;" rows="3"/></td>
+		<td><form:textarea path="etc" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;" rows="3"/></td>
 	</tr>
 	<tr>
 		<th>가족구성원수</th>
 		<td>
 			<form:input path="family_count" cssStyle="width:20px;" cssClass="text" numberonly="true"/>명
-			<a href="javascript:void(0);" class="btn btn1" onclick="loadFamilyForm();"><span>확인</span></a>
+			<!-- <a href="javascript:void(0);" class="btn btn1" onclick="loadFamilyForm();"><span>확인</span></a> -->
 		</td>
 	</tr>
 	</tbody>
@@ -250,13 +246,6 @@ function savePaymentMember() {
 <!-- 유료회원 가족 정보 등록 폼 -->
 <br/>
 <table class="type3 familyForm">
-	<colgroup>
-		<col width="160" />
-		<col width="100"/>
-		<col width="250"/>
-		<col width="100"/>
-		<col width="*"/>
-	</colgroup>
 	<thead>
 	<tr>
 		<th colspan="6">가족</th>
@@ -264,12 +253,83 @@ function savePaymentMember() {
 	</thead>
 	<tbody>
 	<tr>
-		<th>이름 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>성별 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>생년월일 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>기타</th>
+		<th style="text-align:center;width:15%;">이름 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:15%;">성별 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:15%;">연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:15%;">생년월일 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:40%;">기타</th>
 	</tr>
+	<tr>
+		<td style="text-align:center;"><form:input path="family_name" id="family_name_1" class="text"/></td>
+		<td style="text-align:center;">
+			<input type="radio" id="family_sex_1" name="family_sex_1" value="M" label="남" cssClass="M"/>남
+			<input type="radio" id="family_sex_1" name="family_sex_1" value="F" label="여" cssClass="F"/>여
+		</td>
+		<td style="text-align:center;">
+			<form:input path="family_phone1" id="family_phone1_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+			<form:input path="family_phone2" id="family_phone2_1" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+			<form:input path="family_phone3" id="family_phone3_1" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+		</td>
+		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_1" class="text ui-calendar" readonly="true"/></td>
+		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_1" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
+	</tr>
+	<tr>
+		<td style="text-align:center;"><form:input path="family_name" id="family_name_2" class="text"/></td>
+		<td style="text-align:center;">
+			<input type="radio" id="family_sex_2" name="family_sex_2" value="M" label="남" cssClass="M"/>남
+			<input type="radio" id="family_sex_2" name="family_sex_2" value="F" label="여" cssClass="F"/>여
+		</td>
+		<td style="text-align:center;">
+			<form:input path="family_phone1" id="family_phone1_2" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+			<form:input path="family_phone2" id="family_phone2_2" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+			<form:input path="family_phone3" id="family_phone3_2" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+		</td>
+		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_2" class="text ui-calendar" readonly="true"/></td>
+		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_2" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
+	</tr>
+	<tr>
+		<td style="text-align:center;"><form:input path="family_name" id="family_name_3" class="text"/></td>
+		<td style="text-align:center;">
+			<input type="radio" id="family_sex_3" name="family_sex_3" value="M" label="남" cssClass="M"/>남
+			<input type="radio" id="family_sex_3" name="family_sex_3" value="F" label="여" cssClass="F"/>여
+		</td>
+		<td style="text-align:center;">
+			<form:input path="family_phone1" id="family_phone1_3" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+			<form:input path="family_phone2" id="family_phone2_3" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+			<form:input path="family_phone3" id="family_phone3_3" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+		</td>
+		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_3" class="text ui-calendar" readonly="true"/></td>
+		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_3" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
+	</tr>
+	<tr>
+		<td style="text-align:center;"><form:input path="family_name" id="family_name_4" class="text"/></td>
+		<td style="text-align:center;">
+			<input type="radio" id="family_sex_4" name="family_sex_4" value="M" label="남" cssClass="M"/>남
+			<input type="radio" id="family_sex_4" name="family_sex_4" value="F" label="여" cssClass="F"/>여
+		</td>
+		<td style="text-align:center;">
+			<form:input path="family_phone1" id="family_phone1_4" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+			<form:input path="family_phone2" id="family_phone2_4" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+			<form:input path="family_phone3" id="family_phone3_4" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+		</td>
+		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_4" class="text ui-calendar" readonly="true"/></td>
+		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_4" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
+	</tr>
+	<tr>
+		<td style="text-align:center;"><form:input path="family_name" id="family_name_5" class="text"/></td>
+		<td style="text-align:center;">
+			<input type="radio" id="family_sex_5" name="family_sex_5" value="M" label="남" cssClass="M"/>남
+			<input type="radio" id="family_sex_5" name="family_sex_5" value="F" label="여" cssClass="F"/>여
+		</td>
+		<td style="text-align:center;">
+			<form:input path="family_phone1" id="family_phone1_5" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
+			<form:input path="family_phone2" id="family_phone2_5" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
+			<form:input path="family_phone3" id="family_phone3_5" style="width:50px;" class="text" maxlength="4" numberonly="true" />
+		</td>
+		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_5" class="text ui-calendar" readonly="true"/></td>
+		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_5" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
+	</tr>
+	<!--
 	<c:if test="${not empty familyCount and familyCount ne '0'}">
 		<c:forEach var="i" begin="1" end="${familyCount}">
 			<tr>
@@ -288,6 +348,7 @@ function savePaymentMember() {
 			</tr>
 		</c:forEach>
 	</c:if>
+	-->
 	</tbody>
 </table>
 

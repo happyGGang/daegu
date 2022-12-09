@@ -227,10 +227,10 @@ function savePaymentMember() {
 	<tr>
 		<th>이용구분 (<span style="color: red; font-weight: bold;">*</span>)</th>
 		<td>
-			<form:input path="use_type" class="text"/>
-			<div class="ui-state-highlight">
-				<em>* ex) 열람, 대출, 후원</em>
-			</div>
+			<form:select path="use_type" cssClass="selectmenu">
+				<form:option value="대출">대출</form:option>
+				<form:option value="후원">후원</form:option>
+			</form:select>
 		</td>
 	</tr>
 	<tr>
@@ -239,7 +239,7 @@ function savePaymentMember() {
 	</tr>
 	<tr>
 		<th>비고</th>
-		<td><form:textarea path="etc" class="text" cssStyle="width:100%;" rows="3"/></td>
+		<td><form:textarea path="etc" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;" rows="3"/></td>
 	</tr>
 	<tr>
 		<th>가족구성원수</th>
@@ -252,13 +252,6 @@ function savePaymentMember() {
 <!-- 유료회원 가족 정보 수정 폼 -->
 <br/>
 <table class="type3 familyForm">
-	<colgroup>
-		<col width="160" />
-		<col width="100"/>
-		<col width="250"/>
-		<col width="100"/>
-		<col width="*"/>
-	</colgroup>
 	<thead>
 	<tr>
 		<th colspan="6">가족</th>
@@ -266,11 +259,11 @@ function savePaymentMember() {
 	</thead>
 	<tbody>
 	<tr>
-		<th>이름 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>성별 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>생년월일 (<span style="color: red; font-weight: bold;">*</span>)</th>
-		<th>기타</th>
+		<th style="text-align:center;width:18%;">이름 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:18%;">성별 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:18%;">연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:18%;">생년월일 (<span style="color: red; font-weight: bold;">*</span>)</th>
+		<th style="text-align:center;width:28%;">기타</th>
 	</tr>
 	<c:forEach var="i" items="${familyMemberList}" varStatus="status">
 		<form:hidden id="pay_family_member_idx_${status.count}" path="pay_family_member_idx" value="${i.pay_family_member_idx}"/>
@@ -286,7 +279,7 @@ function savePaymentMember() {
 				<form:input path="family_phone3" id="family_phone3_${status.count}" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${i.family_phone3}"/>
 			</td>
 			<td><form:input path="family_birth" disabled="true" id="family_birth_${status.count}" class="text ui-calendar" readonly="true" value="${i.family_birth}"/></td>
-			<td><form:textarea path="family_etc" id="family_etc_${status.count}" class="text" cssStyle="width:100%;"/></td>
+			<td><form:textarea path="family_etc" id="family_etc_${status.count}" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
 		</tr>
 	</c:forEach>
 	</tbody>
