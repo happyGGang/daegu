@@ -193,67 +193,70 @@
 				<div class="book-box web-view">
 					<div id="main-slide" class="main-floor1">
 						<div class="book-box-title">
-							<h4>신착도서</h4>
-							<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="more-btn">더보기 +</a>
+							<h4>추천도서</h4>
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=1079" class="more-btn">더보기 +</a>
 						</div>
 						<div class="swiper-container gallery-top-main">
 							<div class="swiper-wrapper">
-								<c:forEach items="${newBookList}" var="i" begin="0" end="9">
-								<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+								<c:forEach items="${bookList}" var="i" begin="0" end="9">
 									<c:choose>
-										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<div class="swiper-slide">
+										<c:when test="${i.preview_img ne null}">
+										<c:choose>
+											<c:when test="${fn:contains(i.preview_img, 'http')}">
+												<div class="swiper-slide">
 												<div class="main-slide1-con">
-													<div class="text">
-														<h4>${i.TITLE_INFO}</h4>
-													</div>
-													<div class="photo">
-														<a href="${detailURL}">
-															<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
-														</a>
-													</div>
+												<div class="text">
+													<h4>${i.title}</h4>
+												</div>
+												<div class="photo">
+													<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+														<img src="${i.preview_img}" alt="${i.title} 상세보기"/>
+													</a>
+												</div>
 												</div>
 											</div>
-										</c:when>
-										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-											<div class="swiper-slide">
+											</c:when>
+											<c:otherwise>
+												<div class="swiper-slide">
 												<div class="main-slide1-con">
 													<div class="text">
-														<h4>${detail.TITLE_INFO}</h4>
-													</div>
-													<div class="photo">
-														<a href="${detailURL}">
-															<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
-														</a>
-													</div>
+													<h4>${i.title}</h4>
+												</div>
+												<div class="photo">
+													<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+													</a>
+												</div>
 												</div>
 											</div>
+											</c:otherwise>
+										</c:choose>
 										</c:when>
 										<c:otherwise>
 											<div class="swiper-slide">
 												<div class="main-slide1-con">
 													<div class="text">
-														<h4>${i.TITLE_INFO}</h4>
-													</div>
-													<div class="photo">
-														<a href="${detailURL}">
-															<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
-														</a>
-													</div>
-												</div>
+												<h4>${i.title}</h4>
+											</div>
+											<div class="photo">
+												<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+												</a>
+											</div>
+											</div>
 											</div>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<c:if test="${empty newBookList}">
+								<c:if test="${empty bookList}">
 									<div class="swiper-slide">
 										<div class="main-slide1-con">
 											<div class="text">
-												<h4>등록된 신착도서가 없습니다.</h4>
+												<h4>등록된 추천도서가 없습니다.</h4>
 											</div>
 											<div class="photo">
 												<a href="#">
-													<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 신착도서가 없습니다." />
+													<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 추천도서가 없습니다." />
 												</a>
 											</div>
 										</div>
@@ -263,36 +266,39 @@
 						</div>
 						<div class="swiper-container gallery-thumbs-main">
 							<div class="swiper-wrapper">
-								<c:forEach items="${newBookList}" var="i" begin="0" end="9">
-								<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+								<c:forEach items="${bookList}" var="i" begin="0" end="9">
 									<c:choose>
-										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<div class="swiper-slide">
-												<span>
-													<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
-												</span>
-											</div>
-										</c:when>
-										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-											<div class="swiper-slide">
-												<span>
-													<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
-												</span>
-											</div>
+										<c:when test="${i.preview_img ne null}">
+										<c:choose>
+											<c:when test="${fn:contains(i.preview_img, 'http')}">
+												<div class="swiper-slide">
+													<span>
+														<img src="${i.preview_img}" alt="${i.title} 상세보기"/>
+													</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="swiper-slide">
+													<span>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+													</span>
+												</div>
+											</c:otherwise>
+										</c:choose>
 										</c:when>
 										<c:otherwise>
 											<div class="swiper-slide">
 												<span>
-													<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 												</span>
 											</div>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<c:if test="${empty newBookList}">
+								<c:if test="${empty bookList}">
 									<div class="swiper-slide">
 										<span>
-											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 신착도서가 없습니다." />
+											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 추천도서가 없습니다." />
 										</span>
 									</div>
 								</c:if>
@@ -355,49 +361,44 @@
 
 				<div class="book-box mobile-view">
 					<div class="book-box-title">
-						<h4>신착도서</h4>
-						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="more-btn">신착도서 더보기 +</a>
+						<h4>추천도서</h4>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=1079" class="more-btn">추천도서 더보기 +</a>
 					</div>
 					<div class="cont">
 						<ul>
-							<c:forEach items="${newBookList}" var="i" begin="0" end="9">
-							<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+							<c:forEach items="${bookList}" var="i" begin="0" end="9">
 								<c:choose>
-									<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-									<li>
-									<a href="${detailURL}">
-										<div class="thumbnails">
-											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
-										</div>
-										<h3 class="book-title">${i.TITLE_INFO}</h3>
-									</a>
-									</c:when>
-									<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-									<a href="${detailURL}">
-										<div class="thumbnails">
-											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
-										</div>
-										<h3 class="book-title">${i.TITLE_INFO}</h3>
-									</a>
+									<c:when test="${i.preview_img ne null}">
+									<c:choose>
+										<c:when test="${fn:contains(i.preview_img, 'http')}">
+											<div class="thumbnails">
+												<img src="${i.preview_img}" alt="등록된 이미지가 없습니다. ${i.title} 상세보기"/>
+											</div>
+											<h3 class="book-title">${i.title}</h3>
+										</c:when>
+										<c:otherwise>
+											<div class="thumbnails">
+												<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="등록된 이미지가 없습니다. ${i.title} 상세보기"/>
+											</div>
+											<h3 class="book-title">${i.title}</h3>
+										</c:otherwise>
+									</c:choose>
 									</c:when>
 									<c:otherwise>
-									<a href="${detailURL}">
 										<div class="thumbnails">
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기"/>
 										</div>
-										<h3 class="book-title">${i.TITLE_INFO}</h3>
-									</a>
-									</li>
+										<h3 class="book-title">${i.title}</h3>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							<c:if test="${empty newBookList}">
+							<c:if test="${empty bookList}">
 							<li>
 								<a href="#">
 									<div class="thumbnails">
-										<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 신착도서가 없습니다."/>
+										<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 추천도서가 없습니다."/>
 									</div>
-									<h3 class="book-title">등록된 신착도서가 없습니다.</h3>
+									<h3 class="book-title">등록된 추천도서가 없습니다.</h3>
 								</a>
 							</li>
 							</c:if>

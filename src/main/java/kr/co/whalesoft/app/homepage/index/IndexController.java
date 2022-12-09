@@ -961,54 +961,70 @@ public class IndexController extends BaseController {
 			b.setManage_idx(1071);
 			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
 		}
+		
+		//아트도서관
+		if (homepage.getHomepage_id().equals("h84")) {
+			Board b = new Board();
+			b.setManage_idx(1074);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
+		}
+		
+		//연암도서관
+		if (homepage.getHomepage_id().equals("h85")) {
+			Board b = new Board();
+			b.setManage_idx(1079);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
+		}
 
 		//아트도서관, 연암도서관 신착도서
-		if(homepage.getHomepage_id().equals("h84") || homepage.getHomepage_id().equals("h85") ) {
-			LibrarySearch librarySearch = new LibrarySearch();
-			librarySearch.setManageCode(homepage.getManage_code());
-
-			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
-				librarySearch.setShelfCode("ALL");
-			}
-
-			//검색기간 설정
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-			//1주전
-			int beforeDays = -60;
-
-			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
-			librarySearch.setSearch_end_date(sf.format(new Date()));
-
-			librarySearch.setBooktype("0");
-
-			Map<String, Object> result = PrivateLibSearchAPI.getNewBookList(librarySearch);
-			List<Map<String, Object>> list = null;
-
-			int count = PrivateLibSearchAPI.getSearchCount(result);
-
-			librarySearch.setTotalDataCount(count);
-			service.setPaging(model, count, librarySearch);
-
-			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-				list = PrivateLibSearchAPI.getListData(result);
-				for (Map<String, Object> map : list) {
-					if (map.containsKey("ISBN")) {
-						//알라딘 API 결과 가져오기
-						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-							Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
-							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-								map.put("aladin", aladinData.get("item"));
-							}
-							if (map.get("aladin") == null) {
-								map.put("imageUrl", service.getImageUrl(map));
-							}
-						}
-					}
-				}
-			}
-			model.addAttribute("newBookList", list);
-			model.addAttribute("librarySearch", librarySearch);
-		}
+//		if(homepage.getHomepage_id().equals("h84") || homepage.getHomepage_id().equals("h85") ) {
+			
+			
+//			LibrarySearch librarySearch = new LibrarySearch();
+//			librarySearch.setManageCode(homepage.getManage_code());
+//
+//			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
+//				librarySearch.setShelfCode("ALL");
+//			}
+//
+//			//검색기간 설정
+//			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+//			//1주전
+//			int beforeDays = -60;
+//
+//			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+//			librarySearch.setSearch_end_date(sf.format(new Date()));
+//
+//			librarySearch.setBooktype("0");
+//
+//			Map<String, Object> result = PrivateLibSearchAPI.getNewBookList(librarySearch);
+//			List<Map<String, Object>> list = null;
+//
+//			int count = PrivateLibSearchAPI.getSearchCount(result);
+//
+//			librarySearch.setTotalDataCount(count);
+//			service.setPaging(model, count, librarySearch);
+//
+//			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+//				list = PrivateLibSearchAPI.getListData(result);
+//				for (Map<String, Object> map : list) {
+//					if (map.containsKey("ISBN")) {
+//						//알라딘 API 결과 가져오기
+//						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+//							Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+//							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+//								map.put("aladin", aladinData.get("item"));
+//							}
+//							if (map.get("aladin") == null) {
+//								map.put("imageUrl", service.getImageUrl(map));
+//							}
+//						}
+//					}
+//				}
+//			}
+//			model.addAttribute("newBookList", list);
+//			model.addAttribute("librarySearch", librarySearch);
+//		}
 
 		//연암마을도서관
 		String[] teachHomepage4 = {"h85"};

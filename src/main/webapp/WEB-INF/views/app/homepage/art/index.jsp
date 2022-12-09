@@ -280,7 +280,7 @@
 			<div class="main-section3">
 				<div class="book-title">
 					<h3>NEW BOOK</h3>
-					<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=11" class="btn-more2 more-more">더보기</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=1074" class="btn-more2 more-more">더보기</a>
 				</div>
 
 				<script>
@@ -372,34 +372,37 @@
 				</script>
 				<div class="bookList">
 					<ul>
-						<c:forEach items="${newBookList}" var="i" begin="0" end="9">
-						<c:set var="detailURL" value="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}"></c:set>
+						<c:forEach items="${bookList}" var="i" begin="0" end="9">
 							<c:choose>
-								<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-								<li>
-								<a href="${detailURL}">
-									<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
-								</a>
-								</li>
-								</c:when>
-								<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-								<li>
-								<a href="${detailURL}">
-									<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
-								</a>
-								</li>
+								<c:when test="${i.preview_img ne null}">
+								<c:choose>
+									<c:when test="${fn:contains(i.preview_img, 'http')}">
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<img src="${i.preview_img}" alt="${i.title}"/>
+											</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+											</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
 								</c:when>
 								<c:otherwise>
-								<li>
-								<a href="${detailURL}">
-									<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
-								</a>
-								</li>
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+										</a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<c:if test="${empty newBookList}">
-							<li>등록된 신착도서가 없습니다.</li>
+						<c:if test="${empty bookList}">
+							<li>등록된 추천도서가 없습니다.</li>
 						</c:if>
 					</ul>
 				</div>
