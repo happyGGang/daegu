@@ -214,9 +214,11 @@ public class CultureController extends BaseController {
 
         MyLibrary one = myLibraryService.getMyLibrary(myLibrary);
 
-        if (StringUtils.isNotEmpty(one.getManage_codes())) {
-            homepage.setManage_codes(one.getManage_codes().split(","));
-            homepage_name = homepageService.getHomepageNameInManageCode(homepage);
+        if (one != null) {
+            if (StringUtils.isNotEmpty(one.getManage_codes())) {
+                homepage.setManage_codes(one.getManage_codes().split(","));
+                homepage_name = homepageService.getHomepageNameInManageCode(homepage);
+            }
         }
 
         model.addAttribute("myLibraryOne", one);
