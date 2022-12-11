@@ -122,6 +122,14 @@
 					</div>
 				</div>
 			</div>
+			<div class="movie-box">
+				<div class="movie-slider">
+					<a href="http://design.infoset.co.kr/brailleinfo/info01.html" id="movie-slider" target="_blank">
+						<img src="/resources/homepage/${homepage.context_path}/img/brailleinfo-circle-txt.png" alt="" class="movie-btn movie-txt">
+						<img src="/resources/homepage/${homepage.context_path}/img/brailleinfo-icon.png" alt="" class="movie-btn">
+					</a>
+				</div>
+			</div>
 			<div class="main0-line"><img src="/resources/homepage/${homepage.context_path}/img/ht-line-right.png" alt=""></div>
 			<div class="main_scroll"><div class="main_scroll_wp">SCROLL DOWN</div></div>
 		</div>

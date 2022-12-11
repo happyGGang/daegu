@@ -6,8 +6,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
 <script type="text/javascript">
   $(function() {
@@ -45,30 +45,54 @@
 </script>
 
 <style>
-	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';}
-	select{padding:6px 5px !important;}
+	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
+	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
+	.new_select_box.wid2{min-width:150px;}
 
-	@media screen and (max-width: 1024px) {
-		.search-form__input{min-width:40%;}
+	.new_select_box.left2{left:210px;}
+	.new_select_box.left3{left:370px;}
+
+	input.new_text02{padding-left:650px;}
+	.search-form__input2{min-width:calc(100% - 650px);}
+	
+	@media screen and (max-width: 1024px) { 
+		input[type="text"]{font-size:15px;}
+		input[type="text"]::placeholder{font-size:15px;}
+
+		input.new_text02{padding-left:30px;margin-top:10px;height:50px !important;}
+		.search-form__input2{min-width:calc(97% - 30px);}
+
+		.new_select_box.wid2{min-width:30%;}
+
+		.new_select_box.left2{left:0;}
+		.new_select_box.left3{left:0;}
+
+		.nsb3{position:relative;top:0;left:0;min-width:30%;border:1px solid #ddd;border-radius:100px;height:50px;line-height:50px;padding:0 15px;}
 	}
-
-	@media screen and (max-width: 768px) {
-		.search-form__input{min-width:30%;}
+	
+	@media screen and (max-width: 768px) { 
+		.nsb3{min-width:33%;}
 	}
-
-	@media screen and (max-width: 600px) {
-		.search-form{display:grid;height:auto;text-align:center;padding:15px 0;}
-		.search-form__select{display:block;margin-bottom:5px;margin-left:0;max-width:100%;font-size:14px;}
-		.search-form__input{margin-left:0;font-size:14px;}
-		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	
+	@media screen and (max-width: 550px) { 
+		.new_select_box.wid2{min-width:100%;}
+		.nsb3{min-width:100%;margin-top:8px;}
+		.mt0{margin-top:0;}
+		.top2{top:190px;}
 	}
 </style>
 
 <form:form modelAttribute="culture" action="culture.do" method="GET">
 <form:hidden path="menu_idx"></form:hidden>
 <div class="search-form showNot01">
-	<form:select path="search_area" cssClass="search-form__select">
+	<form:select path="search_type" cssClass="search-form__select new_select_box left1 nsb3 wid2 mt0" title="검색 조건">
+		<form:option value="">전체</form:option>
+		<form:option value="NAME">명칭</form:option>
+		<form:option value="ADDRESS">주소</form:option>
+		<form:option value="CONTENTS">설명</form:option>
+	</form:select>
+
+	<form:select path="search_area" cssClass="search-form__select new_select_box left2 nsb3 wid2">
 		<form:option value="">지역전체</form:option>
 		<form:option value="0001">동구</form:option>
 		<form:option value="0002">서구</form:option>
@@ -80,27 +104,20 @@
 		<form:option value="0008">달성군</form:option>
 	</form:select>
 
-	<form:select path="search_cate" cssClass="search-form__select">
+	<form:select path="search_cate" cssClass="search-form__select new_select_box left3 nsb3">
 		<form:option value="">시설전체</form:option>
 		<form:option value="0001">공연장</form:option>
 		<form:option value="0006">박물관</form:option>
 		<form:option value="0007">영화관</form:option>
-		<form:option value="0003">도서관</form:option>
+		<!-- <form:option value="0003">도서관</form:option> -->
 		<form:option value="0005">미술관</form:option>
 		<form:option value="0004">문화·복지시군구회관</form:option>
 		<form:option value="0008">문화비 소득공제</form:option>
 		<form:option value="0002">기타문화공간</form:option>
 	</form:select>
 
-	<form:select path="search_type" cssClass="search-form__select" title="검색 조건">
-		<form:option value="">전체</form:option>
-		<form:option value="NAME">명칭</form:option>
-		<form:option value="ADDRESS">주소</form:option>
-		<form:option value="CONTENTS">설명</form:option>
-	</form:select>
-
-	<form:input path="search_text" cssClass="search-form__input" placeholder="검색어를 입력하세요." title="검색어 입력"></form:input>
-	<button id="search_btn" type="button" class="search-form__button">검색</button>
+	<form:input path="search_text" cssClass="text new_text02 search-form__input2" placeholder="검색어를 입력하세요." title="검색어 입력"></form:input>
+	<button id="search_btn" type="button" class="search-form__button top2"><img src="/resources/homepage/${homepage.context_path}/img/sub_srch_ico.png"></button>
 </div>
 
 <div class="result-count">

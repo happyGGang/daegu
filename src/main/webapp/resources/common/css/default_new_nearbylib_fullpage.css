@@ -257,7 +257,7 @@ h1{z-index:6}
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li>a img.OpenImg{margin:2px 0 0 5px}
-.Gnb .gnb-menu>li>.SubMenu{width:100%;left:0;position:absolute;white-space:normal;border-bottom:none}
+.Gnb .gnb-menu>li>.SubMenu{width:50%;left:0;position:absolute;white-space:normal;border-bottom:none}
 .Gnb .gnb-menu>li:first-child>.SubMenu{border-left:none}
 .Gnb .gnb-menu>li>.SubMenu>li{position:relative;z-index:6;display:block;text-align:left;clear:both;width:100%}
 .Gnb .gnb-menu>li>.SubMenu>li>a{display:block;height:100%;margin:0;border:none;background:none;color:#555;font-weight:normal}
@@ -664,11 +664,11 @@ h3.sub_top_tit span:after{content: ''; position: absolute; bottom: 0; left: 50%;
 /* quick_wrap - snb_rtop */
 .sub_rtop {float:right;}
 .etc_area {position:relative;}
-.etc_area > li {float:left; width:60px; height:60px; text-align:center; position: relative;}
-.etc_area > li:after{content: ''; width: 1px; height:12px; background: #b1a3a6; font-size: 0.750em; position: absolute; right: 0; top: 50%; transform: translate(0,-50%); -ms-transform: translate(0,-50%); -webkit-transform: translate(0,-50%);}
+.etc_area > li {float:left; /*width:60px;*/ height:60px; text-align:center; position: relative;}
+.etc_area > li:after{/*content: '';*/ width: 1px; height:12px; background: #b1a3a6; font-size: 0.750em; position: absolute; right: 0; top: 50%; transform: translate(0,-50%); -ms-transform: translate(0,-50%); -webkit-transform: translate(0,-50%);}
 .etc_area > li:last-child:after {background:transparent;}
 .etc_area > li > button {display:block;width:100%;}
-.etc_area > li > a {position:relative;display:inline-block;width:60px;height:60px;}
+.etc_area > li > a {position:relative;display:inline-block;width:50px;height:60px;}
 .etc_area > li > a img{margin-top:13px;}
 .snb_sns {overflow:hidden; display:none; position:absolute; width:0; left: 0; opacity:0; background:#f7f7f7; transition-duration: 0.2s;-webkit-transition-duration: 0.2s;top: 0px;}
 .snb_sns.show {display:block; width:auto; left: -185px; opacity:1;}

@@ -222,7 +222,7 @@
 #main2 .main2-center .mainSec02 .slickWrap {margin-bottom:60px;}
 #main2 .main2-center .mainSec02 .slickWrap .img {overflow:hidden;transition:all .3s ease;}
 #main2 .main2-center .mainSec02 .slickWrap .img img { transition:all .3s ease;}
-#main2 .main2-center .mainSec02 .slickWrap h2 {position:absolute;top:20px;left:25px;z-index:1;font-size:16px;color:#101010;font-weight:bold;background:#fff;border-top-right-radius:60px;border-bottom-left-radius:60px;border-bottom-right-radius:60px;padding:6px 27px;}
+#main2 .main2-center .mainSec02 .slickWrap h2 {position:absolute;top:20px;left:25px;z-index:1;font-size:16px;color:#101010;font-weight:bold;background:#fff;border-top-right-radius:60px;border-bottom-left-radius:60px;border-bottom-right-radius:60px;padding:6px 27px;border:1px solid #ddd;box-shadow:5px 5px 10px 10px rgba(0,0,0,0.05);}
 #main2 .main2-center .mainSec02 .slickWrap .link {position:absolute;bottom:-40px;right:0;width:370px;height:23px;color:#333;outline:none;align-items:center;text-transform:uppercase;transition:all .3s ease;font-family:'s-core_dream5_medium';font-size:20px;text-align:center;}
 #main2 .main2-center .mainSec02 .slickWrap .slick-slide a {position:relative;}
 #main2 .main2-center .mainSec02 .slickWrap .slick-slide:hover .img img { transform:scale(1.1);}
@@ -262,7 +262,7 @@
 #main3 .main3-center .areaculturetab {border:1px solid #000;border-radius:50px;box-sizing:border-box;}
 
 #main3 .main3-center .mainSec03-contents {padding:90px 0 0 0;}
-#main3 .main3-center .mainSec03-contents .areaCultureSlideList li h4 {display:block;color:#274395;font-family:'s-core_dream5_medium';font-size:15px;padding-bottom:18px;}
+#main3 .main3-center .mainSec03-contents .areaCultureSlideList li h4 {display:block;color:#274395;font-family:'s-core_dream5_medium';font-size:15px;padding-bottom:18px;height:40px;text-overflow: ellipsis;overflow: hidden;word-break: break-word;overflow:hidden;}
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a {}
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a div.imgae-box {position:relative;width:240px;height:340px;}
 #main3 .main3-center .mainSec03-contents .areaCultureSlideList li a div.imgae-box img {width:240px;height:340px;}

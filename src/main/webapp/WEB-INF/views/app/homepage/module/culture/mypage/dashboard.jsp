@@ -83,27 +83,23 @@
   <ul>
     <li class="point">
       <div class="">
-        <span class="top">${sessionScope.member.member_name}님의 사용가능 포인트입니다.</span>
+        <span class="top"><b>${sessionScope.member.member_name}</b>님의 사용가능 포인트입니다.</span>
         <span class="middle">${total_point} P</span>
         <%--<span class="bottom"><img src="libculture/img/point-icon.png" alt="" style='vertical-align:middle;'> 당월 소멸 예정 - <b>9</b></span>--%>
       </div>
     </li>
     <li class="mylibselect">
       <div class="">
-        <span class="top">${sessionScope.member.member_name}님의 지정도서관입니다.</span>
+        <span class="top"><b>${sessionScope.member.member_name}</b>님의 지정도서관입니다.</span>
         <span class="middle">
           <c:set var="name" value="${fn:split(homepage_name,',')}" />
           <select>
-            <c:choose>
-              <c:when test="${empty homepage_name or homepage_name == ''}">
-                <option value="">등록된 나만의 도서관이 없습니다.</option>
-              </c:when>
-              <c:otherwise>
-                <c:forEach var="i" items="${name}" varStatus="g">
-                  <option value="${i}">${i}</option>
-                </c:forEach>
-              </c:otherwise>
-            </c:choose>
+            <c:if test="${empty homepage_name or homepage_name == ''}">
+              <option value="">등록된 나만의 도서관이 없습니다.</option>
+            </c:if>
+            <c:forEach var="i" items="${name}" varStatus="g">
+              <option value="${i}">${i}</option>
+            </c:forEach>
           </select>
         </span>
         <span class="bottom">지정도서관을 설정하시면 해당 도서관의 문화정보를 한눈에 보실 수 있습니다. </span>

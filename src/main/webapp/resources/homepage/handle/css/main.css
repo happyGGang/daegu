@@ -39,7 +39,7 @@
 
 #main0 .main0-bottom {background:url('../img/main0-bg.jpg') no-repeat center center;background-size:cover;height:70%;box-sizing:border-box;}
 
-#main1 {background:#f1f8ff;padding-top:80px;}
+#main1 {padding-top:80px;background:url('../img/main1-bg.jpg') no-repeat center 70% #f1f8ff;}
 #main1 .culture-box {position:relative;float:left;width:830px;}
 #main1 .culture-box .culture-title {position:relative;padding-bottom:20px;margin-top:-20px;}
 #main1 .culture-box .culture-title h3 {font-family:'s-core_dream6_bold';font-size:33px;color:#222;}

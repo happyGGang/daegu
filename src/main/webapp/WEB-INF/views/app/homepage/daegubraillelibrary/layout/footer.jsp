@@ -26,7 +26,7 @@
 					<div>
 						<div>
 							<a class="fsite type1">
-							<span class="f1">대구광역시 공공도서관</span>
+							<span class="f1">대구광역시 사립공공도서관</span>
 							<span class="f2"><i></i></span></a>
 							<ul style="display:none">
 							<li class="disabled"><a title="더불어숲도서관" href="http://library.daegu.go.kr/with/index.do">더불어숲도서관</a></li>

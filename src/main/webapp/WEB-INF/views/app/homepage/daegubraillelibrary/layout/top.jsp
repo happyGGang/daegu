@@ -36,8 +36,8 @@
 					<c:otherwise>
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=61" class="login">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=65">통합회원인증</a>
-						<span class="txt-bar"></span>
+						<!-- <a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=65">통합회원인증</a>
+						<span class="txt-bar"></span> -->
 						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=62">회원가입</a>
 						<!-- <span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=6">아이디찾기</a>

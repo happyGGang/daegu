@@ -208,26 +208,6 @@
 			<div class="main-section3">
 				<div class="quick-menu">
 					<ul>
-						<li class="quick01">
-							<a href="/${homepage.context_path}/html.do?menu_idx=70" class="q01">
-								<span>책이음</span>
-							</a>
-						</li>
-						<li class="quick02">
-							<a href="/${homepage.context_path}/html.do?menu_idx=71" class="q02">
-								<span>책바다</span>
-							</a>
-						</li>
-						<li class="quick03">
-							<a href="/${homepage.context_path}/html.do?menu_idx=72" class="q03">
-								<span>책나래</span>
-							</a>
-						</li>
-						<li class="quick04">
-							<a href="/${homepage.context_path}/html.do?menu_idx=73" class="q04">
-								<span>사서에게물어보세요</span>
-							</a>
-						</li>
 						<li class="quick05">
 							<a href="https://library.daegu.go.kr/dgportal/index.do" target="_blank" class="q05">
 								<span>통합도서관</span>
@@ -246,6 +226,26 @@
 						<li class="quick08">
 							<a href="/${homepage.context_path}/html.do?menu_idx=38" class="q08">
 								<span>자원봉사신청</span>
+							</a>
+						</li>
+						<li class="quick01">
+							<a href="/${homepage.context_path}/html.do?menu_idx=18" class="q01">
+								<span>이용시간안내</span>
+							</a>
+						</li>
+						<li class="quick02">
+							<a href="/${homepage.context_path}/html.do?menu_idx=19" class="q02">
+								<span>자료이용안내</span>
+							</a>
+						</li>
+						<li class="quick03">
+							<a href="/${homepage.context_path}/html.do?menu_idx=17" class="q03">
+								<span>회원가입안내</span>
+							</a>
+						</li>
+						<li class="quick04">
+							<a href="/${homepage.context_path}/html.do?menu_idx=73" class="q04">
+								<span>사서에게물어보세요</span>
 							</a>
 						</li>
 					</ul>

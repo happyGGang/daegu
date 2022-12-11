@@ -279,7 +279,7 @@
 		<div class="section" id="main2">
 			<div class="main-section3">
 				<div class="book-title">
-					<h3>NEW BOOK</h3>
+					<h3>RECOMMENDED BOOK</h3>
 					<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=1074" class="btn-more2 more-more">더보기</a>
 				</div>
 
