@@ -47,112 +47,54 @@ $(function(){
 	});
 });
 
-function loadFamilyForm() {
-	var familyCount = $('#family_count').val();
-	
-	if(familyCount == '0'){
-		alert('가족구성원수를 입력하지 않으셨습니다.');
+function paymentMemberSave(editMode) {
+	var familyList = new Array();
+
+	$('#editMode').val(editMode);
+
+	$('tr[id^="family_tr_"]').each(function(index, item){
+		var family_name = $(this).find('td .family_name').val();
+		var family_sex = $(this).find('td .family_sex:checked').val();
+		var family_phone = $(this).find('td .family_phone').val();
+		var family_birth = $(this).find('td .family_birth').val();
+		var family_etc = $(this).find('td .family_etc').val();
+
+		if (!isEmpty(family_name) || !isEmpty(family_sex)  || !isEmpty(family_phone) || !isEmpty(family_birth)) {
+			var familyData = new Object() ;
+			familyData.family_name = family_name;
+			familyData.family_sex = isEmpty(family_sex)  ? '' : family_sex;
+			familyData.family_phone = family_phone;
+			familyData.family_birth = family_birth;
+			familyData.family_etc = family_etc;
+
+			familyList.push(familyData);
+		}
+	});
+
+	$('#familyData').val(JSON.stringify(familyList));
+
+	if(doAjaxPost($('#paymentMemberEdit'))) {
+		location.reload();
 	} else {
-		var ajaxData = {
-			'family_count' : familyCount
-		};
-		
-		$.ajax({
-			type: "POST",
-			url: 'memberEdit.do?family_count='+familyCount,
-			data: ajaxData,
-			success: function(response) {
-				doGetLoad('memberEdit.do', $('form#paymentMember').serialize());
-			},
-			error : function() {
-				alert('회원정보 삭제에 실패했습니다.\n관리자에게 문의해 주세요.');
-			}
-		});
+		console.log('test');
 	}
 }
 
-function savePaymentMember() {
-	const count = $('#family_count').val();
-	const countNum = Number(count);
-	const formData = {};
-	formData.pay_member_name = $("#pay_member_name").val();
-	formData.phone1 = $("#phone1").val();
-	formData.phone2 = $("#phone2").val();
-	formData.phone3 = $("#phone3").val();
-	formData.tel1 = $("#tel1").val();
-	formData.tel2 = $("#tel2").val();
-	formData.tel3 = $("#tel3").val();
-	formData.loan_number = $("#loan_number").val();
-	formData.birth = $("#birth").val();
-	formData.join_start_date = $("#join_start_date").val();
-	formData.join_end_date = $("#join_end_date").val();
-	formData.use_type = $("#use_type").val();
-	formData.sex = $("input[name=sex]:checked").val();
-	formData.sponsorship_amount = $("#sponsorship_amount").val();
-	formData.etc = $("#etc").val();
-	formData.email1 = $("#email1").val();
-	formData.email2 = $("#email2").val();
-	formData.family_count = $("#family_count").val();
-	if(countNum > 0){
-		
-		var aJsonArray = new Array();
-		
-		for (let i = 1; i < countNum+1; i++) {
-			var obj = {};
-	        obj.family_name = $("#family_name_"+i).val();
-	        obj.family_sex = $("#family_sex_"+i).val();
-	        obj.family_phone1 = $("#family_phone1_"+i).val();
-	        obj.family_phone2 = $("#family_phone2_"+i).val();
-	        obj.family_phone3 = $("#family_phone3_"+i).val();
- 	        obj.family_birth = $("#family_birth_"+i).val();
- 	        obj.family_etc = $("#family_etc_"+i).val();
-	        
-	        aJsonArray.push(obj);
-	    }
-		
-		formData.paymentFamilyMemberList = aJsonArray;
-		var sJson = JSON.stringify(formData);
-		
-		$.ajax({
-    		type: "POST",
-			url: 'save.do',
-            dataType: "json",
-            data: sJson,
-            contentType:'application/json; charset=UTF-8',
-            success: function(response) {
-            	alert('등록되었습니다.');
-            	location.reload();
-			},
-			error : function() {
-				alert('실패했습니다.\n관리자에게 문의해 주세요.');
-			}
-        });
+function isEmpty(value){
+	if(typeof value == "undefined" || value == null || value == "") {
+		return true;
 	} else {
-		if(confirm('가족구성원 정보가 등록되지 않았습니다. 계속 진행하시겠습니까?')) {
-			var aJsonArray = new Array();
-			formData.paymentFamilyMemberList = aJsonArray;
-			var sJson = JSON.stringify(formData);
-			$.ajax({
-				type: "POST",
-				url: 'save.do',
-	            dataType: "json",
-	            data: sJson,
-	            contentType:'application/json; charset=UTF-8',
-				success: function(response) {
-					alert('등록되었습니다.');
-					location.reload();
-				},
-				error : function() {
-					alert('실패했습니다.\n관리자에게 문의해 주세요.');
-				}
-			});
-		}
+		return false ;
 	}
-}
+};
 </script>
 
-<form:form id="paymentMember" modelAttribute="paymentMember" method="POST" action="save.do">
-<form:hidden id="homepage_id" path="homepage_id"/>
+<form:form id="paymentMemberEdit" modelAttribute="paymentMember" method="POST" action="save.do">
+<form:hidden path="homepage_id"/>
+<form:hidden path="familyData"/>
+<form:hidden path="pay_member_idx"/>
+<form:hidden path="editMode"/>
+
 
 <table class="type3">
 	<thead>
@@ -172,9 +114,7 @@ function savePaymentMember() {
 	<tr>
 		<th>본인 연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>
 		<td>
-			<form:input path="phone1" cssStyle="width:40px;" cssClass="text" maxlength="3" numberonly="true"/> -
-            <form:input path="phone2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-            <form:input path="phone3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
+			<form:input path="phone" placeholder="ex) 010-1234-5678" cssClass="text"/>
 			<div class="ui-state-highlight">
 				<em>* ex) 010-1234-5678</em>
 			</div>
@@ -183,9 +123,7 @@ function savePaymentMember() {
 	<tr>
 		<th>집 전화</th>
 		<td>
-			<form:input path="tel1" cssStyle="width:40px;" cssClass="text" maxlength="3" numberonly="true"/> -
-            <form:input path="tel2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-            <form:input path="tel3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
+			<form:input path="tel" placeholder="ex) 054-1234-5678" cssClass="text"/>
 		</td>
 	</tr>
 	<tr>
@@ -234,13 +172,6 @@ function savePaymentMember() {
 		<th>비고</th>
 		<td><form:textarea path="etc" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;" rows="3"/></td>
 	</tr>
-	<tr>
-		<th>가족구성원수</th>
-		<td>
-			<form:input path="family_count" cssStyle="width:20px;" cssClass="text" numberonly="true"/>명
-			<!-- <a href="javascript:void(0);" class="btn btn1" onclick="loadFamilyForm();"><span>확인</span></a> -->
-		</td>
-	</tr>
 	</tbody>
 </table>
 <!-- 유료회원 가족 정보 등록 폼 -->
@@ -259,96 +190,78 @@ function savePaymentMember() {
 		<th style="text-align:center;width:15%;">생년월일 (<span style="color: red; font-weight: bold;">*</span>)</th>
 		<th style="text-align:center;width:40%;">기타</th>
 	</tr>
-	<tr>
-		<td style="text-align:center;"><form:input path="family_name" id="family_name_1" class="text"/></td>
-		<td style="text-align:center;">
-			<input type="radio" id="family_sex_1" name="family_sex_1" value="M" label="남" cssClass="M"/>남
-			<input type="radio" id="family_sex_1" name="family_sex_1" value="F" label="여" cssClass="F"/>여
-		</td>
-		<td style="text-align:center;">
-			<form:input path="family_phone1" id="family_phone1_1" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-			<form:input path="family_phone2" id="family_phone2_1" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-			<form:input path="family_phone3" id="family_phone3_1" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-		</td>
-		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_1" class="text ui-calendar" readonly="true"/></td>
-		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_1" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
-	</tr>
-	<tr>
-		<td style="text-align:center;"><form:input path="family_name" id="family_name_2" class="text"/></td>
-		<td style="text-align:center;">
-			<input type="radio" id="family_sex_2" name="family_sex_2" value="M" label="남" cssClass="M"/>남
-			<input type="radio" id="family_sex_2" name="family_sex_2" value="F" label="여" cssClass="F"/>여
-		</td>
-		<td style="text-align:center;">
-			<form:input path="family_phone1" id="family_phone1_2" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-			<form:input path="family_phone2" id="family_phone2_2" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-			<form:input path="family_phone3" id="family_phone3_2" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-		</td>
-		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_2" class="text ui-calendar" readonly="true"/></td>
-		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_2" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
-	</tr>
-	<tr>
-		<td style="text-align:center;"><form:input path="family_name" id="family_name_3" class="text"/></td>
-		<td style="text-align:center;">
-			<input type="radio" id="family_sex_3" name="family_sex_3" value="M" label="남" cssClass="M"/>남
-			<input type="radio" id="family_sex_3" name="family_sex_3" value="F" label="여" cssClass="F"/>여
-		</td>
-		<td style="text-align:center;">
-			<form:input path="family_phone1" id="family_phone1_3" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-			<form:input path="family_phone2" id="family_phone2_3" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-			<form:input path="family_phone3" id="family_phone3_3" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-		</td>
-		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_3" class="text ui-calendar" readonly="true"/></td>
-		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_3" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
-	</tr>
-	<tr>
-		<td style="text-align:center;"><form:input path="family_name" id="family_name_4" class="text"/></td>
-		<td style="text-align:center;">
-			<input type="radio" id="family_sex_4" name="family_sex_4" value="M" label="남" cssClass="M"/>남
-			<input type="radio" id="family_sex_4" name="family_sex_4" value="F" label="여" cssClass="F"/>여
-		</td>
-		<td style="text-align:center;">
-			<form:input path="family_phone1" id="family_phone1_4" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-			<form:input path="family_phone2" id="family_phone2_4" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-			<form:input path="family_phone3" id="family_phone3_4" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-		</td>
-		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_4" class="text ui-calendar" readonly="true"/></td>
-		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_4" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
-	</tr>
-	<tr>
-		<td style="text-align:center;"><form:input path="family_name" id="family_name_5" class="text"/></td>
-		<td style="text-align:center;">
-			<input type="radio" id="family_sex_5" name="family_sex_5" value="M" label="남" cssClass="M"/>남
-			<input type="radio" id="family_sex_5" name="family_sex_5" value="F" label="여" cssClass="F"/>여
-		</td>
-		<td style="text-align:center;">
-			<form:input path="family_phone1" id="family_phone1_5" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-			<form:input path="family_phone2" id="family_phone2_5" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-			<form:input path="family_phone3" id="family_phone3_5" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-		</td>
-		<td style="text-align:center;"><form:input path="family_birth" id="family_birth_5" class="text ui-calendar" readonly="true"/></td>
-		<td style="text-align:center;"><form:textarea path="family_etc" id="family_etc_5" class="text" cssStyle="width:100%;border:1px solid #ccd2dc;"/></td>
-	</tr>
-	<!--
-	<c:if test="${not empty familyCount and familyCount ne '0'}">
-		<c:forEach var="i" begin="1" end="${familyCount}">
-			<tr>
-				<td><form:input path="family_name" id="family_name_${i}" class="text"/></td>
-				<td>
-					<input type="radio" id="family_sex_${i}" name="family_sex_${i}" value="M" label="남" cssClass="M"/>남
-					<input type="radio" id="family_sex_${i}" name="family_sex_${i}" value="F" label="여" cssClass="F"/>여
-		       	</td>
-				<td>
-					<form:input path="family_phone1" id="family_phone1_${i}" style="width:40px;" class="text" maxlength="3" numberonly="true" /> -
-					<form:input path="family_phone2" id="family_phone2_${i}" style="width:50px;" class="text" maxlength="4" numberonly="true" /> -
-					<form:input path="family_phone3" id="family_phone3_${i}" style="width:50px;" class="text" maxlength="4" numberonly="true" />
-				</td>
-				<td><form:input path="family_birth" id="family_birth_${i}" class="text ui-calendar" readonly="true"/></td>
-				<td><form:textarea path="family_etc" id="family_etc_${i}" class="text" cssStyle="width:100%;"/></td>
-			</tr>
-		</c:forEach>
-	</c:if>
-	-->
+	<c:choose>
+		<c:when test="${fn:length(familyMemberList) > 0}">
+			<c:set value="${fn:length(familyMemberList)}" var="count"></c:set>
+			<c:set var="familyCount" value="${5 - count}"></c:set>
+
+			<c:forEach var="i" items="${familyMemberList}" varStatus="satstus">
+				<tr id="family_tr_${satstus.count}">
+					<td style="text-align:center;">
+						<input type="text" class="text family_name" value="${i.family_name}">
+					</td>
+					<td style="text-align:center;">
+						<label><input type="radio" class="family_sex" value="M" label="남" cssClass="M" ${i.family_sex eq 'M' ? 'checked' : ''}/>남</label>
+						<label><input type="radio" class="family_sex" value="F" label="여" cssClass="F" ${i.family_sex eq 'F' ? 'checked' : ''}/>여</label>
+					</td>
+					<td style="text-align:center;">
+						<input type="text" class="family_phone text" value="${i.family_phone}">
+					</td>
+					<td style="text-align:center;">
+						<input type="text" class="text ui-calendar family_birth" readonly="true" value="${i.family_birth}">
+					</td>
+					<td style="text-align:center;">
+						<textarea class="family_etc text" style="width:100%;border:1px solid #ccd2dc;">${i.family_etc}</textarea>
+					</td>
+				</tr>
+			</c:forEach>
+
+			<c:if test="${familyCount > 0}">
+				<c:forEach var="i" begin="0" end="${familyCount-1}" varStatus="satstus">
+					<tr id="family_tr_${count+satstus.count}">
+						<td style="text-align:center;">
+							<input type="text" class="text family_name">
+						</td>
+						<td style="text-align:center;">
+							<label><input type="radio" class="family_sex" value="M" label="남" cssClass="M"/>남</label>
+							<label><input type="radio" class="family_sex" value="F" label="여" cssClass="F"/>여</label>
+						</td>
+						<td style="text-align:center;">
+							<input type="text" class="family_phone text">
+						</td>
+						<td style="text-align:center;">
+							<input type="text" class="text ui-calendar family_birth" readonly="true">
+						</td>
+						<td style="text-align:center;">
+							<textarea class="family_etc text" style="width:100%;border:1px solid #ccd2dc;"></textarea>
+						</td>
+					</tr>
+				</c:forEach>
+			</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="i" begin="0" end="4" varStatus="satstus">
+				<tr id="family_tr_${satstus.count}">
+					<td style="text-align:center;">
+						<input type="text" class="text family_name">
+					</td>
+					<td style="text-align:center;">
+						<label><input type="radio" class="family_sex" value="M" label="남" cssClass="M"/>남</label>
+						<label><input type="radio" class="family_sex" value="F" label="여" cssClass="F"/>여</label>
+					</td>
+					<td style="text-align:center;">
+						<input type="text" class="family_phone text">
+					</td>
+					<td style="text-align:center;">
+						<input type="text" class="text ui-calendar family_birth" readonly="true">
+					</td>
+					<td style="text-align:center;">
+						<textarea class="family_etc text" style="width:100%;border:1px solid #ccd2dc;"></textarea>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
 	</tbody>
 </table>
 
@@ -356,7 +269,7 @@ function savePaymentMember() {
 <br/>
 <div class="infodesk">
 	<div class="button">
-		<a href="javascript:void(0);" class="btn btn5 right" onclick="savePaymentMember();"><i class="fa fa-plus"></i><span>저장</span></a>
+		<a href="javascript:void(0);" class="btn btn5 right" onclick="paymentMemberSave('ADD');"><i class="fa fa-plus"></i><span>저장</span></a>
 	</div>
 </div>
 </c:if>

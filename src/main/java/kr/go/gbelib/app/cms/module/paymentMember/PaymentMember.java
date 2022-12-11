@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.paymentMember;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Map;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class PaymentMember extends PagingUtils {
@@ -13,14 +14,8 @@ public class PaymentMember extends PagingUtils {
 	private int pay_family_member_idx;  //사립회원가족IDX
 	private String pay_member_name;  //이름
 	private String phone;  //연락처
-	private String phone1;  //연락처
-	private String phone2;  //연락처
-	private String phone3;  //연락처
 	private String tel;  //연락처2
-	private String tel1;  //연락처2
-	private String tel2;  //연락처2
-	private String tel3;  //연락처2
-	private int loan_number;  //대출번호
+	private String loan_number;  //대출번호
 	private String birth;  //출생연도
 	private String join_start_date;  //가입시작일
 	private String join_end_date;  //가입종료일
@@ -67,9 +62,14 @@ public class PaymentMember extends PagingUtils {
 	private String family_delete_date;  //삭제일시
 	private String family_delete_ip;  //삭제IP
 	private String family_delete_yn;  //삭제여부
+
 	private List<PaymentFamilyMember> paymentFamilyMemberList = new ArrayList<PaymentFamilyMember>();
-	
+
 	private int family_count;
+
+	private String familyData;
+
+	private List<Map<String, Object>> familyList;
 	
 	public String getHomepage_id() {
 		return homepage_id;
@@ -101,54 +101,21 @@ public class PaymentMember extends PagingUtils {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getPhone1() {
-		return phone1;
-	}
-	public void setPhone1(String phone1) {
-		this.phone1 = phone1;
-	}
-	public String getPhone2() {
-		return phone2;
-	}
-	public void setPhone2(String phone2) {
-		this.phone2 = phone2;
-	}
-	public String getPhone3() {
-		return phone3;
-	}
-	public void setPhone3(String phone3) {
-		this.phone3 = phone3;
-	}
 	public String getTel() {
 		return tel;
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getTel1() {
-		return tel1;
-	}
-	public void setTel1(String tel1) {
-		this.tel1 = tel1;
-	}
-	public String getTel2() {
-		return tel2;
-	}
-	public void setTel2(String tel2) {
-		this.tel2 = tel2;
-	}
-	public String getTel3() {
-		return tel3;
-	}
-	public void setTel3(String tel3) {
-		this.tel3 = tel3;
-	}
-	public int getLoan_number() {
+
+	public String getLoan_number() {
 		return loan_number;
 	}
-	public void setLoan_number(int loan_number) {
+
+	public void setLoan_number(String loan_number) {
 		this.loan_number = loan_number;
 	}
+
 	public String getBirth() {
 		return birth;
 	}
@@ -425,6 +392,20 @@ public class PaymentMember extends PagingUtils {
 	public void setUse_type3(String use_type3) {
 		this.use_type3 = use_type3;
 	}
-	
-	
+
+	public String getFamilyData() {
+		return familyData;
+	}
+
+	public void setFamilyData(String familyData) {
+		this.familyData = familyData;
+	}
+
+	public List<Map<String, Object>> getFamilyList() {
+		return familyList;
+	}
+
+	public void setFamilyList(List<Map<String, Object>> familyList) {
+		this.familyList = familyList;
+	}
 }

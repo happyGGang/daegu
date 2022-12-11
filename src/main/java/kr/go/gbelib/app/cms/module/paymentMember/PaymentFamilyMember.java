@@ -9,9 +9,6 @@ public class PaymentFamilyMember extends PagingUtils {
 	private int family_idx;  //가족회원IDX
 	private String family_name;  //이름
 	private String family_phone;  //연락처
-	private String family_phone1;  //연락처
-	private String family_phone2;  //연락처
-	private String family_phone3;  //연락처
 	private String family_tel;  //연락처2
 	private String family_birth;  //출생연도
 	private String family_sex;  //성별
@@ -43,24 +40,6 @@ public class PaymentFamilyMember extends PagingUtils {
 	}
 	public void setFamily_phone(String family_phone) {
 		this.family_phone = family_phone;
-	}
-	public String getFamily_phone1() {
-		return family_phone1;
-	}
-	public void setFamily_phone1(String family_phone1) {
-		this.family_phone1 = family_phone1;
-	}
-	public String getFamily_phone2() {
-		return family_phone2;
-	}
-	public void setFamily_phone2(String family_phone2) {
-		this.family_phone2 = family_phone2;
-	}
-	public String getFamily_phone3() {
-		return family_phone3;
-	}
-	public void setFamily_phone3(String family_phone3) {
-		this.family_phone3 = family_phone3;
 	}
 	public String getFamily_tel() {
 		return family_tel;

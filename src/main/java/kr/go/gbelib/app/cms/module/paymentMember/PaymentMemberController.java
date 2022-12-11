@@ -1,15 +1,22 @@
 package kr.go.gbelib.app.cms.module.paymentMember;
 
+import com.drew.lang.StringUtil;
 import java.io.IOException;
 import java.util.List;
 
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,13 +65,17 @@ public class PaymentMemberController extends BaseController {
 		
 		paymentMember.setHomepage_id(getAsideHomepageId(request));
 		paymentMember.setAdd_id(member.getMember_id());
-		
-		model.addAttribute("paymentMember", paymentMember);
-		if(paymentMember.getFamily_count() != 0) {
-			model.addAttribute("familyCount", paymentMember.getFamily_count());
-		}
 
-		return basePath + "memberEdit";
+		if ("MODIFY".equals(paymentMember.getEditMode())) {
+			model.addAttribute("paymentMember", service.copyObjectPaging(paymentMember, service.getPaymentMemberOne(paymentMember)));
+			paymentMember.setPay_family_member_idx(paymentMember.getPay_member_idx());
+			List<PaymentMember> familyMemberList = service.getPaymentMemberFamilyList(paymentMember);
+			model.addAttribute("familyMemberList", familyMemberList);
+			return  basePath + "memberEdit_ajax";
+		} else {
+			model.addAttribute("paymentMember", paymentMember);
+			return basePath + "memberEdit";
+		}
 	}
 	
 	@RequestMapping (value = {"/viewFamilyMember.*"})
@@ -111,25 +122,91 @@ public class PaymentMemberController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(@RequestBody PaymentMember paymentMember, BindingResult result, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
+	public @ResponseBody JsonResponse save(PaymentMember paymentMember, BindingResult result, HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 		JsonResponse res = new JsonResponse(request);
-		
+
 		ValidationUtils.rejectIfEmpty(result, "pay_member_name", "이름을 입력하세요.");
-		ValidationUtils.rejectExceptNumber(result, "loan_number", "대출번호는 숫자만 가능합니다.");
+		ValidationUtils.rejectOnlyEngNum(result, "loan_number", "대출번호는 영어와 숫자만 가능합니다.");
+		ValidationUtils.rejectIfEmpty(result, "phone", "연락처를 입력해주세요");
+		Pattern phonePattern = Pattern.compile("^01[0|1|6|7|8|9]-[\\d]{3,4}-[\\d]{4}$");
+		Matcher phoneMatcher = phonePattern.matcher(paymentMember.getPhone());
+		if (!phoneMatcher.matches()) {
+			result.rejectValue("phone", "연락처 형식을 확인해주세요. ex) 01x-xxxx-xxxx");
+		}
+
+		if (StringUtils.isNotEmpty(paymentMember.getTel())) {
+			Pattern telPattern = Pattern.compile("^[\\d]{2,3}-[\\d]{3,4}-[\\d]{4}$");
+			Matcher telMatcher = telPattern.matcher(paymentMember.getTel());
+			if (!telMatcher.matches()) {
+				result.rejectValue("tel", "집 전화 형식을 확인해주세요. ex) xxx-xxxx-xxxx");
+			}
+		}
+
+		if (StringUtils.isNotEmpty(paymentMember.getEmail1()) || StringUtils.isNotEmpty(paymentMember.getEmail2())) {
+			String email = paymentMember.getEmail1()+"@"+paymentMember.getEmail2();
+
+			Pattern emailPattern = Pattern.compile("^[_a-z0-9-]+([_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$");
+			Matcher emailMatcher = emailPattern.matcher(email);
+
+			if (!emailMatcher.matches()) {
+				result.rejectValue("email1", "이메일 형식을 확인해주세요. ex) email@xxxx.com");
+			}
+		}
 		ValidationUtils.rejectIfEmpty(result, "birth", "출생연도를 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "join_start_date", "가입시작일을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "join_end_date", "가입종료일을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "use_type", "이용구분을 선택하세요.");
 		ValidationUtils.rejectIfEmpty(result, "sex", "성별을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "sponsorship_amount", "금액을 입력하세요.");
-		
+
+		ObjectMapper mapper = new ObjectMapper();
+		List<Map<String, Object>> familyList = mapper.readValue(String.valueOf(paymentMember.getFamilyData()), List.class);
+
+		if (familyList != null) {
+			if (familyList.size() > 0) {
+				for (int i = 0; i < familyList.size(); i++) {
+					String family_name = (String) familyList.get(i).get("family_name");
+					String family_sex = (String) familyList.get(i).get("family_sex");
+					String family_phone = (String) familyList.get(i).get("family_phone");
+					String family_birth = (String) familyList.get(i).get("family_birth");
+
+					Matcher familyPhoneMatcher = phonePattern.matcher(family_phone);
+
+					if (StringUtils.isEmpty(family_name)) {
+						result.reject("가족 입력란의 "+(i+1)+"번째 이름을 입력해주세요.");
+						break;
+					} else if (StringUtils.isEmpty(family_sex)) {
+						result.reject("가족 입력란의 "+(i+1)+"번째 성별을 선택해주세요.");
+						break;
+					} else if (StringUtils.isEmpty(family_phone)){
+						result.reject("가족 입력란의 "+(i+1)+"번째 연락처를 입력해주세요.");
+						break;
+					} else if (!familyPhoneMatcher.matches()) {
+						result.reject("가족 입력란의 "+(i+1)+"번째 연락처 형식을 확인해주세요. ex) 01x-xxxx-xxxx");
+						break;
+					} else if (StringUtils.isEmpty(family_birth)) {
+						result.reject("가족 입력란의 "+(i+1)+"번째 생년월일을 입력해주세요.");
+						break;
+					}
+				}
+			}
+		}
+
 		String homepage_id = getAsideHomepageId(request);
 		paymentMember.setAdd_id(getSessionMemberId(request));
 		paymentMember.setHomepage_id(homepage_id);
 		
 		if (!result.hasErrors()) {
-			service.addPaymentMember(paymentMember);
-			res.setValid(true);
+			paymentMember.setFamilyList(familyList);
+			if ("MODIFY".equals(paymentMember.getEditMode())) {
+				service.modifyPaymentMember(paymentMember);
+				res.setMessage("수정되었습니다.");
+				res.setValid(true);
+			} else {
+				service.addPaymentMember(paymentMember);
+				res.setMessage("등록되었습니다.");
+				res.setValid(true);
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
@@ -156,7 +233,7 @@ public class PaymentMemberController extends BaseController {
 		paymentMember.setHomepage_id(homepage_id);
 		
 		if (!result.hasErrors()) {
-			service.modifyPaymentMember(paymentMember);
+			// service.modifyPaymentMember(paymentMember);
 			res.setValid(true);
 		} else {
 			res.setValid(false);

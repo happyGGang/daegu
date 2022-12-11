@@ -78,16 +78,7 @@
 	<select id="getPaymentMemberOne" resultType="kr.go.gbelib.app.cms.module.paymentMember.PaymentMember">
 		SELECT
 			homepage_id, pay_member_idx, pay_family_member_idx, pay_member_name,
-			SUBSTR(phone, 1, INSTR(phone, '-', 1, 1) - 1) AS phone1,
-      		SUBSTR(phone, INSTR(phone, '-', 1, 1) + 1, INSTR(phone, '-', 1, 2) - INSTR(phone, '-', 1, 1) - 1) AS phone2,
-       		SUBSTR(phone, INSTR(phone, '-', 1, 2) + 1) AS phone3,
-       		SUBSTR(tel, 1, INSTR(tel, '-', 1, 1) - 1) AS tel1,
-      		SUBSTR(tel, INSTR(tel, '-', 1, 1) + 1, INSTR(tel, '-', 1, 2) - INSTR(tel, '-', 1, 1) - 1) AS tel2,
-       		SUBSTR(tel, INSTR(tel, '-', 1, 2) + 1) AS tel3,
-       		SUBSTR(use_type, 1, INSTR(use_type, ',', 1, 1) - 1) AS use_type1,
-      		SUBSTR(use_type, INSTR(use_type, ',', 1, 1) + 1, INSTR(use_type, ',', 1, 2) - INSTR(use_type, ',', 1, 1) - 1) AS use_type2,
-       		SUBSTR(use_type, INSTR(use_type, ',', 1, 2) + 1) AS use_type3,
-       		loan_number, birth, join_start_date, join_end_date,
+			phone,tel,loan_number, birth, join_start_date, join_end_date,
 		    use_type, sex, sponsorship_amount, approve_yn, add_id,
 		    add_date, add_ip, modify_id, modify_date, delete_id,
 		    delete_date, delete_ip, delete_yn, etc, family_yn,
@@ -137,7 +128,8 @@
 			sponsorship_amount = #{sponsorship_amount},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE,
-			email_address = #{email_address}
+			email_address = #{email_address},
+			etc = #{etc}
 		WHERE
 			delete_yn = 'N'
 		AND	pay_member_idx = #{pay_member_idx}
@@ -183,16 +175,11 @@
 	</update>
 	
 	<update id="deletePaymentFamilyMember">
-		UPDATE
-			PAYMENT_FAMILY_MEMBER
-		SET
-			family_delete_id = #{delete_id},
-			family_delete_ip = #{delete_ip},
-			family_delete_yn = 'Y',
-			family_delete_date = SYSDATE
+		DELETE FROM
+		    PAYMENT_FAMILY_MEMBER
 		WHERE
-			family_delete_yn = 'N'
-		AND	pay_family_member_idx = #{pay_member_idx}
+		    HOMEPAGE_ID = #{homepage_id}
+		AND pay_family_member_idx = #{pay_member_idx}
 	</update>
 	
 	<select id="getFamilyIdx" resultType="int">

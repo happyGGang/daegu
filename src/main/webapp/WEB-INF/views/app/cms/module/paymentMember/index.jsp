@@ -89,11 +89,12 @@ function viewFamilyMember(pay_member_idx) {
 
 function modify(pay_member_idx) {
 	var ajaxData = {
-		'pay_member_idx' : pay_member_idx
+		'pay_member_idx' : pay_member_idx,
+		'editMode' : 'MODIFY'
 	};
 
 	$.ajax({
-		url: 'modify.do',
+		url: 'memberEdit.do',
 		method: 'GET',
 		data : ajaxData,
 		success: function(html) { 
@@ -114,7 +115,7 @@ function modify(pay_member_idx) {
 						text : '저장',
 						'class' : 'btn btn1',
 						click : function() {
-							savePaymentMember();
+							paymentMemberSave('MODIFY');
 						}
 					},
 					{
