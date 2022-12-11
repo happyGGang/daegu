@@ -309,7 +309,7 @@ $(function(){
 
 	</c:when>
 	<c:otherwise>
-	<div class="tabmenu tab1" style="margin-top:30px;">
+	<div class="tabmenu tab1">
 		<ul>
 			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 14px;">전체</a></li>
 			<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
