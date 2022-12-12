@@ -348,6 +348,13 @@ public class StudentController extends BaseController {
 
 				Object[] addResult = service.addStudent(student, "HOMEPAGE");
 				res.setValid((Boolean) addResult[0]);
+				Homepage homepage = getSessionHomepage(request);
+				if (!((Boolean) addResult[0])) {
+					res.setValid(true);
+					res.setMessage((String) addResult[1]);
+					res.setUrl("applyList.do");
+					return res;
+				}
 
 				if("Y".equals(teachOne.getCancle_use_yn()) && addResult != null && addResult.length >= 3 && addResult[2] != null && (Boolean) addResult[2]  == true) {
 					String strDate = teachOne.getStart_cancle_date() + " " + teachOne.getStart_cancle_time();
