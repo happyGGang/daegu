@@ -35,7 +35,7 @@
 	 			SUBSTR(A.start_date,1,7) = #{plan_date}
 	 		OR	SUBSTR(A.end_date,1,7) = #{plan_date}
 	 		)
-	 	ORDER BY start_date,end_date, use_time
+	 	ORDER BY start_date, start_time, use_time
 		 </if>
 	</select>
 	
