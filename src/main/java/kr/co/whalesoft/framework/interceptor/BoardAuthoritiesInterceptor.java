@@ -167,6 +167,10 @@ public class BoardAuthoritiesInterceptor extends HandlerInterceptorAdapter {
 				if ( member.getMember_id().equals(boardManage.getAdmin_id()) ) {
 					return true;
 				}
+			} else if (member.getLoginType().equals("PRIVATEHOMEPAGE")) {
+				if ( member.getMember_id().equals(boardManage.getAdmin_id()) ) {
+					return true;
+				}
 			}
 			
 			

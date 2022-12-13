@@ -29,6 +29,9 @@ $(function() {
 					<c:when test="${member.loginType eq 'HOMEPAGE' and member.login}">
 					<a href="/intro/login/logout.do" class="btn btn1">로그아웃</a>
 					</c:when>
+					<c:when test="${member.loginType eq 'PRIVATEHOMEPAGE' and member.login}">
+					<a href="/intro/login/logout.do" class="btn btn1">로그아웃</a>
+					</c:when>
 					<c:otherwise>
 					<a href="/intro/join/index.do" class="btn btn1">회원가입</a>
 					<a href="/intro/login/index.do" class="btn btn1">로그인</a>

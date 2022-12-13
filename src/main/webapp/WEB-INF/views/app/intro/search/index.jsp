@@ -283,6 +283,31 @@ function resveReq(bookkey, booktype, editMode) {
 		});
 	}
 	</c:when>
+	<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'PRIVATEHOMEPAGE'}">
+	if(confirm('예약 신청 하시겠습니까?')) {
+		var ajaxData = {
+				'bookkey' : bookkey,
+				'booktype' : booktype,
+				'editMode' : editMode
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: 'resve/save.do',
+			data: ajaxData,
+			success:  function(response) {
+				if(response.valid) {
+					alert(response.message);
+					location.reload();
+				} else {
+					alert(response.message);
+				}
+			},error: function() {
+				alert('예약 신청에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+	</c:when>
 	<c:otherwise>
 	alert('로그인 후 이용 가능합니다.');
 	location.href='/intro/${homepage.context_path}/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);

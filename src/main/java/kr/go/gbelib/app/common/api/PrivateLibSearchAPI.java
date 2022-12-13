@@ -1728,7 +1728,7 @@ public class PrivateLibSearchAPI {
 			log.error("@@@@@@@@@@@@@@@@ sendsms utf8 encode error : " + msg);
 		}
 		param.put("client_ip", ip);
-		param.put("worker", "HOMEPAGE");
+		param.put("worker", "PRIVATEHOMEPAGE");
 
 		Map<String, Object> sendKCMS = CommonAPI.sendPrivateKCMS("sendsms", param);
 

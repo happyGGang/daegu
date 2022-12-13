@@ -695,6 +695,8 @@ public class Member extends PagingUtils implements Serializable {
 	public boolean isHomepageLogin() {
 		if ( isLogin() && "HOMEPAGE".equals(this.loginType) ) {
 			return true;
+		} else if ( isLogin() && "PRIVATEHOMEPAGE".equals(this.loginType) ) {
+			return true;
 		}
 		return false;
 	}

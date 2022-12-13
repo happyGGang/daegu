@@ -69,6 +69,9 @@ public class HomepageAccess {
 				if (StringUtils.equals(member.getLoginType(), "HOMEPAGE")) {
 					this.member_seq_no = member.getSeq_no();
 				}
+				if (StringUtils.equals(member.getLoginType(), "PRIVATEHOMEPAGE")) {
+					this.member_seq_no = member.getSeq_no();
+				}
 			} else {
 				this.member_id = "ANONYMOUS";
 			}

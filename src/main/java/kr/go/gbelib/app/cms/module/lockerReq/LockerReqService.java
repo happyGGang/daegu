@@ -70,6 +70,8 @@ public class LockerReqService extends BaseService {
 	public int addLockerReq(LockerReq lockerReq, String addType) {
 		if (addType.equals("HOMEPAGE") && "SELECT".equals(lockerReq.getLocker_pre_type()) ) {
 			lockerDao.updateLockerStatus(new Locker(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx(), lockerReq.getLocker_idx(), "2"));
+		} else if(addType.equals("PRIVATEHOMEPAGE") && "SELECT".equals(lockerReq.getLocker_pre_type())) {
+			lockerDao.updateLockerStatus(new Locker(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx(), lockerReq.getLocker_idx(), "2"));
 		}
 
 		return Dao.addLockerReq(lockerReq);
