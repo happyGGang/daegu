@@ -45,6 +45,59 @@ $(function(){
 			maxDate:0
 		});
 	});
+	
+	$('a#linkMemberSearch').on('click', function(e) {
+		if($("#pay_member_name").val() == '' || $("#loan_number").val() == null){
+			alert('이름을 입력해주세요.');
+			return false ;
+		}
+		
+		if($("#loan_number").val() == '' || $("#loan_number").val() == null){
+			alert('대출번호를 입력해주세요.');
+			return false ;
+		}
+		
+		$.get('getLinkMember.do?pay_member_name='+$("#pay_member_name").val()+'&loan_number='+$("#loan_number").val(), function(response) {
+			if( response.data.length > 0){
+
+				$('#pay_member_name').val(response.data[0]["NAME"]);
+				
+				if(response.data[0]["GPIN_SEX"] != null){
+					if(response.data[0]["GPIN_SEX"] == '0'){
+						$("input:radio[id='sex1']").prop("checked", true);
+					} else {
+						$("input:radio[id='sex2']").prop("checked", true);
+					}
+				}
+				
+				if(response.data[0]["HANDPHONE"] != null){
+					$('#phone').val(response.data[0]["HANDPHONE"]);
+				}
+
+				if(response.data[0]["USER_NO"] != null){
+					$('#loan_number').val(response.data[0]["USER_NO"]);
+				}
+				
+				if(response.data[0]["BIRTHDAY"] != null){
+					var birth = response.data[0]["BIRTHDAY"].split("\/");
+					var birth1 = birth[0];
+					var birth2 = birth[1];
+					var birth3 = birth[2];
+					$('#birth').val(birth1 + '-' +birth2 + '-' + birth3);
+				}
+
+				if(response.data[0]["E_MAIL"] != null){
+					var email = response.data[0]["E_MAIL"].split("\@");
+					$('#email1').val(email[0]);
+					$('#email2').val(email[1]);
+				}
+
+			} else {
+				alert('검색한 사용자 없습니다.');
+			}
+		});
+		e.preventDefault();
+	});
 });
 
 function paymentMemberSave(editMode) {
@@ -109,7 +162,17 @@ function isEmpty(value){
 	</tr>
 	<tr>
 		<th>대출번호</th>
-		<td><form:input path="loan_number" class="text"/></td>
+		<td>
+			<c:choose>
+				<c:when test="${paymentMember.editMode eq 'ADD'}">
+					<form:input path="loan_number" class="text"/>
+					<a href="" class="btn btn5 left" id="linkMemberSearch" ><i class="fa fa-plus"></i><span>회원검색</span></a>
+				</c:when>
+				<c:otherwise>
+					<form:input path="loan_number" class="text"/>
+				</c:otherwise>
+			</c:choose>
+		</td>
 	</tr>
 	<tr>
 		<th>본인 연락처 (<span style="color: red; font-weight: bold;">*</span>)</th>

@@ -1,6 +1,5 @@
 package kr.go.gbelib.app.cms.module.paymentMember;
 
-import com.drew.lang.StringUtil;
 import java.io.IOException;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,12 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.StaticVariables;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.common.api.PrivateMemberAPI;
 
 @Controller
 @RequestMapping(value = {"/cms/module/paymentMember"})
@@ -76,6 +76,20 @@ public class PaymentMemberController extends BaseController {
 			model.addAttribute("paymentMember", paymentMember);
 			return basePath + "memberEdit";
 		}
+	}
+	
+	@RequestMapping(value = {"/getLinkMember.*"})
+	public @ResponseBody JsonResponse getLinkMember(Model model, PaymentMember paymentMember, Member member, HttpServletRequest request) {
+		Homepage homepage = new Homepage();
+		homepage.setHomepage_id(getAsideHomepageId(request));
+		JsonResponse jr = new JsonResponse();
+		
+		member.setMember_name(paymentMember.getPay_member_name());
+		member.setUser_no(paymentMember.getLoan_number());
+		
+		jr.setData(PrivateMemberAPI.checkDupUser("2",member));
+		
+		return jr;
 	}
 	
 	@RequestMapping (value = {"/viewFamilyMember.*"})
