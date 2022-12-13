@@ -161,17 +161,27 @@ public class ConsultingsController extends BaseController {
 	public String apply(Model model, ConsultingApply apply, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-
-			if("ajax".equals(apply.getPageType())) {
-				apply.setBefore_url(String.format("/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
-			} else {
-				apply.setBefore_url(String.format("/%s/module/consultings/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), apply.getMenu_idx()));
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				if("ajax".equals(apply.getPageType())) {
+					apply.setBefore_url(String.format("/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
+				} else {
+					apply.setBefore_url(String.format("/%s/module/consultings/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), apply.getMenu_idx()));
+				}
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
+				return null;
 			}
-
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
-			return null;
-	    }
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				if("ajax".equals(apply.getPageType())) {
+					apply.setBefore_url(String.format("/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
+				} else {
+					apply.setBefore_url(String.format("/%s/module/consultings/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), apply.getMenu_idx()));
+				}
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
+				return null;
+			}
+		}
 
 		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
 			Homepage h = new Homepage();

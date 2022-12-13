@@ -30,37 +30,71 @@ public class LoginLogController extends BaseController {
 	public String index(Model model, LoginLog loginLog, HttpServletRequest request, HttpServletResponse response) throws Exception {
 //		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			loginLog.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), loginLog.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), loginLog.getMenu_idx(), loginLog.getBefore_url()), request, response);
-			return null;
-	    }
+		
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				loginLog.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), loginLog.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), loginLog.getMenu_idx(), loginLog.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				loginLog.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), loginLog.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), loginLog.getMenu_idx(), loginLog.getBefore_url()), request, response);
+				return null;
+			}
+		}
 //		setDefaultSearchYear(loginLog);
 //		loginLog.setMember_seq_no(getSessionMemberId(request));
-		loginLog.setLogin_type("HOMEPAGE");
-		loginLog.setMember_id(getSessionMemberId(request));
 		
-		
-		service.setPaging(model, service.getLoginLogCnt(loginLog), loginLog);
-		
-		List<LoginLog> loginLogList = service.getLoginLogList(loginLog);
-		for(LoginLog one: loginLogList) {
-			Map<String, String> r = Classifier.parse(one.getUser_agent());
-			String name = r.get("name");
-			String version = r.get("version");
-			String category = StringUtils.upperCase(r.get("category"));
-			String os = r.get("os");
-			String os_version = r.get("os_version");
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			loginLog.setLogin_type("PRIVATEHOMEPAGE");
+			loginLog.setMember_id(getSessionMemberId(request));
 			
-			one.setBrowser(name + " " + version);
-			one.setOs(os + " " + os_version);
-			one.setCategory(category);
 			
+			service.setPaging(model, service.getLoginLogCnt(loginLog), loginLog);
+			
+			List<LoginLog> loginLogList = service.getLoginLogList(loginLog);
+			for(LoginLog one: loginLogList) {
+				Map<String, String> r = Classifier.parse(one.getUser_agent());
+				String name = r.get("name");
+				String version = r.get("version");
+				String category = StringUtils.upperCase(r.get("category"));
+				String os = r.get("os");
+				String os_version = r.get("os_version");
+				
+				one.setBrowser(name + " " + version);
+				one.setOs(os + " " + os_version);
+				one.setCategory(category);
+				
+			}
+			model.addAttribute("loginLogList", loginLogList);
+			model.addAttribute("loginLog", loginLog);
+		} else {
+			loginLog.setLogin_type("HOMEPAGE");
+			loginLog.setMember_id(getSessionMemberId(request));
+			
+			
+			service.setPaging(model, service.getLoginLogCnt(loginLog), loginLog);
+			
+			List<LoginLog> loginLogList = service.getLoginLogList(loginLog);
+			for(LoginLog one: loginLogList) {
+				Map<String, String> r = Classifier.parse(one.getUser_agent());
+				String name = r.get("name");
+				String version = r.get("version");
+				String category = StringUtils.upperCase(r.get("category"));
+				String os = r.get("os");
+				String os_version = r.get("os_version");
+				
+				one.setBrowser(name + " " + version);
+				one.setOs(os + " " + os_version);
+				one.setCategory(category);
+				
+			}
+			model.addAttribute("loginLogList", loginLogList);
+			model.addAttribute("loginLog", loginLog);
 		}
-		model.addAttribute("loginLogList", loginLogList);
-		model.addAttribute("loginLog", loginLog);
-
+		
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}
 

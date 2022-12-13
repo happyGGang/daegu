@@ -24,7 +24,7 @@ function treeOnLoad() {
 		success : function(data) {
 			data = eval(data);
 			if (data.length == 1) {
-				if ('${member.loginType}' != 'HOMEPAGE') {
+				if (!'${sessionScope.member.login}') {
 					alert('보관함은 회원만 이용 가능합니다.');
 					window.close();
 					return false;

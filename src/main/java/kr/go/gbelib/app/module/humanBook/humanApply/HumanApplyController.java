@@ -44,10 +44,18 @@ public class HumanApplyController extends BaseController {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		humanApply.setHomepage_id(homepage.getHomepage_id());
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
-			return null;
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 		if ( isLogin(request) && !getSessionIsAdmin(request) ) {
@@ -66,11 +74,19 @@ public class HumanApplyController extends BaseController {
 	public String apply(Model model, HumanApply humanApply, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		checkAuth("C", model, request);
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
-			return null;
+		
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 //		Member member = getSessionMemberInfo(request);
@@ -137,11 +153,19 @@ public class HumanApplyController extends BaseController {
 	public String schedule(Model model, HumanApply humanApply, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		humanApply.setHomepage_id(homepage.getHomepage_id());
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
-			return null;
+		
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanApply.setBefore_url(String.format("/%s/module/humanBook/list.do?menu_idx=%s", homepage.getContext_path(), humanApply.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanApply.getMenu_idx(), humanApply.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 		if ( isLogin(request) && !getSessionIsAdmin(request) ) {

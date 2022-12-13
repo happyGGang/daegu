@@ -276,12 +276,22 @@ public class ElibController extends BaseController {
 	private JsonResponse checkLogin(HttpServletRequest request, BindingResult result, JsonResponse res, BeanUtils bean) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			result.reject("로그인 후 이용가능합니다.");
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bean.getMenu_idx(), encodeURL(bean.getBefore_url())));
-			return res;
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bean.getMenu_idx(), encodeURL(bean.getBefore_url())));
+				return res;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				result.reject("로그인 후 이용가능합니다.");
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), bean.getMenu_idx(), encodeURL(bean.getBefore_url())));
+				return res;
+			}
 		}
 
 		Member member = getSessionMemberInfo(request);

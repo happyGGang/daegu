@@ -148,13 +148,19 @@ public class FacilityController extends BaseController {
 	public String apply(Model model, FacilityReq facilityReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-
-			facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), facilityReq.getMenu_idx()));
-
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
-			return null;
-	    }
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), facilityReq.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				facilityReq.setBefore_url(String.format("/%s/module/facility/index.do?menu_idx=%s&date_type=1", homepage.getContext_path(), facilityReq.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), facilityReq.getMenu_idx(), facilityReq.getBefore_url()), request, response);
+				return null;
+			}
+		}
 
 		facilityReq.setHomepage_id(homepage.getHomepage_id());
 		facilityReq.setApply_id(getSessionMemberId(request));

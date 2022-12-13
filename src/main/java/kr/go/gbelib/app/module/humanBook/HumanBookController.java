@@ -43,10 +43,18 @@ public class HumanBookController extends BaseController {
 //			service.alertMessage("정회원만 이용가능합니다.", request, response);
 //			return null;
 //		}
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			humanBook.setBefore_url(String.format("/%s/module/humanBook/index.do?menu_idx=%s", homepage.getContext_path(), humanBook.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanBook.getMenu_idx(), humanBook.getBefore_url()), request, response);
-			return null;
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanBook.setBefore_url(String.format("/%s/module/humanBook/index.do?menu_idx=%s", homepage.getContext_path(), humanBook.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanBook.getMenu_idx(), humanBook.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanBook.setBefore_url(String.format("/%s/module/humanBook/index.do?menu_idx=%s", homepage.getContext_path(), humanBook.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanBook.getMenu_idx(), humanBook.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 		if ( isLogin(request) && !getSessionIsAdmin(request) ) {
@@ -72,11 +80,19 @@ public class HumanBookController extends BaseController {
 //			service.alertMessage("정회원만 이용가능합니다.", request, response);
 //			return null;
 //		}
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			humanBook.setBefore_url(String.format("/%s/module/humanBook/edit.do?menu_idx=%s", homepage.getContext_path(), humanBook.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanBook.getMenu_idx(), humanBook.getBefore_url()), request, response);
-			return null;
-	    }
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanBook.setBefore_url(String.format("/%s/module/humanBook/edit.do?menu_idx=%s", homepage.getContext_path(), humanBook.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanBook.getMenu_idx(), humanBook.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				humanBook.setBefore_url(String.format("/%s/module/humanBook/edit.do?menu_idx=%s", homepage.getContext_path(), humanBook.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), humanBook.getMenu_idx(), humanBook.getBefore_url()), request, response);
+				return null;
+			}
+		}
 
 		if(humanBook.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);

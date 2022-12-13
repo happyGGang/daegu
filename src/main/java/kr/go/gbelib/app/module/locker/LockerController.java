@@ -123,11 +123,19 @@ public class LockerController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lockerReq.setHomepage_id(homepage.getHomepage_id());
 		Member member = getSessionMemberInfo(request);
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			lockerReq.setBefore_url(String.format("/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
-			return null;
-	    }
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				lockerReq.setBefore_url(String.format("/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				lockerReq.setBefore_url(String.format("/%s/module/locker/index.do?menu_idx=%s", homepage.getContext_path(), lockerReq.getMenu_idx()));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), lockerReq.getMenu_idx(), lockerReq.getBefore_url()), request, response);
+				return null;
+			}
+		}
 
 //		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionMemberId(request)), "20")) {
 //			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);

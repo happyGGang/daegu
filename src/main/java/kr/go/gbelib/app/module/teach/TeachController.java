@@ -346,10 +346,18 @@ public class TeachController extends BaseController{
 	public String applyList(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
-			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
-			return null;
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+				teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+				teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 		String homepageId = homepage.getHomepage_id();
@@ -520,11 +528,19 @@ public class TeachController extends BaseController{
 	@RequestMapping(value = {"/excelDownload.*"})
 	public TeachApplySearchView excelDownload(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
-
-		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
-			teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
-			return null;
+		
+		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+				teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+				return null;
+			}
+		} else {
+			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+				teach.setBefore_url(String.format("/%s/module/teach/applyList.do?menu_idx=%s", homepage.getContext_path(), teach.getMenu_idx()));
+				teachService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), teach.getMenu_idx(), teach.getBefore_url()), request, response);
+				return null;
+			}
 		}
 
 		teach.setHomepage_id(homepage.getHomepage_id());
