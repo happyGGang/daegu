@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.auth.AuthService;
 import kr.co.whalesoft.app.cms.code.CodeService;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroup;
 import kr.co.whalesoft.app.cms.memberGroup.MemberGroupService;
 import kr.co.whalesoft.app.cms.memberGroupSubord.MemberGroupSubordService;
@@ -21,6 +22,7 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.MemberAPI;
+import kr.go.gbelib.app.common.api.PrivateMemberAPI;
 
 @Controller
 @RequestMapping(value = {"/cms/member", "/wbuilder/member"})
@@ -98,8 +100,16 @@ public class MemberController extends BaseController {
 
 	@RequestMapping(value = {"/getLinkMember.*"})
 	public @ResponseBody JsonResponse getLinkMember(Model model, Member member, HttpServletRequest request) {
+		Homepage homepage = new Homepage();
+		homepage.setHomepage_id(getAsideHomepageId(request));
 		JsonResponse jr = new JsonResponse();
-		jr.setData(MemberAPI.checkDupUser("0",member));
+		
+		if(member.getPrivateMemberYn(homepage)) {
+			jr.setData(PrivateMemberAPI.checkDupUser("0",member));
+		} else {
+			jr.setData(MemberAPI.checkDupUser("0",member));
+		}
+		
 		return jr;
 	}
 
