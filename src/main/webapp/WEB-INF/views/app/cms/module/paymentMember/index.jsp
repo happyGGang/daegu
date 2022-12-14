@@ -12,18 +12,18 @@ $(function(){
 		doGetLoad('index.do', $('form#paymentMember').serialize());
 	});
 	
-	$('input#join_start_date').datepicker({
+	$('input#join_start_date_index').datepicker({
 		dateFormat:'yy-mm-dd',
-		maxDate: $('input#join_end_date').val(), 
+		maxDate: $('input#join_end_date_index').val(), 
 		onClose: function(selectedDate){
-			$('input#join_end_date').datepicker('option', 'minDate', selectedDate);
+			$('input#join_end_date_index').datepicker('option', 'minDate', selectedDate);
 		}
 	}).datepicker('setDate', '${paymentMember.join_start_date}');
-	$('input#join_end_date').datepicker({
+	$('input#join_end_date_index').datepicker({
 		dateFormat:'yy-mm-dd',
-		minDate: $('input#join_start_date').val(), 
+		minDate: $('input#join_start_date_index').val(), 
 		onClose: function(selectedDate){
-			$('input#join_start_date').datepicker('option', 'maxDate', selectedDate);
+			$('input#join_start_date_index').datepicker('option', 'maxDate', selectedDate);
 		}
 	}).datepicker('setDate', '${paymentMember.join_end_date}');
 
@@ -205,7 +205,7 @@ function changeApproveYn(pay_member_idx, $this) {
 		<form:option value="50">50개씩 보기</form:option>
 		<form:option value="${paymentMemberCount}">전체 보기</form:option>
 	</form:select>
-	기간 : <form:input path="join_start_date" class="text ui-calendar"/> ~ <form:input path="join_end_date" class="text ui-calendar"/>
+	기간 : <form:input path="join_start_date" id="join_start_date_index" class="text ui-calendar"/> ~ <form:input path="join_end_date" id="join_end_date_index" class="text ui-calendar"/>
 	<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 <!-- 	<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a> -->
 </div>
@@ -220,6 +220,7 @@ function changeApproveYn(pay_member_idx, $this) {
 			<th width="50">기간</th>
 			<th width="50">금액</th>
 			<th width="30">비고</th>
+			<th width="30">상태</th>
 			<th width="30">기능</th>
 		</tr>
 	</thead>
@@ -262,6 +263,30 @@ function changeApproveYn(pay_member_idx, $this) {
 					</c:when>
 					<c:otherwise>
 						없음
+					</c:otherwise>
+				</c:choose>
+			</td>
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" />
+			<fmt:parseDate value="${i.join_start_date}" pattern="yyyy-MM-dd" var="startDate" />
+			<fmt:parseDate value="${i.join_end_date}" pattern="yyyy-MM-dd" var="endDate" />
+			<fmt:formatDate value="${now}" pattern="yyyyMMdd" var="nowDate" /> 
+			<fmt:formatDate value="${startDate}" pattern="yyyyMMdd" var="openDate"/>
+			<fmt:formatDate value="${endDate}" pattern="yyyyMMdd" var="closeDate"/>
+			<td width="30">
+				<c:choose>
+					<c:when test="${i.approve_yn eq 'Y'}">
+						<c:choose>
+							<c:when test="${openDate < nowDate && closeDate > nowDate}">
+								서비스중
+							</c:when>
+							<c:otherwise>
+								기간만료
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:otherwise>
+						강제 이용 중단
 					</c:otherwise>
 				</c:choose>
 			</td>

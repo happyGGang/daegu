@@ -22,14 +22,15 @@ $(function(){
 		onClose: function(selectedDate){
 			$('input#join_end_date').datepicker('option', 'minDate', selectedDate);
 		}
-	}).datepicker('setDate', '${paymentMember.join_start_date}');
+	});
+	
 	$('input#join_end_date').datepicker({
 		dateFormat:'yy-mm-dd',
 		minDate: $('input#join_start_date').val(), 
 		onClose: function(selectedDate){
 			$('input#join_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
-	}).datepicker('setDate', '${paymentMember.join_end_date}');
+	});
 	
 	$('select#email2_temp').on('change', function() {
 		$('input#email2').val($(this).val());
@@ -129,7 +130,6 @@ function paymentMemberSave(editMode) {
 	if(doAjaxPost($('#paymentMemberEdit'))) {
 		location.reload();
 	} else {
-		console.log('test');
 	}
 }
 
@@ -264,8 +264,8 @@ function isEmpty(value){
 						<input type="text" class="text family_name" value="${i.family_name}">
 					</td>
 					<td style="text-align:center;">
-						<label><input type="radio" class="family_sex" value="M" label="남" cssClass="M" ${i.family_sex eq 'M' ? 'checked' : ''}/>남</label>
-						<label><input type="radio" class="family_sex" value="F" label="여" cssClass="F" ${i.family_sex eq 'F' ? 'checked' : ''}/>여</label>
+						<label><input type="radio" class="family_sex" name="family_sex_${satstus.count}" value="M" ${i.family_sex eq 'M' ? 'checked' : ''}/>남</label>
+						<label><input type="radio" class="family_sex" name="family_sex_${satstus.count}" value="F" ${i.family_sex eq 'F' ? 'checked' : ''}/>여</label>
 					</td>
 					<td style="text-align:center;">
 						<input type="text" class="family_phone text" value="${i.family_phone}">
@@ -286,8 +286,8 @@ function isEmpty(value){
 							<input type="text" class="text family_name">
 						</td>
 						<td style="text-align:center;">
-							<label><input type="radio" class="family_sex" value="M" label="남" cssClass="M"/>남</label>
-							<label><input type="radio" class="family_sex" value="F" label="여" cssClass="F"/>여</label>
+							<label><input type="radio" class="family_sex" name="family_sex_${satstus.count}" value="M"/>남</label>
+							<label><input type="radio" class="family_sex" name="family_sex_${satstus.count}" value="F"/>여</label>
 						</td>
 						<td style="text-align:center;">
 							<input type="text" class="family_phone text">
@@ -309,8 +309,8 @@ function isEmpty(value){
 						<input type="text" class="text family_name">
 					</td>
 					<td style="text-align:center;">
-						<label><input type="radio" class="family_sex" value="M" label="남" cssClass="M"/>남</label>
-						<label><input type="radio" class="family_sex" value="F" label="여" cssClass="F"/>여</label>
+						<label><input type="radio" class="family_sex" name="family_sex_${satstus.count}" value="M"/>남</label>
+						<label><input type="radio" class="family_sex" name="family_sex_${satstus.count}" value="F"/>여</label>
 					</td>
 					<td style="text-align:center;">
 						<input type="text" class="family_phone text">

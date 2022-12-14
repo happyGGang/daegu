@@ -78,7 +78,9 @@
 	<select id="getPaymentMemberOne" resultType="kr.go.gbelib.app.cms.module.paymentMember.PaymentMember">
 		SELECT
 			homepage_id, pay_member_idx, pay_family_member_idx, pay_member_name,
-			phone,tel,loan_number, birth, join_start_date, join_end_date,
+			phone, tel, loan_number, birth,
+			TO_CHAR(join_start_date, 'yyyy-MM-dd') as join_start_date,
+			TO_CHAR(join_end_date, 'yyyy-MM-dd') as join_end_date,
 		    use_type, sex, sponsorship_amount, approve_yn, add_id,
 		    add_date, add_ip, modify_id, modify_date, delete_id,
 		    delete_date, delete_ip, delete_yn, etc, family_yn,
