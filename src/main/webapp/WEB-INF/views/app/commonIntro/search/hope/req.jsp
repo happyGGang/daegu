@@ -93,6 +93,11 @@
 		2022년 달성군립 작은도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
 	</div>
 </c:when>
+<c:when test="${homepage.context_path eq 'donggu'}">
+	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+		2022년 안심 및 신천, 작은도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
+	</div>
+</c:when>
 <c:when test="${homepage.context_path eq 'gosan' && tt eq '2022-11-21'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
 		도서구입비 예산 소진으로 2022년 희망도서 신청이 종료되었습니다.
@@ -290,7 +295,7 @@
 				</c:when>
 				<c:when test="${homepagePath eq 'donggu' || homepagePath eq 'donggusm'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
-					<option value="CA">안심도서관</option>
+					<!--<option value="CA">안심도서관</option>
 					<option value="CB">신천도서관</option>
 					<option value="GR">신암2동 작은도서관</option>
 					<option value="GS">신암3동 작은도서관</option>
@@ -303,7 +308,7 @@
 					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
-					<option value="FK">신천3동 작은도서관</option>
+					<option value="FK">신천3동 작은도서관</option>-->
 				</select>
 				</c:when>
 				<c:when test="${homepagePath eq 'sincheon'}">

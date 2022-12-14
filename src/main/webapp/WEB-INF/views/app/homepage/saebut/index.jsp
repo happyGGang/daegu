@@ -223,32 +223,32 @@
 				</div>
 				<div class="quick-box">
 					<ul>
-						<li class="quick01">
+						<li class="q2-1">
 							<a href="/${homepage.context_path}/html.do?menu_idx=12" class="q01">
 								<span>이용시간·휴관일</span>
 							</a>
 						</li>
-						<li class="quick02">
+						<li class="q2-2">
 							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=19" class="q02">
 								<span>문화행사</span>
 							</a>
 						</li>
-						<li class="quick03">
+						<li class="q2-3">
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=24&manage_idx=1072" class="q03">
 								<span>자주하는질문</span>
 							</a>
 						</li>
-						<li class="quick04">
+						<li class="q2-4">
 							<a href="/${homepage.context_path}/html.do?menu_idx=26" class="q04">
 								<span>자원봉사신청</span>
 							</a>
 						</li>
-						<li class="quick05">
+						<li class="q2-5">
 							<a href="/${homepage.context_path}/html.do?menu_idx=13" class="q05">
 								<span>도서대출·반납</span>
 							</a>
 						</li>
-						<li class="quick06">
+						<li class="q2-6">
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=1121" class="q06">
 								<span>소모임·공간사용신청</span>
 							</a>

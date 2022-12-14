@@ -72,6 +72,23 @@ $(document).mousedown(function(e) {
 });
 
 </script> -->
+<script>
+$(function() {
+<c:choose>
+	<c:when test="${sessionScope.member.loginType eq 'PRIVATEHOMEPAGE' and sessionScope.member.login}">
+		$('.menu_82').hide();
+		$('#menu_82').hide();
+	</c:when>
+	<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+
+	</c:when>
+	<c:otherwise>
+		$('.menu_82').hide();
+		$('#menu_82').hide();
+	</c:otherwise>
+</c:choose>
+});
+</script>
 </head>
 <!-- <body oncontextmenu='return false'> -->
 <body>

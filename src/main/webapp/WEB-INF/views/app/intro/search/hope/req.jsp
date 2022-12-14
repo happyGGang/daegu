@@ -423,12 +423,12 @@
 				</c:when>
 				<c:when test="${context_path eq 'donggu' || context_path eq 'donggusm'}">
 				<form:select path="manageCode">
-					<option value="CA">안심도서관</option>
+					<!--<option value="CA">안심도서관</option>
 					<option value="CB">신천도서관</option>
 					<option value="GR">신암2동 작은도서관</option>
-					<option value="GS">신암3동 작은도서관</option>
+					<option value="GS">신암3동 작은도서관</option>-->
 					<!-- <option value="GZ">동구청 작은도서관</option> -->
-					<option value="GU">불로어울림 작은도서관</option>
+					<!--<option value="GU">불로어울림 작은도서관</option>
 					<option value="GV">지저동 작은도서관</option>
 					<option value="FM">반야월역사 작은도서관</option>
 					<option value="FL">도평동 작은도서관</option>
@@ -437,18 +437,18 @@
 					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
-					<option value="FK">신천3동 작은도서관</option>
-				</form:select><!-- <span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span> -->
+					<option value="FK">신천3동 작은도서관</option>-->
+				</form:select><span style="color:#ff0000"> * 2022년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'sincheon'}">
 				<!-- <select id="manageCode" name="manageCode"> -->
 				<form:select path="manageCode">
-					<option value="CB">신천도서관</option>
+					<!--<option value="CB">신천도서관</option>
 					<option value="CA">안심도서관</option>
 					<option value="GR">신암2동 작은도서관</option>
-					<option value="GS">신암3동 작은도서관</option>
+					<option value="GS">신암3동 작은도서관</option>-->
 					<!-- <option value="GZ">동구청 작은도서관</option> -->
-					<option value="GU">불로어울림 작은도서관</option>
+					<!--<option value="GU">불로어울림 작은도서관</option>
 					<option value="GV">지저동 작은도서관</option>
 					<option value="FM">반야월역사 작은도서관</option>
 					<option value="FL">도평동 작은도서관</option>
@@ -457,8 +457,8 @@
 					<option value="GW">동촌역사 작은도서관</option>
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
-					<option value="FK">신천3동 작은도서관</option>
-				</form:select><!-- <span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span> -->
+					<option value="FK">신천3동 작은도서관</option>-->
+				</form:select><span style="color:#ff0000"> * 2022년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span> 
 				<!-- </select> -->
 				</c:when>
 				<c:when test="${context_path eq 'jungang'}">

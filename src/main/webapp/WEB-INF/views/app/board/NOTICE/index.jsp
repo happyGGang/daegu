@@ -83,7 +83,7 @@ table.bbs tr.notice{background:#f5f6f7}
 	<div class="table-wrap">
 		<table class="bbs center">
 			<caption>게시물 목록(${fn:escapeXml(boardManage.board_name)})</caption>
-			<colgroup>
+			<!-- <colgroup>
 			<%--	<c:if test="${board.delete_yn eq 'Y'}"> --%>
 				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
@@ -98,7 +98,7 @@ table.bbs tr.notice{background:#f5f6f7}
 				<col width="8%">
 				<col width="10%">
 				<col width="7%">
-			</colgroup>
+			</colgroup> -->
 			<thead>
 				<tr>
 <%-- 					<c:if test="${board.delete_yn eq 'Y'}"> --%>
@@ -289,7 +289,7 @@ table.bbs tr.notice{background:#f5f6f7}
 					<c:set var="user_name" value="${i.user_name}"/>
 					</c:otherwise>
 					</c:choose>
-					<td class="mmm2 username">${i.secret_yn ne 'Y'? user_name:'비공개'}</td>
+					<td class="mmm1 username">${i.secret_yn ne 'Y'? user_name:'비공개'}</td>
 					<td class="num adddate"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td class="num mmm1">${i.view_count}</td>
 					<td class="file mmm1">

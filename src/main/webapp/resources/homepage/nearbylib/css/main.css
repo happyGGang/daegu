@@ -17,7 +17,7 @@
 .lib05 {position:absolute;left:65.7%;top:74%;transition:all .3s ease;}
 .bal01 {position:absolute;left:56.7%;top:75%;transition:all .3s ease;}
 .bal02 {position:absolute;left:63.9%;top:44%;transition:all .3s ease;}
-.bal03 {position:absolute;left:88%;top:31%;transition:all .3s ease;}
+.bal03 {position:absolute;left:90%;top:31%;transition:all .3s ease;}
 
 .yeongyeong a img,
 .isia a img,
@@ -206,10 +206,10 @@
 	.lib02 a img,
 	.lib03 a img,
 	.lib04 a img,
-	.lib05 a img,
+	.lib05 a img {width:90px;}
 	.bal01 a img,
-	.bal02 a img,
-	.bal03 a img {width:90px;}
+	.bal02 a img {width:86px;}
+	.bal03 a img {width:84px;}
 
 	.searchBox form {position: absolute; top:50%; left:50%; width: 80%; height: 80px; transform: translate(-50%, -50%);}
 	.searchInput input {width: 100%;height: 80px;padding: 0 50px;border-radius: 50px;border: none;font-size:18px;box-sizing:border-box;}
