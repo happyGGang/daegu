@@ -212,6 +212,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<form:hidden path="certType"/>
 		<form:hidden path="before_url"/>
 		<form:hidden path="menu_idx"/>
+		
+		<c:if test="${not empty newMember.bringIn}">
+			<form:hidden path="bringIn"/>
+		</c:if>
+		
 		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 		<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}; border-top:1px solid #ddd;padding:15px 0;">
@@ -381,7 +386,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				점자도서관<input type="hidden" name="manage_code" value='NG'/>
 				</c:if>
 				<c:if test="${homepage.context_path eq 'wasabi'}">
-				푸른초장도서관<input type="hidden" name="manage_code" value='NH'/>
+				푸른초장공공도서관<input type="hidden" name="manage_code" value='NH'/>
 				</c:if>
 				<c:if test="${homepage.context_path eq 'handle'}">
 				한들마을도서관<input type="hidden" name="manage_code" value='NJ'/>

@@ -31,6 +31,9 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.bringInLog.BringInLog;
+import kr.go.gbelib.app.cms.module.bringInLog.BringInLogService;
+import kr.go.gbelib.app.cms.module.certLog.CertLog;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -61,6 +64,9 @@ public class CommonJoinController extends BaseController {
 
 	@Autowired
 	private MenuService menuService;
+	
+	@Autowired
+	private BringInLogService bringInLogService;
 
 	/**
 	 * 회원가입 step1 - 만14세이상, 만14세미만 선택
@@ -141,6 +147,28 @@ public class CommonJoinController extends BaseController {
 				member.setCell_phone2(certMember.getCell_phone2());
 				member.setCell_phone3(certMember.getCell_phone3());
 			}
+			
+			//통합회원 사립도서관으로 반입할때
+			try {
+				if (StringUtils.isNotEmpty(certMember.getMember_id())) {
+					member.setMember_id(certMember.getMember_id());
+				}
+				if (StringUtils.isNotEmpty(certMember.getZipcode())) {
+					member.setZipcode(certMember.getZipcode());
+				}
+				if (StringUtils.isNotEmpty(certMember.getAddress1())) {
+					member.setAddress1(certMember.getAddress1());
+				}
+				if (StringUtils.isNotEmpty(certMember.getAddress2())) {
+					member.setAddress2(certMember.getAddress2());
+				}
+				if (StringUtils.isNotEmpty(certMember.getBringIn())) {
+					member.setBringIn(certMember.getBringIn());
+				}
+			} catch (Exception e) {
+				System.err.println(e);
+			}
+			
 			member.setCi_value(certMember.getCi_value());
 			member.setDi_value(certMember.getDi_value());
 		} else {
@@ -353,10 +381,26 @@ public class CommonJoinController extends BaseController {
 					String addResult = joinService.addPrivateMember(request, member);
 					
 					if (addResult.equals("0")) {
-						res.setValid(true);
-						res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
-						res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
-						request.getSession().invalidate();
+						if("반입".equals(member.getBringIn())) {
+							res.setValid(true);
+							res.setMessage("반입이 완료되었습니다. 정회원 전환을 원하시면 도서관에 방문을 부탁드립니다.");
+							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+							
+							member.setAdd_ip(request.getRemoteAddr());
+							bringInLogService.addLog(member);
+							
+							request.getSession().invalidate();
+						} else if("h80".equals(member.getHomepage_id())) {
+							res.setValid(true);
+							res.setMessage("대출이용을 원하시는 경우에는 도서관 방문 후, 별도 가입이 필요합니다.");
+							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+							request.getSession().invalidate();
+						} else {
+							res.setValid(true);
+							res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
+							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
+							request.getSession().invalidate();
+						}
 					} else {
 						res.setValid(true);
 						res.setMessage(addResult);

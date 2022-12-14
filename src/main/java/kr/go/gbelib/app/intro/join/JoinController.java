@@ -589,12 +589,46 @@ public class JoinController extends BaseController {
 
 			if(member.getPrivateMemberYn(homepage)) {
 				// 2. ci중복자 확인
-				List<Map<String, Object>> memberInfo = PrivateMemberAPI.checkDupUser("1", member);
+				//TODO 시립또는 구군립 회원이 사립도서관을 가입할때
+				List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
 				if (memberInfo != null && memberInfo.size() > 0) {
 					certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), "", request.getRemoteAddr()));
-					model.addAttribute("dupCheck", true);
-					model.addAttribute("dupUser", memberInfo.get(0));
+					model.addAttribute("bringInPortalMember", "반입");
+					
+					try {
+						
+						if(StringUtils.isNotEmpty((String) memberInfo.get(0).get("USER_ID"))) {
+							member.setMember_id(String.valueOf(memberInfo.get(0).get("USER_ID")));
+						}
+						
+						if(StringUtils.isNotEmpty((String) memberInfo.get(0).get("H_ZIPCODE"))) {
+							member.setZipcode(String.valueOf(memberInfo.get(0).get("H_ZIPCODE")));
+						}
+						
+						if(StringUtils.isNotEmpty((String) memberInfo.get(0).get("H_ADDR1"))) {
+							member.setAddress1(String.valueOf(memberInfo.get(0).get("H_ADDR1")));
+						}
+						
+						if(StringUtils.isNotEmpty((String) memberInfo.get(0).get("W_ADDR1"))) {
+							member.setAddress2(String.valueOf(memberInfo.get(0).get("W_ADDR1")));
+						}
+						
+						member.setBringIn("반입");
+						
+						request.getSession().setAttribute("certMember", member);
+					} catch (Exception e) {
+						System.err.println(e);
+					}
+				} else {
+					List<Map<String, Object>> privateMemberInfo = PrivateMemberAPI.checkDupUser("1", member);
+					if (privateMemberInfo != null && privateMemberInfo.size() > 0) {
+						certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), "", request.getRemoteAddr()));
+						model.addAttribute("dupCheck", true);
+						model.addAttribute("dupUser", privateMemberInfo.get(0));
+					}
+					model.addAttribute("bringInPortalMember", "가입");
 				}
+				
 			} else {
 				// 2. ci중복자 확인
 				List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
@@ -1534,8 +1568,6 @@ public class JoinController extends BaseController {
 
 	@RequestMapping (value = {"/integration4.*"}, method = RequestMethod.POST)
 	public String integration4(@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
-
 		@SuppressWarnings ("unchecked")
 		Map<String, Object> integrationMember = (Map<String, Object>) request.getSession().getAttribute("integrationMember");
 		Member certMember = (Member) request.getSession().getAttribute("certMemberintegration");

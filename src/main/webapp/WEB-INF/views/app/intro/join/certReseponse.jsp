@@ -139,6 +139,11 @@ $(function() {
 				window.close();
 				return false;
 			}
+			
+			if ( '${bringInPortalMember}' == '가입' ) {
+				alert('시립, 구군립도서관에 가입한 정보가 조회되지 않습니다. 신규회원가입을 통해 가입을 진행합니다.');
+			}
+			
 			window.opener.$('input#certType').val(certType);
 			window.opener.$('form#memberJoinForm').submit();
 
