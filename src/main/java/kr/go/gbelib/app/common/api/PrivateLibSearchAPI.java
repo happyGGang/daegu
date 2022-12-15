@@ -1232,7 +1232,17 @@ public class PrivateLibSearchAPI {
 		Map<String, Object> param = new HashMap<String, Object>();
 		Map<String, Object> result = null;
 		
-		param.put("isbn13", librarySearch.getIsbn13());
+		String isbn13 = librarySearch.getIsbn13();
+		
+		String match = "[^\uAC00-\uD7A30-9a-zA-Z]";
+		
+		isbn13 = isbn13.replaceAll(match, "");
+		
+		String[] reg = {"etc", "passwd", "winnt", "win", "boot", "ini", "config", "download", "file"};
+		
+		String isbn = String.join(isbn13, reg);
+		
+		param.put("isbn13", isbn);
 		param.put("loaninfoYN", "Y");
 		result = CommonAPI.sendData4Library(param, "srchDtlList");
 		return result;

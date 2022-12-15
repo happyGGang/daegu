@@ -59,7 +59,54 @@
 		
 		<c:forEach items="${popularBookList}" varStatus="status" var="i">
 			$('a#btn${status.count}, a#cover${status.count}').on('click', function(e) {
-				e.preventDefault();
+			 e.preventDefault();
+				
+			 var regex = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
+			 var text = '${i.isbn13}';
+			 if (regex.test(text)) {
+		            //ISBN 숫자가 아닌 것을 제거한 후 배열로 분리
+		            var chars = text.replace(/[^0-9X]/g, "").split("");
+		            //chars 에서 끝 ISBN 숫자를 제거하고 그것을 last에 대입
+		            var last = chars.pop();
+		            var sum = 0;
+		            var digit = 10;
+		 
+		            var check;
+		 
+		            if(chars.length == 9) {
+		                //ISBN-10 검증 번호(체크섬 숫자) 계산
+		                for(var i = 0; i < chars.length; i++) {
+		                    sum += digit * parseInt(chars[i], 10);
+		                    digit -= 1;
+		                }
+		                check = 11 - (sum % 11);
+		                if (check == 10) {
+		                    check = "X";
+		                } else if (check == 11) {
+		                    check = "0";
+		                }
+		            } else {
+		                //ISBN-13 검증 번호 계산
+		                for (var i = 0; i < chars.length ; i++ ) {
+		                    sum += (i % 2 * 2 + 1) * parseInt(chars[i], 10);
+		                }
+		                check = 10 - (sum % 10);
+		                if (check == 10) {
+		                    check = "0";
+		                }
+		            }
+		            
+		            if (check == last) {
+		            } else {
+		                alert("ISBN 검증 번호가 잘못 되었습니다.");
+		                return false;
+		            }
+		 
+		        } else {
+		            alert("잘못된 ISBN입니다.");
+		            return false;
+		        }
+				 
 				$('input#isbn13').val('${i.isbn13}');
 				doGetLoad('detail.do', serializeCustom($('form#librarySearch')));
 			});
@@ -266,7 +313,7 @@
 					
 				</form:select>
 			</div> -->
-			<div class="btnSearch"><a href="#link" class="btn" id="searchBtn">검색</a></div>
+			<div class="btnSearch"><a href="javascript:void(0)" class="btn" id="searchBtn">검색</a></div>
 		</div>
 		<div class="filterDescArea">
 			<ul class="ref-list">
