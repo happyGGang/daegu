@@ -3,7 +3,7 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.bringInLog.BringInLogDao">
 	
 	<insert id="addLog">
-		<selectKey keyProperty="category_idx" resultType="int" order="BEFORE">
+		<selectKey keyProperty="log_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(log_idx),0)+1 FROM BRINGIN_LOG
 		</selectKey>
 		INSERT INTO BRINGIN_LOG (

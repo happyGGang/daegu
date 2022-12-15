@@ -166,7 +166,7 @@ public class Member extends PagingUtils implements Serializable {
 	
 	//사립도서관반입용 변수
 	private String bringIn;
-	private String log_idx;
+	private int log_idx;
 
 	public boolean getPrivateMemberYn(Homepage homepage) {
 		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
@@ -1191,11 +1191,11 @@ public class Member extends PagingUtils implements Serializable {
 		this.bringIn = bringIn;
 	}
 
-	public String getLog_idx() {
+	public int getLog_idx() {
 		return log_idx;
 	}
 
-	public void setLog_idx(String log_idx) {
+	public void setLog_idx(int log_idx) {
 		this.log_idx = log_idx;
 	}
 	

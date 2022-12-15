@@ -386,8 +386,12 @@ public class CommonJoinController extends BaseController {
 							res.setMessage("반입이 완료되었습니다. 정회원 전환을 원하시면 도서관에 방문을 부탁드립니다.");
 							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
 							
-							member.setAdd_ip(request.getRemoteAddr());
-							bringInLogService.addLog(member);
+							try {
+								member.setAdd_ip(request.getRemoteAddr());
+								bringInLogService.addLog(member);
+							} catch (Exception e) {
+								log.error("통합회원 사립도서관 반입 에러 : " + e);
+							}
 							
 							request.getSession().invalidate();
 						} else if("h80".equals(member.getHomepage_id())) {

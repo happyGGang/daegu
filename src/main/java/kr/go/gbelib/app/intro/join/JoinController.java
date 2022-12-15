@@ -616,6 +616,8 @@ public class JoinController extends BaseController {
 						member.setBringIn("반입");
 						
 						request.getSession().setAttribute("certMember", member);
+						
+						return basePath + "certReseponse_ajax";
 					} catch (Exception e) {
 						System.err.println(e);
 					}
