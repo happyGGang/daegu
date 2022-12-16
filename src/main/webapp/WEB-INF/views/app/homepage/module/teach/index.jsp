@@ -304,6 +304,10 @@ $(function(){
 		</c:choose>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'with'}">
+		<p style="text-align:right;">강좌 신청 문의 : 053-326-0937</p>
+	</c:if>
+
 	<c:choose>
 	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl'}">
 
@@ -455,6 +459,7 @@ ${html.html}
 	</c:if>
 </c:if>
 
+
 <div class="op_wrap">
 	<div class="smain">
 		<table class="list01 rwd-table" summary="문화행사신청 게시물. 본 데이터표는 8컬럼, 10로우로 구성되어 있습니다. 각 로우는 번호, 분류,  제목,   등록자, 등록일, 조회로 구성되어 있습니다." cellspacing="0" cellpadding="0" border="0">
@@ -472,7 +477,13 @@ ${html.html}
 					<th scope="col" class="center">접수인원</th>
 					<th scope="col" class="center"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사기간</c:when><c:when test="${param.searchCate1 eq '17'}">강좌기간</c:when><c:when test="${param.searchCate1 eq '18'}">강좌기간</c:when><c:otherwise>강좌기간</c:otherwise></c:choose></th>
 					<th scope="col" class="center">접수기간</th>
-					<th scope="col" class="center">접수상태</th>
+					<c:choose>
+						<c:when test="${homepage.context_path eq 'with'}">
+						</c:when>
+						<c:otherwise>
+							<th scope="col" class="center">접수상태</th>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</thead>
 
@@ -581,53 +592,59 @@ ${html.html}
 						<td data-th="접수기간">
 							<span class="">${i.start_join_date}&nbsp;${i.start_join_time}&nbsp;&nbsp;~ <br/>${i.end_join_date}&nbsp;${i.end_join_time}</span>
 						</td>
-						<td data-th="접수상태">
-							<c:choose>
-								<c:when test="${member.login and (member.loginType eq 'HOMEPAGE') and (not empty i.member_key and i.member_key eq member.seq_no)}">
-									<a class="btn btn3 teachBook-btn" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}"keyValue5="${i.large_category_idx}" >출석부</a>
-								</c:when>
-								<c:otherwise>
+						<c:choose>
+							<c:when test="${homepage.context_path eq 'with'}">
+							</c:when>
+							<c:otherwise>
+								<td data-th="접수상태">
 									<c:choose>
-										<c:when test="${i.teach_status eq '0'}">
-											<a href="" class="btn btn5 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
-											<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+										<c:when test="${member.login and (member.loginType eq 'HOMEPAGE') and (not empty i.member_key and i.member_key eq member.seq_no)}">
+											<a class="btn btn3 teachBook-btn" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}"keyValue5="${i.large_category_idx}" >출석부</a>
 										</c:when>
-										<c:when test="${i.teach_status eq '1'}">
-											<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
-											<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
-										</c:when>
-										<c:when test="${i.teach_status eq '2' or i.teach_status eq '10'}">
-											<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-											<i class="fa fa-circle-o"></i><span>신청완료</span></a>
-										</c:when>
-										<c:when test="${i.teach_status eq '3'}">
-											<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-											<i class="fa fa-circle-o"></i><span>대기자<br />신청완료</span></a>
-										</c:when>
-										<c:when test="${i.teach_status eq '9'}">
-											<a href="javascript:void(0);" class="btn btn6" style="cursor: default;">
-											<i class="fa fa-pencil"></i><span>수강종료</span></a>
-										</c:when>
-										<c:when test="${i.teach_status eq '4'}">
-											<a href="javascript:void(0);" class="btn btn8" style="cursor: default;">
-											<i class="fa fa-user"></i><span>접수마감</span></a>
-										</c:when>
-										<c:when test="${i.teach_status eq '5'}">
-											<a href="javascript:void(0);" class="btn btn8" style="cursor: default;">
-											<i class="fa fa-user"></i><span>정원마감</span></a>
-										</c:when>
-										<c:when test="${i.teach_status eq '6'}">
-											<a href="javascript:void(0);" class="btn btn4" style="cursor: default;">
-											<i class="fa fa-clock-o"></i><span>신청대기</span></a>
-										</c:when>
-										<%-- <c:when test="${i.teach_status eq '7' }">
-											<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
-											<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
-										</c:when> --%>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${i.teach_status eq '0'}">
+													<a href="" class="btn btn5 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
+													<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '1'}">
+													<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
+													<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+													<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+													<i class="fa fa-circle-o"></i><span>신청완료</span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '3'}">
+													<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+													<i class="fa fa-circle-o"></i><span>대기자<br />신청완료</span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '9'}">
+													<a href="javascript:void(0);" class="btn btn6" style="cursor: default;">
+													<i class="fa fa-pencil"></i><span>수강종료</span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '4'}">
+													<a href="javascript:void(0);" class="btn btn8" style="cursor: default;">
+													<i class="fa fa-user"></i><span>접수마감</span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '5'}">
+													<a href="javascript:void(0);" class="btn btn8" style="cursor: default;">
+													<i class="fa fa-user"></i><span>정원마감</span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '6'}">
+													<a href="javascript:void(0);" class="btn btn4" style="cursor: default;">
+													<i class="fa fa-clock-o"></i><span>신청대기</span></a>
+												</c:when>
+												<%-- <c:when test="${i.teach_status eq '7' }">
+													<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
+													<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
+												</c:when> --%>
+											</c:choose>
+										</c:otherwise>
 									</c:choose>
-								</c:otherwise>
-							</c:choose>
-						</td>
+								</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 					</c:forEach>
 			</tbody>

@@ -147,7 +147,7 @@
 								<div class="outer">
 									<div class="inner">
 										<div class="main0-box-right-left">
-											<h3>꿈꾸는마을도서관<br class="web-view"/> <b>도토리</b><em>배움·성장·나눔이 있는 마을도서관</em></h3>
+											<h3>배움·성장·나눔이 있는 마을도서관<br />꿈꾸는마을도서관 도토리</h3>
 											<!-- main_search -->
 											<div class="search-box" id="main_search">
 												<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">

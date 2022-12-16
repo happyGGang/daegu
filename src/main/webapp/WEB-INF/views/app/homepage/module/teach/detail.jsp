@@ -245,46 +245,57 @@
 		</table>
 	</div>
 
-<div class="sbtn">
+
 	<c:choose>
-		<c:when test="${teach.teach_status eq '0'}">
-			<a href="" class="btn btn1 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="1">
-			<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+		<c:when test="${homepage.context_path eq 'with'}">
+			<div class="sbtn">
+				<a id="back-btn" href="" class="btn"><i class="fa fa-reorder"></i><span>목록으로</span></a>
+			</div>
 		</c:when>
-		<c:when test="${teach.teach_status eq '1'}">
-			<a href="" class="btn btn1 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="2">
-			<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
-		</c:when>
-		<c:when test="${teach.teach_status eq '2' or i.teach_status eq '10'}">
-			<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-			<i class="fa fa-circle-o"></i><span>신청완료</span></a>
-		</c:when>
-		<c:when test="${teach.teach_status eq '3'}">
-			<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
-			<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
-		</c:when>
-		<c:when test="${teach.teach_status eq '9'}">
-			<a href="javascript:void(0);" class="btn" style="cursor: default;">
-			<i class="fa fa-pencil"></i><span>수강종료</span></a>
-		</c:when>
-		<c:when test="${teach.teach_status eq '4'}">
-			<a href="javascript:void(0);" class="btn" style="cursor: default;">
-			<span>접수마감</span></a>
-		</c:when>
-		<c:when test="${teach.teach_status eq '5'}">
-			<a href="javascript:void(0);" class="btn" style="cursor: default;">
-			<i class="fa fa-user"></i><span>정원마감</span></a>
-		</c:when>
-		<c:when test="${teach.teach_status eq '6'}">
-			<a href="javascript:void(0);" class="btn btn4" style="cursor: default;">
-			<i class="fa fa-clock-o"></i><span>신청대기</span></a>
-		</c:when>
-		<%-- <c:when test="${teach.teach_status eq '7' }">
-			<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
-			<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
-		</c:when> --%>
+		<c:otherwise>
+			<div class="sbtn">
+				<c:choose>
+					<c:when test="${teach.teach_status eq '0'}">
+						<a href="" class="btn btn1 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="1">
+						<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '1'}">
+						<a href="" class="btn btn1 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="2">
+						<i class="fa fa-pencil-square-o"></i><span>대기자신청</span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '2' or i.teach_status eq '10'}">
+						<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+						<i class="fa fa-circle-o"></i><span>신청완료</span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '3'}">
+						<a href="/${homepage.context_path}/module/teach/applyList.do?menu_idx=${myTeachListMenuIdx}" class="btn btn2">
+						<i class="fa fa-circle-o"></i><span>대기자 신청완료</span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '9'}">
+						<a href="javascript:void(0);" class="btn" style="cursor: default;">
+						<i class="fa fa-pencil"></i><span>수강종료</span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '4'}">
+						<a href="javascript:void(0);" class="btn" style="cursor: default;">
+						<span>접수마감</span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '5'}">
+						<a href="javascript:void(0);" class="btn" style="cursor: default;">
+						<i class="fa fa-user"></i><span>정원마감</span></a>
+					</c:when>
+					<c:when test="${teach.teach_status eq '6'}">
+						<a href="javascript:void(0);" class="btn btn4" style="cursor: default;">
+						<i class="fa fa-clock-o"></i><span>신청대기</span></a>
+					</c:when>
+					<%-- <c:when test="${teach.teach_status eq '7' }">
+						<a href="javascript:void(0);" class="btn btn3" style="cursor: default;">
+						<i class="fa fa-times-circle"></i><span>신청불가(취소)</span></a>
+					</c:when> --%>
+				</c:choose>
+				<a id="back-btn" href="" class="btn"><i class="fa fa-reorder"></i><span>목록으로</span></a>
+			</div>
+		</c:otherwise>
 	</c:choose>
-	<a id="back-btn" href="" class="btn"><i class="fa fa-reorder"></i><span>목록으로</span></a>
-</div>
+
 
 </div>

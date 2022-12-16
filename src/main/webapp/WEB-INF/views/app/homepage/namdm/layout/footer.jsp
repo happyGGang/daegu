@@ -30,8 +30,7 @@
 					<p>
 						<em><b>대명어울림도서관</b> (${homepage.zipcode}) <br class="mobileBr"/>${homepage.address1}</em><br class="mobileBr"/>
 						<em>전화 ${fn:split(homepage.homepage_tell,',')[0]}</em>
-						<!--<em>/</em>
-						<em>팩스 <b>${homepage.homepage_fax }</b></em> -->
+						<em>팩스 ${homepage.homepage_fax }</em>
 					</p>
 					<span>Copyright ⓒ 대명어울림도서관. All rights reserved.</span>
 				</address>
