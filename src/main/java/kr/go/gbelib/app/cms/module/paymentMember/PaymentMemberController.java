@@ -44,6 +44,9 @@ public class PaymentMemberController extends BaseController {
 	@RequestMapping (value = {"/index.*"})
 	public String index(Model model, PaymentMember paymentMember, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
+		String homepage_id = getAsideHomepageId(request);
+		
+		paymentMember.setHomepage_id(homepage_id);
 		
 		int count = service.getPaymentMemberCount(paymentMember);
 		service.setPaging(model, count, paymentMember);

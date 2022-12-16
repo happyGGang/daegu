@@ -9,6 +9,7 @@
 			PAYMENT_MEMBER
 		WHERE
 			delete_yn = 'N'
+		AND homepage_id = #{homepage_id}
 		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
@@ -52,6 +53,7 @@
 		<if test="join_start_date != null and join_start_date != '' and join_end_date != null and join_end_date != ''">
 			AND TO_DATE(join_start_date,'yyyy-MM-dd') BETWEEN #{join_start_date} AND #{join_end_date}
 		</if>
+		AND homepage_id = #{homepage_id}
 		ORDER BY pay_member_idx DESC
 		${pagingBottom}
 	</select>
