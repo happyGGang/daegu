@@ -56,6 +56,19 @@ $(function() {
 		window.close();
 		return false;
 	}
+	
+	if ('${dupCheckPrivate}' == 'true') {
+		if ('${dupUserPrivate.USER_CLASS}' == '3') {
+			alert('탈퇴 회원입니다. 도서관으로 문의 바랍니다.');
+		} else if ('${dupUserPrivate.USER_NO}' != '') {
+			alert('이미 가입되어 있습니다.');
+		} else {
+			alert('준회원으로 가입되어 있습니다.');
+		}
+
+		window.close();
+		return false;
+	}
 
 	if ('${board}' == 'true') {
 		window.opener.document.getElementById('board').submit();

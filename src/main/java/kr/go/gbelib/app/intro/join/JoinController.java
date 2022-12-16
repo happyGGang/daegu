@@ -579,14 +579,6 @@ public class JoinController extends BaseController {
 			model.addAttribute("parent", true);
 			request.getSession().setAttribute("parentInfo", member);
 		} else if (!StringUtils.isEmpty(certType) && !certType.contains("parent")) {
-			// 실제 가입자 인증
-			// 1. ci중복자 확인(책이음 가입자 확인)
-//			List<Map<String, Object>> memberInfoKl = MemberAPI.checkDupUser("3", member);
-//			if (memberInfoKl != null && memberInfoKl.size() > 0) {
-//				model.addAttribute("dupCheckKl", true);
-//				model.addAttribute("dupUser", memberInfoKl.get(0));
-//			}
-
 			if(member.getPrivateMemberYn(homepage)) {
 				// 2. ci중복자 확인
 				//TODO 시립또는 구군립 회원이 사립도서관을 가입할때
@@ -616,17 +608,23 @@ public class JoinController extends BaseController {
 						member.setBringIn("반입");
 						
 						request.getSession().setAttribute("certMember", member);
-						
-						return basePath + "certReseponse_ajax";
 					} catch (Exception e) {
 						System.err.println(e);
 					}
+					
+					List<Map<String, Object>> privateMemberInfo = PrivateMemberAPI.checkDupUser("1", member);
+					if (privateMemberInfo != null && privateMemberInfo.size() > 0) {
+						certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), "", request.getRemoteAddr()));
+						model.addAttribute("dupCheckPrivate", true);
+						model.addAttribute("dupUserPrivate", privateMemberInfo.get(0));
+					}
+					
 				} else {
 					List<Map<String, Object>> privateMemberInfo = PrivateMemberAPI.checkDupUser("1", member);
 					if (privateMemberInfo != null && privateMemberInfo.size() > 0) {
 						certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), "", request.getRemoteAddr()));
-						model.addAttribute("dupCheck", true);
-						model.addAttribute("dupUser", privateMemberInfo.get(0));
+						model.addAttribute("dupCheckPrivate", true);
+						model.addAttribute("dupUserPrivate", privateMemberInfo.get(0));
 					}
 					model.addAttribute("bringInPortalMember", "가입");
 				}
@@ -646,14 +644,14 @@ public class JoinController extends BaseController {
 			if(member.getPrivateMemberYn(homepage)) {
 				// 3. 책이음 중복자 확인
 				// 2020.01.07 'daegu' 컨텍스트에서는 신규가입 시 책이음회원여부를 체크하지 않는다.
-				if (!StringUtils.equals(currentContext, "daegu")) {
-					// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
-					List<Map<String, Object>> klmemberInfo = PrivateMemberAPI.checkDupUser("3", member);
-					if (klmemberInfo != null && klmemberInfo.size() > 0) {
-						model.addAttribute("dupCheckKl", true);
-						model.addAttribute("dupUser", klmemberInfo.get(0));
-					}
-				}
+//				if (!StringUtils.equals(currentContext, "daegu")) {
+//					// 2020.02.05 책이음 속도 문제로인해 책이음가입여부 제외
+//					List<Map<String, Object>> klmemberInfo = PrivateMemberAPI.checkDupUser("3", member);
+//					if (klmemberInfo != null && klmemberInfo.size() > 0) {
+//						model.addAttribute("dupCheckKl", true);
+//						model.addAttribute("dupUser", klmemberInfo.get(0));
+//					}
+//				}
 
 				model.addAttribute("parent", false);
 			} else {
