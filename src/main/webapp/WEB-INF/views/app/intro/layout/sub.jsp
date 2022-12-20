@@ -35,7 +35,16 @@
 						<c:otherwise>
 						<li class="login"><a href="/intro/${context_path}/login/index.do">로그인</a></li>
 						<li class="join"><a href="/intro/${context_path}/join/index.do">신규회원가입</a></li>
+
+						<c:choose>
+						<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubraillelibrary' || context_path eq 'wasabi' || context_path eq 'handle'}">
+
+						</c:when>
+						<c:otherwise>
 						<li class="integration"><a href="/intro/${context_path}/join/integration.do">통합인증센터</a></li>
+						</c:otherwise>
+						</c:choose>
+						
 						</c:otherwise>
 						</c:choose>
 						<!-- <c:choose>

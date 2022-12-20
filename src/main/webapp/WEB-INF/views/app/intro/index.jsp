@@ -118,7 +118,15 @@ $(function() {
 			<li class="bg bg03"><a href="/intro/${context_path}/search/loan/index.do" class="join-btn"><img src="/resources/common/img/bt005.png" alt="마이페이지" class="wbt"/><img src="/resources/common/img/mbt005.png" alt="마이페이지" class="mbt"/></a></li>
 			</c:when>
 			<c:otherwise>
+
+			<c:choose>
+				<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubraillelibrary' || context_path eq 'wasabi' || context_path eq 'handle'}">
+			<li class="bg bg02"><a href="/intro/${context_path}/join/index.do"><img src="/resources/common/img/bt002.png" alt="통합인증센터" class="wbt"/><img src="/resources/common/img/mbt002.png" alt="통합인증센터" class="mbt"/></a></li>
+				</c:when>
+				<c:otherwise>
 			<li class="bg bg02"><a href="/intro/${context_path}/join/integration.do"><img src="/resources/common/img/bt002.png" alt="통합인증센터" class="wbt"/><img src="/resources/common/img/mbt002.png" alt="통합인증센터" class="mbt"/></a></li>
+				</c:otherwise>
+			</c:choose>
 			<li class="bg bg03"><a href="/intro/${context_path}/join/index.do" class="join-btn"><img src="/resources/common/img/bt003.png" alt="신규회원가입" class="wbt"/><img src="/resources/common/img/mbt003.png" alt="신규회원가입" class="mbt"/></a></li>
 			</c:otherwise>
 			</c:choose>

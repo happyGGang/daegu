@@ -398,7 +398,11 @@ $(function() {
 				<input id="agree_codes3" name="agree_codes" req="0001" type="checkbox" value="2"><label for="agree_codes3">개인정보 공동이용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
 			</div>
 
+			<c:choose>
+			<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubraillelibrary' || context_path eq 'wasabi' || context_path eq 'handle'}">
 
+			</c:when>
+			<c:otherwise>
 			<h4>개인정보 제3자 제공 내역</h4>
 			<div class="Box" style="height:200px">
 				<br>
@@ -445,6 +449,8 @@ $(function() {
 			<div class="agree_codes">
 				<input id="agree_codes4" name="agree_codes" req="0001" type="checkbox" value="3"><label for="agree_codes4">개인정보 제3자 제공에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
 			</div>
+			</c:otherwise>
+			</c:choose>
 
 			<div class="center">
 				<input id="all-agree" type="checkbox"><label for="all-agree"> 모든 약관에 동의 합니다.</label>
