@@ -1570,7 +1570,7 @@ public class BoardController extends BaseController {
 
 	@RequestMapping(value = {"/delete.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse delete(Board board, BindingResult result, Model model, HttpServletRequest request) {
-
+		Homepage homepage = getSessionHomepage(request);
 		//427201 427200
 		attributeInit(request, null, board, null);
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
@@ -1680,10 +1680,18 @@ public class BoardController extends BaseController {
 
 				if (StringUtils.isNotBlank(sessionMemberInfo.getMember_id())) {
 					board.setDelete_id(sessionMemberInfo.getMember_id());
-					if (!"HOMEPAGE".equals(getSessionMemberLoginType(request)) || !boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id())) {
-						res.setValid(false);
-						res.setMessage("잘못된 접근입니다.");
-						return res;
+					if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
+						if (!"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))|| !boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id())) {
+							res.setValid(false);
+							res.setMessage("잘못된 접근입니다.");
+							return res;
+						}
+					} else {
+						if (!"HOMEPAGE".equals(getSessionMemberLoginType(request))|| !boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id())) {
+							res.setValid(false);
+							res.setMessage("잘못된 접근입니다.");
+							return res;
+						}
 					}
 				} else {
 					board.setDelete_id("ANONYMOUS");
@@ -1692,7 +1700,6 @@ public class BoardController extends BaseController {
 
 			if (!sessionMemberInfo.isAdmin()) {
 				if (boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id()) && !"ANONYMOUS".equals(boardOne.getAdd_id())) {
-					Homepage homepage = getSessionHomepage(request);
 					if (StringUtils.isNotEmpty(homepage.getPoint_api_key())) {
 						// 게시글이 묻고답하기 이고 원글일 경우
 						if ("QNA".equals(boardManage.getBoard_type())) {
