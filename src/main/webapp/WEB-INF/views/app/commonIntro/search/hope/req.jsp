@@ -394,59 +394,72 @@
 					<form:option value="HH">공무원연수원</form:option>
 				</form:select>
 				</c:when>
-				<c:when test="${homepagePath eq 'with'}">
-				<form:select path="manageCode">
-					<form:option value="NA">더불어숲도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'dotory'}">
-				<form:select path="manageCode">
-					<form:option value="NB">도토리도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'dongil'}">
-				<form:select path="manageCode">
-					<form:option value="NC">동일도서관</form:option>
-				</form:select>
-				</c:when>
+
 				<c:when test="${homepagePath eq 'vision'}">
 				<form:select path="manageCode">
 					<form:option value="NF">비전도서관</form:option>
 				</form:select>
 				</c:when>
-				<c:when test="${homepagePath eq 'saebut'}">
-				<form:select path="manageCode">
-					<form:option value="NE">새벗도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'art'}">
-				<form:select path="manageCode">
-					<form:option value="NK">아트도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'yeonam'}">
-				<form:select path="manageCode">
-					<form:option value="ND">연암도서관</form:option>
-				</form:select>
-				</c:when>						
-				<c:when test="${homepagePath eq 'daegubraillelibrary'}">
-				<form:select path="manageCode">
-					<form:option value="NG">점자도서관</form:option>
-				</form:select>
-				</c:when>
-				<c:when test="${homepagePath eq 'wasabi'}">
-				<form:select path="manageCode">
-					<form:option value="NH">푸른초장공공도서관</form:option>
-				</form:select>
-				</c:when>
+
 				<c:when test="${homepagePath eq 'handle'}">
 				<form:select path="manageCode">
 					<form:option value="NJ">한들마을도서관</form:option>
 				</form:select>
 				</c:when>
+
+
+				<c:when test="${homepagePath eq 'with'}">
+				<form:select path="manageCode">
+					<form:option value="NA">더불어숲도서관</form:option>
+				</form:select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'dotory'}">
+				<form:select path="manageCode">
+					<form:option value="NB">도토리도서관</form:option>
+				</form:select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'dongil'}">
+				<form:select path="manageCode">
+					<form:option value="NC">동일도서관</form:option>
+				</form:select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'wasabi'}">
+				<select name="manageCode" id="manageCode">
+					<option value="NH">푸른초장공공도서관</option>
+				</select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'saebut'}">
+				<select name="manageCode" id="manageCode">
+					<option value="NE">새벗도서관</option>
+				</select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'art'}">
+				<select name="manageCode" id="manageCode">
+					<option value="NK">아트도서관</option>
+				</select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'yeonam'}">
+				<select name="manageCode" id="manageCode">
+					<option value="ND">연암도서관</option>
+				</select>
+				</c:when>
+
+				<c:when test="${homepagePath eq 'daegubraillelibrary'}">
+				<select name="manageCode" id="manageCode">
+					<option value="NG">점자도서관</option>
+				</select>
+				</c:when>
+
+
 				<c:otherwise>
 				<form:select path="manageCode">
-					<form:option value="AD">중앙도서관</form:option>
+					<option value="AD">중앙도서관</option>
 				</form:select>
 				</c:otherwise>
 				</c:choose>
