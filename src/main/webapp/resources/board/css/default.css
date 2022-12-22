@@ -768,9 +768,9 @@ a#closeSearch2 {color: #808080;font-size: 155%;float: right;margin: -19px -25px;
 .faqArea{clear:both;margin:0 auto;border-top:2px solid #3970b8;border-bottom:1px solid #d6d6d6;}
 .faq{margin:0;padding:0;list-style:none;}
 .faq .q{margin:0;border-top:1px solid #ddd;}
-.faq .q a.trigger{display:block;padding:15px;font-weight:bold;color:#333;text-align:left;text-decoration:none !important;font-size:14px;}
+.faq .q a.trigger{display:block;padding:15px;font-weight:normal;color:#333;text-align:left;text-decoration:none !important;font-size:14px;}
 .faq .q span{font-size:14px;font-weight:bold;color:#e32c2c;margin-right:5px;}
-.faq .hidden .q a.trigger{background:none;font-size:14px;}
+.faq .hidden .q a.trigger{background:none;font-size:15px;}
 .faq .q a.trigger:hover{background:#f5fbfd;color:#e32c2c;}
 .faq .a{position:relative;margin:0;padding:10px 15px;line-height:1.5;background:#fdfcf5;overflow:hidden;padding-bottom:10px;padding-top:10px;border-top:1px dashed #ddd;}
 .faq .a .tit{font-size:14px;font-weight:bold;color:#e32c2c;display:inline-block;width:14px;position:absolute;top:14px;left:15px;}

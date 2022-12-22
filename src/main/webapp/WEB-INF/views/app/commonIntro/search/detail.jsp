@@ -286,6 +286,8 @@ $(function() {
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
+	<input type="hidden" name="book_name" value="${fn:escapeXml(detail.TITLE_INFO)}">
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
@@ -488,6 +490,9 @@ $(function() {
 					</c:if>
 					<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 					<li><strong>영어독서 레벨</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.marc}</li>
+					</c:if>
+					<c:if test="${detail.MANAGE_CODE eq 'NA' || detail.MANAGE_CODE eq 'NB' || detail.MANAGE_CODE eq 'NE' || detail.MANAGE_CODE eq 'NJ'}">
+					<p><font style="color:#f31d1d;font-weight:bold;">★ 해당 도서는 도서관 사정에 따른 유료회원제 자료입니다.</font></p>
 					</c:if>
 				</ul>
 			</div>
@@ -998,6 +1003,22 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
+			
+			<c:choose>
+				<c:when test="${homepage.context_path eq 'nearbylib' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
+					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'infoset'}">
+					<c:choose>
+						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
+						
+						</c:when>
+						<c:otherwise>
+							<a href="#untact" id="unmanned-req" class="btn btn2"><span>내집앞도서관대출 신청2</span></a>
+						</c:otherwise>
+					</c:choose>
+					</c:if>
+				</c:when>
+			</c:choose>
+
 
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
@@ -1023,7 +1044,7 @@ $(function() {
 				<c:otherwise>
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FP'||detail.MANAGE_CODE eq 'FW'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FW'}">
 
 						</c:when>
 						<c:otherwise>

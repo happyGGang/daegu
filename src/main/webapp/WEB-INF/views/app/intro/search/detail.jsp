@@ -540,12 +540,12 @@ AD20 종합자료실
 
 
 			<c:choose>
-				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10'}">
+				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10'|| detail.SHELF_LOC_CODE eq 'AA51'}">
 
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-					<c:when test="${detail.MANAGE_CODE eq 'FP'|| detail.MANAGE_CODE eq 'FW'}">
+					<c:when test="${detail.MANAGE_CODE eq 'FW'}">
 
 					</c:when>
 					<c:otherwise>
