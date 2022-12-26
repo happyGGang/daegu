@@ -301,15 +301,10 @@
 
 
 @font-face {
-    font-family: 'JalpullineunOneul';
+    font-family: 'ThecircleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/ThecircleM.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.eot?#iefix') format('embedded-opentype'),
-         url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.woff2') format('woff2'),
-         url('https://cdn.jsdelivr.net/gh/webfontworld/Jalpullineun/JalpullineunOneul.woff') format('woff');
-    font-display: swap;
 }
-
 
 

@@ -49,14 +49,14 @@ h1.mobile-logo {display:none;}
 .Gnb .gnb-menu {position:relative;text-align:center;}
 .Gnb .gnb-menu > li{padding:0 2%;text-align:center;position:static;}
 
-.Gnb .gnb-menu > li > a {padding:0;line-height:80px;height:78px;font-family:'JalpullineunOneul',sans-serif;font-weight:normal;font-size:20px;color:#454545;border-bottom:3px solid transparent}
+.Gnb .gnb-menu > li > a {padding:0;line-height:80px;height:78px;font-family:'ThecircleM',sans-serif;font-weight:normal;font-size:21px;color:#454545;border-bottom:3px solid transparent}
 .Gnb .gnb-menu > li > a:hover,
 .Gnb .gnb-menu > li > a:focus{background:none;color:#21409a;border-bottom:3px solid #21409a;}
 .Gnb .gnb-menu > li > ul {display:none;border:0;left:0;white-space:nowrap;text-align:center;}
 .Gnb .gnb-menu > li.active > ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 1px;}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
-.Gnb .gnb-menu>li>.SubMenu>li>a{font-family:'JalpullineunOneul',sans-serif;font-weight:normal;font-size:15px;letter-spacing: 0.06rem;padding:0 5px;color:#eee;}
+.Gnb .gnb-menu>li>.SubMenu>li>a{font-family:'ThecircleM',sans-serif;font-weight:normal;font-size:16px;letter-spacing: 0.06rem;padding:0 5px;color:#eee;}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fad107;font-weight:normal;}
 .Gnb .mask,

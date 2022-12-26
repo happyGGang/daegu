@@ -1387,13 +1387,14 @@ h3.dgtit{background:none !important;padding-left:0 !important;;}
 
 /* 내 집 앞 도서관이란? */
 .sub01-box{position:relative;background:url("/resources/homepage/nearbylib/img/sub01-rect.png") no-repeat right -200px;height:350px;}
-.sub01-box h5{font-family:'JalpullineunOneul', sans-serif;font-size:53px;letter-spacing:3.5px;padding-top:125px;color:#000;}
+.sub01-box h5{font-family:'ThecircleM', sans-serif;font-size:53px;letter-spacing:3.5px;padding-top:35px;color:#000;}
 .sub01-box h5 span{color:#fff;}
-.sub01-box p{font-family:'JalpullineunOneul', sans-serif;font-size:18px;color:#333;letter-spacing:-0.25px;line-height:180%;margin-top:20px;}
+.sub01-box p{font-family:'ThecircleM', sans-serif;font-size:19px;color:#555;line-height: 1.8rem;margin-top:20px;width: 35%;}
 .sub01-box .sub01-img{position:absolute;right:30px;bottom:7px;background:url("/resources/homepage/nearbylib/img/sub01-img.png") no-repeat;width:400px;height:194px;}
 
 @media all and (max-width: 1400px) {
 	.sub01-box{background:none;height:auto;}
+	.sub01-box p{width: 70%;margin: 20px 0 30px 0px;}
 	.sub01-box h5{padding-top:0;font-size:45px;padding-top:30px;letter-spacing:1px;}
 	.sub01-box h5 span{color:#333;}
 	.sub01-box .sub01-img{bottom:0;right:0;background-size:300px;background-position:0 50px;width:300px;}
@@ -1401,7 +1402,7 @@ h3.dgtit{background:none !important;padding-left:0 !important;;}
 
 @media all and (max-width: 1024px) {
 	.sub01-box h5{font-size:35px;}
-	.sub01-box p{font-size:16px;}
+	.sub01-box p{font-size:16px;width: 60%;margin: 0 0 30px 0;}
 
 	.nbl-use-time.sub01-list li{width:90% !important;margin-right:0 !important;margin-bottom:10px;padding:20px 5%;}
 	.nbl-use-time.sub01-list li p br{display:none;}
@@ -1414,7 +1415,7 @@ h3.dgtit{background:none !important;padding-left:0 !important;;}
 
 @media all and (max-width: 768px) {
 	.sub01-box h5{font-size:30px;}
-	.sub01-box p{font-size:15px;}
+	.sub01-box p{font-size:15px;width: 100%;margin: 20px 0px;}
 }
 
 

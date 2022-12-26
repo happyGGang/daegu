@@ -583,7 +583,7 @@ transform:translatez(0);
 .doc-title ol{margin-top:-6px;}
 
 .doc-name {}
-.doc-name h3 {display:block;width:100%;font-family:'JalpullineunOneul';font-weight:normal;font-size:27px;color:#fff;padding:30px 0 0 0;}
+.doc-name h3 {display:block;width:100%;font-family:'ThecircleM';font-weight:normal;font-size:27px;color:#fff;padding:30px 0 0 0;}
 .doc-info-bg {width:100%;position:absolute;bottom:0;background-color:rgba(0,0,0,0.35);}
 .doc-info {width:1260px;margin:0 auto;position:relative;padding:0;box-sizing:border-box;z-index:2;}
 .doc-info ol { float:left;}
@@ -612,24 +612,24 @@ transform:translatez(0);
 .visual_wrap .sub_top h3{line-height:1; font-size:2.125em; font-weight: 500;}
 
 /* quick_wrap - snb_link */
-.quick_wrap{position:absolute;bottom:0;z-index:1;width:100%;height:60px;background:rgba(0,0,0,0.3); }
+.quick_wrap{position:absolute;bottom:0;z-index:1;width:100%;height: 45px;background:rgba(0,0,0,0.3);}
 
 .snb_link{float:left;}
 .snb_link > li.sub_link_on {background: url("/resources/homepage/libculture/img/tab-on.png") right 20px center no-repeat;}
 .snb_link > li.sub_link_on > a {color:#fff;}
 .snb_link > li.home {text-align:center;background:none;}
-.snb_link > li.home .icon_home{display:block;min-width:60px;padding:0;background: url("/resources/homepage/libculture/img/home-icon.png") center center no-repeat;border-right:1px solid #b1a3a6;border-left:1px solid #b1a3a6;}
+.snb_link > li.home .icon_home{display:block;min-width:60px;padding:0;background: url("/resources/homepage/libculture/img/home-icon.png") center center no-repeat;border-right: 1px solid rgba(255,255,255,0.2);border-left: 1px solid rgba(255,255,255,0.2);}
 
-.snb_link > li {float:left; position: relative;height: 60px; background: url("https://www.chf.or.kr//_static/chf1/img/sub/bar_on2.png") right 20px center no-repeat;}
-.snb_link > li > a {display:block;min-width:250px;height:60px;line-height:60px;padding-left:30px;padding-right: 60px;border-right:1px solid #b1a3a6;color:#fff;box-sizing:border-box;text-align:left;}
+.snb_link > li {float:left;position: relative;height: 45px;background: url("https://www.chf.or.kr//_static/chf1/img/sub/bar_on2.png") right 20px center no-repeat;}
+.snb_link > li > a {display:block;min-width:250px;height: 45px;line-height: 45px;padding-left:30px;padding-right: 60px;border-right: 1px solid rgba(255,255,255,0.2);color:#fff;box-sizing:border-box;text-align:left;}
 .snb_link > li.on > a {color:#fff;}
 .snb_link > li.on {background: url("/resources/homepage/libculture/img/tab-on.png") right 20px center no-repeat;}
 .snb_link > li.home > a:after{display:none;}
 .snb_link > li.on.home {background:none;}
 .snb_link > li.on > a:after { transform: rotate(180deg);}
 .snb_link div {display:table-cell;vertical-align:middle;padding-left:30px;height:100%;font-size:15px;min-width:169px;cursor: pointer;}
-.snb_link li .L2_Items {display:none;left:-999em;position:absolute;z-index:100;top:60px;}
-.snb_link li.on .L2_Items {display:block;left:-1px;background:#fff;border-left:1px solid #202020;border-right:1px solid #202020;border-bottom:1px solid #202020;width:100%;}
+.snb_link li .L2_Items {display:none;left:-999em;position:absolute;z-index:100;top: 45px;}
+.snb_link li.on .L2_Items {display:block;left:-1px;background:#fff;border-left:1px solid #999;border-right:1px solid #999;border-bottom:1px solid #999;width:100%;}
 .snb_link li.de_2items .L2_Items {width:100.5%;}
 .snb_link li.de_2items.on .L2_Items {left:-1px;}
 .snb_link li .L2_Items li {float: inherit;position: relative; display: inline-block; width: 100%; margin: 0 auto; }
@@ -665,22 +665,23 @@ h3.sub_top_tit span:after{content: ''; position: absolute; bottom: 0; left: 50%;
 .sub_rtop {float:right;}
 .etc_area {position:relative;}
 .etc_area > li {float:left; /*width:60px;*/ height:60px; text-align:center; position: relative;}
+.etc_area > li .img35{width:35%;padding-top:1px;}
 .etc_area > li:after{/*content: '';*/ width: 1px; height:12px; background: #b1a3a6; font-size: 0.750em; position: absolute; right: 0; top: 50%; transform: translate(0,-50%); -ms-transform: translate(0,-50%); -webkit-transform: translate(0,-50%);}
 .etc_area > li:last-child:after {background:transparent;}
 .etc_area > li > button {display:block;width:100%;}
-.etc_area > li > a {position:relative;display:inline-block;width:50px;height:60px;}
+.etc_area > li > a {position:relative;display:inline-block;width:50px;height: 45px;}
 .etc_area > li > a img{margin-top:13px;}
 .snb_sns {overflow:hidden; display:none; position:absolute; width:0; left: 0; opacity:0; background:#f7f7f7; transition-duration: 0.2s;-webkit-transition-duration: 0.2s;top: 0px;}
-.snb_sns.show {display:block; width:auto; left: -185px; opacity:1;}
-.snb_sns > li {float:left; display: none; height:60px; border-left: 1px solid #d1d1d1;}
+.snb_sns.show {display:block;width:auto;left: -140px;opacity:1;}
+.snb_sns > li {float:left;display: none;height: 45px;border-left: 1px solid #d1d1d1;}
 .snb_sns.show > li {display:inline-block;}
-.snb_sns li a {display: inline-block; width: 60px; height: 60px; line-height: 1; padding: 20px 0; text-align: center;}
+.snb_sns li a {display: inline-block;width: 45px;height: 45px;line-height: 1;padding: 14px 0;text-align: center;}
 .snb_sns li:last-child {border-right: 1px solid #d1d1d1;}
 .snb_sns li a.link_copy {display:block; width:89px; font-size:0.93em; color:#353535;}
 
 /* quick_wrap -  QR cord */
 .qr_cord {position:relative;}
-.qrBox{display: none; position:absolute; top:204px; right:-1px; z-index:99999; margin-top:-150px; margin-left:-115px; width: 240px; height: 220px; padding: 28px; background-color: #fff; border: 1px solid #ddd; border-top:0; text-align: center; cursor: pointer;}
+.qrBox{display: none; position:absolute; top:196px; right:-1px; z-index:99999; margin-top:-150px; margin-left:-115px; width: 240px; height: 220px; padding: 28px; background-color: #fff; border: 1px solid #ddd; border-top:0; text-align: center; cursor: pointer;}
 .qrBox.on {display:block;}
 .qrBox a.qrBoxClose{ position: absolute;  top: 6px; right: 6px; width: 30px; height:30px; line-height:28px;  background-color: #414141; color: #fff; text-align: center; text-decoration: none;}
 .qrBox p{margin: 13px auto 0; font-size:0.96em; word-break:keep-all;}

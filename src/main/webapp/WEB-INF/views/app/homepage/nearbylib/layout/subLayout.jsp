@@ -133,7 +133,7 @@ $(function() {
 					<div class="sub_rtop">
 						<ul class="etc_area">
 							<li class="share_box">
-								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="/resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
+								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="/resources/homepage/nearbylib/img/sub-icon01.png" class="img35" alt="sns공유하기"></a>
 								<ul class="snb_sns">
 									<li>
 										<a href="javascript:void(0);"  class="share_facebook sub-facebook" target="_blank" title="페이스북 공유하기 새창">
@@ -156,7 +156,12 @@ $(function() {
 								</ul>
 							</li>
 							<li>
-								<a href="javascript:void(0);" class="qr_cord sub-qrcode" title="QR코드" keyValue="true" ><img src="/resources/homepage/libculture/img/sub-icon03.png" alt="QR코드"></a>
+								<a href="javascript:void(0);" onclick="javascript:window.print();" title="새창 열림">
+									<img src="/resources/homepage/nearbylib/img/sub-icon02.png" class="img35" alt="프린트출력하기">
+								</a>
+							</li>
+							<li>
+								<a href="javascript:void(0);" class="qr_cord sub-qrcode" title="QR코드" keyValue="true" ><img src="/resources/homepage/nearbylib/img/sub-icon03.png" class="img35" alt="QR코드"></a>
 								<div class="qrBox">
 									<a href="javascript:void(0);" class="qrBoxClose" title="QR 코드 닫기">X</a>
 									<div id="qrcodeView">
@@ -164,11 +169,6 @@ $(function() {
 									</div>
 									<p>모바일로 QR코드를 스캔하면<br>이 페이지로 바로접속할 수 있습니다.</p>
 								</div>
-							</li>
-							<li>
-								<a href="javascript:void(0);" onclick="javascript:window.print();" title="새창 열림">
-									<img src="/resources/homepage/libculture/img/sub-icon02.png" alt="프린트출력하기">
-								</a>
 							</li>
 						</ul>
 					</div><!-- // sub_rtop -->
