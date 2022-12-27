@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigDao">
+	
+	
+	<select id="getNeighborhoodLibraryReserveConfigAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+			SELECT
+				RESERVE_CONFIG_IDX, RESERVE_START_TIME, RESERVE_END_TIME, TOMORROW_END_DAY_YN, TAKE_TERM, 
+				EXPIRE_DATE_CNT, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID				 
+			FROM
+				NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+			WHERE
+				1=1
+			ORDER BY 
+				ADD_DATE DESC		
+	</select>
+	
+	
+	<select id="getNeighborhoodLibraryReserveConfigList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		${pagingTop}
+			SELECT
+				RESERVE_CONFIG_IDX, RESERVE_START_TIME, RESERVE_END_TIME, TOMORROW_END_DAY_YN, TAKE_TERM, 
+				EXPIRE_DATE_CNT, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID				 
+			FROM
+				NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+			WHERE
+				1=1
+			ORDER BY 
+				ADD_DATE DESC		
+		${pagingBottom}
+	</select>
+	
+	<select id="getNeighborhoodLibraryReserveConfigCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE 
+			1=1			
+		ORDER BY 
+			ADD_DATE DESC
+	</select>
+	
+	<select id="getNeighborhoodLibraryReserveConfigOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		SELECT
+			RESERVE_CONFIG_IDX, RESERVE_START_TIME, RESERVE_END_TIME, TOMORROW_END_DAY_YN, TAKE_TERM, 
+			EXPIRE_DATE_CNT, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID				 
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			1=1
+		AND RESERVE_CONFIG_IDX = (SELECT MAX(RESERVE_CONFIG_IDX) FROM NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG)	
+	</select>
+	
+	<insert id="addNeighborhoodLibraryReserveConfig">
+		<selectKey keyProperty="reserve_config_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(reserve_config_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		</selectKey>	
+		INSERT INTO NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		(
+			RESERVE_CONFIG_IDX, RESERVE_START_TIME, RESERVE_END_TIME, TOMORROW_END_DAY_YN, TAKE_TERM, 
+			EXPIRE_DATE_CNT, ADD_DATE, ADD_ID			
+		) VALUES (
+			#{reserve_config_idx}, #{reserve_start_time}, #{reserve_end_time}, #{tomorrow_end_day_yn}, #{take_term}, 
+			#{expire_date_cnt}, SYSDATE, #{add_id}
+		)
+	</insert>
+	
+	<update id="modifyNeighborhoodLibraryDevice">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		SET
+			RESERVE_START_TIME = #{reserve_start_time},
+			RESERVE_END_TIME = #{reserve_end_time},
+			TOMORROW_END_DAY_YN = #{tomorrow_end_day_yn},
+			TAKE_TERM = #{take_term},
+			MODIFY_DATE = SYSDATE,
+			MODIFY_ID = #{modify_id},
+			EXPIRE_DATE_CNT = #{expire_date_cnt}
+		WHERE
+			RESERVE_CONFIG_IDX = #{reserve_config_idx}		
+	</update>
+	
+</mapper>

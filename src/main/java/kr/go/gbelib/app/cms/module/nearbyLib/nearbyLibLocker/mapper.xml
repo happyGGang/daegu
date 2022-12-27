@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerDao">
+
+	<insert id="addNeighborhoodLibraryLocker">	
+		INSERT INTO NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG
+		(
+			DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, TOTAL_COUNT
+		) VALUES (
+			#{device_idx}, #{device_code}, #{device_name}, #{total_count}
+		)
+	</insert>
+	
+	<select id="getNeighborhoodLibraryLockerOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker">
+			SELECT
+				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, TOTAL_COUNT			 
+			FROM
+				NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG
+			WHERE
+				1=1
+			AND
+				DEVICE_IDX = #{device_idx}	
+	</select>
+	
+	<select id="getNeighborhoodLibraryLockerCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG
+		WHERE 
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}	
+		</if>
+		ORDER BY 
+			DEVICE_IDX DESC
+	</select>
+	
+	<insert id="addNeighborhoodLibraryLockerEach">
+		<selectKey keyProperty="locker_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(locker_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_LOCKER_EACH_CONFIG
+		</selectKey>		
+		INSERT INTO NEIGHBORHOOD_LIBRARY_LOCKER_EACH_CONFIG
+		(
+			DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, LOCKER_IDX, LOCKER_EACH_IDX, 
+			USE_YN, UNUSED_REASON
+		) VALUES (
+			#{device_idx}, #{device_code}, #{device_name}, #{locker_idx}, #{locker_each_idx}, 
+			'Y', #{unused_reason}			
+		)
+	</insert>	
+	
+	<select id="getNeighborhoodLibraryLockerEachOneList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker">
+			SELECT
+				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, LOCKER_IDX, LOCKER_EACH_IDX, 
+				USE_YN, UNUSED_REASON	 
+			FROM
+				NEIGHBORHOOD_LIBRARY_LOCKER_EACH_CONFIG
+			WHERE
+				1=1
+			AND
+				DEVICE_IDX = #{device_idx}
+			<if test='editMode == "canUseLocker"'>
+			AND USE_YN = 'Y'
+			</if>	
+			
+	</select>
+	
+	<select id="getNeighborhoodLibraryLockerEachOneListCount" resultType="int">
+			SELECT
+				count(*)	 
+			FROM
+				NEIGHBORHOOD_LIBRARY_LOCKER_EACH_CONFIG
+			WHERE
+				1=1
+			AND
+				DEVICE_IDX = #{device_idx}
+			AND use_yn = 'Y'	
+	</select>
+	
+	<update id="modifyNeighborhoodLibraryLocker">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_LOCKER_EACH_CONFIG
+		SET			
+			USE_YN = #{use_yn},
+			UNUSED_REASON = #{unused_reason}
+		WHERE
+			LOCKER_IDX = #{locker_idx}
+	</update>
+	
+</mapper>

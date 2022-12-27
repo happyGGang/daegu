@@ -42,5 +42,5 @@ public interface NeighborhoodLibraryDao {
 
 	NeighborhoodLibrary getSameNeighborhoodLibraryPkData(NeighborhoodLibrary neighborhoodLibrary);
 
-	NeighborhoodLibrary checkReserveLocker(NeighborhoodLibrary neighborhoodLibrary);
+	List<NeighborhoodLibrary> checkReserveLocker(NeighborhoodLibrary neighborhoodLibrary);
 }

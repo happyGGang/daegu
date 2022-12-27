@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveLog.NearbyLibReserveLogDao">
+
+	<insert id="addUpdateNeighborhoodLibraryReserveLog">
+		<selectKey keyProperty="log_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(log_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_RESERVE_LOG
+		</selectKey>			
+		INSERT INTO NEIGHBORHOOD_LIBRARY_RESERVE_LOG
+			(
+				HOMEPAGE_ID, LOG_IDX, RESERVE_IDX, RESERVE_BUNDLE_IDX, PK,
+				DEVICE_IDX, DEVICE_NAME, BOOK_KEY, REG_NO, BOOK_ISBN,
+				BOOK_NAME, LIB_NAME, MEMBER_ID, MEMBER_NAME, USER_KEY,
+				APPLICANT_CELL_PHONE, WORK_ID, WORK_STATUS, WORK_IP, WORK_DATE
+			) VALUES (
+				#{home}, #{}, #{}, #{}, #{},
+				#{}, #{}, #{}, #{}, #{},
+				#{}, #{}, #{}, #{}, #{},
+				#{}, #{}, #{}, #{}, SYSDATE
+			)
+	</insert>
+	
+</mapper>

@@ -4,6 +4,8 @@ import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
+import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib;
+import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLibService;
 import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
 import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibraryService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
@@ -47,7 +49,10 @@ public class ApiController extends BaseController {
 	private UntackBookApiService untackBookApiService;
 	
 	@Autowired
-	private NeighborhoodLibraryService neigborhoodLibraryService;
+	private NearbyLibService neigborhoodLibraryService;
+	
+//	@Autowired
+//	private NearbyLibService neabyLibService;
 
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
 	
@@ -132,18 +137,33 @@ public class ApiController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"nearLib/edit.*"})
-	public @ResponseBody Map<String, Object> neighborhoodLibraryEdit(NeighborhoodLibrary neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
-		return neigborhoodLibraryService.updateNeighborhoodLibraryApi(neighborhoodLibrary);
+	public @ResponseBody Map<String, Object> neighborhoodLibraryEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
+		return neigborhoodLibraryService.updateNearbyLibApi(neighborhoodLibrary);
 	}
 	
 	@RequestMapping(value = {"nearLibCheck/edit.*"})
 	public @ResponseBody Map<String, Object> neighborhoodLibraryCheckLocker(@RequestParam(required = false)String pass, HttpServletRequest request, HttpServletResponse response) {
-		NeighborhoodLibrary neighborhoodLibrary = new NeighborhoodLibrary();
+		NearbyLib neighborhoodLibrary = new NearbyLib();
 		neighborhoodLibrary.setDevice_password(Integer.parseInt(String.valueOf(pass).substring(0, 4)));
 		neighborhoodLibrary.setLocker_idx(Integer.parseInt(String.valueOf(pass).substring(4, 7)));
 		neighborhoodLibrary.setDevice_idx(Integer.parseInt(String.valueOf(pass).substring(7)));
 		
 		return neigborhoodLibraryService.checkReserveLocker(neighborhoodLibrary);
 	}
+	
+//	@RequestMapping(value = {"nearbyLib/edit.*"})
+//	public @ResponseBody Map<String, Object> nearbyLibEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
+//		return neabyLibService.updateNearbyLibApi(neighborhoodLibrary);
+//	}
+	
+//	@RequestMapping(value = {"nearbyLibCheck/edit.*"})
+//	public @ResponseBody Map<String, Object> nearbyLibCheckLocker(@RequestParam(required = false)String pass, HttpServletRequest request, HttpServletResponse response) {
+//		NearbyLib neighborhoodLibrary = new NearbyLib();
+//		neighborhoodLibrary.setDevice_password(Integer.parseInt(String.valueOf(pass).substring(0, 4)));
+//		neighborhoodLibrary.setLocker_idx(Integer.parseInt(String.valueOf(pass).substring(4, 7)));
+//		neighborhoodLibrary.setDevice_idx(Integer.parseInt(String.valueOf(pass).substring(7)));
+//		
+//		return neabyLibService.checkReserveLocker(neighborhoodLibrary);
+//	}
 	
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +24,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,20 +41,22 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfig;
 import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
+import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib;
+import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLibService;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDeviceService;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
 import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibraryService;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDeviceService;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryLocker.NeighborhoodLibraryLocker;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryLocker.NeighborhoodLibraryLockerService;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryReserveConfig.NeighborhoodLibraryReserveConfig;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryReserveConfig.NeighborhoodLibraryReserveConfigService;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfig;
 import kr.go.gbelib.app.cms.module.newBookConfig.NewBookConfigService;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSetting;
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 
 @Controller
@@ -90,16 +90,16 @@ public class CommonSearchController extends BaseController {
 	private LoanRequestService loanRequestService;
 	
 	@Autowired
-	private NeighborhoodLibraryDeviceService neighborhoodLibraryDeviceService;
+	private NearbyLibDeviceService neighborhoodLibraryDeviceService;
 	
 	@Autowired
-	private NeighborhoodLibraryService neighborhoodLibraryService; 
+	private NearbyLibService neighborhoodLibraryService; 
 	
 	@Autowired
-	private NeighborhoodLibraryReserveConfigService neighborhoodLibraryReserveConfigService;
+	private NearbyLibReserveConfigService neighborhoodLibraryReserveConfigService;
 	
 	@Autowired
-	private NeighborhoodLibraryLockerService neighborhoodLibraryLockerService;
+	private NearbyLibLockerService neighborhoodLibraryLockerService;
 	
 	/**
 	 * 자료검색
@@ -648,15 +648,15 @@ public class CommonSearchController extends BaseController {
 				}
 				
 				//내집앞도서관 예약설정
-				NeighborhoodLibraryReserveConfig defaultConfig = new NeighborhoodLibraryReserveConfig();
-				NeighborhoodLibraryReserveConfig reserveConfig = neighborhoodLibraryReserveConfigService.getNeighborhoodLibraryReserveConfigOne(defaultConfig);
+				NearbyLibReserveConfig defaultConfig = new NearbyLibReserveConfig();
+				NearbyLibReserveConfig reserveConfig = neighborhoodLibraryReserveConfigService.getNeighborhoodLibraryReserveConfigOne(defaultConfig);
 				Date nowDate = new Date();
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmm");
 				int nowTime = Integer.parseInt(simpleDateFormat.format(nowDate));
 				
-				NeighborhoodLibrary searchBookOne = new NeighborhoodLibrary();
+				NearbyLib searchBookOne = new NearbyLib();
 				searchBookOne.setBook_key(librarySearch.getBookkey());
-				NeighborhoodLibrary neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
+				NearbyLib neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
 				int reserveData = 0;
 				if(neighborhoodLibraryOne != null) {
 					reserveData = 1;
@@ -2052,8 +2052,8 @@ public class CommonSearchController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
-		NeighborhoodLibraryDevice neighborhoodLibraryDevice = new NeighborhoodLibraryDevice();
-		List<NeighborhoodLibraryDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
+		NearbyLibDevice neighborhoodLibraryDevice = new NearbyLibDevice();
+		List<NearbyLibDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
 		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			Map<String, Object> result = PrivateLibSearchAPI.getReserveList(member.getRec_key());
@@ -2115,7 +2115,7 @@ public class CommonSearchController extends BaseController {
 	 */
 	
 	@RequestMapping(value = {"/resve/nearby_save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse nearby_save(Model model,LibrarySearch librarySearch, NeighborhoodLibrary neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse nearby_save(Model model,LibrarySearch librarySearch, NearbyLib neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
 		Homepage homepage = getSessionHomepage(request);
 		JsonResponse res = new JsonResponse(request);
 		Member member = getSessionMemberInfo(request);
@@ -2135,7 +2135,7 @@ public class CommonSearchController extends BaseController {
 		}
 		
 		if (!result.hasErrors()) {
-			NeighborhoodLibrary neighborhoodLibraryDelete = new NeighborhoodLibrary();
+			NearbyLib neighborhoodLibraryDelete = new NearbyLib();
 			neighborhoodLibraryDelete.setCancel_id(member.getMember_id());
 			neighborhoodLibraryDelete.setCancel_ip(request.getRemoteAddr());
 			neighborhoodLibraryDelete.setCancel_yn("Y");
@@ -2143,9 +2143,9 @@ public class CommonSearchController extends BaseController {
 			neighborhoodLibraryDelete.setPk(neighborhoodLibrary.getPk());
 			neighborhoodLibraryDelete.setReserve_status(neighborhoodLibrary.getReserve_status());
 			
-			NeighborhoodLibrary searchOne = new NeighborhoodLibrary();
+			NearbyLib searchOne = new NearbyLib();
 			searchOne.setPk(neighborhoodLibrary.getPk());
-			NeighborhoodLibrary reserveOne = neighborhoodLibraryService.getSameNeighborhoodLibraryPkData(searchOne); //해당 건 데이터 가져오기		
+			NearbyLib reserveOne = neighborhoodLibraryService.getSameNeighborhoodLibraryPkData(searchOne); //해당 건 데이터 가져오기		
 			if(reserveOne == null) { //KLAS에는 데이터가 존재하지만 내집앞도서관예약 TABLE에서 조회 결과가 없는 경우, 쿼리 SELECT ID -> getSameNeighborhoodLibraryPkData
 				res.setValid(false);
 				res.setMessage("홈페이지 데이터에 내역이 존재하지 않습니다. 관리자에게 문의하여 현재 메세지를 전달 해주세요. ERROR CODE: 7512"); 
@@ -2185,7 +2185,7 @@ public class CommonSearchController extends BaseController {
 	        String mes ="[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 취소 되었습니다."
 						+ "\n도서 정보 : "+book_name;
 			LibSearchAPI.sendSms(library_search, mes, userIp);	 
-			NeighborhoodLibrary sms_send = new NeighborhoodLibrary();
+			NearbyLib sms_send = new NearbyLib();
 			sms_send.setSms_send_yn("Y");
 			sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 			neighborhoodLibraryService.updateNeighborhoodLibrarySms(sms_send);
@@ -2229,8 +2229,8 @@ public class CommonSearchController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
-		NeighborhoodLibraryDevice neighborhoodLibraryDevice = new NeighborhoodLibraryDevice();
-		List<NeighborhoodLibraryDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
+		NearbyLibDevice neighborhoodLibraryDevice = new NearbyLibDevice();
+		List<NearbyLibDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
 		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			Map<String, Object> result = PrivateLibSearchAPI.getReserveList(member.getRec_key());
@@ -3201,6 +3201,30 @@ public class CommonSearchController extends BaseController {
 
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
 			if (apiResult.getStatus()) {
+				/*내집앞 도서관 사물함 테스트용(내집앞 도서관 사물함 시스템 구축 지연으로 무인예약으로 바코드 테스트, 2022.12.19일 테스트 종료 후 제거할 것)*/
+				if("BA".equals(librarySearch.getManageCode()) || "AH".equals(librarySearch.getManageCode()) || "CB".equals(librarySearch.getManageCode())
+						|| "AA".equals(librarySearch.getManageCode()) || "CA".equals(librarySearch.getManageCode())) {
+					try {
+						List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("0", member);
+						if(CollectionUtils.isEmpty(checkDupUser)) {
+							
+						} else {
+							Map<String, Object> userMap = checkDupUser.get(0);
+							LibrarySearch librarySearchSms = new LibrarySearch();
+							librarySearchSms.setManageCode(librarySearch.getManageCode());
+							librarySearchSms.setUserkey(member.getRec_key());
+							String userIp = "0:0:0:0:0:0:0:1";
+							String user_no = String.valueOf(userMap.get("USER_NO"));
+							String mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + user_no 
+									+ "\n[" + librarySearch.getShelf_loc_name() + "]\n" + member.getMember_name() + "님 예약이 완료 되었습니다.."
+									+ "\n도서 정보 : " + librarySearch.getBook_name();
+							LibSearchAPI.sendSms(librarySearchSms, mes, userIp);	 
+						
+						}
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 				res.setValid(true);
 				res.setMessage("예약 되었습니다.");
 			} else {
@@ -3380,7 +3404,7 @@ public class CommonSearchController extends BaseController {
 			neighborhoodLibrary.setBooktype("BO");
 		}			
 		
-		model.addAttribute("deviceList", neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(new NeighborhoodLibraryDevice()));
+		model.addAttribute("deviceList", neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(new NearbyLibDevice()));
 		model.addAttribute("neighborhoodLibrary", neighborhoodLibrary);
 
 		return String.format(basePath, homepage.getFolder()) + "neighborhoodLibrary/edit";
@@ -3397,7 +3421,7 @@ public class CommonSearchController extends BaseController {
 	 */
 	
 	@RequestMapping(value = {"/neighborhoodLibrary/save.*"}, method=RequestMethod.POST)
-	public @ResponseBody JsonResponse neighborhoodLibrarySave(Model model, NeighborhoodLibrary neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse neighborhoodLibrarySave(Model model, NearbyLib neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		Member member = getSessionMemberInfo(request);
 		
@@ -3466,8 +3490,8 @@ public class CommonSearchController extends BaseController {
 		boolean emptyLocker = false; //빈 사물함 유무 선언			
 		Homepage homepage = getSessionHomepage(request);	
 		neighborhoodLibrary.setMember_id(member.getMember_id());
-		NeighborhoodLibraryReserveConfig neighborhoodLibraryReserveConfig = new NeighborhoodLibraryReserveConfig();
-		NeighborhoodLibraryReserveConfig configOne = neighborhoodLibraryReserveConfigService.getNeighborhoodLibraryReserveConfigOne(neighborhoodLibraryReserveConfig); //예약 설정 정보 가져오기
+		NearbyLibReserveConfig neighborhoodLibraryReserveConfig = new NearbyLibReserveConfig();
+		NearbyLibReserveConfig configOne = neighborhoodLibraryReserveConfigService.getNeighborhoodLibraryReserveConfigOne(neighborhoodLibraryReserveConfig); //예약 설정 정보 가져오기
 		
 		
 		Date nowDate = new Date();
@@ -3499,16 +3523,16 @@ public class CommonSearchController extends BaseController {
 			}
 		}
 		neighborhoodLibrary.setTomorrow_end_day_yn(configOne.getTomorrow_end_day_yn());
-		List<NeighborhoodLibrary> nowReserveList= neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary); //신청내역이 있는지 조회 
+		List<NearbyLib> nowReserveList= neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary); //신청내역이 있는지 조회 
 		/* <<<<<<<----신청 내역이 있는지 검색*/
 		
 		
 			
-		NeighborhoodLibraryLocker neighborhoodLibraryLocker = new NeighborhoodLibraryLocker();				
+		NearbyLibLocker neighborhoodLibraryLocker = new NearbyLibLocker();				
 		neighborhoodLibraryLocker.setDevice_idx(neighborhoodLibrary.getDevice_idx());
 		NeighborhoodLibrary neighborhoodLibrary2 = new NeighborhoodLibrary();
 		neighborhoodLibrary2.setEditMode("lockerEmptycheck");
-		List<NeighborhoodLibraryLocker> lockerOneList = neighborhoodLibraryLockerService.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);//사물함 번호&갯수 가져오기		 
+		List<NearbyLibLocker> lockerOneList = neighborhoodLibraryLockerService.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);//사물함 번호&갯수 가져오기		 
 		
 		if(lockerOneList.size() > nowReserveList.size()) {
 			emptyLocker = true;
@@ -3565,7 +3589,7 @@ public class CommonSearchController extends BaseController {
 				}
 			}
 			neighborhoodLibrary.setTomorrow_end_day_yn(configOne.getTomorrow_end_day_yn());
-			List<NeighborhoodLibrary> reserveDataList = neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary); //신청내역이 있는지 조회 
+			List<NearbyLib> reserveDataList = neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary); //신청내역이 있는지 조회 
 			/* <<<<<<<----신청 내역이 있는지 검색*/
 			
 			if(reserveDataList != null) { //현재 신청내역이 있다면	
@@ -3604,9 +3628,9 @@ public class CommonSearchController extends BaseController {
 			}
 			
 			
-			NeighborhoodLibraryDevice neighborhoodLibraryDevice = new NeighborhoodLibraryDevice();
+			NearbyLibDevice neighborhoodLibraryDevice = new NearbyLibDevice();
 			neighborhoodLibraryDevice.setDevice_idx(neighborhoodLibrary.getDevice_idx());
-			NeighborhoodLibraryDevice deviceOne = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);	//장비정보 가져오기		
+			NearbyLibDevice deviceOne = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);	//장비정보 가져오기		
 
 			neighborhoodLibrary.setHomepage_id(homepage.getHomepage_id());
 			neighborhoodLibrary.setDevice_code(deviceOne.getDevice_code());
@@ -3724,7 +3748,7 @@ public class CommonSearchController extends BaseController {
 				System.out.println("@@@@@@@@@@@@ getSameNeighborhoodLibraryReserveCallIdx : Success");
 			}else {				System.out.println("@@@@@@@@@@@@ getSameNeighborhoodLibraryReserveCallIdx : Fail");
 			}
-			NeighborhoodLibrary pk_reserve = new NeighborhoodLibrary();
+			NearbyLib pk_reserve = new NearbyLib();
 			pk_reserve.setReserve_idx(reserveIdx);
 			pk_reserve.setPk(PK);
 			pk_reserve.setUser_no(USER_NO);

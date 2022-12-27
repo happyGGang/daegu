@@ -56,6 +56,11 @@
 
 <form:form modelAttribute="librarySearch" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="bookkey"/>
+<form:hidden path="regNo"/>
+<form:hidden path="manageCode"/>
+<form:hidden path="menu_idx"/>
+<form:hidden path="book_name"/>
+<form:hidden path="shelf_loc_name"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 <!-- <input type="hidden" name="title" value="${detail.TITLE_INFO}"/> -->
 <c:if test="${homepage.context_path eq 'dmsl'}">
@@ -72,6 +77,9 @@
 </c:if>
 <c:if test="${homepage.context_path eq 'dalseonglib'}">
 <input type="hidden" name="exprire_date_cnt" value="1"/>
+</c:if>
+<c:if test="${homepage.context_path eq 'nearbylib'}">
+<input type="hidden" name="exprire_date_cnt" value="3"/>
 </c:if>
 
 <div class="delibery_info">
@@ -113,6 +121,9 @@
 						<c:if test="${homepage.context_path eq 'dalseonglib'}">
 						<form:option value="DSGLIB01">지하1층 자전거보관대옆</form:option>
 						</c:if>
+						<c:if test="${homepage.context_path eq 'nearbylib'}">
+						<form:option value="ESIASUBCO01">이시아폴리스 메가박스</form:option>
+						</c:if>
 					</form:select>
 					<c:if test="${homepage.context_path eq '228'}">
 						<p style="font-weight:bold;">
@@ -136,6 +147,8 @@
 
 	<c:choose>
 	<c:when test="${homepage.context_path eq 'dmsl'}">
+	</c:when>
+	<c:when test="${homepage.context_path eq 'nearbylib'}">
 	</c:when>
 	<c:otherwise>
 	<div id="" class="" style="text-align: center; padding-top: 15px;">

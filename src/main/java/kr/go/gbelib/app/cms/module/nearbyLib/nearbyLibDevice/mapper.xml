@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDeviceDao">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDeviceDao">
 
-	<select id="getNeighborhoodLibraryDeviceList" resultType="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice">
+	<select id="getNeighborhoodLibraryDeviceList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice">
 			SELECT
 				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
-				LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
-				USE_YN, DELETE_ID, DELETE_YN, DELETE_DATE, DELETE_IP
+				LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID, DELETE_YN
+				USE_YN, DELETE_ID, DELETE_IP, DELETE_DATE				 
 			FROM
 				NEIGHBORHOOD_LIBRARY_DEVICE
 			WHERE
 				1=1
 			AND DEVICE_IDX IN (SELECT DEVICE_IDX FROM NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG)
-			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
+			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL) 
 			ORDER BY 
 				DEVICE_IDX DESC
 	</select>
 	
-		<select id="getNeighborhoodLibraryDeviceAll" resultType="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice">
+		<select id="getNeighborhoodLibraryDeviceAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice">
 			${pagingTop}
 				SELECT
 					DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
 					LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
-					USE_YN, DELETE_ID, DELETE_YN, DELETE_DATE, DELETE_IP
+					USE_YN, DELETE_YN, DELETE_ID, DELETE_IP, DELETE_DATE				 
 				FROM
 					NEIGHBORHOOD_LIBRARY_DEVICE
 				WHERE
 					1=1
-				AND DELETE_YN = 'N' OR DELETE_YN IS NULL
+				AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
 				ORDER BY 
 					DEVICE_IDX DESC
 			${pagingBottom}
@@ -62,17 +62,17 @@
 			DEVICE_IDX DESC
 	</select>
 	
-	<select id="getNeighborhoodLibraryDeviceOne" resultType="kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice">
+	<select id="getNeighborhoodLibraryDeviceOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice">
 			SELECT
 				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
 				LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
-				USE_YN, DELETE_ID, DELETE_YN, DELETE_DATE, DELETE_IP
+				USE_YN, DELETE_YN, DELETE_ID, DELETE_IP, DELETE_DATE				 
 			FROM
 				NEIGHBORHOOD_LIBRARY_DEVICE
 			WHERE
 				1=1
-			AND DEVICE_IDX = #{device_idx}
-			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)	
+			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
+			AND DEVICE_IDX = #{device_idx}	
 	</select>
 	
 	<update id="modifyNeighborhoodLibraryDevice">
@@ -92,15 +92,14 @@
 	</update>
 	
 	<delete id="deleteNeighborhoodLibraryDevice">
-		UPDATE
+		update
 			NEIGHBORHOOD_LIBRARY_DEVICE
 		SET
 			DELETE_YN = 'Y',
-			DELETE_ID = #{delete_id},
 			DELETE_IP = #{delete_ip},
+			DELETE_ID = #{delete_id},
 			DELETE_DATE = SYSDATE
 		WHERE
 			device_idx = #{device_idx}
 	</delete>
-	
 </mapper>

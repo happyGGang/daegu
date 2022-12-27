@@ -120,6 +120,7 @@ public class LibrarySearch extends PagingUtils {
 	private String cell_phone2;
 	private String cell_phone3;
 
+	private String shelf_loc_name; //도서소장처한글명
 	private String media_code;
 	private String worker;//무인예약,야간예약 장비
 
@@ -1239,5 +1240,13 @@ public class LibrarySearch extends PagingUtils {
 			return true;
 		}
 		return false;
+	}
+
+	public String getShelf_loc_name() {
+		return shelf_loc_name;
+	}
+
+	public void setShelf_loc_name(String shelf_loc_name) {
+		this.shelf_loc_name = shelf_loc_name;
 	}
 }
