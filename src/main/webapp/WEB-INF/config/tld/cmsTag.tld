@@ -534,4 +534,63 @@
 		</attribute>
 	</tag>
 
+	<tag>
+		<description>자원봉사신청</description>
+		<name>volunteer</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarVolunteerProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>volunteerList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>자원봉사신청(사용자)</description>
+		<name>volunteerUser</name>
+		<tag-class>kr.co.whalesoft.framework.tag.CalendarVolunteerUserProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>volunteerList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>calendarManageList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>applyList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>member_id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
 </taglib>

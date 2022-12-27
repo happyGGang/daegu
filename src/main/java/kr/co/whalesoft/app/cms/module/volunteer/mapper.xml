@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.volunteer.VolunteerDao">
+	<!-- 견학신청 컬럼  -->
+	<sql id="field">
+		homepage_id, volunteer_idx, apply_yn, start_date, use_time,
+		end_date, max_apply, add_date, add_id, date_type, apply_start_date, apply_start_time, apply_end_date, apply_end_time 
+	</sql>
+	
+	<!-- 견학신청 list -->
+	<select id="getVolunteer" resultType="kr.co.whalesoft.app.cms.module.volunteer.Volunteer">
+		SELECT
+			A.homepage_id, A.volunteer_idx, A.start_date, A.use_time, A.start_time, A.end_time,
+			A.end_date, A.max_apply, A.add_date, A.add_id, A.modify_date, A.modify_id, A.date_type, A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time,
+			(SELECT code_name FROM CMS_CODE B WHERE B.homepage_id = A.homepage_id AND B.code_id = A.date_type AND B.group_id = 'J0001') AS code_name,
+			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.homepage_id = B.homepage_id AND A.homepage_id = #{homepage_id} AND B.date_type = '1' AND B.delete_yn = 'N' AND A.start_date <![CDATA[<=]]> B.end_date AND A.end_date <![CDATA[>=]]> B.start_date) AS closed_day,
+			(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY C WHERE A.homepage_id = C.homepage_id AND A.homepage_id = #{homepage_id} AND A.volunteer_idx = C.volunteer_idx) AS apply_count,
+			CASE
+				WHEN A.apply_start_date IS NULL
+				THEN apply_yn
+				WHEN SYSDATE BETWEEN TO_DATE(A.apply_start_date || ' ' || A.apply_start_time, 'yyyy-MM-dd HH24:mi') AND TO_DATE(A.apply_end_date || ' ' || A.apply_end_time, 'yyyy-MM-dd HH24:mi')
+				THEN 'Y'
+				ELSE 'N'
+			END AS apply_yn
+		FROM
+			CMS_VOLUNTEER A
+		WHERE
+			1=1
+		AND	A.homepage_id = #{homepage_id}
+		<if test="date_type != null and date_type != ''">
+	 	AND	A.date_type = #{date_type}
+		</if>
+		<if test="plan_date != null and plan_date != ''">
+	 	AND	(
+	 			SUBSTR(A.start_date,1,7) = #{plan_date}
+	 		OR	SUBSTR(A.end_date,1,7) = #{plan_date}
+	 		)
+	 	ORDER BY start_date, start_time, use_time
+		 </if>
+	</select>
+	
+	<select id="getVolunteerOne" resultType="kr.co.whalesoft.app.cms.module.volunteer.Volunteer">
+		SELECT
+			<include refid="field" />,
+			(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY WHERE homepage_id = A.homepage_id AND volunteer_idx = A.volunteer_idx) AS apply_count	
+		FROM 
+			CMS_VOLUNTEER A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	volunteer_idx = #{volunteer_idx}
+	</select>
+
+	<select id="getTimeVolunteerOne" resultType="kr.co.whalesoft.app.cms.module.volunteer.Volunteer">
+		SELECT
+			homepage_id, volunteer_idx, apply_yn, start_date, end_date, 
+			max_apply, add_date, add_id, date_type, apply_start_date, 
+			apply_start_time, apply_end_date, apply_end_time, start_time, end_time,
+			(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY WHERE homepage_id = A.homepage_id AND volunteer_idx = A.volunteer_idx) AS apply_count	
+		FROM 
+			CMS_VOLUNTEER A
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	volunteer_idx = #{volunteer_idx}
+	</select>
+	
+	<select id="getVolunteerDateCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_VOLUNTEER
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	volunteer_idx = #{volunteer_idx}
+		AND	apply_yn = 'Y'
+		AND	(start_date <![CDATA[<=]]> #{start_date} AND end_date <![CDATA[>=]]> #{start_date})
+		AND	(end_date <![CDATA[>=]]> #{start_date} AND start_date <![CDATA[<=]]> #{start_date})		
+		AND	(
+				TO_DATE(start_date || start_time, 'yyyy-MM-ddHH24:MI') <![CDATA[<=]]> TO_DATE(end_date || #{end_time}, 'yyyy-MM-ddHH24:MI')
+			AND	TO_DATE(end_date || end_time, 'yyyy-MM-ddHH24:MI') <![CDATA[>=]]> TO_DATE(end_date || #{end_time}, 'yyyy-MM-ddHH24:MI')
+			)
+		AND	(
+				TO_DATE(end_date || end_time, 'yyyy-MM-ddHH24:MI') <![CDATA[>=]]> TO_DATE(start_date || #{start_time}, 'yyyy-MM-ddHH24:MI')
+			AND	TO_DATE(start_date || start_time, 'yyyy-MM-ddHH24:MI') <![CDATA[<=]]> TO_DATE(start_date || #{start_time}, 'yyyy-MM-ddHH24:MI')
+			)
+	</select>
+	
+	<!-- 견학신청 등록 -->
+	<insert id="addVolunteer">
+		INSERT INTO
+			CMS_VOLUNTEER
+		(
+			<include refid="field" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(volunteer_idx),0)+1 FROM CMS_VOLUNTEER), #{apply_yn}, #{start_date}, #{use_time},
+			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, 
+			#{apply_end_date}, #{apply_end_time}
+		)
+	</insert>
+	<!--견학신청 등록(이용시간 추가 쿼리)  -->
+	<insert id="addTimeVolunteer">
+		INSERT INTO
+			CMS_VOLUNTEER
+		(
+			homepage_id, volunteer_idx, apply_yn, start_date, end_date, 
+			max_apply, add_date, add_id, date_type, apply_start_date, 
+			apply_start_time, apply_end_date, apply_end_time, start_time, end_time
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(volunteer_idx),0)+1 FROM CMS_VOLUNTEER), #{apply_yn}, #{start_date},
+			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, 
+			#{apply_end_date}, #{apply_end_time}, #{start_time}, #{end_time}
+		)
+	</insert>
+	
+	<update id="modifyVolunteer">
+		UPDATE
+			CMS_VOLUNTEER
+		SET
+			apply_yn = #{apply_yn},
+			start_date = #{start_date},
+			start_time = #{start_time},
+			use_time = #{use_time},
+			end_date = #{end_date},
+			end_time = #{end_time},			
+			max_apply = #{max_apply},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE,			
+			date_type = #{date_type},
+			apply_start_date = #{apply_start_date},
+			apply_start_time = #{apply_start_time},
+			apply_end_date = #{apply_end_date},
+			apply_end_time = #{apply_end_time}								
+		WHERE
+			volunteer_idx = #{volunteer_idx}
+		AND	homepage_id = #{homepage_id}
+	</update>
+	
+	<delete id="deleteVolunteer">
+		DELETE FROM
+			CMS_VOLUNTEER
+		WHERE
+			volunteer_idx = #{volunteer_idx}
+		AND	homepage_id = #{homepage_id}
+	</delete>
+	
+	<select id="getCalendar" resultType="kr.co.whalesoft.app.cms.module.volunteer.Volunteer">
+		SELECT 
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) AS sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) AS mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) AS tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) AS wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) AS thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) AS fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) AS sat
+   		FROM
+			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days,
+				A.base_mon,
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
+			FROM
+				(
+				SELECT
+					TO_DATE (#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
+				) A, DICTIONARY B
+			) C
+		WHERE
+			C.days <![CDATA[<=]]> LAST_DAY(base_mon)
+  		GROUP BY week_num
+  		ORDER BY week_num 
+	</select>
+	
+	<select id="countVolunteer" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM 
+			CMS_VOLUNTEER
+		WHERE 
+			1=1
+		AND	homepage_id = #{homepage_id}
+		AND	date_type = #{date_type}
+		AND use_time = #{use_time}
+		AND start_date = #{start_date}
+		AND	(
+				(start_time <![CDATA[ < ]]> #{start_time} AND end_time > #{start_time})
+			OR	(start_time <![CDATA[ < ]]> #{end_time} AND end_time > #{end_time})
+			)
+	</select>
+	
+	<select id="countClosedVolunteer" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+	 	AND	delete_yn = 'N'
+	 	AND	date_type = '1'
+	 	AND	start_date BETWEEN #{start_date} AND #{end_date}
+	</select>
+	
+	<!--미디어창작소 대관 일별 통계 -->
+	<select id="getVolunteerStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT
+			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4, SUM(imsi_v1+imsi_v2+imsi_v3+imsi_v4) AS imsi_v5
+		FROM
+			(
+			SELECT
+				DISTINCT(start_date + LEVEL -1) AS start_date, imsi_v1, imsi_v2, imsi_v3, imsi_v4
+			FROM
+				(
+				SELECT
+					TO_DATE(A.start_date, 'yyyy-MM-dd') AS start_date,
+					TO_DATE(A.end_date, 'yyyy-MM-dd') AS end_date,
+					(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 1 ) AS imsi_v1,
+					(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 2 ) AS imsi_v2,
+					(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 3 ) AS imsi_v3,
+					(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id ) AS imsi_v4
+				FROM
+					CMS_VOLUNTEER A
+				WHERE
+					A.homepage_id = #{homepage_id}
+				)
+			CONNECT BY start_date + LEVEL -1 <![CDATA[<=]]> end_date
+			ORDER BY start_date DESC
+			)
+		WHERE
+			start_date BETWEEN TO_DATE(#{start_date},'yyyy-MM-dd') AND TO_DATE(#{end_date}, 'yyyy-MM-dd')
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
+	</select>
+	
+	<!--견학 월별 통계 -->
+	<select id="getVolunteerMonthStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT
+			start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4, SUM(imsi_v1+imsi_v2+imsi_v3+imsi_v4) AS imsi_v5
+		FROM
+			(
+			SELECT
+				TO_CHAR(start_date, 'YYYY-MM') AS start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4
+			FROM
+				(
+				SELECT
+					DISTINCT(start_date + LEVEL -1) AS start_date, imsi_v1,imsi_v2,imsi_v3,imsi_v4
+				FROM
+					(
+					SELECT
+						TO_DATE(A.start_date, 'yyyy-MM-dd') AS start_date,
+						TO_DATE(A.end_date, 'yyyy-MM-dd') AS end_date,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 1 ) AS imsi_v1,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 2 ) AS imsi_v2,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 3 ) AS imsi_v3,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id ) AS imsi_v4
+					FROM
+						CMS_VOLUNTEER A
+					WHERE
+						A.homepage_id = #{homepage_id}
+					)
+				CONNECT BY start_date + LEVEL -1 <![CDATA[<=]]> end_date
+				ORDER BY start_date DESC
+				)
+			WHERE
+				TO_CHAR(start_date,'YYYY') = #{start_year}
+			GROUP BY ROLLUP (start_date)
+			)
+		GROUP BY start_date, imsi_v1, imsi_v2, imsi_v3, imsi_v4
+		ORDER BY start_date DESC
+	</select>
+	
+	<!--견학 연도별 통계 -->
+	<select id="getVolunteerYearStatus" resultType="kr.co.whalesoft.app.cms.module.calendarStatus.CalendarStatus">
+		SELECT
+			start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4, SUM(imsi_v1+imsi_v2+imsi_v3+imsi_v4) AS imsi_v5
+		FROM
+			(
+			SELECT
+				TO_CHAR(start_date, 'YYYY') AS start_date, SUM(imsi_v1) AS imsi_v1, SUM(imsi_v2) AS imsi_v2, SUM(imsi_v3) AS imsi_v3, SUM(imsi_v4) AS imsi_v4
+			FROM
+				(
+				SELECT
+					DISTINCT(start_date + LEVEL -1) AS start_date, imsi_v1,imsi_v2,imsi_v3,imsi_v4
+				FROM
+					(
+					SELECT
+						TO_DATE(A.start_date, 'yyyy-MM-dd') AS start_date,
+						TO_DATE(A.end_date, 'yyyy-MM-dd') AS end_date,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 1 ) AS imsi_v1,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 2 ) AS imsi_v2,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id AND B.apply_state = 3 ) AS imsi_v3,
+						(SELECT COUNT(*) FROM CMS_VOLUNTEER_APPLY B WHERE B.volunteer_idx = A.volunteer_idx AND B.homepage_id = A.homepage_id ) AS imsi_v4
+					FROM
+						CMS_VOLUNTEER A
+					WHERE
+						A.homepage_id = #{homepage_id}
+					)
+				CONNECT BY start_date + LEVEL -1 <![CDATA[<=]]> end_date
+				ORDER BY start_date DESC
+				)
+			WHERE
+				TO_CHAR(start_date,'YYYY') BETWEEN #{start_year} AND #{end_year}
+			GROUP BY  start_date
+			)
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
+	</select>
+
+	<select id="getCodeName" resultType="string">
+		SELECT
+			code_name
+		FROM
+			CMS_CODE
+		WHERE
+			group_id = 'J0001'
+		AND code_id = #{date_type}
+		AND	homepage_id = (
+				SELECT
+					homepage_group
+				FROM
+					CMS_HOMEPAGE
+				WHERE
+					homepage_id = #{homepage_id}
+			)
+	</select>
+		
+</mapper>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApplyDao">
+
+	<!-- 견학신청자 컬럼  -->
+	<sql id="field">
+		homepage_id, apply_idx, volunteer_idx, agency_name, agency_tel,
+		agency_address, applicant_name, applicant_tel, applicant_email, age,
+		start_date, use_time, end_date, personnel, apply_state,
+		ip, remarks, add_id, add_date, apply_id, 
+		applicant_member_id, self_info_yn, guide_name, guide_tel
+	</sql>
+	<!-- 견학신청자 컬럼(동구통합전용)  -->
+	<sql id="dongguField">
+		homepage_id, apply_idx, volunteer_idx,
+		applicant_name, applicant_tel, applicant_email, age,
+		start_date, start_time, end_date, end_time,
+		personnel, apply_state, ip, remarks, add_id, add_date,
+		apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel,
+		protector_name, protector_relation, protector_address, protector_tel
+	</sql>
+
+	<!-- 견학신청자 컬럼  -->
+	<sql id="insertfield">
+		#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_VOLUNTEER_APPLY), #{volunteer_idx}, #{agency_name}, #{agency_tel},
+		#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+		#{start_date}, #{use_time}, #{end_date}, #{personnel}, '1',
+		#{ip}, #{remarks}, #{add_id}, SYSDATE, #{apply_id}, 
+		#{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel}
+	</sql>
+	<!-- 견학신청자 컬럼(동구통합전용)  -->
+	<sql id="dongguInsertField">
+		#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_VOLUNTEER_APPLY), #{volunteer_idx}, #{agency_name}, #{agency_tel},
+		#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+		#{start_date}, #{use_time}, #{end_date}, #{personnel}, '1',
+		#{ip}, #{remarks}, #{add_id}, SYSDATE, #{apply_id}, 
+		#{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel},
+		#{protector_name}, #{protector_relation}, #{protector_address}, #{protector_tel}
+	</sql>
+
+	<!-- 견학신청자 list -->
+	<select id="getApply" resultType="kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApply">
+		SELECT
+			homepage_id, apply_idx, volunteer_idx, use_time,
+			applicant_name, applicant_tel, applicant_email, age,
+			start_date, start_time, end_date, end_time,
+			personnel, apply_state, ip, remarks, add_id, add_date,
+			apply_id, applicant_member_id, self_info_yn, guide_name, guide_tel,
+			protector_name, protector_relation, protector_address, protector_tel
+		FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="plan_date != null and plan_date != ''">
+		AND	start_date <![CDATA[>=]]> #{plan_date}
+		AND	end_date <![CDATA[<=]]> #{plan_date}
+		</if>
+	</select>
+
+	<select id="getApplyMonth" resultType="kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApply">
+		SELECT
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
+		FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+		AND	start_date <![CDATA[>=]]> #{start_date}
+		AND	end_date <![CDATA[<=]]> #{end_date}
+		</if>
+	</select>
+
+	<!-- 사용자 신청내역 list -->
+	<select id="getUserApply" resultType="kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApply">
+		SELECT
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
+		FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="member_key != null and member_key != ''">
+		AND	applicant_member_id	= #{member_key}
+		</if>
+	</select>
+
+	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApply">
+		SELECT
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
+		FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</select>
+
+	<select id="checkApply" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	VOLUNTEER_IDX = #{volunteer_idx}
+		AND	applicant_member_id = #{applicant_member_id}
+	</select>
+	
+	<!--1일 1회신청가능 조건 확인  -->
+	<select id="checkApplyDay" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	start_date = #{start_date}
+		AND	applicant_member_id = #{applicant_member_id}
+	</select>
+	
+	
+	<select id="checkApplyMonth" resultType="int">
+		SELECT 
+	COUNT(*)
+		FROM
+			(
+			SELECT 
+				START_DATE_MONTH
+			FROM 
+				(	
+				SELECT 
+					SUBSTR(start_date,1,7) as START_DATE_MONTH
+				FROM 
+					CMS_VOLUNTEER_APPLY
+				WHERE 
+					homepage_id = #{homepage_id}
+				AND applicant_member_id = #{applicant_member_id}
+				AND apply_state = '3'
+				)
+				where start_date_month = #{checkMonth}
+			)
+	</select>
+
+	<!-- 견학신청자 등록 -->
+	<insert id="addApply">
+		INSERT INTO
+			CMS_VOLUNTEER_APPLY
+		(
+			<choose>
+				<when test="homepage_id != 'h50'">
+					<include refid="dongguField" />
+				</when>
+				<otherwise>
+					<include refid="field" />
+				</otherwise>
+			</choose>
+		)
+		VALUES
+		(
+		<choose>
+			<when test="homepage_id != 'h50'">
+				<include refid="dongguInsertField" />
+			</when>
+			<otherwise>
+				<include refid="insertfield" />
+			</otherwise>
+		</choose>
+		)
+	</insert>
+	
+	<!-- 견학신청자 등록(동구통합전용) -->
+	<insert id="addApplyDonggu">
+		INSERT INTO
+			CMS_VOLUNTEER_APPLY
+		(
+			<include refid="dongguField" />
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(apply_idx),0)+1 FROM CMS_VOLUNTEER_APPLY), #{volunteer_idx},
+			#{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
+			#{start_date}, #{start_time}, #{end_date}, #{end_time},
+			#{personnel}, '1', #{ip}, #{remarks}, #{add_id}, SYSDATE,
+		 	#{apply_id}, #{applicant_member_id}, #{self_info_yn}, #{guide_name}, #{guide_tel},
+		 	#{protector_name}, #{protector_relation}, #{protector_address}, #{protector_tel}
+		)
+	</insert>
+
+	<update id="modifyApply">
+		UPDATE
+			CMS_VOLUNTEER_APPLY
+		SET
+			agency_name = #{agency_name},
+			agency_tel = #{agency_tel},
+			agency_address = #{agency_address},
+			applicant_name = #{applicant_name},
+			applicant_tel = #{applicant_tel},
+			applicant_email = #{applicant_email},
+			age = #{age},
+			guide_name = #{guide_name},
+			guide_tel = #{guide_tel},
+			use_time = #{use_time},
+			personnel = #{personnel},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE,
+			protector_name = #{protector_name},
+			protector_relation = #{protector_relation},
+			protector_address = #{protector_address},
+			protector_tel = #{protector_tel}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</update>
+
+	<update id="modifyApplyState">
+		UPDATE
+			CMS_VOLUNTEER_APPLY
+		SET
+			apply_state = #{apply_state},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</update>
+
+	<delete id="deleteApply">
+		DELETE FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	apply_idx = #{apply_idx}
+	</delete>
+	
+	<delete id="deleteApplyAll">
+		DELETE FROM
+			CMS_VOLUNTEER_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	volunteer_idx = #{volunteer_idx}
+	</delete>
+
+	<!-- 견학신청자 list -->
+	<select id="getOkApply" resultType="kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApply">
+		SELECT
+			A.start_date, A.end_date, A.AGENCY_NAME, A.APPLY_IDX, A.VOLUNTEER_IDX, B.DATE_TYPE,
+			(SELECT CODE_NAME FROM CMS_CODE C WHERE B.homepage_id = C.homepage_id AND C.CODE_ID = B.DATE_TYPE AND C.GROUP_ID = 'H0001') AS CODE_NAME,
+			A.APPLICANT_MEMBER_ID
+		FROM
+			CMS_VOLUNTEER_APPLY A, CMS_VOLUNTEER B
+		WHERE
+			A.VOLUNTEER_IDX = B.VOLUNTEER_IDX
+		AND	A.homepage_id = B.homepage_id
+		AND	A.homepage_id = #{homepage_id}
+		AND	A.APPLY_STATE = '3'
+		<if test="plan_date != null and plan_date != ''">
+ 		AND (
+ 				substr(A.start_date,1,7) = #{plan_date}
+			OR	substr(A.end_date,1,7) = #{plan_date}
+			)
+		</if>
+		<if test="plan_day != null and plan_day != ''">
+ 		AND (
+ 				A.start_date = #{plan_day}
+			OR	A.end_date = #{plan_day}
+			)
+		</if>
+	</select>
+</mapper>
