@@ -179,4 +179,12 @@ public class LibraryCheckService extends BaseService {
 		return dao.checkLoanCount(libraryCheck);
 	}
 
+	public int checkDupLoanDateCount(LibraryCheck libraryCheck) {
+		return dao.checkDupLoanDateCount(libraryCheck);
+	}
+
+	public LibraryCheck dupLoanDate(LibraryCheck libraryCheck) {
+		return dao.dupLoanDate(libraryCheck);
+	}
+
 }

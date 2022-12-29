@@ -146,6 +146,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		</form:select>
 		<form:select path="request_status" cssClass="selectmenu">
 			<form:option value="">상태전체</form:option>
+			<form:option value="7">예약완료</form:option>
 			<form:option value="1">신청완료</form:option>
 			<form:option value="2">대출중</form:option>
 			<form:option value="3">반납신청</form:option>
@@ -216,12 +217,13 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					<td>${i.pay_yn eq 'Y' ? '무료' : '무료'}</td>
 					<td>
 						<c:choose>
+							<c:when test="${i.request_status eq '7'}"><span class="status status6">예약완료</span></c:when>
 							<c:when test="${i.request_status eq '1'}"><span class="status status2">신청완료</span></c:when>
-							<c:when test="${i.request_status eq '2'}"><span class="status status3">대출중</span></c:when>
-							<c:when test="${i.request_status eq '3'}"><span class="status status1">반납신청</span></c:when>
-							<c:when test="${i.request_status eq '4'}"><span class="status status4">반납요청완료</span></c:when>
-							<c:when test="${i.request_status eq '5'}"><span class="status status5">반납완료</span></c:when>
-							<c:when test="${i.request_status eq '6'}"><span class="status status6">대출불가</span></c:when>
+							<c:when test="${i.request_status eq '2'}"><span class="status status2">대출중</span></c:when>
+							<c:when test="${i.request_status eq '3'}"><span class="status status3">반납신청</span></c:when>
+							<c:when test="${i.request_status eq '4'}"><span class="status status1">반납요청완료</span></c:when>
+							<c:when test="${i.request_status eq '5'}"><span class="status status4">반납완료</span></c:when>
+							<c:when test="${i.request_status eq '6'}"><span class="status status5">대출불가</span></c:when>
 						</c:choose>
 					</td>
 					<td>
@@ -243,6 +245,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 	
 	<select id="statusAll" class="selectmenu">
 		<option value="">상태변경</option>
+		<option value="7">예약완료</option>
 		<option value="1">신청완료</option>
 		<option value="2">대출중</option>
 		<option value="3">반납신청</option>

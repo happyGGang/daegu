@@ -51,15 +51,16 @@ public class PictureBookWorkbook {
 		workbook.getSheet(0).setColumnView(8,  10);
 		
 		// 헤더 컬럼 지정
-		workbook.getSheet(0).addCell(new Label(0, 0, "원화명", format));
+		workbook.getSheet(0).addCell(new Label(0, 0, "원화 꾸러미명", format));
 		workbook.getSheet(0).addCell(new Label(1, 0, "대출기간", format));
 		workbook.getSheet(0).addCell(new Label(2, 0, "학교명", format));
 		workbook.getSheet(0).addCell(new Label(3, 0, "신청자", format));
 		workbook.getSheet(0).addCell(new Label(4, 0, "휴대폰", format));
 		workbook.getSheet(0).addCell(new Label(5, 0, "학교 연락처", format));
-		workbook.getSheet(0).addCell(new Label(6, 0, "신청사유", format));
+		workbook.getSheet(0).addCell(new Label(5, 0, "택배 배송장소", format));
+		workbook.getSheet(0).addCell(new Label(6, 0, "신청사유 및 기타요청사항", format));
 		workbook.getSheet(0).addCell(new Label(7, 0, "신청일자", format));
-		workbook.getSheet(0).addCell(new Label(8, 0, "상태", format));
+		workbook.getSheet(0).addCell(new Label(8, 0, "진행상태", format));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
@@ -87,6 +88,8 @@ public class PictureBookWorkbook {
 				case 5 : status = "반납완료";
 					break;
 				case 6 : status = "대출불가";
+					break;
+				case 7 : status = "예약완료";
 					break;
 				default :
 					break;

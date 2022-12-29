@@ -1,9 +1,6 @@
 package kr.go.gbelib.app.cms.module.libraryCheck;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -125,24 +122,24 @@ public class LibraryCheckController extends BaseController {
 	@RequestMapping (value = {"/loanEdit.*"}, method = RequestMethod.GET)
 	public String loanEdit(Model model, LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws AuthException, Exception {
 		
-		List<String> list = checkDisabledList(libraryCheck);
-
-		//TODO 해당 주로부터 2주뒤의예약이 가득 차있으면 메세지...
-		if(libraryCheck.getEditMode().equals("ADD")) {
-			if(list.size() > 6) {
-				service.alertMessage("현재 예약이 최대로 되어 예약이 불가합니다.\n(문의 전화 053-231-2857)", request, response);
-				return null;
-			}
-		}
+//		List<String> list = checkDisabledList(libraryCheck);
+//
+//		//TODO 해당 주로부터 2주뒤의예약이 가득 차있으면 메세지...
+//		if(libraryCheck.getEditMode().equals("ADD")) {
+//			if(list.size() > 6) {
+//				service.alertMessage("현재 예약이 최대로 되어 예약이 불가합니다.\n(문의 전화 053-231-2857)", request, response);
+//				return null;
+//			}
+//		}
 
 		if(libraryCheck.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			model.addAttribute("libraryCheck", service.copyObjectPaging(libraryCheck, service.getLibraryCheckLoanOne(libraryCheck)));
-			model.addAttribute("disabledList", list);
+//			model.addAttribute("disabledList", list);
 		} else {
 			checkAuth("C", model, request);
 			model.addAttribute("libraryCheck", libraryCheck);
-			model.addAttribute("disabledList", list);
+//			model.addAttribute("disabledList", list);
 		}
 
 		return basePath + "loanEdit_ajax";
@@ -154,9 +151,9 @@ public class LibraryCheckController extends BaseController {
 		if(libraryCheck.getEditMode().equals("ADD") || libraryCheck.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "hope_date", "방문예정일자를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "hope_start_time", "방문예정시간을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "hope_start_minute", "방문예정시간을 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "hope_date", "방문예정일자를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "hope_start_time", "방문예정시간을 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "hope_start_minute", "방문예정시간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "request_name", "신청자를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "phone_2", "휴대폰을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
@@ -219,37 +216,83 @@ public class LibraryCheckController extends BaseController {
 		return new LibraryCheckView();
 	}
 	
-	private List<String> checkDisabledList(LibraryCheck libraryCheck) throws ParseException {
-		List<LibraryCheck> disableList = service.getLibraryCheckReservedList(libraryCheck);
+//	private List<String> checkDisabledList(LibraryCheck libraryCheck) throws ParseException {
+//		List<LibraryCheck> disableList = service.getLibraryCheckReservedList(libraryCheck);
+//		
+//		List<String> list = new ArrayList<String>();
+//		
+//		for(int i = 0; i < disableList.size(); i++) {
+//			String loan_start_date = disableList.get(i).getLoan_start_date();
+//			String loan_end_date = disableList.get(i).getLoan_end_date();
+//			
+//			SimpleDateFormat format = new SimpleDateFormat("yyyy-M-d");
+//			
+//			Date start = format.parse(loan_start_date);
+//			Date end = format.parse(loan_end_date);
+//			
+//			long Sec = end.getTime() - start.getTime();
+//			long Days = Sec / (24*60*60*1000);
+//			
+//			Days = Math.abs(Days);
+//			
+//			if(Days > 6) {
+//				Calendar cal = Calendar.getInstance();
+//				cal.setTime(start);
+//				cal.add(Calendar.DATE, 7);
+//				
+//				list.add("\""+format.format(start)+"\"");
+//				list.add("\""+format.format(cal.getTime()).toString()+"\"");
+//			} else {
+//				list.add("\""+format.format(start)+"\"");
+//			}
+//		}
+//		return list;
+//	}
+	
+	@RequestMapping (value = {"/checkLoanDate.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse checkLoanDate(LibraryCheck libraryCheck, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		JsonResponse res = new JsonResponse(request);
 		
-		List<String> list = new ArrayList<String>();
+		String loan_start_date = libraryCheck.getLoan_start_date();
+		String loan_end_date = libraryCheck.getLoan_end_date();
 		
-		for(int i = 0; i < disableList.size(); i++) {
-			String loan_start_date = disableList.get(i).getLoan_start_date();
-			String loan_end_date = disableList.get(i).getLoan_end_date();
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-M-d");
+			Date start_date = sdf.parse(loan_start_date);
+			Date end_date = sdf.parse(loan_end_date);
 			
-			Date start = format.parse(loan_start_date);
-			Date end = format.parse(loan_end_date);
+		    long calDate = start_date.getTime() - end_date.getTime(); 
+		    long calDateDays = calDate / ( 24*60*60*1000); 
+		    
+		    calDateDays = Math.abs(calDateDays);
 			
-			long Sec = end.getTime() - start.getTime();
-			long Days = Sec / (24*60*60*1000);
-			
-			Days = Math.abs(Days);
-			
-			if(Days > 6) {
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(start);
-				cal.add(Calendar.DATE, 7);
-				
-				list.add("\""+format.format(start)+"\"");
-				list.add("\""+format.format(cal.getTime()).toString()+"\"");
-			} else {
-				list.add("\""+format.format(start)+"\"");
+		    //신청기간 2주에서 한달 제한
+			if(calDateDays >= 7 && calDateDays <= 14) {
+				res.setValid(false);
+				res.setMessage("신청 가능 기간은 최소 1주에서 최대 2주까지입니다.");
+				return res;
 			}
+		} catch (Exception e) {
+			res.setValid(false);
+			res.setMessage("신청 날짜 비교에 오류가 생겼습니다. 다시 신청해주세요.");
+			return res;
 		}
-		return list;
+		
+		int checkDupLoanDateCount = service.checkDupLoanDateCount(libraryCheck);
+		
+		if(checkDupLoanDateCount > 0) {
+			libraryCheck = service.dupLoanDate(libraryCheck);
+			
+			res.setValid(false);
+			res.setMessage("이미 신청이된 날짜입니다. " + libraryCheck.getLoan_end_date() + " 이후로 신청이 가능합니다.");
+			
+			return res;
+		}
+		
+		res.setValid(true);
+		
+		return res;
 	}
 
 }

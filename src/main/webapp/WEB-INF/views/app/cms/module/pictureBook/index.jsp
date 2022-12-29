@@ -39,8 +39,10 @@ $(function() {
 	
 	$('.dialog-view').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
-		doGetLoad('view.do', formData);
+		var formData = 'editMode=ADD&pay_yn='+$('#pay_yn').val() + '&picture_book_idx='+$(this).attr('keyValue')+ '&picture_book_subject='+encodeURI($(this).attr('keyValue2'));
+		$('#dialog-1').load('loanEdit.do?' + formData, function(response, status, xhr) {
+			$('#dialog-1').dialog('open');
+		});
 	});
 	
 	$('a#frame-btn').on('click', function(e) {
@@ -58,18 +60,7 @@ $(function() {
 		doGetLoad('index.do', $('form#pictureBook').serialize());
 	});
 	
-	var sysdate = new Date();
-	var currYear = sysdate.getFullYear();
-	var currMonth = sysdate.getMonth() + 1;
-	if(currMonth == 12) {
-		currYear++;
-	}
-	$('a.dialog-view').attr('keyValue2', currYear);
-	
 });
-function requestMonth() {
-	
-}
 </script>
 <style>
 .month-txt ul {height: 30px;list-style-type: disc;}
@@ -107,22 +98,22 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 		<form:option value="18">글 있음</form:option>
 		<form:option value="17">글 없음</form:option>
 	</form:select>
-	<div class="button">
-		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
-		<a href="#" class="btn btn3 left" id="frame-btn"><i class="fa fa-list"></i><span>액자형 전환</span></a>
-	</div>
+<!-- 	<div class="button"> -->
+<!-- 		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a> -->
+<!-- 		<a href="#" class="btn btn3 left" id="frame-btn"><i class="fa fa-list"></i><span>액자형 전환</span></a> -->
+<!-- 	</div> -->
 </div>
-<div class="month-txt">
-	<ul>
-		<li>신청불가능한 달</li>
-		<li>신청가능한 달</li>
-	</ul>
-</div>
-<c:if test="${pictureBook.pay_yn eq 'Y'}">
-<div style="margin-bottom: 5px;">
-	<p class="point-txt">길벗어린이 원화 액자로, 플라스틱 박스에 포장하여 보내드립니다.</p>
-</div>
-</c:if>
+<!-- <div class="month-txt"> -->
+<!-- 	<ul> -->
+<!-- 		<li>신청불가능한 달</li> -->
+<!-- 		<li>신청가능한 달</li> -->
+<!-- 	</ul> -->
+<!-- </div> -->
+<%-- <c:if test="${pictureBook.pay_yn eq 'Y'}"> --%>
+<!-- <div style="margin-bottom: 5px;"> -->
+<!-- 	<p class="point-txt">길벗어린이 원화 액자로, 플라스틱 박스에 포장하여 보내드립니다.</p> -->
+<!-- </div> -->
+<%-- </c:if> --%>
 <div>
 	<c:forEach items="${pictureBookList}" var="i" varStatus="status">
 	<div class="group-box">
@@ -158,24 +149,31 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 				<c:if test="${pictureBook.pay_yn eq 'Y'}">
 				<div class="book-desc">${i.content}</div>
 				</c:if>
-				<ul class="select-month">
-					<c:forEach items="${i.monthList}" var="month">
-					<li>
-						<c:choose>
-							<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX and month.LAST_MONTH eq 'N'}">
-							<a href="#" class="dialog-req loan-ing" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
-							</c:when>
-							<c:otherwise>
-							<a href="#" class="dialog-edit" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a>
-							</c:otherwise>
-						</c:choose>
-					</li>
-					</c:forEach>
-				</ul>
+<!-- 				<ul class="select-month"> -->
+<%-- 					<c:forEach items="${i.monthList}" var="month"> --%>
+<!-- 					<li> -->
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX and month.LAST_MONTH eq 'N'}"> --%>
+<%-- 							<a href="#" class="dialog-req loan-ing" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a> --%>
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+<%-- 							<a href="#" class="dialog-edit" keyValue="${month.PICTURE_BOOK_LOAN_IDX}">${month.LOAN_MONTH}</a> --%>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
+<!-- 					</li> -->
+<%-- 					</c:forEach> --%>
+<!-- 				</ul> -->
 			</div>
 		</div>
 		<div class="btn-box">
-			<a href="#" class="dialog-view loan" keyValue="${i.picture_book_idx}">신청하기</a>
+			<c:choose>
+				<c:when test="${i.request_status == 6}">
+					<a href="javascript:void(0)" class="alert-btn loan" onclick="alert('대출이 불가능한 원화입니다.');">신청하기</a>
+				</c:when>
+				<c:otherwise>
+				   <a href="#" class="dialog-view loan" keyValue="${i.picture_book_idx}" keyValue2="${i.picture_book_subject}">신청하기</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	</c:forEach>

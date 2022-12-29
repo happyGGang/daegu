@@ -9,6 +9,9 @@
 			add_id, add_date
 		FROM
 			LIBRARY_CHECK
+		<if test="content != null and content != ''">
+		WHERE content LIKE '%'||#{content}||'%'
+		</if>
 		ORDER BY library_check_number
 	</select>
 	
@@ -17,6 +20,9 @@
 			COUNT(*)
 		FROM
 			LIBRARY_CHECK
+		<if test="content != null and content != ''">
+		WHERE content LIKE '%'||#{content}||'%'
+		</if>
 	</select>
 	
 	<select id="getLibraryCheckOne" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
@@ -270,6 +276,42 @@
 		AND b.request_status = 1
 		AND b.school_name = #{school_name}
 		AND	TO_DATE(SYSDATE, 'YYYY-MM-DD') &lt; TO_DATE(b.loan_start_date, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="getDupLoanCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+			a.library_check_idx = b.library_check_idx
+		AND	TO_CHAR(b.loan_start_date,'yyyy-MM-dd') &lt;= TO_CHAR(SYSDATE,'yyyy-MM-dd')
+		AND TO_CHAR(b.loan_end_date,'yyyy-MM-dd') > TO_CHAR(SYSDATE,'yyyy-MM-dd')
+		AND a.library_check_idx = #{library_check_idx}
+	</select>
+	
+	<select id="checkDupLoanDateCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+			a.library_check_idx = b.library_check_idx
+		AND	TO_CHAR(b.loan_start_date,'yyyy-MM-dd') &lt;= #{loan_end_date}
+		AND TO_CHAR(b.loan_end_date,'yyyy-MM-dd') >= #{loan_start_date}
+		AND a.library_check_idx = #{library_check_idx}
+	</select>
+	
+	<select id="dupLoanDate" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
+		SELECT
+			TO_CHAR(TO_DATE(max(b.loan_end_date), 'yyyy-MM-dd') + 5, 'yyyy-MM-dd') as loan_end_date
+		FROM
+			LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+			a.library_check_idx = b.library_check_idx
+		AND	TO_CHAR(b.loan_start_date,'yyyy-MM-dd') &lt;= #{loan_end_date}
+		AND TO_CHAR(b.loan_end_date,'yyyy-MM-dd') >= #{loan_start_date}
+		AND a.library_check_idx = #{library_check_idx}
 	</select>
 	
 </mapper>

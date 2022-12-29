@@ -28,6 +28,8 @@ public class PictureBook extends PagingUtils {
 	private String server_file_name; // 서버파일명
 	private String file_extension; // 파일확장자
 	private long file_size; // 파일크기
+	private String delivery_location; // 택배배송장소
+	private String delivery_location2; // 택배배송장소
 
 	List<Map<String, String>> monthList;
 
@@ -58,6 +60,8 @@ public class PictureBook extends PagingUtils {
 	private Date add_date; // 등록일시
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
+	
+	private String dupLoanCount;
 
 	public int getPicture_book_idx() {
 		return picture_book_idx;
@@ -411,6 +415,29 @@ public class PictureBook extends PagingUtils {
 	public String toString2() {
 		return "PictureBook [picture_book_idx=" + picture_book_idx + ", picture_book_loan_idx=" + picture_book_loan_idx + ", request_name=" + request_name + ", school_name=" + school_name + ", loan_start_date=" + loan_start_date + ", loan_end_date=" + loan_end_date + ", phone=" + phone + ", school_tel=" + school_tel + ", request_content=" + request_content + ", request_status=" + request_status + ", add_id=" + add_id + ", add_date=" + add_date + "]";
 	}
-	
+
+	public String getDelivery_location() {
+		return delivery_location;
+	}
+
+	public void setDelivery_location(String delivery_location) {
+		this.delivery_location = delivery_location;
+	}
+
+	public String getDupLoanCount() {
+		return dupLoanCount;
+	}
+
+	public void setDupLoanCount(String dupLoanCount) {
+		this.dupLoanCount = dupLoanCount;
+	}
+
+	public String getDelivery_location2() {
+		return delivery_location2;
+	}
+
+	public void setDelivery_location2(String delivery_location2) {
+		this.delivery_location2 = delivery_location2;
+	}
 	
 }

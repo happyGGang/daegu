@@ -53,4 +53,8 @@ public interface LibraryCheckDao {
 
 	public int checkLoanCount(LibraryCheck libraryCheck);
 
+	public int checkDupLoanDateCount(LibraryCheck libraryCheck);
+
+	public LibraryCheck dupLoanDate(LibraryCheck libraryCheck);
+
 }

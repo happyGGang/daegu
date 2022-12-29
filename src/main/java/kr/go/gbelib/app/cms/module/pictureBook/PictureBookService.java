@@ -1,12 +1,12 @@
 package kr.go.gbelib.app.cms.module.pictureBook;
 
 import java.io.File;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,22 +29,22 @@ public class PictureBookService extends BaseService {
 	private PictureBookDao dao;
 
 	public List<PictureBook> getPictureBookList(PictureBook pictureBook) {
-		List<PictureBook> list = dao.getPictureBookList(pictureBook);
+//		List<PictureBook> list = dao.getPictureBookList(pictureBook);
+//		
+//		Calendar cal = Calendar.getInstance();
+//		int year = cal.get(Calendar.YEAR);
+//		int month = cal.get(Calendar.MONTH)+1;
+//		
+//		if(month == 12) {
+//			year++;
+//		}
+//		
+//		for (PictureBook one : list) {
+//			one.setLoan_year(String.valueOf(year));
+//			one.setMonthList(dao.getMonthList(one));
+//		}
 		
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH)+1;
-		
-		if(month == 12) {
-			year++;
-		}
-		
-		for (PictureBook one : list) {
-			one.setLoan_year(String.valueOf(year));
-			one.setMonthList(dao.getMonthList(one));
-		}
-		
-		return list;
+		return dao.getPictureBookList(pictureBook);
 	}
 	
 	public int getPictureBookCount(PictureBook pictureBook) {
@@ -167,6 +167,10 @@ public class PictureBookService extends BaseService {
 	}
 
 	public int addPictureBookLoan(PictureBook pictureBook) {
+		String delivery_location = pictureBook.getDelivery_location();
+		if("기타".equals(delivery_location) && StringUtils.isNotEmpty(pictureBook.getDelivery_location2())) {
+			pictureBook.setDelivery_location(pictureBook.getDelivery_location2());
+		}
 		return dao.addPictureBookLoan(pictureBook);
 	}
 
@@ -212,6 +216,18 @@ public class PictureBookService extends BaseService {
 	
 	public int addParseTibero2(PictureBook pictureBook) {
 		return dao.addParseTibero2(pictureBook);
+	}
+
+	public int checkDupLoanDateCount(PictureBook pictureBook) {
+		return dao.checkDupLoanDateCount(pictureBook);
+	}
+
+	public int getDupLoanCount(PictureBook pictureBook) {
+		return dao.getDupLoanCount(pictureBook);
+	}
+
+	public PictureBook dupLoanDate(PictureBook pictureBook) {
+		return dao.dupLoanDate(pictureBook);
 	}
 
 }
