@@ -106,7 +106,7 @@ public class ImageUtils {
 		File imageFile = new File(filePath + fileName);
 		Metadata metadata = ImageMetadataReader.readMetadata(imageFile);
 		Directory directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
-		if(directory != null) {
+		if(directory != null && directory.containsTag(ExifIFD0Directory.TAG_ORIENTATION)) {
 			orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
 		}
 		return orientation;
