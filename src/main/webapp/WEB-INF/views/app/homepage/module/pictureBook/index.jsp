@@ -20,14 +20,16 @@ $(function() {
 	
 	$('.request-btn').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val()  + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2') + '&loan_month='+$(this).attr('keyValue3') + '&picture_book_subject='+encodeURI($(this).attr('keyValue4'));
+		$('#editMode').val('ADD');
+		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val()  + '&picture_book_idx='+$(this).attr('keyValue') + '&picture_book_subject='+encodeURI($(this).attr('keyValue2'));
 		doGetLoad('loanEdit.do', formData);
 	});
 	
 	$('.view-btn').on('click', function(e) {
 		e.preventDefault();
-		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&loan_year='+$(this).attr('keyValue2');
-		doGetLoad('view.do', formData)
+		$('#editMode').val('ADD');
+		var formData = 'editMode=ADD&menu_idx='+$('#menu_idx').val() + '&pay_yn='+$('#pay_yn').val() + '&picture_book_idx='+$(this).attr('keyValue') + '&picture_book_subject='+$(this).attr('keyValue2');
+		doGetLoad('view.do', formData);
 	});
 	
 	$('a#frame-btn').on('click', function(e) {
@@ -96,16 +98,6 @@ function requestMonth() {
 		<form:option value="18">글 있음</form:option>
 		<form:option value="17">글 없음</form:option>
 	</form:select>
-	<div class="button">
-<!-- 		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a> -->
-		<a href="#" class="btn btn3 left" id="frame-btn"><i class="fa fa-list"></i><span>액자형 전환</span></a>
-	</div>
-</div>
-<div class="month-txt">
-	<ul>
-		<li>신청불가능한 달</li>
-		<li>신청가능한 달</li>
-	</ul>
 </div>
 <c:if test="${pictureBook.pay_yn eq 'Y'}">
 <div style="margin-bottom: 5px;">
@@ -118,7 +110,6 @@ function requestMonth() {
 		<div class="img-box">
 			<c:choose>
 				<c:when test="${not empty i.thumb_image}">
-<%-- 				<a href="${i.desc_link}" target="_blank"> --%>
 				<a href="#" class="view-btn" keyValue="${i.picture_book_idx}">
 					<img src="${i.thumb_image}" alt="${i.picture_book_subject}" width="100%" height="100%">
 				</a>
@@ -135,7 +126,7 @@ function requestMonth() {
 		</div>
 		<div class="content-box">
 			<div class="subject">
-				<a href="#" class="view-btn" keyValue="${i.picture_book_idx}">${i.picture_book_subject}</a>
+				<a href="#" class="view-btn" keyValue="${i.picture_book_idx}" keyValue2="${i.picture_book_subject}">${i.picture_book_subject}</a>
 			</div>
 			<div>
 				<ul class="pub_info">
@@ -148,24 +139,17 @@ function requestMonth() {
 				<c:if test="${pictureBook.pay_yn eq 'Y'}">
 				<div class="book-desc">${i.content}</div>
 				</c:if>
-				<ul class="select-month">
-					<c:forEach items="${i.monthList}" var="month">
-					<li>
-						<c:choose>
-							<c:when test="${empty month.PICTURE_BOOK_LOAN_IDX and month.LAST_MONTH eq 'N'}">
-							<a href="#" class="request-btn loan-ing" keyValue="${i.picture_book_idx}" keyValue2="${i.loan_year}" keyValue3="${month.LOAN_MONTH}" keyValue4="${i.picture_book_subject}">${month.LOAN_MONTH}</a>
-							</c:when>
-							<c:otherwise>
-							<a href="#" class="edit-btn" keyValue="${month.PICTURE_BOOK_LOAN_IDX}" data-last="${month.LAST_MONTH}">${month.LOAN_MONTH}</a>
-							</c:otherwise>
-						</c:choose>
-					</li>
-					</c:forEach>
-				</ul>
 			</div>
 		</div>
 		<div class="btn-box">
-			<a href="#" class="view-btn loan" keyValue="${i.picture_book_idx}">신청하기</a>
+			<c:choose>
+				<c:when test="${i.request_status == 6}">
+					<a href="javascript:void(0)" class="alert-btn loan" onclick="alert('대출이 불가능한 원화입니다.');">신청하기</a>
+				</c:when>
+				<c:otherwise>
+				   <a href="#" class="request-btn loan" keyValue="${i.picture_book_idx}" keyValue2="${i.picture_book_subject}">신청하기</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	</c:forEach>

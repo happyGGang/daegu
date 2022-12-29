@@ -9,12 +9,6 @@
 <c:set var="st" value="<%=st%>"></c:set>
 
 <script type="text/javascript">
-	var a = parseFloat('${st}');
-	var l = parseFloat('1608080400103');
-	if (a < l) {
-		alert('신청 마감되었습니다.');
-		history.back();
-	}
 $(function() {
 	var $form = $('form#pictureBook');
 
@@ -108,7 +102,6 @@ a.edit-btn{font-size:13px;}
 			</c:choose>
 		</div>
 		<div class="content-box">
-			<!-- <p>$ { pictureBook.picture_book_subject}</p> -->
 			<div class="auto-scroll">
 				<table class="tbl-type01">
 					<thead>
@@ -144,54 +137,10 @@ a.edit-btn{font-size:13px;}
 					</tbody>
 				</table>
 			</div>
-			<!-- <dl id="author">
-				<dt>작가</dt>
-				<dd>$ { pictureBook.author}</dd>
-				<dt>출판사</dt>
-				<dd>$ { pictureBook.publisher}</dd>
-				<dt>출판년도</dt>
-				<dd>$ { pictureBook.publish_year}</dd>
-				<c:if test="$ { not empty pictureBook.isbn}">
-				<dt>ISBN</dt>
-				<dd>$ { pictureBook.isbn}</dd>
-				</c:if>
-				<dt>가격</dt>
-				<dd>$ { pictureBook.picture_price}</dd>
-				<dt>액자개수</dt>
-				<dd>$ { pictureBook.picture_count}</dd>
-				<c:if test="$ { not empty pictureBook.keyword}">
-				<dt>주제</dt>
-				<dd>$ { pictureBook.keyword}</dd>
-				</c:if>
-			</dl> -->
 		</div>
 		<c:if test="${pictureBook.pay_yn eq 'Y'}">
 		<div class="book-desc">${pictureBook.content}</div>
 		</c:if>
-		<div class="calendar-box">
-			<span id="req-year">${pictureBook.loan_year}년</span>
-			<c:forEach var="month" begin="1" end="12">
-			<div>
-				<span class="req-month">${month}월</span>
-				<div class="btn-box">
-				<c:choose>
-					<c:when test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
-					<a href="javascript:void(0)" class="apply-ok"><span>대출완료</span></a>
-					</c:when>
-					<c:when test="${not empty pictureBook.monthList and pictureBook.monthList[month-1].LAST_MONTH eq 'Y' or not empty pictureBook.monthList[month-1].PICTURE_BOOK_LOAN_IDX}">
-					<a href="javascript:void(0)" class="apply-last"><span>마감</span></a>
-					</c:when>
-					<c:otherwise>
-					<a href="#" class="request-btn apply-req" keyValue="${pictureBook.loan_year}" keyValue2="${month}" style="color: blue;">대출신청</a>
-					</c:otherwise>
-				</c:choose>
-				</div>
-				<c:if test="${not empty loanableMonth[month].isMonth and loanableMonth[month].isMonth}">
-				<a href="#" class="edit-btn" keyValue="${loanableMonth[month].picture_book_loan_idx}">${loanableMonth[month].school_name}/${loanableMonth[month].request_name}</a>
-				</c:if>
-			</div>
-			</c:forEach>
-		</div>
 	</div>
 </div>
 </form:form>

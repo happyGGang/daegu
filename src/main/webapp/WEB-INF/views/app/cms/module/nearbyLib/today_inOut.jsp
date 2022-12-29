@@ -5,12 +5,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
 $(function() {
-
 	$('.search_device').on('change',function(e){
-		
-		if(doAjaxPost($('#nearbyLibSave'))) {
-				location.reload();
-		}
+		e.preventDefault();	 
+		$('#device_idx').val($('.search_device option:selected').val());
+		$('#search_nearbyLib').submit();
 	});	
 });
 </script>
@@ -35,7 +33,7 @@ table .type1 td{
 }
 
 </style>
-<form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="index.do">
+<form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="today_inOut.do">
 	<form:hidden path="device_idx"/>
 	<div class="">
 			<h3>내집앞도서관예약 반입/반출 목록</h3><br/>
@@ -79,6 +77,7 @@ table .type1 td{
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${outCount > 0 }">
 						<c:forEach var="j" items="${outList }" varStatus="status">
 							<tr>
 								<td>${outCount - status.index }</td>
@@ -97,6 +96,12 @@ table .type1 td{
 								</td>
 							</tr>
 						</c:forEach>
+						</c:if>
+						<c:if test="${outCount <= 0 }">
+							<tr>
+								<td colspan=10>반출 데이터가 존재하지 않습니다.</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 		</div>
@@ -132,6 +137,7 @@ table .type1 td{
 						</tr>
 					</thead>
 					<tbody>
+						<c:if test="${inCount > 0 }">
 						<c:forEach var="k" items="${inList }" varStatus="statusIn">
 							<tr>
 								<td>${inCount - statusIn.index }</td>
@@ -150,6 +156,12 @@ table .type1 td{
 								</td>
 							</tr>
 						</c:forEach>
+						</c:if>
+						<c:if test="${inCount <= 0 }">
+							<tr>
+								<td colspan=10> 반입 데이터가 존재하지 않습니다.</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 		</div>

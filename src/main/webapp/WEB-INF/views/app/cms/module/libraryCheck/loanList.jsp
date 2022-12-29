@@ -109,7 +109,8 @@ $(function() {
 		</form:select>
 		<form:select path="request_status" cssClass="selectmenu">
 			<form:option value="">상태전체</form:option>
-			<form:option value="1">신청중</form:option>
+			<form:option value="1">예약중</form:option>
+			<form:option value="0">신청중</form:option>
 			<form:option value="2">대출중</form:option>
 			<form:option value="3">반납완료</form:option>
 			<form:option value="4">관리자취소</form:option>
@@ -135,7 +136,7 @@ $(function() {
 			<col width="7%" />
 			<col />
 			<col width="18%" />
-			<col width="10%"/>
+<%-- 			<col width="10%"/> --%>
 			<col width="15%" />
 			<col width="10%" />
 			<col width="10%" />
@@ -147,7 +148,7 @@ $(function() {
 				<th>번호</th>
 				<th>장서점검기</th>
 				<th>대출기간</th>
-				<th>방문예정일자</th>
+<!-- 				<th>방문예정일자</th> -->
 				<th>학교명/신청자</th>
 				<th>신청일자</th>
 				<th>상태</th>
@@ -166,14 +167,15 @@ $(function() {
 						<a href="javascript:void(0);" class="dialog-edit" keyValue="${i.library_check_loan_idx}">장서점검기${i.library_check_number}</a>
 					</td>
 					<td class="center">${i.loan_start_date}<br/>~${i.loan_end_date}</td>
-					<td>
-						${i.hope_date}<c:if test="${i.hope_start_time ne null}"> ${i.hope_start_time}:${i.hope_start_minute}</c:if>
-					</td>
+<!-- 					<td> -->
+<%-- 						${i.hope_date}<c:if test="${i.hope_start_time ne null}"> ${i.hope_start_time}:${i.hope_start_minute}</c:if> --%>
+<!-- 					</td> -->
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:choose>
-							<c:when test="${i.request_status eq '1'}">신청중</c:when>
+							<c:when test="${i.request_status eq '1'}">예약중</c:when>
+							<c:when test="${i.request_status eq '0'}">신청중</c:when>
 							<c:when test="${i.request_status eq '2'}">대출중</c:when>
 							<c:when test="${i.request_status eq '3'}">반납완료</c:when>
 							<c:when test="${i.request_status eq '4'}">관리자취소</c:when>
@@ -207,7 +209,8 @@ $(function() {
 	
 	<select id="statusAll" class="selectmenu">
 		<option value="">상태변경</option>
-		<option value="1">신청중</option>
+		<option value="0">신청중</option>
+		<option value="1">예약중</option>
 		<option value="2">대출중</option>
 		<option value="3">반납완료</option>
 		<option value="4">관리자취소</option>

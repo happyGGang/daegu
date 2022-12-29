@@ -49,4 +49,10 @@ public interface PictureBookDao {
 	
 	public int addParseTibero2(PictureBook pictureBook);
 
+	public int checkDupLoanDateCount(PictureBook pictureBook);
+
+	public int getDupLoanCount(PictureBook pictureBook);
+
+	public PictureBook dupLoanDate(PictureBook pictureBook);
+
 }

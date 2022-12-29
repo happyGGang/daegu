@@ -2,7 +2,7 @@ package kr.go.gbelib.app.module.pictureBook;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -131,6 +131,14 @@ public class PictureBookController extends BaseController {
 			model.addAttribute("pictureBook", pictureBook);
 		}
 		
+		int count = service.getDupLoanCount(pictureBook);
+		
+		if(count > 0) {
+			pictureBook.setDupLoanCount("예약");
+		} else {
+			pictureBook.setDupLoanCount("신청");
+		}
+		
 		return String.format(basePath, homepage.getFolder()) + "loanEdit";
 	}
 	
@@ -167,13 +175,13 @@ public class PictureBookController extends BaseController {
 
 		if (!result.hasErrors()) {
 			if(pictureBook.getEditMode().equals("ADD") || pictureBook.getEditMode().equals("MODIFY")) {
-				int loan_year = Integer.parseInt(pictureBook.getLoan_year());
-				int loan_month = Integer.parseInt(pictureBook.getLoan_month());
-				
-				Calendar cal = Calendar.getInstance();
-				cal.set(loan_year, loan_month-1, 1);
-				pictureBook.setLoan_start_date(loan_year + "-" + loan_month + "-" + "01");
-				pictureBook.setLoan_end_date(loan_year + "-" + loan_month + "-" + cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+//				int loan_year = Integer.parseInt(pictureBook.getLoan_year());
+//				int loan_month = Integer.parseInt(pictureBook.getLoan_month());
+//				
+//				Calendar cal = Calendar.getInstance();
+//				cal.set(loan_year, loan_month-1, 1);
+//				pictureBook.setLoan_start_date(loan_year + "-" + loan_month + "-" + "01");
+//				pictureBook.setLoan_end_date(loan_year + "-" + loan_month + "-" + cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 				
 				pictureBook.setSchool_name(sessionLoginSupport(request) != null ? sessionLoginSupport(request).getSchool_name() : "관리자");
 			}
@@ -183,7 +191,7 @@ public class PictureBookController extends BaseController {
 			String session_id = getSessionIsAdmin(request) ? getSessionMemberId(request) : sessionLoginSupport(request).getMember_id();
 			if (pictureBook.getEditMode().equals("ADD")) {
 				
-				int duplCnt = service.duplLoanChk(pictureBook);
+				int duplCnt = service.checkDupLoanDateCount(pictureBook);
 				if(duplCnt > 0) {
 					res.setValid(false);
 					res.setMessage("해당 기간은 이미 신청되어 있습니다.");
@@ -340,6 +348,52 @@ public class PictureBookController extends BaseController {
 			service.addParseTibero2(pb);
 		}
 		
+	}
+	
+	@RequestMapping (value = {"/checkLoanDate.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse checkLoanDate(PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		JsonResponse res = new JsonResponse(request);
+		
+		String loan_start_date = pictureBook.getLoan_start_date();
+		String loan_end_date = pictureBook.getLoan_end_date();
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			
+			Date start_date = sdf.parse(loan_start_date);
+			Date end_date = sdf.parse(loan_end_date);
+			
+		    long calDate = start_date.getTime() - end_date.getTime(); 
+		    long calDateDays = calDate / ( 24*60*60*1000); 
+		    
+		    calDateDays = Math.abs(calDateDays);
+			
+		    //신청기간 2주에서 한달 제한
+			if(calDateDays >= 14 && calDateDays <= 31) {
+				res.setValid(false);
+				res.setMessage("신청 가능 기간은 최소 2주에서 최대 한달까지입니다.");
+				return res;
+			}
+		} catch (Exception e) {
+			res.setValid(false);
+			res.setMessage("신청 날짜 비교에 오류가 생겼습니다. 다시 신청해주세요.");
+			return res;
+		}
+		
+		int checkDupLoanDateCount = service.checkDupLoanDateCount(pictureBook);
+		
+		if(checkDupLoanDateCount > 0) {
+			pictureBook = service.dupLoanDate(pictureBook);
+			
+			res.setValid(false);
+			res.setMessage("이미 신청이된 날짜입니다. " + pictureBook.getLoan_end_date() + " 이후로 신청이 가능합니다.");
+			
+			return res;
+		}
+		
+		res.setValid(true);
+		
+		return res;
 	}
 
 }

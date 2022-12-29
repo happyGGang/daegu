@@ -53,12 +53,13 @@ $(function() {
 				<th>진행상태</th>
 				<td>
 				<c:choose>
-					<c:when test="${libraryCheck.request_status eq '1'}">신청중</c:when>
-					<c:when test="${libraryCheck.request_status eq '2'}">대출중</c:when>
-					<c:when test="${libraryCheck.request_status eq '3'}">반납완료</c:when>
-					<c:when test="${libraryCheck.request_status eq '4'}">관리자취소</c:when>
-					<c:when test="${libraryCheck.request_status eq '5'}">반납요청완료</c:when>
-					<c:when test="${libraryCheck.request_status eq '6'}">수리중</c:when>
+					<c:when test="${libraryCheck.request_status eq '1'}">예약중</c:when>
+					<c:when test="${libraryCheck.request_status eq '2'}">신청중</c:when>
+					<c:when test="${libraryCheck.request_status eq '3'}">대출중</c:when>
+					<c:when test="${libraryCheck.request_status eq '4'}">반납완료</c:when>
+					<c:when test="${libraryCheck.request_status eq '5'}">관리자취소</c:when>
+					<c:when test="${libraryCheck.request_status eq '6'}">반납요청완료</c:when>
+					<c:when test="${libraryCheck.request_status eq '7'}">수리중</c:when>
 				</c:choose>
 				</td>
 			</tr>

@@ -45,7 +45,7 @@ $(function() {
 	
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
 		width: 400,
-		height: 500
+		height: 450
 	});
 	
 });
@@ -147,15 +147,15 @@ $(function() {
 					</div>
 	         	</td>	         	
 	        </tr>	 
-	        <tr>
-	        	<th>예약만기일수</th>
-	         	<td>
-	         		<form:input path="expire_date_cnt" class="text" cssStyle="width:20%" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="2"/>일
-	         		<div class="ui-state-highlight">
-						<em style="font-size:12px;">* 예약상태로 유지되는 최대 기간. </em>
-					</div>
-	         	</td>
-	        </tr>       
+<!-- 	        <tr> -->
+<!-- 	        	<th>예약만기일수</th> -->
+<!-- 	         	<td> -->
+<%-- 	         		<form:input path="expire_date_cnt" class="text" cssStyle="width:20%" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="2"/>일 --%>
+<!-- 	         		<div class="ui-state-highlight"> -->
+<!-- 						<em style="font-size:12px;">* 예약상태로 유지되는 최대 기간. </em> -->
+<!-- 					</div> -->
+<!-- 	         	</td> -->
+<!-- 	        </tr>        -->
 		</tbody>
 	</table>
 </form:form>

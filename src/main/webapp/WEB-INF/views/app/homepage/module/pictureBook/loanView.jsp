@@ -53,6 +53,7 @@ $(function() {
 				<th>진행상태</th>
 				<td>
 				<c:choose>
+					<c:when test="${pictureBook.request_status eq '7'}">예약완료</c:when>
 					<c:when test="${pictureBook.request_status eq '1'}">신청완료</c:when>
 					<c:when test="${pictureBook.request_status eq '2'}">대출중</c:when>
 					<c:when test="${pictureBook.request_status eq '3'}">반납신청</c:when>

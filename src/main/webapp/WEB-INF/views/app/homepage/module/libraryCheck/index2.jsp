@@ -5,6 +5,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
 $(function() {
+// 	$('a.view-btn').on('click', function(e) {
+// 		e.preventDefault();
+// 		var formData = 'editMode=view&menu_idx='+$('#menu_idx').val() + '&library_check_idx='+$(this).attr('keyValue');
+// 		doGetLoad('view.do', formData);
+// 	});
+	
 	$('a#allChk').on('click', function(e) {
 		e.preventDefault();
 		if($(this).attr('keyValue') == 'N') {
@@ -36,11 +42,6 @@ $(function() {
 	
 	$('select#loan_status').on('change', function(e) {
 		e.preventDefault();
-		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#libraryCheck').serialize());
-	});
-	
-	$('select#content').on('change', function() {
 		$('#viewPage').val(1);
 		doGetLoad('index.do', $('form#libraryCheck').serialize());
 	});
@@ -138,23 +139,67 @@ function libraryCheckloanList(library_check_idx, library_check_number) {
 	}
 }
 </script>
-<link rel="stylesheet" href="/resources/common/css/pictureBook.css" />
+<link rel="stylesheet" href="/resources/common/css/libraryCheck.css" />
+
+<div>
+<h3>장서점검기 대여 신청 안내</h3>
+	<h4 style="display:inline;">최대 신청대수</h4> : 2대<br>
+	<h4 style="display:inline;">최대 대출기간</h4> : 1~2주
+<h4><strong class="red">대여일은 금요일, 반납일은 목요일</strong>로 지정되어 있습니다</h4>
+<ul class="con">
+	<li>사용 희망일이 금요일이 아닌 경우, 사용 희망일 전 주 금요일에 미리 대여 신청 하십시오.</li>
+	<li>대여 신청은 대여하시려는 날짜의 2주 전부터 가능합니다.</li>
+</ul>
+<p>※ 앞의 학교의 대여 기간에 따라 원하시는 일자에 대여 신청이 불가할 수 있습니다.</p>
+<!-- <div style="margin-left:-11px;"><img src="/resources/common/img/support_calendar.jpg" alt="일주일 대여 예시" class="mimg"></div> -->
+<h4>예) 20일(화)이 사용희망일일 경우</h4>
+<ul class="con">
+	<li>20일(화) 전 주 금요일인 16일이 장서점검기 대여일</li>
+	<li>대여 신청은 16일의 2주 전 금요일인 2일부터 가능</li>
+	<li>목요일인 22일에 반납</li>
+</ul>
+<h4>담당자 본인이 도서관에 방문하여 대출 / 직접 반납</h4>
+<h4>장서점검기 2가지 모델이 있으니 이용에 참고바랍니다.</h4>
+<br>
+	<div style="margin-left:-28px;display:inline-block;vertical-align:top;">
+		<img src="/resources/common/img/DT-970모델.png" width="90" height="100" alt="DT-970 모델" align="top">
+	</div>
+	<div style="display:inline-block;">
+		<ul class="con">
+		<b>DT-970 모델</b>
+		<li>1, 2, 3, 8, 9번 모델</li>
+		<li>별도의 전송 프로그램 설치 필요</li>
+		</ul>
+	</div>
+	<br>
+	<div style="margin-left:-28px;display:inline-block;vertical-align:top;">
+		<img src="/resources/common/img/북체커모델.png" width="90" height="100" alt="북체커 모델" align="top">
+	</div>
+	<div style="display:inline-block;">
+		<ul class="con">
+		<b>싱클라운 북체커 모델</b>
+		<li>4, 5, 6, 7, 10, 11, 12, 13, 14, 15번 모델</li>
+		<li>별도의 전송 프로그램 설치 불필요</li>
+		</ul>
+	</div>
+</div>
+<br>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="libraryCheck" action="index.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>
-<div class="infodesk">
-	<form:select path="content" cssClass="selectmenu">
-		<form:option value="">전체보기</form:option>
-		<form:option value="DT-970">DT-970</form:option>
-		<form:option value="싱클라운 북체커">싱클라운 북체커</form:option>
-	</form:select>
-</div>
+
+<%-- <form:select path="loan_status" cssClass="selectmenu"> --%>
+<%-- 	<form:option value="">상태전체</form:option> --%>
+<%-- 	<form:option value="1">대출중</form:option> --%>
+<%-- 	<form:option value="0">대출가능</form:option> --%>
+<%-- </form:select> --%>
+<a href="https://library.daegu.go.kr/228/board/view.do?menu_idx=154&manage_idx=224&board_idx=452880" target="_blank" class="btn" id="manual-btn" style="background:#0b3fb6;color:#fff;border:none;">사용방법</a>
 <div>
 	<c:forEach items="${libraryCheckList}" var="i">
 	<div class="group-box">
 	<div class="img-box">
-	<a href="javascript:void(0)" class="view-btn" keyValue="${i.library_check_idx}" onclick="view('${i.library_check_idx}');"></span>
+	<a href="javascript:void(0)" class="view-btn" keyValue="${i.library_check_idx}" onclick="view('${i.library_check_idx}');"><span class="num">${i.library_check_number}</span>
 	<c:choose>
 		<c:when test="${not empty i.server_file_name}">
 		<img alt="장서점검기 이미지" src="${getContextPath}/data/libraryCheck/${i.server_file_name}">
@@ -166,24 +211,33 @@ function libraryCheckloanList(library_check_idx, library_check_number) {
 	</a>
 	</div>
 	<div class="content-box">
-		<div class="subject">
-			<c:choose>
-				<c:when test="${i.request_status == 6}">
-					<a href="javascript:void(0)" class="alert-btn" title="수리중인 기기입니다." onclick="alert('현재 수리중으로 예약이 불가능한 기기입니다.');"><h4>장서점검기${i.library_check_number}</h4></a>
-				</c:when>
-				<c:otherwise>
-				   <a href="javascript:void(0)" class="loanView-btn" title="예약확인하기" onclick="libraryCheckloanList('${i.library_check_idx}', '${i.library_check_number}');"><h4>장서점검기${i.library_check_number}</h4></a>
-				</c:otherwise>
-			</c:choose>
-		</div>
-		<div>
-			<ul class="pub_info">
-			</ul>
-			<div class="book-desc">${i.content}</div>
-		</div>
+		<c:if test="${member.admin or loginSupport.auth_group eq '1'}">
+			<form:checkbox path="library_check_arr" value="${i.library_check_idx}"/>
+		</c:if>
+	<c:choose>
+		<c:when test="${i.request_status == 6}">
+			<a href="javascript:void(0)" class="alert-btn" title="수리중인 기기입니다." onclick="alert('현재 수리중으로 예약이 불가능한 기기입니다.');"><h4>장서점검기${i.library_check_number}</h4></a>
+		</c:when>
+		<c:otherwise>
+		   <a href="javascript:void(0)" class="loanView-btn" title="예약확인하기" onclick="libraryCheckloanList('${i.library_check_idx}', '${i.library_check_number}');"><h4>장서점검기${i.library_check_number}</h4></a>
+		</c:otherwise>
+	</c:choose>
+	<div>
+		<c:choose>
+			<c:when test="${i.request_status == 1 or i.request_status == 0}">
+				<a href="javascript:void(0)" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약중<br/>${i.loan_start_date}<br/>~${i.loan_end_date}</a>
+			</c:when>
+			<c:when test="${i.request_status == 2}">
+				<a href="javascript:void(0)" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">대출중<br/>${i.loan_start_date}<br/>~${i.loan_end_date}</a>
+			</c:when>
+			<c:when test="${i.request_status == 6}">
+				수리중<br/>${i.loan_start_date}<br/>~${i.loan_end_date}
+			</c:when>
+			<c:otherwise>
+				<a href="javascript:void(0)" class="request-btn" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a>
+			</c:otherwise>
+		</c:choose>
 	</div>
-	<div class="btn-box">
-		<a href="javascript:void(0)" class="request-btn loan" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a>
 	</div>
 	</div>
 	</c:forEach>

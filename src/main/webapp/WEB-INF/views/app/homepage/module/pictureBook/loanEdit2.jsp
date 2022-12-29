@@ -3,64 +3,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%
+	long st = System.currentTimeMillis();
+%>
+<c:set var="st" value="<%=st%>"></c:set>
 <script type="text/javascript">
-$(document).ready(function(){
-	$('input#delivery_location2').hide();
-});
-
-function placeChange(){
-	var deliveryLocation = $('select#delivery_location').val();
-	if(deliveryLocation == '기타'){
-		$('input#delivery_location2').show();
-	} else {
-		$('input#delivery_location2').hide();
+	var a = parseFloat('${st}');
+	var l = parseFloat('1608080400103');
+	if (a < l) {
+		alert('신청 마감되었습니다.');
+		history.back();
 	}
-}
-
-function checkLoanDate(picture_book_idx){
-	var loan_start_date = $('input#loan_start_date').val();
-	var loan_end_date = $('input#loan_end_date').val();
-	
-	var ajaxData = {
-		'loan_start_date' : loan_start_date,
-		'loan_end_date' : loan_end_date,
-		'picture_book_idx' : picture_book_idx
-	};
-	
-	$.ajax({
-		type: "POST",
-		url: 'checkLoanDate.do',
-		data: ajaxData,
-		success: function(response) {
-			if(response.valid) {
-			} else {
-				alert(response.message);
-				location.reload();
-			}
-		},
-		error : function() {
-			alert('대출,예약 날짜 조회에 실패했습니다.\n관리자에게 문의해 주세요.');
-		}
-	});
-}
-
 $(function() {
-	$('input#loan_start_date').datepicker({
-		dateFormat:'yy-mm-dd',
-		minDate: +3,
-		maxDate: $('input#loan_end_date').val(), 
-		onClose: function(selectedDate){
-			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
-		}
-	});
-	
-	$('input#loan_end_date').datepicker({
-		dateFormat:'yy-mm-dd',
-		minDate: $('input#loan_start_date').val(), 
-		onClose: function(selectedDate){
-			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
-	});
 	
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
@@ -85,7 +39,27 @@ $(function() {
 		e.preventDefault();
 		history.back();
 	});
+	
+	var sysDate = new Date();
+	var sysYear = sysDate.getFullYear();
+	var sysMonth = sysDate.getMonth() + 1;
+	var currYear = '${pictureBook.loan_year}';
+	var currMonth = '${pictureBook.loan_month}';
+	
+	for(var i = 2016; i <= sysYear+1; i++) {
+		var selected = '';
+		selected = i == currYear ? 'selected="selected"' : '';
+		$('#loan_year_edit').append('<option value="'+i+'" '+selected+'>'+i+'</option>');
+	}
+	
+	for(var j = 1; j <= 12; j++) {
+		var selected = '';
+		selected = j == currMonth ? 'selected="selected"' : '';
+		$('#loan_month_edit').append('<option value="'+j+'" '+selected+'>'+j+'</option>');
+	}
+	
 });
+
 </script>
 <style>
 input[type="checkbox"]:focus {outline: 1px solid red;}
@@ -116,15 +90,18 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>원화 꾸러미명</th>
+				<th>책 꾸러미명</th>
 				<td>${pictureBook.picture_book_subject}</td>
 			</tr>
 			<tr>
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
-					<span>~</span>
-					<form:input path="loan_end_date" cssClass="text ui-calendar" onchange="checkLoanDate('${pictureBook.picture_book_idx}');"/>
+					<form:select path="loan_year" id="loan_year_edit" cssClass="selectmenu"></form:select>
+					<form:select path="loan_month" id="loan_month_edit" cssClass="selectmenu"></form:select>
+					<div class="ui-state-highlight">
+						<i class="fa fa-question-circle"></i>
+						<em>원화꾸러미는 매달 26일(주말, 공휴일인 경우 그 전날) 택배사에 일괄 반납 요청됩니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -167,18 +144,7 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 				</td>
 			</tr>
 			<tr>
-				<th>택배 배송장소(<span style="color: red;font-weight: bold;">*</span>)</th>
-				<td>
-					<form:select path="delivery_location" onchange="placeChange();">
-						<form:option value="도서관">도서관</form:option>
-						<form:option value="행정실">행정실</form:option>
-						<form:option value="기타">기타</form:option>
-					</form:select>
-					<form:input path="delivery_location2" cssClass="text" cssStyle="width:200px;"/>
-				</td>
-			</tr>
-			<tr>
-				<th>신청사유 및 기타요청사항</th>
+				<th>신청사유</th>
 				<td>
 					<form:textarea path="request_content" cols="60" rows="5" cssStyle="width:95%;"/>
 				</td>
@@ -188,24 +154,16 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 				<td>
 				<c:choose>
 					<c:when test="${loginSupport.auth_group eq '3'}">
-						<c:choose>
-							<c:when test="${pictureBook.dupLoanCount eq '예약'}">
-								<form:hidden path="request_status" value="7"/>예약하기
-							</c:when>
-							<c:otherwise>
-								<form:hidden path="request_status" value="1"/>신청하기
-							</c:otherwise>
-						</c:choose>
+					<form:hidden path="request_status" value="1"/>신청완료
 					</c:when>
 					<c:otherwise>
 					<form:select path="request_status" cssClass="selectmenu">
-							<form:option value="7">예약하기</form:option>
-							<form:option value="1">신청하기</form:option>
-							<form:option value="2">대출중</form:option>
-							<form:option value="3">반납신청</form:option>
-							<form:option value="4">반납요청완료</form:option>
-							<form:option value="5">반납완료</form:option>
-							<form:option value="6">대출불가</form:option>
+						<form:option value="1">신청완료</form:option>
+						<form:option value="2">대출중</form:option>
+						<form:option value="3">반납신청</form:option>
+						<form:option value="4">반납요청완료</form:option>
+						<form:option value="5">반납완료</form:option>
+						<form:option value="6">대출불가</form:option>
 					</form:select>
 					</c:otherwise>
 				</c:choose>	
@@ -219,10 +177,14 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<span style="display: block;font-size: 13px;color: #3366bb;">
 			<c:choose>
 				<c:when test="${pictureBook.pay_yn eq 'Y'}">
-					반납요청후 기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.
+				그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다.<br>
+기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br>
+※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
 				</c:when>
 				<c:otherwise>
-					반납요청후 기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.
+				그림책 원화는 매달 26일 자동 반납 요청되어 27일 배송했던 장소로 택배 기사님이 방문합니다.<br>
+				기사님이 바로 수거하실 수 있도록 준비해 주시길 바랍니다.<br/>
+				※ 26일이 공휴일일 경우 그 전날, 주말일 경우 앞의 금요일에 자동 반납 요청됨
 				</c:otherwise>
 			</c:choose>
 			</span>
