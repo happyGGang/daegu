@@ -20,4 +20,6 @@ public interface MyItemDao {
 	 * @return
 	 */
 	public int getMyItemCount(MyItem myItem);
+
+	List<MyItem> excelDownLoad(MyItem myItem);
 }

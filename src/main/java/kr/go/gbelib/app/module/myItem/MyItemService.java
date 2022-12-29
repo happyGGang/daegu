@@ -37,5 +37,7 @@ public class MyItemService extends BaseService {
 		return dao.getMyItemCount(myItem);
 	}
 
-
+	public List<MyItem> excelDownLoad(MyItem myItem) {
+		return dao.excelDownLoad(myItem);
+	}
 }

@@ -190,6 +190,10 @@ $(document).ready(function() {
 	//$('#itemLayer').load('auth.do?editMode=FIRST');
 	//$('#itemLayer').load('memberOrga.do?editMode=FIRST');
 });
+
+function excelDownLoad() {
+	$('#storageExcelDownload').attr('action', 'excelDownload.do').submit();
+}
 </script>
 
 <%
@@ -260,5 +264,9 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 		<a href="" class="btn btn5" id="storage_add"><i class="fa fa-plus"></i><span>보관함 신규등록</span></a>
 		<a href="" class="btn btn1" id="storage_modify"><i class="fa fa-pencil"></i><span>수정</span></a>
 		<a href="" class="btn" id="storage_delete"><i class="fa fa-minus"></i><span>삭제</span></a>
+		<a href="javascript:excelDownLoad();" class="btn btn2" id="btn_excel"><i class="fa fa-file-excel-o"></i><span>엑셀다운로드</span></a>
 	</div>
 </div>
+
+<form method="post" id="storageExcelDownload">
+</form>

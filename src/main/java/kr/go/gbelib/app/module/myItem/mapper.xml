@@ -66,4 +66,20 @@
 			AND MEMBER_KEY = #{member_key}
 	</select>
 
+	<select id="excelDownLoad" resultType="kr.go.gbelib.app.module.myItem.MyItem">
+		SELECT
+			A.HOMEPAGE_ID, A.MEMBER_KEY, A.STORAGE_IDX, A.ITEM_IDX, A.ITEM_NAME,
+			A.AUTHOR, A.PUBLER, A.LOCA, A.CTRL_NO, A.CALL_NO,
+			A.IMG_URL, A.ADD_DATE, A.ITEM_TYPE, B.STORAGE_NAME
+		FROM
+			MY_ITEM A INNER JOIN MY_STORAGE B
+		 ON A.MEMBER_KEY = B.MEMBER_KEY
+			 AND A.HOMEPAGE_ID = B.HOMEPAGE_ID
+			 AND A.STORAGE_IDX = B.STORAGE_IDX
+		WHERE
+			A.HOMEPAGE_ID = #{homepage_id}
+		  AND A.MEMBER_KEY = #{member_key}
+		ORDER BY A.STORAGE_IDX
+	</select>
+
 </mapper>

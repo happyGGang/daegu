@@ -1,10 +1,14 @@
 package kr.go.gbelib.app.module.myStorage;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
+import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
+import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.module.myItem.MyItem;
+import kr.go.gbelib.app.module.myItem.MyItemService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.whalesoft.app.cms.homepage.Homepage;
-import kr.co.whalesoft.app.cms.homepage.HomepageService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
-import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.module.myItem.MyItem;
-import kr.go.gbelib.app.module.myItem.MyItemService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/myStorage"})
@@ -305,5 +303,18 @@ public class MyStorageController extends BaseController {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		int menuIdx = homepageService.getMenuIdxByProgramIdx(homepage.getHomepage_id(), 94);
 		return String.format("redirect:/%s/module/myStorage/index.do?menu_idx=%s", homepage.getContext_path(), menuIdx);
+	}
+
+	/**
+	 * 엑셀 다운로드
+	 * */
+	@RequestMapping(value = {"/excelDownload.*"})
+	public MyStorageSearchView excelDownload(Model model, HttpServletRequest request){
+		MyItem myItem = new MyItem();
+		myItem.setHomepage_id("h1");
+		myItem.setMember_key(getSessionMemberId(request));
+		model.addAttribute("myStorageResult", myItemService.excelDownLoad(myItem));
+
+		return new MyStorageSearchView();
 	}
 }

@@ -90,7 +90,7 @@ $(function() {
 
 	//전체 선택
 	$('#checkAllBook').change(function(e) {
-		$('input.checkBook').prop('checked', $(this).prop('checked'));
+		$('.admin > input.checkBook').prop('checked', $(this).prop('checked'));
 	});
 
 	//전체 선택

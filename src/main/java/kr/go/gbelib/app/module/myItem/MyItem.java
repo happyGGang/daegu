@@ -23,6 +23,7 @@ public class MyItem extends PagingUtils {
 	private String item_url;
 	private String add_date;
 	private int item_type = ITEM_TYPE_BOOK;
+	private String storage_name;
 	
 	private List<String> strList;//검색결과 보관함 등록 용
 	
@@ -154,4 +155,11 @@ public class MyItem extends PagingUtils {
 		}
 	}
 
+	public String getStorage_name() {
+		return storage_name;
+	}
+
+	public void setStorage_name(String storage_name) {
+		this.storage_name = storage_name;
+	}
 }
