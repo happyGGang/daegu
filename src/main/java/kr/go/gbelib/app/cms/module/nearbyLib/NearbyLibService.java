@@ -269,7 +269,8 @@ public class NearbyLibService extends BaseService {
 				"5".equals(neighborhoodLibrary.getReserve_status()) ||
 				"6".equals(neighborhoodLibrary.getReserve_status()) ||
 				"7".equals(neighborhoodLibrary.getReserve_status()) ||
-				"9".equals(neighborhoodLibrary.getReserve_status())) { //3: 사물함 투입, 4: 대출, 5: 회수대기, 6: 회수중, 7:회수완료
+				"9".equals(neighborhoodLibrary.getReserve_status()) ||
+				"10".equals(neighborhoodLibrary.getReserve_status())) { //3: 사물함 투입, 4: 대출, 5: 회수대기, 6: 회수중, 7:회수완료
 			NearbyLib status3 = new NearbyLib();
 			NearbyLib status3_update = new NearbyLib();
 			status3_update.setDevice_code(neighborhoodLibrary.getDevice_code());
@@ -291,15 +292,21 @@ public class NearbyLibService extends BaseService {
 			}else if("9".equals(neighborhoodLibrary.getReserve_status())) { // 9: 반납
 				status3.setReserve_status("4"); // 4: 대출
 				status3_update.setReserve_status("9"); //9: 반납
+			}else if("10".equals(neighborhoodLibrary.getReserve_status())) { // 9: 반납
+				status3.setReserve_status("9"); // 4: 대출
+				status3_update.setReserve_status("10"); //9: 반납
 			}
 			
 			status3.setReserve_idx(neighborhoodLibrary.getReserve_idx()); //예약 idx
 			NearbyLib sameReserveOne = getSearchNeighborhoodLibraryOne(status3); //reserve_idx, reserve_status로 번들 idx 가져오기, reserve_bundle_idx는 한 사물함에 두건의 도서를 넣어야 할때 두건은 동일한 값을 가진다
-			status3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx()); 			
+			status3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx()); 
 			List<NearbyLib> sameList = dao.getSameNeighborhoodLibraryBundleList(status3); //번들 idx로 묶인 모든 건수 가져오기
 			
 			if(sameReserveOne != null) { //예약idx로 검색 시 데이터가 있을때
-				if("7".equals(neighborhoodLibrary.getReserve_status()) || "9".equals(neighborhoodLibrary.getReserve_status())) { //cms에서 회수완료는 한권씩 확인 후 처리하므로 pk 값으로 처리
+				if("6".equals(neighborhoodLibrary.getReserve_status()) ||
+					"7".equals(neighborhoodLibrary.getReserve_status()) ||
+					"9".equals(neighborhoodLibrary.getReserve_status()) ||  
+					"10".equals(neighborhoodLibrary.getReserve_status())) { //cms에서 회수완료는 한권씩 확인 후 처리하므로 pk 값으로 처리
 					status3_update.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 				}else {
 					if(sameList.size() == 1) { //총 1권이면 예약idx값 셋팅
@@ -344,6 +351,7 @@ public class NearbyLibService extends BaseService {
 							updateData.setLocker_idx(neighborhoodLibrary.getLocker_each_idx());
 							updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
 							updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
+							updateData.setEditMode("admin_3");
 							result = dao.updateNeighborhoodLibrary(updateData);
 						}else {
 							failNum = i;
@@ -360,53 +368,76 @@ public class NearbyLibService extends BaseService {
 					
 					res.setValid(true);
 					res.setMessage("사물함 투입 처리되었습니다.");
-				}else {
-					if("4".equals(neighborhoodLibrary.getReserve_status())) {//대출 처리
-						int api_result1 = 0;
-						int api_result2 = 0;
-						String message1 = "";
-						String message2 = "";
-						String result_message = "";
-						ApiResponse apiResult = null;
-						for(int i = 0; i < sameList.size(); i++) {
-							LibrarySearch libSearch = new LibrarySearch();
-							libSearch.setManageCode(sameList.get(i).getManage_code());
-							libSearch.setUserkey(sameList.get(i).getUser_key());
-							libSearch.setReg_no(sameList.get(i).getReg_no());
-							libSearch.setDevice_code(sameList.get(i).getDevice_code());
-        					String ip = request.getRemoteAddr();
-        					try {
-        						/*대출처리 api 호출*/
-	        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
-	        					if (apiResult.getStatus()) { //api 성공시
-	        						result = dao.updateNeighborhoodLibrary(status3_update);        					
-	        						if(i == 0) {
-	        							message1 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS API 대출처리 성공";;
-	        						}else {
-	        							message2 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS API 대출처리 성공";
-	        						}
-	        					}else { // api 실패시
-	        						if(i == 0) { //첫번째 api 실패시
-	        							api_result1 = 1;
-	        							message1 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
-	        						}else { //두번째 api 실패시
-	        							api_result2 = 1;
-	        							message2 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
-	        						}
-	        					}
-	        					result_message = message1 + ", " + message2;
-	        					res.setMessage(result_message);
-        					}catch (Exception e) {
-								e.printStackTrace();
-								res.setValid(false);
-								res.setMessage("내집앞도서관 대출처리 KLAS API 호출 오류");
-								return res;
+				}else if("4".equals(neighborhoodLibrary.getReserve_status())) {//대출 처리
+					int api_result1 = 0;
+					int api_result2 = 0;
+					String message1 = "";
+					String message2 = "";
+					String result_message = "";
+					ApiResponse apiResult = null;
+					for(int i = 0; i < sameList.size(); i++) {
+						LibrarySearch libSearch = new LibrarySearch();
+						libSearch.setManageCode(sameList.get(i).getManage_code());
+						libSearch.setUserkey(sameList.get(i).getUser_key());
+						libSearch.setReg_no(sameList.get(i).getReg_no());
+						libSearch.setDevice_code(sameList.get(i).getDevice_code());
+    					String ip = request.getRemoteAddr();
+    					try {
+    						/*대출처리 api 호출*/
+        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
+    					}catch (Exception e) {
+							e.printStackTrace();
+						}
+    					if (apiResult.getStatus()) { //api 성공시
+    						result = dao.updateNeighborhoodLibrary(status3_update);        					
+    						if(i == 0) {
+    							message1 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS API 대출처리 성공";;
+    						}else {
+    							message2 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS API 대출처리 성공";
+    						}
+    					}else { // api 실패시
+    						if(i == 0) { //첫번째 api 실패시
+    							api_result1 = 1;
+    							message1 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
+    						}else { //두번째 api 실패시
+    							api_result2 = 1;
+    							message2 = "예약번호 " + sameList.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
+    						}
+    					}
+    					result_message = message1 + ", " + message2;
+    					res.setMessage(result_message);
+					}
+				}else if("10".equals(neighborhoodLibrary.getReserve_status())){
+					Map<String, Object> apiResult = null; 
+					LibrarySearch librarySearch = new LibrarySearch();
+					librarySearch.setManageCode(sameReserveOne.getManage_code());
+					librarySearch.setRegNo(sameReserveOne.getReg_no());
+					try {
+						apiResult = LibSearchAPI.getBookInfo(librarySearch);
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+					if(apiResult != null) {
+						List<Map<String, Object>> listData = LibSearchAPI.getListData(apiResult);
+						if(listData != null && listData.size() > 0) {
+							Map<String, Object> map = listData.get(0);
+							if (map.get("BOOK_STATUS") != null) {
+								if("1".equals(String.valueOf(map.get("BOOK_STATUS")))) {
+									result = dao.updateNeighborhoodLibrary(status3_update);
+								}
 							}
 						}
+						
 					}else {
-						result = dao.updateNeighborhoodLibrary(status3_update);
+						res.setValid(true);
+						res.setMessage("KLAS 서지정보 API 호출 실패");
+						return res;
 					}
+					
+				}else {
+					result = dao.updateNeighborhoodLibrary(status3_update);
 				}
+			
 			}
 			
 			/*문자 전송*/
@@ -441,6 +472,8 @@ public class NearbyLibService extends BaseService {
 			        librarySearch.setUserkey(reserveOne.getUser_key());
 			        String userIp = reserveOne.getAdd_ip();
 			        
+			        
+/*			        
 			        for(int i = 0; i < bundleList.size() ; i++) {
 			        	homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
 				        librarySearch.setManageCode(bundleList.get(i).getManage_code());
@@ -468,11 +501,28 @@ public class NearbyLibService extends BaseService {
 				        			+ "\n" + simpleDateFormat.format(cal.getTime()) 
 									+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다. ";
 				        }
+*/				        
+				        librarySearch.setManageCode(reserveOne.getManage_code());
+				        String book_name = reserveOne.getBook_name();
+				        String mes = "";
+				        String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
+				        
+						mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx() 
+								+ "\n[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서 비치가 완료되었습니다."
+								+ "\n도서 정보 : " + book_name 
+								+ "\n장비명 : " + reserveOne.getDevice_name()
+								+ "\n사물함 번호 : " + reserveOne.getLocker_idx() 
+								+ "\n사물함 비밀번호 : " + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx()
+								+ "[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서 비치가 완료되었습니다."
+								+ "\n도서 정보 : " + book_name
+			        			+ "\n" + simpleDateFormat.format(cal.getTime()) 
+								+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다. ";
+
 						LibSearchAPI.sendSms(librarySearch, mes, userIp);	
-						status3_update.setReserve_idx(bundleList.get(i).getReserve_idx());;
+						status3_update.setReserve_idx(reserveOne.getReserve_idx());;
 						status3_update.setSms_send_yn("Y");
 						dao.updateNeighborhoodLibrarySms(status3_update);
-			        }
+//			        }
 				}
 				
 				 if("7".equals(neighborhoodLibrary.getReserve_status())) {
@@ -499,17 +549,14 @@ public class NearbyLibService extends BaseService {
 							try {
 								/*예약취소 API 호출*/
 								apiResult = LibSearchAPI.cancelResve(librarySearch2);
-								if (apiResult.getStatus()) { //취소 API 성공					
-								
-								} else { //api는 정상적이나 취소처리가 되지 않음
-									res.setValid(false);
-									res.setMessage("무인예약 취소 api 업데이트에 실패 하였습니다.");
-									return res;
-								}
 							}catch (Exception e) {
 								e.printStackTrace();
+							}
+							if (apiResult.getStatus()) { //취소 API 성공					
+								
+							} else { //api는 정상적이나 취소처리가 되지 않음
 								res.setValid(false);
-								res.setMessage("무인예약 취소 api 호출 실패, 업데이트에 실패 하였습니다.");
+								res.setMessage("무인예약 취소 api 업데이트에 실패 하였습니다.");
 								return res;
 							}
 							
@@ -629,15 +676,15 @@ public class NearbyLibService extends BaseService {
 		NearbyLib searchSame = new NearbyLib();
 		String result_message = "";
 		String result_error_mssage = "";		
-		if(neighborhoodLibrary.getReserve_idx() == 0) {
+		if(neighborhoodLibrary.getLocker_idx() == 0) {
 			result.put("result", "fail");
-			result.put("message", "reserve_idx 값이 없습니다.");
+			result.put("message", "locker_idx 값이 없습니다.");
 		}else if(neighborhoodLibrary.getReserve_status() == null || "".equals(neighborhoodLibrary.getReserve_status())) {
 			result.put("result", "fail");
 			result.put("message", "reserve_status 값이 없습니다.");
 		}else if(neighborhoodLibrary.getDevice_code() == null || "".equals(neighborhoodLibrary.getDevice_code())) {
 			result.put("result", "fail");
-			result.put("message", "device_cod 값이 없습니다.");
+			result.put("message", "device_code 값이 없습니다.");
 		}else {
 			if("3".equals(neighborhoodLibrary.getReserve_status())) { //api로 사물함 투입완료 값이 넘어오면
 				searchSame.setReserve_status("2"); //2 :예약확정, 3 : 사물함투입
@@ -661,10 +708,11 @@ public class NearbyLibService extends BaseService {
 				searchSame.setReserve_status("6"); //6 : 회수중 , 7 : 회수완료
 				result_message = "회수완료 처리 되었습니다.";
 				result_error_mssage = "[업데이트 실패]회수완료 처리 실패.";
-			}else if("9".equals(neighborhoodLibrary.getReserve_status())){
-				searchSame.setReserve_status("4"); //4 : 대출 , 9 : 반납
-				result_message = "반납 처리 되었습니다.";
-				result_error_mssage = "[업데이트 실패]반납 처리 실패.";
+//			}
+//			else if("9".equals(neighborhoodLibrary.getReserve_status())){
+//				searchSame.setReserve_status("4"); //4 : 대출 , 9 : 반납
+//				result_message = "반납 처리 되었습니다.";
+//				result_error_mssage = "[업데이트 실패]반납 처리 실패.";
 			}else{
 				result.put("result", "fail");
 				result.put("message", "reserve_status이 유효하지 않습니다. 업데이트가 불가능한 상태값 입니다.");
@@ -678,14 +726,18 @@ public class NearbyLibService extends BaseService {
 			
 			//모든 값이 제대로 넘어 왔을때 상태값에따라 데이터 셋팅 후 공통으로 update해주는 코드
 			searchSame.setReserve_idx(neighborhoodLibrary.getReserve_idx()); //예약idx
-			NearbyLib same_bundle_idx = getSearchNeighborhoodLibraryOne(searchSame); // api로 넘어온 파라미터로 업데이트 할 예약 데이터 검색
+			searchSame.setLocker_idx(neighborhoodLibrary.getLocker_idx()); //사물함idx
+			searchSame.setDevice_code(String.valueOf(neighborhoodLibrary.getDevice_code()));
+			NearbyLib same_bundle_idx = getSearchNeighborhoodLibraryApiOne(searchSame); // api로 넘어온 파라미터로 업데이트 할 예약 데이터 검색
+
 			if(same_bundle_idx == null) { //현재 업데이트 할 데이터 select 결과가 없을때
 				result.put("result", "fail");
 				result.put("message", "요청한 상태값으로 업데이트 가능한 이전 상태값의 데이터가 존재하지 않습니다. 예약번호와 상태값을 확인해주세요.");
 				return result;
 			}else { //현재 업데이트 할 데이터 select 결과가 있을때
+				neighborhoodLibrary.setReserve_idx(same_bundle_idx.getReserve_idx());
 				NearbyLib searchSameData = new NearbyLib();
-				searchSameData.setReserve_idx(neighborhoodLibrary.getReserve_idx());
+				searchSameData.setReserve_idx(same_bundle_idx.getReserve_idx());
 				searchSameData.setReserve_status(searchSame.getReserve_status()); 
 				searchSameData.setReserve_bundle_idx(same_bundle_idx.getReserve_bundle_idx());
 				NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(searchSameData); // 현재 업데이트 해야할 도서가 하나인지 두개인지(셀렉트 결과가 있으면 총 두건)
@@ -706,33 +758,32 @@ public class NearbyLibService extends BaseService {
 							success = dao.updateNeighborhoodLibrary(neighborhoodLibrary); //예약idx로 상태값 업데이트
 						}else {
 							result.put("result", "fail");
-							result.put("message", "대출기 상태 수정 KLAS API오류, " + apiResult.getMessage());
+							result.put("message", apiResult.getMessage());
+						}
+					}else if("4".equals(neighborhoodLibrary.getReserve_status())) {//대출 처리
+						LibrarySearch libSearch = new LibrarySearch();
+						libSearch.setManageCode(same_bundle_idx.getManage_code());
+						libSearch.setUserkey(same_bundle_idx.getUser_key());
+						libSearch.setReg_no(same_bundle_idx.getReg_no());
+						libSearch.setDevice_code(same_bundle_idx.getDevice_code());
+    					String ip = "0:0:0:0:0:0:0:1";
+    					try {
+    						/*대출처리 api 호출*/
+        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
+    					}catch (Exception e) {
+							e.printStackTrace();
+						}
+    					if (apiResult.getStatus()) { //api 성공시
+    						success = dao.updateNeighborhoodLibrary(neighborhoodLibrary);
+    					}else {
+							result.put("result", "fail");
+							result.put("message", apiResult.getMessage());
+							return result;
 						}
 					}else {
-						if("4".equals(neighborhoodLibrary.getReserve_status())) {//대출 처리
-							LibrarySearch libSearch = new LibrarySearch();
-							libSearch.setManageCode(same_bundle_idx.getManage_code());
-							libSearch.setUserkey(same_bundle_idx.getUser_key());
-							libSearch.setReg_no(same_bundle_idx.getReg_no());
-							libSearch.setDevice_code(same_bundle_idx.getDevice_code());
-        					String ip = "0:0:0:0:0:0:0:1";
-        					try {
-        						/*대출처리 api 호출*/
-	        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
-        					}catch (Exception e) {
-								e.printStackTrace();
-							}
-        					if (apiResult.getStatus()) { //api 성공시
-        						success = dao.updateNeighborhoodLibrary(neighborhoodLibrary);
-        					}else {
-    							result.put("result", "fail");
-    							result.put("message", "대출처리 KLAS API오류, " + apiResult.getMessage());
-    							return result;
-    						}
-						}else {
-							success = dao.updateNeighborhoodLibrary(neighborhoodLibrary); //예약idx로 상태값 업데이트
-						}
+						success = dao.updateNeighborhoodLibrary(neighborhoodLibrary); //예약idx로 상태값 업데이트
 					}
+					
 					
 					if(success > 0) {
 						neighborhoodLibrary.setEditMode("getMySelf");
@@ -767,6 +818,13 @@ public class NearbyLibService extends BaseService {
 					String pk1 = "";
 					
 					if("3".equals(neighborhoodLibrary.getReserve_status())){
+						
+						for(int i = 0; i < bundleList_api.size(); i++) {
+							if(bundleList_api.get(i).getLocker_idx() != same_bundle_idx.getLocker_idx()) {
+								bundleList_api.remove(i);
+							}
+						}
+						
 						/*api 예약 대출기 상태 수정 ( 사물함 투입)*/
 						for(int i = 0; i < bundleList_api.size(); i++) {
 							librarySearch.setLoan_key(bundleList_api.get(i).getPk());
@@ -806,54 +864,53 @@ public class NearbyLibService extends BaseService {
 					 		result.put("result", "fail");
 							result.put("message", "book_key : " + pk0 + ", " + pk1 + "KLAS API오류" + failMes0 + ", " + failMes1 );
 					 	}
-					}else {
-						if("4".equals(neighborhoodLibrary.getReserve_status())) {//대출 처리
-							apiResult = null;
-							String message1 = "";
-							String message2 = "";
-							NearbyLib updateData = new NearbyLib();
-							
-							for(int i = 0; i < bundleList_api.size(); i++) {
-								LibrarySearch libSearch = new LibrarySearch();
-								libSearch.setManageCode(bundleList_api.get(i).getManage_code());
-								libSearch.setUserkey(bundleList_api.get(i).getUser_key());
-								libSearch.setReg_no(bundleList_api.get(i).getReg_no());
-								libSearch.setDevice_code(bundleList_api.get(i).getDevice_code());
-	        					String ip = "0:0:0:0:0:0:0:1";
-	        					try {
-	        						/*대출처리 api 호출*/
-		        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
-	        					}catch (Exception e) {
-	        						result.put("result", "fail");	        						
-	        						result.put("message", "내집앞도서관 대출처리 KLAS API 호출 실패");
-								}
-	        					if (apiResult.getStatus()) { //api 성공시
-	        						updateData.setReserve_idx(bundleList_api.get(i).getReserve_idx());
-	    							updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
-	    							updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
-	        						success = success +  dao.updateNeighborhoodLibrary(updateData);        					
-	        						if(i == 0) {
-	        							message1 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS API 대출처리 성공";;
-	        						}else {
-	        							message2 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS API 대출처리 성공";
-	        						}
-	        					}else { // api 실패시
-	        						if(i == 0) { //첫번째 api 실패시
-	        							message1 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
-	        						}else { //두번째 api 실패시
-	        							message2 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
-	        						}
-	        					}
-	        					resulMessage = message1 + ", " + message2;
+					}else if("4".equals(neighborhoodLibrary.getReserve_status())) {//대출 처리
+						apiResult = null;
+						String message1 = "";
+						String message2 = "";
+						NearbyLib updateData = new NearbyLib();
+						
+						for(int i = 0; i < bundleList_api.size(); i++) {
+							LibrarySearch libSearch = new LibrarySearch();
+							libSearch.setManageCode(bundleList_api.get(i).getManage_code());
+							libSearch.setUserkey(bundleList_api.get(i).getUser_key());
+							libSearch.setReg_no(bundleList_api.get(i).getReg_no());
+							libSearch.setDevice_code(bundleList_api.get(i).getDevice_code());
+        					String ip = "0:0:0:0:0:0:0:1";
+        					try {
+        						/*대출처리 api 호출*/
+	        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
+        					}catch (Exception e) {
+        						result.put("result", "fail");	        						
+        						result.put("message", "내집앞도서관 대출처리 KLAS API 호출 실패");
 							}
-						}else {
-							NearbyLib updateData = new NearbyLib();
-							updateData.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());
-							updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
-							updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
-							success = dao.updateNeighborhoodLibrary(updateData);
+        					if (apiResult.getStatus()) { //api 성공시
+        						updateData.setReserve_idx(bundleList_api.get(i).getReserve_idx());
+    							updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
+    							updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
+        						success = success +  dao.updateNeighborhoodLibrary(updateData);        					
+        						if(i == 0) {
+        							message1 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS API 대출처리 성공";;
+        						}else {
+        							message2 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS API 대출처리 성공";
+        						}
+        					}else { // api 실패시
+        						if(i == 0) { //첫번째 api 실패시
+        							message1 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
+        						}else { //두번째 api 실패시
+        							message2 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
+        						}
+        					}
+        					resulMessage = message1 + ", " + message2;
 						}
+					}else {
+						NearbyLib updateData = new NearbyLib();
+						updateData.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());
+						updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
+						updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
+						success = dao.updateNeighborhoodLibrary(updateData);
 					}
+					
 				 	
 					/*사물함에 도서가 투입되고 만기가 되는 날짜*/
 				 	neighborhoodLibrary.setEditMode("getMySelf");
@@ -868,11 +925,7 @@ public class NearbyLibService extends BaseService {
 						result.put("result", "success");
 						result.put("success_Count", success);
 						if("3".equals(neighborhoodLibrary.getReserve_status())){
-							if(failNum == 0 ) {
-								result.put("message", "총 두건 중 한건 처리실패 - 예약번호 : " + pk0 + ", KLAS API오류" + failMes0);
-							}else {
-								result.put("message", "총 두건 중 한건 처리실패 - 예약번호 : " + pk1 + ", KLAS API오류" + failMes1);
-					 		}
+							result.put("message", "총 두건 중 한건 처리실패");
 						}else if ("4".equals(neighborhoodLibrary.getReserve_status())){
 							result.put("message", resulMessage);
 						}else {
@@ -916,6 +969,12 @@ public class NearbyLibService extends BaseService {
 				        librarySearch.setUserkey(reserveOne.getUser_key());
 				        String userIp = reserveOne.getAdd_ip();
 				        
+				        for(int i = 0; i < bundleList.size(); i++) {
+				        	if(Integer.parseInt(bundleList.get(i).getReserve_status()) != 3) {
+				        		bundleList.remove(i);
+				        	}
+				        }
+				        
 				        for(int i = 0; i < bundleList.size() ; i++) {
 				        	homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
 					        librarySearch.setManageCode(bundleList.get(i).getManage_code());
@@ -933,7 +992,7 @@ public class NearbyLibService extends BaseService {
 										+ "\n도서 정보 : " + book_name 
 										+ "\n장비명 : " + bundleList.get(i).getDevice_name()
 										+ "\n사물함 번호 : " + bundleList.get(i).getLocker_idx() 
-										+ "\n사물함 비밀번호 : " + bundleList.get(i).getDevice_password();
+										+ "\n사물함 비밀번호 : " + + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx();
 					        }else {
 					        	mes = "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
 										+ "\n도서 정보 : " + book_name; 
@@ -962,6 +1021,12 @@ public class NearbyLibService extends BaseService {
 						NearbyLib gsList = new NearbyLib();
 						gsList.setReserve_bundle_idx(reserveOne.getReserve_bundle_idx());
 						List<NearbyLib> sblList = dao.getSameNeighborhoodLibraryBundleList(gsList);
+						
+						for(int i = 0; i < sblList.size(); i++) {
+				        	if(Integer.parseInt(sblList.get(i).getReserve_status()) != 7) {
+				        		sblList.remove(i);
+				        	}
+				        }
 						
 						for(int i = 0; i < sblList.size(); i++) {
 						 	LibrarySearch librarySearch2 = new LibrarySearch();			
@@ -1029,6 +1094,13 @@ public class NearbyLibService extends BaseService {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * @author ttkaz 2022. 12. 28.
+	 */
+	private NearbyLib getSearchNeighborhoodLibraryApiOne(NearbyLib neighborhoodLibrary) {
+		return dao.getSearchNeighborhoodLibraryApiOne(neighborhoodLibrary);
 	}
 
 	private NearbyLib getSearchNeighborhoodLibraryOne(NearbyLib neighborhoodLibrary) {
@@ -1245,5 +1317,42 @@ public class NearbyLibService extends BaseService {
 		return lockerNumber;
 	}
 
-
+	/**
+	 * @author ttkaz 2022. 12. 28.
+	 */
+	public Map<String, Object> returnReserveBook(NearbyLib nearbyLib) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		NearbyLib searchLib = dao.getReturnReserveBookOne(nearbyLib);
+		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+		Map<String,Object> resultMapList = new HashMap<String,Object>();
+		int resultUpdate = 0;
+		
+		if(nearbyLib.getReg_no() != null && "".equals(nearbyLib.getReg_no())) {
+			result.put("result", "fail");
+			result.put("message", "reg_no 값이 없습니다.");
+		}else {
+			if(searchLib == null) {
+				result.put("result", "fail");
+				result.put("message", "대출중인 reg_no 정보가 존재하지 않습니다. ");
+			}else {
+				searchLib.setReserve_idx(searchLib.getReserve_idx());
+				searchLib.setReserve_status("9");
+				resultUpdate = dao.updateNeighborhoodLibrary(searchLib);
+				if(resultUpdate > 0) {
+					result.put("result", "success");
+					result.put("message", "조회 성공.");
+					resultMapList.put("reserve_idx", searchLib.getReserve_idx());
+					resultMapList.put("device_idx", searchLib.getDevice_idx());
+					resultMapList.put("pk", searchLib.getPk());
+					resultMapList.put("user_no", searchLib.getUser_no());
+					resultMapList.put("isbn", searchLib.getBook_isbn());
+					resultMapList.put("manage_code", searchLib.getManage_code());
+					resultMapList.put("homepage_id", searchLib.getHomepage_id());
+					resultList.add(0, resultMapList);
+					result.put("result-data", resultList);
+				}
+			}
+		}
+		return result;
+	}
 }

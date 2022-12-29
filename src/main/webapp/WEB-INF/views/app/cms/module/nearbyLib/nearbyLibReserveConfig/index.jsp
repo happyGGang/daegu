@@ -55,7 +55,7 @@ $(function() {
 			<col width="30" />
 			<col width="30" />
 			<col width="30" />
-			<col width="30" />
+
 		</colgroup>
 		<thead>
 			<tr>
@@ -64,7 +64,7 @@ $(function() {
 				<th>예약종료시간</th>
 				<th>다음날예약종료여부</th>
 				<th>취거기간</th>
-				<th>예약만기일수</th>
+<!-- 				<th>예약만기일수</th> -->
 				<th>등록날짜</th>
 				<th>등록ID</th>
 				<th>수정날짜</th>
@@ -89,7 +89,7 @@ $(function() {
 						</c:choose>
 					</td>
 					<td>${i.take_term }</td>
-					<td>${i.expire_date_cnt }</td>
+<%-- 					<td>${i.expire_date_cnt }</td> --%>
 					<td>
 						<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" />
 					</td>

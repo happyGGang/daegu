@@ -50,4 +50,8 @@ public interface NearbyLibDao {
 	int updateNeighborhoodLibraryLocker_idx(NearbyLib nearbyLib);
 
 	NearbyLib getSearchNeighborhoodLibraryOne(NearbyLib neighborhoodLibrary);
+
+	NearbyLib getSearchNeighborhoodLibraryApiOne(NearbyLib neighborhoodLibrary);
+
+	NearbyLib getReturnReserveBookOne(NearbyLib nearbyLib);
 }

@@ -41,10 +41,13 @@ $(function() {
 		}else if($(this).attr('keyValue2') == '5'){
 			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수대기]상태로 값을 변경 하시겠습니까?";
 		}else if($(this).attr('keyValue2') == '6'){
-			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수완료]상태로 값을 변경 하시겠습니까?";
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수중]상태로 값을 변경 하시겠습니까?";
 		}else if($(this).attr('keyValue2') == '7'){
 			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수완료]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '10'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [반납완료]상태로 값을 변경 하시겠습니까?";
 		}
+		
 		if (!confirm(status)) {
 			return false;
 		}
@@ -111,14 +114,22 @@ $(function() {
 		background-color:#222;
 		width:50px;
 	}
+	.reserve_status10{
+		border: 1px black solid;
+		background-color:white;
+		width:70px;
+		color: black;
+	}
 	.status_info{
 		float: right;
 	    border: #999999a3 1px solid;
 	    border-radius: 15px;
-	    width: 620px;
+	    width: 700px;
 	    height: 27px;
 	    text-align: center;
     	color: white;
+    	padding-bottom: 2px;
+    	
 	}
 	.status_info_all{
 		display: inline-block;
@@ -171,6 +182,7 @@ $(function() {
 				<p class="status_info_all reserve_status7">회수완료</p>
 				<p class="status_info_all reserve_status8">취소</p>
 				<p class="status_info_all reserve_status9">반납</p>
+				<p class="status_info_all reserve_status10">반납완료</p>
 			</div>
 	</div>
 	<div class="infodesk">
@@ -333,7 +345,10 @@ $(function() {
 							</c:when>
 							<c:when test="${i.reserve_status eq '9'}">
 								<p class="status_btn reserve_status9">반납</p>
-							</c:when>						
+							</c:when>
+							<c:when test="${i.reserve_status eq '10'}">
+								<p class="status_btn reserve_status10">반납완료</p>
+							</c:when>	
 						</c:choose>
 					</td>
 					<td style="background-color:#f9d9d982;">
@@ -369,14 +384,18 @@ $(function() {
 							</c:when>
 							<c:when test="${i.reserve_status eq '6'}">
 								<!-- 배송기사가 도서를 회수 한 상태 -->
-								<a href="#" class="btn reserve_edit" style="background-color:#cc4ae7; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="7" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">반납완료</a>
+								<a href="#" class="btn reserve_edit" style="background-color:#cc4ae7; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="7" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">반납</a>
 							</c:when>
 							<c:when test="${i.reserve_status eq '7'}">
 								<!-- 배송기사가 도서를 도서관에 반납 한 상태 -->
 							</c:when>
 							<c:when test="${i.reserve_status eq '8'}">
 								<!-- 취소된 상태 -->
-							</c:when>					
+							</c:when>
+							<c:when test="${i.reserve_status eq '9'}">
+								<!-- 반납된 상태 -->
+								<a href="#" class="btn reserve_edit" style="border:1px black solid; color:black; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="10" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">반납완료</a>
+							</c:when>
 						</c:choose>	
 					</td>					
 				</tr>					
