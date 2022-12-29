@@ -82,7 +82,7 @@ $(function() {
 					<th style="width:15%">저자 / 발행자</th>
 					<th style="width:10%">도서관명</th>
 					<th style="width:10%">예약일</th>
-					<th style="width:5%">예약순위</th>
+					<th style="width:5%">예약순위 /<br>예약수</th>
 					<th style="width:10%">예약만기일</th>
 					<th style="width:8%">예약형태</th>
 					<th style="width:9%">예약취소</th>
@@ -94,7 +94,7 @@ $(function() {
 					<th style="width:15%">저자 / 발행자</th>
 					<th style="width:17%">도서관명</th>
 					<th style="width:10%">예약일</th>
-					<th style="width:8%">예약순위</th>
+					<th style="width:8%">예약순위 /<br>예약수</th>
 					<th style="width:10%">예약만기일</th>
 					<th style="width:8%">예약형태</th>
 					<th style="width:9%">예약취소</th>
@@ -112,7 +112,7 @@ $(function() {
 						<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 						<td>${i.LIB_NAME}</td>
 						<td>${i.RESERVATION_DATE}</td>
-						<td>${i.RESERVE_RANK}</td>
+						<td>${i.RESERVE_RANK} / ${i.LS_WORK_STATUS}</td>
 						<td>${i.RESERVATION_EXPIRE_DATE }</td>
 						<td>
 						<c:set var="nearLib_yn" value="0"/>
