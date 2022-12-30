@@ -369,7 +369,7 @@ public class PictureBookController extends BaseController {
 		    calDateDays = Math.abs(calDateDays);
 			
 		    //신청기간 2주에서 한달 제한
-			if(calDateDays >= 14 && calDateDays <= 31) {
+			if(calDateDays < 13 || calDateDays > 30) {
 				res.setValid(false);
 				res.setMessage("신청 가능 기간은 최소 2주에서 최대 한달까지입니다.");
 				return res;

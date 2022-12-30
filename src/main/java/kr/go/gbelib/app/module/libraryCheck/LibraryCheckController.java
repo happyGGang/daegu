@@ -382,7 +382,7 @@ public class LibraryCheckController extends BaseController {
 		    calDateDays = Math.abs(calDateDays);
 			
 		    //신청기간 2주에서 한달 제한
-			if(calDateDays >= 7 && calDateDays <= 14) {
+		    if(calDateDays < 6 || calDateDays > 13) {
 				res.setValid(false);
 				res.setMessage("신청 가능 기간은 최소 1주에서 최대 2주까지입니다.");
 				return res;
