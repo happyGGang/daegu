@@ -190,7 +190,7 @@ $(function() {
 
 <form:form modelAttribute="apply" id="volunteerEdit" action="/${homepage.context_path}/module/volunteer/save.do" method="post" onsubmit="return false;">
 <div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
-	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px">
+	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 75px">
 		<form:option value="Y" label="동의"/>
 		<form:option value="N" label="미동의"/>
 	</form:select>
@@ -306,18 +306,17 @@ $(function() {
 					<tr>
 						<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
 						<td>
-							<form:radiobutton path="age" value="성인" id="adult" onchange="hideDisplay()" />만18세 이상
-							<form:radiobutton path="age" value="미성년자" id="minor" onchange="showDisplay()"/>만18 이하
+							<form:radiobutton path="age" value="성인" id="adult" onchange="hideDisplay()" />만 18세 이상
+							<form:radiobutton path="age" value="미성년자" id="minor" onchange="showDisplay()"/>만 18세 이하
 						</td>
 					</tr>
 					<tr id="hide1">
 						<th>보호자 동의서(<span style="color: red; font-weight: bold;">*</span>)</th>
 						<td>
 							본 법정대리인(또는 보호자)은 다음사항을 확인합니다.<br/>
-							① 본인은 「미디어팩토리」 운영지침을 숙지하셨습니다.<br/>
-							② 본인은 상기 미성년자 또는 외국인이 「미디어팩토리」의 시설 및 장비를 대여함에 동의합니다.<br/>
-							③ 본인은 상기 미성년자 또는 외국인이 「미디어팩토리」의 시설 및 장비를 이용함에 있어서 모든 책임이<br/>
-							&nbsp;&nbsp;&nbsp; 본인에게 있음을 확인합니다.<br>
+							① 본인은 자원봉사신청지침을 숙지하셨습니다.<br/>
+							② 본인은 상기 미성년자 또는 외국인이 자원봉사신청에 동의합니다.<br/>
+							③ 본인은 상기 미성년자 또는 외국인이 자원봉사활동에 있어서 모든 책임이 본인에게 있음을 확인합니다.<br>
 							<p style="color:red;">※ 초등학생 이하는 반드시 보호자가 함께 입실하여야 합니다.</p>
 							<div style="text-align: right; margin-bottom: 5px;">
 								<c:out value="${today}" /> 보호자 : <form:input path="protector_name" class="text" cssStyle="width:80px"/>
