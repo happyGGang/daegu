@@ -188,7 +188,7 @@
 						<div class="main2-top">
 							<div class="main2-notice-title">
 								<h3>공지사항</h3>
-								<a href="/daegubraillelibrary/board/index.do?menu_idx=33&manage_idx=1087" class="more-notice"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
+								<a href="/${homepage.context_path}/board/index.do?menu_idx=33&manage_idx=1087" class="more-notice"><img src="/resources/homepage/${homepage.context_path}/img/more-btn.png" alt=""></a>
 							</div>
 							<div class="main2-notice-contents">
 								<ul>

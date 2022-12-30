@@ -382,7 +382,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:if test="${homepage.context_path eq 'yeonam'}">
 				연암도서관<input type="hidden" name="manage_code" value='ND'/>
 				</c:if>
-				<c:if test="${homepage.context_path eq 'daegubraillelibrary'}">
+				<c:if test="${homepage.context_path eq 'daegubl'}">
 				점자도서관<input type="hidden" name="manage_code" value='NG'/>
 				</c:if>
 				<c:if test="${homepage.context_path eq 'wasabi'}">

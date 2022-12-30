@@ -120,7 +120,7 @@ $(function() {
 			<c:otherwise>
 
 			<c:choose>
-				<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubraillelibrary' || context_path eq 'wasabi' || context_path eq 'handle'}">
+				<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubl' || context_path eq 'wasabi' || context_path eq 'handle'}">
 			<li class="bg bg02"><a href="/intro/${context_path}/join/index.do"><img src="/resources/common/img/bt002.png" alt="통합인증센터" class="wbt"/><img src="/resources/common/img/mbt002.png" alt="통합인증센터" class="mbt"/></a></li>
 				</c:when>
 				<c:otherwise>

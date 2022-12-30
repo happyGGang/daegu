@@ -4,7 +4,7 @@
 	<div class="head">
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
-			<div class="main-section2">
+			<div class="main-section">
 				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">대구점자도서관</a></h1>
 
 				<!-- menu S -->

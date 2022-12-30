@@ -450,7 +450,7 @@
 				</select>
 				</c:when>
 
-				<c:when test="${homepagePath eq 'daegubraillelibrary'}">
+				<c:when test="${homepagePath eq 'daegubl'}">
 				<select name="manageCode" id="manageCode">
 					<option value="NG">점자도서관</option>
 				</select>

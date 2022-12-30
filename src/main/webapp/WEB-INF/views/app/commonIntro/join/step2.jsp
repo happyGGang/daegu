@@ -82,7 +82,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 
 	<!--이용약관-->
 	<c:choose>
-    <c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubraillelibrary' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
+    <c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubl' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
 	    <h4>대구광역시 도서관 회원 이용약관</h4>
 		<div class="Box" style="height:200px">
 		  <p><strong>제1장 총칙<br><br>
@@ -532,7 +532,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 	<!--공용이용내역-->
     <h4>개인정보 공동이용(제공) 내역</h4>
 	<c:choose>
-    <c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubraillelibrary' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
+    <c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubl' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
 		<div class="Box" style="height:200px">
 
 		  <br>
@@ -619,7 +619,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 
 	<!--제3자제공내역-->
     <c:choose>
-    <c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubraillelibrary' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
+    <c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubl' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
 
     </c:when>
     <c:otherwise>

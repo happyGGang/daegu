@@ -36,7 +36,7 @@
 							<li class="disabled"><a title="새벗도서관" href="http://library.daegu.go.kr/saebut/index.do">새벗도서관</a></li>
 							<li class="disabled"><a title="아트도서관" href="http://library.daegu.go.kr/art/index.do">아트도서관</a></li>
 							<li class="disabled"><a title="사립공공연암도서관" href="http://library.daegu.go.kr/yeonam/index.do">사립공공연암도서관</a></li>
-							<li class="disabled"><a title="대구점자도서관" href="http://library.daegu.go.kr/daegubraillelibrary/index.do">대구점자도서관</a></li>
+							<li class="disabled"><a title="대구점자도서관" href="http://library.daegu.go.kr/daegubl/index.do">대구점자도서관</a></li>
 							<li class="disabled"><a title="푸른초장공공도서관" href="http://library.daegu.go.kr/wasabi/index.do">푸른초장공공도서관</a></li>
 							<li class="disabled"><a title="한들마을도서관" href="http://library.daegu.go.kr/handle/index.do">한들마을도서관</a></li>
 							</ul>

@@ -371,7 +371,7 @@ $(function() {
 						<c:when test="${homepagePath eq 'yeonam'}">
 						연암도서관<input type="hidden" id="" name="manage_code" value="ND" />
 						</c:when>						
-						<c:when test="${homepagePath eq 'daegubraillelibrary'}">
+						<c:when test="${homepagePath eq 'daegubl'}">
 						점자도서관<input type="hidden" id="" name="manage_code" value="NG" />
 						</c:when>
 						<c:when test="${homepagePath eq 'wasabi'}">

@@ -399,7 +399,7 @@ $(function() {
 			</div>
 
 			<c:choose>
-			<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubraillelibrary' || context_path eq 'wasabi' || context_path eq 'handle'}">
+			<c:when test="${context_path eq 'with' || context_path eq 'dotory' || context_path eq 'dongil' || context_path eq 'vision' || context_path eq 'saebut' || context_path eq 'art' || context_path eq 'yeonam' || context_path eq 'daegubl' || context_path eq 'wasabi' || context_path eq 'handle'}">
 
 			</c:when>
 			<c:otherwise>

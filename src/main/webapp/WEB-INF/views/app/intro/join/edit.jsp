@@ -448,7 +448,7 @@ $(function() {
 						<c:when test="${context_path eq 'yeonam'}">
 						연암도서관<input type="hidden" id="" name="manage_code" value="ND" />
 						</c:when>						
-						<c:when test="${context_path eq 'daegubraillelibrary'}">
+						<c:when test="${context_path eq 'daegubl'}">
 						점자도서관<input type="hidden" id="" name="manage_code" value="NG" />
 						</c:when>
 						<c:when test="${context_path eq 'wasabi'}">
