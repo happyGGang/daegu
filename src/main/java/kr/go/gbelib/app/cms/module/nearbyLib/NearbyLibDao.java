@@ -54,4 +54,9 @@ public interface NearbyLibDao {
 	NearbyLib getSearchNeighborhoodLibraryApiOne(NearbyLib neighborhoodLibrary);
 
 	NearbyLib getReturnReserveBookOne(NearbyLib nearbyLib);
+
+	int getNeighborhoodLibraryReturnCount(NearbyLib nearbyLibReturnList);
+	
+	List<NearbyLib> getNeighborhoodLibraryRerturnList(NearbyLib nearbyLibReturnList);
+
 }

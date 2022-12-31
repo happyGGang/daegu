@@ -45,6 +45,7 @@ $(function() {
 <!-- 내집앞도서관 운영장비 등록 form -->
 <form:form id="neighborhoodLibraryDelete" modelAttribute="neighborhoodLibrary" method="post" action="save.do" >
 	<form:hidden path="device_idx"/>
+	<form:hidden path="device_code"/>
 	<form:hidden path="reserve_status"/>
 	<form:hidden path="reserve_idx"/>
 	<table class="type2">

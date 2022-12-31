@@ -219,6 +219,18 @@ public class CommonSearchController extends BaseController {
 			Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
 			List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
 			
+			if("h90".equals(homepage.getHomepage_id())) {
+				if ( librarySearch.getLibraryCodes() == null ) {
+					List<String> libraryCodes = new ArrayList<String>();
+					libraryCodes.add("AA");
+					libraryCodes.add("AH");
+					libraryCodes.add("CA");
+					libraryCodes.add("CB");
+					libraryCodes.add("BA");
+					librarySearch.setLibraryCodes(libraryCodes);
+				}
+			}
+			
 			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
 				List<String> shelfCodes = new ArrayList<String>();
 				List<Map<String, Object>> libraryCodes = LibSearchAPI.getListData(shelfInfo);

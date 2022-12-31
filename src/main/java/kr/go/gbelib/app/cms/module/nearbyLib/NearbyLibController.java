@@ -486,7 +486,7 @@ public class NearbyLibController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "device_code", "장비코드를 가져오지 못했습니다.");
 		if("lockerOne".equals(nearbyLib.getEditMode())) {
 			ValidationUtils.rejectIfEmpty(result, "locker_each_idx", "사물함 번호를 가져오지 못했습니다.");
-		}else {
+		} else {
 			ValidationUtils.rejectIfEmpty(result, "reserve_idx_arr", "예약번호를 가져오지 못했습니다.");
 		}
 		
@@ -499,6 +499,44 @@ public class NearbyLibController extends BaseController {
 			res.setResult(result.getAllErrors());
 		}
 		return res;
+	}
+	
+	/** 반납 목록 리스트(상태값이 9인것들만)
+	 * @author HWANI
+	 * 2022. 9. 27.
+	 *
+	 */
+	
+	@RequestMapping(value = {"/returnList.*"})
+	public String returnList(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
+		checkAuth("R", model, request);
+		
+		NearbyLibDevice nearbyLibDeviceOne = new NearbyLibDevice();
+		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDeviceOne); //사물함 정보가 등록된 디바이스 목록 불러오기
+		List<NearbyLib> returnList = new ArrayList<NearbyLib>();
+		NearbyLib nearbyLibReturnList = new NearbyLib();
+		
+		String homepage_id = getAsideHomepageId(request);
+		nearbyLibReturnList.setHomepage_id(homepage_id);
+		
+		if(nearbyLib.getDevice_idx() == 0) {
+			if(deviceList.size() > 0) {
+				nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
+				nearbyLibReturnList.setDevice_idx(deviceList.get(0).getDevice_idx());
+			}
+		} else {
+			nearbyLibReturnList.setDevice_idx(nearbyLib.getDevice_idx());
+		}
+		
+		returnList = service.getNeighborhoodLibraryRerturnList(nearbyLibReturnList); //반납 목록 list
+		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLibReturnList); //반납 목록 count
+		
+		model.addAttribute("returnList", returnList);
+		model.addAttribute("returnCount", returnCount);
+		model.addAttribute("deviceList", deviceList);
+		model.addAttribute("nearbyLib", nearbyLib);
+		
+		return basePath + "returnList";
 	}
 	
 }

@@ -292,9 +292,9 @@ public class NearbyLibService extends BaseService {
 			}else if("9".equals(neighborhoodLibrary.getReserve_status())) { // 9: 반납
 				status3.setReserve_status("4"); // 4: 대출
 				status3_update.setReserve_status("9"); //9: 반납
-			}else if("10".equals(neighborhoodLibrary.getReserve_status())) { // 9: 반납
+			}else if("10".equals(neighborhoodLibrary.getReserve_status())) { // 10: 반납완료
 				status3.setReserve_status("9"); // 4: 대출
-				status3_update.setReserve_status("10"); //9: 반납
+				status3_update.setReserve_status("10"); //10: 반납완료
 			}
 			
 			status3.setReserve_idx(neighborhoodLibrary.getReserve_idx()); //예약 idx
@@ -589,15 +589,12 @@ public class NearbyLibService extends BaseService {
 			neighborhoodLibraryDelete.setReserve_status(neighborhoodLibrary.getReserve_status());
 			neighborhoodLibraryDelete.setDevice_code(neighborhoodLibrary.getDevice_code());
 			if("memberCancel".equals(neighborhoodLibrary.getEditMode())) {
-				neighborhoodLibraryDelete.setCancel_reason(neighborhoodLibrary.getCancel_reason());
-				neighborhoodLibraryDelete.setEditMode(neighborhoodLibrary.getEditMode());
-				neighborhoodLibraryDelete.setPk(neighborhoodLibrary.getPk());
-			}else {
-				neighborhoodLibraryDelete.setCancel_id(member.getMember_id());
-				neighborhoodLibraryDelete.setCancel_ip(request.getRemoteAddr());
-				neighborhoodLibraryDelete.setCancel_yn("Y");
 				neighborhoodLibraryDelete.setReserve_status(neighborhoodLibrary.getReserve_status());
 				neighborhoodLibraryDelete.setReserve_idx(neighborhoodLibrary.getReserve_idx());
+				neighborhoodLibraryDelete.setPk(neighborhoodLibrary.getPk());
+			}else {
+				neighborhoodLibraryDelete.setReserve_idx(neighborhoodLibrary.getReserve_idx());
+				neighborhoodLibraryDelete.setCancel_reason(neighborhoodLibrary.getCancel_reason());
 			}
 			
 			
@@ -620,20 +617,22 @@ public class NearbyLibService extends BaseService {
 			try {
 				/*예약취소 API 호출*/
 				apiResult = LibSearchAPI.cancelResve(librarySearch2);
-				if (apiResult.getStatus()) { //취소 API 성공					
-					/*홈페이지DB 예약취소 */
-					result = dao.updateNeighborhoodLibrary(neighborhoodLibraryDelete);
-				} else { //api는 정상적이나 취소처리가 되지 않음
-					res.setValid(false);
-					res.setMessage("무인예약 취소 api 업데이트에 실패 하였습니다.");
-					return res;
-				}
 			}catch (Exception e) {
 				e.printStackTrace();
 				res.setValid(false);
 				res.setMessage("무인예약 취소 api 호출 실패, 업데이트에 실패 하였습니다.");
 				return res;
 			}
+			
+			if (apiResult.getStatus()) { //취소 API 성공					
+				/*홈페이지DB 예약취소 */
+				result = dao.updateNeighborhoodLibrary(neighborhoodLibraryDelete);
+			} else { //api는 정상적이나 취소처리가 되지 않음
+				res.setValid(false);
+				res.setMessage("무인예약 취소 api 업데이트에 실패 하였습니다.");
+				return res;
+			}
+			
 			if(result > 0) {
 				res.setMessage("해당 예약이 취소 되었습니다.");
 				res.setValid(true);
@@ -916,7 +915,7 @@ public class NearbyLibService extends BaseService {
 				 	neighborhoodLibrary.setEditMode("getMySelf");
 					NearbyLib resultData = dao.getSameNeighborhoodLibraryBundle_idx(neighborhoodLibrary);
 					Date nowDate = new Date();
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(nowDate);
 			        cal.add(Calendar.DATE, resultData.getTake_term());
@@ -1337,11 +1336,13 @@ public class NearbyLibService extends BaseService {
 			}else {
 				searchLib.setReserve_idx(searchLib.getReserve_idx());
 				searchLib.setReserve_status("9");
+				searchLib.setReturn_device_code(nearbyLib.getReturn_device_code());
 				resultUpdate = dao.updateNeighborhoodLibrary(searchLib);
 				if(resultUpdate > 0) {
 					result.put("result", "success");
-					result.put("message", "조회 성공.");
+					result.put("message", "반납 성공.");
 					resultMapList.put("reserve_idx", searchLib.getReserve_idx());
+					resultMapList.put("member_id", searchLib.getMember_id());
 					resultMapList.put("device_idx", searchLib.getDevice_idx());
 					resultMapList.put("pk", searchLib.getPk());
 					resultMapList.put("user_no", searchLib.getUser_no());
@@ -1355,4 +1356,13 @@ public class NearbyLibService extends BaseService {
 		}
 		return result;
 	}
+
+	public int getNeighborhoodLibraryReturnCount(NearbyLib nearbyLibReturnList) {
+		return dao.getNeighborhoodLibraryReturnCount(nearbyLibReturnList);
+	}
+	
+	public List<NearbyLib> getNeighborhoodLibraryRerturnList(NearbyLib nearbyLibReturnList) {
+		return dao.getNeighborhoodLibraryRerturnList(nearbyLibReturnList);
+	}
+
 }

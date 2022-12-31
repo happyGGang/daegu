@@ -41,7 +41,9 @@ public class NearbyLib extends PagingUtils {
 	private int expire_date_cnt; //예약만기일수
 	private String large_book_yn; //큰책여부(도서 사이즈가 크면 사서가'Y'로 미리 체크 함, 사물함 크기가 달라서 큰 사물함에 넣기위한 변수)
 	private String reserve_idx_arr; //체크박스용
+	private String reserve_start_date; //해당예약의 예약시작 날짜and시간
 	private String reserve_end_date; //해당예약의 예약종료 날짜and시간
+	private String return_device_code; //반납시 반납기 코드
 	
 	//도서API 정보 받아오기용 변수
 	private String title_info; //도서명
@@ -485,5 +487,17 @@ public class NearbyLib extends PagingUtils {
 	}
 	public void setReserve_end_date(String reserve_end_date) {
 		this.reserve_end_date = reserve_end_date;
+	}
+	public String getReturn_device_code() {
+		return return_device_code;
+	}
+	public void setReturn_device_code(String return_device_code) {
+		this.return_device_code = return_device_code;
+	}
+	public String getReserve_start_date() {
+		return reserve_start_date;
+	}
+	public void setReserve_start_date(String reserve_start_date) {
+		this.reserve_start_date = reserve_start_date;
 	}
 }
