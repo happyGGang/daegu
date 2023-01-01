@@ -3520,6 +3520,7 @@ public class CommonSearchController extends BaseController {
 				neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time()); //신청가능시간
 				cal.setTime(nowDate);
 				cal.add(Calendar.DATE, 1);
+				neighborhoodLibrary.setReserve_start_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time());
 				neighborhoodLibrary.setReserve_end_date(simpleDateFormat1.format(cal.getTime()) + configOne.getReserve_end_time());
 				//neighborhoodLibrary.setSearch_date2(simpleDateFormat2.format(nowDate));//현재시간
 			}
@@ -3531,6 +3532,7 @@ public class CommonSearchController extends BaseController {
 				neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(cal.getTime()) + configOne.getReserve_start_time()); //하루전 신청 가능시간
 				neighborhoodLibrary.setSearch_date2(simpleDateFormat1.format(nowDate) + configOne.getReserve_end_time()); //오늘 신청 종료시간
 				neighborhoodLibrary.setReserve_end_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_end_time());
+				neighborhoodLibrary.setReserve_start_date(simpleDateFormat1.format(cal.getTime()) + configOne.getReserve_start_time());
 			}
 		}
 		if("N".equals(configOne.getTomorrow_end_day_yn())) { //예약 시작과 종료 시간이 하루안에 이루어지면 "N"
@@ -3538,6 +3540,7 @@ public class CommonSearchController extends BaseController {
 				neighborhoodLibrary.setSearch_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time()); //신청가능시간	
 				cal.setTime(nowDate);
 				neighborhoodLibrary.setReserve_end_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_end_time());
+				neighborhoodLibrary.setReserve_start_date(simpleDateFormat1.format(nowDate) + configOne.getReserve_start_time());
 			}
 		}
 		neighborhoodLibrary.setTomorrow_end_day_yn(configOne.getTomorrow_end_day_yn());

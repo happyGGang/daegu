@@ -219,7 +219,7 @@ $(function() {
 			<tr>
  				<th>번호</th>			
 				<th>소장처</th>
-				<th style="background-color: #f93703c7;">사물함(예비기능)</th>
+				<th>사물함</th>
 				<th>비밀번호</th>
 				<th>회원ID</th>
 				<th>큰책여부</th>
@@ -231,7 +231,7 @@ $(function() {
 				<th>취소
 				<th>SMS발송여부</th>
 				<th style="background-color: #2b74c08a;">대출상태</th>
-				<th style="background-color: #f93703c7;">예비기능</th>				
+				<th>기능</th>				
 			</tr>
 		</thead>
 		<tbody>
@@ -240,16 +240,16 @@ $(function() {
 					<td>${nearbyLib.listRowNum - status.index}</td>				
 					<td>${i.lib_name }</td>
 					<td>
-						<c:choose>
-							<c:when test="${i.reserve_status eq '2' and (i.locker_idx eq null or i.locker_idx eq '')}">
-								<select class="" style="width:50px" name="locker_each_idx" id="locker_each_idx${status.index + 1}">
-									<option value="0"> --</option>
-									<c:forEach var="j" items="${lockerList}">
-										<option value="${j.locker_each_idx }" <c:if test="${j.locker_each_idx eq i.locker_idx }">selected="selected"</c:if>>${j.locker_each_idx }</option>
-									</c:forEach>
-								</select>
-							</c:when>
-							<c:otherwise>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${i.reserve_status eq '2' and (i.locker_idx eq null or i.locker_idx eq '')}"> --%>
+<%-- 								<select class="" style="width:50px" name="locker_each_idx" id="locker_each_idx${status.index + 1}"> --%>
+<!-- 									<option value="0"> --</option> -->
+<%-- 									<c:forEach var="j" items="${lockerList}"> --%>
+<%-- 										<option value="${j.locker_each_idx }" <c:if test="${j.locker_each_idx eq i.locker_idx }">selected="selected"</c:if>>${j.locker_each_idx }</option> --%>
+<%-- 									</c:forEach> --%>
+<!-- 								</select> -->
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
 								<c:choose>
 									<c:when test="${i.locker_idx > 0 }">
 										${i.locker_idx }
@@ -258,8 +258,8 @@ $(function() {
 										-
 									</c:otherwise>
 								</c:choose>
-							</c:otherwise>
-						</c:choose>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
 					</td>
 					<td>
 						<c:choose>
@@ -357,7 +357,7 @@ $(function() {
 								<!-- 예약상태 -->
 								<c:choose>
 									<c:when test="${nowLocker > 0 }">
-										<%-- <a href="#" class="btn reserve_save"  style="background-color:#439bed; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="2" keyValue3="${i.reserve_bundle_idx }" keyValue4="${i.device_idx}" keyValue5="${i.device_code }" keyValue6="${i.reserve_idx }">예약확정</a> --%>
+										<a href="#" class="btn reserve_save"  style="background-color:#439bed; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="2" keyValue3="${i.reserve_bundle_idx }" keyValue4="${i.device_idx}" keyValue5="${i.device_code }" keyValue6="${i.reserve_idx }">예약확정</a>
 										<a href="#" class="btn reserve_cancel" style="background-color: #222; color:white;" keyValue1="${i.reserve_idx}" keyValue2="8"  keyValue3="${i.device_idx }" keyValue4="${i.device_code}">취소</a>
 									</c:when>
 									<c:when test="${nowLocker <= 0 }">

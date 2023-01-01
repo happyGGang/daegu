@@ -61,7 +61,10 @@ table .type1 td{
 					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="10" style="height: 36px;">반출 목록</th>						
+							<th colspan="10" style="height: 36px;">
+							반출 목록<br/>
+							${start_time} ~ ${end_time }
+							</th>						
 						</tr>
 						<tr style="outline:white 1px solid">
 							<th>번호</th>

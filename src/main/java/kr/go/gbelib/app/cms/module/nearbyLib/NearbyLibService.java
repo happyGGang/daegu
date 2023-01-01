@@ -408,29 +408,24 @@ public class NearbyLibService extends BaseService {
     					res.setMessage(result_message);
 					}
 				}else if("10".equals(neighborhoodLibrary.getReserve_status())){
-					Map<String, Object> apiResult = null; 
 					LibrarySearch librarySearch = new LibrarySearch();
 					librarySearch.setManageCode(sameReserveOne.getManage_code());
 					librarySearch.setRegNo(sameReserveOne.getReg_no());
+					librarySearch.setUserkey(sameReserveOne.getUser_key());
+					librarySearch.setDevice_code("nearbylib");
+					ApiResponse apiResult = null;
+					String userIp = "0:0:0:0:0:0:0:1";
 					try {
-						apiResult = LibSearchAPI.getBookInfo(librarySearch);
+						apiResult = LibSearchAPI.unmannedreturn(librarySearch, userIp);
+						
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
-					if(apiResult != null) {
-						List<Map<String, Object>> listData = LibSearchAPI.getListData(apiResult);
-						if(listData != null && listData.size() > 0) {
-							Map<String, Object> map = listData.get(0);
-							if (map.get("BOOK_STATUS") != null) {
-								if("1".equals(String.valueOf(map.get("BOOK_STATUS")))) {
-									result = dao.updateNeighborhoodLibrary(status3_update);
-								}
-							}
-						}
-						
+					if (apiResult.getStatus()) {
+						result = dao.updateNeighborhoodLibrary(status3_update);
 					}else {
 						res.setValid(true);
-						res.setMessage("KLAS 서지정보 API 호출 실패");
+						res.setMessage("KLAS 무인 반납 API 호출 실패, " + apiResult.getMessage());
 						return res;
 					}
 					
@@ -530,6 +525,7 @@ public class NearbyLibService extends BaseService {
 						searchOne.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 						searchOne.setReserve_status("7"); 
 						searchOne.setPk(neighborhoodLibrary.getPk());
+						searchOne.setEditMode("getMySelf");
 						NearbyLib reserveOne = new NearbyLib();
 						
 						reserveOne = dao.getSameNeighborhoodLibraryBundle_idx(searchOne); //해당 건 데이터 가져오기
@@ -1321,7 +1317,6 @@ public class NearbyLibService extends BaseService {
 	 */
 	public Map<String, Object> returnReserveBook(NearbyLib nearbyLib) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		NearbyLib searchLib = dao.getReturnReserveBookOne(nearbyLib);
 		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> resultMapList = new HashMap<String,Object>();
 		int resultUpdate = 0;
@@ -1329,7 +1324,11 @@ public class NearbyLibService extends BaseService {
 		if(nearbyLib.getReg_no() != null && "".equals(nearbyLib.getReg_no())) {
 			result.put("result", "fail");
 			result.put("message", "reg_no 값이 없습니다.");
+		}else if(nearbyLib.getReturn_device_code() != null && "".equals(nearbyLib.getReturn_device_code())) {
+			result.put("result", "fail");
+			result.put("message", "return_device_code 값이 없습니다.");
 		}else {
+			NearbyLib searchLib = dao.getReturnReserveBookOne(nearbyLib);	
 			if(searchLib == null) {
 				result.put("result", "fail");
 				result.put("message", "대출중인 reg_no 정보가 존재하지 않습니다. ");
@@ -1349,6 +1348,8 @@ public class NearbyLibService extends BaseService {
 					resultMapList.put("isbn", searchLib.getBook_isbn());
 					resultMapList.put("manage_code", searchLib.getManage_code());
 					resultMapList.put("homepage_id", searchLib.getHomepage_id());
+					resultMapList.put("reg_no", nearbyLib.getReg_no());
+					resultMapList.put("return_device_code", nearbyLib.getReturn_device_code());
 					resultList.add(0, resultMapList);
 					result.put("result-data", resultList);
 				}
