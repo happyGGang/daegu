@@ -533,9 +533,7 @@ public class NearbyLibController extends BaseController {
 		}
 		
 		if (!result.hasErrors()) {
-			service.updateNeighborhoodLibraryLocker_idx(nearbyLib, request);
-			res.setValid(true);
-			res.setMessage("사물함 배정이 완료 되었습니다.");
+			res = service.updateNeighborhoodLibraryLocker_idx(nearbyLib, request);
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

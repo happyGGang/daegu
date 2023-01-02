@@ -482,7 +482,14 @@
 				LOCKER_IDX = #{locker_each_idx}
 			WHERE
 			1=1
-			 AND RESERVE_IDX = #{reserve_idx}
+			<choose>
+			<when test='editMode =="updateOne"'>
+			 	AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+			 </when>
+			 <otherwise>
+			 	AND RESERVE_IDX = #{reserve_idx}
+			 </otherwise>
+			 </choose>
 			 AND DEVICE_IDX = #{device_idx}
 			 AND DEVICE_CODE = #{device_code}
 			 AND RESERVE_STATUS = '2'
