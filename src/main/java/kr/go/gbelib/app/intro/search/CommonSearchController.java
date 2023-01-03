@@ -121,32 +121,44 @@ public class CommonSearchController extends BaseController {
 		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
 			librarySearch.setManageCode(homepage.getManage_code());
 		}
-
-		if ( librarySearch.getLibraryCodes() == null ) {
-			List<String> libraryCodes = new ArrayList<String>();
-			if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
-				libraryCodes.add(homepage.getManage_code());
-			} else {
-				for (Homepage home : normalHomepage) {
-					libraryCodes.add(home.getManage_code());
-				}
+		
+		if("h90".equals(homepage.getHomepage_id())){
+			if ( librarySearch.getLibraryCodes() == null ) {
+				List<String> libraryCodes = new ArrayList<String>();
+				libraryCodes.add("AA");
+				libraryCodes.add("AH");
+				libraryCodes.add("CA");
+				libraryCodes.add("CB");
+				libraryCodes.add("BA");
+				librarySearch.setLibraryCodes(libraryCodes);
 			}
-
-			Homepage h1 = new Homepage();
-			h1.setHomepage_id(homepage.getHomepage_id());
-			h1.setHomepage_group(homepage.getHomepage_id());
-			h1.setTemp_use_yn(null);
-			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
-			if (CollectionUtils.isNotEmpty(subHomepageList)) {
-				for (Homepage homepage1 : subHomepageList) {
-					if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
-						libraryCodes.add(homepage1.getManage_code());
-
+		} else {
+			if ( librarySearch.getLibraryCodes() == null ) {
+				List<String> libraryCodes = new ArrayList<String>();
+				if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
+					libraryCodes.add(homepage.getManage_code());
+				} else {
+					for (Homepage home : normalHomepage) {
+						libraryCodes.add(home.getManage_code());
 					}
 				}
-			}
 
-			librarySearch.setLibraryCodes(libraryCodes);
+				Homepage h1 = new Homepage();
+				h1.setHomepage_id(homepage.getHomepage_id());
+				h1.setHomepage_group(homepage.getHomepage_id());
+				h1.setTemp_use_yn(null);
+				List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+				if (CollectionUtils.isNotEmpty(subHomepageList)) {
+					for (Homepage homepage1 : subHomepageList) {
+						if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+							libraryCodes.add(homepage1.getManage_code());
+
+						}
+					}
+				}
+
+				librarySearch.setLibraryCodes(libraryCodes);
+			}
 		}
 		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
@@ -218,18 +230,6 @@ public class CommonSearchController extends BaseController {
 		} else {
 			Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
 			List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
-			
-			if("h90".equals(homepage.getHomepage_id())) {
-				if ( librarySearch.getLibraryCodes() == null ) {
-					List<String> libraryCodes = new ArrayList<String>();
-					libraryCodes.add("AA");
-					libraryCodes.add("AH");
-					libraryCodes.add("CA");
-					libraryCodes.add("CB");
-					libraryCodes.add("BA");
-					librarySearch.setLibraryCodes(libraryCodes);
-				}
-			}
 			
 			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
 				List<String> shelfCodes = new ArrayList<String>();

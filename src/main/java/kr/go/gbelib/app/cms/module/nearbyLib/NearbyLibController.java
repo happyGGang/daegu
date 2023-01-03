@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.framework.base.BaseController;
@@ -61,7 +62,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/index.*"})
+	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
 	public String index(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		NearbyLibDevice nearbyLibDevice = new NearbyLibDevice();
@@ -78,6 +79,7 @@ public class NearbyLibController extends BaseController {
 		
 		List<NearbyLib> reserveList = service.getNeighborhoodLibraryListAll(nearbyLib);
 		int count = service.getNeighborhoodLibraryCount(nearbyLib);
+		nearbyLib.setTotalDataCount(count);
 		
 		/*현재 사용 가능한 사물함의 갯수 뽑아오기*/
 		NearbyLibLocker nearbyLibLocker = new NearbyLibLocker();
@@ -129,7 +131,6 @@ public class NearbyLibController extends BaseController {
 		}
 		
 		service.setPaging(model, count, nearbyLib);
-		nearbyLib.setTotalDataCount(count);
 		
 		model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
 		model.addAttribute("nowLocker", nowLocker);
