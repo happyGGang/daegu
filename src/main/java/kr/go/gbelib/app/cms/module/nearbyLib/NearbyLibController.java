@@ -77,7 +77,6 @@ public class NearbyLibController extends BaseController {
 //		List<nearbyLibLocker2> lockerOneList = lockerService.getnearbyLibLockerEachOneList(nearbyLibLocker);//사물함 번호&갯수 가져오기		
 //		List<NeighborhoodLibrary2> usedLockerList = service.getNeighborhoodLibraryList(neighborhoodLibrary); //사물함을 사용하는 예약 내역만 가져오기 
 		
-		List<NearbyLib> reserveList = service.getNeighborhoodLibraryListAll(nearbyLib);
 		int count = service.getNeighborhoodLibraryCount(nearbyLib);
 		nearbyLib.setTotalDataCount(count);
 		
@@ -135,7 +134,7 @@ public class NearbyLibController extends BaseController {
 		model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
 		model.addAttribute("nowLocker", nowLocker);
 		model.addAttribute("deviceList", deviceList);
-		model.addAttribute("reserveList", reserveList);		
+		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));		
 		model.addAttribute("nearbyLib", nearbyLib);
 		return basePath + "index";
 	}
