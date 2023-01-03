@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.whalesoft.app.homepage.index.GyeongStopWatch;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.binding.BindingException;
@@ -313,20 +314,32 @@ public class TeachService extends BaseService {
 	}
 
 	public List<Teach> getTeachListForUser(Teach teach) {
+		GyeongStopWatch sw = new GyeongStopWatch();
 		teach.setSearchCate1(numbersOnly(teach.getSearchCate1()));
 		teach.setSearchCate2(numbersOnly(teach.getSearchCate2()));
 		teach.setSearchCate3(numbersOnly(teach.getSearchCate3()));
 		teach.setGroup_idx_list(numbersOnly(teach.getGroup_idx_list()));
 
-		List<Teach> list = dao.getTeachListForUser(teach);
+		sw.start("teachListForUser");
+		List<Teach> teachListForUser = dao.getTeachListForUser(teach);
+		sw.stop();
+		List<Teach> list = teachListForUser;
+
 		if (list != null && list.size() > 0) {
 			for (Teach result : list) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
-				result.setHolidays(dao.getHolidays(result));
+				sw.start("holidays");
+				List<String> holidays = dao.getHolidays(result);
+				sw.stop();
+				result.setHolidays(holidays);
 				if (StringUtils.isEmpty(result.getTeacher_name())) {
-					result.setTeacher_name(dao.getTeacherName(result));
+					sw.start("teacherName");
+					String teacherName = dao.getTeacherName(result);
+					sw.stop();
+					result.setTeacher_name(teacherName);
 				}
 			}
+			System.out.println(sw.prettyPrint());
 		}
 		return list;
 	}
