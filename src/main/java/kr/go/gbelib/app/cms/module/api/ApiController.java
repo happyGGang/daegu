@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.api;
 
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.go.gbelib.app.cms.module.bookOfFamous.BookOfFamous;
+import kr.go.gbelib.app.cms.module.bookOfFamous.BookOfFamousService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib;
@@ -53,6 +55,9 @@ public class ApiController extends BaseController {
 	
 //	@Autowired
 //	private NearbyLibService neabyLibService;
+	
+	@Autowired
+	private BookOfFamousService bookOfFamousService;
 
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
 	
@@ -184,4 +189,9 @@ public class ApiController extends BaseController {
 //		return neabyLibService.checkReserveLocker(neighborhoodLibrary);
 //	}
 	
+	@RequestMapping(value = {"bookOfFamous.*"})
+	public @ResponseBody Map<String, Object> bookOfFamousList(BookOfFamous bookOfFamous, HttpServletRequest request, HttpServletResponse response) {
+	
+		return bookOfFamousService.getBookOfFamousListApi(bookOfFamous);
+	}
 }
