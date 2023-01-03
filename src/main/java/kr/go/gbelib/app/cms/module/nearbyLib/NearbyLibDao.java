@@ -59,4 +59,10 @@ public interface NearbyLibDao {
 	
 	List<NearbyLib> getNeighborhoodLibraryRerturnList(NearbyLib nearbyLibReturnList);
 
+	int updateNeighborhoodLibraryExpireDate(NearbyLib neighborhoodLibrary);
+
+	List<NearbyLib> getExpireReserveBookList(NearbyLib nearbyLib);
+
+	List<NearbyLib> getReturnYnReserveBookList(NearbyLib nearbyLib);
+
 }

@@ -157,6 +157,18 @@ public class ApiController extends BaseController {
 		return neigborhoodLibraryService.returnReserveBook(neighborhoodLibrary);
 	}
 	
+	@RequestMapping(value = {"nearLib/expire.*"})
+	public @ResponseBody Map<String, Object> neighborhoodLibraryexpire(NearbyLib nearbyLib, HttpServletRequest request, HttpServletResponse response) {
+	
+		return neigborhoodLibraryService.expireReserveBook(nearbyLib);
+	}
+	
+	@RequestMapping(value = {"nearLib/returnYn.*"})
+	public @ResponseBody Map<String, Object> neighborhoodLibraryReturnYn(NearbyLib nearbyLib, HttpServletRequest request, HttpServletResponse response) {
+	
+		return neigborhoodLibraryService.returnYnReserveBook(nearbyLib);
+	}
+	
 //	@RequestMapping(value = {"nearbyLib/edit.*"})
 //	public @ResponseBody Map<String, Object> nearbyLibEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
 //		return neabyLibService.updateNearbyLibApi(neighborhoodLibrary);

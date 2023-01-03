@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -778,6 +779,8 @@ public class NearbyLibService extends BaseService {
 						result.put("message", result_message);
 						if("3".equals(neighborhoodLibrary.getReserve_status())){
 							result.put("expire_date", simpleDateFormat.format(cal.getTime()));
+							neighborhoodLibrary.setExpire_date(simpleDateFormat.format(cal.getTime()));
+							dao.updateNeighborhoodLibraryExpireDate(neighborhoodLibrary);
 						}
 					}else {
 						result.put("result", "fail");
@@ -820,6 +823,17 @@ public class NearbyLibService extends BaseService {
 								updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
 								updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
 								success = success + dao.updateNeighborhoodLibrary(updateData);
+								
+								neighborhoodLibrary.setReserve_idx(bundleList_api.get(i).getReserve_idx());
+								int take_term = bundleList_api.get(i).getTake_term();
+								Date nowDate = new Date();
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(nowDate);
+						        cal.add(Calendar.DATE, take_term);
+								neighborhoodLibrary.setExpire_date(simpleDateFormat.format(cal.getTime()));
+								dao.updateNeighborhoodLibraryExpireDate(neighborhoodLibrary);
+								
 							}else {
 								failNum = i;
 								failCount = failCount + 1;
@@ -919,7 +933,6 @@ public class NearbyLibService extends BaseService {
 						result.put("result", "success");
 						result.put("success_Count", success);
 						result.put("message", "2건 : " + result_message );
-						result.put("expire_date", cal.getTime());
 						if("3".equals(neighborhoodLibrary.getReserve_status())) {
 							result.put("expire_date", simpleDateFormat.format(cal.getTime()));
 						}
@@ -1323,10 +1336,10 @@ public class NearbyLibService extends BaseService {
 		Map<String,Object> resultMapList = new HashMap<String,Object>();
 		int resultUpdate = 0;
 		
-		if(nearbyLib.getReg_no() != null && "".equals(nearbyLib.getReg_no())) {
+		if(nearbyLib.getReg_no() == null && "".equals(nearbyLib.getReg_no())) {
 			result.put("result", "fail");
 			result.put("message", "reg_no 값이 없습니다.");
-		}else if(nearbyLib.getReturn_device_code() != null && "".equals(nearbyLib.getReturn_device_code())) {
+		}else if(nearbyLib.getReturn_device_code() == null && "".equals(nearbyLib.getReturn_device_code())) {
 			result.put("result", "fail");
 			result.put("message", "return_device_code 값이 없습니다.");
 		}else {
@@ -1366,6 +1379,176 @@ public class NearbyLibService extends BaseService {
 	
 	public List<NearbyLib> getNeighborhoodLibraryRerturnList(NearbyLib nearbyLibReturnList) {
 		return dao.getNeighborhoodLibraryRerturnList(nearbyLibReturnList);
+	}
+
+	public Map<String, Object> expireReserveBook(NearbyLib nearbyLib) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		if(nearbyLib.getExpire_date() == null && "".equals(nearbyLib.getExpire_date())) {
+			result.put("result", "fail");
+			result.put("message", "expire_date 값이 없습니다.");
+		}
+		
+		if(nearbyLib.getDevice_code() == null && "".equals(nearbyLib.getDevice_code())) {
+			result.put("result", "fail");
+			result.put("message", "device_code 값이 없습니다.");
+		}
+		
+		List<NearbyLib> expireReserveBookList = dao.getExpireReserveBookList(nearbyLib);
+		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+		
+		try {
+			if(expireReserveBookList.size() > 0) {
+				Map<String,Object> resultMapList = new HashMap<String,Object>();
+				
+				for(int i =0 ; i < expireReserveBookList.size(); i++) {
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getHomepage_id())) {
+						resultMapList.put("homepage_id", expireReserveBookList.get(i).getHomepage_id());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getLib_name())) {
+						resultMapList.put("lib_name", expireReserveBookList.get(i).getLib_name());
+					}
+					if(expireReserveBookList.get(i).getReserve_idx() > 0) {
+						resultMapList.put("reserve_idx", expireReserveBookList.get(i).getReserve_idx());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getPk())) {
+						resultMapList.put("pk", expireReserveBookList.get(i).getPk());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getMember_id())) {
+						resultMapList.put("member_id", expireReserveBookList.get(i).getMember_id());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getUser_no())) {
+						resultMapList.put("user_no", expireReserveBookList.get(i).getUser_no());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getManage_code())) {
+						resultMapList.put("manage_code", expireReserveBookList.get(i).getManage_code());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getReg_no())) {
+						resultMapList.put("reg_no", expireReserveBookList.get(i).getReg_no());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getBook_isbn())) {
+						resultMapList.put("isbn", expireReserveBookList.get(i).getBook_isbn());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getBook_name())) {
+						resultMapList.put("book_name", expireReserveBookList.get(i).getBook_name());
+					}
+					if(expireReserveBookList.get(i).getDevice_idx() > 0) {
+						resultMapList.put("device_idx", expireReserveBookList.get(i).getDevice_idx());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getDevice_name())) {
+						resultMapList.put("device_name", expireReserveBookList.get(i).getDevice_name());
+					}
+					if(expireReserveBookList.get(i).getDevice_password() > 0) {
+						resultMapList.put("device_password", expireReserveBookList.get(i).getDevice_password());
+					}
+					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getDevice_code())) {
+						resultMapList.put("device_code", expireReserveBookList.get(i).getDevice_code());
+					}
+					if(expireReserveBookList.get(i).getLocker_idx() > 0) {
+						resultMapList.put("locker_idx", expireReserveBookList.get(i).getLocker_idx());
+					}
+					
+					resultList.add(i, resultMapList);
+				}
+				
+				resultMap.put("result-list", resultList);
+				result.put("result", "success");
+				result.put("message", "예약 만기 예약정보 조회 성공.");
+				result.put("result-data", resultMap);
+			} else {
+				result.put("result", "fail");
+				result.put("message", "예약 만기 예약정보 데이터가 없습니다.");
+			}
+		} catch (Exception e) {
+			result.put("result", "fail");
+			result.put("message", "예약 만기 예약정보 데이터를 조회하는데 오류가 발생하셨습니다.");
+		}
+		
+		return result;
+	}
+
+	public Map<String, Object> returnYnReserveBook(NearbyLib nearbyLib) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+		
+		if(nearbyLib.getReg_no() == null && "".equals(nearbyLib.getReg_no())) {
+			result.put("result", "fail");
+			result.put("message", "reg_no 값이 없습니다.");
+		}
+		
+		List<NearbyLib> returnYnReserveBookList = dao.getReturnYnReserveBookList(nearbyLib);
+		
+		try {
+			if(returnYnReserveBookList.size() > 0) {
+				Map<String,Object> resultMapList = new HashMap<String,Object>();
+				
+				for(int i =0 ; i < returnYnReserveBookList.size(); i++) {
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getHomepage_id())) {
+						resultMapList.put("homepage_id", returnYnReserveBookList.get(i).getHomepage_id());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getLib_name())) {
+						resultMapList.put("lib_name", returnYnReserveBookList.get(i).getLib_name());
+					}
+					if(returnYnReserveBookList.get(i).getReserve_idx() > 0) {
+						resultMapList.put("reserve_idx", returnYnReserveBookList.get(i).getReserve_idx());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getPk())) {
+						resultMapList.put("pk", returnYnReserveBookList.get(i).getPk());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getMember_id())) {
+						resultMapList.put("member_id", returnYnReserveBookList.get(i).getMember_id());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getUser_no())) {
+						resultMapList.put("user_no", returnYnReserveBookList.get(i).getUser_no());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getManage_code())) {
+						resultMapList.put("manage_code", returnYnReserveBookList.get(i).getManage_code());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getReg_no())) {
+						resultMapList.put("reg_no", returnYnReserveBookList.get(i).getReg_no());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getBook_isbn())) {
+						resultMapList.put("isbn", returnYnReserveBookList.get(i).getBook_isbn());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getBook_name())) {
+						resultMapList.put("book_name", returnYnReserveBookList.get(i).getBook_name());
+					}
+					if(returnYnReserveBookList.get(i).getDevice_idx() > 0) {
+						resultMapList.put("device_idx", returnYnReserveBookList.get(i).getDevice_idx());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getDevice_name())) {
+						resultMapList.put("device_name", returnYnReserveBookList.get(i).getDevice_name());
+					}
+					if(returnYnReserveBookList.get(i).getDevice_password() > 0) {
+						resultMapList.put("device_password", returnYnReserveBookList.get(i).getDevice_password());
+					}
+					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getDevice_code())) {
+						resultMapList.put("device_code", returnYnReserveBookList.get(i).getDevice_code());
+					}
+					if(returnYnReserveBookList.get(i).getLocker_idx() > 0) {
+						resultMapList.put("locker_idx", returnYnReserveBookList.get(i).getLocker_idx());
+					}
+					
+					resultList.add(i, resultMapList);
+				}
+				
+				resultMap.put("result-list", resultList);
+				result.put("result", "success");
+				result.put("message", "반납가능도서 조회 성공.");
+				result.put("result-data", resultMap);
+			} else {
+				result.put("result", "fail");
+				result.put("message", "반납가능도서 데이터가 없습니다.");
+			}
+		} catch (Exception e) {
+			result.put("result", "fail");
+			result.put("message", "반납가능도서 데이터를 조회하는데 오류가 발생하셨습니다.");
+		}
+		
+		return result;
 	}
 
 }

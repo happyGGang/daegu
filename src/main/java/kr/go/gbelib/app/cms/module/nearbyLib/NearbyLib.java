@@ -44,6 +44,7 @@ public class NearbyLib extends PagingUtils {
 	private String reserve_start_date; //해당예약의 예약시작 날짜and시간
 	private String reserve_end_date; //해당예약의 예약종료 날짜and시간
 	private String return_device_code; //반납시 반납기 코드
+	private String expire_date; //예약만기일
 	
 	//도서API 정보 받아오기용 변수
 	private String title_info; //도서명
@@ -500,4 +501,11 @@ public class NearbyLib extends PagingUtils {
 	public void setReserve_start_date(String reserve_start_date) {
 		this.reserve_start_date = reserve_start_date;
 	}
+	public String getExpire_date() {
+		return expire_date;
+	}
+	public void setExpire_date(String expire_date) {
+		this.expire_date = expire_date;
+	}
+	
 }
