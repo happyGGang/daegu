@@ -31,6 +31,7 @@ import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -872,27 +873,35 @@ public class IndexController extends BaseController {
 		//서구도서관
 		if (homepage.getHomepage_id().equals("h49")) {
 			Board b = new Board();
+			GyeongStopWatch sw = new GyeongStopWatch();
+			sw.start("공지사항전체");
 			b.setManage_idx(628);
 			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
+			sw.stop();
+			sw.start("갤러리전체");
 			b.setManage_idx(632);
 			model.addAttribute("galleryList", boardService.getSubBoardByMain(b));//갤러리전체
+			sw.stop();
+			sw.start("추천도서전체");
 			b.setManage_idx(625);
 			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
+			sw.stop();
+			sw.start("영화도서전체");
 			b.setManage_idx(627);
 			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
+			sw.stop();
 
 			Teach t = new Teach();
 			Homepage h = new Homepage();
 			h.setHomepage_id(homepage.getHomepage_id());
 			h.setHomepage_group(homepage.getHomepage_id());
 			h.setTemp_use_yn("Y");
+			sw.start("getSubHomepageList");
 			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			sw.stop();
 			List<String> homepage_ids = new ArrayList<String>();
 
 			for (Homepage h2:subHomepageList) {
-
-
-
 				if (h2.getHomepage_id().equals("h77")) {
 					b.setCategory1("0001");
 				} else if (h2.getHomepage_id().equals("h61")) {
@@ -904,22 +913,36 @@ public class IndexController extends BaseController {
 				} else if (h2.getHomepage_id().equals("h64")) {
 					b.setCategory1("0005");
 				}
+				sw.start("noticeList"+h2.getHomepage_id());
 				b.setManage_idx(628);
 				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
+				sw.stop();
+				sw.start("galleryList"+h2.getHomepage_id());
 				b.setManage_idx(632);
 				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
+				sw.stop();
+				sw.start("bookList"+h2.getHomepage_id());
 				b.setManage_idx(625);
 				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
+				sw.stop();
+				sw.start("movieList"+h2.getHomepage_id());
 				b.setManage_idx(627);
 				model.addAttribute("movieList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//영화
 				homepage_ids.add(h2.getHomepage_id());
 				t.setHomepage_id(h2.getHomepage_id());
+				sw.stop();
+				sw.start("teachList"+h2.getHomepage_id());
 				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));
+				sw.stop();
 			}
 
 			t.setHomepage_id(null);
 			t.setHomepage_ids(homepage_ids);
-			model.addAttribute("teachList", teachService.getTeachListForUser(t));
+			sw.start("getTeachListForUser");
+			List<Teach> teachListForUser = teachService.getTeachListForUser(t);
+			sw.stop();
+			model.addAttribute("teachList", teachListForUser);
+			System.out.println(sw.prettyPrint());
 		}
 
 		//전자도서관 메인페이지 북큐레이션
