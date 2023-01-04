@@ -23,7 +23,7 @@
 	$(document).ready(function() {
 		$('a#by_popularity').on('click', function(e) {
 			e.preventDefault();
-			$('#sortField').val('lend_total');
+			$('#sortField').val('view_count');
 			$('#sortType').val('DESC');
 
 			var url = 'index.do';
@@ -251,7 +251,7 @@
 				<span><fmt:formatNumber value="${bookListCnt}" pattern="#,###" /></span> 종의 ${type_name} 있습니다.    &nbsp; <span>${book.viewPage}</span>  of <fmt:formatNumber value="${book.totalPageCount}" pattern="#,###" /> page
 			</div>
 			<div class="sort">
-				<a href="#" id="by_popularity" class="btn<c:if test="${book.sortField == 'lend_total'}"> active</c:if>">인기순</a>
+				<a href="#" id="by_popularity" class="btn<c:if test="${book.sortField == 'view_count'}"> active</c:if>">인기순</a>
 				<a href="#" id="by_title" class="btn<c:if test="${book.sortField == 'book_name'}"> active</c:if>">제목순</a>
 				<a href="#" id="by_date" class="btn<c:if test="${book.sortField == 'book_pubdt'}"> active</c:if>">최신순</a>
 			</div>

@@ -236,7 +236,6 @@ public class ElibController extends BaseController {
 			model.addAttribute("book", book);
 		} else if("BEST".equals(menu)) {
 			//			book.setSortField("BOOK_LEND");
-			book.setSortType("DESC");
 			model.addAttribute("book", book);
 		} else if("RECOMMEND".equals(menu)) {
 //			book.setSortField("RECOMMEND_CNT");
