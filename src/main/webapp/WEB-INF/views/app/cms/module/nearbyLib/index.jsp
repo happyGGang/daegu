@@ -150,7 +150,7 @@ $(function() {
 	<form:hidden path="locker_each_idx"/>
 </form:form>
 
-<form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do">
+<form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do" method="GET">
 			장비명 : 
 			<form:select class="selectmenu-search" style="width:300px" path="device_idx">
 				<c:forEach var="j" varStatus="status" items="${deviceList}">
@@ -237,7 +237,7 @@ $(function() {
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${reserveList }">
 				<tr>
-					<td>${nearbyLib.listRowNum - status.index}</td>				
+					<td>${paging.listRowNum - status.index}</td>				
 					<td>${i.lib_name }</td>
 					<td>
 <%-- 						<c:choose> --%>
@@ -408,7 +408,7 @@ $(function() {
 		</tbody>
 	</table>
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value=""/>
+		<jsp:param name="formId" value="#neighborhoodLibrary"/>
 	</jsp:include>
 </form:form>
 

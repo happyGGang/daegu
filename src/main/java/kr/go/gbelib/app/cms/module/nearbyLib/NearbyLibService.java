@@ -770,7 +770,7 @@ public class NearbyLibService extends BaseService {
 						neighborhoodLibrary.setEditMode("getMySelf");
 						NearbyLib resultData = dao.getSameNeighborhoodLibraryBundle_idx(neighborhoodLibrary);
 						Date nowDate = new Date();
-						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(nowDate);
 				        cal.add(Calendar.DATE, resultData.getTake_term());

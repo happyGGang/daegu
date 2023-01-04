@@ -110,7 +110,7 @@
 				</when>
 			</choose>
 			ORDER BY 
-				DEVICE_IDX, LOCKER_IDX		
+				ADD_DATE DESC, RESERVE_BUNDLE_IDX		
 	</select>
 
 	<select id="getNeighborhoodLibraryOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">		
