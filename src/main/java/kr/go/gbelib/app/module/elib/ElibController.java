@@ -236,7 +236,6 @@ public class ElibController extends BaseController {
 			model.addAttribute("book", book);
 		} else if("BEST".equals(menu)) {
 			//			book.setSortField("BOOK_LEND");
-			book.setSortType("DESC");
 			model.addAttribute("book", book);
 		} else if("RECOMMEND".equals(menu)) {
 //			book.setSortField("RECOMMEND_CNT");
@@ -254,7 +253,7 @@ public class ElibController extends BaseController {
 
 		int count = bookService.getBookListCnt(book);
 		bookService.setPaging(model, count, book);
-		List<Book> bookList = bookService.getBookList(book);
+		List<Book> bookList = bookService.getElibBookList(book);
 
 		model.addAttribute("bookConfig", configService.getConfig());
 		model.addAttribute("bookList", setStatus(bookList, request));
