@@ -756,5 +756,8 @@ public class BookService extends BaseService {
 	public int addAudioBookAccess(Book book) {
 		return dao.addAudioBookAccess(book);
 	}
-	
+
+	public List<Book> getElibBookList(Book book) {
+		return dao.getElibBookList(book);
+	}
 }

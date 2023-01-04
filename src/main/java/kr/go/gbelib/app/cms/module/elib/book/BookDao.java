@@ -123,4 +123,6 @@ public interface BookDao {
 	public int addBookAccess(Book book);
 
 	public int addAudioBookAccess(Book book);
+
+    List<Book> getElibBookList(Book book);
 }

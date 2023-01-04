@@ -253,7 +253,7 @@ public class ElibController extends BaseController {
 
 		int count = bookService.getBookListCnt(book);
 		bookService.setPaging(model, count, book);
-		List<Book> bookList = bookService.getBookList(book);
+		List<Book> bookList = bookService.getElibBookList(book);
 
 		model.addAttribute("bookConfig", configService.getConfig());
 		model.addAttribute("bookList", setStatus(bookList, request));

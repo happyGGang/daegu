@@ -83,6 +83,47 @@
 	<select id="getBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
 		${pagingTop}
 		SELECT
+		a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
+		a.book_pubname, a.isbn13, a.book_lend,
+		a.lend_total, a.max_lend, a.book_reserve, a.com_code, TO_CHAR(a.book_pubdt, 'YYYY-MM-DD') AS book_pubdt,
+		a.book_regdt, a.use_yn, a.type,
+		a.format, a.book_image, a.parent_id,
+		a.recommend_cnt, a.library_code,
+		a.approved_yn,
+		(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.cate_id) AS cate_name,
+		CASE WHEN a.library_code = '9999999' THEN '통합' ELSE e.homepage_name END AS library_name,
+		(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.parent_id) AS parent_name,
+		d.book_info, <!-- d.author_info, d.book_table, -->
+		(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
+		g.bestbook_idx, h.cat_bestbook_idx, a.device,
+		CASE a.device
+		WHEN '1' THEN 'PC'
+		WHEN '2' THEN 'PC, 태블릿'
+		WHEN '3' THEN 'PC, 태블릿, 스마트폰'
+		END AS label, a.view_count
+		FROM
+		ELIB_BOOK a,
+		ELIB_BOOKINFO d,
+		CMS_HOMEPAGE e
+		,ELIB_BESTBOOK g
+		,ELIB_CATEGORY_BESTBOOK h
+		WHERE
+		a.use_yn != 'N'
+		AND a.book_idx = d.book_idx
+		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
+		AND a.book_idx = g.book_idx (+)
+		AND a.book_code = h.book_code (+)
+		<if test="type != null and type != ''">
+			AND a.type = #{type}
+		</if>
+		<include refid="search"/>
+		<include refid="sort"/>
+		${pagingBottom}
+	</select>
+
+	<select id="getElibBookList" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
+		${pagingTop}
+		SELECT
 			NVL(view_count, 0) as view_count, book_idx, book_code, cate_id, book_name, author_name,
 			book_pubname, isbn13, book_lend,
 			lend_total, max_lend, book_reserve, com_code, book_pubdt,
