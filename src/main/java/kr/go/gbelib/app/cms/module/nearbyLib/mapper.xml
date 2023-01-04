@@ -25,11 +25,11 @@
 					AND RESERVE_STATUS IN ('2','3','5')
 				</when>
 				<when test='editMode == "todayOut"'>
-					AND RESERVE_STATUS IN ('2')
+					AND RESERVE_STATUS IN ('1','2')
 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 				</when>
 				<when test='editMode == "todayIn"'>
-					AND RESERVE_STATUS IN ('5')
+					AND RESERVE_STATUS IN ('5','6','7')
 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 				</when>
 				<otherwise>
@@ -103,10 +103,10 @@
 			</if>
 			<choose>
 				<when test='editMode == "todayOut"'>
-					AND RESERVE_STATUS IN ('2')
+					AND RESERVE_STATUS IN ('1','2')
 				</when>
 				<when test='editMode == "todayIn"'>
-					AND RESERVE_STATUS IN ('5')
+					AND RESERVE_STATUS IN ('5','6','7')
 				</when>
 			</choose>
 			ORDER BY 
@@ -554,11 +554,6 @@
 			<if test="homepage_id != null and homepage_id != ''">
 				AND HOMEPAGE_ID = #{homepage_id}
 			</if>
-				AND RESERVE_START_DATE >= TO_DATE(SYSDATE-1, 'yyyy-MM-dd HH24:mi')
-				AND RESERVE_END_DATE <![CDATA[ < ]]> SYSDATE
-<!-- 			<if test="device_idx != null and device_idx != ''"> -->
-<!-- 			AND device_idx = #{device_idx} -->
-<!-- 			</if> -->
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
 		</select>

@@ -8,8 +8,6 @@ import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.lending.Lending;
 import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib;
 import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLibService;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibraryService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
@@ -21,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -142,7 +142,7 @@ public class ApiController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"nearLib/edit.*"})
-	public @ResponseBody Map<String, Object> neighborhoodLibraryEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Map<String, Object> neighborhoodLibraryEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		return neigborhoodLibraryService.updateNearbyLibApi(neighborhoodLibrary);
 	}
 	

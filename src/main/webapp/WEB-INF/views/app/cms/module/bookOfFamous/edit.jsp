@@ -76,7 +76,7 @@ function getLasData(arg) {
 	</colgroup>
 	<tbody>
 		<tr>
-			<th>공지여부</th>
+			<th>상단노출여부</th>
 			<td>
 				<form:radiobutton path="notice_yn" value="Y" label="예" cssStyle="cursor: pointer;" checked="checked"/>
 				<form:radiobutton path="notice_yn" value="N" label="아니오" cssStyle="cursor: pointer;"/>

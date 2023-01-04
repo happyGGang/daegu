@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.nearbyLib;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,8 +29,6 @@ import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryDevice.NeighborhoodLibraryDevice;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.neighborhoodLibraryLocker.NeighborhoodLibraryLocker;
 
 /**
  * @author ttkaz
@@ -145,7 +144,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/controll_index.*"})
+	@RequestMapping(value = {"/nearbyLibControll/controll_index.*"})
 	public String controll_index(Model model, NearbyLibLocker nearbyLibLocker, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		
@@ -233,7 +232,7 @@ public class NearbyLibController extends BaseController {
 		model.addAttribute("neighborhoodLibraryList", neighborhoodLibraryList);
 		model.addAttribute("neighborhoodLibraryCount", count);
 
-		return basePath + "controll_index";
+		return basePath + "nearbyLibControll/controll_index";
 	}
 	
 	/** 대출관리(사물함배정) 페이지 내에 사물함(레이아웃) 페이지 불러오기
@@ -242,7 +241,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/deviceOne.*"})
+	@RequestMapping(value = {"/nearbyLibControll/deviceOne.*"})
 	public String deviceOne(Model model, NearbyLibLocker nearbyLibLocker, HttpServletRequest request)throws AuthException {
 
 		List<NearbyLibLocker> lockerOneList = new ArrayList<NearbyLibLocker>();
@@ -364,7 +363,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/today_inOut.*"})
+	@RequestMapping(value = {"/importExport/today_inOut.*"})
 	public String today_inOut(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		
@@ -441,17 +440,18 @@ public class NearbyLibController extends BaseController {
 		model.addAttribute("outCount", outCount);
 		model.addAttribute("deviceList", deviceList);
 		model.addAttribute("nearbyLib", nearbyLib);
-		return basePath + "today_inOut";
+		return basePath + "importExport/today_inOut";
 	}
 	
 	/** 내집앞도서관 상태값 변경 메서드 (1:예약, 2: 예약확정, 3:사물함투입, 4:대출, 5:회수대기, 6:회수중, 7:회수완료, 8:취소, 9:반납완료 )
 	 * @author ttkaz
 	 * 2022. 9. 27.
+	 * @throws UnsupportedEncodingException 
 	 *
 	 */
 
 	@RequestMapping(value = {"/save.*"})
-	public @ResponseBody JsonResponse save(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse save(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) throws UnsupportedEncodingException {
 		JsonResponse res = new JsonResponse(request);
 		ValidationUtils.rejectIfEmpty(result, "reserve_status", "상태값 정보를 가져오지 못했습니다.");
 		
@@ -491,13 +491,63 @@ public class NearbyLibController extends BaseController {
 		return res;
 	}
 	
+	@RequestMapping(value = {"/importExport/save.*"})
+	public @ResponseBody JsonResponse save2(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) throws UnsupportedEncodingException {
+		JsonResponse res = new JsonResponse(request);
+		ValidationUtils.rejectIfEmpty(result, "reserve_status", "상태값 정보를 가져오지 못했습니다.");
+		
+		if(nearbyLib.getReserve_idx_arr() != null && !"".equals(nearbyLib.getReserve_idx_arr())){
+			ValidationUtils.rejectIfEmpty(result, "reserve_idx", "예약번호를 가져오지 못했습니다.");			
+		}
+		if (!result.hasErrors()) {
+			if(nearbyLib.getReserve_idx_arr() != null && !"".equals(nearbyLib.getReserve_idx_arr())){
+				String[] reserve_idx_arr = nearbyLib.getReserve_idx_arr().split("_");
+				for(int i = 0; i < reserve_idx_arr.length; i++) {
+					nearbyLib.setReserve_idx(Integer.parseInt(reserve_idx_arr[i]));
+					service.updateNearbyLib(nearbyLib, request);
+				}
+			}else {
+				res = service.updateNearbyLib(nearbyLib, request);
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = {"/return/save.*"})
+	public @ResponseBody JsonResponse save3(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) throws UnsupportedEncodingException {
+		JsonResponse res = new JsonResponse(request);
+		ValidationUtils.rejectIfEmpty(result, "reserve_status", "상태값 정보를 가져오지 못했습니다.");
+		
+		if(nearbyLib.getReserve_idx_arr() != null && !"".equals(nearbyLib.getReserve_idx_arr())){
+			ValidationUtils.rejectIfEmpty(result, "reserve_idx", "예약번호를 가져오지 못했습니다.");			
+		}
+		if (!result.hasErrors()) {
+			if(nearbyLib.getReserve_idx_arr() != null && !"".equals(nearbyLib.getReserve_idx_arr())){
+				String[] reserve_idx_arr = nearbyLib.getReserve_idx_arr().split("_");
+				for(int i = 0; i < reserve_idx_arr.length; i++) {
+					nearbyLib.setReserve_idx(Integer.parseInt(reserve_idx_arr[i]));
+					service.updateNearbyLib(nearbyLib, request);
+				}
+			}else {
+				res = service.updateNearbyLib(nearbyLib, request);
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
 	/** 예약확정 도서 큰책 유무 체크 업데이트(크기가 큰 도서를 큰 사물함에 넣기위해 배송기사에게 전달하기 전 사서가 미리 체크해놓는 기능)
 	 * @author ttkaz
 	 * 2022. 9. 27.
 	 *
 	 */
 	
-	@RequestMapping(value = {"/book_update.*"})
+	@RequestMapping(value = {"/nearbyLibControll/book_update.*"})
 	public @ResponseBody JsonResponse book_update(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		ValidationUtils.rejectIfEmpty(result, "large_book_yn", "큰책 유무 값을 가져오지 못했습니다.");
@@ -520,7 +570,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/lockerUpdate.*"})
+	@RequestMapping(value = {"/nearbyLibControll/lockerUpdate.*"})
 	public @ResponseBody JsonResponse lockerUpdateOne(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		ValidationUtils.rejectIfEmpty(result, "device_idx", "장비idx을 가져오지 못했습니다.");
@@ -547,7 +597,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/returnList.*"})
+	@RequestMapping(value = {"/return/returnList.*"})
 	public String returnList(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		
@@ -582,7 +632,7 @@ public class NearbyLibController extends BaseController {
 		model.addAttribute("deviceList", deviceList);
 		model.addAttribute("nearbyLib", nearbyLib);
 		
-		return basePath + "returnList";
+		return basePath + "return/returnList";
 	}
 	
 }

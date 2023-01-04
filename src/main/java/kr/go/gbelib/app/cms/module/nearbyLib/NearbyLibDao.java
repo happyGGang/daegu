@@ -2,8 +2,6 @@ package kr.go.gbelib.app.cms.module.nearbyLib;
 
 import java.util.List;
 
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
-
 /**
  * @author SeongHyeon
  * 2022. 9. 27.

@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.nearbyLib;
 
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +27,6 @@ import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
-import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
@@ -82,7 +82,7 @@ public class NearbyLibService extends BaseService {
 		return dao.getNeighborhoodLibraryListAll(neighborhoodLibrary);
 	}
 	
-	public @ResponseBody JsonResponse updateNearbyLib(NearbyLib neighborhoodLibrary, HttpServletRequest request) {
+	public @ResponseBody JsonResponse updateNearbyLib(NearbyLib neighborhoodLibrary, HttpServletRequest request) throws UnsupportedEncodingException {
 		JsonResponse res = new JsonResponse(request);
 		Member member = (Member)loginService.getSessionMember(request);
 		int result = 0;
@@ -155,7 +155,6 @@ public class NearbyLibService extends BaseService {
 				*/
 
 				/*비밀번호 랜덤 생성(숫자네자리)*/
-				int temp = 0;
 				int pass = 0;
 				
 				Random random = new Random();
@@ -187,7 +186,6 @@ public class NearbyLibService extends BaseService {
 					searchOne.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 					searchOne.setReserve_status(neighborhoodLibrary.getReserve_status());
 					NearbyLib reserveOne = dao.getSameNeighborhoodLibraryBundle_idx(searchOne); 
-					Homepage homepage = homepageService.getHomepageOne(new Homepage(reserveOne.getHomepage_id()));
 					
 			        LibrarySearch librarySearch = new LibrarySearch();
 			        librarySearch.setManageCode(reserveOne.getManage_code());
@@ -200,15 +198,14 @@ public class NearbyLibService extends BaseService {
 			        }else if(lockerIdx.length() == 2) {
 			        	lockerIdx = "0" + lockerIdx;
 			        }
-					String mes = 
-//							"http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx()
-							"[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 확정되었습니다."
-							+ "\n도서 정보 : " + book_name 
-							+ "\n장비명 : " + reserveOne.getDevice_name()
-//							+ "\n사물함 번호 : " + reserveOne.getLocker_idx() 
-//							+ "\n사물함 비밀번호 : " + reserveOne.getDevice_password() 
-							+ "\n사물함 도서비치 완료되면 문자가 발송됩니다.";
-					LibSearchAPI.sendSms(librarySearch, mes, userIp);
+			        
+					String data1 = reserveOne.getLib_name();
+					String data2 = reserveOne.getMember_name();
+					String data3 = book_name;
+					String data4 = reserveOne.getDevice_name();
+					
+					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
+					
 					NearbyLib sms_send = new NearbyLib();
 					sms_send.setSms_send_yn("Y");
 					sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
@@ -232,7 +229,6 @@ public class NearbyLibService extends BaseService {
 					searchOne.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 					searchOne.setReserve_status(neighborhoodLibrary.getReserve_status());
 					NearbyLib reserveOne = dao.getSameNeighborhoodLibraryBundle_idx(searchOne); 
-					Homepage homepage = homepageService.getHomepageOne(new Homepage(reserveOne.getHomepage_id()));
 					
 			        LibrarySearch librarySearch = new LibrarySearch();
 			        librarySearch.setManageCode(reserveOne.getManage_code());
@@ -245,15 +241,14 @@ public class NearbyLibService extends BaseService {
 			        }else if(lockerIdx.length() == 2) {
 			        	lockerIdx = "0" + lockerIdx;
 			        }
-					String mes = 
-//							"http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx() 
-							"[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 확정되었습니다."
-							+ "\n도서 정보 : " + book_name 
-							+ "\n장비명 : " + reserveOne.getDevice_name()
-//							+ "\n사물함 번호 : " + reserveOne.getLocker_idx() 
-//							+ "\n사물함 비밀번호 : " + reserveOne.getDevice_password() 
-							+ "\n사물함 도서비치 완료되면 문자가 발송됩니다.";
-					LibSearchAPI.sendSms(librarySearch, mes, userIp);	 
+					
+					String data1 = reserveOne.getLib_name();
+					String data2 = reserveOne.getMember_name();
+					String data3 = book_name;
+					String data4 = reserveOne.getDevice_name();
+					
+					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
+					
 					NearbyLib sms_send = new NearbyLib();
 					sms_send.setSms_send_yn("Y");
 					sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
@@ -306,7 +301,7 @@ public class NearbyLibService extends BaseService {
 			if(sameReserveOne != null) { //예약idx로 검색 시 데이터가 있을때
 				if("6".equals(neighborhoodLibrary.getReserve_status()) ||
 					"7".equals(neighborhoodLibrary.getReserve_status()) ||
-					"9".equals(neighborhoodLibrary.getReserve_status()) ||  
+//					"9".equals(neighborhoodLibrary.getReserve_status()) ||  
 					"10".equals(neighborhoodLibrary.getReserve_status())) { //cms에서 회수완료는 한권씩 확인 후 처리하므로 pk 값으로 처리
 					status3_update.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 				}else {
@@ -402,10 +397,10 @@ public class NearbyLibService extends BaseService {
 					}
 					result_message = message1 + ", " + message2;
 					res.setMessage(result_message);
-				}else if("10".equals(neighborhoodLibrary.getReserve_status())){ //반납완료
+				}else if("9".equals(neighborhoodLibrary.getReserve_status())){ //반납완료
 					LibrarySearch librarySearch = new LibrarySearch();
 					librarySearch.setManageCode(sameReserveOne.getManage_code());
-					librarySearch.setRegNo(sameReserveOne.getReg_no());
+					librarySearch.setReg_no(sameReserveOne.getReg_no());
 					librarySearch.setUserkey(sameReserveOne.getUser_key());
 					librarySearch.setDevice_code("nearbylib");
 					ApiResponse apiResult = null;
@@ -419,7 +414,7 @@ public class NearbyLibService extends BaseService {
 					if (apiResult.getStatus()) {
 						result = dao.updateNeighborhoodLibrary(status3_update);
 					}else {
-						res.setValid(true);
+						res.setValid(false);
 						res.setMessage("KLAS 무인 반납 API 호출 실패, " + apiResult.getMessage());
 						return res;
 					}
@@ -459,6 +454,8 @@ public class NearbyLibService extends BaseService {
 					res.setMessage("회수완료 상태로 변경 되었습니다.");
 				}else if("9".equals(neighborhoodLibrary.getReserve_status())) {
 					res.setMessage("반납 상태로 변경 되었습니다.");
+				}else if("10".equals(neighborhoodLibrary.getReserve_status())) {
+					res.setMessage("반납완료 상태로 변경 되었습니다.");
 				}
 				res.setValid(true);
 				if("3".equals(neighborhoodLibrary.getReserve_status())) {
@@ -511,21 +508,19 @@ public class NearbyLibService extends BaseService {
 */				        
 				        librarySearch.setManageCode(reserveOne.getManage_code());
 				        String book_name = reserveOne.getBook_name();
-				        String mes = "";
 				        String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
 				        
-						mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx() 
-								+ "\n[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서 비치가 완료되었습니다."
-								+ "\n도서 정보 : " + book_name 
-								+ "\n장비명 : " + reserveOne.getDevice_name()
-								+ "\n사물함 번호 : " + reserveOne.getLocker_idx() 
-								+ "\n사물함 비밀번호 : " + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx()
-								+ "[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서 비치가 완료되었습니다."
-								+ "\n도서 정보 : " + book_name
-			        			+ "\n" + simpleDateFormat.format(cal.getTime()) 
-								+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다. ";
-
-						LibSearchAPI.sendSms(librarySearch, mes, userIp);	
+						String data1 = reserveOne.getLib_name();
+						String data2 = reserveOne.getMember_name();
+						String data3 = book_name;
+						String data4 = reserveOne.getDevice_name();
+						String data5 = String.valueOf(reserveOne.getLocker_idx());
+						String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
+						String data7 = simpleDateFormat.format(cal.getTime());
+						String data8 = "https://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx();
+						
+						LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
+						
 						status3_update.setReserve_idx(reserveOne.getReserve_idx());;
 						status3_update.setSms_send_yn("Y");
 						dao.updateNeighborhoodLibrarySms(status3_update);
@@ -650,7 +645,7 @@ public class NearbyLibService extends BaseService {
 		return dao.getSameNeighborhoodLibraryBundle_idx(neighborhoodLibrary);
 	}
 
-	public Map<String, Object> updateNearbyLibApi(NearbyLib neighborhoodLibrary) {
+	public Map<String, Object> updateNearbyLibApi(NearbyLib neighborhoodLibrary) throws UnsupportedEncodingException {
 		Map<String, Object> result = new HashMap<String, Object>();
 		int success = 0;
 		String resulMessage = "";
@@ -673,7 +668,7 @@ public class NearbyLibService extends BaseService {
 				result_error_mssage = "[업데이트 실패]사물함투입 처리 실패.";
 			}else if("4".equals(neighborhoodLibrary.getReserve_status())){
 				searchSame.setReserve_status("3"); //3 :사물함 투입, 4 : 대출
-				result_message = "대출 처리 되었습니다..";
+				result_message = "대출 처리 되었습니다.";
 				result_error_mssage = "[업데이트 실패]대출 처리 실패.";
 			}else if("5".equals(neighborhoodLibrary.getReserve_status())){
 				searchSame.setReserve_status("3"); //3 : 사물함 투입 (사물함 투입이 됐는데 기간내 가져가지 않으면 회수 대기로 바뀜) -> api로 처리할 데이터가 아닌 것 같으나 일단은 만들어 둠
@@ -972,30 +967,24 @@ public class NearbyLibService extends BaseService {
 				        	homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
 					        librarySearch.setManageCode(bundleList.get(i).getManage_code());
 					        String book_name = bundleList.get(i).getBook_name();
-					        String mes = "";
 					        String lockerIdx = String.valueOf(bundleList.get(i).getLocker_idx());
 					        if(lockerIdx.length() == 1 ) {
 					        	lockerIdx = "00" + lockerIdx;	
 					        }else if(lockerIdx.length() == 2) {
 					        	lockerIdx = "0" + lockerIdx;
 					        }
-					        if(i == 0 ) {
-								mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx() 
-										+ "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
-										+ "\n도서 정보 : " + book_name 
-										+ "\n장비명 : " + bundleList.get(i).getDevice_name()
-										+ "\n사물함 번호 : " + bundleList.get(i).getLocker_idx() 
-										+ "\n사물함 비밀번호 : " + + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx();
-					        }else {
-					        	mes = "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
-										+ "\n도서 정보 : " + book_name; 
-					        }
-					        if(i == (bundleList.size() -1)) {
-					        	mes = mes
-					        			+ "\n" + simpleDateFormat.format(cal.getTime()) 
-										+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다.";
-					        }
-							LibSearchAPI.sendSms(librarySearch, mes, userIp);	
+							
+							String data1 = bundleList.get(i).getLib_name();
+							String data2 = bundleList.get(i).getMember_name();
+							String data3 = book_name;
+							String data4 = bundleList.get(i).getDevice_name();
+							String data5 = String.valueOf(bundleList.get(i).getLocker_idx());
+							String data6 = String.valueOf(bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx());
+							String data7 = simpleDateFormat.format(cal.getTime());
+							String data8 = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx();
+							
+							LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
+							
 							status3_update.setReserve_idx(bundleList.get(i).getReserve_idx());
 							status3_update.setSms_send_yn("Y");
 							dao.updateNeighborhoodLibrarySms(status3_update);
@@ -1351,22 +1340,44 @@ public class NearbyLibService extends BaseService {
 				searchLib.setReserve_idx(searchLib.getReserve_idx());
 				searchLib.setReserve_status("9");
 				searchLib.setReturn_device_code(nearbyLib.getReturn_device_code());
-				resultUpdate = dao.updateNeighborhoodLibrary(searchLib);
-				if(resultUpdate > 0) {
-					result.put("result", "success");
-					result.put("message", "반납 성공.");
-					resultMapList.put("reserve_idx", searchLib.getReserve_idx());
-					resultMapList.put("member_id", searchLib.getMember_id());
-					resultMapList.put("device_idx", searchLib.getDevice_idx());
-					resultMapList.put("pk", searchLib.getPk());
-					resultMapList.put("user_no", searchLib.getUser_no());
-					resultMapList.put("isbn", searchLib.getBook_isbn());
-					resultMapList.put("manage_code", searchLib.getManage_code());
-					resultMapList.put("homepage_id", searchLib.getHomepage_id());
-					resultMapList.put("reg_no", nearbyLib.getReg_no());
-					resultMapList.put("return_device_code", nearbyLib.getReturn_device_code());
-					resultList.add(0, resultMapList);
-					result.put("result-data", resultList);
+				
+				LibrarySearch librarySearch = new LibrarySearch();
+				librarySearch.setManageCode(searchLib.getManage_code());
+				librarySearch.setReg_no(searchLib.getReg_no());
+				librarySearch.setUserkey(searchLib.getUser_key());
+				librarySearch.setDevice_code("nearbylib");
+				ApiResponse apiResult = null;
+				String userIp = "0:0:0:0:0:0:0:1";
+				try {
+					/*반납 API 호출*/
+					apiResult = LibSearchAPI.unmannedreturn(librarySearch, userIp);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (apiResult.getStatus()) {
+					resultUpdate = dao.updateNeighborhoodLibrary(searchLib);
+					if(resultUpdate > 0) {
+						result.put("result", "success");
+						result.put("message", "반납 성공.");
+						resultMapList.put("reserve_idx", searchLib.getReserve_idx());
+						resultMapList.put("member_id", searchLib.getMember_id());
+						resultMapList.put("device_idx", searchLib.getDevice_idx());
+						resultMapList.put("pk", searchLib.getPk());
+						resultMapList.put("user_no", searchLib.getUser_no());
+						resultMapList.put("isbn", searchLib.getBook_isbn());
+						resultMapList.put("manage_code", searchLib.getManage_code());
+						resultMapList.put("homepage_id", searchLib.getHomepage_id());
+						resultMapList.put("reg_no", nearbyLib.getReg_no());
+						resultMapList.put("return_device_code", nearbyLib.getReturn_device_code());
+						resultList.add(0, resultMapList);
+						result.put("result-data", resultList);
+					} else {
+						result.put("result", "fail");
+						result.put("message", "무인 반납 실패");
+					}
+				} else {
+					result.put("result", "fail");
+					result.put("message", "KLAS 무인 반납 API 호출 실패, " + apiResult.getMessage());
 				}
 			}
 		}
