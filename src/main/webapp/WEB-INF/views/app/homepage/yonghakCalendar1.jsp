@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2022.11.30.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2022.12.31.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -90,58 +90,58 @@ $('ul.close_day').html(li);
     <tr>
       <th>어린이</th>
     <td>687</td>
-    <td>344</td>
+    <td>345</td>
     <td>147</td>
     <td>844</td>
     <td>1,188</td>
-    <td>362</td>
+    <td>363</td>
     <td>290</td>
     <td>256</td>
-    <td>3,628</td>
+    <td>3,638</td>
     <td>1,189</td>
-    <td>8,935</td>
+    <td>8,947</td>
     </tr>
     <tr>
       <th>유아</th>
-    <td>65</td>
+    <td>64</td>
     <td>84</td>
     <td>42</td>
-    <td>866</td>
+    <td>871</td>
     <td>400</td>
-    <td>82</td>
+    <td>83</td>
     <td>79</td>
     <td>73</td>
-    <td>2,741</td>
+    <td>2,740</td>
     <td>34</td>
-    <td>4,466</td>
+    <td>4,470</td>
     </tr>
     <tr>
       <th>일반</th>
-    <td>510</td>
-    <td>983</td>
-    <td>318</td>
-    <td>2,020</td>
-    <td>623</td>
-    <td>1,193</td>
-    <td>541</td>
-    <td>307</td>
-    <td>5,767</td>
-    <td>1,110</td>
-    <td>13,372</td>
+    <td>515</td>
+    <td>989</td>
+    <td>319</td>
+    <td>2,036</td>
+    <td>630</td>
+    <td>1,205</td>
+    <td>543</td>
+    <td>308</td>
+    <td>5,860</td>
+    <td>1,114</td>
+    <td>13,519</td>
     </tr>
     <tr>
       <th>합계</th>
-    <td>1,262</td>
-    <td>1,411</td>
-    <td>507</td>
-    <td>3,730</td>
-    <td>2,211</td>
-    <td>1,637</td>
-    <td>910</td>
-    <td>636</td>
-    <td>12,136</td>
-    <td>2,333</td>
-    <td>26,773</td>
+    <td>1,266</td>
+    <td>1,418</td>
+    <td>508</td>
+    <td>3,751</td>
+    <td>2,218</td>
+    <td>1,651</td>
+    <td>912</td>
+    <td>637</td>
+    <td>12,238</td>
+    <td>2,337</td>
+    <td>26,936</td>
     </tr>
     </tbody>
     </table>
@@ -155,17 +155,23 @@ $('ul.close_day').html(li);
     </caption>
     <colgroup>
     <col width="*">
-    <col width="20%">
-    <col width="20%">
-    <col width="20%">
-    <col width="20%">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="12.5%">
+    <col width="12.5%">
     </colgroup>
     <thead>
     <tr>
       <th>구분</th>
       <th>신문</th>
       <th>주간지</th>
+      <th>격주간지</th>
       <th>월간지</th>
+      <th>격월간지</th>
+      <th>계간지</th>
       <th>총 계</th>
     </tr>
     </thead>
@@ -173,9 +179,12 @@ $('ul.close_day').html(li);
     <tr>
       <th>파동도서관</th>
       <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>13</td>
+      <td>0</td>
       <td>1</td>
-      <td>11</td>
-      <td>15</td>
+      <td>17</td>
     </tr>
     </tbody>
     </table>
