@@ -3,6 +3,7 @@
 <mapper namespace="kr.co.whalesoft.app.cms.terms.TermsDao">
 
 	<select id="getTermsList" resultType="kr.co.whalesoft.app.cms.terms.Terms">
+		${pagingTop}
 		SELECT
 			homepage_id, terms_idx, terms_type, manage_idx, title, contents,
 			use_yn, required_yn, delete_yn, add_id, add_date, modify_id,
@@ -18,6 +19,7 @@
 		</if>
 		ORDER BY
 			TERMS_IDX DESC
+		${pagingBottom}
 	</select>
 
 	<select id="getTermsListCount" resultType="int">
