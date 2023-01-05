@@ -310,8 +310,9 @@ public class MyStorageController extends BaseController {
 	 * */
 	@RequestMapping(value = {"/excelDownload.*"})
 	public MyStorageSearchView excelDownload(Model model, HttpServletRequest request){
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		MyItem myItem = new MyItem();
-		myItem.setHomepage_id("h1");
+		myItem.setHomepage_id(homepage.getHomepage_id());
 		myItem.setMember_key(getSessionMemberId(request));
 		model.addAttribute("myStorageResult", myItemService.excelDownLoad(myItem));
 
