@@ -59,11 +59,11 @@ $(function() {
 			<col width="90" />
 			<col width="90" />
 			<col width="90" />
-<%-- 			<col width="80" /> --%>
+ 			<col width="80" />
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="9" style="height: 36px;">반납 목록</th>						
+				<th colspan="10" style="height: 36px;">반납 목록</th>						
 			</tr>
 			<tr style="outline:white 1px solid">
 				<th>번호</th>
@@ -75,7 +75,7 @@ $(function() {
 				<th>대출자ID</th>
 				<th>예약날짜</th>
 				<th>예약확정일</th>
-<!-- 				<th>기능</th> -->
+				<th>기능</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -100,9 +100,9 @@ $(function() {
 					<td>${j.member_id }</td>
 					<td><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>
-<!-- 					<td> -->
-<%-- 						<a href="#" class="btn reserve_save" style="border:1px black solid; color:black;" keyValue1="${returnCount - status.index }" keyValue2="10" keyValue3="${j.device_idx }" keyValue4="${j.device_code}" keyValue5="${j.reserve_idx }" keyValue6="${j.reserve_bundle_idx }">반납완료</a> --%>
-<!-- 					</td> -->
+ 					<td>
+						<a href="#" class="btn reserve_save" style="border:1px black solid; color:black;" keyValue1="${returnCount - status.index }" keyValue2="10" keyValue3="${j.device_idx }" keyValue4="${j.device_code}" keyValue5="${j.reserve_idx }" keyValue6="${j.reserve_bundle_idx }">반납완료</a>
+ 					</td>
 				</tr>
 			</c:forEach>
 			</c:if>

@@ -42,10 +42,6 @@ $(function() {
 			$('#nearbyLibSaveArr #reserve_status').val($(this).attr('keyValue3').toString());
  			$('#nearbyLibSaveArr #reserve_idx_arr').val(reserve_idx_arr.toString());
 			
-			console.log($('#nearbyLibSaveArr #device_idx').val());
-			console.log($('#nearbyLibSaveArr #device_code').val());
-			console.log($('#nearbyLibSaveArr #reserve_status').val());
-			console.log($('#nearbyLibSaveArr #reserve_idx_arr').val());
 			if(doAjaxPost($('#nearbyLibSaveArr'))) {
 				location.reload();
 			}
@@ -63,10 +59,6 @@ $(function() {
  			$('#nearbyLibSave #locker_each_idx').val(parseInt($('#locker_each_idx' + $(this).attr('keyValue2')).val()));
  			$('#nearbyLibSave #reserve_idx').val(parseInt($(this).attr('keyValue1')));
  			
- 			console.log(typeof parseInt($(this).attr('keyValue7')));
- 			console.log(parseInt($('#locker_each_idx' + $(this).attr('keyValue2')).val()));
- 			console.log(typeof parseInt($(this).attr('keyValue3')));
- 			console.log(typeof parseInt($(this).attr('keyValue5')));
 			if(doAjaxPost($('#nearbyLibSave'))) {
  				location.reload();
  			}
@@ -74,12 +66,9 @@ $(function() {
 	});
 	
 	$('select.large_book_yn').on('change',function(e){
-		console.log("asdfasdfasdfasd");
 		e.preventDefault();
 		$('#large_book_yn').val($('#large_book_yn'+ $(this).attr('keyValue2')).val());
 		$('#reserve_idx').val($(this).attr('keyValue1'));
-		console.log($('#large_book_yn').val());
-		console.log($('#reserve_idx').val());
  		if(doAjaxPost($('#updateBookSize'))) {
  				location.reload();
  			}	
@@ -142,7 +131,7 @@ $(function() {
 
 <form:form modelAttribute="nearbyLibLocker" id="reserveConfig">
 	<div class="">
-		<h3>내집앞도서관예약 관리 및 사물함 배정</h3><br/>
+		<h3>대출관리(사물함배정)</h3><br/>
 		사물함 명 : 
 		<form:select class="search_device" style="width:300px" path="device_idx">
 			<c:forEach var="i" varStatus="status" items="${deviceList}">

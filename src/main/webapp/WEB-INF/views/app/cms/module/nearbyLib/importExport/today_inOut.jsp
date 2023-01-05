@@ -9,6 +9,65 @@ $(function() {
 		e.preventDefault();	 
 		$('#device_idx').val($('.search_device option:selected').val());
 		$('#search_nearbyLib').submit();
+	});
+	
+	$('.reserve_save').on('click',function(e){
+		e.preventDefault();
+		if (!confirm('번호 ' + $(this).attr('keyValue1') + '번을 예약확정 하시겠습니까?')) {
+			return false;
+		}
+		alert('아니 잠깐만');
+		$('#neighborhoodLibraryEdit #reserve_idx').val($(this).attr('keyValue6'));
+		$('#neighborhoodLibraryEdit #device_code').val($(this).attr('keyValue5'));
+		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue4'));
+		$('#neighborhoodLibraryEdit #reserve_bundle_idx').val($(this).attr('keyValue3'));
+		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
+			location.reload();
+		}
+	});	
+	
+	$('.reserve_edit').on('click',function(e){
+		e.preventDefault();
+		var status = "default message";
+		if($(this).attr('keyValue2') == '3'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [사물함투입]상태로 값을 변경 하시겠습니까?";
+			if(Number($(this).attr('keyValue8')) <= 0){
+				$('#neighborhoodLibraryEdit #locker_each_idx').val($('#locker_each_idx' + $(this).attr('keyValue7')).val());
+			}else{
+				$('#neighborhoodLibraryEdit #locker_each_idx').val(Number($(this).attr('keyValue8')));
+			}
+		}else if($(this).attr('keyValue2') == '4'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [대출]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '5'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수대기]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '6'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수중]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '7'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [회수완료]상태로 값을 변경 하시겠습니까?";
+		}else if($(this).attr('keyValue2') == '10'){
+			status = "해당기능은 예비기능입니다. 번호 " + $(this).attr('keyValue1') + "번을 [반납완료]상태로 값을 변경 하시겠습니까?";
+		}
+		
+		if (!confirm(status)) {
+			return false;
+		}
+		$('#neighborhoodLibraryEdit #reserve_bundle_idx').val($(this).attr('keyValue6'));
+		$('#neighborhoodLibraryEdit #reserve_idx').val($(this).attr('keyValue5'));
+		$('#neighborhoodLibraryEdit #device_code').val($(this).attr('keyValue4'));
+		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue3'));		
+		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		
+		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
+			location.reload();
+		}
+	});
+	
+	$('.reserve_cancel').on('click',function(e){
+		$('#dialog-1').load('delete.do?reserve_idx=' + $(this).attr('keyValue1') + '&reserve_status=' + $(this).attr('keyValue2') + '&device_idx=' + $(this).attr('keyValue3') + '&device_code=' + $(this).attr('keyValue4') , function( response, status, xhr ) {
+			$('#dialog-1').dialog('open');
+		});
+		e.preventDefault();
 	});	
 });
 </script>
@@ -33,10 +92,19 @@ table .type1 td{
 }
 
 </style>
+<form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
+	<form:hidden path="reserve_status"/>
+	<form:hidden path="reserve_idx"/>
+	<form:hidden path="reserve_bundle_idx"/>
+	<form:hidden path="device_idx"/>
+	<form:hidden path="device_code"/>
+	<form:hidden path="locker_each_idx"/>
+</form:form>
+
 <form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="today_inOut.do">
 	<form:hidden path="device_idx"/>
 	<div class="">
-			<h3>내집앞도서관예약 반입/반출 목록</h3><br/>
+			<h3>대출관리(투입/회수목록)</h3><br/>
 			사물함 명 : 
 			<form:select class="search_device" style="width:300px" path="device_idx">
 				<c:forEach var="i" items="${deviceList}">
@@ -93,6 +161,9 @@ table .type1 td{
 								<td><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd" /></td>
 								<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
+									<c:if test="${j.reserve_status eq '1'}">
+										<a href="#" class="btn reserve_save" keyValue1="${outCount - status.index}" keyValue2="2" keyValue3="${j.reserve_bundle_idx }" keyValue4="${j.device_idx}" keyValue5="${j.device_code }" keyValue6="${j.reserve_idx }">예약확정</a>
+									</c:if>
 									<c:if test="${j.reserve_status eq '2'}">
 										<p>예약확정</p>
 									</c:if>
@@ -154,7 +225,13 @@ table .type1 td{
 								<td><fmt:formatDate value="${k.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
 									<c:if test="${k.reserve_status eq '5'}">
-										<p>회수대기</p>
+										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="6" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }">회수중</a>
+									</c:if>
+									<c:if test="${k.reserve_status eq '6'}">
+										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="7" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }">회수완료</a>
+									</c:if>
+									<c:if test="${k.reserve_status eq '7'}">
+										<p>회수완료</p>
 									</c:if>
 								</td>
 							</tr>

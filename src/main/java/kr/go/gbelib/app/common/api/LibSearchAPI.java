@@ -1740,6 +1740,84 @@ public class LibSearchAPI {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
 	}
+	
+	/**
+	 * K.API - 71
+	 *
+	 * 예약 알림톡 발송
+	 *
+	 * @author whalesoft HWAN 2023. 1. 4.
+	 * @param librarySearch
+	 *
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public static ApiResponse sendalimtalkReserve(LibrarySearch librarySearch, String talk_code, String template_code, String ip, String data1, String data2, String data3, String data4) throws UnsupportedEncodingException {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+		param.put("talk_code", talk_code);
+		param.put("manage_code", librarySearch.getManageCode());
+		param.put("template_code", template_code);
+		param.put("userkey", librarySearch.getUserkey());
+		param.put("client_ip", ip);
+		param.put("worker", "HOMEPAGE");
+		
+		param.put("data1", URLEncoder.encode(data1, "UTF-8"));
+		param.put("data2", URLEncoder.encode(data2, "UTF-8"));
+		param.put("data3", URLEncoder.encode(data3, "UTF-8"));
+		param.put("data4", URLEncoder.encode(data4, "UTF-8"));
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("sendalimtalk", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+	
+	/**
+	 * K.API - 71
+	 *
+	 * 비치 알림톡 발송
+	 *
+	 * @author whalesoft HWAN 2023. 1. 4.
+	 * @param librarySearch
+	 *
+	 * @return
+	 * @throws UnsupportedEncodingException 
+	 */
+	public static ApiResponse sendalimtalkFurnish(LibrarySearch librarySearch, String talk_code, String template_code, String ip, String data1, String data2, String data3, String data4, String data5, String data6, String data7, String data8) throws UnsupportedEncodingException {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+		param.put("talk_code", talk_code);
+		param.put("manage_code", librarySearch.getManageCode());
+		param.put("template_code", template_code);
+		param.put("userkey", librarySearch.getUserkey());
+		param.put("client_ip", ip);
+		param.put("worker", "HOMEPAGE");
+		
+		param.put("data1", URLEncoder.encode(data1, "UTF-8"));
+		param.put("data2", URLEncoder.encode(data2, "UTF-8"));
+		param.put("data3", URLEncoder.encode(data3, "UTF-8"));
+		param.put("data4", URLEncoder.encode(data4, "UTF-8"));
+		param.put("data5", URLEncoder.encode(data5, "UTF-8"));
+		param.put("data6", URLEncoder.encode(data6, "UTF-8"));
+		param.put("data7", URLEncoder.encode(data7, "UTF-8"));
+		param.put("data8", URLEncoder.encode(data8, "UTF-8"));
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("sendalimtalk", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 
 	/**
 	 * K.API - 74
@@ -2647,6 +2725,10 @@ public class LibSearchAPI {
 
 		if (StringUtils.isNotEmpty(librarySearch.getDevice_code())) {
 			param.put("device_name", librarySearch.getDevice_code());// 장비ID
+			
+			if("nearbylib".equals(librarySearch.getDevice_code())) {
+				param.put("unmanned_use_yn", "Y");
+			}
 		}
 
 		param.put("client_ip", ip);
