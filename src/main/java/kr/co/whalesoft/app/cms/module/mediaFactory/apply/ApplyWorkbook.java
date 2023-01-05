@@ -50,6 +50,11 @@ public class ApplyWorkbook {
 		workbook.getSheet(0).setColumnView( 5, 40 );
 		workbook.getSheet(0).setColumnView( 6, 10 );
 		workbook.getSheet(0).setColumnView( 7, 20 );
+		workbook.getSheet(0).setColumnView( 8, 20 );
+		workbook.getSheet(0).setColumnView( 9, 20 );
+		workbook.getSheet(0).setColumnView( 10, 20 );
+		workbook.getSheet(0).setColumnView( 11, 40 );
+		workbook.getSheet(0).setColumnView( 12, 40 );
 
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell( new Label( 0, 0, "번호", format ) );
@@ -62,6 +67,9 @@ public class ApplyWorkbook {
 		workbook.getSheet(0).addCell( new Label( 7, 0, "승인여부", format ) );
 		workbook.getSheet(0).addCell( new Label( 8, 0, "작성자비고", format ) );
 		workbook.getSheet(0).addCell( new Label( 9, 0, "연령대", format ) );
+		workbook.getSheet(0).addCell( new Label( 10, 0, "보호자이름", format ) );
+		workbook.getSheet(0).addCell( new Label( 11, 0, "보호자 연락처", format ) );
+		workbook.getSheet(0).addCell( new Label( 12, 0, "보호자 주소", format ) );
 
 		int row = 1;
 		for ( MediaFactoryApply org : applyList ) {
@@ -99,6 +107,9 @@ public class ApplyWorkbook {
 			workbook.getSheet(0).addCell( new Label( 7, row, applyState,format1 ) );
 			workbook.getSheet(0).addCell( new Label( 8, row, org.getRemarks(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( 9, row, org.getAge(),format1 ) );
+			workbook.getSheet(0).addCell( new Label( 10, row, org.getProtector_name(),format1 ) );
+			workbook.getSheet(0).addCell( new Label( 11, row, org.getProtector_tel(),format1 ) );
+			workbook.getSheet(0).addCell( new Label( 12, row, org.getProtector_address(),format1 ) );
 			row++;
 		}
 

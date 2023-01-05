@@ -168,6 +168,9 @@ $(function() {
 						<td>${i.protector_name}</td>
 						<td>
 							<c:choose>
+								<c:when test="${i.age eq '성인'}">
+
+								</c:when>
 								<c:when test="${i.protector_relation eq '1'}">
 									부모
 								</c:when>
