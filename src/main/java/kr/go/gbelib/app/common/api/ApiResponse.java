@@ -3,6 +3,7 @@ package kr.go.gbelib.app.common.api;
 public class ApiResponse { 
 	private boolean status;
 	private String message;
+	private String data;
 	
 	public ApiResponse() {}
 	
@@ -15,6 +16,10 @@ public class ApiResponse {
 		this.message = message;
 	}
 
+	public ApiResponse(String data) {
+		this.data = data;
+	}
+	
 	public String getMessage() {
 		return message;
 	}
@@ -26,6 +31,12 @@ public class ApiResponse {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
 	}
 
 	@Override

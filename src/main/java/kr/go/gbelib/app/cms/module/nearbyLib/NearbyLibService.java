@@ -376,11 +376,12 @@ public class NearbyLibService extends BaseService {
 						String ip = request.getRemoteAddr();
 						try {
 							/*대출처리 api 호출*/
-							apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
+							apiResult = LibSearchAPI.unmannedloanNearbyLib(libSearch, ip);
 						}catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (apiResult.getStatus()) { //api 성공시
+						if (StringUtils.isNotEmpty(apiResult.getData())) { //api 성공시
+							status3_update.setReturn_plan_date(apiResult.getData());
 							result = dao.updateNeighborhoodLibrary(status3_update);        					
 							if(i == 0) {
 								message1 = "KLAS API 대출처리 성공 - 등록번호 : " + sameList.get(i).getReg_no();
@@ -745,12 +746,37 @@ public class NearbyLibService extends BaseService {
     					String ip = "0:0:0:0:0:0:0:1";
     					try {
     						/*대출처리 api 호출*/
-        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
+        					apiResult = LibSearchAPI.unmannedloanNearbyLib(libSearch, ip);
     					}catch (Exception e) {
 							e.printStackTrace();
 						}
-    					if (apiResult.getStatus()) { //api 성공시
+    					if (StringUtils.isNotEmpty(apiResult.getData())) { //api 성공시
+    						neighborhoodLibrary.setReturn_plan_date(apiResult.getData());
     						success = dao.updateNeighborhoodLibrary(neighborhoodLibrary);
+    						
+    						Map<String,Object> resultMap = new HashMap<String,Object>();
+    						List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+    						Map<String,Object> resultMapList = new HashMap<String,Object>();
+    						
+    						if(StringUtils.isNotEmpty(same_bundle_idx.getMember_name())) {
+    							resultMapList.put("member_name", same_bundle_idx.getMember_name());
+    						}
+    						if(StringUtils.isNotEmpty(same_bundle_idx.getLib_name())) {
+    							resultMapList.put("lib_name", same_bundle_idx.getLib_name());
+    						}
+    						if(StringUtils.isNotEmpty(same_bundle_idx.getBook_name())) {
+    							resultMapList.put("book_name", same_bundle_idx.getBook_name());
+    						}
+    						if(StringUtils.isNotEmpty(libSearch.getReg_no())) {
+    							resultMapList.put("reg_no", libSearch.getReg_no());
+    						}
+    						if(StringUtils.isNotEmpty(neighborhoodLibrary.getReturn_plan_date())) {
+    							resultMapList.put("return_plan_date", neighborhoodLibrary.getReturn_plan_date());
+    						}
+    						
+    						resultList.add(0, resultMapList);
+    						resultMap.put("result-list", resultList);
+    						result.put("result-data", resultMap);
     					}else {
 							result.put("result", "fail");
 							result.put("message", apiResult.getMessage());
@@ -859,7 +885,12 @@ public class NearbyLibService extends BaseService {
 						String message2 = "";
 						NearbyLib updateData = new NearbyLib();
 						
+						Map<String,Object> resultMap = new HashMap<String,Object>();
+						List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+						
 						for(int i = 0; i < bundleList_api.size(); i++) {
+							Map<String,Object> resultMapList = new HashMap<String,Object>();
+							
 							LibrarySearch libSearch = new LibrarySearch();
 							libSearch.setManageCode(bundleList_api.get(i).getManage_code());
 							libSearch.setUserkey(bundleList_api.get(i).getUser_key());
@@ -868,21 +899,41 @@ public class NearbyLibService extends BaseService {
         					String ip = "0:0:0:0:0:0:0:1";
         					try {
         						/*대출처리 api 호출*/
-	        					apiResult = LibSearchAPI.unmannedloan(libSearch, ip);
+	        					apiResult = LibSearchAPI.unmannedloanNearbyLib(libSearch, ip);
         					}catch (Exception e) {
         						result.put("result", "fail");	        						
         						result.put("message", "내집앞도서관 대출처리 KLAS API 호출 실패");
 							}
-        					if (apiResult.getStatus()) { //api 성공시
+        					if (StringUtils.isNotEmpty(apiResult.getData())) { //api 성공시
         						updateData.setReserve_idx(bundleList_api.get(i).getReserve_idx());
     							updateData.setReserve_status(neighborhoodLibrary.getReserve_status());
     							updateData.setDevice_code(neighborhoodLibrary.getDevice_code());
+    							updateData.setReturn_plan_date(apiResult.getData());
         						success = success +  dao.updateNeighborhoodLibrary(updateData);        					
         						if(i == 0) {
         							message1 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS API 대출처리 성공";;
         						}else {
         							message2 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS API 대출처리 성공";
         						}
+        						
+        						if(StringUtils.isNotEmpty(bundleList_api.get(i).getMember_name())) {
+        							resultMapList.put("member_name", bundleList_api.get(i).getMember_name());
+        						}
+								if(StringUtils.isNotEmpty(bundleList_api.get(i).getLib_name())) {
+									resultMapList.put("lib_name", bundleList_api.get(i).getLib_name());     							
+        						}
+								if(StringUtils.isNotEmpty(bundleList_api.get(i).getBook_name())) {
+									resultMapList.put("book_name", bundleList_api.get(i).getBook_name());
+								}
+								if(StringUtils.isNotEmpty(bundleList_api.get(i).getReg_no())) {
+									resultMapList.put("reg_no", bundleList_api.get(i).getReg_no());
+								}
+								if(StringUtils.isNotEmpty(apiResult.getData())) {
+									resultMapList.put("return_plan_date", apiResult.getData());
+								}
+        						
+        						resultList.add(i, resultMapList);
+        						
         					}else { // api 실패시
         						if(i == 0) { //첫번째 api 실패시
         							message1 = "예약번호 " + bundleList_api.get(i).getReserve_idx() + "KLAS 대출처리 API 호출 실패";
@@ -892,7 +943,9 @@ public class NearbyLibService extends BaseService {
         					}
         					resulMessage = message1 + ", " + message2;
 						}
-					}else {
+						resultMap.put("result-list", resultList);
+						result.put("result-data", resultMap);
+					} else {
 						NearbyLib updateData = new NearbyLib();
 						updateData.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());
 						updateData.setReserve_status(neighborhoodLibrary.getReserve_status());

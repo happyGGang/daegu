@@ -96,7 +96,6 @@
 			AND DEVICE_IDX = #{device_idx}
 			<if test="reserve_status != null and reserve_status != ''">
 				AND RESERVE_STATUS = #{reserve_status}
-				AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
 			AND HOMEPAGE_ID = #{homepage_id}
@@ -104,9 +103,11 @@
 			<choose>
 				<when test='editMode == "todayOut"'>
 					AND RESERVE_STATUS IN ('1','2')
+					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 				</when>
 				<when test='editMode == "todayIn"'>
 					AND RESERVE_STATUS IN ('5','6','7')
+					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 				</when>
 			</choose>
 			ORDER BY 
@@ -391,6 +392,11 @@
 		<if test='reserve_status == "3"'>
 			<if test="locker_idx != null and locker_idx != ''">
 				, LOCKER_IDX = #{locker_idx}
+			</if>	
+		</if>
+		<if test='reserve_status == "4"'>
+			<if test="return_plan_date != null and return_plan_date != ''">
+				, return_plan_date = TO_DATE(#{return_plan_date}, 'yyyy-MM-dd HH24:mi:ss')
 			</if>	
 		</if>
 		<if test='reserve_status == "8"'>

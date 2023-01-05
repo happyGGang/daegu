@@ -16,7 +16,6 @@ $(function() {
 		if (!confirm('번호 ' + $(this).attr('keyValue1') + '번을 예약확정 하시겠습니까?')) {
 			return false;
 		}
-		alert('아니 잠깐만');
 		$('#neighborhoodLibraryEdit #reserve_idx').val($(this).attr('keyValue6'));
 		$('#neighborhoodLibraryEdit #device_code').val($(this).attr('keyValue5'));
 		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue4'));
@@ -102,7 +101,7 @@ table .type1 td{
 </form:form>
 
 <form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="today_inOut.do">
-	<form:hidden path="device_idx"/>
+<%-- 	<form:hidden path="device_idx"/> --%>
 	<div class="">
 			<h3>대출관리(투입/회수목록)</h3><br/>
 			사물함 명 : 

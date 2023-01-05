@@ -168,6 +168,8 @@ $(function() {
 				<form:option value="6" label="회수중"/>
 				<form:option value="7" label="회수완료"/>
 				<form:option value="8" label="취소(미승인)"/>
+				<form:option value="9" label="반납"/>
+				<form:option value="10" label="반납완료"/>
 			</form:select>
 			&nbsp;&nbsp;&nbsp;
 			<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>
@@ -224,7 +226,7 @@ $(function() {
 				<th>회원ID</th>
 				<th>큰책여부</th>
 				<th>등록번호</th>
-				<th>ISBN</th>
+				<th>수령장소</th>
 				<th>도서명</th>
 				<th>신청날짜</th>
 				<th>예약확정시간</th>
@@ -283,7 +285,7 @@ $(function() {
 					</c:choose>
 					</td>
 					<td>${i.reg_no }</td>
-					<td>${i.book_isbn }</td>
+					<td>${i.device_name }</td>
 					<td>${i.book_name }</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></td>
 					<td>

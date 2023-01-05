@@ -2706,6 +2706,46 @@ public class LibSearchAPI {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
 		}
 	}
+	
+	/**
+	 * K.API - 48
+	 *
+	 * 내집앞도서관 무인대출
+	 *
+	 * @author whalesoft HWAN 2022. 01. 13.
+	 * @param librarySearch
+	 * @return
+	 */
+	public static ApiResponse unmannedloanNearbyLib(LibrarySearch librarySearch, String ip) {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("manage_code", librarySearch.getManageCode());// 도서관 관리구분코드
+		param.put("userkey", librarySearch.getUserkey());// 이용자KEY
+		param.put("reg_no", librarySearch.getReg_no());// 대출자료 등록번호
+		if(StringUtils.isNotEmpty(librarySearch.getLoan_date())) {
+			param.put("loan_date", librarySearch.getLoan_date());// 대출일 YYYYMMDDHHmmSS (미입력시 기본값 : sysdate)
+		}
+		if(StringUtils.isNotEmpty(librarySearch.getReturn_plan_date())) {
+			param.put("return_plan_date", librarySearch.getReturn_plan_date());// 반납예정일 YYYYMMDDHHmmSS (미입력시 대출일 기준으로 계산)
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getDevice_code())) {
+			param.put("device_name", librarySearch.getDevice_code());// 장비ID
+		}
+
+		param.put("client_ip", ip);
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("unmannedloan", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+		
+		String return_plan_date = String.valueOf(sendKCMS.get("RETURN_PLAN_DATE"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(return_plan_date);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 
 	/**
 	 * K.API - 49
