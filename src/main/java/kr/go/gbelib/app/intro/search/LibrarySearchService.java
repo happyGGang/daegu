@@ -14,7 +14,11 @@ public class LibrarySearchService extends BaseService {
 	private LibrarySearchDao dao;
 
 	public String getImageUrl(Map<String, Object> map) {
-		return dao.getImageUrl(map);
+		if (map.get("LIB_NAME").equals("아트도서관") && map.get("IMAGE").toString().contains("noimg")) {
+			return "/resources/homepage/libculture/img/book_noimg2.png";
+		} else {
+			return dao.getImageUrl(map);
+		}
 	}
 
 	public String getImageUrl(String isbn) {
