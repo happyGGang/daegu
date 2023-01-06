@@ -532,7 +532,7 @@ transform:translatez(0);
 /* 본문 */
 .doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
 .doc-title {position:relative;padding: 10px 0 15px 0;/* line-height: 150%; */}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 28px;color: #222;letter-spacing:-1px;font-weight:bold;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 27px;color: #222;letter-spacing:-1px;font-weight:bold;}
 .doc-title ol{margin-top:-6px;}
 
 .doc-info {position:relative;padding:0 0 0 270px;box-sizing:border-box;z-index:2;text-align:center;}

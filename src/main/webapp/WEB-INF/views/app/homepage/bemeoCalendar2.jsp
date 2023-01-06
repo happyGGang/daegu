@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.11.30. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.12.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 장서현황을 나타내는 표">
@@ -66,148 +66,109 @@ $('ul.close_day').html(li);
     <col width="8%">
     <col width="8%">
     <col width="8%">
-    <col width="8%">
     </colgroup>
     <thead>
     <tr>
       <th>구 분</th>
-      <th>000<br>
-      총류</th>
-      <th>100<br>
-      철학</th>
-      <th>200<br>
-      종교</th>
-      <th>300<br>
-      사회<br>
+      <th>총류</th>
+      <th>철학</th>
+      <th>종교</th>
+      <th>사회<br>
       과학</th>
-      <th>400<br>
-      자연<br>
+      <th>자연<br>
       과학</th>
-      <th>500<br>
-      기술<br>
+      <th>기술<br>
       과학</th>
-      <th>600<br>
-      예술</th>
-      <th>700<br>
-      언어</th>
-      <th>800<br>
-      문학</th>
-      <th>900<br>
-      역사</th>
-      <th>총계(권)</th>
-      <th>비율(%)</th>
+      <th>예술</th>
+      <th>언어</th>
+      <th>문학</th>
+      <th>역사</th>
+      <th>총계</th>
     </tr>
     </thead>
     <tbody>
     <tr>
-      <th>일반</th>
-    <td>253</td>
-    <td>508</td>
-    <td>168</td>
-    <td>992</td>
-    <td>347</td>
-    <td>763</td>
-    <td>275</td>
-    <td>214</td>
-    <td>2,991</td>
-    <td>637</td>
-    <td>7,148</td>
-    <td>21.0</td>
+      <th>권수</th>
+    <td>1,758</td>
+    <td>1,205</td>
+    <td>556</td>
+    <td>3,910</td>
+    <td>2,974</td>
+    <td>1,486</td>
+    <td>954</td>
+    <td>2,135</td>
+    <td>15,847</td>
+    <td>3,341</td>
+    <td>34,166</td>
     </tr>
     <tr>
-      <th>아동</th>
-    <td>747</td>
-    <td>372</td>
-    <td>277</td>
-    <td>1,094</td>
-    <td>1,459</td>
-    <td>370</td>
-    <td>358</td>
-    <td>372</td>
-    <td>5,491</td>
-    <td>1,747</td>
-    <td>12,287</td>
-    <td>36.1</td>
-    </tr>
-    <tr>
-      <th>유아</th>
-    <td>28</td>
-    <td>49</td>
-    <td>7</td>
-    <td>636</td>
-    <td>264</td>
-    <td>56</td>
-    <td>107</td>
-    <td>58</td>
-    <td>2,675</td>
-    <td>153</td>
-    <td>4,033</td>
-    <td>11.8</td>
-    </tr>
-    <tr>
-      <th>영어</th>
-    <td>114</td>
-    <td>3</td>
-    <td>7</td>
-    <td>160</td>
-    <td>251</td>
-    <td>25</td>
-    <td>42</td>
-    <td>1,329</td>
-    <td>2,083</td>
-    <td>57</td>
-    <td>4,071</td>
-    <td>12.0</td>
-    </tr>
-    <tr>
-      <th>보존서고 </th>
-    <td>617</td>
-    <td>257</td>
-    <td>92</td>
-    <td>1,010</td>
-    <td>607</td>
-    <td>246</td>
-    <td>177</td>
-    <td>158</td>
-    <td>2,619</td>
-    <td>728</td>
-    <td>6,511</td>
-    <td>19.1</td>
-    </tr>
-    <tr>
-      <th>총계(권)</th>
-    <td>1,759</td>
-    <td>1,189</td>
-    <td>551</td>
-    <td>3,892</td>
-    <td>2,928</td>
-    <td>1,460</td>
-    <td>959</td>
-    <td>2,131</td>
-    <td>15,859</td>
-    <td>3,322</td>
-    <td>34,050</td>
-    <td>100</td>
-    </tr>
-    <tr>
-      <th>비율(%)</th>
-    <td>5.2</td>
+      <th>비율</th>
+    <td>5.1</td>
     <td>3.5</td>
     <td>1.6</td>
     <td>11.4</td>
-    <td>8.6</td>
+    <td>8.7</td>
     <td>4.3</td>
     <td>2.8</td>
-    <td>6.3</td>
-    <td>46.6</td>
+    <td>6.2</td>
+    <td>46.4</td>
     <td>9.8</td>
     <td>100</td>
-    <td></td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.11.30. 기준] (단위 : 권)</span></h3>
+  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.12.31. 기준] (단위 : 권)</span></h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
+    <caption class="disnone">
+    책숲길도서관 장서현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>구 분</th>
+      <th>아동</th>
+      <th>유아</th>
+      <th>일반</th>
+      <th>큰글</th>
+      <th>영어</th>
+      <th>총계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>권수</th>
+    <td>15,246</td>
+    <td>4,522</td>
+    <td>9,858</td>
+    <td>70</td>
+    <td>4,470</td>
+    <td>34,166</td>
+    </tr>
+    <tr>
+      <th>비율</th>
+    <td>44.62</td>
+    <td>13.24</td>
+    <td>28.85</td>
+    <td>0.20</td>
+    <td>13.08</td>
+    <td>100</td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+  <p>보존서고: 5,929권 포함</p>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.12.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">

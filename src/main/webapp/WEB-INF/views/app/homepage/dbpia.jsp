@@ -9,9 +9,7 @@
 		<div class="img txt_b02"></div>
 		<div class="desc">
 			<h3>DBpia 전자저널</h3>
-			<p>두류도서관에서는 지역민의 활발한 학습활동과 연구활동 지원을 위하여<br>
-			국내간행물 학술분야 2천여종, 전문잡지 50여 종, 학술논문 230여만편 등을 제공하는<br>
-			DBpia 전자저널 서비스 제공합니다.</p>
+			<p>두류도서관에서는 지역민의 활발한 학습활동과 연구활동 지원을 위하여<br />4,000여종의 저널과 학술논문 300여만편 등을 제공하는 DBpia 전자저널 서비스를 제공합니다.</p>
 			<ul class="btns_wrap_tac">
 			<li>
 				<a href="https://www.dbpia.co.kr/" class="btn_link02" title="DBpia 전자저널 바로가기(새창열림)" target="_blank"><span>DBpia 전자저널 바로가기</span><span class="ico ico_link"></span></a>
