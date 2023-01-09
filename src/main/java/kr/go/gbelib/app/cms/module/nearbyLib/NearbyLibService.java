@@ -543,14 +543,19 @@ public class NearbyLibService extends BaseService {
 						for(int i = 0; i < sblList.size(); i++) {
 							
 							LibrarySearch librarySearch = new LibrarySearch();
-					        librarySearch.setManageCode(sblList.get(i).getManage_code());
-					        librarySearch.setUserkey(sblList.get(i).getUser_key());
 					        String userIp = "0:0:0:0:0:0:0:1";
 					        String book_name = sblList.get(i).getBook_name();
-					        String mes = "[" + sblList.get(i).getLib_name() + "]\n" + sblList.get(i).getMember_name() + "님 도서예약이 취소 되었습니다."
-										+ "\n도서 정보 : "+book_name;
+							String data1 = sblList.get(i).getLib_name();
+							String data2 = sblList.get(i).getMember_name();
+							String data3 = book_name;
+							String data4 = "이용자 취소";
 							
-							LibSearchAPI.sendSms(librarySearch, mes, userIp);	 
+							try {
+								LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
+							} catch (UnsupportedEncodingException e) {
+								throw new RuntimeException(e);
+							}
+							
 							NearbyLib sms_send = new NearbyLib();
 							sms_send.setSms_send_yn("Y");
 							sms_send.setReserve_idx(sblList.get(i).getReserve_idx());
@@ -619,7 +624,6 @@ public class NearbyLibService extends BaseService {
 				librarySearch.setUserkey(reserveOne.getUser_key());
 				String userIp = reserveOne.getAdd_ip();
 				String book_name = reserveOne.getBook_name();
-				String mes = "";
 				librarySearch.setUserkey(reserveOne.getUser_key());
 				String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
 				if(lockerIdx.length() == 1 ) {
@@ -638,7 +642,6 @@ public class NearbyLibService extends BaseService {
 					throw new RuntimeException(e);
 				}
 
-				LibSearchAPI.sendSms(librarySearch, mes, userIp);	 
 				NearbyLib sms_send = new NearbyLib();
 				sms_send.setSms_send_yn("Y");
 				sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
@@ -1097,14 +1100,21 @@ public class NearbyLibService extends BaseService {
 							}
 							
 							LibrarySearch librarySearch = new LibrarySearch();
-					        librarySearch.setManageCode(sblList.get(i).getManage_code());
 					        librarySearch.setUserkey(sblList.get(i).getUser_key());
 					        String userIp = "0:0:0:0:0:0:0:1";
 					        String book_name = sblList.get(i).getBook_name();
-					        String mes = "[" + sblList.get(i).getLib_name() + "]\n" + sblList.get(i).getMember_name() + "님 도서예약이 취소 되었습니다."
-										+ "\n도서 정보 : "+book_name;
 							
-							LibSearchAPI.sendSms(librarySearch, mes, userIp);	 
+					        String data1 = sblList.get(i).getLib_name();
+							String data2 = sblList.get(i).getMember_name();
+							String data3 = book_name;
+							String data4 = "이용자 취소";
+							
+							try {
+								LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
+							} catch (UnsupportedEncodingException e) {
+								throw new RuntimeException(e);
+							}
+					        
 							NearbyLib sms_send = new NearbyLib();
 							sms_send.setSms_send_yn("Y");
 							sms_send.setReserve_idx(sblList.get(i).getReserve_idx());
