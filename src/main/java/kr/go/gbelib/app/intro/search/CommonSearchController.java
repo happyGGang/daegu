@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.intro.search;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -2189,14 +2190,27 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 						
-	        LibrarySearch library_search = new LibrarySearch();
-	        library_search.setManageCode(reserveOne.getManage_code());
-	        library_search.setUserkey(member.getRec_key());
-	        String userIp = reserveOne.getAdd_ip();
-	        String book_name = reserveOne.getBook_name();
-	        String mes ="[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 취소 되었습니다."
-						+ "\n도서 정보 : "+book_name;
-			LibSearchAPI.sendSms(library_search, mes, userIp);	 
+			librarySearch.setManageCode(reserveOne.getManage_code());
+			librarySearch.setUserkey(reserveOne.getUser_key());
+			String userIp = reserveOne.getAdd_ip();
+			String book_name = reserveOne.getBook_name();
+			String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
+			if(lockerIdx.length() == 1 ) {
+				lockerIdx = "00" + lockerIdx;
+			}else if(lockerIdx.length() == 2) {
+				lockerIdx = "0" + lockerIdx;
+			}
+
+			String data1 = reserveOne.getLib_name();
+			String data2 = reserveOne.getMember_name();
+			String data3 = book_name;
+			String data4 = "이용자 취소";
+			try {
+				LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException(e);
+			}
+
 			NearbyLib sms_send = new NearbyLib();
 			sms_send.setSms_send_yn("Y");
 			sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());

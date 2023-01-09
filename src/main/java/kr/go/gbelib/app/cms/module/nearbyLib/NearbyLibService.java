@@ -620,14 +620,24 @@ public class NearbyLibService extends BaseService {
 				String userIp = reserveOne.getAdd_ip();
 				String book_name = reserveOne.getBook_name();
 				String mes = "";
-				if(reserveOne.getCancel_reason() != null && "".equals(reserveOne.getCancel_reason())){
-					mes = "[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 취소 되었습니다."
-								+ "\n도서 정보 : "+book_name 
-								+ "\n[취소사유]\n" + reserveOne.getCancel_reason();
-				}else {
-					mes = "[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 취소 되었습니다."
-							+ "\n도서 정보 : "+book_name;
+				librarySearch.setUserkey(reserveOne.getUser_key());
+				String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
+				if(lockerIdx.length() == 1 ) {
+					lockerIdx = "00" + lockerIdx;
+				}else if(lockerIdx.length() == 2) {
+					lockerIdx = "0" + lockerIdx;
 				}
+
+				String data1 = reserveOne.getLib_name();
+				String data2 = reserveOne.getMember_name();
+				String data3 = book_name;
+				String data4 = neighborhoodLibrary.getCancel_reason();
+				try {
+					LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
+				} catch (UnsupportedEncodingException e) {
+					throw new RuntimeException(e);
+				}
+
 				LibSearchAPI.sendSms(librarySearch, mes, userIp);	 
 				NearbyLib sms_send = new NearbyLib();
 				sms_send.setSms_send_yn("Y");
