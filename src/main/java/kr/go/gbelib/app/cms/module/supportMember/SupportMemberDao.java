@@ -33,4 +33,6 @@ public interface SupportMemberDao {
 
 	public int addParseTibero(SupportMember sm);
 
+	public int excelUploadSave(SupportMember supportMember);
+
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
@@ -30,6 +32,8 @@ public class SupportMember extends PagingUtils {
 	private List<Homepage> authorityHomepageList;// 관리홈페이지리스트
 	private Map<String, Object> authMap; // 내권한목록
 
+	private MultipartFile mfile;
+	
 	public int getSupport_member_idx() {
 		return support_member_idx;
 	}
@@ -164,6 +168,14 @@ public class SupportMember extends PagingUtils {
 
 	public void setAuthMap(Map<String, Object> authMap) {
 		this.authMap = authMap;
+	}
+	
+	public MultipartFile getMfile() {
+		return mfile;
+	}
+
+	public void setMfile(MultipartFile mfile) {
+		this.mfile = mfile;
 	}
 
 	@Override

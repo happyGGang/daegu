@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.cms.module.supportMember;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,8 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
@@ -123,6 +129,45 @@ public class SupportMemberService extends BaseService {
 	public SupportMember getSessionSupport(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		return (SupportMember)session.getAttribute("loginSupport");
+	}
+
+	public int excelUploadSave(SupportMember supportMember) {
+		return dao.excelUploadSave(supportMember);
+	}
+
+	public int excelUploadSave(MultipartFile mfile) throws BiffException, IOException {
+		try {
+			Workbook workbook = Workbook.getWorkbook(mfile.getInputStream());
+			Sheet sheet = workbook.getSheet(0);
+			
+			int rowCount = sheet.getRows();
+				
+			for(int i = 1; i < rowCount; i++) {
+				String id = (sheet.getCell(0, i).getContents().trim());
+				String name = (sheet.getCell(1, i).getContents().trim());
+				
+				SupportMember supportMember = new SupportMember();
+				
+				supportMember.setMember_id(id);
+				supportMember.setSchool_name(name);
+				supportMember.setMember_password(CalculateHashUtils.calculateHash(id));
+				supportMember.setAdd_id(id);
+				
+				if(dao.memberIdDuplCheck(supportMember) > 0) {
+					return 2;
+				}
+				
+				dao.excelUploadSave(supportMember);
+			}
+			
+			workbook.close();
+			
+			return 1;
+		} catch (Exception e) {
+			log.error("엑셀다운로드 에러");
+		}
+		
+		return 0;
 	}
 
 }

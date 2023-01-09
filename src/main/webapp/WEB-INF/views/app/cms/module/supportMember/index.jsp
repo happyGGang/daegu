@@ -70,7 +70,56 @@ $(function() {
 		doGetLoad('index.do', $('form#supportMember').serialize());
 	});
 
+	$('a#excelDownload').on('click', function(e) {
+		e.preventDefault();
+		doGetLoad('excelDownload.do', $('form#supportMember').serialize());
+	});
 });
+
+function excelUpload() {
+	modal_layer_add('dialog_layer');
+
+	$.ajax({
+		url: 'excelUpload.do',
+		method: 'POST',
+		success: function(html){
+			$('#dialog_layer').html(html);
+		},error: function(html){
+		}
+	});
+
+	$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
+		resizable: false,
+		modal: true,
+		title: '228회원관리 엑셀등록',
+		open: function(){
+			$('.ui-widget-overlay').addClass('custom-overlay');
+		},
+		close: function(){
+		},
+		buttons: [
+			{
+				text : '등록하기',
+				'class' : 'btn btn1',
+				click : function() {
+					excelUploadSave();
+				}
+			},
+			{
+				text: "닫기",
+				"class": 'btn btn_round btn_gray',
+				click: function() {
+					$(this).dialog('close');
+				}
+			}
+		]
+	});
+
+	$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+		width: 600,
+		height: 210
+	});
+}
 </script>
 <form:form modelAttribute="supportMember" action="index.do" method="GET">
 <form:hidden path="editMode"/>
@@ -79,7 +128,9 @@ $(function() {
 <div class="infodesk">
 	검색 결과 : 총 ${paging.totalDataCount}건
 	<div class="button">
-		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+		<a href="javascript:void(0)" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀등록양식</span></a>
+		<a href="javascript:void(0)" id="excelUpload" class="btn btn1" onclick="excelUpload();"><i class="fa fa-plus"></i><span>엑셀등록</span></a>
+		<a href="javascript:void(0)" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 	</div>
 	<form:select path="rowCount" cssClass="selectmenu">
 		<form:option value="10">10개씩보기</form:option>
@@ -147,11 +198,17 @@ $(function() {
 			</c:if>
 		</tbody>
 	</table>
+	<br>
 	<div class="button">
 		<a href="#" id="allCheck" class="btn" keyValue="N">전체 선택/해제</a>
 		<a href="#" id="check-delete" class="btn btn3">선택 회원삭제</a>
 	</div>
-	
+	<br>
+	<div class="ui-state-highlight">
+		<em>* 일괄 회원 등록을 하시기 위해서는 엑셀등록양식을 다운받으시고 양식에 맞춰 데이터를 입력해주세요.</em><br/>
+		<em>* 엑셀등록 양식에 맞게 데이터를 입력하신뒤에는 엑셀등록 버튼으로 한번에 회원 등록이 가능하십니다.</em><br/>
+		<em>* 엑셀등록시 학교기관으로 그룹이 자동으로 지정이 됩니다.</em><br>
+	</div>
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#supportMember"/>
 	</jsp:include>

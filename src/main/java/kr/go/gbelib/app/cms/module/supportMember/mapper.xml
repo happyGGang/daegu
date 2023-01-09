@@ -157,4 +157,20 @@
 		)
 	</insert>
 	
+	<insert id="excelUploadSave">
+		<selectKey keyProperty="support_member_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(support_member_idx), 0) + 1 FROM SUPPORT_MEMBER
+		</selectKey>
+		INSERT INTO
+			SUPPORT_MEMBER
+		(
+			support_member_idx, school_name, member_id, member_password, auth_group,
+			last_connect, add_id, add_date
+		)
+		VALUES
+		(
+			#{support_member_idx}, #{school_name}, #{member_id}, #{member_password}, '3',
+			#{last_connect}, #{add_id}, SYSDATE
+		)
+	</insert>
 </mapper>
