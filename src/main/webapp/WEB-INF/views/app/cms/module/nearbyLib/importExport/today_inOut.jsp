@@ -125,10 +125,11 @@ table .type1 td{
 						<col width="90" />
 						<col width="90" />
 						<col width="80" />
+						<col width="80" />
 					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="10" style="height: 36px;">
+							<th colspan="11" style="height: 36px;">
 							반출 목록<br/>
 							${start_time} ~ ${end_time }
 							</th>						
@@ -140,6 +141,7 @@ table .type1 td{
 							<th>도서명</th>
 							<th>소장도서관</th>
 							<th>등록번호</th>
+							<th>청구기호</th>
 							<th>대출자ID</th>
 							<th>예약날짜</th>
 							<th>예약확정일</th>
@@ -147,16 +149,17 @@ table .type1 td{
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${outCount > 0 }">
-						<c:forEach var="j" items="${outList }" varStatus="status">
+						<c:if test="${outCount > 0}">
+						<c:forEach var="j" items="${outList}" varStatus="status">
 							<tr>
-								<td>${outCount - status.index }</td>
-								<td>${j.locker_idx }</td>
-								<td>${j.pk }</td>
-								<td>${j.book_name }</td>
-								<td>${j.lib_name }</td>
-								<td>${j.reg_no }</td>
-								<td>${j.member_id }</td>
+								<td>${outCount - status.index}</td>
+								<td>${j.locker_idx}</td>
+								<td>${j.pk}</td>
+								<td>${j.book_name}</td>
+								<td>${j.lib_name}</td>
+								<td>${j.reg_no}</td>
+								<td>${j.call_no}</td>
+								<td>${j.member_id}</td>
 								<td><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd" /></td>
 								<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
@@ -210,16 +213,16 @@ table .type1 td{
 						</tr>
 					</thead>
 					<tbody>
-						<c:if test="${inCount > 0 }">
-						<c:forEach var="k" items="${inList }" varStatus="statusIn">
+						<c:if test="${inCount > 0}">
+						<c:forEach var="k" items="${inList}" varStatus="statusIn">
 							<tr>
-								<td>${inCount - statusIn.index }</td>
-								<td>${k.locker_idx }</td>
-								<td>${k.pk }</td>
-								<td>${k.book_name }</td>
-								<td>${k.lib_name }</td>
-								<td>${k.reg_no }</td>
-								<td>${k.member_id }</td>
+								<td>${inCount - statusIn.index}</td>
+								<td>${k.locker_idx}</td>
+								<td>${k.pk}</td>
+								<td>${k.book_name}</td>
+								<td>${k.lib_name}</td>
+								<td>${k.reg_no}</td>
+								<td>${k.member_id}</td>
 								<td><fmt:formatDate value="${k.add_date}" pattern="yyyy.MM.dd" /></td>
 								<td><fmt:formatDate value="${k.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
