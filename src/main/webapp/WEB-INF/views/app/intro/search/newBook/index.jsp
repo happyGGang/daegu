@@ -405,6 +405,11 @@ $(function() {
 											<span>등록된 이미지가<br/>없습니다.</span>
 										</a>
 										</c:when>
+										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+										<a href="${detailURL}">
+											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+										</a>
+										</c:when>
 										<c:otherwise>
 										<a href="${detailURL}">
 											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
