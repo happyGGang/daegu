@@ -467,11 +467,14 @@ public class LibrarySearchController extends BaseController {
 							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 								map.put("aladin", aladinData.get("item"));
 							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
 						}
 					}
 				}
 			}
-
+			
 			model.addAttribute("newBookList", list);
 			model.addAttribute("librarySearch", librarySearch);
 		} else {
@@ -495,11 +498,14 @@ public class LibrarySearchController extends BaseController {
 							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 								map.put("aladin", aladinData.get("item"));
 							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
 						}
 					}
 				}
 			}
-
+			
 			model.addAttribute("newBookList", list);
 			model.addAttribute("librarySearch", librarySearch);
 		}
@@ -556,6 +562,9 @@ public class LibrarySearchController extends BaseController {
 							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 								map.put("aladin", aladinData.get("item"));
 							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
 						}
 					}
 				}
@@ -582,6 +591,9 @@ public class LibrarySearchController extends BaseController {
 							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
 							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
 							}
 						}
 					}
