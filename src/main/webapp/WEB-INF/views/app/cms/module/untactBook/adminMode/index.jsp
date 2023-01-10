@@ -491,7 +491,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 	}
 		
 	.untact-box tbody td {height:45px;line-height:45px;}
-	.locker-box {box-sizing:border-box;max-height:920px;overflow-y:auto;}
+	.locker-box {box-sizing:border-box;overflow-y:auto;}
 	.locker-box ul {font-size:0;overflow:hidden;}
 	.locker-box li {position:relative;margin-right:6px !important;margin-bottom:6px !important;display:inline-block;background:#fff;height:145px;padding:0;margin:0;border:1px solid #ccc;box-sizing:border-box;border-radius:5px;}
 	.locker-box li p {display:block;box-sizing:border-box;text-align:center;}
@@ -611,6 +611,108 @@ function changeLockerNumber(member_id, locker_number, $this) {
 								</c:choose>
 							</ul>
 						</div>
+						<!--수성도서관
+						<div class="locker-box">
+							<ul>
+								<li class="divide4">
+									<p class="locknumber">1</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">2</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">9</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">10</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4 notuse">
+									<p class="locknumber" style="background:#2e2e2e;">&nbsp;</p>
+									<p class="name">&nbsp;</p>
+								</li>
+								<li class="divide4 notuse">
+									<p class="locknumber" style="background:#2e2e2e;">&nbsp;</p>
+									<p class="name">&nbsp;</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">11</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">12</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4 notuse">
+									<p class="locknumber" style="background:#2e2e2e;">&nbsp;</p>
+									<p class="name">&nbsp;</p>
+								</li>
+								<li class="divide4 notuse">
+									<p class="locknumber" style="background:#2e2e2e;">&nbsp;</p>
+									<p class="name">&nbsp;</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">13</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">14</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">3</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">4</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">15</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">16</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">5</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">6</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">17</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide4">
+									<p class="locknumber">18</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide2">
+									<p class="locknumber">7</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide2">
+									<p class="locknumber">19</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide2">
+									<p class="locknumber">8</p>
+									<p class="name">도서대출</p>
+								</li>
+								<li class="divide2">
+									<p class="locknumber">20</p>
+									<p class="name">도서대출</p>
+								</li>
+							</ul>
+						</div>
+						//수성도서관-->
 					</div>
 					
 					<!--좌측-->
