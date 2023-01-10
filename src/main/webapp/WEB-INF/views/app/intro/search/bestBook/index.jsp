@@ -340,7 +340,7 @@ $(function() {
 								<div class="row">
 									<div class="thumb">
 										<c:choose>
-										<c:when test="${empty i.aladin or empty i.aladin.cover}">
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 										<a href="${detailURL}">
 											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 											<span>등록된 이미지가<br/>없습니다.</span>
@@ -353,7 +353,7 @@ $(function() {
 										</c:when>
 										<c:otherwise>
 										<a href="${detailURL}">
-											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
 										</a>
 										</c:otherwise>
 										</c:choose>

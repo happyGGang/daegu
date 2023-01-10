@@ -365,9 +365,9 @@
 					<form:option value="FR">가창면참꽃작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
-					<form:option value="FN">달성군청소년센터</form:option>
-					<form:option value="FJ">달성군청도서관</form:option>-->
-				</form:select> <span style="color:#ff0000"> <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  -->* 2022년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>
+					<form:option value="FN">달성군청소년센터</form:option>-->
+					<form:option value="FJ">달성군청도서관</form:option>
+				</form:select> <span style="color:#ff0000"> <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  -->* 달성군청도서관 외 희망도서 신청 마감합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'namic'}">
 				<form:select path="manageCode">
