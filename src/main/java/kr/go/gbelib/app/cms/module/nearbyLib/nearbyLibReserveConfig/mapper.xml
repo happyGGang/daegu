@@ -81,4 +81,14 @@
 			RESERVE_CONFIG_IDX = #{reserve_config_idx}		
 	</update>
 	
+	<select id="getTakeTermOfReserveConfig" resultType="int">
+		SELECT
+			TAKE_TERM		 
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			1=1
+		AND RESERVE_CONFIG_IDX = (SELECT MAX(RESERVE_CONFIG_IDX) FROM NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG)	
+	</select>
+	
 </mapper>

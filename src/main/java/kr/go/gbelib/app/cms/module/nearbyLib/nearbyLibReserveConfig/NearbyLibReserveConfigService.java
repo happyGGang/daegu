@@ -42,4 +42,8 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.getNeighborhoodLibraryReserveConfigList(neighborhoodLibraryReserveConfig);
 	}
 
+	public int getTakeTermOfReserveConfig() {
+		return dao.getTakeTermOfReserveConfig();
+	}
+
 }

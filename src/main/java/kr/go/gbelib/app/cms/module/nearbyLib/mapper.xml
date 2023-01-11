@@ -532,13 +532,13 @@
 				LOCKER_IDX = #{locker_idx}
 			AND DEVICE_PASSWORD = #{device_password}
 			AND DEVICE_IDX = #{device_idx}
-			AND RESERVE_STATUS = '2'
+			AND RESERVE_STATUS = '3'
 			AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
 								FROM NEIGHBORHOOD_LIBRARY_RESERVE 
 								WHERE LOCKER_IDX = #{locker_idx}
 								AND DEVICE_PASSWORD = #{device_password}
 								AND DEVICE_IDX = #{device_idx}
-								AND RESERVE_STATUS = '2');	
+								AND RESERVE_STATUS = '3');	
 		</select>
 		
 		<select id="getNeighborhoodLibraryReturnCount" resultType="int">
@@ -628,5 +628,61 @@
 			AND reserve_status = '4'
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+		</select>
+		
+		<select id="getReserveMemberOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+			SELECT
+				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
+				CALL_NO
+			FROM
+				NEIGHBORHOOD_LIBRARY_RESERVE
+			WHERE
+				reg_no = #{reg_no}
+			AND reserve_status = '2'
+			AND device_code = #{device_code}
+		</select>
+		
+		<select id="getReserveMemberOneList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+			SELECT
+				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME,
+				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, CALL_NO, ADD_DATE,
+				TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE
+			FROM
+				NEIGHBORHOOD_LIBRARY_RESERVE
+			WHERE
+				reserve_bundle_idx = #{reserve_bundle_idx}
+			AND reserve_status = '2'
+			AND device_code = #{device_code}
+		</select>
+		
+		<select id="getReserveListOfDevice" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+			SELECT
+				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME,
+				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, CALL_NO, ADD_DATE,
+				TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE
+			FROM
+				NEIGHBORHOOD_LIBRARY_RESERVE
+			WHERE
+				reserve_status = '2'
+			AND device_code = #{device_code}
 		</select>
 </mapper>

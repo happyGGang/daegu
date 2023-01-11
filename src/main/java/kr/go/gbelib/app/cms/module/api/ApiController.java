@@ -174,6 +174,12 @@ public class ApiController extends BaseController {
 		return neigborhoodLibraryService.returnYnReserveBook(nearbyLib);
 	}
 	
+	@RequestMapping(value = {"nearLib/reservelist.*"})
+	public @ResponseBody Map<String, Object> neighborhoodLibraryReservelist(NearbyLib nearbyLib, HttpServletRequest request, HttpServletResponse response) {
+	
+		return neigborhoodLibraryService.getReserveList(nearbyLib);
+	}
+	
 //	@RequestMapping(value = {"nearbyLib/edit.*"})
 //	public @ResponseBody Map<String, Object> nearbyLibEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
 //		return neabyLibService.updateNearbyLibApi(neighborhoodLibrary);

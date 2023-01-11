@@ -465,7 +465,7 @@ public class NearbyLibService extends BaseService {
 					searchOne.setReserve_status(neighborhoodLibrary.getReserve_status());
 					searchOne.setEditMode("getMySelf");
 					NearbyLib reserveOne = dao.getSameNeighborhoodLibraryBundle_idx(searchOne); //해당 건 데이터 가져오기
-					List<NearbyLib> bundleList = dao.getSameNeighborhoodLibraryBundleList(reserveOne); //건당 데이터 다 가져오기 (1건에 한권 or 두권)
+					//List<NearbyLib> bundleList = dao.getSameNeighborhoodLibraryBundleList(reserveOne); //건당 데이터 다 가져오기 (1건에 한권 or 두권)
 					Homepage homepage = new Homepage();
 					
 					Date nowDate = new Date();
@@ -1546,7 +1546,7 @@ public class NearbyLibService extends BaseService {
 			}
 		} catch (Exception e) {
 			result.put("result", "fail");
-			result.put("message", "예약 만기 예약정보 데이터를 조회하는데 오류가 발생하셨습니다.");
+			result.put("message", "예약 만기 예약정보 데이터를 조회하는데 오류가 발생하였습니다.");
 		}
 		
 		return result;
@@ -1629,7 +1629,135 @@ public class NearbyLibService extends BaseService {
 			}
 		} catch (Exception e) {
 			result.put("result", "fail");
-			result.put("message", "반납가능도서 데이터를 조회하는데 오류가 발생하셨습니다.");
+			result.put("message", "반납가능도서 데이터를 조회하는데 오류가 발생하였습니다.");
+		}
+		
+		return result;
+	}
+
+	public Map<String, Object> getReserveList(NearbyLib nearbyLib) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
+		
+		if(nearbyLib.getDevice_code() == null || "".equals(nearbyLib.getDevice_code())) {
+			result.put("result", "fail");
+			result.put("message", "device_code 값이 없습니다.");
+			
+			return result;
+		}
+		
+		int takeTerm = reserveConfigService.getTakeTermOfReserveConfig();
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		//reg_no가 있다면 예약한 회원의 정보를 전부 가져와야 하고 없다면 device_code에 맞는 전체 예약확정 목록을 가져온다.
+		if(StringUtils.isNotEmpty(nearbyLib.getReg_no())) {
+			NearbyLib reserveMemberOne = dao.getReserveMemberOne(nearbyLib);
+			
+			if(reserveMemberOne != null) {
+				reserveMemberOne.setTake_term(takeTerm);
+				List<NearbyLib> reserveListOfmember = dao.getReserveMemberOneList(reserveMemberOne);
+				
+				try {
+					if(reserveListOfmember.size() > 0) {
+						for(int i =0 ; i < reserveListOfmember.size(); i++) {
+							Map<String,Object> resultMapList = new HashMap<String,Object>();
+							
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getBook_name())) {
+								resultMapList.put("book_name", reserveListOfmember.get(i).getBook_name());
+							}
+							
+							resultMapList.put("add_date", simpleDateFormat.format(reserveListOfmember.get(i).getAdd_date()));
+							
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getLib_name())) {
+								resultMapList.put("lib_name", reserveListOfmember.get(i).getLib_name());
+							}
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getMember_id())) {
+								resultMapList.put("member_id", reserveListOfmember.get(i).getMember_id());
+							}
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getMember_name())) {
+								resultMapList.put("member_name", reserveListOfmember.get(i).getMember_name());
+							}
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getReg_no())) {
+								resultMapList.put("reg_no", reserveListOfmember.get(i).getReg_no());
+							}
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getCall_no())) {
+								resultMapList.put("call_no", reserveListOfmember.get(i).getCall_no());
+							}
+							if(StringUtils.isNotEmpty(reserveListOfmember.get(i).getExpire_date())) {
+								resultMapList.put("expire_date", reserveListOfmember.get(i).getExpire_date());
+							}
+							
+							resultList.add(i, resultMapList);
+						}
+						
+						resultMap.put("result-list", resultList);
+						result.put("result", "success");
+						result.put("message", "기기코드 " + nearbyLib.getDevice_code() + " 예약확정 데이터 조회 성공.");
+						result.put("result-data", resultMap);
+					} else {
+						result.put("result", "fail");
+						result.put("message", "기기코드 " + nearbyLib.getDevice_code() + "의 예약확정 데이터가 없습니다.");
+					}
+				} catch (Exception e) {
+					result.put("result", "fail");
+					result.put("message", "기기코드 " + nearbyLib.getDevice_code() + "의 예약확정 데이터를 조회하는데 오류가 발생하였습니다.");
+				}
+			} else {
+				result.put("result", "fail");
+				result.put("message", "기기코드 " + nearbyLib.getDevice_code() + " 에 등록번호" + nearbyLib.getReg_no() +"의 예약확정 데이터가 없습니다.");
+			}
+		} else {
+			nearbyLib.setTake_term(takeTerm);
+			List<NearbyLib> reserveListOfDevice = dao.getReserveListOfDevice(nearbyLib);
+			
+			try {
+				if(reserveListOfDevice.size() > 0) {
+					for(int i =0 ; i < reserveListOfDevice.size(); i++) {
+						Map<String,Object> resultMapList = new HashMap<String,Object>();
+
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getBook_name())) {
+							resultMapList.put("book_name", reserveListOfDevice.get(i).getBook_name());
+						}
+						
+						resultMapList.put("add_date", simpleDateFormat.format(reserveListOfDevice.get(i).getAdd_date()));
+						
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getLib_name())) {
+							resultMapList.put("lib_name", reserveListOfDevice.get(i).getLib_name());
+						}
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getMember_id())) {
+							resultMapList.put("member_id", reserveListOfDevice.get(i).getMember_id());
+						}
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getMember_name())) {
+							resultMapList.put("member_name", reserveListOfDevice.get(i).getMember_name());
+						}
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getReg_no())) {
+							resultMapList.put("reg_no", reserveListOfDevice.get(i).getReg_no());
+						}
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getCall_no())) {
+							resultMapList.put("call_no", reserveListOfDevice.get(i).getCall_no());
+						}
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getExpire_date())) {
+							resultMapList.put("expire_date", reserveListOfDevice.get(i).getExpire_date());
+						}
+						
+						resultList.add(i, resultMapList);
+					}
+					
+					resultMap.put("result-list", resultList);
+					result.put("result", "success");
+					result.put("message", "기기코드 " + nearbyLib.getDevice_code() + " 예약확정 데이터 조회 성공.");
+					result.put("result-data", resultMap);
+				} else {
+					result.put("result", "fail");
+					result.put("message", "기기코드 " + nearbyLib.getDevice_code() + "의 예약확정 데이터가 없습니다.");
+				}
+			} catch (Exception e) {
+				result.put("result", "fail");
+				result.put("message", "기기코드 " + nearbyLib.getDevice_code() + "의 예약확정 데이터를 조회하는데 오류가 발생하였습니다.");
+			}
 		}
 		
 		return result;

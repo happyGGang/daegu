@@ -95,7 +95,7 @@ $(function() {
 	<table class="table_left_cgv">
 		<thead>
 			<tr>
-				<th colspan="7" style="text-align:center;">반야월 이마트 사물함 관리</th>
+				<th colspan="7" style="text-align:center;">연경cgv 사물함 관리</th>
 			</tr>
 		</thead>	
 		<tbody>
@@ -105,112 +105,15 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no1"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no2.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no2"/>
-					</jsp:include>
-				</td>
-				<td colspan=3 style="background-color: #8080803b; border-bottom-color: #9990;"></td>
-				<td ${lockerEach.no3.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no3"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no4.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no4"/>
-					</jsp:include>
-				</td>
-			</tr>
-			<tr>
-				<td ${lockerEach.no5.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no5"/>
-					</jsp:include>
-				</td>
 				<td ${lockerEach.no6.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
 						<jsp:param name="lockerEachKey" value="no6"/>
 					</jsp:include>
 				</td>
-				<td colspan=3 style="background-color: #8080803b;"></td>
-				<td ${lockerEach.no7.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no7"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no8.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no8"/>
-					</jsp:include>
-				</td>
-			</tr>
-			<tr>
-				<td ${lockerEach.no9.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no9"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no10.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no10"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no11.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no11"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no12.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no12"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no13.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no13"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no14.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no14"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no15.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no15"/>
-					</jsp:include>
-				</td>
-			</tr>
-			<tr>
-				<td ${lockerEach.no16.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no16"/>
-					</jsp:include>
-				</td>
+				<td colspan=3 style="background-color: #8080803b; border-bottom-color: #9990;"></td>
 				<td ${lockerEach.no17.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
 						<jsp:param name="lockerEachKey" value="no17"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no18.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no18"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no19.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no19"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no20.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no20"/>
-					</jsp:include>
-				</td>
-				<td ${lockerEach.no21.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
-					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no21"/>
 					</jsp:include>
 				</td>
 				<td ${lockerEach.no22.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
@@ -220,40 +123,119 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<td ${lockerEach.no2.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no2"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no7.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no7"/>
+					</jsp:include>
+				</td>
+				<td colspan=3 style="background-color: #8080803b;"></td>
+				<td ${lockerEach.no18.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no18"/>
+					</jsp:include>
+				</td>
 				<td ${lockerEach.no23.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
 						<jsp:param name="lockerEachKey" value="no23"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no24.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+			</tr>
+			<tr>
+				<td ${lockerEach.no3.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no24"/>
+						<jsp:param name="lockerEachKey" value="no3"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no25.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td>
+				</td>
+				<td ${lockerEach.no8.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no25"/>
+						<jsp:param name="lockerEachKey" value="no8"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no26.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no11.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no26"/>
+						<jsp:param name="lockerEachKey" value="no11"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no27.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no14.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no27"/>
+						<jsp:param name="lockerEachKey" value="no14"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no28.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no19.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no28"/>
+						<jsp:param name="lockerEachKey" value="no19"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no29.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td ${lockerEach.no4.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no29"/>
+						<jsp:param name="lockerEachKey" value="no4"/>
 					</jsp:include>
+				</td>
+				<td>
+				</td>
+				<td ${lockerEach.no9.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no9"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no12.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no12"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no15.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no15"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no20.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no20"/>
+					</jsp:include>
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td ${lockerEach.no5.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no5"/>
+					</jsp:include>
+				</td>
+				<td>
+				</td>
+				<td ${lockerEach.no10.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no10"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no13.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no13"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no16.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no16"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no21.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no21"/>
+					</jsp:include>
+				</td>
+				<td>
 				</td>
 			</tr>
 		</tbody>

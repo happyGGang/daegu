@@ -29,6 +29,8 @@ public class NearbyLib extends PagingUtils {
 	private String member_name; //회원명
 	private Date lend_date; //대출날짜
 	private Date add_date; //등록날짜
+	private String start_date;
+	private String end_date;
 	private String add_id; //등록ID
 	private String add_ip; //등록IP
 	private String cancel_yn; //취소여부
@@ -507,5 +509,16 @@ public class NearbyLib extends PagingUtils {
 	public void setExpire_date(String expire_date) {
 		this.expire_date = expire_date;
 	}
-	
+	public String getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+	public String getEnd_date() {
+		return end_date;
+	}
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
+	}
 }

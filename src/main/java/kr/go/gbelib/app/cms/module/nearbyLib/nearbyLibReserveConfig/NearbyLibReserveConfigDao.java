@@ -21,4 +21,6 @@ public interface NearbyLibReserveConfigDao {
 
 	List<NearbyLibReserveConfig> getNeighborhoodLibraryReserveConfigList(NearbyLibReserveConfig neighborhoodLibraryReserveConfig);
 
+	int getTakeTermOfReserveConfig();
+
 }

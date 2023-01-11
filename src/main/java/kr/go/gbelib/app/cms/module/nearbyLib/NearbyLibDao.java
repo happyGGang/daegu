@@ -63,4 +63,10 @@ public interface NearbyLibDao {
 
 	List<NearbyLib> getReturnYnReserveBookList(NearbyLib nearbyLib);
 
+	List<NearbyLib> getReserveListOfDevice(NearbyLib nearbyLib);
+
+	NearbyLib getReserveMemberOne(NearbyLib nearbyLib);
+
+	List<NearbyLib> getReserveMemberOneList(NearbyLib reserveMemberOne);
+
 }
