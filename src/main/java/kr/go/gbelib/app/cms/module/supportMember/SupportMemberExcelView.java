@@ -49,11 +49,13 @@ public class SupportMemberExcelView extends AbstractJExcelView {
 		format3.setBorder(Border.ALL, BorderLineStyle.MEDIUM);
 
 		// 컬럼 폭 지정
-		workbook.getSheet(0).setColumnView(0,  35);
+		workbook.getSheet(0).setColumnView(0,  40);
 		workbook.getSheet(0).setColumnView(1,  40);
+		workbook.getSheet(0).setColumnView(2,  40);
 		
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell(new Label(0, 0, "기관코드(아이디)", format));
-		workbook.getSheet(0).addCell(new Label(1, 0, "기관명(이름)", format));
+		workbook.getSheet(0).addCell(new Label(1, 0, "기관코드(비밀번호)", format));
+		workbook.getSheet(0).addCell(new Label(2, 0, "기관명(이름)", format));
 	}
 }

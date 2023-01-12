@@ -14,6 +14,7 @@ import jxl.read.biff.BiffException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
@@ -135,6 +136,7 @@ public class SupportMemberService extends BaseService {
 		return dao.excelUploadSave(supportMember);
 	}
 
+	@Transactional
 	public int excelUploadSave(MultipartFile mfile) throws BiffException, IOException {
 		try {
 			Workbook workbook = Workbook.getWorkbook(mfile.getInputStream());
@@ -144,13 +146,14 @@ public class SupportMemberService extends BaseService {
 				
 			for(int i = 1; i < rowCount; i++) {
 				String id = (sheet.getCell(0, i).getContents().trim());
-				String name = (sheet.getCell(1, i).getContents().trim());
+				String password = (sheet.getCell(1, i).getContents().trim());
+				String name = (sheet.getCell(2, i).getContents().trim());
 				
 				SupportMember supportMember = new SupportMember();
 				
 				supportMember.setMember_id(id);
 				supportMember.setSchool_name(name);
-				supportMember.setMember_password(CalculateHashUtils.calculateHash(id));
+				supportMember.setMember_password(CalculateHashUtils.calculateHash(password));
 				supportMember.setAdd_id(id);
 				
 				if(dao.memberIdDuplCheck(supportMember) > 0) {
