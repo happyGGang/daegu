@@ -177,6 +177,9 @@ public class NearbyLibService extends BaseService {
 				updateReserve.setTake_term(ReserveConfig.getTake_term());
 				updateReserve.setExpire_date_cnt(ReserveConfig.getExpire_date_cnt());
 				
+				updateReserve.setMod_id(member.getMember_id());
+				updateReserve.setMod_ip(request.getRemoteAddr());
+				
 				result = dao.updateNeighborhoodLibrary(updateReserve);
 				if(result > 0) {
 					res.setMessage("예약확정 되었습니다.");
@@ -216,7 +219,7 @@ public class NearbyLibService extends BaseService {
 					return res;
 				}
 				
-			}else { //이미 예약 확정된 내역이 있다면 비밀번호 동일하게 배정
+			} else { //이미 예약 확정된 내역이 있다면 비밀번호 동일하게 배정
 				neighborhoodLibrary.setTake_term(ReserveConfig.getTake_term());
 				neighborhoodLibrary.setExpire_date_cnt(ReserveConfig.getExpire_date_cnt());
 				neighborhoodLibrary.setLocker_idx(sameReserveOne.getLocker_idx());
@@ -253,7 +256,6 @@ public class NearbyLibService extends BaseService {
 					sms_send.setSms_send_yn("Y");
 					sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 					dao.updateNeighborhoodLibrarySms(sms_send);
-					
 				}else {
 					res.setValid(false);
 					res.setMessage("업데이트에 실패 하였습니다.");

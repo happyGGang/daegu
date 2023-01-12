@@ -171,7 +171,7 @@ $(function() {
 					<th><input type="checkbox" id="checkAll"></th>
 					<th>번호</th>
 					<th>사물함번호</th>
-					<th>큰책유무</th>
+					<th>큰책여부</th>
 					<th>도서명</th>
 					<th>소장도서관</th>
 					<th>등록번호</th>
@@ -223,7 +223,7 @@ $(function() {
 						</td>
 						<td>
 							<select style="width:50px" name="large_book_yn" class="large_book_yn" id="large_book_yn${status.index + 1}" keyValue1="${i.reserve_idx }" keyValue2="${status.index + 1}">
-								<option value="N" <c:if test="${i.large_book_yn eq 'N' }">selected="selected"</c:if>>--</option>
+								<option value="N" <c:if test="${i.large_book_yn eq 'N' }">selected="selected"</c:if>>X</option>
 								<option value="Y" <c:if test="${i.large_book_yn eq 'Y' }">selected="selected"</c:if>>O</option>
 							</select>
 						</td>

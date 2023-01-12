@@ -37,6 +37,9 @@
 					AND RESERVE_STATUS IN ('2','3','5')				
 				</otherwise>
 			</choose>
+			<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+			</if>
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
 	</select>	
@@ -64,6 +67,9 @@
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
 			AND HOMEPAGE_ID = #{homepage_id}
+			</if>
+			<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
@@ -103,6 +109,9 @@
 			<if test="homepage_id != null and homepage_id != ''">
 			AND HOMEPAGE_ID = #{homepage_id}
 			</if>
+			<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+			</if>
 			<choose>
 				<when test='editMode == "todayOut"'>
 					AND RESERVE_STATUS IN ('1','2')
@@ -113,6 +122,9 @@
 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 				</when>
 			</choose>
+			<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX		
 	</select>
@@ -396,12 +408,15 @@
 			,LEND_DATE = SYSDATE
 			,TAKE_TERM = #{take_term}
 			,EXPIRE_DATE_CNT = #{expire_date_cnt}
+			,MOD_ID = #{mod_id}
+			,MOD_IP = #{mod_ip}
+			,MOD_DATE = SYSDATE	
 			<if test="locker_idx != null and locker_idx != ''">
 				, LOCKER_IDX = #{locker_idx}
 			</if>
 			<if test="device_password != null and device_password != ''">
 				, DEVICE_PASSWORD = #{device_password}
-			</if>	
+			</if>
 		</if>
 		<if test='reserve_status == "3"'>
 			<if test="locker_idx != null and locker_idx != ''">
@@ -554,6 +569,9 @@
 			<if test="homepage_id != null and homepage_id != ''">
 			AND HOMEPAGE_ID = #{homepage_id}
 			</if>
+			<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+			</if>
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX	
 		</select>
@@ -575,6 +593,9 @@
 				RESERVE_STATUS IN ('9')
 			<if test="homepage_id != null and homepage_id != ''">
 				AND HOMEPAGE_ID = #{homepage_id}
+			</if>
+			<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
@@ -685,4 +706,28 @@
 				reserve_status = '2'
 			AND device_code = #{device_code}
 		</select>
+		
+		<insert id="nearbyStatusLog">		
+		<selectKey keyProperty="reserve_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(reserve_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_STATUSLOG
+		</selectKey>			
+		INSERT INTO NEIGHBORHOOD_LIBRARY_STATUSLOG
+			(
+				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX,
+				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_NAME, MEMBER_ID, USER_KEY, 
+				MEMBER_NAME, MANAGE_CODE, LIB_NAME ,BOOK_KEY, REG_NO, 
+				BOOK_ISBN, BOOK_NAME, ADD_DATE, ADD_ID, ADD_IP, 
+				CANCEL_YN, SMS_SEND_YN, HOMEPAGE_SEND_TELL, APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT,
+				TAKE_TERM, LARGE_BOOK_YN, RESERVE_END_DATE, RESERVE_START_DATE,
+				CALL_NO, MOD_ID, MOD_IP, MOD_DATE
+			) VALUES (
+				#{homepage_id}, '1', #{device_idx}, #{device_code}, #{reserve_idx},
+				#{reserve_bundle_idx}, #{locker_idx}, #{device_name}, #{member_id}, #{user_key}, 
+				#{member_name}, #{manage_code}, #{lib_name}, #{book_key}, #{reg_no},
+				#{book_isbn}, #{title_info}, SYSDATE, #{member_id}, #{add_ip}, 
+				'N', 'N', #{homepage_send_tell}, #{applicant_cell_phone}, #{expire_date_cnt},
+				#{take_term}, 'N' , TO_DATE(#{reserve_end_date},'yyyy-MM-dd HH24:mi'), TO_DATE(#{reserve_start_date},'yyyy-MM-dd HH24:mi'),
+				#{call_no}, #{mod_id}, #{mod_ip}, SYSDATE 
+			)
+		</insert>
 </mapper>

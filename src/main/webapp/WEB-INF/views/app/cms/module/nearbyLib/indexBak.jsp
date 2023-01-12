@@ -78,7 +78,75 @@ $(function() {
 
 });
 </script>
-
+<style>
+	.status_btn{
+		border-radius: 10px 10px 10px 10px;
+    	color: white;
+    	margin: 0 auto;
+	}
+	.reserve_status1{
+		background-color:#e74e40; 
+		width:50px;
+	}
+	.reserve_status2{
+		background-color:#439bed;
+		width:70px;
+	}
+	.reserve_status3{
+		background-color:#f5a639;
+		width:80px;
+	}
+	.reserve_status4{
+		background-color:#17ad57;
+		width:50px;
+	}
+	.reserve_status5{
+		background-color:#888;
+		width:70px;
+	}
+	.reserve_status6{
+		background-color:#fd7a7ad4;
+		width:70px;
+	}
+	.reserve_status7{
+		background-color:#cc4ae7;
+		width:70px;
+	}
+	.reserve_status8{
+		background-color:#222;
+		width:50px;
+	}
+	.reserve_status9{
+		background-color:#222;
+		width:50px;
+	}
+	.reserve_status10{
+		border: 1px black solid;
+		background-color:white;
+		width:70px;
+		color: black;
+	}
+	.status_info{
+		float: right;
+	    border: #999999a3 1px solid;
+	    border-radius: 15px;
+	    width: 700px;
+	    height: 27px;
+	    text-align: center;
+    	color: white;
+    	padding-bottom: 2px;
+    	
+	}
+	.status_info_all{
+		display: inline-block;
+		border-radius: 10px 10px 10px 10px;
+		margin-top:2px;
+	}
+	
+	table .type1 td{
+		font-size: 12px;
+	}
+</style>
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
 	<form:hidden path="reserve_status"/>
 	<form:hidden path="reserve_idx"/>
@@ -161,14 +229,14 @@ $(function() {
  			<col width="3%" />
  			<col width="8%" />
  			<col width="4%" />
- 			<col width="5%" />
+ 			<col width="4%" />
 			<col width="5%" />
 			<col width="7%" />
 			<col width="7%" />
 			<col width="9%" />
 			<col width="8%" />
 			<col width="8%" />
-			<col width="3%" />
+			<col width="5%" />
 			<col width="7%" />
 			<col width="7%" />
 			<col width="7%" />
@@ -180,14 +248,15 @@ $(function() {
 				<th>사물함</th>
 				<th>비밀번호</th>
 				<th>회원ID</th>
+			<!--<th>큰책여부</th>-->
 				<th>등록번호</th>
 				<th>수령장소</th>
 				<th>도서명</th>
 				<th>신청날짜</th>
 				<th>예약확정시간</th>
-				<th>취소여부</th>
+				<th>취소
 				<th>SMS발송여부</th>
-				<th>대출상태</th>
+				<th style="background-color: #2b74c08a;">대출상태</th>
 				<th>기능</th>				
 			</tr>
 		</thead>
@@ -197,14 +266,26 @@ $(function() {
 					<td>${paging.listRowNum - status.index}</td>				
 					<td>${i.lib_name }</td>
 					<td>
-						<c:choose>
-							<c:when test="${i.locker_idx > 0 }">
-								${i.locker_idx }
-							</c:when>
-							<c:otherwise>
-								-
-							</c:otherwise>
-						</c:choose>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${i.reserve_status eq '2' and (i.locker_idx eq null or i.locker_idx eq '')}"> --%>
+<%-- 								<select class="" style="width:50px" name="locker_each_idx" id="locker_each_idx${status.index + 1}"> --%>
+<!-- 									<option value="0"> --</option> -->
+<%-- 									<c:forEach var="j" items="${lockerList}"> --%>
+<%-- 										<option value="${j.locker_each_idx }" <c:if test="${j.locker_each_idx eq i.locker_idx }">selected="selected"</c:if>>${j.locker_each_idx }</option> --%>
+<%-- 									</c:forEach> --%>
+<!-- 								</select> -->
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> --%>
+								<c:choose>
+									<c:when test="${i.locker_idx > 0 }">
+										${i.locker_idx }
+									</c:when>
+									<c:otherwise>
+										-
+									</c:otherwise>
+								</c:choose>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
 					</td>
 					<td>
 						<c:choose>
@@ -217,6 +298,16 @@ $(function() {
 						</c:choose>
 					</td>
 					<td>${i.member_id }</td>
+<!-- 					<td> -->
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${i.large_book_yn eq 'Y' }"> --%>
+<!-- 							큰책 -->
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+<!-- 							- -->
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+<!-- 					</td> -->
 					<td>${i.reg_no }</td>
 					<td>${i.device_name }</td>
 					<td>${i.book_name }</td>
@@ -234,9 +325,10 @@ $(function() {
 					<td>
 						<c:choose>
 							<c:when test="${i.cancel_yn eq 'Y'}">
-								취소
+								취소됨
 							</c:when>
 							<c:otherwise>
+								-
 							</c:otherwise>					
 						</c:choose>
 					</td>
@@ -250,7 +342,7 @@ $(function() {
 							</c:otherwise>					
 						</c:choose>
 					</td>
-					<td>
+					<td style="background-color: #15ff000f;">
 					<!-- (1:예약신청, 2:대출승인(사물함 배정), 3:사물함투입(배송기사가 사물함에 도서 투입), 4:대출(대출신청자가 도서를 가져감), 5:회수대기(대출자가 책을 가져가지 않아 회수로 바뀜), 6:회수(배송기사가 사물함에서 도서 회수), 7:미승인(취소) -->
 						<c:choose>
 							<c:when test="${i.reserve_status eq '1'}">
@@ -285,7 +377,7 @@ $(function() {
 							</c:when>	
 						</c:choose>
 					</td>
-					<td>
+					<td style="background-color:#f9d9d982;">
 						<c:choose>
 							<c:when test="${i.reserve_status eq '1'}">
 								<!-- 예약상태 -->
@@ -336,7 +428,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${paging.totalDataCount <= 0}">
 				<tr>
-					<td colspan="14">조회된 자료가 없습니다.</td>
+					<td colspan="16">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

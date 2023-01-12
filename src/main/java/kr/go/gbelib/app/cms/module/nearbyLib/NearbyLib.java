@@ -89,6 +89,11 @@ public class NearbyLib extends PagingUtils {
 	private String search_time;
 	private String reserve_status_array;
 	
+	/*상태변경 로그 전용*/
+	private String mod_id; //수정ID
+	private String mod_ip; //수정IP
+	private String mod_date; //수정날짜
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -520,5 +525,23 @@ public class NearbyLib extends PagingUtils {
 	}
 	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
+	}
+	public String getMod_id() {
+		return mod_id;
+	}
+	public void setMod_id(String mod_id) {
+		this.mod_id = mod_id;
+	}
+	public String getMod_ip() {
+		return mod_ip;
+	}
+	public void setMod_ip(String mod_ip) {
+		this.mod_ip = mod_ip;
+	}
+	public String getMod_date() {
+		return mod_date;
+	}
+	public void setMod_date(String mod_date) {
+		this.mod_date = mod_date;
 	}
 }

@@ -3668,7 +3668,18 @@ public class CommonSearchController extends BaseController {
 			neighborhoodLibraryDevice.setDevice_idx(neighborhoodLibrary.getDevice_idx());
 			NearbyLibDevice deviceOne = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);	//장비정보 가져오기		
 
-			neighborhoodLibrary.setHomepage_id(homepage.getHomepage_id());
+			if("AA".equals(neighborhoodLibrary.getManage_code())) {
+				neighborhoodLibrary.setHomepage_id("h1");
+			} else if("AH".equals(neighborhoodLibrary.getManage_code())) {
+				neighborhoodLibrary.setHomepage_id("h5");
+			} else if("CA".equals(neighborhoodLibrary.getManage_code())) {
+				neighborhoodLibrary.setHomepage_id("h45");
+			} else if("CB".equals(neighborhoodLibrary.getManage_code())) {
+				neighborhoodLibrary.setHomepage_id("h45");
+			} else if("BA".equals(neighborhoodLibrary.getManage_code())) {
+				neighborhoodLibrary.setHomepage_id("h46");
+			}
+			
 			neighborhoodLibrary.setDevice_code(deviceOne.getDevice_code());
 			neighborhoodLibrary.setDevice_name(deviceOne.getDevice_name());			
 			neighborhoodLibrary.setAdd_id(member.getMember_id());

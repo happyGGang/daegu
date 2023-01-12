@@ -11,6 +11,12 @@ $(function() {
 		$('#search_nearbyLib').submit();
 	});
 	
+	$('#manage_code').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#search_nearbyLib').submit();
+		e.preventDefault();
+	});
+	
 	$('.reserve_save').on('click',function(e){
 		e.preventDefault();
 		if (!confirm('번호 ' + $(this).attr('keyValue1') + '번을 예약확정 하시겠습니까?')) {
@@ -104,6 +110,25 @@ table .type1 td{
 <%-- 	<form:hidden path="device_idx"/> --%>
 	<div class="">
 			<h3>대출관리(투입/회수목록)</h3><br/>
+			<c:if test="${asideHomepageId eq 'h45'}">
+				도서관 :
+				<form:select id="manage_code" path="manage_code">
+					<form:option value="">전체</form:option>
+					<form:option value="CA">동구통합 안심도서관</form:option>
+					<form:option value="CB">동구통합 신천도서관</form:option>
+				</form:select>
+			</c:if>
+			<c:if test="${asideHomepageId eq 'h90'}">
+				도서관 :
+				<form:select id="manage_code" path="manage_code">
+					<form:option value="">전체</form:option>
+					<form:option value="AA">대구2·28기념학생도서관</form:option>
+					<form:option value="BA">북구구수산도서관</form:option>
+					<form:option value="AH">대구광역시립 동부도서관</form:option>
+					<form:option value="CA">동구통합 안심도서관</form:option>
+					<form:option value="CB">동구통합 신천도서관</form:option>
+				</form:select>
+			</c:if>
 			사물함 명 : 
 			<form:select class="search_device" style="width:300px" path="device_idx">
 				<c:forEach var="i" items="${deviceList}">
@@ -202,7 +227,7 @@ table .type1 td{
 						<tr style="outline:white 1px solid">
 							<th>번호</th>
 							<th>사물함번호</th>
-							<th>큰책유무</th>
+							<th>큰책여부</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
 							<th>등록번호</th>

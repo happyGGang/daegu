@@ -5,7 +5,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
 $(function() {
+	$('select#rowCount').change(function(e) {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+	});
+	
 	$('.selectmenu-search').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#neighborhoodLibrary').submit();
+		e.preventDefault();
+	});
+	
+	$('#manage_code').on('change',function(e){
 		$('#viewPage').val(1);
 		$('#neighborhoodLibrary').submit();
 		e.preventDefault();
@@ -90,7 +101,89 @@ $(function() {
 		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
 	});
 	
+	$('a#excelDownload').on('click', function(e) {
+		$('#neighborhoodLibrary').attr('action', 'excelDownload.do').submit();
+		e.preventDefault();
+	});
+	
 });
+
+function changeStatus(reserve_idx, reserve_status, $this) {
+
+	var reserve_status = reserve_status;
+	var change_status = $this.val();
+	
+	var status = "default message";
+	var changeStatus = "default message";
+	
+	if(reserve_status == '1'){
+		status = "예약";
+	} else if(reserve_status == '2'){
+		status = "예약확정";
+	} else if(reserve_status == '3'){
+		status = "사물함투입";
+	} else if(reserve_status == '4'){
+		status = "대출";
+	} else if(reserve_status == '5'){
+		status = "회수대기";
+	} else if(reserve_status == '6'){
+		status = "회수중";
+	} else if(reserve_status == '7'){
+		status = "회수완료";
+	} else if(reserve_status == '8'){
+		status = "취소";
+	} else if(reserve_status == '9'){
+		status = "반납";
+	} else if(reserve_status == '10'){
+		status = "반납완료";
+	}
+	
+	if(change_status == '1'){
+		changeStatus = "예약";
+	} else if(change_status == '2'){
+		changeStatus = "예약확정";
+	} else if(change_status == '3'){
+		changeStatus = "사물함투입";
+	} else if(change_status == '4'){
+		changeStatus = "대출";
+	} else if(change_status == '5'){
+		changeStatus = "회수대기";
+	} else if(change_status == '6'){
+		changeStatus = "회수중";
+	} else if(change_status == '7'){
+		changeStatus = "회수완료";
+	} else if(change_status == '8'){
+		changeStatus = "취소";
+	} else if(change_status == '9'){
+		changeStatus = "반납";
+	} else if(change_status == '10'){
+		changeStatus = "반납완료";
+	}
+	
+	var ajaxData = {
+		'reserve_idx' : reserve_idx,
+		'reserve_status' : change_status
+	};
+
+	if(confirm(status + '상태를 ' + changeStatus + '상태로 변경하시겠습니까?')){
+		$.ajax({
+			type: "POST",
+			url: 'index.do',
+			data: ajaxData,
+			success: function(response) {
+				if(response.valid) {
+					alert('변경 되었습니다.');
+				} else {
+					alert(response.message);
+				}
+				location.reload();
+			},
+			error : function() {
+				alert('대출상태 변경에 실패했습니다.\n관리자에게 문의해 주세요.');
+			}
+		});
+	}
+}
 </script>
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
 	<form:hidden path="reserve_status"/>
@@ -102,53 +195,68 @@ $(function() {
 </form:form>
 
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do" method="GET">
-<div class="search">
-	장비명 : 
-	<form:select class="selectmenu-search" style="width:300px" path="device_idx">
-		<c:forEach var="j" varStatus="status" items="${deviceList}">
-			<option value="${j.device_idx}" <c:if test="${j.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${j.device_name}</option>
-		</c:forEach>
-	</form:select>
-	
-	대출상태 : 
-	<form:select class="selectmenu-search" style="width:150px;" path="reserve_status">
-		<form:option value="" label="전체"/>
-		<form:option value="1" label="예약"/>
-		<form:option value="2" label="예약확정"/>
-		<form:option value="3" label="사물함투입"/>
-		<form:option value="4" label="대출"/>
-		<form:option value="5" label="회수대기"/>
-		<form:option value="6" label="회수중"/>
-		<form:option value="7" label="회수완료"/>
-		<form:option value="8" label="취소(미승인)"/>
-		<form:option value="9" label="반납"/>
-		<form:option value="10" label="반납완료"/>
-	</form:select>
-	
-	신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
-	<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
-<!-- 	&nbsp;&nbsp;&nbsp; -->
-<%-- 	<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span> --%>
-</div>
-<!-- 	<div class="infodesk"> -->
-<%-- 		<span class="bbs-result">총 게시물 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </b>건</span> --%>
-<%-- 		<span>(페이지 ${paging.viewPage}/${paging.totalPageCount})</span> --%>
-<!-- 	</div> -->
+	<div class="search">
+		검색 결과 : <fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> 건
+		<form:select path="rowCount" class="selectmenu" style="width:150px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="50">50개씩 보기</form:option>
+			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
+		</form:select>
+		<br/>
+		도서관 :
+		<form:select id="manage_code" class="selectmenu" path="manage_code">
+			<form:option value="">전체</form:option>
+			<form:option value="AA">대구2·28기념학생도서관</form:option>
+			<form:option value="BA">북구구수산도서관</form:option>
+			<form:option value="AH">대구광역시립 동부도서관</form:option>
+			<form:option value="CA">동구통합 안심도서관</form:option>
+			<form:option value="CB">동구통합 신천도서관</form:option>
+		</form:select>
+		
+		장비명 : 
+		<form:select class="selectmenu-search" style="width:300px" path="device_idx">
+			<c:forEach var="j" varStatus="status" items="${deviceList}">
+				<option value="${j.device_idx}" <c:if test="${j.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${j.device_name}</option>
+			</c:forEach>
+		</form:select>
+		
+		대출상태 : 
+		<form:select class="selectmenu-search" style="width:150px;" path="reserve_status">
+			<form:option value="" label="전체"/>
+			<form:option value="1" label="예약"/>
+			<form:option value="2" label="예약확정"/>
+			<form:option value="3" label="사물함투입"/>
+			<form:option value="4" label="대출"/>
+			<form:option value="5" label="회수대기"/>
+			<form:option value="6" label="회수중"/>
+			<form:option value="7" label="회수완료"/>
+			<form:option value="8" label="취소(미승인)"/>
+			<form:option value="9" label="반납"/>
+			<form:option value="10" label="반납완료"/>
+		</form:select>
+		
+		신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
+		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
+		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
+	</div>
 	
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
  			<col width="3%" />
- 			<col width="8%" />
- 			<col width="4%" />
+ 			<col width="9%" />
+ 			<col width="3%" />
  			<col width="4%" />
 			<col width="5%" />
-			<col width="3%" />
+			<col width="7%" />
+			<col width="5%" />
 			<col width="7%" />
 			<col width="7%" />
-			<col width="9%" />
-			<col width="8%" />
-			<col width="8%" />
+			<col width="7%" />
+			<col width="5%" />
+			<col width="5%" />
 			<col width="5%" />
 		</colgroup>
 		<thead>
@@ -163,6 +271,7 @@ $(function() {
 				<th>도서명</th>
 				<th>신청날짜</th>
 				<th>예약확정시간</th>
+				<th>취소여부</th>
 				<th>SMS발송여부</th>
 				<th>대출상태</th>
 			</tr>
@@ -209,6 +318,15 @@ $(function() {
 					</td>
 					<td>
 						<c:choose>
+							<c:when test="${i.cancel_yn eq 'Y'}">
+								취소
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>					
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
 							<c:when test="${i.sms_send_yn eq 'Y'}">
 								발송완료
 							</c:when>
@@ -218,51 +336,18 @@ $(function() {
 						</c:choose>
 					</td>
 					<td>
-						<c:choose>
-							<c:when test="${i.reserve_status eq '1'}">
-								<!-- 예약상태 -->
-								<c:choose>
-									<c:when test="${nowLocker > 0 }">
-										<a href="#" class="btn reserve_save"  keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="2" keyValue3="${i.reserve_bundle_idx }" keyValue4="${i.device_idx}" keyValue5="${i.device_code }" keyValue6="${i.reserve_idx }">예약확정</a>
-										<a href="#" class="btn reserve_cancel" keyValue1="${i.reserve_idx}" keyValue2="8"  keyValue3="${i.device_idx }" keyValue4="${i.device_code}">관리자취소</a>
-									</c:when>
-									<c:when test="${nowLocker <= 0 }">
-									</c:when>
-								</c:choose>
-							</c:when>
-							<c:when test="${i.reserve_status eq '2'}">
-								<!-- 예약확정상태 -->
-								<%-- <a href="#" class="btn reserve_edit"  style="background-color:#f5a639; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="3" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }" keyValue7="${status.index + 1}" keyValue8="${i.locker_idx }">사물함투입</a> --%>
-								<a href="#" class="btn reserve_cancel" keyValue1="${i.reserve_idx}" keyValue2="8"  keyValue3="${i.device_idx }" keyValue4="${i.device_code}">관리자취소</a>
-							</c:when>
-							<c:when test="${i.reserve_status eq '3'}">
-								<!-- 사물함투입상태 -->
-								<%-- <a href="#" class="btn reserve_edit" style="background-color:#17ad57; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="4" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">대출</a> --%>
-								<%-- <a href="#" class="btn reserve_edit" style="background-color:#888; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="5" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">회수대기</a> --%>
-							</c:when>
-							<c:when test="${i.reserve_status eq '4'}">
-								<!-- 대출상태 -->
-								
-							</c:when>
-							<c:when test="${i.reserve_status eq '5'}">
-								<!-- 회수대기상태(기간내에 회원이 책을 가져가지 않은 도서) -->
-								<%-- <a href="#" class="btn reserve_edit" style="background-color:#fd7a7ad4; color:white; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="6" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">회수중</a> --%>
-							</c:when>
-							<c:when test="${i.reserve_status eq '6'}">
-								<!-- 배송기사가 도서를 회수 한 상태 -->
-								<a href="#" class="btn reserve_edit" keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="7" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">회수완료</a>
-							</c:when>
-							<c:when test="${i.reserve_status eq '7'}">
-								<!-- 배송기사가 도서를 도서관에 반납 한 상태 -->
-							</c:when>
-							<c:when test="${i.reserve_status eq '8'}">
-								<!-- 취소된 상태 -->
-							</c:when>
-							<c:when test="${i.reserve_status eq '9'}">
-								<!-- 반납된 상태 -->
-								<a href="#" class="btn reserve_edit" keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="10" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">반납완료</a>
-							</c:when>
-						</c:choose>	
+						<form:select path="reserve_status" cssClass="selectmenu" onchange="changeStatus('${i.reserve_idx}', '${i.reserve_status}', $(this));">
+							<option value="1" <c:if test="${i.reserve_status eq '1'}">selected</c:if>>예약</option>
+							<option value="2" <c:if test="${i.reserve_status eq '2'}">selected</c:if>>예약확정</option>
+							<option value="3" <c:if test="${i.reserve_status eq '3'}">selected</c:if>>사물함투입</option>
+							<option value="4" <c:if test="${i.reserve_status eq '4'}">selected</c:if>>대출</option>
+							<option value="5" <c:if test="${i.reserve_status eq '5'}">selected</c:if>>회수대기</option>
+							<option value="6" <c:if test="${i.reserve_status eq '6'}">selected</c:if>>회수중</option>
+							<option value="7" <c:if test="${i.reserve_status eq '7'}">selected</c:if>>회수완료</option>
+							<option value="8" <c:if test="${i.reserve_status eq '8'}">selected</c:if>>취소</option>
+							<option value="9" <c:if test="${i.reserve_status eq '9'}">selected</c:if>>반납</option>
+							<option value="10"<c:if test="${i.reserve_status eq '10'}">selected</c:if>>반납완료</option>
+						</form:select>
 					</td>					
 				</tr>					
 			</c:forEach>
@@ -274,22 +359,37 @@ $(function() {
 		</tbody>
 	</table>
 	
+	<select id="statusAll" class="selectmenu">
+		<option value="">상태전체</option>
+		<option value="1">예약</option>   
+		<option value="2">예약확정</option> 
+		<option value="3">사물함투입</option>
+		<option value="4">대출</option>   
+		<option value="5">회수대기</option> 
+		<option value="6">회수중</option>
+		<option value="7">회수완료</option> 
+		<option value="8">취소</option>   
+		<option value="9">반납</option>   
+		<option value="10">반납완료</option>
+	</select>
+	<a href="#" id="status-change" class="btn btn1">선택상태변경</a>
+	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#neighborhoodLibrary"/>
 	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;">
-	<fieldset>
-		<form:select path="search_type" cssClass="selectmenu">
-			<form:option value="member_id">신청자아이디</form:option>
-			<form:option value="reg_no">대출번호</form:option>
-			<form:option value="member_name">신청자명</form:option>
-			<form:option value="book_name">도서명</form:option>
-		</form:select>
-		<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-		<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-	</fieldset>
-</div>
+		<fieldset>
+			<form:select path="search_type" cssClass="selectmenu">
+				<form:option value="member_id">신청자아이디</form:option>
+				<form:option value="reg_no">대출번호</form:option>
+				<form:option value="member_name">신청자명</form:option>
+				<form:option value="book_name">도서명</form:option>
+			</form:select>
+			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		</fieldset>
+	</div>
 </form:form>
 
 <div class="ui-state-highlight">

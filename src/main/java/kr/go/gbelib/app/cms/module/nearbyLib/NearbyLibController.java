@@ -307,7 +307,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/use_edit.*"})
+	@RequestMapping(value = {"/nearbyLibControll/use_edit.*"})
 	public String use_edit(Model model, NearbyLibLocker neighborhoodLibraryLocker, HttpServletRequest request) {
 		NearbyLibDevice neighborhoodLibraryDevice = new NearbyLibDevice();
 		neighborhoodLibraryDevice.setDevice_idx(neighborhoodLibraryLocker.getDevice_idx());
@@ -325,7 +325,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/locker_each_edit.*"})
+	@RequestMapping(value = {"/nearbyLibControll/locker_each_edit.*"})
 	public @ResponseBody JsonResponse locker_edit(Model model, NearbyLibLocker neighborhoodLibraryLocker, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		ValidationUtils.rejectIfEmpty(result, "locker_idx", "사물함IDX를 가져오는데 실패하였습니다.");
@@ -384,11 +384,15 @@ public class NearbyLibController extends BaseController {
 			if(deviceList.size() > 0) {
 				nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
 				searchInToday.setDevice_idx(deviceList.get(0).getDevice_idx());
+				searchInToday.setManage_code(nearbyLib.getManage_code());
 				searchOutToday.setDevice_idx(deviceList.get(0).getDevice_idx());
+				searchOutToday.setManage_code(nearbyLib.getManage_code());
 			}
 		}else {
 			searchInToday.setDevice_idx(nearbyLib.getDevice_idx());
+			searchInToday.setManage_code(nearbyLib.getManage_code());
 			searchOutToday.setDevice_idx(nearbyLib.getDevice_idx());
+			searchOutToday.setManage_code(nearbyLib.getManage_code());
 		}
 		
 		searchInToday.setEditMode("todayIn");
