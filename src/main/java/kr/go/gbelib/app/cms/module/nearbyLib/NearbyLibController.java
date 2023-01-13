@@ -308,11 +308,10 @@ public class NearbyLibController extends BaseController {
 	 */
 	
 	@RequestMapping(value = {"/nearbyLibControll/use_edit.*"})
-	public String use_edit(Model model, NearbyLibLocker neighborhoodLibraryLocker, HttpServletRequest request) {
+	public String use_edit(Model model, NearbyLibLocker nearbyLocker, HttpServletRequest request) {
 		NearbyLibDevice neighborhoodLibraryDevice = new NearbyLibDevice();
-		neighborhoodLibraryDevice.setDevice_idx(neighborhoodLibraryLocker.getDevice_idx());
+		neighborhoodLibraryDevice.setDevice_idx(nearbyLocker.getDevice_idx());
 		neighborhoodLibraryDevice = deviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);
-		model.addAttribute("locker", neighborhoodLibraryLocker);
 		model.addAttribute("device", neighborhoodLibraryDevice);
 		return basePath + "nearbyLibLocker/use_edit_ajax";
 	}

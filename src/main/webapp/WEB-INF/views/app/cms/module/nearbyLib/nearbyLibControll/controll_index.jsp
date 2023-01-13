@@ -288,5 +288,3 @@ $(function() {
 	</div>
 </form:form>
 
-<div id="dialog-1" class="dialog-common" title="사물함 사용중지 설정"></div>
-

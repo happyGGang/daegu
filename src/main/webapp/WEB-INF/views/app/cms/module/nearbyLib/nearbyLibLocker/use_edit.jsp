@@ -69,7 +69,7 @@ $(function() {
 	        </tr>
 			<tr>
 	         	<th>사물함번호</th>
-	         	<td>${locker.locker_each_idx }</td>
+	         	<td>${nearbyLibLocker.locker_each_idx }</td>
 	        </tr>	        
 	        <tr>
 	         	<th>사용중지 사유</th>

@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
 	
@@ -18,7 +17,7 @@ $(function() {
 	});
 	
 	$('a.use_locker').on('click',function(e){
-		if (confirm($(this).attr('keyValue2') + '번 사물함을 사용하시겠습니까?')) {
+		if (confirm($(this).attr('keyValue3') + '번 사물함을 사용하시겠습니까?')) {
 			$('#lockerUseEdit #use_yn').val('Y');
 			$('#lockerUseEdit #locker_idx').val($(this).attr('keyValue2'));
 			if(doAjaxPost($('#lockerUseEdit'))) {
