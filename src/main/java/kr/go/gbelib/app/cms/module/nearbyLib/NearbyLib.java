@@ -94,6 +94,8 @@ public class NearbyLib extends PagingUtils {
 	private String mod_ip; //수정IP
 	private String mod_date; //수정날짜
 	
+	private String toBeExported; //반출예정목록 조회 버튼
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -543,5 +545,11 @@ public class NearbyLib extends PagingUtils {
 	}
 	public void setMod_date(String mod_date) {
 		this.mod_date = mod_date;
+	}
+	public String getToBeExported() {
+		return toBeExported;
+	}
+	public void setToBeExported(String toBeExported) {
+		this.toBeExported = toBeExported;
 	}
 }

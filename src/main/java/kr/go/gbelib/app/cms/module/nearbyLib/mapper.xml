@@ -60,16 +60,27 @@
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				1=1
-			AND DEVICE_IDX = #{device_idx}	
+			<if test="device_idx != null and device_idx != ''">
+				AND DEVICE_IDX = #{device_idx}
+			</if>
 			<if test="reserve_status != null and reserve_status != ''">
 				AND RESERVE_STATUS = #{reserve_status}
 				AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
-			AND HOMEPAGE_ID = #{homepage_id}
+				AND HOMEPAGE_ID = #{homepage_id}
 			</if>
 			<if test="manage_code != null and manage_code != ''">
-			AND manage_code = #{manage_code}
+				AND manage_code = #{manage_code}
+			</if>
+			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+				AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+			</if>
+	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND ${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+			<if test="toBeExported != null and toBeExported != ''">
+				AND TO_DATE(add_date,'yyyy-MM-dd HH24:mi') BETWEEN #{start_date} AND #{end_date}
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
@@ -102,15 +113,23 @@
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				1=1
-			AND DEVICE_IDX = #{device_idx}
+			<if test="device_idx != null and device_idx != ''">
+				AND DEVICE_IDX = #{device_idx}
+			</if>
 			<if test="reserve_status != null and reserve_status != ''">
 				AND RESERVE_STATUS = #{reserve_status}
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
-			AND HOMEPAGE_ID = #{homepage_id}
+				AND HOMEPAGE_ID = #{homepage_id}
 			</if>
 			<if test="manage_code != null and manage_code != ''">
-			AND manage_code = #{manage_code}
+				AND manage_code = #{manage_code}
+			</if>
+			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+				AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+			</if>
+	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND ${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			<choose>
 				<when test='editMode == "todayOut"'>
@@ -298,6 +317,7 @@
 								WHERE
 									1=1
 								AND LOCKER_IDX = #{locker_idx}
+								AND DEVICE_CODE = #{device_code}
 								AND RESERVE_STATUS = #{reserve_status})
 	</select>
 	
@@ -627,7 +647,6 @@
 			WHERE
 				TO_CHAR(TO_DATE(expire_date, 'yyyy-MM-dd'), 'yyyy/MM/dd') = TO_CHAR(TO_DATE(#{expire_date}, 'yyyy-MM-dd'), 'yyyy/MM/dd')
 			AND device_code = #{device_code}
-			AND reserve_status in ('3')
 			ORDER BY
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX;
 		</select>

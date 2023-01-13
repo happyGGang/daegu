@@ -74,9 +74,47 @@ $(function() {
 			$('#dialog-1').dialog('open');
 		});
 		e.preventDefault();
-	});	
+	});
+	
+	$('input#start_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		maxDate: $('input#end_date').val(), 
+		onClose: function(selectedDate){
+			$('input#end_date').datepicker('option', 'minDate', selectedDate);
+		}
+	}).datepicker('setDate', '${nearbyLib.start_date}');
+	$('input#end_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		minDate: $('input#start_date').val(), 
+		onClose: function(selectedDate){
+			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
+		}
+	}).datepicker('setDate', '${nearbyLib.end_date}');
 
+	$('#searchBtn').on('click', function(e) {
+		e.preventDefault();
+		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+	});
+	
 });
+
+function toBeExported() {
+	var ajaxData = {
+		'toBeExported' : 'Y'
+	};
+
+	$.ajax({
+		type: "GET",
+		url: 'index.do',
+		data: ajaxData,
+		success: function(response) {
+			location.reload();
+		},
+		error : function() {
+			alert('반출예정목록 조회에 실패했습니다.\n관리자에게 문의해 주세요.');
+		}
+	});
+}
 </script>
 
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
@@ -111,9 +149,10 @@ $(function() {
 			</c:if>
 			장비명 : 
 			<form:select class="selectmenu-search" style="width:300px" path="device_idx">
-				<c:forEach var="j" varStatus="status" items="${deviceList}">
-					<option value="${j.device_idx}" <c:if test="${j.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${j.device_name}</option>
-				</c:forEach>
+				<form:option value="0">전체</form:option>
+				<form:option value="1">연경CGV</form:option>
+				<form:option value="2">이시아MEGABOX</form:option>
+				<form:option value="3">반야월이마트</form:option>
 			</form:select>
 			대출상태 : 
 			<form:select class="selectmenu-search" style="width:150px;" path="reserve_status">
@@ -129,8 +168,13 @@ $(function() {
 				<form:option value="9" label="반납"/>
 				<form:option value="10" label="반납완료"/>
 			</form:select>
+			신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
+			<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
+			<button onclick="toBeExported()" class="btn btn1"><span>반출예정목록</span></button>
 			&nbsp;&nbsp;&nbsp;
-			<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>
+			<c:if test="${not empty nowLocker}">
+				<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>
+			</c:if>
 	</div>
 <!-- 	<div class="status_info"> -->
 <!-- 		<p class="status_info_all reserve_status1">예약</p>  -->

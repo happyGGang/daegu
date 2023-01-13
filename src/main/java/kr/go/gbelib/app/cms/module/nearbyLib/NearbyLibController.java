@@ -70,8 +70,59 @@ public class NearbyLibController extends BaseController {
 		if(!"h90".equals(homepage_id)) {
 			nearbyLib.setHomepage_id(homepage_id);
 		}
-		if(nearbyLib.getDevice_idx() == 0) {
-			nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
+		
+		if(nearbyLib.getDevice_idx() > 0) {
+			/*현재 사용 가능한 사물함의 갯수 뽑아오기*/
+			NearbyLibLocker nearbyLibLocker = new NearbyLibLocker();
+			nearbyLibLocker.setDevice_idx(nearbyLib.getDevice_idx());
+			nearbyLibLocker.setEditMode("canUseLocker");
+			List<NearbyLibLocker> lockerOneList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //현재 선택된 장비에 등록된 사물함리스트
+			List<NearbyLib> useList = service.getNeighborhoodLibraryList(nearbyLib); //현재 선택된 장비를 쓰고있는 예약리스트
+			for(int i = 0; i < lockerOneList.size();) {
+				for(int j = 0; j < useList.size();) {
+					if(lockerOneList.get(i).getLocker_each_idx() == useList.get(j).getLocker_idx()) {
+						lockerOneList.remove(i);
+						i = 0;
+						j = 0;
+						continue;
+					}
+					j++;
+				}
+				i++;
+			}
+			
+			int nowLocker = lockerOneList.size();
+			
+			
+			List<NearbyLibLocker> lockerList= new ArrayList<NearbyLibLocker>();
+			List<NearbyLib> neighborhoodLibraryList = new ArrayList<NearbyLib>();
+			/*사물함 배정 시 사용 가능한 사물함 번호 목록 뽑기, 변수명 : lockerList*/
+			nearbyLibLocker.setEditMode("canUseLocker"); //사용중지 사물함은 제외
+			lockerList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //선택된 디바이스에 등록된 사물함 개별정보 불러오기(사물함 총 갯수별 번호, 사용중인지 미사용중인지)
+			if(lockerList.size() > 0) {
+				lockerList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //선택된 디바이스에 등록된 사물함 개별정보 불러오기(사물함 총 갯수별 번호, 사용중인지 미사용중인지)
+				if(lockerList.size() > 0) {
+					nearbyLib.setDevice_idx(nearbyLibLocker.getDevice_idx());
+					nearbyLib.setEditMode("lockerEmptycheck");
+					neighborhoodLibraryList = service.getNeighborhoodLibraryList(nearbyLib); //장비에 예약된 예약목록 가져오기
+
+				}
+			}
+			for(int i = 0 ; i < lockerList.size();) { //이미 배정되거나 사용중인 사물함은 뺀다 (사물함 선택해서 배정하는 용도 - select)
+				for(int j = 0 ; j < neighborhoodLibraryList.size();) {
+					if(lockerList.get(i).getLocker_each_idx() == neighborhoodLibraryList.get(j).getLocker_idx()) {
+						lockerList.remove(i);
+						i = 0;
+						j = 0;
+						continue;
+					}
+					j++;
+				}
+				i++;
+			}
+			
+			model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
+			model.addAttribute("nowLocker", nowLocker);
 		}
 //		List<nearbyLibLocker2> lockerOneList = lockerService.getnearbyLibLockerEachOneList(nearbyLibLocker);//사물함 번호&갯수 가져오기		
 //		List<NeighborhoodLibrary2> usedLockerList = service.getNeighborhoodLibraryList(neighborhoodLibrary); //사물함을 사용하는 예약 내역만 가져오기 
@@ -79,59 +130,8 @@ public class NearbyLibController extends BaseController {
 		int count = service.getNeighborhoodLibraryCount(nearbyLib);
 		nearbyLib.setTotalDataCount(count);
 		
-		/*현재 사용 가능한 사물함의 갯수 뽑아오기*/
-		NearbyLibLocker nearbyLibLocker = new NearbyLibLocker();
-		nearbyLibLocker.setDevice_idx(nearbyLib.getDevice_idx());
-		nearbyLibLocker.setEditMode("canUseLocker");
-		List<NearbyLibLocker> lockerOneList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //현재 선택된 장비에 등록된 사물함리스트
-		List<NearbyLib> useList = service.getNeighborhoodLibraryList(nearbyLib); //현재 선택된 장비를 쓰고있는 예약리스트
-		for(int i = 0; i < lockerOneList.size();) {
-			for(int j = 0; j < useList.size();) {
-				if(lockerOneList.get(i).getLocker_each_idx() == useList.get(j).getLocker_idx()) {
-					lockerOneList.remove(i);
-					i = 0;
-					j = 0;
-					continue;
-				}
-				j++;
-			}
-			i++;
-		}
-		
-		int nowLocker = lockerOneList.size();
-		
-		
-		List<NearbyLibLocker> lockerList= new ArrayList<NearbyLibLocker>();
-		List<NearbyLib> neighborhoodLibraryList = new ArrayList<NearbyLib>();
-		/*사물함 배정 시 사용 가능한 사물함 번호 목록 뽑기, 변수명 : lockerList*/
-		nearbyLibLocker.setEditMode("canUseLocker"); //사용중지 사물함은 제외
-		lockerList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //선택된 디바이스에 등록된 사물함 개별정보 불러오기(사물함 총 갯수별 번호, 사용중인지 미사용중인지)
-		if(lockerList.size() > 0) {
-			lockerList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //선택된 디바이스에 등록된 사물함 개별정보 불러오기(사물함 총 갯수별 번호, 사용중인지 미사용중인지)
-			if(lockerList.size() > 0) {
-				nearbyLib.setDevice_idx(nearbyLibLocker.getDevice_idx());
-				nearbyLib.setEditMode("lockerEmptycheck");
-				neighborhoodLibraryList = service.getNeighborhoodLibraryList(nearbyLib); //장비에 예약된 예약목록 가져오기
-
-			}
-		}
-		for(int i = 0 ; i < lockerList.size();) { //이미 배정되거나 사용중인 사물함은 뺀다 (사물함 선택해서 배정하는 용도 - select)
-			for(int j = 0 ; j < neighborhoodLibraryList.size();) {
-				if(lockerList.get(i).getLocker_each_idx() == neighborhoodLibraryList.get(j).getLocker_idx()) {
-					lockerList.remove(i);
-					i = 0;
-					j = 0;
-					continue;
-				}
-				j++;
-			}
-			i++;
-		}
-		
 		service.setPaging(model, count, nearbyLib);
 		
-		model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
-		model.addAttribute("nowLocker", nowLocker);
 		model.addAttribute("deviceList", deviceList);
 		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));		
 		model.addAttribute("nearbyLib", nearbyLib);
@@ -277,7 +277,7 @@ public class NearbyLibController extends BaseController {
 				lockerList.put("locker_each_idx", lockerOneList.get(i).getLocker_each_idx());
 				lockerList.put("use_yn", lockerOneList.get(i).getUse_yn());
 				lockerList.put("unused_reason", lockerOneList.get(i).getUnused_reason());
-				lockerEachList.put("no" + (i+1), lockerList);
+				lockerEachList.put("no" + (lockerOneList.get(i).getLocker_each_idx()), lockerList);
 			}
 		}
 		
