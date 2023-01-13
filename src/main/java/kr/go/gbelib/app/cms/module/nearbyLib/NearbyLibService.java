@@ -1744,6 +1744,9 @@ public class NearbyLibService extends BaseService {
 						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getExpire_date())) {
 							resultMapList.put("expire_date", reserveListOfDevice.get(i).getExpire_date());
 						}
+						if(StringUtils.isNotEmpty(reserveListOfDevice.get(i).getExpire_date())) {
+							resultMapList.put("user_no", reserveListOfDevice.get(i).getUser_no());
+						}
 						
 						resultList.add(i, resultMapList);
 					}
