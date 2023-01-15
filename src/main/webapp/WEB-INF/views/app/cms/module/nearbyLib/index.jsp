@@ -17,6 +17,12 @@ $(function() {
 		e.preventDefault();
 	});
 
+	$('#getToBeExported').on('click',function(e){
+		$('input#toBeExported').val('Y');
+		$('#neighborhoodLibrary').attr('action', 'index.do');
+		doGetLoad('index.do', serializeCustom($('#neighborhoodLibrary')));
+	});
+
 	$('.reserve_save').on('click',function(e){
 		e.preventDefault();
 		if (!confirm('번호 ' + $(this).attr('keyValue1') + '번을 예약확정 하시겠습니까?')) {
@@ -97,24 +103,6 @@ $(function() {
 	});
 	
 });
-
-function toBeExported() {
-	var ajaxData = {
-		'toBeExported' : 'Y'
-	};
-
-	$.ajax({
-		type: "GET",
-		url: 'index.do',
-		data: ajaxData,
-		success: function(response) {
-			location.reload();
-		},
-		error : function() {
-			alert('반출예정목록 조회에 실패했습니다.\n관리자에게 문의해 주세요.');
-		}
-	});
-}
 </script>
 
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
@@ -126,7 +114,8 @@ function toBeExported() {
 	<form:hidden path="locker_each_idx"/>
 </form:form>
 
-<form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do" method="GET">
+<form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do" method="POST">
+<form:hidden path="toBeExported" value=""/>
 	<div class="search">
 			<c:if test="${asideHomepageId eq 'h45'}">
 				도서관 :
@@ -170,7 +159,7 @@ function toBeExported() {
 			</form:select>
 			신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
 			<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
-			<button onclick="toBeExported()" class="btn btn1"><span>반출예정목록</span></button>
+			<button id="getToBeExported" class="btn btn1"><span>반출예정목록</span></button>
 			&nbsp;&nbsp;&nbsp;
 			<c:if test="${not empty nowLocker}">
 				<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>

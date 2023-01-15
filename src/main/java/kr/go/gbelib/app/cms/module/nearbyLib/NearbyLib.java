@@ -96,6 +96,9 @@ public class NearbyLib extends PagingUtils {
 	
 	private String toBeExported; //반출예정목록 조회 버튼
 	
+	private int[] reserve_idx_in_arr;
+	private int[] reserve_idx_out_arr;
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -552,4 +555,17 @@ public class NearbyLib extends PagingUtils {
 	public void setToBeExported(String toBeExported) {
 		this.toBeExported = toBeExported;
 	}
+	public int[] getReserve_idx_in_arr() {
+		return reserve_idx_in_arr;
+	}
+	public void setReserve_idx_in_arr(int[] reserve_idx_in_arr) {
+		this.reserve_idx_in_arr = reserve_idx_in_arr;
+	}
+	public int[] getReserve_idx_out_arr() {
+		return reserve_idx_out_arr;
+	}
+	public void setReserve_idx_out_arr(int[] reserve_idx_out_arr) {
+		this.reserve_idx_out_arr = reserve_idx_out_arr;
+	}
+	
 }

@@ -1768,4 +1768,8 @@ public class NearbyLibService extends BaseService {
 		return result;
 	}
 
+	public List<NearbyLib> getNearByLibReserveList(NearbyLib nearbyLib) {
+		return dao.getNearByLibReserveList(nearbyLib);
+	}
+
 }

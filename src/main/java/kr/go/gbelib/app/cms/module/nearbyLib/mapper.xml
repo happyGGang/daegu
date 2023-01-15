@@ -17,7 +17,9 @@
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				1=1
-			AND DEVICE_IDX = #{device_idx}
+			<if test="device_idx != null and device_idx != ''">
+				AND DEVICE_IDX = #{device_idx}
+			</if>
 			<choose>
 				<when test='editMode == "lockerEmptycheck"'>
 					AND RESERVE_STATUS IN ('1','2','3','5')
@@ -40,8 +42,16 @@
 			<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
 			</if>
-			ORDER BY 
-				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+			<choose>
+				<when test='editMode == "todayIn"'>
+					ORDER BY 
+					RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+				</when>
+				<otherwise>
+					ORDER BY 
+					ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
+				</otherwise>
+			</choose>
 	</select>	
 
 	<select id="getNeighborhoodLibraryListAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
@@ -80,7 +90,7 @@
 				AND ${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			<if test="toBeExported != null and toBeExported != ''">
-				AND TO_DATE(add_date,'yyyy-MM-dd HH24:mi') BETWEEN #{start_date} AND #{end_date}
+				AND TO_DATE(add_date,'yyyy-MM-dd HH24:mi') BETWEEN TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd'),'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd') + 1,'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss')
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
@@ -143,6 +153,9 @@
 			</choose>
 			<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
+			</if>
+			<if test="toBeExported != null and toBeExported != ''">
+				AND TO_DATE(add_date,'yyyy-MM-dd HH24:mi') BETWEEN TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd'),'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd') + 1,'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss')
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX		
@@ -750,4 +763,33 @@
 				#{call_no}, #{mod_id}, #{mod_ip}, SYSDATE 
 			)
 		</insert>
+		
+		<select id="getNearByLibReserveList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+			SELECT
+				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+				CALL_NO
+			FROM
+				NEIGHBORHOOD_LIBRARY_RESERVE
+			WHERE
+				reserve_idx IN
+			<if test="reserve_idx_out_arr != null and reserve_idx_out_arr != ''">
+				<foreach collection="reserve_idx_out_arr" item="i" open="(" close=")" separator=",">
+				${i}
+				</foreach>
+			</if>
+			<if test="reserve_idx_in_arr != null and reserve_idx_in_arr != ''">
+				<foreach collection="reserve_idx_in_arr" item="i" open="(" close=")" separator=",">
+				${i}
+				</foreach>
+			</if>
+			ORDER BY 
+				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
+	</select>	
 </mapper>

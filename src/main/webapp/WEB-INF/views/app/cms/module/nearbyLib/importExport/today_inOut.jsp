@@ -4,11 +4,23 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
+function checkOutAll($this) { 
+	$('input:checkbox[name=reserve_idx_out_arr]').prop('checked', $this.is(':checked'));
+}
+function checkInAll($this) { 
+	$('input:checkbox[name=reserve_idx_in_arr]').prop('checked', $this.is(':checked'));
+}
 $(function() {
 	$('.search_device').on('change',function(e){
 		e.preventDefault();	 
 		$('#device_idx').val($('.search_device option:selected').val());
 		$('#search_nearbyLib').submit();
+	});
+	
+	$('.selectmenu-search').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#search_nearbyLib').submit();
+		e.preventDefault();
 	});
 	
 	$('#manage_code').on('change',function(e){
@@ -75,6 +87,56 @@ $(function() {
 		e.preventDefault();
 	});	
 });
+
+function statusChangeOut() {
+	if($('input:checkbox[name=reserve_idx_out_arr]:checked').length < 1) {
+		alert('처리할 반출목록을 선택해 주세요.');
+	} else {
+		if(confirm('일괄처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'statusChange.do',
+				data: $('input[name=reserve_idx_out_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('일괄처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('일괄처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
+
+function statusChangeIn() {
+	if($('input:checkbox[name=reserve_idx_in_arr]:checked').length < 1) {
+		alert('처리할 반입목록을 선택해 주세요.');
+	} else {
+		if(confirm('일괄처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'statusChange.do',
+				data: $('input[name=reserve_idx_in_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('일괄처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('일괄처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
 </script>
 <style>
 .locker_wrap_left{
@@ -112,7 +174,7 @@ table .type1 td{
 			<h3>대출관리(투입/회수목록)</h3><br/>
 			<c:if test="${asideHomepageId eq 'h45'}">
 				도서관 :
-				<form:select id="manage_code" path="manage_code">
+				<form:select id="manage_code" path="manage_code" class="selectmenu">
 					<form:option value="">전체</form:option>
 					<form:option value="CA">동구통합 안심도서관</form:option>
 					<form:option value="CB">동구통합 신천도서관</form:option>
@@ -120,7 +182,7 @@ table .type1 td{
 			</c:if>
 			<c:if test="${asideHomepageId eq 'h90'}">
 				도서관 :
-				<form:select id="manage_code" path="manage_code">
+				<form:select id="manage_code" path="manage_code" class="selectmenu">
 					<form:option value="">전체</form:option>
 					<form:option value="AA">대구2·28기념학생도서관</form:option>
 					<form:option value="BA">북구구수산도서관</form:option>
@@ -130,16 +192,19 @@ table .type1 td{
 				</form:select>
 			</c:if>
 			사물함 명 : 
-			<form:select class="search_device" style="width:300px" path="device_idx">
-				<c:forEach var="i" items="${deviceList}">
-					<option value="${i.device_idx}"<c:if test="${i.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${i.device_name}</option>
-				</c:forEach>
+			<form:select class="selectmenu-search" style="width:300px" path="device_idx">
+				<form:option value="0">전체</form:option>
+				<form:option value="1">연경CGV</form:option>
+				<form:option value="2">이시아MEGABOX</form:option>
+				<form:option value="3">반야월이마트</form:option>
 			</form:select>
 		</div>
+		<h2 style="text-align:center; font-weight:bold;">${start_time} ~ ${end_time }</h2>
 	<div style="width:100%; height:100%;">
 		<div class="locker_wrap_left">
 			<table class="type1 center">
 					<colgroup>
+						<col width="30" />
 						<col width="30" />
 						<col width="60" />
 						<col width="100" />
@@ -154,12 +219,12 @@ table .type1 td{
 					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="11" style="height: 36px;">
-							반출 목록<br/>
-							${start_time} ~ ${end_time }
+							<th colspan="12" style="height: 36px;">
+							반출 목록
 							</th>						
 						</tr>
 						<tr style="outline:white 1px solid">
+							<th><input type="checkbox" id="checkboxOut" onchange="checkOutAll($(this));"></th>
 							<th>번호</th>
 							<th>사물함번호</th>
 							<th>예약번호</th>
@@ -177,6 +242,11 @@ table .type1 td{
 						<c:if test="${outCount > 0}">
 						<c:forEach var="j" items="${outList}" varStatus="status">
 							<tr>
+								<td>
+									<c:if test="${j.reserve_status eq '1'}">
+										<form:checkbox path="reserve_idx_out_arr" value="${j.reserve_idx}"/>
+									</c:if>
+								</td>
 								<td>${outCount - status.index}</td>
 								<td>${j.locker_idx}</td>
 								<td>${j.pk}</td>
@@ -190,6 +260,7 @@ table .type1 td{
 								<td>
 									<c:if test="${j.reserve_status eq '1'}">
 										<a href="#" class="btn reserve_save" keyValue1="${outCount - status.index}" keyValue2="2" keyValue3="${j.reserve_bundle_idx }" keyValue4="${j.device_idx}" keyValue5="${j.device_code }" keyValue6="${j.reserve_idx }">예약확정</a>
+										<a href="#" class="btn reserve_cancel" style="background-color: #222; color:white;" keyValue1="${j.reserve_idx}" keyValue2="8"  keyValue3="${j.device_idx }" keyValue4="${j.device_code}">취소</a>
 									</c:if>
 									<c:if test="${j.reserve_status eq '2'}">
 										<p>예약확정</p>
@@ -200,15 +271,17 @@ table .type1 td{
 						</c:if>
 						<c:if test="${outCount <= 0 }">
 							<tr>
-								<td colspan=10>반출 데이터가 존재하지 않습니다.</td>
+								<td colspan=12>반출 데이터가 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
 					</tbody>
 				</table>
+				<a href="javascript:void(0)" id="status-change_out" onclick="statusChangeOut()" class="btn btn1" style="margin-left:93%;">확인</a>
 		</div>
 		<div class="locker_wrap_right">
 			<table class="type1 center">
 					<colgroup>
+						<col width="30" />
 						<col width="30" />
 						<col width="60" />
 						<col width="100" />
@@ -222,9 +295,10 @@ table .type1 td{
 					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="11" style="height: 36px;">반입 목록</th>						
+							<th colspan="12" style="height: 36px;">반입 목록</th>						
 						</tr>
 						<tr style="outline:white 1px solid">
+							<th><input type="checkbox" id="checkboxIn" onchange="checkInAll($(this));"></th>
 							<th>번호</th>
 							<th>사물함번호</th>
 							<th>큰책여부</th>
@@ -241,6 +315,11 @@ table .type1 td{
 						<c:if test="${inCount > 0}">
 						<c:forEach var="k" items="${inList}" varStatus="statusIn">
 							<tr>
+								<td>
+									<c:if test="${k.reserve_status eq '5' || k.reserve_status eq '6'}">
+									<form:checkbox path="reserve_idx_in_arr" value="${k.reserve_idx}"/>
+									</c:if>
+								</td>
 								<td>${inCount - statusIn.index}</td>
 								<td>${k.locker_idx}</td>
 								<td>${k.pk}</td>
@@ -266,11 +345,14 @@ table .type1 td{
 						</c:if>
 						<c:if test="${inCount <= 0 }">
 							<tr>
-								<td colspan=10> 반입 데이터가 존재하지 않습니다.</td>
+								<td colspan=12> 반입 데이터가 존재하지 않습니다.</td>
 							</tr>
 						</c:if>
 					</tbody>
 				</table>
+				<a href="javascript:void(0)" id="status-change-in" onclick="statusChangeIn()" class="btn btn1" style="margin-left:93%;">확인</a>
 		</div>
 	</div>
 </form:form>
+
+<div id="dialog-1" class="dialog-common" title="예약 취소"></div>

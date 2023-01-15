@@ -61,7 +61,7 @@ public class NearbyLibController extends BaseController {
 	 *
 	 */
 	
-	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		NearbyLibDevice nearbyLibDevice = new NearbyLibDevice();
@@ -133,7 +133,10 @@ public class NearbyLibController extends BaseController {
 		service.setPaging(model, count, nearbyLib);
 		
 		model.addAttribute("deviceList", deviceList);
-		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));		
+		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));
+		if("Y".equals(nearbyLib.getToBeExported())) {
+			nearbyLib.setToBeExported("");
+		}
 		model.addAttribute("nearbyLib", nearbyLib);
 		return basePath + "index";
 	}
@@ -354,6 +357,13 @@ public class NearbyLibController extends BaseController {
 		model.addAttribute("neighborhoodLibrary", neighborhoodLibrary);
 		return basePath + "delete_ajax";
 	}
+
+	@RequestMapping(value = {"/importExport/delete.*"})
+	public String statusEdit(Model model, NearbyLib neighborhoodLibrary, HttpServletRequest request) {
+		
+		model.addAttribute("neighborhoodLibrary", neighborhoodLibrary);
+		return basePath + "delete_ajax";
+	}
 	
 	/** 금일 반납·반출 도서의 목록
 	 * @author ttkaz
@@ -379,18 +389,11 @@ public class NearbyLibController extends BaseController {
 			searchOutToday.setHomepage_id(homepage_id);
 		}
 		
-		if(nearbyLib.getDevice_idx() == 0) {
-			if(deviceList.size() > 0) {
-				nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
-				searchInToday.setDevice_idx(deviceList.get(0).getDevice_idx());
-				searchInToday.setManage_code(nearbyLib.getManage_code());
-				searchOutToday.setDevice_idx(deviceList.get(0).getDevice_idx());
-				searchOutToday.setManage_code(nearbyLib.getManage_code());
-			}
-		}else {
-			searchInToday.setDevice_idx(nearbyLib.getDevice_idx());
+		if(nearbyLib.getDevice_idx() > 0) {
+			nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
+			searchInToday.setDevice_idx(deviceList.get(0).getDevice_idx());
 			searchInToday.setManage_code(nearbyLib.getManage_code());
-			searchOutToday.setDevice_idx(nearbyLib.getDevice_idx());
+			searchOutToday.setDevice_idx(deviceList.get(0).getDevice_idx());
 			searchOutToday.setManage_code(nearbyLib.getManage_code());
 		}
 		
@@ -535,6 +538,45 @@ public class NearbyLibController extends BaseController {
 				}
 			}else {
 				res = service.updateNearbyLib(nearbyLib, request);
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = {"/importExport/statusChange.*"})
+	public @ResponseBody JsonResponse statusChange(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) throws UnsupportedEncodingException {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
+			List<NearbyLib> nearByLibReserveList = service.getNearByLibReserveList(nearbyLib);
+			try {
+				if(nearByLibReserveList.size() > 0) {
+					for(int i = 0; i < nearByLibReserveList.size(); i++) {
+						nearbyLib = nearByLibReserveList.get(i);
+						if("1".equals(nearbyLib.getReserve_status())) {
+							nearbyLib.setReserve_status("2");
+						}else if("5".equals(nearbyLib.getReserve_status())) {
+							nearbyLib.setReserve_status("6");
+						}else if("6".equals(nearbyLib.getReserve_status())) {
+							nearbyLib.setReserve_status("7");
+						} else {
+							res.setValid(false);
+							res.setMessage("상태변경중 문제가 발생하였습니다.\n관리자에게 문의해주세요.");
+							return res;
+						}
+						res = service.updateNearbyLib(nearbyLib, request);
+					}
+				} else {
+					res.setValid(false);
+					res.setMessage("검색된 예약정보가 없습니다.");
+					res.setResult(result.getAllErrors());
+				}
+			} catch (Exception e) {
+				res.setValid(false);
+				res.setResult(result.getAllErrors());
 			}
 		} else {
 			res.setValid(false);
