@@ -48,6 +48,7 @@ public class Student extends PagingUtils {
 	private String student_age; // 신청자나이
 	private String student_remark;  //수강생비고
 	private String student_family_count;//가족인원수
+	private String student_family_team;//가족팀명
 	private String student_location_code;//지역코드 - 나이스시스템 관리자 연수용
 	private String student_location_code_str;//지역코드 - 나이스시스템 관리자 연수용
 	private String student_neis_cd;//neis 개인번호 (R로 시작하는 10자리) - 나이스시스템 관리자 연수용
@@ -897,6 +898,13 @@ public class Student extends PagingUtils {
 	public void setVaccines_counter_2(String vaccines_counter_2) {
 		this.vaccines_counter_2 = vaccines_counter_2;
 	}
-	
 
+	public String getStudent_family_team() {
+		return student_family_team;
+	}
+
+	public void setStudent_family_team(String student_family_team) {
+		this.student_family_team = student_family_team;
+	}
+	
 }

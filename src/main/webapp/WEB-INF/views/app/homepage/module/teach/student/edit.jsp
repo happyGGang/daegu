@@ -795,6 +795,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<th>참여가족 인원 수(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
 				</tr>
+				<tr>
+					<th>참여가족 팀명</th>
+					<td><form:input path="student_family_team" cssClass="text" cssStyle="width: 300px;"/></td>
+				</tr>
 			</c:if>
         	<c:if test="${teach.school_info_yn eq 'Y'}">
         	<tr>
@@ -1125,6 +1129,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 				<tr>
 					<th>참여가족 인원 수</th>
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
+				</tr>
+				<tr>
+					<th>참여가족 팀명</th>
+					<td><form:input path="student_family_team" cssClass="text"/></td>
 				</tr>
 			</c:if>
 		</tbody>

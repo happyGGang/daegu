@@ -696,6 +696,10 @@ $(function() {
 					<th>참여가족 인원 수</th>
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true"/></td>
 				</tr>
+				<tr>
+					<th>참여가족 팀명</th>
+					<td><form:input path="student_family_team" cssClass="text"/></td>
+				</tr>
 			</c:if>
 		</table>
 		<c:if test="${teach.family_yn eq 'Y'}">

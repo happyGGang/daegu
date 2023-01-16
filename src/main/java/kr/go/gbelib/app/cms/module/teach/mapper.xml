@@ -2816,6 +2816,7 @@
 		WHERE
 		homepage_id = #{homepage_id}
 		AND	teach_idx = #{teach_idx}
+		AND apply_status != '99'
 		AND	delete_yn = 'N'
 		ORDER BY apply_status ASC, student_idx ASC
 		)

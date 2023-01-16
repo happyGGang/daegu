@@ -267,6 +267,7 @@ $(function(){
 		        		htmlArr.push('<td>'+v.family_confirm_yn		+'<input type="hidden" name="studentList['+i+'].family_confirm_yn" value="'+v.family_confirm_yn+'"></td>');
 		        		htmlArr.push('<td>'+v.family_desc			+'<input type="hidden" name="studentList['+i+'].family_desc" value="'+v.family_desc+'"></td>');
 		        		htmlArr.push('<td>'+v.student_family_count	+'<input type="hidden" name="studentList['+i+'].student_family_count" value="'+v.student_family_count+'"></td>');
+		        		htmlArr.push('<td>'+v.student_family_team	+'<input type="hidden" name="studentList['+i+'].student_family_team" value="'+v.student_family_team+'"></td>');
 		        		htmlArr.push('<td>'+v.student_school 		+'<input type="hidden" name="studentList['+i+'].student_school" value="'+v.student_school+'"></td>');
 		        		htmlArr.push('<td>'+(v.student_hack == 0 ? "" : v.student_hack)	+'<input type="hidden" name="studentList['+i+'].student_hack" value="'+(v.student_hack == 0 ? "1" : v.student_hack)+'"></td>');
 		        		htmlArr.push('<td>'+v.student_remark		+'<input type="hidden" name="studentList['+i+'].student_remark" value="'+v.student_remark+'"></td>');
@@ -634,6 +635,7 @@ $(function(){
 				<th>보호자 동의 여부(Y,N)</th>
 				<th>보호자 비고여부</th>
 				<th>참여가족 인원 수</th>
+				<th>참여가족 팀명</th>
 				<th>학교</th>
 				<th>학년</th>
 				<th>일반 비고부</th>
