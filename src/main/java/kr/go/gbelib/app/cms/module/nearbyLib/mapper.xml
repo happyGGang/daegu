@@ -20,6 +20,9 @@
 			<if test="device_idx != null and device_idx != ''">
 				AND DEVICE_IDX = #{device_idx}
 			</if>
+			<if test="homepage_id != null and homepage_id != ''">
+				AND HOMEPAGE_ID = #{homepage_id}
+			</if>
 			<choose>
 				<when test='editMode == "lockerEmptycheck"'>
 					AND RESERVE_STATUS IN ('1','2','3','5')
@@ -29,11 +32,12 @@
 				</when>
 				<when test='editMode == "todayOut"'>
 					AND RESERVE_STATUS IN ('1','2')
-					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
+<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
+					AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 				</when>
 				<when test='editMode == "todayIn"'>
 					AND RESERVE_STATUS IN ('5','6','7')
-					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
+<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
 				</when>
 				<otherwise>
 					AND RESERVE_STATUS IN ('2','3','5')				
@@ -90,7 +94,7 @@
 				AND ${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			<if test="toBeExported != null and toBeExported != ''">
-				AND TO_DATE(add_date,'yyyy-MM-dd HH24:mi') BETWEEN TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd'),'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd') + 1,'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
@@ -144,18 +148,19 @@
 			<choose>
 				<when test='editMode == "todayOut"'>
 					AND RESERVE_STATUS IN ('1','2')
-					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
+<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
+					AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 				</when>
 				<when test='editMode == "todayIn"'>
 					AND RESERVE_STATUS IN ('5','6','7')
-					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
+<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
 				</when>
 			</choose>
 			<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
 			</if>
 			<if test="toBeExported != null and toBeExported != ''">
-				AND TO_DATE(add_date,'yyyy-MM-dd HH24:mi') BETWEEN TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd'),'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss') AND TO_DATE(TO_CHAR(TO_DATE(SYSDATE, 'yyyy-MM-dd') + 1,'yyyy-MM-dd') ||' 09:00:00', 'yyyy-MM-dd HH24:mi:ss')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX		
