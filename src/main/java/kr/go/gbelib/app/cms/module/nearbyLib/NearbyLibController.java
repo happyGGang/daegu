@@ -390,10 +390,10 @@ public class NearbyLibController extends BaseController {
 		}
 		
 		if(nearbyLib.getDevice_idx() > 0) {
-			nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
-			searchInToday.setDevice_idx(deviceList.get(0).getDevice_idx());
+			nearbyLib.setDevice_idx(nearbyLib.getDevice_idx());
+			searchInToday.setDevice_idx(nearbyLib.getDevice_idx());
 			searchInToday.setManage_code(nearbyLib.getManage_code());
-			searchOutToday.setDevice_idx(deviceList.get(0).getDevice_idx());
+			searchOutToday.setDevice_idx(nearbyLib.getDevice_idx());
 			searchOutToday.setManage_code(nearbyLib.getManage_code());
 		}
 		

@@ -75,7 +75,7 @@
 			</if>
 			<if test="reserve_status != null and reserve_status != ''">
 				AND RESERVE_STATUS = #{reserve_status}
-				AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi')
+<!-- 				AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
 				AND HOMEPAGE_ID = #{homepage_id}
