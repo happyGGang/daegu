@@ -842,6 +842,7 @@ public class StudentService extends BaseService {
 		Cell family_confirm_yn = null; //보호자 동의 여부
 		Cell family_desc = null; //보호자 비고
 		Cell student_family_count = null; //가족인원수
+		Cell student_family_team = null; //팀명
 		Cell student_school = null; //수강생(아니면 신청자) 학교
 		Cell student_hack = null; //수강생(아니면 신청자) 학년
 		Cell student_remark = null; //일반 비고
@@ -891,6 +892,7 @@ public class StudentService extends BaseService {
     		family_desc	= sheet.getCell( column++, row );//보호자 비고
 		}
 		student_family_count	= sheet.getCell( column++, row );//가족 인원 수
+		student_family_team  	= sheet.getCell( column++, row );//팀명
 		student_school			= sheet.getCell( column++, row );//학교
 		student_hack			= sheet.getCell( column++, row );//학년
 		student_remark		= sheet.getCell( column++, row );//일반 비고
@@ -949,6 +951,7 @@ public class StudentService extends BaseService {
 					if(student_zipcode != null) oneStudent.setStudent_zipcode(oneStudent.getApplicant_zipcode());
 					if(student_address != null) oneStudent.setStudent_address(oneStudent.getApplicant_address());
 					if(student_family_count != null) oneStudent.setStudent_family_count(student_family_count.getContents().trim());
+					if(student_family_team != null) oneStudent.setStudent_family_team(oneStudent.getStudent_family_team());
 				}
 				else {
 					if(student_name != null) oneStudent.setStudent_name(student_name.getContents().trim());
@@ -980,6 +983,8 @@ public class StudentService extends BaseService {
 					else oneStudent.setStudent_address("");
 					if(student_family_count != null) oneStudent.setStudent_family_count(student_family_count.getContents().trim());
 					else oneStudent.setStudent_family_count("");
+					if(student_family_team != null) oneStudent.setStudent_family_team(student_family_team.getContents().trim());
+					else oneStudent.setStudent_family_team("");
 				}
 			}
 
