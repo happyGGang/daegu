@@ -974,7 +974,7 @@ $(function() {
 					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+								<c:when test="${detail.LOAN_CODE eq ''}">
 									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
 									<!-- <a href="#" class="btn btn1" onclick="alert('장비 점검으로 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a> -->
 								</c:when>
@@ -1017,10 +1017,10 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-			
+			<%--
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'nearbylib' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
-					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'infoset'}">
+					<c:if test="${sessionScope.member.member_id eq 'infoset'}">
 					<c:choose>
 						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
 						
@@ -1032,11 +1032,11 @@ $(function() {
 					</c:if>
 				</c:when>
 			</c:choose>
-
+			--%>
 
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
-					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1'}">
+					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1' || sessionScope.member.member_id eq 'kopi6264' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'pshnoi88' || sessionScope.member.member_id eq 'projectnr' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'jewjew' }">
 					<c:if test="${reserveConfig.reserve_start_time le nowTime or reserveConfig.reserve_end_time gt nowTime  }">
 						<c:choose>
 							<c:when test="${reserveData == 0 }">

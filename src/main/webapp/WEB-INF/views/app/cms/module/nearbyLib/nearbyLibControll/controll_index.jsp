@@ -95,10 +95,13 @@ $(function() {
 	width:50%;
 	height:100%;
 }
-.locker_wrap_right table td{
-	font-size: 12px;
-}
 
+table thead th, table tbody td {font-size:12px;}
+
+@media all and (max-width:1280px){
+	.locker_wrap_left, .locker_wrap_right {float:none; width:100%;box-sizing:border-box;}
+
+}
 </style>
 
 <form id="updateBookSize" action="book_update.do" method="post">

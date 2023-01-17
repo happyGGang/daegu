@@ -104,10 +104,10 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no1"/>
 					</jsp:include>
 				</td>
-				<td rowspan=16 style="background-color: #8080803b;"></td>
-				<td  ${lockerEach.no17.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td rowspan='18' style="background-color: #8080803b;"></td>
+				<td  ${lockerEach.no19.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no17"/>
+						<jsp:param name="lockerEachKey" value="no19"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -117,9 +117,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no2"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no18.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no20.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no18"/>
+						<jsp:param name="lockerEachKey" value="no20"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -129,9 +129,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no3"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no19.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no21.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no19"/>
+						<jsp:param name="lockerEachKey" value="no21"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -141,9 +141,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no4"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no20.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no22.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no20"/>
+						<jsp:param name="lockerEachKey" value="no22"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -153,9 +153,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no5"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no21.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no23.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no21"/>
+						<jsp:param name="lockerEachKey" value="no23"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -165,9 +165,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no6"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no22.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no24.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no22"/>
+						<jsp:param name="lockerEachKey" value="no24"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -177,9 +177,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no7"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no23.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no25.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no23"/>
+						<jsp:param name="lockerEachKey" value="no25"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -189,9 +189,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no8"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no24.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no26.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no24"/>
+						<jsp:param name="lockerEachKey" value="no26"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -201,9 +201,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no9"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no25.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no27.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no25"/>
+						<jsp:param name="lockerEachKey" value="no27"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -213,9 +213,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no10"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no26.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no28.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no26"/>
+						<jsp:param name="lockerEachKey" value="no28"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -225,9 +225,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no11"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no27.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no29.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no27"/>
+						<jsp:param name="lockerEachKey" value="no29"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -237,9 +237,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no12"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no28.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no30.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no28"/>
+						<jsp:param name="lockerEachKey" value="no30"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -249,9 +249,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no13"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no29.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no31.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no29"/>
+						<jsp:param name="lockerEachKey" value="no31"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -261,9 +261,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no14"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no30.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no32.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no30"/>
+						<jsp:param name="lockerEachKey" value="no32"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -273,9 +273,9 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no15"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no31.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no33.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no31"/>
+						<jsp:param name="lockerEachKey" value="no33"/>
 					</jsp:include>
 				</td>
 			</tr>
@@ -285,9 +285,33 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no16"/>
 					</jsp:include>
 				</td>
-				<td ${lockerEach.no32.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+				<td ${lockerEach.no34.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no32"/>
+						<jsp:param name="lockerEachKey" value="no34"/>
+					</jsp:include>
+				</td>
+			</tr>
+			<tr>
+				<td ${lockerEach.no17.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no16"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no35.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no35"/>
+					</jsp:include>
+				</td>
+			</tr>
+			<tr>
+				<td ${lockerEach.no18.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no16"/>
+					</jsp:include>
+				</td>
+				<td ${lockerEach.no36.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
+					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
+						<jsp:param name="lockerEachKey" value="no36"/>
 					</jsp:include>
 				</td>
 			</tr>

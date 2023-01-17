@@ -273,7 +273,7 @@ $(function() {
 				</a>
 				</li>
 				<li class="quick-4">
-				<a href="/${homepage.context_path}/html.do?menu_idx=17" class="quick04">
+				<a href="/${homepage.context_path}/html.do?menu_idx=16" class="quick04">
 					<div>
 						<h4>장소안내</h4>
 					</div>

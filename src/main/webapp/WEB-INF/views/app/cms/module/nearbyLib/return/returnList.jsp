@@ -27,7 +27,9 @@ $(function() {
 	});
 });
 </script>
-
+<style>
+table thead th, table tbody td {font-size:12px;}
+</style>
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
 	<form:hidden path="reserve_status"/>
 	<form:hidden path="reserve_idx"/>
@@ -59,11 +61,12 @@ $(function() {
 			<col width="90" />
 			<col width="90" />
 			<col width="90" />
+			<col width="90" />
  			<col width="80" />
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="10" style="height: 36px;">반납 목록</th>						
+				<th colspan="11" style="height: 36px;">반납 목록</th>						
 			</tr>
 			<tr style="outline:white 1px solid">
 				<th>번호</th>
@@ -72,6 +75,7 @@ $(function() {
 				<th>도서명</th>
 				<th>소장도서관</th>
 				<th>등록번호</th>
+				<th>청구기호</th>
 				<th>대출자ID</th>
 				<th>예약날짜</th>
 				<th>예약확정일</th>
@@ -97,6 +101,7 @@ $(function() {
 					<td>${j.book_name }</td>
 					<td>${j.lib_name }</td>
 					<td>${j.reg_no }</td>
+					<td>${j.call_no }</td>
 					<td>${j.member_id }</td>
 					<td><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd" /></td>
 					<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>

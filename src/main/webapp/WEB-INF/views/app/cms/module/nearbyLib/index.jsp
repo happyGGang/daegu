@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+table thead th, table tbody td {font-size:12px;}
+</style>
 <script type="text/javascript">
 $(function() {
 	$('.selectmenu-search').on('change',function(e){
@@ -191,17 +194,18 @@ $(function() {
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
- 			<col width="3%" />
- 			<col width="8%" />
  			<col width="4%" />
- 			<col width="5%" />
+ 			<col width="10%" />
+ 			<col width="4%" />
+ 			<col width="4%" />
 			<col width="5%" />
 			<col width="7%" />
 			<col width="7%" />
-			<col width="9%" />
+			<col width="7%" />
+			<col width="11%" />
 			<col width="8%" />
 			<col width="8%" />
-			<col width="3%" />
+			<col width="4%" />
 			<col width="7%" />
 			<col width="7%" />
 			<col width="7%" />
@@ -214,6 +218,7 @@ $(function() {
 				<th>비밀번호</th>
 				<th>회원ID</th>
 				<th>등록번호</th>
+				<th>청구기호</th>
 				<th>수령장소</th>
 				<th>도서명</th>
 				<th>신청날짜</th>
@@ -251,6 +256,7 @@ $(function() {
 					</td>
 					<td>${i.member_id }</td>
 					<td>${i.reg_no }</td>
+					<td>${i.call_no }</td>
 					<td>${i.device_name }</td>
 					<td>${i.book_name }</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></td>

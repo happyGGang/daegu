@@ -154,8 +154,13 @@ function statusChangeIn() {
 	width:46%;
 	height:100%;
 }
-table .type1 td{
-	font-size: 12px;
+
+table thead th, table tbody td {font-size:12px;}
+
+
+@media all and (max-width:1280px){
+	.locker_wrap_left, .locker_wrap_right {float:none; width:100%;box-sizing:border-box;}
+
 }
 
 </style>
@@ -200,7 +205,10 @@ table .type1 td{
 			</form:select>
 		</div>
 		<h2 style="text-align:center; font-weight:bold;">${start_time} ~ ${end_time }</h2>
+
+
 	<div style="width:100%; height:100%;">
+		
 		<div class="locker_wrap_left">
 			<table class="type1 center">
 					<colgroup>
@@ -220,7 +228,7 @@ table .type1 td{
 					<thead>
 						<tr>
 							<th colspan="12" style="height: 36px;">
-							반출 목록
+							반출(투입) 목록
 							</th>						
 						</tr>
 						<tr style="outline:white 1px solid">
@@ -276,7 +284,9 @@ table .type1 td{
 						</c:if>
 					</tbody>
 				</table>
-				<a href="javascript:void(0)" id="status-change_out" onclick="statusChangeOut()" class="btn btn1" style="margin-left:93%;">확인</a>
+				<div style="padding-top:10px;">
+					<a href="javascript:void(0)" id="status-change_out" onclick="statusChangeOut()" class="btn btn1" style="margin-left:93%;">확인</a>
+				</div>
 		</div>
 		<div class="locker_wrap_right">
 			<table class="type1 center">
@@ -295,7 +305,7 @@ table .type1 td{
 					</colgroup>
 					<thead>
 						<tr>
-							<th colspan="12" style="height: 36px;">반입 목록</th>						
+							<th colspan="12" style="height: 36px;">회수 목록</th>						
 						</tr>
 						<tr style="outline:white 1px solid">
 							<th><input type="checkbox" id="checkboxIn" onchange="checkInAll($(this));"></th>
@@ -350,7 +360,9 @@ table .type1 td{
 						</c:if>
 					</tbody>
 				</table>
-				<a href="javascript:void(0)" id="status-change-in" onclick="statusChangeIn()" class="btn btn1" style="margin-left:93%;">확인</a>
+				<div style="padding-top:10px;">
+					<a href="javascript:void(0)" id="status-change-in" onclick="statusChangeIn()" class="btn btn1" style="margin-left:93%;">확인</a>
+				</div>
 		</div>
 	</div>
 </form:form>
