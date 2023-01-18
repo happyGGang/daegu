@@ -81,7 +81,7 @@ $(function() {
 <style>
 .locker_wrap_left{
 	float:left;
-	width:46%;
+	width:50%;
 	min-height: 10px;
 }
 
@@ -90,13 +90,18 @@ $(function() {
 }
 .locker_wrap_right{
 	background-color: white;
-    padding: 39px 26px 26px 26px;
+    padding: 2% 1% 1% 1%;
 	float:right;
-	width:50%;
+	width:48%;
 	height:100%;
 }
 
 table thead th, table tbody td {font-size:12px;}
+
+@media all and (max-width:1650px){
+	.locker_wrap_left, .locker_wrap_right {float:none; width:100%;box-sizing:border-box;}
+
+}
 
 @media all and (max-width:1280px){
 	.locker_wrap_left, .locker_wrap_right {float:none; width:100%;box-sizing:border-box;}
@@ -141,34 +146,41 @@ table thead th, table tbody td {font-size:12px;}
 				<option value="${i.device_idx}"<c:if test="${i.device_idx eq deviceOne.device_idx }">selected="selected"</c:if>>${i.device_name}</option>
 			</c:forEach>
 		</form:select>
+	</div>
+	<div class="">
 		<div style="float:right;">
 			<a href="javascript:void(0);" class="btn check-save" keyValue1="${deviceOne.device_idx}" keyValue2="${deviceOne.device_code }" keyValue3="2">자동 사물함배정</a></br>
 		</div>
 		<div class="ui-state-highlight" style="float:right;">
 			<em>* 체크박스로 선택 후 자동예약은 사물함을 선택했더라도 자동배정 됩니다.</em>
 		</div>
+		<div style="clear:both;"></div>
 	</div>
- 	<div class="locker_wrap_left">
+
+
+	<div class="locker_wrap_left">
 
 	</div>
+
 	<div class="locker_wrap_right">
 		<table class="type1 center">
 			<colgroup>
-				<col width="30" />
-				<col width="60" />
-				<col width="60" />
-				<col width="40" />
-				<col width="150" />
-				<col width="100" />
-				<col width="100" />
-				<col width="90" />
-				<col width="90" />
-				<col width="80" />
-				<col width="80" />
+				<col width="3%" />
+				<col width="5%" />
+				<col width="7%" />
+				<col width="7%" />
+				<col width="15%" />
+				<col width="13%" />
+				<col width="9%" />
+				<col width="9%" />
+				<col width="8%" />
+				<col width="8%" />
+				<col width="7%" />
+				<col width="9%" />
 			</colgroup>
 			<thead>
 				<tr>
-					<th colspan="11" style="height: 36px;">사물함별 대출정보</th>						
+					<th colspan="12" style="height: 36px;">사물함별 대출정보</th>						
 				</tr>
 				<tr style="outline:white 1px solid">
 					<th><input type="checkbox" id="checkAll"></th>
@@ -177,6 +189,7 @@ table thead th, table tbody td {font-size:12px;}
 					<th>큰책여부</th>
 					<th>도서명</th>
 					<th>소장도서관</th>
+					<th>청구기호</th>
 					<th>등록번호</th>
 					<th>대출자ID</th>
 					<th>예약확정일</th>
@@ -232,6 +245,7 @@ table thead th, table tbody td {font-size:12px;}
 						</td>
 						<td>${i.book_name} </td>
 						<td>${i.lib_name} </td>
+						<td>${i.call_no} </td>
 						<td>${i.reg_no} </td>
 						<td>${i.member_id}</td>
 						<td>
