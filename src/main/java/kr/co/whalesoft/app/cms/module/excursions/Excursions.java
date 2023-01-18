@@ -42,6 +42,8 @@ public class Excursions extends PagingUtils {
 	private int apply_count; // 신청자 수
 	private String remark;
 
+	private String remark_comment;
+
 	private String pageType;
 
 	public Excursions() {
@@ -324,4 +326,11 @@ public class Excursions extends PagingUtils {
 		this.remark = remark;
 	}
 
+	public String getRemark_comment() {
+		return remark_comment;
+	}
+
+	public void setRemark_comment(String remark_comment) {
+		this.remark_comment = remark_comment;
+	}
 }
