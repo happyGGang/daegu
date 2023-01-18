@@ -282,7 +282,7 @@ public class NearbyLibService extends BaseService {
 				status3.setReserve_status("3"); // 3: 사물함 투입
 				status3_update.setReserve_status("5"); // 5: 회수대기
 			}else if("6".equals(neighborhoodLibrary.getReserve_status())) { // 6: 회수중
-				status3.setReserve_status("5"); // 5: 회수대기
+				status3.setReserve_status("3"); // 5: 회수대기
 				status3_update.setReserve_status("6"); //6: 회수중
 			}else if("7".equals(neighborhoodLibrary.getReserve_status())) { // 7: 회수완료
 				status3.setReserve_status("6"); // 6: 회수중
@@ -692,7 +692,7 @@ public class NearbyLibService extends BaseService {
 				result_error_mssage = "[업데이트 실패]회수대기 처리 실패.";
 			}
 			else if("6".equals(neighborhoodLibrary.getReserve_status())){
-				searchSame.setReserve_status("5"); //5 : 회수대기, 6 : 회수중
+				searchSame.setReserve_status("3"); //5 : 회수대기, 6 : 회수중
 				result_message = "회수중으로 처리 되었습니다.";
 				result_error_mssage = "[업데이트 실패]회수중으로 처리 실패.";
 			}

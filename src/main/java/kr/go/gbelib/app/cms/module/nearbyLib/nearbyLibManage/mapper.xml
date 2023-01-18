@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManageDao">
+
+	<!-- 일정관리 컬럼  -->
+	<sql id="field">
+		homepage_id, cm_idx, start_date, start_time, end_date,
+		end_time, title, contents, date_type, link_url,
+		weekday, individual_yn
+	</sql>
+
+	<!-- 	일정관리 list -->
+	<select id="getNearbyLibManage" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="plan_date != null and plan_date != ''">
+		AND	(
+			SUBSTR(start_date,1,7) = #{plan_date}
+			OR SUBSTR(end_date,1,7) = #{plan_date}
+		)
+		</if>
+		<if test="date_type != null and date_type != ''">
+		AND	date_type IN (${date_type})
+		</if>
+
+		AND	delete_yn = 'N'
+		ORDER BY start_time, end_date
+	</select>
+
+	<select id="getNearbyLibManageOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			homepage_id, cm_idx, start_date, start_time, end_date,
+			end_time, title, contents, date_type, link_url,
+			individual_yn, group_idx,
+			CASE
+				WHEN weekday = '1,2,3,4,5,6,7'
+				THEN '0'
+				ELSE weekday
+			END weekday,
+			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE b WHERE b.group_idx = a.group_idx) AS group_count
+		FROM
+			CMS_CALENDAR_MANAGE a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	cm_idx = #{cm_idx}
+		AND	date_type = #{date_type}
+		AND	delete_yn = 'N'
+	</select>
+
+	<select id="getNearbyLibManageOne2" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			MIN(start_date) AS start_date,
+			MAX(end_date) AS end_date,
+			MIN(start_time) AS start_time,
+			MAX(end_time) AS end_time
+		FROM
+			CMS_CALENDAR_MANAGE a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	date_type = #{date_type}
+		AND	group_idx = #{group_idx}
+		AND	delete_yn = 'N'
+	</select>
+
+	<select id="getNearbyLibManageCheckCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CALENDAR_MANAGE a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	start_date = #{start_date}
+		AND	end_date = #{end_date}
+		AND	group_idx = #{group_idx_tmp}
+		AND	individual_yn = 'Y'
+		AND	delete_yn = 'N'
+	</select>
+
+	<!-- 휴관일 가져오기 -->
+	<select id="getClosedDate" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			TO_CHAR(TO_DATE(start_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS start_date,
+			TO_CHAR(TO_DATE(end_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS end_date,
+			homepage_id, cm_idx, start_time, end_time, title, contents, date_type, link_url
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		<if test="plan_date != null and plan_date != ''">
+ 		AND	(
+ 				SUBSTR(start_date,1,7) = #{plan_date}
+ 			OR	SUBSTR(end_date,1,7) = #{plan_date}
+ 			)
+		</if>
+	</select>
+
+	<!-- 휴관일 가져오기 -->
+	<select id="getClosedDate2" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			yy, mm, LISTAGG(dd,',') WITHIN GROUP (ORDER BY mm, dd) AS dd
+		FROM (
+			SELECT
+				SUBSTR(start_date,0,4) as yy,
+				SUBSTR(start_date,6,2) as mm,
+				SUBSTR(start_date,9,2) as dd
+			FROM (
+				SELECT
+					distinct start_date
+				FROM
+					CMS_CALENDAR_MANAGE
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	date_type = '1'
+				AND	delete_yn = 'N'
+				AND	SUBSTR(start_date,1,7) = #{plan_date}
+				)
+			ORDER BY DD
+			)
+		GROUP BY yy, mm
+	</select>
+
+	<!-- 휴관일 가져오기 -->
+	<select id="getClosedDate3" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			mm, LISTAGG(dd,', ') WITHIN GROUP (ORDER BY mm, dd) AS dd
+		FROM (
+			SELECT
+				SUBSTR(start_date,6,2) as mm,
+				SUBSTR(start_date,9,2) || '(' || to_char(to_date(start_date),'dy') || ')' as dd
+			FROM (
+				SELECT
+					distinct start_date
+				FROM
+					CMS_CALENDAR_MANAGE
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	date_type = '1'
+				AND	delete_yn = 'N'
+				AND	start_date = #{plan_day}
+				)
+			ORDER BY DD
+			)
+		GROUP BY mm
+	</select>
+	
+	<select id="getClosedDate4" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			SUBSTR(start_date,0,4) as yy,
+			SUBSTR(start_date,6,2) as mm,
+			SUBSTR(start_date,9,2) || '~' || SUBSTR(end_date,9,2) as dd
+		FROM
+			(
+			SELECT
+				distinct MIN(start_date) AS start_date, MAX(end_date) AS end_date
+			FROM
+				CMS_CALENDAR_MANAGE
+			WHERE
+				homepage_id = #{homepage_id}
+			AND	date_type = '1'
+			AND	delete_yn = 'N'
+			AND	SUBSTR(start_date,1,7) = #{plan_date}
+			)
+		ORDER BY DD
+	</select>
+	
+	<select id="getClosedDate5" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			start_date
+		FROM (
+			SELECT
+				start_date
+			FROM (
+				SELECT
+					distinct start_date
+				FROM
+					CMS_CALENDAR_MANAGE
+				WHERE
+					homepage_id = #{homepage_id}
+				AND	date_type = '1'
+				AND	delete_yn = 'N'
+				)
+			)
+	</select>
+	
+	
+
+	<!-- 행사 가져오기 -->
+	<select id="getNearbyLibManageDetail" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="date_type != null and date_type != ''">
+		AND	date_type = #{date_type}
+	 	</if>
+	 	<if test="plan_date != null and plan_date != ''">
+	 	AND	(
+	 		SUBSTR(start_date,1,7) = #{plan_date}
+	 		OR SUBSTR(end_date,1,7) = #{plan_date}
+	 		)
+		</if>
+	 	<if test="plan_day != null and plan_day != ''">
+	 	AND	(
+	 		start_date = #{plan_day}
+	 		OR end_date = #{plan_day}
+	 		)
+		</if>
+	 	AND	delete_yn = 'N'
+	</select>
+
+	<!-- 휴관일 포함여부체크 -->
+	<select id="closedDateCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		AND	START_DATE <![CDATA[<=]]> #{end_date}
+		AND	END_DATE <![CDATA[>=]]> #{start_date}
+	</select>
+
+	<!-- 일정관리 등록 -->
+	<insert id="addNearbyLibManage">
+		INSERT INTO
+			CMS_CALENDAR_MANAGE
+		(
+			homepage_id, cm_idx, START_DATE, START_TIME, END_DATE,
+			END_TIME, TITLE, CONTENTS, date_type, link_url, group_idx,
+			individual_yn, weekday
+		)
+		VALUES
+		(
+			#{homepage_id}, (SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE ), #{start_date}, #{start_time}, #{end_date},
+			#{end_time}, #{title}, #{contents}, #{date_type}, #{link_url}, #{group_idx},
+			'N', #{weekday}
+		)
+	</insert>
+
+	<update id="modifyNearbyLibManage">
+		UPDATE
+			CMS_CALENDAR_MANAGE
+		SET
+			START_DATE = #{start_date},
+			START_TIME = #{start_time},
+			END_DATE = #{end_date},
+			END_TIME = #{end_time},
+			TITLE = #{title},
+			CONTENTS = #{contents},
+			link_url = #{link_url},
+			individual_yn = #{individual_yn},
+			weekday = #{weekday}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test='individual_yn2 == "Y"'>
+		AND	cm_idx = #{cm_idx}
+		</if>
+		<if test='individual_yn2 == "N"'>
+		AND	group_idx = #{group_idx}
+		</if>
+		<if test='individual_yn2 == "E"'>
+		AND	group_idx = #{group_idx}
+		AND	individual_yn != 'Y'
+		</if>
+	</update>
+
+	<delete id="deleteNearbyLibManage">
+		UPDATE
+			CMS_CALENDAR_MANAGE
+		SET
+			delete_yn = 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test='individual_yn2 == "Y"'>
+		AND	cm_idx = #{cm_idx}
+		</if>
+		<if test='individual_yn2 == "N"'>
+		AND	group_idx = #{group_idx}
+		</if>
+		<if test='individual_yn2 == "E"'>
+		AND	group_idx = #{group_idx}
+		AND	individual_yn != 'Y'
+		</if>
+	</delete>
+
+	<delete id="deleteNearbyLibManageGroup">
+		UPDATE
+			CMS_CALENDAR_MANAGE
+		SET
+			delete_yn = 'Y'
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test='individual_yn2 == "Y"'>
+		AND	cm_idx = #{cm_idx}
+		</if>
+		<if test='individual_yn2 == "N"'>
+		AND	group_idx = #{group_idx}
+		</if>
+		<if test='individual_yn2 == "E"'>
+		AND	group_idx = #{group_idx}
+		AND	individual_yn != 'Y'
+		</if>
+	</delete>
+
+	<select id="getCalendar" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) as sun,
+			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) as mon,
+			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) as tue,
+			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) as wed,
+			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) as thu,
+			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) as fri,
+			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) as sat,
+			#{plan_date} AS plan_date
+   		FROM
+			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days, A.base_mon,
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
+			FROM
+				(
+				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') base_mon FROM DUAL
+				) A, DICTIONARY B
+			) C
+
+		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
+  		GROUP BY WEEK_NUM
+  		ORDER BY WEEK_NUM
+	</select>
+
+	<select id="getCalendarListType" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			C.*,
+			TO_CHAR(c.days, 'd') AS weekday,
+			#{plan_date} AS PLAN_DATE
+   		FROM
+			(
+			SELECT
+				(A.base_mon + ROWNUM -1) AS days,
+				A.base_mon,
+				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS week_num
+			FROM
+				(
+				SELECT
+					TO_DATE(#{plan_date}, 'yyyy-MM') base_mon
+				FROM
+					DUAL
+				) A, DICTIONARY B
+			) C
+		WHERE
+			C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
+	</select>
+
+	<!-- 일정 통계 일별 -->
+	<select id="getCalendarStatus" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			TO_CHAR(START_DATE, 'yyyy-MM-dd') AS START_DATE, SUM(COUNT) AS COUNT
+		FROM (
+			SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
+				FROM (
+					SELECT
+						TO_DATE(START_DATE, 'yyyy-MM-dd') AS START_DATE,
+						TO_DATE(END_DATE, 'yyyy-MM-dd') AS END_DATE,
+						COUNT(*) AS COUNT
+					FROM CMS_CALENDAR_MANAGE
+					WHERE
+						delete_yn = 'N' AND
+						homepage_id = #{homepage_id}
+					GROUP BY START_DATE, END_DATE
+				)
+			CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
+			order by start_date desc
+			)
+		WHERE
+			START_DATE BETWEEN TO_DATE(#{start_date},'yyyy-mm-dd') AND TO_DATE(#{end_date}, 'yyyy-mm-dd')
+		GROUP BY  ROLLUP (START_DATE )
+		ORDER BY START_DATE DESC
+	</select>
+
+	<!-- 일정 통계 월별 -->
+	<select id="getCalendarMonthStatus" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			START_DATE, SUM(COUNT) AS COUNT
+		FROM
+			(
+			SELECT
+				TO_CHAR(START_DATE, 'YYYY-MM') AS START_DATE, SUM(COUNT) AS COUNT
+			FROM (
+				SELECT DISTINCT(START_DATE + LEVEL -1) AS START_DATE, COUNT
+					FROM (
+						SELECT
+							TO_DATE(START_DATE, 'yyyy-MM-dd') AS START_DATE,
+							TO_DATE(END_DATE, 'yyyy-MM-dd') AS END_DATE,
+							COUNT(*) AS COUNT
+						FROM CMS_CALENDAR_MANAGE
+						WHERE
+							delete_yn = 'N' AND
+							homepage_id = #{homepage_id}
+						GROUP BY START_DATE, END_DATE
+					)
+				CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
+				order by start_date desc
+				)
+			WHERE
+				TO_CHAR(START_DATE,'YYYY') = #{start_year}
+			GROUP BY  ROLLUP (START_DATE)
+			)
+		GROUP BY START_DATE, COUNT
+		ORDER BY START_DATE DESC
+	</select>
+
+	<!-- 일정 통계 연도별 -->
+	<select id="getCalendarYearStatus" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
+		SELECT
+			START_DATE, SUM(COUNT) AS COUNT
+		FROM
+			(
+			SELECT
+				TO_CHAR(START_DATE, 'YYYY') AS start_date, SUM(count) AS count
+			FROM (
+				SELECT
+					DISTINCT(START_DATE + LEVEL -1) AS start_date, count
+				FROM (
+					SELECT
+						TO_DATE(START_DATE, 'yyyy-MM-dd') AS start_date,
+						TO_DATE(END_DATE, 'yyyy-MM-dd') AS end_date,
+						COUNT(*) AS count
+					FROM
+						CMS_CALENDAR_MANAGE
+					WHERE
+						delete_yn = 'N' AND
+						homepage_id = #{homepage_id}
+					GROUP BY start_date, end_date
+					)
+				CONNECT BY start_date + LEVEL -1  <![CDATA[<=]]>  end_date
+				ORDER BY start_date DESC
+				)
+			WHERE
+				TO_CHAR(start_date,'YYYY') BETWEEN #{start_year} AND #{end_year}
+			GROUP BY start_date
+			)
+		GROUP BY ROLLUP (start_date)
+		ORDER BY start_date DESC
+	</select>
+
+	<select id="getNextCmIdx" resultType="int">
+		SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE
+	</select>
+
+	<select id="getGroupCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	group_idx = #{group_idx}
+	</select>
+
+	<select id="isTodayClosed" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
+	</select>
+
+</mapper>

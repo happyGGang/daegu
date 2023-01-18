@@ -151,6 +151,33 @@
 	</tag>
 
 	<tag>
+		<description>내집앞도서관일정관리</description>
+		<name>nearbyLibManage</name>
+		<tag-class>kr.co.whalesoft.framework.tag.NearbylibManageProgram</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>nearbyLibManageList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>plan_date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>mode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>dayCode</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
 		<description>도서관견학</description>
 		<name>excursions</name>
 		<tag-class>kr.co.whalesoft.framework.tag.CalendarExcursionsProgram</tag-class>

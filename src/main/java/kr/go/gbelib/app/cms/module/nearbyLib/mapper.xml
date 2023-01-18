@@ -25,10 +25,10 @@
 			</if>
 			<choose>
 				<when test='editMode == "lockerEmptycheck"'>
-					AND RESERVE_STATUS IN ('1','2','3','5')
+					AND RESERVE_STATUS IN ('1','2','3')
 				</when>
 				<when test='editMode == "lockerDetail"'>
-					AND RESERVE_STATUS IN ('2','3','5')
+					AND RESERVE_STATUS IN ('2','3')
 				</when>
 				<when test='editMode == "todayOut"'>
 					AND RESERVE_STATUS IN ('1','2')
@@ -36,11 +36,12 @@
 					AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 				</when>
 				<when test='editMode == "todayIn"'>
-					AND RESERVE_STATUS IN ('5','6','7')
+					AND RESERVE_STATUS IN ('6','7') 
+					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
 <!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
 				</when>
 				<otherwise>
-					AND RESERVE_STATUS IN ('2','3','5')				
+					AND RESERVE_STATUS IN ('2','3')				
 				</otherwise>
 			</choose>
 			<if test="manage_code != null and manage_code != ''">
@@ -78,8 +79,14 @@
 				AND DEVICE_IDX = #{device_idx}
 			</if>
 			<if test="reserve_status != null and reserve_status != ''">
-				AND RESERVE_STATUS = #{reserve_status}
-<!-- 				AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
+			<choose>
+				<when test='reserve_status == "5"'>
+					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				</when>
+				<otherwise>
+					AND RESERVE_STATUS = #{reserve_status}
+				</otherwise>
+			</choose>
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
 				AND HOMEPAGE_ID = #{homepage_id}
@@ -117,7 +124,7 @@
 			WHERE
 				1=1
 			AND BOOK_KEY = #{book_key}
-			AND RESERVE_STATUS IN ('1','2','3','5','6')
+			AND RESERVE_STATUS IN ('1','2','3','6')
 	</select>
 
 	<select id="getNeighborhoodLibraryCount" resultType="int">
@@ -131,7 +138,14 @@
 				AND DEVICE_IDX = #{device_idx}
 			</if>
 			<if test="reserve_status != null and reserve_status != ''">
-				AND RESERVE_STATUS = #{reserve_status}
+			<choose>
+				<when test='reserve_status == "5"'>
+					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				</when>
+				<otherwise>
+					AND RESERVE_STATUS = #{reserve_status}
+				</otherwise>
+			</choose>
 			</if>
 			<if test="homepage_id != null and homepage_id != ''">
 				AND HOMEPAGE_ID = #{homepage_id}
@@ -152,7 +166,8 @@
 					AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 				</when>
 				<when test='editMode == "todayIn"'>
-					AND RESERVE_STATUS IN ('5','6','7')
+					AND RESERVE_STATUS IN ('6','7') 
+					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
 <!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
 				</when>
 			</choose>
