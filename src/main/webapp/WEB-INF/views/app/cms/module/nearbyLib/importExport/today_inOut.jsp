@@ -140,18 +140,20 @@ function statusChangeIn() {
 </script>
 <style>
 .locker_wrap_left{
+box-sizing:border-box;
 	background-color: white;
-	padding: 39px 26px 26px 26px;
+	padding: 1%;
 	float:left;
-	width:46%;
+	width:48%;
 	height:100%;
 }
 
 .locker_wrap_right{
+box-sizing:border-box;
 	background-color: white;
-    padding: 39px 26px 26px 26px;
+    padding: 1%;
 	float:right;
-	width:46%;
+	width:48%;
 	height:100%;
 }
 
@@ -160,7 +162,6 @@ table thead th, table tbody td {font-size:12px;}
 
 @media all and (max-width:1280px){
 	.locker_wrap_left, .locker_wrap_right {float:none; width:100%;box-sizing:border-box;}
-
 }
 
 </style>

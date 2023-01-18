@@ -167,6 +167,15 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
+			<th>비고안내문구</th>
+			<td>
+				<form:input path="remark_comment" class="text" cssStyle="width:90%" />
+				<div class="ui-state-highlight">
+					<em>* 비고 안내 문구를 입력할 수 있습니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<th>최대신청팀수(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="max_apply" class="text" cssStyle="width:30px"/>

@@ -4,7 +4,7 @@
 	<!-- 견학신청 컬럼  -->
 	<sql id="field">
 		homepage_id, excursions_idx, apply_yn, start_date, start_time,
-		end_date, end_time, apply_start_date, apply_start_time, apply_end_date, apply_end_time, max_apply, add_id, add_date, date_type
+		end_date, end_time, apply_start_date, apply_start_time, apply_end_date, apply_end_time, max_apply, add_id, add_date, date_type, remark_comment
 	</sql>
 	
 	<!-- 견학신청 list -->
@@ -80,7 +80,7 @@
 		VALUES
 		(
 			#{homepage_id}, (SELECT NVL(MAX(excursions_idx),0)+1 FROM CMS_EXCURSIONS), #{apply_yn}, #{start_date}, #{start_time},
-			#{end_date}, #{end_time}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{max_apply}, #{add_id}, SYSDATE, #{date_type}
+			#{end_date}, #{end_time}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{max_apply}, #{add_id}, SYSDATE, #{date_type}, #{remark_comment}
 		)
 	</insert>
 	
@@ -100,6 +100,7 @@
 			max_apply = #{max_apply},
 			date_type = #{date_type},
 			modify_id = #{modify_id},
+			remark_comment = #{remark_comment},
 			modify_date = SYSDATE
 		WHERE
 			excursions_idx = #{excursions_idx}

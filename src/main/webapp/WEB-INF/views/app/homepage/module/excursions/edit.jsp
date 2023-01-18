@@ -273,11 +273,10 @@ $(function() {
 		</tr>
 		<tr>
 			<th>비고</th>
-			<td>
-				<form:input path="remarks" class="text" cssStyle="width:80%"/><br />
-				<c:if test="${homepage.context_path eq '228'}">
-					기관 위치를 입력해주세요 (동구, 수성구, 중구, 북구 등)
-				</c:if>
+			<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고창"/>
+				<div class="ui-state-highlight">
+					<em>${teach.remark_comment}</em>
+				</div>
 			</td>
 		</tr>
 	</tbody>
@@ -348,9 +347,7 @@ $(function() {
 			<th>비고</th>
 			<td>
 				<form:input path="remarks" class="text" cssStyle="width:80%"/><br />
-				<c:if test="${homepage.context_path eq '228'}">
-					기관 위치를 입력해주세요 (동구, 수성구, 중구, 북구 등)
-				</c:if>
+				<em>${excursions.remark_comment}</em>
 			</td>
 		</tr>
 	</tbody>
