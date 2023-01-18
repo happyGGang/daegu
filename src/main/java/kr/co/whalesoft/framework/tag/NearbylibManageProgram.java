@@ -7,19 +7,31 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 import org.apache.commons.lang.StringUtils;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 
 public class NearbylibManageProgram extends BodyTagSupport {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private List<NearbyLibManage> nearbyLibManageList;
+	private List<NearbyLibReserveConfig> nearbyLibReserveConfigList;
 	private String plan_date;
 	private String	mode;
 	private int dayCode;
+	private int configDayCode;
 	
 	@Override
 	public int doEndTag() throws JspException {
-		
+		if(nearbyLibReserveConfigList.size() > 0) {
+			for(int i=0; i<nearbyLibReserveConfigList.size(); i++) {
+				NearbyLibReserveConfig nrc = nearbyLibReserveConfigList.get(i);
+				
+				if("N".equals(nrc.getUse_yn()) && dayCode == Integer.parseInt(nrc.getDay_of_week())) {
+					configDayCode = Integer.parseInt(nrc.getDay_of_week());
+				}
+			}
+		}
+			
 		StringBuffer sb = new StringBuffer();
 		boolean isHolyDay = false;
 		if (mode.equals("admin")) {
@@ -54,7 +66,10 @@ public class NearbylibManageProgram extends BodyTagSupport {
 						sb.append("</ul>");
 						isHolyDay = StringUtils.equals(cm.getDate_type(), "1");//휴관일로 지정된 경우
 					} 
-				
+			}
+			
+			if(dayCode == configDayCode && sb.toString().isEmpty()) {
+				sb.append("예약불가");
 			}
 			
 			if (!isHolyDay) {
@@ -85,6 +100,24 @@ public class NearbylibManageProgram extends BodyTagSupport {
 		if(nearbyLibManageList != null) {
 			this.nearbyLibManageList = new ArrayList<NearbyLibManage>();
 			this.nearbyLibManageList.addAll(nearbyLibManageList);
+		}
+	}
+	
+	
+	public List<NearbyLibReserveConfig> getNearbyLibReserveConfigList() {
+		if(nearbyLibReserveConfigList != null) {
+			List<NearbyLibReserveConfig> arrayList = new ArrayList<NearbyLibReserveConfig>();
+			arrayList.addAll(this.nearbyLibReserveConfigList);
+			return arrayList;
+		} else {
+			return null;
+		}
+	}
+
+	public void setNearbyLibReserveConfigList(List<NearbyLibReserveConfig> nearbyLibReserveConfigList) {
+		if(nearbyLibReserveConfigList != null) {
+			this.nearbyLibReserveConfigList = new ArrayList<NearbyLibReserveConfig>();
+			this.nearbyLibReserveConfigList.addAll(nearbyLibReserveConfigList);
 		}
 	}
 

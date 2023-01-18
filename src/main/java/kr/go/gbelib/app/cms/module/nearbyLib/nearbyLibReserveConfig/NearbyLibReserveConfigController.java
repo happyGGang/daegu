@@ -51,8 +51,8 @@ public class NearbyLibReserveConfigController extends BaseController {
 	@RequestMapping(value = {"/save.*"})
 	public @ResponseBody JsonResponse save(Model model,NearbyLibReserveConfig nearbyLibReserveConfig, BindingResult result, HttpServletRequest request) throws Exception {
 		JsonResponse res = new JsonResponse(request);	
-		nearbyLibReserveConfig.setReserve_start_time(nearbyLibReserveConfig.getReserve_start_time1() + nearbyLibReserveConfig.getReserve_start_time2());
-		nearbyLibReserveConfig.setReserve_end_time(nearbyLibReserveConfig.getReserve_end_time1() + nearbyLibReserveConfig.getReserve_end_time2());
+		//nearbyLibReserveConfig.setReserve_start_time(nearbyLibReserveConfig.getReserve_start_time1() + nearbyLibReserveConfig.getReserve_start_time2());
+		//nearbyLibReserveConfig.setReserve_end_time(nearbyLibReserveConfig.getReserve_end_time1() + nearbyLibReserveConfig.getReserve_end_time2());
 		
 		if(nearbyLibReserveConfig.getEditMode().equals("ADD") || nearbyLibReserveConfig.getEditMode().equals("MODIFY")) {
 			if(nearbyLibReserveConfig.getEditMode().equals("MODIFY")) {

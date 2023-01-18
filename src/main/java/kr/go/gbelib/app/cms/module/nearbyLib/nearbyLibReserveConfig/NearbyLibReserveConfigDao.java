@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig;
 
 import java.util.List;
 
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage;
+
 /**
  * @author ttkaz
  * 2022. 10. 17.
@@ -22,5 +24,7 @@ public interface NearbyLibReserveConfigDao {
 	List<NearbyLibReserveConfig> getNeighborhoodLibraryReserveConfigList(NearbyLibReserveConfig neighborhoodLibraryReserveConfig);
 
 	int getTakeTermOfReserveConfig();
+
+	List<NearbyLibReserveConfig> getReserveConfigCalendar(NearbyLibManage nearbyLibManage);
 
 }

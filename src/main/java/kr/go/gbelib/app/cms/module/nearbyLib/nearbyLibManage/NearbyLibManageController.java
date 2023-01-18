@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,6 +25,8 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
 
 @Controller
 @RequestMapping(value = { "/cms/module/nearbyLib/nearbyLibManage" })
@@ -38,6 +42,9 @@ public class NearbyLibManageController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
+	
+	@Autowired
+	private NearbyLibReserveConfigService reserveConfigService;
 	
 	@RequestMapping(value = { "/index{url}.*" })
 	public String index(Model model, NearbyLibManage nearbyLibManage, HttpServletRequest request, @PathVariable("url") String url ) throws AuthException {
@@ -57,6 +64,8 @@ public class NearbyLibManageController extends BaseController {
 		model.addAttribute("calendarListType", service.getCalendarListType(nearbyLibManage));
 		model.addAttribute("nearbyLibManage", nearbyLibManage);
 		model.addAttribute("nearbyLibManageList",service.getNearbyLibManage(nearbyLibManage));
+		List<NearbyLibReserveConfig> reserveConfigList = reserveConfigService.getReserveConfigCalendar(nearbyLibManage);
+		model.addAttribute("nearbyLibReserveConfigList",reserveConfigList);
 
 		model.addAttribute("url", url);
 		return basePath + "index" + url;
@@ -87,26 +96,18 @@ public class NearbyLibManageController extends BaseController {
 	}
 	
 	@RequestMapping(value = { "/timeSetting.*" })
-	public String timeSetting(Model model, NearbyLibManage nearbyLibManage, HttpServletRequest request) throws AuthException {
-
-		if (nearbyLibManage.getEditMode().equals("MODIFY")) {
-			checkAuth("U", model, request);
-			NearbyLibManage one = service.getNearbyLibManageOne(nearbyLibManage);
-			NearbyLibManage one2 = service.getNearbyLibManageOne2(one);
-			model.addAttribute("nearbyLibManage",service.copyObjectPaging(nearbyLibManage,one));
-			model.addAttribute("nearbyLibManage2",one2);
-		} else {
-			checkAuth("C", model, request);
-			model.addAttribute("nearbyLibManage", nearbyLibManage);
+	public String timeSetting(Model model, NearbyLibReserveConfig nearbyLibReserveConfig, HttpServletRequest request) throws AuthException {
+		checkAuth("C", model, request);
+		nearbyLibReserveConfig.setHomepage_id(getSessionHomepageInfo(request).getHomepage_id());
+		
+		List<NearbyLibReserveConfig> reserveConfigList = reserveConfigService.getNeighborhoodLibraryReserveConfigList(nearbyLibReserveConfig);
+		
+		if(reserveConfigList.size() > 0) {
+			model.addAttribute("reserveConfigList", reserveConfigList);
 		}
+		
+		model.addAttribute("nearbyLibReserveConfig", nearbyLibReserveConfig);
 
-		model.addAttribute("weekdayList", service.getDefaultWeekDay());
-
-		model.addAttribute("dateTypeList",codeService.getCode(nearbyLibManage.getHomepage_id(), "C0006"));
-		Homepage h = new Homepage();
-		h.setHomepage_id(getSessionHomepageInfo(request).getHomepage_id());
-		h.setHomepage_group(getSessionHomepageInfo(request).getHomepage_group());
-		h.setTemp_use_yn("Y");
 		return basePath + "timeSetting_ajax";
 	}
 	
@@ -116,7 +117,6 @@ public class NearbyLibManageController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 
 		if (nearbyLibManage.getEditMode().equals("ADD") || nearbyLibManage.getEditMode().equals("MODIFY")) {
-			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "start_date","일정의 시작일자 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "end_date", "일정의 종료일자 입력하세요.");
 		}
@@ -127,6 +127,8 @@ public class NearbyLibManageController extends BaseController {
 				if (StringUtils.isNotEmpty(nearbyLibManage.getSubHomepageId())) {
 					nearbyLibManage.setHomepage_id(nearbyLibManage.getSubHomepageId());
 				}
+				
+				nearbyLibManage.setTitle("예약불가");
 
 				String startDate = nearbyLibManage.getStart_date();
 				String endDate = nearbyLibManage.getEnd_date();

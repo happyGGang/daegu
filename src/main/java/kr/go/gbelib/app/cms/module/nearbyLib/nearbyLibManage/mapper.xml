@@ -14,7 +14,7 @@
 		SELECT
 			<include refid="field" />
 		FROM
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
 		<if test="plan_date != null and plan_date != ''">
@@ -41,9 +41,9 @@
 				THEN '0'
 				ELSE weekday
 			END weekday,
-			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE b WHERE b.group_idx = a.group_idx) AS group_count
+			(SELECT COUNT(*) FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE b WHERE b.group_idx = a.group_idx) AS group_count
 		FROM
-			CMS_CALENDAR_MANAGE a
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE a
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	cm_idx = #{cm_idx}
@@ -58,7 +58,7 @@
 			MIN(start_time) AS start_time,
 			MAX(end_time) AS end_time
 		FROM
-			CMS_CALENDAR_MANAGE a
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE a
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	date_type = #{date_type}
@@ -70,7 +70,7 @@
 		SELECT
 			COUNT(*)
 		FROM
-			CMS_CALENDAR_MANAGE a
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE a
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	start_date = #{start_date}
@@ -87,7 +87,7 @@
 			TO_CHAR(TO_DATE(end_date,'yyyy-MM-dd'),'yyyy-MM-dd') AS end_date,
 			homepage_id, cm_idx, start_time, end_time, title, contents, date_type, link_url
 		FROM
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	date_type = '1'
@@ -113,7 +113,7 @@
 				SELECT
 					distinct start_date
 				FROM
-					CMS_CALENDAR_MANAGE
+					NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 				WHERE
 					homepage_id = #{homepage_id}
 				AND	date_type = '1'
@@ -137,7 +137,7 @@
 				SELECT
 					distinct start_date
 				FROM
-					CMS_CALENDAR_MANAGE
+					NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 				WHERE
 					homepage_id = #{homepage_id}
 				AND	date_type = '1'
@@ -159,7 +159,7 @@
 			SELECT
 				distinct MIN(start_date) AS start_date, MAX(end_date) AS end_date
 			FROM
-				CMS_CALENDAR_MANAGE
+				NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 			WHERE
 				homepage_id = #{homepage_id}
 			AND	date_type = '1'
@@ -179,7 +179,7 @@
 				SELECT
 					distinct start_date
 				FROM
-					CMS_CALENDAR_MANAGE
+					NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 				WHERE
 					homepage_id = #{homepage_id}
 				AND	date_type = '1'
@@ -195,7 +195,7 @@
 		SELECT
 			<include refid="field" />
 		FROM
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
 		<if test="date_type != null and date_type != ''">
@@ -221,7 +221,7 @@
 		SELECT
 			COUNT(*)
 		FROM
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	date_type = '1'
@@ -233,7 +233,7 @@
 	<!-- 일정관리 등록 -->
 	<insert id="addNearbyLibManage">
 		INSERT INTO
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		(
 			homepage_id, cm_idx, START_DATE, START_TIME, END_DATE,
 			END_TIME, TITLE, CONTENTS, date_type, link_url, group_idx,
@@ -241,7 +241,7 @@
 		)
 		VALUES
 		(
-			#{homepage_id}, (SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE ), #{start_date}, #{start_time}, #{end_date},
+			#{homepage_id}, (SELECT NVL(MAX(cm_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE ), #{start_date}, #{start_time}, #{end_date},
 			#{end_time}, #{title}, #{contents}, #{date_type}, #{link_url}, #{group_idx},
 			'N', #{weekday}
 		)
@@ -249,7 +249,7 @@
 
 	<update id="modifyNearbyLibManage">
 		UPDATE
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		SET
 			START_DATE = #{start_date},
 			START_TIME = #{start_time},
@@ -277,7 +277,7 @@
 
 	<delete id="deleteNearbyLibManage">
 		UPDATE
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		SET
 			delete_yn = 'Y'
 		WHERE
@@ -296,7 +296,7 @@
 
 	<delete id="deleteNearbyLibManageGroup">
 		UPDATE
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		SET
 			delete_yn = 'Y'
 		WHERE
@@ -373,7 +373,7 @@
 						TO_DATE(START_DATE, 'yyyy-MM-dd') AS START_DATE,
 						TO_DATE(END_DATE, 'yyyy-MM-dd') AS END_DATE,
 						COUNT(*) AS COUNT
-					FROM CMS_CALENDAR_MANAGE
+					FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 					WHERE
 						delete_yn = 'N' AND
 						homepage_id = #{homepage_id}
@@ -403,7 +403,7 @@
 							TO_DATE(START_DATE, 'yyyy-MM-dd') AS START_DATE,
 							TO_DATE(END_DATE, 'yyyy-MM-dd') AS END_DATE,
 							COUNT(*) AS COUNT
-						FROM CMS_CALENDAR_MANAGE
+						FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 						WHERE
 							delete_yn = 'N' AND
 							homepage_id = #{homepage_id}
@@ -437,7 +437,7 @@
 						TO_DATE(END_DATE, 'yyyy-MM-dd') AS end_date,
 						COUNT(*) AS count
 					FROM
-						CMS_CALENDAR_MANAGE
+						NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 					WHERE
 						delete_yn = 'N' AND
 						homepage_id = #{homepage_id}
@@ -455,14 +455,14 @@
 	</select>
 
 	<select id="getNextCmIdx" resultType="int">
-		SELECT NVL(MAX(cm_idx),0)+1 FROM CMS_CALENDAR_MANAGE
+		SELECT NVL(MAX(cm_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 	</select>
 
 	<select id="getGroupCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	group_idx = #{group_idx}
@@ -472,7 +472,7 @@
 		SELECT
 			COUNT(*)
 		FROM
-			CMS_CALENDAR_MANAGE
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	date_type = '1'

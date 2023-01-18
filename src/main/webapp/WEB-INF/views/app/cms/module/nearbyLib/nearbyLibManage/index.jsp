@@ -245,7 +245,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.sun}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}"  mode="admin" dayCode="1"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}"  mode="admin" dayCode="1"/>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -257,7 +257,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.mon}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}"  mode="admin" dayCode="2"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}"  mode="admin" dayCode="2"/>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -269,7 +269,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.tue}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" mode="admin" dayCode="3"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}" mode="admin" dayCode="3"/>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -281,7 +281,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.wed}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" mode="admin" dayCode="4"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}" mode="admin" dayCode="4"/>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -293,7 +293,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.thu}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" mode="admin" dayCode="5"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}" mode="admin" dayCode="5"/>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -305,7 +305,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.fri}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" mode="admin" dayCode="6"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}" mode="admin" dayCode="6"/>
 						</td>
 					</c:otherwise>
 					</c:choose>
@@ -317,7 +317,7 @@ $(function(){
 						<td class="top">
 							<p class="date">${i.sat}</p>
 							<c:set var="plan_date" value="${nearbyLibManage.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
-							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" mode="admin" dayCode="7"/>
+							<tag:nearbyLibManage plan_date="${plan_date}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}" mode="admin" dayCode="7"/>
 						</td>
 					</c:otherwise>
 					</c:choose>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="/resources/cms/js/jquery.timepicker.min.js"></script>
 <script>
 $(function() {
 	$('#dialog-2').dialog({ //모달창 기본 스크립트 선언
@@ -19,7 +20,7 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					if(doAjaxPost($('#nearbyLibManage_edit'))) {
+					if(doAjaxPost($('#nearbyLibReserveConfig_edit'))) {
 						$(this).dialog('destroy');
 						location.reload();
 					}
@@ -38,30 +39,22 @@ $(function() {
 		width: 660,
 		height: 465
 	});
-
-	$('input#start_date').datepicker({
-		maxDate: $('input#end_date').val(),
-		onClose: function(selectedDate){
-			$('input#end_date').datepicker('option', 'minDate', selectedDate);
-		}
-	});
-
-	$('input#end_date').datepicker({
-		minDate: $('input#start_date').val(),
-		onClose: function(selectedDate){
-			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
-		}
-	});
+	
+// 	$('input#reserve_start_time').timepicker({
+//         timeFormat: 'HH:mm p',
+//         interval: 60,
+//         defaultTime: '9',
+//         startTime: '00:00',
+//         dynamic: false,
+//         dropdown: true,
+//         scrollbar: true
+//     });
 
 });
 </script>
-<form:form modelAttribute="nearbyLibManage" id="nearbyLibManage_edit" action="save.do" method="post" onsubmit="return false;">
+<form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="save.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
-<form:hidden path="plan_date" value="${fn:substring(nearbyLibManage.start_date,0,7)}"/>
 <form:hidden path="homepage_id"/>
-<form:hidden path="cm_idx"/>
-<form:hidden path="group_idx"/>
-<form:hidden path="date_type" value="1"/>
 <table class="type1 center">
 	<colgroup>
 		<col width="60"/>
@@ -78,12 +71,12 @@ $(function() {
 		<tr>
 			<th>월</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -92,12 +85,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -107,19 +100,19 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 		<tr>
 			<th>화</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -128,12 +121,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -143,19 +136,19 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 		<tr>
 			<th>수</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -164,12 +157,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -179,19 +172,19 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 		<tr>
 			<th>목</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -200,12 +193,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -215,19 +208,19 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 		<tr>
 			<th>금</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -236,12 +229,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -251,19 +244,19 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 		<tr>
 			<th>토</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -272,12 +265,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -287,19 +280,19 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 		<tr>
 			<th>일</th>
 			<td>
-				<form:select path="start_date" id="start_date" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="start_time" id="start_time" class="selectmenu">
+				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -308,12 +301,12 @@ $(function() {
 					<form:option value="50">50</form:option>
 				</form:select>
 				~
-				<form:select path="end_date" id="end_date" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<c:forEach var="hour" begin="0" end="23">
 						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
 					</c:forEach>
 				</form:select> : 
-				<form:select path="end_time" id="end_time" class="selectmenu">
+				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
 					<form:option value="00">00</form:option>
 					<form:option value="10">10</form:option>
 					<form:option value="20">20</form:option>
@@ -323,8 +316,8 @@ $(function() {
 				</form:select>
 			</td>
 			<td>
-				<form:radiobutton path="individual_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="아니오"/>
+				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
+				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
 			</td>
 		</tr>
 	</tbody>

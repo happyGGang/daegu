@@ -161,6 +161,11 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<name>nearbyLibReserveConfigList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
 			<name>plan_date</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>

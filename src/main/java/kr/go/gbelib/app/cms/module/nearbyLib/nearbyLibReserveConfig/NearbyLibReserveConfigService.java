@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage;
 
 /**
  * @author ttkaz
@@ -44,6 +45,10 @@ public class NearbyLibReserveConfigService extends BaseService{
 
 	public int getTakeTermOfReserveConfig() {
 		return dao.getTakeTermOfReserveConfig();
+	}
+
+	public List<NearbyLibReserveConfig> getReserveConfigCalendar(NearbyLibManage nearbyLibManage) {
+		return dao.getReserveConfigCalendar(nearbyLibManage);
 	}
 
 }
