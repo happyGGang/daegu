@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.whalesoft.app.cms.member.Member;
@@ -913,24 +914,33 @@ public class IndexController extends BaseController {
 				} else if (h2.getHomepage_id().equals("h64")) {
 					b.setCategory1("0005");
 				}
-				sw.start("noticeList"+h2.getHomepage_id());
-				b.setManage_idx(628);
-				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
-				sw.stop();
-				sw.start("galleryList"+h2.getHomepage_id());
-				b.setManage_idx(632);
-				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
-				sw.stop();
-				sw.start("bookList"+h2.getHomepage_id());
-				b.setManage_idx(625);
-				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
-				sw.stop();
-				sw.start("movieList"+h2.getHomepage_id());
-				b.setManage_idx(627);
-				model.addAttribute("movieList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//영화
+
+				final List<Board> subBoardByMainSeogu = boardService.getSubBoardByMainSeogu(b);
+				final Map<String, List<Board>> boardGroup = subBoardByMainSeogu.stream()
+					.collect(Collectors.groupingBy(Board::getCategory4_name));
+
+				for (String gorupName : boardGroup.keySet()) {
+					model.addAttribute(gorupName + h2.getHomepage_id(), boardGroup.get(gorupName));
+				}
+//
+//				sw.start("noticeList"+h2.getHomepage_id());
+//				b.setManage_idx(628);
+//				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
+//				sw.stop();
+//				sw.start("galleryList"+h2.getHomepage_id());
+//				b.setManage_idx(632);
+//				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
+//				sw.stop();
+//				sw.start("bookList"+h2.getHomepage_id());
+//				b.setManage_idx(625);
+//				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
+//				sw.stop();
+//				sw.start("movieList"+h2.getHomepage_id());
+//				b.setManage_idx(627);
+//				model.addAttribute("movieList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//영화
 				homepage_ids.add(h2.getHomepage_id());
 				t.setHomepage_id(h2.getHomepage_id());
-				sw.stop();
+//				sw.stop();
 				sw.start("teachList"+h2.getHomepage_id());
 				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));
 				sw.stop();

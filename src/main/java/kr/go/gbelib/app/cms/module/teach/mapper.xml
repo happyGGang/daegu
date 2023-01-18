@@ -737,7 +737,7 @@
 		a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
 		a.end_date, a.END_TIME, a.cancle_use_yn, a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
 		a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
-		b.TEACHER_NAME,b.MEMBER_KEY,
+		a.TEACHER_NAME,b.MEMBER_KEY,
 		c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
 		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
 		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
@@ -2777,6 +2777,18 @@
 			AND	group_idx = #{group_idx}
 			AND	category_idx = #{category_idx}
 			AND	teach_idx = #{teach_idx}
+	</select>
+
+	<select id="getHolidaysForUser" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
+		SELECT
+			teach_idx, holiday
+		FROM
+			TEACH_HOLIDAYS
+		WHERE
+		teach_idx IN
+			<foreach collection="teachIdxs" item="i" open="(" close=")" separator=",">
+				#{i}
+			</foreach>
 	</select>
 
 	<select id="getSchaduleTeach" resultType="kr.go.gbelib.app.cms.module.teach.Teach">

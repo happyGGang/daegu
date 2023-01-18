@@ -61,6 +61,8 @@ public interface TeachDao  {
 
 	public List<String> getHolidays(Teach teach);
 
+	public List<Teach> getHolidaysForUser(Map<String, Object> map);
+
 	public int deleteImage(Teach teach);
 	
 	public int deleteAttach(Teach teach);

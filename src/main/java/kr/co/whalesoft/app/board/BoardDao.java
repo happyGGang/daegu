@@ -170,6 +170,8 @@ public interface BoardDao {
 
 	List<Board> getSubBoardByMain(Board board);
 
+	List<Board> getSubBoardByMainSeogu(Board board);
+
 	List<Board> getSubBoardByMainDalseo(Board board);
 
 	public int modifyThemeBook(Board board);

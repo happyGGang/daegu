@@ -1,17 +1,16 @@
 package kr.go.gbelib.app.cms.module.teach;
 
+import com.google.common.collect.Maps;
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import java.util.stream.Collectors;
 import kr.co.whalesoft.app.homepage.index.GyeongStopWatch;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -322,22 +321,31 @@ public class TeachService extends BaseService {
 
 		sw.start("teachListForUser");
 		List<Teach> teachListForUser = dao.getTeachListForUser(teach);
+
 		sw.stop();
 		List<Teach> list = teachListForUser;
 
 		if (list != null && list.size() > 0) {
+			final List<Integer> teachIdxs = teachListForUser.stream()
+				.map(Teach::getTeach_idx)
+				.collect(Collectors.toList());
+
+			final Map<String, Object> teachIdxMap = Maps.newHashMap();
+			teachIdxMap.put("teachIdxs", teachIdxs);
+			sw.start("holidays");
+			final List<Teach> holidaysForUser = dao.getHolidaysForUser(teachIdxMap);
+			sw.stop();
+
 			for (Teach result : list) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
-				sw.start("holidays");
-				List<String> holidays = dao.getHolidays(result);
-				sw.stop();
+
+				final List<String> holidays = holidaysForUser.stream()
+					.filter(holiday -> holiday.getTeach_idx() == result.getTeach_idx())
+					.map(Teach::getHoliday)
+					.collect(Collectors.toList());
+
 				result.setHolidays(holidays);
-				if (StringUtils.isEmpty(result.getTeacher_name())) {
-					sw.start("teacherName");
-					String teacherName = dao.getTeacherName(result);
-					sw.stop();
-					result.setTeacher_name(teacherName);
-				}
+
 			}
 			System.out.println(sw.prettyPrint());
 		}

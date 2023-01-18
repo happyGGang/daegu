@@ -838,6 +838,10 @@ public class BoardService extends BaseService {
 		return dao.getSubBoardByMain(board);
 	}
 
+	public List<Board> getSubBoardByMainSeogu(Board board) {
+		return dao.getSubBoardByMainSeogu(board);
+	}
+
 	public List<Board> getSubBoardByMainDalseo(Board board) {
 		return dao.getSubBoardByMainDalseo(board);
 	}
