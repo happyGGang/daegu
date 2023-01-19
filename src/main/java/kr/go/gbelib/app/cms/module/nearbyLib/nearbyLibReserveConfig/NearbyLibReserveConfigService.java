@@ -1,7 +1,13 @@
 package kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
 import java.util.List;
 
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +65,48 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.getReserveConfigToday(nearbyLibHomepageId);
 	}
 
-	public int checkReserveTime(NearbyLibReserveConfig nearbyLibReserveConfig) {
-		return dao.checkReserveTime(nearbyLibReserveConfig);
+	public boolean checkReserveTime(String nearbyLibHomepageId) {
+		int[] oracleDayOfWeek = {0, 2, 3, 4, 5, 6, 7, 1};
+
+		LocalDateTime today = LocalDateTime.now();
+		final int value = today.getDayOfWeek().getValue();
+		final int dayOfWeek = oracleDayOfWeek[value];
+
+		final NearbyLibManage nearbyLibManage = new NearbyLibManage(nearbyLibHomepageId, "");
+		final List<NearbyLibReserveConfig> reserveConfigCalendar = dao.getReserveConfigCalendar(nearbyLibManage);
+
+		final NearbyLibReserveConfig todayConfig = reserveConfigCalendar.stream()
+			.sorted(Comparator.comparing(NearbyLibReserveConfig::getDay_of_week))
+			.filter(config -> Integer.parseInt(config.getDay_of_week()) == dayOfWeek)
+			.findFirst()
+			.orElse(reserveConfigCalendar.get(0));
+
+		final LocalTime localTime = today.toLocalTime();
+		final int startHour = Integer.parseInt(todayConfig.getReserve_start_time().substring(0, 2));
+		final int startMinute = Integer.parseInt(todayConfig.getReserve_start_time().substring(2));
+		final boolean isYesterday = localTime.isBefore(LocalTime.of(startHour, startMinute));
+
+		NearbyLibReserveConfig referenceConfig = todayConfig;
+		if (isYesterday) {
+			referenceConfig = reserveConfigCalendar.stream()
+				.filter(config -> Integer.parseInt(config.getDay_of_week()) == yesterdayOfWeek(Integer.parseInt(todayConfig.getDay_of_week())))
+				.findFirst()
+				.orElse(todayConfig);
+		}
+
+		final int reserveStartHour = Integer.parseInt(referenceConfig.getReserve_start_time().substring(0, 2));
+		final int reserveStartMinute = Integer.parseInt(referenceConfig.getReserve_start_time().substring(2));
+		final int reserveEndHour = Integer.parseInt(referenceConfig.getReserve_end_time().substring(0, 2));
+		final int reserveEndMinute = Integer.parseInt(referenceConfig.getReserve_end_time().substring(2));
+
+		return localTime.isAfter(LocalTime.of(reserveStartHour, reserveStartMinute)) && localTime.isBefore(LocalTime.of(reserveEndHour, reserveEndMinute));
+	}
+
+	private int yesterdayOfWeek(int dayOfWeek) {
+		if(dayOfWeek == 1) {
+			return 7;
+		}
+		return dayOfWeek - 1;
 	}
 
 }

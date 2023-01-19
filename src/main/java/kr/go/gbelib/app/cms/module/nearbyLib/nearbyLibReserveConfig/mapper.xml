@@ -127,15 +127,13 @@
 		AND TO_CHAR(SYSDATE, 'D') = day_of_week
 	</select>
 	
-	<select id="checkReserveTime" resultType="int">
+	<select id="checkReserveTime" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			count(*)
+			*
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
 			HOMEPAGE_ID = #{homepage_id}
-		AND TO_CHAR(SYSDATE, 'D') = day_of_week
-		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 	</select>
 	
 </mapper>

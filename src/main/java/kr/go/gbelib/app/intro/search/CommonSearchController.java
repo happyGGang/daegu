@@ -682,10 +682,10 @@ public class CommonSearchController extends BaseController {
 						//예약버튼 비활성화 유무확인
 						int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(nearbyLibHomepageId);
 						
-						//예약가능시간 확인(count가 1이면 예약 가능)
-						int reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(nearbyLibReserveConfig);
+						//예약가능시간 확인(count가 true이면 예약 가능)
+						boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(nearbyLibHomepageId);
 						
-						if(reserveConfigCount > 0 || reserveTimeCheck < 1) {
+						if(reserveConfigCount > 0 || !reserveTimeCheck) {
 							reserveAvailability = "N";
 						}
 					}
@@ -3538,10 +3538,10 @@ public class CommonSearchController extends BaseController {
 				//예약버튼 비활성화 유무확인
 				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getHomepage_id());
 				
-				//예약가능시간 확인(count가 1이면 예약 가능)
-				int reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(checkConfig);
+				//예약가능시간 확인(count가 true이면 예약 가능)
+				boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(neighborhoodLibrary.getHomepage_id());
 				
-				if(reserveConfigCount > 0 || reserveTimeCheck < 1) {
+				if(reserveConfigCount > 0 || !reserveTimeCheck) {
 					res.setValid(false);
 					res.setMessage("현재 예약 가능한 시간이 아닙니다.");
 					return res;
