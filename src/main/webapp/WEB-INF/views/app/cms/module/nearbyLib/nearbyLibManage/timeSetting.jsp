@@ -30,7 +30,6 @@ $(function() {
 						rowList.push(item.querySelector('.endHour').value + item.querySelector('.endMin').value);
 						rowList.push(item.querySelector('input[type=radio]:checked').value);
 						reserveList.push(rowList);
-						console.log(reserveList);
 					})
 					const formData = {
 						'reserveList' : reserveList,
@@ -69,7 +68,19 @@ $(function() {
 		width: 660,
 		height: 465
 	});
-	
+
+	$('.selectmenu').on('change', function () {
+		const newSelectList = document.querySelectorAll('tbody[id=reserveOfWeekend] tr');
+		newSelectList.forEach(item => {
+			let startTime = item.querySelector('.startHour').value + item.querySelector('.startMin').value;
+			let endTime = item.querySelector('.endHour').value + item.querySelector('.endMin').value;
+			console.log(parseInt(startTime));
+			if (parseInt(startTime) > parseInt(endTime)) {
+				alert("예약시작시간이 예약종료시간보다 늦습니다.");
+				return false;
+			}
+		})
+	});
 // 	$('input#reserve_start_time').timepicker({
 //         timeFormat: 'HH:mm p',
 //         interval: 60,
@@ -82,9 +93,6 @@ $(function() {
 
 });
 
-function combineTime (hour, second) {
-	return hour + second;
-}
 </script>
 <form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="timeSettingSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
@@ -119,17 +127,18 @@ function combineTime (hour, second) {
 					</c:forEach>
 				</select>
 				<select class="selectmenu startMin">
-					<c:forEach var="second" items="${nearbyLibReserveConfig.second}">
+					<c:forEach var="minute" items="${nearbyLibReserveConfig.minute}">
 						<c:choose>
-							<c:when test="${fn:substring(i.reserve_start_time, 2, 4) eq second}">
-								<option value="${second}" selected>${second}</option>
+							<c:when test="${fn:substring(i.reserve_start_time, 2, 4) eq minute}">
+								<option value="${minute}" selected>${minute}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${second}">${second}</option>
+								<option value="${minute}">${minute}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 				</select>
+				~
 				<select class="selectmenu endHour">
 					<c:forEach var="hour" items="${nearbyLibReserveConfig.hour}">
 						<c:choose>
@@ -143,13 +152,13 @@ function combineTime (hour, second) {
 					</c:forEach>
 				</select>
 				<select class="selectmenu endMin">
-					<c:forEach var="second" items="${nearbyLibReserveConfig.second}">
+					<c:forEach var="minute" items="${nearbyLibReserveConfig.minute}">
 						<c:choose>
-							<c:when test="${fn:substring(i.reserve_end_time, 2, 4) eq second}">
-								<option value="${second}" selected>${second}</option>
+							<c:when test="${fn:substring(i.reserve_end_time, 2, 4) eq minute}">
+								<option value="${minute}" selected>${minute}</option>
 							</c:when>
 							<c:otherwise>
-								<option value="${second}">${second}</option>
+								<option value="${minute}">${minute}</option>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>

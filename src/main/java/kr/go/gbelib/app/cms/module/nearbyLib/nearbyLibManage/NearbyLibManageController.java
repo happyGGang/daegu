@@ -203,7 +203,7 @@ public class NearbyLibManageController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 
 		//validation 설정 필요
-		//
+		//시작시간과 종료시간을 비교해서 적용(시작시간이 종료시간보다 작아야함)
 		//
 		//
 
