@@ -107,7 +107,7 @@ private final String basePath = "/cms/module/nearbyLib/nearbyLibLocker/";
 		
 		if (!result.hasErrors()) {
 			if (nearbyLibLocker.getEditMode().equals("ADD")) {
-				if(service.getNeighborhoodLibraryLockerCount(nearbyLibLocker) > 0) {
+				if(service.getNeighborhoodLibraryLockerCount(nearbyLibLocker.getDevice_idx()) > 0) {
 					res.setValid(false);
 					res.setMessage("등록된 사물함이 존재합니다.");
 					return res;

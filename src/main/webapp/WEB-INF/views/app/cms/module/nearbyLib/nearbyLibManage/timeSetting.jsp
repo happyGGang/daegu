@@ -5,6 +5,8 @@
 <script src="/resources/cms/js/jquery.timepicker.min.js"></script>
 <script>
 $(function() {
+	let reserveList = [];
+	let trList = [];
 	$('#dialog-2').dialog({ //모달창 기본 스크립트 선언
 		autoOpen: false,
 		resizable: false,
@@ -20,10 +22,37 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					if(doAjaxPost($('#nearbyLibReserveConfig_edit'))) {
-						$(this).dialog('destroy');
-						location.reload();
+					jQuery.ajaxSettings.traditional = true;
+					trList = document.querySelectorAll('tbody[id=reserveOfWeekend] tr');
+					trList.forEach(item => {
+						let rowList = [];
+						rowList.push(item.querySelector('.startHour').value + item.querySelector('.startMin').value);
+						rowList.push(item.querySelector('.endHour').value + item.querySelector('.endMin').value);
+						rowList.push(item.querySelector('input[type=radio]:checked').value);
+						reserveList.push(rowList);
+					})
+					const formData = {
+						'reserveList' : reserveList,
+						'homepage_id' : $('#homepage_id').val()
 					}
+					$.ajax({
+						type : 'POST',
+						dataType : 'json',
+						url : 'timeSettingSave.do',
+						async : false,
+						data : formData,
+						success : function(response) {
+							if (response.valid) {
+								if (response.message != null && response.message.replace(/\s/g, '').length != 0) {
+									alert(response.message);
+								}
+								location.reload();
+							}
+						},
+						error : function(jqXHR, textStatus, errorThrown) {
+							alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+						}
+					});
 				}
 			},{
 				text: "취소",
@@ -39,7 +68,19 @@ $(function() {
 		width: 660,
 		height: 465
 	});
-	
+
+	$('.selectmenu').on('change', function () {
+		const newSelectList = document.querySelectorAll('tbody[id=reserveOfWeekend] tr');
+		newSelectList.forEach(item => {
+			let startTime = item.querySelector('.startHour').value + item.querySelector('.startMin').value;
+			let endTime = item.querySelector('.endHour').value + item.querySelector('.endMin').value;
+			console.log(parseInt(startTime));
+			if (parseInt(startTime) > parseInt(endTime)) {
+				alert("예약시작시간이 예약종료시간보다 늦습니다.");
+				return false;
+			}
+		})
+	});
 // 	$('input#reserve_start_time').timepicker({
 //         timeFormat: 'HH:mm p',
 //         interval: 60,
@@ -51,8 +92,9 @@ $(function() {
 //     });
 
 });
+
 </script>
-<form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="save.do" method="post" onsubmit="return false;">
+<form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="timeSettingSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
 <table class="type1 center">
@@ -67,259 +109,67 @@ $(function() {
 			<th>예약버튼 활성화여부</th>
 		</tr>
 		</thead>
-		<tbody>
+		<tbody id="reserveOfWeekend">
+		<c:forEach var="i" varStatus="status" items="${reserveConfigList}">
 		<tr>
-			<th>월</th>
+			<th>${i.day_of_week}</th>
 			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
+				<select class="selectmenu startHour">
+					<c:forEach var="hour" items="${nearbyLibReserveConfig.hour}">
+						<c:choose>
+							<c:when test="${fn:substring(i.reserve_start_time, 0, 2) eq hour}">
+								<option value="${hour}" selected>${hour}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${hour}">${hour}</option>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
+				</select>
+				<select class="selectmenu startMin">
+					<c:forEach var="minute" items="${nearbyLibReserveConfig.minute}">
+						<c:choose>
+							<c:when test="${fn:substring(i.reserve_start_time, 2, 4) eq minute}">
+								<option value="${minute}" selected>${minute}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${minute}">${minute}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
 				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
+				<select class="selectmenu endHour">
+					<c:forEach var="hour" items="${nearbyLibReserveConfig.hour}">
+						<c:choose>
+							<c:when test="${fn:substring(i.reserve_end_time, 0, 2) eq hour}">
+								<option value="${hour}" selected>${hour}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${hour}">${hour}</option>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
+				</select>
+				<select class="selectmenu endMin">
+					<c:forEach var="minute" items="${nearbyLibReserveConfig.minute}">
+						<c:choose>
+							<c:when test="${fn:substring(i.reserve_end_time, 2, 4) eq minute}">
+								<option value="${minute}" selected>${minute}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${minute}">${minute}</option>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</select>
 			</td>
 			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
+				<input type="radio" value="Y" <c:if test="${i.use_yn eq 'Y'}">checked</c:if>/>예
+				<input type="radio" value="N" <c:if test="${i.use_yn eq 'N'}">checked</c:if>/>아니오
 			</td>
 		</tr>
-		<tr>
-			<th>화</th>
-			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-			</td>
-			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
-			</td>
-		</tr>
-		<tr>
-			<th>수</th>
-			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-			</td>
-			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
-			</td>
-		</tr>
-		<tr>
-			<th>목</th>
-			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-			</td>
-			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
-			</td>
-		</tr>
-		<tr>
-			<th>금</th>
-			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-			</td>
-			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
-			</td>
-		</tr>
-		<tr>
-			<th>토</th>
-			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-			</td>
-			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
-			</td>
-		</tr>
-		<tr>
-			<th>일</th>
-			<td>
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_start_time" id="reserve_start_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-				~
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<c:forEach var="hour" begin="0" end="23">
-						<option value="<c:if test='${hour < 10}'>0</c:if>${hour}"><c:if test='${hour < 10}'>0</c:if>${hour}</option>
-					</c:forEach>
-				</form:select> : 
-				<form:select path="reserve_end_time" id="reserve_end_time" class="selectmenu">
-					<form:option value="00">00</form:option>
-					<form:option value="10">10</form:option>
-					<form:option value="20">20</form:option>
-					<form:option value="30">30</form:option>
-					<form:option value="40">40</form:option>
-					<form:option value="50">50</form:option>
-				</form:select>
-			</td>
-			<td>
-				<form:radiobutton path="use_yn" value="N" label="예"/>&nbsp;
-				<form:radiobutton path="use_yn" value="Y" label="아니오"/>
-			</td>
-		</tr>
+		</c:forEach>
 	</tbody>
 </table>
 </form:form>

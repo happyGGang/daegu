@@ -25,7 +25,7 @@
 		WHERE
 			HOMEPAGE_ID = #{homepage_id}
 		ORDER BY 
-			day_of_week DESC
+			day_of_week
 	</select>
 	
 	<select id="getNeighborhoodLibraryReserveConfigCount" resultType="int">
@@ -79,6 +79,21 @@
 			EXPIRE_DATE_CNT = #{expire_date_cnt}
 		WHERE
 			RESERVE_CONFIG_IDX = #{reserve_config_idx}		
+	</update>
+
+	<update id="modifyNearbyLibReserveConfig">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		SET
+			RESERVE_START_TIME = #{reserve_start_time},
+			RESERVE_END_TIME = #{reserve_end_time},
+			USE_YN = #{use_yn},
+			MODIFY_ID = #{modify_id},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+		AND RESERVE_CONFIG_IDX = #{reserve_config_idx}
+		AND DAY_OF_WEEK = #{day_of_week}
 	</update>
 	
 	<select id="getTakeTermOfReserveConfig" resultType="int">

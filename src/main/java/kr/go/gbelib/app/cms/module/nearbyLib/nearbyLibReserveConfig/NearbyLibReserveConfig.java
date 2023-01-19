@@ -19,6 +19,9 @@ public class NearbyLibReserveConfig extends PagingUtils{
 	
 	private String member_id; //회원개인 예약 정보 받아오기용 회원아이디
 	private int device_idx; //회원개인 예약 정보 받아오기용 기기코드
+
+    private String[] hour = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
+    private String[] minute = {"00", "10", "20", "30", "40", "50"};
 	
 	public NearbyLibReserveConfig() {}
 	
@@ -115,5 +118,21 @@ public class NearbyLibReserveConfig extends PagingUtils{
 
 	public void setDevice_idx(int device_idx) {
 		this.device_idx = device_idx;
+	}
+
+	public String[] getHour() {
+        return hour;
+    }
+
+    public void setHour(String[] hour) {
+        this.hour = hour;
+    }
+
+	public String[] getMinute() {
+		return minute;
+	}
+
+	public void setMinute(String[] minute) {
+		this.minute = minute;
 	}
 }
