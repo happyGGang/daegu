@@ -62,7 +62,7 @@
 	100% {margin-top: 10px;}
 }
 
-.quickMenu {width:100%;margin:0;text-align:center;padding-bottom:30px}
+.quickMenu {width:100%;margin:0;text-align:center;padding:20px 0;}
 .quickMenu ul {font-size:0;}
 
 .quickMenu li {position:relative;display:inline-block;overflow:hidden;text-align:center;width:32%;height:250px;vertical-align:top;margin:0.5%;}
@@ -108,6 +108,7 @@
 .btn.btn-close:before {transform: rotate(45deg);}
 .btn.btn-close:after {transform: rotate(-45deg);}
 
+/*
 .movie-box {}
 .movie-box .movie-btn {position:absolute;right:4.1%;bottom:6%;z-index:10;}
 .movie-box img.movie-txt {animation: rotate 25s 0.5s infinite linear;margin-left: -90px;}
@@ -115,6 +116,16 @@
 .dimmed {display:none;position:absolute;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);transition:all .45s ease;z-index:999995;}
 .video-box {position:absolute;width:100%;height:100%;text-align:center;box-sizing:border-box;vertical-align:middle;z-index:999997;}
 .video-box video {width:90%;vertical-align:middle;}
+*/
+
+.movie-box {position:absolute;top:100%;width:78%;height:86%;background:rgba(255,255,255,0.95);border-radius:23px;left:50%;margin-left:-40%;transition:all .45s ease;z-index:999998;}
+.movie-box .movie-btn {position:absolute;top:-270px;left:97%;z-index:999999;}
+.movie-box img.movie-txt {animation: rotate 25s 0.5s infinite linear;}
+.movie-box .movie-close-slider {display:none;position:absolute;right:2%;top:3%;z-index:999999;}
+.dimmed {display:none;position:absolute;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);transition:all .45s ease;z-index:999995;}
+.video-box {position:absolute;width:100%;height:100%;text-align:center;box-sizing:border-box;vertical-align:middle;z-index:999997;margin-top:35px;}
+.video-box video {width:90%;vertical-align:middle;}
+
 
 @keyframes rotate{
 	from{ -webkit-transform :rotate(0deg); -moz-transform: rotate(0deg);;   -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg);}
@@ -309,7 +320,10 @@
 	#web-view {display:none;}
 	#mobile-view {display:block;}
 	.quickMenu {background:#e6e6e6;}
-	
+
+	.quickMenu li.quick-0{width:99%;height:70px;}
+	.quickMenu li.quick-0 a div{bottom:30%;}
+	.quickMenu li a.quick00 {background:#004299 url("../img/nbl-m-icon00.png") no-repeat 38% 50%;background-size:50px;padding-left:10px;}	
 
 	.searchBox form {position: absolute; top:50%; left:50%; width: 80%; height: 60px; transform: translate(-50%, -50%);}
 	.searchInput input {width: 100%;height: 60px;padding: 0 30px;border-radius: 50px;border: none;font-size:18px;box-sizing:border-box;}
@@ -325,7 +339,8 @@
 @media all and (max-width:768px){
 	.quickMenu ul{width:96%;margin:0 auto;}
 	.quickMenu li {width:49%;height:200px;margin:0.5%;}
-
+	
+	.quickMenu li a.quick00 {background:#004299 url("../img/nbl-m-icon00.png") no-repeat 35% 50%;background-size:50px;}
 	.quickMenu li a.quick01 {background:url("../img/nbl-m-icon01.png") no-repeat 50% 40%;transition:all 0.3s;background-size:50px;}
 	.quickMenu li a.quick02 {background:url("../img/nbl-m-icon02.png") no-repeat 50% 40%;transition:all 0.3s;background-size:50px;}
 	.quickMenu li a.quick03 {background:url("../img/nbl-m-icon03.png") no-repeat 50% 40%;transition:all 0.3s;background-size:50px;}
@@ -347,13 +362,18 @@
 	.mobileList {display:block}
 	.mobileBr {display:block;}
 	.webList {display:none}
+	
+	.quickMenu li a.quick00 {background:#004299 url("../img/nbl-m-icon00.png") no-repeat 32% 50%;background-size:50px;}
 }
 
 @media all and (max-width:550px){
 	#foot_section .mFooter p.copyright {font-size:12px;}
+	
+	.quickMenu li a.quick00 {background:#004299 url("../img/nbl-m-icon00.png") no-repeat 28% 50%;background-size:50px;}
 }
 
 @media all and (max-width:425px){
+	.quickMenu li a.quick00 {background:#004299 url("../img/nbl-m-icon00.png") no-repeat 25% 50%;background-size:40px;}
 	.quickMenu li a.quick01 {background:url("../img/nbl-m-icon01.png") no-repeat 50% 40%;transition:all 0.3s;background-size:40px;}
 	.quickMenu li a.quick02 {background:url("../img/nbl-m-icon02.png") no-repeat 50% 40%;transition:all 0.3s;background-size:40px;}
 	.quickMenu li a.quick03 {background:url("../img/nbl-m-icon03.png") no-repeat 50% 40%;transition:all 0.3s;background-size:40px;}
