@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -13,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
@@ -101,7 +99,9 @@ public class NearbyLibManageController extends BaseController {
 		nearbyLibReserveConfig.setHomepage_id(getSessionHomepageInfo(request).getHomepage_id());
 		
 		List<NearbyLibReserveConfig> reserveConfigList = reserveConfigService.getNeighborhoodLibraryReserveConfigList(nearbyLibReserveConfig);
-		
+		for (NearbyLibReserveConfig libReserveConfig : reserveConfigList) {
+			libReserveConfig.setDay_of_week(getKorWeekName(libReserveConfig.getDay_of_week()));
+		}
 		if(reserveConfigList.size() > 0) {
 			model.addAttribute("reserveConfigList", reserveConfigList);
 		}
@@ -197,6 +197,42 @@ public class NearbyLibManageController extends BaseController {
 		return res;
 	}
 
+	@RequestMapping(value = { "/timeSettingSave.*" }, method = RequestMethod.POST)
+	public @ResponseBody
+	JsonResponse timeSettingSave(@RequestParam("reserveList") List<ArrayList<String>> reserveList, @RequestParam("homepage_id") String homepage_id, NearbyLibReserveConfig nearbyLibReserveConfig, BindingResult result, HttpServletRequest request) throws Exception {
+		JsonResponse res = new JsonResponse(request);
+
+		//validation 설정 필요
+		//
+		//
+		//
+
+		if (!result.hasErrors()) {
+			nearbyLibReserveConfig.setHomepage_id(homepage_id);
+			List<NearbyLibReserveConfig> nearbyLibReserveConfigList = reserveConfigService.getNeighborhoodLibraryReserveConfigList(nearbyLibReserveConfig);
+			int index = 1;
+
+			// 시작시간, 종료시간, 사용여부를 담은 List를 반복문으로 해당 bean에 주입하여 update
+			for (ArrayList<String> arrayOne : reserveList) {
+				nearbyLibReserveConfig.setReserve_start_time(arrayOne.get(0));
+				nearbyLibReserveConfig.setReserve_end_time(arrayOne.get(1));
+				nearbyLibReserveConfig.setUse_yn(arrayOne.get(2));
+				nearbyLibReserveConfig.setReserve_config_idx(nearbyLibReserveConfigList.get(index-1).getReserve_config_idx());
+				nearbyLibReserveConfig.setDay_of_week(Integer.toString(index));
+				nearbyLibReserveConfig.setModify_id(getSessionMemberId(request));
+				reserveConfigService.modifyNearbyLibReserveConfig(nearbyLibReserveConfig);
+				index++;
+			}
+			res.setValid(true);
+			res.setMessage("등록 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
+
 	@RequestMapping(value = { "/getLasHolidays.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse saveIlusHolidays(NearbyLibManage nearbyLibManage, Homepage homepage, BindingResult result, HttpServletRequest request) {
 
@@ -237,5 +273,18 @@ public class NearbyLibManageController extends BaseController {
 	    int dayNum = date.get(Calendar.DAY_OF_WEEK) ;
 
 	    return dayNum ;
+	}
+
+	public String getKorWeekName(String week) {
+		switch (week) {
+			case "1" : return "일";
+			case "2" : return "월";
+			case "3" : return "화";
+			case "4" : return "수";
+			case "5" : return "목";
+			case "6" : return "금";
+			case "7" : return "토";
+			default : return "요일없음";
+		}
 	}
 }

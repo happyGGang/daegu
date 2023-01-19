@@ -39,6 +39,10 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.modifyNeighborhoodLibraryDevice(neighborhoodLibraryReserveConfig);
 	}
 
+	public int modifyNearbyLibReserveConfig(NearbyLibReserveConfig neighborhoodLibraryReserveConfig) {
+		return dao.modifyNearbyLibReserveConfig(neighborhoodLibraryReserveConfig);
+	}
+
 	public List<NearbyLibReserveConfig> getNeighborhoodLibraryReserveConfigList(NearbyLibReserveConfig neighborhoodLibraryReserveConfig) {
 		return dao.getNeighborhoodLibraryReserveConfigList(neighborhoodLibraryReserveConfig);
 	}
