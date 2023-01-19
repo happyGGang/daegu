@@ -1037,22 +1037,19 @@ $(function() {
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
 					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1' || sessionScope.member.member_id eq 'kopi6264' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'pshnoi88' || sessionScope.member.member_id eq 'projectnr' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'jewjew' || sessionScope.member.member_id eq 'nearby01' || sessionScope.member.member_id eq 'nearby02' || sessionScope.member.member_id eq 'nearby03' || sessionScope.member.member_id eq 'nearby04' || sessionScope.member.member_id eq 'nearby05' || sessionScope.member.member_id eq 'nearby06' || sessionScope.member.member_id eq 'nearby07' || sessionScope.member.member_id eq 'nearby08' || sessionScope.member.member_id eq 'nearby09' || sessionScope.member.member_id eq 'nearby10' || sessionScope.member.member_id eq 'nearby11' || sessionScope.member.member_id eq 'nearby12' || sessionScope.member.member_id eq 'nearby13' || sessionScope.member.member_id eq 'nearby14' || sessionScope.member.member_id eq 'nearby15' || sessionScope.member.member_id eq 'nearby16' || sessionScope.member.member_id eq 'nearby17' || sessionScope.member.member_id eq 'nearby18' || sessionScope.member.member_id eq 'nearby19' || sessionScope.member.member_id eq 'nearby20' }">
-					<c:if test="${reserveConfig.reserve_start_time le nowTime or reserveConfig.reserve_end_time gt nowTime  }">
 						<c:choose>
-							<c:when test="${reserveData == 0 }">
+							<c:when test="${reserveData == 0 and reserveAvailability eq 'Y'}">
 								<c:choose>
 								<c:when test="${detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AA29' || detail.SHELF_LOC_CODE eq 'BA06'}">
 								</c:when>
 								<c:otherwise>
-								<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내집앞도서예약</a>
+									<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내집앞도서예약</a>
 								</c:otherwise>
 								</c:choose>
 							</c:when>
 							<c:otherwise>
-								<a href="javascript:void(0);" id="" class="btn" style="padding:8.5px 2%">내집앞도서예약(신청불가)</a>
 							</c:otherwise>
 						</c:choose>
-					</c:if>
 					</c:if>
 				</c:when>
 			</c:choose>

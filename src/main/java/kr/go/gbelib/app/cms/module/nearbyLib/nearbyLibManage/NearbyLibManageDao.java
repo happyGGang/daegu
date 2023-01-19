@@ -48,4 +48,6 @@ public interface NearbyLibManageDao {
 	public int getNearbyLibManageCheckCount(NearbyLibManage nearbyLibManage);
 	
 	public int isTodayClosed(String homepage_id);
+
+	public int checkUseYn(String homepage_id);
 }

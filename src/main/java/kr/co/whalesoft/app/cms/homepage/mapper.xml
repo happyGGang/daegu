@@ -289,4 +289,15 @@
 					#{i}
 				</foreach>
 	</select>
+	
+	<select id="getHomepageId" resultType="String">
+		SELECT
+			homepage_id
+		FROM
+		    CMS_HOMEPAGE
+		WHERE
+		    1 = 1
+		AND
+		    manage_code = #{manage_code}
+	</select>
 </mapper>

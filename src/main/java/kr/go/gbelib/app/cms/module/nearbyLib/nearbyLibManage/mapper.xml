@@ -480,4 +480,15 @@
 		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
 	</select>
 
+	<select id="checkUseYn" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
+	</select>
+
 </mapper>

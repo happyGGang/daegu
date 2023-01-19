@@ -17,6 +17,9 @@ public class NearbyLibReserveConfig extends PagingUtils{
 	private String modify_date;  //수정날짜
 	private String tomorrow_end_day_yn;  //내일종료날짜사용여부
 	
+	private String member_id; //회원개인 예약 정보 받아오기용 회원아이디
+	private int device_idx; //회원개인 예약 정보 받아오기용 기기코드
+	
 	public NearbyLibReserveConfig() {}
 	
 	public String getHomepage_id() {
@@ -97,5 +100,20 @@ public class NearbyLibReserveConfig extends PagingUtils{
 	public void setTomorrow_end_day_yn(String tomorrow_end_day_yn) {
 		this.tomorrow_end_day_yn = tomorrow_end_day_yn;
 	}
-	
+
+	public String getMember_id() {
+		return member_id;
+	}
+
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
+
+	public int getDevice_idx() {
+		return device_idx;
+	}
+
+	public void setDevice_idx(int device_idx) {
+		this.device_idx = device_idx;
+	}
 }

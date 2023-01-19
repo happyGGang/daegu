@@ -27,4 +27,10 @@ public interface NearbyLibReserveConfigDao {
 
 	List<NearbyLibReserveConfig> getReserveConfigCalendar(NearbyLibManage nearbyLibManage);
 
+	int getReserveConfigTodayCount(String nearbyLibHomepageId);
+
+	NearbyLibReserveConfig getReserveConfigToday(String nearbyLibHomepageId);
+
+	int checkReserveTime(NearbyLibReserveConfig nearbyLibReserveConfig);
+
 }

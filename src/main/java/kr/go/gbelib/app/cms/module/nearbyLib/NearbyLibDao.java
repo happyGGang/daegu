@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.nearbyLib;
 
 import java.util.List;
 
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
+
 /**
  * @author SeongHyeon
  * 2022. 9. 27.
@@ -70,5 +72,11 @@ public interface NearbyLibDao {
 	List<NearbyLib> getReserveMemberOneList(NearbyLib reserveMemberOne);
 
 	List<NearbyLib> getNearByLibReserveList(NearbyLib nearbyLib);
+
+	int getReservedLockerCountNow(int device_idx);
+
+	int getReservedLockerCountNow(NearbyLibReserveConfig nearbyLibReserveConfig);
+
+	int getReserveCountNow(NearbyLibReserveConfig nearbyLibReserveConfig);
 
 }

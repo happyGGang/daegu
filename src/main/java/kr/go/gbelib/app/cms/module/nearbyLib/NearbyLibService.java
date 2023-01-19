@@ -1772,4 +1772,12 @@ public class NearbyLibService extends BaseService {
 		return dao.getNearByLibReserveList(nearbyLib);
 	}
 
+	public int getReservedLockerCountNow(NearbyLibReserveConfig nearbyLibReserveConfig) {
+		return dao.getReservedLockerCountNow(nearbyLibReserveConfig);
+	}
+
+	public int getReserveCountNow(NearbyLibReserveConfig nearbyLibReserveConfig) {
+		return dao.getReserveCountNow(nearbyLibReserveConfig);
+	}
+
 }
