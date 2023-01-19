@@ -12,6 +12,36 @@
 <c:if test="${getIp eq '218.48.151.16'}">
 </c:if>
 
+<script>
+$(function() {
+	var _video = document.querySelector('#video-box');
+	
+	$('a#movie-slider').click(function (e) {
+		e.preventDefault();
+		$('.movie-box').css('top','5%');
+		$('#movie-close-slider').css('display','block');
+		//$('.dimmed').css('display','block');
+		$('#ProgramLink-container').css('display','none');
+		_video.load(); // 새로운 정보를 다시 로드
+		_video.play(); // 잘 동작함		
+		return false;
+	});	
+	
+	$('a#movie-close-slider').click(function (e) {
+		e.preventDefault();
+		$('.movie-box').css('top','100%');
+		$('#movie-close-slider').css('display','none');
+		//$('.dimmed').css('display','none');
+		$('#ProgramLink-container').css('display','block');
+		_video.load(); // 새로운 정보를 다시 로드
+		_video.pause(); // 잘 동작함		
+		return false;
+	});	
+	
+	setInterval("kioskGlobal.dateTimer()", 1000);
+});
+</script>
+
 <script type="text/javascript">	
 $(function() {
 	$('#homeup, .homeup').click(function (e) {
@@ -240,17 +270,36 @@ $(function() {
 			</span>
 			<div class="movie-box">
 				<div class="movie-slider">
-					<a href="javascript:alert('준비중입니다.');" id="movie-slider">
+					<a href="#" id="movie-slider">
 						<img src="/resources/homepage/${homepage.context_path}/img/info01-txt.png" alt="" class="movie-btn movie-txt">
 						<img src="/resources/homepage/${homepage.context_path}/img/info01.png" alt="" class="movie-btn">
 					</a>
+					<a href="#" id="movie-close-slider" class="movie-close-slider">
+						<img src="http://lib.daegu.go.kr/resources/infoset/homepage/room1/img/bt_closed.png" alt=""/>
+					</a>
+					<div class="video-box">
+						<div class="container">
+							<div class="outer">
+								<div class="inner">	
+									<video id="video-box" src="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" controls muted loop playinline></video>
+								</div>
+							</div>
+						</div>	
+					</div>
 				</div>
+				<!-- <div class="dimmed"></div> -->
 			</div>
 		</div>
 
 		<div class="quickMenu" id="mobile-view">
 
 			<ul>
+				<li class="quick-0">
+					<a href="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" class="quick00">
+					<div>
+						<h4>내집앞도서관 홍보영상</h4>
+					</div>
+				</a>
 				<li class="quick-1">
 					<a href="/${homepage.context_path}/html.do?menu_idx=8" class="quick01">
 					<div>
