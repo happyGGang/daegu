@@ -47,6 +47,8 @@ public class NearbyLibManage extends PagingUtils {
 	private String individual_yn2 = "N";//임시변수
 	private int group_count;
 	
+	private String manage_code;
+	
 	public NearbyLibManage() {}
 
 	public NearbyLibManage(String homepage_id, String plan_date) {
@@ -344,6 +346,14 @@ public class NearbyLibManage extends PagingUtils {
 
 	public void setGroup_count(int group_count) {
 		this.group_count = group_count;
+	}
+
+	public String getManage_code() {
+		return manage_code;
+	}
+
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
 	}
 	
 }

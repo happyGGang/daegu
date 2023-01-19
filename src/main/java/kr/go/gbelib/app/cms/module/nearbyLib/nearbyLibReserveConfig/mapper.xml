@@ -116,7 +116,7 @@
 		WHERE
 			HOMEPAGE_ID = #{homepage_id}
 		ORDER BY 
-			day_of_week DESC
+			day_of_week
 	</select>
 	
 	<select id="getReserveConfigTodayCount" resultType="int">
@@ -153,4 +153,14 @@
 			AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 	</select>
 	
+	<select id="getReserveConfigCalendarAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		SELECT
+			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
+			use_yn, take_term, expire_date_cnt, add_id, add_date,
+			modify_id, modify_date, tomorrow_end_day_yn
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		ORDER BY 
+			homepage_id, day_of_week
+	</select>
 </mapper>

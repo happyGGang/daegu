@@ -172,33 +172,32 @@ $(function(){
 		doGetLoad('indexList.do', serializeCustom($('#nearbyLibManage')));
 	});
 
-
+	$('#manage_code').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#nearbyLibManage').submit();
+		e.preventDefault();
+	});
 });
 </script>
 <c:set var="plan_date" value="${fn:split(nearbyLibManage.plan_date, '-')}" />
 <form:form modelAttribute="nearbyLibManage">
 	<form:hidden path="plan_date"/>
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
-	
 	<div class="infodesk">
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${fn:length(subHomepageList) > 0}"> --%>
-<!-- 				도서관 : -->
-<%-- 				<form:select id="homepage_id_1" path="homepage_id"> --%>
-<%-- 					<c:forEach items="${subHomepageList}" var="i"> --%>
-<%-- 						<form:option value="${i.homepage_id}">${i.homepage_name}</form:option> --%>
-<%-- 					</c:forEach> --%>
-<%-- 					<c:if test="${asideHomepageId eq 'h53'}"> --%>
-<%-- 						<form:option value="h78">작은도서관</form:option> --%>
-<%-- 					</c:if> --%>
-
-<%-- 				</form:select> --%>
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-<%-- 				<form:hidden id="homepage_id_1" path="homepage_id"/> --%>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
-
+		<c:choose>
+			<c:when test="${asideHomepageId eq 'h90'}">
+				<form:select id="manage_code" path="manage_code" class="selectmenu">
+					<form:option value="">전체</form:option>
+					<form:option value="AA">대구2·28기념학생도서관</form:option>
+					<form:option value="BA">북구구수산도서관</form:option>
+					<form:option value="AH">대구광역시립 동부도서관</form:option>
+					<form:option value="CA">동구통합 안심도서관</form:option>
+					<form:option value="CB">동구통합 신천도서관</form:option>
+				</form:select>
+			</c:when>
+			<c:otherwise>
+				<form:hidden id="homepage_id_1" path="homepage_id"/>
+			</c:otherwise>
+		</c:choose>
 		<div class="monthYear">
 			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달1</span></a>
 			<form:select path="plan_year" class="selectmenu" style="width:100px;"></form:select>

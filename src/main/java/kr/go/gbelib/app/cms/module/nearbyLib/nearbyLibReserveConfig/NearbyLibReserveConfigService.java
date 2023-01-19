@@ -1,13 +1,9 @@
 package kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Comparator;
 import java.util.List;
 
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +76,6 @@ public class NearbyLibReserveConfigService extends BaseService{
 		final List<NearbyLibReserveConfig> reserveConfigCalendar = dao.getReserveConfigCalendar(nearbyLibManage);
 
 		final NearbyLibReserveConfig todayConfig = reserveConfigCalendar.stream()
-			.sorted(Comparator.comparing(NearbyLibReserveConfig::getDay_of_week))
 			.filter(config -> Integer.parseInt(config.getDay_of_week()) == dayOfWeek)
 			.findFirst()
 			.orElse(reserveConfigCalendar.get(0));
@@ -97,7 +92,7 @@ public class NearbyLibReserveConfigService extends BaseService{
 				.findFirst()
 				.orElse(todayConfig);
 		}
-
+		
 		final int reserveStartHour = Integer.parseInt(referenceConfig.getReserve_start_time().substring(0, 2));
 		final int reserveStartMinute = Integer.parseInt(referenceConfig.getReserve_start_time().substring(2));
 		final int reserveEndHour = Integer.parseInt(referenceConfig.getReserve_end_time().substring(0, 2));
@@ -111,6 +106,10 @@ public class NearbyLibReserveConfigService extends BaseService{
 			return 7;
 		}
 		return dayOfWeek - 1;
+	}
+
+	public List<NearbyLibReserveConfig> getReserveConfigCalendarAll(NearbyLibManage nearbyLibManage) {
+		return dao.getReserveConfigCalendarAll(nearbyLibManage);
 	}
 
 }

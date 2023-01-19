@@ -48,8 +48,22 @@ public class NearbyLibManageController extends BaseController {
 	public String index(Model model, NearbyLibManage nearbyLibManage, HttpServletRequest request, @PathVariable("url") String url ) throws AuthException {
 		checkAuth("R", model, request);
 
-		nearbyLibManage.setHomepage_id(getAsideHomepageId(request));
-
+		if(StringUtils.isNotEmpty(nearbyLibManage.getManage_code())) {
+			if("AA".equals(nearbyLibManage.getManage_code())) {
+				nearbyLibManage.setHomepage_id("h1");
+			} else if("AH".equals(nearbyLibManage.getManage_code())) {
+				nearbyLibManage.setHomepage_id("h5");
+			} else if("CA".equals(nearbyLibManage.getManage_code())) {
+				nearbyLibManage.setHomepage_id("h45");
+			} else if("CB".equals(nearbyLibManage.getManage_code())) {
+				nearbyLibManage.setHomepage_id("h45");
+			} else if("BA".equals(nearbyLibManage.getManage_code())) {
+				nearbyLibManage.setHomepage_id("h46");
+			}
+		} else {
+			nearbyLibManage.setHomepage_id(getAsideHomepageId(request));
+		}
+		
 		if (nearbyLibManage.getPlan_date() == null || nearbyLibManage.getPlan_date().equals("")) {
 			nearbyLibManage.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
 		}

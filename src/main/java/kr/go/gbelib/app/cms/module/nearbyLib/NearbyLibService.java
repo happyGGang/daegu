@@ -1486,9 +1486,9 @@ public class NearbyLibService extends BaseService {
 		
 		try {
 			if(expireReserveBookList.size() > 0) {
-				Map<String,Object> resultMapList = new HashMap<String,Object>();
-				
 				for(int i =0 ; i < expireReserveBookList.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
 					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getHomepage_id())) {
 						resultMapList.put("homepage_id", expireReserveBookList.get(i).getHomepage_id());
 					}
@@ -1569,9 +1569,9 @@ public class NearbyLibService extends BaseService {
 		
 		try {
 			if(returnYnReserveBookList.size() > 0) {
-				Map<String,Object> resultMapList = new HashMap<String,Object>();
-				
 				for(int i =0 ; i < returnYnReserveBookList.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
 					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getHomepage_id())) {
 						resultMapList.put("homepage_id", returnYnReserveBookList.get(i).getHomepage_id());
 					}

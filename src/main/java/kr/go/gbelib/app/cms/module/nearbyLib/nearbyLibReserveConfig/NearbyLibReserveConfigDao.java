@@ -35,4 +35,6 @@ public interface NearbyLibReserveConfigDao {
 
 	int checkReserveTime(NearbyLibReserveConfig nearbyLibReserveConfig);
 
+	List<NearbyLibReserveConfig> getReserveConfigCalendarAll(NearbyLibManage nearbyLibManage);
+
 }

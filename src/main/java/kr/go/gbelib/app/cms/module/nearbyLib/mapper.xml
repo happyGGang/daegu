@@ -806,7 +806,8 @@
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
-				device_idx = #{device_idx}				
+				device_idx = #{device_idx}
+			AND reserve_status IN ('1','2','3','4')
 	</select>
 
 	<select id="getReserveCountNow" resultType="int">		
@@ -823,6 +824,7 @@
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
-				device_idx = #{device_idx}				
+				member_id = #{member_id}
+			AND reserve_status IN ('1','2','3','4')		
 	</select>
 </mapper>

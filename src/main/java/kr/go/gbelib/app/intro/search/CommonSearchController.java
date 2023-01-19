@@ -46,7 +46,6 @@ import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib;
 import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLibService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDeviceService;
-import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManageService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
@@ -677,8 +676,6 @@ public class CommonSearchController extends BaseController {
 					if(nearbyLibManageService.checkUseYn(nearbyLibHomepageId) > 0) {
 						reserveAvailability = "N";
 					} else {
-						NearbyLibReserveConfig nearbyLibReserveConfig = neighborhoodLibraryReserveConfigService.getReserveConfigToday(nearbyLibHomepageId);
-						
 						//예약버튼 비활성화 유무확인
 						int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(nearbyLibHomepageId);
 						
@@ -3533,8 +3530,6 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("현재 예약 불가능일이므로 예약이 불가능하십니다.\n관리자에게 문의해주세요.");
 				return res;
 			} else {
-				NearbyLibReserveConfig checkConfig = neighborhoodLibraryReserveConfigService.getReserveConfigToday(neighborhoodLibrary.getHomepage_id());
-				
 				//예약버튼 비활성화 유무확인
 				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getHomepage_id());
 				
@@ -3550,6 +3545,7 @@ public class CommonSearchController extends BaseController {
 			
 			int device_idx = neighborhoodLibrary.getDevice_idx();
 			nearbyLibReserveConfig.setDevice_idx(device_idx);
+			nearbyLibReserveConfig.setHomepage_id(neighborhoodLibrary.getHomepage_id());
 			
 			//사물함 갯수
 			int locker_count = neighborhoodLibraryLockerService.getNeighborhoodLibraryLockerCount(device_idx);
