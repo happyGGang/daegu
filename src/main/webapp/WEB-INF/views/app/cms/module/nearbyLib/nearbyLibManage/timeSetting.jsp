@@ -70,27 +70,66 @@ $(function() {
 	});
 
 	for (let i = 0; i < 7; i++) {
-		if (i < 2) {
-			continue;
-		}
-		findNode(i, 'startHour').addEventListener('beforeinput', (beforeE) => {
-			const beforeTime = findNode(i, 'startHour').value;
-			beforeE.target.addEventListener('change', (changeE) => {
+		if (i > 0) {
+			findNode(i, 'startHour').addEventListener('focus', (e) => {
+				hourOrMin = e.target.value;
+			});
+			findNode(i, 'startHour').addEventListener('change', (e) => {
 				const targetTime = findNode(i, 'startHour').value + findNode(i, 'startMin').value;
 				const compareTime = findNode(i - 1, 'endHour').value + findNode(i - 1, 'endMin').value;
-				if (parseInt(targetTime) < compareTime(compareTime)) {
-					alert('시작 시간은 이전 요일 종료 시간보다 늦을 수 없습니다.');
-					changeE.target.value = beforeTime;
+				if (parseInt(targetTime) < parseInt(compareTime)) {
+					alert('시작 시간은 이전 요일 종료 시간보다 빠를 수 없습니다.');
+					e.target.value = hourOrMin;
 				}
+				hourOrMin = e.target.value;
 			});
-		});
+			findNode(i, 'startMin').addEventListener('focus', (e) => {
+				hourOrMin = e.target.value;
+			});
+			findNode(i, 'startMin').addEventListener('change', (e) => {
+				const targetTime = findNode(i, 'startHour').value + findNode(i, 'startMin').value;
+				const compareTime = findNode(i - 1, 'endHour').value + findNode(i - 1, 'endMin').value;
+				if (parseInt(targetTime) < parseInt(compareTime)) {
+					alert('시작 시간은 이전 요일 종료 시간보다 빠를 수 없습니다.');
+					e.target.value = hourOrMin;
+				}
+				hourOrMin = e.target.value;
+			});
+		}
+		if (i < 6) {
+			findNode(i, 'endHour').addEventListener('focus', (e) => {
+				hourOrMin = e.target.value;
+			});
+			findNode(i, 'endHour').addEventListener('change', (e) => {
+				const targetTime = findNode(i, 'endHour').value + findNode(i, 'endMin').value;
+				const compareTime = findNode(i + 1, 'startHour').value + findNode(i + 1, 'startMin').value;
+				if (parseInt(compareTime) < parseInt(targetTime)) {
+					alert('종료 시간은 시작 다음 요일 시간보다 빠를 수 없습니다.');
+					e.target.value = hourOrMin;
+				}
+				hourOrMin = e.target.value;
+			});
+			findNode(i, 'endMin').addEventListener('focus', (e) => {
+				hourOrMin = e.target.value;
+			});
+			findNode(i, 'endMin').addEventListener('change', (e) => {
+				const targetTime = findNode(i, 'endHour').value + findNode(i, 'endMin').value;
+				const compareTime = findNode(i + 1, 'startHour').value + findNode(i + 1, 'startMin').value;
+				if (parseInt(compareTime) < parseInt(targetTime)) {
+					alert('종료 시간은 다음 요일 시작 시간보다 빠를 수 없습니다.');
+					e.target.value = hourOrMin;
+				}
+				hourOrMin = e.target.value;
+			});
+		}
 	}
 });
+
+let hourOrMin;
 
 function findNode(index, className) {
 	return document.querySelectorAll('tbody[id=reserveOfWeekend] tr .' + className)[index];
 }
-
 </script>
 <form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="timeSettingSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
