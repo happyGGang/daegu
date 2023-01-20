@@ -4,6 +4,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class NearbyLibReserveConfig extends PagingUtils{
 	private String homepage_id;  //홈페이지ID
+	private String manage_code; //도서관관리코드
 	private int reserve_config_idx;  //예약설정_지표
 	private String day_of_week;  //설정요일
 	private String reserve_start_time;  //예약시작시간
@@ -135,4 +136,13 @@ public class NearbyLibReserveConfig extends PagingUtils{
 	public void setMinute(String[] minute) {
 		this.minute = minute;
 	}
+
+	public String getManage_code() {
+		return manage_code;
+	}
+
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
+	}
+	
 }

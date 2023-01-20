@@ -47,21 +47,19 @@ public class NearbyLibManageController extends BaseController {
 	@RequestMapping(value = { "/index{url}.*" })
 	public String index(Model model, NearbyLibManage nearbyLibManage, HttpServletRequest request, @PathVariable("url") String url ) throws AuthException {
 		checkAuth("R", model, request);
-
-		if(StringUtils.isNotEmpty(nearbyLibManage.getManage_code())) {
-			if("AA".equals(nearbyLibManage.getManage_code())) {
-				nearbyLibManage.setHomepage_id("h1");
-			} else if("AH".equals(nearbyLibManage.getManage_code())) {
-				nearbyLibManage.setHomepage_id("h5");
-			} else if("CA".equals(nearbyLibManage.getManage_code())) {
-				nearbyLibManage.setHomepage_id("h45");
-			} else if("CB".equals(nearbyLibManage.getManage_code())) {
-				nearbyLibManage.setHomepage_id("h45");
-			} else if("BA".equals(nearbyLibManage.getManage_code())) {
-				nearbyLibManage.setHomepage_id("h46");
+		
+		nearbyLibManage.setHomepage_id(getAsideHomepageId(request));
+		
+		if("h1".equals(getAsideHomepageId(request))) {
+			nearbyLibManage.setManage_code("AA");
+		} else if("h5".equals(getAsideHomepageId(request))) {
+			nearbyLibManage.setManage_code("AH");
+		} else if("h45".equals(getAsideHomepageId(request))) {
+			if(StringUtils.isEmpty(nearbyLibManage.getManage_code())) {
+				nearbyLibManage.setManage_code("CA");
 			}
-		} else {
-			nearbyLibManage.setHomepage_id(getAsideHomepageId(request));
+		} else if("h46".equals(getAsideHomepageId(request))) {
+			nearbyLibManage.setManage_code("BA");
 		}
 		
 		if (nearbyLibManage.getPlan_date() == null || nearbyLibManage.getPlan_date().equals("")) {
@@ -75,6 +73,7 @@ public class NearbyLibManageController extends BaseController {
 		model.addAttribute("calendarList", service.getCalendar(nearbyLibManage));
 		model.addAttribute("calendarListType", service.getCalendarListType(nearbyLibManage));
 		model.addAttribute("nearbyLibManage", nearbyLibManage);
+		model.addAttribute("manageCode", nearbyLibManage.getManage_code());
 		model.addAttribute("nearbyLibManageList",service.getNearbyLibManage(nearbyLibManage));
 		List<NearbyLibReserveConfig> reserveConfigList = reserveConfigService.getReserveConfigCalendar(nearbyLibManage);
 		model.addAttribute("nearbyLibReserveConfigList",reserveConfigList);
@@ -135,14 +134,11 @@ public class NearbyLibManageController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "end_date", "일정의 종료일자 입력하세요.");
 		}
 
+		nearbyLibManage.setHomepage_id(getAsideHomepageId(request));
+		
 		if (!result.hasErrors()) {
+			nearbyLibManage.setTitle("예약불가");
 			if (nearbyLibManage.getEditMode().equals("ADD")) {
-
-				if (StringUtils.isNotEmpty(nearbyLibManage.getSubHomepageId())) {
-					nearbyLibManage.setHomepage_id(nearbyLibManage.getSubHomepageId());
-				}
-				
-				nearbyLibManage.setTitle("예약불가");
 
 				String startDate = nearbyLibManage.getStart_date();
 				String endDate = nearbyLibManage.getEnd_date();
@@ -213,7 +209,7 @@ public class NearbyLibManageController extends BaseController {
 
 	@RequestMapping(value = { "/timeSettingSave.*" }, method = RequestMethod.POST)
 	public @ResponseBody
-	JsonResponse timeSettingSave(@RequestParam("reserveList") List<ArrayList<String>> reserveList, @RequestParam("homepage_id") String homepage_id, NearbyLibReserveConfig nearbyLibReserveConfig, BindingResult result, HttpServletRequest request) throws Exception {
+	JsonResponse timeSettingSave(@RequestParam("reserveList") List<ArrayList<String>> reserveList, @RequestParam("manage_code") String manage_code, NearbyLibReserveConfig nearbyLibReserveConfig, BindingResult result, HttpServletRequest request) throws Exception {
 		JsonResponse res = new JsonResponse(request);
 
 		//validation 설정 필요
@@ -222,7 +218,6 @@ public class NearbyLibManageController extends BaseController {
 		//
 
 		if (!result.hasErrors()) {
-			nearbyLibReserveConfig.setHomepage_id(homepage_id);
 			List<NearbyLibReserveConfig> nearbyLibReserveConfigList = reserveConfigService.getNeighborhoodLibraryReserveConfigList(nearbyLibReserveConfig);
 			int index = 1;
 

@@ -4,9 +4,9 @@
 	
 	<select id="getNeighborhoodLibraryReserveConfigAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn	 
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn 
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
@@ -17,13 +17,13 @@
 	
 	<select id="getNeighborhoodLibraryReserveConfigList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			manage_code = #{manage_code}
 		ORDER BY 
 			day_of_week
 	</select>
@@ -41,8 +41,9 @@
 	
 	<select id="getNeighborhoodLibraryReserveConfigOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			RESERVE_CONFIG_IDX, RESERVE_START_TIME, RESERVE_END_TIME, TOMORROW_END_DAY_YN, TAKE_TERM, 
-			EXPIRE_DATE_CNT, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID				 
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn				 
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
@@ -56,13 +57,13 @@
 		</selectKey>	
 		INSERT INTO NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		(
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn	
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		) VALUES (
-			#{homepage_id}, #{reserve_config_idx}, #{day_of_week}, #{reserve_start_time}, #{reserve_end_time},
-			#{use_yn}, #{take_term}, #{expire_date_cnt}, #{add_id}, SYSDATE,
-			#{modify_id}, #{modify_date}, #{tomorrow_end_day_yn}
+			#{homepage_id}, #{manage_code}, #{reserve_config_idx}, #{day_of_week}, #{reserve_start_time},
+			#{reserve_end_time}, #{use_yn}, #{take_term}, #{expire_date_cnt}, #{add_id},
+			SYSDATE, #{modify_id}, #{modify_date}, #{tomorrow_end_day_yn}
 		)
 	</insert>
 	
@@ -91,7 +92,7 @@
 			MODIFY_ID = #{modify_id},
 			MODIFY_DATE = SYSDATE
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			manage_code = #{manage_code}
 		AND RESERVE_CONFIG_IDX = #{reserve_config_idx}
 		AND DAY_OF_WEEK = #{day_of_week}
 	</update>
@@ -108,13 +109,13 @@
 	
 	<select id="getReserveConfigCalendar" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			manage_code = #{manage_code}
 		ORDER BY 
 			day_of_week
 	</select>
@@ -125,20 +126,20 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			manage_code = #{manage_code}
 		AND TO_CHAR(SYSDATE, 'D') = day_of_week
 		AND use_yn = 'N'
 	</select>
 	
 	<select id="getReserveConfigToday" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			manage_code = #{manage_code}
 		AND TO_CHAR(SYSDATE, 'D') = day_of_week
 	</select>
 
@@ -148,16 +149,16 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			manage_code = #{manage_code}
 			AND TO_CHAR(SYSDATE, 'D') = day_of_week
 			AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 	</select>
 	
 	<select id="getReserveConfigCalendarAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		ORDER BY 

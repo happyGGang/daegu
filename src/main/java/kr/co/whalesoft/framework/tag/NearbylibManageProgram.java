@@ -68,8 +68,10 @@ public class NearbylibManageProgram extends BodyTagSupport {
 					} 
 			}
 			
-			if(dayCode == configDayCode && sb.toString().isEmpty()) {
-				sb.append("예약불가");
+			if(nearbyLibReserveConfigList.size() > 0) {
+				if(dayCode == configDayCode && sb.toString().isEmpty()) {
+					sb.append("예약불가");
+				}
 			}
 			
 			if (!isHolyDay) {

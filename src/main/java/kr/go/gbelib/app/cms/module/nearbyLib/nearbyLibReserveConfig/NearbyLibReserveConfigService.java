@@ -57,22 +57,22 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.getReserveConfigCalendar(nearbyLibManage);
 	}
 
-	public int getReserveConfigTodayCount(String nearbyLibHomepageId) {
-		return dao.getReserveConfigTodayCount(nearbyLibHomepageId);
+	public int getReserveConfigTodayCount(String nearbyLibManageCode) {
+		return dao.getReserveConfigTodayCount(nearbyLibManageCode);
 	}
 
-	public NearbyLibReserveConfig getReserveConfigToday(String nearbyLibHomepageId) {
-		return dao.getReserveConfigToday(nearbyLibHomepageId);
+	public NearbyLibReserveConfig getReserveConfigToday(String nearbyLibManageCode) {
+		return dao.getReserveConfigToday(nearbyLibManageCode);
 	}
 
-	public boolean checkReserveTime(String nearbyLibHomepageId) {
+	public boolean checkReserveTime(String nearbyLibManageCode) {
 		int[] oracleDayOfWeek = {0, 2, 3, 4, 5, 6, 7, 1};
 
 		LocalDateTime today = LocalDateTime.now();
 		final int value = today.getDayOfWeek().getValue();
 		final int dayOfWeek = oracleDayOfWeek[value];
 
-		final NearbyLibManage nearbyLibManage = new NearbyLibManage(nearbyLibHomepageId, "");
+		final NearbyLibManage nearbyLibManage = new NearbyLibManage(nearbyLibManageCode, "");
 		final List<NearbyLibReserveConfig> reserveConfigCalendar = dao.getReserveConfigCalendar(nearbyLibManage);
 
 		final NearbyLibReserveConfig todayConfig = reserveConfigCalendar.stream()

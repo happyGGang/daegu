@@ -33,7 +33,7 @@ $(function() {
 					})
 					const formData = {
 						'reserveList' : reserveList,
-						'homepage_id' : $('#homepage_id').val()
+						'manage_code' : $('#manage_code').val()
 					}
 					$.ajax({
 						type : 'POST',
@@ -96,7 +96,7 @@ $(function() {
 </script>
 <form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="timeSettingSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
-<form:hidden path="homepage_id"/>
+<form:hidden path="manage_code"/>
 <table class="type1 center">
 	<colgroup>
 		<col width="60"/>
