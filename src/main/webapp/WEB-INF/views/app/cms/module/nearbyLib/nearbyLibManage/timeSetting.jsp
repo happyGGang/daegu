@@ -69,43 +69,42 @@ $(function() {
 		height: 465
 	});
 
-	$('.selectmenu').on('change', function () {
-		const newSelectList = document.querySelectorAll('tbody[id=reserveOfWeekend] tr');
-		newSelectList.forEach(item => {
-			let startTime = item.querySelector('.startHour').value + item.querySelector('.startMin').value;
-			let endTime = item.querySelector('.endHour').value + item.querySelector('.endMin').value;
-			console.log(parseInt(startTime));
-			if (parseInt(startTime) > parseInt(endTime)) {
-				alert("예약시작시간이 예약종료시간보다 늦습니다.");
-				return false;
-			}
-		})
-	});
-// 	$('input#reserve_start_time').timepicker({
-//         timeFormat: 'HH:mm p',
-//         interval: 60,
-//         defaultTime: '9',
-//         startTime: '00:00',
-//         dynamic: false,
-//         dropdown: true,
-//         scrollbar: true
-//     });
-
+	for (let i = 0; i < 7; i++) {
+		if (i < 2) {
+			continue;
+		}
+		findNode(i, 'startHour').addEventListener('beforeinput', (beforeE) => {
+			const beforeTime = findNode(i, 'startHour').value;
+			beforeE.target.addEventListener('change', (changeE) => {
+				const targetTime = findNode(i, 'startHour').value + findNode(i, 'startMin').value;
+				const compareTime = findNode(i - 1, 'endHour').value + findNode(i - 1, 'endMin').value;
+				if (parseInt(targetTime) < compareTime(compareTime)) {
+					alert('시작 시간은 이전 요일 종료 시간보다 늦을 수 없습니다.');
+					changeE.target.value = beforeTime;
+				}
+			});
+		});
+	}
 });
+
+function findNode(index, className) {
+	return document.querySelectorAll('tbody[id=reserveOfWeekend] tr .' + className)[index];
+}
 
 </script>
 <form:form modelAttribute="nearbyLibReserveConfig" id="nearbyLibReserveConfig_edit" action="timeSettingSave.do" method="post" onsubmit="return false;">
 <form:hidden path="editMode"/>
 <form:hidden path="manage_code"/>
-<table class="type1 center">
-	<colgroup>
-		<col width="60"/>
-		<col width="*"/>
-	</colgroup>
+	<table class="type1 center">
+		<colgroup>
+			<col />
+			<col />
+			<col />
+		</colgroup>
 		<thead>
 		<tr>
-			<th>요일</th>
-			<th>예약가능시간</th>
+			<th>기준요일</th>
+			<th>예약시작(금일) ~ 예약종료(익일)</th>
 			<th>예약버튼 활성화여부</th>
 		</tr>
 		</thead>
@@ -165,11 +164,11 @@ $(function() {
 				</select>
 			</td>
 			<td>
-				<input type="radio" value="Y" <c:if test="${i.use_yn eq 'Y'}">checked</c:if>/>예
-				<input type="radio" value="N" <c:if test="${i.use_yn eq 'N'}">checked</c:if>/>아니오
+				<input type="radio" value="Y" name="${status.index}" <c:if test="${i.use_yn eq 'Y'}">checked</c:if>/>예
+				<input type="radio" value="N" name="${status.index}" <c:if test="${i.use_yn eq 'N'}">checked</c:if>/>아니오
 			</td>
 		</tr>
 		</c:forEach>
-	</tbody>
-</table>
+		</tbody>
+	</table>
 </form:form>
