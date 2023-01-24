@@ -667,11 +667,7 @@ public class NearbyLibController extends BaseController {
 		
 		returnList = service.getNeighborhoodLibraryRerturnList(nearbyLibReturnList); //반납 목록 list
 		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLibReturnList); //반납 목록 count
-		NearbyLibReserveConfig configOne = new NearbyLibReserveConfig();
-		NearbyLibReserveConfig reserveConfig = new NearbyLibReserveConfig();
-		configOne = configService.getNeighborhoodLibraryReserveConfigOne(reserveConfig);	
 		
-		model.addAttribute("reserveConfig", configOne);
 		model.addAttribute("returnList", returnList);
 		model.addAttribute("returnCount", returnCount);
 		model.addAttribute("deviceList", deviceList);

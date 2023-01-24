@@ -667,20 +667,16 @@ public class CommonSearchController extends BaseController {
 				String reserveAvailability = "N";
 				if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
 					reserveAvailability = "Y";
-					Homepage nearbyLibHomepage = new Homepage();
-					nearbyLibHomepage.setManage_code(String.valueOf(map.get("MANAGE_CODE")));
-					
-					String nearbyLibHomepageId = homepageService.getHomepageId(nearbyLibHomepage);
 					
 					//만약 내일 날짜가 예약 불가능 설정이 되어있다면 예약 불가
-					if(nearbyLibManageService.checkUseYn(nearbyLibHomepageId) > 0) {
+					if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
 						reserveAvailability = "N";
 					} else {
 						//예약버튼 비활성화 유무확인
-						int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(nearbyLibHomepageId);
+						int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(String.valueOf(map.get("MANAGE_CODE")));
 						
 						//예약가능시간 확인(count가 true이면 예약 가능)
-						boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(nearbyLibHomepageId);
+						boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
 						
 						if(reserveConfigCount > 0 || !reserveTimeCheck) {
 							reserveAvailability = "N";
@@ -3522,19 +3518,19 @@ public class CommonSearchController extends BaseController {
 		
 		/*예약 가능 여부 확인*/
 		if(neighborhoodLibrary.getDevice_idx() > 0) {
-			NearbyLibReserveConfig nearbyLibReserveConfig = neighborhoodLibraryReserveConfigService.getReserveConfigToday(neighborhoodLibrary.getHomepage_id());
+			NearbyLibReserveConfig nearbyLibReserveConfig = neighborhoodLibraryReserveConfigService.getReserveConfigToday(neighborhoodLibrary.getManage_code());
 			nearbyLibReserveConfig.setMember_id(member.getMember_id());
 			
-			if(nearbyLibManageService.checkUseYn(neighborhoodLibrary.getHomepage_id()) > 0) {
+			if(nearbyLibManageService.checkUseYn(neighborhoodLibrary.getManage_code()) > 0) {
 				res.setValid(false);
 				res.setMessage("현재 예약 불가능일이므로 예약이 불가능하십니다.\n관리자에게 문의해주세요.");
 				return res;
 			} else {
 				//예약버튼 비활성화 유무확인
-				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getHomepage_id());
+				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getManage_code());
 				
 				//예약가능시간 확인(count가 true이면 예약 가능)
-				boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(neighborhoodLibrary.getHomepage_id());
+				boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(neighborhoodLibrary.getManage_code());
 				
 				if(reserveConfigCount > 0 || !reserveTimeCheck) {
 					res.setValid(false);
@@ -3545,7 +3541,7 @@ public class CommonSearchController extends BaseController {
 			
 			int device_idx = neighborhoodLibrary.getDevice_idx();
 			nearbyLibReserveConfig.setDevice_idx(device_idx);
-			nearbyLibReserveConfig.setHomepage_id(neighborhoodLibrary.getHomepage_id());
+			nearbyLibReserveConfig.setManage_code(neighborhoodLibrary.getManage_code());
 			
 			//사물함 갯수
 			int locker_count = neighborhoodLibraryLockerService.getNeighborhoodLibraryLockerCount(device_idx);
@@ -3579,6 +3575,7 @@ public class CommonSearchController extends BaseController {
 		}
 			
 		if (!result.hasErrors()) {
+			neighborhoodLibrary.setMember_id(member.getMember_id());
 			List<NearbyLib> reserveDataList = neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary);
 			
 			if(reserveDataList.size() > 0) { //현재 신청내역이 있다면	

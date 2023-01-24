@@ -469,6 +469,7 @@
 		</if>
 		<if test='reserve_status == "9"'>
 			,return_device_code = #{return_device_code}
+			,return_date = SYSDATE
 		</if>
 		WHERE
 			1=1
@@ -486,11 +487,6 @@
 				AND RESERVE_STATUS = '1'
 				</when>
 			</choose>
-<!-- 			<if test='reserve_status == "3"'> -->
-<!-- 				<if test='editMode !="admin_3"'> -->
-<!-- 					AND LOCKER_IDX > 0 -->
-<!-- 				</if> -->
-<!-- 			</if> -->
 		</update>
 
 		<update id="updateNeighborhoodLibrarySms">
@@ -595,12 +591,6 @@
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				RESERVE_STATUS IN ('9')
-<!-- 			<if test="device_idx != null and device_idx != ''"> -->
-<!-- 			AND device_idx = #{device_idx} -->
-<!-- 			</if> -->
-			<if test="homepage_id != null and homepage_id != ''">
-			AND HOMEPAGE_ID = #{homepage_id}
-			</if>
 			<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
 			</if>
@@ -609,6 +599,7 @@
 		</select>
 		
 		<select id="getNeighborhoodLibraryRerturnList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+			${pagingTop}
 			SELECT
 				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
 				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
@@ -623,14 +614,12 @@
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				RESERVE_STATUS IN ('9')
-			<if test="homepage_id != null and homepage_id != ''">
-				AND HOMEPAGE_ID = #{homepage_id}
-			</if>
 			<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+			${pagingBottom}
 		</select>
 		
 		<update id="updateNeighborhoodLibraryExpireDate">
@@ -794,15 +783,7 @@
 	
 	<select id="getReservedLockerCountNow" resultType="int">		
 			SELECT
-				homepage_id, reserve_status, device_idx, device_code, reserve_idx, 
-				reserve_bundle_idx, locker_idx, device_password, device_name, member_id,			
-				user_key, member_name, lend_date, manage_code, lib_name, 
-				book_key, reg_no, book_isbn, book_name, add_date, 
-				add_id, add_ip, cancel_yn, cancel_date, cancel_reason, 
-				cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
-				applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
-				take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-				call_no
+				COUNT(*)
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
@@ -812,15 +793,7 @@
 
 	<select id="getReserveCountNow" resultType="int">		
 			SELECT
-				homepage_id, reserve_status, device_idx, device_code, reserve_idx, 
-				reserve_bundle_idx, locker_idx, device_password, device_name, member_id,			
-				user_key, member_name, lend_date, manage_code, lib_name, 
-				book_key, reg_no, book_isbn, book_name, add_date, 
-				add_id, add_ip, cancel_yn, cancel_date, cancel_reason, 
-				cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
-				applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
-				take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-				call_no
+				COUNT(*)
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE

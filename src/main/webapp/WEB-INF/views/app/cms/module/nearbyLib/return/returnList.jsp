@@ -5,10 +5,47 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
 $(function() {
+	$('select#rowCount').change(function(e) {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+	});
+	
+	$('.selectmenu-search').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#neighborhoodLibrary').submit();
+		e.preventDefault();
+	});
+	
+	$('#manage_code').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#neighborhoodLibrary').submit();
+		e.preventDefault();
+	});
+
 	$('.search_device').on('change',function(e){
 		e.preventDefault();	 
 		$('#device_idx').val($('.search_device option:selected').val());
 		$('#search_nearbyLib').submit();
+	});
+	
+	$('input#start_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		maxDate: $('input#end_date').val(), 
+		onClose: function(selectedDate){
+			$('input#end_date').datepicker('option', 'minDate', selectedDate);
+		}
+	}).datepicker('setDate', '${nearbyLib.start_date}');
+	$('input#end_date').datepicker({
+		dateFormat:'yy-mm-dd',
+		minDate: $('input#start_date').val(), 
+		onClose: function(selectedDate){
+			$('input#start_date').datepicker('option', 'maxDate', selectedDate);
+		}
+	}).datepicker('setDate', '${nearbyLib.end_date}');
+	
+	$('#searchBtn').on('click', function(e) {
+		e.preventDefault();
+		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
 	});
 	
 	$('.reserve_save').on('click',function(e){
@@ -39,30 +76,50 @@ table thead th, table tbody td {font-size:12px;}
 </form:form>
 
 <form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="returnList.do">
-<%-- 	<form:hidden path="device_idx"/> --%>
-<!-- 	<div class="infodesk"> -->
-<!-- 		<h3>내집앞도서관 반납 목록</h3><br/> -->
-<!-- 		사물함 명 :  -->
-<%-- 		<form:select class="search_device" style="width:300px" path="device_idx"> --%>
-<%-- 			<c:forEach var="i" items="${deviceList}"> --%>
-<%-- 				<option value="${i.device_idx}"<c:if test="${i.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${i.device_name}</option> --%>
-<%-- 			</c:forEach> --%>
-<%-- 		</form:select> --%>
-<!-- 	</div> -->
+	<div class="search">
+		검색 결과 : <fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> 건
+		<form:select path="rowCount" class="selectmenu" style="width:150px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="50">50개씩 보기</form:option>
+			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
+		</form:select>
+		<br/>
+		도서관 :
+		<form:select id="manage_code" class="selectmenu" path="manage_code">
+			<form:option value="">전체</form:option>
+			<form:option value="AA">대구2·28기념학생도서관</form:option>
+			<form:option value="BA">북구구수산도서관</form:option>
+			<form:option value="AH">대구광역시립 동부도서관</form:option>
+			<form:option value="CA">동구통합 안심도서관</form:option>
+			<form:option value="CB">동구통합 신천도서관</form:option>
+		</form:select>
+		
+		장비명 : 
+		<form:select class="selectmenu-search" style="width:300px" path="device_idx">
+			<c:forEach var="j" varStatus="status" items="${deviceList}">
+				<option value="${j.device_idx}" <c:if test="${j.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${j.device_name}</option>
+			</c:forEach>
+		</form:select>
+		
+		반납일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
+		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
+	</div>
 
 	<table class="type1 center">
 		<colgroup>
-			<col width="30" />
-			<col width="60" />
-			<col width="100" />
-			<col width="150" />
-			<col width="120" />
-			<col width="90" />
-			<col width="90" />
-			<col width="90" />
-			<col width="90" />
-			<col width="90" />
- 			<col width="80" />
+			<col width="30"/>
+			<col width="60"/>
+			<col width="100"/>
+			<col width="150"/>
+			<col width="120"/>
+			<col width="90"/>
+			<col width="90"/>
+			<col width="90"/>
+			<col width="90"/>
+			<col width="90"/>
+ 			<col width="80"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -79,43 +136,58 @@ table thead th, table tbody td {font-size:12px;}
 				<th>대출자ID</th>
 				<th>예약날짜</th>
 				<th>예약확정일</th>
+				<th>반납일</th>
 				<th>기능</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:if test="${returnCount > 0 }">
-			<c:forEach var="j" items="${returnList}" varStatus="status">
+			<c:forEach var="i" items="${returnList}" varStatus="status">
 				<tr>
 					<td>${returnCount - status.index }</td>
 					<td>
 						<c:choose>
-							<c:when test="${j.locker_idx > 0}">
-								${j.locker_idx }
+							<c:when test="${i.locker_idx > 0}">
+								${i.locker_idx}
 							</c:when>
 							<c:otherwise>
 								-
 							</c:otherwise>
 						</c:choose>
 					</td>
-					<td>${j.pk }</td>
-					<td>${j.book_name }</td>
-					<td>${j.lib_name }</td>
-					<td>${j.reg_no }</td>
-					<td>${j.call_no }</td>
-					<td>${j.member_id }</td>
-					<td><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd" /></td>
-					<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>
+					<td>${i.pk}</td>
+					<td>${i.book_name}</td>
+					<td>${i.lib_name}</td>
+					<td>${i.reg_no}</td>
+					<td>${i.call_no}</td>
+					<td>${i.member_id}</td>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
+					<td><fmt:formatDate value="${i.lend_date}" pattern="yyyy.MM.dd"/></td>
+					<td><fmt:formatDate value="${i.return_date}" pattern="yyyy.MM.dd"/></td>
  					<td>
-						<a href="#" class="btn reserve_save" style="border:1px black solid; color:black;" keyValue1="${returnCount - status.index }" keyValue2="10" keyValue3="${j.device_idx }" keyValue4="${j.device_code}" keyValue5="${j.reserve_idx }" keyValue6="${j.reserve_bundle_idx }">반납완료</a>
+						<a href="#" class="btn reserve_save" style="border:1px black solid; color:black;" keyValue1="${returnCount - status.index }" keyValue2="10" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">반납완료</a>
  					</td>
 				</tr>
 			</c:forEach>
 			</c:if>
 			<c:if test="${returnCount <= 0 }">
 				<tr>
-					<td colspan="10">반납 데이터가 존재하지 않습니다.</td>
+					<td colspan="12">반납 데이터가 존재하지 않습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>
 	</table>
+	
+	<div class="search txt-center" style="margin-top:25px;">
+		<fieldset>
+			<form:select path="search_type" cssClass="selectmenu">
+				<form:option value="member_id">신청자아이디</form:option>
+				<form:option value="reg_no">대출번호</form:option>
+				<form:option value="member_name">신청자명</form:option>
+				<form:option value="book_name">도서명</form:option>
+			</form:select>
+			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
+			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		</fieldset>
+	</div>
 </form:form>
