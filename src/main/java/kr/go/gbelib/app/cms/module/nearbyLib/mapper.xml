@@ -591,8 +591,17 @@
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				RESERVE_STATUS IN ('9')
+			<if test="device_idx != null and device_idx != ''">
+				AND DEVICE_IDX = #{device_idx}
+			</if>
 			<if test="manage_code != null and manage_code != ''">
-			AND manage_code = #{manage_code}
+				AND manage_code = #{manage_code}
+			</if>
+			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+				AND TO_DATE(return_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+			</if>
+	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND ${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX	
@@ -609,13 +618,22 @@
 				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
 				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
 				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
+				CALL_NO, RETURN_DATE
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
 				RESERVE_STATUS IN ('9')
+			<if test="device_idx != null and device_idx != ''">
+				AND DEVICE_IDX = #{device_idx}
+			</if>
 			<if test="manage_code != null and manage_code != ''">
-			AND manage_code = #{manage_code}
+				AND manage_code = #{manage_code}
+			</if>
+			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+				AND TO_DATE(return_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+			</if>
+	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+				AND ${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			ORDER BY 
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX

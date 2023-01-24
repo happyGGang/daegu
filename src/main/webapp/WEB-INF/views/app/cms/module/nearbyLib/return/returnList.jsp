@@ -7,18 +7,18 @@
 $(function() {
 	$('select#rowCount').change(function(e) {
 		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+		doGetLoad('returnList.do', $('form#search_nearbyLib').serialize());
 	});
-	
+	 
 	$('.selectmenu-search').on('change',function(e){
 		$('#viewPage').val(1);
-		$('#neighborhoodLibrary').submit();
+		$('#search_nearbyLib').submit();
 		e.preventDefault();
 	});
 	
 	$('#manage_code').on('change',function(e){
 		$('#viewPage').val(1);
-		$('#neighborhoodLibrary').submit();
+		$('#search_nearbyLib').submit();
 		e.preventDefault();
 	});
 
@@ -45,7 +45,7 @@ $(function() {
 	
 	$('#searchBtn').on('click', function(e) {
 		e.preventDefault();
-		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+		doGetLoad('returnList.do', $('form#search_nearbyLib').serialize());
 	});
 	
 	$('.reserve_save').on('click',function(e){
@@ -86,21 +86,32 @@ table thead th, table tbody td {font-size:12px;}
 			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
 		</form:select>
 		<br/>
-		도서관 :
-		<form:select id="manage_code" class="selectmenu" path="manage_code">
-			<form:option value="">전체</form:option>
-			<form:option value="AA">대구2·28기념학생도서관</form:option>
-			<form:option value="BA">북구구수산도서관</form:option>
-			<form:option value="AH">대구광역시립 동부도서관</form:option>
-			<form:option value="CA">동구통합 안심도서관</form:option>
-			<form:option value="CB">동구통합 신천도서관</form:option>
-		</form:select>
+		<c:if test="${asideHomepageId eq 'h45'}">
+			도서관 :
+			<form:select id="manage_code" path="manage_code" class="selectmenu">
+				<form:option value="">전체</form:option>
+				<form:option value="CA">동구통합 안심도서관</form:option>
+				<form:option value="CB">동구통합 신천도서관</form:option>
+			</form:select>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h90'}">
+			도서관 :
+			<form:select id="manage_code" path="manage_code" class="selectmenu">
+				<form:option value="">전체</form:option>
+				<form:option value="AA">대구2·28기념학생도서관</form:option>
+				<form:option value="BA">북구구수산도서관</form:option>
+				<form:option value="AH">대구광역시립 동부도서관</form:option>
+				<form:option value="CA">동구통합 안심도서관</form:option>
+				<form:option value="CB">동구통합 신천도서관</form:option>
+			</form:select>
+		</c:if>
 		
 		장비명 : 
 		<form:select class="selectmenu-search" style="width:300px" path="device_idx">
-			<c:forEach var="j" varStatus="status" items="${deviceList}">
-				<option value="${j.device_idx}" <c:if test="${j.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${j.device_name}</option>
-			</c:forEach>
+			<form:option value="0">전체</form:option>
+			<form:option value="1">연경CGV</form:option>
+			<form:option value="2">이시아MEGABOX</form:option>
+			<form:option value="3">반야월이마트</form:option>
 		</form:select>
 		
 		반납일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
@@ -120,10 +131,11 @@ table thead th, table tbody td {font-size:12px;}
 			<col width="90"/>
 			<col width="90"/>
  			<col width="80"/>
+ 			<col width="30"/>
 		</colgroup>
 		<thead>
 			<tr>
-				<th colspan="11" style="height: 36px;">반납 목록</th>						
+				<th colspan="12" style="height: 36px;">반납 목록</th>						
 			</tr>
 			<tr style="outline:white 1px solid">
 				<th>번호</th>
@@ -177,6 +189,9 @@ table thead th, table tbody td {font-size:12px;}
 			</c:if>
 		</tbody>
 	</table>
+	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+		<jsp:param name="formId" value="#search_nearbyLib"/>
+	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;">
 		<fieldset>

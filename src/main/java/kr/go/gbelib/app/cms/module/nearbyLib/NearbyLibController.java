@@ -646,31 +646,18 @@ public class NearbyLibController extends BaseController {
 	public String returnList(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		
-		NearbyLibDevice nearbyLibDeviceOne = new NearbyLibDevice();
-		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDeviceOne); //사물함 정보가 등록된 디바이스 목록 불러오기
-		List<NearbyLib> returnList = new ArrayList<NearbyLib>();
-		NearbyLib nearbyLibReturnList = new NearbyLib();
 		String homepage_id = getAsideHomepageId(request);
+		nearbyLib.setHomepage_id(homepage_id);
 		
-		if(!"h90".equals(homepage_id)) { //내집앞 도서관이 아닌 도서관에서 페이지를 열때는 해당 홈페이지 자료만 보이게 한다
-			nearbyLibReturnList.setHomepage_id(homepage_id);
-		}
-		
-		if(nearbyLib.getDevice_idx() == 0) {
-			if(deviceList.size() > 0) {
-				nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
-				nearbyLibReturnList.setDevice_idx(deviceList.get(0).getDevice_idx());
-			}
-		} else {
-			nearbyLibReturnList.setDevice_idx(nearbyLib.getDevice_idx());
-		}
-		
-		returnList = service.getNeighborhoodLibraryRerturnList(nearbyLibReturnList); //반납 목록 list
-		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLibReturnList); //반납 목록 count
+		List<NearbyLib> returnList = service.getNeighborhoodLibraryRerturnList(nearbyLib); //반납 목록 list
+		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLib); //반납 목록 count
 		
 		model.addAttribute("returnList", returnList);
 		model.addAttribute("returnCount", returnCount);
-		model.addAttribute("deviceList", deviceList);
+		
+		nearbyLib.setTotalDataCount(returnCount);
+		
+		service.setPaging(model, returnCount, nearbyLib);
 		model.addAttribute("nearbyLib", nearbyLib);
 		
 		return basePath + "return/returnList";
