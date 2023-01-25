@@ -165,7 +165,7 @@ table thead th, table tbody td {font-size:12px;}
 			<c:if test="${returnCount > 0 }">
 			<c:forEach var="i" items="${returnList}" varStatus="status">
 				<tr>
-					<td>${returnCount - status.index }</td>
+					<td>${paging.listRowNum - status.index}</td>
 					<td>
 						<c:choose>
 							<c:when test="${i.locker_idx > 0}">
@@ -200,6 +200,7 @@ table thead th, table tbody td {font-size:12px;}
 	</table>
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#search_nearbyLib"/>
+		<jsp:param name="pagingUrl" value="returnList.do"/>
 	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;">

@@ -662,16 +662,18 @@ public class NearbyLibController extends BaseController {
 			nearbyLib.setManage_code("BA");
 		}
 		
-		List<NearbyLib> returnList = service.getNeighborhoodLibraryRerturnList(nearbyLib); //반납 목록 list
 		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLib); //반납 목록 count
 		
-		model.addAttribute("returnList", returnList);
 		model.addAttribute("returnCount", returnCount);
 		
 		nearbyLib.setTotalDataCount(returnCount);
 		
 		service.setPaging(model, returnCount, nearbyLib);
+		
+		List<NearbyLib> returnList = service.getNeighborhoodLibraryRerturnList(nearbyLib); //반납 목록 list
+
 		model.addAttribute("nearbyLib", nearbyLib);
+		model.addAttribute("returnList", returnList);
 		
 		return basePath + "return/returnList";
 	}

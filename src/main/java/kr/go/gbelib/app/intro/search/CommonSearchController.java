@@ -665,34 +665,38 @@ public class CommonSearchController extends BaseController {
 				
 				//내집앞도서관 예약설정
 				String reserveAvailability = "N";
-				if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
-					reserveAvailability = "Y";
-					
-					//만약 내일 날짜가 예약 불가능 설정이 되어있다면 예약 불가
-					if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
-						reserveAvailability = "N";
-					} else {
-						//예약버튼 비활성화 유무확인
-						int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(String.valueOf(map.get("MANAGE_CODE")));
+				try {
+					if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
+						reserveAvailability = "Y";
 						
-						//예약가능시간 확인(count가 true이면 예약 가능)
-						boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
-						
-						if(reserveConfigCount > 0 || !reserveTimeCheck) {
+						//만약 내일 날짜가 예약 불가능 설정이 되어있다면 예약 불가
+						if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
 							reserveAvailability = "N";
+						} else {
+							//예약버튼 비활성화 유무확인
+							int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(String.valueOf(map.get("MANAGE_CODE")));
+							
+							//예약가능시간 확인(count가 true이면 예약 가능)
+							boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
+							
+							if(reserveConfigCount > 0 || !reserveTimeCheck) {
+								reserveAvailability = "N";
+							}
 						}
+						
+						NearbyLib searchBookOne = new NearbyLib();
+						searchBookOne.setBook_key(librarySearch.getBookkey());
+						NearbyLib neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
+						int reserveData = 0;
+						if(neighborhoodLibraryOne != null) {
+							reserveData = 1;
+						}
+						
+						model.addAttribute("reserveAvailability", reserveAvailability);
+						model.addAttribute("reserveData", reserveData);
 					}
-					
-					NearbyLib searchBookOne = new NearbyLib();
-					searchBookOne.setBook_key(librarySearch.getBookkey());
-					NearbyLib neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
-					int reserveData = 0;
-					if(neighborhoodLibraryOne != null) {
-						reserveData = 1;
-					}
-					
-					model.addAttribute("reserveAvailability", reserveAvailability);
-					model.addAttribute("reserveData", reserveData);
+				} catch (Exception e) {
+					// TODO: handle exception
 				}
 				
 				model.addAttribute("detail", map);
