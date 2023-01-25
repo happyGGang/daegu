@@ -3,201 +3,188 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLibDao">
 
 	<select id="getNeighborhoodLibraryList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			<if test="device_idx != null and device_idx != ''">
-				AND DEVICE_IDX = #{device_idx}
-			</if>
-			<if test="homepage_id != null and homepage_id != ''">
-				AND HOMEPAGE_ID = #{homepage_id}
-			</if>
-			<choose>
-				<when test='editMode == "lockerEmptycheck"'>
-					AND RESERVE_STATUS IN ('1','2','3')
-				</when>
-				<when test='editMode == "lockerDetail"'>
-					AND RESERVE_STATUS IN ('2','3')
-				</when>
-				<when test='editMode == "todayOut"'>
-					AND RESERVE_STATUS IN ('1','2')
-<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
-					AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
-				</when>
-				<when test='editMode == "todayIn"'>
-					AND RESERVE_STATUS IN ('6','7') 
-					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
-<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
-				</when>
-				<otherwise>
-					AND RESERVE_STATUS IN ('2','3')				
-				</otherwise>
-			</choose>
-			<if test="manage_code != null and manage_code != ''">
-			AND manage_code = #{manage_code}
-			</if>
-			<choose>
-				<when test='editMode == "todayIn"'>
-					ORDER BY 
-					RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
-				</when>
-				<otherwise>
-					ORDER BY 
-					ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
-				</otherwise>
-			</choose>
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}
+		</if>
+		<choose>
+			<when test='editMode == "lockerEmptycheck"'>
+				AND RESERVE_STATUS IN ('1','2','3')
+			</when>
+			<when test='editMode == "lockerDetail"'>
+				AND RESERVE_STATUS IN ('2','3')
+			</when>
+			<when test='editMode == "todayOut"'>
+				AND RESERVE_STATUS IN ('1','2')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+			</when>
+			<when test='editMode == "todayIn"'>
+				AND RESERVE_STATUS IN ('6','7') 
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+			</when>
+			<otherwise>
+				AND RESERVE_STATUS IN ('2','3')				
+			</otherwise>
+		</choose>
+		<if test="manage_code != null and manage_code != ''">
+		AND manage_code = #{manage_code}
+		</if>
+		<choose>
+			<when test='editMode == "todayIn"'>
+				ORDER BY 
+				RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+			</when>
+			<otherwise>
+				ORDER BY 
+				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
+			</otherwise>
+		</choose>
 	</select>	
 
 	<select id="getNeighborhoodLibraryListAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		${pagingTop}
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			<if test="device_idx != null and device_idx != ''">
-				AND DEVICE_IDX = #{device_idx}
-			</if>
-			<if test="reserve_status != null and reserve_status != ''">
-			<choose>
-				<when test='reserve_status == "5"'>
-					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
-				</when>
-				<otherwise>
-					AND RESERVE_STATUS = #{reserve_status}
-				</otherwise>
-			</choose>
-			</if>
-			<if test="homepage_id != null and homepage_id != ''">
-				AND HOMEPAGE_ID = #{homepage_id}
-			</if>
-			<if test="manage_code != null and manage_code != ''">
-				AND manage_code = #{manage_code}
-			</if>
-			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-				AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
-			</if>
-	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-				AND ${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			<if test="toBeExported != null and toBeExported != ''">
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
-			</if>
-			ORDER BY 
-				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}
+		</if>
+		<if test="reserve_status != null and reserve_status != ''">
+		<choose>
+			<when test='reserve_status == "5"'>
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+			</when>
+			<otherwise>
+				AND RESERVE_STATUS = #{reserve_status}
+			</otherwise>
+		</choose>
+		</if>
+		<if test="homepage_id != null and homepage_id != ''">
+			AND HOMEPAGE_ID = #{homepage_id}
+		</if>
+		<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+		</if>
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="toBeExported != null and toBeExported != ''">
+			AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+		</if>
+		ORDER BY 
+			ADD_DATE DESC, RESERVE_BUNDLE_IDX	
 		${pagingBottom}
 	</select>	
 	
 	<select id="getNeighborhoodLibraryBookOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND BOOK_KEY = #{book_key}
-			AND RESERVE_STATUS IN ('1','2','3','6')
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND BOOK_KEY = #{book_key}
+		AND RESERVE_STATUS IN ('1','2','3','6')
 	</select>
 
 	<select id="getNeighborhoodLibraryCount" resultType="int">
-			SELECT
-				COUNT(*)	
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			<if test="device_idx != null and device_idx != ''">
-				AND DEVICE_IDX = #{device_idx}
-			</if>
-			<if test="reserve_status != null and reserve_status != ''">
-			<choose>
-				<when test='reserve_status == "5"'>
-					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
-				</when>
-				<otherwise>
-					AND RESERVE_STATUS = #{reserve_status}
-				</otherwise>
-			</choose>
-			</if>
-			<if test="homepage_id != null and homepage_id != ''">
-				AND HOMEPAGE_ID = #{homepage_id}
-			</if>
-			<if test="manage_code != null and manage_code != ''">
-				AND manage_code = #{manage_code}
-			</if>
-			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-				AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
-			</if>
-	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-				AND ${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			<choose>
-				<when test='editMode == "todayOut"'>
-					AND RESERVE_STATUS IN ('1','2')
-<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
-					AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
-				</when>
-				<when test='editMode == "todayIn"'>
-					AND RESERVE_STATUS IN ('6','7') 
-					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
-<!-- 					AND TO_CHAR(RESERVE_END_DATE, 'yyyy-MM-dd HH24:mi') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd HH24:mi') -->
-				</when>
-			</choose>
-			<if test="manage_code != null and manage_code != ''">
-			AND manage_code = #{manage_code}
-			</if>
-			<if test="toBeExported != null and toBeExported != ''">
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
-			</if>
-			ORDER BY 
-				ADD_DATE DESC, RESERVE_BUNDLE_IDX		
+		SELECT
+			COUNT(*)	
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}
+		</if>
+		<if test="reserve_status != null and reserve_status != ''">
+		<choose>
+			<when test='reserve_status == "5"'>
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+			</when>
+			<otherwise>
+				AND RESERVE_STATUS = #{reserve_status}
+			</otherwise>
+		</choose>
+		</if>
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<choose>
+			<when test='editMode == "todayOut"'>
+				AND RESERVE_STATUS IN ('1','2')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+			</when>
+			<when test='editMode == "todayIn"'>
+				AND RESERVE_STATUS IN ('6','7') 
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+			</when>
+		</choose>
+		<if test="manage_code != null and manage_code != ''">
+		AND manage_code = #{manage_code}
+		</if>
+		<if test="toBeExported != null and toBeExported != ''">
+			AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+		</if>
+		ORDER BY 
+			ADD_DATE DESC, RESERVE_BUNDLE_IDX	
 	</select>
 
 	<select id="getNeighborhoodLibraryOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">		
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND MEMBER_ID = #{member_id}
-			AND ADD_DATE = TO_DATE(#{search_date},'yyyy-MM-dd')						
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND MEMBER_ID = #{member_id}
+		AND ADD_DATE = TO_DATE(#{search_date},'yyyy-MM-dd')						
 	</select>
 	
 	<select id="getNeighborhoodLibraryBundleIdx" resultType="int">				
@@ -210,14 +197,14 @@
 	<select id="getNeighborhoodLibraryUseList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">		
 		SELECT
 			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE	, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE	, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -228,183 +215,183 @@
 	
 	<select id="sameNeighborhoodLibraryForUser" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND RESERVE_IDX != #{reserve_idx}
-			AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
-			AND RESERVE_STATUS = #{reserve_status}	
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND RESERVE_IDX != #{reserve_idx}
+		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+		AND RESERVE_STATUS = #{reserve_status}	
 	</select>
 	
 	<select id="getSameNeighborhoodLibraryBundle_idx" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND RESERVE_IDX = #{reserve_idx}
-			
-			<if test='editMode != "getMySelf"'>	
-				<choose>
-					<when test='editMode == "memberCancel"'>
-						AND RESERVE_STATUS = '1'
-					</when>
-					<when test='editMode == "apiStatus7"'>
-						AND RESERVE_STATUS = #{reserve_status}
-						AND DEVICE_CODE = #{device_code}
-					</when>
-					<otherwise>
-						AND RESERVE_STATUS in ('1','2')
-					</otherwise>
-				</choose>
-			</if>
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND RESERVE_IDX = #{reserve_idx}
+		
+		<if test='editMode != "getMySelf"'>	
+			<choose>
+				<when test='editMode == "memberCancel"'>
+					AND RESERVE_STATUS = '1'
+				</when>
+				<when test='editMode == "apiStatus7"'>
+					AND RESERVE_STATUS = #{reserve_status}
+					AND DEVICE_CODE = #{device_code}
+				</when>
+				<otherwise>
+					AND RESERVE_STATUS in ('1','2')
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 	
 	<select id="getSearchNeighborhoodLibraryOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND RESERVE_IDX = #{reserve_idx}
-			<choose>
-				<when test='editMode == "apiSearch"'>
-					AND LOCKER_IDX = #{locker_idx}
-				</when>
-				<otherwise>
-					AND RESERVE_STATUS = #{reserve_status}
-				</otherwise>
-			</choose>
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND RESERVE_IDX = #{reserve_idx}
+		<choose>
+			<when test='editMode == "apiSearch"'>
+				AND LOCKER_IDX = #{locker_idx}
+			</when>
+			<otherwise>
+				AND RESERVE_STATUS = #{reserve_status}
+			</otherwise>
+		</choose>
 	</select>
 	
 	<select id="getSearchNeighborhoodLibraryApiOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND LOCKER_IDX = #{locker_idx}
-			AND RESERVE_STATUS = #{reserve_status}
-			AND DEVICE_CODE = #{device_code}
-			AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
-								FROM 
-									NEIGHBORHOOD_LIBRARY_RESERVE
-								WHERE
-									1=1
-								AND LOCKER_IDX = #{locker_idx}
-								AND DEVICE_CODE = #{device_code}
-								AND RESERVE_STATUS = #{reserve_status})
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND LOCKER_IDX = #{locker_idx}
+		AND RESERVE_STATUS = #{reserve_status}
+		AND DEVICE_CODE = #{device_code}
+		AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
+							FROM 
+								NEIGHBORHOOD_LIBRARY_RESERVE
+							WHERE
+								1=1
+							AND LOCKER_IDX = #{locker_idx}
+							AND DEVICE_CODE = #{device_code}
+							AND RESERVE_STATUS = #{reserve_status})
 	</select>
 	
 	<select id="getSameNeighborhoodLibraryPkData" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND PK = #{pk}
-			AND ADD_DATE = (SELECT MAX(ADD_DATE) FROM NEIGHBORHOOD_LIBRARY_RESERVE WHERE PK = #{pk}) 	
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND PK = #{pk}
+		AND ADD_DATE = (SELECT MAX(ADD_DATE) FROM NEIGHBORHOOD_LIBRARY_RESERVE WHERE PK = #{pk}) 	
 	</select>
 	
 	<select id="getSameNeighborhoodLibraryBundleList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}	
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}	
 	</select>
 	
 	<select id="getReturnReserveBookOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND REG_NO = #{reg_no}
-			AND RESERVE_STATUS = '4'
-			AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
-								FROM 
-									NEIGHBORHOOD_LIBRARY_RESERVE
-								WHERE
-									1=1
-								AND REG_NO = #{reg_no}
-								AND RESERVE_STATUS = '4')
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND REG_NO = #{reg_no}
+		AND RESERVE_STATUS = '4'
+		AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
+							FROM 
+								NEIGHBORHOOD_LIBRARY_RESERVE
+							WHERE
+								1=1
+							AND REG_NO = #{reg_no}
+							AND RESERVE_STATUS = '4')
 	</select>
 	
 	<select id="getSameNeighborhoodLibraryReserveCallIdx" resultType="int">
 		SELECT
-				NVL(MAX(reserve_idx),0) 
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				1=1
-			AND MEMBER_ID = #{member_id}
-			AND BOOK_KEY = #{book_key}	
+			NVL(MAX(reserve_idx),0) 
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND MEMBER_ID = #{member_id}
+		AND BOOK_KEY = #{book_key}	
 	</select>
 	
 	<insert id="insertNeighborhoodLibrary">		
@@ -473,142 +460,387 @@
 		</if>
 		WHERE
 			1=1
-			<choose>
-				<when test="reserve_idx != null and reserve_idx != ''">
-				AND	RESERVE_IDX = #{reserve_idx}
-				AND DEVICE_CODE = #{device_code}
-				</when>
-				<when test="reserve_bundle_idx != null and reserve_bundle_idx != ''">
-				AND	RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
-				AND DEVICE_CODE = #{device_code}
-				</when>
-				<when test='editMode == "memberCancel"'>
-				AND PK = #{pk}
-				AND RESERVE_STATUS = '1'
-				</when>
-			</choose>
-		</update>
+		<choose>
+			<when test="reserve_idx != null and reserve_idx != ''">
+			AND	RESERVE_IDX = #{reserve_idx}
+			AND DEVICE_CODE = #{device_code}
+			</when>
+			<when test="reserve_bundle_idx != null and reserve_bundle_idx != ''">
+			AND	RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+			AND DEVICE_CODE = #{device_code}
+			</when>
+			<when test='editMode == "memberCancel"'>
+			AND PK = #{pk}
+			AND RESERVE_STATUS = '1'
+			</when>
+		</choose>
+	</update>
 
-		<update id="updateNeighborhoodLibrarySms">
-			UPDATE 
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			SET
-				SMS_SEND_YN = #{sms_send_yn},
-				SMS_SEND_DATE = SYSDATE
-			WHERE
+	<update id="updateNeighborhoodLibrarySms">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			SMS_SEND_YN = #{sms_send_yn},
+			SMS_SEND_DATE = SYSDATE
+		WHERE
+		1=1
+		<choose>
+			<when test="reserve_idx != null and reserve_idx != ''">
+			AND	RESERVE_IDX = #{reserve_idx}
+			</when>
+			<when test="reserve_bundle_idx != null and reserve_bundle_idx != ''">
+			AND	RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+			</when>
+		</choose>
+	</update>
+	
+	<update id="updateNeighborhoodLibraryLargeBookYn">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			LARGE_BOOK_YN = #{large_book_yn}
+		WHERE
 			1=1
-			<choose>
-				<when test="reserve_idx != null and reserve_idx != ''">
-				AND	RESERVE_IDX = #{reserve_idx}
-				</when>
-				<when test="reserve_bundle_idx != null and reserve_bundle_idx != ''">
-				AND	RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
-				</when>
-			</choose>
-		</update>
-		
-		<update id="updateNeighborhoodLibraryLargeBookYn">
-			UPDATE 
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			SET
-				LARGE_BOOK_YN = #{large_book_yn}
-			WHERE
-				1=1
-			 AND RESERVE_IDX = #{reserve_idx}
-		</update>
-		
-		<update id="updateNeighborhoodLibraryPK">
-			UPDATE 
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			SET
-				PK = #{pk},
-				USER_NO = #{user_no}
-			WHERE
-			1=1
-			 AND RESERVE_IDX = #{reserve_idx}
-		</update>
-		
-		<update id="updateNeighborhoodLibraryBookSize">
-			UPDATE 
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			SET
-				LARGE_BOOK_YN = #{large_book_yn}
-			WHERE
-			1=1
-			 AND RESERVE_IDX = #{reserve_idx}
-		</update>
-		
-		<update id="updateNeighborhoodLibraryLocker_idx">
-			UPDATE
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			SET
-				LOCKER_IDX = #{locker_each_idx}
-			WHERE
-			1=1
-			<choose>
-			<when test='editMode =="updateOne"'>
-			 	AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
-			 </when>
-			 <otherwise>
-			 	AND RESERVE_IDX = #{reserve_idx}
-			 </otherwise>
-			 </choose>
-			 AND DEVICE_IDX = #{device_idx}
-			 AND DEVICE_CODE = #{device_code}
-			 AND RESERVE_STATUS = '2'
-		</update>
-		
-		<select id="checkReserveLocker" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				LOCKER_IDX = #{locker_idx}
-			AND DEVICE_PASSWORD = #{device_password}
+		 AND RESERVE_IDX = #{reserve_idx}
+	</update>
+	
+	<update id="updateNeighborhoodLibraryPK">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			PK = #{pk},
+			USER_NO = #{user_no}
+		WHERE
+		1=1
+		 AND RESERVE_IDX = #{reserve_idx}
+	</update>
+	
+	<update id="updateNeighborhoodLibraryBookSize">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			LARGE_BOOK_YN = #{large_book_yn}
+		WHERE
+		1=1
+		 AND RESERVE_IDX = #{reserve_idx}
+	</update>
+	
+	<update id="updateNeighborhoodLibraryLocker_idx">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			LOCKER_IDX = #{locker_each_idx}
+		WHERE
+		1=1
+		<choose>
+		<when test='editMode =="updateOne"'>
+		 	AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+		 </when>
+		 <otherwise>
+		 	AND RESERVE_IDX = #{reserve_idx}
+		 </otherwise>
+		 </choose>
+		 AND DEVICE_IDX = #{device_idx}
+		 AND DEVICE_CODE = #{device_code}
+		 AND RESERVE_STATUS = '2'
+	</update>
+	
+	<select id="checkReserveLocker" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			LOCKER_IDX = #{locker_idx}
+		AND DEVICE_PASSWORD = #{device_password}
+		AND DEVICE_IDX = #{device_idx}
+		AND RESERVE_STATUS = '3'
+		AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
+							FROM NEIGHBORHOOD_LIBRARY_RESERVE 
+							WHERE LOCKER_IDX = #{locker_idx}
+							AND DEVICE_PASSWORD = #{device_password}
+							AND DEVICE_IDX = #{device_idx}
+							AND RESERVE_STATUS = '3');	
+	</select>
+	
+	<select id="getNeighborhoodLibraryReturnCount" resultType="int">
+		SELECT
+			COUNT(*)	
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			RESERVE_STATUS IN ('9')
+		<if test="device_idx != null and device_idx != ''">
 			AND DEVICE_IDX = #{device_idx}
-			AND RESERVE_STATUS = '3'
-			AND RESERVE_IDX = (SELECT MAX(RESERVE_IDX) 
-								FROM NEIGHBORHOOD_LIBRARY_RESERVE 
-								WHERE LOCKER_IDX = #{locker_idx}
-								AND DEVICE_PASSWORD = #{device_password}
-								AND DEVICE_IDX = #{device_idx}
-								AND RESERVE_STATUS = '3');	
-		</select>
+		</if>
+		<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+		</if>
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(return_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY 
+			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX	
+	</select>
+	
+	<select id="getNeighborhoodLibraryRerturnList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		${pagingTop}
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO, RETURN_DATE
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			RESERVE_STATUS IN ('9')
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}
+		</if>
+		<if test="manage_code != null and manage_code != ''">
+			AND manage_code = #{manage_code}
+		</if>
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(return_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY 
+			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+		${pagingBottom}
+	</select>
+	
+	<update id="updateNeighborhoodLibraryExpireDate">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			expire_date = #{expire_date}
+		WHERE
+			1=1
+		 AND RESERVE_IDX = #{reserve_idx}
+	</update>
+	
+	<select id="getExpireReserveBookList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX,
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME,
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE,
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON,
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL,
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO,
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			TO_CHAR(TO_DATE(expire_date, 'yyyy-MM-dd'), 'yyyy/MM/dd') = TO_CHAR(TO_DATE(#{expire_date}, 'yyyy-MM-dd'), 'yyyy/MM/dd')
+		AND device_code = #{device_code}
+		ORDER BY
+			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX;
+	</select>
+	
+	<select id="getReturnYnReserveBookList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			reg_no = #{reg_no}
+		AND reserve_status = '4'
+		ORDER BY 
+			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+	</select>
 		
-		<select id="getNeighborhoodLibraryReturnCount" resultType="int">
-			SELECT
-				COUNT(*)	
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				RESERVE_STATUS IN ('9')
-			<if test="device_idx != null and device_idx != ''">
-				AND DEVICE_IDX = #{device_idx}
-			</if>
-			<if test="manage_code != null and manage_code != ''">
-				AND manage_code = #{manage_code}
-			</if>
-			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-				AND TO_DATE(return_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
-			</if>
-	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-				AND ${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			ORDER BY 
-				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX	
-		</select>
+	<select id="getReserveMemberOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			reg_no = #{reg_no}
+		AND reserve_status = '2'
+		AND device_code = #{device_code}
+	</select>
 		
-		<select id="getNeighborhoodLibraryRerturnList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			${pagingTop}
+	<select id="getReserveMemberOneList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME,
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, CALL_NO, ADD_DATE,
+			TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			reserve_bundle_idx = #{reserve_bundle_idx}
+		AND reserve_status = '2'
+		AND device_code = #{device_code}
+	</select>
+		
+	<select id="getReserveListOfDevice" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME,
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, CALL_NO, ADD_DATE,
+			TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			reserve_status = '2'
+		AND device_code = #{device_code}
+	</select>
+		
+	<insert id="nearbyStatusLog">		
+	<selectKey keyProperty="reserve_idx" resultType="int" order="BEFORE">
+		SELECT NVL(MAX(reserve_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_STATUSLOG
+	</selectKey>			
+	INSERT INTO NEIGHBORHOOD_LIBRARY_STATUSLOG
+		(
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX,
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_NAME, MEMBER_ID, USER_KEY, 
+			MEMBER_NAME, MANAGE_CODE, LIB_NAME ,BOOK_KEY, REG_NO, 
+			BOOK_ISBN, BOOK_NAME, ADD_DATE, ADD_ID, ADD_IP, 
+			CANCEL_YN, SMS_SEND_YN, HOMEPAGE_SEND_TELL, APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT,
+			TAKE_TERM, LARGE_BOOK_YN, RESERVE_END_DATE, RESERVE_START_DATE,
+			CALL_NO, MOD_ID, MOD_IP, MOD_DATE
+		) VALUES (
+			#{homepage_id}, '1', #{device_idx}, #{device_code}, #{reserve_idx},
+			#{reserve_bundle_idx}, #{locker_idx}, #{device_name}, #{member_id}, #{user_key}, 
+			#{member_name}, #{manage_code}, #{lib_name}, #{book_key}, #{reg_no},
+			#{book_isbn}, #{title_info}, SYSDATE, #{member_id}, #{add_ip}, 
+			'N', 'N', #{homepage_send_tell}, #{applicant_cell_phone}, #{expire_date_cnt},
+			#{take_term}, 'N' , TO_DATE(#{reserve_end_date},'yyyy-MM-dd HH24:mi'), TO_DATE(#{reserve_start_date},'yyyy-MM-dd HH24:mi'),
+			#{call_no}, #{mod_id}, #{mod_ip}, SYSDATE 
+		)
+	</insert>
+		
+	<select id="getNearByLibReserveList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			reserve_idx IN
+		<if test="reserve_idx_out_arr != null and reserve_idx_out_arr != ''">
+			<foreach collection="reserve_idx_out_arr" item="i" open="(" close=")" separator=",">
+			${i}
+			</foreach>
+		</if>
+		<if test="reserve_idx_in_arr != null and reserve_idx_in_arr != ''">
+			<foreach collection="reserve_idx_in_arr" item="i" open="(" close=")" separator=",">
+			${i}
+			</foreach>
+		</if>
+		ORDER BY 
+			ADD_DATE DESC, RESERVE_BUNDLE_IDX	
+	</select>
+	
+	<select id="getReservedLockerCountNow" resultType="int">		
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			device_idx = #{device_idx}
+		AND reserve_status IN ('1','2','3','4')
+	</select>
+
+	<select id="getReserveCountNow" resultType="int">		
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			member_id = #{member_id}
+		AND reserve_status IN ('1','2','3','4')		
+	</select>
+	
+	<select id="getNearbyLibListCount" resultType="int">		
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}
+		</if>
+		<if test="reserve_status != null and reserve_status != ''">
+			<choose>
+				<when test='reserve_status == "5"'>
+					AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				</when>
+				<otherwise>
+					AND RESERVE_STATUS = #{reserve_status}
+				</otherwise>
+			</choose>
+		</if>
+		<if test="manage_code != null and manage_code != ''">
+			AND MANAGE_CODE = #{manage_code}
+		</if>
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY 
+			ADD_DATE DESC, RESERVE_BUNDLE_IDX
+	</select>
+	
+	<select id="getNearbyLibListAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		${pagingTop}
 			SELECT
 				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
 				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
@@ -622,200 +854,54 @@
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
-				RESERVE_STATUS IN ('9')
+				1=1
 			<if test="device_idx != null and device_idx != ''">
 				AND DEVICE_IDX = #{device_idx}
 			</if>
+			<if test="reserve_status != null and reserve_status != ''">
+				<choose>
+					<when test='reserve_status == "5"'>
+						AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+					</when>
+					<otherwise>
+						AND RESERVE_STATUS = #{reserve_status}
+					</otherwise>
+				</choose>
+			</if>
 			<if test="manage_code != null and manage_code != ''">
-				AND manage_code = #{manage_code}
+				AND MANAGE_CODE = #{manage_code}
 			</if>
 			<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-				AND TO_DATE(return_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+				AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
 			</if>
 	    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 				AND ${search_type} LIKE '%'||#{search_text}||'%'
 			</if>
 			ORDER BY 
-				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
-			${pagingBottom}
-		</select>
-		
-		<update id="updateNeighborhoodLibraryExpireDate">
-			UPDATE 
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			SET
-				expire_date = #{expire_date}
-			WHERE
-				1=1
-			 AND RESERVE_IDX = #{reserve_idx}
-		</update>
-		
-		<select id="getExpireReserveBookList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX,
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME,
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE,
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON,
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL,
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO,
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				TO_CHAR(TO_DATE(expire_date, 'yyyy-MM-dd'), 'yyyy/MM/dd') = TO_CHAR(TO_DATE(#{expire_date}, 'yyyy-MM-dd'), 'yyyy/MM/dd')
-			AND device_code = #{device_code}
-			ORDER BY
-				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX;
-		</select>
-		
-		<select id="getReturnYnReserveBookList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				reg_no = #{reg_no}
-			AND reserve_status = '4'
-			ORDER BY 
-				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
-		</select>
-		
-		<select id="getReserveMemberOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				reg_no = #{reg_no}
-			AND reserve_status = '2'
-			AND device_code = #{device_code}
-		</select>
-		
-		<select id="getReserveMemberOneList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME,
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, CALL_NO, ADD_DATE,
-				TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				reserve_bundle_idx = #{reserve_bundle_idx}
-			AND reserve_status = '2'
-			AND device_code = #{device_code}
-		</select>
-		
-		<select id="getReserveListOfDevice" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME,
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, CALL_NO, ADD_DATE,
-				TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				reserve_status = '2'
-			AND device_code = #{device_code}
-		</select>
-		
-		<insert id="nearbyStatusLog">		
-		<selectKey keyProperty="reserve_idx" resultType="int" order="BEFORE">
-			SELECT NVL(MAX(reserve_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_STATUSLOG
-		</selectKey>			
-		INSERT INTO NEIGHBORHOOD_LIBRARY_STATUSLOG
-			(
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX,
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_NAME, MEMBER_ID, USER_KEY, 
-				MEMBER_NAME, MANAGE_CODE, LIB_NAME ,BOOK_KEY, REG_NO, 
-				BOOK_ISBN, BOOK_NAME, ADD_DATE, ADD_ID, ADD_IP, 
-				CANCEL_YN, SMS_SEND_YN, HOMEPAGE_SEND_TELL, APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT,
-				TAKE_TERM, LARGE_BOOK_YN, RESERVE_END_DATE, RESERVE_START_DATE,
-				CALL_NO, MOD_ID, MOD_IP, MOD_DATE
-			) VALUES (
-				#{homepage_id}, '1', #{device_idx}, #{device_code}, #{reserve_idx},
-				#{reserve_bundle_idx}, #{locker_idx}, #{device_name}, #{member_id}, #{user_key}, 
-				#{member_name}, #{manage_code}, #{lib_name}, #{book_key}, #{reg_no},
-				#{book_isbn}, #{title_info}, SYSDATE, #{member_id}, #{add_ip}, 
-				'N', 'N', #{homepage_send_tell}, #{applicant_cell_phone}, #{expire_date_cnt},
-				#{take_term}, 'N' , TO_DATE(#{reserve_end_date},'yyyy-MM-dd HH24:mi'), TO_DATE(#{reserve_start_date},'yyyy-MM-dd HH24:mi'),
-				#{call_no}, #{mod_id}, #{mod_ip}, SYSDATE 
-			)
-		</insert>
-		
-		<select id="getNearByLibReserveList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-			SELECT
-				HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
-				RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
-				USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
-				BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
-				ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
-				CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
-				APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
-				TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
-				CALL_NO
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				reserve_idx IN
-			<if test="reserve_idx_out_arr != null and reserve_idx_out_arr != ''">
-				<foreach collection="reserve_idx_out_arr" item="i" open="(" close=")" separator=",">
-				${i}
-				</foreach>
-			</if>
-			<if test="reserve_idx_in_arr != null and reserve_idx_in_arr != ''">
-				<foreach collection="reserve_idx_in_arr" item="i" open="(" close=")" separator=",">
-				${i}
-				</foreach>
-			</if>
-			ORDER BY 
 				ADD_DATE DESC, RESERVE_BUNDLE_IDX	
+		${pagingBottom}
 	</select>
 	
-	<select id="getReservedLockerCountNow" resultType="int">		
-			SELECT
-				COUNT(*)
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				device_idx = #{device_idx}
-			AND reserve_status IN ('1','2','3','4')
-	</select>
-
-	<select id="getReserveCountNow" resultType="int">		
-			SELECT
-				COUNT(*)
-			FROM
-				NEIGHBORHOOD_LIBRARY_RESERVE
-			WHERE
-				member_id = #{member_id}
-			AND reserve_status IN ('1','2','3','4')		
-	</select>
+	<update id="changeStatusOnlyHomepage">
+		UPDATE 
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		SET
+			reserve_status = #{reserve_status}
+			<if test='reserve_status == "2"'>
+			,LEND_DATE = SYSDATE
+			,MOD_DATE = SYSDATE	
+			</if>
+			<if test='reserve_status == "8"'>
+				,CANCEL_DATE = SYSDATE
+				,CANCEL_ID = 'dgadmin'
+				,CANCEL_YN = 'Y'
+				,CANCEL_REASON = '관리자취소'
+			</if>
+			<if test='reserve_status == "9"'>
+				,return_date = SYSDATE
+			</if>
+		WHERE
+			1=1
+		 AND RESERVE_IDX = #{reserve_idx}
+	</update>
 </mapper>

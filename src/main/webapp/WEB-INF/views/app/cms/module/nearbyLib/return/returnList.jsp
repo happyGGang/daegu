@@ -184,7 +184,7 @@ table thead th, table tbody td {font-size:12px;}
 					<td>${i.member_id}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></td>
 					<td><fmt:formatDate value="${i.lend_date}" pattern="yyyy.MM.dd"/></td>
-					<td><fmt:formatDate value="${i.return_date}" pattern="yyyy.MM.dd"/></td>
+					<td>${i.return_date}</td>
  					<td>
 						<a href="#" class="btn reserve_save" style="border:1px black solid; color:black;" keyValue1="${returnCount - status.index }" keyValue2="10" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }">반납완료</a>
  					</td>

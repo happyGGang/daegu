@@ -294,7 +294,7 @@ $(function() {
 			<tr>
 				<td ${lockerEach.no17.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no16"/>
+						<jsp:param name="lockerEachKey" value="no17"/>
 					</jsp:include>
 				</td>
 				<td ${lockerEach.no35.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
@@ -306,7 +306,7 @@ $(function() {
 			<tr>
 				<td ${lockerEach.no18.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
-						<jsp:param name="lockerEachKey" value="no16"/>
+						<jsp:param name="lockerEachKey" value="no18"/>
 					</jsp:include>
 				</td>
 				<td ${lockerEach.no36.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>

@@ -375,7 +375,7 @@ $(function() {
 			</c:forEach>
 			<c:if test="${paging.totalDataCount <= 0}">
 				<tr>
-					<td colspan="14">조회된 자료가 없습니다.</td>
+					<td colspan="15">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

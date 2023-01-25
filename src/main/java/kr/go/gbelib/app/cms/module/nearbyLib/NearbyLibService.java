@@ -1650,7 +1650,7 @@ public class NearbyLibService extends BaseService {
 			return result;
 		}
 		
-		int takeTerm = reserveConfigService.getTakeTermOfReserveConfig();
+		int takeTerm = 3;
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
@@ -1778,6 +1778,18 @@ public class NearbyLibService extends BaseService {
 
 	public int getReserveCountNow(NearbyLibReserveConfig nearbyLibReserveConfig) {
 		return dao.getReserveCountNow(nearbyLibReserveConfig);
+	}
+
+	public List<NearbyLib> getNearbyLibListAll(NearbyLib nearbyLib) {
+		return dao.getNearbyLibListAll(nearbyLib);
+	}
+
+	public int getNearbyLibListCount(NearbyLib nearbyLib) {
+		return dao.getNearbyLibListCount(nearbyLib);
+	}
+
+	public int changeStatusOnlyHomepage(NearbyLib nearbyLib) {
+		return dao.changeStatusOnlyHomepage(nearbyLib);
 	}
 
 }

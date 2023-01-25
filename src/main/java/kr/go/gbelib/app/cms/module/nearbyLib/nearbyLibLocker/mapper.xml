@@ -24,7 +24,7 @@
 	
 	<select id="getNeighborhoodLibraryLockerCount" resultType="int">
 		SELECT
-			COUNT(*)
+			total_count
 		FROM
 			NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG
 		WHERE 

@@ -23,7 +23,9 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			manage_code = #{manage_code}
+			<if test="manage_code != null and manage_code != ''">
+				manage_code = #{manage_code}
+			</if>
 		ORDER BY 
 			day_of_week
 	</select>
@@ -47,8 +49,10 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			1=1
-		AND RESERVE_CONFIG_IDX = (SELECT MAX(RESERVE_CONFIG_IDX) FROM NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG)	
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
 	</select>
 	
 	<insert id="addNeighborhoodLibraryReserveConfig">
@@ -114,8 +118,10 @@
 			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
-		WHERE
-			manage_code = #{manage_code}
+			<if test="manage_code != null and manage_code != ''">
+			WHERE
+				manage_code = #{manage_code}
+			</if>
 		ORDER BY 
 			day_of_week
 	</select>
@@ -126,8 +132,10 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			manage_code = #{manage_code}
-		AND TO_CHAR(SYSDATE, 'D') = day_of_week
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
 		AND use_yn = 'N'
 	</select>
 	
@@ -139,8 +147,10 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			manage_code = #{manage_code}
-		AND TO_CHAR(SYSDATE, 'D') = day_of_week
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
 	</select>
 
 	<select id="checkReserveTime" resultType="int">
@@ -149,8 +159,10 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			manage_code = #{manage_code}
-			AND TO_CHAR(SYSDATE, 'D') = day_of_week
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
 			AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 	</select>
 	

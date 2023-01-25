@@ -79,4 +79,10 @@ public interface NearbyLibDao {
 
 	int getReserveCountNow(NearbyLibReserveConfig nearbyLibReserveConfig);
 
+	List<NearbyLib> getNearbyLibListAll(NearbyLib nearbyLib);
+
+	int getNearbyLibListCount(NearbyLib nearbyLib);
+
+	int changeStatusOnlyHomepage(NearbyLib nearbyLib);
+
 }

@@ -203,7 +203,7 @@ $(function(){
 		<c:if test="${asideHomepageId eq 'h90'}">
 			도서관 :
 			<form:select id="manage_code_1" path="manage_code" class="selectmenu">
-				<form:option value="NONE">전체</form:option>
+				<form:option value="">전체</form:option>
 				<form:option value="AA">대구2·28기념학생도서관</form:option>
 				<form:option value="BA">북구구수산도서관</form:option>
 				<form:option value="AH">대구광역시립 동부도서관</form:option>
