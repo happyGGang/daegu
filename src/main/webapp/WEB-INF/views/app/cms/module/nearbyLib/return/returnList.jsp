@@ -16,7 +16,7 @@ $(function() {
 		e.preventDefault();
 	});
 	
-	$('#manage_code').on('change',function(e){
+	$('#manage_code_1').on('change',function(e){
 		$('#viewPage').val(1);
 		$('#search_nearbyLib').submit();
 		e.preventDefault();
@@ -76,6 +76,7 @@ table thead th, table tbody td {font-size:12px;}
 </form:form>
 
 <form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="returnList.do">
+	<form:hidden path="homepage_id"/>
 	<div class="search">
 		검색 결과 : <fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> 건
 		<form:select path="rowCount" class="selectmenu" style="width:150px;">
@@ -85,18 +86,26 @@ table thead th, table tbody td {font-size:12px;}
 			<form:option value="50">50개씩 보기</form:option>
 			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
 		</form:select>
-		<br/>
+		
+		<c:if test="${asideHomepageId eq 'h1'}">
+			<form:hidden path="manage_code" id="manage_code_1" value="AA"/>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h5'}">
+			<form:hidden path="manage_code" id="manage_code_1" value="AH"/>
+		</c:if>
 		<c:if test="${asideHomepageId eq 'h45'}">
 			도서관 :
-			<form:select id="manage_code" path="manage_code" class="selectmenu">
-				<form:option value="">전체</form:option>
+			<form:select id="manage_code_1" path="manage_code" class="selectmenu">
 				<form:option value="CA">동구통합 안심도서관</form:option>
 				<form:option value="CB">동구통합 신천도서관</form:option>
 			</form:select>
 		</c:if>
+		<c:if test="${asideHomepageId eq 'h46'}">
+			<form:hidden id="manage_code_1" path="manage_code" value="BA"/>
+		</c:if>
 		<c:if test="${asideHomepageId eq 'h90'}">
 			도서관 :
-			<form:select id="manage_code" path="manage_code" class="selectmenu">
+			<form:select id="manage_code_1" path="manage_code" class="selectmenu">
 				<form:option value="">전체</form:option>
 				<form:option value="AA">대구2·28기념학생도서관</form:option>
 				<form:option value="BA">북구구수산도서관</form:option>

@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -648,6 +649,18 @@ public class NearbyLibController extends BaseController {
 		
 		String homepage_id = getAsideHomepageId(request);
 		nearbyLib.setHomepage_id(homepage_id);
+		
+		if("h1".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("AA");
+		} else if("h5".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("AH");
+		} else if("h45".equals(getAsideHomepageId(request))) {
+			if(StringUtils.isEmpty(nearbyLib.getManage_code())) {
+				nearbyLib.setManage_code("CA");
+			}
+		} else if("h46".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("BA");
+		}
 		
 		List<NearbyLib> returnList = service.getNeighborhoodLibraryRerturnList(nearbyLib); //반납 목록 list
 		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLib); //반납 목록 count
