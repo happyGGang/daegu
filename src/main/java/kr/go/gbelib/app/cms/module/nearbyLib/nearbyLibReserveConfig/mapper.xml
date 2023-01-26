@@ -45,7 +45,9 @@
 		SELECT
 			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
 			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
-			add_date, modify_id, modify_date, tomorrow_end_day_yn				 
+			add_date, modify_id, modify_date, tomorrow_end_day_yn,
+			TO_CHAR(SYSDATE, 'yyyy/MM/dd') as today,
+			TO_CHAR(SYSDATE + 1, 'yyyy/MM/dd') as tomorrow				 
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
@@ -171,5 +173,16 @@
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		ORDER BY 
 			homepage_id, day_of_week
+	</select>
+	
+	<select id="checkTime" resultType="boolean">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			day_of_week = #{day_of_week}
+		AND manage_code = #{manage_code}
+		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 	</select>
 </mapper>

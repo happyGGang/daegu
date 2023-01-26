@@ -37,4 +37,6 @@ public interface NearbyLibReserveConfigDao {
 
 	List<NearbyLibReserveConfig> getReserveConfigCalendarAll(NearbyLibManage nearbyLibManage);
 
+	boolean checkTime(NearbyLibReserveConfig referenceConfig);
+
 }

@@ -24,4 +24,6 @@ public interface NearbyLibDeviceDao {
 	List<NearbyLibDevice> getNeighborhoodLibraryDeviceList(NearbyLibDevice neighborhoodLibraryDevice);
 
 	List<NearbyLibDevice> getNearbyLibDeviceList(NearbyLibDevice neighborhoodLibraryDevice);
+
+	String getNearbyLibDeviceOne(int device_idx);
 }

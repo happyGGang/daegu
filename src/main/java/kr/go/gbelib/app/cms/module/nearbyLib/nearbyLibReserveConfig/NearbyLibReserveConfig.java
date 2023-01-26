@@ -24,6 +24,9 @@ public class NearbyLibReserveConfig extends PagingUtils{
     private String[] hour = {"00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"};
     private String[] minute = {"00", "10", "20", "30", "40", "50"};
 	
+    private String today;
+    private String tomorrow;
+    
 	public NearbyLibReserveConfig() {}
 	
 	public String getHomepage_id() {
@@ -143,6 +146,22 @@ public class NearbyLibReserveConfig extends PagingUtils{
 
 	public void setManage_code(String manage_code) {
 		this.manage_code = manage_code;
+	}
+
+	public String getToday() {
+		return today;
+	}
+
+	public void setToday(String today) {
+		this.today = today;
+	}
+
+	public String getTomorrow() {
+		return tomorrow;
+	}
+
+	public void setTomorrow(String tomorrow) {
+		this.tomorrow = tomorrow;
 	}
 	
 }

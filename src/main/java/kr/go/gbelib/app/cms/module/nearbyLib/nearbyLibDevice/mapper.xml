@@ -14,7 +14,7 @@
 			AND DEVICE_IDX IN (SELECT DEVICE_IDX FROM NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG)
 			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL) 
 			ORDER BY 
-				DEVICE_IDX DESC
+				DEVICE_IDX
 	</select>
 	
 	<select id="getNeighborhoodLibraryDeviceAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice">
@@ -102,4 +102,15 @@
 		WHERE
 			device_idx = #{device_idx}
 	</delete>
+	
+	<select id="getNearbyLibDeviceOne" resultType="String">
+		SELECT
+			device_code		 
+		FROM
+			NEIGHBORHOOD_LIBRARY_DEVICE
+		WHERE
+			1=1
+		AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
+		AND DEVICE_IDX = #{device_idx}	
+	</select>
 </mapper>

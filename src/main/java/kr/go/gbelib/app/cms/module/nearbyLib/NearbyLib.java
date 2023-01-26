@@ -100,6 +100,9 @@ public class NearbyLib extends PagingUtils {
 	private int[] reserve_idx_in_arr;
 	private int[] reserve_idx_out_arr;
 	
+	private String reserve_start_time;
+	private String reserve_end_time;
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -573,5 +576,17 @@ public class NearbyLib extends PagingUtils {
 	}
 	public void setReturn_date(String return_date) {
 		this.return_date = return_date;
+	}
+	public String getReserve_start_time() {
+		return reserve_start_time;
+	}
+	public void setReserve_start_time(String reserve_start_time) {
+		this.reserve_start_time = reserve_start_time;
+	}
+	public String getReserve_end_time() {
+		return reserve_end_time;
+	}
+	public void setReserve_end_time(String reserve_end_time) {
+		this.reserve_end_time = reserve_end_time;
 	}
 }

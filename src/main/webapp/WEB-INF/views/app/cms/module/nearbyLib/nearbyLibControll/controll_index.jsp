@@ -297,7 +297,7 @@ table thead th, table tbody td {font-size:12px;}
 				</c:if>
 				<c:if test="${neighborhoodLibraryCount <= 0}">
 					<tr>
-						<td colspan=11>데이터가 존재하지 않습니다.</td>
+						<td colspan=12>데이터가 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>

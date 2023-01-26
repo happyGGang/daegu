@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.nearbyLib;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -26,6 +28,7 @@ import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDeviceService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
 
@@ -65,10 +68,6 @@ public class NearbyLibController extends BaseController {
 		checkAuth("R", model, request);
 		NearbyLibDevice nearbyLibDevice = new NearbyLibDevice();
 		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDevice);
-		String homepage_id = getAsideHomepageId(request);
-		if(!"h90".equals(homepage_id)) {
-			nearbyLib.setHomepage_id(homepage_id);
-		}
 		
 		if(nearbyLib.getDevice_idx() > 0) {
 			/*현재 사용 가능한 사물함의 갯수 뽑아오기*/
@@ -130,12 +129,49 @@ public class NearbyLibController extends BaseController {
 		service.setPaging(model, count, nearbyLib);
 		
 		model.addAttribute("deviceList", deviceList);
-		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));
 		if("Y".equals(nearbyLib.getToBeExported())) {
-			nearbyLib.setToBeExported("");
+			int[] oracleDayOfWeek = {0, 2, 3, 4, 5, 6, 7, 1};
+
+			LocalDateTime today = LocalDateTime.now();
+			final int value = today.getDayOfWeek().getValue();
+			final int dayOfWeek = oracleDayOfWeek[value];
+
+			String nearbyLibManageCode = nearbyLib.getManage_code();
+			final NearbyLibManage nearbyLibManage = new NearbyLibManage(nearbyLibManageCode, "");
+			final List<NearbyLibReserveConfig> reserveConfigCalendar = configService.getReserveConfigCalendar(nearbyLibManage);
+
+			final NearbyLibReserveConfig todayConfig = reserveConfigCalendar.stream()
+				.filter(config -> Integer.parseInt(config.getDay_of_week()) == dayOfWeek)
+				.findFirst()
+				.orElse(reserveConfigCalendar.get(0));
+
+			final LocalTime localTime = today.toLocalTime();
+			final int startHour = Integer.parseInt(todayConfig.getReserve_start_time().substring(0, 2));
+			final int startMinute = Integer.parseInt(todayConfig.getReserve_start_time().substring(2));
+			final boolean isYesterday = localTime.isBefore(LocalTime.of(startHour, startMinute));
+
+			NearbyLibReserveConfig referenceConfig = todayConfig;
+			if (isYesterday) {
+				referenceConfig = reserveConfigCalendar.stream()
+					.filter(config -> Integer.parseInt(config.getDay_of_week()) == yesterdayOfWeek(Integer.parseInt(todayConfig.getDay_of_week())))
+					.findFirst()
+					.orElse(todayConfig);
+			}
+			
+			nearbyLib.setReserve_start_time(referenceConfig.getReserve_start_time());
+			nearbyLib.setReserve_end_time(referenceConfig.getReserve_end_time());
 		}
+		
+		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));
 		model.addAttribute("nearbyLib", nearbyLib);
 		return basePath + "index";
+	}
+	
+	private int yesterdayOfWeek(int dayOfWeek) {
+		if(dayOfWeek == 1) {
+			return 7;
+		}
+		return dayOfWeek - 1;
 	}
 	
 	/** 대출관리(사물함배정) 페이지 불러오기
@@ -208,17 +244,6 @@ public class NearbyLibController extends BaseController {
 		NearbyLibDevice searchDevice = new NearbyLibDevice();
 		searchDevice.setDevice_idx(nearbyLibLocker.getDevice_idx());
 		NearbyLibDevice nearbyLibDevice = deviceService.getNeighborhoodLibraryDeviceOne(searchDevice);
-		
-		if(!"h90".equals(homepage_id)) { //내집앞도서관에서 접속하는게 아니라면 해당 도서관의 예약만 보여주기
-			for(int k = 0; k < neighborhoodLibraryList.size();) {
-				if(!homepage_id.equals(neighborhoodLibraryList.get(k).getHomepage_id())){
-					neighborhoodLibraryList.remove(k);
-					k = 0;
-					continue;
-				}
-				k++;
-			}
-		}
 		
 		//사물함 정보
 		model.addAttribute("deviceList", deviceList);
@@ -411,9 +436,9 @@ public class NearbyLibController extends BaseController {
 		searchOutToday.setManage_code(nearbyLib.getManage_code());
 		
 		searchInToday.setEditMode("todayIn");
-		
 		inList = service.getNeighborhoodLibraryList(searchInToday); //오늘 반입 목록
 		int inCount = service.getNeighborhoodLibraryCount(searchInToday); //오늘 반입 목록
+		
 		searchOutToday.setEditMode("todayOut");
 		outList = service.getNeighborhoodLibraryList(searchOutToday); //오늘 반축 목록
 		int outCount = service.getNeighborhoodLibraryCount(searchOutToday); //오늘 반출 목록
@@ -422,9 +447,6 @@ public class NearbyLibController extends BaseController {
 		if(StringUtils.isNotEmpty(reserveConfig.getManage_code())) {
 			configOne = configService.getNeighborhoodLibraryReserveConfigOne(reserveConfig);
 			
-			Date nowDate = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-			
 			String start_time = "";
 			String end_time = "";
 			String startTime1 = configOne.getReserve_start_time().substring(0,2);
@@ -432,11 +454,17 @@ public class NearbyLibController extends BaseController {
 			String endTime1 = configOne.getReserve_end_time().substring(0,2);
 			String endTime2 = configOne.getReserve_end_time().substring(2);
 			
-			start_time = simpleDateFormat.format(nowDate) + " " + startTime1 + ":" + startTime2;
-			end_time = simpleDateFormat.format(nowDate) + " " + endTime1 + ":" + endTime2;
+			start_time = configOne.getToday() + " " + startTime1 + ":" + startTime2;
+			end_time = configOne.getTomorrow() + " " + endTime1 + ":" + endTime2;
 			
 			model.addAttribute("start_time", start_time);
 			model.addAttribute("end_time", end_time);
+			
+			searchOutToday.setEditMode("todayOutEach");
+			searchOutToday.setReserve_start_time(configOne.getReserve_start_time());
+			searchOutToday.setReserve_end_time(configOne.getReserve_end_time());
+			outList = service.getNeighborhoodLibraryList(searchOutToday); //오늘 반축 목록
+			outCount = service.getNeighborhoodLibraryCount(searchOutToday); //오늘 반출 목록
 		}
 		
 		model.addAttribute("inList", inList);

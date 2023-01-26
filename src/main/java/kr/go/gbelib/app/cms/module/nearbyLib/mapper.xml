@@ -29,7 +29,10 @@
 			</when>
 			<when test='editMode == "todayOut"'>
 				AND RESERVE_STATUS IN ('1','2')
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+			</when>
+			<when test='editMode == "todayOutEach"'>
+				AND RESERVE_STATUS IN ('1','2')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 			</when>
 			<when test='editMode == "todayIn"'>
 				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
@@ -45,6 +48,10 @@
 			<when test='editMode == "todayIn"'>
 				ORDER BY 
 				RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+			</when>
+			<when test='editMode == "canUseLocker"'>
+				ORDER BY 
+				ADD_DATE
 			</when>
 			<otherwise>
 				ORDER BY 
@@ -95,7 +102,7 @@
 			AND ${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
 		<if test="toBeExported != null and toBeExported != ''">
-			AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+			AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 		</if>
 		ORDER BY 
 			ADD_DATE DESC, RESERVE_BUNDLE_IDX	
@@ -150,7 +157,10 @@
 		<choose>
 			<when test='editMode == "todayOut"'>
 				AND RESERVE_STATUS IN ('1','2')
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+			</when>
+			<when test='editMode == "todayOutEach"'>
+				AND RESERVE_STATUS IN ('1','2')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 			</when>
 			<when test='editMode == "todayIn"'>
 				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
@@ -160,7 +170,7 @@
 		AND manage_code = #{manage_code}
 		</if>
 		<if test="toBeExported != null and toBeExported != ''">
-			AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+			AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 		</if>
 		ORDER BY 
 			ADD_DATE DESC, RESERVE_BUNDLE_IDX	
@@ -566,7 +576,7 @@
 							WHERE LOCKER_IDX = #{locker_idx}
 							AND DEVICE_PASSWORD = #{device_password}
 							AND DEVICE_IDX = #{device_idx}
-							AND RESERVE_STATUS = '3');	
+							AND RESERVE_STATUS = '3')	
 	</select>
 	
 	<select id="getNeighborhoodLibraryReturnCount" resultType="int">
