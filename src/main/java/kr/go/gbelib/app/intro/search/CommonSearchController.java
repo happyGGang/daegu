@@ -664,25 +664,25 @@ public class CommonSearchController extends BaseController {
 				}
 				
 				//내집앞도서관 예약설정
-				String reserveAvailability = "N";
-				try {
-					if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
-						reserveAvailability = "Y";
-						
-						//만약 내일 날짜가 예약 불가능 설정이 되어있다면 예약 불가
-						if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
-							reserveAvailability = "N";
-						} else {
-							//예약버튼 비활성화 유무확인
-							int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(String.valueOf(map.get("MANAGE_CODE")));
-							
-							//예약가능시간 확인(count가 true이면 예약 가능)
-							boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
-							
-							if(reserveConfigCount > 0 || !reserveTimeCheck) {
-								reserveAvailability = "N";
-							}
-						}
+				String reserveAvailability = "Y";
+//				try {
+//					if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
+//						reserveAvailability = "Y";
+//						
+//						//만약 내일 날짜가 예약 불가능 설정이 되어있다면 예약 불가
+//						if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
+//							reserveAvailability = "N";
+//						} else {
+//							//예약버튼 비활성화 유무확인
+//							int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(String.valueOf(map.get("MANAGE_CODE")));
+//							
+//							//예약가능시간 확인(count가 true이면 예약 가능)
+//							boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
+//							
+//							if(reserveConfigCount > 0 || !reserveTimeCheck) {
+//								reserveAvailability = "N";
+//							}
+//						}
 						
 						NearbyLib searchBookOne = new NearbyLib();
 						searchBookOne.setBook_key(librarySearch.getBookkey());
@@ -694,10 +694,10 @@ public class CommonSearchController extends BaseController {
 						
 						model.addAttribute("reserveAvailability", reserveAvailability);
 						model.addAttribute("reserveData", reserveData);
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
+//					}
+//				} catch (Exception e) {
+//					// TODO: handle exception
+//				}
 				
 				model.addAttribute("detail", map);
 				
@@ -3525,23 +3525,23 @@ public class CommonSearchController extends BaseController {
 			NearbyLibReserveConfig nearbyLibReserveConfig = neighborhoodLibraryReserveConfigService.getReserveConfigToday(neighborhoodLibrary.getManage_code());
 			nearbyLibReserveConfig.setMember_id(member.getMember_id());
 			
-			if(nearbyLibManageService.checkUseYn(neighborhoodLibrary.getManage_code()) > 0) {
-				res.setValid(false);
-				res.setMessage("현재 예약 불가능일이므로 예약이 불가능하십니다.\n관리자에게 문의해주세요.");
-				return res;
-			} else {
-				//예약버튼 비활성화 유무확인
-				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getManage_code());
-				
-				//예약가능시간 확인(count가 true이면 예약 가능)
-				boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(neighborhoodLibrary.getManage_code());
-				
-				if(reserveConfigCount > 0 || !reserveTimeCheck) {
-					res.setValid(false);
-					res.setMessage("현재 예약 가능한 시간이 아닙니다.");
-					return res;
-				}
-			}
+//			if(nearbyLibManageService.checkUseYn(neighborhoodLibrary.getManage_code()) > 0) {
+//				res.setValid(false);
+//				res.setMessage("현재 예약 불가능일이므로 예약이 불가능하십니다.\n관리자에게 문의해주세요.");
+//				return res;
+//			} else {
+//				//예약버튼 비활성화 유무확인
+//				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getManage_code());
+//				
+//				//예약가능시간 확인(count가 true이면 예약 가능)
+//				boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(neighborhoodLibrary.getManage_code());
+//				
+//				if(reserveConfigCount > 0 || !reserveTimeCheck) {
+//					res.setValid(false);
+//					res.setMessage("현재 예약 가능한 시간이 아닙니다.");
+//					return res;
+//				}
+//			}
 			
 			int device_idx = neighborhoodLibrary.getDevice_idx();
 			nearbyLibReserveConfig.setDevice_idx(device_idx);

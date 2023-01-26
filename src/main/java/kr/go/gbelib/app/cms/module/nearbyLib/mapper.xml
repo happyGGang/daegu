@@ -29,11 +29,10 @@
 			</when>
 			<when test='editMode == "todayOut"'>
 				AND RESERVE_STATUS IN ('1','2')
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 			</when>
 			<when test='editMode == "todayIn"'>
-				AND RESERVE_STATUS IN ('6','7') 
-				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
 			</when>
 			<otherwise>
 				AND RESERVE_STATUS IN ('2','3')				
@@ -151,11 +150,10 @@
 		<choose>
 			<when test='editMode == "todayOut"'>
 				AND RESERVE_STATUS IN ('1','2')
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE -1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyy-MM-dd') || ' 09', 'yyyy-MM-dd HH24')
 			</when>
 			<when test='editMode == "todayIn"'>
-				AND RESERVE_STATUS IN ('6','7') 
-				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
 			</when>
 		</choose>
 		<if test="manage_code != null and manage_code != ''">

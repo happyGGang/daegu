@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.framework.base.BaseController;
@@ -124,8 +123,6 @@ public class NearbyLibController extends BaseController {
 			model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
 			model.addAttribute("nowLocker", nowLocker);
 		}
-//		List<nearbyLibLocker2> lockerOneList = lockerService.getnearbyLibLockerEachOneList(nearbyLibLocker);//사물함 번호&갯수 가져오기		
-//		List<NeighborhoodLibrary2> usedLockerList = service.getNeighborhoodLibraryList(neighborhoodLibrary); //사물함을 사용하는 예약 내역만 가져오기 
 		
 		int count = service.getNeighborhoodLibraryCount(nearbyLib);
 		nearbyLib.setTotalDataCount(count);

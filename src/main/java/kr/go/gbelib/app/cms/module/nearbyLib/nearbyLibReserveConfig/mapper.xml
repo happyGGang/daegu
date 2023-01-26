@@ -133,9 +133,7 @@
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
 			TO_CHAR(SYSDATE, 'D') = day_of_week
-			<if test="manage_code != null and manage_code != ''">
-				AND manage_code = #{manage_code}
-			</if>
+		AND manage_code = #{manage_code}
 		AND use_yn = 'N'
 	</select>
 	
@@ -148,9 +146,7 @@
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
 			TO_CHAR(SYSDATE, 'D') = day_of_week
-			<if test="manage_code != null and manage_code != ''">
-				AND manage_code = #{manage_code}
-			</if>
+			AND manage_code = #{manage_code}
 	</select>
 
 	<select id="checkReserveTime" resultType="int">

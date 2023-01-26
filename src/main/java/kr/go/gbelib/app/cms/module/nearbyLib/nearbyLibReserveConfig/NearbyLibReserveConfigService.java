@@ -98,7 +98,7 @@ public class NearbyLibReserveConfigService extends BaseService{
 		final int reserveEndHour = Integer.parseInt(referenceConfig.getReserve_end_time().substring(0, 2));
 		final int reserveEndMinute = Integer.parseInt(referenceConfig.getReserve_end_time().substring(2));
 
-		return localTime.compareTo(LocalTime.of(reserveStartHour, reserveStartMinute)) >= 0 && localTime.compareTo(LocalTime.of(reserveEndHour, reserveEndMinute)) >= 0;
+		return localTime.isAfter(LocalTime.of(reserveStartHour, reserveStartMinute)) && localTime.isBefore(LocalTime.of(reserveEndHour, reserveEndMinute));
 	}
 
 	private int yesterdayOfWeek(int dayOfWeek) {

@@ -22,4 +22,6 @@ public interface NearbyLibDeviceDao {
 	int deleteNeighborhoodLibraryDevice(NearbyLibDevice neighborhoodLibraryDevice);
 
 	List<NearbyLibDevice> getNeighborhoodLibraryDeviceList(NearbyLibDevice neighborhoodLibraryDevice);
+
+	List<NearbyLibDevice> getNearbyLibDeviceList(NearbyLibDevice neighborhoodLibraryDevice);
 }

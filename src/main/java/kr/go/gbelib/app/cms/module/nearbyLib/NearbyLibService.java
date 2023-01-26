@@ -103,6 +103,7 @@ public class NearbyLibService extends BaseService {
 			NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(neighborhoodLibrary2); //이미 예약 확정된 내역 있는지 확인(같은 사물함, 비밀번호 세팅)
 			
 			NearbyLibReserveConfig searchConfig = new NearbyLibReserveConfig();
+			searchConfig.setManage_code(neighborhoodLibrary.getManage_code());
 			NearbyLibReserveConfig ReserveConfig = reserveConfigService.getNeighborhoodLibraryReserveConfigOne(searchConfig); //예약설정 불러오기
 			
 			if(sameReserveOne == null) { //사물함 배정 내역이 없으면 비밀번호 생성
@@ -119,40 +120,6 @@ public class NearbyLibService extends BaseService {
 					res.setMessage("빈 사물함이 없습니다.");
 					return res;
 				}
-				/*
-				if(neighborhoodLibrary.getLocker_each_idx() != 0) {
-					useLocker = neighborhoodLibrary.getLocker_each_idx();
-				}else {
-					boolean emptyLocker = true;
-//					loopOut:
-					if(lockerOneList.size() > 0) { //사물함 갯수 정보를 등록하고 사용할 수 있을때
-						if(usedLockerList.size() > 0) { //사물함 사용내역이 1개 이상일때
-							for(int i = 0; i < lockerOneList.size(); i++ ){ //총 사물함 갯수만큼 루프
-								for(int j = 0; j < usedLockerList.size(); j ++) { //사용중인 사물함 갯수만큼 루프
-									if(lockerOneList.get(i).getLocker_each_idx() == usedLockerList.get(j).getLocker_idx()) { //현재 루프중인 사물함 idx가 사용중인 사물함 idx리스트에 포함되어 있으면 다음 루프로 이동
-										emptyLocker = false;
-									}
-	//									useLocker = lockerOneList.get(i).getLocker_each_idx(); //현재 루프중인 사물함 idx가 사용중인 사물함에 포함되지 않았으면 useLocker에 사물함 idx 담기
-	//									break loopOut;	//모든 루프 스탑
-								}
-								
-								if(emptyLocker) {
-									useLocker = lockerOneList.get(i).getLocker_each_idx();
-									break;
-								}
-								emptyLocker = true;
-							}
-						}else {
-							useLocker = 1; //사물함 사용내역이 0이면
-						}
-							
-					}else {
-						res.setValid(false);
-						res.setMessage("선택된 장비 정보가 존재하지 않습니다.");
-						return res;
-					}
-				}	
-				*/
 
 				/*비밀번호 랜덤 생성(숫자네자리)*/
 				int pass = 0;
@@ -479,55 +446,24 @@ public class NearbyLibService extends BaseService {
 			        librarySearch.setUserkey(reserveOne.getUser_key());
 			        String userIp = reserveOne.getAdd_ip();
 			        
+			        librarySearch.setManageCode(reserveOne.getManage_code());
+			        String book_name = reserveOne.getBook_name();
+			        String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
 			        
-/*			        
-			        for(int i = 0; i < bundleList.size() ; i++) {
-			        	homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
-				        librarySearch.setManageCode(bundleList.get(i).getManage_code());
-				        String book_name = bundleList.get(i).getBook_name();
-				        String mes = "";
-				        String lockerIdx = String.valueOf(bundleList.get(i).getLocker_idx());
-				        if(lockerIdx.length() == 1 ) {
-				        	lockerIdx = "00" + lockerIdx;	
-				        }else if(lockerIdx.length() == 2) {
-				        	lockerIdx = "0" + lockerIdx;
-				        }
-				        if(i == 0 ) {
-							mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx() 
-									+ "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
-									+ "\n도서 정보 : " + book_name 
-									+ "\n장비명 : " + bundleList.get(i).getDevice_name()
-									+ "\n사물함 번호 : " + bundleList.get(i).getLocker_idx() 
-									+ "\n사물함 비밀번호 : " + bundleList.get(i).getDevice_password();
-				        }else {
-				        	mes = "[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
-									+ "\n도서 정보 : " + book_name;
-				        }
-				        if(i == (bundleList.size()-1)) {
-				        	mes = mes
-				        			+ "\n" + simpleDateFormat.format(cal.getTime()) 
-									+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다. ";
-				        }
-*/				        
-				        librarySearch.setManageCode(reserveOne.getManage_code());
-				        String book_name = reserveOne.getBook_name();
-				        String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
-				        
-						String data1 = reserveOne.getLib_name();
-						String data2 = reserveOne.getMember_name();
-						String data3 = book_name;
-						String data4 = reserveOne.getDevice_name();
-						String data5 = String.valueOf(reserveOne.getLocker_idx());
-						String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
-						String data7 = simpleDateFormat.format(cal.getTime());
-						String data8 = "https://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx();
-						
-						LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
-						
-						status3_update.setReserve_idx(reserveOne.getReserve_idx());;
-						status3_update.setSms_send_yn("Y");
-						dao.updateNeighborhoodLibrarySms(status3_update);
-//			        }
+					String data1 = reserveOne.getLib_name();
+					String data2 = reserveOne.getMember_name();
+					String data3 = book_name;
+					String data4 = reserveOne.getDevice_name();
+					String data5 = String.valueOf(reserveOne.getLocker_idx());
+					String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
+					String data7 = simpleDateFormat.format(cal.getTime());
+					String data8 = "https://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx();
+					
+					LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
+					
+					status3_update.setReserve_idx(reserveOne.getReserve_idx());;
+					status3_update.setSms_send_yn("Y");
+					dao.updateNeighborhoodLibrarySms(status3_update);
 				}
 				
 				 if("7".equals(neighborhoodLibrary.getReserve_status())) {
