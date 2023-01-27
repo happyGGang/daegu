@@ -144,13 +144,29 @@
 .main2 .main2box2 li span.txt {line-height:120%;}
 
 .main2 .main2box3 {float:left;width:413px;border:1px solid #dadada;border-top:2px solid #2e3192;}
-.main2 .main2box3 .notice {position:relative;height:326px;}
-.main2 .main2box3 .notice div.title {width:100%;border-bottom:1px solid #dadada;overflow:hidden;}
+.main2 .main2box3 .book {position:relative;height:326px;}
+.main2 .main2box3 .book div.title {width:100%;border-bottom:1px solid #dadada;overflow:hidden;}
+.main2 .main2box3 .book ul.tabMenuS {position:relative;text-align:center;margin:0;padding:0;overflow:hidden;}
+.main2 .main2box3 .book ul.tabMenuS > li {position:relative;display:inline-block;float:left;box-sizing:border-box;text-align:center;height:50px;line-height:50px;width:50%;font-size:17px;color:#000;font-weight:bold;letter-spacing:-1px;}
+.main2 .main2box3 .book ul.tabMenuS > li:after {display:block;position:absolute;right:0;top:0;content:'';width:1px; height:50px;background:#dfdfdf;}
+.main2 .main2box3 .book ul.tabMenuS > li:last-child:after {width:0;}
+.main2 .main2box3 .book ul.tabMenuS > li.on a {color:#ed4024;}
+.main2 .main2box3 .book ul.tabMenuS > li a.more-more {position:absolute;right:5px;;top:5px;}
 .main2 .main2box3 .notice div.title li {display:inline-block;float:left;box-sizing:border-box;}
 .main2 .main2box3 .notice div.title li:first-child {padding-left:10px;}
 .main2 .main2box3 .notice div.title li:last-child {float:right;padding:13px 15px 13px 17px;}
 .main2 .main2box3 .notice div.title h2 {display:block;font-size:17px;color:#272727;font-weight:bold;background:url('/resources/homepage/bukbu/img/title-icon02.png') no-repeat left center;padding-left:36px;box-sizing:border-box;height:50px;line-height:50px;letter-spacing:-1px;}
-.main2 .main2box3 .notice div.title a {font-size:0;line-height:0;background:url('/resources/homepage/bukbu/img/more_btbt.png') no-repeat 0 0;}
+/*.main2 .main2box3 .notice div.title a {font-size:0;line-height:0;background:url('/resources/homepage/bukbu/img/more_btbt.png') no-repeat 0 0;}*/
+
+.main2 .main2box3 .culture div.cont {box-sizing:border-box;padding:0 3%;}
+.main2 .main2box3 .culture ul.list {padding-top:10px;}
+.main2 .main2box3 .culture ul.list li {position:relative;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:0 75px 0 20px;margin-top:15px;}
+.main2 .main2box3 .culture ul.list li a {font-size:14px;font-weight:normal;color:#000;box-sizing:border-box;}
+.main2 .main2box3 .culture ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
+.main2 .main2box3 .culture ul.list li a span.status {font-size:13px;color:#fff;position:absolute;display:block;right:5px;top:0;width:70px;height:24px;line-height:23px;text-align:center;}
+.main2 .main2box3 .culture ul.list li a span.status.after  {background:#4575ca;}
+.main2 .main2box3 .culture ul.list li a span.status.before {background:#49b6bd;}
+.main2 .main2box3 .culture ul.list li a span.status.ing    {background:#6091dd;}
 
 .main2 .main2box3 .notice div.cont {box-sizing:border-box;padding:0 3%;}
 
@@ -169,7 +185,7 @@
 .main2 .main2box3 p.date {font-size: 13px;margin-top: 7px; margin-bottom: 5px;color:#444}
 .main2 .main2box3 span.content {margin-left: 0!important;color: #555;width: 100%; font-size: 14px; font-weight: 500; text-overflow: ellipsis; overflow: hidden; display: inline-block; white-space: nowrap;}
 
-.main2 .main2box4 {float:right;width:413px;border:1px solid #dadada;border-top:2px solid #2e3192;}
+/*.main2 .main2box4 {float:right;width:413px;border:1px solid #dadada;border-top:2px solid #2e3192;}*/
 .main2 .main2box4 .culture {position:relative;height:326px;}
 .main2 .main2box4 .culture div.title {width:100%;border-bottom:1px solid #dadada;overflow:hidden;}
 .main2 .main2box4 .culture div.title li {display:inline-block;float:left;box-sizing:border-box;}
@@ -187,6 +203,21 @@
 .main2 .main2box4 .culture ul.list li a span.status.after  {background:#4575ca;}
 .main2 .main2box4 .culture ul.list li a span.status.before {background:#49b6bd;}
 .main2 .main2box4 .culture ul.list li a span.status.ing    {background:#6091dd;}
+
+.main2 .main2box4{float:right;width:413px;background:#005494;}
+.main2 .main2box4 .quick-btn-box {width:100%;margin:0;padding:31px 40px;box-sizing:border-box;text-align:center;}
+.main2 .main2box4 .quick-btn-box h2 span {display:block;font-size:15px;color:#fff;padding-top:10px;}
+.main2 .main2box4 .quick-btn-box h2 span b {font-size:30px;}
+.main2 .main2box4 .quick-btn-box .top-btn-box {padding-top:10px;}
+.main2 .main2box4 .quick-btn-box .top-btn-box li {display:block;border:1px solid #fff;border-radius:4px;box-sizing:border-box;margin-top:5px;}
+.main2 .main2box4 .quick-btn-box .top-btn-box li:hover {border:1px solid #ffb400;}
+.main2 .main2box4 .quick-btn-box .top-btn-box  li a {display:block;color:#fff;font-size:16px;box-sizing:border-box;padding:10px 0 10px 15px;background:url('/resources/homepage/228/img/out-arrow.png') no-repeat 96% center;text-align:left;border:2px solid transparent;}
+.main2 .main2box4 .quick-btn-box .top-btn-box  li a:hover {border:2px solid #ffb400;color:#ffb400;background:url('/resources/homepage/228/img/hover-arrow.png') no-repeat 96% center;}
+.main2 .main2box4 .quick-btn-box .bottom-btn-box {margin-top:15px;}
+.main2 .main2box4 .quick-btn-box .bottom-btn-box li {display:inline-block;width:49%;}
+.main2 .main2box4 .quick-btn-box .bottom-btn-box li a {display:block;font-size:17px;color:#fff;letter-spacing:-1px;padding:18px 0 40px;}
+.main2 .main2box4 .quick-btn-box .bottom-btn-box li:first-child a {background:#ff6c33 url('/resources/homepage/228/img/bot-arrow.png') no-repeat center 70%;}
+.main2 .main2box4 .quick-btn-box .bottom-btn-box li:last-child a {background:#00ade3 url('/resources/homepage/228/img/bot-arrow.png') no-repeat center 70%;}
 
 .main2 .main2box4 p.date {font-size: 13px;margin-top: 7px; margin-bottom: 5px;color:#444}
 .main2 .main2box4 span.content {margin-left: 0!important;color: #555;width: 100%; font-size: 14px; font-weight: 500; text-overflow: ellipsis; overflow: hidden; display: inline-block; white-space: nowrap;}
@@ -289,6 +320,8 @@
 	.main2 .main2box1 .main2box1box2 div.holiday-box .list-box {position:absolute;width:66.6%;left:33.333333333333%;}
 
 	.main2 .main2box2 {margin:-3px auto 0;}
+
+	.main2 .main2box4 .quick-btn-box .bottom-btn-box li{width:48%;}
 }
 
 @media all and (max-width:650px){	

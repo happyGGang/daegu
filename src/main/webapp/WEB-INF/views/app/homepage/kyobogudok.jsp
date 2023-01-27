@@ -4,6 +4,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<!-- <style>
+	.kyobo_img2 li div{border:1px solid #ddd;text-align:center;padding:30px 0;margin:10px 0;}
+	.kyobo_img2 li div img{border:1px solid #e5e5e5;}
+
+	h5{font-size:17px;margin-top:25px;font-weight:600;color:#ca0464;}
+</style> -->
+
 
 <div class="kyobo_bgbox bgbox">
 	<div class="lf-txt">
@@ -18,21 +25,39 @@
 		<input type="hidden" name="user_type_name" value ="회원">
 		<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
 		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-			<ul class="btns_wrap_tac">
+			<ul class="btns_wrap_tac" style="margin:10px auto 10px;">
 				<li>		
 					<c:choose>
 						<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
 							<c:choose>
 								<c:when test="${sessionScope.member.member_id eq 'ebookadmin'}">
-									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>교보문고 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
 								</c:when>
 								<c:otherwise>
-									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="alert('정회원만 이용가능합니다.');"> <span>구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="alert('정회원만 이용가능합니다.');"> <span>교보문고 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise>
-							<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+							<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>교보문고 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+			</ul>
+		</form>
+
+		<form name="frm_bukers_ebook" id="frm_bukers_ebook" method="post" action="https://www.bookers.life/front/home/loginSso.do" accept-charset="UTF-8" target="_blank">
+		<input type="hidden" name="requestCode" value ="0000000354" >
+		<input type="hidden" name="requestId" value ="${sessionScope.member.member_id}">
+		<input type="hidden" name="requestName" value ="${sessionScope.member.member_name}">
+			<ul class="btns_wrap_tac" style="margin:10px auto 10px;">
+				<li>		
+					<c:choose>
+						<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
+							<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="alert('정회원만 이용가능합니다.');"> <span>부커스 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
+						</c:when>
+						<c:otherwise>
+							<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwBukersfrmsubmit();"> <span>부커스 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -102,6 +127,63 @@
 	</li>
 </ul>
 
+<!-- <ul class="con kyobo_img2">
+	<li style="margin-top:0;">
+		<b>1. WEB</b><br />· 원하는 도서 선택 후 대출하기
+		<div><img src="/data/menuResources/h30/101/1674610675013.jpg"></div>
+	</li>
+	<li>
+		<b>2. 상세페이지</b><br />· 미리보기 : 전체도서의 5%내외 미리보기 가능<br />· 내서재에 추가 : 원하는 도서를 내서재에 담는 기능<br />· 바로 읽기 : 별도의 설치 없이 바로 읽기 가능 <br />
+		<b>3. 대출완료 후 내서재에 추가 또는 바로 읽기 선택하여 책읽기(대출기한이 만료되면 자동반납)</b>
+		<div><img src="/data/menuResources/h30/101/1674610680357.jpg"></div>
+	</li>
+	<h5>PC용 어플리케이션</h5>
+	<li>
+		<b>1.  PC용 앱 설치</b><br />· 부커스 페이지 하단 <b style="color:#ff0000;">앱 다운로드</b> 클릭<br />· 부커스 앱 PC버전. Windows, Mac 운영체제에서 앱 형태의 서비스 지원
+		<div><img src="/data/menuResources/h30/101/1674610685282.jpg"></div>
+	</li>
+	<li>
+		<b>2. 앱 다운로드</b><br />· PC > OS(Window/Mac) 선택<br />· PC용 어플리케이션 설치 후 로그인
+		<div><img src="/data/menuResources/h30/101/1674610689929.jpg"></div>
+	</li>
+	<li>
+		<b>1.  기관선택</b><br />· <b style="color:#ff0000;">"대구전자도서관"</b> 입력 후 하단에 리스트 박스가 생성되며 클릭하면 입력됩니다.<br />
+		<b>2. 아이디 / 패스워드</b><br />· 기존 <b style="color:#ff0000;">"대구전자도서관"</b> 홈페이지 계정을 입력합니다.
+		<div><img src="/data/menuResources/h30/101/1674610695313.jpg"></div>
+	</li>
+	<li>
+		원하는 도서를 더블클릭 합니다.
+		<div><img src="/data/menuResources/h30/101/1674610700838.jpg"></div>
+	</li>
+	<li>
+		미리보기가 도서의 5%내외에서 지원됩니다.<br />내 서재에 추가하거나 지금 읽기를 클릭하여 바로 읽기가 가능합니다.
+		<div><img src="/data/menuResources/h30/101/1674610705957.jpg"></div>
+	</li>
+</ul>
+
+<h4>모바일 앱 이용방법</h4>
+<ul class="con kyobo_img2">
+	<li>
+		<b>1. IOS</b><br />· APP Store에서 부커스 검색 후 어플리케이션 다운로드<br />· https://apps.apple.com/kr/app/부커스-bookers/id1521764865<br />
+		<b>2. Android</b><br />· Google Play에서 부커스 검색 후 어플리케이션 다운로드<br />· https://play.google.com/store/apps/details?id=com.bookers.ebook<br />
+		<b>3. APK 파일 (e-book 단말기 용)</b><br />· www.bookers.life 로 접속해서 하단의 앱다운로드 클릭<br />· MOBILE > APK 다운로드
+		<div><img src="/data/menuResources/h30/101/1674610710838.jpg"></div>
+	</li>
+	<li>
+		<b>1. 기관선택</b><br />· <b style="color:#ff0000;">"대구전자도서관"</b> 입력하면 하단에 리스트 박스가 생성되며 클릭하면 입력됩니다. <br />
+		<b>2. 아이디 / 패스워드</b><br />· 기존 <b style="color:#ff0000;">"대구전자도서관"</b> 홈페이지 계정을 입력합니다. <br />※ 회원가입, 로그인에 대한 문의는 공공도서관 담당자에게 문의
+		<div><img src="/data/menuResources/h30/101/1674610732178.jpg"></div>
+	</li>
+	<li>
+		원하는 도서를 선택하거나 검색합니다.
+		<div><img src="/data/menuResources/h30/101/1674610737663.jpg"></div>
+	</li>
+	<li>
+		미리보기가 전체도서의 5%내외로 제공 됩니다.<br />내 서재에 추가 또는 바로 읽기를 선택하여 책읽기(대출기한이 만료되면 자동반납)
+		<div><img src="/data/menuResources/h30/101/1674610742205.jpg"></div>
+	</li>
+</ul> -->
+
 
 
 
@@ -109,6 +191,11 @@
 <script type="text/javascript">
 	function dwfrmsubmit() {
 		$('#frm_kyobo_ebook').submit();
+	}
+
+	function dwBukersfrmsubmit() {
+		alert('부커스 서비스는 2023년 2월 1일 부터 시작합니다. \n\r현재는 사이트를 접속하여 둘러볼수만 있으며 대출,반납,예약,책읽기는 불가능합니다.');
+		$('#frm_bukers_ebook').submit();
 	}
 </script>
 

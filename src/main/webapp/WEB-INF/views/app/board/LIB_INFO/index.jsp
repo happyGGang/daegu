@@ -57,6 +57,15 @@ ${boardManage.top_html}
 </c:if>
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/libinfo.css" />
+<style>
+@media all and (max-width:768px){
+table.bbs thead th, table.bbs tbody td {font-size:12px;}
+}
+
+@media all and (max-width:425px){
+table.bbs thead th, table.bbs tbody td {font-size:11px;}
+}
+</style>
 <script type="text/javascript" src="/resources/common/js/libinfo.js"></script>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -104,6 +113,7 @@ ${boardManage.top_html}
 					<div class="all-lib" style="display:block">
 					<ul>
 						<li class="lib01"><div><a href="#" class="libType" data-key="23"><span>공공도서관</span><b>${empty categoryCount['23'] ? '0' : categoryCount['23']}</b></a></div></li>
+						<li class="lib07"><div><a href="#" class="libType" data-key="30"><span style='line-height:110%;'>사립ㆍ공공<br/>도서관</span><b>${empty categoryCount['30'] ? '0' : categoryCount['30']}</b></a></div></li>
 						<li class="lib02"><div><a href="#" class="libType" data-key="24"><span>전문도서관</span><b>${empty categoryCount['24'] ? '0' : categoryCount['24']}</b></a></div></li>
 						<li class="lib03"><div><a href="#" class="libType" data-key="25"><span>대학도서관</span><b>${empty categoryCount['25'] ? '0' : categoryCount['25']}</b></a></div></li>
 						<li class="lib04"><div><a href="#" class="libType" data-key="26"><span>작은도서관</span><b>${empty categoryCount['26'] ? '0' : categoryCount['26']}</b></a></div></li>
@@ -152,30 +162,18 @@ ${boardManage.top_html}
 		<div class="table-wrap">
 			<table class="bbs center" summary="일반 게시판">
 				<caption>일반게시판</caption>
-				<colgroup>
-					<c:if test="${board.delete_yn eq 'Y'}">
-					<col width="5%">
-					</c:if>
-					<col width="5%">
-					<col width="10%">
-					<col width="12%">
-					<col>
-					<col width="10%">
-					<col width="10%">
-					<col width="10%">
-				</colgroup>
 				<thead>
 					<tr>
 						<c:if test="${board.delete_yn eq 'Y'}">
-						<th><input type="checkbox" id="checkAll"> </th>
+						<th style="width:5%;"><input type="checkbox" id="checkAll"> </th>
 						</c:if>
-						<th>번호</th>
-						<th>유형</th>
-						<th class="">도서관명</th>
-						<th>주소</th>
-						<th class="">전화번호</th>
-						<th class="mmm1">사이트</th>
-						<th class="mmm1">지도</th>
+						<th style="width:5%;">번호</th>
+						<th style="width:15%;">유형</th>
+						<th class="" style="width:15%;">도서관명</th>
+						<th class="" style="">주소</th>
+						<th class="" style="width:13%;">전화번호</th>
+						<th class="" style="width:13%;">사이트</th>
+						<th class="" style="width:13%;">지도</th>
 					</tr>
 				</thead>
 				<tbody id="board_tbody">
@@ -187,11 +185,11 @@ ${boardManage.top_html}
 						<td class="num">${paging.listRowNum - status.index}</td>
 						<td class="important left title">${i.category2_name}</td>
 						<td class="important left title">
-							<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}">${i.title}</a>
+							<!-- <a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}"></a> -->${i.title}
 						</td>
-						<td class="mmm2 username">${i.imsi_v_2}</td>
-						<td class="important num adddate">${i.user_phone}</td>
-						<td class="num mmm1">
+						<td class="important left ">${i.imsi_v_2}</td>
+						<td class="important">${i.user_phone}</td>
+						<td class="num">
 						<c:if test="${not empty i.imsi_v_1}">
 						<a href="${i.imsi_v_1}" target="_blank">[사이트]</a>
 						</c:if>
@@ -199,7 +197,7 @@ ${boardManage.top_html}
 						-
 						</c:if>
 						</td>
-						<td class="file mmm1"><a href="https://map.kakao.com/link/search/${i.imsi_v_2}" target="_blank">지도</a></td>
+						<td class="file"><a href="https://map.kakao.com/link/search/${i.imsi_v_2}" target="_blank">[지도]</a></td>
 					</tr>
 				</c:forEach>
 				</tbody>
