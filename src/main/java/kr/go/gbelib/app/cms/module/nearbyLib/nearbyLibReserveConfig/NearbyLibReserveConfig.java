@@ -25,7 +25,7 @@ public class NearbyLibReserveConfig extends PagingUtils{
     private String[] minute = {"00", "10", "20", "30", "40", "50"};
 	
     private String today;
-    private String tomorrow;
+    private String yesterday;
     
 	public NearbyLibReserveConfig() {}
 	
@@ -156,12 +156,12 @@ public class NearbyLibReserveConfig extends PagingUtils{
 		this.today = today;
 	}
 
-	public String getTomorrow() {
-		return tomorrow;
+	public String getYesterday() {
+		return yesterday;
 	}
 
-	public void setTomorrow(String tomorrow) {
-		this.tomorrow = tomorrow;
+	public void setYesterday(String yesterday) {
+		this.yesterday = yesterday;
 	}
-	
+
 }

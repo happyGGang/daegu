@@ -109,4 +109,8 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.getReserveConfigCalendarAll(nearbyLibManage);
 	}
 
+	public NearbyLibReserveConfig getNearbyLibConfigOne(NearbyLibReserveConfig reserveConfig) {
+		return dao.getNearbyLibConfigOne(reserveConfig);
+	}
+
 }

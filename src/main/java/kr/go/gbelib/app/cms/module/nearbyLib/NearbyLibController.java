@@ -445,7 +445,7 @@ public class NearbyLibController extends BaseController {
 		
 		reserveConfig.setManage_code(nearbyLib.getManage_code());
 		if(StringUtils.isNotEmpty(reserveConfig.getManage_code())) {
-			configOne = configService.getNeighborhoodLibraryReserveConfigOne(reserveConfig);
+			configOne = configService.getNearbyLibConfigOne(reserveConfig);
 			
 			String start_time = "";
 			String end_time = "";
@@ -454,8 +454,8 @@ public class NearbyLibController extends BaseController {
 			String endTime1 = configOne.getReserve_end_time().substring(0,2);
 			String endTime2 = configOne.getReserve_end_time().substring(2);
 			
-			start_time = configOne.getToday() + " " + startTime1 + ":" + startTime2;
-			end_time = configOne.getTomorrow() + " " + endTime1 + ":" + endTime2;
+			start_time = configOne.getYesterday() + " " + startTime1 + ":" + startTime2;
+			end_time = configOne.getToday() + " " + endTime1 + ":" + endTime2;
 			
 			model.addAttribute("start_time", start_time);
 			model.addAttribute("end_time", end_time);

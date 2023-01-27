@@ -32,7 +32,7 @@
 			</when>
 			<when test='editMode == "todayOutEach"'>
 				AND RESERVE_STATUS IN ('1','2')
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 			</when>
 			<when test='editMode == "todayIn"'>
 				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
@@ -160,7 +160,7 @@
 			</when>
 			<when test='editMode == "todayOutEach"'>
 				AND RESERVE_STATUS IN ('1','2')
-				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 			</when>
 			<when test='editMode == "todayIn"'>
 				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))

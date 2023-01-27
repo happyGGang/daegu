@@ -45,9 +45,7 @@
 		SELECT
 			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
 			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
-			add_date, modify_id, modify_date, tomorrow_end_day_yn,
-			TO_CHAR(SYSDATE, 'yyyy/MM/dd') as today,
-			TO_CHAR(SYSDATE + 1, 'yyyy/MM/dd') as tomorrow				 
+			add_date, modify_id, modify_date, tomorrow_end_day_yn		 
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
@@ -184,5 +182,21 @@
 			day_of_week = #{day_of_week}
 		AND manage_code = #{manage_code}
 		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+	</select>
+	
+	<select id="getNearbyLibConfigOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		SELECT
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn,
+			TO_CHAR(SYSDATE - 1, 'yyyy/MM/dd') as yesterday,
+			TO_CHAR(SYSDATE, 'yyyy/MM/dd') as today				 
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			TO_CHAR(SYSDATE - 1, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
 	</select>
 </mapper>
