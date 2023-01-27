@@ -664,7 +664,7 @@ public class CommonSearchController extends BaseController {
 				}
 				
 				//내집앞도서관 예약설정
-				String reserveAvailability = "Y";
+				String reserveAvailability = "N";
 				try {
 					if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
 						reserveAvailability = "Y";
@@ -673,16 +673,13 @@ public class CommonSearchController extends BaseController {
 						if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
 							reserveAvailability = "N";
 						} else {
-							//예약버튼 비활성화 유무확인
-							int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(String.valueOf(map.get("MANAGE_CODE")));
-							
 							//예약가능시간 확인(count가 true이면 예약 가능)
 							boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
 							
-							if(reserveConfigCount > 0 || !reserveTimeCheck) {
+							if(!reserveTimeCheck) {
 								reserveAvailability = "N";
 							}
-					}
+						}
 						
 						NearbyLib searchBookOne = new NearbyLib();
 						searchBookOne.setBook_key(librarySearch.getBookkey());
@@ -3532,13 +3529,10 @@ public class CommonSearchController extends BaseController {
 				res.setMessage("현재 예약 불가능일이므로 예약이 불가능하십니다.\n관리자에게 문의해주세요.");
 				return res;
 			} else {
-				//예약버튼 비활성화 유무확인
-				int reserveConfigCount = neighborhoodLibraryReserveConfigService.getReserveConfigTodayCount(neighborhoodLibrary.getManage_code());
-				
 				//예약가능시간 확인(count가 true이면 예약 가능)
 				boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(neighborhoodLibrary.getManage_code());
 				
-				if(reserveConfigCount > 0 || !reserveTimeCheck) {
+				if(!reserveTimeCheck) {
 					res.setValid(false);
 					res.setMessage("현재 예약 가능한 시간이 아닙니다.");
 					return res;

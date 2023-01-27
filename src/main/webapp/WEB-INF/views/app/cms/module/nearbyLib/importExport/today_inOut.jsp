@@ -39,6 +39,7 @@ $(function() {
 		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue4'));
 		$('#neighborhoodLibraryEdit #reserve_bundle_idx').val($(this).attr('keyValue3'));
 		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		$('#neighborhoodLibraryEdit #manage_code').val($(this).attr('keyValue7'));
 		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
 			location.reload();
 		}
@@ -74,6 +75,7 @@ $(function() {
 		$('#neighborhoodLibraryEdit #device_code').val($(this).attr('keyValue4'));
 		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue3'));		
 		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		$('#neighborhoodLibraryEdit #manage_code').val($(this).attr('keyValue7'));
 		
 		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
 			location.reload();
@@ -172,6 +174,7 @@ table thead th, table tbody td {font-size:12px;}
 	<form:hidden path="device_idx"/>
 	<form:hidden path="device_code"/>
 	<form:hidden path="locker_each_idx"/>
+	<form:hidden path="manage_code"/>
 </form:form>
 
 <form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="today_inOut.do">
@@ -278,7 +281,7 @@ table thead th, table tbody td {font-size:12px;}
 								<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
 									<c:if test="${j.reserve_status eq '1'}">
-										<a href="#" class="btn reserve_save" keyValue1="${outCount - status.index}" keyValue2="2" keyValue3="${j.reserve_bundle_idx }" keyValue4="${j.device_idx}" keyValue5="${j.device_code }" keyValue6="${j.reserve_idx }">예약확정</a>
+										<a href="#" class="btn reserve_save" keyValue1="${outCount - status.index}" keyValue2="2" keyValue3="${j.reserve_bundle_idx }" keyValue4="${j.device_idx}" keyValue5="${j.device_code }" keyValue6="${j.reserve_idx }" keyValue7="${j.manage_code}">예약확정</a>
 										<a href="#" class="btn reserve_cancel" style="background-color: #222; color:white;" keyValue1="${j.reserve_idx}" keyValue2="8"  keyValue3="${j.device_idx }" keyValue4="${j.device_code}">취소</a>
 									</c:if>
 									<c:if test="${j.reserve_status eq '2'}">
@@ -352,10 +355,10 @@ table thead th, table tbody td {font-size:12px;}
 								<td><fmt:formatDate value="${k.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
 									<c:if test="${k.reserve_status eq '5'}">
-										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="6" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }">회수중</a>
+										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="6" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }" keyValue7="${k.manage_code}">회수중</a>
 									</c:if>
 									<c:if test="${k.reserve_status eq '6'}">
-										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="7" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }">회수완료</a>
+										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="7" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }" keyValue7="${k.manage_code}">회수완료</a>
 									</c:if>
 									<c:if test="${k.reserve_status eq '7'}">
 										<p>회수완료</p>

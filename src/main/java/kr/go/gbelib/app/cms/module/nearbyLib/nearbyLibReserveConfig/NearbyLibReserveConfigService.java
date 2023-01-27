@@ -57,10 +57,6 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.getReserveConfigCalendar(nearbyLibManage);
 	}
 
-	public int getReserveConfigTodayCount(String nearbyLibManageCode) {
-		return dao.getReserveConfigTodayCount(nearbyLibManageCode);
-	}
-
 	public NearbyLibReserveConfig getReserveConfigToday(String nearbyLibManageCode) {
 		return dao.getReserveConfigToday(nearbyLibManageCode);
 	}
