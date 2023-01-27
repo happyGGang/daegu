@@ -267,14 +267,14 @@ $(function(){
 				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
 			  </div>
 			</div>
-			<p style="color:#ff0000;font-weight:bold;margin-bottom:10px;font-size:16px;">
-				2022년 달서어린이도서관 일반 견학은 별도 실시하지 않고 프로그램 운영에 포함하여 진행할 예정입니다.<br /><span style="font-weight:normal;font-size:14px;">* 신청안내 : 독서문화행사->문화행사->책이랑놀이랑 신청->원하는 날짜 신청</span>
+			<p style="color:#ff0000;font-weight:bold;margin-bottom:10px;font-size:18px;">
+				달서어린이도서관 일반견학은 책이랑놀이랑 프로그램으로 대체합니다.</span>
 			</p>
 			<ul class="con">
-			  <li>일시: 매주 월요일 10:00~11:00</li>
-			  <li>장소: 달서어린이도서관 2층 유아자료실</li>
-			  <li>인원: 20명 이내</li>
-			  <li>문의: 667-4850~53</li>
+			  <li>일시: 매주 월요일, 목요일 10:30~11:30</li>
+			  <li>장소: 달서어린이도서관 1층 책놀이터</li>
+			  <li>인원: 20명 이내(반드시 만3세 이상, 15명 이상 지도교사 3명 필수)</li>
+			  <li>문의: 667-4852</li>
 			  <li>주의사항
 			  	<ul class="con2">
 					<li>마스크 착용 필수</li>
