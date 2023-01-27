@@ -83,6 +83,7 @@ $(function() {
 				}
 				hourOrMin = e.target.value;
 			});
+
 			findNode(i, 'startMin').addEventListener('focus', (e) => {
 				hourOrMin = e.target.value;
 			});
@@ -96,6 +97,7 @@ $(function() {
 				hourOrMin = e.target.value;
 			});
 		}
+
 		if (i < 6) {
 			findNode(i, 'endHour').addEventListener('focus', (e) => {
 				hourOrMin = e.target.value;
@@ -104,11 +106,12 @@ $(function() {
 				const targetTime = findNode(i, 'endHour').value + findNode(i, 'endMin').value;
 				const compareTime = findNode(i + 1, 'startHour').value + findNode(i + 1, 'startMin').value;
 				if (parseInt(compareTime) < parseInt(targetTime)) {
-					alert('종료 시간은 시작 다음 요일 시간보다 빠를 수 없습니다.');
+					alert('종료 시간은 시작 다음 요일 시간보다 늦을 수 없습니다.');
 					e.target.value = hourOrMin;
 				}
 				hourOrMin = e.target.value;
 			});
+
 			findNode(i, 'endMin').addEventListener('focus', (e) => {
 				hourOrMin = e.target.value;
 			});
@@ -116,13 +119,65 @@ $(function() {
 				const targetTime = findNode(i, 'endHour').value + findNode(i, 'endMin').value;
 				const compareTime = findNode(i + 1, 'startHour').value + findNode(i + 1, 'startMin').value;
 				if (parseInt(compareTime) < parseInt(targetTime)) {
-					alert('종료 시간은 다음 요일 시작 시간보다 빠를 수 없습니다.');
+					alert('종료 시간은 다음 요일 시작 시간보다 늦을 수 없습니다.');
 					e.target.value = hourOrMin;
 				}
 				hourOrMin = e.target.value;
 			});
 		}
 	}
+
+    findNode(0, 'startHour').addEventListener('focus', (e) => {
+        hourOrMin = e.target.value;
+    });
+    findNode(0, 'startHour').addEventListener('change', (e) => {
+        const targetTime = findNode(0, 'startHour').value + findNode(0, 'startMin').value;
+        const compareTime = findNode(6, 'endHour').value + findNode(6, 'endMin').value;
+        if (parseInt(targetTime) < parseInt(compareTime)) {
+            alert('시작 시간은 이전 요일 종료 시간보다 빠를 수 없습니다.');
+            e.target.value = hourOrMin;
+        }
+        hourOrMin = e.target.value;
+    });
+
+    findNode(0, 'startMin').addEventListener('focus', (e) => {
+        hourOrMin = e.target.value;
+    });
+    findNode(0, 'startMin').addEventListener('change', (e) => {
+        const targetTime = findNode(0, 'startHour').value + findNode(0, 'startMin').value;
+        const compareTime = findNode(6, 'endHour').value + findNode(6, 'endMin').value;
+        if (parseInt(targetTime) < parseInt(compareTime)) {
+            alert('시작 시간은 이전 요일 종료 시간보다 빠를 수 없습니다.');
+            e.target.value = hourOrMin;
+        }
+        hourOrMin = e.target.value;
+    });
+
+    findNode(6, 'endHour').addEventListener('focus', (e) => {
+        hourOrMin = e.target.value;
+    });
+    findNode(6, 'endHour').addEventListener('change', (e) => {
+        const targetTime = findNode(6, 'endHour').value + findNode(6, 'endMin').value;
+        const compareTime = findNode(0, 'startHour').value + findNode(0, 'startMin').value;
+        if (parseInt(compareTime) < parseInt(targetTime)) {
+            alert('종료 시간은 시작 다음 요일 시간보다 늦을 수 없습니다.');
+            e.target.value = hourOrMin;
+        }
+        hourOrMin = e.target.value;
+    });
+
+    findNode(6, 'endMin').addEventListener('focus', (e) => {
+        hourOrMin = e.target.value;
+    });
+    findNode(6, 'endMin').addEventListener('change', (e) => {
+        const targetTime = findNode(6, 'endHour').value + findNode(6, 'endMin').value;
+        const compareTime = findNode(0, 'startHour').value + findNode(0, 'startMin').value;
+        if (parseInt(compareTime) < parseInt(targetTime)) {
+            alert('종료 시간은 다음 요일 시작 시간보다 늦을 수 없습니다.');
+            e.target.value = hourOrMin;
+        }
+        hourOrMin = e.target.value;
+    });
 });
 
 let hourOrMin;
