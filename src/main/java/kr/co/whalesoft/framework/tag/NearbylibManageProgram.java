@@ -45,7 +45,7 @@ public class NearbylibManageProgram extends BodyTagSupport {
 				int endDay = Integer.parseInt(cm.getEnd_date().substring(cm.getEnd_date().lastIndexOf("-")+1));
 					if(planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
 						if(planDay >= startDay && planDay <= 31) {
-							sb.append("<a href=\"#\" class=\"modify\" type=\"calendar\" keyValue=\""+cm.getCm_idx()+"\" keyValue2=\""+cm.getDate_type()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+cm.getTitle()+"(직접등록)</span></a>");
+							sb.append("<a href=\"#\" class=\"modify\" type=\"calendar\" keyValue=\""+cm.getCm_idx()+"\" keyValue2=\""+cm.getDate_type()+"\"><span style=\"margin-left : 5px; color:#f63434; font-size:13px;\">"+cm.getTitle()+"(직접등록)</span></a>");
 							sb.append("<ul class=\"schedule\">");
 							sb.append("</ul>");
 							isHolyDay = StringUtils.equals(cm.getDate_type(), "1");//휴관일로 지정된 경우
@@ -54,14 +54,14 @@ public class NearbylibManageProgram extends BodyTagSupport {
 					}
 					if(!planMonth.equals(startMonth) && planMonth.equals(endMonth)) {
 						if(planDay >= 1 && planDay <= endDay) {
-							sb.append("<a href=\"#\" class=\"modify\" type=\"calendar\" keyValue=\""+cm.getCm_idx()+"\" keyValue2=\""+cm.getDate_type()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+cm.getTitle()+"(직접등록)</span></a>");
+							sb.append("<a href=\"#\" class=\"modify\" type=\"calendar\" keyValue=\""+cm.getCm_idx()+"\" keyValue2=\""+cm.getDate_type()+"\"><span style=\"margin-left : 5px; color:#f63434; font-size:13px;\">"+cm.getTitle()+"(직접등록)</span></a>");
 							sb.append("<ul class=\"schedule\">");
 							sb.append("</ul>");
 							isHolyDay = StringUtils.equals(cm.getDate_type(), "1");//휴관일로 지정된 경우
 						}
 					}
 					if (planDay >= startDay && planDay <= endDay) {
-						sb.append("<a href=\"#\" class=\"modify\" type=\"calendar\" keyValue=\""+cm.getCm_idx()+"\" keyValue2=\""+cm.getDate_type()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+cm.getTitle()+"(직접등록)</span></a>");
+						sb.append("<a href=\"#\" class=\"modify\" type=\"calendar\" keyValue=\""+cm.getCm_idx()+"\" keyValue2=\""+cm.getDate_type()+"\"><span style=\"margin-left : 5px; color:#f63434; font-size:13px;\">"+cm.getTitle()+"(직접등록)</span></a>");
 						sb.append("<ul class=\"schedule\">");
 						sb.append("</ul>");
 						isHolyDay = StringUtils.equals(cm.getDate_type(), "1");//휴관일로 지정된 경우
@@ -70,7 +70,7 @@ public class NearbylibManageProgram extends BodyTagSupport {
 			
 			if(nearbyLibReserveConfigList.size() > 0) {
 				if(dayCode == configDayCode && sb.toString().isEmpty()) {
-					sb.append("예약불가");
+					sb.append("<span style=\"color:#f63434;\">예약불가</span>");
 				}
 			}
 			

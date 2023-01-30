@@ -238,7 +238,10 @@
 			1=1
 		AND RESERVE_IDX != #{reserve_idx}
 		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
-		AND RESERVE_STATUS = #{reserve_status}	
+		AND RESERVE_STATUS = #{reserve_status}
+		<if test='reserve_bundle_idx == "0"'>
+			AND MEMBER_ID = #{member_id}
+		</if>
 	</select>
 	
 	<select id="getSameNeighborhoodLibraryBundle_idx" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
@@ -362,7 +365,8 @@
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
 			1=1
-		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}	
+		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+		AND RESERVE_STATUS = '3'
 	</select>
 	
 	<select id="getReturnReserveBookOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">

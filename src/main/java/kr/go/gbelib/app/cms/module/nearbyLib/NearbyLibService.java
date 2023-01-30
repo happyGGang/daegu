@@ -97,6 +97,7 @@ public class NearbyLibService extends BaseService {
 				searchMySelf.setEditMode("getMySelf"); //넘어온 예약idx 값으로 reserve_bundle_idx 값을 가져오기 위함
 				NearbyLib bundleOne = getSameNeighborhoodLibraryBundle_idx(searchMySelf);
 				neighborhoodLibrary2.setReserve_bundle_idx(bundleOne.getReserve_bundle_idx());
+				neighborhoodLibrary2.setMember_id(bundleOne.getMember_id());
 			}else {
 				neighborhoodLibrary2.setReserve_bundle_idx(neighborhoodLibrary.getReserve_bundle_idx()); //번들 idx가 같으면 같은 건수 이므로 같은 번들 idx가 있는지 검색
 			}
@@ -668,6 +669,7 @@ public class NearbyLibService extends BaseService {
 				searchSameData.setReserve_idx(same_bundle_idx.getReserve_idx());
 				searchSameData.setReserve_status(searchSame.getReserve_status()); 
 				searchSameData.setReserve_bundle_idx(same_bundle_idx.getReserve_bundle_idx());
+				searchSameData.setMember_id(same_bundle_idx.getMember_id());
 				NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(searchSameData); // 현재 업데이트 해야할 도서가 하나인지 두개인지(셀렉트 결과가 있으면 총 두건)
 				
 				if(sameReserveOne == null) { //같은 예약건 없고 단일 업데이트 해야할때
