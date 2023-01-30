@@ -91,6 +91,7 @@ public class NearbyLibService extends BaseService {
 			NearbyLib neighborhoodLibrary2 = new NearbyLib();
 			neighborhoodLibrary2.setReserve_status("2"); // 2: 예약확정
 			neighborhoodLibrary2.setReserve_idx(neighborhoodLibrary.getReserve_idx()); //예약 idx
+			
 			if(neighborhoodLibrary.getReserve_bundle_idx() == 0) {
 				NearbyLib searchMySelf = new NearbyLib();
 				searchMySelf.setReserve_idx(neighborhoodLibrary.getReserve_idx());
@@ -101,6 +102,7 @@ public class NearbyLibService extends BaseService {
 			}else {
 				neighborhoodLibrary2.setReserve_bundle_idx(neighborhoodLibrary.getReserve_bundle_idx()); //번들 idx가 같으면 같은 건수 이므로 같은 번들 idx가 있는지 검색
 			}
+			
 			NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(neighborhoodLibrary2); //이미 예약 확정된 내역 있는지 확인(같은 사물함, 비밀번호 세팅)
 			
 			NearbyLibReserveConfig searchConfig = new NearbyLibReserveConfig();
@@ -590,6 +592,10 @@ public class NearbyLibService extends BaseService {
 		return res;
 	}
 	
+	private NearbyLib reserveCheckNearbylib(NearbyLib neighborhoodLibrary2) {
+		return dao.reserveCheckNearbylib(neighborhoodLibrary2);
+	}
+
 	public NearbyLib sameNeighborhoodLibraryForUser(NearbyLib neighborhoodLibrary) {
 		return dao.sameNeighborhoodLibraryForUser(neighborhoodLibrary);
 	}
@@ -762,7 +768,7 @@ public class NearbyLibService extends BaseService {
 					}
 				}else { //같은 예약건이 존재하고 두개 한꺼번에 업데이트 해야할때
 					NearbyLib neighborhoodLibrary3 = new NearbyLib();
-					neighborhoodLibrary3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());					
+					neighborhoodLibrary3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());		
 					List<NearbyLib> bundleList_api = dao.getSameNeighborhoodLibraryBundleList(neighborhoodLibrary3);
 					
 					LibrarySearch librarySearch = new LibrarySearch();
@@ -1273,12 +1279,6 @@ public class NearbyLibService extends BaseService {
 				updateLockr.setReserve_bundle_idx(nearbyLib.getReserve_bundle_idx()); //번들 idx가 같으면 같은 건수 이므로 같은 번들 idx가 있는지 검색
 			}
 			
-//			NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(neighborhoodLibrary2); //번들 idx로 묶여있는데 예약 번호가 다른 건이 있는지 확인(같은 건 찾기)
-//			if(sameReserveOne != null) {
-//				if(sameReserveOne.getLocker_idx() > 0) {
-//					nearbyLib.setLocker_each_idx(sameReserveOne.getLocker_idx());
-//				}
-//			}
 			updateLockr.setEditMode("updateOne");
 			updateLockr.setLocker_each_idx(nearbyLib.getLocker_each_idx());
 			updateLockr.setDevice_idx(nearbyLib.getDevice_idx());

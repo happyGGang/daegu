@@ -85,4 +85,6 @@ public interface NearbyLibDao {
 
 	int changeStatusOnlyHomepage(NearbyLib nearbyLib);
 
+	NearbyLib reserveCheckNearbylib(NearbyLib neighborhoodLibrary2);
+
 }

@@ -3579,7 +3579,7 @@ public class CommonSearchController extends BaseController {
 			List<NearbyLib> reserveDataList = neighborhoodLibraryService.getNeighborhoodLibraryUseList(neighborhoodLibrary);
 			
 			if(reserveDataList.size() > 0) { //현재 신청내역이 있다면	
-				if(reserveDataList.size() > 0 && reserveDataList.size() < 2 ) { //신청내역이 1건일때(1건 더 신청 가능)
+				if(reserveDataList.size() == 1 ) { //신청내역이 1건일때(1건 더 신청 가능)
 					//동일한 도서일때
 					if(reserveDataList.get(0).getReg_no().equals(neighborhoodLibrary.getReg_no())) {
 						res.setValid(false);
@@ -3594,13 +3594,14 @@ public class CommonSearchController extends BaseController {
 					} else {
 						neighborhoodLibrary.setReserve_bundle_idx(reserveDataList.get(0).getReserve_bundle_idx()); // 신청내역 하나로 묶기(reserve_bundle_idx를 같은 값으로 준다)
 					}
-				}
-				if(reserveDataList.size() == 0) { //신청내역이 0건 이라면
-					int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary); //bundle_idx 값 max+1 값 추출
-					neighborhoodLibrary.setReserve_bundle_idx(bundleIdx); //예약idx처럼 +1씩 쌓이지만 1건에 두권이면 bundle_idx를 동일하게 준다
+				} else {
+					res.setValid(false);
+					res.setMessage("현재 내집앞 도서관 신청건수 및 대출건수를 초과 하였습니다. \n내집앞 도서관 신청 중인 도서를 취소하시거나 현재 내집앞도서관을 통해 대출한 도서를 반납하시고 다시 신청 바랍니다.");
+					return res;
 				}
 			} else {
-				int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary);
+				 //bundle_idx 값 max+1 값 추출
+				int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary);//예약idx처럼 +1씩 쌓이지만 1건에 두권이면 bundle_idx를 동일하게 준다
 				neighborhoodLibrary.setReserve_bundle_idx(bundleIdx);
 			}
 			
