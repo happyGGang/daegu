@@ -110,6 +110,10 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 				request.getSession().setAttribute("topMenuName", "접근가능 IP 관리");
 				request.getSession().setAttribute("topMenuDesc", "");
 				request.getSession().setAttribute("topMenuFullPathName", "CMS 관리 > 접근가능 IP 관리");
+			} else if (getUri.startsWith("/wbuilder/limitedIp/index.do")) {
+				request.getSession().setAttribute("topMenuName", "홈페이지 접근불가능 IP 관리");
+				request.getSession().setAttribute("topMenuDesc", "");
+				request.getSession().setAttribute("topMenuFullPathName", "CMS 관리 > 홈페이지 접근불가능 IP 관리");
 			} else if (getUri.startsWith("/wbuilder/code/cms/index.do")) {
 				request.getSession().setAttribute("topMenuName", "공통코드 관리");
 				request.getSession().setAttribute("topMenuDesc", "");

@@ -75,6 +75,7 @@
 				<a href="" class="code2"><i class="fa fa-desktop"></i><span>CMS 관리</span></a>
 				<ul>
 					<li><a href="/wbuilder/accessIp/index.do" >접근가능 IP</a></li>
+					<li><a href="/wbuilder/limitedIp/index.do" >홈페이지 접근불가능 IP</a></li>
 					<li><a href="/wbuilder/code/cms/index.do" >공통코드 관리</a></li>
 					<li><a href="/wbuilder/moduleMngt/index.do" >모듈관리</a></li>
 				</ul>

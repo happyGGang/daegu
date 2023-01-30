@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.limitedIp.LimitedIpDao">
+
+	<select id="getLimitedIp" resultType="kr.co.whalesoft.app.cms.limitedIp.LimitedIp">
+		SELECT
+			limitedIp_idx, limited_ip, use_yn, remark, add_date, add_id
+		FROM
+			LIMITED_IP
+		ORDER BY
+			add_date DESC
+	</select>
+
+	<select id="getLimitedIpOne" resultType="kr.co.whalesoft.app.cms.limitedIp.LimitedIp">
+		SELECT
+			limitedIp_idx, limited_ip, use_yn, remark, add_date, add_id
+		FROM
+			LIMITED_IP
+		WHERE
+			limitedIp_idx = #{limitedIp_idx}
+	</select>
+
+	<insert id="addLimitedIp">
+		<selectKey keyProperty="limitedIp_idx" resultType="int" order="BEFORE">
+		    SELECT NVL(MAX(limitedIp_idx),0)+1 FROM LIMITED_IP
+		</selectKey>
+		INSERT INTO LIMITED_IP
+		(
+			limitedIp_idx, limited_ip, use_yn, remark, add_date, add_id
+		) VALUES
+		(
+			#{limitedIp_idx}, #{limited_ip}, #{use_yn}, #{remark}, SYSDATE, #{add_id}
+		)
+	</insert>
+
+	<update id="modifyLimitedIp">
+		UPDATE
+			LIMITED_IP
+		SET
+			limited_ip = #{limited_ip},
+			use_yn = #{use_yn},
+			remark = #{remark},
+			modify_date = SYSDATE,
+			modify_id = #{modify_id}
+		WHERE
+			limitedIp_idx = #{limitedIp_idx}
+	</update>
+
+	<delete id="deleteLimitedIp">
+		DELETE FROM LIMITED_IP WHERE limitedIp_idx = #{limitedIp_idx}
+	</delete>
+
+	<select id="getLimitedIpList" resultType="kr.co.whalesoft.app.cms.limitedIp.LimitedIp">
+		SELECT
+			limitedIp_idx, limited_ip, use_yn, remark, add_date, add_id
+		FROM
+			LIMITED_IP
+		WHERE
+			use_yn = 'Y'
+		ORDER BY
+			add_date DESC
+	</select>
+
+</mapper>
