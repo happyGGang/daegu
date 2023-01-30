@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function() {
 	
@@ -17,7 +18,7 @@ $(function() {
 	});
 	
 	$('a.use_locker').on('click',function(e){
-		if (confirm($(this).attr('keyValue3') + '번 사물함을 사용하시겠습니까?')) {
+		if (confirm($(this).attr('keyValue3').val() + '번 사물함을 사용하시겠습니까?')) {
 			$('#lockerUseEdit #use_yn').val('Y');
 			$('#lockerUseEdit #locker_idx').val($(this).attr('keyValue2'));
 			if(doAjaxPost($('#lockerUseEdit'))) {
@@ -30,19 +31,17 @@ $(function() {
 });
 </script>
 <style>
-.table_left_emart td{
-	height:120px;
-	padding:0;
-	text-align:center;
+.table_left_cgv td{
+	height:150px;
+	width: 90px;
 }
 .line1{
-	height:50px;
+	height:80px;
+	width: 90px;
 }
 .line2{
 	height:23px;
 	margin-top: 8px;
-	position:relative;
-	margin:0 auto;
 }
 .line1_all{
 	display: inline-block;
@@ -50,23 +49,23 @@ $(function() {
 }
 .line2_all{
 	display: inline-block;
+	float: left;	
 }
 .line1_1{
-	background:rgba(0,0,0,0.5);
-	width:15px;
-	padding:5px 8px;
+	border: 1px solid gray;
+	border-radius: 5px 5px 5px 5px;
+	width:20px;
+	height: 23px;
 	text-align: center;
-	font-size:12px;
-	color:#fff;
-	margin-top:-23px;
 }
 .line1_2{
-	margin: 0 auto;
-	padding-top:20px;
+	height:  23px;
+	margin: 10px auto;
 }
 .line1_3{
 	height: 23px;
 	margin-left: 10px;
+	width:80px;
 }
 .line1_3 > p{
 	overflow:hidden;
@@ -75,11 +74,13 @@ $(function() {
 }
 .line2_1{
 	height: 23px; 
+	margin-left: 32px;
 	border-radius: 5px 5px 5px 5px;
     text-align: center;
 }
 .line2_2{
 	height: 23px;
+	margin-left: 10px;
 	border-radius: 5px 5px 5px 5px;
 	text-align: center;
 }
@@ -91,21 +92,12 @@ $(function() {
 </form:form>
 
 <form:form id="nearbyLibLocker" modelAttribute="nearbyLibLocker" method="post" action="save.do">
-	<table class="table_left_emart">
-		<colgroup>
-			<col width="14.28%">
-			<col width="14.28%">
-			<col width="14.28%">
-			<col width="14.28%">
-			<col width="14.28%">
-			<col width="14.28%">
-			<col width="*">
-		</colgroup>
+	<table class="table_left_cgv">
 		<thead>
 			<tr>
-				<th colspan="7" style="text-align:center;">반야월 이마트 사물함 관리</th>
+				<th colspan="7" style="text-align:center;">연경cgv 사물함 관리</th>
 			</tr>
-		</thead>
+		</thead>	
 		<tbody>
 			<tr>
 				<td ${lockerEach.no1.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>

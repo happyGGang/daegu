@@ -146,7 +146,7 @@ box-sizing:border-box;
 	background-color: white;
 	padding: 1%;
 	float:left;
-	width:48%;
+	width:52%;
 	height:100%;
 }
 
@@ -226,18 +226,18 @@ table thead th, table tbody td {font-size:12px;}
 		<div class="locker_wrap_left">
 			<table class="type1 center">
 					<colgroup>
-						<col width="30" />
-						<col width="30" />
-						<col width="60" />
-						<col width="100" />
-						<col width="150" />
-						<col width="120" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="80" />
-						<col width="80" />
+						<col width="">
+						<col width="">
+						<col width="7%">
+						<col width="">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+						<col width="9%">
+						<col width="9%">
+						<col width="9%">
+						<col width="9%">
 					</colgroup>
 					<thead>
 						<tr>
@@ -248,15 +248,15 @@ table thead th, table tbody td {font-size:12px;}
 						<tr style="outline:white 1px solid">
 							<th><input type="checkbox" id="checkboxOut" onchange="checkOutAll($(this));"></th>
 							<th>번호</th>
-							<th>사물함번호</th>
+							<th>사물함<br />번호</th>
 							<th>예약번호</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
 							<th>등록번호</th>
 							<th>청구기호</th>
 							<th>대출자ID</th>
-							<th>예약날짜</th>
-							<th>예약확정일</th>
+							<th>예약<br />날짜</th>
+							<th>예약<br />확정일</th>
 							<th>상태</th>
 						</tr>
 					</thead>
@@ -285,7 +285,7 @@ table thead th, table tbody td {font-size:12px;}
 										<a href="#" class="btn reserve_cancel" style="background-color: #222; color:white;" keyValue1="${j.reserve_idx}" keyValue2="8"  keyValue3="${j.device_idx }" keyValue4="${j.device_code}">취소</a>
 									</c:if>
 									<c:if test="${j.reserve_status eq '2'}">
-										<p>예약확정</p>
+										<span style="color:#0059fc;">예약확정</span>
 									</c:if>
 								</td>
 							</tr>
@@ -305,17 +305,17 @@ table thead th, table tbody td {font-size:12px;}
 		<div class="locker_wrap_right">
 			<table class="type1 center">
 					<colgroup>
-						<col width="30" />
-						<col width="30" />
-						<col width="60" />
-						<col width="100" />
-						<col width="150" />
-						<col width="120" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="80" />
+						<col width="">
+						<col width="">
+						<col width="7%">
+						<col width="">
+						<col width="12%">
+						<col width="12%">
+						<col width="10%">
+						<col width="9%">
+						<col width="10%">
+						<col width="10%">
+						<col width="8%">
 					</colgroup>
 					<thead>
 						<tr>
@@ -324,14 +324,14 @@ table thead th, table tbody td {font-size:12px;}
 						<tr style="outline:white 1px solid">
 							<th><input type="checkbox" id="checkboxIn" onchange="checkInAll($(this));"></th>
 							<th>번호</th>
-							<th>사물함번호</th>
+							<th>사물함<br />번호</th>
 							<th>큰책여부</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
 							<th>등록번호</th>
 							<th>대출자ID</th>
-							<th>예약날짜</th>
-							<th>예약확정일</th>
+							<th>예약<br />날짜</th>
+							<th>예약<br />확정일</th>
 							<th>상태</th>
 						</tr>
 					</thead>

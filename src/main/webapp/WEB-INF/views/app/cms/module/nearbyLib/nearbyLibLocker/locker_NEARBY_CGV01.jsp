@@ -32,16 +32,18 @@ $(function() {
 </script>
 <style>
 .table_left_cgv td{
-	height:150px;
-	width: 90px;
+	height:120px;
+	padding:0;
+	text-align:center;
 }
 .line1{
-	height:80px;
-	width: 90px;
+	height:50px;
 }
 .line2{
 	height:23px;
 	margin-top: 8px;
+	position:relative;
+	margin:0 auto;
 }
 .line1_all{
 	display: inline-block;
@@ -49,23 +51,23 @@ $(function() {
 }
 .line2_all{
 	display: inline-block;
-	float: left;	
 }
 .line1_1{
-	border: 1px solid gray;
-	border-radius: 5px 5px 5px 5px;
-	width:20px;
-	height: 23px;
+	background:rgba(0,0,0,0.5);
+	width:15px;
+	padding:5px 8px;
 	text-align: center;
+	font-size:12px;
+	color:#fff;
+	margin-top:-23px;
 }
 .line1_2{
-	height:  23px;
-	margin: 10px auto;
+	margin: 0 auto;
+	padding-top:20px;
 }
 .line1_3{
 	height: 23px;
 	margin-left: 10px;
-	width:80px;
 }
 .line1_3 > p{
 	overflow:hidden;
@@ -74,13 +76,11 @@ $(function() {
 }
 .line2_1{
 	height: 23px; 
-	margin-left: 32px;
 	border-radius: 5px 5px 5px 5px;
     text-align: center;
 }
 .line2_2{
 	height: 23px;
-	margin-left: 10px;
 	border-radius: 5px 5px 5px 5px;
 	text-align: center;
 }
@@ -93,6 +93,15 @@ $(function() {
 
 <form:form id="nearbyLibLocker" modelAttribute="nearbyLibLocker" method="post" action="save.do">
 	<table class="table_left_cgv">
+		<colgroup>
+			<col width="14.28%">
+			<col width="14.28%">
+			<col width="14.28%">
+			<col width="14.28%">
+			<col width="14.28%">
+			<col width="14.28%">
+			<col width="*">
+		</colgroup>
 		<thead>
 			<tr>
 				<th colspan="7" style="text-align:center;">연경cgv 사물함 관리</th>

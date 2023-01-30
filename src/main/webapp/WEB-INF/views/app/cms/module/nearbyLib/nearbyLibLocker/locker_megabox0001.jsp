@@ -32,36 +32,34 @@ $(function() {
 </script>
 <style>
 .table_left td{
-	padding:0;
+	width:30%;
 }
 .line1{
-	height:30px;
+	height:23px;
 }
 .line2{
 	height:23px;
-	margin:10px 0;
+	margin-top: 8px;
 }
 .line1_all{
 	display: inline-block;
 	float: left;
 }
-/*.line2_all{
+.line2_all{
 	display: inline-block;
 	float: left;	
-}*/
+}
 .line1_1{
-	background:rgba(0,0,0,0.5);
-	width:15px;
-	padding:5px 8px;
+	border: 1px solid gray;
+	border-radius: 5px 5px 5px 5px;
+	width:20px;
+	height: 23px;
 	text-align: center;
-	font-size:12px;
-	color:#fff;
-	margin-top:0;
 }
 .line1_2{
 	width: 90px;
 	height:  23px;
-	margin-left: 30px;
+	margin-left: 10px;
 }
 .line1_3{
 	width: 100px;
@@ -72,13 +70,18 @@ $(function() {
 	float:right;
 }
 .line2_1{
+	width: 100px;
+	height: 23px; 
+	margin-left: 32px;
 	border-radius: 5px 5px 5px 5px;
     text-align: center;
 }
 .line2_2{
+	width: 100px;
+	height: 23px;
+	margin-left: 10px;
+	border-radius: 5px 5px 5px 5px;
 	text-align: center;
-	position:relative;
-	margin:0 auto;
 }
 </style>
 
@@ -89,11 +92,6 @@ $(function() {
 
 <form:form id="nearbyLibLocker" modelAttribute="nearbyLibLocker" method="post" action="save.do">
 	<table class="type1 table_left">
-		<colgroup>
-			<col width="33%">
-			<col width="">
-			<col width="33%">
-		</colgroup>
 		<thead>
 			<tr>
 				<th colspan="3" style="text-align:center;">이시아 메가박스 사물함 관리</th>
@@ -106,7 +104,7 @@ $(function() {
 						<jsp:param name="lockerEachKey" value="no1"/>
 					</jsp:include>
 				</td>
-				<td rowspan='18' style="background-color: #8080803b;"></td>
+				<td rowspan=16 style="background-color: #8080803b;"></td>
 				<td  ${lockerEach.no19.use_yn eq 'N' ? 'style="background-color:#ff000014;"':''}>
 					<jsp:include page="/WEB-INF/views/app/cms/module/nearbyLib/nearbyLibLocker/locker_inner_td.jsp" flush="false">
 						<jsp:param name="lockerEachKey" value="no19"/>

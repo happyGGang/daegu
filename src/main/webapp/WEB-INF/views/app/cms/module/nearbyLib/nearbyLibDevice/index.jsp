@@ -89,19 +89,18 @@ $(function() {
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
-			<col width="50" />
-			<col width="50" />			
-			<col width="120" />
-			<col width="220" />
-			<col width="170" />
-			<col width="60" />
-			<col width="80" />
-			<col width="90" />
-			<col width="80" />
-			<col width="90" />
-			<col width="90" />
-			<%-- <col width="90" /> --%>
-			<col width="90" />
+			<col width="3%">
+			<col width="9%">
+			<col width="12%">
+			<col width="">
+			<col width="12%">
+			<col width="6%">
+			<col width="8%">
+			<col width="8%">
+			<col width="8%">
+			<col width="8%">
+			<col width="6%">
+			<col width="6%">
 		</colgroup>
 		<thead>
 			<tr>

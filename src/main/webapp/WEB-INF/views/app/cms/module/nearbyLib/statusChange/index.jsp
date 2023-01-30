@@ -193,18 +193,18 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
- 			<col width="3%" />
- 			<col width="9%" />
- 			<col width="3%" />
  			<col width="4%" />
-			<col width="5%" />
+ 			<col width="10%" />
+ 			<col width="5%" />
+ 			<col width="5%" />
+			<col width="6%" />
 			<col width="7%" />
+			<col width="10%" />
+			<col width="*" />
+			<col width="8%" />
+			<col width="8%" />
 			<col width="5%" />
-			<col width="7%" />
-			<col width="7%" />
-			<col width="7%" />
-			<col width="5%" />
-			<col width="5%" />
+			<col width="6%" />
 			<col width="5%" />
 		</colgroup>
 		<thead>
@@ -267,7 +267,7 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 					<td>
 						<c:choose>
 							<c:when test="${i.cancel_yn eq 'Y'}">
-								취소
+								<span style="color:#f63434;">취소</span>
 							</c:when>
 							<c:otherwise>
 							</c:otherwise>					
@@ -279,7 +279,7 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 								발송완료
 							</c:when>
 							<c:otherwise>
-								미발송
+								<span style="color:#f63434;">미발송</span>
 							</c:otherwise>					
 						</c:choose>
 					</td>
