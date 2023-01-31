@@ -218,7 +218,7 @@
 		WHERE
 			1=1
 		AND MEMBER_ID = #{member_id}
-		AND RESERVE_STATUS in ('1','2','3','4')
+		AND RESERVE_STATUS in ('1','2')
 	</select>	
 	
 	<select id="sameNeighborhoodLibraryForUser" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">

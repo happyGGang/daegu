@@ -302,45 +302,109 @@ do {
 						</div>
 						<div class="box con" data-tab="tab1">
 							<ul class="book_photo">
-							<c:choose>
-								<c:when test="">
+							<c:forEach var="i" varStatus="status" items="${exhibitionList}">
 								<li>
-									<a href="javascript:alert('등록된 전시가 없습니다.');">
-										<img src="/resources/common/img/noimg-gall.png" alt="등록된 이미지가 없습니다.">
-										<span class="title">등록된 전시가 없습니다.</span>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=189&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<span class="movieImg">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+												</c:otherwise>
+											</c:choose>
+										</span>
 									</a>
 								</li>
-								</c:when>
-								<c:otherwise>
+							</c:forEach>
+							<c:if test="${fn:length(exhibitionList) < 1}">
 								<li>
-									<a class="goDetail" href="">
-										<img src="/resources/common/img/noimg-gall.png">
+									<a href="javascript:alert('등록된 전시가 없습니다.'); return false;">
+										<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+										<strong class="title">등록된 전시가 없습니다.</strong>
 									</a>
 								</li>
-								</c:otherwise>
-							</c:choose>
+							</c:if>
 							</ul>
 						</div>
 
 						<div class="box con" data-tab="tab2" style="display:none;">
+							<c:forEach var="i" varStatus="status" items="${movieList}" >
 							<ul class="book_photo">
-							<c:choose>
-								<c:when test="">
 								<li>
-									<a href="javascript:alert('등록된 영화가 없습니다.');">
-										<img src="/resources/common/img/noimg-gall.png" alt="등록된 영화가 없습니다.">
-										<span class="title">등록된 영화가 없습니다.</span>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<span class="movieImg">
+										<c:choose>
+											<c:when test="${i.preview_img ne null}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}"/>
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+													</c:otherwise>
+												</c:choose>
+											</c:when>
+											<c:otherwise>
+												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+											</c:otherwise>
+										</c:choose>
+										</span>
+
+										<span class="movieEx">
+											<c:if test="${i.imsi_v_12 ne null and i.imsi_v_12 ne '0'}">
+											<div>${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></div>
+											</c:if>
+											<strong class="title">${i.title}</strong>
+
+											<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
+											<span class="date">
+											<b>날짜</b> ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}
+											</span>
+											</c:if>
+
+											<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
+											<span class="time">
+											<b>시간</b> ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
+											</span>
+											</c:if>
+
+											<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
+											<span class="divid">
+											<b>장소</b> ${i.imsi_v_6}
+											</span>
+											</c:if>
+
+											<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
+											<span class="desc">
+											<b>장르</b>  ${fn:substring(i.imsi_v_9, 0, 15)}<c:if test="${fn:length(i.imsi_v_9) > 15}">...</c:if>
+											</span>
+											</c:if>
+										</span>
 									</a>
 								</li>
-								</c:when>
-								<c:otherwise>
-								<li>
-									<a class="goDetail" href="">
-										<img src="/resources/common/img/noimg-gall.png">
-									</a>
-								</li>
-								</c:otherwise>
-							</c:choose>
+								</c:forEach>
+								<c:if test="${fn:length(movieList) < 1}">
+									<li>
+										<a href="javascript:alert('상영예정 영화가 없습니다.'); return false;">
+											<span class="movieImg">
+												<img src="/resources/common/img/noImg2.png" alt="${i.title}">
+											</span>
+	
+											<span class="movieEx">
+												<strong class="title">상영예정 영화가 없습니다.</strong>
+											</span>
+										</a>
+									</li>
+								</c:if>
 							</ul>
 						</div>
 					</div>

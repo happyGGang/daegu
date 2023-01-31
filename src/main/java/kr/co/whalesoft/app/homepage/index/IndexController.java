@@ -871,6 +871,19 @@ public class IndexController extends BaseController {
 			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
 		}
 
+		//북부도서관
+		if (homepage.getHomepage_id().equals("h7")) {
+			Board b = new Board();
+			b.setManage_idx(157);
+			b.setHomepage_id(homepage.getHomepage_id());
+			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
+			
+			Board b2 = new Board();
+			b2.setManage_idx(145);
+			b2.setHomepage_id(homepage.getHomepage_id());
+			model.addAttribute("exhibitionList", boardService.getSubBoardByMain(b2));//전시회전체
+		}
+
 		//서구도서관
 		if (homepage.getHomepage_id().equals("h49")) {
 			Board b = new Board();
