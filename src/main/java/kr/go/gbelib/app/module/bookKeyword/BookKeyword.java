@@ -8,6 +8,9 @@ public class BookKeyword extends PagingUtils {
 	private String keyword_name;
 	private int limit_keyword_count = 20;
 	
+	private String sex;
+	private String age;
+	
 	public int getKeyword_idx() {
 		return keyword_idx;
 	}
@@ -30,6 +33,22 @@ public class BookKeyword extends PagingUtils {
 	
 	public void setLimit_keyword_count(int limit_keyword_count) {
 		this.limit_keyword_count = limit_keyword_count;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
 	}
 	
 }
