@@ -27,7 +27,8 @@
 .innerMap .innerLeft .map .mp7 a:hover{color:#000;}
 .innerMap .innerLeft .map .mp8{top:285px;left:220px}
 .innerMap .innerLeft .map .mp8 a:hover{color:#000;}
-
+.innerMap .innerLeft .map .mp9{top:170px;left:170px}
+.innerMap .innerLeft .map .mp9 a:hover{color:#000;}
 
 .innerMap .innerLeft .map div{width:550px;height:490px;background-size:100%;background-repeat:no-repeat;box-sizing:border-box;}
 .innerMap .innerLeft .map .mapBg1{display:none;background-image:url('/resources/common/img/map011.png')}

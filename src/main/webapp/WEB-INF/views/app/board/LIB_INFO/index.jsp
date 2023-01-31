@@ -41,6 +41,8 @@ $(function() {
 	} else if ('${param.category1}' == '0008') {
 		$('a.mp8on').addClass('on');
 		$('div.mapBg8').addClass('on');
+		$('a.mp9on').addClass('on');
+		$('div.mapBg9').addClass('on');
 	}
 
 	$('a.libType').on('click', function(e) {
@@ -91,6 +93,8 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 				<div class="mapBg7"></div>
 				<span class="mp8"><a href="#mp8on" class="mp8on">달성군</a></span>
 				<div class="mapBg8"></div>
+				<span class="mp9"><a href="#mp9on" class="mp9on">달성군</a></span>
+				<div class="mapBg9"></div>
 			</div>
 
 			<div class="map mobile-view">
@@ -112,8 +116,8 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 				<div class="selection01">
 					<div class="all-lib" style="display:block">
 					<ul>
-						<li class="lib01"><div><a href="#" class="libType" data-key="23"><span>공공도서관</span><b>${empty categoryCount['23'] ? '0' : categoryCount['23']}</b></a></div></li>
-						<li class="lib07"><div><a href="#" class="libType" data-key="30"><span style='line-height:110%;'>사립ㆍ공공<br/>도서관</span><b>${empty categoryCount['30'] ? '0' : categoryCount['30']}</b></a></div></li>
+						<li class="lib01"><div><a href="#" class="libType" data-key="23"><span style='line-height:110%;'>공립공공<br />도서관</span><b>${empty categoryCount['23'] ? '0' : categoryCount['23']}</b></a></div></li>
+						<li class="lib07"><div><a href="#" class="libType" data-key="30"><span style='line-height:110%;'>사립공공<br/>도서관</span><b>${empty categoryCount['30'] ? '0' : categoryCount['30']}</b></a></div></li>
 						<li class="lib02"><div><a href="#" class="libType" data-key="24"><span>전문도서관</span><b>${empty categoryCount['24'] ? '0' : categoryCount['24']}</b></a></div></li>
 						<li class="lib03"><div><a href="#" class="libType" data-key="25"><span>대학도서관</span><b>${empty categoryCount['25'] ? '0' : categoryCount['25']}</b></a></div></li>
 						<li class="lib04"><div><a href="#" class="libType" data-key="26"><span>작은도서관</span><b>${empty categoryCount['26'] ? '0' : categoryCount['26']}</b></a></div></li>
@@ -185,7 +189,7 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 						<td class="num">${paging.listRowNum - status.index}</td>
 						<td class="important left title">${i.category2_name}</td>
 						<td class="important left title">
-							<!-- <a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}"></a> -->${i.title}
+							 ${i.title}<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" style="color:#fff;">.</a>
 						</td>
 						<td class="important left ">${i.imsi_v_2}</td>
 						<td class="important">${i.user_phone}</td>

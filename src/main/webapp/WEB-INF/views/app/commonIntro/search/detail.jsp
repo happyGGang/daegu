@@ -605,7 +605,7 @@ $(function() {
 		<div style="margin-top:20px;">
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 
-			<c:if test="${getIp eq '218.48.151.16'}">
+			<c:if test="${getIp eq '218.48.151.16' || getIp eq '14.46.149.38'}">
 			<ul class="con">
 				<li style="background:none;">
 					<ul>
@@ -617,6 +617,8 @@ $(function() {
 						<li>RESERVE_CODE : ${detail.RESERVE_CODE}</li>
 						<li>CONTEXT_PATH : ${homepage.context_path}</li>
 						<li>MANAGE_CODE : ${detail.MANAGE_CODE}</li>
+						<li>reserveData : ${reserveData}</li>
+						<li>reserveAvailability : ${reserveAvailability}</li>
 					</ul>
 				</li>
 			</ul>
@@ -974,7 +976,7 @@ $(function() {
 					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq ''}">
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
 									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
 									<!-- <a href="#" class="btn btn1" onclick="alert('장비 점검으로 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a> -->
 								</c:when>
@@ -1017,26 +1019,10 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-			<%--
-			<c:choose>
-				<c:when test="${homepage.context_path eq 'nearbylib' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
-					<c:if test="${sessionScope.member.member_id eq 'infoset'}">
-					<c:choose>
-						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
-						
-						</c:when>
-						<c:otherwise>
-							<a href="#untact" id="unmanned-req" class="btn btn2"><span>내집앞도서관대출 신청2</span></a>
-						</c:otherwise>
-					</c:choose>
-					</c:if>
-				</c:when>
-			</c:choose>
-			--%>
 
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
-					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1' || sessionScope.member.member_id eq 'kopi6264' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'pshnoi88' || sessionScope.member.member_id eq 'projectnr' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'jewjew' || sessionScope.member.member_id eq 'nearby01' || sessionScope.member.member_id eq 'nearby02' || sessionScope.member.member_id eq 'nearby03' || sessionScope.member.member_id eq 'nearby04' || sessionScope.member.member_id eq 'nearby05' || sessionScope.member.member_id eq 'nearby06' || sessionScope.member.member_id eq 'nearby07' || sessionScope.member.member_id eq 'nearby08' || sessionScope.member.member_id eq 'nearby09' || sessionScope.member.member_id eq 'nearby10' || sessionScope.member.member_id eq 'nearby11' || sessionScope.member.member_id eq 'nearby12' || sessionScope.member.member_id eq 'nearby13' || sessionScope.member.member_id eq 'nearby14' || sessionScope.member.member_id eq 'nearby15' || sessionScope.member.member_id eq 'nearby16' || sessionScope.member.member_id eq 'nearby17' || sessionScope.member.member_id eq 'nearby18' || sessionScope.member.member_id eq 'nearby19' || sessionScope.member.member_id eq 'nearby20' }">
+					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1' || sessionScope.member.member_id eq 'kopi6264' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'pshnoi88' || sessionScope.member.member_id eq 'projectnr' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'jewjew' || sessionScope.member.member_id eq 'nearby01' || sessionScope.member.member_id eq 'nearby02' || sessionScope.member.member_id eq 'nearby03' || sessionScope.member.member_id eq 'nearby04' || sessionScope.member.member_id eq 'nearby05' || sessionScope.member.member_id eq 'nearby06' || sessionScope.member.member_id eq 'nearby07' || sessionScope.member.member_id eq 'nearby08' || sessionScope.member.member_id eq 'nearby09' || sessionScope.member.member_id eq 'nearby10' || sessionScope.member.member_id eq 'nearby11' || sessionScope.member.member_id eq 'nearby12' || sessionScope.member.member_id eq 'nearby13' || sessionScope.member.member_id eq 'nearby14' || sessionScope.member.member_id eq 'nearby15' || sessionScope.member.member_id eq 'nearby16' || sessionScope.member.member_id eq 'nearby17' || sessionScope.member.member_id eq 'nearby18' || sessionScope.member.member_id eq 'nearby19' || sessionScope.member.member_id eq 'nearby20' || sessionScope.member.member_id eq 'clickool' }">
 						<c:choose>
 							<c:when test="${reserveData == 0 and reserveAvailability eq 'Y'}">
 								<c:choose>
