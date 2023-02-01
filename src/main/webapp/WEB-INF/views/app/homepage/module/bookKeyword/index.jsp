@@ -41,6 +41,8 @@
 		.btn-box ul li.btn1{margin-right:0;margin-bottom:5px;}
 		.btn-box ul li a{font-size:16px;}
 		.btn-box ul li a span{font-size:12px;}
+
+		.select-personal_data{font-size:13px;}
 	}
 </style>
 
@@ -159,12 +161,12 @@ $(function() {
 	</div>
 
 	<c:if test="${empty member.member_name}">
-		<div class="select-personal_data" style="margin-left:70%;">
+		<div class="select-personal_data" style="text-align:center;margin-bottom:20px;">
 			성별(<span style="color: red; font-weight: bold;">*</span>) : 
 			<form:select path="sex">
 				<form:option value="0">남</form:option>
 				<form:option value="1">여</form:option>
-			</form:select>
+			</form:select>&nbsp;&nbsp;&nbsp;
 			나이(<span style="color: red; font-weight: bold;">*</span>) : 
 			<form:select path="age">
 				<form:option value="영유아">영유아</form:option>

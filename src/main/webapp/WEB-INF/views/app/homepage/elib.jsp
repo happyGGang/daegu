@@ -3,56 +3,56 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-<div class="dpt-intro-type02">
-  <div class="role-head">
-    <div class="ImgBox">
-		<img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img">
-	</div>
-    <div class="role-head-tit">
-      <div class="txtBox">
-        <h3 class="ptit">대구전자도서관</h3>
-        <span class="ptitEng">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
-		    <p class="center">
-			<c:choose>
-				<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-					<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
-				</c:when>
-				<c:otherwise>
-					<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
-					<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
-					<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
-				</c:otherwise>
-			</c:choose>
-			<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
-		</div>
-    </div>
-  </div>
-  <div class="role-body center">
-    <p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
-    <p>현재 이용가능 콘텐츠는 전자책, 오디오북, 이러닝, 국내학회지 원문DB, 음악라이브러리입니다.</p>
-  </div>
-  <h3 class="contTit_line">회원가입 및 절차</h3>
-  <ul class="con">
-    <li>대구시 공립도서관 통합회원 가입(통합회원인증)
-      <ul>
-        <li>신규 : 통합회원가입, 기존 지역공공도서관 회원 : 통합회원인증</li>
-      </ul>
-    </li>
-    <!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
-      <ul>
-        <li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
-      </ul>
-    </li-->
-    <li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기 
-      <ul>
-        <li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
-      </ul>
-    </li>
-  </ul>
-</div>
 
-<!--두류 제외한 시립 전체-->
-<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'seobu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang'}">
+<!--두류 서부 제외 시립-->
+<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang'}">
+	<div class="dpt-intro-type02">
+	  <div class="role-head">
+		<div class="ImgBox">
+			<img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img">
+		</div>
+		<div class="role-head-tit">
+		  <div class="txtBox">
+			<h3 class="ptit">대구전자도서관</h3>
+			<span class="ptitEng">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
+				<p class="center">
+				<c:choose>
+					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+					</c:when>
+					<c:otherwise>
+						<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
+						<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
+						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+					</c:otherwise>
+				</c:choose>
+				<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
+			</div>
+		</div>
+	  </div>
+	  <div class="role-body center">
+		<p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
+		<p>현재 이용가능 콘텐츠는 전자책, 오디오북, 이러닝, 국내학회지 원문DB, 음악라이브러리입니다.</p>
+	  </div>
+	  <h3 class="contTit_line">회원가입 및 절차</h3>
+	  <ul class="con">
+		<li>대구시 공립도서관 통합회원 가입(통합회원인증)
+		  <ul>
+			<li>신규 : 통합회원가입, 기존 지역공공도서관 회원 : 통합회원인증</li>
+		  </ul>
+		</li>
+		<!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
+		  <ul>
+			<li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
+		  </ul>
+		</li-->
+		<li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기 
+		  <ul>
+			<li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
+		  </ul>
+		</li>
+	  </ul>
+	</div>
 	<div class="next_list1 item4">
     <ul>
       <li>
@@ -124,8 +124,152 @@
   </ul>
 </c:if>
 
+<!--서부-->
+<c:if test="${homepage.context_path eq 'seobu'}">
+	<div class="dpt-intro-type02">
+	  <div class="role-head">
+		<div class="ImgBox">
+			<img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img">
+		</div>
+		<div class="role-head-tit">
+		  <div class="txtBox">
+			<h3 class="ptit">대구전자도서관</h3>
+			<span class="ptitEng">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
+				<p class="center">
+				<c:choose>
+					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+					</c:when>
+					<c:otherwise>
+						<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
+						<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
+						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+					</c:otherwise>
+				</c:choose>
+				<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
+			</div>
+		</div>
+	  </div>
+	  <div class="role-body center">
+		<p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
+		<p>현재 이용가능 콘텐츠는 전자책, 오디오북, 이러닝, 국내학회지 원문DB, 음악라이브러리입니다.</p>
+	  </div>
+	  <h3 class="contTit_line">회원가입 및 절차</h3>
+	  <ul class="con">
+		<li>대구통합도서관 회원가입(통합회원인증)
+		  <ul>
+			<li>신규 : 통합회원가입, 기존 지역공공도서관 회원 : 통합회원인증</li>
+		  </ul>
+		</li>
+		<!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
+		  <ul>
+			<li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
+		  </ul>
+		</li-->
+		<li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기 
+		  <ul>
+			<li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
+		  </ul>
+		</li>
+	  </ul>
+	</div>
+	<div class="next_list1 item4">
+    <ul>
+      <li>
+        <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list01.png"> </div>
+        <span class="bottom_txt">대구통합도서관<br>
+        회원가입</span> </li>
+      <li>
+        <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list02.png"> </div>
+        <span class="bottom_txt">대구전자도서관에서<br>
+        자료 검색</span> </li>
+      <li>
+        <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list03.png"> </div>
+        <span class="bottom_txt">책 읽기 선택 후<br>
+        리더기 설치 완료</span> </li>
+      <li>
+        <div class="top_img"> <img alt="" src="/resources/homepage/dgportal/img/elib_list04.png"> </div>
+        <span class="bottom_txt">나의도서관에서<br>
+        책 읽기</span> </li>
+    </ul>
+  </div>
+  <h3 class="contTit_line">대출규정(소장형)</h3>
+  <ul class="con">
+    <li>대출권수 : 전자책 3권, 오디오북 제한없음</li>
+    <li>대출기간 : 8일(대출일포함)</li>
+    <li>대출기간 : 대출기한 만료 시 자동반납(수동반납 가능)</li>
+    <li>예약권수 : 2권<br>
+    </li>
+  </ul>
+  <h3 class="contTit_line">구독형 전자자료 서비스 이용 방법</h3>
+  <h4 class="contSTit_line">접속방법</h4>
+  <ul class="con">
+    <li>웹(PC, 모바일, 태블릿) : 대구전자도서관 홈페이지 접속 → 로그인 → 구독형 전자책 선택 → 도서검색 후 대출</li>
+    <li>모바일 앱 : 스토어에서 부커스APP 다운로드 → 기관선택창에서 대구전자도서관 입력 후 선택 → 도서관 아이디, 패스워드로 로그인 후 이용</li>
+  </ul>
+  <h4 class="contSTit_line">대출권수</h4>
+  <ul class="con">
+    <li>14권 / 월</li>
+  </ul>
+  <h4 class="contSTit_line">대출기간</h4>
+  <ul class="con">
+    <li>15일(대출일 포함)</li>
+  </ul>
+  <h4 class="contSTit_line">대출반납</h4>
+  <ul class="con">
+    <li>대출기간 만료 시 자동 반납(수동 반납 불가능)</li>
+  </ul>
+</c:if>
+
 <!--두류-->
 <c:if test="${homepage.context_path eq 'duryu'}">
+	<div class="dpt-intro-type02">
+	  <div class="role-head">
+		<div class="ImgBox">
+			<img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img">
+		</div>
+		<div class="role-head-tit">
+		  <div class="txtBox">
+			<h3 class="ptit">대구전자도서관</h3>
+			<span class="ptitEng">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
+				<p class="center">
+				<c:choose>
+					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+					</c:when>
+					<c:otherwise>
+						<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
+						<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
+						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+					</c:otherwise>
+				</c:choose>
+				<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
+			</div>
+		</div>
+	  </div>
+	  <div class="role-body center">
+		<p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
+		<p>현재 이용가능 콘텐츠는 전자책, 오디오북, 이러닝, 국내학회지 원문DB, 음악라이브러리입니다.</p>
+	  </div>
+	  <h3 class="contTit_line">회원가입 및 절차</h3>
+	  <ul class="con">
+		<li>대구시 공립도서관 통합회원 가입(통합회원인증)
+		  <ul>
+			<li>신규 : 통합회원가입, 기존 지역공공도서관 회원 : 통합회원인증</li>
+		  </ul>
+		</li>
+		<!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
+		  <ul>
+			<li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
+		  </ul>
+		</li-->
+		<li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기 
+		  <ul>
+			<li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
+		  </ul>
+		</li>
+	  </ul>
+	</div>
   <h3 class="contTit_line">구독형 전자자료 </h3>
   <ul class="con">
   	<li>서비스대상 : 전자책, 오디오북</li>

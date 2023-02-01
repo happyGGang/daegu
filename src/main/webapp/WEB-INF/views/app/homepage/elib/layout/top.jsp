@@ -13,6 +13,34 @@ $(function() {
 		}
 	});
 
+	$('#main-bukers-search-btn').on('click', function(e) {
+		e.preventDefault();
+
+		<c:choose>
+			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+				<c:choose>
+					<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
+						alert('정회원만 이용가능합니다.');
+						return;
+					</c:when>
+					<c:otherwise>
+						if( $('input#Keyword').val() == '' ) {
+							alert('검색어를 입력하세요.');
+							$('input#Keyword').focus();
+							return false;
+						} else {
+							$('#mainSearchForm03').submit();
+						}
+					</c:otherwise>
+				</c:choose>
+			</c:when>
+			<c:otherwise>
+				alert('로그인 후 이용가능합니다.');
+				location.href='https://library.daegu.go.kr/elib/intro/login/index.do?menu_idx=43';
+			</c:otherwise>
+		</c:choose>
+
+	});
 });
 </script>
 

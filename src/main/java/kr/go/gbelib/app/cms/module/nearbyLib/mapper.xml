@@ -366,6 +366,7 @@
 		WHERE
 			1=1
 		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+		AND RESERVE_STATUS in ('1','2','3')
 	</select>
 	
 	<select id="getReturnReserveBookOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
@@ -933,5 +934,24 @@
 			RESERVE_IDX = #{reserve_idx}
 		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
 		AND RESERVE_STATUS = '2'
+	</select>
+	
+	<select id="getSameBundleList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		SELECT
+			HOMEPAGE_ID, RESERVE_STATUS, DEVICE_IDX, DEVICE_CODE, RESERVE_IDX, 
+			RESERVE_BUNDLE_IDX, LOCKER_IDX, DEVICE_PASSWORD, DEVICE_NAME, MEMBER_ID,			
+			USER_KEY, MEMBER_NAME, LEND_DATE, MANAGE_CODE, LIB_NAME, 
+			BOOK_KEY, REG_NO, BOOK_ISBN, BOOK_NAME, ADD_DATE, 
+			ADD_ID, ADD_IP, CANCEL_YN, CANCEL_DATE, CANCEL_REASON, 
+			CANCEL_ID, CANCEL_IP, SMS_SEND_YN, SMS_SEND_DATE, HOMEPAGE_SEND_TELL, 
+			APPLICANT_CELL_PHONE, EXPIRE_DATE_CNT, PK, LARGE_BOOK_YN, USER_NO, 
+			TAKE_TERM, RESERVE_END_DATE, RESERVE_START_DATE, RETURN_DEVICE_CODE, EXPIRE_DATE,
+			CALL_NO
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
+		AND RESERVE_STATUS = '3'
 	</select>
 </mapper>

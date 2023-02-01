@@ -123,6 +123,12 @@
 
 .main2 {margin-top:5px;}
 .main2 .main2box1 {float:left;width:308px;border:1px solid #dadada;border-top:2px solid #2e3192;}
+.main2 .main2box1 .book .box .movieContent{position:relative;}
+.main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-viewport{height:400px !important;}
+.main2 .main2box1 .book .box .movieContent .bx-controls {text-align:center;width:100%;}
+.main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-controls-direction{position:absolute;top:0;width:100%;}
+.main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-controls-direction .bx-prev{position:absolute;top:120px;left:10px;font-size:0;background:url('/resources/homepage/bukbu/img/prev-btn.png')no-repeat;width:30px;height:24px;}
+.main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-controls-direction .bx-next{position:absolute;top:120px;right:10px;font-size:0;background:url('/resources/homepage/bukbu/img/next-btn.png')no-repeat;width:30px;height:24px;}
 .main2 .main2box1 .book {position:relative;height:326px;}
 .main2 .main2box1 .book div.title {width:100%;border-bottom:1px solid #dadada;overflow:hidden;}
 .main2 .main2box1 .book ul.tabMenuS {position:relative;text-align:center;margin:0;padding:0;overflow:hidden;}
@@ -133,9 +139,9 @@
 .main2 .main2box1 .book ul.tabMenuS > li a.more-more {position:absolute;right:5px;;top:5px;}
 
 .main2 .main2box1 .book .box .book_photo {text-align:center;}
-.main2 .main2box1 .book .box .book_photo li {position:relative;display:inline-block;width:135px;margin:35px 20px 0 20px;}
+.main2 .main2box1 .book .box .book_photo li {position:relative;display:inline-block;width:300px !important;text-align:center;margin-top:20px;margin-left:2px;}
 .main2 .main2box1 .book .box .book_photo li a {}
-.main2 .main2box1 .book .box .book_photo li a img {width:100%;height:190px;border:1px solid #ddd;}
+.main2 .main2box1 .book .box .book_photo li a img {width:70%;height:230px;border:1px solid #ddd;}
 .main2 .main2box1 .book .box .book_photo li a span.title {display:block;color:#000;font-size:14px;letter-spacing:-1px;}
 
 .main2 .main2box2 {float:left;width:110px;text-align:center;}
