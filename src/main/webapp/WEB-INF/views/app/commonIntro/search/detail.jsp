@@ -605,7 +605,7 @@ $(function() {
 		<div style="margin-top:20px;">
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 
-			<c:if test="${getIp eq '218.48.151.16' || getIp eq '14.46.149.38'}">
+			<c:if test="${getIp eq '218.48.151.16' || getIp eq '14.46.149.38' || getIp eq '0:0:0:0:0:0:0:1'}">
 			<ul class="con">
 				<li style="background:none;">
 					<ul>
@@ -619,6 +619,7 @@ $(function() {
 						<li>MANAGE_CODE : ${detail.MANAGE_CODE}</li>
 						<li>reserveData : ${reserveData}</li>
 						<li>reserveAvailability : ${reserveAvailability}</li>
+						<li>내집앞예약가능여부 확인 : ${nearbyLib_reserveAvailability_message}</li>
 					</ul>
 				</li>
 			</ul>
@@ -899,7 +900,7 @@ $(function() {
 					</c:choose>
 				</c:when>
 			</c:choose>
-			<c:if test="${sessionScope.member.member_id eq 'hades530'}">
+			<c:if test="${sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'hwani6865'}">
 				<c:choose>
 					<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
 						<c:choose>
@@ -918,7 +919,7 @@ $(function() {
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
 				<c:choose>
 					<c:when test="${detail.LOAN_CODE eq 'OK'}">
-						<a href="#walkingThru" id="walkingThru-req" class="btn"><span>워킹스루 도서대출${detail.PK }</span></a>
+						<a href="#walkingThru" id="walkingThru-req" class="btn"><span>워킹스루 도서대출</span></a>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
