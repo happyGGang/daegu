@@ -39,4 +39,8 @@ public interface NearbyLibReserveConfigDao {
 
 	NearbyLibReserveConfig getNearbyLibConfigOne(NearbyLibReserveConfig reserveConfig);
 
+	boolean checkTimeYesterday(NearbyLibReserveConfig referenceConfig);
+
+	boolean checkTimeToday(NearbyLibReserveConfig referenceConfig);
+
 }

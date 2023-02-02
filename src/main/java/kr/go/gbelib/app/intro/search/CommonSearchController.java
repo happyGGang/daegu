@@ -665,22 +665,19 @@ public class CommonSearchController extends BaseController {
 				
 				//내집앞도서관 예약설정
 				String reserveAvailability = "N";
-				String nearbyLib_reserveAvailability_message = "예약 버튼이 비활성화 된다면 manage_code 없음으로 인한 예약 불가";
 				try {
 					if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
 						reserveAvailability = "Y";
 						
-						//만약 내일 날짜가 예약 불가능 설정이 되어있다면 예약 불가
+						//예약 불가능 설정이 되어있다면 예약 불가
 						if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
 							reserveAvailability = "N";
-							nearbyLib_reserveAvailability_message = "예약 불가능일 등록으로 인한 예약 불가";
 						} else {
 							//예약가능시간 확인(count가 true이면 예약 가능)
 							boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
 							
 							if(!reserveTimeCheck) {
 								reserveAvailability = "N";
-								nearbyLib_reserveAvailability_message = "예약가능시간이 아니라서 예약불가";
 							}
 						}
 						
@@ -690,11 +687,9 @@ public class CommonSearchController extends BaseController {
 						int reserveData = 0;
 						if(neighborhoodLibraryOne != null) {
 							reserveData = 1;
-							nearbyLib_reserveAvailability_message = "BOOK_KEY 조회가 되어서 예약불가";
 						}
 						
 						model.addAttribute("reserveAvailability", reserveAvailability);
-						model.addAttribute("nearbyLib_reserveAvailability_message", nearbyLib_reserveAvailability_message);
 						model.addAttribute("reserveData", reserveData);
 					}
 				} catch (Exception e) {

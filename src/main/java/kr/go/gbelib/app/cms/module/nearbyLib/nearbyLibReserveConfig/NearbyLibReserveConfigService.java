@@ -89,8 +89,14 @@ public class NearbyLibReserveConfigService extends BaseService{
 				.orElse(todayConfig);
 		}
 		
-		boolean checkTime = dao.checkTime(referenceConfig);
-
+		boolean checkTime = false;
+		
+		if(isYesterday) {
+			checkTime = dao.checkTimeYesterday(referenceConfig);
+		} else {
+			checkTime = dao.checkTimeToday(referenceConfig);
+		}
+		
 		return checkTime;
 	}
 

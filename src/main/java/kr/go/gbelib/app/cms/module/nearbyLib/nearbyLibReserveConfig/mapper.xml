@@ -189,4 +189,28 @@
 				AND manage_code = #{manage_code}
 			</if>
 	</select>
+	
+	<select id="checkTimeToday" resultType="boolean">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			day_of_week = #{day_of_week}
+		AND manage_code = #{manage_code}
+		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+		AND use_yn = 'Y'
+	</select>
+	
+	<select id="checkTimeYesterday" resultType="boolean">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			day_of_week = #{day_of_week}
+		AND manage_code = #{manage_code}
+		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+		AND use_yn = 'Y'
+	</select>
 </mapper>

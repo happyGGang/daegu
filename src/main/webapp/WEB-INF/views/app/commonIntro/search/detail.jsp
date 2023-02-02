@@ -619,7 +619,6 @@ $(function() {
 						<li>MANAGE_CODE : ${detail.MANAGE_CODE}</li>
 						<li>reserveData : ${reserveData}</li>
 						<li>reserveAvailability : ${reserveAvailability}</li>
-						<li>내집앞예약가능여부 확인 : ${nearbyLib_reserveAvailability_message}</li>
 					</ul>
 				</li>
 			</ul>
