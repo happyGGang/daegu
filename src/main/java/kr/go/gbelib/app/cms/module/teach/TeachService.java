@@ -694,4 +694,8 @@ public class TeachService extends BaseService {
 	public int getApplyListAllCount(Teach teach) {
 		return dao.getApplyListAllCount(teach);
 	}
+
+	public int getCultureViewCount(Teach teach) {
+		return dao.getCultureViewCount(teach);
+	}
 }

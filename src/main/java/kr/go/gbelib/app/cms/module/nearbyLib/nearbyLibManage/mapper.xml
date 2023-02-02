@@ -4,9 +4,9 @@
 
 	<!-- 일정관리 컬럼  -->
 	<sql id="field">
-		homepage_id, cm_idx, start_date, start_time, end_date,
-		end_time, title, contents, date_type, link_url,
-		weekday, individual_yn
+		homepage_id, manage_code, cm_idx, start_date, start_time,
+		end_date, end_time, title, contents, date_type,
+		link_url, weekday, individual_yn
 	</sql>
 
 	<!-- 	일정관리 list -->
@@ -16,7 +16,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		<if test="plan_date != null and plan_date != ''">
 		AND	(
 			SUBSTR(start_date,1,7) = #{plan_date}
@@ -33,9 +33,9 @@
 
 	<select id="getNearbyLibManageOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage">
 		SELECT
-			homepage_id, cm_idx, start_date, start_time, end_date,
-			end_time, title, contents, date_type, link_url,
-			individual_yn, group_idx,
+			homepage_id, manage_code, cm_idx, start_date, start_time,
+			end_date, end_time, title, contents, date_type,
+			link_url, individual_yn, group_idx,
 			CASE
 				WHEN weekday = '1,2,3,4,5,6,7'
 				THEN '0'
@@ -45,7 +45,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE a
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	cm_idx = #{cm_idx}
 		AND	date_type = #{date_type}
 		AND	delete_yn = 'N'
@@ -60,7 +60,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE a
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	date_type = #{date_type}
 		AND	group_idx = #{group_idx}
 		AND	delete_yn = 'N'
@@ -72,7 +72,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE a
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	start_date = #{start_date}
 		AND	end_date = #{end_date}
 		AND	group_idx = #{group_idx_tmp}
@@ -89,7 +89,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
 		<if test="plan_date != null and plan_date != ''">
@@ -115,7 +115,7 @@
 				FROM
 					NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 				WHERE
-					homepage_id = #{homepage_id}
+					manage_code = #{manage_code}
 				AND	date_type = '1'
 				AND	delete_yn = 'N'
 				AND	SUBSTR(start_date,1,7) = #{plan_date}
@@ -139,7 +139,7 @@
 				FROM
 					NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 				WHERE
-					homepage_id = #{homepage_id}
+					manage_code = #{manage_code}
 				AND	date_type = '1'
 				AND	delete_yn = 'N'
 				AND	start_date = #{plan_day}
@@ -161,7 +161,7 @@
 			FROM
 				NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 			WHERE
-				homepage_id = #{homepage_id}
+				manage_code = #{manage_code}
 			AND	date_type = '1'
 			AND	delete_yn = 'N'
 			AND	SUBSTR(start_date,1,7) = #{plan_date}
@@ -181,7 +181,7 @@
 				FROM
 					NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 				WHERE
-					homepage_id = #{homepage_id}
+					manage_code = #{manage_code}
 				AND	date_type = '1'
 				AND	delete_yn = 'N'
 				)
@@ -197,7 +197,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		<if test="date_type != null and date_type != ''">
 		AND	date_type = #{date_type}
 	 	</if>
@@ -223,7 +223,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
 		AND	START_DATE <![CDATA[<=]]> #{end_date}
@@ -235,15 +235,15 @@
 		INSERT INTO
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		(
-			homepage_id, cm_idx, START_DATE, START_TIME, END_DATE,
-			END_TIME, TITLE, CONTENTS, date_type, link_url, group_idx,
-			individual_yn, weekday
+			homepage_id, manage_code, cm_idx, start_date, start_time,
+			end_date, end_time, title, contents, date_type,
+			link_url, group_idx, individual_yn, weekday, delete_yn
 		)
 		VALUES
 		(
-			#{homepage_id}, (SELECT NVL(MAX(cm_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE ), #{start_date}, #{start_time}, #{end_date},
-			#{end_time}, #{title}, #{contents}, #{date_type}, #{link_url}, #{group_idx},
-			'N', #{weekday}
+			#{homepage_id}, #{manage_code}, (SELECT NVL(MAX(cm_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE ), #{start_date}, #{start_time},
+			#{end_date}, #{end_time}, #{title}, #{contents}, #{date_type},
+			#{link_url}, #{group_idx}, 'N', #{weekday} , 'N'
 		)
 	</insert>
 
@@ -251,12 +251,12 @@
 		UPDATE
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		SET
-			START_DATE = #{start_date},
-			START_TIME = #{start_time},
-			END_DATE = #{end_date},
-			END_TIME = #{end_time},
-			TITLE = #{title},
-			CONTENTS = #{contents},
+			start_date = #{start_date},
+			start_time = #{start_time},
+			end_date = #{end_date},
+			end_time = #{end_time},
+			title = #{title},
+			contents = #{contents},
 			link_url = #{link_url},
 			individual_yn = #{individual_yn},
 			weekday = #{weekday}
@@ -281,7 +281,7 @@
 		SET
 			delete_yn = 'Y'
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		<if test='individual_yn2 == "Y"'>
 		AND	cm_idx = #{cm_idx}
 		</if>
@@ -300,7 +300,7 @@
 		SET
 			delete_yn = 'Y'
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		<if test='individual_yn2 == "Y"'>
 		AND	cm_idx = #{cm_idx}
 		</if>
@@ -376,7 +376,7 @@
 					FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 					WHERE
 						delete_yn = 'N' AND
-						homepage_id = #{homepage_id}
+						manage_code = #{manage_code}
 					GROUP BY START_DATE, END_DATE
 				)
 			CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
@@ -406,7 +406,7 @@
 						FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 						WHERE
 							delete_yn = 'N' AND
-							homepage_id = #{homepage_id}
+							manage_code = #{manage_code}
 						GROUP BY START_DATE, END_DATE
 					)
 				CONNECT BY START_DATE + LEVEL -1  <![CDATA[<=]]>  END_DATE
@@ -440,7 +440,7 @@
 						NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 					WHERE
 						delete_yn = 'N' AND
-						homepage_id = #{homepage_id}
+						manage_code = #{manage_code}
 					GROUP BY start_date, end_date
 					)
 				CONNECT BY start_date + LEVEL -1  <![CDATA[<=]]>  end_date
@@ -464,7 +464,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	group_idx = #{group_idx}
 	</select>
 
@@ -474,8 +474,19 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
 		WHERE
-			homepage_id = #{homepage_id}
+			manage_code = #{manage_code}
 		AND	date_type = '1'
+		AND	delete_yn = 'N'
+		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
+	</select>
+
+	<select id="checkUseYn" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE
+		WHERE
+			manage_code = #{manage_code}
 		AND	delete_yn = 'N'
 		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
 	</select>

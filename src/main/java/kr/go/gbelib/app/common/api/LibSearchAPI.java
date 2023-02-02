@@ -79,6 +79,10 @@ public class LibSearchAPI {
 			}
 		}
 		
+		if(StringUtils.isNotEmpty(librarySearch.getBook_keyword_age())) {
+			param.put("age", librarySearch.getBook_keyword_age());
+		}
+		
 		result = CommonAPI.sendKEYWORD("recommendation", param);
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

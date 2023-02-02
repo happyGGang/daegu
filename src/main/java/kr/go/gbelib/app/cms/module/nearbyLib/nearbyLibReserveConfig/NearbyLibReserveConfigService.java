@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,10 @@ public class NearbyLibReserveConfigService extends BaseService{
 		return dao.modifyNeighborhoodLibraryDevice(neighborhoodLibraryReserveConfig);
 	}
 
+	public int modifyNearbyLibReserveConfig(NearbyLibReserveConfig neighborhoodLibraryReserveConfig) {
+		return dao.modifyNearbyLibReserveConfig(neighborhoodLibraryReserveConfig);
+	}
+
 	public List<NearbyLibReserveConfig> getNeighborhoodLibraryReserveConfigList(NearbyLibReserveConfig neighborhoodLibraryReserveConfig) {
 		return dao.getNeighborhoodLibraryReserveConfigList(neighborhoodLibraryReserveConfig);
 	}
@@ -49,6 +55,64 @@ public class NearbyLibReserveConfigService extends BaseService{
 
 	public List<NearbyLibReserveConfig> getReserveConfigCalendar(NearbyLibManage nearbyLibManage) {
 		return dao.getReserveConfigCalendar(nearbyLibManage);
+	}
+
+	public NearbyLibReserveConfig getReserveConfigToday(String nearbyLibManageCode) {
+		return dao.getReserveConfigToday(nearbyLibManageCode);
+	}
+
+	public boolean checkReserveTime(String nearbyLibManageCode) {
+		int[] oracleDayOfWeek = {0, 2, 3, 4, 5, 6, 7, 1};
+
+		LocalDateTime today = LocalDateTime.now();
+		final int value = today.getDayOfWeek().getValue();
+		final int dayOfWeek = oracleDayOfWeek[value];
+
+		final NearbyLibManage nearbyLibManage = new NearbyLibManage(nearbyLibManageCode, "");
+		final List<NearbyLibReserveConfig> reserveConfigCalendar = dao.getReserveConfigCalendar(nearbyLibManage);
+
+		final NearbyLibReserveConfig todayConfig = reserveConfigCalendar.stream()
+			.filter(config -> Integer.parseInt(config.getDay_of_week()) == dayOfWeek)
+			.findFirst()
+			.orElse(reserveConfigCalendar.get(0));
+
+		final LocalTime localTime = today.toLocalTime();
+		final int startHour = Integer.parseInt(todayConfig.getReserve_start_time().substring(0, 2));
+		final int startMinute = Integer.parseInt(todayConfig.getReserve_start_time().substring(2));
+		final boolean isYesterday = localTime.isBefore(LocalTime.of(startHour, startMinute));
+
+		NearbyLibReserveConfig referenceConfig = todayConfig;
+		if (isYesterday) {
+			referenceConfig = reserveConfigCalendar.stream()
+				.filter(config -> Integer.parseInt(config.getDay_of_week()) == yesterdayOfWeek(Integer.parseInt(todayConfig.getDay_of_week())))
+				.findFirst()
+				.orElse(todayConfig);
+		}
+		
+		boolean checkTime = false;
+		
+		if(isYesterday) {
+			checkTime = dao.checkTimeYesterday(referenceConfig);
+		} else {
+			checkTime = dao.checkTimeToday(referenceConfig);
+		}
+		
+		return checkTime;
+	}
+
+	private int yesterdayOfWeek(int dayOfWeek) {
+		if(dayOfWeek == 1) {
+			return 7;
+		}
+		return dayOfWeek - 1;
+	}
+
+	public List<NearbyLibReserveConfig> getReserveConfigCalendarAll(NearbyLibManage nearbyLibManage) {
+		return dao.getReserveConfigCalendarAll(nearbyLibManage);
+	}
+
+	public NearbyLibReserveConfig getNearbyLibConfigOne(NearbyLibReserveConfig reserveConfig) {
+		return dao.getNearbyLibConfigOne(reserveConfig);
 	}
 
 }

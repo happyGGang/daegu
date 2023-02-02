@@ -91,18 +91,22 @@ public class NearbyLibService extends BaseService {
 			NearbyLib neighborhoodLibrary2 = new NearbyLib();
 			neighborhoodLibrary2.setReserve_status("2"); // 2: 예약확정
 			neighborhoodLibrary2.setReserve_idx(neighborhoodLibrary.getReserve_idx()); //예약 idx
+			
 			if(neighborhoodLibrary.getReserve_bundle_idx() == 0) {
 				NearbyLib searchMySelf = new NearbyLib();
 				searchMySelf.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 				searchMySelf.setEditMode("getMySelf"); //넘어온 예약idx 값으로 reserve_bundle_idx 값을 가져오기 위함
 				NearbyLib bundleOne = getSameNeighborhoodLibraryBundle_idx(searchMySelf);
 				neighborhoodLibrary2.setReserve_bundle_idx(bundleOne.getReserve_bundle_idx());
+				neighborhoodLibrary2.setMember_id(bundleOne.getMember_id());
 			}else {
 				neighborhoodLibrary2.setReserve_bundle_idx(neighborhoodLibrary.getReserve_bundle_idx()); //번들 idx가 같으면 같은 건수 이므로 같은 번들 idx가 있는지 검색
 			}
+			
 			NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(neighborhoodLibrary2); //이미 예약 확정된 내역 있는지 확인(같은 사물함, 비밀번호 세팅)
 			
 			NearbyLibReserveConfig searchConfig = new NearbyLibReserveConfig();
+			searchConfig.setManage_code(neighborhoodLibrary.getManage_code());
 			NearbyLibReserveConfig ReserveConfig = reserveConfigService.getNeighborhoodLibraryReserveConfigOne(searchConfig); //예약설정 불러오기
 			
 			if(sameReserveOne == null) { //사물함 배정 내역이 없으면 비밀번호 생성
@@ -119,40 +123,6 @@ public class NearbyLibService extends BaseService {
 					res.setMessage("빈 사물함이 없습니다.");
 					return res;
 				}
-				/*
-				if(neighborhoodLibrary.getLocker_each_idx() != 0) {
-					useLocker = neighborhoodLibrary.getLocker_each_idx();
-				}else {
-					boolean emptyLocker = true;
-//					loopOut:
-					if(lockerOneList.size() > 0) { //사물함 갯수 정보를 등록하고 사용할 수 있을때
-						if(usedLockerList.size() > 0) { //사물함 사용내역이 1개 이상일때
-							for(int i = 0; i < lockerOneList.size(); i++ ){ //총 사물함 갯수만큼 루프
-								for(int j = 0; j < usedLockerList.size(); j ++) { //사용중인 사물함 갯수만큼 루프
-									if(lockerOneList.get(i).getLocker_each_idx() == usedLockerList.get(j).getLocker_idx()) { //현재 루프중인 사물함 idx가 사용중인 사물함 idx리스트에 포함되어 있으면 다음 루프로 이동
-										emptyLocker = false;
-									}
-	//									useLocker = lockerOneList.get(i).getLocker_each_idx(); //현재 루프중인 사물함 idx가 사용중인 사물함에 포함되지 않았으면 useLocker에 사물함 idx 담기
-	//									break loopOut;	//모든 루프 스탑
-								}
-								
-								if(emptyLocker) {
-									useLocker = lockerOneList.get(i).getLocker_each_idx();
-									break;
-								}
-								emptyLocker = true;
-							}
-						}else {
-							useLocker = 1; //사물함 사용내역이 0이면
-						}
-							
-					}else {
-						res.setValid(false);
-						res.setMessage("선택된 장비 정보가 존재하지 않습니다.");
-						return res;
-					}
-				}	
-				*/
 
 				/*비밀번호 랜덤 생성(숫자네자리)*/
 				int pass = 0;
@@ -479,55 +449,24 @@ public class NearbyLibService extends BaseService {
 			        librarySearch.setUserkey(reserveOne.getUser_key());
 			        String userIp = reserveOne.getAdd_ip();
 			        
+			        librarySearch.setManageCode(reserveOne.getManage_code());
+			        String book_name = reserveOne.getBook_name();
+			        String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
 			        
-/*			        
-			        for(int i = 0; i < bundleList.size() ; i++) {
-			        	homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
-				        librarySearch.setManageCode(bundleList.get(i).getManage_code());
-				        String book_name = bundleList.get(i).getBook_name();
-				        String mes = "";
-				        String lockerIdx = String.valueOf(bundleList.get(i).getLocker_idx());
-				        if(lockerIdx.length() == 1 ) {
-				        	lockerIdx = "00" + lockerIdx;	
-				        }else if(lockerIdx.length() == 2) {
-				        	lockerIdx = "0" + lockerIdx;
-				        }
-				        if(i == 0 ) {
-							mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx() 
-									+ "\n[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
-									+ "\n도서 정보 : " + book_name 
-									+ "\n장비명 : " + bundleList.get(i).getDevice_name()
-									+ "\n사물함 번호 : " + bundleList.get(i).getLocker_idx() 
-									+ "\n사물함 비밀번호 : " + bundleList.get(i).getDevice_password();
-				        }else {
-				        	mes = "[" + bundleList.get(i).getLib_name() + "]\n" + bundleList.get(i).getMember_name() + "님 도서 비치가 완료되었습니다."
-									+ "\n도서 정보 : " + book_name;
-				        }
-				        if(i == (bundleList.size()-1)) {
-				        	mes = mes
-				        			+ "\n" + simpleDateFormat.format(cal.getTime()) 
-									+ " 까지 찾아가지 않을 시 해당 대출은 취소처리 되며, 페널티가 부과 되오니 유의 바랍니다. ";
-				        }
-*/				        
-				        librarySearch.setManageCode(reserveOne.getManage_code());
-				        String book_name = reserveOne.getBook_name();
-				        String lockerIdx = String.valueOf(reserveOne.getLocker_idx());
-				        
-						String data1 = reserveOne.getLib_name();
-						String data2 = reserveOne.getMember_name();
-						String data3 = book_name;
-						String data4 = reserveOne.getDevice_name();
-						String data5 = String.valueOf(reserveOne.getLocker_idx());
-						String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
-						String data7 = simpleDateFormat.format(cal.getTime());
-						String data8 = "https://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx();
-						
-						LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
-						
-						status3_update.setReserve_idx(reserveOne.getReserve_idx());;
-						status3_update.setSms_send_yn("Y");
-						dao.updateNeighborhoodLibrarySms(status3_update);
-//			        }
+					String data1 = reserveOne.getLib_name();
+					String data2 = reserveOne.getMember_name();
+					String data3 = book_name;
+					String data4 = reserveOne.getDevice_name();
+					String data5 = String.valueOf(reserveOne.getLocker_idx());
+					String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
+					String data7 = simpleDateFormat.format(cal.getTime());
+					String data8 = "https://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx();
+					
+					LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
+					
+					status3_update.setReserve_idx(reserveOne.getReserve_idx());;
+					status3_update.setSms_send_yn("Y");
+					dao.updateNeighborhoodLibrarySms(status3_update);
 				}
 				
 				 if("7".equals(neighborhoodLibrary.getReserve_status())) {
@@ -653,6 +592,10 @@ public class NearbyLibService extends BaseService {
 		return res;
 	}
 	
+	private NearbyLib reserveCheckNearbylib(NearbyLib neighborhoodLibrary2) {
+		return dao.reserveCheckNearbylib(neighborhoodLibrary2);
+	}
+
 	public NearbyLib sameNeighborhoodLibraryForUser(NearbyLib neighborhoodLibrary) {
 		return dao.sameNeighborhoodLibraryForUser(neighborhoodLibrary);
 	}
@@ -732,6 +675,7 @@ public class NearbyLibService extends BaseService {
 				searchSameData.setReserve_idx(same_bundle_idx.getReserve_idx());
 				searchSameData.setReserve_status(searchSame.getReserve_status()); 
 				searchSameData.setReserve_bundle_idx(same_bundle_idx.getReserve_bundle_idx());
+				searchSameData.setMember_id(same_bundle_idx.getMember_id());
 				NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(searchSameData); // 현재 업데이트 해야할 도서가 하나인지 두개인지(셀렉트 결과가 있으면 총 두건)
 				
 				if(sameReserveOne == null) { //같은 예약건 없고 단일 업데이트 해야할때
@@ -824,7 +768,7 @@ public class NearbyLibService extends BaseService {
 					}
 				}else { //같은 예약건이 존재하고 두개 한꺼번에 업데이트 해야할때
 					NearbyLib neighborhoodLibrary3 = new NearbyLib();
-					neighborhoodLibrary3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());					
+					neighborhoodLibrary3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());		
 					List<NearbyLib> bundleList_api = dao.getSameNeighborhoodLibraryBundleList(neighborhoodLibrary3);
 					
 					LibrarySearch librarySearch = new LibrarySearch();
@@ -1335,12 +1279,6 @@ public class NearbyLibService extends BaseService {
 				updateLockr.setReserve_bundle_idx(nearbyLib.getReserve_bundle_idx()); //번들 idx가 같으면 같은 건수 이므로 같은 번들 idx가 있는지 검색
 			}
 			
-//			NearbyLib sameReserveOne = sameNeighborhoodLibraryForUser(neighborhoodLibrary2); //번들 idx로 묶여있는데 예약 번호가 다른 건이 있는지 확인(같은 건 찾기)
-//			if(sameReserveOne != null) {
-//				if(sameReserveOne.getLocker_idx() > 0) {
-//					nearbyLib.setLocker_each_idx(sameReserveOne.getLocker_idx());
-//				}
-//			}
 			updateLockr.setEditMode("updateOne");
 			updateLockr.setLocker_each_idx(nearbyLib.getLocker_each_idx());
 			updateLockr.setDevice_idx(nearbyLib.getDevice_idx());
@@ -1486,9 +1424,9 @@ public class NearbyLibService extends BaseService {
 		
 		try {
 			if(expireReserveBookList.size() > 0) {
-				Map<String,Object> resultMapList = new HashMap<String,Object>();
-				
 				for(int i =0 ; i < expireReserveBookList.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
 					if(StringUtils.isNotEmpty(expireReserveBookList.get(i).getHomepage_id())) {
 						resultMapList.put("homepage_id", expireReserveBookList.get(i).getHomepage_id());
 					}
@@ -1569,9 +1507,9 @@ public class NearbyLibService extends BaseService {
 		
 		try {
 			if(returnYnReserveBookList.size() > 0) {
-				Map<String,Object> resultMapList = new HashMap<String,Object>();
-				
 				for(int i =0 ; i < returnYnReserveBookList.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
 					if(StringUtils.isNotEmpty(returnYnReserveBookList.get(i).getHomepage_id())) {
 						resultMapList.put("homepage_id", returnYnReserveBookList.get(i).getHomepage_id());
 					}
@@ -1650,7 +1588,7 @@ public class NearbyLibService extends BaseService {
 			return result;
 		}
 		
-		int takeTerm = reserveConfigService.getTakeTermOfReserveConfig();
+		int takeTerm = 3;
 		
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
@@ -1770,6 +1708,26 @@ public class NearbyLibService extends BaseService {
 
 	public List<NearbyLib> getNearByLibReserveList(NearbyLib nearbyLib) {
 		return dao.getNearByLibReserveList(nearbyLib);
+	}
+
+	public int getReservedLockerCountNow(NearbyLibReserveConfig nearbyLibReserveConfig) {
+		return dao.getReservedLockerCountNow(nearbyLibReserveConfig);
+	}
+
+	public int getReserveCountNow(NearbyLibReserveConfig nearbyLibReserveConfig) {
+		return dao.getReserveCountNow(nearbyLibReserveConfig);
+	}
+
+	public List<NearbyLib> getNearbyLibListAll(NearbyLib nearbyLib) {
+		return dao.getNearbyLibListAll(nearbyLib);
+	}
+
+	public int getNearbyLibListCount(NearbyLib nearbyLib) {
+		return dao.getNearbyLibListCount(nearbyLib);
+	}
+
+	public int changeStatusOnlyHomepage(NearbyLib nearbyLib) {
+		return dao.changeStatusOnlyHomepage(nearbyLib);
 	}
 
 }

@@ -47,4 +47,12 @@ public class NearbyLibDeviceService extends BaseService{
 		return dao.getNeighborhoodLibraryDeviceList(neighborhoodLibraryDevice);
 	}
 
+	public List<NearbyLibDevice> getNearbyLibDeviceList(NearbyLibDevice neighborhoodLibraryDevice) {
+		return dao.getNearbyLibDeviceList(neighborhoodLibraryDevice);
+	}
+
+	public String getNearbyLibDeviceOne(int device_idx) {
+		return dao.getNearbyLibDeviceOne(device_idx);
+	}
+
 }

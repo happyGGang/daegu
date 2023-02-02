@@ -75,6 +75,7 @@ public class LibrarySearch extends PagingUtils {
 
 	private String birth_year; // yyyy
 	private String sex; // m, f
+	private String book_keyword_age; // m, f
 
 	private String searchType;
 
@@ -1249,4 +1250,13 @@ public class LibrarySearch extends PagingUtils {
 	public void setShelf_loc_name(String shelf_loc_name) {
 		this.shelf_loc_name = shelf_loc_name;
 	}
+
+	public String getBook_keyword_age() {
+		return book_keyword_age;
+	}
+
+	public void setBook_keyword_age(String book_keyword_age) {
+		this.book_keyword_age = book_keyword_age;
+	}
+	
 }

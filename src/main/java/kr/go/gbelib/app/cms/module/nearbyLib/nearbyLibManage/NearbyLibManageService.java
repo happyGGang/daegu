@@ -357,4 +357,8 @@ public class NearbyLibManageService extends BaseService {
 		return dao.isTodayClosed(homepage_id) > 0 ? true : false;
 	}
 
+	public int checkUseYn(String homepage_id) {
+		return dao.checkUseYn(homepage_id);
+	}
+
 }

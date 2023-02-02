@@ -53,7 +53,7 @@ private final String basePath = "/cms/module/nearbyLib/nearbyLibDevice/";
 		for(NearbyLibDevice deviceNewList : deviceList) {
 			int device_idx = deviceNewList.getDevice_idx();
 			searchDevice.setDevice_idx(device_idx);			
-			if(lockerService.getNeighborhoodLibraryLockerCount(searchDevice) > 0) {			
+			if(lockerService.getNeighborhoodLibraryLockerCount(device_idx) > 0) {			
 				deviceList.get(num).setDevice_add_yn("Y");
 			}else {
 				deviceList.get(num).setDevice_add_yn("N");

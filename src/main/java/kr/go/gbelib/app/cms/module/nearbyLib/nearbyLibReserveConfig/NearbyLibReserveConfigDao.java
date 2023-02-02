@@ -19,6 +19,8 @@ public interface NearbyLibReserveConfigDao {
 
 	int modifyNeighborhoodLibraryDevice(NearbyLibReserveConfig neighborhoodLibraryReserveConfig);
 
+	int modifyNearbyLibReserveConfig(NearbyLibReserveConfig neighborhoodLibraryReserveConfig);
+
 	NearbyLibReserveConfig getNeighborhoodLibraryReserveConfigOne(NearbyLibReserveConfig neighborhoodLibraryReserveConfig);
 
 	List<NearbyLibReserveConfig> getNeighborhoodLibraryReserveConfigList(NearbyLibReserveConfig neighborhoodLibraryReserveConfig);
@@ -26,5 +28,19 @@ public interface NearbyLibReserveConfigDao {
 	int getTakeTermOfReserveConfig();
 
 	List<NearbyLibReserveConfig> getReserveConfigCalendar(NearbyLibManage nearbyLibManage);
+
+	NearbyLibReserveConfig getReserveConfigToday(String nearbyLibManageCode);
+
+	int checkReserveTime(NearbyLibReserveConfig nearbyLibReserveConfig);
+
+	List<NearbyLibReserveConfig> getReserveConfigCalendarAll(NearbyLibManage nearbyLibManage);
+
+	boolean checkTime(NearbyLibReserveConfig referenceConfig);
+
+	NearbyLibReserveConfig getNearbyLibConfigOne(NearbyLibReserveConfig reserveConfig);
+
+	boolean checkTimeYesterday(NearbyLibReserveConfig referenceConfig);
+
+	boolean checkTimeToday(NearbyLibReserveConfig referenceConfig);
 
 }

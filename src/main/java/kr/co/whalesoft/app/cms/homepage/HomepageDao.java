@@ -69,4 +69,6 @@ public interface HomepageDao  {
 
 	public String getHomepageNameInManageCode(Homepage homepage);
 
+	public String getHomepageId(Homepage nearbyLibHomepage);
+
 }

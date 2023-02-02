@@ -232,7 +232,7 @@ $(function(){
 						</c:otherwise>
 					</c:choose>
 					<td class="top" style="text-align: left;">
-						<tag:nearbyLibManage plan_date="${dateStr}" nearbyLibManageList="${nearbyLibManageList}" mode="admin" dayCode="${i.weekday}"/>
+						<tag:nearbyLibManage plan_date="${dateStr}" nearbyLibManageList="${nearbyLibManageList}" nearbyLibReserveConfigList="${nearbyLibReserveConfigList}" mode="admin" dayCode="${i.weekday}"/>
 					</td>
 				</tr>
 			</c:forEach>

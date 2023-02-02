@@ -13,8 +13,6 @@ public interface NearbyLibLockerDao {
 	
 	NearbyLibLocker getNeighborhoodLibraryLockerOne(NearbyLibLocker neighborhoodLibraryLocker);
 
-	int getNeighborhoodLibraryLockerCount(NearbyLibLocker neighborhoodLibraryLocker);
-	
 	int addNeighborhoodLibraryLockerEach(NearbyLibLocker neighborhoodLibraryLocker);
 
 	List<NearbyLibLocker> getNeighborhoodLibraryLockerEachOneList(NearbyLibLocker neighborhoodLibraryLocker);
@@ -22,4 +20,6 @@ public interface NearbyLibLockerDao {
 	int modifyNeighborhoodLibraryLocker(NearbyLibLocker neighborhoodLibraryLocker);
 
 	int getNeighborhoodLibraryLockerEachOneListCount(NearbyLibLocker neighborhoodLibraryLocker);
+
+	int getNeighborhoodLibraryLockerCount(int device_idx);
 }

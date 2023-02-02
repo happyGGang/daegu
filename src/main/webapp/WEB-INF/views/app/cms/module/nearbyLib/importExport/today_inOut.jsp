@@ -23,7 +23,7 @@ $(function() {
 		e.preventDefault();
 	});
 	
-	$('#manage_code').on('change',function(e){
+	$('#manage_code_1').on('change',function(e){
 		$('#viewPage').val(1);
 		$('#search_nearbyLib').submit();
 		e.preventDefault();
@@ -39,6 +39,7 @@ $(function() {
 		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue4'));
 		$('#neighborhoodLibraryEdit #reserve_bundle_idx').val($(this).attr('keyValue3'));
 		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		$('#neighborhoodLibraryEdit #manage_code').val($(this).attr('keyValue7'));
 		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
 			location.reload();
 		}
@@ -74,6 +75,7 @@ $(function() {
 		$('#neighborhoodLibraryEdit #device_code').val($(this).attr('keyValue4'));
 		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue3'));		
 		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
+		$('#neighborhoodLibraryEdit #manage_code').val($(this).attr('keyValue7'));
 		
 		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
 			location.reload();
@@ -144,7 +146,7 @@ box-sizing:border-box;
 	background-color: white;
 	padding: 1%;
 	float:left;
-	width:48%;
+	width:52%;
 	height:100%;
 }
 
@@ -172,23 +174,33 @@ table thead th, table tbody td {font-size:12px;}
 	<form:hidden path="device_idx"/>
 	<form:hidden path="device_code"/>
 	<form:hidden path="locker_each_idx"/>
+	<form:hidden path="manage_code"/>
 </form:form>
 
 <form:form modelAttribute="nearbyLib" id="search_nearbyLib" action="today_inOut.do">
 <%-- 	<form:hidden path="device_idx"/> --%>
+<form:hidden path="homepage_id"/>
 	<div class="">
 			<h3>대출관리(투입/회수목록)</h3><br/>
+			<c:if test="${asideHomepageId eq 'h1'}">
+				<form:hidden path="manage_code" id="manage_code_1" value="AA"/>
+			</c:if>
+			<c:if test="${asideHomepageId eq 'h5'}">
+				<form:hidden path="manage_code" id="manage_code_1" value="AH"/>
+			</c:if>
 			<c:if test="${asideHomepageId eq 'h45'}">
 				도서관 :
-				<form:select id="manage_code" path="manage_code" class="selectmenu">
-					<form:option value="">전체</form:option>
+				<form:select id="manage_code_1" path="manage_code" class="selectmenu">
 					<form:option value="CA">동구통합 안심도서관</form:option>
 					<form:option value="CB">동구통합 신천도서관</form:option>
 				</form:select>
 			</c:if>
+			<c:if test="${asideHomepageId eq 'h46'}">
+				<form:hidden id="manage_code_1" path="manage_code" value="BA"/>
+			</c:if>
 			<c:if test="${asideHomepageId eq 'h90'}">
 				도서관 :
-				<form:select id="manage_code" path="manage_code" class="selectmenu">
+				<form:select id="manage_code_1" path="manage_code" class="selectmenu">
 					<form:option value="">전체</form:option>
 					<form:option value="AA">대구2·28기념학생도서관</form:option>
 					<form:option value="BA">북구구수산도서관</form:option>
@@ -205,26 +217,27 @@ table thead th, table tbody td {font-size:12px;}
 				<form:option value="3">반야월이마트</form:option>
 			</form:select>
 		</div>
+		<c:if test="${not empty start_time}">
 		<h2 style="text-align:center; font-weight:bold;">${start_time} ~ ${end_time }</h2>
-
+		</c:if>
 
 	<div style="width:100%; height:100%;">
 		
 		<div class="locker_wrap_left">
 			<table class="type1 center">
 					<colgroup>
-						<col width="30" />
-						<col width="30" />
-						<col width="60" />
-						<col width="100" />
-						<col width="150" />
-						<col width="120" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="80" />
-						<col width="80" />
+						<col width="">
+						<col width="">
+						<col width="7%">
+						<col width="">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+						<col width="10%">
+						<col width="9%">
+						<col width="9%">
+						<col width="9%">
+						<col width="9%">
 					</colgroup>
 					<thead>
 						<tr>
@@ -235,15 +248,15 @@ table thead th, table tbody td {font-size:12px;}
 						<tr style="outline:white 1px solid">
 							<th><input type="checkbox" id="checkboxOut" onchange="checkOutAll($(this));"></th>
 							<th>번호</th>
-							<th>사물함번호</th>
+							<th>사물함<br />번호</th>
 							<th>예약번호</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
 							<th>등록번호</th>
 							<th>청구기호</th>
 							<th>대출자ID</th>
-							<th>예약날짜</th>
-							<th>예약확정일</th>
+							<th>예약<br />날짜</th>
+							<th>예약<br />확정일</th>
 							<th>상태</th>
 						</tr>
 					</thead>
@@ -268,11 +281,11 @@ table thead th, table tbody td {font-size:12px;}
 								<td><fmt:formatDate value="${j.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
 									<c:if test="${j.reserve_status eq '1'}">
-										<a href="#" class="btn reserve_save" keyValue1="${outCount - status.index}" keyValue2="2" keyValue3="${j.reserve_bundle_idx }" keyValue4="${j.device_idx}" keyValue5="${j.device_code }" keyValue6="${j.reserve_idx }">예약확정</a>
+										<a href="#" class="btn reserve_save" keyValue1="${outCount - status.index}" keyValue2="2" keyValue3="${j.reserve_bundle_idx }" keyValue4="${j.device_idx}" keyValue5="${j.device_code }" keyValue6="${j.reserve_idx }" keyValue7="${j.manage_code}">예약확정</a>
 										<a href="#" class="btn reserve_cancel" style="background-color: #222; color:white;" keyValue1="${j.reserve_idx}" keyValue2="8"  keyValue3="${j.device_idx }" keyValue4="${j.device_code}">취소</a>
 									</c:if>
 									<c:if test="${j.reserve_status eq '2'}">
-										<p>예약확정</p>
+										<span style="color:#0059fc;">예약확정</span>
 									</c:if>
 								</td>
 							</tr>
@@ -292,17 +305,17 @@ table thead th, table tbody td {font-size:12px;}
 		<div class="locker_wrap_right">
 			<table class="type1 center">
 					<colgroup>
-						<col width="30" />
-						<col width="30" />
-						<col width="60" />
-						<col width="100" />
-						<col width="150" />
-						<col width="120" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="90" />
-						<col width="80" />
+						<col width="">
+						<col width="">
+						<col width="7%">
+						<col width="">
+						<col width="12%">
+						<col width="12%">
+						<col width="10%">
+						<col width="9%">
+						<col width="10%">
+						<col width="10%">
+						<col width="8%">
 					</colgroup>
 					<thead>
 						<tr>
@@ -311,14 +324,14 @@ table thead th, table tbody td {font-size:12px;}
 						<tr style="outline:white 1px solid">
 							<th><input type="checkbox" id="checkboxIn" onchange="checkInAll($(this));"></th>
 							<th>번호</th>
-							<th>사물함번호</th>
+							<th>사물함<br />번호</th>
 							<th>큰책여부</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
 							<th>등록번호</th>
 							<th>대출자ID</th>
-							<th>예약날짜</th>
-							<th>예약확정일</th>
+							<th>예약<br />날짜</th>
+							<th>예약<br />확정일</th>
 							<th>상태</th>
 						</tr>
 					</thead>
@@ -342,10 +355,10 @@ table thead th, table tbody td {font-size:12px;}
 								<td><fmt:formatDate value="${k.lend_date}" pattern="yyyy.MM.dd" /></td>
 								<td>
 									<c:if test="${k.reserve_status eq '5'}">
-										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="6" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }">회수중</a>
+										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="6" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }" keyValue7="${k.manage_code}">회수중</a>
 									</c:if>
 									<c:if test="${k.reserve_status eq '6'}">
-										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="7" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }">회수완료</a>
+										<a href="#" class="btn reserve_edit" keyValue1="${inCount - statusIn.index}" keyValue2="7" keyValue3="${k.device_idx }" keyValue4="${k.device_code}" keyValue5="${k.reserve_idx }" keyValue6="${k.reserve_bundle_idx }" keyValue7="${k.manage_code}">회수완료</a>
 									</c:if>
 									<c:if test="${k.reserve_status eq '7'}">
 										<p>회수완료</p>

@@ -89,7 +89,7 @@ $(function() {
 			<div class="sectionxs">
 				<h1>
 					<span class="line"></span>
-					${fn:escapeXml(menuLeftList[0].menu_name)}
+					${menuOne.menu_name}
 				</h1>
 			</div>
 
@@ -99,7 +99,7 @@ $(function() {
 			<div style="overflow:hidden;">
 				<ul data-call="bxslider" data-breaks="[{screen:0, slides:4},{screen:340, slides:4},{screen:450, slides:5},{screen:600, slides:5},{screen:767, slides:5},{screen:1000, slides:8}]">
 					<li><a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=14&amp;menu=NEW&amp;type=EBK"><img src="/resources/homepage/elib/img/icon001.png" alt="소장형전자책 바로가기"><br/>소장형전자책</a></li>
-					<li><a href="/${homepage.context_path}/html/kyobogudok.do?menu_idx=93"><img src="/resources/homepage/elib/img/icon010.png" alt="구독형전자책 바로가기"><br/>구독형전자책</a></li>
+					<li><a href="/${homepage.context_path}/html/gudok.do?menu_idx=93"><img src="/resources/homepage/elib/img/icon010.png" alt="구독형전자책 바로가기"><br/>구독형전자책</a></li>
 					<li><a href="/${homepage.context_path}/module/elib/book/index.do?menu_idx=19&menu=NEW&type=ADO"><img src="/resources/homepage/elib/img/icon002.png" alt=""><br/>오디오북</a></li>
 					<li><a href="/${homepage.context_path}/html/elearning.do?menu_idx=99"><img src="/resources/homepage/elib/img/icon003.png" alt="E-러닝 바로가기"><br/>E-러닝</a></li>
 					<li><a href="/${homepage.context_path}/html.do?menu_idx=24"><img src="/resources/homepage/elib/img/icon004.png" alt="웹DB 바로가기"><br/>웹DB</a></li>

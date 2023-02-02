@@ -169,14 +169,14 @@ table thead th, table tbody td {font-size:12px;}
 				<col width="5%" />
 				<col width="7%" />
 				<col width="7%" />
-				<col width="15%" />
+				<col width="*" />
 				<col width="13%" />
 				<col width="9%" />
 				<col width="9%" />
 				<col width="8%" />
-				<col width="8%" />
-				<col width="7%" />
 				<col width="9%" />
+				<col width="8%" />
+				<col width="10%" />
 			</colgroup>
 			<thead>
 				<tr>
@@ -185,14 +185,14 @@ table thead th, table tbody td {font-size:12px;}
 				<tr style="outline:white 1px solid">
 					<th><input type="checkbox" id="checkAll"></th>
 					<th>번호</th>
-					<th>사물함번호</th>
+					<th>사물함<br />번호</th>
 					<th>큰책여부</th>
 					<th>도서명</th>
 					<th>소장도서관</th>
 					<th>청구기호</th>
 					<th>등록번호</th>
-					<th>대출자ID</th>
-					<th>예약확정일</th>
+					<th>대출자<br />ID</th>
+					<th>예약<br />확정일</th>
 					<th>상태</th>
 					<th>기능</th>
 				</tr>
@@ -261,16 +261,16 @@ table thead th, table tbody td {font-size:12px;}
 						<td>
 							<c:choose>
 								<c:when test="${i.reserve_status eq '1'}">
-									예약
+									<span style="color:#0059fc;">예약</span>
 								</c:when>
 								<c:when test="${i.reserve_status eq '2'}">
-									예약확정
+									<span style="color:#0059fc;">예약확정</span>
 								</c:when>
 								<c:when test="${i.reserve_status eq '3'}">
-									사물함투입
+									<span style="color:#00b032;">사물함투입</span>
 								</c:when>
 								<c:when test="${i.reserve_status eq '5'}">
-									회수대기
+									<span style="color:#00b032;">회수대기</span>
 								</c:when>
 							</c:choose>
 						</td>
@@ -281,7 +281,7 @@ table thead th, table tbody td {font-size:12px;}
 								</c:when>
 								<c:when test="${i.reserve_status eq '2'}">
 									<c:if test="${i.locker_idx eq null or i.locker_idx eq '' }">
-										<a href="javascript:void(0);" class="btn nearbyLib-save" keyValue1="${i.reserve_idx }" keyValue2="${status.index + 1}" keyValue3="${i.device_idx }" keyValue4="${neighborhoodLibraryCount - status.index }" keyValue5="2" keyValue6="${i.reserve_bundle_idx }" keyValue7="${i.device_code }">사물함배정</a>
+										<a href="javascript:void(0);" class="btn nearbyLib-save" keyValue1="${i.reserve_idx }" keyValue2="${status.index + 1}" keyValue3="${i.device_idx }" keyValue4="${neighborhoodLibraryCount - status.index }" keyValue5="2" keyValue6="${i.reserve_bundle_idx }" keyValue7="${i.device_code }" style="background-color: #444; color:white; border:none;">사물함배정</a>
 									</c:if>
 								</c:when>
 								<c:when test="${i.reserve_status eq '3'}">
@@ -297,7 +297,7 @@ table thead th, table tbody td {font-size:12px;}
 				</c:if>
 				<c:if test="${neighborhoodLibraryCount <= 0}">
 					<tr>
-						<td colspan=11>데이터가 존재하지 않습니다.</td>
+						<td colspan=12>데이터가 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>

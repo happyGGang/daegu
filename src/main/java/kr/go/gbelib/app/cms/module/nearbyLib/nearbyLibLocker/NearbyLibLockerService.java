@@ -85,10 +85,6 @@ public class NearbyLibLockerService extends BaseService {
 		return dao.getNeighborhoodLibraryLockerOne(neighborhoodLibraryLocker);
 	}
 
-	public int getNeighborhoodLibraryLockerCount(NearbyLibLocker neighborhoodLibraryLocker) {
-		return dao.getNeighborhoodLibraryLockerCount(neighborhoodLibraryLocker);
-	}
-
 	public List<NearbyLibLocker> getNeighborhoodLibraryLockerEachOneList(NearbyLibLocker neighborhoodLibraryLocker) {
 		return dao.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);
 	}
@@ -100,6 +96,10 @@ public class NearbyLibLockerService extends BaseService {
 
 	public int getNeighborhoodLibraryLockerEachOneListCount(NearbyLibLocker neighborhoodLibraryLocker) {
 		return dao.getNeighborhoodLibraryLockerEachOneListCount(neighborhoodLibraryLocker);
+	}
+
+	public int getNeighborhoodLibraryLockerCount(int device_idx) {
+		return dao.getNeighborhoodLibraryLockerCount(device_idx);
 	}
 
 }

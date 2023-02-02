@@ -303,7 +303,7 @@ do {
 		})
 
 		$(".libraryInfo input").attr('disabled',true);
-		$("#lib1 input").attr('disabled',false);
+		$("#lib6 input").attr('disabled',false);
 
 		/*메인지도*/
 		$(".map-area li a").click(function(){
@@ -1126,12 +1126,12 @@ do {
 								<div class="map-area">
 									<img src="/resources/homepage/${homepage.context_path}/img/map.png" alt="대구지도">
 									<ul>
-										<li class="dglib01 on"><a href="#link" data-num="1"><p>동구</p></a></li>
+										<li class="dglib01"><a href="#link" data-num="1"><p>동구</p></a></li>
 										<li class="dglib02"><a href="#link" data-num="2"><p>서구</p></a></li>
 										<li class="dglib03"><a href="#link" data-num="3"><p>남구</p></a></li>
 										<li class="dglib04"><a href="#link" data-num="4"><p>북구</p></a></li>
 										<li class="dglib05"><a href="#link" data-num="5"><p>수성구</p></a></li>
-										<li class="dglib06"><a href="#link" data-num="6"><p>중구</p></a></li>
+										<li class="dglib06 on"><a href="#link" data-num="6"><p>중구</p></a></li>
 										<li class="dglib07"><a href="#link" data-num="7"><p>달서구</p></a></li>
 										<li class="dglib08"><a href="#link" data-num="8"><p>달성군</p></a></li>
 
@@ -1158,7 +1158,7 @@ do {
 									</select>
 								</div>
 
-								<div id="lib1" class="libraryInfo">
+								<div id="lib1" class="libraryInfo" style="display:none;">
 									<h3 class="name">동구</h3>
 									<a href="https://library.daegu.go.kr/dgportal/html/donggulocation.do?menu_idx=90" title="동구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">
@@ -1871,7 +1871,7 @@ do {
 									</div>
 								</div>
 
-								<div id="lib6" class="libraryInfo" style="display:none;">
+								<div id="lib6" class="libraryInfo">
 									<h3 class="name">중구</h3>
 									<a href="https://library.daegu.go.kr/dgportal/html/junggulocation.do?menu_idx=94" title="중구 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
 									<div class="selection01">

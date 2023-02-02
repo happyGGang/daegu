@@ -19,13 +19,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import is.tagomor.woothee.Classifier;
+import kr.co.whalesoft.app.cms.accessIp.AccessIp;
+import kr.co.whalesoft.app.cms.accessIp.AccessIpService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccess;
 import kr.co.whalesoft.app.cms.homepageAccess.HomepageAccessService;
+import kr.co.whalesoft.app.cms.limitedIp.LimitedIp;
+import kr.co.whalesoft.app.cms.limitedIp.LimitedIpService;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.menu.menuAccess.MenuAccess;
@@ -60,12 +66,14 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	private RecommendSiteService recommendSiteService;
 
-
 	@Autowired
 	private ElibCategoryService elibCategoryService;
 
 	@Autowired
 	private ElibCodeService elibCodeService;
+	
+	@Autowired
+	private LimitedIpService limitedIpService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -80,6 +88,17 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 		uri = request.getRequestURI().substring(request.getContextPath().length());
 		
 		String queryString = request.getQueryString();
+		
+		String accessIp = accessIp();
+		
+		List<LimitedIp> limitedIpList = limitedIpService.getLimitedIpList();
+		for (LimitedIp limited_ip : limitedIpList) {
+			String limitedIp = limited_ip.getLimited_ip();
+			
+			if (accessIp.equals(limitedIp)) {
+				return alertMessage("접근이 불가능한 IP주소입니다.", request, response);
+			}
+		}
 		
 		if (queryString != null) {
 			if (queryString.contains("javascript")) {
@@ -372,4 +391,37 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 		return false;
 	}
 
+	public String accessIp() throws Exception {
+        String ip = null;
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+
+        ip = request.getHeader("X-Forwarded-For");
+        
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("Proxy-Client-IP"); 
+        } 
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("WL-Proxy-Client-IP"); 
+        } 
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("HTTP_CLIENT_IP"); 
+        } 
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR"); 
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("X-Real-IP"); 
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("X-RealIP"); 
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getHeader("REMOTE_ADDR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) { 
+            ip = request.getRemoteAddr(); 
+        }
+		
+		return ip;
+	}
 }

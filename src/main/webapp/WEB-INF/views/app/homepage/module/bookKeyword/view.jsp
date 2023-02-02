@@ -26,7 +26,14 @@
 </div>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />	
 <div id="wait" class="user_pick_info" >
-	<h2>${member.member_name}님의 관심 키워드 선택 결과를 불러오는 중입니다. </h2>
+	<c:choose>
+		<c:when test="${empty member.member_name}">
+			<h2>회원님의 관심 키워드 선택 결과를 불러오는 중입니다. </h2>
+		</c:when>
+		<c:otherwise>
+			<h2>${member.member_name}님의 관심 키워드 선택 결과를 불러오는 중입니다. </h2>
+		</c:otherwise>
+	</c:choose>
 </div>
 <div id="keywordList" style="display:none;">	
 	<div style="text-align: right; margin-top: 10px; ">

@@ -160,6 +160,7 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="plan_date" value="${fn:substring(nearbyLibManage.start_date,0,7)}"/>
 <form:hidden path="homepage_id"/>
+<form:hidden path="manage_code"/>
 <form:hidden path="cm_idx"/>
 <form:hidden path="group_idx"/>
 <form:hidden path="date_type" value="1"/>

@@ -1,22 +1,21 @@
 package kr.go.gbelib.app.cms.module.nearbyLib;
 
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.framework.base.BaseController;
@@ -27,6 +26,7 @@ import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDeviceService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
+import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage.NearbyLibManage;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
 
@@ -66,10 +66,6 @@ public class NearbyLibController extends BaseController {
 		checkAuth("R", model, request);
 		NearbyLibDevice nearbyLibDevice = new NearbyLibDevice();
 		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDevice);
-		String homepage_id = getAsideHomepageId(request);
-		if(!"h90".equals(homepage_id)) {
-			nearbyLib.setHomepage_id(homepage_id);
-		}
 		
 		if(nearbyLib.getDevice_idx() > 0) {
 			/*현재 사용 가능한 사물함의 갯수 뽑아오기*/
@@ -124,8 +120,6 @@ public class NearbyLibController extends BaseController {
 			model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
 			model.addAttribute("nowLocker", nowLocker);
 		}
-//		List<nearbyLibLocker2> lockerOneList = lockerService.getnearbyLibLockerEachOneList(nearbyLibLocker);//사물함 번호&갯수 가져오기		
-//		List<NeighborhoodLibrary2> usedLockerList = service.getNeighborhoodLibraryList(neighborhoodLibrary); //사물함을 사용하는 예약 내역만 가져오기 
 		
 		int count = service.getNeighborhoodLibraryCount(nearbyLib);
 		nearbyLib.setTotalDataCount(count);
@@ -133,12 +127,49 @@ public class NearbyLibController extends BaseController {
 		service.setPaging(model, count, nearbyLib);
 		
 		model.addAttribute("deviceList", deviceList);
-		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));
 		if("Y".equals(nearbyLib.getToBeExported())) {
-			nearbyLib.setToBeExported("");
+			int[] oracleDayOfWeek = {0, 2, 3, 4, 5, 6, 7, 1};
+
+			LocalDateTime today = LocalDateTime.now();
+			final int value = today.getDayOfWeek().getValue();
+			final int dayOfWeek = oracleDayOfWeek[value];
+
+			String nearbyLibManageCode = nearbyLib.getManage_code();
+			final NearbyLibManage nearbyLibManage = new NearbyLibManage(nearbyLibManageCode, "");
+			final List<NearbyLibReserveConfig> reserveConfigCalendar = configService.getReserveConfigCalendar(nearbyLibManage);
+
+			final NearbyLibReserveConfig todayConfig = reserveConfigCalendar.stream()
+				.filter(config -> Integer.parseInt(config.getDay_of_week()) == dayOfWeek)
+				.findFirst()
+				.orElse(reserveConfigCalendar.get(0));
+
+			final LocalTime localTime = today.toLocalTime();
+			final int startHour = Integer.parseInt(todayConfig.getReserve_start_time().substring(0, 2));
+			final int startMinute = Integer.parseInt(todayConfig.getReserve_start_time().substring(2));
+			final boolean isYesterday = localTime.isBefore(LocalTime.of(startHour, startMinute));
+
+			NearbyLibReserveConfig referenceConfig = todayConfig;
+			if (isYesterday) {
+				referenceConfig = reserveConfigCalendar.stream()
+					.filter(config -> Integer.parseInt(config.getDay_of_week()) == yesterdayOfWeek(Integer.parseInt(todayConfig.getDay_of_week())))
+					.findFirst()
+					.orElse(todayConfig);
+			}
+			
+			nearbyLib.setReserve_start_time(referenceConfig.getReserve_start_time());
+			nearbyLib.setReserve_end_time(referenceConfig.getReserve_end_time());
 		}
+		
+		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));
 		model.addAttribute("nearbyLib", nearbyLib);
 		return basePath + "index";
+	}
+	
+	private int yesterdayOfWeek(int dayOfWeek) {
+		if(dayOfWeek == 1) {
+			return 7;
+		}
+		return dayOfWeek - 1;
 	}
 	
 	/** 대출관리(사물함배정) 페이지 불러오기
@@ -211,17 +242,6 @@ public class NearbyLibController extends BaseController {
 		NearbyLibDevice searchDevice = new NearbyLibDevice();
 		searchDevice.setDevice_idx(nearbyLibLocker.getDevice_idx());
 		NearbyLibDevice nearbyLibDevice = deviceService.getNeighborhoodLibraryDeviceOne(searchDevice);
-		
-		if(!"h90".equals(homepage_id)) { //내집앞도서관에서 접속하는게 아니라면 해당 도서관의 예약만 보여주기
-			for(int k = 0; k < neighborhoodLibraryList.size();) {
-				if(!homepage_id.equals(neighborhoodLibraryList.get(k).getHomepage_id())){
-					neighborhoodLibraryList.remove(k);
-					k = 0;
-					continue;
-				}
-				k++;
-			}
-		}
 		
 		//사물함 정보
 		model.addAttribute("deviceList", deviceList);
@@ -381,12 +401,27 @@ public class NearbyLibController extends BaseController {
 		List<NearbyLib> outList = new ArrayList<NearbyLib>();
 		NearbyLib searchInToday = new NearbyLib();
 		NearbyLib searchOutToday = new NearbyLib();
+		NearbyLibReserveConfig configOne = new NearbyLibReserveConfig();
+		NearbyLibReserveConfig reserveConfig = new NearbyLibReserveConfig();
 		
-		String homepage_id = getAsideHomepageId(request);
-		
-		if(!"h90".equals(homepage_id)) { //내집앞 도서관이 아닌 도서관에서 페이지를 열때는 해당 홈페이지 자료만 보이게 한다
-			searchInToday.setHomepage_id(homepage_id);
-			searchOutToday.setHomepage_id(homepage_id);
+		if("h1".equals(getAsideHomepageId(request))) {
+			searchInToday.setManage_code("AA");
+			searchOutToday.setManage_code("AA");
+			nearbyLib.setManage_code("AA");
+		} else if("h5".equals(getAsideHomepageId(request))) {
+			searchInToday.setManage_code("AH");
+			searchOutToday.setManage_code("AH");
+			nearbyLib.setManage_code("AH");
+		} else if("h45".equals(getAsideHomepageId(request))) {
+			if(StringUtils.isEmpty(nearbyLib.getManage_code())) {
+				searchInToday.setManage_code("CA");
+				searchOutToday.setManage_code("CA");
+				nearbyLib.setManage_code("CA");
+			}
+		} else if("h46".equals(getAsideHomepageId(request))) {
+			searchInToday.setManage_code("BA");
+			searchOutToday.setManage_code("BA");
+			nearbyLib.setManage_code("BA");
 		}
 		
 		if(nearbyLib.getDevice_idx() > 0) {
@@ -399,47 +434,37 @@ public class NearbyLibController extends BaseController {
 		searchOutToday.setManage_code(nearbyLib.getManage_code());
 		
 		searchInToday.setEditMode("todayIn");
-		
 		inList = service.getNeighborhoodLibraryList(searchInToday); //오늘 반입 목록
 		int inCount = service.getNeighborhoodLibraryCount(searchInToday); //오늘 반입 목록
+		
 		searchOutToday.setEditMode("todayOut");
 		outList = service.getNeighborhoodLibraryList(searchOutToday); //오늘 반축 목록
 		int outCount = service.getNeighborhoodLibraryCount(searchOutToday); //오늘 반출 목록
 		
-		NearbyLibReserveConfig configOne = new NearbyLibReserveConfig();
-		NearbyLibReserveConfig reserveConfig = new NearbyLibReserveConfig();
-		configOne = configService.getNeighborhoodLibraryReserveConfigOne(reserveConfig);
-		
-		Date nowDate = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH24mm");
-		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy/MM/dd");
-		int now = Integer.parseInt(simpleDateFormat.format(nowDate));
-		int startTime = Integer.parseInt(configOne.getReserve_start_time()); //RESERVE_START_TIME -> DB컬럼 타입 : String, 데이터 삽입 형식 : 0900, 1212
-		int endTime = Integer.parseInt(configOne.getReserve_end_time());
-		Calendar cal = Calendar.getInstance();			
-		
-		String start_time = "";
-		String end_time = "";
-		String startTime1 = configOne.getReserve_start_time().substring(0,2);
-		String startTime2 = configOne.getReserve_start_time().substring(2);
-		String endTime1 = configOne.getReserve_end_time().substring(0,2);
-		String endTime2 = configOne.getReserve_end_time().substring(2);
-		
-		if("Y".equals(configOne.getTomorrow_end_day_yn())) { // 예약 시작부터 예약 종료시간이 00시를 넘어간다면 "Y"(이틀날짜내로 검색)
-				cal.setTime(nowDate);
-				cal.add(Calendar.DATE, -1);
-				start_time = simpleDateFormat1.format(cal.getTime()) + " " + startTime1 + ":" + startTime2;
-				end_time = simpleDateFormat1.format(nowDate) + " " + endTime1 + ":" + endTime2;
-		}
-		if("N".equals(configOne.getTomorrow_end_day_yn())) { //예약 시작과 종료 시간이 하루안에 이루어지면 "N"
-			if(now >= startTime && now < endTime) { //현재 시간이 9시 이상이면 오늘날짜 검색을 오늘날짜로(한건 예약가능 시간은 09시부터 다음날 09시까지) 		
-				start_time = simpleDateFormat1.format(nowDate) + " " + startTime1 + ":" + startTime2;
-				end_time = simpleDateFormat1.format(nowDate) + " " + endTime1 + ":" + endTime2;
-			}
+		reserveConfig.setManage_code(nearbyLib.getManage_code());
+		if(StringUtils.isNotEmpty(reserveConfig.getManage_code())) {
+			configOne = configService.getNearbyLibConfigOne(reserveConfig);
+			
+			String start_time = "";
+			String end_time = "";
+			String startTime1 = configOne.getReserve_start_time().substring(0,2);
+			String startTime2 = configOne.getReserve_start_time().substring(2);
+			String endTime1 = configOne.getReserve_end_time().substring(0,2);
+			String endTime2 = configOne.getReserve_end_time().substring(2);
+			
+			start_time = configOne.getYesterday() + " " + startTime1 + ":" + startTime2;
+			end_time = configOne.getToday() + " " + endTime1 + ":" + endTime2;
+			
+			model.addAttribute("start_time", start_time);
+			model.addAttribute("end_time", end_time);
+			
+			searchOutToday.setEditMode("todayOutEach");
+			searchOutToday.setReserve_start_time(configOne.getReserve_start_time());
+			searchOutToday.setReserve_end_time(configOne.getReserve_end_time());
+			outList = service.getNeighborhoodLibraryList(searchOutToday); //오늘 반축 목록
+			outCount = service.getNeighborhoodLibraryCount(searchOutToday); //오늘 반출 목록
 		}
 		
-		model.addAttribute("start_time", start_time);
-		model.addAttribute("end_time", end_time);
 		model.addAttribute("inList", inList);
 		model.addAttribute("inCount", inCount);
 		model.addAttribute("outList", outList);
@@ -646,111 +671,81 @@ public class NearbyLibController extends BaseController {
 	public String returnList(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		
-		NearbyLibDevice nearbyLibDeviceOne = new NearbyLibDevice();
-		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDeviceOne); //사물함 정보가 등록된 디바이스 목록 불러오기
-		List<NearbyLib> returnList = new ArrayList<NearbyLib>();
-		NearbyLib nearbyLibReturnList = new NearbyLib();
 		String homepage_id = getAsideHomepageId(request);
+		nearbyLib.setHomepage_id(homepage_id);
 		
-		if(!"h90".equals(homepage_id)) { //내집앞 도서관이 아닌 도서관에서 페이지를 열때는 해당 홈페이지 자료만 보이게 한다
-			nearbyLibReturnList.setHomepage_id(homepage_id);
-		}
-		
-		if(nearbyLib.getDevice_idx() == 0) {
-			if(deviceList.size() > 0) {
-				nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
-				nearbyLibReturnList.setDevice_idx(deviceList.get(0).getDevice_idx());
+		if("h1".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("AA");
+		} else if("h5".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("AH");
+		} else if("h45".equals(getAsideHomepageId(request))) {
+			if(StringUtils.isEmpty(nearbyLib.getManage_code())) {
+				nearbyLib.setManage_code("CA");
 			}
-		} else {
-			nearbyLibReturnList.setDevice_idx(nearbyLib.getDevice_idx());
+		} else if("h46".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("BA");
 		}
 		
-		returnList = service.getNeighborhoodLibraryRerturnList(nearbyLibReturnList); //반납 목록 list
-		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLibReturnList); //반납 목록 count
-		NearbyLibReserveConfig configOne = new NearbyLibReserveConfig();
-		NearbyLibReserveConfig reserveConfig = new NearbyLibReserveConfig();
-		configOne = configService.getNeighborhoodLibraryReserveConfigOne(reserveConfig);	
+		int returnCount = service.getNeighborhoodLibraryReturnCount(nearbyLib); //반납 목록 count
 		
-		model.addAttribute("reserveConfig", configOne);
-		model.addAttribute("returnList", returnList);
 		model.addAttribute("returnCount", returnCount);
-		model.addAttribute("deviceList", deviceList);
+		
+		nearbyLib.setTotalDataCount(returnCount);
+		
+		service.setPaging(model, returnCount, nearbyLib);
+		
+		List<NearbyLib> returnList = service.getNeighborhoodLibraryRerturnList(nearbyLib); //반납 목록 list
+
 		model.addAttribute("nearbyLib", nearbyLib);
+		model.addAttribute("returnList", returnList);
 		
 		return basePath + "return/returnList";
 	}
 	
-	@RequestMapping(value = {"/statusChange/index.*"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/statusChange/index.*"})
 	public String statusChangeIndex(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
 		NearbyLibDevice nearbyLibDevice = new NearbyLibDevice();
 		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDevice);
 		String homepage_id = getAsideHomepageId(request);
-		if(!"h90".equals(homepage_id)) {
-			nearbyLib.setHomepage_id(homepage_id);
+		nearbyLib.setHomepage_id(homepage_id);
+		
+		if("h1".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("AA");
+		} else if("h5".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("AH");
+		} else if("h45".equals(getAsideHomepageId(request))) {
+			if(StringUtils.isEmpty(nearbyLib.getManage_code())) {
+				nearbyLib.setManage_code("CA");
+			}
+		} else if("h46".equals(getAsideHomepageId(request))) {
+			nearbyLib.setManage_code("BA");
 		}
-		if(nearbyLib.getDevice_idx() == 0) {
-			nearbyLib.setDevice_idx(deviceList.get(0).getDevice_idx());
-		}
-		int count = service.getNeighborhoodLibraryCount(nearbyLib);
+		
+		int count = service.getNearbyLibListCount(nearbyLib);
 		nearbyLib.setTotalDataCount(count);
 		
-		/*현재 사용 가능한 사물함의 갯수 뽑아오기*/
-		NearbyLibLocker nearbyLibLocker = new NearbyLibLocker();
-		nearbyLibLocker.setDevice_idx(nearbyLib.getDevice_idx());
-		nearbyLibLocker.setEditMode("canUseLocker");
-		List<NearbyLibLocker> lockerOneList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //현재 선택된 장비에 등록된 사물함리스트
-		List<NearbyLib> useList = service.getNeighborhoodLibraryList(nearbyLib); //현재 선택된 장비를 쓰고있는 예약리스트
-		for(int i = 0; i < lockerOneList.size();) {
-			for(int j = 0; j < useList.size();) {
-				if(lockerOneList.get(i).getLocker_each_idx() == useList.get(j).getLocker_idx()) {
-					lockerOneList.remove(i);
-					i = 0;
-					j = 0;
-					continue;
-				}
-				j++;
-			}
-			i++;
-		}
-		
-		int nowLocker = lockerOneList.size();
-		
-		
-		List<NearbyLibLocker> lockerList= new ArrayList<NearbyLibLocker>();
-		List<NearbyLib> neighborhoodLibraryList = new ArrayList<NearbyLib>();
-		/*사물함 배정 시 사용 가능한 사물함 번호 목록 뽑기, 변수명 : lockerList*/
-		nearbyLibLocker.setEditMode("canUseLocker"); //사용중지 사물함은 제외
-		lockerList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //선택된 디바이스에 등록된 사물함 개별정보 불러오기(사물함 총 갯수별 번호, 사용중인지 미사용중인지)
-		if(lockerList.size() > 0) {
-			lockerList = lockerService.getNeighborhoodLibraryLockerEachOneList(nearbyLibLocker); //선택된 디바이스에 등록된 사물함 개별정보 불러오기(사물함 총 갯수별 번호, 사용중인지 미사용중인지)
-			if(lockerList.size() > 0) {
-				nearbyLib.setDevice_idx(nearbyLibLocker.getDevice_idx());
-				nearbyLib.setEditMode("lockerEmptycheck");
-				neighborhoodLibraryList = service.getNeighborhoodLibraryList(nearbyLib); //장비에 예약된 예약목록 가져오기
-
-			}
-		}
-		for(int i = 0 ; i < lockerList.size();) { //이미 배정되거나 사용중인 사물함은 뺀다 (사물함 선택해서 배정하는 용도 - select)
-			for(int j = 0 ; j < neighborhoodLibraryList.size();) {
-				if(lockerList.get(i).getLocker_each_idx() == neighborhoodLibraryList.get(j).getLocker_idx()) {
-					lockerList.remove(i);
-					i = 0;
-					j = 0;
-					continue;
-				}
-				j++;
-			}
-			i++;
-		}
 		
 		service.setPaging(model, count, nearbyLib);
 		
-		model.addAttribute("lockerList", lockerList); // ex) 사물함 1,2,3,4.... 사물함 총 개별 정보
-		model.addAttribute("nowLocker", nowLocker);
 		model.addAttribute("deviceList", deviceList);
-		model.addAttribute("reserveList", service.getNeighborhoodLibraryListAll(nearbyLib));		
+		model.addAttribute("reserveList", service.getNearbyLibListAll(nearbyLib));		
 		model.addAttribute("nearbyLib", nearbyLib);
 		return basePath + "statusChange/index";
+	}
+	
+	@RequestMapping(value = {"/statusChange/changeStatus.*"})
+	public @ResponseBody JsonResponse changeStatus(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+		
+		if (!result.hasErrors()) {
+			service.changeStatusOnlyHomepage(nearbyLib);
+			res.setValid(true);
+			res.setMessage("책 크기 정보가 수정 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
 	}
 }

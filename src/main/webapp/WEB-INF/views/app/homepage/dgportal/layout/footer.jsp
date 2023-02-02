@@ -31,10 +31,9 @@
 
 				<div class="site_link">
 					<div>
-						<!-- <homepageTag:siteLink homepageList="${homepageList}" defaultStr="대구광역시 공공도서관" notIncludeHomepageId="${homepage.homepage_id},h30,h31,h33"/> -->
 						<div>
 							<a class="fsite type1">
-							<span class="f1">대구광역시 공공도서관</span>
+							<span class="f1">공립공공도서관</span>
 							<span class="f2"><i></i></span></a>
 							<ul style="display:none">
 							<li class="disabled"><a title="대구광역시통합도서관" href="http://library.daegu.go.kr/dgportal/index.do">대구광역시통합도서관</a></li>
@@ -48,8 +47,6 @@
 							<li class="disabled"><a title="대구광역시립 북부도서관" href="http://library.daegu.go.kr/seobu/index.do">대구광역시립 서부도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 수성도서관" href="http://library.daegu.go.kr/suseong/index.do">대구광역시립 수성도서관</a></li>
 							<li class="disabled"><a title="대구광역시립 중앙도서관" href="http://library.daegu.go.kr/jungang/index.do">대구광역시립 중앙도서관</a></li>
-                         
-
 							<li class="disabled"><a title="남구대명어울림도서관" href="http://library.daegu.go.kr/namdm/index.do">남구대명어울림도서관</a></li>
 							<li class="disabled"><a title="남구이천어울림도서관" href="http://library.daegu.go.kr/namic/index.do">남구이천어울림도서관</a></li>
 							<li class="disabled"><a title="달서구립도서관" href="http://library.daegu.go.kr/dalseolib/index.do">달서구통합도서관</a></li>
@@ -63,6 +60,26 @@
 							<li class="disabled"><a title="수성구용학도서관" href="http://library.daegu.go.kr/yonghak/index.do">수성구용학도서관</a></li>
 							<li class="disabled"><a title="수성구고산도서관" href="http://library.daegu.go.kr/gosan/index.do">수성구고산도서관</a></li>
 							<li class="disabled"><a title="중구통합도서관" href="http://library.daegu.go.kr/junggu/index.do">중구통합도서관</a></li>
+							</ul>
+						</div>
+						<a href="#" class="btn">이동</a>
+					</div>
+					<div>
+						<div>
+							<a class="fsite type1">
+							<span class="f1">사립공공·전문도서관</span>
+							<span class="f2"><i></i></span></a>
+							<ul style="display:none">
+							<li class="disabled"><a title="꿈꾸는마을도서관도토리" href="https://library.daegu.go.kr/dotory/index.do">꿈꾸는마을도서관도토리</a></li>
+							<li class="disabled"><a title="대구점자도서관" href="https://library.daegu.go.kr/daegubl/index.do">대구점자도서관</a></li>
+							<li class="disabled"><a title="더불어숲도서관" href="https://library.daegu.go.kr/with/index.do">더불어숲도서관</a></li>
+							<li class="disabled"><a title="동일도서관" href="https://library.daegu.go.kr/dongil/index.do">동일도서관</a></li>
+							<li class="disabled"><a title="비전도서관" href="https://library.daegu.go.kr/vision/index.do">비전도서관</a></li>
+							<li class="disabled"><a title="새벗도서관" href="https://library.daegu.go.kr/saebut/index.do">새벗도서관</a></li>
+							<li class="disabled"><a title="아트도서관" href="https://library.daegu.go.kr/art/index.do">아트도서관</a></li>
+							<li class="disabled"><a title="연암도서관" href="https://library.daegu.go.kr/yeonam/index.do">연암공공도서관</a></li>
+							<li class="disabled"><a title="푸른초장공공도서관" href="https://library.daegu.go.kr/wasabi/index.do">푸른초장공공도서관</a></li>
+							<li class="disabled"><a title="한들마을도서관" href="https://library.daegu.go.kr/handle/index.do">한들마을도서관</a></li>
 							</ul>
 						</div>
 						<a href="#" class="btn">이동</a>

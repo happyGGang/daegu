@@ -35,11 +35,11 @@ $(function(){
 
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(event) {
-		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
+		if($('#manage_code_1').val() == null || $('#manage_code_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
-		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id='+$('#homepage_id_1').val(), function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=ADD&manage_code='+$('#manage_code_1').val(), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
@@ -47,11 +47,11 @@ $(function(){
 	});
 
 	$('a#dialog-setting').on('click', function(event) {
-		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
+		if($('#manage_code_1').val() == null || $('#manage_code_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
-		$('#dialog-2').load('timeSetting.do?editMode=ADD&homepage_id='+$('#homepage_id_1').val(), function( response, status, xhr ) {
+		$('#dialog-2').load('timeSetting.do?editMode=ADD&manage_code='+$('#manage_code_1').val(), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
 
@@ -60,7 +60,7 @@ $(function(){
 
 	//모달창 링크 버튼
 	$('a#dialog-add-las').on('click', function(event) {
-		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
+		if($('#manage_code_1').val() == null || $('#manage_code_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
@@ -78,7 +78,7 @@ $(function(){
 
 	//모달창 링크 버튼
 	$('a#dialog-add-las-year').on('click', function(event) {
-		if($('#homepage_id_1').val() == null || $('#homepage_id_1').val() == "") {
+		if($('#manage_code_1').val() == null || $('#manage_code_1').val() == "") {
 			alert("홈페이지를 선택 해 주세요.");
 			return false;
 		}
@@ -98,7 +98,7 @@ $(function(){
 	$('a.modify').on('click', function(event) {
 		if($(this).attr('type') == 'calendar') {
 			<c:if test="${authU}">
-			$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id='+$('#homepage_id_1').val()+'&cm_idx=' + $(this).attr('keyValue') + '&date_type=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
+			$('#dialog-1').load('edit.do?editMode=MODIFY&manage_code='+$('#manage_code_1').val()+'&cm_idx=' + $(this).attr('keyValue') + '&date_type=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 			</c:if>
@@ -117,7 +117,7 @@ $(function(){
 		doGetLoad('index.do', serializeCustom($('#nearbyLibManage')));
 	});
 
-	$('select#homepage_id_1').on('change', function(e) {
+	$('select#manage_code_1').on('change', function(e) {
 		var planDate = $('#plan_year').val() + '-' + $('#plan_month').val();
 		$('#plan_date').val(planDate);
 		if($(this).val() != '') {
@@ -172,50 +172,64 @@ $(function(){
 		doGetLoad('indexList.do', serializeCustom($('#nearbyLibManage')));
 	});
 
-
+	$('#manage_code').on('change',function(e){
+		$('#viewPage').val(1);
+		$('#nearbyLibManage').submit();
+		e.preventDefault();
+	});
 });
 </script>
 <c:set var="plan_date" value="${fn:split(nearbyLibManage.plan_date, '-')}" />
 <form:form modelAttribute="nearbyLibManage">
 	<form:hidden path="plan_date"/>
-	<form:hidden id="homepage_id_1" path="homepage_id"/>
-	
+	<form:hidden path="homepage_id"/>
 	<div class="infodesk">
-<%-- 		<c:choose> --%>
-<%-- 			<c:when test="${fn:length(subHomepageList) > 0}"> --%>
-<!-- 				도서관 : -->
-<%-- 				<form:select id="homepage_id_1" path="homepage_id"> --%>
-<%-- 					<c:forEach items="${subHomepageList}" var="i"> --%>
-<%-- 						<form:option value="${i.homepage_id}">${i.homepage_name}</form:option> --%>
-<%-- 					</c:forEach> --%>
-<%-- 					<c:if test="${asideHomepageId eq 'h53'}"> --%>
-<%-- 						<form:option value="h78">작은도서관</form:option> --%>
-<%-- 					</c:if> --%>
-
-<%-- 				</form:select> --%>
-<%-- 			</c:when> --%>
-<%-- 			<c:otherwise> --%>
-<%-- 				<form:hidden id="homepage_id_1" path="homepage_id"/> --%>
-<%-- 			</c:otherwise> --%>
-<%-- 		</c:choose> --%>
-
+		<c:if test="${asideHomepageId eq 'h1'}">
+			<form:hidden path="manage_code" id="manage_code_1" value="AA"/>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h5'}">
+			<form:hidden path="manage_code" id="manage_code_1" value="AH"/>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h45'}">
+			도서관 :
+			<form:select id="manage_code_1" path="manage_code" class="selectmenu">
+				<form:option value="CA">동구통합 안심도서관</form:option>
+				<form:option value="CB">동구통합 신천도서관</form:option>
+			</form:select>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h46'}">
+			<form:hidden id="manage_code_1" path="manage_code" value="BA"/>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h90'}">
+			도서관 :
+			<form:select id="manage_code_1" path="manage_code" class="selectmenu">
+				<form:option value="">전체</form:option>
+				<form:option value="AA">대구2·28기념학생도서관</form:option>
+				<form:option value="BA">북구구수산도서관</form:option>
+				<form:option value="AH">대구광역시립 동부도서관</form:option>
+				<form:option value="CA">동구통합 안심도서관</form:option>
+				<form:option value="CB">동구통합 신천도서관</form:option>
+			</form:select>
+		</c:if>
 		<div class="monthYear">
 			<a id="before-btn" href="#prev" class="btn prev"><i class="fa fa-angle-left"></i><span class="blind">이전달1</span></a>
 			<form:select path="plan_year" class="selectmenu" style="width:100px;"></form:select>
 	        <form:select path="plan_month" class="selectmenu" style="width:100px;"></form:select>
 	        <a id="next-btn" href="#next" class="btn next"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 	    </div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn3 left" id="changeView"><i class="fa fa-list"></i><span>리스트형 전환</span></a>
-		</div>
-		<c:if test="${authC}">
-		<div class="button btn-group inline">
-			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>예약불가능일등록</span></a>
-		</div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn1 left" id="dialog-setting"><i class="fa fa-plus"></i><span>예약가능시간등록</span></a>
-		</div>
-		</c:if>
+	    <c:if test="${not empty manageCode}">
+			<div class="button btn-group inline">
+				<a href="" class="btn btn3 left" id="changeView"><i class="fa fa-list"></i><span>리스트형 전환</span></a>
+			</div>
+			<c:if test="${authC}">
+			<div class="button btn-group inline">
+				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>예약불가능일등록</span></a>
+			</div>
+			<div class="button btn-group inline">
+				<a href="" class="btn btn1 left" id="dialog-setting"><i class="fa fa-plus"></i><span>예약가능시간등록</span></a>
+			</div>
+			</c:if>
+	    </c:if>
 	</div>
 </form:form>
 	<div class="table-wrap" id="calTable">

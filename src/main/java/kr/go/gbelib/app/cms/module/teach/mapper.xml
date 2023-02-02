@@ -215,6 +215,7 @@
 		</if>
 		AND	a.delete_yn = 'N'
 		ORDER BY
+		(CASE WHEN a.culture_view_yn ='Y' THEN 1 ELSE 2 END),
 		(CASE WHEN a.teach_code_yn ='Y' THEN 1 ELSE 2 END),
 		a.ADD_DATE desc
 		)A
@@ -961,7 +962,6 @@
 
 		<if test="homepage_id != 'h5'">
 			ORDER BY
-			(CASE WHEN a.culture_view_yn ='Y' THEN 1 ELSE 2 END),
 			(CASE WHEN a.teach_code_yn ='Y' THEN 1 ELSE 2 END),
 			<if test="sortField != null and sortField != ''">
 				${sortField} ${sortType},
@@ -3099,5 +3099,16 @@
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
 			AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
+	</select>
+	
+	<select id="getCultureViewCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TEACH
+		WHERE
+			delete_yn = 'N'
+		AND culture_view_yn = 'Y'
+		AND	homepage_id = #{homepage_id}
 	</select>
 </mapper>

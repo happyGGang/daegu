@@ -508,7 +508,7 @@ AD20 종합자료실
 					<c:if test="${ detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq ''}">
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
 									<%
 									if(dayOfWeek == 1 || dayOfWeek == 7)
 									{

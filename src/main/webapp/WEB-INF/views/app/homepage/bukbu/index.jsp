@@ -296,63 +296,120 @@ do {
 					<div class="book tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1">신간도서</a> <a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
-								<li><a href="#tab2">추천도서</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=144" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li class="on"><a href="#tab1">전시안내</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li><a href="#tab2">영화상영</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="box con" data-tab="tab1">
-							<ul class="book_photo newBookUl">
-							</ul>
+							<div class="movieContent">
+								<ul class="book_photo">
+								<c:forEach var="i" varStatus="status" items="${exhibitionList}">
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=189&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<span class="movieImg">
+												<c:choose>
+													<c:when test="${i.preview_img ne null}">
+														<c:choose>
+															<c:when test="${fn:contains(i.preview_img, 'http')}">
+																<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
+															</c:when>
+															<c:otherwise>
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+															</c:otherwise>
+														</c:choose>
+													</c:when>
+													<c:otherwise>
+														<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+													</c:otherwise>
+												</c:choose>
+											</span>
+										</a>
+									</li>
+								</c:forEach>
+								<c:if test="${fn:length(exhibitionList) < 1}">
+									<li>
+										<a href="javascript:alert('등록된 전시가 없습니다.'); return false;">
+											<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+											<strong class="title">등록된 전시가 없습니다.</strong>
+										</a>
+									</li>
+								</c:if>
+								</ul>
+							</div>
 						</div>
 
 						<div class="box con" data-tab="tab2" style="display:none;">
-							<ul class="book_photo">
-							<c:choose>
-								<c:when test="${fn:length(recommendBookList) < 1}">
-								<li>
-									<a href="javascript:alert('등록된 추천도서가 없습니다.');">
-										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.">
-										<span class="title">등록된 추천도서가 없습니다.</span>
-									</a>
-								</li>
-								</c:when>
-								<c:otherwise>
-								<li>
-									<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${recommendBookList[listNum1].manage_idx}&board_idx=${recommendBookList[listNum1].board_idx}">
-										<c:choose>
-										<c:when test="${recommendBookList[listNum1].preview_img ne null}">
+							<div class="movieContent">
+								<ul class="book_photo">
+									<c:forEach var="i" varStatus="status" items="${movieList}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<span class="movieImg">
 											<c:choose>
-												<c:when test="${fn:contains(recommendBookList[listNum1].preview_img, 'http')}">
-												<img src="${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" />
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<img src="${i.preview_img}" alt="${i.title}"/>
+														</c:when>
+														<c:otherwise>
+															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+														</c:otherwise>
+													</c:choose>
 												</c:when>
 												<c:otherwise>
-												<img src="/data/board/${recommendBookList[listNum1].manage_idx}/${recommendBookList[listNum1].board_idx}/${recommendBookList[listNum1].preview_img}" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}"/>
+													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
 												</c:otherwise>
 											</c:choose>
-										</c:when>
-										<c:when test="${empty newBookList[listNum1].aladin or empty newBookList[listNum1].aladin.cover}">
-										</c:when>
-										<c:otherwise>
-											<img src="/resources/common/img/noImg2.png" alt="${recommendBookList[listNum1].title}" title="${recommendBookList[listNum1].title}">
-										</c:otherwise>
-										</c:choose>
-										
-										<c:set var="text001" value="${recommendBookList[listNum1].title}"/>
-										<span class="title">
-										<c:choose>
-											<c:when test="${fn:length(text001) > 12}">
-												${fn:substring(text001, 0, 12)}...
-											</c:when>
-											<c:otherwise>
-												${text001}
-											</c:otherwise>
-										</c:choose>
-										</span>
-									</a>
-								</li>
-								</c:otherwise>
-							</c:choose>
-							</ul>
+											</span>
+
+											<!-- <span class="movieEx">
+												<c:if test="${i.imsi_v_12 ne null and i.imsi_v_12 ne '0'}">
+												<div>${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></div>
+												</c:if>
+												<strong class="title">${i.title}</strong>
+
+												<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
+												<span class="date">
+												<b>날짜</b> ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}
+												</span>
+												</c:if>
+
+												<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
+												<span class="time">
+												<b>시간</b> ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
+												</span>
+												</c:if>
+
+												<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
+												<span class="divid">
+												<b>장소</b> ${i.imsi_v_6}
+												</span>
+												</c:if>
+
+												<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
+												<span class="desc">
+												<b>장르</b>  ${fn:substring(i.imsi_v_9, 0, 15)}<c:if test="${fn:length(i.imsi_v_9) > 15}">...</c:if>
+												</span>
+												</c:if>
+											</span> -->
+										</a>
+									</li>
+									</c:forEach>
+									<c:if test="${fn:length(movieList) < 1}">
+										<li>
+											<a href="javascript:alert('상영예정 영화가 없습니다.'); return false;">
+												<span class="movieImg">
+													<img src="/resources/common/img/noImg2.png" alt="${i.title}">
+												</span>
+		
+												<span class="movieEx">
+													<strong class="title">상영예정 영화가 없습니다.</strong>
+												</span>
+											</a>
+										</li>
+									</c:if>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -367,6 +424,108 @@ do {
 				</div>
 
 				<div class="main2box3">
+					<div class="book tabS">
+						<div class="title">
+							<ul class="tabMenuS">
+								<li class="on"><a href="#tab1">공지사항</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li><a href="#tab2">강좌·행사안내</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+							</ul>
+						</div>
+						<div class="notice box con" data-tab="tab1">
+							<div class="cont">
+								<ul class="list">
+									<%--공지사항 상단--%>
+									<c:if test="${fn:length(noticeListTopNotice) < 1}">
+									<li class="on-cont">
+										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+										<a href="#">
+											<span class="title">등록된 공지사항이 없습니다.</span>
+											<p class="date"></p>
+											<span class="content">
+											</span>
+										</a>
+									</li>
+									</c:if>
+									<c:if test="${fn:length(noticeListTopNotice) > 0}">
+									<li class="on-cont">
+										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
+											<span class="title">${noticeListTopNotice[0].title}</span>
+											<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
+											<span class="content">
+												${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
+											</span>
+										</a>
+									</li>
+									</c:if>
+									<%--공지사항 상단--%>
+
+									<%--공지사항 목록--%>
+									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<em>${i.title}</em>
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+										</a>
+									</li>
+									</c:forEach>
+
+									<c:if test="${fn:length(noticeList) < 1}">
+									<li>
+										<em>등록된 공지사항이 없습니다.</em>
+									</li>
+									</c:if>
+									<%--공지사항 목록--%>
+								</ul>
+							</div>
+						</div>
+
+						<div class="culture box con" data-tab="tab2" style="display:none;">
+							<div class="cont">
+								<ul class="list">
+									<c:if test="${fn:length(teachList) < 1}">
+									<li>
+										등록된 강좌가 없습니다.
+									</li>
+									</c:if>
+									<c:forEach items="${teachList}" var="i" varStatus="status">
+									<li>
+										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
+											<em>${i.teach_name}</em>
+											<c:if test="${i.teach_status eq '0'}">
+											<span class="status before">접수중</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '1'}">
+											<span class="status before">대기접수</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
+											<span class="status after">신청완료</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '3'}">
+											<span class="status after">신청완료</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '9'}">
+											<span class="status after">수강종료</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '4'}">
+											<span class="status after">접수마감</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '5'}">
+											<span class="status after">정원마감</span>
+											</c:if>
+											<c:if test="${i.teach_status eq '6'}">
+											<span class="status before">신청대기</span>
+											</c:if>
+										</a>
+									</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="main2box3">
 					<div class="notice">
 						<div class="title">
 							<ul>
@@ -400,10 +559,10 @@ do {
 									</a>
 								</li>
 								</c:if>
- 								<%--공지사항 상단--%>
+								<%--공지사항 상단--%>
 
 								<%--공지사항 목록--%>
- 								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+								<c:forEach var="i" varStatus="status" items="${noticeList}" >
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 										<em>${i.title}</em>
@@ -421,10 +580,10 @@ do {
 							</ul>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 				<div class="main2box4">
-					<div class="culture">
+					<!-- <div class="culture">
 						<div class="title">
 							<ul>
 								<li><h2>수강신청</h2></li>
@@ -469,6 +628,22 @@ do {
 									</a>
 								</li>
 								</c:forEach>
+							</ul>
+						</div>
+					</div> -->
+					
+					<div class="quick-btn-box">
+						<div class="top-btn-box">
+							<ul>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=165&manage_idx=921">북큐레이션</a></li>
+								<li><a href="/${homepage.context_path}/intro/search/index.do?menu_idx=120&booktype=BOOK&separateShelfCode=ABH#search_result">교과연계도서</a></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=144">사서추천도서</a></li>
+							</ul>
+						</div>
+						<div class="bottom-btn-box">
+							<ul>
+								<li><a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신착도서</a></li>
+								<li><a href="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</a></li>
 							</ul>
 						</div>
 					</div>

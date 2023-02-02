@@ -265,7 +265,8 @@ $.ajax({
 				<div class="searchBox tabT">
 					<ul class="tabMenuT">
 						<li class="on"><a href="#tab1">소장자료</a></li>
-						<li><a href="#tab2">구독자료</a></li>
+						<li><a href="#tab2">부커스 구독자료</a></li>
+						<li><a href="#tab3">교보문고 구독자료</a></li>
 					</ul>
 				</div>
 				<form id="mainSearchForm" class="mainSearchForm01" action="/${homepage.context_path}/module/elib/search/index.do">
@@ -285,7 +286,22 @@ $.ajax({
 					</fieldset>
 				</form>
 
-				<form id="mainSearchForm02" class="mainSearchForm02" action="https://daegu.dkyobobook.co.kr/search/searchList.ink" method="get" target="_blank" style="display:none">
+				<form id="mainSearchForm02" class="mainSearchForm02" action="https://www.bookers.life/front/home/loginSso.do" method="post" target="_blank" style="display:none">
+					<input type="hidden" name="requestCode" value ="0000000354" >
+					<input type="hidden" name="requestId" value ="${sessionScope.member.member_id}">
+					<input type="hidden" name="requestName" value ="${sessionScope.member.member_name}">
+					<fieldset>
+						<legend class="blind">통합검색</legend>
+						<div class="main-box">
+							<div class="box1">
+								<input type="text" class="text" name="Keyword" id="Keyword" placeholder="부커스 구독형 전자자료를 검색할 수 있습니다." title="구독자료검색"/>
+							</div>
+							<button id="main-bukers-search-btn">검색</button>
+						</div>
+					</fieldset>
+				</form>
+
+				<form id="mainSearchForm03" class="mainSearchForm03" action="https://daegu.dkyobobook.co.kr/search/searchList.ink" method="get" target="_blank" style="display:none">
 					<input type="hidden" name="schClst" value="all">
 					<input type="hidden" name="schDvsn" value="000">
 					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -293,11 +309,10 @@ $.ajax({
 						<legend class="blind">통합검색</legend>
 						<div class="main-box">
 							<div class="box1">
-								<input type="text" class="text" name="schTxt" id="schTxt" placeholder="구독형 전자자료를 검색할 수 있습니다."/>
+								<input type="text" class="text" name="schTxt" id="schTxt" placeholder="교보문고 구독형 전자자료를 검색할 수 있습니다."/>
 							</div>
 							<button id="main-kyobo-search-btn">검색</button>
 						</div>
-					</div>
 					</fieldset>
 				</form>
 			</div>
@@ -314,7 +329,7 @@ $.ajax({
 						</div>
 					</a>
 					<li class="quick-5">
-					<a href="/${homepage.context_path}/html/kyobogudok.do?menu_idx=93" title="구독형 전자책 바로가기" class="quick05">
+					<a href="/${homepage.context_path}/html/gudok.do?menu_idx=93" title="구독형 전자책 바로가기" class="quick05">
 						<div>
 							<p>E-Book</p>
 							<h4>구독형전자책</h4>

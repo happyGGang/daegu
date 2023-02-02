@@ -7,18 +7,18 @@
 $(function() {
 	$('select#rowCount').change(function(e) {
 		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+		doGetLoad('index.do', $('form#nearbyStatusChange').serialize());
 	});
 	
 	$('.selectmenu-search').on('change',function(e){
 		$('#viewPage').val(1);
-		$('#neighborhoodLibrary').submit();
+		$('#nearbyStatusChange').submit();
 		e.preventDefault();
 	});
 	
 	$('#manage_code').on('change',function(e){
 		$('#viewPage').val(1);
-		$('#neighborhoodLibrary').submit();
+		$('#nearbyStatusChange').submit();
 		e.preventDefault();
 	});
 
@@ -37,50 +37,6 @@ $(function() {
 		}
 	});	
 	
-	$('.reserve_edit').on('click',function(e){
-		e.preventDefault();
-		var status = "default message";
-		if($(this).attr('keyValue2') == '3'){
-			status = "번호 " + $(this).attr('keyValue1') + "번을 [사물함투입]상태로 값을 변경 하시겠습니까?";
-			if(Number($(this).attr('keyValue8')) <= 0){
-				$('#neighborhoodLibraryEdit #locker_each_idx').val($('#locker_each_idx' + $(this).attr('keyValue7')).val());
-			}else{
-				$('#neighborhoodLibraryEdit #locker_each_idx').val(Number($(this).attr('keyValue8')));
-			}
-		}else if($(this).attr('keyValue2') == '4'){
-			status = "번호 " + $(this).attr('keyValue1') + "번을 [대출]상태로 값을 변경 하시겠습니까?";
-		}else if($(this).attr('keyValue2') == '5'){
-			status = "번호 " + $(this).attr('keyValue1') + "번을 [회수대기]상태로 값을 변경 하시겠습니까?";
-		}else if($(this).attr('keyValue2') == '6'){
-			status = "번호 " + $(this).attr('keyValue1') + "번을 [회수중]상태로 값을 변경 하시겠습니까?";
-		}else if($(this).attr('keyValue2') == '7'){
-			status = "번호 " + $(this).attr('keyValue1') + "번을 [회수완료]상태로 값을 변경 하시겠습니까?";
-		}else if($(this).attr('keyValue2') == '10'){
-			status = "번호 " + $(this).attr('keyValue1') + "번을 [반납완료]상태로 값을 변경 하시겠습니까?";
-		}
-		
-		if (!confirm(status)) {
-			return false;
-		}
-		$('#neighborhoodLibraryEdit #reserve_bundle_idx').val($(this).attr('keyValue6'));
-		$('#neighborhoodLibraryEdit #reserve_idx').val($(this).attr('keyValue5'));
-		$('#neighborhoodLibraryEdit #device_code').val($(this).attr('keyValue4'));
-		$('#neighborhoodLibraryEdit #device_idx').val($(this).attr('keyValue3'));		
-		$('#neighborhoodLibraryEdit #reserve_status').val($(this).attr('keyValue2'));
-		console.log();
-		if (doAjaxPost($('form#neighborhoodLibraryEdit'))) {
-			location.reload();
-		}
-	});
-	
-	
-	$('.reserve_cancel').on('click',function(e){
-		$('#dialog-1').load('delete.do?reserve_idx=' + $(this).attr('keyValue1') + '&reserve_status=' + $(this).attr('keyValue2') + '&device_idx=' + $(this).attr('keyValue3') + '&device_code=' + $(this).attr('keyValue4') , function( response, status, xhr ) {
-			$('#dialog-1').dialog('open');
-		});
-		e.preventDefault();
-	});
-
 	$('input#start_date').datepicker({
 		dateFormat:'yy-mm-dd',
 		maxDate: $('input#end_date').val(), 
@@ -98,11 +54,11 @@ $(function() {
 	
 	$('#searchBtn').on('click', function(e) {
 		e.preventDefault();
-		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+		doGetLoad('index.do', $('form#nearbyStatusChange').serialize());
 	});
 	
 	$('a#excelDownload').on('click', function(e) {
-		$('#neighborhoodLibrary').attr('action', 'excelDownload.do').submit();
+		$('#nearbyStatusChange').attr('action', 'excelDownload.do').submit();
 		e.preventDefault();
 	});
 	
@@ -168,7 +124,7 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 	if(confirm(status + '상태를 ' + changeStatus + '상태로 변경하시겠습니까?')){
 		$.ajax({
 			type: "POST",
-			url: 'index.do',
+			url: 'changeStatus.do',
 			data: ajaxData,
 			success: function(response) {
 				if(response.valid) {
@@ -185,16 +141,7 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 	}
 }
 </script>
-<form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
-	<form:hidden path="reserve_status"/>
-	<form:hidden path="reserve_idx"/>
-	<form:hidden path="reserve_bundle_idx"/>
-	<form:hidden path="device_idx"/>
-	<form:hidden path="device_code"/>
-	<form:hidden path="locker_each_idx"/>
-</form:form>
-
-<form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do" method="GET">
+<form:form modelAttribute="nearbyLib" id="nearbyStatusChange" action="index.do" method="POST">
 	<div class="search">
 		검색 결과 : <fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> 건
 		<form:select path="rowCount" class="selectmenu" style="width:150px;">
@@ -217,9 +164,10 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 		
 		장비명 : 
 		<form:select class="selectmenu-search" style="width:300px" path="device_idx">
-			<c:forEach var="j" varStatus="status" items="${deviceList}">
-				<option value="${j.device_idx}" <c:if test="${j.device_idx eq nearbyLib.device_idx }">selected="selected"</c:if>>${j.device_name}</option>
-			</c:forEach>
+			<form:option value="0">전체</form:option>
+			<form:option value="1">연경CGV</form:option>
+			<form:option value="2">이시아MEGABOX</form:option>
+			<form:option value="3">반야월이마트</form:option>
 		</form:select>
 		
 		대출상태 : 
@@ -245,18 +193,18 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
- 			<col width="3%" />
- 			<col width="9%" />
- 			<col width="3%" />
  			<col width="4%" />
-			<col width="5%" />
+ 			<col width="10%" />
+ 			<col width="5%" />
+ 			<col width="5%" />
+			<col width="6%" />
 			<col width="7%" />
+			<col width="10%" />
+			<col width="*" />
+			<col width="8%" />
+			<col width="8%" />
 			<col width="5%" />
-			<col width="7%" />
-			<col width="7%" />
-			<col width="7%" />
-			<col width="5%" />
-			<col width="5%" />
+			<col width="6%" />
 			<col width="5%" />
 		</colgroup>
 		<thead>
@@ -319,7 +267,7 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 					<td>
 						<c:choose>
 							<c:when test="${i.cancel_yn eq 'Y'}">
-								취소
+								<span style="color:#f63434;">취소</span>
 							</c:when>
 							<c:otherwise>
 							</c:otherwise>					
@@ -331,12 +279,12 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 								발송완료
 							</c:when>
 							<c:otherwise>
-								미발송
+								<span style="color:#f63434;">미발송</span>
 							</c:otherwise>					
 						</c:choose>
 					</td>
 					<td>
-						<form:select path="reserve_status" cssClass="selectmenu" onchange="changeStatus('${i.reserve_idx}', '${i.reserve_status}', $(this));">
+						<select cssClass="selectmenu" onchange="changeStatus('${i.reserve_idx}', '${i.reserve_status}', $(this));">
 							<option value="1" <c:if test="${i.reserve_status eq '1'}">selected</c:if>>예약</option>
 							<option value="2" <c:if test="${i.reserve_status eq '2'}">selected</c:if>>예약확정</option>
 							<option value="3" <c:if test="${i.reserve_status eq '3'}">selected</c:if>>사물함투입</option>
@@ -347,7 +295,7 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 							<option value="8" <c:if test="${i.reserve_status eq '8'}">selected</c:if>>취소</option>
 							<option value="9" <c:if test="${i.reserve_status eq '9'}">selected</c:if>>반납</option>
 							<option value="10"<c:if test="${i.reserve_status eq '10'}">selected</c:if>>반납완료</option>
-						</form:select>
+						</select>
 					</td>					
 				</tr>					
 			</c:forEach>
@@ -359,23 +307,8 @@ function changeStatus(reserve_idx, reserve_status, $this) {
 		</tbody>
 	</table>
 	
-	<select id="statusAll" class="selectmenu">
-		<option value="">상태전체</option>
-		<option value="1">예약</option>   
-		<option value="2">예약확정</option> 
-		<option value="3">사물함투입</option>
-		<option value="4">대출</option>   
-		<option value="5">회수대기</option> 
-		<option value="6">회수중</option>
-		<option value="7">회수완료</option> 
-		<option value="8">취소</option>   
-		<option value="9">반납</option>   
-		<option value="10">반납완료</option>
-	</select>
-	<a href="#" id="status-change" class="btn btn1">선택상태변경</a>
-	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
-		<jsp:param name="formId" value="#neighborhoodLibrary"/>
+		<jsp:param name="formId" value="#nearbyStatusChange"/>
 	</jsp:include>
 	
 	<div class="search txt-center" style="margin-top:25px;">

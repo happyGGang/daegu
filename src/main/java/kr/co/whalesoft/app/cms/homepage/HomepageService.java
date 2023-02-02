@@ -206,4 +206,8 @@ public class HomepageService extends BaseService {
 	public Homepage getHomepageOne2(Homepage homepage) {
 		return dao.getHomepageOne2(homepage);
 	}
+
+	public String getHomepageId(Homepage nearbyLibHomepage) {
+		return dao.getHomepageId(nearbyLibHomepage);
+	}
 }

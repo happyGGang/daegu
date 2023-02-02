@@ -8,6 +8,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class NearbyLibManage extends PagingUtils {
 	private int cm_idx;  //일정IDX
+	private String manage_code; //도서관관리코드
 	private int group_idx;	//그룹IDX
 	private int group_idx_tmp;	//그룹IDX임시
 	private String start_date;  //시작일자
@@ -49,8 +50,8 @@ public class NearbyLibManage extends PagingUtils {
 	
 	public NearbyLibManage() {}
 
-	public NearbyLibManage(String homepage_id, String plan_date) {
-		this.setHomepage_id(homepage_id);
+	public NearbyLibManage(String manage_code, String plan_date) {
+		this.setManage_code(manage_code);
 		this.plan_date = plan_date;
 	}
 	
@@ -344,6 +345,14 @@ public class NearbyLibManage extends PagingUtils {
 
 	public void setGroup_count(int group_count) {
 		this.group_count = group_count;
+	}
+
+	public String getManage_code() {
+		return manage_code;
+	}
+
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
 	}
 	
 }

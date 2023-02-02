@@ -14,23 +14,23 @@
 			AND DEVICE_IDX IN (SELECT DEVICE_IDX FROM NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG)
 			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL) 
 			ORDER BY 
-				DEVICE_IDX DESC
+				DEVICE_IDX
 	</select>
 	
-		<select id="getNeighborhoodLibraryDeviceAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice">
-			${pagingTop}
-				SELECT
-					DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
-					LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
-					USE_YN, DELETE_YN, DELETE_ID, DELETE_IP, DELETE_DATE				 
-				FROM
-					NEIGHBORHOOD_LIBRARY_DEVICE
-				WHERE
-					1=1
-				AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
-				ORDER BY 
-					DEVICE_IDX DESC
-			${pagingBottom}
+	<select id="getNeighborhoodLibraryDeviceAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibDevice.NearbyLibDevice">
+		${pagingTop}
+			SELECT
+				DEVICE_IDX, DEVICE_CODE, DEVICE_NAME, DEVICE_PLACE, DEVICE_AREA,
+				LINK_INSTITUTION, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,
+				USE_YN, DELETE_YN, DELETE_ID, DELETE_IP, DELETE_DATE				 
+			FROM
+				NEIGHBORHOOD_LIBRARY_DEVICE
+			WHERE
+				1=1
+			AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
+			ORDER BY 
+				DEVICE_IDX DESC
+		${pagingBottom}
 	</select>
 	
 	<insert id="addNeighborhoodLibraryDevice">
@@ -102,4 +102,15 @@
 		WHERE
 			device_idx = #{device_idx}
 	</delete>
+	
+	<select id="getNearbyLibDeviceOne" resultType="String">
+		SELECT
+			device_code		 
+		FROM
+			NEIGHBORHOOD_LIBRARY_DEVICE
+		WHERE
+			1=1
+		AND (DELETE_YN = 'N' OR DELETE_YN IS NULL)
+		AND DEVICE_IDX = #{device_idx}	
+	</select>
 </mapper>

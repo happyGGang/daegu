@@ -4,9 +4,9 @@
 	
 	<select id="getNeighborhoodLibraryReserveConfigAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn	 
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn 
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
@@ -17,15 +17,17 @@
 	
 	<select id="getNeighborhoodLibraryReserveConfigList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
+			<if test="manage_code != null and manage_code != ''">
+				manage_code = #{manage_code}
+			</if>
 		ORDER BY 
-			day_of_week DESC
+			day_of_week
 	</select>
 	
 	<select id="getNeighborhoodLibraryReserveConfigCount" resultType="int">
@@ -41,13 +43,16 @@
 	
 	<select id="getNeighborhoodLibraryReserveConfigOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			RESERVE_CONFIG_IDX, RESERVE_START_TIME, RESERVE_END_TIME, TOMORROW_END_DAY_YN, TAKE_TERM, 
-			EXPIRE_DATE_CNT, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID				 
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn		 
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			1=1
-		AND RESERVE_CONFIG_IDX = (SELECT MAX(RESERVE_CONFIG_IDX) FROM NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG)	
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
 	</select>
 	
 	<insert id="addNeighborhoodLibraryReserveConfig">
@@ -56,13 +61,13 @@
 		</selectKey>	
 		INSERT INTO NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		(
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn	
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		) VALUES (
-			#{homepage_id}, #{reserve_config_idx}, #{day_of_week}, #{reserve_start_time}, #{reserve_end_time},
-			#{use_yn}, #{take_term}, #{expire_date_cnt}, #{add_id}, SYSDATE,
-			#{modify_id}, #{modify_date}, #{tomorrow_end_day_yn}
+			#{homepage_id}, #{manage_code}, #{reserve_config_idx}, #{day_of_week}, #{reserve_start_time},
+			#{reserve_end_time}, #{use_yn}, #{take_term}, #{expire_date_cnt}, #{add_id},
+			SYSDATE, #{modify_id}, #{modify_date}, #{tomorrow_end_day_yn}
 		)
 	</insert>
 	
@@ -80,6 +85,21 @@
 		WHERE
 			RESERVE_CONFIG_IDX = #{reserve_config_idx}		
 	</update>
+
+	<update id="modifyNearbyLibReserveConfig">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		SET
+			RESERVE_START_TIME = #{reserve_start_time},
+			RESERVE_END_TIME = #{reserve_end_time},
+			USE_YN = #{use_yn},
+			MODIFY_ID = #{modify_id},
+			MODIFY_DATE = SYSDATE
+		WHERE
+			manage_code = #{manage_code}
+		AND RESERVE_CONFIG_IDX = #{reserve_config_idx}
+		AND DAY_OF_WEEK = #{day_of_week}
+	</update>
 	
 	<select id="getTakeTermOfReserveConfig" resultType="int">
 		SELECT
@@ -93,15 +113,104 @@
 	
 	<select id="getReserveConfigCalendar" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
 		SELECT
-			homepage_id, reserve_config_idx, day_of_week, reserve_start_time, reserve_end_time,
-			use_yn, take_term, expire_date_cnt, add_id, add_date,
-			modify_id, modify_date, tomorrow_end_day_yn
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+			<if test="manage_code != null and manage_code != ''">
+			WHERE
+				manage_code = #{manage_code}
+			</if>
+		ORDER BY 
+			day_of_week
+	</select>
+	
+	<select id="getReserveConfigToday" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		SELECT
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
 		WHERE
-			HOMEPAGE_ID = #{homepage_id}
-		ORDER BY 
-			day_of_week DESC
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			AND manage_code = #{manage_code}
+	</select>
+
+	<select id="checkReserveTime" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			TO_CHAR(SYSDATE, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
+			AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 	</select>
 	
+	<select id="getReserveConfigCalendarAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		SELECT
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		ORDER BY 
+			homepage_id, day_of_week
+	</select>
+	
+	<select id="checkTime" resultType="boolean">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			day_of_week = #{day_of_week}
+		AND manage_code = #{manage_code}
+		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+		AND use_yn = 'Y'
+	</select>
+	
+	<select id="getNearbyLibConfigOne" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig">
+		SELECT
+			homepage_id, manage_code, reserve_config_idx, day_of_week, reserve_start_time,
+			reserve_end_time, use_yn, take_term, expire_date_cnt, add_id,
+			add_date, modify_id, modify_date, tomorrow_end_day_yn,
+			TO_CHAR(SYSDATE - 1, 'yyyy/MM/dd') as yesterday,
+			TO_CHAR(SYSDATE, 'yyyy/MM/dd') as today				 
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			TO_CHAR(SYSDATE - 1, 'D') = day_of_week
+			<if test="manage_code != null and manage_code != ''">
+				AND manage_code = #{manage_code}
+			</if>
+	</select>
+	
+	<select id="checkTimeToday" resultType="boolean">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			day_of_week = #{day_of_week}
+		AND manage_code = #{manage_code}
+		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE + 1, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+		AND use_yn = 'Y'
+	</select>
+	
+	<select id="checkTimeYesterday" resultType="boolean">
+		SELECT
+			count(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
+		WHERE
+			day_of_week = #{day_of_week}
+		AND manage_code = #{manage_code}
+		AND SYSDATE BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+		AND use_yn = 'Y'
+	</select>
 </mapper>
