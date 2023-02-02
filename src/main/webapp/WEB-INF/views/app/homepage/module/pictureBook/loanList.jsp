@@ -177,7 +177,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			</c:if>
 			<col width="6%" />
 			<col />
-			<col width="10%" />
+			<col width="12%" />
 			<col width="15%"/>
 			<col width="12%" />
 			<col width="8%" />
@@ -211,7 +211,10 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					<td>
 						<a href="#" class="view-btn" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
 					</td>
-					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
+					<td class="center">
+						${fn:substring(i.loan_start_date, 0, 10)}<br/>
+						<span>~</span>${fn:substring(i.loan_end_date, 0, 10)}
+					</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>${i.pay_yn eq 'Y' ? '무료' : '무료'}</td>

@@ -212,7 +212,10 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					<td>
 						<a href="#" class="dialog-edit" keyValue="${i.picture_book_loan_idx}">${i.picture_book_subject}</a>
 					</td>
-					<td class="center">${fn:substring(i.loan_start_date, 0, 7)}</td>
+					<td class="center">
+						${fn:substring(i.loan_start_date, 0, 10)}<br/>
+						<span>~</span>${fn:substring(i.loan_end_date, 0, 10)}
+					</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>${i.pay_yn eq 'Y' ? '유료' : '무료'}</td>
