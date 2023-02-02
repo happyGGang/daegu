@@ -278,7 +278,15 @@ public class TeachController extends BaseController {
 			ValidationUtils.rejectIfStringLength(result, "teach_etc", 100, "준비물 및 재료비");
 			ValidationUtils.rejectIfStringLength(result, "teach_stage", 50, "강의장소");
 			ValidationUtils.rejectIfStringLength(result, "teach_target", 200, "강의대상");
-
+			
+			if("Y".equals(teach.getCulture_view_yn())){
+				int cultureViewCount = teachService.getCultureViewCount(teach);
+				
+				if(cultureViewCount > 1) {
+					result.reject("홈페이지별 문화포털 게시는 최대 2개까지 입니다.");
+				}
+			}
+			
 			if ( editMode.equals("ADD") || editMode.equals("MODIFY") ) {
 				ValidationUtils.rejectIfEmpty(result, "hashtag_codes", "강좌 해시코드를 선택해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "age_div_codes","연령구분을 선택해주세요");
