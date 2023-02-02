@@ -59,6 +59,7 @@ do {
 	
 	$(function() {
 		// 로그인 시 팝업 띄우기 위함. 메인 팝업 추천도서 잠시 주석 2021-12-02
+		/*
 		if (${member.login && (member.member_id eq 'infoset')}) 
 		{
 			var result = '';
@@ -99,7 +100,7 @@ do {
 
 			$('#keywords').jQCloud(words, {});
 		}
-
+		*/
 		$('div.keyword-box').load('module/bookKeyword/bookKeyword.do');
 
 		$('#reloadKeyword').on('click', function(){
@@ -836,6 +837,14 @@ do {
 										</div>
 										<div class="cont">
 												<ul>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/132" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu15.png" alt="건축문화기행"></div>
+														<p class="book-title">대구 건축문화기행</p>
+														<p class="book-desc">천년대구를 거닐다</p>
+														<p class="reg-date">2023-02-01</p>
+													</a>
+												</li>
 												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/89" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu14.png" alt="9월은 독서의 달"></div>
@@ -2451,7 +2460,15 @@ do {
 
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
-					<ul>							
+					<ul>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/132" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu15.jpg" alt="건축문화기행"></div>
+								<h3 class="book-title">대구 건축문화기행</h3>
+								<p class="book-desc">천년대구를 거닐다</p>
+								<p class="reg-date">2023-02-01</p>
+							</a>
+						</li>							
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/89" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu14.png" alt="9월은 독서의 달"></div>

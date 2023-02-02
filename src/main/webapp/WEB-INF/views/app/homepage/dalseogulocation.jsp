@@ -24,7 +24,7 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
 
-<div class="map_wrap">
+<div class="map_wrap" style="height:auto;">
 	<div id="daegu_map" class="daegu_map">
 		<!-- 지도 확대, 축소 컨트롤 div 입니다
 		<div class="custom_zoomcontrol radius_border"> 
@@ -218,6 +218,42 @@
 				</div>
 			</div>
 		</li>
+		<!-- -->
+		<li>
+			<div class="info-box">
+				<div class="tit num16">
+					<p>점자도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 달서구 월배로 414 (송현동)</p>
+					<p class="tel">053-256-8877</p>
+				</div>
+			</div>
+		</li>
+		<!-- mg-->
+		<li class="mg">
+			<div class="info-box">
+				<div class="tit num17">
+					<p>새벗도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 달서구 월배로 170 (상인동)</p>
+					<p class="tel">053-631-9105</p>
+				</div>
+			</div>
+		</li>
+		<!-- -->
+		<li>
+			<div class="info-box">
+				<div class="tit num18">
+					<p>푸른초장공공도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 달서구 달구벌대로 973</p>
+					<p class="tel">053-582-3394</p>
+				</div>
+			</div>
+		</li>
 	</ul>
 </div>
 
@@ -254,6 +290,9 @@ jQuery(function($){
 	daegu_map_data.push({idx:'46',title:'행정정보문고센터', tel : '053-667-4815', point:{x:'35.8295250192427',y:'128.532293871771'}, address:'대구광역시 달서구 학산로 45 (월성동 281)',no:'13' });
 	daegu_map_data.push({idx:'45',title:'학산작은도서관', tel : '053-721-8970', point:{x:'35.8332859011084',y:'128.541804663116'}, address:'대구광역시 달서구 학산로 140(본동 804-2)',no:'14' });
 	daegu_map_data.push({idx:'44',title:'대구학생문화센터', tel : '053-231-1254', point:{x:'35.8530407',y:'128.5294985'}, address:'대구광역시 달서구 용산로 181 대구학생문화센터 2층',no:'15' });
+	daegu_map_data.push({idx:'43',title:'점자도서관', tel : '053-256-8877', point:{x:'35.831016',y:'128.552125'}, address:'대구광역시 달서구 월배로 414 (송현동)',no:'16' });
+	daegu_map_data.push({idx:'42',title:'새벗도서관', tel : '053-631-9105', point:{x:'35.8168531',y:'128.5326179'}, address:'대구광역시 달서구 월배로 170 (상인동)',no:'17' });
+	daegu_map_data.push({idx:'41',title:'푸른초장공공도서관', tel : '053-582-3394', point:{x:'35.8536579',y:'128.4738303'}, address:'대구광역시 달서구 달구벌대로 973',no:'18' });
 
 	daegu_map = new map_app();
 	

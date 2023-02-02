@@ -24,7 +24,7 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
 
-<div class="map_wrap">
+<div class="map_wrap" style="height:auto;">
 	<div id="daegu_map" class="daegu_map">
 		<!-- 지도 확대, 축소 컨트롤 div 입니다
 		<div class="custom_zoomcontrol radius_border"> 
@@ -194,6 +194,30 @@
 				</div>
 			</div>
 		</li>
+		<!-- -->
+		<li class="mg">
+			<div class="info-box">
+				<div class="tit num14">
+					<p>비전도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 달성군 화원읍 인흥길 11 (천내리)</p>
+					<p class="tel">053-639-2140</p>
+				</div>
+			</div>
+		</li>
+		<!-- -->
+		<li>
+			<div class="info-box">
+				<div class="tit num15">
+					<p>아트도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 달성군 가창면 우록길 131 (우록리) </p>
+					<p class="tel">053-952-5252</p>
+				</div>
+			</div>
+		</li>
 	</ul>
 </div>
 
@@ -228,6 +252,8 @@ jQuery(function($){
 	daegu_map_data.push({idx:'47',title:'구지면작은도서관', tel : '053-614-0985', point:{x:'35.6604041035004',y:'128.415118518014'}, address:'대구광역시 달성군 구지면 창리로11길 90 (구.구지면 농촌상담소)',no:'11' });
 	daegu_map_data.push({idx:'46',title:'달성군청소년센터 작은도서관', tel : '053-670-1323', point:{x:'35.7238932618227',y:'128.455082141863'}, address:'대구광역시 달성군 논공읍 논공로 252 (청소년센터3층)',no:'12' });
 	daegu_map_data.push({idx:'45',title:'달성군청도서관', tel : '053-668-3239', point:{x:'35.7746629175875',y:'128.43138936958'}, address:'대구광역시 달성군 논공읍 달성군청로 33 (달성군청)',no:'13' });
+	daegu_map_data.push({idx:'44',title:'비전도서관', tel : '053-639-2140', point:{x:'35.8060901',y:'128.5057505'}, address:'대구광역시 달성군 화원읍 인흥길 11 (천내리)',no:'14' });
+	daegu_map_data.push({idx:'43',title:'아트도서관', tel : '053-952-5252', point:{x:'35.7254625',y:'128.6551319'}, address:'대구광역시 달성군 가창면 우록길 131 (우록리)',no:'15' });
 
 	daegu_map = new map_app();
 	
