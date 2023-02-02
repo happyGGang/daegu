@@ -406,8 +406,12 @@ public class PictureBookController extends BaseController {
 	}
 	private StringBuilder getBetweenDateToLoan(List<PictureBook> reservation_date) {
 		StringBuilder betweenDate = new StringBuilder();
-		reservation_date.forEach(book -> LoanDateAppendtoString(betweenDate, book));
-		betweenDateFormatter(betweenDate);
+		if (reservation_date.size() > 0) {
+			reservation_date.forEach(book -> LoanDateAppendtoString(betweenDate, book));
+			betweenDateFormatter(betweenDate);
+		} else {
+			betweenDate.append("[]");
+		}
 		return betweenDate;
 	}
 
