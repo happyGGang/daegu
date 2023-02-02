@@ -55,4 +55,5 @@ public interface PictureBookDao {
 
 	public PictureBook dupLoanDate(PictureBook pictureBook);
 
+	List<PictureBook> getReservationDate(PictureBook pictureBook);
 }

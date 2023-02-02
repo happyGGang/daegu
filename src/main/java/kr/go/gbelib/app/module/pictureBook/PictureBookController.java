@@ -2,6 +2,8 @@ package kr.go.gbelib.app.module.pictureBook;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -130,9 +132,10 @@ public class PictureBookController extends BaseController {
 			checkAuth("C", model, request);
 			model.addAttribute("pictureBook", pictureBook);
 		}
-		
+
 		int count = service.getDupLoanCount(pictureBook);
-		
+		StringBuilder disableBetweenDates = getDisableBetweenDates(pictureBook);
+		model.addAttribute("disableBetweenDates", disableBetweenDates);
 		if(count > 0) {
 			pictureBook.setDupLoanCount("예약");
 		} else {
@@ -141,7 +144,8 @@ public class PictureBookController extends BaseController {
 		
 		return String.format(basePath, homepage.getFolder()) + "loanEdit";
 	}
-	
+
+
 	@RequestMapping (value = {"/loanSave.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse loanSave(PictureBook pictureBook, BindingResult result, HttpServletRequest request) {
 		/* 유효성 검증 >>>>> */
@@ -394,6 +398,42 @@ public class PictureBookController extends BaseController {
 		res.setValid(true);
 		
 		return res;
+	}
+
+	private StringBuilder getDisableBetweenDates(PictureBook pictureBook) {
+		List<PictureBook> reservation_date = service.getReservationDate(pictureBook);
+		return getBetweenDateToLoan(reservation_date);
+	}
+	private StringBuilder getBetweenDateToLoan(List<PictureBook> reservation_date) {
+		StringBuilder betweenDate = new StringBuilder();
+		reservation_date.forEach(book -> LoanDateAppendtoString(betweenDate, book));
+		betweenDateFormatter(betweenDate);
+		return betweenDate;
+	}
+
+	private void betweenDateFormatter(StringBuilder betweenDate) {
+		betweenDate.deleteCharAt(betweenDate.length()-1);
+		betweenDate.insert(0, "[");
+		betweenDate.append("]");
+	}
+
+	private void LoanDateAppendtoString(StringBuilder betweenDate, PictureBook book) {
+		LocalDate startDate = getLoanDate(book,"start");
+		LocalDate endDate = getLoanDate(book,"end");
+
+		while (!startDate.isAfter(endDate.plusDays(5))) {
+			betweenDate.append("\"").append(startDate).append("\"").append(",");
+			startDate = startDate.plusDays(1);
+		}
+	}
+
+	private LocalDate getLoanDate(PictureBook book, String type) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		if (type.equals("start")) {
+			return LocalDate.parse(book.getLoan_start_date(), formatter);
+		} else {
+			return LocalDate.parse(book.getLoan_end_date(), formatter);
+		}
 	}
 
 }

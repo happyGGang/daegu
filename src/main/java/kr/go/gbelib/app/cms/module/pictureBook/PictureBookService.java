@@ -230,4 +230,7 @@ public class PictureBookService extends BaseService {
 		return dao.dupLoanDate(pictureBook);
 	}
 
+	public List<PictureBook> getReservationDate(PictureBook pictureBook) {
+		return dao.getReservationDate(pictureBook);
+	}
 }

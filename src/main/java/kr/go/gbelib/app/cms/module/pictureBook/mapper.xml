@@ -401,5 +401,23 @@
 		AND TO_CHAR(b.loan_end_date,'yyyy-MM-dd') >= #{loan_start_date}
 		AND a.picture_book_idx = #{picture_book_idx}
 	</select>
+
+	<select id="getReservationDate" parameterType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook" resultType="kr.go.gbelib.app.cms.module.pictureBook.PictureBook">
+		SELECT
+			a.picture_book_idx, b.picture_book_loan_idx, a.picture_book_subject, school_name,
+			phone, school_tel, request_content, request_status, b.add_id, b.add_date,
+			TO_CHAR(LOAN_START_DATE,'YYYY-MM-DD') as LOAN_START_DATE, TO_CHAR(loan_end_date,'YYYY-MM-DD') as LOAN_END_DATE,
+			TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month, pay_yn,
+			(substr(request_name,1,1) || lpad('*',length(request_name)-2,'*') || substr(request_name, length(request_name), 1)) AS request_name
+		FROM
+			PICTURE_BOOK a, PICTURE_BOOK_LOAN b
+		WHERE
+		a.picture_book_idx = b.picture_book_idx
+		AND	pay_yn = 'N'
+		and TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(LOAN_END_DATE, 'YYYYMMDD')
+		and TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(LOAN_START_DATE, 'YYYYMMDD')
+		AND a.picture_book_idx = #{picture_book_idx}
+		ORDER BY b.add_date DESC
+	</select>
 	
 </mapper>
