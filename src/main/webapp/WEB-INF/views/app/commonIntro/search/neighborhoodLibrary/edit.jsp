@@ -12,7 +12,7 @@ $(function() {
 	<%-- 내집앞도서관 대출 신청 --%>	
 	$('a#neighborhoodLibrary-save').on('click',function(e){
 		e.preventDefault();
-		if (!confirm('내집앞도서관대출을 예약 하시겠습니까?')) {
+		if (!confirm('1.내집앞 도서관 신청시 부록자료, 딸림자료는 함께 대출되지 않습니다. 이점 양해부탁드립니다.\n\r2.예약 도서 수령을 위해서는 반드시 알림톡을 받이야 합니다. 대구통합도서관 알림톡을 "알림톡 차단"상태로 해두신 회원은 반드시 "알림톡 받기" 상태로 전환부탁드립니다. \n\r 내집앞도서관대출을 예약 하시겠습니까?')) {
 			return false;
 		}
 		if ($('select#device_idx').val() == '') {
@@ -31,6 +31,11 @@ $(function() {
 		e.preventDefault();
 		history.back();
 	});
+
+	<c:if test="${neighborhoodLibrary.manage_code eq 'AH'}">
+	$('select#device_idx option[value="3"]').remove();
+	$('select#device_idx option[value="1"]').remove();
+	</c:if>
 });
 </script>
 <form:form id="neighborhoodLibrary" modelAttribute="neighborhoodLibrary" action="../neighborhoodLibrary/save.do" method="post">
@@ -58,7 +63,7 @@ $(function() {
 	<form:hidden path="title_info"/>
 	<form:hidden path="page"/>
 	<form:hidden path="book_size"/>
-	
+
 	<div class="delibery_info">
         <div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 선택값 입니다.</div>
         <table class="editTbl">
@@ -77,10 +82,10 @@ $(function() {
                 <th>(<span style="color:red;font-weight:bold;">*</span>)수령장소(장비)</th>
                 <td>
                     <form:select path="device_idx">
-                    			<option value="" label="- 수령장소를 선택 하세요 -"/>
-							<c:forEach var="i" items="${deviceList }">
-								<form:option value="${i.device_idx }" label="${i.device_name }"/>
-							</c:forEach>						
+						<option value="" label="- 수령장소를 선택 하세요 -"/>
+						<c:forEach var="i" items="${deviceList }">
+							<form:option value="${i.device_idx }" label="${i.device_name }"/>
+						</c:forEach>						
 					</form:select>
                 </td>
             </tr>

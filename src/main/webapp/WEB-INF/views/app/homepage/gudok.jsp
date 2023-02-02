@@ -91,11 +91,11 @@
 <ul class="con kyobo_img">
 	<li style="margin-top:0;">
 		대구전자도서관 홈페이지 접속 후 대구통합도서관 아이디로 로그인<br />※ 회원가입, 로그인에 대한 문의는 공공도서관 담당자에게 문의<br />
-		<img src="/data/menuResources/h30/93/1646958946090.png">
+		<img src="/data/menuResources/h30/101/1675244094592.jpg">
 	</li>
 	<li>
 		구독형 전자책 아이콘 선택 후 구독형 전자책 바로가기를 클릭<br />
-		<img src="/data/menuResources/h30/93/1646958960944.png">
+		<img src="/data/menuResources/h30/101/1675244099320.jpg">
 	</li>
 </ul>
 <ul class="con kyobo_img2">
