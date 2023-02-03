@@ -119,8 +119,8 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 						<li class="lib01"><div><a href="#" class="libType" data-key="23"><span style='line-height:110%;'>공립공공<br />도서관</span><b>${empty categoryCount['23'] ? '0' : categoryCount['23']}</b></a></div></li>
 						<li class="lib07"><div><a href="#" class="libType" data-key="30"><span style='line-height:110%;'>사립공공<br/>도서관</span><b>${empty categoryCount['30'] ? '0' : categoryCount['30']}</b></a></div></li>
 						<li class="lib02"><div><a href="#" class="libType" data-key="24"><span>전문도서관</span><b>${empty categoryCount['24'] ? '0' : categoryCount['24']}</b></a></div></li>
-						<li class="lib03"><div><a href="#" class="libType" data-key="25"><span>대학도서관</span><b>${empty categoryCount['25'] ? '0' : categoryCount['25']}</b></a></div></li>
 						<li class="lib04"><div><a href="#" class="libType" data-key="26"><span>작은도서관</span><b>${empty categoryCount['26'] ? '0' : categoryCount['26']}</b></a></div></li>
+						<li class="lib03"><div><a href="#" class="libType" data-key="25"><span>대학도서관</span><b>${empty categoryCount['25'] ? '0' : categoryCount['25']}</b></a></div></li>
 						<li class="lib05"><div><a href="#" class="libType" data-key="29"><span>학교도서관</span><b>${empty categoryCount['29'] ? '0' : categoryCount['29']}</b></a></div></li>
 						<li class="lib06"><div><a href="#" class="libType" data-key="28"><span>기타</span><b>${empty categoryCount['28'] ? '0' : categoryCount['28']}</b></a></div></li>
 					</ul>

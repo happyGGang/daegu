@@ -266,7 +266,7 @@ $.ajax({
 					<ul class="tabMenuT">
 						<li class="on"><a href="#tab1">소장자료</a></li>
 						<li><a href="#tab2">부커스 구독자료</a></li>
-						<li><a href="#tab3">교보문고 구독자료</a></li>
+						<!-- <li><a href="#tab3">교보문고 구독자료</a></li> -->
 					</ul>
 				</div>
 				<form id="mainSearchForm" class="mainSearchForm01" action="/${homepage.context_path}/module/elib/search/index.do">
@@ -301,20 +301,6 @@ $.ajax({
 					</fieldset>
 				</form>
 
-				<form id="mainSearchForm03" class="mainSearchForm03" action="https://daegu.dkyobobook.co.kr/search/searchList.ink" method="get" target="_blank" style="display:none">
-					<input type="hidden" name="schClst" value="all">
-					<input type="hidden" name="schDvsn" value="000">
-					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-					<fieldset>
-						<legend class="blind">통합검색</legend>
-						<div class="main-box">
-							<div class="box1">
-								<input type="text" class="text" name="schTxt" id="schTxt" placeholder="교보문고 구독형 전자자료를 검색할 수 있습니다."/>
-							</div>
-							<button id="main-kyobo-search-btn">검색</button>
-						</div>
-					</fieldset>
-				</form>
 			</div>
 		</div>
 

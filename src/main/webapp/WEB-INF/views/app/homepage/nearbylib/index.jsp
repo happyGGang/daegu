@@ -18,7 +18,7 @@ $(function() {
 	
 	$('a#movie-slider').click(function (e) {
 		e.preventDefault();
-		$('.movie-box').css('top','5%');
+		$('.movie-box').css('top','2%');
 		$('#movie-close-slider').css('display','block');
 		//$('.dimmed').css('display','block');
 		$('#ProgramLink-container').css('display','none');
@@ -268,6 +268,21 @@ $(function() {
 					<img src="/resources/homepage/${homepage.context_path}/img/bal03.png" alt="">
 				</a>
 			</span>
+			<script>
+				$(function(){
+					$('div.tab_menu.on > ul > li > a').on('click',function(e){
+						e.preventDefault();
+						if(!($(this).parent().hasClass('active'))){
+							$(this).parents('ul').children().removeClass('active');
+							$(this).parent().addClass('active');
+							$('.video_box').pause();
+							var activeTab = $(this).attr('href');
+							$('.tabConts').hide();
+							$(activeTab).show();
+						}
+					});
+				});
+			</script>
 			<div class="movie-box">
 				<div class="movie-slider">
 					<a href="#" id="movie-slider">
@@ -279,9 +294,40 @@ $(function() {
 					</a>
 					<div class="video-box">
 						<div class="container">
-							<div class="outer">
-								<div class="inner">	
-									<video id="video-box" src="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" controls muted loop playinline></video>
+							<div class="tab_menu main on" style="margin-top:20px;">
+								<ul class="no4">
+								  <li class="active"><a href="#tabCon1">연경지구 CGV</a></li>
+								  <li><a href="#tabCon2">이시아폴리스 메가박스</a></li>
+								  <li><a href="#tabCon3">반야월 이마트</a></li>
+								  <li><a href="#tabCon4">내 집 앞 도서관 홍보영상</a></li>
+								</ul>
+							</div>
+							<div class="tabConts" id="tabCon1" style="display:block">
+								<div class="outer">
+									<div class="inner">	
+										<video id="video-box_1" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" controls muted loop playinline></video>
+									</div>
+								</div>
+							</div>
+							<div class="tabConts" id="tabCon2">
+								<div class="outer">
+									<div class="inner">	
+										<video id="video-box_2" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" controls muted loop playinline></video>
+									</div>
+								</div>
+							</div>
+							<div class="tabConts" id="tabCon3">
+								<div class="outer">
+									<div class="inner">	
+										<video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video>
+									</div>
+								</div>
+							</div>
+							<div class="tabConts" id="tabCon4">
+								<div class="outer">
+									<div class="inner">	
+										<video id="video-box_4" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" controls muted loop playinline></video>
+									</div>
 								</div>
 							</div>
 						</div>	

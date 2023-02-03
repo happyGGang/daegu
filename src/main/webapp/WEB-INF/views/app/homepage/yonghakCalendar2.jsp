@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2022.12.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.1.31.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -89,59 +89,59 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>어린이</th>
-    <td>247</td>
-    <td>138</td>
-    <td>84</td>
-    <td>416</td>
-    <td>1,140</td>
-    <td>429</td>
-    <td>135</td>
-    <td>175</td>
-    <td>2,220</td>
-    <td>770</td>
-    <td>5,754</td>
+    <td valign="middle"><p><span lang="EN-US">247</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">138</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">84</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">416</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">1,140</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">429</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">135</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">175</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">2,229</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">772</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">5,765</span></p></td>
     </tr>
     <tr>
       <th>유아</th>
-    <td>60</td>
-    <td>116</td>
-    <td>86</td>
-    <td>444</td>
-    <td>437</td>
-    <td>87</td>
-    <td>90</td>
-    <td>72</td>
-    <td>2,231</td>
-    <td>82</td>
-    <td>3,705</td>
+    <td valign="middle"><p><span lang="EN-US">60</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">116</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">86</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">444</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">437</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">87</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">90</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">72</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">2,245</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">82</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">3,719</span></p></td>
     </tr>
     <tr>
       <th>일반</th>
-    <td>258</td>
-    <td>434</td>
-    <td>162</td>
-    <td>1,013</td>
-    <td>579</td>
-    <td>880</td>
-    <td>297</td>
-    <td>152</td>
-    <td>2,236</td>
-    <td>449</td>
-    <td>6,460</td>
+    <td valign="middle"><p><span lang="EN-US">258</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">434</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">162</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">1,018</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">579</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">881</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">299</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">152</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">2,241</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">454</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">6,478</span></p></td>
     </tr>
     <tr>
       <th>합계</th>
-    <td>565</td>
-    <td>688</td>
-    <td>332</td>
-    <td>1,873</td>
-    <td>2,156</td>
-    <td>1,396</td>
-    <td>522</td>
-    <td>399</td>
-    <td>6,687</td>
-    <td>1,301</td>
-    <td>15,919</td>
+    <td valign="middle"><p><span lang="EN-US">565</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">688</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">332</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">1,878</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">2,156</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">1,397</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">524</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">399</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">6,715</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">1,308</span></p></td>
+    <td valign="middle"><p><span lang="EN-US">15,962</span></p></td>
     </tr>
     </tbody>
     </table>
@@ -155,23 +155,19 @@ $('ul.close_day').html(li);
     </caption>
     <colgroup>
     <col width="*">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
+    <col width="16.6%">
+    <col width="16.6%">
+    <col width="16.6%">
+    <col width="16.6%">
+    <col width="16.6%">
     </colgroup>
     <thead>
     <tr>
       <th>구분</th>
       <th>신문</th>
       <th>주간지</th>
-      <th>격주간지</th>
-      <th>월간지</th>
-      <th>격월간지</th>
       <th>계간지</th>
+      <th>월간지</th>
       <th>총 계</th>
     </tr>
     </thead>
@@ -179,11 +175,9 @@ $('ul.close_day').html(li);
     <tr>
       <th>무학숲도서관</th>
       <td>5</td>
-      <td>1</td>
+      <td>2</td>
       <td>1</td>
       <td>13</td>
-      <td>0</td>
-      <td>1</td>
       <td>21</td>
     </tr>
     </tbody>
