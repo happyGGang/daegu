@@ -413,7 +413,6 @@
 			PICTURE_BOOK a, PICTURE_BOOK_LOAN b
 		WHERE
 		a.picture_book_idx = b.picture_book_idx
-		AND	pay_yn = 'N'
 		and TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(LOAN_END_DATE, 'YYYYMMDD')
 		and TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(LOAN_START_DATE, 'YYYYMMDD')
 		AND a.picture_book_idx = #{picture_book_idx}
