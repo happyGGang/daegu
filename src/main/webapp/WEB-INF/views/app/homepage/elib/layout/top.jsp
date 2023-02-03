@@ -29,7 +29,7 @@ $(function() {
 							$('input#Keyword').focus();
 							return false;
 						} else {
-							$('#mainSearchForm03').submit();
+							$('#mainSearchForm02').submit();
 						}
 					</c:otherwise>
 				</c:choose>
