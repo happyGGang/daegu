@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -233,8 +234,8 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("shelfCodeList", shelfInfoList);
 		} else {
 			Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-			List<Map<String, Object>> shelfInfoList = LibSearchAPI.getListData(shelfInfo);
-			
+			List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
+
 			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
 				List<String> shelfCodes = new ArrayList<String>();
 				List<Map<String, Object>> libraryCodes = LibSearchAPI.getListData(shelfInfo);
@@ -304,6 +305,14 @@ public class CommonSearchController extends BaseController {
 		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "index";
+	}
+
+	private List<Map<String, Object>> getShelfInfoList(Map<String, Object> shelfInfo) {
+		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getShelfInfoList(shelfInfo);
+		String[] noUseShelfCodes = {"BW06", "BW08", "BW11", "BW12", "BW16", "BW18", "BW19", "BW20", "BW21", "BW22", "BW23", "BW24", "BW25", "BW26"};
+		shelfInfoList.removeIf(map -> Arrays.asList(noUseShelfCodes)
+											.contains(map.get("CODE")));
+		return shelfInfoList;
 	}
 
 	@RequestMapping(value = {"/indexAll.*"})

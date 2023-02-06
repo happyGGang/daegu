@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
@@ -2134,6 +2136,18 @@ public class LibSearchAPI {
 		}
 
 		return list;
+	}
+
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getShelfInfoList(Map<String, Object> map) {
+		return Optional.ofNullable(map)
+					   .filter(m -> !m.isEmpty() && m.get("RESULT_MESSAGE") == null)
+					   .map(m -> (List<Map<String, Object>>) m.get("LIST_DATA"))
+					   .map(list -> list.stream()
+										.filter(entry -> !entry.containsKey("SEARCH_COUNT") || (int) entry.get("SEARCH_COUNT") != 0)
+										.collect(Collectors.toList()))
+					   .orElse(null);
+
 	}
 
 	/********************************************************************************************************************/
