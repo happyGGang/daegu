@@ -376,17 +376,20 @@ public class CommonSearchController extends BaseController {
 	@RequestMapping(value = {"/index_All.*"})
 	public String index_All(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
-
-		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
 		if ( librarySearch.getLibraryCodes() == null ) {
 			List<String> libraryCodes = new ArrayList<String>();
 			libraryCodes.add("ALL");
-			for (Homepage home : normalHomepage) {
-				if (StringUtils.isNotEmpty(home.getManage_code())) {
-					libraryCodes.add(home.getManage_code());
-				}
-			}
+			libraryCodes.add("NA");
+			libraryCodes.add("NB");
+			libraryCodes.add("NC");
+			libraryCodes.add("ND");
+			libraryCodes.add("NE");
+			libraryCodes.add("NF");
+			libraryCodes.add("NG");
+			libraryCodes.add("NH");
+			libraryCodes.add("NJ");
+			libraryCodes.add("NK");
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 
@@ -431,7 +434,6 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("facetGroup", PrivateLibSearchAPI.getFacetGroup(result));
 		}
 
-		model.addAttribute("homepageList", normalHomepage);
 		model.addAttribute("librarySearch", librarySearch);
 
 		return String.format(basePath, homepage.getFolder()) + "index_All";
