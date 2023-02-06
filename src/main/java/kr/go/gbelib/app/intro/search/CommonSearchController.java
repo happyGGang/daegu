@@ -372,6 +372,70 @@ public class CommonSearchController extends BaseController {
 
 		return String.format(basePath, homepage.getFolder()) + "indexAll";
 	}
+	
+	@RequestMapping(value = {"/index_All.*"})
+	public String index_All(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
+		// 소장처 코드
+		if ( librarySearch.getLibraryCodes() == null ) {
+			List<String> libraryCodes = new ArrayList<String>();
+			libraryCodes.add("ALL");
+			for (Homepage home : normalHomepage) {
+				if (StringUtils.isNotEmpty(home.getManage_code())) {
+					libraryCodes.add(home.getManage_code());
+				}
+			}
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+
+		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+			Map<String, Object> result = new HashMap<String, Object>();
+			
+			if ( librarySearch.getBooktype().equals("BOOK") ) {
+				result = PrivateLibSearchAPI.getBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+				result = PrivateLibSearchAPI.getNonBookDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("SERIAL")) {
+				result = PrivateLibSearchAPI.getSerialDetail(librarySearch);
+			} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+				result = PrivateLibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			}
+
+			List<Map<String, Object>> list = null;
+
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+
+			librarySearch.setTotalDataCount(count);
+			service.setPaging(model, count, librarySearch);
+
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = PrivateLibSearchAPI.getListData(result);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				for (Map<String, Object> map : list) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
+						}
+					}
+				}
+			}
+
+			model.addAttribute("bookSearch", list);
+			model.addAttribute("facetGroup", PrivateLibSearchAPI.getFacetGroup(result));
+		}
+
+		model.addAttribute("homepageList", normalHomepage);
+		model.addAttribute("librarySearch", librarySearch);
+
+		return String.format(basePath, homepage.getFolder()) + "index_All";
+	}
 
 	/**
 	 * 자료 상세페이지

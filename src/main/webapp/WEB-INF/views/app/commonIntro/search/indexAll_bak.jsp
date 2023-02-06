@@ -378,19 +378,6 @@
 <div id="contents-title"></div>
 <!-- /contents-title-->
 
-<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'dohyoji'}">
-<div class="tab_menu">
-	<ul class="list">
-		<li class="active">
-		  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구군립 자료검색</a>
-		</li>
-		<li>
-		  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립·공공 자료검색</a>
-		</li>
-	</ul>
-</div>
-</c:if>
-
 <form:form modelAttribute="librarySearch" action="indexAll.do" method="get">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
