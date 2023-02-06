@@ -462,7 +462,7 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(librarySearch.getPrivateLibraryYn(homepage)) {
+		if(librarySearch.getPrivateLibraryYn(homepage) || "Y".equals(librarySearch.getPrivateYn())) {
 			result = PrivateLibSearchAPI.getBookInfo(librarySearch);
 
 			model.addAttribute("librarySearch", librarySearch);
@@ -1216,7 +1216,10 @@ public class CommonSearchController extends BaseController {
 								if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 									map.put("aladin", aladinData.get("item"));
 								}
-								if (map.get("aladin") == null) {
+								if (map.get("aladin") == null && "h84".equals(homepage.getHomepage_id())) {
+									map.put("imageUrl", "/resources/homepage/libculture/img/book_noimg2.png");
+								}
+								if (map.get("aladin") == null && !"h84".equals(homepage.getHomepage_id())) {
 									map.put("imageUrl", service.getImageUrl(map));
 								}
 							}
