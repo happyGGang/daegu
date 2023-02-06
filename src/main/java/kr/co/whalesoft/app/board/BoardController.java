@@ -380,7 +380,8 @@ public class BoardController extends BaseController {
 
 		//겔러리게시판, 갤러리슬라이더 게시판
 		if (boardManage.getBoard_type().equals("GALLERY") || boardManage.getBoard_type().equals("GALLERYSLIDER") || 
-			boardManage.getBoard_type().equals("LACHIVIUM01") || boardManage.getBoard_type().equals("LACHIVIUM02")) {
+			boardManage.getBoard_type().equals("LACHIVIUM01") || boardManage.getBoard_type().equals("LACHIVIUM02")
+			|| boardManage.getBoard_type().equals("CURATIONGALLERY")) {
 			service.setPagingGallery(model, service.getBoardCount(boardManage, board), board);
 		}else if (boardManage.getBoard_type().equals("LIB_INFO")) {
 			service.setPaging(model, service.getBoardCount(boardManage, board), board);
@@ -1324,7 +1325,7 @@ public class BoardController extends BaseController {
 				if ( StringUtils.isEmpty(board.getNotice_yn()) ) {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
 				}
-				if(boardManage.getBoard_type().equals("GALLERY")){
+				if(boardManage.getBoard_type().equals("GALLERY") || boardManage.getBoard_type().equals("CURATIONGALLERY")){
 					if (StringUtils.isEmpty(board.getImsi_v_1())) {
 						board.setImsi_v_1("N");
 					}

@@ -2498,6 +2498,9 @@
 						 delete_yn = 'N'
 						 AND
 						 manage_idx in (426, 849, 850, 916, 977, 993, 1002, 1034)
+						 AND imsi_v_4 IS NOT NULL
+						 AND imsi_v_5 IS NOT NULL
+						 AND SYSDATE BETWEEN TO_DATE(imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(imsi_v_5, 'yyyy-MM-dd')
 						<if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
 							AND
 							<choose>
@@ -2554,6 +2557,9 @@
 						 delete_yn = 'N'
 						 AND
 						 manage_idx in (426, 849, 850, 916, 977, 993, 1002, 1034)
+						 AND imsi_v_4 IS NOT NULL
+						 AND imsi_v_5 IS NOT NULL
+						 AND SYSDATE BETWEEN TO_DATE(imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(imsi_v_5, 'yyyy-MM-dd')
 						<if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
 							AND
 							<choose>

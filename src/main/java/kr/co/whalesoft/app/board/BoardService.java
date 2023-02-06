@@ -552,7 +552,7 @@ public class BoardService extends BaseService {
 
 								boardFile.setBoard_idx(board.getBoard_idx());
 								boardFileDao.addBoardFile(boardFile);
-								if (board.getBoard_mode().equals("GALLERY")) {
+								if (board.getBoard_mode().equals("GALLERY") || board.getBoard_mode().equals("CURATIONGALLERY")) {
 									dao.updatePreviewImg(boardFile.getBoard_idx(), boardFile.getServer_file_name());
 								}
 							} else {
