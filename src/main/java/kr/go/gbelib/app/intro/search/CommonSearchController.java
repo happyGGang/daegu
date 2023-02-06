@@ -1207,7 +1207,10 @@ public class CommonSearchController extends BaseController {
 								if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 									map.put("aladin", aladinData.get("item"));
 								}
-								if (map.get("aladin") == null) {
+								if (map.get("aladin") == null && "h84".equals(homepage.getHomepage_id())) {
+									map.put("imageUrl", "/resources/homepage/libculture/img/book_noimg2.png");
+								}
+								if (map.get("aladin") == null && !"h84".equals(homepage.getHomepage_id())) {
 									map.put("imageUrl", service.getImageUrl(map));
 								}
 							}
