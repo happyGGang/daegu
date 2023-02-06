@@ -2474,13 +2474,13 @@
 		FROM (
 					 SELECT
 						 (SELECT HOMEPAGE_ID FROM CMS_BOARD_MANAGE BM WHERE BM.manage_idx = a.manage_idx) as homepage_id,
-						 manage_idx, board_idx, group_idx, view_count, notice_yn,
-						 title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
-						 imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
-						 imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
-						 imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
-						 imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
-						 category1, category2, category3, category4, category5, request_state,
+						 A.manage_idx, A.board_idx, A.group_idx, A.view_count, A.notice_yn,
+						 A.title, A.add_id, A.add_date, A.preview_img, REGEXP_REPLACE(A.content_summary,'&lt;[^>]*>','') as content_summary,
+						 A.imsi_v_1, A.imsi_v_2, A.imsi_v_3, A.imsi_v_4, A.imsi_v_5,
+						 A.imsi_v_6, A.imsi_v_7, A.imsi_v_8, A.imsi_v_9, A.imsi_v_10,
+						 A.imsi_v_11, A.imsi_v_12, A.imsi_v_13, A.imsi_v_14, A.imsi_v_15,
+						 A.imsi_v_16, A.imsi_v_17, A.imsi_v_18, A.imsi_v_19, A.imsi_v_20,
+						 A.category1, A.category2, A.category3, A.category4, A.category5, A.request_state,
 						 (
 							 SELECT
 								 MAX(H.menu_idx)
@@ -2493,14 +2493,14 @@
 								 AND H.menu_type = 'BOARD'
 						 ) AS imsi_n_2
 					 FROM
-						 CMS_BOARD A
+						 CMS_BOARD A, CMS_BOARD_MANAGE B
 					 WHERE
 						 delete_yn = 'N'
-						 AND
-						 manage_idx in (426, 849, 850, 916, 977, 993, 1002, 1034)
-						 AND imsi_v_4 IS NOT NULL
-						 AND imsi_v_5 IS NOT NULL
-						 AND SYSDATE BETWEEN TO_DATE(imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(imsi_v_5, 'yyyy-MM-dd')
+						 AND A.manage_idx = B.manage_idx
+						 AND B.board_type = 'CURATIONGALLERY'
+						 AND A.imsi_v_4 IS NOT NULL
+						 AND A.imsi_v_5 IS NOT NULL
+						 AND SYSDATE BETWEEN TO_DATE(A.imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(A.imsi_v_5, 'yyyy-MM-dd')
 						<if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
 							AND
 							<choose>
@@ -2533,13 +2533,13 @@
 		FROM (
 					 SELECT
 						 (SELECT HOMEPAGE_ID FROM CMS_BOARD_MANAGE BM WHERE BM.manage_idx = a.manage_idx) as homepage_id,
-						 manage_idx, board_idx, group_idx, view_count, notice_yn,
-						 title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
-						 imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
-						 imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
-						 imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
-						 imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
-						 category1, category2, category3, category4, category5, request_state,
+						 A.manage_idx, A.board_idx, A.group_idx, A.view_count, A.notice_yn,
+						 A.title, A.add_id, A.add_date, A.preview_img, REGEXP_REPLACE(A.content_summary,'&lt;[^>]*>','') as content_summary,
+						 A.imsi_v_1, A.imsi_v_2, A.imsi_v_3, A.imsi_v_4, A.imsi_v_5,
+						 A.imsi_v_6, A.imsi_v_7, A.imsi_v_8, A.imsi_v_9, A.imsi_v_10,
+						 A.imsi_v_11, A.imsi_v_12, A.imsi_v_13, A.imsi_v_14, A.imsi_v_15,
+						 A.imsi_v_16, A.imsi_v_17, A.imsi_v_18, A.imsi_v_19, A.imsi_v_20,
+						 A.category1, A.category2, A.category3, A.category4, A.category5, A.request_state,
 						 (
 							 SELECT
 								 MAX(H.menu_idx)
@@ -2552,14 +2552,14 @@
 								 AND H.menu_type = 'BOARD'
 						 ) AS imsi_n_2
 					 FROM
-						 CMS_BOARD A
+						 CMS_BOARD A, CMS_BOARD_MANAGE B
 					 WHERE
 						 delete_yn = 'N'
-						 AND
-						 manage_idx in (426, 849, 850, 916, 977, 993, 1002, 1034)
-						 AND imsi_v_4 IS NOT NULL
-						 AND imsi_v_5 IS NOT NULL
-						 AND SYSDATE BETWEEN TO_DATE(imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(imsi_v_5, 'yyyy-MM-dd')
+						 AND A.manage_idx = B.manage_idx
+						 AND B.board_type = 'CURATIONGALLERY'
+						 AND A.imsi_v_4 IS NOT NULL
+						 AND A.imsi_v_5 IS NOT NULL
+						 AND SYSDATE BETWEEN TO_DATE(A.imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(A.imsi_v_5, 'yyyy-MM-dd')
 						<if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
 							AND
 							<choose>
@@ -2577,7 +2577,7 @@
 								</otherwise>
 							</choose>
 						</if>
-					 ORDER BY ADD_DATE DESC
+					 ORDER BY A.ADD_DATE DESC
 				 ) A
 		WHERE homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88') -- 사립도서관 제외
 		<if test="search_homepage != null and search_homepage != ''">
