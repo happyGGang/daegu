@@ -88,7 +88,16 @@ $(function() {
 			 </tr>
 			 <tr>
 				<th>이용안내</th>
-				<td class="left"><a href="/bukgs/html.do?menu_idx=136" class="btn btn2" target="_blank"><span>무인예약대출서비스 이용방법</span></a></td>
+				<td class="left">
+					<c:choose>
+						<c:when test="${homepage.context_path eq 'suseong'}">
+							<a href="/suseong/html.do?menu_idx=187" class="btn btn2" target="_blank"><span>무인예약대출서비스 이용방법</span></a>
+						</c:when>
+						<c:otherwise>
+							<a href="/bukgs/html.do?menu_idx=136" class="btn btn2" target="_blank"><span>무인예약대출서비스 이용방법</span></a>
+						</c:otherwise>
+					</c:choose>
+				</td>
 			 </tr>
 		</tbody>
 	</table>
