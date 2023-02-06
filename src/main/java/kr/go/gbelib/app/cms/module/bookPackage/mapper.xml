@@ -197,7 +197,7 @@
 			a.quantity, a.loan_count,
 			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
 			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
-			b.add_id, b.add_date, a.category
+			b.add_id, b.add_date, a.category, b.loan_place
 		FROM
 			BOOK_PACKAGE a, BOOK_PACKAGE_LOAN b
 		WHERE
@@ -262,7 +262,7 @@
 			b.book_package_idx, b.book_package_loan_idx, a.book_package_subject, b.request_name, b.school_name, a.quantity,
 			TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
 			b.phone, b.school_tel, b.request_content, b.request_status, b.return_yn,
-			b.add_id, b.add_date
+			b.add_id, b.add_date, b.loan_place
 		FROM
 			BOOK_PACKAGE a, BOOK_PACKAGE_LOAN b
 		WHERE
@@ -279,13 +279,13 @@
 		(
 			book_package_idx, book_package_loan_idx, request_name, school_name,
 			loan_start_date, loan_end_date, phone, school_tel, request_content,
-			request_status, return_yn, add_id, add_date
+			request_status, return_yn, add_id, add_date, loan_place
 		)
 		VALUES
 		(
 			#{book_package_idx}, #{book_package_loan_idx}, #{request_name}, #{school_name},
 			#{loan_start_date}, #{loan_end_date}, #{phone}, #{school_tel}, #{request_content},
-			#{request_status}, 'N', #{add_id}, SYSDATE
+			#{request_status}, 'N', #{add_id}, SYSDATE, #{loan_place}
 		)
 	</insert>
 

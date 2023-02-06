@@ -67,6 +67,8 @@ public class BookPackage extends PagingUtils {
 	private String modify_id; // 수정ID
 	private Date modify_date; // 수정일시
 
+	private String loan_place; // 대출장소
+
 	public int getBook_package_idx() {
 		return book_package_idx;
 	}
@@ -473,6 +475,14 @@ public class BookPackage extends PagingUtils {
 
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
+	}
+
+	public String getLoan_place() {
+		return loan_place;
+	}
+
+	public void setLoan_place(String loan_place) {
+		this.loan_place = loan_place;
 	}
 
 	@Override

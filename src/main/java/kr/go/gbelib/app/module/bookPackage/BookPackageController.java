@@ -305,6 +305,7 @@ public class BookPackageController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "request_name", "이름을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "phone_2", "휴대폰을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
+
     		ValidationUtils.rejectIfEmpty(result, "school_tel_2", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_3", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "request_content", "신청사유를 입력하세요.");

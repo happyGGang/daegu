@@ -47,6 +47,10 @@ $(function() {
 			<tr>
 				<th>학교연락처</th>
 				<td>${bookPackage.school_tel}</td>
+			<tr>
+				<th>수령(대출) 및 수거(반납)장소</th>
+				<td>${bookPackage.loan_place}</td>
+			</tr>
 			</tr>
 			<tr>
 				<th>신청사유</th>

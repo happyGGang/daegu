@@ -201,7 +201,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<col width="6%" />
 			</c:if>
 			<col width="6%" />
-			<col />
+			<col width="30%"/>
 			<col width="12%" />
 			<col width="16%" />
 			<col width="12%"/>
@@ -222,6 +222,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 				<th>신청일자</th>
 				<th>상태</th>
 				<th>권수</th>
+				<th>수령 및 반납장소</th>
 				<th>반납요청</th>
 				<th>취소</th>
 			</tr>
@@ -264,6 +265,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 						</c:choose>
 					</td>
 					<td>${i.loan_count}권</td>
+					<td>${i.loan_place}</td>
 					<td>
 						<c:if test="${i.request_status eq '2'}">
 						<c:choose>
