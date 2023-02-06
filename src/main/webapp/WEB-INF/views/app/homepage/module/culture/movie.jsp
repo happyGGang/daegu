@@ -125,7 +125,7 @@
 									<img src="${i.preview_img}" alt="${i.title}" onError="src='/resources/homepage/${homepage.context_path}/img/noimg_horizaltal.png';"/>
 								</c:when>
 								<c:otherwise>
-									<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}" onError="src='/resources/homepage/${homepage.context_path}/img/noimg_horizaltal.png';" alt="${i.title}"/>
+									<img class="previewImg" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" onError="src='/resources/homepage/${homepage.context_path}/img/noimg_horizaltal.png';" alt="${i.title}"/>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
