@@ -364,6 +364,7 @@
 <form:form modelAttribute="librarySearch" action="index_All.do" method="get">
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
+	<form:hidden path="privateYn" value="Y"/>
 
 	<div class="search-wrap">
 
@@ -612,7 +613,7 @@
 							<div class="imageType">
 								<c:forEach items="${bookSearch}" var="i">
 									<!-- 검색결과 루프 시작 -->
-									<c:set var="detailURL" value="detail.do?&menu_idx=7&isbn=${i.ISBN}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+									<c:set var="detailURL" value="detail.do?&menu_idx=7&isbn=${i.ISBN}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}&privateYn=Y"></c:set>
 									<div class="row">
 										<p class="admin">
 											<input name="print_param" type="checkbox" class="checkBook" value="${fn:escapeXml(i.ISBN)}_${fn:escapeXml(i.MANAGE_CODE)}"/>

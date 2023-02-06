@@ -169,6 +169,8 @@ public class LibrarySearch extends PagingUtils {
 	private String workno;  //도서RFID
 
 	private List<String> appendixregnolist;//지역상호대차 부록신청 등록번호 리스트
+	
+	private String privateYn;
 
 	// 드론대출
 	private String device_code;
@@ -1257,6 +1259,14 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setBook_keyword_age(String book_keyword_age) {
 		this.book_keyword_age = book_keyword_age;
+	}
+
+	public String getPrivateYn() {
+		return privateYn;
+	}
+
+	public void setPrivateYn(String privateYn) {
+		this.privateYn = privateYn;
 	}
 	
 }

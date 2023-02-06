@@ -453,7 +453,7 @@ public class CommonSearchController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(librarySearch.getPrivateLibraryYn(homepage)) {
+		if(librarySearch.getPrivateLibraryYn(homepage) || "Y".equals(librarySearch.getPrivateYn())) {
 			result = PrivateLibSearchAPI.getBookInfo(librarySearch);
 
 			model.addAttribute("librarySearch", librarySearch);
