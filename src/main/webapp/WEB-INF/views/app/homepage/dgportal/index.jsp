@@ -2463,7 +2463,7 @@ do {
 					<ul>
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/132" target="_blank">
-								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu15.jpg" alt="건축문화기행"></div>
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu15.png" alt="건축문화기행"></div>
 								<h3 class="book-title">대구 건축문화기행</h3>
 								<p class="book-desc">천년대구를 거닐다</p>
 								<p class="reg-date">2023-02-01</p>

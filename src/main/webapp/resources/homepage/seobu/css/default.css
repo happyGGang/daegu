@@ -35,6 +35,8 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li.menu2>ul,
 .Gnb .gnb-menu>li.menu3>ul{text-align:center}
 
+.Gnb .gnb-menu>li.menu4>ul{width:120%;left:-150px;}
+
 .main1 .section .txt .t2{padding-top:5px;padding-bottom:15px}
 .main .bx-controls.mainImg .bx-pager{display:block}
 

@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.12.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.1.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 장서현황을 나타내는 표">
@@ -92,14 +92,14 @@ $('ul.close_day').html(li);
     <td>1,758</td>
     <td>1,205</td>
     <td>556</td>
-    <td>3,910</td>
+    <td>3,911</td>
     <td>2,974</td>
     <td>1,486</td>
-    <td>954</td>
+    <td>953</td>
     <td>2,135</td>
-    <td>15,847</td>
-    <td>3,341</td>
-    <td>34,166</td>
+    <td>15,869</td>
+    <td>3,344</td>
+    <td>34,191</td>
     </tr>
     <tr>
       <th>비율</th>
@@ -118,7 +118,7 @@ $('ul.close_day').html(li);
     </tbody>
     </table>
   </div>
-  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.12.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.1.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -148,12 +148,12 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>15,246</td>
-    <td>4,522</td>
-    <td>9,858</td>
+    <td>15,255</td>
+    <td>4,536</td>
+    <td>9,860</td>
     <td>70</td>
     <td>4,470</td>
-    <td>34,166</td>
+    <td>34,191</td>
     </tr>
     <tr>
       <th>비율</th>
@@ -167,8 +167,8 @@ $('ul.close_day').html(li);
     </tbody>
     </table>
   </div>
-  <p>보존서고: 5,929권 포함</p>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2022.12.31. 기준] (단위 : 권)</span></h3>
+  <p>보존서고: 6,508권 포함</p>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.1.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">
@@ -203,10 +203,10 @@ $('ul.close_day').html(li);
       <td>3</td>
       <td>0</td>
       <td>1</td>
-      <td>11</td>
+      <td>10</td>
       <td>0</td>
       <td>0</td>
-      <td>15</td>
+      <td>14</td>
     </tr>
     </tbody>
     </table>

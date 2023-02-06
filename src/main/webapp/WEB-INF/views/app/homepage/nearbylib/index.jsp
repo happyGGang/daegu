@@ -340,6 +340,28 @@ $(function() {
 		<div class="quickMenu" id="mobile-view">
 
 			<ul>
+				<li class="quick-00">					
+					<div>
+						<p>이용방법&nbsp;<br class="mview"/>안내영상&nbsp;</p>
+						<ul>
+							<li class="video-cgv">
+								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" title="연경지구 CGV 이용방법">
+									<span>연경</span>
+								</a>
+							</li>
+							<li class="video-megabox">
+								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" title="이시아폴리스 메가박스 이용방법">
+									<span>이시아폴리스</span>
+								</a>
+							</li>
+							<li class="video-emart">
+								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" title="반야월 이마트 이용방법">
+									<span>반야월</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</a>
 				<li class="quick-0">
 					<a href="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" class="quick00">
 					<div>

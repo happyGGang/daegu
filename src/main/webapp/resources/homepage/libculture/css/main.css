@@ -108,7 +108,65 @@
 #main0 .main0-center .main0-bottom-box .ingSlideList li a div.top {position:relative;box-sizing:border-box;padding-bottom:20px;}
 #main0 .main0-center .main0-bottom-box .ingSlideList li a div.top h4 {font-family:'GmarketSansMedium';font-size:21px;color:#fff;box-sizing:border-box;padding-right:70px;height:80px;text-overflow: ellipsis;overflow: hidden;word-break: break-word;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;}
 #main0 .main0-center .main0-bottom-box .ingSlideList li a div.top p.days {font-family:'GmarketSansMedium';font-size:16px;color:#fff;}
-#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span {position:absolute;top:0;right:0;width:60px;height:60px;line-height:60px;text-align:center;background:#eee;border-top-left-radius:60px;border-bottom-left-radius:60px;border-bottom-right-radius:60px;}
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span {position:absolute;top:0;right:0;width:60px;height:60px;line-height:60px;text-align:center;border-top-left-radius:60px;border-bottom-left-radius:60px;border-bottom-right-radius:60px;color:#fff;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h10,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h2,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h34,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h74,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h75,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h76,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h53{background:#005fca;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h1,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h45,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h59,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h73,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h60,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h5{background:#348100;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h49,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h61,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h62,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h63,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h64,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h65,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h77,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h8{background:#ca0288}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h3,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h35,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h36{background:#71c8d2;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h7,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h46,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h47,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h48{background:#2c3caf;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h9,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h50,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h51,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h52,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h54,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h55,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h56,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h57,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h58{background:#cb1a59;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h37,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h70,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h71,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h72,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h66,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h67,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h68,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h69,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h6{background:#e3a827;}
+
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h4,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h43,
+#main0 .main0-center .main0-bottom-box .ingSlideList li a div.top span.libtag_h44{background:#7c07bf;}
+
 #main0 .main0-center .main0-bottom-box .ingSlideList li a div.bottom {box-sizing:border-box;width:100%;padding:10px;background:rgba(255,255,255,0.1);text-align:center;}
 #main0 .main0-center .main0-bottom-box .ingSlideList li a div.bottom span {display:inline-block;padding:0 5%;color:#fff;}
 #main0 .main0-center .main0-bottom-box .ingSlideList li:nth-child(3n) a {display:block;border-right:1px solid rgba(255,255,255,0.4);box-sizing:border-box;}

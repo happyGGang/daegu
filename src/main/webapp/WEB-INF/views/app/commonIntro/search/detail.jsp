@@ -899,7 +899,7 @@ $(function() {
 					</c:choose>
 				</c:when>
 			</c:choose>
-			<c:if test="${sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'hwani6865'}">
+			
 				<c:choose>
 					<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
 						<c:choose>
@@ -907,12 +907,12 @@ $(function() {
 							
 							</c:when>
 							<c:otherwise>
-								<a href="#untact" id="untactBook-req" class="btn btn2"><span>테스트용 신청</span></a>
+								<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
 				</c:choose>
-			</c:if>
+
 
 			<!--워킹스루 도서대출 버튼-->
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
