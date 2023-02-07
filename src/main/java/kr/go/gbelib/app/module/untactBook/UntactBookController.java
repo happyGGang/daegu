@@ -165,8 +165,10 @@ public class UntactBookController extends BaseController {
 		Map<String, Object> untactBookLoanReserveListForOne = LibSearchAPI.getUntactBookLoanReserveList(ls, null);
 		int searchCountForOne = LibSearchAPI.getSearchCount(untactBookLoanReserveListForOne);
 
-		if (searchCountForOne >= 2) {
-			service.alertMessage("무인예약대출은 하루에 2건 가능합니다.", request, response);
+		UntactBookSetting untactBookSetting = untactLockerSettingService.getUntactBookSettingOne(homepage.getHomepage_id());
+		
+		if (searchCountForOne >= untactBookSetting.getReserable_count()) {
+			service.alertMessage("무인예약대출은 하루에 "+untactBookSetting.getReserable_count()+"건 가능합니다.", request, response);
 			return null;
 		}
 		
@@ -262,8 +264,6 @@ public class UntactBookController extends BaseController {
 			list = LibSearchAPI.getListData(result);
 			model.addAttribute("detail", list.get(0));
 		}
-
-		UntactBookSetting untactBookSetting = untactLockerSettingService.getUntactBookSettingOne(homepage.getHomepage_id());
 
 		model.addAttribute("librarySearch", librarySearch);
 		model.addAttribute("termsList", untactLockerSettingService.getUntactBookSettingTerms(homepage.getHomepage_id()));

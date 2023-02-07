@@ -28,6 +28,8 @@ public class UntactBookSetting {
 	private String repeated_start_hour;
 	private String repeated_start_minute;
 	
+	private int reserable_count;
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -153,5 +155,11 @@ public class UntactBookSetting {
 	}
 	public void setRepeated_start_minute(String repeated_start_minute) {
 		this.repeated_start_minute = repeated_start_minute;
+	}
+	public int getReserable_count() {
+		return reserable_count;
+	}
+	public void setReserable_count(int reserable_count) {
+		this.reserable_count = reserable_count;
 	}
 }

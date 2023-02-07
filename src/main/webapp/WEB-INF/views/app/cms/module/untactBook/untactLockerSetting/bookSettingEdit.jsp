@@ -54,7 +54,7 @@ function bookSettingSave() {
 			<tr>
 				<th>총 사물함 갯수(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="total_count" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>개
+					<form:input path="total_count" cssClass="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>개
 					<div class="ui-state-highlight">
 						<em>숫자만 입력가능합니다.</em>
 					</div>
@@ -64,7 +64,7 @@ function bookSettingSave() {
 				<th>반복 시간 설정(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					반복일 : 
-					<form:input path="reservation_repeated_day" style="width:30px;"/>
+					<form:input path="reservation_repeated_day" cssClass="text" style="width:30px;"/>
 					<br/>
 					반복시간 : 
 					<form:select path="repeated_start_hour" id="repeated_start_hour">
@@ -130,6 +130,15 @@ function bookSettingSave() {
 						<form:option value="40">40</form:option>
 						<form:option value="50">50</form:option>
 					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<th>예약가능 권수(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="reserable_count" cssClass="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>권
+					<div class="ui-state-highlight">
+						<em>숫자만 입력가능합니다.</em>
+					</div>
 				</td>
 			</tr>
 			<tr>

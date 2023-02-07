@@ -2311,7 +2311,7 @@ public class CommonSearchController extends BaseController {
 
 			NearbyLib sms_send = new NearbyLib();
 			sms_send.setSms_send_yn("Y");
-			sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
+			sms_send.setReserve_idx(reserveOne.getReserve_idx());
 			neighborhoodLibraryService.updateNeighborhoodLibrarySms(sms_send);
 
 			res.setValid(true);
@@ -2424,9 +2424,9 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 			
-			//달성군립도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
+			//달성군립, 북구구수산, 수성도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
 			if(StringUtils.isNotEmpty(homepage.getContext_path())){
-				if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs")) && librarySearch.getEditMode().equals("ADD")) {
+				if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs") || homepage.getContext_path().equals("suseong")) && librarySearch.getEditMode().equals("ADD")) {
 					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
 					List<Map<String, Object>> list = null;
 					list = LibSearchAPI.getListData(reserveList);
