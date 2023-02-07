@@ -2302,7 +2302,7 @@ public class CommonSearchController extends BaseController {
 
 			NearbyLib sms_send = new NearbyLib();
 			sms_send.setSms_send_yn("Y");
-			sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
+			sms_send.setReserve_idx(reserveOne.getReserve_idx());
 			neighborhoodLibraryService.updateNeighborhoodLibrarySms(sms_send);
 
 			res.setValid(true);
