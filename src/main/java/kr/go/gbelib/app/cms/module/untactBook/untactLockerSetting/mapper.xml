@@ -119,7 +119,7 @@
 			SUBSTR(loan_time,4,2) AS loan_end_minute,
 			SUBSTR(reservation_repeated_time,0,2) AS repeated_start_hour,
 			SUBSTR(reservation_repeated_time,4,2) AS repeated_start_minute,
-			locker_use_type, locker_type, terms, night_loan_yn
+			locker_use_type, locker_type, terms, night_loan_yn, reserable_count
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
@@ -144,16 +144,17 @@
 					a.reservation_repeated_time = #{repeated_start_hour}||':'||#{repeated_start_minute},
 					a.locker_use_type = #{locker_use_type},
 		    		a.terms = #{terms},
-		    		a.night_loan_yn = #{night_loan_yn}
+		    		a.night_loan_yn = #{night_loan_yn},
+		    		a.reserable_count = #{reserable_count}
 			WHEN NOT MATCHED THEN
 				INSERT (
 					homepage_id, locker_use_yn, row_count, total_count, locker_type,
 					reservation_repeated_day, reservation_time, loan_time, locker_use_type,
-					terms, night_loan_yn, reservation_repeated_time
+					terms, night_loan_yn, reservation_repeated_time, reserable_count
 				) VALUES (
 					#{homepage_id}, #{locker_use_yn}, #{row_count}, #{total_count}, #{locker_type},
 					#{reservation_repeated_day}, #{reserve_start_hour}||':'||#{reserve_start_minute}||'~'||#{reserve_end_hour}||':'||#{reserve_end_minute}, #{loan_end_hour}||':'||#{loan_end_minute}, #{locker_use_type},
-					#{terms}, #{night_loan_yn}, #{repeated_start_hour}||':'||#{repeated_start_minute}
+					#{terms}, #{night_loan_yn}, #{repeated_start_hour}||':'||#{repeated_start_minute}, #{reserable_count}
 				)
 	</update>
 	
@@ -378,7 +379,8 @@
 			SUBSTR(reservation_time,7,2) AS reserve_end_hour,
 			SUBSTR(reservation_time,10,2) AS reserve_end_minute,
 			SUBSTR(reservation_repeated_time,0,2) AS repeated_start_hour,
-			SUBSTR(reservation_repeated_time,4,2) AS repeated_start_minute
+			SUBSTR(reservation_repeated_time,4,2) AS repeated_start_minute,
+			reserable_count
 		FROM
 			UNTACT_BOOK_SETTING
 		WHERE
