@@ -44,13 +44,18 @@
 </script>
 
 <style>
-	input[type="text"]{width:auto;height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
+	input[type="text"]{width:auto;min-width:calc(100% - 400px);height:41px;font-family:'SCoreDream';border-radius:4px;border:1px solid #ccd2dc;}
 	input[type="text"]::placeholder{font-family:'SCoreDream';}
 	select{padding:6px 5px !important;}
-	.search-form__button{display:inline-block;}
+
+	.search-form__button{position:absolute;top:0;right:0;background:#475ab9;color:#fff !important;height:100%;width:6%;border-top-right-radius:7px;border-bottom-right-radius:7px;line-height:120px;display:inline-block;}
+
+	.myDashboard-culturebox-searchbox-innerbox{padding-right:50px;}
 
 	@media screen and (max-width: 1024px) {
 		.search-form__input{min-width:40%;}
+
+		.search-form__button{width:10%;}
 	}
 
 	@media screen and (max-width: 768px) {
@@ -59,7 +64,10 @@
 
 	@media screen and (max-width: 600px) {
 		.search-form__input{margin-left:0;font-size:14px;}
-		.search-form__button{margin-top:5px;margin-left:0;height:42px;line-height:42px;}
+	}
+
+	@media screen and (max-width: 450px) {
+		.search-form__button{width:15%;}
 	}
 </style>
 

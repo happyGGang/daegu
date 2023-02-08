@@ -138,7 +138,7 @@ jQuery(function($){
 		});
 		this._overlay[data.idx].setMap(map);
 		map.setCenter(marker.getPosition());
-		map.panBy(0, -100);
+		//map.panBy(0, -100);
 	} 
 	/* ]add overlay */
 

@@ -21,9 +21,9 @@ $(function() {
 		$('.movie-box').css('top','2%');
 		$('#movie-close-slider').css('display','block');
 		//$('.dimmed').css('display','block');
-		$('#ProgramLink-container').css('display','none');
-		_video.load(); // 새로운 정보를 다시 로드
-		_video.play(); // 잘 동작함		
+		//$('#ProgramLink-container').css('display','none');
+		//_video.load(); // 새로운 정보를 다시 로드
+		//_video.play(); // 잘 동작함		
 		return false;
 	});	
 	
@@ -32,13 +32,13 @@ $(function() {
 		$('.movie-box').css('top','100%');
 		$('#movie-close-slider').css('display','none');
 		//$('.dimmed').css('display','none');
-		$('#ProgramLink-container').css('display','block');
-		_video.load(); // 새로운 정보를 다시 로드
-		_video.pause(); // 잘 동작함		
+		//$('#ProgramLink-container').css('display','block');
+		//_video.load(); // 새로운 정보를 다시 로드
+		//_video.pause(); // 잘 동작함		
 		return false;
 	});	
 	
-	setInterval("kioskGlobal.dateTimer()", 1000);
+	//setInterval("kioskGlobal.dateTimer()", 1000);
 });
 </script>
 
@@ -198,9 +198,66 @@ $(function() {
 		$('.nearbylibinfo03').show();
 	});
 
+	$('a#mo-cgv-btn').click(function(e){
+		e.preventDefault();
+		var activeUrl = $(this).attr('href');
+		$('.m-youtube-video').attr('src','');
+		$('.mo-video-view').hide();
+		$(activeUrl).show();
+		$('#m-youtube-video-01').attr('src','https://www.youtube.com/embed/2OaRGkZyJjc');
+	});
+
+	$('a#mo-esia-btn').click(function(e){
+		e.preventDefault();
+		var activeUrl = $(this).attr('href');
+		$('.m-youtube-video').attr('src','');
+		$('.mo-video-view').hide();
+		$(activeUrl).show();
+		$('#m-youtube-video-02').attr('src','https://www.youtube.com/embed/85Ryq_P9pNw');
+	});
+
+	$('a#mo-emart-btn').click(function(e){
+		e.preventDefault();
+		var activeUrl = $(this).attr('href');
+		$('.m-youtube-video').attr('src','');
+		$('.mo-video-view').hide();
+		$(activeUrl).show();
+		$('#m-youtube-video-03').attr('src','https://www.youtube.com/embed/7ZqsLdG9xbg');
+	});
+
+	$('a#mo-nearby-btn').click(function(e){
+		e.preventDefault();
+		var activeUrl = $(this).attr('href');
+		$('.m-youtube-video').attr('src','');
+		$('.mo-nearby-view').hide();
+		$(activeUrl).show();
+		$('#m-youtube-video-04').attr('src','https://www.youtube.com/embed/9xoswEzhPIM');
+	});
+
+	$('#mo-cgv-view').find('.btn-close').click(function(e){
+		$('.mo-video-view').hide();
+		$('.m-youtube-video').attr('src','');
+	});
+
+	$('#mo-esia-view').find('.btn-close').click(function(e){
+		$('.mo-video-view').hide();
+		$('.m-youtube-video').attr('src','');
+	});
+
+	$('#mo-emart-view').find('.btn-close').click(function(e){
+		$('.mo-video-view').hide();
+		$('.m-youtube-video').attr('src','');
+	});
+
+	$('#mo-nearby-view').find('.btn-close').click(function(e){
+		$('.mo-video-view').hide();
+		$('.m-youtube-video').attr('src','');
+	});
 });
 </script>
+<style>
 
+</style>
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
@@ -272,14 +329,33 @@ $(function() {
 				$(function(){
 					$('div.tab_menu.on > ul > li > a').on('click',function(e){
 						e.preventDefault();
-						if(!($(this).parent().hasClass('active'))){
-							$(this).parents('ul').children().removeClass('active');
-							$(this).parent().addClass('active');
-							$('.video_box').pause();
-							var activeTab = $(this).attr('href');
-							$('.tabConts').hide();
-							$(activeTab).show();
+
+						$(this).parents('ul').children().removeClass('active');
+						$(this).parent().addClass('active');
+						//$('.video_box').pause();
+						$('.youtube-video').attr('src','');
+						var activeTab = $(this).attr('href');
+
+						if(activeTab == '#tabCon1')
+						{
+							$('#youtube-video-01').attr('src','https://www.youtube.com/embed/2OaRGkZyJjc');
 						}
+						else if(activeTab == '#tabCon2')
+						{
+							$('#youtube-video-02').attr('src','https://www.youtube.com/embed/85Ryq_P9pNw');
+						}
+						else if(activeTab == '#tabCon3')
+						{
+							$('#youtube-video-03').attr('src','https://www.youtube.com/embed/7ZqsLdG9xbg');
+						}
+						else if(activeTab == '#tabCon4')
+						{
+							$('#youtube-video-04').attr('src','https://www.youtube.com/embed/9xoswEzhPIM');
+						}
+
+						$('.tabConts').hide();
+						$(activeTab).show();
+
 					});
 				});
 			</script>
@@ -304,29 +380,31 @@ $(function() {
 							</div>
 							<div class="tabConts" id="tabCon1" style="display:block">
 								<div class="outer">
-									<div class="inner">	
-										<video id="video-box_1" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" controls muted loop playinline></video>
+									<div class="inner">
+										<iframe class="youtube-video" id='youtube-video-01' width="90%" height="708" src="https://www.youtube.com/embed/2OaRGkZyJjc" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+										<!-- <video id="video-box_1" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" controls muted loop playinline></video> --> 
 									</div>
 								</div>
 							</div>
 							<div class="tabConts" id="tabCon2">
 								<div class="outer">
-									<div class="inner">	
-										<video id="video-box_2" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" controls muted loop playinline></video>
+									<div class="inner">
+										<iframe class="youtube-video" id='youtube-video-02' width="90%" height="708" src="https://www.youtube.com/embed/85Ryq_P9pNw" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+										<!-- <video id="video-box_2" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" controls muted loop playinline></video> -->
 									</div>
 								</div>
 							</div>
 							<div class="tabConts" id="tabCon3">
 								<div class="outer">
-									<div class="inner">	
-										<video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video>
+									<div class="inner">
+										<iframe class="youtube-video" id='youtube-video-03' width="90%" height="708" src="https://www.youtube.com/embed/7ZqsLdG9xbg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>										<!-- <video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video> -->
 									</div>
 								</div>
 							</div>
 							<div class="tabConts" id="tabCon4">
 								<div class="outer">
 									<div class="inner">	
-										<video id="video-box_4" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" controls muted loop playinline></video>
+										<iframe class="youtube-video" id='youtube-video-04' style="" width="90%" height="708" src="https://www.youtube.com/embed/9xoswEzhPIM" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 									</div>
 								</div>
 							</div>
@@ -345,17 +423,20 @@ $(function() {
 						<p>이용방법&nbsp;<br class="mview"/>안내영상&nbsp;</p>
 						<ul>
 							<li class="video-cgv">
-								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" title="연경지구 CGV 이용방법">
+								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" title="연경지구 CGV 이용방법"> -->
+								<a href="#mo-cgv-view" id='mo-cgv-btn' title="연경지구 CGV 이용방법">
 									<span>연경</span>
 								</a>
 							</li>
 							<li class="video-megabox">
-								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" title="이시아폴리스 메가박스 이용방법">
+								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" title="이시아폴리스 메가박스 이용방법"> -->
+								<a href="#mo-esia-view" id='mo-esia-btn' title="이시아폴리스 메가박스 이용방법">
 									<span>이시아폴리스</span>
 								</a>
 							</li>
 							<li class="video-emart">
-								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" title="반야월 이마트 이용방법">
+								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" title="반야월 이마트 이용방법"> -->
+								<a href="#mo-emart-view" id='mo-emart-btn' title="반야월 이마트 이용방법">
 									<span>반야월</span>
 								</a>
 							</li>
@@ -363,7 +444,8 @@ $(function() {
 					</div>
 				</a>
 				<li class="quick-0">
-					<a href="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" class="quick00">
+					<!-- <a href="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" class="quick00"> -->
+					<a href="#mo-nearby-view" id="mo-nearby-btn" class="quick00">
 					<div>
 						<h4>내집앞도서관 홍보영상</h4>
 					</div>
@@ -606,6 +688,62 @@ $(function() {
 						<p>장애인편의</p>
 					</li>
 				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div id="mo-cgv-view" class="mo-video-view" style="display:none;">
+		<div class="mo-nearby-shadow"></div>
+		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="" style='position:relative;height:100%;z-index:999993;'>
+			<div class="outer">
+				<div class="inner">
+					<div class="video-container">
+						<iframe class="m-youtube-video" id='m-youtube-video-01' width="90%" height="67.5%" src="https://www.youtube.com/embed/2OaRGkZyJjc" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="mo-esia-view" class="mo-video-view" style="display:none;">
+		<div class="mo-nearby-shadow"></div>
+		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="" style='position:relative;height:100%;z-index:999993;'>
+			<div class="outer">
+				<div class="inner">
+					<div class="video-container">
+						<iframe class="m-youtube-video" id='m-youtube-video-02' width="90%" height="67.5%" src="https://www.youtube.com/embed/85Ryq_P9pNw" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="mo-emart-view" class="mo-video-view" style="display:none;">
+		<div class="mo-nearby-shadow"></div>
+		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="" style='position:relative;height:100%;z-index:999993;'>
+			<div class="outer">
+				<div class="inner">
+					<div class="video-container">
+						<iframe class="m-youtube-video" id='m-youtube-video-03' width="90%" height="67.5%" src="https://www.youtube.com/embed/7ZqsLdG9xbg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="mo-nearby-view" class="mo-video-view" style="display:none;">
+		<div class="mo-nearby-shadow"></div>
+		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="" style='position:relative;height:100%;z-index:999993;'>
+			<div class="outer">
+				<div class="inner">
+					<div class="video-container">
+						<iframe class="m-youtube-video" id='m-youtube-video-04' style="" width="90%" height="67.5%" src="https://www.youtube.com/embed/9xoswEzhPIM" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

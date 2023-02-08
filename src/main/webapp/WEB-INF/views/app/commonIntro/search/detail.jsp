@@ -770,7 +770,7 @@ $(function() {
 			</c:if>
 
 
-
+<c:if test="${homepage.context_path ne 'nearbylib'}">
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'AB'}">
 
@@ -878,6 +878,7 @@ $(function() {
 
 				</c:otherwise>
 			</c:choose>
+</c:if>
 
 <!--
 			<%
@@ -915,6 +916,7 @@ $(function() {
 
 
 			<!--워킹스루 도서대출 버튼-->
+			<!--
 			<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia'|| sessionScope.member.member_id eq 'test01'|| sessionScope.member.member_id eq 'test02'|| sessionScope.member.member_id eq 'test03'|| sessionScope.member.member_id eq 'hades520'}">
 				<c:choose>
 					<c:when test="${detail.LOAN_CODE eq 'OK'}">
@@ -924,6 +926,7 @@ $(function() {
 					</c:otherwise>
 				</c:choose>
 			</c:if>
+			-->
 
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'jungang'}">
@@ -1019,27 +1022,27 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-
+<c:if test="${detail.LOAN_CODE eq 'OK'}">
 			<c:choose>
 				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
-					<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ttkazuya1' || sessionScope.member.member_id eq 'kopi6264' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'pshnoi88' || sessionScope.member.member_id eq 'projectnr' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'jewjew' || sessionScope.member.member_id eq 'nearby01' || sessionScope.member.member_id eq 'nearby02' || sessionScope.member.member_id eq 'nearby03' || sessionScope.member.member_id eq 'nearby04' || sessionScope.member.member_id eq 'nearby05' || sessionScope.member.member_id eq 'nearby06' || sessionScope.member.member_id eq 'nearby07' || sessionScope.member.member_id eq 'nearby08' || sessionScope.member.member_id eq 'nearby09' || sessionScope.member.member_id eq 'nearby10' || sessionScope.member.member_id eq 'nearby11' || sessionScope.member.member_id eq 'nearby12' || sessionScope.member.member_id eq 'nearby13' || sessionScope.member.member_id eq 'nearby14' || sessionScope.member.member_id eq 'nearby15' || sessionScope.member.member_id eq 'nearby16' || sessionScope.member.member_id eq 'nearby17' || sessionScope.member.member_id eq 'nearby18' || sessionScope.member.member_id eq 'nearby19' || sessionScope.member.member_id eq 'nearby20' || sessionScope.member.member_id eq 'clickool' }">
-						<c:choose>
-							<c:when test="${reserveData == 0 and reserveAvailability eq 'Y'}">
-								<c:choose>
-								<c:when test="${detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AA29' || detail.SHELF_LOC_CODE eq 'BA06'}">
-								</c:when>
-								<c:otherwise>
-									<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내집앞도서예약</a>
-								</c:otherwise>
-								</c:choose>
+					<c:choose>
+						<c:when test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+							<c:choose>
+							<c:when test="${detail.SHELF_LOC_CODE eq 'AA02' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA05' || detail.SHELF_LOC_CODE eq 'AA07' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA19' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' ||  detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA29' || detail.SHELF_LOC_CODE eq 'AA30' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA36' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA40' || detail.SHELF_LOC_CODE eq 'AA41' || detail.SHELF_LOC_CODE eq 'AA51' || detail.SHELF_LOC_CODE eq 'AA52' || detail.SHELF_LOC_CODE eq 'AA53' || detail.SHELF_LOC_CODE eq 'AA56' || detail.SHELF_LOC_CODE eq 'AA58' || detail.SHELF_LOC_CODE eq 'AA59' || detail.SHELF_LOC_CODE eq 'AA60' || detail.SHELF_LOC_CODE eq 'AA62' || detail.SHELF_LOC_CODE eq 'AA65' || detail.SHELF_LOC_CODE eq 'AA66' || detail.SHELF_LOC_CODE eq 'AA67' || detail.SHELF_LOC_CODE eq 'AA68' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH16' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH22' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH25' || detail.SHELF_LOC_CODE eq 'AH26' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AH28' || detail.SHELF_LOC_CODE eq 'AH29' || detail.SHELF_LOC_CODE eq 'AH33' || detail.SHELF_LOC_CODE eq 'AH60'}">
 							</c:when>
 							<c:otherwise>
+								<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
 							</c:otherwise>
-						</c:choose>
-					</c:if>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 			</c:choose>
-			
+</c:if>
+
+<c:if test="${homepage.context_path ne 'nearbylib'}">
 			<c:choose>
 				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10' || detail.SHELF_LOC_CODE eq 'BA06'}">
 
@@ -1071,7 +1074,9 @@ $(function() {
 
 				</c:otherwise>
 			</c:choose>
+</c:if>
 
+<c:if test="${homepage.context_path ne 'nearbylib'}">
 			<c:if test="${detail.MANAGE_CODE eq 'BE'}">
 			<c:choose>
 			<c:when test="${detail.SHELF_LOC_CODE eq 'BE06'}">
@@ -1102,8 +1107,11 @@ $(function() {
 			</c:otherwise>
 			</c:choose>
 			</c:if>
+</c:if>
 
+<c:if test="${homepage.context_path ne 'nearbylib'}">
 			<a href="#" id="addStorage" class="btn btn4"><span>관심도서 추가</span></a>
+</c:if>
 
 			<a href="index.do?menu_idx=${param.menu_idx}" id="goBack" class="btn"><i class="fa fa-book"></i><span>목록으로</span></a>
 

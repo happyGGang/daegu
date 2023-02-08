@@ -151,28 +151,24 @@
 .nearbylibinfo03 {display: none;position: fixed;top:0;left:0;width: 100%;height: 100%;z-index: 12;}
 .nearbylibinfo03-shadow {position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8);}
 
+.mo-video-view {display: none;position: fixed;top:0;left:0;width: 100%;height: 100%;z-index: 12;}
+.mo-nearby-shadow {position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8);}
+
+.video-container {position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+.video-container iframe,
+.video-container object,
+.video-container embed {position:absolute;top:0;left:5%;width:90%;height:100%;}
+
 /*푸터*/
-#foot_section .mFooter {position:relative;text-align:center;background:#fff;padding:50px 0;}
+#foot_section .mFooter {position:relative;text-align:left;background:#fff;padding:50px 0;}
 #foot_section .mFooter p {display:block;padding-bottom:5px;font-family: 'Spoqa Han Sans', sans-serif;}
-#foot_section .mFooter p em {font-family:'SCoreDream';font-size:16px;font-style:normal;color:#282828;}
+#foot_section .mFooter p em {font-family:'s-core_dream5_medium';font-size:16px;font-style:normal;color:#282828;}
 #foot_section .mFooter p em.nm {color:#fff;}
 #foot_section .mFooter p em.nm a {color:#fff;}
 #foot_section .mFooter p.copyright {color:#777;font-size:14px;}
-
-
-
-/*푸터*/
-#foot_section .mFooter {position:relative;text-align:center;background:#fff;padding:50px 0;}
-#foot_section .mFooter p {display:block;padding-bottom:5px;font-family: 'Spoqa Han Sans', sans-serif;}
-#foot_section .mFooter p em {font-family:'SCoreDream';font-size:16px;font-style:normal;color:#282828;}
-#foot_section .mFooter p em.nm {color:#fff;}
-#foot_section .mFooter p em.nm a {color:#fff;}
-#foot_section .mFooter p.copyright {color:#777;font-size:14px;}
-
 
 
 /*서브푸터*/
-
 #s_foot_section .sFooter .f_menu {background:#1a1c20;height:60px;line-height:60px;}
 #s_foot_section .sFooter .f_menu .in {width:1200px;margin:0 auto;}
 #s_foot_section .sFooter .f_menu .in ul {}
@@ -327,7 +323,7 @@
 	.quickMenu li.quick-00 > div p .mview{display:none;}
 	.quickMenu li.quick-00 > div ul{text-align:right;margin:1px;}
 	.quickMenu li.quick-00 > div ul li{display:inline-block;text-align:center;width:auto;height:58px;}
-	.quickMenu li.quick-00 > div ul li a{display:block;padding:8px 70px;text-align:left;}
+	.quickMenu li.quick-00 > div ul li a{display:block;padding:8px 70px;text-align:left;box-sizing:border-box;}
 	.quickMenu li.quick-00 > div ul li a span{font-size:15px;color:#fff;font-family:'SCoreDream';font-weight:500;}
 	.quickMenu li.quick-00 > div ul li.video-cgv{background:#000 url("../img/video-cgv.png") no-repeat center 82%;background-size:50px;}
 	.quickMenu li.quick-00 > div ul li.video-megabox{background:#000 url("../img/video-megabox.png") no-repeat center 83%;background-size:80px;}
@@ -408,7 +404,7 @@
 
 @media all and (max-width:450px){
 	.quickMenu li.quick-00 > div p{font-size:14px;}
-	.quickMenu li.quick-00 > div ul li a{padding:7px 22px;}	
+	.quickMenu li.quick-00 > div ul li a{padding:7px 22px;box-sizing:border-box;}	
 	.quickMenu li.quick-00 > div ul li a span{font-size:11px;}
 }
 

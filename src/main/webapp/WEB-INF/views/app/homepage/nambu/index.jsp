@@ -140,7 +140,7 @@ function searchCheck() {
 								<div class="title-box">통합자료검색</div>
 								<div class="box0">
 									<label for="search_type" class="search_type">
-											<select id="search_type" name="search_type" style="border:0;font-size:15px">
+										<select id="search_type" name="search_type" style="border:0;font-size:15px">
 											<option value="title">서명</option>
 											<option value="author">저자</option>
 											<option value="publer">발행자</option>
@@ -166,18 +166,12 @@ function searchCheck() {
 				<div class="main2box1">
 					<div class="main2box1box1">
 						<ul>
-							<li class="bg-blue"">
+							<li class="bg-blue w40"">
 								<a href="/${homepage.context_path}/html.do?menu_idx=104">
 								<span class="wt">이용안내</span>
-								<span class="wc">남부도서관 이렇게 <br/>이용하세요!</span>
+								<span class="wc">남부도서관 이렇게 이용하세요!</span>
 								<img src="/resources/homepage/nambu/img/m_icon01.png" class="mi">
 								</a>
-							</li>
-							<li class="bg-lgray">
-								<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16">
-								<span class="wt">마이페이지</span>
-								<span class="wc">대출조회 및<br>신청현황</span>
-								<img src="/resources/homepage/nambu/img/m_icon02.png" class="mi"></a>
 							</li>
 							<li class="bg-background01">
 								<a href="/${homepage.context_path}/elib.do?menu_idx=46">
@@ -192,9 +186,9 @@ function searchCheck() {
 								<img src="/resources/homepage/nambu/img/m_icon03.png" class="mi"></a>
 							</li>
 							<li class="bg-background02">
-								<a href="http://library.daegu.go.kr/nambu_china/index.html" target="_blank" style="z-index: 9;">
-								<span class="wt">중국문화<br class="qmobileBr"/>정보실</span>
-								<span class="wc">도서관 속 작은 중국</span>
+								<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" style="z-index: 9;">
+								<span class="wt">마이페이지</span>
+								<span class="wc">대출조회 및 신청현황</span>
 								</a>
 							</li>
 							<li class="bg-lgreen">

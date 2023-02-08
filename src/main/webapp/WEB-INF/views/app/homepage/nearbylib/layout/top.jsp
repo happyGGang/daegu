@@ -28,7 +28,7 @@
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
 						<li>
-							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=62"><b>정보수정</b></a>
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=26"><b>정보수정</b></a>
 						</li>
 						<li>
 							<b>${sessionScope.member.member_name}님</b>
@@ -39,7 +39,7 @@
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=41" title="로그인"><img src="/resources/homepage/${homepage.context_path}/img/login_icon_b.png" alt="로그인" class="tnb-login"/></a>
+							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=7" title="로그인"><img src="/resources/homepage/${homepage.context_path}/img/login_icon_b.png" alt="로그인" class="tnb-login"/></a>
 						</li>
 						<li>
 							<a href="http://library.daegu.go.kr/dgportal/intro/join/index.do?menu_idx=42" title="대구통합도서관 회원가입 바로가기(새창열림)" target="_blank" ><img src="/resources/homepage/${homepage.context_path}/img/join_icon_b.png" alt="회원가입" class="tnb-join"></a>

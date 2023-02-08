@@ -49,6 +49,7 @@
 .main2 .main2box1 .main2box1box1 span.wc {display:block;font-size:14px;position:relative;padding-top:13px;display:inline-block;letter-spacing:-1px;line-height: 140%;}
 .main2 .main2box1 .main2box1box1 ul {width:100%;display:inline-block;float:right;;}
 .main2 .main2box1 .main2box1box1 ul li {position:relative;float:left;width:20%;display:inline-block;height:168px!important;}
+.main2 .main2box1 .main2box1box1 ul li.w40{width:40%;}
 .main2 .main2box1 .main2box1box1 ul li a {position:relative;display:block;height:100%;padding-top: 30px;padding-left:25px;color:#fff;box-sizing:border-box;letter-spacing:-1px;}
 .main2 .main2box1 .main2box1box1 ul li.li-bg a{width: 83%;height:87%;padding-top:12%;padding-left: 10%;padding-right: 7%;}
 .main2 .main2box1 .main2box1box1 ul li.bg-blue a {}
@@ -74,10 +75,10 @@
 .main2 .main2box1 .main2box1box2 div.event-box div.box h3 {font-size:18px;font-weight:bold;color:#fff;}
 .main2 .main2box1 .main2box1box2 div.event-box div.box span {display:block;font-size:17px;font-weight:bold;color:#edd355;}
 
-.main2 .main2box1 .main2box1box2 div.event-box .list-box {position:absolute;width:66.6%;height:104px;left:33.333333333333%;top:0;box-sizing:border-box;padding:25px 20px;}
+.main2 .main2box1 .main2box1box2 div.event-box .list-box {position:absolute;width: 66.6%;height:104px;left:33.333333333333%;top:0;box-sizing:border-box;padding: 10px 10px;}
 .main2 .main2box1 .main2box1box2 div.event-box .list-box li {width:100% !important;box-sizing:border-box;}
 .main2 .main2box1 .main2box1box2 div.event-box .list-box li {display:block;background:url('/resources/homepage/nambu/img/white_dot.png') no-repeat left center;padding-left:12px;}
-.main2 .main2box1 .main2box1box2 div.event-box .list-box li a {font-size:15px;color:#fff;}
+.main2 .main2box1 .main2box1box2 div.event-box .list-box li a {font-size: 14px;color:#fff;}
 .main2 .main2box1 .main2box1box2 div.event-box .bx-prev {position:absolute;width:24px;height:52px;font-size:0;top:0;right:-1px;background:url("../img/calender_slider_arr.png") no-repeat 0 0;z-index:111;}
 .main2 .main2box1 .main2box1box2 div.event-box .bx-next {position:absolute;width:24px;height:52px;font-size:0;bottom:0;right:-1px;background:url("../img/calender_slider_arr.png") no-repeat 0 100%;z-index:111;}
 
@@ -88,7 +89,7 @@
 .main2 .main2box1 .main2box1box2 div.holiday-box div.box span {display:block;font-size:17px;font-weight:bold;color:#edd355;}
 
 .main2 .main2box1 .main2box1box2 div.holiday-box .list-box {position:absolute;width:49.5%;height:104px;left:50%;top:0;box-sizing:border-box;padding:10px;}
-.main2 .main2box1 .main2box1box2 div.holiday-box .list-box li {display:inline-block;float:left;font-size:15px;width:25px!important;height:25px;line-height:26px;background:#fff;color:#000;border-radius:5px;text-align:center;font-weight:bold;margin-right:5px;margin-bottom:5px;}
+.main2 .main2box1 .main2box1box2 div.holiday-box .list-box li {display:inline-block;float:left;font-size: 13px;width: 20px!important;height: 20px;line-height: 20px;background:#fff;color:#000;border-radius: 5px;text-align:center;font-weight:bold;margin-right: 6px;margin-bottom: 2px;}
 .main2 .main2box1 .main2box1box2 div.holiday-box .bx-prev {position:absolute;width:24px;height:52px;font-size:0;top:0;right:-1px;background:url("../img/calender_slider_arr.png") no-repeat 0 0;z-index:111;}
 .main2 .main2box1 .main2box1box2 div.holiday-box .bx-next {position:absolute;width:24px;height:52px;font-size:0;bottom:0;right:-1px;background:url("../img/calender_slider_arr.png") no-repeat 0 100%;z-index:111;}
 
@@ -119,12 +120,12 @@
 
 .main3 .main3box1 .notice div.cont {box-sizing:border-box;padding:0 3%;}
 
-.main3 .main3box1 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:2px 75px 1px 20px;}
+.main3 .main3box1 .notice ul.list li {position:relative;overflow:hidden;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding: 2px 75px 1px 20px;}
 .main3 .main3box1 .notice ul.list li:nth-child(2) {margin-top:13px;}
 .main3 .main3box1 .notice ul.list li a {font-size:15px;font-weight:normal;color:#000;box-sizing:border-box;}
 .main3 .main3box1 .notice ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
 
-.main3 .main3box1 .notice ul.list li.on-cont {display:inline-block;width:100%;box-sizing:border-box;padding:20px 15px 10px 15px;background:none;border-bottom:1px solid #dddddd}
+.main3 .main3box1 .notice ul.list li.on-cont {display:inline-block;width:100%;box-sizing:border-box;padding: 20px 15px 10px 15px;background:none;border-bottom:1px solid #dddddd;margin-bottom: 13px;}
 .main3 .main3box1 .notice ul.list li.on-cont a {padding-left:15px;width:80%;display:block;box-sizing:border-box;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .main3 .main3box1 .notice ul.list li.on-cont span.title {font-weight:600;margin-left:0;color:#262626;font-size:16px;}
 .main3 .main3box1 .notice ul.list li.on-cont img {display:inline-block;float:left;max-width:13%;}
@@ -249,6 +250,7 @@
 	.main2 .main2box1 .main2box1box1 span.wc {display:block;font-size:12px;position:relative;padding-top:13px;display:inline-block;letter-spacing:-1px;}
 	.main2 .main2box1 .main2box1box1 ul {width:100%;display:inline-block;float:right;}
 	.main2 .main2box1 .main2box1box1 ul li {position:relative;float:left;width:25%;display:inline-block;height:168px!important;}
+	.main2 .main2box1 .main2box1box1 ul li.w40{width:50%;}
 	.main2 .main2box1 .main2box1box1 ul li.bg-background01 {width:25%;}
 	.main2 .main2box1 .main2box1box1 ul li.bg-background02 {width:25%;}
 	.main2 .main2box1 .main2box1box1 ul li.bg-background03 {background-size:cover;}
@@ -331,6 +333,7 @@
 
 @media all and (max-width:425px){
 	.main2 .main2box1 .main2box1box1 ul li {width:50%;display:inline-block;height:135px!important;}
+	.main2 .main2box1 .main2box1box1 ul li.w40{width:100%;}
 	.main2 .main2box1 .main2box1box1 ul li.bg-background01 {width:50%;}
 	.main2 .main2box1 .main2box1box1 ul li.bg-background02 {width:50%;}
 	.main3 .main3box3 .book ul.tabMenuS > li {width:42%;}

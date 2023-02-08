@@ -1012,13 +1012,13 @@ do {
 												</li>
 
 												<li>
-													<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=33">
-														<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="도서대출현황"></span>도서대출현황
+													<a href="/${homepage.context_path}/html.do?menu_idx=101">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q9.png" alt="문화정보플랫폼"></span>문화정보플랫폼
 													</a>
 												</li>
 												<li>
-													<a href="/${homepage.context_path}/intro/search/hope/index.do?menu_idx=36">
-														<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="희망도서신청현황"></span>희망도서신청현황
+													<a href="https://library.daegu.go.kr/nearbylib/index.do" target="_blank">
+														<span><img src="/resources/homepage/${homepage.context_path}/img/q10.png" alt="내 집 앞 도서관"></span>내 집 앞 도서관
 													</a>
 												</li>
 												<li>
@@ -2628,13 +2628,13 @@ do {
 					</li>
 
 					<li>
-						<a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=33">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q1.png" alt="도서대출현황"><br/>도서대출현황</span>
+						<a href="/${homepage.context_path}/html.do?menu_idx=101">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q9.png" alt="문화정보플랫폼"><br/>문화정보플랫폼</span>
 						</a>
 					</li>
 					<li>
-						<a href="/${homepage.context_path}/intro/search/hope/index.do?menu_idx=36">
-							<span><img src="/resources/homepage/${homepage.context_path}/img/q2.png" alt="희망도서신청현황"><br/>희망도서신청현황</span>
+						<a href="https://library.daegu.go.kr/nearbylib/index.do" target="_blank">
+							<span><img src="/resources/homepage/${homepage.context_path}/img/q10.png" alt="내 집 앞 도서관"><br/>내 집 앞 도서관</span>
 						</a>
 					</li>
 					<li>

@@ -12,7 +12,7 @@ $(function() {
 	<%-- 내집앞도서관 대출 신청 --%>	
 	$('a#neighborhoodLibrary-save').on('click',function(e){
 		e.preventDefault();
-		if (!confirm('1.내집앞 도서관 신청시 부록자료, 딸림자료는 함께 대출되지 않습니다. 이점 양해부탁드립니다.\n\r2.예약 도서 수령을 위해서는 반드시 알림톡을 받이야 합니다. 대구통합도서관 알림톡을 "알림톡 차단"상태로 해두신 회원은 반드시 "알림톡 받기" 상태로 전환부탁드립니다. \n\r 내집앞도서관대출을 예약 하시겠습니까?')) {
+		if (!confirm('1. "내 집 앞 도서관" 서비스 도서신청시 부록자료 및 딸림자료는 함께 대출되지 않습니다.\n\r2. "내 집 앞 도서관" 서비스를 이용하여 대출한 도서만 운영기기에서 반납이 가능합니다.\r ※ 도서관 및 타 기기에서 대출한 도서는 반납이 불가능합니다.\n\r 3. 예약도서 수령을 위해서는 반드시 알림톡에 포함된 바코드 정보가 필요합니다. 대구통합도서관 알림톡을 "차단"상태로 해두신 회원은 반드시 "알림톡 받기" 상태로 변경부탁드립니다. \n\r 4. 동부도서관 자료의 경우 이시아 폴리스 메가박스를 통해서만 대출, 반납이 가능합니다. 반드시 반납시 이시아 폴리스 메가박스의 반납기로 반납 부탁드립니다. \n\r내집앞도서관대출을 예약 하시겠습니까?')) {
 			return false;
 		}
 		if ($('select#device_idx').val() == '') {
@@ -64,6 +64,16 @@ $(function() {
 	<form:hidden path="page"/>
 	<form:hidden path="book_size"/>
 
+	<div class="" style="box-sizing:border-box;padding:25px;border:1px solid #eaeaea;">
+		<h3 class="nbl">신청 유의 사항</h3>
+		<ul class="nbl-list">
+			<li>1. "내 집 앞 도서관" 서비스 도서신청시 부록자료 및 딸림자료는 함께 대출되지 않습니다.</li>
+			<li>2. "내 집 앞 도서관" 서비스를 이용하여 대출한 도서만 운영기기에서 반납이 가능합니다.<br/> ※ 도서관 및 타 기기에서 대출한 도서는 반납이 불가능합니다.</li>
+			<li>3. 예약도서 수령을 위해서는 반드시 알림톡에 포함된 바코드 정보가 필요합니다. 대구통합도서관 알림톡을 "차단"상태로 해두신 회원은 반드시 "알림톡 받기" 상태로 변경부탁드립니다. </li>
+			<li>4. 동부도서관 자료의 경우 이시아 폴리스 메가박스를 통해서만 대출, 반납이 가능합니다. <span style="color:#ff0000;">반납시 이시아 폴리스 메가박스의 반납기</span>로 반납 부탁드립니다.</li>
+		</ul>
+	</div>
+	<br/>
 	<div class="delibery_info">
         <div class="" style="padding:10px 0;font-size:120%">(<span style="color:red;font-weight:bold;">*</span>) 항목은 필수 선택값 입니다.</div>
         <table class="editTbl">
@@ -100,7 +110,7 @@ $(function() {
             </tbody>
         </table>
         <div class="btnArea" style="text-align: center; padding-top: 25px;">
-        	<a href="#" id="neighborhoodLibrary-save" class="btn">내집앞도서관대출 예약</a>
+        	<a href="#" id="neighborhoodLibrary-save" class="btn">내 집 앞 도서관 대출 예약</a>
             <a href="javascript:history.back();" id="cancel-btn" class="btn btn02">취소</a>            
         </div>
     </div>

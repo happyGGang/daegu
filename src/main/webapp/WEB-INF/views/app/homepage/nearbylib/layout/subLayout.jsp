@@ -111,7 +111,7 @@ $(function() {
 
 					<ul class="snb_link">
 						<li class="home">
-							<a class="icon_home" href="/libculture/index.do" title="홈 화면 이동"></a>
+							<a class="icon_home" href="/nearbylib/index.do" title="홈 화면 이동"></a>
 						</li>
 						<homepageTag:docInfoTopTag oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 						<%--<li class="">
