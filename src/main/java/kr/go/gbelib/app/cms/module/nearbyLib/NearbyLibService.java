@@ -1730,4 +1730,12 @@ public class NearbyLibService extends BaseService {
 		return dao.changeStatusOnlyHomepage(nearbyLib);
 	}
 
+	public List<NearbyLib> getNearbyLibExcelList(NearbyLib nearbyLib) {
+		return dao.getNearbyLibExcelList(nearbyLib);
+	}
+
+	public int checkBook(NearbyLib nearbyLib) {
+		return dao.checkBook(nearbyLib);
+	}
+
 }

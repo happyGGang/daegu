@@ -16,8 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -42,6 +45,8 @@ public class NearbyLibController extends BaseController {
 
 	private final String basePath = "/cms/module/nearbyLib/";
 	
+	@Autowired
+	private HomepageService homepageService;
 	
 	@Autowired
 	private NearbyLibService service;
@@ -64,6 +69,15 @@ public class NearbyLibController extends BaseController {
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, NearbyLib nearbyLib, HttpServletRequest request)throws AuthException {
 		checkAuth("R", model, request);
+		
+		Homepage homepage = new Homepage();
+		homepage.setHomepage_id(getAsideHomepageId(request));
+		homepage = homepageService.getHomepageOne(homepage);
+		
+		if(!"h90".equals(homepage.getHomepage_id())) {
+			nearbyLib.setHomepage_id(homepage.getHomepage_id());
+		}
+		
 		NearbyLibDevice nearbyLibDevice = new NearbyLibDevice();
 		List<NearbyLibDevice> deviceList = deviceService.getNeighborhoodLibraryDeviceList(nearbyLibDevice);
 		
@@ -742,6 +756,38 @@ public class NearbyLibController extends BaseController {
 			service.changeStatusOnlyHomepage(nearbyLib);
 			res.setValid(true);
 			res.setMessage("책 크기 정보가 수정 되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
+	public NearbyLibSearchView excelDownload(Model model, NearbyLib nearbyLib, HttpServletRequest request){
+		
+		model.addAttribute("nearbyLib", nearbyLib);
+		model.addAttribute("nearbyLibList", service.getNearbyLibExcelList(nearbyLib));
+		
+		return new NearbyLibSearchView();
+	}
+	
+	@RequestMapping(value = {"/checkBook.*"})
+	public @ResponseBody JsonResponse checkBook(Model model, NearbyLib nearbyLib, BindingResult result, HttpServletRequest request) throws UnsupportedEncodingException {
+		JsonResponse res = new JsonResponse(request);
+
+		if (!result.hasErrors()) {
+			int checkBook = service.checkBook(nearbyLib);
+			if(checkBook > 0) {
+				res.setValid(true);
+				
+				return res;
+			} else {
+				res.setValid(false);
+				res.setMessage("찾음처리에 실패했습니다.\n관리자에게 문의해 주세요.");
+				
+				return res;
+			}
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

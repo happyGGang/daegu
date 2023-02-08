@@ -103,6 +103,10 @@ public class NearbyLib extends PagingUtils {
 	private String reserve_start_time;
 	private String reserve_end_time;
 	
+	private int[] reserve_key_arr;  //체크박스용 신청 IDX
+	
+	private String check_yn; //찾음여부 
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -589,4 +593,17 @@ public class NearbyLib extends PagingUtils {
 	public void setReserve_end_time(String reserve_end_time) {
 		this.reserve_end_time = reserve_end_time;
 	}
+	public String getCheck_yn() {
+		return check_yn;
+	}
+	public void setCheck_yn(String check_yn) {
+		this.check_yn = check_yn;
+	}
+	public int[] getReserve_key_arr() {
+		return reserve_key_arr;
+	}
+	public void setReserve_key_arr(int[] reserve_key_arr) {
+		this.reserve_key_arr = reserve_key_arr;
+	}
+	
 }

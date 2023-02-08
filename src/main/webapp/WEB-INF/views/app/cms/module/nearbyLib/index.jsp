@@ -7,14 +7,23 @@
 table thead th, table tbody td {font-size:12px;}
 </style>
 <script type="text/javascript">
+function checkAll($this) { 
+	$('input:checkbox[name=reserve_key_arr]').prop('checked', $this.is(':checked'));
+}
+
 $(function() {
+	$('select#rowCount').change(function(e) {
+		$('#viewPage').val(1);
+		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
+	});
+	
 	$('.selectmenu-search').on('change',function(e){
 		$('#viewPage').val(1);
 		$('#neighborhoodLibrary').submit();
 		e.preventDefault();
 	});
 
-	$('#manage_code').on('change',function(e){
+	$('select#manage_code').on('change',function(e){
 		$('#viewPage').val(1);
 		$('#neighborhoodLibrary').submit();
 		e.preventDefault();
@@ -107,7 +116,45 @@ $(function() {
 		doGetLoad('index.do', $('form#neighborhoodLibrary').serialize());
 	});
 	
+	$('#excelDownload').on('click', function(e) {
+		$('#neighborhoodLibrary').attr('action', 'excelDownload.do').submit();
+		e.preventDefault();
+	});
+	
 });
+
+function bookName(book_name) {
+	alert('도서명 : '+book_name);
+}
+
+function callNo(call_no) {
+	alert('청구기호 : '+call_no);
+}
+
+function checkBook() {
+	if($('input:checkbox[name=reserve_key_arr]:checked').length < 1) {
+		alert('찾음 처리를 하실 체크박스 선택해 주세요.');
+	} else {
+		if(confirm('찾음처리 하시겠습니까?')) {
+			$.ajax({
+				type: "POST",
+				url: 'checkBook.do',
+				data: $('input[name=reserve_key_arr]').serialize(),
+				success: function(response) {
+					if(response.valid) {
+						alert('찾음처리 되었습니다.');
+					} else {
+						alert(response.message);
+					}
+					location.reload();
+				},
+				error : function() {
+					alert('찾음처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+				}
+			});
+		} 
+	}
+}
 </script>
 
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibraryEdit" action="save.do">
@@ -123,101 +170,125 @@ $(function() {
 <form:form modelAttribute="nearbyLib" id="neighborhoodLibrary" action="index.do" method="POST">
 <form:hidden path="toBeExported" value=""/>
 	<div class="search">
-			<c:if test="${asideHomepageId eq 'h45'}">
-				도서관 :
-				<form:select id="manage_code" path="manage_code" class="selectmenu">
-					<form:option value="">전체</form:option>
-					<form:option value="CA">동구통합 안심도서관</form:option>
-					<form:option value="CB">동구통합 신천도서관</form:option>
-				</form:select>
-			</c:if>
-			<c:if test="${asideHomepageId eq 'h90'}">
-				도서관 :
-				<form:select id="manage_code" path="manage_code" class="selectmenu">
-					<form:option value="">전체</form:option>
-					<form:option value="AA">대구2·28기념학생도서관</form:option>
-					<form:option value="BA">북구구수산도서관</form:option>
-					<form:option value="AH">대구광역시립 동부도서관</form:option>
-					<form:option value="CA">동구통합 안심도서관</form:option>
-					<form:option value="CB">동구통합 신천도서관</form:option>
-				</form:select>
-			</c:if>
-			장비명 : 
-			<form:select class="selectmenu-search" style="width:300px" path="device_idx">
-				<form:option value="0">전체</form:option>
-				<form:option value="1">연경CGV</form:option>
-				<form:option value="2">이시아MEGABOX</form:option>
-				<form:option value="3">반야월이마트</form:option>
+		검색 결과 : ${paging.totalDataCount}건
+		<form:select path="rowCount" class="selectmenu" style="width:150px;">
+			<form:option value="10">10개씩 보기</form:option>
+			<form:option value="20">20개씩 보기</form:option>
+			<form:option value="30">30개씩 보기</form:option>
+			<form:option value="50">50개씩 보기</form:option>
+			<form:option value="${paging.totalDataCount}">전체 보기</form:option>
+		</form:select>
+		<c:if test="${asideHomepageId eq 'h45'}">
+			도서관 :
+			<form:select id="manage_code" path="manage_code" class="selectmenu">
+				<form:option value="">전체</form:option>
+				<form:option value="CA">동구통합 안심도서관</form:option>
+				<form:option value="CB">동구통합 신천도서관</form:option>
 			</form:select>
-			대출상태 : 
-			<form:select class="selectmenu-search" style="width:150px;" path="reserve_status">
-				<form:option value="" label="전체"/>
-				<form:option value="1" label="예약"/>
-				<form:option value="2" label="예약확정"/>
-				<form:option value="3" label="사물함투입"/>
-				<form:option value="4" label="대출"/>
-				<form:option value="5" label="회수대기"/>
-				<form:option value="6" label="회수중"/>
-				<form:option value="7" label="회수완료"/>
-				<form:option value="8" label="취소(미승인)"/>
-				<form:option value="9" label="반납"/>
-				<form:option value="10" label="반납완료"/>
+		</c:if>
+		<c:if test="${asideHomepageId eq 'h90'}">
+			도서관 :
+			<form:select id="manage_code" path="manage_code" class="selectmenu">
+				<form:option value="">전체</form:option>
+				<form:option value="AA">대구2·28기념학생도서관</form:option>
+				<form:option value="BA">북구구수산도서관</form:option>
+				<form:option value="AH">대구광역시립 동부도서관</form:option>
+				<form:option value="CA">동구통합 안심도서관</form:option>
+				<form:option value="CB">동구통합 신천도서관</form:option>
 			</form:select>
-			신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
-			<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
-			<button id="getToBeExported" class="btn btn1"><span>반출예정목록</span></button>
-			&nbsp;&nbsp;&nbsp;
-			<c:if test="${not empty nowLocker}">
-				<br/>
-				<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>
-			</c:if>
+		</c:if>
+		장비명 : 
+		<form:select class="selectmenu-search" path="device_idx">
+			<form:option value="0">전체</form:option>
+			<form:option value="1">연경CGV</form:option>
+			<form:option value="2">이시아MEGABOX</form:option>
+			<form:option value="3">반야월이마트</form:option>
+		</form:select>
+		대출상태 : 
+		<form:select class="selectmenu-search" style="width:150px;" path="reserve_status">
+			<form:option value="" label="전체"/>
+			<form:option value="1" label="예약"/>
+			<form:option value="2" label="예약확정"/>
+			<form:option value="3" label="사물함투입"/>
+			<form:option value="4" label="대출"/>
+			<form:option value="5" label="회수대기"/>
+			<form:option value="6" label="회수중"/>
+			<form:option value="7" label="회수완료"/>
+			<form:option value="8" label="취소(미승인)"/>
+			<form:option value="9" label="반납"/>
+			<form:option value="10" label="반납완료"/>
+		</form:select>
+		찾음여부 : 
+		<form:select class="selectmenu-search" path="check_yn">
+			<form:option value="">전체</form:option>
+			<form:option value="Y">Y</form:option>
+			<form:option value="N">N</form:option>
+		</form:select>
+		신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
+		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
+		<button id="getToBeExported" class="btn btn1"><span>반출예정목록</span></button>
+		<button id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></button>
+		&nbsp;&nbsp;&nbsp;
+		<c:if test="${not empty nowLocker}">
+			<br/>
+			<span class="bbs-result">* 현재 사용 가능한 사물함 갯수 : <b><fmt:formatNumber value="${nowLocker}" pattern="#,###"/> </b>개</span>
+		</c:if>
 	</div>
 
-	<div class="infodesk">
-		<span class="bbs-result">총 게시물 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </b>건</span>
-		<span>(페이지 ${paging.viewPage}/${paging.totalPageCount})</span>
-	</div>
+<!-- 	<div class="infodesk"> -->
+<%-- 		<span class="bbs-result">총 게시물 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </b>건</span> --%>
+<%-- 		<span>(페이지 ${paging.viewPage}/${paging.totalPageCount})</span> --%>
+<!-- 	</div> -->
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
- 			<col width="4%" />
+			<col width="2%" />
+ 			<col width="3%" />
  			<col width="10%" />
  			<col width="4%" />
  			<col width="4%" />
 			<col width="5%" />
-			<col width="7%" />
-			<col width="7%" />
-			<col width="7%" />
-			<col width="11%" />
-			<col width="8%" />
-			<col width="8%" />
+			<col width="10%" />
 			<col width="4%" />
 			<col width="7%" />
+			<col width="10%" />
 			<col width="7%" />
 			<col width="7%" />
+			<col width="4%" />
+			<col width="5%" />
+			<col width="5%" />
+			<col width="6%" />
+			<col width="4%" />
 		</colgroup>
 		<thead>
 			<tr>
+				<th><input type="checkbox" id="checkbox" onchange="checkAll($(this));"></th>
  				<th>번호</th>			
 				<th>소장처</th>
 				<th>사물함</th>
-				<th>비밀번호</th>
+				<th>비밀<br/>번호</th>
 				<th>회원ID</th>
 				<th>등록번호</th>
-				<th>청구기호</th>
+				<th>청구<br/>기호</th>
 				<th>수령장소</th>
 				<th>도서명</th>
 				<th>신청날짜</th>
 				<th>예약확정시간</th>
-				<th>취소여부</th>
-				<th>SMS발송여부</th>
+				<th>취소<br/>여부</th>
+				<th>SMS발송<br/>여부</th>
 				<th>대출상태</th>
-				<th>기능</th>				
+				<th>기능</th>	
+				<th>찾음<br/>여부</th>				
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${reserveList }">
 				<tr>
+					<td>
+						<c:if test="${i.check_yn eq 'N'}">
+							<form:checkbox path="reserve_key_arr" id="reserve_key_arr" value="${i.reserve_idx}"/>
+						</c:if>
+					</td>
 					<td>${paging.listRowNum - status.index}</td>				
 					<td>${i.lib_name }</td>
 					<td>
@@ -226,7 +297,6 @@ $(function() {
 								${i.locker_idx }
 							</c:when>
 							<c:otherwise>
-								-
 							</c:otherwise>
 						</c:choose>
 					</td>
@@ -236,23 +306,35 @@ $(function() {
 								${i.device_password }
 							</c:when>
 							<c:otherwise>
-								-
 							</c:otherwise>
 						</c:choose>
 					</td>
 					<td>${i.member_id }</td>
 					<td>${i.reg_no }</td>
-					<td>${i.call_no }</td>
+					<c:choose>
+						<c:when test="${fn:length(i.call_no) > 6}">
+							<td><a href="javascript:void(0);" id="callNo" onclick="callNo('${i.call_no}');">${fn:substring(i.call_no,0,5)}..</a></td>
+						</c:when>
+						<c:otherwise>
+							<td>${i.call_no}</td>
+						</c:otherwise>
+					</c:choose>
 					<td>${i.device_name }</td>
-					<td>${i.book_name }</td>
-					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd HH:mm" /></td>
+					<c:choose>
+						<c:when test="${fn:length(i.book_name) > 8}">
+							<td><a href="javascript:void(0);" id="bookName" onclick="bookName('${i.book_name}');">${fn:substring(i.book_name,0,7)}..</a></td>
+						</c:when>
+						<c:otherwise>
+							<td>${i.book_name}</td>
+						</c:otherwise>
+					</c:choose>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /><br/><fmt:formatDate value="${i.add_date}" pattern="HH:mm" /></td>
 					<td>
 						<c:choose>
 							<c:when test="${i.lend_date eq null or i.lend_date eq ''}">
-								-
 							</c:when>
 							<c:otherwise>
-								<fmt:formatDate value="${i.lend_date}" pattern="yyyy.MM.dd HH:mm" />
+								<fmt:formatDate value="${i.lend_date}" pattern="yyyy.MM.dd" /><br/><fmt:formatDate value="${i.lend_date}" pattern="HH:mm" />
 							</c:otherwise>					
 						</c:choose>					
 					</td>
@@ -356,17 +438,22 @@ $(function() {
 								<a href="#" class="btn reserve_edit" style="border:1px black solid; color:black; " keyValue1="${nearbyLib.listRowNum - status.index}" keyValue2="10" keyValue3="${i.device_idx }" keyValue4="${i.device_code}" keyValue5="${i.reserve_idx }" keyValue6="${i.reserve_bundle_idx }" keyValue7="${i.manage_code}">반납완료</a>
 							</c:when>
 						</c:choose>	
-					</td>					
+					</td>
+					<td>
+						${i.check_yn}
+					</td>			
 				</tr>					
 			</c:forEach>
 			<c:if test="${paging.totalDataCount <= 0}">
 				<tr>
-					<td colspan="15">조회된 자료가 없습니다.</td>
+					<td colspan="17">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>
 	</table>
-	
+	<div style="padding-top:10px;">
+		<a href="javascript:void(0);" id="checkBook" class="btn btn4 btnuntact" onclick="checkBook();">전체찾음처리</a>
+	<div style="padding-top:10px;">
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#neighborhoodLibrary"/>
 	</jsp:include>
