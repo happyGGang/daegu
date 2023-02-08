@@ -186,7 +186,7 @@ public class CommonSearchController extends BaseController {
 	    		
 	    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
 	    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
-
+	    		
 	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
 	    			result = PrivateLibSearchAPI.getBookDetail(librarySearch);
 	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
@@ -234,7 +234,7 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("shelfCodeList", shelfInfoList);
 		} else {
 			Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-			List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
+			//List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
 
 			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
 				List<String> shelfCodes = new ArrayList<String>();
@@ -251,7 +251,11 @@ public class CommonSearchController extends BaseController {
 	    		Map<String, Object> result = new HashMap<String, Object>();
 	    		
 	    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
-	    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
+	    		librarySearch.setNotShelfCode("AB08,AB09,AB10,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26");
+	    		
+	    		if("h90".equals(homepage.getHomepage_id())) {
+	    			librarySearch.setNotShelfCode("AA02,AA03,AA05,AA07,AA09,AA10,AA11,AA14,AA15,AA16,AA17,AA18,AA19,AA20,AA21,AA22,AA23,AA29,AA30,AA31,AA36,AA37,AA39,AA40,AA41,AA51,AA52,AA53,AA56,AA58,AA59,AA60,AA62,AA65,AA66,AA67,AA68,AH14,AH16,AH21,AH22,AH23,AH24,AH25,AH26,AH27,AH28,AH29,AH33,AH60");
+	    		}
 
 	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
 	    			result = LibSearchAPI.getBookDetail(librarySearch);
@@ -297,7 +301,7 @@ public class CommonSearchController extends BaseController {
 			List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
 
 			model.addAttribute("mediaCodeList", mediaCodeList);
-			model.addAttribute("shelfCodeList", shelfInfoList);
+			//model.addAttribute("shelfCodeList", shelfInfoList);
 		}
 
 
