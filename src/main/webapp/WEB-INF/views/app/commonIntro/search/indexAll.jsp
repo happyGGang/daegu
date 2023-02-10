@@ -378,18 +378,16 @@
 <div id="contents-title"></div>
 <!-- /contents-title-->
 
-<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'dohyoji'}">
 <div class="tab_menu">
 	<ul class="list">
 		<li class="active">
-		  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구군립 자료검색</a>
+		  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구·군립 도서관 자료검색</a>
 		</li>
 		<li>
-		  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립·공공 자료검색</a>
+		  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립공공·전문 도서관 자료검색</a>
 		</li>
 	</ul>
 </div>
-</c:if>
 
 <form:form modelAttribute="librarySearch" action="indexAll.do" method="get">
 	<form:hidden path="viewPage"/>
@@ -491,7 +489,7 @@
 					</div>
 
 					<div class="title">
-						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">대구광역시립도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 0;">대구광역시립도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn1">닫기</a>
 					</div>
 					<div>
@@ -537,7 +535,7 @@
 
 					<c:if test="${empty loginPortal or !loginPortal.login}">
 					<div class="title">
-						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">대구광역시 구·군립도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 0;">대구광역시 구·군립도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn2">닫기</a>
 					</div>
 					<div>
@@ -653,7 +651,7 @@
 
 
 					<div class="title">
-						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">대구광역시 구·군립 작은도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 0;">대구광역시 구·군립 작은도서관</h4>
 						<a href="#checkAllSilip" class="btn boxviewbtn" id="closeBtn3">닫기</a>
 					</div>
 					<div>

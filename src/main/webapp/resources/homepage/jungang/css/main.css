@@ -18,7 +18,7 @@
 .main .qmenu .section .bx-viewport{overflow:visible!important}
 .main .qmenu .bx-wrapper{width:auto!important;margin:0 0px;position:static}
 .main .qmenu li{display:inline-block;text-align:center;width:12.5%}
-.main .qmenu li a{width:80px;height:80px;background:#8dd0ef no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#444;font-weight:bold;letter-spacing:-1px;border-radius:100%}
+.main .qmenu li a{width:80px;height:80px;background:#8dd0ef no-repeat center center;display:block;margin:0 auto;font-size:15px;color:#444;font-weight:bold;letter-spacing:-1px;border-radius:100%;background-size:50px;}
 .main .qmenu li a span{display:block;height:20px;position:relative;top:85px}
 .main .qmenu li a:hover,
 .main .qmenu li a:focus{background-color:#84c11b}

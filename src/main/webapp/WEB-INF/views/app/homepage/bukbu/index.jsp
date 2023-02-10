@@ -296,8 +296,8 @@ do {
 					<div class="book tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1">전시안내</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
-								<li><a href="#tab2">영화상영</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li class="on"><a href="#tab1">전시안내</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class="more-btn more-more"></a></li>
+								<li><a href="#tab2">영화상영</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class="more-btn more-more"></a></li>
 							</ul>
 						</div>
 						<div class="box con" data-tab="tab1">
@@ -306,23 +306,30 @@ do {
 								<c:forEach var="i" varStatus="status" items="${exhibitionList}">
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=189&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<span class="movieImg">
-												<c:choose>
-													<c:when test="${i.preview_img ne null}">
-														<c:choose>
-															<c:when test="${fn:contains(i.preview_img, 'http')}">
+											<c:choose>
+												<c:when test="${i.preview_img ne null}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'http')}">
+															<span class="movieImg">
 																<img src="${i.preview_img}" alt="${i.title}" class="book_img"/>
-															</c:when>
-															<c:otherwise>
+															</span>
+														</c:when>
+														<c:otherwise>
+															<span class="movieImg">
 																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
-															</c:otherwise>
-														</c:choose>
-													</c:when>
-													<c:otherwise>
+															</span>
+															<span class="movieEx">
+																<b>제목 </b> ${i.title}<br /><b>기간 </b> ${i.imsi_v_1}<br /><b>장소 </b> ${i.imsi_v_2}
+															</span>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<span class="movieImg">
 														<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
-													</c:otherwise>
-												</c:choose>
-											</span>
+													</span>
+												</c:otherwise>
+											</c:choose>
 										</a>
 									</li>
 								</c:forEach>
@@ -343,55 +350,57 @@ do {
 								<ul class="book_photo">
 									<c:forEach var="i" varStatus="status" items="${movieList}" >
 									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=157&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<span class="movieImg">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
 													<c:choose>
 														<c:when test="${fn:contains(i.preview_img, 'http')}">
-															<img src="${i.preview_img}" alt="${i.title}"/>
+															<span class="movieImg">
+																<img src="${i.preview_img}" alt="${i.title}"/>
+															</span>
 														</c:when>
 														<c:otherwise>
-															<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+															<span class="movieImg">
+																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+															</span>
+															<span class="movieEx">
+																<strong class="title">${i.title}</strong><br />
+
+																<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
+																<span class="date">
+																<b>날짜</b> ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}
+																</span>
+																</c:if>
+
+																<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
+																<span class="time">
+																<b>시간</b> ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
+																</span>
+																</c:if><br />
+
+																<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
+																<span class="divid">
+																<b>장소</b> ${i.imsi_v_6}
+																</span>
+																</c:if>
+
+																<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
+																<span class="desc">
+																<b>장르</b>  ${fn:substring(i.imsi_v_9, 0, 6)}<c:if test="${fn:length(i.imsi_v_9) > 6}">...</c:if>
+																</span>
+																</c:if>
+															</span>
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+													<span class="movieImg">
+														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+													</span>
 												</c:otherwise>
 											</c:choose>
 											</span>
-
-											<!-- <span class="movieEx">
-												<c:if test="${i.imsi_v_12 ne null and i.imsi_v_12 ne '0'}">
-												<div>${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if></div>
-												</c:if>
-												<strong class="title">${i.title}</strong>
-
-												<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
-												<span class="date">
-												<b>날짜</b> ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}
-												</span>
-												</c:if>
-
-												<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
-												<span class="time">
-												<b>시간</b> ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}
-												</span>
-												</c:if>
-
-												<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
-												<span class="divid">
-												<b>장소</b> ${i.imsi_v_6}
-												</span>
-												</c:if>
-
-												<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
-												<span class="desc">
-												<b>장르</b>  ${fn:substring(i.imsi_v_9, 0, 15)}<c:if test="${fn:length(i.imsi_v_9) > 15}">...</c:if>
-												</span>
-												</c:if>
-											</span> -->
 										</a>
 									</li>
 									</c:forEach>
@@ -427,8 +436,8 @@ do {
 					<div class="book tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1">공지사항</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
-								<li><a href="#tab2">강좌·행사안내</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+								<li class="on"><a href="#tab1">공지사항</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1" class="more-btn more-more"></a></li>
+								<li><a href="#tab2">강좌·행사안내</a> <a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="more-btn more-more"></a></li>
 							</ul>
 						</div>
 						<div class="notice box con" data-tab="tab1">
@@ -481,46 +490,25 @@ do {
 						</div>
 
 						<div class="culture box con" data-tab="tab2" style="display:none;">
-							<div class="cont">
+							<!-- <div class="cont">
 								<ul class="list">
-									<c:if test="${fn:length(teachList) < 1}">
+									<c:forEach var="i" varStatus="status" items="${noticeList}" >
 									<li>
-										등록된 강좌가 없습니다.
-									</li>
-									</c:if>
-									<c:forEach items="${teachList}" var="i" varStatus="status">
-									<li>
-										<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}">
-											<em>${i.teach_name}</em>
-											<c:if test="${i.teach_status eq '0'}">
-											<span class="status before">접수중</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '1'}">
-											<span class="status before">대기접수</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}">
-											<span class="status after">신청완료</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '3'}">
-											<span class="status after">신청완료</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '9'}">
-											<span class="status after">수강종료</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '4'}">
-											<span class="status after">접수마감</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '5'}">
-											<span class="status after">정원마감</span>
-											</c:if>
-											<c:if test="${i.teach_status eq '6'}">
-											<span class="status before">신청대기</span>
-											</c:if>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<em>${i.title}</em>
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 										</a>
 									</li>
 									</c:forEach>
+
+									<c:if test="${fn:length(noticeList) < 1}">
+									<li>
+										<em>등록된 게시글이 없습니다.</em>
+									</li>
+									</c:if>
+									<%--공지사항 목록--%>
 								</ul>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

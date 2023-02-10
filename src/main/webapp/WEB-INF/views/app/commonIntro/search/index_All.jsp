@@ -242,21 +242,7 @@
 			}
 		});
 
-		$('#checkAll').change(function(e) {
-			$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
-		});
 
-		$('#checkAllSilip').change(function(e) {
-			$('div#libraryList .silipAll input:checkbox').prop('checked', $(this).prop('checked'));
-		});
-
-		$('#checkAllGulip').change(function(e) {
-			$('div#libraryList .gulipAll input:checkbox').prop('checked', $(this).prop('checked'));
-		});
-
-		$('#checkAllGulipSmall').change(function(e) {
-			$('div#libraryList .gulipSmallAll input:checkbox').prop('checked', $(this).prop('checked'));
-		});
 
 
 		$('a#closeBtn1').on('click', function() {
@@ -327,9 +313,176 @@
 			$('form#direct').submit();
 		});
 
+		$('#checkAll').change(function(e) {
+			$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
+		});
+
+		$('#checkAllSalip').change(function(e) {
+			$('div#libraryList .salipAll input:checkbox').prop('checked', $(this).prop('checked'));
+
+			var chk = $(this).is(":checked");
+			var tmpChkCnt = $(".libCheckSa:checked").length;
+			var tmpChkCnt2 = $(".libCheckPro:checked").length;
+
+			if(chk) 
+			{
+				if(tmpChkCnt == '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', true);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else if(tmpChkCnt == '8' && tmpChkCnt2 < '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', false);
+				}
+				else if(tmpChkCnt < '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', false);
+				}
+			}
+			else
+			{
+				$('#checkAll').prop('checked', false);
+			}
+		});
+
+		$('#checkAllPro').change(function(e) {
+			$('div#libraryList .proAll input:checkbox').prop('checked', $(this).prop('checked'));
+
+			var chk = $(this).is(":checked");
+			var tmpChkCnt = $(".libCheckSa:checked").length;
+			var tmpChkCnt2 = $(".libCheckPro:checked").length;
+
+			if(chk) 
+			{
+				if(tmpChkCnt == '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', true);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else if(tmpChkCnt == '8' && tmpChkCnt2 < '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', false);
+				}
+				else if(tmpChkCnt < '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', false);
+				}
+			}
+			else
+			{
+				$('#checkAll').prop('checked', false);
+			}
+		});
+
+		$('#checkAllGulipSmall').change(function(e) {
+			$('div#libraryList .gulipSmallAll input:checkbox').prop('checked', $(this).prop('checked'));
+		});
+
 		if ('${fn:length(param.libraryCodes)}' == '0' ) {
 			$('input#checkAll').click();
 		}
+
+		$(".libCheckSa").click(function(){
+			var chk = $(this).is(":checked");
+			var tmpChkCnt = $(".libCheckSa:checked").length;
+			var tmpChkCnt2 = $(".libCheckPro:checked").length;
+
+			if(chk) 
+			{
+				if(tmpChkCnt == '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', true);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else if(tmpChkCnt == '8' && tmpChkCnt2 < '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', false);
+				}
+				else if(tmpChkCnt < '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', false);
+				}
+			}
+			else
+			{
+				$('input#checkAll').prop('checked', false);
+				$("#checkAllSalip").prop('checked', false);
+			}
+		});
+
+		$(".libCheckPro").click(function(){
+			var chk = $(this).is(":checked");//.attr('checked');
+			var tmpChkCnt = $(".libCheckPro:checked").length;
+			var tmpChkCnt2 = $(".libCheckPro:checked").length;
+
+			if(chk) 
+			{
+				if(tmpChkCnt == '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', true);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else if(tmpChkCnt == '8' && tmpChkCnt2 < '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', true);
+					$("#checkAllPro").prop('checked', false);
+				}
+				else if(tmpChkCnt < '8' && tmpChkCnt2 == '2')
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', true);
+				}
+				else
+				{
+					$('input#checkAll').prop('checked', false);
+					$("#checkAllSalip").prop('checked', false);
+					$("#checkAllPro").prop('checked', false);
+				}
+			}
+			else
+			{
+				$('input#checkAll').prop('checked', false);
+				$("#checkAllPro").prop('checked', false);
+			}
+		});
+
 	});
 
 
@@ -348,18 +501,16 @@
 <div id="contents-title"></div>
 <!-- /contents-title-->
 
-<c:if test="${sessionScope.member.member_id eq 'info8910' || sessionScope.member.member_id eq 'hwani6865' || sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'hades530' || sessionScope.member.member_id eq 'dohyoji'}">
 <div class="tab_menu">
 	<ul class="list">
 		<li>
-		  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구군립 자료검색</a>
+		  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구·군립 도서관 자료검색</a>
 		</li>
 		<li class="active">
-		  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립·공공 자료검색</a>
+		  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립공공·전문 도서관 자료검색</a>
 		</li>
 	</ul>
 </div>
-</c:if>
 
 <form:form modelAttribute="librarySearch" action="index_All.do" method="get">
 	<form:hidden path="viewPage"/>
@@ -462,43 +613,55 @@
 					</div>
 
 					<div class="title">
-						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 20px;">사립·공공도서관</h4>
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 0;">사립공공 도서관</h4>
 					</div>
 					<div>
-						<input id="checkAllSilip" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkAllSilip">사립·공공전체</label>
+						<input id="checkAllSalip" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkAllSalip">사립공공 도서관 전체</label>
 					</div>
-					<div class='silipAll'>
+					<div class='salipAll'>
 						<ul>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_NA" value="NA" label="더불어숲도서관" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NA" value="NA" label="더불어숲도서관" />
 							</li>                                                        
 							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NB" value="NB" label="꿈꾸는마을도서관 도토리" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NB" value="NB" label="꿈꾸는마을도서관 도토리" />
 							</li>                                                        
 							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NC" value="NC" label="동일도서관" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NC" value="NC" label="동일도서관" />
 							</li>                                                        
 							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_ND" value="ND" label="연암도서관" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_ND" value="ND" label="연암도서관" />
 							</li>                                                        
 							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NF" value="NF" label="비전도서관" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NF" value="NF" label="비전도서관" />
 							</li>                                                        
 							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NE" value="NE" label="새벗도서관" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NE" value="NE" label="새벗도서관" />
+							</li>                                                                                                               
+							<li>                                                         
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NH" value="NH" label="푸른초장공공도서관" />
 							</li>                                                        
 							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NK" value="NK" label="아트도서관" />
-							</li>                                                        
-							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NG" value="NG" label="대구점자도서관" />
-							</li>                                                        
-							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NH" value="NH" label="푸른초장공공도서관" />
-							</li>                                                        
-							<li>                                                         
-								<form:checkbox path="libraryCodes" class="libCheck lib_NJ" value="NJ" label="한들마을도서관" />
+								<form:checkbox path="libraryCodes" class="libCheckSa lib_NJ" value="NJ" label="한들마을도서관" />
 							</li>
+						</ul>
+					</div>
+					<div class="end"></div>
+					<br/>
+					<div class="title">
+						<h4 class="contTit_line_s mg20t" style="padding:5px 0 20px 0;">전문 도서관</h4>
+					</div>
+					<div>
+						<input id="checkAllPro" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkAllPro">전문 도서관 전체</label>
+					</div>
+					<div class='proAll'>
+						<ul>                                                      
+							<li>                                                         
+								<form:checkbox path="libraryCodes" class="libCheckPro lib_NK" value="NK" label="아트도서관" />
+							</li>                                                        
+							<li>                                                         
+								<form:checkbox path="libraryCodes" class="libCheckPro lib_NG" value="NG" label="대구점자도서관" />
+							</li>                                                        
 						</ul>
 					</div>
 					<div class="end"></div>
