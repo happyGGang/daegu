@@ -27,6 +27,7 @@ import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLocker;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibLocker.NearbyLibLockerService;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfigService;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
@@ -1736,6 +1737,10 @@ public class NearbyLibService extends BaseService {
 
 	public int checkBook(NearbyLib nearbyLib) {
 		return dao.checkBook(nearbyLib);
+	}
+
+	public int getMemberReserveCount(NeighborhoodLibrary neighborhoodLibrary) {
+		return dao.getMemberReserveCount(neighborhoodLibrary);
 	}
 
 }

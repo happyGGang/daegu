@@ -1025,4 +1025,14 @@
 		${i}
 		</foreach>
 	</update>
+	
+	<select id="getMemberReserveCount" resultType="int">		
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			member_id = #{member_id}
+		AND reserve_status IN ('1','2','3','4')		
+	</select>
 </mapper>

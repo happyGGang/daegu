@@ -3532,6 +3532,23 @@ public class CommonSearchController extends BaseController {
 			neighborhoodLibrary.setBooktype("BO");
 		}			
 		
+		Member member = getSessionMemberInfo(request);
+		
+		if(!"null".equals(member.getMember_id()) && StringUtils.isNotEmpty(member.getMember_id())) {
+			neighborhoodLibrary.setMember_id(member.getMember_id());
+			
+			//회원의 예약건수
+			int member_reserve_count = neighborhoodLibraryService.getMemberReserveCount(neighborhoodLibrary);
+			
+			if(member_reserve_count > 2) {
+				service.alertMessage("현재 내집앞 도서관 신청건수 및 대출건수를 초과 하였습니다. \n내집앞 도서관 신청 중인 도서를 취소하시거나 현재 내집앞도서관을 통해 대출한 도서를 반납하시고 다시 신청 바랍니다.", request, response);
+				return null;
+			}
+		} else {
+			service.alertMessage("회원정보를 불러오는데 오류가 발생하였습니다.\n관리자에게 문의해주세요.", request, response);
+			return null;
+		}
+		
 		model.addAttribute("deviceList", neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(new NearbyLibDevice()));
 		model.addAttribute("neighborhoodLibrary", neighborhoodLibrary);
 

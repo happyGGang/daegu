@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.nearbyLib;
 import java.util.List;
 
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
+import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
 
 /**
  * @author SeongHyeon
@@ -90,5 +91,7 @@ public interface NearbyLibDao {
 	List<NearbyLib> getNearbyLibExcelList(NearbyLib nearbyLib);
 
 	int checkBook(NearbyLib nearbyLib);
+
+	int getMemberReserveCount(NeighborhoodLibrary neighborhoodLibrary);
 
 }
