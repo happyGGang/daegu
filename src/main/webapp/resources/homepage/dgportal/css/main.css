@@ -193,6 +193,14 @@
 .main_scroll .main_scroll_wp {display:inline-block;width:80px;height:102px;background:url('../img/scroll-down.png') no-repeat 0 0;text-indent:-99999em;}
 .main_scroll .main_scroll_wp_white {display:inline-block;width:80px;height:102px;background:url('../img/scroll-down.png') no-repeat 0 0;text-indent:-99999em;}
 
+.nearbylib-btn {position:absolute;display:block;left:2%;top:9%;z-index:99;width:150px;height:158px;}
+.nearbylib-btn a {display:block;position:relative;animation:motions 0.5s linear 0s infinite alternate;}
+
+@keyframes motions {
+	0% {margin-top: 0px;}
+	100% {margin-top: 10px;}
+}
+
 #main1 {}
 #main1 .popupzone-box {float:left;width:50%;margin-top:60px;text-align:center;box-sizing:border-box;}
 #main1 .popupzone-box h2.title {font-size:40px;color:#000;text-align:center;/*letter-spacing:-2px;*/font-weight:bold;padding-bottom:70px;}
@@ -308,6 +316,8 @@
 .librarySearch .libraryInfo .selection02 li input[type="checkbox"]{padding: 8px;}
 .librarySearch .libraryInfo .selection02 li .lib01 {color:#21409a;}
 .librarySearch .libraryInfo .selection02 li .lib02 {color:#4fb031;}
+.librarySearch .libraryInfo .selection02 li .lib03 {color:#b95903;}
+.librarySearch .libraryInfo .selection02 li .lib04 {color:#9600d4;}
 
 .librarySearch .libraryInfo .selection02 li img {vertical-align:middle;}
 .librarySearch .libraryInfo .selection02 li span.go-link {position:absolute;right:18px;top:6px;}
@@ -1037,3 +1047,5 @@
 	#main4 .main4_wrap .recommand-box .book li {width:140px;height:230px;margin:20px 5px 0 5px;}
 	#main4 .main4_wrap .recommand-box .book li a img {width:140px;}
 }
+
+
