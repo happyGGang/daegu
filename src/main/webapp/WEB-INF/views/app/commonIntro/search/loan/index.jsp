@@ -97,7 +97,7 @@ $(function() {
 	<table summary="신청정보">
 		<thead>
 			<th>순번</th>
-			<th>제목</th>
+			<th>제목 / 등록번호</th>
 			<th>저자 / 발행자</th>
 			<th>도서관명</th>
 			<th>등록번호</th>
@@ -109,7 +109,7 @@ $(function() {
 			<c:forEach items="${loanList}" var="i">
 			<tr>
 				<td>${i.RNUM}</td>
-				<td>${i.TITLE_INFO}</td>
+				<td>${i.TITLE_INFO}<br>${i.REG_NO}</td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.LIB_NAME}</td>
 				<td>${i.REG_NO}</td>
