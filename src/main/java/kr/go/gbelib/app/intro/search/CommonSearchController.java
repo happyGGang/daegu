@@ -3220,10 +3220,9 @@ public class CommonSearchController extends BaseController {
 				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				int searchCount = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
 				System.out.printf("신청 횟수 :%d ", searchCount);
-				if (searchCount >= 2) {
+				if (searchCount >= 50) {
 					res.setValid(false);
-					res.setMessage("무인 예약은 하루에 2권까지만 가능합니다.");
-					System.out.println("무인 예약은 하루에 2권까지만 가능합니다. 063");
+					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
 					return res;
 				}
 
@@ -3231,10 +3230,9 @@ public class CommonSearchController extends BaseController {
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
 				System.out.printf("신청 횟수 :%d ", searchCount);
-				if (searchCount >= 2) {
+				if (searchCount >= 50) {
 					res.setValid(false);
-					res.setMessage("무인 예약은 하루에 2권까지만 가능합니다.");
-					System.out.println("무인 예약은 하루에 2권까지만 가능합니다. 0632");
+					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
 					return res;
 				}
 
