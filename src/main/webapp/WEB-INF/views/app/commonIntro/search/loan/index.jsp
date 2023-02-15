@@ -100,7 +100,6 @@ $(function() {
 			<th>제목 / 등록번호</th>
 			<th>저자 / 발행자</th>
 			<th>도서관명</th>
-			<th>등록번호</th>
 			<th>대출일</th>
 			<th>반납예정일</th>
 			<th>상태</th>
@@ -112,7 +111,6 @@ $(function() {
 				<td>${i.TITLE_INFO}<br>${i.REG_NO}</td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.LIB_NAME}</td>
-				<td>${i.REG_NO}</td>
 				<td>${i.LOAN_DATE}</td>
 				<td>${i.RETURN_PLAN_DATE}</td>
 				<td>

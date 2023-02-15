@@ -120,7 +120,6 @@ $(function() {
 			<col width=""/>
 			<col width="15%"/>
 			<col width="15%"/>
-			<col width="15%"/>
 			<col width="10%"/>
 			<col width="10%"/>
 			<col width="7%"/>
@@ -133,7 +132,6 @@ $(function() {
 			<th>제목 / 등록번호</th>
 			<th>저자 / 발행자</th>
 			<th>도서관명</th>
-			<th>등록번호</th>
 			<th>대출일</th>
 			<th>반납일</th>
 			<th>상태</th>
@@ -164,7 +162,6 @@ $(function() {
 						=${i.REG_NO}&manageCode=${i.MANAGE_CODE}">${i.TITLE}</a><br>(${i.REG_NO})</td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.LIB_NAME}</td>
-				<td>${i.REG_NO}</td>
 				<td>${i.LOAN_DATE}</td>
 				<td>${i.RETURN_DATE}</td>
 				<td><c:choose><c:when test="${i.STATUS eq '0'}">대출</c:when><c:when test="${i.STATUS eq '1'}">반납</c:when><c:when test="${i.STATUS eq '2'}">반납연기</c:when><c:when test="${i.STATUS eq '3'}">예약</c:when><c:when test="${i.STATUS eq '4'}">예약취소</c:when><c:otherwise></c:otherwise></c:choose></td>
