@@ -156,6 +156,9 @@
 		<c:if test="${homepage.context_path eq 'jungang'}">
 		<p style="color: red;font-weight: bold;">* 서고자료는 도서관 전화문의 후 예약필요</p>
 		</c:if>
+		<c:if test="${homepage.context_path eq 'dalseolib'}">
+		<p style="color: red;font-weight: bold;">* 소장도서관 대출 허용 권수(10권) 초과 시 무인예약 도서 대출 불가능(반납 후 대출가능)</p>
+		</c:if>
 	</div>
 	</c:otherwise>
 	</c:choose>

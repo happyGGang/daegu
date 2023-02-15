@@ -83,11 +83,7 @@
 		</ul>
 	</div>
 </c:when>
-<c:when test="${homepage.context_path eq 'dalseolib'}">
-	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
-		2022년 도원,본리,성서,달서어린이,달서영어,달서가족문화도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
-	</div>
-</c:when>
+
 <c:when test="${homepage.context_path eq 'dalseonglib'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
 		2022년 달성군립 작은도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
@@ -132,7 +128,7 @@
 				<c:when test="${homepagePath eq 'bukgs'}">
 				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BA">구수산도서관</form:option>
-					<form:option value="GP">노원동 작은도서관</form:option>
+					<!-- <form:option value="GP">노원동 작은도서관(폐관)</form:option> -->
 					<form:option value="HD">노원행복도서관</form:option>
 					<!-- <form:option value="GM">북구영어작은도서관</form:option> -->
 					<form:option value="GL">산격1동 작은도서관</form:option>
@@ -169,13 +165,13 @@
 
 				<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan' || homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol'}">
 				<form:select path="manageCode" cssClass="new_select_box">
-					<!--<form:option value="BD">범어도서관</form:option>-->
+					<form:option value="BD">범어도서관</form:option>
 					<form:option value="BE">용학도서관</form:option>
-					<!--<form:option value="BF">고산도서관</form:option>-->
-					<!--<form:option value="BJ">책숲길도서관</form:option>-->
-					<!--<form:option value="BK">물망이도서관</form:option>-->
-					<!-- <form:option value="BG">파동도서관</form:option> -->
-					<!--<form:option value="BH">무학숲도서관</form:option>-->
+					<form:option value="BF">고산도서관</form:option>
+					<form:option value="BJ">책숲길도서관</form:option>
+					<form:option value="BK">물망이도서관</form:option>
+					<form:option value="BG">파동도서관</form:option>
+					<form:option value="BH">무학숲도서관</form:option>
 				</form:select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
@@ -269,12 +265,12 @@
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<form:select path="manageCode" cssClass="new_select_box">
-					<!--<form:option value="BW">도원도서관</form:option>-->
-					<!--<form:option value="BV">달서어린이</form:option>-->
-					<!--<form:option value="BU">성서도서관</form:option>-->
-					<!--<form:option value="BX">본리도서관</form:option>-->
-					<!--<form:option value="BY">달서가족문화도서관</form:option>-->
-					<!-- <form:option value="BZ">달서영어도서관</form:option> -->
+					<form:option value="BW">도원도서관</form:option>
+					<form:option value="BV">달서어린이</form:option>
+					<form:option value="BU">성서도서관</form:option>
+					<form:option value="BX">본리도서관</form:option>
+					<form:option value="BY">달서가족문화도서관</form:option>
+					<form:option value="BZ">달서영어도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
