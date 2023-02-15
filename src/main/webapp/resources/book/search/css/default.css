@@ -45,7 +45,7 @@ label.hidden {display:none;}
 
 @media all and (max-width:650px){
 	.search-form .box1{width:18%}
-	.tab_menu ul li a{font-size:0.6em;}
+	.tab_menu ul li a{font-size:0.7em;height:30px;line-height:30px;}
 }
 @media all and (max-width:500px){
 	.search-form .box1{width:75px}

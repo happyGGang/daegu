@@ -365,7 +365,8 @@ do {
 																<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
 															</span>
 															<span class="movieEx">
-																<strong class="title">${i.title}</strong><br />
+																<strong class="title">${i.title}</strong>
+																<span style="">(${fn:substring(i.imsi_v_12, 0, 15)}<c:if test="${fn:length(i.imsi_v_12) > 15}">...</c:if>)</span><br />
 
 																<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
 																<span class="date">

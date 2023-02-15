@@ -305,18 +305,33 @@ do {
 
 		$(".libraryInfo input").attr('disabled',true);
 		$("#lib6 input").attr('disabled',false);
+		$("select#searchArea").val('6').prop("selected",true);
 
 		/*메인지도*/
 		$(".map-area li a").click(function(){
 			var id = $(this).data("num");
+
 			$(".libraryInfo").hide();
 			$(".libraryInfo input").attr('disabled',true);
 
-			$("#lib" + id).show();
-			$(".map-area li").removeClass('on');
-			$(this).parents('li').addClass('on');
-			$(".dglib0" + id).addClass('on');
-			$("#lib" + id +" input").attr('disabled',false);
+			if(id == '8' || id =='9')
+			{
+				$("#lib8").show();
+				$(".map-area li").removeClass('on');
+				$("#lib8").parents('li').addClass('on');
+				$("#lib9").parents('li').addClass('on');
+				$(".dglib08").addClass('on');
+				$(".dglib09").addClass('on');
+				$("#lib8 input").attr('disabled',false);
+			}
+			else
+				{
+				$("#lib" + id).show();
+				$(".map-area li").removeClass('on');
+				$(this).parents('li').addClass('on');
+				$(".dglib0" + id).addClass('on');
+				$("#lib" + id +" input").attr('disabled',false);
+			}
 			return false;
 		});
 
@@ -358,6 +373,7 @@ do {
 			var chk = $(this).is(":checked");//.attr('checked');
 			if(chk) 
 			{
+				$(".libraryCodesSi").prop('checked', true);
 				$(".libraryCodesSiCheck").prop('checked', true);
 				$(".libraryCodesSa").prop('checked', false);
 				$(".libraryCodesSaCheck").prop('checked', false);
@@ -366,6 +382,7 @@ do {
 			}
 			else
 			{
+				$(".libraryCodesSi").prop('checked', false);
 				$(".libraryCodesAll").prop('checked', false);
 				$(".libraryCodesSiCheck").prop('checked', false);
 			}
@@ -375,6 +392,7 @@ do {
 			var chk = $(this).is(":checked");//.attr('checked');
 			if(chk) 
 			{
+				$(".libraryCodesGu").prop('checked', true);
 				$(".libraryCodesGuCheck").prop('checked', true);
 				$(".libraryCodesSa").prop('checked', false);
 				$(".libraryCodesSaCheck").prop('checked', false);
@@ -383,6 +401,7 @@ do {
 			}
 			else
 			{
+				$(".libraryCodesGu").prop('checked', false);
 				$(".libraryCodesAll").prop('checked', false);
 				$(".libraryCodesGuCheck").prop('checked', false);
 			}
@@ -392,6 +411,7 @@ do {
 			var chk = $(this).is(":checked");//.attr('checked');
 			if(chk) 
 			{
+				$(".libraryCodesSm").prop('checked', true);
 				$(".libraryCodesSmCheck").prop('checked', true);
 				$(".libraryCodesSa").prop('checked', false);
 				$(".libraryCodesSaCheck").prop('checked', false);
@@ -400,6 +420,7 @@ do {
 			}
 			else
 			{
+				$(".libraryCodesSm").prop('checked', false);
 				$(".libraryCodesAll").prop('checked', false);
 				$(".libraryCodesSmCheck").prop('checked', false);
 			}
@@ -464,6 +485,7 @@ do {
 			var chk = $(this).is(":checked");
 			if(chk) 
 			{
+				$(".libraryCodesSa").prop('checked', true);
 				$(".libraryCodesSaCheck").prop('checked', true);
 
 				$(".libraryCodesAll").prop('checked', false);
@@ -479,6 +501,7 @@ do {
 			}
 			else
 			{
+				$(".libraryCodesSa").prop('checked', false);
 				$(".libraryCodesSaCheck").prop('checked', false);
 
 				$(".libraryCodesAll").prop('checked', true);
@@ -1207,13 +1230,19 @@ do {
 					<div class="news con" >
 						<div class="box">
 							<ul>
-
+								<li>
+									<a href="/dgportal/board/view.do?menu_idx=22&manage_idx=282&board_idx=488487&group_idx=0&rowCount=10&viewPage=1&searchStartDate=2022-02-11&searchEndDate=2023-02-11&search_type=title%2Bcontent" class="wrap" target="_blank">
+										<span class="date sangdan">2023<br class="webList"/><b>02.10</b></span>
+										<span class="link libraryTonghap"><p style="line-height:100%;font-size:12px;color:#fff;">내집앞<br/>도서관</p></span>
+										<span class="tit titleyewe">생활 속 가까이 누리는 기쁨 '내  집  앞  도서관' 서비스  안내</span>
+									</a>
+								</li>
 							
-								<c:forEach items="${noticeBoardList}" var="i" varStatus="status">
+								<c:forEach items="${noticeBoardList}" var="i" varStatus="status" begin='0' end='3'>
 								<li>
 									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap" target="_blank">
 										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy."/><br class="webList"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
-										<span class="link library${i.imsi_v_19}">${i.imsi_v_20}</span>
+										<span class="link library${i.imsi_v_19}"><c:if test="${i.imsi_v_19 eq 'nearbylib'}">통합</c:if>${i.imsi_v_20}</span>
 										<span class="tit title${i.imsi_v_19}">${i.title}</span>
 									</a>
 								</li>
@@ -1290,6 +1319,7 @@ do {
 										<li class="dglib06 on"><a href="#link" data-num="6"><p>중구</p></a></li>
 										<li class="dglib07"><a href="#link" data-num="7"><p>달서구</p></a></li>
 										<li class="dglib08"><a href="#link" data-num="8"><p>달성군</p></a></li>
+										<li class="dglib09"><a href="#link" data-num="9"><p>달성군</p></a></li>
 
 									</ul>
 								</div>
@@ -1311,6 +1341,7 @@ do {
 										<option value="6" style="color:#000;">중구</option>
 										<option value="7" style="color:#000;">달서구</option>
 										<option value="8" style="color:#000;">달성군</option>
+										
 									</select>
 								</div>
 
@@ -1371,16 +1402,16 @@ do {
 											</span>
 										</li>
 
-										<!-- <li>
+										<li>
 											<input id="libraryCodes125" name="libraryCodes" class="libraryCodesSaCheck" type="checkbox" value="NJ"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
-											<span class="lib03">사립공공·전문</span>
+											<span class="lib03">사립공공</span>
 											<label for="libraryCodes125">한들마을도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/handle/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/handle/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
-										</li> -->
+										</li>
 
 										<li>
 											<input id="libraryCodes126" name="libraryCodes" class="libraryCodesSaCheck" type="checkbox" value="NC"/>
@@ -2581,6 +2612,7 @@ do {
 									</ul>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>

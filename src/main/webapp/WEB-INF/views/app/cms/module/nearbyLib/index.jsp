@@ -242,7 +242,6 @@ function checkBook() {
 	<!-- 운영장비관리 table -->
 	<table class="type1 center">
 		<colgroup>
-			<col width="2%" />
  			<col width="3%" />
  			<col width="10%" />
  			<col width="4%" />
@@ -258,11 +257,10 @@ function checkBook() {
 			<col width="5%" />
 			<col width="5%" />
 			<col width="6%" />
-			<col width="4%" />
+			<col width="6%" />
 		</colgroup>
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="checkbox" onchange="checkAll($(this));"></th>
  				<th>번호</th>			
 				<th>소장처</th>
 				<th>사물함</th>
@@ -278,17 +276,12 @@ function checkBook() {
 				<th>SMS발송<br/>여부</th>
 				<th>대출상태</th>
 				<th>기능</th>	
-				<th>찾음<br/>여부</th>				
+				<th><input type="checkbox" id="checkbox" onchange="checkAll($(this));"> 찾음여부</th>	
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${reserveList }">
 				<tr>
-					<td>
-						<c:if test="${i.check_yn eq 'N'}">
-							<form:checkbox path="reserve_key_arr" id="reserve_key_arr" value="${i.reserve_idx}"/>
-						</c:if>
-					</td>
 					<td>${paging.listRowNum - status.index}</td>				
 					<td>${i.lib_name }</td>
 					<td>
@@ -440,6 +433,11 @@ function checkBook() {
 						</c:choose>	
 					</td>
 					<td>
+						<c:if test="${i.reserve_status eq '1'}">
+							<c:if test="${i.check_yn eq 'N'}">
+								<form:checkbox path="reserve_key_arr" id="reserve_key_arr" value="${i.reserve_idx}"/>
+							</c:if>
+						</c:if>&nbsp;
 						${i.check_yn}
 					</td>			
 				</tr>					
@@ -451,8 +449,9 @@ function checkBook() {
 			</c:if>
 		</tbody>
 	</table>
-	<div style="padding-top:10px;">
+	<div style="padding-top:10px;text-align:right;">
 		<a href="javascript:void(0);" id="checkBook" class="btn btn4 btnuntact" onclick="checkBook();">전체찾음처리</a>
+	</div>
 	<div style="padding-top:10px;">
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#neighborhoodLibrary"/>
