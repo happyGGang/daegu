@@ -129,7 +129,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<th>순번</th>
-			<th>제목</th>
+			<th>제목 / 등록번호</th>
 			<th>저자 / 발행자</th>
 			<th>도서관명</th>
 			<th>대출일</th>
@@ -157,7 +157,9 @@ $(function() {
 		<c:forEach items="${loanList}" var="i" varStatus="status">
 			<tr>
 				<td>${i.RNUM}</td>
-				<td><a href="https://library.daegu.go.kr/${homepage.context_path}/intro/search/detail.do?menu_idx=${menuIdx}&isbn=${i.ISBN}&regNo=${i.REG_NO}&manageCode=${i.MANAGE_CODE}">${i.TITLE}</a></td>
+				<td><a
+						href="https://library.daegu.go.kr/${homepage.context_path}/intro/search/detail.do?menu_idx=${menuIdx}&isbn=${i.ISBN}&regNo
+						=${i.REG_NO}&manageCode=${i.MANAGE_CODE}">${i.TITLE}</a><br>(${i.REG_NO})</td>
 				<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 				<td>${i.LIB_NAME}</td>
 				<td>${i.LOAN_DATE}</td>
