@@ -96,73 +96,7 @@ public class NearbyLibManageService extends BaseService {
 
 	@Transactional
 	public int modifyNearbyLibManage(NearbyLibManage nearbyLibManage) throws Exception {
-
-		int originGroupIdx = nearbyLibManage.getGroup_idx();
-
-		nearbyLibManage.setIndividual_yn2(nearbyLibManage.getIndividual_yn());
-		if (StringUtils.equals(nearbyLibManage.getIndividual_yn(), "E")) {
-			nearbyLibManage.setIndividual_yn("N");
-		}
-
-		if (StringUtils.equals(nearbyLibManage.getIndividual_yn(), "Y")) {
-			//개별 수정은 수정만 하고
-			if (nearbyLibManage.getWeekdayArr() == null || StringUtils.equals(nearbyLibManage.getWeekdayArr().get(0), "0")) {
-				nearbyLibManage.setWeekday("1,2,3,4,5,6,7");
-			} else {
-				nearbyLibManage.setWeekday(StringUtils.join(nearbyLibManage.getWeekdayArr(), ","));
-			}
-			return dao.modifyNearbyLibManage(nearbyLibManage);
-		} else {
-			//전체수정은 지우고 다시 쓴다. 이미 개별수정된 일정은 독립적인 일정으로 변경된다. 반복일정에 포함되지 않는다.
-			//지우고
-			deleteNearbyLibManageGroup(nearbyLibManage);
-
-			//다시 쓴다
-			String startDate = nearbyLibManage.getStart_date();
-			String endDate = nearbyLibManage.getEnd_date();
-
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			Date startDay = dateFormat.parse(startDate);
-			Date endDay = dateFormat.parse(endDate);
-
-			Calendar start = Calendar.getInstance();
-			Calendar end = Calendar.getInstance();
-
-			start.setTime(startDay);
-			end.setTime(endDay);
-
-			if (nearbyLibManage.getWeekdayArr() == null || StringUtils.equals(nearbyLibManage.getWeekdayArr().get(0), "0")) {
-				nearbyLibManage.setWeekday("1,2,3,4,5,6,7");
-			} else {
-				nearbyLibManage.setWeekday(StringUtils.join(nearbyLibManage.getWeekdayArr(), ","));
-			}
-
-			String[] weekday = nearbyLibManage.getWeekday().split(",");
-
-			int nextIdx = dao.getNextCmIdx(nearbyLibManage);
-			nearbyLibManage.setGroup_idx(nextIdx);
-			nearbyLibManage.setGroup_idx_tmp(originGroupIdx);
-
-			while( start.compareTo( end ) !=1 ){
-				for(int i = 0; i < weekday.length; i++) {
-					int day = getDateDay(start, "yyyy-MM-dd");
-
-					if(Integer.parseInt(weekday[i]) == day) {
-
-						nearbyLibManage.setStart_date(dateFormat.format(start.getTime()));
-						nearbyLibManage.setEnd_date(dateFormat.format(start.getTime()));
-
-						int checkCount = dao.getNearbyLibManageCheckCount(nearbyLibManage);
-						if (checkCount == 0) {
-							addNearbyLibManage(nearbyLibManage);
-						}
-					}
-				}
-				start.add(Calendar.DATE, 1);
-			}
-			return 1;
-		}
-
+		return dao.modifyNearbyLibManage(nearbyLibManage);
 	}
 
 	public int deleteNearbyLibManage(NearbyLibManage nearbyLibManage) {
