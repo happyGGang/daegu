@@ -12,7 +12,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -71,7 +71,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -122,7 +122,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -195,7 +195,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -221,7 +221,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date	, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -240,7 +240,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -263,7 +263,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -296,7 +296,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -322,7 +322,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -350,7 +350,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -369,7 +369,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -388,7 +388,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -427,7 +427,7 @@
 				book_isbn, book_name, add_date, add_id, add_ip, 
 				cancel_yn, sms_send_yn, homepage_send_tell, applicant_cell_phone, expire_date_cnt,
 				take_term, large_book_yn, reserve_end_date, reserve_start_date,
-				call_no, check_yn
+				call_no, check_yn, shelf_loc_name
 			) VALUES (
 				#{homepage_id}, '1', #{device_idx}, #{device_code}, #{reserve_idx},
 				#{reserve_bundle_idx}, #{locker_idx}, #{device_name}, #{member_id}, #{user_key}, 
@@ -435,7 +435,7 @@
 				#{book_isbn}, #{title_info}, SYSDATE, #{member_id}, #{add_ip}, 
 				'N', 'N', #{homepage_send_tell}, #{applicant_cell_phone}, #{expire_date_cnt},
 				#{take_term}, 'N' , TO_DATE(#{reserve_end_date},'yyyy-MM-dd HH24:mi'), TO_DATE(#{reserve_start_date},'yyyy-MM-dd HH24:mi'),
-				#{call_no}, 'N'
+				#{call_no}, 'N', #{shelf_loc_name}
 			)
 	</insert>
 	
@@ -576,7 +576,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -626,7 +626,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, return_date, check_yn
+			call_no, return_date, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -668,7 +668,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell,
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no,
 			take_term, reserve_end_date, reserve_start_date, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -688,7 +688,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -708,7 +708,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -727,7 +727,8 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, call_no, add_date,
-			TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE, check_yn
+			TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE, check_yn,
+			shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -746,7 +747,8 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, call_no, add_date,
-			TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE, check_yn
+			TO_CHAR(TO_DATE(TO_CHAR(ADD_DATE, 'yyyy-MM-dd HH24:mi:ss'), 'yyyy-MM-dd HH24:mi:ss') + #{take_term}-1, 'yyyy-MM-dd HH24:mi:ss') as EXPIRE_DATE, check_yn,
+			shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -788,7 +790,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -871,7 +873,7 @@
 				cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 				applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 				take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-				call_no, return_date, check_yn
+				call_no, return_date, check_yn, shelf_loc_name
 			FROM
 				NEIGHBORHOOD_LIBRARY_RESERVE
 			WHERE
@@ -936,7 +938,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -955,7 +957,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
@@ -974,7 +976,7 @@
 			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn
+			call_no, check_yn, shelf_loc_name
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE

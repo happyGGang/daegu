@@ -477,7 +477,7 @@
 			manage_code = #{manage_code}
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
-		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
+		AND	TO_CHAR(SYSDATE, 'yyyy-MM-ddHH24:MI') BETWEEN start_date || start_time AND end_date || end_time
 	</select>
 
 	<select id="checkUseYn" resultType="int">
@@ -488,7 +488,7 @@
 		WHERE
 			manage_code = #{manage_code}
 		AND	delete_yn = 'N'
-		AND	TO_CHAR(SYSDATE, 'yyyy-MM-dd') BETWEEN start_date AND end_date
+		AND	TO_CHAR(SYSDATE, 'yyyy-MM-ddHH24:MI') BETWEEN start_date || start_time AND end_date || end_time
 	</select>
 
 </mapper>

@@ -266,7 +266,7 @@ function checkBook() {
 				<th>사물함</th>
 				<th>비밀<br/>번호</th>
 				<th>회원ID</th>
-				<th>등록번호</th>
+				<th>등록번호<br/></th>
 				<th>청구<br/>기호</th>
 				<th>수령장소</th>
 				<th>도서명</th>
@@ -303,7 +303,7 @@ function checkBook() {
 						</c:choose>
 					</td>
 					<td>${i.member_id }</td>
-					<td>${i.reg_no }</td>
+					<td>${i.reg_no }<br/>${i.shelf_loc_name }</td>
 					<c:choose>
 						<c:when test="${fn:length(i.call_no) > 6}">
 							<td><a href="javascript:void(0);" id="callNo" onclick="callNo('${i.call_no}');">${fn:substring(i.call_no,0,5)}..</a></td>
