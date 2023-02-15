@@ -6,7 +6,7 @@
 	<sql id="field">
 		homepage_id, manage_code, cm_idx, start_date, start_time,
 		end_date, end_time, title, contents, date_type,
-		link_url, weekday, individual_yn
+		link_url, weekday, individual_yn, from_date as fromDate, to_date as toDate
 	</sql>
 
 	<!-- 	일정관리 list -->
@@ -242,8 +242,8 @@
 		VALUES
 		(
 			#{homepage_id}, #{manage_code}, (SELECT NVL(MAX(cm_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_CALENDAR_MANAGE ), #{start_date}, #{start_time},
-			#{end_date}, #{end_time}, #{title}, #{contents}, #{date_type},
-			#{link_url}, #{group_idx}, 'N', #{weekday} , 'N'
+			#{end_date}, #{end_time}, '예약불가', #{contents}, #{date_type},
+			#{link_url}, 1, 'N', #{weekday} , 'N'
 		)
 	</insert>
 

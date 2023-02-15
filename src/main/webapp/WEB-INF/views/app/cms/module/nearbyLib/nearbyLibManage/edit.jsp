@@ -112,48 +112,6 @@ $(function() {
 		}
 	});
 
-	$('input[name=weekdayArr]').on('click', function() {
-
-		var idx = $('input[name=weekdayArr]').index($(this));
-
-		if (idx == 0) {
-			if ($(this).is(':checked')) {
-				$('input[name=weekdayArr]').slice(1).prop('checked', false);
-				$('input[name=weekdayArr]').slice(1).prop('disabled', true);
-			} else {
-				$('input[name=weekdayArr]').slice(1).prop('checked', false);
-				$('input[name=weekdayArr]').slice(1).prop('disabled', false);
-			}
-		} else {
-			var checkedLength = $('input[name=weekdayArr]:not(#weekdayArr1):checked').length;
-			if ($(this).is(':checked')) {
-
-				if (checkedLength == 7) {
-					$('input[name=weekdayArr]').eq(0).prop('checked', true);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', false);
-					$('input[name=weekdayArr]').slice(1).prop('checked', false);
-					$('input[name=weekdayArr]').slice(1).prop('disabled', true);
-				} else if (checkedLength > 0) {
-					$('input[name=weekdayArr]').eq(0).prop('checked', false);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', true);
-				} else {
-					$('input[name=weekdayArr]').eq(0).prop('checked', false);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', false);
-				}
-
-			} else {
-				if (checkedLength > 0) {
-					$('input[name=weekdayArr]').eq(0).prop('checked', false);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', true);
-				} else {
-					$('input[name=weekdayArr]').eq(0).prop('checked', false);
-					$('input[name=weekdayArr]').eq(0).prop('disabled', false);
-				}
-			}
-		}
-	});
-
-
 });
 </script>
 <form:form modelAttribute="nearbyLibManage" id="nearbyLibManage_edit" action="save.do" method="post" onsubmit="return false;">
@@ -186,30 +144,11 @@ $(function() {
 				<span id="tilde" style="font-size:12px">~</span>
 				<form:input type="text" id="end_date" path="end_date" class="text ui-calendar"/>
 				<form:input path="end_time" maxlength="5" cssClass="text" cssStyle="width:50px;" />
-				<div class="ui-state-highlight" id="weekDayDiv">
-					매주 &nbsp;&nbsp;
-					<form:checkboxes items="${weekdayList}" path="weekdayArr" itemLabel="code_name" itemValue="code_id" cssStyle="margin-left:5px;" />
-				</div>
 				<div class="ui-state-highlight">
 					<em>* 시간 입력 ex) 10:30</em>
 				</div>
 			</td>
 		</tr>
-		<c:if test="${nearbyLibManage.group_count > 1}">
-		<tr>
-			<th>일괄수정</th>
-			<td>
-				<form:radiobutton path="individual_yn" value="N" label="전체 반복일정 수정"/>&nbsp;
-				<form:radiobutton path="individual_yn" value="Y" label="선택한 일정만 수정"/>
-				<c:if test="${nearbyLibManage.individual_yn ne 'Y'}">
-				<form:radiobutton path="individual_yn" value="E" label="개별수정된 일정 제외 전체수정"/>
-				<div class="ui-state-highlight">
-					<em>* 개별수정된 일정 제외 전체수정 : 개별로 수정된 일정을 제외한 나머지 반복일정을 수정합니다.</em>
-				</div>
-				</c:if>
-			</td>
-		</tr>
-		</c:if>
 	</tbody>
 </table>
 </form:form>

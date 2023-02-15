@@ -1,6 +1,5 @@
 package kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibManage;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -130,8 +129,8 @@ public class NearbyLibManageController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 
 		if (nearbyLibManage.getEditMode().equals("ADD") || nearbyLibManage.getEditMode().equals("MODIFY")) {
-			ValidationUtils.rejectIfEmpty(result, "start_date","일정의 시작일자 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "end_date", "일정의 종료일자 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "start_date","시작일자 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "end_date", "종료일자 입력하세요.");
 		}
 
 		nearbyLibManage.setHomepage_id(getAsideHomepageId(request));
@@ -139,45 +138,10 @@ public class NearbyLibManageController extends BaseController {
 		if (!result.hasErrors()) {
 			nearbyLibManage.setTitle("예약불가");
 			if (nearbyLibManage.getEditMode().equals("ADD")) {
-
-				String startDate = nearbyLibManage.getStart_date();
-				String endDate = nearbyLibManage.getEnd_date();
-
-				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				Date startDay = dateFormat.parse(startDate);
-				Date endDay = dateFormat.parse(endDate);
-
-				Calendar start = Calendar.getInstance();
-				Calendar end = Calendar.getInstance();
-
-				start.setTime(startDay);
-				end.setTime(endDay);
-
-				if (nearbyLibManage.getWeekdayArr() == null || StringUtils.equals(nearbyLibManage.getWeekdayArr().get(0), "0")) {
-					nearbyLibManage.setWeekday("1,2,3,4,5,6,7");
-				} else {
-					nearbyLibManage.setWeekday(StringUtils.join(nearbyLibManage.getWeekdayArr(), ","));
-				}
-
-				String[] weekday = nearbyLibManage.getWeekday().split(",");
-
 				int nextIdx = service.getNextCmIdx(nearbyLibManage);
 				nearbyLibManage.setGroup_idx(nextIdx);
 
-				while( start.compareTo( end ) !=1 ){
-					for(int i = 0; i < weekday.length; i++) {
-						int day = getDateDay(start, "yyyy-MM-dd");
-
-						if(Integer.parseInt(weekday[i]) == day) {
-
-							nearbyLibManage.setStart_date(dateFormat.format(start.getTime()));
-							nearbyLibManage.setEnd_date(dateFormat.format(start.getTime()));
-
-							service.addNearbyLibManage(nearbyLibManage);
-						}
-					}
-					start.add(Calendar.DATE, 1);
-				}
+				service.addNearbyLibManage(nearbyLibManage);
 
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
