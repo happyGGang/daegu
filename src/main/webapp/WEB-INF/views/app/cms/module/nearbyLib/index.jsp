@@ -266,7 +266,7 @@ function checkBook() {
 				<th>사물함</th>
 				<th>비밀<br/>번호</th>
 				<th>회원ID</th>
-				<th>등록번호<br/></th>
+				<th>등록번호<br/>자료실명</th>
 				<th>청구<br/>기호</th>
 				<th>수령장소</th>
 				<th>도서명</th>
