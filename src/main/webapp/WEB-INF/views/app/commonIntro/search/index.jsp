@@ -353,7 +353,7 @@ function isFromFridayToSunday() {
 	var weekStartDate = new Date(nowYear, nowMonth, nowDay + (5 - nowDayOfWeek), 9);
 	var weekEndDate = new Date(nowYear, nowMonth, nowDay + (7 - nowDayOfWeek), 18);
 
-	return weekStartDate <= now && weekEndDate >= now;
+	return weekStartDate <= now && weekEndDate > now;
 }
 </script>
 
