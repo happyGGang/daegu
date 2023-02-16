@@ -247,6 +247,10 @@
 	</select>
 
 	<select id="getBookListCms" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
+		SELECT
+		    A.*,
+				NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = A.book_idx AND BA.book_code = A.book_code),0) + A.view_count_org AS view_count
+		FROM (
 		${pagingTop}
 		SELECT
 			a.type, CASE a.type WHEN 'EBK' THEN '전자책' WHEN 'ADO' THEN '오디오북' WHEN 'WEB' THEN '온라인강좌' END AS type_name,
@@ -269,7 +273,7 @@
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
 			END AS label,
 			a.add_date,
-			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
+			a.view_count as view_count_org
 		FROM
 			ELIB_BOOK a,
 			ELIB_BOOKINFO d,
@@ -301,6 +305,7 @@
 		<include refid="search"/>
 		<include refid="sort"/>
 		${pagingBottom}
+		) A
 	</select>
 
 	<select id="getBookListCntUpload" resultType="int">
