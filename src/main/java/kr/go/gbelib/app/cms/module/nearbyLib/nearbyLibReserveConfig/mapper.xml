@@ -22,8 +22,8 @@
 			add_date, modify_id, modify_date, tomorrow_end_day_yn
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE_CONFIG
-		WHERE
 			<if test="manage_code != null and manage_code != ''">
+			WHERE
 				manage_code = #{manage_code}
 			</if>
 		ORDER BY 

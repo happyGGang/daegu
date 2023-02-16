@@ -10,18 +10,6 @@ $(function() {
 
 	var $form = $('form#librarySearch');
 
-	//검색하기
-	$('a#search-btn').on('click', function(e) {
-		e.preventDefault();
-		$('input#viewPage').val('1');
-		$('input#reSearchTitle').val('');
-		$('input#reSearchAuthor').val('');
-		$('input#reSearchPubler').val('');
-		$('input#reSearchKeyword').val('');
-		alert('지금은 예약 가능 시간이 아닙니다.\n\n도서예약 가능 시간\n- 월요일 09:00 ~ 금요일 08:59\n* 월요일 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능 합니다.');
-		doGetLoad('index.do', $form.serialize());
-	});
-
 	$('a.subject-submit').on('click', function(e) {
 		e.preventDefault();
 		var scode = $(this).attr('href');
@@ -336,6 +324,25 @@ function resveReq(bookkey, booktype, editMode) {
 	location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}&before_url='+encodeURIComponent(location.href);
 	</c:otherwise>
 	</c:choose>
+}
+
+function searchIndex() {
+	$('input#viewPage').val('1');
+	$('input#reSearchTitle').val('');
+	$('input#reSearchAuthor').val('');
+	$('input#reSearchPubler').val('');
+	$('input#reSearchKeyword').val('');
+	
+	<c:if test="${homepage.context_path eq 'nearbylib'}">
+	let now = new Date();
+	
+	if(){
+		
+	}
+		alert('지금은 예약 가능 시간이 아닙니다.\n\n도서예약 가능 시간\n- 월요일 09:00 ~ 금요일 08:59\n* 월요일 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능 합니다.');
+	</c:if>
+	
+	doGetLoad('index.do', $('form#librarySearch').serialize());
 }
 </script>
 
@@ -1114,7 +1121,7 @@ function resveReq(bookkey, booktype, editMode) {
 							<div class="end"></div>
 						</div>
 						<p class="btn_w">
-							<a id="search-btn" class="btnNew4">검색하기</a>
+							<a href="javascript:void(0);" class="btnNew4" onclick="searchIndex();">검색하기</a>
 							<a id="vk-popup" class="btnNew2">다국어입력기</a>
 							<a id="reset-btn" class="btnNew2">검색초기화</a>
 						</p>

@@ -91,13 +91,13 @@ $(function() {
 					<td>${i.take_term }</td>
 <%-- 					<td>${i.expire_date_cnt }</td> --%>
 					<td>
-						<fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" />
+						${i.add_date}
 					</td>
 					<td>${i.add_id}</td>
 					<td>
 						<c:choose>
 							<c:when test="${(i.modify_date ne null) and (i.modify_date ne '' )}">
-								<fmt:formatDate value="${i.modify_date}" pattern="yyyy.MM.dd" />
+								${i.modify_date}
 							</c:when>
 							<c:otherwise>
 								-

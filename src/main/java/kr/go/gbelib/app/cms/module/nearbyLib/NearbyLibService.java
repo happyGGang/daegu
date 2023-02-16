@@ -304,6 +304,14 @@ public class NearbyLibService extends BaseService {
 						librarySearch.setLoan_key(sameList.get(i).getPk());
 						try {
 							/*예약 대출기 상태 수정 (사물함 투입)*/
+							int take_term = sameReserveOne.getTake_term();
+							Date nowDate = new Date();
+							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(nowDate);
+					        cal.add(Calendar.DATE, take_term);
+					        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
+					        
 							apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
 						}catch (Exception e) {
 							e.printStackTrace();
@@ -687,6 +695,14 @@ public class NearbyLibService extends BaseService {
 					if("3".equals(neighborhoodLibrary.getReserve_status())) {
 					/* api 예약 대출기 상태 수정 ( 사물함 투입)*/
 						try {
+							int take_term = sameReserveOne.getTake_term();
+							Date nowDate = new Date();
+							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+							Calendar cal = Calendar.getInstance();
+							cal.setTime(nowDate);
+					        cal.add(Calendar.DATE, take_term);
+					        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
+							
 							apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
 						}catch (Exception e) {
 							e.printStackTrace();
@@ -793,6 +809,14 @@ public class NearbyLibService extends BaseService {
 						for(int i = 0; i < bundleList_api.size(); i++) {
 							librarySearch.setLoan_key(bundleList_api.get(i).getPk());
 							try {
+								int take_term = bundleList_api.get(i).getTake_term();
+								Date nowDate = new Date();
+								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(nowDate);
+						        cal.add(Calendar.DATE, take_term);
+						        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
+								
 								apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
 							}catch (Exception e) {
 								e.printStackTrace();
