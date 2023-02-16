@@ -332,17 +332,28 @@ function searchIndex() {
 	$('input#reSearchAuthor').val('');
 	$('input#reSearchPubler').val('');
 	$('input#reSearchKeyword').val('');
-	
+
 	<c:if test="${homepage.context_path eq 'nearbylib'}">
-	let now = new Date();
-	
-	if(){
-		
-	}
-		alert('지금은 예약 가능 시간이 아닙니다.\n\n도서예약 가능 시간\n- 월요일 09:00 ~ 금요일 08:59\n* 월요일 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능 합니다.');
+		if (isFromFridayToSunday()) {
+			alert('지금은 예약 가능 시간이 아닙니다.\n\n도서예약 가능 시간\n- 월요일 09:00 ~ 금요일 08:59\n* 월요일 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능 합니다.');
+		}
 	</c:if>
 	
 	doGetLoad('index.do', $('form#librarySearch').serialize());
+}
+
+function isFromFridayToSunday() {
+	var now = new Date();
+	var nowDayOfWeek = now.getDay();
+	var nowDay = now.getDate();
+	var nowMonth = now.getMonth();
+	var nowYear = now.getYear();
+	nowYear += (nowYear < 2000) ? 1900 : 0;
+
+	var weekStartDate = new Date(nowYear, nowMonth, nowDay + (5 - nowDayOfWeek), 9);
+	var weekEndDate = new Date(nowYear, nowMonth, nowDay + (7 - nowDayOfWeek), 18);
+
+	return weekStartDate <= now && weekEndDate >= now;
 }
 </script>
 
