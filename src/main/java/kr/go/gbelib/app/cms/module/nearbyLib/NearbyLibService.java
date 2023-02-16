@@ -695,7 +695,7 @@ public class NearbyLibService extends BaseService {
 					if("3".equals(neighborhoodLibrary.getReserve_status())) {
 					/* api 예약 대출기 상태 수정 ( 사물함 투입)*/
 						try {
-							int take_term = sameReserveOne.getTake_term();
+							int take_term = same_bundle_idx.getTake_term();
 							Date nowDate = new Date();
 							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 							Calendar cal = Calendar.getInstance();
