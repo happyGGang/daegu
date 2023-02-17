@@ -254,6 +254,28 @@ $(function() {
 		$('.m-youtube-video').attr('src','');
 	});
 });
+
+function searchIndex() {
+	if (isFromFridayToSunday()) {
+		alert('내 집 앞 도서관 서비스 예약가능 시간이 아닙니다.\n\n도서예약 가능 시간\n- 월요일 09:00 ~ 금요일 08:59\n* 월요일 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능 합니다.\n\n 검색결과 화면으로 이동합니다.');
+	}
+	
+	doGetLoad('index.do', $('form#mainSearchForm2').serialize());
+}
+
+function isFromFridayToSunday() {
+	var now = new Date();
+	var nowDayOfWeek = now.getDay();
+	var nowDay = now.getDate();
+	var nowMonth = now.getMonth();
+	var nowYear = now.getYear();
+	nowYear += (nowYear < 2000) ? 1900 : 0;
+
+	var weekStartDate = new Date(nowYear, nowMonth, nowDay + (5 - nowDayOfWeek), 9);
+	var weekEndDate = new Date(nowYear, nowMonth, nowDay + (7 - nowDayOfWeek), 18);
+
+	return weekStartDate <= now && weekEndDate > now;
+}
 </script>
 <style>
 
@@ -522,7 +544,7 @@ $(function() {
 						</div>
 					</div>
 				</div>
-				<input type="submit" class="btnSearch" value="" title="Search">
+				<input type="submit" class="btnSearch" value="" title="Search" onclick="searchIndex();">
 			</fieldset>
 		</form>
 	</div>
