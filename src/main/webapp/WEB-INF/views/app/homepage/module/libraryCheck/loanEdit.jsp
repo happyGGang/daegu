@@ -32,7 +32,7 @@ function checkLoanDate(library_check_idx){
 }
 
 $(function() {
-	
+
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
 	 	doAjaxPost($('#libraryCheckLoan'));
@@ -42,22 +42,35 @@ $(function() {
 		e.preventDefault();
 		history.back();
 	});
-	
+
+	var disabledDays = '${disableBetweenDates}';
+// 날짜를 나타내기 전에(beforeShowDay) 실행할 함수
+	function disableSomeDay(date) {
+		var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+		return [ disabledDays.indexOf(string) == -1 ]
+		return [true];
+	}
+
 	$('input#loan_start_date').datepicker({
 		dateFormat:'yy-mm-dd',
 		minDate: +3,
-		maxDate: $('input#loan_end_date').val(), 
+		maxDate: $('input#loan_end_date').val(),
 		onClose: function(selectedDate){
-			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
-		}
+			var minDate = new Date(selectedDate);
+			minDate.setDate(minDate.getDate() + 7);
+			$("input#loan_end_date").datepicker("option", "minDate", minDate);
+		},
+		beforeShowDay: disableSomeDay
+
 	});
-	
+
 	$('input#loan_end_date').datepicker({
 		dateFormat:'yy-mm-dd',
-		minDate: $('input#loan_start_date').val(), 
+		// minDate: $('input#loan_start_date').val(),
 		onClose: function(selectedDate){
 			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
+		},
+		beforeShowDay: disableSomeDay
 	});
 });
 </script>

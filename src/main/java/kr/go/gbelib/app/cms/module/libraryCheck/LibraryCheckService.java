@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.go.gbelib.app.cms.module.pictureBook.PictureBook;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -185,6 +186,10 @@ public class LibraryCheckService extends BaseService {
 
 	public LibraryCheck dupLoanDate(LibraryCheck libraryCheck) {
 		return dao.dupLoanDate(libraryCheck);
+	}
+
+	public List<LibraryCheck> getReservationDate(LibraryCheck libraryCheck) {
+		return dao.getReservationDate(libraryCheck);
 	}
 
 }

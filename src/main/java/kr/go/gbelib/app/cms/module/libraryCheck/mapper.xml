@@ -313,5 +313,18 @@
 		AND TO_CHAR(b.loan_end_date,'yyyy-MM-dd') >= #{loan_start_date}
 		AND a.library_check_idx = #{library_check_idx}
 	</select>
+
+	<select id="getReservationDate" parameterType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck" resultType="kr.go.gbelib.app.cms.module.libraryCheck.LibraryCheck">
+		SELECT
+		b.library_check_idx, TO_CHAR(loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+		b.request_status
+		FROM
+		LIBRARY_CHECK a, LIBRARY_CHECK_LOAN b
+		WHERE
+		a.library_check_idx = b.library_check_idx
+			and TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(LOAN_END_DATE, 'YYYYMMDD')
+			and TO_CHAR(SYSDATE,'YYYYMMDD') <![CDATA[<=]]> TO_CHAR(LOAN_START_DATE, 'YYYYMMDD')
+		AND	b.library_check_idx = #{library_check_idx}
+	</select>
 	
 </mapper>

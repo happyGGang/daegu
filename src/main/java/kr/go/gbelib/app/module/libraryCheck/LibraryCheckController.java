@@ -2,6 +2,8 @@ package kr.go.gbelib.app.module.libraryCheck;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -171,6 +173,8 @@ public class LibraryCheckController extends BaseController {
 			service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), libraryCheck.getMenu_idx(), libraryCheck.getBefore_url()), request, response);
 			return null;
 		}
+		StringBuilder disableBetweenDates = getDisableBetweenDates(libraryCheck);
+		model.addAttribute("disableBetweenDates", disableBetweenDates);
 
 		if(libraryCheck.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
@@ -408,4 +412,45 @@ public class LibraryCheckController extends BaseController {
 		
 		return res;
 	}
+
+	private StringBuilder getDisableBetweenDates(LibraryCheck libraryCheck) {
+		List<LibraryCheck> reservation_date = service.getReservationDate(libraryCheck);
+		return getBetweenDateToLoan(reservation_date);
+	}
+	private StringBuilder getBetweenDateToLoan(List<LibraryCheck> reservation_date) {
+		StringBuilder betweenDate = new StringBuilder();
+		if (reservation_date.size() > 0) {
+			reservation_date.forEach(book -> LoanDateAppendtoString(betweenDate, book));
+			betweenDateFormatter(betweenDate);
+		} else {
+			betweenDate.append("[]");
+		}
+		return betweenDate;
+	}
+
+	private void betweenDateFormatter(StringBuilder betweenDate) {
+		betweenDate.deleteCharAt(betweenDate.length()-1);
+		betweenDate.insert(0, "[");
+		betweenDate.append("]");
+	}
+
+	private void LoanDateAppendtoString(StringBuilder betweenDate, LibraryCheck book) {
+		LocalDate startDate = getLoanDate(book,"start");
+		LocalDate endDate = getLoanDate(book,"end");
+
+		while (!startDate.isAfter(endDate.plusDays(5))) {
+			betweenDate.append("\"").append(startDate).append("\"").append(",");
+			startDate = startDate.plusDays(1);
+		}
+	}
+
+	private LocalDate getLoanDate(LibraryCheck book, String type) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		if (type.equals("start")) {
+			return LocalDate.parse(book.getLoan_start_date(), formatter);
+		} else {
+			return LocalDate.parse(book.getLoan_end_date(), formatter);
+		}
+	}
+
 }

@@ -57,4 +57,5 @@ public interface LibraryCheckDao {
 
 	public LibraryCheck dupLoanDate(LibraryCheck libraryCheck);
 
+    List<LibraryCheck> getReservationDate(LibraryCheck libraryCheck);
 }
