@@ -112,7 +112,7 @@ $(document).ready(function () {
 
 			</c:when>
 			<c:otherwise>
-				<a href="#none" onclick="alert('로그인후 이용바랍니다.');location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${param.menu_idx}&before_url=/${homepage.context_path}/html/hopeBook.do?menu_idx=119';" class="ebook_links" /><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span><!--<span class="ico arr"></span><i class="fa fa-external-link"></i>--></a> 
+				<a href="#none" onclick="alert('로그인후 이용바랍니다.');location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=${param.menu_idx}&before_url=/${homepage.context_path}/html/hopeBook.do?menu_idx=${param.menu_idx}';" class="ebook_links" /><span style="margin-right:5px;">희망도서바로대출 바로가기 &gt;</span><!--<span class="ico arr"></span><i class="fa fa-external-link"></i>--></a> 
 			</c:otherwise>
 		</c:choose>
 	</div>
