@@ -563,10 +563,16 @@
 			<th>가격 <em><font color="red">(*)</font></em></th>
 			<td><form:input path="price" style="width:40%" class="text" type="text" maxlength="10" numberOnly="true" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
-		<c:if test="${context_path ne 'nambu' and context_path ne 'std'}">
+		<c:if test="${context_path ne 'nambu' and context_path ne 'std' and context_path ne 'donggu'}">
 		<tr>
 			<th>우선대출예약여부</th>
 			<td><form:checkbox path="reservation_yn" class="text" value="Y" checked="checked"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
+		</tr>
+		</c:if>
+		<c:if test="${context_path eq 'donggu'}">
+		<tr>
+			<th>우선대출예약여부</th>
+			<td><b>신청자에게 1순위로 대출권한이 주어지며, 3일 이내에 대출해야 합니다.</b></td>
 		</tr>
 		</c:if>
 	</tbody></table>
