@@ -44,7 +44,7 @@ window.close();
 				<td></td>
 			</tr>
 			<tr>
-				<td class="qustionNum"><span>Q${questIdx + 1}</span>TLqkf</td>
+				<td class="qustionNum"><span>Q${questIdx + 1}</span></td>
 				<td class="qustion">${i.quest_content}</td>
 			</tr>
 			<tr>
