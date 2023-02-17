@@ -502,29 +502,32 @@ do {
 					<div class="map-box">
 						<img src="/resources/homepage/${homepage.context_path}/img/main-map.png" id="mapImg" alt="대구 동구 지도" title="대구 동구 지도" border="0" usemap="#Map" />
 						<map name="Map" id="Map">
-						<area shape="circle" coords="297,401,13.5" href="#lib-selector" alt="(공공)안심도서관" class="maps" data-value="1"/>
-						<area shape="circle" coords="51,383,13.5" href="#lib-selector" alt="(공공)신천도서관" class="maps" data-value="2"/>
-						<area shape="circle" coords="34,370,9.5" href="#lib-selector" alt="(공립)신암2동 작은도서관" class="maps" data-value="3"/>
-						<area shape="circle" coords="59,347,9.5" href="#lib-selector" alt="(공립)신암3동 작은도서관" class="maps" data-value="4"/>
-						<area shape="circle" coords="76,365,9.5" href="#lib-selector" alt="(공립)신천3동 작은도서관" class="maps" data-value="5"/>
-						<area shape="circle" coords="137,360,9.5" href="#lib-selector" alt="(공립)효목1동 작은도서관" class="maps" data-value="7"/>
-						<area shape="circle" coords="109,367,9.5" href="#lib-selector" alt="(공립)효목2동 작은도서관" class="maps" data-value="8"/>
-						<area shape="circle" coords="200,230,9.5" href="#lib-selector" alt="(공립)도평동 작은도서관" class="maps" data-value="9"/>
-						<area shape="circle" coords="108,223,9.5" href="#lib-selector" alt="(공립)불로어울림 작은도서관" class="maps" data-value="10"/>
-						<area shape="circle" coords="116,313,9.5" href="#lib-selector" alt="(공립)지저동 작은도서관" class="maps" data-value="11"/>
-						<area shape="circle" coords="160,335,9.5" href="#lib-selector" alt="(공립)동촌역사 작은도서관" class="maps" data-value="12"/>
-						<area shape="circle" coords="187,338,9.5" href="#lib-selector" alt="(공립)방촌동 작은도서관" class="maps" data-value="13"/>
-						<area shape="circle" coords="229,333,9.5" href="#lib-selector" alt="(공립)해안동 작은도서관" class="maps" data-value="14"/>
-						<area shape="circle" coords="353,385,9.5" href="#lib-selector" alt="(공립)반야월역사 작은도서관" class="maps" data-value="15"/>
-						<!-- <area shape="circle" coords="106,338,9.5" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/> -->
-						<area shape="circle" coords="95,349,7" href="#lib-selector" alt="(사립)신암5동 작은도서관" class="maps" data-value="17"/>
-						<area shape="circle" coords="186,364,7" href="#lib-selector" alt="(사립)방촌어린이도서관" class="maps" data-value="18"/>
-						<area shape="circle" coords="256,409,7" href="#lib-selector" alt="(사립)율하5주민도서관" class="maps" data-value="19"/>
-						<area shape="circle" coords="360,408,7" href="#lib-selector" alt="(사립)꿈날자문고" class="maps" data-value="20"/>
-						<area shape="circle" coords="67,399,7" href="#lib-selector" alt="(사립)행복도서관" class="maps" data-value="21"/>
-						<area shape="circle" coords="143,337,7" href="#lib-selector" alt="(사립)늘푸른 도서관" class="maps" data-value="22"/>
+						<area shape="rect" coords="287,395,306,423" href="#lib-selector" alt="(공공)안심도서관" class="maps" data-value="1"/>
+						<area shape="rect" coords="47,372,61,401" href="#lib-selector" alt="(공공)신천도서관" class="maps" data-value="2"/>
+						<area shape="rect" coords="21,366,35,386" href="#lib-selector" alt="(공립)신암2동 작은도서관" class="maps" data-value="3"/>
+						<area shape="rect" coords="50,341,63,361" href="#lib-selector" alt="(공립)신암3동 작은도서관" class="maps" data-value="4"/>
+						<area shape="rect" coords="71,359,84,380" href="#lib-selector" alt="(공립)신천3동 작은도서관" class="maps" data-value="5"/>
+						<area shape="rect" coords="127,354,141,374" href="#lib-selector" alt="(공립)효목1동 작은도서관" class="maps" data-value="7"/>
+						<area shape="rect" coords="107,359,120,380" href="#lib-selector" alt="(공립)효목2동 작은도서관" class="maps" data-value="8"/>
+						<area shape="rect" coords="177,231,191,252" href="#lib-selector" alt="(공립)도평동 작은도서관" class="maps" data-value="9"/>
+						<area shape="rect" coords="101,216,114,237" href="#lib-selector" alt="(공립)불로어울림 작은도서관" class="maps" data-value="10"/>
+						<area shape="rect" coords="108,307,122,328" href="#lib-selector" alt="(공립)지저동 작은도서관" class="maps" data-value="11"/>
+						<area shape="rect" coords="142,319,156,340" href="#lib-selector" alt="(공립)동촌역사 작은도서관" class="maps" data-value="12"/>
+						<area shape="rect" coords="177,336,191,355" href="#lib-selector" alt="(공립)방촌동 작은도서관" class="maps" data-value="13"/>
+						<area shape="rect" coords="202,325,216,346" href="#lib-selector" alt="(공립)해안동 작은도서관" class="maps" data-value="14"/>
+						<area shape="rect" coords="345,380,359,400" href="#lib-selector" alt="(공립)반야월역사 작은도서관" class="maps" data-value="15"/>
+						<!-- <area shape="rect" coords="106,338,9.5" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/> -->
+						<area shape="rect" coords="89,352,95,357" href="#lib-selector" alt="(사립)신암5동 작은도서관" class="maps" data-value="17"/>
+						<area shape="rect" coords="192,356,198,362" href="#lib-selector" alt="(사립)방촌어린이도서관" class="maps" data-value="18"/>
+						<area shape="rect" coords="248,426,254,432" href="#lib-selector" alt="(사립)율하5주민도서관" class="maps" data-value="19"/>
+						<area shape="rect" coords="356,405,362,411" href="#lib-selector" alt="(사립)꿈날자문고" class="maps" data-value="20"/>
+						<area shape="rect" coords="68,391,73,397" href="#lib-selector" alt="(사립)행복도서관" class="maps" data-value="21"/>
+						<area shape="rect" coords="134,336,140,342" href="#lib-selector" alt="(사립)늘푸른 도서관" class="maps" data-value="22"/>
 						<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
-						<!-- <area shape="circle" coords="337,413,7" href="#lib-selector" alt="(사립)초록우산도서관" class="maps" data-value="23"/> -->
+						<!-- <area shape="rect" coords="337,413,7" href="#lib-selector" alt="(사립)초록우산도서관" class="maps" data-value="23"/> -->
+						<area shape="rect" coords="388,459,394,464" href="#lib-selector" alt="금강역스마트도서관" class="maps" data-value="24"/>
+						<area shape="rect" coords="94,361,100,367" href="#lib-selector" alt="동대구역스마트도서관" class="maps" data-value="25"/>
+						<area shape="rect" coords="62,371,67,376" href="#lib-selector" alt="동구청스마트도서관" class="maps" data-value="26"/>
 						</map>
 					</div>
 					<div class="map-info">
@@ -559,6 +562,9 @@ do {
 									<option value="22">(사립)늘푸른 도서관</option>
 									<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
 									<!-- <option value="23">(사립)초록우산도서관</option> -->
+									<option value="24">금강역스마트도서관</option>
+									<option value="25">동대구역스마트도서관</option>
+									<option value="26">동구청스마트도서관</option>
 								</select>
 							</li>
 							<li>
@@ -630,6 +636,15 @@ do {
 								</div>
 								<div class="divbInfomationConts" id="divbInfo23">
 									대구광역시 동구 율하동로 26길 67<br/>(대구종합사회복지관)<br/>053-964-3335
+								</div>
+								<div class="divbInfomationConts" id="divbInfo24">
+									대구광역시 동구 금강로 153
+								</div>
+								<div class="divbInfomationConts" id="divbInfo25">
+									대구광역시 동구 동대구로 550 제2맞이방 통로
+								</div>
+								<div class="divbInfomationConts" id="divbInfo26">
+									대구광역시 동구 아양로 207 구청입구
 								</div>
 							</li>
 						</ul>
@@ -953,6 +968,42 @@ do {
 									<dt>휴관일</dt>
 									<dd>매주 토ㆍ일요일</dd>
 									<dd>관공서 공휴일</dd>
+								</li>
+							</ul>
+						</div>
+						<div class="divbInfomationContsDetail" id="divbInfoDetail24">
+							<ul>
+								<li>
+									<dt>이용시간</dt>
+									<dd>평일 : 10:00 ~ 21:00</dd>
+								</li>
+								<li>
+									<dt>휴관일</dt>
+									<dd>연중 무휴</dd>
+								</li>
+							</ul>
+						</div>
+						<div class="divbInfomationContsDetail" id="divbInfoDetail25">
+							<ul>
+								<li>
+									<dt>이용시간</dt>
+									<dd>평일 : 06:00 ~ 24:00</dd>
+								</li>
+								<li>
+									<dt>휴관일</dt>
+									<dd>연중 무휴</dd>
+								</li>
+							</ul>
+						</div>
+						<div class="divbInfomationContsDetail" id="divbInfoDetail26">
+							<ul>
+								<li>
+									<dt>이용시간</dt>
+									<dd>평일 : 24시간</dd>
+								</li>
+								<li>
+									<dt>휴관일</dt>
+									<dd>연중 무휴</dd>
 								</li>
 							</ul>
 						</div>
