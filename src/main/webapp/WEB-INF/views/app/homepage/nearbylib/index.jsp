@@ -586,7 +586,7 @@ function isFromFridayToSunday() {
 						</div>
 					</div>
 				</div>
-				<input type="submit" class="btnSearch" value="" title="Search">
+				<input type="submit" class="btnSearch" value="" title="Search" onclick="searchIndex();">
 			</fieldset>
 		</form>
 	</div>

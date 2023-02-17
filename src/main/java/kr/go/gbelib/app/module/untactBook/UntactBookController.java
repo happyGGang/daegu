@@ -168,7 +168,7 @@ public class UntactBookController extends BaseController {
 		UntactBookSetting untactBookSetting = untactLockerSettingService.getUntactBookSettingOne(homepage.getHomepage_id());
 		
 		if (searchCountForOne >= untactBookSetting.getReserable_count()) {
-			service.alertMessage("무인예약대출은 하루에 "+untactBookSetting.getReserable_count()+"건 가능합니다.", request, response);
+			service.alertMessage("무인예약대출은 하루에 "+untactBookSetting.getReserable_count()+"건 까지 가능합니다.", request, response);
 			return null;
 		}
 		
