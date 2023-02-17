@@ -198,6 +198,15 @@ $(function() {
 		$('.nearbylibinfo03').show();
 	});
 
+	$('.nearbylibinfo04').find('.btn-close').click(function(e){
+		$('.nearbylibinfo04').hide();
+	});
+
+	$('a.info04-btn-open').click(function(e){
+		e.preventDefault();
+		$('.nearbylibinfo04').show();
+	});
+
 	$('a#mo-cgv-btn').click(function(e){
 		e.preventDefault();
 		var activeUrl = $(this).attr('href');
@@ -393,14 +402,31 @@ function isFromFridayToSunday() {
 					<div class="video-box">
 						<div class="container">
 							<div class="tab_menu main on" style="margin-top:20px;">
-								<ul class="no4">
-								  <li class="active"><a href="#tabCon1">연경지구 CGV</a></li>
+								<ul class="no5">
+								  <li class="active"><a href="#tabCon0">퀵가이드</a></li>
+								  <li><a href="#tabCon1">연경지구 CGV</a></li>
 								  <li><a href="#tabCon2">이시아폴리스 메가박스</a></li>
 								  <li><a href="#tabCon3">반야월 이마트</a></li>
 								  <li><a href="#tabCon4">내 집 앞 도서관 홍보영상</a></li>
 								</ul>
 							</div>
-							<div class="tabConts" id="tabCon1" style="display:block">
+							<div class="tabConts" id="tabCon0" style="display:block">
+								<div class="outer">
+									<div class="inner">
+										<div class="quickGuide-box">
+											<div class="quickGuide fl-left">
+												<h5><img src="/resources/homepage/nearbylib/img/quick1-1.png"></h5>
+												<p><img src="/resources/homepage/nearbylib/img/quick1-2.png"></p>
+											</div>
+											<div class="quickGuide fl-right">
+												<h5><img src="/resources/homepage/nearbylib/img/quick2-1.png"></h5>
+												<p><img src="/resources/homepage/nearbylib/img/quick2-2.png"></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tabConts" id="tabCon1">
 								<div class="outer">
 									<div class="inner">
 										<iframe class="youtube-video" id='youtube-video-01' width="90%" height="708" src="https://www.youtube.com/embed/2OaRGkZyJjc" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
@@ -438,11 +464,26 @@ function isFromFridayToSunday() {
 		</div>
 
 		<div class="quickMenu" id="mobile-view">
-
 			<ul>
-				<li class="quick-00">					
-					<div>
+				<li class="quick-00">
+					<div class="tit-box">
+						<p>운영기기&nbsp;<br class="mview"/>이용방법&nbsp;</p>
+					</div>
+					<div class="btn-box">
+						<ul>
+							<li>
+								<a href="#" class="info04-btn-open">
+									<span>퀵가이드 바로 보기</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="quick-00">
+					<div class="tit-box">
 						<p>이용방법&nbsp;<br class="mview"/>안내영상&nbsp;</p>
+					</div>
+					<div class="btn-box">
 						<ul>
 							<li class="video-cgv">
 								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" title="연경지구 CGV 이용방법"> -->
@@ -464,55 +505,56 @@ function isFromFridayToSunday() {
 							</li>
 						</ul>
 					</div>
-				</a>
+				</li>
 				<li class="quick-0">
 					<!-- <a href="/resources/homepage/${homepage.context_path}/movie/nearbylib_video.mp4" class="quick00"> -->
 					<a href="#mo-nearby-view" id="mo-nearby-btn" class="quick00">
-					<div>
-						<h4>내집앞도서관 홍보영상</h4>
-					</div>
-				</a>
+						<div>
+							<h4>내 집 앞 도서관 홍보영상</h4>
+						</div>
+					</a>
+				</li>
 				<li class="quick-1">
 					<a href="/${homepage.context_path}/html.do?menu_idx=8" class="quick01">
-					<div>
-						<h4>내집앞도서관이란?</h4>
-					</div>
-				</a>
-				<li class="quick-2">
-				<a href="/${homepage.context_path}/html.do?menu_idx=9" class="quick02">
-					<div>
-						<h4>도서배송운행코스</h4>
-					</div>
-				</a>
+						<div>
+							<h4>내 집 앞 도서관이란?</h4>
+						</div>
+					</a>
 				</li>
+				<li class="quick-2">
+					<a href="/${homepage.context_path}/html.do?menu_idx=9" class="quick02">
+						<div>
+							<h4>도서배송운행코스</h4>
+						</div>
+					</a>
 				</li>
 				<li class="quick-3">
-				<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=20" class="quick03">
-					<div>
-						<h4>도서신청</h4>
-					</div>
-				</a>
+					<a href="/${homepage.context_path}/intro/search/index.do?menu_idx=20" class="quick03">
+						<div>
+							<h4>도서신청</h4>
+						</div>
+					</a>
 				</li>
 				<li class="quick-4">
-				<a href="/${homepage.context_path}/html.do?menu_idx=16" class="quick04">
-					<div>
-						<h4>장소안내</h4>
-					</div>
-				</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=16" class="quick04">
+						<div>
+							<h4>장소안내</h4>
+						</div>
+					</a>
 				</li>
 				<li class="quick-5">
-				<a href="/${homepage.context_path}/board/index.do?menu_idx=21&manage_idx=1109" class="quick05">
-					<div>
-						<h4>공지사항</h4>
-					</div>
-				</a>
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=21&manage_idx=1109" class="quick05">
+						<div>
+							<h4>공지사항</h4>
+						</div>
+					</a>
 				</li>
 				<li class="quick-6">
-				<a href="/${homepage.context_path}/intro/search/resve/nearby_index.do?menu_idx=23" class="quick06">
-					<div>
-						<h4>내서재</h4>
-					</div>
-				</a>
+					<a href="/${homepage.context_path}/intro/search/resve/nearby_index.do?menu_idx=23" class="quick06">
+						<div>
+							<h4>내서재</h4>
+						</div>
+					</a>
 				</li>
 			</ul>
 
@@ -544,7 +586,7 @@ function isFromFridayToSunday() {
 						</div>
 					</div>
 				</div>
-				<input type="submit" class="btnSearch" value="" title="Search" onclick="searchIndex();">
+				<input type="submit" class="btnSearch" value="" title="Search">
 			</fieldset>
 		</form>
 	</div>
@@ -655,6 +697,10 @@ function isFromFridayToSunday() {
 						<p>장애인편의</p>
 					</li>
 				</ul>
+				<h3 class="nbl">유의사항</h3>
+				<ul class="nbl-list">
+					<li>2·4째주 월요일은 마트 휴점이므로 반납 불가</li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -710,6 +756,24 @@ function isFromFridayToSunday() {
 						<p>장애인편의</p>
 					</li>
 				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="nearbylibinfo04" style="display:none;">
+		<div class="nearbylibinfo03-shadow"></div>
+		<div class="closeBtn closeBtn2"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="infoArea infoArea2">
+			<!-- <p class="quickGuide-title"><span class="c-blue">내 집 앞 도서관</span> 운영기기<br /><span class="c-green">이렇게 이용하세요!</span></p> -->
+			<div class="quickGuide-box">
+				<div class="quickGuide fl-left">
+					<h5><img src="/resources/homepage/nearbylib/img/quick1-1.png"></h5>
+					<p><img src="/resources/homepage/nearbylib/img/quick1-2.png"></p>
+				</div>
+				<div class="quickGuide fl-right">
+					<h5><img src="/resources/homepage/nearbylib/img/quick2-1.png"></h5>
+					<p><img src="/resources/homepage/nearbylib/img/quick2-2.png"></p>
+				</div>
 			</div>
 		</div>
 	</div>

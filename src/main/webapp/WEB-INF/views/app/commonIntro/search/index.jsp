@@ -10,6 +10,16 @@ $(function() {
 
 	var $form = $('form#librarySearch');
 
+	$('a#search-btn').on('click', function(e) {
+		e.preventDefault();
+		$('input#viewPage').val('1');
+		$('input#reSearchTitle').val('');
+		$('input#reSearchAuthor').val('');
+		$('input#reSearchPubler').val('');
+		$('input#reSearchKeyword').val('');
+		doGetLoad('index.do', $form.serialize());
+	});
+	
 	$('a.subject-submit').on('click', function(e) {
 		e.preventDefault();
 		var scode = $(this).attr('href');

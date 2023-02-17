@@ -8,6 +8,9 @@
 				<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo_b.png" alt="대구광역시 통합도서관"/></a></h1>
 
 				<div class="mmode m-menu">
+					<!-- <a href="#" class="info04-btn-open">
+						퀵가이드
+					</a> -->
 					<a href="#menu"><img src="/resources/homepage/${homepage.context_path}/img/mmenu-icon1_b.png" alt="메뉴"></a>
 				</div>
 

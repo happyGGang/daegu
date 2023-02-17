@@ -688,21 +688,21 @@ $(function() {
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/108" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_2.png" alt="대구 근교 어린이체험" /></p>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_4.png" alt="대구 근교 어린이체험" /></p>
 										<span class="link">대구 근교 어린이체험<i></i></span>
 									</a>
 								</div>	
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/109" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_3.png" alt="직업진로체험" /></p>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_2.png" alt="직업진로체험" /></p>
 										<span class="link">직업진로체험<i></i></span>
 									</a>
 								</div>	
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/110" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_4.png" alt="시각장애인 도서 제작 봉사활동" /></p>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_3.png" alt="시각장애인 도서 제작 봉사활동" /></p>
 										<span class="link">시각장애인 도서 제작 봉사활동<i></i></span>
 									</a>
 								</div>	
@@ -976,21 +976,21 @@ $(function() {
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/108" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_2.png" alt="대구 근교 어린이체험" /></p>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_4.png" alt="대구 근교 어린이체험" /></p>
 										<span class="link">대구 근교 어린이체험<i></i></span>
 									</a>
 								</div>	
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/109" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_3.png" alt="직업진로체험" /></p>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_2.png" alt="직업진로체험" /></p>
 										<span class="link">직업진로체험<i></i></span>
 									</a>
 								</div>	
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/110" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
-										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_4.png" alt="시각장애인 도서 제작 봉사활동" /></p>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_3.png" alt="시각장애인 도서 제작 봉사활동" /></p>
 										<span class="link">시각장애인 도서 제작 봉사활동<i></i></span>
 									</a>
 								</div>	

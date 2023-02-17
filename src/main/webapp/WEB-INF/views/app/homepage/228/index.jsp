@@ -135,7 +135,7 @@
 									<img src="/resources/homepage/${homepage.context_path}/img/quick03-bg.png" class="mi">
 									</a>
 								</li>
-								<li class="bg-orange">
+								<li class="bg-dorange">
 									<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
 									<span class="wt">온라인강좌신청</span>
 									<span class="wc">운영중인 프로그램을<br/>신청해보세요.</span>
@@ -149,11 +149,11 @@
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
 									</a>
 								</li>
-								<li class="bg-dorange">
-									<a href="http://web.daegu228.flybookscreen.kr/#/" target="_blank">
-									<span class="wt">AI도서추천서비스</span>
-									<span class="wc">빅데이터를 기반으로<br />책을 추천해드립니다.</span>
-									<img src="/resources/homepage/${homepage.context_path}/img/quick06-bg.png" class="mi">
+								<li class="bg-orange">
+									<a href="https://library.daegu.go.kr/nearbylib/index.do" target="_blank">
+									<span class="wt">내 집 앞 도서관</span>
+									<span class="wc">도서관을 방문하지않고도<br />손쉽게 도서를 대출해보세요.</span>
+									<img src="/resources/homepage/${homepage.context_path}/img/quick07-bg.png" class="mi">
 									</a>
 								</li>
 							</ul>
