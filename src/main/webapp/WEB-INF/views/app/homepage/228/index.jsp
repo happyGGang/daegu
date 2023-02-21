@@ -170,13 +170,13 @@
 							</a>
 							<div class="big-btn-box box2">
 								<h2>
-									<span>오늘 뭐 읽지?</span>
-									<span class="second-line">AI</span>
-									<span class="third-line"><b>도서추천서비스</b></span>
+									<span>디지털지식나눔터</span>
+									<span class="second-line">대구학생</span>
+									<span class="third-line"><b>전자도서관</b></span>
 								</h2>
 								<div class="link_box">
-									<a href="http://web.daegu228.flybookscreen.kr/#/" target="_blank" class="link01">바로가기 &gt;</a>
-									<!-- <a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link02">이용안내 &gt;</a> -->
+									<a href="https://dgelib.dkyobobook.co.kr" target="_blank" class="link01">바로가기 &gt;</a>
+									<a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link02">이용안내 &gt;</a>
 								</div>
 							</div>
 						</div>
@@ -352,7 +352,7 @@
 		<div id="quick-slide">
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
-				<li style="padding-bottom:10px;"><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick006-bg.png" alt="청소년자원봉사"></span><span class="txt">대구학생<br/>전자도서관</span></a></li>
+				<li style="padding-bottom:10px;"><a href="http://web.daegu228.flybookscreen.kr/#/" target="_blank"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick008-bg.png" alt="AI도서추천서비스"></span><span class="txt">AI도서<br/>추천서비스</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=48"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick001-bg.png" alt="책바다"></span><span class="txt">책바다</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=49"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=50"><span class="img"><img src="/resources/homepage/${homepage.context_path}/img/quick003-bg.png" alt="사서에게 물어보세요"></span><span class="txt">사서에게<br/>물어보세요</span></a></li>
