@@ -170,13 +170,13 @@
 							</a>
 							<div class="big-btn-box box2">
 								<h2>
-									<span>디지털지식나눔터</span>
-									<span class="second-line">대구학생</span>
-									<span class="third-line"><b>전자도서관</b></span>
+									<span>오늘 뭐 읽지?</span>
+									<span class="second-line">AI</span>
+									<span class="third-line"><b>도서추천서비스</b></span>
 								</h2>
 								<div class="link_box">
-									<a href="https://dgelib.dkyobobook.co.kr" target="_blank" class="link01">바로가기 &gt;</a>
-									<a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link02">이용안내 &gt;</a>
+									<a href="http://web.daegu228.flybookscreen.kr/#/" target="_blank" class="link01">바로가기 &gt;</a>
+									<!-- <a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link02">이용안내 &gt;</a> -->
 								</div>
 							</div>
 						</div>
