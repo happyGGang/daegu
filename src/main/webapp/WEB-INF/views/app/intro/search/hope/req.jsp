@@ -356,7 +356,7 @@
 				</c:when>
 				<c:when test="${context_path eq 'dalseongsmall'}">
 				<form:select path="manageCode">
-					<!--<form:option value="GA">화원읍작은도서관</form:option>
+					<form:option value="GA">화원읍작은도서관</form:option>
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
 					<form:option value="HG">다사읍작은도서관</form:option>
@@ -365,9 +365,9 @@
 					<form:option value="FR">가창면참꽃작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
-					<form:option value="FN">달성군청소년센터</form:option>-->
+					<form:option value="FN">달성군청소년센터</form:option>
 					<form:option value="FJ">달성군청도서관</form:option>
-				</form:select> <span style="color:#ff0000"> <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  -->* 달성군청도서관 외 희망도서 신청 마감합니다. </span>
+				</form:select> <span style="color:#ff0000">  * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  <!-- * 달성군청도서관 외 희망도서 신청 마감합니다. --> </span>
 				</c:when>
 				<c:when test="${context_path eq 'namic'}">
 				<form:select path="manageCode">
@@ -569,7 +569,7 @@
 			<td><form:checkbox path="reservation_yn" class="text" value="Y" checked="checked"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
 		</tr>
 		</c:if>
-		<c:if test="${context_path eq 'donggu'}">
+		<c:if test="${context_path eq 'donggu' or context_path eq 'sincheon' or context_path eq 'donggusm'}">
 		<tr>
 			<th>우선대출예약여부</th>
 			<td><b>신청자에게 1순위로 대출권한이 주어지며, 3일 이내에 대출해야 합니다.</b></td>
