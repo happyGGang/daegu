@@ -563,7 +563,7 @@
 			<th>가격 <em><font color="red">(*)</font></em></th>
 			<td><form:input path="price" style="width:40%" class="text" type="text" maxlength="10" numberOnly="true" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
 		</tr>
-		<c:if test="${context_path ne 'nambu' and context_path ne 'std' and context_path ne 'donggu'}">
+		<c:if test="${context_path ne 'nambu' and context_path ne 'std' and context_path ne 'donggu' and context_path ne 'sincheon' and context_path ne 'donggusm'}">
 		<tr>
 			<th>우선대출예약여부</th>
 			<td><form:checkbox path="reservation_yn" class="text" value="Y" checked="checked"/> <label for="reservation_yn1">우선대출을 원하실 경우 체크를 해주세요</label></td>
