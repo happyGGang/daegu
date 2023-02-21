@@ -19,12 +19,13 @@ public interface FacilityDao  {
 	
 	public Facility getFacilityOne(Facility facility);
 	
-	public int addFacility(Map<String, List<Facility>> param); 
-	
+	public int addFacility(Map<String, List<Facility>> param);
+
 	public int modifyFacility(Facility facility);
 	
 	public int deleteFacility(Facility facility);
-	
+	public List<Integer> getFacilityLastIDX(Facility facility);
+
 	public List<CalendarStatus> getFacilityStatus(CalendarStatus calendarStatus);
 	
 	public List<CalendarStatus> getFacilityMonthStatus(CalendarStatus calendarStatus);
