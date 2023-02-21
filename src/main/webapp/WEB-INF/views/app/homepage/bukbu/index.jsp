@@ -491,9 +491,9 @@ do {
 						</div>
 
 						<div class="culture box con" data-tab="tab2" style="display:none;">
-							<!-- <div class="cont">
+							<div class="cont">
 								<ul class="list">
-									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+									<c:forEach var="i" varStatus="status" items="${teachGuideList}" >
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<em>${i.title}</em>
@@ -502,14 +502,13 @@ do {
 									</li>
 									</c:forEach>
 
-									<c:if test="${fn:length(noticeList) < 1}">
+									<c:if test="${fn:length(teachGuideList) < 1}">
 									<li>
 										<em>등록된 게시글이 없습니다.</em>
 									</li>
 									</c:if>
-									<%--공지사항 목록--%>
 								</ul>
-							</div> -->
+							</div>
 						</div>
 					</div>
 				</div>

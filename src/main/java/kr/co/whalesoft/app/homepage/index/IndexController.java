@@ -882,6 +882,11 @@ public class IndexController extends BaseController {
 			b2.setManage_idx(145);
 			b2.setHomepage_id(homepage.getHomepage_id());
 			model.addAttribute("exhibitionList", boardService.getSubBoardByMain(b2));//전시회전체
+			
+			Board b3 = new Board();
+			b3.setManage_idx(146);
+			b3.setHomepage_id(homepage.getHomepage_id());
+			model.addAttribute("teachGuideList", boardService.getSubBoardByMain(b3));//강좌행사안내
 		}
 
 		//서구도서관
