@@ -1,8 +1,11 @@
 package kr.go.gbelib.app.cms.module.facilityReq;
 
+import kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipment;
 import org.apache.commons.lang.StringUtils;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
+
+import java.util.List;
 
 public class FacilityReq extends PagingUtils {
 
@@ -39,6 +42,10 @@ public class FacilityReq extends PagingUtils {
 	private String excel_type;
 	
 	private int isBlackList;
+
+	private String equipment;
+
+	private List<FacilityEquipment> resultList;
 	
 	public FacilityReq() { }
 	
@@ -272,4 +279,19 @@ public class FacilityReq extends PagingUtils {
 		this.isBlackList = isBlackList;
 	}
 
+	public String getEquipment() {
+		return equipment;
+	}
+
+	public void setEquipment(String equipment) {
+		this.equipment = equipment;
+	}
+
+	public List<FacilityEquipment> getResultList() {
+		return resultList;
+	}
+
+	public void setResultList(List<FacilityEquipment> resultList) {
+		this.resultList = resultList;
+	}
 }

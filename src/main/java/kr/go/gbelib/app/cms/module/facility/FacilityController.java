@@ -187,7 +187,11 @@ public class FacilityController extends BaseController {
 	@RequestMapping(value = {"/editApply.*"}, method = RequestMethod.GET)
 	public String editApply(Model model, FacilityReq facilityReq) {
 		model.addAttribute("facility", service.getFacilityOne(new Facility(facilityReq.getHomepage_id(), facilityReq.getFacility_idx())));
+		FacilityEquipment equipment = new FacilityEquipment();
+		equipment.setHomepage_id(facilityReq.getHomepage_id());
+		equipment.setFacility_idx(facilityReq.getFacility_idx());
 
+		model.addAttribute("facilityEquipmentList",equipmentService.getFacilityEquipmentList(equipment));
 		if ( facilityReq.getEditMode().equals("MODIFY") ) {
 			model.addAttribute("facilityReq", facilityReqService.copyObjectPaging(facilityReq, facilityReqService.getFacilityReqOne(facilityReq)));
 		}
@@ -289,7 +293,26 @@ public class FacilityController extends BaseController {
 	@RequestMapping(value = {"/applyList.*"}, method = RequestMethod.GET)
 	public String applyList(Model model, FacilityReq facilityReq) {
 		model.addAttribute("facilityReq", facilityReq);
-		model.addAttribute("applyList", facilityReqService.getFacilityReqList(facilityReq));
+		List<FacilityReq> list = facilityReqService.getFacilityReqList(facilityReq);
+		List<FacilityEquipment> eqList = new ArrayList<>();
+		model.addAttribute("applyList", list);
+		FacilityEquipment equipment = new FacilityEquipment();
+		equipment.setFacility_idx(facilityReq.getFacility_idx());
+		equipment.setHomepage_id(facilityReq.getHomepage_id());
+		for (FacilityReq req : list) {
+			if (StringUtils.isNotEmpty(req.getEquipment())) {
+				String[] equipmentInfo =  req.getEquipment().split(",");
+				for (int i = 0; i < equipmentInfo.length; i++) {
+					FacilityEquipment equipment2 = new FacilityEquipment();
+					String[] info = equipmentInfo[i].split(":");
+					equipment.setEquipment_idx(Integer.parseInt(info[0]));
+					equipment2 = equipmentService.getFacilityEquipmentOne(equipment);
+					equipment2.setEquipment_need_cnt(info[1]);
+					eqList.add(equipment2);
+				}
+			}
+		}
+		model.addAttribute("facilityEquipmentList", eqList);
 
 		return basePath + "applyList_ajax";
 	}

@@ -114,14 +114,31 @@ $(function() {
 		for (var i=0;i<nameStr.length;i++){
 			var tr;
 			if (i == nameStr.length-1){
-				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;"/> <a href="#" class="addBtn btn btn2">추가</a></td></tr>`
+				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="addBtn btn btn2">추가</a></td></tr>`
 			}else{
-				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;"/> <a href="#" class="removeBtn btn btn5">삭제</a></td></tr>`
+				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="removeBtn btn btn5">삭제</a></td></tr>`
 			}
 
 			$('#modal').append(tr);
 		}
 	}
+
+// 	validation
+	$(document).on('propertychange change paste input','input[name=equipment_standard]',function (e){
+		if (!$(this).prev().val()){
+			alert('제공장비 명을 먼저 작성해 주십시오.');
+			$(this).val('');
+			return false;
+		}
+	});
+	$(document).on('propertychange change paste input','input[name=equipment_cnt]',function (e){
+		if (!$(this).prev().prev().val()){
+			alert('제공장비 명을 먼저 작성해 주십시오.');
+			$(this).val('');
+			return false;
+		}
+	});
+	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 });
 
 </script>
@@ -231,7 +248,7 @@ $(function() {
 			<tr class="equipment">
 				<th>제공장비</th>
 				<td>
-                    이름 : <input type="text" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" style="width:50px;"/> <a href="#" class="addBtn btn btn2">추가</a>
+                    이름 : <input type="text" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="addBtn btn btn2">추가</a>
 				</td>
 			</tr>
 		</tbody>

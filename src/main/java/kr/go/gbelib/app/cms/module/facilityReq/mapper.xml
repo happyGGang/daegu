@@ -5,7 +5,7 @@
 	<select id="getFacilityReqListAll" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			homepage_id, facility_idx, facility_req_idx, apply_id,
-			apply_name, apply_phone, apply_desc, apply_status,
+			apply_name, apply_phone, apply_desc, apply_status,equipment,
 			add_date, add_id, modify_date, modify_id
 		FROM
 			FACILITY_REQ
@@ -21,7 +21,7 @@
 	<select id="getFacilityReqList" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			homepage_id, facility_idx, facility_req_idx, apply_id,
-			apply_name, apply_phone, apply_desc, apply_status,
+			apply_name, apply_phone, apply_desc, apply_status,equipment,
 			add_date, add_id, modify_date, modify_id
 		FROM
 			FACILITY_REQ
@@ -38,7 +38,7 @@
 	<select id="getFacilityReqOne" resultType="kr.go.gbelib.app.cms.module.facilityReq.FacilityReq">
 		SELECT
 			homepage_id, facility_idx, facility_req_idx, apply_id,
-			apply_name, apply_phone, apply_desc, apply_status,
+			apply_name, apply_phone, apply_desc, apply_status,equipment,
 			add_date, add_id, modify_date, modify_id
 		FROM
 			FACILITY_REQ
@@ -70,12 +70,14 @@
 		(
 			homepage_id, facility_idx, facility_req_idx, apply_id, apply_name,
 			apply_phone, apply_desc, apply_status, self_info_yn, delete_yn,
+			equipment,
 			add_date, add_id
 		)
 		VALUES
 		(
 			#{homepage_id}, #{facility_idx}, #{facility_req_idx}, #{apply_id}, #{apply_name},
 			#{apply_phone}, #{apply_desc}, '1', 'Y', 'N',
+			#{equipment},
 			SYSDATE, #{add_id}
 		)
 	</insert>
@@ -86,6 +88,7 @@
 		SET
 			apply_phone = #{apply_phone},
 			apply_desc = #{apply_desc},
+			equipment = #{equipment},
 			modify_date = SYSDATE,
 			modify_id = #{modify_id}
 		WHERE

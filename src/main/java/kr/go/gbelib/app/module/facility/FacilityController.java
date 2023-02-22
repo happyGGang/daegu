@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipment;
+import kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipmentService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +48,9 @@ public class FacilityController extends BaseController {
 
 	@Autowired
 	private FacilityService service;
+
+	@Autowired
+	private FacilityEquipmentService equipmentService;
 
 	@Autowired
 	private FacilityReqService facilityReqService;
@@ -122,6 +127,12 @@ public class FacilityController extends BaseController {
 		facility.setHomepage_id(homepage.getHomepage_id());
 		facility.setFacility_idx(facilityReq.getFacility_idx());
 		model.addAttribute("facility",service.getFacilityOne(facility));
+
+		FacilityEquipment equipment = new FacilityEquipment();
+		equipment.setHomepage_id(homepage.getHomepage_id());
+		equipment.setFacility_idx(facilityReq.getFacility_idx());
+
+		model.addAttribute("facilityEquipmentList",equipmentService.getFacilityEquipmentList(equipment));
 
 		Member certMember = (Member) request.getSession().getAttribute("certMember");
 		if (certMember != null) {

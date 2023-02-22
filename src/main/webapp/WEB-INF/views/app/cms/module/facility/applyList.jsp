@@ -112,6 +112,7 @@ $(function() {
     		<th>휴대전화번호</th>
     		<th>사용목적</th>
     		<th>신청상태</th>
+			<th>대여장비신청현황</th>
     		<th>기능</th>
     	</tr>
     </thead>
@@ -131,6 +132,13 @@ $(function() {
 			         			<c:when test="${i.apply_status eq '3'}">취소</c:when>
 			         		</c:choose>
 			         	</td>
+						<td>
+							<c:forEach var="j" items="${facilityEquipmentList}"  >
+								<c:if test="${i.facility_idx eq j.facility_idx}">
+									이름 : ${j.equipment_name} 개수 : ${j.equipment_need_cnt} / ${j.equipment_cnt} <br/>
+								</c:if>
+							</c:forEach>
+						</td>
 			         	<td>
 			         		<c:choose>
 			         			<c:when test="${i.apply_status eq '1' or i.apply_status eq '3'}">

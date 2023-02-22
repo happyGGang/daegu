@@ -26,6 +26,17 @@ $(function() {
 					if($('#apply_phone1').val() != "" && $('#apply_phone2').val() != "" && $('#apply_phone3').val() != "") {
 						$('#apply_phone').val($('#apply_phone1').val()+'-'+$('#apply_phone2').val()+'-'+$('#apply_phone3').val());	
 					}
+					var equipmentList='';
+					$('input:checkbox[name=checkList]').each(function (index) {
+						if($(this).is(":checked")==true){
+							equipmentList += $(this).attr('id')+":"+$(this).next().next().val()+","
+						}
+
+					});
+
+					if (equipmentList.length > 0){
+						$('#equipment').val(equipmentList.slice(0,-1));
+					}
 					if ( doAjaxPost($('#facilityReqForm')) ) {
 						location.reload();
 					}
@@ -77,7 +88,36 @@ $(function() {
 	
 	// 연락처 필드 숫자만 입력 가능
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
-	
+
+	$('input:checkbox[name=checkList]').on('click',function(){
+		if ($(this).is(':checked')){
+			$(this).next().next().removeAttr('disabled');
+		} else {
+			$(this).next().next().attr('disabled','disabled');
+			$(this).next().next().val('');
+		}
+	});
+	$('.numberText').change(function(){
+		if (parseInt($(this).val()) > parseInt($(this).next().text())) {
+			alert("개수가 초과되었습니다.");
+			$(this).val('');
+			return false;
+		}
+	});
+
+	if ($('#equipment').val()){
+		let value = $('#equipment').val();
+		let valueArray = value.split(",");
+		for (var i=0;i<valueArray.length;i++){
+			let imsi = valueArray[i].split(":");
+			$('input:checkbox[name=checkList]').each(function (index) {
+				if ($(this).attr('id') == imsi[0]){
+					$(this).prop('checked',true);
+					$(this).next().next().val(imsi[1]);
+				}
+			});
+		}
+	}
 });
 
 </script>
@@ -87,6 +127,7 @@ $(function() {
 	<form:hidden path="facility_idx"/>
 	<form:hidden path="facility_req_idx"/>
 	<form:hidden path="member_key"/>
+	<form:hidden path="equipment"/>
 	<table class="type2">
 		<colgroup>
 	       <col width="130" />
@@ -151,6 +192,14 @@ $(function() {
 						<form:option value="Y" label="동의"/>
 						<form:option value="N" label="미동의"/>
 					</form:select>
+				</td>
+			</tr>
+			<tr>
+				<th>장비 대여</th>
+				<td>
+					<c:forEach var="i" items="${facilityEquipmentList}" varStatus="status">
+						<input name="checkList" type="checkbox" id="${i.equipment_idx}"/><label for="${i.equipment_idx}">${i.equipment_name}</label> 수량 : <input type="text" class="text numberText" style="width:40px;" maxlength="3" numberonly="true" disabled> / <span>${i.equipment_cnt}</span><br/>
+					</c:forEach>
 				</td>
 			</tr>
 		</tbody>

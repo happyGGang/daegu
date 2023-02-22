@@ -15,6 +15,8 @@ public class FacilityEquipment extends PagingUtils {
 	private String equipment_standard;				//장비규격
 	private String equipment_cnt;						//장비갯수
 
+	private String equipment_need_cnt;						//장비필요갯수
+
 	public int getFacility_idx() {
 		return facility_idx;
 	}
@@ -85,5 +87,13 @@ public class FacilityEquipment extends PagingUtils {
 
 	public void setEquipment_idx(int equipment_idx) {
 		this.equipment_idx = equipment_idx;
+	}
+
+	public String getEquipment_need_cnt() {
+		return equipment_need_cnt;
+	}
+
+	public void setEquipment_need_cnt(String equipment_need_cnt) {
+		this.equipment_need_cnt = equipment_need_cnt;
 	}
 }
