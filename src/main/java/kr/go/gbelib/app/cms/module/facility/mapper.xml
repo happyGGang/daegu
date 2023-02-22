@@ -109,6 +109,24 @@
 			</foreach>
 		SELECT * FROM DUAL
 	</insert>
+	<!--<insert id="addFacility" parameterType="HashMap">
+		INSERT ALL
+			<foreach collection="list" item="i" separator=" " index="index">
+			INTO FACILITY_MANAGE
+			(
+				homepage_id, facility_idx, facility_name, facility_desc, use_date, start_time, end_time, limit_count,
+				apply_start_date, apply_end_date, apply_start_time, apply_end_time,
+				use_yn, delete_yn, add_date, add_id, date_type
+			)
+			VALUES
+			(
+				#{i.homepage_id}, (SELECT NVL(MAX(facility_idx),0) + 1 FROM FACILITY_MANAGE WHERE homepage_id = #{i.homepage_id}) + ${index}, #{i.facility_name}, #{i.facility_desc}, #{i.use_date}, #{i.start_time}, #{i.end_time}, #{i.limit_count},
+				#{i.apply_start_date}, #{i.apply_end_date}, #{i.apply_start_time}, #{i.apply_end_time},
+				#{i.use_yn}, 'N', SYSDATE, #{i.add_id}, #{i.date_type}
+			)
+			</foreach>
+		SELECT * FROM DUAL
+	</insert>-->
 
 	<update id="modifyFacility">
 		UPDATE
@@ -249,4 +267,17 @@
   		ORDER BY week_num
 	</select>
 
+	<select id="getFacilityLastIDX" resultType="int">
+		SELECT
+		    facility_idx
+		FROM
+		    FACILITY_MANAGE
+		WHERE
+		    homepage_id = #{homepage_id}
+		AND facility_name = #{facility_name}
+		AND start_time = #{start_time}
+		AND end_time = #{end_time}
+		AND add_date = SYSDATE
+		AND delete_yn='N'
+	</select>
 </mapper>

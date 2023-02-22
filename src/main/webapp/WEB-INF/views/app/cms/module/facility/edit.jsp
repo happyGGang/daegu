@@ -21,6 +21,24 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
+					let name_list = new Array();
+					let standard_list = new Array();
+					let cnt_list = new Array();
+                    let equipment_name_list = $('input[name=equipment_name]');
+					let equipment_standard_list = $('input[name=equipment_standard]');
+					let equipment_cnt_list = $('input[name=equipment_cnt]');
+					let equipmentSize = $('.equipment').length
+					if (equipment_name_list.eq(0).val()) {
+						for (let i=0;i < equipmentSize;i++) {
+							name_list.push(equipment_name_list.eq(i).val());
+							standard_list.push(equipment_standard_list.eq(i).val());
+							cnt_list.push(equipment_cnt_list.eq(i).val());
+						}
+
+						$('#equipment_name_list').val(name_list);
+						$('#equipment_standard_list').val(standard_list);
+						$('#equipment_cnt_list').val(cnt_list);
+					}
 					if ( doAjaxPost($('#facilityForm')) ) {
 						location.reload();
 					}
@@ -68,7 +86,42 @@ $(function() {
 			$('input#apply_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
+	$(document).on('click','.addBtn',function (e){
+		e.preventDefault();
+		var btn = `<a href="#" class="removeBtn btn btn5">삭제</a>`;
+        var tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" style="width:50px;"/> <a href="#" class="addBtn btn btn2">추가</a></td></tr>`
+		$(this).parent().append(btn);
+		$(this).parent().parent().parent().append(tr)
+		$(this).remove();
+	});
 
+    $(document).on('click','.removeBtn',function (e){
+		e.preventDefault();
+        $(this).parent().parent().remove();
+    });
+
+	if ($('#equipment_name_list').val()){
+		$('.equipment').remove();
+		var nameStr = $('#equipment_name_list').val().split(',');
+		var standardStr;
+		var cntStr;
+		if ($('#equipment_standard_list').val()){
+			standardStr = $('#equipment_standard_list').val().split(',');
+		}
+		if ($('#equipment_cnt_list').val()){
+			cntStr = $('#equipment_cnt_list').val().split(',');
+		}
+		for (var i=0;i<nameStr.length;i++){
+			var tr;
+			if (i == nameStr.length-1){
+				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;"/> <a href="#" class="addBtn btn btn2">추가</a></td></tr>`
+			}else{
+				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;"/> <a href="#" class="removeBtn btn btn5">삭제</a></td></tr>`
+			}
+
+			$('#modal').append(tr);
+		}
+	}
 });
 
 </script>
@@ -76,12 +129,15 @@ $(function() {
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="facility_idx"/>
 	<form:hidden path="editMode"/>
+	<form:hidden path="equipment_name_list"/>
+	<form:hidden path="equipment_standard_list"/>
+	<form:hidden path="equipment_cnt_list"/>
 	<table class="type2">
 		<colgroup>
 	       <col width="150" />
 	       <col width="*"/>
        	</colgroup>
-       	<tbody>
+       	<tbody id="modal">
        		<tr>
 			<th>시설물 종류(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
@@ -172,6 +228,12 @@ $(function() {
 					<form:radiobutton path="use_yn" class="N" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
 				</td>
 	        </tr>
+			<tr class="equipment">
+				<th>제공장비</th>
+				<td>
+                    이름 : <input type="text" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" style="width:50px;"/> <a href="#" class="addBtn btn btn2">추가</a>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 </form:form>

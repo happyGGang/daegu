@@ -2,6 +2,8 @@ package kr.go.gbelib.app.cms.module.facility;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
+import java.util.List;
+
 public class Facility extends PagingUtils implements Cloneable {
 
 	private int facility_idx;  //시설물IDX
@@ -45,6 +47,13 @@ public class Facility extends PagingUtils implements Cloneable {
 	private String apply_yn;
 
 	private String excel_type;
+
+	private String equipment_name;					//장비명
+	private String equipment_standard;				//장비규격
+	private String equipment_cnt;						//장비갯수
+	private List<String> equipment_name_list;		//장비명리스트
+	private List<String> equipment_standard_list;	//장비규격리스트
+	private List<String> equipment_cnt_list;		//장비갯수리스트
 
 	public Facility() { }
 
@@ -341,4 +350,52 @@ public class Facility extends PagingUtils implements Cloneable {
 		this.date_type = date_type;
 	}
 
+	public String getEquipment_name() {
+		return equipment_name;
+	}
+
+	public void setEquipment_name(String equipment_name) {
+		this.equipment_name = equipment_name;
+	}
+
+	public String getEquipment_standard() {
+		return equipment_standard;
+	}
+
+	public void setEquipment_standard(String equipment_standard) {
+		this.equipment_standard = equipment_standard;
+	}
+
+
+	public List<String> getEquipment_name_list() {
+		return equipment_name_list;
+	}
+
+	public void setEquipment_name_list(List<String> equipment_name_list) {
+		this.equipment_name_list = equipment_name_list;
+	}
+
+	public List<String> getEquipment_standard_list() {
+		return equipment_standard_list;
+	}
+
+	public void setEquipment_standard_list(List<String> equipment_standard_list) {
+		this.equipment_standard_list = equipment_standard_list;
+	}
+
+	public String getEquipment_cnt() {
+		return equipment_cnt;
+	}
+
+	public void setEquipment_cnt(String equipment_cnt) {
+		this.equipment_cnt = equipment_cnt;
+	}
+
+	public List<String> getEquipment_cnt_list() {
+		return equipment_cnt_list;
+	}
+
+	public void setEquipment_cnt_list(List<String> equipment_cnt_list) {
+		this.equipment_cnt_list = equipment_cnt_list;
+	}
 }

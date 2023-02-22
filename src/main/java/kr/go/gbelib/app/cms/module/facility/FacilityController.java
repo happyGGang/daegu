@@ -1,14 +1,13 @@
 package kr.go.gbelib.app.cms.module.facility;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipment;
+import kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipmentService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +37,9 @@ public class FacilityController extends BaseController {
 	private FacilityService service;
 
 	@Autowired
+	private FacilityEquipmentService equipmentService;
+
+	@Autowired
 	private FacilityReqService facilityReqService;
 
 	@Autowired
@@ -63,9 +65,27 @@ public class FacilityController extends BaseController {
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Facility facility, HttpServletRequest request) throws AuthException {
+		FacilityEquipment equipment = new FacilityEquipment();
 		if(facility.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
-			model.addAttribute("facility", service.copyObjectPaging(facility, service.getFacilityOne(facility)));
+			equipment.setFacility_idx(facility.getFacility_idx());
+			equipment.setHomepage_id(facility.getHomepage_id());
+			List<FacilityEquipment> facilityEquipmentList = equipmentService.getFacilityEquipmentList(equipment);
+			Facility facility1 = service.getFacilityOne(facility);
+			if (facilityEquipmentList.size() > 0) {
+				List<String> nameList = new ArrayList<>();
+				List<String> standardList = new ArrayList<>();
+				List<String> cntList = new ArrayList<>();
+			    for (FacilityEquipment fe : facilityEquipmentList) {
+					nameList.add(fe.getEquipment_name());
+					standardList.add(fe.getEquipment_standard());
+					cntList.add(fe.getEquipment_cnt());
+				}
+				facility1.setEquipment_name_list(nameList);
+				facility1.setEquipment_standard_list(standardList);
+				facility1.setEquipment_cnt_list(cntList);
+			}
+			model.addAttribute("facility", service.copyObjectPaging(facility, facility1));
 		} else {
 			checkAuth("C", model, request);
 			model.addAttribute("facility", facility);
@@ -110,14 +130,27 @@ public class FacilityController extends BaseController {
 		}
 
 		if(!result.hasErrors()) {
+			FacilityEquipment equipment = new FacilityEquipment();
+			equipment.setHomepage_id(facility.getHomepage_id());
 			if(editMode.equals("ADD")) {
 				facility.setAdd_id(getSessionMemberId(request));
+				equipment.setAdd_id(facility.getAdd_id());
 				int addResult = service.addFacility(facility);
 				if (addResult == 0) {
 					res.setValid(false);
 					res.setMessage("이용가능일자와 요일이 맞지 않습니다.");
 
 				} else {
+					List<Integer> idList = service.getFacilityLastIDX(facility);
+					for (Integer id : idList) {
+						equipment.setFacility_idx(id);
+						for (int i = 0; i < facility.getEquipment_name_list().size();i++) {
+							equipment.setEquipment_name(facility.getEquipment_name_list().get(i));
+							equipment.setEquipment_standard(facility.getEquipment_standard_list().get(i));
+							equipment.setEquipment_cnt(facility.getEquipment_cnt_list().get(i));
+							equipmentService.addFacilityEquipment(equipment);
+						}
+					}
 					res.setValid(true);
 					res.setMessage("등록 되었습니다.");
 
@@ -125,9 +158,20 @@ public class FacilityController extends BaseController {
 			} else if(editMode.equals("MODIFY")) {
 				facility.setModify_id(getSessionMemberId(request));
 				service.modifyFacility(facility);
+				equipment.setFacility_idx(facility.getFacility_idx());
+				equipment.setAdd_id(facility.getModify_id());
+				equipmentService.deleteFacilityEquipment(equipment);
+				for (int i = 0; i < facility.getEquipment_name_list().size();i++) {
+					equipment.setEquipment_name(facility.getEquipment_name_list().get(i));
+					equipment.setEquipment_standard(facility.getEquipment_standard_list().get(i));
+					equipment.setEquipment_cnt(facility.getEquipment_cnt_list().get(i));
+					equipmentService.addFacilityEquipment(equipment);
+				}
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			} else if(editMode.equals("DELETE")) {
+				equipment.setFacility_idx(facility.getFacility_idx());
+				equipmentService.deleteFacilityEquipment(equipment);
 				service.deleteFacility(facility);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");

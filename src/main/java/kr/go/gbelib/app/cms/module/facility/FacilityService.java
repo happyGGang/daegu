@@ -92,6 +92,9 @@ public class FacilityService extends BaseService {
 			return facilityDao.addFacility(param);
 		}
 	}
+	public List<Integer> getFacilityLastIDX(Facility facility) {
+		return facilityDao.getFacilityLastIDX(facility);
+	}
 
 	public int modifyFacility(Facility facility) {
 		return facilityDao.modifyFacility(facility);
