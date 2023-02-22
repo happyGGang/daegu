@@ -31,6 +31,11 @@ $(function() {
 		e.preventDefault();
 		$('.movie-box').css('top','100%');
 		$('#movie-close-slider').css('display','none');
+		$('.youtube-video').attr('src','');
+		$('div.tab_menu.on > ul > li').removeClass('active');
+		$('div.tab_menu.on > ul > li:nth-child(1)').addClass('active');
+		$('.tabConts').hide();
+		$('#tabCon0').show();
 		//$('.dimmed').css('display','none');
 		//$('#ProgramLink-container').css('display','block');
 		//_video.load(); // 새로운 정보를 다시 로드
@@ -213,7 +218,7 @@ $(function() {
 		$('.m-youtube-video').attr('src','');
 		$('.mo-video-view').hide();
 		$(activeUrl).show();
-		$('#m-youtube-video-01').attr('src','https://www.youtube.com/embed/2OaRGkZyJjc');
+		$('#m-youtube-video-01').attr('src','https://www.youtube.com/embed/KUpelDlfA_g');
 	});
 
 	$('a#mo-esia-btn').click(function(e){
@@ -222,7 +227,7 @@ $(function() {
 		$('.m-youtube-video').attr('src','');
 		$('.mo-video-view').hide();
 		$(activeUrl).show();
-		$('#m-youtube-video-02').attr('src','https://www.youtube.com/embed/85Ryq_P9pNw');
+		$('#m-youtube-video-02').attr('src','https://www.youtube.com/embed/xQ5GVY5Xugo');
 	});
 
 	$('a#mo-emart-btn').click(function(e){
@@ -231,7 +236,7 @@ $(function() {
 		$('.m-youtube-video').attr('src','');
 		$('.mo-video-view').hide();
 		$(activeUrl).show();
-		$('#m-youtube-video-03').attr('src','https://www.youtube.com/embed/7ZqsLdG9xbg');
+		$('#m-youtube-video-03').attr('src','https://www.youtube.com/embed/zC85gj2o9JU');
 	});
 
 	$('a#mo-nearby-btn').click(function(e){
@@ -259,6 +264,11 @@ $(function() {
 	});
 
 	$('#mo-nearby-view').find('.btn-close').click(function(e){
+		$('.mo-video-view').hide();
+		$('.m-youtube-video').attr('src','');
+	});
+
+	$('.mo-close').click(function(e){
 		$('.mo-video-view').hide();
 		$('.m-youtube-video').attr('src','');
 	});
@@ -369,15 +379,15 @@ function isFromFridayToSunday() {
 
 						if(activeTab == '#tabCon1')
 						{
-							$('#youtube-video-01').attr('src','https://www.youtube.com/embed/2OaRGkZyJjc');
+							$('#youtube-video-01').attr('src','https://www.youtube.com/embed/KUpelDlfA_g');
 						}
 						else if(activeTab == '#tabCon2')
 						{
-							$('#youtube-video-02').attr('src','https://www.youtube.com/embed/85Ryq_P9pNw');
+							$('#youtube-video-02').attr('src','https://www.youtube.com/embed/xQ5GVY5Xugo');
 						}
 						else if(activeTab == '#tabCon3')
 						{
-							$('#youtube-video-03').attr('src','https://www.youtube.com/embed/7ZqsLdG9xbg');
+							$('#youtube-video-03').attr('src','https://www.youtube.com/embed/zC85gj2o9JU');
 						}
 						else if(activeTab == '#tabCon4')
 						{
@@ -429,7 +439,7 @@ function isFromFridayToSunday() {
 							<div class="tabConts" id="tabCon1">
 								<div class="outer">
 									<div class="inner">
-										<iframe class="youtube-video" id='youtube-video-01' width="90%" height="708" src="https://www.youtube.com/embed/2OaRGkZyJjc" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+										<iframe class="youtube-video" id='youtube-video-01' width="90%" height="708" src="https://www.youtube.com/embed/KUpelDlfA_g" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 										<!-- <video id="video-box_1" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_CGV.mp4" controls muted loop playinline></video> --> 
 									</div>
 								</div>
@@ -437,7 +447,7 @@ function isFromFridayToSunday() {
 							<div class="tabConts" id="tabCon2">
 								<div class="outer">
 									<div class="inner">
-										<iframe class="youtube-video" id='youtube-video-02' width="90%" height="708" src="https://www.youtube.com/embed/85Ryq_P9pNw" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+										<iframe class="youtube-video" id='youtube-video-02' width="90%" height="708" src="https://www.youtube.com/embed/xQ5GVY5Xugo" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 										<!-- <video id="video-box_2" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" controls muted loop playinline></video> -->
 									</div>
 								</div>
@@ -445,7 +455,7 @@ function isFromFridayToSunday() {
 							<div class="tabConts" id="tabCon3">
 								<div class="outer">
 									<div class="inner">
-										<iframe class="youtube-video" id='youtube-video-03' width="90%" height="708" src="https://www.youtube.com/embed/7ZqsLdG9xbg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>										<!-- <video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video> -->
+										<iframe class="youtube-video" id='youtube-video-03' width="90%" height="708" src="https://www.youtube.com/embed/zC85gj2o9JU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>										<!-- <video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video> -->
 									</div>
 								</div>
 							</div>
@@ -780,12 +790,12 @@ function isFromFridayToSunday() {
 
 	<div id="mo-cgv-view" class="mo-video-view" style="display:none;">
 		<div class="mo-nearby-shadow"></div>
-		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="closeBtn"><button class="btn btn-close mo-close"><span class="blind">닫기</span></button></div>
 		<div class="" style='position:relative;height:100%;z-index:999993;'>
 			<div class="outer">
 				<div class="inner">
 					<div class="video-container">
-						<iframe class="m-youtube-video" id='m-youtube-video-01' width="90%" height="67.5%" src="https://www.youtube.com/embed/2OaRGkZyJjc" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+						<iframe class="m-youtube-video" id='m-youtube-video-01' width="90%" height="67.5%" src="https://www.youtube.com/embed/KUpelDlfA_g" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 					</div>
 				</div>
 			</div>
@@ -794,12 +804,12 @@ function isFromFridayToSunday() {
 
 	<div id="mo-esia-view" class="mo-video-view" style="display:none;">
 		<div class="mo-nearby-shadow"></div>
-		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="closeBtn"><button class="btn btn-close mo-close"><span class="blind">닫기</span></button></div>
 		<div class="" style='position:relative;height:100%;z-index:999993;'>
 			<div class="outer">
 				<div class="inner">
 					<div class="video-container">
-						<iframe class="m-youtube-video" id='m-youtube-video-02' width="90%" height="67.5%" src="https://www.youtube.com/embed/85Ryq_P9pNw" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+						<iframe class="m-youtube-video" id='m-youtube-video-02' width="90%" height="67.5%" src="https://www.youtube.com/embed/xQ5GVY5Xugo" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 					</div>
 				</div>
 			</div>
@@ -808,12 +818,12 @@ function isFromFridayToSunday() {
 
 	<div id="mo-emart-view" class="mo-video-view" style="display:none;">
 		<div class="mo-nearby-shadow"></div>
-		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="closeBtn"><button class="btn btn-close mo-close"><span class="blind">닫기</span></button></div>
 		<div class="" style='position:relative;height:100%;z-index:999993;'>
 			<div class="outer">
 				<div class="inner">
 					<div class="video-container">
-						<iframe class="m-youtube-video" id='m-youtube-video-03' width="90%" height="67.5%" src="https://www.youtube.com/embed/7ZqsLdG9xbg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+						<iframe class="m-youtube-video" id='m-youtube-video-03' width="90%" height="67.5%" src="https://www.youtube.com/embed/zC85gj2o9JU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 					</div>
 				</div>
 			</div>
@@ -822,7 +832,7 @@ function isFromFridayToSunday() {
 
 	<div id="mo-nearby-view" class="mo-video-view" style="display:none;">
 		<div class="mo-nearby-shadow"></div>
-		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="closeBtn"><button class="btn btn-close mo-close"><span class="blind">닫기</span></button></div>
 		<div class="" style='position:relative;height:100%;z-index:999993;'>
 			<div class="outer">
 				<div class="inner">
