@@ -1022,25 +1022,22 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-<c:if test="${detail.LOAN_CODE eq 'OK'}">
-			<c:choose>
-				<c:when test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA' }">
-					<c:choose>
-						<c:when test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+			<c:if test="${detail.LOAN_CODE eq 'OK'}">
+				<c:if test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA'}">
+					<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+						<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AA67' and detail.SHELF_LOC_CODE ne 'AA68' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH21' and detail.SHELF_LOC_CODE ne 'AH22' and detail.SHELF_LOC_CODE ne 'AH23' and detail.SHELF_LOC_CODE ne 'AH24' and detail.SHELF_LOC_CODE ne 'AH25' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH27' and detail.SHELF_LOC_CODE ne 'AH28' and detail.SHELF_LOC_CODE ne 'AH29' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10'}">
 							<c:choose>
-							<c:when test="${detail.SHELF_LOC_CODE eq 'AA02' || detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA05' || detail.SHELF_LOC_CODE eq 'AA07' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA19' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' ||  detail.SHELF_LOC_CODE eq 'AA23' || detail.SHELF_LOC_CODE eq 'AA29' || detail.SHELF_LOC_CODE eq 'AA30' || detail.SHELF_LOC_CODE eq 'AA31' || detail.SHELF_LOC_CODE eq 'AA36' || detail.SHELF_LOC_CODE eq 'AA37' || detail.SHELF_LOC_CODE eq 'AA39' || detail.SHELF_LOC_CODE eq 'AA40' || detail.SHELF_LOC_CODE eq 'AA41' || detail.SHELF_LOC_CODE eq 'AA51' || detail.SHELF_LOC_CODE eq 'AA52' || detail.SHELF_LOC_CODE eq 'AA53' || detail.SHELF_LOC_CODE eq 'AA56' || detail.SHELF_LOC_CODE eq 'AA58' || detail.SHELF_LOC_CODE eq 'AA59' || detail.SHELF_LOC_CODE eq 'AA60' || detail.SHELF_LOC_CODE eq 'AA62' || detail.SHELF_LOC_CODE eq 'AA65' || detail.SHELF_LOC_CODE eq 'AA66' || detail.SHELF_LOC_CODE eq 'AA67' || detail.SHELF_LOC_CODE eq 'AA68' || detail.SHELF_LOC_CODE eq 'AH14' || detail.SHELF_LOC_CODE eq 'AH16' || detail.SHELF_LOC_CODE eq 'AH21' || detail.SHELF_LOC_CODE eq 'AH22' || detail.SHELF_LOC_CODE eq 'AH23' || detail.SHELF_LOC_CODE eq 'AH24' || detail.SHELF_LOC_CODE eq 'AH25' || detail.SHELF_LOC_CODE eq 'AH26' || detail.SHELF_LOC_CODE eq 'AH27' || detail.SHELF_LOC_CODE eq 'AH28' || detail.SHELF_LOC_CODE eq 'AH29' || detail.SHELF_LOC_CODE eq 'AH33' || detail.SHELF_LOC_CODE eq 'AH60' || detail.SHELF_LOC_CODE eq 'CA08' || detail.SHELF_LOC_CODE eq 'CB08' || detail.SHELF_LOC_CODE eq 'CB10'}">
-							</c:when>
-							<c:otherwise>
-								<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-							</c:otherwise>
+								<c:when test="${not empty nearbylibRejectMessage}">
+									<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+								</c:otherwise>
 							</c:choose>
-						</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose>
-				</c:when>
-			</c:choose>
-</c:if>
+						</c:if>
+					</c:if>
+				</c:if>
+			</c:if>
 
 <c:if test="${homepage.context_path ne 'nearbylib'}">
 			<c:choose>
