@@ -58,6 +58,7 @@ import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSe
 import kr.go.gbelib.app.cms.module.untactBook.untactLockerSetting.UntactLockerSettingService;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.common.api.LoginAPI;
 import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 
@@ -762,14 +763,51 @@ public class CommonSearchController extends BaseController {
 						
 						NearbyLib searchBookOne = new NearbyLib();
 						searchBookOne.setBook_key(librarySearch.getBookkey());
+						
 						NearbyLib neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
 						int reserveData = 0;
 						if(neighborhoodLibraryOne != null) {
 							reserveData = 1;
 						}
 						
+						Member member = getSessionMemberInfo(request);
+						member.setManage_code(String.valueOf(map.get("MANAGE_CODE")));
+						
+						String nearbylibRejectMessage = "";
+						
+						try {
+							Object data = LoginAPI.login2(member);
+							
+							Member memberInfo = (Member) data;
+							
+							//통합대출권수
+							int unityLoanaleCnt = Integer.parseInt(memberInfo.getUnity_loanable_cnt());
+							int unityLoanCnt = Integer.parseInt(memberInfo.getUnity_loan_cnt());
+							//자관대출권수
+							int localLoanaleCnt = Integer.parseInt(memberInfo.getLocal_loanable_cnt());
+							int localLoanCnt = Integer.parseInt(memberInfo.getLocal_loan_cnt());
+							
+							//자관대출가능권수(자관대출가능권수 - (자관대출권수 + 내집앞도서예약권수))
+							int tongCnt = unityLoanaleCnt - (unityLoanCnt + 1);
+							//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
+							int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
+							
+							if(jagwanCnt == 0 || tongCnt == 0) {
+								if(jagwanCnt == 0) {
+									nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
+								} else {
+									nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
+								}
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+							log.error("내집앞 도서관 자관,통합대출가능 권수 조회 오류" + e.getMessage());
+						}
+						
 						model.addAttribute("reserveAvailability", reserveAvailability);
 						model.addAttribute("reserveData", reserveData);
+						model.addAttribute("nearbylibRejectMessage", nearbylibRejectMessage);
 					}
 				} catch (Exception e) {
 					log.error("내집앞 도서관 예약시간 설정 오류");
@@ -3620,6 +3658,51 @@ public class CommonSearchController extends BaseController {
 		if(neighborhoodLibrary.getDevice_idx() > 0) {
 			NearbyLibReserveConfig nearbyLibReserveConfig = neighborhoodLibraryReserveConfigService.getReserveConfigToday(neighborhoodLibrary.getManage_code());
 			nearbyLibReserveConfig.setMember_id(member.getMember_id());
+			
+			member.setManage_code(neighborhoodLibrary.getManage_code());
+			
+			String nearbylibRejectMessage = "";
+			
+			try {
+				Object data = LoginAPI.login2(member);
+				
+				member = (Member) data;
+				
+				//통합대출권수
+				int unityLoanaleCnt = Integer.parseInt(member.getUnity_loanable_cnt());
+				int unityLoanCnt = Integer.parseInt(member.getUnity_loan_cnt());
+				//자관대출권수
+				int localLoanaleCnt = Integer.parseInt(member.getLocal_loanable_cnt());
+				int localLoanCnt = Integer.parseInt(member.getLocal_loan_cnt());
+				
+				//자관대출가능권수(자관대출가능권수 - (자관대출권수 + 내집앞도서예약권수))
+				int tongCnt = unityLoanaleCnt - (unityLoanCnt + 1);
+				//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
+				int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
+				
+				if(jagwanCnt == 0 || tongCnt == 0) {
+					if(jagwanCnt == 0) {
+						nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
+						
+						res.setValid(false);
+						res.setMessage(nearbylibRejectMessage);
+						return res;
+					} else {
+						nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
+						
+						res.setValid(false);
+						res.setMessage(nearbylibRejectMessage);
+						return res;
+					}
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+				res.setValid(false);
+				res.setMessage("자관, 통합 대출권수 확인에 오류가 생겼습니다.\n관리자에게 문의해주세요.");
+				return res;
+			}
 			
 			if(nearbyLibManageService.checkUseYn(neighborhoodLibrary.getManage_code()) > 0) {
 				res.setValid(false);

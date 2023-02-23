@@ -35,7 +35,7 @@
 				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 			</when>
 			<when test='editMode == "todayIn"'>
-				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
 			</when>
 			<otherwise>
 				AND RESERVE_STATUS IN ('2','3')				
@@ -169,7 +169,7 @@
 				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
 			</when>
 			<when test='editMode == "todayIn"'>
-				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ <= ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
 			</when>
 		</choose>
 		<if test="manage_code != null and manage_code != ''">
@@ -672,7 +672,7 @@
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
-			TO_CHAR(TO_DATE(expire_date, 'yyyy-MM-dd'), 'yyyy/MM/dd') = TO_CHAR(TO_DATE(#{expire_date}, 'yyyy-MM-dd'), 'yyyy/MM/dd')
+			TO_DATE(expire_date, 'yyyy-MM-dd') &lt; TO_DATE(#{expire_date}, 'yyyy-MM-dd')
 		AND device_code = #{device_code}
 		ORDER BY
 			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX;

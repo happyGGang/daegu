@@ -309,7 +309,7 @@ public class NearbyLibService extends BaseService {
 							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(nowDate);
-					        cal.add(Calendar.DATE, take_term);
+					        cal.add(Calendar.DATE, take_term -1);
 					        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 					        
 							apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
@@ -453,7 +453,7 @@ public class NearbyLibService extends BaseService {
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년MM월dd일");
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(nowDate);
-			        cal.add(Calendar.DATE, +reserveOne.getTake_term()); 
+			        cal.add(Calendar.DATE, +reserveOne.getTake_term()-1); 
 			        LibrarySearch librarySearch = new LibrarySearch();
 			        librarySearch.setUserkey(reserveOne.getUser_key());
 			        String userIp = reserveOne.getAdd_ip();
@@ -700,7 +700,7 @@ public class NearbyLibService extends BaseService {
 							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(nowDate);
-					        cal.add(Calendar.DATE, take_term);
+					        cal.add(Calendar.DATE, take_term-1);
 					        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 							
 							apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
@@ -770,7 +770,7 @@ public class NearbyLibService extends BaseService {
 						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(nowDate);
-				        cal.add(Calendar.DATE, resultData.getTake_term());
+				        cal.add(Calendar.DATE, resultData.getTake_term()-1);
 						result.put("result", "success");
 						result.put("success_Count", success);
 						result.put("message", result_message);
@@ -814,7 +814,7 @@ public class NearbyLibService extends BaseService {
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
-						        cal.add(Calendar.DATE, take_term);
+						        cal.add(Calendar.DATE, take_term-1);
 						        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 								
 								apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
@@ -835,7 +835,7 @@ public class NearbyLibService extends BaseService {
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
-						        cal.add(Calendar.DATE, take_term);
+						        cal.add(Calendar.DATE, take_term-1);
 								neighborhoodLibrary.setExpire_date(simpleDateFormat.format(cal.getTime()));
 								dao.updateNeighborhoodLibraryExpireDate(neighborhoodLibrary);
 								
@@ -945,7 +945,7 @@ public class NearbyLibService extends BaseService {
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(nowDate);
-			        cal.add(Calendar.DATE, resultData.getTake_term());
+			        cal.add(Calendar.DATE, resultData.getTake_term()-1);
 					
 			        if(success == 1) {
 						result.put("result", "success");
@@ -988,7 +988,7 @@ public class NearbyLibService extends BaseService {
 						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년MM월dd일");
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(nowDate);
-				        cal.add(Calendar.DATE, +reserveOne.getTake_term()); 
+				        cal.add(Calendar.DATE, +reserveOne.getTake_term()-1); 
 						
 				        LibrarySearch librarySearch = new LibrarySearch();
 				        librarySearch.setUserkey(reserveOne.getUser_key());
