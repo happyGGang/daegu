@@ -5,7 +5,7 @@
 	<select id="getFacilityEquipmentList" resultType="kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipment">
 		SELECT
 			equipment_idx, equipment_name, equipment_standard, equipment_cnt, facility_idx,
-			homepage_id, add_date, add_id, modify_date, modify_id
+			homepage_id, add_date, add_id
 		FROM
 			FACILITY_EQUIPMENT
 		WHERE
@@ -17,7 +17,7 @@
 	<select id="getFacilityEquipmentOne" resultType="kr.go.gbelib.app.cms.module.facilityEquipment.FacilityEquipment">
 		SELECT
 			equipment_idx, equipment_name, equipment_standard, equipment_cnt, facility_idx,
-			homepage_id,add_date, add_id, modify_date, modify_id
+			homepage_id,add_date, add_id
 		FROM
 			FACILITY_EQUIPMENT
 		WHERE
