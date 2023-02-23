@@ -382,6 +382,7 @@ function isFromFridayToSunday() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
 	<form:hidden path="separateShelfCode"/>
+	<form:hidden path="shelfCode"/>
 	<form:hidden path="facet_manage_code"/>
 	<form:hidden path="facet_author"/>
 	<form:hidden path="facet_publisher"/>
