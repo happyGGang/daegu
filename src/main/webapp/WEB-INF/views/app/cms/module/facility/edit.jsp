@@ -100,29 +100,40 @@ $(function() {
         $(this).parent().parent().remove();
     });
 
-	if ($('#equipment_name_list').val()){
-		$('.equipment').remove();
-		var nameStr = $('#equipment_name_list').val().split(',');
-		var standardStr;
-		var cntStr;
-		if ($('#equipment_standard_list').val()){
-			standardStr = $('#equipment_standard_list').val().split(',');
+	$('#date_type').on('change',function(){
+		if ($('#date_type').val() == '0001'){
+			$('.equipment').show()
+		}else{
+			$('.equipment').hide();
 		}
-		if ($('#equipment_cnt_list').val()){
-			cntStr = $('#equipment_cnt_list').val().split(',');
-		}
-		for (var i=0;i<nameStr.length;i++){
-			var tr;
-			if (i == nameStr.length-1){
-				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="addBtn btn btn2">추가</a></td></tr>`
-			}else{
-				tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="`+nameStr[i]+`" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="`+standardStr[i]+`" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="`+cntStr[i]+`" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="removeBtn btn btn5">삭제</a></td></tr>`
+	});
+
+	if ($('#date_type').val() == '0001') {
+		if ($('#equipment_name_list').val()) {
+			$('.equipment').remove();
+			var nameStr = $('#equipment_name_list').val().split(',');
+			var standardStr;
+			var cntStr;
+			if ($('#equipment_standard_list').val()) {
+				standardStr = $('#equipment_standard_list').val().split(',');
 			}
+			if ($('#equipment_cnt_list').val()) {
+				cntStr = $('#equipment_cnt_list').val().split(',');
+			}
+			for (var i = 0; i < nameStr.length; i++) {
+				var tr;
+				if (i == nameStr.length - 1) {
+					tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="` + nameStr[i] + `" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="` + standardStr[i] + `" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="` + cntStr[i] + `" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="addBtn btn btn2">추가</a></td></tr>`
+				} else {
+					tr = `<tr class="equipment"><th>제공장비</th><td>이름 : <input type="text" value="` + nameStr[i] + `" name="equipment_name" class="text" style="width:150px;"/> 규격 :  <input type="text" name="equipment_standard" value="` + standardStr[i] + `" class="text" style="width:50px;"/>  수량 :   <input type="text" name="equipment_cnt" class="text" value="` + cntStr[i] + `" style="width:50px;" maxlength="3" numberonly="true"/> <a href="#" class="removeBtn btn btn5">삭제</a></td></tr>`
+				}
 
-			$('#modal').append(tr);
+				$('#modal').append(tr);
+			}
 		}
+	} else {
+		$('.equipment').hide();
 	}
-
 // 	validation
 	$(document).on('propertychange change paste input','input[name=equipment_standard]',function (e){
 		if (!$(this).prev().val()){

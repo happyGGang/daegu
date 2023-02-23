@@ -118,6 +118,7 @@ $(function() {
 			});
 		}
 	}
+
 });
 
 </script>
@@ -194,7 +195,8 @@ $(function() {
 					</form:select>
 				</td>
 			</tr>
-			<tr>
+			<c:if test="${facility.date_type eq '0001'}">
+			<tr class="equipment">
 				<th>장비 대여</th>
 				<td>
 					<c:forEach var="i" items="${facilityEquipmentList}" varStatus="status">
@@ -202,6 +204,7 @@ $(function() {
 					</c:forEach>
 				</td>
 			</tr>
+			</c:if>
 		</tbody>
 	</table>
 </form:form>
