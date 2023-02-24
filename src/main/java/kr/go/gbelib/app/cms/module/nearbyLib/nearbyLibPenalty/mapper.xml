@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibPenalty.NearbyLibPenaltyDao">
+
+	<sql id="where">
+		<if test="search_start_date != null and search_start_date != '' and search_end_date != null and search_end_date != ''">
+			AND TO_DATE(penalty_add_date,'yyyy-MM-dd') BETWEEN #{search_start_date} AND #{search_end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+    </sql>
+    
+	<select id="getNearbyLibPenaltyCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_PENALTY
+	</select>
+	
+	<select id="getNearbyLibPenaltyList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibPenalty.NearbyLibPenalty">
+		${pagingTop}
+		SELECT
+			penalty_idx, homepage_id, manage_code, penalty_count, penalty_member_id,
+    		penalty_reason, penalty_delete_yn, penalty_add_id, penalty_add_ip, penalty_modify_id,
+    		penalty_modify_ip, penalty_modify_date,
+		    TO_CHAR(penalty_add_date, 'yyyy-MM-dd') as penalty_add_date, TO_CHAR(penalty_date, 'yyyy-MM-dd HH24:mi:ss') as penalty_date
+		FROM
+			NEIGHBORHOOD_LIBRARY_PENALTY
+		WHERE
+			penalty_delete_yn = 'N'
+		<include refid="where"/>
+		${pagingBottom}
+	</select>
+	
+	<select id="getNearbyLibPenaltySetting" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibPenalty.NearbyLibPenalty">
+		SELECT
+			penalty_setting_idx, homepage_id, penalty_standard_count, penalty_add_id, penalty_add_ip,
+		    penalty_add_date, penalty_modify_id, penalty_modify_ip, penalty_modify_date, use_yn,
+		    penalty_period
+		FROM
+			NEIGHBORHOOD_LIBRARY_PENALTY_SETTING
+	</select>
+	
+	<insert id="addNearbyLibPenaltySetting">
+		<selectKey keyProperty="penalty_setting_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(penalty_setting_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_PENALTY_SETTING
+		</selectKey>			
+		INSERT INTO NEIGHBORHOOD_LIBRARY_PENALTY_SETTING
+			(
+				penalty_setting_idx, homepage_id, penalty_standard_count, penalty_add_id, penalty_add_ip,
+			    penalty_add_date, penalty_modify_id, penalty_modify_ip, penalty_modify_date, use_yn,
+			    penalty_period
+			) VALUES (
+				#{penalty_setting_idx}, #{homepage_id}, #{penalty_standard_count}, #{penalty_add_id}, #{penalty_add_ip},
+				SYSDATE, #{penalty_modify_id}, #{penalty_modify_ip}, #{penalty_modify_date}, #{use_yn},
+				#{penalty_period}
+			)
+	</insert>
+	
+	<update id="modifyNearbyLibPenaltySetting">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_PENALTY_SETTING
+		SET
+			penalty_standard_count = #{penalty_standard_count},
+			penalty_period = #{penalty_period},
+			use_yn = #{use_yn},
+			penalty_modify_id = #{penalty_modify_id},
+			penalty_modify_ip = #{penalty_modify_ip},
+			penalty_modify_date = SYSDATE
+	</update>
+	
+	<select id="getNearbyLibPenaltyMember" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibPenalty.NearbyLibPenalty">
+		SELECT
+			penalty_idx, homepage_id, manage_code, penalty_count, penalty_member_id,
+    		penalty_reason, penalty_delete_yn, penalty_add_id, penalty_add_ip, penalty_add_date,
+		    penalty_modify_id, penalty_modify_ip, penalty_modify_date, penalty_date
+		FROM
+			NEIGHBORHOOD_LIBRARY_PENALTY
+		WHERE
+			penalty_idx = #{penalty_idx}
+	</select>
+	
+	<insert id="addNearbyLibPenaltyMember">
+		<selectKey keyProperty="penalty_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(penalty_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_PENALTY
+		</selectKey>			
+		INSERT INTO NEIGHBORHOOD_LIBRARY_PENALTY
+			(
+				penalty_idx, homepage_id, manage_code, penalty_count, penalty_member_id,
+	    		penalty_reason, penalty_delete_yn, penalty_add_id, penalty_add_ip, penalty_add_date,
+			    penalty_modify_id, penalty_modify_ip, penalty_modify_date, penalty_date
+			) VALUES (
+				#{penalty_idx}, #{homepage_id}, #{manage_code}, #{penalty_count}, #{penalty_member_id},
+				#{penalty_reason}, 'N', #{penalty_add_id}, #{penalty_add_ip}, SYSDATE,
+				#{penalty_modify_id}, #{penalty_modify_ip}, #{penalty_modify_date}, TO_DATE(#{penalty_date}, 'yyyy-MM-dd HH24:mi:ss')
+			)
+	</insert>
+	
+	<update id="modifyNearbyLibPenaltyMember">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_PENALTY
+		SET
+			penalty_count = #{penalty_count},
+			penalty_reason = #{penalty_reason},
+			penalty_modify_id = #{penalty_modify_id},
+			penalty_modify_ip = #{penalty_modify_ip},
+			penalty_modify_date = SYSDATE
+		WHERE
+			penalty_idx IN
+		<foreach collection="penalty_idx_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</update>
+	
+	<update id="deleteNearbyLibPenaltyMember">
+		UPDATE
+			NEIGHBORHOOD_LIBRARY_PENALTY
+		SET
+			penalty_delete_yn = 'Y',
+			penalty_modify_id = #{penalty_modify_id},
+			penalty_modify_ip = #{penalty_modify_ip},
+			penalty_modify_date = SYSDATE
+		WHERE
+			penalty_idx IN
+		<foreach collection="penalty_idx_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</update>
+	
+	<select id="getPenaltyMemberCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_PENALTY
+		WHERE
+			penalty_member_id = #{member_id}
+	</select>
+</mapper>
