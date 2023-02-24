@@ -166,100 +166,213 @@ $(function(){
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 	<c:if test="${homepage.context_path eq 'yonghak'}">
-		<h3 style="margin-top:0;">이용방법</h3>
-		<ul class="con">
-			<li>신청서 작성 후 도서관 승인을 받고 해당시간 이용가능</li>
-			<li>사전신청을 해야 하며, 신청일로부터 한 달간 예약 가능</li>
-		</ul>
+		<c:if test="${param.menu_idx eq '143'}">
+			<h3 style="margin-top:0;">이용방법</h3>
+			<ul class="con">
+				<li>신청서 작성 후 도서관 승인을 받고 해당시간 이용가능</li>
+				<li>사전신청을 해야 하며, 신청일로부터 한 달간 예약 가능</li>
+			</ul>
 
-		<h3>신청인원</h3>
-		<ul class="con">
-			<li>2명 이상 신청가능<br />(※ 코로나19로 인해 최대이용가능 인원 : 4명)</li>
-		</ul>
+			<h3>신청인원</h3>
+			<ul class="con">
+				<li>2명 이상 신청가능<br />(※ 코로나19로 인해 최대이용가능 인원 : 4명)</li>
+			</ul>
 
-		<h3>이용시간</h3>
-		<div class="rsv-info"></div>
-		<div class="auto-scroll">
-			<table class="tbl-type01" summary="용학도서관 독서토론실 이용시간을 안내해 드립니다.">
+			<h3>이용시간</h3>
+			<div class="rsv-info"></div>
+			<div class="auto-scroll">
+				<table class="tbl-type01" summary="용학도서관 독서토론실 이용시간을 안내해 드립니다.">
+				  <caption class="disnone">
+				  독서토론실 이용시간
+				  </caption>
+				  <colgroup>
+				  <col width="*" class="col1">
+				  <col width="25%" class="col2">
+				  <col width="25%" class="col3">
+				  <col width="25%" class="col4">
+				  </colgroup>
+				  <thead>
+					<tr class="first">
+					  <th scope="col" class="first th1">요일</th>
+					  <th scope="col" class="th2" colspan="3">시간대</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr class="first">
+					  <th scope="row" class="first th1">화~금요일</th>
+					  <td class="td1">09:00~12:00</td>
+					  <td class="td2">13:00~16:00</td>
+					  <td class="last td3">17:00~20:00</td>
+					</tr>
+					<tr class="first">
+					  <th scope="row" class="first th1">토·일요일</th>
+					  <td class="td1">09:00~12:00</td>
+					  <td colspan="2" class="last td2">13:00~16:00</td>
+					</tr>
+				  </tbody>
+				</table>
+			</div>
+
+			<h3>유의사항</h3>
+			<ul class="con">
+				<li>독서토론과 관련 없는 활동은 사용불가 (종교, 보험, 사익 목적 등)</li>
+				<li>두 차례 예약시간을 지키지 않을 경우, 두 달간 이용 제한</li>
+				<li>시설 및 설비를 변경할 수 없으며, 특별한 경우 사전승인 요청</li>
+				<li>마스크 착용 필수, 음식물 섭취 금지</li>
+			</ul>
+
+			<h3>신청</h3>
+			<ul class="con">
+				<li>전화 (053-668-1728) 및 방문 신청</li>
+			</ul>
+		</c:if>
+
+		<c:if test="${param.menu_idx eq '185'}">
+			<style>
+				.img-box img{width:49%;}
+			</style>
+
+			<h3 style="margin-top:0;">대여 공간</h3>
+			<ul class="con">
+				<li>미디어콘텐츠랩 스튜디오 내부 시설 및 장비(편집실 제외)</li>
+			</ul>
+			<div class="img-box">
+				<img src="/data/menuResources/h51/185/1677130442542.jpg">
+				<img src="/data/menuResources/h51/185/1677130464919.jpg">
+				<img src="/data/menuResources/h51/185/1677130473395.jpg">
+				<img src="/data/menuResources/h51/185/1677130479584.jpg">
+			</div>
+			<br />
+			<div class="rsv-info"></div>
+			<div class="auto-scroll">
+			<table class="tbl-type01" summary="용학도서관 시설물 제공 장비 안내">
 			  <caption class="disnone">
-			  독서토론실 이용시간
+				용학도서관 시설물 제공 장비 안내
 			  </caption>
 			  <colgroup>
-			  <col width="*" class="col1">
-			  <col width="25%" class="col2">
-			  <col width="25%" class="col3">
-			  <col width="25%" class="col4">
+			  <col width="25%">
+			  <col width="15%">
+			  <col width="5%">
+			  <col width="25%">
+			  <col width="15%">
+			  <col width="5%">
 			  </colgroup>
 			  <thead>
-				<tr class="first">
-				  <th scope="col" class="first th1">요일</th>
-				  <th scope="col" class="th2" colspan="3">시간대</th>
+				<tr>
+				  <th colspan="3">기본 제공 장비</th>
+				  <th colspan="3">신청 시 제공 장비</th>
+				</tr>
+				<tr>
+				  <th class="no-line">항목</th>
+				  <th class="no-line">규격</th>
+				  <th class="no-line">수량</th>
+				  <th class="no-line">항목</th>
+				  <th class="no-line">규격</th>
+				  <th class="no-line">수량</th>
 				</tr>
 			  </thead>
 			  <tbody>
-				<tr class="first">
-				  <th scope="row" class="first th1">화~금요일</th>
-				  <td class="td1">09:00~12:00</td>
-				  <td class="td2">13:00~16:00</td>
-				  <td class="last td3">17:00~20:00</td>
-				</tr>
-				<tr class="first">
-				  <th scope="row" class="first th1">토·일요일</th>
-				  <td class="td1">09:00~12:00</td>
-				  <td colspan="2" class="last td2">13:00~16:00</td>
-				</tr>
+				  <tr>
+					<td>크로마키 배경</td>
+					<td>120&lsquo;</td>
+					<td>1</td>
+					<td>테이블</td>
+					<td></td>
+					<td>1</td>
+				  </tr>
+				  <tr>
+					<td>카메라</td>
+					<td>HXR-NX80</td>
+					<td>1</td>
+					<td>테이블보</td>
+					<td></td>
+					<td>1</td>
+				  </tr>
+				  <tr>
+					<td>붐마이크</td>
+					<td></td>
+					<td>1</td>
+					<td>의자</td>
+					<td></td>
+					<td>4</td>
+				  </tr>
+				  <tr>
+					<td>카메라 삼각대</td>
+					<td></td>
+					<td>1</td>
+					<td>조명</td>
+					<td>EX600U</td>
+					<td>2</td>
+				  </tr>
+				  <tr>
+					<td>콘솔데스크</td>
+					<td></td>
+					<td>1</td>
+					<td>무선마이크</td>
+					<td>VWP-D21</td>
+					<td>1</td>
+				  </tr>
+				  <tr>
+					<td>모니터</td>
+					<td>24&lsquo;</td>
+					<td>1</td>
+					<td>마이크(콘덴서)</td>
+					<td>AKG C214</td>
+					<td>2</td>
+				  </tr>
+				  <tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>마이크(다이나믹)</td>
+					<td></td>
+					<td>2</td>
+				  </tr>
+				  <tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>오디오인터페이스</td>
+					<td></td>
+					<td></td>
+				  </tr>
 			  </tbody>
 			</table>
-		  </div>
+			</div>
 
-		<h3>유의사항</h3>
-		<ul class="con">
-			<li>독서토론과 관련 없는 활동은 사용불가 (종교, 보험, 사익 목적 등)</li>
-			<li>두 차례 예약시간을 지키지 않을 경우, 두 달간 이용 제한</li>
-			<li>시설 및 설비를 변경할 수 없으며, 특별한 경우 사전승인 요청</li>
-			<li>마스크 착용 필수, 음식물 섭취 금지</li>
-		</ul>
+			<h3>이용방법</h3>
+			<ul class="con">
+				<li>용학도서관 홈페이지 로그인 후 신청 가능</li>
+				<li>사용 희망일 2일 전(18:00)마감까지 홈페이지 예약 시스템을 통해 이용 신청</li>
+				<li>이용 당일 도서관에 방문하여 이용 신청서 및 이용 동의서 작성 후 제출</li>
+				<li>신청자를 포함하여 최대 6명까지 이용 가능</li>
+			</ul>
 
-		<h3>신청</h3>
-		<ul class="con">
-			<li>전화 (053-668-1728) 및 방문 신청</li>
-		</ul>
-	</c:if>
-	
-	<!-- 기존 용학 시설물 대신 미디어콘텐츠랩일 경우 index페이지 입니다. -->
-	<c:if test="${homepage.context_path eq 'yonghak'}">
-		<h3 style="margin-top:0;">이용방법</h3>
-		<ul class="con">
-			<li>용학도서관 홈페이지 로그인 후 신청 가능</li>
-			<li>사용 희망일 2일 전(18:00)마감까지 홈페이지 예약 시스템을 통해 이용 신청</li>
-			<li>이용 당일 도서관에 방문하여 이용 신청서 및 이용 동의서 작성 후 제출</li>
-			<li>신청자를 포함하여 최대 6명까지 이용 가능</li>
-		</ul>
+			<h3>이용 시간</h3>
+			<ul class="con">
+				<li>휴관일을 제외한 매주 금요일 9:00~12:00 / 14:00~17:00 (회차별 3시간)</li>
+				<li>오전 및 오후 각 1회 1팀 신청 가능, 1팀당 월 2회 이용가능 (단, 자관 및 협력 단체에 한하여 도서관장의 승인 후 특정 시간 및 요일의 반복적 사용 가능)</li>
+				<li>이용 시간에는 준비 시간, 작업 시간, 종료 후 정리 시간을 포함한다.</li>
+			</ul>
 
-		<h3>이용시간</h3>
-		<ul class="con">
-			<li>휴관일을 제외한 매주 금요일 9:00~12:00 / 14:00~17:00 (회차별 3시간)</li>
-			<li>오전 및 오후 각 1회 1팀 신청 가능, 1팀당 월 2회 이용가능<br/>(단, 자관 및 협력 단체에 한하여 도서관장의 승인 후 특정 시간 및 요일의 반복적 사용 가능)</li>
-			<li>이용 시간에는 준비 시간, 작업 시간, 종료 후 정리 시간을 포함한다.</li>
-		</ul>
+			<h3>취소 및 변경</h3>
+			<ul class="con">
+				<li>예약 2일전까지는 홈페이지에서, 2일전~전일까지는 전화(053-668-1721)로 취소 가능</li>
+				<li>당일 취소 및 변경 불가</li>
+				<li>예약 후 별도의 취소없이 대여를 하지 않은 경우 주의조치하며, 3회 누적 시 신청 제한</li>
+			</ul>
 
-		<h3>취소 및 변경</h3>
-		<ul class="con">
-			<li>예약 2일전까지는 홈페이지에서, 2일전~전일까지는 전화(053-668-1721)로 취소 가능</li>
-			<li>당일 취소 및 변경 불가</li>
-			<li>예약 후 별도의 취소없이 대여를 하지 않은 경우 주의조치하며, 3회 누적 시 신청 제한</li>
-		</ul>
-
-		<h3>이용 수칙</h3>
-		<ul class="con">
-			<li>종교적·정치적인 목적 등 사회적으로 논란의 여지가 있는 경우 사용을 제한함</li>
-			<li>입실 및 퇴실 절차는 본인이 직접하며 대리 신청 또는 타인에게 양도 할 수 없음</li>
-			<li>예약 시간과 기일을 지켜 타 대여자에게 불이익이 생기지 않도록 함</li>
-			<li>대여 중 사용자의 귀책 사유료 발생한 파손 및 분실에 대해서는 손해배상이나 원상회복을 해야 함</li>
-			<li>미디어콘텐츠랩 내 음식물 반입 및 섭취를 금지함</li>
-			<li>전열기 및 커피포트 등 화재 위험이 있는 물품 반입을 금지함</li>
-			<li>대여 종료 후 시설은 원상복구하여야 하며, 쓰레기는 완전히 수거하여야 함</li>
-		</ul>
+			<h3>이용 수칙</h3>
+			<ul class="con">
+				<li>종교적·정치적인 목적 등 사회적으로 논란의 여지가 있는 경우 사용을 제한함</li>
+				<li>입실 및 퇴실 절차는 본인이 직접하며 대리 신청 또는 타인에게 양도 할 수 없음</li>
+				<li>예약 시간과 기일을 지켜 타 대여자에게 불이익이 생기지 않도록 함</li>
+				<li>대여 중 사용자의 귀책 사유료 발생한 파손 및 분실에 대해서는 손해배상이나 원상회복을 해야 함</li>
+				<li>미디어콘텐츠랩 내 음식물 반입 및 섭취를 금지함</li>
+				<li>전열기 및 커피포트 등 화재 위험이 있는 물품 반입을 금지함</li>
+				<li>대여 종료 후 시설은 원상복구하여야 하며, 쓰레기는 완전히 수거하여야 함</li>
+			</ul>
+		</c:if>
 	</c:if>
 
 	<div class="ym_btns">

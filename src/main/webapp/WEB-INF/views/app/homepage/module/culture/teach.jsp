@@ -21,6 +21,7 @@
 	.education-bg span.color-etc{background:#000;}
 	.education-bg h4{font-size:17px;font-family:'s-core_dream6_bold';letter-spacing:-0.75px;line-height:130%;color:#222;margin-top:10px;overflow:hidden;white-space:normal;text-overflow:ellipsis;word-wrap:break-word;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;}
 	.education-bg p{font-family:'GmarketSansMedium';font-size:12px;line-height:140%;color:#777;margin-top:15px;}
+	.edubg00 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_01.jpg')no-repeat;}
 	.edubg01 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_01.jpg')no-repeat;}
 	.edubg02 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_02.jpg')no-repeat;}
 	.edubg03 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_03.jpg')no-repeat;}

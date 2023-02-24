@@ -254,7 +254,6 @@ $(function(){
 			  <li>문의: 667-4821</li>
 			  <li>주의사항
 			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
 					<li>견학 시간 준수</li>
 				</ul>
 			  </li>
@@ -277,7 +276,6 @@ $(function(){
 			  <li>문의: 667-4852</li>
 			  <li>주의사항
 			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
 					<li>견학 시간 준수</li>
 				</ul>
 			  </li>
@@ -298,7 +296,6 @@ $(function(){
 			  <li>문의: 667-4915</li>
 			  <li>주의사항
 			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
 					<li>견학 시간 준수</li>
 				</ul>
 			  </li>
@@ -318,7 +315,6 @@ $(function(){
 			  <li>문의: 667-4968</li>
 			  <li>주의사항
 			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
 					<li>견학 시간 준수</li>
 				</ul>
 			  </li>
@@ -339,7 +335,6 @@ $(function(){
 			  <li>문의: 667-4875</li>
 			  <li>주의사항
 			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
 					<li>견학 시간 준수</li>
 				</ul>
 			  </li>
@@ -360,7 +355,6 @@ $(function(){
 			  <li>문의: 667-4886</li>
 			  <li>주의사항
 			  	<ul class="con2">
-					<li>마스크 착용 필수</li>
 					<li>견학 시간 준수</li>
 				</ul>
 			  </li>
