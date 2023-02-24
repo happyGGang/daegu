@@ -3250,27 +3250,44 @@ public class CommonSearchController extends BaseController {
 			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02")) {
 				LibrarySearch l = new LibrarySearch();
 				l.setWorker("DSSUB01");
-				l.setUserkey(librarySearch.getUserkey());
 				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 				String sdate = sf.format(DateUtils.addDays(new Date(), -10));
 				l.setSearch_start_date(sdate + "000000");
 
+				//무인예약 기기 총 신청권수 제한
 				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				int searchCount = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				System.out.printf("신청 횟수 :%d ", searchCount);
 				if (searchCount >= 50) {
 					res.setValid(false);
 					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
 					return res;
 				}
-
 				l.setWorker("DSSUB02");
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				System.out.printf("신청 횟수 :%d ", searchCount);
 				if (searchCount >= 50) {
 					res.setValid(false);
 					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					return res;
+				}
+				
+				//무인예약 인당 제한
+				LibrarySearch l2 = new LibrarySearch();
+				l2.setWorker("DSSUB01");
+				l2.setUserkey(librarySearch.getUserkey());
+				Map<String, Object> unmannedLoanReserveListDalseolib = LibSearchAPI.getUnmannedLoanReserveList(l2, null);
+				int searchCountDalseolib = LibSearchAPI.getSearchCount(unmannedLoanReserveListDalseolib);
+				if (searchCountDalseolib >= 2) {
+					res.setValid(false);
+					res.setMessage("무인예약 신청건수를 초과하였습니다.\n무인 예약은 2권까지만 가능합니다.");
+					return res;
+				}
+				l2.setWorker("DSSUB02");
+				unmannedLoanReserveListDalseolib = LibSearchAPI.getUnmannedLoanReserveList(l2, null);
+				searchCountDalseolib += LibSearchAPI.getSearchCount(unmannedLoanReserveListDalseolib);
+				if (searchCountDalseolib >= 2) {
+					res.setValid(false);
+					res.setMessage("무인예약 신청건수를 초과하였습니다.\n무인 예약은 2권까지만 가능합니다.");
 					return res;
 				}
 
