@@ -345,7 +345,7 @@ function searchIndex() {
 
 	<c:if test="${homepage.context_path eq 'nearbylib'}">
 		if (isFromFridayToSunday()) {
-			alert('내 집 앞 도서관 서비스 예약가능 시간이 아닙니다.\n\n도서예약 가능 시간\n- 월요일 09:00 ~ 금요일 08:59\n* 월요일 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능 합니다.\n\n 검색결과 화면으로 이동합니다.');
+			alert('지금은 내 집 앞 도서관 서비스 예약가능 시간이 아닙니다.\n\n<내 집 앞 도서관 서비스 예약가능 시간>\n\n* 월요일 09:00 ~ 금요일 08:59 \n\n* 월요일이 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능합니다. \n\n더 자세한 내용은 이용안내를 참고해주시기 바랍니다.\n\n확인을 누르시면 도서검색결과 화면으로 이동합니다. ');
 		}
 	</c:if>
 	
@@ -459,7 +459,7 @@ function isFromFridayToSunday() {
 								<div class="section">
 
 									<div class="title-box">
-										<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+										<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요" onkeyup="if(window.event.keyCode==13){searchIndex();}"/>
 									</div>
 									<div class="vk-btn">
 
@@ -664,7 +664,7 @@ function isFromFridayToSunday() {
 						<div class="section">
 
 							<div class="title-box">
-								<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요"/>
+								<form:input path="title" class="text-area" placeholder="도서 제목을 입력하세요" onkeyup="if(window.event.keyCode==13){searchIndex();}"/>
 							</div>
 
 							<div class="vk-btn">
@@ -995,16 +995,16 @@ function isFromFridayToSunday() {
 
 							<dl>
 								<dt><label for="author" class="title">저자</label></dt>
-								<dd><form:input path="author" class="text-area"/></dd>
+								<dd><form:input path="author" class="text-area" onkeyup="if(window.event.keyCode==13){searchIndex();}"/></dd>
 							</dl>
 
 							<dl>
 								<dt><label for="publer" class="title">발행처</label></dt>
-								<dd><form:input path="publer" class="text-area"/></dd>
+								<dd><form:input path="publer" class="text-area" onkeyup="if(window.event.keyCode==13){searchIndex();}"/></dd>
 							</dl>
 							<dl>
 								<dt><label for="keyword" class="title">키워드</label></dt>
-								<dd><form:input path="keyword" class="text-area"/></dd>
+								<dd><form:input path="keyword" class="text-area" onkeyup="if(window.event.keyCode==13){searchIndex();}"/></dd>
 							</dl>
 
 							<dl>

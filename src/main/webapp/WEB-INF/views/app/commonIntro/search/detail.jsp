@@ -900,7 +900,7 @@ $(function() {
 					</c:choose>
 				</c:when>
 			</c:choose>
-			
+			<!--
 				<c:choose>
 					<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
 						<c:choose>
@@ -913,6 +913,7 @@ $(function() {
 						</c:choose>
 					</c:when>
 				</c:choose>
+			-->
 
 
 			<!--워킹스루 도서대출 버튼-->
