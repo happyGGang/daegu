@@ -149,7 +149,7 @@ $(function() {
 					<form:textarea path="apply_desc" class="text" cssStyle="width:100%; height:100px;"/>
 				</td>
 			</tr>
-			<c:if test="${facility.date_type eq '0001'}">
+			<c:if test="${facility.date_type eq '0002'}">
 			<tr>
 				<th>장비 대여</th>
 				<td>

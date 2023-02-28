@@ -195,7 +195,7 @@ $(function() {
 					</form:select>
 				</td>
 			</tr>
-			<c:if test="${facility.date_type eq '0001'}">
+			<c:if test="${facility.date_type eq '0002'}">
 			<tr class="equipment">
 				<th>장비 대여</th>
 				<td>

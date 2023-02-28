@@ -101,14 +101,14 @@ $(function() {
     });
 
 	$('#date_type').on('change',function(){
-		if ($('#date_type').val() == '0001'){
+		if ($('#date_type').val() == '0002'){
 			$('.equipment').show()
 		}else{
 			$('.equipment').hide();
 		}
 	});
-
-	if ($('#date_type').val() == '0001') {
+	// 시설물 0001 / 미디어컨텐츠 0002
+	if ($('#date_type').val() == '0002') {
 		if ($('#equipment_name_list').val()) {
 			$('.equipment').remove();
 			var nameStr = $('#equipment_name_list').val().split(',');
