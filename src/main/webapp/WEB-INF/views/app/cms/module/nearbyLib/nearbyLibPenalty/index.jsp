@@ -260,7 +260,7 @@ function deletePenalty(penalty_idx, penalty_member_id) {
 		<form:option value="50">50개씩 보기</form:option>
 		<form:option value="${nearbyLibPenaltyCount}">전체 보기</form:option>
 	</form:select>
-	신청일 : <form:input path="search_start_date" class="text ui-calendar"/> ~ <form:input path="search_end_date" class="text ui-calendar"/>
+	등록일자 : <form:input path="search_start_date" class="text ui-calendar"/> ~ <form:input path="search_end_date" class="text ui-calendar"/>
 	<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 	<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 </div>

@@ -16,6 +16,14 @@ do {
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <tiles:insertAttribute name="header" />
+<script>
+	var swiper = new Swiper ('.bx-wrapper', {
+		pagination: 'bx-controls-direction',
+			observer: true,
+			observeParents: true,
+	});
+</script>
+
 <script type="text/javascript">
 	$(function() {
 		$('#homeup').click(function () {
@@ -211,7 +219,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-blue">
-									<a href="https://app.gather.town/app/18A3bUuFZxLvoQnX/Daegu_Bukbu_library" target="_blank">
+									<a href="https://app.gather.town/invite?token=X780gc4fQV-L_Bx4PPjG" target="_blank">
 									<span class="wt">메타북스</span>
 									<span class="wc">메타버스 북부도서관</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick07-bg.png" class="mi">
@@ -346,11 +354,11 @@ do {
 						</div>
 
 						<div class="box con" data-tab="tab2" style="display:none;">
-							<div class="movieContent">
+							<div class="movieContent2">
 								<ul class="book_photo">
 									<c:forEach var="i" varStatus="status" items="${movieList}" >
 									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=157&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<span class="movieImg">
 											<c:choose>
 												<c:when test="${i.preview_img ne null}">
@@ -491,6 +499,53 @@ do {
 						</div>
 
 						<div class="culture box con" data-tab="tab2" style="display:none;">
+						<!-- <div class="notice box con" data-tab="tab2" style="display:none;">
+							<div class="cont">
+								<ul class="list">
+									<%--공지사항 상단--%>
+									<c:if test="${fn:length(teachGuideListTopNotice) < 1}">
+									<li class="on-cont">
+										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+										<a href="#">
+											<span class="title">등록된 게시글이 없습니다.</span>
+											<p class="date"></p>
+											<span class="content">
+											</span>
+										</a>
+									</li>
+									</c:if>
+									<c:if test="${fn:length(teachGuideListTopNotice) > 0}">
+									<li class="on-cont">
+										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${teachGuideListTopNotice[0].manage_idx}&board_idx=${teachGuideListTopNotice[0].board_idx}">
+											<span class="title">${teachGuideListTopNotice[0].title}</span>
+											<p class="date"><fmt:formatDate value="${teachGuideListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
+											<span class="content">
+												${fn:substring(fn:trim(teachGuideListTopNotice[0].content_summary), 0, 30)}...
+											</span>
+										</a>
+									</li>
+									</c:if>
+									<%--공지사항 상단--%>
+
+									<%--공지사항 목록--%>
+									<c:forEach var="i" varStatus="status" items="${teachGuideList}" >
+									<li>
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+											<em>${i.title}</em>
+											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+										</a>
+									</li>
+									</c:forEach>
+
+									<c:if test="${fn:length(teachGuideList) < 1}">
+									<li>
+										<em>등록된 게시글이 없습니다.</em>
+									</li>
+									</c:if>
+									<%--공지사항 목록--%>
+								</ul>
+							</div> -->
 							<div class="cont">
 								<ul class="list">
 									<c:forEach var="i" varStatus="status" items="${teachGuideList}" >
