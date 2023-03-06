@@ -3257,7 +3257,7 @@ public class CommonSearchController extends BaseController {
 				//무인예약 기기 총 신청권수 제한
 				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				int searchCount = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				if (searchCount >= 50) {
+				if (searchCount >= 40) {
 					res.setValid(false);
 					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
 					return res;
@@ -3265,7 +3265,7 @@ public class CommonSearchController extends BaseController {
 				l.setWorker("DSSUB02");
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				if (searchCount >= 50) {
+				if (searchCount >= 40) {
 					res.setValid(false);
 					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
 					return res;
