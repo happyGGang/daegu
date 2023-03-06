@@ -100,9 +100,11 @@
 	$('select#search_libraryid').on('change', function() {
 		$('#viewPage').attr('value', $(this).attr('keyValue'));
 
-		alert('해당 조건은 현재 준비중입니다. 곧 서비스 시행하겠습니다.');
-
-		e.preventDefault();
+		$('#search_yy').val($.trim($('#culture_cal .web-selector ul li:eq(0)').text()));
+	    $('#search_mm').val($.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue')))
+	    var param = serializeCustom($('form#teach'));
+	    doGetLoad('teach.do', param);
+	    e.preventDefault();
 	});
 
 	$('select#sortType').on('change', function() {

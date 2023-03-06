@@ -217,6 +217,7 @@ public class Teach extends PagingUtils {
 	private String search_area;
 	private String search_target;
 	private String search_hashtag;
+	private String search_libraryid;
 
 	private String[] manage_codes;
 	private String cancel_date;
@@ -1779,4 +1780,13 @@ public class Teach extends PagingUtils {
 	public void setStudent_status_name(String student_status_name) {
 		this.student_status_name = student_status_name;
 	}
+
+	public String getSearch_libraryid() {
+		return search_libraryid;
+	}
+
+	public void setSearch_libraryid(String search_libraryid) {
+		this.search_libraryid = search_libraryid;
+	}
+
 }

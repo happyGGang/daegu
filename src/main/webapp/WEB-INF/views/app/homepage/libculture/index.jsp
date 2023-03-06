@@ -232,7 +232,7 @@ $(function() {
 		libraryid = $('#libraryid option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	$('select#target').on('change', function() {
@@ -244,7 +244,7 @@ $(function() {
 		libraryid = $('#libraryid option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	$('select#hashtag').on('change', function() {
@@ -256,12 +256,20 @@ $(function() {
 		libraryid = $('#libraryid option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	//스크립트 처리 요망 - 2023-03-05
 	$('select#libraryid').on('change', function() {
-		alert('해당 조건은 현재 준비중입니다. 곧 서비스 시행하겠습니다.');		
+		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
+		culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
+		area = $('#area option:selected').val();
+		target = $('#target option:selected').val();
+		hashtag = $('#hashtag option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
+		sortType = $('#sortType option:selected').val();
+		
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	$('select#sortType').on('change', function() {
@@ -271,8 +279,9 @@ $(function() {
 		target = $('#target option:selected').val();
 		hashtag = $('#hashtag option:selected').val();
 		sortType = $('#sortType option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
 
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	$('.culture-search-condition-box-cal ul li a').on('click', function(e) {
@@ -287,10 +296,11 @@ $(function() {
 		target = $('#target option:selected').val();
 		hashtag = $('#hashtag option:selected').val();
 		sortType = $('#sortType option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
 
 		$('.mobile-selector select').val(culture_mm).prop('selected', true);
 
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	$('.mobile-selector select').on('change', function(e){
@@ -307,8 +317,9 @@ $(function() {
 		target = $('#target option:selected').val();
 		hashtag = $('#hashtag option:selected').val();
 		sortType = $('#sortType option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
 
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag+'&search_libraryid='+libraryid);
 	});
 
 	// 지역별 문화체험 버튼 이벤트

@@ -1519,6 +1519,9 @@
 		<if test="search_hashtag != null and search_hashtag !=''">
 			AND hashtag_codes LIKE '%'||#{search_hashtag}||'%'
 		</if>
+		<if test="search_libraryid != null and search_libraryid !=''">
+			AND a.homepage_id LIKE '%'||#{search_libraryid}||'%'
+		</if>
 		${pagingBottom}
 	</select>
 
@@ -1692,6 +1695,9 @@
 		</if>
 		<if test="search_hashtag != null and search_hashtag !=''">
 			AND hashtag_codes LIKE '%'||#{search_hashtag}||'%'
+		</if>
+		<if test="search_libraryid != null and search_libraryid !=''">
+			AND homepage_id LIKE '%'||#{search_libraryid}||'%'
 		</if>
 	</select>
 
