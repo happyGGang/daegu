@@ -382,7 +382,9 @@ function isFromFridayToSunday() {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>
 	<form:hidden path="separateShelfCode"/>
+	<c:if test="${homepage.context_path eq 'bukgs'}">
 	<form:hidden path="shelfCode"/>
+	</c:if>
 	<form:hidden path="facet_manage_code"/>
 	<form:hidden path="facet_author"/>
 	<form:hidden path="facet_publisher"/>
