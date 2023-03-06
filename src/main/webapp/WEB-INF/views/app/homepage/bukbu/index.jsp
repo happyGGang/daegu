@@ -219,7 +219,7 @@ do {
 									</a>
 								</li>
 								<li class="bg-blue">
-									<a href="https://app.gather.town/invite?token=X780gc4fQV-L_Bx4PPjG" target="_blank">
+									<a href="https://app.gather.town/app/Tc6o9JwG6OsRys5r/Daegu_Bukbu_library_2" target="_blank">
 									<span class="wt">메타북스</span>
 									<span class="wc">메타버스 북부도서관</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick07-bg.png" class="mi">

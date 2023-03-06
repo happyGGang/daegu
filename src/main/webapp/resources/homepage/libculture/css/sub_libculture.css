@@ -19,15 +19,16 @@
 .sub-culture-search-condition {height:100%;box-sizing:border-box;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel {box-sizing:border-box;margin:15px 0;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul {font-size:0;height:100%;}
-.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li {display:inline-block;height:100%;width:32.5%;border-radius:100px;margin-right:0.5%;background:#f0f0f0;border:1px solid #f0f0f0;transition:all 0.5s;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li {display:inline-block;height:100%;width:24%;border-radius:100px;margin-right:0.5%;background:#f0f0f0;border:1px solid #f0f0f0;transition:all 0.5s;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:hover{background:#fff;border:1px solid #ccd2dc;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child {margin-right:0;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select {display:inline-block;-moz-appearance:none;-webkit-appearance:none;appearance:none;font-family:'SCoreDream';font-weight:500;font-size:19px;color:#555;width:100%;height:80px;line-height:60px;box-sizing:border-box;vertical-align:middle;text-align:center;border:none;font-weight:600;}
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select::-ms-expand { display: none; }
 .sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select::placeholder {color:#fff;}
-.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 35% 27px;}
-.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 35% 27px;}
-.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 35% 27px;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 32% 27px;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 32% 27px;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(3) select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 32% 27px;}
+.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-4.png')no-repeat 28% 27px;}
 
 .sub-culture-search-condition .sub-culture-search-condition-box-cal {box-sizing:border-box;}
 .sub-culture-search-condition .sub-culture-search-condition-box-cal .web-selector {background:linear-gradient(to right, #1cbb82, #246fde);border-radius:100px;}
@@ -238,7 +239,8 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select{height:50px;line-height:30px;font-size:14px;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 30% 12px;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 30% 12px;}
-	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 30% 12px;}
+	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(3) select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 30% 12px;}
+	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-4.png')no-repeat 27% 12px;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel{margin:10px 0;}
 
 	input.new_text01{height:42px !important;font-size:15px;}
@@ -264,8 +266,6 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 	.myDashboard-pointbox-searchbox-innerbox {padding:10px 0;}
 	.myDashboard-pointbox .myDashboard-pointbox-searchbox .myDashboard-pointbox-searchbox-innerbox span {display:block;}
 	.myDashboard-pointbox-listbox table thead th, .myDashboard-pointbox-listbox table tbody td, .myDashboard-culturebox table thead th, .myDashboard-culturebox table tbody td {font-size:13px;}
-
-	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select{font-size:15px;}
 }
 
 @media screen and (max-width: 768px) { 
@@ -288,10 +288,12 @@ table.content-tbl td.content-tbl-td {height:38px;width:75%;}
 
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li{width:100%;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(2){margin:5px 0;}
+	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(3){margin:0 0 5px 0;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li select{font-size:13px;text-align:left;padding:6px 5px 6px 25px !important;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:first-child select{background:url('/resources/homepage/libculture/img/sub_ico1-1.png')no-repeat 94% 12px;}
 	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(2) select{background:url('/resources/homepage/libculture/img/sub_ico1-2.png')no-repeat 94% 12px;}
-	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 94% 12px;}
+	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:nth-child(3) select{background:url('/resources/homepage/libculture/img/sub_ico1-3.png')no-repeat 94% 12px;}
+	.sub-culture-search-condition .sub-culture-search-condition-box-sel ul li:last-child select{background:url('/resources/homepage/libculture/img/sub_ico1-4.png')no-repeat 94% 12px;}
 
 	input.new_text01{padding-left:130px;}
 	.search-form__input{min-width:calc(100% - 130px);}

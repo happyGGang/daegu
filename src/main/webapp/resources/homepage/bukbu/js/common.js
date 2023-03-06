@@ -55,6 +55,13 @@ $(function(){
 		autoControlsCombine:true
 	});
 
+	$('.movieContent2 ul').bxSlider({
+		auto: true,
+		pager:false,
+		autoControls:true,
+		autoControlsCombine:true
+	});
+
 	$('.event-box > ul').bxSlider({
 		mode:'vertical',
 		pager:false

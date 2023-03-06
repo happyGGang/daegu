@@ -217,6 +217,7 @@ $(function() {
 	var area = $('#area option:selected').val();
 	var target = $('#target option:selected').val();
 	var hashtag = $('#hashtag option:selected').val();
+	var libraryid = $('#libraryid option:selected').val();	//도서관선택 추가
 	var sortType = $('#sortType option:selected').val();
 
 	$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType=REQUEST');
@@ -228,6 +229,7 @@ $(function() {
 		area = $('#area option:selected').val();
 		target = $('#target option:selected').val();
 		hashtag = $('#hashtag option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
 		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
@@ -239,6 +241,7 @@ $(function() {
 		area = $('#area option:selected').val();
 		target = $('#target option:selected').val();
 		hashtag = $('#hashtag option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
 		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
@@ -250,9 +253,15 @@ $(function() {
 		area = $('#area option:selected').val();
 		target = $('#target option:selected').val();
 		hashtag = $('#hashtag option:selected').val();
+		libraryid = $('#libraryid option:selected').val();
 		sortType = $('#sortType option:selected').val();
 
 		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+	});
+
+	//스크립트 처리 요망 - 2023-03-05
+	$('select#libraryid').on('change', function() {
+		alert('해당 조건은 현재 준비중입니다. 곧 서비스 시행하겠습니다.');		
 	});
 
 	$('select#sortType').on('change', function() {
@@ -492,6 +501,52 @@ $(function() {
 														<c:forEach var="i" items="${hashtagCodeList}">
 															<option value="${i.hashtag_code}">${i.hashtag_name}</option>
 														</c:forEach>
+													</select>
+												</li>
+												<li>
+													<select name="libraryid" id="libraryid" class="cultureSelectBox">
+														<option value="">도서관 선택</option>
+														<option value="h35">남구대명어울림도서관</option>
+														<option value="h36">남구이천어울림도서관</option>
+														<option value="h69">달서구립 달서가족문화도서관</option>
+														<option value="h66">달서구립 달서어린이</option>
+														<option value="h70">달서구립 달서영어도서관</option>
+														<option value="h72">달서구립 도원도서관</option>
+														<option value="h68">달서구립 본리도서관</option>
+														<option value="h67">달서구립 성서도서관</option>
+														<option value="h44">달성군립도서관</option>
+														<option value="h1">대구광역시립 2ㆍ28기념학생도서관</option>
+														<option value="h2">대구광역시립 2ㆍ28민주운동기념회관</option>
+														<option value="h3">대구광역시립 남부도서관</option>
+														<option value="h4">대구광역시립 달성도서관</option>
+														<option value="h5">대구광역시립 동부도서관</option>
+														<option value="h6">대구광역시립 두류도서관</option>
+														<option value="h7">대구광역시립 북부도서관</option>
+														<option value="h8">대구광역시립 서부도서관</option>
+														<option value="h9">대구광역시립 수성도서관</option>
+														<option value="h10">대구광역시립 중앙도서관</option>
+														<option value="h34">대구시청작은도서관</option>
+														<option value="h59">동구통합 신천도서관</option>
+														<option value="h73">동구통합 안심도서관</option>
+														<option value="h75">동인느티나무도서관</option>
+														<option value="h46">북구구수산도서관</option>
+														<option value="h47">북구대현도서관</option>
+														<option value="h48">북구태전도서관</option>
+														<option value="h61">서구통합 비산도서관</option>
+														<option value="h63">서구통합 비원도서관</option>
+														<option value="h77">서구통합 서구어린이도서관</option>
+														<option value="h62">서구통합 서구영어도서관</option>
+														<option value="h64">서구통합 원고개도서관</option>
+														<option value="h52">수성구립 고산도서관</option>
+														<option value="h57">수성구립 무학숲도서관</option>
+														<option value="h55">수성구립 물망이도서관</option>
+														<option value="h50">수성구립 범어도서관</option>
+														<option value="h58">수성구립 사월역작은도서관</option>
+														<option value="h51">수성구립 용학도서관</option>
+														<option value="h54">수성구립 책숲길도서관</option>
+														<option value="h56">수성구립 파동도서관</option>
+														<option value="h76">중구삼덕마루</option>
+														<option value="h74">중구영어도서관</option>
 													</select>
 												</li>
 												<!--

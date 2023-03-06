@@ -129,6 +129,12 @@
 .main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-controls-direction{position:absolute;top:0;width:100%;}
 .main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-controls-direction .bx-prev{position:absolute;top:120px;left:10px;font-size:0;background:url('/resources/homepage/bukbu/img/prev-btn.png')no-repeat;width:30px;height:30px;}
 .main2 .main2box1 .book .box .movieContent .bx-wrapper .bx-controls-direction .bx-next{position:absolute;top:120px;right:10px;font-size:0;background:url('/resources/homepage/bukbu/img/next-btn.png')no-repeat;width:30px;height:30px;}
+.main2 .main2box1 .book .box .movieContent2{position:relative;}
+.main2 .main2box1 .book .box .movieContent2 .bx-wrapper .bx-viewport{height:400px !important;}
+.main2 .main2box1 .book .box .movieContent2 .bx-controls {text-align:center;width:100%;}
+.main2 .main2box1 .book .box .movieContent2 .bx-wrapper .bx-controls-direction{position:absolute;top:0;width:100%;}
+.main2 .main2box1 .book .box .movieContent2 .bx-wrapper .bx-controls-direction .bx-prev{position:absolute;top:120px;left:10px;font-size:0;background:url('/resources/homepage/bukbu/img/prev-btn.png')no-repeat;width:30px;height:30px;}
+.main2 .main2box1 .book .box .movieContent2 .bx-wrapper .bx-controls-direction .bx-next{position:absolute;top:120px;right:10px;font-size:0;background:url('/resources/homepage/bukbu/img/next-btn.png')no-repeat;width:30px;height:30px;}
 .main2 .main2box1 .book {position:relative;height:326px;}
 .main2 .main2box1 .book div.title {width:100%;border-bottom:1px solid #dadada;overflow:hidden;}
 .main2 .main2box1 .book ul.tabMenuS {position:relative;text-align:center;margin:0;padding:0;overflow:hidden;}

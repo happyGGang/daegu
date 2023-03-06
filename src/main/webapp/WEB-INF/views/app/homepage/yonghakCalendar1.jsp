@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.1.31.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.2.28.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -88,61 +88,61 @@ $('ul.close_day').html(li);
     </thead>
     <tbody>
     <tr>
-      <th>어린이</th>
-    <td valign="middle"><p><span lang="EN-US">689</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">345</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">148</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">845</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,190</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">364</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">290</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">256</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">3,645</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,191</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">8,963</span></p></td>
-    </tr>
-    <tr>
-      <th>유아</th>
-    <td valign="middle"><p><span lang="EN-US">64</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">84</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">42</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">871</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">400</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">83</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">79</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">73</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">2,747</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">34</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">4,477</span></p></td>
-    </tr>
-    <tr>
-      <th>일반</th>
-    <td valign="middle"><p><span lang="EN-US">540</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,014</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">333</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">2,170</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">643</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,252</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">565</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">312</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">5,889</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,142</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">13,860</span></p></td>
-    </tr>
-    <tr>
-      <th>합계</th>
-    <td valign="middle"><p><span lang="EN-US">1,293</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,443</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">523</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">3,886</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">2,233</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">1,699</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">934</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">641</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">12,281</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">2,367</span></p></td>
-    <td valign="middle"><p><span lang="EN-US">27,300</span></p></td>
-    </tr>
+		<th scope="row">어린이</th>
+			<td>689</td>
+			<td>345</td>
+			<td>148</td>
+			<td>845</td>
+			<td>1,190</td>
+			<td>364</td>
+			<td>290</td>
+			<td>256</td>
+			<td>3,645</td>
+			<td>1,191</td>
+			<td>8,963</td>
+		</tr>
+		<tr>
+			<th scope="row">유아</th>
+			<td>64</td>
+			<td>84</td>
+			<td>42</td>
+			<td>871</td>
+			<td>400</td>
+			<td>83</td>
+			<td>79</td>
+			<td>73</td>
+			<td>2,747</td>
+			<td>34</td>
+			<td>4,477</td>
+		</tr>
+		<tr>
+			<th scope="row">일반</th>
+			<td>540</td>
+			<td>1,014</td>
+			<td>333</td>
+			<td>2,170</td>
+			<td>643</td>
+			<td>1,252</td>
+			<td>567</td>
+			<td>312</td>
+			<td>5,913</td>
+			<td>1,143</td>
+			<td>13,887</td>
+		</tr>
+		<tr>
+			<th scope="row">총계</th>
+			<td>1,293</td>
+			<td>1,443</td>
+			<td>523</td>
+			<td>3,886</td>
+			<td>2,233</td>
+			<td>1,699</td>
+			<td>936</td>
+			<td>641</td>
+			<td>12,305</td>
+			<td>2,368</td>
+			<td>27,327</td>
+		</tr>
     </tbody>
     </table>
   </div>
