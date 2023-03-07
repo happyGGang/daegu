@@ -138,6 +138,14 @@
 	  doGetLoad('teach.do', serializeCustom($('form#teach')));
 
 	});
+
+	let search_libraryid = '${teach.search_libraryid}
+	$('#search_libraryid option').each(function(index,value){
+		let option = value;
+		if (option.value == search_libraryid){
+			$(this).prop("selected",true);
+		}
+	});
 });
 </script>
 
