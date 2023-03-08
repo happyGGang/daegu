@@ -2504,9 +2504,9 @@
 						 delete_yn = 'N'
 						 AND A.manage_idx = B.manage_idx
 						 AND B.board_type = 'CURATIONGALLERY'
-						 AND A.imsi_v_4 IS NOT NULL
-						 AND A.imsi_v_5 IS NOT NULL
-						 AND SYSDATE BETWEEN TO_DATE(A.imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(A.imsi_v_5, 'yyyy-MM-dd')
+<!-- 						 AND A.imsi_v_4 IS NOT NULL -->
+<!-- 						 AND A.imsi_v_5 IS NOT NULL -->
+<!-- 						 AND SYSDATE BETWEEN TO_DATE(A.imsi_v_4, 'yyyy-MM-dd') AND TO_DATE(A.imsi_v_5, 'yyyy-MM-dd') -->
 						<if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
 							AND
 							<choose>
