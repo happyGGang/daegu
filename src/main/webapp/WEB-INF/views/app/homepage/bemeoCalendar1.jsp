@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>주제별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.1.31. 기준] (단위 : 권)</span></h3>
+  <h3>주제별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.2.28. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -89,7 +89,7 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>1,488</td>
+    <td>1,489</td>
     <td>1,181</td>
     <td>445</td>
     <td>4,481</td>
@@ -98,8 +98,8 @@ $('ul.close_day').html(li);
     <td>1,067</td>
     <td>1,798</td>
     <td>15,423</td>
-    <td>2,690</td>
-    <td>33,910</td>
+    <td>2,695</td>
+    <td>33,916</td>
     </tr>
     <tr>
       <th>비율</th>
@@ -118,7 +118,7 @@ $('ul.close_day').html(li);
     </tbody>
     </table>
   </div>
-  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.1.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.2.28. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
@@ -152,11 +152,11 @@ $('ul.close_day').html(li);
       <th>권수</th>
     <td>10,860</td>
     <td>5,848</td>
-    <td>13,236</td>
+    <td>13,242</td>
     <td>68</td>
     <td>304</td>
     <td>3,594</td>
-    <td>33,910</td>
+    <td>33,916</td>
     </tr>
     <tr>
       <th>비율</th>
@@ -172,7 +172,7 @@ $('ul.close_day').html(li);
     </table>
   </div>
   <p>보존서고: 5,929권 포함</p>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.1.31. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.2.28. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">

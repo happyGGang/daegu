@@ -151,8 +151,8 @@
 .main2 .main2box1 .book .box .book_photo li {position:relative;display:inline-block;width:300px !important;margin-top:20px;margin-left:2px;}
 .main2 .main2box1 .book .box .book_photo li a {}
 .main2 .main2box1 .book .box .book_photo li a .movieImg {}
-.main2 .main2box1 .book .box .book_photo li a .movieImg img {width:70%;height:156px;border:1px solid #aaa;}
-.main2 .main2box1 .book .box .book_photo li a .movieEx {display:block;padding:10px 20px 0;font-size:14px;text-align:left;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.main2 .main2box1 .book .box .book_photo li a .movieImg img {width:40%;height:156px;border:1px solid #aaa;}
+.main2 .main2box1 .book .box .book_photo li a .movieEx {display:block;padding:10px 20px 0;font-size:14px;text-align:left;width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .main2 .main2box1 .book .box .book_photo li a span.title {display:block;color:#000;font-size:14px;letter-spacing:-1px;}
 
 .main2 .main2box2 {float:left;width:110px;text-align:center;margin:0 10px;border:1px solid #dadada;}

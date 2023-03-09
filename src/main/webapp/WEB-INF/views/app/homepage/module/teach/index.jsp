@@ -449,7 +449,7 @@ ${html.html}
 	</p>
 </c:if> -->
 
-<c:if test="${homepage.context_path eq 'dalseolib'}">
+<!-- <c:if test="${homepage.context_path eq 'dalseolib'}">
 	<c:if test="${param.menu_idx eq '32'}">
 		<c:if test="${param.homepage_id eq 'h66'}">
 			<p style="margin:20px 0;font-size:15px;">
@@ -457,7 +457,7 @@ ${html.html}
 			</p>
 		</c:if>
 	</c:if>
-</c:if>
+</c:if> -->
 
 
 <div class="op_wrap">

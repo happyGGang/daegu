@@ -526,8 +526,8 @@ $(function() {
 														<option value="h68">달서구립 본리도서관</option>
 														<option value="h67">달서구립 성서도서관</option>
 														<option value="h44">달성군립도서관</option>
-														<option value="h1">대구광역시립 2ㆍ28기념학생도서관</option>
-														<option value="h2">대구광역시립 2ㆍ28민주운동기념회관</option>
+														<option value="h1">대구2ㆍ28기념학생도서관</option>
+														<option value="h2">대구2ㆍ28민주운동기념회관</option>
 														<option value="h3">대구광역시립 남부도서관</option>
 														<option value="h4">대구광역시립 달성도서관</option>
 														<option value="h5">대구광역시립 동부도서관</option>

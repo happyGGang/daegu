@@ -225,7 +225,7 @@ $(function(){
 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">신천도서관</a></li>
 						</c:when>
 						<c:when test="${i.homepage_id eq 'h60'}">
-							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">반야월역사</a></li>
+							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">작은도서관</a></li>
 						</c:when>
 						<c:otherwise>
 							<li><a href="#tabCon${status.index}" data-hid="${i.homepage_id}">${i.homepage_alias}</a></li>
