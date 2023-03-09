@@ -570,6 +570,7 @@ ${html.html}
 							<c:choose>
 								<c:when test="${i.teach_day_yn eq 'Y'}">${i.teach_day_txt}</c:when>
 								<c:otherwise>
+								매주&nbsp;
 								<c:forEach var="j" varStatus="status_j" items="${i.teach_day_arr}">
 								<c:choose>
 									<c:when test="${j eq '1'}">일</c:when>
