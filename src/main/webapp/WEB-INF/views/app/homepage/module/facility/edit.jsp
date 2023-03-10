@@ -9,8 +9,8 @@
 <script type="text/javascript">
 $(function() {
 
-	$('#save-btn').on('click', function() {
-		
+	$('#save-btn').on('click', function(e) {
+		e.preventDefault();
 		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
 		for(var i = 1; i <= agreeLength; i++) {
 			if(!$('#terms'+i).prop('checked')) {
@@ -23,13 +23,18 @@ $(function() {
 			$('#apply_phone').val($('#apply_phone1').val()+'-'+$('#apply_phone2').val()+'-'+$('#apply_phone3').val());
 		}
 
-		var equipmentList='';
-		$('input:checkbox[name=checkList]').each(function (index) {
-			if($(this).is(":checked")==true){
-				equipmentList += $(this).attr('id')+":"+$(this).next().next().val()+","
+		let equipmentLength = $('input:checkbox[name=checkList]').length;
+		let equipmentList='';
+		for(var i = 1; i <= equipmentLength; i++) {
+			if($('#equipment'+i).prop('checked')) {
+				let val = $('#equipment'+i).next().next().val();
+				if (!val){
+					alert($('#equipment'+i).next().text()+"의 값을 입력하지 않았습니다.");
+					return false;
+				}
+				equipmentList += $('#equipment'+i).attr('keyValue')+":"+$('#equipment'+i).next().next().val()+","
 			}
-
-		});
+		}
 
 		if (equipmentList.length > 0){
 			$('#equipment').val(equipmentList.slice(0,-1));
@@ -154,7 +159,7 @@ $(function() {
 				<th>장비 대여</th>
 				<td>
 					<c:forEach var="i" items="${facilityEquipmentList}" varStatus="status">
-						<input name="checkList" type="checkbox" id="${i.equipment_idx}"/><label for="${i.equipment_idx}">${i.equipment_name}</label> 수량 : <input type="text" class="text numberText" style="width:40px;" maxlength="3" numberonly="true" disabled> / <span>${i.equipment_cnt}</span><br/>
+						<input name="checkList" type="checkbox" keyValue="${i.equipment_idx}" id="equipment${status.count}"/><label for="equipment${status.count}">${i.equipment_name}</label> 수량 : <input type="text" class="text numberText" style="width:40px;" maxlength="3" numberonly="true" disabled> / <span>${i.equipment_cnt}</span><br/>
 					</c:forEach>
 				</td>
 			</tr>
