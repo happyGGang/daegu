@@ -421,6 +421,16 @@ ${html.html}
 	</p>
 </c:if>
 
+<c:if test="${homepage.context_path eq 'dalseolib'}">
+	<c:if test="${param.menu_idx eq '32'}">
+		<c:if test="${param.homepage_id eq 'h68'}">
+			<p style="color:#ff0000;font-weight:bold;text-align:center;font-size:17px;padding-top:10px;">
+				오프라인 정원이 남아 있는 경우 방문하여 접수하실 수 있습니다.	
+			</p>
+		</c:if>
+	</c:if>
+</c:if>
+
 <div style="text-align: right; margin-bottom: 10px; ">
 	<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 </div>
