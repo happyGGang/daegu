@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml;
 import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlService;
-import kr.go.gbelib.app.common.api.CultureAPI;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -242,6 +241,20 @@ public class TeachController extends BaseController{
 			} else {
 				teach.setHomepage_id(homepage.getHomepage_id());
 			}
+			
+			if(homepage.getHomepage_id().equals("h45") && "31".equals(teach.getSearchCate1())) {
+				Category category = new Category();
+				category.setHomepage_id("h73");
+				category.setLarge_category_idx(31);
+				category.setGroup_idx(5);
+				model.addAttribute("dongguCategoryList", categoryService.getCategoryList(category));
+				
+				if(teach.getCategory_idx() == 0 || StringUtils.isEmpty(Integer.toString(teach.getCategory_idx()))) {
+					List<Category> categoryList = categoryService.getCategoryList(category);
+					teach.setCategory_idx(categoryList.get(0).getCategory_idx());
+				}
+			}
+			
 			model.addAttribute("teach", teach);
 			model.addAttribute("teachList", teachService.getTeachListHomepage(teach));
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx

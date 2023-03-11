@@ -93,6 +93,21 @@ $(function(){
 	});
 	</c:if>
 	
+	<c:if test="${fn:length(dongguCategoryList) > 0}">
+	var a = '${fn:escapeXml(param.category_idx)}';
+	if (a == '') {
+		a = '${dongguCategoryList[0].category_idx}';
+	}
+	$('div.tab_menu a[data-hid="'+a+'"]').parent().addClass('active');
+
+	$('div.tab_menu a').on('click', function(e) {
+		e.preventDefault();
+		var hid = $(this).data('hid');
+		$('input#category_idx').val(hid);
+		doGetLoad('index.do', 'menu_idx='+$('#menu_idx').val()+'&searchCate1='+$('#searchCate1').val()+'&category_idx='+$('#category_idx').val());
+	});
+	</c:if>
+	
 	$('input#search_text').keydown(function(key) {
 		if (key.keyCode == 13) {
 			$('a#search_btn').click();
@@ -151,9 +166,12 @@ $(function(){
 <%-- 	<form:hidden path="category_idx"/> --%>
 	<form:hidden path="searchCate1"/>
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
+	<c:if test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}">
+	<form:hidden path="category_idx"/>
+	</c:if>
 <%-- 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/> --%>
 
-	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib'}">
+	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib' and (homepage.context_path eq 'donggu' and teach.searchCate1 ne '31')}">
 		<div class="tab_menu on">
 			<ul class="no${fn:length(subHomepageList)}">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
@@ -225,7 +243,15 @@ $(function(){
 			</div>
 		</c:when>
 
-
+		<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}">
+			<div class="tab_menu on">
+			<ul class="no${fn:length(dongguCategoryList)}">
+				<c:forEach items="${dongguCategoryList}" var="i" varStatus="status">
+					<li><a href="#tabCon${status.index}" data-hid="${i.category_idx}">${i.category_name}</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+		</c:when>
 
 	</c:choose>
 
