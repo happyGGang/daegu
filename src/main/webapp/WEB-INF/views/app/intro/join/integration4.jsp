@@ -238,6 +238,10 @@ $(function() {
 					</th>
 					<td>
 						<input id="card_password" type="password" class="text">
+						<div class="ui-state-highlight">
+							<span id="cardcheck">* 임의 숫자4자리 입력
+							</span>
+						</div>
 					</td>
 				</tr>
 				<tr>
