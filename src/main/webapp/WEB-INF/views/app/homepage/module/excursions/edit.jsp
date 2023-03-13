@@ -273,9 +273,9 @@ $(function() {
 		</tr>
 		<tr>
 			<th>비고</th>
-			<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고창"/>
+			<td><form:input path="remarks" cssClass="text" style="width:100%" title="비고창"/>
 				<div class="ui-state-highlight">
-					<em>${teach.remark_comment}</em>
+					<em>${excursions.remark_comment}</em>
 				</div>
 			</td>
 		</tr>
