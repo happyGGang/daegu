@@ -2457,18 +2457,61 @@ public class CommonSearchController extends BaseController {
 				return res;
 			}
 		}
+		Member member = getSessionMemberInfo(request);
 		
 		if (!result.hasErrors()) {
-			Member member = getSessionMemberInfo(request);
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
 				res.setValid(false);
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
 				return res;
 			}
 			
+			if(homepage.getContext_path().equals("dgportal")) {
+				//BA 구수산, BR 달성군립, AE 수성도서관
+				if("BA".equals(librarySearch.getManageCode()) || "BR".equals(librarySearch.getManageCode()) && librarySearch.getEditMode().equals("ADD")) {
+					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+					List<Map<String, Object>> list = null;
+					list = LibSearchAPI.getListData(reserveList);
+					int count = LibSearchAPI.getSearchCount(reserveList);
+					
+					int reserveCount = 0 ;
+					for(int i = 0; i < count; i++) {
+						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+							reserveCount++;
+						}
+					}
+					
+					if(reserveCount >= 2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+				}
+				
+				if("AE".equals(librarySearch.getManageCode()) && librarySearch.getEditMode().equals("ADD")) {
+					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+					List<Map<String, Object>> list = null;
+					list = LibSearchAPI.getListData(reserveList);
+					int count = LibSearchAPI.getSearchCount(reserveList);
+					
+					int reserveCount = 0 ;
+					for(int i = 0; i < count; i++) {
+						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+							reserveCount++;
+						}
+					}
+					
+					if(reserveCount >= 5) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+				}
+			}
+			
 			//달성군립, 북구구수산, 수성도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
 			if(StringUtils.isNotEmpty(homepage.getContext_path())){
-				if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs") || homepage.getContext_path().equals("suseong")) && librarySearch.getEditMode().equals("ADD")) {
+				if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs")) && librarySearch.getEditMode().equals("ADD")) {
 					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
 					List<Map<String, Object>> list = null;
 					list = LibSearchAPI.getListData(reserveList);
@@ -2482,6 +2525,26 @@ public class CommonSearchController extends BaseController {
 					}
 					
 					if(reserveCount >= 2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+				}
+				
+				if(homepage.getContext_path().equals("suseong") && librarySearch.getEditMode().equals("ADD")) {
+					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
+					List<Map<String, Object>> list = null;
+					list = LibSearchAPI.getListData(reserveList);
+					int count = LibSearchAPI.getSearchCount(reserveList);
+					
+					int reserveCount = 0 ;
+					for(int i = 0; i < count; i++) {
+						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+							reserveCount++;
+						}
+					}
+					
+					if(reserveCount >= 5) {
 						res.setValid(false);
 						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 						return res;

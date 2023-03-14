@@ -269,6 +269,7 @@ $(function() {
 	<input type="hidden" id="reserveMode" name="editMode" value="ADD">
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">
+	<input type="hidden" name="manageCode" value="${fn:escapeXml(detail.MANAGE_CODE)}">
 </form>
 
 <form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
