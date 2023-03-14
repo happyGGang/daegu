@@ -116,25 +116,38 @@ public class UntactBookController extends BaseController {
 			
 			String request_number = String.valueOf(reservationList.get(0).getRequest_number());
 			String userKey = String.valueOf(reservationList.get(0).getUser_key());
+			String book_isbn = String.valueOf(reservationList.get(0).getBook_isbn());
 			
 			Map<String, Object> resultList = LibSearchAPI.getReserveList(userKey);
 			List<Map<String, Object>> list = null;
 			if(resultList != null && !resultList.isEmpty() && resultList.get("LIST_DATA") != null){
 				list = LibSearchAPI.getListData(resultList);
-				String reckey = String.valueOf(list.get(0).get("PK"));
-				librarySearch.setUserkey(userKey);
-				librarySearch.setBookkey(reckey);
-				ApiResponse apiResult = LibSearchAPI.cancelReservation2(librarySearch);
 				
-				if (apiResult.getStatus()) {
-					untactBookReservation.setRequest_number(Integer.parseInt(request_number));
-					untactBookReservation.setMember_id(member.getMember_id());
-					untactBookReservationService.cancelReserve(untactBookReservation);
-					res.setValid(true);
-					res.setMessage("취소 되었습니다.");
-				} else {
-					res.setValid(false);
-					res.setMessage("예약취소에 실패하였습니다.\nKLAS API 예약취소 오류 입니다. : " + apiResult.getMessage());
+				for(int i = 0; i < list.size(); i++) {
+					if(book_isbn.equals(list.get(i).get("ISBN"))) {
+						String reckey = String.valueOf(list.get(i).get("PK"));
+						librarySearch.setUserkey(userKey);
+						librarySearch.setBookkey(reckey);
+						ApiResponse apiResult = LibSearchAPI.cancelReservation2(librarySearch);
+						
+						if (apiResult.getStatus()) {
+							untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+							untactBookReservation.setMember_id(member.getMember_id());
+							int cancel_count = untactBookReservationService.cancelReserve(untactBookReservation);
+							if(cancel_count > 0) {
+								res.setValid(true);
+								res.setMessage("취소 되었습니다.");
+								
+								break;
+							} else {
+								res.setValid(false);
+								res.setMessage("홈페이지 예약취소에 실패하였습니다.\nKLAS예약 취소가 되었습니다.관리자에게 문의 해주세요.");
+							}
+						} else {
+							res.setValid(false);
+							res.setMessage("예약취소에 실패하였습니다.\nKLAS API 예약취소 오류 입니다. : " + apiResult.getMessage());
+						}
+					}
 				}
 			}
 			
