@@ -144,6 +144,9 @@ public class LibrarySearchController extends BaseController {
 				model.addAttribute("facetGroup", PrivateLibSearchAPI.getFacetGroup(result));
 			} else {
 				Map<String, Object> result = new HashMap<String, Object>();
+				
+				// 자료실 제외 코드 : [두류]보존서고(1,2,3)
+				librarySearch.setNotShelfCode("AB08,AB09,AB10,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26");
 
 				if ( librarySearch.getBooktype().equals("BOOK") ) {
 					result = LibSearchAPI.getBookDetail(librarySearch);
