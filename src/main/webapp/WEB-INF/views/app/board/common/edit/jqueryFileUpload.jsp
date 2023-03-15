@@ -60,7 +60,7 @@
 	        	data.formData = { "mode" : "${board.editMode}" , "board_idx" : "${board.board_idx}", "manage_idx" : "${board.manage_idx}", "file_count" : file_count, "${_csrf.parameterName}" : '${_csrf.token}'};
 	        	data.process().done(function () {
 	        		for ( var i in data.files) {
-	        			var ext = data.files[i].name.substring(data.files[i].name.lastIndexOf(".")+1);
+	        			var ext = data.files[i].name.substring(data.files[i].name.lastIndexOf(".")+1).toLowerCase();
 	        			if (file_ban_ext.indexOf(ext) > -1) {
 	        				alert('업로드 불가능한 파일 확장자 입니다.' + ext);
 		        			return false;
