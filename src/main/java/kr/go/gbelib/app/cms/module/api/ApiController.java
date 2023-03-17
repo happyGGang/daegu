@@ -87,7 +87,7 @@ public class ApiController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/changeUntactBookLoanStatus.*"})
-	public @ResponseBody Map<String, Object> changeUntactBookLoanStatus(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Map<String, Object> changeUntactBookLoanStatus(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		return untackBookApiService.getData2(untactBookReservation, request, response);
 	}
 	

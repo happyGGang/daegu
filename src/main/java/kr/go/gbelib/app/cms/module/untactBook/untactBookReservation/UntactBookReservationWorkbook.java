@@ -55,7 +55,7 @@ public class UntactBookReservationWorkbook {
 		// 헤더 컬럼 지정
 //		workbook.getSheet(0).addCell( new Label(column++, 1, "번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자아이디", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "대출번호", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "등록번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자명", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청일", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "대출일", format ) );
@@ -78,8 +78,24 @@ public class UntactBookReservationWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getLoan_date(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getBook_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_number()), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_password()), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getReservation_step(), format1));
+			if(one.getLocker_password() > 0) {
+				workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_password()), format1));
+			} else {
+				workbook.getSheet(0).addCell(new Label(column++, row, "미등록", format1));
+			}
+			if("1".equals(one.getReservation_step())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, "신청", format1));
+			} else if("2".equals(one.getReservation_step())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, "접수", format1));
+			} else if("3".equals(one.getReservation_step())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, "대기", format1));
+			} else if("4".equals(one.getReservation_step())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, "대출", format1));
+			} else if("5".equals(one.getReservation_step())) {
+				workbook.getSheet(0).addCell(new Label(column++, row, "만기취소", format1));
+			} else {
+				workbook.getSheet(0).addCell(new Label(column++, row, "사용자본인취소", format1));
+			}
 			
 			row++;
 		}

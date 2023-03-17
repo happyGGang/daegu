@@ -9,6 +9,8 @@ public class UntactBookRound {
 	private String round_start_time;	//회차시작시간
 	private String round_end_time;	//회차종료시간
 	
+	private String manage_code;
+	
 	public String getRound_idx() {
 		return round_idx;
 	}
@@ -55,6 +57,14 @@ public class UntactBookRound {
 
 	public void setRound_end_time(String round_end_time) {
 		this.round_end_time = round_end_time;
+	}
+
+	public String getManage_code() {
+		return manage_code;
+	}
+
+	public void setManage_code(String manage_code) {
+		this.manage_code = manage_code;
 	}
 	
 }

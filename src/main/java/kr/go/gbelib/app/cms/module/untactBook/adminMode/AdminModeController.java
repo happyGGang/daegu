@@ -462,6 +462,7 @@ public class AdminModeController extends BaseController {
 				String userIp = request.getRemoteAddr();
 				
 				librarySearch.setManageCode(manageCode);
+				untactBookReservation.setManage_code(manageCode);
 				librarySearch.setUserkey(userKey);
 				
 				untactBookRound.setRound_idx(round_idx);
@@ -482,27 +483,14 @@ public class AdminModeController extends BaseController {
 						res.setMessage("대기 처리 되었습니다.");
 						
 						if(untactBookSetting.getNight_loan_yn().equals("Y")) {
+							untactBookRound.setManage_code(manageCode);
 							String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);
-							if(book_full_name.length() > 5) {
-								String book_name = book_full_name.substring(0, 5) + "...";
-								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-							} else {
-								String book_name = book_full_name;
-								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-							}
+							
+							LibSearchAPI.sendalimtalkForUntactBook(librarySearch, userIp, homepage.getHomepage_name(), member_name, book_full_name, locker_no, locker_pass, loanTime);
 						} else {
 							String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);
-							if(book_full_name.length() > 5) {
-								String book_name = book_full_name.substring(0, 5) + "...";
-								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-							} else {
-								String book_name = book_full_name;
-								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-							}
+							
+							LibSearchAPI.sendalimtalkForUntactBook(librarySearch, userIp, homepage.getHomepage_name(), member_name, book_full_name, locker_no, locker_pass, loanTime);
 						}
 					} else {
 						res.setValid(false);
@@ -585,6 +573,20 @@ public class AdminModeController extends BaseController {
 					librarySearch.setUserkey(userKey);
 					librarySearch.setBookkey(reckey);
 					ApiResponse apiResult = LibSearchAPI.cancelReservation(librarySearch);
+					
+					String userIp = "0:0:0:0:0:0:0:1";
+			        String book_name = waitingReservationList.get(i).getBook_name();
+			        librarySearch.setManageCode(waitingReservationList.get(i).getManage_code());
+			        String data1 = "구수산도서관";
+			        if("BA".equals(waitingReservationList.get(i).getManage_code())){
+			        	data1 = "구수산도서관";
+			        } else {
+			        	data1 = "수성도서관";
+			        }
+					String data2 = waitingReservationList.get(i).getMember_name();
+					String data3 = book_name;
+					String data4 = "만기 취소";
+					LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
 					
 					if (apiResult.getStatus()) {
 						untactBookReservation.setRequest_number(Integer.parseInt(request_number));

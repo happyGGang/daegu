@@ -130,6 +130,19 @@ public class UntactBookController extends BaseController {
 						librarySearch.setBookkey(reckey);
 						ApiResponse apiResult = LibSearchAPI.cancelReservation2(librarySearch);
 						
+						String userIp = "0:0:0:0:0:0:0:1";
+				        String book_name = reservationList.get(0).getBook_name();
+				        String data1 = "구수산도서관";
+				        if("BA".equals(reservationList.get(0).getManage_code())) {
+				        	data1 = "구수산도서관";
+				        } else {
+				        	data1 = "수성도서관";
+				        }
+						String data2 = reservationList.get(i).getMember_name();
+						String data3 = book_name;
+						String data4 = "사용자본인취소";
+						LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
+						
 						if (apiResult.getStatus()) {
 							untactBookReservation.setRequest_number(Integer.parseInt(request_number));
 							untactBookReservation.setMember_id(member.getMember_id());

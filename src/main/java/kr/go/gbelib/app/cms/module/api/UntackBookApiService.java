@@ -20,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,7 +99,7 @@ public class UntackBookApiService extends BaseService {
         return map;
     }
 
-	public Map<String, Object> getData2(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) {
+	public Map<String, Object> getData2(UntactBookReservation untactBookReservation, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
 
 		String success_yn = "N"; // Y 성공 N 실패
@@ -169,18 +171,10 @@ public class UntackBookApiService extends BaseService {
             						librarySearch.setManageCode(loanList.getManageCode());
             						librarySearch.setUserkey(loanList.getUserkey());
             						
-            						String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);;
+            						String loanTime = untactLockerSettingService.getReturnDateToday(untactBookRound);
             						
-            						if(book_full_name.length() > 5) {
-        								String book_name = book_full_name.substring(0, 5) + "...";
-        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-        							} else {
-        								String book_name = book_full_name;
-        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-        							}
-            						
+            						LibSearchAPI.sendalimtalkForUntactBook(librarySearch, userIp, homepage.getHomepage_name(), member_name, book_full_name, String.valueOf(locker_no), String.valueOf(locker_pass), loanTime);
+
             						if (modify_result < 1) {
             							success_yn = "N";
             							msg = "대기처리에 실패하였습니다.";
@@ -302,15 +296,7 @@ public class UntackBookApiService extends BaseService {
             						
             						String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);;
             						
-            						if(book_full_name.length() > 5) {
-        								String book_name = book_full_name.substring(0, 5) + "...";
-        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-        							} else {
-        								String book_name = book_full_name;
-        								String mes =  "[" +homepage.getHomepage_name() + "]\n" + member_name + "님 도서 비치가 완료되었습니다.\n도서 정보 : "+book_name+"\n사물함 번호 : " + locker_no +"\n사물함 비밀번호 : " + locker_pass+"\n대출안내 : " + loanTime; 
-        								LibSearchAPI.sendSms(librarySearch, mes, userIp);
-        							}
+            						LibSearchAPI.sendalimtalkForUntactBook(librarySearch, userIp, homepage.getHomepage_name(), member_name, book_full_name, String.valueOf(locker_no), String.valueOf(locker_pass), loanTime);
             						
             						if (modify_result < 1) {
             							success_yn = "N";
