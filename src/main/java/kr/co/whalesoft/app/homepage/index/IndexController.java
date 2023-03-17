@@ -887,6 +887,8 @@ public class IndexController extends BaseController {
 			b3.setManage_idx(146);
 			b3.setHomepage_id(homepage.getHomepage_id());
 			model.addAttribute("teachGuideList", boardService.getSubBoardByMain(b3));//강좌행사안내
+			
+			model.addAttribute("teachGuideListTopNotice", boardService.getTeachGuideListTopNotice(b3));
 		}
 
 		//서구도서관
@@ -966,11 +968,11 @@ public class IndexController extends BaseController {
 
 			t.setHomepage_id(null);
 			t.setHomepage_ids(homepage_ids);
-			sw.start("getTeachListForUser");
+			//sw.start("getTeachListForUser");
 			List<Teach> teachListForUser = teachService.getTeachListForUser(t);
-			sw.stop();
+			//sw.stop();
 			model.addAttribute("teachList", teachListForUser);
-			System.out.println(sw.prettyPrint());
+			//System.out.println(sw.prettyPrint());
 		}
 
 		//전자도서관 메인페이지 북큐레이션

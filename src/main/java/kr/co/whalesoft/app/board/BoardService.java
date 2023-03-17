@@ -881,4 +881,8 @@ public class BoardService extends BaseService {
 		return dao.getBoardMovieCount(board);
 	}
 
+	public List<Board> getTeachGuideListTopNotice(Board b3) {
+		return dao.getTeachGuideListTopNotice(b3);
+	}
+
 }

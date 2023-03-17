@@ -499,10 +499,8 @@ do {
 						</div>
 
 						<div class="culture box con" data-tab="tab2" style="display:none;">
-						<!-- <div class="notice box con" data-tab="tab2" style="display:none;">
 							<div class="cont">
 								<ul class="list">
-									<%--공지사항 상단--%>
 									<c:if test="${fn:length(teachGuideListTopNotice) < 1}">
 									<li class="on-cont">
 										<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
@@ -526,28 +524,6 @@ do {
 										</a>
 									</li>
 									</c:if>
-									<%--공지사항 상단--%>
-
-									<%--공지사항 목록--%>
-									<c:forEach var="i" varStatus="status" items="${teachGuideList}" >
-									<li>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<em>${i.title}</em>
-											<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
-										</a>
-									</li>
-									</c:forEach>
-
-									<c:if test="${fn:length(teachGuideList) < 1}">
-									<li>
-										<em>등록된 게시글이 없습니다.</em>
-									</li>
-									</c:if>
-									<%--공지사항 목록--%>
-								</ul>
-							</div> -->
-							<div class="cont">
-								<ul class="list">
 									<c:forEach var="i" varStatus="status" items="${teachGuideList}" >
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
