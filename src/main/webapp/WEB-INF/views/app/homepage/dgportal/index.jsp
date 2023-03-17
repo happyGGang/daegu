@@ -2944,17 +2944,17 @@ do {
 			<div class="mBtn">
 				<ul>
 					<li>
-						<a href="html.do?menu_idx=14" class="b01">
+						<a href="https://books.nl.go.kr/PU/contents/P20202000000.do" target="_blank" title="책이음 홈페이지 바로가기(새창열림)" class="b01">
 							책이음
 						</a>
 					</li>
 					<li>
-						<a href="html.do?menu_idx=15" class="b02">
+						<a href="https://books.nl.go.kr/PU/contents/P10206000000.do" target="_blank" title="책바다 홈페이지 바로가기(새창열림)" class="b02">
 							책바다
 						</a>
 					</li>
 					<li>
-						<a href="html.do?menu_idx=16" class="b03">
+						<a href="https://cn.nld.go.kr/index.do" target="_blank" title="책나래 홈페이지 바로가기(새창열림)" class="b03">
 							책나래
 						</a>
 					</li>

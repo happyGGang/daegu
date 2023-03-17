@@ -183,6 +183,40 @@ $(function(){
 
 	<c:choose>
 
+		<c:when test="${homepage.context_path eq 'junggu'}">
+			<div class="tab_menu on">
+				<ul class="no3">
+					<li><a href="#tabCon0" data-hid="h74">중구영어도서관</a></li>
+					<li><a href="#tabCon1" data-hid="h75">동인느티나무도서관</a></li>
+					<li><a href="#tabCon2" data-hid="h76">삼덕마루</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+		<c:when test="${homepage.context_path eq 'seogulib' and teach.searchCate1 eq '16'}">
+			<div class="tab_menu on">
+				<ul class="no5">
+					<li><a href="#tabCon0" data-hid="h77">서구어린이</a></li>
+					<li><a href="#tabCon1" data-hid="h61">비산</a></li>
+					<li><a href="#tabCon2" data-hid="h62">영어</a></li>
+					<li><a href="#tabCon3" data-hid="h63">비원</a></li>
+					<li><a href="#tabCon4" data-hid="h64">원고개</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+		<c:when test="${homepage.context_path eq 'seogulib' and teach.searchCate1 eq '17'}">
+			<div class="tab_menu on">
+				<ul class="no5">
+					<li><a href="#tabCon0" data-hid="h77">서구어린이</a></li>
+					<li><a href="#tabCon1" data-hid="h61">비산</a></li>
+					<li><a href="#tabCon2" data-hid="h62">영어</a></li>
+					<li><a href="#tabCon3" data-hid="h63">비원</a></li>
+					<li><a href="#tabCon4" data-hid="h64">원고개</a></li>
+				</ul>
+			</div>
+		</c:when>
+
 		<c:when test="${homepage.context_path eq 'beomeo' and teach.searchCate1 eq '17'}">
 			<div class="tab_menu on">
 				<ul class="no3">

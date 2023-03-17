@@ -80,3 +80,69 @@ $(function(){
 	});
 
 });
+
+function uiTabsMenu () {
+	var $menu = $('.tabMenuS'),
+		$contWrap = $('.bx-wrapper'),
+		_content ='.bx-viewport',
+		curr = 'current';
+
+	if(!$menu.length ) { return }
+	$(_content).css('display', 'none');
+	$contWrap.each(function(){
+		$(this).find('div' + _content +':first').css('display', 'block');
+	});
+	$menu.on('click','a', function(){
+		if(!$(this).hasClass(curr)){
+			$(this).addClass(curr).closest('li').siblings('li').find('.' + curr).removeClass(curr);
+			$($(this).attr('href')).css('display', 'block').siblings('div'+_content).css('display', 'none');
+		}
+		this.blur();
+		return false;
+	});
+};
+
+function tabMenuSlider() {
+	var $tabmenu = $('.tabMenuS'),
+	$contWrap = $('.bx-wrapper'),
+	$sliderClass = '.book_photo',
+	config = {
+		maxSlides:3,
+		slideWidth:251,
+		slideMargin: 30,
+		infiniteLoop:false,
+		hideControlOnEnd:false,
+		pager:false,
+		nextText: '다음 페이지',
+		prevText: '이전 페이지'
+	};
+
+	var sliders = new Array();
+	$($sliderClass).each(function(i, slider) {
+		var len = $(slider).find('> li').length;
+		if(len < 3) {
+			sliders[i] = $(slider).addClass('nonslider');
+		} else {
+			sliders[i] = $(slider).bxSlider(config);
+		}
+	});
+
+	if(!$tabmenu.length ) { return }
+		$contWrap.each(function(){
+			if($(this).find('div.bx-viewport').is(':first')) {
+				slider.reloadSlider(config);
+			}
+		});
+	$tabmenu.on('click', ' a', function(e){
+		var _target = $(this).attr('href');
+
+		if($(_target).css('display') === 'block') {
+			$.each(sliders, function(i, slider){
+				if(!slider.hasClass('nonslider')) {
+					slider.reloadSlider(config);
+				}
+			});
+		}
+		e.preventDefault();
+	});
+}
