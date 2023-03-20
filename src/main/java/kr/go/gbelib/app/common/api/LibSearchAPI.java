@@ -2,12 +2,10 @@ package kr.go.gbelib.app.common.api;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1031,15 +1029,26 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getUserkey())) {
 			param.put("userkey", librarySearch.getUserkey());
 		}
+
+		Calendar cal = Calendar.getInstance();
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String nowDate = sdf.format(date);
+
+		cal.setTime(date);
+		cal.add(Calendar.YEAR,-2);
+
 		param.put("weight", "5");
-		param.put("gender", librarySearch.getSex());	
+		param.put("gender", librarySearch.getSex());
+		param.put("enddate",nowDate);
+		param.put("startdate",sdf.format(new Date(cal.getTimeInMillis())));
 		
 		
 		if (StringUtils.isNotEmpty(librarySearch.getBirth_year())) {
 			String age_code = "9";
-			
+
 			LocalDate now = LocalDate.now();
-			
 			int now_year = now.getYear();
 			
 			int age = now_year - Integer.parseInt(librarySearch.getBirth_year()) +1;
