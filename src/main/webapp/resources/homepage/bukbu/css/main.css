@@ -179,8 +179,13 @@
 /*.main2 .main2box3 .notice div.title a {font-size:0;line-height:0;background:url('/resources/homepage/bukbu/img/more_btbt.png') no-repeat 0 0;}*/
 
 .main2 .main2box3 .culture div.cont {box-sizing:border-box;padding:0 3%;}
-.main2 .main2box3 .culture ul.list {padding-top:10px;}
-.main2 .main2box3 .culture ul.list li {position:relative;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:0 75px 0 20px;margin-top:15px;}
+/*.main2 .main2box3 .culture ul.list {padding-top:10px;}*/
+.main2 .main2box3 .culture ul.list li {position:relative;background:url('/resources/common/img/arr-news.gif') no-repeat 2% center;padding:0 75px 0 20px;/*margin-top:15px;*/}
+.main2 .main2box3 .culture ul.list li:nth-child(7),
+.main2 .main2box3 .culture ul.list li:nth-child(8),
+.main2 .main2box3 .culture ul.list li:nth-child(9),
+.main2 .main2box3 .culture ul.list li:nth-child(10),
+.main2 .main2box3 .culture ul.list li:nth-child(11){display:none;}
 .main2 .main2box3 .culture ul.list li a {font-size:14px;font-weight:normal;color:#000;box-sizing:border-box;}
 .main2 .main2box3 .culture ul.list li a em {display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;font-style:normal;vertical-align:middle;}
 .main2 .main2box3 .culture ul.list li a span.status {font-size:13px;color:#fff;position:absolute;display:block;right:5px;top:0;width:70px;height:24px;line-height:23px;text-align:center;}
