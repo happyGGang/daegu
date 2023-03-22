@@ -246,6 +246,46 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="AC">대구광역시립 북부도서관</option>
 					<option value="AF">대구광역시립 서부도서관</option>
 					<option value="AE">대구광역시립 수성도서관</option>
+					<option value="BA" >구수산도서관</option>
+					<option value="BB" >대현도서관</option>
+					<option value="BC" >태전도서관</option>
+					<option value="BD" >범어도서관</option>
+					<option value="BE" >용학도서관</option>
+					<option value="BF" >고산도서관</option>
+					<option value="FF">남산4동작은도서관</option>
+					<option value="FQ">동인 느티나무 도서관</option>
+					<option value="FS">대구중구영어도서관</option>
+					<option value="FY">중구청교양정보실</option>
+					<option value="GG">대신동작은도서관</option>
+					<option value="HA">삼덕마루 작은도서관</option>
+					<option value="HF">대봉2동작은도서관</option>
+					<option value="BL">서구어린이도서관</option>
+					<option value="BQ">비산도서관</option>
+					<option value="BP">서구영어도서관</option>
+					<option value="BM">비원도서관</option>
+					<option value="BN">원고개도서관</option>
+					<option value="BR">달성군립도서관</option>
+					<option value="BS">대명어울림도서관</option>
+					<option value="BT">이천어울림도서관</option>
+					<option value="BW">도원도서관</option>
+					<option value="BV">달서어린이</option>
+					<option value="BU">성서도서관</option>
+					<option value="BX">본리도서관</option>
+					<option value="BY">달서가족문화도서관</option>
+					<option value="BZ">달서영어도서관</option>
+					<option value="CA">안심도서관</option>
+					<option value="CB">신천도서관</option>
+					<option value="FV">시청작은도서관</option>
+					<option value="NA">더불어숲도서관</option>
+					<option value="NB">도토리도서관</option>
+					<option value="NC">동일도서관</option>
+					<option value="NF">비전도서관</option>
+					<option value="NE">새벗도서관</option>
+					<option value="NK">아트도서관</option>
+					<option value="ND">연암도서관</option>
+					<option value="NG">점자도서관</option>
+					<option value="NH">푸른초장공공도서관</option>
+					<option value="NJ">한들마을도서관</option>
 				</select>
 				<div class="ui-state-highlight" style="margin-top:7px">
 					<span>* 소속 도서관은 변경이 어려우니 신중하게 선택하여 주시기 바랍니다.</span>
