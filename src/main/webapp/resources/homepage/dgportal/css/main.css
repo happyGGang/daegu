@@ -268,6 +268,15 @@
 #main1 .notice-box > .con li a span.link.librarydalseonglib {background-color:#7c07bf;}
 
 #main1 .notice-box > .con li a span.link.librarydgportal {background-color: #000;}
+#main1 .notice-box > .con li a span.link.librarynearbylib {background-color: #000;}
+
+
+/*상단고정 예외*/
+#main1 .notice-box > .con li a span.link.libraryTonghap {background-color:#e35204;}
+#main1 .notice-box > .con li a span.date.sangdan {color:#e35204;}
+#main1 .notice-box > .con li a span.tit.titleyewe {color:#e35204;font-weight:800;}
+
+
 
 
 #main2 {position:relative;background:url('../img/main2-bg.jpg') no-repeat center top;background-size:cover;}
@@ -341,7 +350,8 @@
 #main3 .cont li a.bgimg001 {background:#ffffff;background:url('/resources/homepage/dgportal/img/edu01.png') no-repeat center center;}
 #main3 .cont li a.bgimg002 {background:#f36404;}
 #main3 .cont li a.bgimg003 {background:#403b37;background:url('/resources/homepage/dgportal/img/edu03.png') no-repeat center center;}
-#main3 .cont li a.bgimg004 {background:#ffffff;}
+#main3 .cont li a.bgimg004 {background:#b08b6d;background: url('/resources/homepage/dgportal/img/edu04.png') no-repeat center center;}
+
 
 #main3 .cont li span {display:block;font-size:13px;}
 #main3 .cont li span.txt {font-size:14px;line-height:22px;color:#fff;padding:17px 0 0 0;width: 80%;margin: 0 auto;}
@@ -352,10 +362,10 @@
 #main3 .cont li a.bgimg002 span.txt p.len, #main3 .cont li a.bgimg001 span.txt .len {color:#fff;}
 #main3 .cont li a.bgimg003 span.txt p.len, #main3 .cont li a.bgimg003 span.txt .lib-name {color:#fff;}
 #main3 .cont li a.bgimg003 span.txt .tit {color:#fff;}
-#main3 .cont li a.bgimg004 span.txt .tit {color:#222;}
+#main3 .cont li a.bgimg004 span.txt p.len, #main3 .cont li a.bgimg004 span.txt .lib-name {color:#fff;}
 
 #main3 .cont li span.status {position:absolute;left:20px;top:0;z-index:4;width:60px;height:60px;line-height:60px;background:#fff;color:#f36404;}
-#main3 .cont li a.bgimg004 span.status {background:#a0a0a0;color:#fff;}
+#main3 .cont li a.bgimg004 span.status {background: #fff;color: #f36404;}
 
 #main3 .cultureList .bx-controls {position:absolute;width:100%;left:0;top:50%;z-index:150000000;}
 #main3 .cultureList .bx-prev {position:absolute;width:60px;height:60px;font-size:0;left:5px;background:url("../img/popupzone-prev.png") no-repeat 0 0;}
