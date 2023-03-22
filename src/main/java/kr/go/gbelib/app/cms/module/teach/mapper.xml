@@ -1086,7 +1086,7 @@
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-		a.teach_day_yn, a.teach_day_txt
+		a.teach_day_yn, a.teach_day_txt, a.teach_img_text
 		FROM
 		(SELECT * FROM TEACH WHERE 1 = 1
 		<if test="search_text != null and search_text != ''">
