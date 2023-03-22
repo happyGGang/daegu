@@ -50,7 +50,7 @@
 		getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
-		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
+		program_classification1, program_classification2, program_classification3, program_subject, program_age_div, a.teach_img_text,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
@@ -155,7 +155,7 @@
 		a.program_classification1_name,
 		a.program_classification2_name,
 		a.program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.hashtag_names, a.age_div_codes
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.hashtag_names, a.age_div_codes, a.teach_img_text
 		FROM
 		(
 		SELECT
@@ -178,7 +178,7 @@
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq,
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.teach_img_text,
 		(SELECT
 		LISTAGG(hashtag_name,',') WITHIN GROUP(ORDER BY hashtag_idx)
 		FROM
@@ -283,7 +283,7 @@
 		a.LIMIT_HAK2_STR,
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		a.large_category_name,
-		a.program_classification1, a.program_classification2, a.program_classification3, a.program_subject, a.program_age_div,
+		a.program_classification1, a.program_classification2, a.program_classification3, a.program_subject, a.program_age_div, a.teach_img_text,
 		a.program_subject_name,
 		a.program_classification1_name,
 		a.program_classification2_name,
@@ -305,7 +305,7 @@
 		getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
-		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
+		program_classification1, program_classification2, program_classification3, program_subject, program_age_div, a.teach_img_text,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
@@ -379,7 +379,7 @@
 		a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID,
 		a.terms, a.apply_file_yn, a.teach_addr_limit, a.teach_addr_limit_value, a.age_info_yn,
 		a.attach_org_file_name, a.attach_server_file_name, a.attach_file_extension, a.attach_file_size,
-		a.link_url, a.disable_holi, a.teach_day_yn, a.teach_day_txt,a.disable_holi_calendar,
+		a.link_url, a.disable_holi, a.teach_day_yn, a.teach_day_txt,a.disable_holi_calendar, a.teach_img_text,
 		(SELECT
 		LISTAGG(hashtag_code,',') WITHIN GROUP(ORDER BY hashtag_idx)
 		FROM
@@ -457,7 +457,7 @@
 		neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 		terms, apply_file_yn, teach_addr_limit, teach_addr_limit_value, age_info_yn, link_url,
-		disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar, hashtag_codes, age_div_codes, culture_view_yn
+		disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar, hashtag_codes, age_div_codes, culture_view_yn, a.teach_img_text
 		) VALUES (
 		#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{teach_name}, #{teach_desc}, #{teach_etc}, #{teach_stage}, #{teach_target}, #{limit_hak}, #{limit_hak2}, #{calendar_view_yn},
 		#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
@@ -484,7 +484,7 @@
 		#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{organization_yn}, #{course_taken_yn}, #{birth_yn}, #{sex_yn},
 		#{program_classification1}, #{program_classification2}, #{program_classification3}, #{program_subject}, #{program_age_div},
 		#{terms}, #{apply_file_yn}, #{teach_addr_limit}, #{teach_addr_limit_value}, #{age_info_yn}, #{link_url},
-		#{disable_holi}, #{teach_day_yn}, #{teach_day_txt},#{disable_holi_calendar}, #{hashtag_codes}, #{age_div_codes}, #{culture_view_yn}
+		#{disable_holi}, #{teach_day_yn}, #{teach_day_txt},#{disable_holi_calendar}, #{hashtag_codes}, #{age_div_codes}, #{culture_view_yn}, #{teach_img_text}
 		)
 	</insert>
 
@@ -504,6 +504,7 @@
 		teacher_name 		= #{teacher_name},
 		vaccines_yn			= #{vaccines_yn},
 		teach_code_yn 		= #{teach_code_yn},
+		teach_img_text 		= #{teach_img_text},
 		<if test="teach_count != null and teach_count != ''">
 			TEACH_COUNT = #{teach_count},
 		</if>
@@ -727,7 +728,7 @@
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn
+		a.teach_day_yn, a.teach_day_txt,a.TEACH_IMG_TEXT, a.teach_code_yn
 		FROM
 		(
 		SELECT
@@ -748,7 +749,7 @@
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn
+		a.teach_day_yn, a.teach_day_txt, a.teach_img_text, a.teach_code_yn
 		FROM
 		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 		WHERE a.homepage_id = b.homepage_id(+)
@@ -889,7 +890,7 @@
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.teach_img_text
 		FROM
 		(
 		SELECT
@@ -910,7 +911,7 @@
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.teach_img_text
 		FROM
 		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 		WHERE a.homepage_id = b.homepage_id(+)
@@ -1065,7 +1066,7 @@
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
 		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt
+		a.teach_day_yn, a.teach_day_txt, a.teach_img_text
 		FROM
 		(
 		SELECT

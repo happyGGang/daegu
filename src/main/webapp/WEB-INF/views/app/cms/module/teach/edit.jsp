@@ -939,6 +939,10 @@
 			</td>
 		</tr>
 		<tr>
+			<th>강의이미지설명</th>
+			<td><form:textarea path="teach_img_text" class="text" cssStyle="width:100%;" rows="5" /></td>
+		</tr>
+		<tr>
 			<th>강의설명</th>
 			<td><form:textarea path="teach_desc" class="text" cssStyle="width:100%;" rows="5" /></td>
 		</tr>

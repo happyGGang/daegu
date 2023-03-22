@@ -219,6 +219,8 @@ public class Teach extends PagingUtils {
 	private String search_hashtag;
 	private String search_libraryid;
 
+	private String teach_img_text;
+
 	private String[] manage_codes;
 	private String cancel_date;
 
@@ -1789,4 +1791,11 @@ public class Teach extends PagingUtils {
 		this.search_libraryid = search_libraryid;
 	}
 
+	public String getTeach_img_text() {
+		return teach_img_text;
+	}
+
+	public void setTeach_img_text(String teach_img_text) {
+		this.teach_img_text = teach_img_text;
+	}
 }
