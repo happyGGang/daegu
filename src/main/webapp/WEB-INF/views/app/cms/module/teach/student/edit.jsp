@@ -184,6 +184,10 @@ $(function() {
 						return false;
 					}
 					</c:if>
+					var studentPhone1 = $form.find('#student_cell_phone_1').val();
+					var studentPhone2 = $form.find('#student_cell_phone_2').val();
+					var studentPhone3 = $form.find('#student_cell_phone_3').val();
+					$form.find('#student_cell_phone').val(studentPhone1+'-'+studentPhone2+'-'+studentPhone3);
 					$form.find('#student_name').prop('disabled', false);
 					$form.find('input[name="student_sex"]').prop('disabled', false);
 					$form.find("#student_birth").prop('disabled', false);
