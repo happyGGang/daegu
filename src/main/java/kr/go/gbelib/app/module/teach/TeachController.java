@@ -246,7 +246,7 @@ public class TeachController extends BaseController{
 				Category category = new Category();
 				category.setHomepage_id("h60");
 				category.setLarge_category_idx(31);
-				category.setGroup_idx(31);
+				category.setGroup_idx(19);
 				model.addAttribute("dongguCategoryList", categoryService.getCategoryList(category));
 				
 				if(teach.getCategory_idx() == 0 || StringUtils.isEmpty(Integer.toString(teach.getCategory_idx()))) {
