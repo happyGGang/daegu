@@ -253,6 +253,8 @@ public class TeachController extends BaseController{
 					List<Category> categoryList = categoryService.getCategoryList(category);
 					teach.setCategory_idx(categoryList.get(0).getCategory_idx());
 				}
+				
+				teach.setHomepage_id("h60");
 			}
 			
 			model.addAttribute("teach", teach);
