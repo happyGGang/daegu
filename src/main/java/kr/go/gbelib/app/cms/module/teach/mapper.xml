@@ -457,7 +457,7 @@
 		neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 		terms, apply_file_yn, teach_addr_limit, teach_addr_limit_value, age_info_yn, link_url,
-		disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar, hashtag_codes, age_div_codes, culture_view_yn, a.teach_img_text
+		disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar, hashtag_codes, age_div_codes, culture_view_yn, teach_img_text
 		) VALUES (
 		#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{teach_name}, #{teach_desc}, #{teach_etc}, #{teach_stage}, #{teach_target}, #{limit_hak}, #{limit_hak2}, #{calendar_view_yn},
 		#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
