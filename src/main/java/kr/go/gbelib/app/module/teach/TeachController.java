@@ -244,7 +244,7 @@ public class TeachController extends BaseController{
 			
 			if(homepage.getHomepage_id().equals("h45") && "31".equals(teach.getSearchCate1())) {
 				Category category = new Category();
-				category.setHomepage_id("h73");
+				category.setHomepage_id("h60");
 				category.setLarge_category_idx(31);
 				category.setGroup_idx(31);
 				model.addAttribute("dongguCategoryList", categoryService.getCategoryList(category));
