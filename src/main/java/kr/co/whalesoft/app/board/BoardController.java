@@ -59,6 +59,7 @@ import kr.go.gbelib.app.cms.module.themeBook.ThemeBookService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.PushAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
+import kr.go.gbelib.app.intro.search.LibrarySearchService;
 
 @Controller
 @RequestMapping(value = {"/board", "/{homepagePath}/board"})
@@ -92,6 +93,8 @@ public class BoardController extends BaseController {
 	private ThemeBookService themeBookService;
 	@Autowired
 	private TermsService termsService;
+	@Autowired
+	private LibrarySearchService librarySearchService;
 
 	private String getBoardContext(HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -1059,6 +1062,9 @@ public class BoardController extends BaseController {
 							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
 							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
 								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", librarySearchService.getImageUrl(map));
 							}
 						}
 						

@@ -144,15 +144,20 @@ function getLasData(arg) {
 				<input type="checkbox" id="${i.theme_key}" class="imsi_v">
 				<a href="#" class="detail-btn" data-regno="${i.REG_NO}">
 				<c:choose>
-					<c:when test="${empty i.aladin or empty i.aladin.cover}">
+					<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 					<p class="noImg">
-						<img src="/resources/common/img/noImg2.png" alt="noImage"/>
+						<img src="/resources/common/img/noImg2.png" alt="noImage" onError="src='/resources/homepage/libculture/img/book_noimg.png';"/>
 						<span>등록된 이미지가<br/>없습니다.</span>
+					</p>
+					</c:when>
+					<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+					<p>
+						<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="src='/resources/homepage/libculture/img/book_noimg.png';">
 					</p>
 					</c:when>
 					<c:otherwise>
 					<p>
-						<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}">
+						<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="src='/resources/homepage/libculture/img/book_noimg.png';">
 					</p>
 					</c:otherwise>
 				</c:choose>
