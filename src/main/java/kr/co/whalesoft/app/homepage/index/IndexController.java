@@ -714,10 +714,10 @@ public class IndexController extends BaseController {
 
 				// 고산 특성화프로그램
 				if(th.equals("h52")) {
-					Teach t2 = new Teach();
-					t2.setHomepage_id(homepage.getHomepage_id());
-					t2.setSearchCate1("18");
-					model.addAttribute("charTeachList", teachService.getTeachListForUser(t2));
+					Board b = new Board();
+					b.setManage_idx(733);
+					b.setHomepage_id(homepage.getHomepage_id());
+					model.addAttribute("boardList", boardService.getSubBoardByMain(b));//영화도서전체
 				}
 			}
 		}

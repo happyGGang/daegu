@@ -213,7 +213,7 @@ do {
 						<ul class="tabMenuS">
 							<li class="on"><a href="#tab1" data-link="board/index.do?menu_idx=35&manage_idx=730" class='t-tabs'>공지사항</a></li>
 							<li><a href="#tab2" data-link="module/teach/index.do?menu_idx=90&searchCate1=16" class='t-tabs'>문화행사</a></li>
-							<li><a href="#tab3" data-link="module/teach/index.do?menu_idx=91&searchCate1=18" class='t-tabs'>특성화프로그램</a></li>
+							<li><a href="#tab3" data-link="board/index.do?menu_idx=51&manage_idx=733" class='t-tabs'>언론보도</a></li>
 						</ul>
 						<a href="board/index.do?menu_idx=35&manage_idx=730" class="btn-more2 more-more">더보기</a>
 
@@ -267,17 +267,17 @@ do {
 						<div class="news con" data-tab="tab3" style="display:none;">
 							<div class="box">
 								<ul>
-									<c:if test="${fn:length(charTeachList) < 1}">
+									<c:if test="${fn:length(boardList) < 1}">
 										<li>
-											등록된 행사가 없습니다.
+											등록된 언론보도가 없습니다.
 										</li>
 									</c:if>
-									<c:forEach items="${charTeachList}" var="i" varStatus="status" begin="0" end="4">
+									<c:forEach items="${boardList}" var="i" varStatus="status" begin="0" end="4">
 										<li>
-											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=91&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
-												<span class="sulib004">수성</span>
-												<em>${i.teach_name}</em>
-												<span class="date">${i.start_date}</span>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=51&manage_idx=733&board_idx=${i.board_idx}">
+												<span class="sulib001">고산</span>
+												<em>${i.title}</em>
+												<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd" /></span>
 											</a>
 										</li>
 									</c:forEach>
