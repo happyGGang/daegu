@@ -764,6 +764,29 @@ $(function() {
 						</c:otherwise>
 					</c:choose>
 				</c:when>
+		
+				<c:when test="${homepage.context_path eq 'seogulib'}">
+				<c:if test="${sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'dudal9575' || sessionScope.member.member_id eq 'rhkralstn666' || sessionScope.member.member_id eq 'minkyeong' || sessionScope.member.member_id eq 'ruddlsgod' || sessionScope.member.member_id eq 'andyjo' || sessionScope.member.member_id eq 'wodyd1013' || sessionScope.member.member_id eq 'start510' || sessionScope.member.member_id eq 'dudtjs02252' || sessionScope.member.member_id eq 'ryoko14' || sessionScope.member.member_id eq 'call816'}">
+					<c:choose>
+						<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
+							<c:choose>
+								
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				</c:when>
+				
+				
 
 				<c:otherwise>
 				</c:otherwise>
@@ -909,7 +932,7 @@ $(function() {
 							
 							</c:when>
 							<c:otherwise>
-								<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span></a>
+								<!-- <a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span></a> -->
 							</c:otherwise>
 						</c:choose>
 					</c:when>
@@ -982,6 +1005,7 @@ $(function() {
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+
 									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
 									<!-- <a href="#" class="btn btn1" onclick="alert('장비 점검으로 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a> -->
 								</c:when>

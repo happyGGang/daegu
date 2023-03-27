@@ -88,7 +88,7 @@ $(function() {
 						<form:option value="727038">산격1동 작은도서관</form:option>
 						<form:option value="727040">북구영어작은도서관</form:option>
 						<form:option value="727054">침산1동 작은도서관</form:option>
-						<form:option value="727055">노원동 작은도서관</form:option>
+						<!-- <form:option value="727055">노원동 작은도서관(폐관)</form:option> -->
 						<form:option value="727088">서변동작은도서관</form:option>
 						<form:option value="727098">노원행복도서관</form:option>
 						<form:option value="727102">한강공원부키도서관</form:option>
@@ -160,6 +160,16 @@ $(function() {
 						<form:option value="727074">행복도서관</form:option>
 						<form:option value="727068">방촌동 작은도서관</form:option>
 						<!-- <form:option value="727076">율하5주민도서관</form:option> -->
+					</form:select>
+					</c:when>
+
+					<c:when test="${context_path eq 'seogulib' || context_path eq 'biwon' ||context_path eq 'wongogae' || context_path eq 'bisan' ||context_path eq 'seoguenglish'}">
+					<form:select path="uselibcode">
+						<form:option value="127011">서구어린이도서관</form:option>
+						<form:option value="127086">비산도서관</form:option>
+						<form:option value="127094">비원도서관</form:option>
+						<form:option value="127095">서구영어도서관</form:option>
+						<form:option value="127098">원고개도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:otherwise>

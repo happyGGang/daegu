@@ -378,7 +378,6 @@ CONTEXT_PATH : ${context_path}
 					</c:choose>
 				</c:when>
 
-				
 				<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
 
 					<c:choose>
@@ -396,8 +395,19 @@ CONTEXT_PATH : ${context_path}
 					</c:choose>
 
 				</c:when>
-				
 
+				
+				<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'bisan' || context_path eq 'biwon' || context_path eq 'wongogae'}">
+				<c:if test="${sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'dudal9575' || sessionScope.member.member_id eq 'rhkralstn666' || sessionScope.member.member_id eq 'minkyeong' || sessionScope.member.member_id eq 'ruddlsgod' || sessionScope.member.member_id eq 'andyjo' || sessionScope.member.member_id eq 'wodyd1013' || sessionScope.member.member_id eq 'start510' || sessionScope.member.member_id eq 'dudtjs02252' || sessionScope.member.member_id eq 'ryoko14' || sessionScope.member.member_id eq 'call816'}">
+					<c:choose>
+						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+				</c:when>
 				<c:otherwise>
 
 				</c:otherwise>
@@ -523,7 +533,7 @@ AD20 종합자료실
 									<%
 									}
 									%>
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
 									<!--<a href="#" class="btn btn1" onclick="alert('24일까지 무인예약 사용이 불가능합니다. 양해부탁드립니다.');">무인예약신청</a>-->
 								</c:when>
 								<c:otherwise>

@@ -72,6 +72,11 @@ $(function() {
 });
 </script>
 
+<style>
+	.tbl2 th, .tbl2 td{text-align:center;border-right:1px solid #e5e8eb !important;}
+	.tbl2 th:last-child, .tbl2 td:last-child{border-right:none !important;}
+</style>
+
 <form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividualEdit" action="save.do" >
 <form:hidden path="menu_idx"/>
 <form:hidden path="individual_idx"/>
@@ -165,7 +170,46 @@ $(function() {
 			</tbody>
 		</table>
 
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">※ 위와같이 <2022 수성인문학제> 독서릴레이를 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">위와 같이 <제7회 수성인문학제> 독서릴레이를 신청합니다.</strong>
+
+		<p style="text-align:center;margin-bottom:10px;">※개인릴레이용 도서는 도서관 자료실에서 대출</p>
+
+		<div class="rsv-info"></div>
+		<div class="auto-scroll">
+			<table class="bbs-edit tbl2" summary="수성인문학제 참여 도서관별 자료실 위치를 안내하는 표">
+			  <caption class="disnone">
+			  수성인문학제 참여 도서관별 자료실 위치
+			  </caption>
+			  <colgroup>
+			  <col width="">
+			  <col width="28%">
+			  <col width="28%">
+			  <col width="28%">
+			  </colgroup>
+			  <thead>
+				<tr>
+				  <th>구분</th>
+				  <th>범어도서관</th>
+				  <th>용학도서관</th>
+				  <th>고산도서관</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <th>일반/청소년</th>
+				  <td>종합자료실(3층)</td>
+				  <td>종합자료실(3층)</td>
+				  <td>종합자료실(2층)</td>
+				</tr>
+				<tr>
+				  <th>어린이</th>
+				  <td>어린이자료실(지하1층)</td>
+				  <td>어린이자료실(2층)</td>
+				  <td>어린이자료실(1층)</td>
+				</tr>
+			  </tbody>
+			</table>
+		  </div>
 		
 		<div class="button bbs-btn center">
 			<a href="#" id="save_btn" class="btn btn1">신청하기</a>
