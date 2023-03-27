@@ -2997,8 +2997,8 @@ public class CommonSearchController extends BaseController {
 			int lillRequestListCount = PrivateLibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
 			int sanghoPossiCnt = 5;
 
-			// 달서구립도서관, 중구 상호대차 3권
-			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
+			// 달서구립도서관, 중구, 서구어린이, 비원, 비산, 서구영어, 원고개 상호대차 3권
+			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu", "seogulib", "biwon", "bisan", "seoguenglish", "wongogae"};
 			for (String libOne : sangho3cnt) {
 				if(homepage.getContext_path().equals(libOne)) {
 					sanghoPossiCnt = 3;
@@ -3044,7 +3044,7 @@ public class CommonSearchController extends BaseController {
 			int sanghoPossiCnt = 5;
 
 			// 달서구립도서관, 중구 상호대차 3권
-			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
+			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu", "seogulib", "biwon", "bisan", "seoguenglish", "wongogae"};
 			for (String libOne : sangho3cnt) {
 				if(homepage.getContext_path().equals(libOne)) {
 					sanghoPossiCnt = 3;

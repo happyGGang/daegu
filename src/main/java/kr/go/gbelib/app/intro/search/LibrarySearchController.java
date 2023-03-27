@@ -1244,7 +1244,7 @@ public class LibrarySearchController extends BaseController {
 			int sanghoPossiCnt = 5;
 
 			// 달서구립도서관, 중구 상호대차 3권
-			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu"};
+			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu", "seogulib", "biwon", "bisan", "seoguenglish", "wongogae"};
 			for (String libOne : sangho3cnt) {
 				if(context_path.equals(libOne)) {
 					sanghoPossiCnt = 3;
