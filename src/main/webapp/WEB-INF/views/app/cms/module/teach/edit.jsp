@@ -678,6 +678,16 @@
 			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
 			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
 		});
+		
+		$('#teach_day_all_check').change(function() {
+ 			$('input#day1').prop('checked', $(this).prop('checked'));
+ 			$('input#day2').prop('checked', $(this).prop('checked'));
+ 			$('input#day3').prop('checked', $(this).prop('checked'));
+			$('input#day4').prop('checked', $(this).prop('checked'));
+			$('input#day5').prop('checked', $(this).prop('checked'));
+ 			$('input#day6').prop('checked', $(this).prop('checked'));
+ 			$('input#day7').prop('checked', $(this).prop('checked'));
+		});
 	});
 
 </script>
@@ -997,6 +1007,7 @@
 		<tr>
 			<th>강의요일 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
+				<input type="checkbox" name="teach_day_all_check" id="teach_day_all_check" checked="checked"/><label>전체</label>&nbsp;
 				<c:forEach var="i" varStatus="status" begin="1" end="7" step="1">
 					<c:set var="label" value=""/>
 					<c:set var="checked" value="" />
