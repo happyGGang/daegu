@@ -17,7 +17,7 @@
 		   FROM (
 				   SELECT
 						homepage_id, locker_number, request_number, member_id, member_name,
-						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
+						request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
 						sms_send_date, round_idx, loankey,
@@ -44,7 +44,7 @@
 		   SELECT
 				homepage_id, locker_number, request_number, member_id,
 				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
-				admin_yn, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+				admin_yn, request_date,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -54,7 +54,7 @@
 				   SELECT
 						homepage_id, locker_number, request_number, member_id, member_name,
 						cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
-						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+						request_date,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -79,7 +79,7 @@
 		SELECT
 				homepage_id, locker_number, request_number, member_id,
 				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
-				admin_yn, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+				admin_yn, request_date,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -89,7 +89,7 @@
 				   SELECT
 						homepage_id, locker_number, request_number, member_id, member_name,
 						cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
-						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
+						request_date,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
