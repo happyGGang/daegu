@@ -177,6 +177,9 @@ public class NearbyLibService extends BaseService {
 					String data2 = reserveOne.getMember_name();
 					String data3 = book_name;
 					String data4 = reserveOne.getDevice_name();
+					if(reserveOne.getDevice_name().contains("이시아")) {
+						data4 = reserveOne.getDevice_name() + "(2층)";
+					}
 					
 					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
 					
@@ -220,6 +223,9 @@ public class NearbyLibService extends BaseService {
 					String data2 = reserveOne.getMember_name();
 					String data3 = book_name;
 					String data4 = reserveOne.getDevice_name();
+					if(reserveOne.getDevice_name().contains("이시아")) {
+						data4 = reserveOne.getDevice_name() + "(2층)";
+					}
 					
 					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
 					
@@ -466,6 +472,9 @@ public class NearbyLibService extends BaseService {
 					String data2 = reserveOne.getMember_name();
 					String data3 = book_name;
 					String data4 = reserveOne.getDevice_name();
+					if(reserveOne.getDevice_name().contains("이시아")) {
+						data4 = reserveOne.getDevice_name() + "(2층)";
+					}
 					String data5 = String.valueOf(reserveOne.getLocker_idx());
 					String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
 					String data7 = simpleDateFormat.format(cal.getTime());
@@ -1015,6 +1024,9 @@ public class NearbyLibService extends BaseService {
 							String data2 = bundleList.get(i).getMember_name();
 							String data3 = book_name;
 							String data4 = bundleList.get(i).getDevice_name();
+							if(bundleList.get(i).getDevice_name().contains("이시아")) {
+								data4 = bundleList.get(i).getDevice_name() + "(2층)";
+							}
 							String data5 = String.valueOf(bundleList.get(i).getLocker_idx());
 							String data6 = String.valueOf(bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx());
 							String data7 = simpleDateFormat.format(cal.getTime());
