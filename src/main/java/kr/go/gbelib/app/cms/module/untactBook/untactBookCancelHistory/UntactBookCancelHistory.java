@@ -18,6 +18,8 @@ public class UntactBookCancelHistory extends PagingUtils {
 	private String sms_send_yn;  //SMS발송여부
 	private String sms_send_date;  //SMS발송일시
 	
+	private String request_date;  //신청일
+	
 	private int[] request_number_arr;  //신청번호_arr
 	
 	private String cancel_start_date;
@@ -153,6 +155,14 @@ public class UntactBookCancelHistory extends PagingUtils {
 
 	public void setAdmin_member_id(String admin_member_id) {
 		this.admin_member_id = admin_member_id;
+	}
+
+	public String getRequest_date() {
+		return request_date;
+	}
+
+	public void setRequest_date(String request_date) {
+		this.request_date = request_date;
 	}
 	
 }

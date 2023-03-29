@@ -47,9 +47,6 @@ public class UntactBookCancelHistoryWorkbook {
 		workbook.getSheet(0).setColumnView( 4, 30 );
 		workbook.getSheet(0).setColumnView( 5, 30 );
 		workbook.getSheet(0).setColumnView( 6, 30 );
-		workbook.getSheet(0).setColumnView( 7, 15 );
-		workbook.getSheet(0).setColumnView( 8, 15 );
-		workbook.getSheet(0).setColumnView( 9, 15 );
 				
 		int column = 0;
 		// 헤더 컬럼 지정
@@ -57,8 +54,9 @@ public class UntactBookCancelHistoryWorkbook {
 		workbook.getSheet(0).addCell( new Label(column++, 0, "회원아이디", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "회원이름", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "취소사유", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "등록일", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "등록ID", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "신청일시", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "취소일", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "취소ID", format ) );
 		
 		int row = 1;
 		
@@ -70,6 +68,7 @@ public class UntactBookCancelHistoryWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_id(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCancel_reason(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getRequest_date(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCancel_date(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCancel_id(), format1));
 			

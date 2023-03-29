@@ -44,7 +44,7 @@
 		   SELECT
 				homepage_id, locker_number, request_number, member_id,
 				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
-				admin_yn,
+				admin_yn, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -54,6 +54,7 @@
 				   SELECT
 						homepage_id, locker_number, request_number, member_id, member_name,
 						cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
+						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -78,7 +79,7 @@
 		SELECT
 				homepage_id, locker_number, request_number, member_id,
 				cancel_yn, cancel_reason, cancel_id, cancel_ip, cancel_date,
-				admin_yn,
+				admin_yn, TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -88,6 +89,7 @@
 				   SELECT
 						homepage_id, locker_number, request_number, member_id, member_name,
 						cancel_yn, cancel_reason, cancel_id, cancel_ip, TO_CHAR(cancel_date,'yyyy-MM-dd HH24:MI:SS') AS cancel_date,
+						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM

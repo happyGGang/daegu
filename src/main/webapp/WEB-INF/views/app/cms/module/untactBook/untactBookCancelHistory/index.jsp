@@ -71,6 +71,7 @@ $(function(){
 			<th width="50">사물함번호</th>
 			<th width="50">신청자아이디</th>
 			<th width="50">신청자명</th>
+			<th width="50">신청날짜</th>
 			<th width="50">취소날짜</th>
 			<th width="50">취소사유</th>
 			<th width="50">취소ID</th>
@@ -89,6 +90,7 @@ $(function(){
 			<td width="50">${i.locker_number}</td>
 			<td width="50">${i.member_id}</td>
 			<td width="50">${i.member_name}</td>
+			<td width="50">${i.request_date}</td>
 			<td width="50">${i.cancel_date}</td>
 			<td width="50">${i.cancel_reason}</td>
 			<td width="50">${i.cancel_id}</td>
