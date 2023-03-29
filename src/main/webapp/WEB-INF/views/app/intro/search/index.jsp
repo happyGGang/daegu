@@ -698,6 +698,38 @@ function resveReq(bookkey, booktype, editMode) {
 					</div>
 					<div class="end" style="padding:13px 0;"></div>
 					</c:when>
+					
+					<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'biwon' || context_path eq 'bisan' || context_path eq 'wongogae'}">
+					<div id="libraryList" class="libraryList">
+						<div>
+							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+						</div>
+						<div>
+							<ul>
+								<li>
+									<form:checkbox path="libraryCodes" value="BL" class="libCheck lib_BL" label="서구어린이도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BQ" class="libCheck lib_BQ" label="비산도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BP" class="libCheck lib_BP" label="서구영어도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BM" class="libCheck lib_BM" label="비원도서관"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="BN" class="libCheck lib_BN" label="원고개도서관"/>
+								</li>
+							</ul>
+						</div>
+						<div class="end"></div>
+					</div>
+					<div class="end" style="padding:13px 0;"></div>
+					</c:when>
+
+
+
 					<c:when test="${context_path eq 'bisan'}">
 					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BQ"/>
 					</c:when>
