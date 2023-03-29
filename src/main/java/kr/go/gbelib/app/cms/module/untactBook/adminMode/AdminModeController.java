@@ -488,6 +488,7 @@ public class AdminModeController extends BaseController {
 							
 							LibSearchAPI.sendalimtalkForUntactBook(librarySearch, userIp, homepage.getHomepage_name(), member_name, book_full_name, locker_no, locker_pass, loanTime);
 						} else {
+							untactBookRound.setManage_code(manageCode);
 							String loanTime = untactLockerSettingService.getReturnDate(untactBookRound);
 							
 							LibSearchAPI.sendalimtalkForUntactBook(librarySearch, userIp, homepage.getHomepage_name(), member_name, book_full_name, locker_no, locker_pass, loanTime);

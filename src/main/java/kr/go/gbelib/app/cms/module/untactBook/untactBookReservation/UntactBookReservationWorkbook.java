@@ -42,19 +42,23 @@ public class UntactBookReservationWorkbook {
 		// 컬럼 폭 지정
 //		workbook.getSheet(0).setColumnView( 0, 15 );
 		workbook.getSheet(0).setColumnView( 1, 15 );
-		workbook.getSheet(0).setColumnView( 2, 15 );
-		workbook.getSheet(0).setColumnView( 3, 15 );
-		workbook.getSheet(0).setColumnView( 4, 30 );
+		workbook.getSheet(0).setColumnView( 2, 20 );
+		workbook.getSheet(0).setColumnView( 3, 20 );
+		workbook.getSheet(0).setColumnView( 4, 15 );
 		workbook.getSheet(0).setColumnView( 5, 30 );
 		workbook.getSheet(0).setColumnView( 6, 30 );
-		workbook.getSheet(0).setColumnView( 7, 15 );
+		workbook.getSheet(0).setColumnView( 7, 30 );
 		workbook.getSheet(0).setColumnView( 8, 15 );
 		workbook.getSheet(0).setColumnView( 9, 15 );
+		workbook.getSheet(0).setColumnView( 10, 15 );
+		workbook.getSheet(0).setColumnView( 11, 20 );
+		workbook.getSheet(0).setColumnView( 12, 20 );
 				
 		int column = 0;
 		// 헤더 컬럼 지정
 //		workbook.getSheet(0).addCell( new Label(column++, 1, "번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자아이디", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "대출자번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "등록번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자명", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청일", format ) );
@@ -63,6 +67,8 @@ public class UntactBookReservationWorkbook {
 		workbook.getSheet(0).addCell( new Label(column++, 0, "사물함번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "비밀번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "대출단계", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "자료실", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "청구기호", format ) );
 		
 		int row = 1;
 		
@@ -72,17 +78,20 @@ public class UntactBookReservationWorkbook {
 			
 //			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row)), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_id(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getUser_key(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getReg_no(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getRequest_date(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getLoan_date(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getBook_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_number()), format1));
+			
 			if(one.getLocker_password() > 0) {
 				workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getLocker_password()), format1));
 			} else {
 				workbook.getSheet(0).addCell(new Label(column++, row, "미등록", format1));
 			}
+			
 			if("1".equals(one.getReservation_step())) {
 				workbook.getSheet(0).addCell(new Label(column++, row, "신청", format1));
 			} else if("2".equals(one.getReservation_step())) {
@@ -96,6 +105,9 @@ public class UntactBookReservationWorkbook {
 			} else {
 				workbook.getSheet(0).addCell(new Label(column++, row, "사용자본인취소", format1));
 			}
+			
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getShelf_loc_name(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getCall_no(), format1));
 			
 			row++;
 		}

@@ -171,6 +171,8 @@ public class LibrarySearch extends PagingUtils {
 	private List<String> appendixregnolist;//지역상호대차 부록신청 등록번호 리스트
 	
 	private String privateYn;
+	
+	private String call_no;
 
 	// 드론대출
 	private String device_code;
@@ -1267,6 +1269,14 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setPrivateYn(String privateYn) {
 		this.privateYn = privateYn;
+	}
+
+	public String getCall_no() {
+		return call_no;
+	}
+
+	public void setCall_no(String call_no) {
+		this.call_no = call_no;
 	}
 	
 }

@@ -23,7 +23,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -50,7 +50,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -63,7 +63,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -90,7 +90,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -102,7 +102,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -116,6 +116,7 @@
 						UNTACT_BOOK_RESERVATION
 					WHERE
 						homepage_id = #{homepage_id}
+					AND reservation_step != '6'
 					AND TO_CHAR(request_date,'YY/MM/DD') = TO_CHAR(SYSDATE,'YY/MM/DD')
 					ORDER BY request_number DESC
 			)
@@ -127,7 +128,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -139,7 +140,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -154,6 +155,7 @@
 					WHERE
 						homepage_id = #{homepage_id}
 					<include refid="where"/>
+					AND reservation_step != '6'
 					ORDER BY request_number DESC
 			)
 	</select>
@@ -164,7 +166,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -177,7 +179,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -213,7 +215,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -226,7 +228,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -269,7 +271,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -282,7 +284,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM
@@ -327,13 +329,13 @@
 			request_date, locker_password, reservation_step, rec_key, manage_code,
 			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-			sms_send_date, round_idx, loankey
+			sms_send_date, round_idx, loankey, shelf_loc_name, call_no
 		) VALUES (
 			#{homepage_id}, #{locker_number}, #{request_number}, #{member_id}, #{member_name},
 			SYSDATE, #{locker_password}, '1', #{rec_key}, #{manage_code},
 			#{user_key}, #{reg_no}, #{book_isbn}, #{book_name}, #{loan_date}, 'N',
 			#{cancel_reason}, #{cancel_id}, #{cancel_ip}, #{cancel_date}, #{sms_send_yn},
-			#{sms_send_date}, #{round_idx}, #{loankey}
+			#{sms_send_date}, #{round_idx}, #{loankey}, #{shelf_loc_name}, #{call_no}
 		)
 	</insert>
 	
@@ -390,7 +392,7 @@
 			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-			sms_send_date, round_idx, loankey
+			sms_send_date, round_idx, loankey, shelf_loc_name, call_no
 		FROM
 			UNTACT_BOOK_RESERVATION
 		WHERE
@@ -678,7 +680,8 @@
 				TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, loankey, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name
+				sms_send_date, round_idx, loankey, (SELECT CODE_NAME FROM CMS_CODE WHERE HOMEPAGE_ID='CMS' AND GROUP_ID = 'UT000' AND CODE_ID = reservation_step) AS reservation_step_code_name,
+				shelf_loc_name, call_no
 			FROM
 				UNTACT_BOOK_RESERVATION
 			WHERE
@@ -752,7 +755,7 @@
 			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-			sms_send_date, round_idx, loankey
+			sms_send_date, round_idx, loankey, shelf_loc_name, call_no
 		FROM 
 			UNTACT_BOOK_RESERVATION
 		WHERE homepage_id = #{homepage_id}
@@ -782,7 +785,7 @@
 			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-			sms_send_date, round_idx, loankey
+			sms_send_date, round_idx, loankey, shelf_loc_name, call_no
 		FROM 
 			UNTACT_BOOK_RESERVATION
 		WHERE homepage_id = #{homepage_id}
@@ -807,7 +810,7 @@
 			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-			sms_send_date, round_idx, loankey
+			sms_send_date, round_idx, loankey, shelf_loc_name, call_no
 		FROM
 			UNTACT_BOOK_RESERVATION
 		WHERE
@@ -875,7 +878,7 @@
 				request_date, locker_password, reservation_step, rec_key, manage_code,
 				user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 				cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-				sms_send_date, round_idx, admin_yn, loankey,
+				sms_send_date, round_idx, admin_yn, loankey, shelf_loc_name, call_no,
 				CASE 
 					WHEN admin_yn = 'N'
 					THEN substr(member_name,1,1) || lpad('○',length(member_name)-2,'○') || substr(member_name, length(member_name), 1)
@@ -930,7 +933,7 @@
 			TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 			user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 			cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-			sms_send_date, round_idx, loankey, book_isbn
+			sms_send_date, round_idx, loankey, book_isbn, shelf_loc_name, call_no
 		FROM
 			UNTACT_BOOK_RESERVATION
 		WHERE

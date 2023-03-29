@@ -27,6 +27,8 @@ public class UntactBookReservation extends PagingUtils {
 	private String sms_send_yn;  //SMS발송여부
 	private String sms_send_date;  //SMS발송일시
 	private String round_idx;  //신청회차
+	private String shelf_loc_name; //도서 소재
+	private String call_no; //청구기호
 	
 	//코드명
 	private String reservation_step_code_name;  //대출단계 코드명
@@ -358,6 +360,22 @@ public class UntactBookReservation extends PagingUtils {
 
 	public void setLocal_loan_cnt(int local_loan_cnt) {
 		this.local_loan_cnt = local_loan_cnt;
+	}
+
+	public String getShelf_loc_name() {
+		return shelf_loc_name;
+	}
+
+	public void setShelf_loc_name(String shelf_loc_name) {
+		this.shelf_loc_name = shelf_loc_name;
+	}
+
+	public String getCall_no() {
+		return call_no;
+	}
+
+	public void setCall_no(String call_no) {
+		this.call_no = call_no;
 	}
 	
 }

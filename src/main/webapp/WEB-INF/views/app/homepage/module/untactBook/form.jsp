@@ -44,6 +44,8 @@ $(function() {
 <form:hidden path="homepage_id"/>
 <form:hidden path="book_isbn" value="${detail.ISBN}"/>
 <form:hidden path="reg_no" value="${detail.REG_NO}"/>
+<form:hidden path="shelf_loc_name" value="${detail.SHELF_LOC_NAME}"/>
+<form:hidden path="call_no" value="${detail.CALL_NO}"/>
 <input type="hidden" name="booktype" id="booktype" value="${fn:substring(detail.WORKING_STATUS,0,2) }"/>
 
 <div>

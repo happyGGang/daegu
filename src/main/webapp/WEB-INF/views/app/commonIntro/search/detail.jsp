@@ -278,6 +278,8 @@ $(function() {
 	<input type="hidden" name="regNo" value="${detail.REG_NO}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
+	<input type="hidden" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">

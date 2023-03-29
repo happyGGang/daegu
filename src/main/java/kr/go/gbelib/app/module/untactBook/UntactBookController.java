@@ -114,7 +114,7 @@ public class UntactBookController extends BaseController {
 			untactBookReservation.setCancel_ip(request.getRemoteAddr());
 			List<UntactBookReservation> reservationList = untactBookReservationService.getReservationList(untactBookReservation);
 			
-			String request_number = String.valueOf(reservationList.get(0).getRequest_number());
+			int request_number = reservationList.get(0).getRequest_number();
 			String userKey = String.valueOf(reservationList.get(0).getUser_key());
 			String book_isbn = String.valueOf(reservationList.get(0).getBook_isbn());
 			
@@ -141,10 +141,11 @@ public class UntactBookController extends BaseController {
 						String data2 = reservationList.get(i).getMember_name();
 						String data3 = book_name;
 						String data4 = "사용자본인취소";
+						librarySearch.setManageCode(reservationList.get(0).getManage_code());
 						LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
 						
 						if (apiResult.getStatus()) {
-							untactBookReservation.setRequest_number(Integer.parseInt(request_number));
+							untactBookReservation.setRequest_number(request_number);
 							untactBookReservation.setMember_id(member.getMember_id());
 							int cancel_count = untactBookReservationService.cancelReserve(untactBookReservation);
 							if(cancel_count > 0) {
@@ -361,6 +362,7 @@ public class UntactBookController extends BaseController {
 			untactBookReservation.setManage_code(homepage.getManage_code());
 			untactBookReservation.setUser_key(member.getRec_key());
 			untactBookReservation.setReg_no(librarySearch.getReg_no());
+			untactBookReservation.setShelf_loc_name(librarySearch.getShelf_loc_name());
 			
 			//만약 같은 회차내에서 예약을 한 사용자가 있다면 사물함 번호를 그대로 가져오고 아니라면 생성
 			if(untactBookReservationService.checkLockerNumber(untactBookReservation) > 0) {

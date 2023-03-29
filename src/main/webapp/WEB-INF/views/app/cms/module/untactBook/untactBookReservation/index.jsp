@@ -130,15 +130,17 @@ function smsWrite() {
 <table class="type1 center">
 	<thead>
 		<tr>
-			<th width="20"><input type="checkbox" onchange="checkAll($(this));"></th>
+			<th width="5"><input type="checkbox" onchange="checkAll($(this));"></th>
 			<th width="5">번호</th>
 			<th width="40">신청자아이디</th>
 			<th width="50">대출번호</th>
+			<th width="50">청구기호</th>
 			<th width="40">신청자명</th>
 			<th width="50">신청일</th>
 			<th width="50">비치일</th>
 			<th width="50">도서명</th>
 			<th width="30">사물함번호</th>
+			<th width="50">자료실명</th>
 			<th width="40">비밀번호</th>
 			<th width="30">대출단계</th>
 		</tr>
@@ -151,15 +153,17 @@ function smsWrite() {
 	</c:if>
 	<c:forEach var="i" varStatus="status" items="${untactBookReservationList}">
 		<tr>
-			<td width="10"><form:checkbox path="request_number_arr" cssClass="black_idx" value="${i.request_number}"/></td>
+			<td width="5"><form:checkbox path="request_number_arr" cssClass="black_idx" value="${i.request_number}"/></td>
 			<td width="5">${paging.listRowNum - status.index}</td>
 			<td width="40">${i.member_id}</td>
 			<td width="50">${i.reg_no}</td>
+			<td width="50">${i.call_no}</td>
 			<td width="40">${i.member_name}</td>
 			<td width="50">${i.request_date}</td>
 			<td width="50">${i.loan_date}</td>
 			<td width="50">${i.book_name}</td>
 			<td width="30">${i.locker_number}</td>
+			<td width="50">${i.shelf_loc_name}</td>
 			<c:choose>
 				<c:when test="${i.locker_password eq 0}">
 					<td width="40">미등록</td>
