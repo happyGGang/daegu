@@ -51,8 +51,6 @@ public class BookRelayGroupWorkbook {
 		workbook.getSheet(0).setColumnView(8, 15);
 		workbook.getSheet(0).setColumnView(9, 20);
 		workbook.getSheet(0).setColumnView(10, 15);
-		workbook.getSheet(0).setColumnView(11, 20);
-		workbook.getSheet(0).setColumnView(12, 10);
 
 		workbook.getSheet(0).addCell(new Label(0, 0, String.format(sheetName), format1));
 		workbook.getSheet(0).mergeCells(0, 0, 7, 0);
@@ -60,13 +58,12 @@ public class BookRelayGroupWorkbook {
 		int column = 0;
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell(new Label(column++, 1, "번호", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "기관명", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "대표번호", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "담당자명", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "직장전화", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "단체명", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "신청자명", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "전화", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "휴대폰", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "주소", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "도서영역", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "대상별", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "독서노트 신청수량", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "릴레이 계획", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "릴레이 예상인원", format));
@@ -106,9 +103,7 @@ public class BookRelayGroupWorkbook {
 			column = 0;
 			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row-1)), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getGroup_name(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, org.getMain_number(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getManager_name(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, org.getWork_number(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getUser_phone(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, address, format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, bookArea, format1));

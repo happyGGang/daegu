@@ -33,19 +33,15 @@ $(function() {
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>기관명</th>
+				<th>단체명</th>
 				<td>${getBookRelayGroup.group_name}</td>
 			</tr>
 			<tr>
-				<th>대표번호</th>
-				<td>${getBookRelayGroup.main_number}</td>
-			</tr>
-			<tr>
-				<th>담당자명</th>
+				<th>신청자명</th>
 				<td>${getBookRelayGroup.manager_name}</td>
 			</tr>
 			<tr>
-				<th>직장전화</th>
+				<th>전화</th>
 				<td>${getBookRelayGroup.work_number}</td>
 			</tr>
 			<tr>
@@ -57,7 +53,7 @@ $(function() {
 				<td>(${getBookRelayGroup.postcode}) ${getBookRelayGroup.address_base} ${getBookRelayGroup.address_detailed} </td>
 			</tr>
 			<tr>
-				<th>도서영역</th>
+				<th>대상별</th>
 				<td>
 					<c:choose>
 						<c:when test="${getBookRelayGroup.book_area eq '0'}">성인</c:when>

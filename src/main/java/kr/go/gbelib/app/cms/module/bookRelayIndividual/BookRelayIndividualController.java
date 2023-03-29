@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,27 +72,11 @@ public class BookRelayIndividualController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		
 		if(bookRelayIndividual.getEditMode().equals("ADD") || bookRelayIndividual.getEditMode().equals("MODIFY") ) {
-    		ValidationUtils.rejectIfEmpty(result, "user_name", "이름을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "user_name", "성명을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "user_phone", "휴대폰 번호를 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "postcode", "우편번호를 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "address_base", "주소를 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "address_detailed", "상세주소를 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "book_area", "도서영역을 선택하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "book_quantity", "독서노트 신청수량을 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "reader_contest", "다독자 공모를 선택하세요.");
-    		
+    		ValidationUtils.rejectIfEmpty(result, "book_area", "대상별을 선택하세요.");
     		ValidationUtils.rejectPhone(result, "user_phone", "휴대폰 번호가 올바르지 않습니다.");
-    		if (StringUtils.isNotEmpty(bookRelayIndividual.getUser_email())) {
-    			ValidationUtils.rejectNotFullEmailType(result, "user_email", "이메일이 올바르지 않습니다.");
-			}
-    		
-    		ValidationUtils.rejectIfStringLength(result, "user_name", 20, "이름");
-    		ValidationUtils.rejectIfStringLength(result, "user_email", 100, "이메일");
-    		ValidationUtils.rejectIfStringLength(result, "user_affiliation", 50, "소속명");
-    		ValidationUtils.rejectIfStringLength(result, "postcode", 5, "우편번호");
-    		ValidationUtils.rejectIfStringLength(result, "address_base", 800, "주소");
-    		ValidationUtils.rejectIfStringLength(result, "address_detailed", 800, "상세주소");
-    		ValidationUtils.rejectIfStringLength(result, "relay_plan", 500, "릴레리 계획");
+    		ValidationUtils.rejectIfStringLength(result, "user_name", 20, "성명");
 		}
 		
 		if (!result.hasErrors()) {

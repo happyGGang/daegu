@@ -44,15 +44,9 @@ public class BookRelayIndividualWorkbook {
 		workbook.getSheet(0).setColumnView(1, 20);
 		workbook.getSheet(0).setColumnView(2, 20);
 		workbook.getSheet(0).setColumnView(3, 20);
-		workbook.getSheet(0).setColumnView(4, 20);
-		workbook.getSheet(0).setColumnView(5, 60);
+		workbook.getSheet(0).setColumnView(4, 15);
+		workbook.getSheet(0).setColumnView(5, 20);
 		workbook.getSheet(0).setColumnView(6, 15);
-		workbook.getSheet(0).setColumnView(7, 15);
-		workbook.getSheet(0).setColumnView(8, 15);
-		workbook.getSheet(0).setColumnView(9, 20);
-		workbook.getSheet(0).setColumnView(10, 15);
-		workbook.getSheet(0).setColumnView(11, 20);
-		workbook.getSheet(0).setColumnView(12, 10);
 
 		workbook.getSheet(0).addCell(new Label(0, 0, String.format(sheetName), format1));
 		workbook.getSheet(0).mergeCells(0, 0, 7, 0);
@@ -60,23 +54,15 @@ public class BookRelayIndividualWorkbook {
 		int column = 0;
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell(new Label(column++, 1, "번호", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "이름", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "성명", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "휴대폰", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "이메일", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "학교 또는 직장 명", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "주소", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "도서영역", format));
+		workbook.getSheet(0).addCell(new Label(column++, 1, "대상별", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "독서노트 신청수량", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "다독자 공모", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "릴레이 계획", format));
-		workbook.getSheet(0).addCell(new Label(column++, 1, "릴레이 예상인원", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "등록일", format));
 		workbook.getSheet(0).addCell(new Label(column++, 1, "상태", format));
 		
 		int row = 2;
 		for (BookRelayIndividual org : bookRelayIndividualList) {
-			
-			String address = "(" + org.getPostcode() + ") " + org.getAddress_base() + " " + org.getAddress_detailed();
 			
 			String bookArea = "";
 			if (org.getBook_area().equals("0")) {
@@ -88,15 +74,6 @@ public class BookRelayIndividualWorkbook {
 			}
 			
 			String BookQuantityStr = Integer.toString(org.getBook_quantity()) + "권";
-			
-			String readerContest = "";
-			if (org.getReader_contest().equals("Y")) {
-				readerContest = "신청";
-			} else if (org.getReader_contest().equals("N")) {
-				readerContest = "미신청";
-			}
-			
-			String relayPersonnelStr = Integer.toString(org.getRelay_personnel()) + "명";
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String addDate = sdf.format(org.getAdd_date());
@@ -114,14 +91,8 @@ public class BookRelayIndividualWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row-1)), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getUser_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, org.getUser_phone(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, org.getUser_email(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, org.getUser_affiliation(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, address, format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, bookArea, format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, BookQuantityStr, format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, readerContest, format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, org.getRelay_plan(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, relayPersonnelStr, format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, addDate, format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, approvalStatus, format1));
 			

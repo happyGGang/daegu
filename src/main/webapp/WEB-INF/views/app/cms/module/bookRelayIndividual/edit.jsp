@@ -133,7 +133,7 @@ $(function() {
 		</colgroup>
 		<tbody id="board_tbody">
 			<tr>
-				<th>이름(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>성 명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="user_name" cssClass="text" />
 				</td>
@@ -146,29 +146,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>이메일</th>
-				<td>
-					<form:input path="user_email" cssClass="text" />
-				</td>
-			</tr>
-			<tr>
-				<th>학교 또는 직장명</th>
-				<td>
-					<form:input path="user_affiliation" cssClass="text" />
-				</td>
-			</tr>
-			<tr>
-				<th>주소(<span style="color: red;font-weight: bold;">*</span>)</th>
-				<td>
-					<form:input path="postcode" cssClass="text" maxlength="5" />
-					<a href="#" id="searchAddress" class="btn">우편번호찾기</a><br/>
-					<form:input path="address_base" cssClass="text" cssStyle="width:90%; margin:5px 0;" /><br/>
-					<form:input path="address_detailed" cssClass="text" cssStyle="width:90%;" /><br/>
-					<span>※상세주소를 입력해주세요.</span>
-				</td>
-			</tr>
-			<tr>
-				<th>도서영역(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>대상별(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:radiobutton path="book_area" value="0" label="성인" />
 					<form:radiobutton path="book_area" value="1" label="청소년" />
@@ -178,27 +156,9 @@ $(function() {
 			<tr>
 				<th>독서노트 신청수량(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="book_quantity" cssClass="text" cssStyle="width:5%;" numberOnly="true" />권
-				</td>
-			</tr>
-			<tr>
-				<th>다독자 공모(<span style="color: red;font-weight: bold;">*</span>)</th>
-				<td>
-					<form:radiobutton path="reader_contest" value="Y" label="신청" />
-					<form:radiobutton path="reader_contest" value="N" label="미신청" />
-					<span> ※ 인스타그램 서평 게재, 독서노트 작성 중 선택</span>
-				</td>
-			</tr>
-			<tr>
-				<th>릴레이 계획</th>
-				<td>
-					<form:textarea path="relay_plan" cssClass="text" cssStyle="width:90%;" rows="3"  />
-				</td>
-			</tr>
-			<tr>
-				<th>릴레이 예상인원</th>
-				<td>
-					<form:input path="relay_personnel" cssClass="text" cssStyle="width:5%;" numberOnly="true" />명
+					<form:hidden path="book_quantity" value="1"/>
+					1권&nbsp;
+					<span style="">(※ 다독자 공모 참여)</span>
 				</td>
 			</tr>
 			<tr class="status_display">

@@ -93,7 +93,6 @@ $(function() {
 				<col width="10%"/>
 				<col width="10%"/>
 				<col width="10%"/>
-				<col width="10%"/>
 				<col width="8%"/>
 				<col width="8%"/>
 				<col width="8%"/>
@@ -102,12 +101,11 @@ $(function() {
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>기관명</th>
-					<th>대표번호</th>
-					<th>담당자명</th>
-					<th>직장전화</th>
+					<th>단체명</th>
+					<th>신청자명</th>
+					<th>전화</th>
 					<th>휴대폰</th>
-					<th>도서영역</th>
+					<th>대상별</th>
 					<th>등록일</th>
 					<th>상태</th>
 					<th>삭제</th>
@@ -120,7 +118,6 @@ $(function() {
 						<td>
 							<a href="#" class="view_btn" data-key="${i.group_idx}">${i.group_name}</a>
 						</td>
-						<td>${i.main_number}</td>
 						<td>${i.manager_name}</td>
 						<td>${i.work_number}</td>
 						<td>${i.user_phone}</td>
@@ -161,7 +158,7 @@ $(function() {
 		<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 			<fieldset>
 				<form:select path="search_type" cssClass="selectmenu">
-					<form:option value="group_name">기관명</form:option>
+					<form:option value="group_name">단체명</form:option>
 					<form:option value="user_phone">휴대폰</form:option>
 				</form:select>
 				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>

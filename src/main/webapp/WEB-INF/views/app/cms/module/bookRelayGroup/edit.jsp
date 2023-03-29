@@ -133,25 +133,19 @@ $(function() {
 		</colgroup>
 		<tbody id="board_tbody">
 			<tr>
-				<th>기관명(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>단체명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="group_name" cssClass="text" />
 				</td>
 			</tr>
 			<tr>
-				<th>대표번호</th>
-				<td>
-					<form:input path="main_number" cssClass="text" />
-				</td>
-			</tr>
-			<tr>
-				<th>담당자명(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>신청자명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="manager_name" cssClass="text"/>
 				</td>
 			</tr>
 			<tr>
-				<th>직장전화</th>
+				<th>전화</th>
 				<td>
 					<form:input path="work_number" cssClass="text"/>
 				</td>
@@ -174,7 +168,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>도서영역(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<th>대상별(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:radiobutton path="book_area" value="0" label="성인"/>
 					<form:radiobutton path="book_area" value="1" label="청소년" />
@@ -184,7 +178,8 @@ $(function() {
 			<tr>
 				<th>독서노트 신청수량(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="book_quantity" cssClass="text" cssStyle="width:5%;" numberOnly="true" />권
+					<form:input path="book_quantity" cssClass="text" cssStyle="width:5%;" numberOnly="true" />권&nbsp;
+					<span>(※ 다독자 공모 참여자만 신청)</span>
 				</td>
 			</tr>
 			<tr>

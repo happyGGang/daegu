@@ -83,8 +83,8 @@ $(function() {
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<div class="wrapper-bbs" style="padding-top:0;">
 		<p style="margin-bottom:10px;"><b style="color: red;">(*)</b>표시항목은 필수입력항목입니다.</p>
-		<table class="bbs-edit" summary="독서릴레리-기관 신청">
-			<caption>독서릴레리-개인 신청</caption>
+		<table class="bbs-edit" summary="독서릴레이-기관 신청">
+			<caption>독서릴레이-개인 신청</caption>
 			<colgroup>
 				<col width="20%">
 				<col width="">
@@ -97,19 +97,13 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>대표번호</th>
-					<td>
-						<form:input path="main_number" cssClass="text new_text01" />
-					</td>
-				</tr>
-				<tr>
-					<th>대표자명<b style="color: red;">(*)</b></th>
+					<th>신청자명<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="manager_name" cssClass="text new_text01" />
 					</td>
 				</tr>
 				<tr>
-					<th>직장전화</th>
+					<th>전화</th>
 					<td>
 						<form:input path="work_number" cssClass="text new_text01" />
 					</td>
@@ -132,7 +126,7 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>도서영역<b style="color: red;">(*)</b></th>
+					<th>대상별<b style="color: red;">(*)</b></th>
 					<td>
 						<form:radiobutton path="book_area" value="0" label="성인" class="new_input_btn01"/>
 						<form:radiobutton path="book_area" value="1" label="청소년" class="new_input_btn01"/>
@@ -142,12 +136,9 @@ $(function() {
 				<tr>
 					<th>독서노트 신청수량<b style="color: red;">(*)</b></th>
 					<td>
-						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권
+						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권&nbsp;
+						<span>(※ 다독자 공모 참여자만 신청)</span>
 					</td>
-				</tr>
-				<tr>
-					<th>다독자 공모</th>
-					<td>* 릴레이 참여자 개별로 다독자 공모 신청서를 작성해 주세요.</td>
 				</tr>
 				<tr>
 					<th>릴레이 계획<b style="color: red;">(*)</b></th>
@@ -162,7 +153,7 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>수령도서관</th>
+					<th>수령도서관<b style="color: red;">(*)</b></th>
 					<td>
 						<form:radiobutton path="receive_lib" value="1" label="범어도서관"/>
 						<form:radiobutton path="receive_lib" value="2" label="용학도서관"/>

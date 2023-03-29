@@ -101,7 +101,7 @@ $(function() {
 					<th>번호</th>
 					<th>이름</th>
 					<th>휴대폰</th>
-					<th>도서영역</th>
+					<th>대상별</th>
 					<th>등록일</th>
 					<th>상태</th>
 					<th>삭제</th>

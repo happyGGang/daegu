@@ -61,21 +61,21 @@ public class BookRelayGroupController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		
 		if(bookRelayGroup.getEditMode().equals("ADD")) {
-    		ValidationUtils.rejectIfEmpty(result, "group_name", "기관명을 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "manager_name", "담당자명을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "group_name", "단체명을 입력하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "manager_name", "신청자명을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "user_phone", "휴대폰 번호를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "postcode", "우편번호를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "address_base", "주소를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "address_detailed", "상세주소를 입력하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "book_area", "도서영역을 선택하세요.");
+    		ValidationUtils.rejectIfEmpty(result, "book_area", "대상별을 선택하세요.");
     		ValidationUtils.rejectIfEmpty(result, "book_quantity", "독서노트 신청수량을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "relay_plan", "릴레이 계획을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "relay_personnel", "릴레이 예상인원을 입력하세요.");
     		
     		ValidationUtils.rejectPhone(result, "user_phone", "휴대폰 번호가 올바르지 않습니다.");
     		
-    		ValidationUtils.rejectIfStringLength(result, "group_name", 100, "기관명");
-    		ValidationUtils.rejectIfStringLength(result, "manager_name", 20, "담당자명");
+    		ValidationUtils.rejectIfStringLength(result, "group_name", 100, "단체명");
+    		ValidationUtils.rejectIfStringLength(result, "manager_name", 20, "신청자명");
     		ValidationUtils.rejectIfStringLength(result, "postcode", 5, "우편번호");
     		ValidationUtils.rejectIfStringLength(result, "address_base", 800, "주소");
     		ValidationUtils.rejectIfStringLength(result, "address_detailed", 800, "상세주소");
