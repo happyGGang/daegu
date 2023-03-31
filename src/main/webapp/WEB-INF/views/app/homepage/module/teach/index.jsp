@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/cmsTag.tld" %>
 <link rel="stylesheet" type="text/css" 	href="/resources/common/css/culture-list.css" />
-<script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js"></script>
-<script type="text/javascript" src="/resources/common/netFunnel/test_skin.js"></script>
+<script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/resources/common/netFunnel/test_skin.js" charset="UTF-8"></script>
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {
@@ -17,9 +17,14 @@ $(function(){
 
 	$('a.add').on('click', function(e) {
 		var $this = $(this);
-		doGetLoad('/${homepage.context_path}/module/teach/student/edit.do',
-				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
-				+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val());
+		if(${homepage.context_path eq 'dgportal' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'dmsl' or homepage.context_path eq 'junggu'}){
+			NetFunnel_Action({action_id:'${homepage.context_path}', service_id:'service_2'},function(ev,ret){location.href='/${homepage.context_path}/module/teach/student/edit.do?editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val();});
+		} else {
+			NetFunnel_Action({action_id:'${homepage.context_path}', service_id:'service_1'},function(ev,ret){location.href='/${homepage.context_path}/module/teach/student/edit.do?editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val();});
+		}
+// 		doGetLoad('/${homepage.context_path}/module/teach/student/edit.do',
+// 				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
+// 				+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val());
 
 		e.preventDefault();
 	});
