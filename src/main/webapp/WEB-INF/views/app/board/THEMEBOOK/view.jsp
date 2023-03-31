@@ -8,6 +8,17 @@
 <c:if test="${boardManage.add_html_use_yn eq 'Y' and fn:length(boardManage.top_html) > 0}">
 ${boardManage.top_html}
 </c:if>
+
+<style>
+	#theme-list ul li{display:inline-block;width:24%;text-align:center;vertical-align:top;margin-bottom:10px;}
+	#theme-list ul li p img{width:150px;height:200px;}
+	#theme-list ul li span{display:inline-block;width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+	
+	@media (max-width:700px){
+		#theme-list ul li{width:49%;}
+	}
+</style>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -141,7 +152,6 @@ function getLasData(arg) {
 			</c:if>
 			<c:forEach items="${collectionList}" var="i" varStatus="status">
 			<li>
-				<input type="checkbox" id="${i.theme_key}" class="imsi_v">
 				<a href="#" class="detail-btn" data-regno="${i.REG_NO}">
 				<c:choose>
 					<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
@@ -162,9 +172,8 @@ function getLasData(arg) {
 					</c:otherwise>
 				</c:choose>
 				</a>
-				<a href="#" class="detail-btn" data-regno="${i.REG_NO}">
-					<p>${i.TITLE_INFO}</p>
-				</a>
+				<input type="checkbox" id="${i.theme_key}" class="imsi_v">
+				<span>${i.TITLE_INFO}</span>
 			</li>
 			</c:forEach>
 		</ul>

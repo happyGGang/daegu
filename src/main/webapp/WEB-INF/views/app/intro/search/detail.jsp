@@ -398,7 +398,7 @@ CONTEXT_PATH : ${context_path}
 
 				
 				<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'bisan' || context_path eq 'biwon' || context_path eq 'wongogae'}">
-				<c:if test="${sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'dudal9575' || sessionScope.member.member_id eq 'rhkralstn666' || sessionScope.member.member_id eq 'minkyeong' || sessionScope.member.member_id eq 'ruddlsgod' || sessionScope.member.member_id eq 'andyjo' || sessionScope.member.member_id eq 'wodyd1013' || sessionScope.member.member_id eq 'start510' || sessionScope.member.member_id eq 'dudtjs02252' || sessionScope.member.member_id eq 'ryoko14' || sessionScope.member.member_id eq 'call816'}">
+				
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -406,7 +406,7 @@ CONTEXT_PATH : ${context_path}
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-				</c:if>
+
 				</c:when>
 				<c:otherwise>
 

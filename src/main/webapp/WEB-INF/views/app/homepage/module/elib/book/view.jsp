@@ -489,20 +489,9 @@ function go_to_login() {
 							<c:when test="${book.type == 'ADO' && book.com_code != 'FXLI' && isMobile}">
 							<a href="#" class="btn btn1" id="book_view" data-url="${book.mobile_link_url}&user_id=${member.member_id}&user_name=${member.member_id}"><span>바로보기</span></a>
 							</c:when>
-                        --%>
+						--%>
 						<c:when test="${book.status == '대출 가능'}">
-							<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
-							<c:choose>
-							<c:when test="${book.com_code eq 'ECO'}">
-								<c:if test="${fn:substring(book.book_code,0,3) eq 'PRD'}"><a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a></c:if>
-								<c:if test="${fn:substring(book.book_code,0,3) eq 'CPP'}"><a href="javascript:alert('해당자료는 현재 대출불가상태입니다. 곧 정상화 하겠습니다. 이용에 불편함을 드려 죄송합니다.');" class="btn btn1"><span>대출불가</span></a></c:if>
-							</c:when>
-							<c:otherwise>
 							<a href="#" class="btn btn1" id="book_borrow"><span>대출하기</span></a>
-							<c:if test="${getIp eq '218.48.151.16'}">
-							</c:if>
-							</c:otherwise>
-							</c:choose>
 						</c:when>
 						<c:when test="${book.status == '예약 가능'}">
 							<a href="#" class="btn btn2" id="book_reserve"><span>예약하기</span></a>
@@ -512,14 +501,14 @@ function go_to_login() {
 						</c:when>
 						<c:when test="${book.status == '3'}">
 							<%--
-                                            <a href="#" class="btn btn1" id="book_return"><span>반납하기</span></a>
-                                            <a href="#" class="btn btn1" id="book_extend"><span>대출 연장</span></a>
-                            --%>
+								<a href="#" class="btn btn1" id="book_return"><span>반납하기</span></a>
+								<a href="#" class="btn btn1" id="book_extend"><span>대출 연장</span></a>
+							--%>
 						</c:when>
 						<c:when test="${book.status == '4'}">
 							<%--
-                                            <a href="#" class="btn btn2" id="book_cancel"><span>예약 취소</span></a>
-                            --%>
+								<a href="#" class="btn btn2" id="book_cancel"><span>예약 취소</span></a>
+							--%>
 						</c:when>
 						<c:when test="${book.status == '5'}">
 						</c:when>

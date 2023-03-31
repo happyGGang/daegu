@@ -768,7 +768,7 @@ $(function() {
 				</c:when>
 		
 				<c:when test="${homepage.context_path eq 'seogulib'}">
-				<c:if test="${sessionScope.member.member_id eq 'infoset' || sessionScope.member.member_id eq 'ennesia' || sessionScope.member.member_id eq 'dudal9575' || sessionScope.member.member_id eq 'rhkralstn666' || sessionScope.member.member_id eq 'minkyeong' || sessionScope.member.member_id eq 'ruddlsgod' || sessionScope.member.member_id eq 'andyjo' || sessionScope.member.member_id eq 'wodyd1013' || sessionScope.member.member_id eq 'start510' || sessionScope.member.member_id eq 'dudtjs02252' || sessionScope.member.member_id eq 'ryoko14' || sessionScope.member.member_id eq 'call816'}">
+				
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
 							<c:choose>
@@ -785,7 +785,7 @@ $(function() {
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-				</c:if>
+
 				</c:when>
 				
 				
