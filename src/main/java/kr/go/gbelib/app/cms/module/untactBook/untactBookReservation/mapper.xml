@@ -891,7 +891,7 @@
 						TO_CHAR(request_date,'yyyy-MM-dd HH24:MI:SS') AS request_date, locker_password, reservation_step, rec_key, manage_code,
 						user_key, reg_no, book_isbn, book_name, loan_date, cancel_yn,
 						cancel_reason, cancel_id, cancel_ip, cancel_date, sms_send_yn,
-						sms_send_date, round_idx, loankey,
+						sms_send_date, round_idx, loankey, shelf_loc_name, call_no,
 						(SELECT
 								DECODE(COUNT(*), 0, 'N' ,'Y')
 							FROM

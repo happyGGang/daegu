@@ -138,7 +138,7 @@ public class UntactBookController extends BaseController {
 				        } else {
 				        	data1 = "수성도서관";
 				        }
-						String data2 = reservationList.get(i).getMember_name();
+						String data2 = reservationList.get(0).getMember_name();
 						String data3 = book_name;
 						String data4 = "사용자본인취소";
 						librarySearch.setManageCode(reservationList.get(0).getManage_code());
