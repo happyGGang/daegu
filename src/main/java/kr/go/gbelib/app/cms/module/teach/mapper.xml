@@ -961,6 +961,9 @@
 		<if test="searchCate1 == null or searchCate1 == '' and homepage_id == 'h73'">
 			AND	a.large_category_idx NOT IN (31)
 		</if>
+		<if test="homepage_id != null and searchCate1 == null or searchCate1 == '' and homepage_id == 'h60'">
+			AND	a.large_category_idx NOT IN (31)
+		</if>
 		AND	a.use_yn = 'Y'
 		AND	a.delete_yn = 'N'
 

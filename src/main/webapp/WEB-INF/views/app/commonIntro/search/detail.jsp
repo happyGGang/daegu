@@ -934,7 +934,7 @@ $(function() {
 							
 							</c:when>
 							<c:otherwise>
-								<!-- <a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span></a> -->
+								<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span></a>
 							</c:otherwise>
 						</c:choose>
 					</c:when>

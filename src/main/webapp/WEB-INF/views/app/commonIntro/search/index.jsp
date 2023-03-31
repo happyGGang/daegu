@@ -1301,42 +1301,82 @@ function isFromFridayToSunday() {
 															</c:when>
 															<c:otherwise>
 																<c:choose>
-																	<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																	<c:when test="${homepage.context_path eq 'bukgs' and param.menu_idx eq '83'}">
 																		<c:choose>
-																			<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
-																				<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																				<c:choose>
+																					<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
+																						<span style="color:#ff0000">대출불가(관내대출중)</span>
+																					</c:when>
+																					<c:otherwise>
+																						<span style="color:#ff0000">대출불가(관외대출중)</span>
+																					</c:otherwise>
+																				</c:choose>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL213O'}">
+																				<c:choose>
+																					<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
+																						<span style="color:#ff0000">대출불가(관내대출중)</span>
+																					</c:when>
+																					<c:otherwise>
+																						<span style="color:#ff0000">대출불가(관외대출중)</span>
+																					</c:otherwise>
+																				</c:choose>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																				<span style="color:#ff0000">대출불가(관내대출중)</span>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																				<span style="color:#ff0000">대출불가(타관반납중)</span>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																				<span style="color:#ff0000">대출불가(타관대출중)</span>
 																			</c:when>
 																			<c:otherwise>
-																				<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																				<span style="color:#ff0000">대출불가(예약대출 대기중)</span>
 																			</c:otherwise>
 																		</c:choose>
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL213O'}">
-																		<c:choose>
-																			<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
-																				<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																			</c:when>
-																			<c:otherwise>
-																				<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																			</c:otherwise>
-																		</c:choose>
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
-																		<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
-																		<span style="color:#ff0000">대출불가(타관반납중)(예약 : ${i.RESERVATION_CNT}명)</span>
-																	</c:when>
-																	<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
-																		<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 																	</c:when>
 																	<c:otherwise>
 																		<c:choose>
-																			<c:when test="${i.RESERVATION_CNT > 0}">
-																				<span style="color:#ff0000">대출불가(예약대출 대기중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
+																				<c:choose>
+																					<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
+																						<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																					</c:when>
+																					<c:otherwise>
+																						<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																					</c:otherwise>
+																				</c:choose>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL213O'}">
+																				<c:choose>
+																					<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
+																						<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																					</c:when>
+																					<c:otherwise>
+																						<span style="color:#ff0000">대출불가(관외대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																					</c:otherwise>
+																				</c:choose>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL212O'}">
+																				<span style="color:#ff0000">대출불가(관내대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL511O'}">
+																				<span style="color:#ff0000">대출불가(타관반납중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																			</c:when>
+																			<c:when test="${i.WORKING_STATUS == 'BOL611O'}">
+																				<span style="color:#ff0000">대출불가(타관대출중)(예약 : ${i.RESERVATION_CNT}명)</span>
 																			</c:when>
 																			<c:otherwise>
-																				<span style="color:#ff0000">대출불가</span>
+																				<c:choose>
+																					<c:when test="${i.RESERVATION_CNT > 0}">
+																						<span style="color:#ff0000">대출불가(예약대출 대기중)(예약 : ${i.RESERVATION_CNT}명)</span>
+																					</c:when>
+																					<c:otherwise> 
+																						<span style="color:#ff0000">대출불가</span>
+																					</c:otherwise>
+																				</c:choose>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:otherwise>
