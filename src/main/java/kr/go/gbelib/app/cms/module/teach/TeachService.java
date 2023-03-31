@@ -4,9 +4,11 @@ import com.google.common.collect.Maps;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import kr.co.whalesoft.app.homepage.index.GyeongStopWatch;
 import org.apache.commons.io.FilenameUtils;
@@ -357,9 +359,14 @@ public class TeachService extends BaseService {
 		teach.setSearchCate3(numbersOnly(teach.getSearchCate3()));
 		teach.setGroup_idx_list(numbersOnly(teach.getGroup_idx_list()));
 
-		List<Teach> list = dao.getTeachListHomepage(teach);
-		if (list != null && list.size() > 0) {
-			for (Teach result : list) {
+		List<Teach>	getTeatchList = Optional.ofNullable(dao.getTeachListHomepage(teach))
+										   .orElseGet(Collections::emptyList)
+										   .stream()
+										   .filter(teachItem -> !teach.getHomepage_id().equals("h77") || !teachItem.getTeach_status().equals("9"))
+										   .collect(Collectors.toList());
+
+		if (getTeatchList.size() > 0) {
+			for (Teach result : getTeatchList) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
 				result.setHolidays(dao.getHolidays(result));
 				if (StringUtils.isEmpty(result.getTeacher_name())) {
@@ -367,7 +374,7 @@ public class TeachService extends BaseService {
 				}
 			}
 		}
-		return list;
+		return getTeatchList;
 	}
 
 	public List<Teach> getTeachListForAllHomepage(Teach teach) {
