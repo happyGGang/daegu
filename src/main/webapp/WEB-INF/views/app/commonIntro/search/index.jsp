@@ -345,7 +345,7 @@ function searchIndex() {
 
 	<c:if test="${homepage.context_path eq 'nearbylib'}">
 		if (isFromFridayToSunday()) {
-			alert('지금은 내 집 앞 도서관 서비스 예약가능 시간이 아닙니다.\n\n<내 집 앞 도서관 서비스 예약가능 시간>\n\n* 월요일 09:00 ~ 금요일 08:59 \n\n* 월요일이 휴관이 아닌 도서관의 경우 일요일 18:00부터 신청 가능합니다. \n\n더 자세한 내용은 이용안내를 참고해주시기 바랍니다.\n\n확인을 누르시면 도서검색결과 화면으로 이동합니다. ');
+			alert('지금은 내 집 앞 도서관 서비스 예약가능 시간이 아닙니다.\n\n<내 집 앞 도서관 서비스 예약가능 시간>\n\n* 월요일 09:00 ~ 금요일 08:59 \n\n더 자세한 내용은 이용안내를 참고해주시기 바랍니다.\n\n확인을 누르시면 도서검색결과 화면으로 이동합니다. ');
 		}
 	</c:if>
 	
@@ -360,13 +360,14 @@ function isFromFridayToSunday() {
 	var nowYear = now.getYear();
 	nowYear += (nowYear < 2000) ? 1900 : 0;
 
-	var weekStartDate = new Date(nowYear, nowMonth, nowDay + (5 - nowDayOfWeek), 9);
-	var weekEndDate = new Date(nowYear, nowMonth, nowDay + (7 - nowDayOfWeek), 18);
-
+	var weekStartDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek), 9);
+	var weekEndDate = new Date(nowYear, nowMonth, nowDay + (8 - nowDayOfWeek), 9);
+	console.log(weekStartDate);
+	console.log(weekEndDate);
 	return weekStartDate <= now && weekEndDate > now;
 }
 </script>
-
+<!-- <a href="#" onclick="isFromFridayToSunday()" style="color:#fff;">.</a> -->
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/viewStorage.do" method="post" target="myStoragePopup" style="display: none;">
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <input type="hidden" id="editMode" name="editMode" value="ADD">
