@@ -1,11 +1,14 @@
 package kr.go.gbelib.app.cms.module.bookPackageBundle;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
+import java.util.Optional;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -245,4 +248,35 @@ public class BookPackageBundleService extends BaseService {
 		return dao.getBookPackageBundleTitleList(bookPackageBundle);
 	}
 
+	public List<BookPackageBundle> getBookPackageAllTitleCount(BookPackageBundle bookPackageBundle) {
+		return dao.getBookPackageAllTitleCount(bookPackageBundle);
+	}
+
+	public List<BookPackageBundle> getReservationDate(BookPackageBundle bookPackageBundle) {
+		return dao.getReservationDate(bookPackageBundle);
+	}
+
+	public BookPackageBundle setBookPackageDefaultDate(BookPackageBundle bookPackageBundle) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		Optional.of(bookPackageBundle)
+				.filter(bundle -> bundle.getLender_count() > 0)
+				.ifPresent(bundle -> bundle.setRequest_status("1"));
+
+		LocalDate startDate = Optional.of(bookPackageBundle)
+									  .filter(bundle -> "1".equals(bundle.getRequest_status()))
+									  .map(bundle -> LocalDate.parse(bundle.getLoan_end_date(), formatter).plusDays(5))
+									  .orElse(LocalDate.now().plusDays(5));
+
+		bookPackageBundle.setLoan_start_date(startDate.format(formatter));
+
+		LocalDate endDate = Optional.of(bookPackageBundle)
+									.filter(bundle -> "1".equals(bundle.getRequest_status()))
+									.map(bundle -> LocalDate.parse(bundle.getLoan_start_date(), formatter).plusDays(14))
+									.orElse(startDate.plusDays(14));
+
+		bookPackageBundle.setLoan_end_date(endDate.format(formatter));
+
+		return bookPackageBundle;
+	}
 }

@@ -42,6 +42,31 @@
 			request_status IN (0, 1, 2)
 		GROUP BY book_package_bundle_idx
 	</select>
+
+	<select id="getBookPackageAllTitleCount" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		${pagingTop}
+		SELECT
+			B.homepage_id, B.book_package_bundle_idx, B.book_package_bundle_title, B.loan_count, B.quantity,
+			B.grade, COUNT(L.request_status) AS lender_count, TO_CHAR(MIN(L.loan_start_date), 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(MIN(L.loan_end_date), 'yyyy-MM-dd') AS loan_end_date
+		FROM
+			BOOK_PACKAGE_BUNDLE B
+		LEFT JOIN
+			BOOK_PACKAGE_BUNDLE_LOAN L
+		ON
+			B.book_package_bundle_idx = L.book_package_bundle_idx AND L.request_status IN (0, 1, 2)
+		WHERE
+			B.homepage_id = #{homepage_id}
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="grade != null and grade != ''">
+			AND	grade = #{grade}
+		</if>
+		GROUP BY B.book_package_bundle_idx, B.homepage_id, B.book_package_bundle_title, B.loan_count, B.quantity, B.grade
+		ORDER BY B.book_package_bundle_idx asc
+		${pagingBottom}
+
+	</select>
 	
 	<insert id="createBookPackageBundle">
 		<selectKey keyProperty="book_package_bundle_idx" resultType="int" order="BEFORE">
@@ -286,29 +311,48 @@
 			a.book_package_bundle_idx = b.book_package_bundle_idx
 		AND	book_package_bundle_loan_idx = #{book_package_bundle_loan_idx}
 	</select>
-	
+
 	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
+		SELECT
+			B.homepage_id, B.book_package_bundle_idx, B.book_package_bundle_title, B.loan_count, B.quantity,
+			B.grade, COUNT(L.request_status) AS lender_count, TO_CHAR(MIN(L.loan_start_date), 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(MIN(L.loan_end_date), 'yyyy-MM-dd') AS loan_end_date
+		FROM
+			BOOK_PACKAGE_BUNDLE B
+				LEFT JOIN
+			BOOK_PACKAGE_BUNDLE_LOAN L
+			ON
+			B.book_package_bundle_idx = L.book_package_bundle_idx AND L.request_status IN (0, 1, 2)
+		WHERE
+			B.homepage_id = 'h1'
+			and B.book_package_bundle_idx = #{book_package_bundle_idx}
+		GROUP BY B.book_package_bundle_idx, B.homepage_id, B.book_package_bundle_title, B.loan_count, B.quantity, B.grade
+		ORDER BY B.book_package_bundle_idx asc
+	</select>
+
+	<select id="getReservationDate" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
 		SELECT
 			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity,
 			a.grade,
-			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
-			NVL(c.lender_count, 0) AS lender_count
+			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date
 		FROM
-			BOOK_PACKAGE_BUNDLE a,
+			BOOK_PACKAGE_BUNDLE a
+				LEFT JOIN
 			(
-			SELECT
-				book_package_bundle_idx, COUNT(request_status) AS lender_count, MAX(loan_start_date) AS loan_start_date, MAX(loan_end_date) AS loan_end_date
-			FROM
-				BOOK_PACKAGE_BUNDLE_LOAN
-			WHERE
-				request_status NOT IN (3, 4, 5)
-			GROUP BY book_package_bundle_idx
+				SELECT
+					book_package_bundle_idx,  loan_start_date AS loan_start_date, loan_end_date AS loan_end_date
+				FROM
+					BOOK_PACKAGE_BUNDLE_LOAN
+				WHERE
+					request_status NOT IN (3, 4, 5)
 			) c
+			ON a.book_package_bundle_idx = c.book_package_bundle_idx
 		WHERE
-			a.book_package_bundle_idx = c.book_package_bundle_idx(+)
-		AND	a.book_package_bundle_idx = #{book_package_bundle_idx}
+			a.book_package_bundle_idx =  #{book_package_bundle_idx}
+
+
 	</select>
-	
+
+
 	<select id="getBookPackageLoanCount" resultType="int">
 		SELECT
 			COUNT(*)

@@ -87,4 +87,7 @@ public interface BookPackageBundleDao {
 	List<BookPackageBundle> getBookPackageBundleTitleList(BookPackageBundle bookPackageBundle);
 
 
+	List<BookPackageBundle> getBookPackageAllTitleCount(BookPackageBundle bookPackageBundle);
+
+	List<BookPackageBundle> getReservationDate(BookPackageBundle bookPackageBundle);
 }

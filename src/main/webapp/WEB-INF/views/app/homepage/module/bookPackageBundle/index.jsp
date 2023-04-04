@@ -116,19 +116,6 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="book_package_bundle_idx"/>
 
-<%-- <div id="category-box">
-	<form:checkbox path="category" value="all" checked="${fn:contains(bookPackageBundle.category, 'all') ? 'checked' : ''}" label="전체" id="chkAll" class="customCheck"/>
-	<form:checkbox path="category" value="000" checked="${fn:contains(bookPackageBundle.category, '000') ? 'checked' : ''}" label="총류" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="100" checked="${fn:contains(bookPackageBundle.category, '100') ? 'checked' : ''}" label="철학" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="200" checked="${fn:contains(bookPackageBundle.category, '200') ? 'checked' : ''}" label="종교" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="300" checked="${fn:contains(bookPackageBundle.category, '300') ? 'checked' : ''}" label="사회과학" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="400" checked="${fn:contains(bookPackageBundle.category, '400') ? 'checked' : ''}" label="자연과학" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="500" checked="${fn:contains(bookPackageBundle.category, '500') ? 'checked' : ''}" label="기술과학" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="600" checked="${fn:contains(bookPackageBundle.category, '600') ? 'checked' : ''}" label="예술" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="700" checked="${fn:contains(bookPackageBundle.category, '700') ? 'checked' : ''}" label="언어" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="800" checked="${fn:contains(bookPackageBundle.category, '800') ? 'checked' : ''}" label="문학" class="customCheck categoryChk"/>
-	<form:checkbox path="category" value="900" checked="${fn:contains(bookPackageBundle.category, '900') ? 'checked' : ''}" label="역사" class="customCheck categoryChk"/>
-</div> --%>
 
 <div class="doc-body">
   <div class="summaryDesc">
@@ -146,7 +133,6 @@ $(function() {
 	<fieldset>
 		<form:select path="search_type" cssClass="selectmenu new_select_box">
 			<form:option value="book_package_bundle_title">꾸러미 제목</form:option>
-			<%-- <form:option value="keyword">키워드</form:option> --%>
 		</form:select>
 		<form:input path="search_text" cssClass="text new_text01" cssStyle="width:200px;"/>
 		<button id="search_btn" style="background-color:#2c75cb;border-color:#1962ba;background-image:none;padding:6px 10px;"><i class="fa fa-search"></i><span>검색</span></button>
@@ -162,114 +148,43 @@ $(function() {
 		<form:option value="6">중학생</form:option>
 		<form:option value="7">고등학생</form:option>
 	</form:select>
-	<%-- <form:select path="lender_count" cssClass="selectmenu new_select_box">
-		<form:option value="-1">상태전체</form:option>
-		<form:option value="1">대출중</form:option>
-		<form:option value="0">대출가능</form:option>
-	</form:select> --%>
 	<div class="button">
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
 	</div>
 </div>
 
-<div>
-	<c:forEach items="${bookPackageTitleList}" var="i" varStatus="status">
-	<div class="group-box" style="height: 165px;">
-		<div class="content-box" style="line-height: 350%">
-			<a href="#" class="view-btn" keyValue="${i.book_package_bundle_idx}">${i.book_package_bundle_title}</a><br/>
-				<c:forEach items="${getBookPackageLoanCountCheck}" var="c" varStatus="status">
+	<div>
+		<c:forEach items="${bookPackageAllTitleCount}" var="i" varStatus="status">
+			<div class="group-box" style="height: 165px;">
+				<div class="content-box" style="line-height: 350%">
+					<a href="#" class="view-btn" keyValue="${i.book_package_bundle_idx}">${i.book_package_bundle_title}</a><br/>
+					<div class="ing-box">
+						<c:if test="${i.lender_count > 0}"><span class="ing">대출중</span>(${i.loan_start_date}~${i.loan_end_date})</c:if>
+					</div>
+				</div>
+				<div class="btn-box">
 					<c:choose>
-						<c:when test="${i.book_package_bundle_idx == c.book_package_bundle_idx }">
-							<div class="ing-box">
-								<c:if test="${c.lender_count > 0}"><span class="ing">대출중</span>(${c.loan_start_date}~${c.loan_end_date})</c:if>
-							</div>
-							
+						<c:when test="${i.lender_count > 0}">
+							<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">예약신청</a>
 						</c:when>
+						<c:otherwise>
+							<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">신청하기</a>
+						</c:otherwise>
 					</c:choose>
-							<%-- <div class="ing-box"><span class="ing2">대출가능</span></div>
-							<div class="btn-box" style="text-align: left; width: 400px;" >
-								<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">대출신청</a>
-								<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
-							</div> --%>
-				</c:forEach>
-				<div class="btn-box" style="text-align: left; width: 400px;">
-					<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">신청하기</a>
 					<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
 				</div>
-		</div>
-			<%-- <div>
-				<c:if test="${not empty i.grade}">
-				<span class="step1">
-				<c:choose>
-					<c:when test="${i.grade eq '3'}">초등1-2학년</c:when>
-					<c:when test="${i.grade eq '4'}">초등3-4학년</c:when>
-					<c:when test="${i.grade eq '5'}">초등5-6학년</c:when>
-					<c:when test="${i.grade eq '6'}">중학생</c:when>
-					<c:when test="${i.grade eq '7'}">고등학생</c:when>
-				</c:choose>
-				</span>
-				</c:if>
-				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
-					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
-					<c:forTokens items="${j.category}" delims="," var="category">
-						<span class="step2">
-						<c:choose>
-							<c:when test="${category eq '000'}">총류</c:when>
-							<c:when test="${category eq '100'}">철학</c:when>
-							<c:when test="${category eq '200'}">종교</c:when>
-							<c:when test="${category eq '300'}">사회과학</c:when>
-							<c:when test="${category eq '400'}">자연과학</c:when>
-							<c:when test="${category eq '500'}">기술과학</c:when>
-							<c:when test="${category eq '600'}">예술</c:when>
-							<c:when test="${category eq '700'}">언어</c:when>
-							<c:when test="${category eq '800'}">문학</c:when>
-							<c:when test="${category eq '900'}">역사</c:when>
-						</c:choose>
-						</span>
-					</c:forTokens>
-					</c:if>
-				</c:forEach>
-			</div> --%>
-			<%-- <div class="book-desc">
-				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
-					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
-						${fn:substring(j.book_package_name, 0, 85)}<c:if test="${fn:length(j.book_package_name) > 85}">...</c:if>
-					</c:if>
-				</c:forEach>
-			</div>
-			<div class="keyword-box">
-				<c:forEach items="${bookPackageCategoryList}" var="j" varStatus="status">
-					<c:if test="${i.book_package_bundle_idx == j.book_package_bundle_idx}">
-						<c:forTokens items="${j.keyword}" delims="," var="keyword">
-						<span class="keyword">${keyword}</span>
-						</c:forTokens>
-					</c:if>
-				</c:forEach>
-			</div> --%>
-		
-		<%-- <div class="btn-box">
-			<c:choose>
-				<c:when test="${i.lender_count > 0}">
-					<a href="#" class="request-btn reserv" keyValue="${i.book_package_bundle_idx}">예약신청</a>
-				</c:when>
-				<c:otherwise>
-					<a href="#" class="request-btn loan" keyValue="${i.book_package_bundle_idx}">대출신청</a>
-				</c:otherwise>
-			</c:choose>
-			<a href="#" class="view-btn booklist" keyValue="${i.book_package_bundle_idx}">포함도서 보기</a>
-		</div> --%>
-		<span class="loan-cnt">
+				<span class="loan-cnt">
 			<strong>${i.loan_count}</strong>권
 		</span>
+			</div>
+		</c:forEach>
+		<c:if test="${fn:length(bookPackageAllTitleCount) < 1}">
+			<div align="center">
+				<h3>등록된 책 꾸러미 리스트가 없습니다.</h3>
+			</div>
+		</c:if>
 	</div>
-	</c:forEach>
-	<c:if test="${fn:length(bookPackageBundleList) < 1}">
-	<div align="center">
-		<h3>등록된 책 꾸러미 리스트가 없습니다.</h3>
-	</div>
-	</c:if>
-</div>
-</div>
+
 
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#bookPackageBundle"/>

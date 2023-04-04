@@ -1,15 +1,17 @@
 package kr.go.gbelib.app.module.bookPackageBundle;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +25,6 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle;
 import kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundleService;
 import kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundleView;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
@@ -32,6 +33,9 @@ import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 @RequestMapping(value = {"/{homepagePath}/module/bookPackageBundle"})
 public class BookPackageBundleController extends BaseController {
 
+	public static final int DAYS_TO_ADD = 5;
+	public static final int LOAN_START_DATE_ADD = DAYS_TO_ADD;
+	public static final int LOAN_END_DATE_ADD = 15;
 	private String basePath = "/homepage/%s/module/bookPackageBundle/";
 
 	@Autowired
@@ -55,13 +59,11 @@ public class BookPackageBundleController extends BaseController {
 		
 		List<BookPackageBundle> bookPackageDetailList = bookPackageBundleService.getBookPackageDetailList(bookPackageBundle);
 		List<BookPackageBundle> bookPackageCategoryList = bookPackageBundleService.getBookPackageCategoryList(bookPackageBundle);
-		List<BookPackageBundle> bookPackageTitleList = bookPackageBundleService.getBookPackageBundleTitleList(bookPackageBundle);
-		List<BookPackageBundle> getBookPackageLoanCountCheck = bookPackageBundleService.getBookPackageLoanCountCheck(bookPackageBundle);
-		
+		List<BookPackageBundle> bookPackageAllTitleCount = bookPackageBundleService.getBookPackageAllTitleCount(bookPackageBundle);
+
 		bookPackageDetail(bookPackageDetailList);
 		
-		model.addAttribute("bookPackageTitleList", bookPackageTitleList);
-		model.addAttribute("getBookPackageLoanCountCheck", getBookPackageLoanCountCheck);
+		model.addAttribute("bookPackageAllTitleCount",bookPackageAllTitleCount);
 		model.addAttribute("bookPackageBundle", bookPackageBundle);
 		model.addAttribute("bookPackageBundleList", bookPackageDetailList);
 		model.addAttribute("bookPackageCategoryList", bookPackageCategoryList);
@@ -190,25 +192,56 @@ public class BookPackageBundleController extends BaseController {
 			model.addAttribute("bookPackageBundle", bookPackageBundle);
 		} else {
 			checkAuth("C", model, request);
-			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DATE, 5);
-			
-			bookPackageBundle = (BookPackageBundle)bookPackageBundleService.copyObjectPaging(bookPackageBundle, bookPackageBundleService.getBookPackageOne(bookPackageBundle));
-			bookPackageBundle.setLoan_start_date(sdf.format(cal.getTime()));
-			
-			if(bookPackageBundle.getLender_count() > 0) {
-				bookPackageBundle.setRequest_status("1");
-			}
-			
+			bookPackageBundle = (BookPackageBundle) bookPackageBundleService.copyObjectPaging(bookPackageBundle, bookPackageBundleService.getBookPackageOne(bookPackageBundle));
+
+			bookPackageBundleService.setBookPackageDefaultDate(bookPackageBundle);
+			StringBuilder getDisableBetweenDate = setDisableBetweenDate(bookPackageBundle);
+			model.addAttribute("disableBetweenDates", getDisableBetweenDate);
 			model.addAttribute("bookPackageBundle", bookPackageBundle);
 		}
+			return String.format(basePath, homepage.getFolder()) + "loanEdit";
+	}
 
-		bookPackageBundle.setMenu_idx(menu_idx);
-		model.addAttribute("bookPackageBundle", bookPackageBundle);
+	private StringBuilder setDisableBetweenDate(BookPackageBundle bookPackageBundle) {
+		StringBuilder betweenDates = new StringBuilder();
+		List<BookPackageBundle> reservation_date = bookPackageBundleService.getReservationDate(bookPackageBundle);
 
-		return String.format(basePath, homepage.getFolder()) + "loanEdit";
+		if (bookPackageBundle.getRequest_status() != null && bookPackageBundle.getRequest_status().equals("1")) {
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+			Optional<LocalDate> minDateOptional = reservation_date.stream()
+																  .map(date -> LocalDate.parse(date.getLoan_start_date(), formatter))
+																  .min(LocalDate::compareTo);
+
+			Optional<LocalDate> maxDateOptional = reservation_date.stream()
+																  .map(date -> LocalDate.parse(date.getLoan_end_date(), formatter))
+																  .max(LocalDate::compareTo);
+
+			if (minDateOptional.isPresent() && maxDateOptional.isPresent()) {
+				LocalDate minDate = minDateOptional.get();
+				LocalDate maxDate = maxDateOptional.get();
+
+				maxDate = maxDate.plusDays(LOAN_START_DATE_ADD);
+				LocalDate finalMaxDate = maxDate.plusDays(LOAN_END_DATE_ADD);
+				bookPackageBundle.setLoan_start_date(maxDate.plusDays(1).format(formatter));
+				bookPackageBundle.setLoan_end_date(finalMaxDate.format(formatter));
+
+				betweenDates = new StringBuilder();
+				LocalDate currentDate = minDate;
+				while (!currentDate.isAfter(maxDate)) {
+					betweenDates.append("\"").append(currentDate).append("\"").append(",");
+					currentDate = currentDate.plusDays(1);
+				}
+
+				if (betweenDates.length() > 0) {
+					betweenDates.deleteCharAt(betweenDates.length() - 1);
+				}
+				betweenDates.insert(0, "[");
+				betweenDates.append("]");
+			}
+		}
+		return betweenDates;
 	}
 
 	@RequestMapping (value = {"/loanSave.*"}, method = RequestMethod.POST)

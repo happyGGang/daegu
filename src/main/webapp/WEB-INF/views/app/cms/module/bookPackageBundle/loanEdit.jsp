@@ -40,19 +40,42 @@ $(function() {
 		width: 600,
 		height: 600
 	});
-	
+	function formatDate(date) {
+		return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+	}
+	var disabledDays = '${disableBetweenDates}';
+// 날짜를 나타내기 전에(beforeShowDay) 실행할 함수
+	function disableSomeDay(date) {
+		var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+		return [ disabledDays.indexOf(string) == -1 ]
+		return [true];
+	}
+
+	var currDate = new Date('${bookPackageBundle.loan_start_date}');
+	var str_min_date = formatDate(currDate);
+	currDate.setDate(currDate.getDate() + 14);
+	var str_max_date = formatDate(currDate);
+
 	$('input#loan_start_date').datepicker({
-		maxDate: $('input#loan_end_date').val(),
-		onClose: function(selectedDate){
-			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
-		}
+		minDate: str_min_date,
+		maxDate: str_max_date,
+		onClose: function (selectedDate) {
+			var startDate = new Date(selectedDate);
+			var end_min_date = formatDate(new Date(startDate.setDate(startDate.getDate() + 14)));
+			var end_max_date = formatDate(new Date(startDate.setDate(startDate.getDate() + 76)));
+
+			$('input#loan_end_date').datepicker('option', {
+				minDate: end_min_date,
+				maxDate: end_max_date
+			});
+		},
+		beforeShowDay: disableSomeDay
 	});
 
 	$('input#loan_end_date').datepicker({
-		minDate: $('input#loan_start_date').val(),
-		onClose: function(selectedDate){
-			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
-		}
+		minDate: formatDate(new Date(currDate.setDate(currDate.getDate() + 14))),
+		maxDate: formatDate(new Date(currDate.setDate(currDate.getDate() + 64))),
+		beforeShowDay: disableSomeDay
 	});
 	
 	$('#school_name').focus();

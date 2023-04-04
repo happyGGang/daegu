@@ -64,67 +64,44 @@ $(function() {
 		history.back();
 	});
 
+	function formatDate(date) {
+		return date.getFullYear() + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' + date.getDate().toString().padStart(2, '0');
+	}
+	var disabledDays = '${disableBetweenDates}';
+// 날짜를 나타내기 전에(beforeShowDay) 실행할 함수
+	function disableSomeDay(date) {
+		var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+		return [ disabledDays.indexOf(string) == -1 ]
+		return [true];
+	}
+
 	var currDate = new Date('${bookPackageBundle.loan_start_date}');
-	var str_min_date = currDate.getFullYear()+'-'+(currDate.getMonth()+1)+'-'+currDate.getDate();
+	var str_min_date = formatDate(currDate);
 	currDate.setDate(currDate.getDate() + 14);
-	var str_max_date = currDate.getFullYear()+'-'+(currDate.getMonth()+1)+'-'+currDate.getDate();
+	var str_max_date = formatDate(currDate);
 
 	$('input#loan_start_date').datepicker({
 		minDate: str_min_date,
 		maxDate: str_max_date,
-		onClose: function(selectedDate){
-			$('input#loan_end_date').datepicker('option', 'minDate', selectedDate);
+		onClose: function (selectedDate) {
+			var startDate = new Date(selectedDate);
+			var end_min_date = formatDate(new Date(startDate.setDate(startDate.getDate() + 14)));
+			var end_max_date = formatDate(new Date(startDate.setDate(startDate.getDate() + 76)));
 
-			var week2 = new Date(selectedDate);
-			week2.setDate(week2.getDate() + 60);
-			var end_max_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
-			$('input#loan_end_date').datepicker('option', 'maxDate', end_max_date);
-
-			week2.setDate(week2.getDate() - 46);
-			var end_min_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
-			$('input#loan_end_date').datepicker('option', 'minDate', end_min_date);
+			$('input#loan_end_date').datepicker('option', {
+				minDate: end_min_date,
+				maxDate: end_max_date
+			});
 		},
-		beforeShowDay: available
+		beforeShowDay: disableSomeDay
 	});
-	var availableDates = [];
-	try {
-		var a = '${loanDateList}'.split(',');
-		for (var i = 0; i < a.length; i++) {
-			availableDates[i] = a[i];
-		}
-	} catch (e) {
-	}
-	function available(date) { // date <--- calendar의 일자(예:'2020-04-17')를 하나씩 가져온다.
-		var thismonth = date.getMonth()+1;
-		var thisday = date.getDate();
-		if(thismonth<10){
-			thismonth = "0"+thismonth;
-		}
-
-		if(thisday<10){
-			thisday = "0"+thisday;
-		}
-
-	    ymd = date.getFullYear() + "-" + thismonth + "-" + thisday;
-	    if ($.inArray(ymd, availableDates) >= 0) {
-	        return [false];
-	    } else {
-	        return [true];
-	    }
-	}
-
-	var week2 = new Date(str_min_date);
-	week2.setDate(week2.getDate() + 60);
-	var end_max_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
-
-	week2.setDate(week2.getDate() - 46);
-	var end_min_date = week2.getFullYear()+'-'+(week2.getMonth()+1)+'-'+week2.getDate();
 
 	$('input#loan_end_date').datepicker({
-		minDate: end_min_date,
-		maxDate: end_max_date,
-		beforeShowDay: available
+		minDate: formatDate(new Date(currDate.setDate(currDate.getDate() + 14))),
+		maxDate: formatDate(new Date(currDate.setDate(currDate.getDate() + 64))),
+		beforeShowDay: disableSomeDay
 	});
+
 
 	$('#school_name').focus();
 

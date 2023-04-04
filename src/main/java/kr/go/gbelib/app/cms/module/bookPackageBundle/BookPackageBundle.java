@@ -71,6 +71,9 @@ public class BookPackageBundle extends PagingUtils {
 	private Date add_date;  //등록일시
 	private String modify_id;  //수정ID
 	private Date modify_date;  //수정일시
+
+	private String cal_setting_loan_start_date;  //달력 셋팅 기간
+	private String cal_setting_loan_end_date;  //달력 셋팅 기간
 	
 	public String getHomepage_id() {
 		return homepage_id;
@@ -503,5 +506,20 @@ public class BookPackageBundle extends PagingUtils {
 	public void setBook_package_bundle_detail_idx_arr(int[] book_package_bundle_detail_idx_arr) {
 		this.book_package_bundle_detail_idx_arr = book_package_bundle_detail_idx_arr;
 	}
-	
+
+	public String getCal_setting_loan_start_date() {
+		return cal_setting_loan_start_date;
+	}
+
+	public void setCal_setting_loan_start_date(String cal_setting_loan_start_date) {
+		this.cal_setting_loan_start_date = cal_setting_loan_start_date;
+	}
+
+	public String getCal_setting_loan_end_date() {
+		return cal_setting_loan_end_date;
+	}
+
+	public void setCal_setting_loan_end_date(String cal_setting_loan_end_date) {
+		this.cal_setting_loan_end_date = cal_setting_loan_end_date;
+	}
 }
