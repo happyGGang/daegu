@@ -50,9 +50,10 @@ public class BookOfFamousService extends BaseService {
 		
 		try {
 			if(bookOfFamousList.size() > 0) {
-				Map<String,Object> resultMapList = new HashMap<String,Object>();
 				
 				for(int i =0 ; i < bookOfFamousList.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
 					if(StringUtils.isNotEmpty(bookOfFamousList.get(i).getFamous_name())) {
 						resultMapList.put("famous_name", bookOfFamousList.get(i).getFamous_name());
 					}
