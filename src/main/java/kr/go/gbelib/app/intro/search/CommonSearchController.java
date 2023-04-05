@@ -2506,6 +2506,31 @@ public class CommonSearchController extends BaseController {
 						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 						return res;
 					}
+					
+					if(count - reserveCount >= 2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+					
+					int unmannedReserveCount = 0 ;
+					for(int i = 0; i < count; i++) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y")) {
+							unmannedReserveCount++;
+						}
+					}
+					
+					if((count - reserveCount) >= 2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+
+					if((count - unmannedReserveCount) >= 2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
 				}
 			}
 			
@@ -2544,7 +2569,27 @@ public class CommonSearchController extends BaseController {
 						}
 					}
 					
+					//무인예약 + 일반예약이 5권 초과가 불가능하게
 					if(reserveCount >= 5) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+					
+					int unmannedReserveCount = 0 ;
+					for(int i = 0; i < count; i++) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y")) {
+							unmannedReserveCount++;
+						}
+					}
+					
+					if((count - reserveCount) >= 2) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+
+					if((count - unmannedReserveCount) >= 2) {
 						res.setValid(false);
 						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 						return res;
