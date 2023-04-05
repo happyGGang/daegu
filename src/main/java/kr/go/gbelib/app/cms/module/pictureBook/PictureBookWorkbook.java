@@ -41,7 +41,7 @@ public class PictureBookWorkbook {
 
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView(0,  35);
-		workbook.getSheet(0).setColumnView(1,  10);
+		workbook.getSheet(0).setColumnView(1,  35);
 		workbook.getSheet(0).setColumnView(2,  15);
 		workbook.getSheet(0).setColumnView(3,  10);
 		workbook.getSheet(0).setColumnView(4,  15);
@@ -67,7 +67,7 @@ public class PictureBookWorkbook {
 		int row = 1;
 		for(PictureBook one : pictureBookLoanList) {
 			workbook.getSheet(0).addCell(new Label(0, row, one.getPicture_book_subject()));
-			workbook.getSheet(0).addCell(new Label(1, row, one.getLoan_year() + "-" + one.getLoan_month()));
+			workbook.getSheet(0).addCell(new Label(1, row, one.getLoan_start_date() + " ~ " + one.getLoan_end_date()));
 			workbook.getSheet(0).addCell(new Label(2, row, one.getSchool_name()));
 			workbook.getSheet(0).addCell(new Label(3, row, one.getRequest_name()));
 			workbook.getSheet(0).addCell(new Label(4, row, one.getPhone()));
