@@ -235,6 +235,14 @@
 			$('input#editMode').val('MODIFY');
 			doAjaxPost($('form#marathonApplicant'));
 		});
+
+		$('a#printCompleteDocument').on('click', function(e) {
+			$('#dialog-2').load('certificate.do?homepage_id='+$(this).attr('keyValue')+'&contest_idx='+$(this).attr('keyValue2')+'&contest_type_idx='+$(this).attr('keyValue3')+'&applicant_idx='+$(this).attr('keyValue4'), function( response, status, xhr ) {
+				$('#dialog-2').dialog('open');
+			});
+
+			e.preventDefault();
+		});
 	});
 </script>
 <style>
@@ -261,7 +269,11 @@ span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
 		<tr>
 			<th>달성율</th>
 			<td style="text-align:left;">
+				<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm" var="today"/>
 				<fmt:formatNumber value="${(marathonApplicant.read_page_count_total / marathonApplicant.page_count) * 100}" pattern="##.##"/>%
+				<c:if test="${marathonApplicant.process_status eq 1 }">
+					<a href="#" class="btn btn1" id="printCompleteDocument" keyValue="${marathonApplicant.homepage_id}" keyValue2="${marathonApplicant.contest_idx}" keyValue3="${marathonApplicant.contest_type_idx}" keyValue4="${marathonApplicant.applicant_idx}">증서출력</a>
+				</c:if>
 			</td>
 		</tr>
 		<tr>
@@ -364,3 +376,27 @@ span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
 
 <div id="dialog-2" class="dialog-common" title="완주증서">
 </div>
+
+<script>
+	function checkDate() {
+		const currentDate = new Date();
+		const targetDate = new Date(2023, 6, 31);
+
+		if (currentDate <= targetDate) {
+			document.getElementById("save-btn").style.display = "inline-block";
+		} else {
+			document.getElementById("save-btn").style.display = "none";
+			setReadOnly();
+		}
+	}
+	function setReadOnly() {
+		const form = document.querySelector("form:last-of-type");
+			const inputs = form.querySelectorAll("input, select");
+			inputs.forEach((input) => {
+				input.setAttribute("readonly", "readonly");
+				input.setAttribute("disabled", "disabled");
+			});
+	}
+
+	document.addEventListener("DOMContentLoaded", checkDate);
+</script>
