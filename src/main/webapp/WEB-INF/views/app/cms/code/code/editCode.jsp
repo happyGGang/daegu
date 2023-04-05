@@ -71,7 +71,7 @@ $(function() {
 					<form:hidden path="code_id" />
 				</c:when>
 				<c:otherwise>
-					<form:input path="code_id" cssStyle="width:136px;" cssClass="text" maxlength="4"/>
+					<form:input path="code_id" cssStyle="width:136px;" cssClass="text" maxlength="10"/>
 				</c:otherwise>
 				</c:choose>
 			</td>
