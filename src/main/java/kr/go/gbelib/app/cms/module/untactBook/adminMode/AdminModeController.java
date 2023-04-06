@@ -564,7 +564,7 @@ public class AdminModeController extends BaseController {
 			for (int i = 0; i < waitingReservationList.size(); i++) {
 				int request_number = waitingReservationList.get(i).getRequest_number();
 				String userKey = String.valueOf(waitingReservationList.get(i).getUser_key());
-				String book_isbn = String.valueOf(waitingReservationList.get(0).getBook_isbn());
+				String book_isbn = String.valueOf(waitingReservationList.get(i).getBook_isbn());
 				
 				Map<String, Object> resultList = LibSearchAPI.getReserveList(userKey);
 				List<Map<String, Object>> list = null;
@@ -572,39 +572,42 @@ public class AdminModeController extends BaseController {
 				if(resultList != null && !resultList.isEmpty() && resultList.get("LIST_DATA") != null) {
 					list = LibSearchAPI.getListData(resultList);
 					
-					for(int j = 0; j < list.size(); i++) {
-						if(book_isbn.equals(list.get(i).get("ISBN"))) {
-							String reckey = String.valueOf(list.get(i).get("PK"));
-							
-							librarySearch.setUserkey(userKey);
-							librarySearch.setBookkey(reckey);
-							ApiResponse apiResult = LibSearchAPI.cancelReservation(librarySearch);
-							
-							String userIp = "0:0:0:0:0:0:0:1";
-					        String book_name = waitingReservationList.get(i).getBook_name();
-					        librarySearch.setManageCode(waitingReservationList.get(i).getManage_code());
-					        String data1 = "구수산도서관";
-					        if("BA".equals(waitingReservationList.get(i).getManage_code())){
-					        	data1 = "구수산도서관";
-					        } else {
-					        	data1 = "수성도서관";
-					        }
-							String data2 = waitingReservationList.get(i).getMember_name();
-							String data3 = book_name;
-							String data4 = "만기 취소";
-							LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
-							
-							if (apiResult.getStatus()) {
-								untactBookReservation.setRequest_number(request_number);
-								reservationService.cancelReservationStep(untactBookReservation);
-								res.setValid(true);
-								res.setMessage("취소 되었습니다.");
-							} else {
-								res.setValid(false);
-								res.setMessage("예약취소에 실패하였습니다.\nKLAS API 예약취소 오류 입니다. : " + apiResult.getMessage());
+					for(int j = 0; j < list.size(); j++) {
+						if(list.get(j).get("ISBN") != null) {
+							if(book_isbn.equals(list.get(j).get("ISBN"))) {
+								String reckey = String.valueOf(list.get(j).get("PK"));
+								
+								librarySearch.setUserkey(userKey);
+								librarySearch.setBookkey(reckey);
+								ApiResponse apiResult = LibSearchAPI.cancelReservation(librarySearch);
+								
+								String userIp = "0:0:0:0:0:0:0:1";
+						        String book_name = waitingReservationList.get(i).getBook_name();
+						        librarySearch.setManageCode(waitingReservationList.get(i).getManage_code());
+						        String data1 = "구수산도서관";
+						        if("BA".equals(waitingReservationList.get(i).getManage_code())){
+						        	data1 = "구수산도서관";
+						        } else {
+						        	data1 = "수성도서관";
+						        }
+								String data2 = waitingReservationList.get(i).getMember_name();
+								String data3 = book_name;
+								String data4 = "만기 취소";
+								LibSearchAPI.sendalimtalkReserve(librarySearch, "A12", "SJT_086006", userIp, data1, data2, data3, data4);
+								
+								if (apiResult.getStatus()) {
+									untactBookReservation.setRequest_number(request_number);
+									reservationService.cancelReservationStep(untactBookReservation);
+									res.setValid(true);
+									res.setMessage("취소 되었습니다.");
+								} else {
+									res.setValid(false);
+									res.setMessage("예약취소에 실패하였습니다.\nKLAS API 예약취소 오류 입니다. : " + apiResult.getMessage());
+								}
 							}
 						}
 					}
+					
 				} else {
 					res.setValid(false);
 					res.setMessage("예약 목록 조회에 실패하였습니다.");
