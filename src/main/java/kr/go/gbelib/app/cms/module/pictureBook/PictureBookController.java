@@ -254,6 +254,13 @@ public class PictureBookController extends BaseController {
 	public PictureBookView excel(Model model, PictureBook pictureBook, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		List<PictureBook> pictureBookLoanList = service.getPictureBookLoanExcelList(pictureBook);
 
+		if (pictureBookLoanList != null && pictureBookLoanList.size() > 0) {
+			for (PictureBook book : pictureBookLoanList) {
+				book.setLoan_end_date(book.getLoan_end_date().substring(0, 10));
+				book.setLoan_start_date(book.getLoan_start_date().substring(0, 10));
+			}
+		}
+
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("pictureBookLoanList", pictureBookLoanList);
 
