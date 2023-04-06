@@ -792,12 +792,11 @@ public class CommonSearchController extends BaseController {
 							//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
 							int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
 							
-							if(jagwanCnt == 0 || tongCnt == 0) {
-								if(jagwanCnt == 0) {
-									nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
-								} else {
-									nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
-								}
+							if(jagwanCnt <= 0) {
+								nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
+							}
+							if (tongCnt <= 0) {
+								nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
 							}
 
 						} catch (Exception e) {
