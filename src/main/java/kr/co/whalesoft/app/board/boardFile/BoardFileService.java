@@ -183,16 +183,18 @@ public class BoardFileService extends BaseService {
 		}
 
 		if(boardManage.getFile_ban_ext() != null) {
-			String extCheck[] = boardManage.getFile_ban_ext().split( "|" );
+			String extSample = "jsp|cgi|php|asp|aspx|exe|com|html|htm|cab|php3|pl|java|class|js|css";
+			String extCheck[] = extSample.split( "\\|" );
 			String extension = "";
 			int pos = fileName.lastIndexOf( "." );
 			if ( pos > -1 ) {
 				extension = fileName.substring( pos+1 );		// .을 포함한 확장자
 			}
-			for( int i=0;i<extCheck.length;i++ ) {
-				if(extCheck[i].trim().toLowerCase().equals(extension.toLowerCase())) {
+			
+			for(String check : extCheck) {
+				if(check.toLowerCase().equals(extension.toLowerCase())) {
 					fileMap.put("valid", false);
-					fileMap.put("msg", "파일 업로드가 불가능한 확장자 파일입니다.");
+					fileMap.put("msg", "파일 업로드가 불가능한 확장자 파일입니다. " + extension.toLowerCase());
 					break;
 				}
 			}
