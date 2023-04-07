@@ -288,7 +288,7 @@
     <li>이용방법 
       <ul>
         <li style="font-size:14px;"><b style="color:#00a459">웹 :</b> 대구전자도서관(<a href="https://library.daegu.go.kr/elib" target="_blank" style="font-size:13px;color:#0097cf;">https://library.daegu.go.kr/elib</a>) 접속 / 로그인 / 구독형 전자책(구독형 전자도서관 웹으로 연결·자동로그인) / 도서 검색·대출 후 읽기</li>
-        <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 교보문고 전자도서관 앱 다운로드 / 도서관 선택(대구전자도서관) / 로그인(대구전자도서관 웹과 아이디, 비밀번호 동일) / 도서 검색·대출 후 읽기</li>
+        <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 부커스 전자도서관 앱 다운로드 / 도서관 선택(대구전자도서관) / 로그인(대구전자도서관 웹과 아이디, 비밀번호 동일) / 도서 검색·대출 후 읽기</li>
 		<li style="background:none;">※ 대구공공도서관 통합회원이면 대구전자도서관 이용 가능</li>
       </ul>
     </li>

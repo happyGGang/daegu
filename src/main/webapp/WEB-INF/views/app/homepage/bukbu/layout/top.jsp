@@ -47,8 +47,12 @@
 						</a><a href="https://www.facebook.com/bukbulib" target="_blank" class="sitemap-img2">
 							<img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" />
 						</a><a href="https://www.instagram.com/libbukbu/" target="_blank" class="sitemap-img2">
-						<img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램" /></a><a href="https://www.youtube.com/channel/UCQYHZF_a03fl3AIstSLd_Rw" target="_blank" class="sitemap-img2">
-						<img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브" /></a>
+							<img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램" />
+						</a><a href="http://pf.kakao.com/_xhxiyDxj" target="_blank" class="sitemap-img2">
+							<img src="/resources/homepage/${homepage.context_path}/img/kakao-ch-btn.png" alt="카카오톡 채널" />
+						</a><a href="https://www.youtube.com/channel/UCQYHZF_a03fl3AIstSLd_Rw" target="_blank" class="sitemap-img2">
+							<img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브" />
+						</a>
 			</div>
 		</div>
 	</div>

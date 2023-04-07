@@ -80,5 +80,4 @@ $(document).ready(function() {
       </tbody>
     </table>
   </div>
-  <p style="margin-top:10px;">※ 코로나-19로 인해 운영시간 단축 - 화-금: 종합자료실(09시-20시), 일반열람실(09시-20시)</p>
 </div>
