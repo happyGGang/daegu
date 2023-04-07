@@ -1301,6 +1301,11 @@ public class BoardController extends BaseController {
 		Member member = getSessionMemberInfo(request);
 		if (member.isAnonymous() && boardManage.getBoard_type().equals("QNA") && board.getEditMode().equals("ADD")) {
 			ValidationUtils.rejectIfEmpty(result, "user_password", "비밀번호를 입력하세요.");
+			
+			ValidationUtils.rejectPasswordSpecieal(result, "user_password", "비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.");
+			if ( board.getUser_password().length() < 8 || board.getUser_password().length() > 16 ) {
+				result.rejectValue("user_password", "비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.");
+			}
 		}
 
 		if ("FESTIVAL".equals(boardManage.getBoard_type())) {
