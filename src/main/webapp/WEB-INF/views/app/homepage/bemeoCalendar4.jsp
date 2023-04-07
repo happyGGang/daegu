@@ -41,17 +41,17 @@ $('ul.close_day').html(li);
           <li>불러오는 중...</li>
         </ul>
         <span>일 입니다.</span>
-        <p>일요일과 공휴일은 휴관입니다.</p>
+        <p>월요일과 공휴일은 휴관입니다.</p>
       </div>
       </li>
     </ul>
   </div>
-  <h3>주제별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="황금도서관 장서현황을 나타내는 표">
     <caption class="disnone">
-    책숲길도서관 장서현황
+    황금도서관 장서현황
     </caption>
     <colgroup>
     <col width="*">
@@ -89,128 +89,72 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>1,491</td>
-    <td>1,181</td>
-    <td>445</td>
-    <td>4,490</td>
-    <td>3,099</td>
-    <td>2,242</td>
-    <td>1,068</td>
-    <td>1,800</td>
-    <td>15,439</td>
-    <td>2,700</td>
-    <td>33,955</td>
+    <td>201</td>
+    <td>181</td>
+    <td>102</td>
+    <td>495</td>
+    <td>323</td>
+    <td>337</td>
+    <td>256</td>
+    <td>267</td>
+    <td>2,717</td>
+    <td>448</td>
+    <td>5,327</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>4.4</td>
-    <td>3.5</td>
-    <td>1.3</td>
-    <td>13.2</td>
-    <td>9.1</td>
-    <td>6.6</td>
-    <td>3.1</td>
-    <td>5.3</td>
-    <td>45.4</td>
-    <td>7.9</td>
+    <td>3.7</td>
+    <td>3.4</td>
+    <td>2</td>
+    <td>9.3</td>
+    <td>6.1</td>
+    <td>6.3</td>
+    <td>4.8</td>
+    <td>5</td>
+    <td>51</td>
+    <td>8.4</td>
     <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="황금도서관 장서현황을 나타내는 표">
     <caption class="disnone">
-    책숲길도서관 장서현황
+    황금도서관 장서현황
     </caption>
     <colgroup>
     <col width="*">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
-    <col width="12.5%">
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
     </colgroup>
     <thead>
     <tr>
       <th>구 분</th>
-      <th>아동</th>
       <th>유아</th>
+      <th>아동</th>
       <th>일반</th>
-      <th>큰글</th>
-      <th>참고</th>
-      <th>영어</th>
       <th>총계</th>
     </tr>
     </thead>
     <tbody>
     <tr>
       <th>권수</th>
-    <td>10,871</td>
-    <td>5,850</td>
-    <td>13,268</td>
-    <td>68</td>
-    <td>304</td>
-    <td>3,594</td>
-    <td>33,955</td>
+    <td>1,082</td>
+    <td>1,979</td>
+    <td>2,266</td>
+    <td>5,327</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>32.03</td>
-    <td>17.26</td>
-    <td>39.00</td>
-    <td>0.20</td>
-    <td>0.90</td>
-    <td>10.61</td>
-    <td>100.0</td>
-    </tr>
-    </tbody>
-    </table>
-  </div>
-  <p>보존서고: 5,929권 포함</p>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
-  <div class="rsv-info"></div>
-  <div class="auto-scroll">
-    <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
-    <caption class="disnone">
-    책숲길도서관 간행물 현황
-    </caption>
-    <colgroup>
-    <col width="*">
-    <col width="13%">
-    <col width="13%">
-    <col width="13%">
-    <col width="13%">
-    <col width="13%">
-    <col width="13%">
-    <col width="13%">
-    </colgroup>
-    <thead>
-    <tr>
-      <th>구분</th>
-      <th>신문</th>
-      <th>주간</th>
-      <th>격주간</th>
-      <th>월간</th>
-      <th>격월간</th>
-      <th>계간</th>
-      <th>계</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <th>국내</th>
-      <td>2</td>
-      <td>2</td>
-      <td>1</td>
-      <td>13</td>
-      <td>0</td>
-      <td>1</td>
-      <td>19</td>
+    <td>20.3</td>
+    <td>37.2</td>
+    <td>42.5</td>
+    <td>100</td>
     </tr>
     </tbody>
     </table>
@@ -236,29 +180,21 @@ $('ul.close_day').html(li);
     </thead>
     <tbody>
     <tr>
-      <th scope="row" rowspan="5">4층</th>
+      <th scope="row" rowspan="4">1층</th>
       <td>자료실</td>
-      <td>192</td>
+      <td>333.42</td>
     </tr>
     <tr>
-      <td>유아자료실</td>
-      <td>33</td>
+      <td>사무실 및 프로그램실</td>
+      <td>37.54</td>
     </tr>
     <tr>
-      <td>문화강좌실</td>
-      <td>27</td>
+      <td>기타공간(복도 및 화장실)</td>
+      <td>108.85</td>
     </tr>
     <tr>
-      <td>사무실(데스크)</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <td>기타공간(화장실, 로비, 복도 등)</td>
-      <td>114.55</td>
-    </tr>
-    <tr>
-      <th scope="row" colspan="2">총면적</th>
-      <td>338.55</td>
+      <td>총면적</td>
+      <td>479.81</td>
     </tr>
     </tbody>
     </table>
@@ -274,7 +210,7 @@ $('ul.close_day').html(li);
 	window.onload = function(){
 		map1 = new ngii_wmts.map("map1",{mapMode:3});
 		map1._setMapMode('0');
-		map1._showpoint(1100453.8756, 1761495.4999,7);
+		map1._showpoint(1101613.0664, 1761140.5327,7);
 	}
 	;
 	</script>
@@ -291,16 +227,25 @@ $('ul.close_day').html(li);
 	</div>
 
   <div class="info_box">
-    <p class="info_add">대구시 수성구 수성로215(중동) 수옥빌딩 4층</p>
-    <p class="info_tel">053-668-1811</p>
+    <p class="info_add">대구광역시 수성구 청솔로2길 64 황금2동행정복지센터 1층</p>
+    <!-- <p class="info_tel">053-668-1811</p> -->
   </div>
-
+  
+  <h3>교통편 안내</h3>
+  <h4>주변 지하철역</h4>
+  <ul>
+    <li><span class="ico_subway3" style="font-size:11px;">어린이회관</span>1번 출구</li>
+  </ul>
   <h4>주변 버스정류장<span class="sm_text">버스번호를 클릭하시면 노선도를 검색하실 수 있습니다.</span></h4>
   <ul class="bus_list">
-    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">304</span></span><i class="fa fa-external-link"></i></a></li>
-    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">413</span></span><i class="fa fa-external-link"></i></a></li>
-    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_j">지선<span class="num">수성4</span></span><i class="fa fa-external-link"></i></a></li>
-    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_g">급행<span class="num">급행2</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">100</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">204</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">234</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">814</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_m">간선<span class="num">8140</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_j">지선<span class="num">수성1</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_j">지선<span class="num">수성1-1</span></span><i class="fa fa-external-link"></i></a></li>
+    <li><a href="http://businfo.daegu.go.kr/ba/index/index.do" target="_blank" class="newWin" title="새창으로 열립니다."><span class="ico_bus_g">급행<span class="num">급행3</span></span><i class="fa fa-external-link"></i></a></li>
     <div class="clear"></div>
   </ul>
   <p class="basic_btn">
@@ -309,15 +254,14 @@ $('ul.close_day').html(li);
 
   <h3>자가용 이용시</h3>
   <ul class="con">
-    <li>시내방향에서 오시는 경우 : 신천대로 진입 후 대봉교지하차도 지나 어린이회관 방면으로 오른쪽 출구로 나간 후, 희망교 건너 약 500m 지나 파동방면(수성로) 우회전 200m 지점</li>
-    <li>범어동, 시지 방면에서 오시는 경우 : 달구벌대로 수성교 방면 이동 후, 수성네거리에서 좌회전(수성로) 후 약 2km 지점</li>
-    <li>지산동 방면에서 오시는 경우 : 무학로 따라 이동 후 상동네거리에서 중동네거리(수성로) 방면 우회전 후 약 2km지점 유턴 후 200m 지점</li>
-    <li>대명동 방면에서 오시는 경우 : 희망교 건너 약 500m 지나 파동방면(수성로) 우회전 200m 지점</li>
+    <li>시내방향에서 오시는 경우: 달구벌대로를 따라 이동 후 범어네거리에서 ‘수성구민운동장’ 방면으로 900m 지점 우회전 한 뒤, 어린이회관삼거리에서 1.4km 지점 우회전 한 뒤, ‘청솔로4길‘ 방면으로 700m 지점</li>
+    <li>시지, 사월역 오시는 경우: 달구벌대로로 따라 범어네거리에서  ‘어린이회관’ 방면으로 좌회전 한 뒤, ‘청솔로4길’ 방면으로 좌회전한 후 700m 지점</li>
+    <li>지산동 방향에서 오시는 경우: ‘희망교’ 방면으로 좌회전 한 뒤, 241m 지점 우회전 한 뒤, 77m ‘청솔로 2길’ 방면으로 우회전한 후 100m 지점에서 우회전</li>
   </ul>
 
   <h3>휠체어 사용시 소요시간</h3>
   <ul class="con">
-    <li>수성구보건소 앞(3분) : 304, 413, 수성4, 급행2</li>
-    <li>수성구보건소 건너(길건너 5분) : 304, 413, 수성4, 급행2</li>
+    <li>어린이회관건너1(길건너 분): 100-1, 234, 814, 8140, 수성1-1, 급행3</li>
+    <li>어린이회관건너2(길건너 10분): 204</li>
   </ul>
 </div>
