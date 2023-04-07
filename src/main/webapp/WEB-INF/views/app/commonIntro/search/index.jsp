@@ -1302,7 +1302,7 @@ function isFromFridayToSunday() {
 															</c:when>
 															<c:otherwise>
 																<c:choose>
-																	<c:when test="${homepage.context_path eq 'bukgs' and param.menu_idx eq '83'}">
+																	<c:when test="${i.SHELF_LOC_CODE eq 'BA08' or i.SHELF_LOC_CODE eq 'BA22' or i.SHELF_LOC_CODE eq 'BA23'}">
 																		<c:choose>
 																			<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
 																				<c:choose>
