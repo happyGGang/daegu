@@ -927,7 +927,7 @@ $(function() {
 				</c:when>
 			</c:choose>
 
-				 <c:choose>
+				 <!--<c:choose>
 					<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
 						<c:choose>
 							<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
@@ -938,7 +938,7 @@ $(function() {
 							</c:otherwise>
 						</c:choose>
 					</c:when>
-				</c:choose> 
+				</c:choose> -->
 			
 
 
