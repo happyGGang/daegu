@@ -126,5 +126,14 @@
 		AND individual_idx = #{individual_idx}
 	</update>
 	
-	
+	<select id="checkDupRequest" resultType="boolean">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_RELAY_INDIVIDUAL
+		WHERE
+			user_name = #{user_name}
+		AND user_phone = #{user_phone}
+		AND TO_CHAR(SYSDATE, 'yyyy') = TO_CHAR(add_date, 'yyyy')
+	</select>
 </mapper>

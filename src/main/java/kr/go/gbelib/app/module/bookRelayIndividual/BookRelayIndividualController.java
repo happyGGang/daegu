@@ -2,7 +2,6 @@ package kr.go.gbelib.app.module.bookRelayIndividual;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,6 +74,13 @@ public class BookRelayIndividualController extends BaseController {
 		Member member = getSessionMemberInfo(request);
 		
 		if (!result.hasErrors()) {
+			if(service.checkDupRequest(bookRelayIndividual)) {
+				res.setValid(false);
+				res.setMessage("독서릴레이는 중복신청이 불가능합니다. 관리자에게 문의해주세요.");
+				
+				return res;
+			}
+			
 			if (bookRelayIndividual.getEditMode().equals("ADD")) {
 				
 				if (!member.isLogin() && member.isAnonymous()) {

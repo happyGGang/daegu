@@ -19,5 +19,7 @@ public interface BookRelayIndividualDao {
 	public int deleteBookRelayIndividual(BookRelayIndividual bookRelayIndividual);
 
 	public int statusChangeBookRelayIndividual(BookRelayIndividual bookRelayIndividual);
+
+	public boolean checkDupRequest(BookRelayIndividual bookRelayIndividual);
 	
 }

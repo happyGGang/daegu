@@ -52,5 +52,9 @@ public class BookRelayIndividualService extends BaseService {
 	public int statusChangeBookRelayIndividual(BookRelayIndividual bookRelayIndividual) {
 		return dao.statusChangeBookRelayIndividual(bookRelayIndividual);
 	}
+
+	public boolean checkDupRequest(BookRelayIndividual bookRelayIndividual) {
+		return dao.checkDupRequest(bookRelayIndividual);
+	}
 	
 }
