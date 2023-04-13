@@ -103,7 +103,7 @@
 	
 	<select id="getEndDate" resultType="String">
 		SELECT
-			TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date
+			penalty_day
 		FROM
 			UNTACT_BOOK_PENALTY_SETTING
 		WHERE

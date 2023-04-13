@@ -19,6 +19,8 @@ public class UntactBookBlackList extends PagingUtils {
 	
 	private String admin_member_id;
 	
+	private String penaltyDate;
+	
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -84,6 +86,12 @@ public class UntactBookBlackList extends PagingUtils {
 	}
 	public void setAdmin_member_id(String admin_member_id) {
 		this.admin_member_id = admin_member_id;
+	}
+	public String getPenaltyDate() {
+		return penaltyDate;
+	}
+	public void setPenaltyDate(String penaltyDate) {
+		this.penaltyDate = penaltyDate;
 	}
 	
 }

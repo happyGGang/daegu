@@ -45,4 +45,8 @@ public class UntactBookBlackListService extends BaseService {
 		return dao.getUntactBookBlackListExcelList(untactBookBlackList);
 	}
 
+	public String getPenaltyEndDate(UntactBookBlackList untactBookBlackList) {
+		return dao.getPenaltyEndDate(untactBookBlackList);
+	}
+
 }

@@ -167,4 +167,16 @@
 					ORDER BY penalty_day DESC
 			)
 	</select>
+	
+	<select id="getPenaltyEndDate" resultType="string">
+		SELECT
+			TO_CHAR(TO_DATE(MAX(a.penalty_day), 'YYYY-MM-DD') + INTERVAL #{penaltyDate} DAY, 'YYYY-MM-DD') AS penalty_day
+		FROM
+			UNTACT_BOOK_BLACKLIST a, UNTACT_BOOK_PENALTY_SETTING b
+		WHERE
+			a.homepage_id = #{homepage_id}
+		AND a.homepage_id = b.homepage_id
+		AND a.member_id = #{member_id}
+		AND a.penalty_day BETWEEN b.start_date and b.end_date
+	</select>
 </mapper>

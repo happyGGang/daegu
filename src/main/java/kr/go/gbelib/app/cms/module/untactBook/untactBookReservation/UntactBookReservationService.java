@@ -18,6 +18,14 @@ public class UntactBookReservationService extends BaseService {
 	
 	@Transactional
 	public int addUntactBookReservation(UntactBookReservation untactBookReservation) {
+		//만약 같은 회차내에서 예약을 한 사용자가 있다면 사물함 번호를 그대로 가져오고 아니라면 생성
+		if(dao.checkLockerNumber(untactBookReservation) > 0) {
+			int locker_number = dao.getUntactBookReservationLockerNumber(untactBookReservation);
+			untactBookReservation.setLocker_number(locker_number);
+		} else {
+			int locker_number = dao.setUntactBookReservationLockerNumber(untactBookReservation);
+			untactBookReservation.setLocker_number(locker_number);
+		}
 		return dao.addUntactBookReservation(untactBookReservation);
 	}
 	
@@ -259,6 +267,10 @@ public class UntactBookReservationService extends BaseService {
 
 	public int checkLockerNumberForChange(UntactBookReservation untactBookReservation) {
 		return dao.checkLockerNumberForChange(untactBookReservation);
+	}
+
+	public boolean getMemberReserveYn(UntactBookReservation untactBookReservation) {
+		return dao.getMemberReserveYn(untactBookReservation);
 	}
 
 }

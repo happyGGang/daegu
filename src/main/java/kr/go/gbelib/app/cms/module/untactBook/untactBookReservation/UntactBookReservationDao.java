@@ -98,4 +98,6 @@ public interface UntactBookReservationDao {
 
 	public int checkLockerNumberForChange(UntactBookReservation untactBookReservation);
 
+	public boolean getMemberReserveYn(UntactBookReservation untactBookReservation);
+
 }

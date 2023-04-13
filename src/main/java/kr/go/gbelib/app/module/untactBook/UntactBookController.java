@@ -256,11 +256,15 @@ public class UntactBookController extends BaseController {
 			return null;
 		}
 		
-		String penaltyEndDate = untactBookPenaltySettingService.getEndDate(homepage.getHomepage_id());
+		String penaltyDate = untactBookPenaltySettingService.getEndDate(homepage.getHomepage_id());
 		
 		//페널티 초과 회원 예약 불가
 		if(untactBookBlackListService.getPenaltyCount(untactBookBlackList) > 0 && untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id()) > 0) {
 			if (untactBookBlackListService.getPenaltyCount(untactBookBlackList) >= untactBookPenaltySettingService.getPenaltyCount(homepage.getHomepage_id())) {
+				untactBookBlackList.setHomepage_id(homepage.getHomepage_id());
+				untactBookBlackList.setPenaltyDate(penaltyDate);
+				String penaltyEndDate = untactBookBlackListService.getPenaltyEndDate(untactBookBlackList);
+				
 				service.alertMessage("현재 이용자님 께서는 관리자에 의해\\n\\n" + penaltyEndDate + "일 까지 비대면 도서대출 이용이 제한되어 있습니다.", request, response);
 				return null;
 			}
@@ -268,9 +272,12 @@ public class UntactBookController extends BaseController {
 		
 		//비대면 도서대출 예약가능 사물함갯수와 예약횟수 비교
 		untactBookReservation.setRound_idx(untactLockerSettingService.getUntactBookRoundOne(untactBookRound));
-		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(untactBookReservation)) {
-			service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
-			return null; 
+		//이미예약을 한 회원이 아닐경우 예약 가능한 횟수비교
+		if(!untactBookReservationService.getMemberReserveYn(untactBookReservation)) {
+			if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(untactBookReservation)) {
+				service.alertMessage("금일 비대면 도서대출예약은 마감되었습니다.", request, response);
+				return null; 
+			}
 		}
 		
 		//예약가능시간 체크
@@ -322,8 +329,10 @@ public class UntactBookController extends BaseController {
 		}
 		
 		untactBookReservation.setRound_idx(untactLockerSettingService.getUntactBookRoundOne(untactBookRound));
-		if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(untactBookReservation)) {
-			result.reject("금일 비대면 사물함 대출은 마감되었습니다.");
+		if(!untactBookReservationService.getMemberReserveYn(untactBookReservation)) {
+			if (untactLockerSettingService.getUntactLockerSettingCount(homepage.getHomepage_id()) <= untactBookReservationService.getUntactBookReservationCount(untactBookReservation)) {
+				result.reject("금일 비대면 사물함 대출은 마감되었습니다.");
+			}
 		}
 		
 		String penaltyEndDate = untactBookPenaltySettingService.getEndDate(homepage.getHomepage_id());
@@ -363,15 +372,6 @@ public class UntactBookController extends BaseController {
 			untactBookReservation.setUser_key(member.getRec_key());
 			untactBookReservation.setReg_no(librarySearch.getReg_no());
 			untactBookReservation.setShelf_loc_name(librarySearch.getShelf_loc_name());
-			
-			//만약 같은 회차내에서 예약을 한 사용자가 있다면 사물함 번호를 그대로 가져오고 아니라면 생성
-			if(untactBookReservationService.checkLockerNumber(untactBookReservation) > 0) {
-				int locker_number = untactBookReservationService.getUntactBookReservationLockerNumber(untactBookReservation);
-				untactBookReservation.setLocker_number(locker_number);
-			} else {
-				int locker_number = untactBookReservationService.setUntactBookReservationLockerNumber(untactBookReservation);
-				untactBookReservation.setLocker_number(locker_number);
-			}
 			
 			librarySearch.setUserkey(untactBookReservation.getUser_key());
 			librarySearch.setManageCode(untactBookReservation.getManage_code());

@@ -20,5 +20,7 @@ public interface UntactBookBlackListDao {
 
 	public List<UntactBookBlackList> getUntactBookBlackListExcelList(UntactBookBlackList untactBookBlackList);
 
+	public String getPenaltyEndDate(UntactBookBlackList untactBookBlackList);
+
 
 }
