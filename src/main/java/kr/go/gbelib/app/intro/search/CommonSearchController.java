@@ -235,7 +235,10 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("shelfCodeList", shelfInfoList);
 		} else {
 			Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
-			//List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
+			if(!"h90".equals(homepage.getHomepage_id())) {
+				List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
+				model.addAttribute("shelfCodeList", shelfInfoList);
+			}
 
 			if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
 				List<String> shelfCodes = new ArrayList<String>();
@@ -302,7 +305,6 @@ public class CommonSearchController extends BaseController {
 			List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
 
 			model.addAttribute("mediaCodeList", mediaCodeList);
-			//model.addAttribute("shelfCodeList", shelfInfoList);
 		}
 
 
