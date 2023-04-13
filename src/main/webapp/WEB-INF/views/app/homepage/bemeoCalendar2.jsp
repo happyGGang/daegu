@@ -46,12 +46,12 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="물망이도서관 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
     <caption class="disnone">
-    물망이도서관 장서현황
+    주제별 자료현황
     </caption>
     <colgroup>
     <col width="*">
@@ -118,12 +118,12 @@ $('ul.close_day').html(li);
     </tbody>
     </table>
   </div>
-  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="책숲길도서관 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
     <caption class="disnone">
-    책숲길도서관 장서현황
+    별치기호별 자료현황
     </caption>
     <colgroup>
     <col width="*">

@@ -46,12 +46,12 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>자료 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
+  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="황금도서관 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
     <caption class="disnone">
-    황금도서관 장서현황
+    주제별 자료현황
     </caption>
     <colgroup>
     <col width="*">
@@ -118,12 +118,12 @@ $('ul.close_day').html(li);
     </tbody>
     </table>
   </div>
-  <h3>자료별 장서 현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
+  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
-    <table class="tbl-type01" summary="황금도서관 장서현황을 나타내는 표">
+    <table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
     <caption class="disnone">
-    황금도서관 장서현황
+    별치기호별 자료현황
     </caption>
     <colgroup>
     <col width="*">
@@ -155,6 +155,46 @@ $('ul.close_day').html(li);
     <td>37.2</td>
     <td>42.5</td>
     <td>100</td>
+    </tr>
+    </tbody>
+    </table>
+  </div>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <div class="rsv-info"></div>
+  <div class="auto-scroll">
+    <table class="tbl-type01" summary="황금도서관 간행물 현황을 나타내는 표">
+    <caption class="disnone">
+    황금도서관 간행물 현황
+    </caption>
+    <colgroup>
+    <col width="*">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    </colgroup>
+    <thead>
+    <tr>
+      <th>구분</th>
+      <th>신문</th>
+      <th>주간</th>
+      <th>격주간</th>
+      <th>월간</th>
+      <th>계간</th>
+      <th>계</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>국내</th>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>13</td>
+      <td>1</td>
+      <td>19</td>
     </tr>
     </tbody>
     </table>
