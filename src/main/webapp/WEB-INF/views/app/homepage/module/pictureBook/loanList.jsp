@@ -230,7 +230,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 						</c:choose>
 					</td>
 					<td>
-						<c:if test="${i.request_status eq '1'}">
+						<c:if test="${i.request_status eq '1' or i.request_status eq '7'}">
 						<a href="#" class="cancle-btn sub-btn" keyValue="${i.picture_book_loan_idx}">취소</a>
 						</c:if>
 					</td>
