@@ -1179,19 +1179,19 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
 					</td>
 				</tr>
-				<c:if test="${teach.sms_service_yn eq 'Y' }">
-				<tr>
-					<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-						<form:radiobutton path="sms_service_yn" value="Y" label="미동의" cssStyle="vertical-align: middle;"/>
-						<div class="ui-state-highlight">
-							* 활용목적: 도서관 강좌 및 각종행사 안내<br>
-							* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
-						</div>
-					</td>
-				</tr>
-				</c:if>
+<%-- 				<c:if test="${teach.sms_service_yn eq 'Y' }"> --%>
+<!-- 				<tr> -->
+<!-- 					<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th> -->
+<!-- 					<td> -->
+<%-- 						<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/> --%>
+<%-- 						<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/> --%>
+<!-- 						<div class="ui-state-highlight"> -->
+<!-- 							* 활용목적: 도서관 강좌 및 각종행사 안내<br> -->
+<!-- 							* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음) -->
+<!-- 						</div> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+<%-- 				</c:if> --%>
 				<tr>
 					<th>14세 미만 어린이/아동<br/>보호자(법정대리인)동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>

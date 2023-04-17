@@ -269,6 +269,10 @@ public class StudentController extends BaseController {
 			if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 				ValidationUtils.rejectIfEmpty(result, "student_password", "비밀번호를 입력하세요.");
 			}
+			
+			if (StringUtils.equals(teachOne.getSms_service_yn(), "Y")) {
+				ValidationUtils.rejectIfEmpty(result, "sms_service_yn", "SMS 수신동의여부를 입력하세요.");
+			}
 
 			if ( !student.getSelf_info_yn().equals("Y") ) {
 				res.setValid(false);
