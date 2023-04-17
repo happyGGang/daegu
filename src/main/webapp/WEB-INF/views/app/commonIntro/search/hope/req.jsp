@@ -106,7 +106,6 @@
 <c:if test="${homepage.context_path eq 'yonghak'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
 		* 무학숲도서관은 생태·환경 관련 도서 위주로 신청받고 있으며, 기타 도서는 취소될 수 있으니 타도서관으로 신청 부탁드립니다.<br>
-		* 2022년 파동도서관, 무학숲도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.<br>
 	</p>
 </c:if>
 
@@ -159,7 +158,7 @@
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
-				<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan' || homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol'}">
+				<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan' || homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol' || homepagePath eq 'goldbook'}">
 				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BD">범어도서관</form:option>
 					<form:option value="BE">용학도서관</form:option>
@@ -168,6 +167,7 @@
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
 					<form:option value="BH">무학숲도서관</form:option>
+					<form:option value="HR">황금책문화센터</form:option>
 				</form:select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 

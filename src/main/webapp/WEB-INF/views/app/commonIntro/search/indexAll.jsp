@@ -615,6 +615,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_BK" value="BK" label="물망이도서관" />
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HR" value="HR" label="황금책문화센터" />
+							</li>
 
 
 

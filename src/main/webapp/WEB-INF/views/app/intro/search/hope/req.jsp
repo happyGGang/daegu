@@ -302,6 +302,19 @@
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
+				<c:when test="${context_path eq 'goldbook'}">
+				<form:select path="manageCode">
+					<form:option value="HR">황금책문화센터</form:option>
+					<form:option value="BD">범어도서관</form:option>
+					<form:option value="BE">용학도서관</form:option>
+					<form:option value="BF">고산도서관</form:option>
+					<form:option value="BJ">책숲길도서관</form:option>
+					<form:option value="BK">물망이도서관</form:option>
+					<form:option value="BG">파동도서관</form:option>
+					<form:option value="BH">무학숲도서관</form:option>
+				</form:select>
+				</c:when>
+
 				<c:when test="${context_path eq 'junggu'}">
 				<form:select path="manageCode">
 					<form:option value="FF">남산4동작은도서관</form:option>
