@@ -6,13 +6,14 @@
 		SELECT
 			homepage_id, group_idx, group_name, print_seq, use_yn,
 			add_date, add_id, modify_date, modify_id, req_limit_yn,
-			req_limit_type, req_limit_count, large_category_idx
+			req_limit_type, req_limit_count, large_category_idx, homepage_view_yn
 		FROM
 			TEACH_CATEGORY_GROUP
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	large_category_idx = #{large_category_idx}
 		AND	delete_yn = 'N'
+		AND homepage_view_yn = 'Y'
 		ORDER BY
 			group_idx DESC
 	</select>
@@ -21,7 +22,7 @@
 		SELECT
 			homepage_id, group_idx, group_name, print_seq, use_yn,
 			add_date, add_id, modify_date, modify_id, req_limit_yn,
-			req_limit_type, req_limit_count, large_category_idx
+			req_limit_type, req_limit_count, large_category_idx, homepage_view_yn
 		FROM
 			TEACH_CATEGORY_GROUP
 		WHERE
@@ -53,7 +54,7 @@
 		SELECT
 			homepage_id, group_idx, group_name, print_seq, use_yn,
 			add_date, add_id, modify_date, modify_id, req_limit_yn,
-			req_limit_type, req_limit_count, large_category_idx
+			req_limit_type, req_limit_count, large_category_idx, homepage_view_yn
 		FROM
 			TEACH_CATEGORY_GROUP
 		WHERE
@@ -71,12 +72,12 @@
 			TEACH_CATEGORY_GROUP
 		(
 			homepage_id, group_idx, group_name, print_seq, use_yn, add_date, add_id,
-			req_limit_yn, req_limit_type, req_limit_count, large_category_idx
+			req_limit_yn, req_limit_type, req_limit_count, large_category_idx, homepage_view_yn
 		)
 			VALUES
 		(
 			#{homepage_id}, #{group_idx}, #{group_name}, #{print_seq}, #{use_yn}, SYSDATE, #{add_id},
-			#{req_limit_yn}, #{req_limit_type}, #{req_limit_count}, #{large_category_idx}
+			#{req_limit_yn}, #{req_limit_type}, #{req_limit_count}, #{large_category_idx}, #{homepage_view_yn}
 		)
 	</insert>
 
@@ -91,7 +92,8 @@
 			modify_date = SYSDATE,
 			req_limit_yn = #{req_limit_yn},
 			req_limit_type = #{req_limit_type},
-			req_limit_count = #{req_limit_count}
+			req_limit_count = #{req_limit_count},
+			homepage_view_yn = #{homepage_view_yn}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	large_category_idx = #{large_category_idx}

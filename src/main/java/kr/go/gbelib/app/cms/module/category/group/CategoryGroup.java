@@ -22,6 +22,8 @@ public class CategoryGroup extends PagingUtils {
 	
 	private int cnt;
 	
+	private String homepage_view_yn = "Y"; //홈페이지 노출 여부 설정
+	
 	public CategoryGroup() {}
 
 	public CategoryGroup(String homepage_id){
@@ -148,5 +150,12 @@ public class CategoryGroup extends PagingUtils {
 		this.large_category_name = large_category_name;
 	}
 
-	
+	public String getHomepage_view_yn() {
+		return homepage_view_yn;
+	}
+
+	public void setHomepage_view_yn(String homepage_view_yn) {
+		this.homepage_view_yn = homepage_view_yn;
+	}
+
 }

@@ -107,6 +107,16 @@ $(function() {
 					</div>
 	         	</td>
         	</tr>
+        	<tr>
+	         	<th>홈페이지노출여부</th>	
+	         	<td>
+	         		<form:radiobutton path="homepage_view_yn" value="Y" label="노출함"/>&nbsp;&nbsp;
+	         		<form:radiobutton path="homepage_view_yn" value="N" label="노출안함"/>
+	         		<div class="ui-state-highlight">
+						* 홈페이지노출여부 설정은 홈페이지 강좌,행사 신청 페이지에 소분류 검색조건을 노출하는지에 대한 노출여부입니다.
+					</div>
+	         	</td>
+        	</tr>
 		</tbody>
 	</table>
 </form:form>

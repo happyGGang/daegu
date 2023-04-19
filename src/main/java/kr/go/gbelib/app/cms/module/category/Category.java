@@ -20,12 +20,14 @@ public class Category extends PagingUtils {
 
 	private String teach_type;
 	private String teach_type_nm;
-
+	
 	private String req_limit_yn = "N"; // 신청제한여부
 	private String req_limit_type = "1"; // 신청제한타입
 	private int req_limit_count; // 신청제한수
 
 	private int cnt;
+	
+	private String homepage_view_yn = "Y"; //홈페이지 노출 여부 설정
 
 	public Category() {
 	}
@@ -195,6 +197,14 @@ public class Category extends PagingUtils {
 
 	public void setLarge_category_name(String large_category_name) {
 		this.large_category_name = large_category_name;
+	}
+
+	public String getHomepage_view_yn() {
+		return homepage_view_yn;
+	}
+
+	public void setHomepage_view_yn(String homepage_view_yn) {
+		this.homepage_view_yn = homepage_view_yn;
 	}
 
 }
