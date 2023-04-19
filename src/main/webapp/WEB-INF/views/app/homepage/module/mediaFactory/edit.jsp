@@ -99,7 +99,7 @@ $(function() {
 		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
 		for(var i = 1; i <= agreeLength; i++) {
 			if(!$('#terms'+i).prop('checked')) {
-				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.\n약관동의는 필수 입력사항입니다.');
 				return false;
 			}
 		}
@@ -168,25 +168,50 @@ $(function() {
 });
 </script>
 
-<c:forEach items="${termsList}" var="terms" varStatus="status">
-	<c:if test="${status.first}">
-	<div class="join-wrap" style="padding: 0">
-	</c:if>
-	<h4>${terms.title}</h4>
-	<div class="Box" style="max-height:200px" tabindex="0" >
-		${terms.contents}
-	</div>
-	<div class="agree_codes" >
-		<div class="checkbox">
-			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
-			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
-		</div>
-	</div>
-	<c:if test="${status.last}">
-	<br><br>
-	</div>
-	</c:if>
-</c:forEach>
+<c:choose>
+	<c:when test="${homepage.context_path eq 'donggu'}">
+		<c:forEach items="${termsList}" var="terms" varStatus="status">
+			<c:if test="${status.first}">
+			<div class="join-wrap" style="padding: 0">
+			</c:if>
+			<h4>${terms.title}(<span style="color: red; font-weight: bold;">*</span>)</h4>
+			<div class="Box" style="max-height:200px" tabindex="0" >
+				${terms.contents}
+			</div>
+			<div class="agree_codes" >
+				<div class="checkbox">
+					<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
+					<label style="position: static !important;" for="terms${status.count}">이용약관 동의</label><br>
+				</div>
+			</div>
+			<c:if test="${status.last}">
+			<br><br>
+			</div>
+			</c:if>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<c:forEach items="${termsList}" var="terms" varStatus="status">
+			<c:if test="${status.first}">
+			<div class="join-wrap" style="padding: 0">
+			</c:if>
+			<h4>${terms.title}</h4>
+			<div class="Box" style="max-height:200px" tabindex="0" >
+				${terms.contents}
+			</div>
+			<div class="agree_codes" >
+				<div class="checkbox">
+					<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
+					<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
+				</div>
+			</div>
+			<c:if test="${status.last}">
+			<br><br>
+			</div>
+			</c:if>
+		</c:forEach>
+	</c:otherwise>
+</c:choose>
 
 <form:form modelAttribute="apply" id="mediaFactoryEdit" action="/${homepage.context_path}/module/mediaFactory/save.do" method="post" onsubmit="return false;">
 <div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
