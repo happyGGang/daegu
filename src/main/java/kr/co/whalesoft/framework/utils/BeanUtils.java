@@ -1,6 +1,11 @@
 package kr.co.whalesoft.framework.utils;
 
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+import kr.go.gbelib.app.cms.module.conversionExample.CommonBean;
+
 public class BeanUtils extends Object implements Cloneable{
 	
 	private String homepage_id;
@@ -108,5 +113,30 @@ public class BeanUtils extends Object implements Cloneable{
 
 	public void setSubHomepageId(String subHomepageId) {
 		this.subHomepageId = subHomepageId;
+	}
+
+	public static void putCommonBeanFieldsIntoMap(CommonBean commonBean, Map<String, Object> map) {
+		if (commonBean == null) {
+			return;
+		}
+
+		Class<?> currentClass = commonBean.getClass();
+		while (currentClass != null && !currentClass.equals(Object.class)) {
+			Field[] fields = currentClass.getDeclaredFields();
+
+			for (Field field : fields) {
+				field.setAccessible(true);
+				try {
+					Object fieldValue = field.get(commonBean);
+					if (fieldValue != null) {
+						map.put(field.getName(), fieldValue);
+					}
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+
+			currentClass = currentClass.getSuperclass();
+		}
 	}
 }

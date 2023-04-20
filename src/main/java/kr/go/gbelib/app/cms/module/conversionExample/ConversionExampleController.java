@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.whalesoft.framework.utils.BeanUtils;
+import kr.co.whalesoft.framework.utils.PagingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,10 +26,18 @@ public class ConversionExampleController extends BaseController {
 	private ConversionExampleService service;
 
 	@RequestMapping (value = { "/index.*" }, method = RequestMethod.GET)
-	public String index(Model model, HttpServletRequest request) throws AuthException {
-		List<Map<String, String>> list = service.getAllList();
-		
-		model.addAttribute("list", list);
+	public String index(Model model, HttpServletRequest request, Map<String,Object> commonMap, CommonBean commonBean) throws AuthException {
+//
+		commonBean = new CommonBean(commonMap);
+		BeanUtils.putCommonBeanFieldsIntoMap((CommonBean) commonMap.get("commonBean"), commonBean.getCommonMap());
+
+		commonBean.getCommonMap().put("conversion_idx", 1);
+
+		service.setPaging(model, service.totalTestCount(commonBean.getCommonMap()), commonBean);
+		List<Map<String, Object>> boardList = service.commonList(commonBean.getCommonMap());
+
+		model.addAttribute("CommonBean", commonBean);
+		model.addAttribute("boardList", boardList);
 		return basePath + "index";
 	}
 }
