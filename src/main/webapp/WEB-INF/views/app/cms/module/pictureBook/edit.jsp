@@ -203,7 +203,6 @@ function getNaverData(arg) {
 	        	<th>원화유형별</th>
 	        	<td>
 	        		<form:select path="category">
-	        			<form:option value="">원화유형별보기</form:option>
 	        			<form:option value="18">글 있음</form:option>
 	        			<form:option value="17">글 없음</form:option>
 	        		</form:select>
