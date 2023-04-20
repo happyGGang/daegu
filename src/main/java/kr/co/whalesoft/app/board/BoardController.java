@@ -803,8 +803,16 @@ public class BoardController extends BaseController {
 		SupportMember loginSupport = sessionLoginSupport(request);
 		boolean supportAdmin = false;
 		boolean supportAuth = false;
+		boolean isSiteAdmin = false;
+
+		try {
+			isSiteAdmin = (Boolean) model.asMap().get("authMBA");
+		} catch (Exception e) {
+			isSiteAdmin = false;
+		}
+
 		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281)) {
-			if ( loginSupport == null && !getSessionIsAdmin(request)) {
+			if ( loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin ) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
 	    		return null;
