@@ -3360,7 +3360,7 @@ public class CommonSearchController extends BaseController {
 				LibrarySearch l = new LibrarySearch();
 				l.setWorker("DSSUB01");
 				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-				String sdate = sf.format(DateUtils.addDays(new Date(), -10));
+				String sdate = sf.format(DateUtils.addDays(new Date(), -90));
 				l.setSearch_start_date(sdate + "000000");
 
 				//무인예약 기기 총 신청권수 제한
@@ -3384,6 +3384,7 @@ public class CommonSearchController extends BaseController {
 				LibrarySearch l2 = new LibrarySearch();
 				l2.setWorker("DSSUB01");
 				l2.setUserkey(librarySearch.getUserkey());
+				l2.setSearch_start_date(sdate + "000000");
 				Map<String, Object> unmannedLoanReserveListDalseolib = LibSearchAPI.getUnmannedLoanReserveList(l2, null);
 				int searchCountDalseolib = LibSearchAPI.getSearchCount(unmannedLoanReserveListDalseolib);
 				if (searchCountDalseolib >= 2) {
