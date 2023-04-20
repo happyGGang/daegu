@@ -179,7 +179,8 @@ $(function() {
 	<div class="agree_codes" >
 		<div class="checkbox">
 			<input id="terms${status.count}" name="agree_codes" type="checkbox" keyValue="${terms.title}" style="opacity: inherit;">
-			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의</label><br>
+			<label style="position: static !important;" for="terms${status.count}">${terms.title} 동의(<span style="color: red; font-weight: bold;">*</span>)</label><br>
+			(<span style="color: red; font-weight: bold;">*</span>) 필수 항목 입니다.
 		</div>
 	</div>
 	<c:if test="${status.last}">
