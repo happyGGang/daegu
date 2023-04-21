@@ -454,12 +454,12 @@ do {
 			<h4><img src="/resources/homepage/${homepage.context_path}/img/quick-title.png" alt="퀵메뉴"/></h4>
 			<ul>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=104"><span class="txt">이용안내</span></a></li>
+				<li><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="txt">대구학생<br/>전자도서관</span></a></li>
 				<li><a href="/${homepage.context_path}/elib.do?menu_idx=46"><span class="txt">전자도서관</span></a></li>
 				<!--li><a href="#"><span class="txt">디지털자료실<br/>좌석예약</span></a></li-->
 				<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=58"><span class="txt">영화상영</span></a></li>
 				<li><a href="/${homepage.context_path}/html.do?menu_idx=26"><span class="txt">희망도서신청</span></a></li>
 				<li><a href="http://www.youth.go.kr" target="_blank"><span class="txt">청소년<br/>자원봉사신청</span></a></li>
-				<li><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="txt">대구학생<br/>전자도서관</span></a></li>
 			</ul>
 		</div>
         <!--//퀵메뉴-->
