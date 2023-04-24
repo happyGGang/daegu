@@ -64,9 +64,9 @@ $(function(){
 	<%--견학신청--%>
 	$('a#apply').on('click', function(event) {
 		if($('#pageType').val() == 'ajax') {
-			$('#tabCon2').load('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val()+'&homepage_id=' + $('input#homepage_id_1').val());
+			$('#tabCon2').load('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&date_type=' + $(this).attr('keyValue3') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val()+'&homepage_id=' + $('input#homepage_id_1').val());
 		} else {
-			doGetLoad('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() + '&date_type=' + $('#date_type').val()+'&homepage_id=' + $('input#homepage_id_1').val());
+			doGetLoad('/${homepage.context_path}/module/excursions/edit.do', 'editMode=ADD&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&date_type=' + $(this).attr('keyValue3') + '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val() +'&homepage_id=' + $('input#homepage_id_1').val());
 		}
 
 		event.preventDefault();

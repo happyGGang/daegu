@@ -121,10 +121,10 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}
@@ -159,10 +159,10 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 					if (flag) {
 						if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 							} else {
 								if (maxApplyCount > curApplyCount) {
-									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
 									sb.append("<a href=\"#\">신청 정원 마감</a>");
 								}

@@ -8,7 +8,8 @@
 		agency_address, applicant_name, applicant_tel, applicant_email, age,
 		guide_name, guide_tel, start_date, start_time, end_date,
 		end_time, personnel, apply_state, ip, remarks,
-		add_id, add_date, apply_id, applicant_member_id, self_info_yn
+		add_id, add_date, apply_id, applicant_member_id, self_info_yn,
+		date_type
 	</sql>
 
 	<!-- 견학신청자 list -->
@@ -22,6 +23,9 @@
 		<if test="plan_date != null and plan_date != ''">
 		AND	start_date <![CDATA[>=]]> #{plan_date}
 		AND	end_date <![CDATA[<=]]> #{plan_date}
+		</if>
+		<if test="date_type != null and date_type != ''">
+		AND date_type = #{date_type}
 		</if>
 	</select>
 
@@ -85,7 +89,8 @@
 			#{agency_address}, #{applicant_name}, #{applicant_tel}, #{applicant_email}, #{age},
 			#{guide_name}, #{guide_tel}, #{start_date}, #{start_time}, #{start_date},
 			#{end_time}, #{personnel}, '1', #{ip}, #{remarks},
-			#{add_id}, SYSDATE, #{apply_id}, #{applicant_member_id}, #{self_info_yn}
+			#{add_id}, SYSDATE, #{apply_id}, #{applicant_member_id}, #{self_info_yn},
+			#{date_type}
 		)
 	</insert>
 

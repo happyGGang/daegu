@@ -63,7 +63,7 @@ $(function(){
 
 	<%--견학신청--%>
 	$('a#apply').on('click', function(event) {
-		$('#dialog-2').load('/cms/module/excursions/apply/edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
+		$('#dialog-2').load('/cms/module/excursions/apply/edit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&date_type=' + $(this).attr('keyValue3'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
 
@@ -72,7 +72,7 @@ $(function(){
 
 	<%--신청자확인--%>
 	$('a#check_apply').on('click', function(event) {
-		$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
+		$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('keyValue2') + '&date_type=' + $(this).attr('keyValue3'), function( response, status, xhr ) {
 			$('#dialog-3').dialog('open');
 		});
 

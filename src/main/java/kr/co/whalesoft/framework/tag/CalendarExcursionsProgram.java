@@ -46,7 +46,7 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 						sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
 						if (excursions.getApply_yn().equals("Y")) {
 							if (calendarDay >= to_day) {
-								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
+								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
 							} else {
 								sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 							}
@@ -54,7 +54,7 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 							sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 						}
 						if (plan_date.equals(excursions.getStart_date())) {
-							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + excursions.getExcursions_idx() + "\" id=\"check_apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + excursions.getApply_count() + ")</span></a>");
+							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + excursions.getExcursions_idx() + "\" id=\"check_apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + excursions.getApply_count() + ")</span></a>");
 						}
 						sb.append("<ul class=\"schedule\">");
 						sb.append("</ul>");
@@ -66,7 +66,7 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 					sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
 					if (excursions.getApply_yn().equals("Y")) {
 						if (calendarDay >= to_day) {
-							sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
+							sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
 						} else {
 							sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 						}
@@ -74,7 +74,7 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 						sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 					}
 					if (plan_date.equals(excursions.getStart_date())) {
-						sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + excursions.getExcursions_idx() + "\" id=\"check_apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + excursions.getApply_count() + ")</span></a>");
+						sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + excursions.getExcursions_idx() + "\" id=\"check_apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + excursions.getApply_count() + ")</span></a>");
 					}
 					sb.append("<ul class=\"schedule\">");
 					sb.append("</ul>");
@@ -86,7 +86,7 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 						sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
 						if (excursions.getApply_yn().equals("Y")) {
 							if (calendarDay >= to_day) {
-								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
+								sb.append("<a href=\"#\" class=\"btn btn4\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청하기</span></a><br>");
 							} else {
 								sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 							}
@@ -94,7 +94,7 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 							sb.append("<a href=\"#\" class=\"btn btn5\"><span style=\"margin-left : 5px; font-size:13px;\">신청불가</span></a><br>");
 						}
 						if (plan_date.equals(excursions.getStart_date())) {
-							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + excursions.getExcursions_idx() + "\" id=\"check_apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + excursions.getApply_count() + ")</span></a>");
+							sb.append("<a href=\"#\" class=\"btn btn1 check_apply_" + excursions.getExcursions_idx() + "\" id=\"check_apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + excursions.getStart_date() + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"margin-left : 5px; font-size:13px;\">신청자확인(" + excursions.getApply_count() + ")</span></a>");
 						}
 
 						sb.append("<ul class=\"schedule\">");
