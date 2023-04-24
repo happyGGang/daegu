@@ -70,6 +70,44 @@ $(function() {
 					</c:choose>
 				}
 			},{
+				text: "당첨자 재추첨",
+				"class": 'btn btn4',
+				click: function() {
+					<c:choose>
+					<c:when test="${quiz.re_select_cnt eq 0}">
+					if(confirm('당첨자 재추첨을 시작합니다.\n\n무작위 순서로 정답자 중에서 당첨자로 선정되지 않으신 분에 한해서 재 추첨을 시작합니다. 또한 해당 퀴즈의 문항 정보(보기 및 정답)를 수정할 수 없게 됩니다.\n\n계속 하시겠습니까?')) {
+						var winnerCount = parseInt('${reWinnerCount}');
+						
+						if(winnerCount == 0) {
+							alert('정답자가 없습니다. 재추첨을 중단합니다.');
+							return;
+						}
+						
+						var max = parseInt(prompt('재추첨할 당첨자 인원을 입력해주세요. (당첨자 제외 정답자 인원: ${reWinnerCount}명)')) || -1;
+						
+						if(max == -1) {
+							alert('숫자(양의 정수)를 입력해주세요.');
+							return;
+						} else if(max == 0 || max > winnerCount) {
+							alert('1 ~ ' + winnerCount + ' 내 숫자를 입력해주세요.');
+							return;
+						}
+						
+						$('#re_shuffleForm_max').val(max);
+						
+						if(doAjaxPost($('#reShuffleForm'))) {
+							$('#dialog-3').load('reqList.do?homepage_id=${quiz.homepage_id}&quiz_idx=${quiz.quiz_idx}', function( response, status, xhr ) {
+								$('#dialog-3').dialog('open');
+							});
+						}
+					}
+					</c:when>
+					<c:otherwise>
+					alert('이미 당첨자 재추첨이 완료됐습니다. 당첨자를 변경할 수 없습니다.');
+					</c:otherwise>
+					</c:choose>
+				}
+			},{
 				text: "엑셀저장",
 				"class": 'btn btn2',
 				click: function() {		
@@ -137,6 +175,13 @@ $(function() {
 	<form:hidden path="quiz_idx" id="shuffleForm_quiz_idx"/>
 	<form:hidden path="quiz_req_idx" id="shuffleForm_quiz_req_idx"/>
 	<input type="hidden" name="max" id="shuffleForm_max" value="0">
+</form:form>
+
+<form:form id="reShuffleForm" modelAttribute="quizReq" action="reShuffle.do">
+	<form:hidden path="homepage_id" id="shuffleForm_homepage_id"/>
+	<form:hidden path="quiz_idx" id="shuffleForm_quiz_idx"/>
+	<form:hidden path="quiz_req_idx" id="shuffleForm_quiz_req_idx"/>
+	<input type="hidden" name="max" id="re_shuffleForm_max" value="0">
 </form:form>
 
 <form:form id="deletePersonalDataForm" modelAttribute="quizReq" action="deletePersonalData.do">

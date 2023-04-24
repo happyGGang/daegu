@@ -9,6 +9,8 @@ public interface QuizReqDao  {
 	public List<QuizReq> getQuizReqListAll(QuizReq quizReq);
 	
 	public List<QuizReq> getShuffledQuizReqList(QuizReq quizReq);
+
+	public List<QuizReq> getReShuffledQuizReqList(QuizReq quizReq);
 	
 	public int getQuizReqListCount(QuizReq quizReq);
 	
@@ -25,4 +27,6 @@ public interface QuizReqDao  {
 	public int checkReqByMemberId(QuizReq quizReq);
 	
 	public int deletePersonalData(QuizReq quizReq);
+
+	public List<QuizReq> getReQuizReqListAll(QuizReq quizReq);
 }

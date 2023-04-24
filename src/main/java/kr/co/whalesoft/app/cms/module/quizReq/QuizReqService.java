@@ -79,12 +79,63 @@ public class QuizReqService extends BaseService {
 		return quizReqList;
 	}
 	
+	public List<QuizReq> getReWinnerCheckedList(List<QuizReq> quizReqList, List<QuizQuestion> quizQuestionList) {
+		for ( QuizReq org : quizReqList ) {
+			String winnerYn = "Y";
+			int quizQuestionListSize = quizQuestionList.size();
+			
+			if ( StringUtils.isEmpty(org.getQuiz_answer()) ) {
+				winnerYn = "N";
+			} else {
+				String[] answerList = org.getQuiz_answer().split("\\|");
+				int answerListSize = answerList.length;
+				
+				for(int j=0; j < quizQuestionListSize; j++) {
+					if(j >= answerListSize) {
+						winnerYn = "N";
+						break;
+					}
+					
+					String answer = StringUtils.deleteWhitespace(answerList[j]);
+					QuizQuestion quizQuestion = quizQuestionList.get(j);
+					String quiz_question_answer = StringUtils.deleteWhitespace(quizQuestion.getQuiz_question_answer());
+					
+					if(StringUtils.isEmpty(quiz_question_answer) || StringUtils.isEmpty(answer)) {
+						winnerYn = "N";
+					} else if(!StringUtils.equals(quiz_question_answer, answer)) {
+						winnerYn = "N";
+					}
+				}
+			}
+			
+			org.setWinner_yn(winnerYn);
+		}
+		
+		return quizReqList;
+	}
+	
 	public int getQuizReqWinnerListCount(QuizReq quizReq) {
 		int winnerCount = 0;
 		List<QuizReq> quizReqList = quizReqDao.getQuizReqListAll(quizReq);
 		List<QuizQuestion> quizQuestionList = quizQuestionService.getQuizQuestionList(new QuizQuestion(quizReq.getHomepage_id(), quizReq.getQuiz_idx()));
 
 		quizReqList = getWinnerCheckedList(quizReqList, quizQuestionList);
+		
+		for(QuizReq org: quizReqList) {
+			if("Y".equals(org.getWinner_yn())) {
+				winnerCount++;
+			}
+		}
+		
+		return winnerCount;
+	}
+	
+	public int getQuizReqReWinnerListCount(QuizReq quizReq) {
+		int winnerCount = 0;
+		List<QuizReq> quizReqList = quizReqDao.getReQuizReqListAll(quizReq);
+		List<QuizQuestion> quizQuestionList = quizQuestionService.getQuizQuestionList(new QuizQuestion(quizReq.getHomepage_id(), quizReq.getQuiz_idx()));
+
+		quizReqList = getReWinnerCheckedList(quizReqList, quizQuestionList);
 		
 		for(QuizReq org: quizReqList) {
 			if("Y".equals(org.getWinner_yn())) {
@@ -122,6 +173,33 @@ public class QuizReqService extends BaseService {
 		return result;
 	}
 	
+	@Transactional
+	public int reUpdateChosenYn(int max, QuizReq quizReq) {
+		int result = 0;
+		List<QuizReq> quizReqList = quizReqDao.getReShuffledQuizReqList(quizReq);
+		List<QuizQuestion> quizQuestionList = quizQuestionService.getQuizQuestionList(new QuizQuestion(quizReq.getHomepage_id(), quizReq.getQuiz_idx()));
+
+		quizReqList = getReWinnerCheckedList(quizReqList, quizQuestionList);
+		
+		for(QuizReq org: quizReqList) {
+			if(result >= max) {
+				break;
+			}
+			
+			if("Y".equals(org.getWinner_yn())) {
+				org.setChosen_yn("Y");
+				result += quizReqDao.modifyChosenYn(org);
+			}
+		}
+		
+		Quiz quiz = new Quiz();
+		quiz.setHomepage_id(quizReq.getHomepage_id());
+		quiz.setQuiz_idx(quizReq.getQuiz_idx());
+		quizService.increaseReSelectCnt(quiz);
+		
+		return result;
+	}
+	
 	public int modifyChosenYn(QuizReq quizReq) {
 		return quizReqDao.modifyChosenYn(quizReq);
 	}
@@ -146,5 +224,5 @@ public class QuizReqService extends BaseService {
 	public int deletePersonalData(QuizReq quizReq) {
 		return quizReqDao.deletePersonalData(quizReq);
 	}
-	
+
 }

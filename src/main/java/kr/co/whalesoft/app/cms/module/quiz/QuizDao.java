@@ -27,5 +27,7 @@ public interface QuizDao  {
 	public int getQuizCntOfValidDate(QuizReq quizReq);
 	
 	public int increaseSelectCnt(Quiz quiz);
+
+	public int increaseReSelectCnt(Quiz quiz);
 	
 }

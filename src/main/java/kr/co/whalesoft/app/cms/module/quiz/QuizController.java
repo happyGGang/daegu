@@ -220,6 +220,7 @@ public class QuizController extends BaseController {
 
 		int count = quizReqService.getQuizReqListCount(quizReq);
 		int winnerCount = quizReqService.getQuizReqWinnerListCount(quizReq);
+		int reWinnerCount = quizReqService.getQuizReqReWinnerListCount(quizReq);
 		
 		quizReqService.setPaging(model, count, quizReq);
 		
@@ -233,6 +234,7 @@ public class QuizController extends BaseController {
 		model.addAttribute("quizReq", quizReq);
 		model.addAttribute("quizReqCount", count);
 		model.addAttribute("winnerCount", winnerCount);
+		model.addAttribute("reWinnerCount", reWinnerCount);
 		model.addAttribute("quizReqList", quizReqList);
 		
 		return basePath + "reqList_ajax";
@@ -262,6 +264,22 @@ public class QuizController extends BaseController {
 			quizReqService.updateChosenYn(max, quizReq);
 			res.setValid(true);
 			res.setMessage("당첨자 선정이 완료됐습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		
+		return res;
+	}
+	
+	@RequestMapping(value = {"/reShuffle.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse reShuffle(Model model, @RequestParam(defaultValue = "0") int max, QuizReq quizReq, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+		
+		if ( !result.hasErrors() ) {
+			quizReqService.reUpdateChosenYn(max, quizReq);
+			res.setValid(true);
+			res.setMessage("당첨자 재 추첨이 완료됐습니다.");
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());

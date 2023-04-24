@@ -59,5 +59,9 @@ public class QuizService extends BaseService {
 	public int increaseSelectCnt(Quiz quiz) {
 		return dao.increaseSelectCnt(quiz);
 	}
+
+	public int increaseReSelectCnt(Quiz quiz) {
+		return dao.increaseReSelectCnt(quiz);
+	}
 	
 }
