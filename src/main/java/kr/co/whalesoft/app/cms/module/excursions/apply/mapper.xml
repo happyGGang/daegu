@@ -25,7 +25,7 @@
 		AND	end_date <![CDATA[<=]]> #{plan_date}
 		</if>
 		<if test="date_type != null and date_type != ''">
-		AND date_type = #{date_type}
+		AND (date_type = #{date_type} or date_type IS null)
 		</if>
 	</select>
 
