@@ -132,15 +132,26 @@ $(function() {
 
 </script>
 <style>
-input[type="checkbox"]:focus {outline: 1px solid red;}
-.title-info {position: relative;border: 2px solid #d2dfe8;padding: 28px;margin-bottom: 30px;}
-.title-info h3 {display: inline-block;font-weight: bold;color: #e94949;padding: 10px 120px;background: url(/resources/common/img/icon0105.gif) no-repeat;min-height: 100px;}
-.title-info ul {position: absolute;top: 80px; left: 145px;}
-.title-info ul li {font-size: 14px;color: #222;margin-left: 20px;margin-bottom: 6px;list-style-type: disc;}
+	input[type="checkbox"]:focus {outline: 1px solid red;}
+	.title-info {position: relative;border: 2px solid #d2dfe8;padding: 28px;margin-bottom: 30px;}
+	.title-info h3 {display: inline-block;font-weight: bold;color: #e94949;padding: 10px 0 0 120px;background: url(/resources/common/img/icon0105.gif) no-repeat;min-height: 150px;}
+	.title-info ul {position: absolute;top: 80px; left: 145px;}
+	.title-info ul li {font-size: 14px;color: #222;margin-left: 20px;margin-bottom: 6px;list-style-type: disc;}
+	
+	@media all and (max-width:920px){
+		.title-info h3{min-height:200px;}
+	}
+	
+	@media all and (max-width:540px){
+		.title-info h3{background:none;padding:10px;}
+		.title-info ul {left: 30px;}
+	}
 </style>
 <div class="title-info">
 	<h3>꼭 읽어주세요!</h3>
 	<ul>
+		<li style="font-weight:bold;color:blue;">많은 학교가 이용 할 수 있도록, 필요한 기간만큼만 대출기간을 설정해주세요.</li>
+		<li style="font-weight:bold;color:blue;">반납일자가 남았더라도, 활동이 끝나면 반납요청이 가능하니 일찍 반납해주세요.</li>
 		<li>대출 기간은 배송 기간 포함입니다.</li>
 		<li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
 		<!-- <li>원화는 액자에 부착되어 있습니다. 원화 전시 중 학생들의 안전에 더욱 신경 써주십시오.</li> -->

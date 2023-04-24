@@ -220,9 +220,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 					<td>${i.pay_yn eq 'Y' ? '무료' : '무료'}</td>
 					<td>
 						<c:choose>
-							<c:when test="${i.request_status eq '7'}"><span class="status status6">예약완료</span></c:when>
+							<c:when test="${i.request_status eq '7'}"><span class="status status6" style="background:#007e52;">예약완료</span></c:when>
 							<c:when test="${i.request_status eq '1'}"><span class="status status2">신청완료</span></c:when>
-							<c:when test="${i.request_status eq '2'}"><span class="status status2">대출중</span></c:when>
+							<c:when test="${i.request_status eq '2'}"><span class="status status2" style="background:#0061ac;">대출중</span></c:when>
 							<c:when test="${i.request_status eq '3'}"><span class="status status3">반납신청</span></c:when>
 							<c:when test="${i.request_status eq '4'}"><span class="status status1">반납요청완료</span></c:when>
 							<c:when test="${i.request_status eq '5'}"><span class="status status4">반납완료</span></c:when>
