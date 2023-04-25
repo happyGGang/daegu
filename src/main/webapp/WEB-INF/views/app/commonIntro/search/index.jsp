@@ -386,6 +386,33 @@ function isFromFridayToSunday() {
 	<c:if test="${homepage.context_path eq 'bukgs' and param.menu_idx eq '83'}">
 	<form:hidden path="shelfCode"/>
 	</c:if>
+	<c:if test="${homepage.context_path eq '228' and param.menu_idx eq '249'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="BBT,BBU,BCE,BCF,BCG,BCH,BCJ,BCK,BCM,BCN,BCY,BCZ,BDD,BDE,BDG,BDH,BDK,BDL,BDM,BDN">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'jungang' and param.menu_idx eq '223'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="BJQ,BJP,BJD,BJE,BHQ,BHR,BJY,BJZ,BKB,BKF,BKC,BKE,BIA,BIB,BJW,BJV,BHS,BHU,BHT,BHV,BHX,BGW,BGY,BGQ,BGX,BJS,BJU,BJK,BJL">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'dongbu' and param.menu_idx eq '200'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="AHD,AHE,AJB,AGN,AHN,AJE,AGK,AHC,AHP,AJD,AGR,AHY,AGM,AHB,AHW,AJA">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'seobu' and param.menu_idx eq '216'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="AZU,AZV,AZW,AZX,AZY,AZZ,BAA,BAB,BAC,BAD,BAE,BAF,BAG,BAH,BAJ,BAK,BAL,BAM,AZQ,AZR">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'nambu' and param.menu_idx eq '221'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="ATV,ATW,ATD,ATE,ATM,ATJ,ATG,ATH,AUE,AUF,AUJ,AUK,AUL,AUC,AUB,ASR,ASS,ASQ,ASV,ASU,ASW,ASE,ASF,ARX,ASY,ASZ,ATY,AUA,AUN,AUP,ATS,ATT">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'bukbu' and param.menu_idx eq '192'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="AAC,AAD,AAL,AAM,AAN,AAP,AAT,AAU,AAW,AAY,ABC,ABD,ABK,ABL,ABM,ABN,ABQ,ABR,ABT,ABU">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'duryu' and param.menu_idx eq '192'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="AKK,AKL,ALS,ALR,AMY,AMZ,AKV,AKU,ALF,ALG,AQG,AQH,AKX,ALK">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'suseong' and param.menu_idx eq '188'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="AFH,AFJ,ACY,ACZ,ADK,ADL,ADM,AND,ADP,ADT,ADU,AEB,AEC,AEG,AEH,AEN,AEP,AES,AET,AEY,AEZ,AFA,AFB,AFD,AFE">
+	</c:if>
+	<c:if test="${homepage.context_path eq 'dalseong' and param.menu_idx eq '144'}">
+		<input type="hidden" id="separateShelfCode" name="separateShelfCode" value="AVK,AVL,AVT,AVU,AVV,AVW,AVY,AVZ,AWD,AWE,AWG,AWH,AWJ,AWK,AWM,AWN,AWP,AWQ">
+	</c:if>
 	<form:hidden path="facet_manage_code"/>
 	<form:hidden path="facet_author"/>
 	<form:hidden path="facet_publisher"/>
