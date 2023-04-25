@@ -494,7 +494,7 @@
                                 --%>
 							</c:if>
 							<c:if test="${lending.menu == 'RESERVE'}">
-								<span><a href="#" class="btn btn4 book_cancel" data-book_idx="${i.book_idx}" data-reserve_idx="${i.lend_idx}" data-type="${i.type}">예약취소</a></span>
+								<span><a href="#" class="btn btn4 book_cancel" data-book_idx="${i.book_idx}" data-reserve_idx="${i.reserve_idx}" data-type="${i.type}">예약취소</a></span>
 							</c:if>
 							<c:if test="${lending.menu == 'MYSTUDY'}">
 								<%-- <c:choose>
