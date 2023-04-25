@@ -25,7 +25,6 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven> -->
-	<mvc:annotation-driven />
 
 	<mvc:default-servlet-handler />
 
@@ -68,6 +67,12 @@
 			<property name="useCacheControlNoStore" value="true"/>
 		</bean>
 	</mvc:interceptors>
+
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<bean class="kr.co.whalesoft.framework.resolver.CustomArgumentResolver"></bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
 
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 

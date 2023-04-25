@@ -8,7 +8,7 @@
 $(function(){
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${bookOfYear.homepage_id}', function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${boy.homepage_id}', function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
@@ -16,7 +16,7 @@ $(function(){
 	});
 
 	$('a.dialog-modify').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${bookOfYear.homepage_id}&selection_year=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${boy.homepage_id}&selection_year=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
@@ -54,9 +54,9 @@ $(function(){
 </script>
 
 <form:form modelAttribute="boy" method="POST" action="save.do" onsubmit="return false;">
-<form:hidden id="editMode_1" path="editMode"/>
-<form:hidden id="selection_year_1" path="selection_year"/>
-<form:hidden id="homepage_id_1" path="homepage_id"/>
+<input type="hidden" id="editMode_1" name="editMode" value="${boy.editMode}"/>
+<input type="hidden" id="selection_year_1" name="selection_year" value="${boy.selection_year}"/>
+<input type="hidden" id="homepage_id_1" name="homepage_id" value="${boy.homepage_id}"/>
 <div id="editDisable" class="disableBox">
 	<div class="infodesk">
 		검색 결과 : ${fn:length(boyList)}건

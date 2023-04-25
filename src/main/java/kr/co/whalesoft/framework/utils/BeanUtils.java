@@ -1,7 +1,12 @@
 package kr.co.whalesoft.framework.utils;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BeanUtils extends Object implements Cloneable{
+
+	protected final Map<String, Object> map = new HashMap<>();
 	
 	private String homepage_id;
 	private String subHomepageId;

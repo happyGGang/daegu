@@ -4,6 +4,7 @@
 package kr.go.gbelib.app.cms.module.bookOfYear;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class BookOfYearService extends BaseService {
 	 * @param boy
 	 * @return
 	 */
-	public int getBookOfYearCount(BookOfYear boy) {
+	public int getBookOfYearCount(Map boy) {
 		return dao.getBookOfYearCount(boy);
 	}
 
@@ -35,7 +36,7 @@ public class BookOfYearService extends BaseService {
 	 * @param boy
 	 * @return
 	 */
-	public List<BookOfYear> getBookOfYearList(BookOfYear boy) {
+	public List<BookOfYear> getBookOfYearList(Map boy) {
 		return dao.getBookOfYearList(boy);
 	}
 
@@ -44,7 +45,7 @@ public class BookOfYearService extends BaseService {
 	 * @param boy
 	 * @return
 	 */
-	public BookOfYear getBookOfYearOne(BookOfYear boy) {
+	public BookOfYear getBookOfYearOne(Map boy) {
 		return dao.getBookOfYearOne(boy);
 	}
 
@@ -52,7 +53,7 @@ public class BookOfYearService extends BaseService {
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 */
-	public int addBookOfYear(BookOfYear boy) {
+	public int addBookOfYear(Map boy) {
 		return dao.addBookOfYear(boy);
 	}
 
@@ -60,7 +61,7 @@ public class BookOfYearService extends BaseService {
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 */
-	public int modifyBookOfYear(BookOfYear boy) {
+	public int modifyBookOfYear(Map boy) {
 		return dao.modifyBookOfYear(boy);
 	}
 
@@ -68,7 +69,7 @@ public class BookOfYearService extends BaseService {
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 */
-	public int deleteBookOfYear(BookOfYear boy) {
+	public int deleteBookOfYear(Map boy) {
 		return dao.deleteBookOfYear(boy);
 	}
 }

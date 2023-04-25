@@ -4,6 +4,7 @@
 package kr.go.gbelib.app.cms.module.bookOfYear;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author whaleesoft YONGJU 2020. 2. 12.
@@ -16,41 +17,41 @@ public interface BookOfYearDao {
 	 * @param boy
 	 * @return
 	 */
-	public int getBookOfYearCount(BookOfYear boy);
+	public int getBookOfYearCount(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 * @return
 	 */
-	public List<BookOfYear> getBookOfYearList(BookOfYear boy);
+	public List<BookOfYear> getBookOfYearList(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 * @return
 	 */
-	public BookOfYear getBookOfYearOne(BookOfYear boy);
+	public BookOfYear getBookOfYearOne(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 * @return
 	 */
-	public int addBookOfYear(BookOfYear boy);
+	public int addBookOfYear(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 * @return
 	 */
-	public int modifyBookOfYear(BookOfYear boy);
+	public int modifyBookOfYear(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 * @return
 	 */
-	public int deleteBookOfYear(BookOfYear boy);
+	public int deleteBookOfYear(Map boy);
 
 }
