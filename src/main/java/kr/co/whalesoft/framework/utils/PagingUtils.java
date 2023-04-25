@@ -262,6 +262,8 @@ public class PagingUtils extends BeanUtils {
 	public void setTotalDataCount(int totalDataCount) {
 		this.totalDataCount = totalDataCount;
 		pagingLogic();
+		map.put("pagingTop", getPagingTop());
+		map.put("pagingBottom", getPagingBottom());
 	}
 
 	public int getStartPageNum() {

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYearDao">
 
-	<select id="getBookOfYearCount" resultType="int">
+	<select id="getBookOfYearCount" parameterType="map" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
@@ -14,7 +14,7 @@
 		</if>
 	</select>
 
-	<select id="getBookOfYearList" resultType="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear">
+	<select id="getBookOfYearList" parameterType="map" resultType="map">
 		SELECT
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
@@ -30,7 +30,7 @@
 			selection_year DESC
 	</select>
 
-	<select id="getBookOfYearOne" resultType="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear">
+	<select id="getBookOfYearOne" parameterType="map" resultType="map">
 		SELECT
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
@@ -42,7 +42,7 @@
 		AND	selection_year = #{selection_year}
 	</select>
 
-	<insert id="addBookOfYear">
+	<insert id="addBookOfYear" parameterType="map">
 		INSERT INTO
 			BOOK_OF_YEAR
 		(
@@ -59,7 +59,7 @@
 
 	</insert>
 
-	<update id="modifyBookOfYear">
+	<update id="modifyBookOfYear" parameterType="map">
 		UPDATE
 			BOOK_OF_YEAR
 		SET
@@ -80,7 +80,7 @@
 		AND	selection_year = #{selection_year}
 	</update>
 
-	<update id="deleteBookOfYear">
+	<update id="deleteBookOfYear" parameterType="map">
 		DELETE FROM
 			BOOK_OF_YEAR
 		WHERE

@@ -66,8 +66,8 @@ function getLasData(arg) {
 
 </script>
 <form:form modelAttribute="bookOfYear" action="save.do" method="POST" onsubmit="return false;">
-<form:hidden path="editMode"/>
-<form:hidden path="homepage_id"/>
+	<input type="hidden" id="editMode" name="editMode" value="${bookOfYear.editMode}">
+	<input type="hidden" id="homepage_id" name="homepage_id" value="${bookOfYear.homepage_id}">
 <table class="type2">
 	<colgroup>
 		<col width="130"/>
@@ -78,66 +78,65 @@ function getLasData(arg) {
 			<th>선정년도(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
 				<c:choose>
-				<c:when test="${bookOfYear.editMode eq 'ADD'}">
-				<form:input path="selection_year" cssClass="text" maxlength="4" cssStyle="width:10%;"/>
-				<div class="ui-state-highlight">
-					<i class="fa fa-question-circle"></i><em>* 숫자 4자리만 입력. 등록 후 수정 불가합니다.(수정 필요시 삭제 후 재 등록)</em>
-				</div>
-				</c:when>
-				<c:otherwise>
-				${bookOfYear.selection_year}
-				<form:hidden path="selection_year" cssClass="text"/>
-				</c:otherwise>
+					<c:when test="${bookOfYear.editMode eq 'ADD'}">
+						<input type="text" class="text" id="selection_year" name="selection_year" value="${bookOfYear.selection_year}">
+						<div class="ui-state-highlight">
+							<i class="fa fa-question-circle"></i><em>* 숫자 4자리만 입력. 등록 후 수정 불가합니다.(수정 필요시 삭제 후 재 등록)</em>
+						</div>
+					</c:when>
+					<c:otherwise>
+						${bookOfYear.selection_year}
+						<in	put type="hidden" id="selection_year" name="selection_year" class="text" value="${bookOfYear.selection_year}">
+					</c:otherwise>
 				</c:choose>
 			</td>
 		</tr>
 		<tr>
 			<th>도서명(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:input path="book_name" cssClass="text" cssStyle="width:75%;" />
+				<input type="text" class="text" id="book_name" name="book_name" style="width:75%;" value="${bookOfYear.book_name}">
 				<a href="#" class="btn btn2" id="getIlus"><i class="fa fa-plus"></i><span>도서검색</span></a>
 			</td>
 		</tr>
 		<tr>
 			<th>저자</th>
 			<td>
-				<form:input path="book_author" cssClass="text" cssStyle="width:98%;" />
+				<input type="text" class="text" style="width:98%;" id="book_author" name="book_author" value="${bookOfYear.book_author}">
 			</td>
 		</tr>
 		<tr>
 			<th>출판사</th>
 			<td>
-				<form:input path="book_publisher" cssClass="text" cssStyle="width:98%;" />
+				<input type="text" class="text" style="width:98%;" id="book_publisher" name="book_publisher" value="${bookOfYear.book_publisher}">
 			</td>
 		</tr>
 		<tr>
 			<th>출판년도</th>
 			<td>
-				<form:input path="book_year" cssClass="text" maxlength="4" />
+				<input type="text" class="text" id="book_year" name="book_year" maxlength="4" value="${bookOfYear.book_year}">
 			</td>
 		</tr>
 		<tr>
 			<th>등록번호</th>
 			<td>
-				<form:input path="book_regno" cssClass="text" />
+				<input type="text" class="text" id="book_regno" name="book_regno" value="${bookOfYear.book_regno}">
 			</td>
 		</tr>
 		<tr>
 			<th>ISBN</th>
-			<td>
-				<form:input path="book_isbn" cssClass="text" />
+			<td><input type="text" class="text" id="book_isbn" name="book_isbn" value="${bookOfYear.book_isbn}">
 			</td>
 		</tr>
 		<tr>
 			<th>도서이미지</th>
 			<td>
-				<form:input path="book_img_url" cssClass="text" cssStyle="width:98%;"/>
+				<input type="text" class="text" style="width:98%;" id="book_img_url" name="book_img_url" value="${bookOfYear.book_img_url}">
 			</td>
 		</tr>
 		<tr>
 			<th>도서내용</th>
 			<td>
-				<form:textarea path="book_content" cssStyle="width:98%;" rows="10"/>
+				<textarea class="text" style="width:98%;" rows="10" id="book_content" name="book_content">${bookOfYear.book_content}</textarea>
 			</td>
 		</tr>
 	</tbody>
