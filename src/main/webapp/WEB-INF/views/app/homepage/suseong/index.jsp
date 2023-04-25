@@ -390,12 +390,36 @@ do {
 			<div class="right-section">
 				<div class="right-quick-section">
 					<ul>
-						<li><a href="http://library.daegu.go.kr/suseong/html.do?menu_idx=104" class="quick-05"><span class="txt"><p>이용안내</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="이용안내" class='go-bg'></a></li>
-						<li><a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="quick-01"><span class="txt"><p>수강신청</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="수강신청" class='go-bg'></a></li>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=56" class="quick-03"><span class="txt"><p>독서문화행사</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="독서문화행사" class='go-bg'></a></li>
-						<li><a href="/${homepage.context_path}/html.do?menu_idx=123" class="quick-04"><span class="txt"><p>시각장애인실</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="시각장애인실" class='go-bg'></a></li>
-						<li><a href="https://seat.daegu.go.kr/wb_booking/?LIB_CODE=10" class="quick-02"><span class="txt"><p>디지털정보존 좌석예약</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="디지털정보존좌석예약" class='go-bg'></a></li>
-						<!--<li><a href="http://library.daegu.go.kr/suseong/elib.do?menu_idx=46" class="quick-06"><span class="txt"><p>대구전자도서관</p></span><img src="/resources/homepage/${homepage.context_path}/img/quick-arrow.png" alt="대구전자도서관" class='go-bg'></a></li>-->
+						<li class="quick-01">
+							<a href="http://library.daegu.go.kr/suseong/html.do?menu_idx=104">
+								<span class="txt">이용안내</span>
+							</a>
+						</li>
+						<li class="quick-02">
+							<a href="/${homepage.context_path}/html.do?menu_idx=123">
+								<span class="txt">시각장애인실</span>
+							</a>
+						</li>
+						<li class="quick-03">
+							<a href="/${homepage.context_path}/html.do?menu_idx=56">
+								<span class="txt">독서문화행사</span>
+							</a>
+						</li>
+						<li class="quick-04">
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
+								<span class="txt">수강신청</span>
+							</a>
+						</li>
+						<li class="quick-05">
+							<a href="https://seat.daegu.go.kr/wb_booking/?LIB_CODE=10" target="_blank">
+								<span class="txt">디지털정보존<br class="quickBr" />좌석예약</span>
+							</a>
+						</li>
+						<li class="quick-06">
+							<a href="https://dgelib.dkyobobook.co.kr/main.ink" target="_blank">
+								<span class="txt">학생<br class="quickBr" />전자도서관</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 
