@@ -4,19 +4,19 @@
 package kr.go.gbelib.app.cms.module.bookOfYear;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.base.CommonBean;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.co.whalesoft.framework.utils.ValidationUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author whaleesoft YONGJU 2020. 2. 12.
@@ -35,9 +35,10 @@ public class BookOfYearController extends BaseController {
 	private HomepageService homepageService;
 
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
-	public String index(Model model, BookOfYear boy, HttpServletRequest request, @PathVariable ("url") String url) throws AuthException {
+	public String index(Model model, CommonBean boy, HttpServletRequest request, @PathVariable ("url") String url) throws AuthException {
 		checkAuth("R", model, request);
 		boy.put("homepage_id", getAsideHomepageId(request));
+		service.setPaging(model, service.getBookOfYearCount(boy.getMap()), boy);
 
 //		service.setPaging(model, service.getBookOfYearCount(boy), boy);
 		model.addAttribute("boy", boy.getMap());
@@ -47,13 +48,13 @@ public class BookOfYearController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/edit.*"}, method = RequestMethod.GET)
-	public String edit(Model model, BookOfYear boy, HttpServletRequest request) throws AuthException {
+	public String edit(Model model, CommonBean boy, HttpServletRequest request) throws AuthException {
 		Homepage homepage = homepageService.getHomepageOne(new Homepage(getAsideHomepageId(request)));
 		model.addAttribute("homepage", homepage);
 
-		if (boy.getEditMode().equals("MODIFY")) {
+		if (boy.get("editMode").equals("MODIFY")) {
 			checkAuth("U", model, request);
-			//boy = (BookOfYear)service.copyObjectPaging(boy, service.getBookOfYearOne(boy.getMap()));
+			boy.putAll(service.getBookOfYearOne(boy.getMap()));
 		} else {
 			checkAuth("C", model, request);
 		}
@@ -64,12 +65,12 @@ public class BookOfYearController extends BaseController {
 	}
 
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(BookOfYear boy, HttpServletRequest request) {
+	public @ResponseBody JsonResponse save(CommonBean boy, HttpServletRequest request) {
 
 		JsonResponse res = new JsonResponse(request);
 
 		if (boy.getEditMode().equals("ADD")) {
-			//ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
 		}
 
 //		if (!result.hasErrors()) {
@@ -79,7 +80,7 @@ public class BookOfYearController extends BaseController {
 
 			res.setValid(true);
 			res.setUrl("index.do");
-			if (boy.getEditMode().equals("ADD")) {
+			if (boy.get("editMode").equals("ADD")) {
 				if (service.getBookOfYearOne(boy.getMap()) != null) {
 					res.setMessage("해당년도에 선정된 도서가 존재합니다.");
 					res.setValid(false);
@@ -88,10 +89,10 @@ public class BookOfYearController extends BaseController {
 					service.addBookOfYear(boy.getMap());
 					res.setMessage("등록되었습니다.");
 				}
-			} else if (boy.getEditMode().equals("MODIFY")) {
+			} else if (boy.get("editMode").equals("MODIFY")) {
 				service.modifyBookOfYear(boy.getMap());
 				res.setMessage("수정되었습니다.");
-			} else if (boy.getEditMode().equals("DELETE")) {
+			} else if (boy.get("editMode").equals("DELETE")) {
 				service.deleteBookOfYear(boy.getMap());
 				res.setMessage("삭제되었습니다.");
 			}

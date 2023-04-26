@@ -5,19 +5,17 @@ package kr.go.gbelib.app.cms.module.bookOfYear;
 
 import java.util.List;
 import java.util.Map;
-
+import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.base.CommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import kr.co.whalesoft.framework.base.BaseService;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 
 /**
  * @author whaleesoft YONGJU 2020. 2. 12.
  *
  */
 @Service
-public class BookOfYearService extends BaseService {
+public class BookOfYearService extends CommonService {
 
 	@Autowired
 	private BookOfYearDao dao;
@@ -45,7 +43,7 @@ public class BookOfYearService extends BaseService {
 	 * @param boy
 	 * @return
 	 */
-	public BookOfYear getBookOfYearOne(Map boy) {
+	public Map getBookOfYearOne(Map boy) {
 		return dao.getBookOfYearOne(boy);
 	}
 
@@ -54,7 +52,10 @@ public class BookOfYearService extends BaseService {
 	 * @param boy
 	 */
 	public int addBookOfYear(Map boy) {
-		return dao.addBookOfYear(boy);
+//		for (int i = 3000; i < 5000; i++) {
+//			boy.put("selection_year", i);
+//		}
+		return 	dao.addBookOfYear(boy);
 	}
 
 	/**

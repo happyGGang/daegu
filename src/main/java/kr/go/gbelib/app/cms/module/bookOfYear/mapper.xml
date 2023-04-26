@@ -15,19 +15,21 @@
 	</select>
 
 	<select id="getBookOfYearList" parameterType="map" resultType="map">
+	${pagingTop}
 		SELECT
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
-			top_html, bottom_html, add_id, add_date, modify_id, modify_date
+			top_html, bottom_html, add_id, add_date, modify_id, modify_date, book_test, 'book_test2' as book_test10
 		FROM
 			BOOK_OF_YEAR
 		WHERE
 			homepage_id = #{homepage_id}
 		<if test="search_type != null and search_type != ''">
-		AND	${search_type} LIKE '%'|| #{search_text} ||'%'
+			AND	${search_type} LIKE '%'|| #{search_text} ||'%'
 		</if>
 		ORDER BY
 			selection_year DESC
+		${pagingBottom}
 	</select>
 
 	<select id="getBookOfYearOne" parameterType="map" resultType="map">
@@ -48,13 +50,13 @@
 		(
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
-			top_html, bottom_html, add_id, add_date
+			top_html, bottom_html, add_id, add_date, book_test
 		)
 			VALUES
 		(
 			#{homepage_id}, #{selection_year}, #{book_name}, #{book_author}, #{book_publisher},
 			#{book_year}, #{book_regno}, #{book_isbn}, #{book_img_url}, #{book_content},
-			#{top_html}, #{bottom_html}, #{add_id}, SYSDATE
+			#{top_html}, #{bottom_html}, #{add_id}, SYSDATE, #{book_test}
 		)
 
 	</insert>

@@ -59,12 +59,19 @@ $(function(){
 <input type="hidden" id="homepage_id_1" name="homepage_id" value="${boy.homepage_id}"/>
 <div id="editDisable" class="disableBox">
 	<div class="infodesk">
-		검색 결과 : ${fn:length(boyList)}건
+		검색 결과 : ${paging.totalDataCount}건
 		<div class="button btn-group inline">
 			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
 			</c:if>
 		</div>
+			<select id="rowCount" name="rowCount" class="selectmenu" style="width:150px;">
+				<option value="10" ${paging.rowCount eq 10 ? 'selected' : ''}>10개씩 보기</option>
+				<option value="20" ${paging.rowCount eq 20 ? 'selected' : ''}>20개씩 보기</option>
+				<option value="30" ${paging.rowCount eq 30 ? 'selected' : ''}>30개씩 보기</option>
+				<option value="50" ${paging.rowCount eq 50 ? 'selected' : ''}>50개씩 보기</option>
+				<option value="${paging.totalDataCount}" ${paging.rowCount eq paging.totalDataCount ? 'selected' : ''}> 전체 보기</option>
+			</select>
 	</div>
 	<table class="type1 center">
 		<thead>
@@ -72,6 +79,7 @@ $(function(){
 				<th width="50">순번</th>
 				<th width="100">선정년도</th>
 				<th width="200">도서명</th>
+				<th width="200">북테스트</th>
 				<th width="200">저자</th>
 				<th width="150">등록일</th>
 				<th width="100">기능</th>
@@ -86,23 +94,36 @@ $(function(){
 		<c:forEach var="i" varStatus="status" items="${boyList}">
 			<tr>
 				<td width="50">${paging.listRowNum - status.index}</td>
-				<td width="100">${i.selection_year}</td>
-				<td class="left" width="200">${i.book_name}</td>
-				<td class="left" width="200">${i.book_author}</td>
-				<td width="150"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
+				<td width="100">${i.SELECTION_YEAR}</td>
+				<td class="left" width="200">${i.BOOK_NAME}</td>
+				<td class="left" width="200">${i.BOOK_TEST}</td>
+				<td class="left" width="200">${i.BOOK_AUTHOR}</td>
+				<td width="150"><fmt:formatDate value="${i.ADD_DATE}" pattern="yyyy-MM-dd"/></td>
 				<td width="120">
 					<c:if test="${authU}">
-						<a href="#" class="btn dialog-modify" keyValue="${i.selection_year}">수정</a>
+						<a href="#" class="btn dialog-modify" keyValue="${i.SELECTION_YEAR}">수정</a>
 					</c:if>
 					<c:if test="${authD}">
-						<a href="#" class="btn delete" keyValue="${i.selection_year}">삭제</a>
+						<a href="#" class="btn delete" keyValue="${i.SELECTION_YEAR}">삭제</a>
 					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
-
+	<jsp:include page="/WEB-INF/views/app/cms/common/pagingFromMap.jsp" flush="false">
+		<jsp:param name="formId" value="#boy"/>
+	</jsp:include>
+	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
+		<fieldset>
+			<select id="search_type" name="search_type" class="selectmenu">
+				<option value="book_name">도서명</option>
+				<option value="book_author">저자</option>
+			</select>
+			<input id="search_text" name="search_text"  class="text" style="width:200px;"/>
+			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+		</fieldset>
+	</div>
 </div>
 </form:form>
 

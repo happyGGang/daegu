@@ -31,7 +31,7 @@ public interface BookOfYearDao {
 	 * @param boy
 	 * @return
 	 */
-	public BookOfYear getBookOfYearOne(Map boy);
+	public Map getBookOfYearOne(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.

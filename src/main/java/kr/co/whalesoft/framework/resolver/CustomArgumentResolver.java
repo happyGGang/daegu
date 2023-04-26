@@ -1,5 +1,6 @@
 package kr.co.whalesoft.framework.resolver;
 
+import kr.co.whalesoft.framework.base.CommonBean;
 import kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -32,7 +33,7 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 			secCheckAt = false;
 		}
 
-		BookOfYear commandMap = new BookOfYear();
+		CommonBean commandMap = new CommonBean();
 		Enumeration<String> enumeration = request.getParameterNames();
 
 		while (enumeration.hasMoreElements()) {

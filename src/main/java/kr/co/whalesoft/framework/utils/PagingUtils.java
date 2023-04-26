@@ -1,5 +1,6 @@
 package kr.co.whalesoft.framework.utils;
 
+import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 public class PagingUtils extends BeanUtils {
@@ -38,7 +39,7 @@ public class PagingUtils extends BeanUtils {
 	
 	public PagingUtils() {
 		if (StringUtils.equals(getSortField(), "add_date")) {
-			setSortField("TITLE");
+				setSortField("TITLE");
 		}
 	}
 	
@@ -56,8 +57,8 @@ public class PagingUtils extends BeanUtils {
 
 		public String getPagingParam(String mode) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("viewPage = " + viewPage);
-		sb.append("&rowCount = " + rowCount);
+		sb.append("viewPage = " + getViewPage());
+		sb.append("&rowCount = " + getRowCount());
 		if (search_type != null && !search_type.equals("")) {
 			sb.append("&search_type = " + search_type);
 		}
@@ -74,8 +75,8 @@ public class PagingUtils extends BeanUtils {
 	}
 	
 	private void setPagingVar(PagingUtils pagingUtils) {
-		this.rowCount = pagingUtils.rowCount;
-		this.viewPage = pagingUtils.viewPage;
+		this.rowCount = pagingUtils.getRowCount();
+		this.viewPage = pagingUtils.getViewPage();
 		this.startRowNum = pagingUtils.startRowNum;
 		this.endRowNum = pagingUtils.endRowNum;
 		this.listRowNum = pagingUtils.listRowNum;
@@ -111,27 +112,27 @@ public class PagingUtils extends BeanUtils {
 	}
 	
 	private void pagingLogic() {		
-		startRowNum = ( viewPage - 1 ) * rowCount + 1;
-		endRowNum 	= viewPage * rowCount;
-		
-		totalPageCount = (int)Math.ceil( this.totalDataCount / (double)this.rowCount );
-		totalPageCount = totalPageCount==0?1:totalPageCount;
-		
-		startPageNum = ((this.viewPage-1) / this.listPageCount) * this.listPageCount + 1;
+		startRowNum = (getViewPage() - 1) * getRowCount() + 1;
+		endRowNum = getViewPage() * getRowCount();
+
+		totalPageCount = (int) Math.ceil(this.totalDataCount / (double) this.getRowCount());
+		totalPageCount = totalPageCount == 0 ? 1 : totalPageCount;
+
+		startPageNum = ((this.getViewPage() - 1) / this.listPageCount) * this.listPageCount + 1;
 		endPageNum = startPageNum + this.listPageCount - 1;
-		endPageNum = endPageNum==0?1:endPageNum;
-		endPageNum = endPageNum > totalPageCount?totalPageCount:endPageNum;
-		
-		listRowNum = (totalDataCount - startRowNum)+1; 
-		
-		firstPageNum = ((this.viewPage-1) / this.listPageCount) * this.listPageCount + 1;
+		endPageNum = endPageNum == 0 ? 1 : endPageNum;
+		endPageNum = endPageNum > totalPageCount ? totalPageCount : endPageNum;
+
+		listRowNum = (totalDataCount - startRowNum) + 1;
+
+		firstPageNum = ((this.getViewPage() - 1) / this.listPageCount) * this.listPageCount + 1;
 		lastPageNum = firstPageNum + this.listPageCount - 1;
-		lastPageNum = lastPageNum > totalPageCount?totalPageCount:lastPageNum;
-		
-		prevPageNum =  firstPageNum!=1?firstPageNum-1:0;
-		nextPageNum = totalPageCount > lastPageNum?lastPageNum+1:0;
-		
-		firstPageNum = firstPageNum!=1?1:0;
+		lastPageNum = lastPageNum > totalPageCount ? totalPageCount : lastPageNum;
+
+		prevPageNum = firstPageNum != 1 ? firstPageNum - 1 : 0;
+		nextPageNum = totalPageCount > lastPageNum ? lastPageNum + 1 : 0;
+
+		firstPageNum = firstPageNum != 1 ? 1 : 0;
 	}
 
 	/**
@@ -199,6 +200,9 @@ public class PagingUtils extends BeanUtils {
 	}
 	
 	public int getViewPage() {
+		if (map.get("viewPage") != null) {
+			return Integer.parseInt((String) map.get("viewPage"));
+		}
 		return viewPage;
 	}
 	
@@ -240,6 +244,10 @@ public class PagingUtils extends BeanUtils {
 	}
 
 	public int getRowCount() {
+		if (map.get("rowCount") != null) {
+			return Integer.parseInt((String) map.get("rowCount"));
+		}
+
 		return rowCount;
 	}
 
@@ -374,5 +382,9 @@ public class PagingUtils extends BeanUtils {
 		.append(" ) as Z limit " + startRowNumMysql+","+ endRowNumMysql );
 		
 		return sb.toString();
+	}
+
+	public Map setPagingUtil() {
+		return map;
 	}
 }
