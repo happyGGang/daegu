@@ -150,7 +150,14 @@ $(function() {
          				<form:input path="applicant_member_id" class="text" /> <a class="btn btn1 idCheck">ID 확인</a>
          			</c:when>
          			<c:otherwise>
-         				${apply.applicant_member_id}
+         				<c:choose>
+         					<c:when test="${fn:length(apply.applicant_member_id) > 20}">
+         						비회원
+         					</c:when>
+         					<c:otherwise>
+         						${apply.applicant_member_id}
+         					</c:otherwise>
+         				</c:choose>
          				<form:hidden path="applicant_member_id"/>
          			</c:otherwise>
          		</c:choose>

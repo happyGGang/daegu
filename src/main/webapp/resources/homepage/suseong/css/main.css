@@ -89,17 +89,16 @@
 
 
 .main.container .right-section .right-quick-section {}
-.main.container .right-section .right-quick-section  li {display:block;}
-.main.container .right-section .right-quick-section  li:last-child {border-bottom:0;}
-.main.container .right-section .right-quick-section  li a {position:relative;display:block;height:81.9px;line-height:82px;padding:30px 10px 25px 22px;box-sizing:border-box;}
-.main.container .right-section .right-quick-section  li a.quick-01 {background:#8790eb url("/resources/homepage/suseong/img/quick001-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-02 {background:#84b8e8 url("/resources/homepage/suseong/img/quick002-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-03 {background:#50ccca url("/resources/homepage/suseong/img/quick003-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-04 {background:#fc9284 url("/resources/homepage/suseong/img/quick004-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-05 {background:#416190 url("/resources/homepage/suseong/img/quick005-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a.quick-06 {background:#174090 url("/resources/homepage/suseong/img/quick006-bg.png") no-repeat 10% center;}
-.main.container .right-section .right-quick-section  li a span.txt {display:block;padding-left:69px;letter-spacing:-2.5px;color:#fff;}
-
+.main.container .right-section .right-quick-section  li {display:inline-block;width:49%;text-align:center;}
+.main.container .right-section .right-quick-section  li.quick-01 {background:#8790eb url("/resources/homepage/suseong/img/quick001-bg.png") no-repeat center 25%;}
+.main.container .right-section .right-quick-section  li.quick-02 {background:#84b8e8 url("/resources/homepage/suseong/img/quick002-bg.png") no-repeat center 25%;}
+.main.container .right-section .right-quick-section  li.quick-03 {background:#50ccca url("/resources/homepage/suseong/img/quick003-bg.png") no-repeat center 25%;}
+.main.container .right-section .right-quick-section  li.quick-04 {background:#fc9284 url("/resources/homepage/suseong/img/quick004-bg.png") no-repeat center 25%;}
+.main.container .right-section .right-quick-section  li.quick-05 {background:#416190 url("/resources/homepage/suseong/img/quick005-bg.png") no-repeat center 25%;}
+.main.container .right-section .right-quick-section  li.quick-06 {background:#174090 url("/resources/homepage/suseong/img/quick007-bg.png") no-repeat center 25%;}
+.main.container .right-section .right-quick-section  li a {position:relative;height:137px;line-height:82px;box-sizing:border-box;}
+.main.container .right-section .right-quick-section  li a span.txt {display:inline-block;color:#fff;font-size:15px;font-weight:bold;line-height:130%;padding-top:80px;}
+.main.container .right-section .right-quick-section  li a span.txt br.quickBr{display:block;}
 .main.container .right-section .right-quick-section  li a span.txt p:first-child {font-size:20px;font-weight:bold;padding-top:0px;}
 .main.container .right-section .right-quick-section  li a img.go-bg {position:absolute;right:18px;top:31px;}
 
@@ -203,12 +202,12 @@
 	.main.container .left-section .left-quick-section li a span.txt p:first-child {font-size:15px;}
 	.main.container .left-section .left-quick-section li a img.go-bg {right:10px;}
 
-	.main.container .right-section .right-quick-section  li a {padding:23px 10px 23px 15px;}
 	.main.container .right-section .right-quick-section  li a span.txt p:first-child {font-size:15px;}
 	.main.container .right-section .right-quick-section  li a img.go-bg {right:10px;}
 }
 
-@media all and (max-width:1130px){
+@media all and (max-width:1075px){
+	.main.container .right-section .right-quick-section li{width:48%;}
 }
 
 @media all and (max-width:1000px){
@@ -230,7 +229,6 @@
 	.main.container .left-section .left-quick-section li a span.txt p:first-child {font-size:15px;}
 	.main.container .left-section .left-quick-section li a img.go-bg {right:10px;}
 
-	.main.container .right-section .right-quick-section  li a {padding:23px 10px 23px 10%;}
 	.main.container .right-section .right-quick-section  li a span.txt p:first-child {font-size:15px;}
 	.main.container .right-section .right-quick-section  li a img.go-bg {right:10px;}
 
@@ -255,6 +253,8 @@
 	#calendar-holiday .inBox1 .title {float:left;position:relative;font-size:20px;padding:3px 18px 3px 18px;}
 	#calendar-holiday .inBox1 .info {clear:both;float:left;padding-left:18px;}
 	#calendar-holiday .inBox1 .info dd {float:none;text-align:left;}
+
+	.main.container .right-section .right-quick-section li{width:49.5%;}
 }
 
 @media all and (max-width:580px){
@@ -267,6 +267,18 @@
 	.main.container .center-section .search-box input {padding-left:15px;font-size:14px;}
 	.main.container .center-section .search-box button {width:90px;right:20px;top:20px;}
 	.main.container .center-section .search-box .box1 {padding:20px 140px 20px 20px;}
+}
+
+@media all and (max-width:525px){
+	.main.container .right-section .right-quick-section li{width:100%;}
+	.main.container .right-section .right-quick-section  li.quick-01 {background:#8790eb url("/resources/homepage/suseong/img/quick001-bg.png") no-repeat 20px;}
+	.main.container .right-section .right-quick-section  li.quick-02 {background:#84b8e8 url("/resources/homepage/suseong/img/quick002-bg.png") no-repeat 20px;}
+	.main.container .right-section .right-quick-section  li.quick-03 {background:#50ccca url("/resources/homepage/suseong/img/quick003-bg.png") no-repeat 20px;}
+	.main.container .right-section .right-quick-section  li.quick-04 {background:#fc9284 url("/resources/homepage/suseong/img/quick004-bg.png") no-repeat 20px;}
+	.main.container .right-section .right-quick-section  li.quick-05 {background:#416190 url("/resources/homepage/suseong/img/quick005-bg.png") no-repeat 20px;}
+	.main.container .right-section .right-quick-section  li.quick-06 {background:#174090 url("/resources/homepage/suseong/img/quick007-bg.png") no-repeat 20px;}
+	.main.container .right-section .right-quick-section li a span.txt{padding-top:0;}
+	.main.container .right-section .right-quick-section li a span.txt br.quickBr{display:none;}
 }
 
 @media all and (max-width:510px){

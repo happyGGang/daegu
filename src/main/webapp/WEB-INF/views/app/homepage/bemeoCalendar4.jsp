@@ -250,7 +250,7 @@ $('ul.close_day').html(li);
 	window.onload = function(){
 		map1 = new ngii_wmts.map("map1",{mapMode:3});
 		map1._setMapMode('0');
-		map1._showpoint(1101613.0664, 1761140.5327,7);
+		map1._showpoint(1101481.5443, 1761780.5808,7);
 	}
 	;
 	</script>
@@ -268,7 +268,7 @@ $('ul.close_day').html(li);
 
   <div class="info_box">
     <p class="info_add">대구광역시 수성구 청솔로2길 64 황금2동행정복지센터 1층</p>
-    <!-- <p class="info_tel">053-668-1811</p> -->
+    <p class="info_tel">053-668-1660</p>
   </div>
   
   <h3>교통편 안내</h3>
