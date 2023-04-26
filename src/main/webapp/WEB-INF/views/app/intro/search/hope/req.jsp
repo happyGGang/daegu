@@ -539,6 +539,11 @@
 					<form:option value="HH">공무원연수원</form:option>
 				</form:select>
 				</c:when>
+				<c:when test="${context_path eq 'wasabi'}">
+				<form:select path="manageCode">
+					<form:option value="HH">푸른초장공공도서관</form:option>
+				</form:select>
+				</c:when>
 				<c:otherwise>
 				<form:select path="manageCode">
 					<form:option value="AD">중앙도서관</form:option>
