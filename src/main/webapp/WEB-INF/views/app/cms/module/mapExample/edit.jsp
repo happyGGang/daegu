@@ -105,12 +105,6 @@ function getLasData(arg) {
 			</td>
 		</tr>
 		<tr>
-			<th>북테스트</th>
-			<td>
-				<input type="text" class="text" style="width:98%;" id="book_test" name="book_test" value="${bookOfYear.BOOK_TEST}">
-			</td>
-		</tr>
-		<tr>
 			<th>출판사</th>
 			<td>
 				<input type="text" class="text" style="width:98%;" id="book_publisher" name="book_publisher" value="${bookOfYear.BOOK_PUBLISHER}">

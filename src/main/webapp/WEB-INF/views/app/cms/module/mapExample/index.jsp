@@ -79,7 +79,6 @@ $(function(){
 				<th width="50">순번</th>
 				<th width="100">선정년도</th>
 				<th width="200">도서명</th>
-				<th width="200">북테스트</th>
 				<th width="200">저자</th>
 				<th width="150">등록일</th>
 				<th width="100">기능</th>
@@ -96,9 +95,7 @@ $(function(){
 				<td width="50">${paging.listRowNum - status.index}</td>
 				<td width="100">${i.SELECTION_YEAR}</td>
 				<td class="left" width="200">${i.BOOK_NAME}</td>
-				<td class="left" width="200">${i.BOOK_TEST}</td>
 				<td class="left" width="200">${i.BOOK_AUTHOR}</td>
-				<td class="left" width="200">${i.BOOK_TEST10}</td>
 				<td width="150"><fmt:formatDate value="${i.ADD_DATE}" pattern="yyyy-MM-dd"/></td>
 				<td width="120">
 					<c:if test="${authU}">

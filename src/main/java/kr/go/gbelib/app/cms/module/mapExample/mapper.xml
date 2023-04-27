@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYearDao">
+<mapper namespace="kr.go.gbelib.app.cms.module.mapExample.MapExampleDao">
 
 	<select id="getBookOfYearCount" parameterType="map" resultType="int">
 		SELECT
@@ -19,7 +19,7 @@
 		SELECT
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
-			top_html, bottom_html, add_id, add_date, modify_id, modify_date, book_test, 'book_test2' as book_test10
+			top_html, bottom_html, add_id, add_date, modify_id, modify_date
 		FROM
 			BOOK_OF_YEAR
 		WHERE
@@ -50,13 +50,13 @@
 		(
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
-			top_html, bottom_html, add_id, add_date, book_test
+			top_html, bottom_html, add_id, add_date
 		)
 			VALUES
 		(
 			#{homepage_id}, #{selection_year}, #{book_name}, #{book_author}, #{book_publisher},
 			#{book_year}, #{book_regno}, #{book_isbn}, #{book_img_url}, #{book_content},
-			#{top_html}, #{bottom_html}, #{add_id}, SYSDATE, #{book_test}
+			#{top_html}, #{bottom_html}, #{add_id}, SYSDATE
 		)
 
 	</insert>

@@ -76,7 +76,7 @@ public class CustomArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter arg0) {
-		return BookOfYear.class.isAssignableFrom(arg0.getParameterType());
+		return CommonBean.class.isAssignableFrom(arg0.getParameterType());
 	}
 	
 }

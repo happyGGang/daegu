@@ -3,13 +3,13 @@
  */
 package kr.go.gbelib.app.cms.module.mapExample;
 
-import javax.servlet.http.HttpServletRequest;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.base.CommonBean;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.co.whalesoft.framework.utils.ValidationUtilsFromMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author whaleesoft YONGJU 2020. 2. 12.
@@ -66,14 +68,13 @@ public class MapExampleController extends BaseController {
 
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(CommonBean boy, HttpServletRequest request) {
-
 		JsonResponse res = new JsonResponse(request);
 
 		if (boy.getEditMode().equals("ADD")) {
-//			ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
+			ValidationUtilsFromMap.rejectIfEmpty(res, boy, "book_name", "도서명을 입력하세요.");
 		}
 
-//		if (!result.hasErrors()) {
+		if (!res.hasErrors()) {
 
 			boy.setAdd_id(getSessionMemberId(request));
 			boy.setModify_id(getSessionMemberId(request));
@@ -96,10 +97,9 @@ public class MapExampleController extends BaseController {
 				service.deleteBookOfYear(boy.getMap());
 				res.setMessage("삭제되었습니다.");
 			}
-//		} else {
-//			res.setValid(false);
-//			res.setResult(result.getAllErrors());
-//		}
+		} else {
+			res.setValid(false);
+		}
 
 		return res;
 	}
