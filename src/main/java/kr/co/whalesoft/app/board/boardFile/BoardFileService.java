@@ -259,9 +259,12 @@ public class BoardFileService extends BaseService {
 						
 						FileUtil.noUseFileDeletePdf(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/", boardFileArray);	// 필요없는 파일 삭제
 						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/thumb/", boardFileArray);	// 필요없는 파일 삭제(썸네일)
-					}
-					
-					else {
+					} else if(board.getManage_idx() == 1133 || board.getManage_idx() == 1134 || board.getManage_idx() == 1135) {
+						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 2000, 1381);
+						dao.addBoardFile(boardFile);
+						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/", boardFileArray);	// 필요없는 파일 삭제
+						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/thumb/", boardFileArray);	// 필요없는 파일 삭제(썸네일)
+					} else {
 						FileUtil.thumbImgMake(afterPath, boardFile.getServer_file_name(), boardFile.getFile_ext_name(), 236, 163);
 						dao.addBoardFile(boardFile);
 						FileUtil.noUseFileDelete(boardStorage.getRootPath() + "/" + board.getManage_idx() + "/" + board.getBoard_idx() + "/", boardFileArray);	// 필요없는 파일 삭제
