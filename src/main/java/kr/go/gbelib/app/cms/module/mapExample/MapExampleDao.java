@@ -5,6 +5,7 @@ package kr.go.gbelib.app.cms.module.mapExample;
 
 import java.util.List;
 import java.util.Map;
+import kr.co.whalesoft.framework.base.CommonBean;
 import kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear;
 
 /**
@@ -25,7 +26,7 @@ public interface MapExampleDao {
 	 * @param boy
 	 * @return
 	 */
-	public List<BookOfYear> getBookOfYearList(Map boy);
+	public List<CommonBean> getBookOfYearList(Map boy);
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.

@@ -8,7 +8,7 @@
 $(function(){
 	//모달창 링크 버튼
 	$('a#dialog-add').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${boy.homepage_id}', function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=${mapOne.homepage_id}', function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
@@ -16,7 +16,7 @@ $(function(){
 	});
 
 	$('a.dialog-modify').on('click', function(e) {
-		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${boy.homepage_id}&selection_year=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=${mapOne.homepage_id}&selection_year=' + $(this).attr('keyValue'), function( response, status, xhr ) {
 			$('#dialog-1').dialog('open');
 		});
 
@@ -28,14 +28,14 @@ $(function(){
 		if (confirm('삭제하시겠습니까?')) {
 			$('input#selection_year_1').val($(this).attr('keyValue'));
 			$('input#editMode_1').val('DELETE');
-			doAjaxPost($('form#boy'));
+			doAjaxPost($('form#mapOne'));
 		}
 	});
 
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
 			$('input#homepage_id_1').val($(this).val());
-			doGetLoad('index.do', serializeCustom($('#boy')));
+			doGetLoad('index.do', serializeCustom($('#mapOne')));
 		}
 
 		e.preventDefault();
@@ -43,20 +43,20 @@ $(function(){
 
 	$('button#search_btn').on('click', function(e) {
 		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('#boy')));
+		doGetLoad('index.do', serializeCustom($('#mapOne')));
 	});
 
 	$('select#rowCount').on('change', function(e) {
 		$('#viewPage').val(1);
-		doGetLoad('index.do', serializeCustom($('#boy')));
+		doGetLoad('index.do', serializeCustom($('#mapOne')));
 	});
 });
 </script>
 
-<form:form modelAttribute="boy" method="POST" action="save.do" onsubmit="return false;">
-<input type="hidden" id="editMode_1" name="editMode" value="${boy.editMode}"/>
-<input type="hidden" id="selection_year_1" name="selection_year" value="${boy.selection_year}"/>
-<input type="hidden" id="homepage_id_1" name="homepage_id" value="${boy.homepage_id}"/>
+<form:form modelAttribute="mapOne" method="POST" action="save.do" onsubmit="return false;">
+<input type="hidden" id="editMode_1" name="editMode" value="${mapOne.editMode}"/>
+<input type="hidden" id="selection_year_1" name="selection_year" value="${mapOne.selection_year}"/>
+<input type="hidden" id="homepage_id_1" name="homepage_id" value="${mapOne.homepage_id}"/>
 <div id="editDisable" class="disableBox">
 	<div class="infodesk">
 		검색 결과 : ${paging.totalDataCount}건
@@ -85,12 +85,12 @@ $(function(){
 			</tr>
 		</thead>
 		<tbody>
-		<c:if test="${fn:length(boyList) < 1}">
+		<c:if test="${fn:length(mapList) < 1}">
 			<tr style="height:100%">
 				<td colspan="6" style="background:#f8fafb;">데이터가 존재하지 않습니다.</td>
 			</tr>
 		</c:if>
-		<c:forEach var="i" varStatus="status" items="${boyList}">
+		<c:forEach var="i" varStatus="status" items="${mapList}">
 			<tr>
 				<td width="50">${paging.listRowNum - status.index}</td>
 				<td width="100">${i.SELECTION_YEAR}</td>
@@ -110,7 +110,7 @@ $(function(){
 		</tbody>
 	</table>
 	<jsp:include page="/WEB-INF/views/app/cms/common/pagingFromMap.jsp" flush="false">
-		<jsp:param name="formId" value="#boy"/>
+		<jsp:param name="formId" value="#mapOne"/>
 	</jsp:include>
 	<div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 		<fieldset>

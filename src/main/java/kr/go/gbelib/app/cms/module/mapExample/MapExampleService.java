@@ -5,6 +5,7 @@ package kr.go.gbelib.app.cms.module.mapExample;
 
 import java.util.List;
 import java.util.Map;
+import kr.co.whalesoft.framework.base.CommonBean;
 import kr.co.whalesoft.framework.base.CommonService;
 import kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class MapExampleService extends CommonService {
 	 * @param boy
 	 * @return
 	 */
-	public List<BookOfYear> getBookOfYearList(Map boy) {
+	public List<CommonBean> getBookOfYearList(Map boy) {
 		return dao.getBookOfYearList(boy);
 	}
 
