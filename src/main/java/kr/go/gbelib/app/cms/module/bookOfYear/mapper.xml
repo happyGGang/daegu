@@ -2,37 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYearDao">
 
-	<select id="getBookOfYearCount" parameterType="map" resultType="int">
+	<select id="getBookOfYearCount" resultType="int">
 		SELECT
-			COUNT(*)
+		COUNT(*)
 		FROM
-			BOOK_OF_YEAR
+		BOOK_OF_YEAR
 		WHERE
-			homepage_id = #{homepage_id}
+		homepage_id = #{homepage_id}
 		<if test="search_type != null and search_type != ''">
-		AND	${search_type} LIKE '%'|| #{search_text} ||'%'
+			AND	${search_type} LIKE '%'|| #{search_text} ||'%'
 		</if>
 	</select>
 
-	<select id="getBookOfYearList" parameterType="map" resultType="map">
-	${pagingTop}
+	<select id="getBookOfYearList" resultType="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear">
 		SELECT
-			homepage_id, selection_year, book_name, book_author, book_publisher,
-			book_year, book_regno, book_isbn, book_img_url, book_content,
-			top_html, bottom_html, add_id, add_date, modify_id, modify_date, book_test, 'book_test2' as book_test10
+		homepage_id, selection_year, book_name, book_author, book_publisher,
+		book_year, book_regno, book_isbn, book_img_url, book_content,
+		top_html, bottom_html, add_id, add_date, modify_id, modify_date
 		FROM
-			BOOK_OF_YEAR
+		BOOK_OF_YEAR
 		WHERE
-			homepage_id = #{homepage_id}
+		homepage_id = #{homepage_id}
 		<if test="search_type != null and search_type != ''">
 			AND	${search_type} LIKE '%'|| #{search_text} ||'%'
 		</if>
 		ORDER BY
-			selection_year DESC
-		${pagingBottom}
+		selection_year DESC
 	</select>
 
-	<select id="getBookOfYearOne" parameterType="map" resultType="map">
+	<select id="getBookOfYearOne" resultType="kr.go.gbelib.app.cms.module.bookOfYear.BookOfYear">
 		SELECT
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
@@ -41,27 +39,27 @@
 			BOOK_OF_YEAR
 		WHERE
 			homepage_id = #{homepage_id}
-		AND	selection_year = #{selection_year}
+			AND	selection_year = #{selection_year}
 	</select>
 
-	<insert id="addBookOfYear" parameterType="map">
+	<insert id="addBookOfYear">
 		INSERT INTO
 			BOOK_OF_YEAR
 		(
 			homepage_id, selection_year, book_name, book_author, book_publisher,
 			book_year, book_regno, book_isbn, book_img_url, book_content,
-			top_html, bottom_html, add_id, add_date, book_test
+			top_html, bottom_html, add_id, add_date
 		)
-			VALUES
-		(
-			#{homepage_id}, #{selection_year}, #{book_name}, #{book_author}, #{book_publisher},
-			#{book_year}, #{book_regno}, #{book_isbn}, #{book_img_url}, #{book_content},
-			#{top_html}, #{bottom_html}, #{add_id}, SYSDATE, #{book_test}
-		)
+		VALUES
+			(
+				#{homepage_id}, #{selection_year}, #{book_name}, #{book_author}, #{book_publisher},
+				#{book_year}, #{book_regno}, #{book_isbn}, #{book_img_url}, #{book_content},
+				#{top_html}, #{bottom_html}, #{add_id}, SYSDATE
+			)
 
 	</insert>
 
-	<update id="modifyBookOfYear" parameterType="map">
+	<update id="modifyBookOfYear">
 		UPDATE
 			BOOK_OF_YEAR
 		SET
@@ -79,15 +77,15 @@
 			modify_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
-		AND	selection_year = #{selection_year}
+			AND	selection_year = #{selection_year}
 	</update>
 
-	<update id="deleteBookOfYear" parameterType="map">
+	<update id="deleteBookOfYear">
 		DELETE FROM
 			BOOK_OF_YEAR
 		WHERE
 			homepage_id = #{homepage_id}
-		AND	selection_year = #{selection_year}
+			AND	selection_year = #{selection_year}
 	</update>
 
 

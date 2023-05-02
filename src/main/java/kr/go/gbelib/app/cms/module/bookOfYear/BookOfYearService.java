@@ -4,18 +4,19 @@
 package kr.go.gbelib.app.cms.module.bookOfYear;
 
 import java.util.List;
-import java.util.Map;
-import kr.co.whalesoft.framework.base.BaseService;
-import kr.co.whalesoft.framework.base.CommonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.utils.PagingUtils;
 
 /**
  * @author whaleesoft YONGJU 2020. 2. 12.
  *
  */
 @Service
-public class BookOfYearService extends CommonService {
+public class BookOfYearService extends BaseService {
 
 	@Autowired
 	private BookOfYearDao dao;
@@ -25,7 +26,7 @@ public class BookOfYearService extends CommonService {
 	 * @param boy
 	 * @return
 	 */
-	public int getBookOfYearCount(Map boy) {
+	public int getBookOfYearCount(BookOfYear boy) {
 		return dao.getBookOfYearCount(boy);
 	}
 
@@ -34,7 +35,7 @@ public class BookOfYearService extends CommonService {
 	 * @param boy
 	 * @return
 	 */
-	public List<BookOfYear> getBookOfYearList(Map boy) {
+	public List<BookOfYear> getBookOfYearList(BookOfYear boy) {
 		return dao.getBookOfYearList(boy);
 	}
 
@@ -43,7 +44,7 @@ public class BookOfYearService extends CommonService {
 	 * @param boy
 	 * @return
 	 */
-	public Map getBookOfYearOne(Map boy) {
+	public BookOfYear getBookOfYearOne(BookOfYear boy) {
 		return dao.getBookOfYearOne(boy);
 	}
 
@@ -51,18 +52,15 @@ public class BookOfYearService extends CommonService {
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 */
-	public int addBookOfYear(Map boy) {
-//		for (int i = 3000; i < 5000; i++) {
-//			boy.put("selection_year", i);
-//		}
-		return 	dao.addBookOfYear(boy);
+	public int addBookOfYear(BookOfYear boy) {
+		return dao.addBookOfYear(boy);
 	}
 
 	/**
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 */
-	public int modifyBookOfYear(Map boy) {
+	public int modifyBookOfYear(BookOfYear boy) {
 		return dao.modifyBookOfYear(boy);
 	}
 
@@ -70,7 +68,7 @@ public class BookOfYearService extends CommonService {
 	 * @author whalesoft YONGJU 2020. 2. 12.
 	 * @param boy
 	 */
-	public int deleteBookOfYear(Map boy) {
+	public int deleteBookOfYear(BookOfYear boy) {
 		return dao.deleteBookOfYear(boy);
 	}
 }
