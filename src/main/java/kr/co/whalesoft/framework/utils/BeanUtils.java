@@ -1,23 +1,18 @@
 package kr.co.whalesoft.framework.utils;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class BeanUtils extends Object implements Cloneable{
 
-	protected final Map<String, Object> map = new HashMap<>();
-	
 	private String homepage_id;
 	private String subHomepageId;
 	private String editMode = "ADD";
 	private String menu_url;
 	private String auth_id;
 	private String cud_id;//create, update, delete
-	
+
 	private String before_url;
 	private int menu_idx;
-	
+
 	private String key;
 	private Object value;
 
@@ -79,22 +74,22 @@ public class BeanUtils extends Object implements Cloneable{
 		this.menu_idx = menu_idx;
 	}
 
-	
+
 	public String getKey() {
 		return key;
 	}
 
-	
+
 	public void setKey(String key) {
 		this.key = key;
 	}
 
-	
+
 	public Object getValue() {
 		return value;
 	}
 
-	
+
 	public void setValue(Object value) {
 		this.value = value;
 	}
