@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
@@ -37,11 +40,11 @@ public class BookOfYearController extends BaseController {
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
 	public String index(Model model, BookOfYear boy, HttpServletRequest request, @PathVariable ("url") String url) throws AuthException {
 		checkAuth("R", model, request);
-		boy.put("homepage_id", getAsideHomepageId(request));
+		boy.setHomepage_id(getAsideHomepageId(request));
 
 //		service.setPaging(model, service.getBookOfYearCount(boy), boy);
-		model.addAttribute("boy", boy.getMap());
-		model.addAttribute("boyList", service.getBookOfYearList(boy.getMap()));
+		model.addAttribute("boy", boy);
+		model.addAttribute("boyList", service.getBookOfYearList(boy));
 
 		return basePath + "index" + url;
 	}
@@ -53,26 +56,26 @@ public class BookOfYearController extends BaseController {
 
 		if (boy.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
-			//boy = (BookOfYear)service.copyObjectPaging(boy, service.getBookOfYearOne(boy.getMap()));
+			boy = (BookOfYear)service.copyObjectPaging(boy, service.getBookOfYearOne(boy));
 		} else {
 			checkAuth("C", model, request);
 		}
 
-		model.addAttribute("bookOfYear", boy.getMap());
+		model.addAttribute("bookOfYear", boy);
 
 		return basePath + "edit_ajax";
 	}
 
 	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(BookOfYear boy, HttpServletRequest request) {
+	public @ResponseBody JsonResponse save(BookOfYear boy, BindingResult result, HttpServletRequest request) {
 
 		JsonResponse res = new JsonResponse(request);
 
 		if (boy.getEditMode().equals("ADD")) {
-			//ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "book_name", "도서명을 입력하세요.");
 		}
 
-//		if (!result.hasErrors()) {
+		if (!result.hasErrors()) {
 
 			boy.setAdd_id(getSessionMemberId(request));
 			boy.setModify_id(getSessionMemberId(request));
@@ -80,25 +83,25 @@ public class BookOfYearController extends BaseController {
 			res.setValid(true);
 			res.setUrl("index.do");
 			if (boy.getEditMode().equals("ADD")) {
-				if (service.getBookOfYearOne(boy.getMap()) != null) {
+				if (service.getBookOfYearOne(boy) != null) {
 					res.setMessage("해당년도에 선정된 도서가 존재합니다.");
 					res.setValid(false);
 					res.setUrl("");
 				} else {
-					service.addBookOfYear(boy.getMap());
+					service.addBookOfYear(boy);
 					res.setMessage("등록되었습니다.");
 				}
 			} else if (boy.getEditMode().equals("MODIFY")) {
-				service.modifyBookOfYear(boy.getMap());
+				service.modifyBookOfYear(boy);
 				res.setMessage("수정되었습니다.");
 			} else if (boy.getEditMode().equals("DELETE")) {
-				service.deleteBookOfYear(boy.getMap());
+				service.deleteBookOfYear(boy);
 				res.setMessage("삭제되었습니다.");
 			}
-//		} else {
-//			res.setValid(false);
-//			res.setResult(result.getAllErrors());
-//		}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
 
 		return res;
 	}

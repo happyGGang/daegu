@@ -35,7 +35,7 @@ public class BookOfYearController extends BaseController {
 		Homepage homepage = getSessionHomepage(request);
 
 		boy.setHomepage_id(homepage.getHomepage_id());
-		model.addAttribute("boyList", service.getBookOfYearList(boy.getMap()));
+		model.addAttribute("boyList", service.getBookOfYearList(boy));
 
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}

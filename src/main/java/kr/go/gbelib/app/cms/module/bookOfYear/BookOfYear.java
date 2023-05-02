@@ -1,143 +1,152 @@
+/**
+ *
+ */
 package kr.go.gbelib.app.cms.module.bookOfYear;
 
+import java.util.Date;
+
 import kr.co.whalesoft.framework.utils.PagingUtils;
-import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-
+/**
+ * @author whaleesoft YONGJU 2020. 2. 12.
+ *
+ */
 public class BookOfYear extends PagingUtils {
 
-	private static final String ARRAY_DELIMITER = ",";
-	private static final String NULL_DEFAULT = "";
+	private String selection_year; // 선정년도
+	private String book_name; // 도서명
+	private String book_author; // 저자
+	private String book_publisher; // 출판사
+	private String book_year; // 출판년도
+	private String book_regno; // 등록번호
+	private String book_isbn; // ISBN
+	private String book_img_url; // 도서이미지URL
+	private String book_content; // 상세내용
+	private String top_html; // 상단HTML
+	private String bottom_html; // 하단HTML
+	private String add_id; // 등록ID
+	private Date add_date; // 등록일
+	private String modify_id; // 수정ID
+	private Date modify_date; // 수정일
 
-	public static <K, V> Map<K, V> of(K key, V value) {
-		Map<K, V> map = new HashMap<>();
-		map.put(key, value);
-		return map;
+	public String getSelection_year() {
+		return selection_year;
 	}
 
-	public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2) {
-		Map<K, V> map = of(key1, value1);
-		map.put(key2, value2);
-		return map;
+	public void setSelection_year(String selection_year) {
+		this.selection_year = selection_year;
 	}
 
-	public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3) {
-		Map<K, V> map = of(key1, value1, key2, value2);
-		map.put(key3, value3);
-		return map;
+	public String getBook_name() {
+		return book_name;
 	}
 
-	public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4) {
-		Map<K, V> map = of(key1, value1, key2, value2, key3, value3);
-		map.put(key4, value4);
-		return map;
+	public void setBook_name(String book_name) {
+		this.book_name = book_name;
 	}
 
-	public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4, K key5, V value5) {
-		Map<K, V> map = of(key1, value1, key2, value2, key3, value3, key4, value4);
-		map.put(key5, value5);
-		return map;
+	public String getBook_author() {
+		return book_author;
 	}
 
-	public Object get(String key) {
-		return map.get(key);
+	public void setBook_author(String book_author) {
+		this.book_author = book_author;
 	}
 
-	public String asString(String key) {
-		return asString(key, NULL_DEFAULT);
+	public String getBook_publisher() {
+		return book_publisher;
 	}
 
-	public String asString(String key, String defaultValue) {
-		return Objects.toString(map.get(key), defaultValue);
+	public void setBook_publisher(String book_publisher) {
+		this.book_publisher = book_publisher;
 	}
 
-	// HttpServletRequest.getParameterValues 대체 ( ,로 구분 )
-	public String getArrToStr(String key) {
-		Object objectType = get(key);
-		if (objectType == null) {
-			return null;
-		}
-		return getArrToStr(objectType);
+	public String getBook_year() {
+		return book_year;
 	}
 
-	private String getArrToStr(final Object objectType) {
-		if (isNotStringType(objectType)) {
-			return null;
-		}
-		return getArrToStrInternal(objectType);
+	public void setBook_year(String book_year) {
+		this.book_year = book_year;
 	}
 
-	private boolean isNotStringType(final Object objectType) {
-		return !(objectType instanceof String) && !(objectType instanceof String[]);
+	public String getBook_regno() {
+		return book_regno;
 	}
 
-	private String getArrToStrInternal(final Object objectType) {
-		if (objectType instanceof String) {
-			return getArrToStrInternal(new String[]{(String) objectType});
-		}
-		return getArrToStrInternal((String[]) objectType);
+	public void setBook_regno(String book_regno) {
+		this.book_regno = book_regno;
 	}
 
-	private String getArrToStrInternal(final String[] strArr) {
-		if (ArrayUtils.isEmpty(strArr)) {
-			return null;
-		}
-		return String.join(ARRAY_DELIMITER, strArr);
+	public String getBook_isbn() {
+		return book_isbn;
 	}
 
-	public void put(String key, Object value) {
-		map.put(key, value);
+	public void setBook_isbn(String book_isbn) {
+		this.book_isbn = book_isbn;
 	}
 
-	public Object remove(String key) {
-		return map.remove(key);
+	public String getBook_img_url() {
+		return book_img_url;
 	}
 
-	public boolean containsKey(String key) {
-		return map.containsKey(key);
+	public void setBook_img_url(String book_img_url) {
+		this.book_img_url = book_img_url;
 	}
 
-	public boolean containsValue(Object value) {
-		return map.containsValue(value);
+	public String getBook_content() {
+		return book_content;
 	}
 
-	public void clear() {
-		map.clear();
+	public void setBook_content(String book_content) {
+		this.book_content = book_content;
 	}
 
-	public Set<Map.Entry<String, Object>> entrySet() {
-		return map.entrySet();
+	public String getTop_html() {
+		return top_html;
 	}
 
-	public Set<String> keySet() {
-		return map.keySet();
+	public void setTop_html(String top_html) {
+		this.top_html = top_html;
 	}
 
-	public boolean isEmpty() {
-		return map.isEmpty();
+	public String getBottom_html() {
+		return bottom_html;
 	}
 
-	public void putAll(Map<? extends String, ?> m) {
-		map.putAll(m);
+	public void setBottom_html(String bottom_html) {
+		this.bottom_html = bottom_html;
 	}
 
-	public void putIfAbsent(String key, Object value) {
-		map.putIfAbsent(key, value);
+	public String getAdd_id() {
+		return add_id;
 	}
 
-	public Map<String, Object> getMap() {
-		return map;
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
 	}
 
-	public void setAdd_id(String sessionMemberId) {
-		map.put("add_id", sessionMemberId);
+	public Date getAdd_date() {
+		return add_date;
 	}
 
-	public void setModify_id(String sessionMemberId) {
-		map.put("modify_id", sessionMemberId);
+	public void setAdd_date(Date add_date) {
+		this.add_date = add_date;
 	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+	public Date getModify_date() {
+		return modify_date;
+	}
+
+	public void setModify_date(Date modify_date) {
+		this.modify_date = modify_date;
+	}
+
 }

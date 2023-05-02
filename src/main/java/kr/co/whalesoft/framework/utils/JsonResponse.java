@@ -1,6 +1,10 @@
 package kr.co.whalesoft.framework.utils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class JsonResponse {
 
@@ -11,6 +15,7 @@ public class JsonResponse {
 	private Object			data;
 	private HttpServletRequest 	request;
 	private boolean			reload = false;
+	List<Map<String, Object>> errors;
 	
 	private boolean			targetOpener = false;
 	private boolean closeFlag = false;
@@ -78,5 +83,21 @@ public class JsonResponse {
 		this.reload = reload;
 	}
 
-	
+
+	public boolean hasErrors() {
+		return result != null;
+	}
+
+	public void addError(String field, String errorCode) {
+		if (errors == null) {
+			errors = new ArrayList<>();
+		}
+		Map<String, Object> error = new HashMap<>();
+		error.put("code", errorCode);
+		error.put("field", field);
+		errors.add(error);
+		if (result == null) {
+			result = errors;
+		}
+	}
 }
