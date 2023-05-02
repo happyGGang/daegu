@@ -1,3 +1,181 @@
+<style>
+	.tbl-type01 td img{height:170px;}
+  .step_box {margin-top:20px;}
+</style>
+
+<div class="roomicon">
+  <div class="inner icowrap">
+    <span class="ico ico2"></span> <strong>미디어창작소 예약</strong>
+    <p>범어도서관 미디어창작소에서 크리에이터의 꿈을 펼쳐보세요.</p>
+	<p class="basic_btn" style="text-align:left;margin-top:5px;">
+		<a href="https://youtu.be/bfzAs0u8gG4" class="btn_go newWin" title="새창열림">
+			<span>미디어 창작소 사용 방법</span> <i class="fa fa-external-link"></i>
+		</a> 
+	</p>
+	<p class="basic_btn" style="text-align:left;margin-top:5px;">
+		<a href="https://naver.me/F6xpPPhn" class="btn_go newWin" title="새창열림">
+			<span>예약 후 클릭해 주세요. (유의사항 확인 및 최종완료 단계)</span> <i class="fa fa-external-link"></i>
+		</a> 
+	</p>
+  </div>
+</div>
+
+<h3>이용방법</h3>
+<div class="step_box">
+  <ol class="no3">
+    <li>
+      <div class="box">
+        <p class="num">STEP 01</p>
+        홈페이지 로그인 후 신청<br>
+        * 사용 희망일 2일 전(18:00)까지 이용 신청</div>
+    </li>
+    <li>
+      <div class="box">
+        <p class="num">STEP 02</p>
+        이용 전 사용 매뉴얼<br>영상 시청</div>
+    </li>
+    <li>
+      <div class="box">
+        <p class="num">STEP 03</p>
+        이용 당일 도서관 방문하여 이용 신청서 및 동의서 작성 후 제출</div>
+    </li>
+  </ol>
+</div>
+<p>※ 신청자 포함 최대 4명 이용 가능<br>
+  ※ 개인용 이동형저장장치 지참(usb, sd카드 등)</p>
+    
+<h3>취소방법</h3>
+<ul class="con">
+  <li>예약 2일 전까지 홈페이지 취소 가능</li>
+  <li>2일전~전일까지는 053-668-1624로 전화 후 취소</li>
+  <li>당일 취소 및 변경 불가(NO Show 3회 시 신청 제한)</li>
+</ul>
+
+<h3>이용시간</h3>
+<ul class="con">
+  <li>오전 09:00~12:00(3시간)</li>
+  <li>오후 14:00~17:00(3시간)</li>
+  <li>이용불가: 일요일 및 휴관일, 미디어창작소 사용 프로그램 진행일 </li>
+</ul>
+<p>※ 1팀당 월 4회 이용 가능하며 1일 1회 이용 가능합니다.<br>
+  ※ 준비 및 철수 시간이 이용시간에 포함됩니다.</p>
+
+<h3>이용수칙</h3>
+<h4>시설 사용이 <span style="color: red;">제한</span>되는 경우</h4>
+<ul class="con">
+  <li>전도·포교 등 종교적 목적, 정치적 목적 등으로 사회적 논란의 여지가 있는 경우</li>
+  <li>도서관의 운영목적과 운영방향에 위배되는 경우</li>
+  <li>영상 제작 외 공간 사용 목적과 부합되지 않는 경우</li>
+  <li>예약 후 별도의 취소 없이 3회 이상 이용하지 않을 경우</li>
+  <li>이용시간을 초과하거나 시설을 제3자에게 양도할 경우</li>
+  <li>장비와 시설을 훼손할 우려가 있거나 부적절한 사용이 예상될 경우</li>
+</ul>
+<h4 style="color: red;">금지합니다</h4>
+<ul class="con">
+  <li>음식물 반입 및 섭취</li>
+  <li>대여 범위 외 허가받지 않은 물품의 사용<br>
+      (전열기 및 커피포트 등 화재위험이 있는 물품 등)</li>
+  <li>대리 신청 및 제3자에게 양도</li>
+  <li>그 외 도서관 조례나 운영규정에 위배되는 행위</li>
+</ul>
+
+<h3>참고사항</h3>
+<h4>이용 범위: 미디어 창작소 내부 시설 및 장비</h4>
+<ul class="con">
+  <li>영상장비 및 오디오장비, 영상 편집 프로그램 등</li>
+  <li>프리미어프로 계정 공유 불가</li>
+  <li>장비 외부 유출 불가</li>
+</ul>
+<h4>유의사항</h4>
+<ul class="con">
+  <li>신청자와 담당자가 함께 사용전·후 품목, 작동상태, 파손여부를 점검해야 한다. 대여자의 귀책사유로 시설(장비포함)을 파손·분실하였을 경우에는 동일한 시설(장비)로 변상해야한다. 다만, 단종된 장비는 그와 동등한 장비로 변상해야 한다.</li>
+  <li>시설(장비포함)을 대여하여 제작한 콘텐츠에 대한 저작권 분쟁 발생 시 범어도서관은 이에 대해 책임을 지지 않는다.</li>
+  <li>대여자에게 매뉴얼 외 별도의 이용교육을 제공하지 않는다.</li>
+</ul>
+
+<h3>미디어창작소 현황</h3>
+<h4>시설현황</h4>
+<div class="rsv-info"></div>
+<div class="auto-scroll">
+<table class="tbl-type01" summary="시설현황">
+  <caption class="disnone">
+  시설현황
+  </caption>
+  <colgroup>
+  <col width="33%">
+  <col width="*">
+  <col width="33%">
+  </colgroup>
+  <thead>
+	<tr>
+	  <th>미디어 창작소(외관)</th>
+	  <th>스튜디오</th>
+	  <th>편집실</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+	  <td><img src="/data/menuResources/h50/168/1677545927449.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545931573.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545936052.jpg"></td>
+	</tr>
+  </tbody>
+</table>
+</div>
+<br />
+<h4>보유 장비</h4>
+<div class="rsv-info"></div>
+<div class="auto-scroll">
+<table class="tbl-type01" summary="보유 장비">
+  <caption class="disnone">
+  보유 장비
+  </caption>
+  <colgroup>
+  <col width="25%">
+  <col width="25%">
+  <col width="25%">
+  <col width="25%">
+  </colgroup>
+  <thead>
+	<tr>
+	  <th>영상편집<br>(Adobe Premiere Pro)</th>
+	  <th colspan="3">스위쳐(녹화) 시스템 및 음향 시스템</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+	  <td><img src="/data/menuResources/h50/168/1677545941653.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545946560.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545951335.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545956893.jpg"></td>
+	</tr>
+  </tbody>
+  <thead>
+	<tr>
+	  <th>조명 시스템<br>:사각(63H),<br>원형(룩스원하이트3) 등</th>
+	  <th colspan="3">촬영 시스템<br>(배경지, 모니터, 프롬프터, 캠코더 등)</th>
+	</tr>
+  </thead>
+  <tbody>
+	<tr>
+	  <td><img src="/data/menuResources/h50/168/1677545961366.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545965651.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545970400.jpg"></td>
+	  <td><img src="/data/menuResources/h50/168/1677545975414.jpg"></td>
+	</tr>
+  </tbody>
+</table>
+</div>
+<br>
+
+<ul class="con">
+  <li>UHD캠코더 : 4K ENG Camcorder(소니)</li>
+  <li>스위쳐시스템 : 멀티뷰어용 모니터, 스튜디오 모니터(프롬프터)</li>
+  <li>편집시스템 : Premiere Pro</li>
+  <li>마이크 : 콘텐서, 마이크로폰, 무선마이크, 핀마이크 등</li>
+  <li>4롤 배경지 : 전동 컨트롤러, 카운트어웨이트</li>
+</ul>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>

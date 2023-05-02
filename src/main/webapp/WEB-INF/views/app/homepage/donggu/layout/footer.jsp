@@ -24,7 +24,7 @@
 				<address>
 					<p>
 						<em style="padding-right:20px;"><b>안심도서관</b> (41103) <br class="mobileBr"/>대구광역시 동구 금호강변로 360</em><br class="mobileBr"/><em style="padding-right:20px;">전화 : 053-980-2600</em><em>팩스 : 053-961-2345</em><br/>
-						<em style="padding-right:34px;"><b>신천도서관</b> (41269) <br class="mobileBr"/>대구광역시 동구 동부로6길 65</em><br class="mobileBr"/><em style="padding-right:20px;">전화 : 053-980-2600</em><em>팩스 : 053-662-4015</em>
+						<em style="padding-right:34px;"><b>신천도서관</b> (41269) <br class="mobileBr"/>대구광역시 동구 동부로6길 65</em><br class="mobileBr"/><em style="padding-right:20px;">전화 : 053-980-2600</em><em>팩스 : 053-216-2345</em>
 					</p>
 					<span>Copyright ⓒ 동구통합도서관. All rights reserved.</span>
 				</address>
