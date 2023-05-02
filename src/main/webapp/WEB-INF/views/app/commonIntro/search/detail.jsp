@@ -921,7 +921,14 @@ $(function() {
 						
 						</c:when>
 						<c:otherwise>
-							<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
+							<c:choose>
+								<c:when test="${detail.REG_CODE eq 'CDG'}">
+						
+								</c:when>
+								<c:otherwise>
+									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</c:when>
@@ -934,7 +941,11 @@ $(function() {
 							
 							</c:when>
 							<c:otherwise>
-								<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span></a>
+								<jsp:useBean id="Day1" class="java.util.Date" />
+									<fmt:formatDate var="day" value="${Day1}" pattern="E"/>
+										<c:if test="${day ne '토' and day ne '일'}">
+										<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
+										</c:if>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
