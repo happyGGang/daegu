@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
+  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.04.30 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,36 +89,36 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>201</td>
-    <td>181</td>
-    <td>102</td>
-    <td>495</td>
-    <td>323</td>
-    <td>337</td>
-    <td>256</td>
-    <td>267</td>
-    <td>2,717</td>
-    <td>448</td>
-    <td>5,327</td>
+      <td>201</td>
+      <td>181</td>
+      <td>102</td>
+      <td>495</td>
+      <td>323</td>
+      <td>337</td>
+      <td>256</td>
+      <td>267</td>
+      <td>2,717</td>
+      <td>448</td>
+      <td>5,327</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>3.7</td>
-    <td>3.4</td>
-    <td>2</td>
-    <td>9.3</td>
-    <td>6.1</td>
-    <td>6.3</td>
-    <td>4.8</td>
-    <td>5</td>
-    <td>51</td>
-    <td>8.4</td>
-    <td>100</td>
+      <td>3.8</td>
+      <td>3.4</td>
+      <td>1.9</td>
+      <td>9.3</td>
+      <td>6.1</td>
+      <td>6.3</td>
+      <td>4.8</td>
+      <td>5.0</td>
+      <td>51.0</td>
+      <td>8.4</td>
+      <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">(단위 : 권)</span></h3>
+  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.04.30 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -127,39 +127,48 @@ $('ul.close_day').html(li);
     </caption>
     <colgroup>
     <col width="*">
-    <col width="20%">
-    <col width="20%">
-    <col width="20%">
-    <col width="20%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
+    <col width="14.2%">
     </colgroup>
     <thead>
     <tr>
       <th>구 분</th>
-      <th>유아</th>
       <th>아동</th>
+      <th>유아</th>
       <th>일반</th>
+      <th>큰글</th>
+      <th>영어</th>
       <th>총계</th>
     </tr>
     </thead>
     <tbody>
     <tr>
       <th>권수</th>
-    <td>1,082</td>
-    <td>1,979</td>
-    <td>2,266</td>
-    <td>5,327</td>
+      <td>1,979</td>
+      <td>1,082</td>
+      <td>2,266</td>
+      <td>-</td>
+      <td>-</td>
+      <td>5,327</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>20.3</td>
-    <td>37.2</td>
-    <td>42.5</td>
-    <td>100</td>
+      <td>44.62</td>
+      <td>13.24</td>
+      <td>28.85</td>
+      <td>0.20</td>
+      <td>13.08</td>
+      <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <p>보존서고: 6,508권 포함</p>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="황금도서관 간행물 현황을 나타내는 표">
@@ -168,12 +177,13 @@ $('ul.close_day').html(li);
     </caption>
     <colgroup>
     <col width="*">
-    <col width="14.2%">
-    <col width="14.2%">
-    <col width="14.2%">
-    <col width="14.2%">
-    <col width="14.2%">
-    <col width="14.2%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
+    <col width="13%">
     </colgroup>
     <thead>
     <tr>
@@ -182,6 +192,7 @@ $('ul.close_day').html(li);
       <th>주간</th>
       <th>격주간</th>
       <th>월간</th>
+      <th>격월간</th>
       <th>계간</th>
       <th>계</th>
     </tr>
@@ -193,6 +204,7 @@ $('ul.close_day').html(li);
       <td>2</td>
       <td>1</td>
       <td>13</td>
+      <td>0</td>
       <td>1</td>
       <td>19</td>
     </tr>

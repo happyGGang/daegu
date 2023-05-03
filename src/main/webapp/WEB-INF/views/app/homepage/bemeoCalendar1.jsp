@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,36 +89,36 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>1,491</td>
-    <td>1,181</td>
-    <td>445</td>
-    <td>4,490</td>
-    <td>3,099</td>
-    <td>2,242</td>
-    <td>1,068</td>
-    <td>1,800</td>
-    <td>15,439</td>
-    <td>2,700</td>
-    <td>33,955</td>
+      <td>1,493</td>
+      <td>1,184</td>
+      <td>446</td>
+      <td>4,504</td>
+      <td>3,099</td>
+      <td>2,250</td>
+      <td>1,068</td>
+      <td>1,800</td>
+      <td>15,460</td>
+      <td>2,707</td>
+      <td>34,011</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>4.4</td>
-    <td>3.5</td>
-    <td>1.3</td>
-    <td>13.2</td>
-    <td>9.1</td>
-    <td>6.6</td>
-    <td>3.1</td>
-    <td>5.3</td>
-    <td>45.4</td>
-    <td>7.9</td>
-    <td>100</td>
+      <td>4.4</td>
+      <td>3.5</td>
+      <td>1.3</td>
+      <td>13.2</td>
+      <td>9.1</td>
+      <td>6.6</td>
+      <td>3.1</td>
+      <td>5.3</td>
+      <td>45.4</td>
+      <td>8.0</td>
+      <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -166,13 +166,13 @@ $('ul.close_day').html(li);
     <td>0.20</td>
     <td>0.90</td>
     <td>10.61</td>
-    <td>100.0</td>
+    <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
   <p>보존서고: 5,929권 포함</p>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">

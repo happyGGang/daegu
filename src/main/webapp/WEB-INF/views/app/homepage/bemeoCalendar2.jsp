@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,36 +89,36 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>1,760</td>
-    <td>1,208</td>
-    <td>556</td>
-    <td>3,929</td>
-    <td>2,976</td>
-    <td>1,494</td>
-    <td>954</td>
-    <td>2,138</td>
-    <td>15,902</td>
-    <td>3,352</td>
-    <td>34,269</td>
+      <td>1,761</td>
+      <td>1,214</td>
+      <td>556</td>
+      <td>3,934</td>
+      <td>2,980</td>
+      <td>1,502</td>
+      <td>954</td>
+      <td>2,139</td>
+      <td>15,926</td>
+      <td>3,362</td>
+      <td>34,328</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>5.1</td>
-    <td>3.5</td>
-    <td>1.6</td>
-    <td>11.4</td>
-    <td>8.7</td>
-    <td>4.3</td>
-    <td>2.8</td>
-    <td>6.2</td>
-    <td>46.4</td>
-    <td>9.8</td>
-    <td>100</td>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.6</td>
+      <td>11.5</td>
+      <td>8.7</td>
+      <td>4.4</td>
+      <td>2.8</td>
+      <td>6.2</td>
+      <td>46.4</td>
+      <td>9.8</td>
+      <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
-  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,27 +148,27 @@ $('ul.close_day').html(li);
     <tbody>
     <tr>
       <th>권수</th>
-    <td>15,279</td>
-    <td>4,538</td>
-    <td>9,912</td>
-    <td>70</td>
-    <td>4,470</td>
-    <td>34,269</td>
+      <td>15,307</td>
+      <td>4,540</td>
+      <td>9,941</td>
+      <td>70</td>
+      <td>4,470</td>
+      <td>34,328</td>
     </tr>
     <tr>
       <th>비율</th>
-    <td>44.62</td>
-    <td>13.24</td>
-    <td>28.85</td>
-    <td>0.20</td>
-    <td>13.08</td>
-    <td>100</td>
+      <td>44.6</td>
+      <td>13.2</td>
+      <td>29.0</td>
+      <td>0.2</td>
+      <td>13.0</td>
+      <td>100</td>
     </tr>
     </tbody>
     </table>
   </div>
   <p>보존서고: 6,508권 포함</p>
-  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.3.31. 기준] (단위 : 권)</span></h3>
+  <h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">
