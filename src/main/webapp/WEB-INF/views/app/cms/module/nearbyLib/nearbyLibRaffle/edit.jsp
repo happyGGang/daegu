@@ -90,10 +90,6 @@ function nearbyLibRaffle() {
 								'class' : 'btn btn1',
 								click : function() {
 									$(this).dialog('close');
-									var url = 'index.do';
-									var param = 'editMode=ADD';
-									alert('추첨이 완료되었습니다. 당첨자 확인 페이지로 이동합니다.');
-									doGetLoad(url, param);
 								}
 							}
 						]
