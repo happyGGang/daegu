@@ -167,7 +167,7 @@ caption {display: none;}
 								<li>${j.branch_idx}
 									<form:radiobutton id="questIdx_${questIdx}_99" path="answer_list[${questIdx}].quest_idx_list" value="99" disabled="${i.branch > 0 ? true : false}"/>
 									<label for="questIdx_${questIdx}_99">기타</label>
-									<form:input path="answer_list[${questIdx}].short_answer" size="25" maxlength="20" disabled="${i.branch > 0 ? true : false}"/>
+									<form:input path="answer_list[${questIdx}].short_answer" disabled="${i.branch > 0 ? true : false}"/>
 								</li>
 							</c:if>
 							<%-- <c:if test="${i.quest_detail_free_yn eq 'N'}">
@@ -201,7 +201,7 @@ caption {display: none;}
 								<li>
 									<form:checkbox id="questIdx_${questIdx}_99" path="answer_list[${questIdx}].quest_idx_list[${fn:length(i.quest_detail_list)}]" value="99" disabled="${i.branch > 0 ? true : false}"/>
 									<label for="questIdx_${questIdx}_99">기타</label>
-									<form:input path="answer_list[${questIdx}].short_answer" size="25" maxlength="20" disabled="${i.branch > 0 ? true : false}"/>
+									<form:input path="answer_list[${questIdx}].short_answer" disabled="${i.branch > 0 ? true : false}"/>
 								</li>
 							</c:if>
 							<%-- <c:if test="${i.quest_detail_free_yn eq 'N'}">
@@ -251,7 +251,7 @@ caption {display: none;}
 									</c:forEach>
 									</tr>
 									</c:forEach>
-									<form:hidden path="answer_list[${questIdx}].short_answer" size="25" maxlength="20"  disabled="${i.branch > 0 ? true : false}"/>
+									<form:hidden path="answer_list[${questIdx}].short_answer"  disabled="${i.branch > 0 ? true : false}"/>
 								</tbody>
 							</table> 
 						</td>
@@ -273,7 +273,7 @@ caption {display: none;}
 						<form:hidden path="answer_list[${questIdx}].quest_type" value="${i.quest_type}" disabled="${i.branch > 0 ? true : false}"/>
 						<form:hidden path="answer_list[${questIdx}].quest_idx" value="${i.quest_idx}" disabled="${i.branch > 0 ? true : false}"/>
 						<label for="answer_list[${questIdx}].short_answer" class="screen_out">서술형문항</label>
-						<form:input path="answer_list[${questIdx}].short_answer" size="90" maxlength="100" style="width:80%" disabled="${i.branch > 0 ? true : false}"/>
+						<form:input path="answer_list[${questIdx}].short_answer" style="width:80%" disabled="${i.branch > 0 ? true : false}"/>
 					</td>
 				</tr>
 				<c:set var="questIdx" value="${questIdx+1}" />
