@@ -18,7 +18,7 @@
 	<repositories>
 		<repository>
 			<id>whalesoft</id>
-			<url>https://whalesoft.co.kr:7081/repository/maven-public/</url>
+			<url>https://repo1.maven.org/maven2/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -42,7 +42,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>whalesoft</id>
-			<url>https://whalesoft.co.kr:7081/repository/maven-public/</url>
+			<url>https://repo1.maven.org/maven2/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
