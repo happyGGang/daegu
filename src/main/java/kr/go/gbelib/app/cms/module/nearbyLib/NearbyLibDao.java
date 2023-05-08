@@ -94,4 +94,6 @@ public interface NearbyLibDao {
 
 	int getMemberReserveCount(NeighborhoodLibrary neighborhoodLibrary);
 
+	List<NearbyLib> getNearbyLibMemberList(NearbyLib nearbyLib);
+
 }

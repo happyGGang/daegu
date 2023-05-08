@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibRaffle.NearbyLibRaffleDao">
+
+	<sql id="where">
+		<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+			AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+		</if>
+    	<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND ${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+    </sql>
+    
+	<select id="getNearbyLibRaffleCount" resultType="int">
+		SELECT 
+	    	COUNT(*)
+		FROM 
+			NEIGHBORHOOD_LIBRARY_RAFFLE_SETTING
+		WHERE 1=1
+		<include refid="where"/>
+	</select>
+	
+	<select id="getNearbyLibRaffleList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibRaffle.NearbyLibRaffle">
+		${pagingTop}
+		SELECT 
+	    	raffle_idx, raffle_name, raffle_count, win_count, add_date
+		FROM 
+			NEIGHBORHOOD_LIBRARY_RAFFLE_SETTING
+		WHERE 1=1
+		<include refid="where"/>
+		${pagingBottom}
+	</select>
+	
+	<select id="getToShuffleNearbyLibRaffleCount" resultType="int">
+		WITH numbered_rows AS (
+		    SELECT
+		        member_id,
+		        member_name,
+		        applicant_cell_phone,
+		        TO_CHAR(add_date, 'yyyy-MM-dd HH:mm') AS formatted_add_date,
+		        ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY add_date) AS row_num
+		    FROM
+		        NEIGHBORHOOD_LIBRARY_RESERVE
+		    WHERE
+		        cancel_yn != 'Y'
+		        AND applicant_cell_phone IS NOT NULL
+		        <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+					AND TO_DATE(add_date,'yyyy-MM-dd HH24mi') BETWEEN TO_DATE(#{start_date}||' 0900','yyyy-MM-dd HH24mi') AND TO_DATE(#{end_date}||' 0900','yyyy-MM-dd HH24mi')
+				</if>
+		        AND member_id NOT IN (
+		            SELECT
+		                distinct member_id
+		            FROM
+		                NEIGHBORHOOD_LIBRARY_RAFFLE
+		        )
+			)
+			SELECT
+			    COUNT(*)
+			FROM
+			    numbered_rows
+			WHERE
+			    row_num = 1
+	</select>
+	
+	<select id="getToShuffleNearbyLibRaffleList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibRaffle.NearbyLibRaffle">
+		<if test="editMode == 'ADD'">
+			${pagingTop}
+		</if>
+		WITH numbered_rows AS (
+		    SELECT
+		        member_id,
+		        member_name,
+		        applicant_cell_phone,
+		        TO_CHAR(add_date, 'yyyy-MM-dd HH:mm') AS formatted_add_date,
+		        ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY add_date) AS row_num
+		    FROM
+		        NEIGHBORHOOD_LIBRARY_RESERVE
+		    WHERE
+		        cancel_yn != 'Y'
+		        AND applicant_cell_phone IS NOT NULL
+		        <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+					AND TO_DATE(add_date,'yyyy-MM-dd HH24mi') BETWEEN TO_DATE(#{start_date}||' 0900','yyyy-MM-dd HH24mi') AND TO_DATE(#{end_date}||' 0900','yyyy-MM-dd HH24mi')
+				</if>
+		        AND member_id NOT IN (
+		            SELECT
+		                distinct member_id
+		            FROM
+		                NEIGHBORHOOD_LIBRARY_RAFFLE
+		        )
+			)
+			SELECT
+			    member_id,
+			    member_name AS name,
+			    applicant_cell_phone AS member_phone,
+			    formatted_add_date AS add_date
+			FROM
+			    numbered_rows
+			WHERE
+			    row_num = 1
+		<if test="editMode == 'ADD'">
+			${pagingBottom}
+		</if>
+	</select>
+	
+	<select id="getRaffleIdx" resultType="int">
+		SELECT 
+			NVL(MAX(raffle_idx),0)+1 
+		FROM 
+			NEIGHBORHOOD_LIBRARY_RAFFLE
+	</select>
+	
+	<insert id="saveRaffleSetting">		
+		INSERT INTO NEIGHBORHOOD_LIBRARY_RAFFLE_SETTING
+			(
+				raffle_idx, raffle_name, raffle_count, win_count, add_date
+			) VALUES (
+				#{raffle_idx}, #{raffle_name}, #{raffle_count}, #{win_count}, SYSDATE
+			)
+	</insert>
+
+	<insert id="saveWinnerList">		
+		<selectKey keyProperty="raffle_req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(raffle_req_idx),0)+1 FROM NEIGHBORHOOD_LIBRARY_RAFFLE
+		</selectKey>			
+		INSERT INTO NEIGHBORHOOD_LIBRARY_RAFFLE
+			(
+				raffle_idx, raffle_req_idx, member_id, name, member_phone,
+				reserve_date, add_id, add_date
+			) VALUES (
+				#{raffle_idx}, #{raffle_req_idx}, #{member_id}, #{name}, #{member_phone},
+				TO_DATE(#{add_date}, 'yyyy-MM-dd HH24:mi'), #{add_id}, SYSDATE
+			)
+	</insert>
+	
+	<select id="getWinnerNearbyLibRaffle" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibRaffle.NearbyLibRaffle">
+	    SELECT
+	        raffle_idx, raffle_req_idx, member_id, name, member_phone,
+			reserve_date, add_id, TO_CHAR(reserve_date, 'yyyy-MM-dd HH24:mi') AS add_date
+	    FROM
+	        NEIGHBORHOOD_LIBRARY_RAFFLE
+	    WHERE
+        raffle_idx = #{raffle_idx}
+	</select>
+	
+	<delete id="deleteRaffleSetting">
+		DELETE 
+		FROM 
+			NEIGHBORHOOD_LIBRARY_RAFFLE_SETTING
+		where
+			raffle_idx = #{raffle_idx}
+	</delete>
+
+	<delete id="deleteRaffle">
+		DELETE 
+		FROM 
+			NEIGHBORHOOD_LIBRARY_RAFFLE
+		where
+			raffle_idx = #{raffle_idx}
+	</delete>
+	
+	<select id="getNearbyLibRaffleExcelList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibRaffle.NearbyLibRaffle">
+		SELECT 
+	    	raffle_idx, raffle_req_idx, member_id, name, member_phone,
+			reserve_date, add_id, TO_CHAR(reserve_date, 'yyyy-MM-dd HH24:mi') AS reserve_date,
+			TO_CHAR(add_date, 'yyyy-MM-dd HH24:mi:ss') AS add_date
+		FROM 
+			NEIGHBORHOOD_LIBRARY_RAFFLE
+		WHERE 1=1
+		<include refid="where"/>
+	</select>
+</mapper>

@@ -1779,4 +1779,8 @@ public class NearbyLibService extends BaseService {
 		return dao.getMemberReserveCount(neighborhoodLibrary);
 	}
 
+	public List<NearbyLib> getNearbyLibMemberList(NearbyLib nearbyLib) {
+		return dao.getNearbyLibMemberList(nearbyLib);
+	}
+
 }
