@@ -37,7 +37,7 @@
 		        member_id,
 		        member_name,
 		        applicant_cell_phone,
-		        TO_CHAR(add_date, 'yyyy-MM-dd HH:mm') AS formatted_add_date,
+		        TO_CHAR(add_date, 'yyyy-MM-dd HH24:mi') AS formatted_add_date,
 		        ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY add_date) AS row_num
 		    FROM
 		        NEIGHBORHOOD_LIBRARY_RESERVE
@@ -45,7 +45,7 @@
 		        cancel_yn != 'Y'
 		        AND applicant_cell_phone IS NOT NULL
 		        <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-					AND TO_DATE(add_date,'yyyy-MM-dd HH24mi') BETWEEN TO_DATE(#{start_date}||' 0900','yyyy-MM-dd HH24mi') AND TO_DATE(#{end_date}||' 0900','yyyy-MM-dd HH24mi')
+				AND	add_date BETWEEN TO_DATE(#{start_date}||' 090000','yyyy-MM-dd HH24miss') AND TO_DATE(#{end_date}||' 090000','yyyy-MM-dd HH24miss')
 				</if>
 		        AND member_id NOT IN (
 		            SELECT
@@ -71,7 +71,7 @@
 		        member_id,
 		        member_name,
 		        applicant_cell_phone,
-		        TO_CHAR(add_date, 'yyyy-MM-dd HH:mm') AS formatted_add_date,
+		        TO_CHAR(add_date, 'yyyy-MM-dd HH24:mi') AS formatted_add_date,
 		        ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY add_date) AS row_num
 		    FROM
 		        NEIGHBORHOOD_LIBRARY_RESERVE
@@ -79,7 +79,7 @@
 		        cancel_yn != 'Y'
 		        AND applicant_cell_phone IS NOT NULL
 		        <if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
-					AND TO_DATE(add_date,'yyyy-MM-dd HH24mi') BETWEEN TO_DATE(#{start_date}||' 0900','yyyy-MM-dd HH24mi') AND TO_DATE(#{end_date}||' 0900','yyyy-MM-dd HH24mi')
+					AND	add_date BETWEEN TO_DATE(#{start_date}||' 090000','yyyy-MM-dd HH24miss') AND TO_DATE(#{end_date}||' 090000','yyyy-MM-dd HH24miss')
 				</if>
 		        AND member_id NOT IN (
 		            SELECT
