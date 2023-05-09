@@ -379,7 +379,7 @@
 		a.CANCLE_use_yn, a.START_CANCLE_DATE, a.END_CANCLE_DATE, a.START_CANCLE_TIME, a.END_CANCLE_TIME, a.CANCLE_GUID,
 		a.terms, a.apply_file_yn, a.teach_addr_limit, a.teach_addr_limit_value, a.age_info_yn,
 		a.attach_org_file_name, a.attach_server_file_name, a.attach_file_extension, a.attach_file_size,
-		a.link_url, a.disable_holi, a.teach_day_yn, a.teach_day_txt,a.disable_holi_calendar, a.teach_img_text,
+		a.link_url, a.disable_holi, a.teach_day_yn, a.teach_day_txt,a.disable_holi_calendar, a.teach_img_text, a.family_member_yn,
 		(SELECT
 		LISTAGG(hashtag_code,',') WITHIN GROUP(ORDER BY hashtag_idx)
 		FROM
@@ -436,7 +436,7 @@
 		TEACH_STATUS, TEACH_LIMIT_COUNT, TEACH_JOIN_UNIT, TEACH_BACKUP_COUNT, TEACH_OFFLINE_COUNT, teacher_idx, start_join_date, LIMIT_HAK_YN,
 		start_join_time, end_join_date, end_join_time, teach_day, start_date, START_TIME,
 		CANCLE_use_yn, START_CANCLE_DATE, END_CANCLE_DATE, START_CANCLE_TIME, END_CANCLE_TIME, CANCLE_GUID,
-		end_date, END_TIME, print_seq, TEACH_COUNT, teacher_name, vaccines_yn, teach_code_yn,
+		end_date, END_TIME, print_seq, TEACH_COUNT, teacher_name, vaccines_yn, teach_code_yn, family_member_yn,
 		<if test="server_file_name != null and server_file_name != '' ">
 			org_file_name,
 			server_file_name,
@@ -452,7 +452,7 @@
 		<if test="attach_server_file_name != null and attach_server_file_name != ''">
 			attach_org_file_name, attach_server_file_name, attach_file_extension, attach_file_size,
 		</if>
-		FAMILY_YN, MEMBER_YN, teach_age_type, sms_service_yn, picture_use_yn, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
+		family_yn, member_yn, teach_age_type, sms_service_yn, picture_use_yn, use_yn, CERTIFICATE_YN, SURVEY_IDX, ADD_DATE, ADD_ID, TEACH_JOIN_LIMIT_UNIT, TEACH_JOIN_LIMIT_VALUE,
 		family_count_yn, agent_yn, school_info_yn, school_grade_yn, remark_yn, address_yn, detail_address_yn, remark_comment,
 		neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
@@ -463,7 +463,7 @@
 		#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
 		#{start_join_time}, #{end_join_date}, #{end_join_time}, #{teach_day}, #{start_date}, #{start_time},
 		#{cancle_use_yn}, #{start_cancle_date}, #{end_cancle_date}, #{start_cancle_time}, #{end_cancle_time}, #{cancle_guid},
-		#{end_date}, #{end_time}, #{print_seq}, #{teach_count}, #{teacher_name}, #{vaccines_yn}, #{teach_code_yn},
+		#{end_date}, #{end_time}, #{print_seq}, #{teach_count}, #{teacher_name}, #{vaccines_yn}, #{teach_code_yn}, #{family_member_yn},
 		<if test="server_file_name != null and server_file_name != '' ">
 			#{org_file_name},
 			#{server_file_name},
@@ -587,6 +587,7 @@
 		neis_cd_yn = #{neis_cd_yn},
 		neis_training_num_yn = #{neis_training_num_yn},
 		rank_yn = #{rank_yn},
+		family_member_yn = #{family_member_yn},
 		birth_yn = #{birth_yn},
 		sex_yn = #{sex_yn},
 		organization_yn = #{organization_yn},

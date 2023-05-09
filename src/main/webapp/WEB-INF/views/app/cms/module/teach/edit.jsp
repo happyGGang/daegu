@@ -1439,6 +1439,16 @@
 			</td>
 		</tr>
 		<tr>
+			<th>가족 참여 구성원 입력 여부</th>
+			<td>
+				<form:radiobutton path="family_member_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="family_member_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '가족 참여 구성원' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<th>신청첨부파일 여부</th>
 			<td>
 				<form:radiobutton path="apply_file_yn" value="Y" label="사용"/>

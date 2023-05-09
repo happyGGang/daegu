@@ -198,6 +198,7 @@ public class Teach extends PagingUtils {
 	private String apply_file_yn = "N"; // 신청첨부파일 여부
 	//2021-10-06 YUNHAESU 백신 여부 체크 
 	private String vaccines_yn = "N";	// 백신 여부
+	private String family_member_yn = "N";	// 가족 참여 구성원 여부
 
 	private List<String> homepage_ids;
 
@@ -1797,5 +1798,13 @@ public class Teach extends PagingUtils {
 
 	public void setTeach_img_text(String teach_img_text) {
 		this.teach_img_text = teach_img_text;
+	}
+
+	public String getFamily_member_yn() {
+		return family_member_yn;
+	}
+
+	public void setFamily_member_yn(String family_member_yn) {
+		this.family_member_yn = family_member_yn;
 	}
 }

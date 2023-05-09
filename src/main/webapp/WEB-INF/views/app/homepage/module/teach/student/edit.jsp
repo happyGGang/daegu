@@ -788,6 +788,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			</tr>
 			</c:if>
 			</c:if>
+			<c:if test="${teach.family_member_yn eq 'Y'}">
+				<tr>
+					<th>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td><form:input path="family_member" cssClass="text" title="가족참여 구성원"/></td>
+				</tr>
+			</c:if>
 			<c:if test="${teach.apply_file_yn eq 'Y'}">
 			<tr>
 				<th>첨부파일</th>

@@ -591,6 +591,12 @@ $(function() {
 					<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
         		</td>
         	</tr>
+			<c:if test="${teach.family_member_yn eq 'Y'}">
+			<tr>
+				<th>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td><form:input path="family_member" class="text" /></td>
+			</tr>
+			</c:if>
 			<tr>
 				<th>상태</th>
 				<td>
@@ -749,6 +755,12 @@ $(function() {
 					</td>
 				</tr>
 				</c:if>
+			<c:if test="${teach.family_member_yn eq 'Y'}">
+				<tr>
+					<th>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td><form:input path="family_member" class="text" /></td>
+				</tr>
+			</c:if>
 				<tr>
 					<th>14세 미만 어린이/아동보호자(법정대리인)동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>

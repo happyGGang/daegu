@@ -60,6 +60,8 @@ public class Student extends PagingUtils {
 	private String student_password;//비회원 패스워드
 	private String sms_service_yn;  //sms 수신 동의 여부
 	private String picture_use_yn;  //사진 촬영 동의 여부
+	private String family_member_yn = "N";	// 가족 참여 구성원 여부
+	private String family_member;	// 가족 참여 구성원
 
 	private String self_info_yn;  //개인정보동의여부
 	private String apply_type;
@@ -906,5 +908,20 @@ public class Student extends PagingUtils {
 	public void setStudent_family_team(String student_family_team) {
 		this.student_family_team = student_family_team;
 	}
-	
+
+	public String getFamily_member_yn() {
+		return family_member_yn;
+	}
+
+	public void setFamily_member_yn(String family_member_yn) {
+		this.family_member_yn = family_member_yn;
+	}
+
+	public String getFamily_member() {
+		return family_member;
+	}
+
+	public void setFamily_member(String family_member) {
+		this.family_member = family_member;
+	}
 }
