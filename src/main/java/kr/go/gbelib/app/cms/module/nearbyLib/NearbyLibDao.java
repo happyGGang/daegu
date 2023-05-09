@@ -96,4 +96,6 @@ public interface NearbyLibDao {
 
 	List<NearbyLib> getNearbyLibMemberList(NearbyLib nearbyLib);
 
+	List<NearbyLib> getNeighborhoodLibraryListDitinct(NearbyLib neighborhoodLibrary);
+
 }

@@ -221,7 +221,7 @@ public class NearbyLibController extends BaseController {
 					if(lockerOneList.size() > 0){
 						neighborhoodLibrary.setDevice_idx(nearbyLibLocker.getDevice_idx());
 						neighborhoodLibrary.setEditMode("lockerDetail");						
-						neighborhoodLibraryList = service.getNeighborhoodLibraryList(neighborhoodLibrary);
+						neighborhoodLibraryList = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
 						count = neighborhoodLibraryList.size();
 					}
 				}
@@ -233,13 +233,16 @@ public class NearbyLibController extends BaseController {
 					if(lockerOneList.size() > 0) {
 						neighborhoodLibrary.setDevice_idx(nearbyLibLocker.getDevice_idx());
 						neighborhoodLibrary.setEditMode("lockerDetail");
-						neighborhoodLibraryList = service.getNeighborhoodLibraryList(neighborhoodLibrary); //장비에 예약된 예약목록 가져오기
+						neighborhoodLibraryList = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary); //장비에 예약된 예약목록 가져오기
 						count = neighborhoodLibraryList.size();
 					}
 				}
 			}
 			for(int i = 0 ; i < lockerOneList.size();) { //이미 배정되거나 사용중인 사물함은 뺀다 (사물함 선택해서 배정하는 용도)
 				for(int j = 0 ; j < neighborhoodLibraryList.size();) {
+					if(i == j) {
+						break;
+					}
 					if(lockerOneList.get(i).getLocker_each_idx() == neighborhoodLibraryList.get(j).getLocker_idx()) {
 						lockerOneList.remove(i);
 						i = 0;

@@ -58,7 +58,82 @@
 				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
 			</otherwise>
 		</choose>
-	</select>	
+	</select>
+	
+	<select id="getNeighborhoodLibraryListDitinct" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
+		WITH numbered_rows AS (
+		SELECT
+			homepage_id, reserve_status, device_idx, device_code, reserve_idx, 
+			reserve_bundle_idx, locker_idx, device_password, device_name, member_id,			
+			user_key, member_name, lend_date, manage_code, lib_name, 
+			book_key, reg_no, book_isbn, book_name, add_date, 
+			add_id, add_ip, cancel_yn, cancel_date, cancel_reason, 
+			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
+			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
+			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
+			call_no, check_yn, shelf_loc_name,
+			ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY add_date) AS row_num
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			1=1
+		<if test="device_idx != null and device_idx != ''">
+			AND DEVICE_IDX = #{device_idx}
+		</if>
+		<choose>
+			<when test='editMode == "lockerEmptycheck"'>
+				AND RESERVE_STATUS IN ('1','2','3')
+			</when>
+			<when test='editMode == "lockerDetail"'>
+				AND RESERVE_STATUS IN ('2','3')
+			</when>
+			<when test='editMode == "todayOut"'>
+				AND RESERVE_STATUS IN ('1','2')
+			</when>
+			<when test='editMode == "todayOutEach"'>
+				AND RESERVE_STATUS IN ('1','2')
+				AND add_date BETWEEN TO_DATE(TO_CHAR(SYSDATE - 1, 'yyyyMMdd') || #{reserve_start_time}, 'yyyyMMddHH24mi') AND TO_DATE(TO_CHAR(SYSDATE, 'yyyyMMdd') || #{reserve_end_time}, 'yyyyMMddHH24mi')
+			</when>
+			<when test='editMode == "todayIn"'>
+				AND (RESERVE_STATUS = '3' AND TO_CHAR(EXPIRE_DATE, 'yyyy-MM-dd') <![CDATA[ < ]]> TO_CHAR(SYSDATE, 'yyyy-MM-dd'))
+			</when>
+			<otherwise>
+				AND RESERVE_STATUS IN ('2','3')				
+			</otherwise>
+		</choose>
+		<if test="manage_code != null and manage_code != ''">
+		AND manage_code = #{manage_code}
+		</if>
+		<choose>
+			<when test='editMode == "todayIn"'>
+				ORDER BY 
+				RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+			</when>
+			<when test='editMode == "canUseLocker"'>
+				ORDER BY 
+				ADD_DATE
+			</when>
+			<otherwise>
+				ORDER BY 
+				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
+			</otherwise>
+		</choose>
+		)
+		SELECT
+		   homepage_id, reserve_status, device_idx, device_code, reserve_idx, 
+			reserve_bundle_idx, locker_idx, device_password, device_name, member_id,			
+			user_key, member_name, lend_date, manage_code, lib_name, 
+			book_key, reg_no, book_isbn, book_name, add_date, 
+			add_id, add_ip, cancel_yn, cancel_date, cancel_reason, 
+			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
+			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
+			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
+			call_no, check_yn, shelf_loc_name
+		FROM
+		    numbered_rows
+		WHERE
+		    row_num = 1
+	</select>
 
 	<select id="getNeighborhoodLibraryListAll" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		${pagingTop}

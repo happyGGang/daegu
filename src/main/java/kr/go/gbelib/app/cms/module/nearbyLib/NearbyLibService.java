@@ -1783,4 +1783,8 @@ public class NearbyLibService extends BaseService {
 		return dao.getNearbyLibMemberList(nearbyLib);
 	}
 
+	public List<NearbyLib> getNeighborhoodLibraryListDitinct(NearbyLib neighborhoodLibrary) {
+		return dao.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
+	}
+
 }
