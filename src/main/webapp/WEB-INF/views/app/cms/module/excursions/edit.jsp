@@ -94,7 +94,9 @@ $(function() {
 <form:hidden path="plan_date" value="${fn:substring(calendarManage.start_date,0,7)}"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="excursions_idx"/>
-<form:hidden path="date_type"/>
+<c:if test="${excursions.editMode ne 'MODIFY'}">
+	<form:hidden path="date_type"/>
+</c:if>
 <div style="text-align: right">(<span style="color: red; font-weight: bold;">*</span>) 필수 항목입니다.</div>
 <table class="type2">
 	<colgroup>
