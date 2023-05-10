@@ -210,6 +210,7 @@ public class NearbyLibController extends BaseController {
 		List<NearbyLibLocker> lockerOneList= new ArrayList<NearbyLibLocker>();
 		NearbyLibLocker lockerOne = new NearbyLibLocker();
 		List<NearbyLib> neighborhoodLibraryList = new ArrayList<NearbyLib>();
+		List<NearbyLib> neighborhoodLibraryListDitinct = new ArrayList<NearbyLib>();
 		int count = 0;
 		if(deviceList.size() > 0) {
 			if(nearbyLibLocker.getDevice_idx() == 0) { //처음 페이지 접속시 넘어온 device_idx가 없다
@@ -221,7 +222,8 @@ public class NearbyLibController extends BaseController {
 					if(lockerOneList.size() > 0){
 						neighborhoodLibrary.setDevice_idx(nearbyLibLocker.getDevice_idx());
 						neighborhoodLibrary.setEditMode("lockerDetail");						
-						neighborhoodLibraryList = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
+						neighborhoodLibraryList = service.getNeighborhoodLibraryList(neighborhoodLibrary);
+						neighborhoodLibraryListDitinct = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
 						count = neighborhoodLibraryList.size();
 					}
 				}
@@ -234,16 +236,17 @@ public class NearbyLibController extends BaseController {
 						neighborhoodLibrary.setDevice_idx(nearbyLibLocker.getDevice_idx());
 						neighborhoodLibrary.setEditMode("lockerDetail");
 						neighborhoodLibraryList = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary); //장비에 예약된 예약목록 가져오기
+						neighborhoodLibraryListDitinct = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
 						count = neighborhoodLibraryList.size();
 					}
 				}
 			}
 			for(int i = 0 ; i < lockerOneList.size();) { //이미 배정되거나 사용중인 사물함은 뺀다 (사물함 선택해서 배정하는 용도)
-				for(int j = 0 ; j < neighborhoodLibraryList.size();) {
+				for(int j = 0 ; j < neighborhoodLibraryListDitinct.size();) {
 					if(i == j) {
 						break;
 					}
-					if(lockerOneList.get(i).getLocker_each_idx() == neighborhoodLibraryList.get(j).getLocker_idx()) {
+					if(lockerOneList.get(i).getLocker_each_idx() == neighborhoodLibraryListDitinct.get(j).getLocker_idx()) {
 						lockerOneList.remove(i);
 						i = 0;
 						j = 0;

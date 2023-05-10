@@ -3754,21 +3754,6 @@ public class CommonSearchController extends BaseController {
 		String device_code = neighborhoodLibraryDeviceService.getNearbyLibDeviceOne(neighborhoodLibrary.getDevice_idx());
 		nearbySearch.setDevice_code(device_code);
 		
-		/*KLAS 무인예약 가능여부 api 호출*/
-//		try {
-//			ApiResponse apiResponse = LibSearchAPI.unmannedloancheck(nearbySearch);
-//			if(!apiResponse.getStatus()) {
-//				res.setValid(false);
-//				res.setMessage(apiResponse.getMessage());
-//				return res;
-//			}
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//			res.setValid(false);
-//			res.setMessage("KLAS 무인예약 사용가능 여부 api 호출에 실패하였습니다.");
-//			return res;
-//		}
-		
 		if("AA".equals(neighborhoodLibrary.getManage_code())) {
 			neighborhoodLibrary.setHomepage_id("h1");
 		} else if("AH".equals(neighborhoodLibrary.getManage_code())) {
@@ -3857,13 +3842,15 @@ public class CommonSearchController extends BaseController {
 			//회원의 예약건수
 			int member_reserve_count = neighborhoodLibraryService.getReserveCountNow(nearbyLibReserveConfig);
 			
+			int lockerBookCheck = neighborhoodLibraryService.getReserveCountNowLockerIn(nearbyLibReserveConfig);
+			
 			if(locker_count > 0) {
 				if(member_reserve_count >= 2) {
 					res.setValid(false);
 					res.setMessage("현재 내집앞 도서관 신청건수 및 대출건수를 초과 하였습니다. \n내집앞 도서관 신청 중인 도서를 취소하시거나 현재 내집앞도서관을 통해 대출한 도서를 반납하시고 다시 신청 바랍니다.");
 					return res;
 					
-				} else if(member_reserve_count == 0){
+				} else if(lockerBookCheck == 0){
 					if(locker_count <= reserve_locker_count) {
 						res.setValid(false);
 						res.setMessage("현재 사용가능한 사물함이 없습니다.");

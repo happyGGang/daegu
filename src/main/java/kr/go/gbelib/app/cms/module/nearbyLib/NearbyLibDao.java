@@ -98,4 +98,6 @@ public interface NearbyLibDao {
 
 	List<NearbyLib> getNeighborhoodLibraryListDitinct(NearbyLib neighborhoodLibrary);
 
+	int getReserveCountNowLockerIn(NearbyLibReserveConfig nearbyLibReserveConfig);
+
 }

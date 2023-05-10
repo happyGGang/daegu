@@ -1787,4 +1787,8 @@ public class NearbyLibService extends BaseService {
 		return dao.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
 	}
 
+	public int getReserveCountNowLockerIn(NearbyLibReserveConfig nearbyLibReserveConfig) {
+		return dao.getReserveCountNowLockerIn(nearbyLibReserveConfig);
+	}
+
 }

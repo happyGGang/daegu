@@ -903,6 +903,16 @@
 			member_id = #{member_id}
 		AND reserve_status IN ('1','2','3','4')		
 	</select>
+
+	<select id="getReserveCountNowLockerIn" resultType="int">		
+		SELECT
+			COUNT(*)
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			member_id = #{member_id}
+		AND reserve_status IN ('1','2','3')		
+	</select>
 	
 	<select id="getNearbyLibListCount" resultType="int">		
 		SELECT
