@@ -1232,14 +1232,14 @@ do {
 							<ul>
 								<li>
 									<a href="/dgportal/board/view.do?menu_idx=22&manage_idx=282&board_idx=492616&group_idx=0&rowCount=10&viewPage=1&searchStartDate=2022-04-25&searchEndDate=2023-04-25&search_type=title%2Bcontent" class="wrap" target="_blank">
-										<span class="date sangdan">2023<br class="webList"/><b>04.25</b></span>
+										<span class="date sangdan">2023.<br class="webList"/><b>04.25</b></span>
 										<span class="link libraryTonghap"><p style="line-height:100%;font-size:12px;color:#fff;">내집앞<br/>도서관</p></span>
 										<span class="tit titleyewe">내 집 앞 도서관 홍보를 위한 딱 10일간 특별한 이벤트!</span>
 									</a>
 								</li>
 								<li>
 									<a href="/dgportal/board/view.do?menu_idx=22&manage_idx=282&board_idx=488487&group_idx=0&rowCount=10&viewPage=1&searchStartDate=2022-02-11&searchEndDate=2023-02-11&search_type=title%2Bcontent" class="wrap" target="_blank">
-										<span class="date sangdan">2023<br class="webList"/><b>02.10</b></span>
+										<span class="date sangdan">2023.<br class="webList"/><b>02.10</b></span>
 										<span class="link libraryTonghap"><p style="line-height:100%;font-size:12px;color:#fff;">내집앞<br/>도서관</p></span>
 										<span class="tit titleyewe">생활 속 가까이 누리는 기쁨 '내  집  앞  도서관' 서비스  안내</span>
 									</a>
