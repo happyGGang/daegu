@@ -777,33 +777,37 @@ public class CommonSearchController extends BaseController {
 						
 						String nearbylibRejectMessage = "";
 						
-						try {
-							Object data = LoginAPI.login2(member);
-							
-							Member memberInfo = (Member) data;
-							
-							//통합대출권수
-							int unityLoanaleCnt = Integer.parseInt(memberInfo.getUnity_loanable_cnt());
-							int unityLoanCnt = Integer.parseInt(memberInfo.getUnity_loan_cnt());
-							//자관대출권수
-							int localLoanaleCnt = Integer.parseInt(memberInfo.getLocal_loanable_cnt());
-							int localLoanCnt = Integer.parseInt(memberInfo.getLocal_loan_cnt());
-							
-							//자관대출가능권수(자관대출가능권수 - (자관대출권수 + 내집앞도서예약권수))
-							int tongCnt = unityLoanaleCnt - (unityLoanCnt + 1);
-							//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
-							int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
-							
-							if(jagwanCnt <= 0) {
-								nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
-							}
-							if (tongCnt <= 0) {
-								nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
-							}
+						if("017".equals(member.getUser_class_code())) {
+							nearbylibRejectMessage = "이용자님은 비대면인증회원으로 서비스 이용을 위해 신분증을 지참하여 도서관으로 방문하여 주시기 바랍니다.";
+						} else {
+							try {
+								Object data = LoginAPI.login2(member);
+								
+								Member memberInfo = (Member) data;
+								
+								//통합대출권수
+								int unityLoanaleCnt = Integer.parseInt(memberInfo.getUnity_loanable_cnt());
+								int unityLoanCnt = Integer.parseInt(memberInfo.getUnity_loan_cnt());
+								//자관대출권수
+								int localLoanaleCnt = Integer.parseInt(memberInfo.getLocal_loanable_cnt());
+								int localLoanCnt = Integer.parseInt(memberInfo.getLocal_loan_cnt());
+								
+								//자관대출가능권수(자관대출가능권수 - (자관대출권수 + 내집앞도서예약권수))
+								int tongCnt = unityLoanaleCnt - (unityLoanCnt + 1);
+								//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
+								int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
+								
+								if(jagwanCnt <= 0) {
+									nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
+								}
+								if (tongCnt <= 0) {
+									nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
+								}
 
-						} catch (Exception e) {
-							e.printStackTrace();
-							log.error("내집앞 도서관 자관,통합대출가능 권수 조회 오류" + e.getMessage());
+							} catch (Exception e) {
+								e.printStackTrace();
+								log.error("내집앞 도서관 자관,통합대출가능 권수 조회 오류" + e.getMessage());
+							}
 						}
 						
 						model.addAttribute("reserveAvailability", reserveAvailability);
