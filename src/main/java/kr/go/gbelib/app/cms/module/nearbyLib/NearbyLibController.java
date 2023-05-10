@@ -235,7 +235,7 @@ public class NearbyLibController extends BaseController {
 					if(lockerOneList.size() > 0) {
 						neighborhoodLibrary.setDevice_idx(nearbyLibLocker.getDevice_idx());
 						neighborhoodLibrary.setEditMode("lockerDetail");
-						neighborhoodLibraryList = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary); //장비에 예약된 예약목록 가져오기
+						neighborhoodLibraryList = service.getNeighborhoodLibraryList(neighborhoodLibrary); //장비에 예약된 예약목록 가져오기
 						neighborhoodLibraryListDitinct = service.getNeighborhoodLibraryListDitinct(neighborhoodLibrary);
 						count = neighborhoodLibraryList.size();
 					}
