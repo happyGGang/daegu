@@ -2738,4 +2738,33 @@
 		</if>
 	</select>
 
+	<select id="getBoardByMainTopNoticeBySeobu" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+		TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+		(select new_date_count from CMS_BOARD_MANAGE where manage_idx = #{manage_idx}) AS new_date_count,
+		manage_idx, board_idx, group_idx, view_count, notice_yn,
+		title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+		imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+		imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+		category1, category2, category3, category4, category5, request_state,
+		getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+		getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+		getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+		getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+		getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name
+		FROM
+		CMS_BOARD
+		WHERE
+		manage_idx = #{manage_idx}
+		AND	delete_yn = 'N'
+		<if test="dept_cd != null and dept_cd == 'BOOK'">
+			AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
+		</if>
+		AND (notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
+		(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
+		ORDER BY board_idx DESC
+		${pagingBottom}
+	</select>
+
 </mapper>

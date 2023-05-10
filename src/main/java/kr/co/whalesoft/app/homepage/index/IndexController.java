@@ -1151,7 +1151,17 @@ public class IndexController extends BaseController {
 					int count = Integer.parseInt(boardInfo[2]);
 					BoardManage boardManage = boardManageService.getBoardManageOne(new BoardManage(homepage_id, manage_idx));
 					model.addAttribute(key, boardService.getBoardByMain(manage_idx, count, boardManage.getBoard_type()));
-					model.addAttribute(key+"TopNotice", boardService.getBoardByMainTopNotice(manage_idx, homepage_id.equals("h8") ? 3 : 2, boardManage.getBoard_type()));
+					int topNoticeLimit = homepage_id.equals("h8") ? 3 : 2;
+					if (manage_idx == 341 || manage_idx == 161) {
+						List<Board> list = boardService.getBoardByMainTopNotice(manage_idx, topNoticeLimit, boardManage.getBoard_type());
+						if (list.size() > 0){
+							model.addAttribute(key + "TopNotice", list);
+						} else{
+							model.addAttribute(key + "TopNotice", boardService.getBoardByMainTopNoticeBySeobu(manage_idx, topNoticeLimit, boardManage.getBoard_type()));
+						}
+					} else {
+						model.addAttribute(key + "TopNotice", boardService.getBoardByMainTopNotice(manage_idx, topNoticeLimit, boardManage.getBoard_type()));
+					}
 				}
 			}
 		}catch (MissingResourceException ex) {

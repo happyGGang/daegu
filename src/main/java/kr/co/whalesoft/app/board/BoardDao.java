@@ -194,4 +194,6 @@ public interface BoardDao {
 	public int getBoardMovieCount(Board board);
 
 	public List<Board> getTeachGuideListTopNotice(Board b3);
+
+    public List<Board> getBoardByMainTopNoticeBySeobu(Board board);
 }

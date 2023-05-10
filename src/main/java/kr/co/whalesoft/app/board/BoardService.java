@@ -195,6 +195,19 @@ public class BoardService extends BaseService {
 		return list;
 	}
 
+	@Cacheable(cacheName="getBoardByMainTopNoticeBySeobu")
+	public List<Board> getBoardByMainTopNoticeBySeobu(int manage_idx, int count, String boardType) {
+
+		List<Board> list = dao.getBoardByMainTopNoticeBySeobu(new Board(manage_idx, count, boardType));
+
+		for (Board board : list) {
+			if (!StringUtils.isEmpty(board.getContent_summary())) {
+				board.setContent_summary(board.getContent_summary().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("<[^>]*..", ""));
+			}
+		}
+		return list;
+	}
+
 	@Cacheable(cacheName="getBoardByMain")
 	public List<Board> getBoardByDepMain(int manage_idx, int count, String dept_cd) {
 		return dao.getBoardByDepMain(new Board(manage_idx, count, dept_cd));
