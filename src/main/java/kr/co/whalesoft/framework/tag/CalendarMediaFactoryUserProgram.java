@@ -3,6 +3,7 @@ package kr.co.whalesoft.framework.tag;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -81,12 +82,22 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 						if (apply.getMediaFactory_idx() == mediaFactory.getMediaFactory_idx()) {
 							if (planDay >= startReqDay && planDay <= endReqDay) {
 								if(member_id.equals(apply.getApplicant_member_id())) {
-									if (apply.getApply_state().equals("3")) {
-										sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getAgency_name() + ")</em></span><br>");
-									} else if (apply.getApply_state().equals("2")) {
-										sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
-									} else if (apply.getApply_state().equals("1")) {
-										sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									if(apply.getHomepage_id().equals("h50")) {
+										if (apply.getApply_state().equals("3")) {
+											sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getApplicant_name() + ")</em></span><br>");
+										} else if (apply.getApply_state().equals("2")) {
+											sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getApplicant_name() + ")</em></span><br>");
+										}else if (apply.getApply_state().equals("1")) {
+											sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getApplicant_name() + ")</em></span><br>");
+										}
+									} else {
+										if (apply.getApply_state().equals("3")) {
+											sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getAgency_name() + ")</em></span><br>");
+										} else if (apply.getApply_state().equals("2")) {
+											sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+										}else if (apply.getApply_state().equals("1")) {
+											sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+										}
 									}
 									flag = false;
 								}
@@ -125,12 +136,24 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 						if (apply.getMediaFactory_idx() == mediaFactory.getMediaFactory_idx()) {
 							if (planDay >= startReqDay && planDay <= endReqDay) {
 								if(member_id.equals(apply.getApplicant_member_id())) {
-									if (apply.getApply_state().equals("3")) {
-										sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getAgency_name() + ")</em></span><br>");
-									} else if (apply.getApply_state().equals("2")) {
-										sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
-									} else if (apply.getApply_state().equals("1")) {
-										sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									LocalDate today = LocalDate.now();
+
+									if(apply.getHomepage_id().equals("h50")) {
+										if (apply.getApply_state().equals("3")) {
+											sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getApplicant_name() + ")</em></span><br>");
+										} else if (apply.getApply_state().equals("2")) {
+											sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getApplicant_name() + ")</em></span><br>");
+										}else if (apply.getApply_state().equals("1")) {
+											sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getApplicant_name() + ")</em></span><br>");
+										}
+									} else {
+										if (apply.getApply_state().equals("3")) {
+											sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getAgency_name() + ")</em></span><br>");
+										} else if (apply.getApply_state().equals("2")) {
+											sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+										}else if (apply.getApply_state().equals("1")) {
+											sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+										}
 									}
 									flag = false;
 								}
@@ -138,14 +161,28 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 						}
 					}
 					if (flag) {
-						if (mediaFactory.getApply_yn().equals("Y") && mediaFactory.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
-							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+						if (mediaFactory.getApply_yn().equals("Y") && mediaFactory.getClosed_day() == 0 && (now.compareTo(planDate) < 0 || DateUtils.isSameDay(now, planDate))) {
+							LocalDate today = LocalDate.now();
+							if (today.isEqual(LocalDate.parse(plan_date)) && mediaFactory.getHomepage_id().equals("h50")) {
+								System.out.println("today : " + today);
+								if (maxApplyCount == 0) {
+									sb.append("<a href=\"javascript:void(0)\">당일신청 금지</a>");
+								} else {
+									if (maxApplyCount > curApplyCount) {
+										sb.append("<a href=\"javascript:void(0)\">당일신청 금지</a>");
+									} else {
+										sb.append("<a href=\"javascript:void(0)\">당일신청 금지</a>");
+									}
+								}
 							} else {
-								if (maxApplyCount > curApplyCount) {
+								if (maxApplyCount == 0) {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
-									sb.append("<a href=\"#\">신청 정원 마감</a>");
+									if (maxApplyCount > curApplyCount) {
+										sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + mediaFactory.getMediaFactory_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + mediaFactory.getStart_time() + "\" keyValue4=\"" + mediaFactory.getEnd_time() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									} else {
+										sb.append("<a href=\"#\">신청 정원 마감</a>");
+									}
 								}
 							}
 						}
@@ -169,12 +206,23 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 						if (apply.getMediaFactory_idx() == mediaFactory.getMediaFactory_idx()) {
 							if (planDay >= startReqDay && planDay <= endReqDay) {
 								if(member_id.equals(apply.getApplicant_member_id())) {
-									if (apply.getApply_state().equals("3")) {
-										sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getAgency_name() + ")</em></span><br>");
-									} else if (apply.getApply_state().equals("2")) {
-										sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
-									} else if (apply.getApply_state().equals("1")) {
-										sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									if(apply.getHomepage_id().equals("h50")) {
+										LocalDate localDate = LocalDate.now();
+										if (apply.getApply_state().equals("3")) {
+											sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getApplicant_name() + ")</em></span><br>");
+										} else if (apply.getApply_state().equals("2")) {
+											sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getApplicant_name() + ")</em></span><br>");
+										}else if (apply.getApply_state().equals("1")) {
+											sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getApplicant_name() + ")</em></span><br>");
+										}
+									} else {
+										if (apply.getApply_state().equals("3")) {
+											sb.append("<span class=\"type-r\"><i></i><em><strong>승인완료</strong>(" + apply.getAgency_name() + ")</em></span><br>");
+										} else if (apply.getApply_state().equals("2")) {
+											sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+										}else if (apply.getApply_state().equals("1")) {
+											sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+										}
 									}
 									flag = false;
 								}

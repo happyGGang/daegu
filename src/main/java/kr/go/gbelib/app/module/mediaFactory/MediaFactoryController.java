@@ -249,7 +249,7 @@ public class MediaFactoryController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
-			if(!apply.getHomepage_id().equals("h73") && !apply.getHomepage_id().equals("h59") && !apply.getHomepage_id().equals("h60") ) {
+			if(!apply.getHomepage_id().equals("h73") && !apply.getHomepage_id().equals("h59") && !apply.getHomepage_id().equals("h60") && !apply.getHomepage_id().equals("h50")) {
 				ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력해주세요.");

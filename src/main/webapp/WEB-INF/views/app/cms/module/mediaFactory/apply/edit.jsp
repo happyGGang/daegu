@@ -225,29 +225,6 @@ $(function() {
 				<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
 			</td>
 		</tr>
-		<c:if test="${mediaFactoryApply.homepage_id eq 'h50'}">
-		<tr>
-			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:hidden path="agency_tel"/>
-				<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-				<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-				<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관 주소</th>
-			<td>
-				<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
-			</td>
-		</tr>
-		</c:if>
 		<c:choose>
 		<c:when test="${mediaFactoryApply.homepage_id ne 'h50'}">
 			<tr>
@@ -307,14 +284,14 @@ $(function() {
 					</form:select> *최대 4명까지 가능합니다.
 				</td>
 			</tr>
-		</c:when>
-		<c:otherwise>
 			<tr>
 				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="age" class="text" cssStyle="width:50px" />
 				</td>
 			</tr>
+		</c:when>
+		<c:otherwise>
 			<tr>
 				<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *숫자만 입력가능합니다.</td>
@@ -330,12 +307,25 @@ $(function() {
 				</form:select>
 			</td>
 		</tr>
-		<tr>
-			<th>비고</th>
-			<td>
-				<form:input path="remarks" class="text" cssStyle="width:90%"/>
-			</td>
-		</tr>
+		<c:choose>
+			<c:when test="${mediaFactoryApply.homepage_id ne 'h50'}">
+				<tr>
+					<th>비고</th>
+					<td>
+						<form:input path="remarks" class="text" cssStyle="width:90%"/>
+					</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<tr>
+					<th>이용목적</th>
+					<td>
+						<form:input path="remarks" class="text" cssStyle="width:90%"/>
+					</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+
 	</tbody>
 </table>
 </form:form>

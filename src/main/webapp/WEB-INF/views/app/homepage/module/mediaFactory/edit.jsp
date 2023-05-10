@@ -190,12 +190,14 @@ $(function() {
 </c:forEach>
 
 <form:form modelAttribute="apply" id="mediaFactoryEdit" action="/${homepage.context_path}/module/mediaFactory/save.do" method="post" onsubmit="return false;">
+	<c:if test="${homepage.context_path ne 'beomeo'}">
 <div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
 	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px">
 		<form:option value="Y" label="동의"/>
 		<form:option value="N" label="미동의"/>
 	</form:select>
 </div>
+	</c:if>
 <br/>
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
@@ -210,7 +212,9 @@ $(function() {
 <form:hidden path="end_time"/>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div style="text-align: right">
+	<c:if test="${homepage.context_path ne 'beomeo'}">
 	(<span style="color: red; font-weight: bold;">*</span>) 필수 항목 입니다.
+	</c:if>
 </div>
 
 <c:choose>
@@ -261,6 +265,51 @@ $(function() {
 	</tbody>
 </table>
 </c:when>
+	<c:when test="${homepage.context_path eq 'beomeo'}">
+		<table class="type1">
+			<colgroup>
+				<col width="140"/>
+				<col width="*"/>
+			</colgroup>
+			<tbody>
+			<tr>
+				<th>신청자 성명</th>
+				<td>
+					<form:hidden path="applicant_name" value="${member.member_name}"/>
+						${member.member_name}
+
+				</td>
+			</tr>
+			<tr>
+				<th>신청자 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:hidden path="applicant_tel"/>
+					<form:input path="applicant_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="3" numberonly="true" value="${fn:substring(member.mobile_no, 0, 3)}"/> -
+					<form:input path="applicant_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 3, 7)}"/> -
+					<form:input path="applicant_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 7, 11)}"/>
+				</td>
+			</tr>
+			<tr>
+				<th>신청자 이메일</th>
+				<td>
+					<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
+				</td>
+			</tr>
+			<form:hidden path="age" class="text" cssStyle="width:50px" value="0"/>
+			<tr>
+				<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true" value='1'/> *숫자만 입력가능하며 신청자  본인만  방문가능합니다.</td>
+			</tr>
+			<tr>
+				<th>이용목적</th>
+				<td><form:input path="remarks" class="text" cssStyle="width:80%"/> </td>
+			</tr>
+			</tbody>
+		</table>
+			<div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
+					<form:checkbox path="self_info_yn" value="Y" label="예" cssStyle="cursor: pointer;" checked="checked"/>
+			</div>
+	</c:when>
 <c:otherwise>
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
