@@ -107,7 +107,7 @@
 		<choose>
 			<when test='editMode == "todayIn"'>
 				ORDER BY 
-				RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
+					RESERVE_STATUS, ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
 			</when>
 			<when test='editMode == "canUseLocker"'>
 				ORDER BY 
@@ -115,7 +115,7 @@
 			</when>
 			<otherwise>
 				ORDER BY 
-				ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
+					ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX			
 			</otherwise>
 		</choose>
 		)

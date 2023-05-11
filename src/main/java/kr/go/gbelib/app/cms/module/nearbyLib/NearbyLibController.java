@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -241,21 +242,14 @@ public class NearbyLibController extends BaseController {
 					}
 				}
 			}
-			for(int i = 0 ; i < lockerOneList.size();) { //이미 배정되거나 사용중인 사물함은 뺀다 (사물함 선택해서 배정하는 용도)
-				for(int j = 0 ; j < neighborhoodLibraryListDitinct.size();) {
-					if(i == j) {
-						break;
-					}
-					if(lockerOneList.get(i).getLocker_each_idx() == neighborhoodLibraryListDitinct.get(j).getLocker_idx()) {
-						lockerOneList.remove(i);
-						i = 0;
-						j = 0;
-						continue;
-					}
-					j++;
-				}
-				i++;
-			}
+			List<Integer> distinctNeighborhoodLockerIndices = neighborhoodLibraryListDitinct.stream()
+																							.map(NearbyLib::getLocker_idx)
+																							.distinct()
+																							.collect(Collectors.toList());
+
+			lockerOneList = lockerOneList.stream()
+										 .filter(locker -> !distinctNeighborhoodLockerIndices.contains(locker.getLocker_each_idx()))
+										 .collect(Collectors.toList());
 			
 		}
 		
