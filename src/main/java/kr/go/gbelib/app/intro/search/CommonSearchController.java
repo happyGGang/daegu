@@ -4396,4 +4396,173 @@ public class CommonSearchController extends BaseController {
 
 		return res;
 	}
+	
+	/**
+	 * 게시판 형식의 자료검색
+	 * @author whalesoft HWAN
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @param homepagePath
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/recommandIndex.*"})
+	public String recommandIndex(Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+		
+		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
+		// 소장처 코드
+		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
+			librarySearch.setManageCode(homepage.getManage_code());
+		}
+		
+		if ( librarySearch.getLibraryCodes() == null ) {
+			List<String> libraryCodes = new ArrayList<String>();
+			if ( !StringUtils.isEmpty(homepage.getManage_code()) ) {
+				libraryCodes.add(homepage.getManage_code());
+			} else {
+				for (Homepage home : normalHomepage) {
+					libraryCodes.add(home.getManage_code());
+				}
+			}
+
+			Homepage h1 = new Homepage();
+			h1.setHomepage_id(homepage.getHomepage_id());
+			h1.setHomepage_group(homepage.getHomepage_id());
+			h1.setTemp_use_yn(null);
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h1);
+			if (CollectionUtils.isNotEmpty(subHomepageList)) {
+				for (Homepage homepage1 : subHomepageList) {
+					if (StringUtils.isNotEmpty(homepage1.getManage_code())) {
+						libraryCodes.add(homepage1.getManage_code());
+
+					}
+				}
+			}
+
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+		
+		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+		List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
+		model.addAttribute("shelfCodeList", shelfInfoList);
+
+		if(!(StringUtils.isNotEmpty(librarySearch.getShelfCode())) && "h45".equals(homepage.getHomepage_id())) {
+			List<String> shelfCodes = new ArrayList<String>();
+			List<Map<String, Object>> libraryCodes = LibSearchAPI.getListData(shelfInfo);
+			
+			for(int i=0; i < libraryCodes.size(); i++) {
+				shelfCodes.add(i, (String) libraryCodes.get(i).get("CODE"));
+			}
+			
+			librarySearch.setShelfCodes(shelfCodes);
+		}
+
+ 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
+    		Map<String, Object> result = new HashMap<String, Object>();
+
+    		if ( librarySearch.getBooktype().equals("BOOK") ) {
+    			result = LibSearchAPI.getBookDetail(librarySearch);
+    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
+    			result = LibSearchAPI.getNonBookDetail(librarySearch);
+    		} else if (librarySearch.getBooktype().equals("SERIAL")) {
+    			result = LibSearchAPI.getSerialDetail(librarySearch);
+    		} else if (librarySearch.getBooktype().equals("BOOKANDNONBOOK")) {
+    			result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+    		}
+
+    		List<Map<String, Object>> list = null;
+
+    		int count = LibSearchAPI.getSearchCount(result);
+
+    		librarySearch.setTotalDataCount(count);
+    		service.setPaging(model, count, librarySearch);
+
+    		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+    			list = LibSearchAPI.getListData(result);
+
+    			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+    			for (Map<String, Object> map : list) {
+    				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+    					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+    					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+    						map.put("aladin", aladinData.get("item"));
+    					}
+    					if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
+						}
+    				}
+    				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+				}
+    		}
+
+    		model.addAttribute("bookSearch", list);
+    		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
+		}
+
+		Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
+		List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
+
+		model.addAttribute("mediaCodeList", mediaCodeList);
+		model.addAttribute("librarySearch", librarySearch);
+
+		return String.format(basePath, homepage.getFolder()) + "recommandIndex";
+	}
+	
+	/**
+	 * 자료 상세페이지
+	 * @author whalesoft YONGJU 2019. 11. 29.
+	 * @param homepagePath
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = {"/recommandDetail.*"})
+	public String recommandDetail(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request) {
+		Homepage homepage = getSessionHomepage(request);
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		result = LibSearchAPI.getBookInfo(librarySearch);
+
+		model.addAttribute("librarySearch", librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+		
+		if ( count > 0 ) {
+			list = LibSearchAPI.getListData(result);
+			Map<String, Object> map = list.get(0);
+
+			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+			if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+				Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+				if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+					map.put("aladin", aladinData.get("item"));
+				}
+				if (map.get("aladin") == null) {
+					map.put("imageUrl", service.getImageUrl(map));
+				}
+			}
+			
+			map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
+
+			librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
+			librarySearch.setRegNo(String.valueOf(map.get("REG_NO")));
+			librarySearch.setLibCode(String.valueOf(map.get("LIB_CODE")));
+			librarySearch.setSpeciesKey(String.valueOf(map.get("SPECIES_KEY")));
+
+			map.put("SANGHO_REQ_YN", "N");
+
+			model.addAttribute("detail", map);
+		}
+		
+		return String.format(basePath, homepage.getFolder()) + "recommandDetail";
+	}
 }
