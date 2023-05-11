@@ -166,12 +166,12 @@ public class CalendarMediaFactoryUserProgram extends BodyTagSupport {
 							if (today.isEqual(LocalDate.parse(plan_date)) && mediaFactory.getHomepage_id().equals("h50")) {
 								System.out.println("today : " + today);
 								if (maxApplyCount == 0) {
-									sb.append("<a href=\"javascript:void(0)\">당일신청 금지</a>");
+									sb.append("<a href=\"javascript:void(0)\">당일신청 불가</a>");
 								} else {
 									if (maxApplyCount > curApplyCount) {
-										sb.append("<a href=\"javascript:void(0)\">당일신청 금지</a>");
+										sb.append("<a href=\"javascript:void(0)\">당일신청 불가</a>");
 									} else {
-										sb.append("<a href=\"javascript:void(0)\">당일신청 금지</a>");
+										sb.append("<a href=\"javascript:void(0)\">당일신청 불가</a>");
 									}
 								}
 							} else {
