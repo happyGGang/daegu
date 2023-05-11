@@ -72,7 +72,7 @@
 			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
 			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
 			call_no, check_yn, shelf_loc_name,
-			ROW_NUMBER() OVER (PARTITION BY member_id ORDER BY add_date) AS row_num
+			ROW_NUMBER() OVER (PARTITION BY locker_idx ORDER BY add_date) AS row_num
 		FROM
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
