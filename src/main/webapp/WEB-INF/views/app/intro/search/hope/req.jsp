@@ -575,7 +575,7 @@
 		</tr>
 		<tr>
 			<th>비고</th>
-			<td><form:input path="user_remark" style="width:90%" class="text" type="text" maxlength="50"/></td>
+			<td><form:input path="recom_opinion" style="width:90%" class="text" type="text" maxlength="50"/></td>
 		</tr>
 		<tr>
 			<th>가격 <em><font color="red">(*)</font></em></th>
