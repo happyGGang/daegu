@@ -667,7 +667,7 @@ public class MemberAPI {
 		} else if (member.getUser_manage_code().equals("AC") || member.getUser_manage_code().equals("BA") || member.getUser_manage_code().equals("BB") || member.getUser_manage_code().equals("BC")) {
 			user_position_code = "005"; //북부, 구수산, 대현, 태전
 		} else if (member.getUser_manage_code().equals("AE") || member.getUser_manage_code().equals("BD") || member.getUser_manage_code().equals("BE") || member.getUser_manage_code().equals("BF")
-				 || member.getUser_manage_code().equals("BG") || member.getUser_manage_code().equals("BH") || member.getUser_manage_code().equals("BJ") || member.getUser_manage_code().equals("BK")) {
+				 || member.getUser_manage_code().equals("BG") || member.getUser_manage_code().equals("BH") || member.getUser_manage_code().equals("BJ") || member.getUser_manage_code().equals("BK") || member.getUser_manage_code().equals("HR")) {
 			user_position_code = "006"; //수성, 범어, 용학, 고산, 파동, 무학숲, 책숲길, 물망이
 		} else if (member.getUser_manage_code().equals("AB") || member.getUser_manage_code().equals("BU") || member.getUser_manage_code().equals("BV") || member.getUser_manage_code().equals("BW")
 				 || member.getUser_manage_code().equals("BX") || member.getUser_manage_code().equals("BY") || member.getUser_manage_code().equals("BZ")) {

@@ -383,6 +383,7 @@ function doAjaxPostResponse(form, ajaxBody) {
 					<option value="h50" ${category.homepage_id eq 'h50' ? 'selected' : ''}>범어</option>
 					<option value="h54" ${category.homepage_id eq 'h54' ? 'selected' : ''}>책숲길</option>
 					<option value="h55" ${category.homepage_id eq 'h55' ? 'selected' : ''}>물망이</option>
+					<option value="h93" ${category.homepage_id eq 'h93' ? 'selected' : ''}>황금책</option>
 				</select>
 			</c:when>
 

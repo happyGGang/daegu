@@ -139,7 +139,7 @@
 										<c:when test="${i.homepage_id eq 'h7' || i.homepage_id eq 'h46' || i.homepage_id eq 'h47' || i.homepage_id eq 'h48'}"><!-- 북구 -->
 										<span class="color-bukgu">${i.homepage_alias}</span>
 										</c:when>
-										<c:when test="${i.homepage_id eq 'h9' || i.homepage_id eq 'h50' || i.homepage_id eq 'h51' || i.homepage_id eq 'h52' || i.homepage_id eq 'h54' || i.homepage_id eq 'h55' || i.homepage_id eq 'h56' || i.homepage_id eq 'h57' || i.homepage_id eq 'h58'}"><!-- 수성구 -->
+										<c:when test="${i.homepage_id eq 'h9' || i.homepage_id eq 'h50' || i.homepage_id eq 'h51' || i.homepage_id eq 'h52' || i.homepage_id eq 'h54' || i.homepage_id eq 'h55' || i.homepage_id eq 'h56' || i.homepage_id eq 'h57' || i.homepage_id eq 'h58' || i.homepage_id eq 'h93'}"><!-- 수성구 -->
 										<span class="color-suseonggu">${i.homepage_alias}</span>
 										</c:when>
 										<c:when test="${i.homepage_id eq 'h6' || i.homepage_id eq 'h37' || i.homepage_id eq 'h66' || i.homepage_id eq 'h67' || i.homepage_id eq 'h68' || i.homepage_id eq 'h69' || i.homepage_id eq 'h70' || i.homepage_id eq 'h71' || i.homepage_id eq 'h72'}"><!-- 달서구 -->

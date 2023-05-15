@@ -171,6 +171,7 @@ $(function(){
 						<form:option value="h50">범어</form:option>
 						<form:option value="h54">책숲길</form:option>
 						<form:option value="h55">물망이</form:option>
+						<form:option value="h93">황금책</form:option>
 					</form:select>
 					</span>
 					<br/>

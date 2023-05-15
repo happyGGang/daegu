@@ -551,6 +551,7 @@ $(function() {
 														<option value="h52">수성구립 고산도서관</option>
 														<option value="h57">수성구립 무학숲도서관</option>
 														<option value="h55">수성구립 물망이도서관</option>
+														<option value="h93">수성구립 황금책문화센터도서관</option>
 														<option value="h50">수성구립 범어도서관</option>
 														<option value="h58">수성구립 사월역작은도서관</option>
 														<option value="h51">수성구립 용학도서관</option>

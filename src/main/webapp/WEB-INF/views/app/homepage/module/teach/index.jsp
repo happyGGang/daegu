@@ -228,6 +228,7 @@ $(function(){
 					<li><a href="#tabCon0" data-hid="h50">범어</a></li>
 					<li><a href="#tabCon1" data-hid="h54">책숲길</a></li>
 					<li><a href="#tabCon2" data-hid="h55">물망이</a></li>
+					<li><a href="#tabCon3" data-hid="h93">황금책</a></li>
 				</ul>
 			</div>
 		</c:when>

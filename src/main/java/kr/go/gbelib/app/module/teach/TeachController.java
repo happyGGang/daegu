@@ -194,6 +194,7 @@ public class TeachController extends BaseController{
 			homepage_ids.add("h76");
 			homepage_ids.add("h77");
 			homepage_ids.add("h78");
+			homepage_ids.add("h93");
 			teach.setHomepage_ids(homepage_ids);
 			teach.setLarge_category_idx(16);
 			teachService.setPaging(model, teachService.getTeachListForAllHomepageGugunCount(teach), teach);

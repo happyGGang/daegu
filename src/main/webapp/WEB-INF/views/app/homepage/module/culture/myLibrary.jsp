@@ -170,6 +170,10 @@
             <li>
               <form:checkbox path="manage_codes" cssClass="chkbox" value="BK" label="물망이도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'BK') ? 'checked' : ''}"></form:checkbox>
             </li>
+               <%--황금책문화센터도서관--%>
+            <li>
+              <form:checkbox path="manage_codes" cssClass="chkbox" value="HR" label="황금책문화센터도서관	" checked="${fn:contains(myLibraryOne.manage_codes, 'HR') ? 'checked' : ''}"></form:checkbox>
+            </li>
               <%--h56,수성구립 파동도서관,BG--%>
             <li>
               <form:checkbox path="manage_codes" cssClass="chkbox" value="BG" label="파동도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'BG') ? 'checked' : ''}"></form:checkbox>
