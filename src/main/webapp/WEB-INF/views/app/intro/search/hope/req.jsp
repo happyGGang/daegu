@@ -541,7 +541,7 @@
 				</c:when>
 				<c:when test="${context_path eq 'wasabi'}">
 				<form:select path="manageCode">
-					<form:option value="HH">푸른초장공공도서관</form:option>
+					<form:option value="NH">푸른초장공공도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:otherwise>
