@@ -68,10 +68,25 @@ public class QuizReqController extends BaseController {
 		// 등록된 퀴즈 타입이 있는지 확인
 		if ( quizTypeList.size() > 0 ) {
 			Menu menuOne = (Menu) request.getAttribute("menuOne");
-			Terms t = new Terms();
-			t.setModule_idx(menuOne.getManage_idx());
-			t.setHomepage_id(homepage.getHomepage_id());
-			model.addAttribute("termsList", termsService.getTermsListInModule(t));
+			
+			if("h1".equals(homepage.getHomepage_id())) {
+				Terms t = new Terms();
+				t.setHomepage_id(homepage.getHomepage_id());
+				
+				if(StringUtils.isEmpty(quizReq.getSearch_quiz_type()) || "1".equals(quizReq.getSearch_quiz_type()) || "2".equals(quizReq.getSearch_quiz_type())) {
+					t.setTerms_idx(91);
+					model.addAttribute("termsList", termsService.getTermsListOne(t));
+				} else {
+					t.setTerms_idx(92);
+					model.addAttribute("termsList", termsService.getTermsListOne(t));
+				}
+			} else {
+				Terms t = new Terms();
+				t.setModule_idx(menuOne.getManage_idx());
+				t.setHomepage_id(homepage.getHomepage_id());
+				model.addAttribute("termsList", termsService.getTermsListInModule(t));
+			}
+			
 			model.addAttribute("quizTypeList", quizTypeList);
 			// 첫번째 퀴즈 타입의 해당하는 년,월 의 퀴즈를 가져옴.
 

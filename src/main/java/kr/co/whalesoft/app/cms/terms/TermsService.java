@@ -58,4 +58,7 @@ public class TermsService extends BaseService {
 		return dao.getTermsListByTeach(teach);
 	}
 
+	public List<Terms> getTermsListOne(Terms terms) {
+		return dao.getTermsListOne(terms);
+	}
 }

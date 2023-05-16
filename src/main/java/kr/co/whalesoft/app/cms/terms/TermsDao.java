@@ -26,4 +26,6 @@ public interface TermsDao {
 	
 	public List<Terms> getTermsListByTeach(Teach teach);
 
+	public List<Terms> getTermsListOne(Terms terms);
+
 } 

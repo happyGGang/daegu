@@ -178,4 +178,17 @@
 		ORDER BY terms_idx ASC
 	</select>
 	
+	<select id="getTermsListOne" resultType="kr.co.whalesoft.app.cms.terms.Terms">
+		SELECT
+			homepage_id, terms_idx, terms_type, manage_idx, title, contents,
+			use_yn, required_yn, delete_yn, add_id, add_date, modify_id,
+			modify_date,
+			(SELECT A.CODE_NAME FROM CMS_CODE A WHERE A.GROUP_ID = 'C0015' AND A.CODE_ID = CMS_TERMS.TERMS_TYPE) AS TERMS_TYPE_NAME
+		FROM
+			CMS_TERMS
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	terms_idx = #{terms_idx}
+		AND	DELETE_YN = 'N'
+	</select>
 </mapper>
