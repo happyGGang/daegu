@@ -178,6 +178,10 @@ public class LibrarySearch extends PagingUtils {
 	private String device_code;
 	private int request_idx;
 	private String request_status;
+	
+	// 희망도서 바로대출 신청내역 조회용 변수
+	private String transaction_code;
+	private String date_option;
 
 	public String getSearchType() {
 		return searchType;
@@ -1278,5 +1282,20 @@ public class LibrarySearch extends PagingUtils {
 	public void setCall_no(String call_no) {
 		this.call_no = call_no;
 	}
-	
+
+	public String getTransaction_code() {
+		return transaction_code;
+	}
+
+	public void setTransaction_code(String transaction_code) {
+		this.transaction_code = transaction_code;
+	}
+
+	public String getDate_option() {
+		return date_option;
+	}
+
+	public void setDate_option(String date_option) {
+		this.date_option = date_option;
+	}
 }

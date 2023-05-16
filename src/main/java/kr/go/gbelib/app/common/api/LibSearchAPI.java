@@ -2,8 +2,8 @@ package kr.go.gbelib.app.common.api;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.util.stream.Collectors;
@@ -2952,5 +2952,71 @@ public class LibSearchAPI {
 		String user_key = String.valueOf(userKey.get("USER_KEY"));
 
 		return user_key;
+	}
+	
+	/**
+	 * K.API
+	 *
+	 * 희망도서 바로대출 신청리스트 조회
+	 *
+	 * @author whalesoft HWAN 2023. 05. 15.
+	 * @param librarySearch
+	 * @return
+	 * @throws ParseException 
+	 */
+	public static Map<String, Object> getBaroLoanHistory(LibrarySearch librarySearch) throws ParseException {
+		Map<String, Object> param = new HashMap<String, Object>();
+
+		param.put("user_no", librarySearch.getUserkey());
+		if(StringUtils.isNotEmpty(librarySearch.getTransaction_code())) {
+			param.put("transaction_code", librarySearch.getTransaction_code());
+		}
+		if(StringUtils.isNotEmpty(librarySearch.getDate_option())) {
+			param.put("date_option", librarySearch.getDate_option());
+		}
+		
+		if(StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
+			param.put("start_date", librarySearch.getSearch_start_date().replaceAll("-", ""));
+		}
+		
+		if(StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) {
+			param.put("end_date", librarySearch.getSearch_end_date().replaceAll("-", ""));
+		}
+			
+		param.put("pageno", librarySearch.getViewPage());
+		param.put("display", librarySearch.getRowCount());
+
+		return CommonAPI.libraryapiXmlToJson("baroloanreqlist.do", param);
+	}
+	
+	@SuppressWarnings ("unchecked")
+	public static int getSearchCountBaro(Map<String, Object> map) {
+		int cnt = 0;
+
+		if (map != null && !map.isEmpty() && map.get("result_message") != null) {
+			return 0;
+		}
+
+		if (map != null && !map.isEmpty() && map.get("total") != null) {
+			cnt = Integer.parseInt(String.valueOf(map.get("total")));
+		}
+
+		return cnt;
+	}
+	
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getListDataBaro(Map<String, Object> map) {
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("result_message") != null) {
+			return null;
+		}
+
+		if (map != null && !map.isEmpty() && map.get("search_list") != null) {
+			list = new ArrayList<Map<String, Object>>();
+			list.addAll((List<Map<String, Object>>) map.get("search_list"));
+		}
+
+		return list;
 	}
 }

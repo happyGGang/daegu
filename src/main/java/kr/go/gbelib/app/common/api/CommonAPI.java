@@ -1254,4 +1254,39 @@ public class CommonAPI {
 		}
 		return resultMap;
 	}
+
+	public static Map<String, Object> libraryapiXmlToJson(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = LIBRARY_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+			
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for ( String oneKey : keys ) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ LIBRARY_API_URL : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+			
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
 }

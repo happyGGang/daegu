@@ -4565,4 +4565,58 @@ public class CommonSearchController extends BaseController {
 		
 		return String.format(basePath, homepage.getFolder()) + "recommandDetail";
 	}
+	
+	/**
+	 * 희망도서 대출내역 조회
+	 * @author whalesoft HWAN 2023. 05. 15.
+	 * @param homepagePath
+	 * @param model
+	 * @param librarySearch
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = {"/baro/index.*"})
+	public String baroMyLoan(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+
+		Member member = getSessionMemberInfo(request);
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, +3);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+		if (StringUtils.isEmpty(librarySearch.getSearch_start_date())) {
+			librarySearch.setSearch_start_date(sdf.format(new Date()));
+		}
+		if (StringUtils.isEmpty(librarySearch.getSearch_end_date())) {
+			librarySearch.setSearch_end_date(sdf.format(cal.getTime()));
+		}
+
+		librarySearch.setUserkey(member.getUser_no());
+		
+		Map<String, Object> result = LibSearchAPI.getBaroLoanHistory(librarySearch);
+
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCountBaro(result);
+		librarySearch.setTotalDataCount(count);
+		service.setPaging(model, count, librarySearch);
+		
+		if (result != null && !result.isEmpty() && result.get("search_list") != null) {
+			list = LibSearchAPI.getListDataBaro(result);
+		}
+		
+		model.addAttribute("hopeList", list);
+		
+		return String.format(basePath, homepage.getFolder()) + "baro/index";
+	}
+
 }
