@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
 $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
@@ -104,8 +105,9 @@ $(function() {
 					<col width="120"/>
 					<col width="120"/>
 					<col width="120"/>
-					<col width="75"/>
-					<col width="75"/>
+					<col width="100"/>
+					<col width="100"/>
+					<col width=""/>
 					<col width=""/>
 				</c:otherwise>
 			</c:choose>
@@ -118,6 +120,7 @@ $(function() {
 				<th>이용시간</th>
 				<th>방문인원</th>
 				<th>승인여부</th>
+				<th>예약시간</th>
 				<c:if test="${mediaFactoryApply.homepage_id ne 'h50'}">
 					<th>보호자 성명</th>
 					<th>신청인과의 관계</th>
@@ -164,6 +167,7 @@ $(function() {
 						    </c:otherwise>
 						</c:choose>
 					</td>
+					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 					<c:if test="${mediaFactoryApply.homepage_id ne 'h50'}">
 						<td>${i.protector_name}</td>
 						<td>
