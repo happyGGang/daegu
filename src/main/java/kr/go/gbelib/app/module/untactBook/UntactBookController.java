@@ -188,6 +188,18 @@ public class UntactBookController extends BaseController {
 		LibrarySearch ls = new LibrarySearch();
 		ls.setManageCode(homepage.getManage_code());
 		ls.setUserkey(member.getRec_key());
+		
+		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
+		
+		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			return null;
+		}
 
 		Map<String, Object> untactBookLoanReserveListForOne = LibSearchAPI.getUntactBookLoanReserveList(ls, null);
 		int searchCountForOne = LibSearchAPI.getSearchCount(untactBookLoanReserveListForOne);
@@ -199,12 +211,6 @@ public class UntactBookController extends BaseController {
 			return null;
 		}
 		
-		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
-		}
-
 		if (librarySearch.getBooktype() == null) {
 			librarySearch.setBooktype("BO");
 		}
@@ -317,6 +323,12 @@ public class UntactBookController extends BaseController {
 		untactBookRound.setHomepage_id(homepage.getHomepage_id());
 		
 		JsonResponse res = new JsonResponse(request);
+		
+		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
+			res.setValid(false);
+			res.setMessage("로그인 후 이용가능합니다.");
+			return res;
+		}
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			res.setValid(false);
