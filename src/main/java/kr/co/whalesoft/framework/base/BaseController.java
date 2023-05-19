@@ -82,7 +82,7 @@ public abstract class BaseController {
 
 	public boolean isLogin(HttpServletRequest request) {
 		Member member = (Member) loginServiceBase.getSessionMember(request);
-		if (member == null) {
+		if (member == null || "null".equals(member.getMember_id().toLowerCase()) || member.getMember_id() == null) {
 			return false;
 		}
 		return member.isLogin();
