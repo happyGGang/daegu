@@ -138,15 +138,8 @@ public class MediaFactoryApplyController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
-			if(apply.getHomepage_id().equals("h50")) {
-			ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
-			}else {
+			if(!apply.getHomepage_id().equals("h50")) {
 				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 선택해주세요.");
-				
 			}
 			if("h45".equals(apply.getHomepage_id()) || "h73".equals(apply.getHomepage_id()) || "h59".equals(apply.getHomepage_id()) || "h60".equals(apply.getHomepage_id())) {
 				ValidationUtils.rejectIfEmpty(result, "protector_name", "보호자동의서에 보호자이름을 입력하세요.");
