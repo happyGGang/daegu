@@ -162,6 +162,18 @@ $(function() {
 		
 		e.preventDefault();
 	});
+	
+	$('a#dialog-load').on('click', function(e) {
+		if ( $('#homepage_id_1').val() == '' ) {
+			alert('홈페이지정보가 없습니다.');
+		} else {
+			$('#dialog-5').load('/cms/module/teach/searchTeach.do?homepage_id=' + $('#homepage_id_1').val(), function( response, status, xhr ) {
+				$('#dialog-5').dialog('open');
+			});
+		}
+		
+		e.preventDefault();
+	});
 
 });
 </script>
@@ -262,6 +274,7 @@ $(function() {
 			</c:if>
 			<c:if test="${authC}">
 				<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+				<a href="#" class="btn btn4 left" id="dialog-load"><i class="fa fa-plus"></i><span>강좌불러오기</span></a>
 				<a href="#" class="btn btn1 left" id="dialog-search-cert"><i class="fa fa-plus"></i><span>기간별 수료자 조회</span></a>
 <!-- 				<a href="#" class="btn btn4 left" id="dialog-setting"><i class="fa fa-plus"></i><span>설정</span></a> -->
 			</c:if>
@@ -403,3 +416,4 @@ $(function() {
 <div id="dialog-2" class="dialog-common" title="수료자 조회"></div>
 <div id="dialog-3" class="dialog-common" title="기간별 수료자 조회"></div>
 <div id="dialog-4" class="dialog-common" title="1인당 강좌수 설정"></div>
+<div id="dialog-5" class="dialog-common" title="강좌 검색"></div>

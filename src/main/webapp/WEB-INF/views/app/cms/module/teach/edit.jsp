@@ -754,7 +754,7 @@
 			<th>강의 대분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<c:choose>
-					<c:when test="${teach.editMode eq 'MODIFY'}">
+					<c:when test="${teach.editMode eq 'MODIFY' or teach.editMode eq 'LOAD'}">
 						${teach.large_category_name}<form:hidden path="large_category_idx"/>
 					</c:when>
 					<c:otherwise>
@@ -768,7 +768,7 @@
 			<th>강의 중분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<c:choose>
-					<c:when test="${teach.editMode eq 'MODIFY'}">
+					<c:when test="${teach.editMode eq 'MODIFY' or teach.editMode eq 'LOAD'}">
 						${teach.group_name}<form:hidden path="group_idx"/>
 					</c:when>
 					<c:otherwise>
@@ -790,7 +790,7 @@
 			<th>강의 소분류</th>
 			<td>
 				<c:choose>
-					<c:when test="${teach.editMode eq 'MODIFY'}">
+					<c:when test="${teach.editMode eq 'MODIFY' or teach.editMode eq 'LOAD'}">
 						${teach.category_name}<form:hidden path="category_idx"/>
 					</c:when>
 					<c:otherwise>
@@ -812,7 +812,7 @@
 			<th>주제해시태그 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<c:choose>
-					<c:when test="${teach.editMode eq 'MODIFY' and not empty teach.hashtag_names}">
+					<c:when test="${(teach.editMode eq 'MODIFY' and not empty teach.hashtag_names) or teach.editMode eq 'LOAD'}">
 						<div id="hashtag_item_box" style="font-weight: bold;" empty_yn="N">
 								${teach.hashtag_names}
 						</div>

@@ -287,7 +287,7 @@ public class TeachController extends BaseController {
 				}
 			}
 			
-			if ( editMode.equals("ADD") || editMode.equals("MODIFY") ) {
+			if ( editMode.equals("ADD") || editMode.equals("MODIFY") || editMode.equals("LOAD")) {
 				ValidationUtils.rejectIfEmpty(result, "hashtag_codes", "강좌 해시코드를 선택해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "age_div_codes","연령구분을 선택해주세요");
 				ValidationUtils.rejectIfZero(result, "group_idx", "중분류를 선택해 주세요.");
@@ -410,7 +410,7 @@ public class TeachController extends BaseController {
 //		}
 
 		if ( !result.hasErrors() ) {
-			if ( editMode.equals("ADD") ) {
+			if ( editMode.equals("ADD") || editMode.equals("LOAD")) {
 				if ( StringUtils.isNotEmpty(teach.getTeach_name()) ) {
 					teach.setTeach_name(teach.getTeach_name().trim());
 				}
@@ -591,5 +591,30 @@ public class TeachController extends BaseController {
 	@RequestMapping (value = { "/getSmallCodeList.*" }, method = RequestMethod.GET)
 	public @ResponseBody List<TeachCode> getSmallCodeList(TeachCode teachCode, HttpServletRequest request) {
 		return teachCodeService.getSmallCodeList(teachCode);
+	}
+	
+	@RequestMapping(value = {"/searchTeach.*"})
+	public String searchTeach(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String sortField = teach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			teach.setSortField("");
+			teach.setSortType("");
+		}
+		
+		teachService.setPaging(model, teachService.getTeachListCount(teach), teach);
+		model.addAttribute("teach", teach);
+		model.addAttribute("teachList", teachService.getTeachList(teach));
+
+		return basePath + "searchTeach_ajax";
+	}
+	
+	@RequestMapping(value = { "/load.*" })
+	public String load(Model model, Teach teach, HttpServletRequest request) throws AuthException {
+		Teach teachOne = null;
+		teachOne = new Teach();
+		teachOne = (Teach) teachService.copyObjectPaging(teach,teachService.getTeachOne(teach));
+		model.addAttribute("teach", teachOne);
+
+		return basePath + "edit_ajax";
 	}
 }
