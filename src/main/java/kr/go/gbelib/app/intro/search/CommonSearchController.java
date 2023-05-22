@@ -2279,12 +2279,6 @@ public class CommonSearchController extends BaseController {
 		Member member = getSessionMemberInfo(request);
 		int resultData = 0;
 		
-		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			return res;
-		}
-		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				res.setValid(false);
@@ -2470,12 +2464,6 @@ public class CommonSearchController extends BaseController {
 			}
 		}
 		Member member = getSessionMemberInfo(request);
-		
-		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			return res;
-		}
 		
 		if (!result.hasErrors()) {
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
@@ -3364,11 +3352,6 @@ public class CommonSearchController extends BaseController {
 		
 		if (!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
-			if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
-				res.setValid(false);
-				res.setMessage("로그인 후 이용가능합니다.");
-				return res;
-			}
 			
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
 				res.setValid(false);
@@ -3720,12 +3703,6 @@ public class CommonSearchController extends BaseController {
 		
 		Member member = getSessionMemberInfo(request);
 		
-		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
-			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
-			return null;
-		}
-		
 		if(!"null".equals(member.getMember_id()) && StringUtils.isNotEmpty(member.getMember_id())) {
 			neighborhoodLibrary.setMember_id(member.getMember_id());
 			
@@ -3761,12 +3738,6 @@ public class CommonSearchController extends BaseController {
 	public @ResponseBody JsonResponse neighborhoodLibrarySave(Model model, NearbyLib neighborhoodLibrary, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		Member member = getSessionMemberInfo(request);
-		
-		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
-			res.setValid(false);
-			res.setMessage("로그인 후 이용가능합니다.");
-			return res;
-		}
 		
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			res.setValid(false);
