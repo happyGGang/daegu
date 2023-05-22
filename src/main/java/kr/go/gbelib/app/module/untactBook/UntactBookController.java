@@ -189,10 +189,18 @@ public class UntactBookController extends BaseController {
 		ls.setManageCode(homepage.getManage_code());
 		ls.setUserkey(member.getRec_key());
 		
-		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
+		if(StringUtils.isEmpty(member.getMember_id())) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
 			return null;
+		}
+		
+		if(StringUtils.isNotEmpty(member.getMember_id())) {
+			if("null".equals(member.getMember_id().toLowerCase())) {
+				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				return null;
+			}
 		}
 		
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -324,10 +332,18 @@ public class UntactBookController extends BaseController {
 		
 		JsonResponse res = new JsonResponse(request);
 		
-		if(StringUtils.isEmpty(member.getMember_id()) || "null".equals(member.getMember_id().toLowerCase())) {
+		if(StringUtils.isEmpty(member.getMember_id())) {
 			res.setValid(false);
 			res.setMessage("로그인 후 이용가능합니다.");
 			return res;
+		}
+		
+		if(StringUtils.isNotEmpty(member.getMember_id())) {
+			if("null".equals(member.getMember_id().toLowerCase())) {
+				res.setValid(false);
+				res.setMessage("로그인 후 이용가능합니다.");
+				return res;
+			}
 		}
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
