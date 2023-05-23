@@ -52,24 +52,11 @@ $(function() {
 	<input type="hidden" id="select_no" name="select_no"/>
 </form>
 
-
-<!-- contents-title-->
-<c:choose>
-<c:when test="${homepage.context_path eq 'dgportal'}">
-<p class="txt-box-adv">희망도서 바로대출은 개별 도서관 홈페이지에서 신청가능합니다.</p>
-</c:when>
-<c:otherwise>
-</c:otherwise>
-</c:choose>
-
-
-<!-- /contents-title-->
-
-
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="librarySearch" action="index.do" method="get" onsubmit="return false;">
 <form:hidden path="viewPage"/>
 <form:hidden path="menu_idx"/>
+<!-- 
 <div class="loan_box02" style="padding:30px;">
 	<label for="search_start_date" style="display:none1;"><b>시작일</b></label>
 	<form:input path="search_start_date" cssClass="text ui-calendar new_text01" cssStyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
@@ -78,7 +65,8 @@ $(function() {
 	<label for="search_end_date" style="display: none1;"><b>종료일</b></label>
 	<form:input path="search_end_date" cssClass="text ui-calendar new_text01" csSstyle="border:1px solid #c9c9c9;border-radius:4px;height:30px"/>
 	<a id="do-search" class="btn btn1">검색</a>
-</div>
+</div> 
+-->
 
 <c:if test="${fn:length(hopeList) < 1 }"><div class="book-list" style="border-top:none;"><h3 style="margin-top:0;">희망도서 바로대출 신청 내역이 없습니다.</h3></div></c:if>
 
