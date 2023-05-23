@@ -2068,4 +2068,11 @@ public class IndexController extends BaseController {
 		model.addAttribute("areaCultureList", cultureService.getAreaCultureList(culture));
 		return basePath + homepage.getFolder() + "/areaculture_ajax";
 	}
+	
+	@RequestMapping(value = { "/{contextPath}/curation{idx}.*"})
+	public String curation(Model model, HttpServletRequest request, @PathVariable String contextPath, @PathVariable String idx) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		return basePath + homepage.getFolder() + "/curation" + idx + "_ajax";
+	}
 }
