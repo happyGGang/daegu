@@ -98,10 +98,10 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 		<form:option value="18">글 있음</form:option>
 		<form:option value="17">글 없음</form:option>
 	</form:select>
-<!-- 	<div class="button"> -->
-<!-- 		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a> -->
-<!-- 		<a href="#" class="btn btn3 left" id="frame-btn"><i class="fa fa-list"></i><span>액자형 전환</span></a> -->
-<!-- 	</div> -->
+	<div class="button">
+		<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+		<a href="#" class="btn btn3 left" id="frame-btn"><i class="fa fa-list"></i><span>액자형 전환</span></a>
+	</div>
 </div>
 <!-- <div class="month-txt"> -->
 <!-- 	<ul> -->
