@@ -177,6 +177,10 @@ $(function(){
 <%-- 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/> --%>
 
 	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib' and (homepage.context_path eq 'donggu' and teach.searchCate1 ne '31')}">
+		<c:choose>
+		<c:when test="${homepage.context_path eq 'donggu' and param.menu_idx eq '185'}">
+		</c:when>
+		<c:otherwise>
 		<div class="tab_menu on">
 			<ul class="no${fn:length(subHomepageList)}">
 				<c:forEach items="${subHomepageList}" var="i" varStatus="status">
@@ -184,6 +188,8 @@ $(function(){
 				</c:forEach>
 			</ul>
 		</div>
+		</c:otherwise>
+		</c:choose>
 	</c:if>
 
 	<c:choose>
