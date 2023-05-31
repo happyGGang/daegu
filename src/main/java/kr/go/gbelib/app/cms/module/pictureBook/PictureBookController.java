@@ -42,7 +42,7 @@ public class PictureBookController extends BaseController {
 	@RequestMapping (value = {"/index{url}.*"}, method = RequestMethod.GET)
 	public String index(Model model, PictureBook pictureBook, HttpServletRequest request, @PathVariable("url") String url) {
 		
-//		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
+		service.setPaging(model, service.getPictureBookCount(pictureBook), pictureBook);
 		
 		model.addAttribute("pictureBook", pictureBook);
 		model.addAttribute("pictureBookList", service.getPictureBookList(pictureBook));
@@ -83,7 +83,7 @@ public class PictureBookController extends BaseController {
 		
 		Map<String, Object> map = null;
 		if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-			map = LibSearchAPI.getNaverList(librarySearch);
+			map = LibSearchAPI.getKaKaoList(librarySearch);
 			int totalCount = (Integer) map.get("totalCount");
 			@SuppressWarnings ("unchecked")
 			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
@@ -108,7 +108,7 @@ public class PictureBookController extends BaseController {
 
 				}
 				service.setPaging(model, totalCount, librarySearch);
-				model.addAttribute("naverResult", map);
+				model.addAttribute("kakaoResult", map);
 			}
 		}
 		

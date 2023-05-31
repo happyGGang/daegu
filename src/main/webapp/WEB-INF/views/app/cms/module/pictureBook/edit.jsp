@@ -116,12 +116,10 @@ function getNaverData(arg) {
 	$('input#publish_year').val(arg[3]);
 	$('input#isbn').val(arg[4]);
 	$('input#picture_price').val(arg[5]);
-	oEditors.getById["content"].exec("SET_IR", [arg[6]]);
-	$('input#desc_link').val(arg[7] + '//' + arg[8]);
-	if(arg[9] != null && arg[9] != '') {
+	if(arg[6] != null && arg[7] != '') {
 		$('#thumbnail').show();
-		$('#thumbnail td').html('<img src="'+(arg[9] + '//' + arg[10]) +'" alt="'+arg[0].replace(/(<([^>]+)>)/ig,"")+'">');
-		$('input#thumb_image').val(arg[9] + '//' + arg[10]);
+		$('#thumbnail td').html('<img src="'+(arg[6] + '//' + arg[7]) +'" alt="'+arg[0].replace(/(<([^>]+)>)/ig,"")+'">');
+		$('input#thumb_image').val(arg[6] + '//' + arg[7]);
 	}
 	
 	return false;

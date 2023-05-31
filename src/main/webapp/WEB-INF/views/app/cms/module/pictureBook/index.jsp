@@ -184,9 +184,9 @@ ul.select-month li a.loan-ing {display: block;color: #fff;background-color: #ff5
 	</c:if>
 </div>
 
-<%-- <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false"> --%>
-<%-- 	<jsp:param name="formId" value="#pictureBook"/> --%>
-<%-- </jsp:include> --%>
+<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
+	<jsp:param name="formId" value="#pictureBook"/>
+</jsp:include>
 
 <div class="search txt-center" style="margin-top:25px;"><!-- 하단 정렬 시 margin-top 입력 -->
 	<fieldset>
