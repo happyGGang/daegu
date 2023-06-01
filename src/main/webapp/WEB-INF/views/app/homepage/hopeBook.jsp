@@ -116,4 +116,12 @@ $(document).ready(function () {
 			</c:otherwise>
 		</c:choose>
 	</div>
+	<c:choose>
+	<c:when test="${homepage.context_path eq 'duryu'}">
+		<p style="color: red; padding-top: 20px;">※ 예스서점 월성점 매장 폐업으로 인해 서비스 중단</p>
+	</c:when>
+
+	<c:otherwise>
+	</c:otherwise>
+	</c:choose>
 </div>

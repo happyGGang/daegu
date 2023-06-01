@@ -605,6 +605,13 @@ $(function() {
 			</tbody>
 			</table>
 		</div>
+
+		<c:if test="${detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'BC05' || detail.SHELF_LOC_CODE eq 'BC06'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:13px;font-weight:bold;">
+			보존서고 도서는 폐가제로 운영됩니다. 대출 관련은 담당자에게 문의바랍니다. (☎ 053.320.5185)
+		</div>
+		</c:if>
+
 		<div style="margin-top:20px;">
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 
@@ -1172,6 +1179,8 @@ $(function() {
 			<c:otherwise>
 			</c:otherwise>
 		</c:choose>
+
+
 
 		<%-- <div style="padding-top:30px ;text-align:right">
 			<a href="${detail.aladin.link}" target="_blank" style="color:#000">도서 정보 제공 : 알라딘 인터넷서점(www.aladin.co.kr)</a> <img src="/resources/common/img/aladin_01.png" alt="alandin" align="absmiddle"/>
