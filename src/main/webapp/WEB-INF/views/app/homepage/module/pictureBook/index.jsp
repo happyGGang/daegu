@@ -136,7 +136,7 @@ function requestMonth() {
 					<li>|</li>
 					<li>${i.publish_year}</li>
 				</ul>
-				<c:if test="${pictureBook.pay_yn eq 'Y'}">
+				<c:if test="${not empty i.content}">
 				<div class="book-desc">${i.content}</div>
 				</c:if>
 			</div>
