@@ -963,7 +963,10 @@
 			AND	a.large_category_idx NOT IN (31)
 		</if>
 		<if test="homepage_id != null and searchCate1 == null or searchCate1 == '' and homepage_id == 'h60'">
-			AND	a.large_category_idx NOT IN (31)
+			AND	a.large_category_idx NOT IN (31, 33)
+		</if>
+		<if test="homepage_id == 'h73' and menu_idx == '28'">
+			AND	a.large_category_idx NOT IN (33)
 		</if>
 		AND	a.use_yn = 'Y'
 		AND	a.delete_yn = 'N'
