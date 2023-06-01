@@ -73,6 +73,13 @@ $(function(){
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/159" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>문화예술</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ct_img_7.png" alt="버스킹? BUSKING!" /></p>
+										<span class="link">버스킹? BUSKING!<i></i></span>
+									</a>
+								</div>
+								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/145" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>문화예술</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ct_img_6.png" alt="알록달록 미술의 세계로" /></p>

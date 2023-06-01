@@ -16,6 +16,13 @@ $(document).ready(function() {
 
 	$('button#do-search').on('click', function(e) {
 		e.preventDefault();
+		let mgc = $('#manageCode').val();
+		if(mgc == '' || mgc == null)
+		{
+			alert('신청하고자 하는 도서관을 선택후 도서를 검색해주세요.');
+			return;
+		}
+
 		$('input#hopeSearchManageCode').val($('#manageCode').val());
 		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
 	});

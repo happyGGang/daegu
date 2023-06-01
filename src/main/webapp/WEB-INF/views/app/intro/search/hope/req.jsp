@@ -404,8 +404,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BU">성서도서관</form:option>-->
-				</form:select><span style="color:#ff0000"> * 2023.05.31까지 희망도서신청 일시 중지. </span>
+					<form:option value="BU">성서도서관</form:option>
+				</form:select>
 				</c:when>
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">

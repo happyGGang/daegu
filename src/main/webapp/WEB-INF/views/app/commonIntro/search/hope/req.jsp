@@ -260,14 +260,16 @@
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseolib'}">
-				<form:select path="manageCode" cssClass="new_select_box">
-					<form:option value="BW">도원도서관</form:option>
-					<form:option value="BV">달서어린이</form:option>
-					<!--<form:option value="BU">성서도서관</form:option>-->
-					<form:option value="BX">본리도서관</form:option>
-					<form:option value="BY">달서가족문화도서관</form:option>
-					<form:option value="BZ">달서영어도서관</form:option>
-				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				<select id="manageCode" name="manageCode" class="new_select_box">
+					<option value="">선택</option>
+					<option value="BW">도원도서관</option>
+					<option value="BV">달서어린이</option>
+					<option value="BU">성서도서관</option>
+					<option value="BX">본리도서관</option>
+					<option value="BY">달서가족문화도서관</option>
+					<option value="BZ">달서영어도서관</option>
+				</select>
+* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
 				<form:select path="manageCode">

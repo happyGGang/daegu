@@ -74,6 +74,20 @@ $(function(){
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/159" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>문화예술</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ct_img_7.png" alt="버스킹? BUSKING!" /></p>
+										<span class="link">버스킹? BUSKING!<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/160" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>제작/체험</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_7.png" alt="완벽한 여름을 보내는 방법" /></p>
+										<span class="link">완벽한 여름을 보내는 방법<i></i></span>
+									</a>
+								</div>
+								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/135" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>그림책</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_6.png" alt="그림책이 알려주는 과학" /></p>

@@ -73,6 +73,13 @@ $(function(){
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/160" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>제작/체험</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_7.png" alt="완벽한 여름을 보내는 방법" /></p>
+										<span class="link">완벽한 여름을 보내는 방법<i></i></span>
+									</a>
+								</div>
+								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/141" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>제작/체험</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_6.png" alt="따뜻한 감성, 원목 공예 체험" /></p>
