@@ -18,7 +18,7 @@ $(document).ready(function() {
 			bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 			//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
 			//웹취약점 발생시 삭제처리해야함
-			bSkipXssFilter : false,
+			bSkipXssFilter : true,		// client-side xss filter 무시 여부 (true:사용하지 않음 / 그외:사용)
 			fOnBeforeUnload : function(){
 				//alert("완료!");
 			}
