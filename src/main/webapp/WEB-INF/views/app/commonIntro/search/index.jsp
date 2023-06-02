@@ -139,7 +139,13 @@ $(function() {
 		e.preventDefault();
 		var type = $('select#subSearchType').val();
 		var beforeText = $('input#'+type).val();
-		var newText = (beforeText == '') ? $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
+		
+		if(beforeText == '' || beforeText == null){
+			var newText = $('input#subSearchText').val();
+		} else {
+			var newText = (beforeText == '') ? $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
+		}
+		
 // 		$('input#'+type).val(newText);
 		
 		if(type == 'title') {
@@ -412,6 +418,7 @@ function isFromFridayToSunday() {
 					<c:when test="${param.menu_idx eq '11'}">
 						<input id="subjectCode" name="subjectCode" type="hidden" value=""/>
 						<input id="booktype" name="booktype" type="hidden" value="BOOKANDNONBOOK"/>
+						<a id="search-btn" class="btnNew4" style="display:none;">검색하기</a>
 
 						<div class="divSubjectMenu">
 							<table cellpadding="0" cellspacing="0" border="1" class="subjectTable">
