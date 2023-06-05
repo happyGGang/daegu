@@ -192,7 +192,7 @@ $(function() {
 					</td>
 					<td>
 						<c:if test="${i.request_status eq '0' or i.request_status eq '1'}">
-						<a href="javascript:void(0);" class="btn btn5" keyValue="${i.library_check_loan_idx}">취소</a>
+						<a href="javascript:void(0);" class="btn cancle-btn btn5" keyValue="${i.library_check_loan_idx}">취소</a>
 						</c:if>
 					</td>
 				</tr>

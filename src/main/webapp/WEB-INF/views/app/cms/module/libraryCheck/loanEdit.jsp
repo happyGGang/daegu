@@ -107,33 +107,10 @@ $(function() {
 				<td>
 					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
 					<span>~</span>
-					<form:input path="loan_end_date" cssClass="text ui-calendar" onchange="checkLoanDate('${libraryCheck.library_check_idx}');"/>
+<%-- 					<form:input path="loan_end_date" cssClass="text ui-calendar" onchange="checkLoanDate('${libraryCheck.library_check_idx}');"/> --%>
+					<form:input path="loan_end_date" cssClass="text ui-calendar"/>
 				</td>
 			</tr>
-<!-- 			<tr> -->
-<!-- 				<th>방문예정일자(<span style="color: red;font-weight: bold;">*</span>)</th> -->
-<!-- 				<td> -->
-<%-- 					<form:input path="hope_date" cssClass="text ui-calendar"/> --%>
-<!-- 					<div class="ui-state-highlight"> -->
-<!-- 						<i class="fa fa-question-circle"></i> -->
-<!-- 						<em>방문예정일자는 자동으로 대출시작일로 입력됩니다.</em> -->
-<!-- 					</div> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
-<!-- 			<tr> -->
-<!-- 				<th>방문예정시간(<span style="color: red;font-weight: bold;">*</span>)</th> -->
-<!-- 				<td> -->
-<%-- 					<form:select path="hope_start_time" cssStyle="selectmenu"> --%>
-<%-- 						<c:forEach var="i"  begin="9" end="18"> --%>
-<%-- 					        <form:option value="${i}">${i>9?i:'0'}${i>9?'':i}</form:option> --%>
-<%-- 					    </c:forEach> --%>
-<%-- 					</form:select>&nbsp;: --%>
-<%-- 					<form:select path="hope_start_minute" cssStyle="selectmenu"> --%>
-<%-- 						<form:option value="00">00</form:option> --%>
-<%-- 						<form:option value="30">30</form:option> --%>
-<%-- 					</form:select> --%>
-<!-- 				</td> -->
-<!-- 			</tr> -->
 			<tr>
 				<th>학교명(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
