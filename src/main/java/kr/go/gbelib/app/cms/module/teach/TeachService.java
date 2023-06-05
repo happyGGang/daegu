@@ -7,18 +7,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Optional;
 import java.util.stream.Collectors;
-import kr.co.whalesoft.app.homepage.index.GyeongStopWatch;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.menu.Menu;
@@ -29,6 +19,13 @@ import kr.co.whalesoft.framework.file.FileStorage;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.teach.student.StudentDao;
 import kr.go.gbelib.app.common.api.PushAPI;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class TeachService extends BaseService {
@@ -315,30 +312,23 @@ public class TeachService extends BaseService {
 	}
 
 	public List<Teach> getTeachListForUser(Teach teach) {
-		GyeongStopWatch sw = new GyeongStopWatch();
 		teach.setSearchCate1(numbersOnly(teach.getSearchCate1()));
 		teach.setSearchCate2(numbersOnly(teach.getSearchCate2()));
 		teach.setSearchCate3(numbersOnly(teach.getSearchCate3()));
 		teach.setGroup_idx_list(numbersOnly(teach.getGroup_idx_list()));
 
-		sw.start("teachListForUser");
 		List<Teach> teachListForUser = dao.getTeachListForUser(teach);
 
-		sw.stop();
-		List<Teach> list = teachListForUser;
-
-		if (list != null && list.size() > 0) {
+		if (teachListForUser != null && teachListForUser.size() > 0) {
 			final List<Integer> teachIdxs = teachListForUser.stream()
 				.map(Teach::getTeach_idx)
 				.collect(Collectors.toList());
 
 			final Map<String, Object> teachIdxMap = Maps.newHashMap();
 			teachIdxMap.put("teachIdxs", teachIdxs);
-			sw.start("holidays");
 			final List<Teach> holidaysForUser = dao.getHolidaysForUser(teachIdxMap);
-			sw.stop();
 
-			for (Teach result : list) {
+			for (Teach result : teachListForUser) {
 				result.setTeach_day_arr(result.getTeach_day().split(","));
 
 				final List<String> holidays = holidaysForUser.stream()
@@ -349,9 +339,8 @@ public class TeachService extends BaseService {
 				result.setHolidays(holidays);
 
 			}
-			System.out.println(sw.prettyPrint());
 		}
-		return list;
+		return teachListForUser;
 	}
 	public List<Teach> getTeachListHomepage(Teach teach) {
 		teach.setSearchCate1(numbersOnly(teach.getSearchCate1()));

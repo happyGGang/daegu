@@ -11,31 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
-
-import kr.co.whalesoft.app.cms.member.Member;
-import kr.go.gbelib.app.cms.module.culture.Culture;
-import kr.go.gbelib.app.cms.module.culture.CultureService;
-import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
-import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
-import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
-import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
-import kr.go.gbelib.app.common.api.CultureAPI;
-import kr.go.gbelib.app.module.myLibrary.MyLibrary;
-import kr.go.gbelib.app.module.myLibrary.MyLibraryService;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.StopWatch;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
 import kr.co.whalesoft.app.cms.banner.Banner;
@@ -48,6 +25,7 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.mainImg.MainImg;
 import kr.co.whalesoft.app.cms.mainImg.MainImgService;
+import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
@@ -65,20 +43,36 @@ import kr.co.whalesoft.app.cms.popupZoneTop.PopupZoneTopService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.go.gbelib.app.cms.module.culture.Culture;
+import kr.go.gbelib.app.cms.module.culture.CultureService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
+import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
+import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
+import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
+import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
+import kr.go.gbelib.app.common.api.CultureAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
-import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
 import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
+import kr.go.gbelib.app.module.myLibrary.MyLibrary;
+import kr.go.gbelib.app.module.myLibrary.MyLibraryService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller(value = "userIndexController")
 public class IndexController extends BaseController {
@@ -894,32 +888,21 @@ public class IndexController extends BaseController {
 		//서구도서관
 		if (homepage.getHomepage_id().equals("h49")) {
 			Board b = new Board();
-			GyeongStopWatch sw = new GyeongStopWatch();
-			sw.start("공지사항전체");
 			b.setManage_idx(628);
 			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
-			sw.stop();
-			sw.start("갤러리전체");
 			b.setManage_idx(632);
 			model.addAttribute("galleryList", boardService.getSubBoardByMain(b));//갤러리전체
-			sw.stop();
-			sw.start("추천도서전체");
 			b.setManage_idx(625);
 			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
-			sw.stop();
-			sw.start("영화도서전체");
 			b.setManage_idx(627);
 			model.addAttribute("movieList", boardService.getSubBoardByMain(b));//영화도서전체
-			sw.stop();
 
 			Teach t = new Teach();
 			Homepage h = new Homepage();
 			h.setHomepage_id(homepage.getHomepage_id());
 			h.setHomepage_group(homepage.getHomepage_id());
 			h.setTemp_use_yn("Y");
-			sw.start("getSubHomepageList");
 			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
-			sw.stop();
 			List<String> homepage_ids = new ArrayList<String>();
 
 			for (Homepage h2:subHomepageList) {
@@ -943,27 +926,9 @@ public class IndexController extends BaseController {
 					model.addAttribute(gorupName + h2.getHomepage_id(), boardGroup.get(gorupName));
 				}
 //
-//				sw.start("noticeList"+h2.getHomepage_id());
-//				b.setManage_idx(628);
-//				model.addAttribute("noticeList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//공지사항
-//				sw.stop();
-//				sw.start("galleryList"+h2.getHomepage_id());
-//				b.setManage_idx(632);
-//				model.addAttribute("galleryList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//갤러리
-//				sw.stop();
-//				sw.start("bookList"+h2.getHomepage_id());
-//				b.setManage_idx(625);
-//				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서
-//				sw.stop();
-//				sw.start("movieList"+h2.getHomepage_id());
-//				b.setManage_idx(627);
-//				model.addAttribute("movieList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//영화
 				homepage_ids.add(h2.getHomepage_id());
 				t.setHomepage_id(h2.getHomepage_id());
-//				sw.stop();
-				sw.start("teachList"+h2.getHomepage_id());
 				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));
-				sw.stop();
 			}
 
 			t.setHomepage_id(null);
