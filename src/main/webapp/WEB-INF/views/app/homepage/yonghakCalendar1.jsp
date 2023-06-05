@@ -46,7 +46,7 @@ $('ul.close_day').html(li);
       </li>
     </ul>
   </div>
-  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.4.30.] (단위 : 권)</span></h3>
+  <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.5.31.] (단위 : 권)</span></h3>
   <div class="rsv-info"></div>
   <div class="auto-scroll">
     <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -91,7 +91,7 @@ $('ul.close_day').html(li);
 		<th scope="row">어린이</th>
     <td>690</td>
     <td>345</td>
-    <td>148</td>
+    <td>150</td>
     <td>849</td>
     <td>1,192</td>
     <td>364</td>
@@ -99,7 +99,7 @@ $('ul.close_day').html(li);
     <td>256</td>
     <td>3,656</td>
     <td>1,192</td>
-    <td>8,982</td>
+    <td>8,984</td>
 		</tr>
 		<tr>
 			<th scope="row">유아</th>
@@ -117,31 +117,31 @@ $('ul.close_day').html(li);
 		</tr>
 		<tr>
 			<th scope="row">일반</th>
-      <td>540</td>
-      <td>1,019</td>
+      <td>541</td>
+      <td>1,020</td>
       <td>335</td>
-      <td>2,189</td>
+      <td>2,197</td>
       <td>646</td>
-      <td>1,271</td>
-      <td>568</td>
+      <td>1,273</td>
+      <td>569</td>
       <td>313</td>
-      <td>5,951</td>
-      <td>1,149</td>
-      <td>13,981</td>
+      <td>5,959</td>
+      <td>1,154</td>
+      <td>14,007</td>
 		</tr>
 		<tr>
 			<th scope="row">총계</th>
-      <td>1,294</td>
-      <td>1,448</td>
-      <td>525</td>
-      <td>3,909</td>
+      <td>1,295</td>
+      <td>1,449</td>
+      <td>527</td>
+      <td>3,917</td>
       <td>2,238</td>
-      <td>1,718</td>
-      <td>937</td>
+      <td>1,720</td>
+      <td>938</td>
       <td>642</td>
-      <td>12,357</td>
-      <td>2,375</td>
-      <td>27,443</td>
+      <td>12,365</td>
+      <td>2,380</td>
+      <td>27,471</td>
 		</tr>
     </tbody>
     </table>
