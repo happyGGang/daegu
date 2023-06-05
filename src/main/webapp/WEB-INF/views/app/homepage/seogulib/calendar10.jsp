@@ -61,16 +61,22 @@ $(function() {
 <div class="event">
 	<div class="tit"><span>행사</span></div>
 	<c:forEach items="${eventList}" var="i">
-		<div><span>
-			<c:choose>
-				<c:when test="${i eq 'h77'}">어린이</c:when>
-				<c:when test="${i eq 'h61'}">비산</c:when>
-				<c:when test="${i eq 'h62'}">영어</c:when>
-				<c:when test="${i eq 'h63'}">비원</c:when>
-				<c:when test="${i eq 'h64'}">원고개</c:when>
-			</c:choose>
-		</span></div>
+		<div>
+			<span>
+				<c:choose>
+					<c:when test="${i eq 'h77'}">어린이</c:when>
+					<c:when test="${i eq 'h61'}">비산</c:when>
+					<c:when test="${i eq 'h62'}">영어</c:when>
+					<c:when test="${i eq 'h63'}">비원</c:when>
+					<c:when test="${i eq 'h64'}">원고개</c:when>
+				</c:choose>
+			</span>
+		</div>
 	</c:forEach>
+	<c:if test="${fn:length(eventList) < 1 }">
+<!-- 		<div>행사중인 도서관이 없습니다.</div> -->
+		<div>없음</div>
+	</c:if>
 </div>
 
 <div class="movie">
@@ -78,19 +84,29 @@ $(function() {
 	<c:forEach items="${movieList}" var="i">
 		<div><span>${i}</span></div>
 	</c:forEach>
+	<c:if test="${fn:length(movieList) < 1 }">
+<!-- 		<div>현재 상영중인 도서관이 없습니다.</div> -->
+		<div>없음</div>
+	</c:if>
 </div>
 
 <div class="closed">
 	<div class="tit"><span>휴관</span></div>
 	<c:forEach items="${closeList}" var="i">
-		<div><span>
-			<c:choose>
-				<c:when test="${i eq 'h77'}">어린이</c:when>
-				<c:when test="${i eq 'h61'}">비산</c:when>
-				<c:when test="${i eq 'h62'}">영어</c:when>
-				<c:when test="${i eq 'h63'}">비원</c:when>
-				<c:when test="${i eq 'h64'}">원고개</c:when>
-			</c:choose>
-		</span></div>
+		<div>
+			<span>
+				<c:choose>
+					<c:when test="${i eq 'h77'}">어린이</c:when>
+					<c:when test="${i eq 'h61'}">비산</c:when>
+					<c:when test="${i eq 'h62'}">영어</c:when>
+					<c:when test="${i eq 'h63'}">비원</c:when>
+					<c:when test="${i eq 'h64'}">원고개</c:when>
+				</c:choose>
+			</span>
+		</div>
 	</c:forEach>
+	<c:if test="${fn:length(closeList) < 1 }">
+<!-- 		<div>휴관중인 도서관이 없습니다.</div> -->
+		<div>없음</div>
+	</c:if>
 </div>
