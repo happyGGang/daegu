@@ -107,7 +107,13 @@ public class CalendarManageUserProgram extends BodyTagSupport {
 								if(disableHoli) continue;
 								
 								//서구통합도서관은 휴관일에 강좌가 표시 안되도록 수정
-								if (!isHolyDay && ("h77".equals(teach.getHomepage_id()) || "h49".equals(teach.getHomepage_id()) || "h61".equals(teach.getHomepage_id()) || "h62".equals(teach.getHomepage_id()) || "h63".equals(teach.getHomepage_id()) || "h64".equals(teach.getHomepage_id()) || "h65".equals(teach.getHomepage_id()))) {
+								if("h77".equals(teach.getHomepage_id()) || "h49".equals(teach.getHomepage_id()) || "h61".equals(teach.getHomepage_id()) || "h62".equals(teach.getHomepage_id()) || "h63".equals(teach.getHomepage_id()) || "h64".equals(teach.getHomepage_id()) || "h65".equals(teach.getHomepage_id())) {
+									if(!isHolyDay) {
+										sb.append("<li title=\""+teach.getTeach_name()+"\">");
+										sb.append("<a href=\"#\" class=\"modify\" type=\"teach\" keyValue=\""+teach.getCategory_idx()+"\" keyValue2=\""+teach.getTeach_idx()+"\" keyValue3=\""+teach.getGroup_idx()+"\"><span class=\"type-e\"><i></i><em>"+statusName+""+teach.getTeach_name()+"</em></span></a>");
+										sb.append("</li>");
+									}
+								} else {
 									sb.append("<li title=\""+teach.getTeach_name()+"\">");
 									sb.append("<a href=\"#\" class=\"modify\" type=\"teach\" keyValue=\""+teach.getCategory_idx()+"\" keyValue2=\""+teach.getTeach_idx()+"\" keyValue3=\""+teach.getGroup_idx()+"\"><span class=\"type-e\"><i></i><em>"+statusName+""+teach.getTeach_name()+"</em></span></a>");
 									sb.append("</li>");
