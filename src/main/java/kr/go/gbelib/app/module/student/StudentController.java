@@ -60,10 +60,10 @@ public class StudentController extends BaseController {
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
-	
+
 	@Autowired
 	private BlackListService blackListService;
-	
+
 	@Autowired
 	private StudentService studentService;
 
@@ -147,7 +147,7 @@ public class StudentController extends BaseController {
     			}
     		}
 		}
-		
+
 		model.addAttribute("termsList", termsResult);
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
@@ -159,29 +159,30 @@ public class StudentController extends BaseController {
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
 		return String.format(basePath, homepage.getFolder()) + "edit";
 	}
-	
-	
+
+
 	@RequestMapping(value = {"/edit_mod.*"})
-	public String edit_mod(Model model, Student student, HttpServletRequest request, HttpServletResponse response){
-		Homepage homepage = (Homepage)request.getAttribute("homepage");
+	public String edit_mod(Model model, Student student, HttpServletRequest request, HttpServletResponse response) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		int menu_idx = student.getMenu_idx();
 		student = studentService.getStudentOne(student);
 		student.setEditMode("MODIFY");
-		student.setMenu_idx(menu_idx);	
+		student.setMenu_idx(menu_idx);
 		model.addAttribute("student", student);
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 		model.addAttribute("statusCode", codeService.getCode("CMS", "C0005"));
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("traingLocationList", codeService.getCode("CMS", "C0022"));
 		model.addAttribute("termsList", termsService.getTermsListByTeach(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
-		
+
 		return String.format(basePath, homepage.getFolder()) + "edit_mod";
 	}
-	
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Student student, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
-		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));		
+		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
+
 		if (teachOne == null) {
 			res.setValid(false);
 			result.reject("잘못된 경로로 접근하였습니다.");
@@ -207,15 +208,15 @@ public class StudentController extends BaseController {
 			}
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "신청자 휴대전화번호 형식이 잘못되었습니다.");
-			
+
 			if (StringUtils.equals(teachOne.getTeach_age_type(), "child") && StringUtils.equals(teachOne.getFamily_yn(), "Y")) {
 				ValidationUtils.rejectPhone(result, "family_cell_phone", "보호자 휴대전화번호 형식이 잘못되었습니다.");
 			}
-			
+
 			if(StringUtils.equals(teachOne.getVaccines_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "vaccines_counter", "백신접종 여부를 선택하세요.");
 			}
-			
+
 
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
@@ -272,7 +273,7 @@ public class StudentController extends BaseController {
 			if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 				ValidationUtils.rejectIfEmpty(result, "student_password", "비밀번호를 입력하세요.");
 			}
-			
+
 			if (StringUtils.equals(teachOne.getSms_service_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "sms_service_yn", "SMS 수신동의여부를 입력하세요.");
 			}
@@ -282,17 +283,19 @@ public class StudentController extends BaseController {
 				res.setMessage("개인정보 미동의 시 참여 하실수 없습니다.");
 				return res;
 			}
-			
+
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String now = sdf.format(date);
-			
+
 			String req_start_date = teachOne.getStart_join_date() + " " + teachOne.getStart_join_time();
 			String req_end_date = teachOne.getEnd_join_date() + " " + teachOne.getEnd_join_time();
-			
+
 			if ( req_start_date.compareTo(now) > 0 || req_end_date.compareTo(now) < 0) {
 				result.reject("해당 강좌 접수기간이 아닙니다.");
 			}
+			student.setStudent_age(student.getApplicant_birth().substring(0,4));
+			student.setStudent_old(Integer.parseInt(student.getApplicant_birth().substring(0,4)));
 
 		}
 
@@ -372,12 +375,12 @@ public class StudentController extends BaseController {
 				}
 			}else if (student.getEditMode().equals("MODIFY")) {
 				String memberId = getSessionMemberId(request);
-				
+
 				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 					memberId = "ANONYMOUS";
 					student.setApplicant_name(student.getApplicant_name().trim());
 				}
-				
+
 				if (StringUtils.isNotEmpty(memberId)) {
 					student.setModify_id(getSessionMemberId(request));
 					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
@@ -386,11 +389,11 @@ public class StudentController extends BaseController {
 				} else {
 					student.setModify_id(getSessionMemberId(request));
 				}
-				
+
 				if (teachOne.getTeach_age_type().equals("infants") && teachOne.getTeach_age_type().equals("OLD")) {
 					String[] limitValue = teachOne.getTeach_join_limit_value().split(",");
 					if (Integer.parseInt(limitValue[0]) <= Integer.parseInt(student.getStudent_age()) && Integer.parseInt(limitValue[1]) >= Integer.parseInt(student.getStudent_age())) {
-						
+
 					}
 					else  {
 					res.setValid(false);
@@ -398,19 +401,19 @@ public class StudentController extends BaseController {
 					return res;
 					}
 				}
-				
+
 				service.updateStudent(student);
 				Homepage homepage = getSessionHomepage(request);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
-				
+
 				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 					Teach teach = (Teach) request.getSession().getAttribute("studentAnonyCert");
 					student.setApplicant_name(teach.getApply_name());
 					student.setStudent_password(teach.getApply_password());
 					res.setUrl(String.format("/%s/module/teach/anonyApplyList.do", homepage.getContext_path()));
 					res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx() + "&homepage_id=" + student.getHomepage_id());
-				}else {				
+				}else {
 					res.setUrl(String.format("/%s/module/teach/applyList.do", homepage.getContext_path()));
 					res.setData("group_idx=" + student.getGroup_idx() + "&category_idx=" + student.getCategory_idx() + "&menu_idx=" + student.getMenu_idx() + "&homepage_id=" + student.getHomepage_id());
 	//				res.setUrl(String.format("/%s/module/teach/index.do", homepage.getContext_path()));
@@ -453,7 +456,7 @@ public class StudentController extends BaseController {
 
 	@RequestMapping(value = {"/certificate.*"})
 	public String certificate(Model model, Student student, HttpServletRequest request) {
-		Homepage homepage = (Homepage)request.getAttribute("homepage");
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		model.addAttribute("certificateInfo", service.getCertificateInfo(student));
 		return String.format(basePath, homepage.getFolder()) + "certificate_ajax";

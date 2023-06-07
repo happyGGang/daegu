@@ -191,10 +191,10 @@ public class StudentService extends BaseService {
 								return addResult;
 							}
 						} else {
-							if ( Integer.parseInt(limitValue[i]) <= student.getStudent_old() && Integer.parseInt(limitValue[i+1]) >= student.getStudent_old()) { }
+							if ( Integer.parseInt(limitValue[i]) <= Integer.parseInt(student.getStudent_age()) && Integer.parseInt(limitValue[i+1]) >= Integer.parseInt(student.getStudent_age())) { }
 							else {
 								addResult[0] = false;
-								addResult[1] = String.format("해당강좌는 나이 %s 세 이상 %s 세 이하 만 신청 가능합니다.", limitValue[i], limitValue[i+1]);
+								addResult[1] = String.format("해당강좌는  %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", limitValue[i], limitValue[i+1]);
 								return addResult;
 							}
 						}
