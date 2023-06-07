@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script type="text/javascript">
 $(function() {
 	Date.prototype.format = function(f) {
@@ -53,8 +54,9 @@ $(function() {
 </div>
 
 <div class="date">
+	<fmt:parseDate var="toDay_D" value="${calendarManage.plan_date}" pattern="yyyy-MM-dd" />
 	<a href="#" id="before-btn" data-c="${calendarManage.plan_date}"><img src="/resources/homepage/seogulib/img/date_prev.png"></a>
-	<span>${fn:split(calendarManage.plan_date, '-')[1]}.${fn:split(calendarManage.plan_date, '-')[2]}</span>
+	<span>${fn:split(calendarManage.plan_date, '-')[1]}.${fn:split(calendarManage.plan_date, '-')[2]} (<fmt:formatDate value="${toDay_D}" pattern="E"/>)</span>
 	<a href="#" id="next-btn" data-c="${calendarManage.plan_date}"><img src="/resources/homepage/seogulib/img/date_next.png"></a>
 </div>
 
@@ -74,8 +76,9 @@ $(function() {
 		</div>
 	</c:forEach>
 	<c:if test="${fn:length(eventList) < 1 }">
-<!-- 		<div>행사중인 도서관이 없습니다.</div> -->
-		<div>없음</div>
+		<div>
+			<span>없음</span>
+		</div>
 	</c:if>
 </div>
 
@@ -85,8 +88,9 @@ $(function() {
 		<div><span>${i}</span></div>
 	</c:forEach>
 	<c:if test="${fn:length(movieList) < 1 }">
-<!-- 		<div>현재 상영중인 도서관이 없습니다.</div> -->
-		<div>없음</div>
+		<div>
+			<span>없음</span>
+		</div>
 	</c:if>
 </div>
 
@@ -106,7 +110,8 @@ $(function() {
 		</div>
 	</c:forEach>
 	<c:if test="${fn:length(closeList) < 1 }">
-<!-- 		<div>휴관중인 도서관이 없습니다.</div> -->
-		<div>없음</div>
+		<div>
+			<span>없음</span>
+		</div>
 	</c:if>
 </div>
