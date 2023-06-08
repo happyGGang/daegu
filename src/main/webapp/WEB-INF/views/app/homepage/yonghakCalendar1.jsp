@@ -259,7 +259,7 @@ window.onload = function(){
 
   <div class="info_box">
     <p class="info_add">대구광역시 수성구 파동로3길 62 파동평생학습센터 1층</p>
-    <p class="info_tel">053-668-1801</p>
+    <p class="info_tel">053-668-1750</p>
   </div>
 
   <h3>버스 이용</h3>

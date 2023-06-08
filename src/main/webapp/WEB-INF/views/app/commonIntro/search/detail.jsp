@@ -607,8 +607,8 @@ $(function() {
 		</div>
 
 		<c:if test="${detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'BC05' || detail.SHELF_LOC_CODE eq 'BC06' || detail.SHELF_LOC_CODE eq 'BC07'}">
-		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;letter-spacing:-1.5px;">
-			※ 보존서고 도서는 폐가제로 운영됩니다. 대출 관련은 담당자에게 문의바랍니다. (☎ 053.320.5185)
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;&nbsp;&nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
 		</div>
 		</c:if>
 
@@ -635,11 +635,11 @@ $(function() {
 			</c:if>
 		</div>
 
-		<!-- <c:if test="${detail.MANAGE_CODE eq 'BY'}">
+		 <c:if test="${detail.MANAGE_CODE eq 'GK'}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 달서가족문화도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(10/17~11/02)를 안내드리오니, 많은 양해 부탁드립니다.
+				* 학산작은도서관이 장서점검으로 상호대차 신청 중지(23.06.08 ~ 23.06.15) 안내드리오니, 많은 양해 부탁드립니다.
 			</p>
-		</c:if> -->
+		</c:if> 
 
 		<p></p>
 
@@ -742,7 +742,8 @@ $(function() {
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW' }">
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BX'  ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FX' ||detail.MANAGE_CODE eq 'FC' ||detail.MANAGE_CODE eq 'GK'}">
+						
+						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BX'  ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FX' ||detail.MANAGE_CODE eq 'FC'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -941,22 +942,22 @@ $(function() {
 				</c:when>
 			</c:choose>
 
-				 <c:choose>
-					<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
-						<c:choose>
-							<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
-							
-							</c:when>
-							<c:otherwise>
-								<jsp:useBean id="Day1" class="java.util.Date" />
-									<fmt:formatDate var="day" value="${Day1}" pattern="E"/>
-										<c:if test="${day ne '토' and day ne '일'}">
-										<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
-										</c:if>
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-				</c:choose>
+			<c:choose>
+				<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
+					<c:choose>
+						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
+						
+						</c:when>
+						<c:otherwise>
+							<jsp:useBean id="Day1" class="java.util.Date" />
+								<fmt:formatDate var="day" value="${Day1}" pattern="E"/>
+									<c:if test="${day ne '토' and day ne '일'}">
+									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
+									</c:if>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+			</c:choose>
 			
 
 
@@ -1062,6 +1063,19 @@ $(function() {
 						</c:if>
 					</c:if>
 				</c:if>
+				</c:when>
+				<c:when test="${homepage.context_path eq 'seogulib'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BM'}">
+						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+							<c:choose>
+								<c:when test="${detail.LOAN_CODE eq 'OK'}">
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:if>
 				</c:when>
 				<c:otherwise>
 
