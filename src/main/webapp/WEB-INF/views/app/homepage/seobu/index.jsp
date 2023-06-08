@@ -189,15 +189,15 @@ do {
           <div class="cont con" data-tab="tab1">
 						<ul class="list">
 							<%--행사안내 목록 공지--%>
-							<c:if test="${fn:length(boardList1TopNotice) < 1}">
-							<li class="on-notice">
-								<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-								<a href="#">
-									<em>등록된 공지사항이 없습니다.</em>
-									<span></span>
-								</a>
-							</li>
-							</c:if>
+<%-- 							<c:if test="${fn:length(boardList1TopNotice) < 1}"> --%>
+<!-- 							<li class="on-notice"> -->
+<%-- 								<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png"> --%>
+<!-- 								<a href="#"> -->
+<!-- 									<em>등록된 공지사항이 없습니다.</em> -->
+<!-- 									<span></span> -->
+<!-- 								</a> -->
+<!-- 							</li> -->
+<%-- 							</c:if> --%>
 
 							<c:forEach var="i" varStatus="status" items="${boardList1TopNotice}" >
 							<li class="on-notice">
