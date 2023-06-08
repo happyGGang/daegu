@@ -1122,7 +1122,7 @@ public class IndexController extends BaseController {
 						if (list.size() > 0){
 							model.addAttribute(key + "TopNotice", list);
 						} else{
-							model.addAttribute(key + "TopNotice", boardService.getBoardByMainTopNoticeBySeobu(manage_idx, topNoticeLimit, boardManage.getBoard_type()));
+							model.addAttribute(key + "TopNotice", boardService.getBoardByMainTopNoticeBySeobu(manage_idx, 1, boardManage.getBoard_type()));
 						}
 					} else {
 						model.addAttribute(key + "TopNotice", boardService.getBoardByMainTopNotice(manage_idx, topNoticeLimit, boardManage.getBoard_type()));
