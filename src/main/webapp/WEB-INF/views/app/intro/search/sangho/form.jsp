@@ -135,9 +135,8 @@ $(function() {
 						<!-- <form:option value="127008">죽전동공립작은도서관</form:option> -->
 						<!-- <form:option value="327002">달서아트센터 도서관</form:option> -->
 						<form:option value="327003">행정정보문고센터</form:option>
-						<!-- <form:option value="727036">학산작은도서관</form:option> -->
+						<form:option value="727036">학산작은도서관</form:option>
 					</form:select>
-					<p><span>* 학산도서관 상호대차 신청 중지(23.06.08 ~ 23.06.15)</span></p>
 					</c:when>
 					<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' ||context_path eq 'donggusm'}">
 					<form:select path="uselibcode">
