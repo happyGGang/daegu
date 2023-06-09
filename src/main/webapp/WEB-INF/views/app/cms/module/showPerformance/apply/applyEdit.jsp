@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
 $(function() {
 	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
@@ -88,10 +89,10 @@ $(function() {
 		<colgroup>
 			<col width="100"/>
 			<col width="150"/>
-			<col width="90"/>
+			<col width="100"/>
 			<col width="120"/>
 			<col width="100"/>
-			<col width="75"/>
+			<col width="85"/>
 			<col width="75"/>
 			<col width=""/>
 			<col width="200"/>
@@ -104,7 +105,7 @@ $(function() {
 				<th>신청자 연락처</th>
 				<th>방문 요청일</th>
 				<th>관람 인원</th>
-				<th>승인여부</th>
+				<th>승인<br/>여부</th>
 				<th>비고</th>
 				<th>신청</th>
 			</tr>
@@ -139,6 +140,7 @@ $(function() {
 					</td>
 					<td>${i.remarks }</td>
 					<td>
+						<fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd HH:mm:ss" /><br/>
 						<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
 						<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
 						<a href="" class="btn" id="delete-btn" keyValue="${i.showPerformance_idx}" plan_date="${i.start_date}">삭제</a>
