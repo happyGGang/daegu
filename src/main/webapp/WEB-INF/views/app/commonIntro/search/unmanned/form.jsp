@@ -81,6 +81,9 @@
 <c:if test="${homepage.context_path eq 'nearbylib'}">
 <input type="hidden" name="exprire_date_cnt" value="3"/>
 </c:if>
+<c:if test="${homepage.context_path eq 'seogulib'}">
+<input type="hidden" name="exprire_date_cnt" value="3"/>
+</c:if>
 
 <div class="delibery_info">
 
@@ -123,6 +126,9 @@
 						</c:if>
 						<c:if test="${homepage.context_path eq 'nearbylib'}">
 						<form:option value="ESIASUBCO01">이시아폴리스 메가박스</form:option>
+						</c:if>
+						<c:if test="${homepage.context_path eq 'seogulib'}">
+						<form:option value="BMSUB01">비원도서관 1층 입구</form:option>
 						</c:if>
 					</form:select>
 					<c:if test="${homepage.context_path eq '228'}">

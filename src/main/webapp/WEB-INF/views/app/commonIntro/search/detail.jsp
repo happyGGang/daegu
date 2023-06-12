@@ -745,12 +745,13 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW' }">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'  ||detail.MANAGE_CODE eq 'BX' }">
 						</c:when>
 						
-						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BX'  ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+								<p><span>* 본리도서관 장서점검으로 인하여 6. 12.(월)~6. 23.(금)까지 상호대차 및 무인예약 신청이 불가합니다.</span></p>
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
 								<c:otherwise>
@@ -1027,7 +1028,7 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
-					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
@@ -1070,15 +1071,22 @@ $(function() {
 				</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'seogulib'}">
-					<c:if test="${detail.MANAGE_CODE eq 'BM'}">
-						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
-							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-								</c:when>
-								<c:otherwise>
-								</c:otherwise>
-							</c:choose>
+					<jsp:useBean id="toDay2" class="java.util.Date" />
+					<c:set var="startTime2" value="09:00:00"></c:set>
+					<c:set var="endTime2" value="17:00:00"></c:set>
+					<fmt:formatDate var="nowdate" value="${toDay2}" pattern="HH:mm:ss"/>
+					<fmt:formatDate var="day2" value="${toDay2}" pattern="E"/>
+					<c:if test="${startTime2 <= nowdate and nowdate <= endTime2 and (day2 ne '월')}">
+						<c:if test="${detail.MANAGE_CODE eq 'BM'}">
+							<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+								<c:choose>
+									<c:when test="${detail.LOAN_CODE eq 'OK'}">
+										<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									</c:when>
+									<c:otherwise>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
 						</c:if>
 					</c:if>
 				</c:when>

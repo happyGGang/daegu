@@ -362,13 +362,14 @@ CONTEXT_PATH : ${context_path}
 					</c:choose>
 				</c:when>
 
-				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
+				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq '' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW' || detail.MANAGE_CODE eq 'GK'|| detail.MANAGE_CODE eq 'FX'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+								<p><span>* 본리도서관 장서점검으로 인하여 6. 12.(월)~6. 23.(금)까지 상호대차 및 무인예약 신청이 불가합니다.</span></p>
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
 								<c:otherwise>
