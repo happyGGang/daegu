@@ -37,7 +37,7 @@ $(function() {
 
 	//정렬, N개씩보기
 	$('a#sort-btn').on('click', function() {
-		$('a#search-btn').click();
+		doGetLoad('index.do', $form.serialize());
 	});
 
 	//소장정보 펼치기/접기
