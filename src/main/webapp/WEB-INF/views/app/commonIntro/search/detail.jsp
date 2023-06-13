@@ -745,13 +745,14 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'  ||detail.MANAGE_CODE eq 'BX' }">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'}">
 						</c:when>
-						
+						<c:when test="${detail.MANAGE_CODE eq 'BX' }">
+						<p><span>* 본리도서관 장서점검으로 인하여 6. 12.(월)~6. 23.(금)까지 상호대차 및 무인예약 신청이 불가합니다.</span></p>
+						</c:when>
 						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-								<p><span>* 본리도서관 장서점검으로 인하여 6. 12.(월)~6. 23.(금)까지 상호대차 및 무인예약 신청이 불가합니다.</span></p>
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
 								<c:otherwise>
