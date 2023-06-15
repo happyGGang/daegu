@@ -2570,12 +2570,6 @@ public class CommonSearchController extends BaseController {
 						}
 					}
 					
-					if(unmannedReserveCount >= 5) {
-						res.setValid(false);
-						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
-						return res;
-					}
-					
 					if((reserveCount + unmannedReserveCount) >= 7) {
 						res.setValid(false);
 						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
