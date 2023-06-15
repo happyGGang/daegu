@@ -2487,7 +2487,7 @@ public class CommonSearchController extends BaseController {
 					
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 							reserveCount++;
 						}
 					}
@@ -2507,7 +2507,7 @@ public class CommonSearchController extends BaseController {
 					
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 							reserveCount++;
 						}
 					}
@@ -2526,7 +2526,7 @@ public class CommonSearchController extends BaseController {
 					
 					int unmannedReserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y")) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
 							unmannedReserveCount++;
 						}
 					}
@@ -2552,7 +2552,7 @@ public class CommonSearchController extends BaseController {
 					
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 							reserveCount++;
 						}
 					}
@@ -2565,7 +2565,7 @@ public class CommonSearchController extends BaseController {
 					
 					int unmannedReserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y")) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
 							unmannedReserveCount++;
 						}
 					}
@@ -2588,7 +2588,7 @@ public class CommonSearchController extends BaseController {
 					
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 							reserveCount++;
 						}
 					}
@@ -2608,7 +2608,7 @@ public class CommonSearchController extends BaseController {
 					
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 							reserveCount++;
 						}
 					}
@@ -2622,7 +2622,7 @@ public class CommonSearchController extends BaseController {
 					
 					int unmannedReserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y")) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
 							unmannedReserveCount++;
 						}
 					}
@@ -2648,7 +2648,7 @@ public class CommonSearchController extends BaseController {
 					
 					int reserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 							reserveCount++;
 						}
 					}
@@ -2661,15 +2661,9 @@ public class CommonSearchController extends BaseController {
 					
 					int unmannedReserveCount = 0 ;
 					for(int i = 0; i < count; i++) {
-						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y")) {
+						if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
 							unmannedReserveCount++;
 						}
-					}
-					
-					if((unmannedReserveCount) >= 5) {
-						res.setValid(false);
-						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
-						return res;
 					}
 
 					if((reserveCount + unmannedReserveCount) >= 7) {
