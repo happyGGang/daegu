@@ -82,7 +82,7 @@
 <input type="hidden" name="exprire_date_cnt" value="3"/>
 </c:if>
 <c:if test="${homepage.context_path eq 'seogulib'}">
-<input type="hidden" name="exprire_date_cnt" value="3"/>
+<input type="hidden" name="exprire_date_cnt" value="1"/>
 </c:if>
 
 <div class="delibery_info">
