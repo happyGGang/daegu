@@ -647,6 +647,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="vaccines_counter" id="vaccines_counter"/>
 	<input type="hidden" id="agent_yn" value="${teach.agent_yn }"/>
 	<input type="hidden" id="vaccines_yn" value="${teach.vaccines_yn }"/>
+	<form:hidden path="searchCate1"/>
 	
 	<c:choose>
 		<c:when test="${teach.detail_address_yn eq 'Y'}">

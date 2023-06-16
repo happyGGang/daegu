@@ -635,7 +635,7 @@ $(function() {
 			</c:if>
 		</div>
 
-		 <c:if test="${detail.MANAGE_CODE eq 'GK'}">
+		 <c:if test="${detail.MANAGE_CODE eq ''}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
 				* 학산작은도서관이 장서점검으로 인해 상호대차 신청 중지(23.06.08 ~ 23.06.15) 안내드리오니, 많은 양해 부탁드립니다.
 			</p>
@@ -750,7 +750,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'BX' }">
 						<p><span>* 본리도서관 장서점검으로 인하여 6. 12.(월)~6. 23.(금)까지 상호대차 및 무인예약 신청이 불가합니다.</span></p>
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
