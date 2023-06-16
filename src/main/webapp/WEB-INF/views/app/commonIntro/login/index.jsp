@@ -84,10 +84,13 @@ $(function() {
 							<div class="find">
 							<c:choose>
 								<c:when test="${homepage.context_path eq 'elib'}">
-								<a href="http://library.daegu.go.kr/dgportal/intro/join/index.do?menu_idx=42" target="_blank"><span>회원가입</span><i class="fa fa-caret-right"></i></a>
+									<a href="http://library.daegu.go.kr/dgportal/intro/join/index.do?menu_idx=42" target="_blank"><span>회원가입</span><i class="fa fa-caret-right"></i></a>
+								</c:when>
+								<c:when test="${homepage.context_path eq 'nearbylib'}">
+									<a href="http://library.daegu.go.kr/dgportal/intro/join/index.do?menu_idx=42" target="_blank"><span>회원가입</span><i class="fa fa-caret-right"></i></a>
 								</c:when>
 								<c:otherwise>
-								<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=${menuIdxJoin}"><span>회원가입</span><i class="fa fa-caret-right"></i></a>
+									<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=${menuIdxJoin}"><span>회원가입</span><i class="fa fa-caret-right"></i></a>
 								</c:otherwise>
 							</c:choose>
 								<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=${menuIdxId}"><span>아이디 찾기</span><i class="fa fa-caret-right"></i></a>
