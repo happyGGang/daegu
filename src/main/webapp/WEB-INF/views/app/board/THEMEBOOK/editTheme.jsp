@@ -222,7 +222,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<jsp:include page="/WEB-INF/views/app/board/common/edit/userName.jsp" flush="false" />
 				</td>
 				<th>작성일</th>
-				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
+				<c:choose>
+          <c:when test="${homepage.context_path eq 'gw'}">
+            <td><form:input path="add_date_sample" cssClass="text" cssStyle="width:30%" maxlength="100" /></td>
+          </c:when>
+          <c:otherwise>
+            <td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
+          </c:otherwise>
+        </c:choose>
 			</tr>
 			<tr>
 				<th>추천년월(*)</th>

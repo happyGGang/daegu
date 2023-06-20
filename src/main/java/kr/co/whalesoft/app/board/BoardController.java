@@ -1,6 +1,8 @@
 package kr.co.whalesoft.app.board;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -1225,8 +1227,23 @@ public class BoardController extends BaseController {
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Board board, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
+
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
+		Homepage migrationHomepage = (Homepage) request.getAttribute("homepage");
+		if (migrationHomepage.getContext_path().equals("gw")) {
+			//date 타입 변경
+			if (StringUtils.isNotEmpty(board.getAdd_date_sample())) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = sdf.parse(board.getAdd_date_sample());
+				board.setAdd_date(date);
+			} else {
+				board.setAdd_date(new Date());
+			}
+		} else {
+			board.setAdd_date(new Date());
+		}
+
 
 		/** 불량단어 검출 **/
 		BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();

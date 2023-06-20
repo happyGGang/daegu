@@ -122,6 +122,8 @@ public class Board extends BoardExt {
 	private String moveCategory4Target; // 카테고리 변경
 	private String moveCategory5Target; // 카테고리 변경
 
+	private String add_date_sample;
+
 	public Board() {
 	}
 
@@ -1147,5 +1149,13 @@ public class Board extends BoardExt {
 
 	public void setSearch_homepage(String search_homepage) {
 		this.search_homepage = search_homepage;
+	}
+
+	public String getAdd_date_sample() {
+		return add_date_sample;
+	}
+
+	public void setAdd_date_sample(String add_date_sample) {
+		this.add_date_sample = add_date_sample;
 	}
 }

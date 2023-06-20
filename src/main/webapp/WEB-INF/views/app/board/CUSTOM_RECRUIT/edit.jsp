@@ -25,7 +25,14 @@ ${boardManage.top_html}
 				<th>작성자</th>
 				<td>${member.dept_nm}</td>
 				<th>작성일</th>
-				<td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
+				<c:choose>
+          <c:when test="${homepage.context_path eq 'gw'}">
+            <td><form:input path="add_date_sample" cssClass="text" cssStyle="width:30%" maxlength="100" /></td>
+          </c:when>
+          <c:otherwise>
+            <td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>
+          </c:otherwise>
+        </c:choose>
 			</tr>
 			<c:forEach var="i" varStatus="status" items="${fieldList}">
 			<c:if test="${i.board_column ne 'view_count' and !(i.admin_only eq 'Y' and board.parent_idx eq 0)}">
