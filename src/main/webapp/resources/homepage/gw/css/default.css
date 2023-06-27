@@ -1,0 +1,123 @@
+@charset "utf-8";
+@import url("../../../common/css/type31.css");
+
+.main1{background:url('../img/main1.jpg') no-repeat center 33px;padding:30px 0}
+.main1 .section .txt{top:20px}
+.main1 .section{height:300px}
+
+.main2 .main2_box{position:absolute;top:170px}
+
+@media all and (max-width:650px){
+	.main1 .section{height:280px}
+	.main1 .section .txt{top:15px}
+	.main1{background-position:60% 50%;background-size:260% auto}
+}
+
+#header{border-bottom:5px solid #0472bb;box-shadow:0px 2px 3px 0px rgba(0,0,0,0.3)}
+#header h1{top:10px}
+
+@media all and (max-width:1000px){
+	#header h1{top:0;left:10px;width:75%;text-align:left}
+	.tnb{border-bottom:1px solid #e6e6e6;height:40px}
+}
+
+@media all and (max-width:550px){
+	#header h1{top:6px}
+	#header h1 img {width:100%}
+}
+.tnb .util{line-height:70px;height:60px}
+.Gnb{height:53px;/* background:#ffdf99;border-color:#f2c973 */}
+.Gnb .gnb-menu{text-align:center}
+.Gnb .gnb-menu>li{padding:0;width:16.6%}
+.Gnb .gnb-menu>li>a{font-size:17px;padding:5px 0}
+.Gnb .gnb-menu>li.menu1>ul,
+.Gnb .gnb-menu>li.menu2>ul{text-align:left}
+.Gnb .gnb-menu>li.menu4>ul{text-align:center}
+
+.efefef{background-color:#efefef!important}
+
+.Gnb .gnb-menu>li>ul,
+.Gnb .mask{background:#0472bb}
+.Gnb .gnb-menu>li>.SubMenu>li>a,
+.Gnb .gnb-menu>li>.SubMenu>li>a:hover,
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{color:#fff}
+.main_bg{background:#fff}
+.doc-body h2 strong.t1{color:#f60}
+.doc-body .auto-scroll h3{padding:15px 0 5px;background:none}
+.doc-body .auto-scroll .agreement li{padding:1px 10px}
+.bBox{border:2px solid #dfdfdf;margin-top:20px;padding:10px}
+.use-role li p,
+.bBox p{position:relative;top:-25px;background:#3370b6;border:1px solid #36c;color:#fff;width:220px;text-align:center;margin:0 auto;padding:4px 0}
+.use-role li p strong.t1,
+.bBox p strong.bs1{color:#ff9}
+table tbody td.font0{font-size:0;line-height:0}
+
+.main6 a{font-size:19px;font-weight:normal;letter-spacing:2px}
+
+/* 인사말 */
+.greeting{background:url('../img/contents/introd_bg.gif') no-repeat 0 0}
+.greeting .box{background:url('../img/contents/greetingBg.jpg') no-repeat right bottom;padding:0 0 50px 30px}
+.greeting p{padding:0 0 15px;padding-right:45%}
+.greeting .t1{font-size:200%;letter-spacing:-1px;padding:20px 0 20px 30px;padding-right:0}
+.greeting .t11{color:#df5001}
+.greeting .t12{color:#549708}
+.greeting p.sign{font-size:120%}
+.greeting p.sign .name{margin-top:5px;display:inline-block;zoom:1;*display:inline}
+@media all and (max-width:1000px){
+	.greeting .box{background-size:60% auto}
+}
+@media all and (max-width:767px){
+	.greeting .box{background-size:290px auto;padding-bottom:100px}
+	.greeting p{padding-right:5%}
+}
+
+/* 연혁 */
+.history-head{font-size:0;line-height:0;background:none;text-align:center;padding:0 0 10px}
+.history-head p{display:none}
+.history .history_year span{display:block;font-size:0;line-height:0}
+.history .history_year span em{font-size:32px;line-height:26px;font-style:normal}
+.history .history_year span em.y2{color:#4c4c4c}
+
+/* 자료실 안내 */
+.roomGuideTab{background:url('../img/contents/roomBg.jpg') no-repeat 2% 0;padding-left:30%;padding-bottom:50px}
+@media all and (max-width:420px){
+	.roomGuideTab{padding:0 0 20px;background:none}
+}
+
+/* rss리더 사용방법 */
+.use-role{padding-left:15px}
+.use-role li{padding:0 0 5px}
+.use-role li p{top:0;padding:4px 10px;width:300px;margin-bottom:5px}
+@media all and (max-width:500px){
+	.use-role li p{width:auto}
+}
+
+/* 이메일주소 무단수집 거부 */
+.nomail{overflow:hidden}
+.nomail>p{width:14%;text-align:center;padding:3%}
+.nomail>p,
+.nomail>div{float:left}
+.nomail>div{width:100%;margin-right:-20%}
+.nomail>div>p{margin-right:20%;padding:2% 0}
+
+
+/* 접속기록안내 */
+#memberInfo{position:absolute;width:22%;left:98%;top:40%;background:#fff;margin-left:-37%;box-shadow:0px 1px 7px 0px rgba(0,0,0,0.5);z-index: 9;}
+#memberInfo .inbox{position:relative;border:1px solid #ccc;padding:10px;}
+#memberInfo .inbox dt{font-weight:bold;font-family:verdana;padding-bottom: 10px;}
+#memberInfo .inbox dd{padding:3px 0}
+a#closeMemberInfo{position:absolute;right:7px;top:5px;font-size:120%}
+#line{width: 160px;}
+div.loginInfo{padding-top: 8px;padding-bottom: 15px;}
+span.fontRed{color: red;}
+span.fontBlue{color: rgb(27,104,199);font-weight: bold;}
+div.memberCon{background-color: rgb(240,240,240);border-radius: 1em;}
+div.memberCon2{padding-top: 12px;padding-left: 10px;padding-right: 10px; padding-bottom: 28px;}
+a.btnStyle{float: right;margin-top: 6px;}
+#loginIcon{padding-top: 13px;padding-left:10px;}
+.boxnImg{ float: left; }
+.box2_1 { float: left; width: 34%; }
+.box3_1 { float: left; width: 38%; border-left: 1px solid #ddd; }
+.boxn { padding-top: 1%; padding-bottom: 1%; padding-left: 5%; }
+
+

@@ -177,11 +177,13 @@ public abstract class BaseController {
 
 			//권한확인
 			if (!isSiteAdmin) {
-				if (!getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_" + authCode)) {
-					if ("CMS".equals(authInfo.split("_")[0]) && getSessionMemberInfo(request).getAuthMap().containsKey(getSessionHomepageInfo(request).getHomepage_id() + "_A")) {
-						isSiteAdmin = true;
-					} else {
-						throw new AuthException(msg);
+				if(!request.getRequestURI().contains("/kiosk") ) {
+					if (!getSessionMemberInfo(request).getAuthMap().containsKey(authInfo + "_" + authCode)) {
+						if ("CMS".equals(authInfo.split("_")[0]) && getSessionMemberInfo(request).getAuthMap().containsKey(getSessionHomepageInfo(request).getHomepage_id() + "_A")) {
+							isSiteAdmin = true;
+						} else {
+							throw new AuthException(msg);
+						}
 					}
 				}
 			}
@@ -203,6 +205,7 @@ public abstract class BaseController {
 			String uri = request.getRequestURI();
 			if ( uri.startsWith("/index.do") ) {
 			} else if( uri.startsWith("/board") ) {
+			} else if( uri.contains("/kiosk") ) {
 			} else {
 				try {
 					String contextPath = uri.substring(1, uri.indexOf("/", 1));
@@ -212,7 +215,7 @@ public abstract class BaseController {
 			}
 			String manage_idx = request.getParameter("manage_idx");
 			String menu_idx = request.getParameter("menu_idx");
-			if((uri.startsWith("/board/") || uri.startsWith("/boardDelete/"))
+			if((uri.startsWith("/board/") || uri.startsWith("/boardDelete/") || (uri.contains("/kiosk/")))
 					&& !uri.startsWith("/board/boardComment/")
 					&& StringUtils.isNotEmpty(manage_idx)
 					&& (StringUtils.equals(menu_idx, "0") || StringUtils.isEmpty(menu_idx))
