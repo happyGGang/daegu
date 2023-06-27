@@ -50,7 +50,7 @@ import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2;
 import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2Service;
 
 @Controller(value="userTeach")
-@RequestMapping(value = {"/{homepagePath}/module/teach"})
+@RequestMapping(value = {"/{homepagePath}/module/teach", "/{homepagePath}/kiosk/module/teach"})
 public class TeachController extends BaseController{
 
 	private String basePath = "/homepage/%s/module/teach/";
@@ -356,6 +356,32 @@ public class TeachController extends BaseController{
 		model.addAttribute("teach", teach);
 
 		return String.format(basePath, homepage.getFolder()) + "detail";
+	}
+	
+	@RequestMapping(value = {"/kioskDetail.*"})
+	public String kioskDetail(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		if (StringUtils.isEmpty(teach.getHomepage_id())) {
+			teach.setHomepage_id(homepage.getHomepage_id());
+		}
+
+		int menu_idx = teach.getMenu_idx();
+		String searchCate1 = teach.getSearchCate1();
+		String homepage_id = teach.getHomepage_id();
+
+		teach = teachService.getTeachDetailForUser(teach);
+		if ( teach == null ) {
+			teachService.alertMessage("해당 강좌 정보가 없습니다.", request, response);
+			return null;
+		}
+		teach.setMenu_idx(menu_idx);
+		teach.setSearchCate1(searchCate1);
+		teach.setHomepage_id(homepage_id);
+
+		model.addAttribute("teach", teach);
+
+		return String.format(basePath, homepage.getFolder()) + "kioskDetail";
 	}
 
 	@RequestMapping(value = {"/applyList.*"})

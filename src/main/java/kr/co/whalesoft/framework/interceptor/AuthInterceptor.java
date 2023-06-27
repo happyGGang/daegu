@@ -81,12 +81,22 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 			}
 
 			uri = request.getRequestURI().substring(contextPath.length() + 1);
-			if (uri.startsWith("/board/") || uri.startsWith("/boardDelete/")) {
+			if (uri.startsWith("/board/") || uri.startsWith("/boardDelete/") || uri.contains("/kiosk/")) {
 				request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode("B0001"));
 			}
 		} else {
 			if ( uri.startsWith("/index.do") ) {
 				contextPath = "root";
+			} else if(uri.startsWith("/kiosk/")){
+				try {
+					String path = uri.substring(6);
+					
+					contextPath = path.substring(1, path.indexOf("/", 1));
+					
+				} catch (Exception e) {
+					//contextPath를 올바르게 가져오지 못하는 경우 404 에러 처리.
+					return super.preHandle(request, response, handler);
+				}
 			} else {
 				try {
 					contextPath = uri.substring(1, uri.indexOf("/", 1));
@@ -131,8 +141,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 			}
 
-			if (uri.startsWith("/board/") || uri.startsWith("/boardDelete/")) {
+			if (uri.startsWith("/board/") || uri.startsWith("/boardDelete/") || uri.contains("/kiosk/")) {
 				request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode("B0001"));
+			}
+			
+			if (uri.contains("/kiosk/")) {
+				request.getSession().setAttribute("exAuthList", authCodeService.getAuthCode("B0001"));
+				
+				homepage = homepageService.getHomepageOneInPath(contextPath);
 			}
 		}
 
@@ -141,6 +157,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 
 	public boolean homepageUrl(String uri) {
-		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/wbuilder/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/"));
+		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/wbuilder/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/") && !uri.startsWith("/kiosk/"));
 	}
 }

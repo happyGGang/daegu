@@ -55,6 +55,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/board/**"/>
 			<mvc:mapping path="/*/board/**"/>
+			<mvc:mapping path="/*/kiosk/**"/>
 			<mvc:mapping path="/boardDelete/**"/>
 			<mvc:mapping path="/*/boardDelete/**"/>
 			<bean class="kr.co.whalesoft.framework.interceptor.BoardAuthoritiesInterceptor"/>

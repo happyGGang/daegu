@@ -24,7 +24,7 @@ import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
 
 @Controller
-@RequestMapping(value = { "/{homepagePath}/module/librarianPickBook" })
+@RequestMapping(value = { "/{homepagePath}/module/librarianPickBook", "/{homepagePath}/kiosk/module/librarianPickBook"})
 public class LibrarianPickBookController extends BaseController{
 	
 	private final String basePath = "/homepage/%s/module/librarianPickBook/";
@@ -50,7 +50,12 @@ public class LibrarianPickBookController extends BaseController{
 				return null;
 			}
 		} else {
-			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
+			String uri = request.getRequestURI().substring(request.getContextPath().length());
+			if((!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) && uri.contains("kiosk")) {
+				String before_url = String.format("/%s/kiosk/module/librarianPickBook/index.do", homepage.getContext_path());
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/intro/login/index.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+				return null;
+			} else if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 				String before_url = String.format("/%s/module/librarianPickBook/index.do?menu_idx=%s", homepage.getContext_path(),librarianPickBook.getMenu_idx());
 				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, before_url), request, response);
@@ -116,6 +121,12 @@ public class LibrarianPickBookController extends BaseController{
 		 
 		model.addAttribute("searchMenuIdx", searchMenuIdx);
 		model.addAttribute("list", list);
+		
+		String uri = request.getRequestURI().substring(request.getContextPath().length());
+		
+		if(uri.contains("kiosk")) {
+			model.addAttribute("kioskYn", "Y");
+		}
 		
 		return String.format(basePath, homepage.getFolder()) + "index";
 	}

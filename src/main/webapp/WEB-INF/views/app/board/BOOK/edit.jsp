@@ -190,6 +190,7 @@ function getLasData(arg) {
 	$('input#imsi_v_7').val(arg[5]);
 	$('input#preview_img').val(arg[6]);
 	$('input#imsi_v_6').val(arg[7]);
+	$('input#imsi_v_8').val(arg[8]);
 	return false;
 }
 
@@ -225,8 +226,6 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:choose>
           <c:when test="${homepage.context_path eq 'gw'}">
             <td><form:input path="add_date_sample" cssClass="text" cssStyle="width:30%" maxlength="100" /></td>
-              <th>작성자아이디</th>
-            <td><form:input path="add_id" cssClass="text" cssStyle="width:30%" maxlength="100" /></td>
           </c:when>
           <c:otherwise>
             <td><fmt:formatDate value="${board.editMode eq 'ADD' ? getToday : board.add_date}" pattern="yyyy-MM-dd"/></td>

@@ -267,6 +267,42 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 						}
 					}
 				}
+			} else if ( uri.contains("/kiosk/")) {
+
+				// SSL 적용을 위한 로직
+				if (!uri.contains("join") && !uri.contains("login")) {
+
+//					if (request.isSecure()) {
+//
+//						String redirectUrl = String.format("http://%s:80%s?%s", request.getServerName(), uri, request.getQueryString());
+//						response.sendRedirect(redirectUrl);
+//						return false;
+//					}
+				} else {
+
+					String referer = request.getHeader("referer");
+				}
+				
+				uri = uri.substring(1, uri.indexOf("/",1));
+				
+				if (request.getSession().getAttribute("homepage") == null) {
+					homepage = homepageService.getHomepageOneInPath(uri);
+					if (homepage != null) {
+						request.setAttribute("homepage", homepage);
+						request.getSession().setAttribute("homepage", homepage);
+					}
+				} else {
+					Homepage sessionHomepage = (Homepage) request.getSession().getAttribute("homepage");
+					if (sessionHomepage.getContext_path().equals(uri)) {
+						request.setAttribute("homepage", request.getSession().getAttribute("homepage"));
+					} else {
+						homepage = homepageService.getHomepageOneInPath(uri);
+						if (homepage != null) {
+							request.setAttribute("homepage", homepage);
+							request.getSession().setAttribute("homepage", homepage);
+						}
+					}
+				}
 			}
 		}
 
@@ -292,7 +328,7 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	public boolean homepageUrl(String uri) {
-		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/"));
+		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/") && !uri.startsWith("/kiosk/"));
 	}
 
 	private static final DateTimeFormatter DTF = DateTimeFormat.forPattern("yyyy-MM-dd");

@@ -13,8 +13,11 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
+import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.cms.banner.Banner;
 import kr.co.whalesoft.app.cms.banner.BannerService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
@@ -49,8 +52,10 @@ import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
+import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
+import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
@@ -61,6 +66,7 @@ import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
 import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
 import kr.go.gbelib.app.module.bookKeyword.BookKeywordService;
+import kr.go.gbelib.app.module.librarianPickBook.LibrarianPickBook;
 import kr.go.gbelib.app.module.myLibrary.MyLibrary;
 import kr.go.gbelib.app.module.myLibrary.MyLibraryService;
 import org.apache.commons.collections.CollectionUtils;
@@ -71,6 +77,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -160,6 +167,279 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/index.*" })
 	public String index(Model model, HttpServletRequest request, @PathVariable String contextPath) {
 		return doIndexProc(model, request, null);
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/index.*" })
+	public String kioskIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		return doKioskIndexProc(model, request, null);
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/bookIndex.*" })
+	public String kioskBookIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		return doKioskBookIndexProc(model, request, null);
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/teachIndex.*" })
+	public String teachIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/teachIndex";
+		}
+		
+		Teach t = new Teach();
+		t.setHomepage_id(homepage.getHomepage_id());
+		model.addAttribute("teachList", teachService.getTeachListForUser(t));
+		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/boardIndex.*" })
+	public String boardIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/boardIndex";
+		}
+		
+		setBoardListToModel(homepage.getHomepage_id(), model);
+		
+		return basePath + filePath;
+	}
+
+	@RequestMapping(value = { "/{contextPath}/kiosk/recommandBoardIndex.*" })
+	public String recommandBoardIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/recommandBoardIndex";
+		}
+		
+		Board b = new Board();
+		b.setManage_idx(174);
+		model.addAttribute("boardList", boardService.getSubBoardByMain(b));//추천도서
+		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/recommandBoardView.*" })
+	public String view(Model model, Board board, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		
+		boardService.addViewCount(board);
+		
+		Board boardOne = boardService.getBoardOne(board);
+		
+		Map<String, Object> map = null;
+		
+		if(StringUtils.isNotEmpty(boardOne.getImsi_v_8())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+			librarySearch.setRegNo(boardOne.getImsi_v_8());
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			
+			List<Map<String, Object>> list = null;
+			
+			list = LibSearchAPI.getListData(result);
+			map = list.get(0);
+
+			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+			if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+				Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+				if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+					map.put("aladin", aladinData.get("item"));
+				}
+				if (map.get("aladin") == null) {
+					map.put("imageUrl", service.getImageUrl(map));
+				}
+			}
+		}
+		
+		model.addAttribute("detail", map);
+		
+		try {
+			librarySearch.setSearch_text(boardOne.getTitle());
+			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
+			
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
+			
+			String contents = "";
+			
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map3 : itemList) {
+					contents = String.valueOf(map3.get("contents"));
+				}
+				
+				model.addAttribute("kakaoResult", contents);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/recommandBoardView";
+		}
+		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordIndex.*"})
+	public String bookKeywordIndex(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("bookKeyword", bookKeyword);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/bookKeywordIndex";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeyword.*"})
+	public String bookKeyword(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("bookKeyword", bookKeyword);
+		model.addAttribute("bookKeywordList", bookKeywordService.getBookKeywordList(bookKeyword));
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/bookKeyword_ajax";
+		}
+		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordView.*"})
+	public String view(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Member member = (Member) request.getSession().getAttribute("member");
+		
+		LibrarySearch librarySearch = new LibrarySearch();
+		librarySearch.setKeyword(bookKeyword.getKeyword_name());
+		
+		if(!isLogin(request) || StringUtils.isEmpty(member.getBirth_day())) {
+			librarySearch.setSex(bookKeyword.getSex());
+			librarySearch.setBook_keyword_age(bookKeyword.getAge());
+		} else {
+			librarySearch.setSex(member.getSex());
+			librarySearch.setBirth_year(member.getBirth_day().split("-")[0]);
+		}
+		
+		List<Map<String, Object>> list = LibSearchAPI.getBookKeywordSearchList(librarySearch);
+		
+		int searchMenuIdx = 0;
+		
+		searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
+		 
+		model.addAttribute("searchMenuIdx", searchMenuIdx);
+		
+		model.addAttribute("bookKeyword", bookKeyword);
+		model.addAttribute("list", list);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/bookKeywordView";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/librarianPickBookIndex.*"})
+	public String index(Model model, LibrarianPickBook librarianPickBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		String uri = request.getRequestURI().substring(request.getContextPath().length());
+		if((!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) && uri.contains("kiosk")) {
+			String before_url = String.format("/%s/kiosk/librarianPickBookIndex.do", homepage.getContext_path());
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login/index.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+			return null;
+		}
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		LibrarySearch librarySearch = new LibrarySearch();
+		
+		librarySearch.setUserkey(sessionMemberInfo.getRec_key());
+		if (StringUtils.isNotEmpty(sessionMemberInfo.getBirth_day())) {
+			String[] age_split = sessionMemberInfo.getBirth_day().split("-");
+			
+			librarySearch.setBirth_year(age_split[0]);
+		}
+		librarySearch.setSex(sessionMemberInfo.getSex());
+			
+		Map<String, Object> result = LibSearchAPI.getUserreCommBooks(librarySearch);
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		if(result != null) {
+			list = (List<Map<String, Object>>)result.get("LIST_DATA");
+		}
+		
+		
+		for (Map<String, Object> map : list) {
+			
+			String isbn = map.get("ISBN").toString(); 
+			
+			if (StringUtils.isNotEmpty(isbn)) {
+				
+				String[] isbnArr = isbn.split("\\s+");
+				
+				for(int i=0; i < isbnArr.length; i++) {
+					if (i == (isbnArr.length -1)) {
+						isbnArr[i].replaceAll("세트", "");
+						isbnArr[i].replaceAll("셋트", "");
+						isbnArr[i].replaceAll("SET", "");
+						isbnArr[i].replaceAll("set", "");
+						map.put("ISBN",isbnArr[i]);
+					}
+				}
+				
+				map.put("imageUrl", librarySearchService.getImageUrl(map));
+			}
+			
+			map.put("ISBN", isbn);
+			
+		}
+		
+		int searchMenuIdx = 0;
+		
+		searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
+		 
+		model.addAttribute("searchMenuIdx", searchMenuIdx);
+		model.addAttribute("list", list);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/librarianPickBookIndex";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/login.*" })
+	public String login(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		model.addAttribute("member", sessionMemberInfo);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/login";
+		}
+
+		return basePath + filePath;
 	}
 
 	@RequestMapping(value = { "/{contextPath}/calendar.*" })
@@ -483,42 +763,50 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/bestBook.*" })
 	public String bestBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
-		LibrarySearch ls = new LibrarySearch();
-		ls.setManageCode(homepage.getManage_code());
+		
+		if (homepage.getHomepage_id().equals("h94")) {
+			Board b = new Board();
+			b.setManage_idx(1183);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
+		} else {
+			LibrarySearch ls = new LibrarySearch();
+			ls.setManageCode(homepage.getManage_code());
 
-		//서지형태 분류코드 설정.
-		//기본값 도서 "0"
-		//0 : 단행, 1: 연속간행물, 2:비도서
-		ls.setBooktype("0");
+			//서지형태 분류코드 설정.
+			//기본값 도서 "0"
+			//0 : 단행, 1: 연속간행물, 2:비도서
+			ls.setBooktype("0");
 
-		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
-		List<Map<String, Object>> list = null;
+			Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+			List<Map<String, Object>> list = null;
 
-		int count = LibSearchAPI.getSearchCount(result);
+			int count = LibSearchAPI.getSearchCount(result);
 
-		ls.setTotalDataCount(count);
+			ls.setTotalDataCount(count);
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
 
-			list = LibSearchAPI.getListData(result);
-			for ( Map<String, Object> map : list ) {
-				if ( map.containsKey("ISBN") ) {
-					//알라딘 API 결과 가져오기
-					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-							map.put("aladin", aladinData.get("item"));
-						}
-						if (map.get("aladin") == null) {
-							map.put("imageUrl", service.getImageUrl(map));
+				list = LibSearchAPI.getListData(result);
+				for ( Map<String, Object> map : list ) {
+					if ( map.containsKey("ISBN") ) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
 						}
 					}
 				}
 			}
+
+
+			model.addAttribute("bestBookList", list);
 		}
-
-
-		model.addAttribute("bestBookList", list);
+		
 		return basePath + homepage.getFolder() + "/bestBook_ajax";
 	}
 
@@ -994,55 +1282,6 @@ public class IndexController extends BaseController {
 			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
 		}
 
-		//아트도서관, 연암도서관 신착도서
-//		if(homepage.getHomepage_id().equals("h84") || homepage.getHomepage_id().equals("h85") ) {
-			
-			
-//			LibrarySearch librarySearch = new LibrarySearch();
-//			librarySearch.setManageCode(homepage.getManage_code());
-//
-//			if (StringUtils.isEmpty(librarySearch.getShelfCode())) {
-//				librarySearch.setShelfCode("ALL");
-//			}
-//
-//			//검색기간 설정
-//			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-//			//1주전
-//			int beforeDays = -60;
-//
-//			librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
-//			librarySearch.setSearch_end_date(sf.format(new Date()));
-//
-//			librarySearch.setBooktype("0");
-//
-//			Map<String, Object> result = PrivateLibSearchAPI.getNewBookList(librarySearch);
-//			List<Map<String, Object>> list = null;
-//
-//			int count = PrivateLibSearchAPI.getSearchCount(result);
-//
-//			librarySearch.setTotalDataCount(count);
-//			service.setPaging(model, count, librarySearch);
-//
-//			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
-//				list = PrivateLibSearchAPI.getListData(result);
-//				for (Map<String, Object> map : list) {
-//					if (map.containsKey("ISBN")) {
-//						//알라딘 API 결과 가져오기
-//						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-//							Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
-//							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-//								map.put("aladin", aladinData.get("item"));
-//							}
-//							if (map.get("aladin") == null) {
-//								map.put("imageUrl", service.getImageUrl(map));
-//							}
-//						}
-//					}
-//				}
-//			}
-//			model.addAttribute("newBookList", list);
-//			model.addAttribute("librarySearch", librarySearch);
-//		}
 
 		//연암마을도서관
 		String[] teachHomepage4 = {"h85"};
@@ -1068,6 +1307,13 @@ public class IndexController extends BaseController {
 				t.setSearchCate1("17");
 				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
+		}
+		
+		//군위도서관
+		if (homepage.getHomepage_id().equals("h94")) {
+			Board b = new Board();
+			b.setManage_idx(1183);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
 		}
 
 		if ("h89".equals(homepage.getHomepage_id())) {
@@ -1101,6 +1347,112 @@ public class IndexController extends BaseController {
 		BookKeyword bookKeyword = new BookKeyword();
 
 		model.addAttribute("bookKeywordList", bookKeywordService.getBookKeywordList(bookKeyword));
+
+		return basePath + filePath;
+	}
+	
+	private String doKioskIndexProc(Model model, HttpServletRequest request, Board board) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Teach indexteach = new Teach();
+		String sortField = indexteach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			indexteach.setSortField("");
+			indexteach.setSortType("");
+		}
+		String filePath = "";
+
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/index";
+		}
+
+		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		//junggu
+		if (homepage.getHomepage_id().equals("h53")) {
+			model.addAttribute("bookList1", boardService.getBoardBookJungu());
+		}
+
+		//새벗도서관
+		if (homepage.getHomepage_id().equals("h83")) {
+			Board b = new Board();
+			b.setManage_idx(1071);
+			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
+		}
+		
+		//아트도서관
+		if (homepage.getHomepage_id().equals("h84")) {
+			Board b = new Board();
+			b.setManage_idx(1074);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
+		}
+
+		//연암마을도서관
+		String[] teachHomepage4 = {"h85"};
+		for (String th: teachHomepage4 ) {
+			if (homepage.getHomepage_id().equals(th)) {
+				Teach t = new Teach();
+				t.setHomepage_id(homepage.getHomepage_id());
+				t.setSearchCate1("16");
+				model.addAttribute("teachList1", teachService.getTeachListForUser(t));
+				t.setSearchCate1("17");
+				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
+			}
+		}
+
+		log.debug("jsp Page : "+basePath + filePath);
+
+		return basePath + filePath;
+	}
+	
+	private String doKioskBookIndexProc(Model model, HttpServletRequest request, Board board) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Teach indexteach = new Teach();
+		String sortField = indexteach.getSortField();
+		if (StringUtils.equals(sortField, "TITLE")) {
+			indexteach.setSortField("");
+			indexteach.setSortType("");
+		}
+		String filePath = "";
+
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/bookIndex";
+		}
+
+		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		//junggu
+		if (homepage.getHomepage_id().equals("h53")) {
+			model.addAttribute("bookList1", boardService.getBoardBookJungu());
+		}
+
+		//새벗도서관
+		if (homepage.getHomepage_id().equals("h83")) {
+			Board b = new Board();
+			b.setManage_idx(1071);
+			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
+		}
+		
+		//아트도서관
+		if (homepage.getHomepage_id().equals("h84")) {
+			Board b = new Board();
+			b.setManage_idx(1074);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
+		}
+
+		//연암마을도서관
+		String[] teachHomepage4 = {"h85"};
+		for (String th: teachHomepage4 ) {
+			if (homepage.getHomepage_id().equals(th)) {
+				Teach t = new Teach();
+				t.setHomepage_id(homepage.getHomepage_id());
+				t.setSearchCate1("16");
+				model.addAttribute("teachList1", teachService.getTeachListForUser(t));
+				t.setSearchCate1("17");
+				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
+			}
+		}
+
+		log.debug("jsp Page : "+basePath + filePath);
 
 		return basePath + filePath;
 	}

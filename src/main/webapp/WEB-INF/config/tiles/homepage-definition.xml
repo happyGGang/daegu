@@ -9,7 +9,77 @@
   		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/layout/top.jsp" />
   		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/layout/topMenu.jsp" />
 	</definition>
+	
+	<definition name="/homepage/*/kiosk/index" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/index.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/bookIndex" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/bookIndex.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/teachIndex" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/teachIndex.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/boardIndex" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/boardIndex.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/recommandBoardIndex" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/recommandBoardIndex.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
 
+	<definition name="/homepage/*/kiosk/recommandBoardView" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/recommandBoardView.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/bookKeywordIndex" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/bookKeywordIndex.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/bookKeywordView" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/bookKeywordView.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
+	<definition name="/homepage/*/kiosk/librarianPickBookIndex" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/librarianPickBookIndex.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+
+	<definition name="/homepage/*/kiosk/login" templateExpression="/WEB-INF/views/app/homepage/{1}/kiosk/login.jsp">
+		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/header.jsp" />
+  		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/footer.jsp" />
+  		<put-attribute name="top" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/top.jsp" />
+  		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/kiosk/layout/topMenu.jsp" />
+	</definition>
+	
 	<definition name="/homepage/*/userLogin/*" templateExpression="/WEB-INF/views/app/homepage/{1}/layout/wideLayout.jsp">
 		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/layout/header.jsp" />
   		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/layout/footer.jsp" />
@@ -17,7 +87,7 @@
   		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/layout/topMenu.jsp" />
   		<!-- <put-attribute name="body" expression="/WEB-INF/views/app/homepage/{1}/userLogin/{2}.jsp" /> -->
 	</definition>
-
+	
 	<definition name="/homepage/*/sitemap/*" templateExpression="/WEB-INF/views/app/homepage/{1}/layout/subLayout.jsp">
 		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/layout/header.jsp" />
   		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/layout/footer.jsp" />
@@ -112,6 +182,7 @@
   		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/layout/topMenu.jsp" />
  		<put-attribute name="body" expression="/WEB-INF/views/app/homepage/module/{2}/{3}.jsp" />
  	</definition>
+ 	
  	<!-- <definition name="/homdepage/*/module/*_ajax" templateExpression="/WEB-INF/views/app/homepage/{1}/module/{2}.jsp" /> -->
 
 <!--  	<definition name="/homepage/*/module/*" templateExpression="/WEB-INF/views/app/homepage/{1}/layout/subLayout.jsp">
@@ -299,7 +370,7 @@
   		<put-attribute name="topMenu" expression="/WEB-INF/views/app/homepage/{1}/layout/topMenu.jsp" />
  		<put-attribute name="body" expression="/WEB-INF/views/app/homepage/{1}/{2}/{3}/{4}.jsp" />
 	</definition>
-
+	
 	<definition name="/homepage/*/*/*" templateExpression="/WEB-INF/views/app/homepage/{1}/layout/subLayout.jsp">
 		<put-attribute name="header" expression="/WEB-INF/views/app/homepage/{1}/layout/header.jsp" />
   		<put-attribute name="footer" expression="/WEB-INF/views/app/homepage/{1}/layout/footer.jsp" />
