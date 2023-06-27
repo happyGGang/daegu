@@ -1235,7 +1235,8 @@ public class BoardController extends BaseController {
 			//date 타입 변경
 			if (StringUtils.isNotEmpty(board.getAdd_date_sample())) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				Date date = sdf.parse(board.getAdd_date_sample());
+				String dateStr = board.getAdd_date_sample().replaceAll("\\.", "-");
+				Date date = sdf.parse(dateStr);
 				board.setAdd_date(date);
 			} else {
 				board.setAdd_date(new Date());

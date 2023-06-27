@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
+import kr.co.whalesoft.app.cms.homepage.Homepage;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -347,7 +348,11 @@ public class BoardService extends BaseService {
 				}
 			}
 		} else {
-			board.setAdd_id(member.getMember_id());
+			Homepage migrationHomepage = (Homepage) request.getAttribute("homepage");
+			if (!migrationHomepage.getContext_path().equals("gw")) {
+				board.setAdd_id(member.getMember_id());
+			}
+
 		}
 
 		if (StringUtils.isEmpty(board.getUser_name())) {
