@@ -4,6 +4,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <tiles:insertAttribute name="header" />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css"  />
 <script language="JavaScript" type="text/javascript" src="/resources/common/js/encrypt.js?now=<%=System.currentTimeMillis()%>"></script>
@@ -44,8 +45,7 @@ $(function() {
 		<div class="title-sec">
 			MEMBER LOGIN
 		</div>
-
-		<form:form modelAttribute="member" action="login.do" onsubmit="return false;">
+		<form:form modelAttribute="member" action="/intro/${homepage.context_path}/login/loginProc.do" onsubmit="return false;">
 			<form:hidden path="member_pw" cssStyle="display:none;" />
 			<form:hidden path="member_id"/>
 			<form:hidden path="before_url"/>
@@ -56,7 +56,7 @@ $(function() {
 				<input type="password" id="member_pw_tmp" name="" placeholder="PASSWORD">
 			</div>
 			<div class="login-btn-sec">
-				<a href="" class="button save-btn">LOGIN</a>
+				<button type="submit" class="button save-btn">LOGIN</button>
 			</div>
 			<div class="rf-login-btn-sec">
 				<a href="" class="button">회원증 RFID 로그인</a>

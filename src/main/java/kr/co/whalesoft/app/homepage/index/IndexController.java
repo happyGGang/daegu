@@ -363,7 +363,8 @@ public class IndexController extends BaseController {
 		String uri = request.getRequestURI().substring(request.getContextPath().length());
 		if((!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) && uri.contains("kiosk")) {
 			String before_url = String.format("/%s/kiosk/librarianPickBookIndex.do", homepage.getContext_path());
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login/index.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+			homepage.setBefore_url(before_url);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
 			return null;
 		}
 		
@@ -425,15 +426,18 @@ public class IndexController extends BaseController {
 
 		return basePath + filePath;
 	}
-	
-	@RequestMapping(value = { "/{contextPath}/kiosk/login.*" })
-	public String login(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+
+	@RequestMapping(value = {"/{contextPath}/kiosk/login.*"})
+	public String login(Model model, Member member, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		
+
 		Member sessionMemberInfo = getSessionMemberInfo(request);
-		
+
+		if (homepage.getBefore_url() != null && !"".equals(homepage.getBefore_url())) {
+			sessionMemberInfo.setBefore_url(homepage.getBefore_url());
+		}
 		model.addAttribute("member", sessionMemberInfo);
-		
+
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/login";

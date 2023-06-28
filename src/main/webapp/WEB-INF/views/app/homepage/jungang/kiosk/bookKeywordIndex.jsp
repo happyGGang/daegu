@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="utf-8"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/jqcloud2.css" />
-<script type="text/javascript" src="/resources/common/js/jqcloud2.js"></script>
+<tiles:insertAttribute name="header" />
 
 <style>
 .user_pick_info {position:relative;width:100%;margin-top:30px;padding:40px 0 35px;background-color:#f3f4f6;text-align:center;}
@@ -36,7 +37,7 @@
 
 	.select-keyword{margin-bottom:10px;}
 	.select-keyword span{font-size:14px;margin-bottom:5px;width:32%;height:40px;line-height:40px;}
-	
+
 	.btn-box ul li{display:block;width:100%;line-height:160%;}
 	.btn-box ul li.btn1{margin-right:0;margin-bottom:5px;}
 	.btn-box ul li a{font-size:16px;}
