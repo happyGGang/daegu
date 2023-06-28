@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta id="_csrf" name="_csrf" th:content=""/>
+<meta id="_csrf_header" name="_csrf_header" th:content=""/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1" />
+<title>대구시 도서관 통합 허브시스템</title>
+<!--[if IE]>
+<meta http-equiv="x-ua-compatible" content="ie=edge"/>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="resources/common/css/fontawesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="resources/common/css/select2.min.css"/>
+<link rel="stylesheet" type="text/css" href="resources/common/css/jquery-ui-1.12.0.min.css"/>
+<link rel="stylesheet" type="text/css" href="resources/common/css/jquery.mmenu.css"/>
+<link rel="stylesheet" type="text/css" href="resources/book/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="resources/common/css/mediawall/common/default.css"  />
+<link rel="stylesheet" type="text/css" href="resources/common/css/mediawall/default.css"  />
+
+<script type="text/javascript" src="resources/common/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="resources/common/js/jquery-ui-1.12.0.min.js"></script>
+<script type="text/javascript" src="resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
+<script type="text/javascript" src="resources/common/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="resources/common/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="resources/common/js/default.js"></script>
+<script type="text/javascript" src="resources/common/js/common.js"></script>
+<script type="text/javascript" src="resources/board/js/common.js"></script>
+<script type="text/javascript" src="resources/book/intro/js/common.js"></script>
+</head>
+<body>
+
+<div id="wrap">
+
+<!-- 요기까지 공통 -->
+
+	<link rel="stylesheet" type="text/css" href="resources/common/css/mediawall/swiper-bundle.min.css" />
+	<style>
+	.swiper {width:100%;height:100%;}
+	.swiper-slide {text-align:center;display:flex;justify-content:center;align-items:center;}
+	.swiper-slide img {display: block;width: 100%;height: 100%;object-fit: cover;}
+
+	.swiper {width:100%;height:300px;}
+	.swiper-slide {background-size: cover;background-position: center;}
+
+	.mySwiper .swiper-slide div.thumb-image img {display:block;width:800px;height:1140px;object-fit:cover;}
+	.mySwiper .swiper-slide div.thumb-image {display:block;}
+	.mySwiper .swiper-slide div.thumb-image a {display:block;}
+	.mySwiper .swiper-slide div.cont {position:absolute;top:1160px;left:18px;}
+	.mySwiper .swiper-slide div.cont p.tit {font-size:45px;color:#fff;letter-spacing:-1.25px;text-align:left;}
+
+	.mySwiper {height:20%;box-sizing: border-box;padding:100px 0 80px;}
+	.mySwiper .swiper-slide {position:relative;width:10%;height:100%;}
+	.mySwiper .swiper-slide img {display:block;width:800px;height:1140px;border:3px solid transparent;}
+	</style>
+
+	<div class="notice-wrap">
+		<div class="header">
+			<h1>공지사항</h1>
+			<p>library notice</p>
+		</div>
+		<div class="contents">
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관! 생활 속 가까이 누리는 기쁨 내 집 앞 도서관!!</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">일상속의 작은 행복! 스마트도서추천!!!!!!!!!!!!!!!!!!!!!!</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">읽고 싶은 책이 도서관에 없다구요? 희망도서바로대출</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">내 마음에 시울림</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">회원 통합인증 안내</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">안상학 시인의 ‘시는 살아간다’ 특강</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
+						</div>
+					</div>
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<img src="https://swiperjs.com/demos/images/nature-10.jpg" />
+						</div>
+						<div class="cont">
+							<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-pagination"></div>
+				<!-- <div class="swiper-scrollbar"></div> -->
+			</div>
+
+			<!-- Swiper JS -->
+			<script src="resources/common/js/kiosk/swiper-bundle.min.js"></script>
+
+			<!-- Initialize Swiper -->
+			<script>
+				var swiper = new Swiper('.mySwiper', {
+					pagination: '.swiper-pagination',
+					slidesPerView: 7,
+					paginationClickable: true,
+					spaceBetween: 110,
+					autoplay: {
+						delay: 5000,
+						disableOnInteraction: false,
+					},
+				});
+			</script>
+		</div>
+		<div class="copyright" style="color:#d0cab5;">
+			The National Debt Compensation Movement Memorial Library
+		</div>
+	</div>
+
+<!-- 요기부터 공통 푸터 -->
+</div>
+
+</body>
+</html>

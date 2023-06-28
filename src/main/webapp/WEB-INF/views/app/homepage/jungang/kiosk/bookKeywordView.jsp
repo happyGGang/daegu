@@ -2,73 +2,49 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css" />
+<tiles:insertAttribute name="header" />
 
 <script>
-	$(function() {
-		setTimeout(function() {
-		  $('#wait').hide();
-		  $('#keywordList').show();
-		}, 1000);
-	}) 
 </script>
 
-<!-- 도서정보목록 -->
-<!-- <h2>이용자 맞춤형 <span style="font-weight:300">추천도서</span></h2> -->
-
-
-
-
-
-<div class="user_pick_info">
-	<img src="/resources/homepage/dgportal/img/user_pick_icon.png">
-	<h2>능동형도서추천</h2>
-</div>
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />	
-<div id="wait" class="user_pick_info" >
-	<c:choose>
-		<c:when test="${empty member.member_name}">
-			<h2>회원님의 관심 키워드 선택 결과를 불러오는 중입니다. </h2>
-		</c:when>
-		<c:otherwise>
-			<h2>${member.member_name}님의 관심 키워드 선택 결과를 불러오는 중입니다. </h2>
-		</c:otherwise>
-	</c:choose>
-</div>
-<div id="keywordList" style="display:none;">	
-	<div style="text-align: right; margin-top: 10px; ">
-		<a href="excelDownload.do?keyword_name=${bookKeyword.keyword_name}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">엑셀다운로드</a>
+<div class="userrecommandbookdetail-wrap">
+	<div class="header">
+		<h1>도서정보</h1>
+		<p>Book information</p>
 	</div>
-	
-	<div class="kdcBookList2">
-		<ul class="bookListz">
-			<c:if test="${fn:length(list) < 1}">
-			<div class="data_none">
-			<p>추천 도서가 없습니다.</p>
+	<div class="contents">
+		<div class="img-sec">
+			<img src="${bookKeyword.bookimgUrl}" alt="${bookKeyword.book_name}">
+		</div>
+		<div class="title-sec">
+			${bookKeyword.book_name}
+		</div>
+		<div class="bookinfo-sec">
+			<ul>
+				<li><span class="">저자명</span> ${bookKeyword.author}</li>
+				<li><span class="">소장위치</span> ${detail.SHELF_LOC_NAME}</li>
+				<li><span class="">출판사</span> ${detail.PUBLISHER}</li>
+				<li><span class="">청구기호</span> ${detail.CALL_NO}</li>
+				<li><span class="">ISBN</span> ${bookKeyword.isbn}</li>
+				<li><span class="">등록번호</span> ${detail.REG_NO}</li>
+			</ul>
+		</div>
+		<div class="print-sec">
+			<div id="print-contents" class="print-contents-toggle">
 			</div>
-			</c:if>
-	
-			<c:forEach items="${list}" var="i">
-				<li>
-					<div class="thumb">
-						<c:url var="url" value="/${homepage.context_path}/intro/search/indexAll.do">
-							<c:param name="menu_idx" value="${searchMenuIdx}"/>
-							<c:param name="booktype" value="BOOKANDNONBOOK"/>
-							<c:param name="title" value="${i.bookname}"/>
-							<c:param name="" value="#search_result"/>
-						</c:url>
-					
-						<a href="${url}" class="cover" target="_blank">
-							<span class="img">
-								<img src="${empty i.bookimageURL ? '/resources/common/img/noImg2.png' : i.bookimageURL}" alt="${i.bookname}" >
-							</span>
-						</a>
-					</div>
-					<span class="tit">${i.bookname}</span>
-					<span class="author">${i.author}</span>
-					<span class="author">${i.isbn}</span>
-				</li>
-			</c:forEach>
-		</ul>
+			<div class="print-btn">
+				<a href="#" id="print-btn-toggle">국채보상운동기념도서관 소장도서 <strong>서가위치보기</strong></a>
+			</div>
+		</div>
+		<div class="etcinfo-sec">
+			${kakaoResult}
+		</div>
+		<div class="backbutton-sec">
+			<a href="">< 이전</a>
+		</div>
 	</div>
 </div>
+
+<tiles:insertAttribute name="footer" />

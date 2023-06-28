@@ -11,7 +11,7 @@ $(function(){
 	$('a.detail-btn').on('click', function(e) {
 		var formData = '&homepage_id='+$('#homepage_id_1').val()+'&group_idx='+$(this).attr('keyValue1')+'&category_idx='+$(this).attr('keyValue2')+'&teach_idx='+$(this).attr('keyValue3')+'&large_category_idx='+$(this).attr('keyValue4')
 			+'&searchCate1='+$('#searchCate1').val();
-		doGetLoad('/${homepage.context_path}/kiosk/module/teach/kioskDetail.do', formData);
+		doGetLoad('/${homepage.context_path}/kiosk/teachDetail.do', formData);
 		e.preventDefault();
 	});
 });

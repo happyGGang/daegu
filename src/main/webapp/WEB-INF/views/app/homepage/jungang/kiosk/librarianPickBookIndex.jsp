@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertAttribute name="header" />
-<link rel="stylesheet" type="text/css" href="resources/common/css/kiosk/swiper.min.css"  />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css"  />
 <style>
 .swiper-container {width:800px;height:auto;margin-left:auto;margin-right:auto;padding-bottom:100px;}
 .swiper-slide {position:relative;text-align:center;font-size:18px;width:227px;height:405px;display:flex;justify-content:center;align-items:center;}
@@ -28,7 +28,7 @@
 				<c:forEach items="${list}" var="i">
 					<div class="swiper-slide">
 						<div class="thumb-image">
-							<a href=""><img src="https://swiperjs.com/demos/images/nature-1.jpg" /></a>
+							<a href=""><img src="${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}" alt="${i.bookname}"/></a>
 						</div>
 						<div class="cont">
 							<p class="tit">${i.TITLE_INFO}</p>
@@ -41,7 +41,7 @@
 		</div>
 
 		<!-- Swiper JS -->
-		<script src="resources/common/js/kiosk/swiper.min.js"></script>
+		<script src="/resources/common/js/kiosk/swiper.min.js"></script>
 
 		<!-- Initialize Swiper -->
 		<script>
@@ -59,3 +59,4 @@
 		</div>
 	</div>
 </div>
+<tiles:insertAttribute name="footer" />

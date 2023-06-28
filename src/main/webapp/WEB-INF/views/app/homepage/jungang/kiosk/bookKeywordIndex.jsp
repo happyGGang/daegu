@@ -5,6 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jqcloud2.css"/>
+
 <tiles:insertAttribute name="header" />
 
 <style>
@@ -47,6 +49,7 @@
 }
 </style>
 
+<script type="text/javascript" src="/resources/common/js/jqcloud2.js"></script>
 <script>
 $(function() {
 
@@ -87,18 +90,17 @@ $(function() {
 		}
 		
 		if(member_name == ''){
-			var param = 'keyword_name=' + $('#keyword_name').val() + '&menu_idx=' + $('#menu_idx').val() + '&sex=' + sex + '&age=' + age;
-			doGetLoad('view.do', param);
+			var param = 'keyword_name=' + $('#keyword_name').val() + '&sex=' + sex + '&age=' + age;
+			doGetLoad('bookKeywordList.do', param);
 		} else {
 			var param = serializeCustom($('form#bookKeyword'));
-			doGetLoad('view.do', param);
+			doGetLoad('bookKeywordList.do', param);
 		}
 	});
 	
 	$('div.keyword-box').load('bookKeyword.do');
 	
 	$('#reloadKeyword').on('click', function(){
-		alert('아아아아아');
 		$('div.keyword-box').load('bookKeyword.do');
 	});
 	
@@ -154,14 +156,6 @@ $(function() {
 					<div class="select-keyword">
 					</div>
 				</div>
-			</div>
-		
-			<div class="keyword-box">
-				
-			</div>
-		
-			<div class="select-keyword">
-		
 			</div>
 		
 			<div class="user_pick_selection">

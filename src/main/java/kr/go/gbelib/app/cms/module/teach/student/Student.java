@@ -129,6 +129,8 @@ public class Student extends PagingUtils {
 	private List<Integer> student_idx_arr;	// 체크박스로 일괄 삭제할 때 씀
 	
 	private String agree_codes; // 선택 약관
+	
+	private String searchCate1;
 
 	public Student() {}
 
@@ -924,4 +926,13 @@ public class Student extends PagingUtils {
 	public void setFamily_member(String family_member) {
 		this.family_member = family_member;
 	}
+
+	public String getSearchCate1() {
+		return searchCate1;
+	}
+
+	public void setSearchCate1(String searchCate1) {
+		this.searchCate1 = searchCate1;
+	}
+	
 }

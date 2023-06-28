@@ -169,6 +169,18 @@ public class IndexController extends BaseController {
 		return doIndexProc(model, request, null);
 	}
 	
+	@RequestMapping(value = { "/{contextPath}/kiosk/info.*" })
+	public String info(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/info";
+		}
+		
+		return basePath + filePath;
+	}
+	
 	@RequestMapping(value = { "/{contextPath}/kiosk/index.*" })
 	public String kioskIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) {
 		return doKioskIndexProc(model, request, null);
@@ -192,6 +204,37 @@ public class IndexController extends BaseController {
 		t.setHomepage_id(homepage.getHomepage_id());
 		model.addAttribute("teachList", teachService.getTeachListForUser(t));
 		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/teachDetail.*" })
+	public String kioskDetail(Model model, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		if (StringUtils.isEmpty(teach.getHomepage_id())) {
+			teach.setHomepage_id(homepage.getHomepage_id());
+		}
+
+		int menu_idx = teach.getMenu_idx();
+		String searchCate1 = teach.getSearchCate1();
+		String homepage_id = teach.getHomepage_id();
+
+		teach = teachService.getTeachDetailForUser(teach);
+		if ( teach == null ) {
+			teachService.alertMessage("해당 강좌 정보가 없습니다.", request, response);
+			return null;
+		}
+		teach.setMenu_idx(menu_idx);
+		teach.setSearchCate1(searchCate1);
+		teach.setHomepage_id(homepage_id);
+
+		model.addAttribute("teach", teach);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/teachDetail";
+		}
+
 		return basePath + filePath;
 	}
 	
@@ -242,25 +285,29 @@ public class IndexController extends BaseController {
 			
 			List<Map<String, Object>> list = null;
 			
-			list = LibSearchAPI.getListData(result);
-			map = list.get(0);
+			try {
+				list = LibSearchAPI.getListData(result);
+				map = list.get(0);
 
-			//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
-			if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-				Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-				if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-					map.put("aladin", aladinData.get("item"));
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
 				}
-				if (map.get("aladin") == null) {
-					map.put("imageUrl", service.getImageUrl(map));
-				}
+			} catch (Exception e) {
+				System.out.println(e);
 			}
 		}
 		
 		model.addAttribute("detail", map);
 		
 		try {
-			librarySearch.setSearch_text(boardOne.getTitle());
+			librarySearch.setSearch_text(boardOne.getImsi_v_5());
 			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
 			
 			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
@@ -321,8 +368,8 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
-	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordView.*"})
-	public String view(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordList.*"})
+	public String bookKeywordList(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		Member member = (Member) request.getSession().getAttribute("member");
 		
@@ -347,6 +394,71 @@ public class IndexController extends BaseController {
 		
 		model.addAttribute("bookKeyword", bookKeyword);
 		model.addAttribute("list", list);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/bookKeywordList";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordView.*"})
+	public String view(Model model, BookKeyword bookKeyword, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Map<String, Object> map = null;
+		
+		if(StringUtils.isNotEmpty(bookKeyword.getBook_name())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+			//librarySearch.setTitle(bookKeyword.getBook_name());
+			librarySearch.setIsbn(bookKeyword.getIsbn());
+			librarySearch.setBooktype("BOOKANDNONBOOK");
+			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			
+			List<Map<String, Object>> list = null;
+			
+			try {
+				list = LibSearchAPI.getListData(result);
+				map = list.get(0);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		try {
+			librarySearch.setSearch_text(bookKeyword.getIsbn());
+			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
+			
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
+			
+			String contents = "";
+			
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map3 : itemList) {
+					contents = String.valueOf(map3.get("contents"));
+				}
+				
+				model.addAttribute("kakaoResult", contents);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("detail", map);
+
+		model.addAttribute("bookKeyword", bookKeyword);
 		
 		String filePath = "";
 		if (homepage != null) {
@@ -443,6 +555,66 @@ public class IndexController extends BaseController {
 			filePath = homepage.getFolder() + "/kiosk/login";
 		}
 
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/mediawall/index.*" })
+	public String medialwallIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/mediawall/index";
+		}
+		
+		setBoardListToModel(homepage.getHomepage_id(), model);
+		
+		return basePath + filePath;
+	}
+
+	@RequestMapping(value = { "/{contextPath}/mediawall/mediaIndex.*" })
+	public String mediaIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/mediawall/mediaIndex";
+		}
+		
+		Board b = new Board();
+		b.setManage_idx(174);
+		model.addAttribute("boardList", boardService.getSubBoardByMain(b));//추천도서
+		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/mediawall/bookIndex.*" })
+	public String bookIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/mediawall/bookIndex";
+		}
+		
+		setBoardListToModel(homepage.getHomepage_id(), model);
+		
+		return basePath + filePath;
+	}
+
+	@RequestMapping(value = { "/{contextPath}/mediawall/boardIndex.*" })
+	public String medialwallBoardIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/mediawall/boardIndex";
+		}
+		
+		Board b = new Board();
+		b.setManage_idx(174);
+		model.addAttribute("boardList", boardService.getSubBoardByMain(b));//추천도서
+		
 		return basePath + filePath;
 	}
 
