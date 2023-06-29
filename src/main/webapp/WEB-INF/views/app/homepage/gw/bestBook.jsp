@@ -173,7 +173,7 @@ $(function(){
 							<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"/>
 						</c:when>
 						<c:otherwise>
-							<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+							<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
