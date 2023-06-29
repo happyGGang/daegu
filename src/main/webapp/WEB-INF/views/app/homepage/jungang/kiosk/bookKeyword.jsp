@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script>
 	var words = [];
-	var color_rand = ['#82be02', '#71aa99', '#955959' ,'#be0252', '#0077d2', '#d26d00', '#d20000', '#24b732', '#00c6cd', '#a602be'];
+	var color_rand = ['#3efffd', '#ffed27', '#fff' ,'#1444bf', '#ff0c00', '#a800ff', '#444444', '#48e22f', '#e22f6a', '#ff890a'];
 	var weight_rand = ['100','200','300','400', '500', '600', '700', '800', '900'];
 	
 	<c:forEach var="i" varStatus="status" items="${bookKeywordList}">

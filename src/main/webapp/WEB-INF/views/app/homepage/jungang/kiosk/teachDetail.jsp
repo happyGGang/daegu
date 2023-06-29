@@ -7,6 +7,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <% pageContext.setAttribute("crlf", "\r\n"); %>
 <% pageContext.setAttribute("lf", "\n"); %>
+
 <tiles:insertAttribute name="header" />
 <script src="/resources/cms/js/malsup.jquery.form.min.js"
 	type="text/javascript"></script>

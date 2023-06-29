@@ -1,8 +1,15 @@
 @charset "utf-8";
 
-body{font-family:'Pretendard-Regular';font-size:16px;position:relative;width:100%;height:100%;color:#252524;}
-html{width:100%;height:100%}
-#wrap{width:100%;min-height:100%;height:100%}
+@font-face {
+	 font-family: 'S-CoreDream-3Light';
+	 src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+	 font-weight: normal;
+	 font-style: normal;
+}
+
+body{font-family:'Pretendard-Regular';font-size:16px;position:relative;width:100%;height:100%;max-height:1760px;color:#252524;}
+html{width:100%;height:100%;max-height:1760px;}
+#wrap{width:100%;height:100%;max-height:1760px;}
 .end {clear:both}
 
 .nav{width:100%;height:160px;background:#151a2e;text-align:center }
@@ -24,7 +31,7 @@ html{width:100%;height:100%}
 .recommandbook-wrap .header {position:relative;padding-top:65px;}
 .recommandbook-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#252524;}
 .recommandbook-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;color:#a5a5a5;text-transform:uppercase;}
-.recommandbook-wrap .contents {position: relative;padding:0;margin:0;padding-top:65px;}
+.recommandbook-wrap .contents {position: relative;padding:0;margin:0;padding-top:79px;}
 
 /*추천도서 상세*/
 .recommandbookdetail-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg3.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
@@ -63,7 +70,8 @@ html{width:100%;height:100%}
 .selectrecommandbook-wrap .header {box-sizing:border-box;padding-top:65px;}
 .selectrecommandbook-wrap .header .head {box-sizing:border-box;padding:0 80px;}
 .selectrecommandbook-wrap .header .head h2 {float:left;font-size:25px;text-transform:uppercase;}
-.selectrecommandbook-wrap .header .head span {float:right;font-size:50px;font-weight:100;}
+.selectrecommandbook-wrap .header .head span.time {float:right;font-size:50px;font-weight:100;}
+.selectrecommandbook-wrap .header .head span.time span.time-txt {display:inline-block;font-size:50px;font-weight:100;}
 .selectrecommandbook-wrap .contents .title-sec {font-size:105px;padding-top:150px;box-sizing:border-box;line-height:125%;}
 .selectrecommandbook-wrap .contents .img-sec {padding-top:60px;box-sizing:border-box;}
 .selectrecommandbook-wrap .contents .comment-sec {padding-top:60px;box-sizing:border-box;}
@@ -111,21 +119,8 @@ html{width:100%;height:100%}
 .smartrecommandbook-wrap .contents .user_pick_info p.big-txt {font-size:50px;text-align:left;}
 .smartrecommandbook-wrap .contents .user_pick_info p.small-txt {font-size:32px;text-align:left;}
 
-.keyword-box {box-sizing:border-box;padding:5% 3% 3% 3%;height:700px;}
-.select-keyword {box-sizing:border-box;padding:0;height:150px;}
-#keywords span {font-family:'s-core_dream4_regular';cursor:pointer;}
-#keywords {height:800px;font-size:170%;}
-.user_pick_comment {font-size:40px;color:#fff;text-align:center;box-sizing:border-box;padding-bottom:25px;}
-.select-personal_data span {display:inline-block;background:#fff;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:2px 2px 10px #383838;text-align:left;}
-.select-personal_data span label {display:inline-block;width:35%;font-size:30px;color:#767676;text-align:center;}
-.select-personal_data span select {display:inline-block;width:60%;font-size:30px;border:0;height:100px;background:transparent;}
-.select-personal_data span select:focus {outline:0;}
-.btn-box {padding-top:30px;}
-.btn-box span {display:inline-block;background:#113b9e;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:2px 2px 10px #383838;}
-.btn-box span a {display:block;color:#fff;font-size:30px;}
-
 /**/
-.main-wrap {width:100%;/*height:100%;*/min-height:1920px;background:url('../../img/kiosk/background_bg4.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
+.main-wrap {width:100%;/*height:100%;*/min-height:1760px;background:url('../../img/kiosk/background_bg4.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
 .main-wrap .header {position:relative;padding-top:210px;padding-left:140px;padding-right:140px;box-sizing:border-box;text-align:left;}
 .main-wrap .header h1 {font-family:'NanumMyeongjo';font-size:100px;color:#fff;display:block;word-break:break-all;line-height:125%;}
 .main-wrap .header p {font-family:'Pretendard-Regular';font-size:32px;color:#dddddd;text-transform:;}
@@ -150,7 +145,8 @@ html{width:100%;height:100%}
 .info-wrap .header {box-sizing:border-box;padding-top:65px;}
 .info-wrap .header .head {box-sizing:border-box;padding:0 80px;}
 .info-wrap .header .head h2 {float:left;font-size:25px;text-transform:uppercase;color:#252525;}
-.info-wrap .header .head span {float:right;font-size:50px;font-weight:100;color:#252525;}
+.info-wrap .header .head span.time {float:right;font-size:50px;font-weight:100;color:#252525;}
+.info-wrap .header .head span.time span.time-txt {display:inline-block;font-size:50px;font-weight:100;color:#252525;}
 .info-wrap .contents {position:relative;padding-top:150px;padding-left:335px;padding-right:55px;box-sizing:border-box;text-align:left;color:#252525;}
 .info-wrap .contents h3 {display:block;font-size:33px;}
 .info-wrap .contents h4 {display:block;font-size:30px;background:url('../../img/kiosk/title-bg-01.png') no-repeat left bottom;margin-top:100px;}

@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <tiles:insertAttribute name="header" />
-<script type="text/javascript">
+<script>
 var weathers = new Array('thunderstorm with light rain','thunderstorm with rain','thunderstorm with heavy rain','light thunderstorm','thunderstorm','heavy thunderstorm','ragged thunderstorm','thunderstorm with light drizzle','thunderstorm with drizzle','thunderstorm with heavy drizzle','light intensity drizzle','drizzle','heavy intensity drizzle','light intensity drizzle rain','drizzle rain','heavy intensity drizzle rain','shower rain and drizzle','heavy shower rain and drizzle','shower drizzle','light rain','moderate rain','heavy intensity rain','very heavy rain','extreme rain','freezing rain','light intensity shower rain','shower rain','heavy intensity shower rain','ragged shower rain','light snow','snow','heavy snow','sleet','light shower sleet','shower sleet','light rain and snow','rain and snow','light shower snow','shower snow','heavy shower snow','mist','smoke','haze','sand/dust whirls','fog','sand','dust','volcanic ash','squalls','tornado','clear sky','few clouds','scattered clouds','broken clouds','overcast clouds');
 
 var weatherskor = new Array('뇌우','뇌우','뇌우','뇌우','뇌우','뇌우','뇌우','뇌우','뇌우','뇌우','이슬비','이슬비','이슬비','이슬비','이슬비','이슬비','이슬비','이슬비','비 약간','적당한 비','비 많이','비 많이','폭우','우박','소나기 약간','소나기','폭우 수준의 소나기','오락가락한 소나기','눈 약간','눈','폭설','진눈째비','약간의 진눈깨비','갑자기 진눈깨비','약간의 비와 눈','비와 눈','갑자기 약간 눈','갑자기 눈','폭설','안개','연기','안개','모래/먼지 소용돌이','모래','모래','먼지','화산재','토네이도','토네이도','맑음','구름 약간','약간 흐림','흐림 구름','많이 흐림');
@@ -85,10 +85,10 @@ $(function() {
 						let hh = day.getHours() * 30;
 						let mm = day.getMinutes() * 6;
 						let ss = day.getSeconds() * 6;
-
-						hr.style.transform = `rotateZ(${hh+(mm/12)}deg)`;
-						mn.style.transform = `rotateZ(${mm}deg)`;
-						sc.style.transform = `rotateZ(${ss}deg)`;
+						let hr = hh+(mm/12);
+						$('#hr').css('transform', 'rotateZ('+hr+'deg)');
+						$('#mn').css('transform', 'rotateZ('+mm+'deg)');
+						$('#sc').css('transform', 'rotateZ('+ss+'deg)');
 
 						let hours = document.getElementById('hours');
 						let minutes = document.getElementById('minutes');
@@ -115,7 +115,6 @@ $(function() {
 						seconds.innerHTML = s;
 						//ampm.innerHTML = am;
 					});
-
 				</script>
 			</div>
 		</div>

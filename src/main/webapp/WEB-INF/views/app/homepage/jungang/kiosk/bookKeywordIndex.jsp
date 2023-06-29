@@ -10,43 +10,30 @@
 <tiles:insertAttribute name="header" />
 
 <style>
-.user_pick_info {position:relative;width:100%;margin-top:30px;padding:40px 0 35px;background-color:#f3f4f6;text-align:center;}
-.user_pick_info img{position:absolute;top:-30px;left:46%;}
+.user_pick_info {position:relative;width:100%;margin-top:30px;padding:40px 0 35px;text-align:center;}
+.user_pick_info img {position:absolute;top:-30px;left:46%;}
 .user_pick_info h2{font-size:30px;color:#39366a;font-weight:600;letter-spacing:0;font-family:'s-core_dream6_bold';}
 .user_pick_info p.txt_box01{font-size:16px;color:#39366a;line-height:23px;letter-spacing:0;margin:0 9%;font-family:'s-core_dream5_medium';}
 .user_pick_info p.txt_box_mini{font-size:14px;color:#39366a;opacity:0.8;font-family:'s-core_dream5_medium';margin-top:5px;}
 
-#keyword span {font-family:'S-CoreDream-4Regular';cursor:pointer;}
-#keyword {height: 450px;}
+#keyword span {font-family:'s-core_dream4_regular';cursor:pointer;}
+#keyword {height:650px;font-size:125%;}
 
-.select-keyword{position:relative;width:100%;margin-bottom:40px;text-align:center;border-top:1px solid #ddd;padding-top:40px;}
-.select-keyword span{display:inline-block;font-family:'S-CoreDream-4Regular';color:#fff;font-size:18px;background:#333;width:180px;height:55px;line-height:55px;content:'#';}
+.select-keyword {position:relative;width:100%;text-align:center;padding-top:40px;}
+.select-keyword span {display:inline-block;font-family:'s-core_dream4_regular';color:#fff;font-size:30px;background:#333;width:250px;height:80px;line-height:80px;content:'#';border-radius:80px;}
 .select-keyword span::before{content:'#';}
 
-.btn-box{position:relative;width:100%;clear:both;}
-.btn-box ul{font-size:0;}
-.btn-box ul li{display:inline-block;width:49.5%;padding:15px 0;line-height:180%;text-align:center;border-radius:5px;}
-.btn-box ul li a{font-family:'s-core_dream5_medium';font-size:19px;letter-spacing:-0.25px;display:block;}
-.btn-box ul li a span{display:block;font-family:'S-CoreDream-4Regular';font-size:13px;letter-spacing:0;}
-.btn-box ul li.btn1{box-sizing:border-box;border:1px solid #ccc;margin-right:1%;}
-.btn-box ul li.btn1 a{color:#333;}
-.btn-box ul li.btn2{background:linear-gradient(to right, #53cce9, #7597ee)}
-.btn-box ul li.btn2 a{color:#fff;}
+.keyword-box {box-sizing:border-box;padding:1%}
+.select-keyword {padding:20px 0;height:100px;}
 
-@media only screen and (max-width:550px){
-	.user_pick_info img{position:absolute;top:-30px;left:43%;}
-	.user_pick_info h2{font-size:25px;}
-
-	.select-keyword{margin-bottom:10px;}
-	.select-keyword span{font-size:14px;margin-bottom:5px;width:32%;height:40px;line-height:40px;}
-
-	.btn-box ul li{display:block;width:100%;line-height:160%;}
-	.btn-box ul li.btn1{margin-right:0;margin-bottom:5px;}
-	.btn-box ul li a{font-size:16px;}
-	.btn-box ul li a span{font-size:12px;}
-
-	.select-personal_data{font-size:13px;}
-}
+.user_pick_comment {font-size:40px;color:#fff;text-align:center;box-sizing:border-box;padding-bottom:25px;}
+.select-personal_data span {display:inline-block;background:#fff;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:2px 2px 10px #383838;text-align:left;}
+.select-personal_data span label {display:inline-block;width:35%;font-size:30px;color:#767676;text-align:center;}
+.select-personal_data span select {display:inline-block;width:60%;font-size:30px;border:0;height:100px;background:transparent;}
+.select-personal_data span select:focus {outline:0;}
+.btn-box {padding-top:30px;}
+.btn-box span {display:inline-block;background:#113b9e;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:2px 2px 10px #383838;}
+.btn-box span a {display:block;color:#fff;font-size:30px;}
 </style>
 
 <script type="text/javascript" src="/resources/common/js/jqcloud2.js"></script>
@@ -156,44 +143,44 @@ $(function() {
 					<div class="select-keyword">
 					</div>
 				</div>
-			</div>
 		
-			<div class="user_pick_selection">
-				<div class="user_pick_comment">
-					성별/연령대를 알려주세요! 
+				<div class="user_pick_selection">
+					<div class="user_pick_comment">
+						성별/연령대를 알려주세요! 
+					</div>
+					<div class="select-personal_data">
+						<span class="">
+							<label>성별 </label>
+							<form:select path="sex">
+								<form:option value="0">남</form:option>
+								<form:option value="1">여</form:option>
+							</form:select>
+						</span>
+						<span class="">
+							<label>나이 </label>
+							<form:select path="age">
+								<form:option value="영유아">영유아</form:option>
+								<form:option value="유아">유아</form:option>
+								<form:option value="초등">초등</form:option>
+								<form:option value="청소년">청소년</form:option>
+								<form:option value="20대 이상">20대 이상</form:option>
+								<form:option value="30대 이상">30대 이상</form:option>
+								<form:option value="40대 이상">40대 이상</form:option>
+								<form:option value="50대 이상">50대 이상</form:option>
+								<form:option value="60대 이상">60대 이상</form:option>
+							</form:select>
+						</span>
+					</div>
 				</div>
-				<div class="select-personal_data">
-					<span class="">
-						<label>성별 </label>
-						<form:select path="sex">
-							<form:option value="0">남</form:option>
-							<form:option value="1">여</form:option>
-						</form:select>
+			
+				<div class="btn-box">
+					<span class="btn1">
+						<a href="javascript:void(0)" id="reloadKeyword">키워드 변경하기</a>
 					</span>
-					<span class="">
-						<label>나이 </label>
-						<form:select path="age">
-							<form:option value="영유아">영유아</form:option>
-							<form:option value="유아">유아</form:option>
-							<form:option value="초등">초등</form:option>
-							<form:option value="청소년">청소년</form:option>
-							<form:option value="20대 이상">20대 이상</form:option>
-							<form:option value="30대 이상">30대 이상</form:option>
-							<form:option value="40대 이상">40대 이상</form:option>
-							<form:option value="50대 이상">50대 이상</form:option>
-							<form:option value="60대 이상">60대 이상</form:option>
-						</form:select>
+					<span class="btn2">
+						<a href="javascript:void(0)" id="search_keyword">맞춤책 추천받기</a>
 					</span>
 				</div>
-			</div>
-		
-			<div class="btn-box">
-				<span class="btn1">
-					<a href="javascript:void(0)" id="reloadKeyword">키워드 변경하기</a>
-				</span>
-				<span class="btn2">
-					<a href="javascript:void(0)" id="search_keyword">맞춤책 추천받기</a>
-				</span>
 			</div>
 		</form:form>
 	</div>

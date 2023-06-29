@@ -12,9 +12,26 @@
 	<div class="header">
 		<div class="head">
 			<h2>Book recommendation</h2>
-			<span class="">19:27</span>
+			<span class="time"><span id="hours" class="time-txt" style="--clr:#fff"></span>:<span id="minutes" class="time-txt" style="--clr:#fff"></span></span>
 		</div>
 		<div class="end"></div>
+		<script>
+			setInterval(()=>{
+				var day = new Date();
+
+				let hours = document.getElementById('hours');
+				let minutes = document.getElementById('minutes');
+
+				let h = day.getHours();
+				let m = day.getMinutes();
+
+				h = (h < 10) ? "0" + h : h;
+				m = (m < 10) ? "0" + m : m;
+
+				hours.innerHTML = h;
+				minutes.innerHTML = m;
+			});
+		</script>
 	</div>
 	<div class="contents">
 		<div class="">

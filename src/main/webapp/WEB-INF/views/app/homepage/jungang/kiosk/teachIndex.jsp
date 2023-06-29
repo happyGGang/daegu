@@ -4,8 +4,9 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <tiles:insertAttribute name="header" />
-<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css"  />
+
 <script type="text/javascript">
 $(function(){
 	$('a.detail-btn').on('click', function(e) {

@@ -17,9 +17,9 @@
 		<div class="contents">
 			<div class="">
 				<ul>
-					<li><a href="" class="main-button-01"><span class="">통합모니터링</span></a></li>
-					<li><a href="" class="main-button-02"><span class="">열람실좌석예약</span></a></li>
-					<li><a href="" class="main-button-03"><span class="">시설물예약</span></a></li>
+					<li><a href="https://lib.daegu.go.kr/portalHerbMonitorY/gukbo/library" class="main-button-01"><span class="">통합모니터링</span></a></li>
+					<li><a href="https://lib.daegu.go.kr/kioskY/gukbo/room" class="main-button-02"><span class="">열람실좌석예약</span></a></li>
+					<li><a href="https://lib.daegu.go.kr/kioskY/gukbo/facility" class="main-button-03"><span class="">시설물예약</span></a></li>
 					<li><a href="" class="main-button-04"><span class="">희망도서바로대출</span></a></li>
 				</ul>
 			</div>

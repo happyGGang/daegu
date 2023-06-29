@@ -24,41 +24,6 @@
 .mySwiper2 {height:80%;width: 100%;}
 .mySwiper2 .swiper-slide img {display:block;width:800px;height:1135px;object-fit:cover;}
 </style>
-<script src="/resources/common/js/kiosk/swiper-bundle.min.js"></script>
-<script type="text/javascript">
-var swiper = new Swiper(".mySwiper", {
-	loop: true,
-	spaceBetween: 10,
-	slidesPerView: 7,
-	freeMode: true,
-	watchSlidesProgress: true,
-	/*
-	scrollbar: {
-		el: ".swiper-scrollbar",
-	},
-	*/
-	pagination: {
-		el: ".swiper-pagination",
-		clickable: true,
-	},
-});
-var swiper2 = new Swiper(".mySwiper2", {
-	loop:true,
-	spaceBetween: 10,
-	effect: 'fade',
-	autoplay: {
-		delay: 5000,
-		disableOnInteraction: false,
-	},
-	navigation: {
-		nextEl: ".swiper-button-next",
-		prevEl: ".swiper-button-prev",
-	},
-	thumbs: {
-		swiper: swiper,
-	},
-});
-</script>
 <div class="notice-wrap">
 	<div class="header">
 		<h1>공지사항</h1>
@@ -67,9 +32,9 @@ var swiper2 = new Swiper(".mySwiper2", {
 	<div class="contents">
 		<div class="swiper mySwiper2">
 			<div class="swiper-wrapper">
-				<c:forEach var="i" varStatus="status" items="${noticeList}">
+				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
-						<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
 							<c:choose>
 								<c:when test="${empty i.preview_img}">
 									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/noImg2.png';"/>
@@ -78,7 +43,7 @@ var swiper2 = new Swiper(".mySwiper2", {
 									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/noImg2.png';"/>
 								</c:otherwise>
 							</c:choose>
-						</a>
+						<!-- </a> -->
 					</div>
 				</c:forEach>
 			</div>
@@ -87,9 +52,9 @@ var swiper2 = new Swiper(".mySwiper2", {
 		</div>
 		<div thumbsSlider="" class="swiper mySwiper">
 			<div class="swiper-wrapper">
-				<c:forEach var="i" varStatus="status" items="${noticeList}" >
+				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
-						<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
 							<c:choose>
 								<c:when test="${empty i.preview_img}">
 									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/noImg2.png';"/>
@@ -98,12 +63,48 @@ var swiper2 = new Swiper(".mySwiper2", {
 									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/noImg2.png';"/>
 								</c:otherwise>
 							</c:choose>
-						</a>
+						<!-- </a> -->
 					</div>
 				</c:forEach>
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>
+
+	<script src="/resources/common/js/kiosk/swiper-bundle.min.js"></script>
+	<script type="text/javascript">
+	var swiper = new Swiper(".mySwiper", {
+		loop: true,
+		spaceBetween: 10,
+		slidesPerView: 7,
+		freeMode: true,
+		watchSlidesProgress: true,
+		/*
+		scrollbar: {
+			el: ".swiper-scrollbar",
+		},
+		*/
+		pagination: {
+			el: ".swiper-pagination",
+			clickable: true,
+		},
+	});
+	var swiper2 = new Swiper(".mySwiper2", {
+		loop:true,
+		spaceBetween: 10,
+		effect: 'fade',
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev",
+		},
+		thumbs: {
+			swiper: swiper,
+		},
+	});
+	</script>
 	</div>
 </div>
 <tiles:insertAttribute name="footer" />
