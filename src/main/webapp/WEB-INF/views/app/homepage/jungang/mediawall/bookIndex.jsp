@@ -23,108 +23,54 @@
 			<div class="swiper-container">
 				<div class="swiper-container-01">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide slide00">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						<c:forEach items="${newBookList}" var="i" begin="0" end="3" varStatus="status">
+							<div class="swiper-slide slide0${status.index}">
+								<div class="photo-info">
+									<c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. "/>
+										</c:when>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+										</c:when>
+										<c:otherwise>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="swiper-slide-con">
+									<h3>${fn:substring(i.TITLE_INFO, 0, 15)}<c:if test="${fn:length(i.TITLE_INFO) > 15}">...</c:if></h3>
+									<p class="author-pub-info">${fn:substring(i.AUTHOR, 0, 5)}. ${fn:substring(i.PUBLISHER, 0, 3)}. ${fn:substring(i.PUB_YEAR, 0, 4)}.</p>
+									<p class="review-info">${i.contentsDetail}</p>
+								</div>
+								<div class="end"></div>
 							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이1</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide01">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide02">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이3</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide03">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이4</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div thumbsSlider="" class="swiper-thumbs-container-01">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						<c:forEach items="${newBookList}" var="i" begin="0" end="3">
+							<div class="swiper-slide">
+								<div class="photo-info">
+									<c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. "/>
+										</c:when>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+										</c:when>
+										<c:otherwise>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="swiper-slide-con">
+									<h3>${fn:substring(i.TITLE_INFO, 0, 15)}<c:if test="${fn:length(i.TITLE_INFO) > 15}">...</c:if></h3>
+									<p class="author-pub-info">${fn:substring(i.AUTHOR, 0, 5)}. ${fn:substring(i.PUBLISHER, 0, 3)}. ${fn:substring(i.PUB_YEAR, 0, 4)}.</p>
+								</div>
 							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이1</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -164,102 +110,54 @@
 			<div class="swiper-container">
 				<div class="swiper-container-02">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide slide00">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						<c:forEach items="${bestBookList}" var="i" begin="0" end="3" varStatus="status">
+							<div class="swiper-slide slide0${status.index}">
+								<div class="photo-info">
+									<c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
+										</c:when>
+										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}"/>
+										</c:when>
+										<c:otherwise>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="swiper-slide-con">
+									<h3>${fn:substring(i.TITLE, 0, 15)}<c:if test="${fn:length(i.TITLE) > 15}">...</c:if></h3>
+									<p class="author-pub-info">${fn:substring(i.AUTHOR, 0, 5)}. ${fn:substring(i.PUBLISHER, 0, 3)}. ${fn:substring(i.PUBLISH_YEAR, 0, 4)}.</p>
+									<p class="review-info">${i.contentsDetail}</p>
+								</div>
+								<div class="end"></div>
 							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이1</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide01">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide02">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이3</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide03">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이4</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div thumbsSlider="" class="swiper-thumbs-container-02">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						<c:forEach items="${bestBookList}" var="i" begin="0" end="3">
+							<div class="swiper-slide">
+								<div class="photo-info">
+									<c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
+										</c:when>
+										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}"/>
+										</c:when>
+										<c:otherwise>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="swiper-slide-con">
+									<h3>${fn:substring(i.TITLE, 0, 15)}<c:if test="${fn:length(i.TITLE) > 15}">...</c:if></h3>
+									<p class="author-pub-info">${fn:substring(i.AUTHOR, 0, 5)}. ${fn:substring(i.PUBLISHER, 0, 3)}. ${fn:substring(i.PUBLISH_YEAR, 0, 4)}.</p>
+								</div>
 							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이1</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -299,102 +197,76 @@
 			<div class="swiper-container">
 				<div class="swiper-container-03">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide slide00">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						<c:forEach items="${bookList}" var="i" begin="0" end="3" varStatus="status">
+							<div class="swiper-slide slide0${status.index}">
+								<div class="photo-info">
+									<c:choose>
+										<c:when test="${i.preview_img ne null}">
+											<c:choose>
+												<c:when test="${fn:contains(i.preview_img, 'http')}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
+															<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+														</c:when>
+														<c:otherwise>
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="swiper-slide-con">
+									<h3>${fn:substring(i.title, 0, 15)}<c:if test="${fn:length(i.title) > 15}">...</c:if></h3>
+									<p class="author-pub-info">${fn:substring(i.imsi_v_3, 0, 5)}. ${fn:substring(i.imsi_v_4, 0, 3)}. ${fn:substring(i.imsi_v_2, 0, 4)}.</p>
+									<p class="review-info">${i.content_summary}</p>
+								</div>
+								<div class="end"></div>
 							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이1</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide01">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide02">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이3</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
-						<div class="swiper-slide slide03">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이4</h4>
-								<p class="author-pub-info">룰루 밀러.  곰출판.  2021</p>
-								<p class="review-info">집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 
-								어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독
-								자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 
-								질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지</p>
-							</div>
-							<div class="end"></div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div thumbsSlider="" class="swiper-thumbs-container-03">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+						<c:forEach items="${bookList}" var="i" begin="0" end="3">
+							<div class="swiper-slide">
+								<div class="photo-info">
+									<c:choose>
+										<c:when test="${i.preview_img ne null}">
+											<c:choose>
+												<c:when test="${fn:contains(i.preview_img, 'http')}">
+													<c:choose>
+														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
+															<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+														</c:when>
+														<c:otherwise>
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+												<c:otherwise>
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="swiper-slide-con">
+									<h3>${fn:substring(i.title, 0, 15)}<c:if test="${fn:length(i.title) > 15}">...</c:if></h3>
+									<p class="author-pub-info">${fn:substring(i.imsi_v_3, 0, 5)}. ${fn:substring(i.imsi_v_4, 0, 3)}. ${fn:substring(i.imsi_v_2, 0, 4)}.</p>
+								</div>
 							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이1</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="photo-info">
-								<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-							</div>
-							<div class="swiper-slide-con">
-								<h3>놓아주는 엄마 주도하는 아이2</h4>
-								<p class="author-pub-info"></p>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

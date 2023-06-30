@@ -39,86 +39,23 @@
 	<div class="contents">
 		<div class="swiper mySwiper">
 			<div class="swiper-wrapper">
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-1.jpg" />
+				<c:forEach var="i" varStatus="status" items="${noticeList}">
+					<div class="swiper-slide">
+						<div class="thumb-image">
+							<c:choose>
+								<c:when test="${empty i.preview_img}">
+									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/noImg2.png';"/>
+								</c:when>
+								<c:otherwise>
+									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/noImg2.png';"/>
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="cont">
+							<p class="tit">${i.title}</p>
+						</div>
 					</div>
-					<div class="cont">
-						<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관! 생활 속 가까이 누리는 기쁨 내 집 앞 도서관!!</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">일상속의 작은 행복! 스마트도서추천!!!!!!!!!!!!!!!!!!!!!!</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">읽고 싶은 책이 도서관에 없다구요? 희망도서바로대출</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">내 마음에 시울림</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">회원 통합인증 안내</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">안상학 시인의 ‘시는 살아간다’ 특강</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
-					</div>
-				</div>
-				<div class="swiper-slide">
-					<div class="thumb-image">
-						<img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-					</div>
-					<div class="cont">
-						<p class="tit">생활 속 가까이 누리는 기쁨 내 집 앞 도서관</p>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 			<div class="swiper-pagination"></div>
 			<!-- <div class="swiper-scrollbar"></div> -->
