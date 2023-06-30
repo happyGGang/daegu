@@ -2,8 +2,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<tiles:insertAttribute name="header" />
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css"  />
+
+<tiles:insertAttribute name="header" />
+
 <style>
 .swiper-container {width:800px;height:auto;margin-left:auto;margin-right:auto;padding-bottom:100px;}
 .swiper-slide {position:relative;text-align:center;font-size:18px;width:227px;height:405px;display:flex;justify-content:center;align-items:center;}
@@ -59,4 +62,5 @@
 		</div>
 	</div>
 </div>
+
 <tiles:insertAttribute name="footer" />
