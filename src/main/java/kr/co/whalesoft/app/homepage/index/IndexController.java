@@ -497,32 +497,31 @@ public class IndexController extends BaseController {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if(result != null) {
 			list = (List<Map<String, Object>>)result.get("LIST_DATA");
-		}
-		
-		
-		for (Map<String, Object> map : list) {
 			
-			String isbn = map.get("ISBN").toString(); 
-			
-			if (StringUtils.isNotEmpty(isbn)) {
+			for (Map<String, Object> map : list) {
 				
-				String[] isbnArr = isbn.split("\\s+");
+				String isbn = map.get("ISBN").toString(); 
 				
-				for(int i=0; i < isbnArr.length; i++) {
-					if (i == (isbnArr.length -1)) {
-						isbnArr[i].replaceAll("세트", "");
-						isbnArr[i].replaceAll("셋트", "");
-						isbnArr[i].replaceAll("SET", "");
-						isbnArr[i].replaceAll("set", "");
-						map.put("ISBN",isbnArr[i]);
+				if (StringUtils.isNotEmpty(isbn)) {
+					
+					String[] isbnArr = isbn.split("\\s+");
+					
+					for(int i=0; i < isbnArr.length; i++) {
+						if (i == (isbnArr.length -1)) {
+							isbnArr[i].replaceAll("세트", "");
+							isbnArr[i].replaceAll("셋트", "");
+							isbnArr[i].replaceAll("SET", "");
+							isbnArr[i].replaceAll("set", "");
+							map.put("ISBN",isbnArr[i]);
+						}
 					}
+					
+					map.put("imageUrl", librarySearchService.getImageUrl(map));
 				}
 				
-				map.put("imageUrl", librarySearchService.getImageUrl(map));
+				map.put("ISBN", isbn);
+				
 			}
-			
-			map.put("ISBN", isbn);
-			
 		}
 		
 		int searchMenuIdx = 0;
@@ -535,6 +534,72 @@ public class IndexController extends BaseController {
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/librarianPickBookIndex";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/librarianPickBookView.*"})
+	public String librarianPickBookView(Model model, LibrarianPickBook librarianPickBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		LibrarySearch librarySearch = new LibrarySearch();
+		
+		Map<String, Object> map = null;
+		
+		if(StringUtils.isNotEmpty(librarianPickBook.getBook_name())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+			librarySearch.setIsbn(librarianPickBook.getIsbn());
+			librarySearch.setBooktype("BOOKANDNONBOOK");
+			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			
+			List<Map<String, Object>> list = null;
+			
+			try {
+				list = LibSearchAPI.getListData(result);
+				map = list.get(0);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		try {
+			librarySearch.setSearch_text(librarianPickBook.getIsbn());
+			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
+			
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
+			
+			String contents = "";
+			
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map3 : itemList) {
+					contents = String.valueOf(map3.get("contents"));
+				}
+				
+				model.addAttribute("kakaoResult", contents);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("detail", map);
+
+		model.addAttribute("librarianPickBook", librarianPickBook);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/librarianPickBookView";
 		}
 
 		return basePath + filePath;

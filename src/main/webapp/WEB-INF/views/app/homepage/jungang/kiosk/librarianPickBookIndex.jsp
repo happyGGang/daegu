@@ -31,7 +31,9 @@
 				<c:forEach items="${list}" var="i">
 					<div class="swiper-slide">
 						<div class="thumb-image">
-							<a href=""><img src="${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}" alt="${i.bookname}"/></a>
+							<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?book_name=${i.TITLE_INFO}&isbn=${i.ISBN}&author=${i.AUTHOR}&bookimgUrl=${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}">
+								<img src="${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}" alt="${i.TITLE_INFO}"/>
+							</a>
 						</div>
 						<div class="cont">
 							<p class="tit">${i.TITLE_INFO}</p>
