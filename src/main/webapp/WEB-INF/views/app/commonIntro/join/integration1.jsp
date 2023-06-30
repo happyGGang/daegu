@@ -53,7 +53,7 @@ $(function() {
 				<c:forEach items="${integrationMemberList}" var="i" varStatus="status">
 				<tr>
 					<td>
-						<input type="radio" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}"/>
+						<input type="radio" name="tmp_user_no" class="tmp_user_no" value="${i.USER_NO}" data-kl="${i.KL_MEMBER_YN}" data-ci="${i.ORDER2}"/>
 					</td>
 					<td>${i.USER_NO}</td>
 					<td>${i.NAME}</td>

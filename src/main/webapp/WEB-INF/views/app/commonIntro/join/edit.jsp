@@ -236,7 +236,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<!--대구광역시립 중앙도서관<input type="hidden" name="manage_code" value='AD' />-->
 				
 				<select name='manage_code'>
-					<option value="AD">대구광역시립 중앙도서관</option>
+					<option value="AD">국채보상운동기념도서관</option>
 					<option value="AA">대구2ㆍ28기념학생도서관</option>
 					<option value="AL">대구2ㆍ28민주운동기념회관</option>
 					<option value="AG">대구광역시립 남부도서관</option>
@@ -246,6 +246,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="AC">대구광역시립 북부도서관</option>
 					<option value="AF">대구광역시립 서부도서관</option>
 					<option value="AE">대구광역시립 수성도서관</option>
+					<option value="AM">대구광역시교육청 삼국유사군위도서관</option>
 					<option value="BA" >구수산도서관</option>
 					<option value="BB" >대현도서관</option>
 					<option value="BC" >태전도서관</option>
@@ -399,7 +400,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:if test="${homepage.context_path eq 'jungang'}">
 				대구광역시립 중앙도서관<input type="hidden" name="manage_code" value='AD' />
 				</c:if>
-				
+				<c:if test="${homepage.context_path eq 'gukbo'}">
+				국채보상운동기념도서관<input type="hidden" name="manage_code" value='AD' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'gw'}">
+				대구광역시교육청 삼국유사군위도서관<input type="hidden" name="manage_code" value='AM' />
+				</c:if>
 				<!-- 대구사립도서관 -->
 				<c:if test="${homepage.context_path eq 'with'}">
 				더불어숲도서관<input type="hidden" name="manage_code" value='NA'/>
