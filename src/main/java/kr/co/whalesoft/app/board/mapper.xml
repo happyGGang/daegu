@@ -1375,7 +1375,7 @@
 			#{manage_idx}, #{board_idx}, #{group_idx}, #{parent_idx}, #{group_depth},
 			#{notice_yn}, #{notice_start_date}, #{notice_end_date},
 			#{title}, #{content}, #{content_summary}, 'N',
-			#{user_name}, #{add_id}, #{user_ip}, #{add_date}, #{secret_yn},
+			#{user_name}, #{add_id}, #{user_ip}, SYSDATE, #{secret_yn},
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">#{user_password},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">#{user_phone},</if>
