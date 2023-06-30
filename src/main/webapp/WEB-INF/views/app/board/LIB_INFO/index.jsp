@@ -171,13 +171,13 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 						<c:if test="${board.delete_yn eq 'Y'}">
 						<th style="width:5%;"><input type="checkbox" id="checkAll"> </th>
 						</c:if>
-						<th style="width:5%;">번호</th>
+						<th style="width:6%;">번호</th>
 						<th style="width:15%;">유형</th>
-						<th class="" style="width:15%;">도서관명</th>
+						<th class="" style="width:18%;">도서관명</th>
 						<th class="" style="">주소</th>
-						<th class="" style="width:13%;">전화번호</th>
-						<th class="" style="width:13%;">사이트</th>
-						<th class="" style="width:13%;">지도</th>
+						<th class="" style="width:17%;">전화번호</th>
+						<th class="" style="width:10%;">사이트</th>
+						<th class="" style="width:10%;">지도</th>
 					</tr>
 				</thead>
 				<tbody id="board_tbody">
@@ -186,11 +186,9 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 						<c:if test="${board.delete_yn eq 'Y'}">
 						<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 						</c:if>
-						<td class="num">${paging.listRowNum - status.index}</td>
+						<td class="num">${paging.listRowNum - status.index}<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" style="color:#fff;">.</a></td>
 						<td class="important left title">${i.category2_name}</td>
-						<td class="important left title">
-							 ${i.title}<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" style="color:#fff;">.</a>
-						</td>
+						<td class="important left title" style="letter-spacing:-1px;">${i.title}</td>
 						<td class="important left ">${i.imsi_v_2}</td>
 						<td class="important">${i.user_phone}</td>
 						<td class="num">

@@ -180,7 +180,7 @@ do {
 				<div class="notice tabS">
 					<div class="title">
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=151&manage_idx=341" class='t-tabs'>행사안내</a></li>
+							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=151&manage_idx=341" class='t-tabs'>강좌·행사안내</a></li>
 							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=161" class='t-tabs'>공지사항</a></li>
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=151&manage_idx=341" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a>
 						</ul>

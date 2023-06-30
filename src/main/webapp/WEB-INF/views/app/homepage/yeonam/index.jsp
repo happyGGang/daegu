@@ -362,7 +362,7 @@
 				<div class="book-box mobile-view">
 					<div class="book-box-title">
 						<h4>추천도서</h4>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=1079" class="more-btn">추천도서 더보기 +</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=13&manage_idx=1079" class="more-btn">신착도서 더보기 +</a>
 					</div>
 					<div class="cont">
 						<ul>

@@ -258,7 +258,7 @@
 					<!-- <form:option value="GP">노원동 작은도서관(폐관)</form:option> -->
 					<form:option value="HD">노원행복도서관</form:option>
 					<!-- <form:option value="GM">북구영어작은도서관</form:option> -->
-					<form:option value="GL">산격1동 작은도서관</form:option>
+					<!--<form:option value="GL">산격1동 작은도서관</form:option>-->
 					<form:option value="HB">서변동작은도서관</form:option>
 					<form:option value="GN">침산1동 작은도서관</form:option>
 					<!-- <form:option value="GJ">태전1동 작은도서관</form:option>	 -->
@@ -399,18 +399,20 @@
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<form:option value="BV">달서어린이</form:option>
-				</form:select>
+					<script>
+						<form:option value="BV">달서어린이</form:option>
+					</script>
+				</form:select><span style="color:#ff0000"> 달서어린이도서관 희망도서신청은 임시 중단되었습니다.(2023.06.18 ~ 2023.06.30) </span>
 				</c:when>
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
-					<form:option value="BU">성서도서관</form:option>
-				</form:select>
+					<%--<form:option value="BU">성서도서관</form:option>--%>
+				</form:select><span style="color:#ff0000"> * 성서도서관 당월 희망도서 예산 소진으로 다음 달(23.07.01)부터 신청 가능합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<form:option value="BX">본리도서관</form:option>
-				</form:select>
+					<%--<form:option value="BX">본리도서관</form:option><--%>
+				</form:select><span style="color:#ff0000"> * 본리도서관 당월 희망도서 예산 소진으로 다음 달(23.07.01)부터 신청 가능합니다. </span>
 				
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
@@ -522,6 +524,11 @@
 				<c:when test="${context_path eq 'dalseong'}">
 				<form:select path="manageCode">
 					<form:option value="AJ">달성도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${context_path eq 'gw'}">
+				<form:select path="manageCode">
+					<form:option value="AM">삼국유사군위도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${context_path eq 'std'}">

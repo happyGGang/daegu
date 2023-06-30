@@ -126,7 +126,7 @@
 					<!-- <form:option value="GP">노원동 작은도서관(폐관)</form:option> -->
 					<form:option value="HD">노원행복도서관</form:option>
 					<!-- <form:option value="GM">북구영어작은도서관</form:option> -->
-					<form:option value="GL">산격1동 작은도서관</form:option>
+					<!--<form:option value="GL">산격1동 작은도서관</form:option>-->
 					<form:option value="HB">서변동작은도서관</form:option>
 					<form:option value="GN">침산1동 작은도서관</form:option>
 					<!-- <form:option value="GJ">태전1동 작은도서관</form:option> -->	
@@ -263,13 +263,13 @@
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
 					<option value="BW">도원도서관</option>
-					<option value="BV">달서어린이</option>
-					<option value="BU">성서도서관</option>
-					<option value="BX">본리도서관</option>
+					<!-- <option value="BV">달서어린이</option> -->
+					<!--<option value="BU">성서도서관</option>-->
+					<!--<option value="BX">본리도서관</option>-->
 					<option value="BY">달서가족문화도서관</option>
 					<option value="BZ">달서영어도서관</option>
 				</select>
-* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>* 본리도서관 당월 희망도서 예산 소진으로 다음 달(23.07.01)부터 신청 가능합니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
 				<form:select path="manageCode">
@@ -366,6 +366,11 @@
 				<c:when test="${homepagePath eq 'dalseong'}">
 				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="AJ">달성도서관</form:option>
+				</form:select>
+				</c:when>
+				<c:when test="${homepagePath eq 'gw'}">
+				<form:select path="manageCode" cssClass="new_select_box">
+					<form:option value="AM">삼국유사군위도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${homepagePath eq 'std'}">

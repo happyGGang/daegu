@@ -2168,8 +2168,8 @@ do {
                 <li class="bar">/</li>
                 <li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0003">영어</a></li>
                 <li class="bar">/</li>
-                <!-- <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0004">비원</a></li>
-								<li class="bar">/</li> -->
+                <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0004">비원</a></li>
+								<li class="bar">/</li>
                 <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0005">원고개</a></li>
               </ul>
             </div>
@@ -2315,7 +2315,6 @@ do {
 				</c:if>
               </div>
             </div>
-            <!--
 						<div class="top3wrap" id="moviebox4_biwon">
 							<div class="movie_box">
 								<c:forEach items="${movieListh63}" var="i" varStatus="status" begin="0" end="2">
@@ -2357,7 +2356,6 @@ do {
 								</c:forEach>
 							</div>
 						</div>
--->
             
             <div class="top3wrap" id="moviebox4_wongogye">
               <div class="movie_box">

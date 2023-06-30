@@ -194,7 +194,7 @@ do {
 											</a>
 										</li>
 										</c:forEach>
-										<c:forEach var="i" varStatus="status" items="${noticeList}" >
+										<c:forEach var="i" varStatus="status" items="${noticeList}" begin="0" end="4">
 										<li>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<em>${i.title}</em>

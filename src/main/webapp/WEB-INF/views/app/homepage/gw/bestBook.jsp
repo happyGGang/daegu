@@ -167,13 +167,13 @@ $(function(){
 	<c:forEach items="${bookList}" var="i" varStatus="status" begin="0" end="9">
 		<li>
 			<a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" title="도서 자세히 보기">
-				<div class="img-box">
+				<div class="img-boxs">
 					<c:choose>
 						<c:when test="${fn:indexOf(i.preview_img, 'http') > -1 }">
-							<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+							<img src="${i.preview_img}" alt="${i.title}" title="${i.title}"  onError="src='/resources/images/bg_noImage2.png';"/>
 						</c:when>
 						<c:otherwise>
-							<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+							<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="src='/resources/images/bg_noImage2.png';"/>
 						</c:otherwise>
 					</c:choose>
 				</div>
