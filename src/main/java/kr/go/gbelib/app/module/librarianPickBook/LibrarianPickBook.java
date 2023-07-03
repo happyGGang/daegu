@@ -7,6 +7,7 @@ public class LibrarianPickBook extends PagingUtils{
 	private String author;
 	private String isbn;
 	private String bookimgUrl;
+	private String regNo;
 	
 	public String getBook_name() {
 		return book_name;
@@ -32,5 +33,10 @@ public class LibrarianPickBook extends PagingUtils{
 	public void setBookimgUrl(String bookimgUrl) {
 		this.bookimgUrl = bookimgUrl;
 	}
-	
+	public String getRegNo() {
+		return regNo;
+	}
+	public void setRegNo(String regNo) {
+		this.regNo = regNo;
+	}
 }
