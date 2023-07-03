@@ -1231,20 +1231,6 @@ public class BoardController extends BaseController {
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 		Homepage migrationHomepage = (Homepage) request.getAttribute("homepage");
-		if (migrationHomepage.getContext_path().equals("gw")) {
-			//date 타입 변경
-			if (StringUtils.isNotEmpty(board.getAdd_date_sample())) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				String dateStr = board.getAdd_date_sample().replaceAll("\\.", "-");
-				Date date = sdf.parse(dateStr);
-				board.setAdd_date(date);
-			} else {
-				board.setAdd_date(new Date());
-			}
-		} else {
-			board.setAdd_date(new Date());
-		}
-
 
 		/** 불량단어 검출 **/
 		BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();

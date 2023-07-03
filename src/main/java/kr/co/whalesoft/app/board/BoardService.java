@@ -348,11 +348,7 @@ public class BoardService extends BaseService {
 				}
 			}
 		} else {
-			Homepage migrationHomepage = (Homepage) request.getAttribute("homepage");
-			if (!migrationHomepage.getContext_path().equals("gw")) {
-				board.setAdd_id(member.getMember_id());
-			}
-
+			board.setAdd_id(member.getMember_id());
 		}
 
 		if (StringUtils.isEmpty(board.getUser_name())) {
