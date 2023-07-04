@@ -29,7 +29,7 @@
 		<c:forEach var="i" varStatus="status" items="${homepageList}">
 		<c:if test="${i.homepage_id ne 'h30' and i.homepage_id ne 'h31' and i.homepage_id ne 'h33' and i.homepage_id ne 'h34' and i.homepage_id ne 'h38' and i.homepage_id ne 'h39' and i.homepage_id ne 'h43'
 		and i.homepage_id ne 'h79' and i.homepage_id ne 'h80' and i.homepage_id ne 'h81' and i.homepage_id ne 'h82' and i.homepage_id ne 'h83' and i.homepage_id ne 'h84' and i.homepage_id ne 'h85' and i.homepage_id ne 'h86'
-		and i.homepage_id ne 'h87' and i.homepage_id ne 'h88'}">
+		and i.homepage_id ne 'h87' and i.homepage_id ne 'h88' and i.homepage_id ne 'h95'}">
 		<form:option value="${i.homepage_id}" label="${i.homepage_name}" />
 		</c:if>
 		</c:forEach>

@@ -38,33 +38,6 @@
 			</ul>
 		</form>
 
-		<form name="frm_kyobo_ebook" id="frm_kyobo_ebook" method="post" action="https://daegu.dkyobobook.co.kr/frontapi/mmbrLnkg.ink" accept-charset="UTF-8" target="_blank">
-		<input id="user_id" name="user_id" type="hidden" value="${sessionScope.member.member_id}"/>
-		<input type="hidden" name="user_type" value ="T1">
-		<input type="hidden" name="user_type_name" value ="회원">
-		<input id="libraryCode" name="libraryCode" type="hidden" value="24709" />
-		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-			<ul class="btns_wrap_tac" style="margin:10px auto 10px;">
-				<li>		
-					<c:choose>
-						<c:when test="${empty sessionScope.member.user_no or sessionScope.member.user_no eq '' or sessionScope.member.user_no eq 'null'}">
-							<c:choose>
-								<c:when test="${sessionScope.member.member_id eq 'ebookadmin'}">
-									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>교보문고 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
-								</c:when>
-								<c:otherwise>
-									<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="alert('정회원만 이용가능합니다.');"> <span>교보문고 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
-								</c:otherwise>
-							</c:choose>
-						</c:when>
-						<c:otherwise>
-							<a href="#" class="btn_link04" title="구독형 전자책 바로가기(새창열림)" onclick="dwfrmsubmit();"> <span>교보문고 구독형 전자책 바로가기</span> <span class="ico ico_link"></span></a>
-						</c:otherwise>
-					</c:choose>
-				</li>
-			</ul>
-		</form>
-
 	</div>
 </div>
 

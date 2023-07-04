@@ -767,6 +767,7 @@ do {
 												<input type="hidden" name="libraryCodes" class="libCheck lib_AF" value="AF"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_AE" value="AE"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_AD" value="AD"/>
+												<input type="hidden" name="libraryCodes" class="libCheck lib_AM" value="AM"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_CA" value="CA"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_CB" value="CB"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_BL" value="BL"/>
@@ -999,6 +1000,14 @@ do {
 										</div>
 										<div class="cont">
 												<ul>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/164" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu17.png" alt="대구문학관"></div>
+														<p class="book-title">대구문학관</p>
+														<p class="book-desc">대구 문학사가 살아 숨쉬는 곳</p>
+														<p class="reg-date">2023-07-03</p>
+													</a>
+												</li>
 												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/158" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu16.png" alt="지역작가"></div>
@@ -1323,7 +1332,8 @@ do {
 
 							<div class="libraryMap">
 								<div class="map-area">
-									<img src="/resources/homepage/${homepage.context_path}/img/map.png" alt="대구지도">
+									<!-- <img src="/resources/homepage/${homepage.context_path}/img/map.png" alt="대구지도"> -->
+									<img src="/resources/homepage/${homepage.context_path}/img/map_new.png" alt="대구지도">
 									<ul>
 										<li class="dglib01"><a href="#link" data-num="1"><p>동구</p></a></li>
 										<li class="dglib02"><a href="#link" data-num="2"><p>서구</p></a></li>
@@ -1334,7 +1344,7 @@ do {
 										<li class="dglib07"><a href="#link" data-num="7"><p>달서구</p></a></li>
 										<li class="dglib08"><a href="#link" data-num="8"><p>달성군</p></a></li>
 										<li class="dglib09"><a href="#link" data-num="9"><p>달성군</p></a></li>
-
+										<li class="dglib010"><a href="#link" data-num="10"><p>군위군</p></a></li>
 									</ul>
 								</div>
 							</div>
@@ -1355,7 +1365,7 @@ do {
 										<option value="6" style="color:#000;">중구</option>
 										<option value="7" style="color:#000;">달서구</option>
 										<option value="8" style="color:#000;">달성군</option>
-										
+										<option value="10" style="color:#000;">군위군</option>
 									</select>
 								</div>
 
@@ -2147,10 +2157,10 @@ do {
 											<input id="libraryCodes61" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AD"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib01">시립</span>
-											<label for="libraryCodes61">중앙도서관</label>
+											<label for="libraryCodes61">국채보상운동기념도서관</label>
 											<span class="go-link">
-												<a href="https://library.daegu.go.kr/intro/jungang/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
-												<a href="https://library.daegu.go.kr/jungang/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+												<a href="https://library.daegu.go.kr/intro/gukbo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/gukbo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 											
 										</li>
@@ -2627,6 +2637,35 @@ do {
 									</div>
 								</div>
 
+								<div id="lib10" class="libraryInfo" style="display:none;">
+									<h3 class="name">군위군</h3>
+									<a href="https://library.daegu.go.kr/dgportal/html/gunwilocation.do?menu_idx=108" title="달성군 도서관 찾아오시는길 페이지 바로 가기" class="detail-map-btn">찾아오시는길</a>
+									<div class="selection01">
+										<input id="libraryCodesAll10" class="libraryCodesAll" name="libraryCodes" type="checkbox" /> <label for="libraryCodesAll10">전체</label> 
+										<input id="libraryCodesSi10" class="libraryCodesSi" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSi10">시립</label> 
+										<input id="libraryCodesGu10" class="libraryCodesGu" name="libraryCodes" type="checkbox" /> <label for="libraryCodesGu10">구군립</label> 
+										<input id="libraryCodesSa10" class="libraryCodesSa" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSa10">사립공공·전문</label> 
+										<input id="libraryCodesSm10" class="libraryCodesSm" name="libraryCodes" type="checkbox" /> <label for="libraryCodesSm10">작은</label>	
+									</div>
+									<div class="comment">
+										<img src="/resources/homepage/${homepage.context_path}/img/use-check-ment.png" alt="검색대, 홈페이지 설명">
+									</div>
+									<div class="selection02 mCustomScrollbar light" data-mcs-theme="minimal-dark">
+									<ul>
+										<li>
+											<input id="libraryCodes101" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="AM"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes101">삼국유사군위도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/gw/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/gw/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+											
+										</li>
+									</ul>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -2764,6 +2803,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+						<li>
+							<a href="http://www.icuration.co.kr:81/curation/w/164" target="_blank">
+								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu17.png" alt="대구문학관"></div>
+								<h3 class="book-title">대구문학관</h3>
+								<p class="book-desc">대구 문학사가 살아 숨쉬는 곳</p>
+								<p class="reg-date">2023-07-03</p>
+							</a>
+						</li>	
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/158" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu16.png" alt="지역작가"></div>

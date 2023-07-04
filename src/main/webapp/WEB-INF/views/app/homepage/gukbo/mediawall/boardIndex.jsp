@@ -18,10 +18,10 @@
 .swiper {width:100%;height:300px;}
 .swiper-slide {background-size: cover;background-position: center;}
 
-.mySwiper .swiper-slide div.thumb-image img {display:block;width:800px;height:1140px;object-fit:cover;}
+.mySwiper .swiper-slide div.thumb-image img {display:block;width:800px;height:1140px;object-fit:cover;box-shadow: 25px 25px 25px rgba(0,0,0,0.1);}
 .mySwiper .swiper-slide div.thumb-image {display:block;}
 .mySwiper .swiper-slide div.thumb-image a {display:block;}
-.mySwiper .swiper-slide div.cont {position:absolute;top:1160px;left:18px;}
+.mySwiper .swiper-slide div.cont {position:absolute;top:1170px;left:18px;}
 .mySwiper .swiper-slide div.cont p.tit {font-size:45px;color:#fff;letter-spacing:-1.25px;text-align:left;}
 
 .mySwiper {height:20%;box-sizing: border-box;padding:100px 0 80px;}
@@ -44,10 +44,10 @@
 						<div class="thumb-image">
 							<c:choose>
 								<c:when test="${empty i.preview_img}">
-									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/noImg2.png';"/>
+									<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/gukbo_noimg.png';"/>
 								</c:when>
 								<c:otherwise>
-									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/noImg2.png';"/>
+									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -68,7 +68,7 @@
 		<script>
 			var swiper = new Swiper('.mySwiper', {
 				pagination: '.swiper-pagination',
-				slidesPerView: 7,
+				slidesPerView: 6,
 				paginationClickable: true,
 				spaceBetween: 110,
 				autoplay: {

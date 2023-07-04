@@ -46,6 +46,7 @@
 .content-01-box .box .cont li .contTop span.link.librarybuktj {background-color:#2c3caf;}
 .content-01-box .box .cont li .contTop span.link.librarybukdh {background-color:#2c3caf;}
 
+.content-01-box .box .cont li .contTop span.link.librarygukbo{background-color:#005fca;}
 .content-01-box .box .cont li .contTop span.link.libraryjungang {background-color:#005fca;}
 .content-01-box .box .cont li .contTop span.link.library228lib {background-color:#005fca;}
 .content-01-box .box .cont li .contTop span.link.libraryjunggu {background-color:#005fca;}
@@ -63,6 +64,7 @@
 .content-01-box .box .cont li .contTop span.link.librarydalseonglib {background-color:#7c07bf;}
 
 .content-01-box .box .cont li .contTop span.link.librarydgportal {background-color: #000;}
+.content-01-box .box .cont li .contTop span.link.librarygw {background-color: #21b563;}
 
 .content-01-box .box .cont li .contMiddle span.tit {display:block;font-size:25px;font-weight:bold;padding-top: 20px;line-height:130%;margin-bottom:20px;}
 .content-01-box .box .cont li .contBottom span.con {font-size:17px;word-break:break-all;}
@@ -142,6 +144,7 @@
 .content-03-box .box .con li a span.lib-name.teach_h69 {background-color:#e3a827;}
 .content-03-box .box .con li a span.lib-name.teach_h70 {background-color:#e3a827;}
 
+.content-03-box .box .con li a span.lib-name.teach_h94 {background-color:#21b563;}
 
 .content-03-box .box .con li a span.lib-name.teach_h4 {background-color:#7c07bf;}
 .content-03-box .box .con li a span.lib-name.teach_h44 {background-color:#7c07bf;}
@@ -254,6 +257,7 @@
 #main1 .notice-box > .con li a span.link.libraryduryu {background-color:#e3a827;}
 #main1 .notice-box > .con li a span.link.librarydalseolib {background-color:#e3a827;}
 
+#main1 .notice-box > .con li a span.link.librarygukbo {background-color:#005fca;}
 #main1 .notice-box > .con li a span.link.libraryjungang {background-color:#005fca;}
 #main1 .notice-box > .con li a span.link.library228lib {background-color:#005fca;}
 #main1 .notice-box > .con li a span.link.libraryjunggu {background-color:#005fca;}
@@ -270,6 +274,7 @@
 #main1 .notice-box > .con li a span.link.librarydgportal {background-color: #000;}
 #main1 .notice-box > .con li a span.link.librarynearbylib {background-color: #000;}
 
+#main1 .notice-box > .con li a span.link.librarygw {background-color: #21b563;}
 
 /*상단고정 예외*/
 #main1 .notice-box > .con li a span.link.libraryTonghap {background-color:#e35204;}
@@ -280,11 +285,11 @@
 
 
 #main2 {position:relative;background:url('../img/main2-bg.jpg') no-repeat center top;background-size:cover;}
-#main2 .main2_tit{margin-top:-330px;}
+#main2 .main2_tit{margin-top:-380px;}
 #main2 h2.title {font-family:'s-core_dream3_light';font-size:40px;line-height:90px;color:#000;text-align:center;/*letter-spacing:-3px;*/}
 #main2 h2.title b {font-family:'s-core_dream6_bold';}
 #main2 .tit_text {font-family:'s-core_dream3_light';font-size:30px;color:#000;text-align:center;/*letter-spacing:1.3px;*/}
-#main2 .search-area {position:absolute;top:33%;left:0;width:100%;text-align:center;z-index:99999;}
+#main2 .search-area {position:absolute;top:27%;left:0;width:100%;text-align:center;z-index:99999;}
 #main2 .search-area .main-box {position:relative;width:1260px;margin:0 auto 30px;box-shadow:5px 5px 15px rgba(0,0,0,0.2);}
 #main2 .search-area .main-box fieldset{position:relative;overflow:hidden;}
 #main2 .search-area .main-box legend {background:#21409a;color:#fff;}
@@ -295,24 +300,48 @@
 
 #main2 .main2-box {position:relative;float:left;width:50%;height:100%;box-sizing:border-box;}
 
+
+/*
 .libraryMap {float:left;position:relative;width:485px;height:475px;text-align:center; box-sizing:border-box;}
+.libraryMap li {position:absolute;width:40px;height:20px;cursor:pointer;}
+.libraryMap li.dglib01 {top:85px;left:365px;} 
+.libraryMap li.dglib02 {top:140px;left:222px;}
+.libraryMap li.dglib03 {top:185px;left:259px;}
+.libraryMap li.dglib04 {top:87px;left:254px;}
+.libraryMap li.dglib05 {top:186px;left:338px;}
+.libraryMap li.dglib06 {top:150px;left:270px;}
+.libraryMap li.dglib07 {top:186px;left:199px;}
+.libraryMap li.dglib08 {top:277px;left:172px;}
+.libraryMap li.dglib09 {top:140px;left:115px;}
+.libraryMap li a {display:block;}
+.libraryMap li p {display:none;z-index:4;}
+.libraryMap li:hover p {display:block;position:relative;top:-30px;left:7px;width:24px;height:30px;line-height:1.2em;color:#fff;background:url('../img/marker.png') no-repeat 0 0;z-index:4;padding-top:8px;font-size:0;animation:tranY 0.6s ease;}
+.libraryMap li.on p {display:block;position:relative;top:-30px;left:7px;width:24px;height:30px;line-height:1.2em;color:#fff;background:url('../img/marker.png') no-repeat 0 0;z-index:4;padding-top:8px;font-size:0;}
+*/
+
+#main2 .main2-box.left-box {width:40%;}
+#main2 .main2-box.right-box {width:60%;}
+
+.libraryMap {position:relative;width:362px;height:532px;text-align:center; box-sizing:border-box;}
 
 .libraryMap li {position:absolute;width:40px;height:20px;cursor:pointer;}
-.libraryMap li.dglib01 {top:85px;left:365px;} /*동구*/
-.libraryMap li.dglib02 {top:140px;left:222px;} /*서구*/
-.libraryMap li.dglib03 {top:185px;left:259px;} /*남구*/
-.libraryMap li.dglib04 {top:87px;left:254px;} /*북구*/
-.libraryMap li.dglib05 {top:186px;left:338px;} /*수성구*/
-.libraryMap li.dglib06 {top:150px;left:270px;} /*중구*/
-.libraryMap li.dglib07 {top:186px;left:199px;} /*달서구*/
-.libraryMap li.dglib08 {top:277px;left:172px;} /*달성군*/
-.libraryMap li.dglib09 {top:140px;left:115px;} /*달성군*/
+.libraryMap li.dglib01 {top:298px;left:210px;} /*동구*/
+.libraryMap li.dglib02 {top:330px;left:120px;} /*서구*/
+.libraryMap li.dglib03 {top:360px;left:142px;} /*남구*/
+.libraryMap li.dglib04 {top:299px;left:140px;} /*북구*/
+.libraryMap li.dglib05 {top:360px;left:195px;} /*수성구*/
+.libraryMap li.dglib06 {top:335px;left:150px;} /*중구*/
+.libraryMap li.dglib07 {top:363px;left:103px;} /*달서구*/
+.libraryMap li.dglib08 {top:435px;left:80px;} /*달성군*/
+.libraryMap li.dglib09 {top:330px;left:46px;} /*달성군*/
+.libraryMap li.dglib010 {top:125px;left:200px;} /*군위읍*/
+
 .libraryMap li a {display:block;}
 .libraryMap li p {display:none;z-index:4;}
 .libraryMap li:hover p {display:block;position:relative;top:-30px;left:7px;width:24px;height:30px;line-height:1.2em;color:#fff;background:url('../img/marker.png') no-repeat 0 0;z-index:4;padding-top:8px;font-size:0;animation:tranY 0.6s ease;}
 .libraryMap li.on p {display:block;position:relative;top:-30px;left:7px;width:24px;height:30px;line-height:1.2em;color:#fff;background:url('../img/marker.png') no-repeat 0 0;z-index:4;padding-top:8px;font-size:0;}
 
-.librarySearch {float:left;position:relative;width:650px;padding:0;margin:0;box-sizing:border-box;overflow:hidden;text-align:left;}
+.librarySearch {float:left;position:relative;width:100%;padding:0;margin:0;box-sizing:border-box;overflow:hidden;text-align:left;}
 .librarySearch .name {background:url('../img/map-icon.png') no-repeat left center;font-size:35px;font-weight:bold;color:#2e2e2e;padding:10px 0 10px 40px;border-bottom:1px solid #c7cac9;}
 .librarySearch .libraryInfo{position:relative;}
 .librarySearch .libraryInfo a.detail-map-btn{position:absolute;top:15px;right:20px;font-size:14px;color:#333;letter-spacing:-0.5px;font-weight:bold;border:1px solid rgba(0,0,0,0.5);border-radius:3px;background:url('../img/map-icon-sm-b.png')no-repeat 85% 9px;padding:7px 43px 5px 18px;}

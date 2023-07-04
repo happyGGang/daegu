@@ -508,9 +508,30 @@ $(function() {
 												<li>
 													<select name="area" id="area" class="cultureSelectBox">
 														<option value="">지역 선택</option>
+
+														
+															<option value="동구">동구</option>
+														
+															<option value="서구">서구</option>
+														
+															<option value="남구">남구</option>
+														
+															<option value="북구">북구</option>
+														
+															<option value="중구">중구</option>
+														
+															<option value="수성구">수성구</option>
+														
+															<option value="달서구">달서구</option>
+														
+															<option value="달성군">달성군</option>
+														
+															<option value="군위군">군위군</option>
+														<%--
 														<c:forEach var="i" items="${areaCodeList}">
 															<option value="${i.code_name}">${i.code_name}</option>
 														</c:forEach>
+														--%>
 													</select>
 												</li>
 												<li>
@@ -550,7 +571,8 @@ $(function() {
 														<option value="h7">대구광역시립 북부도서관</option>
 														<option value="h8">대구광역시립 서부도서관</option>
 														<option value="h9">대구광역시립 수성도서관</option>
-														<option value="h10">대구광역시립 중앙도서관</option>
+														<option value="h10">국채보상운동기념도서관</option>
+														<option value="h94">대구광역시교육청 삼국유사군위도서관</option>
 														<option value="h34">대구시청작은도서관</option>
 														<option value="h59">동구통합 신천도서관</option>
 														<option value="h73">동구통합 안심도서관</option>
@@ -712,9 +734,28 @@ $(function() {
 								<div class="select-box">
 									<select id="daeguArea" class="daegu-area">
 										<option value="">지역을 선택해주세요</option>
+															<option value="동구">동구</option>
+														
+															<option value="서구">서구</option>
+														
+															<option value="남구">남구</option>
+														
+															<option value="북구">북구</option>
+														
+															<option value="중구">중구</option>
+														
+															<option value="수성구">수성구</option>
+														
+															<option value="달서구">달서구</option>
+														
+															<option value="달성군">달성군</option>
+														
+															<option value="군위군">군위군</option>
+										<%--
 										<c:forEach var="i" items="${areaCodeList}">
 											<option value="${i.code_name}">${i.code_name}</option>
 										</c:forEach>
+										--%>
 									</select>
 								</div>
 								<div class="tabMenuA">

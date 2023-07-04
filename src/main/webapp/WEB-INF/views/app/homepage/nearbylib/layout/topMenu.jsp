@@ -53,7 +53,7 @@
 								<i class="fa fa-user-plus"></i>
 								<span style='letter-spacing:-1.5px;'>회원가입</span>
 							</a>
-							<a href="https://library.daegu.go.kr/dgportal/intro/join/integration.do?menu_idx=45" class="btn2">
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span style='letter-spacing:-1.5px;'>통합인증</span>
 							</a>

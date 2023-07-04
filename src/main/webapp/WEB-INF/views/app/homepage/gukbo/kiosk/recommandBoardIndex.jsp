@@ -12,12 +12,12 @@
 .list {position:relative;display:inline-block;text-align:center;font-size:18px;width:33.33333334%;height:420px;margin:0 auto 40px;vertical-align:top;}
 .list:nth-child(3n) {margin-right:0;}
 .list div {vertical-align:top;}
-.list div.thumb-image a img {width:227px;height:326px;border-radius:5px;box-shadow:3px 1px 11px 1px #888786;}
+.list div.thumb-image a img {width:227px;height:326px;border-radius:10px;box-shadow: 5px 5px 15px rgba(0,0,0,0.2);}
 .list div.thumb-image {display:block;}
 .list div.thumb-image a {display:block;}
 .list div.cont {position:relative;width:227px;margin:0 auto;}
-.list div.cont p.tit {font-size:23px;color:#000;letter-spacing:-1.25px;line-height:125%;text-align:left;}
-.list div.cont p.auth {font-size:18px;color:#383838;letter-spacing:-1.25px;text-align:left;}
+.list div.cont p.tit {font-size:23px;color:#000;letter-spacing: -0.05em;line-height:125%;text-align:left;margin-top: 10px;}
+.list div.cont p.auth {font-size:18px;color:#5d5d5d;letter-spacing:-0.05em;text-align:left;}
 .swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {bottom:0;}
 .swiper-pagination-bullet-active {opacity:1;background:#fff;}
 </style>
@@ -46,20 +46,20 @@ $(function() {
 												<c:when test="${fn:contains(i.preview_img, 'http')}">
 													<c:choose>
 														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-															<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+															<img src="/resources/common/img/gukbo_noimg.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
 														</c:when>
 														<c:otherwise>
-															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
 												</c:otherwise>
 											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'">
+											<img src="/resources/common/img/gukbo_noimg.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png'">
 										</c:otherwise>
 									</c:choose>
 								</a>

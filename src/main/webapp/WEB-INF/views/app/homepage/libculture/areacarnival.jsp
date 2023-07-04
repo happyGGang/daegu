@@ -117,7 +117,7 @@
 		  moveSlides:1,
 		  maxSlides: 4,
 		  slideWidth: 240,
-		  slideMargin: 80
+		  slideMargin: 60
 		});
 	  }
 	  else
@@ -127,8 +127,8 @@
 		  pager: false,
 		  moveSlides:1,
 		  maxSlides: 5,
-		  slideWidth: 240,
-		  slideMargin: 100
+		  slideWidth: 270,
+		  slideMargin: 60
 		});
 	  }
 	};
@@ -150,7 +150,7 @@
 		<c:when test="${fn:length(festivalList) > 0}">
 			<c:forEach var="i" items="${festivalList}">
 				<li class='areacarnival'>
-					<h4>${i.imsi_v_2}</h4>
+					<h4>${fn:substring(i.imsi_v_2, 0, 39)}<c:if test="${fn:length(i.imsi_v_2) > 39}">...</c:if></h4>
 					<a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" class="border bgimg001" target="_blank">
 						<div class="imgae-box">
 							<c:choose>

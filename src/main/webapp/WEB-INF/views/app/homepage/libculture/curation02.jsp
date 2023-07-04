@@ -67,12 +67,19 @@ $(function(){
 							</div>
 
 							<div class="slickPlay">
-								<p class="status"><span>1</span> / 6</p>
+								<p class="status"><span>1</span> / 7</p>
 								<a href="#" class="play">시작</a>
 								<a href="#" class="pause">멈춤</a>
 							</div>
 
 							<div class="slickWrap" data-animation="fadeInUp">
+								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/162" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_7.png" alt="비가 오면 무슨 일이 생길까?" /></p>
+										<span class="link">비가 오면 무슨 일이 생길까?<i></i></span>
+									</a>
+								</div>
 								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/135" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>그림책</h2>

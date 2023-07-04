@@ -43,6 +43,9 @@ $(function() {
 		$('div.mapBg8').addClass('on');
 		$('a.mp9on').addClass('on');
 		$('div.mapBg9').addClass('on');
+	} else if ('${param.category1}' == '0010') {
+		$('a.mp10on').addClass('on');
+		$('div.mapBg10').addClass('on');
 	}
 
 	$('a.libType').on('click', function(e) {
@@ -58,7 +61,7 @@ $(function() {
 ${boardManage.top_html}
 </c:if>
 
-<link rel="stylesheet" type="text/css" href="/resources/common/css/libinfo.css" />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/newlibinfo.css" />
 <style>
 @media all and (max-width:768px){
 table.bbs thead th, table.bbs tbody td {font-size:12px;}
@@ -68,7 +71,7 @@ table.bbs thead th, table.bbs tbody td {font-size:12px;}
 table.bbs thead th, table.bbs tbody td {font-size:11px;}
 }
 </style>
-<script type="text/javascript" src="/resources/common/js/libinfo.js"></script>
+<script type="text/javascript" src="/resources/common/js/newlibinfo.js"></script>
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
@@ -95,6 +98,8 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 				<div class="mapBg8"></div>
 				<span class="mp9"><a href="#mp9on" class="mp9on">달성군</a></span>
 				<div class="mapBg9"></div>
+				<span class="mp10"><a href="#mp10on" class="mp10on">군위군</a></span>
+				<div class="mapBg10"></div>
 			</div>
 
 			<div class="map mobile-view">
@@ -106,6 +111,7 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 				<span class="mp6"><a href="#mp6on" class="mp6on">서구</a></span>
 				<span class="mp7"><a href="#mp7on" class="mp7on">달서구</a></span>
 				<span class="mp8"><a href="#mp8on" class="mp8on">달성군</a></span>
+				<span class="mp10"><a href="#mp10on" class="mp10on">군위군</a></span>
 			</div>
 		</div>
 
@@ -186,7 +192,7 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 						<c:if test="${board.delete_yn eq 'Y'}">
 						<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 						</c:if>
-						<td class="num">${paging.listRowNum - status.index}<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" style="color:#fff;">.</a></td>
+						<td class="num">${paging.listRowNum - status.index}<!-- <a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" style="color:#fff;">.</a> --></td>
 						<td class="important left title">${i.category2_name}</td>
 						<td class="important left title" style="letter-spacing:-1px;">${i.title}</td>
 						<td class="important left ">${i.imsi_v_2}</td>

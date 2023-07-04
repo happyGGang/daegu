@@ -50,11 +50,11 @@
 						<a href="https://www.youtube.com/channel/UCLIjzSfEz4vRczvr02hMy2w/featured" target="_blank" class="sitemap-img2" title="유튜브 바로가기(새창열림)">
 						<img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브" /></a>
 
-						<a href="https://twitter.com/duryulibrary" target="_blank" class="sitemap-img2" title="트위터 바로가기(새창열림)">
+						<!-- <a href="https://twitter.com/duryulibrary" target="_blank" class="sitemap-img2" title="트위터 바로가기(새창열림)">
 						<img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" /></a>
 
 						<a href="https://www.facebook.com/duryulib" target="_blank" class="sitemap-img2" title="페이스북 바로가기(새창열림)">
-						<img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" /></a>
+						<img src="/resources/homepage/${homepage.context_path}/img/facebook-btn.png" alt="페이스북" /></a> -->
 			</div>
 		</div>
 	</div>

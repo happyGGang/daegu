@@ -175,7 +175,7 @@ $(function() {
 				</div>
 	
 				<div class="sections middle">
-					<img src="/resources/homepage/gw/img/visual-bg.jpg" alt="">
+					<img src="/resources/homepage/gw/img/visual-bg_2.jpg" alt="">
 				</div>
 
 				<div class="sections bottom">

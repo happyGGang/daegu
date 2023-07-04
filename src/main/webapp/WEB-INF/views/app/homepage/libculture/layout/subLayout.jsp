@@ -133,7 +133,7 @@ $(function() {
 					<div class="sub_rtop">
 						<ul class="etc_area clearfix">
 							<li class="share_box">
-								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="http://211.224.118.223:8010//resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
+								<a href="javascript:void(0);" class="a_btn" title="공유하기"><img src="/resources/homepage/libculture/img/sub-icon01.png" alt="sns공유하기"></a>
 								<ul class="snb_sns">								
 									<li>
 										<a href="javascript:void(0);"  class="share_facebook sub-facebook" target="_blank" title="페이스북 공유하기 새창">
@@ -201,13 +201,8 @@ $(function() {
 
 	<div id="foot_section">
 		<tiles:insertAttribute name="footer" />
-
-		<div class="home-up web-view">
-			<img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" id="homeup">
-		</div>
-
-		<div class="home-up mobile-view">
-			<img src="/resources/homepage/dgportal/img/m-top.png" alt="위로" id="homeup-mobile">
+		<div class="home-up">
+			<a href="#firstPage" id="homeup"><img src="/resources/homepage/${homepage.context_path}/img/quick-top.png" alt="위로" class="homeup"></a>
 		</div>
 	</div>
 

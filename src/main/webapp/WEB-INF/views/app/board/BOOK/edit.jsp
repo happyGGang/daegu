@@ -206,7 +206,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 <form:hidden path="group_idx"/>
 <form:hidden path="parent_idx"/>
 <form:hidden path="preview_img"/>
-<form:hidden path="imsi_v_8"/>
+
 <div class="wrapper-bbs">
 	<table class="bbs-edit">
 		<tbody>
@@ -270,13 +270,19 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<td>
 					<form:input path="imsi_v_7" cssClass="text" maxlength="100"/>
 				</td>
-				<th>도서검색</th>
+				<th>등록번호</th>
 				<td>
+					<form:input path="imsi_v_8" cssClass="text" maxlength="100"/>
+				</td>
+			</tr>
+			<tr>
+				<th>도서검색</th>
+				<td colspan="3">
 					<a href="#" class="btn btn2" id="getIlus"><i class="fa fa-plus"></i><span>도서검색</span></a>
 					<br/>
 					*도서검색을 통해 등록할 경우 <br/>책 이미지 등록하지 않으셔도 됩니다.
 
-				</td>
+				</td>			
 			</tr>
 			</c:if>
 			<tr>

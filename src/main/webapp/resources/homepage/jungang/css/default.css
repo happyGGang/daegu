@@ -23,7 +23,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li>a{padding:10px 0;line-height:43px;height:43px;font-size:18px;color: #222;font-weight:bold;}
 .Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:right}
 .Gnb .gnb-menu>li.active>ul{display:block}
-.Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 5px}
+.Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 2px}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
 .Gnb .gnb-menu>li>.SubMenu>li>a{font-size:14px;padding:0 5px;color:#eee;}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,

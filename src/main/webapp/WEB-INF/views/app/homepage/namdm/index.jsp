@@ -321,10 +321,6 @@ do {
 													</c:otherwise>
 												</c:choose>
 												<strong class="title">${i.title}</strong>
-											</span>
-
-											<span class="movieEx">
-
 												<span class="date">
 												 ${fn:replace(i.imsi_v_1, '-', '년 ')}월 ${i.imsi_v_2}일<br/>
 												 ${i.imsi_v_3}시 ${i.imsi_v_4}분
@@ -333,7 +329,6 @@ do {
 												<span class="desc">
 												${fn:substring(i.content_summary, 0, 80)}<c:if test="${fn:length(i.content_summary) > 80}">...</c:if>
 												</span>
-
 											</span>
 										</a>
 									</li>

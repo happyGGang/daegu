@@ -240,7 +240,7 @@ $(document).ready(function () {
     </div>
     <div class="seat1">
       <ul>
-        <li><a href="https://library.daegu.go.kr/jungang/html/hopeBook.do?menu_idx=222" target="_blank" class="newWin" title="대구광역시립중앙도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구광역시립중앙도서관<i class="fa fa-external-link"></i></a></li>
+        <li><a href="https://library.daegu.go.kr/gukbo/html/hopeBook.do?menu_idx=222" target="_blank" class="newWin" title="국채보상운동기념도서관 희망도서바로대출 안내 페이지 이동(새창열림)">국채보상운동기념도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/dongbu/html/hopeBook.do?menu_idx=191" target="_blank" class="newWin" title="대구광역시립동부도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구광역시립동부도서관<i class="fa fa-external-link"></i></a></li>
 		<li><a href="https://library.daegu.go.kr/donggu/html/hopeBook.do?menu_idx=182" target="_blank" class="newWin" title="대구동구도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구동구도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/228/html/hopeBook.do?menu_idx=247" target="_blank" class="newWin" title="대구2·28기념학생도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구2·28기념학생도서관<i class="fa fa-external-link"></i></a></li>

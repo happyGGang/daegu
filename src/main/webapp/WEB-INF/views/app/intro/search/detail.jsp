@@ -366,9 +366,6 @@ CONTEXT_PATH : ${context_path}
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'}">
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'BZ'}">
-						<p><span>* 달서영어도서관은 장서점검으로 인하여 6. 19.(월)~6. 30.(금)까지 상호대차 및 지하철역 무인예약 신청이 불가합니다.</span></p>
-						</c:when>
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">

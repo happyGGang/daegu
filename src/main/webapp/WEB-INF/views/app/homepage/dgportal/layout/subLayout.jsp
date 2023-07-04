@@ -55,6 +55,7 @@ $(function() {
 		}
 	});
 
+	$('i.fa-external-link').css('display','none');
 
 	$('#header').addClass("background-white");
 	$('.Gnb').css("border-bottom","1px solid rgba(255,255,255,0.2)");

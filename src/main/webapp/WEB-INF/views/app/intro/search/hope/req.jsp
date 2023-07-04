@@ -399,21 +399,22 @@
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<script>
-						<form:option value="BV">달서어린이</form:option>
-					</script>
-				</form:select><span style="color:#ff0000"> 달서어린이도서관 희망도서신청은 임시 중단되었습니다.(2023.06.18 ~ 2023.06.30) </span>
+					<form:option value="BV">달서어린이</form:option>
+				</form:select>
 				</c:when>
+
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
 					<%--<form:option value="BU">성서도서관</form:option>--%>
-				</form:select><span style="color:#ff0000"> * 성서도서관 당월 희망도서 예산 소진으로 다음 달(23.07.01)부터 신청 가능합니다. </span>
+					<option value="BU">성서도서관</option>
+				</form:select>
 				</c:when>
+
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<%--<form:option value="BX">본리도서관</form:option><--%>
-				</form:select><span style="color:#ff0000"> * 본리도서관 당월 희망도서 예산 소진으로 다음 달(23.07.01)부터 신청 가능합니다. </span>
-				
+					<form:option value="BX">본리도서관</form:option>
+				</form:select>
+
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
 				<form:select path="manageCode">

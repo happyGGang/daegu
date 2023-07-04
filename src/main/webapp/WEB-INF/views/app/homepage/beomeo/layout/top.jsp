@@ -42,7 +42,7 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-
+			<div class='end'></div>
 		</div>
 	</div>
 

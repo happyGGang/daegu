@@ -5,7 +5,7 @@
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
 <!--두류 서부 제외 시립-->
-<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang'}">
+<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang' || homepage.context_path eq 'gukbo' || homepage.context_path eq 'gw'}">
 	<div class="dpt-intro-type02">
 	  <div class="role-head">
 		<div class="ImgBox">
@@ -18,12 +18,12 @@
 				<p class="center">
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+						<a href="https://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
 					</c:when>
 					<c:otherwise>
 						<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
 						<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
-						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
+						<a href="https://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
 					</c:otherwise>
 				</c:choose>
 				<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>

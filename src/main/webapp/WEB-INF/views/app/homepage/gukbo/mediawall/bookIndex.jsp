@@ -28,13 +28,13 @@
 								<div class="photo-info">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. "/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. " onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -55,13 +55,13 @@
 								<div class="photo-info">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. "/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다." onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}"/>
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -115,13 +115,13 @@
 								<div class="photo-info">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}"/>
+											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -142,13 +142,13 @@
 								<div class="photo-info">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}"/>
+											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}"/>
+											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -206,20 +206,20 @@
 												<c:when test="${fn:contains(i.preview_img, 'http')}">
 													<c:choose>
 														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-															<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+															<img src="/resources/common/img/gukbo_noimg.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 														</c:when>
 														<c:otherwise>
-															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 												</c:otherwise>
 											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -244,20 +244,20 @@
 												<c:when test="${fn:contains(i.preview_img, 'http')}">
 													<c:choose>
 														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-															<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+															<img src="/resources/common/img/gukbo_noimg.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 														</c:when>
 														<c:otherwise>
-															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/>
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 												</c:otherwise>
 											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="/resources/common/img/noImg2.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:otherwise>
 									</c:choose>
 								</div>

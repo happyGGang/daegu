@@ -6,8 +6,22 @@
 	<nav id="menu"></nav>
 
 	<div class="tnb">
+		<div class="tnb-top">
+			<div class="section">
+				<div class="libSite">
+					<ul>
+						<li><a href="https://library.daegu.go.kr/namic/index.do" target="_blank">이천어울림도서관</a></li>
+						<li class="on"><a href="https://library.daegu.go.kr/namdm/index.do">대명어울림도서관</a></li>
+						<li class="sns_icon"><a href="https://www.instagram.com/namgu_library/" target="_blank"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<div class="section">
-			<h1><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/${homepage.context_path}_logo.png" alt="${homepage.homepage_name}"/></a></h1>
+			<h1>
+				<a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/${homepage.context_path}_logo.png" alt="${homepage.homepage_name}"/></a>
+				<a href="https://www.instagram.com/namgu_library/" target="_blank" class="sns"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"></a>
+			</h1>
 
 			<div class="m-menu2">
 				<a href="#search" id="onLoadSearch"><img src="/resources/homepage/${homepage.context_path}/img/search-btn.png" alt="검색"></a>
