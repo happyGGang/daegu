@@ -482,6 +482,8 @@ $(function(){
 			bannerSlider2.stopAuto();
 		}else if(bannerSlider3 != null ){
 			bannerSlider3.stopAuto();
+		}else if(bannerSlider6 != null ){
+			bannerSlider6.stopAuto();
 		}
 		$(this).removeClass('active');
 		$('div.banner-wrap a.play').addClass('active');
@@ -494,6 +496,8 @@ $(function(){
 			bannerSlider2.startAuto();
 		}else if(bannerSlider3 != null ){
 			bannerSlider3.startAuto();
+		}else if(bannerSlider6 != null ){
+			bannerSlider6.startAuto();
 		}
 		$(this).removeClass('active');
 		$('div.banner-wrap a.stop').addClass('active');
@@ -841,17 +845,5 @@ $(function(){
 		    $(activeTab).show();
 		}
 	});
-   /*자료실 사진 롤링img*/
-		$('.slide ul').bxSlider({
-			autoHover:true,
-			controls:false,
-			auto:false,
-			autoControls:false,
-			pager:true,
-			slideWidth: 400,
-			minSlides: 1,
-			maxSlides: 2,
-			moveSlides: 2,
-			slideMargin: 0
-		});
+
 });
