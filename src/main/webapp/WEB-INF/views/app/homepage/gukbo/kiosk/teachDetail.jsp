@@ -16,7 +16,7 @@
 		$('a.add').on('click',function(e) {
 			var $this = $(this);
 			doGetLoad(
-					'/${homepage.context_path}/module/teach/student/edit.do',
+					'/${homepage.context_path}/kiosk/studentEdit.do',
 					'editMode=ADD&homepage_id='
 							+ $this.attr('keyValue1')
 							+ '&group_idx='
