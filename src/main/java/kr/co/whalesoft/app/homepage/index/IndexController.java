@@ -958,7 +958,7 @@ public class IndexController extends BaseController {
 		Member sessionMemberInfo = getSessionMemberInfo(request);
 
 		String queryString = request.getQueryString();
-		if (queryString.contains("before_url")) {
+		if (queryString != null && queryString.contains("before_url")) {
 			queryString = queryString.replace("before_url=", "");
 			sessionMemberInfo.setBefore_url(queryString);
 		}
