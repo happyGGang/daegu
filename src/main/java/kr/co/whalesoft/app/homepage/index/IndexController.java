@@ -274,8 +274,9 @@ public class IndexController extends BaseController {
 		}
 
 		if (StringUtils.equals(teachOne.getMember_yn(), "N") && !isLogin(request)) {
-			student.setBefore_url(String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()));
-			studentService.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), student.getBefore_url()), request, response);
+			String before_url = String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path());
+			homepage.setBefore_url(before_url);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
 			return null;
 		}
 
@@ -956,9 +957,12 @@ public class IndexController extends BaseController {
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
 
-		if (homepage.getBefore_url() != null && !"".equals(homepage.getBefore_url())) {
-			sessionMemberInfo.setBefore_url(homepage.getBefore_url());
+		String queryString = request.getQueryString();
+		if (queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
 		}
+
 		model.addAttribute("member", sessionMemberInfo);
 
 		String filePath = "";
