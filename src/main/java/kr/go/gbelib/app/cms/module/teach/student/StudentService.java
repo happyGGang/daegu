@@ -553,7 +553,7 @@ public class StudentService extends BaseService {
 
 		//해당강좌 중복 체크
 		if ( dao.checkStudent(student) > 0 ) {
-			return "이미 신청하신 강좌입니다. \n비회원과 회원으로 신청한 경우를 모두 확인해 주시길 바랍니다.";
+			return "이미 신청하신 강좌입니다. \\n비회원과 회원으로 신청한 경우를 모두 확인해 주시길 바랍니다.";
 		}
 		//동일강좌(1차, 2차) 수강 제한 : 강좌 명 + 강사 이름 으로 체크
 		if ( targetTeach.getTeach_same_limit_count() != 0 ) {

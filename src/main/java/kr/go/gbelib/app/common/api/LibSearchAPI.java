@@ -1029,6 +1029,10 @@ public class LibSearchAPI {
 		if (StringUtils.isNotEmpty(librarySearch.getUserkey())) {
 			param.put("userkey", librarySearch.getUserkey());
 		}
+		
+		if (StringUtils.isNotEmpty(librarySearch.getManageCode())) {
+			param.put("manage_code", librarySearch.getManageCode());
+		}
 
 		Calendar cal = Calendar.getInstance();
 

@@ -59,7 +59,7 @@ $(function() {
 				<button type="submit" class="button save-btn">LOGIN</button>
 			</div>
 			<div class="rf-login-btn-sec">
-				<a href="" class="button">회원증 RFID 로그인</a>
+				<a href="/${homepage.context_path}/kiosk/rfidLogin.do" class="button">회원증 RFID 로그인</a>
 			</div>
 		</form:form>
 	</div>

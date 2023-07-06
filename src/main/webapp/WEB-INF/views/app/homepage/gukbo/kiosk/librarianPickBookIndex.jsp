@@ -38,7 +38,7 @@ $(function() {
 					<c:forEach items="${list}" var="i">
 						<div class="list">
 							<div class="thumb-image">
-								<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?book_name=${i.TITLE_INFO}&isbn=${i.ISBN}&author=${i.AUTHOR}&bookimgUrl=${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}">
+								<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?book_name=${i.TITLE_INFO}&isbn=${i.ISBN}&author=${i.AUTHOR}&bookimgUrl=${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}&regNo=${i.REG_NO}">
 									<img src="${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}" alt="${i.TITLE_INFO}"/>
 								</a>
 							</div>

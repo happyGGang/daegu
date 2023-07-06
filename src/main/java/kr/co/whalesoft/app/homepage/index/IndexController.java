@@ -263,13 +263,12 @@ public class IndexController extends BaseController {
 	
 	@RequestMapping(value = { "/{contextPath}/kiosk/studentEdit.*" })
 	public String studentEdit(Model model, Student student, Teach teach, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		checkAuth("C", model, request);
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
 		if (teachOne == null) {
-			studentService.alertMessage("잘못된 경로로 접근하였습니다", request, response);
+			service.alertMessage("잘못된 경로로 접근하였습니다", request, response);
 			return null;
 		}
 
@@ -287,25 +286,16 @@ public class IndexController extends BaseController {
 			student.setMember_key(getSessionMemberId(request));
 		}
 
-		//대표, 달서구, 동구, 서구, 중구, 수성구(범어,용학,고산)는 제외
-		if ( !homepage.getHomepage_id().equals("h32") && !homepage.getHomepage_id().equals("h37") && !homepage.getHomepage_id().equals("h49") && !homepage.getHomepage_id().equals("h45") && !homepage.getHomepage_id().equals("h53")
-				&& !homepage.getHomepage_id().equals("h50") && !homepage.getHomepage_id().equals("h51") && !homepage.getHomepage_id().equals("h52") ) {
-			student.setHomepage_id(homepage.getHomepage_id());
-		}
-
-		System.out.println("@@@@@@@@@@@@@@@ homepage.getHomepage_id() = " + homepage.getHomepage_id());
-		System.out.println("@@@@@@@@@@@@@@@ student.getHomepage_id() = " + student.getHomepage_id());
-
 		// 그룹당 강의 제한 개수 . ->
 		String checkResult = studentService.checkStudent(student);
 		if ( checkResult != null ) {
-			studentService.alertMessage(checkResult, request, response);
+			service.alertMessageAndUrl(checkResult, String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
 			return null;
 		}
 
 		//블랙리스트 체크
 		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
-			studentService.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
+			service.alertMessageAndUrl("신청이 불가능합니다.\\n도서관에 문의해주세요.", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
 			return null;
 		}
 
@@ -832,6 +822,7 @@ public class IndexController extends BaseController {
 		
 		LibrarySearch librarySearch = new LibrarySearch();
 		
+		librarySearch.setManageCode(homepage.getManage_code());
 		librarySearch.setUserkey(sessionMemberInfo.getRec_key());
 		if (StringUtils.isNotEmpty(sessionMemberInfo.getBirth_day())) {
 			String[] age_split = sessionMemberInfo.getBirth_day().split("-");

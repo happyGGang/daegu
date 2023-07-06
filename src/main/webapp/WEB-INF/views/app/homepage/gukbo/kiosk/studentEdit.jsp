@@ -5,10 +5,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<tiles:insertAttribute name="header" />
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
-
-<tiles:insertAttribute name="header" />
 <script type="text/javascript">
 $(function() {
 	
@@ -409,7 +408,7 @@ $(function() {
 			$form.find('#family_name').prop('disabled', false);
 
 			var option = {
-				url : '/kiosk/save.do',
+				url : 'save.do',
 				type : 'POST',
 				success: function(response) {
 					if(response.valid) {
@@ -421,10 +420,10 @@ $(function() {
 							if (document.referrer.startsWith(location.origin)) {
 								history.back();
 							} else {
-								doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
+								doGetLoad('/${homepage.context_path}/kiosk/teachIndex.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
 							}
 						} catch (e) {
-							doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
+							doGetLoad('/${homepage.context_path}/kiosk/teachIndex.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
 						}
 					} else {
 						$('div.applyFile').append(applyFile);
@@ -1119,7 +1118,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			</div>
 
 			<div class="culturedetail-request-button-box">
-				<a href="#" id="save-btn" class="btn button2 add" style="display:inline-block;width:45%;">신청하기</a>
+				<button id="save-btn" class="btn button2 add" style="display:inline-block;width:45%;">신청하기</button>
 				<a id="back-btn" class="btn button2" style="display:inline-block;width:45%;">뒤로가기</a>
 			</div>
 		</div>
