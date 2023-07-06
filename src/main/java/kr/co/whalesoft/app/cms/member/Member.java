@@ -100,6 +100,8 @@ public class Member extends PagingUtils implements Serializable {
 	private String member_class;//회원구분 (0 : 정회원, 1 : 비회원, 2 : 준회원)
 	private String user_position_code;//이용자 소속정보코드
 	private String user_manage_code;//이용자 가입도서관 관리구분코드
+	private String workNo;//이용자 회원증 RFID 시리얼값
+	private String login_id; //이용자 회원증 RFID 시리얼값
 
 	private String card_no;
 	private String card_password;
@@ -1197,6 +1199,22 @@ public class Member extends PagingUtils implements Serializable {
 
 	public void setLog_idx(int log_idx) {
 		this.log_idx = log_idx;
+	}
+
+	public String getWorkNo() {
+		return workNo;
+	}
+
+	public void setWorkNo(String workNo) {
+		this.workNo = workNo;
+	}
+
+	public String getLogin_id() {
+		return login_id;
+	}
+
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
 	}
 	
 }

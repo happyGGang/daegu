@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
-import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.cms.banner.Banner;
 import kr.co.whalesoft.app.cms.banner.BannerService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
@@ -45,8 +44,6 @@ import kr.co.whalesoft.app.cms.popupZoneTop.PopupZoneTop;
 import kr.co.whalesoft.app.cms.popupZoneTop.PopupZoneTopService;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenu;
 import kr.co.whalesoft.app.cms.quickMenu.QuickMenuService;
-import kr.co.whalesoft.app.cms.terms.Terms;
-import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.CalculateHashUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
@@ -60,17 +57,14 @@ import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
-import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServices;
 import kr.go.gbelib.app.cms.module.specializedServices.SpecializedServicesService;
-import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
 import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.teach.student.StudentService;
-import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.CultureAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
@@ -177,9 +171,6 @@ public class IndexController extends BaseController {
 	
 	@Autowired
 	private BlackListService blackListService;
-	
-	@Autowired
-	private TermsService termsService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -663,6 +654,38 @@ public class IndexController extends BaseController {
 			System.out.println(e);
 		}
 		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> bestMap : list ) {
+				if ( bestMap.containsKey("ISBN") ) {
+					//알라딘 API 결과 가져오기
+					if (bestMap.get("ISBN") != null && !String.valueOf(bestMap.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(bestMap);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							bestMap.put("aladin", aladinData.get("item"));
+						}
+						if (bestMap.get("aladin") == null) {
+							bestMap.put("imageUrl", service.getImageUrl(bestMap));
+						}
+					}
+				}
+			}
+		}
+
+		model.addAttribute("bestBookList", list);
+		
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/recommandBoardView";
@@ -798,6 +821,38 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("bookKeyword", bookKeyword);
 		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> bestMap : list ) {
+				if ( bestMap.containsKey("ISBN") ) {
+					//알라딘 API 결과 가져오기
+					if (bestMap.get("ISBN") != null && !String.valueOf(bestMap.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(bestMap);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							bestMap.put("aladin", aladinData.get("item"));
+						}
+						if (bestMap.get("aladin") == null) {
+							bestMap.put("imageUrl", service.getImageUrl(bestMap));
+						}
+					}
+				}
+			}
+		}
+
+		model.addAttribute("bestBookList", list);
+		
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/bookKeywordView";
@@ -831,35 +886,41 @@ public class IndexController extends BaseController {
 		}
 		librarySearch.setSex(sessionMemberInfo.getSex());
 			
-		Map<String, Object> result = LibSearchAPI.getUserreCommBooks(librarySearch);
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		if(result != null) {
-			list = (List<Map<String, Object>>)result.get("LIST_DATA");
-			
-			for (Map<String, Object> map : list) {
+		try {
+			Map<String, Object> result = LibSearchAPI.getUserreCommBooks(librarySearch);
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			if(result != null) {
+				list = (List<Map<String, Object>>)result.get("LIST_DATA");
 				
-				String isbn = map.get("ISBN").toString(); 
-				
-				if (StringUtils.isNotEmpty(isbn)) {
+				for (Map<String, Object> map : list) {
 					
-					String[] isbnArr = isbn.split("\\s+");
+					String isbn = map.get("ISBN").toString(); 
 					
-					for(int i=0; i < isbnArr.length; i++) {
-						if (i == (isbnArr.length -1)) {
-							isbnArr[i].replaceAll("세트", "");
-							isbnArr[i].replaceAll("셋트", "");
-							isbnArr[i].replaceAll("SET", "");
-							isbnArr[i].replaceAll("set", "");
-							map.put("ISBN",isbnArr[i]);
+					if (StringUtils.isNotEmpty(isbn)) {
+						
+						String[] isbnArr = isbn.split("\\s+");
+						
+						for(int i=0; i < isbnArr.length; i++) {
+							if (i == (isbnArr.length -1)) {
+								isbnArr[i].replaceAll("세트", "");
+								isbnArr[i].replaceAll("셋트", "");
+								isbnArr[i].replaceAll("SET", "");
+								isbnArr[i].replaceAll("set", "");
+								map.put("ISBN",isbnArr[i]);
+							}
 						}
+						
+						map.put("imageUrl", librarySearchService.getImageUrl(map));
 					}
 					
-					map.put("imageUrl", librarySearchService.getImageUrl(map));
+					map.put("ISBN", isbn);
+					
 				}
-				
-				map.put("ISBN", isbn);
-				
 			}
+			
+			model.addAttribute("list", list);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 		
 		int searchMenuIdx = 0;
@@ -867,7 +928,6 @@ public class IndexController extends BaseController {
 		searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
 		 
 		model.addAttribute("searchMenuIdx", searchMenuIdx);
-		model.addAttribute("list", list);
 		
 		String filePath = "";
 		if (homepage != null) {
@@ -885,7 +945,7 @@ public class IndexController extends BaseController {
 		
 		Map<String, Object> map = null;
 		
-		if(StringUtils.isNotEmpty(librarianPickBook.getBook_name())) {
+		if(StringUtils.isNotEmpty(librarianPickBook.getRegNo())) {
 			librarySearch.setManageCode(homepage.getManage_code());
 			librarySearch.setRegNo(librarianPickBook.getRegNo());
 			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
@@ -934,6 +994,38 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("librarianPickBook", librarianPickBook);
 		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> bestMap : list ) {
+				if ( bestMap.containsKey("ISBN") ) {
+					//알라딘 API 결과 가져오기
+					if (bestMap.get("ISBN") != null && !String.valueOf(bestMap.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(bestMap);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							bestMap.put("aladin", aladinData.get("item"));
+						}
+						if (bestMap.get("aladin") == null) {
+							bestMap.put("imageUrl", service.getImageUrl(bestMap));
+						}
+					}
+				}
+			}
+		}
+
+		model.addAttribute("bestBookList", list);
+		
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/librarianPickBookView";
@@ -970,9 +1062,12 @@ public class IndexController extends BaseController {
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
 
-		if (homepage.getBefore_url() != null && !"".equals(homepage.getBefore_url())) {
-			sessionMemberInfo.setBefore_url(homepage.getBefore_url());
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
 		}
+		
 		model.addAttribute("member", sessionMemberInfo);
 
 		String filePath = "";

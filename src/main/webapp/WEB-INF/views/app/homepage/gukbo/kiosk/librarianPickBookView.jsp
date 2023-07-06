@@ -3,9 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css"  />
 
 <tiles:insertAttribute name="header" />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper-bundle.min.css" />
+<style>
+.swiper {width:100%;height:100%;}
+.swiper-container {width:880px;height:auto;margin-left:auto;margin-right:auto;padding-bottom:50px;}
+.swiper-slide {display:inline-block;text-align:left;}
+.swiper-slide {position:relative;display:inline-block;text-align:center;font-size:18px;width:33.33333334%;margin:0 auto 40px;vertical-align:top;}
+.swiper-slide div {vertical-align:top;}
+.swiper-slide div.thumb-image a img {width:120px;height:170px;box-shadow:5px 5px 15px rgba(0,0,0,0.2);}
+.swiper-slide div.thumb-image {display:block;}
+.swiper-slide div.thumb-image a {display:block;}
+.swiper-slide div.cont {position:relative;width:120px;margin:0 auto;}
+.swiper-slide div.cont p.tit {font-size:18px;color:#000;letter-spacing: -0.05em;line-height:125%;text-align:left;margin-top: 10px;}
+.swiper-slide img {display:block;width:120px;height:170px;object-fit:cover;border:3px solid transparent;box-shadow: 10px 10px 20px rgba(0,0,0,0.2);}
+.swiper-slide-thumb-active img {border:3px solid #000;}
+.swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {bottom:0;}
+.swiper-pagination-bullet-active {opacity:1;background:#fff;}
+</style>
+<script>
+$(function() {
+	$('#print-btn-toggle').on('click', function(e) {
+		alert('준비중');
+	});
+});
+</script>
 
 <div class="userrecommandbookdetail-wrap">
 	<div class="header">
@@ -35,10 +58,71 @@
 			</div>
 		</div>
 		<div class="etcinfo-sec">
-			집착에 가까울 만큼 자연계에 질서를 부여하려 했던 19세기 어느 과학자의 삶을 흥미롭게 좇아가는 이 책은 어느 순간 독자들을 혼돈의 한복판으로 데려가서 우리가 믿고 있던 삶의 질서에 관해 한 가지 의문을 제기한다. “물고기가 존재하지 않는다는 것은 엄연한 하나의 사실이다. 그렇다면 우리는 또 무엇을 잘못 알고 있을까?” 하고 말이다. 누군가에게는 이 질문이 살아가는 데 아무런 영향을 미치지 않을 수도 있다. 하지만 세상을..
+			<div class="inner-scroll">
+				${kakaoResult}
+			</div>
 		</div>
+
+
+		<div class="detail-bookbest-list">
+			<h2>인기대출도서</h2>
+			<div class="swiper mySwiper">
+				<div class="swiper-wrapper">
+					<!-- 루프시작 -->
+					<c:forEach items="${bestBookList}" var="i" varStatus="status">
+						<div class="swiper-slide">
+							<div class="thumb-image">
+								<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?isbn=${i.ISBN}&regNo=${i.REG_NO}&author=${i.AUTHOR}">
+									<c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다.  상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+										</c:when>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+											<img src="${i.aladin.cover}" alt="${i.TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+										</c:when>
+										<c:otherwise>
+											<img src="${i.imageUrl}" alt="${i.TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+										</c:otherwise>
+									</c:choose>
+								</a>
+							</div>
+							<div class="cont">
+								<p class="tit">
+									${fn:substring(i.TITLE, 0, 25)}<c:if test="${fn:length(i.TITLE) > 25}">...</c:if>
+								</p>
+							</div>
+						</div>
+					</c:forEach>
+					<!-- 루프끝 -->
+				</div>
+				<!-- <div class="swiper-scrollbar"></div> -->
+				<div class="swiper-pagination"></div>
+				<!-- <div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div> -->
+			</div>
+			<script src="/resources/common/js/kiosk/swiper-bundle.min.js"></script>
+			<script>
+				var swiper = new Swiper(".mySwiper", {
+					loop: true,
+					spaceBetween: 10,
+					slidesPerView: 5,
+					freeMode: true,
+					watchSlidesProgress: true,
+					scrollbar: {
+						el: '.swiper-scrollbar',
+						draggable: true,
+					},
+					pagination: {
+						el: ".swiper-pagination",
+						clickable: true,
+					},
+				});
+			</script>
+		</div>
+
+
 		<div class="backbutton-sec">
-			<a href="">< 이전</a>
+			<a href="javascript:history.back(-1);">< 이전</a>
 		</div>
 	</div>
 </div>
