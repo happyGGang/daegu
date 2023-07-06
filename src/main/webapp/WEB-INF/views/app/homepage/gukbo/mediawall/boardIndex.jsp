@@ -26,7 +26,7 @@
 
 .mySwiper {height:20%;box-sizing: border-box;padding:100px 0 80px;}
 .mySwiper .swiper-slide {position:relative;width:10%;height:100%;}
-.mySwiper .swiper-slide img {display:block;width:800px;height:1140px;border:3px solid transparent;}
+.mySwiper .swiper-slide img {display:block;width:800px;height:1140px;/*border:3px solid transparent;*/}
 </style>
 
 <script type="text/javascript">

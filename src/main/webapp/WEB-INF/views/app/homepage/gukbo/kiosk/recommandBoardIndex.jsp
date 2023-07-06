@@ -12,7 +12,7 @@
 .list {position:relative;display:inline-block;text-align:center;font-size:18px;width:33.33333334%;height:420px;margin:0 auto 40px;vertical-align:top;}
 .list:nth-child(3n) {margin-right:0;}
 .list div {vertical-align:top;}
-.list div.thumb-image a img {width:227px;height:326px;border-radius:10px;box-shadow: 5px 5px 15px rgba(0,0,0,0.2);}
+.list div.thumb-image a img {width:225px;height:325px;border-radius:10px;box-shadow: 5px 5px 15px rgba(0,0,0,0.2);}
 .list div.thumb-image {display:block;}
 .list div.thumb-image a {display:block;}
 .list div.cont {position:relative;width:227px;margin:0 auto;}

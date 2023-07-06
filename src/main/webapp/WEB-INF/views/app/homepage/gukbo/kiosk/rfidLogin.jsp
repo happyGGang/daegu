@@ -45,19 +45,28 @@ $(document).ready(function(){
 	getUpdateState();
 });
 </script>
-<div style="position:relative;width:100%;height:700px;text-align:center">
+<div class="login-wrap">
+	<div class="header">
+		<h1>국채보상운동기념도서관</h1>
+		<p>The National Debt Compensation Movement Memorial Library</p>
+	</div>
 	<div class="contents">
-		<div style="padding:70px 0 0 0">
-			<img src="/resources/common/img/books_text.png" alt="RFID 회원증을 키보드 옆 우측 리더기에 터치해주세요.">
+
+		<div class="title-sec" style="letter-spacing:-1.5px;font-size:45px;text-align:center;">
+			회원증을 RFID 리더기에 터치해주세요.
 		</div>
-		<div>
-			<img style="margin:30px 0 0 0" src="/resources/common/img/ccr-nfc.png" alt="카드 리더기">
-		</div>
-		<form:form modelAttribute="member" action="/intro/${homepage.context_path}/login/loginProc.do" onsubmit="return false;">
-			<div id="login-form2" style="z-index:100000;position:absolute;top:-100px;left:150px">
-				<p class="ment"><input style="ime-mode:disabled" id="login_id" type="text" name="member_id" size="30" title="아이디" autocomplete="off"></p>
+		<div style="position:relative;width:100%;height:700px;text-align:center">
+			<div class="contents">
+				<div style="text-align:center;">
+					<img src="/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
+				</div>
+				<form:form modelAttribute="member" action="/intro/${homepage.context_path}/login/loginProc.do" onsubmit="return false;">
+					<div id="login-form2" style="z-index:100000;position:absolute;top:-100px;left:-150000px">
+						<p class="ment"><input style="ime-mode:disabled" id="login_id" type="text" name="member_id" size="30" title="아이디" autocomplete="off"></p>
+					</div>
+				</form:form>
 			</div>
-		</form:form>
+		</div>
 	</div>
 </div>
 <tiles:insertAttribute name="footer" />

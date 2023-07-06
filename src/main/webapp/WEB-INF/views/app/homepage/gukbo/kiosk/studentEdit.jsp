@@ -427,7 +427,7 @@ $(function() {
 							doGetLoad('/${homepage.context_path}/module/teach/index.do', 'menu_idx='+$('input#menu_idx').val(), 'searchCate1='+$('input#category_idx').val());
 						}
 					} else {
-						$('td.applyFile').append(applyFile);
+						$('div.applyFile').append(applyFile);
 						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
 							alert(response.message);
 						} else {
@@ -446,7 +446,7 @@ $(function() {
 					}
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					$('td.applyFile').append(applyFile);
+					$('div.applyFile').append(applyFile);
 					alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
 					doubleSubmit = false;
 				}
@@ -555,623 +555,573 @@ $(function() {
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
 
 </script>
-
-<form:form id="studentForm" modelAttribute="student" method="post" action="/${homepage.context_path}/kiosk/save.do" onsubmit="return false;" enctype="multipart/form-data">
-	<form:hidden path="homepage_id"/>
-	<form:hidden path="large_category_idx"/>
-	<form:hidden path="group_idx"/>
-	<form:hidden path="category_idx"/>
-	<form:hidden path="teach_idx"/>
-	<form:hidden path="student_idx"/>
-	<form:hidden path="editMode"/>
-	<form:hidden path="menu_idx"/>
-	<form:hidden path="apply_status"/>
-	<form:hidden path="member_key" />
-	<form:hidden path="agree_codes"/>
-	<form:hidden path="vaccines_counter" id="vaccines_counter"/>
-	<input type="hidden" id="agent_yn" value="${teach.agent_yn }"/>
-	<input type="hidden" id="vaccines_yn" value="${teach.vaccines_yn }"/>
-	<form:hidden path="searchCate1"/>
-	
-	<c:choose>
-		<c:when test="${teach.detail_address_yn eq 'Y'}">
-		<c:set var="placeholder" value="* 상세주소까지 입력하시기 바랍니다." />
-		</c:when>
-		<c:otherwise>
-		<c:set var="placeholder" value="* 개인정보보호를 위해 시/군/구(또는 읍/면/동)까지 입력하시기 바랍니다." />
-		</c:otherwise>
-	</c:choose>
-	
-	<input type="hidden" name="self_info_yn" value="Y"/>
-	<h3>신청자정보</h3>
-	<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
-		(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
-	</div>
-	<table class="type2 nohead">
-		<colgroup>
-	       <col width="200" />
-	       <col width="*"/>
-       	</colgroup>
-       	<tbody>
-       		<tr style="display: none;">
-	         	<th>회원ID</th>
-	         	<td><form:input path="member_id" value="${memberInfo.member_id}" cssClass="text" readonly="true" title="회원 아이디 입력"/></td>
-        	</tr>
-			<tr>
-	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<c:choose>
-	         		<c:when test="${sessionScope.member.login}">
-	         		${memberInfo.member_name}
-	         		<form:hidden path="applicant_name" value="${memberInfo.member_name}" cssClass="text" />
-	         		</c:when>
-	         		<c:otherwise>
-	         		<form:input path="applicant_name" value="${memberInfo.member_name}" cssClass="text" />
-	         		</c:otherwise>
-	         		</c:choose>
-	         	</td>
-        	</tr>
-        	<c:if test="${teach.sex_yn eq 'Y'}">
-        	<tr>
-	         	<th>성별(<span style="color: red;font-weight: bold;">*</span>)</th>
-	         	<td>
-		         	<c:choose>
-	         		<c:when test="${sessionScope.member.login}">
-	         		<form:hidden path="applicant_sex" value="${memberInfo.sex eq '0' ? 'M' : 'F'}" cssClass="text" />
-	         			<c:if test="${memberInfo.sex eq '0'}">
-	         				남자
-	         			</c:if>
-	         			<c:if test="${memberInfo.sex eq '1'}">
-	         				여자
-	         			</c:if>
-	         		</c:when>
-	         		<c:otherwise>
-	         		<form:radiobutton path="applicant_sex" cssClass="M" value="M" label="남" cssStyle="vertical-align: middle;"/>
-	         		<form:radiobutton path="applicant_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;"/>
-    	     		</c:otherwise>
-	    	     	</c:choose>
-         		</td>
-	        </tr>
-	        </c:if>
-        	<c:if test="${teach.birth_yn eq 'Y'}">
-        	<tr>
-	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<c:choose>
-						<c:when test="${sessionScope.member.login}">
-							<form:hidden path="applicant_birth" value="${memberInfo.birth_day}"/>
-							${sessionScope.member.birth_day}
-						</c:when>
-						<c:otherwise>
-							<form:input path="applicant_birth" value="${memberInfo.birth_day}" maxlength="10" cssClass="text ui-calendar"/>
-							<c:set var="birth" value="${memberInfo.birth_day}"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
-        	</tr>
-        	</c:if>
-	        <c:if test="${teach.address_yn eq 'Y' && teach.agent_yn eq 'N'}">
-	        <tr>
-	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<c:choose>
-						<c:when test="${empty memberInfo.zipcode}">
-							<form:input path="applicant_address"  cssClass="text" style="width:95%;" maxlength="100" placeholder="${placeholder}"/><br/>
-							<form:hidden path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
-			         		<button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address">주소 찾기</button>	
-						</c:when>
-						<c:otherwise>
-	         				${memberInfo.address}
-			         		<form:hidden path="" value="${memberInfo.zipcode}" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
-			         		<form:hidden path="applicant_address" value="${memberInfo.address}" cssClass="text" style="width:95%;" maxlength="60" readonly="true"/><br/>
-						</c:otherwise>
-					</c:choose>
-         		</td>
-        	</tr>
-        	</c:if>
-			<tr>
-				<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<c:choose>
-						<c:when test="${empty member.cell_phone1}">
-							<form:hidden path="applicant_cell_phone" />
-							<input type="text" id="applicant_cell_phone_1" name="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
-							<input type="text" id="applicant_cell_phone_2" name="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
-							<input type="text" id="applicant_cell_phone_3" name="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
-						</c:when>
-						<c:when test="${teach.teach_age_type eq 'child' and teach.agent_yn eq 'N'}">
-							<form:hidden path="applicant_cell_phone" />
-							<input type="text" id="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
-							<input type="text" id="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
-							<input type="text" id="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
-						</c:when>
-						<c:otherwise>
-							${member.cell_phone1}-${member.cell_phone2}-${member.cell_phone3}
-							<form:hidden path="applicant_cell_phone" />
-							<input type="hidden" id="applicant_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
-							<input type="hidden" id="applicant_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
-							<input type="hidden" id="applicant_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
-			</tr>
-			<c:if test="${teach.agent_yn eq 'N'}">
-			<c:if test="${teach.sms_service_yn eq 'Y'}">
-			<tr>
-				<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-					<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-					<div class="ui-state-highlight">
-						* 활용목적: 도서관 강좌 및 각종행사 안내<br>
-						* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
-					</div>
-				</td>
-			</tr>
-			</c:if>
-			<c:if test="${teach.picture_use_yn eq 'Y'}">
-			<tr>
-				<th>사진 촬영 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<form:radiobutton path="picture_use_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-					<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-					<div class="ui-state-highlight">
-						* 활용목적: 도서관 프로그램 홍보<br>
-						* 참고사항<br>
-						 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
-						 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
-  						 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
-						 &nbsp;&nbsp;- 미동의하여도 수강신청에 제한이 없음
-					</div>
-				</td>
-			</tr>
-			</c:if>
-			</c:if>
-			<c:if test="${teach.family_member_yn eq 'Y'}">
-				<tr>
-					<th>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="family_member" cssClass="text" title="가족참여 구성원"/></td>
-				</tr>
-			</c:if>
-			<c:if test="${teach.apply_file_yn eq 'Y'}">
-			<tr>
-				<th>첨부파일</th>
-				<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
-			</tr>
-			</c:if>
-			<c:if test="${teach.agent_yn ne 'Y'}">
-	        <c:if test="${teach.family_count_yn eq 'Y'}">
-				<tr>
-					<th>참여가족 인원 수(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
-				</tr>
-				<tr>
-					<th>참여가족 팀명</th>
-					<td><form:input path="student_family_team" cssClass="text" cssStyle="width: 300px;"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.school_info_yn eq 'Y'}">
-        	<tr>
-	         	<th>학교(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td><form:input path="student_school" cssClass="text" cssStyle="width:250px;"  title="학교 입력"/></td>
-        	</tr>
-        	</c:if>
-        	<c:if test="${teach.school_grade_yn eq 'Y'}">
-        	<tr>
-	         	<th>학년(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:select path="student_hack" cssClass="selectmenu" cssStyle="width:120px;" title="학년 선택">
-	         			<form:option value="0" label="--선택--"></form:option>
-	         			<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
-	         		</form:select>
-	         	</td>
-	         	<c:if test="${homepage.homepage_id eq 'h7' and menuOne.menu_idx eq '30' }">
-	        	<tr>
-		         	<th>반(<span style="color: red; font-weight: bold;">*</span>)</th>
-		         	<td><form:input path="student_ban" cssClass="text" cssStyle="width: 80px;" title="반 입력" numberOnly="true"/></td>
-	        	</tr>
-        	</c:if>
-        	</tr>
-        	
-        	</c:if>
-<%--				<c:if test="${teach.age_info_yn eq 'Y'}">--%>
-<%--					<tr>--%>
-<%--						<th>생년(<span style="color: red; font-wight: bold;">*</span>)</th>--%>
-<%--						<td>--%>
-<%--							<form:select path="student_age" cssClass="selectmenu" id="studentAgeSelect">--%>
-<%--								<form:option value="0" label="--선택--"></form:option>--%>
-<%--							</form:select>--%>
-<%--							생--%>
-<%--						</td>--%>
-<%--					</tr>--%>
-<%--				</c:if>--%>
-			<c:if test="${teach.remark_yn eq 'Y'}">
-				<tr>
-					<th>비고</th>
-					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고 창"/>
-					<div class="ui-state-highlight">
-						${teach.remark_comment}
-					</div>
-					</td>
-				</tr>
-			</c:if>
-			<c:if test="${teach.neis_location_yn eq 'Y'}">
-				<tr>
-					<th>지역(나이스)(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:select path="student_location_code" cssClass="selectmenu" cssStyle="width:120px;" title="지역선택">
-	         			<form:options items="${traingLocationList}" itemValue="code_id" itemLabel="code_name"/>
-	         		</form:select>
-					</td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.neis_cd_yn eq 'Y'}">
-				<tr>
-					<th>개인번호(나이스)(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_neis_cd" cssClass="text" style="width:100%" maxlength="10" title="개인번호입력"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.neis_training_num_yn eq 'Y'}">
-				<tr>
-					<th>연수지명번호(나이스)(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_training_num" cssClass="text" style="width:100%" maxlength="30" title="연수지명번호"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.organization_yn eq 'Y'}">
-				<tr>
-					<th>기관(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_organization" cssClass="text" style="width:100%" maxlength="40" title="기관"/></td>
-				</tr>
-				<tr>
-					<th>기관 연락처</th>
-					<td>
-						<form:hidden path="student_organization_tel" />
-						<input type="text" id="student_organization_tel1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
-						<input type="text" id="student_organization_tel2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
-						<input type="text" id="student_organization_tel3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
-					</td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.rank_yn eq 'Y'}">
-				<tr>
-					<th>직급(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_rank" cssClass="text" style="width:100%" maxlength="20" title="직급"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.course_taken_yn eq 'Y'}">
-				<tr>
-					<th>연수수강여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="student_course_taken_yn" value="Y" label="이수" cssStyle="vertical-align: middle;" title="이수"/>
-	         			<form:radiobutton path="student_course_taken_yn" value="N" label="미이수" cssStyle="vertical-align: middle;" title="미이수"/>
-					</td>
-				</tr>
-			</c:if>
-			
-			</c:if>
-        	<c:if test="${teach.member_yn eq 'Y' && !sessionScope.member.login}">
-				<tr>
-					<th>비밀번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:password path="student_password" cssClass="text" style="width:20%" maxlength="20" title="비밀번호"/><br>
-						<div class="ui-state-highlight">
-							* 비회원으로 수강신청 시 [수강신청]화면-'비회원 신청 확인'에서 수강신청 내역 확인가능
-						</div>
-					</td>
-				</tr>
-			</c:if>
-			<c:if test="${teach.vaccines_yn eq 'Y' and teach.agent_yn eq 'N'}">			
-				<tr>
-					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>						
-						<form:radiobutton path="vaccines_counter_1" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
-	         			<form:radiobutton path="vaccines_counter_1" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
-	         			<form:radiobutton path="vaccines_counter_1" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
-	         			<form:radiobutton path="vaccines_counter_1" value="3" label="3회접종" cssStyle="vertical-align: middle;" title="3회접종"/>
-					</td>
-				</tr>
-			</c:if>
-			<tr style="display: none">
-	         	<th>수강생 - 나이(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td><input id="student_old" name="student_old" class="text" maxlength="3" numberOnly="true" style="width:30px;" title="수강생 나이"/></td>
-        	</tr>
-		</tbody>
-	</table>
-	<c:if test="${sessionScope.member.login}">
-		<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;">
-		* 신청자정보 변경 시 My Library > 회원정보 수정에서 수정후 신청하시기 바랍니다.
+	<div class="culturerequest-wrap">
+		<div class="header">
+			<h1>문화강좌</h1>
+			<p>Cultural Lecture</p>
 		</div>
-	</c:if>
-	<br/>
-	<c:if test="${teach.agent_yn eq 'Y'}">
-	<h3>수강생정보</h3>
-	<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
-		(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
-	</div>
-	<table class="type2 nohead">
-		<colgroup>
-	       <col width="200" />
-	       <col width="*"/>
-       	</colgroup>
-       	<tbody>
-			<tr>
-				<th>동일여부</th>
-	        	<td>
-	        		<form:checkbox path="self_yn" value="Y" label="신청자 정보와 동일" cssStyle="vertical-align: middle;" title="수강생 동일여부 체크"/>
-	      		</td>
-			</tr>
-			<tr>
-	         	<th>성명(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td><form:input path="student_name" cssClass="text" title="수강생 수"/></td>
-        	</tr>
-			<tr>
-				<th>휴대전화번호</th>
-				<td>
-					<form:hidden path="student_cell_phone" cssClass="text"/>
-					<input id="student_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
-					<input id="student_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
-					<input id="student_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
-				</td>
-			</tr>
-        	<c:if test="${teach.birth_yn eq 'Y'}">
-        	<tr>
-	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-					<form:input path="student_birth" cssClass="text ui-calendar" maxlength="10" title="생년월일 입력"/>
-				</td>
-        	</tr>
-        	</c:if>
-        	<c:if test="${teach.sex_yn eq 'Y'}">
-        	<tr>
-	         	<th>성별(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:radiobutton id="student_sex1" path="student_sex" cssClass="M" value="M" label="남" cssStyle="vertical-align: middle;" title="성별 남자"/>
-	         		<form:radiobutton id="student_sex2" path="student_sex" cssClass="F" value="F" label="여" cssStyle="vertical-align: middle;" title="성별 여자"/>
-         		</td>
-	        </tr>
-	        </c:if>
-	        <c:if test="${teach.address_yn eq 'Y'}">
-	        <tr>
-	         	<th>주소(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:input path="student_address" cssClass="text" style="width:95%;" maxlength="60" title="주소입력" placeholder="${placeholder}"/>
-	         		<form:hidden path="student_zipcode" cssClass="text" cssStyle="width: 8%;" title="우편번호"/><button class="btn btn2 findPostCode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address" >주소 찾기</button>
-	         		<form:hidden path="applicant_zipcode" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
-	         		<form:hidden path="applicant_address" cssClass="text" cssStyle="width: 8%;" readonly="true"/>
-	         	</td>
-        	</tr>
-        	</c:if>
-        	<c:if test="${teach.family_yn eq 'N' && teach.sms_service_yn eq 'Y'}">
-        	<tr>
-				<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-					<form:radiobutton path="sms_service_yn" value="Y" label="미동의" cssStyle="vertical-align: middle;"/>
-					<div class="ui-state-highlight">
-						* 활용목적: 도서관 강좌 및 각종행사 안내<br>
-						* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
-					</div>
-				</td>
-			</tr>
-			</c:if>
-			<c:if test="${teach.picture_use_yn eq 'Y'}">
-			<tr>
-				<th>사진 촬영 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<form:radiobutton path="picture_use_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-					<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-					<div class="ui-state-highlight">
-						* 활용목적: 도서관 프로그램 홍보<br>
-						* 참고사항<br>
-						 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
-						 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
-  						 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
-						 &nbsp;&nbsp;- 미동의하여도 수강신청에 제한이 없음
-					</div>
-				</td>
-			</tr>
-			</c:if>
-        	<c:if test="${teach.school_info_yn eq 'Y'}">
-        	<tr>
-	         	<th>학교(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td><form:input path="student_school" cssClass="text" cssStyle="width:250px;" title="학교 입력"/></td>
-        	</tr>
-        	</c:if>
-        	<c:if test="${teach.school_grade_yn eq 'Y'}">
-        	<tr>
-	         	<th>학년(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:select path="student_hack" cssClass="selectmenu" cssStyle="width:120px;" title="학년 선택">
-	         			<form:option value="0" label="--선택--"></form:option>
-	         			<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
-	         		</form:select>
-	         	</td>
-	         	<c:if test="${homepage.homepage_id eq 'h7' and menuOne.menu_idx eq '30' }">
-	        	<tr>
-		         	<th>반(<span style="color: red; font-weight: bold;">*</span>)</th>
-		         	<td><form:input path="student_ban" cssClass="text" cssStyle="width: 80px;" title="반 입력" numberOnly="true"/></td>
-	        	</tr>
-        	</c:if>
-        	</tr>
-        	</c:if>
-			<c:if test="${teach.age_info_yn eq 'Y'}">
-			<tr>
-				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
-				<c:choose>
-					<c:when test="${teach.teach_age_type eq 'infants' }">
-						<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>개월</td>
-					</c:when>
-					<c:otherwise>
-						<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true"/></td>
-					</c:otherwise>
-				</c:choose>
-			</tr>
-			</c:if>
-			<c:if test="${teach.remark_yn eq 'Y'}">
-				<tr>
-					<th>비고</th>
-					<td><form:input path="student_remark" cssClass="text" style="width:100%" title="비고창"/>
-					<div class="ui-state-highlight">
-						<em>${teach.remark_comment}</em>
-					</div>
-					</td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.neis_location_yn eq 'Y'}">
-				<tr>
-					<th>지역(나이스)(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:select path="student_location_code" cssClass="selectmenu" cssStyle="width:120px;" title="지역 선택">
-	         			<form:options items="${traingLocationList}" itemValue="code_id" itemLabel="code_name"/>
-	         		</form:select>
-					</td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.neis_cd_yn eq 'Y'}">
-				<tr>
-					<th>개인번호(나이스)(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_neis_cd" cssClass="text" style="width:100%" maxlength="10" title="개인번호"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.neis_training_num_yn eq 'Y'}">
-				<tr>
-					<th>연수지명번호(나이스)(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_training_num" cssClass="text" style="width:100%" maxlength="60" title="연수지명번호"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.organization_yn eq 'Y'}">
-				<tr>
-					<th>기관(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_organization" cssClass="text" style="width:100%" maxlength="40" title="기관"/></td>
-				</tr>
-				<tr>
-					<th>기관 연락처</th>
-					<td>
-						<form:hidden path="student_organization_tel" />
-						<input type="text" id="student_organization_tel1" style="width:40px;" class="text" maxlength="3" numberonly="true"/> -
-						<input type="text" id="student_organization_tel2" style="width:50px;" class="text" maxlength="4" numberonly="true"/> -
-						<input type="text" id="student_organization_tel3" style="width:50px;" class="text" maxlength="4" numberonly="true"/>
-					</td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.rank_yn eq 'Y'}">
-				<tr>
-					<th>직급(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_rank" cssClass="text" style="width:100%" maxlength="20" title="직급"/></td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.course_taken_yn eq 'Y'}">
-				<tr>
-					<th>연수수강여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="student_course_taken_yn" value="Y" label="이수" cssStyle="vertical-align: middle;" title="연수수강여부 이수"/>
-	         			<form:radiobutton path="student_course_taken_yn" value="N" label="미이수" cssStyle="vertical-align: middle;" title="연수수강여부 미이수"/>
-					</td>
-				</tr>
-			</c:if>
-        	<c:if test="${teach.vaccines_yn eq 'Y'}">
-				<tr>
-					<th>백신여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="vaccines_counter_2" value="0" label="미접종" cssStyle="vertical-align: middle;" title="미접종"/>
-	         			<form:radiobutton path="vaccines_counter_2" value="1" label="1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
-	         			<form:radiobutton path="vaccines_counter_2" value="2" label="2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
-	         			<form:radiobutton path="vaccines_counter_2" value="3" label="3회접종" cssStyle="vertical-align: middle;" title="3회접종"/>
-					</td>
-				</tr>
-			</c:if>
-	        <c:if test="${teach.family_count_yn eq 'Y'}">
-				<tr>
-					<th>참여가족 인원 수</th>
-					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
-				</tr>
-				<tr>
-					<th>참여가족 팀명</th>
-					<td><form:input path="student_family_team" cssClass="text"/></td>
-				</tr>
-			</c:if>
-		</tbody>
-	</table>
-	</c:if>
-	<br/>
-	<c:if test="${teach.family_yn eq 'Y' }">
-	<h3>보호자정보</h3>
-	<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
-		(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
-	</div>
-	<table class="type2 nohead">
-		<colgroup>
-			<col width="200" />
-			<col width="*" />
-		</colgroup>
-		<tbody>
-			<c:if test="${teach.family_yn eq 'Y'}">
-				<tr>
-					<th>동일여부</th>
-		        	<td>
-		        		<form:checkbox path="self_parent_yn" value="Y" label="신청자 정보와 동일" cssStyle="vertical-align: middle;" title="보호자 동일여부 체크"/>
-		      		</td>
-				</tr>
-				<tr>
-					<th>관계(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="family_relation" cssClass="text"/></td>
-				</tr>
-				<tr>
-					<th>이름(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="family_name" cssClass="text" title="보호자 관계"/></td>
-				</tr>
-				<tr>
-					<th>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:hidden path="family_cell_phone" cssClass="text"/>
-						<input id="family_cell_phone_1" style="width:40px;" class="text" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
-						<input id="family_cell_phone_2" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
-						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
-					</td>
-				</tr>
-				<c:if test="${teach.sms_service_yn eq 'Y' }">
-				<tr>
-					<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-						<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-						<div class="ui-state-highlight">
-							* 활용목적: 도서관 강좌 및 각종행사 안내<br>
-							* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
+		<div class="contents">
+
+			<div class="culture-request-box">
+				<div class="culture-request-title">
+					<h2>문화강좌신청</h2>
+				</div>
+				<div class="culture-request-input">
+					<div class="outer">
+						<div class="inner">
+
+							<div class="overflow-y input-contents">
+								<form:form id="studentForm" modelAttribute="student" method="post" action="/${homepage.context_path}/kiosk/save.do" onsubmit="return false;" enctype="multipart/form-data">
+									<form:hidden path="homepage_id"/>
+									<form:hidden path="large_category_idx"/>
+									<form:hidden path="group_idx"/>
+									<form:hidden path="category_idx"/>
+									<form:hidden path="teach_idx"/>
+									<form:hidden path="student_idx"/>
+									<form:hidden path="editMode"/>
+									<form:hidden path="menu_idx"/>
+									<form:hidden path="apply_status"/>
+									<form:hidden path="member_key" />
+									<form:hidden path="agree_codes"/>
+									<form:hidden path="vaccines_counter" id="vaccines_counter"/>
+									<input type="hidden" id="agent_yn" value="${teach.agent_yn }"/>
+									<input type="hidden" id="vaccines_yn" value="${teach.vaccines_yn }"/>
+									<form:hidden path="searchCate1"/>
+									
+									<c:choose>
+										<c:when test="${teach.detail_address_yn eq 'Y'}">
+										<c:set var="placeholder" value="* 상세주소까지 입력하시기 바랍니다." />
+										</c:when>
+										<c:otherwise>
+										<c:set var="placeholder" value="* 개인정보보호를 위해 시/군/구(또는 읍/면/동)까지 입력하시기 바랍니다." />
+										</c:otherwise>
+									</c:choose>
+											
+									<input type="hidden" name="self_info_yn" value="Y"/>
+
+									<h2 class="FS38">※ 신청자정보</h2>
+									<div style="font-size:23px;text-align:right; ${param.ageType eq 'under' ? 'display:none;':''}">
+										(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
+									</div>
+									<div class="PT20" style="display: none;">
+										<h3>회원ID<span style="color: red; font-weight: bold;">*</span></h3>
+										<form:input path="member_id" value="${memberInfo.member_id}" cssClass="inputText1" readonly="true" title="회원 아이디 입력"/>
+									</div>
+									<div class="PT20">
+										<h3>성명<span style="color: red; font-weight: bold;">*</span></h3>
+										<c:choose>
+										<c:when test="${sessionScope.member.login}">
+										${memberInfo.member_name}
+										<form:hidden path="applicant_name" value="${memberInfo.member_name}" cssClass="inputText1" />
+										</c:when>
+										<c:otherwise>
+										<form:input path="applicant_name" value="${memberInfo.member_name}" cssClass="inputText1" />
+										</c:otherwise>
+										</c:choose>
+									</div>
+									<c:if test="${teach.sex_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>성별<span style="color: red; font-weight: bold;">*</span></h3>
+										<c:choose>
+										<c:when test="${sessionScope.member.login}">
+											<form:hidden path="applicant_sex" value="${memberInfo.sex eq '0' ? 'M' : 'F'}" cssClass="inputText1" />
+											<c:if test="${memberInfo.sex eq '0'}">
+												남자
+											</c:if>
+											<c:if test="${memberInfo.sex eq '1'}">
+												여자
+											</c:if>
+										</c:when>
+										<c:otherwise>
+										<input type="radio" name="applicant_sex" id="applicant_sex1" value="M" checked="checked"> <label class="agree-label">남자</label>
+										<input type="radio" name="applicant_sex" id="applicant_sex2" value="F"> <label class="agree-label">여자</label>
+										</c:otherwise>
+										</c:choose>
+									</div>
+									</c:if>
+									<c:if test="${teach.birth_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>생년월일<span style="color: red; font-weight: bold;">*</span></h3>
+										<c:choose>
+											<c:when test="${sessionScope.member.login}">
+												<form:hidden path="applicant_birth" value="${memberInfo.birth_day}"/>
+												${sessionScope.member.birth_day}
+											</c:when>
+											<c:otherwise>
+												<form:input path="applicant_birth" value="${memberInfo.birth_day}" maxlength="10" cssClass="inputText1 ui-calendar"/>
+												<c:set var="birth" value="${memberInfo.birth_day}"/>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									</c:if>
+									<c:if test="${teach.address_yn eq 'Y' && teach.agent_yn eq 'N'}">
+									<div class="PT20">
+										<h3>주소<span style="color: red; font-weight: bold;">*</span></h3>
+										<c:choose>
+											<c:when test="${empty memberInfo.zipcode}">
+												<form:input path="applicant_address"  cssClass="inputText1" style="width:82%;" maxlength="100" placeholder="${placeholder}"/>
+												<form:hidden path="applicant_zipcode" cssClass="inputText1" cssStyle="width:8%;" readonly="true"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#applicant_address" keyValue3="#applicant_address" style="font-size:23px;padding:18px;">주소 찾기</button>	
+											</c:when>
+											<c:otherwise>
+												${memberInfo.address}
+												<form:hidden path="" value="${memberInfo.zipcode}" cssClass="inputText1" cssStyle="width: 8%;" readonly="true"/>
+												<form:hidden path="applicant_address" value="${memberInfo.address}" cssClass="inputText1" style="width:95%;" maxlength="60" readonly="true"/><br/>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									</c:if>
+									<div class="PT20">
+										<h3>휴대전화번호<span style="color: red; font-weight: bold;">*</span></h3>
+										<c:choose>
+											<c:when test="${empty member.cell_phone1}">
+												<form:hidden path="applicant_cell_phone" />
+												<input type="text" id="applicant_cell_phone_1" name="applicant_cell_phone_1" class="inputText2" maxlength="3" numberonly="true"/> -
+												<input type="text" id="applicant_cell_phone_2" name="applicant_cell_phone_2" class="inputText2" maxlength="4" numberonly="true"/> -
+												<input type="text" id="applicant_cell_phone_3" name="applicant_cell_phone_3" class="inputText2" maxlength="4" numberonly="true"/>
+											</c:when>
+											<c:when test="${teach.teach_age_type eq 'child' and teach.agent_yn eq 'N'}">
+												<form:hidden path="applicant_cell_phone" />
+												<input type="text" id="applicant_cell_phone_1" class="inputText2" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
+												<input type="text" id="applicant_cell_phone_2" class="inputText2" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
+												<input type="text" id="applicant_cell_phone_3" class="inputText2" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
+											</c:when>
+											<c:otherwise>
+												${member.cell_phone1}-${member.cell_phone2}-${member.cell_phone3}
+												<form:hidden path="applicant_cell_phone" />
+												<input type="hidden" id="applicant_cell_phone_1" class="inputText2" maxlength="3" numberonly="true" value="${member.cell_phone1}"/>
+												<input type="hidden" id="applicant_cell_phone_2" class="inputText2" maxlength="4" numberonly="true" value="${member.cell_phone2}"/>
+												<input type="hidden" id="applicant_cell_phone_3" class="inputText2" maxlength="4" numberonly="true" value="${member.cell_phone3}"/>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									<c:if test="${teach.agent_yn eq 'N'}">
+									<c:if test="${teach.sms_service_yn eq 'Y'}">
+									<div class="PT20">
+										<h3 class="inline-block">SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<td>
+											<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+											<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
+											<div class="boxes">
+												* 활용목적: 도서관 강좌 및 각종행사 안내<br>
+												* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
+											</div>
+										</td>
+									</div>
+									</c:if>
+									<c:if test="${teach.picture_use_yn eq 'Y'}">
+									<div class="PT20">
+										<h3 class="inline-block">사진 촬영 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<td>
+											<form:radiobutton path="picture_use_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+											<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
+											<div class="boxes">
+												* 활용목적: 도서관 프로그램 홍보<br>
+												* 참고사항<br>
+												 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
+												 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
+												 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
+												 &nbsp;&nbsp;- 미동의하여도 수강신청에 제한이 없음
+											</div>
+										</td>
+									</div>
+									</c:if>
+									</c:if>
+									<c:if test="${teach.family_member_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="family_member" cssClass="inputText1" title="가족참여 구성원"/>
+									</div>
+									</c:if>
+									<c:if test="${teach.apply_file_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>첨부파일</h3>
+										<div class="applyFile"><input type="file" id="apply_file" name="apply_file" class="inputText1" accept=".hwp"></div>
+									</div>
+									</c:if>
+
+									<c:if test="${teach.family_member_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="family_member" cssClass="inputText1" title="가족참여 구성원"/>
+									</div>
+									</c:if>
+									<c:if test="${teach.apply_file_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>첨부파일</h3>
+										<div class="applyFile"><input type="file" id="apply_file" name="apply_file" class="inputText1" accept=".hwp"></div>
+									</div>
+									</c:if>
+
+								<c:if test="${teach.agent_yn ne 'Y'}">
+
+									<c:if test="${teach.family_count_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>참여가족 인원 수(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="student_family_count" cssClass="inputText1" numberOnly="true" title="참여가족인원수"/>
+									</div>
+									<div class="PT20">
+										<h3>참여가족 팀명</h3>
+										<form:input path="student_family_team" cssClass="inputText1"/>
+									</div>
+									</c:if>
+
+									<c:if test="${teach.school_info_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>학교(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="student_school" cssClass="inputText1" title="학교 입력"/>
+									</div>
+									</c:if>
+
+									<c:if test="${teach.school_grade_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>학년(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<div>
+										<form:select path="student_hack" cssClass="inputSelect1" title="학년 선택">
+										<form:option value="0" label="--선택--"></form:option>
+										<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
+										</form:select>
+										</div>
+
+										<c:if test="${homepage.homepage_id eq 'h7' and menuOne.menu_idx eq '30' }">
+										<div>
+											<div>반(<span style="color: red; font-weight: bold;">*</span>)</div>
+											<div><form:input path="student_ban" cssClass="inputText1" title="반 입력" numberOnly="true"/></div>
+										</div>
+										</c:if>
+									</div>
+									</c:if>
+
+									<%--<c:if test="${teach.age_info_yn eq 'Y'}">--%>
+									<%--	<div class="PT20">--%>
+									<%--		<h3>생년(<span style="color: red; font-wight: bold;">*</span>)</h3>--%>
+									<%--			<form:select path="student_age" cssClass="selectmenu" id="studentAgeSelect">--%>
+									<%--				<form:option value="0" label="--선택--"></form:option>--%>
+									<%--			</form:select>--%>
+									<%--		생--%>
+									<%--	</div>--%>
+									<%--</c:if>--%>
+
+									<c:if test="${teach.remark_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>비고</h3>
+											<form:input path="student_remark" cssClass="inputText1" style="width:100%" title="비고 창"/>
+											<c:if test="${teach.remark_comment ne null}">
+											<div class="boxes">
+												${teach.remark_comment}
+											</div>
+											</c:if>
+										</div>
+									</c:if>
+
+									<c:if test="${teach.member_yn eq 'Y' && !sessionScope.member.login}">
+										<div class="PT20">
+											<h3>비밀번호(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:password path="student_password" cssClass="inputText1"  maxlength="20" title="비밀번호"/><br>
+										</div>
+										<div class="PT20">
+											<span class="comment">* 비회원으로 수강신청 시 홈페이지의 수강신청 화면-'비회원 신청 확인'에서 수강신청 내역 확인가능</span>
+										</div>
+									</c:if>
+									<c:if test="${teach.vaccines_yn eq 'Y' and teach.agent_yn eq 'N'}">			
+										<div class="PT20">
+											<h3>백신여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:radiobutton path="vaccines_counter_1" value="0" label=" 미접종" cssStyle="vertical-align: middle;" title="미접종"/>
+											<form:radiobutton path="vaccines_counter_1" value="1" label=" 1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
+											<form:radiobutton path="vaccines_counter_1" value="2" label=" 2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
+											<form:radiobutton path="vaccines_counter_1" value="3" label=" 3회접종" cssStyle="vertical-align: middle;" title="3회접종"/>
+										</							>
+									</c:if>
+									<div class="PT20" style="display: none">
+										<h3>수강생 - 나이(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<input type="text" id="student_old" name="student_old" class="inputText2" maxlength="3" numberOnly="true" title="수강생 나이"/>
+									</div>
+								</c:if>
+
+								<c:if test="${teach.agent_yn eq 'Y'}">
+									<div class="PT30">&nbsp;</div>
+									<h2 class="FS38">※ 수강생정보</h2>
+									<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
+										(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
+									</div>
+
+									<div class="PT20">
+										<h3 class="inline-block;">동일여부</h3>
+										<form:checkbox path="self_yn" value="Y" cssStyle="vertical-align: middle;" title="수강생 동일여부 체크"/> <label class="agree-label" for="self_yn1">신청자 정보와 동일</label>
+									</div>
+									<div class="PT20">
+										<h3>성명(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="student_name" cssClass="inputText2" title="수강생 수"/>
+									</div>
+									<div class="PT20">
+										<h3>휴대전화번호</h3>
+										<form:hidden path="student_cell_phone" cssClass="text"/>
+										<input id="student_cell_phone_1" class="inputText2" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
+										<input id="student_cell_phone_2" class="inputText2" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
+										<input id="student_cell_phone_3" class="inputText2" maxlength="4" numberonly="true" title="연락처 끝자리"/>
+										
+									</div>
+									<c:if test="${teach.birth_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>생년월일(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="student_birth" cssClass="inputText1 ui-calendar" maxlength="10" title="생년월일 입력"/>
+										
+									</div>
+									</c:if>
+									<c:if test="${teach.sex_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>성별(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:radiobutton id="student_sex1" path="student_sex" cssClass="M" value="M" cssStyle="vertical-align: middle;" title="성별 남자"/> <label class="agree-label" for="student_sex1">남자</label>
+										<form:radiobutton id="student_sex2" path="student_sex" cssClass="F" value="F" cssStyle="vertical-align: middle;" title="성별 여자"/> <label class="agree-label" for="student_sex2">여자</label>
+										
+									</div>
+									</c:if>
+									<c:if test="${teach.address_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>주소(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										
+										<form:input path="student_address" cssClass="inputText1" style="width:82%;" maxlength="60" title="주소입력" placeholder="${placeholder}"/>
+										<form:hidden path="student_zipcode" cssClass="inputText1" cssStyle="width: 8%;" title="우편번호"/><button class="btn btn2 findPostCode" keyValue1="#student_zipcode" keyValue2="#student_address" keyValue3="#student_address" style="font-size:23px;padding:18px;">주소찾기</button>
+										<form:hidden path="applicant_zipcode" cssClass="inputText1" cssStyle="width: 8%;" readonly="true"/>
+										<form:hidden path="applicant_address" cssClass="inputText1" cssStyle="width: 8%;" readonly="true"/>
+										
+									</div>
+									</c:if>
+									<c:if test="${teach.family_yn eq 'N' && teach.sms_service_yn eq 'Y'}">
+									<div class="PT20">
+										<h3 class="inline-block">SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+
+										<form:radiobutton path="sms_service_yn" value="Y" cssStyle="vertical-align: middle;"/>  <label class="agree-label" for="sms_service_yn1">동의</label>
+										<form:radiobutton path="sms_service_yn" value="N" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="sms_service_yn2">미동의</label>
+										<div class="boxes">
+											* 활용목적: 도서관 강좌 및 각종행사 안내<br>
+											* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
+										</div>
+										
+									</div>
+									</c:if>
+									<c:if test="${teach.picture_use_yn eq 'Y'}">
+									<div class="PT20">
+										<h3 class="inline-block">사진 촬영 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										
+										<form:radiobutton path="picture_use_yn" value="Y" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="picture_use_yn1">동의</label>
+										<form:radiobutton path="picture_use_yn" value="N" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="picture_use_yn2">미동의</label>
+
+										<div class="boxes">
+											* 활용목적: 도서관 프로그램 홍보<br>
+											* 참고사항<br>
+											 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
+											 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
+											 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
+											 &nbsp;&nbsp;- 미동의하여도 수강신청에 제한이 없음
+										</div>
+										
+									</div>
+									</c:if>
+									<c:if test="${teach.school_info_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>학교(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="student_school" cssClass="inputText1" title="학교 입력"/>
+									</div>
+									</c:if>
+									<c:if test="${teach.school_grade_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>학년(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										
+										<form:select path="student_hack" cssClass="inputSelect1" title="학년 선택">
+										<form:option value="0" label="--선택--"></form:option>
+										<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
+										</form:select>
+										
+										<c:if test="${homepage.homepage_id eq 'h7' and menuOne.menu_idx eq '30' }">
+										<div class="PT20">
+										<h3>반(<span style="color: red; font-weight: bold;">*</span>)</h3>
+										<form:input path="student_ban" cssClass="inputText2"  title="반 입력" numberOnly="true"/>
+										</div>
+									</c:if>
+									</div>
+									</c:if>
+									<c:if test="${teach.age_info_yn eq 'Y'}">
+									<div class="PT20">
+										<h3>나이(<span style="color: red;font-wight: bold;">*</span>)</h3>
+										<c:choose>
+											<c:when test="${teach.teach_age_type eq 'infants' }">
+											<form:input path="student_age" cssClass="inputText2" title="나이 입력" numberOnly="true" maxlength="2"/>개월
+											</c:when>
+											<c:otherwise>
+											<form:input path="student_age" cssClass="inputText2" title="나이 입력" numberOnly="true"/>
+											</c:otherwise>
+										</c:choose>
+									</div>
+									</c:if>
+									<c:if test="${teach.remark_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>비고</h3>
+											<form:input path="student_remark" cssClass="inputText1" title="비고창"/>
+											<c:if test="${teach.remark_comment ne null}">
+											<div class="boxes">
+												<em>${teach.remark_comment}</em>
+											</div>
+											</c:if>
+										</div>
+									</c:if>
+									<c:if test="${teach.neis_location_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>지역(나이스)(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											
+											<form:select path="student_location_code" cssClass="inputSelect1" title="지역 선택">
+											<form:options items="${traingLocationList}" itemValue="code_id" itemLabel="code_name"/>
+											</form:select>
+											
+										</div>
+									</c:if>
+									<c:if test="${teach.neis_cd_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>개인번호(나이스)(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:input path="student_neis_cd" cssClass="inputText1" maxlength="10" title="개인번호"/>
+										</div>
+									</c:if>
+									<c:if test="${teach.neis_training_num_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>연수지명번호(나이스)(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:input path="student_training_num" cssClass="inputText1" style="width:100%" maxlength="60" title="연수지명번호"/>
+										</div>
+									</c:if>
+									<c:if test="${teach.organization_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>기관(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:input path="student_organization" cssClass="inputText1" style="width:100%" maxlength="40" title="기관"/>
+										</div>
+										<div class="PT20">
+											<h3>기관 연락처</h3>
+											
+											<form:hidden path="student_organization_tel" />
+											<input type="text" id="student_organization_tel1" class="inputText2" maxlength="3" numberonly="true"/> -
+											<input type="text" id="student_organization_tel2" class="inputText2" maxlength="4" numberonly="true"/> -
+											<input type="text" id="student_organization_tel3" class="inputText2" maxlength="4" numberonly="true"/>
+											
+										</div>
+									</c:if>
+									<c:if test="${teach.rank_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>직급(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:input path="student_rank" cssClass="inputText1" style="width:100%" maxlength="20" title="직급"/>
+										</div>
+									</c:if>
+									<c:if test="${teach.course_taken_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>연수수강여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											
+											<form:radiobutton path="student_course_taken_yn" value="Y" label="이수" cssStyle="vertical-align: middle;" title="연수수강여부 이수"/>
+											<form:radiobutton path="student_course_taken_yn" value="N" label="미이수" cssStyle="vertical-align: middle;" title="연수수강여부 미이수"/>
+											
+										</div>
+									</c:if>
+									<c:if test="${teach.vaccines_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>백신여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											
+											<form:radiobutton path="vaccines_counter_2" value="0" cssStyle="vertical-align: middle;" title="미접종"/> <label class="agree-label" for="vaccines_counter_21">미접종</label>
+											<form:radiobutton path="vaccines_counter_2" value="1" cssStyle="vertical-align: middle;" title="1회접종"/> <label class="agree-label" for="vaccines_counter_22">1회접종</label>
+											<form:radiobutton path="vaccines_counter_2" value="2" cssStyle="vertical-align: middle;" title="2회접종"/> <label class="agree-label" for="vaccines_counter_23">2회접종</label>
+											<form:radiobutton path="vaccines_counter_2" value="3" cssStyle="vertical-align: middle;" title="3회접종"/> <label class="agree-label" for="vaccines_counter_24">3회접종</label>
+											
+										</div>
+									</c:if>
+									<c:if test="${teach.family_count_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>참여가족 인원 수</h3>
+											<form:input path="student_family_count" cssClass="inputText2" numberOnly="true" title="참여가족인원수"/>
+										</div>
+										<div class="PT20">
+											<h3>참여가족 팀명</h3>
+											<form:input path="student_family_team" cssClass="inputText2"/>
+										</div>
+									</c:if>
+								</c:if>
+
+									<c:if test="${teach.family_yn eq 'Y' }">
+									<div class="PT30">&nbsp;</div>
+									<h2 class="FS38">※ 보호자정보</h2>
+									<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
+										(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
+									</div>
+
+									<c:if test="${teach.family_yn eq 'Y'}">
+										<div class="PT20">
+											<h3>동일여부</h3>
+											
+												<form:checkbox path="self_parent_yn" value="Y" cssStyle="vertical-align: middle;" title="보호자 동일여부 체크"/> <label class="agree-label" for="self_parent_yn1">신청자 정보와 동일</label>
+											
+										</div>
+										<div class="PT20">
+											<h3>관계(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:input path="family_relation" cssClass="inputText1"/>
+										</div>
+										<div class="PT20">
+											<h3>이름(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<form:input path="family_name" cssClass="inputText1" title="보호자 관계"/>
+										</div>
+										<div class="PT20">
+											<h3>휴대전화번호(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											
+												<form:hidden path="family_cell_phone" cssClass="text"/>
+												<input id="family_cell_phone_1" class="inputText2" maxlength="3" numberonly="true" title="연락처 앞자리"/> -
+												<input id="family_cell_phone_2" class="inputText2" maxlength="4" numberonly="true" title="연락처 뒤자리"/> -
+												<input id="family_cell_phone_3" class="inputText2" maxlength="4" numberonly="true" title="연락처 끝자리"/>
+											
+										</div>
+										<c:if test="${teach.sms_service_yn eq 'Y' }">
+										<div class="PT20">
+											<h3 class="inline-block">SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											
+												<form:radiobutton path="sms_service_yn" value="Y" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="sms_service_yn1">동의</label>
+												<form:radiobutton path="sms_service_yn" value="N" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="sms_service_yn2">동의</label>
+												<div class="boxes">
+													* 활용목적: 도서관 강좌 및 각종행사 안내<br>
+													* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
+												</div>
+											
+										</div>
+										</c:if>
+										<div class="PT20">
+											<h3 class="inline-block" style="width:500px;">14세 미만 어린이/아동 보호자(법정대리인)동의여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											
+												<form:radiobutton path="family_confirm_yn" value="Y" cssStyle="vertical-align: middle;" title="보호자 동의 "/> <label class="agree-label" for="family_confirm_yn1">동의</label>
+												<form:radiobutton path="family_confirm_yn" value="N" cssStyle="vertical-align: middle;" title="보호자 미동의"/> <label class="agree-label" for="family_confirm_yn2">미동의</label>
+												<div class="boxes">
+													* 활용목적: 도서관 강좌 및 각종행사 안내<br/>
+													<span style="color:red">* 미동의 시 수강신청 불가</span>
+												</div>
+											
+										</div>
+										<div class="PT20" style="display: none;">
+											<h3>비고</h3>
+												<form:input path="family_desc" cssClass="inputText1" style="width:100%" title="비고창"/>
+										</div>
+									</c:if>
+
+									</c:if>
+
+									<c:if test="${sessionScope.member.login}">
+										<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;">
+										* 신청자정보 변경 시 홈페이지를 방문하여 My Library > 회원정보 수정에서 수정후 신청하시기 바랍니다.
+										</div>
+									</c:if>
+
+								</form:form>
+							</div>
+
+
 						</div>
-					</td>
-				</tr>
-				</c:if>
-				<tr>
-					<th>14세 미만 어린이/아동<br/>보호자(법정대리인)동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td>
-						<form:radiobutton path="family_confirm_yn" value="Y" label="동의" cssStyle="vertical-align: middle;" title="보호자 동의 "/>
-	         			<form:radiobutton path="family_confirm_yn" value="N" label="미동의" cssStyle="vertical-align: middle;" title="보호자 미동의"/>
-	         			<div class="ui-state-highlight">
-	         				* 활용목적: 도서관 강좌 및 각종행사 안내<br/>
-							<span style="color:red">* 미동의 시 수강신청 불가</span>
-	         			</div>
-         			</td>
-				</tr>
-				<tr style="display: none;">
-					<th>비고</th>
-					<td>
-						<form:input path="family_desc" cssClass="text" style="width:100%" title="비고창"/>
-					</td>
-				</tr>
-			</c:if>
-		</tbody>
-	</table>
-	</c:if>
-</form:form>
-<c:if test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic'}">
-	<p style="color:#ff0000;font-weight:bold;text-align:center;font-size:17px;padding-bottom:10px;">
-		※ 무단 결석 시에는 추후 프로그램 신청이 제한될 수 있습니다.
-	</p>
-</c:if>
-<br/>
-<div class="button bbs-btn center">
-	<button id="save-btn" class="btn btn5" title="신청하기">신청하기</button>
-	<button id="back-btn" class="btn"><i class="fa fa-reorder" title="뒤로가기"></i><span>뒤로가기</span></button>
-</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="culturedetail-request-button-box">
+				<a href="#" id="save-btn" class="btn button2 add" style="display:inline-block;width:45%;">신청하기</a>
+				<a id="back-btn" class="btn button2" style="display:inline-block;width:45%;">뒤로가기</a>
+			</div>
+		</div>
+	</div>
 <tiles:insertAttribute name="footer" />

@@ -14,14 +14,16 @@
 #main0 .qmenu ul {font-size:0;background:#fff;}
 #main0 .qmenu ul li {display:inline-block;width:175px;height:170px;;text-align:center;margin-right:1px;}
 #main0 .qmenu ul li:last-child {margin-right:0;}
-#main0 .qmenu ul li.qm1 {background:url("/resources/homepage/gw/img/q1-bg.jpg") no-repeat center center;background-size:cover;}
-#main0 .qmenu ul li.qm2 {background:url("/resources/homepage/gw/img/q2-bg.jpg") no-repeat center center;background-size:cover;}
-#main0 .qmenu ul li.qm3 {background:url("/resources/homepage/gw/img/q3-bg.jpg") no-repeat center center;background-size:cover;}
-#main0 .qmenu ul li.qm4 {background:url("/resources/homepage/gw/img/q4-bg.jpg") no-repeat center center;background-size:cover;}
+#main0 .qmenu ul li.qm1 {background:#f37a0f;}
+#main0 .qmenu ul li.qm2 {background:url("/resources/homepage/gw/img/q5-bg.jpg") no-repeat center center;background-size:cover;}
+#main0 .qmenu ul li.qm3 {background:#2460cd;}
+#main0 .qmenu ul li.qm4 {background:#079be0;}
 #main0 .qmenu li a {width:100%;height:100%;position:relative;zoom:1;display:block;text-align:center;box-sizing:border-box;}
 #main0 .qmenu li a:hover,
 #main0 .qmenu li a:focus {color:#000;}
-#main0 .qmenu li div.qtxt {font-family:'Noto Sans';font-size:18px;width:100%;text-align:center;padding:10px 0;font-weight:500;letter-spacing:-0.5px;color:#fff;}
+#main0 .qmenu li div.qtxt {font-family:'Noto Sans';font-size:18px;width:100%;text-align:center;padding:10px 0;font-weight:600;letter-spacing:-0.5px;color:#fff;}
+#main0 .qmenu li.qm2 div.qtxt {color:#222;}
+#main0 .qmenu li.qm2 div.image img {filter: invert(50%);}
 #main0 .main-visual .search-box {position:relative;text-align:center;margin-top:20px;}
 #main0 .main-visual .search-box h2 {width:320px;margin:0 auto;font-family:'GmarketSansLight';font-weight:bold;font-size:22px;color:#222;box-sizing:border-box;margin-bottom:20px;background:linear-gradient(to top, yellow 50%, transparent 50%)}
 #main0 .main-visual .search-box .main-box {position:relative;width:60%;margin:0 auto;border:1px solid #006940;text-align:left;}
@@ -60,7 +62,7 @@
 #main1 .main1_wrap .main1-right-box .news a.more img {vertical-align:middle;margin-top:-1px;}
 #main1 .main1_wrap .main1-right-box .news .box {text-align:left;}
 #main1 .main1_wrap .main1-right-box .news .box ul {font-size:0;}
-#main1 .main1_wrap .main1-right-box .news .box ul li {position:relative;width:32%;height:290px;display:inline-block;margin-right:1%;border:1px solid #018659;}
+#main1 .main1_wrap .main1-right-box .news .box ul li {position:relative;width:32%;height:290px;display:inline-block;margin-right:1%;border:1px solid #018659;box-sizing:border-box;}
 #main1 .main1_wrap .main1-right-box .news .box ul li:last-child {margin-right:0;}
 #main1 .main1_wrap .main1-right-box .news .box ul li a {display:block;width:100%;height:100%;box-sizing:border-box;padding:38px;background:#fff;text-align:center;transition:all 0.3s;}
 #main1 .main1_wrap .main1-right-box .news .box ul li a div.ctitle {font-family:"Noto Sans";font-size:24px;font-weight:700;color:#000;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;}
@@ -155,7 +157,7 @@ table caption {font-size:0;text-indent:-9999px;width:0;height:0;}
 #main3 .main3-wrap .list ul li:last-child{margin-right:0;}
 #main3 .main3-wrap .list ul li .img-boxs {text-align:center;}
 #main3 .main3-wrap .list ul li .img-boxs img {width:250px;height:346px;}
-#main3 .main3-wrap .list ul li .txt-box h3{padding:20px 0 0;font-size:20px;font-weight:600;color:#222;line-height:1.3;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;}
+#main3 .main3-wrap .list ul li .txt-box h3{padding:20px 0 0;font-size:18px;font-weight:600;color:#222;line-height:1.3;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;font-family: 's-core_dream4_regular';}
 #main3 .main3-wrap .bookListTop .bx-controls {position:absolute;width:100%;height:50px;top:42%;left:20px;z-index:150000000;}
 #main3 .main3-wrap .bookListTop .bx-prev  {position:absolute;width:49px;height:49px;font-size:0;background-image:url("/resources/homepage/gw/img/book-prev-btn-b.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;left:-30px;filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1));}
 #main3 .main3-wrap .bookListTop .bx-next  {position:absolute;width:49px;height:49px;font-size:0;background-image:url("/resources/homepage/gw/img/book-next-btn-b.png");background-repeat: no-repeat; background-position:0 0;background-size:initial;right:-30px;filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1));}

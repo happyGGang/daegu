@@ -31,10 +31,26 @@
 											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. " onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											<c:choose>
+											<c:when test="${i.aladin.cover eq '/resources/images/bg_noImage2.png'}">
+												<c:set var='imgUrl' value='/resources/common/img/gukbo_noimg.png'/>
+												<img src="${imgUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:when>
+											<c:otherwise>
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:otherwise>
+											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											<c:choose>
+											<c:when test="${i.imageUrl eq '/resources/images/bg_noImage2.png'}">
+												<c:set var='imgUrl' value='/resources/common/img/gukbo_noimg.png'/>
+												<img src="${imgUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:when>
+											<c:otherwise>
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 								</div>
@@ -55,13 +71,29 @@
 								<div class="photo-info">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다." onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. " onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											<c:choose>
+											<c:when test="${i.aladin.cover eq '/resources/images/bg_noImage2.png'}">
+												<c:set var='imgUrl' value='/resources/common/img/gukbo_noimg.png'/>
+												<img src="${imgUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:when>
+											<c:otherwise>
+												<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:otherwise>
+											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											<c:choose>
+											<c:when test="${i.imageUrl eq '/resources/images/bg_noImage2.png'}">
+												<c:set var='imgUrl' value='/resources/common/img/gukbo_noimg.png'/>
+												<img src="${imgUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:when>
+											<c:otherwise>
+												<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+											</c:otherwise>
+											</c:choose>
 										</c:otherwise>
 									</c:choose>
 								</div>

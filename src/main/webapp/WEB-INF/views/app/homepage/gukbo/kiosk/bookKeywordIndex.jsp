@@ -20,19 +20,19 @@
 #keyword {height:650px;font-size:125%;}
 
 .select-keyword {position:relative;width:100%;text-align:center;padding-top:40px;}
-.select-keyword span {display:inline-block;font-family:'s-core_dream4_regular';color:#fff;font-size:30px;background:#333;width:250px;height:80px;line-height:80px;content:'#';border-radius:80px;}
+.select-keyword span {display:inline-block;font-family:'s-core_dream4_regular';color:#fff;font-size:30px;background:#272a49;width:250px;height:80px;line-height:80px;content:'#';border-radius:80px;box-shadow: 5px 10px 15px rgba(0,0,0,0.3);}
 .select-keyword span::before{content:'#';}
 
 .keyword-box {box-sizing:border-box;padding:1%}
 .select-keyword {padding:20px 0;height:100px;}
 
 .user_pick_comment {font-size:40px;color:#fff;text-align:center;box-sizing:border-box;padding-bottom:25px;}
-.select-personal_data span {display:inline-block;background:#fff;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:2px 2px 10px #383838;text-align:left;}
+.select-personal_data span {display:inline-block;background:#fff;width:390px;height:100px;line-height:100px;border-radius:50px;    box-shadow: 25px 10px 25px rgba(0,0,0,0.1);text-align:left;}
 .select-personal_data span label {display:inline-block;width:35%;font-size:30px;color:#767676;text-align:center;}
 .select-personal_data span select {display:inline-block;width:60%;font-size:30px;border:0;height:100px;background:transparent;}
 .select-personal_data span select:focus {outline:0;}
 .btn-box {padding-top:30px;}
-.btn-box span {display:inline-block;background:#113b9e;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:2px 2px 10px #383838;}
+.btn-box span {display:inline-block;background:#113b9e;width:390px;height:100px;line-height:100px;border-radius:50px;box-shadow:25px 15px 25px rgba(0,0,0,0.1);}
 .btn-box span a {display:block;color:#fff;font-size:30px;}
 </style>
 
@@ -125,7 +125,7 @@ $(function() {
 
 <div class="smartrecommandbook-wrap">
 	<div class="header">
-		<h1>능동형 도서추천</h1>
+		<h1>능동형도서추천</h1>
 		<p>active type Book recommendation</p>
 	</div>
 	<div class="contents">

@@ -11,7 +11,7 @@
 <div class="info-wrap">
 	<div class="header">
 		<div class="head">
-			<h2>Book recommendation</h2>
+			<h2>Library information</h2>
 			<span class="time"><span id="hours" class="time-txt" style="--clr:#fff"></span>:<span id="minutes" class="time-txt" style="--clr:#fff"></span></span>
 		</div>
 		<div class="end"></div>
