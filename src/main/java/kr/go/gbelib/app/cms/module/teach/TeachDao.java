@@ -100,5 +100,6 @@ public interface TeachDao  {
 	public int getApplyListAllCount(Teach teach);
 
 	public int getCultureViewCount(Teach teach);
-	
+
+	public List<Teach> getKioskTeachListForUser(Teach teach);
 }

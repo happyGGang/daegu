@@ -217,8 +217,8 @@ public class IndexController extends BaseController {
 		
 		Teach t = new Teach();
 		t.setHomepage_id(homepage.getHomepage_id());
-		model.addAttribute("teachList", teachService.getTeachListForUser(t));
-		
+		model.addAttribute("teachList", teachService.getKioskTeachListForUser(t));
+
 		return basePath + filePath;
 	}
 	
