@@ -17,6 +17,18 @@
 	</td>
 </tr>
 </c:if>
+<c:if test="${not empty authMBA and authMBA and boardManage.manage_idx eq 179}">
+<tr>
+	<th>ICT공지사항</th>
+	<td colspan="3">
+		<div class="checkbox-original">
+			<form:checkbox id="kiosk_yn" path="kiosk_yn" value="Y"/>
+			<label for="notice_yn">ICT공지 사용여부</label>
+			<em class="info">체크 시 ICT공지사항에 표시됩니다.</em>
+		</div>
+	</td>
+</tr>
+</c:if>
 <c:if test="${not empty authMBA and authMBA and (boardManage.manage_idx eq 521 or boardManage.manage_idx eq 523)}">
 <tr>
 	<c:if test="${boardManage.manage_idx eq 521}"><c:set var="boardName" value="공지사항"></c:set></c:if>
