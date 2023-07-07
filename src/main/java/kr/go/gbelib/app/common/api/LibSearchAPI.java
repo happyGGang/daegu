@@ -1445,6 +1445,10 @@ public class LibSearchAPI {
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
 		param.put("search_type", "detail");
+		if (StringUtils.equals(librarySearch.getHomepage_id(),"h3") && StringUtils.equals(librarySearch.getSortField(), "NONE")){
+			param.put("orderby_item", "SHELF_DATE");
+			param.put("orderby","DESC");
+		}
 		if (!StringUtils.equals(librarySearch.getSortField(), "NONE")) {
 			param.put("orderby_item", librarySearch.getSortField());
 			param.put("orderby", librarySearch.getSortType());

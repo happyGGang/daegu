@@ -187,7 +187,7 @@ public class CommonSearchController extends BaseController {
 	    		
 	    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
 	    		librarySearch.setNotShelfCode("AB08,AB09,AB10");
-	    		
+
 	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
 	    			result = PrivateLibSearchAPI.getBookDetail(librarySearch);
 	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
@@ -258,7 +258,7 @@ public class CommonSearchController extends BaseController {
 
 	 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
 	    		Map<String, Object> result = new HashMap<String, Object>();
-	    		
+				librarySearch.setHomepage_id(homepage.getHomepage_id());
 	    		// 자료실 제외 코드 : [두류]보존서고(1,2,3)
 	    		librarySearch.setNotShelfCode("AB08,AB09,AB10,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26");
 	    		
