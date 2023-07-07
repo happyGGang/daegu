@@ -67,6 +67,7 @@ import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.teach.student.StudentService;
 import kr.go.gbelib.app.common.api.CultureAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
+import kr.go.gbelib.app.common.api.PrivateLibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
 import kr.go.gbelib.app.module.bookKeyword.BookKeyword;
@@ -2013,6 +2014,61 @@ public class IndexController extends BaseController {
 			Board b = new Board();
 			b.setManage_idx(1079);
 			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서
+
+			LibrarySearch newBook = new LibrarySearch();
+			newBook.setManageCode(homepage.getManage_code());
+
+			//기본값 '1달 전'
+			//검색기간 설정
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			int beforeDays = -30;
+			newBook.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+			newBook.setSearch_end_date(sf.format(new Date()));
+
+			//서지형태 분류코드 설정.
+			//기본값 도서 "0"
+			//0 : 단행, 1: 연속간행물, 2:비도서
+			newBook.setBooktype("0");
+
+			Map<String, Object> result = PrivateLibSearchAPI.getNewBookList(newBook);
+			List<Map<String, Object>> list = null;
+
+			int count = PrivateLibSearchAPI.getSearchCount(result);
+			newBook.setTotalDataCount(count);
+
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+
+				list = PrivateLibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", librarySearchService.getImageUrl(map));
+							}
+
+							LibrarySearch kakaoSearch = new LibrarySearch();
+							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
+
+							Map<String, Object> kakaoData = PrivateLibSearchAPI.getKaKaoList(kakaoSearch);
+							List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
+							if (itemList != null && itemList.size() > 0) {
+								for (Map<String, Object> map3 : itemList) {
+									String contents = String.valueOf(map3.get("contents"));
+
+									map.put("contentsDetail", contents);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			model.addAttribute("newBookList", list);
 		}
 
 

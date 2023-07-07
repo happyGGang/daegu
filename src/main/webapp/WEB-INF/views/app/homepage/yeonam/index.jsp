@@ -198,19 +198,19 @@
 						</div>
 						<div class="swiper-container gallery-top-main">
 							<div class="swiper-wrapper">
-								<c:forEach items="${bookList}" var="i" begin="0" end="9">
+								<c:forEach items="${newBookList}" var="i" begin="0" end="9">
 									<c:choose>
-										<c:when test="${i.preview_img ne null}">
+										<c:when test="${i.image_url ne null}">
 										<c:choose>
-											<c:when test="${fn:contains(i.preview_img, 'http')}">
+											<c:when test="${fn:contains(i.image_url, 'http')}">
 												<div class="swiper-slide">
 												<div class="main-slide1-con">
 												<div class="text">
-													<h4>${i.title}</h4>
+													<h4>${i.TITLE_INFO}</h4>
 												</div>
 												<div class="photo">
-													<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-														<img src="${i.preview_img}" alt="${i.title} 상세보기"/>
+													<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
+														<img src="${i.image_url}" alt="${i.TITLE_INFO} 상세보기"/>
 													</a>
 												</div>
 												</div>
@@ -220,11 +220,11 @@
 												<div class="swiper-slide">
 												<div class="main-slide1-con">
 													<div class="text">
-													<h4>${i.title}</h4>
+													<h4>${i.TITLE_INFO}</h4>
 												</div>
 												<div class="photo">
-													<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+													<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
+														<img src="/data/board/${i.image_url}/${i.board_idx}/${i.preview_img}" alt="${i.TITLE_INFO}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 													</a>
 												</div>
 												</div>
@@ -236,11 +236,11 @@
 											<div class="swiper-slide">
 												<div class="main-slide1-con">
 													<div class="text">
-												<h4>${i.title}</h4>
+												<h4>${i.TITLE_INFO}</h4>
 											</div>
 											<div class="photo">
-												<a href="/${homepage.context_path}/board/view.do?menu_idx=13&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-													<img src="/resources/common/img/noImg2.png" alt="${i.title}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+												<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
+													<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
 												</a>
 											</div>
 											</div>
@@ -248,7 +248,7 @@
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<c:if test="${empty bookList}">
+								<c:if test="${empty newBookList}">
 									<div class="swiper-slide">
 										<div class="main-slide1-con">
 											<div class="text">
@@ -266,21 +266,21 @@
 						</div>
 						<div class="swiper-container gallery-thumbs-main">
 							<div class="swiper-wrapper">
-								<c:forEach items="${bookList}" var="i" begin="0" end="9">
+								<c:forEach items="${newBookList}" var="i" begin="0" end="9">
 									<c:choose>
-										<c:when test="${i.preview_img ne null}">
+										<c:when test="${i.image_url ne null}">
 										<c:choose>
-											<c:when test="${fn:contains(i.preview_img, 'http')}">
+											<c:when test="${fn:contains(i.image_url, 'http')}">
 												<div class="swiper-slide">
 													<span>
-														<img src="${i.preview_img}" alt="${i.title} 상세보기"/>
+														<img src="${i.image_url}" alt="${i.TITLE_INFO} 상세보기"/>
 													</span>
 												</div>
 											</c:when>
 											<c:otherwise>
 												<div class="swiper-slide">
 													<span>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.TITLE_INFO}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 													</span>
 												</div>
 											</c:otherwise>
@@ -289,13 +289,13 @@
 										<c:otherwise>
 											<div class="swiper-slide">
 												<span>
-													<img src="/resources/common/img/noImg2.png" alt="${i.title}" onError="this.src='/resources/common/img/noImg2.png'"/>
+													<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/noImg2.png'"/>
 												</span>
 											</div>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
-								<c:if test="${empty bookList}">
+								<c:if test="${empty newBookList}">
 									<div class="swiper-slide">
 										<span>
 											<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 추천도서가 없습니다." />
