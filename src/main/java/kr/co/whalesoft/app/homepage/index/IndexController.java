@@ -687,6 +687,8 @@ public class IndexController extends BaseController {
 
 		model.addAttribute("bestBookList", list);
 		
+		model.addAttribute("board", boardOne);
+		
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/recommandBoardView";
