@@ -200,51 +200,47 @@
 							<div class="swiper-wrapper">
 								<c:forEach items="${newBookList}" var="i" begin="0" end="9">
 									<c:choose>
-										<c:when test="${i.image_url ne null}">
-										<c:choose>
-											<c:when test="${fn:contains(i.image_url, 'http')}">
-												<div class="swiper-slide">
-												<div class="main-slide1-con">
-												<div class="text">
-													<h4>${i.TITLE_INFO}</h4>
-												</div>
-												<div class="photo">
-													<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
-														<img src="${i.image_url}" alt="${i.TITLE_INFO} 상세보기"/>
-													</a>
-												</div>
-												</div>
-											</div>
-											</c:when>
-											<c:otherwise>
-												<div class="swiper-slide">
-												<div class="main-slide1-con">
-													<div class="text">
-													<h4>${i.TITLE_INFO}</h4>
-												</div>
-												<div class="photo">
-													<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
-														<img src="/data/board/${i.image_url}/${i.board_idx}/${i.preview_img}" alt="${i.TITLE_INFO}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
-													</a>
-												</div>
-												</div>
-											</div>
-											</c:otherwise>
-										</c:choose>
-										</c:when>
-										<c:otherwise>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<div class="swiper-slide">
-												<div class="main-slide1-con">
-													<div class="text">
+											<div class="main-slide1-con">
+											<div class="text">
 												<h4>${i.TITLE_INFO}</h4>
 											</div>
 											<div class="photo">
 												<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
-													<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}" class="book_img" onError="this.src='/resources/common/img/noImg2.png'"/>
+													<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기"/>
 												</a>
 											</div>
 											</div>
+										</div>
+										</c:when>
+										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+											<div class="swiper-slide">
+												<div class="main-slide1-con">
+													<div class="text">
+														<h4>${i.TITLE_INFO}</h4>
+													</div>
+													<div class="photo">
+														<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
+															<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO} 상세보기">
+														</a>
+													</div>
+												</div>
 											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="swiper-slide">
+											<div class="main-slide1-con">
+												<div class="text">
+												<h4>${i.TITLE_INFO}</h4>
+											</div>
+											<div class="photo">
+												<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=11&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(librarySearch.booktype eq '0' ? 'BO' : 'SE')}">
+													<img src="/data/board/${i.image_url}/${i.board_idx}/${i.preview_img}" alt="${i.TITLE_INFO} 상세보기" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
+												</a>
+											</div>
+											</div>
+										</div>
 										</c:otherwise>
 									</c:choose>
 								</c:forEach>
@@ -268,28 +264,24 @@
 							<div class="swiper-wrapper">
 								<c:forEach items="${newBookList}" var="i" begin="0" end="9">
 									<c:choose>
-										<c:when test="${i.image_url ne null}">
-										<c:choose>
-											<c:when test="${fn:contains(i.image_url, 'http')}">
-												<div class="swiper-slide">
-													<span>
-														<img src="${i.image_url}" alt="${i.TITLE_INFO} 상세보기"/>
-													</span>
-												</div>
-											</c:when>
-											<c:otherwise>
-												<div class="swiper-slide">
-													<span>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.TITLE_INFO}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
-													</span>
-												</div>
-											</c:otherwise>
-										</c:choose>
+										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
+											<div class="swiper-slide">
+												<span>
+													<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="${i.TITLE_INFO} 상세보기"/>
+												</span>
+											</div>
+										</c:when>
+										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+											<div class="swiper-slide">
+												<span>
+													<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+												</span>
+											</div>
 										</c:when>
 										<c:otherwise>
 											<div class="swiper-slide">
 												<span>
-													<img src="/resources/common/img/noImg2.png" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/noImg2.png'"/>
+													<img src="${i.imageUrl}" class="book_img" onError="this.src='/resources/homepage/dgportal/img/book_noimg.png'"/>
 												</span>
 											</div>
 										</c:otherwise>
