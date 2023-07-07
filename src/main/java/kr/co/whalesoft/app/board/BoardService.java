@@ -181,6 +181,30 @@ public class BoardService extends BaseService {
 		}
 		return list;
 	}
+	
+	public List<Board> getBoardByMainKiosk(int manage_idx, int count, String boardType) {
+
+		BoardManage boardManage = new BoardManage();
+		boardManage.setManage_idx(manage_idx);
+
+		boardManage = boardManageService.getBoardManageOne(boardManage);
+
+		Board board1 = new Board(manage_idx, count, boardType);
+		if (boardManage != null) {
+			board1.setHomepage_id(boardManage.getHomepage_id());
+			board1.setCategory1Manage(boardManage.getCategory1());
+			board1.setCategory2Manage(boardManage.getCategory2());
+			board1.setCategory3Manage(boardManage.getCategory3());
+		}
+		List<Board> list = dao.getBoardByMainKiosk(board1);
+
+		for (Board board : list) {
+			if (!StringUtils.isEmpty(board.getContent_summary())) {
+				board.setContent_summary(board.getContent_summary().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("<[^>]*..", ""));
+			}
+		}
+		return list;
+	}
 
 	@Cacheable(cacheName="getBoardByMainTopNotice")
 	public List<Board> getBoardByMainTopNotice(int manage_idx, int count, String boardType) {

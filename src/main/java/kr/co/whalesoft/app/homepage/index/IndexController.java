@@ -217,8 +217,8 @@ public class IndexController extends BaseController {
 		
 		Teach t = new Teach();
 		t.setHomepage_id(homepage.getHomepage_id());
-		model.addAttribute("teachList", teachService.getTeachListForUser(t));
-		
+		model.addAttribute("teachList", teachService.getKioskTeachListForUser(t));
+
 		return basePath + filePath;
 	}
 	
@@ -577,7 +577,7 @@ public class IndexController extends BaseController {
 			filePath = homepage.getFolder() + "/kiosk/boardIndex";
 		}
 		
-		setBoardListToModel(homepage.getHomepage_id(), model);
+		setBoardListToKioskModel(homepage.getHomepage_id(), model);
 		
 		return basePath + filePath;
 	}
@@ -686,6 +686,8 @@ public class IndexController extends BaseController {
 		}
 
 		model.addAttribute("bestBookList", list);
+		
+		model.addAttribute("board", boardOne);
 		
 		String filePath = "";
 		if (homepage != null) {
@@ -1123,7 +1125,7 @@ public class IndexController extends BaseController {
 			filePath = homepage.getFolder() + "/mediawall/boardIndex";
 		}
 		
-		setBoardListToModel(homepage.getHomepage_id(), model);
+		setBoardListToKioskModel(homepage.getHomepage_id(), model);
 		
 		return basePath + filePath;
 	}
@@ -2211,7 +2213,7 @@ public class IndexController extends BaseController {
 			filePath = homepage.getFolder() + "/kiosk/bookIndex";
 		}
 
-		setBoardListToModel(homepage.getHomepage_id(), model);
+		setBoardListToKioskModel(homepage.getHomepage_id(), model);
 
 		//junggu
 		if (homepage.getHomepage_id().equals("h53")) {
@@ -2392,6 +2394,25 @@ public class IndexController extends BaseController {
 					int count = Integer.parseInt(boardInfo[2]);
 					BoardManage boardManage = boardManageService.getBoardManageOne(new BoardManage(homepage_id, manage_idx));
 					model.addAttribute(key, boardService.getBoardByMain(manage_idx, count, boardManage.getBoard_type()));
+					model.addAttribute(key+"TopNotice", boardService.getBoardByMainTopNotice(manage_idx, homepage_id.equals("h8") ? 3 : 2, boardManage.getBoard_type()));
+				}
+			}
+		}catch (MissingResourceException ex) {
+			log.debug("MissingResourceException : "+ex);
+		}
+	}
+	
+	private void setBoardListToKioskModel(String homepage_id, Model model) {
+		try{
+			String[] boardInfoList = ResourceBundle.getBundle("board").getString(homepage_id).split(",");
+			for (String oneStr : boardInfoList) {
+				if (!StringUtils.isEmpty(oneStr)) {
+					String[] boardInfo = oneStr.split("/");
+					String key = boardInfo[0];
+					int manage_idx = Integer.parseInt(boardInfo[1]);
+					int count = Integer.parseInt(boardInfo[2]);
+					BoardManage boardManage = boardManageService.getBoardManageOne(new BoardManage(homepage_id, manage_idx));
+					model.addAttribute(key, boardService.getBoardByMainKiosk(manage_idx, count, boardManage.getBoard_type()));
 					model.addAttribute(key+"TopNotice", boardService.getBoardByMainTopNotice(manage_idx, homepage_id.equals("h8") ? 3 : 2, boardManage.getBoard_type()));
 				}
 			}

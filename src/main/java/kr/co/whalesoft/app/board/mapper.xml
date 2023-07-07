@@ -837,6 +837,96 @@
 		</choose>
 		${pagingBottom}
 	</select>
+	
+	<select id="getBoardByMainKiosk" resultType="kr.co.whalesoft.app.board.Board">
+		${pagingTop}
+		SELECT
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(select new_date_count from CMS_BOARD_MANAGE where manage_idx = #{manage_idx}) AS new_date_count,
+			manage_idx, board_idx, group_idx, view_count, notice_yn,
+			title, add_id, add_date, preview_img, REGEXP_REPLACE(content_summary,'&lt;[^>]*>','') as content_summary,
+			imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+			imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+			imsi_v_11, imsi_v_12, imsi_v_13, imsi_v_14, imsi_v_15,
+			imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
+			category1, category2, category3, category4, category5, request_state,
+			getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+			getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+			getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+			getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+			getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name,
+			(
+			SELECT
+				MAX(H.menu_idx)
+			FROM
+				CMS_MENU H, CMS_BOARD_MANAGE M
+			WHERE
+				H.homepage_id = M.homepage_id
+				AND	M.manage_idx = A.manage_idx
+				AND	H.manage_idx = M.manage_idx
+				AND H.menu_type = 'BOARD'
+			) AS imsi_n_2
+		FROM
+			CMS_BOARD A
+		WHERE
+			<choose>
+				<when test="manage_idx == 697">
+					manage_idx in (696, 697)
+				</when>
+				<when test="manage_idx == 707">
+					manage_idx in (706, 707)
+				</when>
+				<when test="manage_idx == 659">
+					manage_idx in (610, 658, 659)
+				</when>
+				<when test="manage_idx == 669">
+					manage_idx in (667, 668, 669, 670, 671, 672)
+				</when>
+				<when test="manage_idx == 726">
+					manage_idx in (724, 725, 726, 727)
+				</when>
+				<when test="manage_idx == 683">
+					category1 in ('179', '183', '180', '182')
+				AND	imsi_v_1 = TO_CHAR(SYSDATE, 'yyyy-MM')
+				</when>
+				<when test="manage_idx == 736">
+					manage_idx in (734, 735, 736)
+				</when>
+				<otherwise>
+					manage_idx = #{manage_idx}
+				</otherwise>
+			</choose>
+
+		AND	delete_yn = 'N'
+		AND	kiosk_yn = 'Y'
+		<if test='dept_cd != null and dept_cd == "CULTURE"'>
+			AND	imsi_v_2 IS NOT NULL
+			<if test="imsi_v_2 != null and imsi_v_2 != ''">
+				AND imsi_v_2 LIKE '%'||#{imsi_v_2}||'%'
+			</if>
+		</if>
+		<if test='dept_cd != null and dept_cd == "MOVIE"'>
+		 AND	imsi_v_1 ||'-'|| imsi_v_2 >= TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		</if>
+		<if test='dept_cd != null and dept_cd == "PORTAL"'>
+		AND	imsi_v_1 = TO_CHAR(SYSDATE, 'YYYY-MM')
+		<if test="category2 != null and category2 != ''">
+		AND	category2 = #{category2}
+		</if>
+		</if>
+		<if test="manage_idx == 341">
+		AND (notice_yn = 'N' or notice_yn IS NULL)
+		</if>
+		<choose>
+			<when test='dept_cd != null and dept_cd == "MOVIE"'>
+				ORDER BY imsi_v_1, imsi_v_2
+			</when>
+			<otherwise>
+				ORDER BY board_idx DESC
+			</otherwise>
+		</choose>
+		${pagingBottom}
+	</select>
 
 	<select id="getBoardByMainTopNotice" resultType="kr.co.whalesoft.app.board.Board">
 		${pagingTop}
@@ -1329,6 +1419,7 @@
 			notice_yn, notice_start_date, notice_end_date,
 			title, content, content_summary, delete_yn,
 			user_name, add_id, user_ip, add_date, secret_yn,
+			kiosk_yn,
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">user_password,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">user_homepage,</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">user_phone,</if>
@@ -1376,6 +1467,7 @@
 			#{notice_yn}, #{notice_start_date}, #{notice_end_date},
 			#{title}, #{content}, #{content_summary}, 'N',
 			#{user_name}, #{add_id}, #{user_ip}, SYSDATE, #{secret_yn},
+			#{kiosk_yn},
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_password)">#{user_password},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_homepage)">#{user_homepage},</if>
 			<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_phone)">#{user_phone},</if>
@@ -1431,6 +1523,7 @@
 		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(user_email)">,user_email = #{user_email}</if>
 		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(secret_yn)">,secret_yn = #{secret_yn}</if>
 		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">,notice_yn = #{notice_yn}</if>
+		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_yn)">,kiosk_yn = #{kiosk_yn}</if>
 		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_start_date)">,notice_start_date = #{notice_start_date}</if>
 		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(notice_end_date)">,notice_end_date = #{notice_end_date}</if>
 		<if test="@kr.co.whalesoft.framework.mybatis.MyBatisUtils@isNotEmpty(title)">,title = #{title}</if>

@@ -24,6 +24,8 @@ public interface BoardDao {
 	public List<Board> getCustomQnaBoard(Board board);
 
 	public List<Board> getBoardByMain(Board board);
+	
+	public List<Board> getBoardByMainKiosk(Board board);
 
 	public List<Board> getBoardByMainTopNotice(Board board);
 

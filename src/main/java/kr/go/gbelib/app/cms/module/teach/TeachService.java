@@ -694,4 +694,36 @@ public class TeachService extends BaseService {
 	public int getCultureViewCount(Teach teach) {
 		return dao.getCultureViewCount(teach);
 	}
+
+	public List<Teach> getKioskTeachListForUser(Teach teach) {
+		teach.setSearchCate1(numbersOnly(teach.getSearchCate1()));
+		teach.setSearchCate2(numbersOnly(teach.getSearchCate2()));
+		teach.setSearchCate3(numbersOnly(teach.getSearchCate3()));
+		teach.setGroup_idx_list(numbersOnly(teach.getGroup_idx_list()));
+
+		List<Teach> teachListForUser = dao.getKioskTeachListForUser(teach);
+
+		if (teachListForUser != null && teachListForUser.size() > 0) {
+			final List<Integer> teachIdxs = teachListForUser.stream()
+															.map(Teach::getTeach_idx)
+															.collect(Collectors.toList());
+
+			final Map<String, Object> teachIdxMap = Maps.newHashMap();
+			teachIdxMap.put("teachIdxs", teachIdxs);
+			final List<Teach> holidaysForUser = dao.getHolidaysForUser(teachIdxMap);
+
+			for (Teach result : teachListForUser) {
+				result.setTeach_day_arr(result.getTeach_day().split(","));
+
+				final List<String> holidays = holidaysForUser.stream()
+															 .filter(holiday -> holiday.getTeach_idx() == result.getTeach_idx())
+															 .map(Teach::getHoliday)
+															 .collect(Collectors.toList());
+
+				result.setHolidays(holidays);
+
+			}
+		}
+		return teachListForUser;
+	}
 }
