@@ -416,7 +416,7 @@ function isFromFridayToSunday() {
 			<c:when test="${homepage.context_path eq 'donggu'}">
 				<c:choose>
 					<c:when test="${param.menu_idx eq '11'}">
-						<input id="subjectCode" name="subjectCode" type="hidden" value=""/>
+						<form:hidden path="subjectCode"/>
 						<input id="booktype" name="booktype" type="hidden" value="BOOKANDNONBOOK"/>
 						<a id="search-btn" class="btnNew4" style="display:none;">검색하기</a>
 
