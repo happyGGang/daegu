@@ -4,7 +4,9 @@
 	<!-- 견학신청 컬럼  -->
 	<sql id="field">
 		homepage_id, mediafactory_idx, apply_yn, start_date, use_time,
-		end_date, max_apply, add_date, add_id, date_type, apply_start_date, apply_start_time, apply_end_date, apply_end_time 
+		end_date, max_apply, add_date, add_id, date_type, apply_start_date, apply_start_time, apply_end_date, apply_end_time,
+		max_apply_person
+
 	</sql>
 	
 	<!-- 견학신청 list -->
@@ -12,6 +14,7 @@
 		SELECT
 			A.homepage_id, A.mediafactory_idx, A.start_date, A.use_time, A.start_time, A.end_time,
 			A.end_date, A.max_apply, A.add_date, A.add_id, A.modify_date, A.modify_id, A.date_type, A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time,
+			A.max_apply_person,
 			(SELECT code_name FROM CMS_CODE B WHERE B.homepage_id = A.homepage_id AND B.code_id = A.date_type AND B.group_id = 'M0001') AS code_name,
 			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.homepage_id = B.homepage_id AND A.homepage_id = #{homepage_id} AND B.date_type = '1' AND B.delete_yn = 'N' AND A.start_date <![CDATA[<=]]> B.end_date AND A.end_date <![CDATA[>=]]> B.start_date) AS closed_day,
 			(SELECT COUNT(*) FROM CMS_MEDIAFACTORY_APPLY C WHERE A.homepage_id = C.homepage_id AND A.homepage_id = #{homepage_id} AND A.mediafactory_idx = C.mediafactory_idx) AS apply_count,
@@ -55,6 +58,7 @@
 			homepage_id, mediafactory_idx, apply_yn, start_date, end_date, 
 			max_apply, add_date, add_id, date_type, apply_start_date, 
 			apply_start_time, apply_end_date, apply_end_time, start_time, end_time,
+			max_apply_person,
 			(SELECT COUNT(*) FROM CMS_MEDIAFACTORY_APPLY WHERE homepage_id = A.homepage_id AND mediafactory_idx = A.mediafactory_idx) AS apply_count	
 		FROM 
 			CMS_MEDIAFACTORY A
@@ -95,7 +99,7 @@
 		(
 			#{homepage_id}, (SELECT NVL(MAX(mediafactory_idx),0)+1 FROM CMS_MEDIAFACTORY), #{apply_yn}, #{start_date}, #{use_time},
 			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, 
-			#{apply_end_date}, #{apply_end_time}
+			#{apply_end_date}, #{apply_end_time},#{max_apply_person}
 		)
 	</insert>
 	<!--견학신청 등록(이용시간 추가 쿼리)  -->
@@ -105,13 +109,13 @@
 		(
 			homepage_id, mediafactory_idx, apply_yn, start_date, end_date, 
 			max_apply, add_date, add_id, date_type, apply_start_date, 
-			apply_start_time, apply_end_date, apply_end_time, start_time, end_time
+			apply_start_time, apply_end_date, apply_end_time, start_time, end_time,max_apply_person
 		)
 		VALUES
 		(
 			#{homepage_id}, (SELECT NVL(MAX(mediafactory_idx),0)+1 FROM CMS_MEDIAFACTORY), #{apply_yn}, #{start_date},
 			#{end_date}, #{max_apply}, SYSDATE, #{add_id}, #{date_type}, #{apply_start_date}, #{apply_start_time}, 
-			#{apply_end_date}, #{apply_end_time}, #{start_time}, #{end_time}
+			#{apply_end_date}, #{apply_end_time}, #{start_time}, #{end_time},#{max_apply_person}
 		)
 	</insert>
 	
@@ -132,7 +136,8 @@
 			apply_start_date = #{apply_start_date},
 			apply_start_time = #{apply_start_time},
 			apply_end_date = #{apply_end_date},
-			apply_end_time = #{apply_end_time}								
+			apply_end_time = #{apply_end_time},
+			max_apply_person = #{max_apply_person}
 		WHERE
 			mediafactory_idx = #{mediaFactory_idx}
 		AND	homepage_id = #{homepage_id}

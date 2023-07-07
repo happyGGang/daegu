@@ -102,6 +102,7 @@ public class MediaFactoryController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "start_date", "대관일자를 선택하세요.");
 			if(mediaFactory.getHomepage_id().equals("h50")) {
 				ValidationUtils.rejectIfEmpty(result, "use_time", "대관시간을 선택하세요.");
+				ValidationUtils.rejectIfEmpty(result, "max_apply_person", "최대방문 인원수를 입력하세요.");
 			}else {
 				ValidationUtils.rejectIfEmpty(result, "start_time", "대관가능시작시간을 선택하세요.");
 				ValidationUtils.rejectIfEmpty(result, "end_time", "대관가능종료시간을 선택하세요.");

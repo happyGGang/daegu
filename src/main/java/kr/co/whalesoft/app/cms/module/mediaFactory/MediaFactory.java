@@ -16,6 +16,7 @@ public class MediaFactory extends PagingUtils {
 	private String end_date; //종료일자
 	private String end_time;	// 사용종료시간
 	private int max_apply; //최대신청수
+	private int max_apply_person; //최대방문인원
 	private Date add_date; //등록일시
 	private String add_id; //등록id
 	private Date modify_date; //수정일시
@@ -45,6 +46,8 @@ public class MediaFactory extends PagingUtils {
 	private String remark;
 
 	private String pageType;
+	
+	
 
 	public MediaFactory() {
 	}
@@ -340,7 +343,13 @@ public class MediaFactory extends PagingUtils {
 
 	public void setUse_time(String use_time) {
 		this.use_time = use_time;
-	}	
-	
-	
+	}
+
+	public int getMax_apply_person() {
+		return max_apply_person;
+	}
+
+	public void setMax_apply_person(int max_apply_person) {
+		this.max_apply_person = max_apply_person;
+	}
 }
