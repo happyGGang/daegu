@@ -31,6 +31,7 @@ public class Board extends BoardExt {
 	private String user_name; // 등록자명
 	private String user_ip; // 등록자IP
 	private String notice_yn = "N"; // 공지사항여부
+	private String kiosk_yn = "N"; // 키오스크공지사항여부
 	private String delete_yn = "N"; // 삭제여부
 	private String secret_yn = "N"; // 비밀글여부
 	private String request_code = "B0000"; // 요청 처리 기본 코드 'B0000'공통 코드 사용
@@ -1158,4 +1159,13 @@ public class Board extends BoardExt {
 	public void setAdd_date_sample(String add_date_sample) {
 		this.add_date_sample = add_date_sample;
 	}
+
+	public String getKiosk_yn() {
+		return kiosk_yn;
+	}
+
+	public void setKiosk_yn(String kiosk_yn) {
+		this.kiosk_yn = kiosk_yn;
+	}
+	
 }
