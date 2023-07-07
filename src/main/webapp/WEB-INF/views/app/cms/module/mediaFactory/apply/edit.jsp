@@ -201,7 +201,7 @@ $(function() {
 		<tr>
 			<th>신청자 성명(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
-				<form:input path="applicant_name" class="text" cssStyle="width:100px" readonly="true"/>
+				<form:input path="applicant_name" class="text" cssStyle="width:100px"/>
 			</td>
 		</tr>
 		<tr>
