@@ -383,8 +383,8 @@ $(function() {
 						</c:when>
 
 
-						<c:when test="${context_path eq 'jungang'}">
-						중앙도서관<input type="hidden" id="" name="manage_code" value="AD" />
+						<c:when test="${context_path eq 'gukbo'}">
+						국채보상운동기념도서관<input type="hidden" id="" name="manage_code" value="AD" />
 						</c:when>
 						<c:when test="${context_path eq 'dongdu'}">
 						동부도서관<input type="hidden" id="" name="manage_code" value="AH" />
