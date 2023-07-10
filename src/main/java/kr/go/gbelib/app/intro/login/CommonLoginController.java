@@ -579,6 +579,29 @@ public class CommonLoginController extends BaseController {
 		service.logout(request);
 		return "redirect:" + redirectURL + "/index.do";
 	}
+	
+	/**
+	 * 로그아웃 처리
+	 *
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping (value = "/kioskLogout.*", method = RequestMethod.GET)
+	public String kioskLogout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		String redirectURL = request.isSecure() ? "https://" : "http://";
+		redirectURL +=  request.getServerName() ;
+		redirectURL +=  request.getServerPort() == 80 ? "" : ":" + request.getServerPort();
+		
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+		}
+		
+		redirectURL +=   queryString;
+
+		service.logout(request);
+		return "redirect:" + redirectURL;
+	}
 
 	/**
 	 * 모바일 회원증

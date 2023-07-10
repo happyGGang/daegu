@@ -146,7 +146,7 @@
 				<li>
 					<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-					<a href="#">
+					<a href="/${homepage.context_path}/intro/login/kioskLogout.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do">
 						<div class="outer">
 							<div class="inner">
 								<div class="">
@@ -158,7 +158,7 @@
 					</a>
 					</c:when>
 					<c:otherwise>
-					<a href="/${homepage.context_path}/kiosk/login.do?before_url=/${homepage.context_path}/kiosk/librarianPickBookIndex.do">
+					<a href="/${homepage.context_path}/kiosk/login.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do">
 						<div class="outer">
 							<div class="inner">
 								<div class="">
