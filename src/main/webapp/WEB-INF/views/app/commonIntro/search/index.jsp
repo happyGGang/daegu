@@ -1479,6 +1479,11 @@ function isFromFridayToSunday() {
 											<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 											<p><font style="color:#5e5e5e">영어독서 레벨</font> : <span style="">${i.marc}</span></p>
 											</c:if>
+											<c:if test="${i.SHELF_LOC_CODE eq 'BC03' || i.SHELF_LOC_CODE eq 'BC05' || i.SHELF_LOC_CODE eq 'BC06' || i.SHELF_LOC_CODE eq 'BC07'}">
+												<div class="" style="font-size:14px;font-weight:bold;color:red;">
+													※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;&nbsp;&nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
+												</div>
+											</c:if>
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
