@@ -2392,10 +2392,10 @@
 			AND TO_DATE(imsi_v_1||'-'||imsi_v_2, 'YYYY-MM-DD') >= TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')
 		</if>
 		<if test="homepage_id == 'h7' and manage_idx == 145">
-			AND SUBSTR(imsi_v_1, 0, 7) = TO_CHAR(SYSDATE, 'yyyy.MM')
+			AND imsi_v_1 LIKE '%'||TO_CHAR(SYSDATE, 'yyyy.MM')||'%'
 		</if>
 		<if test="homepage_id == 'h7' and manage_idx == 157">
-			AND imsi_v_1 = TO_CHAR(SYSDATE, 'yyyy-MM')
+			AND imsi_v_1 LIKE '%'||TO_CHAR(SYSDATE, 'yyyy.MM')||'%'
 		</if>
 		ORDER BY
 		<choose>
