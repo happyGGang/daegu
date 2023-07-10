@@ -182,7 +182,7 @@ $(function() {
 				</div>			
 			</td>
 		</tr>
-		<c:if test="${mediaFactory.homepage_id eq 'h50'}">
+		<%--<c:if test="${mediaFactory.homepage_id eq 'h50'}">
 		<tr>
 			<th>최대방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
@@ -190,7 +190,7 @@ $(function() {
 				<em>* 신청인원에 제한이 없다면 0을 입력해주세요.</em>
 			</td>
 		</tr>
-		</c:if>
+		</c:if>--%>
 		<tr>
 			<th>최대신청팀수(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>

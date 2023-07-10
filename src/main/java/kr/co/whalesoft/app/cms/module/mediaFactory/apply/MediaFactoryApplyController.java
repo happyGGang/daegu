@@ -195,11 +195,12 @@ public class MediaFactoryApplyController extends BaseController {
 					}
 				}
 
+				//범어 도서관
 				if (mediaFactory.getHomepage_id().equals("h50")){
-					if ( mediaFactory.getMax_apply_person() > 0 ) {
-						if (mediaFactory.getMax_apply_person() < apply.getPersonnel() ) {
+					if (apply.getPersonnel() > 0 ) {
+						if (apply.getPersonnel() > 4) {
 							res.setValid(false);
-							res.setMessage("신청가능 방문인원이 가득찼습니다.");
+							res.setMessage("신청가능 방문인원을 4명 초과 하여 신청할 수 없습니다.");
 							return res;
 						}
 					}
