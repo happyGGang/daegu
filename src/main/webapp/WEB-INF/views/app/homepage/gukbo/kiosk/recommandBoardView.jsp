@@ -10,15 +10,14 @@
 .swiper {width:100%;height:100%;}
 .swiper-container {width:880px;height:auto;margin-left:auto;margin-right:auto;padding-bottom:50px;}
 .swiper-slide {display:inline-block;text-align:left;}
-.swiper-slide {position:relative;display:inline-block;text-align:center;font-size:18px;width:33.33333334%;margin:0 auto 40px;vertical-align:top;}
+.swiper-slide {position:relative;display:inline-block;text-align:center;font-size:18px;width:120px;margin:0 auto 40px;vertical-align:top;}
 .swiper-slide div {vertical-align:top;}
 .swiper-slide div.thumb-image a img {width:120px;height:170px;box-shadow:5px 5px 15px rgba(0,0,0,0.2);}
-.swiper-slide div.thumb-image {display:block;}
+.swiper-slide div.thumb-image {display:block;width:120px;}
 .swiper-slide div.thumb-image a {display:block;}
-.swiper-slide div.cont {position:relative;width:120px;margin:0 auto;}
+.swiper-slide div.cont {position:relative;width:120px;margin:0;text-align:left;}
 .swiper-slide div.cont p.tit {font-size:18px;color:#000;letter-spacing: -0.05em;line-height:125%;text-align:left;margin-top: 10px;}
-.swiper-slide img {display:block;width:120px;height:170px;object-fit:cover;border:3px solid transparent;box-shadow: 10px 10px 20px rgba(0,0,0,0.2);}
-.swiper-slide-thumb-active img {border:3px solid #000;}
+.swiper-slide img {display:block;width:120px;height:170px;object-fit:cover;box-shadow: 10px 10px 20px rgba(0,0,0,0.2);}
 .swiper-container-horizontal > .swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {bottom:0;}
 .swiper-pagination-bullet-active {opacity:1;background:#fff;}
 </style>
@@ -39,16 +38,37 @@ $(function() {
 	<div class="contents">
 		<div class="img-sec">
 			<c:choose>
-				<c:when test="${(empty detail.aladin or empty detail.aladin.cover) and empty detail.imageUrl}">
-					<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="noImage"/>
-				</c:when>
-				<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-					<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+				<c:when test="${board.preview_img ne null}">
+					<c:choose>
+						<c:when test="${fn:contains(i.preview_img, 'http')}">
+							<c:choose>
+								<c:when test="${fn:contains(i.preview_img, 'noimg')}">
+									<img src="/resources/common/img/gukbo_noimg.png" alt="${detail.TITLE_INFO}" title="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+								</c:when>
+								<c:otherwise>
+									<img src="${i.preview_img}" alt="${detail.TITLE_INFO}" title="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<img src="/data/board/${board.manage_idx}/${board.board_idx}/${board.preview_img}" alt="${detail.TITLE_INFO}" title="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 				<c:otherwise>
-					<img src="${detail.imageUrl}" alt="${detail.TITLE_INFO}">
+					<c:choose>
+						<c:when test="${(empty detail.aladin or empty detail.aladin.cover) and empty detail.imageUrl}">
+							<img src="/resources/homepage/dgportal/img/book_noimg.png" alt="noImage"/>
+						</c:when>
+						<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
+							<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}">
+						</c:when>
+						<c:otherwise>
+							<img src="${detail.imageUrl}" alt="${detail.TITLE_INFO}">
+						</c:otherwise>
+					</c:choose>
 				</c:otherwise>
-			</c:choose>
+			</c:choose>		
 		</div>
 		<div class="title-sec">
 			${detail.TITLE_INFO}
@@ -82,23 +102,23 @@ $(function() {
 					<c:forEach items="${bestBookList}" var="i" varStatus="status">
 						<div class="swiper-slide">
 							<div class="thumb-image">
-								<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?isbn=${i.ISBN}&regNo=${i.REG_NO}&author=${i.AUTHOR}">
+								<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?book_name=${detail.TITLE_INFO}&isbn=${i.ISBN}&regNo=${i.REG_NO}&author=${i.AUTHOR}&bookimgUrl=${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다.  상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
 										</c:when>
 										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-											<img src="${i.aladin.cover}" alt="${i.TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+											<img src="${i.aladin.cover}" alt="${detail.TITLE_INFO} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${i.imageUrl}" alt="${i.TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
+											<img src="${i.imageUrl}" alt="${detail.TITLE_INFO} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>
 										</c:otherwise>
 									</c:choose>
 								</a>
 							</div>
 							<div class="cont">
-								<p class="tit">
-									${fn:substring(i.TITLE, 0, 25)}<c:if test="${fn:length(i.TITLE) > 25}">...</c:if>
+								<p class="tit" style="font-size:16px;">
+									${fn:substring(i.TITLE, 0, 13)}<c:if test="${fn:length(i.TITLE) > 13}">...</c:if>
 								</p>
 							</div>
 						</div>

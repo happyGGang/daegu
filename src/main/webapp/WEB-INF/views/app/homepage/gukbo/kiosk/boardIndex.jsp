@@ -18,7 +18,7 @@
 .mySwiper .swiper-slide {width:10%;height:100%;}
 .mySwiper .swiper-slide-thumb-active {box-sizing:border-box;}
 
-.mySwiper .swiper-slide img {display:block;width:120px;height:170px;object-fit:cover;border:3px solid transparent;box-shadow: 10px 10px 20px rgba(0,0,0,0.2);}
+.mySwiper .swiper-slide img {display:block;width:120px;height:170px;object-fit:cover;box-shadow: 10px 10px 20px rgba(0,0,0,0.2);}
 .mySwiper .swiper-slide-thumb-active img {border:3px solid #000;}
 
 .mySwiper2 {height:80%;width: 100%;}
@@ -32,6 +32,7 @@
 	<div class="contents">
 		<div class="swiper mySwiper2">
 			<div class="swiper-wrapper">
+				<%--
 				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
 						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
@@ -46,12 +47,44 @@
 						<!-- </a> -->
 					</div>
 				</c:forEach>
+				--%>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice001.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice002.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice003.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice004.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice005.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice006.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice007.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice008.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice009.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice010.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
 			</div>
 			<div class="swiper-button-next"></div>
 			<div class="swiper-button-prev"></div>
 		</div>
 		<div thumbsSlider="" class="swiper mySwiper">
 			<div class="swiper-wrapper">
+				<%--
 				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
 						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
@@ -66,6 +99,37 @@
 						<!-- </a> -->
 					</div>
 				</c:forEach>
+				--%>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice001.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice002.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice003.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice004.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice005.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice006.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice007.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice008.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice009.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
+				<div class="swiper-slide">
+					<img src="/resources/common/img/kiosk/notice010.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+				</div>
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>

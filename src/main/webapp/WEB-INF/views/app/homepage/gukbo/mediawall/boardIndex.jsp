@@ -39,6 +39,7 @@
 	<div class="contents">
 		<div class="swiper mySwiper">
 			<div class="swiper-wrapper">
+				<%--
 				<c:forEach var="i" varStatus="status" items="${noticeList}">
 					<div class="swiper-slide">
 						<div class="thumb-image">
@@ -56,6 +57,87 @@
 						</div>
 					</div>
 				</c:forEach>
+				--%>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice001.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">여름방학  문화교실  모집</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice002.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">여름의 맛</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice003.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">휴양지에서 읽으면 좋은..</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice004.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">클래식틱톡</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice005.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">나만의 네온사인 만들기</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice006.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">2023년 평생학습동아리 모집</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice007.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">먹는것에 진심입니다</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice008.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">월간인문학</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice009.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">문화예술교실 수강신청</p>
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="thumb-image">
+						<img src="/resources/common/img/kiosk/notice010.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+					</div>
+					<div class="cont">
+						<p class="tit">임시휴관안내</p>
+					</div>
+				</div>
 			</div>
 			<div class="swiper-pagination"></div>
 			<!-- <div class="swiper-scrollbar"></div> -->

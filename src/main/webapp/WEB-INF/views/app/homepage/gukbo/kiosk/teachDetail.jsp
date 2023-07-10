@@ -86,14 +86,14 @@
 						</div>
 					</div>
 					<div class="culturedetail-info-04-right">
-						<c:if test="${teach.teach_backup_count ne 0}">
+						
 							<div class="outer">
 								<div class="inner">
 								<h2>후보자접수</h2>
-								<p><span class="">${teach.teach_backup_join_count}</span> / ${teach.teach_backup_count}</p>
+								<p><c:if test="${teach.teach_backup_count ne 0}"><span class="">${teach.teach_backup_join_count}</span> / ${teach.teach_backup_count}</c:if><c:if test="${teach.teach_backup_count eq 0}"><span class="">0</span> / 0</c:if></p>
 								</div>
 							</div>
-						</c:if>
+						
 					</div>
 					<div class="end"></div>
 				</div>
@@ -141,30 +141,31 @@
 			<div class="culturedetail-request-button-box">
 				<c:choose>
 					<c:when test="${teach.teach_status eq '0'}">
-						<a href="" class="btn button2 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="1">수강신청</a>
+						<a href="" class="btn button2 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="1" style="display:inline-block;width:45%;">수강신청</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '1'}">
-						<a href="" class="btn button2 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="2">대기자신청</a>
+						<a href="" class="btn button4 add" keyValue1="${teach.homepage_id}" keyValue2="${teach.group_idx}" keyValue3="${teach.category_idx}" keyValue4="${teach.teach_idx}" keyValue5="${teach.large_category_idx}" apply_status="2" style="display:inline-block;width:45%;">대기자신청</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '2' or i.teach_status eq '10'}">
-						신청완료
+						<a href="#" class="btn button7" style="display:inline-block;width:45%;">신청완료</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '3'}">
-						대기자 신청완료
+						<a href="#" class="btn button7" style="display:inline-block;width:45%;">대기자 신청완료</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '9'}">
-						수강종료
+						<a href="#" class="btn button6" style="display:inline-block;width:45%;">수강종료</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '4'}">
-						접수마감
+						<a href="#" class="btn button5" style="display:inline-block;width:45%;">접수마감</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '5'}">
-						정원마감
+						<a href="#" class="btn button7" style="display:inline-block;width:45%;">정원마감</a>
 					</c:when>
 					<c:when test="${teach.teach_status eq '6'}">
-						신청대기
+						<a href="#" class="btn button3" style="display:inline-block;width:45%;">신청대기</a>
 					</c:when>
 				</c:choose>
+				<a href="javascript:history.back(-1);" class="btn button8" style="display:inline-block;width:45%;">뒤로가기</a>
 			</div>
 		</div>
 	</div>

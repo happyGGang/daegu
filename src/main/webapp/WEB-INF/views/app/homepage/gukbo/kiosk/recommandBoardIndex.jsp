@@ -36,7 +36,7 @@ $(function() {
 			<div class="inners">
 				<div class="swiper-wrapper">
 
-					<c:forEach items="${boardList}" var="i" varStatus="status">
+					<c:forEach items="${boardList}" var="i" varStatus="status" begin='0' end='8'>
 						<div class="list">
 							<div class="thumb-image">
 								<a href="/${homepage.context_path}/kiosk/recommandBoardView.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">

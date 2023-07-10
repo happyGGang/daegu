@@ -333,6 +333,7 @@ $(function(){
 	var bannerLength4 = $('div.banner-wrap.type4 ul.banner-roll').length;	//시청작은도서관
 	var bannerLength5 = $('div.banner-wrap.type5 ul.banner-roll').length;	//중구통합
 	var bannerLength6 = $('div.banner-wrap.type6 ul.banner-roll').length;	//달성군립
+	var bannerLength7 = $('div.banner-wrap.type7 ul.banner-roll').length;	//달성군립
 
 	var banner2 = $('div.banner-wrap.type2');
 	var bannerWrap = $('div.banner-wrap');
@@ -349,6 +350,7 @@ $(function(){
 	var bannerSlider4;
 	var bannerSlider5;
 	var bannerSlider6;
+	var bannerSlider7;
 
 	if (bannerLength1 > 0) {
 		bannerSlider1 = $('div.banner-wrap.type1 ul.banner-roll').bxSlider({
@@ -442,6 +444,20 @@ $(function(){
 		});
 	}
 
+	if (bannerLength7 > 0) {
+		bannerSlider7 = $('div.banner-wrap.type7 ul.banner-roll').bxSlider({
+			slideWidth:187,
+			speed:500,
+			moveSlides:1,
+			maxSlides:8,
+			slideMargin:10,
+			auto:autoType,
+			autoHover:true,
+			pager:false,
+			controls:false
+		});
+	}
+
 	$('div.banner-wrap a.prev').on('click',function(){
 	    if(bannerSlider1 != null ){
 	    	bannerSlider1.goToPrevSlide();
@@ -455,6 +471,8 @@ $(function(){
 	    	bannerSlider5.goToPrevSlide();
 	    }else if(bannerSlider6 != null ){
 	    	bannerSlider6.goToPrevSlide();
+	    }else if(bannerSlider7 != null ){
+	    	bannerSlider7.goToPrevSlide();
 	    }
 
 	    return false;
@@ -472,6 +490,8 @@ $(function(){
 	    	bannerSlider5.goToNextSlide();
 	    }else if(bannerSlider6 != null ){
 	    	bannerSlider6.goToNextSlide();
+	    }else if(bannerSlider7 != null ){
+	    	bannerSlider7.goToNextSlide();
 	    }
 	    return false;
 	});
@@ -484,6 +504,8 @@ $(function(){
 			bannerSlider3.stopAuto();
 		}else if(bannerSlider6 != null ){
 			bannerSlider6.stopAuto();
+		}else if(bannerSlider7 != null ){
+			bannerSlider7.stopAuto();
 		}
 		$(this).removeClass('active');
 		$('div.banner-wrap a.play').addClass('active');
@@ -498,6 +520,8 @@ $(function(){
 			bannerSlider3.startAuto();
 		}else if(bannerSlider6 != null ){
 			bannerSlider6.startAuto();
+		}else if(bannerSlider7 != null ){
+			bannerSlider7.startAuto();
 		}
 		$(this).removeClass('active');
 		$('div.banner-wrap a.stop').addClass('active');

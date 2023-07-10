@@ -13,7 +13,7 @@
 <meta property="og:url" content="${homepage.domain}/${homepage.context_path}/index.do"/>
 <link rel="canonical" href="${homepage.domain}/${homepage.context_path}/index.do">
 <title>대구광역시 도서관 통합 허브시스템</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=1"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>

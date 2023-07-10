@@ -693,49 +693,38 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 											</c:otherwise>
 										</c:choose>
 									</div>
+
 									<c:if test="${teach.agent_yn eq 'N'}">
-									<c:if test="${teach.sms_service_yn eq 'Y'}">
-									<div class="PT20">
-										<h3 class="inline-block">SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
-										<td>
-											<form:radiobutton path="sms_service_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-											<form:radiobutton path="sms_service_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-											<div class="boxes">
-												* 활용목적: 도서관 강좌 및 각종행사 안내<br>
-												* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
-											</div>
-										</td>
-									</div>
-									</c:if>
-									<c:if test="${teach.picture_use_yn eq 'Y'}">
-									<div class="PT20">
-										<h3 class="inline-block">사진 촬영 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
-										<td>
-											<form:radiobutton path="picture_use_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
-											<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
-											<div class="boxes">
-												* 활용목적: 도서관 프로그램 홍보<br>
-												* 참고사항<br>
-												 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
-												 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
-												 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
-												 &nbsp;&nbsp;- 미동의하여도 수강신청에 제한이 없음
-											</div>
-										</td>
-									</div>
-									</c:if>
-									</c:if>
-									<c:if test="${teach.family_member_yn eq 'Y'}">
-									<div class="PT20">
-										<h3>가족참여 구성원(<span style="color: red; font-weight: bold;">*</span>)</h3>
-										<form:input path="family_member" cssClass="inputText1" title="가족참여 구성원"/>
-									</div>
-									</c:if>
-									<c:if test="${teach.apply_file_yn eq 'Y'}">
-									<div class="PT20">
-										<h3>첨부파일</h3>
-										<div class="applyFile"><input type="file" id="apply_file" name="apply_file" class="inputText1" accept=".hwp"></div>
-									</div>
+										<c:if test="${teach.sms_service_yn eq 'Y'}">
+										<div class="PT20">
+											<h3 class="inline-block">SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<td>
+												<form:radiobutton path="sms_service_yn" value="Y" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="sms_service_yn1">동의</label>
+												<form:radiobutton path="sms_service_yn" value="N" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="sms_service_yn2">미동의</label>
+												<div class="boxes">
+													* 활용목적: 도서관 강좌 및 각종행사 안내<br>
+													* 미동의하여도 수강신청에 제한이 없음(단, 미동의할 경우 해당강좌에 대한 안내를 받을 수 없음)
+												</div>
+											</td>
+										</div>
+										</c:if>
+										<c:if test="${teach.picture_use_yn eq 'Y'}">
+										<div class="PT20">
+											<h3 class="inline-block">사진 촬영 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
+											<td>
+												<form:radiobutton path="picture_use_yn" value="Y" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="picture_use_yn1">동의</label>
+												<form:radiobutton path="picture_use_yn" value="N" cssStyle="vertical-align: middle;"/> <label class="agree-label" for="picture_use_yn2">미동의</label>
+												<div class="boxes">
+													* 활용목적: 도서관 프로그램 홍보<br>
+													* 참고사항<br>
+													 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
+													 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
+													 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
+													 &nbsp;&nbsp;- 미동의하여도 수강신청에 제한이 없음
+												</div>
+											</td>
+										</div>
+										</c:if>
 									</c:if>
 
 									<c:if test="${teach.family_member_yn eq 'Y'}">
@@ -824,11 +813,11 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 									<c:if test="${teach.vaccines_yn eq 'Y' and teach.agent_yn eq 'N'}">			
 										<div class="PT20">
 											<h3>백신여부(<span style="color: red; font-weight: bold;">*</span>)</h3>
-											<form:radiobutton path="vaccines_counter_1" value="0" label=" 미접종" cssStyle="vertical-align: middle;" title="미접종"/>
-											<form:radiobutton path="vaccines_counter_1" value="1" label=" 1회접종" cssStyle="vertical-align: middle;" title="1회접종"/>
-											<form:radiobutton path="vaccines_counter_1" value="2" label=" 2회접종" cssStyle="vertical-align: middle;" title="2회접종"/>
-											<form:radiobutton path="vaccines_counter_1" value="3" label=" 3회접종" cssStyle="vertical-align: middle;" title="3회접종"/>
-										</							>
+											<form:radiobutton path="vaccines_counter_1" value="0" cssStyle="vertical-align: middle;" title="미접종"/> <label class="agree-label" for="vaccines_counter_21">미접종</label>
+											<form:radiobutton path="vaccines_counter_1" value="1" cssStyle="vertical-align: middle;" title="1회접종"/> <label class="agree-label" for="vaccines_counter_22">1회접종</label>
+											<form:radiobutton path="vaccines_counter_1" value="2" cssStyle="vertical-align: middle;" title="2회접종"/> <label class="agree-label" for="vaccines_counter_23">2회접종</label>
+											<form:radiobutton path="vaccines_counter_1" value="3" cssStyle="vertical-align: middle;" title="3회접종"/> <label class="agree-label" for="vaccines_counter_23">3회접종</label>
+										</div>
 									</c:if>
 									<div class="PT20" style="display: none">
 										<h3>수강생 - 나이(<span style="color: red; font-weight: bold;">*</span>)</h3>
@@ -1102,14 +1091,13 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 									</c:if>
 
 									<c:if test="${sessionScope.member.login}">
-										<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;">
+										<div class="boxes" style="margin-top:10px;">
 										* 신청자정보 변경 시 홈페이지를 방문하여 My Library > 회원정보 수정에서 수정후 신청하시기 바랍니다.
 										</div>
 									</c:if>
 
 								</form:form>
 							</div>
-
 
 						</div>
 
@@ -1119,7 +1107,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 
 			<div class="culturedetail-request-button-box">
 				<button id="save-btn" class="btn button2 add" style="display:inline-block;width:45%;">신청하기</button>
-				<a id="back-btn" class="btn button2" style="display:inline-block;width:45%;">뒤로가기</a>
+				<button id="back-btn" class="btn button2" style="display:inline-block;width:45%;">뒤로가기</button>
 			</div>
 		</div>
 	</div>

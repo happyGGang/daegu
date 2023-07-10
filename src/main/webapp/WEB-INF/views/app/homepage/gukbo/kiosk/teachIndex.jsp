@@ -72,9 +72,7 @@ $(function(){
 									<div class="cul-cnt">
 										<ul>
 											<li><p class="cul-cnt-tit">온라인접수</p><p class="cul-cnt-state"><span class="">${i.teach_join_count}</span> / ${i.teach_limit_count}</p></li>
-											<c:if test="${i.teach_backup_count > 0}">
-												<li><p class="cul-cnt-tit">후보자접수</p><p class="cul-cnt-state"><span class="">${i.teach_backup_join_count}</span> / ${i.teach_backup_count}</p></li>
-											</c:if>
+											<li><p class="cul-cnt-tit">후보자접수</p><c:if test="${i.teach_backup_count > 0}"><p class="cul-cnt-state"><span class="">${i.teach_backup_join_count}</span> / ${i.teach_backup_count}</p></c:if><c:if test="${i.teach_backup_count < 1}"><p class="cul-cnt-state"><span class="">0</span> / 0</p></c:if></li>
 										</ul>
 									</div>
 								</div>
