@@ -368,7 +368,7 @@ public class MediaFactoryController extends BaseController {
 
 				if (mediaFactory.getHomepage_id().equals("h50")){
 					if ( mediaFactory.getMax_apply_person() > 0 ) {
-						if (mediaFactory.getMax_apply_person() <= apply.getPersonnel() ) {
+						if (mediaFactory.getMax_apply_person() < apply.getPersonnel() ) {
 							res.setValid(false);
 							res.setMessage("신청가능 방문인원이 가득찼습니다.");
 							return res;
