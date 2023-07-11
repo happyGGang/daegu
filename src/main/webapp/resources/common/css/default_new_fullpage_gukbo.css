@@ -449,7 +449,7 @@ transform:translatez(0);
 .sections-align {position:relative;max-width:1260px;margin:0 auto;} /* 기준 */
 .sections-align::after {content: "";display: block; clear: both;}
 
-.main-section {position:relative;max-width:1770px;margin:0 auto;}
+.main-section {position:relative;max-width:1695px;margin:0 auto;}
 .main-section::after {content: "";display: block; clear: both;}
 
 .sections {position:relative;max-width:1260px;margin:0 auto} /* 기준 */

@@ -24,9 +24,46 @@
 
 <script>
 $(function() {
+
+	<c:choose>
+	<c:when test="${detail.SHELF_LOCATION_IMG_URL ne null && detail.SHELF_LOCATION_IMG_URL ne ''}">
 	$('#print-btn-toggle').on('click', function(e) {
-		alert('준비중');
+		e.preventDefault();
+		$('#print-box').css('height','480px');
+		$('#print-contents-box').css('height','480px');
+		$('#print-box').css('top','-480px');
+		clearTimeout(submenuTimeout);
+		submenuTimeout = setTimeout(function() {
+			$('#print-contents-box').show();
+		}, 500);
 	});
+	</c:when>
+	<c:otherwise>
+	$('#print-btn-toggle').on('click', function(e) {
+		e.preventDefault();
+		alert('등록된 서가위치 이미지가 없습니다.');
+	});
+	</c:otherwise>
+	</c:choose>
+
+	$('#close-print-box').on('click', function(k) {
+		k.preventDefault();
+		$('#print-box').css('height','0');
+		$('#print-contents-box').css('height','0');
+		$('#print-box').css('top','0');
+		clearTimeout(submenuTimeout);
+		submenuTimeout = setTimeout(function() {
+			$('#print-contents-box').hide();
+		}, 0);
+	});
+
+	$('a#btn_print').on('click', function(e) {
+		e.preventDefault();
+		//var url = $(this).data('param').replace('detail', 'print');
+		var popup = window.open('print.do?imgurl=${detail.SHELF_LOCATION_IMG_URL}&lockey=${detail.SHELF_LOCATION_KEY}&locname=${detail.SHELF_LOC_NAME}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
+		popup.focus();
+	});
+
 });
 </script>
 
@@ -68,7 +105,19 @@ $(function() {
 						</c:otherwise>
 					</c:choose>
 				</c:otherwise>
-			</c:choose>		
+			</c:choose>	
+			<c:if test="${detail.REG_NO ne null && detail.REG_NO ne ''}">
+			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
+			<span class="status-box">
+				대출가능
+			</span>
+			</c:if>
+			<c:if test="${detail.WORKING_STATUS ne 'BOL112N'}">
+			<span class="status-box red">
+				대출불가
+			</span>
+			</c:if>
+			</c:if>
 		</div>
 		<div class="title-sec">
 			${detail.TITLE_INFO}
@@ -84,8 +133,30 @@ $(function() {
 			</ul>
 		</div>
 		<div class="print-sec">
-			<div class="print-btn">
-				<a href="#" id="print-btn-toggle">국채보상운동기념도서관 소장도서 <strong>서가위치보기</strong></a>
+			<div class="relative">
+				<div id="print-box" class="print-box">
+					<div id="print-contents-box" class="print-contents-box" style="display:none;">
+						<div class="print-image-box">
+							<img src="${detail.SHELF_LOCATION_IMG_URL}" alt="${detail.SHELF_LOCATION_KEY}" class="W480 H480"/>
+						</div>
+						<div class="print-btn-box">
+							<div class="outer">
+								<div class="inner">
+									<div class="">
+										<a href="#btn_print" id="btn_print" class="btn-print-box">인쇄</a>	
+									</div>
+									<div class="">
+										<a href="#close-box" id="close-print-box" class="close-print-box">확인</a>
+									</div>									
+								</div>
+							</div>
+						</div>
+						<div class="end"></div>
+					</div>
+				</div>
+				<div class="print-btn">
+					<a href="#" id="print-btn-toggle">국채보상운동기념도서관 소장도서 <strong>서가위치보기</strong></a>
+				</div>
 			</div>
 		</div>
 		<div class="etcinfo-sec">

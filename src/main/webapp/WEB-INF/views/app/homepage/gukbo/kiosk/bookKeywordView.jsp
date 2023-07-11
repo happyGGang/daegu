@@ -23,9 +23,46 @@
 </style>
 <script>
 $(function() {
+
+	<c:choose>
+	<c:when test="${detail.SHELF_LOCATION_IMG_URL ne null && detail.SHELF_LOCATION_IMG_URL ne ''}">
 	$('#print-btn-toggle').on('click', function(e) {
-		alert('준비중');
+		e.preventDefault();
+		$('#print-box').css('height','480px');
+		$('#print-contents-box').css('height','480px');
+		$('#print-box').css('top','-480px');
+		clearTimeout(submenuTimeout);
+		submenuTimeout = setTimeout(function() {
+			$('#print-contents-box').show();
+		}, 500);
 	});
+	</c:when>
+	<c:otherwise>
+	$('#print-btn-toggle').on('click', function(e) {
+		e.preventDefault();
+		alert('등록된 서가위치 이미지가 없습니다.');
+	});
+	</c:otherwise>
+	</c:choose>
+
+	$('#close-print-box').on('click', function(k) {
+		k.preventDefault();
+		$('#print-box').css('height','0');
+		$('#print-contents-box').css('height','0');
+		$('#print-box').css('top','0');
+		clearTimeout(submenuTimeout);
+		submenuTimeout = setTimeout(function() {
+			$('#print-contents-box').hide();
+		}, 0);
+	});
+
+	$('a#btn_print').on('click', function(e) {
+		e.preventDefault();
+		//var url = $(this).data('param').replace('detail', 'print');
+		var popup = window.open('print.do?imgurl=${detail.SHELF_LOCATION_IMG_URL}&lockey=${detail.SHELF_LOCATION_KEY}&locname=${detail.SHELF_LOC_NAME}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
+		popup.focus();
+	});
+
 });
 </script>
 
@@ -37,6 +74,18 @@ $(function() {
 	<div class="contents">
 		<div class="img-sec">
 			<img src="${bookKeyword.bookimgUrl}" alt="${bookKeyword.book_name}">
+			<c:if test="${detail.REG_NO ne null && detail.REG_NO ne ''}">
+			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
+			<span class="status-box">
+				대출가능
+			</span>
+			</c:if>
+			<c:if test="${detail.WORKING_STATUS ne 'BOL112N'}">
+			<span class="status-box red">
+				대출불가
+			</span>
+			</c:if>
+			</c:if>
 		</div>
 		<div class="title-sec">
 			${bookKeyword.book_name}
@@ -52,10 +101,30 @@ $(function() {
 			</ul>
 		</div>
 		<div class="print-sec">
-			<div id="print-contents" class="print-contents-toggle">
-			</div>
-			<div class="print-btn">
-				<a href="#" id="print-btn-toggle">국채보상운동기념도서관 소장도서 <strong>서가위치보기</strong></a>
+			<div class="relative">
+				<div id="print-box" class="print-box">
+					<div id="print-contents-box" class="print-contents-box" style="display:none;">
+						<div class="print-image-box">
+							<img src="${detail.SHELF_LOCATION_IMG_URL}" alt="${detail.SHELF_LOCATION_KEY}" class="W480 H480"/>
+						</div>
+						<div class="print-btn-box">
+							<div class="outer">
+								<div class="inner">
+									<div class="">
+										<a href="#btn_print" id="btn_print" class="btn-print-box">인쇄</a>	
+									</div>
+									<div class="">
+										<a href="#close-box" id="close-print-box" class="close-print-box">확인</a>
+									</div>									
+								</div>
+							</div>
+						</div>
+						<div class="end"></div>
+					</div>
+				</div>
+				<div class="print-btn">
+					<a href="#" id="print-btn-toggle">국채보상운동기념도서관 소장도서 <strong>서가위치보기</strong></a>
+				</div>
 			</div>
 		</div>
 		<div class="etcinfo-sec">
@@ -126,5 +195,57 @@ $(function() {
 		</div>
 	</div>
 </div>
-
+<!-- 메뉴 -->
+		<div class="bookIndexNav">
+			<ul class="navbox">
+				<li>
+					<a href="/${homepage.context_path}/kiosk/bookKeywordIndex.do" class="smart-btn">
+						<div class="outer">
+							<div class="inner">
+								<span class="kor-txt">능동형 도서추천</span>
+								<span class="eng-txt">active type Book recommendation</span>
+							</div>
+						</div>						
+					</a>
+				</li>
+				<li>
+					<a href="/${homepage.context_path}/kiosk/librarianPickBookIndex.do" class="librarian-btn">
+						<div class="outer">
+							<div class="inner">
+								<span class="kor-txt">맞춤형 도서추천</span>
+								<span class="eng-txt">Customized book recommendation</span>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li>
+					<c:choose>
+					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<a href="/${homepage.context_path}/intro/login/kioskLogout.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do">
+						<div class="outer">
+							<div class="inner">
+								<div class="">
+									<img src='/resources/common/img/kiosk/login-icon.png' alt=''/>
+								</div>
+								로그아웃
+							</div>
+						</div>
+					</a>
+					</c:when>
+					<c:otherwise>
+					<a href="/${homepage.context_path}/kiosk/login.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do">
+						<div class="outer">
+							<div class="inner">
+								<div class="">
+									<img src='/resources/common/img/kiosk/login-icon.png' alt=''/>
+								</div>
+								로그인
+							</div>
+						</div>
+					</a>
+					</c:otherwise>
+					</c:choose>
+				</li>
+			</ul>
+		</div>
 <tiles:insertAttribute name="footer" />

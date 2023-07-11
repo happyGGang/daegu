@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <tiles:insertAttribute name="header" />
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub.css"/>
 <script type="text/javascript">
 $(function() {
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
@@ -17,44 +18,35 @@ $(function() {
 // 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
 
-	<c:choose>
-		<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-			$('li#menu_4').remove();
-			$('li#menu_5').remove();
-			$('li#menu_6').remove();
-			$('li#menu_7').remove();
-			$('li#menu_8').remove();
-		</c:when>
-		<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-			$('li#menu_4').remove();
-			$('li#menu_5').remove();
-			$('li#menu_6').remove();
-			$('li#menu_7').remove();
-			$('li#menu_8').remove();
-		</c:when>
-		<c:otherwise>
-			$('li#menu_95').remove();
-			$('li#menu_96').remove();
-		</c:otherwise>
-	</c:choose>
+	$('a.shareBtn').on('click', function(e) {
+
+		if($('div#share_layer').css('display') == 'none') {
+			$('div#share_layer').show();
+			e.preventDefault();
+		} else {
+			$('div#share_layer').hide();
+			e.preventDefault();
+		}
+
+	});
+
+	$('a#closeshareBox').on('click', function(e) {
+		e.preventDefault();
+		$('div#share_layer').hide();
+	});
+
+	$(window).scroll(function(){
+		if($(this).scrollTop() > 0 ) {
+			$('div#share_layer').hide();
+		}
+	});
+
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/beomeo/img/beomeo_logo_b.png')"); 
+	$('.m-menu a').css('color','#000');
 
 });
 </script>
-<script>
-function link()
-{
-    document.form1.action = "https://www.nl.go.kr/NL/contents/N30502000000.do";
-	document.form1.lib_name.value = "대구광역시립 중앙도서관";
-    document.form1.lib_id.value = "122004";
-    document.form1.target="mashup";
-    document.form1.submit();
-}
-</script>
 
-<form name="form1" method="post">
-<input type=hidden name='lib_name'>
-<input type=hidden name='lib_id'>
-</form>
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
@@ -62,19 +54,48 @@ function link()
 	<div id="container" class="subpage">
 
 		<div class="sub-visual">
-			<div class="doc-info-bg">
-				<div class="doc-info">
+
+			<div class="doc-info">
+				<div class="doc-title">
+					<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
+					<h3>${menuOne.menu_name}</h3>
+					</c:if>
 					<ol>
-						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
+						<li class="first"><a href="/${homepage.context_path}/index.do"><img src="/resources/common/img/navi_home_icon.gif"></a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
-					<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
-					<div class="end"></div>
+
+					<div class="shareArea">
+						<ul>
+							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/sub-icon02.png" alt="현재페이지 인쇄"></a></li>
+							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sub-icon01.png" alt="sns 바로가기"></a>
+
+									<div id="share_layer">
+										<div class="shareAllBtns" >
+											<ul class="shareBox">
+												<li><a href="" class="sub-facebook" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_facebook_btn.png" alt="${homepage.homepage_name} 페이스북 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+
+												<li><a href="" class="sub-twitter" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_twitter_btn.png" alt="${homepage.homepage_name} 트위터로 공유하기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+
+												<li class="last"><a href="" class="sub-kakao" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_kakaostory_btn.png" alt="${homepage.homepage_name} 카카오스토리 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+
+												<li><a href="#" id="closeshareBox" class="close shareIconArea" title="닫기" ><img src="/resources/common/img/sns-close.png" alt="sns-close" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"/></a></li>
+											</ul>
+										</div>
+									</div>
+
+							</li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a></li>
+						</ul>
+					</div>
+
 				</div>
+				<div class="end"></div>
 			</div>
+
 		</div>
 
-		<div class="section">
+		<div class="sections">
 			<c:if test="${menuOne ne null}">
 			<div class="lnb">
 				<h2><b>${menuLeftList[0].menu_name}</b></h2>
@@ -83,15 +104,6 @@ function link()
 			</c:if>
 			<div class="content">
 				<div class="doc">
-					<div class="doc-head">
-						<div class="doc-title">
-							<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
-							<h3>${menuOne.menu_name}</h3>
-							</c:if>
-
-							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
-						</div>
-					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body" />
@@ -112,7 +124,11 @@ function link()
 		<div class="end"></div>
 	</div>
 
+	<div id="foot_section">
+		<tiles:insertAttribute name="footer" />
+	</div>
+
 </div>
 
-<tiles:insertAttribute name="footer" />
+
 
