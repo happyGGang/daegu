@@ -183,6 +183,10 @@ public class LibrarySearch extends PagingUtils {
 	private String transaction_code;
 	private String date_option;
 
+	private String imgUrl;
+	private String locKey;
+	private String locName;
+
 	public String getSearchType() {
 		return searchType;
 	}
@@ -1298,4 +1302,30 @@ public class LibrarySearch extends PagingUtils {
 	public void setDate_option(String date_option) {
 		this.date_option = date_option;
 	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+	public String getLocKey() {
+		return locKey;
+	}
+
+	public void setLocKey(String locKey) {
+		this.locKey = locKey;
+	}
+
+	public String getLocName() {
+		return locName;
+	}
+
+	public void setLocName(String locName) {
+		this.locName = locName;
+	}
+	
+	
 }

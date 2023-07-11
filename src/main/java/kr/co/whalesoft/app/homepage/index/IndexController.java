@@ -1081,6 +1081,29 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
+	@RequestMapping(value = { "/{contextPath}/kiosk/menuNavigation.*" })
+	public String menuNavigation(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		return basePath + homepage.getFolder() + "/kiosk/menuNavigation_ajax";
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/bookNavigation.*" })
+ 	public String bookNavigation(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		return basePath + homepage.getFolder() + "/kiosk/bookNavigation_ajax";
+	}
+	
+	@RequestMapping(value = { "/{contextPath}/kiosk/print.*" })
+	public String print(Model model, HttpServletRequest request, LibrarySearch librarySearch, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		model.addAttribute("detail", librarySearch);
+		
+		return basePath + homepage.getFolder() + "/kiosk/print_ajax";
+	}
+	
 	@RequestMapping(value = { "/{contextPath}/mediawall/index.*" })
 	public String medialwallIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
