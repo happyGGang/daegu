@@ -43,11 +43,23 @@
 		}
 	</style>
 	<script>
-		//setTimeout(window.print(), 1000);
+		
+		window.print();
+		setTimeout (window.close, 5000);
+		window.onbeforeprint = function () { 
+			console.log("onbeforeprint : 프린트 이전에 실행");
+			setTimeout("dotest()", 20000);
+		}
+
+		window.onafterprint = function () { 
+			console.log("onafterprint : 프린트 이후에 실행");
+		}
+
+		//setTimeout(window.print_ac(), 2000);
 		function print_ac()
 		{
 			window.print();
-			setTimeout (window.close,5000);
+			setTimeout (window.close, 5000);
 		}
 
 		function doInit() {
@@ -57,36 +69,59 @@
 		function doOutFocus() {
 		  window.focus();
 		}
+
+		function dotest()
+		{
+			console.log('20초지남');
+		}
 	</script>
 </head>
 
 <body topmargin="0" onLoad="doInit()">
 	<div id="target">
-		<div style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕"><h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[자료위치안내]</h3></div>
-		<table cellspacing="0" cellpadding="0">
-		</table>
+		<div style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕"><h3>[자료위치안내]</h3></div>		
 		<table cellspacing="0" cellpadding="0">
 			<colgroup>
-				<col style="width:110px;" class="col1">
+				<col style="width:80px;" class="col1">
 				<col class="col2">
 			</colgroup>
 			<tbody>
 				<tr class="first">
-				   <td colspan="2" class="first last td1">-------------------------------------------</td>
+					<td colspan="2" class="first last td1">---------------------------------------</td>
 				</tr>
 				<tr>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.imgUrl}</td>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.imgUrl}</td>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.locName}</td>
+					<td style="font-size: 13px; text-align: right; font-weight:bold;vertical-align:top;letter-spacing:-1px;" class="first td1">서명 : </td>
+					<td style="font-size: 13px; font-weight:bold;letter-spacing:-1px;" class="last td2">&nbsp;${param.bookname}</td>
 				</tr>
 				<tr>
-				   <td colspan="2" class="first last td1">-------------------------------------------</td>
+					<td style="font-size: 13px; text-align: right; font-weight:bold;letter-spacing:-1px;" class="first td1">청구기호 : </td>
+					<td style="font-size: 13px; font-weight:bold;letter-spacing:-1px;" class="last td2">&nbsp;${param.callno}</td>
+				</tr>
+				<tr>
+					<td style="font-size: 13px; text-align: right; font-weight:bold;letter-spacing:-1px;" class="first td1">등록번호 : </td>
+					<td style="font-size: 13px; font-weight:bold;letter-spacing:-1px;" class="last td2">&nbsp;${param.regno}</td>
+				</tr>
+				<tr>
+					<td style="font-size: 13px; text-align: right; font-weight:bold;letter-spacing:-1px;" class="first td1">저자 : </td>
+				    <td style="font-size: 13px; font-weight:bold;letter-spacing:-1px;" class="last td2">&nbsp;${param.author}</td>
+				</tr>
+				<tr>
+					<td style="font-size: 13px; text-align: right; font-weight:bold;letter-spacing:-1px;" class="first td1">자료실 : </td>
+				    <td style="font-size: 13px; font-weight:bold;letter-spacing:-1px;" class="last td2">&nbsp;${param.locname}</td>
+				</tr>
+				<tr>
+				   <td colspan="2" class="first last td1">---------------------------------------</td>
 				</tr>
 			</tbody>
 		</table>
+		<div>
+			<div>
+				<img src="${param.imgurl}" style="width:250px;">
+			</div>
+		</div>
 	</div>
 
-	<div class="print_btn"><a href="javascript:print_ac();">인쇄</a></div>
+	<!-- <div class="print_btn"><a href="javascript:print_ac();">인쇄</a></div> -->
 </body>
 </html>
 

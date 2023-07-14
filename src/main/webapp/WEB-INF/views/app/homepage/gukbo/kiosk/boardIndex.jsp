@@ -32,7 +32,7 @@
 	<div class="contents">
 		<div class="swiper mySwiper2">
 			<div class="swiper-wrapper">
-				<%--
+				
 				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
 						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
@@ -47,8 +47,8 @@
 						<!-- </a> -->
 					</div>
 				</c:forEach>
-				--%>
-				<div class="swiper-slide">
+			              
+				<!--div class="swiper-slide">
 					<img src="/resources/common/img/kiosk/notice001.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
 				</div>
 				<div class="swiper-slide">
@@ -77,14 +77,15 @@
 				</div>
 				<div class="swiper-slide">
 					<img src="/resources/common/img/kiosk/notice010.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
+				</div-->
+				
 			</div>
 			<div class="swiper-button-next"></div>
 			<div class="swiper-button-prev"></div>
 		</div>
 		<div thumbsSlider="" class="swiper mySwiper">
 			<div class="swiper-wrapper">
-				<%--
+				
 				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
 						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
@@ -99,8 +100,8 @@
 						<!-- </a> -->
 					</div>
 				</c:forEach>
-				--%>
-				<div class="swiper-slide">
+				
+				<!--div class="swiper-slide">
 					<img src="/resources/common/img/kiosk/notice001.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
 				</div>
 				<div class="swiper-slide">
@@ -129,7 +130,7 @@
 				</div>
 				<div class="swiper-slide">
 					<img src="/resources/common/img/kiosk/notice010.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
+				</div-->
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>
@@ -171,4 +172,7 @@
 	</script>
 	</div>
 </div>
+
+<jsp:include page="/WEB-INF/views/app/homepage/gukbo/kiosk/menuNavigation.jsp" flush="false" />
+
 <tiles:insertAttribute name="footer" />

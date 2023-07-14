@@ -501,6 +501,12 @@
 		</tr>
 		</c:if>
 	</tbody></table>
+	</br>
+	<c:if test="${homepage.context_path eq 'dalseonglib'}">
+		<div class="" style="font-size:14px;font-weight:bold;color:red;text-align:center">
+			※ 단순 홍보 및 비치 목적을 위한 신청은 자제해 주시길 부탁드립니다.
+		</div>
+	</c:if>
 </form:form>
 
 <div class="kbtn txt-center">

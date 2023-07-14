@@ -190,3 +190,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 .category span.ca.bg-001 {background-color:#8b399c !important;color:#fff;}
 .category span.ca.bg-002 {background-color:#f56c15 !important;color:#fff;}
 .category span.ca.bg-003 {background-color:#52a34f !important;color:#fff;}
+
+
+/*자료검색창 글자 색상*/
+.search-form .detail_search .section .title-box input::placeholder {color:#002ecd;}

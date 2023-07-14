@@ -62,7 +62,7 @@ $(function() {
 	$('a#btn_print').on('click', function(e) {
 		e.preventDefault();
 		//var url = $(this).data('param').replace('detail', 'print');
-		var popup = window.open('print.do?imgUrl=${detail.SHELF_LOCATION_IMG_URL}&imgUrl=${detail.SHELF_LOCATION_KEY}&locName=${detail.SHELF_LOC_NAME}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
+		var popup = window.open('print.do?imgurl=${detail.SHELF_LOCATION_IMG_URL}&lockey=${detail.SHELF_LOCATION_KEY}&locname=${detail.SHELF_LOC_NAME}&bookname=${librarianPickBook.book_name}&author=${librarianPickBook.author}&callno=${detail.CALL_NO}&regno=${detail.REG_NO}', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=450,height=600');
 		popup.focus();
 	});
 

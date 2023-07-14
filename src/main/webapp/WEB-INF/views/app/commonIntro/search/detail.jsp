@@ -608,7 +608,13 @@ $(function() {
 
 		<c:if test="${detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'BC05' || detail.SHELF_LOC_CODE eq 'BC06' || detail.SHELF_LOC_CODE eq 'BC07'}">
 		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
-			※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;&nbsp;&nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
+			※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
+		</div>
+		</c:if>
+
+		<c:if test="${detail.SHELF_LOC_CODE eq 'BB03'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5174)
 		</div>
 		</c:if>
 

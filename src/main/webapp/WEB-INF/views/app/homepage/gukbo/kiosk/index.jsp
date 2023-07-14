@@ -12,7 +12,7 @@
 	<div class="main-wrap">
 		<div class="header">
 			<h1>국채보상운동기념도서관</h1>
-			<p>The National Debt Compensation Movement Memorial Library</p>
+			<p>The National Debt Redemption Movement Memorial Library</p>
 		</div>
 		<div class="contents">
 			<div class="">

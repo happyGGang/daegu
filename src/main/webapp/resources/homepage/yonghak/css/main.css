@@ -27,7 +27,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 #main0 .main-visual .search-area .main-box select.search_type::-ms-expand { display:none; }
 #main0 .main-visual .search-area .main-box input {border:0;background:none;width:90%;padding-left:30px;font-size:18px;color:#000;box-sizing:border-box;}
 #main0 .main-visual .search-area .main-box input {height:60px;line-height:60px;}
-#main0 .main-visual .search-area .main-box input::placeholder{color:#000;}
+#main0 .main-visual .search-area .main-box input::placeholder{color:#002ecd;}
 #main0 .main-visual .search-area .main-box button {height:60px;line-height:60px;}
 #main0 .main-visual .search-area .main-box button {position:absolute;width:80px;right:0;top:0;text-align:center;background:url('../img/search-btn.png') no-repeat center center;font-size:19px;color:#000;font-size:0;}
 

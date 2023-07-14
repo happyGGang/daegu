@@ -54,7 +54,7 @@ $(function() {
 	<div class="contents">
 		<div class="left-sec">
 			<div class="text small-txt">
-				The National Debt<br/>Compensation Movement<br/>Memorial Library
+				The National Debt<br/>Redemption Movement<br/>Memorial Library
 			</div>
 			<div class="">
 
