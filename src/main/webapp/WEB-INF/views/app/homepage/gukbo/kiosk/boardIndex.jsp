@@ -35,102 +35,34 @@
 				
 				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
-						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
-							<c:choose>
-								<c:when test="${empty i.preview_img}">
-									<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-								</c:when>
-								<c:otherwise>
-									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-								</c:otherwise>
-							</c:choose>
-						<!-- </a> -->
+						<c:choose>
+							<c:when test="${empty i.preview_img}">
+								<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+							</c:when>
+							<c:otherwise>
+								<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:forEach>
-			              
-				<!--div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice001.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice002.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice003.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice004.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice005.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice006.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice007.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice008.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice009.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice010.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div-->
-				
 			</div>
 			<div class="swiper-button-next"></div>
 			<div class="swiper-button-prev"></div>
 		</div>
 		<div thumbsSlider="" class="swiper mySwiper">
 			<div class="swiper-wrapper">
-				
 				<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='9'>
 					<div class="swiper-slide">
-						<!-- <a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"> -->
-							<c:choose>
-								<c:when test="${empty i.preview_img}">
-									<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-								</c:when>
-								<c:otherwise>
-									<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-								</c:otherwise>
-							</c:choose>
-						<!-- </a> -->
+						<c:choose>
+							<c:when test="${empty i.preview_img}">
+								<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.title} 상세보기" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+							</c:when>
+							<c:otherwise>
+								<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:forEach>
-				
-				<!--div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice001.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice002.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice003.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice004.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice005.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice006.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice007.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice008.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice009.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div>
-				<div class="swiper-slide">
-					<img src="/resources/common/img/kiosk/notice010.jpg" alt="${i.title}" onError="src='/resources/common/img/gukbo_noimg.png';"/>
-				</div-->
 			</div>
 			<div class="swiper-pagination"></div>
 		</div>

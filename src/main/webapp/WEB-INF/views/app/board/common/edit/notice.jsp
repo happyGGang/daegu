@@ -23,9 +23,11 @@
 	<td colspan="3">
 		<div class="checkbox-original">
 			<form:checkbox id="kiosk_yn" path="kiosk_yn" value="Y"/>
-			<label for="notice_yn">ICT공지 사용여부</label>
+			<label for="kiosk_yn">ICT공지 사용여부</label>
 			<em class="info">체크 시 ICT공지사항에 표시됩니다.</em>
 		</div>
+		<form:input type="text" path="kioskNotice_start_date" cssClass="text ui-calendar"/> ~
+		<form:input type="text" path="kioskNotice_end_date" cssClass="text ui-calendar"/>
 	</td>
 </tr>
 </c:if>

@@ -94,6 +94,9 @@ public class Board extends BoardExt {
 
 	private String notice_start_date; // 공지사항시작일자
 	private String notice_end_date; // 공지사항종료일자
+	
+	private String kioskNotice_start_date; // 공지사항시작일자
+	private String kioskNotice_end_date; // 공지사항종료일자
 
 	private String add_id; // 등록ID
 	private Date add_date; // 등록날짜
@@ -1166,6 +1169,22 @@ public class Board extends BoardExt {
 
 	public void setKiosk_yn(String kiosk_yn) {
 		this.kiosk_yn = kiosk_yn;
+	}
+
+	public String getKioskNotice_start_date() {
+		return kioskNotice_start_date;
+	}
+
+	public void setKioskNotice_start_date(String kioskNotice_start_date) {
+		this.kioskNotice_start_date = kioskNotice_start_date;
+	}
+
+	public String getKioskNotice_end_date() {
+		return kioskNotice_end_date;
+	}
+
+	public void setKioskNotice_end_date(String kioskNotice_end_date) {
+		this.kioskNotice_end_date = kioskNotice_end_date;
 	}
 	
 }
