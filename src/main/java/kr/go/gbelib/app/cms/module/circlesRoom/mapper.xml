@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoomDao">
+
+	<sql id="circlesFiled">
+		homepage_id, circles_idx, circles_div, user_id, user_ci, user_name, user_addr,
+		user_phone, user_tel, TO_CHAR(visit_date, 'yyyy-MM-dd') AS visit_date, visit_time, visit_num,
+		manage_code, etc, status, ip, add_id, add_date, modify_id, modify_date, circles_title, rec_key,
+		origin_file_name, server_file_name, file_extension, file_size
+	</sql>
+	
+	<sql id="where">
+		<if test="(search_type!=null and search_type!='') and (search_text!=null and search_text!='')">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<choose>
+		<when test="orderText == 'visit_date'">
+			<if test="search_sdt != null and search_sdt != ''">
+			AND #{search_sdt} &lt;= TO_CHAR(visit_date, 'yyyy-MM-dd') 
+			</if>
+			<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(visit_date, 'yyyy-MM-dd') &lt;= #{search_edt}
+			</if>
+		</when>
+		<when test="orderText == 'add_date'">
+			<if test="search_sdt != null and search_sdt != ''">
+			AND #{search_sdt} &lt;= TO_CHAR(add_date,'yyyy-MM-dd')
+			</if>
+			<if test="search_edt != null and search_edt != ''">
+			AND TO_CHAR(add_date,'yyyy-MM-dd') &lt;= #{search_edt}
+			</if>
+		</when>
+		</choose>
+		<if test="circles_div != null and circles_div != ''">
+			AND	circles_div = #{circles_div}
+		</if>
+		<if test="idx_chk != null and idx_chk != ''">
+			AND circles_idx IN
+			<foreach collection="idx_chk" item="i" open="(" close=")" separator=",">
+				#{i}
+			</foreach>
+		</if>
+	</sql>
+
+	<select id="getCirclesRoomList" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		${pagingTop}
+		SELECT
+			<include refid="circlesFiled" />
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			homepage_id = #{homepage_id}
+			<include refid="where"/>
+		ORDER BY
+			${orderText} DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getCirclesRoomCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			homepage_id = #{homepage_id}
+		<include refid="where"/>
+	</select>
+	
+	<select id="getCirclesRoomReqView" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			visit_time, user_name, circles_title, etc
+		FROM
+			(
+			SELECT
+				REGEXP_SUBSTR(visit_time, '[^,]+', 1, LEVEL) AS visit_time, user_name, circles_title, etc
+			FROM
+				CIRCLES_ROOM
+			WHERE
+				homepage_id = #{homepage_id}
+			AND visit_date = #{visit_date}
+			AND circles_div = #{circles_div}
+			CONNECT BY REGEXP_SUBSTR(visit_time, '[^,]+', 1, LEVEL) IS NOT NULL
+			)
+		GROUP BY visit_time, user_name, circles_title, etc
+	</select>
+	
+	<select id="getCirclesRoomMyList" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			<include refid="circlesFiled" />
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	user_id = #{user_id}
+		<if test="circles_div != null and circles_div != ''">
+		AND	circles_div = #{circles_div}
+		</if>
+		ORDER BY
+			circles_idx DESC
+	</select>
+	
+	<insert id="addCirclesRoom">
+		<selectKey keyProperty="circles_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(circles_idx), 0)+1 FROM CIRCLES_ROOM WHERE homepage_id = #{homepage_id}
+		</selectKey>
+		INSERT INTO CIRCLES_ROOM
+		(
+			homepage_id, circles_idx, circles_div, user_id, user_ci, user_name, user_addr,
+			user_phone, user_tel, visit_date, visit_time, visit_num,
+			manage_code, etc, status, ip, add_id, add_date,
+		 	circles_title, rec_key, origin_file_name, server_file_name, file_extension,
+			file_size
+		)
+		VALUES
+		(
+			#{homepage_id}, #{circles_idx}, #{circles_div}, #{user_id}, #{user_ci}, #{user_name}, #{user_addr},
+			#{user_phone}, #{user_tel}, #{visit_date}, #{visit_time}, #{visit_num},
+			#{manage_code}, #{etc}, 0, #{ip}, #{add_id}, SYSDATE,
+		    #{circles_title}, #{rec_key}, #{origin_file_name}, #{server_file_name}, #{file_extension},
+			#{file_size}
+		)
+	</insert>
+	
+	<delete id="deleteCirclesRoom">
+		DELETE FROM
+			CIRCLES_ROOM
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	circles_idx = #{circles_idx}
+	</delete>
+	
+	<update id="modifyStatus">
+		UPDATE
+			CIRCLES_ROOM
+		SET
+			status = #{status},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	circles_idx = #{circles_idx}
+	</update>
+	
+	<delete id="deleteCirclesRoomList">
+		DELETE FROM
+			CIRCLES_ROOM
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	circles_idx IN
+			<foreach collection="idx_chk" item="i" open="(" close=")" separator=",">
+			#{i}
+			</foreach>
+	</delete>
+	
+	<select id="addCheckData" resultType="int">
+		SELECT
+			 COUNT(*)
+		FROM
+			(
+			SELECT 1 n UNION ALL SELECT 2
+			UNION ALL SELECT 3 UNION ALL SELECT 4
+			UNION ALL SELECT 5 UNION ALL SELECT 6
+			UNION ALL SELECT 7 UNION ALL SELECT 8
+			UNION ALL SELECT 9 UNION ALL SELECT 10
+			) numbers INNER  JOIN circles_room
+		ON
+			CHAR_LENGTH (visit_time) - CHAR_LENGTH(REPLACE(visit_time, ',', '')) >= numbers.n-1
+		WHERE
+			visit_date = #{visit_date}
+		AND visit_time in (#{visit_time})
+		ORDER BY
+			visit_time ASC
+	</select>
+	
+	<select id="getCirclesRoomRss" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			<include refid="circlesFiled" />
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="circles_div != null and circles_div != ''">
+		AND	circles_div = #{circles_div}
+		</if>
+		<if test="visit_date != null and visit_date != ''">
+		AND	 visit_date = #{visit_date}
+		</if>
+		ORDER BY
+			circles_idx DESC
+	</select>
+
+	<select id="getCirclesRoomUserInfo" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			<include refid="circlesFiled" />
+		FROM
+		    CIRCLES_ROOM
+		WHERE
+		    CIRCLES_IDX = #{circles_idx};
+	</select>
+
+	<select id="getMonthCount" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    CIRCLES_ROOM
+		WHERE
+			TO_DATE(ADD_DATE, 'YYYY-MM-DD') >= TO_CHAR(TRUNC(SYSDATE, 'MM'), 'YYYY-MM-DD')
+		AND TO_DATE(ADD_DATE, 'YYYY-MM-DD') <![CDATA[<=]]> TO_CHAR(LAST_DAY(SYSDATE), 'YYYY-MM-DD')
+		AND user_id = #{user_id};
+	</select>
+
+	<select id="getWeekCount" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			TO_DATE(ADD_DATE, 'YYYY-MM-DD')  >= TO_CHAR(trunc(SYSDATE,'D'),'YYYY-MM-DD')
+		AND TO_DATE(ADD_DATE, 'YYYY-MM-DD') <![CDATA[<=]]> TO_CHAR(trunc(SYSDATE,'D')+6,'YYYY-MM-DD')
+		AND user_id = #{user_id};
+	</select>
+
+	<select id="getCirclesRoomTodayUserInfo" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			<include refid="circlesFiled" />
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			user_id = #{user_id}
+		AND	circles_div = #{circles_div}
+		AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_CHAR(SYSDATE, 'yyyy-MM-dd')
+	</select>
+
+	<select id="getCirclesRoomDateTotalCount" resultType="int">
+		SELECT
+		    count(*)
+		FROM
+		    CIRCLES_ROOM
+		WHERE
+		    HOMEPAGE_ID = #{homepage_id}
+		AND circles_div = #{circles_div}
+		AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_DATE(#{visit_date}, 'yyyy-MM-dd');
+	</select>
+
+	<select id="getCirclesRoomReserveList" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			user_name, visit_num , circles_title, visit_time
+		FROM
+			CIRCLES_ROOM
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+		  AND circles_div = #{circles_div}
+		  AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_DATE(#{visit_date}, 'yyyy-MM-dd');
+	</select>
+
+	<select id="getCirclesRoomOne" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
+		SELECT
+			<include refid="circlesFiled" />
+		FROM
+		    CIRCLES_ROOM
+		WHERE
+				HOMEPAGE_ID = #{homepage_id}
+			AND CIRCLES_IDX = #{circles_idx}
+	</select>
+</mapper>
