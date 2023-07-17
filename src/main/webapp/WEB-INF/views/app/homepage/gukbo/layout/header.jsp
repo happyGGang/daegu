@@ -20,16 +20,16 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/default_new_fullpage_gukbo.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/common_toppopzone.css"/>
 
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/jungang/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/jungang/css/main.css"/>
 <!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_contents.css"-->
-<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design.css"/>
 <!--[if lte IE 7]>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
 <![endif]-->
@@ -41,14 +41,13 @@
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.bxslider.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
-<script type="text/javascript" src="/resources/common/js/default-new-fullpage.js"></script>
+<script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
 
-<script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
+<script type="text/javascript" src="/resources/homepage/jungang/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-<!--
-<script>
+<!-- <script>
 
 $(document).ready(function(){
 
@@ -72,8 +71,7 @@ $(document).mousedown(function(e) {
 
 });
 
-</script>
--->
+</script> -->
 </head>
 <!-- <body oncontextmenu='return false'> -->
 <body>

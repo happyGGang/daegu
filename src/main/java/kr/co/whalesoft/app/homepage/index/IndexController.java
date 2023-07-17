@@ -733,11 +733,10 @@ public class IndexController extends BaseController {
 	}
 	
 	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordList.*"})
-	public String bookKeywordList(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String bookKeywordList(Model model, BookKeyword bookKeyword, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		Member member = (Member) request.getSession().getAttribute("member");
 		
-		LibrarySearch librarySearch = new LibrarySearch();
 		librarySearch.setKeyword(bookKeyword.getKeyword_name());
 		
 		if(!isLogin(request) || StringUtils.isEmpty(member.getBirth_day())) {
@@ -750,6 +749,22 @@ public class IndexController extends BaseController {
 		
 		List<Map<String, Object>> list = LibSearchAPI.getBookKeywordSearchList(librarySearch);
 		
+		List<Map<String, Object>> dataList = null;
+		
+		for(int i = 0; i < list.size(); i++) {
+			LibrarySearch ls = new LibrarySearch();
+			ls.setManageCode(homepage.getManage_code());
+			ls.setIsbn(String.valueOf(list.get(i).get("isbn")));
+			ls.setBooktype("BOOKANDNONBOOK");
+			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
+			
+			try {
+				dataList.add(result);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
 		int searchMenuIdx = 0;
 		
 		searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
@@ -757,7 +772,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("searchMenuIdx", searchMenuIdx);
 		
 		model.addAttribute("bookKeyword", bookKeyword);
-		model.addAttribute("list", list);
+		model.addAttribute("list", dataList);
 		
 		String filePath = "";
 		if (homepage != null) {
@@ -775,7 +790,6 @@ public class IndexController extends BaseController {
 		
 		if(StringUtils.isNotEmpty(bookKeyword.getBook_name())) {
 			librarySearch.setManageCode(homepage.getManage_code());
-			//librarySearch.setTitle(bookKeyword.getBook_name());
 			librarySearch.setIsbn(bookKeyword.getIsbn());
 			librarySearch.setBooktype("BOOKANDNONBOOK");
 			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);

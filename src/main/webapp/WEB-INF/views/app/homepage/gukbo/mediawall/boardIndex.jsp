@@ -39,7 +39,7 @@
 	<div class="contents">
 		<div class="swiper mySwiper">
 			<div class="swiper-wrapper">
-				<%--
+				
 				<c:forEach var="i" varStatus="status" items="${noticeList}">
 					<div class="swiper-slide">
 						<div class="thumb-image">
@@ -57,7 +57,8 @@
 						</div>
 					</div>
 				</c:forEach>
-				--%>
+				
+				<%--
 				<div class="swiper-slide">
 					<div class="thumb-image">
 						<img src="/resources/common/img/kiosk/notice001.jpg" alt="" onError="src='/resources/common/img/gukbo_noimg.png';"/>
@@ -138,6 +139,7 @@
 						<p class="tit">임시휴관안내</p>
 					</div>
 				</div>
+				--%>
 			</div>
 			<div class="swiper-pagination"></div>
 			<!-- <div class="swiper-scrollbar"></div> -->
@@ -161,7 +163,7 @@
 		</script>
 	</div>
 	<div class="copyright" style="color:#d0cab5;">
-		The National Debt Compensation Movement Memorial Library
+		The National Debt Redemption Movement Memorial Library
 	</div>
 </div>
 <tiles:insertAttribute name="footer" />

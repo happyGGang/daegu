@@ -13,7 +13,7 @@
 			<div class="outer">
 				<div class="inner">
 					<div class="text small-txt">
-						<span>THE NATIONAL DEBT COMPENSATION MOVEMENT MEMORIAL LIBRARY</span> 
+						<span>THE NATIONAL DEBT REDEMPTION MOVEMENT MEMORIAL LIBRARY</span> 
 					</div>
 					<div class="text big-txt">
 						<span>국채보상운동기념도서관에</span><br/><span>오신 것을 환영합니다.</span>

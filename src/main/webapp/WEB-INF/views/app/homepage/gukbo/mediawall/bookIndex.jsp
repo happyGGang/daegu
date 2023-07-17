@@ -335,7 +335,7 @@
 
 	</div>
 	<div class="copyright" style="color:#825d48;">
-		The National Debt Compensation Movement Memorial Library
+		The National Debt Redemption Movement Memorial Library
 	</div>
 </div>
 <tiles:insertAttribute name="footer" />

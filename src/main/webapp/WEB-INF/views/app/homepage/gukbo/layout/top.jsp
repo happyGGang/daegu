@@ -6,8 +6,8 @@
 	<nav id="menu"></nav>
 
 	<div class="tnb">
-		<div class="main-section">
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">국채보상운동기념도서관</a></h1>
+		<div class="section">
+			<h1><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo.png" alt="${homepage.homepage_name}"/></a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
@@ -16,33 +16,38 @@
 			<div class="util">
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<b>${sessionScope.member.member_name}님</b>
+						<b style="font-weight:200;font-size:15px;">${sessionScope.member.member_name}님</b>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66">정보수정</a>
+						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-						<b>관리자 로그인 중</b>
+						<font color="gray">관리자 로그인 중</font>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69">통합허브시스템 로그인</a>
+						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73">통합회원인증</a>
+						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
-						<!-- <span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=6">아이디찾기</a>
 						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7">비밀번호찾기</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a> -->
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
+						<!-- <a href="https://twitter.com/tglnetlib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter.png" alt="트위터"></a> -->
+						<span></span>
+						<a href="https://www.facebook.com/tglnet/?ref=aymt_homepage_panel&eid=ARBF0x7CH2csV2V7L0aXEdhh4dIYs4K1IKdQSBAXVHW3pZ0IPcMg2ZCwYG5kNNr48Acmj11-YLdHKykL" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook.png" alt="페이스북"></a>
+						<span></span>
+						<a href="https://www.instagram.com/tglnetlib/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/instagram.png" alt="인스타그램"></a>
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<div>
 
+			</div>
 		</div>
 	</div>
 

@@ -153,6 +153,19 @@ $(document).ready(function() {
 			$('input#notice_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
+	
+	$('input#kioskNotice_start_date').datepicker({
+		maxDate: $('input#kioskNotice_end_date').val(),
+		onClose: function(selectedDate) {
+			$('input#kioskNotice_end_date').datepicker('option', 'minDate', selectedDate);
+		}
+	});
+	$('input#kioskNotice_end_date').datepicker({
+		minDate: $('input#kioskNotice_start_date').val(),
+		onClose: function(selectedDate) {
+			$('input#kioskNotice_start_date').datepicker('option', 'maxDate', selectedDate);
+		}
+	});
 
 	$('input.custom_phone1, input.custom_phone2, input.custom_phone3').on('blur', function(e) {
 		var phone1 = $('input#' + $(this).attr('targetFieldId') + '_1').val();

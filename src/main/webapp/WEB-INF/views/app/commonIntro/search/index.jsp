@@ -193,6 +193,12 @@ $(function() {
 		}
 	});
 
+	$('input#isbn').on('keyup', function(e) {
+		if (e.keyCode == 13 && $(this).val() != '') {
+			$('a#search-btn').click();
+		}
+	});
+
 	$('input#search_start_date').on('keyup', function(e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
@@ -1052,6 +1058,11 @@ function isFromFridayToSunday() {
 							</dl>
 
 							<dl>
+								<dt><label for="isbn" class="title">ISBN</label></dt>
+								<dd><form:input path="isbn" class="text-area" onkeyup="if(window.event.keyCode==13){searchIndex();}"/></dd>
+							</dl>
+
+							<dl>
 								<dt>자료형태</dt>
 								<dd>
 									<div class="" style="padding:10px 0 0 0;">
@@ -1481,7 +1492,12 @@ function isFromFridayToSunday() {
 											</c:if>
 											<c:if test="${i.SHELF_LOC_CODE eq 'BC03' || i.SHELF_LOC_CODE eq 'BC05' || i.SHELF_LOC_CODE eq 'BC06' || i.SHELF_LOC_CODE eq 'BC07'}">
 												<div class="" style="font-size:14px;font-weight:bold;color:red;">
-													※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;&nbsp;&nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
+													※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
+												</div>
+											</c:if>
+											<c:if test="${i.SHELF_LOC_CODE eq 'BB03'}">
+												<div class="" style="font-size:14px;font-weight:bold;color:red;">
+													※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5174)
 												</div>
 											</c:if>
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->

@@ -174,7 +174,7 @@ do {
 								<div class="box1">
 									<div class="box2">
 										<label for="search_text_1" class="blind">통합자료검색</label>
-										<input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요" style="ime-mode:active;"/>
+										<input name="title" id="search_text_1" type="text" class="text" placeholder="도서 제목을 입력하세요" style="ime-mode:active;"/>
 									</div>
 								</div>
 								<button id="main-search-btn">검색하기</button>
