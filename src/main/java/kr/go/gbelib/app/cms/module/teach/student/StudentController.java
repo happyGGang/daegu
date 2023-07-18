@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -125,16 +126,27 @@ public class StudentController extends BaseController {
 		model.addAttribute("student", student);
 		Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx());
 		teach.setLarge_category_idx(student.getLarge_category_idx());
+		List<Student> studentList = getStudents(student);
 
 		model.addAttribute("teachInfo", teachService.getTeachOne(teach));
 		model.addAttribute("studentListCount", count);
-		model.addAttribute("studentList", studentService.getStudentList(student));
+		model.addAttribute("studentList", studentList);
 		Map<String, Code> codeRepo = new HashMap<String, Code>();
 		for ( Code one : codeService.getCode("CMS", "C0005") ) {
 			codeRepo.put(one.getCode_id(), one);
 		}
 		model.addAttribute("statusCode", codeRepo);
 		return basePath + "student_ajax";
+	}
+
+	private List<Student> getStudents(Student student) {
+		List<Student> studentList = studentService.getStudentList(student);
+		studentList.forEach(oneStudent -> {
+			int studentHack = Optional.ofNullable(oneStudent.getStudent_hack()).orElse(0);
+			String grade = StudentHack.getDescriptionByValue(studentHack);
+			oneStudent.setStudent_hack_str(grade);
+		});
+		return studentList;
 	}
 
 	@RequestMapping(value = {"/edit.*"})
