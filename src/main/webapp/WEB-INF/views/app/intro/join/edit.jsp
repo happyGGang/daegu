@@ -425,7 +425,9 @@ $(function() {
 						<c:when test="${context_path eq 'daegu'}">
 						대구시청<input type="hidden" id="" name="manage_code" value="ZA" />
 						</c:when>
-
+						<c:when test="${context_path eq 'gw'}">
+						대구광역시교육청 삼국유사군위도서관<input type="hidden" id="" name="manage_code" value="AM" />
+						</c:when>
 
 						<c:when test="${context_path eq 'with'}">
 						더불어숲도서관<input type="hidden" id="" name="manage_code" value="NA" />
@@ -470,6 +472,7 @@ $(function() {
 								<option value="AL">228민주운동</option>
 								<option value="AE">수성도서관</option>
 								<option value="AJ">달성도서관</option>
+								<option value="AM">삼국유사군위도서관</option>
 								<option value="AK">대구학생문화센터</option>
 								<option value="FV">시청작은도서관</option>
 

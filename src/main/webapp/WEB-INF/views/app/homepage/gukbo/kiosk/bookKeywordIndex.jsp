@@ -51,6 +51,7 @@ $(function() {
 		
 		var selected_count= $('.select-keyword span').length;
 		
+		/*
 		if(member_name == ''){
 			if(sex == ''){
 				alert('성별을 선택 후 검색을 진행해 주세요.');
@@ -59,7 +60,8 @@ $(function() {
 				alert('나이를 선택 후 검색을 진행해 주세요.');
 			}
 		}
-		
+		*/
+
 		if (selected_count == 0) {
 			alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
 			return false;
@@ -152,6 +154,7 @@ $(function() {
 						<span class="">
 							<label>성별 </label>
 							<form:select path="sex">
+								<form:option value="">선택하세요</form:option>
 								<form:option value="0">남</form:option>
 								<form:option value="1">여</form:option>
 							</form:select>
@@ -159,6 +162,7 @@ $(function() {
 						<span class="">
 							<label>나이 </label>
 							<form:select path="age">
+								<form:option value="">선택하세요</form:option>
 								<form:option value="영유아">영유아</form:option>
 								<form:option value="유아">유아</form:option>
 								<form:option value="초등">초등</form:option>
