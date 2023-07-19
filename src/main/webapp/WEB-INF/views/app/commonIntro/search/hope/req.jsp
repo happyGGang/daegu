@@ -465,25 +465,26 @@
 			</td>
 		</tr>
 		<!-- 신청도서관 부분 추가 -->
+		<c:set var="readonly" value="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' or homepage.context_path eq 'gw' ? 'true' : 'false'}" />
 		<tr>
 			<th>제목 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="title" style="width:90%" class="text" type="text" readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
+			<td><form:input path="title" style="width:90%" class="text" type="text" readonly="${readonly}"/></td>
 		</tr>
 		<tr>
 			<th>저자 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="author" style="width:90%" class="text" type="text"  readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
+			<td><form:input path="author" style="width:90%" class="text" type="text"  readonly="${readonly}"/></td>
 		</tr>
 		<tr>
 			<th>출판사 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="publer" style="width:90%" class="text" type="text"  readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
+			<td><form:input path="publer" style="width:90%" class="text" type="text"  readonly="${readonly}"/></td>
 		</tr>
 		<tr>
 			<th>연도 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="publer_year" style="width:10%" class="text" type="text" numberOnly="true" maxlength="4"  readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
+			<td><form:input path="publer_year" style="width:10%" class="text" type="text" numberOnly="true" maxlength="4"  readonly="${readonly}"/></td>
 		</tr>
 		<tr>
 			<th>ISBN<c:if test="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj'}"><em><font color="red">(*)</font></em></c:if></th>
-			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13"  readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/></td>
+			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13"  readonly="${readonly}"/></td>
 		</tr>
 		<tr>
 			<th>비고</th>
@@ -491,7 +492,7 @@
 		</tr>
 		<tr>
 			<th>가격 <em><font color="red">(*)</font></em></th>
-			<td><form:input path="price" style="width:20%" class="text" type="text" maxlength="10" numberOnly="true"  readonly="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' ? 'true' : 'false'}"/><font color="red"> *정가로 기입해 주세요</font></td>
+			<td><form:input path="price" style="width:20%" class="text" type="text" maxlength="10" numberOnly="true"  readonly="${readonly}"/><font color="red"> *정가로 기입해 주세요</font></td>
 		</tr>
 		<c:if test="${homepage.context_path ne 'nambu' and homepage.context_path ne 'std' and homepage.context_path ne 'donggu'}">
 		<tr>
@@ -505,7 +506,8 @@
 			<td><b>신청자에게 1순위로 대출권한이 주어지며, 3일 이내에 대출해야 합니다.</b></td>
 		</tr>
 		</c:if>
-	</tbody></table>
+	</tbody>
+	</table>
 	</br>
 	<c:if test="${homepage.context_path eq 'dalseonglib'}">
 		<div class="" style="font-size:14px;font-weight:bold;color:red;text-align:center">
