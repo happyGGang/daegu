@@ -20,7 +20,7 @@
 		$('#save-btn').on('click', function(e) {
 			e.preventDefault();
 			
-			<c:if test="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj'}">
+			<c:if test="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' or homepage.context_path eq 'gw'}">
 				var isbn = reqHopeForm.isbn.value;
 				if (isbn == '') {
 					alert('ISBN을 입력하세요.');
@@ -483,7 +483,7 @@
 			<td><form:input path="publer_year" style="width:10%" class="text" type="text" numberOnly="true" maxlength="4"  readonly="${readonly}"/></td>
 		</tr>
 		<tr>
-			<th>ISBN<c:if test="${homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj'}"><em><font color="red">(*)</font></em></c:if></th>
+			<th>ISBN<c:if test="${readonly}"><em><font color="red">(*)</font></em></c:if></th>
 			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13"  readonly="${readonly}"/></td>
 		</tr>
 		<tr>
