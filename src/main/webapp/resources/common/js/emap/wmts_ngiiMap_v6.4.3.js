@@ -643,7 +643,7 @@ ngii_wmts.map = function(objId, options){
 	this._showpoint = function(lon, lat, zoom) {
 		var thisMap = this;
 		var fmIndex = ngii_wmts.findMapObjectKey(thisMap);
-		mapArray[fmIndex].getView().setZoom(Number(zoom) + 5);
+		mapArray[fmIndex].getView().setZoom(Number(zoom) + 6);
 		mapArray[fmIndex].getView().setCenter([lon,lat]);
 	};
 
