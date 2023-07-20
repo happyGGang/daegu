@@ -167,7 +167,7 @@ $(function() {
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<form:hidden path="request_status" value="1"/>
+					<form:hidden path="request_status" value="0"/>
 				</c:otherwise>
 			</c:choose>
 			<tr>
