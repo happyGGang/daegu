@@ -231,7 +231,7 @@ $(document).ready(function(){
 		</div>
 	</c:when>
 	<c:otherwise>
-		<%@ include file="/gukbo/kiosk/nav.html" %>
+		<%-- <%@ include file="/gukbo/kiosk/nav.html" %> --%>
 	</c:otherwise>
 </c:choose>
 

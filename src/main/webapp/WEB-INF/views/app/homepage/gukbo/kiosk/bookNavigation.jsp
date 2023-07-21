@@ -4,9 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/common/default.css"  />
-<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/default.css"  />
-<script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <!-- 메뉴 -->
 <div class="bookIndexNav">
 	<ul class="navbox">
@@ -60,3 +57,27 @@
 		</li>
 	</ul>
 </div>
+
+<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+<script type="text/javascript">
+var idleTime = 0;
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime >= 2)
+	{
+		location.href = "/${homepage.context_path}/intro/login/kioskLogout.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do";
+    }
+	console.log(idleTime);
+}
+
+$(document).ready(function() {
+    var idleInterval = setInterval(timerIncrement, 60000);
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+});
+</script>
+</c:if>
