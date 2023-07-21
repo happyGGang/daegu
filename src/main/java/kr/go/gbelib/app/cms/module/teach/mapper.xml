@@ -2923,7 +2923,7 @@
 		AND a.delete_yn = 'N'
 		AND a.homepage_id != 'h32'
 		--AND	SYSDATE <![CDATA[ < ]]> TO_DATE(a.end_join_date||' '||a.end_join_time, 'YYYY-MM-DD HH24:MI')
-		AND SYSDATE BETWEEN TO_DATE(start_date, 'YYYY-MM-DD') AND TO_DATE(end_date, 'YYYY-MM-DD')
+		--AND SYSDATE BETWEEN TO_DATE(start_date, 'YYYY-MM-DD') AND TO_DATE(end_date, 'YYYY-MM-DD')
 		<if test="date != null and date != ''">
 			AND TO_DATE(#{date},'YYYY-MM-DD') BETWEEN TO_DATE(start_date, 'YYYY-MM-DD') AND TO_DATE(end_date, 'YYYY-MM-DD')
 		</if>
