@@ -942,6 +942,44 @@ public class LibrarySearchController extends BaseController {
 								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 								return res;
 							}
+						} else if(homepage.getContext_path().equals("suseong")) {
+							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+							List<Map<String, Object>> list = null;
+							list = LibSearchAPI.getListData(reserveList);
+							int count = LibSearchAPI.getSearchCount(reserveList);
+							
+							int reserveCount = 0 ;
+							for(int i = 0; i < count; i++) {
+								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
+									reserveCount++;
+								}
+							}
+							
+							//무인예약 + 일반예약이 5권 초과가 불가능하게
+							if(reserveCount >= 5) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+							
+							int unmannedReserveCount = 0 ;
+							for(int i = 0; i < count; i++) {
+								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
+									unmannedReserveCount++;
+								}
+							}
+							
+							if((count - reserveCount) >= 2) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+
+							if((count - unmannedReserveCount) >= 2) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
 						}
 					}
 				} catch (Exception e) {

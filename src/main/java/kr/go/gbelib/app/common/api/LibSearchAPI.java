@@ -107,6 +107,85 @@ public class LibSearchAPI {
 	 *
 	 * 키워드 도서추천 조회 (능동형추천도서)
 	 *
+	 * @author JJY 2021. 10. 27.
+	 * @param librarySearch
+	 * @return
+	 */
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getBookKeywordGukboSearchList(LibrarySearch librarySearch) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		Map<String, Object> result = null;
+
+		param.put("keyword", librarySearch.getKeyword());
+		
+		// 0 남자 1 여자		
+		if (StringUtils.isNotEmpty(librarySearch.getSex())) {
+			if (librarySearch.getSex().equals("0")) {
+				param.put("gender", "남");
+			} else {
+				param.put("gender", "여");
+			}
+		}
+		
+		if (StringUtils.isNotEmpty(librarySearch.getBirth_year())) {
+			LocalDate now = LocalDate.now();
+			
+			int year = now.getYear();
+			int birth_year = Integer.parseInt(librarySearch.getBirth_year());
+			
+			int age = year - birth_year + 1;
+			
+			if (age <= 4) {
+				param.put("age", "영유아");
+			} else if (age >= 5 && age <= 7) {
+				param.put("age", "유아");
+			} else if (age >= 8 && age <= 13) {
+				param.put("age", "초등");
+			} else if (age >= 14 && age <= 19) {
+				param.put("age", "청소년");
+			} else if (age >= 20 && age <= 29) {
+				param.put("age", "20대 이상");
+			} else if (age >= 30 && age <= 39) {
+				param.put("age", "30대 이상");
+			} else if (age >= 40 && age <= 49) {
+				param.put("age", "40대 이상");
+			} else if (age >= 50 && age <= 59) {
+				param.put("age", "50대 이상");
+			} else if (age >= 60) {
+				param.put("age", "60대 이상");
+			} else {
+				param.put("age", "20대 이상");
+			}
+		}
+		
+		if(StringUtils.isNotEmpty(librarySearch.getBook_keyword_age())) {
+			param.put("age", librarySearch.getBook_keyword_age());
+		}
+		
+		result = CommonAPI.sendKEYWORD("recommendation-gukchae", param);
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		if (result != null) {
+			try {
+				List<Map<String, Object>> items = (List<Map<String, Object>>) result.get("result");
+				for (int i = 0; i < items.size(); i++) {
+					list.add(items.get(i));
+				}
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			}
+		}
+		
+
+		return list;
+	}
+	
+	/**
+	 * 도서추천 API
+	 *
+	 * 키워드 도서추천 조회 (능동형추천도서)
+	 *
 	 * @author EJT 2021. 12. 13.
 	 * @param lending
 	 * @return

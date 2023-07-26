@@ -5,4 +5,6 @@ import java.util.List;
 public interface BookKeywordDao {
 
 	public List<BookKeyword> getBookKeywordList(BookKeyword bookKeyword);
+
+	public List<BookKeyword> getBookKeywordListGukbo(BookKeyword bookKeyword);
 }

@@ -195,7 +195,7 @@ public class CommonAPI {
 		}
 		return resultMap;
 	}
-
+	
 	@SuppressWarnings ("unchecked")
 	public static Map<String, Object> sendSANGHO(Map<String, Object> param) {
 		HttpURLConnection connection = null;

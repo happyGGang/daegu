@@ -697,6 +697,189 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
+	@RequestMapping (value = {"/{contextPath}/kiosk/gukboBookKeywordIndex.*"})
+	public String gukboBookKeywordIndex(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("bookKeyword", bookKeyword);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/gukboBookKeywordIndex";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/gukboBookKeyword.*"})
+	public String gukboBookKeyword(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("bookKeyword", bookKeyword);
+		model.addAttribute("bookKeywordList", bookKeywordService.getBookKeywordListGukbo(bookKeyword));
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/gukboBookKeyword_ajax";
+		}
+		
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/gukboBookKeywordList.*"})
+	public String gukboBookKeywordList(Model model, BookKeyword bookKeyword, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		Member member = (Member) request.getSession().getAttribute("member");
+		
+		librarySearch.setKeyword(bookKeyword.getKeyword_name());
+		
+		if(!isLogin(request) || StringUtils.isEmpty(member.getBirth_day())) {
+			librarySearch.setSex(bookKeyword.getSex());
+			librarySearch.setBook_keyword_age(bookKeyword.getAge());
+		} else {
+			librarySearch.setSex(member.getSex());
+			librarySearch.setBirth_year(member.getBirth_day().split("-")[0]);
+		}
+		
+		List<Map<String, Object>> list = LibSearchAPI.getBookKeywordGukboSearchList(librarySearch);
+		
+//		List<Map<String, Object>> dataList = null;
+//		
+//		for(int i = 0; i < list.size(); i++) {
+//			LibrarySearch ls = new LibrarySearch();
+//			ls.setManageCode(homepage.getManage_code());
+//			ls.setIsbn(String.valueOf(list.get(i).get("isbn")));
+//			ls.setBooktype("BOOKANDNONBOOK");
+//			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
+//			
+//			try {
+//				dataList.add(result);
+//			} catch (Exception e) {
+//				System.out.println(e);
+//			}
+//		}
+		
+		int searchMenuIdx = 0;
+		
+		searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
+		 
+		model.addAttribute("searchMenuIdx", searchMenuIdx);
+		
+		model.addAttribute("bookKeyword", bookKeyword);
+		model.addAttribute("list", list);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/gukboBookKeywordList";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/gukboBookKeywordView.*"})
+	public String gukboView(Model model, BookKeyword bookKeyword, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Map<String, Object> map = null;
+		
+		if(StringUtils.isNotEmpty(bookKeyword.getBook_name())) {
+			LibrarySearch ls = new LibrarySearch();
+			
+			ls.setManageCode(homepage.getManage_code());
+			ls.setIsbn(bookKeyword.getIsbn());
+			ls.setBooktype("BOOKANDNONBOOK");
+			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
+			
+			List<Map<String, Object>> list = null;
+			
+			try {
+				list = LibSearchAPI.getListData(result);
+				map = list.get(0);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		try {
+			librarySearch.setSearch_text(bookKeyword.getIsbn());
+			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
+			
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
+			
+			String contents = "";
+			
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map3 : itemList) {
+					contents = String.valueOf(map3.get("contents"));
+				}
+				
+				model.addAttribute("kakaoResult", contents);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("detail", map);
+
+		model.addAttribute("bookKeyword", bookKeyword);
+		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> bestMap : list ) {
+				if ( bestMap.containsKey("ISBN") ) {
+					//알라딘 API 결과 가져오기
+					if (bestMap.get("ISBN") != null && !String.valueOf(bestMap.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(bestMap);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							bestMap.put("aladin", aladinData.get("item"));
+						}
+						if (bestMap.get("aladin") == null) {
+							bestMap.put("imageUrl", service.getImageUrl(bestMap));
+						}
+					}
+				}
+			}
+		}
+
+		model.addAttribute("bestBookList", list);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/gukboBookKeywordView";
+		}
+
+		return basePath + filePath;
+	}
+	
 	@RequestMapping (value = {"/{contextPath}/kiosk/bookKeywordIndex.*"})
 	public String bookKeywordIndex(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -749,22 +932,6 @@ public class IndexController extends BaseController {
 		
 		List<Map<String, Object>> list = LibSearchAPI.getBookKeywordSearchList(librarySearch);
 		
-		List<Map<String, Object>> dataList = null;
-		
-		for(int i = 0; i < list.size(); i++) {
-			LibrarySearch ls = new LibrarySearch();
-			ls.setManageCode(homepage.getManage_code());
-			ls.setIsbn(String.valueOf(list.get(i).get("isbn")));
-			ls.setBooktype("BOOKANDNONBOOK");
-			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
-			
-			try {
-				dataList.add(result);
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-		}
-		
 		int searchMenuIdx = 0;
 		
 		searchMenuIdx = menuService.getMenuIdxByProgramIdx2(new Menu(homepage.getHomepage_id(), "", "INTEGRATED"));
@@ -772,7 +939,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("searchMenuIdx", searchMenuIdx);
 		
 		model.addAttribute("bookKeyword", bookKeyword);
-		model.addAttribute("list", dataList);
+		model.addAttribute("list", list);
 		
 		String filePath = "";
 		if (homepage != null) {
@@ -789,10 +956,12 @@ public class IndexController extends BaseController {
 		Map<String, Object> map = null;
 		
 		if(StringUtils.isNotEmpty(bookKeyword.getBook_name())) {
-			librarySearch.setManageCode(homepage.getManage_code());
-			librarySearch.setIsbn(bookKeyword.getIsbn());
-			librarySearch.setBooktype("BOOKANDNONBOOK");
-			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+			LibrarySearch ls = new LibrarySearch();
+			
+			ls.setManageCode(homepage.getManage_code());
+			ls.setIsbn(bookKeyword.getIsbn());
+			ls.setBooktype("BOOKANDNONBOOK");
+			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
 			
 			List<Map<String, Object>> list = null;
 			

@@ -15,4 +15,17 @@
 		) WHERE ROWNUM <![CDATA[ <= ]]> 30
 	</select>
 	
+	<select id="getBookKeywordListGukbo" resultType="kr.go.gbelib.app.module.bookKeyword.BookKeyword">
+		SELECT * FROM (
+		SELECT 
+			KEYWORD_IDX,
+			KEYWORD_NAME,
+			ADD_DATE,
+			ADD_ID 
+		FROM 
+			BOOK_ATTN_KEYWORD_GUKBO
+		order by DBMS_RANDOM.RANDOM
+		) WHERE ROWNUM <![CDATA[ <= ]]> 30
+	</select>
+	
 </mapper>

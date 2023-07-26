@@ -828,7 +828,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 								<c:if test="${teach.agent_yn eq 'Y'}">
 									<div class="PT30">&nbsp;</div>
 									<h2 class="FS38">※ 수강생정보</h2>
-									<div style="text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
+									<div style="font-size:23px;text-align: right; ${param.ageType eq 'under' ? 'display:none;':''}">
 										(<span style="color: red; font-weight: bold;">*</span>) 항목은 필수 입력값입니다.
 									</div>
 
@@ -1107,7 +1107,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 
 			<div class="culturedetail-request-button-box">
 				<button id="save-btn" class="btn button2 add" style="display:inline-block;width:45%;">신청하기</button>
-				<button id="back-btn" class="btn button2" style="display:inline-block;width:45%;">뒤로가기</button>
+				<button id="back-btn" class="btn button8" style="display:inline-block;width:45%;">뒤로가기</button>
 			</div>
 		</div>
 	</div>

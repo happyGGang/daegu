@@ -16,4 +16,8 @@ public class BookKeywordService extends BaseService{
 	public List<BookKeyword> getBookKeywordList(BookKeyword bookKeyword) {
 		return dao.getBookKeywordList(bookKeyword); 
 	}
+	
+	public List<BookKeyword> getBookKeywordListGukbo(BookKeyword bookKeyword) {
+		return dao.getBookKeywordListGukbo(bookKeyword); 
+	}
 }
