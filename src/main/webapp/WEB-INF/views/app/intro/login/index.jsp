@@ -94,5 +94,18 @@ $(function() {
 			</dl>
 		</div>
 	</div>
+	<div class="login-body2">
+		<div class="tab">
+			<dl class="tcon t1">
+				<dt class="blind">통합도서관 로그인</dt>
+				<div class="loginBox1" style="border-left: 1px solid #eeee;">
+				<div class="tit"><i class="fa fa-chevron-circle-right"></i> RFID회원증 로그인</div>
+					<a href="/intro/${homepage.context_path}/rfLogin/index.do">
+						<img style="margin:15px 0 0 0; width: 130px;" src="/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
+					</a>
+				</div>
+			</dl>
+		</div>
+	</div>
 </div>
 

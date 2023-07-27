@@ -195,21 +195,37 @@ public class LoginController extends BaseController {
 			service.redirectUrl(returnUrl, request, response);
 			return null;
 		} else {
-			if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
-				member.setHomepage_id(homepage.getHomepage_id());
-			} else {
-				member.setHomepage_id("h00");
-			}
-			member.setLoginType("HOMEPAGE");
-			accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
-			ApiResponse errorResult = (ApiResponse) result;
+			Object barcodeResult = LoginAPI.barcodeLogin(member);
+			
+			if(barcodeResult instanceof Member) {
+				HttpSession session = request.getSession();
+				session.invalidate();
+				
+				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
+				loginLogService.addLoginLog(new LoginLog(member, request, homepage));
 
-			if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
-				codeService.alertMessage(String.format("해당 정보와 일치하는 이용자가 없습니다."), request, response);
+				member = (Member) barcodeResult;
+				member.setLogin(true);
+				service.setSessionMember(member, request);
+				service.redirectUrl(returnUrl, request, response);
 				return null;
 			} else {
-				codeService.alertMessage(errorResult.getMessage(), request, response);
-				return null;
+				if (homepage != null && StringUtils.isNotEmpty(homepage.getHomepage_id())) {
+					member.setHomepage_id(homepage.getHomepage_id());
+				} else {
+					member.setHomepage_id("h00");
+				}
+				member.setLoginType("HOMEPAGE");
+				accountLockService.loginFailed(new AccountLock(member, request.getRemoteAddr()));
+				ApiResponse errorResult = (ApiResponse) result;
+
+				if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
+					codeService.alertMessage(String.format("해당 정보와 일치하는 이용자가 없습니다."), request, response);
+					return null;
+				} else {
+					codeService.alertMessage(errorResult.getMessage(), request, response);
+					return null;
+				}
 			}
 		}
 	}
