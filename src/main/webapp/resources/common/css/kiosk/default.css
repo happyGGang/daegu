@@ -7,9 +7,19 @@
 	 font-style: normal;
 }
 
-body{font-family:'Pretendard-Regular';font-size:16px;position:relative;width:100%;height:100%;max-height:1760px;color:#252524;}
-html{width:100%;height:100%;max-height:1760px;}
-#wrap{width:100%;height:100%;max-height:1760px;}
+/* DEFAULT CSS */
+.relative {position:relative;}
+.inline-block {display:inline-block;}
+.FS38 {font-size:38px;}
+.BOLD {font-weight:bold;}
+.PT20 {padding-top:20px;}
+.PT30 {padding-top:30px;}
+.W480 {width:480px;}
+.H480 {height:480px;}
+
+body{font-family:'Pretendard-Regular';font-size:16px;position:relative;width:100%;height:100%;color:#252524;}
+html{width:100%;height:100%;}
+#wrap{width:100%;height:100%;}
 .end {clear:both}
 
 .nav{width:100%;height:160px;background:#151a2e;text-align:center }
@@ -19,26 +29,30 @@ html{width:100%;height:100%;max-height:1760px;}
 #wrap.subpage #bodyWrap{padding-bottom:20px;}
 #wrap.subpage #footer{height:60px;text-align:center;font-style:normal;padding:100px 0}
 
+.outer {display:table;width:100%;height:100%;}
+.inner {display:table-cell;vertical-align:middle;}
+
 /*공지사항*/
-.notice-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg.jpg') no-repeat center center;background-size:cover;color:#fff;text-align:center;}
+.notice-wrap {width:100%;height:100%;background:url('../../img/kiosk/background_bg.jpg') no-repeat top center;background-size:cover;color:#fff;text-align:center;}
 .notice-wrap .header {position:relative;padding-top:55px;}
 .notice-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#252524;}
 .notice-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.1em;color:#a5a5a5;text-transform:uppercase;}
-.notice-wrap .contents {position: relative;padding:0;margin:0;padding-top:65px;}
+.notice-wrap .contents {position: relative;padding:0;margin:0;padding-top:80px;}
 
 /*추천도서 리스트*/
-.recommandbook-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg2.jpg') no-repeat center center;background-size:cover;color:#fff;text-align:center;}
+.recommandbook-wrap {width:100%;height:100%;background:url('../../img/kiosk/background_bg2.jpg') no-repeat top center;background-size:cover;color:#fff;text-align:center;}
 .recommandbook-wrap .header {position:relative;padding-top:55px;}
 .recommandbook-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#252524;}
 .recommandbook-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.1em;color:#a5a5a5;text-transform:uppercase;}
 .recommandbook-wrap .contents {position: relative;padding:0;margin:0;padding-top:79px;}
 
 /*추천도서 상세*/
-.recommandbookdetail-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg3.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
+.recommandbookdetail-wrap {width:100%;height:100%;background:url('../../img/kiosk/background_bg3.jpg') no-repeat top center;background-size:cover;color:#fff;text-align:center;}
 .recommandbookdetail-wrap .header {position:relative;padding-top:55px;}
 .recommandbookdetail-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#252524;}
 .recommandbookdetail-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.05em;color:#a5a5a5;text-transform:uppercase;}
 .recommandbookdetail-wrap .contents {position: relative;padding:0;margin:0;padding-top:65px;}
+.recommandbookdetail-wrap .contents .img-sec {position: relative;}
 .recommandbookdetail-wrap .contents .img-sec img {width:390px;height:565px;box-shadow:25px 25px 25px rgba(0,0,0,0.2)}
 .recommandbookdetail-wrap .contents .title-sec {box-sizing:border-box;font-size:30px;color:#000;padding:35px 140px 0 140px;}
 .recommandbookdetail-wrap .contents .bookinfo-sec {box-sizing:border-box;padding:65px 140px 0 140px;}
@@ -51,6 +65,8 @@ html{width:100%;height:100%;max-height:1760px;}
 .recommandbookdetail-wrap .contents .print-sec .print-btn a strong {color:#87f0fc;}
 .recommandbookdetail-wrap .contents .etcinfo-sec {padding:35px 140px 0 140px;color:#252525;text-align:left;font-size:23px;}
 .inner-scroll {height:100px;overflow-y:scroll;box-sizing:border-box;padding:0 20px 0 0;}
+.status-box {position:absolute;left:63%;bottom:69px;width:110px;height:110px;line-height:110px;text-align:center;background:#113b9e;color:#fff;border-radius:50%;font-size:21px;}
+.status-box.red {background:#ff674c;}
 
 /* 스크롤바 설정*/
 .inner-scroll::-webkit-scrollbar{width:3px;}
@@ -76,7 +92,7 @@ html{width:100%;height:100%;max-height:1760px;}
 .rf-login-btn-sec a {font-family:'Pretendard-Regular';font-weight:bold;backdrop-filter:blur(15px);}
 
 /*추천도서 선택화면*/
-.selectrecommandbook-wrap {width:100%;height:100%;min-height:1760px;color:#fff;text-align:center;}
+.selectrecommandbook-wrap {width:100%;height:100%;max-height:1760px;color:#fff;text-align:center;}
 .selectrecommandbook-wrap .header {box-sizing:border-box;padding-top:55px;}
 .selectrecommandbook-wrap .header .head {box-sizing:border-box;padding:0 65px;}
 .selectrecommandbook-wrap .header .head h2 {float:left;font-size:25px;letter-spacing: 0.1em;text-transform:uppercase;}
@@ -93,36 +109,37 @@ html{width:100%;height:100%;max-height:1760px;}
 .selectrecommandbook-wrap .swiper-slide.slide02 {background:url('../../img/kiosk/background_bg5.jpg') no-repeat 0 0;background-size:cover;}
 
 /*이용자 맞춤 추천도서*/
-.userrecommandbook-wrap {width:100%;height:100%;min-height:1920px;background:url('../../img/kiosk/background_bg11.jpg') no-repeat center center;background-size:cover;color:#fff;text-align:center;}
+.userrecommandbook-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg11.jpg') no-repeat center center;background-size:cover;color:#fff;text-align:center;}
 .userrecommandbook-wrap .header {position:relative;padding-top:55px;}
 .userrecommandbook-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#fff;}
 .userrecommandbook-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;color:#b7b7b7;text-transform:uppercase;letter-spacing: 0.05em;}
 .userrecommandbook-wrap .contents {position: relative;padding:0;margin:0;padding-top:79px;}
 
 /*이용자 추천도 서 상세*/
-.userrecommandbookdetail-wrap {width:100%;height:100%;min-height:1920px;background:url('../../img/kiosk/background_bg12.jpg') no-repeat center top;background-size:cover;color:#fff;text-align:center;}
+.userrecommandbookdetail-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg12.jpg') no-repeat center top;background-size:cover;color:#fff;text-align:center;}
 .userrecommandbookdetail-wrap .header {position:relative;padding-top:55px;}
 .userrecommandbookdetail-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#fff;}
 .userrecommandbookdetail-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.05em;color:#b7b7b7;text-transform:uppercase;}
-.userrecommandbookdetail-wrap .contents {position: relative;padding:0;margin:0;padding-top:65px;}
+.userrecommandbookdetail-wrap .contents {position: relative;padding:0;margin:0;padding-top:40px;}
+.userrecommandbookdetail-wrap .contents .img-sec {position: relative;}
 .userrecommandbookdetail-wrap .contents .img-sec img {width:390px;height:565px;box-shadow:25px 25px 25px rgba(0,0,0,0.2)}
 .userrecommandbookdetail-wrap .contents .title-sec {box-sizing:border-box;font-size:38px;color:#fff;padding:45px 140px 0 140px;}
-.userrecommandbookdetail-wrap .contents .bookinfo-sec {box-sizing:border-box;padding:80px 140px 0 140px;}
+.userrecommandbookdetail-wrap .contents .bookinfo-sec {box-sizing:border-box;padding:40px 140px 0 140px;}
 .userrecommandbookdetail-wrap .contents .bookinfo-sec ul {font-size:0;}
 .userrecommandbookdetail-wrap .contents .bookinfo-sec li {display:inline-block;width:50%;font-size:25px;color:#fff;text-align:left;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 .userrecommandbookdetail-wrap .contents .bookinfo-sec li span {display:inline-block;width:100px;color:#b7b7b7;}
 .userrecommandbookdetail-wrap .contents .print-sec {padding:45px 140px 0 140px;}
 .userrecommandbookdetail-wrap .contents .print-sec .print-btn {display:block;}
-.userrecommandbookdetail-wrap .contents .print-sec .print-btn a {display:block;font-size:20px;padding:15px 0;background:#1e3e81;text-align:center;color:#fff;}
+.userrecommandbookdetail-wrap .contents .print-sec .print-btn a {display:block;font-size:20px;padding:15px 0;background:#1e3e81;text-align:center;color:#fff;border-radius: 5px;}
 .userrecommandbookdetail-wrap .contents .print-sec .print-btn a strong{color:#87f0fc;}
 .userrecommandbookdetail-wrap .contents .etcinfo-sec {padding:35px 140px 0 140px;color:#ededed;text-align:left;font-size:23px;}
 
 /*공통*/
-.backbutton-sec {box-sizing:border-box;padding:30px 80px 0 80px;text-align:left;}
+.backbutton-sec {box-sizing:border-box;padding:20px 40px 0 40px;text-align:left;}
 .backbutton-sec a {color:#fff;font-size:23px;}
 
 /*능동형 도서추천*/
-.smartrecommandbook-wrap {width:100%;height:100%;min-height:1920px;background:url('../../img/kiosk/background_bg6.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
+.smartrecommandbook-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg6.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
 .smartrecommandbook-wrap .header {position:relative;padding-top:55px;}
 .smartrecommandbook-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#fff;}
 .smartrecommandbook-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.05em;color:#b7b7b7;text-transform:uppercase;}
@@ -154,15 +171,15 @@ html{width:100%;height:100%;max-height:1760px;}
 .main-wrap .contents ul li a:hover.main-button-04 {background:url('../../img/kiosk/main-img04-on.png') no-repeat center 100px, linear-gradient(to bottom, #00c4c0, #582d91);}
 
 /**/
-.info-wrap {width:100%;height:100%;min-height:1920px;background:url('../../img/kiosk/background_bg8.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
+.info-wrap {width:100%;height:100%;background:url('../../img/kiosk/background_bg8.jpg') no-repeat top center;background-size:cover;color:#fff;text-align:center;}
 .info-wrap .header {box-sizing:border-box;padding-top:55px;}
 .info-wrap .header .head {box-sizing:border-box;padding:0 65px;}
 .info-wrap .header .head h2 {float:left;font-size:25px;letter-spacing:0.1em;text-transform:uppercase;color:#252525;}
 .info-wrap .header .head span.time {float:right;font-size:50px;font-weight:100;color:#252525;font-family: Century Gothic;letter-spacing: 0.1em;margin-top:7px;}
 .info-wrap .header .head span.time span.time-txt {display:inline-block;font-size:50px;font-weight:100;color:#252525;}
-.info-wrap .contents {position:relative;padding-top:130px;padding-left:335px;padding-right:55px;box-sizing:border-box;text-align:left;color:#252525;}
+.info-wrap .contents {position:relative;padding-top:110px;padding-left:335px;padding-right:55px;box-sizing:border-box;text-align:left;color:#252525;}
 .info-wrap .contents h3 {display:block;font-size:33px;}
-.info-wrap .contents h4 {display:block;font-size:30px;background:url('../../img/kiosk/title-bg-01.png') no-repeat left bottom;margin-top:50px;}
+.info-wrap .contents h4 {display:block;font-size:30px;background:url('../../img/kiosk/title-bg-01.png') no-repeat left bottom;margin-top:40px;}
 .info-wrap .contents h5 {display:block;font-size:25px;margin-top:30px;padding-bottom:25px;}
 .info-wrap .contents table {text-align:center;}
 .info-wrap .contents table thead th {background:#23234b;color:#fff;text-align:center;}
@@ -172,7 +189,7 @@ html{width:100%;height:100%;max-height:1760px;}
 .guide-line {width:100%;height:1px;background:#d0d0d0;margin-top:40px;}
 
 /**/
-.culture-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg9.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
+.culture-wrap {width:100%;height:100%;background:url('../../img/kiosk/background_bg9.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
 .culture-wrap .header {position:relative;padding-top:55px;}
 .culture-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#fff;}
 .culture-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.05em;color:#b7b7b7;text-transform:uppercase;}
@@ -185,7 +202,7 @@ html{width:100%;height:100%;max-height:1760px;}
 .culture-list .cul-status {width:100px;height:100px;padding-left:40px;}
 .culture-list .cul-status span {display:block;width:100px;height:100px;line-height:100px;text-align:center;font-size:22px;border-radius:100px;background:#113b9e;letter-spacing:-1.3px;}
 .culture-list .cul-status span.status_0  {background:#e74e40;}
-.culture-list .cul-status span.status_1  {background:#e74e40;}
+.culture-list .cul-status span.status_1  {background:#266ac4;}
 .culture-list .cul-status span.status_2  {background:#0a61f0;}
 .culture-list .cul-status span.status_3  {background:#0a61f0;}
 .culture-list .cul-status span.status_4  {background:#555555;}
@@ -223,14 +240,14 @@ html{width:100%;height:100%;max-height:1760px;}
 .culture-list .cul-info {vertical-align:top;padding-left:20px;}
 .culture-list .cul-info li {display:block;color:#252525;font-size:20px;}
 .culture-list .cul-info li span {color:#7d7a78;}
-.culture-list .cul-info li:nth-child(1) {font-size:25px;font-weight:600;padding-bottom:5px;width:87%;line-height:120%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.culture-list .cul-info li:nth-child(1) {font-size:25px;font-weight:600;padding-bottom:5px;width:490px;line-height:120%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .culture-list .cul-cnt {position:absolute;right:0;top:0;width:135px;height:100%;}
 .culture-list .cul-cnt ul {display:block;width:135px;height:100%;}
 .culture-list .cul-cnt li {display:block;width:135px;height:50%;box-sizing:border-box;padding:10px 0 0 15px;}
 .culture-list .cul-cnt li:nth-child(1) {background:#252525;border-top-right-radius:9px;}
 .culture-list .cul-cnt li:nth-child(2) {background:#888888;border-bottom-right-radius:9px;}
 .culture-list .cul-cnt li p.cul-cnt-tit  {font-size:16px;color: #dbdbdb;}
-.culture-list .cul-cnt li p.cul-cnt-state {font-family: Century Gothic;font-size:28px;font-weight:800;}
+.culture-list .cul-cnt li p.cul-cnt-state {font-family:"Century Gothic";font-size:23px;font-weight:800;}
 .culture-list .cul-cnt li p.cul-cnt-state span {color:#00f6ff;}
 
 .overflow-y {overflow-y:scroll;}
@@ -290,7 +307,7 @@ html{width:100%;height:100%;max-height:1760px;}
 .culturedetail-info-etc::-webkit-scrollbar-track{background-color: rgba(255,255,255,0.2);}
 
 .culturedetail-request-button-box {padding-top:38px;}
-button.button2, 
+button, 
 a.button2 {display:block;border-radius:100px;width:100%;background:#e74e40;color:#fff;font-size:35px;height:100px;line-height:100px;text-align:center;}/*수강신청*/
 a.button3 {display:block;border-radius:100px;width:100%;background:#f1b55c;color:#fff;font-size:35px;height:100px;line-height:100px;text-align:center;}/*신청대기*/
 a.button4 {display:block;border-radius:100px;width:100%;background:#266ac4;color:#fff;font-size:35px;height:100px;line-height:100px;text-align:center;}/*대기자신청*/
@@ -299,8 +316,11 @@ a.button6 {display:block;border-radius:100px;width:100%;background:#757575;color
 a.button7 {display:block;border-radius:100px;width:100%;background:#1c1c1c;color:#fff;font-size:35px;height:100px;line-height:100px;text-align:center;}/*완료*/
 a.button8 {display:block;border-radius:100px;width:100%;background:#959595;color:#fff;font-size:35px;height:100px;line-height:100px;text-align:center;}/*뒤로가기*/
 
+button.button2 {display:block;border-radius:100px;width:100%;background:#e74e40;color:#fff;font-size:35px;height:100px;text-align:center;}/*수강신청*/
+button.button8 {display:block;border-radius:100px;width:100%;background:#959595;color:#fff;font-size:35px;height:100px;text-align:center;}/*뒤로가기*/
+
 /*강좌 신청 페이지*/
-.culturerequest-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg11.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
+.culturerequest-wrap {width:100%;height:100%;background:url('../../img/kiosk/background_bg13.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
 .culturerequest-wrap .header {position:relative;padding-top:55px;}
 .culturerequest-wrap .header h1 {font-family:'Pretendard-Regular';font-size:53px;color:#fff;}
 .culturerequest-wrap .header p {font-family:'Pretendard-Regular';font-size:17px;letter-spacing: 0.05em;color:#b7b7b7;text-transform:uppercase;}
@@ -338,12 +358,6 @@ input[type="radio"]:checked {border: 0.3em solid tomato;}
 .detail-bookbest-list h2 {font-size:21px;color:#000;display:block;text-align:left;padding-bottom:18px;color:#fff;}
 
 
-.FS38 {font-size:38px;}
-.BOLD {font-weight:bold;}
-.PT20 {padding-top:20px;}
-.PT30 {padding-top:30px;}
-
-/*버튼 영역*/
 /*버튼 영역*/
 .nav {height:160px;margin:0 auto;padding:0;text-align:center;white-space:nowrap;box-sizing:border-box;background:#151a2e;}
 .nav ul.navbox{font-size:0;height:100%;}
@@ -351,45 +365,55 @@ input[type="radio"]:checked {border: 0.3em solid tomato;}
 .nav li a {display:block;text-align:center;margin:0;padding:0;height:100%;color:#fff;box-sizing:border-box;opacity:0.5;}
 .nav li a span {display:block;text-align:center;font-weight:200;}
 .nav li a span {font-size:160%;letter-spacing: -0.5px;}
-.nav li a span.kor-txt {font-size:21px;padding-top:80px;box-sizing:border-box;letter-spacing:-1.5px;}
-.nav li a span.eng-txt {font-size:8px;}
-.nav li:nth-child(1) a {background:url('../../img/kiosk/nav-img-01.png') no-repeat center 30px;}
-.nav li:nth-child(2) a {background:url('../../img/kiosk/nav-img-02.png') no-repeat center 30px;}
-.nav li:nth-child(3) a {background:url('../../img/kiosk/nav-img-03.png') no-repeat center 30px;}
-.nav li:nth-child(4) a {background:url('../../img/kiosk/nav-img-04.png') no-repeat center 30px;}
-.nav li:nth-child(5) a {background:url('../../img/kiosk/nav-img-05.png') no-repeat center 30px;}
-.nav li:nth-child(6) a {background:url('../../img/kiosk/nav-img-06.png') no-repeat center 30px;}
-.nav li:nth-child(7) a {background:url('../../img/kiosk/nav-img-06.png') no-repeat center 30px;}
-.nav li:nth-child(1) a.on {background:#113b9e url('../../img/kiosk/nav-img-01.png') no-repeat center 30px;opacity:1;}
-.nav li:nth-child(2) a.on {background:#113b9e url('../../img/kiosk/nav-img-02.png') no-repeat center 30px;opacity:1;}
-.nav li:nth-child(3) a.on {background:#113b9e url('../../img/kiosk/nav-img-03.png') no-repeat center 30px;opacity:1;}
-.nav li:nth-child(4) a.on {background:#113b9e url('../../img/kiosk/nav-img-04.png') no-repeat center 30px;opacity:1;}
-.nav li:nth-child(5) a.on {background:#113b9e url('../../img/kiosk/nav-img-05.png') no-repeat center 30px;opacity:1;}
-.nav li:nth-child(6) a.on {background:#113b9e url('../../img/kiosk/nav-img-06.png') no-repeat center 30px;opacity:1;}
-.nav li:nth-child(7) a.on {background:#113b9e url('../../img/kiosk/nav-img-06.png') no-repeat center 30px;opacity:1;}
+.nav li a span.kor-txt {font-size:20px;padding-top:85px;box-sizing:border-box;letter-spacing: -0.02em;}
+.nav li a span.eng-txt {color: #74747a;font-size:5px;text-transform: uppercase;letter-spacing: 0.1em;}
+.nav li:nth-child(1) a {background:url('../../img/kiosk/nav-img-01.png') no-repeat center 35px;}
+.nav li:nth-child(2) a {background:url('../../img/kiosk/nav-img-02.png') no-repeat center 35px;}
+.nav li:nth-child(3) a {background:url('../../img/kiosk/nav-img-03.png') no-repeat center 35px;}
+.nav li:nth-child(4) a {background:url('../../img/kiosk/nav-img-04.png') no-repeat center 35px;}
+.nav li:nth-child(5) a {background:url('../../img/kiosk/nav-img-06.png') no-repeat center 35px;}
+.nav li:nth-child(6) a {background:url('../../img/kiosk/nav-img-05.png') no-repeat center 35px;}
+.nav li:nth-child(7) a {background:url('../../img/kiosk/nav-img-07.png') no-repeat center 35px;}
+.nav li:nth-child(1) a.on {background:#113b9e url('../../img/kiosk/nav-img-01.png') no-repeat center 35px;opacity:1;}
+.nav li:nth-child(2) a.on {background:#113b9e url('../../img/kiosk/nav-img-02.png') no-repeat center 35px;opacity:1;}
+.nav li:nth-child(3) a.on {background:#113b9e url('../../img/kiosk/nav-img-03.png') no-repeat center 35px;opacity:1;}
+.nav li:nth-child(4) a.on {background:#113b9e url('../../img/kiosk/nav-img-04.png') no-repeat center 35px;opacity:1;}
+.nav li:nth-child(5) a.on {background:#113b9e url('../../img/kiosk/nav-img-06.png') no-repeat center 35px;opacity:1;}
+.nav li:nth-child(6) a.on {background:#113b9e url('../../img/kiosk/nav-img-05.png') no-repeat center 35px;opacity:1;}
+.nav li:nth-child(7) a.on {background:#113b9e url('../../img/kiosk/nav-img-07.png') no-repeat center 35px;opacity:1;}
 .nav li a:hover {opacity:1;}
 
 .bookIndexNav {height:160px;margin:0 auto;padding:0;text-align:center;white-space:nowrap;box-sizing:border-box;background:#151a2e;}
 .bookIndexNav ul.navbox {font-size:0;height:100%;}
-.bookIndexNav ul.navbox li {display:inline-block;height:100%;width:40%;font-size:16px;box-sizing:border-box;}
+.bookIndexNav ul.navbox li {display:inline-block;height:100%;width:30%;font-size:16px;box-sizing:border-box;}
 .bookIndexNav ul.navbox li a {display:block;text-align:center;margin:0;padding:0;width:100%;height:100%;color:#fff;box-sizing:border-box;opacity:0.5;}
-.bookIndexNav ul.navbox li a.smart-btn {background:url('../../img/kiosk/bookindex-ico-02.png') no-repeat 28% center;}
-.bookIndexNav ul.navbox li a.librarian-btn {background:url('../../img/kiosk/bookindex-ico-01.png') no-repeat 28% center;}
+.bookIndexNav ul.navbox li a.smart-btn {background:url('../../img/kiosk/bookindex-ico-02.png') no-repeat 13% center;}
+.bookIndexNav ul.navbox li a.librarian-btn {background:url('../../img/kiosk/bookindex-ico-01.png') no-repeat 13% center;}
 .bookIndexNav ul.navbox li a.on {background:#113b9e;opacity:1;}
-.bookIndexNav ul.navbox li a span {display:block;text-align:center;font-weight:200;color:#fff;line-height:140%;text-align:left;padding-left: 166px;}
+.bookIndexNav ul.navbox li a span {display:block;text-align:center;font-weight:200;color:#fff;line-height:140%;text-align:left;padding-left:100px;}
 .bookIndexNav ul.navbox li a span.kor-txt {font-size:25px;box-sizing:border-box;}
 .bookIndexNav ul.navbox li a span.eng-txt {font-size:6px;}
 .bookIndexNav ul.navbox li a div.outer {display:table;width:100%;height:100%;}
 .bookIndexNav ul.navbox li a div.inner {display:table-cell;vertical-align:middle;}
 .bookIndexNav ul.navbox li a:hover {opacity:1;}
 .bookIndexNav ul.navbox li:nth-child(3) {width:20%;background:#113b9e;}
-.bookIndexNav ul.navbox li:nth-child(3) a {vertical-align:top;opacity:1;}
+.bookIndexNav ul.navbox li:nth-child(3) a {vertical-align:top;opacity:1;border-right:1px solid rgba(255,255,255,0.25)}
+.bookIndexNav ul.navbox li:nth-child(4) {width:20%;background:#113b9e;}
+.bookIndexNav ul.navbox li:nth-child(4) a {vertical-align:top;opacity:1;}
+
+
+/**/
+.print-box {position:absolute;width:100%;height:0;background:#ffffff;z-index:777;top:0;transition:all 600ms cubic-bezier(0.86, 0, 0.07, 1); border-radius: 5px;}
+.print-image-box {display:inline-block;width:65%;}
+.print-btn-box {display:inline-block;width:33%;float:right;vertical-align:top;text-align:center;height:100%;background:#e0e0e0;border-radius: 0 5px 5px 0px;}
+.btn-print-box {display:block;width:175px;height:175px;margin:0 auto;line-height:175px;text-align:center;color:#fff;background:#464d4e;font-size: 25px;border-radius: 5px;}
+.close-print-box {display:block;width:175px;height:175px;margin:0 auto;line-height:175px;text-align:center;color:#464d4e;background:#fff;font-size: 25px;border-radius: 5px;}
 
 .copyright {height:160px;margin:0 auto;padding:0;text-align:center;white-space:nowrap;box-sizing:border-box;background:#151a2e;}
 .copyright .outer {display:table;width:100%;height:100%;}
 .copyright .inner {display:table-cell;vertical-align:middle;}
-.copyright .kor-txt {font-size:23px;font-family:'Nanum Myeongjo';color:#e0e0e0;}
-.copyright .eng-txt {font-size:9px;color:#e0e0e0;text-transform:uppercase;}
+.copyright .kor-txt {font-size:25px;font-family:'Nanum Myeongjo';color:#e0e0e0;}
+.copyright .eng-txt {font-size:10px;letter-spacing:0.1em;color:#979696;text-transform:uppercase;}
 
 .doc-title h3{padding-top:0}
 

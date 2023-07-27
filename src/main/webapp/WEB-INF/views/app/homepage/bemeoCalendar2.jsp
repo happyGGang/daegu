@@ -256,35 +256,24 @@
 					</table>
 				</div>
 				<h3>위치안내</h3>
-				<link rel="stylesheet" href="/resources/common/css/emap/OpenLayers-6.4.3.css" type="text/css">
-				<script
-					src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
-				<script type="text/javascript" src="/resources/common/js/emap/OpenLayers-6.4.3.js"></script>
-				<script type="text/javascript" src="/resources/common/js/emap/proj4.js"></script>
-				<script type="text/javascript"
-					src="/resources/common/js/emap/wmts_ngiiMap_v6.4.3.js?apikey=2375C203D51981F12172FEAB7D7AFD44"></script>
-				<script>
-					var map1;
-					window.onload = function () {
-						map1 = new ngii_wmts.map("map1", { mapMode: 3 });
-						map1._setMapMode('0');
-						map1._showpoint(1101040.1159, 1762603.0005, 7);
-					}
-						;
-				</script>
+				<!-- * 카카오맵 - 지도퍼가기 -->
+				<!-- 1. 지도 노드 -->
+				<div id="daumRoughmapContainer1689899261535" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;"></div>
 
-				<div class="mapWrap" style="position:relative;">
-					<div id="map1" style="width:100%;height:500px;"></div>
-					<ul class="map-btn">
-						<li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('0');">일반</a></li>
-						<li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('1');">색약</a></li>
-						<li><a href="javascript:ngii_wmts.findMapObject(0)._setMapMode('2');">큰글</a></li>
-						<li class="img-li"><a href="javascript:map1.zoomIn();"><img src="/resources/common/img/map-plus-icon.png"
-									alt="지도 확대 버튼" title="지도 확대 버튼"></a></li>
-						<li class="img-li"><a href="javascript:map1.zoomOut();"><img src="/resources/common/img/map-minus-icon.png"
-									alt="지도 축소 버튼" title="지도 축소 버튼"></a></li>
-					</ul>
-				</div>
+				<!--2. 설치 스크립트
+				* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.-->
+				<script charset="UTF-8" class="daum_roughmap_loader_script"
+					src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+
+				<!-- 3. 실행 스크립트 -->
+				<script charset="UTF-8">
+					new daum.roughmap.Lander({
+						"timestamp": "1689899261535",
+						"key": "2fko7",
+						//"mapWidth": "970",
+						"mapHeight": "500"
+					}).render();
+				</script>
 
 				<div class="info_box">
 					<p class="info_add">대구광역시 수성구 명덕로 443-2(수성동3가) 수성2,3가동 행정복지센터 4층</p>
