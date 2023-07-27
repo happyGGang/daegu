@@ -267,7 +267,7 @@ public class IndexController extends BaseController {
 		if (StringUtils.equals(teachOne.getMember_yn(), "N") && !isLogin(request)) {
 			String before_url = String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path());
 			homepage.setBefore_url(before_url);
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+			service.redirectUrl(String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
 			return null;
 		}
 
@@ -279,17 +279,17 @@ public class IndexController extends BaseController {
 		}
 
 		// 그룹당 강의 제한 개수 . ->
-		String checkResult = studentService.checkStudent(student);
-		if ( checkResult != null ) {
-			service.alertMessageAndUrl(checkResult, String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
-			return null;
-		}
-
-		//블랙리스트 체크
-		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
-			service.alertMessageAndUrl("신청이 불가능합니다.\\n도서관에 문의해주세요.", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
-			return null;
-		}
+//		String checkResult = studentService.checkStudent(student);
+//		if ( checkResult != null ) {
+//			service.alertMessageAndUrl(checkResult, String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
+//			return null;
+//		}
+//
+//		//블랙리스트 체크
+//		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
+//			service.alertMessageAndUrl("신청이 불가능합니다.\\n도서관에 문의해주세요.", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
+//			return null;
+//		}
 
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
@@ -1055,7 +1055,7 @@ public class IndexController extends BaseController {
 		if((!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) && uri.contains("kiosk")) {
 			String before_url = String.format("/%s/kiosk/librarianPickBookIndex.do", homepage.getContext_path());
 			homepage.setBefore_url(before_url);
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+			service.redirectUrl(String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
 			return null;
 		}
 		
@@ -1063,7 +1063,7 @@ public class IndexController extends BaseController {
 		
 		LibrarySearch librarySearch = new LibrarySearch();
 		
-		librarySearch.setManageCode(homepage.getManage_code());
+		//librarySearch.setManageCode(homepage.getManage_code());
 		librarySearch.setUserkey(sessionMemberInfo.getRec_key());
 		if (StringUtils.isNotEmpty(sessionMemberInfo.getBirth_day())) {
 			String[] age_split = sessionMemberInfo.getBirth_day().split("-");
@@ -1132,7 +1132,7 @@ public class IndexController extends BaseController {
 		Map<String, Object> map = null;
 		
 		if(StringUtils.isNotEmpty(librarianPickBook.getRegNo())) {
-			librarySearch.setManageCode(homepage.getManage_code());
+			//librarySearch.setManageCode(homepage.getManage_code());
 			librarySearch.setRegNo(librarianPickBook.getRegNo());
 			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
 			

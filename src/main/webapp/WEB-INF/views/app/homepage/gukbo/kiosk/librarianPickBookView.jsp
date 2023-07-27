@@ -113,9 +113,9 @@ $(function() {
 						<div class="print-btn-box">
 							<div class="outer">
 								<div class="inner">
-									<div class="">
+									<!-- <div class="">
 										<a href="#btn_print" id="btn_print" class="btn-print-box">인쇄</a>	
-									</div>
+									</div> -->
 									<div class="">
 										<a href="#close-box" id="close-print-box" class="close-print-box">확인</a>
 									</div>									

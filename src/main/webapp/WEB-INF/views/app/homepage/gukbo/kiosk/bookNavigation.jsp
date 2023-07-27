@@ -28,6 +28,18 @@
 			</a>
 		</li>
 		<li>
+			<a href="/${homepage.context_path}/kiosk/bookIndex.do">
+				<div class="outer">
+					<div class="inner">
+						<div class="">
+							<img src='/resources/common/img/kiosk/home-icon.png' alt=''/>
+						</div>
+						HOME
+					</div>
+				</div>						
+			</a>
+		</li>
+		<li>
 			<c:choose>
 			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 			<a href="/${homepage.context_path}/intro/login/kioskLogout.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do">
@@ -58,7 +70,8 @@
 	</ul>
 </div>
 
-<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+<c:choose>
+<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 <script type="text/javascript">
 var idleTime = 0;
 function timerIncrement() {
@@ -80,4 +93,28 @@ $(document).ready(function() {
     });
 });
 </script>
-</c:if>
+</c:when>
+<c:otherwise>
+<script type="text/javascript">
+var idleTime = 0;
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime >= 2)
+	{
+		location.href = "/${homepage.context_path}/kiosk/bookIndex.do";
+    }
+	console.log(idleTime);
+}
+
+$(document).ready(function() {
+    var idleInterval = setInterval(timerIncrement, 60000);
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+});
+</script>
+</c:otherwise>
+</c:choose>
