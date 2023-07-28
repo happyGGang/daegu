@@ -43,13 +43,13 @@ $(function() {
 				<c:forEach items="${list}" var="i">
 					<div class="list">
 						<div class="thumb-image">
-							<a href="/${homepage.context_path}/kiosk/bookKeywordView.do?book_name=${i.bookname}&isbn=${i.isbn}&author=${i.author}&bookimgUrl=${empty i.bookimageURL ? '/resources/common/img/noImg2.png' : i.bookimageURL}">
-								<img src="${empty i.bookimageURL ? '/resources/common/img/noImg2.png' : i.bookimageURL}" alt="${i.bookname}"/>
+							<a href="/${homepage.context_path}/kiosk/bookKeywordView.do?book_name=${i.TITLE_INFO}&isbn=${i.ISBN}&author=${i.AUTHOR}&bookimgUrl=${empty i.IMAGE ? '/resources/common/img/noImg2.png' : i.IMAGE}">
+								<img src="${empty i.IMAGE ? '/resources/common/img/noImg2.png' : i.IMAGE}" alt="${i.TITLE_INFO}"/>
 							</a>
 						</div>
 						<div class="cont">
-							<p class="tit">${fn:substring(i.bookname, 0, 20)}<c:if test="${fn:length(i.bookname) > 20}">...</c:if></p>
-							<p class="auth">${i.author}</p>
+							<p class="tit">${fn:substring(i.TITLE_INFO, 0, 20)}<c:if test="${fn:length(i.TITLE_INFO) > 20}">...</c:if></p>
+							<p class="auth">${i.AUTHOR}</p>
 						</div>
 					</div>
 				</c:forEach>
