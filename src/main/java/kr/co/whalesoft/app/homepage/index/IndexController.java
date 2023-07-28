@@ -993,9 +993,8 @@ public class IndexController extends BaseController {
 							map.put("imageUrl", service.getImageUrl(map));
 						}
 					}
+					resultList.add(map);
 				}
-				
-				resultList.add(i, result);
 			}
 		}
 		
