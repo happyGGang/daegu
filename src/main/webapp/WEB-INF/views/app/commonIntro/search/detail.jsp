@@ -952,7 +952,7 @@ $(function() {
 									<fmt:formatDate var="dateStr2" value="${Day1}" pattern="HH:mm:ss"/>
 									<fmt:formatDate var="endTime" value="${dateStr1}" pattern="HH:mm:ss"/>
 									<c:choose>
-										<c:when test="${(day eq '토' or day eq '금') and endTime <= dateStr2}">
+										<c:when test="${(day eq '토' or day eq '일') and endTime <= dateStr2}">
 											
 										</c:when>
 										<c:otherwise>
