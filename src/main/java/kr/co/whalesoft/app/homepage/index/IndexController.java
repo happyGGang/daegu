@@ -2067,7 +2067,7 @@ public class IndexController extends BaseController {
 		if (homepage.getHomepage_id().equals("h10")) {
 			Teach t = new Teach();
 			t.setHomepage_id(homepage.getHomepage_id());
-			t.setSearchCate1("16");
+			//t.setSearchCate1("16");
 			model.addAttribute("teachList", teachService.getTeachListForUser(t));
 			
 			//국보도서관 신착도서
