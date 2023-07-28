@@ -945,7 +945,20 @@ $(function() {
 						
 								</c:when>
 								<c:otherwise>
-									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
+									<jsp:useBean id="Day1" class="java.util.Date" />
+									<fmt:formatDate var="day" value="${Day1}" pattern="E"/>
+									<c:set var="endTime" value="17:00:00"></c:set>
+									<fmt:parseDate var="dateStr1" value="${endTime}" pattern="HH:mm:ss"/>
+									<fmt:formatDate var="dateStr2" value="${Day1}" pattern="HH:mm:ss"/>
+									<fmt:formatDate var="endTime" value="${dateStr1}" pattern="HH:mm:ss"/>
+									<c:choose>
+										<c:when test="${(day eq '토' or day eq '금') and endTime <= dateStr2}">
+											
+										</c:when>
+										<c:otherwise>
+											<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출 신청</span></a>
+										</c:otherwise>
+									</c:choose>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>
@@ -960,7 +973,6 @@ $(function() {
 						
 						</c:when>
 						<c:otherwise>
-							<jsp:useBean id="Day1" class="java.util.Date" />
 								<fmt:formatDate var="day" value="${Day1}" pattern="E"/>
 									<c:if test="${day ne '토' and day ne '일'}">
 									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
