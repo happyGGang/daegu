@@ -118,6 +118,7 @@ input[type="radio"][disabled],input[type="checkbox"][disabled],input[type="radio
 
 @media (max-width:767px){/* 태블릿 */
 	.mmm1{display:none!important}
+	th.title {width:75% !important;}
 }
 @media (max-width:500px){/* 모바일 */
 	.mmm2{display:none!important}
@@ -304,6 +305,7 @@ table td.first{border-left-width:0px}
 table th.btw,
 table td.btw{border-top-width:1px}
 table.bbs th.first{border-left-width:1px}
+table.bbs th.title {width:55%;}
 table th.last,
 table td.last{border-right-width:0px}
 table.type2 th.last,
@@ -439,7 +441,9 @@ transform:translatez(0);
 .bx-wrapper .bx-loading {min-height:50px;background:url('../imb/bx_loader.gif') center center no-repeat #fff;height:100%;width:100%;position:absolute;top:0;left:0;z-index:9999}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:140px;background:url('/resources/common/img/sub-visual.gif') no-repeat center center;text-align:center;color:#fff;border-top:1px solid #e5e5e5;}
+.sub-visual{position:relative;height:140px;background:url('/resources/homepage/gukbo/img/background-bg01.jpg')no-repeat;background-position: 0% 65%;
+    background-size: cover;text-align:center;color:#fff;border-top:1px solid #e5e5e5;}
+
 
 #container .sections,
 #container{clear:both;}
@@ -532,7 +536,7 @@ transform:translatez(0);
 /* 본문 */
 .doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
 .doc-title {position:relative;padding: 10px 0 15px 0;/* line-height: 150%; */}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 28px;color: #222;letter-spacing:-1px;font-weight:bold;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 28px;color: #fff;letter-spacing:-1px;font-weight:bold;}
 .doc-title ol{margin-top:-6px;}
 
 .doc-info {position:relative;padding:0 0 0 270px;box-sizing:border-box;z-index:2;text-align:center;}
@@ -543,8 +547,8 @@ transform:translatez(0);
 .doc-info ol li.second { background:none; }
 .doc-info ol li {font-size:17px;padding-left:25px;margin-left:0px;background:url("/resources/common/img/sub_con4.png") no-repeat 7px 14px;}
 .doc-info ol li:first-child {background:none;}
-.doc-info ol li a { color:#777777;text-decoration:none;font-size:15px; font-weight:600;}
-.doc-info ol li.on a { color:#777777;text-decoration:none;font-weight:bold; }
+.doc-info ol li a { color:#888888;text-decoration:none;font-size:15px; font-weight:600;}
+.doc-info ol li.on a { color:#888888;text-decoration:none;font-weight:bold; }
 
 .doc-info li, .doc-info ol li .fa-home, .doc-info li a { height: 33px; line-height: 33px; font-size: 12px; }
 .doc-info li { display: inline-block; zoom: 1; vertical-align: middle; }
@@ -556,8 +560,8 @@ transform:translatez(0);
 .shareArea ul li { display: inline-block; zoom: 1; vertical-align: middle; }
 
 /* 서브페이지 공유버튼 */
-div#share_layer {display:none;position:absolute;top:55px;right:0;background:#fff;overflow:hidden;height:63px;z-index:7}
-div.shareAllBtns ul.shareBox {position:relative;width:180px;}
+div#share_layer {display:none;position:absolute;top:-45px;right:0;background:rgba(255, 255, 255, 0.5);overflow:hidden;height:48px;border-radius:5px;z-index:7}
+div.shareAllBtns ul.shareBox {position:relative;width:175px;}
 div.shareAllBtns ul.shareBox > li {border:0;padding:0;width:32px;height:32px;margin:5px;display:inline-block;}
 div.shareAllBtn ul.shareBox li:last-child {padding:0;margin:0;}
 div.shareAllBtn ul.shareBox li > img.shareIcon {padding:0;margin:0}
@@ -1044,7 +1048,7 @@ ul.volunteer_order li.arrow03{width:175px;padding:5px 13px 3px 12px;text-align:c
 .roomGuide h4 a.btn{padding:1px 10px}
 .roomGuide h4 a.btn span{font-size:80%;font-weight:normal;letter-spacing:-1px}
 .roomGuide h4 a.btn i{margin:0 0 0 5px}
-.roomGuide .popupzone{width:240px;padding:9px 9px 14px;background:url('../img/contents/bg_facility_photo.gif') no-repeat 0 bottom;border-top:1px solid #d7d7d0}
+.roomGuide .popupzone{width:240px;background:url('../img/contents/bg_facility_photo.gif') no-repeat 0 bottom;border-top:1px solid #d7d7d0}
 .roomGuide .popupzone.only1 .bx-pager{height:0px}
 .roomGuide .popupzone.only1 .bx-pager .bx-pager-item{display:none}
 .roomGuide.type2 h2{padding-top:4px}
@@ -1599,7 +1603,7 @@ filter:alpha(opacity = 0.3*100);
 .banner_list li img{width:160px;height:45px}
 .banner_list li,
 .banner_list li a{display:inline-block;zoom:1;*display:inline}
-.banner_list li a{margin:5%;border:1px solid #d5d5d5}
+.banner_list li a{margin:5%;}
 @media all and (max-width:900px){
 	.banner_list li{width:33.33%}
 }
@@ -2190,3 +2194,6 @@ input.new_text01 ::placeholder{font-size:15px;}
 		background-position: 40px 15px !important;
 	}
 }
+
+
+.doc-body h3 {font-weight:bold;}

@@ -66,7 +66,7 @@
 <c:if test="${homepage.context_path eq 'dmsl'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
-<c:if test="${homepage.context_path eq 'jungang'}">
+<c:if test="${homepage.context_path eq 'gukbo'}">
 <input type="hidden" name="exprire_date_cnt" value="7"/>
 </c:if>
 <c:if test="${homepage.context_path eq '228'}">
@@ -111,7 +111,7 @@
 				<th>수령장소</th>
 				<td class="left">
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
-						<c:if test="${homepage.context_path eq 'jungang'}">
+						<c:if test="${homepage.context_path eq 'gukbo'}">
 						<form:option value="SUB01">반월당역 예약대출기</form:option>
 						</c:if>
 						<c:if test="${homepage.context_path eq '228'}">

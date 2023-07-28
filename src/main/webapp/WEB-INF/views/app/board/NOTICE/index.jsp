@@ -110,7 +110,7 @@ table.bbs tr.notice{background:#f5f6f7}
 						|| boardManage.manage_idx eq '900' || boardManage.manage_idx eq '901' || boardManage.manage_idx eq '902'}">
 					<th class="category">도서관</th>
 					</c:if>
-					<th class="">제목</th>
+					<th class="title">제목</th>
 					<!-- <th>처리상태</th> -->
 					<th class="mmm1">작성자</th>
 					<th class="">작성일</th>

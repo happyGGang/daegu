@@ -1,28 +1,15 @@
 ﻿@charset "utf-8";
-*{font-style:normal}
+@import url("../../../css/font-style.css");
+@import url(https://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
-/* 웹폰트 */
-@font-face{
-font-family:'Nanum Gothic';
-font-style:normal;
-font-weight:400;
-src:url(/resources/font/NanumGothicRegular.eot);
-src:local(※), url(/resources/font/NanumGothicRegular.woff) format('woff');
+@font-face {
+	font-family: 'Pretendard-Regular';
+	src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	font-weight: 200;
+	font-style: normal;
 }
-@font-face{
-font-family:'Nanum Gothic';
-font-style:normal;
-font-weight:700;
-src:url(/resources/font/NanumGothicBold.eot);
-src:local(※), url(/resources/font/NanumGothicBold.woff) format('woff');
-}
-@font-face{
-font-family:'Nanum Gothic';
-font-style:normal;
-font-weight:800;
-src:url(/resources/font/NanumGothicExtraBold.eot);
-src:local(※), url(/resources/font/NanumGothicExtraBold.woff) format('woff');
-}
+
+*{font-style:normal}
 
 /*
 /resources/common/font/NanumGothic-Regular.eot
@@ -36,7 +23,7 @@ src:local(※), url(/resources/font/NanumGothicExtraBold.woff) format('woff');
 
 /* common */
 html,body{width:100%;height:100%}
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{font-family:"Malgun Gothic","맑은 고딕","돋움",arial,Dotum,Verdana,helvetica,clean,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,address{font-family:'Pretendard-Regular',"Malgun Gothic","맑은 고딕","돋움",arial,Dotum,Verdana,helvetica,clean,sans-serif;margin:0;padding:0;line-height:150%;word-break:keep-all}
 body{font-weight:normal;font-size:14px}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;margin:0;padding:0}
 h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}
@@ -84,7 +71,7 @@ body,
 a,
 a:link,
 a:visited,
-a:active{color:#4c4c4c;text-decoration:none}
+a:active{color:#252525c;text-decoration:none}
 a:focus,
 a:hover{color:#2b74c0;cursor:pointer}
 
@@ -418,7 +405,7 @@ table.type1 .btn{font-size:90%}
 /* 버튼 */
 .btn,button{-webkit-transition:all 150ms ease;-moz-transition:all 150ms ease;-ms-transition:all 150ms ease;-o-transition:all 150ms ease;transition:all 150ms ease}
 .btn.disabled:hover,
-.btn{padding:5px 13px;margin-left:2px;line-height:18px;background:#f9f9f9;border:1px solid #d5d5d5;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.btn{padding:5px 13px;margin-left:2px;line-height:18px;background:#f9f9f9;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .txt-box .btn{background:#fcfcfc}
 .txt-box .btn:hover,
 .txt-box .btn:focus{background:#fff}

@@ -22,7 +22,7 @@
 .mySwiper .swiper-slide div.thumb-image {display:block;}
 .mySwiper .swiper-slide div.thumb-image a {display:block;}
 .mySwiper .swiper-slide div.cont {position:absolute;top:1170px;left:18px;}
-.mySwiper .swiper-slide div.cont p.tit {font-size:45px;color:#fff;letter-spacing:-1.25px;text-align:left;}
+.mySwiper .swiper-slide div.cont p.tit {font-size:45px;color:#fff;letter-spacing:-1.25px;text-align:left;line-height:130%;}
 
 .mySwiper {height:20%;box-sizing: border-box;padding:100px 0 80px;}
 .mySwiper .swiper-slide {position:relative;width:10%;height:100%;}
