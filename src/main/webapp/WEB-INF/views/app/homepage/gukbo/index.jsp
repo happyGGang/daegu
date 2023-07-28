@@ -374,7 +374,7 @@
 										<div class="swiper-location">
 											<div class="swiper-prev">이전</div>
 											<div class="">
-												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="문화강좌 더보기"></a>
+												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="북큐레이션"></a>
 											</div>
 											<div class="swiper-next">다음</div>
 										</div>
@@ -382,7 +382,7 @@
 										<div class="swiper-wrapper">
 											<c:if test="${fn:length(recommendBookList) < 1}">
 											<div class="list">
-												<a href="">
+												<a href="javascript:void(0);">
 												<span class="images-box">
 													<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
 												</span>
@@ -392,7 +392,7 @@
 											</c:if>
 											<c:forEach var="i" items="${recommendBookList}">
 											<div class="list">
-												<a href="">
+												<a href="/${homepage.context_path}/board/view.do?menu_idx=115&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<span class="images-box">
 													<c:choose>
 													<c:when test="${i.preview_img ne null}">
