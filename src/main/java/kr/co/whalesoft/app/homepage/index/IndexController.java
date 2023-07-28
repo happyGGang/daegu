@@ -734,6 +734,105 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
+	@RequestMapping(value = { "/{contextPath}/kiosk/recommandBoardView2.*" })
+	public String view2(Model model, Board board, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		
+		boardService.addViewCount(board);
+		
+		Board boardOne = boardService.getBoardOne(board);
+		
+		Map<String, Object> map = null;
+		
+		if(StringUtils.isNotEmpty(boardOne.getImsi_v_8())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+			librarySearch.setRegNo(boardOne.getImsi_v_8());
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			
+			List<Map<String, Object>> list = null;
+			
+			try {
+				list = LibSearchAPI.getListData(result);
+				map = list.get(0);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		model.addAttribute("detail", map);
+		
+		try {
+			librarySearch.setSearch_text(boardOne.getImsi_v_5());
+			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
+			
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
+			
+			String contents = "";
+			
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map3 : itemList) {
+					contents = String.valueOf(map3.get("contents"));
+				}
+				
+				model.addAttribute("kakaoResult", contents);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> bestMap : list ) {
+				if ( bestMap.containsKey("ISBN") ) {
+					//알라딘 API 결과 가져오기
+					if (bestMap.get("ISBN") != null && !String.valueOf(bestMap.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(bestMap);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							bestMap.put("aladin", aladinData.get("item"));
+						}
+						if (bestMap.get("aladin") == null) {
+							bestMap.put("imageUrl", service.getImageUrl(bestMap));
+						}
+					}
+				}
+			}
+		}
+
+		model.addAttribute("bestBookList", list);
+		
+		model.addAttribute("board", boardOne);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/recommandBoardView2";
+		}
+		
+		return basePath + filePath;
+	}
+	
 	@RequestMapping (value = {"/{contextPath}/kiosk/gukboBookKeywordIndex.*"})
 	public String gukboBookKeywordIndex(Model model, BookKeyword bookKeyword, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -1281,6 +1380,103 @@ public class IndexController extends BaseController {
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/librarianPickBookView";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping (value = {"/{contextPath}/kiosk/librarianPickBookView2.*"})
+	public String librarianPickBookView2(Model model, LibrarianPickBook librarianPickBook, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		LibrarySearch librarySearch = new LibrarySearch();
+		
+		Map<String, Object> map = null;
+		
+		if(StringUtils.isNotEmpty(librarianPickBook.getRegNo())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+			librarySearch.setRegNo(librarianPickBook.getRegNo());
+			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
+			
+			List<Map<String, Object>> list = null;
+			
+			try {
+				list = LibSearchAPI.getListData(result);
+				map = list.get(0);
+
+				//알라딘 API 결과 가져오기, 알라딘 API 결과 못 가져올 시 서버에서 이미지 가져오기
+				if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+					Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+					if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+						map.put("aladin", aladinData.get("item"));
+					}
+					if (map.get("aladin") == null) {
+						map.put("imageUrl", service.getImageUrl(map));
+					}
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		try {
+			librarySearch.setSearch_text(librarianPickBook.getIsbn());
+			Map<String, Object> map2 = LibSearchAPI.getKaKaoList(librarySearch);
+			
+			List<Map<String, Object>> itemList = (List<Map<String, Object>>) map2.get("list");
+			
+			String contents = "";
+			
+			if (itemList != null && itemList.size() > 0) {
+				for (Map<String, Object> map3 : itemList) {
+					contents = String.valueOf(map3.get("contents"));
+				}
+				
+				model.addAttribute("kakaoResult", contents);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		model.addAttribute("detail", map);
+
+		model.addAttribute("librarianPickBook", librarianPickBook);
+		
+		LibrarySearch ls = new LibrarySearch();
+		ls.setManageCode(homepage.getManage_code());
+		ls.setBooktype("0");
+
+		Map<String, Object> result = LibSearchAPI.getBestBookList(ls);
+		List<Map<String, Object>> list = null;
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		ls.setTotalDataCount(count);
+
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+
+			list = LibSearchAPI.getListData(result);
+			for ( Map<String, Object> bestMap : list ) {
+				if ( bestMap.containsKey("ISBN") ) {
+					//알라딘 API 결과 가져오기
+					if (bestMap.get("ISBN") != null && !String.valueOf(bestMap.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(bestMap);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							bestMap.put("aladin", aladinData.get("item"));
+						}
+						if (bestMap.get("aladin") == null) {
+							bestMap.put("imageUrl", service.getImageUrl(bestMap));
+						}
+					}
+				}
+			}
+		}
+
+		model.addAttribute("bestBookList", list);
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/librarianPickBookView2";
 		}
 
 		return basePath + filePath;
