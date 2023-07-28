@@ -53,6 +53,7 @@ import kr.go.gbelib.app.cms.module.blackList.BlackList;
 import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.cms.module.culture.Culture;
 import kr.go.gbelib.app.cms.module.culture.CultureService;
+import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
@@ -968,19 +969,33 @@ public class IndexController extends BaseController {
 		
 		List<Map<String, Object>> list = LibSearchAPI.getBookKeywordSearchList(librarySearch);
 		
-		List<Map<String, Object>> dataList = null;
+		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
 		
 		for(int i = 0; i < list.size(); i++) {
+			List<Map<String, Object>> dataList = null;
+			
 			LibrarySearch ls = new LibrarySearch();
 			ls.setManageCode(homepage.getManage_code());
 			ls.setIsbn(String.valueOf(list.get(i).get("isbn")));
 			ls.setBooktype("BOOKANDNONBOOK");
-			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
+			Map<String, Object> result = LibSearchAPI.getBookDetail(ls);
 			
-			try {
-				dataList.add(result);
-			} catch (Exception e) {
-				System.out.println(e);
+			dataList = LibSearchAPI.getListData(result);
+			
+			if(dataList.size() > 0) {
+				for (Map<String, Object> map : dataList) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = PrivateLibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
+						}
+					}
+				}
+				
+				resultList.add(i, result);
 			}
 		}
 		
@@ -991,7 +1006,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("searchMenuIdx", searchMenuIdx);
 		
 		model.addAttribute("bookKeyword", bookKeyword);
-		model.addAttribute("list", dataList);
+		model.addAttribute("list", resultList);
 		
 		String filePath = "";
 		if (homepage != null) {
@@ -1013,7 +1028,7 @@ public class IndexController extends BaseController {
 			ls.setManageCode(homepage.getManage_code());
 			ls.setIsbn(bookKeyword.getIsbn());
 			ls.setBooktype("BOOKANDNONBOOK");
-			Map<String, Object> result = LibSearchAPI.getBookAndNonbookDetail(ls);
+			Map<String, Object> result = LibSearchAPI.getBookDetail(ls);
 			
 			List<Map<String, Object>> list = null;
 			
@@ -1115,7 +1130,7 @@ public class IndexController extends BaseController {
 		
 		LibrarySearch librarySearch = new LibrarySearch();
 		
-		//librarySearch.setManageCode(homepage.getManage_code());
+		librarySearch.setManageCode(homepage.getManage_code());
 		librarySearch.setUserkey(sessionMemberInfo.getRec_key());
 		if (StringUtils.isNotEmpty(sessionMemberInfo.getBirth_day())) {
 			String[] age_split = sessionMemberInfo.getBirth_day().split("-");
@@ -1184,7 +1199,7 @@ public class IndexController extends BaseController {
 		Map<String, Object> map = null;
 		
 		if(StringUtils.isNotEmpty(librarianPickBook.getRegNo())) {
-			//librarySearch.setManageCode(homepage.getManage_code());
+			librarySearch.setManageCode(homepage.getManage_code());
 			librarySearch.setRegNo(librarianPickBook.getRegNo());
 			Map<String, Object> result = LibSearchAPI.getBookInfo(librarySearch);
 			
