@@ -173,7 +173,7 @@ $(function() {
 					<c:forEach items="${bestBookList}" var="i" varStatus="status">
 						<div class="swiper-slide">
 							<div class="thumb-image">
-								<a href="/${homepage.context_path}/kiosk/librarianPickBookView.do?book_name=${detail.TITLE_INFO}&isbn=${i.ISBN}&regNo=${i.REG_NO}&author=${i.AUTHOR}&bookimgUrl=${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}">
+								<a href="/${homepage.context_path}/kiosk/librarianPickBookView2.do?book_name=${detail.TITLE_INFO}&isbn=${i.ISBN}&regNo=${i.REG_NO}&author=${i.AUTHOR}&bookimgUrl=${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}">
 									<c:choose>
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다.  상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png'"/>

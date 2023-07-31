@@ -8,7 +8,8 @@
 <div class="bookIndexNav">
 	<ul class="navbox">
 		<li>
-			<a href="/${homepage.context_path}/kiosk/bookKeywordIndex.do" class="smart-btn">
+			<!-- <a href="/${homepage.context_path}/kiosk/bookKeywordIndex.do" class="smart-btn"> -->
+			<a href="/${homepage.context_path}/kiosk/gukboBookKeywordIndex.do" class="smart-btn">
 				<div class="outer">
 					<div class="inner">
 						<span class="kor-txt">능동형 도서추천</span>

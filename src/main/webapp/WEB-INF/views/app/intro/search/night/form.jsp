@@ -67,6 +67,11 @@ $(function() {
 <c:when test="${detail.MANAGE_CODE eq 'AD'}">
 <input type="hidden" name="worker" id="worker" value="DGL0010"/>
 </c:when>
+
+<c:when test="${detail.MANAGE_CODE eq 'BR'}">
+<input type="hidden" name="worker" id="worker" value="DGL0011"/>
+</c:when>
+
 <c:otherwise>
 <input type="hidden" name="worker" id="worker" value="DGL0010"/>
 </c:otherwise>

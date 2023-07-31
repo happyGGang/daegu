@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 
+<!--
 <script type="text/javascript">
 function detectIE(){
     var ua = window.navigator.userAgent;
@@ -26,7 +27,7 @@ if(verNumber < 9){
 var idleTime = 0;
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime >= 15) {
+    if (idleTime >= 2) {
 		if (document.location.href.indexOf('join/edit') < 0 && document.location.href.indexOf('join/integration3') < 0) {
 			//location.href = "/intro/${homepage.context_path}/login/logout.do";
 			location.href = "/intro/${context_path}/index.do";
@@ -52,5 +53,65 @@ $(document).ready(function() {
 
 
 </script>
+-->
+<c:choose>
+<c:when test="${not empty sessionScope.member and sessionScope.member.login}">
+<script type="text/javascript">
+var idleTime = 0;
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime >= 2) {
+		//if (document.location.href.indexOf('join/edit') < 0 && document.location.href.indexOf('join/integration3') < 0) {
+			location.href = "/intro/${homepage.context_path}/login/logout.do";
+			//location.href = "/intro/${context_path}/index.do";
+		//}
+    }
+}
+
+$(document).ready(function() {
+    var idleInterval = setInterval(timerIncrement, 60000);
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+
+	$('a.not-hope').on('click', function(e) {
+		e.preventDefault();
+		alert('해당년도 희망도서신청 예산 소진으로 내년 1월 1일부터 희망도서 신청을 받으며 현재는 기존 신청 내역 확인만 가능합니다. \n\r이용에 불편함을 드려 죄송합니다.');
+		location.href='/intro/${context_path}/search/hope/index.do';
+	});
+});
+</script>
+</c:when>
+<c:otherwise>
+<script type="text/javascript">
+var idleTime = 0;
+function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime >= 2) {
+		location.href = "/intro/${context_path}/index.do";
+    }
+}
+
+$(document).ready(function() {
+    var idleInterval = setInterval(timerIncrement, 60000);
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+    });
+    $(this).keypress(function (e) {
+        idleTime = 0;
+    });
+
+	$('a.not-hope').on('click', function(e) {
+		e.preventDefault();
+		alert('해당년도 희망도서신청 예산 소진으로 내년 1월 1일부터 희망도서 신청을 받으며 현재는 기존 신청 내역 확인만 가능합니다. \n\r이용에 불편함을 드려 죄송합니다.');
+		location.href='/intro/${context_path}/search/hope/index.do';
+	});
+});
+</script>
+</c:otherwise>
+</c:choose>
 </body>
 </html>

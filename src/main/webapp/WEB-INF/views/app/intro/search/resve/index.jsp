@@ -35,6 +35,7 @@ $(function() {
 <form id="cancelForm" action="save.do" method="post">
 	<input type="hidden" name="bookkey" id="bookkey">
 	<input type="hidden" name="editMode" value="CANCEL">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
 
 <div class="DepthBtn">
@@ -156,20 +157,12 @@ $(function() {
 
 									<c:choose>
 										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-											<c:choose>
-												<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02')}">
-													<tr>
-														<th>예약취소</th>
-														<td>취소불가</td>
-													</tr>
-												</c:when>
-												<c:otherwise>
-													<tr>
-														<th>예약취소</th>
-														<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
-													</tr>
-												</c:otherwise>
-											</c:choose>
+
+											<tr>
+												<th>예약취소</th>
+												<td><a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a></td>
+											</tr>
+
 										</c:when>
 										<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
 										</c:when>

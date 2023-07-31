@@ -151,11 +151,11 @@ $(document).ready(function(){
 
 <div style="position:relative;width:100%;height:700px;text-align:center">
 	<div id="hangeul-comment"></div>
-	<div style="padding:70px 0 0 0">
-		<img src="/resources/common/img/books_text.png" alt="RFID 회원증을 키보드 옆 우측 리더기에 터치해주세요.">
+	<div style="padding:70px 0 0 0;font-size:23px;">
+		RFID 회원증 혹은 모바일 회원증을 기기 하단에 인식시켜주세요.
 	</div>
 	<div>
-		<img style="margin:30px 0 0 0" src="/resources/common/img/ccr-nfc.png" alt="카드 리더기">
+		<img style="margin:30px 0 0 0" src="/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
 	</div>
 
 	<!--로그인레이어-->

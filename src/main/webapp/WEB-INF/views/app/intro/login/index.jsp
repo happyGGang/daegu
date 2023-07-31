@@ -94,6 +94,7 @@ $(function() {
 			</dl>
 		</div>
 	</div>
+	<!-- 
 	<div class="login-body2">
 		<div class="tab">
 			<dl class="tcon t1">
@@ -107,5 +108,6 @@ $(function() {
 			</dl>
 		</div>
 	</div>
+	-->
 </div>
 

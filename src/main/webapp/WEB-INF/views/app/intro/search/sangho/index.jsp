@@ -31,6 +31,7 @@ $(function() {
 </script>
 
 <form id="cancelForm" action="../sanghoSave.do" method="post" onsubmit="return false;">
+	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="editMode" value="CANCEL"/>
 	<input type="hidden" id="loan_key" name="loan_key"/>
 	<input type="hidden" id="hold_lib_code" name="hold_lib_code"/>
@@ -52,7 +53,6 @@ $(function() {
 <a href="${prefix}sangho/history.do" class="bBtn">상호대차이용내역조회</a>
 <a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
 </div>
-
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 <form:hidden path="viewPage"/>

@@ -55,7 +55,8 @@
 								<p class='small-txt'>관심 키워드 선택으로 맞춤책을 추천해드려요</p>
 							</div>
 							<div class="button-sec">
-								<a href="/${homepage.context_path}/kiosk/bookKeywordIndex.do">능동형 도서 추천받기</a>
+								<a href="/${homepage.context_path}/kiosk/gukboBookKeywordIndex.do">능동형 도서 추천받기</a>
+								<!-- <a href="/${homepage.context_path}/kiosk/bookKeywordIndex.do">능동형 도서 추천받기</a> -->
 							</div>
 						</div>
 					</div>

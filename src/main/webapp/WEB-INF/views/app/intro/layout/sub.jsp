@@ -34,6 +34,7 @@
 						</c:when>
 						<c:otherwise>
 						<li class="login"><a href="/intro/${context_path}/login/index.do">로그인</a></li>
+						<c:if test="${context_path eq 'gukbo' || context_path eq 'gw'}"><li class="login" style="background-color:#0c70b0;"><a href="/intro/${context_path}/rfLogin/index.do">회원증로그인</a></li></c:if>
 						<li class="join"><a href="/intro/${context_path}/join/index.do">신규회원가입</a></li>
 
 						<c:choose>
@@ -102,7 +103,7 @@
 					</li>
 
 					<c:choose>
-						<c:when test="${context_path eq 'kids'}">
+						<c:when test="${context_path eq ''}">
 					<li>
 						<a href="#" onclick="alert('2021년 도서구입 예산소진으로 희망도서신청을 중단합니다. \n\r그 동안 이용해 주셔서 감사합니다.')">
 							<em><img src="/resources/common/img/nav4.png" alt="희망도서신청내역"/></em>

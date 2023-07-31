@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -67,7 +69,7 @@
 		</table>
 		<table cellspacing="0" cellpadding="0">
 			<colgroup>
-				<col style="width:110px;" class="col1">
+				<col style="width:70px;" class="col1">
 				<col class="col2">
 			</colgroup>
 			<tbody>
@@ -100,9 +102,24 @@
 					<td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.marc}</td>
 				</tr>
 				</c:if>
+				<c:if test="${context_path eq 'gukbo'}">
+				<c:if test="${detail.SHELF_LOCATION_KEY ne null && detail.SHELF_LOCATION_KEY ne ''}">
+				<tr>
+					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 맑은 고딕" class="first td1">서가위치 : </td>
+					<td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">
+					${fn:split(detail.SHELF_LOCATION_KEY,'@^^@')[1]}
+					</td>
+				</tr>
+				</c:if>
+				</c:if>
 				<tr>
 				   <td colspan="2" class="first last td1">-------------------------------------------</td>
 				</tr>
+				<c:if test="${context_path eq 'gukbo'}">
+				<tr>
+					<td colspan="2"><img src="${detail.SHELF_LOCATION_IMG_URL}" style="width:250px;"/></td>
+				</tr>
+				</c:if>
 			</tbody>
 		</table>
 	</div>

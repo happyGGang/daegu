@@ -62,6 +62,7 @@ $(function() {
 				</c:when>
 				<c:otherwise>
 				<li class="login"><a href="/intro/${context_path}/login/index.do">로그인</a></li>
+				<c:if test="${context_path eq 'gukbo' || context_path eq 'gw'}"><li class="login" style="background-color:#0c70b0;"><a href="/intro/${context_path}/rfLogin/index.do">회원증로그인</a></li></c:if>
 				<li class="join"><a href="/intro/${context_path}/join/index.do">신규회원가입</a></li>
 				<!-- <li class="integration"><a href="/intro/${context_path}/join/integration.do">통합인증센터</a></li> -->
 				</c:otherwise>

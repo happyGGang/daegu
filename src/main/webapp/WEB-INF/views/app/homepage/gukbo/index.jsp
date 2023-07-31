@@ -251,7 +251,7 @@
 						<ul class="tabMenuS">
 							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class='t-tabs'>공지사항</a></li>
 							<li> | </li>
-							<li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class='t-tabs'>문화행사</a></li>
+							<li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=30" class='t-tabs'>수강신청</a></li>
 						</ul>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=179" class="btn-more2 more-notice">더보기</a>
 
@@ -303,7 +303,7 @@
 													<span>${fn:substring(i.start_date,0,4)}.${fn:substring(i.start_date,5,7)}</span>
 												</div>
 												<p>
-													<span class="link">문화행사</span>
+													<span class="link">수강신청</span>
 													<span class="title">${i.teach_name}</span>
 												</p>
 											</a>
@@ -374,7 +374,7 @@
 										<div class="swiper-location">
 											<div class="swiper-prev">이전</div>
 											<div class="">
-												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="북큐레이션"></a>
+												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="북큐레이션 더보기"></a>
 											</div>
 											<div class="swiper-next">다음</div>
 										</div>
@@ -427,7 +427,7 @@
 										<div class="swiper-location">
 											<div class="swiper-prev">이전</div>
 											<div class="">
-												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="문화강좌 더보기"></a>
+												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="신간도서 더보기"></a>
 											</div>
 											<div class="swiper-next">다음</div>
 										</div>
@@ -468,7 +468,7 @@
 										<div class="swiper-location">
 											<div class="swiper-prev">이전</div>
 											<div class="">
-												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="문화강좌 더보기"></a>
+												<a href="/${homepage.context_path}/board/index.do?menu_idx=115&manage_idx=174" class="more-book"><img src="/resources/homepage/${homepage.context_path}/img/book-more-btn.png" alt="대출베스트 더보기"></a>
 											</div>
 											<div class="swiper-next">다음</div>
 										</div>

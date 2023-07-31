@@ -973,7 +973,8 @@ $(function() {
 						
 						</c:when>
 						<c:otherwise>
-								<fmt:formatDate var="day" value="${Day1}" pattern="E"/>
+								<jsp:useBean id="Daysu" class="java.util.Date" />
+								<fmt:formatDate var="day" value="${Daysu}" pattern="E"/>
 									<c:if test="${day ne '토' and day ne '일'}">
 									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
 									</c:if>
@@ -1044,7 +1045,7 @@ $(function() {
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq 'dalseolib'}">
+				<c:when test="${homepage.context_path eq ''}">
 					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>

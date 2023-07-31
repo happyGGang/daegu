@@ -809,9 +809,9 @@ function resveReq(bookkey, booktype, editMode) {
 						<dt><label for="booktype" class="title">자료형태</label></dt>
 						<dd>
 							<div class="" style="padding:6px 0 0 0px">
-							<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" checked="checked"/><label for="booktype1" class="booktype">통합</label>
-							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
+							<form:radiobutton path="booktype" value="BOOK" class="radiocheck" checked="checked" cssStyle="margin-left:18px;"/><label for="booktype2" class="booktype">도서</label>
 							<form:radiobutton path="booktype" value="NONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">비도서</label>
+							<form:radiobutton path="booktype" value="BOOKANDNONBOOK" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype1" class="booktype">통합</label>
 <%-- 							<form:radiobutton path="booktype" value="SERIAL" class="radiocheck" cssStyle="margin-left:18px;"/><label for="booktype3" class="booktype">간행물</label> --%>
 							</div>
 						</dd>

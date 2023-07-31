@@ -52,9 +52,10 @@ $(function() {
 <a href="${prefix}resve/index.do" class="bBtn">대출예약조회</a>
 <a href="${prefix}hope/index.do" class="bBtn">희망도서신청조회</a>
 </div>
-
+<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="librarySearch" method="get">
 	<form:hidden path="viewPage"/>
+	
 	
 	<div class="" style="padding:20px;text-align:center;border:1px solid #eaeaea;border-top:2px solid #000;margin-bottom:10px;">
 		<label for="search_start_date" style="display:none1;">시작일</label>
@@ -66,7 +67,6 @@ $(function() {
 
 </form:form>
 
-<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="book-list">
 <c:if test="${fn:length(loanList) < 1 }"> <h3>조회된 도서가 없습니다.</h3></c:if>
 	<c:if test="${fn:length(loanList) > 0 }">

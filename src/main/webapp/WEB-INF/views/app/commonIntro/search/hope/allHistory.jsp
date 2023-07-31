@@ -341,6 +341,9 @@ function compactTrim(str) {
 				<li>
 					<form:checkbox path="libraryCodes" value="FG" class="libCheck lib_FG" label="사월역도서관"/>
 				</li>
+				<li>
+					<form:checkbox path="libraryCodes" value="HR" class="libCheck lib_HR" label="황금책문화센터"/>
+				</li>
 			</ul>
 		</div>
 		<div class="end"></div>

@@ -88,7 +88,7 @@ $(function() {
 					<div class="joinBtnTxt">
 						<div class="joinText1">만 14세 이상</div>
 						<div class="joinText2">가입자의 본인확인(휴대폰인증/아이핀인증) 절차가 필요합니다.</div>
-						<div><a href="#" class="year_a next btn btn01" val="more">회원가입</a></div>
+						<div><a href="#" class="year_a next btn btn01" val="more"><c:choose><c:when test="${param.status eq 'intergration'}">반입하기</c:when><c:otherwise>회원가입</c:otherwise></c:choose></a></div>
 					</div>
 				</div>
 			</td>
@@ -100,7 +100,7 @@ $(function() {
 					<div class="joinBtnTxt">
 						<div class="joinText1">만 14세 미만</div>
 						<div class="joinText2">법정대리인과 가입자의 본인확인 절차가 필요합니다.</div>
-						<div><a href="#" class="year_b next btn btn01" val="under">회원가입</a></div>
+						<div><a href="#" class="year_b next btn btn01" val="under"><c:choose><c:when test="${param.status eq 'intergration'}">반입하기</c:when><c:otherwise>회원가입</c:otherwise></c:choose></a></div>
 					</div>
 				</div>
 			</td>
