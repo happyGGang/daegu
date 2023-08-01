@@ -63,7 +63,8 @@ $(function() {
 		*/
 
 		if (selected_count == 0) {
-			alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
+			//alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.");
+			$.alert("키워드를 하나 이상 선택 후 검색을 진행해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 			return false;
 		}
 		
@@ -100,7 +101,8 @@ $(function() {
 		
 		if (keywordCount <= 0) {
 			if (selected_count >= 3) {
-				alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
+				//alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
+				$.alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				return false;
 			}	
 		}

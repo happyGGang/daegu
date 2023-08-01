@@ -41,7 +41,8 @@ $(function() {
 	<c:otherwise>
 	$('#print-btn-toggle').on('click', function(e) {
 		e.preventDefault();
-		alert('등록된 서가위치 이미지가 없습니다.');
+		//alert('등록된 서가위치 이미지가 없습니다.');
+		$.alert("등록된 서가위치 이미지가 없습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 	});
 	</c:otherwise>
 	</c:choose>

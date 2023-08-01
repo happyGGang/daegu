@@ -77,7 +77,7 @@
 var idleTime = 0;
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime >= 2)
+    if (idleTime >= 1)
 	{
 		location.href = "/${homepage.context_path}/intro/login/kioskLogout.do?before_url=/${homepage.context_path}/kiosk/bookIndex.do";
     }
@@ -100,7 +100,7 @@ $(document).ready(function() {
 var idleTime = 0;
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime >= 2)
+    if (idleTime >= 1)
 	{
 		location.href = "/${homepage.context_path}/kiosk/bookIndex.do";
     }

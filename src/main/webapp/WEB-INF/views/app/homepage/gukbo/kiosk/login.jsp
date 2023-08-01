@@ -16,13 +16,15 @@ $(function() {
 		e.preventDefault();
 		if($('input#member_id_tmp').val() == '') {
 			$('input#member_id_tmp').focus();
-			alert('아이디를 입력해주세요.');
+			//alert('아이디를 입력해주세요.');
+			$.alert("아이디를 입력해주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 			return false;
 		}
 
 		if($('input#member_pw_tmp').val() == '') {
 			$('input#member_pw_tmp').focus();
-			alert('비밀번호를 입력해주세요.');
+			//alert('비밀번호를 입력해주세요.');
+			$.alert("비밀번호를 입력해주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 			return false;
 		}
 

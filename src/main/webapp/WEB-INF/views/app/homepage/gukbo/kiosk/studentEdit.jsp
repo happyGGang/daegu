@@ -136,7 +136,8 @@ $(function() {
 
 			<c:if test="${teach.birth_yn eq 'Y'}">
 			if ( $form.find ("#applicant_birth").val() == '--' ) {
-				alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
+				//alert('신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
+				$.alert("신청자 생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -144,7 +145,8 @@ $(function() {
 
 			if ( $form.find ("#applicant_name").val() == '' ) {
 				$form.find("#applicant_name").focus();
-				alert('신청자 성명을 입력해 주세요.');
+				//alert('신청자 성명을 입력해 주세요.');
+				$.alert("신청자 성명을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -154,7 +156,8 @@ $(function() {
 			<c:if test="${teach.sex_yn eq 'Y'}">
 			if ( $("input:radio[name = applicant_sex]").length > 0 && $("input:radio[name = applicant_sex]:checked").length < 1 ) {
 				$form.find('input:radio[name = applicant_sex]').focus();
-				alert('신청자 성별을 입력해 주세요.');
+				//alert('신청자 성별을 입력해 주세요.');
+				$.alert("신청자 성별을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -163,7 +166,8 @@ $(function() {
 			<c:if test="${teach.vaccines_yn eq 'Y'}">
 			if ($('#vaccines_counter').val() == '') {
 				$form.find('input:radio[name = vaccines_counter]').focus();
-				alert('백신 접종여부를 선택해 주세요.');
+				//alert('백신 접종여부를 선택해 주세요.');
+				$.alert("백신 접종여부를 선택해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -172,11 +176,13 @@ $(function() {
 			<c:if test="${teach.birth_yn eq 'Y'}">
 			if ( $form.find ("#applicant_birth").val() == '' ) {
 				$form.find('#applicant_birth').focus();
-				alert('신청자 생년월일을 입력해 주세요.');
+				//alert('신청자 생년월일을 입력해 주세요.');
+				$.alert("신청자 생년월일을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			} else if(!regExp.exec($form.find ("#applicant_birth").val())) {
-				alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
+				//alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
+				$.alert("잘못된 생년월일 입니다. 다시 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -185,21 +191,24 @@ $(function() {
 			var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 			if ( cellPhone1 == '' ) {
 				$form.find('#applicant_cell_phone_1').focus();
-				alert('신청자 휴대전화번호를 입력해 주세요.');
+				//alert('신청자 휴대전화번호를 입력해 주세요.');
+				$.alert("신청자 휴대전화번호를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			var cellPhone2 = $form.find('#applicant_cell_phone_2').val();
 			if ( cellPhone2 == '' ) {
 				$form.find('#applicant_cell_phone_2').focus();
-				alert('신청자 휴대전화번호를 입력해 주세요.');
+				//alert('신청자 휴대전화번호를 입력해 주세요.');
+				$.alert("신청자 휴대전화번호를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			var cellPhone3 = $form.find('#applicant_cell_phone_3').val();
 			if ( cellPhone3 == '' ) {
 				$form.find('#applicant_cell_phone_3').focus();
-				alert('신청자 휴대전화번호를 입력해 주세요.');
+				//alert('신청자 휴대전화번호를 입력해 주세요.');
+				$.alert("신청자 휴대전화번호를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -210,7 +219,8 @@ $(function() {
 			<c:if test="${teach.sms_service_yn eq 'Y'}">
 			if ( $("input:radio[name = sms_service_yn]").length > 0 && $("input:radio[name=sms_service_yn]:checked").length < 1 ) {
 				$form.find ("input:radio[name = sms_service_yn]").focus();
-				alert('sms 수신동의여부를 선택해 주세요.');
+				//alert('sms 수신동의여부를 선택해 주세요.');
+				$.alert("sms 수신동의여부를 선택해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -219,7 +229,8 @@ $(function() {
 			<c:if test="${teach.picture_use_yn eq 'Y'}">
 			if ( $("input:radio[name = picture_use_yn]").length > 0 && $("input:radio[name = picture_use_yn]:checked").length < 1 ) {
 				$form.find ('input:radio[name = picture_use_yn]').focus();
-				alert('사진 촬영 동의 여부를 선택해 주세요.');
+				//alert('사진 촬영 동의 여부를 선택해 주세요.');
+				$.alert("사진 촬영 동의 여부를 선택해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -234,7 +245,8 @@ $(function() {
 
 			if ( $form.find ('#student_name').val() == ''){
 				$form.find('#student_name').focus();
-				alert('수강생 이름을 입력해 주세요.');
+				//alert('수강생 이름을 입력해 주세요.');
+				$.alert("수강생 이름을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -247,11 +259,13 @@ $(function() {
 			<c:if test="${teach.birth_yn eq 'Y'}">
 			if ( $form.find ("#student_birth").val() == '' ) {
 				$form.find('#student_birth').focus();
-				alert('수강생 생년월일을 입력해 주세요.');
+				//alert('수강생 생년월일을 입력해 주세요.');
+				$.alert("수강생 생년월일을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			} else if(!regExp.exec($form.find ('#student_birth').val())) {
-				alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
+				//alert('잘못된 생년월일 입니다. 다시 입력해 주세요.');
+				$.alert("잘못된 생년월일 입니다. 다시 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -260,7 +274,8 @@ $(function() {
 			<c:if test="${teach.sex_yn eq 'Y'}">
 			if ( $form.find ('input:radio[name = student_sex]:checked').length < 1){
 				$form.find ('input:radio[name = student_sex]').focus();
-				alert('수강생 성별을 입력해 주세요.');
+				//alert('수강생 성별을 입력해 주세요.');
+				$.alert("수강생 성별을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -269,7 +284,8 @@ $(function() {
 			<c:if test="${teach.address_yn eq 'Y'}">
 			if ( $form.find ("#student_address").val() == ''){
 				$form.find('#student_address').focus();
-				alert('수강생 주소를 입력해 주세요.');
+				//alert('수강생 주소를 입력해 주세요.');
+				$.alert("수강생 주소를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -277,26 +293,30 @@ $(function() {
 
 			if($('#self_yn1').is(':checked')){
 				if($('#applicant_name').val() != $('#student_name').val()){
-					alert('신청자 성명과 수강생 성명이 동일하지 않습니다.');
+					//alert('신청자 성명과 수강생 성명이 동일하지 않습니다.');
+					$.alert("신청자 성명과 수강생 성명이 동일하지 않습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 					doubleSubmit = false;
 					return false;
 				}
 				<c:choose>
 					<c:when test="${!sessionScope.member.login}">
 					else if($('input:radio[name = applicant_sex]:checked').val() != $('input:radio[name = student_sex]:checked').val()){
-						alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+						//alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+						$.alert("신청자 성별과 수강생 성별이 동일하지 않습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 						doubleSubmit = false;
 						return false;
 					</c:when>
 					<c:otherwise>
 					else if($('input#applicant_sex').val() != $('input:radio[name = student_sex]:checked').val()){
-						alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+						//alert('신청자 성별과 수강생 성별이 동일하지 않습니다.');
+						$.alert("신청자 성별과 수강생 성별이 동일하지 않습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 						doubleSubmit = false;
 						return false;
 					</c:otherwise>
 				</c:choose>
 				}else if($('#applicant_birth').val() != $('#student_birth').val()){
-					alert('신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.');
+					//alert('신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.');
+					$.alert("신청자 생년월일과 수강생 생년월일이 동일하지 않습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 					doubleSubmit = false;
 					return false;
 				}
@@ -310,7 +330,8 @@ $(function() {
 			var schoolName = $form.find('#student_school').val();
 			if ( schoolName == '' ) {
 				$form.find('#student_school').focus();
-				alert('학교명을 입력해 주세요.');
+				//alert('학교명을 입력해 주세요.');
+				$.alert("학교명을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -320,14 +341,16 @@ $(function() {
 			var schoolHak = $form.find('#student_hack option:selected').val();
 			if ( schoolHak == '0' ) {
 				$form.find('#student_hack option:selected').focus();
-				alert('학년을 선택해 주세요.');
+				//alert('학년을 선택해 주세요.');
+				$.alert("학년을 선택해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			var schoolHak = $form.find('#student_ban').val();
 			if ( schoolHak == '' ) {
 				$form.find('#student_ban').focus();
-				alert('반을 입력해 주세요.');
+				//alert('반을 입력해 주세요.');
+				$.alert("반을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -338,34 +361,39 @@ $(function() {
 			<c:if test="${teach.family_yn eq 'Y'}">
 			if ( $form.find ('#family_relation').val() == ''){
 				$form.find('#family_relation').focus();
-				alert('보호자 관계를 입력해 주세요.');
+				//alert('보호자 관계를 입력해 주세요.');
+				$.alert("보호자 관계를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			if ( $form.find ('#family_name').val() == ''){
 				$form.find('#family_name').focus();
-				alert('보호자 이름을 입력해 주세요.');
+				//alert('보호자 이름을 입력해 주세요.');
+				$.alert("보호자 이름을 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			cellPhone1 = $form.find('#family_cell_phone_1').val();
 			if ( cellPhone1 == '' ) {
 				$form.find('#family_cell_phone_1').focus();
-				alert('보호자 연락처를 입력해 주세요.');
+				//alert('보호자 연락처를 입력해 주세요.');
+				$.alert("보호자 연락처를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			cellPhone2 = $form.find('#family_cell_phone_2').val();
 			if ( cellPhone2 == '' ) {
 				$form.find('#family_cell_phone_2').focus();
-				alert('보호자 연락처를 입력해 주세요.');
+				//alert('보호자 연락처를 입력해 주세요.');
+				$.alert("보호자 연락처를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			cellPhone3 = $form.find('#family_cell_phone_3').val();
 			if ( cellPhone3 == '' ) {
 				$form.find('#family_cell_phone_3').focus();
-				alert('보호자 연락처를 입력해 주세요.');
+				//alert('보호자 연락처를 입력해 주세요.');
+				$.alert("보호자 연락처를 입력해 주세요.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
@@ -374,17 +402,20 @@ $(function() {
 
 			if ($form.find ('input:radio[name = family_confirm_yn]:checked').length < 1){
 				$form.find('input:radio[name = family_confirm_yn]').focus();
-				alert('해당 강좌는 보호자 동의를 받아야 합니다.');
+				//alert('해당 강좌는 보호자 동의를 받아야 합니다.');
+				$.alert("해당 강좌는 보호자 동의를 받아야 합니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 				doubleSubmit = false;
 				return false;
 			}
 			if($('#self_parent_yn1').is(':checked')){
 				if($('#applicant_name').val() != $('#family_name').val()){
-					alert('신청자 성명과 보호자 이름이 동일하지 않습니다.');
+					//alert('신청자 성명과 보호자 이름이 동일하지 않습니다.');
+					$.alert("신청자 성명과 보호자 이름이 동일하지 않습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 					doubleSubmit = false;
 					return false;
 				}else if($('#applicant_cell_phone').val() != $('#family_cell_phone').val()){
-					alert('신청자 휴대전화번호와 보호자 휴대전화번호가 동일하지 않습니다.');
+					//alert('신청자 휴대전화번호와 보호자 휴대전화번호가 동일하지 않습니다.');
+					$.alert("신청자 휴대전화번호와 보호자 휴대전화번호가 동일하지 않습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 					doubleSubmit = false;
 					return false;
 				}
@@ -446,7 +477,8 @@ $(function() {
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
 					$('div.applyFile').append(applyFile);
-					alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+					//alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
+					$.alert("[" + textStatus + "]관리자에게 문의하세요. : " + errorThrown,{title:'국채보상운동기념도서관',confirmButton:'확인'});
 					doubleSubmit = false;
 				}
 			};
@@ -503,7 +535,8 @@ $(function() {
 			var tmp2 = '';
 
 			if(tmp.length < 8 ||  tmp.length > 8){
-				alert('YYYY-MM-DD 형식으로 입력해 주세요');
+				//alert('YYYY-MM-DD 형식으로 입력해 주세요');
+				$.alert("YYYY-MM-DD 형식으로 입력해 주세요",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 			}else{
 				tmp2 += tmp.substr(0,4);
 				tmp2 += '-';
@@ -525,7 +558,8 @@ $(function() {
 			var tmp =  selectedDate.replace(/[^0-9]/g,'');
 			var tmp2 = '';
 			if(tmp.length < 8 ||  tmp.length > 8){
-				alert('YYYY-MM-DD 형식으로 입력해 주세요');
+				//alert('YYYY-MM-DD 형식으로 입력해 주세요');
+				$.alert("YYYY-MM-DD 형식으로 입력해 주세요",{title:'국채보상운동기념도서관',confirmButton:'확인'});
 			}else{
 				tmp2 += tmp.substr(0,4);
 				tmp2 += '-';
