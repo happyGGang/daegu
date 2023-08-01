@@ -73,6 +73,13 @@ $(function(){
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
+									<a href="http://www.icuration.co.kr:81/curation/w/165" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>동화</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/dh_img_7.png" alt="오싹오싹 공포동화" /></p>
+										<span class="link">오싹오싹 공포동화<i></i></span>
+									</a>
+								</div>
+								<div>
 									<a href="http://www.icuration.co.kr:81/curation/w/133" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>동화</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/dh_img_6.png" alt="깜짝이야! 팝업북 동화책" /></p>

@@ -232,11 +232,7 @@
 		2022년 파동도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
 	</div>
 </c:when>
-<c:when test="${context_path eq 'bolli'}">
-	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
-		본리도서관 당월 희망도서 예산 소진으로 다음 달(23.08.01)부터 희망도서 신청이 가능합니다.
-	</div>
-</c:when>
+
 <c:otherwise>
 </c:otherwise>
 </c:choose>
@@ -411,13 +407,13 @@
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
 					<%--<form:option value="BU">성서도서관</form:option>--%>
-					<!--<option value="BU">성서도서관</option>-->
-				</form:select><span style="color:#ff0000">  * 성서도서관 23.07.19 ~ 23.07.31 까지 희망도서 신청 중지 </span>
+					<option value="BU">성서도서관</option>
+				</form:select><!--<span style="color:#ff0000">  * 성서도서관 23.07.19 ~ 23.07.31 까지 희망도서 신청 중지 </span>-->
 				</c:when>
 
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<!-- <form:option value="BX">본리도서관</form:option> -->
+					<form:option value="BX">본리도서관</form:option>
 				</form:select>
 
 				</c:when>
