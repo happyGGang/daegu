@@ -304,7 +304,7 @@ $(function() {
 									<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1186" class="more">MORE <img src="/resources/homepage/gw/img/notice-view-btn.png" alt="더보기" ></a>
 									<div class="box notice-list">
 										<ul>
-											<c:forEach var="i" items="${noticeList}">
+											<c:forEach var="i" items="${noticeListTopNotice}">
 												<li>
 													<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 														<div class="outer">
@@ -316,7 +316,7 @@ $(function() {
 													</a>
 												</li>
 											</c:forEach>
-											<c:if test="${empty noticeList}">
+											<c:if test="${empty noticeListTopNotice}">
 												<li>
 													<a href="javascript:void(0)">
 														<div class="outer">
