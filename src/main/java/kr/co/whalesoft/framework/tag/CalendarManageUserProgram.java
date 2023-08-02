@@ -1,11 +1,13 @@
 package kr.co.whalesoft.framework.tag;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
+
+import kr.go.gbelib.app.common.api.LibSearchAPI;
 import org.apache.commons.lang.StringUtils;
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
@@ -230,6 +232,29 @@ public class CalendarManageUserProgram extends BodyTagSupport {
     						sb.append("</li>");
     					} 
     				}
+				}
+				if (!isHolyDay) {
+					if (mode.equals("circlesRoom")) {
+						int n_date = Integer.parseInt(plan_date.replace("-", ""));
+
+						Calendar startCal = Calendar.getInstance();
+						startCal.add(Calendar.DAY_OF_MONTH, +8);
+						Date currentTime = startCal.getTime();
+						SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+						int startDate = Integer.parseInt(format.format(currentTime));
+
+						Calendar endCal = Calendar.getInstance();
+						endCal.add(Calendar.DAY_OF_MONTH, +69);
+						currentTime = endCal.getTime();
+						format = new SimpleDateFormat("yyyyMMdd");
+						int endDate = Integer.parseInt(format.format(currentTime));
+
+
+						if (n_date >= startDate && n_date <= endDate) {
+							sb.append("<p><a href=\"#\" id=\"reqCircle\" class=\"req-circle\" req_date=\"" + plan_date + "\">사용신청</a></p>");
+							sb.append("<p><a href=\"#\" id=\"reqView\" class=\"req-view\" req_date=\"" + plan_date + "\">신청현황</a></p>");
+						}
+					}
 				}
 			}
 		}
