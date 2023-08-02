@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.alert.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/common/default.css"  />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/default.css"  />
@@ -27,6 +28,7 @@
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.bxslider.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.alert.js"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/board/js/common.js"></script>

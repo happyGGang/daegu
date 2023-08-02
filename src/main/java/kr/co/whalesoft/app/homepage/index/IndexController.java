@@ -297,14 +297,14 @@ public class IndexController extends BaseController {
 		Teach teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
 		if (teachOne == null) {
-			service.alertMessage("잘못된 경로로 접근하였습니다", request, response);
+			service.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "잘못된 경로로 접근하였습니다", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
 			return null;
 		}
 
 		if (StringUtils.equals(teachOne.getMember_yn(), "N") && !isLogin(request)) {
 			String before_url = String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path());
 			homepage.setBefore_url(before_url);
-			service.redirectUrl(String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+			service.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
 			return null;
 		}
 
@@ -316,17 +316,17 @@ public class IndexController extends BaseController {
 		}
 
 		// 그룹당 강의 제한 개수 . ->
-//		String checkResult = studentService.checkStudent(student);
-//		if ( checkResult != null ) {
-//			service.alertMessageAndUrl(checkResult, String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
-//			return null;
-//		}
-//
-//		//블랙리스트 체크
-//		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
-//			service.alertMessageAndUrl("신청이 불가능합니다.\\n도서관에 문의해주세요.", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
-//			return null;
-//		}
+		String checkResult = studentService.checkStudent(student);
+		if ( checkResult != null ) {
+			service.alertMessageAndUrlKiosk(homepage.getHomepage_name(), checkResult, String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
+			return null;
+		}
+
+		//블랙리스트 체크
+		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
+			service.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "신청이 불가능합니다.\\n도서관에 문의해주세요.", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
+			return null;
+		}
 
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
@@ -363,82 +363,215 @@ public class IndexController extends BaseController {
 
 		if(student.getEditMode().equals("ADD")) {
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
+			if(result.hasErrors()){
+				res.setValid(false);
+				res.setMessage("신청자명을 입력하세요.");
+				return res;
+			}
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
+			if(result.hasErrors()){
+				res.setValid(false);
+				res.setMessage("신청자명에는 숫자를 입력할 수 없습니다.");
+				return res;
+			}
 
 			if (StringUtils.equals(teachOne.getBirth_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "applicant_birth", "신청자 생년월일을 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("신청자 생년월일을 입력하세요.");
+					return res;
+				}
 			}
 			if (StringUtils.equals(teachOne.getSex_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "applicant_sex", "신청자 성별을 선택하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("신청자 성별을 선택하세요.");
+					return res;
+				}
 			}
 			ValidationUtils.rejectIfEmpty(result, "applicant_cell_phone", "신청자 휴대전화번호를 입력하세요.");
+			if(result.hasErrors()){
+				res.setValid(false);
+				res.setMessage("신청자 휴대전화번호를 입력하세요.");
+				return res;
+			}
 			ValidationUtils.rejectPhone(result, "applicant_cell_phone", "신청자 휴대전화번호 형식이 잘못되었습니다.");
+			if(result.hasErrors()){
+				res.setValid(false);
+				res.setMessage("신청자 휴대전화번호 형식이 잘못되었습니다.");
+				return res;
+			}
 
 			if (StringUtils.equals(teachOne.getTeach_age_type(), "child") && StringUtils.equals(teachOne.getFamily_yn(), "Y")) {
 				ValidationUtils.rejectPhone(result, "family_cell_phone", "보호자 휴대전화번호 형식이 잘못되었습니다.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("보호자 휴대전화번호 형식이 잘못되었습니다.");
+					return res;
+				}
 			}
 
 			if(StringUtils.equals(teachOne.getVaccines_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "vaccines_counter", "백신접종 여부를 선택하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("백신접종 여부를 선택하세요.");
+					return res;
+				}
 			}
-
 
 			teachOne = teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx()));
 
 			if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "applicant_address", "신청자 주소를 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("신청자 주소를 입력하세요.");
+					return res;
+				}
 			}
 
 			if (StringUtils.equals(teachOne.getAgent_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_name", "수강생명을 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("수강생명을 입력하세요.");
+					return res;
+				}
 				ValidationUtils.rejectNumbers(result, "student_name", "수강생명에는 숫자를 입력할 수 없습니다.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("수강생명에는 숫자를 입력할 수 없습니다.");
+					return res;
+				}
 				if (StringUtils.equals(teachOne.getBirth_yn(), "Y")) {
     				ValidationUtils.rejectIfEmpty(result, "student_birth", "수강생 생년월일을 입력하세요.");
+    				if(result.hasErrors()){
+    					res.setValid(false);
+    					res.setMessage("수강생 생년월일을 입력하세요.");
+    					return res;
+    				}
 				}
 				if (StringUtils.equals(teachOne.getSex_yn(), "Y")) {
 					ValidationUtils.rejectIfEmpty(result, "student_sex", "수강생 성별을 선택하세요.");
+					if(result.hasErrors()){
+						res.setValid(false);
+						res.setMessage("수강생 성별을 선택하세요.");
+						return res;
+					}
 				}
 				if (StringUtils.equals(teachOne.getAddress_yn(), "Y")) {
     				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
+    				if(result.hasErrors()){
+    					res.setValid(false);
+    					res.setMessage("수강생 주소를 입력하세요.");
+    					return res;
+    				}
 				}
 			}
 			if (StringUtils.equals(teachOne.getFamily_member_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "family_member", "가족 참여 구성원을 모두 기입해주세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("가족 참여 구성원을 모두 기입해주세요.");
+					return res;
+				}
 			}
 
 			if (StringUtils.equals(teachOne.getFamily_count_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");
+				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("가족인원수를 입력하세요.");
+					return res;
+				}
 			}
 
 			if (StringUtils.equals(teachOne.getNeis_location_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_location_code", "나이스 지역코드를 입력하세요");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("나이스 지역코드를 입력하세요");
+				}
 			}
 
 			if (StringUtils.equals(teachOne.getNeis_cd_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_neis_cd", "나이스 개인번호를 입력하세요");
+				ValidationUtils.rejectIfEmpty(result, "student_neis_cd", "나이스 개인번호를 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("나이스 개인번호를 입력하세요.");
+					return res;
+				}
 			}
 
 			if (StringUtils.equals(teachOne.getNeis_training_num_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_training_num", "나이스 연수지명번호를 입력하세요.");
-				ValidationUtils.rejectIfStringLength(result, "student_training_num", 60, "나이스 연수지명번호");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("나이스 연수지명번호를 입력하세요.");
+					return res;
+				}
+				ValidationUtils.rejectIfStringLength(result, "student_training_num", 60, "나이스 연수지명번호 길이를 확인해주세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("나이스 연수지명번호 길이를 확인해주세요.");
+					return res;
+				}
 			}
 			if (StringUtils.equals(teachOne.getOrganization_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_organization", "기관을 입력하세요.");
-				ValidationUtils.rejectIfStringLength(result, "student_organization", 120, "기관");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("기관을 입력하세요.");
+					return res;
+				}
+				ValidationUtils.rejectIfStringLength(result, "student_organization", 120, "기관명 길이를 확인해주세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("기관명 길이를 확인해주세요.");
+					return res;
+				}
 			}
 			if (StringUtils.equals(teachOne.getRank_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_rank", "직급을 입력하세요.");
-				ValidationUtils.rejectIfStringLength(result, "student_rank", 60, "직급");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("직급을 입력하세요.");
+					return res;
+				}
+				ValidationUtils.rejectIfStringLength(result, "student_rank", 60, "직급 길이를 확인해주세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("직급을 길이를 확인해주세요.");
+					return res;
+				}
 			}
 			if (StringUtils.equals(teachOne.getCourse_taken_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_course_taken_yn", "연수수강여부를 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("연수수강여부를 입력하세요.");
+					return res;
+				}
 			}
 			if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
 				ValidationUtils.rejectIfEmpty(result, "student_password", "비밀번호를 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("비밀번호를 입력하세요.");
+					return res;
+				}
 			}
 
 			if (StringUtils.equals(teachOne.getSms_service_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "sms_service_yn", "SMS 수신동의여부를 입력하세요.");
+				if(result.hasErrors()){
+					res.setValid(false);
+					res.setMessage("SMS 수신동의여부를 입력하세요.");
+					return res;
+				}
 			}
 
 			if ( !student.getSelf_info_yn().equals("Y") ) {
@@ -455,7 +588,10 @@ public class IndexController extends BaseController {
 			String req_end_date = teachOne.getEnd_join_date() + " " + teachOne.getEnd_join_time();
 
 			if ( req_start_date.compareTo(now) > 0 || req_end_date.compareTo(now) < 0) {
-				result.reject("해당 강좌 접수기간이 아닙니다.");
+				//result.reject("해당 강좌 접수기간이 아닙니다.");
+				res.setValid(false);
+				res.setMessage("해당 강좌 접수기간이 아닙니다.");
+				return res;
 			}
 			student.setStudent_age(student.getApplicant_birth().substring(0,4));
 			student.setStudent_old(Integer.parseInt(student.getApplicant_birth().substring(0,4)));
@@ -1220,7 +1356,7 @@ public class IndexController extends BaseController {
 		if((!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) && uri.contains("kiosk")) {
 			String before_url = String.format("/%s/kiosk/librarianPickBookIndex.do", homepage.getContext_path());
 			homepage.setBefore_url(before_url);
-			service.redirectUrl(String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
+			service.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "로그인 후 이용가능합니다.", String.format("/%s/kiosk/login.do?before_url=%s", homepage.getContext_path(), before_url), request, response);
 			return null;
 		}
 		

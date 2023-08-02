@@ -942,7 +942,7 @@ public class LibrarySearchController extends BaseController {
 								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 								return res;
 							}
-						} else if(homepage.getContext_path().equals("suseong")) {
+						} else if(homepage.getContext_path().equals("suseong") && librarySearch.getEditMode().equals("ADD")) {
 							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
 							List<Map<String, Object>> list = null;
 							list = LibSearchAPI.getListData(reserveList);

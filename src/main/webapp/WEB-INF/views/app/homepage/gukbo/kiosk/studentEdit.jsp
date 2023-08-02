@@ -444,7 +444,8 @@ $(function() {
 				success: function(response) {
 					if(response.valid) {
 						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-							alert(response.message);
+							//alert(response.message);
+							$.alert(response.message,{title:'국채보상운동기념도서관',confirmButton:'확인'});
 						}
 
 						try {
@@ -459,7 +460,8 @@ $(function() {
 					} else {
 						$('div.applyFile').append(applyFile);
 						if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-							alert(response.message);
+							//alert(response.message);
+							$.alert(response.message,{title:'국채보상운동기념도서관',confirmButton:'확인'});
 						} else {
 							if (response.result != null && response.result.length > 0) {
 								for(var i =0 ; i < response.result.length ; i++) {

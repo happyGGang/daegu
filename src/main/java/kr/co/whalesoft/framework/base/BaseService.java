@@ -196,6 +196,25 @@ public abstract class BaseService {
 
 		return false;
 	}
+	
+	public boolean alertMessageAndUrlKiosk(String homepageName, String message, String url, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		setResponseHeader(response);
+		response.setContentType("text/html; charset=" + request.getCharacterEncoding());
+		PrintWriter writer = response.getWriter();
+		writer.println("<link rel='stylesheet' type='text/css' href='/resources/common/css/jquery.alert.css'/>");
+		writer.println("<script type='text/javascript' src='/resources/common/js/jquery-1.12.4.min.js'></script>");
+		writer.println("<script type='text/javascript' src='/resources/common/js/jquery.alert.js'></script>");
+		writer.println("<body>");
+		writer.println("<script>");
+		if (StringUtils.isNotBlank(message)) {
+			writer.println("$.alert('" + message + "',{title:'"+ homepageName +"',confirmButton:'확인',callEvent:function(){location.href = '" + url + "';}});");
+		}
+		writer.println("</script>");
+		writer.println("</body>");
+		writer.flush();
+
+		return false;
+	}
 
 	public boolean alertMessageAndReload(String message, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		setResponseHeader(response);
