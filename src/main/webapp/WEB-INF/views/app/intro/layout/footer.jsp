@@ -60,7 +60,7 @@ $(document).ready(function() {
 var idleTime = 0;
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime >= 2) {
+    if (idleTime >= 300) {
 		//if (document.location.href.indexOf('join/edit') < 0 && document.location.href.indexOf('join/integration3') < 0) {
 			location.href = "/intro/${homepage.context_path}/login/logout.do";
 			//location.href = "/intro/${context_path}/index.do";
@@ -90,7 +90,7 @@ $(document).ready(function() {
 var idleTime = 0;
 function timerIncrement() {
     idleTime = idleTime + 1;
-    if (idleTime >= 2) {
+    if (idleTime >= 300) {
 		location.href = "/intro/${context_path}/index.do";
     }
 }
