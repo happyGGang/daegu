@@ -31,9 +31,9 @@ $(function() {
 	<c:when test="${detail.SHELF_LOCATION_IMG_URL ne null && detail.SHELF_LOCATION_IMG_URL ne ''}">
 	$('#print-btn-toggle').on('click', function(e) {
 		e.preventDefault();
-		$('#print-box').css('height','480px');
-		$('#print-contents-box').css('height','480px');
-		$('#print-box').css('top','-480px');
+		$('#print-box').css('height','430px');
+		$('#print-contents-box').css('height','430px');
+		$('#print-box').css('top','-430px');
 		clearTimeout(submenuTimeout);
 		submenuTimeout = setTimeout(function() {
 			$('#print-contents-box').show();
@@ -109,7 +109,7 @@ $(function() {
 				<div id="print-box" class="print-box">
 					<div id="print-contents-box" class="print-contents-box" style="display:none;">
 						<div class="print-image-box">
-							<img src="${detail.SHELF_LOCATION_IMG_URL}" alt="${detail.SHELF_LOCATION_KEY}" class="W480 H480"/>
+							<img src="${detail.SHELF_LOCATION_IMG_URL}" alt="${detail.SHELF_LOCATION_KEY}"/>
 						</div>
 						<div class="print-btn-box">
 							<div class="outer">
@@ -196,7 +196,7 @@ $(function() {
 
 
 		<div class="backbutton-sec">
-			<a href="javascript:history.back(-1);">< 이전</a>
+			<a href="javascript:history.back(-1);"><img src="/resources/common/img/kiosk/btn_Prev.png" alt=""></a>
 		</div>
 	</div>
 </div>

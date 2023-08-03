@@ -61,7 +61,7 @@ html{width:100%;height:100%;}
 .recommandbookdetail-wrap .contents .bookinfo-sec li span {display:inline-block;width:100px;color:#6d6a6a;}
 .recommandbookdetail-wrap .contents .print-sec {padding:35px 140px 0 140px;}
 .recommandbookdetail-wrap .contents .print-sec .print-btn {display:block;}
-.recommandbookdetail-wrap .contents .print-sec .print-btn a {display:block;font-size:20px;padding:15px 0;background:#419bd7;text-align:center;color:#fff;}
+.recommandbookdetail-wrap .contents .print-sec .print-btn a {display:block;font-size:20px;padding:15px 0;background:#419bd7;text-align:center;color:#fff;border-radius: 5px;}
 .recommandbookdetail-wrap .contents .print-sec .print-btn a strong {color:#87f0fc;}
 .recommandbookdetail-wrap .contents .etcinfo-sec {padding:35px 140px 0 140px;color:#252525;text-align:left;font-size:23px;}
 .inner-scroll {height:100px;overflow-y:scroll;box-sizing:border-box;padding:0 20px 0 0;}
@@ -135,8 +135,8 @@ html{width:100%;height:100%;}
 .userrecommandbookdetail-wrap .contents .etcinfo-sec {padding:35px 140px 0 140px;color:#ededed;text-align:left;font-size:23px;}
 
 /*공통*/
-.backbutton-sec {box-sizing:border-box;padding:20px 40px 0 40px;text-align:left;}
-.backbutton-sec a {color:#fff;font-size:23px;}
+.backbutton-sec {position:absolute;left:0;bottom:38%;box-sizing:border-box;padding:0;margin:0;text-align:left;}
+.backbutton-sec a {color:#fff;display:block;}
 
 /*능동형 도서추천*/
 .smartrecommandbook-wrap {width:100%;height:100%;max-height:1760px;background:url('../../img/kiosk/background_bg6.jpg') no-repeat 0 0;background-size:cover;color:#fff;text-align:center;}
@@ -489,7 +489,8 @@ input[type="radio"]:checked {border: 0.3em solid tomato;}
 
 /**/
 .print-box {position:absolute;width:100%;height:0;background:#ffffff;z-index:777;top:0;transition:all 600ms cubic-bezier(0.86, 0, 0.07, 1); border-radius: 5px;}
-.print-image-box {display:inline-block;width:65%;}
+.print-image-box{position:relative;width: 66.9999%;height: 430px;float: left;text-align: center;}
+.print-image-box img{position:absolute;max-width:95%;max-height:100%;width:auto;height:auto;margin:auto;top:0;bottom:0;left:0;right:0;} 
 .print-btn-box {display:inline-block;width:33%;float:right;vertical-align:top;text-align:center;height:100%;background:#e0e0e0;border-radius: 0 5px 5px 0px;}
 .btn-print-box {display:block;width:175px;height:175px;margin:0 auto;line-height:175px;text-align:center;color:#fff;background:#464d4e;font-size: 25px;border-radius: 5px;}
 .close-print-box {display:block;width:175px;height:175px;margin:0 auto;line-height:175px;text-align:center;color:#464d4e;background:#fff;font-size: 25px;border-radius: 5px;}
