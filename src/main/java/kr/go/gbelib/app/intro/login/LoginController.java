@@ -328,10 +328,10 @@ public class LoginController extends BaseController {
 				ApiResponse errorResult = (ApiResponse) result;
 
 				if ("해당 정보와 일치하는 이용자가 없습니다.".equals(errorResult.getMessage())) {
-					codeService.alertMessage(String.format("해당 정보와 일치하는 이용자가 없습니다."), request, response);
+					codeService.alertMessageKiosk(homepage.getHomepage_name(), String.format("해당 정보와 일치하는 이용자가 없습니다."), request, response);
 					return null;
 				} else {
-					codeService.alertMessage(errorResult.getMessage(), request, response);
+					codeService.alertMessageKiosk(homepage.getHomepage_name(), errorResult.getMessage(), request, response);
 					return null;
 				}
 			}
