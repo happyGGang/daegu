@@ -47,7 +47,7 @@ $(function() {
 		<div class="title-sec">
 			MEMBER LOGIN
 		</div>
-		<form:form modelAttribute="member" action="/intro/${homepage.context_path}/login/loginProc.do" onsubmit="return false;">
+		<form:form modelAttribute="member" action="/intro/${homepage.context_path}/login/kioskLoginProc.do" onsubmit="return false;">
 			<form:hidden path="member_pw" cssStyle="display:none;" />
 			<form:hidden path="member_id"/>
 			<form:hidden path="before_url"/>
