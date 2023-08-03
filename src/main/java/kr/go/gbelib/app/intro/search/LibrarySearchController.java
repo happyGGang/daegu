@@ -955,8 +955,7 @@ public class LibrarySearchController extends BaseController {
 								}
 							}
 							
-							//무인예약 + 일반예약이 5권 초과가 불가능하게
-							if(reserveCount >= 5) {
+							if(reserveCount >= 2) {
 								res.setValid(false);
 								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 								return res;
@@ -969,13 +968,13 @@ public class LibrarySearchController extends BaseController {
 								}
 							}
 							
-							if((count - reserveCount) >= 2) {
+							if((unmannedReserveCount) >= 5) {
 								res.setValid(false);
 								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 								return res;
 							}
 
-							if((count - unmannedReserveCount) >= 2) {
+							if((reserveCount + unmannedReserveCount) >= 7) {
 								res.setValid(false);
 								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 								return res;
