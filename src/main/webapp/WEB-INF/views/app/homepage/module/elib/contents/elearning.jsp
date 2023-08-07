@@ -18,7 +18,7 @@
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<c:choose>
 							<c:when test="${sessionScope.member.user_no eq '' or sessionScope.member.user_no eq null}">
-								<a href="javascript:alert('정회원만 이용가능합니다.');" class="btn_link04"  title="다락원 바로가기(새창열림)"  target="_blank"><span>다락원 바로가기</span><span class="ico ico_link"></span></a>
+								<a href="javascript:alert('정회원만 이용가능합니다.');" class="btn_link04"  title="다락원 바로가기(새창열림)"><span>다락원 바로가기</span><span class="ico ico_link"></span></a>
 							</c:when>
 							<c:otherwise>
 								<a href="#" class="btn_link04" id="go-darakwon" title="다락원 바로가기(새창열림)"  target="_blank"><span>다락원 바로가기</span><span class="ico ico_link"></span></a>
@@ -26,7 +26,7 @@
 						</c:choose>
 					</c:when>
 					<c:otherwise>
-						<a href="javascript:alert('로그인후 이용가능합니다.');" class="btn_link04"  title="다락원 바로가기(새창열림)"  target="_blank"><span>다락원 바로가기</span><span class="ico ico_link"></span></a>
+						<a href="javascript:alert('로그인후 이용가능합니다.');" class="btn_link04"  title="다락원 바로가기(새창열림)"><span>다락원 바로가기</span><span class="ico ico_link"></span></a>
 					</c:otherwise>
 				</c:choose>
 
@@ -59,22 +59,56 @@
 	}
 
 	$(function() {
+		var action_url;
 
 		if ( isMobile() ) 
 		{
 			// 모바일이면 실행될 코드 들어가는 곳
-			$('#go-darakwon').attr("href", "http://m.lms.darakwon.co.kr/tglnet/msso.asp?uid=${lib_code}_${sessionScope.member.member_id}&uname=${sessionScope.member.member_name}");
+			$('#go-darakwon').on("click", function(e) {
+				e.preventDefault();
+				action_url = "https://m.lms.darakwon.co.kr/tglnet/msso.asp";
+				dwfrmsubmit(action_url);
+			});
 		}
 		else
 		{
+			// 모바일이면 실행될 코드 들어가는 곳
+			$('#go-darakwon').on("click", function(e) {
+				e.preventDefault();
+				action_url = "https://lms.darakwon.co.kr/tglnet/sso.asp";
+				dwfrmsubmit(action_url);
+			});
 			// 모바일이 아니면 실행될 코드 들어가는 곳
-			$('#go-darakwon').attr("href", "http://lms.darakwon.co.kr/tglnet/sso.asp?uid=${lib_code}_${sessionScope.member.member_id}&uname=${sessionScope.member.member_name}");
 		}
 
 	});
+
+function dwfrmsubmit(url) {
+	//학습자이름 인코딩 진행
+	var param = document.getElementById("uname").value
+	var encode = '';
+	for(i=0; i<param.length; i++){
+	var len  = ''+param.charCodeAt(i);
+	var token = '' + len.length;
+	encode  += token + param.charCodeAt(i);
+	}
+	//인코딩된 학습자이름 hidden필드(dw_name) 값 지정
+	document.getElementById("uname_enc").value = encode; 
+
+	//다락원에서 제공하는 도서관 연수원 sso페이지 URL(연수원URL은 개별 전달)
+	document.getElementById("darakwonForm").action = url; 
+	document.getElementById("darakwonForm").submit();
+}
+
 </script>
 
-<form name="darakwonForm" id="darakwonForm" method="post" action="http://lms.darakwon.co.kr/tglnet/sso.asp" target="_blank">
-<input type="hidden" name="uid" value="${sessionScope.member.member_id}"><!--사용자 아이디//-->
+<form name="darakwonForm" id="darakwonForm" method="post" target="_blank">
+<input type="hidden" id="uname_enc" name="uname_enc"> 
+<input type="hidden" id="uid" name="uid" value="${sessionScope.member.member_id}"> 		
+<input type="hidden" id="uname" name="uname" value="${sessionScope.member.member_name}"> 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 </form>
+
+
+
+
