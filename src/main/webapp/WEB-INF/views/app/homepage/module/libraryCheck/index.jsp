@@ -183,7 +183,15 @@ function libraryCheckloanList(library_check_idx, library_check_number) {
 		</div>
 	</div>
 	<div class="btn-box">
-		<a href="javascript:void(0)" class="request-btn loan" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a>
+		<c:choose>
+			<c:when test="${i.request_status == 6}">
+				<a href="javascript:void(0)">수리중</a>
+			</c:when>
+			<c:otherwise>
+				<a href="javascript:void(0)" class="request-btn loan" keyValue="${i.library_check_idx}" keyValue2="${i.library_check_number}" keyValue3="1">예약하기</a>
+			</c:otherwise>
+		</c:choose>
+
 	</div>
 	</div>
 	</c:forEach>
