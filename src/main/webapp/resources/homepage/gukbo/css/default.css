@@ -8,12 +8,12 @@ a:focus{color:#2b74c0}
 /* header */
 .tnb {position:relative;margin:0 auto;overflow:hidden;box-sizing:border-box;z-index:999999;}
 .tnb .util {float:right;height:40px;line-height:40px;}
-.tnb .util a {font-size:14px;color:#000;font-weight:normal;display:inline-block;margin-top:0;}
+.tnb .util a {font-size:14px;font-family:'s-core_dream4_regular';color:#000;font-weight:normal;display:inline-block;margin-top:0;}
 .tnb .util b {color:#000;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('../img/logo-b.png') no-repeat center center;width:260px;height:40px;font-size:0;}
-h1.mobile-logo {display:none;width:140px;height:50px;}
+h1.web-logo a {display:block;background:url('../img/logo-b.png') no-repeat center center;width:312px;height:50px;font-size:0;}
+h1.mobile-logo {display:none;}
 
 #header.background-white .libSite ul li a {color:#fff;}
 #header.background-white .libSite ul li.on a {background:#fff;color:#000;}
@@ -23,7 +23,7 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 #header.background-white .Gnb .gnb-menu > li > a{color:#fff;}
 
 #header .head {position:relative;z-index:20;clear:both}
-#header h1.web-logo {position:absolute;z-index:10000;top:23px;}
+#header h1.web-logo {position:absolute;z-index:10000;top:20px;}
 
 .popupWrap{z-index:7}
 
@@ -120,9 +120,33 @@ h1.mobile-logo {display:none;width:140px;height:50px;}
 .footer .site_link > div > div > ul > li > a:hover,
 #footer .site_link > div > div > ul > li > a:hover{background:#5897fb;color:#fff;}
 
+
+/* Go_top */
+.home-up.web-view {display:block;position:absolute;bottom: 113px;right: 113px;z-index:999999;}
+.home-up.mobile-view {display:none;}
+
+
+/*2023.08.04수정*/
+.sub-up {
+    /* display: block; */
+    position: absolute;
+    bottom: 113px;
+    right: 113px;
+    /* z-index: 999999; */
+}
 /* 도서관 둘러보기 */
 .libView{padding:0 0 10px}
 .libView strong{display:block;color:#004c92}
+
+@media all and (max-width:1400px){
+	.tnb {height:65px;padding:10px 0;}	
+	#header h1 {position:absolute;width:255px;height:auto;left:20px;top:5px;}
+	h1.mobile-logo {display:block;}
+	.home-up.web-view {display:none;}
+	.home-up.mobile-view {display:block;bottom: 240px;right:20px}
+}
+
+//
 
 @media (max-width:1000px){
 	.libView{text-align:center}
@@ -146,32 +170,43 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	table.color-set > tbody > tr > td{display:block}
 }
 
-@media all and (max-width:1024px){
-	.tnb {height:65px;padding:10px 0;}
 
-	h1.mobile-logo {display:block;margin:0;padding:0 0 0 10px;}
-	h1.mobile-logo a {display:block;background:url('../img/beomeo_logo.png') no-repeat center center;width:140px;height:50px;font-size:0;}
+@media all and (max-width:1200px){
+	.Gnb .gnb-menu > li{padding:0 1.6%;}
+
 }
 
+@media all and (max-width:1024px){
+	.tnb {height:65px;padding:10px 0;}
+	
+	#header h1 {position:absolute;width:255px;height:auto;left:20px;top:5px;}
+	h1.mobile-logo {display:block;}
+
+  
+	.home-up.web-view {display:none;}
+	.home-up.mobile-view {display:block;bottom:160px; right:20px}
+}
 @media all and (max-width:767px){
-	.home-up {display:block;}
+
+	.home-up.mobile-view {display:block;width:40px;bottom:252px;}
+	
+}
+
+@media all and (max-width:600px){
+	#header h1 {width:200px;left:15px;}
+
 }
 
 @media all and (max-width:550px){
-
+	.home-up.mobile-view {bottom: 225px;}
 }
 
 @media all and (max-width:500px){
 
 }
 
-@media all and (max-width:425px){
-	#main0 .main-visual .mvBtn_wp{top:28% !important;}
-
-	.swiper-button-next, .swiper-container-rtl .swiper-button-prev{right:30% !important;}
-	.swiper-button-prev, .swiper-container-rtl .swiper-button-next{left:30% !important;}
-
-	.home-up{bottom:30px;}
+@media all and (max-width:476px){
+	.home-up.mobile-view { right:10px;bottom:10px;}
 }
 
 @media all and (max-width:375px){
@@ -181,6 +216,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:330px){
 
 }
+
 
 
 

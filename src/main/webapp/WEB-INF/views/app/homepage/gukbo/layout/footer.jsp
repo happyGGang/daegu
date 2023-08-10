@@ -25,7 +25,17 @@
 					</div>
 					
 				</div>
-<div class="info-right">
+
+			 <div class="home_info_sns">
+             <div class="home_info">
+				<p class="homepage-name">${homepage.homepage_name}</p>
+				<p>
+					<em>(${homepage.zipcode}) ${homepage.address1}</em><br class="mobileBr"/>
+					<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
+					<em>팩스 <b>${homepage.homepage_fax }</b></em>
+				</p></div>
+				
+				<div class="info-right">
                       <div class="site_link">
                         <div class="sns title">SNS</div>
                         <div class="sns">
@@ -33,13 +43,7 @@
                         <a href="https://www.instagram.com/tglnetlib/" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/gukbo/img/instagram-icon.png" onmouseover="this.src='/resources/homepage/gukbo/img/instagram-icon-on.png'" onmouseout="this.src='/resources/homepage/gukbo/img/instagram-icon.png'" alt="국채보상운동기념도서관 인스타그램 바로가기"></a>
             </div>
         </div>
-    </div>
-				<p class="homepage-name">${homepage.homepage_name}</p>
-				<p>
-					<em>(${homepage.zipcode}) ${homepage.address1}</em><br class="mobileBr"/>
-					<em>전화 <b>${fn:split(homepage.homepage_tell,',')[0]}</b></em>
-					<em>팩스 <b>${homepage.homepage_fax }</b></em>
-				</p>
+                </div></div>
 			</div>
 		</div>
 
@@ -108,9 +112,9 @@
 
 	
 	<div class="home-up web-view">
-				<a href="#top"><img src="/resources/homepage/${homepage.context_path}/img/top-btn.png" alt="위로" class="homeup"></a>
+		<a href="#firstPage"><img src="/resources/homepage/${homepage.context_path}/img/top-btn.png" alt="위로" class="homeup"></a>
 	</div>
 
-   <div class="home-up mobile-view">
-				<img src="/resources/homepage/${homepage.context_path}/img/top-btn.png" alt="위로" id="homeup">
+	<div class="home-up mobile-view">
+		<img src="/resources/homepage/${homepage.context_path}/img/top-btn.png" alt="위로" id="homeup">
 	</div>

@@ -1,14 +1,88 @@
 @charset "utf-8";
 
 #container.subpage {position:relative;padding-top:131px;}
+html {
+    touch-action: manipulation;
+	/* Keyword values */
+-webkit-overflow-scrolling: auto;
+-webkit-overflow-scrolling: touch;
 
-@media all and (max-width:1024px){
-	#container.subpage {padding-top:70px;}
+/* Global values */
+-webkit-overflow-scrolling: inherit;
+-webkit-overflow-scrolling: initial;
+-webkit-overflow-scrolling: revert;
+-webkit-overflow-scrolling: revert-layer;
+-webkit-overflow-scrolling: unset;
 }
 
-@media all and (min-width: 1025px) and (max-width: 1260px) {
-	html,body{width:1260px;margin:0 auto;}
-	.tnb, .Gnb {width:1260px;margin:0 auto;}
+@media all and (max-width:1400px){
+
+	/*헤더 틀*/
+	#header{
+    max-width: 1260px;
+    width: 100%;
+}
+	.tnb {height:65px;padding:10px 0;}
+	.Gnb .gnb-menu > li{padding:0 1.6%;}
+	#header h1 {position:absolute;width:255px;height:auto;/* left:20px; */top: 10px;}
+	h1.mobile-logo {display:block;}
+
+  
+	.home-up.web-view {/* display:none; */}
+	.home-up.mobile-view {display:block;bottom: 240px;right:20px}
+	#container.subpage {max-width: 100%;padding-top: 80px;width: 100%;}
+	html,body{max-width:1260px;width:100%;margin:0 auto;}
+	.tnb, .Gnb {max-width:1260px;width:100%;margin:0 auto;padding: 10px;}
+	.shareArea{top:5px;right:20px;}
+	.shareArea li:first-child{display:none;}
+	.shareArea li:nth-child(3){display:none;}
+	.doc-info ul li{border-left:0;}
+	div#share_layer{ right: 0;}
+
+
+	/*내용*/
+	
+	.content{max-width: 1260px;width: 100%;margin:0 auto;padding: 15px;}
+	.doc-info {width:100%;margin:0;padding:0;}
+
+	.lnb{display:none}
+	.doc{/* margin-right:0; *//* padding: 5px 15px; */height: 100%;}
+	/*.doc-head{width:160px;float:left}*/
+	.doc-title{/* border-top:3px solid #2a9fe8; */position:relative;z-index:1;}
+	.doc-title h3{/* border-top:3px solid #1f5d97; */margin-top:-3px;position:relative;z-index:2;}
+	.doc-body{margin-right:0;float:none;width:100%;}
+	.doc-body .body{margin-right:0;margin-left:0;/* padding: 15px; */}
+	.sub-visual{}
+
+	.sections {max-width: 1260px;width:100%;margin:0 auto;}
+	.content {}
+	.doc-info {max-width: 1260px;width:100%;margin:0 auto;}
+
+}
+
+
+@media (max-width: 1024px){
+
+#header h1{top: 5px;}
+
+.m-menu a{top: 5px;/* right: 15px; */}
+
+#container.subpage{	
+padding-top: 65px;
+}
+
+}
+
+
+
+@media all and (max-width:580px){
+#header h1{width:190px;top: 10px;}
+
+}
+
+
+@media all and (min-width: 1025px) and(max-width: 1260px) {
+	
 }
 
 /*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
@@ -18,6 +92,8 @@
 	.time_box ul li > div {
 		background-position: 30px 10px !important;
 	}
+
+	
 }
 
 /*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
@@ -96,7 +172,5 @@
 .bbs-edit th, .bbs-edit td{
 	font-size:14px;
 	}
-
-
 
 

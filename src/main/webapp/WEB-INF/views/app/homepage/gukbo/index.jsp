@@ -9,6 +9,7 @@
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.swiper.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="/resources/common/css/reset.css"/> -->
 <link rel="stylesheet" href="/resources/homepage/gukbo/css/animate.min.css">
 
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
@@ -16,27 +17,19 @@
 <script type="text/javascript">
 	$(function() {
 		slideAct();
-		
-		$(document).ready(function(){
-  const go_top = $('.gotop')
-  go_top.click(function () {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 500)
-  })
-});
 		$('#homeup').click(function () {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 800);
-		return false;
-	});
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
+
 		$('#homeup-mobile').click(function () {
-		$('body,html').animate({
-			scrollTop: 0
-		}, 800);
-		return false;
-	});
+			$('body,html').animate({
+				scrollTop: 0
+			}, 800);
+			return false;
+		});
 
 		// 팝업 관련 코드 START
 		$('.close-btn').on('click', function() {
@@ -110,6 +103,8 @@
 		});
 });
 </script>
+<html>
+<body>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div id="wrap">
 	<c:if test="${fn:length(popupZoneTopList) > 0}">
@@ -143,8 +138,8 @@
 					<div class="swiper-wrapper">
 						<div class="swiper-slide mvimg01"><div class="mvText top animate__animated animate__fadeInDown"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년</div>
 						        <div class="mvText bottom animate__animated animate__fadeInDown"><strong>국채보상운동기념도서관</strong></div></div>
-						<div class="swiper-slide mvimg02"><div class="mvText"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년<strong>국채보상운동기념도서관</strong></div></div>
-						<div class="swiper-slide mvimg03"><div class="mvText"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년<strong>국채보상운동기념도서관</strong></div></div>
+						<!--<div class="swiper-slide mvimg02"><div class="mvText"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년<strong>국채보상운동기념도서관</strong></div></div>
+						<div class="swiper-slide mvimg03"><div class="mvText"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년<strong>국채보상운동기념도서관</strong></div></div>-->
 					</div>
 
 					<!--div class="mvBtn_wp">
@@ -167,10 +162,10 @@
 
 				<!-- main_search -->
 				<div class="search-area" id="main_search">
-					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-					<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-					<input type="hidden" name="menu_idx" value="9">
-					<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+							<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+								<input type="hidden" name="menu_idx" value="13">
+								<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+								<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 					<fieldset>
 						<legend class="blind">통합검색</legend>
 						<div class="main-box">
@@ -241,7 +236,7 @@
 		</div>
 		<!-- //main0 -->
 
-		<!-- section1 -->
+	    <!-- section1 -->
 		<div class="section" id="main1">
 
 			<div class="main1-box">
@@ -273,7 +268,7 @@
 									</li>
 									</c:forEach>
 								</ul>
-								<ul>
+								<ul class="notice_other">
 									<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='2'>
 									<li>
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
@@ -294,7 +289,7 @@
 
 						<div class="news con" data-tab="tab2" style="display:none;">
 							<div class="box">
-								<ul>
+								<ul class="culture">
 									<c:forEach var="i" items="${teachList}" begin='0' end='4'>
 										<li>
 											<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
@@ -349,6 +344,7 @@
 
 		<!-- main2 -->
 		<div class="section" id="main2">
+		<div class="main1-box">
 			<div class="main-section">
 				<div class="book-box">
 					<div class="book-title-box">
@@ -508,13 +504,14 @@
 					</div>
 				</div>
 
-
+             </div>
 			</div>
 		</div>
 		<!-- //main2 -->
 
 		<!-- main3 -->
 		<div class="section" id="main3">
+		<div class="main1-box">
 			<div class="top-box">
 				<div class="main-section">
 					<div class="calendar-box" id="calendar-box">
@@ -538,8 +535,7 @@
 							<li><a href="https://library.daegu.go.kr/gukbo/html.do?menu_idx=49"><span class = "sub-t">장애인 무료 택배 서비스</span><span>책나래</span></a></li>
 							<li><a href="https://library.daegu.go.kr/gukbo/html.do?menu_idx=48"><span class = "sub-t">국가상호대차 서비스</span><span>책바다</span></a></li>
 							<li class = "sub-third"><a href="https://library.daegu.go.kr/gukbo/html.do?menu_idx=50"><span class = "sub-t">협력형 온라인 지식정보서비스</span><span>사서에게 물어보세요</span></a></li>
-						</ul>
-	                    <ul >
+
 							<li class = "sub-p"><a href="https://library.daegu.go.kr/gukbo/html.do?menu_idx=207"><span class = "sub-t">나눔·소통·공감을 실천하는 신개념도서관</span><span>사람도서관</span></a></li>
 							<li class = "sub-p"><a href="https://library.daegu.go.kr/gukbo/html/hopeBook.do?menu_idx=222"><span class = "sub-t">읽고싶은 새 책 서점대출서비스</span><span>희망도서바로대출</span></a></li>
 							<li class = "sub-p"><a href="https://www.nlcy.go.kr/NLCY/contents/C10503010000.do" target="_blank"><span class = "sub-t">국립어린이청소년도서관 독서도움자료</span><span>다국어 동화구연</span></a></li>
@@ -547,6 +543,9 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<!-- //main3 -->
+		</div>
 			<div class="bottom-box">
 				<div class="main-section">
 					<div class="banner-wrap type7">
@@ -569,19 +568,9 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- //main3 -->
-
-		<!-- footer_section -->
+				<!-- footer_section -->
 		<div class="section fp-auto-height footer_area" id="foot_section">
 			<tiles:insertAttribute name="footer" />
-			<div class="home-up web-view">
-				<a href="#firstPage"><img src="/resources/homepage/${homepage.context_path}/img/top-btn.png" alt="위로" class="homeup"></a>
-			</div>
-
-			<div class="home-up mobile-view">
-				<img src="/resources/homepage/${homepage.context_path}/img/top-btn.png" alt="위로" id="homeup-mobile">
-			</div>
 		</div>
 		<!-- //footer_section -->
 	</div>
@@ -590,6 +579,11 @@
 </div>
 </body>
 </html>
+
+
+
+
+
 
 
 <script type="text/javascript">
@@ -679,6 +673,7 @@ $( window ).resize( function(e) {
 $(document).ready(function(){
 	new Swiper('.mySwiper', {
 		spaceBetween: 30,
+		autoHeight : true,
 		centeredSlides: true,
 		autoplay: {
 			delay: 5000,
@@ -711,6 +706,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+
 function slideAct(){
 	var view = 0; //보이는 슬라이드 개수
 	var realInx = [] //현재 페이지
@@ -727,11 +723,11 @@ function slideAct(){
 	$(window).on('load resize', function (e){
 		e.preventDefault();
 		var winW = window.innerWidth;
-		if(winWChk != 'mo' && winW <= 1024){ //모바일 버전으로 전환할 때
+		if(winWChk != 'mo' && winW <= 1400){ //모바일 버전으로 전환할 때
 			slideList()
 			winWChk = 'mo';
 		}
-		if(winWChk != 'pc' && winW >= 1025){ //PC 버전으로 전환할 때
+		if(winWChk != 'pc' && winW >= 1401){ //PC 버전으로 전환할 때
 			slideList()
 			winWChk = 'pc';
 		}
@@ -746,10 +742,12 @@ function slideAct(){
 		
 		//보이는 슬라이드 개수 설정
 		$(".slider").each(function(index){
-			if (window.innerWidth > 1024){ //PC 버전
+			if (window.innerWidth > 1400){ //PC 버전
 				view = 10;
-			}else{ //mobile 버전
+			}else  if (window.innerWidth >= 350){ //mobile 버전
 				view = 4;
+			} else{ //mobile 버전
+				view = 1;
 			}
 
 			//리스트 그룹 생성 (swiper-slide element 추가)
@@ -779,6 +777,7 @@ function slideAct(){
 
 			//슬라이드 실행
 			swiperArr[index] = new Swiper('.slider-' + index + ' .inners', {
+				autoHeight : true,
 				slidesPerView: 1,
 				initialSlide :Math.floor(realInx[index]/view),
 				resistanceRatio : 0,

@@ -7,7 +7,7 @@
 
 	<div class="tnb">
 		<div class="main-section">
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo-w.png" alt="국채보상운동기념도서관"/></a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo-b.png" alt="국채보상운동기념도서관"/></a></h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>

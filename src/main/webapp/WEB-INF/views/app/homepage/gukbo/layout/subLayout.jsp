@@ -8,23 +8,19 @@
 <script type="text/javascript">
 
 $(function() {
-
-	//TOP버튼
-		$('#homeup').click(function () {
+	$('#homeup').click(function () {
 		$('body,html').animate({
 			scrollTop: 0
 		}, 800);
 		return false;
 	});
-		$('#homeup-mobile').click(function () {
+
+	$('#homeup-mobile').click(function () {
 		$('body,html').animate({
 			scrollTop: 0
 		}, 800);
 		return false;
 	});
-	//TOP버튼 끝
-
-
 
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
 	$('li#menu_${menuOne.menu_idx}').addClass('active');

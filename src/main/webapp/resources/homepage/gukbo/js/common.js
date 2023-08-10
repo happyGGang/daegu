@@ -2,7 +2,6 @@ $(document).ready(function(){
 	pageMain.init();
 });
 
-
 var pageMain = (function(){
 	var init, bindEvent;
 
@@ -51,6 +50,7 @@ $(function(){
 	// 전광판(중앙도서관)
 	$('.panelZone ul').bxSlider({
 		mode:'vertical',
+		speed: 500,
 		pager: false,
 		controls: false,
 		pagerType: 'short',
@@ -84,6 +84,18 @@ $(function(){
 		$(this).find(".figure-bg-section").hide();
 	});
 
+	$('select#library-link').on('change', function(e) {
+		var url = $("select#library-link option:selected").val();
+		$('a#library-link-btn').attr('href',url);
+		$('a#library-link-btn').attr('target','_blank');
+	});
+
+	$('select#organization-link').on('change', function(e) {
+		var url = $("select#organization-link option:selected").val();
+		$('a#organization-link-btn').attr('href',url);
+		$('a#organization-link-btn').attr('target','_blank');
+	});
+
 	var _width = $(window).width();
 	var __width = $(window).width();
 	var _popupzones;
@@ -94,7 +106,7 @@ $(function(){
 			// TODO: handle exception
 		}
 
-		if( _width <= 525 ){
+		if( _width <= 350 ){
 			_popupzones = $('.popZone ul').bxSlider({
 				auto: true,
 				autoHover: true,
@@ -106,9 +118,26 @@ $(function(){
 				autoControlsCombine: true,
 				moveSlides: 1,
 				maxSlides: 1,
-				slideWidth: 260
+				slideWidth: 200
 			});
 		}
+     else if( _width <= 525 && _width >  350 ){
+			_popupzones = $('.popZone ul').bxSlider({
+				auto: true,
+				autoHover: true,
+				speed: 500,
+				pager: true,
+				pagerType: 'short',
+				auto: true,
+				autoControls: true,
+				autoControlsCombine: true,
+				moveSlides: 1,
+				maxSlides: 1,
+				slideWidth: 350,
+				slideMargin: 5
+			});
+		}
+
 		else if( _width <= 768 && _width > 525 ){
 			_popupzones = $('.popZone ul').bxSlider({
 				auto: true,
@@ -120,8 +149,8 @@ $(function(){
 				autoControls: true,
 				autoControlsCombine: true,
 				moveSlides: 1,
-				maxSlides: 2,
-				slideWidth: 260,
+				maxSlides: 1,
+				slideWidth: 500,
 				slideMargin: 5
 			});
 		}
@@ -136,8 +165,8 @@ $(function(){
 				autoControls: true,
 				autoControlsCombine: true,
 				moveSlides: 1,
-				maxSlides: 2,
-				slideWidth: 280,
+				maxSlides: 1,
+				slideWidth:500,
 				slideMargin: 5
 			});
 		}
@@ -152,8 +181,8 @@ $(function(){
 				autoControls: true,
 				autoControlsCombine: true,
 				moveSlides: 1,
-				maxSlides: 2,
-				slideWidth: 280,
+				maxSlides: 1,
+				slideWidth: 500,
 				slideMargin: 5
 			});
 		}
@@ -168,8 +197,8 @@ $(function(){
 				autoControls: true,
 				autoControlsCombine: true,
 				moveSlides: 1,
-				maxSlides: 2,
-				slideWidth: 300,
+				maxSlides: 1,
+				slideWidth: 500,
 				slideMargin: 25
 			});
 		}
@@ -184,8 +213,8 @@ $(function(){
 				autoControls: true,
 				autoControlsCombine: true,
 				moveSlides: 1,
-				maxSlides: 2,
-				slideWidth: 370,
+				maxSlides: 1,
+				slideWidth: 720,
 				slideMargin: 25
 			});
 		}
@@ -199,6 +228,8 @@ $(function(){
 		
 		PopupZone();
 	});
+	
+
 });
 
 

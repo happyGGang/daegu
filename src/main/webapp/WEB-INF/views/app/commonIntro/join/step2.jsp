@@ -588,8 +588,8 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  <tr>
 			<td>대구광역시 공립 도서관</td>
 			<td>하나의 회원번호로 대구광역시 모든 공립 도서관 이용</td>
-			<td><b style="color:blue;">아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역, 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소, 제2연락처</b></td>
-			<td><b style="color:blue;"><u>회원<br/>탈퇴시까지</u></b></td>
+			<td><b style="color:blue; font-size:17px;">아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역, 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소, 제2연락처</b></td>
+			<td><b style="color:blue; font-size:17px;"><u>회원<br/>탈퇴시까지</u></b></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 <b><u>동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</u></b></td>
@@ -676,8 +676,8 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  <tr>
 			<td>국립중앙도서관 및 지역센터</td>
 			<td>책이음서비스 이용</td>
-			<td><b style="color:blue;">도서회원번호, 성명, 출생년도, 성별, 휴대폰번호, CI값, 도서대출내역</b></td>
-			<td><b style="color:blue;"><u>회원<br/>탈퇴시까지</u></b></td>
+			<td><b style="color:blue; font-size:17px;">도서회원번호, 성명, 출생년도, 성별, 휴대폰번호, CI값, 도서대출내역</b></td>
+			<td><b style="color:blue; font-size:17px;"><u>회원<br/>탈퇴시까지</u></b></td>
 		  </tr>
 		  <tr>
 			<td>
@@ -685,8 +685,8 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 			  참여 도서관
 			</td>
 			<td>책이음서비스를 통한 회원가입</td>
-			<td><b style="color:blue;">아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역, 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소, 제2연락처</b></td>
-			<td><b style="color:blue;"><u>회원<br/>탈퇴시까지</u></b></td>
+			<td><b style="color:blue; font-size:17px;">아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역, 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소, 제2연락처</b></td>
+			<td><b style="color:blue; font-size:17px;"><u>회원<br/>탈퇴시까지</u></b></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 <b><u>동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</u></b></td>
