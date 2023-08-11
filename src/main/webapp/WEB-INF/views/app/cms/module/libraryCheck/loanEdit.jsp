@@ -84,7 +84,18 @@ $(function() {
 			$('input#loan_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	
+
+	// 주석내용 : 관리자는 아예 대출기간 빼고 싶으면 해당 onchange 내용 없애고, 대출기간 tr부분에 isAdmin eq false 로 조건문 넣어주면 됩니다.
+	<c:if test="${isAdmin eq true}">
+	$('select#request_status').on('change', function () {
+		var loanDate = $('tr#loanDate');
+		if ($('select#request_status').val() == '6') {
+			loanDate.css('display', 'none');
+		} else {
+			loanDate.removeAttr('style');
+		}
+	});
+	</c:if>
 });
 
 </script>
@@ -102,7 +113,7 @@ $(function() {
 				<th>장서점검기</th>
 				<td>장서점검기 ${libraryCheck.library_check_number}</td>
 			</tr>
-			<tr>
+			<tr id="loanDate">
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
