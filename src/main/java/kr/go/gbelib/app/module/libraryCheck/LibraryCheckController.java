@@ -200,6 +200,11 @@ public class LibraryCheckController extends BaseController {
 //				return null;
 //			}
 //		}
+		if (getSessionIsAdmin(request)) {
+			model.addAttribute("isAdmin", true);
+		} else {
+			model.addAttribute("isAdmin", false);
+		}
 		
 		model.addAttribute("libraryCheck", libraryCheck);
 		model.addAttribute("loginSupport", loginSupport);
@@ -212,8 +217,15 @@ public class LibraryCheckController extends BaseController {
 	public @ResponseBody JsonResponse loanSave(LibraryCheck libraryCheck, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		if(libraryCheck.getEditMode().equals("ADD") || libraryCheck.getEditMode().equals("MODIFY")) {
-			ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
+			if (getSessionIsAdmin(request)) {
+				if (!"6".equals(libraryCheck.getRequest_status())) {
+					ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
+					ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
+				}
+			} else {
+				ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
+			}
 //			ValidationUtils.rejectIfEmpty(result, "hope_date", "방문예정일자를 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "hope_start_time", "방문예정시간을 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "hope_start_minute", "방문예정시간을 입력하세요.");
@@ -223,7 +235,15 @@ public class LibraryCheckController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_2", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_3", "학교 연락처를 입력하세요.");
-    		
+
+			if ("6".equals(libraryCheck.getRequest_status()) && getSessionIsAdmin(request)) {
+				Date date = new Date();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String now = dateFormat.format(date);
+				libraryCheck.setLoan_start_date(now);
+				libraryCheck.setLoan_end_date("9999-12-31");
+			}
+
     		SupportMember loginSupport = sessionLoginSupport(request);
 //    		if (loginSupport != null && !getSessionIsAdmin(request) && !"1".equals(loginSupport.getAuth_group())) {
 //        		try {
