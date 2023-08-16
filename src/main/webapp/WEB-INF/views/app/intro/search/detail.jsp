@@ -239,6 +239,9 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
+						<c:when test="${detail.MANAGE_CODE eq 'BN' and detail.SHELF_LOC_CODE eq 'BN13'}">
+							<span style="color:#ff0000">대출불가</span>
+						</c:when>
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK' and detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
@@ -315,6 +318,11 @@ CONTEXT_PATH : ${context_path}
 
 <c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
 
+</c:if>
+<c:if test="${detail.SHELF_LOC_CODE eq 'BN13'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 서대구역 스마트도서관에서만 이용 가능합니다.
+		</div>
 </c:if>
 
 

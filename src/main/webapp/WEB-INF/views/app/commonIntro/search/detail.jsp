@@ -543,6 +543,9 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
+						<c:when test="${detail.MANAGE_CODE eq 'BN' and detail.SHELF_LOC_CODE eq 'BN13'}">
+							<span style="color:#ff0000">대출불가</span>
+						</c:when>
 						<c:otherwise>
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK' and detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
@@ -615,6 +618,12 @@ $(function() {
 		<c:if test="${detail.SHELF_LOC_CODE eq 'BB03'}">
 		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
 			※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5174)
+		</div>
+		</c:if>
+
+		<c:if test="${detail.SHELF_LOC_CODE eq 'BN13'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 서대구역 스마트도서관에서만 이용 가능합니다.
 		</div>
 		</c:if>
 
@@ -1045,7 +1054,7 @@ $(function() {
 					</c:if>
 					</c:if>
 				</c:when>
-				<c:when test="${homepage.context_path eq ''}">
+				<c:when test="${homepage.context_path eq 'dalseolib'}">
 					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>

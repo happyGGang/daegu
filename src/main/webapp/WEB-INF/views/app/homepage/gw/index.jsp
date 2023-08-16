@@ -364,7 +364,7 @@ $(function() {
 					</div>
 					<div class="list">
 						<ul>
-							<c:forEach var="i" items="${teachList}">
+							<c:forEach var="i" items="${teachList}" begin='0' end='2'>
 								<li>
 									<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=218&searchCate1=${i.large_category_idx}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&homepage_id=${i.homepage_id}">
 										<div>

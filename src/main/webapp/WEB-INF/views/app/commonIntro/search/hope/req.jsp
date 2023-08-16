@@ -108,9 +108,10 @@
 		* 무학숲도서관은 생태·환경 관련 도서 위주로 신청받고 있으며, 기타 도서는 취소될 수 있으니 타도서관으로 신청 부탁드립니다.<br>
 	</p>
 </c:if>
-<c:if test="${homepage.context_path eq ''}">
+<c:if test="${homepage.context_path eq 'dalseolib'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
-		* 본리도서관 당월 희망도서 예산 소진으로 다음 달(23.08.01)부터 희망도서 신청이 가능합니다.<br>
+		* 본리도서관 희망도서 23.09.01. 오전 중 신청 재개 예정 입니다.<br>
+		* 성서도서관 희망도서 23.09.01. 오전 중 신청 재개 예정 입니다.<br>
 	</p>
 </c:if>
 
@@ -269,8 +270,8 @@
 					<option value="">선택</option>
 					<option value="BW">도원도서관</option>
 					<option value="BV">달서어린이</option>
-					<option value="BU">성서도서관</option>
-					<option value="BX">본리도서관</option>
+					<!--<option value="BU">성서도서관</option>-->
+					<!--<option value="BX">본리도서관</option>-->
 					<option value="BY">달서가족문화도서관</option>
 					<option value="BZ">달서영어도서관</option>
 				</select>

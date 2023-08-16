@@ -957,6 +957,9 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
+													<c:when test="${i.MANAGE_CODE eq 'BN' and i.SHELF_LOC_CODE eq 'BN13'}">
+														<span style="color:#ff0000">대출불가(서대구역 스마트도서관 이용가능)</span>
+													</c:when>
 													<c:otherwise>
 														<c:choose>
 															<c:when test="${i.LOAN_CODE eq 'OK' and i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
