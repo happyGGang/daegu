@@ -138,11 +138,6 @@ public class LibraryCheckController extends BaseController {
 //			model.addAttribute("disabledList", list);
 		} else {
 			checkAuth("C", model, request);
-			if (getSessionIsAdmin(request)) {
-				model.addAttribute("isAdmin", true);
-			} else {
-				model.addAttribute("isAdmin", false);
-			}
 			model.addAttribute("libraryCheck", libraryCheck);
 //			model.addAttribute("disabledList", list);
 		}
@@ -154,10 +149,8 @@ public class LibraryCheckController extends BaseController {
 	public @ResponseBody JsonResponse loanSave(LibraryCheck libraryCheck, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		if(libraryCheck.getEditMode().equals("ADD") || libraryCheck.getEditMode().equals("MODIFY")) {
-			if (!"6".equals(libraryCheck.getRequest_status())) {
-				ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
-			}
+			ValidationUtils.rejectIfEmpty(result, "loan_start_date", "대출시작기간을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "loan_end_date", "대출종료기간을 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "hope_date", "방문예정일자를 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "hope_start_time", "방문예정시간을 입력하세요.");
 //			ValidationUtils.rejectIfEmpty(result, "hope_start_minute", "방문예정시간을 입력하세요.");
@@ -166,14 +159,6 @@ public class LibraryCheckController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_2", "학교 연락처를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "school_tel_3", "학교 연락처를 입력하세요.");
-
-			if ("6".equals(libraryCheck.getRequest_status())) {
-				Date date = new Date();
-				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				String now = dateFormat.format(date);
-				libraryCheck.setLoan_start_date(now);
-				libraryCheck.setLoan_end_date("9999-12-31");
-			}
     		
     		String phone = libraryCheck.getPhone_1() + "-" + libraryCheck.getPhone_2() + "-" + libraryCheck.getPhone_3();
 			String school_tel = libraryCheck.getSchool_tel_1() + "-" + libraryCheck.getSchool_tel_2() + "-" + libraryCheck.getSchool_tel_3();
