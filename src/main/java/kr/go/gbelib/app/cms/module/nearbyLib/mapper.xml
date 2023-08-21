@@ -674,8 +674,8 @@
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
 			RESERVE_STATUS IN ('9')
-		<if test="device_idx != null and device_idx != ''">
-			AND DEVICE_IDX = #{device_idx}
+		<if test="return_device_code != null and return_device_code != ''">
+			AND return_device_code = #{return_device_code}
 		</if>
 		<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
@@ -706,8 +706,8 @@
 			NEIGHBORHOOD_LIBRARY_RESERVE
 		WHERE
 			RESERVE_STATUS IN ('9')
-		<if test="device_idx != null and device_idx != ''">
-			AND DEVICE_IDX = #{device_idx}
+		<if test="return_device_code != null and return_device_code != ''">
+			AND return_device_code = #{return_device_code}
 		</if>
 		<if test="manage_code != null and manage_code != ''">
 			AND manage_code = #{manage_code}
