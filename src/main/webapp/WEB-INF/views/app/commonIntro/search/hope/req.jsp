@@ -90,6 +90,7 @@
 		도서구입비 예산 소진으로 2022년 희망도서 신청이 종료되었습니다.
 	</div>
 </c:when>
+
 <c:otherwise>
 <div id="contents-title">
 	<h2>희망도서신청<span style="font-weight:300">을 하고 싶으세요?</span></h2>
@@ -97,6 +98,17 @@
 </c:otherwise>
 </c:choose>
 <!-- /contents-title-->
+<c:if test="${homepage.context_path eq 'dalseolib' && tt < '2023-09-01'}">
+	<p style="font-weight:bold;">
+		* 본리도서관 희망도서 23.09.01. 오전 중 신청 재개 예정 입니다.<br>
+		* 성서도서관 희망도서 23.09.01. 오전 중 신청 재개 예정 입니다.<br>
+	</p>
+</c:if>
+<c:if test="${homepage.context_path eq 'dalseolib' && tt < '2023-10-01'}">
+	<p style="font-weight:bold;margin-bottom:10px;">
+		* 어린이도서관 희망도서 23.10.1. 오전 중 신청 재개 예정 입니다.
+	</p>
+</c:if>
 
 <div id="searchBox">
 
@@ -106,12 +118,6 @@
 <c:if test="${homepage.context_path eq 'yonghak'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
 		* 무학숲도서관은 생태·환경 관련 도서 위주로 신청받고 있으며, 기타 도서는 취소될 수 있으니 타도서관으로 신청 부탁드립니다.<br>
-	</p>
-</c:if>
-<c:if test="${homepage.context_path eq 'dalseolib'}">
-	<p style="font-weight:bold;margin-bottom:10px;">
-		* 본리도서관 희망도서 23.09.01. 오전 중 신청 재개 예정 입니다.<br>
-		* 성서도서관 희망도서 23.09.01. 오전 중 신청 재개 예정 입니다.<br>
 	</p>
 </c:if>
 
@@ -269,7 +275,7 @@
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
 					<option value="BW">도원도서관</option>
-					<option value="BV">달서어린이</option>
+					<!-- <option value="BV">달서어린이</option> -->
 					<!--<option value="BU">성서도서관</option>-->
 					<!--<option value="BX">본리도서관</option>-->
 					<option value="BY">달서가족문화도서관</option>
