@@ -66,7 +66,7 @@
 			// 모바일이면 실행될 코드 들어가는 곳
 			$('#go-darakwon').on("click", function(e) {
 				e.preventDefault();
-				action_url = "https://m.lms.darakwon.co.kr/tglnet/msso.asp";
+				action_url = "https://m.lms.darakwon.co.kr:447/tglnet/msso.asp";
 				dwfrmsubmit(action_url);
 			});
 		}

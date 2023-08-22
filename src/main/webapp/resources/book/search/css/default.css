@@ -76,7 +76,7 @@ label.hidden {display:none;}
 
 
 /********************검색박스_상세검색********************/
-#contents-title h2{font-size:25px;font-weight:bold;padding:10px 20px 10px 0;}
+#contents-title h2{font-size:25px;font-weight:bold;padding:10px 20px 10px 20px;}
 
 .search-form .detail_search {padding: 10px 0 0 0;/*border-top:3px solid #000;*/box-sizing:border-box;}
 .search-form .detail_search .section {width:100%;display:inline-block;overflow:hidden;}
@@ -233,7 +233,7 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 }
 
 @media all and (max-width:768px){
-	.search-form .detail_search .section dl {float:none;display:block;width:94%;padding:0;margin:0 auto 10px;box-sizing:border-box;}
+	.search-form .detail_search .section dl {float:none;width:94%;padding-left:20px;margin:0 auto 10px;box-sizing:border-box;}
 
 	.search-form .detail_search .section dl dt{float:left;width:13%;}
 	.search-form .detail_search .section dl dd{margin-left:13%;}
@@ -257,7 +257,7 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 @media all and (max-width:650px){
 	.search-form .detail_search .section dl {width: 98%;}
 	.search-form .detail_search .section dl dt{float:left;width: 18%;}
-	.search-form .detail_search .section dl dd{margin-left: 18%;}
+	.search-form .detail_search .section dl dd{margin: 0 15px 0 18%;}
 	.search-form .detail_search .section dl dt label.title {font-size:14px;}
 	.search-form .detail_search .section dl dd label {font-size:14px;}
 	.search-form .detail_search .section .title-box {position:relative;/* width: 100%; */}
