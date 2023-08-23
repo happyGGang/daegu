@@ -217,7 +217,7 @@
 		WHERE
 			TO_DATE(ADD_DATE, 'YYYY-MM-DD')  >= TO_CHAR(trunc(SYSDATE,'D'),'YYYY-MM-DD')
 		AND TO_DATE(ADD_DATE, 'YYYY-MM-DD') <![CDATA[<=]]> TO_CHAR(trunc(SYSDATE,'D')+6,'YYYY-MM-DD')
-		AND user_id = #{user_id};
+		AND user_id = #{user_id}
 	</select>
 
 	<select id="getCirclesRoomTodayUserInfo" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
