@@ -117,7 +117,7 @@ table thead th, table tbody td {font-size:12px;}
 		
 		장비명 : 
 		<form:select class="selectmenu-search" style="width:300px" path="return_device_code">
-			<form:option value="0">전체</form:option>
+			<form:option value="">전체</form:option>
 			<form:option value="cgvreturn0001">연경CGV</form:option>
 			<form:option value="emartreturn0001">이시아MEGABOX</form:option>
 			<form:option value="NEARBY_ESIA01">반야월이마트</form:option>
