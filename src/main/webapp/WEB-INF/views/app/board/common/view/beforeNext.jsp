@@ -28,7 +28,7 @@ $(document).ready(function() {
 			<td><a href="" keyValue="${prevBoard.board_idx}">${prevBoard.title}</a></td>
 
 			<c:choose>
-			<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+			<c:when test="${boardManage.anonymize_yn eq 'Y' and !(member.admin or authMBA or authMBS)}">
 			<c:set var="user_name" value="${fn:substring(prevBoard.user_name, -1, 1)}**"/>
 			</c:when>
 			<c:otherwise>
@@ -51,7 +51,7 @@ $(document).ready(function() {
 			<td><a href="" keyValue="${nextBoard.board_idx}">${nextBoard.title}</a></td>
 
 			<c:choose>
-			<c:when test="${boardManage.anonymize_yn eq 'Y' and not authMBA}">
+			<c:when test="${boardManage.anonymize_yn eq 'Y' and !(member.admin or authMBA or authMBS)}">
 			<c:set var="user_name" value="${fn:substring(nextBoard.user_name, -1, 1)}**"/>
 			</c:when>
 			<c:otherwise>
