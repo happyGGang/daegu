@@ -285,7 +285,11 @@ public class BookPackageBundleController extends BaseController {
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData("menu_idx="+bookPackageBundle.getMenu_idx());
-				res.setMessage("등록되었습니다.");
+				res.setMessage("대출기간을 변경을 원하실 경우,\r\n"
+						+ "관리자에게 반납 가능한 날짜를 정확히 요청하셔야하며,\r\n"
+						+ "반드시 대출 현황에서 변경된 내용을 직접 확인해주세요.\r\n"
+						+ "(예약 학교가 있는 경우, 기간 변경이 어려울 수 있습니다.)\r\n"
+						+ "");
 			} else if (bookPackageBundle.getEditMode().equals("MODIFY")) {
 				bookPackageBundle.setModify_id(getSessionMemberId(request));
 				bookPackageBundleService.modifyBookPackageLoan(bookPackageBundle);
