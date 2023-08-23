@@ -29,7 +29,7 @@ $(document).ready(function() {
 
 			<c:choose>
 			<c:when test="${boardManage.anonymize_yn eq 'Y' and !(member.admin or authMBA or authMBS)}">
-			<c:set var="user_name" value="${fn:substring(prevBoard.user_name, -1, 1)}**"/>
+			<c:set var="user_name" value="비공개"/>
 			</c:when>
 			<c:otherwise>
 			<c:set var="user_name" value="${prevBoard.user_name}"/>
@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 			<c:choose>
 			<c:when test="${boardManage.anonymize_yn eq 'Y' and !(member.admin or authMBA or authMBS)}">
-			<c:set var="user_name" value="${fn:substring(nextBoard.user_name, -1, 1)}**"/>
+			<c:set var="user_name" value="비공개"/>
 			</c:when>
 			<c:otherwise>
 			<c:set var="user_name" value="${nextBoard.user_name}"/>
