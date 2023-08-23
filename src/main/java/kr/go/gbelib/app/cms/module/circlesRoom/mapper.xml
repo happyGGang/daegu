@@ -195,7 +195,7 @@
 		FROM
 		    CIRCLES_ROOM
 		WHERE
-		    CIRCLES_IDX = #{circles_idx};
+		    CIRCLES_IDX = #{circles_idx}
 	</select>
 
 	<select id="getMonthCount" resultType="int">
@@ -206,7 +206,7 @@
 		WHERE
 			TO_DATE(ADD_DATE, 'YYYY-MM-DD') >= TO_CHAR(TRUNC(SYSDATE, 'MM'), 'YYYY-MM-DD')
 		AND TO_DATE(ADD_DATE, 'YYYY-MM-DD') <![CDATA[<=]]> TO_CHAR(LAST_DAY(SYSDATE), 'YYYY-MM-DD')
-		AND user_id = #{user_id};
+		AND user_id = #{user_id}
 	</select>
 
 	<select id="getWeekCount" resultType="int">
@@ -239,7 +239,7 @@
 		WHERE
 		    HOMEPAGE_ID = #{homepage_id}
 		AND circles_div = #{circles_div}
-		AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_DATE(#{visit_date}, 'yyyy-MM-dd');
+		AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_DATE(#{visit_date}, 'yyyy-MM-dd')
 	</select>
 
 	<select id="getCirclesRoomReserveList" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
@@ -250,7 +250,7 @@
 		WHERE
 			HOMEPAGE_ID = #{homepage_id}
 		  AND circles_div = #{circles_div}
-		  AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_DATE(#{visit_date}, 'yyyy-MM-dd');
+		  AND TO_CHAR(VISIT_DATE, 'yyyy-MM-dd') = TO_DATE(#{visit_date}, 'yyyy-MM-dd')
 	</select>
 
 	<select id="getCirclesRoomOne" resultType="kr.go.gbelib.app.cms.module.circlesRoom.CirclesRoom">
