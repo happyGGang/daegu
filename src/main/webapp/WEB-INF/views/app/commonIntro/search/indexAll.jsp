@@ -581,13 +581,13 @@
 
 
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_BA" value="BA" label="구수산도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_BA" value="BA" label="북구 구수산도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_BB" value="BB" label="대현도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_BB" value="BB" label="북구 대현도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_BC" value="BC" label="태전도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_BC" value="BC" label="북구 태전도서관" />
 							</li>
 
 
@@ -757,25 +757,25 @@
 								<form:checkbox path="libraryCodes" class="libCheck lib_GJ" value="GJ" label="태전1동 작은도서관" />
 							</li> -->
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_GL" value="GL" label="산격1동 작은도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_GL" value="GL" label="북구 산격1동 작은도서관" />
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_GM" value="GM" label="북구영어작은도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_GN" value="GN" label="침산1동 작은도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_GN" value="GN" label="북구 침산1동 작은도서관" />
+							</li>
+<!-- 							<li> -->
+<%-- 								<form:checkbox path="libraryCodes" class="libCheck lib_GP" value="GP" label="노원동 작은도서관" /> --%>
+<!-- 							</li> -->
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HB" value="HB" label="북구 서변동작은도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_GP" value="GP" label="노원동 작은도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_HD" value="HD" label="북구 노원행복도서관" />
 							</li>
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_HB" value="HB" label="서변동작은도서관" />
-							</li>
-							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_HD" value="HD" label="노원행복도서관" />
-							</li>
-							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_HE" value="HE" label="한강공원부키도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_HE" value="HE" label="북구 한강공원부키도서관" />
 							</li>
 
 
