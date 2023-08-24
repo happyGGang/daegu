@@ -132,10 +132,6 @@ $(document).ready(function() {
 	
 });
 
-function smsPopUp3()
-{
-// 	window.open('http://lib.andong.go.kr:8060/sms/sms3.php','SMSPOPUP3','width=650, height=500, menubar=no, status=no, toolbar=no, scrollbars=yes');
-}
 </script>
 
 <form:form modelAttribute="circlesRoom" action="index.do" onsubmit="return false;">
@@ -185,20 +181,20 @@ function smsPopUp3()
 	</div>
 
 	<table class="type1 center">
-		<thead>
+		<thead><!--  -->
 			<tr>
 				<th width="10"><input type="checkbox" id="chk_all"></th>
 				<th width="30">번호</th>
 				<th width="80">이름</th>
 				<th width="80">휴대폰</th>
-				<th width="80">동아리방</th>
-				<th width="80">사용희망일</th>
-				<th width="30">방문인원</th>
+				<th width="80">신청형태</th>
+				<th width="80">희망일</th>
+				<!-- <th width="30">방문인원</th> -->
 				<th width="120">신청일자</th>
-				<th width="200">사용목적</th>
+				<th width="200">비고</th>
 				<th width="80">사용시간</th>
 				<th width="100">상태</th>
-				<th width="100">파일</th>
+				<!-- <th width="100">파일</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -234,7 +230,7 @@ function smsPopUp3()
 					</c:when>
 				</c:choose>
 				<td>${i.visit_date}</td>
-				<td>${i.visit_num}명</td>
+				<!-- <td>${i.visit_num}명</td> -->
 				<td>
 					<fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
@@ -256,7 +252,7 @@ function smsPopUp3()
 					</select>
 					<a href="#" id="modify_status" keyValue="${i.circles_idx}">변경</a>
 				</td>
-				<td>
+				<!-- <td>
 					<c:choose>
 						<c:when test="${not empty i.origin_file_name}">
 							<a href="#" id="documentDownload" class="btn" keyValue="${i.circles_idx}">다운로드</a>
@@ -265,7 +261,7 @@ function smsPopUp3()
 
 						</c:otherwise>
 					</c:choose>
-				</td>
+				</td> -->
 			</tr>
 		</c:forEach>
 		</tbody>

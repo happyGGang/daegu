@@ -1,0 +1,41 @@
+/*리스트*/
+.type1 td.top {height:117px}
+.req-circle {padding:2px 13px;background:#3647dd;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;font-size:12px;color:#fff}
+.req-view {padding:2px 13px;background:#f96100;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;font-size:12px;color:#fff}
+
+/*신청폼*/
+.warn-txt {border:1px solid #ccc;border-top:3px solid #4d92f7;padding:20px;box-sizing:border-box;font-size:13px}
+table.circle-tbl {border-top:3px solid #4d92f7;}
+table.circle-tbl tbody th {font-size:14px;background:#f3f5f9;text-align:right; padding:10px 20px; box-sizing:border-box;}
+table.circle-tbl tbody td textarea {width:100%;height:200px;border:1px solid #ccc;border-radius:2px;font-size:14px}
+table.circle-tbl .point {color:#ff0000}
+a.btn {font-size:12px}
+
+input.text-short,input.text-mid ,input.text-long  {border:1px solid #ccc;border-radius:2px;font-size:14px;padding:3px 0 3px 5px}
+input.text-short {width:80px}
+input#user_name, input#visit_num, input#visit_date {width:30%;border:1px solid #ccc;border-radius:2px;font-size:14px;padding:3px 0 3px 5px}
+input.text-long {width:100%}
+
+.center {text-align:center;padding:10px 0}
+.save {padding:5px 15px;background:#2e58a6;border:1px solid #2e58a6;color:#fff;border-radius:2px;}
+.cancel {padding:5px 15px;background:#fff;border:1px solid #2e58a6;color#2e58a6;border-radius:2px;}
+
+/*신청확인*/
+div.date-time {font-size:17px;padding:0 0 5px 5px}
+div.date-time span {color:#ff0000}
+li.circlesTime {float:left;display:inline-block;border:1px solid #ccc;width:170px;height:170px;margin:2px;text-align:Center}
+
+/*jieun추가 20190103*/
+table.circle-tbl tbody tr th {text-align:right;}
+table.circle-tbl tbody tr td span {display:inline-block; padding-right:10px;}
+table.circle-tbl tbody tr td span label {margin-left:5px;}
+table.circle-tbl tbody tr td p {margin-top:5px; font-size:13px; color:#757575;}
+
+/* input */
+input[type="button"] { cursor: pointer; }
+input[type="text"], input[type="password"], select, .input, textarea {font-size: 15px; border: solid 1px #bcbcbc; border-radius: 3px; background: #fff; padding: 0 6px; margin: 2px; box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;letter-spacing: -0.04em;}
+input[type="text"], input[type="password"], select, .input { height: 34px; line-height: 1em; }
+textarea {overflow:auto; padding:10px; line-height: 1.3em;font-family:'Pretendard', 'Malgun Gothic', sans-serif;font-family: 'NanumSquare', sans-serif;font-size:15px;font-size: 14px;}
+.js-elasticArea {transition: all 0.3s ease 0.0s}
+
+.doc-body ul.con2, .doc-body ul.con {padding:0;}
