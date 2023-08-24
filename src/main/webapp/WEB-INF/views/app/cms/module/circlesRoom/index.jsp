@@ -209,26 +209,11 @@ $(document).ready(function() {
 				<td>${paging.listRowNum - varStatus.index}</td>
 				<td>${i.user_name}</td>
 				<td class="left">${i.user_phone}</td>
-				<c:choose>
-					<c:when test="${i.circles_div eq '1'}">
-						<td>소담방1</td>
-					</c:when>
-					<c:when test="${i.circles_div eq '2'}">
-						<td>소담방2</td>
-					</c:when>
-					<c:when test="${i.circles_div eq '3'}">
-						<td>소담방3</td>
-					</c:when>
-					<c:when test="${i.circles_div eq '4'}">
-						<td>소담방4</td>
-					</c:when>
-					<c:when test="${i.circles_div eq '5'}">
-						<td>소담방5~6</td>
-					</c:when>
-					<c:when test="${i.circles_div eq '6'}">
-						<td>소담방7</td>
-					</c:when>
-				</c:choose>
+				<c:forEach var="j" items="${circlesDivCode}">
+					<c:if test="${j.code_id eq i.circles_div}">
+						<td>${j.code_name}</td>
+					</c:if>
+				</c:forEach>
 				<td>${i.visit_date}</td>
 				<!-- <td>${i.visit_num}명</td> -->
 				<td>
