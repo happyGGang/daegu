@@ -84,22 +84,22 @@ public class CirclesRoomService extends BaseService {
 
 			switch (circlesRoom.getStatus()) {
 				case 0 :
-					sms_msg = "[%s] 신청완료(대구도서관)";
+					sms_msg = "신청완료(대구도서관)";
 					librarySearch.setUserkey(sessionMemberInfo.getRec_key());
 					break;
 				case 1 :
-					sms_msg = "[%s] 승인완료(대구도서관)";
+					sms_msg = "승인완료(대구도서관)";
 					librarySearch.setUserkey(circlesRoom.getRec_key());
 					break;
 				case 2 :
-					sms_msg = "[%s] 미승인(대구도서관)";
+					sms_msg = "미승인(대구도서관)";
 					librarySearch.setUserkey(circlesRoom.getRec_key());
 					break;
 				default:
 					throw new IllegalArgumentException();
 			}
 
-			LibSearchAPI.sendSms(librarySearch, String.format(sms_msg, circlesRoom.getCircles_title()), request.getRemoteAddr());
+			LibSearchAPI.sendSms(librarySearch, sms_msg, request.getRemoteAddr());
 		}
 	}
 
