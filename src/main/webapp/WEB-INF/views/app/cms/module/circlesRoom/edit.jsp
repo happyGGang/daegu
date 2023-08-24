@@ -127,12 +127,12 @@ $(document).ready(function() {
 					}
 */
 					var phone = $('input#phone1').val() + "-" + $('input#phone2').val() + "-" + $('input#phone3').val();
-					var tel = $('input#tel1').val() + "-" + $('input#tel2').val() + "-" + $('input#tel3').val();
+					// var tel = $('input#tel1').val() + "-" + $('input#tel2').val() + "-" + $('input#tel3').val();
 					var addr = "(" + $('input#zip_code').val() + ") " + $('input#address').val();
 					// var visit_date = $('select#circlesRoom_year').val() + "-" + $('select#circlesRoom_month').val() + "-" + $('select#circlesRoom_day').val();
 					
 					$('input#user_phone').val(phone);
-					$('input#user_tel').val(tel);
+					// $('input#user_tel').val(tel);
 					$('input#user_addr').val(addr);
 					// $('input#visit_date').val(visit_date);
 					

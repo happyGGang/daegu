@@ -216,11 +216,9 @@
 			}
 */
 			var phone = $('input#phone1').val() + "-" + $('input#phone2').val() + "-" + $('input#phone3').val();
-			var tel = $('input#tel1').val() + "-" + $('input#tel2').val() + "-" + $('input#tel3').val();
 			var addr = "(" + $('input#zip_code').val() + ") " + $('input#address').val();
 
 			$('input#user_phone').val(phone);
-			$('input#user_tel').val(tel);
 			$('input#user_addr').val(addr);
 
 			$('input#editMode').val('ADD');
@@ -395,6 +393,7 @@
 				</td>
 			</tr>
 			-->
+			<form:hidden path="visit_num" value="1"/>
 			<tr>
 				<th><span class="point">*</span>희망일</th>
 				<td><form:input path="visit_date" readonly="readonly"/>
