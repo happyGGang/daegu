@@ -106,11 +106,13 @@
 				$('input#agree1').focus();
 				return false;
 			}
+			/*
 			if(!$('input#agree2').is(':checked')) {
 				alert('약관에 동의하여야 신청 가능합니다.');
 				$('input#agree2').focus();
 				return false;
 			}
+			*/
 			if($('input#circles_title').val() == '') {
 				alert('동아리명은 반드시 입력하셔야합니다.');
 				$('input#circles_title').focus();
@@ -162,7 +164,7 @@
 				$('textarea#etc').focus();
 				return false;
 			}
-
+/*
 			if($("#circles_file").val() == '') {
 				$("#circles_file").focus();
 				alert("토론회 계획서 파일은 필수 첨부 입니다.")
@@ -212,7 +214,7 @@
 			if(!file){
 				$("#circles_file").remove();
 			}
-
+*/
 			var phone = $('input#phone1').val() + "-" + $('input#phone2').val() + "-" + $('input#phone3').val();
 			var tel = $('input#tel1').val() + "-" + $('input#tel2').val() + "-" + $('input#tel3').val();
 			var addr = "(" + $('input#zip_code').val() + ") " + $('input#address').val();
@@ -253,17 +255,10 @@
 		});
 
 		// 화면시작시 option 추가
-		for (let i = 5; i <= 14; i++) {
-			$("#visit_num").append("<option value=" + i + ">"+ i +"</option>");
+		for (let i = 1; i <= 1; i++) {
+		//	$("#visit_num").append("<option value=" + i + ">"+ i +"</option>");
 		}
 
-		<c:choose>
-			<c:when test="${202303010000 <= now && now <= 20230606235959}">
-			$('select#circles_div option[value="6"]').remove();
-			</c:when>
-			<c:otherwise>
-			</c:otherwise>
-		</c:choose>
 	});
 
 	function checkOnlyOne(element) {
@@ -317,6 +312,7 @@
 <br />
 <br />
 
+<!--
 <h4>신청요건</h4>
 <div class="warn-txt">
     <ul class="con">
@@ -327,7 +323,7 @@
 </div>
 <div class="mg10t"></div>
 &nbsp;<input type="checkbox" id="agree2"><label for='agree2'> 본인은 위 내용을 숙지하였으며 이에 동의합니다.</label>
-
+-->
 <br />
 <br />
 
@@ -347,19 +343,21 @@
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>동아리 구분</th>
+				<th>구분</th>
 				<td>
-					<form:select path="circles_div" cssClass="selectmenu" onchange="ChangeUserCount(this)">
+					<form:select path="circles_div" cssClass="selectmenu">
 						<form:options items="${circlesDivCode}" itemLabel="code_name" itemValue="code_id"/>
 					</form:select>
 				</td>
 			</tr>
+			<!--
 			<tr>
-				<th>동아리명</th>
+				<th>단체명</th>
 				<td>
 					<form:input path="circles_title"/>
 				</td>
 			</tr>
+			-->
 			<tr>
 				<th><span class="point">*</span>이름</th>
 				<td><form:input path="user_name"/></td>
@@ -372,6 +370,7 @@
 					<input type="text" id="phone3" maxlength="4" class="text-short">
 				</td>
 			</tr>
+			<!--
 			<tr>
 				<th>유선전화</th>
 				<td>
@@ -380,6 +379,7 @@
 					<input type="text" id="tel3" maxlength="4" class="text-short">
 				</td>
 			</tr>
+			-->
 			<tr>
 				<th>주소</th>
 				<td>
@@ -387,39 +387,42 @@
 					<input type="text" id="address" class="text-long">
 				</td>
 			</tr>
+			<!-- 
 			<tr>
 				<th><span class="point">*</span>신청인원</th>
 				<td>
 					<form:select path="visit_num" cssClass="selectmenu"></form:select>
 				</td>
 			</tr>
+			-->
 			<tr>
-				<th><span class="point">*</span>사용희망일</th>
+				<th><span class="point">*</span>희망일</th>
 				<td><form:input path="visit_date" readonly="readonly"/>
 				<p>※신청일이 현재날짜보다 7일 정도 여유있게 신청해주셔야 승인됩니다.</p>
 				</td>
 			</tr>
 			<tr>
-				<th><span class="point">*</span>사용기간</th>
+				<th><span class="point">*</span>일시</th>
 				<td>
 					<form:checkboxes items="${reqTimeCode}" path="visit_time_list" itemLabel="code_name" itemValue="code_id" onclick='checkOnlyOne(this)'/>
 					<p>※한번 신청하실때 1-TIME까지만 신청이 가능합니다. </p>
 				</td>
 			</tr>
 			<tr>
-				<th><span class="point">*</span>사용목적</th>
+				<th><span class="point">*</span>비고</th>
 				<td>
-					<form:input path="etc" cssStyle="width:60%"/>
-					<p>※입력 예 : 독서토론 모임 </p>
+					<form:input path="etc" cssClass="text-long" />
 				</td>
 			</tr>
+			<!--
 			<tr>
-				<th><span class="point">*</span>동아리소개서 및<br> 토론회 계획서</th>
+				<th><span class="point">*</span>소개서 및<br>계획서</th>
 				<td class="fileTd" id="circles_file_td">
-					<input type="file" id="circles_file" name="circles_file" title="파일선택"> <a href="https://library.busan.go.kr/board/boardFile/download/604/73171068/119792.do" class="btn btn5">동아리 소개서 및 토론회 계획서 다운로드</a>
+					<input type="file" id="circles_file" name="circles_file" title="파일선택"> <a href="https://library.busan.go.kr/board/boardFile/download/604/73171068/119792.do" class="btn btn5">소개서 및 계획서 다운로드</a>
 					<p>※ 문서파일만 업로드 가능합니다.</p>
 				</td>
 			</tr>
+			-->
 		</tbody>
 	</table>
     <div class="mg20t"></div>

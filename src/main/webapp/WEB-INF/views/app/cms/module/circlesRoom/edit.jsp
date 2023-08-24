@@ -3,6 +3,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/cmsTag.tld"%>
+<style>
+
+input[type="button"] { cursor: pointer; }
+input[type="text"], input[type="password"], select, .input, textarea {font-size: 15px; border: solid 1px #bcbcbc; border-radius: 3px; background: #fff; padding: 0 6px; margin: 2px; box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;letter-spacing: -0.04em;}
+input[type="text"], input[type="password"], select, .input { height: 34px; line-height: 1em; }
+textarea {overflow:auto; padding:10px; line-height: 1.3em;font-family:'Pretendard', 'Malgun Gothic', sans-serif;font-family: 'NanumSquare', sans-serif;font-size:15px;font-size: 14px;}
+</style>
 <script charset="UTF-8" type="text/javascript" src="//t1.daumcdn.net/postcode/api/core/190107/1546836247227/190107.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
@@ -75,7 +82,7 @@ $(document).ready(function() {
 						$('textarea#etc').focus();
 						return false;
 					}
-
+/*
 					var selectedValue = $("#circles_div_edit option:selected").val();
 					switch (selectedValue) {
 						case "1" :
@@ -118,7 +125,7 @@ $(document).ready(function() {
 					if(!file){
 						$("#circles_file").remove();
 					}
-
+*/
 					var phone = $('input#phone1').val() + "-" + $('input#phone2').val() + "-" + $('input#phone3').val();
 					var tel = $('input#tel1').val() + "-" + $('input#tel2').val() + "-" + $('input#tel3').val();
 					var addr = "(" + $('input#zip_code').val() + ") " + $('input#address').val();
@@ -308,13 +315,7 @@ function ChangeUserCount(obj) {
 			<col>
 		</colgroup>
 		<tr>
-			<th>*사용자 ID</th>
-			<td>
-				<form:input path="user_id" />
-			</td>
-		</tr>
-		<tr>
-			<th>동아리구분</th>
+			<th>구분</th>
 			<td>
 				<form:select path="circles_div" id="circles_div_edit" onchange="ChangeUserCount(this)">
 					<form:options items="${circlesDivCode}" itemLabel="code_name" itemValue="code_id"/>
@@ -322,15 +323,9 @@ function ChangeUserCount(obj) {
 			</td>
 		</tr>
 		<tr>
-			<th>동아리명</th>
+			<th>*사용자 ID</th>
 			<td>
-				<form:input path="circles_title"/>
-			</td>
-		</tr>
-		<tr>
-			<th>*사용희망일</th>
-			<td>
-				<form:input path="visit_date" class="text ui-calendar" readonly="true"/>
+				<form:input path="user_id" />
 			</td>
 		</tr>
 		<tr>
@@ -346,6 +341,38 @@ function ChangeUserCount(obj) {
 			</td>
 		</tr>
 		<tr>
+			<th>주소</th>
+			<td>
+				<input type="text" id="zip_code"><a href="#" id="findPostCode" class="btn">우편번호 찾기</a><br>
+				<input type="text" id="address" style="width:90%">
+			</td>
+		</tr>
+		<tr>
+			<th>*희망일</th>
+			<td>
+				<form:input path="visit_date" class="text ui-calendar" readonly="true"/>
+			</td>
+		</tr>
+		<tr>
+			<th>*시간</th>
+			<td>
+				<form:checkboxes items="${reqTimeCode}" path="visit_time_list" itemLabel="code_name" itemValue="code_id" onclick='checkOnlyOne(this)'/>&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<th><span class="point">*</span>비고</th>
+			<td>
+				<form:input path="etc" cssStyle="width:90%"/>
+			</td>
+		</tr>
+		<!-- <tr>
+			<th>동아리명</th>
+			<td>
+				<form:input path="circles_title"/>
+			</td>
+		</tr>
+
+		<tr>
 			<th>유선전화</th>
 			<td>
 				<input type="text" id="tel1" maxlength="3">&nbsp;-&nbsp;
@@ -353,31 +380,11 @@ function ChangeUserCount(obj) {
 				<input type="text" id="tel3" maxlength="4">
 			</td>
 		</tr>
-		<tr>
-			<th>주소</th>
-			<td>
-				
-				<input type="text" id="zip_code"><a href="#" id="findPostCode" class="btn">우편번호 찾기</a><br>
-				<input type="text" id="address">
-			</td>
-		</tr>
+
 		<tr>
 			<th><span class="point">*</span>신청인원</th>
 			<td>
 				<form:select path="visit_num" id="visit_num1" cssClass="selectmenu"></form:select>
-			</td>
-		</tr>
-		<tr>
-			<th>*사용기간</th>
-			<td>
-				<form:checkboxes items="${reqTimeCode}" path="visit_time_list" itemLabel="code_name" itemValue="code_id" onclick='checkOnlyOne(this)'/>
-			</td>
-		</tr>
-		<tr>
-			<th><span class="point">*</span>사용목적</th>
-			<td>
-				<form:input path="etc" cssStyle="width:60%"/>
-				<p>※입력 예 : 독서토론 모임 </p>
 			</td>
 		</tr>
 		<tr>
@@ -387,5 +394,6 @@ function ChangeUserCount(obj) {
 				<p>※ 문서파일만 업로드 가능합니다.</p>
 			</td>
 		</tr>
+ -->
 	</table>
 </form:form>
