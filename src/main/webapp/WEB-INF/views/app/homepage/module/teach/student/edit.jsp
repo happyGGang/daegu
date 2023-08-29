@@ -341,16 +341,16 @@ $(function() {
 			}
 			</c:if>
 
-<%--			<c:if test="${teach.age_info_yn eq 'Y'}">--%>
-<%--			var student_age = $form.find('#student_age').val();--%>
-<%--			// var student_age = student_age.replace(/^0/,'');--%>
-<%--			if ( student_age == '' ) {--%>
-<%--				$form.find('#student_age').focus();--%>
-<%--				alert('나이를 입력해 주세요.');--%>
-<%--				doubleSubmit = false;--%>
-<%--				return false;--%>
-<%--			}--%>
-<%--			</c:if>--%>
+			<c:if test="${teach.age_info_yn eq 'Y'}">
+			var student_age = $form.find('#student_age').val();
+			var student_age = student_age.replace(/^0/,'');
+			if ( student_age == '' ) {
+				$form.find('#student_age').focus();
+				alert('나이를 입력해 주세요.');
+				doubleSubmit = false;
+				return false;
+			}
+			</c:if>
 			<c:if test="${teach.school_grade_yn eq 'Y'}">
 			var schoolHak = $form.find('#student_hack option:selected').val();
 			if ( schoolHak == '0' ) {
@@ -594,19 +594,6 @@ $(function() {
 		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 	});
 
-
-	let userAge = document.getElementById('applicant_birth').value;
-
-		// var select = document.getElementById("studentAgeSelect");
-		// var currentYear = new Date().getFullYear();
-		//
-		// for (var i = currentYear; i >= currentYear - 100; i--) {
-		// 	var opt = document.createElement('option');
-		// 	opt.value = i;
-		// 	opt.innerHTML = i + "년";
-		// 	select.appendChild(opt);
-		// }
-
 	
 });
 $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
@@ -647,14 +634,18 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<form:hidden path="vaccines_counter" id="vaccines_counter"/>
 	<input type="hidden" id="agent_yn" value="${teach.agent_yn }"/>
 	<input type="hidden" id="vaccines_yn" value="${teach.vaccines_yn }"/>
-	<form:hidden path="searchCate1"/>
 	
 	<c:choose>
 		<c:when test="${teach.detail_address_yn eq 'Y'}">
 		<c:set var="placeholder" value="* 상세주소까지 입력하시기 바랍니다." />
 		</c:when>
 		<c:otherwise>
+		<c:if test="${homepage.context_path eq 'junggu'}">
+		<c:set var="placeholder" value="* 개인정보보호를 위해 읍/면/동까지만 입력하시기 바랍니다." />
+		</c:if>
+		<c:if test="${homepage.context_path ne 'junggu'}">
 		<c:set var="placeholder" value="* 개인정보보호를 위해 시/군/구(또는 읍/면/동)까지 입력하시기 바랍니다." />
+		</c:if>
 		</c:otherwise>
 	</c:choose>
 	
@@ -712,18 +703,17 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	<c:if test="${teach.birth_yn eq 'Y'}">
         	<tr>
 	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<c:choose>
-						<c:when test="${sessionScope.member.login}">
-							<form:hidden path="applicant_birth" value="${memberInfo.birth_day}"/>
-							${sessionScope.member.birth_day}
-						</c:when>
-						<c:otherwise>
-							<form:input path="applicant_birth" value="${memberInfo.birth_day}" maxlength="10" cssClass="text ui-calendar"/>
-							<c:set var="birth" value="${memberInfo.birth_day}"/>
-						</c:otherwise>
-					</c:choose>
-				</td>
+	         	<td>
+		         	<c:choose>
+	         		<c:when test="${sessionScope.member.login}">
+	         		<form:hidden path="applicant_birth" value="${memberInfo.birth_day}" />
+	         		${sessionScope.member.birth_day}
+	         		</c:when>
+	         		<c:otherwise>
+	         		<form:input path="applicant_birth" value="${memberInfo.birth_day}" maxlength="10" cssClass="text ui-calendar" />
+					</c:otherwise>
+		         	</c:choose>
+	         	</td>
         	</tr>
         	</c:if>
 	        <c:if test="${teach.address_yn eq 'Y' && teach.agent_yn eq 'N'}">
@@ -850,17 +840,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	</tr>
         	
         	</c:if>
-<%--				<c:if test="${teach.age_info_yn eq 'Y'}">--%>
-<%--					<tr>--%>
-<%--						<th>생년(<span style="color: red; font-wight: bold;">*</span>)</th>--%>
-<%--						<td>--%>
-<%--							<form:select path="student_age" cssClass="selectmenu" id="studentAgeSelect">--%>
-<%--								<form:option value="0" label="--선택--"></form:option>--%>
-<%--							</form:select>--%>
-<%--							생--%>
-<%--						</td>--%>
-<%--					</tr>--%>
-<%--				</c:if>--%>
+			<c:if test="${teach.age_info_yn eq 'Y'}">
+			<tr>
+				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
+				<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/></td>
+			</tr>
+			</c:if>
 			<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
 					<th>비고</th>
