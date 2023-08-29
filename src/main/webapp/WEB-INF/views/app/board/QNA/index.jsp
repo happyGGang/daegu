@@ -25,7 +25,7 @@ ${boardManage.top_html}
 				<col width="5%">
 				</c:if>
 				<col/>
-				<c:if test="${boardManage.manage_idx eq '742'}">
+				<c:if test="${boardManage.manage_idx eq '742' || boardManage.manage_idx eq '630'}">
 					<col class="important mmm2"/>
 				</c:if>
 				<col class="important"/>
@@ -42,7 +42,7 @@ ${boardManage.top_html}
 					<th><input type="checkbox" id="checkAll"> </th>
 					</c:if>
 					<th style="width:7%">번호</th>
-				<c:if test="${boardManage.manage_idx eq '742'}">
+				<c:if test="${boardManage.manage_idx eq '742' || boardManage.manage_idx eq '630'}">
 					<th class="category">도서관</th>
 				</c:if>
 					<th class="important" >제목</th>
@@ -60,7 +60,7 @@ ${boardManage.top_html}
 					<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 					<td></td>
 					</c:if>
-					<c:if test="${boardManage.manage_idx eq '742'}">
+					<c:if test="${boardManage.manage_idx eq '742' || boardManage.manage_idx eq '630'}">
 						<td></td>
 					</c:if>
 					<td class="num notice"><span>공지</span></td>
@@ -95,7 +95,7 @@ ${boardManage.top_html}
 					<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 					</c:if>
 					<td class="num">${paging.listRowNum - status.index}</td>
-					<c:if test="${boardManage.manage_idx eq '742'}">
+					<c:if test="${boardManage.manage_idx eq '742' || boardManage.manage_idx eq '630'}">
 						<td class="category important td2">
 							<span class="ca bg-${i.category1}">${not empty i.category1_name ? i.category1_name : '통합'}</span>
 						</td>
