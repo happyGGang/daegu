@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${fn:length(category1List) > 0}">
 <tr>
-	<th>분류1</th>
+	<th><c:if test="${param.manage_idx eq '630'}">도서관</c:if><c:if test="${param.manage_idx ne '630'}">분류1</c:if></th>
 	<td colspan="3">
 		<form:select path="category1" cssStyle="width:160px;" cssClass="selectmenu">
 			<form:options itemLabel="code_name" itemValue="code_id" items="${category1List}"/>
