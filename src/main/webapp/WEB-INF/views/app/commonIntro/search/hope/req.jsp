@@ -233,7 +233,7 @@
 				<c:when test="${homepagePath eq 'dalseonglib'}">
 				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BR">달성군립도서관</form:option>
-					<form:option value="GA">화원읍작은도서관</form:option>
+					<!-- <form:option value="GA">화원읍작은도서관</form:option>
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="HG">다사읍작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
@@ -242,23 +242,23 @@
 					<form:option value="FR">가창면참꽃작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
-					<form:option value="FN">달성군청소년센터</form:option>
+					<form:option value="FN">달성군청소년센터</form:option> -->
 					<form:option value="FJ">달성군청도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseongsmall'}">
 				<form:select path="manageCode">
-					<form:option value="FR">가창면 참꽃작은도서관</form:option>
+					<!-- <form:option value="FR">가창면 참꽃작은도서관</form:option>
 					<form:option value="GA">화원읍작은도서관</form:option>
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GF">유가읍작은도서관</form:option>
-					<form:option value="GH">옥포읍작은도서관</form:option>
+					<form:option value="GH">옥포읍작은도서관</form:option> -->
 					<form:option value="FJ">달성군청도서관"</form:option>
-					<form:option value="FN">달성군청소년센터</form:option>
-					<form:option value="HG">다사읍작은도서관"</form:option>
+					<!-- <form:option value="FN">달성군청소년센터</form:option>
+					<form:option value="HG">다사읍작은도서관"</form:option> -->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'namic'}">
