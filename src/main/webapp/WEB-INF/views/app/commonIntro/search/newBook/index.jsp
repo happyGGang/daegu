@@ -82,6 +82,9 @@ $(function() {
 				<form:radiobutton path="search_type" value="2" title="2주전" label="2주전"/>
 				<form:radiobutton path="search_type" value="3" title="1달전" label="1달전"/>
 				<form:radiobutton path="search_type" value="4" title="2달전" label="2달전"/>
+				<c:if test="${homepagePath eq 'gukbo'}">
+					<form:radiobutton path="search_type" value="5" title="6달전" label="6달전"/>
+				</c:if>
 			</td>
 			</tr>
 			<tr>
@@ -110,8 +113,8 @@ $(function() {
 							<form:radiobutton path="manageCode" value='GJ' label="태전1동 작은도서관" /><br/>
 							<form:radiobutton path="manageCode" value='HE' label="한강공원부키도서관" />
 						</c:when>
-						<c:when test="${homepagePath eq 'jungang'}">
-							중앙도서관<form:hidden path="manageCode" value="AD" />
+						<c:when test="${homepagePath eq 'gukbo'}">
+							국채보상운동기념도서관<form:hidden path="manageCode" value="AD" />
 						</c:when>
 						<c:when test="${homepagePath eq 'dongdu'}">
 							동부도서관<form:hidden path="manageCode" value="AH" />

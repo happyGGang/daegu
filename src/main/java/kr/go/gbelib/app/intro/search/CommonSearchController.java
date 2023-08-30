@@ -1150,6 +1150,9 @@ public class CommonSearchController extends BaseController {
 				} else if (librarySearch.getSearch_type().equals("4")) {
 					//2달전
 					beforeDays = -60;
+				} else if (librarySearch.getSearch_type().equals("5")) {
+					//2달전
+					beforeDays = -180;
 				} 
 				librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
 				librarySearch.setSearch_end_date(sf.format(new Date()));
@@ -1237,7 +1240,10 @@ public class CommonSearchController extends BaseController {
 					} else if (librarySearch.getSearch_type().equals("4")) {
 						//2달전
 						beforeDays = -60;
-					} 
+					} else if (librarySearch.getSearch_type().equals("5")) {
+						//2달전
+						beforeDays = -180;
+					}
 					librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
 					librarySearch.setSearch_end_date(sf.format(new Date()));
 				}
@@ -1326,6 +1332,9 @@ public class CommonSearchController extends BaseController {
 					} else if (librarySearch.getSearch_type().equals("4")) {
 						//2달전
 						beforeDays = -60;
+					} else if (librarySearch.getSearch_type().equals("5")) {
+						//2달전
+						beforeDays = -180;
 					} 
 					librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
 					librarySearch.setSearch_end_date(sf.format(new Date()));
