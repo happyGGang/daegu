@@ -1137,26 +1137,12 @@ function isFromFridayToSunday() {
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>
 													</c:when>
-													<c:when test="${homepage.context_path eq 'gukbo'}">
-														<c:if test="${i.CODE eq 'AD01' or
-																		i.CODE eq 'AD07' or
-																		i.CODE eq 'AD08' or
-																		i.CODE eq 'AD11' or
-																		i.CODE eq 'AD13' or
-																		i.CODE eq 'AD18' or
-																		i.CODE eq 'AD40' or
-																		i.CODE eq 'AD43' or
-																		i.CODE eq 'AD49' or
-																		i.CODE eq 'AD50' or
-																		i.CODE eq 'AD82'
-																		}">
-														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
-														</c:if>
-													</c:when>
 													<c:when test="${homepage.context_path eq 'seobu'}">
 														<c:if test="${i.CODE eq 'AF01' || i.CODE eq 'AF03' || i.CODE eq 'AF04' || i.CODE eq 'AF06' || i.CODE eq 'AF07' || i.CODE eq 'AF08' || i.CODE eq 'AF10' || i.CODE eq 'AF11' || i.CODE eq 'AF13' || i.CODE eq 'AF21' || i.CODE eq 'AF23' || i.CODE eq 'AF25' || i.CODE eq 'AF29' || i.CODE eq 'AF35' || i.CODE eq 'AF36' || i.CODE eq 'AF37' || i.CODE eq 'AF38' || i.CODE eq 'AF40' || i.CODE eq 'AF42' || i.CODE eq 'AF43' || i.CODE eq 'AF44' || i.CODE eq 'AF45' || i.CODE eq 'AF46' || i.CODE eq 'AF47'}">
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>
+													</c:when>
+													<c:when test="${homepage.context_path eq 'gukbo'}">
 													</c:when>
 													<c:otherwise>
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
@@ -1164,7 +1150,22 @@ function isFromFridayToSunday() {
 												</c:choose>
 
 											</c:forEach>
-
+											<c:if test="${homepage.context_path eq 'gukbo'}">
+												<form:option value="AD01">[국보]종합자료실</form:option>
+												<form:option value="AD43">[국보]종합자료실(대구경북다시보기)</form:option>
+												<form:option value="AD08">[국보]종합자료실(세종도서)</form:option>
+												<form:option value="AD49">[국보]종합자료실(다문화도서)</form:option>
+												<form:option value="AD18">[국보]종합자료실(치매도서)</form:option>
+												<form:option value="AD07">[국보]인문자료실</form:option>
+												<form:option value="AD05">[국보]인문자료실(청소년도서)</form:option>
+												<form:option value="AD14">[국보]인문자료실(큰글자도서)</form:option>
+												<form:option value="AD50">[국보]인문자료실(DVD)</form:option>
+												<form:option value="AD11">[국보]유아자료실</form:option>
+												<form:option value="AD13">[국보]어린이자료실</form:option>
+												<form:option value="AD39">[국보]스마트도서관(중앙로역)</form:option>
+												<form:option value="AD40">[국보]스마트도서관(두류역)</form:option>
+												<form:option value="AD36">[국보]대구전자도서관</form:option>
+											</c:if>
 										</form:select>
 									</dd>
 								</dl>
