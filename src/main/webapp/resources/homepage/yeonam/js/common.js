@@ -63,4 +63,95 @@ $(function(){
 		controls:false,
 		autoControls:false
 	});
+
+	var _width = $(window).width();
+	var _newBooklist;
+
+		var newBooks = function(){
+			try {
+				if( _newBooklist ) _newBooklist.destroySlider();
+			} catch (e) {
+				// TODO: handle exception
+			}
+
+			if( _width <= 200 ){
+				_newBooklist = $('.book-box.mobile-view ul').bxSlider({
+					auto: true,
+					autoHover: true,
+					speed: 500,
+					pager: false,
+					moveSlides:1,
+					maxSlides: 1,
+					slideWidth: 100,
+					slideMargin: 0
+				});
+			}
+			else if( _width <= 450 && _width > 200 ){
+				_newBooklist = $('.book-box.mobile-view ul').bxSlider({
+					auto: true,
+					autoHover: true,
+					speed: 500,
+					pager: false,
+					moveSlides:1,
+					maxSlides: 2,
+					slideWidth: 100,
+					slideMargin: 20
+				});
+			}
+			else if( _width <= 600 && _width > 450 ){
+				_newBooklist = $('.book-box.mobile-view ul').bxSlider({
+					auto: true,
+					autoHover: true,
+					speed: 500,
+					pager: false,
+					moveSlides:1,
+					maxSlides: 3,
+					slideWidth: 120,
+					slideMargin: 20
+				});
+			}
+			else if( _width <= 768 && _width > 600 ){
+				_newBooklist = $('.book-box.mobile-view ul').bxSlider({
+					auto: true,
+					autoHover: true,
+					speed: 500,
+					pager: false,
+					moveSlides:1,
+					maxSlides: 4,
+					slideWidth: 120,
+					slideMargin: 20
+				});
+			}
+			else if( _width <= 1024 && _width > 768 ){
+				_newBooklist = $('.book-box.mobile-view ul').bxSlider({
+					auto: true,
+					autoHover: true,
+					speed: 500,
+					pager: false,
+					moveSlides:1,
+					maxSlides: 5,
+					slideWidth: 120,
+					slideMargin: 10
+				});
+			}
+			else {
+				_newBooklist = $('.book-box.mobile-view ul').bxSlider({
+					auto: true,
+					autoHover: true,
+					speed: 500,
+					pager: false,
+					moveSlides:1,
+					maxSlides: 4,
+					slideWidth: 170,
+					slideMargin: 15
+				});
+			}
+		};
+
+		newBooks();
+		$(window).on('resize', function(){
+			_width = $(window).width();
+			newBooks();
+		});
+
 });
