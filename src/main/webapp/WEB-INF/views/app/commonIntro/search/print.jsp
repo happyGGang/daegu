@@ -44,7 +44,7 @@ setTimeout(window.print(), 1000);
 </head>
 <body topmargin="0">
 	<div id="target">
-		<div style="font-size: 15px; font-weight: bold;font-family: 돋움"><h3>&nbsp;&nbsp;&nbsp;&nbsp;[자료위치안내]</h3></div>
+		<div style="font-size: 15px; font-family: 돋움"><h3>&nbsp;&nbsp;&nbsp;&nbsp;[자료위치안내]</h3></div>
 		<table cellspacing="0" cellpadding="0">
 		</table>
 		<table cellspacing="0" cellpadding="0">
@@ -57,24 +57,24 @@ setTimeout(window.print(), 1000);
 				   <td colspan="2" class="first last td1">------------------------------------------------------</td>
 				</tr>
 				<tr>
-					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명 : </td>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.TITLE_INFO}</td>
+					<td style="font-size: 14px; text-align: justify; font-family: 돋움" class="first td1">서&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;명 : </td>
+				    <td style="font-size: 14px; font-family: 돋움 " class="last td2">${detail.TITLE_INFO}</td>
 				</tr>
 				<tr>
-					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">청&nbsp;구&nbsp;기&nbsp;호 : </td>
+					<td style="font-size: 14px; text-align: justify; font-family: 돋움" class="first td1">청&nbsp;구&nbsp;기&nbsp;호 : </td>
 				    <td style="font-size: 14px; font-weight: bold ;font-family: 돋움" class="last td2">${detail.CALL_NO}</td>
 				</tr>
 				<tr>
-					<td style="width: 70px; font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">등&nbsp;록&nbsp;번&nbsp;호 : </td>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.REG_NO}</td>
+					<td style="width: 70px; font-size: 14px; text-align: justify; font-family: 돋움" class="first td1">등&nbsp;록&nbsp;번&nbsp;호 : </td>
+				    <td style="font-size: 14px; font-family: 돋움 " class="last td2">${detail.REG_NO}</td>
 				</tr>
 				<tr>
-					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자 : </td>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.AUTHOR}</td>
+					<td style="font-size: 14px; text-align: justify; font-family: 돋움" class="first td1">저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자 : </td>
+				    <td style="font-size: 14px; font-family: 돋움 " class="last td2">${detail.AUTHOR}</td>
 				</tr>
 				<tr>
-					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 돋움" class="first td1">자&nbsp;&nbsp;료&nbsp;&nbsp;실 : </td>
-				    <td style="font-size: 14px; font-weight: bold;font-family: 돋움 " class="last td2">${detail.SHELF_LOC_NAME}</td>
+					<td style="font-size: 14px; text-align: justify; font-family: 돋움" class="first td1">자&nbsp;&nbsp;료&nbsp;&nbsp;실 : </td>
+				    <td style="font-size: 14px; font-family: 돋움 " class="last td2">${detail.SHELF_LOC_NAME}</td>
 				</tr>
 				<tr>
 				   <td colspan="2" class="first last td1">------------------------------------------------------</td>

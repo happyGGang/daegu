@@ -242,7 +242,7 @@ $(document).ready(function () {
       <ul>
         <li><a href="https://library.daegu.go.kr/gukbo/html/hopeBook.do?menu_idx=222" target="_blank" class="newWin" title="국채보상운동기념도서관 희망도서바로대출 안내 페이지 이동(새창열림)">국채보상운동기념도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/dongbu/html/hopeBook.do?menu_idx=191" target="_blank" class="newWin" title="대구광역시립동부도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구광역시립동부도서관<i class="fa fa-external-link"></i></a></li>
-		<li><a href="https://library.daegu.go.kr/donggu/html/hopeBook.do?menu_idx=182" target="_blank" class="newWin" title="대구동구도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구동구도서관<i class="fa fa-external-link"></i></a></li>
+		<li><a href="https://library.daegu.go.kr/donggu/html/hopeBook.do?menu_idx=182" target="_blank" class="newWin" title="대구동구도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구동구도서관(신천,안심)<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/228/html/hopeBook.do?menu_idx=247" target="_blank" class="newWin" title="대구2·28기념학생도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구2·28기념학생도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/seobu/html/hopeBook.do?menu_idx=212" target="_blank" class="newWin" title="대구광역시립서부도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구광역시립서부도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/seogulib/html/hopeBook.do?menu_idx=145" target="_blank" class="newWin" title="서구통합도서관 희망도서바로대출 안내 페이지 이동(새창열림)">서구통합도서관<i class="fa fa-external-link"></i></a></li>
@@ -256,6 +256,7 @@ $(document).ready(function () {
         <li><a href="https://library.daegu.go.kr/gosan/html/hopeBook.do?menu_idx=130" target="_blank" class="newWin" title="수성구 고산도서관 희망도서바로대출 안내 페이지 이동(새창열림)">수성구 고산도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/duryu/html/hopeBook.do?menu_idx=182" target="_blank" class="newWin" title="대구광역시립두류도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구광역시립두류도서관<i class="fa fa-external-link"></i></a></li>
         <li><a href="https://library.daegu.go.kr/dalseong/html/hopeBook.do?menu_idx=141" target="_blank" class="newWin" title="대구광역시립달성도서관 희망도서바로대출 안내 페이지 이동(새창열림)">대구광역시립달성도서관<i class="fa fa-external-link"></i></a></li>
+		<li><a href="https://library.daegu.go.kr/dalseolib/html/hopeBook.do?menu_idx=164" target="_blank" class="newWin" title="달서통합도서관 희망도서바로대출 안내 페이지 이동(새창열림)">달서통합도서관(달서영어)<i class="fa fa-external-link"></i></a></li>
       </ul>
     </div>
   </div>
