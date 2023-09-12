@@ -346,7 +346,6 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping (value = "/logout.*", method = RequestMethod.GET)
 	public String logout(@PathVariable String context_path, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		Homepage homepage = getSessionHomepage(request);
 		service.logout(request);
 		return String.format("redirect:/intro/%s/index.do", context_path);
 	}
@@ -385,4 +384,5 @@ public class LoginController extends BaseController {
 
 		return "/intro/login/mobileCard";
 	}
+	
 }

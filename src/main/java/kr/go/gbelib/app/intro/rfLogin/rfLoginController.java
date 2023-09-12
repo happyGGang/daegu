@@ -19,11 +19,9 @@ import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
-import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.LoginAPI;
-import kr.go.gbelib.app.common.api.PrivateLoginAPI;
 import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
 
@@ -33,9 +31,6 @@ public class rfLoginController extends BaseController {
 
 	@Autowired
 	private LoginService service;
-
-	@Autowired
-	private MemberService memberService;
 
 	@Autowired
 	private CodeService codeService;
@@ -130,7 +125,6 @@ public class rfLoginController extends BaseController {
 	 */
 	@RequestMapping (value = "/logout.*", method = RequestMethod.GET)
 	public String logout(@PathVariable String context_path, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		Homepage homepage = getSessionHomepage(request);
 		service.logout(request);
 		return String.format("redirect:/intro/%s/index.do", context_path);
 	}

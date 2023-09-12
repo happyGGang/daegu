@@ -1662,6 +1662,28 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkIn.*"})
+	public String checkIn(Model model, Member member, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
+		}
+		
+		model.addAttribute("member", sessionMemberInfo);
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkIn";
+		}
+
+		return basePath + filePath;
+	}
+	
 	@RequestMapping(value = { "/{contextPath}/kiosk/menuNavigation.*" })
 	public String menuNavigation(Model model, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
