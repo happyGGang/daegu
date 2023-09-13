@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="/resources/common/js/didLogin.js"></script>
 <script type="text/javascript">
 var idCheck = false;
 var pwCheck = false;
@@ -28,9 +29,21 @@ $(function() {
 	});
 
 });
+
 $(document).on("keyup", "input:text[numberOnly]", function() {
 	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 });
+
+function daeguIdLogin(){
+	var menu_idx = ${member.menu_idx};
+	var data = {
+		siteId : "HB1d1Mhaof7fEN8rGmc61Gg",
+		requiredVC : "DaeguMasterVC",
+		subVC : "",
+		returnUrl : "edit.do?menu_idx="+menu_idx
+	}
+	didLogin.loginPopup(data);
+}
 </script>
 
 	<p class="blind">
@@ -170,6 +183,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<a href="#" title="새창열림" class="certtype" id="certGpin">
 					<img src="/resources/common/img/identy2.png" alt=""/>
 					<span>${childNameTag} I-PIN(아이핀)인증</span>
+				</a>
+			</p>
+			<p class="identy_c" style="display:none;">
+				<a href="#" title="새창열림" class="daDaegu" id="daDaegu" onclick="daeguIdLogin()">
+					<img src="/resources/common/img/identy2.png" alt=""/>
+					<span>${childNameTag}다대구앱 인증</span>
 				</a>
 			</p>
 		</div>

@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rootlab.did.ClaimInfo;
+import com.rootlab.did.DidLogin;
+
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
@@ -31,9 +34,7 @@ import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.cms.module.bringInLog.BringInLog;
 import kr.go.gbelib.app.cms.module.bringInLog.BringInLogService;
-import kr.go.gbelib.app.cms.module.certLog.CertLog;
 import kr.go.gbelib.app.common.api.ApiResponse;
 import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -129,53 +130,118 @@ public class CommonJoinController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/edit.*"}, method = RequestMethod.POST)
-	public String edit(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String edit(Model model, Member member, ClaimInfo claimInfo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		Member certMember = (Member) request.getSession().getAttribute("certMember");
-		if (certMember != null) {
-			member.setMember_name(certMember.getMember_name());
-			member.setBirth_day(certMember.getBirth_day());
-			if (certMember.getSex().equals("1")) {
-				member.setSex("0");// 남
-			} else {
-				member.setSex("1");// 여
-			}
-			if (StringUtils.isNotEmpty(certMember.getCell_phone())) {
-				member.setCell_phone(certMember.getCell_phone());
-				member.setCell_phone1(certMember.getCell_phone1());
-				member.setCell_phone2(certMember.getCell_phone2());
-				member.setCell_phone3(certMember.getCell_phone3());
-			}
+		if(claimInfo != null) {
+			String privKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCX7UqYJRa46ht4rL6SpFgxnfz9IJjX0UMn3tqkL/0LtRpikW9wRwlOdbJnE0Na4Th65ABiWNFakEZSReMWpgUSNs73e3pelBAW30vkmgONzTdXR82ol2+pnx845LVVuPoPIxgUHCfb6QoVogvFQ865Gih3PpzymptnrPlYiZDZaIoT4jRBB24NGWDdYXyToKKt+PHvu71IBICBht2/0ZecCqh6LyEpBXtE5REwF2ssOkBThq6IDum1UeS9tYYLEit3kWWoN13Qlm9qTOEf0IyLcghtU6VkBiT325IoP2bJxMySM/GlhtzMVJCrY93Z+98xrduR0msjcUU15s6eerNxAgMBAAECggEAfLH4TZPzaGZNkehGqllVQbQoVyIQEOLiubDBx4zTpm5Ib6pqyr6jNtCHUu6Ok+LS1pqYbh/0BN7xuMk/r/EnrGFr0dh5AXOJGRzBT6nRTOuohmyasctJjPDbUXj2FJu0MgRd2PObC3XkHwlXm9shqu97UxQDAWRANQHVzgNq7eUJxtwrCwXzyUufPNrTeHUqAxM2DuN4XXbOL6ZIbkbw86Ryl6R2/19h2KPT8N/TV7q2xyvhGh/sNXG+c5fX9vb4yQ0dQzW7OMJCAh/eISp6gfvIvQX+cMdMocpzutLDsCxAMsJ7oQbYkz3XG/ToVzzUMNNIxI26MCVev96lDcx1gQKBgQDKddYhW48/RPT/LSHc4cxhrBhhV0CbklhMEX1NK6NOIMJRuYySwkZOpGDCAfMT+//1o/abgDs75E4kwq7fLigC737nO2hIXn92y0VOh3PLTM6ZjlOTMph/XlvEFq7qs5ITluv6QBLUO4DGjKnYSA7EfnIdexsw+7pr9NDJGXPqyQKBgQDAGnHWJzWAdq+FPN/gLSXTQgar51p/DZlXQQ+0LOOZW6fMfIGNdbVCgBufQYqxI+uGFO6BjMHgtwKlcjcX8siip1wqYAo166JHvyVE5nfddv788yqfDbw0sg1C+m6djw4G6go1YhJp5FczQydjTEiFzc1PlGonASgr738QNPCvaQKBgQCc7+SxbNjIUXqcBu8V2g3ktFMduVXCghlhtbjsReRLnocidHMsG94F/dNm773uAswxLAzwEuFXlqygQCzvoUawp9c2BM3cMywY+I5bxhGTSJFpZHMSSgj9yjXV9UNXeSTFfJqlHF+8FffHcKgDmC+iTuXERnYYbTjfkCD7kXhSSQKBgQCFh1wtUV+9BcKHSIMNHhS2vaRJhSzAN8Gohs7VnIYvqSf/2WNr4q+1o7qPfk1bR+6EarRGVILHIi6ytatZ+CZB+Tb1NYCjbkCEwnazZ8dVp0sipBuyJyf1MPZK4ixVVISZhcDGzn6iIFgEh98vBG08pIrbj/whVIqJz5VwvHu4UQKBgQC0rF6Bzih4H9pcT8qOzEyO9XmblTwmZWKqsx9B9WLJsJnEa7fH3uJGIG1SPWajCJg7gKwHxmy+J8HbR+/d/up/zfwhaSUwuhwUeT/BwX6X8NFHdNCndxYRcS2qK8ZsH9j9pQ654dWAockTeveDECOLewcvNtpTpGLdcXtSsV2oDA==";
 			
-			//통합회원 사립도서관으로 반입할때
 			try {
-				if (StringUtils.isNotEmpty(certMember.getMember_id())) {
-					member.setMember_id(certMember.getMember_id());
-				}
-				if (StringUtils.isNotEmpty(certMember.getZipcode())) {
-					member.setZipcode(certMember.getZipcode());
-				}
-				if (StringUtils.isNotEmpty(certMember.getAddress1())) {
-					member.setAddress1(certMember.getAddress1());
-				}
-				if (StringUtils.isNotEmpty(certMember.getAddress2())) {
-					member.setAddress2(certMember.getAddress2());
-				}
-				if (StringUtils.isNotEmpty(certMember.getBringIn())) {
-					member.setBringIn(certMember.getBringIn());
-				}
+				claimInfo = DidLogin.decryptClaimInfo(claimInfo, privKey);
 			} catch (Exception e) {
-				System.err.println(e);
+				System.out.println("다대구 앱 인증 오류 " + e);
+				joinService.alertMessageAndHistoryBack("다대구 앱 인증중에 오류가 발생하였습니다.", -4, request, response);
+				return null;
 			}
 			
-			member.setCi_value(certMember.getCi_value());
-			member.setDi_value(certMember.getDi_value());
+			if(claimInfo != null) {
+				member.setMember_name(claimInfo.getName());
+				String number = claimInfo.getPhoneNumber().replaceAll("-", "");
+				member.setCell_phone(number);
+				member.setBirth_day(claimInfo.getBirthdate());
+				member.setCi_value(claimInfo.getCi());
+				if (claimInfo.getGender().equals("남자")) {
+					member.setSex("0");// 남
+				} else {
+					member.setSex("1");// 여
+				}
+				if(member.getCi_value().isEmpty()) {
+					joinService.alertMessageAndHistoryBack("본인인증이 필요합니다.", -4, request, response);
+					return null;
+				}
+			} else {
+				joinService.alertMessageAndHistoryBack("다대구 인증에 실패했습니다. 다시 시도해주세요.", -4, request, response);
+				return null;
+			}
+			
+			//책이음
+			if (!StringUtils.equals(homepage.getContext_path(), "daegu")) {
+				List<Map<String, Object>> klmemberInfo = MemberAPI.checkDupUser("3", member);
+				if (klmemberInfo != null && klmemberInfo.size() > 0) {
+					model.addAttribute("dupCheckKl", true);
+					model.addAttribute("dupUser", klmemberInfo.get(0));
+					
+					joinService.alertMessageAndHistoryBack("회원님의 대출번호는 "+klmemberInfo.get(0).get("USER_NO")+"이며 책이음회원으로 이미 가입되어 있습니다.", -4, request, response);
+					return null;
+				}
+			}
+			
+			//자관
+			List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
+			if (memberInfo != null && memberInfo.size() > 0) {
+				model.addAttribute("dupCheck", true);
+				model.addAttribute("dupUser", memberInfo.get(0));
+				
+				if(memberInfo.get(0).get("USER_CLASS") == "3") {
+					joinService.alertMessageAndHistoryBack("탈퇴 회원입니다. 도서관으로 문의 바랍니다.", -4, request, response);
+					return null;
+				} else if(memberInfo.get(0).get("USER_NO") != "") {
+					joinService.alertMessageAndHistoryBack("중복된 이용자가 있습니다.\\n대출번호는" + memberInfo.get(0).get("USER_NO") + "입니다.", -4, request, response);
+					return null;
+				} else {
+					joinService.alertMessageAndHistoryBack("준회원으로 가입되어 있습니다.", -4, request, response);
+					return null;
+				}
+			}
+			
+			request.getSession().setAttribute("certMember", member);
+			request.getSession().setAttribute("certType", "daDaegu");
 		} else {
-			joinService.alertMessage("본인인증이 필요합니다.", request, response);
-			return null;
+			Member certMember = (Member) request.getSession().getAttribute("certMember");
+			if (certMember != null) {
+				member.setMember_name(certMember.getMember_name());
+				member.setBirth_day(certMember.getBirth_day());
+				if (certMember.getSex().equals("1")) {
+					member.setSex("0");// 남
+				} else {
+					member.setSex("1");// 여
+				}
+				if (StringUtils.isNotEmpty(certMember.getCell_phone())) {
+					member.setCell_phone(certMember.getCell_phone());
+					member.setCell_phone1(certMember.getCell_phone1());
+					member.setCell_phone2(certMember.getCell_phone2());
+					member.setCell_phone3(certMember.getCell_phone3());
+				}
+				
+				//통합회원 사립도서관으로 반입할때
+				try {
+					if (StringUtils.isNotEmpty(certMember.getMember_id())) {
+						member.setMember_id(certMember.getMember_id());
+					}
+					if (StringUtils.isNotEmpty(certMember.getZipcode())) {
+						member.setZipcode(certMember.getZipcode());
+					}
+					if (StringUtils.isNotEmpty(certMember.getAddress1())) {
+						member.setAddress1(certMember.getAddress1());
+					}
+					if (StringUtils.isNotEmpty(certMember.getAddress2())) {
+						member.setAddress2(certMember.getAddress2());
+					}
+					if (StringUtils.isNotEmpty(certMember.getBringIn())) {
+						member.setBringIn(certMember.getBringIn());
+					}
+				} catch (Exception e) {
+					System.err.println(e);
+				}
+				
+				member.setCi_value(certMember.getCi_value());
+				member.setDi_value(certMember.getDi_value());
+			} else {
+				joinService.alertMessage("본인인증이 필요합니다.", request, response);
+				return null;
+			}
 		}
-
+		
 		model.addAttribute("newMember", member);
 		model.addAttribute("telCode", codeService.getCode("CMS", "C0003"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0002"));
@@ -486,7 +552,6 @@ public class CommonJoinController extends BaseController {
 					}
 				}
 			} else if ( member.getEditMode().equals("INTEGRATION") ) {//통합회원 전환
-				//TODO 사립도서관 회원은 통합회원전환을 막아야함..이 맞는지 확인하기
 				if(member.getPrivateMemberYn(homepage)) {
 					res.setValid(false);
 					res.setMessage("사립도서관 회원은 통합회원 전환이 불가능합니다.");
@@ -1398,14 +1463,12 @@ public class CommonJoinController extends BaseController {
 			String member_name = sessionMemberInfo.getMember_name();
 			
 			if(member.getPrivateMemberYn(homepage)) {
-				//TODO sendUntact 찾아보기
 				Map<String, Object> sendUntact = CommonAPI.sendUntact(jumin1 + jumin2, member_name);
 				
 				Map<String, Object> envelope = (Map<String, Object>) sendUntact.get("soap:Envelope");
 				Map<String, Object> body = (Map<String, Object>) envelope.get("soap:Body");
 				Map<String, Object> getResideInsttCnfirmResponse = (Map<String, Object>) body.get("getResideInsttCnfirmResponse");
 
-				//TODO 사립도서관 테스트후 System.out.print삭제
 				System.out.println("@@@@@@@@@@@@@@@@ private untact result serviceResult : " + getResideInsttCnfirmResponse.get("serviceResult"));
 				System.out.println("@@@@@@@@@@@@@@@@ private untact result name : " + getResideInsttCnfirmResponse.get("name"));
 				System.out.println("@@@@@@@@@@@@@@@@ private untact result hangkikCd : " + getResideInsttCnfirmResponse.get("hangkikCd"));
