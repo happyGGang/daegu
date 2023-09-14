@@ -175,7 +175,7 @@ function checkYn() {
 
 <div class="login-wrap">
 	<div class="header">
-		<h1>${homepage.homepage_name}체크인</h1>
+		<h1>${homepage.homepage_name}체크아웃</h1>
 	</div>
 	<div class="contents">
 
@@ -187,7 +187,7 @@ function checkYn() {
 				<div style="text-align:center;">
 					<img src="/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
 				</div>
-				<form:form modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkInProc.do" autocomplete="off" accept-charset="utf-8">
+				<form:form modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" autocomplete="off" accept-charset="utf-8">
 					<form:hidden path="before_url"/>
 					<form:hidden path="loginType" value="card"/>
 					<div id="login-form2" style="z-index:100000;position:absolute;top:-100px;left:-150000px">
@@ -196,10 +196,9 @@ function checkYn() {
 				</form:form>
 			</div>
 		</div>
-		
-		<a href="javascript:void(0);" onclick="checkYn();" return false;>체크인</a>
-		<form:form modelAttribute="checkInOut" action="/${homepage.context_path}/kiosk/checkInKeyboard.do" autocomplete="off" accept-charset="utf-8">
-			<form:hidden path="checkIn_Yn" value="Y"/>
+		<a href="javascript:void(0);" onclick="checkYn();" return false;>체크아웃</a>
+		<form:form modelAttribute="checkInOut" action="/${homepage.context_path}/kiosk/checkOutKeyboard.do" autocomplete="off" accept-charset="utf-8">
+			<form:hidden path="checkIn_Yn" value="N"/>
 		</form:form>
 	</div>
 </div>

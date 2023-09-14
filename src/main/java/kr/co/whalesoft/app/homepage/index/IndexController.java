@@ -51,9 +51,9 @@ import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 import kr.go.gbelib.app.cms.module.blackList.BlackList;
 import kr.go.gbelib.app.cms.module.blackList.BlackListService;
+import kr.go.gbelib.app.cms.module.checkInOut.CheckInOut;
 import kr.go.gbelib.app.cms.module.culture.Culture;
 import kr.go.gbelib.app.cms.module.culture.CultureService;
-import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
 import kr.go.gbelib.app.cms.module.elib.book.BookService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
@@ -1662,8 +1662,8 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
-	@RequestMapping(value = {"/{contextPath}/kiosk/checkIn.*"})
-	public String checkIn(Model model, Member member, HttpServletRequest request, @PathVariable String contextPath) {
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkInIndex.*"})
+	public String checkInIndex(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
@@ -1675,10 +1675,103 @@ public class IndexController extends BaseController {
 		}
 		
 		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkInIndex";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkIn.*"})
+	public String checkIn(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
+		}
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
 
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/checkIn";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkOut.*"})
+	public String checkOut(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
+		}
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkOut";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkInKeyboard.*"})
+	public String checkInKeyboard(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
+		}
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkInKeyboard";
+		}
+
+		return basePath + filePath;
+	}
+	
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkOutKeyboard.*"})
+	public String checkOutKeyboard(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
+		}
+		
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkOutKeyboard";
 		}
 
 		return basePath + filePath;

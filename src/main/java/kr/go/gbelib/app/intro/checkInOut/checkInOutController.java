@@ -40,7 +40,7 @@ public class checkInOutController extends BaseController {
 
 		String returnUrl = member.getBefore_url();
 		if (StringUtils.isEmpty(returnUrl)) {
-			returnUrl = context_path + "/kiosk" + "/checkIn.do";
+			returnUrl = context_path + "/kiosk" + "/checkInIndex.do";
 		}
 		
 		if (homepage != null && StringUtils.isNotEmpty(homepage.getManage_code())) {
@@ -52,20 +52,20 @@ public class checkInOutController extends BaseController {
 		checkInProc(member, checkInOut);
 		
 		if(!member.isLogin()) {
-			checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), "체크인에 실패하였습니다.\\n해당 정보와 일치하는 이용자가 없습니다.", request, response);
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크인에 실패하였습니다.\\n해당 정보와 일치하는 이용자가 없습니다.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
 			return null;
 		}
 		
 		if(!checkGreens(member)) {
-			checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), "그린즈(초5~중3 또는 해당연령대)만 입장가능합니다.", request, response);
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "그린즈(초5~중3 또는 해당연령대)만 입장가능합니다.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
 			return null;
 		}
 		
 		boolean isCheckIn = checkInOutService.isCheckInCount(checkInOut);
 		if(isCheckIn) {
-			checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), "이미 체크인 하셨습니다.\\n체크아웃 후 다시 이용해주세요.", request, response);
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "이미 체크인 하셨습니다.\\n체크아웃 후 다시 이용해주세요.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
 			return null;
 		}
@@ -77,16 +77,16 @@ public class checkInOutController extends BaseController {
 		if(checkInCount > 0) {
 			if(visitCheck > 0){
 				visitCheck = visitCheck+1;
-				checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), String.format(checkInOut.getMember_name() + "님! " + visitCheck + "번째 방문 환영합니다!."), request, response);
+				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), String.format(checkInOut.getMember_name() + "님! " + visitCheck + "번째 방문 환영합니다!."), String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 				session.invalidate();
 				return null;
 			} else {
-				checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), String.format("\\'그린대로\\' 숲으로 들어오세요."), request, response);
+				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), String.format("\\'그린대로\\' 숲으로 들어오세요."), String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 				session.invalidate();
 				return null;
 			}
 		} else {
-			checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), String.format("체크인에 실패하였습니다.\\n다시 한번 카드를 인식시켜 주세요.\\n다시 체크인에 실패시 매니저에게 문의해주세요."), request, response);
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), String.format("체크인에 실패하였습니다.\\n다시 한번 카드를 인식시켜 주세요.\\n다시 체크인에 실패시 매니저에게 문의해주세요."), String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
 			return null;
 		}
@@ -100,7 +100,7 @@ public class checkInOutController extends BaseController {
 
 		String returnUrl = member.getBefore_url();
 		if (StringUtils.isEmpty(returnUrl)) {
-			returnUrl = context_path + "/kiosk" + "/checkIn.do";
+			returnUrl = context_path + "/kiosk" + "/checkInIndex.do";
 		}
 		
 		if (homepage != null && StringUtils.isNotEmpty(homepage.getManage_code())) {
@@ -112,7 +112,7 @@ public class checkInOutController extends BaseController {
 		checkInProc(member, checkInOut);
 		
 		if(!member.isLogin()) {
-			checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n해당 정보와 일치하는 이용자가 없습니다.", request, response);
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n해당 정보와 일치하는 이용자가 없습니다.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
 			return null;
 		}
@@ -141,16 +141,16 @@ public class checkInOutController extends BaseController {
 					message = "오늘도 " + minute + "분 자신을 그려보았습니다. 또 만나요!";
 				}
 				
-				checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), message, request, response);
+				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), message, String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 				session.invalidate();
 				return null;
 			} else {
-				checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n다시 한번 카드를 인식시켜 주세요.\\n다시 체크아웃 실패시 매니저에게 문의해주세요.", request, response);
+				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n다시 한번 카드를 인식시켜 주세요.\\n다시 체크아웃 실패시 매니저에게 문의해주세요.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 				session.invalidate();
 				return null;
 			}
 		} else {
-			checkInOutService.alertMessageKiosk(homepage.getHomepage_name(), "체크인 기록이 없습니다.\\n체크인 해주세요.", request, response);
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크인 기록이 없습니다.\\n체크인 해주세요.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
 			return null;
 		}

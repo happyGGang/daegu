@@ -26,6 +26,8 @@ public class CheckInOut extends PagingUtils{
 	private String result_date; //검색종료시간
 	private String result_count; //검색종료시간
 	
+	private String checkIn_Yn; //체크인유무
+	
 	public int getCheckInOut_idx() {
 		return checkInOut_idx;
 	}
@@ -160,6 +162,14 @@ public class CheckInOut extends PagingUtils{
 
 	public void setResult_count(String result_count) {
 		this.result_count = result_count;
+	}
+
+	public String getCheckIn_Yn() {
+		return checkIn_Yn;
+	}
+
+	public void setCheckIn_Yn(String checkIn_Yn) {
+		this.checkIn_Yn = checkIn_Yn;
 	}
 	
 }
