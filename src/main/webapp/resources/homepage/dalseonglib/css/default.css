@@ -25,6 +25,8 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li{float:left;width:171px;padding:0;border-right:1px solid #4565cd;text-align:center;position:static}
 .Gnb .gnb-menu>li:first-child{border-left:1px solid #4565cd;background:none;}
 .Gnb .gnb-menu>li>a{padding:0;line-height:55px;height:55px;font-size:18px;color:#fff;font-weight:bold;}
+.Gnb .gnb-menu>li>a:hover,
+.Gnb .gnb-menu>li>a:focus{color:#fedc0a !important;}
 .Gnb .gnb-menu>li>a>span {font-family:'Malgun Gothic';}
 .Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:center;}
 .Gnb .gnb-menu>li.active>ul{display:block}
@@ -32,7 +34,7 @@ a:focus{color:#2b74c0}
 .Gnb .gnb-menu>li>.SubMenu>li{display:inline-block}
 .Gnb .gnb-menu>li>.SubMenu>li>a{font-size:14px;padding:0 5px;color:#eee;}
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
-.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fedc0a}
+.Gnb .gnb-menu>li>.SubMenu>li>a:focus{background:none;color:#fedc0a;}
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul{width:100%;background: #21409a;}
 .Gnb .gnb-menu>li.menu1>ul,
@@ -234,3 +236,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 .category span.ca.bg-005 {background-color:#52a34f !important;color:#fff;}
 .category span.ca.bg-006 {background-color:#f56c15 !important;color:#fff;}
 .category span.ca.bg-007 {background-color:#8b399c !important;color:#fff;}
+
+@media (max-width:320px) {
+	#foot{min-width:100%}
+}
