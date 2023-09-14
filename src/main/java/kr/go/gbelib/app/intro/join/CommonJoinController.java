@@ -133,7 +133,7 @@ public class CommonJoinController extends BaseController {
 	public String edit(Model model, Member member, ClaimInfo claimInfo, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
-		if(claimInfo != null) {
+		if(StringUtils.isNotEmpty(claimInfo.getName())) {
 			String privKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCX7UqYJRa46ht4rL6SpFgxnfz9IJjX0UMn3tqkL/0LtRpikW9wRwlOdbJnE0Na4Th65ABiWNFakEZSReMWpgUSNs73e3pelBAW30vkmgONzTdXR82ol2+pnx845LVVuPoPIxgUHCfb6QoVogvFQ865Gih3PpzymptnrPlYiZDZaIoT4jRBB24NGWDdYXyToKKt+PHvu71IBICBht2/0ZecCqh6LyEpBXtE5REwF2ssOkBThq6IDum1UeS9tYYLEit3kWWoN13Qlm9qTOEf0IyLcghtU6VkBiT325IoP2bJxMySM/GlhtzMVJCrY93Z+98xrduR0msjcUU15s6eerNxAgMBAAECggEAfLH4TZPzaGZNkehGqllVQbQoVyIQEOLiubDBx4zTpm5Ib6pqyr6jNtCHUu6Ok+LS1pqYbh/0BN7xuMk/r/EnrGFr0dh5AXOJGRzBT6nRTOuohmyasctJjPDbUXj2FJu0MgRd2PObC3XkHwlXm9shqu97UxQDAWRANQHVzgNq7eUJxtwrCwXzyUufPNrTeHUqAxM2DuN4XXbOL6ZIbkbw86Ryl6R2/19h2KPT8N/TV7q2xyvhGh/sNXG+c5fX9vb4yQ0dQzW7OMJCAh/eISp6gfvIvQX+cMdMocpzutLDsCxAMsJ7oQbYkz3XG/ToVzzUMNNIxI26MCVev96lDcx1gQKBgQDKddYhW48/RPT/LSHc4cxhrBhhV0CbklhMEX1NK6NOIMJRuYySwkZOpGDCAfMT+//1o/abgDs75E4kwq7fLigC737nO2hIXn92y0VOh3PLTM6ZjlOTMph/XlvEFq7qs5ITluv6QBLUO4DGjKnYSA7EfnIdexsw+7pr9NDJGXPqyQKBgQDAGnHWJzWAdq+FPN/gLSXTQgar51p/DZlXQQ+0LOOZW6fMfIGNdbVCgBufQYqxI+uGFO6BjMHgtwKlcjcX8siip1wqYAo166JHvyVE5nfddv788yqfDbw0sg1C+m6djw4G6go1YhJp5FczQydjTEiFzc1PlGonASgr738QNPCvaQKBgQCc7+SxbNjIUXqcBu8V2g3ktFMduVXCghlhtbjsReRLnocidHMsG94F/dNm773uAswxLAzwEuFXlqygQCzvoUawp9c2BM3cMywY+I5bxhGTSJFpZHMSSgj9yjXV9UNXeSTFfJqlHF+8FffHcKgDmC+iTuXERnYYbTjfkCD7kXhSSQKBgQCFh1wtUV+9BcKHSIMNHhS2vaRJhSzAN8Gohs7VnIYvqSf/2WNr4q+1o7qPfk1bR+6EarRGVILHIi6ytatZ+CZB+Tb1NYCjbkCEwnazZ8dVp0sipBuyJyf1MPZK4ixVVISZhcDGzn6iIFgEh98vBG08pIrbj/whVIqJz5VwvHu4UQKBgQC0rF6Bzih4H9pcT8qOzEyO9XmblTwmZWKqsx9B9WLJsJnEa7fH3uJGIG1SPWajCJg7gKwHxmy+J8HbR+/d/up/zfwhaSUwuhwUeT/BwX6X8NFHdNCndxYRcS2qK8ZsH9j9pQ654dWAockTeveDECOLewcvNtpTpGLdcXtSsV2oDA==";
 			
 			try {
@@ -146,8 +146,13 @@ public class CommonJoinController extends BaseController {
 			
 			if(claimInfo != null) {
 				member.setMember_name(claimInfo.getName());
-				String number = claimInfo.getPhoneNumber().replaceAll("-", "");
-				member.setCell_phone(number);
+				if (StringUtils.isNotEmpty(claimInfo.getPhoneNumber())) {
+					String number = claimInfo.getPhoneNumber().replaceAll("-", "");
+					member.setCell_phone(number);
+					member.setCell_phone1(number.substring(0,3));
+					member.setCell_phone2(number.substring(3,7));
+					member.setCell_phone3(number.substring(7,11));
+				}
 				member.setBirth_day(claimInfo.getBirthdate());
 				member.setCi_value(claimInfo.getCi());
 				if (claimInfo.getGender().equals("남자")) {
@@ -194,6 +199,7 @@ public class CommonJoinController extends BaseController {
 				}
 			}
 			
+			member.setCertType("daDaegu");
 			request.getSession().setAttribute("certMember", member);
 			request.getSession().setAttribute("certType", "daDaegu");
 		} else {

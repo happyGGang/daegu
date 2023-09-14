@@ -985,6 +985,57 @@ public class JoinService extends BaseService {
 
 			}
 
+		} else if (cert_type.toLowerCase().contains("dadaegu")) {
+			String ci = certMember.getCi_value();
+			member.setCi_value(ci);
+			member.setMember_name(certMember.getMember_name());
+			member.setSex(StringUtils.equals(certMember.getSex(), "1") ? "0" : "1");
+			member.setBirth_day(certMember.getBirth_day());
+			member.setIn_ip(request.getRemoteAddr());
+			if(ci != null && !ci.equals("")) {
+				List<Map<String, Object>> checkDupUser = MemberAPI.checkDupUser("1", member);
+
+				if (CollectionUtils.isNotEmpty(checkDupUser)) {
+					return "이미 가입되어 있습니다";
+				}
+
+				//일반회원가입
+				Map<String, Object> addMember = MemberAPI.addMember(member);
+				String result = String.valueOf(addMember.get("RESULT_INFO"));
+				if (StringUtils.equals(result, "SUCCESS")) {
+					MemberAPI.agreeInfo(member.getManage_code(), String.valueOf(addMember.get("USER_KEY")), "N");
+					String sBirthDate = member.getBirth_day();
+					int birthYear = Integer.parseInt(sBirthDate.substring(0, 4));
+					int birthMonth = Integer.parseInt(sBirthDate.substring(4, 6));
+					int birthDay = Integer.parseInt(sBirthDate.substring(6));
+
+					Calendar current = Calendar.getInstance();
+					int currentYear = current.get(Calendar.YEAR);
+					int currentMonth = current.get(Calendar.MONTH) + 1;
+					int currentDay = current.get(Calendar.DAY_OF_MONTH);
+
+					int age = currentYear - birthYear;
+					// 생일 안 지난 경우 -1
+					if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
+//							age--;
+					}
+					if (age >= 20) {
+						age = 7;
+					} else if (age <= 13) {
+						age = 2;
+						Member parentInfo = (Member)session.getAttribute("parentInfo");
+						MemberAPI.useragentinfoinsert(String.valueOf(addMember.get("USER_KEY")), parentInfo.getMember_name(), member.getManage_code());
+					} else if (age > 13 && age < 20) {
+						age = 5;
+					}
+				} else {
+					return String.valueOf(addMember.get("RESULT_MESSAGE"));
+				}
+
+			} else {
+				return "다대구 인증값 조회에 실패했습니다. 다시 시도해주세요.";
+			}
+
 		} else {
 			return "잘못된 경로로 접근하였습니다.";
 		}
