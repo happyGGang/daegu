@@ -375,7 +375,7 @@
 						<div class="info">
 							<span>${fn:escapeXml(i.book_pubname)}</span>
 							<span class="txt-bar">&nbsp;</span>
-							<span>${fn:escapeXml(i.author_name)}</span>
+							<span>${fn:substring(i.author_name, 0, 30)}<c:if test="${fn:length(i.author_name) > 30}">...</c:if></span>
 							<span class="txt-bar">&nbsp;</span>
 							<span>${fn:escapeXml(i.book_pubdt)}</span>
 						</div>

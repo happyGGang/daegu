@@ -3,11 +3,50 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+
+<% String TouchEnNxpath = "/raonnx"; %>
+<!-- TouchEnNx Start-->
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/cmn/json2.js'></script>
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/cmn/TouchEnNx.js'></script>
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/cmn/TouchEnNx_exproto.js'></script>
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/cmn/TouchEnNx_install.js'></script>
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/cmn/TouchEnNx_daemon.js'></script>
+<!-- TouchEnNx End-->
+
+<!-- TouchEn nxKey Start -->
+<!-- 키보드보안 적용시 주석 해제 필요-->
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/nxKey/js/nxkey_config.js'></script>
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/nxKey/js/TouchEnNxKey_Interface.js'></script>
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/nxKey/js/TouchEnNxKey.js'></script>
+<!-- TouchEn nxKey End -->
+
+<!--  
+<link rel='stylesheet' type='text/css' charset='utf-8' href='/raonsecure/transkey/transkey.css'</link>
+<script type='text/javascript' charset='utf-8' src='/raonsecure/transkey/transkey.js'></script>
+-->
+
+<!-- TouchEnNx Start-->
+<script type='text/javascript' charset='utf-8' src='<%=TouchEnNxpath%>/cmn/TouchEnNx_loader.js'></script>
+<!-- TouchEnNx End-->
+
+
 <script language="JavaScript" type="text/javascript" src="/resources/common/js/encrypt.js?now=<%=System.currentTimeMillis()%>"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.cookie.js"></script>
 <script type="text/javascript">
 $(function() {
-	
+
+	const platform = (navigator.userAgentData?.platform || navigator.platform)?.toLowerCase();
+
+	if(platform.startsWith("win"))
+	{
+		console.log(platform);
+		TK_Loading();
+	}
+	else
+	{
+	}
+
 	var id = $.cookie("saveId");
 	if(id != null) {
 		$("#member_id_tmp").val(id);
@@ -65,7 +104,7 @@ $(function() {
 							<form:hidden path="before_url"/>
 							<div class="form-box">
 								<label class="blind" for="member_id_tmp">아이디</label>
-								<input id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="20" /></p>
+								<input type="text" id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="20" /></p>
 								<label for="member_pw_tmp" class="blind" >비밀번호</label>
 								<input type="password" id="member_pw_tmp" class="txt" placeholder="비밀번호" title="비밀번호" maxlength="20"/></p>
 							</div>

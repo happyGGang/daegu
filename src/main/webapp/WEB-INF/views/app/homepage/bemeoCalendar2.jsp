@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.6.30. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,17 +89,17 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>1,778</td>
-								<td>1,231</td>
-								<td>559</td>
-								<td>3,994</td>
-								<td>3,037</td>
-								<td>1,544</td>
-								<td>963</td>
-								<td>2,155</td>
-								<td>16,043</td>
-								<td>3,386</td>
-								<td>34,690</td>
+								<td>1,783</td>
+								<td>1,234</td>
+								<td>569</td>
+								<td>4,014</td>
+								<td>3,049</td>
+								<td>1,560</td>
+								<td>968</td>
+								<td>2,159</td>
+								<td>16,206</td>
+								<td>3,404</td>
+								<td>34,946</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.6.30. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,12 +148,12 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>15,474</td>
-								<td>4,594</td>
-								<td>10,082</td>
+								<td>15,538</td>
+								<td>4,604</td>
+								<td>10,160</td>
 								<td>70</td>
-								<td>4,470</td>
-								<td>34,690</td>
+								<td>4,574</td>
+								<td>34,946</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -168,7 +168,7 @@
 					</table>
 				</div>
 				<p>보존서고: 6,508권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.6.30. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">

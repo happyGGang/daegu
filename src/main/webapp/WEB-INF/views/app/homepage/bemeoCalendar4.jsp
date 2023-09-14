@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.06.30 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,17 +89,17 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>208</td>
-								<td>199</td>
-								<td>104</td>
-								<td>562</td>
-								<td>391</td>
-								<td>383</td>
-								<td>269</td>
-								<td>280</td>
-								<td>3,046</td>
-								<td>478</td>
-								<td>5,920</td>
+								<td>209</td>
+								<td>209</td>
+								<td>105</td>
+								<td>568</td>
+								<td>397</td>
+								<td>385</td>
+								<td>273</td>
+								<td>282</td>
+								<td>3,093</td>
+								<td>480</td>
+								<td>6,001</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.06.30 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,12 +148,12 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>2,287</td>
-								<td>1,267</td>
-								<td>2,366</td>
+								<td>2,311</td>
+								<td>1,275</td>
+								<td>2,415</td>
 								<td>-</td>
 								<td>-</td>
-								<td>5,920</td>
+								<td>6,001</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -168,7 +168,7 @@
 					</table>
 				</div>
 				<p>보존서고: 6,508권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.4.30. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="황금도서관 간행물 현황을 나타내는 표">
@@ -254,21 +254,23 @@
 				<h3>위치안내</h3>
 				<!-- * 카카오맵 - 지도퍼가기 -->
 				<!-- 1. 지도 노드 -->
-				<div id="daumRoughmapContainer1689903442560" class="root_daum_roughmap root_daum_roughmap_landing" style="width: 100%;"></div>
+				<div id="daumRoughmapContainer1689903442560" class="root_daum_roughmap root_daum_roughmap_landing"
+					style="width: 100%;"></div>
 
 				<!--
 					2. 설치 스크립트
 					* 지도 퍼가기 서비스를 2개 이상 넣을 경우, 설치 스크립트는 하나만 삽입합니다.
 				-->
-				<script charset="UTF-8" class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+				<script charset="UTF-8" class="daum_roughmap_loader_script"
+					src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
 
 				<!-- 3. 실행 스크립트 -->
 				<script charset="UTF-8">
 					new daum.roughmap.Lander({
-						"timestamp" : "1689903442560",
-						"key" : "2fkq9",
+						"timestamp": "1689903442560",
+						"key": "2fkq9",
 						//"mapWidth" : "970",
-						"mapHeight" : "500"
+						"mapHeight": "500"
 					}).render();
 				</script>
 
