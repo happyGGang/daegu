@@ -1000,6 +1000,14 @@ do {
 										</div>
 										<div class="cont">
 												<ul>
+                        <li>
+                          <a href="http://www.icuration.co.kr:81/curation/w/171" target="_blank">
+                            <div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu18.png" alt="국채보상운동기념도서관"></div>
+                            <p class="book-title">국채보상운동기념도서관</p>
+                            <p class="book-desc">새롭게 태어난 대구 지식인의 중심지</p>
+                            <p class="reg-date">2023-10-04</p>
+                          </a>
+                        </li>
 												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/164" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu17.png" alt="대구문학관"></div>
@@ -2803,6 +2811,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+            <li>
+              <a href="http://www.icuration.co.kr:81/curation/w/171" target="_blank">
+                <div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu18.png" alt="국채보상운동기념도서관"></div>
+                <h3 class="book-title">국채보상운동기념도서관</h3>
+                <p class="book-desc">새롭게 태어난 대구 지식인의 중심지</p>
+                <p class="reg-date">2023-10-04</p>
+              </a>
+            </li>
 						<li>
 							<a href="http://www.icuration.co.kr:81/curation/w/164" target="_blank">
 								<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu17.png" alt="대구문학관"></div>
@@ -3339,4 +3355,3 @@ $( window ).resize( function(e) {
 	};
 });
 </script>
-

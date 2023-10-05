@@ -299,7 +299,7 @@
 					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
-					<form:option value="BH">무학숲도서관</form:option>
+					<!--<form:option value="BH">무학숲도서관</form:option>-->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
@@ -379,9 +379,9 @@
 					<form:option value="FR">가창면참꽃작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
-					<form:option value="FN">달성군청소년센터</form:option> -->
-					<form:option value="FJ">달성군청도서관</form:option>
-				</form:select> <span style="color:#ff0000">  * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  <!-- * 달성군청도서관 외 희망도서 신청 마감합니다. --> </span>
+					<form:option value="FN">달성군청소년센터</form:option>
+					<form:option value="FJ">달성군청도서관</form:option> -->
+				</form:select> <span style="color:#ff0000">  <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  --> * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. </span>
 				</c:when>
 				<c:when test="${context_path eq 'namic'}">
 				<form:select path="manageCode">
@@ -400,21 +400,21 @@
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<!-- <form:option value="BV">달서어린이</form:option> -->
-				</form:select><span style="color:#ff0000">  * 달서어린이도서관 23.08.21 ~ 23.09.30 까지 희망도서 신청 중지 </span>
+					<form:option value="BV">달서어린이</form:option>
+				</form:select><!--<span style="color:#ff0000">  * 달서어린이도서관 23.08.21 ~ 23.09.30 까지 희망도서 신청 중지 </span>-->
 				</c:when>
 
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
 					<%--<form:option value="BU">성서도서관</form:option>--%>
-					<!--<option value="BU">성서도서관</option>-->
-				</form:select><span style="color:#ff0000">  * 성서도서관 23.09.13 ~ 23.09.30 까지 희망도서 신청 중지 </span>
+					<option value="BU">성서도서관</option>
+				</form:select><!--<span style="color:#ff0000">  * 성서도서관 23.09.13 ~ 23.09.30 까지 희망도서 신청 중지 </span>-->
 				</c:when>
 
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<!-- <form:option value="BX">본리도서관</form:option> -->
-				</form:select><span style="color:#ff0000">  * 본리도서관 희망도서 23.10.01. 오전 중 신청 재개 예정 입니다.</span>
+					<form:option value="BX">본리도서관</form:option>
+				</form:select><!--<span style="color:#ff0000">  * 본리도서관 희망도서 23.10.01. 오전 중 신청 재개 예정 입니다.</span>-->
 
 				</c:when>
 				<c:when test="${context_path eq 'family'}">

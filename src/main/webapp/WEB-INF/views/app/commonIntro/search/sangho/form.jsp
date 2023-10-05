@@ -245,6 +245,113 @@ $(function() {
 						<form:option value="127098">원고개도서관</form:option>
 					</form:select>
 					</c:when>
+					<c:when test="${homepage.context_path eq 'dgportal'}">
+						<c:choose>
+							<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE'}">
+							<%-- 북구 --%>
+							<select name="uselibcode" id="uselibcode">
+								<option value=""/>-- 선택 --</option>
+								<option value="127009">구수산도서관</option>
+								<option value="127084">대현도서관</option>
+								<option value="127088">태전도서관</option>
+								<option value="727038">산격1동 작은도서관</option>
+								<option value="727040">북구영어작은도서관</option>
+								<option value="727054">침산1동 작은도서관</option>
+								<option value="727088">서변동작은도서관</option>
+								<option value="727098">노원행복도서관</option>
+								<option value="727102">한강공원부키도서관</option>
+							</select>
+							</c:when>
+							<c:when test="${detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG' || detail.MANAGE_CODE eq 'HR'}">
+							<%-- 범어 --%>
+							<form:select path="uselibcode">
+								<form:option value="" label="-- 선택 --" />
+								<form:option value="127072">범어도서관</form:option>
+								<form:option value="127013">용학도서관</form:option>
+								<form:option value="127085">고산도서관</form:option>
+								<form:option value="127019">파동도서관</form:option>
+								<form:option value="127096">무학숲도서관</form:option>
+								<form:option value="127017">책숲길도서관</form:option>
+								<form:option value="127018">물망이도서관</form:option>
+								<form:option value="127021">사월역도서관</form:option>
+								<form:option value="127102">황금책문화센터</form:option>
+							</form:select>
+							</c:when>
+							<c:when test="${detail.MANAGE_CODE eq 'FS'  || detail.MANAGE_CODE eq 'FY' || detail.MANAGE_CODE eq 'FF' || detail.MANAGE_CODE eq 'FQ' || detail.MANAGE_CODE eq 'GG' || detail.MANAGE_CODE eq 'HA' || detail.MANAGE_CODE eq 'HF'}">
+							<%-- 중구 --%>
+							<form:select path="uselibcode">
+								<form:option value="" label="-- 선택 --" />
+								<form:option value="127016">남산4동작은도서관</form:option>
+								<form:option value="127056">동인 느티나무 도서관</form:option>
+								<form:option value="127070">중구영어도서관</form:option>
+								<form:option value="327009">중구청교양정보실</form:option>
+								<form:option value="727025">대신동작은도서관</form:option>
+								<form:option value="727083">삼덕마루 작은도서관</form:option>
+								<form:option value="727107">대봉2동작은도서관</form:option>
+							</form:select>
+							</c:when>
+							<c:when test="${detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BV' ||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
+							<%-- 달서구립 --%>
+							<form:select path="uselibcode">
+								<form:option value="" label="-- 선택 --" />
+								<form:option value="127005">성서도서관</form:option>
+								<form:option value="127002">달서어린이도서관</form:option>
+								<form:option value="127001">도원도서관</form:option>
+								<form:option value="127012">본리도서관</form:option>
+								<form:option value="127093">달서가족문화도서관</form:option>
+								<form:option value="127099">달서영어도서관</form:option>
+								<form:option value="127066">이곡2동공립작은도서관</form:option>
+								<form:option value="127006">용산1동작은도서관</form:option>
+								<form:option value="127007">장기동작은도서관</form:option>
+								<!-- <form:option value="127008">죽전동공립작은도서관</form:option> -->
+								<!-- <form:option value="327002">달서아트센터 도서관</form:option> -->
+								<form:option value="327003">행정정보문고센터</form:option>
+								<form:option value="727036">학산작은도서관</form:option>
+							</form:select>
+							</c:when>
+							<%--c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GR' || detail.MANAGE_CODE eq 'GS' || detail.MANAGE_CODE eq 'FK' || detail.MANAGE_CODE eq 'GT' || detail.MANAGE_CODE eq 'FP' || detail.MANAGE_CODE eq 'FL' || detail.MANAGE_CODE eq 'GU' || detail.MANAGE_CODE eq 'GV' || detail.MANAGE_CODE eq 'GW' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'FL' || detail.MANAGE_CODE eq 'HJ' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HL' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP'}"--%>
+							<c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ'}">
+							<%-- 동구 --%>
+							<form:select path="uselibcode">
+								<form:option value="" label="-- 선택 --" />
+								<form:option value="127049">안심도서관</form:option>
+								<form:option value="127087">신천도서관</form:option>
+								<form:option value="727061">신암2동 작은도서관</form:option>
+								<form:option value="727062">신암3동 작은도서관</form:option>
+								<form:option value="727071">신암5동 작은도서관</form:option>
+								<form:option value="127029">신천3동 작은도서관</form:option>
+								<form:option value="727064">효목1동 작은도서관</form:option>
+								<form:option value="127048">효목2동 작은도서관</form:option>
+								<form:option value="127030">도평동 작은도서관</form:option>
+								<form:option value="727065">불로어울림 작은도서관</form:option>
+								<form:option value="727066">지저동 작은도서관</form:option>
+								<form:option value="727067">동촌역사 작은도서관</form:option>
+								<form:option value="727069">해안동 작은도서관</form:option>
+								<form:option value="127031">반야월역사 작은도서관</form:option>
+								<!-- <form:option value="727070">동구청 작은도서관</form:option> -->
+								<form:option value="727073">늘푸른 도서관</form:option>
+								<!-- 초록우산작은도서관 잠정 운영중단으로 인한 주석처리  -->
+								<%-- <form:option value="727072">초록우산도서관</form:option> --%>
+								<form:option value="727074">행복도서관</form:option>
+								<form:option value="727068">방촌동 작은도서관</form:option>
+								<!-- <form:option value="727076">율하5주민도서관</form:option> -->
+							</form:select>
+							</c:when>
+							<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
+							<%-- 서구 --%>
+							<form:select path="uselibcode">
+								<form:option value="" label="-- 선택 --" />
+								<form:option value="127011">서구어린이도서관</form:option>
+								<form:option value="127086">비산도서관</form:option>
+								<form:option value="127095">서구영어도서관</form:option>
+								<form:option value="127094">비원도서관</form:option>
+								<form:option value="127098">원고개도서관</form:option>
+							</form:select>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
 					<c:otherwise>
 					</c:otherwise>
 					</c:choose>

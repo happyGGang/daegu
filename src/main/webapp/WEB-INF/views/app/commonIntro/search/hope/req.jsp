@@ -114,6 +114,7 @@
 <c:if test="${homepage.context_path eq 'yonghak'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
 		* 무학숲도서관은 생태·환경 관련 도서 위주로 신청받고 있으며, 기타 도서는 취소될 수 있으니 타도서관으로 신청 부탁드립니다.<br>
+		* 2023년 희망도서 구입비 예산 소진으로 무학숲도서관은 희망도서 신청이 불가하며 용학도서관으로 신청부탁드립니다.<br>
 	</p>
 </c:if>
 
@@ -174,7 +175,7 @@
 					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
-					<form:option value="BH">무학숲도서관</form:option>
+					<!--<form:option value="BH">무학숲도서관</form:option>-->
 					<form:option value="HR">황금책문화센터</form:option>
 				</form:select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
@@ -239,7 +240,7 @@
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
 					<form:option value="FN">달성군청소년센터</form:option> -->
-					<form:option value="FJ">달성군청도서관</form:option>
+					<!-- <form:option value="FJ">달성군청도서관</form:option> -->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dalseongsmall'}">
@@ -252,10 +253,10 @@
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GF">유가읍작은도서관</form:option>
 					<form:option value="GH">옥포읍작은도서관</form:option> -->
-					<form:option value="FJ">달성군청도서관"</form:option>
+					<!-- <form:option value="FJ">달성군청도서관"</form:option> -->
 					<!-- <form:option value="FN">달성군청소년센터</form:option>
 					<form:option value="HG">다사읍작은도서관"</form:option> -->
-				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</form:select> <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. --> * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'namic'}">
 				<form:select path="manageCode" cssClass="new_select_box">
@@ -271,9 +272,9 @@
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
 					<!-- <option value="BW">도원도서관</option> -->
-					<!-- <option value="BV">달서어린이</option> -->
-					<!--<option value="BU">성서도서관</option>-->
-					<!-- <option value="BX">본리도서관</option> -->
+					<option value="BV">달서어린이</option>
+					<option value="BU">성서도서관</option>
+					<option value="BX">본리도서관</option>
 					<option value="BY">달서가족문화도서관</option>
 					<option value="BZ">달서영어도서관</option>
 				</select>

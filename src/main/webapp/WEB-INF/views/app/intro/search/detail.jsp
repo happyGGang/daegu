@@ -325,6 +325,12 @@ CONTEXT_PATH : ${context_path}
 		</div>
 </c:if>
 
+<c:if test="${detail.SHELF_LOC_CODE eq 'BT10'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 스마트도서관 개관 후 스마트도서관에서 빌리실 수 있습니다.
+		</div>
+</c:if>
+
 
 		<div class="sbtn" style="text-align:center;">
 

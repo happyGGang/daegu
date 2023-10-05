@@ -4,24 +4,60 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:choose>
+<c:when test="${homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' || homepage.context_path eq 'vision' || homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubl' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
 <script type="text/javascript">
 $(function() {
 
-$('a#join-btn').on('click', function(e) {
-e.preventDefault();
-if ( $('input[name="agree_codes"][req="0001"]:checked').length == $('input[name="agree_codes"][req="0001"]').length ) {
-$('#memberAgreeForm').submit();
-} else {
-alert('약관 동의 하지 않았습니다.');
-}
-});
+	$('a#join-btn').on('click', function(e) {
+		e.preventDefault();
+		if ( $('input[name="agree_codes2"]:checked').val() == '2' &&  $('input[name="agree_codes3"]:checked').val() == '3') 
+		{
+			$('#agree_code_2').val($('input[name="agree_codes2"]:checked').val());
+			$('#agree_code_4').val($('input[name="agree_codes3"]:checked').val());
+			$('#memberAgreeForm').submit();
+		} else {
+			alert('약관 동의 하지 않았습니다.');
+		}
+	});
 
-$('#all-agree').change(function() {
-$('input:checkbox').prop('checked', $(this).prop('checked'));
-});
+	$('#all-agree').change(function() {
+		$('input:checkbox').prop('checked', $(this).prop('checked'));
+		$('#agree_codes2').prop('checked', $(this).prop('checked'));
+		$('#agree_codes4').prop('checked', $(this).prop('checked'));
+	});
 
 });
 </script>
+</c:when>
+<c:otherwise>
+<script type="text/javascript">
+$(function() {
+
+	$('a#join-btn').on('click', function(e) {
+		e.preventDefault();
+		if ( $('input[name="agree_codes2"]:checked').val() == '2' &&  $('input[name="agree_codes3"]:checked').val() == '3' && $('input[name="agree_codes4"]:checked').val() == '4') 
+		{
+			$('#agree_code_2').val($('input[name="agree_codes2"]:checked').val());
+			$('#agree_code_4').val($('input[name="agree_codes3"]:checked').val());
+			$('#agree_code_6').val($('input[name="agree_codes4"]:checked').val());
+			$('#memberAgreeForm').submit();
+		} else {
+			alert('약관 동의 하지 않았습니다.');
+		}
+	});
+
+	$('#all-agree').change(function() {
+		$('input:checkbox').prop('checked', $(this).prop('checked'));
+		$('#agree_codes2').prop('checked', $(this).prop('checked'));
+		$('#agree_codes4').prop('checked', $(this).prop('checked'));
+		$('#agree_codes6').prop('checked', $(this).prop('checked'));
+	});
+
+});
+</script>
+</c:otherwise>
+</c:choose>
 
 <div class="join-wrap2">
 
@@ -331,51 +367,9 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  &nbsp;&nbsp;4. 대구광역시에 거주하는 재외동포 국내거소 신고자 및 외국인 등록자<br>
 		  &nbsp;&nbsp;5. 그밖에 관장이 필요하다고 인정하는 자<br>
 		  </span><br>
-		  <br>
 
 		  <strong>제6조 (회원 가입 및 탈퇴)</strong><br />
-		  ① 이용자는 도서관에서 제공하는 홈페이지에서 개인정보 수집 및 정보 제공을 동의한 후 회원가입을 신청할 수 있다.<br><br/>
-		  <div>
-			<div style="text-align:center;">
-			  <도서관 통합회원 개인정보 수집 정보, 목적 및 보유기간>
-			</div>
-			<table>
-			<tr>
-			  <th style="text-align:Center">구분</th>
-			  <th colspan="2" style="text-align:Center">항목</th>
-			  <th style="text-align:Center">수집목적</th>
-			  <th style="text-align:Center">보유기간</th>
-			</tr>
-			<tr>
-			  <td rowspan="3" style="width:10%">필수</td>
-			  <td style="width:15%">14세 이상</td>
-			  <td style="width:35%">성명, 성별, 생년월일, 연락처, 주소</td>
-			  <td rowspan="4" style="width:20%">
-				<strong style="color:blue;">도서대출 및 반납 등 도서관 서비스 제공</strong>
-			  </td>
-			  <td rowspan="4" style="width:20%">
-				2년
-				(회원 탈퇴시
-				까지)
-			  </td>
-			</tr>
-			<tr>
-			  <td>14세 미만</td>
-			  <td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명</td>
-			</tr>
-			<tr>
-			  <td>타지역주민</td>
-			  <td>성명, 성별, 생년월일, 연락처, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소</td>
-			</tr>
-			<tr>
-			  <td>선택</td>
-			  <td colspan="2">집전화번호, 이메일</td>
-			</tr>
-			</table>
-		  </div>
-		  <p>※ 휴대폰 번호는 나이스평가정보에서 인증 받은 휴대폰 번호를 사용 하고 있습니다.(단, 핸드폰 인증만 국한)</p>
-		  <br/>
-
+		  ① 이용자는 도서관에서 제공하는 홈페이지에서 개인정보 수집 및 정보 제공을 동의한 후 회원가입을 신청할 수 있다.<br>
 		  ② 회원 가입과 동시에 공공도서관 책이음 회원으로 가입된다.<br>
 		  ③ 도서관 관리자는 제6조 ①항에서 정한 사항을 정확히 기재하여 이용신청을 하였을 경우 특별한 사정이 없는 한 서비스 이용신청을 승낙하여야 한다. 단, 다음의 경우 회원 가입을 취소할 수 있다.<br>
 		  <span class="siz12">
@@ -387,7 +381,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  &nbsp;&nbsp;6. 다른 사람의 서비스 이용을 방해하거나 그 정보를 도용하는 등의 행위를 하였을 경우<br>
 		  &nbsp;&nbsp;7. 서비스를 이용함에 법령과 본 약관이 금지하는 행위를 하는 경우<br>
 		  &nbsp;&nbsp;8. 기타 도서관이 정한 신청 요건이 미비 되었을 때<br>
-		  </span><br>
+		  </span>
 		  ④ 회원이 이용계약을 해지하고자 할 때에는 홈페이지 또는 도서관을 직접 방문하여 본인확인절차를 거친 후 탈퇴 신청을 하여야 한다.<br />
 		  ⑤ 회원탈퇴 시 해당 회원과 관련된 모든 개인정보는 보유기간이 만료되므로 삭제된다.<br />
 		  <br>
@@ -497,7 +491,54 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		</div>
     </c:otherwise>
     </c:choose>
-	
+	<!--개인정보 수집·이용 동의-->
+    <h4>개인정보 수집·이용 동의</h4>
+	<div class="Box" style="height:270px">
+       <table>
+	   <thead>
+			<tr>
+			  <th style="text-align:Center;width:8%">구분</th>
+			  <th colspan="2" style="text-align:Center">수집항목</th>
+			  <th style="text-align:Center;width:15%">수집목적</th>
+			  <th style="text-align:Center;width:15%"">보유기간</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+			  <td rowspan="3" style="text-align:Center">필수</td>
+			  <td style="text-align:Center;width:10%">14세 이상</td>
+			  <td style="width:37%">성명, 성별, 생년월일, 연락처, 주소</td>
+			  <td rowspan="4"style="text-align:Center">
+				<strong style="color:blue;">도서대출 및 반납 등 도서관 서비스 제공</strong>
+			  </td>
+			  <td rowspan="4"style="text-align:Center">
+				회원<br>탈퇴 시까지
+			  </td>
+			</tr>
+			<tr>
+			  <td style="text-align:Center">14세 미만</td>
+			  <td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명</td>
+			</tr>
+			<tr>
+			  <td style="text-align:Center">타지역주민</td>
+			  <td>성명, 성별, 생년월일, 연락처, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소</td>
+			</tr>
+			<tr>
+			  <td style="text-align:Center">선택</td>
+			  <td colspan="2" style="text-align:Center">집전화번호, 이메일</td>
+			</tr>
+			<tr>
+			<td colspan="5">위의 개인정보 수집ㆍ이용에 대한 동의를 거부할 권리가 있습니다. 다만 동의를 거부할 경우 대구광역시 도서관 통합회원 가입이 되지않습니다.</td>
+		  </tr>
+		  </tbody>
+			</table>
+	</div>
+	<!--//개인정보 수집·이용 동의-->
+	<div class="agree_codes">
+	  <input id="agree_codes2" name="agree_codes2" req="0001" value="2" type="radio"><label for="agree_codes2">동의</label><input type="hidden" name="_agree_codes" value="on">
+	  <input id="agree_codes3" name="agree_codes2" req="" value="" type="radio"><label for="agree_codes3">미동의</label>
+	  <input id="agree_code_2" type="hidden" name="agree_codes" value="" />
+	</div>
 
 	<!--공용이용내역-->
     <h4>개인정보 공동이용(제공) 내역</h4>
@@ -519,18 +560,18 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  </colgroup>
 		  <thead>
 		  <tr>
-			<td>공동이용 기관</td>
-			<td>공동이용 목적</td>
-			<td>공동이용 항목</td>
-			<td>공동이용 기간</td>
+			<th class="center">공동이용 기관</th>
+			<th class="center">공동이용 목적</th>
+			<th class="center">공동이용 항목</th>
+			<th class="center">공동이용 기간</th>
 		  </tr>
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td>대구광역시 공립 도서관</td>
-			<td><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
+			<td class="center">대구광역시 공립 도서관</td>
+			<td class="center"><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
 			<td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소, 집전화번호, 이메일</td>
-			<td>회원<br/>탈퇴시까지</td>
+			<td>회원<br>탈퇴 시까지</td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 도서관 통합회원 가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -544,9 +585,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
     <c:when test="${homepage.context_path eq 'dalseolib'}">
 		<div class="Box" style="height:200px">
 
-		  <br>
-
-		  <table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
+			  <table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
 		  <caption class="disnone">
 		  개인정보 처리 및 위탁에 관한 안내
 		  </caption>
@@ -558,18 +597,18 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  </colgroup>
 		  <thead>
 		  <tr>
-			<td>공동이용 기관</td>
-			<td>공동이용 목적</td>
-			<td>공동이용 항목</td>
-			<td>공동이용 기간</td>
+			<th class="center">공동이용 기관</th>
+			<th class="center">공동이용 목적</th>
+			<th class="center">공동이용 항목</th>
+			<th class="center">공동이용 기간</th>
 		  </tr>
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td>대구광역시 공립 도서관</td>
-			<td>하나의 회원번호로 대구광역시 모든 공립 도서관 이용</td>
+			<td class="center">대구광역시 공립 도서관</td>
+			<td class="center">하나의 회원번호로 대구광역시 모든 공립 도서관 이용</td>
 			<td><b style="color:blue; font-size:17px;">아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역, 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소, 제2연락처</b></td>
-			<td><b style="color:blue; font-size:17px;"><u>회원<br/>탈퇴시까지</u></b></td>
+			<td><b style="color:blue; font-size:17px;"><u>회원<br>탈퇴 시까지</u></b></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 <b><u>동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</u></b></td>
@@ -583,9 +622,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
     <c:otherwise>
 		<div class="Box" style="height:200px">
 
-		  <br>
-
-		  <table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
+		 		  <table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
 		  <caption class="disnone">
 		  개인정보 처리 및 위탁에 관한 안내
 		  </caption>
@@ -597,18 +634,18 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  </colgroup>
 		  <thead>
 		  <tr>
-			<td>공동이용 기관</td>
-			<td>공동이용 목적</td>
-			<td>공동이용 항목</td>
-			<td>공동이용 기간</td>
+			<th class="center">공동이용 기관</th>
+			<th class="center">공동이용 목적</th>
+			<th class="center">공동이용 항목</th>
+			<th class="center">공동이용 기간</th>
 		  </tr>
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td>대구광역시 공립 도서관</td>
-			<td><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
+			<td class="center">대구광역시 공립 도서관</td>
+			<td class="center"><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
 			<td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소, 집전화번호, 이메일</td>
-			<td>회원<br/>탈퇴시까지</td>
+			<td class="center">회원<br>탈퇴 시까지</td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 도서관 통합회원 가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -622,7 +659,9 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
     </c:choose>
 
     <div class="agree_codes">
-      <input id="agree_codes3" name="agree_codes" req="0001" type="checkbox" value="2"><label for="agree_codes3">개인정보 공동이용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+	<input id="agree_codes4" name="agree_codes3" req="0001" type="radio" value="3"><label for="agree_codes4">동의</label><input type="hidden" name="_agree_codes" value="on">
+	<input id="agree_codes5" name="agree_codes3" req="" type="radio" value=""><label for="agree_codes5">미동의</label>
+	<input id="agree_code_4" type="hidden" name="agree_codes" value="" />
     </div>
 	
 
@@ -634,8 +673,7 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
     <c:when test="${homepage.context_path eq 'dalseolib'}">
 		<h4>개인정보 제3자 제공 내역</h4>
 		<div class="Box" style="height:200px">
-		  <br>
-
+		  
 		  <table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
 		  <caption class="disnone">개인정보 처리 및 위탁에 관한 안내</caption>
 		  <colgroup>
@@ -646,27 +684,27 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  </colgroup>
 		  <thead>
 		  <tr>
-			<td>제공받는 기관</td>
-			<td>제공목적</td>
-			<td>제공항목</td>
-			<td>보유기간</td>
+			<th class="center">제공받는 기관</th>
+			<th class="center">제공목적</th>
+			<th class="center">제공항목</th>
+			<th class="center">보유기간</th>
 		  </tr>
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td>국립중앙도서관 및 지역센터</td>
-			<td><strong style="color:blue;">책이음서비스 제공</strong></td>
+			<td class="center">국립중앙도서관 및 지역센터</td>
+			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 출생년도, 성별, 연락처</td>
-			<td>회원 탈퇴시까지</td>
+			<td class="center">회원<br>탈퇴 시까지</td>
 		  </tr>
 		  <tr>
-			<td>
+			<td class="center">
 			  책이음서비스
 			  참여 도서관
 			</td>
-			<td><strong style="color:blue;">책이음서비스 제공</strong></td>
+			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 생년월일, 성별, 연락처, 주소, 법정대리인 성명, 이메일, 근무지주소</td>
-			<td>회원 탈퇴시까지</td>
+			<td class="center">회원<br>탈퇴 시까지</td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -676,18 +714,18 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 
 		  <br>
 		</div>
-
 		<div class="agree_codes">
-		  <input id="agree_codes4" name="agree_codes" req="0001" type="checkbox" value="3"><label for="agree_codes4">개인정보 제3자 제공에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+			<input id="agree_codes6" name="agree_codes4" req="0001" type="radio" value="4"><label for="agree_codes6">동의</label><input type="hidden" name="_agree_codes" value="on">
+			<input id="agree_codes7" name="agree_codes4" req="" type="radio" value=""><label for="agree_codes7">미동의</label>
+			<input id="agree_code_6" type="hidden" name="agree_codes" value="" />
 		</div>
-
     </c:when>
     <c:otherwise>
 		<h4>개인정보 제3자 제공 내역</h4>
 		<div class="Box" style="height:200px">
-		  <br>
+		  
 
-		  <table class="t_list tac" summary="개인정보 처리 및 위탁에 관한 안내표">
+		  <table summary="개인정보 처리 및 위탁에 관한 안내표">
 		  <caption class="disnone">개인정보 처리 및 위탁에 관한 안내</caption>
 		  <colgroup>
 		  <col width="15%"/>
@@ -697,27 +735,27 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 		  </colgroup>
 		  <thead>
 		  <tr>
-			<td>제공받는 기관</td>
-			<td>제공목적</td>
-			<td>제공항목</td>
-			<td>보유기간</td>
+			<th class="center">제공받는 기관</th>
+			<th class="center">제공목적</th>
+			<th class="center">제공항목</th>
+			<th class="center">보유기간</th>
 		  </tr>
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td>국립중앙도서관 및 지역센터</td>
-			<td><strong style="color:blue;">책이음서비스 제공</strong></td>
+			<td class="center">국립중앙도서관 및 지역센터</td>
+			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 출생년도, 성별, 연락처</td>
-			<td>회원 탈퇴시까지</td>
+			<td class="center">회원<br>탈퇴 시까지</td>
 		  </tr>
 		  <tr>
-			<td>
+			<td class="center">
 			  책이음서비스
 			  참여 도서관
 			</td>
-			<td><strong style="color:blue;">책이음서비스 제공</strong></td>
+			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 생년월일, 성별, 연락처, 주소, 법정대리인 성명, 이메일, 근무지주소</td>
-			<td>회원 탈퇴시까지</td>
+			<td class="center">회원<br>탈퇴 시까지</td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -727,12 +765,15 @@ $('input:checkbox').prop('checked', $(this).prop('checked'));
 
 		  <br>
 		</div>
-
 		<div class="agree_codes">
-		  <input id="agree_codes4" name="agree_codes" req="0001" type="checkbox" value="3"><label for="agree_codes4">개인정보 제3자 제공에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+			<input id="agree_codes6" name="agree_codes4" req="0001" type="radio" value="4"><label for="agree_codes6">동의</label><input type="hidden" name="_agree_codes" value="on">
+			<input id="agree_codes7" name="agree_codes4" req="" type="radio" value=""><label for="agree_codes7">미동의</label>
+			<input id="agree_code_6" type="hidden" name="agree_codes" value="" />
 		</div>
     </c:otherwise>
     </c:choose>
+
+
 
     <div class="center">
       <input id="all-agree" type="checkbox"><label for="all-agree"> 모든 약관에 동의 합니다.</label>
