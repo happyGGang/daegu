@@ -121,7 +121,7 @@ public class checkInOutController extends BaseController {
 		
 		int checkOutCount = 0;
 		
-		if(!isCheckOut) {
+		if(isCheckOut) {
 			checkInOut = checkInOutService.isCheckIn(checkInOut);
 			
 			checkOutCount = checkInOutService.checkOut(checkInOut);

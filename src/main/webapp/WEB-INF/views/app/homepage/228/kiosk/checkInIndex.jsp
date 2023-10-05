@@ -6,24 +6,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <tiles:insertAttribute name="header"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/swiper.min.css"/>
-<script type="text/javascript">
-</script>
 
-<div class="login-wrap">
+<div class="checkin-wrap">
 	<div class="header">
-		<h1>그린대로</h1>
+		<img src="https://library.daegu.go.kr/resources/common/img/kiosk/checkin-logo.png" alt=""/>
 	</div>
 	<div class="contents">
-		<div style="position:relative;width:100%;height:700px;text-align:center">
-			<div class="contents">
-				<a href="http://localhost/228/kiosk/checkIn.do">체크인</a>
-				<a href="http://localhost/228/kiosk/checkOut.do">체크아웃</a>
-			</div>
+		<div class="checkbtnarea">
+			<div class='checkbtn2'><a href="/${homepage.context_path}/kiosk/checkIn.do">체크인</a></div>
+			<div class='checkbtn3'><a href="/${homepage.context_path}/kiosk/checkOut.do">체크아웃</a></div>
+		</div>
+		<div class="commentarea">
+			초5~중3 또는 해당 연령대만 입장 가능합니다.
 		</div>
 	</div>
+	<div class="footer">
+		Memorial Library for 2.28 Students' Movement
+	</div>
 </div>
-
-<%@ include file="/gukbo/kiosk/copyright.html" %>
 
 <tiles:insertAttribute name="footer" />

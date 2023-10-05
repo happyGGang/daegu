@@ -169,40 +169,47 @@ $(function() {
 });
 
 function checkYn() {
+// 	var upid=$('#login_id').toUpperCase();
+// 	$('#login_id').val(upid); 
 	$('form#checkInOut').submit();
 }
 </script>
 
-<div class="login-wrap">
+
+<div class="checkinlogin-wrap">
 	<div class="header">
-		<h1>${homepage.homepage_name}체크아웃</h1>
+		<img src="https://library.daegu.go.kr/resources/common/img/kiosk/checkin-logo.png" alt=""/>
 	</div>
 	<div class="contents">
+		<div style="text-align:center;">
+			<img src="https://library.daegu.go.kr/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
+		</div>
 
-		<div class="title-sec" style="letter-spacing:-1.5px;font-size:45px;text-align:center;">
-			회원증을 RFID 리더기에 터치해주세요.
-		</div>
-		<div style="position:relative;width:100%;height:700px;text-align:center">
-			<div class="contents">
-				<div style="text-align:center;">
-					<img src="/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
-				</div>
-				<form:form modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" autocomplete="off" accept-charset="utf-8">
-					<form:hidden path="before_url"/>
-					<form:hidden path="loginType" value="card"/>
-					<div id="login-form2" style="z-index:100000;position:absolute;top:-100px;left:-150000px">
-						<p class="ment"><input id="login_id" type="text" name="login_id" size="30" title="RFID시리얼값" autocomplete="off"></p>
-					</div>
-				</form:form>
+		<form:form modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" autocomplete="off" accept-charset="utf-8">
+			<form:hidden path="before_url"/>
+			<form:hidden path="loginType" value="card"/>
+			<div id="login-form2" style="z-index:100000;position:absolute;top:-100px;left:-150000px">
+				<p class="ment"><input id="login_id" type="text" name="login_id" size="30" title="RFID시리얼값" autocomplete="off"></p>
 			</div>
+		</form:form>
+		
+		<div class="commentarea">
+			모바일회원증 혹은 대출증을 리더기에 인식시켜주세요
 		</div>
-		<a href="javascript:void(0);" onclick="checkYn();" return false;>체크아웃</a>
+		<div class="commentarea">
+			<a href="javascript:void(0);" onclick="checkYn();" return false;>아이디/패스워드로 체크인하기</a>
+		</div>
 		<form:form modelAttribute="checkInOut" action="/${homepage.context_path}/kiosk/checkOutKeyboard.do" autocomplete="off" accept-charset="utf-8">
 			<form:hidden path="checkIn_Yn" value="N"/>
 		</form:form>
 	</div>
-</div>
+	<div class="footer">
+		Memorial Library for 2.28 Students' Movement
+	</div>
 
-<%@ include file="/gukbo/kiosk/copyright.html" %>
+	<div class="backbutton-sec">
+		<a href="javascript:void(0);" onclick="history.back();"><img src="/resources/common/img/kiosk/btn_Prev.png" alt=""></a>
+	</div>
+</div>
 
 <tiles:insertAttribute name="footer" />

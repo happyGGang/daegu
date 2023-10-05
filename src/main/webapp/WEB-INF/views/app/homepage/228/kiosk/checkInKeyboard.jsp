@@ -17,13 +17,13 @@ $(function() {
 		e.preventDefault();
 		if($('input#member_id_tmp').val() == '') {
 			$('input#member_id_tmp').focus();
-			alert('아이디를 입력해주세요.');
+			$.alert("아이디를 입력해주세요.",{title:'228기념학생도서관',confirmButton:'확인'});
 			return false;
 		}
 
 		if($('input#member_pw_tmp').val() == '') {
 			$('input#member_pw_tmp').focus();
-			alert('비밀번호를 입력해주세요.');
+			$.alert("비밀번호를 입력해주세요.",{title:'228기념학생도서관',confirmButton:'확인'});
 			return false;
 		}
 
@@ -36,38 +36,41 @@ $(function() {
 });
 </script>
 
-<div class="login-body">
-	<div class="tab">
-		<dl class="tcon t1">
-			<div class="loginBox1">
-			<dd class="login">
-				<div class="loginImgBox">
-					<img src="/resources/common/img/mem_loginimg.png" alt="" class="loginImg">
+<div class="checkinlogin-wrap">
+	<div class="header">
+		<img src="https://library.daegu.go.kr/resources/common/img/kiosk/checkin-logo.png" alt=""/>
+	</div>
+	<div class="contents">
+		<div class="loginFormbox">
+			<form:form id="loginProc" modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkInProc.do" onsubmit="return false;">
+				<form:hidden path="member_pw" cssStyle="display:none;" />
+				<form:hidden path="member_id"/>
+				<form:hidden path="before_url"/>
+				<div class="id-sec">
+					<label class="blind" for="member_id_tmp">아이디</label>
+					<input id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="20" />
 				</div>
-				<fieldset>
-					<form:form id="loginProc" modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkInProc.do" onsubmit="return false;">
-						<form:hidden path="member_pw" cssStyle="display:none;" />
-						<form:hidden path="member_id"/>
-						<form:hidden path="before_url"/>
-						<div class="form-box">
-							<label class="blind" for="member_id_tmp">아이디</label>
-							<input id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="20" /></p>
-							<label for="member_pw_tmp" class="blind" >비밀번호</label>
-							<input type="password" id="member_pw_tmp" class="txt" placeholder="비밀번호" title="비밀번호" maxlength="20"/></p>
-						</div>
-						<button id="save-btn">
-							<i class="fa fa-unlock-alt"></i>
-							<c:set var="checkIn_Yn" value="${checkInOut.checkIn_Yn eq 'Y' ? '체크인' : '체크아웃'}"/>
-							<span>${checkIn_Yn}</span>
-						</button>
-					</form:form>
-				</fieldset>
-			</dd>
-			</div>
-		</dl>
+				<div class="pwssword-sec">
+					<label for="member_pw_tmp" class="blind" >비밀번호</label>
+					<input type="password" id="member_pw_tmp" class="txt" placeholder="비밀번호" title="비밀번호" maxlength="20"/>
+				</div>
+				<div class="login-btn-sec">
+				<button id="save-btn">
+					<i class="fa fa-unlock-alt"></i>
+					<c:set var="checkIn_Yn" value="${checkInOut.checkIn_Yn eq 'Y' ? '체크인' : '체크아웃'}"/>
+					<span>${checkIn_Yn}</span>
+				</button>
+				</div>
+			</form:form>
+		</div>
+	</div>
+	<div class="footer">
+		Memorial Library for 2.28 Students' Movement
+	</div>
+
+	<div class="backbutton-sec">
+		<a href="javascript:void(0);" onclick="history.back();"><img src="/resources/common/img/kiosk/btn_Prev.png" alt=""></a>
 	</div>
 </div>
-
-<%@ include file="/gukbo/kiosk/copyright.html" %>
 
 <tiles:insertAttribute name="footer" />
