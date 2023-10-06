@@ -116,7 +116,7 @@
 		SELECT
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
-			request_name, request_phone, reason, add_date, add_id
+			request_name, reason, add_date, add_id
 		FROM
 			BOOK_EXPRESS
 		WHERE
@@ -213,8 +213,7 @@
 		UPDATE
 			BOOK_EXPRESS
 		SET
-			request_name = #{request_name},
-			request_phone = #{request_phone}
+			request_name = #{request_name}
 		WHERE
 			
 		<choose>
@@ -235,8 +234,7 @@
 			BOOK_EXPRESS
 		SET
 			request_status = 0,
-			request_name = NULL,
-			request_phone = NULL
+			request_name = NULL
 		WHERE
 			book_express_idx = #{book_express_idx}
 	</update>
@@ -245,7 +243,7 @@
 		SELECT
 			book_express_idx, library_code, homepage_name, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
-			request_name, request_phone, reason, add_date, add_id
+			request_name, reason, add_date, add_id
 		FROM
 			BOOK_EXPRESS be, CMS_HOMEPAGE ch
 		WHERE
@@ -278,13 +276,13 @@
 		(
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
-			request_name, request_phone, reason, add_date, add_id, modify_date, modify_id
+			request_name, reason, add_date, add_id, modify_date, modify_id
 		)
 		VALUES
 		(
 			#{book_express_idx}, #{library_code}, #{agency_name}, #{agency_id}, #{book_reg_no},
 			#{book_call_no}, #{book_name}, #{thumb_image}, #{request_status}, #{request_date},
-			#{request_name}, #{request_phone}, #{reason}, #{add_date}, #{add_id}, #{modify_date}, #{modify_id}
+			#{request_name}, #{reason}, #{add_date}, #{add_id}, #{modify_date}, #{modify_id}
 		)
 	</insert>
 	
