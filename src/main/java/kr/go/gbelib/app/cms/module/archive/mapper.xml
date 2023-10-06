@@ -38,7 +38,7 @@
 			homepage_id,
 			book_idx, subject, regnumber, volume, author,
 			publisher, year, callnumber, place, code,
-			skin, logoimg, viewtype, category,
+			skin, logoimg,  category,
 			(
 				SELECT server_file_name
 				FROM ARCHIVE_PAGE z
@@ -55,7 +55,7 @@
 				homepage_id,
 				book_idx, subject, regnumber, volume, author,
 				publisher, year, callnumber, place, code,
-				skin, logoimg, viewtype, category,
+				skin, logoimg,  category,
 				orig_width, orig_height, resize_width, resize_height,
 				add_date, add_id, mod_date, mod_id,
 				use_yn
@@ -80,7 +80,7 @@
 			homepage_id,
 			book_idx, subject, regnumber, volume, author,
 			publisher, year, callnumber, place, code,
-			skin, logoimg, viewtype, category,
+			skin, logoimg,  category,
 			orig_width, orig_height, resize_width, resize_height,
 			add_date, add_id, mod_date, mod_id,
 			use_yn, GETCODEIDTOCODENAME(#{homepage_id}, 'H0004', category) as category_name
@@ -91,7 +91,7 @@
 				homepage_id,
 				book_idx, subject, regnumber, volume, author,
 				publisher, year, callnumber, place, code,
-				skin, logoimg, viewtype, category,
+				skin, logoimg,  category,
 				orig_width, orig_height, resize_width, resize_height,
 				add_date, add_id, mod_date, mod_id,
 				use_yn
@@ -115,7 +115,7 @@
 			homepage_id,
 			book_idx, subject, regnumber, volume, author,
 			publisher, year, callnumber, place, code,
-			skin, logoimg, viewtype, category,
+			skin, logoimg,  category,
 			orig_width, orig_height, resize_width, resize_height,
 			add_date, add_id, mod_date, mod_id,
 			use_yn, GETCODEIDTOCODENAME(#{homepage_id}, 'H0004', category) as category_name
@@ -133,7 +133,7 @@
 			homepage_id,
 			book_idx, subject, regnumber, volume, author,
 			publisher, year, callnumber, place, code,
-			skin, logoimg, viewtype, category,
+			skin, logoimg,  category,
 			orig_width, orig_height, resize_width, resize_height,
 			add_date, add_id,
 			use_yn
@@ -142,7 +142,7 @@
 			#{book_idx}, #{subject}, #{regnumber}, #{volume}, #{author},
 			#{publisher}, #{year}, #{callnumber}, #{place},
 			(SELECT NVL(MAX(code), 0)+1 FROM ARCHIVE_BOOK WHERE use_yn = 'Y' AND homepage_id = #{homepage_id}),
-			#{skin}, #{logoimg}, #{viewtype}, #{category},
+			#{skin}, #{logoimg}, #{category},
 			#{orig_width}, #{orig_height}, #{resize_width}, #{resize_height},
 			SYSDATE, #{add_id},
 			#{use_yn}
