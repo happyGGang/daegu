@@ -158,11 +158,11 @@ public class LockerController extends BaseController {
 			lockerReq.setCell_phone1(member.getCell_phone1());
 			lockerReq.setCell_phone2(member.getCell_phone2());
 			lockerReq.setCell_phone3(member.getCell_phone3());
-			lockerReq.setCell_phone(member.getCell_phone1()+member.getCell_phone2()+member.getCell_phone3()+"");
+			lockerReq.setCell_phone(member.getCell_phone1()+"-"+member.getCell_phone2()+"-"+member.getCell_phone3());
 			lockerReq.setPhone1(member.getPhone1());
 			lockerReq.setPhone2(member.getPhone2());
 			lockerReq.setPhone3(member.getPhone3());
-			lockerReq.setPhone(member.getPhone1()+member.getPhone2()+member.getPhone3()+"");
+			lockerReq.setPhone(member.getPhone1()+"-"+member.getPhone2()+"-"+member.getPhone3());
 			model.addAttribute("locker", lockerReq);
 			model.addAttribute("lockerReq", lockerReq);
 		}

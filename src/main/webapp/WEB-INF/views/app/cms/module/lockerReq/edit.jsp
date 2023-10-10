@@ -22,8 +22,8 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					$('#lockerReqEdit #phone').val($('#lockerReqEdit #phone_1').val()+''+$('#lockerReqEdit #phone_2').val()+''+$('#lockerReqEdit #phone_3').val());
-					$('#lockerReqEdit #cell_phone').val($('#lockerReqEdit #cell_phone_1').val()+''+$('#lockerReqEdit #cell_phone_2').val()+''+$('#lockerReqEdit #cell_phone_3').val());
+					$('#lockerReqEdit #phone').val($('#lockerReqEdit #phone_1').val()+'-'+$('#lockerReqEdit #phone_2').val()+'-'+$('#lockerReqEdit #phone_3').val());
+					$('#lockerReqEdit #cell_phone').val($('#lockerReqEdit #cell_phone_1').val()+'-'+$('#lockerReqEdit #cell_phone_2').val()+'-'+$('#lockerReqEdit #cell_phone_3').val());
 					if ( doAjaxPost($('#lockerReqEdit')) ) {
 						$('#dialog-2').load('indexApply.do?homepage_id=' + $('#homepage_id').val() + '&locker_pre_idx=' + $('#locker_pre_idx').val(), function( response, status, xhr ) {
 							$('#dialog-2').dialog('open');
