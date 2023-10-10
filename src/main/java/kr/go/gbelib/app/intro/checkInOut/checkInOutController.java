@@ -51,6 +51,12 @@ public class checkInOutController extends BaseController {
 		
 		checkInProc(member, checkInOut);
 		
+		if(checkInOut.getMember_id() == null || "null".equals(checkInOut.getMember_id().toLowerCase()) || StringUtils.isEmpty(checkInOut.getMember_id())) {
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "아이디가 없는 회원은 정상적으로 이용이 불가능합니다. 통합인증을 진행 후 이용 부탁드립니다.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
+			session.invalidate();
+			return null;
+		}
+		
 		if(!member.isLogin()) {
 			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크인에 실패하였습니다.\\n해당 정보와 일치하는 이용자가 없습니다.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 			session.invalidate();
