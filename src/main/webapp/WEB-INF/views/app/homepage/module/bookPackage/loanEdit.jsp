@@ -236,7 +236,7 @@ $(function() {
 				<td>
 					<form:select path="loan_place" cssClass="selectmenu">
 						<form:option value="행정실">행정실</form:option>
-						<form:option value="집">집</form:option>
+						<form:option value="도서실">도서실</form:option>
 					</form:select>
 			</tr>
 			<tr>

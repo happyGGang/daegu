@@ -4,19 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript">
-$(document).ready(function(){
-	$('input#delivery_location2').hide();
-});
-
-function placeChange(){
-	var deliveryLocation = $('select#delivery_location').val();
-	if(deliveryLocation == '기타'){
-		$('input#delivery_location2').show();
-	} else {
-		$('input#delivery_location2').hide();
-	}
-}
-
 function checkLoanDate(picture_book_idx){
 	var loan_start_date = $('input#loan_start_date').val();
 	var loan_end_date = $('input#loan_end_date').val();
@@ -185,12 +172,10 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>택배 배송장소(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:select path="delivery_location" onchange="placeChange();">
-						<form:option value="도서관">도서관</form:option>
+					<form:select path="delivery_location" cssClass="selectmenu">
 						<form:option value="행정실">행정실</form:option>
-						<form:option value="기타">기타</form:option>
+						<form:option value="도서실">도서실</form:option>
 					</form:select>
-					<form:input path="delivery_location2" cssClass="text" cssStyle="width:200px;"/>
 				</td>
 			</tr>
 			<tr>

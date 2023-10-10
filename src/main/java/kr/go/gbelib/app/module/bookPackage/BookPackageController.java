@@ -1,14 +1,9 @@
 package kr.go.gbelib.app.module.bookPackage;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,14 +13,12 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -34,7 +27,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -342,7 +334,11 @@ public class BookPackageController extends BaseController {
 				res.setValid(true);
 				res.setUrl("index.do");
 				res.setData("menu_idx="+bookPackage.getMenu_idx());
-				res.setMessage("등록되었습니다.");
+				res.setMessage("대출기간을 변경을 원하실 경우,\r\n"
+						+ "관리자에게 반납 가능한 날짜를 정확히 요청하셔야하며,\r\n"
+						+ "반드시 대출 현황에서 변경된 내용을 직접 확인해주세요.\r\n"
+						+ "(예약 학교가 있는 경우, 기간 변경이 어려울 수 있습니다.)\r\n"
+						+ "");
 			} else if (bookPackage.getEditMode().equals("MODIFY")) {
 				bookPackage.setModify_id(session_id);
 				service.modifyBookPackageLoan(bookPackage);

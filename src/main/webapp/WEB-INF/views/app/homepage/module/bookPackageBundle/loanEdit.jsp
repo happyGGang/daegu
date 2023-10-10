@@ -209,6 +209,14 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
+				<th>수령(대출) 및 수거(반납)장소</th>
+				<td>
+					<form:select path="loan_place" cssClass="selectmenu">
+						<form:option value="행정실">행정실</form:option>
+						<form:option value="도서실">도서실</form:option>
+					</form:select>
+			</tr>
+			<tr>
 				<th>신청사유(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:textarea path="request_content" cols="60" rows="5" cssStyle="width:95%;"/>

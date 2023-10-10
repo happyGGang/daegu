@@ -173,8 +173,6 @@ public class BookPackageBundleController extends BaseController {
 			return null;
 		}
 		
-		int menu_idx = bookPackageBundle.getMenu_idx();
-
 		if(bookPackageBundle.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			
