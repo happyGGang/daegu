@@ -86,8 +86,6 @@ public interface NearbyLibDao {
 
 	int changeStatusOnlyHomepage(NearbyLib nearbyLib);
 
-	NearbyLib reserveCheckNearbylib(NearbyLib neighborhoodLibrary2);
-
 	List<NearbyLib> getNearbyLibExcelList(NearbyLib nearbyLib);
 
 	int checkBook(NearbyLib nearbyLib);

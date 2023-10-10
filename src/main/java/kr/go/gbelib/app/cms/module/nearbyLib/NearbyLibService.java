@@ -141,7 +141,6 @@ public class NearbyLibService extends BaseService {
 				NearbyLib updateReserve = new NearbyLib();
 				updateReserve.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 				updateReserve.setLocker_idx(0); //예약 확정때 사물함 배정 안하기로 함, 배송기사가 사물함에 가서 알아서 배정 하는걸로
-//				updateReserve.setLocker_idx(useLocker);
 				updateReserve.setDevice_password(pass);	
 				updateReserve.setDevice_code(neighborhoodLibrary.getDevice_code());
 				updateReserve.setReserve_status(neighborhoodLibrary.getReserve_status());
@@ -280,7 +279,6 @@ public class NearbyLibService extends BaseService {
 			if(sameReserveOne != null) { //예약idx로 검색 시 데이터가 있을때
 				if("6".equals(neighborhoodLibrary.getReserve_status()) ||
 					"7".equals(neighborhoodLibrary.getReserve_status()) ||
-//					"9".equals(neighborhoodLibrary.getReserve_status()) ||  
 					"10".equals(neighborhoodLibrary.getReserve_status())) { //cms에서 회수완료는 한권씩 확인 후 처리하므로 pk 값으로 처리
 					status3_update.setReserve_idx(neighborhoodLibrary.getReserve_idx());
 				}else {
@@ -452,7 +450,6 @@ public class NearbyLibService extends BaseService {
 					searchOne.setReserve_status(neighborhoodLibrary.getReserve_status());
 					searchOne.setEditMode("getMySelf");
 					NearbyLib reserveOne = dao.getSameNeighborhoodLibraryBundle_idx(searchOne); //해당 건 데이터 가져오기
-					//List<NearbyLib> bundleList = dao.getSameNeighborhoodLibraryBundleList(reserveOne); //건당 데이터 다 가져오기 (1건에 한권 or 두권)
 					Homepage homepage = new Homepage();
 					
 					Date nowDate = new Date();
@@ -608,10 +605,6 @@ public class NearbyLibService extends BaseService {
 			}
 		}
 		return res;
-	}
-	
-	private NearbyLib reserveCheckNearbylib(NearbyLib neighborhoodLibrary2) {
-		return dao.reserveCheckNearbylib(neighborhoodLibrary2);
 	}
 
 	public NearbyLib sameNeighborhoodLibraryForUser(NearbyLib neighborhoodLibrary) {
@@ -1105,30 +1098,6 @@ public class NearbyLibService extends BaseService {
 							
 						}
 				 }
-				/*api예약취소 문자발송*/
-//				else if("8".equals(neighborhoodLibrary.getReserve_status())) {
-//					if(success > 0) {
-//						NeighborhoodLibrary searchOne = new NeighborhoodLibrary();
-//						searchOne.setReserve_idx(neighborhoodLibrary.getReserve_idx());
-//						searchOne.setReserve_status(neighborhoodLibrary.getReserve_status());
-//						NeighborhoodLibrary reserveOne = dao.getSameNeighborhoodLibraryBundle_idx(searchOne); 
-//						Homepage homepage = homepageService.getHomepageOne(new Homepage(reserveOne.getHomepage_id()));
-//						
-//				        LibrarySearch librarySearch = new LibrarySearch();
-//				        librarySearch.setManageCode(reserveOne.getManage_code());
-//				        librarySearch.setUserkey(reserveOne.getUser_key());
-//				        String userIp = reserveOne.getAdd_ip();
-//				        String book_name = reserveOne.getBook_name();
-//						String mes = "[" + reserveOne.getLib_name() + "]\n" + reserveOne.getMember_name() + "님 도서예약이 취소 되었습니다."
-//									+ "\n도서 정보 : "+book_name 
-//									+ "\n[취소사유]\n" + reserveOne.getCancel_reason(); 
-//						LibSearchAPI.sendSms(librarySearch, mes, userIp);	 
-//						NeighborhoodLibrary sms_send = new NeighborhoodLibrary();
-//						sms_send.setSms_send_yn("Y");
-//						sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
-//						dao.updateNeighborhoodLibrarySms(sms_send);
-//					}
-//				}
 			}
 		}
 		return result;

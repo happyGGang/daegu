@@ -1013,25 +1013,6 @@
 		 AND RESERVE_IDX = #{reserve_idx}
 	</update>
 	
-	<select id="reserveCheckNearbylib" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
-		SELECT
-			homepage_id, reserve_status, device_idx, device_code, reserve_idx, 
-			reserve_bundle_idx, locker_idx, device_password, device_name, member_id,			
-			user_key, member_name, lend_date, manage_code, lib_name, 
-			book_key, reg_no, book_isbn, book_name, add_date, 
-			add_id, add_ip, cancel_yn, cancel_date, cancel_reason, 
-			cancel_id, cancel_ip, sms_send_yn, sms_send_date, homepage_send_tell, 
-			applicant_cell_phone, expire_date_cnt, pk, large_book_yn, user_no, 
-			take_term, reserve_end_date, reserve_start_date, return_device_code, expire_date,
-			call_no, check_yn, shelf_loc_name
-		FROM
-			NEIGHBORHOOD_LIBRARY_RESERVE
-		WHERE
-			RESERVE_IDX = #{reserve_idx}
-		AND RESERVE_BUNDLE_IDX = #{reserve_bundle_idx}
-		AND RESERVE_STATUS = '2'
-	</select>
-	
 	<select id="getSameBundleList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
 		SELECT
 			homepage_id, reserve_status, device_idx, device_code, reserve_idx, 
