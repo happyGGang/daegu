@@ -71,7 +71,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND member_id = #{member_id}
-		AND checkOut_time IS NOT NULL
+		AND checkOut_time IS NULL
 	</select>
 	
 	<select id="isCheckIn" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
