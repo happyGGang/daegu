@@ -46,7 +46,7 @@
             </li>
           </ul>
         </div>
-        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.7.31.] (단위 : 권)</span></h3>
+        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.9.30.] (단위 : 권)</span></h3>
         <div class="rsv-info"></div>
         <div class="auto-scroll">
           <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -89,7 +89,7 @@
             <tbody>
               <tr>
                 <th scope="row">어린이</th>
-                <td>690</td>
+                <td>691</td>
                 <td>345</td>
                 <td>151</td>
                 <td>849</td>
@@ -97,9 +97,9 @@
                 <td>364</td>
                 <td>290</td>
                 <td>256</td>
-                <td>3,665</td>
+                <td>3,668</td>
                 <td>1,192</td>
-                <td>8,994</td>
+                <td>8,998</td>
               </tr>
               <tr>
                 <th scope="row">유아</th>
@@ -108,40 +108,40 @@
                 <td>42</td>
                 <td>872</td>
                 <td>400</td>
-                <td>83</td>
-                <td>79</td>
+                <td>84</td>
+                <td>80</td>
                 <td>73</td>
-                <td>2,752</td>
+                <td>2,757</td>
                 <td>34</td>
-                <td>4,483</td>
+                <td>4,490</td>
               </tr>
               <tr>
                 <th scope="row">일반</th>
-                <td>541</td>
-                <td>1,028</td>
+                <td>543</td>
+                <td>1,032</td>
                 <td>335</td>
-                <td>2,206</td>
-                <td>651</td>
-                <td>1,276</td>
+                <td>2,215</td>
+                <td>654</td>
+                <td>1,282</td>
                 <td>570</td>
-                <td>314</td>
-                <td>5,981</td>
-                <td>1,157</td>
-                <td>14,059</td>
+                <td>315</td>
+                <td>6,002</td>
+                <td>1,164</td>
+                <td>14,112</td>
               </tr>
               <tr>
                 <th scope="row">총계</th>
-                <td>1,295</td>
-                <td>1,457</td>
+                <td>1,298</td>
+                <td>1,461</td>
                 <td>528</td>
-                <td>3,927</td>
-                <td>2,243</td>
-                <td>1,723</td>
-                <td>939</td>
-                <td>643</td>
-                <td>12,398</td>
-                <td>2,383</td>
-                <td>27,536</td>
+                <td>3,936</td>
+                <td>2,246</td>
+                <td>1,730</td>
+                <td>940</td>
+                <td>644</td>
+                <td>12,427</td>
+                <td>2,390</td>
+                <td>27,600</td>
               </tr>
             </tbody>
           </table>
