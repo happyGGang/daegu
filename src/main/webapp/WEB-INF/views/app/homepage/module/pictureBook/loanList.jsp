@@ -180,6 +180,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<col width="12%" />
 			<col width="15%"/>
 			<col width="12%" />
+			<col width="12%" />
 			<col width="8%" />
 			<col width="10%" />
 			<col width="6%" />
@@ -193,6 +194,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 				<th>원화명</th>
 				<th>대출기간</th>
 				<th>학교명/신청자</th>
+				<th>수령 및 반납장소</th>
 				<th>신청일자</th>
 				<th>비고</th>
 				<th>상태</th>
@@ -216,6 +218,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 						<span>~</span>${fn:substring(i.loan_end_date, 0, 10)}
 					</td>
 					<td>${i.school_name}<br/>/${i.request_name}</td>
+					<td>${i.delivery_location}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>${i.pay_yn eq 'Y' ? '무료' : '무료'}</td>
 					<td>

@@ -217,6 +217,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<col width="10%" />
 			<col width="12%" />
 			<col width="12%"/>
+			<col width="12%"/>
 			<col width="9%" />
 			<col width="5%" />
 			<col width="8%" />
@@ -229,6 +230,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 				<th>책꾸러미명</th>
 				<th>대출기간</th>
 				<th>학교명/신청자</th>
+				<th>수령 및 반납장소</th>
 				<th>신청일자</th>
 				<th>상태</th>
 				<th>권수</th>
@@ -262,6 +264,7 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 						${i.school_name}<br/>
 						/${i.request_name}
 					</td>
+					<td>${i.loan_place}</td>
 					<td><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></td>
 					<td>
 						<c:choose>

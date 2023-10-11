@@ -134,6 +134,7 @@
 			a.picture_book_idx, b.picture_book_loan_idx, a.picture_book_subject, school_name,
 			loan_start_date, loan_end_date, TO_CHAR(loan_start_date, 'yyyy') AS loan_year, TO_CHAR(loan_start_date, 'MM') AS loan_month, pay_yn,
 			phone, school_tel, request_content, request_status, b.add_id, b.add_date,
+			b.delivery_location,
 			(substr(request_name,1,1) || lpad('*',length(request_name)-2,'*') || substr(request_name, length(request_name), 1)) AS request_name
 		FROM
 			PICTURE_BOOK a, PICTURE_BOOK_LOAN b

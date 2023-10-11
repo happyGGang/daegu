@@ -315,7 +315,7 @@
 
 	<select id="getBookPackageOne" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
 		SELECT
-			B.homepage_id, B.book_package_bundle_idx, B.book_package_bundle_title, B.loan_count, B.quantity, B.loan_place,
+			B.homepage_id, B.book_package_bundle_idx, B.book_package_bundle_title, B.loan_count, B.quantity,
 			B.grade, COUNT(L.request_status) AS lender_count, TO_CHAR(MIN(L.loan_start_date), 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(MIN(L.loan_end_date), 'yyyy-MM-dd') AS loan_end_date
 		FROM
 			BOOK_PACKAGE_BUNDLE B
@@ -332,7 +332,7 @@
 
 	<select id="getReservationDate" resultType="kr.go.gbelib.app.cms.module.bookPackageBundle.BookPackageBundle">
 		SELECT
-			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity, B.loan_place,
+			a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count, a.quantity, loan_place,
 			a.grade,
 			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date
 		FROM
@@ -340,7 +340,7 @@
 				LEFT JOIN
 			(
 				SELECT
-					book_package_bundle_idx,  loan_start_date AS loan_start_date, loan_end_date AS loan_end_date
+					book_package_bundle_idx,  loan_start_date, loan_end_date, loan_place
 				FROM
 					BOOK_PACKAGE_BUNDLE_LOAN
 				WHERE

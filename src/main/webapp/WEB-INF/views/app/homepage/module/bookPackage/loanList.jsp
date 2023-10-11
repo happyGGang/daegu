@@ -201,9 +201,9 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<col width="6%" />
 			</c:if>
 			<col width="6%" />
-			<col width="30%"/>
+			<col width="20%"/>
 			<col width="12%" />
-			<col width="16%" />
+			<col width="15%" />
 			<col width="12%"/>
 			<col width="11%" />
 			<col width="7%" />

@@ -287,7 +287,9 @@ public class BookPackageBundleController extends BaseController {
 						+ "관리자에게 반납 가능한 날짜를 정확히 요청하셔야하며,\r\n"
 						+ "반드시 대출 현황에서 변경된 내용을 직접 확인해주세요.\r\n"
 						+ "(예약 학교가 있는 경우, 기간 변경이 어려울 수 있습니다.)\r\n"
-						+ "");
+						+ "\r\n"
+						+ "반납일=우리도서관 도착날짜 입니다. 배송기간을 고려하여\r\n"
+						+ "반납요청은 반납일 3일전에 꼭 해주세요!");
 			} else if (bookPackageBundle.getEditMode().equals("MODIFY")) {
 				bookPackageBundle.setModify_id(getSessionMemberId(request));
 				bookPackageBundleService.modifyBookPackageLoan(bookPackageBundle);
