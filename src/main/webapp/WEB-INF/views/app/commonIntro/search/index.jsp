@@ -635,7 +635,8 @@ function isFromFridayToSunday() {
 																	i.CODE eq 'CB04' or
 																	i.CODE eq 'CB08' or
 																	i.CODE eq 'CB10' or
-																	i.CODE eq 'CB12'
+																	i.CODE eq 'CB12' or
+																	i.CODE eq 'CB16'
 																	}">
 													<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 													</c:if>
