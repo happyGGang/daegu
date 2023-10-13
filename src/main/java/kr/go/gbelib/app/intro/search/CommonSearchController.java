@@ -1347,6 +1347,10 @@ public class CommonSearchController extends BaseController {
 					librarySearch.setBooktype("0");
 				}
 
+				if("AD50".equals(librarySearch.getShelfCode())) {
+					librarySearch.setBooktype("2");
+				}
+				
 				Map<String, Object> result = LibSearchAPI.getNewBookList(librarySearch);
 				List<Map<String, Object>> list = null;
 
