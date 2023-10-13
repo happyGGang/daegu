@@ -3591,6 +3591,8 @@ public class CommonSearchController extends BaseController {
 					res.setMessage("무인예약 신청건수를 초과하였습니다.\n무인 예약은 5권까지만 가능합니다.");
 					return res;
 				}
+				
+				librarySearch.setExprire_date_cnt("2");
 			}
 
 			ApiResponse apiResult = LibSearchAPI.unmannedloanreserve(librarySearch);
