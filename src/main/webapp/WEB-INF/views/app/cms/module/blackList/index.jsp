@@ -150,6 +150,7 @@ $(function() {
 		<colgroup>
 			<col width="10%" />
 			<col width="10%" />
+			<col width="10%" />
 			<col width="20%" />
 			<col width="100" />
 			<col width="10%" />
@@ -159,6 +160,7 @@ $(function() {
 			<tr>
 				<th>번호</th>
 				<th>블랙리스트ID</th>
+				<th>이름</th>
 				<th>블랙 구분</th>
 				<th>사유</th>
 				<th>등록일</th>
@@ -170,6 +172,7 @@ $(function() {
 				<tr>
 					<td class="num">${status.count}</td>
 					<td>${i.member_id}</td>
+					<td>${i.member_name}</td>
 					<td>
 						<c:forEach items="${fn:split(i.black_type, ',')}" var="oneType" varStatus="status">
 							${blackTypeList[oneType]}<c:if test="${!status.last}">, </c:if>

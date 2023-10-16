@@ -9,7 +9,7 @@ public class BlackList extends PagingUtils {
 	private int black_idx; // 블랙IDX
 	// private String member_key; //사용자구분
 	private String member_id; // 사용자ID
-	// private String member_name; //사용자명
+	private String member_name; //사용자명
 	private String reason; // 사유
 	private String black_type; // 블랙 구분
 	private Date add_date; // 등록일
@@ -112,14 +112,14 @@ public class BlackList extends PagingUtils {
 		this.after_click_btn = after_click_btn;
 	}
 
-//	public String getMember_name() {
-//		return member_name;
-//	}
-//
-//	public void setMember_name(String member_name) {
-//		this.member_name = member_name;
-//	}
-//
+	public String getMember_name() {
+		return member_name;
+	}
+
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
+
 //	public String getMember_key() {
 //		return member_key;
 //	}

@@ -17,7 +17,8 @@
 	<select id="getBlackListList" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
 		${pagingTop}
 			SELECT
-				(select homepage_name from cms_homepage a where a.homepage_id = blacklist.homepage_id) as homepage_name,
+				(select a.homepage_name from cms_homepage a where a.homepage_id = blacklist.homepage_id) as homepage_name,
+				(select b.member_name from cms_member b where b.member_id = blacklist.member_id) as member_name,
 				homepage_id, black_idx, member_id, black_type, reason, delete_yn,
 				add_date, add_id, modify_date, modify_id
 			FROM
