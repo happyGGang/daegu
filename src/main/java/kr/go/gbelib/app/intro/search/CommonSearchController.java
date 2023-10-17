@@ -3178,6 +3178,15 @@ public class CommonSearchController extends BaseController {
 			int lillRequestListCount = LibSearchAPI.getSearchCount(lillRequestList, "LIST_DATA", "TOTAL");
 			int sanghoPossiCnt = 5;
 
+			if("dgportal".equals(homepage.getContext_path())) {
+				if("BV".equals(librarySearch.getManageCode()) || "BU".equals(librarySearch.getManageCode()) || "BW".equals(librarySearch.getManageCode()) || "BX".equals(librarySearch.getManageCode()) || "BY".equals(librarySearch.getManageCode()) ||
+				   "BZ".equals(librarySearch.getManageCode()) || "FA".equals(librarySearch.getManageCode()) || "FB".equals(librarySearch.getManageCode()) || "FC".equals(librarySearch.getManageCode()) || "FX".equals(librarySearch.getManageCode()) ||
+				   "GK".equals(librarySearch.getManageCode()) || "BL".equals(librarySearch.getManageCode()) || "BQ".equals(librarySearch.getManageCode()) || "BP".equals(librarySearch.getManageCode()) || "BM".equals(librarySearch.getManageCode()) ||
+				   "BN".equals(librarySearch.getManageCode())) {
+					sanghoPossiCnt = 3;
+				}
+			}
+			
 			// 달서구립도서관, 중구 상호대차 3권
 			String[] sangho3cnt = {"dalseolib", "kids", "seongseo", "bolli", "family", "english", "dssmalllib", "junggu", "seogulib", "biwon", "bisan", "seoguenglish", "wongogae"};
 			for (String libOne : sangho3cnt) {
