@@ -200,4 +200,22 @@ public class ApiController extends BaseController {
 	
 		return bookOfFamousService.getBookOfFamousListApi(bookOfFamous);
 	}
+	
+	@RequestMapping(value = {"internationalDataRoom.*"})
+	public @ResponseBody Map<String, Object> internationalDataRoomList(Teach teach, HttpServletRequest request, HttpServletResponse response) {
+	
+		return teachApiService.getInternationalDataRoomList(teach, request, response);
+	}
+	
+	@RequestMapping(value = {"internationalBook.*"})
+	public @ResponseBody Map<String, Object> internationalBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
+	
+		return boardApiService.getInternationalDataBookList(board, request, response);
+	}
+	
+	@RequestMapping(value = {"oldBook.*"})
+	public @ResponseBody Map<String, Object> oldBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
+	
+		return boardApiService.getOldBookList(board, request, response);
+	}
 }

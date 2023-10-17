@@ -15,6 +15,7 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.framework.base.BaseService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -206,5 +207,132 @@ public class BoardApiService extends BaseService {
 
 		return libMap;
 
+	}
+
+
+	public Map<String, Object> getInternationalDataBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		BoardManage boardManage = new BoardManage();
+		boardManage.setBoard_type("BOOK");
+		board.setManage_idx(658);
+		
+		List<Board> list = boardService.getBoard(boardManage, board);
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+		
+		try {
+			if(list.size() > 0) {
+				for(int i =0 ; i < list.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
+					if(StringUtils.isNotEmpty(list.get(i).getPreview_img())) {
+						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/data/board/"+list.get(i).getManage_idx()+"/"+list.get(i).getBoard_idx()+"/"+list.get(i).getPreview_img());
+					} else {
+						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/resources/common/img/noimg-gall.png");
+					}
+					
+					if(StringUtils.isNotEmpty(list.get(i).getTitle())) {
+						resultMapList.put("제목", list.get(i).getTitle());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_3())) {
+						resultMapList.put("저자", list.get(i).getImsi_v_3());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_4())) {
+						resultMapList.put("출판사", list.get(i).getImsi_v_4());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_2())) {
+						resultMapList.put("출판년도", list.get(i).getImsi_v_2());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_6())) {
+						resultMapList.put("소장자료실", list.get(i).getImsi_v_6());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_7())) {
+						resultMapList.put("청구기호", list.get(i).getImsi_v_7());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
+						resultMapList.put("상세내용", list.get(i).getContent());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_8())) {
+						resultMapList.put("등록번호", list.get(i).getImsi_v_8());
+					}
+					
+					resultList.add(i, resultMapList);
+				}
+				
+				resultMap.put("result-list", resultList);
+				result.put("result", "success");
+				result.put("message", "국제 추천도서 게시판 데이터 조회 성공.");
+				result.put("result-data", resultMap);
+			} else {
+				result.put("result", "fail");
+				result.put("message", "등록되어있는 국제 추천도서 게시판 데이터가 없습니다.");
+			}
+		} catch (Exception e) {
+			result.put("result", "fail");
+			result.put("message", "국제 추천도서 게시판 데이터를 조회하는데 오류가 발생하였습니다.");
+		}
+		
+		return result;
+	}
+
+
+	public Map<String, Object> getOldBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		
+		BoardManage boardManage = new BoardManage();
+		boardManage.setBoard_type("OLDBOOK");
+		
+		List<Board> list = boardService.getBoard(boardManage, board);
+		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+		
+		try {
+			if(list.size() > 0) {
+				for(int i =0 ; i < list.size(); i++) {
+					Map<String,Object> resultMapList = new HashMap<String,Object>();
+					
+					if(StringUtils.isNotEmpty(list.get(i).getPreview_img())) {
+						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/data/board/"+list.get(i).getManage_idx()+"/"+list.get(i).getBoard_idx()+"/"+list.get(i).getPreview_img());
+					} else {
+						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/resources/common/img/noimg-gall.png");
+					}
+					
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_4())) {
+						resultMapList.put("ebook url", list.get(i).getImsi_v_4());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_6())) {
+						resultMapList.put("해제사항 url", list.get(i).getImsi_v_6());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getTitle())) {
+						resultMapList.put("제목", list.get(i).getTitle());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_2())) {
+						resultMapList.put("저자", list.get(i).getImsi_v_2());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_3())) {
+						resultMapList.put("발행사항", list.get(i).getImsi_v_3());
+					}
+					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
+						resultMapList.put("내용", list.get(i).getContent());
+					}
+					
+					resultList.add(i, resultMapList);
+				}
+				
+				resultMap.put("result-list", resultList);
+				result.put("result", "success");
+				result.put("message", "국제 옛자료실 데이터 조회 성공.");
+				result.put("result-data", resultMap);
+			} else {
+				result.put("result", "fail");
+				result.put("message", "등록되어있는 옛자료실 게시판 데이터가 없습니다.");
+			}
+		} catch (Exception e) {
+			result.put("result", "fail");
+			result.put("message", "옛자료실 게시판 데이터를 조회하는데 오류가 발생하였습니다.");
+		}
+		
+		return result;
 	}
 }

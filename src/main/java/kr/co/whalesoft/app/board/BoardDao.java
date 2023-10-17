@@ -198,4 +198,6 @@ public interface BoardDao {
 	public List<Board> getTeachGuideListTopNotice(Board b3);
 
     public List<Board> getBoardByMainTopNoticeBySeobu(Board board);
+
+	public List<Board> getOLDBOOKBoard(Board board);
 }

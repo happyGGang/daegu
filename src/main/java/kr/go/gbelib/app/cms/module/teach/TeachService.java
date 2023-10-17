@@ -726,4 +726,8 @@ public class TeachService extends BaseService {
 		}
 		return teachListForUser;
 	}
+
+	public List<Teach> getInternationalDataRoomList(Teach teach) {
+		return dao.getInternationalDataRoomList(teach);
+	}
 }

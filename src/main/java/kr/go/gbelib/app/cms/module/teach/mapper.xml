@@ -3296,4 +3296,124 @@
 		ELSE 8
 		END ASC
 	</select>
+	
+	<select id="getInternationalDataRoomList" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
+		SELECT
+		CASE
+		WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
+		THEN '9'
+		WHEN A.status = 0
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count > A.teach_join_count
+		THEN '0'
+		WHEN A.status = 0
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count &lt;= A.teach_join_count
+		AND	A.teach_backup_count > A.teach_backup_join_count
+		THEN '1'
+		WHEN A.status = 0
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count &lt;= A.teach_join_count
+		AND	A.teach_backup_count &lt;= A.teach_backup_join_count
+		THEN '5'
+		WHEN A.status = 0
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_start_date
+		THEN '6'
+		WHEN A.status = 0
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
+		THEN '4'
+		WHEN A.status = 1 AND	A.apply_status = '1'
+		AND	((
+		A.cancle_use_yn != 'Y'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		)
+		OR	(
+		A.cancle_use_yn = 'Y'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_cancle_date || ' ' || A.start_cancle_time
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_cancle_date || ' ' || A.end_cancle_time
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.start_date || ' ' || start_time
+		))
+		THEN '2'
+		WHEN A.status = 1 AND	A.apply_status = '1'
+		AND	A.cancle_use_yn = 'Y'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		THEN '10'
+		WHEN A.status = 1 AND	A.apply_status = '2'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		THEN '3'
+		WHEN A.status = 1 AND	A.apply_status = '99'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		THEN '7'
+		WHEN A.status = 1
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
+		THEN '4'
+		END
+		as TEACH_STATUS, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name, A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
+		A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT, A.start_join_date,
+		A.start_join_time, A.end_join_date, A.end_join_time, A.teach_day, A.start_date, A.START_TIME,
+		A.end_date, A.END_TIME, A.CANCLE_use_yn, A.START_CANCLE_DATE, A.START_CANCLE_TIME, A.END_CANCLE_DATE, A.END_CANCLE_TIME, A.CANCLE_GUID,
+		A.org_file_name, A.server_file_name, A.file_extension, A.file_size, A.MEMBER_YN, A.teach_age_type, A.sms_service_yn, A.picture_use_yn, A.CERTIFICATE_YN, A.TEACHER_NAME,A.MEMBER_KEY,
+		A.CATEGORY_NAME, A.TEACH_JOIN_COUNT, A.TEACH_BACKUP_JOIN_COUNT, A.TEACH_OFF_JOIN_COUNT, A.GROUP_NAME,
+		A.IMAGE_org_file_name, A.image_server_file_name, A.IMAGE_file_extension, A.IMAGE_file_size, a.LIMIT_HAK_YN,
+		a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+		getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
+		getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
+		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
+		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
+		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.program_subject and homepage_id = a.homepage_id) as program_subject_name,
+		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = '--' AND	small_code = '--') as program_classification1_name,
+		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = '--') as program_classification2_name,
+		(SELECT code_name FROM TEACH_CODE WHERE large_code = a.program_classification1 AND	mid_code = a.program_classification2 AND	small_code = a.program_classification3) as program_classification3_name,
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.teach_img_text
+		FROM
+		(
+		SELECT
+		(SELECT COUNT(*) FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	MEMBER_KEY = #{member_key} AND	apply_status != '99' AND	delete_yn != 'Y') as STATUS,
+		(SELECT APPLY_STATUS FROM STUDENT WHERE homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	MEMBER_KEY = #{member_key} AND	apply_status != '99' AND	delete_yn != 'Y') as APPLY_STATUS,
+		a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK, a.LIMIT_HAK2,
+		a.TEACH_LIMIT_COUNT, a.TEACH_JOIN_UNIT, a.TEACH_BACKUP_COUNT, a.TEACH_OFFLINE_COUNT, a.start_join_date,
+		a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day, a.start_date, a.START_TIME,
+		a.end_date, a.END_TIME, a.cancle_use_yn, a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
+		a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.MEMBER_YN, a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.CERTIFICATE_YN, a.TEACH_JOIN_LIMIT_UNIT, a.TEACH_JOIN_LIMIT_VALUE,
+		b.TEACHER_NAME,b.MEMBER_KEY,
+		c.CATEGORY_NAME,d.GROUP_NAME, a.start_join_date||' '||a.start_join_time REQ_start_date, a.end_join_date||' '||a.end_join_time REQ_end_date,
+		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE != 'CMS' GROUP BY teach_idx), 0) AS TEACH_JOIN_COUNT,
+		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
+		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
+		a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
+		a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
+		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
+		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.teach_img_text
+		FROM
+		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
+		WHERE a.homepage_id = b.homepage_id(+)
+		AND	a.teacher_idx = b.teacher_idx(+)
+		AND	a.homepage_id = c.homepage_id(+)
+		AND	a.group_idx = c.group_idx(+)
+		AND	a.category_idx = c.category_idx(+)
+		AND	a.homepage_id = d.homepage_id(+)
+		AND	a.group_idx = d.group_idx(+)
+		<if test="homepage_id != null">
+			AND	a.homepage_id = #{homepage_id}
+		</if>
+		AND	a.large_category_idx = 32
+		AND	a.use_yn = 'Y'
+		AND	a.delete_yn = 'N'
+		ORDER BY
+		(CASE WHEN a.teach_code_yn ='Y' THEN 1 ELSE 2 END),
+		ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
+		ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
+		a.print_seq ASC
+		) A
+	</select>
 </mapper>

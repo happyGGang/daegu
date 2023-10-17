@@ -2824,4 +2824,56 @@
 		${pagingBottom}
 	</select>
 
+	<select id="getOLDBOOKBoard" resultType="kr.co.whalesoft.app.board.Board">
+		SELECT
+			CMS_BOARD_T.*,
+			TRUNC(TO_CHAR(SYSDATE,'yyyyMMdd')) - TRUNC(TO_CHAR(add_date,'yyyyMMdd')) AS date_gap,
+			(
+				SELECT COUNT(*)
+				FROM CMS_BOARD_COMMENT a
+				WHERE a.board_idx = CMS_BOARD_T.board_idx AND
+				a.delete_yn = 'N'
+			) AS comment_count
+			FROM
+		(
+			${pagingTop}
+			SELECT A.*
+			FROM
+			(
+				SELECT
+					manage_idx, board_idx, group_idx, parent_idx, group_depth,
+					view_count, notice_yn, title, add_id, content,
+					user_name, user_ip, delete_yn, add_date, modify_date,
+					category1, category2, category3, category4, category5,
+					file_count, preview_img, secret_yn, content_summary, file_download_count,
+					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5,
+					imsi_v_6, imsi_v_7, imsi_v_8, imsi_v_9, imsi_v_10,
+					imsi_v_11,imsi_v_12,imsi_v_13,imsi_v_14,imsi_v_15,
+					imsi_v_16, imsi_v_17, imsi_v_18, imsi_v_19, imsi_v_20,
+					getCodeIdToCodeName(#{homepage_id},#{category1Manage},category1) as category1_name,
+					getCodeIdToCodeName(#{homepage_id},#{category2Manage},category2) as category2_name,
+					getCodeIdToCodeName(#{homepage_id},#{category3Manage},category3) as category3_name,
+					getCodeIdToCodeName(#{homepage_id},#{category4Manage},category4) as category4_name,
+					getCodeIdToCodeName(#{homepage_id},#{category5Manage},category5) as category5_name
+				FROM
+					CMS_BOARD
+				WHERE
+					manage_idx in (
+									SELECT
+										manage_idx
+									FROM
+										cms_board_manage
+									WHERE
+										board_type = 'OLDBOOK'
+									<if test="homepage_id != null and homepage_id != ''">
+									AND	homepage_id = #{homepage_id}
+									</if>
+									)
+					AND	delete_yn = #{delete_yn}
+					<include refid="where"/>
+			 ) A
+			ORDER BY A.group_idx DESC, A.board_idx DESC
+			${pagingBottom}
+		) CMS_BOARD_T
+	</select>
 </mapper>

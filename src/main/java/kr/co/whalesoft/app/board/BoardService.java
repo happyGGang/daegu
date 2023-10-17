@@ -14,7 +14,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.whalesoft.app.cms.boardManage.BoardManageService;
-import kr.co.whalesoft.app.cms.homepage.Homepage;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -110,6 +109,8 @@ public class BoardService extends BaseService {
 				return dao.getMovieBoard(board);
 			} else if(boardManage.getBoard_type().equals("LOSTCARD")) {
 				return dao.getLostCardBoard(board);
+			} else if(boardManage.getBoard_type().equals("OLDBOOK")){
+				return dao.getOLDBOOKBoard(board);
 			} else {
 				return dao.getBoard(board);
 			}
@@ -393,7 +394,6 @@ public class BoardService extends BaseService {
 		try {
 			filterCheck = webFilterCheck(member.getMember_name(), board, request);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -401,7 +401,6 @@ public class BoardService extends BaseService {
 			return filterCheck;
 		}
 
-//		board.setContent(xssFilter.doFilter(board.getContent()));
 		if (StringUtils.isNotBlank(board.getContent())) {
 			board.setContent(board.getContent().replaceAll(board.getBeforeFilePath(), board.getAfterFilePath() + "/" + boardManage.getManage_idx() + "/" + board.getBoard_idx()));
 			board.setContent_summary(StrUtil.previewContent(StrUtil.delHtmlTagPatterns(board.getContent()),1000));
@@ -449,7 +448,6 @@ public class BoardService extends BaseService {
 		try {
 			filterCheck = webFilterCheck(member.getMember_name(), board, request);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -673,7 +671,6 @@ public class BoardService extends BaseService {
 	}
 
 	public Board getBoardOneMOIVE(Board board) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,8 +1,6 @@
 package kr.co.whalesoft.app.board;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import freemarker.template.utility.StringUtil;
 import kr.co.whalesoft.app.board.boardFile.BoardFile;
 import kr.co.whalesoft.app.board.boardFile.BoardFileService;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
@@ -56,8 +53,6 @@ import kr.co.whalesoft.framework.utils.StrUtil;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
-import kr.go.gbelib.app.cms.module.themeBook.ThemeBook;
-import kr.go.gbelib.app.cms.module.themeBook.ThemeBookService;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.PushAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
@@ -91,8 +86,6 @@ public class BoardController extends BaseController {
 	private BoardWordFilterService boardWordFilterService;
 	@Autowired
 	private BoardRegexFilterService boardRegexFilterService;
-	@Autowired
-	private ThemeBookService themeBookService;
 	@Autowired
 	private TermsService termsService;
 	@Autowired
@@ -523,19 +516,6 @@ public class BoardController extends BaseController {
     		return null;
 		}
 		model.addAttribute("portalAuth", portal_auth);
-
-//		if (board.getManage_idx() == 563) {
-//			Member memberTemp = getSessionMemberInfo(request);
-//			if (!memberTemp.isAdmin()) {
-//				if (StringUtils.startsWith(getAsideHomepageId(request), "c")) {
-//					try {
-//						request.getSession().setAttribute("asideHomepageId", memberTemp.getAuthorityHomepageList().get(0).getHomepage_id());
-//					} catch ( Exception e ) {
-//						// TODO: handle exception
-//					}
-//				}
-//			}
-//		}
 
 		//질의응답게시판
 		if (boardManage.getBoard_type().equals("QNA")){
@@ -1002,50 +982,9 @@ public class BoardController extends BaseController {
 			}
 
 			if(homepage != null) {
-				//TODO 추천도서 게시판
-//				librarySearch.setvLoca(homepage.getHomepage_codeList()[0]);
-//				librarySearch.setvCtrl(boardData.getImsi_v_8());
-//				librarySearch.setIsbn(boardData.getImsi_v_5());
 				Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
 				model.addAttribute("librarySearch", librarySearch);
 				model.addAttribute("detail", result);
-//				model.addAttribute("ageChart", LibSearchAPI.getAgeChart(librarySearch));
-//				model.addAttribute("withBook", LibSearchAPI.getWithBook(librarySearch));
-//				model.addAttribute("callNoBrowsing", LibSearchAPI.getCallNoBrowsingList(librarySearch.getvCtrl(), "5"));
-//				model.addAttribute("sameAuthorBookList", LibSearchAPI.getSameAuthorBookList(result));
-//				try {
-//					List<String> locaList = new ArrayList<String>();
-//					for (Homepage home : homepageService.getHomepage()) {
-//						String homepageCode = home.getHomepage_code();
-//						if (StringUtils.isNotEmpty(homepageCode)) {
-//							if (homepageCode.length() >= 8) {
-//								locaList.add(homepageCode.substring(0, 8));
-//							}
-//						}
-//					}
-//	//				locaList.add("00147046");
-//					List<Map<String, Object>> dsPlaceBookList = null;
-////					Map<String, Object> sameBookList = LibSearchAPI.getSameBookList("WEB", librarySearch.getIsbn(), locaList);
-////					if (sameBookList != null) {
-////						List<Map<String, Object>> tempSameBookList = (List<Map<String, Object>>) sameBookList.get("dsSameBookList");
-////						if (tempSameBookList != null) {
-////							dsPlaceBookList = new ArrayList<Map<String, Object>>();
-////							for (Map<String, Object> map : tempSameBookList) {
-////								Map<String, Object> searchItemD = LibSearchAPI.getBookDetail(new LibrarySearch(String.valueOf(map.get("LOCA")), String.valueOf(map.get("CTRLNO"))));
-////								if (searchItemD != null) {
-////									dsPlaceBookList.add(searchItemD);
-////								}
-////							}
-////						}
-////					}
-//					model.addAttribute("sameBook", dsPlaceBookList);
-//					model.addAttribute("isTodayClosed", calendarManageService.isTodayClosed(homepage.getHomepage_id()));
-//					if (StringUtils.isNotEmpty(librarySearch.getIsbn())) {
-//						model.addAttribute("naverDetail", LibSearchAPI.getNaverDetail(librarySearch.getIsbn()));
-//					}
-//
-//				} catch (Exception e) {
-//				}
 			}
 		}
 		
@@ -1230,7 +1169,6 @@ public class BoardController extends BaseController {
 
 		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
-		Homepage migrationHomepage = (Homepage) request.getAttribute("homepage");
 
 		/** 불량단어 검출 **/
 		BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();
@@ -1529,7 +1467,6 @@ public class BoardController extends BaseController {
 					res.setUrl(getBoardContext(request) + "/board/view.do");
 					board.setBoard_idx(board.getGroup_idx());
 					res.setData(board.getUrlParam(boardManage, "view"));
-					//TODO
 					//문자 푸시 등 다양한 알림 들어갈 부분
 					Board parentBoard = service.getBoardOne(board);
 					Member adminMember = new Member();
