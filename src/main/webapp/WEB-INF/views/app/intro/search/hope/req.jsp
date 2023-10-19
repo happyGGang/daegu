@@ -419,7 +419,7 @@
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
 				<form:select path="manageCode">
-					<form:option value="BY">달서가족문화도서관</form:option>
+					<%--<form:option value="BY">달서가족문화도서관</form:option>--%>
 				</form:select>
 				</c:when>
 				<c:when test="${context_path eq 'english'}">
