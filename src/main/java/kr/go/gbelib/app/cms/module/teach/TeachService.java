@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.menu.Menu;
@@ -727,6 +730,7 @@ public class TeachService extends BaseService {
 		return teachListForUser;
 	}
 
+	@XmlElement(name = "test")
 	public List<Teach> getInternationalDataRoomList(Teach teach) {
 		return dao.getInternationalDataRoomList(teach);
 	}

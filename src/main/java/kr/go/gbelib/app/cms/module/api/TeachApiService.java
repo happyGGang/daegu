@@ -153,20 +153,20 @@ public class TeachApiService extends BaseService{
 					Map<String,Object> resultMapList = new HashMap<String,Object>();
 					
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeach_name())) {
-						resultMapList.put("강좌명", teachList.get(i).getTeach_name());
+						resultMapList.put("teach_title", teachList.get(i).getTeach_name());
 					}
 					if(teachList.get(i).getTeach_join_count() > 0) {
-						resultMapList.put("접수인원", teachList.get(i).getTeach_join_count());
+						resultMapList.put("limit_count", teachList.get(i).getTeach_join_count());
 					}
 					if(teachList.get(i).getTeach_backup_join_count() > 0) {
-						resultMapList.put("대기인원(후보)", teachList.get(i).getTeach_backup_join_count());
+						resultMapList.put("backup_count", teachList.get(i).getTeach_backup_join_count());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getStart_date())) {
-						resultMapList.put("행사기간", teachList.get(i).getStart_date());
+						resultMapList.put("teach_date", teachList.get(i).getStart_date());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeach_day())) {
 						if("Y".equals(teachList.get(i).getTeach_day_yn())) {
-							resultMapList.put("행사요일", teachList.get(i).getTeach_day_txt());
+							resultMapList.put("teach_dayweek", teachList.get(i).getTeach_day_txt());
 						} else {
 							String teach_day_arr[] = teachList.get(i).getTeach_day().split(",");
 							
@@ -193,36 +193,35 @@ public class TeachApiService extends BaseService{
 								teach_day = teach_day+ "," + day;
 							}
 							
-							//resultMapList.put("행사요일", teachList.get(i).getTeach_day());
-							resultMapList.put("행사요일", teach_day.substring(1));
+							resultMapList.put("teach_dayweek", teach_day.substring(1));
 						}
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getStart_join_date())) {
-						resultMapList.put("접수기간", teachList.get(i).getStart_join_date());
+						resultMapList.put("join_date", teachList.get(i).getStart_join_date());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getGroup_name())) {
-						resultMapList.put("강의분류", teachList.get(i).getGroup_name());
+						resultMapList.put("category", teachList.get(i).getGroup_name());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeach_desc())) {
-						resultMapList.put("강의설명", teachList.get(i).getTeach_desc());
+						resultMapList.put("contents", teachList.get(i).getTeach_desc());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeach_stage())) {
-						resultMapList.put("강의장소", teachList.get(i).getTeach_stage());
+						resultMapList.put("teach_stage", teachList.get(i).getTeach_stage());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeacher_name())) {
-						resultMapList.put("강사명", teachList.get(i).getTeacher_name());
+						resultMapList.put("teacher", teachList.get(i).getTeacher_name());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeach_etc())) {
-						resultMapList.put("준비물 및 재료비", teachList.get(i).getTeach_etc());
+						resultMapList.put("teach_etc", teachList.get(i).getTeach_etc());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getTeach_target())) {
-						resultMapList.put("강의대상", teachList.get(i).getTeach_target());
+						resultMapList.put("teach_target", teachList.get(i).getTeach_target());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getOrg_file_name())) {
-						resultMapList.put("강의계획서 링크 주소", "https://library.daegu.go.kr/cms/module/teach/download/h50/"+teachList.get(i).getGroup_idx()+"/"+teachList.get(i).getCategory_idx()+"/"+teachList.get(i).getTeach_idx()+".do");
+						resultMapList.put("file_name", "https://library.daegu.go.kr/cms/module/teach/download/h50/"+teachList.get(i).getGroup_idx()+"/"+teachList.get(i).getCategory_idx()+"/"+teachList.get(i).getTeach_idx()+".do");
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getImage_org_file_name())) {
-						resultMapList.put("이미지링크주소", "https://library.daegu.go.kr/data/teach/h50/img/"+teachList.get(i).getImage_server_file_name());
+						resultMapList.put("image_url", "https://library.daegu.go.kr/data/teach/h50/img/"+teachList.get(i).getImage_server_file_name());
 					}
 					
 					resultList.add(i, resultMapList);
