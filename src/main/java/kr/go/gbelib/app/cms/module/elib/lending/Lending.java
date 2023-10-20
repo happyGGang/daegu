@@ -69,7 +69,6 @@ public class Lending extends PagingUtils {
 	private String add_ip;
 	private String member_name;
 	private String viewer_type;
-	private String orderBy;
 
 	public Lending() {}
 	public Lending(int lend_idx) {
@@ -468,13 +467,5 @@ public class Lending extends PagingUtils {
 
 	public void setViewer_type(String viewer_type) {
 		this.viewer_type = viewer_type;
-	}
-
-	public String getOrderBy() {
-		return orderBy;
-	}
-
-	public void setOrderBy(String orderBy) {
-		this.orderBy = orderBy;
 	}
 }
