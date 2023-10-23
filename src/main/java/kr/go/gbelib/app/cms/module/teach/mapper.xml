@@ -959,10 +959,10 @@
 		<if test="teach_day != null and teach_day != ''">
 			AND	REGEXP_LIKE(teach_day, replace(#{teach_day}, ',', '|'))
 		</if>
-		<if test="searchCate1 == null or searchCate1 == '' and homepage_id == 'h73'">
+		<if test="(searchCate1 == null or searchCate1 == '') and homepage_id == 'h73'">
 			AND	a.large_category_idx NOT IN (31)
 		</if>
-		<if test="homepage_id != null and searchCate1 == null or searchCate1 == '' and homepage_id == 'h60'">
+		<if test="homepage_id != null and (searchCate1 == null or searchCate1 == '') and homepage_id == 'h60'">
 			AND	a.large_category_idx NOT IN (31, 33)
 		</if>
 		<if test="homepage_id == 'h73' and menu_idx == '28'">
