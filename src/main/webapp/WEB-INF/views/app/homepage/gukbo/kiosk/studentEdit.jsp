@@ -784,7 +784,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 										<form:input path="student_family_count" cssClass="inputText1" numberOnly="true" title="참여가족인원수"/>
 									</div>
 									<div class="PT20">
-										<h3>참여가족 팀명</h3>
+										<h3>참여가족 구성원</h3>
 										<form:input path="student_family_team" cssClass="inputText1"/>
 									</div>
 									</c:if>
@@ -1057,7 +1057,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 											<form:input path="student_family_count" cssClass="inputText2" numberOnly="true" title="참여가족인원수"/>
 										</div>
 										<div class="PT20">
-											<h3>참여가족 팀명</h3>
+											<h3>참여가족 구성원</h3>
 											<form:input path="student_family_team" cssClass="inputText2"/>
 										</div>
 									</c:if>

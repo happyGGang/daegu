@@ -138,6 +138,9 @@ public class StudentWorkbook {
 		if ( StringUtils.equals(teach.getFamily_count_yn(), "Y")) {
 			workbook.getSheet(0).setColumnView(column, 20);
 			workbook.getSheet(0).addCell(new Label(column++, 1, "가족인원수", format));
+
+			workbook.getSheet(0).setColumnView(column, 20);
+			workbook.getSheet(0).addCell(new Label(column++, 1, "가족구성원", format));
 		}
 		if ( StringUtils.equals(teach.getSchool_info_yn(), "Y")) {
 			workbook.getSheet(0).setColumnView(column, 20);
@@ -295,6 +298,7 @@ public class StudentWorkbook {
 			}
 			if ( StringUtils.equals(teach.getFamily_count_yn(), "Y")) {
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_family_count(), format1));
+				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_family_team(), format1));
 			}
 			if ( StringUtils.equals(teach.getSchool_info_yn(), "Y")) {
 				workbook.getSheet(0).addCell(new Label(column++, row, org.getStudent_school(), format1));
