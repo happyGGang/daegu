@@ -11,7 +11,20 @@ $(function() {
 	$('a#search-btn').on('click', function(e) {
 		e.preventDefault();
 		$('input#viewPage').val('1');
-		doGetLoad('index.do', serializeCustom($('#librarySearch')));
+
+		var searchType = $('input[name="search_type"]:checked').val();
+
+		if (searchType == '6') {
+			var startDate = $('#search_year1').val() + '-' + $('#search_month1').val() + '-01';
+			var endDate = $('#search_year2').val() + '-' + $('#search_month2').val() + '-31';
+			$('#startDate').val(startDate);
+			$('#endDate').val(endDate);
+
+			doGetLoad('index.do', serializeCustom($('#librarySearch')));
+		} else {
+			doGetLoad('index.do', serializeCustom($('#librarySearch')));
+		}
+
 	});
 
 	//이미지 목록형
@@ -46,7 +59,8 @@ $(function() {
 	<form:hidden path="viewPage"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="subjectCode"/>
-	
+	<form:hidden path="startDate"/>
+	<form:hidden path="endDate"/>
 
 	<!-- contents-title-->
 	<div id="contents-title">
@@ -81,10 +95,58 @@ $(function() {
 				<form:radiobutton path="search_type" value="1" title="1주전" label="1주전"/>
 				<form:radiobutton path="search_type" value="2" title="2주전" label="2주전"/>
 				<form:radiobutton path="search_type" value="3" title="1달전" label="1달전"/>
-				<form:radiobutton path="search_type" value="4" title="2달전" label="2달전"/>
+				<form:radiobutton path="search_type" value="4" title="2달전" label="2달전"/><br>
 				<c:if test="${homepagePath eq 'gukbo'}">
 					<form:radiobutton path="search_type" value="5" title="6달전" label="6달전"/>
 				</c:if>
+				<form:radiobutton path="search_type" value="6" title="날짜선택" label="날짜선택"/>
+				<div class="monthYear">
+					<select id="search_year1">
+						<option value="2018">2018년</option>
+						<option value="2019">2019년</option>
+						<option value="2020">2020년</option>
+						<option value="2021">2021년</option>
+						<option value="2022">2022년</option>
+						<option value="2023">2023년</option>
+					</select>
+					<select id="search_month1">
+						<option value="01">1월</option>
+						<option value="02">2월</option>
+						<option value="03">3월</option>
+						<option value="04">4월</option>
+						<option value="05">5월</option>
+						<option value="06">6월</option>
+						<option value="07">7월</option>
+						<option value="08">8월</option>
+						<option value="09">9월</option>
+						<option value="10">10월</option>
+						<option value="11">11월</option>
+						<option value="12">12월</option>
+					</select>
+					<br>~
+					<select id="search_year2">
+						<option value="2018">2018년</option>
+						<option value="2019">2019년</option>
+						<option value="2020">2020년</option>
+						<option value="2021">2021년</option>
+						<option value="2022">2022년</option>
+						<option value="2023">2023년</option>
+					</select>
+					<select id="search_month2">
+						<option value="01">1월</option>
+						<option value="02">2월</option>
+						<option value="03">3월</option>
+						<option value="04">4월</option>
+						<option value="05">5월</option>
+						<option value="06">6월</option>
+						<option value="07">7월</option>
+						<option value="08">8월</option>
+						<option value="09">9월</option>
+						<option value="10">10월</option>
+						<option value="11">11월</option>
+						<option value="12">12월</option>
+					</select>
+				</div>
 			</td>
 			</tr>
 			<tr>

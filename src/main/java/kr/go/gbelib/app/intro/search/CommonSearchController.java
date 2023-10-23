@@ -1320,24 +1320,30 @@ public class CommonSearchController extends BaseController {
 					SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 
 					int beforeDays = -60;
-					if (librarySearch.getSearch_type().equals("1")) {
-						//1주전
-						beforeDays = -7;
-					} else if (librarySearch.getSearch_type().equals("2")) {
-						//2주전
-						beforeDays = -14;
-					} else if (librarySearch.getSearch_type().equals("3")) {
-						//1달전
-						beforeDays = -30;
-					} else if (librarySearch.getSearch_type().equals("4")) {
-						//2달전
-						beforeDays = -60;
-					} else if (librarySearch.getSearch_type().equals("5")) {
-						//2달전
-						beforeDays = -180;
-					} 
-					librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
-					librarySearch.setSearch_end_date(sf.format(new Date()));
+					if (!librarySearch.getSearch_type().equals("6")){
+						if (librarySearch.getSearch_type().equals("1")) {
+							//1주전
+							beforeDays = -7;
+						} else if (librarySearch.getSearch_type().equals("2")) {
+							//2주전
+							beforeDays = -14;
+						} else if (librarySearch.getSearch_type().equals("3")) {
+							//1달전
+							beforeDays = -30;
+						} else if (librarySearch.getSearch_type().equals("4")) {
+							//2달전
+							beforeDays = -60;
+						} else if (librarySearch.getSearch_type().equals("5")) {
+							//2달전
+							beforeDays = -180;
+						}
+						librarySearch.setSearch_start_date(sf.format(DateUtils.addDays(new Date(), beforeDays)));
+						librarySearch.setSearch_end_date(sf.format(new Date()));
+					} else if (librarySearch.getSearch_type().equals("6")) {
+						//기간설정
+						librarySearch.setSearch_start_date(librarySearch.getStartDate());
+						librarySearch.setSearch_end_date(librarySearch.getEndDate());
+					}
 				}
 
 				//서지형태 분류코드 설정.

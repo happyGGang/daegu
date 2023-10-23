@@ -186,6 +186,8 @@ public class LibrarySearch extends PagingUtils {
 	private String imgUrl;
 	private String locKey;
 	private String locName;
+	private String startDate;
+	private String endDate;
 
 	public String getSearchType() {
 		return searchType;
@@ -1326,6 +1328,20 @@ public class LibrarySearch extends PagingUtils {
 	public void setLocName(String locName) {
 		this.locName = locName;
 	}
-	
-	
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 }
