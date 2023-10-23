@@ -32,6 +32,7 @@ $(document).ready(function() {
 		$form.prop('action', '../search/index.do');
 		</c:when>
 		<c:otherwise>
+		$('input[name="com_code"]').val('');
 		$form.prop('action', 'index.do');
 		</c:otherwise>
 		</c:choose>
