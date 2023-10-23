@@ -1325,7 +1325,18 @@ function isFromFridayToSunday() {
 
 											<p><font style="color:#5e5e5e;">저자</font> : ${i.AUTHOR}</p>
 											<p><font style="color:#5e5e5e">발행처</font> : ${i.PUBLISHER}, ${i.PUB_YEAR}</p>
-											<p><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">자료실</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p>
+                      
+											<p><font style="color:#5e5e5e">소장처</font> : <span style="color:#ff0000;font-weight:bold">${i.LIB_NAME}</span> / <font style="color:#5e5e5e">자료실</font> : 
+											<c:choose>
+												<c:when test="${homepage.context_path eq 'namic'}">
+													<span style="font-weight:bold; font-size: 17px; color: #0000ff;">
+												</c:when>
+												<c:otherwise>
+													<span style="font-weight:800;">
+												</c:otherwise>
+											</c:choose>
+											${i.SHELF_LOC_NAME}</span></p>
+
 											<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
 											<p><font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}</p>
 											<c:if test="${i.SHELF_LOC_CODE ne 'AD36'}">
@@ -1340,9 +1351,6 @@ function isFromFridayToSunday() {
 													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'BN' and i.SHELF_LOC_CODE eq 'BN13'}">
 													<span style="color:#ff0000">대출불가(서대구역 스마트도서관 이용가능)</span>
-													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'BT' and i.SHELF_LOC_CODE eq 'BT10'}">
-													<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
 														<c:choose>
@@ -1869,4 +1877,3 @@ function isFromFridayToSunday() {
 	</div>
 </form:form>
 <div id="vk"></div>
-

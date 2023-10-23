@@ -278,7 +278,9 @@
 					<!--<option value="BY">달서가족문화도서관</option>-->
 					<option value="BZ">달서영어도서관</option>
 				</select>
-* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+        <br>
+        * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
+        * 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
 				<form:select path="manageCode">
@@ -538,4 +540,3 @@
 	</c:otherwise>
 </c:choose>
 </div>
-

@@ -227,34 +227,34 @@ public class BoardApiService extends BaseService {
 					Map<String,Object> resultMapList = new HashMap<String,Object>();
 					
 					if(StringUtils.isNotEmpty(list.get(i).getPreview_img())) {
-						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/data/board/"+list.get(i).getManage_idx()+"/"+list.get(i).getBoard_idx()+"/"+list.get(i).getPreview_img());
+						resultMapList.put("image_url", "https://library.daegu.go.kr/data/board/"+list.get(i).getManage_idx()+"/"+list.get(i).getBoard_idx()+"/"+list.get(i).getPreview_img());
 					} else {
-						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/resources/common/img/noimg-gall.png");
+						resultMapList.put("image_url", "https://library.daegu.go.kr/resources/common/img/noimg-gall.png");
 					}
 					
 					if(StringUtils.isNotEmpty(list.get(i).getTitle())) {
-						resultMapList.put("제목", list.get(i).getTitle());
+						resultMapList.put("title", list.get(i).getTitle());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_3())) {
-						resultMapList.put("저자", list.get(i).getImsi_v_3());
+						resultMapList.put("author", list.get(i).getImsi_v_3());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_4())) {
-						resultMapList.put("출판사", list.get(i).getImsi_v_4());
+						resultMapList.put("publisher", list.get(i).getImsi_v_4());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_2())) {
-						resultMapList.put("출판년도", list.get(i).getImsi_v_2());
+						resultMapList.put("pubyear", list.get(i).getImsi_v_2());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_6())) {
-						resultMapList.put("소장자료실", list.get(i).getImsi_v_6());
+						resultMapList.put("loc_name", list.get(i).getImsi_v_6());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_7())) {
-						resultMapList.put("청구기호", list.get(i).getImsi_v_7());
+						resultMapList.put("call_no", list.get(i).getImsi_v_7());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
-						resultMapList.put("상세내용", list.get(i).getContent());
+						resultMapList.put("contents", list.get(i).getContent());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_8())) {
-						resultMapList.put("등록번호", list.get(i).getImsi_v_8());
+						resultMapList.put("reg_no", list.get(i).getImsi_v_8());
 					}
 					
 					resultList.add(i, resultMapList);
@@ -293,28 +293,28 @@ public class BoardApiService extends BaseService {
 					Map<String,Object> resultMapList = new HashMap<String,Object>();
 					
 					if(StringUtils.isNotEmpty(list.get(i).getPreview_img())) {
-						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/data/board/"+list.get(i).getManage_idx()+"/"+list.get(i).getBoard_idx()+"/"+list.get(i).getPreview_img());
+						resultMapList.put("image_url", "https://library.daegu.go.kr/data/board/"+list.get(i).getManage_idx()+"/"+list.get(i).getBoard_idx()+"/"+list.get(i).getPreview_img());
 					} else {
-						resultMapList.put("이미지 경로", "https://library.daegu.go.kr/resources/common/img/noimg-gall.png");
+						resultMapList.put("image_url", "https://library.daegu.go.kr/resources/common/img/noimg-gall.png");
 					}
 					
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_4())) {
-						resultMapList.put("ebook url", list.get(i).getImsi_v_4());
+						resultMapList.put("url1", list.get(i).getImsi_v_4());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_6())) {
-						resultMapList.put("해제사항 url", list.get(i).getImsi_v_6());
+						resultMapList.put("url2", list.get(i).getImsi_v_6());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getTitle())) {
-						resultMapList.put("제목", list.get(i).getTitle());
+						resultMapList.put("title", list.get(i).getTitle());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_2())) {
-						resultMapList.put("저자", list.get(i).getImsi_v_2());
+						resultMapList.put("author", list.get(i).getImsi_v_2());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_3())) {
-						resultMapList.put("발행사항", list.get(i).getImsi_v_3());
+						resultMapList.put("pubdata", list.get(i).getImsi_v_3());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
-						resultMapList.put("내용", list.get(i).getContent());
+						resultMapList.put("contents", list.get(i).getContent());
 					}
 					
 					resultList.add(i, resultMapList);

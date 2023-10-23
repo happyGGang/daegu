@@ -53,8 +53,14 @@ public class ApiController extends BaseController {
 	@Autowired
 	private NearbyLibService neigborhoodLibraryService;
 	
-//	@Autowired
-//	private NearbyLibService neabyLibService;
+	@Autowired
+	private InternationalTeachApiService internationalTeachApiService;
+	
+	@Autowired
+	private InternationalBookApiService internationalBookApiService;
+	
+	@Autowired
+	private OldBookApiService oldBookApiService;
 	
 	@Autowired
 	private BookOfFamousService bookOfFamousService;
@@ -180,26 +186,29 @@ public class ApiController extends BaseController {
 		return neigborhoodLibraryService.getReserveList(nearbyLib);
 	}
 	
-//	@RequestMapping(value = {"nearbyLib/edit.*"})
-//	public @ResponseBody Map<String, Object> nearbyLibEdit(NearbyLib neighborhoodLibrary, HttpServletRequest request, HttpServletResponse response) {
-//		return neabyLibService.updateNearbyLibApi(neighborhoodLibrary);
-//	}
-	
-//	@RequestMapping(value = {"nearbyLibCheck/edit.*"})
-//	public @ResponseBody Map<String, Object> nearbyLibCheckLocker(@RequestParam(required = false)String pass, HttpServletRequest request, HttpServletResponse response) {
-//		NearbyLib neighborhoodLibrary = new NearbyLib();
-//		neighborhoodLibrary.setDevice_password(Integer.parseInt(String.valueOf(pass).substring(0, 4)));
-//		neighborhoodLibrary.setLocker_idx(Integer.parseInt(String.valueOf(pass).substring(4, 7)));
-//		neighborhoodLibrary.setDevice_idx(Integer.parseInt(String.valueOf(pass).substring(7)));
-//		
-//		return neabyLibService.checkReserveLocker(neighborhoodLibrary);
-//	}
-	
 	@RequestMapping(value = {"bookOfFamous.*"})
 	public @ResponseBody Map<String, Object> bookOfFamousList(BookOfFamous bookOfFamous, HttpServletRequest request, HttpServletResponse response) {
 	
 		return bookOfFamousService.getBookOfFamousListApi(bookOfFamous);
 	}
+	
+//	@RequestMapping(value = {"internationalDataRoom.*"})
+//	public @ResponseBody InternationalTeachXmlResult internationalDataRoomList(Teach teach, HttpServletRequest request, HttpServletResponse response) {
+//	
+//		return internationalTeachApiService.internationalDataRoomList(teach, request, response);
+//	}
+//	
+//	@RequestMapping(value = {"internationalBook.*"})
+//	public @ResponseBody InternationalBookXmlResult internationalBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
+//	
+//		return internationalBookApiService.internationalBookList(board, request, response);
+//	}
+//	
+//	@RequestMapping(value = {"oldBook.*"})
+//	public @ResponseBody OldBookXmlResult oldBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
+//	
+//		return oldBookApiService.oldBookList(board, request, response);
+//	}
 	
 	@RequestMapping(value = {"internationalDataRoom.*"})
 	public @ResponseBody Map<String, Object> internationalDataRoomList(Teach teach, HttpServletRequest request, HttpServletResponse response) {
