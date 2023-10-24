@@ -224,6 +224,8 @@ public class TeachApiService extends BaseService{
 						resultMapList.put("image_url", "https://library.daegu.go.kr/data/teach/h50/img/"+teachList.get(i).getImage_server_file_name());
 					}
 					
+					resultMapList.put("detail_url", "https://library.daegu.go.kr/beomeo/module/teach/detail.do??menu_idx=178&homepage_id=h50&group_idx="+teachList.get(i).getGroup_idx()+"&category_idx="+teachList.get(i).getCategory_idx()+"&teach_idx="+teachList.get(i).getTeach_idx()+"&large_category_idx="+teachList.get(i).getLarge_category_idx());
+					
 					resultList.add(i, resultMapList);
 				}
 				
