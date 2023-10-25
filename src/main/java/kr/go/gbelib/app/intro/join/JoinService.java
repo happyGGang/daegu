@@ -215,12 +215,6 @@ public class JoinService extends BaseService {
 			if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
 				age--;
 			}
-			if(session.getAttribute("certType").equals("certSms") && age < 20){
-				member.setCertComplete(false);
-			}
-			if(session.getAttribute("certType").equals("parentSms") && age < 20){
-				member.setCertComplete(false);
-			}
 			if (age >= 20) {
 				age = 7;
 			} else if (age <= 13) {
@@ -400,12 +394,6 @@ public class JoinService extends BaseService {
 			if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
 				age--;
 			}
-			if(session.getAttribute("certType").equals("certSms") && age < 20){
-				member.setCertComplete(false);
-			}
-			if(session.getAttribute("certType").equals("parentSms") && age < 20){
-				member.setCertComplete(false);
-			}
 			if (age >= 20) {
 				age = 7;
 			} else if (age <= 13) {
@@ -546,12 +534,6 @@ public class JoinService extends BaseService {
 					// 생일 안 지난 경우 -1
 					if (birthMonth * 100 + birthDay > currentMonth * 100 + currentDay) {
 						age--;
-					}
-					if(session.getAttribute("certType").equals("certGpin") && age < 20){
-						member.setCertComplete(false);
-					}
-					if(session.getAttribute("certType").equals("parentGpin") && age < 20){
-						member.setCertComplete(false);
 					}
 					if (age >= 20) {
 						age = 7;//성인
