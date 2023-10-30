@@ -78,9 +78,9 @@ ${boardManage.top_html}
 								<br class="lachibr"/>
 							</div>
 							<div class="buttonbox">
-								<a href="${i.imsi_v_4}" class="btn link2 small">E-BOOK 보기</a>
+								<a href="${i.imsi_v_4}" class="btn link2 small" target="_blank">E-BOOK 보기</a>
 
-								<a href="${i.imsi_v_6}" class="btn link2 small">해제 자료 보기</a>
+								<a href="${i.imsi_v_6}" class="btn link2 small" target="_blank">해제 자료 보기</a>
 							</div>
 						</div>
 					</li>

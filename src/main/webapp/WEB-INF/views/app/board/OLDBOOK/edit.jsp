@@ -56,13 +56,13 @@
 			<tr>
 				<th>ebook url 입력</th>
 				<td colspan="3">
-					<form:input path="imsi_v_4" cssClass="text" title="ebook url 입력"/>
+					<form:input path="imsi_v_4" cssClass="text" cssStyle="width:100%;" title="ebook url 입력"/>
 				</td>
 			</tr>
 			<tr>
 				<th>해제사항 url 입력</th>
 				<td colspan="3">
-					<form:input path="imsi_v_6" cssClass="text" title="해제사항 url 입력"/>
+					<form:input path="imsi_v_6" cssClass="text" cssStyle="width:100%;" title="해제사항 url 입력"/>
 				</td>
 			</tr>
 			<tr>

@@ -1335,7 +1335,7 @@ function isFromFridayToSunday() {
 													<span style="font-weight:800;">
 												</c:otherwise>
 											</c:choose>
-											${i.SHELF_LOC_NAME}</span></p>
+											${i.SHELF_LOC_NAME}</span> <c:if test="${i.MANAGE_CODE eq 'AD'}"><c:if test="${i.SHELF_LOCATION_KEY ne null && i.SHELF_LOCATION_KEY ne ''}">/ <font style="color:#5e5e5e">서가위치</font> : <span style="font-weight:800;">${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}</span></c:if></c:if></p>
 
 											<p><font style="color:#5e5e5e">청구기호</font> : ${i.CALL_NO}</p>
 											<p><font style="color:#5e5e5e">등록번호</font> : ${i.REG_NO}</p>
