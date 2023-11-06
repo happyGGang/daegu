@@ -6,7 +6,7 @@
 		${pagingTop}
 		SELECT
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no, book_call_no,
-			book_name, thumb_image, request_status, add_date, add_id
+			book_name, thumb_image, request_status, add_date, add_id, request_phone
 		FROM
 			BOOK_EXPRESS
 		WHERE
@@ -61,12 +61,12 @@
 			BOOK_EXPRESS
 		(
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no, book_call_no,
-			book_name, thumb_image, request_status, add_date, add_id
+			book_name, thumb_image, request_status, add_date, add_id, request_phone
 		)
 		VALUES
 		(
 			#{book_express_idx}, #{library_code}, #{agency_name}, #{agency_id}, #{book_reg_no}, #{book_call_no},
-			#{book_name}, #{thumb_image}, 0, SYSDATE, #{add_id}
+			#{book_name}, #{thumb_image}, 0, SYSDATE, #{add_id}, #{request_phone}
 		)
 	</insert>
 	
@@ -116,7 +116,7 @@
 		SELECT
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
-			request_name, reason, add_date, add_id
+			request_name, reason, add_date, add_id, request_phone
 		FROM
 			BOOK_EXPRESS
 		WHERE
@@ -213,7 +213,8 @@
 		UPDATE
 			BOOK_EXPRESS
 		SET
-			request_name = #{request_name}
+			request_name = #{request_name},
+			request_phone = #{request_phone}
 		WHERE
 			
 		<choose>
@@ -243,7 +244,7 @@
 		SELECT
 			book_express_idx, library_code, homepage_name, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
-			request_name, reason, add_date, add_id
+			request_name, reason, add_date, add_id, request_phone
 		FROM
 			BOOK_EXPRESS be, CMS_HOMEPAGE ch
 		WHERE
@@ -276,13 +277,13 @@
 		(
 			book_express_idx, library_code, agency_name, agency_id, book_reg_no,
 			book_call_no, book_name, thumb_image, request_status, request_date,
-			request_name, reason, add_date, add_id, modify_date, modify_id
+			request_name, reason, add_date, add_id, modify_date, modify_id, request_phone
 		)
 		VALUES
 		(
 			#{book_express_idx}, #{library_code}, #{agency_name}, #{agency_id}, #{book_reg_no},
 			#{book_call_no}, #{book_name}, #{thumb_image}, #{request_status}, #{request_date},
-			#{request_name}, #{reason}, #{add_date}, #{add_id}, #{modify_date}, #{modify_id}
+			#{request_name}, #{reason}, #{add_date}, #{add_id}, #{modify_date}, #{modify_id}, #{request_phone}
 		)
 	</insert>
 	

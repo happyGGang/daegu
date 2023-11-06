@@ -70,10 +70,7 @@ $(function() {
 			$('input[name="book_express_arr"]:checked').each(function(){
 				express_idx.push($(this).val());
 			});
-				console.log("배열결과 : " )
-				console.log( express_idx);
 				$('#book_express_arr').val(express_idx);
-				console.log("ajax시작");
 				$('#editMode').val('REQUEST');
 				$('#request_name').val(txt_name);
 				$('#request_phone').val(txt_phone);
@@ -176,9 +173,7 @@ $(function() {
 <div>
 	<table class="type2 center">
 		<colgroup>
-<%-- 			<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
-				<col width="60" />
-<%-- 			</c:if> --%>
+			<col width="60" />
 			<col width="70" />
 			<col width="*" />
 			<col width="170" />
@@ -188,9 +183,7 @@ $(function() {
 		</colgroup>
 		<thead>
 			<tr>
-<%-- 			<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
 				<th>선택</th>
-<%-- 			</c:if> --%>
 				<th>번호</th>
 				<th>도서정보</th>
 				<th>요청학교/신청자</th>
@@ -202,9 +195,7 @@ $(function() {
 		<tbody>
 			<c:forEach items="${bookExpressList}" var="i" varStatus="status">
 			<tr>
-<%-- 				<c:if test="${loginPortal.auth_group eq '1' or loginPortal.auth_group eq '2'}"> --%>
-					<td><form:checkbox path="book_express_arr" cssClass="book_check" value="${i.book_express_idx}"/></td>
-<%-- 				</c:if> --%>
+				<td><form:checkbox path="book_express_arr" cssClass="book_check" value="${i.book_express_idx}"/></td>
 				<td class="num">${paging.listRowNum - status.index}</td>
 				<td class="left">
 					<c:forEach items="${homepageList}" var="j">
@@ -241,7 +232,7 @@ $(function() {
 						${i.request_phone}
 						</c:when>
 						<c:otherwise>
-						담당자 정보없음
+							등록된 정보없음
 						</c:otherwise>
 					</c:choose>
 				</td>
