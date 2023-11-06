@@ -161,10 +161,10 @@ do {
 									</a>
 								</li>
 								<li class="bg-white">
-									<a href="https://www.youth.go.kr/youth/eYouth/main/main.yt?curMenuSn=undefined">
+									<!--<a href="https://www.youth.go.kr/youth/eYouth/main/main.yt?curMenuSn=undefined">
 									<span class="wt">자원봉사</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick04-bg.png" class="mi">
-									</a>
+									</a>-->
 								</li>
 								<li class="bg-orange">
 									<a href="/${homepage.context_path}/elib.do?menu_idx=46">
