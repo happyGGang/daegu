@@ -68,60 +68,6 @@
 			$('form#bookListForm').submit();
 			$('form#bookListForm').prop('action', 'index.do');
 		});
-
-		<c:if test="${book.type != 'WEB'}">
-		/*웹접근성 커스텀 셀렉트 박스*/
-		/*function wrapNum(str, val) {
-			if (!val || str.toLowerCase().indexOf(val.toLowerCase()) === -1) {
-				return str;
-			}
-			var regex = new RegExp(val, 'i');
-			return str.replace(regex, '<span class="underline">$&</span>');
-		}
-
-		var box = {
-			'single': new Combobo({
-				input: '#combobox-single',
-				list: '.bands .listbox',
-				activeClass: 'active',
-				noResultsText: '검색 결과가 없습니다.',
-				optionValue: 'underline'
-//		,selectionValue: function(option) {
-//			  var inputVal = box.single.input.value;
-//	          return wrapNum(option.getAttribute("data-value"), inputVal);
-//		}
-			}).on('selection', function(e) {
-				var value = e.option.getAttribute("data-value");
-				$('input#library_code').val(value);
-				changeLibrary();
-			})
-		};
-		/*********************************/
-		/*function groupChangeHandler(newGroup) {
-			var groupLabel = newGroup.querySelector('.optgroup-label').innerText;
-			var len = Array.prototype.slice.call(
-					newGroup.querySelectorAll('.option')
-			).filter(function (opt) {
-				return opt.style.display !== 'none';
-			}).length;
-
-			return groupLabel + ' group entered, with ' + len + ' options.';
-		}
-
-		window.box = box;
-
-		// handle trigger clicks to toggle state of its combobox
-		Array.prototype.slice.call(
-				document.querySelectorAll('.trigger')
-		).forEach(function (trigger) {
-			var instName = trigger.getAttribute('data-trigger');
-			var inst = box[instName];
-			trigger.addEventListener('click', function (e) {
-				e.stopPropagation();
-				inst[inst.isOpen ? 'closeList' : 'openList']();
-			});
-		});*/
-		</c:if>
 	});
 
 	function changeLibrary() {
@@ -133,7 +79,6 @@
 <c:choose>
 	<c:when test="${book.menu == 'CATEGORY'}">
 		<div class="elib_cate">
-				<%--	<h2>${book.parent_name}</h2> --%>
 			<table class="bestbook_l_table">
 				<tr>
 					<c:forEach items="${categoryBestBookList}" var="i" varStatus="status">
@@ -143,7 +88,6 @@
 					</c:forEach>
 				</tr>
 			</table>
-
 
 			<div class="bestbook_l">
 				<ul>
@@ -183,7 +127,6 @@
 	<c:when test="${book.menu == 'PROVIDER'}">
 		<div class="elib_cate">
 			<br/>
-				<%--	<h2>${book.comp_name}</h2> --%>
 			<h2>공급사</h2>
 			<div class="box">
 				<c:forEach items="${compList}" var="i" varStatus="status">
@@ -197,7 +140,6 @@
 	<c:when test="${book.menu == 'DEVICE'}">
 		<div class="elib_cate">
 			<br/>
-				<%--	<h2>${book.comp_name}</h2> --%>
 			<h2>지원 기기</h2>
 			<div class="box">
 				<c:forEach items="${deviceList}" var="i" varStatus="status">
@@ -209,7 +151,6 @@
 	<c:when test="${book.menu == 'LIBRARY'}">
 		<div class="elib_cate">
 			<br/>
-				<%--	<h2>${book.comp_name}</h2> --%>
 			<h2>도서관</h2>
 			<div class="box">
 				<c:forEach items="${libraryList}" var="i" varStatus="status">
@@ -370,7 +311,7 @@
 				<div class="list-body">
 					<div class="flexbox">
 						<a href="#" class="book_link" data-book_idx="${i.book_idx}">
-							<b>${fn:escapeXml(i.book_name)}</b>
+							<b>${fn:substring(i.book_name, 0, 42)}<c:if test="${fn:length(i.book_name) > 42}">...</c:if></b>
 						</a>
 						<div class="info">
 							<span>${fn:escapeXml(i.book_pubname)}</span>
