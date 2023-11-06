@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.intro.join;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -579,9 +580,32 @@ public class JoinController extends BaseController {
 			model.addAttribute("parent", true);
 			request.getSession().setAttribute("parentInfo", member);
 		} else if (!StringUtils.isEmpty(certType) && !certType.contains("parent")) {
+			if(StringUtils.isNotEmpty(member.getBirth_day())) {
+				String birth = member.getBirth_day();
+				int birthday_year = Integer.parseInt(birth.substring(0, 4));
+				int birthday_month = Integer.parseInt(birth.substring(4, 6));
+				int birthday_day = Integer.parseInt(birth.substring(6, 8));
+					
+				Calendar current = Calendar.getInstance();
+		        
+		        int currentYear  = current.get(Calendar.YEAR);
+		        int currentMonth = current.get(Calendar.MONTH) + 1;
+		        int currentDay   = current.get(Calendar.DAY_OF_MONTH);
+		        
+		        int age = currentYear - birthday_year;
+		        
+		        //생일지났는지 확인
+		        if(birthday_month * 100 + birthday_day > currentMonth * 100 + currentDay) {
+		        	age --;
+		        }
+		        
+		        if(age <= 14){
+		        	model.addAttribute("certFailed", "ageCheck");
+		        }
+			}
+			
 			if(member.getPrivateMemberYn(homepage)) {
 				// 2. ci중복자 확인
-				//TODO 시립또는 구군립 회원이 사립도서관을 가입할때
 				List<Map<String, Object>> memberInfo = MemberAPI.checkDupUser("1", member);
 				if (memberInfo != null && memberInfo.size() > 0) {
 					certLogService.addLog(new CertLog(mode, certType, member.getMember_name(), member.getBirth_day(), member.getCell_phone(), member.getCi_value(), "", request.getRemoteAddr()));
@@ -697,7 +721,6 @@ public class JoinController extends BaseController {
 		String mode = String.valueOf(request.getSession().getAttribute("certMode")).toLowerCase();
 		boolean certResult = false;
 
-		Homepage homepage = getSessionHomepage(request);
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
 			member = joinService.smsCertProc2(request, member);
 		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {

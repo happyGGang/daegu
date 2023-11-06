@@ -12,6 +12,10 @@ $(function() {
 		alert('인증에 실패하였습니다. 다시 시도해주세요.');
 		window.close();
 		return false;
+	} else if('${certFailed}' == 'ageCheck'){
+		alert('14세 미만 이용자는 보호자(법정대리인) 인증이 필수입니다.');
+		window.close();
+		return false;
 	} else {
 		if (window.opener.location.href.indexOf('integration1.do') > -1) {
 			window.opener.$('form#certForm').attr('action', 'integration2.do');
