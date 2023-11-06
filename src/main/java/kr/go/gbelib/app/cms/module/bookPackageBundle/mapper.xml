@@ -516,7 +516,7 @@
 			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size,
 			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
 			c.phone, c.school_tel, c.request_content, c.request_status, c.return_yn,
-			c.add_id, c.add_date, c.school_name, c.request_name
+			c.add_id, c.add_date, c.school_name, c.request_name, c.loan_place
 			]]>
 		FROM
 			BOOK_PACKAGE_BUNDLE a, BUNDLE_LIST b, BOOK_PACKAGE_BUNDLE_LOAN c
@@ -553,7 +553,7 @@
 			b.doc_server_file_name, b.doc_file_extension, b.doc_file_size,
 			TO_CHAR(c.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(c.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
 			c.phone, c.school_tel, c.request_content, c.request_status, c.return_yn,
-			c.add_id, c.add_date, c.school_name, c.request_name
+			c.add_id, c.add_date, c.school_name, c.request_name, c.loan_place
 			]]>
 		FROM
 			BOOK_PACKAGE_BUNDLE a, BUNDLE_LIST b, BOOK_PACKAGE_BUNDLE_LOAN c, BOOK_PACKAGE_BUNDLE_DETAIL d

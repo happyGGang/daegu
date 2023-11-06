@@ -168,12 +168,13 @@ public class BookPackageBundleWorkbook {
 			workbook.getSheet(0).setColumnView(3,  25);
 			workbook.getSheet(0).setColumnView(4,  30);
 			workbook.getSheet(0).setColumnView(5,  20);
-			workbook.getSheet(0).setColumnView(6,  15);
+			workbook.getSheet(0).setColumnView(6,  20);
 			workbook.getSheet(0).setColumnView(7,  15);
-			workbook.getSheet(0).setColumnView(8,  30);
-			workbook.getSheet(0).setColumnView(9,  15);
-			workbook.getSheet(0).setColumnView(10,  10);
-			workbook.getSheet(0).setColumnView(11, 10);
+			workbook.getSheet(0).setColumnView(8,  15);
+			workbook.getSheet(0).setColumnView(9,  30);
+			workbook.getSheet(0).setColumnView(10,  15);
+			workbook.getSheet(0).setColumnView(11,  10);
+			workbook.getSheet(0).setColumnView(12, 10);
 			
 			// 헤더 컬럼 지정
 			workbook.getSheet(0).addCell(new Label(0, 0, "주제", format));
@@ -182,12 +183,13 @@ public class BookPackageBundleWorkbook {
 			workbook.getSheet(0).addCell(new Label(3, 0, "대출기간", format));
 			workbook.getSheet(0).addCell(new Label(4, 0, "학교명", format));
 			workbook.getSheet(0).addCell(new Label(5, 0, "신청자", format));
-			workbook.getSheet(0).addCell(new Label(6, 0, "휴대폰", format));
-			workbook.getSheet(0).addCell(new Label(7, 0, "학교 연락처", format));
-			workbook.getSheet(0).addCell(new Label(8, 0, "신청사유", format));
-			workbook.getSheet(0).addCell(new Label(9, 0, "신청일자", format));
-			workbook.getSheet(0).addCell(new Label(10, 0, "상태", format));
-			workbook.getSheet(0).addCell(new Label(11, 0, "권수", format));
+			workbook.getSheet(0).addCell(new Label(6, 0, "수령 및 반납장소", format));
+			workbook.getSheet(0).addCell(new Label(7, 0, "휴대폰", format));
+			workbook.getSheet(0).addCell(new Label(8, 0, "학교 연락처", format));
+			workbook.getSheet(0).addCell(new Label(9, 0, "신청사유", format));
+			workbook.getSheet(0).addCell(new Label(10, 0, "신청일자", format));
+			workbook.getSheet(0).addCell(new Label(11, 0, "상태", format));
+			workbook.getSheet(0).addCell(new Label(12, 0, "권수", format));
 			
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			
@@ -228,10 +230,11 @@ public class BookPackageBundleWorkbook {
 				workbook.getSheet(0).addCell(new Label(3, row, one.getLoan_start_date() + " ~ " + one.getLoan_end_date()));
 				workbook.getSheet(0).addCell(new Label(4, row, one.getSchool_name()));
 				workbook.getSheet(0).addCell(new Label(5, row, one.getRequest_name()));
-				workbook.getSheet(0).addCell(new Label(6, row, one.getPhone()));
-				workbook.getSheet(0).addCell(new Label(7, row, one.getSchool_tel()));
-				workbook.getSheet(0).addCell(new Label(8, row, one.getRequest_content()));
-				workbook.getSheet(0).addCell(new Label(9, row, sdf.format(one.getAdd_date())));
+				workbook.getSheet(0).addCell(new Label(6, row, one.getLoan_place()));
+				workbook.getSheet(0).addCell(new Label(7, row, one.getPhone()));
+				workbook.getSheet(0).addCell(new Label(8, row, one.getSchool_tel()));
+				workbook.getSheet(0).addCell(new Label(9, row, one.getRequest_content()));
+				workbook.getSheet(0).addCell(new Label(10, row, sdf.format(one.getAdd_date())));
 				String request_status = "";
 				switch (Integer.parseInt(one.getRequest_status())) {
 					case 0 :
@@ -252,9 +255,15 @@ public class BookPackageBundleWorkbook {
 					case 5 :
 						request_status = "반납요청완료";
 						break;
+					case 6 :
+						request_status = "(당일)대출중";
+						break;
+					case 7 :
+						request_status = "(당일)반납요청완료";
+						break;
 				}
-				workbook.getSheet(0).addCell(new Label(10, row, request_status));
-				workbook.getSheet(0).addCell(new Label(11, row, one.getLoan_count() + "권"));
+				workbook.getSheet(0).addCell(new Label(11, row, request_status));
+				workbook.getSheet(0).addCell(new Label(12, row, one.getLoan_count() + "권"));
 				
 				row++;
 			}

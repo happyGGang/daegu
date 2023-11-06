@@ -167,6 +167,8 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 			<form:option value="3">반납완료</form:option>
 			<form:option value="4">관리자취소</form:option>
 			<form:option value="5">반납요청완료</form:option>
+			<form:option value="6">(당일) 대출중</form:option>
+			<form:option value="7">(당일) 반납요청완료</form:option>
 		</form:select>
 		<form:select path="rowCount" cssClass="selectmenu">
 			<form:option value="10">10개씩보기</form:option>
@@ -262,6 +264,8 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 							<c:when test="${i.request_status eq '3'}"><span class="status status4">반납완료</span></c:when>
 							<c:when test="${i.request_status eq '4'}"><span class="status status5">관리자취소</span></c:when>
 							<c:when test="${i.request_status eq '5'}"><span class="status status6">반납요청완료</span></c:when>
+							<c:when test="${i.request_status eq '6'}"><span class="status status6">(당일)대출중</span></c:when>
+							<c:when test="${i.request_status eq '7'}"><span class="status status6">(당일)반납요청완료</span></c:when>
 						</c:choose>
 					</td>
 					<td>${i.loan_count}권</td>
@@ -302,6 +306,8 @@ a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 		<option value="3">반납완료</option>
 		<option value="4">관리자취소</option>
 		<option value="5">반납요청완료</option>
+		<option value="6">(당일)대출중</option>
+		<option value="7">(당일)반납요청완료</option>
 	</select>
 	<a href="#" id="status-change" class="btn btn3">선택상태변경</a>
 	</c:if>

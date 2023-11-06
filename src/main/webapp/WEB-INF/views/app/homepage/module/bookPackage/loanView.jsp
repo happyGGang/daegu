@@ -66,6 +66,8 @@ $(function() {
 					<c:when test="${bookPackage.request_status eq '3'}">반납완료</c:when>
 					<c:when test="${bookPackage.request_status eq '4'}">관리자취소</c:when>
 					<c:when test="${bookPackage.request_status eq '5'}">반납요청완료</c:when>
+					<c:when test="${bookPackageBundle.request_status eq '6'}">(당일)대출중</c:when>
+					<c:when test="${bookPackageBundle.request_status eq '7'}">(당일)반납요청완료</c:when>
 				</c:choose>
 				</td>
 			</tr>
