@@ -400,8 +400,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<form:option value="BV">달서어린이</form:option>
-				</form:select><!--<span style="color:#ff0000">  * 달서어린이도서관 23.08.21 ~ 23.09.30 까지 희망도서 신청 중지 </span>-->
+					<!--<form:option value="BV">달서어린이</form:option>-->
+				</form:select><span style="color:#ff0000">  * 달서어린이도서관 희망도서 신청 중지 </span>
 				</c:when>
 
 				<c:when test="${context_path eq 'seongseo'}">
@@ -413,8 +413,8 @@
 
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<%--<form:option value="BX">본리도서관</form:option>--%>
-				</form:select><span style="color:#ff0000">  * 본리도서관 희망도서 23.11.01. 오전 중 신청 재개 예정 입니다.</span>
+					<form:option value="BX">본리도서관</form:option>
+				</form:select><!-- <span style="color:#ff0000">  * 본리도서관 희망도서 23.11.01. 오전 중 신청 재개 예정 입니다.</span> -->
 
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
