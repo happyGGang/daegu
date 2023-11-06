@@ -455,7 +455,7 @@ do {
 							<a class="stop active" href="#stop"><i class="fa fa-pause"></i><span class="blind">정지</span></a>
 							<a class="play" href="#play"><i class="fa fa-play"></i><span class="blind">시작</span></a>
 							<a class="next" href="#next"><i class="fa fa-chevron-right"></i><span class="blind">다음</span></a>
-							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=154"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
+							<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=93"><i class="fa fa-navicon"></i><span class="blind">더보기</span></a>
 						</div>
 					</div>
 					<div class="banner-box3">
