@@ -18,15 +18,11 @@ $(function() {
 			alert('홈페이지를 선택해주세요.');
 			return false;
 		}
-// 		if($('#type_1').val() == "") {
-// 			alert('블랙리스트 구분을 선택해주세요.');
-// 			return false;
-// 		}
 		
 		$('#dialog-1').load('edit.do?editMode=ADD&homepage_id=' + $('#homepage_id').val() , function( response, status, xhr ) {
 			$('#dialog-1').dialog({
 				width: 500,
-				height: 250
+				height: 300
 			});	
 			$('#dialog-1').dialog('open');
 		});
@@ -37,7 +33,7 @@ $(function() {
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id').val() + '&black_idx=' + $(this).attr('keyValue') , function( response, status, xhr ) {
 			$('#dialog-1').dialog({
 				width: 500,
-				height: 250
+				height: 300
 			});
 			$('#dialog-1').dialog('open');
 		});
@@ -206,12 +202,11 @@ $(function() {
 		<fieldset>
 			<form:select path="search_type" cssClass="selectmenu">
 				<form:option value="member_id">사용자ID</form:option>
+				<form:option value="member_name">사용자이름</form:option>
 				<form:option value="reason">사유</form:option>
 			</form:select>
 			<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 			<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-<!-- 			<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a> -->
-<!-- 			<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a> -->
 		</fieldset>
 	</div>
 </form:form>

@@ -74,28 +74,16 @@ public class BlackListController extends BaseController{
 
 	@RequestMapping(value = { "/edit.*" }, method = RequestMethod.GET)
 	public String edit(Model model, BlackList blackList, HttpServletRequest request) throws AuthException {
-//		if ( StringUtils.isNotEmpty(blackList.getMember_key()) ) {
-//			if ( service.checkSaveBlackList(blackList) > 0 ) {
-//				blackList.setEditMode("MODIFY");
-//			}
-//		}
-
 		if (blackList.getEditMode().equals("ADD")) {
 			checkAuth("C", model, request);
 			model.addAttribute("blackListOne", blackList);
 		} else if (blackList.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			BlackList result = service.getBlackListOne(blackList);
-//			if ( StringUtils.isNotEmpty(blackList.getBlack_type()) ) {
-//				String newBlackType = String.format("%s,%s", result.getBlack_type(), blackList.getBlack_type());
-//				result.setBlack_type(newBlackType);
-//			}
-//			result.setAfter_click_btn(blackList.getAfter_click_btn());
 			model.addAttribute("blackListOne", service.copyObjectPaging(blackList, result));
 		}
 
 		model.addAttribute("blackTypeList", codeService.getCode("CMS", "C0017"));
-		//model.addAttribute("codeList", codeService.getCode(blackList.getHomepage_id(), "H0002"));
 
 		return basePath + "edit_ajax";
 	}
@@ -122,17 +110,7 @@ public class BlackListController extends BaseController{
 		Member blackListMember = new Member();
 		blackListMember.setUser_id(blackList.getMember_id());
 
-//		Map<String, String> memberInfo = null;
 		if ( blackList.getSearch_api_type().equals("WEBID") ) {
-//			blackListMember.setCheck_certify_type("WEBID");
-//			blackListMember.setCheck_certify_data(blackList.getMember_id());
-//
-//			memberInfo = MemberAPI.getMemberCertify("WEB", blackListMember);
-//
-//			if ( memberInfo == null ) {
-//				result.put("resultMsg", "해당 ID는 유효한 회원이 아닙니다.");
-//				return result;
-//			}
 		}
 		else {
 			List<Map<String, Object>> listMap = MemberAPI.checkDupUser("0", blackListMember);

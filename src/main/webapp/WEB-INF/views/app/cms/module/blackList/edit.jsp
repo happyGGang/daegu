@@ -61,25 +61,6 @@ $(function() {
 			}
 		]
 	});
-
-// 	$('#blackListEdit a.idCheck').on('click', function(e) {
-// 		$('#blackListEdit #member_name').val("");
-// 		$.get('/cms/module/blackList/checkId.do?homepage_id=' + $('#homepage_id').val() + '&member_id='+ $('#blackListEdit #member_id').val() + '&member_key='+ $('#blackListEdit #member_key').val() + '&search_api_type=' + $('[name="search_api_type"]:checked').val(), function(response) {
-// 			if ( response.resultMsg != null ) {
-// 				alert(response.resultMsg);
-// 			}
-// 			else {
-// 				$('#blackListEdit #member_key').val(response.memberInfo.SEQ_NO);
-// 				$('#blackListEdit #member_name').val(response.memberInfo.USER_NAME);
-// 			}
-// 		});
-// 		e.preventDefault();
-// 	});
-
-// 	if ('${blackListOne.member_id}'.length == 14 && ('${blackListOne.member_id}'.startsWith('***') || '${blackListOne.member_id}'.startsWith('1470'))) {
-// 		$('input#search_api_type2').prop('checked', true);
-// 	}
-
 });
 </script>
 <form:form modelAttribute="blackListOne" id="blackListEdit" method="post" action="/cms/module/blackList/save.do">
@@ -98,9 +79,6 @@ $(function() {
 	         		<c:choose>
 	         			<c:when test="${blackListOne.editMode eq 'ADD' }">
 	         				<form:input path="member_id" class="text" />
-<%-- 	         				<form:radiobutton path="search_api_type" value="ID" label="ID"/> --%>
-<%-- 	         				<form:radiobutton path="search_api_type" value="USERID" label="대출번호"/> --%>
-<!-- 	         				<a class="btn btn1 idCheck">ID 확인</a> -->
 	         			</c:when>
 	         			<c:otherwise>
 	         				${blackListOne.member_id}
@@ -108,12 +86,12 @@ $(function() {
 	         		</c:choose>
 	       		</td>
 	       	</tr>
-<!-- 	       	<tr> -->
-<!-- 				<th>신청자 성명</th> -->
-<!-- 				<td> -->
-<%-- 					<form:input path="member_name" class="text" cssStyle="width:100px" readonly="true"/> --%>
-<!-- 				</td> -->
-<!-- 			</tr> -->
+	       	<tr>
+				<th>신청자 성명</th>
+				<td>
+					<form:input path="member_name" class="text" cssStyle="width:100px"/>
+				</td>
+			</tr>
 			<tr>
 				<th>블랙 구분</th>
 				<td>
