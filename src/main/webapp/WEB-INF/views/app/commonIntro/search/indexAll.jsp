@@ -533,7 +533,7 @@
 									<form:checkbox path="libraryCodes" class="libCheck lib_AD" value="AD" label="국채보상운동기념도서관" />
 								</li>
 							</c:if>
-							<c:if test="${homepage.context_path eq 'gw'}">
+							<c:if test="${homepage.context_path eq 'gw' or (empty loginPortal or !loginPortal.login)}">
 								<li>
 									<form:checkbox path="libraryCodes" class="libCheck lib_AM" value="AM" label="대구광역시교육청 삼국유사군위도서관" />
 								</li>
