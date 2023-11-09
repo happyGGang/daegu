@@ -574,34 +574,93 @@ public class JoinController extends BaseController {
 		request.getSession().setAttribute("certMember", member);
 		request.getSession().setAttribute("certType", certType);
 		model.addAttribute("parent", false);
-
+		
 		if (!StringUtils.isEmpty(certType) && certType.contains("parent")) {
 			// 보호자 인증
 			model.addAttribute("parent", true);
 			request.getSession().setAttribute("parentInfo", member);
+			request.getSession().setAttribute("parentAgree", true);
+			
 		} else if (!StringUtils.isEmpty(certType) && !certType.contains("parent")) {
-			if(StringUtils.isNotEmpty(member.getBirth_day())) {
-				String birth = member.getBirth_day();
-				int birthday_year = Integer.parseInt(birth.substring(0, 4));
-				int birthday_month = Integer.parseInt(birth.substring(4, 6));
-				int birthday_day = Integer.parseInt(birth.substring(6, 8));
+			
+			try {
+				if(request.getSession().getAttribute("parentAgree") != null) {
+					boolean parentAgree = (boolean) request.getSession().getAttribute("parentAgree");
 					
-				Calendar current = Calendar.getInstance();
-		        
-		        int currentYear  = current.get(Calendar.YEAR);
-		        int currentMonth = current.get(Calendar.MONTH) + 1;
-		        int currentDay   = current.get(Calendar.DAY_OF_MONTH);
-		        
-		        int age = currentYear - birthday_year;
-		        
-		        //생일지났는지 확인
-		        if(birthday_month * 100 + birthday_day > currentMonth * 100 + currentDay) {
-		        	age --;
-		        }
-		        
-		        if(age <= 14){
-		        	model.addAttribute("certFailed", "ageCheck");
-		        }
+					if(!parentAgree) {
+						 if(StringUtils.isNotEmpty(member.getBirth_day())) {
+							 String birth = member.getBirth_day();
+							 int birthday_year = Integer.parseInt(birth.substring(0, 4));
+							 int birthday_month = Integer.parseInt(birth.substring(4, 6));
+							 int birthday_day = Integer.parseInt(birth.substring(6, 8));
+								  
+							 Calendar current = Calendar.getInstance();
+								  
+							 int currentYear = current.get(Calendar.YEAR);
+							 int currentMonth = current.get(Calendar.MONTH) + 1;
+							 int currentDay = current.get(Calendar.DAY_OF_MONTH);
+								  
+							 int age = currentYear - birthday_year;
+								  
+							 //생일지났는지 확인
+							 if(birthday_month * 100 + birthday_day > currentMonth * 100 + currentDay) {
+								age --; 
+							 }
+								  
+							 if(age <= 14){
+								 model.addAttribute("certFailed", "ageCheck"); 
+							 } 
+						 }
+					}
+				} else {
+					 if(StringUtils.isNotEmpty(member.getBirth_day())) {
+						 String birth = member.getBirth_day();
+						 int birthday_year = Integer.parseInt(birth.substring(0, 4));
+						 int birthday_month = Integer.parseInt(birth.substring(4, 6));
+						 int birthday_day = Integer.parseInt(birth.substring(6, 8));
+							  
+						 Calendar current = Calendar.getInstance();
+							  
+						 int currentYear = current.get(Calendar.YEAR);
+						 int currentMonth = current.get(Calendar.MONTH) + 1;
+						 int currentDay = current.get(Calendar.DAY_OF_MONTH);
+							  
+						 int age = currentYear - birthday_year;
+							  
+						 //생일지났는지 확인
+						 if(birthday_month * 100 + birthday_day > currentMonth * 100 + currentDay) {
+							age --; 
+						 }
+							  
+						 if(age <= 14){
+							 model.addAttribute("certFailed", "ageCheck"); 
+						 } 
+					 }
+				}
+			} catch (Exception e) {
+				 if(StringUtils.isNotEmpty(member.getBirth_day())) {
+					 String birth = member.getBirth_day();
+					 int birthday_year = Integer.parseInt(birth.substring(0, 4));
+					 int birthday_month = Integer.parseInt(birth.substring(4, 6));
+					 int birthday_day = Integer.parseInt(birth.substring(6, 8));
+						  
+					 Calendar current = Calendar.getInstance();
+						  
+					 int currentYear = current.get(Calendar.YEAR);
+					 int currentMonth = current.get(Calendar.MONTH) + 1;
+					 int currentDay = current.get(Calendar.DAY_OF_MONTH);
+						  
+					 int age = currentYear - birthday_year;
+						  
+					 //생일지났는지 확인
+					 if(birthday_month * 100 + birthday_day > currentMonth * 100 + currentDay) {
+						age --; 
+					 }
+						  
+					 if(age <= 14){
+						 model.addAttribute("certFailed", "ageCheck"); 
+					 } 
+				 }
 			}
 			
 			if(member.getPrivateMemberYn(homepage)) {
