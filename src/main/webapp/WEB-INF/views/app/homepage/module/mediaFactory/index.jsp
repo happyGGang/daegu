@@ -38,7 +38,7 @@
     <li>
       <div class="box">
         <p class="num">STEP 02</p>
-        이용 전 사용 매뉴얼<br>영상 시청</div>
+        이용 전 사용 매뉴얼<br><a href="https://www.youtube.com/watch?v=bfzAs0u8gG4"><strong style="color: #2b74c0;">영상 시청</strong></a></div>
     </li>
     <li>
       <div class="box">
