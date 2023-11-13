@@ -2144,6 +2144,32 @@ public class LibSearchAPI {
 
 		return cnt;
 	}
+	
+	public static int getSanghoSearchCount(Map<String, Object> map, String list_name, String count_name) {
+		int cnt = 0;
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return 0;
+		}
+
+		if (map != null && !map.isEmpty() && map.get(list_name) != null) {
+			list = new ArrayList<Map<String, Object>>();
+			list.addAll((List<Map<String, Object>>) map.get(list_name));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("TOTAL")) {
+					list.remove(0);
+				}
+				
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey(count_name)) {
+					cnt = Integer.parseInt(String.valueOf(countMap.get(count_name)));
+				}
+			}
+		}
+
+		return cnt;
+	}
 
 	/**
 	 * === K.API 공통 ===
@@ -2265,6 +2291,28 @@ public class LibSearchAPI {
 			if (list != null && list.size() > 0) {
 				Map<String, Object> countMap = list.get(0);
 				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					list.remove(0);
+				}
+			}
+		}
+
+		return list;
+	}
+	
+	@SuppressWarnings ("unchecked")
+	public static List<Map<String, Object>> getSanghoListDataTotal(Map<String, Object> map) {
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return null;
+		}
+
+		if (map != null && !map.isEmpty() && map.get("LIST_DATA") != null) {
+			list = new ArrayList<Map<String, Object>>();
+			list.addAll((List<Map<String, Object>>) map.get("LIST_DATA"));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("TOTAL")) {
 					list.remove(0);
 				}
 			}
