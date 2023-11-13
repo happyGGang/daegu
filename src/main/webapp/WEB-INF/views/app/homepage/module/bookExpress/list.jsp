@@ -223,13 +223,18 @@ $(function() {
 					${i.agency_name}<br>
 					<c:choose>
 						<c:when test="${i.request_status eq '1' and loginPortal.auth_group eq '3'}">
-						<input type="text" class="txt_name" value="${i.request_name}" placeholder="신청자명"><br>
-						<input type="text" class="txt_phone" value="${i.request_phone}" placeholder="연락처"><br>
-						<a href="#" class="add-request" keyValue="${i.book_express_idx}">[등록]</a>
+							<input type="text" class="txt_name" value="${i.request_name}" placeholder="신청자명"><br>
+							<input type="text" class="txt_phone" value="${i.request_phone}" placeholder="연락처"><br>
+							<a href="#" class="add-request" keyValue="${i.book_express_idx}">[등록]</a>
+						</c:when>
+						<c:when test="${not empty i.request_name}">
+						${i.request_name}
+						</c:when>
+						<c:when test="${not empty i.request_phone}">
+						<br>${i.request_phone}
 						</c:when>
 						<c:when test="${not empty i.request_name and not empty i.request_phone}">
-						${i.request_name}<br>
-						${i.request_phone}
+							등록된 정보없음
 						</c:when>
 						<c:otherwise>
 							등록된 정보없음
