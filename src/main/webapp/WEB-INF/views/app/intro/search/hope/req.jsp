@@ -413,8 +413,8 @@
 
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<form:option value="BX">본리도서관</form:option>
-				</form:select><!-- <span style="color:#ff0000">  * 본리도서관 희망도서 23.11.01. 오전 중 신청 재개 예정 입니다.</span> -->
+					<%--<form:option value="BX">본리도서관</form:option>--%>
+				</form:select><span style="color:#ff0000">  * 2023년 본리도서관 희망도서 서비스 종료(예산 소진)</span>
 
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
