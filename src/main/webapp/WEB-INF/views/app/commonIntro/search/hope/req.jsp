@@ -273,15 +273,15 @@
 					<option value="">선택</option>
 					<!-- <option value="BW">도원도서관</option> -->
 					<!--<option value="BV">달서어린이</option>-->
-					<option value="BU">성서도서관</option>
+					<!--<option value="BU">성서도서관</option>-->
 					<!--<option value="BX">본리도서관</option>-->
 					<!--<option value="BY">달서가족문화도서관</option>-->
 					<!--<option value="BZ">달서영어도서관</option>-->
 				</select>
         <br>
+		* 도원,달서어린이,성서,본리,가족문화,달서영어도서관 희망도서 신청 중지. 차후 재개시 안내드리겠습니다.<br>
         * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
-        * 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.<br>
-		* 2023년 본리도서관 희망도서 서비스 종료(예산 소진)
+        * 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
 				<form:select path="manageCode">
