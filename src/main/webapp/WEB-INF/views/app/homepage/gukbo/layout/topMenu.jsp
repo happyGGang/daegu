@@ -11,10 +11,10 @@
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box"></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"></a>
 
 					<div class="mmode">
-							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=68" class="btn4">
+							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=170" class="btn4">
 								<i class="fa fa-bookmark"></i>
 								<span>모바일회원증</span>
 							</a>
