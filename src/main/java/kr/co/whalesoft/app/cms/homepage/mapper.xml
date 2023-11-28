@@ -300,4 +300,13 @@
 		AND
 		    manage_code = #{manage_code}
 	</select>
+	
+	<select id="getContextPath" resultType="String">
+		SELECT
+			context_path
+		FROM
+			CMS_HOMEPAGE
+		WHERE
+			homepage_id = #{homepage_id}
+	</select>
 </mapper>

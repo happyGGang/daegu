@@ -642,5 +642,17 @@
 		WHERE
 			a.homepage_id = #{homepage_id}
 	</update>
+	
+	<select id="getMenuIdxByMenuUrlParam" resultType="int">
+		SELECT
+			NVL(max(menu_idx), 0)
+		FROM
+			CMS_MENU
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	MENU_TYPE = 'PROGRAM'
+		AND	(menu_url_param LIKE '%'||#{menu_url_param}||'%')
+		AND	use_yn = 'Y'
+	</select>
 
 </mapper>

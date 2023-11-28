@@ -54,15 +54,6 @@ public class ApiController extends BaseController {
 	private NearbyLibService neigborhoodLibraryService;
 	
 	@Autowired
-	private InternationalTeachApiService internationalTeachApiService;
-	
-	@Autowired
-	private InternationalBookApiService internationalBookApiService;
-	
-	@Autowired
-	private OldBookApiService oldBookApiService;
-	
-	@Autowired
 	private BookOfFamousService bookOfFamousService;
 
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
@@ -191,24 +182,6 @@ public class ApiController extends BaseController {
 	
 		return bookOfFamousService.getBookOfFamousListApi(bookOfFamous);
 	}
-	
-//	@RequestMapping(value = {"internationalDataRoom.*"})
-//	public @ResponseBody InternationalTeachXmlResult internationalDataRoomList(Teach teach, HttpServletRequest request, HttpServletResponse response) {
-//	
-//		return internationalTeachApiService.internationalDataRoomList(teach, request, response);
-//	}
-//	
-//	@RequestMapping(value = {"internationalBook.*"})
-//	public @ResponseBody InternationalBookXmlResult internationalBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
-//	
-//		return internationalBookApiService.internationalBookList(board, request, response);
-//	}
-//	
-//	@RequestMapping(value = {"oldBook.*"})
-//	public @ResponseBody OldBookXmlResult oldBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
-//	
-//		return oldBookApiService.oldBookList(board, request, response);
-//	}
 	
 	@RequestMapping(value = {"internationalDataRoom.*"})
 	public @ResponseBody Map<String, Object> internationalDataRoomList(Teach teach, HttpServletRequest request, HttpServletResponse response) {

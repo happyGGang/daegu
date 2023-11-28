@@ -13,6 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.menu.Menu;
+import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.TeachService;
@@ -27,6 +30,12 @@ public class TeachApiService extends BaseService{
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private MenuService menuService;
+	
+	@Autowired
+	private HomepageService homepageService;
 
 	public Map<String, Object> getData(Teach teach, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -142,7 +151,21 @@ public class TeachApiService extends BaseService{
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		
-		teach.setHomepage_id("h50");
+		if(teach.getHomepage_id() == null || "".equals(teach.getHomepage_id()) || StringUtils.isEmpty(teach.getHomepage_id())){
+			result.put("result", "fail");
+			result.put("message", "homepage_id 값이 없습니다.");
+			
+			return result;
+		}
+		
+		if(teach.getSearchCate1() == null || "".equals(teach.getSearchCate1()) || StringUtils.isEmpty(teach.getSearchCate1())){
+			result.put("result", "fail");
+			result.put("message", "searchCate1 값이 없습니다.");
+			
+			return result;
+		}
+		
+		teach.setLarge_category_idx(Integer.parseInt(teach.getSearchCate1()));
 		
 		List<Teach> teachList = teachService.getInternationalDataRoomList(teach);
 		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
@@ -218,13 +241,15 @@ public class TeachApiService extends BaseService{
 						resultMapList.put("teach_target", teachList.get(i).getTeach_target());
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getOrg_file_name())) {
-						resultMapList.put("file_name", "https://library.daegu.go.kr/cms/module/teach/download/h50/"+teachList.get(i).getGroup_idx()+"/"+teachList.get(i).getCategory_idx()+"/"+teachList.get(i).getTeach_idx()+".do");
+						resultMapList.put("file_name", "https://library.daegu.go.kr/cms/module/teach/download/"+teachList.get(i).getHomepage_id()+"/"+teachList.get(i).getGroup_idx()+"/"+teachList.get(i).getCategory_idx()+"/"+teachList.get(i).getTeach_idx()+".do");
 					}
 					if(StringUtils.isNotEmpty(teachList.get(i).getImage_org_file_name())) {
-						resultMapList.put("image_url", "https://library.daegu.go.kr/data/teach/h50/img/"+teachList.get(i).getImage_server_file_name());
+						resultMapList.put("image_url", "https://library.daegu.go.kr/data/teach/"+teachList.get(i).getHomepage_id()+"/img/"+teachList.get(i).getImage_server_file_name());
 					}
 					
-					resultMapList.put("detail_url", "https://library.daegu.go.kr/beomeo/module/teach/detail.do?menu_idx=178&homepage_id=h50&group_idx="+teachList.get(i).getGroup_idx()+"&category_idx="+teachList.get(i).getCategory_idx()+"&teach_idx="+teachList.get(i).getTeach_idx()+"&large_category_idx="+teachList.get(i).getLarge_category_idx());
+					int menu_idx = menuService.getMenuIdxByMenuUrlParam(new Menu(teach.getHomepage_id(), "searchCate1=" + teach.getSearchCate1()));
+					String contextPath = homepageService.getContextPath(teach.getHomepage_id());
+					resultMapList.put("detail_url", "https://library.daegu.go.kr/"+contextPath+"/module/teach/detail.do?menu_idx="+menu_idx+"&homepage_id="+teachList.get(i).getHomepage_id()+"&group_idx="+teachList.get(i).getGroup_idx()+"&category_idx="+teachList.get(i).getCategory_idx()+"&teach_idx="+teachList.get(i).getTeach_idx()+"&large_category_idx="+teachList.get(i).getLarge_category_idx());
 					
 					resultList.add(i, resultMapList);
 				}

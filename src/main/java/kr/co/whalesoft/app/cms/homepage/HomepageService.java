@@ -210,4 +210,8 @@ public class HomepageService extends BaseService {
 	public String getHomepageId(Homepage nearbyLibHomepage) {
 		return dao.getHomepageId(nearbyLibHomepage);
 	}
+
+	public String getContextPath(String homepage_id) {
+		return dao.getContextPath(homepage_id);
+	}
 }

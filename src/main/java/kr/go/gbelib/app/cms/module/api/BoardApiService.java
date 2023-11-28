@@ -216,7 +216,13 @@ public class BoardApiService extends BaseService {
 		
 		BoardManage boardManage = new BoardManage();
 		boardManage.setBoard_type("BOOK");
-		board.setManage_idx(658);
+		
+		if(board.getManage_idx() <= 0){
+			result.put("result", "fail");
+			result.put("message", "manage_idx 값이 없습니다.");
+			
+			return result;
+		}
 		
 		List<Board> list = boardService.getBoard(boardManage, board);
 		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
@@ -283,6 +289,13 @@ public class BoardApiService extends BaseService {
 		
 		BoardManage boardManage = new BoardManage();
 		boardManage.setBoard_type("OLDBOOK");
+		
+		if(board.getManage_idx() <= 0){
+			result.put("result", "fail");
+			result.put("message", "manage_idx 값이 없습니다.");
+			
+			return result;
+		}
 		
 		List<Board> list = boardService.getBoard(boardManage, board);
 		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();

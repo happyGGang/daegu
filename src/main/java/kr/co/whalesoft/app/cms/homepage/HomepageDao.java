@@ -71,4 +71,6 @@ public interface HomepageDao  {
 
 	public String getHomepageId(Homepage nearbyLibHomepage);
 
+	public String getContextPath(String homepage_id);
+
 }

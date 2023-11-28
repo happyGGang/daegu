@@ -74,4 +74,6 @@ public interface MenuDao {
 	public int getMenuIdxByProgramIdx2(Menu menu);
 
 	public int getMenuIdxByProgramIdx3(Menu menu);
+
+	public int getMenuIdxByMenuUrlParam(Menu menu);
 }

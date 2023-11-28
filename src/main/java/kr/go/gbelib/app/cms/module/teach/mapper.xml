@@ -3403,10 +3403,8 @@
 		AND	a.category_idx = c.category_idx(+)
 		AND	a.homepage_id = d.homepage_id(+)
 		AND	a.group_idx = d.group_idx(+)
-		<if test="homepage_id != null">
-			AND	a.homepage_id = #{homepage_id}
-		</if>
-		AND	a.large_category_idx = 32
+		AND	a.homepage_id = #{homepage_id}
+		AND	a.large_category_idx = #{large_category_idx}
 		AND	a.use_yn = 'Y'
 		AND	a.delete_yn = 'N'
 		ORDER BY

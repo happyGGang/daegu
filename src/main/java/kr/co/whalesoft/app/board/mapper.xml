@@ -2858,19 +2858,8 @@
 				FROM
 					CMS_BOARD
 				WHERE
-					manage_idx in (
-									SELECT
-										manage_idx
-									FROM
-										cms_board_manage
-									WHERE
-										board_type = 'OLDBOOK'
-									<if test="homepage_id != null and homepage_id != ''">
-									AND	homepage_id = #{homepage_id}
-									</if>
-									)
-					AND	delete_yn = #{delete_yn}
-					<include refid="where"/>
+					manage_idx = #{manage_idx}
+				AND	delete_yn = 'N'
 			 ) A
 			ORDER BY A.group_idx DESC, A.board_idx DESC
 			${pagingBottom}
