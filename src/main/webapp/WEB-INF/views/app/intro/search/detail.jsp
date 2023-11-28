@@ -150,8 +150,10 @@ $(function() {
 	<h2>도서의 상세 내용<span style="font-weight:300">을 확인하세요</span></h2>
 </div>
 <!-- /contents-title-->
-
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+<c:if test="${not empty param.startpoint}">
+	<form:hidden path="startpoint"/>
+</c:if>
 <div class="search-wrap">
 	<div class="sview">
 		<div class="sinfo">

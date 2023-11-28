@@ -80,6 +80,8 @@ public class LibrarySearch extends PagingUtils {
 	private String searchType;
 
 	private String[] searchFormCode; // 자료유형
+	
+	private String startpoint;
 
 	/**
 	 * KCMS용 변수
@@ -1325,6 +1327,14 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setLocName(String locName) {
 		this.locName = locName;
+	}
+
+	public String getStartpoint() {
+		return startpoint;
+	}
+
+	public void setStartpoint(String startpoint) {
+		this.startpoint = startpoint;
 	}
 
 }

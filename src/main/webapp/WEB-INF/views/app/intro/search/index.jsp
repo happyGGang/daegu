@@ -326,6 +326,10 @@ function resveReq(bookkey, booktype, editMode) {
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="viewPage"/>	
 
+	<c:if test="${not empty param.startpoint}">
+		<form:hidden path="startpoint"/>
+	</c:if>
+	
 	<!-- contents-title-->
 	<div id="contents-title">
 		<h2>어떤 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2>
@@ -912,7 +916,14 @@ function resveReq(bookkey, booktype, editMode) {
 						<div class="imageType">
 							<c:forEach items="${bookSearch}" var="i">
 							<!-- 검색결과 루프 시작 -->
-							<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+							<c:choose>
+								<c:when test="${not empty param.startpoint}">
+									<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}&startpoint=${fn:escapeXml(param.startpoint)}"></c:set>
+								</c:when>
+								<c:otherwise>
+									<c:set var="detailURL" value="detail.do?menu_idx=${fn:escapeXml(param.menu_idx)}&isbn=${fn:escapeXml(i.ST_CODE)}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}"></c:set>
+								</c:otherwise>
+							</c:choose>
 							<div class="row">
 								<p class="admin">
 									<input name="print_param" type="checkbox" class="checkBook" id="print_param${status.index}" value="${fn:replace(i.TITLE_INFO, ',', ';;;')}///${fn:escapeXml(i.MEDIA_CODE eq 'PR' ? 'BOOK' : 'NONBOOK')}///${fn:escapeXml(i.MANAGE_CODE)}///${fn:escapeXml(i.REG_NO)}///${fn:escapeXml(i.CALL_NO)}///${fn:escapeXml(param.menu_idx)}" title="책 선택"/>
@@ -959,9 +970,6 @@ function resveReq(bookkey, booktype, editMode) {
 													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'BN' and i.SHELF_LOC_CODE eq 'BN13'}">
 														<span style="color:#ff0000">대출불가(서대구역 스마트도서관 이용가능)</span>
-													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'BT' and i.SHELF_LOC_CODE eq 'BT10'}">
-														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
 														<c:choose>
