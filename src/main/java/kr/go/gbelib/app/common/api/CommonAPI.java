@@ -743,7 +743,7 @@ public class CommonAPI {
 
 		// 행정망
 //		String serviceUrl = "http://hub.share.go.kr/jmn/infoservice/jumin/ResideInsttCnfirmService";
-		String serviceUrl = "http://10.50.3.97/jmn/infoservice/jumin/ResideInsttCnfirmService";
+		String serviceUrl = "http://10.188.225.25:29001/jmn/infoservice/jumin/ResideInsttCnfirmService";
 
 		String dcriptMsg = "";
 
