@@ -3455,7 +3455,8 @@ public class CommonSearchController extends BaseController {
 
 			librarySearch.setUserkey(member.getRec_key());
 			
-			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02")) {
+			if (StringUtils.equals(librarySearch.getWorker(), "DSSUB01") || StringUtils.equals(librarySearch.getWorker(), "DSSUB02") ||
+				StringUtils.equals(librarySearch.getWorker(), "SSSUBCO01") || StringUtils.equals(librarySearch.getWorker(), "BRSUBCO01")) {
 				LibrarySearch l = new LibrarySearch();
 				l.setWorker("DSSUB01");
 				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
@@ -3471,6 +3472,23 @@ public class CommonSearchController extends BaseController {
 					return res;
 				}
 				l.setWorker("DSSUB02");
+				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
+				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
+				if (searchCount >= 40) {
+					res.setValid(false);
+					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					return res;
+				}
+				
+				l.setWorker("SSSUBCO01");
+				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
+				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
+				if (searchCount >= 40) {
+					res.setValid(false);
+					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					return res;
+				}
+				l.setWorker("BRSUBCO01");
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
 				if (searchCount >= 40) {
@@ -3500,6 +3518,22 @@ public class CommonSearchController extends BaseController {
 					return res;
 				}
 				
+				l2.setWorker("SSSUBCO01");
+				unmannedLoanReserveListDalseolib = LibSearchAPI.getUnmannedLoanReserveList(l2, null);
+				searchCountDalseolib += LibSearchAPI.getSearchCount(unmannedLoanReserveListDalseolib);
+				if (searchCountDalseolib >= 2) {
+					res.setValid(false);
+					res.setMessage("무인예약 신청건수를 초과하였습니다.\n무인 예약은 2권까지만 가능합니다.");
+					return res;
+				}
+				l2.setWorker("BRSUBCO01");
+				unmannedLoanReserveListDalseolib = LibSearchAPI.getUnmannedLoanReserveList(l2, null);
+				searchCountDalseolib += LibSearchAPI.getSearchCount(unmannedLoanReserveListDalseolib);
+				if (searchCountDalseolib >= 2) {
+					res.setValid(false);
+					res.setMessage("무인예약 신청건수를 초과하였습니다.\n무인 예약은 2권까지만 가능합니다.");
+					return res;
+				}
 				Map<String, Object> unmannedLoanReserveCnt = LibSearchAPI.getUnmannedLoanReserveCnt(librarySearch, "DATA");
 				String nightLoanResult = String.valueOf(unmannedLoanReserveCnt.get("RESULT_INFO"));
 				if (StringUtils.equals(nightLoanResult, "SUCCESS")) {

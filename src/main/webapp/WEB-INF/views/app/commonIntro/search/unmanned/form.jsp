@@ -117,6 +117,12 @@
 						<c:if test="${homepage.context_path eq '228'}">
 						<form:option value="DBECOBOXLIB01">스마트도서관</form:option> 
 						</c:if>
+						<c:if test="${sessionScope.member.member_id eq 'hyunwoo929' || sessionScope.member.member_id eq 'hwani6865'}">
+							<form:option value="DSSUB02">용산역</form:option>
+							<form:option value="DSSUB01">상인역</form:option>
+							<form:option value="SSSUBCO01">성서도서관</form:option>
+							<form:option value="BRSUBCO01">본리도서관</form:option>
+						</c:if>
 						<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
 						<form:option value="DSSUB02">용산역</form:option>
 						<form:option value="DSSUB01">상인역</form:option>
