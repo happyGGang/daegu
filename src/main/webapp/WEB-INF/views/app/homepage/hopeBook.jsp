@@ -96,7 +96,11 @@ $(document).ready(function () {
 
 <div class="hopeBook_box">
 	<p class="txt1"><span>희망도서 바로대출</span> 서비스란?</p>
-	<p class="txt2">내가 신청한 희망도서를 <br />협약된 지역서점에서 바로 대출하는 서비스 입니다.</p>
+	<p class="txt2">내가 신청한 희망도서를 <br />협약된 지역서점에서 바로 대출하는 서비스 입니다.
+    <c:if test="${homepage.context_path eq 'dalseong'}">
+    <br><br>※ 2024년 1월2일 오전 9시부터 신청 가능
+  </c:if></p>
+  
 	<div class="move">
 		<c:choose>
 			<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">

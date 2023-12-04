@@ -229,7 +229,7 @@
 </c:when>
 <c:when test="${context_path eq 'padong'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
-		2022년 파동도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
+		2023년 파동도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
 	</div>
 </c:when>
 
@@ -293,12 +293,12 @@
 
 				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
 				<form:select path="manageCode">
-					<form:option value="BD">범어도서관</form:option>
+					<!--<form:option value="BD">범어도서관</form:option>-->
 					<form:option value="BE">용학도서관</form:option>
-					<form:option value="BF">고산도서관</form:option>
+					<!--<form:option value="BF">고산도서관</form:option>-->
 					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
-					<form:option value="BG">파동도서관</form:option>
+					<!--<form:option value="BG">파동도서관</form:option>-->
 					<!--<form:option value="BH">무학숲도서관</form:option>-->
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
@@ -306,12 +306,12 @@
 				<c:when test="${context_path eq 'goldbook'}">
 				<form:select path="manageCode">
 					<form:option value="HR">황금책문화센터</form:option>
-					<form:option value="BD">범어도서관</form:option>
+					<!--<form:option value="BD">범어도서관</form:option>-->
 					<form:option value="BE">용학도서관</form:option>
-					<form:option value="BF">고산도서관</form:option>
+					<!--<form:option value="BF">고산도서관</form:option>-->
 					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
-					<form:option value="BG">파동도서관</form:option>
+					<!--<form:option value="BG">파동도서관</form:option>-->
 					<form:option value="BH">무학숲도서관</form:option>
 				</form:select>
 				</c:when>

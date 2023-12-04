@@ -33,7 +33,7 @@
       <div class="box">
         <p class="num">STEP 01</p>
         홈페이지 로그인 후 신청<br>
-        * 사용 희망일 2일 전(18:00)까지 이용 신청</div>
+        * 사용 희망일 3일 전(18:00)까지 이용 신청</div>
     </li>
     <li>
       <div class="box">
@@ -57,7 +57,7 @@
     <li class="book02 mb10" style="margin-right:20px;">
       <div>
         <span class="pc_mode">취소방법</span><span class="m_mode">이용시간</span>
-        <p>- 예약 2일 전까지 홈페이지 취소 가능강좌<br>
+        <p>- 예약 2일 전까지 홈페이지 취소 가능<br>
           - 2일전~전일까지는 053-668-1624로 전화 후 취소<br>
           - 당일 취소 및 변경 불가(NO Show 3회 시 신청 제한)</p>
           <br><br><br>

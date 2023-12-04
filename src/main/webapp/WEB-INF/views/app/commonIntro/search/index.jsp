@@ -1093,6 +1093,11 @@ function isFromFridayToSunday() {
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>
 													</c:when>
+													<c:when test="${homepage.context_path eq 'duryu'}">
+														<c:if test="${i.CODE ne 'AB57'}">
+														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+														</c:if>
+													</c:when>
 													<c:when test="${homepage.context_path eq 'suseong'}">
 														<c:if test="${i.CODE eq 'AE01' or
 																		i.CODE eq 'AE01' or
@@ -1502,7 +1507,7 @@ function isFromFridayToSunday() {
 											<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 											<p><font style="color:#5e5e5e">영어독서 레벨</font> : <span style="">${i.marc}</span></p>
 											</c:if>
-											<c:if test="${i.SHELF_LOC_CODE eq 'BC03' || i.SHELF_LOC_CODE eq 'BC05' || i.SHELF_LOC_CODE eq 'BC06' || i.SHELF_LOC_CODE eq 'BC07'}">
+											<c:if test="${i.SHELF_LOC_CODE eq 'BC03' || i.SHELF_LOC_CODE eq 'BC05' || i.SHELF_LOC_CODE eq 'BC06'}">
 												<div class="" style="font-size:14px;font-weight:bold;color:red;">
 													※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
 												</div>

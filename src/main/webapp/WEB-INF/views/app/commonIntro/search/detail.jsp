@@ -609,7 +609,7 @@ $(function() {
 			</table>
 		</div>
 
-		<c:if test="${detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'BC05' || detail.SHELF_LOC_CODE eq 'BC06' || detail.SHELF_LOC_CODE eq 'BC07'}">
+		<c:if test="${detail.SHELF_LOC_CODE eq 'BC03' || detail.SHELF_LOC_CODE eq 'BC05' || detail.SHELF_LOC_CODE eq 'BC06'}">
 		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
 			※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
 		</div>
@@ -629,7 +629,7 @@ $(function() {
 
 		<c:if test="${detail.SHELF_LOC_CODE eq 'BT10'}">
 		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
-			※ 스마트도서관 개관 후 스마트도서관에서 빌리실 수 있습니다.
+			※ 남구 스마트 도서관에서 대출 하실 수 있습니다. [남구 효성로 37 (경일여자고등학교 정문 옆)]
 		</div>
 		</c:if>
 
