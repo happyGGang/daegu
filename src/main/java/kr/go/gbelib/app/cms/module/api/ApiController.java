@@ -11,6 +11,8 @@ import kr.go.gbelib.app.cms.module.nearbyLib.NearbyLibService;
 import kr.go.gbelib.app.cms.module.teach.Teach;
 import kr.go.gbelib.app.cms.module.teach.student.Student;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
+import kr.go.gbelib.app.intro.search.LibrarySearch;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +57,9 @@ public class ApiController extends BaseController {
 	
 	@Autowired
 	private BookOfFamousService bookOfFamousService;
+	
+	@Autowired
+	private LibSearchApiService librarySearchApiService;
 
 	private static final String LOGIN_PAGE = "/elib/intro/login/index.do?menu_idx=43";
 	
@@ -199,5 +204,23 @@ public class ApiController extends BaseController {
 	public @ResponseBody Map<String, Object> oldBookList(Board board, HttpServletRequest request, HttpServletResponse response) {
 	
 		return boardApiService.getOldBookList(board, request, response);
+	}
+	
+	@RequestMapping(value = {"smartLibPlace.*"})
+	public @ResponseBody Map<String, Object> smartLibPlace(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	
+		return librarySearchApiService.getSmartLibPlace(librarySearch, request, response);
+	}
+	
+	@RequestMapping(value = {"bookSearch.*"})
+	public @ResponseBody Map<String, Object> bookSearch(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	
+		return librarySearchApiService.getBookSearchList(librarySearch, request, response);
+	}
+	
+	@RequestMapping(value = {"bestBookList.*"})
+	public @ResponseBody Map<String, Object> bestBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	
+		return librarySearchApiService.getBestBookList(librarySearch, request, response);
 	}
 }

@@ -10,4 +10,13 @@
 		WHERE
 			isbn = #{ISBN}
 	</select>
+	
+	<select id="getSmartLibPlace" resultType="map">
+		SELECT
+			code, library, location, latitude, longitude
+		FROM
+			SMARTLIBINFO
+		WHERE
+			code = #{code}
+	</select>
 </mapper>

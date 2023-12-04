@@ -8,4 +8,6 @@ public interface LibrarySearchDao {
 
 	String getImageUrl(String isbn);
 
+	Map<String, Object> getSmartLibPlace(LibrarySearch librarySearch);
+
 }

@@ -188,6 +188,13 @@ public class LibrarySearch extends PagingUtils {
 	private String imgUrl;
 	private String locKey;
 	private String locName;
+	
+	//스마트 도서관 공공API
+	private String code;
+	private String library;
+	private String location;
+	private String latitude;
+	private String longitude;
 
 	public String getSearchType() {
 		return searchType;
@@ -1335,6 +1342,46 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setStartpoint(String startpoint) {
 		this.startpoint = startpoint;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(String library) {
+		this.library = library;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 }
