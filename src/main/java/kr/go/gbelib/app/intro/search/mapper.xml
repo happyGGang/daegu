@@ -13,10 +13,22 @@
 	
 	<select id="getSmartLibPlace" resultType="map">
 		SELECT
-			code, library, location, latitude, longitude
+			code, library, location, latitude, longitude,
+			manageCode
 		FROM
 			SMARTLIBINFO
 		WHERE
 			code = #{code}
 	</select>
+	
+	<select id="getSmartLibPlaceOne" resultType="kr.go.gbelib.app.intro.search.LibrarySearch">
+		SELECT
+			code, library, location, latitude, longitude,
+			manageCode
+		FROM
+			SMARTLIBINFO
+		WHERE
+			code = #{code}
+	</select>
+	
 </mapper>

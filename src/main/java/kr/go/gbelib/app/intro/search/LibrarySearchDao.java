@@ -10,4 +10,6 @@ public interface LibrarySearchDao {
 
 	Map<String, Object> getSmartLibPlace(LibrarySearch librarySearch);
 
+	LibrarySearch getSmartLibPlaceOne(LibrarySearch librarySearch);
+
 }
