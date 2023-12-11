@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 $(function() {
 	var $form = $('form#supportMember');
@@ -145,13 +146,14 @@ function excelUpload() {
 	<table class="type1 center">
 		<colgroup>
 			<col width="5%" />
+			<col width="5%"/>
 			<col width="10%"/>
-			<col width="12%"/>
-			<col width="12%"/>
+			<col width="10%"/>
 			<col />
-			<col width="12%"/>
-			<col width="12%"/>
-			<col width="15%"/>
+			<col width="8%"/>
+			<col width="8%"/>
+			<col width="8%"/>
+			<col width="13%"/>
 		</colgroup>
 		<thead>
 			<tr>
@@ -159,6 +161,7 @@ function excelUpload() {
 				<th>번호</th>
 				<th>아이디</th>
 				<th>이름</th>
+				<th>주소</th>
 				<th>그룹</th>
 				<th>최근접속일</th>
 				<th>가입일</th>
@@ -174,6 +177,7 @@ function excelUpload() {
 				<td class="num">${paging.listRowNum - status.index}</td>
 				<td>${i.member_id }</td>
 				<td>${i.school_name}</td>
+				<td>${i.address} ${i.zipcode}</td>
 				<td>
 					<c:choose>
 						<c:when test="${i.auth_group eq '1'}">총관리자</c:when>

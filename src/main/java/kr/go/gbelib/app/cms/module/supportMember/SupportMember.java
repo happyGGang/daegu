@@ -17,6 +17,8 @@ public class SupportMember extends PagingUtils {
 	private String member_id; // 회원ID
 	private String member_password; // 회원 비밀번호
 	private String password_check; // 비밀번호 확인
+	private String address; // 주소
+	private String zipcode; // 우편번호
 	private String auth_group; // 그룹
 	private Date last_connect; // 마지막 접속일
 	private String add_id; // 등록ID
@@ -176,6 +178,22 @@ public class SupportMember extends PagingUtils {
 
 	public void setMfile(MultipartFile mfile) {
 		this.mfile = mfile;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 
 	@Override

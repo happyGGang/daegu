@@ -41,6 +41,33 @@ $(function() {
 		height: 500
 	});
 
+	$('input#zipcode').on('click', function(e) {
+		e.preventDefault();
+		$('a#findPostCode').click();
+	});
+
+	$('a#findPostCode').on('click', function(e){
+		e.preventDefault();
+		new daum.Postcode({
+            oncomplete: function(data) {
+                var fullAddr = '';
+                var extraAddr = '';
+                    fullAddr = data.roadAddress;
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+
+                $('#zipcode').val(data.zonecode);
+                $('#address').val(fullAddr);
+                $('#address').focus();
+            }
+        }).open();
+	});
+	
 });
 </script>
 <form:form id="supportMemberEdit" modelAttribute="supportMember" action="save.do" method="POST">
@@ -70,6 +97,17 @@ $(function() {
 						<i class="fa fa-question-circle"></i>
 						<em>10자 이내의 영문/숫자만 사용하실 수 있습니다.</em>
 					</div>
+				</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>
+					<p>
+						<form:input path="zipcode" class="text" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn" title="새창열림">우편번호 찾기</a>
+					</p>
+					<p>
+						<form:input path="address" class="text" style="width:80%;" title="상세 주소 입력"/>
+					</p>
 				</td>
 			</tr>
 			<tr>

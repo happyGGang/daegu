@@ -6,7 +6,7 @@
 		${pagingTop}
 		SELECT
 			support_member_idx, school_name, member_id, member_password, auth_group,
-			last_connect, add_id, add_date
+			last_connect, add_id, add_date, address, zipcode
 		FROM
 			SUPPORT_MEMBER
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -33,7 +33,7 @@
 	<select id="getSupportMemberOne" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
 		SELECT
 			support_member_idx, school_name, member_id, member_password, auth_group,
-			last_connect, add_id, add_date
+			last_connect, add_id, add_date, address, zipcode
 		FROM
 			SUPPORT_MEMBER
 		WHERE
@@ -57,12 +57,12 @@
 			SUPPORT_MEMBER
 		(
 			support_member_idx, school_name, member_id, member_password, auth_group,
-			last_connect, add_id, add_date
+			last_connect, add_id, add_date, address, zipcode
 		)
 		VALUES
 		(
 			#{support_member_idx}, #{school_name}, #{member_id}, #{member_password}, #{auth_group},
-			#{last_connect}, #{add_id}, SYSDATE
+			#{last_connect}, #{add_id}, SYSDATE, #{address}, #{zipcode}
 		)
 	</insert>
 	
@@ -77,7 +77,9 @@
 			</if>
 			auth_group = #{auth_group},
 			modify_id = #{modify_id},
-			modify_date = SYSDATE
+			modify_date = SYSDATE,
+			address = #{address},
+			zipcode = #{zipcode}
 		WHERE
 			support_member_idx = #{support_member_idx}
 	</update>
@@ -111,7 +113,7 @@
 	<select id="getSupportMemberLogin" resultType="kr.go.gbelib.app.cms.module.supportMember.SupportMember">
 		SELECT
 			support_member_idx, school_name, member_id, member_password, auth_group,
-			last_connect, add_id, add_date
+			last_connect, add_id, add_date, address, zipcode
 		FROM
 			SUPPORT_MEMBER
 		WHERE
@@ -148,12 +150,12 @@
 			SUPPORT_MEMBER
 		(
 			support_member_idx, school_name, member_id, member_password, auth_group,
-			last_connect, add_id, add_date, modify_id, modify_date
+			last_connect, add_id, add_date, modify_id, modify_date, address, zipcode
 		)
 		VALUES
 		(
 			#{support_member_idx}, #{school_name}, #{member_id}, #{member_password}, #{auth_group},
-			#{last_connect}, #{add_id}, #{add_date}, #{modify_id}, #{modify_date}
+			#{last_connect}, #{add_id}, #{add_date}, #{modify_id}, #{modify_date}, #{address}, #{zipcode}
 		)
 	</insert>
 	
@@ -165,12 +167,12 @@
 			SUPPORT_MEMBER
 		(
 			support_member_idx, school_name, member_id, member_password, auth_group,
-			last_connect, add_id, add_date
+			last_connect, add_id, add_date, address, zipcode
 		)
 		VALUES
 		(
 			#{support_member_idx}, #{school_name}, #{member_id}, #{member_password}, '3',
-			#{last_connect}, #{add_id}, SYSDATE
+			#{last_connect}, #{add_id}, SYSDATE, #{address}, #{zipcode}
 		)
 	</insert>
 </mapper>
