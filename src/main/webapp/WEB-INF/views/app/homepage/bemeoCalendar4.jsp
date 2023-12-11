@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.10.31. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.11.30. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -90,16 +90,16 @@
 							<tr>
 								<th>권수</th>
                 <td>214</td>
-                <td>222</td>
+                <td>223</td>
                 <td>105</td>
-                <td>587</td>
+                <td>595</td>
                 <td>412</td>
-                <td>411</td>
+                <td>415</td>
                 <td>276</td>
-                <td>285</td>
-                <td>3,396</td>
-                <td>500</td>
-                <td>6,408</td>
+                <td>286</td>
+                <td>3,444</td>
+                <td>502</td>
+                <td>6,472</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.10.31. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.11.30. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,12 +148,12 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
+                <td>2,548</td>
+                <td>1,404</td>
                 <td>2,520</td>
-                <td>1,391</td>
-                <td>2,497</td>
                 <td>-</td>
                 <td>-</td>
-                <td>6,408</td>
+                <td>6,472</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -167,8 +167,7 @@
 						</tbody>
 					</table>
 				</div>
-				<p>보존서고: 6,508권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.10.31. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.11.30. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="황금도서관 간행물 현황을 나타내는 표">

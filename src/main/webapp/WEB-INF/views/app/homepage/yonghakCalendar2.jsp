@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.10.31.] (단위 : 권)</span></h3>
+				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.11.30.] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -89,58 +89,58 @@
 						<tbody>
 							<tr>
 								<th>어린이</th>
-                <td>257</td>
-                <td>148</td>
-                <td>85</td>
-                <td>430</td>
-                <td>1,187</td>
-                <td>454</td>
-                <td>138</td>
-                <td>182</td>
-                <td>2,301</td>
-                <td>787</td>
-                <td>5,969</td>
+								<td>260</td>
+								<td>152</td>
+								<td>87</td>
+								<td>433</td>
+								<td>1,202</td>
+								<td>470</td>
+								<td>139</td>
+								<td>185</td>
+								<td>2,301</td>
+								<td>787</td>
+								<td>6,016</td>
 							</tr>
 							<tr>
 								<th>유아</th>
-                <td>60</td>
-                <td>117</td>
-                <td>86</td>
-                <td>447</td>
-                <td>437</td>
-                <td>89</td>
-                <td>90</td>
-                <td>72</td>
-                <td>2,324</td>
-                <td>82</td>
-                <td>3,804</td>
+								<td>60</td>
+								<td>117</td>
+								<td>86</td>
+								<td>447</td>
+								<td>441</td>
+								<td>90</td>
+								<td>90</td>
+								<td>72</td>
+								<td>2,339</td>
+								<td>83</td>
+								<td>3,825</td>
 							<tr>
 								<th>일반</th>
-                <td>266</td>
-                <td>459</td>
-                <td>182</td>
-                <td>1,093</td>
-                <td>596</td>
-                <td>928</td>
-                <td>310</td>
-                <td>159</td>
-                <td>2,374</td>
-                <td>480</td>
-                <td>6,847</td>
+								<td>266</td>
+								<td>465</td>
+								<td>184</td>
+								<td>1,101</td>
+								<td>596</td>
+								<td>932</td>
+								<td>310</td>
+								<td>159</td>
+								<td>2,387</td>
+								<td>480</td>
+								<td>6,880</td>
 							</tr>
 							<tr>
 								<th>합계</th>
-                <td>583</td>
-                <td>724</td>
-                <td>353</td>
-                <td>1,970</td>
-                <td>2,220</td>
-                <td>1,471</td>
-                <td>538</td>
-                <td>413</td>
-                <td>6,999</td>
-                <td>1,349</td>
-                <td>16,620</td>
+								<td>586</td>
+								<td>734</td>
+								<td>357</td>
+								<td>1,981</td>
+								<td>2,239</td>
+								<td>1,492</td>
+								<td>539</td>
+								<td>416</td>
+								<td>7,027</td>
+								<td>1,350</td>
+								<td>16,721</td>
 							</tr>
 						</tbody>
 					</table>

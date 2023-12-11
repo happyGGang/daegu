@@ -165,8 +165,6 @@ public class TeachApiService extends BaseService{
 			return result;
 		}
 		
-		teach.setLarge_category_idx(Integer.parseInt(teach.getSearchCate1()));
-		
 		List<Teach> teachList = teachService.getInternationalDataRoomList(teach);
 		List<Map<String,Object>> resultList = new ArrayList<Map<String,Object>>();
 		
