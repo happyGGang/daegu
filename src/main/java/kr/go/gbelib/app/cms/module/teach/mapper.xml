@@ -3404,7 +3404,7 @@
 		AND	a.homepage_id = d.homepage_id(+)
 		AND	a.group_idx = d.group_idx(+)
 		AND	a.homepage_id = #{homepage_id}
-		AND	a.large_category_idx = #{large_category_idx}
+		AND	a.large_category_idx IN (${searchCate1})
 		AND	a.use_yn = 'Y'
 		AND	a.delete_yn = 'N'
 		ORDER BY
