@@ -227,17 +227,12 @@ $(function() {
 							<input type="text" class="txt_phone" value="${i.request_phone}" placeholder="연락처"><br>
 							<a href="#" class="add-request" keyValue="${i.book_express_idx}">[등록]</a>
 						</c:when>
-						<c:when test="${not empty i.request_name}">
-						${i.request_name}
-						</c:when>
-						<c:when test="${not empty i.request_phone}">
-						<br>${i.request_phone}
-						</c:when>
-						<c:when test="${not empty i.request_name and not empty i.request_phone}">
+						<c:when test="${empty i.request_name and empty i.request_phone}">
 							등록된 정보없음
 						</c:when>
 						<c:otherwise>
-							등록된 정보없음
+							${i.request_name}
+							<br>${i.request_phone}
 						</c:otherwise>
 					</c:choose>
 				</td>
