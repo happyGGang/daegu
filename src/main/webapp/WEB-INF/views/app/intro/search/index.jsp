@@ -693,9 +693,9 @@ function resveReq(bookkey, booktype, editMode) {
 								<li>
 									<form:checkbox path="libraryCodes" value="HN" class="libCheck lib_HN" label="행복작은도서관"/>
 								</li>
-								<li>
-									<form:checkbox path="libraryCodes" value="HP" class="libCheck lib_HP" label="율하5주민작은도서관"/>
-								</li>
+<!-- 								<li> -->
+<%-- 									<form:checkbox path="libraryCodes" value="HP" class="libCheck lib_HP" label="율하5주민작은도서관"/> --%>
+<!-- 								</li> -->
 								<li>
 									<form:checkbox path="libraryCodes" value="HQ" class="libCheck lib_HQ" label="방촌어린이작은도서관"/>
 								</li>
