@@ -123,5 +123,48 @@ public class LibSearchApiService extends BaseService {
 		
 		return result;
 	}
+
+	public Map<String, Object> getNewBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		
+		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())){
+			result.put("result", "fail");
+			result.put("message", "code 값이 없습니다.");
+			
+			return result;
+		}
+		
+		if(!(librarySearch.getViewPage() > 0)){
+			result.put("result", "fail");
+			result.put("message", "viewPage 값이 없습니다. 검색 시작 위치를 지정해주세요.");
+			
+			return result;
+		}
+		
+		if(!(librarySearch.getRowCount() > 0)){
+			result.put("result", "fail");
+			result.put("message", "rowCount 값이 없습니다. 검색 결과 출력 건수를 지정해주세요.");
+			
+			return result;
+		}
+		
+		LibrarySearch ls = librarySearchDao.getSmartLibPlaceOne(librarySearch);
+		
+		if(ls == null) {
+			result.put("result", "fail");
+			result.put("message", "해당 스마트도서관 자료실 코드 값이 없습니다.");
+			
+			return result;
+		}
+		
+		librarySearch.setShelfCode(ls.getCode());
+		librarySearch.setManageCode(ls.getManageCode());
+		librarySearch.setSortField("SHELF_DATE");
+		librarySearch.setSortType("DESC");
+		
+		result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
+		
+		return result;
+	}
 	
 }

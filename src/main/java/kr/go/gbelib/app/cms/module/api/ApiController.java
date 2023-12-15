@@ -223,4 +223,10 @@ public class ApiController extends BaseController {
 	
 		return librarySearchApiService.getBestBookList(librarySearch, request, response);
 	}
+	
+	@RequestMapping(value = {"newBookList.*"})
+	public @ResponseBody Map<String, Object> newBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	
+		return librarySearchApiService.getNewBookList(librarySearch, request, response);
+	}
 }
