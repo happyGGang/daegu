@@ -17,10 +17,6 @@ $(function() {
 	if (location.href.indexOf('html.do?') > -1) {
 // 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
 	}
-	
-	if('${menuOne.satisfaction_yn}' == 'Y'){
- 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuSatisfaction/index.do?menu_idx=${param.menu_idx}');
-	}
 
 	$('a.shareBtn').on('click', function(e) {
 
@@ -111,111 +107,6 @@ $(function() {
 							<div id="menuRatingDiv"></div>
 						</div>
 					</div>
-					<c:if test="${menuOne.manage_view_yn eq 'Y'}">	
-						<c:if test="${menuOne.manager_dept1 ne null and menuOne.manager_dept1 ne '' and menuOne.manager_name1 ne null and menuOne.manager_name1 ne '' and menuOne.manager_phone1 ne null and menuOne.manager_phone1 ne ''
-										or menuOne.manager_dept2 ne null and menuOne.manager_dept2 ne '' and menuOne.manager_name2 ne null and menuOne.manager_name2 ne '' and menuOne.manager_phone2 ne null and menuOne.manager_phone2 ne ''
-										or menuOne.manager_dept3 ne null and menuOne.manager_dept3 ne '' and menuOne.manager_name3 ne null and menuOne.manager_name3 ne '' and menuOne.manager_phone3 ne null and menuOne.manager_phone3 ne ''
-										or menuOne.manager_dept4 ne null and menuOne.manager_dept4 ne '' and menuOne.manager_name4 ne null and menuOne.manager_name4 ne '' and menuOne.manager_phone4 ne null and menuOne.manager_phone4 ne ''
-										or menuOne.manager_dept5 ne null and menuOne.manager_dept5 ne '' and menuOne.manager_name5 ne null and menuOne.manager_name5 ne '' and menuOne.manager_phone5 ne null and menuOne.manager_phone5 ne ''}">						
-							<div class="doc-admin">
-								<c:if test="${menuOne.manager_dept1 ne null and menuOne.manager_dept1 ne '' and menuOne.manager_name1 ne null and menuOne.manager_name1 ne '' and menuOne.manager_phone1 ne null and menuOne.manager_phone1 ne ''}">
-									<div class="manager-box">
-									<c:if test="${menuOne.manager_dept1 ne null and menuOne.manager_dept1 ne ''}"><span><label style="letter-spacing:-1px;">담당부서</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_dept1}</em></span></c:if>
-									<c:if test="${menuOne.manager_name1 ne null and menuOne.manager_name1 ne ''}"><span><label style="letter-spacing:-1px;">담당자</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_name1}</em></span></c:if>
-									<c:if test="${menuOne.manager_phone1 ne null and menuOne.manager_phone1 ne ''}"><span><label style="letter-spacing:-1px;">전화번호</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_phone1}</em></span></c:if>
-									<span><label style="letter-spacing:-1px;">최종수정일</label> 
-										<em style="letter-spacing:-1px;">:
-										<c:choose>
-											<c:when test="${menuOne.modify_date eq null or menuOne.modify_date eq ''}">
-												<fmt:formatDate value="${menuOne.add_date}" pattern="yyyy.MM.dd"/>												
-											</c:when>
-											<c:otherwise>
-												<fmt:formatDate value="${menuOne.modify_date}" pattern="yyyy.MM.dd"/>
-											</c:otherwise>
-										</c:choose> 											
-										</em>
-									</span>
-									</div>
-								</c:if>
-								<c:if test="${menuOne.manager_dept2 ne null and menuOne.manager_dept2 ne '' and menuOne.manager_name2 ne null and menuOne.manager_name2 ne '' and menuOne.manager_phone2 ne null and menuOne.manager_phone2 ne ''}">				
-									<div class="manager-box">
-									<c:if test="${menuOne.manager_dept2 ne null and menuOne.manager_dept2 ne ''}"><span><label style="letter-spacing:-1px;">담당부서</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_dept2}</em></span></c:if>
-									<c:if test="${menuOne.manager_name2 ne null and menuOne.manager_name2 ne ''}"><span><label style="letter-spacing:-1px;">담당자</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_name2}</em></span></c:if>
-									<c:if test="${menuOne.manager_phone2 ne null and menuOne.manager_phone2 ne ''}"><span><label style="letter-spacing:-1px;">전화번호</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_phone2}</em></span></c:if>
-									<span><label style="letter-spacing:-1px;">최종수정일</label> 
-										<em style="letter-spacing:-1px;">:
-										<c:choose>
-											<c:when test="${menuOne.modify_date eq null or menuOne.modify_date eq ''}">
-												<fmt:formatDate value="${menuOne.add_date}" pattern="yyyy.MM.dd"/>												
-											</c:when>
-											<c:otherwise>
-												<fmt:formatDate value="${menuOne.modify_date}" pattern="yyyy.MM.dd"/>
-											</c:otherwise>
-										</c:choose> 											
-										</em>
-									</span>
-									</div>
-								</c:if>
-								<c:if test="${menuOne.manager_dept3 ne null and menuOne.manager_dept3 ne '' and menuOne.manager_name3 ne null and menuOne.manager_name3 ne '' and menuOne.manager_phone3 ne null and menuOne.manager_phone3 ne ''}">
-									<div class="manager-box">
-									<c:if test="${menuOne.manager_dept3 ne null and menuOne.manager_dept3 ne ''}"><span><label style="letter-spacing:-1px;">담당부서</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_dept3}</em></span></c:if>
-									<c:if test="${menuOne.manager_name3 ne null and menuOne.manager_name3 ne ''}"><span><label style="letter-spacing:-1px;">담당자</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_name3}</em></span></c:if>
-									<c:if test="${menuOne.manager_phone3 ne null and menuOne.manager_phone3 ne ''}"><span><label style="letter-spacing:-1px;">전화번호</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_phone3}</em></span></c:if>
-									<span><label style="letter-spacing:-1px;">최종수정일</label> 
-										<em style="letter-spacing:-1px;">:
-										<c:choose>
-											<c:when test="${menuOne.modify_date eq null or menuOne.modify_date eq ''}">
-												<fmt:formatDate value="${menuOne.add_date}" pattern="yyyy.MM.dd"/>												
-											</c:when>
-											<c:otherwise>
-												<fmt:formatDate value="${menuOne.modify_date}" pattern="yyyy.MM.dd"/>
-											</c:otherwise>
-										</c:choose> 											
-										</em>
-									</span>
-									</div>
-								</c:if>
-								<c:if test="${menuOne.manager_dept4 ne null and menuOne.manager_dept4 ne '' and menuOne.manager_name4 ne null and menuOne.manager_name4 ne '' and menuOne.manager_phone4 ne null and menuOne.manager_phone4 ne ''}">
-									<div class="manager-box">
-									<c:if test="${menuOne.manager_dept4 ne null and menuOne.manager_dept4 ne ''}"><span><label style="letter-spacing:-1px;">담당부서</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_dept4}</em></span></c:if>
-									<c:if test="${menuOne.manager_name4 ne null and menuOne.manager_name4 ne ''}"><span><label style="letter-spacing:-1px;">담당자</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_name4}</em></span></c:if>
-									<c:if test="${menuOne.manager_phone4 ne null and menuOne.manager_phone4 ne ''}"><span><label style="letter-spacing:-1px;">전화번호</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_phone4}</em></span></c:if>
-									<span><label style="letter-spacing:-1px;">최종수정일</label> 
-										<em style="letter-spacing:-1px;">:
-										<c:choose>
-											<c:when test="${menuOne.modify_date eq null or menuOne.modify_date eq ''}">
-												<fmt:formatDate value="${menuOne.add_date}" pattern="yyyy.MM.dd"/>												
-											</c:when>
-											<c:otherwise>
-												<fmt:formatDate value="${menuOne.modify_date}" pattern="yyyy.MM.dd"/>
-											</c:otherwise>
-										</c:choose> 											
-										</em>
-									</span>
-									</div>
-								</c:if>
-								<c:if test="${menuOne.manager_dept5 ne null and menuOne.manager_dept5 ne '' and menuOne.manager_name5 ne null and menuOne.manager_name5 ne '' and menuOne.manager_phone5 ne null and menuOne.manager_phone5 ne ''}">
-									<div class="manager-box">
-									<c:if test="${menuOne.manager_dept5 ne null and menuOne.manager_dept5 ne ''}"><span><label style="letter-spacing:-1px;">담당부서</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_dept5}</em></span></c:if>
-									<c:if test="${menuOne.manager_name5 ne null and menuOne.manager_name5 ne ''}"><span><label style="letter-spacing:-1px;">담당자</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_name5}</em></span></c:if>
-									<c:if test="${menuOne.manager_phone5 ne null and menuOne.manager_phone5 ne ''}"><span><label style="letter-spacing:-1px;">전화번호</label> <em style="letter-spacing:-1px;">: ${menuOne.manager_phone5}</em></span></c:if>
-									<span><label style="letter-spacing:-1px;">최종수정일</label> 
-										<em style="letter-spacing:-1px;">:
-										<c:choose>
-											<c:when test="${menuOne.modify_date eq null or menuOne.modify_date eq ''}">
-												<fmt:formatDate value="${menuOne.add_date}" pattern="yyyy.MM.dd"/>												
-											</c:when>
-											<c:otherwise>
-												<fmt:formatDate value="${menuOne.modify_date}" pattern="yyyy.MM.dd"/>
-											</c:otherwise>
-										</c:choose> 											
-										</em>
-									</span>
-									</div>
-								</c:if>	
-							</div>
-						</c:if>
-					</c:if>										
 				</div>
 			</div>
 		</div>
