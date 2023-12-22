@@ -458,7 +458,7 @@
 												<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}', '${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
 											</c:when>
 											<c:otherwise>
-												<c:set var="read" value="javascript:yesb_read('https://elib.daegu.go.kr:8082/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=B2B_DAEGU','${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
+												<c:set var="read" value="javascript:yesb_read('https://new.hongjicns.co.kr/YES24/yes24viewer_open.asp?user_id=${lending.member_id}&goods_id=${i.book_code}&site_code=B2B_DAEGU','${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
@@ -470,7 +470,7 @@
 												<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}', '${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
 											</c:when>
 											<c:otherwise>
-												<c:set var="read" value="javascript:yesb_read('https://elib.daegu.go.kr:8082/YES24/yes24viewer_open.asp?libCode=${sessionScope.member.lib_code}&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}&site_code=B2B_DAEGU&drm_type=ECO','${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
+												<c:set var="read" value="javascript:yesb_read('https://new.hongjicns.co.kr/YES24/yes24App_open.asp?libCode=${sessionScope.member.lib_code}&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}&site_code=B2B_DAEGU&drm_type=ECO','${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
@@ -481,7 +481,7 @@
 												<c:set var="read" value="checkApp('${data['appurl']}', '${i.com_code}', '${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
 											</c:when>
 											<c:otherwise>
-												<c:set var="read" value="javascript:yesb_read('https://elib.daegu.go.kr:8082/YES24/yes24viewer_open.asp?libCode=${sessionScope.member.lib_code}&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}&site_code=B2B_DAEGU&drm_type=ECO','${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
+												<c:set var="read" value="javascript:yesb_read('https://new.hongjicns.co.kr/YES24/yes24App_open.asp?libCode=${sessionScope.member.lib_code}&ownerCode=EC&userId=${lending.member_id}&contentsKey=${i.book_code}&site_code=B2B_DAEGU&drm_type=ECO','${i.lend_idx}','${i.book_idx}','${i.user_idx}','${i.book_code}'); return false;"/>
 											</c:otherwise>
 										</c:choose>
 									</c:otherwise>

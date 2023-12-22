@@ -1,365 +1,488 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.go.gbelib.app.cms.module.archive.ArchiveDao">
+	<!-- 관리자용 -->
+	<sql id="search">
+		<if test="large_code != null and large_code != '--' and large_code != ''">
+		AND	a.large_code = #{large_code}
+		</if>
+		<if test="mid_code != null and mid_code != '--' and mid_code != ''">
+		AND	a.mid_code = #{mid_code}
+		</if>
+		<if test="small_code != null and small_code != '--' and small_code != ''">
+		AND	a.small_code = #{small_code}
+		</if>
+		<if test="public_yn != null and public_yn != ''">
+		AND	public_yn = #{public_yn}
+		</if>
+		<if test="addle_data_yn != null and addle_data_yn != ''">
+		AND	addle_data_yn = #{addle_data_yn}
+		</if>
+		<if test="search_type != null and search_type != '' and search_type != 'producer_name' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="search_type != null and search_type == 'producer_name' and search_text != null and search_text != ''">
+		AND	${search_type} = getCodeNameToCodeId('CMS', 'A0001', #{search_text})
+		</if>
+		<if test="producer_name != null and producer_name != ''">
+		AND	producer_name = #{producer_name}
+		</if>
+		<if test="original_owner != null and original_owner != ''">
+		AND	original_owner = #{original_owner}
+		</if>
+		<if test="region != null and region != ''">
+		AND	region = #{region}
+		</if>
+		<if test="person != null and person != ''">
+		AND	person = #{person}
+		</if>
+		<if test="type != null and type != ''">
+		AND	type = #{type}
+		</if>
+		<if test="data_type != null and data_type != ''">
+		AND	data_type = #{data_type}
+		</if>
+		<if test="era != null and era != ''">
+		AND	era = #{era}
+		</if>
+	</sql>
+	<!-- 사용자용 -->
+	<sql id="search2">
+		<if test="large_code != null and large_code != '--' and large_code != ''">
+		AND	a.large_code = #{large_code}
+		</if>
+		<if test="mid_code != null and mid_code != '--' and mid_code != ''">
+		AND	a.mid_code = #{mid_code}
+		</if>
+		<if test="small_code != null and small_code != '--' and small_code != ''">
+		AND	a.small_code = #{small_code}
+		</if>
+		<if test="title != null and title != ''">
+		AND	title LIKE '%'||#{title}||'%'
+		</if>
+		<if test="public_yn != null and public_yn != ''">
+		AND	public_yn = #{public_yn}
+		</if>
+		<if test="addle_data_yn != null and addle_data_yn != ''">
+		AND	addle_data_yn = #{addle_data_yn}
+		</if>
+		<if test="type != null and type != ''">
+		AND	type = #{type}
+		</if>
+		<if test="producer_name != null and producer_name != ''">
+		AND	producer_name = #{producer_name}
+		</if>
+		<if test="original_owner != null and original_owner != ''">
+		AND	original_owner = #{original_owner}
+		</if>
+		<if test="region != null and region != ''">
+		AND	region = #{region}
+		</if>
+		<if test="person != null and person != ''">
+		AND	person = #{person}
+		</if>
+		<if test="type != null and type != ''">
+		AND	type = #{type}
+		</if>
+		<if test="data_type != null and data_type != ''">
+		AND	data_type = #{data_type}
+		</if>
+		<if test="era != null and era != ''">
+		AND	era = #{era}
+		</if>
+		<if test="product_year_start != null and product_year_start != '' and product_year_end != null and product_year_end != ''">
+		AND	to_number(product_year) >= #{product_year_start} AND to_number(product_year) <![CDATA[<=]]> #{product_year_end}
+		</if>
+		<if test="search_type != null and search_type != '' and search_type != 'addle_data_yn' and search_type != 'all' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="search_type != null and search_type == 'all' and search_text != null and search_text != ''">
+		AND	(title LIKE '%'||#{search_text}||'%' OR description LIKE '%'||#{search_text}||'%')
+		</if>
+	</sql>
 
-	<select id="getArchiveBookCount" resultType="int">
+	<select id="getArchiveListCmsCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
-			ARCHIVE_BOOK
-		WHERE 1=1
-		AND use_yn = 'Y'
-		AND homepage_id = #{homepage_id}
-		<if test=" search_type != null and search_type != '' and search_text != null and search_text != '' ">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
-		</if>
-		<if test="category != null and category != ''">
-		AND category = #{category}
-		</if>
+			ARCHIVE a, ARCHIVE_CATEGORY b
+		WHERE
+			a.delete_yn = 'N'
+		AND a.large_code = b.large_code
+		<include refid="search"/>
 	</select>
-
-	<select id="getArchiveBookCountCms" resultType="int">
+	
+	<select id="getArchiveListCms" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		${pagingTop}
+		SELECT
+			a.book_idx, a.large_code, a.mid_code, a.small_code, a.manage_num,
+			a.title, a.product_year, a.product_date, a.description, a.provide_method,
+			getCodeIdToCodeName('CMS', 'A0001', a.producer_name) AS producer_name,
+			getCodeIdToCodeName('CMS', 'A0002', a.original_owner) AS original_owner,
+			getCodeIdToCodeName('CMS', 'A0003', a.region) AS region,
+			getCodeIdToCodeName('CMS', 'A0004', a.person) AS person,
+			getCodeIdToCodeName('CMS', 'A0005', a.type) AS type,
+			getCodeIdToCodeName('CMS', 'A0006', a.data_type) data_type,
+			getCodeIdToCodeName('CMS', 'A0007', a.era) era,
+			a.public_yn, a.file_name, a.file_path, a.image_file_name, a.image_file_path,
+			a.add_id, a.add_date, a.modify_id, a.modify_date, addle_data_yn,
+			b.code_name as large_code_name,
+			b.mid_code as mid_code_name,
+			b.small_code as small_code_name,
+			a.file_name, a.file_path, a.image_file_name, a.image_file_path, a.view_file_path,
+			a.view_count, a.related_number, a.archive_link, a.copyright, a.information_ment
+		FROM
+			ARCHIVE a, archive_category b
+		WHERE
+			a.delete_yn = 'N'
+		AND a.large_code = b.large_code
+		<include refid="search"/>
+		ORDER BY
+			a.add_date DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getArchiveListCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM
-			ARCHIVE_BOOK
-		WHERE 1=1
-		AND homepage_id = #{homepage_id}
-		<if test=" search_type != null and search_type != '' and search_text != null and search_text != '' ">
+			ARCHIVE a, ARCHIVE_CATEGORY b
+		WHERE
+			a.delete_yn = 'N'
+		AND a.large_code = b.large_code
+		AND a.mid_code = b.mid_code
+		AND a.small_code = b.small_code
+		<include refid="search2"/>
+		<if test="research_text_list != null and research_text_list != ''">
+		<foreach collection="research_text_list" item="i" index="index">
+		AND	title LIKE '%'||#{i}||'%'
+		</foreach>
+		</if>
+	</select>
+	
+	<select id="getArchiveList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		${pagingTop}
+		SELECT
+			a.book_idx, a.large_code, a.mid_code, a.small_code, a.manage_num,
+			a.title, a.product_year, a.product_date, a.description, a.provide_method,
+			getCodeIdToCodeName('CMS', 'A0001', a.producer_name) AS producer_name,
+			getCodeIdToCodeName('CMS', 'A0002', a.original_owner) AS original_owner,
+			getCodeIdToCodeName('CMS', 'A0003', a.region) AS region,
+			getCodeIdToCodeName('CMS', 'A0004', a.person) AS person,
+			getCodeIdToCodeName('CMS', 'A0005', a.type) AS type,
+			getCodeIdToCodeName('CMS', 'A0006', a.data_type) data_type,
+			getCodeIdToCodeName('CMS', 'A0007', a.era) era,
+			a.public_yn, a.file_name, a.file_path, a.image_file_name, a.image_file_path,
+			a.add_id, a.add_date, a.modify_id, a.modify_date, addle_data_yn,
+			b.code_name as large_code_name,
+			b.mid_code as mid_code_name,
+			b.small_code as small_code_name,
+			a.file_name, a.file_path, a.image_file_name, a.image_file_path, a.view_file_path,
+			a.view_count, a.related_number, a.archive_link, a.copyright, a.information_ment
+		FROM
+			ARCHIVE a, archive_category b
+		WHERE
+			a.delete_yn = 'N'
+		AND a.large_code = b.large_code
+		<include refid="search2"/>
+		<if test="large_code != null and large_code != '--' and large_code != ''">
+		AND	a.large_code = #{large_code}
+		</if>
+		<if test="mid_code != null and mid_code != '--' and mid_code != ''">
+		AND	a.mid_code = #{mid_code}
+		</if>
+		<if test="small_code != null and small_code != '--' and small_code != ''">
+		AND	a.small_code = #{small_code}
+		</if>
+		<if test="research_text_list != null and research_text_list != ''">
+		<foreach collection="research_text_list" item="i" index="index">
+		AND	title LIKE '%'||#{i}||'%'
+		</foreach>
+		</if>
+		<choose>
+			<when test="sortField != null and sortField == 'add_date'">
+				ORDER BY
+					a.book_idx DESC
+			</when>
+			<when test="sortField != null and sortField == 'title'">
+				ORDER BY
+					a.title ASC, a.add_date DESC
+			</when>
+			<when test="sortField != null and sortField == 'view_count'">
+				ORDER BY
+					a.view_count DESC, a.add_date DESC
+			</when>
+		</choose>
+		${pagingBottom}
+	</select>
+	
+	<select id="getArchiveListCmsAll" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			a.book_idx, a.large_code, a.mid_code, a.small_code, a.manage_num,
+			a.title, a.product_year, a.product_date, a.description, a.provide_method,
+			getCodeIdToCodeName('CMS', 'A0001', a.producer_name) AS producer_name,
+			getCodeIdToCodeName('CMS', 'A0002', a.original_owner) AS original_owner,
+			getCodeIdToCodeName('CMS', 'A0003', a.region) AS region,
+			getCodeIdToCodeName('CMS', 'A0004', a.person) AS person,
+			getCodeIdToCodeName('CMS', 'A0005', a.type) AS type,
+			getCodeIdToCodeName('CMS', 'A0006', a.data_type) data_type,
+			getCodeIdToCodeName('CMS', 'A0007', a.era) era,
+			a.public_yn, a.file_name, a.file_path, a.image_file_name, a.image_file_path,
+			a.add_id, a.add_date, a.modify_id, a.modify_date, addle_data_yn,
+			b.code_name as large_code_name,
+			b.mid_code as mid_code_name,
+			b.small_code as small_code_name,
+			a.file_name, a.file_path, a.image_file_name, a.image_file_path, a.view_file_path,
+			a.view_count, a.related_number, a.archive_link, a.copyright, a.information_ment
+		FROM
+			ARCHIVE a, archive_category b
+		WHERE
+			a.delete_yn = 'N'
+		and a.large_code = b.large_code
+		<if test="search_type != null and search_type != '' and search_type != 'producer_name' and search_text != null and search_text != ''">
 		AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
-		<if test="category != null and category != ''">
-		AND category = #{category}
+		<if test="search_type != null and search_type == 'producer_name' and search_text != null and search_text != ''">
+		AND	${search_type} = getCodeNameToCodeId('CMS', 'A0001', #{search_text})
 		</if>
+		ORDER BY
+			a.add_date DESC
 	</select>
-
-	<select id="getArchiveBookList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+	
+	<select id="getArchiveOne" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
 		SELECT
-			homepage_id,
-			book_idx, subject, regnumber, volume, author,
-			publisher, year, callnumber, place, code,
-			skin, logoimg,  category,
-			(
-				SELECT server_file_name
-				FROM ARCHIVE_PAGE z
-				WHERE z.book_idx = a.book_idx
-				AND code = 1
-			) AS server_file_name,
-			orig_width, orig_height, resize_width, resize_height,
-			add_date, add_id, mod_date, mod_id,
-			use_yn, GETCODEIDTOCODENAME(#{homepage_id}, 'H0004', category) as category_name
+			a.book_idx, a.large_code, a.mid_code, a.small_code, a.manage_num,
+			a.title, a.product_year, a.product_date, a.description, a.provide_method,
+			a.producer_name, a.original_owner, a.region, a.person, a.type,
+			a.data_type, a.public_yn, a.file_name, a.file_path, a.image_file_name,
+			a.image_file_path, a.add_id, a.add_date, a.modify_id, a.modify_date,
+			(SELECT code_name FROM ARCHIVE_CATEGORY WHERE large_code = a.large_code AND	mid_code = '--' AND	small_code = '--' AND delete_yn = 'N') as large_code_name,
+			CASE WHEN a.mid_code != '--' THEN (SELECT code_name FROM ARCHIVE_CATEGORY WHERE large_code = a.large_code AND mid_code = a.mid_code AND small_code = '--' AND delete_yn = 'N') ELSE '' END mid_code_name,
+			CASE WHEN a.small_code != '--' THEN (SELECT code_name FROM ARCHIVE_CATEGORY WHERE large_code = a.large_code AND	mid_code = a.mid_code AND small_code = a.small_code AND delete_yn = 'N') ELSE '' END small_code_name,
+			a.view_file_path, a.addle_data_yn, a.related_number, a.archive_link, a.era,
+			a.copyright, a.information_ment
 		FROM
-			(
-			${pagingTop}
-			SELECT
-				homepage_id,
-				book_idx, subject, regnumber, volume, author,
-				publisher, year, callnumber, place, code,
-				skin, logoimg,  category,
-				orig_width, orig_height, resize_width, resize_height,
-				add_date, add_id, mod_date, mod_id,
-				use_yn
-			FROM
-				ARCHIVE_BOOK a
-			WHERE 1=1
-			AND use_yn = 'Y'
-			AND homepage_id = #{homepage_id}
-			<if test="search_type != null and search_type != '' and search_text != null and search_text != '' ">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			<if test="category != null and category != ''">
-			AND category = #{category}
-			</if>
-			ORDER BY category, code DESC, book_idx DESC
-			${pagingBottom}
-			) a
-	</select>
-
-	<select id="getArchiveBookListCms" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			homepage_id,
-			book_idx, subject, regnumber, volume, author,
-			publisher, year, callnumber, place, code,
-			skin, logoimg,  category,
-			orig_width, orig_height, resize_width, resize_height,
-			add_date, add_id, mod_date, mod_id,
-			use_yn, GETCODEIDTOCODENAME(#{homepage_id}, 'H0004', category) as category_name
-		FROM
-			(
-			${pagingTop}
-			SELECT
-				homepage_id,
-				book_idx, subject, regnumber, volume, author,
-				publisher, year, callnumber, place, code,
-				skin, logoimg,  category,
-				orig_width, orig_height, resize_width, resize_height,
-				add_date, add_id, mod_date, mod_id,
-				use_yn
-			FROM
-				ARCHIVE_BOOK
-			WHERE 1=1
-			AND homepage_id = #{homepage_id}
-			<if test=" search_type != null and search_type != '' and search_text != null and search_text != '' ">
-			AND	${search_type} LIKE '%'||#{search_text}||'%'
-			</if>
-			<if test="category != null and category != ''">
-			AND category = #{category}
-			</if>
-			ORDER BY category, code DESC, book_idx DESC
-			${pagingBottom}
-			) a
-	</select>
-
-	<select id="getArchiveBook" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			homepage_id,
-			book_idx, subject, regnumber, volume, author,
-			publisher, year, callnumber, place, code,
-			skin, logoimg,  category,
-			orig_width, orig_height, resize_width, resize_height,
-			add_date, add_id, mod_date, mod_id,
-			use_yn, GETCODEIDTOCODENAME(#{homepage_id}, 'H0004', category) as category_name
-		FROM
-			ARCHIVE_BOOK
+			ARCHIVE a
 		WHERE
 			book_idx = #{book_idx}
+		AND	large_code = #{large_code}
+		AND	delete_yn = 'N'
 	</select>
-
-	<insert id="addArchiveBook">
+	
+	<select id="getMainNewArchiveList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
+		SELECT
+			*
+		FROM
+		(
+			SELECT
+			a.book_idx, a.large_code, a.mid_code, a.small_code, a.manage_num,
+			a.title, a.product_year, a.product_date, a.description, a.provide_method,
+			a.producer_name, a.original_owner, a.region, a.person, a.type,
+			a.public_yn, a.file_name, a.file_path, a.image_file_name, a.image_file_path,
+			a.add_id, a.add_date, a.modify_id, a.modify_date, addle_data_yn,
+			b.code_name as large_code_name,
+			b.mid_code as mid_code_name,
+			b.small_code as small_code_name,
+			a.file_name, a.file_path, a.image_file_name, a.image_file_path, a.view_file_path,
+			a.view_count, a.data_type, a.related_number, a.archive_link, a.era,
+			a.copyright, a.information_ment
+		FROM
+			ARCHIVE a, archive_category b
+		WHERE
+			a.delete_yn = 'N'
+		and a.large_code = b.large_code
+			ORDER BY
+				a.book_idx DESC, a.product_year DESC
+		)
+		WHERE ROWNUM <![CDATA[<=]]> 2
+	</select>
+	
+	<select id="fileCntCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE
+		WHERE
+			file_name = #{file_name}
+		AND	delete_yn = 'N'
+	</select>
+	
+	<select id="imageFileCntCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE
+		WHERE
+			image_file_name = #{image_file_name}
+		AND	delete_yn = 'N'
+	</select>
+	
+	<select id="titleCntCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE
+		WHERE
+			title = #{title}
+		AND	delete_yn = 'N'
+		AND	book_idx != #{book_idx}
+	</select>
+	
+	<select id="codeDupCheck" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			ARCHIVE
+		WHERE
+			large_code = #{large_code}
+		AND	title = #{title}
+		AND	delete_yn = 'N'
+		<if test="manage_num != null and manage_num != '' ">
+			AND	manage_num = #{manage_num}
+		</if>
+	</select>
+	
+	<select id="getBookIdx" resultType="int">
+		SELECT
+			book_idx
+		FROM
+			ARCHIVE
+		WHERE
+			large_code = #{large_code}
+		AND	title = #{title}
+		<if test="manage_num != null and manage_num != '' ">
+			AND	manage_num = #{manage_num}
+		</if>
+		AND	delete_yn = 'N'
+	</select>
+	
+	<insert id="addArchive">
 		<selectKey keyProperty="book_idx" resultType="int" order="BEFORE">
-		SELECT NVL(MAX(book_idx), 0)+1 FROM ARCHIVE_BOOK
+			SELECT NVL(MAX(book_idx),0)+1 FROM ARCHIVE
 		</selectKey>
-		INSERT INTO ARCHIVE_BOOK (
-			homepage_id,
-			book_idx, subject, regnumber, volume, author,
-			publisher, year, callnumber, place, code,
-			skin, logoimg,  category,
-			orig_width, orig_height, resize_width, resize_height,
-			add_date, add_id,
-			use_yn
-		) VALUES (
-			#{homepage_id},
-			#{book_idx}, #{subject}, #{regnumber}, #{volume}, #{author},
-			#{publisher}, #{year}, #{callnumber}, #{place},
-			(SELECT NVL(MAX(code), 0)+1 FROM ARCHIVE_BOOK WHERE use_yn = 'Y' AND homepage_id = #{homepage_id}),
-			#{skin}, #{logoimg}, #{category},
-			#{orig_width}, #{orig_height}, #{resize_width}, #{resize_height},
-			SYSDATE, #{add_id},
-			#{use_yn}
-		)
-	</insert>
-
-	<update id="modArchiveBook">
-		UPDATE ARCHIVE_BOOK SET
-			subject = #{subject},
-			regnumber = #{regnumber},
-			volume = #{volume},
-			author = #{author},
-			publisher = #{publisher},
-			year = #{year},
-			callnumber = #{callnumber},
-			place = #{place},
-			category = #{category},
-			orig_width = #{orig_width},
-			orig_height = #{orig_height},
-			resize_width = #{resize_width},
-			resize_height = #{resize_height},
-			use_yn = #{use_yn},
-			mod_id = #{mod_id},
-			mod_date = SYSDATE
-		WHERE
-			book_idx = #{book_idx}
-	</update>
-
-	<delete id="delArchiveBook">
-		DELETE FROM ARCHIVE_BOOK WHERE book_idx = #{book_idx}
-	</delete>
-
-	<delete id="delArchiveBookPages">
-		DELETE FROM ARCHIVE_PAGE WHERE book_idx = #{book_idx}
-	</delete>
-
-	<update id="reorderArchiveBook">
-		UPDATE ARCHIVE_PAGE a SET
-			(code, subject) =
-			(
-				SELECT rn, 'page'||rn
-				FROM (
-					SELECT page_idx, ROW_NUMBER() OVER (ORDER BY code) AS rn
-					FROM ARCHIVE_PAGE
-					WHERE book_idx = #{book_idx}
-				) z
-				WHERE z.page_idx = a.page_idx
-			)
-		WHERE
-			book_idx = #{book_idx}
-	</update>
-
-	<update id="moveUpArchivePage">
-		UPDATE ARCHIVE_PAGE a SET
-			code = (SELECT code FROM ARCHIVE_PAGE z WHERE z.book_idx = #{book_idx} AND z.code &gt; a.code and rownum = 1)
-		WHERE
-			book_idx = #{book_idx}
-		AND page_idx = #{page_idx}
-	</update>
-
-	<update id="moveDownArchivePage">
-		UPDATE ARCHIVE_PAGE a SET
-			code = (SELECT code FROM ARCHIVE_PAGE WHERE code)
-		WHERE
-			book_idx = #{book_idx}
-		AND page_idx = #{page_idx}
-	</update>
-
-	<select id="getArchivePageCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			ARCHIVE_PAGE
-		WHERE
-			book_idx = #{book_idx}
-	</select>
-
-	<select id="getArchivePageList" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			page_idx, book_idx, subject, code,
-			server_file_name, org_file_name,
-			add_date, add_id, mod_date, mod_id,
-			use_yn
-		FROM
-			ARCHIVE_PAGE
-		WHERE
-			book_idx = #{book_idx}
-		AND (SELECT use_yn FROM ARCHIVE_BOOK WHERE book_idx = #{book_idx}) = 'Y'
-		ORDER BY code
-	</select>
-
-	<select id="getArchivePageListCms" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			page_idx, book_idx, subject, code,
-			server_file_name, org_file_name,
-			add_date, add_id, mod_date, mod_id,
-			use_yn
-		FROM
-			ARCHIVE_PAGE
-		WHERE
-			book_idx = #{book_idx}
-		ORDER BY code
-	</select>
-
-	<select id="getArchivePage" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			page_idx, book_idx, subject, code,
-			server_file_name, org_file_name,
-			add_date, add_id, mod_date, mod_id,
-			use_yn
-		FROM
-			ARCHIVE_PAGE
-		WHERE
-			page_idx = #{page_idx}
-		AND book_idx = #{book_idx}
-	</select>
-
-	<insert id="addArchivePage">
-		<selectKey keyProperty="code" resultType="int" order="BEFORE">
-		SELECT NVL(MAX(code), 0)+1 FROM ARCHIVE_PAGE WHERE use_yn = 'Y' AND book_idx = #{book_idx}
-		</selectKey>
-		INSERT INTO ARCHIVE_PAGE (
-			page_idx, book_idx, subject, code,
-			server_file_name, org_file_name,
-			add_date, add_id,
-			use_yn
-		) VALUES (
-			ARCHIVE_PAGE_SEQ.NEXTVAL, #{book_idx}, 'page'||#{code}, #{code},
-			#{server_file_name}, #{org_file_name},
-			SYSDATE, #{add_id},
-			#{use_yn}
-		)
-	</insert>
-
-	<update id="modArchivePage">
-		UPDATE ARCHIVE_PAGE SET
-			subject = NVL(#{subject}, 'page'||#{code}),
-			code = #{code},
-			mod_id = #{mod_id},
-			mod_date = SYSDATE,
-			use_yn = #{use_yn}
-		WHERE
-			page_idx = #{page_idx}
-		AND book_idx = #{book_idx}
-	</update>
-
-	<delete id="delArchivePage">
-		DELETE FROM ARCHIVE_PAGE WHERE page_idx = #{page_idx}
-	</delete>
-
-	<update id="modArchivePageFile">
-		UPDATE ARCHIVE_PAGE SET
-			server_file_name = #{server_file_name},
-			org_file_name = #{org_file_name}
-		WHERE
-			page_idx = #{page_idx}
-		AND book_idx = #{book_idx}
-	</update>
-
-	<select id="getLowerArchivePage" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			page_idx, book_idx, subject, code,
-			server_file_name, org_file_name,
-			add_date, add_id, mod_date, mod_id,
-			use_yn
-		FROM
-			ARCHIVE_PAGE
-		WHERE
-			code =
-			(
-				SELECT NVL(MIN(code),0)
-				FROM ARCHIVE_PAGE
-				WHERE code &gt; #{code}
-				AND book_idx = #{book_idx}
-			)
-		AND book_idx = #{book_idx}
-		AND ROWNUM = 1
-	</select>
-
-	<select id="getHigherArchivePage" resultType="kr.go.gbelib.app.cms.module.archive.Archive">
-		SELECT
-			page_idx, book_idx, subject, code,
-			server_file_name, org_file_name,
-			add_date, add_id, mod_date, mod_id,
-			use_yn
-		FROM
-			ARCHIVE_PAGE
-		WHERE
-			code =
-			(
-				SELECT NVL(MAX(code),0)
-				FROM ARCHIVE_PAGE
-				WHERE code &lt; #{code}
-				AND book_idx = #{book_idx}
-			)
-		AND book_idx = #{book_idx}
-		AND ROWNUM = 1
-	</select>
-
-	<update id="modCode">
-		UPDATE ARCHIVE_PAGE SET
-			code = #{code}
-		WHERE
-			book_idx = #{book_idx}
-		AND page_idx = #{page_idx}
-	</update>
-
-	<insert id="addViewCount">
-		INSERT INTO
-			ARCHIVE_STATISTICS
+		INSERT INTO ARCHIVE
 		(
-			homepage_id, book_idx, access_idx, access_date
-		)
-		VALUES
-		(
-			#{homepage_id}, #{book_idx}, ARCHIVE_STATISTICS_SEQ.NEXTVAL, SYSDATE
+			book_idx, large_code, mid_code, small_code, manage_num,
+			title, product_year, product_date, producer_name, original_owner,
+			region, person, description, type, data_type,
+			provide_method, public_yn, view_count, add_id, add_date,
+			<if test="file_name != null and file_name != '' ">
+			file_name,
+			file_path,
+			</if>
+			<if test="image_file_name != null and image_file_name != '' ">
+			image_file_name,
+			image_file_path,
+			</if>
+			view_file_path, addle_data_yn, delete_yn, related_number, archive_link,
+			era, copyright, information_ment
+		) VALUES (
+			#{book_idx}, #{large_code}, '--', '--', #{manage_num},
+			#{title}, #{product_year}, #{product_date}, #{producer_name}, #{original_owner},
+			#{region}, #{person}, #{description}, #{type}, #{data_type},
+			#{provide_method}, #{public_yn}, 0, #{add_id}, SYSDATE,
+			<if test="file_name != null and file_name != '' ">
+			#{file_name},
+			#{file_path},
+			</if>
+			<if test="image_file_name != null and image_file_name != '' ">
+			#{image_file_name},
+			#{image_file_path},
+			</if>
+			#{view_file_path}, #{addle_data_yn}, 'N', #{related_number}, #{archive_link},
+			#{era}, #{copyright}, #{information_ment}
 		)
 	</insert>
+	
+	<update id="modifyArchive">
+		UPDATE
+			ARCHIVE
+		SET
+			large_code 			= #{large_code},
+			mid_code 			= '--',
+			small_code 			= '--',
+			manage_num 			= #{manage_num},
+			related_number 		= #{related_number},
+			title 				= #{title},
+			product_year		= #{product_year},
+			product_date		= #{product_date},
+			producer_name		= #{producer_name},
+			original_owner 		= #{original_owner},
+			region				= #{region},
+			person				= #{person},
+			description			= #{description},
+			type				= #{type},
+			data_type			= #{data_type},
+			provide_method		= #{provide_method},
+			public_yn			= #{public_yn},
+			archive_link		= #{archive_link},
+			era					= #{era},
+			copyright			= #{copyright},
+			information_ment	= #{information_ment},
+			<if test="file_name != null and file_name != '' ">
+			file_name 		= #{file_name},
+			file_path 		= #{file_path},
+			</if>
+			<if test="image_file_name != null and image_file_name != '' ">
+			image_file_name = #{image_file_name},
+			image_file_path = #{image_file_path},
+			</if>
+			view_file_path = #{view_file_path},
+			addle_data_yn = #{addle_data_yn},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			book_idx = #{book_idx}
+		AND	large_code = #{original_large_code}
+		AND	delete_yn = 'N'
+	</update>
 
+	<delete id="deleteArchive">
+		UPDATE
+			ARCHIVE
+		SET
+			delete_yn = 'Y',
+			delete_id = #{delete_id},
+			delete_date = SYSDATE
+		WHERE
+			book_idx = #{book_idx}
+		AND	large_code = #{large_code}
+		AND	delete_yn = 'N'
+	</delete>
+	
+	<update id="deleteFile">
+		UPDATE
+			ARCHIVE
+		SET
+			file_name = '',
+			file_path = ''
+		WHERE
+			large_code = #{large_code}
+		AND	book_idx = #{book_idx}
+		AND	delete_yn = 'N'
+	</update>
+
+	<update id="deleteImage">
+		UPDATE
+			ARCHIVE
+		SET
+			image_file_name = '',
+			image_file_path = ''
+		WHERE
+			large_code = #{large_code}
+		AND	book_idx = #{book_idx}
+		AND	delete_yn = 'N'
+	</update>
+	
+	<update id="addViewCount">
+		UPDATE
+			ARCHIVE
+		SET
+			view_count = NVL(view_count, 0) + 1
+		WHERE
+			large_code = #{large_code}
+		AND	book_idx = #{book_idx}
+		AND	delete_yn = 'N'
+	</update>
+	
 </mapper>

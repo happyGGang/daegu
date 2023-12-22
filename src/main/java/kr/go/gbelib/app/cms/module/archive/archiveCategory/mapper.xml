@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.archive.archiveCategory.ArchiveCategoryDao">
+
+	<sql id="field">
+		large_code, mid_code, small_code, code_name, remark,
+		print_seq, add_date, add_id, modify_date, modify_id, delete_date, delete_id
+    </sql>
+
+    <select id="getLargeCategoryList" resultType="kr.go.gbelib.app.cms.module.archive.archiveCategory.ArchiveCategory">
+   		SELECT
+   			<include refid="field" />
+   		FROM
+   			ARCHIVE_CATEGORY
+   		WHERE
+   			mid_code = '--'
+   		AND	small_code = '--'
+   		AND delete_yn = 'N'
+   		ORDER BY
+   			print_seq
+    </select>
+    
+    <select id="getMidCategoryList" resultType="kr.go.gbelib.app.cms.module.archive.archiveCategory.ArchiveCategory">
+   		SELECT
+   			<include refid="field" />
+   		FROM
+   			ARCHIVE_CATEGORY
+   		WHERE
+   			large_code = #{large_code}
+   		AND	mid_code != '--'
+   		AND	small_code = '--'
+   		AND	delete_yn = 'N'
+   		ORDER BY
+   			print_seq
+    </select>
+
+    <select id="getSmallCategoryList" resultType="kr.go.gbelib.app.cms.module.archive.archiveCategory.ArchiveCategory">
+   		SELECT
+   			<include refid="field" />
+   		FROM
+   			ARCHIVE_CATEGORY
+   		WHERE
+   			large_code = #{large_code}
+   		AND	mid_code = #{mid_code}
+   		AND	small_code != '--'
+   		AND	delete_yn = 'N'
+   		ORDER BY
+   			print_seq
+    </select>
+    
+    <select id="getLargeCategoryCnt" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = '--'
+    	AND	small_code = '--'
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id="getMidCategoryCnt" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = '--'
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id="getSmallCategoryCnt" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id="getLargeCategoryCodeId" resultType="String">
+    	SELECT
+    		large_code
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		code_name = #{code_name}
+    	AND	mid_code = '--'
+    	AND	small_code = '--'
+    </select>
+    
+    <select id="getMidCategoryCodeId" resultType="String">
+    	SELECT
+    		mid_code
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		code_name = #{code_name}
+    	AND	large_code = #{large_code}
+    	AND	small_code = '--'
+    </select>
+    
+    <select id="getSmallCategoryCodeId" resultType="String">
+    	SELECT
+    		small_code
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		code_name = #{code_name}
+   		AND	large_code = #{large_code}
+   		AND	mid_code = #{mid_code}
+    </select>
+    
+    <select id="checkAlreadyDeleted" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'Y'
+    </select>
+    
+    <select id="archiveDataCheck" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		ARCHIVE
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND small_code = #{small_code}
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id ="getLargeCategoryCodeName" resultType="String">
+    	SELECT
+    		code_name
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = '--'
+    	AND	small_code = '--'
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id ="getMidCategoryCodeName" resultType="String">
+    	SELECT
+    		code_name
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = '--'
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id ="getSmallCategoryCodeName" resultType="String">
+    	SELECT
+    		code_name
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <insert id="addArchiveCategory">
+    	<selectKey keyProperty="print_seq" order="BEFORE" resultType="int">
+    		SELECT NVL(MAX(print_seq), 0)+1 FROM ARCHIVE_CATEGORY
+    		<if test="mid_code != '--' and small_code == '--'">
+    		WHERE
+    			large_code = #{large_code}
+    		AND	mid_code != '--'
+    		</if>
+    		<if test="mid_code != '--' and small_code != '--'">
+    		WHERE
+    			large_code = #{large_code}
+    		AND	mid_code = #{mid_code}
+    		AND	small_code != '--'
+    		</if>
+    	</selectKey>
+    	INSERT INTO
+    		ARCHIVE_CATEGORY
+    	(
+	    	large_code, mid_code, small_code, code_name, remark,
+			print_seq, add_date, add_id, modify_date, modify_id, delete_yn
+    	)
+    		VALUES
+    	(
+    		#{large_code}, #{mid_code}, #{small_code}, #{code_name}, #{remark},
+			#{print_seq}, SYSDATE, #{cud_id}, SYSDATE, #{cud_id}, 'N'
+    	)
+    </insert>
+    
+    <update id="modifyArchiveCategory">
+    	UPDATE
+    		ARCHIVE_CATEGORY
+    	SET
+    		code_name = #{code_name},
+    		modify_date = SYSDATE,
+    		modify_id = #{cud_id}
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'N'
+    </update>
+
+    <delete id="deleteArchiveCategory">
+    	UPDATE
+    		ARCHIVE_CATEGORY
+    	SET
+    		delete_yn = 'Y',
+    		delete_date = SYSDATE,
+    		delete_id = #{cud_id}
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'N'
+    </delete>
+
+    <update id="modifyPrintSeq">
+    	UPDATE
+    		ARCHIVE_CATEGORY
+    	SET
+    		print_seq = #{print_seq},
+    		modify_date = SYSDATE,
+    		modify_id = #{cud_id}
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'N'
+    </update>
+    
+    <delete id="realDeleteArchiveCategory">
+    	DELETE FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	delete_yn = 'Y'
+    </delete>
+    
+    <select id="getCategoryInfo" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+   		AND	mid_code = #{mid_code}
+   		AND	small_code = #{small_code}
+   		AND	delete_yn = 'N'
+    </select>
+    
+    <select id="getCategoryInfoByName" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	AND	mid_code = #{mid_code}
+    	AND	small_code = #{small_code}
+    	AND	code_name = #{code_name}
+    	AND	delete_yn = 'N'
+    </select>
+    
+    <select id="childCheck" resultType="int">
+    	SELECT
+    		COUNT(*)
+    	FROM
+    		ARCHIVE_CATEGORY
+    	WHERE
+    		large_code = #{large_code}
+    	<if test="mid_code != null and mid_code != '--'">
+    	AND	mid_code = #{mid_code}
+    	</if>
+    </select>
+</mapper>

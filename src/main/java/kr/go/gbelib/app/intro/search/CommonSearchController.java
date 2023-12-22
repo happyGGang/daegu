@@ -14,6 +14,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.archive.Archive;
+import kr.go.gbelib.app.cms.module.archive.ArchiveService;
+import kr.go.gbelib.app.cms.module.archive.archiveCategory.ArchiveCategory;
+import kr.go.gbelib.app.cms.module.archive.archiveCategory.ArchiveCategoryService;
 import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSetting;
 import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSettingService;
 import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest;
@@ -105,7 +109,13 @@ public class CommonSearchController extends BaseController {
 	private NearbyLibLockerService neighborhoodLibraryLockerService;
 	
 	@Autowired
-	private NearbyLibManageService nearbyLibManageService; 
+	private NearbyLibManageService nearbyLibManageService;
+	
+	@Autowired
+	private ArchiveService archiveService;
+	
+	@Autowired
+	private ArchiveCategoryService archiveCategoryService;
 	
 	/**
 	 * 자료검색
@@ -4767,4 +4777,70 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "baro/index";
 	}
 
+	@RequestMapping(value = {"/archive/index.*"}, method=RequestMethod.GET)
+	public String index(Model model, Archive archive, ArchiveCategory archiveCategory, HttpServletRequest request) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		if (archive.getSortField().equals("TITLE")) {
+			archive.setSortField("view_count");
+		}
+		
+		if (!StringUtils.isEmpty(archive.getSearch_type())) {
+			if (archive.getSearch_type().equals("addle_data_yn")) {
+				archive.setAddle_data_yn("Y");
+				archive.setTitle(archive.getSearch_text());
+			}
+		}
+		
+		model.addAttribute("largeCategoryList", archiveCategoryService.getLargeCategoryList());
+		model.addAttribute("midCategoryList", archiveCategoryService.getMidCategoryList(archiveCategory));
+		model.addAttribute("smallCategoryList", archiveCategoryService.getSmallCategoryList(archiveCategory));
+		
+		if (StringUtils.isEmpty(archive.getView_mode())) {
+			archive.setView_mode("list");
+		}
+		
+		if (archive.isResearch()) {
+			String research_text = archive.getResearch_text();
+			if (!StringUtils.isEmpty(research_text)) {
+				archive.setResearch_text_list(Arrays.asList(research_text.split(" ")));
+			}
+		}
+		
+		if (archive.getView_mode().equals("list")) {
+				
+			int count = archiveService.getArchiveListCount(archive);
+			service.setPaging(model, count, archive);
+			List<Archive> archiveList = archiveService.getArchiveList(archive);
+
+			model.addAttribute("archive", archive);
+			model.addAttribute("archiveList", archiveList);
+			model.addAttribute("archiveCnt", count);
+
+			if (!archive.isResearch()) {
+				archive.setResearch_text("");
+			} else {
+				archive.setResearch_text(archive.getResearch_text() + " ");
+			}
+
+			return String.format(basePath, homepage.getFolder()) + "archive/index_list";
+		} else {
+				
+			int count = archiveService.getArchiveListCount(archive);
+			service.setPagingArchiveThumbnail(model, count, archive);
+			List<Archive> archiveList = archiveService.getArchiveList(archive);
+
+			model.addAttribute("archive", archive);
+			model.addAttribute("archiveList", archiveList);
+			model.addAttribute("archiveCnt", count);
+
+			if (!archive.isResearch()) {
+				archive.setResearch_text("");
+			} else {
+				archive.setResearch_text(archive.getResearch_text() + " ");
+			}
+
+			return String.format(basePath, homepage.getFolder()) + "archive/index_thumbnail";
+		}
+	}
 }

@@ -89,4 +89,7 @@ public class CodeService extends BaseService {
 		return dao.getNextPrintSeq(code);
 	}
 
+	public String getCodeId(Code code) {
+		return dao.getCodeId(code);
+	}
 }

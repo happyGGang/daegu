@@ -46,6 +46,14 @@ public abstract class BaseService {
 		pagingUtils.setTotalDataCount(totalDataCount);
 		model.addAttribute("paging", pagingUtils);
 	}
+	
+	public void setPagingArchiveThumbnail(Model model, int totalDataCount, PagingUtils pagingUtils) {
+		if ((pagingUtils.getRowCount() % 3) != 0) {
+			pagingUtils.setRowCount(6);
+		}
+		pagingUtils.setTotalDataCount(totalDataCount);
+		model.addAttribute("paging", pagingUtils);
+	}
 
 	public PagingUtils copyObjectPaging(PagingUtils originalPaging, PagingUtils copyTargetPaging) {
 		copyTargetPaging.setPagingUtils(originalPaging);

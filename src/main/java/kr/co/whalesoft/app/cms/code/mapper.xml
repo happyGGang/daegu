@@ -207,4 +207,15 @@
 			HOMEPAGE_ID	= #{homepage_id} AND GROUP_ID = #{group_id}
 	</select>
 	
+	<select id="getCodeId" resultType="String">
+		SELECT
+			code_id
+		FROM
+			CMS_CODE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	group_id = #{group_id}
+		AND	code_name = #{code_name}
+	</select>
+	
 </mapper>

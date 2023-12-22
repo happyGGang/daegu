@@ -31,5 +31,7 @@ public interface CodeDao {
 	public int deleteCode(Code code);
 
 	public int getNextPrintSeq(Code code);
+
+	public String getCodeId(Code code);
 	
 }
