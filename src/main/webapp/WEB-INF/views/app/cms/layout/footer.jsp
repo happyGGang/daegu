@@ -4,9 +4,9 @@
 		<div class="pull-left">
 <!-- 			&copy; 2016 <strong>WBuilder</strong>. All rights reserved. -->
 		</div>
-		<div class="pull-right">
-			<a href="/dgportal/index.do" target="_blank">대구광역시 통합도서관 바로가기</a>
-		</div>
+<!-- 		<div class="pull-right"> -->
+<!-- 			<a href="/dgportal/index.do" target="_blank">대구광역시 통합도서관 바로가기</a> -->
+<!-- 		</div> -->
 	</div>
 
 </div>

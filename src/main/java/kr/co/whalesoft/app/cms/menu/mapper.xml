@@ -654,15 +654,5 @@
 		AND	(menu_url_param LIKE '%'||#{menu_url_param}||'%')
 		AND	use_yn = 'Y'
 	</select>
-	
-	<select id="getMenuIdxByUrlParam" resultType="String">
-		SELECT
-			menu_idx
-		FROM
-			CMS_MENU
-		WHERE
-			homepage_id = 'h35'
-		AND	menu_url_param = #{menu_url_param}
-	</select>
 
 </mapper>
