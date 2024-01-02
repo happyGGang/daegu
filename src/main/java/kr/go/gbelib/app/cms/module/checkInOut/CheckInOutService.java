@@ -65,4 +65,28 @@ public class CheckInOutService extends BaseService {
 		return dao.isCheckOutCount(checkInOut);
 	}
 
+	public int checkOutAll(CheckInOut checkInOut) {
+		return dao.checkOutAll(checkInOut);
+	}
+
+	public List<CheckInOut> getUsageRankingList(CheckInOut checkInOut) {
+		return dao.getUsageRankingList(checkInOut);
+	}
+
+	public List<CheckInOut> getHoursOfUse(CheckInOut checkInOut) {
+		return dao.getHoursOfUse(checkInOut);
+	}
+
+	public int getHoursOfUseCount(CheckInOut checkInOut) {
+		return dao.getHoursOfUseCount(checkInOut);
+	}
+
+	public List<CheckInOut> getUsageExcelList(CheckInOut checkInOut) {
+		return dao.getUsageExcelList(checkInOut);
+	}
+
+	public List<CheckInOut> getHourOfUseExcelList(CheckInOut checkInOut) {
+		return dao.getHourOfUseExcelList(checkInOut);
+	}
+
 }

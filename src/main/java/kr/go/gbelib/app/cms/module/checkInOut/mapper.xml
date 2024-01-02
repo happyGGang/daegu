@@ -6,7 +6,7 @@
 		homepage_id, checkInOut_idx, user_no, member_id, member_name,
 		member_birth, member_sex, member_area, ROUND(checkInOut_time) AS checkInOut_time, check_type,
 		TO_CHAR(checkIn_time,'yyyy-MM-dd HH24:MI:SS') AS checkIn_time, TO_CHAR(checkOut_time,'yyyy-MM-dd HH24:MI:SS') AS checkOut_time,
-		gubun
+		RANK() OVER (PARTITION BY member_id ORDER BY checkInOut_idx) AS gubun
 	</sql>
 	
 	<sql id="where">
@@ -182,4 +182,125 @@
 			checkInOut_idx DESC
 	</select>
 	
+	<update id="checkOutAll">
+		UPDATE
+			CHECKINOUT
+		SET
+			checkOut_time = SYSDATE,
+			checkInOut_time = (
+								SELECT
+									ROUND((SYSDATE - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) * 24 * 60, 2)
+								FROM 
+									dual
+							   ),
+			gubun = '1'
+		WHERE
+			homepage_id = #{homepage_id}
+		AND checkInOut_idx IN
+		<foreach collection="checkInOut_arr" item="i" open="(" close=")" separator=",">
+		${i}
+		</foreach>
+	</update>
+	
+	<select id="getUsageRankingList" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		${pagingTop}
+		SELECT
+			A.user_no, A.member_id, A.member_name, A.member_area,
+			(
+			select COUNT(*) from CHECKINOUT where member_id = A.member_id
+			) AS borrowCount
+		FROM
+			CHECKINOUT A
+		WHERE
+			homepage_id = #{homepage_id}
+			<include refid="where"/>
+		GROUP BY (user_no, member_id, member_name, member_area)
+		ORDER BY
+			borrowCount DESC
+		${pagingBottom}
+	</select>
+	
+	<select id="getHoursOfUse" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+			result_date, result_count
+		FROM
+			(
+			SELECT
+				DECODE(result_date, '00', '24', result_date) AS result_date, SUM(result_count) AS result_count
+			FROM
+				(
+				SELECT
+					TO_CHAR(TO_DATE('00', 'HH24') + LEVEL / 24, 'HH24') AS result_date, 0 AS result_count
+				FROM
+					DUAL
+				CONNECT BY LEVEL <![CDATA[<=]]> 24
+				UNION ALL
+				SELECT
+					TO_CHAR(checkIn_time, 'HH24') AS result_date, COUNT(*) AS result_count
+				FROM
+					CHECKINOUT
+				WHERE
+					homepage_id = #{homepage_id}
+					<include refid="where"/>
+				GROUP BY TO_CHAR(checkIn_time, 'HH24')
+				)
+			GROUP BY result_date
+			)
+		ORDER BY result_date
+	</select>
+	
+	<select id="getHoursOfUseCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CHECKINOUT
+		WHERE
+			homepage_id = #{homepage_id}
+			<include refid="where"/>
+	</select>
+	
+	<select id="getUsageExcelList" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+			A.user_no, A.member_id, A.member_name, A.member_area,
+			(
+			select COUNT(*) from CHECKINOUT where member_id = A.member_id
+			) AS borrowCount
+		FROM
+			CHECKINOUT A
+		WHERE
+			homepage_id = #{homepage_id}
+			<include refid="where"/>
+		GROUP BY (user_no, member_id, member_name, member_area)
+		ORDER BY
+			borrowCount DESC
+	</select>
+	
+	<select id="getHourOfUseExcelList" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+			result_date, result_count
+		FROM
+			(
+			SELECT
+				DECODE(result_date, '00', '24', result_date) AS result_date, SUM(result_count) AS result_count
+			FROM
+				(
+				SELECT
+					TO_CHAR(TO_DATE('00', 'HH24') + LEVEL / 24, 'HH24') AS result_date, 0 AS result_count
+				FROM
+					DUAL
+				CONNECT BY LEVEL <![CDATA[<=]]> 24
+				UNION ALL
+				SELECT
+					TO_CHAR(checkIn_time, 'HH24') AS result_date, COUNT(*) AS result_count
+				FROM
+					CHECKINOUT
+				WHERE
+					homepage_id = #{homepage_id}
+					<include refid="where"/>
+				GROUP BY TO_CHAR(checkIn_time, 'HH24')
+				)
+			GROUP BY result_date
+			)
+		ORDER BY result_date
+	</select>
 </mapper>

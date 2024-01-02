@@ -30,4 +30,16 @@ public interface CheckInOutDao {
 
 	public boolean isCheckOutCount(CheckInOut checkInOut);
 
+	public int checkOutAll(CheckInOut checkInOut);
+
+	public List<CheckInOut> getUsageRankingList(CheckInOut checkInOut);
+
+	public List<CheckInOut> getHoursOfUse(CheckInOut checkInOut);
+
+	public int getHoursOfUseCount(CheckInOut checkInOut);
+
+	public List<CheckInOut> getUsageExcelList(CheckInOut checkInOut);
+
+	public List<CheckInOut> getHourOfUseExcelList(CheckInOut checkInOut);
+
 }

@@ -14,10 +14,10 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
-public class CheckInOutWorkbook {
+public class UsageWorkbook {
 	
 	protected WritableWorkbook workbookForm(WritableWorkbook workbook, List<CheckInOut> checkInOutList, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String sheetName = "이용시간통계";	//시트이름
+		String sheetName = "이용순위통계";	//시트이름
 		workbook.createSheet(sheetName, 0);	//시트설정
 		
 		// 헤더 스타일
@@ -43,15 +43,19 @@ public class CheckInOutWorkbook {
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView( 0, 10 );
 		workbook.getSheet(0).setColumnView( 1, 20 );
-		workbook.getSheet(0).setColumnView( 2, 20 );
-		workbook.getSheet(0).setColumnView( 3, 20 );
+		workbook.getSheet(0).setColumnView( 2, 15 );
+		workbook.getSheet(0).setColumnView( 3, 15 );
+		workbook.getSheet(0).setColumnView( 4, 20 );
+		workbook.getSheet(0).setColumnView( 5, 10 );
 				
 		int column = 0;
 		// 헤더 컬럼 지정
-		workbook.getSheet(0).addCell( new Label(column++, 0, "시간", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "방문수", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비율(%)", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비고", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "순위", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "대출자번호", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "이름", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "ID", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "지역구", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "대출권수", format ) );
 		
 		int row = 1;
 		
@@ -59,10 +63,12 @@ public class CheckInOutWorkbook {
 			
 			column = 0;	
 			
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getResult_date(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getResult_count(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, (one.getTotal_count()==0 ? "0.00" : Float.toString(Integer.parseInt(one.getResult_count())/one.getTotal_count()*100)) + "%", format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, "", format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row)), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getUser_no(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_name(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_id(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_area(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf(one.getBorrowCount()), format1));
 			
 			row++;
 		}
@@ -96,15 +102,19 @@ public class CheckInOutWorkbook {
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView( 0, 10 );
 		workbook.getSheet(0).setColumnView( 1, 20 );
-		workbook.getSheet(0).setColumnView( 2, 20 );
-		workbook.getSheet(0).setColumnView( 3, 20 );
+		workbook.getSheet(0).setColumnView( 2, 15 );
+		workbook.getSheet(0).setColumnView( 3, 15 );
+		workbook.getSheet(0).setColumnView( 4, 20 );
+		workbook.getSheet(0).setColumnView( 5, 10 );
 				
 		int column = 0;
 		// 헤더 컬럼 지정
-		workbook.getSheet(0).addCell( new Label(column++, 0, "시간", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "방문수", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비율(%)", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "비고", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "순위", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "대출자번호", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "이름", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "ID", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "지역구", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "대출권수", format ) );
 		
 		int row = 1;
 		
@@ -112,10 +122,12 @@ public class CheckInOutWorkbook {
 			
 			column = 0;	
 			
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getResult_date(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getResult_count(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, (one.getTotal_count()==0 ? "0.00" : Float.toString(Integer.parseInt(one.getResult_count())/one.getTotal_count()*100)) + "%", format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, "", format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf((row)), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getUser_no(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_name(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_id(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_area(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, String.valueOf(one.getBorrowCount()), format1));
 			
 			row++;
 		}

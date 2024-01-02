@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
 function checkAll($this) { 
-	$('input:checkbox[name=request_number_arr]').prop('checked', $this.is(':checked'));
+	$('input:checkbox[name=checkInOut_arr]').prop('checked', $this.is(':checked'));
 }
 
 $(function(){
@@ -53,243 +53,28 @@ $(function(){
 	
 });
 
-//접수 -> 대기버튼
-function waitingReservationStep() {
-	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
-		alert('대기 처리할 아이디를 선택해 주세요.');
+function checkOutAll() {
+	if($('input:checkbox[name=checkInOut_arr]:checked').length < 1) {
+		alert('체크아웃 처리할 아이디를 선택해 주세요.');
 	} else {
-		if(confirm('대기처리 하시겠습니까?')) {
+		if(confirm('체크아웃 하시겠습니까?\n체크아웃 시간은 금일 마감시간으로 할당됩니다.')) {
 			$.ajax({
 				type: "POST",
-				url: 'waitingReservationStep.do',
-				data: $('input[name=request_number_arr]').serialize(),
+				url: 'checkOutAll.do',
+				data: $('input[name=checkInOut_arr]').serialize(),
 				success: function(response) {
 					if(response.valid) {
-						alert('대기처리 되었습니다.');
+						alert('체크아웃처리 되었습니다.');
 					} else {
 						alert(response.message);
 					}
 					location.reload();
 				},
 				error : function() {
-					alert('대기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
+					alert('체크아웃처리에 실패했습니다.\n관리자에게 문의해 주세요.');
 				}
 			});
 		} 
-	}
-}
-
-//대기 -> 대출버튼
-function bookReservation() {
-	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
-		alert('대출 처리 하실 아이디를 선택해 주세요.');
-	} else {
-		if(confirm('대출처리 하시겠습니까?')) {
-			$.ajax({
-				type: "POST",
-				url: 'bookReservation.do',
-				data: $('input[name=request_number_arr]').serialize(),
-				success: function(response) {
-					if(response.valid) {
-						alert('대출처리 되었습니다.');
-					} else {
-						alert(response.message);
-					}
-					location.reload();
-				},
-				error : function() {
-					alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
-				}
-			});
-		} 
-	}
-}
-
-//취소버튼
-function cancelReservation() {
-	if($('input:checkbox[name=request_number_arr]:checked').length < 1) {
-		alert('만기 처리할 아이디를 선택해 주세요.');
-	} else {
-		if(confirm('만기처리 하시겠습니까?')) {
-			$.ajax({
-				type: "POST",
-				url: 'cancelReservation.do',
-				data: $('input[name=request_number_arr]').serialize(),
-				success: function(response) {
-					if(response.valid) {
-						alert('만기처리 되었습니다.');
-					} else {
-						alert(response.message);
-					}
-					location.reload();
-				},
-				error : function() {
-					alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
-				}
-			});
-		} 
-	}
-}
-
-//접수 -> 대기버튼 한개
-function waitingReservationStepOne(request_number) {
-	var ajaxData = {
-		'request_number_arr' : request_number
-	};
-	if(confirm('대기처리 하시겠습니까?')) {
-		$.ajax({
-			type: "POST",
-			url: 'waitingReservationStep.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert('대기처리 되었습니다.');
-				} else {
-					alert(response.message);
-				}
-				location.reload();
-			},
-			error : function() {
-				alert('대기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
-			}
-		});
-	} 
-}
-
-//대기 -> 대출버튼 한개
-function bookReservationOne(request_number) {
-	var ajaxData = {
-			'request_number_arr' : request_number
-	};
-	if(confirm('대출처리 하시겠습니까?')) {
-		$.ajax({
-			type: "POST",
-			url: 'bookReservation.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert('대출처리 되었습니다.');
-				} else {
-					alert(response.message);
-				}
-				location.reload();
-			},
-			error : function() {
-				alert('대출처리에 실패했습니다.\n관리자에게 문의해 주세요.');
-			}
-		});
-	} 
-}
-
-//취소버튼 한개
-function cancelReservationOne(request_number) {
-	var ajaxData = {
-			'request_number_arr' : request_number
-	};
-	if(confirm('만기처리 하시겠습니까?')) {
-		$.ajax({
-			type: "POST",
-			url: 'cancelReservation.do',
-			data: ajaxData,
-			success: function(response) {
-				if(response.valid) {
-					alert('만기처리 되었습니다.');
-				} else {
-					alert(response.message);
-				}
-				location.reload();
-			},
-			error : function() {
-				alert('만기처리에 실패했습니다.\n관리자에게 문의해 주세요.');
-			}
-		});
-	}
-}
-
-//패널티버튼
-function blackListSettingEdit(member_id, member_name, request_number) {
-	if(confirm(member_name + '(' + member_id + ')님에 패널티를 부여하시겠습니까?')) {
-
-		var ajaxData = {
-			'member_id' : member_id,
-			'member_name' : member_name,
-			'request_number' : request_number
-		};
-	
-		$.ajax({
-			url: 'blackListSettingEdit.do',
-			method: 'GET',
-			data : ajaxData,
-			success: function(html) { 
-				if(html == 'penaltyFalse') {
-					alert(member_name + '(' + member_id + ')님은 이미 페널티가 부여되었습니다.\n패널티 부여는 한 아이디당 하루에 한번만 가능합니다.');
-				} else {
-					modal_layer_add('dialog_layer');
-					$('#dialog_layer').html(html);
-					
-					$('#dialog_layer').dialog({ //모달창 기본 스크립트 선언
-						resizable: false,
-						modal: true,
-						title: '패널티 부여',
-						open: function(){
-							$('.ui-widget-overlay').addClass('custom-overlay');
-						},
-						close: function(){
-						},
-						buttons: [
-							{
-								text : '패널티부여',
-								'class' : 'btn btn1',
-								click : function() {
-									blackListSettingSave();
-								}
-							},
-							{
-								text: "취소",
-								"class": 'btn btn_round btn_gray',
-								click: function() {
-									$(this).dialog('close');
-								}
-							}
-						]
-					});
-
-					$("#dialog_layer").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-						width: 600,
-						height: 250
-					});
-				}
-			},error: function(html) {
-			}
-		});
-		
-	}
-	
-}
-
-//비밀번호 랜덤생성 버튼
-function randomPassword(passwordCount, nonPasswordCount) {
-	if(confirm('비밀번호를 생성하시겠습니까?')) {
-		var ajaxData = {
-				'passwordCount' : passwordCount,
-				'nonPasswordCount' : nonPasswordCount
-		};
-		
-		$.ajax({
-			type: "POST",
-			url: 'randomPassword.do',
-			success: function(html) {
-				if(html == 'nonPasswordCheck') {
-					alert('비밀번호를 생성할수 없습니다. \n사물함 신청내역이 있을 시에 비밀번호 생성이 가능합니다.');
-				}else if(html == 'passwordCheck') {
-					alert(passwordCount + '개 모두 이미 비밀번호가 생성되었습니다.');
-				} else {
-				alert('전체 ' + passwordCount + '개 중 \n 비밀번호 생성이 안된' + nonPasswordCount + '개 비밀번호가 생성되었습니다.');
-				location.reload();
-				}
-			},error: function(html) {
-			}
-		});
 	}
 }
 </script>
@@ -309,6 +94,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
 		<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
+		<a href="#" id="checkOutAll" class="btn btn1" onclick="checkOutAll();"><span>일괄체크아웃</span></a>
 	</div>
 	
 	<table class="type1 center">
@@ -336,6 +122,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 	
 	<table class="type1 center">
 		<colgroup>
+				<col width="3%"/>
 	 			<col width="3%"/>
 	 			<col width="10%"/>
 	 			<col width="10%"/>
@@ -351,6 +138,7 @@ function randomPassword(passwordCount, nonPasswordCount) {
 			</colgroup>
 		<thead>
 			<tr>
+				<th><input type="checkbox" onchange="checkAll($(this));"></th>
 				<th></th>
 				<th>대출자번호</th>
 				<th>ID</th>
@@ -368,6 +156,11 @@ function randomPassword(passwordCount, nonPasswordCount) {
 		<tbody>
 		<c:forEach var="i" varStatus="status" items="${checkInOutList}">
 			<tr>
+				<td>
+					<c:if test="${empty i.checkInOut_time}">
+						<form:checkbox path="checkInOut_arr" id="checkInOut_arr" cssClass="checkInOut_idx" value="${i.checkInOut_idx}"/>
+					</c:if>
+				</td>
 				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.user_no}</td>
 				<td>${i.member_id}</td>
@@ -377,10 +170,10 @@ function randomPassword(passwordCount, nonPasswordCount) {
 				<td>${i.member_area}</td>
 				<td>${i.checkIn_time}</td>
 				<td>${i.checkOut_time}</td>
-				<td>${i.checkInOut_time}분</td>
+				<td>${i.checkInOut_time}<c:if test="${not empty i.checkInOut_time}">분</c:if></td>
 				<c:set var="status" value="${i.checkOut_time eq '' || empty i.checkOut_time ? '이용중' : '이용완료'}"/>
 				<td>${status}</td>
-				<c:set var="gubun" value="${i.gubun eq '1' ? '재방문' : '처음방문'}"/>
+				<c:set var="gubun" value="${i.gubun eq '1' ? '처음방문' : '재방문'}"/>
 				<td>${gubun}</td>
 			</tr>
 		</c:forEach>

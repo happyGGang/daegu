@@ -28,6 +28,10 @@ public class CheckInOut extends PagingUtils{
 	
 	private String checkIn_Yn; //체크인유무
 	
+	private int borrowCount;
+	
+	private int total_count;
+	
 	public int getCheckInOut_idx() {
 		return checkInOut_idx;
 	}
@@ -170,6 +174,22 @@ public class CheckInOut extends PagingUtils{
 
 	public void setCheckIn_Yn(String checkIn_Yn) {
 		this.checkIn_Yn = checkIn_Yn;
+	}
+
+	public int getBorrowCount() {
+		return borrowCount;
+	}
+
+	public void setBorrowCount(int borrowCount) {
+		this.borrowCount = borrowCount;
+	}
+
+	public int getTotal_count() {
+		return total_count;
+	}
+
+	public void setTotal_count(int total_count) {
+		this.total_count = total_count;
 	}
 	
 }

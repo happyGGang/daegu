@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ import com.google.gson.GsonBuilder;
 
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.utils.JsonResponse;
 
 @Controller
 @RequestMapping(value={"/cms/module/checkInOut"})
@@ -74,6 +76,68 @@ private final String basePath = "/cms/module/checkInOut/";
 		return basePath + "chartIndex";
 	}
 	
+	@RequestMapping (value = {"/usageRanking.*"})
+	public String usageRanking(Model model, CheckInOut checkInOut, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
+		
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		if (StringUtils.isEmpty(checkInOut.getEnd_date())) {
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date now = new Date();
+			checkInOut.setStart_date(startDateFormat.format(now));
+			checkInOut.setEnd_date(endDateFormat.format(now));
+		}
+		
+		service.setPaging(model, service.getCheckInOutCount(checkInOut), checkInOut);
+		
+		model.addAttribute("checkInOut", checkInOut);
+		model.addAttribute("usageRankingList", service.getUsageRankingList(checkInOut));
+		
+		return basePath + "usageRanking";
+	}
+	
+	@RequestMapping (value = {"/hoursOfUse.*"})
+	public String hoursOfUse(Model model, CheckInOut checkInOut, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
+		
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		if (StringUtils.isEmpty(checkInOut.getEnd_date())) {
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date now = new Date();
+			checkInOut.setStart_date(startDateFormat.format(now));
+			checkInOut.setEnd_date(endDateFormat.format(now));
+		}
+		
+		model.addAttribute("checkInOut", checkInOut);
+		model.addAttribute("hoursOfUseList", service.getHoursOfUse(checkInOut));
+		model.addAttribute("total_count", service.getHoursOfUseCount(checkInOut));
+		
+		return basePath + "hoursOfUse";
+	}
+	
+	@RequestMapping (value = {"/checkOutAll.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse checkOutAll(CheckInOut checkInOut, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		JsonResponse res = new JsonResponse(request);
+		
+		if (!result.hasErrors()) {
+				service.checkOutAll(checkInOut);
+				res.setValid(true);
+				res.setMessage("체크아웃처리 되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage("체크아웃처리에 실패하였습니다.");
+				res.setResult(result.getAllErrors());
+			}
+		
+		return res;
+	}
+	
 	@RequestMapping (value = {"/getChartData.*"}, method = RequestMethod.POST)
 	@ResponseBody
 	public String getChartData(Model model, CheckInOut checkInOut, HttpServletRequest request) {
@@ -107,6 +171,43 @@ private final String basePath = "/cms/module/checkInOut/";
 		List<CheckInOut> cscList = service.getCheckInOutExcelList(checkInOut);
 		
 		return new CheckInOutExcelToCsv(checkInOut, cscList, request, response);
+	}
+	
+	@RequestMapping (value = {"/usageExcelDownload.*"}, method = RequestMethod.POST)
+	public UsageExcelView usageExcelDownload(Model model, CheckInOut checkInOut, HttpServletRequest request) {
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		model.addAttribute("checkInOut", checkInOut);
+		model.addAttribute("checkInOutExcelList", service.getUsageExcelList(checkInOut));
+		
+		return new UsageExcelView();
+	}
+	
+	@RequestMapping (value = {"/usageCsvDownload.*"}, method = RequestMethod.POST)
+	public UsageExcelToCsv usageCsvDownload(Model model, CheckInOut checkInOut, HttpServletRequest request, HttpServletResponse response){
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		List<CheckInOut> cscList = service.getUsageExcelList(checkInOut);
+		
+		return new UsageExcelToCsv(checkInOut, cscList, request, response);
+	}
+	@RequestMapping (value = {"/hourOfUseExcelDownload.*"}, method = RequestMethod.POST)
+	public HourOfUseExcelView hourOfUseExcelDownload(Model model, CheckInOut checkInOut, HttpServletRequest request) {
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		model.addAttribute("checkInOut", checkInOut);
+		model.addAttribute("checkInOutExcelList", service.getHourOfUseExcelList(checkInOut));
+		
+		return new HourOfUseExcelView();
+	}
+	
+	@RequestMapping (value = {"/hourOfUseCsvDownload.*"}, method = RequestMethod.POST)
+	public HourOfUseExcelToCsv hourOfUseCsvDownload(Model model, CheckInOut checkInOut, HttpServletRequest request, HttpServletResponse response){
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		List<CheckInOut> cscList = service.getHourOfUseExcelList(checkInOut);
+		
+		return new HourOfUseExcelToCsv(checkInOut, cscList, request, response);
 	}
 	
 }
