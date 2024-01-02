@@ -3443,6 +3443,23 @@ public class CommonSearchController extends BaseController {
 			}
 		}
 		
+		if(StringUtils.equals(librarySearch.getWorker(), "SSSUBCO01") || StringUtils.equals(librarySearch.getWorker(), "BRSUBCO01")) {
+			String todayfm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+			 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			 
+			Date date = new Date(dateFormat.parse("2024-01-01").getTime());
+			Date today = new Date(dateFormat.parse(todayfm).getTime());
+			 
+			int compare = date.compareTo(today);
+			 
+			if(compare > 0) {
+				res.setValid(false);
+				res.setMessage("현재 준비 중으로 1월 1일부터 신청가능합니다.");
+				return res;
+			}
+		}
+		
 		if (!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
 			
