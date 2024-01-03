@@ -812,7 +812,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
 				</tr>
 				<tr>
-					<th>참여가족 구성원</th>
+					<th>참여가족 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="student_family_team" cssClass="text" cssStyle="width: 300px;"/></td>
 				</tr>
 			</c:if>

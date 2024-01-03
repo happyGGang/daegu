@@ -162,8 +162,6 @@ $(function(){
 
 </script>
 <link rel="stylesheet" href="/resources/common/css/teach.css" />
-<form
-
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
 <%-- 	<form:hidden path="group_idx"/> --%>
 	<form:hidden path="teach_idx"/>
