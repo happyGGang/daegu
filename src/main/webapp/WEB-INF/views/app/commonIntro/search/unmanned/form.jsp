@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <c:choose>
@@ -110,6 +111,9 @@
 			<tr>
 				<th>수령장소</th>
 				<td class="left">
+					<jsp:useBean id="toDay" class="java.util.Date"></jsp:useBean>
+					<fmt:formatDate var="dateStr" value="${toDay}" pattern="yyyy-MM-dd"/>
+					
 					<form:select path="worker" style="border:1px solid #c9c9c9;border-radius:4px;height:30px">
 						<c:if test="${homepage.context_path eq 'gukbo'}">
 						<form:option value="SUB01">반월당역 예약대출기</form:option>
@@ -120,8 +124,15 @@
 						<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
 							<form:option value="DSSUB01">상인역</form:option>
 							<form:option value="DSSUB02">용산역</form:option>
-							<form:option value="SSSUBCO01">성서도서관(무인)</form:option>
-							<form:option value="BRSUBCO01">본리도서관(무인)</form:option>
+							<c:choose>
+								<c:when test="${dateStr eq '2024-01-05' || dateStr eq '2024-01-06' || dateStr eq '2024-01-12' || dateStr eq '2024-01-13' || dateStr eq '2024-01-19' || dateStr eq '2024-01-20'}">
+								
+								</c:when>
+								<c:otherwise>
+									<form:option value="SSSUBCO01">성서도서관(무인)</form:option>
+									<form:option value="BRSUBCO01">본리도서관(무인)</form:option>
+								</c:otherwise>
+							</c:choose>
 						</c:if>
 						<c:if test="${homepage.context_path eq 'dalseonglib'}">
 						<form:option value="DSGLIB01">지하1층 자전거보관대옆</form:option>
