@@ -35,7 +35,6 @@ import kr.go.gbelib.app.cms.module.hopebookConfig.HopebookConfigService;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfig;
 import kr.go.gbelib.app.cms.module.lasReqConfig.LasReqConfigService;
 import kr.go.gbelib.app.cms.module.smsReception.SmsReception;
-import kr.go.gbelib.app.cms.module.smsReception.SmsReceptionService;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservation;
 import kr.go.gbelib.app.cms.module.untactBook.untactBookReservation.UntactBookReservationService;
 import kr.go.gbelib.app.common.api.ApiResponse;
@@ -60,9 +59,6 @@ public class LibrarySearchController extends BaseController {
 	@Autowired
 	private LasReqConfigService lasReqConfigService;
 
-	@Autowired
-	private SmsReceptionService smsReceptionService;
-	
 	@Autowired
 	private UntactBookReservationService untactBookReservationService;
 
@@ -197,7 +193,6 @@ public class LibrarySearchController extends BaseController {
 
 	@RequestMapping(value = {"/indexAll.*"})
 	public String indexAll(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Homepage homepage = getSessionHomepage(request);
 		List<Homepage> normalHomepage = homepageService.getNormalHomepage();
 		// 소장처 코드
 //		if ( StringUtils.isEmpty(librarySearch.getManageCode()) ) {
@@ -926,15 +921,15 @@ public class LibrarySearchController extends BaseController {
 				//달성군립도서관 일반예약2권 무인예약5권 처리를 위해 예약 2권으로 제한 
 				try {
 					if(StringUtils.isNotEmpty(homepage.getContext_path())){
-						if((homepage.getContext_path().equals("dalseonglib") || homepage.getContext_path().equals("bukgs")) && librarySearch.getEditMode().equals("ADD")) {
-							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), homepage.getManage_code());
+						if(homepage.getContext_path().equals("dalseonglib") && librarySearch.getEditMode().equals("ADD")) {
+							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
 							List<Map<String, Object>> list = null;
 							list = LibSearchAPI.getListData(reserveList);
 							int count = LibSearchAPI.getSearchCount(reserveList);
 							
 							int reserveCount = 0 ;
 							for(int i = 0; i < count; i++) {
-								if(!(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y"))) {
+								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
 									reserveCount++;
 								}
 							}
@@ -944,7 +939,69 @@ public class LibrarySearchController extends BaseController {
 								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
 								return res;
 							}
-						} else if(homepage.getContext_path().equals("suseong") && librarySearch.getEditMode().equals("ADD")) {
+						}
+						
+						if(homepage.getContext_path().equals("bukgs") && librarySearch.getEditMode().equals("ADD")) {
+							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+							List<Map<String, Object>> list = null;
+							list = LibSearchAPI.getListData(reserveList);
+							int count = LibSearchAPI.getSearchCount(reserveList);
+							
+							int reserveCount = 0 ;
+							for(int i = 0; i < count; i++) {
+								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
+									reserveCount++;
+								}
+							}
+							
+							if(reserveCount >= 3) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+						}
+						
+						if(homepage.getContext_path().equals("suseong") && librarySearch.getEditMode().equals("ADD")) {
+							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+							List<Map<String, Object>> list = null;
+							list = LibSearchAPI.getListData(reserveList);
+							int count = LibSearchAPI.getSearchCount(reserveList);
+							
+							int reserveCount = 0 ;
+							for(int i = 0; i < count; i++) {
+								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("N")) {
+									reserveCount++;
+								}
+							}
+							
+							//무인예약 + 일반예약이 5권 초과가 불가능하게
+							if(reserveCount >= 5) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+							
+							int unmannedReserveCount = 0 ;
+							for(int i = 0; i < count; i++) {
+								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
+									unmannedReserveCount++;
+								}
+							}
+							
+							if((count - reserveCount) >= 2) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+
+							if((count - unmannedReserveCount) >= 2) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+						}
+						
+						if("BM".equals(librarySearch.getManageCode()) && librarySearch.getEditMode().equals("ADD")) {
 							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
 							List<Map<String, Object>> list = null;
 							list = LibSearchAPI.getListData(reserveList);
@@ -968,12 +1025,6 @@ public class LibrarySearchController extends BaseController {
 								if(list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("Y") || list.get(i).get("UNMANNED_RESERVATION_LOAN").equals("O")) {
 									unmannedReserveCount++;
 								}
-							}
-							
-							if((unmannedReserveCount) >= 5) {
-								res.setValid(false);
-								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
-								return res;
 							}
 
 							if((reserveCount + unmannedReserveCount) >= 7) {
@@ -1291,6 +1342,10 @@ public class LibrarySearchController extends BaseController {
 				}
 			}
 
+			if("bukgs".equals(homepage.getContext_path())) {
+				sanghoPossiCnt = 10;
+			}
+			
 			if (lillRequestListCount >= sanghoPossiCnt) {
 				service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);
 				return null;
@@ -1364,7 +1419,7 @@ public class LibrarySearchController extends BaseController {
 				SmsReception smsReception = new SmsReception();
 				smsReception.setHomepage_id(homepage.getHomepage_id());
 				smsReception.setWork_code("0001");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
-				List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
+				//List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
 
 			}
 			
@@ -2051,7 +2106,7 @@ public class LibrarySearchController extends BaseController {
 			SmsReception smsReception = new SmsReception();
 			smsReception.setHomepage_id(homepage.getHomepage_id());
 			smsReception.setWork_code("0002");	// 상호대차:0001, 무인대출:0002, 야간대출:0003
-			List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
+			//List<SmsReception> receptionsList =  smsReceptionService.getSmsReceptionMembers(smsReception);
 
 			// 0001:예약, 0002:연기, 0003:야간대출, 0004:무인대출
 			LasReqConfig lasReqConfig = lasReqConfigService.getLasReqConfigInfo(librarySearch, "0004");
@@ -2131,13 +2186,13 @@ public class LibrarySearchController extends BaseController {
 					res.setValid(true);
 					res.setMessage("예약 되었습니다.");
 
-					// 신청자에게 SMS 전송
-					String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
-
-					// 관리자에게 SMS 전송
-					String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
-					for(SmsReception one : receptionsList) {
-					}
+//					// 신청자에게 SMS 전송
+//					String message = "무인대출 신청이 완료 되었습니다.[" + librarySearch.getTitle() + "]";
+//
+//					// 관리자에게 SMS 전송
+//					String adminMessage = "무인대출 신청건이 발생하였습니다. 수령: 도서명:"+librarySearch.getTitle();
+//					for(SmsReception one : receptionsList) {
+//					}
 
 				} else {
 					res.setValid(false);
@@ -2353,10 +2408,8 @@ public class LibrarySearchController extends BaseController {
 	@SuppressWarnings ("unchecked")
 	@RequestMapping(value = {"/marcView.*"})
 	public String marc_view(Model model, String regno, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
 		List<Map<String, Object>> list = null;
 		String content = "";
-		//TODO marc보기
 		Map<String, Object> marcView = LibSearchAPI.getMarc(regno);
 		
 		try {
@@ -2407,10 +2460,8 @@ public class LibrarySearchController extends BaseController {
 	@SuppressWarnings ("unchecked")
 	@RequestMapping(value = {"/private_marc_view.*"})
 	public String private_marc_view(Model model, String regno, HttpServletRequest request) {
-		Homepage homepage = getSessionHomepage(request);
 		List<Map<String, Object>> list = null;
 		String content = "";
-		//TODO marc보기
 		Map<String, Object> marcView = PrivateLibSearchAPI.getMarc(regno);
 		
 		try {
