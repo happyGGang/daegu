@@ -73,6 +73,9 @@
 		<if test="category_idx > 0">
 			AND	a.category_idx = #{category_idx}
 		</if>
+		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
 		AND	a.homepage_id = #{homepage_id}
 		AND	a.delete_yn = 'N'
 		ORDER BY

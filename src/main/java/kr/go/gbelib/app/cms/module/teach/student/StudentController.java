@@ -105,6 +105,10 @@ public class StudentController extends BaseController {
 		model.addAttribute("categoryList", categoryService.getCategoryListAll(new Category(student.getHomepage_id(), student.getGroup_idx(), student.getLarge_category_idx())));
 		Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(),student.getCategory_idx());
 		teach.setLarge_category_idx(student.getLarge_category_idx());
+		if(StringUtils.isNotEmpty(student.getSearch_type()) && StringUtils.isNotEmpty(student.getSearch_text())) {
+			teach.setSearch_type(student.getSearch_type());
+			teach.setSearch_text(student.getSearch_text());
+		}
 		model.addAttribute("teachList", teachService.getTeachListAll(teach));
 		model.addAttribute("student", student);
 

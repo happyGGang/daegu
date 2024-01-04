@@ -13,10 +13,8 @@ $(function(){
 
 	$('select#homepage_id_1').on('change', function(e) {
 		if($(this).val() != '') {
-			// $('input#homepage_id_1').val($(this).val());
 			doGetLoad('index.do', $('#adminStudentForm').serialize());
 		}
-
 		e.preventDefault();
 	});
 
@@ -37,9 +35,13 @@ $(function(){
 
 	$('#studentLayer').load('student.do?editMode=FIRST');
 
+	$('button#student_search_btn').on('click', function(e) {
+		$('#adminStudentForm #search_type').val('a.teach_name');
+		$('#adminStudentForm').submit();
+	});
 });
 </script>
-<form:form id="adminStudentForm" modelAttribute="student">
+<form:form id="adminStudentForm" modelAttribute="student" action="index.do">
 	<div class="wrapper wrapper-white">
 		<div class="column ban">
 			<div class="areaL auto-scroll" style="width:30%;height:500px">
@@ -94,22 +96,31 @@ $(function(){
 			<span>검색 결과 : ${fn:length(teachList)}건</span>
 				<div class="infodesk">
 					<span style="float:left;">대분류 :
-					<form:select path="large_category_idx">
-						<form:option class="all" value="0" label="전체" />
-						<form:options itemValue="teach_code" itemLabel="code_name" items="${teachLargeCategoryList}"/>
-					</form:select></span>
+						<form:select path="large_category_idx">
+							<form:option class="all" value="0" label="전체" />
+							<form:options itemValue="teach_code" itemLabel="code_name" items="${teachLargeCategoryList}"/>
+						</form:select>
+					</span>
 					<span style="float:left;">중분류 :
-					<form:select path="group_idx" cssStyle="width:100px;">
-						<form:option class="all" value="0" label="전체" />
-						<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
-					</form:select></span>
+						<form:select path="group_idx" cssStyle="width:100px;">
+							<form:option class="all" value="0" label="전체" />
+							<form:options itemValue="group_idx" itemLabel="group_name" items="${categoryGroupList}"/>
+						</form:select>
+					</span>
 					<span style="float:right;">소분류 :
 					<form:select path="category_idx" >
 						<form:option class="all" value="0" label="전체" />
 						<c:forEach items="${categoryList}" var="i">
 	         				<form:option class="group_${i.group_idx}" value="${i.category_idx}" >${i.category_name}</form:option>
 	         			</c:forEach>
-					</form:select></span><br/>
+					</form:select>
+					</span>
+					<div class="search txt-center" style="margin-top:38px;">
+						<form:hidden path="search_type" value="a.teach_name"/>
+						강좌명 : <form:input path="search_text" cssClass="text" cssStyle="width:152px;"/>
+						<button id="student_search_btn"><i class="fa fa-search"></i><span>검색</span></button>
+					</div>
+					<br/>
 				</div>
 
 				<div class="table-wrap">
