@@ -701,20 +701,20 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	        </tr>
 	        </c:if>
         	<c:if test="${teach.birth_yn eq 'Y'}">
-        	<tr>
-	         	<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-		         	<c:choose>
-	         		<c:when test="${sessionScope.member.login}">
-	         		<form:hidden path="applicant_birth" value="${memberInfo.birth_day}" />
-	         		${sessionScope.member.birth_day}
-	         		</c:when>
-	         		<c:otherwise>
-	         		<form:input path="applicant_birth" value="${memberInfo.birth_day}" maxlength="10" cssClass="text ui-calendar" />
-					</c:otherwise>
-		         	</c:choose>
-	         	</td>
-        	</tr>
+				<tr>
+					<th>생년월일(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<c:choose>
+							<c:when test="${sessionScope.member.login}">
+								<form:hidden path="applicant_birth" value="${memberInfo.birth_day}" />
+								${sessionScope.member.birth_day}
+							</c:when>
+							<c:otherwise>
+								<form:input path="applicant_birth" value="${memberInfo.birth_day}" maxlength="10" cssClass="text ui-calendar" />
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
         	</c:if>
 	        <c:if test="${teach.address_yn eq 'Y' && teach.agent_yn eq 'N'}">
 	        <tr>

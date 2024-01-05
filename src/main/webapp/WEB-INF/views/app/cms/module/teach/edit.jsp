@@ -427,23 +427,6 @@
 				}
 				else {
 					$this.parent().find('[name="teach_join_limit_value"]').prop('disabled', false);
-					let currentYear = new Date().getFullYear();
-
-					var selectStartValue = document.getElementById("teach_join_limit_value_year1");
-					var selectEndValue = document.getElementById("teach_join_limit_value_year2");
-
-					for (var i = currentYear - 100; i <= currentYear; i++) {
-						selectStartValue.add(new Option(i + "년", i));
-						selectEndValue.add(new Option(i + "년", i));
-					}
-
-					selectStartValue.addEventListener('change', function() {
-						let selectedYear = parseInt(this.value);
-						selectEndValue.innerHTML = "";
-						for (let i = selectedYear; i <= currentYear; i++) {
-							selectEndValue.add(new Option(i + "년", i));
-						}
-					});
 				}
 			}
 		}).trigger('change');
@@ -587,8 +570,31 @@
 
 		$('select#program_age_div_arr option:eq(0)').prop('selected', true);
 
+// 	if ($("input:radio[name = teach_age_type]:checked").val() == 'adult') {
+// 		$("input:radio[name = 'family_yn'][value = 'N']").prop('checked', 'true');
+// 		$('input#family_yn1').attr('disabled', 'true');
+// 	}
+
+// 	if ($("input:radio[name = teach_age_type]:checked").val() == 'child') {
+// 		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
+// 		$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked','true');
+// 		$('input#family_yn2').attr('disabled', 'true');
+// 		$('input#agent_yn2').attr('disabled', 'true');
+// 	}
+
+// 	$('input#teach_age_type1').on('click', function() {
+// 		$('input#family_yn2').removeAttr('disabled');
+// 		$('input#agent_yn2').removeAttr('disabled');
+// 		$("input:radio[name = 'family_yn'][value = 'N']").prop('checked', 'true');
+// 		$('input#family_yn1').attr('disabled', 'true');
+// 	});
+
 		$('input#teach_age_type2').on('click', function() {
+// 		$('input#family_yn1').removeAttr('disabled');
+// 		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
 			$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
+// 		$('input#family_yn2').attr('disabled', 'true');
+// 		$('input#agent_yn2').attr('disabled', 'true');
 		});
 
 		$('input#teach_age_type1').on('click', function() {
@@ -672,15 +678,15 @@
 			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
 			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
 		});
-		
+
 		$('#teach_day_all_check').change(function() {
- 			$('input#day1').prop('checked', $(this).prop('checked'));
- 			$('input#day2').prop('checked', $(this).prop('checked'));
- 			$('input#day3').prop('checked', $(this).prop('checked'));
+			$('input#day1').prop('checked', $(this).prop('checked'));
+			$('input#day2').prop('checked', $(this).prop('checked'));
+			$('input#day3').prop('checked', $(this).prop('checked'));
 			$('input#day4').prop('checked', $(this).prop('checked'));
 			$('input#day5').prop('checked', $(this).prop('checked'));
- 			$('input#day6').prop('checked', $(this).prop('checked'));
- 			$('input#day7').prop('checked', $(this).prop('checked'));
+			$('input#day6').prop('checked', $(this).prop('checked'));
+			$('input#day7').prop('checked', $(this).prop('checked'));
 		});
 	});
 
@@ -1130,45 +1136,31 @@
 					<input type="radio" id="teach_join_limit_value2" name="teach_join_limit_value" value="F" <c:if test="${fn:indexOf(teach.teach_join_limit_value, 'F') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_value2"> 여자</label>
 				</div>
 				<div>
-					<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD"
-						   <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/>
-					<label for="teach_join_limit_unit2">나이</label>
+					<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit2">나이</label>
 					<c:choose>
 						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
-							: <select class="text" id="teach_join_limit_value_year1" name="teach_join_limit_value" style="width:100px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" >
-							<option  value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}">${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}년</option>
-						</select>
+							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
 							<c:choose>
 								<c:when test="${teach.teach_age_type eq 'infants' }">
 									<span class="limit_text1" style="display: inline-block;">개월 이상</span> ~
 								</c:when>
 								<c:otherwise>
-									<span class="limit_text1" id="teach_join_limit_value_year1" name="teach_join_limit_value"  style="display: inline-block;">이상</span>
+									<span class="limit_text1" style="display: inline-block;">세 이상</span>
 								</c:otherwise>
 							</c:choose>
-							<select class="text" id="teach_join_limit_value_year2" name="teach_join_limit_value" style="width:100px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" >
-								<option value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}">${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}년</option>
-							</select>
+							<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="3"/>
 							<c:choose>
 								<c:when test="${teach.teach_age_type eq 'infants' }">
-									<span class="limit_text2" id="teach_join_limit_value_year2" name="teach_join_limit_value" style="display: inline-block;">개월 이하</span>
+									<span class="limit_text2" style="display: inline-block;">개월 이하</span>
 								</c:when>
 								<c:otherwise>
-									<span class="limit_text2" name="teach_join_limit_value"  style="display: inline-block;">이하</span>
+									<span class="limit_text2" style="display: inline-block;">세 이하</span>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
 						<c:otherwise>
-							:
-							<select class="text" id="teach_join_limit_value_year1" name="teach_join_limit_value" style="display: inline-block; width: 100px;" value="" disabled="true">
-								<option value="">선택</option>
-							</select>
-
-							<p class="limit_text1" style="display: inline-block;"> 이상</p> ~
-							<select class="text" id="teach_join_limit_value_year2" name="teach_join_limit_value" style="display: inline-block; width: 100px;" value="" disabled="true">
-								<option value="">선택</option>
-							</select>
-							<p class="limit_text2" style=" display: inline-block;"> 이하 </p>
+							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >세 이상</p> ~
+							<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">세 이하 </p>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -1507,6 +1499,3 @@
 </form:form>
 
 <div id="dialog-teacher" class="dialog-common" title="강사 검색"></div>
-<script>
-
-</script>

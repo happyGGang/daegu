@@ -295,9 +295,6 @@ public class StudentController extends BaseController {
 			if ( req_start_date.compareTo(now) > 0 || req_end_date.compareTo(now) < 0) {
 				result.reject("해당 강좌 접수기간이 아닙니다.");
 			}
-			student.setStudent_age(student.getApplicant_birth().substring(0,4));
-			student.setStudent_old(Integer.parseInt(student.getApplicant_birth().substring(0,4)));
-
 		}
 
 		if(!result.hasErrors()) {
