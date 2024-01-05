@@ -67,11 +67,18 @@ $(function(){
 							</div>
 
 							<div class="slickPlay">
-								<p class="status"><span>1</span> / 8</p>
+								<p class="status"><span>1</span> / 9</p>
 								<a href="#" class="play">시작</a>
 								<a href="#" class="pause">멈춤</a>
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
+                <div>
+									<a href="http://icuration.co.kr:81/curation/w/177" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>역사</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ht_img_9.png" alt="갑진년(甲辰年)은 청룡의 해래용" /></p>
+										<span class="link">갑진년(甲辰年)은 청룡의 해래용<i></i></span>
+									</a>
+								</div>
                 <div>
 									<a href="http://icuration.co.kr:81/curation/w/168" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>역사</h2>

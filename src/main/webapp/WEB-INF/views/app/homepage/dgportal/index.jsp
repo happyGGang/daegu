@@ -1001,6 +1001,14 @@ do {
 										<div class="cont">
 												<ul>
                         <li>
+                          <a href="http://www.icuration.co.kr:81/curation/w/181" target="_blank">
+                            <div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu19.png" alt="2·28민주운동"></div>
+                            <p class="book-title">2·28민주운동</p>
+                            <p class="book-desc">대한민국 민주운동의 횃불</p>
+                            <p class="reg-date">2024-01-04</p>
+                          </a>
+                        </li>
+                        <li>
                           <a href="http://www.icuration.co.kr:81/curation/w/171" target="_blank">
                             <div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu18.png" alt="국채보상운동기념도서관"></div>
                             <p class="book-title">국채보상운동기념도서관</p>
@@ -2811,6 +2819,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+            <li>
+              <a href="http://www.icuration.co.kr:81/curation/w/181" target="_blank">
+                <div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu19.png" alt="2·28민주운동"></div>
+                <h3 class="book-title">2·28민주운동</h3>
+                <p class="book-desc">대한민국 민주운동의 횃불</p>
+                <p class="reg-date">2024-01-04</p>
+              </a>
+            </li>
             <li>
               <a href="http://www.icuration.co.kr:81/curation/w/171" target="_blank">
                 <div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu18.png" alt="국채보상운동기념도서관"></div>
