@@ -1040,10 +1040,20 @@ $(function() {
 								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
 							</c:when>
 							<c:otherwise>
-								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+								<jsp:useBean id="gukToDay" class="java.util.Date"></jsp:useBean>
+								<fmt:formatDate var="gukDateStr" value="${gukToDay}" pattern="yyyy-MM-dd"/>
+								
+								<c:choose>
+								<c:when test="${gukDateStr eq '2024-01-05' || gukDateStr eq '2024-01-06' || gukDateStr eq '2024-01-12' || gukDateStr eq '2024-01-13' || gukDateStr eq '2024-01-19' || gukDateStr eq '2024-01-20'}">
+								
+								</c:when>
+								<c:otherwise>
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+								</c:otherwise>
+								</c:choose>
+								
 							</c:otherwise>
 						</c:choose>
-
 
 					</c:if>
 					</c:if>

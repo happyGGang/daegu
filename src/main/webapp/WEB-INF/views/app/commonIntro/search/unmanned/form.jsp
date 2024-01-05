@@ -124,15 +124,8 @@
 						<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
 							<form:option value="DSSUB01">상인역</form:option>
 							<form:option value="DSSUB02">용산역</form:option>
-							<c:choose>
-								<c:when test="${dateStr eq '2024-01-05' || dateStr eq '2024-01-06' || dateStr eq '2024-01-12' || dateStr eq '2024-01-13' || dateStr eq '2024-01-19' || dateStr eq '2024-01-20'}">
-								
-								</c:when>
-								<c:otherwise>
-									<form:option value="SSSUBCO01">성서도서관(무인)</form:option>
-									<form:option value="BRSUBCO01">본리도서관(무인)</form:option>
-								</c:otherwise>
-							</c:choose>
+							<form:option value="SSSUBCO01">성서도서관(무인)</form:option>
+							<form:option value="BRSUBCO01">본리도서관(무인)</form:option>
 						</c:if>
 						<c:if test="${homepage.context_path eq 'dalseonglib'}">
 						<form:option value="DSGLIB01">지하1층 자전거보관대옆</form:option>
