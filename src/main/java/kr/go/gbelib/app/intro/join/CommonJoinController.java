@@ -485,9 +485,16 @@ public class CommonJoinController extends BaseController {
 					String addResult = joinService.addMember(request, member);
 					
 					if (addResult.equals("0")) {
+						String message = "신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.";
+						if(homepage.getContext_path().equals("228")) {
+							message +=  "\n14세 미만 이용자분은 보호자 신분증과 주민등록등본, 가족관계증명서 중 하나를 지참하여 방문하시길 바랍니다.";
+						}
+						
 						res.setValid(true);
-						res.setMessage("신규회원 가입이 완료되었습니다. 신분증 지참 후 데스크에서 회원증을 발급받으시기 바랍니다.");
+						res.setMessage(message);
+						
 						int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 123));
+						
 						if(homepage.getContext_path().equals("dalseolib")) {
 							res.setUrl(String.format("http%s://%s/%s/index.do", (request.isSecure() ? "s" : ""), homepage.getDomainWithoutProtocol(), homepage.getContext_path()));
 						} else {
