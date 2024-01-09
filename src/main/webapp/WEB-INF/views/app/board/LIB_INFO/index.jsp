@@ -174,7 +174,7 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 				<caption>일반게시판</caption>
 				<thead>
 					<tr>
-						<c:if test="${board.delete_yn eq 'Y'}">
+						<c:if test="${member.admin or authMBA or authMBS}">
 						<th style="width:5%;"><input type="checkbox" id="checkAll"> </th>
 						</c:if>
 						<th style="width:6%;">번호</th>
@@ -189,7 +189,7 @@ table.bbs thead th, table.bbs tbody td {font-size:11px;}
 				<tbody id="board_tbody">
 				<c:forEach var="i" varStatus="status" items="${boardList}">
 					<tr>
-						<c:if test="${board.delete_yn eq 'Y'}">
+						<c:if test="${member.admin or authMBA or authMBS}">
 						<td><form:checkbox path="boardIdxArray" value="${i.board_idx}"/></td>
 						</c:if>
 						<td class="num">${paging.listRowNum - status.index}<!-- <a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&viewPage=${board.viewPage}" style="color:#fff;">.</a> --></td>
