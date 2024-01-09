@@ -1091,8 +1091,7 @@ $(function() {
 						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 							<c:choose>
 								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-
-									<!--<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>-->
+									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
 									<!--<a href="#" class="btn btn1" onclick="alert('상인/용산역 도서 투입이 지연되는 관계로 2024.01.04(목)~2024.01.06(일)까지 일시 중단됩니다.');">무인예약신청</a>-->
 								</c:when>
 								<c:otherwise>

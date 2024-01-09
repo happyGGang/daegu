@@ -46,7 +46,7 @@
             </li>
           </ul>
         </div>
-        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.11.30.] (단위 : 권)</span></h3>
+        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2023.12.31.] (단위 : 권)</span></h3>
         <div class="rsv-info"></div>
         <div class="auto-scroll">
           <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -89,59 +89,59 @@
             <tbody>
               <tr>
                 <th scope="row">어린이</th>
-								<td>697</td>
-								<td>352</td>
-								<td>155</td>
-								<td>845</td>
-								<td>1,231</td>
-								<td>370</td>
-								<td>289</td>
-								<td>265</td>
-								<td>3,708</td>
-								<td>1,192</td>
-								<td>9,104</td>
+                <td>699</td>
+                <td>354</td>
+                <td>156</td>
+                <td>846</td>
+                <td>1,236</td>
+                <td>373</td>
+                <td>290</td>
+                <td>268</td>
+                <td>3,731</td>
+                <td>1,203</td>
+                <td>9,156</td>
               </tr>
               <tr>
                 <th scope="row">유아</th>
-								<td>64</td>
-								<td>87</td>
-								<td>42</td>
-								<td>904</td>
-								<td>401</td>
-								<td>85</td>
-								<td>80</td>
-								<td>72</td>
-								<td>2,890</td>
-								<td>34</td>
-								<td>4,659</td>
+                <td>64</td>
+                <td>87</td>
+                <td>42</td>
+                <td>908</td>
+                <td>402</td>
+                <td>85</td>
+                <td>80</td>
+                <td>72</td>
+                <td>2,937</td>
+                <td>34</td>
+                <td>4,711</td>
               </tr>
               <tr>
                 <th scope="row">일반</th>
-								<td>531</td>
-								<td>1,034</td>
-								<td>328</td>
-								<td>2,095</td>
-								<td>625</td>
-								<td>1,279</td>
-								<td>550</td>
-								<td>309</td>
-								<td>5,672</td>
-								<td>1,131</td>
-								<td>13,554</td>
+                <td>538</td>
+                <td>1,047</td>
+                <td>329</td>
+                <td>2,124</td>
+                <td>630</td>
+                <td>1,301</td>
+                <td>554</td>
+                <td>310</td>
+                <td>5,739</td>
+                <td>1,153</td>
+                <td>13,725</td>
               </tr>
               <tr>
                 <th scope="row">총계</th>
-								<td>1,292</td>
-								<td>1,473</td>
-								<td>525</td>
-								<td>3,844</td>
-								<td>2,257</td>
-								<td>1,734</td>
-								<td>919</td>
-								<td>646</td>
-								<td>12,270</td>
-								<td>2,357</td>
-								<td>27,317</td>
+                <td>1,301</td>
+                <td>1,488</td>
+                <td>527</td>
+                <td>3,878</td>
+                <td>2,268</td>
+                <td>1,759</td>
+                <td>924</td>
+                <td>650</td>
+                <td>12,407</td>
+                <td>2,390</td>
+                <td>27,592</td>
               </tr>
             </tbody>
           </table>
@@ -155,16 +155,14 @@
             </caption>
             <colgroup>
               <col width="*">
-              <col width="20%">
-              <col width="20%">
-              <col width="20%">
-              <col width="20%">
+              <col width="25%">
+              <col width="25%">
+              <col width="25%">
             </colgroup>
             <thead>
               <tr>
                 <th>구분</th>
                 <th>신문</th>
-                <th>계간지</th>
                 <th>월간지</th>
                 <th>총 계</th>
               </tr>
@@ -173,9 +171,8 @@
               <tr>
                 <th>파동도서관</th>
                 <td>3</td>
-                <td>1</td>
-                <td>13</td>
-                <td>17</td>
+                <td>12</td>
+                <td>15</td>
               </tr>
             </tbody>
           </table>
