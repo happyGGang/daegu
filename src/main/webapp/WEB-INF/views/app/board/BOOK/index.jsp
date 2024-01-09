@@ -172,9 +172,11 @@ ${boardManage.top_html}
 <div class="tabmenu tab1">
 	<ul>
 		<li class="${board.category1 eq null ? 'active':''}"><a href="" keyValue=""style="font-size: 13px;">전체</a></li>
-		<c:forEach items="${category1List}" var="i" varStatus="status">
-		<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
-		</c:forEach>
+		<c:if test="${boardManage.manage_idx ne '683'}">
+			<c:forEach items="${category1List}" var="i" varStatus="status">
+				<li class="${board.category1 eq i.code_id ? 'active':''}"><a href="" keyValue="${i.code_id}" style="font-size: 13px;">${i.code_name}</a></li>
+			</c:forEach>
+		</c:if>
 	</ul>
 </div>
 </c:if>
