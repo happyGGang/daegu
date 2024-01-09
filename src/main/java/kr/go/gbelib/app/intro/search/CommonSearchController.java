@@ -3227,7 +3227,9 @@ public class CommonSearchController extends BaseController {
 				}
 			}
 			
-			if("bukgs".equals(homepage.getContext_path())) {
+			if("BA".equals(librarySearch.getManageCode()) || "BB".equals(librarySearch.getManageCode()) || "BC".equals(librarySearch.getManageCode()) ||
+			   "GL".equals(librarySearch.getManageCode()) || "GM".equals(librarySearch.getManageCode()) || "GN".equals(librarySearch.getManageCode()) ||
+			   "HB".equals(librarySearch.getManageCode()) || "HD".equals(librarySearch.getManageCode()) || "HE".equals(librarySearch.getManageCode())) {
 				sanghoPossiCnt = 10;
 			}
 			
