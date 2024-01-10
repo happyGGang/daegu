@@ -247,7 +247,8 @@ public class checkInOutController extends BaseController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 		String format = sdf.format(new Date());
 		
-		boolean isChild = ((Integer.parseInt(format) - Integer.parseInt(birth))) < 17 && ((Integer.parseInt(format) - Integer.parseInt(birth))) > 11;
+		//2024-2009 = 15 2024-2013 = 11
+		boolean isChild = ((Integer.parseInt(format) - Integer.parseInt(birth)) <= 15 && (Integer.parseInt(format) - Integer.parseInt(birth)) >= 11);
 		
 		return isChild;
 	}

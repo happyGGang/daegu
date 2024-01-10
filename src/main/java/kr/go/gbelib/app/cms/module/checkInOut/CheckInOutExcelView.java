@@ -18,7 +18,7 @@ public class CheckInOutExcelView extends AbstractJExcelView {
 		@SuppressWarnings("unchecked")
 		List<CheckInOut> list = (List<CheckInOut>) model.get("checkInOutExcelList");
 
-		String fileName = "전체입출입내역.xls";
+		String fileName = "입출입관리.xls";
 
 		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
 		response.setHeader("Content-Transfer-Encoding", "binary");

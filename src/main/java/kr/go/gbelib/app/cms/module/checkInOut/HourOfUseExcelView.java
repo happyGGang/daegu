@@ -25,7 +25,7 @@ public class HourOfUseExcelView extends AbstractJExcelView {
 		response.setHeader("Pragma", "no-cache");
 		response.setContentType("Application/Msexcel");
 
-		new CheckInOutWorkbook().workbookForm(workbook, list, request, response);
+		new HourOfUseWorkbook().workbookForm(workbook, list, request, response);
 
 	}
 }
