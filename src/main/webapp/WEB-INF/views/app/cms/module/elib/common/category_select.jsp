@@ -27,7 +27,7 @@ $(document).ready(function(e) {
 
 function updateSubcategory${sym}(cate_id) {
 	if(cate_id != null && cate_id != '' && cate_id != '0') {
-		$.get('/cms/module/elib/category/EBK/getSubcategories.do?cate_id=' + cate_id, function(data) {
+		$.get('/cms/module/elib/category/${book.type}/getSubcategories.do?cate_id=' + cate_id, function(data) {
 			var cate2 = $('select#cate2${sym}').empty();
 			var selected = null;
 			

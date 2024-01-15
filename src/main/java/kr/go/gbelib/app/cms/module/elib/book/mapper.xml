@@ -570,14 +570,7 @@
 			device = #{device},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE,
-			<choose>
-			<when test="type == 'ADO'">
-			cate_id = #{parent_id}
-			</when>
-			<otherwise>
 			cate_id = #{cate_id}
-			</otherwise>
-			</choose>
 		WHERE
 			book_idx = #{book_idx}
 	</update>

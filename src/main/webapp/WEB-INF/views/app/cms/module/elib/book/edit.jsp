@@ -43,7 +43,6 @@ $(function() {
 	
 });
 
-<c:if test="${book.type != 'ADO'}">
 function updateSubcategory_dialog(cate_id) {
 	if(cate_id != null && cate_id != '' && cate_id != '0') {
 		$.get('/cms/module/elib/category/${book.type}/getSubcategories.do?cate_id=' + cate_id, function(data) {
@@ -68,7 +67,6 @@ function updateSubcategory_dialog(cate_id) {
 		});
 	}
 }
-</c:if>
 </script>
 <form:form id="bookForm" modelAttribute="book" method="post" action="save.do" >
 	<form:hidden path="book_idx"/>
@@ -119,7 +117,7 @@ function updateSubcategory_dialog(cate_id) {
 			<tr>
 	         	<th>카테고리</th>
 	         	<td>
-	         		<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/category_select.jsp">
+       				<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/category_select.jsp">
 	         			<jsp:param name="sym" value="_dialog"/>
 	         		</jsp:include>
 	         	</td>
