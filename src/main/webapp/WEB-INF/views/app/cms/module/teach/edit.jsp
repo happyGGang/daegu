@@ -690,7 +690,22 @@
 		});
 	});
 
+	function changeFile(elementId) {
+		var fileInput = document.getElementById(elementId);
+
+		var fileName = fileInput.files[0].name;
+		var disallowedExtensions = /(\.exe|\.bat|\.cmd|\.sh|\.php|\.js|\.html|\.htm)$/i;
+
+		if (disallowedExtensions.exec(fileName)) {
+			alert('업로드가 제한된 파일 형식입니다. gif, jpeg, jpg, png 파일만 업로드 가능합니다.');
+			fileInput.value = ''; // 파일 선택 초기화
+		}
+	}
+
 </script>
+
+
+
 <form:form id="deleteFileForm" modelAttribute="teach" action="deleteFile.do">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="group_idx"/>
@@ -941,7 +956,7 @@
 					<a class="btn btn1 delete-image-btn">삭제</a>
 					<br/>
 				</c:if>
-				<input type="file" id="image_plan_file" name="image_plan_file" class="text" accept=".gif,.jpeg,.jpg,.png"/><button id="cancelImage">등록취소</button>
+				<input type="file" id="image_plan_file" name="image_plan_file" class="text" accept=".gif,.jpeg,.jpg,.png" onchange="changeFile(this.id)"/><button id="cancelImage">등록취소</button>
 				<div class="ui-state-highlight">
 					<em>* 파일 확장자가  gif, jpeg, jpg, png 인 경우에만 업로드 가능합니다. <br/> * 기타 파일(pdf, hwp 등)을 등록하실 경우 정상적으로 나타나지 않습니다. </em>
 				</div>
@@ -1071,7 +1086,7 @@
 					<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do"><i class="fa fa-floppy-o"></i>${teach.org_file_name}</a><a class="btn btn1 delete-file-btn">삭제</a>
 					<br/>
 				</c:if>
-				<input type="file" id="plan_file" name="plan_file" class="text"/><form:hidden path="org_file_name"/>
+				<input type="file" id="plan_file" name="plan_file" class="text" onchange="changeFile(this.id)"/><form:hidden path="org_file_name"/>
 				<button id="cancelFile">등록취소</button>
 			</td>
 		</tr>
@@ -1082,7 +1097,7 @@
 					<a href="/cms/module/teach/download/${teach.homepage_id}/${teach.group_idx}/${teach.category_idx}/${teach.teach_idx}.do?file_type=attach"><i class="fa fa-floppy-o"></i>${teach.attach_org_file_name}</a><a class="btn btn1 delete-attach-btn">삭제</a>
 					<br/>
 				</c:if>
-				<input type="file" id="attach_file" name="attach_file" class="text"><form:hidden path="attach_org_file_name"/>
+				<input type="file" id="attach_file" name="attach_file" class="text" onchange="changeFile(this.id)"><form:hidden path="attach_org_file_name"/>
 				<button id="attachCancelFile">등록취소</button>
 			</td>
 		</tr>
