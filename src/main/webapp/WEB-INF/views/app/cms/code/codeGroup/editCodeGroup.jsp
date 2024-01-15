@@ -55,7 +55,8 @@ $(function() {
 	</colgroup>
 	<tbody> 
 		<tr>
-			<th>코드그룹ID <em>*</em></th>
+			<th>코드그룹ID <em>*</em>
+				<br> (10자이내)</th>
 			<td>
 			<c:choose>
 			<c:when test="${code.editMode eq 'MODIFY'}">
@@ -69,7 +70,8 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
-			<th>코드그룹명 <em>*</em></th>
+			<th>코드그룹명 <em>*</em>
+				<br> (10자이내)</th>
 			<td>
 				<form:input path="group_name" cssStyle="width:178px;" cssClass="text"/>
 			</td>
@@ -86,7 +88,8 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
-			<th>설명</th>
+			<th>설명
+				<br> (100자이내)</th>
 			<td>
 				<form:input path="remark" cssStyle="width:178px;" cssClass="text"/>
 			</td>
