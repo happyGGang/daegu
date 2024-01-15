@@ -484,6 +484,14 @@
 			}
 		});
 
+		$('input#age_info_yn2').on('click', function(e){
+			if ($('input#teach_join_limit_unit2').is(':checked')) {
+				$('#age_info_yn1').click();
+				alert('나이제한이 있는 경우 나이 입력여부를 수정할 수 없습니다.');
+				return false;
+			}
+		});
+
 		$('input#birth_yn2').on('click', function(e){
 			if ($('input#teach_join_limit_unit2').is(':checked')) {
 				$('#birth_yn1').click();
@@ -491,6 +499,39 @@
 				return false;
 			}
 		});
+
+		//성별입력여부
+		$('input#teach_join_limit_unit1').on('click', function(){
+			var flag = $(this).is(':checked');
+			if (flag) {
+				$('#sex_yn1').click();
+			}
+		});
+
+		$('input#sex_yn2').on('click', function(e){
+			if ($('input#teach_join_limit_unit1').is(':checked')) {
+				$('#sex_yn1').click();
+				alert('성별 제한 여부가 있을 경우 수정 할 수 없습니다.');
+				return false;
+			}
+		});
+
+		//주소 입력여부
+		$('input#teach_addr_limit').on('click', function(){
+			var flag = $(this).is(':checked');
+			if (flag) {
+				$('#sex_yn1').click();
+			}
+		});
+
+		$('input#address_yn2').on('click', function(e){
+			if ($('input#teach_addr_limit').is(':checked')) {
+				$('#address_yn1').click();
+				alert('주소 입력 제한이 있을 경우 수정 할 수 없습니다.');
+				return false;
+			}
+		});
+
 
 		$('input#tempHoliDay').datepicker({
 			onClose: function(selectedDate){
