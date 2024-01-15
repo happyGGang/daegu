@@ -97,7 +97,7 @@ $(function() {
 					<td>${i.use_yn}</td>
 					<td>${i.copyright}</td>
 					<td>
-						<c:if test="${member.auth_id <= 200}">
+						<c:if test="${authD || member.admin}">
 							<a href="" class="btn dialog-modify" data-comp_idx="${i.comp_idx}">수정</a>
 							<a href="" class="btn delete-btn" data-comp_idx="${i.comp_idx}">삭제</a>
 						</c:if>
