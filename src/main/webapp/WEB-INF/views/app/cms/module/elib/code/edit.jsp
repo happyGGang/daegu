@@ -57,7 +57,7 @@ $(function() {
 	         	<td><form:input path="com_code" class="text" cssStyle="width:150px"/></td>
         	</tr>
  			<tr>
-	         	<th>공급사명</th>
+	         	<th>유통사명</th>
 	         	<td><form:input path="comp_name" class="text" cssStyle="width:150px"/></td>
         	</tr>
  			<tr>

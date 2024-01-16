@@ -81,7 +81,7 @@ public class BookWorkbook {
 		workbook.getSheet(0).addCell( new Label( 8, 0, "ISBN", format ) );
 		workbook.getSheet(0).addCell( new Label( 9, 0, "포맷", format ) );
 		workbook.getSheet(0).addCell( new Label( 10, 0, "도서관명", format ) );
-		workbook.getSheet(0).addCell( new Label( 11, 0, "공급사", format ) );
+		workbook.getSheet(0).addCell( new Label( 11, 0, "유통사", format ) );
 //		workbook.getSheet(0).addCell( new Label( 11, 0, "책 소개", format ) );
 //		workbook.getSheet(0).addCell( new Label( 12, 0, "저자 소개", format ) );
 //		workbook.getSheet(0).addCell( new Label( 13, 0, "목차", format ) );

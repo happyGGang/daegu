@@ -65,7 +65,7 @@ public class ElibStatisticsTimeWorkbook {
 		}
 		
 		sheet.addCell(new Label( 0, 0,
-				String.format("%s %s별 대출통계 [ 조회일자: %s, 공급사: %s, 도서관: %s ]", typeName, menuName, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), provider, library)));
+				String.format("%s %s별 대출통계 [ 조회일자: %s, 유통사: %s, 도서관: %s ]", typeName, menuName, new SimpleDateFormat("yyyy-MM-dd").format(new Date()), provider, library)));
 		sheet.mergeCells(0, 0, 3, 0);
 		
 		// 헤더 컬럼 지정
