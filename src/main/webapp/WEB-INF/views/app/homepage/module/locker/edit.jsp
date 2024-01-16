@@ -61,19 +61,19 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	        </tr>
 	         <tr>
 	         	<th>휴대전화번호</th>
-	         	<td>
-					<c:choose>
-	         		<c:when test="${empty lockerReq.cell_phone}">
-	         		<form:input path="cell_phone1" style="width:40px;" class="text" maxlength="3" numberOnly="true"/> - 
-	         		<form:input path="cell_phone2" style="width:50px;" class="text" maxlength="4" numberOnly="true"/> - 
-	         		<form:input path="cell_phone3" style="width:50px;" class="text" maxlength="4" numberOnly="true"/>
-	         		</c:when>
-	         		<c:otherwise>
-	         		<form:hidden path="cell_phone"/>
-					${fn:substring(locker.cell_phone, 0, 3)} - ${fn:substring(locker.cell_phone, 3, 7)} - ${fn:substring(locker.cell_phone, 7, 11)}
-	         		</c:otherwise>
-					</c:choose>	         	
-	         	</td>
+				 <td>
+					 <c:choose>
+						 <c:when test="${empty lockerReq.cell_phone}">
+							 <form:input path="cell_phone1" style="width:40px;" class="text" maxlength="3" numberOnly="true"/> -
+							 <form:input path="cell_phone2" style="width:50px;" class="text" maxlength="4" numberOnly="true"/> -
+							 <form:input path="cell_phone3" style="width:50px;" class="text" maxlength="4" numberOnly="true"/>
+						 </c:when>
+						 <c:otherwise>
+							 <form:hidden path="cell_phone"/>
+							 ${locker.cell_phone}
+						 </c:otherwise>
+					 </c:choose>
+				 </td>
 	        </tr>	
 	        <tr>
 	         	<th>전화번호</th>
