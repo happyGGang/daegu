@@ -54,11 +54,14 @@ $(function() {
        	<tbody>
  			<tr>
 	         	<th>코드</th>
-	         	<td><form:input path="com_code" class="text" cssStyle="width:150px"/></td>
+	         	<td><form:input path="com_code" class="text" cssStyle="width:150px" maxlength="4"/>
+					<em>코드는 영문으로 4글자 이하를 입력 해주세요 ex) ABCD</em>
+				</td>
+
         	</tr>
  			<tr>
 	         	<th>유통사명</th>
-	         	<td><form:input path="comp_name" class="text" cssStyle="width:150px"/></td>
+	         	<td><form:input path="comp_name" class="text" cssStyle="width:150px" maxlength="20"/></td>
         	</tr>
  			<tr>
 	         	<th>콘텐츠 타입</th>
