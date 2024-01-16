@@ -182,15 +182,17 @@ $(function(){
 		<div class="button btn-group inline">
 			<a href="" class="btn btn3 left" id="changeView"><i class="fa fa-calendar"></i><span>달력형 전환</span></a>
 		</div>
+		<c:if test="${authC}">
 		<div class="button btn-group inline">
 			<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>일정등록</span></a>
 		</div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-las"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(월단위)</span></a>
-		</div>
-		<div class="button btn-group inline">
-			<a href="" class="btn btn4 left" id="dialog-add-las-year"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(년단위)</span></a>
-		</div>
+		</c:if>
+<!-- 		<div class="button btn-group inline"> -->
+<!-- 			<a href="" class="btn btn4 left" id="dialog-add-las"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(월단위)</span></a> -->
+<!-- 		</div> -->
+<!-- 		<div class="button btn-group inline"> -->
+<!-- 			<a href="" class="btn btn4 left" id="dialog-add-las-year"><i class="fa fa-plus"></i><span>자료관리 휴관일 가져오기(년단위)</span></a> -->
+<!-- 		</div> -->
 	</div>
 </form:form>
 	<div class="table-wrap" id="calTable">
