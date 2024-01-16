@@ -117,7 +117,7 @@ $(function() {
 				<c:choose>
 					<c:when test="${member.editMode eq 'ADD'}">
 						<form:input path="member_id" cssStyle="width:100px;" cssClass="text" maxlength="20"/>
-						<a href="" class="btn btn5 left" id="linkMemberSearch" ><i class="fa fa-plus"></i><span>일반사용자검색</span></a>
+<%--						<a href="" class="btn btn5 left" id="linkMemberSearch" ><i class="fa fa-plus"></i><span>일반사용자검색</span></a>--%>
 					</c:when>
 					<c:otherwise>
 						${member.member_id}
@@ -135,9 +135,9 @@ $(function() {
 			<th>비밀번호</th>
 			<td>
 				<form:password path="member_pw" cssStyle="width:178px;" cssClass="text" maxlength="20"/>
-				<div class="ui-state-highlight">
-					<i class="fa fa-question-circle"></i><em>사용자 검색 시 LAS 비밀번호 사용</em>
-				</div>
+<%--				<div class="ui-state-highlight">--%>
+<%--					<i class="fa fa-question-circle"></i><em>사용자 검색 시 LAS 비밀번호 사용</em>--%>
+<%--				</div>--%>
 			</td>
 		</tr>
 		<tr>
