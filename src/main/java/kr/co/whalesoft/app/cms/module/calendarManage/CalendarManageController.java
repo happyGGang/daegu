@@ -1,8 +1,8 @@
 package kr.co.whalesoft.app.cms.module.calendarManage;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +24,6 @@ import kr.co.whalesoft.app.board.BoardService;
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
-import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import kr.co.whalesoft.app.cms.module.excursions.apply.ApplyService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -142,9 +141,25 @@ public class CalendarManageController extends BaseController {
 
 		if (calendarManage.getEditMode().equals("ADD") || calendarManage.getEditMode().equals("MODIFY")) {
 			ValidationUtils.rejectIfEmpty(result, "title", "제목을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "start_date","일정의 시작일자 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "start_date", "일정의 시작일자 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "end_date", "일정의 종료일자 입력하세요.");
+
+			SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
+			sfTime.setLenient(false);
+
+			try {
+				Date startTime = sfTime.parse(calendarManage.getStart_time());
+				Date endTime = sfTime.parse(calendarManage.getEnd_time());
+
+				if (!isTimeWithinRange(startTime) || !isTimeWithinRange(endTime)) {
+					result.reject("시간입력은 00:00 ~ 23:59 범위 내여야 합니다.");
+				}
+			} catch (ParseException e) {
+				result.reject("시간 형식이 잘못되었습니다.");
+			}
+
 		}
+
 
 		if (!result.hasErrors()) {
 			if (calendarManage.getEditMode().equals("ADD")) {
@@ -285,6 +300,18 @@ public class CalendarManageController extends BaseController {
 //	            break ;
 //	    }
 	    return dayNum ;
+	}
+
+	private boolean isTimeWithinRange(Date time) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(time);
+		int hours = calendar.get(Calendar.HOUR_OF_DAY);
+		System.out.println("hours = " + hours);
+		int minutes = calendar.get(Calendar.MINUTE);
+		System.out.println("minutes = " + minutes);
+		boolean b = hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+		System.out.println("b = " + b);
+		return b;
 	}
 
 }
