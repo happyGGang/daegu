@@ -127,7 +127,7 @@
 	<c:when test="${book.menu == 'PROVIDER'}">
 		<div class="elib_cate">
 			<br/>
-			<h2>공급사</h2>
+			<h2>유통사</h2>
 			<div class="box">
 				<c:forEach items="${compList}" var="i" varStatus="status">
 					<c:if test="${i.com_code ne 'ARTN'}">
@@ -341,7 +341,7 @@
 						<label>소속도서관:</label>
 						<span>${fn:escapeXml(i.library_name)}</span>
 						<span class="txt-bar">&nbsp;</span>
-						<label>공급사:</label>
+						<label>유통사:</label>
 						<span>${fn:escapeXml(i.comp_name)}</span>
 						<c:if test="${i.type == 'EBK' or (i.type == 'ADO' and (i.com_code == 'FXLI' or i.com_code == 'KYOB' or i.com_code == 'ALAD'))}">
 							<span class="txt-bar">&nbsp;</span>

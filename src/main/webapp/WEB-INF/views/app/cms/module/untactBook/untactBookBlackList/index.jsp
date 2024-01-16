@@ -166,14 +166,20 @@ function deletePenalty(member_id, member_name) {
 			<td width="50">${i.penalty_reason}</td>
 			<td width="50">${i.penalty_day}</td>
 			<td width="50">${i.penalty_register_id}</td>
-			<td width="100"><a href="javascript:void(0);" class="btn btn5 btnuntact" onclick="deletePenalty('${i.member_id}' ,'${i.member_name}');">패널티부여삭제</a></td>
+			<td width="100">
+				<c:if test="${authD}">
+				<a href="javascript:void(0);" class="btn btn5 btnuntact" onclick="deletePenalty('${i.member_id}' ,'${i.member_name}');">패널티부여삭제</a>
+				</c:if>
+			</td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
 <div style="padding-top:10px;">
 	<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
-	<a href="#" id="delete_btn" class="btn btn4 btnuntact" onclick="allDelete();">전체삭제</a>
+	<c:if test="${authD}">
+		<a href="#" id="delete_btn" class="btn btn4 btnuntact" onclick="allDelete();">전체삭제</a>
+	</c:if>
 </div>
 	
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">

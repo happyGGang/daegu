@@ -70,7 +70,7 @@ $(function() {
 		<thead>
 			<tr>
 				<th>코드</th>
-				<th>공급사명</th>
+				<th>유통사명</th>
 				<th>타입</th>
 				<th>유저수</th>
 				<th>사용기간 시작일</th>
