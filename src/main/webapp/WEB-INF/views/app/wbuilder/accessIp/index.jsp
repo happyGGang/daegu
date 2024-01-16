@@ -96,8 +96,9 @@ $(function(){
 		</tbody>
 	</table>
 </div>
-<div class="alert">
-	테이블 하단에 설명 문구를 출력합니다.
+
+<div class="ui-state-highlight">
+	<em>* 접근 가능 IP를 모두 삭제하면 접근이 불가능하니 삭제에 유의해 주십시오.</em>
 </div>
 
 <div id="dialog-1" class="dialog-common" title="접근가능 IP등록/수정">
