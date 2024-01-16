@@ -68,7 +68,7 @@ $(function(){
 				<form:option value="${homepageListCount}">전체 보기</form:option>
 			</form:select>
 		<div class="button btn-group inline">
-			<c:if test="${member.admin}">
+			<c:if test="${authC}">
 				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>홈페이지 추가</span></a>
 			</c:if>
 		</div>
@@ -168,7 +168,7 @@ $(function(){
 							<a href="" class="btn" id="dialog-modify" keyValue="${i.homepage_id}">수정</a>
 						</c:if>
 						<c:if test="${authD and asideHomepageId eq i.homepage_id}">
-<%-- 							<a href="" class="btn" id="delete" keyValue="${i.homepage_id}">삭제</a> --%>
+ 							<a href="" class="btn" id="delete" keyValue="${i.homepage_id}">삭제</a>
 						</c:if>
 						</c:otherwise>
 						</c:choose>
