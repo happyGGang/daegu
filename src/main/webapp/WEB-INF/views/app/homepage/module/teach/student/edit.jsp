@@ -843,7 +843,21 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			<c:if test="${teach.age_info_yn eq 'Y'}">
 			<tr>
 				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
-				<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/></td>
+				<td>
+					<c:choose>
+						<c:when test="${sessionScope.member.login}">
+							<c:if test="${teach.family_yn eq 'Y'}">
+								<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>
+							</c:if>
+							<c:if test="${teach.family_yn eq 'N' }">
+								<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2" value="${memberInfo.age }" disabled="true"/>
+							</c:if>
+						</c:when>
+						<c:otherwise>
+							<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
 			</c:if>
 			<c:if test="${teach.remark_yn eq 'Y'}">

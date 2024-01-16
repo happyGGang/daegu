@@ -147,7 +147,7 @@ public class StudentController extends BaseController {
     			}
     		}
 		}
-
+		
 		model.addAttribute("termsList", termsResult);
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));

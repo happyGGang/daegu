@@ -220,7 +220,8 @@
 		ORDER BY
 		(CASE WHEN a.culture_view_yn ='Y' THEN 1 ELSE 2 END),
 		(CASE WHEN a.teach_code_yn ='Y' THEN 1 ELSE 2 END),
-		a.ADD_DATE desc
+		SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI')) ASC,
+		SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI')) ASC
 		)A
 		)A
 		where A.teach_status IN
@@ -977,34 +978,34 @@
 		<if test="homepage_id != 'h5'">
 			ORDER BY
 			(CASE WHEN a.teach_code_yn ='Y' THEN 1 ELSE 2 END),
-			<if test="sortField != null and sortField != ''">
-				${sortField} ${sortType},
-			</if>
+<!-- 			<if test="sortField != null and sortField != ''"> -->
+<!-- 				${sortField} ${sortType}, -->
+<!-- 			</if> -->
 			ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
-			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
-			a.print_seq ASC
+			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC
+<!-- 			,a.print_seq ASC -->
 		</if>
 		) A
 
-		<if test="homepage_id == 'h5'">
-			ORDER BY
-			print_seq ASC,
-			<if test="sortField != null and sortField != ''">
-				${sortField} ${sortType},
-			</if>
-			TO_NUMBER(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) DESC,
-			TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI') -
-			TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI') DESC,
-			TO_NUMBER(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
-			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC,
-			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC
-		</if>
+<!-- 		<if test="homepage_id == 'h5'"> -->
+<!-- 			ORDER BY -->
+<!--  			print_seq ASC, -->
+<!-- 			<if test="sortField != null and sortField != ''"> -->
+<!-- 				${sortField} ${sortType}, -->
+<!-- 			</if> -->
+<!-- 			TO_NUMBER(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) DESC, -->
+<!-- 			TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI') - -->
+<!-- 			TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI') DESC, -->
+<!-- 			TO_NUMBER(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC, -->
+<!-- 			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC, -->
+<!-- 			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC -->
+<!-- 		</if> -->
 
-		<if test="homepage_id == 'h61'">
-			ORDER BY
-			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC,
-			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC
-		</if>
+<!-- 		<if test="homepage_id == 'h61'"> -->
+<!-- 			ORDER BY -->
+<!-- 			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC, -->
+<!-- 			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC -->
+<!-- 		</if> -->
 	</select>
 
 
