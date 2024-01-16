@@ -45,5 +45,5 @@ function smsSend() {
 </table>
 </div>
 <%-- <form:textarea path="adminMessage"/> --%>
-<textarea id="send_msg" name="adminMessage" wrap="hard" style="overflow-y: scroll; resize:none; top:61px; width:100%;height:160;" placeholder="여기에 메시지를 입력하세요."/>
+<textarea id="send_msg" name="adminMessage" wrap="hard" style="overflow-y: scroll; resize:none; top:61px; width:100%;height:160;" placeholder="여기에 메시지를 입력하세요." maxlength="75"/>
 <a href="#" class="btn btn1 btnuntact" onclick="smsSend();" style="float: right;">전송하기</a>
