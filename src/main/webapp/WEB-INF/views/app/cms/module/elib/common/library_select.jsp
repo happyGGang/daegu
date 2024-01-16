@@ -12,11 +12,15 @@ $(document).ready(function(e) {
 });
 </script>
 <form:select class="selectmenu-search" style="width:200px" id="library_code${sym}" path="library_code">
-	<option value="0" selected="selected">도서관 선택</option>
+	<option value="0">도서관 선택</option>
 	<c:forEach var="i" varStatus="status" items="${homepageList}">
-		<option value="${i.lib_code}"
-				<c:if test="${i.lib_code eq obj.library_code }">
-				</c:if>>${i.homepage_name}
-		</option>
+		<c:if test="${i.lib_code ne 0 and i.lib_code ne null}">
+			<option value="${i.lib_code}"
+					<c:if test="${i.lib_code eq book.library_code}">
+						selected="selected"
+					</c:if>
+			>${i.homepage_name}</option>
+		</c:if>
 	</c:forEach>
 </form:select>
+
