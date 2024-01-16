@@ -40,8 +40,8 @@
 			access_ip = #{access_ip},
 			use_yn = #{use_yn},
 			remark = #{remark},
-			mod_date = SYSDATE,
-			mod_id = #{mod_id}
+			modify_date = SYSDATE,
+			modify_id = #{mod_id}
 		WHERE
 			access_idx = #{access_idx}
 	</update>
