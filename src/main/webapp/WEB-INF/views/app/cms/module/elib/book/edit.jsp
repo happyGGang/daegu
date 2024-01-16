@@ -79,43 +79,43 @@ function updateSubcategory_dialog(cate_id) {
        	</colgroup>
        	<tbody>
 			<tr>
-	         	<th>책코드</th>
+	         	<th>책코드(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="book_code" class="text" cssStyle="width:150px"/></td>
         	</tr>
 			<tr>
-	         	<th>제목</th>
+	         	<th>제목(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="book_name" class="text" cssStyle="width:100%"/></td>
         	</tr>
 			<tr>
-	         	<th>저자</th>
+	         	<th>저자(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="author_name" class="text" cssStyle="width:200px"/></td>
         	</tr>
 			<tr>
-	         	<th>출판사</th>
+	         	<th>출판사(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="book_pubname" class="text" cssStyle="width:200px"/></td>
         	</tr>
         	<c:if test="${book.type != 'WEB'}">
 			<tr>
-	         	<th>ISBN</th>
+	         	<th>ISBN(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="isbn13" class="text" cssStyle="width:150px"/></td>
         	</tr>
         	</c:if>
 			<tr>
-	         	<th>포맷</th>
+	         	<th>포맷(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="format" class="text" cssStyle="width:100px"/></td>
         	</tr>
 			<tr>
-	         	<th>서적 이미지</th>
+	         	<th>서적 이미지(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><form:input path="book_image" class="text" cssStyle="width:100%"/></td>
         	</tr>
         	<tr>
-        		<th>출판일자</th>
+        		<th>출판일자(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 					<form:input path="book_pubdt" class="text ui-calendar"/>
 	         	</td>
         	</tr>
 			<tr>
-	         	<th>카테고리</th>
+	         	<th>카테고리(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
        				<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/category_select.jsp">
 	         			<jsp:param name="sym" value="_dialog"/>
@@ -123,7 +123,7 @@ function updateSubcategory_dialog(cate_id) {
 	         	</td>
         	</tr>
 			<tr>
-	         	<th>공급사</th>
+	         	<th>공급사(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/provider_select.jsp">
 	         			<jsp:param name="sym" value="_dialog"/>
@@ -131,7 +131,7 @@ function updateSubcategory_dialog(cate_id) {
 	         	</td>
         	</tr>
 			<tr>
-	         	<th>도서관</th>
+	         	<th>도서관(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp">
 	         			<jsp:param name="sym" value="_dialog"/>
@@ -139,7 +139,7 @@ function updateSubcategory_dialog(cate_id) {
 	         	</td>
         	</tr>
 			<tr>
-	         	<th>지원기기</th>
+	         	<th>지원기기(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td>
 	         		<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/device_select.jsp">
 	         			<jsp:param name="sym" value="_dialog"/>
