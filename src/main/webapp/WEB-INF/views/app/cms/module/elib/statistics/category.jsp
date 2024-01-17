@@ -191,9 +191,9 @@ function submit(e) {
 	<div class="search">
 		<fieldset>
 			<label class="blind">검색</label>
-			<c:if test="${member.admin}">
-			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/>
-			</c:if>
+<%-- 			<c:if test="${member.admin}"> --%>
+<%-- 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/> --%>
+<%-- 			</c:if> --%>
 			<form:input path="search_sdt" cssClass="text ui-calendar" placeholder="조회일 선택"/>
 			<form:input path="search_edt" cssClass="text ui-calendar" placeholder="조회종료일 선택"/>
 			<a href="#" id="search" class="btn"><span>조회</span></a>

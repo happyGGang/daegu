@@ -119,7 +119,6 @@ function submit(e) {
 			<label class="blind">검색</label>
 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/category_select.jsp"/>
 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/provider_select.jsp"/>
-			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/>
 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/device_select.jsp"/>
 		</fieldset>
 	</div>
