@@ -65,8 +65,8 @@ $(function(){
 		$('input#aside_homepage_id').val(value);
 		$('form#asideForm').submit();
 
-		document.cookie = 'now_homepage_id = ' + value;
-		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') ;
+		document.cookie = 'now_homepage_id = ' + value +'; secure;';
+		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') +'; secure;';
 	}
 
 </script>

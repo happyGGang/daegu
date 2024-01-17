@@ -35,7 +35,7 @@
 			href = href.replace(protocol, '');
 			href = href.replace(host, '');
 
-			document.cookie = 'url = ' + href;
+			document.cookie = 'url = ' + href + '; secure; ';
 		}
 	}
 
