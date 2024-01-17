@@ -53,7 +53,7 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 
-		if (!url.equals(getUri) && !getUri.contains("aside") && !getUri.contains("cms/index")) {
+		if (!url.equals(getUri)) {
 			url = getUri;
 		}
 
@@ -71,6 +71,10 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 					// cms로 이동하게 되면 별도로 asdieHomepageId가 설정된다.
 					JavaScriptUtils.redirectUrl("/wbuilder/adminMenu/index.do", request, response);
 					return false;
+				}
+
+				if (getUri.contains("aside")) {
+					url = "/cms/homepage/index.do";
 				}
 			}
 
@@ -116,6 +120,11 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 					adminMenu.setHomepage_id(homepage_id);
 					adminMenu.setAuthgroupIdxList(memberGroupAuthService.getAuthGroupIdxList(adminMenu));
 					if (adminMenu.getAuthgroupIdxList() != null && adminMenu.getAuthgroupIdxList().size() > 0) {
+
+						if (getUri.contains("aside")) {
+							url = adminMenuService.getAdminMenuListNew(adminMenu).get(0).getMenu_url();
+						}
+
 						request.getSession().setAttribute("adminMenuList", adminMenuService.getAdminMenuListNew(adminMenu));
 					}
 				}
