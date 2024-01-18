@@ -252,7 +252,9 @@ $(function(){
     </div>
 	<div class="button">
 		<a href="#" id="allChecked" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체선택/취소</span></a>&nbsp;&nbsp;
-		<a href="#" id="checkedDelete" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>선택삭제</span></a>&nbsp;&nbsp;
+		<c:if test="${authD}">
+			<a href="#" id="checkedDelete" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>선택삭제</span></a>&nbsp;&nbsp;
+		</c:if>
 		<a href="#" id="totalExcelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체 엑셀저장</span></a>&nbsp;&nbsp;
 		<a href="#" id="excelDownloadDate" class="btn btn3"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>&nbsp;&nbsp;
 		<a href="#" id="totalCsvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>전체 CSV저장</span></a>&nbsp;&nbsp;
