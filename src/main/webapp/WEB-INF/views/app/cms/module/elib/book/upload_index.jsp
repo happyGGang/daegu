@@ -175,11 +175,18 @@ function submit(e) {
 		<tr>
 			<th>작업 종류</th>
 			<td>
+				<c:if test="${authC}">
 				<input type="radio" name="operation" id="operation1" value="I" checked="checked" style="width: 20px;"> <label for="operation1">Insert / Update</label>
+				</c:if>
+				<c:if test="${authD}">
 				&nbsp;<input type="radio" name="operation" id="operation2" value="D" style="width: 20px;"> <label for="operation2">Delete</label>
+				</c:if>
+				<c:if test="${authC}">
 				&nbsp;<input type="radio" name="operation" id="operation3" value="A" style="width: 20px;"> <label for="operation3">승인</label>
 				&nbsp;<input type="radio" name="operation" id="operation4" value="DA" style="width: 20px;"> <label for="operation4">승인 취소</label>
 				&nbsp;<input type="radio" name="operation" id="operation5" value="M" style="width: 20px;"> <label for="operation5">마크URL 추출</label><br/>
+				</c:if>
+				<br/>
 <!-- 				&nbsp;<input type="radio" name="operation" value="FD" style="width: 20px;"> 강제 삭제<br/> -->
 			</td>
 		</tr>
@@ -196,7 +203,6 @@ function submit(e) {
 			<td>
 				<input type="radio" name="type" value="EBK" checked="checked" style="width: 20px;"> 전자책(EBK)
 				&nbsp;<input type="radio" name="type" value="ADO" style="width: 20px;"> 오디오북(ADO)
-				&nbsp;<input type="radio" name="type" value="WEB" style="width: 20px;"> 이러닝(WEB)
 			</td>
 		</tr>
 		<%--<tr>
