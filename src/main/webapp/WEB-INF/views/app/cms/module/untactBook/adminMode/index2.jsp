@@ -716,6 +716,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 						</div>
 						
 						<div style="padding-top:10px;">
+							<c:if test="${authD}">
 							<c:choose>
 								<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
 									<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStepToday();">접수</a>
@@ -727,6 +728,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 							<a href="javascript:void(0);" id="waitingReservationStepAll" class="btn btn2 btnuntact" onclick="waitingReservationStep();">대기</a>
 							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn4 btnuntact" onclick="bookReservation();">대출</a>
 							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
+							</c:if>
 							<a href="javascript:void(0);" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 						</div>
 
