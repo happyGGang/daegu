@@ -68,7 +68,9 @@ $(function(){
 		<form:option value="${memberListCount}">전체 보기</form:option>
 	</form:select>
 	<div class="button btn-group inline">
+		<c:if test="${authC}">
 		<a href="" class="btn btn5 left" id="dialog-add" ><i class="fa fa-plus"></i><span> 사용자 등록</span></a>
+		</c:if>
 	</div>
 </div>
 
@@ -108,9 +110,13 @@ $(function(){
 				<td width="130"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/> </td>
 				<td width="">${i.search_auth}</td>
 				<td width="">
+					<c:if test="${authC}">
 					<a href="#" class="btn dialog-modify" id="dialog-modify-${i.member_id}" keyValue="${i.member_id}">수정</a>
+					</c:if>
+					<c:if test="${authD}">
 					<a href="#" class="btn delete" keyValue="${i.member_id}">삭제</a>
 					<a href="#" class="btn btn3 grouping" keyValue="${i.member_id}">그룹설정</a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

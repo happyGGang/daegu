@@ -273,13 +273,17 @@ $(function() {
 					<td>${i.phone }</td>
 					<td>${i.cell_phone }</td>
 					<td>
+						<c:if test="${authU}">
 						<a href="" class="btn" id="dialog-modify" keyValue="${i.req_idx}" keyValue2="${i.apply_id }">수정</a>
+						</c:if>
+						<c:if test="${authD}">
 						<a href="" class="btn" id="delete-btn" keyValue="${i.req_idx}" keyValue2="${i.apply_id }">삭제</a>
 						<c:if test="${i.isBlackList > 0 }">
 						<a href="" class="btn btn4 delete_blackList" homepage_id="${i.homepage_id}" keyValue="${i.member_key}">블랙리스트 삭제</a>
 						</c:if>
 						<c:if test="${i.isBlackList < 1 }">
 						<a href="" class="btn btn1 add_blackList" homepage_id="${i.homepage_id}" keyValue="${i.apply_id}" keyValue1="${i.member_key}">블랙리스트 추가</a>
+						</c:if>
 						</c:if>
 					</td>
 				</tr>

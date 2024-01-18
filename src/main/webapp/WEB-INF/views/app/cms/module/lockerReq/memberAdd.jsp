@@ -97,9 +97,11 @@ $(function() {
 					<td>${i.phone }</td>
 					<td>${i.cell_phone }</td>
 					<td>
+						<c:if test="${authD}">
 						<a href="" class="btn" id="assign" keyValue="${i.member_key}" keyValue2="${i.req_idx }">선택</a>
 						<c:if test="${i.black_count > 0 }">
 							<span class="btn" style="color:red;">블랙리스트</span>
+						</c:if>
 						</c:if>
 					</td>
 				</tr>

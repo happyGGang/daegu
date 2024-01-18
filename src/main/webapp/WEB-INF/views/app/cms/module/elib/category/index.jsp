@@ -421,10 +421,10 @@ function doAjaxPostResponse(form, ajaxBody) {
 			<th>상위카테고리</th>
 			<td><span id="parent_name">최상위 카테고리</span></td>
 		</tr>
-		<tr>
-			<th>카테고리 코드</th>
-			<td><form:input path="cate_code" cssStyle="width: 150px;"/></td>
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<th>카테고리 코드</th> -->
+<%-- 			<td><form:input path="cate_code" cssStyle="width: 150px;"/></td> --%>
+<!-- 		</tr> -->
 		<tr>
 			<th>카테고리명</th>
 			<td>
