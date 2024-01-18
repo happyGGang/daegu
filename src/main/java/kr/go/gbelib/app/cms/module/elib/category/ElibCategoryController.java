@@ -74,7 +74,8 @@ public class ElibCategoryController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = category.getEditMode();
 		if(!editMode.equals("DELETE")) {
-			ValidationUtils.rejectIfEmpty(result, "cate_name", "카테고리명을 입력하세요.");
+			category.setCate_name(category.getCate_name().trim());
+			ValidationUtils.rejectIfEmptyOrWhitespace(result, "cate_name", "카테고리명을 입력하세요.");
 		}
 		if(!result.hasErrors()) {
 //			if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
