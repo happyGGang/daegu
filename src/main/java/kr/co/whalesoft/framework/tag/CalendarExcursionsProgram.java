@@ -40,7 +40,9 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 
 				if (planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
 					if (planDay >= startDay && planDay <= 31) {
-						sb.append("<input type='checkbox' name='excursions_idx_arr' value='"+excursions.getExcursions_idx()+"'>");
+						if (calendarDay > to_day) {
+							sb.append("<input type='checkbox' name='excursions_idx_arr' value='"+excursions.getExcursions_idx()+"'>");
+						}
 						sb.append("<a href=\"#\" class=\"btn btn1 modify\" keyValue=\"" + excursions.getExcursions_idx() + "\"><span style=\"margin-left : 5px; font-size:13px;\">수정</span></a><br>");
 						sb.append("[" + excursions.getCode_name() + "]<br>");
 						sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
@@ -60,7 +62,9 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 						sb.append("</ul>");
 					}
 				} else if (planDay >= startDay && planDay <= endDay) {
-					sb.append("<input type='checkbox' name='excursions_idx_arr' value='"+excursions.getExcursions_idx()+"'>");
+					if (calendarDay > to_day) {
+						sb.append("<input type='checkbox' name='excursions_idx_arr' value='"+excursions.getExcursions_idx()+"'>");
+					}
 					sb.append("<a href=\"#\" class=\"btn btn1 modify\" keyValue=\"" + excursions.getExcursions_idx() + "\"><span style=\"margin-left : 5px; font-size:13px;\">수정</span></a><br>");
 					sb.append("[" + excursions.getCode_name() + "]<br>");
 					sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
@@ -80,7 +84,9 @@ public class CalendarExcursionsProgram extends BodyTagSupport {
 					sb.append("</ul>");
 				} else if (!planMonth.equals(startMonth) && planMonth.equals(endMonth)) {
 					if (planDay >= 1 && planDay <= endDay) {
-						sb.append("<input type='checkbox' name='excursions_idx_arr' value='"+excursions.getExcursions_idx()+"'>");
+						if (calendarDay > to_day) {
+							sb.append("<input type='checkbox' name='excursions_idx_arr' value='"+excursions.getExcursions_idx()+"'>");
+						}
 						sb.append("<a href=\"#\" class=\"btn btn1 modify\" keyValue=\"" + excursions.getExcursions_idx() + "\"><span style=\"margin-left : 5px; font-size:13px;\">수정</span></a><br>");
 						sb.append("[" + excursions.getCode_name() + "]<br>");
 						sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
