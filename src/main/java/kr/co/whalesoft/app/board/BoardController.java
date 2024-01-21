@@ -1652,7 +1652,7 @@ public class BoardController extends BaseController {
 							return res;
 						}
 					} else {
-						if (!"HOMEPAGE".equals(getSessionMemberLoginType(request))|| !boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id())) {
+						if (!"HOMEPAGE".equals(getSessionMemberLoginType(request)) && !boardOne.getAdd_id().equals(sessionMemberInfo.getMember_id())) {
 							res.setValid(false);
 							res.setMessage("잘못된 접근입니다.");
 							return res;
