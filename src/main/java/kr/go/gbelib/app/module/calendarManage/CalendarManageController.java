@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.framework.exception.AuthException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,6 +68,7 @@ public class CalendarManageController extends BaseController {
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, CalendarManage calendarManage, HttpServletRequest request) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		checkAuth("R", model, request);
 
 		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
 			Homepage h = new Homepage();
@@ -110,7 +112,7 @@ public class CalendarManageController extends BaseController {
 	@RequestMapping(value = {"/index_list.*"})
 	public String indexList(Model model, CalendarManage calendarManage, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
+		checkAuth("R", model, request);
 		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
 			Homepage h = new Homepage();
 			h.setHomepage_id(homepage.getHomepage_id());
@@ -152,11 +154,12 @@ public class CalendarManageController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/edit.*"})
-	public String edit(Model model, CalendarManage calendarManage, HttpServletRequest request) {
+	public String edit(Model model, CalendarManage calendarManage, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
+		checkAuth("R", model, request);
 		calendarManage.setHomepage_id(homepage.getHomepage_id());
 		if(calendarManage.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			model.addAttribute("calendarManage", service.copyObjectPaging(calendarManage, service.getCalendarManageOne(calendarManage)));
 		} else {
 			model.addAttribute("calendarManage", calendarManage);

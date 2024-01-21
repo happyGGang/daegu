@@ -62,7 +62,6 @@ public class MemberController extends BaseController {
 
 	@RequestMapping (value = { "/grouping{url}.*" }, method = RequestMethod.GET)
 	public String grouping(Model model, Member member, HttpServletRequest request, @PathVariable("url") String url) throws AuthException {
-		checkAuth("C", model, request);
 		checkAuth("U", model, request);
 		MemberGroup memberGroup = new MemberGroup();
 		memberGroup.setSite_id(getAsideHomepageId(request));

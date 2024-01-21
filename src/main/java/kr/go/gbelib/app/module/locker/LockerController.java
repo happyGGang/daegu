@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.framework.exception.AuthException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,7 @@ public class LockerController extends BaseController {
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Locker locker, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		checkAuth("R", model, request);
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		int maxLockerPreIdx = lockerPreService.getMaxIdxOfLockerPre(new LockerPre(homepage.getHomepage_id()));
@@ -150,9 +152,11 @@ public class LockerController extends BaseController {
 		model.addAttribute("termsList", termsService.getTermsListInModule(terms));
 
 		if(lockerReq.getEditMode().equals("MODIFY")) {
+			checkAuth("U", model, request);
 			model.addAttribute("lockerReq", lockerReq);
 			model.addAttribute("locker", service.copyObjectPaging(lockerReq, lockerReqService.getLockerReqOne(lockerReq)));
 		} else {
+			checkAuth("C", model, request);
 			lockerReq.setReq_name(member.getMember_name());
 			lockerReq.setApply_id(getSessionMemberId(request));
 			lockerReq.setCell_phone1(member.getCell_phone1());
@@ -171,7 +175,7 @@ public class LockerController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) {
+	public @ResponseBody JsonResponse save(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) throws AuthException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		Member member = getSessionMemberInfo(request);
 		JsonResponse res = new JsonResponse(request);
@@ -196,7 +200,13 @@ public class LockerController extends BaseController {
 			lockerReq.setApply_id(getSessionMemberId(request));
 			lockerReq.setMember_key(member.getUser_no());
 			if(editMode.equals("ADD")) {
-
+				try {
+					checkAuth("C", model, request);
+				} catch (AuthException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
 				LockerPre lockerPre = lockerPreService.getLockerPreOne(new LockerPre(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx()));
 				int limitApplyCount = lockerPre.getLocker_count() + lockerPre.getApply_backup_count();
 				if ( limitApplyCount <= lockerPre.getApply_count() ) {
@@ -221,16 +231,30 @@ public class LockerController extends BaseController {
 					//PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함 배정이 완료 되었습니다.", homepage.getHomepage_send_tell(), true);
 				}
 			}	else if(editMode.equals("MODIFY")) {
+				try {
+					checkAuth("U", model, request);
+				} catch (AuthException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
 				lockerReq.setMod_id(getSessionMemberId(request));
 				lockerReqService.modifyLocekrReq(lockerReq);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 				res.setUrl("index.do?menu_idx=" + lockerReq.getMenu_idx());
 			} else if(editMode.equals("DELETE")) {
-				lockerReqService.deleteReqLocker(lockerReq);
-				res.setValid(true);
-				res.setReload(true);
-				res.setMessage("배정 취소 되었습니다.");
+				try {
+					checkAuth("D", model, request);
+					lockerReqService.deleteReqLocker(lockerReq);
+					res.setValid(true);
+					res.setReload(true);
+					res.setMessage("배정 취소 되었습니다.");
+				} catch (AuthException e) {
+					res.setValid(false);
+					res.setMessage(e.getMessage());
+					return res;
+				}
 			}
 		} else {
 			res.setValid(false);
@@ -265,7 +289,7 @@ public class LockerController extends BaseController {
 	@RequestMapping(value = {"/history.*"})
 	public String history(Model model, Locker locker, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
+		checkAuth("R", model, request);
 		Member member = getSessionMemberInfo(request);
 
 		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
