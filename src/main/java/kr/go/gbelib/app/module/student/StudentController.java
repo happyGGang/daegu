@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mysql.fabric.xmlrpc.base.Member;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;

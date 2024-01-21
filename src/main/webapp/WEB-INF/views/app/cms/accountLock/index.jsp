@@ -76,7 +76,9 @@ $(function(){
 				<td>${i.last_fail_date}</td>
 				<td>${i.last_fail_ip}</td>
 				<td>
+					<c:if test="${authD}">
 					<a href="#" class="btn delete" keyValue="${i.member_id}">삭제</a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>

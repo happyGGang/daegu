@@ -56,7 +56,6 @@ public class AccountLockController extends BaseController {
 	
 	@RequestMapping(value = { "/save.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(AccountLock accountLock, BindingResult result, HttpServletRequest request) {
-		
 		JsonResponse res = new JsonResponse(request);
 
 		if ( "ADD".equals(accountLock.getEditMode()) ) {
