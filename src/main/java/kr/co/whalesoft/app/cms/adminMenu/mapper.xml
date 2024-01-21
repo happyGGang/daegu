@@ -211,6 +211,7 @@
 							WHERE
 								module_type = 'CMS'
 							AND	link_url LIKE #{menu_url} || '/%'
+							AND link_url NOT LIKE '/cms/module/teach/hashtag/index.do'
 							AND	rownum = 1
 							)
 	</select>
