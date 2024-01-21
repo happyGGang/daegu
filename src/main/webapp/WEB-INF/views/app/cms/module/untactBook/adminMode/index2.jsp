@@ -619,6 +619,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 							</ul>
 						</div>
 						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
+						<c:if test="${authU}">
 						<c:choose>
 							<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
 								<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPasswordToday('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
@@ -627,6 +628,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 								<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPassword('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
 							</c:otherwise>
 						</c:choose>
+						</c:if>
 						</div>
 						<div class="table-wrap">
 							<table class="type1 center">
@@ -681,6 +683,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 										</td>
 										<td>
 										<div class="button">
+										<c:if test="${authU}">
 										<c:choose>
 											<c:when test="${i.reservation_step eq '1'}">
 												<c:choose>
@@ -701,6 +704,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 											</c:when>
 										</c:choose>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
+										</c:if>
 										</div>
 										</td>
 										<td>
@@ -716,7 +720,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<c:if test="${authD}">
+							<c:if test="${authU}">
 							<c:choose>
 								<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
 									<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStepToday();">접수</a>
