@@ -136,11 +136,11 @@ $(function() {
 					<c:if test="${apply.editMode ne 'VIEW' }">
 						<td>
 							<c:if test="${authC or authU}">
-							<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
-							<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
+								<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
+								<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
 							</c:if>
 							<c:if test="${authD}">
-							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
+								<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
 							</c:if>
 						</td>
 					</c:if>
