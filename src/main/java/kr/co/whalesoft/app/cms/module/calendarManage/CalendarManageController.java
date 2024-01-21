@@ -99,9 +99,9 @@ public class CalendarManageController extends BaseController {
 		model.addAttribute("calendarListType", service.getCalendarListType(calendarManage));
 		model.addAttribute("calendarManage", calendarManage);
 		model.addAttribute("calendarManageList",service.getCalendarManage(calendarManage));
-		model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
-		model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
-		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
+		//model.addAttribute("okApplyList",applyService.getOkApply(calendarManage));
+		//model.addAttribute("teachList",teachService.getTeachListForCalendar(calendarManage));
+		//model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
 
 
 
@@ -113,7 +113,7 @@ public class CalendarManageController extends BaseController {
 	public String edit(Model model, CalendarManage calendarManage, HttpServletRequest request) throws AuthException {
 
 		if (calendarManage.getEditMode().equals("MODIFY")) {
-			checkAuth("U", model, request);
+			checkAuth("R", model, request);
 			CalendarManage one = service.getCalendarManageOne(calendarManage);
 			CalendarManage one2 = service.getCalendarManageOne2(one);
 			model.addAttribute("calendarManage",service.copyObjectPaging(calendarManage,one));

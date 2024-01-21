@@ -2,6 +2,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="auth" value="false"></c:set>
+<c:if test="${calendarManage.editMode eq 'MODIFY' and authU}">
+	<c:set var="auth" value="true"></c:set>
+</c:if>
+<c:if test="${calendarManage.editMode eq 'ADD' and authC}">
+	<c:set var="auth" value="true"></c:set>
+</c:if>
 <script>
 $(function() {
 	$('#dialog-1').dialog({ //모달창 기본 스크립트 선언
@@ -15,6 +22,7 @@ $(function() {
 	        $('.ui-widget-overlay').removeClass('custom-overlay');
 	    },
 		buttons: [
+			<c:if test="${auth}">
 			{
 				text: "저장",
 				"class": 'btn btn1',
@@ -24,13 +32,17 @@ $(function() {
 						location.reload();
 					}
 				}
-			},{
+			},
+			</c:if>
+			{
 				text: "취소",
 				"class": 'btn',
 				click: function() {
 					$(this).dialog('destroy');
 				}
-			},{
+			}
+			<c:if test="${authD}">
+			,{
 				text: "삭제",
 				"class": 'btn btn1',
 				"id": 'del_btn',
@@ -44,6 +56,7 @@ $(function() {
 					}
 				}
 			}
+			</c:if>
 		]
 	});
 
