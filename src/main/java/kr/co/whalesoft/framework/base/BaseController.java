@@ -174,7 +174,7 @@ public abstract class BaseController {
 				}
 //				isSiteAdmin = getSessionMemberInfo(request).getAuthMap().containsKey(getSessionHomepage Info(request).getHomepage_id() + "_A");
 			}
-
+			getSessionMemberInfo(request);
 			//권한확인
 			if (!isSiteAdmin) {
 				if(!request.getRequestURI().contains("/kiosk") ) {
