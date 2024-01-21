@@ -241,12 +241,16 @@ function openModifyDialog(success, deleteSuccess) {
 				"class": 'btn btn1',
 				click: function(){
 					if(confirm('삭제하시겠습니까?')) {
-						$('input#editMode').val('DELETE');
-						var result = doAjaxPostResponse($('form#category'));
-						if(result.valid && typeof(deleteSuccess) !== undefined) {
-							deleteSuccess(result);
-							$(this).dialog('close');
-						};
+						if(${authD}){
+							$('input#editMode').val('DELETE');
+							var result = doAjaxPostResponse($('form#category'));
+							if(result.valid && typeof(deleteSuccess) !== undefined) {
+								deleteSuccess(result);
+								$(this).dialog('close');
+							};
+						} else {
+							alert('권한이 없습니다.');
+						}
 					}
 				}
 			},
@@ -375,11 +379,15 @@ function doAjaxPostResponse(form, ajaxBody) {
 			</div>
 		</div>
 		<div class="arrayArea" style="margin-top: 10px;">
-		<c:if test="${authC or authU}">
+		<c:if test="${authU}">
 			<a class="btn i01" id="up_cate"><span>위로</span></a>
 			<a class="btn i02" id="down_cate"><span>아래</span></a>
 			<a class="btn" id="save_list"><span>저장</span></a>
+		</c:if>
+		<c:if test="${authC}">
 			<a class="btn" id="add_cate"><span>추가</span></a>
+		</c:if>
+		<c:if test="${authU}">
 			<a class="btn" id="modify_cate"><span>수정</span></a>
 		</c:if>
 		</div>
@@ -391,11 +399,15 @@ function doAjaxPostResponse(form, ajaxBody) {
 			<select id="cate2" name="cate2" size=2 style="width: 100%; height: 540px;"></select>
 		</div>
 		<div class="arrayArea" style="margin-top: 10px;">
-		<c:if test="${authC or authU}">
+		<c:if test="${authU}">
 			<a class="btn i01" id="up_cate2"><span>위로</span></a>
 			<a class="btn i02" id="down_cate2"><span>아래</span></a>
 			<a class="btn" id="save_list2"><span>저장</span></a>
+		</c:if>
+		<c:if test="${authC}">
 			<a class="btn" id="add_cate2"><span>추가</span></a>
+		</c:if>
+		<c:if test="${authU}">
 			<a class="btn" id="modify_cate2"><span>수정</span></a>
 		</c:if>
 		</div>

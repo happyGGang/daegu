@@ -417,20 +417,20 @@ $(function() {
 					</div>
 				</td>
 			</tr>
-			<tr>
-				<th>메뉴 권한</th>
-				<td>
-					<c:choose>
-					<c:when test="${menu.editMode eq 'ADD'}">
-						메뉴 생성 이후 권한을 설정할 수 있습니다.
-					</c:when>
-						<c:otherwise>
-					<a href="" class="btn btn1" id="authGroup">권한그룹 설정</a>
-						</c:otherwise>
-					</c:choose>
-					<div id="dialog_auth" class="dialog-common" title="권한설정"></div>
-				</td>
-			</tr>
+<!-- 			<tr> -->
+<!-- 				<th>메뉴 권한</th> -->
+<!-- 				<td> -->
+<%-- 					<c:choose> --%>
+<%-- 					<c:when test="${menu.editMode eq 'ADD'}"> --%>
+<!-- 						메뉴 생성 이후 권한을 설정할 수 있습니다. -->
+<%-- 					</c:when> --%>
+<%-- 						<c:otherwise> --%>
+<!-- 					<a href="" class="btn btn1" id="authGroup">권한그룹 설정</a> -->
+<%-- 						</c:otherwise> --%>
+<%-- 					</c:choose> --%>
+<!-- 					<div id="dialog_auth" class="dialog-common" title="권한설정"></div> -->
+<!-- 				</td> -->
+<!-- 			</tr> -->
 			<tr class="group last">
 				<th>담당자 정보</th>
 				<td colspan="3">
