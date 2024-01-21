@@ -205,7 +205,9 @@ $(document).ready(function() {
 <form:hidden id="editMode_1" path="editMode" />
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 </form:form>
-
+<c:if test="${!authU}">
+<em>* 수정권한이 있어야 메뉴 상세보기가 가능합니다.</em>
+</c:if>
 <div class="group-menu">
 	<div class="tree-area">
 		<div class="search" style="margin-right:20px;">
