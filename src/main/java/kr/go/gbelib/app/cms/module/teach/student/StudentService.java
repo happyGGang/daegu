@@ -182,7 +182,8 @@ public class StudentService extends BaseService {
 						}
 					}
 					// 강의 나이 제한이 있으면 체크.
-					if ( "OLD".equals(oneLimitUnit) ) {
+//					if ( "OLD".equals(oneLimitUnit) ) {
+					student.setStudent_old(Integer.parseInt(student.getStudent_age()));;
 						if ("infants".equals(teach.getTeach_age_type())) {
 							if ( Integer.parseInt(limitValue[i]) <= Integer.parseInt(student.getStudent_age()) && Integer.parseInt(limitValue[i+1]) >= Integer.parseInt(student.getStudent_age())) { }
 							else {
@@ -198,7 +199,7 @@ public class StudentService extends BaseService {
 								return addResult;
 							}
 						}
-					}
+//					}
 				}
 			}
 			

@@ -37,7 +37,7 @@
 							$('td.limit_SEX').remove();
 						}
 						
-						if (!$('input#teach_join_limit_unit2').is(':checked')) {
+						if ($('.start_age').val() == '' || $('.end_age').val() == '') {
 							alert('나이제한은 필수입니다.');
 							return false;
 						}
@@ -47,48 +47,46 @@
 						var startAge = $('.start_age').val();
 						var endAge = $('.end_age').val();
 						
-						if ($('input#teach_join_limit_unit2').is(':checked')) {
-							if(teach_age_type == 'adult') {
-								if (startAge < 20) {
-									alert('강의유형이 성인일 경우 접수제한의 시작 나이는 최소 20세입니다.');
-									return false;
-								}else if (startAge > 20 &&startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
-							}else if (teach_age_type == 'student') {
-								if (startAge < 8) {
-									alert('강의유형이 학생일 경우 접수제한의 최소 나이는 8세 ~ 19세입니다.');
-									return false;
-								}else if (endAge > 19) {
-									alert('강의유형이 학생일 경우 접수제한의 최소 나이는 8세 ~ 19세입니다.');
-									return false;
-								}else if (startAge > 8 && startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
-							}else if (teach_age_type == 'child') {
-								if (startAge > 4) {
-									alert('강의유형이 어린이일 경우 접수제한의 최소 나이는 4세 ~ 7세입니다.');
-									return false;
-								}else if (endAge > 7) {
-									alert('강의유형이 어린이일 경우 접수제한의 최소 나이는 4세 ~ 7세입니다.');
-									return false;
-								}else if (startAge > 4 && startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
-							}else if (teach_age_type == 'infants') {
-								if (startAge < 1) {
-									alert('강의유형이 영유아일 경우 접수제한의 최소 나이는 0개월 ~ 36개월입니다.');
-									return false;
-								}else if (endAge > 36) {
-									alert('강의유형이 영유아일 경우 접수제한의 최소 나이는 0개월 ~ 36개월입니다.');
-									return false;
-								}else if (startAge > 1 && startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
+						if(teach_age_type == 'adult') {
+							if (startAge < 20) {
+								alert('강의유형이 성인일 경우 접수제한의 시작 나이는 최소 20세입니다.');
+								return false;
+							}else if (startAge > 20 &&startAge > endAge) {
+								alert('최소나이는 최대나이보다 적어야 합니다.');
+								return false;
+							}
+						}else if (teach_age_type == 'student') {
+							if (startAge < 8) {
+								alert('강의유형이 학생일 경우 접수제한의 최소 나이는 8세 ~ 19세입니다.');
+								return false;
+							}else if (endAge > 19) {
+								alert('강의유형이 학생일 경우 접수제한의 최소 나이는 8세 ~ 19세입니다.');
+								return false;
+							}else if (startAge > 8 && startAge > endAge) {
+								alert('최소나이는 최대나이보다 적어야 합니다.');
+								return false;
+							}
+						}else if (teach_age_type == 'child') {
+							if (startAge > 4) {
+								alert('강의유형이 어린이일 경우 접수제한의 최소 나이는 4세 ~ 7세입니다.');
+								return false;
+							}else if (endAge > 7) {
+								alert('강의유형이 어린이일 경우 접수제한의 최소 나이는 4세 ~ 7세입니다.');
+								return false;
+							}else if (startAge > 4 && startAge > endAge) {
+								alert('최소나이는 최대나이보다 적어야 합니다.');
+								return false;
+							}
+						}else if (teach_age_type == 'infants') {
+							if (startAge < 1) {
+								alert('강의유형이 영유아일 경우 접수제한의 최소 나이는 0개월 ~ 36개월입니다.');
+								return false;
+							}else if (endAge > 36) {
+								alert('강의유형이 영유아일 경우 접수제한의 최소 나이는 0개월 ~ 36개월입니다.');
+								return false;
+							}else if (startAge > 1 && startAge > endAge) {
+								alert('최소나이는 최대나이보다 적어야 합니다.');
+								return false;
 							}
 						}
 // 						if ($('input#limit_hak_yn1').is(':checked')) {
@@ -1269,7 +1267,7 @@
 					: <input type="radio" id="teach_join_limit_value1" name="teach_join_limit_value" value="M" <c:if test="${fn:indexOf(teach.teach_join_limit_value, 'M') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_value1"> 남자</label>
 					<input type="radio" id="teach_join_limit_value2" name="teach_join_limit_value" value="F" <c:if test="${fn:indexOf(teach.teach_join_limit_value, 'F') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_value2"> 여자</label>
 				</div>
-				<div>
+				<%-- <div>
 					<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit2">나이</label>
 					<c:choose>
 						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
@@ -1300,7 +1298,7 @@
 				</div>
 				<div class="ui-state-highlight">
 					<em>* 나이 = (현재 연도 - 수강생 생년)+1 ex) 2019 - 1990 + 1 = 30</em>
-				</div>
+				</div>--%>
 <!-- 				<div> -->
 <%-- 					<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/> --%>
 <%-- 					<form:select path="limit_hak" cssClass="selectmenu"> --%>
@@ -1330,11 +1328,11 @@
 <%-- 						<form:option value="10" label="고등 1학년" /> --%>
 <%-- 						<form:option value="11" label="고등 2학년" /> --%>
 <%-- 						<form:option value="12" label="고등 3학년" /> --%>
-<%-- 					</form:select>이하 --%>
+<%-- 					</form:select>이하 
 <!-- 				</div> -->
 				<div class="ui-state-highlight">
 					<em>* 강의 설명에 학년제한 항목이 노출됩니다. 학년 정보를 반드시 입력받아야 합니다.</em>
-				</div>
+				</div>--%>
 				<div>
 					<form:checkbox path="teach_addr_limit" id="teach_addr_limit" value="Y" label="주소"/>
 					<form:input path="teach_addr_limit_value" disabled="${teach.teach_addr_limit eq 'Y' ? false : true}"/>
@@ -1351,6 +1349,42 @@
 				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="student"/> <label for="teach_age_type2" style="cursor:pointer;">학생 강의</label>&nbsp;
 				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="child"/> <label for="teach_age_type3" style="cursor:pointer;">어린이 강의</label>&nbsp;
 				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="infants"/> <label for="teach_age_type4" style="cursor:pointer;">영유아 강의</label>&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<th>나이 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<div>
+					<c:choose>
+						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
+							나이: <input class="text start_age" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
+							<c:choose>
+								<c:when test="${teach.teach_age_type eq 'infants' }">
+									<span class="limit_text1" style="display: inline-block;">개월 이상</span> ~
+								</c:when>
+								<c:otherwise>
+									<span class="limit_text1" style="display: inline-block;">세 이상</span>
+								</c:otherwise>
+							</c:choose>
+							<input class="text end_age" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="3"/>
+							<c:choose>
+								<c:when test="${teach.teach_age_type eq 'infants' }">
+									<span class="limit_text2" style="display: inline-block;">개월 이하</span>
+								</c:when>
+								<c:otherwise>
+									<span class="limit_text2" style="display: inline-block;">세 이하</span>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							나이: <input class="text start_age" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" /> <p class="limit_text1" style="display: inline-block;" >세 이상</p> ~
+							<input class="text end_age" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" /> <p class="limit_text2"style=" display: inline-block;">세 이하 </p>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="ui-state-highlight">
+					<em>* 나이 = (현재 연도 - 수강생 생년)+1 ex) 2019 - 1990 + 1 = 30</em>
+				</div>
 			</td>
 		</tr>
 		<tr>

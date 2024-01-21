@@ -441,7 +441,7 @@ $(function() {
 			$form.find('input[name = student_sex]').prop('disabled', false);
 			$form.find("#student_birth").prop('disabled', false);
 			$form.find('#family_name').prop('disabled', false);
-
+	
 			var option = {
 				url : 'save.do',
 				type : 'POST',
@@ -842,14 +842,21 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	</c:if>
 			<c:if test="${teach.age_info_yn eq 'Y'}">
 			<tr>
-				<th>나이2233(<span style="color: red;font-wight: bold;">*</span>)</th>
+				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
 				<td>
 					<c:choose>
-						<c:when test="${sessionScope.member.login}">
-								<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2" value="${memberInfo.age }" disabled="true"/>
+						<c:when test="${teach.teach_age_type eq 'infants' }">
+							<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>개월
 						</c:when>
 						<c:otherwise>
-							<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>
+							<c:choose>
+								<c:when test="${sessionScope.member.login}">
+									<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2" value="${memberInfo.age }" readonly="true"/>
+								</c:when>
+								<c:otherwise>
+									<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</td>
@@ -1075,7 +1082,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						<td>
 						<c:choose>
 							<c:when test="${sessionScope.member.login}">
-									<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2" value="${memberInfo.age }" disabled="true"/>
+									<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2" value="${memberInfo.age }" readonly="true"/>
 							</c:when>
 							<c:otherwise>
 								<form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true" maxlength="2"/>
