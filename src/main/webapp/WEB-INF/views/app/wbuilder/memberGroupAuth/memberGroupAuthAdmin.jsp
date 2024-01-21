@@ -125,16 +125,52 @@ $(document).ready(function() {
 							<label for="checkR_${status.index}">조회</label>
 						</td>
 						<td>
-							<form:checkbox path="authCodeList" id="checkC_${status.index}" value="${i.menu_idx}_${i.module_idx}_C" class="masterCheckC"/>
-							<label for="checkC_${status.index}">등록</label>
+							<c:choose>
+								<c:when test="${fn:contains(i.moduleName, 'K.API')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, 'HTML')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, 'NONE')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, '링크')}">
+								</c:when>
+								<c:otherwise>
+									<form:checkbox path="authCodeList" id="checkC_${status.index}" value="${i.menu_idx}_${i.module_idx}_C" class="masterCheckC"/>
+									<label for="checkC_${status.index}">등록</label>
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td>
-							<form:checkbox path="authCodeList" id="checkU_${status.index}" value="${i.menu_idx}_${i.module_idx}_U" class="masterCheckU"/>
-							<label for="checkU_${status.index}">수정</label>
+							<c:choose>
+								<c:when test="${fn:contains(i.moduleName, 'K.API')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, 'HTML')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, 'NONE')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, '링크')}">
+								</c:when>
+								<c:otherwise>
+									<form:checkbox path="authCodeList" id="checkU_${status.index}" value="${i.menu_idx}_${i.module_idx}_U" class="masterCheckU"/>
+									<label for="checkU_${status.index}">수정</label>
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td>
-							<form:checkbox path="authCodeList" id="checkD_${status.index}" value="${i.menu_idx}_${i.module_idx}_D" class="masterCheckD"/>
-							<label for="checkD_${status.index}">삭제</label>
+							<c:choose>
+								<c:when test="${fn:contains(i.moduleName, 'K.API')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, 'HTML')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, 'NONE')}">
+								</c:when>
+								<c:when test="${fn:contains(i.moduleName, '링크')}">
+								</c:when>
+								<c:otherwise>
+									<form:checkbox path="authCodeList" id="checkD_${status.index}" value="${i.menu_idx}_${i.module_idx}_D" class="masterCheckD"/>
+									<label for="checkD_${status.index}">삭제</label>
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td>
 							<c:if test="${not empty i.auth_group_id and (authC or authU or authD)}">
