@@ -51,7 +51,7 @@
 							if (startAge < 20) {
 								alert('강의유형이 성인일 경우 접수제한의 시작 나이는 최소 20세입니다.');
 								return false;
-							}else if (startAge > 20 &&startAge > endAge) {
+							}else if (startAge > endAge) {
 								alert('최소나이는 최대나이보다 적어야 합니다.');
 								return false;
 							}
