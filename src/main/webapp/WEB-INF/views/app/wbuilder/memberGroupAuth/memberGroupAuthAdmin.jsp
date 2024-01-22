@@ -117,12 +117,24 @@ $(document).ready(function() {
 						<c:choose>
 							<c:when test="${not empty i.moduleName}">
 						<td>
-							<input type="checkbox" class="checkAll" id="checkAll_${status.index}">
-							<label for="checkAll_${status.index}">전체</label>
+							<c:choose>
+								<c:when test="${fn:contains(i.moduleName, 'K.API')}">
+								</c:when>
+								<c:otherwise>
+								<input type="checkbox" class="checkAll" id="checkAll_${status.index}">
+								<label for="checkAll_${status.index}">전체</label>
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td>
-							<form:checkbox path="authCodeList" id="checkR_${status.index}" value="${i.menu_idx}_${i.module_idx}_R" class="masterCheckR"/>
-							<label for="checkR_${status.index}">조회</label>
+							<c:choose>
+								<c:when test="${fn:contains(i.moduleName, 'K.API')}">
+								</c:when>
+								<c:otherwise>
+									<form:checkbox path="authCodeList" id="checkR_${status.index}" value="${i.menu_idx}_${i.module_idx}_R" class="masterCheckR"/>
+									<label for="checkR_${status.index}">조회</label>
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td>
 							<c:choose>

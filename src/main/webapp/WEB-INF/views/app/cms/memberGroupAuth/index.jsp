@@ -203,3 +203,4 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 		</div>
 	</div>
 </div>
+<em>K.API API 연동모듈은 권한 관리가 불가능합니다.(홈페이지 개발팀에 문의해주세요.)</em>
