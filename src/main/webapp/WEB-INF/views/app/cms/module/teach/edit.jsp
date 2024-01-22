@@ -474,15 +474,6 @@
 					$this.parent().find('[name="teach_join_limit_value"]').prop('disabled', false);
 				}
 			}
-			else if ( $this.val() == 'OLD' ) {
-				if ( !$this.is(':checked') ) {
-					$this.parent().find('[name="teach_join_limit_value"]').val('');
-					$this.parent().find('[name="teach_join_limit_value"]').prop('disabled', true);
-				}
-				else {
-					$this.parent().find('[name="teach_join_limit_value"]').prop('disabled', false);
-				}
-			}
 		}).trigger('change');
 
 		$('input#teach_addr_limit').on('click', function() {
@@ -1355,6 +1346,7 @@
 			<th>나이 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<div>
+					<input type="hidden" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD"<label for="teach_join_limit_unit2"></label>
 					<c:choose>
 						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
 							나이: <input class="text start_age" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
