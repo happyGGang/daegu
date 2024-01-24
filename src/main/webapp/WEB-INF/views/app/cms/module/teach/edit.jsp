@@ -1051,14 +1051,14 @@
 				</c:forEach>
 			</td>
 		</tr>
-<%--		<tr>--%>
-<%--			<th>강의요일 직집지정</th>--%>
-<%--			<td>--%>
-<%--				<form:radiobutton path="teach_day_yn" value="Y" label="사용"/>--%>
-<%--				<form:radiobutton path="teach_day_yn" value="N" label="미사용"/>--%>
-<%--				<form:input path="teach_day_txt" cssClass="text" placeholder="ex) 격주 월, 수" cssStyle="width:50%"/>--%>
-<%--			</td>--%>
-<%--		</tr>--%>
+		<tr>
+			<th>강의요일 직집지정</th>
+			<td>
+				<form:radiobutton path="teach_day_yn" value="Y" label="사용"/>
+				<form:radiobutton path="teach_day_yn" value="N" label="미사용"/>
+				<form:input path="teach_day_txt" cssClass="text" placeholder="ex) 격주 월, 수" cssStyle="width:50%"/>
+			</td>
+		</tr>
 		<tr>
 			<th>강의 총 횟수 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
