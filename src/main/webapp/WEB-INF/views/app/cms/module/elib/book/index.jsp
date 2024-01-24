@@ -18,11 +18,13 @@ $(function() {
 			$('select#com_code_dialog').select2();
 			$('select#library_code_dialog').select2();
 			$('select#device_dialog').select2();
+			<c:if test="${book.type != 'ADO'}">
 			$('select#cate2_dialog').select2();
 			$('select#cate1_dialog').on('change', function(e) {
 				updateSubcategory_dialog($(this).val());
 			});
 			updateSubcategory_dialog($('select#cate1_dialog').val());
+			</c:if>
 		});
 		
 		e.preventDefault();
@@ -34,11 +36,13 @@ $(function() {
 			$('select#com_code_dialog').select2();
 			$('select#library_code_dialog').select2();
 			$('select#device_dialog').select2();
+			<c:if test="${book.type != 'ADO'}">
 			$('select#cate2_dialog').select2();
 			$('select#cate1_dialog').on('change', function(e) {
 				updateSubcategory_dialog($(this).val());
 			});
 			updateSubcategory_dialog($('select#cate1_dialog').val());
+			</c:if>
 		});
 		
 		e.preventDefault();
@@ -76,8 +80,12 @@ $(function() {
 		e.preventDefault();
 	});
 	
+	<c:if test="${book.type == 'ADO'}">
 	$('select#cate1').on('change', submit);
+	</c:if>
+	<c:if test="${book.type != 'ADO'}">
 	$('select#cate2').on('change', submit);
+	</c:if>
 	$('select#library_code').on('change', submit);
 	$('select#device').on('change', submit);
 	$('select#com_code').on('change', submit);
