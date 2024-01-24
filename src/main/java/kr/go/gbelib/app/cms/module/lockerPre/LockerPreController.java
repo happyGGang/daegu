@@ -1,8 +1,6 @@
 package kr.go.gbelib.app.cms.module.lockerPre;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,33 +70,14 @@ public class LockerPreController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "start_date", "사용기간 시작일자를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "end_date", "사용기간 종료일자를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "locker_count", "사물함 개수를 입력하세요.");
-
-			// 날짜 및 시간 포맷터 초기화
-			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-			sdfDate.setLenient(false);
-			sdfTime.setLenient(false);
-
+			
+			SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
+			sfTime.setLenient(false);
 			try {
-				// 날짜 및 시간 파싱
-				Date startDate = sdfDate.parse(lockerPre.getStart_date());
-				Date endDate = sdfDate.parse(lockerPre.getEnd_date());
-				Date applyStartDate = sdfDate.parse(lockerPre.getApply_start_date());
-				Date applyEndDate = sdfDate.parse(lockerPre.getApply_end_date());
-				Date startTime = sdfTime.parse(lockerPre.getApply_start_time());
-				Date endTime = sdfTime.parse(lockerPre.getApply_end_time());
-
-				// 접수 종료 시간이 시작 시간보다 빠른 경우 검사
-				if (endTime.before(startTime)) {
-					result.rejectValue("apply_end_time", "접수 종료 시간이 시작 시간보다 빠릅니다.", "접수 종료 시간이 시작 시간보다 빠릅니다.");
-				}
-
-				// 접수 신청 기간이 접수 일자보다 빠르거나 겹치는 경우 검사
-				if (applyStartDate.before(startDate) || applyEndDate.after(endDate)) {
-					result.rejectValue("apply_start_date", "접수 신청 기간이 접수 일자보다 빠르거나 겹칩니다.", "접수 신청 기간이 접수 일자보다 빠르거나 겹칩니다.");
-				}
-			} catch (ParseException e) {
-				result.reject("date_format_error", "날짜 또는 시간 형식이 잘못되었습니다.");
+				sfTime.parse(lockerPre.getApply_start_time());
+				sfTime.parse(lockerPre.getApply_end_time());
+			} catch (Exception e) {
+				result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
 			}
 		}
 		
