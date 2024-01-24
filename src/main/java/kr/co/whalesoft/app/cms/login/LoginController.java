@@ -80,11 +80,6 @@ public class LoginController extends BaseController {
 		member.setMember_id(login.getMember_id());
 		member.setMember_pw(login.getMember_pw());
 
-		if (member.getMember_id().isEmpty() || member.getMember_pw().isEmpty()) {
-			service.alertMessage("아이디 또는 비밀번호를 입력하세요.", request, response);
-			return null;
-		}
-
 		request.getSession().removeAttribute("loginSupport");
 		request.getSession().removeAttribute("loginPortal");
 		String loginResult = service.login(member, request);
