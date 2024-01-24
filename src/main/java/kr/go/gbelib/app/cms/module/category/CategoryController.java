@@ -173,9 +173,7 @@ public class CategoryController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = category.getEditMode();
 		if(!category.getEditMode().equals("DELETE")) {
-			category.setCategory_name(category.getCategory_name().trim());
-			
-			ValidationUtils.rejectIfEmptyOrWhitespace(result, "category_name", "카테고리명을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "category_name", "카테고리명을 입력하세요.");
 			ValidationUtils.rejectIfStringLength(result, "category_name", 50, "카테고리명");
 
 //			if (StringUtils.equals(category.getReq_limit_yn(), "Y")) {
