@@ -1,6 +1,5 @@
 package kr.co.whalesoft.app.cms.login;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -143,8 +142,6 @@ public class LoginController extends BaseController {
 			return null;
 		}
 
-		deleteCookie(response);
-
 		return redirectURL;
 	}
 
@@ -154,11 +151,10 @@ public class LoginController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="/logout.*", method=RequestMethod.GET)
-	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 //		String redirectURL = request.getServerName() + ":" + request.getServerPort();
 		String redirectURL = request.getServerName();
 		service.logout(request);
-		deleteCookie(response);
 		return "redirect:/cms/login/index.do";
 
 	}
@@ -175,19 +171,6 @@ public class LoginController extends BaseController {
 
 		}
 		return path;
-	}
-
-	public void deleteCookie(HttpServletResponse res){
-		deleteCookieHelper(res, "now_homepage_id", "/cms");
-		deleteCookieHelper(res, "back_homepage_id", "/cms");
-		deleteCookieHelper(res, "url", "/cms");
-	}
-
-	private void deleteCookieHelper(HttpServletResponse res, String name, String path) {
-		Cookie cookie = new Cookie(name, null);
-		cookie.setPath(path);
-		cookie.setMaxAge(0);
-		res.addCookie(cookie);
 	}
 
 
