@@ -153,8 +153,20 @@ $(function() {
 	        	<th>배정방법</th>
 	        	<td>
 	        		<form:radiobutton path="locker_pre_type" value="SELECT" label="선택배정"/>
+	        		<form:radiobutton path="locker_pre_type" value="FIFO" label="순차배정"/>
+	        		<form:radiobutton path="locker_pre_type" value="RANDOM" label="랜덤배정"/>
+	        		<form:radiobutton path="locker_pre_type" value="LOTTERY" label="추첨배정"/>
 					<div class="ui-state-highlight">
 						* 선택 배정 : 사용자가 선택하여 신청하고 해당 사물함 즉시 배정 됩니다.
+					</div>
+					<div class="ui-state-highlight">
+						* 순차 배정 : 사물함 순차, 신청자 순차 방식으로 배정 됩니다.
+					</div>
+					<div class="ui-state-highlight">
+						* 랜덤 배정 : 사물함 랜덤, 신청자 랜덤 방식으로 배정 됩니다.
+					</div>
+					<div class="ui-state-highlight">
+						* 추첨 배정 : 사물함 랜덤, 사물함 수 만큼의 선착순 인원에 대하여 랜덤 방식으로 배정 됩니다.
 					</div>
 	        	</td>
 	        </tr>
