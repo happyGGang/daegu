@@ -24,51 +24,14 @@
 <script src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/cms/js/design.js"></script>
 <script>
-	function getCookie(cookieName) {
-		let cookieData = document.cookie;
-		let cookieValue = "";
-		let start = cookieData.indexOf(cookieName);
-
-		if (start !== -1) {
-			start += cookieName.length;
-			let end = cookieData.indexOf(";", start);
-			if (end === -1) end = cookieData.length;
-			cookieValue = cookieData.substring(start+1, end);
-		}
-
-		return cookieValue;
-	}
 $(function(){
+	
 	var h = '${sessionScope.passwordExpiry}';
 	if (h != '') {
 		window.open(h, '_blank');
 	}
-
-	if (getCookie('now_homepage_id') != '') {
-		if (getCookie('now_homepage_id') == getCookie('back_homepage_id')) {
-			$('input#aside_homepage_id').val(getCookie('now_homepage_id'));
-			$('form#asideForm').submit();
-			document.cookie = 'now_homepage_id=';
-		}
-	}  else {
-		document.cookie = 'now_homepage_id = ' + getCookie('back_homepage_id') ;
-	}
-
-
+	
 });
-
-	function siteList() {
-		var siteList  = document.getElementById("siteList");
-		var value = (siteList.options[siteList.selectedIndex].value);
-
-		parent.container.location.href='/cms/homepage/index.do';
-		$('input#aside_homepage_id').val(value);
-		$('form#asideForm').submit();
-
-		document.cookie = 'now_homepage_id = ' + value;
-		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') ;
-	}
-
 </script>
 </head>
 <body>
@@ -90,10 +53,10 @@ $(function(){
 					</a>
 				</p>
 				<p>
-					<select id="siteList" class="selectmenu" style="width:200px;" onchange="siteList();">
+					<select id="siteList" class="selectmenu" style="width:200px;">
 						<c:forEach items="${sessionScope.member.authorityHomepageList}" var="i" varStatus="status">
 						<c:if test="${i.homepage_id ne 'c0' and i.homepage_id ne 'c1' and i.homepage_id ne 'h27'}">
-						<option value="${i.homepage_id}" label="${i.homepage_name}"<c:if test="${i.homepage_id eq asideHomepageId}"> selected="selected"</c:if>></option>
+						<option value="${i.homepage_id}" label="${i.homepage_name}"<c:if test="${i.homepage_id eq adminMenu.homepage_id}"> selected="selected"</c:if>></option>
 						</c:if>
 						</c:forEach>
 					</select>
@@ -110,11 +73,6 @@ $(function(){
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	//console.log(getCookie('url'));
-
-	if (getCookie('url') != '') {
-		$('a[href="'+getCookie('url')+'"]').parents('li > ul > li').addClass('active');
-	}
 	//왼쪽메뉴
 	$('.aside > ul > li').each(function(){
 		if($(this).find('ul').length > 0){
@@ -158,12 +116,6 @@ $(document).ready(function(){
 		}
 	});
 
-	if (getCookie('url') != '') {
-		$('a[href="'+getCookie('url')+'"]').closest('li').removeClass('active');
-	}
-
-
-
 	$('a.pass-change-btn').on('click', function(e) {
 		e.preventDefault();
 		$('input#passChangeEvent').val(true);
@@ -172,28 +124,24 @@ $(document).ready(function(){
 		//var btn = parent.container.document.getElementById('dialog-modify-${member.member_id}');
 	});
 
+	$('.selectmenu').select2({
+		//셀렉트 메뉴에 검색 기능 사용 안함
+		minimumResultsForSearch: Infinity
+	});
 
-
-	/*$('select#siteList').on('change', function(e) {
-		e.preventDefault();
-		var siteList  = document.getElementById("siteList");
-		var value = (siteList.options[siteList.selectedIndex].value);
-
-		$('input#aside_homepage_id').val(value);
+	$('select#siteList').on('change', function() {
+		$('input#aside_homepage_id').val($(this).val());
 		$('form#asideForm').submit();
 		parent.container.location.href='ready.do';
-		document.cookie = 'homepage_id = ' + value;
-	});*/
+	});
 
-
-
-	//$('select#siteList').trigger('change');
+	parent.container.location.href=$('div.aside ul a[href*=cms]:first').attr('href');
 
 });
 </script>
 <input type=hidden value="false" id="passChangeEvent" />
 <input type=hidden value="${member.member_id}" id="passChangeEventValue" />
-<form id="asideForm" method="post">
+<form id="asideForm" action="" method="post">
 <input type="hidden" name="_csrf" value="${_csrf.token}">
 <input type="hidden" id="aside_homepage_id" name="homepage_id" value="${adminMenu.homepage_id}" />
 </form>

@@ -24,7 +24,6 @@ public class AsideMenuTag extends BodyTagSupport {
 	public int doEndTag() throws JspException {
 
 		HtmlTag ulTag = new HtmlTag("ul");
-		ulTag.setAttribute("id", "asideUl");
 		HtmlTag liTag_lvl1 = null;
 
 		HtmlTag ulTag_lvl2 = null;
