@@ -38,39 +38,35 @@
 
 		return cookieValue;
 	}
-
 $(function(){
 	var h = '${sessionScope.passwordExpiry}';
 	if (h != '') {
 		window.open(h, '_blank');
 	}
 
-	if (getCookie('status') == 'Y') {
-		if (getCookie('now_homepage_id') != '') {
-			if (getCookie('now_homepage_id') == getCookie('back_homepage_id')) {
-				$('input#aside_homepage_id').val(getCookie('now_homepage_id'));
-				$('form#asideForm').submit();
-				document.cookie = 'now_homepage_id=';
-			}
-		}  else {
-			document.cookie = 'now_homepage_id = ' + getCookie('back_homepage_id') ;
+	if (getCookie('now_homepage_id') != '') {
+		if (getCookie('now_homepage_id') == getCookie('back_homepage_id')) {
+			$('input#aside_homepage_id').val(getCookie('now_homepage_id'));
+			$('form#asideForm').submit();
+			document.cookie = 'now_homepage_id=';
 		}
+	}  else {
+		document.cookie = 'now_homepage_id = ' + getCookie('back_homepage_id') ;
 	}
 
-	document.cookie = 'status = Y; secure;';
+
 });
 
 	function siteList() {
 		var siteList  = document.getElementById("siteList");
 		var value = (siteList.options[siteList.selectedIndex].value);
 
-		parent.container.doGetLoad('/cms/homepage/index.do');
+		parent.container.location.href='/cms/homepage/index.do';
 		$('input#aside_homepage_id').val(value);
 		$('form#asideForm').submit();
 
 		document.cookie = 'now_homepage_id = ' + value +'; secure;';
 		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') +'; secure;';
-		document.cookie = 'status = N; secure;';
 	}
 
 </script>

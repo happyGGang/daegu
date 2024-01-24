@@ -53,7 +53,7 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 
-		if (!url.equals(getUri) && !getUri.contains("aside") && !getUri.contains("cms/index")) {
+		if (!url.equals(getUri)) {
 			url = getUri;
 		}
 
