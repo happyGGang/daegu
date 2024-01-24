@@ -462,11 +462,9 @@ function bookReservationOne(request_number) {
 										</td>
 										<td>
 										<div class="button">
-											<c:if test="${authU}">
 											<a href="javascript:void(0);" id="loanBook" class="btn btn4 btnuntact" onclick="bookReservationOne('${i.request_number}');">대출</a>
 											<a href="javascript:void(0);" id="cancelBook" class="btn btn5 btnuntact" onclick="cancelReservationOne('${i.request_number}');">만기</a>
 											<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
-											</c:if>
 										</div>
 										</td>
 										<td>
@@ -479,7 +477,7 @@ function bookReservationOne(request_number) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<c:if test="${authU}">
+							<c:if test="${authD}">
 							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn4 btnuntact" onclick="bookReservation();">대출</a>
 							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
 							</c:if>

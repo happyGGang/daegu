@@ -725,7 +725,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 							</ul>
 						</div>
 						<div style="text-align:right;padding-top:10px;padding-bottom:10px;">
-							<c:if test="${authU}">
+							<c:if test="${authD}">
 							<c:choose>
 								<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
 									<a href="javascript:void(0);" class="btn btn1 btnuntact" onclick="randomPasswordToday('${passwordCount}', '${nonPasswordCount}');">비밀번호랜덤생성</a>
@@ -778,7 +778,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 										<td>${i.reg_no}</td>
 										<td>
 											<c:choose>
-												<c:when test="${(i.reservation_step eq '1' || i.reservation_step eq '2') and authU}">
+												<c:when test="${i.reservation_step eq '1' || i.reservation_step eq '2'}">
 												<form:select path="locker_number" id="locker_number" data-number="${i.unused_locker_number}" onchange="changeLockerNumber('${i.member_id}', '${i.locker_number}', $(this));">
 													<c:forEach var="j" varStatus="status" items="${unusedLockerList}">
 														<option value="${j.unused_locker_number}"<c:if test="${i.locker_number eq j.unused_locker_number}">selected</c:if>>${j.unused_locker_number}</option>
@@ -802,7 +802,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 										</td>
 										<td>
 										<div class="button">
-										<c:if test="${authU}">
+										<c:if test="${authD}">
 										<c:choose>
 											<c:when test="${i.reservation_step eq '1'}">
 												<c:choose>
@@ -839,7 +839,7 @@ function changeLockerNumber(member_id, locker_number, $this) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<c:if test="${authU}">
+							<c:if test="${authD}">
 							<c:choose>
 								<c:when test="${untactBookSetting.night_loan_yn eq 'Y'}">
 									<a href="javascript:void(0);" id="receiptReservationStepAll" class="btn btn1 btnuntact" onclick="receiptReservationStepToday();">접수</a>

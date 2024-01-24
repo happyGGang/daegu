@@ -290,7 +290,7 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 									<td>${i.book_name}</td>
 									<td>
 									<div class="button">
-										<c:if test="${authU}">
+										<c:if test="${authD}">
 										<a href="javascript:void(0);" id="setBook" class="btn btn1 btnuntact" onclick="reservationStepChange('${i.member_id}', '${i.member_name}', '비치', '${i.request_number}', $(this));" ${i.reservation_step eq '접수'?'':' style="display:none;"'}>비치</a>
 										<a href="javascript:void(0);" id="cancelBook" class="btn btnuntact" onclick="cancelSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');" ${i.reservation_step eq '비치'?'':' style="display:none;"'}>취소</a>
 										<a href="javascript:void(0);" id="penaltyBook" class="btn btn5 btnuntact" onclick="blackListSettingEdit('${i.member_id}', '${i.member_name}', '${i.request_number}');">패널티부여</a>
@@ -307,7 +307,7 @@ function blackListSettingEdit(member_id, member_name, request_number) {
 					</div>
 					
 					<div style="padding-top:10px;">
-						<c:if test="${authU}">
+						<c:if test="${authD}">
 						<a href="#" class="btn btn3 btnuntact" id="all-check" keyValue="N">전체선택</a>
 						<a href="#" id="deleteAll" class="btn btn4 btnuntact" onclick="allChange();">전체삭제</a>
 						</c:if>

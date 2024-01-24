@@ -103,7 +103,7 @@ function bookSettingEdit() {
 
 <div class="infodesk">
 	<div class="button">
-		<c:if test="${authC and authU}">
+		<c:if test="${authU}">
 			<a href="javascript:void(0);" class="btn btn5 left" onclick="bookSettingEdit();"><i class="fa fa-plus"></i><span>기본설정</span></a>
 		</c:if>
 	</div>
@@ -133,18 +133,11 @@ function bookSettingEdit() {
 				<td width="20"><form:checkbox path="locker_number_arr" value="${i.locker_number}"/></td>
 				<td width="30">${i.locker_number}번</td>
 				<td width="50">
-					<c:choose>
-						<c:when test="${authU}">
-							<select class="changeStatus" data-number="${i.locker_number}" onchange="changeStatus($(this));">
-								<option value="일반사물함" <c:if test="${i.locker_type eq '일반사물함'}">selected</c:if>>일반사물함</option>
-								<option value="도서대출" <c:if test="${i.locker_type eq '도서대출'}">selected</c:if>>도서대출</option>
-								<option value="사용안함" <c:if test="${i.locker_type eq '사용안함'}">selected</c:if>>사용안함</option>
-							</select>
-						</c:when>
-						<c:otherwise>
-							${i.locker_type}
-						</c:otherwise>
-					</c:choose>
+					<select class="changeStatus" data-number="${i.locker_number}" onchange="changeStatus($(this));">
+						<option value="일반사물함" <c:if test="${i.locker_type eq '일반사물함'}">selected</c:if>>일반사물함</option>
+						<option value="도서대출" <c:if test="${i.locker_type eq '도서대출'}">selected</c:if>>도서대출</option>
+						<option value="사용안함" <c:if test="${i.locker_type eq '사용안함'}">selected</c:if>>사용안함</option>
+					</select>
 				</td>
 			</tr>
 		</c:forEach>
@@ -153,7 +146,6 @@ function bookSettingEdit() {
 </div>
 
 <br>
-<c:if test="${authU}">
 <div class="ui-state-highlight">
 	<em>* 체크박스를 체크하신뒤 변경할 용도를 선택하시고 수정하기 버튼을 누르시면 됩니다.</em>
 </div>
@@ -169,5 +161,4 @@ function bookSettingEdit() {
 		<button id="search_btn" type="button" onclick="allChange();"><span>수정하기</span></button>
 	</fieldset>
 </div>
-</c:if>
 </form:form>
