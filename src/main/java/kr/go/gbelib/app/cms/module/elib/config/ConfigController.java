@@ -44,14 +44,7 @@ public class ConfigController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "lend_max_term", "대출 기간을 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "max_extention", "연장 횟수를 입력하세요.");
 		ValidationUtils.rejectIfEmpty(result, "ext_lend_term", "연장 가능일을 입력하세요.");
-
-		ValidationUtils.rejectExceptNumber(result, "user_max_lend", "개인별 최대 대출 권수는 숫자만 입력하세요 ");
-		ValidationUtils.rejectExceptNumber(result, "book_max_lend", "도서별 최대 대출 권수를 숫자만 입력하세요.");
-		ValidationUtils.rejectExceptNumber(result, "max_reserve", "개인별 최대 예약 권수를 숫자만 입력하세요.");
-		ValidationUtils.rejectExceptNumber(result, "book_max_reserve", "도서별 최대 동시 예약자수를 숫자만 입력하세요.");
-		ValidationUtils.rejectExceptNumber(result, "lend_max_term", "대출 기간을 숫자만 입력하세요.");
-		ValidationUtils.rejectExceptNumber(result, "max_extention", "연장 횟수를 숫자만 입력하세요.");
-		ValidationUtils.rejectExceptNumber(result, "ext_lend_term", "연장 가능일을 숫자만 입력하세요.");
+		
 		if(!result.hasErrors()) {
 //			if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
 				config.setModify_id(getSessionMemberId(request));
