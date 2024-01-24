@@ -262,16 +262,16 @@ $(function() {
 					<p class="info">NO 선택 시 홈페이지 메뉴 목록에서 출력되지 않습니다.(URL로 직접 접근은 가능합니다.)</p>
 				</td>
 			</tr>
-<!-- 			<tr class="group"> -->
-<!-- 				<th>메뉴 노출(모바일)</th> -->
-<!-- 				<td> -->
-<%-- 					<form:select path="mobile_view_yn" cssClass="selectmenu"> --%>
-<%-- 						<form:option value="Y">YES</form:option> --%>
-<%-- 						<form:option value="N">NO</form:option> --%>
-<%-- 					</form:select> --%>
-<!-- 					<p class="info">NO 선택 시 홈페이지(모바일) 메뉴 목록에서 출력되지 않습니다.(URL로 직접 접근은 가능합니다.)</p> -->
-<!-- 				</td> -->
-<!-- 			</tr> -->
+			<tr class="group">
+				<th>메뉴 노출(모바일)</th>
+				<td>
+					<form:select path="mobile_view_yn" cssClass="selectmenu">
+						<form:option value="Y">YES</form:option>
+						<form:option value="N">NO</form:option>
+					</form:select>
+					<p class="info">NO 선택 시 홈페이지(모바일) 메뉴 목록에서 출력되지 않습니다.(URL로 직접 접근은 가능합니다.)</p>
+				</td>
+			</tr>
 			<tr class="group last">
 				<th>사용 여부</th>
 				<td>
