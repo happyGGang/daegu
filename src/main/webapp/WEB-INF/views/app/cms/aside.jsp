@@ -23,6 +23,13 @@
 <![endif]-->
 <script src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/cms/js/design.js"></script>
+	<%
+		response.setHeader("Cache-Control","no-store");
+		response.setHeader("Pragma","no-cache");
+		response.setDateHeader("Expires",0);
+		if (request.getProtocol().equals("HTTP/1.1"))
+			response.setHeader("Cache-Control", "no-cache");
+	%>
 <script>
 	function getCookie(cookieName) {
 		let cookieData = document.cookie;
@@ -69,9 +76,9 @@ $(function(){
 		$('input#aside_homepage_id').val(value);
 		$('form#asideForm').submit();
 
-		document.cookie = 'now_homepage_id = ' + value +';';
-		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') +';';
-		document.cookie = 'status = N;';
+		document.cookie = 'now_homepage_id = ' + value +'; secure;';
+		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') +'; secure;';
+		document.cookie = 'status = N; secure;';
 
 
 	}
@@ -195,7 +202,7 @@ $(document).ready(function(){
 
 	//$('select#siteList').trigger('change');
 
-	document.cookie = 'status = Y;';
+	document.cookie = 'status = Y; secure;';
 });
 </script>
 <input type=hidden value="false" id="passChangeEvent" />
