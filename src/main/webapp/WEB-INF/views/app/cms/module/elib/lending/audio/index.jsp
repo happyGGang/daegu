@@ -168,7 +168,7 @@
             <select class="selectmenu-search" style="width:200px" name="type" id="type${sym}">
                 <option value="ADO" <c:if test="${obj.type == 'ADO'}">selected="selected"</c:if>>오디오북</option>
             </select>
-<%--             <jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/> --%>
+            <jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/>
             <form:input path="search_sdt" cssClass="text ui-calendar" placeholder="조회일 선택"/>
             <form:input path="search_edt" cssClass="text ui-calendar" placeholder="조회종료일 선택"/>
             <a href="#" id="search" class="btn"><span>조회</span></a>

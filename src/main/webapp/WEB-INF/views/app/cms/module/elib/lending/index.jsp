@@ -175,17 +175,17 @@ function submit(e) {
 	<div class="search">
 		<fieldset>
 			<label class="blind">검색</label>
-<%-- 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/type_select.jsp"> --%>
-<%-- 				<jsp:param name="noADO" value="Y"/> --%>
-<%-- 			</jsp:include> --%>
-<%-- 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/provider_select.jsp"/> --%>
-<%-- 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/category_select.jsp"/> --%>
-<%-- 			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/> --%>
-<%-- 			<form:select class="selectmenu-search" style="width:200px" path="status"> --%>
-<%-- 				<form:option value="">대출, 예약 가능 여부</form:option> --%>
-<%-- 				<form:option value="대출 가능">대출 가능</form:option> --%>
-<%-- 				<form:option value="예약 가능">예약 가능</form:option> --%>
-<%-- 			</form:select> --%>
+			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/type_select.jsp">
+				<jsp:param name="noADO" value="Y"/>
+			</jsp:include>
+			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/provider_select.jsp"/>
+			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/category_select.jsp"/>
+			<jsp:include page="/WEB-INF/views/app/cms/module/elib/common/library_select.jsp"/>
+			<form:select class="selectmenu-search" style="width:200px" path="status">
+				<form:option value="">대출, 예약 가능 여부</form:option>
+				<form:option value="대출 가능">대출 가능</form:option>
+				<form:option value="예약 가능">예약 가능</form:option>
+			</form:select>
 			<form:input path="search_sdt" cssClass="text ui-calendar" placeholder="조회일 선택"/>
 			<form:input path="search_edt" cssClass="text ui-calendar" placeholder="조회종료일 선택"/>
 			<a href="#" id="search" class="btn"><span>조회</span></a>
