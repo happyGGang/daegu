@@ -135,9 +135,6 @@ $(function() {
 			<th>비밀번호</th>
 			<td>
 				<form:password path="member_pw" cssStyle="width:178px;" cssClass="text" maxlength="20"/>
-				<div class="ui-state-highlight">
-					<span id="pwdcheck">비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.</span>
-				</div>
 <%--				<div class="ui-state-highlight">--%>
 <%--					<i class="fa fa-question-circle"></i><em>사용자 검색 시 LAS 비밀번호 사용</em>--%>
 <%--				</div>--%>

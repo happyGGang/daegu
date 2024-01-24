@@ -137,8 +137,6 @@ public class MemberController extends BaseController {
 //			if ( service.checkMemberAuthInHomepage(member) < 2 ) {
 //				result.reject("관리자 ID가 해당 홈페이지에 1개 이상은 존재 하여야 합니다.");
 //			}
-		} else if ("MODIFY".equals(member.getEditMode())) {
-			ValidationUtils.rejectPasswordSpecieal(result, "member_pw", "비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.");
 		}
 
 		if ( !result.hasErrors() ) {
