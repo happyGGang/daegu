@@ -8,7 +8,7 @@
 </style>
 <script src="/resources/common/js/moment.min.js"></script>
 <script type="text/javascript">
-  jQuery.fn.monthYearPicker = function (options) {
+  jQuery.fn.monthYearPicker = function(options) {
     options = $.extend({
       dateFormat: "yy-mm-dd",
       changeMonth: true,
@@ -16,36 +16,31 @@
       showButtonPanel: true,
       showAnim: "",
       closeText: "선택",
-      onChangeMonthYear: writeSelectedDate,
-      beforeShow: pickupDate
+      onChangeMonthYear: writeSelectedDate
+// 	    beforeShow: pickupDate
     }, options);
-
-    function writeSelectedDate(year, month, inst) {
+    function writeSelectedDate(year, month, inst ){
       var thisFormat = jQuery(this).datepicker("option", "dateFormat");
-      var d = jQuery.datepicker.formatDate(thisFormat, new Date(year, month - 1, 1));
+      var d = jQuery.datepicker.formatDate(thisFormat, new Date(year, month-1, 1));
       inst.input.val(d);
     }
-
     function hideDaysFromCalendar() {
       var thisCalendar = $(this);
       jQuery('.ui-datepicker-calendar').detach();
-      jQuery('.ui-datepicker-close').click(function () {
+      jQuery('.ui-datepicker-close').click(function() {
         var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
         var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
         thisCalendar.datepicker('setDate', new Date(year, month, 1));
         thisCalendar.datepicker("hide");
       });
     }
-
-    function pickupDate() {
-      if (this.id === 'search_edt') {
-        var startDate = $('#search_sdt').datepicker('getDate');
-        $(this).datepicker('option', 'minDate', startDate);
-      } else if (this.id === 'search_sdt') {
-        $(this).datepicker('option', 'maxDate', new Date());
-      }
-    }
-
+// 	  function pickupDate() {
+// 		  var thisCalendar = $(this);
+// 		  if(thisCalendar.val() != '') {
+// 			  var date = thisCalendar.val().split('-');
+// 			  thisCalendar.datepicker('setDate', new Date(date[0], date[1]-1, 1));
+// 		  }
+// 	  }
     jQuery(this).datepicker(options);
   }
 
