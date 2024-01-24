@@ -7,46 +7,34 @@
 <c:set var="cols" value="8"/>
 
 <script type="text/javascript">
-  jQuery.fn.monthYearPicker = function (options) {
-    options = $.extend({
-      dateFormat: "yy-mm-dd",
-      changeMonth: true,
-      changeYear: true,
-      showButtonPanel: true,
-      showAnim: "",
-      onChangeMonthYear: writeSelectedDate,
-      closeText: "선택",
-      beforeShow: pickupDate
-    }, options);
-
-    function writeSelectedDate(year, month, inst) {
-      var thisFormat = jQuery(this).datepicker("option", "dateFormat");
-      var d = jQuery.datepicker.formatDate(thisFormat, new Date(year, month - 1, 1));
-      inst.input.val(d);
+    jQuery.fn.monthYearPicker = function(options) {
+        options = $.extend({
+            dateFormat: "yy-mm-dd",
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            showAnim: "",
+            onChangeMonthYear: writeSelectedDate,
+            closeText: "선택",
+//	    beforeShow: pickupDate
+        }, options);
+        function writeSelectedDate(year, month, inst ){
+            var thisFormat = jQuery(this).datepicker("option", "dateFormat");
+            var d = jQuery.datepicker.formatDate(thisFormat, new Date(year, month-1, 1));
+            inst.input.val(d);
+        }
+        function hideDaysFromCalendar() {
+            var thisCalendar = $(this);
+            jQuery('.ui-datepicker-calendar').detach();
+            jQuery('.ui-datepicker-close').click(function() {
+                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                thisCalendar.datepicker('setDate', new Date(year, month, 1));
+                thisCalendar.datepicker("hide");
+            });
+        }
+        jQuery(this).datepicker(options);
     }
-
-    function hideDaysFromCalendar() {
-      var thisCalendar = $(this);
-      jQuery('.ui-datepicker-calendar').detach();
-      jQuery('.ui-datepicker-close').click(function () {
-        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-        thisCalendar.datepicker('setDate', new Date(year, month, 1));
-        thisCalendar.datepicker("hide");
-      });
-    }
-
-    function pickupDate(input, inst) {
-      if (this.id === 'search_edt') {
-        var startDate = $('#search_sdt').datepicker('getDate');
-        $(this).datepicker('option', 'minDate', startDate);
-      } else if (this.id === 'search_sdt') {
-        $(this).datepicker('option', 'maxDate', new Date());
-      }
-    }
-
-    jQuery(this).datepicker(options);
-  }
 
     function formatDate(date, withoutDay) {
         var d = new Date(date),
