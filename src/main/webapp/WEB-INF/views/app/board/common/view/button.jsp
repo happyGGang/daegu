@@ -15,14 +15,7 @@
 <c:if test="${(not empty authMBA and authMBA) or (not empty authD and authD) or (not empty authMBS and authMBS) or portalAuth ne '0'}">
 	<c:choose>
 		<c:when test="${not empty authMBA and authMBA or not empty authMBS and authMBS or portalAuth eq '2'}">
-			<c:choose>
-				<c:when test="${!member.admin and authD}">
-					<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
-				</c:when>
-				<c:when test="${member.admin}">
-					<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
-				</c:when>
-			</c:choose>
+	<a href="" class="btn delete" id="board_delete_btn"><i class="fa fa-trash-o"></i><span>삭제</span></a>
 		</c:when>
 		<c:otherwise>
 			<c:choose>
@@ -42,15 +35,7 @@
 <c:if test="${(not empty authMBA and authMBA) or (not empty authU and authU) or (not empty authMBS and authMBS) or portalAuth ne '0'}">
 	<c:choose>
 		<c:when test="${not empty authMBA and authMBA or not empty authMBS and authMBS or portalAuth eq '2'}">
-
-			<c:choose>
-				<c:when test="${!member.admin and authU}">
-					<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
-				</c:when>
-				<c:when test="${member.admin}">
-					<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
-				</c:when>
-			</c:choose>
+	<a href="" class="btn modify" id="board_edit_btn"><i class="fa fa-pencil-square-o"></i><span>수정</span></a>
 		</c:when>
 		<c:otherwise>
 			<c:choose>
