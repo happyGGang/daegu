@@ -36,66 +36,17 @@
 							$('td.limit_OLD').remove();
 							$('td.limit_SEX').remove();
 						}
-						
-						var teach_age_type = $("input:radio[name = teach_age_type]:checked").val();
 
-						var startAge = $('.start_age').val();
-						var endAge = $('.end_age').val();
-						
-						if ($('input#teach_join_limit_unit2').is(':checked')) {
-							if(teach_age_type == 'adult') {
-								if (startAge < 20) {
-									alert('강의유형이 성인일 경우 접수제한의 시작 나이는 최소 20세입니다.');
-									return false;
-								}else if (startAge > 20 &&startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
-							}else if (teach_age_type == 'student') {
-								if (startAge < 8) {
-									alert('강의유형이 학생일 경우 접수제한의 최소 나이는 8세 ~ 19세입니다.');
-									return false;
-								}else if (endAge > 19) {
-									alert('강의유형이 학생일 경우 접수제한의 최소 나이는 8세 ~ 19세입니다.');
-									return false;
-								}else if (startAge > 8 && startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
-							}else if (teach_age_type == 'child') {
-								if (startAge > 4) {
-									alert('강의유형이 어린이일 경우 접수제한의 최소 나이는 4세 ~ 7세입니다.');
-									return false;
-								}else if (endAge > 7) {
-									alert('강의유형이 어린이일 경우 접수제한의 최소 나이는 4세 ~ 7세입니다.');
-									return false;
-								}else if (startAge > 4 && startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
-							}else if (teach_age_type == 'infants') {
-								if (startAge < 1) {
-									alert('강의유형이 영유아일 경우 접수제한의 최소 나이는 0개월 ~ 36개월입니다.');
-									return false;
-								}else if (endAge > 36) {
-									alert('강의유형이 영유아일 경우 접수제한의 최소 나이는 0개월 ~ 36개월입니다.');
-									return false;
-								}else if (startAge > 1 && startAge > endAge) {
-									alert('최소나이는 최대나이보다 적어야 합니다.');
-									return false;
-								}
+						if ($('input#limit_hak_yn1').is(':checked')) {
+							var fromHak = parseInt($('select#limit_hak').val());
+							var toHak = parseInt($('select#limit_hak2').val());
+
+							if (fromHak > toHak) {
+								alert('학년제한 설정이 잘못되었습니다.');
+								focus($('select#limit_hak'));
+								return false;
 							}
 						}
-// 						if ($('input#limit_hak_yn1').is(':checked')) {
-// 							var fromHak = parseInt($('select#limit_hak').val());
-// 							var toHak = parseInt($('select#limit_hak2').val());
-
-// 							if (fromHak > toHak) {
-// 								alert('학년제한 설정이 잘못되었습니다.');
-// 								focus($('select#limit_hak'));
-// 								return false;
-// 							}
-// 						}
 
 						var sjt1 = $('input#start_join_time1').val();
 						if($('input#start_join_time1').val().length < 2){
@@ -244,8 +195,6 @@
 						if($('#attach_file'). val() == '') {
 							$('#attach_file').remove();
 						}
-						
-
 
 						$('select#holidays option').prop('selected', true);
 
@@ -543,13 +492,13 @@
 			}
 		});
 
-// 		$('input#birth_yn2').on('click', function(e){
-// 			if ($('input#teach_join_limit_unit2').is(':checked')) {
-// 				$('#birth_yn1').click();
-// 				alert('나이제한이 있는 경우 생년월일 입력여부를 수정할 수 없습니다.');
-// 				return false;
-// 			}
-// 		});
+		$('input#birth_yn2').on('click', function(e){
+			if ($('input#teach_join_limit_unit2').is(':checked')) {
+				$('#birth_yn1').click();
+				alert('나이제한이 있는 경우 생년월일 입력여부를 수정할 수 없습니다.');
+				return false;
+			}
+		});
 
 		//성별입력여부
 		$('input#teach_join_limit_unit1').on('click', function(){
@@ -681,7 +630,7 @@
 // 		$('input#family_yn1').attr('disabled', 'true');
 // 	});
 
-		$('input#teach_age_type3').on('click', function() {
+		$('input#teach_age_type2').on('click', function() {
 // 		$('input#family_yn1').removeAttr('disabled');
 // 		$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
 			$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
@@ -701,84 +650,85 @@
 			$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
 		});
 
-// 		$('form#teachForm span[id^=hashtag_]').on('click', function() {
-// 			var hashtag_code = $(this).attr('keyValue1');
-// 			var hashtag_name = $(this).attr('keyValue2');
-// 			var check_yn = $(this).attr('check_yn');
-// 			var editMode = $('form#teachForm input#editMode').val();
+		$('form#teachForm span[id^=hashtag_]').on('click', function() {
+			var hashtag_code = $(this).attr('keyValue1');
+			var hashtag_name = $(this).attr('keyValue2');
+			var check_yn = $(this).attr('check_yn');
+			var editMode = $('form#teachForm input#editMode').val();
 
-// 			var item_box_empty_yn = $('#hashtag_item_box').attr("empty_yn");
+			var item_box_empty_yn = $('#hashtag_item_box').attr("empty_yn");
 
-// 			if (check_yn != 'Y') {
-// 				$(this).css('background','#EAEAEA');
-// 				$(this).attr('check_yn', 'Y');
+			if (check_yn != 'Y') {
+				$(this).css('background','#EAEAEA');
+				$(this).attr('check_yn', 'Y');
 
-// 				if (item_box_empty_yn == 'Y') {
-// 					$('#hashtag_item_box').text('');
-// 					$('#hashtag_item_box').text(hashtag_name);
-// 					$('#hashtag_item_box').attr("empty_yn", 'N');
-// 					$('form#teachForm input#hashtag_codes').val(hashtag_code);
-// 				} else {
-// 					var hashtag_item = $('#hashtag_item_box').text();
-// 					$('#hashtag_item_box').text(hashtag_item + "," + hashtag_name);
-// 					var hashtag_codes = $('form#teachForm input#hashtag_codes').val();
-// 					$('form#teachForm input#hashtag_codes').val(hashtag_codes+","+hashtag_code);
-// 				}
-// 			} else {
-// 				$(this).css('background','');
-// 				$(this).attr('check_yn', 'N');
+				if (item_box_empty_yn == 'Y') {
+					$('#hashtag_item_box').text('');
+					$('#hashtag_item_box').text(hashtag_name);
+					$('#hashtag_item_box').attr("empty_yn", 'N');
+					$('form#teachForm input#hashtag_codes').val(hashtag_code);
+				} else {
+					var hashtag_item = $('#hashtag_item_box').text();
+					$('#hashtag_item_box').text(hashtag_item + "," + hashtag_name);
+					var hashtag_codes = $('form#teachForm input#hashtag_codes').val();
+					$('form#teachForm input#hashtag_codes').val(hashtag_codes+","+hashtag_code);
+				}
+			} else {
+				$(this).css('background','');
+				$(this).attr('check_yn', 'N');
 
-// 				var item_length = $('span[id^=hashtag_][check_yn=Y]').length;
+				var item_length = $('span[id^=hashtag_][check_yn=Y]').length;
 
-// 				if (item_length > 0) {
-// 					$('#hashtag_item_box').text('');
-// 					$('span[id^=hashtag_][check_yn=Y]').each(function (index, item) {
-// 						var hashtag_item = $('#hashtag_item_box').text();
-// 						var check_hashtag_code = $(item).attr('keyValue1');
-// 						var check_hashtag_name = $(item).attr('keyValue2');
-// 						var hashtag_codes = $('form#teachForm input#hashtag_codes').val();
-// 						if (index == 0) {
-// 							$('#hashtag_item_box').text(check_hashtag_name);
-// 							$('form#teachForm input#hashtag_codes').val(check_hashtag_code);
-// 						} else {
-// 							$('#hashtag_item_box').text(hashtag_item + ',' + check_hashtag_name);
-// 							$('form#teachForm input#hashtag_codes').val(hashtag_codes+','+check_hashtag_code);
-// 						}
-// 					});
-// 				} else {
-// 					$('#hashtag_item_box').text('');
-// 					$('form#teachForm input#hashtag_codes').val('');
-// 					$('#hashtag_item_box').append('선택된 해시태그가 없습니다. <b style="color: red">아래의 해시태그를 선택해주세요.</b>');
-// 					$('#hashtag_item_box').attr("empty_yn", "Y");
-// 				}
-// 			}
-// 		});
+				if (item_length > 0) {
+					$('#hashtag_item_box').text('');
+					$('span[id^=hashtag_][check_yn=Y]').each(function (index, item) {
+						var hashtag_item = $('#hashtag_item_box').text();
+						var check_hashtag_code = $(item).attr('keyValue1');
+						var check_hashtag_name = $(item).attr('keyValue2');
+						var hashtag_codes = $('form#teachForm input#hashtag_codes').val();
 
-// 		$('#age_div_all').change(function() {
-// 			$('input#age_div_codes1').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes2').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes3').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes4').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
-// 		});
+						if (index == 0) {
+							$('#hashtag_item_box').text(check_hashtag_name);
+							$('form#teachForm input#hashtag_codes').val(check_hashtag_code);
+						} else {
+							$('#hashtag_item_box').text(hashtag_item + ',' + check_hashtag_name);
+							$('form#teachForm input#hashtag_codes').val(hashtag_codes+','+check_hashtag_code);
+						}
+					});
+				} else {
+					$('#hashtag_item_box').text('');
+					$('form#teachForm input#hashtag_codes').val('');
+					$('#hashtag_item_box').append('선택된 해시태그가 없습니다. <b style="color: red">아래의 해시태그를 선택해주세요.</b>');
+					$('#hashtag_item_box').attr("empty_yn", "Y");
+				}
+			}
+		});
 
-// 		$('#age_div_normal_all').change(function() {
-// 			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
-// 			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
-// 		});
+		$('#age_div_all').change(function() {
+			$('input#age_div_codes1').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes2').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes3').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes4').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
+		});
 
-// 		$('#teach_day_all_check').change(function() {
-// 			$('input#day1').prop('checked', $(this).prop('checked'));
-// 			$('input#day2').prop('checked', $(this).prop('checked'));
-// 			$('input#day3').prop('checked', $(this).prop('checked'));
-// 			$('input#day4').prop('checked', $(this).prop('checked'));
-// 			$('input#day5').prop('checked', $(this).prop('checked'));
-// 			$('input#day6').prop('checked', $(this).prop('checked'));
-// 			$('input#day7').prop('checked', $(this).prop('checked'));
-// 		});
+		$('#age_div_normal_all').change(function() {
+			$('input#age_div_codes5').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes6').prop('checked', $(this).prop('checked'));
+			$('input#age_div_codes7').prop('checked', $(this).prop('checked'));
+		});
+
+		$('#teach_day_all_check').change(function() {
+			$('input#day1').prop('checked', $(this).prop('checked'));
+			$('input#day2').prop('checked', $(this).prop('checked'));
+			$('input#day3').prop('checked', $(this).prop('checked'));
+			$('input#day4').prop('checked', $(this).prop('checked'));
+			$('input#day5').prop('checked', $(this).prop('checked'));
+			$('input#day6').prop('checked', $(this).prop('checked'));
+			$('input#day7').prop('checked', $(this).prop('checked'));
+		});
 	});
 
 	function changeFile(elementId) {
@@ -809,16 +759,8 @@
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="teach_idx"/>
 	<form:hidden path="editMode"/>
-	<form:hidden path="hashtag_codes" value="RE"/>
-	<form:hidden path="age_div_codes" value="0001"/>
-	<form:hidden path="birth_yn" value="N"/>
-	<form:hidden path="neis_training_num_yn" value="N"/>
-	<form:hidden path="organization_yn" value="N"/>
-	<form:hidden path="rank_yn" value="N"/>
-	<form:hidden path="course_taken_yn" value="N"/>
-	<form:hidden path="vaccines_yn" value="N"/>
-	<form:hidden path="culture_view_yn" value="N"/>
-	
+	<form:hidden path="hashtag_codes"/>
+
 	<table class="type2">
 		<colgroup>
 			<col width="160" />
@@ -922,92 +864,92 @@
 				</c:choose>
 			</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th>주제해시태그 (<span style="color: red; font-weight: bold;">*</span>)</th> -->
-<!-- 			<td> -->
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${(teach.editMode eq 'MODIFY' and not empty teach.hashtag_names) or teach.editMode eq 'LOAD'}"> --%>
-<!-- 						<div id="hashtag_item_box" style="font-weight: bold;" empty_yn="N"> -->
-<%-- 								${teach.hashtag_names} --%>
-<!-- 						</div> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:otherwise> --%>
-<!-- 						<div id="hashtag_item_box" style="font-weight: bold;" empty_yn="Y"> -->
-<!-- 							선택된 해시태그가 없습니다. <b style="color: red">아래의 해시태그를 선택해주세요.</b> -->
-<!-- 						</div> -->
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
+		<tr>
+			<th>주제해시태그 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<c:choose>
+					<c:when test="${(teach.editMode eq 'MODIFY' and not empty teach.hashtag_names) or teach.editMode eq 'LOAD'}">
+						<div id="hashtag_item_box" style="font-weight: bold;" empty_yn="N">
+								${teach.hashtag_names}
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div id="hashtag_item_box" style="font-weight: bold;" empty_yn="Y">
+							선택된 해시태그가 없습니다. <b style="color: red">아래의 해시태그를 선택해주세요.</b>
+						</div>
+					</c:otherwise>
+				</c:choose>
 
-<%-- 				<c:set var="code_check" value="N"></c:set> --%>
-<%-- 				<c:forEach var="i" items="${hashtagList}" varStatus="status"> --%>
-<%-- 					<c:set var="loop_flag" value="false" /> --%>
-<%-- 					<c:forEach var="j" items="${fn:split(teach.hashtag_codes, ',')}"> --%>
-<%-- 						<c:if test="${not loop_flag }"> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${i.hashtag_code eq j}"> --%>
-<%-- 									<c:set var="code_check" value="Y"></c:set> --%>
-<%-- 									<c:set var="loop_flag" value="true" /> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<%-- 									<c:set var="code_check" value="N"></c:set> --%>
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-<%-- 						</c:if> --%>
-<%-- 					</c:forEach> --%>
-<%-- 					<c:choose> --%>
-<%-- 						<c:when test="${code_check eq 'Y'}"> --%>
-<%-- 							<span id="hashtag_${i.hashtag_idx}" style="cursor: pointer; background:#EAEAEA;" keyValue1="${i.hashtag_code}" keyValue2="${i.hashtag_name}" check_yn="Y">${i.hashtag_name}</span>${status.last ? '' : ','} --%>
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<%-- 							<span id="hashtag_${i.hashtag_idx}" style="cursor: pointer;" keyValue1="${i.hashtag_code}" keyValue2="${i.hashtag_name}" check_yn="N">${i.hashtag_name}</span>${status.last ? '' : ','} --%>
-<%-- 						</c:otherwise> --%>
-<%-- 					</c:choose> --%>
-<%-- 				</c:forEach> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>대상 분류 (<span style="color: red; font-weight: bold;">*</span>)</th> -->
-<!-- 			<td class="age_div_target"> -->
-<!-- 				<div class="" style="box-sizing:border-box;padding:10px 0;border-bottom:1px dashed #000;"> -->
-<%-- 					<c:set var="all_yn" value="N"></c:set> --%>
-<%-- 					<c:set var="normal_all_yn" value="N"></c:set> --%>
-<%-- 					<c:if test="${fn:contains(teach.age_div_codes, '0001') and fn:contains(teach.age_div_codes, '0002') and fn:contains(teach.age_div_codes, '0003') and fn:contains(teach.age_div_codes, '0004') and fn:contains(teach.age_div_codes, '0006') and fn:contains(teach.age_div_codes, '0007') and fn:contains(teach.age_div_codes, '0008')}"> --%>
-<%-- 						<c:set var="all_yn" value="Y"></c:set> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${fn:contains(teach.age_div_codes, '0006') and fn:contains(teach.age_div_codes, '0007') and fn:contains(teach.age_div_codes, '0008')}"> --%>
-<%-- 						<c:set var="normal_all_yn" value="Y"></c:set> --%>
-<%-- 					</c:if> --%>
-<%-- 					<input id="age_div_all" type="checkbox" value="" ${all_yn eq 'Y' ? 'checked' : ''}> --%>
-<!-- 					<label for="age_div_all">전체</label>&nbsp; -->
-<%-- 					<input id="age_div_normal_all" type="checkbox" value="" ${all_yn eq 'N' and normal_all_yn eq 'Y' ? 'checked' : ''}> --%>
-<!-- 					<label for="age_div_normal_all">일반전체</label> -->
-<!-- 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<%-- 					<input id="age_div_codes8" name="age_div_codes" type="checkbox" value="0010" ${fn:contains(teach.age_div_codes, '0010') ? 'checked': ''}/> <label for="age_div_codes8"> 학부모</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes9" name="age_div_codes" type="checkbox" value="0011" ${fn:contains(teach.age_div_codes, '0011') ? 'checked': ''}/> <label for="age_div_codes9"> 다문화</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes10" name="age_div_codes" type="checkbox" value="0012" ${fn:contains(teach.age_div_codes, '0012') ? 'checked': ''}/> <label for="age_div_codes10"> 가족</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<!-- 				</div> -->
-<!-- 				<div class="" style="box-sizing:border-box;padding:10px 0;"> -->
-<%-- 					<input id="age_div_codes1" name="age_div_codes" type="checkbox" value="0001" ${fn:contains(teach.age_div_codes, '0001') ? 'checked': ''}/> <label for="age_div_codes1"> 유아</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes2" name="age_div_codes" type="checkbox" value="0002" ${fn:contains(teach.age_div_codes, '0002') ? 'checked': ''}/> <label for="age_div_codes2"> 초등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes3" name="age_div_codes" type="checkbox" value="0003" ${fn:contains(teach.age_div_codes, '0003') ? 'checked': ''}/> <label for="age_div_codes3"> 중학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes4" name="age_div_codes" type="checkbox" value="0004" ${fn:contains(teach.age_div_codes, '0004') ? 'checked': ''}/> <label for="age_div_codes4"> 고등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes5" name="age_div_codes" type="checkbox" value="0006" ${fn:contains(teach.age_div_codes, '0006') ? 'checked': ''}/> <label for="age_div_codes5"> 청년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes6" name="age_div_codes" type="checkbox" value="0007" ${fn:contains(teach.age_div_codes, '0007') ? 'checked': ''}/> <label for="age_div_codes6"> 중년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<%-- 					<input id="age_div_codes7" name="age_div_codes" type="checkbox" value="0008" ${fn:contains(teach.age_div_codes, '0008') ? 'checked': ''}/> <label for="age_div_codes7"> 노년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp; --%>
-<!-- 				</div> -->
-<!-- 				
-<!-- 				<c:forEach items="${ageDivList}" var="i" varStatus="status"> -->
-<!-- 					<form:checkbox path="age_div_codes" value="${i.code_id}" label=" ${i.code_name}" checked="${fn:contains(teach.age_div_codes, i.code_id) ? 'checked' : ''}"/> &nbsp; -->
-<!-- 				</c:forEach> -->
-<!-- 				-->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>출력순서</th> -->
-<!-- 			<td> -->
-<%-- 				<form:input path="print_seq" class="text" cssStyle="width:30px" maxlength="5"/> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
+				<c:set var="code_check" value="N"></c:set>
+				<c:forEach var="i" items="${hashtagList}" varStatus="status">
+					<c:set var="loop_flag" value="false" />
+					<c:forEach var="j" items="${fn:split(teach.hashtag_codes, ',')}">
+						<c:if test="${not loop_flag }">
+							<c:choose>
+								<c:when test="${i.hashtag_code eq j}">
+									<c:set var="code_check" value="Y"></c:set>
+									<c:set var="loop_flag" value="true" />
+								</c:when>
+								<c:otherwise>
+									<c:set var="code_check" value="N"></c:set>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+					<c:choose>
+						<c:when test="${code_check eq 'Y'}">
+							<span id="hashtag_${i.hashtag_idx}" style="cursor: pointer; background:#EAEAEA;" keyValue1="${i.hashtag_code}" keyValue2="${i.hashtag_name}" check_yn="Y">${i.hashtag_name}</span>${status.last ? '' : ','}
+						</c:when>
+						<c:otherwise>
+							<span id="hashtag_${i.hashtag_idx}" style="cursor: pointer;" keyValue1="${i.hashtag_code}" keyValue2="${i.hashtag_name}" check_yn="N">${i.hashtag_name}</span>${status.last ? '' : ','}
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</td>
+		</tr>
+		<tr>
+			<th>대상 분류 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td class="age_div_target">
+				<div class="" style="box-sizing:border-box;padding:10px 0;border-bottom:1px dashed #000;">
+					<c:set var="all_yn" value="N"></c:set>
+					<c:set var="normal_all_yn" value="N"></c:set>
+					<c:if test="${fn:contains(teach.age_div_codes, '0001') and fn:contains(teach.age_div_codes, '0002') and fn:contains(teach.age_div_codes, '0003') and fn:contains(teach.age_div_codes, '0004') and fn:contains(teach.age_div_codes, '0006') and fn:contains(teach.age_div_codes, '0007') and fn:contains(teach.age_div_codes, '0008')}">
+						<c:set var="all_yn" value="Y"></c:set>
+					</c:if>
+					<c:if test="${fn:contains(teach.age_div_codes, '0006') and fn:contains(teach.age_div_codes, '0007') and fn:contains(teach.age_div_codes, '0008')}">
+						<c:set var="normal_all_yn" value="Y"></c:set>
+					</c:if>
+					<input id="age_div_all" type="checkbox" value="" ${all_yn eq 'Y' ? 'checked' : ''}>
+					<label for="age_div_all">전체</label>&nbsp;
+					<input id="age_div_normal_all" type="checkbox" value="" ${all_yn eq 'N' and normal_all_yn eq 'Y' ? 'checked' : ''}>
+					<label for="age_div_normal_all">일반전체</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input id="age_div_codes8" name="age_div_codes" type="checkbox" value="0010" ${fn:contains(teach.age_div_codes, '0010') ? 'checked': ''}/> <label for="age_div_codes8"> 학부모</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes9" name="age_div_codes" type="checkbox" value="0011" ${fn:contains(teach.age_div_codes, '0011') ? 'checked': ''}/> <label for="age_div_codes9"> 다문화</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes10" name="age_div_codes" type="checkbox" value="0012" ${fn:contains(teach.age_div_codes, '0012') ? 'checked': ''}/> <label for="age_div_codes10"> 가족</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+				</div>
+				<div class="" style="box-sizing:border-box;padding:10px 0;">
+					<input id="age_div_codes1" name="age_div_codes" type="checkbox" value="0001" ${fn:contains(teach.age_div_codes, '0001') ? 'checked': ''}/> <label for="age_div_codes1"> 유아</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes2" name="age_div_codes" type="checkbox" value="0002" ${fn:contains(teach.age_div_codes, '0002') ? 'checked': ''}/> <label for="age_div_codes2"> 초등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes3" name="age_div_codes" type="checkbox" value="0003" ${fn:contains(teach.age_div_codes, '0003') ? 'checked': ''}/> <label for="age_div_codes3"> 중학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes4" name="age_div_codes" type="checkbox" value="0004" ${fn:contains(teach.age_div_codes, '0004') ? 'checked': ''}/> <label for="age_div_codes4"> 고등학생</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes5" name="age_div_codes" type="checkbox" value="0006" ${fn:contains(teach.age_div_codes, '0006') ? 'checked': ''}/> <label for="age_div_codes5"> 청년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes6" name="age_div_codes" type="checkbox" value="0007" ${fn:contains(teach.age_div_codes, '0007') ? 'checked': ''}/> <label for="age_div_codes6"> 중년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+					<input id="age_div_codes7" name="age_div_codes" type="checkbox" value="0008" ${fn:contains(teach.age_div_codes, '0008') ? 'checked': ''}/> <label for="age_div_codes7"> 노년</label><input type="hidden" name="_age_div_codes" value="on"/>&nbsp;
+				</div>
+				<!--
+				<c:forEach items="${ageDivList}" var="i" varStatus="status">
+					<form:checkbox path="age_div_codes" value="${i.code_id}" label=" ${i.code_name}" checked="${fn:contains(teach.age_div_codes, i.code_id) ? 'checked' : ''}"/> &nbsp;
+				</c:forEach>
+				-->
+			</td>
+		</tr>
+		<tr>
+			<th>출력순서</th>
+			<td>
+				<form:input path="print_seq" class="text" cssStyle="width:30px" maxlength="5"/>
+			</td>
+		</tr>
 		<tr>
 			<th>홈페이지 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
@@ -1022,13 +964,13 @@
 				<form:radiobutton path="calendar_view_yn" class="N" value="N"/> <label for="calendar_view_yn2" style="cursor:pointer;">사용안함</label>
 			</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th>문화포털 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="culture_view_yn" class="Y" value="Y"/> <label for="culture_view_yn1" style="cursor:pointer;">사용함</label>&nbsp; --%>
-<%-- 				<form:radiobutton path="culture_view_yn" class="N" value="N"/> <label for="culture_view_yn2" style="cursor:pointer;">사용안함</label> --%>
-<!-- 			</td> -->
-<!-- 		</tr> -->
+		<tr>
+			<th>문화포털 게시여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:radiobutton path="culture_view_yn" class="Y" value="Y"/> <label for="culture_view_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+				<form:radiobutton path="culture_view_yn" class="N" value="N"/> <label for="culture_view_yn2" style="cursor:pointer;">사용안함</label>
+			</td>
+		</tr>
 		<tr>
 			<th>강의대상</th>
 			<td><form:input path="teach_target" class="text" cssStyle="width:100%"/></td>
@@ -1253,7 +1195,7 @@
 					<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit2">나이</label>
 					<c:choose>
 						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
-							: <input class="text start_age" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
+							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
 							<c:choose>
 								<c:when test="${teach.teach_age_type eq 'infants' }">
 									<span class="limit_text1" style="display: inline-block;">개월 이상</span> ~
@@ -1262,7 +1204,7 @@
 									<span class="limit_text1" style="display: inline-block;">세 이상</span>
 								</c:otherwise>
 							</c:choose>
-							<input class="text end_age" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="3"/>
+							<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="3"/>
 							<c:choose>
 								<c:when test="${teach.teach_age_type eq 'infants' }">
 									<span class="limit_text2" style="display: inline-block;">개월 이하</span>
@@ -1273,45 +1215,45 @@
 							</c:choose>
 						</c:when>
 						<c:otherwise>
-							: <input class="text start_age" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >세 이상</p> ~
-							<input class="text end_age" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">세 이하 </p>
+							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >세 이상</p> ~
+							<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">세 이하 </p>
 						</c:otherwise>
 					</c:choose>
 				</div>
 				<div class="ui-state-highlight">
 					<em>* 나이 = (현재 연도 - 수강생 생년)+1 ex) 2019 - 1990 + 1 = 30</em>
 				</div>
-<!-- 				<div> -->
-<%-- 					<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/> --%>
-<%-- 					<form:select path="limit_hak" cssClass="selectmenu"> --%>
-<%-- 						<form:option value="1" label="초등 1학년" /> --%>
-<%-- 						<form:option value="2" label="초등 2학년" /> --%>
-<%-- 						<form:option value="3" label="초등 3학년" /> --%>
-<%-- 						<form:option value="4" label="초등 4학년" /> --%>
-<%-- 						<form:option value="5" label="초등 5학년" /> --%>
-<%-- 						<form:option value="6" label="초등 6학년" /> --%>
-<%-- 						<form:option value="7" label="중등 1학년" /> --%>
-<%-- 						<form:option value="8" label="중등 2학년" /> --%>
-<%-- 						<form:option value="9" label="중등 3학년" /> --%>
-<%-- 						<form:option value="10" label="고등 1학년" /> --%>
-<%-- 						<form:option value="11" label="고등 2학년" /> --%>
-<%-- 						<form:option value="12" label="고등 3학년" /> --%>
-<%-- 					</form:select>이상 ~ --%>
-<%-- 					<form:select path="limit_hak2" cssClass="selectmenu"> --%>
-<%-- 						<form:option value="1" label="초등 1학년" /> --%>
-<%-- 						<form:option value="2" label="초등 2학년" /> --%>
-<%-- 						<form:option value="3" label="초등 3학년" /> --%>
-<%-- 						<form:option value="4" label="초등 4학년" /> --%>
-<%-- 						<form:option value="5" label="초등 5학년" /> --%>
-<%-- 						<form:option value="6" label="초등 6학년" /> --%>
-<%-- 						<form:option value="7" label="중등 1학년" /> --%>
-<%-- 						<form:option value="8" label="중등 2학년" /> --%>
-<%-- 						<form:option value="9" label="중등 3학년" /> --%>
-<%-- 						<form:option value="10" label="고등 1학년" /> --%>
-<%-- 						<form:option value="11" label="고등 2학년" /> --%>
-<%-- 						<form:option value="12" label="고등 3학년" /> --%>
-<%-- 					</form:select>이하 --%>
-<!-- 				</div> -->
+				<div>
+					<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/>
+					<form:select path="limit_hak" cssClass="selectmenu">
+						<form:option value="1" label="초등 1학년" />
+						<form:option value="2" label="초등 2학년" />
+						<form:option value="3" label="초등 3학년" />
+						<form:option value="4" label="초등 4학년" />
+						<form:option value="5" label="초등 5학년" />
+						<form:option value="6" label="초등 6학년" />
+						<form:option value="7" label="중등 1학년" />
+						<form:option value="8" label="중등 2학년" />
+						<form:option value="9" label="중등 3학년" />
+						<form:option value="10" label="고등 1학년" />
+						<form:option value="11" label="고등 2학년" />
+						<form:option value="12" label="고등 3학년" />
+					</form:select>이상 ~
+					<form:select path="limit_hak2" cssClass="selectmenu">
+						<form:option value="1" label="초등 1학년" />
+						<form:option value="2" label="초등 2학년" />
+						<form:option value="3" label="초등 3학년" />
+						<form:option value="4" label="초등 4학년" />
+						<form:option value="5" label="초등 5학년" />
+						<form:option value="6" label="초등 6학년" />
+						<form:option value="7" label="중등 1학년" />
+						<form:option value="8" label="중등 2학년" />
+						<form:option value="9" label="중등 3학년" />
+						<form:option value="10" label="고등 1학년" />
+						<form:option value="11" label="고등 2학년" />
+						<form:option value="12" label="고등 3학년" />
+					</form:select>이하
+				</div>
 				<div class="ui-state-highlight">
 					<em>* 강의 설명에 학년제한 항목이 노출됩니다. 학년 정보를 반드시 입력받아야 합니다.</em>
 				</div>
@@ -1328,9 +1270,8 @@
 			<th>강의유형 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="adult"/> <label for="teach_age_type1" style="cursor:pointer;">성인 강의</label>&nbsp;
-				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="student"/> <label for="teach_age_type2" style="cursor:pointer;">학생 강의</label>&nbsp;
-				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="child"/> <label for="teach_age_type3" style="cursor:pointer;">어린이 강의</label>&nbsp;
-				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="infants"/> <label for="teach_age_type4" style="cursor:pointer;">영유아 강의</label>&nbsp;
+				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="child"/> <label for="teach_age_type2" style="cursor:pointer;">어린이 강의</label>&nbsp;
+				<form:radiobutton path="teach_age_type" id="teach_age_type1" value="infants"/> <label for="teach_age_type3" style="cursor:pointer;">영유아 강의</label>&nbsp;
 			</td>
 		</tr>
 		<tr>
@@ -1351,21 +1292,21 @@
 				<form:radiobutton path="family_yn" class="N" value="N"/> <label for="family_yn2" style="cursor:pointer;">미사용</label>
 				<div class="ui-state-highlight">
 					<em>* 해당 항목 사용시 수강생 입력 또는 신청 화면에서 보호자 정보 및 승인을 입력받는 항목이 노출됩니다.<br/>
-<!-- 						* 성인 강의일 경우 보호자가 필요하지 않아 미사용으로 고정되고 어린이 강의일 경우 보호자가 필요하여 사용에 고정됩니다. -->
+						* 성인 강의일 경우 보호자가 필요하지 않아 미사용으로 고정되고 어린이 강의일 경우 보호자가 필요하여 사용에 고정됩니다.
 					</em>
 				</div>
 			</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th>생년월일 입력여부 (<span style="color: red; font-weight: bold;">*</span>)</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="birth_yn" class="Y" value="Y"/> <label for="birth_yn1" style="cursor:pointer;">사용함</label>&nbsp; --%>
-<%-- 				<form:radiobutton path="birth_yn" class="N" value="N"/> <label for="birth_yn2" style="cursor:pointer;">사용안함</label> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '생년월일' 입력항목이 노출됩니다.</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
+		<tr>
+			<th>생년월일 입력여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:radiobutton path="birth_yn" class="Y" value="Y"/> <label for="birth_yn1" style="cursor:pointer;">사용함</label>&nbsp;
+				<form:radiobutton path="birth_yn" class="N" value="N"/> <label for="birth_yn2" style="cursor:pointer;">사용안함</label>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '생년월일' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
 		<tr>
 			<th>나이입력여부</th>
 			<td>
@@ -1503,56 +1444,56 @@
 				</div>
 			</td>
 		</tr>
-<!-- 		<tr> -->
-<!-- 			<th>연수지명번호입력여부</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="neis_training_num_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp; --%>
-<%-- 				<form:radiobutton path="neis_training_num_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '연수지명번호' 입력항목이 노출됩니다.</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>기관 입력여부</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="organization_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp; --%>
-<%-- 				<form:radiobutton path="organization_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '기관' 입력항목이 노출됩니다. (예: 도서관 정보화과)</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>직급 입력여부</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="rank_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp; --%>
-<%-- 				<form:radiobutton path="rank_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '직급' 입력항목이 노출됩니다. (예: 행정7급, 지방행정사무관)</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>연수수강여부 입력여부</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="course_taken_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp; --%>
-<%-- 				<form:radiobutton path="course_taken_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '연수수강여부' 입력항목이 노출됩니다.</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>백신여부 입력여부</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="vaccines_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp; --%>
-<%-- 				<form:radiobutton path="vaccines_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '백신여부' 입력항목이 노출됩니다.</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
+		<tr>
+			<th>연수지명번호입력여부</th>
+			<td>
+				<form:radiobutton path="neis_training_num_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="neis_training_num_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '연수지명번호' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>기관 입력여부</th>
+			<td>
+				<form:radiobutton path="organization_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="organization_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '기관' 입력항목이 노출됩니다. (예: 도서관 정보화과)</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>직급 입력여부</th>
+			<td>
+				<form:radiobutton path="rank_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="rank_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '직급' 입력항목이 노출됩니다. (예: 행정7급, 지방행정사무관)</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>연수수강여부 입력여부</th>
+			<td>
+				<form:radiobutton path="course_taken_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="course_taken_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '연수수강여부' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>백신여부 입력여부</th>
+			<td>
+				<form:radiobutton path="vaccines_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="vaccines_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '백신여부' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
 		<tr>
 			<th>가족 참여 구성원 입력 여부</th>
 			<td>
