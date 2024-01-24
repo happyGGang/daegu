@@ -154,18 +154,9 @@ public class CalendarManageController extends BaseController {
 				if (!isTimeWithinRange(startTime) || !isTimeWithinRange(endTime)) {
 					result.reject("시간입력은 00:00 ~ 23:59 범위 내여야 합니다.");
 				}
-
-				if (calendarManage.getStart_date().equals(calendarManage.getEnd_date())) {
-					if (startTime.getTime() > endTime.getTime()) {
-						result.reject("종료시간은 시작시간 보다 빠를 수 없습니다. ");
-					}
-
-				}
 			} catch (ParseException e) {
 				result.reject("시간 형식이 잘못되었습니다.");
 			}
-
-
 
 		}
 
