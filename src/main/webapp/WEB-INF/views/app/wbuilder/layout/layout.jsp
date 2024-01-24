@@ -104,13 +104,7 @@
 					</div>
 				</li>
 				<li class="nav-item">
-					<a href="#ui-cmsadminmenu" class="code2 nav-link" data-toggle="collapse" aria-expanded="false" aria-controls="ui-cmsadminmenu">
-					<i class="fa fa-folder-open"></i><span class="menu-title">CMS관리자 메뉴</span></a>
-					<div class="collapse" id="ui-cmsadminmenu">
-						<ul class="nav sub-menu">
-							<li class="nav-item"><a class="nav-link" href="/wbuilder/adminMenu/index.do" >CMS관리자 메뉴</a></li>
-						</ul>
-					</div>
+					<a href="/wbuilder/adminMenu/index.do" class="code1 nav-link" data-toggle="collapse" aria-expanded="false" ><i class="fa fa-folder-open"></i><span class="menu-title">CMS관리자 메뉴</span></a>
 				</li>
 			</ul>
 
