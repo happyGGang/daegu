@@ -132,10 +132,6 @@ $(function(){
 	</div>
 </form:form>
 
-<div class="ui-state-highlight">
-	<em>* 사용자 계정을 전부 삭제할시 접근이 불가능하니 삭제에 유의하여 주십시오.</em>
-</div>
-
 <div id="dialog-1" class="dialog-common" title="사용자 정보">
 </div>
 <div id="dialog-2" class="dialog-common" title="">
