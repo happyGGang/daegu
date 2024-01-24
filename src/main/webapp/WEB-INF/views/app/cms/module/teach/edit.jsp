@@ -596,13 +596,6 @@
 		});
 
 		$('a#addHoliday').on('click', function(e) {
-			let holiCheck = $('input#tempHoliDay').val();
-			
-			if(!holiCheck){
-				alert('휴강일을 선택하셔야 휴강일추가가 가능합니다.');
-				return false;
-			}
-			
 			e.preventDefault();
 			var day = $('input#tempHoliDay').val();
 			var hasDay = false;
