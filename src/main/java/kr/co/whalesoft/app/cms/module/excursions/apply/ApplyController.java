@@ -13,7 +13,6 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.excursions.Excursions;
 import kr.co.whalesoft.app.cms.module.excursions.ExcursionsService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.MemberAPI;
@@ -39,9 +38,8 @@ public class ApplyController extends BaseController {
 	private ExcursionsService excursionsService;
 
 	@RequestMapping(value = {"/edit.*"})
-	public String edit(Model model, Apply apply,HttpServletRequest request) throws AuthException {
+	public String edit(Model model, Apply apply) {
 		if(apply.getEditMode().equals("MODIFY")) {
-			checkAuth("U", model, request);
 			model.addAttribute("apply", service.copyObjectPaging(apply, service.getApplyOne(apply)));
 		} else {
 		model.addAttribute("apply", apply);
@@ -50,8 +48,7 @@ public class ApplyController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/applyEdit.*"})
-	public String applyEdit(Model model, Apply apply, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
+	public String applyEdit(Model model, Apply apply) {
 		apply.setPlan_date(apply.getStart_date());
 		model.addAttribute("applyList", service.getApply(apply));
 		return basePath + "applyEdit_ajax";

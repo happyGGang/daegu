@@ -2,7 +2,6 @@ package kr.go.gbelib.app.cms.module.lockerPre;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,35 +80,28 @@ public class LockerPreController extends BaseController {
 			sdfTime.setLenient(false);
 
 			try {
-				// 접수일보다 강의 시작일이 빠를수 없다.
-				Date start_join_date 	= sdfDate.parse(lockerPre.getApply_start_date());
-				Date end_join_date 		= sdfDate.parse(lockerPre.getApply_end_date());
-				Date start_date 		= sdfDate.parse(lockerPre.getStart_date());
-				Date end_date 			= sdfDate.parse(lockerPre.getEnd_date());
-
-				if ( start_join_date.after(start_date) ) {
-					result.reject("신청 기간은 견학 시작일보다 빨라야 합니다.");
-				}
-
-				if ( start_date.before(end_join_date) ) {
-					result.reject("신청 종료일은 견학 종료일보다 빨라야 합니다.");
-				}
-
+				// 날짜 및 시간 파싱
+				Date startDate = sdfDate.parse(lockerPre.getStart_date());
+				Date endDate = sdfDate.parse(lockerPre.getEnd_date());
+				Date applyStartDate = sdfDate.parse(lockerPre.getApply_start_date());
+				Date applyEndDate = sdfDate.parse(lockerPre.getApply_end_date());
 				Date startTime = sdfTime.parse(lockerPre.getApply_start_time());
 				Date endTime = sdfTime.parse(lockerPre.getApply_end_time());
 
-				if (!isTimeWithinRange(startTime) || !isTimeWithinRange(endTime)) {
-					result.reject("시간입력은 00:00 ~ 23:59 범위 내여야 합니다.", "시간입력은 00:00 ~ 23:59 범위 내여야 합니다.");
+				// 접수 종료 시간이 시작 시간보다 빠른 경우 검사
+				if (endTime.before(startTime)) {
+					result.rejectValue("apply_end_time", "접수 종료 시간이 시작 시간보다 빠릅니다.", "접수 종료 시간이 시작 시간보다 빠릅니다.");
+				}
+				
+				if(lockerPre.getApply_start_time().equals(lockerPre.getApply_end_time())) {
+					result.rejectValue("apply_end_time", "접수 종료 시간은 시작 시간과 같을수 없습니다.", "접수 종료 시간은 시작 시간과 같을수 없습니다.");
 				}
 
-				if (lockerPre.getStart_date().equals(lockerPre.getEnd_date())) {
-					if (startTime.getTime() > endTime.getTime()) {
-						result.reject("종료시간은 시작시간 보다 빠를 수 없습니다. ", "종료시간은 시작시간 보다 빠를 수 없습니다.");
-					}
+				// 접수 신청 기간이 접수 일자보다 빠르거나 겹치는 경우 검사
+				if (applyStartDate.before(startDate) || applyEndDate.after(endDate)) {
+					result.rejectValue("apply_start_date", "접수 신청 기간이 접수 일자보다 빠르거나 겹칩니다.", "접수 신청 기간이 접수 일자보다 빠르거나 겹칩니다.");
 				}
 			} catch (ParseException e) {
-				result.reject("date_format_error", "날짜 또는 시간 형식이 잘못되었습니다.");
-			} catch (Exception e) {
 				result.reject("date_format_error", "날짜 또는 시간 형식이 잘못되었습니다.");
 			}
 		}
@@ -162,17 +154,5 @@ public class LockerPreController extends BaseController {
 		}
 
 		return res;
-	}
-
-	private boolean isTimeWithinRange(Date time) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(time);
-		int hours = calendar.get(Calendar.HOUR_OF_DAY);
-		System.out.println("hours = " + hours);
-		int minutes = calendar.get(Calendar.MINUTE);
-		System.out.println("minutes = " + minutes);
-		boolean b = hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
-		System.out.println("b = " + b);
-		return b;
 	}
 }

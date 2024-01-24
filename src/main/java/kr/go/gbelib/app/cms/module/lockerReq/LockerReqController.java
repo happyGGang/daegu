@@ -486,7 +486,7 @@ public class LockerReqController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse save(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) throws AuthException {
+	public @ResponseBody JsonResponse save(Model model, LockerReq lockerReq, BindingResult result, HttpServletRequest request) {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lockerReq.getEditMode();
 
@@ -512,7 +512,6 @@ public class LockerReqController extends BaseController {
 		if(!result.hasErrors()) {
 			//lockerReq.setHomepage_id(getSessionHomepageId(request));
 			if(editMode.equals("ADD")) {
-				checkAuth("C", model, request);
 				lockerReq.setAdd_id(getSessionMemberId(request));
 				service.addLockerReq(lockerReq, "CMS");
 				res.setValid(true);
@@ -521,13 +520,11 @@ public class LockerReqController extends BaseController {
 					PushAPI.sendMessage(getHomepageOne(lockerReq.getHomepage_id()), PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함신청이 완료 되었습니다.", getHomepageOne(lockerReq.getHomepage_id()).getHomepage_send_tell(), true);
 				}
 			} else if (editMode.equals("MODIFY")) {
-				checkAuth("U", model, request);
 				lockerReq.setMod_id(getSessionMemberId(request));
 				service.modifyLocekrReq(lockerReq);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			} else if (editMode.equals("DELETE")) {
-				checkAuth("D", model, request);
 				service.deleteReqLocker(lockerReq);
 				res.setValid(true);
 				res.setMessage("삭제 되었습니다.");
