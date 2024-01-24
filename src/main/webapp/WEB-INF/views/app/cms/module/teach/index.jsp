@@ -43,11 +43,7 @@ $(function() {
 	});
 
 	$('a.dialog-modify').on('click', function(e) {
-		var clickedElement = $(this);
-		var courseTitle = clickedElement.attr('keyValue4');
-
 		$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id_1').val() + '&group_idx=' + $(this).attr('keyValue1') + '&category_idx=' + $(this).attr('keyValue2') + '&teach_idx=' + $(this).attr('keyValue3'), function( response, status, xhr ) {
-			$('#dialog-1').dialog('option', 'title', courseTitle + ' 강좌 정보');
 			$('#dialog-1').dialog('open');
 		});
 
@@ -371,7 +367,7 @@ $(function() {
 					<td>${i.teach_off_join_count} / ${i.teach_offline_count}</td>
 					<td>
 						<c:if test="${authU}">
-							<a href="" class="btn dialog-modify" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}" keyValue4="${i.teach_name}">수정</a>
+							<a href="" class="btn dialog-modify" keyValue1="${i.group_idx}" keyValue2="${i.category_idx}" keyValue3="${i.teach_idx}">수정</a>
 						</c:if>
 						<c:set value="false" var="attend_cnt"/>
 						<c:if test="${authD}">
