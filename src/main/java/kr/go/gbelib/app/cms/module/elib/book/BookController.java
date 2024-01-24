@@ -136,17 +136,13 @@ public class BookController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "book_name", "제목을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "author_name", "저자를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "book_pubname", "출판사를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "isbn13", "ISBN을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "format", "포맷을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "book_image", "서적 이미지를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "book_pubdt", "출판일자를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "isbn13", "ISBN을 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "format", "포맷을 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "book_image", "서적 이미지를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "book_pubdt", "출판일자를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "", "공급사를 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "", "도서관을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "max_lend", "최대대출권수를 입력하세요.");
-
-			ValidationUtils.rejectIfZero(result, "library_code", "도서관을 선택하세요");
-			ValidationUtils.rejectIfZero(result, "device", "지원기기를 입력하세요.");
-			ValidationUtils.rejectIfZero(result, "parent_id", "1차 카테고리를 입력하세요");
-			ValidationUtils.rejectIfZero(result, "cate_id", "2차 카테고리를 입력하세요");
-//			ValidationUtils.rejectIfZero(result, "com_code", "공급사를 선택하세요");
 		}
 		if(!result.hasErrors()) {
 //			if ( Integer.parseInt(getSessionMemberInfo(request).getAuth_id()) <= 200 ) {
