@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class CrossScriptingFilter implements Filter {
 
@@ -22,11 +21,6 @@ public class CrossScriptingFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-
-        httpResponse.setHeader("X-Frame-Options", "SAMEORIGIN");
-
 		if(excludeUrl((HttpServletRequest)request)) {
 			chain.doFilter(new RequestWrapper((HttpServletRequest) request), response);
 		} else {
