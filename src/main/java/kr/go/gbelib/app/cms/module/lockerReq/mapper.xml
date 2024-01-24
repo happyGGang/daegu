@@ -100,7 +100,7 @@
 			BLACKLIST 
 		WHERE 
 			HOMEPAGE_ID = #{homepage_id} AND 
-			MEMBER_ID = #{apply_id}
+			MEMBER_KEY = #{member_key}
 	</select>
 	
 	<select id="getLockerApplyCheck" resultType="int">
