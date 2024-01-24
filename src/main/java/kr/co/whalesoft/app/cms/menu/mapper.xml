@@ -69,9 +69,7 @@
 	    	WHERE
 	    		homepage_id = #{homepage_id}
 	    	AND	use_yn = 'Y'
-			AND include_menu_name_yn = 'Y'
-			AND	view_yn = 'Y'
-			AND mobile_view_yn = 'Y'
+	    	AND	(view_yn != 'N' OR mobile_view_yn != 'N')
     	) A
 		CONNECT BY PRIOR menu_idx = parent_menu_idx
 		START WITH parent_menu_idx = 0
@@ -96,8 +94,6 @@
 			WHERE
 				homepage_id = #{homepage_id}
 			AND	use_yn = 'Y'
-			AND include_menu_name_yn = 'Y'
-			AND mobile_view_yn = 'Y'
 			AND	group_idx = #{group_idx}
 		) A
         CONNECT BY PRIOR menu_idx = parent_menu_idx
@@ -124,7 +120,6 @@
 				homepage_id = #{homepage_id}
 			AND mobile_view_yn = 'Y'
 			AND	use_yn = 'Y'
-			AND include_menu_name_yn = 'Y'
 			AND	group_idx = #{group_idx}
 		) A
         CONNECT BY PRIOR menu_idx = parent_menu_idx
