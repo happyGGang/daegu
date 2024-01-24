@@ -23,13 +23,6 @@
 <![endif]-->
 <script src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/cms/js/design.js"></script>
-	<%
-		response.setHeader("Cache-Control","no-store");
-		response.setHeader("Pragma","no-cache");
-		response.setDateHeader("Expires",0);
-		if (request.getProtocol().equals("HTTP/1.1"))
-			response.setHeader("Cache-Control", "no-cache");
-	%>
 <script>
 	function getCookie(cookieName) {
 		let cookieData = document.cookie;
@@ -64,11 +57,10 @@ $(function(){
 		}
 	}
 
-
+	document.cookie = 'status = Y; secure;';
 });
 
 	function siteList() {
-
 		var siteList  = document.getElementById("siteList");
 		var value = (siteList.options[siteList.selectedIndex].value);
 
@@ -79,8 +71,6 @@ $(function(){
 		document.cookie = 'now_homepage_id = ' + value +'; secure;';
 		document.cookie = 'back_homepage_id = ' + getCookie('now_homepage_id') +'; secure;';
 		document.cookie = 'status = N; secure;';
-
-
 	}
 
 </script>
@@ -125,7 +115,8 @@ $(function(){
 <script type="text/javascript">
 $(document).ready(function(){
 	//console.log(getCookie('url'));
-	if (getCookie('url') != '' && getCookie('status') != 'N') {
+
+	if (getCookie('url') != '') {
 		$('a[href="'+getCookie('url')+'"]').parents('li > ul > li').addClass('active');
 	}
 	//왼쪽메뉴
@@ -171,7 +162,7 @@ $(document).ready(function(){
 		}
 	});
 
-	if (getCookie('url') != '' && getCookie('status') != 'N') {
+	if (getCookie('url') != '') {
 		$('a[href="'+getCookie('url')+'"]').closest('li').removeClass('active');
 	}
 
@@ -202,7 +193,6 @@ $(document).ready(function(){
 
 	//$('select#siteList').trigger('change');
 
-	document.cookie = 'status = Y; secure;';
 });
 </script>
 <input type=hidden value="false" id="passChangeEvent" />
