@@ -1,12 +1,25 @@
 @charset "utf-8";
 
 /* 레이아웃 */
-body{background:#293649;font-size:14px}
-#header{text-align:center;background:#304056;color:#a1b1be;border-bottom:1px solid #253143}
+body{font-size:14px}
+
+#wrap{
+    overflow: scroll;
+    /* IE scroll 숨김 */
+    -ms-overflow-style: none;
+	scrollbar-width: none;
+}
+ 
+#wrap::-webkit-scrollbar { 
+    display: none;
+    width: 0 !important;
+}
+
+#header{text-align:center;color:#a1b1be;border-bottom:1px solid #253143}
 #header h1{color:#fff;font-size:26px;line-height:76px;height:76px;background:#0059ac;
-    -webkit-box-shadow:0px 3px 10px 0px rgba(0,0,0,0.35);
-    -moz-box-shadow:0px 3px 10px 0px rgba(0,0,0,0.35);
-    box-shadow:0px 3px 10px 0px rgba(0,0,0,0.35);
+-webkit-box-shadow:0px 3px 10px 0px rgba(0,0,0,0.35);
+-moz-box-shadow:0px 3px 10px 0px rgba(0,0,0,0.35);
+box-shadow:0px 3px 10px 0px rgba(0,0,0,0.35);
 }
 #header h1,
 #header h1 b{font-weight:800}
@@ -22,33 +35,33 @@ body{background:#293649;font-size:14px}
 #header div a:focus{color:#b9bec8}
 .aside{padding-bottom:50px}
 .aside a{color:#dadcde;text-decoration:none}
-.aside ul ul{display:none;background:#253143}
+.aside ul ul{display:none;}
 .aside > ul > li > ul > li.active > ul,
 .aside > ul > li.active > ul{display:block}
 .aside ul a{display:block;padding:0 20px}
 .aside > ul > li > a,
 .aside > ul > li > ul > li > a,
 .aside > ul > li > ul > li > ul > li > a{
-    -webkit-transition: all 100ms ease;
-    -moz-transition: all 100ms ease;
-    -ms-transition: all 100ms ease;
-    -o-transition: all 100ms ease;
-    transition: all 100ms ease}
+-webkit-transition: all 100ms ease;
+-moz-transition: all 100ms ease;
+-ms-transition: all 100ms ease;
+-o-transition: all 100ms ease;
+transition: all 100ms ease}
 .aside ul a,
 .aside > ul > li > a > i{line-height:45px}
-.aside > ul > li{border-bottom:1px solid #3f4b5c;background:#253143}
+.aside > ul > li{border-bottom:1px solid #3f4b5c;}
 .aside > ul > li:hover{border-color:#384456}
 .aside > ul > li > a{padding-left:0;border-bottom:1px solid #202b3c;background:#2d3b50;background:#2d3b50 url('../img/lnb_folder_down.gif') no-repeat right center}
-.aside > ul > li > a > i{color:#6382a9;width:45px;text-align:center}
+.aside > ul > li > a > svg{color:#6382a9;width:45px;text-align:center}
 .aside > ul > li > a > i.fa-mobile{font-size:22px}
-.aside > ul > li > a > i,
+.aside > ul > li > a > svg,
 .aside > ul > li > a > span{vertical-align:middle}
 .aside > ul > li.s > a{background-image:none}
 .aside > ul > li.active > a{background-image:url('../img/lnb_folder_up.gif')}
 .aside > ul > li.active > a,
 .aside > ul > li > a:hover{background-color:#293649;color:#fff}
 .aside > ul > li.active > a > i{color:#a0c2e2}
-.aside > ul > li > ul{padding:10px 0 15px;border-left:1px solid #454f5d;margin-left:23px}
+.aside > ul > li > ul{padding:10px 0 15px;border-left:1px solid #454f5d;margin-left: 40px;}
 .aside > ul > li > ul > li{background:url('../img/lnb_arr.gif') no-repeat 0 13px;margin-left:-3px}
 .aside > ul > li > ul > li > a{line-height:30px;font-size:13px;background:url('../img/lnb_folder_down2.gif') no-repeat right center}
 .aside > ul > li > ul > li.s > a{background-image:none}
@@ -64,3 +77,16 @@ body{background:#293649;font-size:14px}
 .aside > ul > li > ul > li.active > ul > li.active > a,
 .aside > ul > li > ul > li.active > ul > li > a:hover{padding-left:38px}
 .aside > ul > li > ul > li.active > ul{margin-left:2px;border-left:1px solid #454f5d;padding:0 0 5px}
+
+/* CMS 헤더 */
+#header h1{
+ position:relative;  
+  
+}
+
+#header img{width: 100px;position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+  
+}
