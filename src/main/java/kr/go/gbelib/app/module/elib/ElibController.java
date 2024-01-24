@@ -40,7 +40,6 @@ import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.base.BaseService;
-import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.BeanUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
@@ -190,9 +189,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/book/index.*"})
-	public String book_index(Model model, Book book, HttpServletRequest request, HttpServletResponse response) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String book_index(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 
@@ -387,9 +384,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/book/save.*"})
-	public @ResponseBody JsonResponse book_save(Model model, Book book,  BindingResult result, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public @ResponseBody JsonResponse book_save(Model model, Book book,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 
@@ -473,9 +468,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/lending/index.*"})
-	public String lending_index(Model model, Lending lending, HttpServletRequest request, HttpServletResponse response) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String lending_index(Model model, Lending lending, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 
@@ -573,9 +566,7 @@ public class ElibController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"/lending/interest.*"})
-	public String lending_interest(Model model, Lending lending, HttpServletRequest request, HttpServletResponse response) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String lending_interest(Model model, Lending lending, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 
@@ -608,9 +599,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/lending/viewerAccess.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse lendingViewerAccess(Model model, Lending lending,  BindingResult result, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public @ResponseBody JsonResponse lendingViewerAccess(Model model, Lending lending,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 		JsonResponse res = new JsonResponse(request);
@@ -789,9 +778,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/book/view.*", "/lending/view.*", "/reserve/view.*"})
-	public String lending_view(Model model, Book book, HttpServletRequest request, HttpServletResponse response) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String lending_view(Model model, Book book, HttpServletRequest request, HttpServletResponse response) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 		//조회수증가
@@ -841,9 +828,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/lending/save.*"})
-	public @ResponseBody JsonResponse lending_save(Model model, Lending lending,  BindingResult result, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public @ResponseBody JsonResponse lending_save(Model model, Lending lending,  BindingResult result, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		lending.setHomepage_id(homepage.getHomepage_id());
 
@@ -1175,9 +1160,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/search/index.*"})
-	public String search_index(Model model, Book book, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String search_index(Model model, Book book, HttpServletRequest request) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 		book.setHomepage_id(homepage.getHomepage_id());
 
@@ -1392,9 +1375,7 @@ public class ElibController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/asp/{directory}/{file}.*"})
-	public String index(Model model, HttpServletRequest request, @PathVariable ("directory") String d, @PathVariable ("file") String f) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String index(Model model, HttpServletRequest request, @PathVariable ("directory") String d, @PathVariable ("file") String f) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		return String.format(basePath, homepage.getFolder()) + d +"/" + f;

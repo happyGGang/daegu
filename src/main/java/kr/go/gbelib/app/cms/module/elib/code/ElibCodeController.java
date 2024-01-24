@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
@@ -27,8 +26,7 @@ public class ElibCodeController extends BaseController {
 	private ElibCodeService service;
 	
 	@RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
-	public String index(Model model, ElibCode code, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
+	public String index(Model model, ElibCode code, HttpServletRequest request) {
 		code.setHomepage_id(getAsideHomepageId(request));
 		
 		model.addAttribute("code", code);
@@ -38,8 +36,7 @@ public class ElibCodeController extends BaseController {
 	}
 	
 	@RequestMapping(value = {"/edit.*"})
-	public String book_edit(Model model, ElibCode code, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
+	public String book_edit(Model model, ElibCode code, HttpServletRequest request) {
 		code.setHomepage_id(getAsideHomepageId(request));	
 		
 		if(code.getEditMode().equals("MODIFY")) {

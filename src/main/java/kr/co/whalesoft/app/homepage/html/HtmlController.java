@@ -16,7 +16,6 @@ import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlService;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
 import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.framework.base.BaseController;
-import kr.co.whalesoft.framework.exception.AuthException;
 
 @Controller
 public class HtmlController extends BaseController {
@@ -30,9 +29,7 @@ public class HtmlController extends BaseController {
 	private MenuHtmlService menuHtmlService;
 
 	@RequestMapping(value = {"/{contextPath}/html.*"})
-	public String index(Model model, Menu menu, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String index(Model model, Menu menu, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		model.addAttribute("siteList", recommendSiteService.getRecommendSiteListAll(new RecommendSite(homepage.getHomepage_id())));
 		if("Y".equals(menu.getTemp_yn())) {
@@ -44,25 +41,19 @@ public class HtmlController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/{contextPath}/elibsso.*"})
-	public String elibsso(Model model, Menu menu, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String elibsso(Model model, Menu menu, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		return basePath + homepage.getFolder() + "/elibsso";
 	}
 
 	@RequestMapping(value = {"/{contextPath}/elib.*"})
-	public String elib(Model model, Menu menu, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
-		
+	public String elib(Model model, Menu menu, HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 		return basePath + homepage.getFolder() + "/elib";
 	}
 
 	@RequestMapping(value = {"/{contextPath}/html/{ssoMode}.*"})
 	public String html2(Model model, Menu menu, @PathVariable("ssoMode") String ssoMode, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		checkAuth("R", model, request);
-		
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
 //		if (!isLogin(request)) {
