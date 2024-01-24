@@ -103,9 +103,7 @@ function bookSettingEdit() {
 
 <div class="infodesk">
 	<div class="button">
-		<c:if test="${authU}">
-			<a href="javascript:void(0);" class="btn btn5 left" onclick="bookSettingEdit();"><i class="fa fa-plus"></i><span>기본설정</span></a>
-		</c:if>
+		<a href="javascript:void(0);" class="btn btn5 left" onclick="bookSettingEdit();"><i class="fa fa-plus"></i><span>기본설정</span></a>
 	</div>
 </div>
 

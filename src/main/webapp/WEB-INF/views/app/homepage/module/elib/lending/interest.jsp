@@ -119,7 +119,7 @@
 						<label>소속도서관:</label>
 						<span>${fn:escapeXml(i.library_name)}</span>
 						<span class="txt-bar">&nbsp;</span>
-						<label>유통사:</label>
+						<label>공급사:</label>
 						<span>${fn:escapeXml(i.comp_name)}</span>
 						<c:if test="${i.type == 'EBK' or (i.type == 'ADO' and (i.com_code == 'FXLI' or i.com_code == 'KYOB' or i.com_code == 'ALAD'))}">
 							<span class="txt-bar">&nbsp;</span>
