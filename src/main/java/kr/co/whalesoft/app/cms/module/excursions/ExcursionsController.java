@@ -1,6 +1,5 @@
 package kr.co.whalesoft.app.cms.module.excursions;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -97,33 +96,16 @@ public class ExcursionsController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "apply_end_date", "신청종료일자를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_end_time", "신청종료시간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "max_apply", "최대신청팀수를 입력하세요.");
-
-			// 날짜 및 시간 포맷터 초기화
-			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm");
-			sdfDate.setLenient(false);
-			sdfTime.setLenient(false);
-
+			
+			SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
+			sfTime.setLenient(false);
 			try {
-				// 날짜 및 시간 파싱
-				Date startDate = sdfDate.parse(excursions.getStart_date());
-				Date endDate = sdfDate.parse(excursions.getEnd_date());
-				Date applyStartDate = sdfDate.parse(excursions.getApply_start_date());
-				Date applyEndDate = sdfDate.parse(excursions.getApply_end_date());
-				Date startTime = sdfTime.parse(excursions.getStart_time());
-				Date endTime = sdfTime.parse(excursions.getEnd_time());
-
-				// 견학 종료 시간이 시작 시간보다 빠른 경우 검사
-				if (endTime.before(startTime)) {
-					result.rejectValue("end_time", "견학 종료 시간이 시작 시간보다 빠릅니다.", "견학 종료 시간이 시작 시간보다 빠릅니다.");
-				}
-
-				// 견학 신청 기간이 견학 일자보다 빠르거나 겹치는 경우 검사
-				if (applyStartDate.before(startDate) || applyEndDate.after(endDate)) {
-					result.rejectValue("apply_start_date", "견학 신청 기간이 견학 일자보다 빠르거나 겹칩니다.", "견학 신청 기간이 견학 일자보다 빠르거나 겹칩니다.");
-				}
-			} catch (ParseException e) {
-				result.reject("date_format_error", "날짜 또는 시간 형식이 잘못되었습니다.");
+				sfTime.parse(excursions.getStart_time());
+				sfTime.parse(excursions.getEnd_time());
+				sfTime.parse(excursions.getApply_start_time());
+				sfTime.parse(excursions.getApply_end_time());
+			} catch (Exception e) {
+				result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
 			}
 		} else if (excursions.getEditMode().equals("BATCHDELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "excursions_idx_arr", "견학일자를 선택하세요.");
