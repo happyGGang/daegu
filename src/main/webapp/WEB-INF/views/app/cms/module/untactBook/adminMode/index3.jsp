@@ -477,10 +477,8 @@ function bookReservationOne(request_number) {
 						</div>
 						
 						<div style="padding-top:10px;">
-							<c:if test="${authD}">
 							<a href="javascript:void(0);" id="bookReservationAll" class="btn btn4 btnuntact" onclick="bookReservation();">대출</a>
 							<a href="javascript:void(0);" id="cancelReservationAll" class="btn btn5 btnuntact" onclick="cancelReservation();">만기</a>
-							</c:if>
 							<a href="javascript:void(0);" id="excelDownload" class="btn btn2 btnuntact">엑셀저장</a>
 						</div>
 
