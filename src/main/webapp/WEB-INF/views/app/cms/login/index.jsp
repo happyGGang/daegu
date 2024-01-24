@@ -1,4 +1,3 @@
-<%@ page language="java" pageEncoding="utf-8" %>
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -19,34 +18,9 @@
 <script type="text/javascript" src="/resources/cms/js/all.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <body>
-<script language="JavaScript" type="text/javascript" src="/resources/common/js/encrypt.js?now=<%=System.currentTimeMillis()%>"></script>
-<script type="text/javascript">
+<script>
 $(document).ready(function() {
 	$('input#member_id').focus();
-	
-	$('input#member_pw_tmp').val('');
-});
-
-$(function() {
-	$('#save-btn').on('click', function(e) {
-		e.preventDefault();
-		if($('input#member_id_tmp').val() == '') {
-			$('input#member_id_tmp').focus();
-			alert('아이디를 입력해주세요.');
-			return false;
-		}
-
-		if($('input#member_pw_tmp').val() == '') {
-			$('input#member_pw_tmp').focus();
-			alert('비밀번호를 입력해주세요.');
-			return false;
-		}
-
-		$('form#login').attr('onsubmit', '');
-		$('input#member_id').val(encrypt($('input#member_id_tmp').val().trim()));
-		$('input#member_pw').val(encrypt($('input#member_pw_tmp').val()));
- 		$('form#login').submit();
-	});
 });
 </script>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
@@ -69,24 +43,20 @@ $(function() {
 					</h1>
 				</div>
 				<fieldset>
-					<form:form modelAttribute="login" action="login.do" method="post" onsubmit="return false;">
-						<form:hidden path="member_pw" cssStyle="display:none;" />
-						<form:hidden path="member_id"/>
+					<form:form modelAttribute="login" action="login.do" method="post">
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa-solid fa-user"></i></span>
-<%-- 								<form:input path="member_id_tmp"  maxlength="25" cssClass="form-control" placeholder="ID" value=""/> --%>
-								<input type="text" id="member_id_tmp" class="txt" placeholder="아이디" title="아이디" maxlength="25" placeholder="ID"/>
+								<form:input path="member_id"  maxlength="25" cssClass="form-control" placeholder="ID" value=""/>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fa-solid fa-lock"></i></span>
-<%-- 								<form:password path="member_pw_tmp" maxlength="25" cssClass="form-control" placeholder="PASSWORD" value=""/> --%>
-								<input type="password" id="member_pw_tmp" class="txt" placeholder="비밀번호" title="비밀번호" maxlength="20" placeholder="PASSWORD"/>
+								<form:password path="member_pw" maxlength="25" cssClass="form-control" placeholder="PASSWORD" value=""/>
 							</div>
 						</div>
-						<div id="save-btn" class="form-group button">
+						<div class="form-group button">
 							<button>로그인</button>
 						</div>
 					</form:form>
