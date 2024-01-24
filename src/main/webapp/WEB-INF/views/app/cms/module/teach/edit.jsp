@@ -51,7 +51,7 @@
 						var sjt1 = $('input#start_join_time1').val();
 						if($('input#start_join_time1').val().length < 2){
 							$('input#start_join_time1').focus();
-							alert('접수시작 시간은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('접수기간 시작 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#start_join_time1').val() < '00' || $('input#start_join_time1').val() > '23'){
@@ -63,7 +63,7 @@
 						var sjt2 = $('input#start_join_time2').val();
 						if($('input#start_join_time2').val().length < 2){
 							$('input#start_join_time2').focus();
-							alert('접수시작 분은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('접수기간 시작 시간 분을 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#start_join_time2').val() < '00' || $('input#start_join_time2').val() > '59'){
@@ -77,7 +77,7 @@
 						var ejt1 = $('input#end_join_time1').val();
 						if($('input#end_join_time1').val().length < 2){
 							$('input#end_join_time1').focus();
-							alert('접수종료 시간은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('접수시간 종료 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#end_join_time1').val() < '00' || $('input#end_join_time1').val() > '23'){
@@ -89,7 +89,7 @@
 						var ejt2 = $('input#end_join_time2').val();
 						if($('input#end_join_time2').val().length < 2){
 							$('input#end_join_time2').focus();
-							alert('접수종료 분은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('접수시간 종료 시간 분을 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#end_join_time2').val() < '00' || $('input#end_join_time2').val() > '59'){
@@ -128,7 +128,7 @@
 						var st1 = $('input#start_time1').val();
 						if($('input#start_time1').val().length < 2){
 							$('input#start_time1').focus();
-							alert('강의시작 시간은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('강의시간 시작 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#start_time1').val() < '00' || $('input#start_time1').val() > '23'){
@@ -140,7 +140,7 @@
 						var st2 = $('input#start_time2').val();
 						if($('input#start_time2').val().length < 2){
 							$('input#start_time2').focus();
-							alert('강의시작 분은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('강의시간 시작 시간 분을 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#start_time2').val() < '00' || $('input#start_time2').val() > '59'){
@@ -153,7 +153,7 @@
 						var et1 = $('input#end_time1').val();
 						if($('input#end_time1').val().length < 2){
 							$('input#end_time1').focus();
-							alert('강의종료 시간은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('강의시간 종료 시간 시를 0이 필요하다면 포함하여 2자리로 입력해 주세요.');
 							return false;
 						}
 						if($('input#end_time1').val() < '00' || $('input#end_time1').val() > '23'){
@@ -165,7 +165,7 @@
 						var et2 = $('input#end_time2').val();
 						if($('input#end_time2').val().length < 2){
 							$('input#end_time2').focus();
-							alert('강의종료 분은 2자리 숫자로 입력해 주세요. 예를 들어, 1 대신 01을 입력합니다');
+							alert('강의시간 종료 시간 분을 0이 필요하다면 포함하여 2자리로 입력해주세요.');
 							return false;
 						}
 						if($('input#end_time2').val() < '00' || $('input#end_time2').val() > '59'){
