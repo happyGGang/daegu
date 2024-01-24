@@ -12,7 +12,7 @@ $(document).ready(function(e) {
 });
 </script>
 <form:select class="selectmenu-search" style="width:200px" id="device${sym}" path="device">
-	<option value="0">지원 기기 선택</option>
+	<option value="">지원 기기 선택</option>
 	<option value="1" <c:if test="${obj.device == 1}">selected="selected"</c:if>>PC</option>
 	<option value="2" <c:if test="${obj.device == 2}">selected="selected"</c:if>>PC, 태블릿</option>
 	<option value="3" <c:if test="${obj.device == 3}">selected="selected"</c:if>>PC, 태블릿, 스마트폰</option>

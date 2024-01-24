@@ -14,19 +14,19 @@
 		<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 		AND	UPPER(REPLACE(a.${search_type}, ' ')) LIKE '%'||UPPER(REPLACE(#{search_text}, ' '))||'%'
 		</if>
-		<if test="parent_id != null and parent_id != '' and parent_id > 0">
+		<if test="parent_id != null and parent_id != ''">
 		AND a.parent_id = #{parent_id}
 		</if>
-		<if test="cate_id != null and cate_id != ''  and cate_id > 0">
+		<if test="cate_id != null and cate_id != ''">
 		AND a.cate_id = #{cate_id}
 		</if>
-		<if test='com_code != null and com_code != "" and com_code != "0"'>
+		<if test="com_code != null and com_code != ''">
 		AND a.com_code = #{com_code}
 		</if>
-		<if test='library_code != null and library_code != "" and library_code != "0"'>
+		<if test="library_code != null and library_code != ''">
 		AND a.library_code = #{library_code}
 		</if>
-		<if test='device != null and device != "" and device != "0"'>
+		<if test="device != null and device != ''">
 		AND a.device = #{device}
 		</if>
 	</sql>

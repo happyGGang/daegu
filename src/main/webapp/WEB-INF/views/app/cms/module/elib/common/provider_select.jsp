@@ -31,7 +31,7 @@ function updateProviders() {
 }
 </script>
 <form:select class="selectmenu-search" style="width:200px" id="com_code${sym}" path="com_code">
-	<option value="0">공급사 선택</option>
+	<option value="">공급사 선택</option>
 	<c:forEach var="i" varStatus="status" items="${compList}">
 		<option value="${i.com_code}" <c:if test="${i.com_code eq obj.com_code }">selected="selected"</c:if>>${i.comp_name}</option>
 	</c:forEach>
