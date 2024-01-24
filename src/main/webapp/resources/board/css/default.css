@@ -839,3 +839,9 @@ a#closeSearch2 {color: #808080;font-size: 155%;float: right;margin: -19px -25px;
 	.festiv_box .box .txt {float:none; width:auto; padding-top:10px;}
 
 }
+
+/* 모바일 횡스크롤 */
+@media only screen and (max-width: 600px) {
+	.board-scroll {overflow-x: auto;}
+	.board-scroll table {width: 550px;}
+}

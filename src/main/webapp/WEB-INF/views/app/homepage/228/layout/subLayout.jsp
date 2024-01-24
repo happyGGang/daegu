@@ -102,6 +102,9 @@ function link()
 						<div class="doc-title">
 							<h3>${menuOne.menu_name}</h3>
 							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
+							<c:if test="${param.menu_idx eq '138' || param.menu_idx eq '238' || param.menu_idx eq '144' || param.menu_idx eq '145' || param.menu_idx eq '152'}">
+								<!-- <div style="box-sizing:border-box;padding:3px 7px;border:1px solid #ccc;border:-radius:7px;position:absolute;right:0;top:2px;font-size:12px;">2023년 회계연도 업무 처리기한(마감)에 따라<br/>2023.12.8.(금)까지 대출반납배송요청된 건에<br/>한해서 배송가능합니다. <a href="/228/board/view.do?menu_idx=136&manage_idx=210&board_idx=505401&viewPage=1&category1" class="btn btn4" style="padding:1px 7px;">자세히보기</a></div> -->
+							</c:if>
 						</div>
 					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">

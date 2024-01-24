@@ -17,7 +17,7 @@ ${boardManage.top_html}
 	<div class="table-wrap">
 		<table class="bbs center" summary="일반 게시판">
 			<caption>일반게시판</caption>
-			<colgroup>
+			<!-- <colgroup>
 			<%--<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
 				<c:if test="${member.admin or authMBA or authMBS or portalAuth eq '2'}">
 				<col width="5%">
@@ -28,7 +28,7 @@ ${boardManage.top_html}
 				<col width="8%">
 				<col width="7%">
 				<col width="6%">
-			</colgroup>
+			</colgroup> -->
 			<thead>
 				<tr>
 <%-- 					<c:if test="${board.delete_yn eq 'Y' or categoryMovae}"> --%>
@@ -38,9 +38,9 @@ ${boardManage.top_html}
 					<th>번호</th>
 					<th class="">제목</th>
 					<!-- <th>처리상태</th> -->
-					<th class="mmm2">작성자</th>
+					<th class="mmm2" style="width: 12%;">작성자</th>
 					<th class="">작성일</th>
-					<th class="mmm1">조회수</th>
+					<th class="mmm1" style="width: 10%;">조회수</th>
 					<th class="mmm1">파일</th>
 				</tr>
 			</thead>
