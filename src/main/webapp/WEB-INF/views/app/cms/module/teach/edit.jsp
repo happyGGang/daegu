@@ -37,11 +37,6 @@
 							$('td.limit_SEX').remove();
 						}
 						
-						if (!$('input#teach_join_limit_unit2').is(':checked')) {
-							alert('나이제한은 필수입니다.');
-							return false;
-						}
-						
 						var teach_age_type = $("input:radio[name = teach_age_type]:checked").val();
 
 						var startAge = $('.start_age').val();
@@ -710,14 +705,7 @@
 				$('.limit_text1').text("세 이상");
 				$('.limit_text2').text("세 이하");
 			}
-			
-			if (value == "child") {
-				$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
-				$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
-			}else if (value == "infants") {
-				$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
-				$("input:radio[name = 'family_yn'][value = 'Y']").prop('checked', 'true');
-			}
+			$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
 		});
 
 // 		$('form#teachForm span[id^=hashtag_]').on('click', function() {
@@ -837,7 +825,6 @@
 	<form:hidden path="course_taken_yn" value="N"/>
 	<form:hidden path="vaccines_yn" value="N"/>
 	<form:hidden path="culture_view_yn" value="N"/>
-	<form:hidden path="age_info_yn" value="Y"/>
 	
 	<table class="type2">
 		<colgroup>
@@ -1386,16 +1373,16 @@
 <!-- 				</div> -->
 <!-- 			</td> -->
 <!-- 		</tr> -->
-<!-- 		<tr> -->
-<!-- 			<th>나이입력여부</th> -->
-<!-- 			<td> -->
-<%-- 				<form:radiobutton path="age_info_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp; --%>
-<%-- 				<form:radiobutton path="age_info_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/> --%>
-<!-- 				<div class="ui-state-highlight"> -->
-<!-- 					<em>* 사용 시 '나이' 입력항목이 노출됩니다.</em> -->
-<!-- 				</div> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
+		<tr>
+			<th>나이입력여부</th>
+			<td>
+				<form:radiobutton path="age_info_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+				<form:radiobutton path="age_info_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '나이' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
 		<tr>
 			<th>성별 입력여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>

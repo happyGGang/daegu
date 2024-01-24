@@ -1,9 +1,6 @@
 package kr.go.gbelib.app.module.student;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,8 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.mysql.fabric.xmlrpc.base.Member;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
@@ -152,24 +147,11 @@ public class StudentController extends BaseController {
     			}
     		}
 		}
-		kr.co.whalesoft.app.cms.member.Member member = getSessionMemberInfo(request);
 		
-		if (member.getMember_id() != null) {
-			
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate birthDate = LocalDate.parse(member.getBirth_day(), formatter);
-         
-        LocalDate currentDate = LocalDate.now();
-        
-        int age =  Period.between(birthDate, currentDate).getYears();
-        member.setAge(String.valueOf(age));
-		}
 		model.addAttribute("termsList", termsResult);
 		model.addAttribute("hakList", codeService.getCode("CMS", "C0020"));
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
-		
-		
-		model.addAttribute("memberInfo",member);
+		model.addAttribute("memberInfo", getSessionMemberInfo(request));
 		model.addAttribute("student", student);
 		model.addAttribute("cellPhoneCode", codeService.getCode("CMS", "C0002"));
 		model.addAttribute("phoneCode", codeService.getCode("CMS", "C0003"));
