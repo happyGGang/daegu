@@ -288,8 +288,8 @@ public class TeachController extends BaseController {
 			}
 			
 			if ( editMode.equals("ADD") || editMode.equals("MODIFY") || editMode.equals("LOAD")) {
-				ValidationUtils.rejectIfEmpty(result, "hashtag_codes", "주제 해시코드를 선택해주세요.");
-				ValidationUtils.rejectIfEmpty(result, "age_div_codes","대상분류 구분을 선택해주세요");
+				ValidationUtils.rejectIfEmpty(result, "hashtag_codes", "강좌 해시코드를 선택해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "age_div_codes","연령구분을 선택해주세요");
 				ValidationUtils.rejectIfZero(result, "group_idx", "중분류를 선택해 주세요.");
 				ValidationUtils.rejectExceptNumber(result, "teach_limit_count","모집인원은 숫자만 입력 가능 합니다.");
 				ValidationUtils.rejectExceptNumber(result, "teach_backup_count","모집후보인원은 숫자만 입력 가능 합니다.");
