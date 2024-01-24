@@ -88,11 +88,11 @@ public class LockerPreController extends BaseController {
 				Date end_date 			= sdfDate.parse(lockerPre.getEnd_date());
 
 				if ( start_join_date.after(start_date) ) {
-					result.reject("신청 기간은 접수 시작일보다 빨라야 합니다.");
+					result.reject("신청 기간은 견학 시작일보다 빨라야 합니다.");
 				}
 
 				if ( start_date.before(end_join_date) ) {
-					result.reject("신청 종료일은 접수 종료일보다 빨라야 합니다.");
+					result.reject("신청 종료일은 견학 종료일보다 빨라야 합니다.");
 				}
 
 				Date startTime = sdfTime.parse(lockerPre.getApply_start_time());
