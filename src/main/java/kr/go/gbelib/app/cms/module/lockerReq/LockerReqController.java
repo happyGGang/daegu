@@ -81,8 +81,7 @@ public class LockerReqController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/indexApply.*"})
-	public String indexApply(Model model, LockerReq lockerReq, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
+	public String indexApply(Model model, LockerReq lockerReq, HttpServletRequest request) {
 
 		int count = service.getLockerReqCount(lockerReq);
 		LockerPre lockerPre = lockerPreService.getLockerPreOne(new LockerPre(lockerReq.getHomepage_id(), lockerReq.getLocker_pre_idx()));
@@ -96,8 +95,7 @@ public class LockerReqController extends BaseController {
 	}
 
 	@RequestMapping(value = {"/memberAdd.*"})
-	public String memberAdd(Model model, LockerReq lockerReq, HttpServletRequest request) throws AuthException {
-		checkAuth("R", model, request);
+	public String memberAdd(Model model, LockerReq lockerReq, HttpServletRequest request) {
 		LockerPre lockerPre = new LockerPre();
 
 		lockerPre.setHomepage_id(lockerReq.getHomepage_id());
@@ -174,10 +172,8 @@ public class LockerReqController extends BaseController {
 
 	@Transactional
 	@RequestMapping(value = {"/assignment.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse assignment(Model model, LockerReq lockerReqApply, BindingResult result, HttpServletRequest request) throws AuthException {
+	public @ResponseBody JsonResponse assignment(Model model, LockerReq lockerReqApply, BindingResult result, HttpServletRequest request) {
 
-		checkAuth("R", model, request);
-		
 		JsonResponse res = new JsonResponse(request);
 		String editMode = lockerReqApply.getEditMode();
 
