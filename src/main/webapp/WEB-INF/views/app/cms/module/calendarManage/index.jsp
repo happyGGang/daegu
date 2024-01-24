@@ -85,12 +85,15 @@ $(function(){
 	<%--수정--%>
 	$('a.modify').on('click', function(event) {
 		if($(this).attr('type') == 'calendar') {
-			<c:if test="${authR}">
+			<c:if test="${authU}">
 			$('#dialog-1').load('edit.do?editMode=MODIFY&homepage_id='+$('#homepage_id_1').val()+'&cm_idx=' + $(this).attr('keyValue') + '&date_type=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 				$('#dialog-1').dialog('open');
 			});
 			</c:if>
-
+			<c:if test="${!authU}">
+			alert('권한이 없습니다.');
+			return false;
+			</c:if>
 		} else if ($(this).attr('type') == 'teach') {
 			$('#dialog-2').load('/cms/module/teach/edit.do?editMode=VIEW&homepage_id='+$('#homepage_id_1').val()+ '&group_idx=' +$(this).attr('keyValue3')+'&category_idx=' + $(this).attr('keyValue') + '&teach_idx=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 				$('#dialog-2').dialog('open');
