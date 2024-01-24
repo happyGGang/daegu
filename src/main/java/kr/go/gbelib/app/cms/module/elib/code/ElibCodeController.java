@@ -54,7 +54,7 @@ public class ElibCodeController extends BaseController {
 		String editMode = code.getEditMode();
 		if(!editMode.equals("DELETE")) {
 			ValidationUtils.rejectIfEmpty(result, "com_code", "코드를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "comp_name", "유통사명을 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "comp_name", "공급사명을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "type", "콘텐츠 타입을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "user_cnt", "유저수를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "license_sdate", "사용기간 시작일을 입력하세요.");

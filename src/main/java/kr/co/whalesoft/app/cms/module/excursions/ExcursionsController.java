@@ -117,10 +117,6 @@ public class ExcursionsController extends BaseController {
 				if (endTime.before(startTime)) {
 					result.rejectValue("end_time", "견학 종료 시간이 시작 시간보다 빠릅니다.", "견학 종료 시간이 시작 시간보다 빠릅니다.");
 				}
-				
-				if (excursions.getStart_time().equals(excursions.getEnd_time())) {
-					result.rejectValue("end_time", "견학 종료 시간이 시작 시간과 같을수 없습니다.", "견학 종료 시간이 시작 시간과 같을수 없습니다.");
-				}
 
 				// 견학 신청 기간이 견학 일자보다 빠르거나 겹치는 경우 검사
 				if (applyStartDate.before(startDate) || applyEndDate.after(endDate)) {

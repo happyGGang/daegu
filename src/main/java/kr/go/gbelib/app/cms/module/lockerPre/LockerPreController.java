@@ -92,10 +92,6 @@ public class LockerPreController extends BaseController {
 				if (endTime.before(startTime)) {
 					result.rejectValue("apply_end_time", "접수 종료 시간이 시작 시간보다 빠릅니다.", "접수 종료 시간이 시작 시간보다 빠릅니다.");
 				}
-				
-				if(lockerPre.getApply_start_time().equals(lockerPre.getApply_end_time())) {
-					result.rejectValue("apply_end_time", "접수 종료 시간은 시작 시간과 같을수 없습니다.", "접수 종료 시간은 시작 시간과 같을수 없습니다.");
-				}
 
 				// 접수 신청 기간이 접수 일자보다 빠르거나 겹치는 경우 검사
 				if (applyStartDate.before(startDate) || applyEndDate.after(endDate)) {

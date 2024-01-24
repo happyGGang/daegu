@@ -78,7 +78,7 @@ public class LendingWorkbook {
 		String library_name = StringUtils.defaultString(lending.getLibrary_name());
 		
 		workbook.getSheet(0).addCell(new Label( 0, 0,
-				String.format("%s [ 유형: %s, 유통사: %s, 1차 카테고리: %s, 2차 카테고리: %s, 도서관: %s, 조회기간: %s ~ %s ]", menuName, typeName, comp_name, categoryName1, categoryName2, library_name, search_sdt, search_edt)));
+				String.format("%s [ 유형: %s, 공급사: %s, 1차 카테고리: %s, 2차 카테고리: %s, 도서관: %s, 조회기간: %s ~ %s ]", menuName, typeName, comp_name, categoryName1, categoryName2, library_name, search_sdt, search_edt)));
 		workbook.getSheet(0).mergeCells(0, 0, 4, 0);
 		
 		int i=0;
