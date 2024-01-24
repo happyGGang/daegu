@@ -802,7 +802,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			<c:if test="${teach.apply_file_yn eq 'Y'}">
 			<tr>
 				<th>첨부파일</th>
-				<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp" onchange="changeFile(this.id)"></td>
+				<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
 			</tr>
 			</c:if>
 			<c:if test="${teach.agent_yn ne 'Y'}">
@@ -1249,22 +1249,4 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 	<button id="save-btn" class="btn btn5" title="신청하기">신청하기</button>
 	<button id="back-btn" class="btn"><i class="fa fa-reorder" title="뒤로가기"></i><span>뒤로가기</span></button>
 </div>
-<script type="text/javascript">
-	function changeFile(elementId) {
-		var fileInput = document.getElementById(elementId);
-		console.log(fileInput.files[0].name);
 
-		if (fileInput.files.length === 0) {
-			alert('파일을 선택해주세요.');
-			return;
-		}
-
-		var fileName = fileInput.files[0].name;
-		var allowedExtension = /\.hwp$/i;
-
-		if (!allowedExtension.exec(fileName)) {
-			alert('hwp 파일만 업로드 가능합니다.');
-			fileInput.value = '';
-		}
-	}
-</script>
