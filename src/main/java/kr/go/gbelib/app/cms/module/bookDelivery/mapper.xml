@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.bookDelivery.BookDeliveryDao">
+
+	<sql id="field">
+		homepage_id, book_delivery_idx, subject, book_package_name,
+   		school_name, member_name, phone, address, return_plan_place,
+   		school_phone, book_count, status, loan_date,
+    	TO_CHAR(request_date, 'yyyy-MM-dd') AS request_date,
+    	TO_CHAR(return_plan_date, 'yyyy-MM-dd') AS return_plan_date
+	</sql>
+
+	<select id="getBookDeliveryCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			BOOK_DELIVERY
+		WHERE
+			1=1	
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="status != null and status != ''">
+			AND	status LIKE '%'||#{status}||'%'
+		</if>
+	</select>
+	
+	<select id="getBookDeliveryList" resultType="kr.go.gbelib.app.cms.module.bookDelivery.BookDelivery">
+		${pagingTop}
+		SELECT
+			<include refid="field"/>
+		FROM
+			BOOK_DELIVERY
+		WHERE
+			1=1
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="status != null and status != ''">
+			AND	status LIKE '%'||#{status}||'%'
+		</if>
+		ORDER BY book_delivery_idx DESC
+		${pagingBottom}
+	</select>
+
+	<insert id="addBookDelivery">
+		<selectKey keyProperty="book_delivery_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(book_delivery_idx), 0) + 1 FROM BOOK_DELIVERY
+		</selectKey>
+		INSERT INTO
+			BOOK_DELIVERY
+		(
+			homepage_id, book_delivery_idx, request_date, subject, book_package_name,
+    		loan_date, school_name, member_name, phone, address,
+   			return_plan_place, school_phone, book_count, return_plan_date, status
+		)
+		VALUES
+		(
+			#{homepage_id}, #{book_delivery_idx}, #{request_date}, #{subject}, #{book_package_name},
+			#{loan_date}, #{school_name}, #{member_name}, #{phone}, #{address},
+			#{return_plan_place}, #{school_phone}, #{book_count}, #{return_plan_date}, #{status}
+		)
+	</insert>
+
+	<update id="modifyBookDelivery">
+		UPDATE
+			BOOK_DELIVERY
+		SET
+			request_date = #{request_date},
+			subject = #{subject},
+			book_package_name = #{book_package_name},
+			loan_date = #{loan_date},
+			school_name = #{school_name},
+			member_name = #{member_name},
+			phone = #{phone},
+			address = #{address},
+			return_plan_place = #{return_plan_place},
+			school_phone = #{school_phone},
+			book_count = #{book_count},
+			<choose>
+				<when test="status == '반송요청중'">
+					return_plan_date = SYSDATE,
+				</when>
+				<otherwise>
+					return_plan_date = #{return_plan_date},
+				</otherwise>
+			</choose>
+			status = #{status}
+		WHERE
+			book_delivery_idx = #{book_delivery_idx}
+	</update>
+
+	<delete id="deleteBookDelivery">
+		DELETE FROM
+			BOOK_DELIVERY
+		WHERE
+			book_delivery_idx = #{book_delivery_idx}
+	</delete>
+
+	<delete id="deleteCheckBookDelivery">
+		DELETE FROM
+			BOOK_DELIVERY
+		WHERE
+			book_delivery_idx IN
+			<foreach collection="book_delivery_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</delete>
+	
+	<select id="getBookDeliveryListDetail" resultType="kr.go.gbelib.app.cms.module.bookDelivery.BookDelivery">
+		SELECT
+			<include refid="field"/>
+		FROM
+			BOOK_DELIVERY
+		WHERE
+			book_delivery_idx = #{book_delivery_idx}
+	</select>
+	
+	<select id="getBookDeliveryExcelList" resultType="kr.go.gbelib.app.cms.module.bookDelivery.BookDelivery">
+		SELECT
+			<include refid="field"/>
+		FROM
+			BOOK_DELIVERY
+		WHERE
+			1=1
+		<if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		<if test="status != null and status != ''">
+			AND	status LIKE '%'||#{status}||'%'
+		</if>
+		ORDER BY book_delivery_idx DESC
+	</select>
+	
+</mapper>
