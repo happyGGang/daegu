@@ -11,7 +11,7 @@
 			isbn = #{ISBN}
 	</select>
 	
-	<select id="getSmartLibPlace" resultType="map">
+	<select id="getSmartLibPlace" resultType="kr.go.gbelib.app.intro.search.LibrarySearch">
 		SELECT
 			code, library, location, latitude, longitude,
 			manageCode
