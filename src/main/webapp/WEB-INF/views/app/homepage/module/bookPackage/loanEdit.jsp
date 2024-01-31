@@ -238,6 +238,7 @@ $(function() {
 						<form:option value="행정실">행정실</form:option>
 						<form:option value="도서실">도서실</form:option>
 					</form:select>
+				</td>
 			</tr>
 			<tr>
 				<th>신청사유(<span style="color: red;font-weight: bold;">*</span>)</th>
