@@ -518,7 +518,7 @@ do {
 						<area shape="rect" coords="345,380,359,400" href="#lib-selector" alt="(공립)반야월역사 작은도서관" class="maps" data-value="15"/>
 						<!-- <area shape="rect" coords="106,338,9.5" href="#lib-selector" alt="(공립)동구청 작은도서관" class="maps" data-value="16"/> -->
 						<area shape="rect" coords="89,352,95,357" href="#lib-selector" alt="(사립)신암5동 작은도서관" class="maps" data-value="17"/>
-						<area shape="rect" coords="192,356,198,362" href="#lib-selector" alt="(사립)방촌어린이도서관" class="maps" data-value="18"/>
+						<!--<area shape="rect" coords="192,356,198,362" href="#lib-selector" alt="(사립)방촌어린이도서관" class="maps" data-value="18"/>-->
 						<area shape="rect" coords="248,426,254,432" href="#lib-selector" alt="(사립)율하5주민도서관" class="maps" data-value="19"/>
 						<area shape="rect" coords="356,405,362,411" href="#lib-selector" alt="(사립)꿈날자문고" class="maps" data-value="20"/>
 						<area shape="rect" coords="68,391,73,397" href="#lib-selector" alt="(사립)행복도서관" class="maps" data-value="21"/>
@@ -555,7 +555,7 @@ do {
 									<option value="15">(공립)반야월역사 작은도서관</option>
 									<!-- <option value="16">(공립)동구청 작은도서관</option> -->
 									<option value="17">(사립)신암5동 작은도서관</option>
-									<option value="18">(사립)방촌어린이도서관</option> 
+									<!--<option value="18">(사립)방촌어린이도서관</option>-->
 									<option value="19">(사립)율하5주민도서관</option>
 									<option value="20">(사립)꿈날자문고</option> 
 									<option value="21">(사립)행복도서관</option>

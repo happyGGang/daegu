@@ -261,6 +261,8 @@ do {
                   <span>비원</span> </a> </li>
                 <li> <a href="https://band.us/@wongogaelibrary" target="_blank"> <img src="/resources/homepage/seogulib/img/naver_band_wongogae.png"><br/>
                   <span>원고개</span> </a> </li>
+				<li> <a href="https://band.us/@newpeongri" target="_blank"> <img src="/resources/homepage/seogulib/img/naver_band_newpeongri.png"><br/>
+                  <span>New평리</span> </a> </li>
               </ul>
             </div>
             <!--//naver band--> 
@@ -318,6 +320,8 @@ do {
                   <span>비원</span> </a> </li>
                 <li> <a href="https://band.us/@wongogaelibrary"> <img src="/resources/homepage/seogulib/img/naver_band_wongogae.png"><br/>
                   <span>원고개</span> </a> </li>
+				<li> <a href="https://band.us/@newpeongri"> <img src="/resources/homepage/seogulib/img/naver_band_newpeongri.png"><br/>
+                  <span>New평리</span> </a> </li>
               </ul>
             </div>
             <!--//naver band--> 

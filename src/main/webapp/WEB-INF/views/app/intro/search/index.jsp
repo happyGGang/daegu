@@ -693,12 +693,12 @@ function resveReq(bookkey, booktype, editMode) {
 								<li>
 									<form:checkbox path="libraryCodes" value="HN" class="libCheck lib_HN" label="행복작은도서관"/>
 								</li>
-<!-- 								<li> -->
-<%-- 									<form:checkbox path="libraryCodes" value="HP" class="libCheck lib_HP" label="율하5주민작은도서관"/> --%>
-<!-- 								</li> -->
 								<li>
+ 									<form:checkbox path="libraryCodes" value="HP" class="libCheck lib_HP" label="율하5주민작은도서관"/>
+ 								</li>
+								<!--<li>
 									<form:checkbox path="libraryCodes" value="HQ" class="libCheck lib_HQ" label="방촌어린이작은도서관"/>
-								</li>
+								</li>-->
 							</ul>
 						</div>
 						<div class="end"></div>
@@ -968,7 +968,7 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'BN' and i.SHELF_LOC_CODE eq 'BN13'}">
+													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE eq ''}">
 														<span style="color:#ff0000">대출불가(서대구역 스마트도서관 이용가능)</span>
 													</c:when>
 													<c:otherwise>

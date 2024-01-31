@@ -372,6 +372,34 @@ $(function(){
 		</c:choose>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'dalseong'}">
+		<div class="summaryDesc">
+			<div class="innerBox">
+				<div class="img ticon_05"></div>
+				<div class="desc">
+					<h3>도서관체험학습</h3>
+					<p>올바른 도서관 이용법 교육하고, 자라나는 어린이들에게 책 읽는 즐거움과 흥미를 심어주고자 도서관체험학습을 운영합니다.</p>
+				</div>
+			</div>
+		</div>
+		<h3>도서관체험학습안내</h3>
+		<ul class="con">
+			<li><strong>운영대상</strong> : 도서관 인근 유치원 및 어린이집</li>
+			<li><strong>운영기간</strong> : 상반기(3~6월) / 하반기(9~11월) 매주 수,목요일</li>
+			<li><strong>운영방법</strong> : 1일 1회 15명 이내</li>
+			<li><strong>운영내용</strong> : 도서관 이용교육 및 자율독서 등</li>
+			<li><strong>참가신청</strong> : 참가신청서 작성 후 FAX(615-7975)로 제출</li>
+			<li><strong>문 의 처</strong> : 053-231-2175</li>
+		</ul>
+		<ul class="btns_wrap_tac">
+			<li>
+			<a href="/board/boardFile/download/19/509549/339005.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+				<span>신청서 다운로드</span><span class="ico ico_link"></span>
+			</a>
+			</li>
+		</ul>
+	</c:if>
+
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
