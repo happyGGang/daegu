@@ -195,6 +195,9 @@ public class LibrarySearch extends PagingUtils {
 	private String location;
 	private String latitude;
 	private String longitude;
+	
+	private String shelf_change_start_date;
+	private String shelf_change_end_date;
 
 	public String getSearchType() {
 		return searchType;
@@ -1382,6 +1385,22 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+
+	public String getShelf_change_start_date() {
+		return shelf_change_start_date;
+	}
+
+	public void setShelf_change_start_date(String shelf_change_start_date) {
+		this.shelf_change_start_date = shelf_change_start_date;
+	}
+
+	public String getShelf_change_end_date() {
+		return shelf_change_end_date;
+	}
+
+	public void setShelf_change_end_date(String shelf_change_end_date) {
+		this.shelf_change_end_date = shelf_change_end_date;
 	}
 
 }

@@ -206,26 +206,26 @@ public class ApiController extends BaseController {
 		return boardApiService.getOldBookList(board, request, response);
 	}
 	
-	@RequestMapping(value = {"smartLibPlace.*"})
-	public @ResponseBody Map<String, Object> smartLibPlace(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = {"smartLibPlace.*"}, produces = "application/json; charset=UTF-8")
+	public @ResponseBody String smartLibPlace(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 	
 		return librarySearchApiService.getSmartLibPlace(librarySearch, request, response);
 	}
 	
-	@RequestMapping(value = {"bookSearch.*"})
-	public @ResponseBody Map<String, Object> bookSearch(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = {"bookSearch.*"}, produces = "application/json; charset=UTF-8")
+	public @ResponseBody String bookSearch(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 	
 		return librarySearchApiService.getBookSearchList(librarySearch, request, response);
 	}
 	
-	@RequestMapping(value = {"bestBookList.*"})
-	public @ResponseBody Map<String, Object> bestBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = {"bestBookList.*"}, produces = "application/json; charset=UTF-8")
+	public @ResponseBody String bestBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 	
 		return librarySearchApiService.getBestBookList(librarySearch, request, response);
 	}
 	
-	@RequestMapping(value = {"newBookList.*"})
-	public @ResponseBody Map<String, Object> newBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = {"newBookList.*"}, produces = "application/json; charset=UTF-8")
+	public @ResponseBody String newBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 	
 		return librarySearchApiService.getNewBookList(librarySearch, request, response);
 	}

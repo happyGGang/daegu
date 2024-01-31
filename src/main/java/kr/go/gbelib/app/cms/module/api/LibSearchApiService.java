@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.api;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,101 +16,233 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 @Service
 public class LibSearchApiService extends BaseService {
 
 	@Autowired
 	private LibrarySearchDao librarySearchDao;
 
-	public Map<String, Object> getSmartLibPlace(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> result = new HashMap<String, Object>();
+	public String getSmartLibPlace(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+		List<LibrarySearch> smartLibPlaceList = librarySearchDao.getSmartLibPlace(librarySearch);
+		
+		JsonObject jsonResponse = new JsonObject();
+		
+		JsonObject header = new JsonObject();
+		JsonObject headerItems = new JsonObject();
+		
+		JsonObject items = new JsonObject();
+		JsonObject item = new JsonObject();
+		
+		String resultCode = "S001";
+		String resultMsg = "조회에 성공하였습니다.";
 		
 		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())){
-			result.put("result", "fail");
-			result.put("message", "code 값이 없습니다.");
-			
-			return result;
+			resultCode = "S003";
+			resultMsg = "code 값이 없습니다.";
 		}
 		
-		result = librarySearchDao.getSmartLibPlace(librarySearch);
-		if(result == null) {
-			Map<String, Object> noResult = new HashMap<String, Object>();
-			
-			noResult.put("result", "fail");
-			noResult.put("message", "해당 스마트도서관 위치 현황이 없습니다.");
-			
-			return noResult;
+		if(smartLibPlaceList.isEmpty()){
+			resultCode = "S002";
+			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
 		}
 		
-		return result;
+		jsonResponse.add("response", header);
+		header.add("header", headerItems);
+		headerItems.addProperty("resultCode", resultCode);
+		headerItems.addProperty("resultMsg", resultMsg);
+		
+		header.add("body", items);
+		items.add("items", item);
+		
+		JsonArray ja = new JsonArray();
+		JsonObject job = new JsonObject();
+		
+		for(LibrarySearch l : smartLibPlaceList) {
+			job.addProperty("LOCATION", l.getLocation());
+			job.addProperty("CODE", l.getCode());
+			job.addProperty("LONGITUDE", l.getLongitude());
+			job.addProperty("LIBRARY", l.getLibrary());
+			job.addProperty("MANAGECODE", l.getManageCode());
+			job.addProperty("LATITUDE", l.getLatitude());
+			
+			ja.add(job);
+		}
+		
+		item.add("item", ja);
+		
+		items.addProperty("dataType", "JSON");
+		items.addProperty("pageNo", librarySearch.getViewPage());
+		items.addProperty("numOfRows", librarySearch.getRowCount());
+		items.addProperty("totalCount", smartLibPlaceList.size());
+		
+		return jsonResponse.toString();
 	}
 
-	public Map<String, Object> getBookSearchList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	public String getBookSearchList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())){
-			result.put("result", "fail");
-			result.put("message", "code 값이 없습니다.");
-			
-			return result;
-		}
+		JsonObject jsonResponse = new JsonObject();
 		
-		if(StringUtils.isEmpty(librarySearch.getSearch_text()) || "".equals(librarySearch.getSearch_text())){
-			result.put("result", "fail");
-			result.put("message", "search_text 값이 없습니다. 서명을 입력해주세요.");
-			
-			return result;
-		}
+		JsonObject header = new JsonObject();
+		JsonObject headerItems = new JsonObject();
 		
-		if(!(librarySearch.getViewPage() > 0)){
-			result.put("result", "fail");
-			result.put("message", "viewPage 값이 없습니다. 검색 시작 위치를 지정해주세요.");
-			
-			return result;
-		}
+		JsonObject items = new JsonObject();
+		JsonObject item = new JsonObject();
 		
-		if(!(librarySearch.getRowCount() > 0)){
-			result.put("result", "fail");
-			result.put("message", "rowCount 값이 없습니다. 검색 결과 출력 건수를 지정해주세요.");
-			
-			return result;
-		}
+		String resultCode = "S001";
+		String resultMsg = "조회에 성공하였습니다.";
+		
+		jsonResponse.add("response", header);
+		header.add("header", headerItems);
+		headerItems.addProperty("resultCode", resultCode);
+		headerItems.addProperty("resultMsg", resultMsg);
 		
 		LibrarySearch ls = librarySearchDao.getSmartLibPlaceOne(librarySearch);
 		
-		if(ls == null) {
-			result.put("result", "fail");
-			result.put("message", "해당 스마트도서관 자료실 코드 값이 없습니다.");
+		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())) {
+			resultCode = "S003";
+			resultMsg = "code 값이 없습니다.";
 			
-			return result;
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
 		}
 		
+		if(StringUtils.isEmpty(librarySearch.getSearch_text()) || "".equals(librarySearch.getSearch_text())) {
+			resultCode = "S003";
+			resultMsg = "search_text 값이 없습니다. 검색어를 입력해주세요.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+		
+		if(ls == null) {
+			resultCode = "S002";
+			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+
 		librarySearch.setShelfCode(ls.getCode());
 		librarySearch.setManageCode(ls.getManageCode());
 		librarySearch.setTitle(librarySearch.getSearch_text());
-		
+
 		result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
 		
-		return result;
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			header.add("body", items);
+			items.add("items", item);
+			
+			JsonArray ja = new JsonArray();
+			
+			List<Map<String, Object>> list = null;
+			int count = LibSearchAPI.getSearchCount(result);
+			
+			if(count == 0){
+				resultCode = "S004";
+				resultMsg = "해당하는 검색결과 값이 없습니다.";
+				
+				jsonResponse.add("response", header);
+				header.add("header", headerItems);
+				headerItems.addProperty("resultCode", resultCode);
+				headerItems.addProperty("resultMsg", resultMsg);
+				
+				return jsonResponse.toString();
+			}
+			
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getTestListData(result);
+				for (Map<String, Object> map : list) {
+					JsonObject job = new JsonObject();
+					
+					for ( String key : map.keySet() ) {
+						job.addProperty(key, String.valueOf(map.get(key)));
+					}
+					ja.add(job);
+				}
+			}
+			
+			item.add("item", ja);
+			
+			items.addProperty("dataType", "JSON");
+			items.addProperty("pageNo", librarySearch.getViewPage());
+			items.addProperty("numOfRows", librarySearch.getRowCount());
+			items.addProperty("totalCount", count);
+		}
+		
+		return jsonResponse.toString();
 	}
 	
-	public Map<String, Object> getBestBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	public String getBestBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())){
-			result.put("result", "fail");
-			result.put("message", "code 값이 없습니다.");
-			
-			return result;
-		}
+		JsonObject jsonResponse = new JsonObject();
+		
+		JsonObject header = new JsonObject();
+		JsonObject headerItems = new JsonObject();
+		
+		JsonObject items = new JsonObject();
+		JsonObject item = new JsonObject();
+		
+		String resultCode = "S001";
+		String resultMsg = "조회에 성공하였습니다.";
+		
+		jsonResponse.add("response", header);
+		header.add("header", headerItems);
+		headerItems.addProperty("resultCode", resultCode);
+		headerItems.addProperty("resultMsg", resultMsg);
 		
 		LibrarySearch ls = librarySearchDao.getSmartLibPlaceOne(librarySearch);
 		
-		if(ls == null) {
-			result.put("result", "fail");
-			result.put("message", "해당 스마트도서관 자료실 코드 값이 없습니다.");
+		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())) {
+			resultCode = "S003";
+			resultMsg = "code 값이 없습니다.";
 			
-			return result;
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+		
+		if(ls == null) {
+			resultCode = "S002";
+			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+		
+		if(librarySearch.getRowCount() > 100) {
+			resultCode = "S003";
+			resultMsg = "검색 결과 출력 건수 지정은 100건 이하만 가능합니다.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
 		}
 		
 		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
@@ -119,42 +252,136 @@ public class LibSearchApiService extends BaseService {
 		librarySearch.setManageCode(ls.getManageCode());
 		librarySearch.setShelfCode(ls.getCode());
 		
+		int rowCount = librarySearch.getRowCount();
+		
+		librarySearch.setRowCount(100);
+		
 		result = LibSearchAPI.getBestBookList(librarySearch);
 		
-		return result;
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			header.add("body", items);
+			items.add("items", item);
+			
+			JsonArray ja = new JsonArray();
+			
+			List<Map<String, Object>> list = null;
+			
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getTestListData(result);
+				
+				if(list.size() == 0){
+					resultCode = "S004";
+					resultMsg = "해당하는 검색결과 값이 없습니다.";
+					
+					jsonResponse.add("response", header);
+					header.add("header", headerItems);
+					headerItems.addProperty("resultCode", resultCode);
+					headerItems.addProperty("resultMsg", resultMsg);
+					
+					return jsonResponse.toString();
+				}
+				
+				int loopRowCount = 0;
+
+				int startRowNum = ( librarySearch.getViewPage() - 1 ) * rowCount + 1;
+				
+				for (Map<String, Object> map : list) {
+					JsonObject job = new JsonObject();
+					loopRowCount++;
+					for ( String key : map.keySet() ) {
+						job.addProperty(key, String.valueOf(map.get(key)));
+					}
+					
+					if(librarySearch.getViewPage() > 1) {
+						if(startRowNum <= loopRowCount && loopRowCount <= startRowNum+rowCount-1) {
+							ja.add(job);
+						}
+					} else {
+						if(loopRowCount <= rowCount) {
+							ja.add(job);
+						}
+					}
+				}
+			}
+			
+			item.add("item", ja);
+			
+			items.addProperty("dataType", "JSON");
+			items.addProperty("pageNo", librarySearch.getViewPage());
+			items.addProperty("numOfRows", rowCount);
+			items.addProperty("totalCount", list.size());
+		}
+		
+		return jsonResponse.toString();
 	}
 
-	public Map<String, Object> getNewBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
+	public String getNewBookList(LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		
-		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())){
-			result.put("result", "fail");
-			result.put("message", "code 값이 없습니다.");
-			
-			return result;
-		}
+		JsonObject jsonResponse = new JsonObject();
 		
-		if(!(librarySearch.getViewPage() > 0)){
-			result.put("result", "fail");
-			result.put("message", "viewPage 값이 없습니다. 검색 시작 위치를 지정해주세요.");
-			
-			return result;
-		}
+		JsonObject header = new JsonObject();
+		JsonObject headerItems = new JsonObject();
 		
-		if(!(librarySearch.getRowCount() > 0)){
-			result.put("result", "fail");
-			result.put("message", "rowCount 값이 없습니다. 검색 결과 출력 건수를 지정해주세요.");
-			
-			return result;
-		}
+		JsonObject items = new JsonObject();
+		JsonObject item = new JsonObject();
+		
+		String resultCode = "S001";
+		String resultMsg = "조회에 성공하였습니다.";
+		
+		jsonResponse.add("response", header);
+		header.add("header", headerItems);
+		headerItems.addProperty("resultCode", resultCode);
+		headerItems.addProperty("resultMsg", resultMsg);
 		
 		LibrarySearch ls = librarySearchDao.getSmartLibPlaceOne(librarySearch);
 		
-		if(ls == null) {
-			result.put("result", "fail");
-			result.put("message", "해당 스마트도서관 자료실 코드 값이 없습니다.");
+		if(StringUtils.isEmpty(librarySearch.getCode()) || "".equals(librarySearch.getCode())) {
+			resultCode = "S003";
+			resultMsg = "code 값이 없습니다.";
 			
-			return result;
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+		
+		if(StringUtils.isEmpty(librarySearch.getShelf_change_start_date()) || "".equals(librarySearch.getShelf_change_start_date())) {
+			resultCode = "S003";
+			resultMsg = "배가변경 검색 시작일이 없습니다.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+		
+		if(StringUtils.isEmpty(librarySearch.getShelf_change_end_date()) || "".equals(librarySearch.getShelf_change_end_date())) {
+			resultCode = "S003";
+			resultMsg = "배가변경 검색 종료일이 없습니다.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
+		}
+		
+		if(ls == null) {
+			resultCode = "S002";
+			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+			
+			return jsonResponse.toString();
 		}
 		
 		librarySearch.setShelfCode(ls.getCode());
@@ -164,7 +391,48 @@ public class LibSearchApiService extends BaseService {
 		
 		result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
 		
-		return result;
+		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			header.add("body", items);
+			items.add("items", item);
+			
+			JsonArray ja = new JsonArray();
+			
+			List<Map<String, Object>> list = null;
+			int count = LibSearchAPI.getSearchCount(result);
+			
+			if(count == 0){
+				resultCode = "S004";
+				resultMsg = "해당하는 검색결과 값이 없습니다.";
+				
+				jsonResponse.add("response", header);
+				header.add("header", headerItems);
+				headerItems.addProperty("resultCode", resultCode);
+				headerItems.addProperty("resultMsg", resultMsg);
+				
+				return jsonResponse.toString();
+			}
+			
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+				list = LibSearchAPI.getTestListData(result);
+				for (Map<String, Object> map : list) {
+					JsonObject job = new JsonObject();
+					
+					for ( String key : map.keySet() ) {
+						job.addProperty(key, String.valueOf(map.get(key)));
+					}
+					ja.add(job);
+				}
+			}
+			
+			item.add("item", ja);
+			
+			items.addProperty("dataType", "JSON");
+			items.addProperty("pageNo", librarySearch.getViewPage());
+			items.addProperty("numOfRows", librarySearch.getRowCount());
+			items.addProperty("totalCount", count);
+		}
+		
+		return jsonResponse.toString();
 	}
 	
 }

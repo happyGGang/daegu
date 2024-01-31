@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.intro.search;
 
+import java.util.List;
 import java.util.Map;
 
 public interface LibrarySearchDao {
@@ -8,7 +9,7 @@ public interface LibrarySearchDao {
 
 	String getImageUrl(String isbn);
 
-	Map<String, Object> getSmartLibPlace(LibrarySearch librarySearch);
+	List<LibrarySearch> getSmartLibPlace(LibrarySearch librarySearch);
 
 	LibrarySearch getSmartLibPlaceOne(LibrarySearch librarySearch);
 

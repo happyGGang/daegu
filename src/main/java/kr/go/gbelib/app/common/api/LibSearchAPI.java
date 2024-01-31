@@ -1532,6 +1532,14 @@ public class LibSearchAPI {
 			param.put("orderby_item", librarySearch.getSortField());
 			param.put("orderby", librarySearch.getSortType());
 		}
+		
+		if(StringUtils.isNotEmpty(librarySearch.getShelf_change_start_date())){
+			param.put("shelf_change_start_date", librarySearch.getShelf_change_start_date());
+		}
+
+		if(StringUtils.isNotEmpty(librarySearch.getShelf_change_end_date())){
+			param.put("shelf_change_end_date", librarySearch.getShelf_change_end_date());
+		}
 
 		result = CommonAPI.sendKCMS("bookandnonbooksearch", param);
 
@@ -2291,6 +2299,30 @@ public class LibSearchAPI {
 			if (list != null && list.size() > 0) {
 				Map<String, Object> countMap = list.get(0);
 				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					list.remove(0);
+				}
+			}
+		}
+
+		return list;
+	}
+	
+	public static List<Map<String, Object>> getTestListData(Map<String, Object> map) {
+		List<Map<String, Object>> list = null;
+
+		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
+			return null;
+		}
+
+		if (map != null && !map.isEmpty() && map.get("LIST_DATA") != null) {
+			list = new ArrayList<Map<String, Object>>();
+			list.addAll((List<Map<String, Object>>) map.get("LIST_DATA"));
+			if (list != null && list.size() > 0) {
+				Map<String, Object> countMap = list.get(0);
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
+					list.remove(0);
+				}
+				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("FACET_GROUP")) {
 					list.remove(0);
 				}
 			}
