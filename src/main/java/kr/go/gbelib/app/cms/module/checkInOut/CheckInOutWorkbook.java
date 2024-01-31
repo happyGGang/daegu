@@ -86,7 +86,7 @@ public class CheckInOutWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_area(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckIn_time(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckOut_time(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckInOut_time() + "분", format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckInOut_time(), format1));
 			
 			if(StringUtils.isEmpty(one.getCheckOut_time())) {
 				workbook.getSheet(0).addCell(new Label(column++, row, "이용중", format1));
@@ -173,7 +173,7 @@ public class CheckInOutWorkbook {
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_area(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckIn_time(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckOut_time(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckInOut_time() + "분", format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getCheckInOut_time(), format1));
 			
 			if(StringUtils.isEmpty(one.getCheckOut_time())) {
 				workbook.getSheet(0).addCell(new Label(column++, row, "이용중", format1));

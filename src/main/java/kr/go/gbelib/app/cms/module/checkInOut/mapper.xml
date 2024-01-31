@@ -186,13 +186,20 @@
 		UPDATE
 			CHECKINOUT
 		SET
-			checkOut_time = SYSDATE,
-			checkInOut_time = (
-								SELECT
-									ROUND((SYSDATE - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) * 24 * 60, 2)
-								FROM 
-									dual
-							   ),
+				checkOut_time = (
+					SELECT 
+						CASE WHEN TO_CHAR(SYSDATE,'D') IN ('1','7')
+					    THEN TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd') || ' ' || '17:00:00', 'YYYY-MM-DD HH24:MI:SS')
+					    ELSE TO_DATE(TO_CHAR(SYSDATE,'yyyy-MM-dd') || ' ' || '18:00:00', 'YYYY-MM-DD HH24:MI:SS') END AS WEEK_DAY
+					FROM 
+						DUAL
+					),
+				checkInOut_time = (
+						SELECT
+							ROUND((SYSDATE - TO_DATE(SYSDATE, 'YYYY-MM-DD HH24:MI:SS')) * 24 * 60, 2)
+						FROM 
+							dual
+					   ),
 			gubun = '1'
 		WHERE
 			homepage_id = #{homepage_id}
