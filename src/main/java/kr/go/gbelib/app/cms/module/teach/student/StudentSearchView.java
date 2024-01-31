@@ -21,7 +21,7 @@ public class StudentSearchView extends AbstractJExcelView {
 		
 		List<Student> studentList = (List<Student>) model.get("studentResult");
 		Teach teach = (Teach) model.get("teach");
-		workbook.createSheet(teach.getTeach_name(), 0); // 시트설정
+//		workbook.createSheet(teach.getTeach_name(), 0); // 시트설정
 		List<Terms> termsList = (List<Terms>)model.get("termsList");
 
 		String fileName = "Student.xls";

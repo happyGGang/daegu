@@ -367,7 +367,7 @@ public class StudentController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/excelDownload.*" }, method = RequestMethod.POST)
-	public StudentSearchView excel(Model model, Student student, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public StudentSearchView excel(Model model, Student student, HttpServletRequest request) throws Exception {
 		model.addAttribute("teach", teachService.getTeachOne(new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx())));
 		model.addAttribute("student", student);
 		model.addAttribute("studentResult", studentService.getStudentListAll(student));
