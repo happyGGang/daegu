@@ -243,6 +243,7 @@ $(function() {
 						<form:option value="127095">서구영어도서관</form:option>
 						<form:option value="127094">비원도서관</form:option>
 						<form:option value="127098">원고개도서관</form:option>
+						<form:option value="127104">New평리도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:when test="${homepage.context_path eq 'dgportal'}">

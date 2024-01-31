@@ -164,13 +164,14 @@ $(function() {
 					</form:select>
 					</c:when>
 
-					<c:when test="${context_path eq 'seogulib' || context_path eq 'biwon' ||context_path eq 'wongogae' || context_path eq 'bisan' ||context_path eq 'seoguenglish'}">
+					<c:when test="${context_path eq 'seogulib' || context_path eq 'biwon' ||context_path eq 'wongogae' || context_path eq 'bisan' || context_path eq 'seoguenglish' || context_path eq 'newPyeongni'}">
 					<form:select path="uselibcode">
 						<form:option value="127011">서구어린이도서관</form:option>
 						<form:option value="127086">비산도서관</form:option>
 						<form:option value="127094">비원도서관</form:option>
 						<form:option value="127095">서구영어도서관</form:option>
 						<form:option value="127098">원고개도서관</form:option>
+						<form:option value="127104">New평리도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:otherwise>

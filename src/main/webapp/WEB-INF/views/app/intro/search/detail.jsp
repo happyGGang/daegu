@@ -414,7 +414,7 @@ CONTEXT_PATH : ${context_path}
 				</c:when>
 
 				
-				<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'bisan' || context_path eq 'biwon' || context_path eq 'wongogae'}">
+				<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'bisan' || context_path eq 'biwon' || context_path eq 'wongogae' || context_path eq 'newPyeongni'}">
 				
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">

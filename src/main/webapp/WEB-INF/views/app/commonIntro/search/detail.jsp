@@ -804,7 +804,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'seogulib'}">
 				
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN' || detail.MANAGE_CODE eq 'CC'}">
 							<c:choose>
 								
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">

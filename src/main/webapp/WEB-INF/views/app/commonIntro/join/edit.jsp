@@ -332,6 +332,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 						<option value="BP">서구영어도서관</option>
 						<option value="BM">비원도서관</option>
 						<option value="BN">원고개도서관</option>
+						<option value="CC">New평리도서관</option>
 					</select>
 				</c:if>
 
