@@ -245,7 +245,12 @@ public class BookPackageController extends BaseController {
 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DATE, 3);
+			for (int i = 0; i < 3; i++) {
+				cal.add(Calendar.DATE, 1);
+				while (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+					cal.add(Calendar.DATE, 1);
+				}
+			}
 
 			bookPackage = (BookPackage)service.copyObjectPaging(bookPackage, service.getBookPackageOne(bookPackage));
 			bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
@@ -273,7 +278,12 @@ public class BookPackageController extends BaseController {
 
 				//신청, 예약, 대출중 데이터의 대출 종료일에서 3일을 추가한다.
 				cal.setTime(sdf.parse(bookPackageLoanDateList.get(bookPackageLoanDateList.size()-1)));
-				cal.add(Calendar.DATE, 5);
+				for (int i = 0; i < 5; i++) {
+					cal.add(Calendar.DATE, 1);
+					while (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+						cal.add(Calendar.DATE, 1);
+					}
+				}
 				bookPackage.setLoan_start_date(sdf.format(cal.getTime()));
 				bookPackage.setLoan_end_date(null);
 			}

@@ -217,11 +217,11 @@ public class BookPackageBundleController extends BaseController {
 																  .max(LocalDate::compareTo);
 
 			if (minDateOptional.isPresent() && maxDateOptional.isPresent()) {
-				LocalDate minDate = minDateOptional.get();
-				LocalDate maxDate = maxDateOptional.get();
 
-				maxDate = maxDate.plusDays(LOAN_START_DATE_ADD);
+				LocalDate minDate = minDateOptional.get();
+				LocalDate maxDate = bookPackageBundleService.addBusinessDays(maxDateOptional.get(), LOAN_START_DATE_ADD);
 				LocalDate finalMaxDate = maxDate.plusDays(LOAN_END_DATE_ADD);
+
 				bookPackageBundle.setLoan_start_date(maxDate.plusDays(1).format(formatter));
 				bookPackageBundle.setLoan_end_date(finalMaxDate.format(formatter));
 

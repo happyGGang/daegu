@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.bookPackageBundle;
 
 import java.io.File;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
@@ -265,8 +266,8 @@ public class BookPackageBundleService extends BaseService {
 
 		LocalDate startDate = Optional.of(bookPackageBundle)
 									  .filter(bundle -> "1".equals(bundle.getRequest_status()))
-									  .map(bundle -> LocalDate.parse(bundle.getLoan_end_date(), formatter).plusDays(5))
-									  .orElse(LocalDate.now().plusDays(5));
+									  .map(bundle -> addBusinessDays(LocalDate.parse(bundle.getLoan_end_date(), formatter), 5))
+									  .orElse(addBusinessDays(LocalDate.now(), 3));
 
 		bookPackageBundle.setLoan_start_date(startDate.format(formatter));
 
@@ -278,5 +279,18 @@ public class BookPackageBundleService extends BaseService {
 		bookPackageBundle.setLoan_end_date(endDate.format(formatter));
 
 		return bookPackageBundle;
+	}
+
+	public LocalDate addBusinessDays(LocalDate start, int days) {
+		LocalDate result = start;
+		int addedDays = 0;
+		while (addedDays < days) {
+			result = result.plusDays(1);
+			// 토요일과 일요일을 제외
+			if (!(result.getDayOfWeek() == DayOfWeek.SATURDAY || result.getDayOfWeek() == DayOfWeek.SUNDAY)) {
+				++addedDays;
+			}
+		}
+		return result;
 	}
 }

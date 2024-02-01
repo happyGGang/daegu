@@ -31,6 +31,18 @@ function checkLoanDate(library_check_idx){
 	});
 }
 
+function calculateBusinessDays(startDate, daysToAdd) {
+	var count = 0;
+	while (count < daysToAdd) {
+		startDate.setDate(startDate.getDate() + 1);
+		var dayOfWeek = startDate.getDay();
+		if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+			count++;
+		}
+	}
+	return startDate;
+}
+
 $(function() {
 
 	$('#save-btn').on('click', function(e) {
@@ -44,6 +56,7 @@ $(function() {
 	});
 
 	var disabledDays = '${disableBetweenDates}';
+	var businessDate = calculateBusinessDays(new Date(), 3);
 // 날짜를 나타내기 전에(beforeShowDay) 실행할 함수
 	function disableSomeDay(date) {
 		var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
@@ -53,7 +66,7 @@ $(function() {
 
 	$('input#loan_start_date').datepicker({
 		dateFormat:'yy-mm-dd',
-		minDate: +3,
+		minDate: businessDate,
 		maxDate: $('input#loan_end_date').val(),
 		onClose: function(selectedDate){
 			var minDate = new Date(selectedDate);
