@@ -108,6 +108,7 @@ public class Teach extends PagingUtils {
 	private String picture_use_yn = "Y";  //사진 촬영 동의 여부
 	private String school_info_yn = "N";//학교 입력여부
 	private String school_grade_yn = "N";//학년 입력여부
+	private String student_ban_yn = "N";//학반 입력여부
 	private String limit_hak_yn = "N"; //학년제한사용여부
 	private String limit_hak; //학년제한from
 	private String limit_hak2; //학년제한to
@@ -1807,4 +1808,13 @@ public class Teach extends PagingUtils {
 	public void setFamily_member_yn(String family_member_yn) {
 		this.family_member_yn = family_member_yn;
 	}
+
+	public String getStudent_ban_yn() {
+		return student_ban_yn;
+	}
+
+	public void setStudent_ban_yn(String student_ban_yn) {
+		this.student_ban_yn = student_ban_yn;
+	}
+	
 }

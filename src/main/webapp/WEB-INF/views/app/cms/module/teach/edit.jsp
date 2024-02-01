@@ -1304,6 +1304,18 @@
 				</div>
 			</td>
 		</tr>
+		<c:if test="${teach.homepage_id eq 'h7' }">
+			<tr>
+				<th>학반 입력여부</th>
+				<td>
+					<form:radiobutton path="student_ban_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
+					<form:radiobutton path="student_ban_yn" class="N" value="N" label="미사용" style="cursor:pointer;"/>
+					<div class="ui-state-highlight">
+						<em>* 사용 시 '반' 입력항목이 노출됩니다.</em>
+					</div>
+				</td>
+			</tr>
+		</c:if>
 		<tr>
 			<th>비고입력여부</th>
 			<td>
