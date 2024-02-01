@@ -248,15 +248,15 @@ table thead th, table tbody td {font-size:12px;}
 						<tr style="outline:white 1px solid">
 							<th><input type="checkbox" id="checkboxOut" onchange="checkOutAll($(this));"></th>
 							<th>번호</th>
-							<th>사물함<br />번호</th>
+							<th>사물함<br/>번호</th>
 							<th>예약번호</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
-							<th>등록번호</th>
+							<th>등록번호<br/>자료실</th>
 							<th>청구기호</th>
 							<th>대출자ID</th>
-							<th>예약<br />날짜</th>
-							<th>예약<br />확정일</th>
+							<th>예약<br/>날짜</th>
+							<th>예약<br/>확정일</th>
 							<th>상태</th>
 						</tr>
 					</thead>
@@ -274,7 +274,7 @@ table thead th, table tbody td {font-size:12px;}
 								<td>${j.pk}</td>
 								<td>${j.book_name}</td>
 								<td>${j.lib_name}</td>
-								<td>${j.reg_no}</td>
+								<td>${j.reg_no}<br/>${j.shelf_loc_name}</td>
 								<td>${j.call_no}</td>
 								<td>${j.member_id}</td>
 								<td><fmt:formatDate value="${j.add_date}" pattern="yyyy.MM.dd" /></td>
@@ -328,7 +328,7 @@ table thead th, table tbody td {font-size:12px;}
 							<th>큰책여부</th>
 							<th>도서명</th>
 							<th>소장도서관</th>
-							<th>등록번호</th>
+							<th>등록번호<br/>자료실</th>
 							<th>대출자ID</th>
 							<th>예약<br />날짜</th>
 							<th>예약<br />확정일</th>
@@ -349,7 +349,7 @@ table thead th, table tbody td {font-size:12px;}
 								<td>${k.pk}</td>
 								<td>${k.book_name}</td>
 								<td>${k.lib_name}</td>
-								<td>${k.reg_no}</td>
+								<td>${k.reg_no}<br/>${k.shelf_loc_name}</td>
 								<td>${k.member_id}</td>
 								<td><fmt:formatDate value="${k.add_date}" pattern="yyyy.MM.dd" /></td>
 								<td><fmt:formatDate value="${k.lend_date}" pattern="yyyy.MM.dd" /></td>
