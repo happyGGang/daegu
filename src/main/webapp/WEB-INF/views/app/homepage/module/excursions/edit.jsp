@@ -68,6 +68,9 @@ $(function() {
 		
 		$('#applicant_tel').val($('#applicant_tel_1').val()+'-'+$('#applicant_tel_2').val()+'-'+$('#applicant_tel_3').val());
 		$('#agency_tel').val($('#agency_tel_1').val()+'-'+$('#agency_tel_2').val()+'-'+$('#agency_tel_3').val());
+		var test = serializeObject($('#excursionsEdit'));
+		console.log(test);
+		
 		$.ajax({
 			url : '/${homepage.context_path}/module/excursions/save.do',
 			async : false,
@@ -140,7 +143,7 @@ $(function() {
 	</c:if>
 </c:forEach>
 
-<form:form modelAttribute="apply" id="excursionsEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post" onsubmit="return false;">
+<form:form modelAttribute="apply" id="excursionsEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post" onsubmit="return false;" enctype="multipart/form-data">
 <div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
 	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px">
 		<form:option value="Y" label="동의"/>
@@ -350,11 +353,14 @@ $(function() {
 				<em>${excursions.remark_comment}</em>
 			</td>
 		</tr>
+		<tr>
+			<th>첨부파일</th>
+			<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
+		</tr>
 	</tbody>
 </table>
 </c:otherwise>
 </c:choose>
-
 </form:form>
 <br/>
 <div class="txt-right">
