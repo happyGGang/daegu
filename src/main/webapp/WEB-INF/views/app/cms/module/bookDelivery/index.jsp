@@ -34,32 +34,40 @@ $(function(){
 		$('#bookDelivery').attr('action', 'excelDownload.do').submit();
 		e.preventDefault();
 	});
+	
+	$('#allChk').on('click', function(e) {
+		e.preventDefault();
+		if($(this).attr('keyValue') == 'N') {
+			$(this).attr('keyValue', 'Y');
+			$('.delivery_chk').prop('checked', true);
+		} else {
+			$(this).attr('keyValue', 'N');
+			$('.delivery_chk').prop('checked', false);
+		}
+	});
+	
+	$('#status-change').on('click', function(e) {
+		e.preventDefault();
+		
+		if($('input[name="book_delivery_arr"]:checked').length < 1) {
+			alert('변경할 꾸러미를 선택하세요.');
+			return false;
+		}
+		
+		if($('select#statusAll option:selected').val() == '') {
+			alert('변경할 상태를 선택하세요.');
+			return false;
+		}
+		
+		$('select#status').val($('select#statusAll').val()).prop('selected', true);
+		$('#editMode').val('MODIFYALL');
+		$('#bookDelivery').attr('action', 'save.do');
+		$('#bookDelivery').attr('method', 'POST');
+		if(doAjaxPost($('#bookDelivery'))) {
+			location.reload();
+		}
+	});
 });
-
-function checkOutAll() {
-	if($('input:checkbox[name=book_delivery_arr]:checked').length < 1) {
-		alert('체크아웃 처리할 아이디를 선택해 주세요.');
-	} else {
-		if(confirm('체크아웃 하시겠습니까?\n체크아웃 시간은 금일 마감시간으로 할당됩니다.')) {
-			$.ajax({
-				type: "POST",
-				url: 'checkOutAll.do',
-				data: $('input[name=book_delivery_arr]').serialize(),
-				success: function(response) {
-					if(response.valid) {
-						alert('체크아웃처리 되었습니다.');
-					} else {
-						alert(response.message);
-					}
-					location.reload();
-				},
-				error : function() {
-					alert('체크아웃처리에 실패했습니다.\n관리자에게 문의해 주세요.');
-				}
-			});
-		} 
-	}
-}
 
 function excelUploadEdit() {
 	$.ajax({
@@ -193,7 +201,7 @@ function edit() {
 </script>
 
 <form:form modelAttribute="bookDelivery" action="index.do" method="POST">
-
+<form:hidden path="editMode"/>
 	<div class="search">
 		검색 결과 : <fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> 건
 		<form:select path="rowCount" class="selectmenu" style="width:150px;">
@@ -224,7 +232,7 @@ function edit() {
 	
 	<table class="type1 center">
 		<colgroup>
-<%-- 				<col width="3%"/> --%>
+				<col width="3%"/>
 				<col width="3%"/>
 	 			<col width="6%"/>
 	 			<col width="8%"/>
@@ -242,7 +250,7 @@ function edit() {
 			</colgroup>
 		<thead>
 			<tr>
-<!-- 		 		<th><input type="checkbox" onchange="checkAll($(this));"></th> -->
+				<th></th>
 				<th>순번</th>
 				<th>발송요청일</th>
 				<th>주제</th>
@@ -262,7 +270,7 @@ function edit() {
 		<tbody>
 		<c:forEach var="i" varStatus="status" items="${bookDeliveryList}">
 			<tr>
-<%-- 				<td><form:checkbox path="book_delivery_arr" id="book_delivery_arr"  value="${i.book_delivery_idx}"/></td> --%>
+				<td><input type="checkbox" name="book_delivery_arr" class="delivery_chk" value="${i.book_delivery_idx}"/></td>
 				<td>${paging.listRowNum - status.index}</td>
 				<td>${i.request_date}</td>
 				<td>${i.subject}</td>
@@ -286,6 +294,17 @@ function edit() {
 			</c:if>
 		</tbody>
 	</table>
+	
+	<a href="#" id="allChk" keyValue="N">전체 선택/해제</a>
+	<select id="statusAll" class="selectmenu">
+		<option value="">상태전체</option>
+		<option value="발송요청중">발송요청중</option>
+		<option value="발송완료">발송완료</option>
+		<option value="반송요청중">반송요청중</option>
+		<option value="반송중">반송중</option>
+		<option value="반송완료">반송완료</option>
+	</select>
+	<a href="#" id="status-change" class="btn btn">선택상태변경</a>
 	
 	<jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 		<jsp:param name="formId" value="#bookDelivery"/>

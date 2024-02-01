@@ -20,4 +20,6 @@ public interface BookDeliveryDao {
 
 	public List<BookDelivery> getBookDeliveryExcelList(BookDelivery bookDelivery);
 
+	public int modifyBookDeliveryAll(BookDelivery bookDelivery);
+
 }

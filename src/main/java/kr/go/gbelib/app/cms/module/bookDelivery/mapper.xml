@@ -132,4 +132,21 @@
 		ORDER BY book_delivery_idx DESC
 	</select>
 	
+	<update id="modifyBookDeliveryAll">
+		UPDATE
+			BOOK_DELIVERY
+		SET
+			<choose>
+				<when test="status == '반송요청중'">
+					return_plan_date = SYSDATE,
+				</when>
+			</choose>
+			status = #{status}
+		WHERE
+			book_delivery_idx  IN
+			<foreach collection="book_delivery_arr" open="(" close=")" separator="," item="i">
+			#{i}
+			</foreach>
+	</update>
+	
 </mapper>

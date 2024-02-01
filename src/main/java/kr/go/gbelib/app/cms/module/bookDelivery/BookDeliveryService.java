@@ -82,4 +82,8 @@ public class BookDeliveryService extends BaseService {
 		return dao.getBookDeliveryExcelList(bookDelivery);
 	}
 
+	public int modifyBookDeliveryAll(BookDelivery bookDelivery) {
+		return dao.modifyBookDeliveryAll(bookDelivery);
+	}
+
 }

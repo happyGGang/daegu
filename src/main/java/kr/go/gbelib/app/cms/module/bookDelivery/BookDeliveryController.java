@@ -111,6 +111,10 @@ public class BookDeliveryController extends BaseController {
 				service.deleteCheckBookDelivery(bookDelivery);
 				res.setValid(true);
 				res.setMessage("선택 삭제 되었습니다.");
+			} else if (bookDelivery.getEditMode().equals("MODIFYALL")) {
+				service.modifyBookDeliveryAll(bookDelivery);
+				res.setValid(true);
+				res.setMessage("전체 수정 되었습니다.");
 			}
 		} else {
 			res.setValid(false);
