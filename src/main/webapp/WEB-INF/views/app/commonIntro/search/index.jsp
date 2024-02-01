@@ -27,6 +27,14 @@ $(function() {
 		$('input#viewPage').val('1');
 		doGetLoad('index.do', $form.serialize());
 	});
+	
+	$('a.separate-shelf-code-submit').on('click', function(e) {
+		e.preventDefault();
+		var scode = $(this).attr('href');
+		$('input#separateShelfCode').val(scode.replace('#',''));
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
+	});
 
 	//정렬, N개씩보기 : 접근성에 안맞아서 주석처리
 	/*
@@ -426,6 +434,7 @@ function isFromFridayToSunday() {
 						<input id="booktype" name="booktype" type="hidden" value="BOOKANDNONBOOK"/>
 						<a id="search-btn" class="btnNew4" style="display:none;">검색하기</a>
 
+						<h3>일반 주제</h3>
 						<div class="divSubjectMenu">
 							<table cellpadding="0" cellspacing="0" border="1" class="subjectTable">
 								<caption class="dpn">주제분류 리스트</caption>
@@ -438,32 +447,33 @@ function isFromFridayToSunday() {
 								</colgroup>
 								<tbody>
 								<tr>
-
 									<td><a href="#0" class="subject-submit"><span class="subject0">총류</span></a></td>
-
 									<td><a href="#1" class="subject-submit"><span class="subject1">철학</span></a></td>
-
 									<td><a href="#2" class="subject-submit"><span class="subject2">종교</span></a></td>
-
 									<td><a href="#3" class="subject-submit"><span class="subject3">사회과학</span></a></td>
-
 									<td><a href="#4" class="subject-submit"><span class="subject4">자연과학</span></a></td>
-
 								</tr>
 								<tr>
-
 									<td><a href="#5" class="subject-submit"><span class="subject5">기술과학</span></a></td>
-
 									<td><a href="#6" class="subject-submit"><span class="subject6">예술</span></a></td>
-
 									<td><a href="#7" class="subject-submit"><span class="subject7">언어</span></a></td>
-
 									<td><a href="#8" class="subject-submit"><span class="subject8">문학</span></a></td>
-
 									<td><a href="#9" class="subject-submit"><span class="subject9">역사</span></a></td>
-
 								</tr>
-
+								</tbody>
+							</table>
+						</div>
+						
+						<h3>특성화 주제</h3>
+						<div class="divSubjectMenu">
+							<table cellpadding="0" cellspacing="0" border="1" class="subjectTable">
+								<caption class="dpn">특성화주제</caption>
+								<tbody>
+								<tr>
+									<td><a href="#CFH" class="separate-shelf-code-submit"><span class="subject10">큰글자책</span></a></td>
+									<td><a href="#CFK" class="separate-shelf-code-submit"><span class="subject11">치매</span></a></td>
+									<td><a href="#CFM" class="separate-shelf-code-submit"><span class="subject12">향토</span></a></td>
+								</tr>
 								</tbody>
 							</table>
 						</div>
