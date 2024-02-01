@@ -384,16 +384,22 @@ $(function(){
 		</div>
 		<h3>도서관체험학습안내</h3>
 		<ul class="con">
-			<li><strong>운영대상</strong> : 도서관 인근 유치원 및 어린이집</li>
+			<li><strong>운영대상</strong> : 도서관 인근 유치원 및 어린이집(만2세~만5세(4~7세))</li>
 			<li><strong>운영기간</strong> : 상반기(3~6월) / 하반기(9~11월) 매주 수,목요일</li>
-			<li><strong>운영방법</strong> : 1일 1회 15명 이내</li>
+			<li><strong>운영방법</strong> : 1일 1회 15명 내외, 기관별 4회 이내(20명 초과 시 장소 협소할 수 있음)</li>
 			<li><strong>운영내용</strong> : 도서관 이용교육 및 자율독서 등</li>
-			<li><strong>참가신청</strong> : 참가신청서 작성 후 FAX(615-7975)로 제출</li>
-			<li><strong>문 의 처</strong> : 053-231-2175</li>
+			<li><strong>참가신청</strong> : 로그인 → ‘신청’ 버튼이 활성화되어 있는 날짜 선택 후 신청 → 신청 양식 작성 → 견학 신청 후 ‘승인완료’ 처리 여부를 반드시 확인</li>
+			<li><strong>유의사항</strong>
+				<ul class="con2">
+					<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관사정에 따라 변경될 수 있습니다.</li>
+					<li>신청은 온라인을 통해서만 가능합니다.</li>
+				</ul>
+			<li>
+			<li><strong>문 의 처</strong> : 053-231-2175~6</li>
 		</ul>
 		<ul class="btns_wrap_tac">
 			<li>
-			<a href="/board/boardFile/download/19/509549/339005.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+			<a href="/board/boardFile/download/19/510110/340144.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
 				<span>신청서 다운로드</span><span class="ico ico_link"></span>
 			</a>
 			</li>
