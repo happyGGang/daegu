@@ -1097,7 +1097,20 @@ function isFromFridayToSunday() {
 														</c:if>
 													</c:when>
 													<c:when test="${homepage.context_path eq 'duryu'}">
-														<c:if test="${i.CODE ne 'AB57'}">
+														<c:if test="${i.CODE eq 'AB01' or
+																		i.CODE eq 'AB02' or
+																		i.CODE eq 'AB03' or
+																		i.CODE eq 'AB04' or
+																		i.CODE eq 'AB05' or
+																		i.CODE eq 'AB06' or
+																		i.CODE eq 'AB07' or
+																		i.CODE eq 'AB27' or
+																		i.CODE eq 'AB28' or
+																		i.CODE eq 'AB35' or
+																		i.CODE eq 'AB36' or
+																		i.CODE eq 'AB55' or
+																		i.CODE eq 'AB56'
+																		}">
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>
 													</c:when>
