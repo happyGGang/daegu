@@ -106,9 +106,29 @@ $(function() {
 	});
 
 });
+
+$(function() {
+    $('.tabmenu a').on('click',function() { 
+          var key = $(this).attr('keyValue');
+          if ( key == 'tabCon1' ) {
+          }
+          else if ( key == 'tabCon2') {
+              doGetLoad('../bookPackageBundle/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}');
+          }
+    });
+});
+
 </script>
 <link rel="stylesheet" href="/resources/common/css/bookPackage.css" />
 
+<div class="tabmenu on tab1">
+    <ul>
+        <li class="active"><a title="대출신청(책·미니·주제)" href="#tabCon1" keyvalue="tabCon1">대출신청(책·미니·주제)</a></li>
+        <li><a title="대출신청(학생추천도서)" href="#tabCon2" keyvalue="tabCon2">대출신청(학생추천도서)</a></li>
+    </ul>
+</div>
+
+<div class="tabCon active" id="tabCon1">
 <form:form modelAttribute="bookPackage" id="bookPackageDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>
 <form:hidden path="book_package_idx" id="book_package_idx_d"/>
@@ -274,3 +294,4 @@ $(function() {
 </jsp:include>
 
 </form:form>
+</div>

@@ -125,6 +125,18 @@ $(function() {
 	});
 	
 });
+
+$(function() {
+    $('.tabmenu a').on('click',function() { 
+          var key = $(this).attr('keyValue');
+          if ( key == 'tabCon1' ) {
+        	  doGetLoad('../bookPackage/loanList.do?menu_idx=${fn:escapeXml(param.menu_idx)}');
+          }
+          else if ( key == 'tabCon2') {
+          }
+    });
+});
+
 </script>
 <style type="text/css">
 input[name="return_yn"] {display: none;}
@@ -146,6 +158,14 @@ a.return2 {background: #e94949;color: #fff;}
 a.cancle-btn {border: 1px solid #787b80;color: #787b80;}
 </style>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+
+<div class="tabmenu on tab1">
+    <ul>
+        <li><a title="대출현황조회(책·미니·주제)" href="#tabCon1" keyvalue="tabCon1">대출현황조회(책·미니·주제)</a></li>
+        <li class="active"><a title="대출현황조회(학생추천도서)" href="#tabCon2" keyvalue="tabCon2">대출현황조회(학생추천도서)</a></li>
+    </ul>
+</div>
+
 <form:form modelAttribute="bookPackageBundle" action="loanList.do" method="GET">
 <form:hidden path="editMode"/>
 <form:hidden path="menu_idx"/>

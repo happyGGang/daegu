@@ -101,8 +101,27 @@ $(function() {
 	});
 
 });
+
+$(function() {
+    $('.tabmenu a').on('click',function() { 
+          var key = $(this).attr('keyValue');
+          if ( key == 'tabCon1' ) {
+        	  doGetLoad('../bookPackage/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}');
+          }
+          else if ( key == 'tabCon2') {
+          }
+    });
+});
+
 </script>
 <link rel="stylesheet" href="/resources/common/css/bookPackageBundle.css" />
+
+<div class="tabmenu on tab1">
+    <ul>
+        <li><a title="대출신청(책·미니·주제)" href="#tabCon1" keyvalue="tabCon1">대출신청(책·미니·주제)</a></li>
+        <li class="active"><a title="대출신청(학생추천도서)" href="#tabCon2" keyvalue="tabCon2">대출신청(학생추천도서)</a></li>
+    </ul>
+</div>
 
 <form:form modelAttribute="bookPackageBundle" id="bookPackageBundleDel" action="save.do" method="POST">
 <form:hidden path="editMode" id="editMode_d" value="DELETE"/>
@@ -185,12 +204,9 @@ $(function() {
 		</c:if>
 	</div>
 
-
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#bookPackageBundle"/>
 	<jsp:param name="pagingUrl" value="index.do"/>
 </jsp:include>
-
-
 
 </form:form>
