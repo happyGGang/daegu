@@ -1,5 +1,6 @@
 package kr.go.gbelib.app.module.excursions;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -8,14 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
@@ -30,6 +36,7 @@ import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
+import kr.co.whalesoft.framework.file.FileStorage;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
@@ -56,6 +63,10 @@ public class ExcursionsController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
+	
+	@Autowired
+	@Qualifier("excursionsStorage")
+	private FileStorage excursionsStorage;
 
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, Excursions excursions, HttpServletRequest request) throws AuthException {
@@ -332,6 +343,20 @@ public class ExcursionsController extends BaseController {
 				apply.setStart_time(excursions.getStart_time());
 				apply.setEnd_date(excursions.getEnd_date());
 				apply.setEnd_time(excursions.getEnd_time());
+				
+				MultipartFile mFile = apply.getApply_file();
+				if ( mFile != null ) {
+					String serverFileName = Long.toString((System.currentTimeMillis()));
+					String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+					String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+					String filePath = "/" + apply.getHomepage_id();
+
+					File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
+					apply.setServer_file_name(serverFileName);
+					apply.setOrigin_file_name(originFileName);
+					apply.setFile_extension(fileExtension);
+					apply.setFile_size(f.length());
+				}
 				String addResult = applyService.addApply(apply, request);
 				if (addResult != null) {
 					res.setValid(true);

@@ -2,6 +2,8 @@ package kr.co.whalesoft.app.cms.module.excursions.apply;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class Apply extends PagingUtils {
@@ -70,6 +72,13 @@ public class Apply extends PagingUtils {
 	private String self_info_yn = "N";
 
 	private int isBlackList;
+	
+	private MultipartFile apply_file;
+	private String origin_file_name; // 원본파일명
+	private String server_file_name; // 서버파일명
+	private String file_extension; // 파일확장자
+	private long file_size; // 파일크기
+	
 
 	public int getApply_idx() {
 		return apply_idx;
@@ -545,4 +554,44 @@ public class Apply extends PagingUtils {
 		this.plan_month3 = plan_month3;
 	}
 
+	public MultipartFile getApply_file() {
+		return apply_file;
+	}
+
+	public void setApply_file(MultipartFile apply_file) {
+		this.apply_file = apply_file;
+	}
+
+	public String getOrigin_file_name() {
+		return origin_file_name;
+	}
+
+	public void setOrigin_file_name(String origin_file_name) {
+		this.origin_file_name = origin_file_name;
+	}
+
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
+
+	public String getFile_extension() {
+		return file_extension;
+	}
+
+	public void setFile_extension(String file_extension) {
+		this.file_extension = file_extension;
+	}
+
+	public long getFile_size() {
+		return file_size;
+	}
+
+	public void setFile_size(long file_size) {
+		this.file_size = file_size;
+	}
+	
 }
