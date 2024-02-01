@@ -230,7 +230,7 @@ public abstract class CommonService {
     }
 
     private void setResponseHeader(HttpServletResponse response) {
-        response.setHeader("X-Frame-Options", "DENY");
+        //response.setHeader("X-Frame-Options", "DENY");
         response.setHeader("X-Content-Type-Options", "nosniff");
         response.setHeader("X-XSS-Protection", "1");
     }

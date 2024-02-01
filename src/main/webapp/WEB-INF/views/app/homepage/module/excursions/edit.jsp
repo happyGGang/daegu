@@ -68,16 +68,19 @@ $(function() {
 		
 		$('#applicant_tel').val($('#applicant_tel_1').val()+'-'+$('#applicant_tel_2').val()+'-'+$('#applicant_tel_3').val());
 		$('#agency_tel').val($('#agency_tel_1').val()+'-'+$('#agency_tel_2').val()+'-'+$('#agency_tel_3').val());
-		var test = serializeObject($('#excursionsEdit'));
-		console.log(test);
 		
+		var formData = new FormData($('#excursionsEdit')[0]);
+
 		$.ajax({
-			url : '/${homepage.context_path}/module/excursions/save.do',
-			async : false,
-			data : serializeObject($('#excursionsEdit')),
-			method : 'POST',
-			dataType : 'json',
-			success : function(data) {
+			url: '/${homepage.context_path}/module/excursions/save.do',
+			type: 'POST',
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			success: function(data) {
 				if(data.valid) {
 	                 if(data.message != null && data.message.replace(/\s/g,'').length!=0) {
 	                	 alert(data.message);

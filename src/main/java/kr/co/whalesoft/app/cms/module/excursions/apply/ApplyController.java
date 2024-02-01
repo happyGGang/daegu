@@ -1,5 +1,6 @@
 package kr.co.whalesoft.app.cms.module.excursions.apply;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -13,16 +14,22 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.excursions.Excursions;
 import kr.co.whalesoft.app.cms.module.excursions.ExcursionsService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -36,6 +43,10 @@ public class ApplyController extends BaseController {
 
 	@Autowired
 	private ExcursionsService excursionsService;
+	
+	@Autowired
+	@Qualifier("excursionsStorage")
+	private FileStorage excursionsStorage;
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Apply apply) {
@@ -212,4 +223,44 @@ public class ApplyController extends BaseController {
 
 		return res;
 	}
+	
+	@RequestMapping(value = "/download/{homepage_id}/{apply_idx}.*", method = RequestMethod.GET)
+	@ResponseBody
+	public byte[] getFile(@PathVariable("homepage_id") String homepage_id,@PathVariable("apply_idx") int apply_idx, 
+			@RequestParam(required=false, value="file_type") String file_type, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Apply apply = new Apply();
+		
+		apply.setApply_idx(apply_idx);
+		apply.setHomepage_id(homepage_id);
+		apply = service.getApplyDownOne(apply);
+		String serverName = "";
+		String orgName = "";
+		String extension = "";
+		
+		serverName = apply.getServer_file_name();
+		orgName = apply.getOrigin_file_name();
+		extension = apply.getFile_extension();
+		String filePath = excursionsStorage.getRootPath()+ "/" + homepage_id + "/" + serverName;
+		File file = new File(filePath);
+
+		byte[] bytes = null;
+		
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			response.setHeader("Content-type", "text/html");
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+
+//		String fileName = "";
+		String fileName = String.format("%s.%s", orgName, extension);
+
+		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
+		response.setHeader("Content-Length", Long.toString(file.length()));
+	    response.setHeader("Content-Transfer-Encoding", "binary");
+	    response.setHeader("Content-Type", "application/octet-stream");
+
+	    return bytes;
+    }
 }

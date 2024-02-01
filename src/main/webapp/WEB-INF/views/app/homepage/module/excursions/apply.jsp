@@ -80,6 +80,7 @@ $(function() {
 				<th>방문 인원</th>
 				<th>승인 여부</th>
 				<th>신청</th>
+				<th>첨부파일</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -112,6 +113,9 @@ $(function() {
 						<c:if test="${apply_state ne '3'}">
 							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}">신청취소</a>
 						</c:if>
+					</td>
+					<td>
+						<a href="/${homepage.context_path}/module/excursions/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
 					</td>
 				</tr>
 			</c:forEach>

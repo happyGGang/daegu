@@ -67,6 +67,11 @@ public class ApplyService extends BaseService {
 		return applyVO;
 	}
 	
+	public Apply getApplyDownOne(Apply apply) {
+		Apply applyVO = Dao.getApplyOne(apply);
+		return applyVO;
+	}
+	
 	public List<Apply> getOkApply(CalendarManage calendarManage) {
 		return Dao.getOkApply(calendarManage);
 	}
