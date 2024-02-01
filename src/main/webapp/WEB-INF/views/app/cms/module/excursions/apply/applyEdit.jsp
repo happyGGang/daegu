@@ -104,7 +104,9 @@ $(function() {
 				<c:if test="${apply.editMode ne 'VIEW' }">
 					<th>신청</th>
 				</c:if>
-				<th>첨부파일</th>
+				<c:if test="${apply.homepage_id eq 'h4'}">
+					<th>첨부파일</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -141,9 +143,11 @@ $(function() {
 							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
 						</td>
 					</c:if>
-						<td>
-							<a href="/cms/module/excursions/apply/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
-						</td>
+					<c:if test="${i.homepage_id eq 'h4'}">
+					<td>
+						<a href="/cms/module/excursions/apply/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
+					</td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</tbody>
