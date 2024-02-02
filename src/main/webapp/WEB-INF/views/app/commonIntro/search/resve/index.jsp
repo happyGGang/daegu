@@ -211,7 +211,7 @@ $(function() {
 								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
 									<c:choose>
-										<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02')}">
+										<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02') or (i.L_WORKER eq 'SSSUBCO01') or (i.L_WORKER eq 'BRSUBCO01')}">
 											취소불가
 										</c:when>
 										<c:otherwise>
@@ -238,14 +238,20 @@ $(function() {
 						</c:otherwise>
 					</c:choose>
 						</td>
-						<c:if test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02')}">
+						<c:if test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02') or (i.L_WORKER eq 'SSSUBCO01') or (i.L_WORKER eq 'BRSUBCO01')}">
 						<td>
 							<c:choose>
 								<c:when test="${i.L_WORKER eq 'DSSUB01'}">
 									상인역
 								</c:when>
-								<c:otherwise>
+								<c:when test="${i.L_WORKER eq 'DSSUB02'}">
 									용산역
+								</c:when>
+								<c:when test="${i.L_WORKER eq 'SSSUBCO01'}">
+									성서도서관(무인)
+								</c:when>
+								<c:otherwise>
+									본리도서관(무인)
 								</c:otherwise>
 							</c:choose>
 						</td>
