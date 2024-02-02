@@ -463,7 +463,7 @@ function isFromFridayToSunday() {
 								</tbody>
 							</table>
 						</div>
-						
+						<br>
 						<h3>특성화 주제</h3>
 						<div class="divSubjectMenu">
 							<table cellpadding="0" cellspacing="0" border="1" class="subjectTable">

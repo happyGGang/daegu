@@ -335,14 +335,7 @@ ${boardManage.top_html}
 				<c:if test="${fn:length(boardList) < 1}">
 				<div class="nodata">
 					<i class="fa fa-frown-o"></i>
-					<c:choose>
-					<c:when test="${param.manage_idx eq '728'}">
-					<p>코로나-19로 인해 토요일 어린이(가족)영화 상영은 중단되었습니다</p>
-					</c:when>
-					<c:otherwise>
 					<p>등록된 데이터가 없습니다.</p>
-					</c:otherwise>
-					</c:choose>
 				</div>
 				</c:if>
 
