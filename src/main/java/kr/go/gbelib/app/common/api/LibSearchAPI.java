@@ -2313,6 +2313,8 @@ public class LibSearchAPI {
 		if (map != null && !map.isEmpty() && map.get("RESULT_MESSAGE") != null) {
 			return null;
 		}
+		
+		map.remove("FACET_GROUP");
 
 		if (map != null && !map.isEmpty() && map.get("LIST_DATA") != null) {
 			list = new ArrayList<Map<String, Object>>();
@@ -2322,9 +2324,11 @@ public class LibSearchAPI {
 				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("SEARCH_COUNT")) {
 					list.remove(0);
 				}
-				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("FACET_GROUP")) {
-					list.remove(0);
-				}
+				
+				countMap.remove("FACET_GROUP");
+//				if (countMap != null && !countMap.isEmpty() && countMap.containsKey("FACET_GROUP")) {
+//					list.remove(0);
+//				}
 			}
 		}
 
