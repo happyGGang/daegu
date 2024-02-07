@@ -100,4 +100,10 @@ public interface UntactBookReservationDao {
 
 	public boolean getMemberReserveYn(UntactBookReservation untactBookReservation);
 
+	public int changeStatus(UntactBookReservation untactBookReservation);
+
+	public int cancelReservation(UntactBookReservation untactBookReservation);
+
+	public int deleteReservation(UntactBookReservation untactBookReservation);
+
 }

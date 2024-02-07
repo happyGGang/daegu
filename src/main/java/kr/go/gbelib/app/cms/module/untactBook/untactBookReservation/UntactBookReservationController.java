@@ -72,6 +72,49 @@ public class UntactBookReservationController extends BaseController {
 		return basepath + "index";
 	}
 	
+	@RequestMapping (value = {"/save.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse save(Model model, LibrarySearch librarySearch, UntactBookReservation untactBookReservation, BindingResult result, HttpServletRequest request) {
+		untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+		
+		JsonResponse res = new JsonResponse(request);
+		
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute(StaticVariables.MEMBER);;
+		
+		untactBookReservation.setAdmin_member_id(member.getMember_id());
+		
+		if (!result.hasErrors()) {
+			untactBookReservation.setCancel_id(getSessionMemberId(request));
+			untactBookReservation.setCancel_ip(request.getRemoteAddr());
+			untactBookReservation.setHomepage_id(getAsideHomepageId(request));
+			
+			if(StringUtils.isNotEmpty(untactBookReservation.getStatus())) {
+				untactBookReservation.setReservation_step(untactBookReservation.getStatus());
+				
+				if("1".equals(untactBookReservation.getReservation_step()) || "2".equals(untactBookReservation.getReservation_step()) || "3".equals(untactBookReservation.getReservation_step()) || "4".equals(untactBookReservation.getReservation_step())) {
+					reservationService.changeStatus(untactBookReservation);
+				} else if("5".equals(untactBookReservation.getReservation_step())) {
+					untactBookReservation.setCancel_reason("만기취소");
+					reservationService.cancelReservation(untactBookReservation);
+				} else if("6".equals(untactBookReservation.getReservation_step())) {
+					untactBookReservation.setCancel_reason("사용자본인취소");
+					reservationService.cancelReservation(untactBookReservation);
+				} else if("7".equals(untactBookReservation.getReservation_step())) {
+					reservationService.deleteReservation(untactBookReservation);
+				}
+				res.setValid(true);
+				res.setMessage("정상 처리 되었습니다.");
+			} else {
+				res.setValid(false);
+				res.setMessage("선택하신 상태가 존재하지 않습니다.");
+			}
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+		return res;
+	}
+	
 	@RequestMapping(value = { "/smsWrite.*" })
 	public String smsWrite(Model model, UntactBookReservation untactBookReservation, HttpServletRequest request) throws AuthException {
 		if(untactBookReservation == null) {  

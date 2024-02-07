@@ -56,6 +56,8 @@ public class UntactBookReservation extends PagingUtils {
 	private int local_loanable_cnt;	//자관대출가능권수
 	private int local_loan_cnt;	//자관대출중권수
 	
+	private String status;
+	
 	public UntactBookReservation() {}
 
 	public String getHomepage_id() {
@@ -376,6 +378,14 @@ public class UntactBookReservation extends PagingUtils {
 
 	public void setCall_no(String call_no) {
 		this.call_no = call_no;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

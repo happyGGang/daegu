@@ -1074,4 +1074,46 @@
      	AND member_id = #{member_id}
 		AND cancel_yn = 'N'
 	</select>
+	
+	<update id="changeStatus">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			reservation_step = #{reservation_step}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+			${i}
+		</foreach>
+	</update>
+	
+	<update id="cancelReservation">
+		UPDATE
+			UNTACT_BOOK_RESERVATION
+		SET
+			cancel_yn = 'Y',
+			cancel_reason = #{cancel_reason},
+			cancel_id = #{cancel_id},
+			cancel_ip = #{cancel_ip},
+			cancel_date = SYSDATE,
+			reservation_step = #{reservation_step}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+			${i}
+		</foreach>
+	</update>
+	
+	<delete id="deleteReservation">
+		DELETE FROM
+			UNTACT_BOOK_RESERVATION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND request_number IN
+		<foreach collection="request_number_arr" item="i" open="(" close=")" separator=",">
+			${i}
+		</foreach>
+	</delete>
 </mapper>

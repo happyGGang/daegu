@@ -57,6 +57,31 @@ $(function(){
 		e.preventDefault();
 	});
 	
+	$('#status-change').on('click', function(e) {
+		e.preventDefault();
+		
+		if($('input[name="request_number_arr"]:checked').length < 1) {
+			alert('변경할 신청내역을 선택하세요.');
+			return false;
+		}
+		
+		if($('select#statusAll option:selected').val() == '') {
+			alert('변경할 상태를 선택하세요.');
+			return false;
+		}
+		
+		if(confirm("상태를 변경하시겠습니까?\n삭제된 데이터는 복구가 불가능 하니 주의해주시기 바랍니다.")){
+			$('#status').val($('select#statusAll').val()).prop('selected', true);
+			$('#untactBookReservation').attr('action', 'save.do');
+			$('#untactBookReservation').attr('method', 'POST');
+			if(doAjaxPost($('#untactBookReservation'))) {
+				location.reload();
+			}
+		} else {
+			return false;
+		}
+	});
+	
 });
 
 function smsWrite() {
@@ -104,6 +129,7 @@ function smsWrite() {
 </script>
 <form:form id="untactBookReservation" modelAttribute="untactBookReservation" method="POST" action="save.do">
 <form:hidden id="homepage_id" path="homepage_id"/>
+<form:hidden id="status" path="status"/>
 
 <div class="search">
 <label class="blind">검색</label>
@@ -119,6 +145,8 @@ function smsWrite() {
 	<form:select path="reservation_step" cssClass="selectmenu">
 		<form:option value="">전체보기</form:option>
 		<form:option value="1">예약</form:option>
+		<form:option value="2">접수</form:option>
+		<form:option value="3">대기</form:option>
 		<form:option value="4">대출</form:option>
 	</form:select>
 	신청일 : <form:input path="start_date" class="text ui-calendar"/> ~ <form:input path="end_date" class="text ui-calendar"/>
@@ -127,17 +155,29 @@ function smsWrite() {
 	<a href="#" class="btn btn1 btnuntact" onclick="smsWrite();">SMS발송</a>
 </div>
 
+<select id="statusAll" class="selectmenu">
+	<option value="">상태전체</option>
+	<option value="1">예약</option>
+	<option value="2">접수</option>
+	<option value="3">대기</option>
+	<option value="4">대출</option>
+	<option value="5">만기취소</option>
+	<option value="6">사용자본인취소</option>
+	<option value="7">삭제</option>
+</select>
+<a href="#" id="status-change" class="btn btn">선택상태변경</a>
+
 <table class="type1 center">
 	<thead>
 		<tr>
 			<th width="5"><input type="checkbox" onchange="checkAll($(this));"></th>
 			<th width="5">번호</th>
 			<th width="40">신청자아이디</th>
-			<th width="50">대출번호</th>
-			<th width="50">청구기호</th>
-			<th width="40">신청자명</th>
-			<th width="50">신청일</th>
-			<th width="50">비치일</th>
+			<th width="40">대출번호</th>
+			<th width="40">청구기호</th>
+			<th width="30">신청자명</th>
+			<th width="55">신청일</th>
+			<th width="55">비치일</th>
 			<th width="50">도서명</th>
 			<th width="30">사물함번호</th>
 			<th width="50">자료실명</th>
@@ -156,11 +196,11 @@ function smsWrite() {
 			<td width="5"><form:checkbox path="request_number_arr" cssClass="black_idx" value="${i.request_number}"/></td>
 			<td width="5">${paging.listRowNum - status.index}</td>
 			<td width="40">${i.member_id}</td>
-			<td width="50">${i.reg_no}</td>
-			<td width="50">${i.call_no}</td>
-			<td width="40">${i.member_name}</td>
-			<td width="50">${i.request_date}</td>
-			<td width="50">${i.loan_date}</td>
+			<td width="40">${i.reg_no}</td>
+			<td width="40">${i.call_no}</td>
+			<td width="30">${i.member_name}</td>
+			<td width="55">${i.request_date}</td>
+			<td width="55">${i.loan_date}</td>
 			<td width="50">${i.book_name}</td>
 			<td width="30">${i.locker_number}</td>
 			<td width="50">${i.shelf_loc_name}</td>
@@ -177,7 +217,7 @@ function smsWrite() {
 	</c:forEach>
 	</tbody>
 </table>
-	
+
 <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
 	<jsp:param name="formId" value="#untactBookReservation"/>
 </jsp:include>

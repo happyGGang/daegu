@@ -273,4 +273,16 @@ public class UntactBookReservationService extends BaseService {
 		return dao.getMemberReserveYn(untactBookReservation);
 	}
 
+	public int changeStatus(UntactBookReservation untactBookReservation) {
+		return dao.changeStatus(untactBookReservation);
+	}
+
+	public int cancelReservation(UntactBookReservation untactBookReservation) {
+		return dao.cancelReservation(untactBookReservation);
+	}
+
+	public int deleteReservation(UntactBookReservation untactBookReservation) {
+		return dao.deleteReservation(untactBookReservation);
+	}
+
 }
