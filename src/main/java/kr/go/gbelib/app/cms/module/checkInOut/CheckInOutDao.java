@@ -42,4 +42,10 @@ public interface CheckInOutDao {
 
 	public List<CheckInOut> getHourOfUseExcelList(CheckInOut checkInOut);
 
+	public List<CheckInOut> getCheckInUserAll(CheckInOut checkInOut);
+
+	public List<CheckInOut> getCheckInUserDistinct(CheckInOut checkInOut);
+
+	public List<CheckInOut> getCheckInUserBringIn(CheckInOut checkInOut);
+
 }

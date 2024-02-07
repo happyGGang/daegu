@@ -1,8 +1,11 @@
 package kr.go.gbelib.app.cms.module.checkInOut;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,6 +58,170 @@ private final String basePath = "/cms/module/checkInOut/";
 		model.addAttribute("checkOutCount", service.getCheckOutCount(checkInOut));
 
 		return basePath + "index";
+	}
+	
+	@RequestMapping (value = {"/indexAll.*"})
+	public String indexAll(Model model, CheckInOut checkInOut, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
+		
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		if (StringUtils.isEmpty(checkInOut.getEnd_date())) {
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date now = new Date();
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+			cal.add(Calendar.MONTH, -1);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTime(now);
+			cal2.add(Calendar.MONTH, -1);
+			cal2.set(Calendar.DAY_OF_MONTH, cal2.getActualMaximum(Calendar.DAY_OF_MONTH));
+			
+			checkInOut.setStart_date(startDateFormat.format(cal.getTime()));
+			checkInOut.setEnd_date(endDateFormat.format(cal2.getTime()));
+		}
+	
+		Map<String, Integer> allUsers = new HashMap<String, Integer>();
+		Map<String, Integer> allUsageHours = new HashMap<String, Integer>();
+		
+		List<CheckInOut> checkInUserAllList = service.getCheckInUserAll(checkInOut);
+		for(CheckInOut cio : checkInUserAllList) {
+			allUsers.put(cio.getCheckIn_time() + "." + cio.getMember_birth() + "." + cio.getMember_sex(), cio.getCnt());
+		}
+		
+		for(CheckInOut cio : checkInUserAllList) {
+			if(StringUtils.isNotEmpty(cio.getCheckInOut_time())){
+				allUsageHours.put(cio.getCheckIn_time() + "_" + cio.getMember_birth() + "_" + cio.getMember_sex(), Integer.parseInt(cio.getCheckInOut_time()));
+			}
+		}
+		
+		Map<String, Integer> distinctUsers = new HashMap<String, Integer>();
+		Map<String, Integer> distinctUsageHours = new HashMap<String, Integer>();
+		
+		List<CheckInOut> checkInUserdistinctList = service.getCheckInUserDistinct(checkInOut);
+		for(CheckInOut cio : checkInUserdistinctList) {
+			distinctUsers.put(cio.getCheckIn_time() + "." + cio.getMember_birth() + "." + cio.getMember_sex(), cio.getCnt());
+		}
+		
+		for(CheckInOut cio : checkInUserdistinctList) {
+			if(StringUtils.isNotEmpty(cio.getCheckInOut_time())){
+				distinctUsageHours.put(cio.getCheckIn_time() + "_" + cio.getMember_birth() + "_" + cio.getMember_sex(), Integer.parseInt(cio.getCheckInOut_time()));
+			}
+		}
+		
+		Map<String, Integer> bringInUsers = new HashMap<String, Integer>();
+		Map<String, Integer> bringInUsageHours = new HashMap<String, Integer>();
+		
+		List<CheckInOut> checkInUserbringInList = service.getCheckInUserBringIn(checkInOut);
+		for(CheckInOut cio : checkInUserbringInList) {
+			bringInUsers.put(cio.getCheckIn_time() + "." + cio.getMember_birth() + "." + cio.getMember_sex(), cio.getCnt());
+		}
+		
+		for(CheckInOut cio : checkInUserbringInList) {
+			if(StringUtils.isNotEmpty(cio.getCheckInOut_time())){
+				bringInUsageHours.put(cio.getCheckIn_time() + "_" + cio.getMember_birth() + "_" + cio.getMember_sex(), Integer.parseInt(cio.getCheckInOut_time()));
+			}
+		}
+		
+		//전체
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("allUsageHours", allUsageHours);
+		//순이용자수
+		model.addAttribute("distinctUsers", distinctUsers);
+		model.addAttribute("distinctUsageHours", distinctUsageHours);
+		//신규이용자수
+		model.addAttribute("bringInUsers", bringInUsers);
+		model.addAttribute("bringInUsageHours", bringInUsageHours);
+		
+		model.addAttribute("checkInOut", checkInOut);
+		
+		return basePath + "indexAll";
+	}
+	
+	@RequestMapping (value = {"/indexAllExcel.*"})
+	public String indexAllExcel(Model model, CheckInOut checkInOut, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
+		
+		checkInOut.setHomepage_id(getAsideHomepageId(request));
+		
+		if (StringUtils.isEmpty(checkInOut.getEnd_date())) {
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date now = new Date();
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+			cal.add(Calendar.MONTH, -1);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTime(now);
+			cal2.add(Calendar.MONTH, -1);
+			cal2.set(Calendar.DAY_OF_MONTH, cal2.getActualMaximum(Calendar.DAY_OF_MONTH));
+			
+			checkInOut.setStart_date(startDateFormat.format(cal.getTime()));
+			checkInOut.setEnd_date(endDateFormat.format(cal2.getTime()));
+		}
+	
+		Map<String, Integer> allUsers = new HashMap<String, Integer>();
+		Map<String, Integer> allUsageHours = new HashMap<String, Integer>();
+		
+		List<CheckInOut> checkInUserAllList = service.getCheckInUserAll(checkInOut);
+		for(CheckInOut cio : checkInUserAllList) {
+			allUsers.put(cio.getCheckIn_time() + "." + cio.getMember_birth() + "." + cio.getMember_sex(), cio.getCnt());
+		}
+		
+		for(CheckInOut cio : checkInUserAllList) {
+			if(StringUtils.isNotEmpty(cio.getCheckInOut_time())){
+				allUsageHours.put(cio.getCheckIn_time() + "_" + cio.getMember_birth() + "_" + cio.getMember_sex(), Integer.parseInt(cio.getCheckInOut_time()));
+			}
+		}
+		
+		Map<String, Integer> distinctUsers = new HashMap<String, Integer>();
+		Map<String, Integer> distinctUsageHours = new HashMap<String, Integer>();
+		
+		List<CheckInOut> checkInUserdistinctList = service.getCheckInUserDistinct(checkInOut);
+		for(CheckInOut cio : checkInUserdistinctList) {
+			distinctUsers.put(cio.getCheckIn_time() + "." + cio.getMember_birth() + "." + cio.getMember_sex(), cio.getCnt());
+		}
+		
+		for(CheckInOut cio : checkInUserdistinctList) {
+			if(StringUtils.isNotEmpty(cio.getCheckInOut_time())){
+				distinctUsageHours.put(cio.getCheckIn_time() + "_" + cio.getMember_birth() + "_" + cio.getMember_sex(), Integer.parseInt(cio.getCheckInOut_time()));
+			}
+		}
+		
+		Map<String, Integer> bringInUsers = new HashMap<String, Integer>();
+		Map<String, Integer> bringInUsageHours = new HashMap<String, Integer>();
+		
+		List<CheckInOut> checkInUserbringInList = service.getCheckInUserBringIn(checkInOut);
+		for(CheckInOut cio : checkInUserbringInList) {
+			bringInUsers.put(cio.getCheckIn_time() + "." + cio.getMember_birth() + "." + cio.getMember_sex(), cio.getCnt());
+		}
+		
+		for(CheckInOut cio : checkInUserbringInList) {
+			if(StringUtils.isNotEmpty(cio.getCheckInOut_time())){
+				bringInUsageHours.put(cio.getCheckIn_time() + "_" + cio.getMember_birth() + "_" + cio.getMember_sex(), Integer.parseInt(cio.getCheckInOut_time()));
+			}
+		}
+		
+		//전체
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("allUsageHours", allUsageHours);
+		//순이용자수
+		model.addAttribute("distinctUsers", distinctUsers);
+		model.addAttribute("distinctUsageHours", distinctUsageHours);
+		//신규이용자수
+		model.addAttribute("bringInUsers", bringInUsers);
+		model.addAttribute("bringInUsageHours", bringInUsageHours);
+		
+		model.addAttribute("checkInOut", checkInOut);
+		
+		return basePath + "indexAllExcel_ajax";
 	}
 	
 	@RequestMapping (value = {"/chartIndex.*"})

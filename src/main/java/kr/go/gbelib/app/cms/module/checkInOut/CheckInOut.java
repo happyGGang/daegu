@@ -32,6 +32,8 @@ public class CheckInOut extends PagingUtils{
 	
 	private int total_count;
 	
+	private int cnt;
+	
 	public int getCheckInOut_idx() {
 		return checkInOut_idx;
 	}
@@ -190,6 +192,14 @@ public class CheckInOut extends PagingUtils{
 
 	public void setTotal_count(int total_count) {
 		this.total_count = total_count;
+	}
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 	
 }

@@ -89,4 +89,16 @@ public class CheckInOutService extends BaseService {
 		return dao.getHourOfUseExcelList(checkInOut);
 	}
 
+	public List<CheckInOut> getCheckInUserAll(CheckInOut checkInOut) {
+		return dao.getCheckInUserAll(checkInOut);
+	}
+
+	public List<CheckInOut> getCheckInUserDistinct(CheckInOut checkInOut) {
+		return dao.getCheckInUserDistinct(checkInOut);
+	}
+
+	public List<CheckInOut> getCheckInUserBringIn(CheckInOut checkInOut) {
+		return dao.getCheckInUserBringIn(checkInOut);
+	}
+
 }

@@ -37,6 +37,7 @@ $(function(){
 });
 
 </script>
+
 <style>
 	ul.icon_list{float: right;}
 
@@ -70,6 +71,7 @@ $(function(){
 
 <div class="tab">
 	<ul class="tabnav">
+		<li><a href="/cms/module/checkInOut/indexAll.do" style="font-size: 13px;">전체 통계</a></li>
 		<li><a href="/cms/module/checkInOut/chartIndex.do" style="font-size: 13px;">방문자수 통계</a></li>
 		<li><a href="/cms/module/checkInOut/usageRanking.do" style="font-size: 13px;">이용순위 통계</a></li>
 		<li><a href="/cms/module/checkInOut/hoursOfUse.do" class="active" style="font-size: 13px;">이용시간 통계</a></li>

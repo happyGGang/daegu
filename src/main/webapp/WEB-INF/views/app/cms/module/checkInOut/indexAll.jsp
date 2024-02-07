@@ -22,19 +22,20 @@ $(function(){
 	$('#searchBtn').on('click', function (e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
-		doGetLoad('usageRanking.do', $('form#checkInOut').serialize());
+		doGetLoad('indexAll.do', $('form#checkInOut').serialize());
 	});
 
 	$('a#excelDownload').on('click', function(e) {
-		$('#checkInOut').attr('action', 'usageExcelDownload.do').submit();
+		$('#checkInOut').attr('action', 'indexAllExcel.do').submit();
 		e.preventDefault();
 	});
 	
 	$('a#csvDownload').on('click', function(e) {
-		$('#checkInOut').attr('action', 'usageCsvDownload.do').submit();
+		$('#checkInOut').attr('action', 'hourOfUseCsvDownload.do').submit();
 		e.preventDefault();
 	});
 });
+
 </script>
 
 <style>
@@ -70,15 +71,15 @@ $(function(){
 
 <div class="tab">
 	<ul class="tabnav">
-		<li><a href="/cms/module/checkInOut/indexAll.do" style="font-size: 13px;">전체 통계</a></li>
+		<li><a href="/cms/module/checkInOut/indexAll.do" class="active" style="font-size: 13px;">전체 통계</a></li>
 		<li><a href="/cms/module/checkInOut/chartIndex.do" style="font-size: 13px;">방문자수 통계</a></li>
-		<li><a href="/cms/module/checkInOut/usageRanking.do" class="active" style="font-size: 13px;">이용순위 통계</a></li>
+		<li><a href="/cms/module/checkInOut/usageRanking.do" style="font-size: 13px;">이용순위 통계</a></li>
 		<li><a href="/cms/module/checkInOut/hoursOfUse.do" style="font-size: 13px;">이용시간 통계</a></li>
 	</ul>
 </div>
 		
 <div class="search">
-	<form:form id="checkInOut" modelAttribute="checkInOut" action="/excelDownload.do" method="post" style="display:inline-flex">
+	<form:form id="checkInOut" modelAttribute="checkInOut" action="/indexAllExcel.do" method="post" style="display:inline-flex">
 	<form:hidden id="homepageId" path="homepage_id" value="${asideHomepageId}"/>
 		<label class="blind">검색</label>
 		<b>
@@ -86,39 +87,18 @@ $(function(){
 			<span id="tilde" style="font-size:12px">~</span>
 			<form:input type="text" path="end_date" class="text ui-calendar"/>
 		</b>
-		순위 범위 1 ~ <form:input type="text" path="rowCount" style="width:40px;" class="text" maxlength="3" numberonly="true"/>위 까지
 		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
-		<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
+<!-- 		<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a> -->
+		<h3>전체</h3>
+		<jsp:include page="/WEB-INF/views/app/cms/module/checkInOut/all_statistics.jsp" flush="false"/>
+		<br/>
+		
+		<h3>순이용자수(중복제외)</h3>
+		<jsp:include page="/WEB-INF/views/app/cms/module/checkInOut/distinct_statistics.jsp" flush="false"/>
+		<br/>
+		
+		<h3>신규이용자수</h3>
+		<jsp:include page="/WEB-INF/views/app/cms/module/checkInOut/bringIn_statistics.jsp" flush="false"/>
 	</form:form>
 </div>
-<div class="alert">
-	<ul>
-		<li>이용순위 통계</li>
-	</ul>
-</div>
-
-<table id="accessTableData" class="chartData">
-<thead>
-	<tr>
-		<th>순위</th>
-		<th>대출자번호</th>
-		<th>이름</th>
-		<th>ID</th>
-		<th>지역구</th>
-		<th>대출권수</th>
-	</tr>
-</thead>
-<tbody>
-	<c:forEach var="i" varStatus="status" items="${usageRankingList}">
-		<tr>
-			<td>${status.count}</td>
-			<td>${i.user_no}</td>
-			<td>${i.member_name}</td>
-			<td>${i.member_id}</td>
-			<td>${i.member_area}</td>
-			<td>${i.borrowCount}</td>
-		</tr>
-	</c:forEach>
-</tbody>
-</table>

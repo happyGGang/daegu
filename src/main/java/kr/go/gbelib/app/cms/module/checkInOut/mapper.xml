@@ -310,4 +310,74 @@
 			)
 		ORDER BY result_date
 	</select>
+	
+	<select id="getCheckInUserAll" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+            CASE
+                WHEN checkin_time IN ('1','7') THEN '주말'
+                ELSE '평일'
+            END AS checkin_time,
+		    member_birth, member_sex, SUM(cnt) AS cnt, SUM(checkInOut_time) AS checkInOut_time
+		FROM
+		    (
+		    SELECT
+		    	TO_NUMBER(SUBSTR(member_birth, 1, 4)) AS member_birth, member_sex, cnt, TO_NUMBER(ROUND(checkInOut_time)) AS checkInOut_time,
+		    	TO_CHAR(checkin_time, 'D') as checkin_time
+	    	FROM
+		    	CHECKINOUT
+		    WHERE
+		    	homepage_id = #{homepage_id}
+		    	<include refid="where"/>
+		    )
+		GROUP BY member_birth, member_sex, checkin_time
+	</select>
+	
+	<select id="getCheckInUserDistinct" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+		    checkin_time, member_birth, member_sex, SUM(cnt) AS cnt, SUM(checkInOut_time) AS checkInOut_time
+		FROM
+		    (
+		       SELECT
+		        CASE
+		            WHEN checkin_time IN ('1','7') THEN '주말'
+		            ELSE '평일'
+		        END AS checkin_time,
+		        member_birth, member_sex, cnt, SUM(checkInOut_time) AS checkInOut_time, member_id
+		    FROM
+		        (
+		        SELECT
+		            TO_NUMBER(SUBSTR(member_birth, 1, 4)) AS member_birth, member_sex, cnt, TO_NUMBER(ROUND(checkInOut_time)) AS checkInOut_time,
+		            TO_CHAR(checkin_time, 'D') as checkin_time, member_id
+		        FROM
+		            CHECKINOUT
+		        WHERE
+		            homepage_id = #{homepage_id}
+		    		<include refid="where"/>
+	    		)
+		        GROUP BY member_birth, member_sex, checkin_time, member_id, cnt
+		    )
+		GROUP BY member_birth, member_sex, checkin_time, cnt
+	</select>
+	
+	<select id="getCheckInUserBringIn" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+            CASE
+                WHEN checkin_time IN ('1','7') THEN '주말'
+                ELSE '평일'
+            END AS checkin_time,
+		    member_birth, member_sex, SUM(cnt) AS cnt, SUM(checkInOut_time) AS checkInOut_time
+		FROM
+		    (
+		    SELECT
+		    	TO_NUMBER(SUBSTR(member_birth, 1, 4)) AS member_birth, member_sex, cnt, TO_NUMBER(ROUND(checkInOut_time)) AS checkInOut_time,
+		    	TO_CHAR(checkin_time, 'D') as checkin_time
+	    	FROM
+		    	CHECKINOUT
+		    WHERE
+		    	homepage_id = #{homepage_id}
+		    	<include refid="where"/>
+		    AND gubun = '0'
+		    )
+		GROUP BY member_birth, member_sex, checkin_time
+	</select>
 </mapper>
