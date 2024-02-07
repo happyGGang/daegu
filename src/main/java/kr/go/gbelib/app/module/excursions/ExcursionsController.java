@@ -348,7 +348,7 @@ public class ExcursionsController extends BaseController {
 				apply.setEnd_time(excursions.getEnd_time());
 				
 				MultipartFile mFile = apply.getApply_file();
-				if ( mFile != null ) {
+				if ( mFile.getSize() > 0 ) {
 					String serverFileName = Long.toString((System.currentTimeMillis()));
 					String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 					String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
