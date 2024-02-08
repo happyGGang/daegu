@@ -4,8 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
-<!--두류 서부 제외 시립-->
-<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang' || homepage.context_path eq 'gukbo' || homepage.context_path eq 'gw'}">
+<!--서부 제외 시립-->
+<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '228lib' || homepage.context_path eq 'nambu' || homepage.context_path eq 'dalseong' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'bukbu' || homepage.context_path eq 'suseong' || homepage.context_path eq 'jungang' || homepage.context_path eq 'gukbo' || homepage.context_path eq 'gw' || homepage.context_path eq 'duryu'}">
 	<div class="dpt-intro-type02">
 	  <div class="role-head">
 		<div class="ImgBox">
@@ -221,102 +221,6 @@
   <ul class="con">
     <li>대출기간 만료 시 자동 반납(수동 반납 불가능)</li>
   </ul>
-</c:if>
-
-<!--두류-->
-<c:if test="${homepage.context_path eq 'duryu'}">
-	<div class="dpt-intro-type02">
-	  <div class="role-head">
-		<div class="ImgBox">
-			<img src="/resources/homepage/dgportal/img/sv_top_img06.jpg" alt="" org_width="620" org_height="280" isinit="true" class="vis-img">
-		</div>
-		<div class="role-head-tit">
-		  <div class="txtBox">
-			<h3 class="ptit">대구전자도서관</h3>
-			<span class="ptitEng">대구시민의 스마트한<br>독서생활이 시작되는 곳</span>
-				<p class="center">
-				<c:choose>
-					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
-					</c:when>
-					<c:otherwise>
-						<!--a href="javascript:void(0);" onclick="alert('로그인후 이용바랍니다.'); location.href='/${homepage.context_path}/intro/login/index.do?menu_idx=4';" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"-->
-						<!-- <a href="javascript:void(0);" onclick="alert('대구전자도서관 이관 작업으로 서비스가 일시중지됩니다. 2020.3.16. 00:00 ~ 2020.3.17. 24:00'); return false;" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank"> -->
-						<a href="http://library.daegu.go.kr/elib/index.do" class="btn_link03 newWin mg10t" title="대구전자도서관 홈페이지 바로가기(새창열림)" target="_blank">
-					</c:otherwise>
-				</c:choose>
-				<span>대구전자도서관 바로가기</span><span class="ico ico_link"></span><i class="fa fa-external-link"></i></a></p>
-			</div>
-		</div>
-	  </div>
-	  <div class="role-body center">
-		<p class="tit">대구지역 공공도서관 회원이면 누구나 이용할 수 있는 대구전자도서관입니다.</p>
-		<p>현재 이용가능 콘텐츠는 전자책, 오디오북, 이러닝, 국내학회지 원문DB, 음악라이브러리입니다.</p>
-	  </div>
-	  <h3 class="contTit_line">회원가입 및 절차</h3>
-	  <ul class="con">
-		<li>대구시 공립도서관 통합회원 가입(통합회원인증)
-		  <ul>
-			<li>신규 : 통합회원가입, 기존 지역공공도서관 회원 : 통합회원인증</li>
-		  </ul>
-		</li>
-		<!--li>공공도서관 홈페이지에서 회원 인증 후 개인정보 수집 및 이용 동의하기
-		  <ul>
-			<li>최초 방문 시 인증 한번으로 재 로그인부터는 자동 접속</li>
-		  </ul>
-		</li-->
-		<li>대구전자도서관 홈페이지에서 전자책 및 오디오북 메뉴 클릭 후 이용하기 
-		  <ul>
-			<li>지역 공공도서관에 있는 전자책 및 오디오북 이용 가능</li>
-		  </ul>
-		</li>
-	  </ul>
-	</div>
-  <h3 class="contTit_line">구독형 전자자료 </h3>
-  <ul class="con">
-  	<li>서비스대상 : 전자책, 오디오북</li>
-    <li>서비스종수 : 62천종
-      <ul>
-        <li style="background:none;">※ 예약 대기 없이 언제든 대출가능, 매달 신간 업데이트</li>
-      </ul>
-    </li>
-    <li>대출권수 및 기간 : 1인 7권 / 15일
-      <ul>
-        <li style="background:none;">※ 수동 반납 불가, 대출기간 만료 시 자동 반납</li>
-      </ul>
-    </li>
-    <li>이용방법 
-      <ul>
-        <li style="font-size:14px;"><b style="color:#00a459">웹 :</b> 대구전자도서관(<a href="https://library.daegu.go.kr/elib" target="_blank" style="font-size:13px;color:#0097cf;">https://library.daegu.go.kr/elib</a>) 접속 / 로그인 / 구독형 전자책(구독형 전자도서관 웹으로 연결·자동로그인) / 도서 검색·대출 후 읽기</li>
-        <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 부커스 전자도서관 앱 다운로드 / 도서관 선택(대구전자도서관) / 로그인(대구전자도서관 웹과 아이디, 비밀번호 동일) / 도서 검색·대출 후 읽기</li>
-		<li style="background:none;">※ 대구공공도서관 통합회원이면 대구전자도서관 이용 가능</li>
-      </ul>
-    </li>
-  </ul>
-
-  <h3 class="contTit_line">소장형 전자자료</h3>
-  <ul class="con">
-  	<li>서비스대상 : 전자책, 오디오북, 이러닝 강좌 등</li>
-    <li>서비스종수 : 전자책 21천종, 오디오북 8백종, 이러닝 235강좌 
-      <ul>
-        <li>전자책 보유 점수 내에서 대출(모든 도서 대출 시 예약 대기), 매분기 신간 구입 </li>
-      </ul>
-    </li>
-    <li>대출권수 및 기간 
-      <ul>
-        <li>전자책 : 1인 3권 8일 <br />※ 대출기간 만료시 자동 반납, 언제든 수동 반납 가능</li>
-		<li>오디오북 : 제한없음</li>
-      </ul>
-    </li>
-    <li>이용방법
-      <ul>
-        <li style="font-size:14px;"><b style="color:#00a459">웹 :</b> 대구전자도서관(<a href="https://library.daegu.go.kr/elib" target="_blank" style="font-size:13px;color:#0097cf;">https://library.daegu.go.kr/elib</a>) 접속 / ID, 비밀번호로 로그인 / 도서 검색·대출 후 읽기
-        <!-- <li style="font-size:14px;"><b style="color:#ff9600">앱 :</b> 대구전자도서관 앱 다운로드 / 설정 / E-BOOK 계정인증(가입도서관, 이름, 아이디) / 도서 검색·대출 후 책읽기</li> -->
-      </ul>
-    </li>
-  </ul>
-
-  <h4 class="contSTit_line">문의 : 국채보상운동기념도서관 도서관정책과(☎231-2037, 2039)</h4>
 </c:if>
 
 <!--달성-->

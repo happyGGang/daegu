@@ -406,6 +406,43 @@ $(function(){
 		</ul>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'nambu'}">
+		<div class="summaryDesc">
+		  <div class="innerBox">
+			<div class="img ticon_02"></div>
+				<div class="desc">
+				  <h3>1일 도서관 체험학습</h3>
+				  <p>어린이들에게 도서관 이용법과 효율적인 독서방법을 지도함으로써 독서 및 도서관 이용을 생활화하여 
+					도서관에 대한 올바른 인식을 심어주고자 함.</p>
+				</div>
+			</div>
+			</div>
+			<div class="lib_01">
+			<h3>1일 도서관 체험학습 운영안내</h3>
+			<ul class="con">
+				<li>운영대상 : 대구광역시 남구·달서구 관내 유치원 원생 </li>
+				<li>운영방법 : 1일 1회 최대 30명 이내</li>
+				<li>운영내용 : 도서관 이용법 및 독서법 지도, 자율독서, 도서관 견학 </li>
+				<li>운영기간 : 상.하반기(방학기간 7,8월 제외)</li>
+				<li>운영장소 : 남부도서관 어린이실(2층) </li>
+			</ul>
+			<h3>참가안내</h3>
+			<ul class="con">
+				<li>참가신청 : 참가 희망 날짜 선택 후 승인 시 FAX로 신청</li>
+				<li>보내실 곳
+				<ul class="con2">
+					<li>FAX : 053-231-2340</li>
+				</ul>
+				</li>
+				<li>문의 : 어린이실(☎ 053-231-2345~6) </li>
+			</ul>
+			<div><br>
+			<p class="btn_wd_p p_btn_ml10"><a href="/board/boardFile/download/234/510447/340480.do" class="ct-btn" title="1일 도서관 체험학습 참가신청서(새창열림)"><span class="down">1일 도서관 체험학습 참가신청서</span></a></p>
+			</div>
+		</div>
+		<br>
+	</c:if>
+
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
