@@ -110,8 +110,6 @@ $(function() {
 			</td>
 			</tr>
 			<tr>
-
-
 				<th><label for="option01">도서관명</label></th>
 				<td class="search_left">
 					<c:choose>
@@ -173,7 +171,10 @@ $(function() {
 						</c:when>
 
 						<c:when test="${homepagePath eq 'beomeo'}">
-							범어도서관<form:hidden path="manageCode" value="BD" />
+							<form:radiobutton path="manageCode" value='BD' label="범어도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BJ' label="책숲길도서관" /><br/>
+							<form:radiobutton path="manageCode" value='BK' label="물망이도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HR' label="황금책문화센터" />
 						</c:when>
 						<c:when test="${homepagePath eq 'yonghak'}">
 							용학도서관<form:hidden path="manageCode" value="BE" />
