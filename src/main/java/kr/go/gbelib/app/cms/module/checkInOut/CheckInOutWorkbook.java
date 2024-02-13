@@ -95,9 +95,9 @@ public class CheckInOutWorkbook {
 			}
 			
 			if("1".equals(one.getGubun())) {
-				workbook.getSheet(0).addCell(new Label(column++, row, "재방문", format1));
-			} else {
 				workbook.getSheet(0).addCell(new Label(column++, row, "처음방문", format1));
+			} else {
+				workbook.getSheet(0).addCell(new Label(column++, row, "재방문", format1));
 			}
 			
 			row++;
