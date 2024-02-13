@@ -226,6 +226,7 @@
 						</otherwise>
 					</choose>
 				AND	delete_yn = #{delete_yn}
+				<if test='kiosk_yn == "Y"'>AND kiosk_yn = 'Y'</if>
 				<include refid="where"/>
 			 ) A
 -- 			START WITH A.parent_idx = 0
@@ -1113,6 +1114,7 @@
 				</otherwise>
 			</choose>
 		AND	delete_yn = #{delete_yn}
+		<if test='kiosk_yn == "Y"'>AND kiosk_yn = 'Y'</if>
 		<include refid="where"/>
 	</select>
 
@@ -1207,6 +1209,7 @@
 			delete_yn = #{delete_yn} AND
 			group_depth = 0 AND
 			notice_yn = 'Y' AND
+			<if test='kiosk_yn == "Y"'>kiosk_yn = 'Y' AND</if>
 			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
 			(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
 		ORDER BY board_idx DESC

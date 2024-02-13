@@ -36,6 +36,13 @@
 	</form:select>
 	<a href="#" id="libSelect" class="btn1 btn">이동</a>
 	</c:if>
+	<c:if test="${boardManage.manage_idx eq '179'}">
+	<form:select path="kiosk_yn" cssClass="selectmenu" cssStyle="width:250px;" title="ICT공지 사용여부">
+		<form:option value="" label="-전체-"></form:option>
+		<form:option value="Y" label="ICT공지" />
+		<form:option value="N" label="일반게시물" />
+	</form:select>
+	</c:if>
 	<div class="button btn-group inline">
 		<span class="bbs-result" style="margin-right:10px;">총 게시물 : <b><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </b>건</span>
 <!-- 		<label for="rowCount" /> -->

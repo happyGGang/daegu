@@ -84,7 +84,7 @@ $(document).ready(function() {
 		</c:otherwise>
 	</c:choose>
 
-	$('select#category1, select#category2, select#category3, select#category4, select#category5').on('change', function() {
+	$('select#category1, select#category2, select#category3, select#category4, select#category5, select#kiosk_yn').on('change', function() {
 		var url = 'index.do';
 		$('#viewPage').attr('value', '1');
 		var formData = serializeCustom($form);
