@@ -122,12 +122,12 @@ function checkCount() {
 					</div>
 	        	</td>
 	        </tr>
-	        <tr>
-	        	<th>주소</th>
-	        	<td>
-	        		<form:input path="address" cssClass="text" cssStyle="width:300px;"/>
-	        	</td>
-	        </tr>
+<!-- 	        <tr> -->
+<!-- 	        	<th>주소</th> -->
+<!-- 	        	<td> -->
+<%-- 	        		<form:input path="address" cssClass="text" cssStyle="width:300px;"/> --%>
+<!-- 	        	</td> -->
+<!-- 	        </tr> -->
 	        <tr>
 	        	<th>수령 및 반납장소</th>
 	        	<td>
@@ -141,6 +141,18 @@ function checkCount() {
 	        		<div class="ui-state-highlight">
 						<em>ex) 053-123-4567</em>
 					</div>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>가방 수</th>
+	        	<td>
+	        		<form:input path="bag_count" cssClass="text" cssStyle="width:300px;"/>
+	        	</td>
+	        </tr>
+	        <tr>
+	        	<th>요금</th>
+	        	<td>
+	        		<form:input path="fee" cssClass="text" cssStyle="width:300px;"/>
 	        	</td>
 	        </tr>
 	        <tr>

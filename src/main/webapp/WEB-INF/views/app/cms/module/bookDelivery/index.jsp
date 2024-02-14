@@ -241,9 +241,11 @@ function edit() {
 				<col width="8%"/>
 				<col width="4%"/>
 				<col width="8%"/>
-				<col width="7%"/>
+<%-- 				<col width="7%"/> --%>
 				<col width="8%"/>
 				<col width="7%"/>
+				<col width="3%"/>
+				<col width="3%"/>
 				<col width="3%"/>
 				<col width="6%"/>
 				<col width="6%"/>
@@ -259,9 +261,11 @@ function edit() {
 				<th>학교명</th>
 				<th>신청자</th>
 				<th>휴대폰</th>
-				<th>주소</th>
+<!-- 				<th>주소</th> -->
 				<th>수령 및 반납장소</th>
 				<th>학교연락처</th>
+				<th>가방 수</th>
+				<th>요금</th>
 				<th>권수</th>
 				<th>반송요청일</th>
 				<th>상태</th>
@@ -279,9 +283,11 @@ function edit() {
 				<td>${i.school_name}</td>
 				<td>${i.member_name}</td>
 				<td>${i.phone}</td>
-				<td>${i.address}</td>
+<%-- 				<td>${i.address}</td> --%>
 				<td>${i.return_plan_place}</td>
 				<td>${i.school_phone}</td>
+				<td>${i.bag_count}</td>
+				<td>${i.fee}</td>
 				<td>${i.book_count}권</td>
 				<td>${i.return_plan_date}</td>
 				<td>${i.status}<br/><a href="javascript:void(0);" class="btn btn1" onclick="viewDetail('${i.book_delivery_idx}');">상세보기</a></td>

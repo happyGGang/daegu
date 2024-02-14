@@ -5,7 +5,7 @@
 	<sql id="field">
 		homepage_id, book_delivery_idx, subject, book_package_name,
    		school_name, member_name, phone, address, return_plan_place,
-   		school_phone, book_count, status, loan_date,
+   		school_phone, book_count, status, loan_date, bag_count, fee,
     	TO_CHAR(request_date, 'yyyy-MM-dd') AS request_date,
     	TO_CHAR(return_plan_date, 'yyyy-MM-dd') AS return_plan_date
 	</sql>
@@ -52,13 +52,15 @@
 		(
 			homepage_id, book_delivery_idx, request_date, subject, book_package_name,
     		loan_date, school_name, member_name, phone, address,
-   			return_plan_place, school_phone, book_count, return_plan_date, status
+   			return_plan_place, school_phone, book_count, return_plan_date, status,
+   			bag_count, fee,
 		)
 		VALUES
 		(
 			#{homepage_id}, #{book_delivery_idx}, #{request_date}, #{subject}, #{book_package_name},
 			#{loan_date}, #{school_name}, #{member_name}, #{phone}, #{address},
-			#{return_plan_place}, #{school_phone}, #{book_count}, #{return_plan_date}, #{status}
+			#{return_plan_place}, #{school_phone}, #{book_count}, #{return_plan_date}, #{status},
+			#{bag_count}, #{fee}
 		)
 	</insert>
 
@@ -77,6 +79,8 @@
 			return_plan_place = #{return_plan_place},
 			school_phone = #{school_phone},
 			book_count = #{book_count},
+			bag_count = #{bag_count},
+			fee = #{fee},
 			<choose>
 				<when test="status == '반송요청중'">
 					return_plan_date = SYSDATE,

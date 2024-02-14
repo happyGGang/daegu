@@ -47,12 +47,14 @@ public class BookDeliveryExcelWorkBook {
 		workbook.getSheet(0).setColumnView(4,  15);
 		workbook.getSheet(0).setColumnView(5,  15);
 		workbook.getSheet(0).setColumnView(6,  10);
-		workbook.getSheet(0).setColumnView(7,  25);
-		workbook.getSheet(0).setColumnView(8,  20);
+//		workbook.getSheet(0).setColumnView(7,  25);
+		workbook.getSheet(0).setColumnView(7,  20);
+		workbook.getSheet(0).setColumnView(8,  10);
 		workbook.getSheet(0).setColumnView(9,  10);
 		workbook.getSheet(0).setColumnView(10,  10);
-		workbook.getSheet(0).setColumnView(11,  15);
+		workbook.getSheet(0).setColumnView(11,  10);
 		workbook.getSheet(0).setColumnView(12,  15);
+		workbook.getSheet(0).setColumnView(13,  15);
 		
 		int column = 0;
 		// 헤더 컬럼 지정
@@ -63,12 +65,14 @@ public class BookDeliveryExcelWorkBook {
 		workbook.getSheet(0).addCell(new Label(4, 0, "학교명", format));
 		workbook.getSheet(0).addCell(new Label(5, 0, "신청자", format));
 		workbook.getSheet(0).addCell(new Label(6, 0, "휴대폰", format));
-		workbook.getSheet(0).addCell(new Label(7, 0, "주소", format));
-		workbook.getSheet(0).addCell(new Label(8, 0, "수령 및 반납장소", format));
-		workbook.getSheet(0).addCell(new Label(9, 0, "학교연락처", format));
-		workbook.getSheet(0).addCell(new Label(10, 0, "권수", format));
-		workbook.getSheet(0).addCell(new Label(11, 0, "반송요청일", format));
-		workbook.getSheet(0).addCell(new Label(12, 0, "상태", format));
+//		workbook.getSheet(0).addCell(new Label(7, 0, "주소", format));
+		workbook.getSheet(0).addCell(new Label(7, 0, "수령 및 반납장소", format));
+		workbook.getSheet(0).addCell(new Label(8, 0, "학교연락처", format));
+		workbook.getSheet(0).addCell(new Label(9, 0, "가방 수", format));
+		workbook.getSheet(0).addCell(new Label(10, 0, "요금", format));
+		workbook.getSheet(0).addCell(new Label(11, 0, "권수", format));
+		workbook.getSheet(0).addCell(new Label(12, 0, "반송요청일", format));
+		workbook.getSheet(0).addCell(new Label(13, 0, "상태", format));
 		
 		int row = 1;
 		
@@ -83,9 +87,11 @@ public class BookDeliveryExcelWorkBook {
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getSchool_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getMember_name(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getPhone(), format1));
-			workbook.getSheet(0).addCell(new Label(column++, row, one.getAddress(), format1));
+//			workbook.getSheet(0).addCell(new Label(column++, row, one.getAddress(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getReturn_plan_place(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getSchool_phone(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getBag_count(), format1));
+			workbook.getSheet(0).addCell(new Label(column++, row, one.getFee(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, Integer.toString(one.getBook_count()), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getReturn_plan_date(), format1));
 			workbook.getSheet(0).addCell(new Label(column++, row, one.getStatus(), format1));

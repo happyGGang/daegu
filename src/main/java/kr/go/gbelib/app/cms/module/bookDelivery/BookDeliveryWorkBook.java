@@ -45,12 +45,14 @@ public class BookDeliveryWorkBook {
 		workbook.getSheet(0).setColumnView(4,  15);
 		workbook.getSheet(0).setColumnView(5,  15);
 		workbook.getSheet(0).setColumnView(6,  10);
-		workbook.getSheet(0).setColumnView(7,  25);
-		workbook.getSheet(0).setColumnView(8,  20);
+//		workbook.getSheet(0).setColumnView(7,  25);
+		workbook.getSheet(0).setColumnView(7,  20);
+		workbook.getSheet(0).setColumnView(8,  10);
 		workbook.getSheet(0).setColumnView(9,  10);
 		workbook.getSheet(0).setColumnView(10,  10);
-		workbook.getSheet(0).setColumnView(11,  15);
+		workbook.getSheet(0).setColumnView(11,  10);
 		workbook.getSheet(0).setColumnView(12,  15);
+		workbook.getSheet(0).setColumnView(13,  15);
 		
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell(new Label(0, 0, "발송요청일", format));
@@ -60,12 +62,14 @@ public class BookDeliveryWorkBook {
 		workbook.getSheet(0).addCell(new Label(4, 0, "학교명", format));
 		workbook.getSheet(0).addCell(new Label(5, 0, "신청자", format));
 		workbook.getSheet(0).addCell(new Label(6, 0, "휴대폰", format));
-		workbook.getSheet(0).addCell(new Label(7, 0, "주소", format));
-		workbook.getSheet(0).addCell(new Label(8, 0, "수령 및 반납장소", format));
-		workbook.getSheet(0).addCell(new Label(9, 0, "학교연락처", format));
-		workbook.getSheet(0).addCell(new Label(10, 0, "권수", format));
-		workbook.getSheet(0).addCell(new Label(11, 0, "반송요청일", format));
-		workbook.getSheet(0).addCell(new Label(12, 0, "상태", format));
+//		workbook.getSheet(0).addCell(new Label(7, 0, "주소", format));
+		workbook.getSheet(0).addCell(new Label(7, 0, "수령 및 반납장소", format));
+		workbook.getSheet(0).addCell(new Label(8, 0, "학교연락처", format));
+		workbook.getSheet(0).addCell(new Label(9, 0, "가방 수", format));
+		workbook.getSheet(0).addCell(new Label(10, 0, "요금", format));
+		workbook.getSheet(0).addCell(new Label(11, 0, "권수", format));
+		workbook.getSheet(0).addCell(new Label(12, 0, "반송요청일", format));
+		workbook.getSheet(0).addCell(new Label(13, 0, "상태", format));
 		
 		workbook.getSheet(0).addCell(new Label(0, 1, "2024-01-01", format1));
 		workbook.getSheet(0).addCell(new Label(1, 1, "역사", format1));
@@ -74,12 +78,14 @@ public class BookDeliveryWorkBook {
 		workbook.getSheet(0).addCell(new Label(4, 1, "대구조암초등학교", format1));
 		workbook.getSheet(0).addCell(new Label(5, 1, "홍길동", format1));
 		workbook.getSheet(0).addCell(new Label(6, 1, "010-1234-5678", format1));
-		workbook.getSheet(0).addCell(new Label(7, 1, "주소", format1));
-		workbook.getSheet(0).addCell(new Label(8, 1, "행정실", format1));
-		workbook.getSheet(0).addCell(new Label(9, 1, "053-123-4567", format1));
-		workbook.getSheet(0).addCell(new Label(10, 1, "1", format1));
-		workbook.getSheet(0).addCell(new Label(11, 1, "2024-01-17", format1));
-		workbook.getSheet(0).addCell(new Label(12, 1, "반송중", format1));
+//		workbook.getSheet(0).addCell(new Label(7, 1, "주소", format1));
+		workbook.getSheet(0).addCell(new Label(7, 1, "행정실", format1));
+		workbook.getSheet(0).addCell(new Label(8, 1, "053-123-4567", format1));
+		workbook.getSheet(0).addCell(new Label(9, 1, "2", format1));
+		workbook.getSheet(0).addCell(new Label(10, 1, "1000", format1));
+		workbook.getSheet(0).addCell(new Label(11, 1, "1", format1));
+		workbook.getSheet(0).addCell(new Label(12, 1, "2024-01-17", format1));
+		workbook.getSheet(0).addCell(new Label(13, 1, "반송중", format1));
 		
 		return workbook;
 	}

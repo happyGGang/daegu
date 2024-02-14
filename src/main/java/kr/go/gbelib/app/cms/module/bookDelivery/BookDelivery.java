@@ -21,6 +21,8 @@ public class BookDelivery extends PagingUtils {
 	private int book_count;  //권수
 	private String return_plan_date;  //반송요청일
 	private String status;  //상태
+	private String bag_count;  //가방 수
+	private String fee;  //요금
 	
 	public int getBook_delivery_idx() {
 		return book_delivery_idx;
@@ -123,6 +125,18 @@ public class BookDelivery extends PagingUtils {
 	}
 	public void setLoan_date2(String loan_date2) {
 		this.loan_date2 = loan_date2;
+	}
+	public String getBag_count() {
+		return bag_count;
+	}
+	public void setBag_count(String bag_count) {
+		this.bag_count = bag_count;
+	}
+	public String getFee() {
+		return fee;
+	}
+	public void setFee(String fee) {
+		this.fee = fee;
 	}
 	
 }
