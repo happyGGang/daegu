@@ -116,4 +116,8 @@ public class PopupZoneService extends BaseService {
 		return dao.getNextPrintSeq(homepage_id);
 	}
 
+	public List<PopupZone> getPopupZoneSchool(PopupZone popupZone) {
+		return dao.getPopupZoneSchool(popupZone);
+	}
+
 }

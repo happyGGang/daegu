@@ -159,7 +159,7 @@
 							</ul>
 						</div>
 						<div class="main1box2box1box2">
-							<a href="/${homepage.context_path}/html.do?menu_idx=135">
+							<a href="/${homepage.context_path}/school/index.do">
 								<div class="big-btn-box">
 									<h2>
 										<span>학교도서관지원서비스</span>

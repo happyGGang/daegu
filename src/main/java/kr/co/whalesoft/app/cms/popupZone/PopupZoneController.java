@@ -58,6 +58,10 @@ public class PopupZoneController extends BaseController {
 				popupZone.setUse_yn("Y");
 			}
 			
+			if(StringUtils.isEmpty(popupZone.getSchool_use_yn())) {
+				popupZone.setSchool_use_yn("N");
+			}
+			
 			if(StringUtils.isEmpty(popupZone.getLink_target())) {
 				popupZone.setLink_target("CURRENT");
 			}

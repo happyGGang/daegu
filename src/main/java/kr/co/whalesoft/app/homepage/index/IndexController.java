@@ -197,6 +197,32 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
+	@RequestMapping(value = { "/{contextPath}/school/index.*" })
+	public String schoolIndex(Model model, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		
+		//model.addAttribute("newsList", newsService.getNewsListAll(new News(homepage.getHomepage_id())));
+		//model.addAttribute("bannerList", bannerService.getBannerAll(new Banner(homepage.getHomepage_id())));
+		model.addAttribute("mainImgList", mainImgService.getMainImgList(new MainImg(homepage.getHomepage_id())));
+		//model.addAttribute("popupList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
+		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneSchool(new PopupZone(homepage.getHomepage_id())));
+		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
+		//model.addAttribute("popupZoneTopList", popupZoneTopService.getPopupZoneTopAll(new PopupZoneTop(homepage.getHomepage_id())));
+		
+		setBoardListToModel(homepage.getHomepage_id(), model);
+		
+		Board b = new Board();
+		b.setManage_idx(210);
+		model.addAttribute("noticeList", boardService.getSubBoardByMain(b));
+		
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/school/index";
+		}
+		
+		return basePath + filePath;
+	}
+	
 	@RequestMapping(value = { "/{contextPath}/kiosk/info01.*" })
 	public String info01(Model model, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");

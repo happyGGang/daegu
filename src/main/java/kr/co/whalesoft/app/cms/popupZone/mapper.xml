@@ -7,7 +7,7 @@
 		SELECT
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
 			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
-			server_file_name, file_extension, file_size, link_url, link_target, alt_text
+			server_file_name, file_extension, file_size, link_url, link_target, alt_text, school_use_yn
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
@@ -30,7 +30,7 @@
 		SELECT
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
 			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
-			server_file_name, file_extension, file_size, link_url, link_target, alt_text
+			server_file_name, file_extension, file_size, link_url, link_target, alt_text, school_use_yn
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
@@ -63,7 +63,7 @@
 		SELECT
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
 			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
-			server_file_name, file_extension, file_size, link_url, link_target, alt_text
+			server_file_name, file_extension, file_size, link_url, link_target, alt_text, school_use_yn
 		FROM
 			CMS_POPUP_ZONE
 		WHERE
@@ -80,7 +80,7 @@
 		(
 			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
 			add_id, add_date, start_date, end_date, link_url, link_target,
-			alt_text
+			alt_text, school_use_yn
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name, server_file_name, file_extension, file_size
 			</if>
@@ -88,7 +88,7 @@
 		(
 			#{homepage_id},	#{popup_zone_idx}, #{popup_zone_name}, #{print_seq}, #{use_yn},
 			#{add_id}, SYSDATE, #{start_date}, #{end_date}, #{link_url}, #{link_target},
-			#{alt_text}
+			#{alt_text}, #{school_use_yn}
 			<if test="server_file_name != null and server_file_name != ''">
 			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
@@ -106,7 +106,8 @@
 			link_target = #{link_target},
 			alt_text = #{alt_text},
 			modify_id = #{modify_id},
-			modify_date = SYSDATE
+			modify_date = SYSDATE,
+			school_use_yn = #{school_use_yn}
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name = #{org_file_name}
 			, server_file_name = #{server_file_name}
@@ -145,4 +146,19 @@
 			homepage_id = #{homepage_id}
 	</select>
 
+	<select id="getPopupZoneSchool" resultType="kr.co.whalesoft.app.cms.popupZone.PopupZone">
+		SELECT
+			homepage_id, popup_zone_idx, popup_zone_name, print_seq, use_yn,
+			add_id, add_date, TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, org_file_name,
+			server_file_name, file_extension, file_size, link_url, link_target, alt_text, school_use_yn
+		FROM
+			CMS_POPUP_ZONE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	use_yn = 'Y'
+		AND	start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		AND	end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		AND school_use_yn = 'Y'
+		ORDER BY print_seq ASC, add_date DESC
+	</select>
 </mapper>

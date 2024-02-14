@@ -21,5 +21,7 @@ public interface PopupZoneDao {
 	public int getNextPrintSeq(String homepage_id);
 
 	public int modifyPopupZonePrintSeq(PopupZone popupZone);
+
+	public List<PopupZone> getPopupZoneSchool(PopupZone popupZone);
 	
 }

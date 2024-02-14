@@ -271,6 +271,15 @@ function getFileData(fileData) {
 				<form:radiobutton path="use_yn" value="N"/> <label for="use_yn2" style="cursor:pointer;">사용안함</label>
 			</td>
 		</tr>
+		<c:if test="${popupZone.homepage_id eq 'h1'}">
+		<tr>
+			<th>학교도서관집중지원센터<br/>게시여부</th>
+			<td>
+				<form:radiobutton path="school_use_yn" value="Y"/> <label for="use_yn1" style="cursor:pointer;">게시함</label>&nbsp;
+				<form:radiobutton path="school_use_yn" value="N"/> <label for="use_yn2" style="cursor:pointer;">게시안함</label>
+			</td>
+		</tr>
+		</c:if>
 	</tbody>
 </table>
 </form:form>
