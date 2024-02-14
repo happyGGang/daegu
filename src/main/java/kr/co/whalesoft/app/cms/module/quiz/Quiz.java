@@ -32,6 +32,7 @@ public class Quiz extends PagingUtils {
 	private String hak_yn = "Y"; // 학년입력여부
 	private String gender_yn = "Y"; // 성별 선택여부
 	private String age_yn = "Y"; // 연령대 선택여부
+	private String address_yn = "N"; // 주소 선택여부
 	private int select_cnt;
 	private int re_select_cnt;
 	private String applicant_id_yn = "N";
@@ -282,6 +283,14 @@ public class Quiz extends PagingUtils {
 
 	public void setRe_select_cnt(int re_select_cnt) {
 		this.re_select_cnt = re_select_cnt;
+	}
+
+	public String getAddress_yn() {
+		return address_yn;
+	}
+
+	public void setAddress_yn(String address_yn) {
+		this.address_yn = address_yn;
 	}
 	
 }

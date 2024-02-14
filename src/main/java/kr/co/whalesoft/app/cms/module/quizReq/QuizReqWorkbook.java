@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.LabelView;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -43,7 +42,6 @@ public class QuizReqWorkbook {
 		format3.setBackground( Colour.LIGHT_GREEN );
 		format3.setBorder(Border.ALL,BorderLineStyle.MEDIUM);
 		
-		
 		int i=0;
 		// 컬럼 폭 지정
 		workbook.getSheet(0).setColumnView( i++, 10 );
@@ -56,6 +54,7 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 10 );
 		workbook.getSheet(0).setColumnView( i++, 50 );
+		workbook.getSheet(0).setColumnView( i++, 30 );
 		workbook.getSheet(0).setColumnView( i++, 30 );
 		workbook.getSheet(0).setColumnView( i++, 20 );
 		workbook.getSheet(0).setColumnView( i++, 20 );
@@ -73,11 +72,10 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).addCell( new Label( i++, 0, "성별", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "연령대", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "전화번호", format ) );
+		workbook.getSheet(0).addCell( new Label( i++, 0, "주소", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "등록일시", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "정답자 여부", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "당첨자 여부", format ) );
-		
-		
 		
 		int row = 1;
 		for ( QuizReq org : quizReqList ) {
@@ -105,6 +103,7 @@ public class QuizReqWorkbook {
 			}
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getAge(), format1));
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getPhone(),format1 ) );
+			workbook.getSheet(0).addCell( new Label( i++,  row, org.getAddress(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++, row, org.getAdd_date(),format1 ) );
 			if ( StringUtils.isNotEmpty(org.getQuiz_answer()) ) {
 				String[] answerList = org.getQuiz_answer().trim().split("\\|");

@@ -215,20 +215,21 @@ $(function() {
 	<table class="type1 center">
 		<colgroup>
 			<col width="50" />
-			<col width="135" />
+			<col width="100" />
 			<col width="80" />
-			<col width="100" />
-			<col width="50" />
-			<col width="50" />
-			<col width="50" />
-			<col width="50" />
-			<col width="100" />
+			<col width="80" />
 			<col width="200" />
-			<col width="130" />
-			<col width="100" />
+			<col width="70" />
+			<col width="50" />
+			<col width="30" />
+			<col width="30" />
+			<col width="30" />
+			<col width="90" />
+			<col width="90" />
+			<col width="90" />
 			<col width="100" />
 			<c:if test="${quiz.select_cnt > 0}">
-			<col width="100" />
+			<col width="50" />
 			</c:if>
 		</colgroup>
        	<thead>
@@ -244,6 +245,7 @@ $(function() {
        			<th>성별</th>
        			<th>연령대</th>
        			<th>전화번호</th>
+       			<th>주소</th>
        			<th>응모일시</th>
        			<th>정답자여부</th>
        			<c:if test="${quiz.select_cnt > 0}">
@@ -282,6 +284,7 @@ $(function() {
 			         		</c:choose>
 				         	</td>
 				         	<td>${i.phone}</td>
+				         	<td>${i.address}</td>
 				         	<td>${i.add_date}</td>
 				         	<td>
 				         		${i.winner_yn}
@@ -300,7 +303,7 @@ $(function() {
        			</c:when>
        			<c:otherwise>
        				<tr>
-       					<td colspan="10">조회된 데이터가 없습니다.</td>
+       					<td colspan="14">조회된 데이터가 없습니다.</td>
        				</tr>
        			</c:otherwise>
        		</c:choose>

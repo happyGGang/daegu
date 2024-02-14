@@ -43,7 +43,7 @@ $(function() {
 		doGetLoad('index.do', serializeCustom($('#quizReq')));
 		e.preventDefault();
 	});
-
+	
 	$('a.save-btn').on('click', function(e) {
 		e.preventDefault();
 		if ( $('#quizReq #quiz_idx').val() == 0 ) {
@@ -303,18 +303,18 @@ ${quiz.top_html}
 					</c:choose>
 					</td>
 				</tr>
-				<%-- <tr>
-					<th>주소</th>
-					<td>
-						<div class="Addr_search">
-							<button class="btn btn2 findPostCode" keyValue1="#zip_code" keyValue2="#address">우편번호 찾기</button>
-							<form:input path="zip_code" class="text" />
-							<div>
-								<form:input path="address" class="text addr3" />
+				<c:if test="${quiz.address_yn eq 'Y'}">
+					<tr>
+						<th>주소</th>
+						<td>
+							<div class="Addr_search">
+								<div>
+									<form:input path="address" class="text addr3" maxlength="50"/>
+								</div>
 							</div>
-						</div>
-					</td>
-				</tr> --%>
+						</td>
+					</tr>
+				</c:if>
 			</tbody>
 		</table>
 
