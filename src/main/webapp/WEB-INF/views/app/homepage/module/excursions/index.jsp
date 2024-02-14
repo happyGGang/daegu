@@ -443,6 +443,32 @@ $(function(){
 		<br>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'seobu'}">
+		<h3>운영안내</h3>
+		<ul class="con">
+			<li>운영대상: 서부교육지원청 관내 유치원 및 서구지역 어린이집(만3세~만6세(5~7세))</li>
+			<li>운영기간: 상반기(3~6월) / 하반기(9~11월) 매주 화~목 10:00~11:30 중 선택</li>
+			<li>운영방법: 1일 1회 20명 내외</li>
+			<li>운영내용: 도서관 이용교육 및 자율독서 등</li>
+		</ul>
+		<h3>신청안내</h3>
+		<ul class="con">
+			<li>신청방법: 신청기간 내 홈페이지를 통한 신청(신청 시 로그인 또는 본인 인증 후 신청 가능) -> 신청 양식 작성 -> 견학 승인 후 '승인완료' 처리 여부를 반드시 확인</li>
+			<li>유의사항
+				<ul class="con2">
+					<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관 사정에 따라 변경될 수 있습니다.</li>
+					<li>신청은 온라인을 통해서만 가능합니다.</li>
+				</ul>
+			</li>
+			<li>문의처: 어린이자료실(☎053-231-2451)</li>
+		</ul>
+		<div><br>
+		<p class="btn_wd_p p_btn_ml10"><a href="/board/boardFile/download/37/510624/340830.do" class="ct-btn" title="책소풍 참가신청서(새창열림)"><span class="down">1일 책소풍 참가신청서</span></a></p>
+		</div>
+	</div>
+	<br>
+	</c:if>
+
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
