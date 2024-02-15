@@ -168,7 +168,7 @@
 									<a href="/${homepage.context_path}/module/libraryCheck/index.do?menu_idx=148" ><span>장서점검기</span></a>
 									</li>
 									<li class="qm6">
-									<a href="/${homepage.context_path}/html.do?menu_idx=236" ><span>학교도서관 업무지원</span></a>
+									<a href="/${homepage.context_path}/html.do?menu_idx=248" ><span>학교도서관 업무지원</span></a>
 									</li>
 									<li class="qm7">
 									<a href="/${homepage.context_path}/module/supportMember/index.do?menu_idx=154&before_url=/228/board/index.do?menu_idx=154%26manage_idx=224" ><span>참고자료</span></a>

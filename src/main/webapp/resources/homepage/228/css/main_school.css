@@ -1,10 +1,9 @@
 @charset "utf-8";
 
-
 .main1 {position:relative; height: 550px;margin-top:0px;background:url('/resources/homepage/228/img/main_bg.jpg') no-repeat center center;}
 .main1 .main-visual {float: left; margin-top: 60px;width: 100%;}
 .main1 .main-visual .title-box {}
-.main1 .main-visual .title-box h2 {font-size:28px; font-weight:200; color: #fff;}
+.main1 .main-visual .title-box h2 {font-family: 'Pretendard';font-size:28px; font-weight:200; letter-spacing: -0.5px;color: #fff;}
 .main1 .main-visual .title-box span {display: block;}
 .main1 .main-visual .title-box span.second-line {font-size: 60px;font-weight:600;line-height: 120%;}
 .main1 .main-visual .title-box span b.green {color:#00fdc6;}
@@ -19,7 +18,7 @@
 .main1 .main-visual .search-box button {position:absolute;width:20px;height:20px;right:20px;top:50%;transform: translate(0, -50%);text-align:right;background:#fff url('/resources/homepage/228/img/search.png') no-repeat center center;font-size:0;}
 .main1 .main-visual .main1box1 .quick-btn-box {position: relative;width: 320px;height: 100px;border-radius: 10px;border: 1px solid #fff;backdrop-filter: blur(7px);background-color: rgba(255,255,255,0.2);padding: 0 30px;cursor: pointer;}
 .main1 .main-visual .main1box1 .quick-btn-box .btn-box {height: 100%;background:url('/resources/homepage/228/img/login.png') no-repeat left center;}
-.main1 .main1box1 .quick-btn-box .btn-box a {font-size:20px; font-weight:600; color: #fff;line-height: 100px;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 20;}
+.main1 .main1box1 .quick-btn-box .btn-box a {font-family: 'Pretendard';font-size:20px; font-weight:600; color: #fff;line-height: 100px;letter-spacing: -0.8px;position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: 20;}
 .main1 .main1box1 .quick-btn-box .btn-box span.txt {margin-left: 43px;}
 .main1 .main1box1 .quick-btn-box .btn-box span.icon {display:block; width:30px;height: 30px;background:url('/resources/homepage/228/img/login_arrow.png') no-repeat center center;position: absolute;right: 30px;top: 50%;transform: translate(0, -50%);}
 .main1 .main1box2 {float: unset;width: 100%;}
@@ -30,14 +29,15 @@
 .main1 .quickmenu .main-box .qmenu-box ul li {display: inline-block;text-align: center;width: 17%;margin: 0;-webkit-box-sizing: border-box;box-sizing: border-box;}	
 .main1 .quickmenu .main-box .qmenu-box ul li a {height:100%;background: no-repeat center 38%;display:block;/* background-size: 28%; */margin:0;font-family: 'Pretendard';font-size: 17px;color:#fff;-webkit-box-sizing:border-box;box-sizing:border-box;text-align:center;-webkit-transition: -webkit-transform .5s;transition: -webkit-transform .5s;transition: transform .5s;transition: transform .5s, -webkit-transform .5s;}
 .main1 .quickmenu .main-box .qmenu-box ul li a:hover {-webkit-transform:transform:translate(0, -10px);-moz-transform:translate(0, -10px);-ms-transform:translate(0, -10px);-o-transform:translate(0, -10px);transform:translate(0, -10px);}
-.main1 .quickmenu .main-box .qmenu-box ul li a span {display: block;padding-top: 130px;position: relative;font-weight: bold;}	
+.main1 .quickmenu .main-box .qmenu-box ul li a span {font-family: 'Pretendard';display: block;padding-top: 130px;position: relative;font-weight: bold;}	
 .main1 .quickmenu .main-box .qmenu-box ul li.qm1 a {background-image:url('/resources/homepage/228/img/quick__01.png');}
 .main1 .quickmenu .main-box .qmenu-box ul li.qm2 a {background-image:url('/resources/homepage/228/img/quick__02.png');}
 .main1 .quickmenu .main-box .qmenu-box ul li.qm3 a {background-image:url('/resources/homepage/228/img/quick__03.png');}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm4 a {background-image:url('/resources/homepage/228/img/quick__04.png');}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm5 a {background-image:url('/resources/homepage/228/img/quick__05.png');}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm6 a {background-image:url('/resources/homepage/228/img/quick__06.png');}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm7 a {background-image:url('/resources/homepage/228/img/quick__07.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm4 a {background-image:url('/resources/homepage/228/img/quick__04__2.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm5 a {background-image:url('/resources/homepage/228/img/quick__04.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm6 a {background-image:url('/resources/homepage/228/img/quick__05.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm7 a {background-image:url('/resources/homepage/228/img/quick__06.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm8 a {background-image:url('/resources/homepage/228/img/quick__07.png');}
 
 
 
@@ -51,14 +51,14 @@
 .main2 .main2box1 .notice-box .list ul li,
 .main2 .main2box1 .notice-box .list ul li:first-child{border-bottom:1px solid #ddd;padding-bottom:39px;margin-bottom:45px;}
 .main2 .main2box1 .notice-box .list ul li:first-child a{width:100%;}
-.main2 .main2box1 .notice-box .list ul li:first-child .date{background:#144093;font-family: 'Pretendard';font-size:20px;color:#fff;text-align:center;width:100px;padding:15px 0;float:left;letter-spacing:0;}
+.main2 .main2box1 .notice-box .list ul li:first-child .date{background:#144093;font-family: 'Pretendard';font-weight: bold;font-size:20px;color:#fff;text-align:center;width:100px;padding:15px 0;float:left;letter-spacing:0;}
 .main2 .main2box1 .notice-box .list ul li:first-child .date p{font-family: 'Pretendard';font-size:14px;color:#fff;margin-top:-5px;}
 .main2 .main2box1 .notice-box .list ul li:first-child .con{float:right;width:calc(100% - 130px);height:69px;}
-.main2 .main2box1 .notice-box .list ul li:first-child .con h3{font-size:22px;font-weight:600;color:#000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:8px 0;}
+.main2 .main2box1 .notice-box .list ul li:first-child .con h3{font-family: 'Pretendard';font-size:22px;font-weight:bold;color:#000;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:8px 0;}
 .main2 .main2box1 .notice-box .list ul li:first-child .con span{font-size:16px;font-weight:500;color:#555;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;width:100%;float:unset;}
 .main2 .main2box1 .notice-box .list ul li:last-child{margin-bottom:0;border:0; }
-.main2 .main2box1 .notice-box .list ul li a{font-size:18px;font-weight:500;color:#333;letter-spacing:-0.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:80%;display:inline-block;}
-.main2 .main2box1 .notice-box .list ul li span{font-size:16px;font-weight:500;color:#777;float:right;}
+.main2 .main2box1 .notice-box .list ul li a{font-family: 'Pretendard';font-size:18px;font-weight:500;color:#333;letter-spacing:-0.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:80%;display:inline-block;}
+.main2 .main2box1 .notice-box .list ul li span{font-family: 'Pretendard';font-size:16px;font-weight:500;color:#777;float:right;}
 .main2 .main2box1 .notice-box .more-btn {padding: 20px 0 20px;text-align: center;width: 100%;/* position: absolute;left: 45.5%;bottom: -80px; */}
 .main2 .main2box1 .notice-box .more-btn a {display:block;}
 .main2 .main2box2 {float: right;width: 567px;border: none;margin-left: 0px;}
@@ -111,9 +111,9 @@
 /* .main1 .main-visual .title-box span.second-line {font-size: 42px;} */
 .main1 .quickmenu {top: 58%;}
 .main1 .quickmenu .main-box .qmenu-box ul {display: block;}
-.main1 .quickmenu .main-box .qmenu-box ul li {width: 30%;}
+.main1 .quickmenu .main-box .qmenu-box ul li {width: 25%;}
 .main1 .quickmenu .main-box .qmenu-box ul li a {background-size: 30%;font-size: 14px;}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm2 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm3 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm5 a {background-size: 23%;}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm2 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm3 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm6 a {background-size: 23%;}
 .main1 .quickmenu .main-box .qmenu-box ul li a span {padding-top: 95px;}
 .main1 .main-visual .search-box { width: 75%;}
 .main2 {height: 100%;padding-bottom: 15%;background: linear-gradient(to bottom, #f5f5f7 0%,#f5f5f7 600px , #fff 600px, #fff 100%);}
@@ -133,7 +133,8 @@
 .main1 .main1box1 .quick-btn-box .btn-box span.icon {background-size: 25px 25px;right: 20px;}
 
 .main1 .quickmenu .main-box .qmenu-box ul li a {font-size: 14px;background-size: 53px 45px;}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm2 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm3 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm5 a {background-size: 43px 50px;}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm2 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm3 a, .main1 .quickmenu .main-box .qmenu-box ul li.qm6 a {background-size: 43px 50px;}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm4 a {background-size: 48px 50px;}
 .main1 .quickmenu .main-box .qmenu-box ul li a span {padding-top: 85px;}
 .main2 {background: linear-gradient(to bottom, #f5f5f7 0%,#f5f5f7 450px , #fff 450px, #fff 100%);}
 .main2 .main2box1 .notice-box .title, .main2 .main2box2 .title {font-size: 21px;padding: 20px 0;}
@@ -156,7 +157,9 @@
 @media all and (max-width:450px) {
 .main1 .main-visual .title-box h2 {font-size: 14px;}
 .main1 .main-visual .title-box span.second-line {font-size: 30px;}
-.main1 .quickmenu {top: 54%;}
+.main1 .quickmenu {top: 50%;}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm4{ margin-top: 28px;}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm4 a span, .main1 .quickmenu .main-box .qmenu-box ul li.qm6 a span {padding-top: 76px;line-height: 120%;}
 
 }
 
