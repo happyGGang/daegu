@@ -228,11 +228,10 @@
 </div>
 </c:when>
 <c:when test="${context_path eq 'padong'}">
-	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+	<!-- <div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
 		2023년 파동도서관 희망도서 신청은 예산 소진으로 종료합니다. 차후 재개시 안내드리겠습니다.
-	</div>
+	</div> -->
 </c:when>
-
 <c:otherwise>
 </c:otherwise>
 </c:choose>
@@ -293,27 +292,27 @@
 
 				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BD">범어도서관</form:option>-->
+					<form:option value="BD">범어도서관</form:option>
 					<form:option value="BE">용학도서관</form:option>
-					<!--<form:option value="BF">고산도서관</form:option>-->
+					<form:option value="BF">고산도서관</form:option>
 					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
-					<!--<form:option value="BG">파동도서관</form:option>-->
-					<!--<form:option value="BH">무학숲도서관</form:option>-->
-				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
+					<form:option value="BG">파동도서관</form:option>
+					<form:option value="BH">무학숲도서관</form:option>
+				</form:select> <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. -->
 				</c:when>
 
 				<c:when test="${context_path eq 'goldbook'}">
 				<form:select path="manageCode">
 					<form:option value="HR">황금책문화센터</form:option>
-					<!--<form:option value="BD">범어도서관</form:option>-->
+					<form:option value="BD">범어도서관</form:option>
 					<form:option value="BE">용학도서관</form:option>
-					<!--<form:option value="BF">고산도서관</form:option>-->
+					<form:option value="BF">고산도서관</form:option>
 					<form:option value="BJ">책숲길도서관</form:option>
 					<form:option value="BK">물망이도서관</form:option>
-					<!--<form:option value="BG">파동도서관</form:option>-->
+					<form:option value="BG">파동도서관</form:option>
 					<form:option value="BH">무학숲도서관</form:option>
-				</form:select>
+				</form:select> <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. -->
 				</c:when>
 
 				<c:when test="${context_path eq 'junggu'}">
@@ -379,9 +378,9 @@
 					<form:option value="FR">가창면참꽃작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
-					<form:option value="FN">달성군청소년센터</form:option>
-					<form:option value="FJ">달성군청도서관</form:option> -->
-				</form:select> <span style="color:#ff0000">  <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  --> * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. </span>
+					<form:option value="FN">달성군청소년센터</form:option> -->
+					<form:option value="FJ">달성군청도서관</form:option>
+				</form:select> <span style="color:#ff0000">  * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. --> </span>
 				</c:when>
 				<c:when test="${context_path eq 'namic'}">
 				<form:select path="manageCode">
@@ -395,37 +394,37 @@
 				</c:when>
 				<c:when test="${context_path eq 'dalseolib'}">
 				<form:select path="manageCode">
-					<!-- <form:option value="BW">도원도서관</form:option> -->
-				</form:select><span style="color:#ff0000">  * 도원도서관 희망도서 신청 중지 </span>
+					<form:option value="BW">도원도서관</form:option>
+				</form:select><!--<span style="color:#ff0000">  * 도원도서관 희망도서 신청 중지 </span>-->
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<!--<form:option value="BV">달서어린이</form:option>-->
-				</form:select><span style="color:#ff0000">  * 달서어린이도서관 희망도서 신청 중지 </span>
+					<form:option value="BV">달서어린이</form:option>
+				</form:select><!--<span style="color:#ff0000">  * 달서어린이도서관 희망도서 신청 중지 </span>-->
 				</c:when>
 
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
 					<%--<form:option value="BU">성서도서관</form:option>--%>
-					<!--<option value="BU">성서도서관</option>-->
-				</form:select><span style="color:#ff0000">  * 성서도서관 희망도서 신청 중지 </span>
+					<option value="BU">성서도서관</option>
+				</form:select><!--<span style="color:#ff0000">  * 성서도서관 희망도서 신청 중지 </span>-->
 				</c:when>
 
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<%--<form:option value="BX">본리도서관</form:option>--%>
-				</form:select><span style="color:#ff0000">  * 2023년 본리도서관 희망도서 서비스 종료(예산 소진)</span>
+					<form:option value="BX">본리도서관</form:option>
+				</form:select><!--<span style="color:#ff0000">  * 2023년 본리도서관 희망도서 서비스 종료(예산 소진)</span>-->
 
 				</c:when>
 				<c:when test="${context_path eq 'family'}">
 				<form:select path="manageCode">
-					<%--<form:option value="BY">달서가족문화도서관</form:option>--%>
+					<form:option value="BY">달서가족문화도서관</form:option>
 				</form:select>
 				</c:when>
 				<c:when test="${context_path eq 'english'}">
 				<form:select path="manageCode">
-					<%-- <form:option value="BZ">달서영어도서관</form:option>--%>
-				</form:select><span style="color:#ff0000">  * 달서영어도서관 희망도서신청 차후 재개시 안내드리겠습니다.</span>
+					<form:option value="BZ">달서영어도서관</form:option>
+				</form:select><!--<span style="color:#ff0000">  * 달서영어도서관 희망도서신청 차후 재개시 안내드리겠습니다.</span>-->
 				</c:when>
 				<c:when test="${context_path eq 'dssmalllib'}">
 				<form:select path="manageCode">
@@ -475,8 +474,8 @@
 					<option value="GT">효목1동 작은도서관</option>
 					<option value="FP">효목2동 작은도서관</option>
 					<option value="FK">신천3동 작은도서관</option>
-				</form:select><!-- <span style="color:#ff0000"> * 2022년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span> -->
-				<!-- </select> -->
+				<!-- </form:select><span style="color:#ff0000"> * 2023년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span> -->
+				</select>
 				</c:when>
 				<c:when test="${context_path eq 'jungang'}">
 				<form:select path="manageCode">

@@ -167,17 +167,40 @@
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
-				<c:when test="${homepagePath eq 'beomeo' || homepagePath eq 'yonghak' || homepagePath eq 'gosan' || homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol' || homepagePath eq 'goldbook'}">
-				<form:select path="manageCode" cssClass="new_select_box">
-					<!--<form:option value="BD">범어도서관</form:option>-->
-					<form:option value="BE">용학도서관</form:option>
-					<!--<form:option value="BF">고산도서관</form:option>-->
-					<!--<form:option value="BJ">책숲길도서관</form:option>-->
-					<!--<form:option value="BK">물망이도서관</form:option>-->
-					<!--<form:option value="BG">파동도서관</form:option>
-					<form:option value="BH">무학숲도서관</form:option>
-					<form:option value="HR">황금책문화센터</form:option>-->
-				</form:select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
+				<c:when test="${homepagePath eq 'beomeo'}">
+				<select name="manageCode" id="manageCode" class="new_select_box">
+					<option value="BD">범어도서관</option>
+					<option value="BJ">책숲길도서관</option>
+					<option value="BK">물망이도서관</option>
+					<option value="HR">황금책문화센터</option>
+				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
+				</c:when>
+
+				<c:when test="${homepagePath eq 'yonghak'}">
+				<select name="manageCode" id="manageCode" class="new_select_box">
+					<option value="BE">용학도서관</option>
+					<option value="BG">파동도서관</option>
+					<option value="BH">무학숲도서관</option>
+				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
+				</c:when>
+
+				<c:when test="${homepagePath eq 'gosan'}">
+				<select name="manageCode" id="manageCode" class="new_select_box">
+					<option value="BF">고산도서관</option>
+				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
+				</c:when>
+
+				<c:when test="${homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol' || homepagePath eq 'goldbook'}">
+				<select name="manageCode" id="manageCode" class="new_select_box">
+					<option value="BD">범어도서관</option>
+					<option value="BE">용학도서관</option>
+					<option value="BF">고산도서관</option>
+					<option value="BJ">책숲길도서관</option>
+					<option value="BK">물망이도서관</option>
+					<option value="BG">파동도서관</option>
+					<option value="BH">무학숲도서관</option>
+					<option value="HR">황금책문화센터</option>
+				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
 				<c:when test="${homepagePath eq 'junggu'}">
@@ -271,15 +294,14 @@
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
-					<!-- <option value="BW">도원도서관</option> -->
-					<!--<option value="BV">달서어린이</option>-->
-					<!--<option value="BU">성서도서관</option>-->
-					<!--<option value="BX">본리도서관</option>-->
-					<!--<option value="BY">달서가족문화도서관</option>-->
-					<!--<option value="BZ">달서영어도서관</option>-->
+					<option value="BW">도원도서관</option>
+					<option value="BV">달서어린이</option>
+					<option value="BU">성서도서관</option>
+					<option value="BX">본리도서관</option>
+					<option value="BY">달서가족문화도서관</option>
+					<option value="BZ">달서영어도서관</option>
 				</select>
         <br>
-		* 도원,달서어린이,성서,본리,가족문화,달서영어도서관 희망도서 신청 중지. 차후 재개시 안내드리겠습니다.<br>
         * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
         * 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.
 				</c:when>
@@ -465,7 +487,7 @@
 
 				<c:otherwise>
 				<form:select path="manageCode">
-					<option value="AD">중앙도서관</option>
+					<option value="AD">국채보상운동기념학생도서관</option>
 				</form:select>
 				</c:otherwise>
 				</c:choose>

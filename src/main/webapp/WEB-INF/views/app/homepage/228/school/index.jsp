@@ -195,7 +195,7 @@
 							<h2 class="title">공지사항</h2>
 							<div class="list" id="notice-list">
 								<ul>
-									<c:forEach var="i" varStatus="status" items="${noticeList}" >
+									<c:forEach var="i" varStatus="status" items="${noticeList}" begin="0" end="2">
 										<c:choose>
 											<c:when test="${status.first}">
 												<li>
