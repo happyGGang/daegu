@@ -50,7 +50,7 @@ table.bbs tr.notice{background:#f5f6f7}
 .category span.ca.bg-0004 {background-color:#dda616;color:#fff;}
 .category span.ca.bg-0005 {background-color:#8194b4;color:#fff;}
 .category span.ca.bg-0006 {background-color:#f67205;color:#fff;}
-.category span.ca.bg-0007 {background-color:#dda616;color:#fff;}
+.category span.ca.bg-0007 {background-color:#f75d9d;color:#fff;}
 .category span.ca.bg-0008 {background-color:#8194b4;color:#fff;}
 .category span.ca.bg-0009 {background-color:#f67205;color:#fff;}
 </style>
