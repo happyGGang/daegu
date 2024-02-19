@@ -257,14 +257,16 @@ public class ExcursionsController extends BaseController {
 				return res;
 			}
 
-			ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
+			if(!("h35".equals(homepage.getHomepage_id()) & "0002".equals(apply.getDate_type()))) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력해주세요.");
 
 			CalendarManage calendarManage = new CalendarManage();

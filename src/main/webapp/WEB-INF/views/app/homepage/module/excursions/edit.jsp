@@ -170,7 +170,7 @@ $(function() {
 
 <table class="type1">
 	<colgroup>
-		<col width="140"/>
+		<col width="160"/>
 		<col width="*"/>
 	</colgroup>
 	<tbody>
@@ -179,7 +179,6 @@ $(function() {
 			<td>
 				<form:hidden path="applicant_name" value="${member.member_name}"/>
 				${member.member_name}
-
 			</td>
 		</tr>
 		<tr>
@@ -191,39 +190,52 @@ $(function() {
 				<form:input path="applicant_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true" value="${fn:substring(member.mobile_no, 7, 11)}"/>
 			</td>
 		</tr>
-		<tr>
-			<th>신청자 이메일</th>
-			<td>
-				<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:hidden path="agency_tel"/>
-				<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-				<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-				<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관 주소</th>
-			<td>
-				<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
-			</td>
-		</tr>
-		<tr>
-			<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="age" class="text" cssStyle="width:50px" />
-			</td>
-		</tr>
+		<c:choose>
+			<c:when test="${param.homepage_id ne 'h35' and param.date_type ne '0002'}">
+				<tr>
+					<th>신청자 이메일</th>
+					<td>
+						<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
+					</td>
+				</tr>
+				<tr>
+					<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
+					</td>
+				</tr>
+				<tr>
+					<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:hidden path="agency_tel"/>
+						<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+						<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+						<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
+					</td>
+				</tr>
+				<tr>
+					<th>기관 주소</th>
+					<td>
+						<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
+					</td>
+				</tr>
+				<tr>
+					<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+					<td>
+						<form:input path="age" class="text" cssStyle="width:50px" />
+					</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+				<form:hidden path="agency_name" value="${member.member_id}"/>
+				<tr>
+					<th>SR테스트신청 주소</th>
+					<td>
+						<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
+					</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
 		<tr>
 			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *숫자만 입력가능합니다.</td>
