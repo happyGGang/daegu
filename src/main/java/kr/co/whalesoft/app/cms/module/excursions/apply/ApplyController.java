@@ -20,6 +20,7 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping(value = {"/cms/module/excursions/apply"})
@@ -188,7 +190,24 @@ public class ApplyController extends BaseController {
 				apply.setStart_time(excursions.getStart_time());
 				apply.setEnd_date(excursions.getEnd_date());
 				apply.setEnd_time(excursions.getEnd_time());
+				if (apply.getApply_file() != null) {
+					MultipartFile mFile = apply.getApply_file();
+					if ( mFile.getSize() > 0 ) {
+						String serverFileName = Long.toString((System.currentTimeMillis()));
+						String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+						String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+						String filePath = "/" + apply.getHomepage_id();
+						
+						File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
+						apply.setServer_file_name(serverFileName);
+						apply.setOrigin_file_name(originFileName);
+						apply.setFile_extension(fileExtension);
+						apply.setFile_size(f.length());
+					}
+				}
 				String addResult = (String) service.addApply(apply, request);
+				
+				
 				if (addResult != null) {
 					res.setValid(true);
 					res.setUrl(addResult);
@@ -200,8 +219,23 @@ public class ApplyController extends BaseController {
 				res.setMessage("등록 되었습니다.");
 			}
 			else if(apply.getEditMode().equals("MODIFY")) {
+				if (apply.getApply_file() != null) {
+				MultipartFile mFile = apply.getApply_file();
+					if ( mFile.getSize() > 0 ) {
+						String serverFileName = Long.toString((System.currentTimeMillis()));
+						String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+						String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+						String filePath = "/" + apply.getHomepage_id();
+	
+						File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
+						apply.setServer_file_name(serverFileName);
+						apply.setOrigin_file_name(originFileName);
+						apply.setFile_extension(fileExtension);
+						apply.setFile_size(f.length());
+					}
+				}
 				apply.setModify_id(getSessionMemberId(request));
-				service.modifyApply(apply);
+				service.modifyApplyFile(apply);
 				res.setValid(true);
 				res.setMessage("수정 되었습니다.");
 			}

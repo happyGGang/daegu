@@ -5,7 +5,7 @@
 <script>
 $(function() {
 
-	//신청자 수정버튼
+	//신청자 삭제버튼
 	$('a#delete-btn').on('click', function(event) {
 		if(confirm("해당 신청내역을 삭제 하시겠습니까?\n삭제된 데이터는 복구가 불가합니다.")) {
 			$.ajax({
@@ -20,6 +20,11 @@ $(function() {
 				}
 			});
 		}
+	});
+	//신청자 수정버튼
+	$('a#modify-btn').on('click', function(event) {
+			doGetLoad('/${homepage.context_path}/module/excursions/edit.do', 'editMode=MODIFY&menu_idx='+$('#menu_idx').val()+'&homepage_id=' + $('#homepage_id').val() + '&apply_idx=' + $(this).attr('keyValue'));
+		event.preventDefault();
 	});
 
 	<c:if test="${fn:length(subHomepageList) > 0}">
@@ -112,6 +117,7 @@ $(function() {
 						</c:if>
 						<c:if test="${apply_state ne '3'}">
 							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}">신청취소</a>
+							<a href="" class="btn" id="modify-btn" keyValue="${i.apply_idx}" >수정</a>
 						</c:if>
 					</td>
 					<td>

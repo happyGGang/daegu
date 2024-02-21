@@ -108,6 +108,19 @@ public class ApplyService extends BaseService {
 		}
 		return Dao.modifyApply(apply);
 	}
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 수정", type="P")
+	public int modifyApplyFile(Apply apply) {
+		if ( apply.getAgency_tel_1() != "" && apply.getAgency_tel_2() != "" && apply.getAgency_tel_3() != "" ) {
+			apply.setAgency_tel(String.format("%s-%s-%s", apply.getAgency_tel_1(), apply.getAgency_tel_2(), apply.getAgency_tel_3()));
+		}
+		if ( apply.getApplicant_tel_1() != "" && apply.getApplicant_tel_2() != "" && apply.getApplicant_tel_3() != "" ) {
+			apply.setApplicant_tel(String.format("%s-%s-%s", apply.getApplicant_tel_1(), apply.getApplicant_tel_2(), apply.getApplicant_tel_3()));
+		}
+		if ( apply.getGuide_tel_1() != "" && apply.getGuide_tel_2() != "" && apply.getGuide_tel_3() != "" ) {
+			apply.setGuide_tel(String.format("%s-%s-%s", apply.getGuide_tel_1(), apply.getGuide_tel_2(), apply.getGuide_tel_3()));
+		}
+		return Dao.modifyApplyFile(apply);
+	}
 	
 	public int modifyApplyState(Apply apply) {
 		int result = Dao.modifyApplyState(apply);

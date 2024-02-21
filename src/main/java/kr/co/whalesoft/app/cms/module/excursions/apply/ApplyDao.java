@@ -19,6 +19,8 @@ public interface ApplyDao {
 	
 	public int modifyApply(Apply apply);
 	
+	public int modifyApplyFile(Apply apply);
+	
 	public int modifyApplyState(Apply apply);
 	
 	public int deleteApply(Apply apply);

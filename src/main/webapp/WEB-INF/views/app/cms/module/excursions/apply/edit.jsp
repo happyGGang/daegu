@@ -20,10 +20,42 @@ $(function() {
 				text: "저장",
 				"class": 'btn btn1',
 				click: function() {
-					if(doAjaxPost($('#apply_edit'))) {
-						$(this).dialog('destroy');
-						location.reload();
-					}
+					var formData = new FormData($('#apply_edit')[0]);
+
+					$.ajax({
+						url: '/cms/module/excursions/apply/save.do',
+						type: 'POST',
+						data: formData,
+						async: false,
+						cache: false,
+						contentType: false,
+						processData: false,
+						dataType: 'json',
+						success: function(data) {
+							if(data.valid) {
+				                 if(data.message != null && data.message.replace(/\s/g,'').length!=0) {
+				                	 alert(data.message);
+				                 }
+				                 $('#dialog-2').dialog('destroy');
+				                 location.reload();
+							} else {
+				   				if(data.targetOpener) {
+									window.open(data.url, '', 'width=500,height=510');
+									return false;
+								}
+
+								if (data.message != null && data.message.replace(/\s/g, '').length != 0) {
+									alert(data.message);
+								} else {
+									for (var i = 0; i < data.result.length; i++) {
+										alert(data.result[i].code);
+										$('#' + data.result[i].field).focus();
+										break;
+									}
+								}
+							}
+						}
+					});
 				}
 			},{
 				text: "취소",
@@ -128,7 +160,7 @@ $(function() {
 	});
 });
 </script>
-<form:form modelAttribute="apply" id="apply_edit" action="/cms/module/excursions/apply/save.do" method="post" onsubmit="return false;">
+<form:form modelAttribute="apply" id="apply_edit" action="/cms/module/excursions/apply/save.do" method="post" onsubmit="return false;" enctype="multipart/form-data">
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="apply_idx"/>
@@ -234,6 +266,18 @@ $(function() {
 			<td>
 				<form:input path="remarks" class="text" cssStyle="width:90%"/>
 			</td>
+		</tr>
+       	<c:if test="${apply.origin_file_name != null and apply.origin_file_name != ''}">
+        	<tr>
+        	 	<th>현재 첨부 파일</th>
+        	 	<td>
+        	 		<a href="/cms/module/excursions/download/${apply.homepage_id}/${apply.apply_idx }.do"><i class="fa fa-floppy-o"></i>${apply.origin_file_name}</a>
+				</td>        	 	
+        	</tr>
+       	</c:if>
+		<tr>
+			<th>첨부파일</th>
+			<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
 		</tr>
 	</tbody>
 </table>

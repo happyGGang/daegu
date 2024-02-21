@@ -91,8 +91,11 @@ $(function() {
     				}
 					if($('#pageType').val() == 'ajax') {
 						$('#tabCon2').load('module/excursions/index.do?pageType=ajax');
+					} else if(data.result == 'MODIFY'){
+						doGetLoad('/${homepage.context_path}/module/excursions/apply.do', '&menu_idx=' + $('#menu_idx').val());
 					} else {
 						doGetLoad('/${homepage.context_path}/module/excursions/index.do', '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val());
+						
 					}
 				} else {
 	   				if(data.targetOpener) {
@@ -247,6 +250,14 @@ $(function() {
 				<em>${excursions.remark_comment}</em>
 			</td>
 		</tr>
+       	<c:if test="${apply.origin_file_name != null and apply.origin_file_name != ''}">
+        	<tr>
+        	 	<th>현재 첨부 파일</th>
+        	 	<td>
+        	 		<a href="/${homepage.context_path}/module/excursions/download/${apply.homepage_id}/${apply.apply_idx }.do"><i class="fa fa-floppy-o"></i>${apply.origin_file_name}</a>
+				</td>        	 	
+        	</tr>
+       	</c:if>
 		<tr>
 			<th>첨부파일</th>
 			<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
@@ -256,6 +267,13 @@ $(function() {
 </form:form>
 <br/>
 <div class="txt-right">
-	<button id="save-btn" class="btn btn2">신청하기</button>
+	<c:choose>
+		<c:when test="${apply.editMode == 'MODIFY'}">
+			<button id="save-btn" class="btn btn2">수정하기</button>
+		</c:when>
+		<c:otherwise>
+			<button id="save-btn" class="btn btn2">신청하기</button>
+		</c:otherwise>
+	</c:choose>
 	<button id="cancel-btn" class="btn btn5">취소</button>
 </div>

@@ -130,7 +130,9 @@ public class ExcursionsController extends BaseController {
 
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		checkAuth("C", model, request);
+		if (!apply.getEditMode().equals("MODIFY")) {
+			checkAuth("C", model, request);
+		}
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 //		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
@@ -164,7 +166,7 @@ public class ExcursionsController extends BaseController {
 
 		}
 		if(apply.getEditMode().equals("MODIFY")) {
-			//model.addAttribute("facility", service.copyObjectPaging(facility, service.getFacilityOne(facilityReq)));
+			model.addAttribute("apply", service.copyObjectPaging(apply, applyService.getApplyOne(apply)));
 		} else {
 			model.addAttribute("apply", apply);
 		}
@@ -382,12 +384,26 @@ public class ExcursionsController extends BaseController {
 				res.setValid(true);
 				res.setMessage("신청 취소 되었습니다.");
 			}
-			/*else if(apply.getEditMode().equals("STATEMODIFY")) {
-				applyService.modifyApplyState(apply);
+			else if(apply.getEditMode().equals("MODIFY")) {
+				MultipartFile mFile = apply.getApply_file();
+				if ( mFile.getSize() > 0 ) {
+					String serverFileName = Long.toString((System.currentTimeMillis()));
+					String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+					String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+					String filePath = "/" + apply.getHomepage_id();
+
+					File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
+					apply.setServer_file_name(serverFileName);
+					apply.setOrigin_file_name(originFileName);
+					apply.setFile_extension(fileExtension);
+					apply.setFile_size(f.length());
+				}
+				applyService.modifyApplyFile(apply);
 				res.setValid(true);
+				res.setResult(apply.getEditMode());
 				res.setMessage("수정 되었습니다.");
 			}
-			*/
+			
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
