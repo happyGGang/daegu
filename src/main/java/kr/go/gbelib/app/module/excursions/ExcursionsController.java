@@ -4,10 +4,12 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -234,8 +236,15 @@ public class ExcursionsController extends BaseController {
 
 //		apply.setHomepage_id(homepage.getHomepage_id());
 		apply.setMember_key(getSessionMemberId(request));
+		if ("h35".equals(apply.getHomepage_id())) {
 
-		model.addAttribute("applyList", applyService.getUserApply(apply));
+			model.addAttribute("applyList", applyService.getUserExApply(apply));
+			model.addAttribute("applySrList", applyService.getUserSrApply(apply));
+		}else {
+			
+			model.addAttribute("applyList", applyService.getUserApply(apply));
+		}
+		
 
 		if ( "ajax".equals(apply.getPageType()) ) {
 			return String.format(basePath, homepage.getFolder()) + "apply_ajax";

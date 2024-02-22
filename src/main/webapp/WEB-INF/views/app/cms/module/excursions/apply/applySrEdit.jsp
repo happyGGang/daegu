@@ -1,0 +1,130 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script>
+$(function() {
+	$('.dialog-common').dialog({ //모달창 기본 스크립트 선언
+		autoOpen: false,
+		resizable: false,
+		modal: true, 
+	    open: function(){
+	        $('.ui-widget-overlay').addClass('custom-overlay');
+	    },
+	    close: function(){
+	        $('.ui-widget-overlay').removeClass('custom-overlay');
+	        location.reload();
+	    },
+		buttons: [
+			{
+				text: "엑셀저장",
+				"class": 'btn btn2',
+				click: function() {		
+					if('${fn:length(applyList)}' > 0) {
+						$('#apply_edit2').attr('action', '/cms/module/excursions/apply/excelDownload.do').submit();
+// 						$('#apply_edit2').attr('action', '/cms/module/excursions/apply/save.do');	
+					} else {
+						alert('해당 내역이 없습니다.');	
+					}
+				}
+			},{
+				text: "취소",
+				"class": 'btn',
+				click: function() {
+					$(this).dialog('destroy');
+					location.reload();
+				}
+			}
+		]
+	});
+	
+	$("#dialog-3").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
+		width: 900,
+		height: 500
+	});
+	
+	//신청자 수정버튼
+	$('a#apply-modify').on('click', function(event) {
+		$('#dialog-2').load('/cms/module/excursions/apply/edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id_1').val() + '&apply_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+			$('#dialog-2').dialog('open');
+		});
+		
+		event.preventDefault();
+	});
+	
+	//승인처리 버튼
+	$('a#state-modify').on('click', function(event) {
+		$('#dialog-4').load('/cms/module/excursions/apply/stateEdit.do?editMode=STATEMODIFY&homepage_id=' + $('#homepage_id_1').val() + '&apply_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+			$('#dialog-4').dialog('open');
+		});
+		
+				
+		event.preventDefault();
+	});
+	
+	$('a#delete-btn').on('click', function(event) {
+		if(confirm('해당 정보를 삭제 하시겠습니까?')) {
+			$('input#editMode').val('DELETE');
+			$('input#apply_idx').val($(this).attr('keyValue'));
+			if(doAjaxPost($('#apply_edit2'))) {
+				$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=VIEW&homepage_id=' + $('#homepage_id').val() + '&excursions_idx=' + $(this).attr('keyValue') + '&start_date=' + $(this).attr('plan_date'), function( response, status, xhr ) {
+					$('#dialog-3').dialog('open');
+				});
+			}
+		}
+		event.preventDefault();
+	});
+	
+});
+</script>
+<form:form modelAttribute="apply" id="apply_edit2" action="/cms/module/excursions/apply/save.do" method="post">
+<form:hidden path="homepage_id"/>
+<form:hidden path="editMode"/>
+<form:hidden path="plan_date"/>
+<form:hidden path="apply_idx"/>
+<div class="table-wrap">
+	<table class="type1 center">
+		<colgroup>
+			<col width="120"/>
+			<col width="110"/>
+			<col width="150"/>
+			<col width="150"/>
+			<col width="90"/>
+			<col width="75"/>
+			<col width=""/>
+		</colgroup>
+		<thead>
+			<tr>
+				<th>기관명</th>
+				<th>신청자 성명</th>
+				<th>신청자 전화번호</th>
+				<th>테스트신청 주소</th>
+				<th>방문인원</th>
+				<th>비고</th>
+				<th>첨부파일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="i" varStatus="status" items="${applyList}">
+				<c:if test="${fn:length(applyList) < 1}">
+				<tr>
+					<td colspan="7">데이터가 존재하지 않습니다.</td>
+				</tr>
+				</c:if>
+				<tr>
+					<td>${i.agency_name}</td>
+					<td>${i.applicant_name}</td>
+					<td>${i.applicant_tel}</td>
+					<td>${i.agency_address}</td>
+					<td>${i.personnel}</td>
+					<td>${i.remarks}</td>
+					<td>
+						<a href="/cms/module/excursions/apply/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</div>
+</form:form>
+<div id="dialog-4" class="dialog-common" title="신청자 승인 처리"/>

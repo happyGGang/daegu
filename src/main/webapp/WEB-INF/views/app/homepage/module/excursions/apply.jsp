@@ -90,40 +90,40 @@ $(function() {
 		</thead>
 		<tbody>
 			<c:forEach var="i" varStatus="status" items="${applyList}">
-				<tr>
-					<td>${i.agency_name}</td>
-					<td>${i.applicant_name}</td>
-					<td>${i.applicant_tel}</td>
-					<td>${i.start_date}</td>
-					<td>${i.start_time}<span id="tilde" style="font-size:12px">~</span>${i.end_time}</td>
-					<td>${i.personnel}</td>
-					<td>
-						<c:set var="apply_state" value="${i.apply_state}" />
-						<c:choose>
-						    <c:when test="${apply_state eq '3'}">
-						        승인
-						    </c:when>
-						    <c:when test="${apply_state eq '2'}">
-						        불가
-						    </c:when>
-						    <c:otherwise>
-						        대기
-						    </c:otherwise>
-						</c:choose>
-					</td>
-					<td>
-						<c:if test="${apply_state eq '3'}">
-							취소불가
-						</c:if>
-						<c:if test="${apply_state ne '3'}">
-							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}">신청취소</a>
-							<a href="" class="btn" id="modify-btn" keyValue="${i.apply_idx}" >수정</a>
-						</c:if>
-					</td>
-					<td>
-						<a href="/${homepage.context_path}/module/excursions/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
-					</td>
-				</tr>
+			<tr>
+				<td>${i.agency_name}</td>
+				<td>${i.applicant_name}</td>
+				<td>${i.applicant_tel}</td>
+				<td>${i.start_date}</td>
+				<td>${i.start_time}<span id="tilde" style="font-size:12px">~</span>${i.end_time}</td>
+				<td>${i.personnel}</td>
+				<td>
+					<c:set var="apply_state" value="${i.apply_state}" />
+					<c:choose>
+					    <c:when test="${apply_state eq '3'}">
+					        승인
+					    </c:when>
+					    <c:when test="${apply_state eq '2'}">
+					        불가
+					    </c:when>
+					    <c:otherwise>
+					        대기
+					    </c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:if test="${apply_state eq '3'}">
+						취소불가
+					</c:if>
+					<c:if test="${apply_state ne '3'}">
+						<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}">신청취소</a>
+						<a href="" class="btn" id="modify-btn" keyValue="${i.apply_idx}" >수정</a>
+					</c:if>
+				</td>
+				<td>
+					<a href="/${homepage.context_path}/module/excursions/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
+				</td>
+			</tr>
 			</c:forEach>
 			<c:if test="${fn:length(applyList) < 1}">
 				<tr>
@@ -133,4 +133,50 @@ $(function() {
 		</tbody>
 	</table>
 </div>
+<c:if test="${apply.homepage_id eq 'h35' }">
+	<div class="table-wrap" style="margin-top: 50px;">
+		<table class="type1 center">
+			<colgroup>
+				<col width="*"/>
+				<col width="12%"/>
+				<col width="15%"/>
+				<col width="20%"/>
+				<col width="11%"/>
+				<col width="10%"/>
+				<col width="10%"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>기관명</th>
+					<th>신청자 성명</th>
+					<th>신청자 전화번호</th>
+					<th>SR테스트신청 주소</th>
+					<th>방문 인원</th>
+					<th>비고</th>
+					<th>첨부파일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="i" varStatus="status" items="${applySrList}">
+				<tr>
+					<td>${i.agency_name}</td>
+					<td>${i.applicant_name}</td>
+					<td>${i.applicant_tel}</td>
+					<td>${i.agency_address}</td>
+					<td>${i.personnel}</td>
+					<td>${i.remarks}</td>
+					<td>
+						<a href="/${homepage.context_path}/module/excursions/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
+					</td>
+				</tr>
+				</c:forEach>
+				<c:if test="${fn:length(applySrList) < 1}">
+					<tr>
+						<td colspan="8">데이터가 존재하지 않습니다.</td>
+					</tr>
+				</c:if>
+			</tbody>
+		</table>
+	</div>
+</c:if>
 </form:form>

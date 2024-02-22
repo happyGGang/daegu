@@ -55,6 +55,34 @@
 		AND	applicant_member_id	= #{member_key}
 		</if>
 	</select>
+	
+	<!-- 사용자 SR테스트 전용 list -->
+	<select id="getUserSrApply" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_EXCURSIONS_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="member_key != null and member_key != ''">
+		AND	applicant_member_id	= #{member_key}
+		</if>
+		AND	date_type = '0002'
+	</select>
+	
+	<!-- 사용자 SR테스트 견학신청 list -->
+	<select id="getUserExApply" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
+		SELECT
+			<include refid="field" />
+		FROM
+			CMS_EXCURSIONS_APPLY
+		WHERE
+			homepage_id = #{homepage_id}
+		<if test="member_key != null and member_key != ''">
+		AND	applicant_member_id	= #{member_key}
+		</if>
+		AND	date_type != '0002'
+	</select>
 
 	<select id="getApplyOne" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
 		SELECT

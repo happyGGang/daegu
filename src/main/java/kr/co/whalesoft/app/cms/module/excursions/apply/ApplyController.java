@@ -63,15 +63,24 @@ public class ApplyController extends BaseController {
 	@RequestMapping(value = {"/applyEdit.*"})
 	public String applyEdit(Model model, Apply apply) {
 		apply.setPlan_date(apply.getStart_date());
-		model.addAttribute("applyList", service.getApply(apply));
-		return basePath + "applyEdit_ajax";
+		
+		List<Apply> applyList = service.getApply(apply);
+		model.addAttribute("applyList", applyList);
+		// sr테스트 신청여부 확인
+		String date_type = applyList.get(0).getDate_type();
+		if ("h35".equals(apply.getHomepage_id()) && "0002".equals(date_type)) {
+			return basePath + "applySrEdit_ajax";
+		}else {
+			return basePath + "applyEdit_ajax";
+		}
+		
 	}
 
 	@RequestMapping(value = {"/excelDownloadDate.*"})
 	public String excelDownloadDate(Model model, Apply apply) {
 		Excursions excursions = new Excursions();
 		excursions.setPlan_date(new SimpleDateFormat("yyyy-MM").format(new Date()));
-		model.addAttribute("excursions", excursions);		
+		model.addAttribute("excursions", excursions);
 		model.addAttribute("apply", apply);
 		return basePath + "excelDownloadDate_ajax";
 	}

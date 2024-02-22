@@ -11,6 +11,10 @@ public interface ApplyDao {
 	
 	public List<Apply> getUserApply(Apply apply);
 	
+	public List<Apply> getUserSrApply(Apply apply);
+	
+	public List<Apply> getUserExApply(Apply apply);
+	
 	public Apply getApplyOne(Apply apply);
 	
 	public List<Apply> getOkApply(CalendarManage calendarManage);

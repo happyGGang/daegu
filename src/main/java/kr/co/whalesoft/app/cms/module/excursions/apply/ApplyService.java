@@ -42,6 +42,14 @@ public class ApplyService extends BaseService {
 	public List<Apply> getUserApply(Apply apply) {
 		return Dao.getUserApply(apply);
 	}
+	//SR테스트 전용 신청내역
+	public List<Apply> getUserSrApply(Apply apply) {
+		return Dao.getUserSrApply(apply);
+	}
+	//SR테스트 견학 신청내역 (기존의 신청내역 사용 못함 )
+	public List<Apply> getUserExApply(Apply apply) {
+		return Dao.getUserExApply(apply);
+	}
 
 	@WorkingLogger(comment="견학/체험 신청자 관리 1건 조회", type="P")
 	public Apply getApplyOne(Apply apply) {
