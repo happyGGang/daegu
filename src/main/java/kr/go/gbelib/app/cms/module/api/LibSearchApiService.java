@@ -125,6 +125,30 @@ public class LibSearchApiService extends BaseService {
 			
 			return jsonResponse.toString();
 		}
+
+		if(StringUtils.isEmpty(librarySearch.getPageNo()) || "".equals(librarySearch.getPageNo())) {
+			resultCode = "S003";
+			resultMsg = "pageNo 값이 없습니다. 페이지 번호를 입력해주세요.";
+
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+
+			return jsonResponse.toString();
+		}
+
+		if(StringUtils.isEmpty(librarySearch.getNumOfRows()) || "".equals(librarySearch.getNumOfRows())) {
+			resultCode = "S003";
+			resultMsg = "numOfRows 값이 없습니다. 데이터 출력건수를 입력해주세요.";
+
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+
+			return jsonResponse.toString();
+		}
 		
 		if(ls == null) {
 			resultCode = "S002";
@@ -141,6 +165,14 @@ public class LibSearchApiService extends BaseService {
 		librarySearch.setShelfCode(ls.getCode());
 		librarySearch.setManageCode(ls.getManageCode());
 		librarySearch.setTitle(librarySearch.getSearch_text());
+
+		if(StringUtils.isNotEmpty(librarySearch.getPageNo())){
+			librarySearch.setViewPage(Integer.parseInt(librarySearch.getPageNo()));
+		}
+
+		if(StringUtils.isNotEmpty(librarySearch.getNumOfRows())){
+			librarySearch.setRowCount(Integer.parseInt(librarySearch.getNumOfRows()));
+		}
 
 		result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
 		
@@ -220,6 +252,30 @@ public class LibSearchApiService extends BaseService {
 			
 			return jsonResponse.toString();
 		}
+
+		if(StringUtils.isEmpty(librarySearch.getPageNo()) || "".equals(librarySearch.getPageNo())) {
+			resultCode = "S003";
+			resultMsg = "pageNo 값이 없습니다. 페이지 번호를 입력해주세요.";
+
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+
+			return jsonResponse.toString();
+		}
+
+		if(StringUtils.isEmpty(librarySearch.getNumOfRows()) || "".equals(librarySearch.getNumOfRows())) {
+			resultCode = "S003";
+			resultMsg = "numOfRows 값이 없습니다. 데이터 출력건수를 입력해주세요.";
+
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+
+			return jsonResponse.toString();
+		}
 		
 		if(ls == null) {
 			resultCode = "S002";
@@ -251,10 +307,18 @@ public class LibSearchApiService extends BaseService {
 		
 		librarySearch.setManageCode(ls.getManageCode());
 		librarySearch.setShelfCode(ls.getCode());
+
+		if(StringUtils.isNotEmpty(librarySearch.getPageNo())){
+			librarySearch.setViewPage(Integer.parseInt(librarySearch.getPageNo()));
+		}
+
+		if(StringUtils.isNotEmpty(librarySearch.getNumOfRows())){
+			librarySearch.setRowCount(Integer.parseInt(librarySearch.getNumOfRows()));
+		}
 		
 		int rowCount = librarySearch.getRowCount();
 		
-		librarySearch.setRowCount(100);
+		//librarySearch.setRowCount(100);
 		
 		result = LibSearchAPI.getBestBookList(librarySearch);
 		
@@ -371,6 +435,30 @@ public class LibSearchApiService extends BaseService {
 			
 			return jsonResponse.toString();
 		}
+
+		if(StringUtils.isEmpty(librarySearch.getPageNo()) || "".equals(librarySearch.getPageNo())) {
+			resultCode = "S003";
+			resultMsg = "pageNo 값이 없습니다. 페이지 번호를 입력해주세요.";
+
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+
+			return jsonResponse.toString();
+		}
+
+		if(StringUtils.isEmpty(librarySearch.getNumOfRows()) || "".equals(librarySearch.getNumOfRows())) {
+			resultCode = "S003";
+			resultMsg = "numOfRows 값이 없습니다. 데이터 출력건수를 입력해주세요.";
+
+			jsonResponse.add("response", header);
+			header.add("header", headerItems);
+			headerItems.addProperty("resultCode", resultCode);
+			headerItems.addProperty("resultMsg", resultMsg);
+
+			return jsonResponse.toString();
+		}
 		
 		if(ls == null) {
 			resultCode = "S002";
@@ -388,6 +476,14 @@ public class LibSearchApiService extends BaseService {
 		librarySearch.setManageCode(ls.getManageCode());
 		librarySearch.setSortField("SHELF_DATE");
 		librarySearch.setSortType("DESC");
+
+		if(StringUtils.isNotEmpty(librarySearch.getPageNo())){
+			librarySearch.setViewPage(Integer.parseInt(librarySearch.getPageNo()));
+		}
+
+		if(StringUtils.isNotEmpty(librarySearch.getNumOfRows())){
+			librarySearch.setRowCount(Integer.parseInt(librarySearch.getNumOfRows()));
+		}
 		
 		result = LibSearchAPI.getBookAndNonbookDetail(librarySearch);
 		

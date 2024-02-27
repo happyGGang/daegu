@@ -207,6 +207,8 @@ public class LibrarySearch extends PagingUtils {
 		this.searchType = searchType;
 	}
 
+	private String numOfRows;
+
 	public LibrarySearch() {
 		this.setSortField("NONE");
 		this.setSortType("");
@@ -1401,6 +1403,14 @@ public class LibrarySearch extends PagingUtils {
 
 	public void setShelf_change_end_date(String shelf_change_end_date) {
 		this.shelf_change_end_date = shelf_change_end_date;
+	}
+
+	public String getNumOfRows() {
+		return numOfRows;
+	}
+
+	public void setNumOfRows(String numOfRows) {
+		this.numOfRows = numOfRows;
 	}
 
 }
