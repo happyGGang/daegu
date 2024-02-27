@@ -125,7 +125,8 @@ $(function() {
 
 	// 연락처 필드 숫자만 입력 가능
 	$(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );});
-
+	
+	$(":radio[name='picture_use_yn'][value='Y']").attr('checked', true);
 });
 </script>
 
@@ -243,6 +244,24 @@ $(function() {
 			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3" numberOnly="true"/> *숫자만 입력가능합니다.</td>
 		</tr>
+		<c:if test="${apply.homepage_id eq 'h8'}">
+			<tr>
+	         	<th>체험희망시간(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+	       			<c:choose>
+	         			<c:when test="${excursions.editMode eq 'ADD'}">
+	         				<form:input path="desired_start_time" class="text" style="width:50px;"/> ~ <form:input path="desired_end_time" class="text" style="width:50px;"/>
+	         			</c:when>
+	         			<c:otherwise>
+	         				${apply.desired_start_time}~${apply.desired_end_time}
+	         			</c:otherwise>
+	         		</c:choose>
+					<div class="ui-state-highlight">
+						<em>* 시간 입력 ex) 10:30</em>
+					</div>
+	       		</td>
+	        </tr>
+		</c:if>
 		<tr>
 			<th>비고</th>
 			<td>
@@ -262,6 +281,22 @@ $(function() {
 			<th>첨부파일</th>
 			<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
 		</tr>
+		<c:if test="${apply.homepage_id eq 'h8'}">
+			<tr>
+				<th>사진 활용 동의 여부(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:radiobutton path="picture_use_yn" value="Y" label="동의" cssStyle="vertical-align: middle;"/>
+					<form:radiobutton path="picture_use_yn" value="N" label="미동의" cssStyle="vertical-align: middle;"/>
+					<div class="ui-state-highlight">
+						* 활용목적: 도서관 프로그램 홍보<br>
+						* 참고사항<br>
+						 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영<br>
+						 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
+	 						 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
+					</div>
+				</td>
+			</tr>
+		</c:if>
 	</tbody>
 </table>
 </form:form>

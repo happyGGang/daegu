@@ -78,7 +78,9 @@ public class Apply extends PagingUtils {
 	private String server_file_name; // 서버파일명
 	private String file_extension; // 파일확장자
 	private long file_size; // 파일크기
-	
+	private String desired_start_time; 	// 체험희망시작시간
+	private String desired_end_time; 	// 체험희망종료시간
+	private String picture_use_yn; 	//사진 활용 동의 여부
 
 	public int getApply_idx() {
 		return apply_idx;
@@ -592,6 +594,30 @@ public class Apply extends PagingUtils {
 
 	public void setFile_size(long file_size) {
 		this.file_size = file_size;
+	}
+
+	public String getDesired_start_time() {
+		return desired_start_time;
+	}
+
+	public void setDesired_start_time(String desired_start_time) {
+		this.desired_start_time = desired_start_time;
+	}
+
+	public String getDesired_end_time() {
+		return desired_end_time;
+	}
+
+	public void setDesired_end_time(String desired_end_time) {
+		this.desired_end_time = desired_end_time;
+	}
+
+	public String getPicture_use_yn() {
+		return picture_use_yn;
+	}
+
+	public void setPicture_use_yn(String picture_use_yn) {
+		this.picture_use_yn = picture_use_yn;
 	}
 	
 }

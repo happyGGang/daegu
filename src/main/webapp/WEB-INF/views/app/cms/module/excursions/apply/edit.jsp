@@ -261,6 +261,26 @@ $(function() {
 				</form:select>
 			</td>
 		</tr>
+		<c:if test="${apply.homepage_id eq 'h8'}">
+			<tr>
+				<th>사진 활용 동의 여부</th>
+				<td>
+					<form:select path="picture_use_yn" cssClass="selectmenu" cssStyle="width : 100px">
+						<form:option value="Y" label="동의"/>
+						<form:option value="N" label="미동의"/>
+					</form:select>
+				</td>
+			</tr>
+			<tr>
+	         	<th>체험희망시간(<span style="color: red; font-weight: bold;">*</span>)</th>
+	         	<td>
+					<form:input path="desired_start_time" class="text" style="width:50px;"/> ~ <form:input path="desired_end_time" class="text" style="width:50px;"/>
+					<div class="ui-state-highlight">
+						<em>* 시간 입력 ex) 10:30</em>
+					</div>
+	       		</td>
+	        </tr>
+		</c:if>
 		<tr>
 			<th>비고</th>
 			<td>

@@ -278,8 +278,22 @@ public class ExcursionsController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
 			}
+			if ("h8".equals(apply.getHomepage_id())){
+				
+				ValidationUtils.rejectIfEmpty(result, "Desired_start_time", "체험희망 시작시간을 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "Desired_end_time", "체험희망 종료시간을 입력해주세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력해주세요.");
-
+			if ("h8".equals(apply.getHomepage_id()) && !apply.getDesired_start_time().isEmpty() && !apply.getDesired_end_time().isEmpty()) {
+				SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
+				sfTime.setLenient(false);
+				try {
+					sfTime.parse(apply.getDesired_start_time());
+					sfTime.parse(apply.getDesired_end_time());
+				} catch (Exception e) {
+					result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
+				}
+			}
 			CalendarManage calendarManage = new CalendarManage();
 			calendarManage.setHomepage_id(apply.getHomepage_id());
 			calendarManage.setStart_date(apply.getStart_date());

@@ -91,6 +91,7 @@ $(function() {
 			<col width="100"/>
 			<col width="75"/>
 			<col width="75"/>
+			<col width="75"/>
 			<col width=""/>
 		</colgroup>
 		<thead>
@@ -100,6 +101,9 @@ $(function() {
 				<th>신청자 전화번호</th>
 				<th>방문일자</th>
 				<th>방문인원</th>
+				<c:if test="${apply.homepage_id eq 'h8'}">
+					<th>희망시간</th>
+				</c:if>
 				<th>승인여부</th>
 				<c:if test="${apply.editMode ne 'VIEW' }">
 					<th>신청</th>
@@ -111,7 +115,16 @@ $(function() {
 			<c:forEach var="i" varStatus="status" items="${applyList}">
 				<c:if test="${fn:length(applyList) < 1}">
 				<tr>
-					<td colspan="7">데이터가 존재하지 않습니다.</td>
+				<c:choose>
+					<c:when test="${i.homepage_id eq 'h8'}">
+						<td colspan="8">데이터가 존재하지 않습니다.</td>
+					
+					</c:when>
+					<c:otherwise>
+						<td colspan="7">데이터가 존재하지 않습니다.</td>
+					
+					</c:otherwise>
+				</c:choose>
 				</tr>
 				</c:if>
 				<tr>
@@ -120,6 +133,9 @@ $(function() {
 					<td>${i.applicant_tel}</td>
 					<td>${i.start_date}</td>
 					<td>${i.personnel}</td>
+					<c:if test="${i.homepage_id eq 'h8'}">
+						<td>${i.desired_start_time} ~ ${i.desired_end_time }</td>
+					</c:if>
 					<td>
 						<c:set var="apply_state" value="${i.apply_state}" />
 						<c:choose>

@@ -66,14 +66,18 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
-			<col width="*"/>
+			<col width="10%"/>
+			<col width="8%"/>
 			<col width="12%"/>
-			<col width="15%"/>
-			<col width="12%"/>
-			<col width="11%"/>
 			<col width="10%"/>
 			<col width="10%"/>
 			<col width="10%"/>
+			<col width="10%"/>
+			<col width="10%"/>
+			<col width="10%"/>
+			<c:if test="${apply.homepage_id eq 'h8'}">
+				<col width="10%"/>
+			</c:if>
 		</colgroup>
 		<thead>
 			<tr>
@@ -83,6 +87,9 @@ $(function() {
 				<th>방문 일자</th>
 				<th>견학 시간</th>
 				<th>방문 인원</th>
+				<c:if test="${apply.homepage_id eq 'h8'}">
+					<th>희망시간</th>
+				</c:if>
 				<th>승인 여부</th>
 				<th>신청</th>
 				<th>첨부파일</th>
@@ -97,6 +104,9 @@ $(function() {
 				<td>${i.start_date}</td>
 				<td>${i.start_time}<span id="tilde" style="font-size:12px">~</span>${i.end_time}</td>
 				<td>${i.personnel}</td>
+				<c:if test="${apply.homepage_id eq 'h8'}">
+					<td>${i.desired_start_time}~${i.desired_end_time }</td>
+				</c:if>
 				<td>
 					<c:set var="apply_state" value="${i.apply_state}" />
 					<c:choose>
@@ -127,7 +137,14 @@ $(function() {
 			</c:forEach>
 			<c:if test="${fn:length(applyList) < 1}">
 				<tr>
-					<td colspan="8">데이터가 존재하지 않습니다.</td>
+					<c:choose>
+						<c:when test="${apply.homepage_id eq 'h8'}">
+							<td colspan="10">데이터가 존재하지 않습니다.</td>
+						</c:when>
+						<c:otherwise>
+							<td colspan="9">데이터가 존재하지 않습니다.</td>
+						</c:otherwise>						
+					</c:choose>
 				</tr>
 			</c:if>
 		</tbody>
