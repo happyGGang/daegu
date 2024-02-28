@@ -558,8 +558,6 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_CB" value="CB" label="신천도서관" />
 							</li>
-
-
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_BL" value="BL" label="서구어린이도서관" />
 							</li>
@@ -648,13 +646,12 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_BZ" value="BZ" label="달서영어도서관" />
 							</li>
-
-
-
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_BR" value="BR" label="달성군립도서관" />
 							</li>
-
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_CC" value="CC" label="New평리도서관" />
+							</li>
 
 
 						</ul>
