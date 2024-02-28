@@ -1041,21 +1041,23 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
         	</tr>
         	</c:if>
         	<c:if test="${teach.school_grade_yn eq 'Y'}">
-        	<tr>
-	         	<th>학년(<span style="color: red; font-weight: bold;">*</span>)</th>
-	         	<td>
-	         		<form:select path="student_hack" cssClass="selectmenu" cssStyle="width:120px;" title="학년 선택">
-	         			<form:option value="0" label="--선택--"></form:option>
-	         			<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
-	         		</form:select>
-	         	</td>
+	        	<tr>
+		         	<th>학년(<span style="color: red; font-weight: bold;">*</span>)</th>
+		         	<td>
+		         		<form:select path="student_hack" cssClass="selectmenu" cssStyle="width:120px;" title="학년 선택">
+		         			<form:option value="0" label="--선택--"></form:option>
+		         			<form:options items="${hakList}" itemValue="code_id" itemLabel="code_name"/>
+		         		</form:select>
+		         	</td>
+	        	</tr>
+        	</c:if>
+        	<c:if test="${teach.student_ban_yn eq 'Y'}">
 	         	<c:if test="${homepage.homepage_id eq 'h7' and menuOne.menu_idx eq '30' }">
 	        	<tr>
 		         	<th>반(<span style="color: red; font-weight: bold;">*</span>)</th>
 		         	<td><form:input path="student_ban" cssClass="text" cssStyle="width: 80px;" title="반 입력" numberOnly="true"/></td>
 	        	</tr>
-        	</c:if>
-        	</tr>
+        		</c:if>
         	</c:if>
 			<c:if test="${teach.age_info_yn eq 'Y'}">
 			<tr>
