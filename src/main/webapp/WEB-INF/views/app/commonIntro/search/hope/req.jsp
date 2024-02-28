@@ -111,7 +111,7 @@
 </div>
 <img id="refImg" src="/resources/common/img/noimg-gall.png" alt="refImg" style="display: none;">
 
-<c:if test="${homepage.context_path eq 'yonghak'}">
+<c:if test="${homepage.context_path eq ''}">
 	<p style="font-weight:bold;margin-bottom:10px;">
 		* 무학숲도서관은 생태·환경 관련 도서 위주로 신청받고 있으며, 기타 도서는 취소될 수 있으니 타도서관으로 신청 부탁드립니다.<br>
 		* 2023년 희망도서 구입비 예산 소진으로 무학숲도서관, 파동도서관은 희망도서 신청이 불가하며 용학도서관으로 신청부탁드립니다.<br>

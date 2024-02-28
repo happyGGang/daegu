@@ -171,7 +171,7 @@
 									<a href="/${homepage.context_path}/board/index.do?menu_idx=150&manage_idx=225" ><span>학교도서관 업무지원</span></a>
 									</li>
 									<li class="qm7">
-									<a href="/${homepage.context_path}/module/supportMember/index.do?menu_idx=154&before_url=/228/board/index.do?menu_idx=154%26manage_idx=224" ><span>참고자료</span></a>
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=154&manage_idx=224" ><span>참고자료</span></a>
 									</li>
 									<!-- <li class="qm8">
 									<a href="/${homepage.context_path}/module/supportMember/index.do?menu_idx=175" target="_blank"><span>강사인력풀</span></a>

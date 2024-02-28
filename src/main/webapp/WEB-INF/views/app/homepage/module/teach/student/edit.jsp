@@ -941,8 +941,8 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 		</tbody>
 	</table>
 	<c:if test="${sessionScope.member.login}">
-		<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;">
-		* 신청자정보 변경 시 My Library > 회원정보 수정에서 수정후 신청하시기 바랍니다.
+		<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;font-size:95%;letter-spacing:-1.2px;">
+		* 신청자 정보변경은 대구통합도서관>정보수정에서 수정(핸드폰 번호) 신청하시고, 주소 변경은 신분증 지참 후 도서관을 방문하여 수정하시기 바랍니다.
 		</div>
 	</c:if>
 	<br/>
