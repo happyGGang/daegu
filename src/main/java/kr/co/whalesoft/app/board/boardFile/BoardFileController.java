@@ -160,10 +160,8 @@ public class BoardFileController extends BaseController {
 	@RequestMapping(value = { "/deleteFile.*" }, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse deleteFile(BoardFile boardFile, BindingResult result, HttpServletRequest request) throws IOException {
 
-		/* 유효성 검증 >>>>> */
 		JsonResponse res = new JsonResponse(request);
 
-		/* <<<<< 유효성 검증 */
 		if (!result.hasErrors()) {
 			service.deleteFile(boardFile, request);
 			
