@@ -237,28 +237,31 @@ public class BoardController extends BaseController {
 		boolean supportAdmin = false;
 		boolean supportAuth = false;
 		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281)) {
-			if (loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
-	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
-	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
-	    		return null;
-	        }
-
-			if(loginSupport != null) {
-				if(loginSupport.isLogin() == true) {
-					supportAuth = true;
+			
+			if (!"h1".equals(homepage.getHomepage_id()) && (board.getManage_idx() != 281 || board.getManage_idx() != 224)) {
+				if (loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
+		    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
+		    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
+		    		return null;
+		        }
+	
+				if(loginSupport != null) {
+					if(loginSupport.isLogin() == true) {
+						supportAuth = true;
+					}
+	
+					try {
+						supportAdmin = (Boolean) model.asMap().get("authMBS");
+					} catch (Exception e) {
+						supportAdmin = false;
+					}
 				}
-
-				try {
-					supportAdmin = (Boolean) model.asMap().get("authMBS");
-				} catch (Exception e) {
-					supportAdmin = false;
+	
+				if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !supportAdmin) {
+					String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
+					service.alertMessageAndUrl("", write_url, request, response);
+					return null;
 				}
-			}
-
-			if (boardManage.getWrite_only_yn().equals("Y") && !"CMS".equals(getSessionMemberLoginType(request)) && !supportAdmin) {
-				String write_url = "edit.do?manage_idx="+request.getParameter("manage_idx")+"&menu_idx="+request.getParameter("menu_idx");
-				service.alertMessageAndUrl("", write_url, request, response);
-				return null;
 			}
 		}
 		model.addAttribute("supportAdmin", supportAdmin);
