@@ -599,6 +599,8 @@ do {
                   <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h63">비원</a></li>
                   <li class="bar">/</li>
                   <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h64">원고개</a></li>
+                  <li class="bar">/</li>
+                  <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h96">New평리</a></li>
                 </ul>
               </div>
               <div class="top3wrap" id="notibox1_all" style="display:block;">
@@ -653,6 +655,10 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0006'}">
+                            <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -718,6 +724,10 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
+                          <c:if test="${i.category1 eq '0006'}">
+                            <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
                           <li class="${libcode}">
                             <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
@@ -779,6 +789,10 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0006'}">
+                            <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -844,6 +858,10 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
+                          <c:if test="${i.category1 eq '0006'}">
+                            <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
                           <li class="${libcode}">
                             <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
@@ -905,6 +923,10 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0005'}">
                             <c:set var="libcode" value="wongogae">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0006'}">
+                            <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -970,6 +992,10 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
+                          <c:if test="${i.category1 eq '0006'}">
+                            <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
                           <li class="${libcode}">
                             <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
@@ -999,6 +1025,8 @@ do {
                   <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0004">비원</a></li>
                   <li class="bar">/</li>
                   <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0005">원고개</a></li>
+                  <li class="bar">/</li>
+                  <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0006">New평리</a></li>
                 </ul>
               </div>
               <div class="top3wrap" id="galbox1_all" style="display:block;">
@@ -1183,6 +1211,8 @@ do {
                 <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h63">비원</a></li>
                 <li class="bar">/</li>
                 <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h64">원고개</a></li>
+                <li class="bar">/</li>
+                <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h96">New평리</a></li>
               </ul>
             </div>
             <div class="top3wrap" id="culturebox2_all" style="display:block;">
@@ -1214,6 +1244,10 @@ do {
                           <c:set var="libcode" value="wongogae">
                           </c:set>
                         </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+                          <c:set var="libcode" value="pyeongri">
+                          </c:set>
+                        </c:if>
                         <c:if test="${i.homepage_id eq 'h77'}">
                           <c:set var="libname" value="서구어린이">
                           </c:set>
@@ -1232,6 +1266,10 @@ do {
                         </c:if>
                         <c:if test="${i.homepage_id eq 'h64'}">
                           <c:set var="libname" value="원고개">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+                          <c:set var="libname" value="평리">
                           </c:set>
                         </c:if>
                         <li class="${libcode}">
@@ -1293,6 +1331,14 @@ do {
                       <c:if test="${i.homepage_id eq 'h64'}">
                         <c:set var="libname" value="원고개">
                         </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+                      	<c:set var="libname" value="평리">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+                      	<c:set var="libcode" value="pyeongri">
+                      	</c:set>
                       </c:if>
                       <li class="${libcode}">
                         <div class="cate">${libname}</div>
@@ -1360,6 +1406,14 @@ do {
                           <c:set var="libname" value="원고개">
                           </c:set>
                         </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                      	<c:set var="libname" value="평리">
+	                        </c:set>
+                      	</c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                      	<c:set var="libcode" value="pyeongri">
+	                      	</c:set>
+                        </c:if>
                         <li class="${libcode}">
                           <div class="cate">${libname}</div>
                           <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
@@ -1418,6 +1472,14 @@ do {
                       <c:if test="${i.homepage_id eq 'h64'}">
                         <c:set var="libname" value="원고개">
                         </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
                       </c:if>
                       <li class="${libcode}">
                         <div class="cate">${libname}</div>
@@ -1485,6 +1547,14 @@ do {
                           <c:set var="libname" value="원고개">
                           </c:set>
                         </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                  		<c:set var="libname" value="평리">
+	                  		</c:set>
+                      	</c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                  		<c:set var="libcode" value="pyeongri">
+	                  		</c:set>
+                        </c:if>
                         <li class="${libcode}">
                           <div class="cate">${libname}</div>
                           <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
@@ -1543,6 +1613,14 @@ do {
                       <c:if test="${i.homepage_id eq 'h64'}">
                         <c:set var="libname" value="원고개">
                         </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
                       </c:if>
                       <li class="${libcode}">
                         <div class="cate">${libname}</div>
@@ -1610,6 +1688,14 @@ do {
                           <c:set var="libname" value="원고개">
                           </c:set>
                         </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
+                      </c:if>
                         <li class="${libcode}">
                           <div class="cate">${libname}</div>
                           <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
@@ -1668,6 +1754,14 @@ do {
                       <c:if test="${i.homepage_id eq 'h64'}">
                         <c:set var="libname" value="원고개">
                         </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
                       </c:if>
                       <li class="${libcode}">
                         <div class="cate">${libname}</div>
@@ -1735,6 +1829,14 @@ do {
                           <c:set var="libname" value="원고개">
                           </c:set>
                         </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
+                      </c:if>
                         <li class="${libcode}">
                           <div class="cate">${libname}</div>
                           <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
@@ -1793,6 +1895,14 @@ do {
                       <c:if test="${i.homepage_id eq 'h64'}">
                         <c:set var="libname" value="원고개">
                         </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
                       </c:if>
                       <li class="${libcode}">
                         <div class="cate">${libname}</div>
@@ -1860,6 +1970,14 @@ do {
                           <c:set var="libname" value="원고개">
                           </c:set>
                         </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
+                      </c:if>
                         <li class="${libcode}">
                           <div class="cate">${libname}</div>
                           <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
@@ -1919,6 +2037,14 @@ do {
                         <c:set var="libname" value="원고개">
                         </c:set>
                       </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libname" value="평리">
+	                  	</c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+	                  	<c:set var="libcode" value="pyeongri">
+	                  	</c:set>
+                      </c:if>
                       <li class="${libcode}">
                         <div class="cate">${libname}</div>
                         <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
@@ -1968,7 +2094,7 @@ do {
                   <li class="bar">/</li>
                   <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0003">비원</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0005">원고개</a></li>
+                  <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=83&manage_idx=623&category1=0006">New평리</a></li>
                 </ul>
               </div>
               <div class="top3wrap" id="recombox3_all" style="display:block;">
@@ -2141,6 +2267,8 @@ do {
                   <li><a href="#biwon" class="tab-link3">비원</a></li>
                   <li class="bar">/</li>
                   <li><a href="#wongogye" class="tab-link3">원고개</a></li>
+                  <li class="bar">/</li>
+                  <li><a href="#pyeongri" class="tab-link3">New평리</a></li>
                 </ul>
               </div>
               <script>
@@ -2173,8 +2301,10 @@ do {
                 <li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0003">영어</a></li>
                 <li class="bar">/</li>
                 <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0004">비원</a></li>
-								<li class="bar">/</li>
+				<li class="bar">/</li>
                 <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0005">원고개</a></li>
+				<li class="bar">/</li>
+                <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=627&category1=0006">New평리</a></li>
               </ul>
             </div>
             <div class="top3wrap" id="moviebox4_all" style="display:block;">
