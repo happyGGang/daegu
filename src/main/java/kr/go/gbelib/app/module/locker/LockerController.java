@@ -77,7 +77,7 @@ public class LockerController extends BaseController {
 
 		Member member = getSessionMemberInfo(request);
 		locker.setHomepage_id(homepage.getHomepage_id());
-		locker.setMember_key(member.getUser_no());
+		locker.setApply_id(member.getMember_id());
 
 		Locker lockerMember = service.getLockerAddFlag(locker);
 

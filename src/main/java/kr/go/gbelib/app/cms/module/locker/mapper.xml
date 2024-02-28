@@ -58,7 +58,7 @@
 		WHERE
 			HOMEPAGE_ID = #{homepage_id} AND
 			LOCKER_PRE_IDX = #{locker_pre_idx} AND
-			MEMBER_KEY = #{member_key} AND
+			APPLY_ID = #{apply_id} AND
 			DELETE_YN = 'N'
 	</select>
 	
