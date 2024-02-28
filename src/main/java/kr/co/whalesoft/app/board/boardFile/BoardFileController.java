@@ -63,7 +63,55 @@ public class BoardFileController extends BaseController {
 
 	@RequestMapping(value = "/download/{manage_idx}/{board_idx}/{file_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
-    public ResponseEntity<byte[]> getFile(@PathVariable("manage_idx") int manage_idx, @PathVariable("board_idx") int board_idx, @PathVariable("file_idx") int file_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ResponseEntity<byte[]> getFile(@PathVariable("manage_idx") int manage_idx, @PathVariable("board_idx") int board_idx, @PathVariable("file_idx") int file_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BoardFile boardFile = service.getBoardFileOne(new BoardFile(board_idx, file_idx));
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+
+		if (boardFile == null) {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+		String filePath;
+		if(manage_idx == 1008) {
+			String replace = boardFile.getServer_file_name().replace(".jpg", ".pdf");
+			filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + replace;
+		}else {
+			filePath = service.getFilePath() + "/" + manage_idx + "/" + board_idx + "/" + boardFile.getServer_file_name();
+		}
+
+		File file = new File(filePath);
+		byte[] bytes = null;
+
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			responseHeaders.setContentType(MediaType.valueOf("text/html"));
+			service.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+
+		service.addBoardFileCount(boardFile);
+
+		String fileName = boardFile.getOrg_file_name().substring(0,boardFile.getOrg_file_name().lastIndexOf("."));
+		String fileType = boardFile.getOrg_file_name().substring(boardFile.getOrg_file_name().lastIndexOf(".")+1);
+		String fullFilename = fileName+"."+fileType;
+
+		//responseHeaders.set("charset", "utf-8");
+		responseHeaders.set("Content-Disposition", AttachmentUtils.getContentDisposition(fullFilename, request.getHeader("user-agent")));
+		responseHeaders.setPragma("no-cache;");
+		responseHeaders.setExpires(-1);
+//		responseHeaders.setContentLength(file.length());
+		responseHeaders.setContentType(MediaType.valueOf(AttachmentUtils.getContentType(fileType)));
+		responseHeaders.setContentLength(bytes.length);
+
+		return new ResponseEntity<byte[]>(bytes, responseHeaders, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/download/{manage_idx}/{board_idx}/{file_idx}/{org_file_name}.*", method = RequestMethod.GET)
+	@ResponseBody
+    public ResponseEntity<byte[]> getFileName(@PathVariable("manage_idx") int manage_idx, @PathVariable("board_idx") int board_idx, @PathVariable("file_idx") int file_idx, @PathVariable("org_file_name") String org_file_name, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardFile boardFile = service.getBoardFileOne(new BoardFile(board_idx, file_idx));
 
 		HttpHeaders responseHeaders = new HttpHeaders();

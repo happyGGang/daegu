@@ -66,7 +66,7 @@ ${boardManage.top_html}
 			<c:forEach var="i" varStatus="status" items="${boardFile}">
 			<div align="center">
 				<audio controls>
-					<source src="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}.do" type="audio/mpeg">
+					<source src="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}/${i.file_name}.do" type="audio/mpeg">
 					브라우저에서 오디오 요소를 지원하지 않습니다
 				</audio>
 				<br/>

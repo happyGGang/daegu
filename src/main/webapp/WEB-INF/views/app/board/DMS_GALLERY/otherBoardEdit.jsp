@@ -63,7 +63,7 @@ $(document).ready(function() {
 										</c:otherwise>
 										</c:choose>
 										</label>
-										<p class="admin"><input name="selectDesign" id="lia${status.index+1}" type="radio" downUrl="/board/boardFile/download/${i.manage_idx}/${i.board_idx}/${i.boardFile[0].file_idx}.do" value="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}"/></p>
+										<p class="admin"><input name="selectDesign" id="lia${status.index+1}" type="radio" downUrl="/board/boardFile/download/${i.manage_idx}/${i.board_idx}/${i.boardFile[0].file_idx}/${i.org_file_name}.do" value="/data/board/${i.manage_idx}/${i.board_idx}/thumb/${i.preview_img}"/></p>
 									</li>
 									</c:forEach>
 								</ul>

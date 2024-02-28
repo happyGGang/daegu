@@ -56,7 +56,7 @@
 					</c:if>
 					<c:if test="${fn:length(boardFile) > 0}">
 						<c:forEach var="i" varStatus="status" items="${boardFile}">
-									<a href="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}.do" class="btn view" ><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>다운로드</span></a>
+									<a href="${getContextPath}/board/boardFile/download/${board.manage_idx}/${i.board_idx}/${i.file_idx}/${i.org_file_name}.do" class="btn view" ><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>다운로드</span></a>
 						</c:forEach>
 					</c:if>
 				<c:if test="${board.user_ip ne null and board.user_ip ne ''}">

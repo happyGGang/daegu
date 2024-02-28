@@ -183,7 +183,7 @@ public class BoardFileService extends BaseService {
 		}
 
 		if(boardManage.getFile_ban_ext() != null) {
-			String extSample = "jsp|cgi|php|asp|aspx|exe|com|html|htm|cab|php3|pl|java|class|js|css";
+			String extSample = "jsp|cgi|php|asp|aspx|exe|com|html|htm|cab|php3|pl|java|class|js|css|cer|net|jsp|asa|cds";
 			String extCheck[] = extSample.split( "\\|" );
 			String extension = "";
 			int pos = fileName.lastIndexOf( "." );

@@ -169,7 +169,7 @@ $(document).ready(function() {
 						<dd class="file">
 							<ul>
 							<c:forEach var="j" varStatus="status" items="${i.boardFileList}">
-								<li><a href="${getContextPath}/board/boardFile/download/${i.manage_idx}/${j.board_idx}/${j.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${j.file_ext_name}"/>"></i><span>${j.org_file_name}</span></a></li>
+								<li><a href="${getContextPath}/board/boardFile/download/${i.manage_idx}/${j.board_idx}/${j.file_idx}/${j.org_file_name}.do"><i class="fa <boardTag:file_ext file_ext="${j.file_ext_name}"/>"></i><span>${j.org_file_name}</span></a></li>
 							</c:forEach>
 							</ul>
 						</dd>

@@ -77,7 +77,7 @@ ${boardManage.top_html}
 				<dd class="file">
 					<ul>
 					<c:forEach var="i" varStatus="status" items="${requestBoardFile}">
-						<li><a href="${getContextPath}/board/boardFile/download/${requestBoard.manage_idx}/${i.board_idx}/${i.file_idx}.do"><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>${i.file_name}</span></a></li>
+						<li><a href="${getContextPath}/board/boardFile/download/${requestBoard.manage_idx}/${i.board_idx}/${i.file_idx}/${i.org_file_name}.do"><i class="fa <boardTag:file_ext file_ext="${i.file_ext_name}"/>"></i><span>${i.file_name}</span></a></li>
 					</c:forEach>
 					</ul>
 				</dd>

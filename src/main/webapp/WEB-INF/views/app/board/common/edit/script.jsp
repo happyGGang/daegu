@@ -18,7 +18,7 @@ $(document).ready(function() {
 			bUseModeChanger : true,			// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 			//aAdditionalFontList : aAdditionalFontSet,		// 추가 글꼴 목록
 			//웹취약점 발생시 삭제처리해야함
-			bSkipXssFilter : true,		// client-side xss filter 무시 여부 (true:사용하지 않음 / 그외:사용)
+			bSkipXssFilter : false,		// client-side xss filter 무시 여부 (true:사용하지 않음 / 그외:사용)
 			fOnBeforeUnload : function(){
 				//alert("완료!");
 			}
@@ -117,7 +117,7 @@ $(document).ready(function() {
 		if(isEditorOn()) {
 			
 			//유튜브 업로드시 iframe 사용시 사용가능하게
-			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED|onerror|error/g, '');
+			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED|onerror|error|onF|onf|onm|onC|Script|script/g, '');
 			
 			oEditors.getById["content"].exec("SET_IR", ['']);
 		 	oEditors.getById["content"].exec("PASTE_HTML", [text]);
