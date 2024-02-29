@@ -50,7 +50,7 @@ public class LibSearchApiService extends BaseService {
 		
 		if(smartLibPlaceList.isEmpty()){
 			resultCode = "S002";
-			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			resultMsg = "해당 스마트도서관 정보가 없습니다. 코드를 확인해주세요.";
 		}
 		
 		jsonResponse.add("response", header);
@@ -156,7 +156,7 @@ public class LibSearchApiService extends BaseService {
 		
 		if(ls == null) {
 			resultCode = "S002";
-			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			resultMsg = "해당 스마트도서관 정보가 없습니다. 코드를 확인해주세요.";
 			
 			jsonResponse.add("response", header);
 			header.add("header", headerItems);
@@ -283,7 +283,7 @@ public class LibSearchApiService extends BaseService {
 		
 		if(ls == null) {
 			resultCode = "S002";
-			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			resultMsg = "해당 스마트도서관 정보가 없습니다. 코드를 확인해주세요.";
 			
 			jsonResponse.add("response", header);
 			header.add("header", headerItems);
@@ -628,7 +628,7 @@ public class LibSearchApiService extends BaseService {
 		
 		if(ls == null) {
 			resultCode = "S002";
-			resultMsg = "해당 스마트도서관 위치 현황이 없습니다.";
+			resultMsg = "해당 스마트도서관 정보가 없습니다. 코드를 확인해주세요.";
 			
 			jsonResponse.add("response", header);
 			header.add("header", headerItems);
