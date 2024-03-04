@@ -749,8 +749,9 @@
 		WHERE
 			TO_DATE(expire_date, 'yyyy-MM-dd') &lt; TO_DATE(#{expire_date}, 'yyyy-MM-dd')
 		AND device_code = #{device_code}
+		AND reserve_status = '3'
 		ORDER BY
-			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX;
+			ADD_DATE DESC, DEVICE_IDX, LOCKER_IDX
 	</select>
 	
 	<select id="getReturnYnReserveBookList" resultType="kr.go.gbelib.app.cms.module.nearbyLib.NearbyLib">
