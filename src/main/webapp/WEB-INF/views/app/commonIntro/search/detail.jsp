@@ -656,9 +656,9 @@ $(function() {
 			</c:if>
 		</div>
 
-		 <c:if test="${detail.MANAGE_CODE eq ''}">
+		 <c:if test="${detail.MANAGE_CODE eq 'BW'}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 학산작은도서관이 장서점검으로 인해 상호대차 신청 중지(23.06.08 ~ 23.06.15) 안내드리오니, 많은 양해 부탁드립니다.
+				* 도원도서관 장서점검으로 인하여 2. 27.(화)~3. 15.(금)까지 상호대차 및 무인예약 신청이 불가합니다.
 			</p>
 		</c:if> 
 		 <c:if test="${detail.MANAGE_CODE eq ''}">
@@ -769,7 +769,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'}">
 						</c:when>
 						
-						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq ''|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -826,7 +826,7 @@ $(function() {
 
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq 'FS'  || detail.MANAGE_CODE eq 'FY' || detail.MANAGE_CODE eq 'FF' || detail.MANAGE_CODE eq 'FQ' || detail.MANAGE_CODE eq 'GG' || detail.MANAGE_CODE eq 'HA' || detail.MANAGE_CODE eq 'HF' || detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ' || detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq 'FS'  || detail.MANAGE_CODE eq 'FY' || detail.MANAGE_CODE eq 'FF' || detail.MANAGE_CODE eq 'FQ' || detail.MANAGE_CODE eq 'GG' || detail.MANAGE_CODE eq 'HA' || detail.MANAGE_CODE eq 'HF' || detail.MANAGE_CODE eq 'BU' || detail.MANAGE_CODE eq 'BV' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ' || detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
 
 							<c:if test="${detail.KBILL_LILL_YN eq 'O'}">
 								<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -1087,17 +1087,24 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}"> <!-- 달서통합도서관 무인예약 신청-->
-					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
-						<c:if test="${detail.MEDIA_CODE eq 'PR'}">
-							<c:choose>
-								<c:when test="${detail.LOAN_CODE eq 'OK'}">
-									<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
-									<!--<a href="#" class="btn btn1" onclick="alert('상인/용산역 도서 투입이 지연되는 관계로 2024.01.04(목)~2024.01.06(일)까지 일시 중단됩니다.');">무인예약신청</a>-->
-								</c:when>
-								<c:otherwise>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
+					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:choose>
+							<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
+							
+							</c:when>
+							<c:otherwise>
+								<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+									<c:choose>
+										<c:when test="${detail.LOAN_CODE eq 'OK'}">
+											<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
+											<!--<a href="#" class="btn btn1" onclick="alert('상인/용산역 도서 투입이 지연되는 관계로 2024.01.04(목)~2024.01.06(일)까지 일시 중단됩니다.');">무인예약신청</a>-->
+										</c:when>
+										<c:otherwise>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseonglib'}">

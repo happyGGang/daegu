@@ -68,11 +68,25 @@ $(function(){
 							</div>
 
 							<div class="slickPlay">
-								<p class="status"><span>1</span> / 71</p>
+								<p class="status"><span>1</span> / 70</p>
 								<a href="#" class="play">시작</a>
 								<a href="#" class="pause">멈춤</a>
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
+								<div>
+									<a href="http://icuration.co.kr:81/curation/w/185" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>제작/체험</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_10.png" alt="스마트한 도서관 이용법" /></p>
+										<span class="link">스마트한 도서관 이용법<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://icuration.co.kr:81/curation/w/184" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>그림책</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/pb_img_9.png" alt="너의 시작을 응원할게!" /></p>
+										<span class="link">너의 시작을 응원할게!<i></i></span>
+									</a>
+								</div>
 								<div>
 									<a href="http://icuration.co.kr:81/curation/w/183" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>힐링</h2>
@@ -145,7 +159,7 @@ $(function(){
 								</div>
                 <div>
 									<a href="http://icuration.co.kr:81/curation/w/169" target="_blank" class="newWin" title="새창으로 열립니다.">
-										<h2>제작체험</h2>
+										<h2>제작/체험</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ex_img_8.png" alt="어서와요 할로윈에" /></p>
 										<span class="link">어서와요 할로윈에<i></i></span>
 									</a>
