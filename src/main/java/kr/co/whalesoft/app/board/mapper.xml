@@ -814,6 +814,9 @@
 
 
 		AND	delete_yn = 'N'
+		<if test="manage_idx == 606">
+			AND imsi_v_1 = to_char(SYSDATE, 'YYYY-MM')
+		</if>
 		<if test='dept_cd != null and dept_cd == "CULTURE"'>
 			AND	imsi_v_2 IS NOT NULL
 			<if test="imsi_v_2 != null and imsi_v_2 != ''">
