@@ -343,7 +343,7 @@ function pasteHTML(filepath){
 			</td>
 		</tr>
 		<tr class="imgPreview">
-			<th scope="row">이미지 미리보기333</th>
+			<th scope="row">이미지 미리보기</th>
 			<td>
 				<div id="fileReaderFiles" class="item">
 					<c:if test="${popup.org_file_name eq null}">
