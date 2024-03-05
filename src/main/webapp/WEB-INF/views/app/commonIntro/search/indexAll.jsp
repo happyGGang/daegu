@@ -378,18 +378,16 @@
 <div id="contents-title"></div>
 <!-- /contents-title-->
 
-<c:if test="${homepage.context_path ne 'gw'}">
-	<div class="tab_menu">
-		<ul class="list">
-			<li class="active">
-			  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구·군립 도서관 자료검색</a>
-			</li>
-			<li>
-			  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립공공·전문 도서관 자료검색</a>
-			</li>
-		</ul>
-	</div>
-</c:if>
+<div class="tab_menu">
+	<ul class="list">
+		<li class="active">
+		  <a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=7" class="btn">시립/구·군립 도서관 자료검색</a>
+		</li>
+		<li>
+		  <a href="/${homepage.context_path}/intro/search/index_All.do?menu_idx=7" class="btn">사립공공·전문 도서관 자료검색</a>
+		</li>
+	</ul>
+</div>
 
 <form:form modelAttribute="librarySearch" action="indexAll.do" method="get">
 	<form:hidden path="viewPage"/>
@@ -499,45 +497,41 @@
 					</div>
 					<div class='silipAll'>
 						<ul>
-							<c:if test="${homepage.context_path ne 'gw'}">
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AA" value="AA" label="대구2ㆍ28기념학생도서관" />
-								</li>
-								<c:if test="${empty loginPortal or !loginPortal.login}">
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AL" value="AL" label="대구2ㆍ28민주운동기념회관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AG" value="AG" label="대구광역시립 남부도서관" />
-								</li>
-								</c:if>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AJ" value="AJ" label="대구광역시립 달성도서관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AB" value="AB" label="대구광역시립 두류도서관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AC" value="AC" label="대구광역시립 북부도서관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AF" value="AF" label="대구광역시립 서부도서관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AE" value="AE" label="대구광역시립 수성도서관" />
-								</li>
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AD" value="AD" label="국채보상운동기념도서관" />
-								</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AA" value="AA" label="대구2ㆍ28기념학생도서관" />
+							</li>
+							<c:if test="${empty loginPortal or !loginPortal.login}">
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AL" value="AL" label="대구2ㆍ28민주운동기념회관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AG" value="AG" label="대구광역시립 남부도서관" />
+							</li>
 							</c:if>
-							<c:if test="${homepage.context_path eq 'gw' or (empty loginPortal or !loginPortal.login)}">
-								<li>
-									<form:checkbox path="libraryCodes" class="libCheck lib_AM" value="AM" label="대구광역시교육청 삼국유사군위도서관" />
-								</li>
-							</c:if>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AJ" value="AJ" label="대구광역시립 달성도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AB" value="AB" label="대구광역시립 두류도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AC" value="AC" label="대구광역시립 북부도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AF" value="AF" label="대구광역시립 서부도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AE" value="AE" label="대구광역시립 수성도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AD" value="AD" label="국채보상운동기념도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AM" value="AM" label="대구광역시교육청 삼국유사군위도서관" />
+							</li>
 						</ul>
 					</div>
 					<div class="end"></div>
