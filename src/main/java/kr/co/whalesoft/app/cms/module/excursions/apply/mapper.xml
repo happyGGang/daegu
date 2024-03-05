@@ -150,6 +150,8 @@
 			end_time = #{end_time},
 			personnel = #{personnel},
 			modify_id = #{modify_id},
+			desired_start_time = #{desired_start_time},
+			desired_end_time = #{desired_end_time},
 			modify_date = SYSDATE
 		WHERE
 			homepage_id = #{homepage_id}
@@ -179,6 +181,8 @@
 			file_extension = #{file_extension},
 			file_size = #{file_size},
 			</if>
+			desired_start_time = #{desired_start_time},
+			desired_end_time = #{desired_end_time},
 			modify_id = #{modify_id},
 			modify_date = SYSDATE
 		WHERE
