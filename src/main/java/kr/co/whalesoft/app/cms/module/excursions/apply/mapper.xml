@@ -54,6 +54,9 @@
 		<if test="member_key != null and member_key != ''">
 		AND	applicant_member_id	= #{member_key}
 		</if>
+		<if test="apply_id != null and apply_id != ''">
+			AND	applicant_member_id	= #{apply_id}
+		</if>
 	</select>
 	
 	<!-- 사용자 SR테스트 전용 list -->
@@ -66,6 +69,9 @@
 			homepage_id = #{homepage_id}
 		<if test="member_key != null and member_key != ''">
 		AND	applicant_member_id	= #{member_key}
+		</if>
+		<if test="apply_id != null and apply_id != ''">
+			AND	applicant_member_id	= #{apply_id}
 		</if>
 		AND	date_type = '0002'
 	</select>
@@ -80,6 +86,9 @@
 			homepage_id = #{homepage_id}
 		<if test="member_key != null and member_key != ''">
 		AND	applicant_member_id	= #{member_key}
+		</if>
+		<if test="apply_id != null and apply_id != ''">
+			AND	applicant_member_id	= #{apply_id}
 		</if>
 		AND	date_type != '0002'
 	</select>

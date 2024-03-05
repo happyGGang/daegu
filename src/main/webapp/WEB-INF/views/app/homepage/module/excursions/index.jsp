@@ -460,6 +460,40 @@ $(function(){
 	<br>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'bukbu'}">
+		<div class="summaryDesc">
+			<div class="innerBox">
+				<div class="img ticon_05"></div>
+				<div class="desc">
+					<h3>북부도서관 도서관체험학습</h3>
+					<p>올바른 도서관 이용법 교육하고, 자라나는 어린이들에게 책 읽는 즐거움과 흥미를 심어주고자 도서관체험학습을 운영합니다.</p>
+				</div>
+			</div>
+		</div>
+		<h3>도서관체험학습안내</h3>
+		<ul class="con">
+			<li><strong>운영대상</strong> : 대구 서부교육지원청 관내 유치원 및 북구청 관내 어린이집(만2세~만5세(4~7세))</li>
+			<li><strong>운영기간</strong> : 3~7월 매주 수,목요일</li>
+			<li><strong>운영방법</strong> : 1일 1회 20명 내외, 기관별 4회 이내(20명 초과 시 장소 협소할 수 있음)</li>
+			<li><strong>운영내용</strong> : 도서관 이용교육 및 봉사단이 읽어주는 그림책 이야기, 자율독서 등</li>
+			<li><strong>참가신청</strong> : 로그인 → ‘신청’ 버튼이 활성화되어 있는 날짜 선택 후 신청 → 신청 양식 작성 → 견학 신청 후 ‘승인완료’ 처리 여부를 반드시 확인</li>
+			<li><strong>유의사항</strong>
+				<ul class="con2">
+					<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관사정에 따라 변경될 수 있습니다.</li>
+					<li>신청은 온라인을 통해서만 가능합니다.</li>
+				</ul>
+			<li>
+			<li><strong>문 의 처</strong> : 053-231-2635</li>
+		</ul>
+		<ul class="btns_wrap_tac">
+			<li>
+			<a href="/board/boardFile/download/3/511758/342930/2024%EB%85%84%20%EB%8F%84%EC%84%9C%EA%B4%80%20%EC%B2%B4%ED%97%98%ED%95%99%EC%8A%B5%20%EC%B0%B8%EA%B0%80%EC%8B%A0%EC%B2%AD%EC%84%9C(%EC%84%9C%EC%8B%9D).hwp.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+				<span>신청서 다운로드</span><span class="ico ico_link"></span>
+			</a>
+			</li>
+		</ul>
+	</c:if>
+
 	<div class="ym_btns">
 		<a id="before-btn" href="#prev" class="btn prev new_btn01"><i class="fa fa-angle-left"></i><span class="blind">이전달</span></a>
 		<form:select path="plan_year" class="new_select_box" style="width:80px;"></form:select>
@@ -467,6 +501,12 @@ $(function(){
 		<a href="#" id="monthSelect" class="btn btn1">이동</a>
 		<a id="next-btn" href="#next" class="btn next new_btn01"><i class="fa fa-angle-right"></i><span class="blind">다음달</span></a>
 	</div>
+
+	<c:if test="${not sessionScope.member.login}">
+		<div style="text-align: right; margin-bottom: 10px; ">
+			<a href="anonyApply.do?homepage_id=${fn:escapeXml(param.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
+		</div>
+	</c:if>
 
 	<div id="calendar">
 	<table class="cal-tbl">

@@ -92,7 +92,11 @@ $(function() {
 					if($('#pageType').val() == 'ajax') {
 						$('#tabCon2').load('module/excursions/index.do?pageType=ajax');
 					} else if(data.result == 'MODIFY'){
-						doGetLoad('/${homepage.context_path}/module/excursions/apply.do', '&menu_idx=' + $('#menu_idx').val());
+						if(${sessionScope.member.login}){
+							doGetLoad('/${homepage.context_path}/module/excursions/apply.do', '&menu_idx=' + $('#menu_idx').val());
+						} else {
+							doGetLoad('/${homepage.context_path}/module/excursions/index.do', '&menu_idx=' + $('#menu_idx').val());
+						}
 					} else {
 						doGetLoad('/${homepage.context_path}/module/excursions/index.do', '&menu_idx=' + $('#menu_idx').val() + '&pageType=' + $('#pageType').val());
 						
@@ -251,14 +255,14 @@ $(function() {
 	       			<c:choose>
 	         			<c:when test="${excursions.editMode eq 'ADD'}">
 	         				<form:input path="desired_start_time" class="text" style="width:50px;"/> ~ <form:input path="desired_end_time" class="text" style="width:50px;"/>
-	         			</c:when>
+							<div class="ui-state-highlight">
+								<em>* 시간 입력 ex) 10:30</em>
+							</div>
+						</c:when>
 	         			<c:otherwise>
 	         				${apply.desired_start_time}~${apply.desired_end_time}
 	         			</c:otherwise>
 	         		</c:choose>
-					<div class="ui-state-highlight">
-						<em>* 시간 입력 ex) 10:30</em>
-					</div>
 	       		</td>
 	        </tr>
 		</c:if>

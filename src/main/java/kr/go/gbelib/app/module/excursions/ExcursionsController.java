@@ -130,6 +130,14 @@ public class ExcursionsController extends BaseController {
 
 	}
 
+	@RequestMapping(value = {"/anonyCert.*"}, method = RequestMethod.GET)
+	public String anonyCert(Model model, Excursions excursions, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage)request.getAttribute("homepage");
+
+		return String.format(basePath, homepage.getFolder()) + "anonyCert";
+
+	}
+
 	@RequestMapping(value = {"/edit.*"})
 	public String edit(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (!apply.getEditMode().equals("MODIFY")) {
@@ -254,6 +262,52 @@ public class ExcursionsController extends BaseController {
 		}
 	}
 
+	@RequestMapping(value = {"/anonyApply.*"})
+	public String anonyApply(Model model, Apply apply, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
+			service.alertMessageAndUrl("본인인증 후 신청내역 확인이 가능합니다.", String.format("anonyCert.do?menu_idx=%s&editMode=MODIFY", apply.getMenu_idx()), request, response);
+			return null;
+		}
+
+		if ((homepage.getHomepage_id().equals("h37") || homepage.getHomepage_id().equals("h49") || homepage.getHomepage_id().equals("h45") || homepage.getHomepage_id().equals("h53"))) {
+			Homepage h = new Homepage();
+			h.setHomepage_id(homepage.getHomepage_id());
+			h.setHomepage_group(homepage.getHomepage_id());
+			h.setTemp_use_yn("Y");
+			List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
+			if (StringUtils.isEmpty(apply.getHomepage_id())) {
+				if (subHomepageList != null && subHomepageList.size() > 0) {
+					apply.setHomepage_id(subHomepageList.get(0).getHomepage_id());
+				}
+			}
+			model.addAttribute("subHomepageList", subHomepageList);
+		} else {
+			apply.setHomepage_id(homepage.getHomepage_id());
+		}
+
+		Member certMember = (Member) request.getSession().getAttribute("certMember");
+
+		apply.setApply_id(certMember.getCi_value());
+		if ("h35".equals(apply.getHomepage_id())) {
+
+			model.addAttribute("applyList", applyService.getUserExApply(apply));
+			model.addAttribute("applySrList", applyService.getUserSrApply(apply));
+		}else {
+
+			model.addAttribute("applyList", applyService.getUserApply(apply));
+		}
+
+
+		if ( "ajax".equals(apply.getPageType()) ) {
+			return String.format(basePath, homepage.getFolder()) + "apply_ajax";
+		}
+		else {
+			return String.format(basePath, homepage.getFolder()) + "apply";
+		}
+	}
+
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Model model, Apply apply, BindingResult result, HttpServletRequest request) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -278,20 +332,21 @@ public class ExcursionsController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
 			}
-			if ("h8".equals(apply.getHomepage_id())){
+			if ("h8".equals(apply.getHomepage_id()) && !apply.getEditMode().equals("MODIFY")){
 				
 				ValidationUtils.rejectIfEmpty(result, "Desired_start_time", "체험희망 시작시간을 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "Desired_end_time", "체험희망 종료시간을 입력해주세요.");
 			}
 			ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력해주세요.");
-			if ("h8".equals(apply.getHomepage_id()) && !apply.getDesired_start_time().isEmpty() && !apply.getDesired_end_time().isEmpty()) {
+			if ("h8".equals(apply.getHomepage_id()) && StringUtils.isNotEmpty(apply.getDesired_start_time()) && StringUtils.isNotEmpty(apply.getDesired_end_time()) && !apply.getEditMode().equals("MODIFY")) {
 				SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
 				sfTime.setLenient(false);
 				try {
 					sfTime.parse(apply.getDesired_start_time());
 					sfTime.parse(apply.getDesired_end_time());
 				} catch (Exception e) {
-					result.reject("시간입력은 00:00 ~ 23:59 범위 입니다.");
+					ValidationUtils.rejectIfEmpty(result, "Desired_start_time", "시간입력은 00:00 ~ 23:59 범위 입니다.");
+					ValidationUtils.rejectIfEmpty(result, "Desired_end_time", "시간입력은 00:00 ~ 23:59 범위 입니다.");
 				}
 			}
 			CalendarManage calendarManage = new CalendarManage();

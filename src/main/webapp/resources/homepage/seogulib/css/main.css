@@ -110,7 +110,7 @@
 
 .section02_tab{position:relative;height:60px;background:#aa8658;}
 .section02_tab ul{position:relative;width:1260px;margin:0 auto;}
-.section02_tab ul li{cursor:pointer;float:left;text-align:center;width:25%;line-height:60px;}
+.section02_tab ul li{cursor:pointer;float:left;text-align:center;width: 33.3333333%;line-height:60px;}
 .section02_tab ul li.on{background:#e41e31;font-weight:bold;}
 .section02_tab ul li a {display:block;height:100%;color:#fff;font-size:20px;}
 
@@ -155,12 +155,14 @@
 .section02 .con .board_notice02 ul li.common{background:url('../img/notice_color_common.png')no-repeat 0 4px;}
 .section02 .con .board_notice02 ul li.english{background:url('../img/notice_color_english.png')no-repeat 0 4px;}
 .section02 .con .board_notice02 ul li.wongogae{background:url('../img/notice_color_wongogae.png')no-repeat 0 4px;}
+.section02 .con .board_notice02 ul li.pyeongri{background:url('../img/notice_color_pyeongri.png')no-repeat 0 4px;}
 .section02 .con .board_notice02 ul li.bisan .cate{color:#52a34f;}
 .section02 .con .board_notice02 ul li.biwon .cate{color:#3db2b6;}
 .section02 .con .board_notice02 ul li.child .cate{color:#f3bb00;}
 .section02 .con .board_notice02 ul li.common .cate{color:#7a6e61;}
 .section02 .con .board_notice02 ul li.english .cate{color:#8b399c;}
 .section02 .con .board_notice02 ul li.wongogae .cate{color:#8194b4;}
+.section02 .con .board_notice02 ul li.pyeongri .cate{color:#f75d9d;}
 .section02 .con .board_notice02 ul li .cate{float:left;width:80px;text-align:center;padding:0 10px 0 20px;font-weight:bold;font-size:15px;letter-spacing:-0.5px;}
 .section02 .con .board_notice02 ul li .tit{float:left;width:330px;padding-right:15px;font-size:15px;color:#222;letter-spacing:-0.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .section02 .con .board_notice02 ul li .date{font-size:14px;color:#4e4d4d;}
@@ -174,12 +176,14 @@
 .section02 .con .board_notice03 ul li.common{background:url('../img/notice_color_common.png')no-repeat 0 4px;}
 .section02 .con .board_notice03 ul li.english{background:url('../img/notice_color_english.png')no-repeat 0 4px;}
 .section02 .con .board_notice03 ul li.wongogae{background:url('../img/notice_color_wongogae.png')no-repeat 0 4px;}
+.section02 .con .board_notice03 ul li.pyeongri{background:url('../img/notice_color_pyeongri.png')no-repeat 0 4px;}
 .section02 .con .board_notice03 ul li.bisan .cate{color:#52a34f;}
 .section02 .con .board_notice03 ul li.biwon .cate{color:#3db2b6;}
 .section02 .con .board_notice03 ul li.child .cate{color:#f3bb00;}
 .section02 .con .board_notice03 ul li.common .cate{color:#7a6e61;}
 .section02 .con .board_notice03 ul li.english .cate{color:#8b399c;}
 .section02 .con .board_notice03 ul li.wongogae .cate{color:#8194b4;}
+.section02 .con .board_notice03 ul li.pyeongri .cate{color:#f75d9d;}
 .section02 .con .board_notice03 ul li .cate{float:left;width:80px;text-align:center;padding:0 10px 0 20px;font-weight:bold;font-size:15px;letter-spacing:-0.5px;}
 .section02 .con .board_notice03 ul li .tit{float:left;width:330px;padding-right:15px;font-size:15px;color:#222;letter-spacing:-0.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
 .section02 .con .board_notice03 ul li .flow_01{padding:3px 22px;font-size:14px;color:#ff8400;border:2px solid #ff8400;border-radius:15px;}
