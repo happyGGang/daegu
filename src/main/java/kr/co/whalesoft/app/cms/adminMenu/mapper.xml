@@ -204,15 +204,19 @@
 		WHERE
 			menu_type = 'module'
 		AND	module_idx = (
+						select a.module_idx from
+							(
 							SELECT
-								module_idx
+								b.module_idx
 							FROM
-								WB_MODULE_MNGT
+								WB_MODULE_MNGT b
 							WHERE
-								module_type = 'CMS'
-							AND	link_url LIKE #{menu_url} || '/%'
-							AND	rownum = 1
-							)
+								b.module_type = 'CMS'
+							  AND	link_url LIKE #{menu_url} || '/%'
+							order by b.MODULE_IDX asc
+							) a
+						where rownum = 1
+							 )
 	</select>
 
 	<select id="getParentAdminMenuOne" resultType="kr.co.whalesoft.app.cms.adminMenu.AdminMenu">
