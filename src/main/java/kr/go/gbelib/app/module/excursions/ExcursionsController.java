@@ -152,7 +152,7 @@ public class ExcursionsController extends BaseController {
 //		}
 		
 		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
-			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("cert.do?menu_idx=%s&editMode=ADD&excursions_idx=%d", apply.getMenu_idx(), apply.getExcursions_idx()), request, response);
+			service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("module/excursions/cert.do?menu_idx=%s&editMode=ADD&excursions_idx=%d", apply.getMenu_idx(), apply.getExcursions_idx()), request, response);
 			return null;
 		}
 
