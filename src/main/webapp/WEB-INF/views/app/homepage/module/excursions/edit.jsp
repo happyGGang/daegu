@@ -156,7 +156,7 @@ $(function() {
 
 <form:form modelAttribute="apply" id="excursionsEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post" onsubmit="return false;" enctype="multipart/form-data">
 <div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
-	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px">
+	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 80px">
 		<form:option value="Y" label="동의"/>
 		<form:option value="N" label="미동의"/>
 	</form:select>

@@ -485,6 +485,7 @@ $(function(){
 			<li>
 			<li><strong>문 의 처</strong> : 053-231-2635</li>
 		</ul>
+		<strong style="color:red;">※ 도서관체험학습 신청이 마감되었습니다.</strong>
 		<ul class="btns_wrap_tac">
 			<li>
 			<a href="/board/boardFile/download/3/511758/342930/2024%EB%85%84%20%EB%8F%84%EC%84%9C%EA%B4%80%20%EC%B2%B4%ED%97%98%ED%95%99%EC%8A%B5%20%EC%B0%B8%EA%B0%80%EC%8B%A0%EC%B2%AD%EC%84%9C(%EC%84%9C%EC%8B%9D).hwp.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
