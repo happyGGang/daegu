@@ -236,7 +236,7 @@ public class BoardController extends BaseController {
 		SupportMember loginSupport = sessionLoginSupport(request);
 		boolean supportAdmin = false;
 		boolean supportAuth = false;
-		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281)) {
+		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281, 1230)) {
 			
 			if (!"h1".equals(homepage.getHomepage_id()) && (board.getManage_idx() != 281 || board.getManage_idx() != 224)) {
 				if (loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin) {
@@ -463,7 +463,7 @@ public class BoardController extends BaseController {
 		// 228도서관 지원센터 회원인증 확인
 		SupportMember loginSupport = sessionLoginSupport(request);
 		boolean supportAdmin = false;
-		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281)) {
+		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281, 1230)) {
 			checkAuth("R", model, request);
 			boolean isSiteAdmin = false;
 			try {
@@ -497,7 +497,7 @@ public class BoardController extends BaseController {
 				checkAuth("C", model, request);
 				checkAuth("U", model, request);
 			} catch(AuthException ax) {
-				if(!getSessionIsAdmin(request) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228)) {
+				if(!getSessionIsAdmin(request) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 213, 225, 226, 228, 1230)) {
 					service.alertMessage("관리자 또는 학교기관만 이용할 수 있습니다.", request, response);
 					return null;
 				} else if((!getSessionIsAdmin(request)) && !isSiteAdmin && manageCompareIdx(board.getManage_idx(), 230)) {
@@ -796,7 +796,7 @@ public class BoardController extends BaseController {
 			isSiteAdmin = false;
 		}
 
-		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281)) {
+		if(manageCompareIdx(board.getManage_idx(), 212, 213, 224, 225, 226, 227, 228, 230, 281, 1230)) {
 			if ( loginSupport == null && !getSessionIsAdmin(request) && !isSiteAdmin ) {
 	    		board.setBefore_url(String.format("/%s/board/index.do?menu_idx=%s%%26manage_idx=%s", homepage.getContext_path(), board.getMenu_idx(), board.getManage_idx()));
 	    		service.alertMessageAndUrl("학교도서관 회원인증 후 이용가능합니다.", String.format("/%s/module/supportMember/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), board.getMenu_idx(), board.getBefore_url()), request, response);
