@@ -381,7 +381,7 @@ CONTEXT_PATH : ${context_path}
 
 				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'|| detail.MANAGE_CODE eq 'BW'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
@@ -525,7 +525,7 @@ AD20 종합자료실
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${sessionScope.member.user_class_code eq '701'}">
-					<a href="#muin" id="unmanned-req" class="btn">별관 이동도서관 신청</a>
+					<!--<a href="#muin" id="unmanned-req" class="btn">별관 이동도서관 신청</a>-->
 					</c:if>
 					</c:if>
 					</c:if>

@@ -65,7 +65,7 @@ $(function() {
 				return false;
 			}
 		}
-		
+
 		$('#applicant_tel').val($('#applicant_tel_1').val()+'-'+$('#applicant_tel_2').val()+'-'+$('#applicant_tel_3').val());
 		$('#agency_tel').val($('#agency_tel_1').val()+'-'+$('#agency_tel_2').val()+'-'+$('#agency_tel_3').val());
 		
@@ -156,7 +156,7 @@ $(function() {
 
 <form:form modelAttribute="apply" id="excursionsEdit" action="/${homepage.context_path}/module/excursions/save.do" method="post" onsubmit="return false;" enctype="multipart/form-data">
 <div style="text-align: right"><b>이용약관 및 개인정보의 수집·이용 동의 여부</b>(<span style="color: red; font-weight: bold;">*</span>)
-	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 70px">
+	<form:select path="self_info_yn" cssClass="selectmenu" cssStyle="width : 80px">
 		<form:option value="Y" label="동의"/>
 		<form:option value="N" label="미동의"/>
 	</form:select>
@@ -199,7 +199,16 @@ $(function() {
 			</td>
 		</tr>
 		<c:choose>
-			<c:when test="${param.homepage_id ne 'h35' and param.date_type ne '0002'}">
+			<c:when test="${param.homepage_id eq 'h35' and param.date_type eq '0002'}">
+				<form:hidden path="agency_name" value="${member.member_id}"/>
+				<tr>
+					<th>SR테스트신청 주소</th>
+					<td>
+						<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
+					</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
 				<tr>
 					<th>신청자 이메일</th>
 					<td>
@@ -231,15 +240,6 @@ $(function() {
 					<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td>
 						<form:input path="age" class="text" cssStyle="width:50px" />
-					</td>
-				</tr>
-			</c:when>
-			<c:otherwise>
-				<form:hidden path="agency_name" value="${member.member_id}"/>
-				<tr>
-					<th>SR테스트신청 주소</th>
-					<td>
-						<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
 					</td>
 				</tr>
 			</c:otherwise>

@@ -2,6 +2,7 @@ package kr.co.whalesoft.app.cms.module.excursions.apply;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,17 +64,24 @@ public class ApplyController extends BaseController {
 	@RequestMapping(value = {"/applyEdit.*"})
 	public String applyEdit(Model model, Apply apply) {
 		apply.setPlan_date(apply.getStart_date());
-		
+
 		List<Apply> applyList = service.getApply(apply);
-		model.addAttribute("applyList", applyList);
-		// sr테스트 신청여부 확인
-		String date_type = applyList.get(0).getDate_type();
-		if ("h35".equals(apply.getHomepage_id()) && "0002".equals(date_type)) {
-			return basePath + "applySrEdit_ajax";
-		}else {
-			return basePath + "applyEdit_ajax";
+
+		if (applyList == null) {
+			applyList = new ArrayList<>();
 		}
-		
+		model.addAttribute("applyList", applyList);
+
+		String viewName = "applyEdit_ajax";
+
+		if (!applyList.isEmpty()) {
+			String date_type = applyList.get(0).getDate_type();
+			if ("h35".equals(apply.getHomepage_id()) && "0002".equals(date_type)) {
+				viewName = "applySrEdit_ajax";
+			}
+		}
+
+		return basePath + viewName;
 	}
 
 	@RequestMapping(value = {"/excelDownloadDate.*"})

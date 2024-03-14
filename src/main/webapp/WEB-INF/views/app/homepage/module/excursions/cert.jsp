@@ -44,6 +44,7 @@ $(function() {
 	<form:hidden path="editMode"/>
 	<form:hidden path="menu_idx"/>
 	<form:hidden path="excursions_idx"/>
+	<form:hidden path="homepage_id"/>
 	</form:form>
 	<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 		<input type="hidden" name="mode" value="board">

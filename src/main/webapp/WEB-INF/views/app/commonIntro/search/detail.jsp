@@ -1081,7 +1081,7 @@ $(function() {
 					<c:if test="${detail.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${sessionScope.member.user_class_code eq '701'}">
-					<a href="#muin" id="unmanned-req" class="btn">별관 이동도서관 신청</a>
+					<!--<a href="#muin" id="unmanned-req" class="btn">별관 이동도서관 신청</a>-->
 					</c:if>
 					</c:if>
 					</c:if>

@@ -176,7 +176,7 @@ $(function(){
 
 	<c:if test="${fn:length(subHomepageList) > 0 and homepage.context_path ne 'beomeo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'dalseolib' and (homepage.context_path eq 'donggu' and teach.searchCate1 ne '31')}">
 		<c:choose>
-		<c:when test="${homepage.context_path eq 'donggu' and param.menu_idx eq '185'}">
+		<c:when test="${homepage.context_path eq 'donggu' and (param.menu_idx eq '184' || param.menu_idx eq '185')}">
 		</c:when>
 		<c:otherwise>
 		<div class="tab_menu on">
@@ -204,24 +204,26 @@ $(function(){
 
 		<c:when test="${homepage.context_path eq 'seogulib' and teach.searchCate1 eq '16'}">
 			<div class="tab_menu on">
-				<ul class="no5">
+				<ul class="no6">
 					<li><a href="#tabCon0" data-hid="h77">서구어린이</a></li>
 					<li><a href="#tabCon1" data-hid="h61">비산</a></li>
 					<li><a href="#tabCon2" data-hid="h62">영어</a></li>
 					<li><a href="#tabCon3" data-hid="h63">비원</a></li>
 					<li><a href="#tabCon4" data-hid="h64">원고개</a></li>
+					<li><a href="#tabCon5" data-hid="h96">NEW평리</a></li>
 				</ul>
 			</div>
 		</c:when>
 
 		<c:when test="${homepage.context_path eq 'seogulib' and teach.searchCate1 eq '17'}">
 			<div class="tab_menu on">
-				<ul class="no5">
+				<ul class="no6">
 					<li><a href="#tabCon0" data-hid="h77">서구어린이</a></li>
 					<li><a href="#tabCon1" data-hid="h61">비산</a></li>
 					<li><a href="#tabCon2" data-hid="h62">영어</a></li>
 					<li><a href="#tabCon3" data-hid="h63">비원</a></li>
 					<li><a href="#tabCon4" data-hid="h64">원고개</a></li>
+					<li><a href="#tabCon5" data-hid="h96">NEW평리</a></li>
 				</ul>
 			</div>
 		</c:when>
@@ -310,6 +312,13 @@ $(function(){
 			</c:choose>
 		</c:when>
 
+		<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '35'}">
+			<div class="tab_menu on">
+				<ul class="no">
+					<li><a href="#tabCon0" data-hid="h59">신천</a></li>
+				</ul>
+			</div>
+		</c:when>
 	</c:choose>
 
 	<c:if test="${homepage.context_path eq 'bukbu'}">
@@ -434,6 +443,7 @@ $(function(){
 						<option class="all" label="선택" />
 						<option value="0" label="수강신청" />
 						<option value="1" label="대기자신청" />
+						<option value="11" label="접수중" />
 						<option value="2,10" label="신청완료" />
 						<option value="3" label="대기자신청완료" />
 						<option value="4" label="접수마감" />
@@ -515,6 +525,7 @@ ${html.html}
 </c:if>
 
 <div style="text-align: right; margin-bottom: 10px; ">
+	<c:if test="${param.homepage_id eq 'h72'}"><strong>3/12(화)~3/15(금) 냉난방기 교체 및 장서점검에 따른 임시휴관으로 방문신청 불가합니다. (3/16부터 가능)</strong></c:if>
 	<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 </div>
 
@@ -718,6 +729,10 @@ ${html.html}
 												<c:when test="${i.teach_status eq '0'}">
 													<a href="" class="btn btn5 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
 													<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '11'}">
+													<a href="javascript:void(0);" class="btn btn5" style="cursor: default;">
+													<i class="fa fa-pencil-square-o"></i><span> 접수중 </span>
 												</c:when>
 												<c:when test="${i.teach_status eq '1'}">
 													<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
