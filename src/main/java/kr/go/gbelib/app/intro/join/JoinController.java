@@ -607,7 +607,7 @@ public class JoinController extends BaseController {
 								age --; 
 							 }
 								  
-							 if(age <= 14){
+							 if(age < 14){
 								 model.addAttribute("certFailed", "ageCheck"); 
 							 } 
 						 }
@@ -632,7 +632,7 @@ public class JoinController extends BaseController {
 							age --; 
 						 }
 							  
-						 if(age <= 14){
+						 if(age < 14){
 							 model.addAttribute("certFailed", "ageCheck"); 
 						 } 
 					 }
