@@ -35,7 +35,7 @@ public class Apply extends PagingUtils {
 	private String start_time;
 	private String end_date;
 	private String end_time;
-	private int personnel;
+	private int personnel = 0;
 	private String apply_state;
 	private String ip;
 	private String remarks;
@@ -81,6 +81,10 @@ public class Apply extends PagingUtils {
 	private String desired_start_time; 	// 체험희망시작시간
 	private String desired_end_time; 	// 체험희망종료시간
 	private String picture_use_yn; 	//사진 활용 동의 여부
+
+	private boolean isSeoguPrivatetour;
+
+	private String max_apply_count; //견학 최대 신청팀수
 
 	public int getApply_idx() {
 		return apply_idx;
@@ -619,5 +623,21 @@ public class Apply extends PagingUtils {
 	public void setPicture_use_yn(String picture_use_yn) {
 		this.picture_use_yn = picture_use_yn;
 	}
-	
+
+	public boolean getIsSeoguPrivatetour() {
+		return isSeoguPrivatetour;
+	}
+
+	public void setIsSeoguPrivatetour(boolean seoguPrivatetour) {
+		isSeoguPrivatetour = seoguPrivatetour;
+	}
+
+	public String getMax_apply_count() {
+		return max_apply_count;
+	}
+
+	public void setMax_apply_count(String max_apply_count) {
+		this.max_apply_count = max_apply_count;
+	}
+
 }

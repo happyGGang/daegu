@@ -22,7 +22,7 @@ $(function() {
 				click: function() {
 					if(doAjaxPost($('#applye_state'))) {
 						$(this).dialog('destroy');
-						$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=${apply.excursions_idx}&start_date=${apply.start_date}');
+						$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=${apply.excursions_idx}&start_date=${apply.start_date}&date_type=${isSeoguPrivatetour}');
 					}
 				}
 			},{
@@ -47,18 +47,31 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="apply_idx"/>
 <form:hidden path="applicant_tel"/>
+<form:hidden path="isSeoguPrivatetour" value="${isSeoguPrivatetour}"/>
 	<table class="type2">
 		<colgroup>
 		<col width="140"/>
 		<col width="*"/>
 	</colgroup>
 	<tbody>
-		<tr>
-			<th>기관명</th>
-			<td>
-				<form:input path="agency_name" maxlength="10" cssClass="text" cssStyle="width:100px;" />
-			</td>
-		</tr>
+	<c:choose>
+		<c:when test="${isSeoguPrivatetour eq false}">
+			<tr>
+				<th>기관명</th>
+				<td>
+					<form:input path="agency_name" maxlength="10" cssClass="text" cssStyle="width:100px;" />
+				</td>
+			</tr>
+		</c:when>
+		<c:otherwise>
+			<tr>
+				<th>신청자 성명</th>
+				<td>
+					<form:input path="applicant_name" maxlength="10" cssClass="text" cssStyle="width:100px;" />
+				</td>
+			</tr>
+		</c:otherwise>
+	</c:choose>
 		<tr>
 			<th>승인상태</th>
 			<td>

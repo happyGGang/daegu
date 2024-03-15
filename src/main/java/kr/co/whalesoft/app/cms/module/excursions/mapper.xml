@@ -15,6 +15,7 @@
 			(SELECT code_name FROM CMS_CODE B WHERE B.homepage_id = A.homepage_id AND B.code_id = A.date_type AND B.group_id = 'H0001') AS code_name,
 			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.homepage_id = B.homepage_id AND A.homepage_id = #{homepage_id} AND B.date_type = '1' AND B.delete_yn = 'N' AND A.start_date <![CDATA[<=]]> B.end_date AND A.end_date <![CDATA[>=]]> B.start_date) AS closed_day,
 			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY C WHERE A.homepage_id = C.homepage_id AND A.homepage_id = #{homepage_id} AND A.excursions_idx = C.excursions_idx) AS apply_count,
+			(SELECT COALESCE(SUM(PERSONNEL), 0) FROM CMS_EXCURSIONS_APPLY C WHERE A.homepage_id = C.homepage_id AND A.homepage_id = #{homepage_id} AND A.excursions_idx = C.excursions_idx) AS personnel_count,
 			CASE
 				WHEN A.apply_start_date IS NULL
 				THEN apply_yn
@@ -41,7 +42,8 @@
 	<select id="getExcursionsOne" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">
 		SELECT
 			<include refid="field" />,
-			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS apply_count	
+			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS apply_count,
+			(SELECT COALESCE(SUM(PERSONNEL), 0) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS personnel_count
 		FROM 
 			CMS_EXCURSIONS A
 		WHERE

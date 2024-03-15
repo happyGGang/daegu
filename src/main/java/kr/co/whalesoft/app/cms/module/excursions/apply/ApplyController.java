@@ -3,6 +3,7 @@ package kr.co.whalesoft.app.cms.module.excursions.apply;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +59,10 @@ public class ApplyController extends BaseController {
 		} else {
 		model.addAttribute("apply", apply);
 		}
+		List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+		boolean isSeoguPrivatetour = allowedHomepageIds.contains(apply.getHomepage_id()) && "0011".equals(apply.getDate_type());
+
+		model.addAttribute("isSeoguPrivatetour", isSeoguPrivatetour);
 		return basePath + "edit_ajax";
 	}
 
@@ -66,6 +71,11 @@ public class ApplyController extends BaseController {
 		apply.setPlan_date(apply.getStart_date());
 
 		List<Apply> applyList = service.getApply(apply);
+
+		List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+		boolean isSeoguPrivatetour = allowedHomepageIds.contains(apply.getHomepage_id()) && "0011".equals(apply.getDate_type());
+
+		model.addAttribute("isSeoguPrivatetour", isSeoguPrivatetour);
 
 		if (applyList == null) {
 			applyList = new ArrayList<>();
@@ -137,6 +147,10 @@ public class ApplyController extends BaseController {
 	@RequestMapping(value = {"/stateEdit.*"})
 	public String stateEdit(Model model, Apply apply) {
 		model.addAttribute("apply", service.copyObjectPaging(apply, service.getApplyOne(apply)));
+		List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+		boolean isSeoguPrivatetour = allowedHomepageIds.contains(apply.getHomepage_id()) && "0011".equals(apply.getDate_type());
+
+		model.addAttribute("isSeoguPrivatetour", isSeoguPrivatetour);
 		return basePath + "stateEdit_ajax";
 	}
 
@@ -175,15 +189,24 @@ public class ApplyController extends BaseController {
 				res.setMessage("개인정보 동의 후 신청이 가능합니다.");
 				return res;
 			}
-			ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
-			ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력하세요.");
+			if (!apply.getIsSeoguPrivatetour()) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_name", "기관명을 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_tel_1", "기관 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_tel_2", "기관 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력하세요.");
+			} else {
+				ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
+				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력하세요.");
+			}
+
 			if ("h8".equals(apply.getHomepage_id())){
 				ValidationUtils.rejectIfEmpty(result, "Desired_start_time", "체험희망 시작시간을 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "Desired_end_time", "체험희망 종료시간을 입력해주세요.");
@@ -209,10 +232,22 @@ public class ApplyController extends BaseController {
 				Excursions excursions = excursionsService.getExcursionsOne(new Excursions(apply.getHomepage_id(), apply.getExcursions_idx()));
 
 				if ( excursions.getMax_apply() > 0 ) {
-					if (excursions.getMax_apply() <= excursions.getApply_count() ) {
-						res.setValid(false);
-						res.setMessage("신청가능팀수가 가득찼습니다.");
-						return res;
+					List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+					List<String> allowedDateTypes = Arrays.asList("0010", "0011");
+					if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+						int applyCount = apply.getPersonnel() + excursions.getPersonnel_count();
+
+						if (excursions.getMax_apply() < applyCount ) {
+							res.setValid(false);
+							res.setMessage("신청가능팀수가 가득찼습니다.");
+							return res;
+						}
+					} else {
+						if (excursions.getMax_apply() <= excursions.getApply_count() ) {
+							res.setValid(false);
+							res.setMessage("신청가능팀수가 가득찼습니다.");
+							return res;
+						}
 					}
 				}
 
@@ -248,16 +283,15 @@ public class ApplyController extends BaseController {
 
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
-			}
-			else if(apply.getEditMode().equals("MODIFY")) {
+			} else if (apply.getEditMode().equals("MODIFY")) {
 				if (apply.getApply_file() != null) {
-				MultipartFile mFile = apply.getApply_file();
-					if ( mFile.getSize() > 0 ) {
+					MultipartFile mFile = apply.getApply_file();
+					if (mFile.getSize() > 0) {
 						String serverFileName = Long.toString((System.currentTimeMillis()));
 						String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 						String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
 						String filePath = "/" + apply.getHomepage_id();
-	
+
 						File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
 						apply.setServer_file_name(serverFileName);
 						apply.setOrigin_file_name(originFileName);

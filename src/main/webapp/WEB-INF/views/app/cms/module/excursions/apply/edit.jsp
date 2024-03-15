@@ -167,6 +167,8 @@ $(function() {
 <%-- <form:hidden path="member_key"/> --%>
 <form:hidden path="excursions_idx" value="${apply.excursions_idx }"/>
 <form:hidden path="start_date" value="${apply.start_date }"/>
+<form:hidden path="isSeoguPrivatetour" value="${isSeoguPrivatetour}"/>
+<form:hidden path="max_apply_count"/>
 <table class="type2">
 	<colgroup>
 		<col width="140"/>
@@ -222,26 +224,28 @@ $(function() {
 				<form:input path="applicant_email" class="text" cssStyle="width:200px"/>
 			</td>
 		</tr>
-		<tr>
-			<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-				<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
-				<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
-			</td>
-		</tr>
-		<tr>
-			<th>기관 주소</th>
-			<td>
-				<form:input path="agency_address" class="text" cssStyle="width:60%"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
-			</td>
-		</tr>
+		<c:if test="${isSeoguPrivatetour eq false}">
+			<tr>
+				<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
+				</td>
+			</tr>
+			<tr>
+				<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+					<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
+					<form:input path="agency_tel_3" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/>
+				</td>
+			</tr>
+			<tr>
+				<th>기관 주소</th>
+				<td>
+					<form:input path="agency_address" class="text" cssStyle="width:60%"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
+				</td>
+			</tr>
+		</c:if>
 		<tr>
 			<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>

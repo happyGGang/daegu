@@ -2,6 +2,7 @@ package kr.go.gbelib.app.module.excursions;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,9 @@ public class ExcursionsController extends BaseController {
 		}
 
 		Apply apply = new Apply();
+		if (homepage.getHomepage_id().equals("h49")) {
+			homepage.setHomepage_id(excursions.getHomepage_id());
+		}
 		apply.setHomepage_id(homepage.getHomepage_id());
 		apply.setApply_id(getSessionMemberId(request));
 
@@ -145,12 +149,6 @@ public class ExcursionsController extends BaseController {
 		}
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-//		if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-//			apply.setBefore_url(String.format("http://www.gbelib.kr/%s/html.do?menu_idx=%s", homepage.getContext_path(), apply.getMenu_idx()));
-//			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("http://www.gbelib.kr/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
-//			return null;
-//		}
-		
 		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
 
 			if ("h94".equals(homepage.getHomepage_id())) {
@@ -160,14 +158,8 @@ public class ExcursionsController extends BaseController {
 
 			}
 			return null;
-
 		}
 
-//		if ( blackListService.checkBlackList(new BlackList(homepage.getHomepage_id(), getSessionMemberId(request)), "40")) {
-//			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
-//			return null;
-//		}
-		
 		Member certMember = (Member) request.getSession().getAttribute("certMember");
 		if (certMember != null) {
 			apply.setApply_id(certMember.getCi_value());
@@ -191,9 +183,13 @@ public class ExcursionsController extends BaseController {
 		Excursions excursions = new Excursions();
 		excursions.setHomepage_id(apply.getHomepage_id());
 		excursions.setExcursions_idx(apply.getExcursions_idx());
+		List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+		boolean isSeoguPrivatetour = allowedHomepageIds.contains(apply.getHomepage_id()) && "0011".equals(apply.getDate_type());
 
+		model.addAttribute("isSeoguPrivatetour", isSeoguPrivatetour);
 		//약관 연동부
 		Menu menuOne = (Menu) request.getAttribute("menuOne");
+
 		model.addAttribute("termsList", termsService.getTermsListInModule(new Terms(apply.getHomepage_id(), menuOne.getManage_idx(), "module")));
 		model.addAttribute("excursions", service.getExcursionsOne(excursions));
 //		model.addAttribute("prtcNotice",MemberAPI.getPrtcNoticeList("WEB"));
@@ -329,7 +325,7 @@ public class ExcursionsController extends BaseController {
 				return res;
 			}
 
-			if(!("h35".equals(homepage.getHomepage_id()) & "0002".equals(apply.getDate_type()))) {
+			if (!("h35".equals(homepage.getHomepage_id()) && "0002".equals(apply.getDate_type()) && !apply.getIsSeoguPrivatetour())) {
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
@@ -339,8 +335,14 @@ public class ExcursionsController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "agency_tel_3", "기관 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
 			}
-			if ("h8".equals(apply.getHomepage_id()) && !apply.getEditMode().equals("MODIFY")){
-				
+
+			if (apply.getIsSeoguPrivatetour()) {
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
+				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
+			}
+			if ("h8".equals(apply.getHomepage_id()) && !apply.getEditMode().equals("MODIFY")) {
 				ValidationUtils.rejectIfEmpty(result, "Desired_start_time", "체험희망 시작시간을 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "Desired_end_time", "체험희망 종료시간을 입력해주세요.");
 			}
@@ -423,10 +425,22 @@ public class ExcursionsController extends BaseController {
 				Excursions excursions = service.getExcursionsOne(new Excursions(apply.getHomepage_id(), apply.getExcursions_idx()));
 
 				if ( excursions.getMax_apply() > 0 ) {
-					if (excursions.getMax_apply() <= excursions.getApply_count() ) {
-						res.setValid(false);
-						res.setMessage("신청가능팀수가 가득찼습니다.");
-						return res;
+					List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+					List<String> allowedDateTypes = Arrays.asList("0010", "0011");
+					if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+						int applyCount = apply.getPersonnel() + excursions.getPersonnel_count();
+
+						if (excursions.getMax_apply() < applyCount ) {
+							res.setValid(false);
+							res.setMessage("신청가능팀수가 가득찼습니다.");
+							return res;
+						}
+					} else {
+						if (excursions.getMax_apply() <= excursions.getApply_count() ) {
+							res.setValid(false);
+							res.setMessage("신청가능팀수가 가득찼습니다.");
+							return res;
+						}
 					}
 				}
 				

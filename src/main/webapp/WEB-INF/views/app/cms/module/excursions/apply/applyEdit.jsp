@@ -45,7 +45,7 @@ $(function() {
 	
 	//신청자 수정버튼
 	$('a#apply-modify').on('click', function(event) {
-		$('#dialog-2').load('/cms/module/excursions/apply/edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id_1').val() + '&apply_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-2').load('/cms/module/excursions/apply/edit.do?editMode=MODIFY&homepage_id=' + $('#homepage_id_1').val() + '&apply_idx=' + $(this).attr('keyValue') + '&date_type=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 			$('#dialog-2').dialog('open');
 		});
 		
@@ -54,7 +54,7 @@ $(function() {
 	
 	//승인처리 버튼
 	$('a#state-modify').on('click', function(event) {
-		$('#dialog-4').load('/cms/module/excursions/apply/stateEdit.do?editMode=STATEMODIFY&homepage_id=' + $('#homepage_id_1').val() + '&apply_idx=' + $(this).attr('keyValue'), function( response, status, xhr ) {
+		$('#dialog-4').load('/cms/module/excursions/apply/stateEdit.do?editMode=STATEMODIFY&homepage_id=' + $('#homepage_id_1').val() + '&apply_idx=' + $(this).attr('keyValue')  + '&date_type=' + $(this).attr('keyValue2'), function( response, status, xhr ) {
 			$('#dialog-4').dialog('open');
 		});
 		
@@ -82,6 +82,8 @@ $(function() {
 <form:hidden path="editMode"/>
 <form:hidden path="plan_date"/>
 <form:hidden path="apply_idx"/>
+<form:hidden path="date_type"/>
+<form:hidden path="isSeoguPrivatetour" value="${isSeoguPrivatetour}"/>
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
@@ -95,8 +97,10 @@ $(function() {
 			<col width=""/>
 		</colgroup>
 		<thead>
-			<tr>
+		<tr>
+			<c:if test="${isSeoguPrivatetour eq false}">
 				<th>기관명</th>
+			</c:if>
 				<th>신청자 성명</th>
 				<th>신청자 전화번호</th>
 				<th>방문일자</th>
@@ -128,7 +132,9 @@ $(function() {
 				</tr>
 				</c:if>
 				<tr>
-					<td>${i.agency_name}</td>
+					<c:if test="${isSeoguPrivatetour eq false}">
+						<td>${i.agency_name}</td>
+					</c:if>
 					<td>${i.applicant_name}</td>
 					<td>${i.applicant_tel}</td>
 					<td>${i.start_date}</td>
@@ -152,8 +158,8 @@ $(function() {
 					</td>
 					<c:if test="${apply.editMode ne 'VIEW' }">
 						<td>
-							<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}">승인처리</a>
-							<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}">수정</a>
+							<a href="" class="btn" id="state-modify" keyValue="${i.apply_idx}" keyvalue2="${apply.date_type}">승인처리</a>
+							<a href="" class="btn" id="apply-modify" keyValue="${i.apply_idx}" keyvalue2="${apply.date_type}">수정</a>
 							<a href="" class="btn" id="delete-btn" keyValue="${i.apply_idx}" plan_date="${i.start_date}">삭제</a>
 						</td>
 					</c:if>

@@ -46,6 +46,10 @@ public class Excursions extends PagingUtils {
 
 	private String pageType;
 
+	private int personnel_count;
+
+	private String homepage_group;
+
 	public Excursions() {
 	}
 
@@ -332,5 +336,21 @@ public class Excursions extends PagingUtils {
 
 	public void setRemark_comment(String remark_comment) {
 		this.remark_comment = remark_comment;
+	}
+
+	public int getPersonnel_count() {
+		return personnel_count;
+	}
+
+	public void setPersonnel_count(int personnel_count) {
+		this.personnel_count = personnel_count;
+	}
+
+	public String getHomepage_group() {
+		return homepage_group;
+	}
+
+	public void setHomepage_group(String homepage_group) {
+		this.homepage_group = homepage_group;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 
 				int maxApplyCount = excursions.getMax_apply();
 				int curApplyCount = excursions.getApply_count();
+				int personnelCount = excursions.getPersonnel_count();
 
 				if (planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
 					sb.append("<li title=\"" + excursions.getCode_name() + "\">");
@@ -119,7 +121,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						}
 					}
 					if (flag) {
-						if ("h60".equals(excursions.getHomepage_id())){
+						if ("h60".equals(excursions.getHomepage_id())) {
 							if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 1 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 								if (maxApplyCount == 0) {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
@@ -132,14 +134,31 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 								}
 							}
 						}
-						if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
-							if (maxApplyCount == 0) {
-								sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
-							} else {
-								if (maxApplyCount > curApplyCount) {
+						// 서구 통합도서관 어린이 h77,비산 h61,영어 h62,비원 h63,원고개 h64
+						List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+						List<String> allowedDateTypes = Arrays.asList("0010", "0011");
+						if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+							if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
+								if (maxApplyCount == 0) {
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기(무제한)</em></span></a><br>");
+								} else {
+									if (maxApplyCount > personnelCount) {
+										sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기(" + personnelCount + "/" + maxApplyCount + ")</em></span></a><br>");
+									} else {
+										sb.append("<a href=\"#\">신청 정원 마감</a>");
+									}
+								}
+							}
+						} else {
+							if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
+								if (maxApplyCount == 0) {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
 								} else {
-									sb.append("<a href=\"#\">신청 정원 마감</a>");
+									if (maxApplyCount > curApplyCount) {
+										sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기</em></span></a><br>");
+									} else {
+										sb.append("<a href=\"#\">신청 정원 마감</a>");
+									}
 								}
 							}
 						}
