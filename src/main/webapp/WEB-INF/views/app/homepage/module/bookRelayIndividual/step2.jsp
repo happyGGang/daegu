@@ -23,6 +23,16 @@ $(function() {
 });
 </script>
 
+<style>
+	.tbl-type01 thead tr td{background:#fafafa;font-weight:bold;}
+	.tbl-type01 tbody tr td{background:#fafafa;font-size:13px;text-align:left;}
+
+	.join-wrap{padding: 0px !important;width:100%;}
+	
+	@media (max-width: 1024px) {
+		.join-wrap{padding:0 20px;width:calc(100% - 40px);}
+	}
+</style>
 <div class="join-wrap">
 	<form:form modelAttribute="bookRelayIndividual" id="bookRelayIndividualStep" action="edit.do">
 	<form:hidden path="menu_idx"/>
@@ -30,8 +40,8 @@ $(function() {
 	<div>
 		<h2>개인정보 수집 이용 동의서</h2>
 		<div class="Box" style="height:400px;">	
-			<h5>2023 수성인문학제 다독자 공모를 위한 개인정보 수집 및 이용 동의서</h5>
-			<p>2023 수성인문학제 다독자 공모 신청을 위하여 아래와 같이 개인정보를 수집·이용하고자 합니다.<br />내용을 자세히 읽으신 후 동의 여부를 결정하여 주십시오.</p>
+			<h5>제8회 수성인문학제 독서릴레이 신청을 위한 개인정보 수집·이용 동의서</h5>
+			<p>제8회 수성인문학제 독서릴레이 신청을 위하여 아래와 같이 개인정보를 수집·이용하고자 합니다. 내용을 자세히 읽으신 후 동의 여부를 결정하여 주시기 바랍니다.</p>
 			
 			<br/>
 			
@@ -55,26 +65,21 @@ $(function() {
 					<tr>
 						<td style="text-align:center;">성명, 연락처(휴대전화 등), 주소</td>
 						<td style="text-align:center;">수성인문학제 독서릴레이 신청 등 프로그램 홍보</td>
-						<td style="text-align:center;">제7회 수성인문학제 사업 종료 시까지</td>
+						<td style="text-align:center;">제8회 수성인문학제 사업 종료 시까지</td>
 					</tr>
 				</tbody>
 			</table>
 			<br/>
 
-			<p style="text-align:left;">※ 독서릴레이 참여자를 대상으로 활동사진 등 촬영하며, 본인의 초상이 사진 및 영상물에 기록될 경우<br />　&nbsp;       수성구립도서관(범어·용학·고산) 행사 홍보자료로 활용, 기록자료(자료집) 제작에 활용될 수 있습니다.<br />
-			※ 도서관의 독서·문화프로그램 홍보를 위하여 회원님의 연락처를 이용, 차후 행사관련 문자를 발송할 수 있습니다.<br />　&nbsp;       원치 않는 경우, 범어도서관(☎053-668-1600)으로 연락하시면 안전하게 파기하도록 하겠습니다.<br />
-			※ 위의 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다.<br />　&nbsp;       그러나 동의를 거부할 경우 독서릴레이 신청이 불가능합니다.</p>				
+			<p style="text-align:left;">※ 위의 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다. 동의를 거부할 경우 독서릴레이 신청이 불가능합니다. 또한 신청자는 반드시 수성인문학제 활동을 반드시 인증 해야합니다.(개인: 독서왕 공모 참여, 단체: 홈페이지 활동게시글 작성)</p>				
 			<br/>
 
-			<p style="text-align:center;">본인은 위 내용을 충분히 이해하였으며, 수성구립도서관(범어·용학·고산)이<br />개인정보보호법 등 관련 법규에 의거하여 본인의 개인정보를 수집 및 활용하는 것에 동의합니다.</p>				
-			<br/>
-			
 			<h5>만 14세 미만 아동의 개인정보처리</h5>
-			<p>만 14세 미만 아동의 개인정보를 처리하기 위하여 그 법정대리인의 동의를 받아야 합니다.<br />법정대리인의 최소한의 정보는 법정대리인의 동의 없이 해당 아동으로부터 직접 수집할 수 있습니다.<br />정보주체가 만14세 미만의 아동인 경우 위와 같이 개인정보를 수집·이용하는데 동의하십니까?</p>
+			<p>정보주체가 만14세 미만의 아동인 경우 위와 같이 개인정보를 수집·이용하는데 동의하십니까?</p>
 		</div>
 
 		<div class="agree_codes">
-			<input id="agree_codes3" name="agree_codes" req="0001" type="checkbox" value="2"><label for="agree_codes3">개인정보 수집 및 활용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+			<input id="agree_codes3" name="agree_codes" req="0001" type="checkbox" value="2"><label for="agree_codes3">위와 같이 개인정보를 수집·이용하는데 동의하십니까?</label><input type="hidden" name="_agree_codes" value="on"><br>
 		</div>
 	</div>
 

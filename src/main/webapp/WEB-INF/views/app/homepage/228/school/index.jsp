@@ -156,10 +156,10 @@
 									<a href="/${homepage.context_path}/html.do?menu_idx=135" ><span>센터소개</span></a>
 									</li>
 									<li class="qm2">
-									<a href="/${homepage.context_path}/html.do?menu_idx=113" ><span>책꾸러미</span></a>
+									<a href="/${homepage.context_path}/html.do?menu_idx=113" ><span>2·28책꾸러미</span></a>
 									</li>
 									<li class="qm3">
-									<a href="/${homepage.context_path}/html.do?menu_idx=143" ><span>원화꾸러미</span></a>
+									<a href="/${homepage.context_path}/html.do?menu_idx=143" ><span>2·28원화꾸러미</span></a>
 									</li>
 									<li class="qm4">
 									<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259" ><span>학생 추천도서 목록</span></a>

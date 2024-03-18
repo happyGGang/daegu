@@ -102,12 +102,12 @@ $(function() {
 						<form:input path="manager_name" cssClass="text new_text01" />
 					</td>
 				</tr>
-				<tr>
+				<!--<tr>
 					<th>전화</th>
 					<td>
 						<form:input path="work_number" cssClass="text new_text01" />
 					</td>
-				</tr>
+				</tr>-->
 				<tr>
 					<th>휴대폰<b style="color: red;">(*)</b></th>
 					<td>
@@ -137,7 +137,7 @@ $(function() {
 					<th>독서노트 신청수량<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권&nbsp;
-						<span>(※ 다독자 공모 참여자만 신청)</span>
+						<span>(※ 독서왕 공모 참여자가 있을 경우 신청)</span>
 					</td>
 				</tr>
 				<tr>
@@ -163,7 +163,7 @@ $(function() {
 			</tbody>
 		</table>
 
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">위와 같이 <제7회 수성인문학제> 독서릴레이를 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">위와 같이 <제8회 수성인문학제> 독서릴레이를 신청합니다.</strong>
 
 		<p style="text-align:center;margin-bottom:10px;">※단체릴레이용 도서 대출 및 수령 장소</p>
 

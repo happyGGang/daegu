@@ -130,7 +130,7 @@ $(function() {
 			</tbody>
 		</table>
 		
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">위와 같이 <제7회 수성인문학제> 독서릴레이에 신청합니다.</strong>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">위와 같이 <제8회 수성인문학제> 독서릴레이에 신청합니다.</strong>
 
 		<p style="text-align:center;margin-bottom:10px;">※개인릴레이용 도서는 도서관 자료실에서 대출</p>
 
