@@ -114,7 +114,11 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 								} else if (apply.getApply_state().equals("2")) {
 									sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
 								} else if (apply.getApply_state().equals("1")) {
-									sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									if ("0011".equals(excursions.getDate_type())) {
+										sb.append("<span class=\"type-h\"><i></i><em>승인대기</em></span><br>");
+									} else {
+										sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								}
 								flag = false;
 							}

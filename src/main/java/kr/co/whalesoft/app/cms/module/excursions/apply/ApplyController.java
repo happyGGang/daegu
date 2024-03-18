@@ -203,7 +203,6 @@ public class ApplyController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
-				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "personnel", "방문인원을 입력하세요.");
 			}
 

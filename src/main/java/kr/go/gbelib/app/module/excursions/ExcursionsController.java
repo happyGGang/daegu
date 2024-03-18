@@ -69,7 +69,7 @@ public class ExcursionsController extends BaseController {
 
 	@Autowired
 	private HomepageService homepageService;
-	
+
 	@Autowired
 	@Qualifier("excursionsStorage")
 	private FileStorage excursionsStorage;
@@ -102,10 +102,10 @@ public class ExcursionsController extends BaseController {
 		}
 
 		Apply apply = new Apply();
-		if (homepage.getHomepage_id().equals("h49")) {
-			homepage.setHomepage_id(excursions.getHomepage_id());
-		}
-		apply.setHomepage_id(homepage.getHomepage_id());
+//		if (homepage.getHomepage_id().equals("h49")) {
+//			homepage.setHomepage_id(excursions.getHomepage_id());
+//		}
+		apply.setHomepage_id(excursions.getHomepage_id());
 		apply.setApply_id(getSessionMemberId(request));
 
 		CalendarManage calendarManage = new CalendarManage();
@@ -123,9 +123,8 @@ public class ExcursionsController extends BaseController {
 		else {
 			return String.format(basePath, homepage.getFolder()) + "index";
 		}
-
 	}
-	
+
 	@RequestMapping(value = {"/cert.*"}, method = RequestMethod.GET)
 	public String cert(Model model, Excursions excursions, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -252,10 +251,10 @@ public class ExcursionsController extends BaseController {
 			model.addAttribute("applyList", applyService.getUserExApply(apply));
 			model.addAttribute("applySrList", applyService.getUserSrApply(apply));
 		}else {
-			
+
 			model.addAttribute("applyList", applyService.getUserApply(apply));
 		}
-		
+
 
 		if ( "ajax".equals(apply.getPageType()) ) {
 			return String.format(basePath, homepage.getFolder()) + "apply_ajax";
@@ -325,7 +324,7 @@ public class ExcursionsController extends BaseController {
 				return res;
 			}
 
-			if (!("h35".equals(homepage.getHomepage_id()) && "0002".equals(apply.getDate_type()) && !apply.getIsSeoguPrivatetour())) {
+			if (!("h35".equals(homepage.getHomepage_id()) && "0002".equals(apply.getDate_type())) && !apply.getIsSeoguPrivatetour()) {
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
@@ -340,7 +339,6 @@ public class ExcursionsController extends BaseController {
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_1", "신청자 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력해주세요.");
 				ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력해주세요.");
-				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 입력해주세요.");
 			}
 			if ("h8".equals(apply.getHomepage_id()) && !apply.getEditMode().equals("MODIFY")) {
 				ValidationUtils.rejectIfEmpty(result, "Desired_start_time", "체험희망 시작시간을 입력해주세요.");
@@ -404,7 +402,7 @@ public class ExcursionsController extends BaseController {
 				res.setTargetOpener(true);
 				return res;
 			}
-			
+
 			Member certMember = (Member) request.getSession().getAttribute("certMember");
 			if (certMember != null) {
 				apply.setApply_id(certMember.getCi_value());
@@ -443,25 +441,28 @@ public class ExcursionsController extends BaseController {
 						}
 					}
 				}
-				
+
 				apply.setAdd_id(apply.getApply_id());
 				apply.setStart_date(excursions.getStart_date());
 				apply.setStart_time(excursions.getStart_time());
 				apply.setEnd_date(excursions.getEnd_date());
 				apply.setEnd_time(excursions.getEnd_time());
-				
-				MultipartFile mFile = apply.getApply_file();
-				if ( mFile.getSize() > 0 ) {
-					String serverFileName = Long.toString((System.currentTimeMillis()));
-					String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
-					String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
-					String filePath = "/" + apply.getHomepage_id();
 
-					File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
-					apply.setServer_file_name(serverFileName);
-					apply.setOrigin_file_name(originFileName);
-					apply.setFile_extension(fileExtension);
-					apply.setFile_size(f.length());
+
+				MultipartFile mFile = apply.getApply_file();
+				if (!apply.getIsSeoguPrivatetour()) {
+				if ( mFile.getSize() > 0 ) {
+						String serverFileName = Long.toString((System.currentTimeMillis()));
+						String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+						String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+						String filePath = "/" + apply.getHomepage_id();
+
+						File f = excursionsStorage.addFile(mFile, serverFileName, filePath);
+						apply.setServer_file_name(serverFileName);
+						apply.setOrigin_file_name(originFileName);
+						apply.setFile_extension(fileExtension);
+						apply.setFile_size(f.length());
+					}
 				}
 				String addResult = applyService.addApply(apply, request);
 				if (addResult != null) {
@@ -502,17 +503,17 @@ public class ExcursionsController extends BaseController {
 				res.setResult(apply.getEditMode());
 				res.setMessage("수정 되었습니다.");
 			}
-			
+
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
 		}
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/download/{homepage_id}/{apply_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
-	public byte[] getFile(@PathVariable("homepage_id") String homepage_id,@PathVariable("apply_idx") int apply_idx, 
+	public byte[] getFile(@PathVariable("homepage_id") String homepage_id,@PathVariable("apply_idx") int apply_idx,
 			@RequestParam(required=false, value="file_type") String file_type, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Apply apply = new Apply();
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -523,7 +524,7 @@ public class ExcursionsController extends BaseController {
 		String serverName = "";
 		String orgName = "";
 		String extension = "";
-		
+
 		serverName = apply.getServer_file_name();
 		orgName = apply.getOrigin_file_name();
 		extension = apply.getFile_extension();
@@ -548,5 +549,5 @@ public class ExcursionsController extends BaseController {
 
 	    return bytes;
     }
-	
+
 }

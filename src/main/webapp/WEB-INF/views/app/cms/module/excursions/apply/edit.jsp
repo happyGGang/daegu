@@ -245,13 +245,13 @@ $(function() {
 					<form:input path="agency_address" class="text" cssStyle="width:60%"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
 				</td>
 			</tr>
+			<tr>
+				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="age" class="text" cssStyle="width:50px"/>
+				</td>
+			</tr>
 		</c:if>
-		<tr>
-			<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
-			<td>
-				<form:input path="age" class="text" cssStyle="width:50px"/>
-			</td>
-		</tr>
 		<tr>
 			<th>방문인원(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td><form:input path="personnel" class="text" cssStyle="width:50px" maxlength="3"/></td>
@@ -291,18 +291,21 @@ $(function() {
 				<form:input path="remarks" class="text" cssStyle="width:90%"/>
 			</td>
 		</tr>
-       	<c:if test="${apply.origin_file_name != null and apply.origin_file_name != ''}">
-        	<tr>
-        	 	<th>현재 첨부 파일</th>
-        	 	<td>
-        	 		<a href="/cms/module/excursions/download/${apply.homepage_id}/${apply.apply_idx }.do"><i class="fa fa-floppy-o"></i>${apply.origin_file_name}</a>
-				</td>        	 	
-        	</tr>
-       	</c:if>
-		<tr>
-			<th>첨부파일</th>
-			<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
-		</tr>
+		<c:if test="${isSeoguPrivatetour eq false}">
+			<c:if test="${apply.origin_file_name != null and apply.origin_file_name != ''}">
+				<tr>
+					<th>현재 첨부 파일</th>
+					<td>
+						<a href="/cms/module/excursions/download/${apply.homepage_id}/${apply.apply_idx }.do"><i class="fa fa-floppy-o"></i>${apply.origin_file_name}</a>
+					</td>
+				</tr>
+			</c:if>
+			<tr>
+				<th>첨부파일</th>
+				<td class="applyFile"><input type="file" id="apply_file" name="apply_file" class="text" accept=".hwp"></td>
+			</tr>
+		</c:if>
+
 	</tbody>
 </table>
 </form:form>
