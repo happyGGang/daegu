@@ -13,13 +13,16 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
 		<if test="link_target != null and link_target != ''">
-		AND	link_target = #{link_target}
+			AND	link_target = #{link_target}
 		</if>
 		<if test="use_yn != null and use_yn != ''">
-		AND	use_yn = #{use_yn}
+			AND	use_yn = #{use_yn}
+		</if>
+		<if test="school_use_yn != null and school_use_yn != ''">
+			AND	school_use_yn = #{school_use_yn}
 		</if>
 		ORDER BY
 			print_seq ASC, add_date DESC
@@ -36,6 +39,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	use_yn = 'Y'
+		AND school_use_yn = 'N'
 		AND	start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 		AND	end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 		ORDER BY print_seq ASC, add_date DESC
@@ -49,13 +53,16 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
-		AND	${search_type} LIKE '%'||#{search_text}||'%'
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
 		</if>
 		<if test="link_target != null and link_target != ''">
-		AND	link_target = #{link_target}
+			AND	link_target = #{link_target}
 		</if>
 		<if test="use_yn != null and use_yn != ''">
-		AND	use_yn = #{use_yn}
+			AND	use_yn = #{use_yn}
+		</if>
+		<if test="school_use_yn != null and school_use_yn != ''">
+			AND	school_use_yn = #{school_use_yn}
 		</if>
     </select>
 
