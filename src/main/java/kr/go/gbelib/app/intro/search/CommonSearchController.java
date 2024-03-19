@@ -3489,23 +3489,6 @@ public class CommonSearchController extends BaseController {
 			}
 		}
 		
-		if(StringUtils.equals(librarySearch.getWorker(), "SSSUBCO01") || StringUtils.equals(librarySearch.getWorker(), "BRSUBCO01")) {
-			String todayfm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
-			 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			 
-			Date date = new Date(dateFormat.parse("2024-01-01").getTime());
-			Date today = new Date(dateFormat.parse(todayfm).getTime());
-			 
-			int compare = date.compareTo(today);
-			 
-			if(compare > 0) {
-				res.setValid(false);
-				res.setMessage("현재 준비 중으로 1월 1일부터 신청가능합니다.");
-				return res;
-			}
-		}
-		
 		if (!result.hasErrors()) {
 			Member member = getSessionMemberInfo(request);
 			
@@ -3529,34 +3512,34 @@ public class CommonSearchController extends BaseController {
 				//무인예약 기기 총 신청권수 제한
 				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				int searchCount = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				if (searchCount >= 40) {
+				if (searchCount >= 50) {
 					res.setValid(false);
-					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					res.setMessage("현재 예약 신청자 초과로 추가 예약불가. 내일 재신청해주세요.");
 					return res;
 				}
 				l.setWorker("DSSUB02");
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				if (searchCount >= 40) {
+				if (searchCount >= 50) {
 					res.setValid(false);
-					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					res.setMessage("현재 예약 신청자 초과로 추가 예약불가. 내일 재신청해주세요.");
 					return res;
 				}
 				
 				l.setWorker("SSSUBCO01");
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				if (searchCount >= 40) {
+				if (searchCount >= 50) {
 					res.setValid(false);
-					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					res.setMessage("현재 예약 신청자 초과로 추가 예약불가. 내일 재신청해주세요.");
 					return res;
 				}
 				l.setWorker("BRSUBCO01");
 				unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(l, null);
 				searchCount += LibSearchAPI.getSearchCount(unmannedLoanReserveList);
-				if (searchCount >= 40) {
+				if (searchCount >= 50) {
 					res.setValid(false);
-					res.setMessage("일일 신청건수를 초과하였습니다. 내일 다시 신청해주세요");
+					res.setMessage("현재 예약 신청자 초과로 추가 예약불가. 내일 재신청해주세요.");
 					return res;
 				}
 				
