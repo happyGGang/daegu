@@ -28,9 +28,6 @@
 		<if test="date_type != null and date_type != ''">
 		AND (date_type = #{date_type} or date_type IS null)
 		</if>
-		<if test="excursions_idx != null and excursions_idx != ''">
-			AND excursions_idx = #{excursions_idx}
-		</if>
 	</select>
 
 	<select id="getApplyMonth" resultType="kr.co.whalesoft.app.cms.module.excursions.apply.Apply">
