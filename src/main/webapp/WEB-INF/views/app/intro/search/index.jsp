@@ -86,18 +86,6 @@ $(function() {
 	$('a.btn_print').on('click', function(e) {
 		e.preventDefault();
 		var url = $(this).data('param').replace('detail', 'print');
-		var code = $(this).data('param-code');
-
-		if (code == 'AD17' || code == 'AD22' ){
-			alert("서고 책은 직원에게 문의 해주세요.");
-			return false;
-		}else if (code == 'AD27'){
-			alert("서고 책은 유아실 직원에게 문의 해주세요.");
-			return false;
-		}else if (code == 'AD39' || code == 'AD40'){
-			alert("스마트도서관 책은 지하철역 기기에서 대출할 수 있습니다.");
-			return false;
-		}
 
 		var popup = window.open(url, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=100,width=700,height=500');
 		popup.focus();
@@ -1260,7 +1248,7 @@ function resveReq(bookkey, booktype, editMode) {
 															</c:when>
 															<c:otherwise>
 
-																		<a href="#" class="btn_print" data-param="${detailURL}" data-param-code="${i.SHELF_LOC_CODE}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
+																		<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
 																
 															</c:otherwise>
 														</c:choose>
@@ -1499,7 +1487,7 @@ function resveReq(bookkey, booktype, editMode) {
 															</c:when>
 															<c:otherwise>
 
-																<a href="#" class="btn_print" data-param="${detailURL}" data-param-code="${i.SHELF_LOC_CODE}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
+																<a href="#" class="btn_print" data-param="${detailURL}" class="btn btn2" style="border:1px solid #ddd;border-radius:3px;box-sizing:border-box;padding:5px;color:#fff;background:#1367c6;">자료위치인쇄</a>
 																
 															</c:otherwise>
 														</c:choose>
