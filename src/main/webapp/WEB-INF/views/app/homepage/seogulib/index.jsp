@@ -657,7 +657,7 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category1 eq '0006'}">
+                          <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
@@ -724,7 +724,7 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category1 eq '0006'}">
+                          <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
@@ -791,7 +791,7 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category1 eq '0006'}">
+                          <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
@@ -858,7 +858,7 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category1 eq '0006'}">
+                          <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
@@ -925,7 +925,7 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category1 eq '0006'}">
+                          <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
@@ -992,7 +992,7 @@ do {
                             <c:set var="libcode" value="wongogae">
                             </c:set>
                           </c:if>
-                          <c:if test="${i.category1 eq '0006'}">
+                          <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
