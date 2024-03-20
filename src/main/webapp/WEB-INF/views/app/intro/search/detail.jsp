@@ -333,6 +333,12 @@ CONTEXT_PATH : ${context_path}
 		</div>
 </c:if>
 
+<c:if test="${detail.SHELF_LOC_CODE eq 'BU11'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 강창역스마트도서관 도서는 무인예약, 상호대차, 일반예약이 불가하며 스마트도서관 기기에서의 대출반납만 가능합니다.
+		</div>
+</c:if>
+
 
 		<div class="sbtn" style="text-align:center;">
 
@@ -381,7 +387,7 @@ CONTEXT_PATH : ${context_path}
 
 				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'|| detail.MANAGE_CODE eq 'BW'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>

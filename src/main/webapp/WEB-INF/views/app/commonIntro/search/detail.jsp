@@ -633,6 +633,12 @@ $(function() {
 		</div>
 		</c:if>
 
+		<c:if test="${detail.SHELF_LOC_CODE eq 'BU11'}">
+		<div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			※ 강창역스마트도서관 도서는 무인예약, 상호대차, 일반예약이 불가하며 스마트도서관 기기에서의 대출반납만 가능합니다.
+		</div>
+		</c:if>
+
 		<div style="margin-top:20px;">
 			<c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 
@@ -656,11 +662,6 @@ $(function() {
 			</c:if>
 		</div>
 
-		 <c:if test="${detail.MANAGE_CODE eq 'BW'}">
-			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 도원도서관 장서점검으로 인하여 2. 27.(화)~3. 15.(금)까지 상호대차 및 무인예약 신청이 불가합니다.
-			</p>
-		</c:if> 
 		 <c:if test="${detail.MANAGE_CODE eq ''}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
 				* 행정정보문고센터가 장서점검으로 인해 상호대차 신청 중지(23.06.09 ~ 23.06.16)되오니, 많은 양해 부탁드립니다.
@@ -769,7 +770,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'}">
 						</c:when>
 						
-						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq ''|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -1087,7 +1088,7 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}"> <!-- 달서통합도서관 무인예약 신청-->
-					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
 						<c:choose>
 							<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
 							
@@ -1187,6 +1188,9 @@ $(function() {
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'FW'}">
 
+						</c:when>
+						<c:when test=" ${detail.SHELF_LOC_CODE eq 'BU11'}">
+										
 						</c:when>
 						<c:otherwise>
 							<c:choose>
