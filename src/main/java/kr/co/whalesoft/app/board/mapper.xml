@@ -80,8 +80,16 @@
 		<if test='search_month != null and search_month != "" and search_month != "ALL"'>
 			AND imsi_v_1 LIKE '%'||#{search_month}||'%'
 		</if>
+		/*북부도서관 전시회 일정 기준 조건 추가*/
+		<if test='manage_idx == 145 and homepage_id == "h7" ' >
+			AND to_date(substring(TRIM(imsi_v_1), 12 , 10), 'yyyy-MM-dd') > TO_DATE(SYSDATE, 'yyyy-MM-dd')
+		</if>
+		/*북부도서관 영화상영 일정 기준 조회 조건추가*/
+		<if test='manage_idx == 157 and homepage_id == "h7" '>
+			AND to_date(CONCAT(TRIM(imsi_v_1),TRIM(imsi_v_2)), 'YYYY-MM-DD')  >  TO_DATE(SYSDATE, 'yyyy-MM-dd')
+		</if>
     </sql>
-    
+
     <sql id="private_homepage_id_list">
 		AND	homepage_id != 'h79'
 		AND	homepage_id != 'h80'
@@ -94,7 +102,7 @@
 		AND	homepage_id != 'h87'
 		AND	homepage_id != 'h88'
     </sql>
-    
+
     <sql id="private_homepage_id_list_M">
 		AND	M.homepage_id != 'h79'
 		AND	M.homepage_id != 'h80'
@@ -845,7 +853,7 @@
 		</choose>
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getBoardByMainKiosk" resultType="kr.co.whalesoft.app.board.Board">
 		${pagingTop}
 		SELECT
@@ -917,7 +925,7 @@
 		ORDER BY board_idx DESC
 		${pagingBottom}
 	</select>
-	
+
 	<select id="getTeachGuideListTopNotice" resultType="kr.co.whalesoft.app.board.Board">
 		${pagingTop}
 		SELECT
@@ -1732,7 +1740,7 @@
 			) a
 			ORDER BY imsi_v_2;
 	</select>
-	
+
 	<select id="getCalendarBoardMovie" resultType="kr.co.whalesoft.app.board.Board">
 		SELECT
 			(select menu_idx from cms_menu
