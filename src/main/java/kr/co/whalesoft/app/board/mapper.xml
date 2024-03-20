@@ -81,9 +81,9 @@
 			AND imsi_v_1 LIKE '%'||#{search_month}||'%'
 		</if>
 		/*북부도서관 전시회 일정 기준 조건 추가*/
-		<if test='manage_idx == 145 and homepage_id == "h7" ' >
+<!--		<if test='manage_idx == 145 and homepage_id == "h7" ' >
 			AND to_date(substring(TRIM(imsi_v_1), 12 , 10), 'yyyy-MM-dd') > TO_DATE(SYSDATE, 'yyyy-MM-dd')
-		</if>
+		</if>-->
 		/*북부도서관 영화상영 일정 기준 조회 조건추가*/
 		<if test='manage_idx == 157 and homepage_id == "h7" '>
 			AND to_date(CONCAT(TRIM(imsi_v_1),TRIM(imsi_v_2)), 'YYYY-MM-DD')  >  TO_DATE(SYSDATE, 'yyyy-MM-dd')
