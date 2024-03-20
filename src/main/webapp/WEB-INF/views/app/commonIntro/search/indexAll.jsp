@@ -504,10 +504,10 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AL" value="AL" label="대구2ㆍ28민주운동기념회관" />
 							</li>
+							</c:if>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AG" value="AG" label="대구광역시립 남부도서관" />
 							</li>
-							</c:if>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AJ" value="AJ" label="대구광역시립 달성도서관" />
 							</li>
