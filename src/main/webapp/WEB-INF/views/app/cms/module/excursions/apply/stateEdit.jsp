@@ -22,7 +22,7 @@ $(function() {
 				click: function() {
 					if(doAjaxPost($('#applye_state'))) {
 						$(this).dialog('destroy');
-						$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=${apply.excursions_idx}&start_date=${apply.start_date}&date_type=${isSeoguPrivatetour}');
+						$('#dialog-3').load('/cms/module/excursions/apply/applyEdit.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val() + '&excursions_idx=${apply.excursions_idx}&start_date=${apply.start_date}&date_type=${apply.date_type}');
 					}
 				}
 			},{
