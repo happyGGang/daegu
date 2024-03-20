@@ -86,7 +86,7 @@ $(function() {
 						<img src="/resources/common/img/mem_adult.jpg" alt="14세이상" class="joinAdult">
 					</div>
 					<div class="joinBtnTxt">
-						<div class="joinText1">만 14세 이상</div>
+						<div class="joinText1"><c:if test="${context_path ne 'gukbo'}">만</c:if> 14세 이상</div>
 						<div class="joinText2">가입자의 본인확인(휴대폰인증/아이핀인증) 절차가 필요합니다.</div>
 						<div><a href="#" class="year_a next btn btn01" val="more"><c:choose><c:when test="${param.status eq 'intergration'}">반입하기</c:when><c:otherwise>회원가입</c:otherwise></c:choose></a></div>
 					</div>
@@ -98,7 +98,7 @@ $(function() {
 						<img src="/resources/common/img/mem_child.jpg" alt="14세미만" class="joinChild">
 					</div>
 					<div class="joinBtnTxt">
-						<div class="joinText1">만 14세 미만</div>
+						<div class="joinText1"><c:if test="${context_path ne 'gukbo'}">만</c:if> 14세 미만</div>
 						<div class="joinText2">법정대리인과 가입자의 본인확인 절차가 필요합니다.</div>
 						<div><a href="#" class="year_b next btn btn01" val="under"><c:choose><c:when test="${param.status eq 'intergration'}">반입하기</c:when><c:otherwise>회원가입</c:otherwise></c:choose></a></div>
 					</div>

@@ -102,6 +102,17 @@
 			$('#mainSearchForm').submit();
 		});
 
+		$(".tab-box ul li:first-child").addClass("on");
+		$(".tab-box .clt:not("+$(".tab-box ul li.on").data("value")+")").css("z-index","1");
+
+		$(".tab-box ul li a").click(function(){
+			$(".tab-box ul li").removeClass("on");
+			$(this).parents('li').addClass("on");
+
+			$(".clt").css({"z-index":"1"});
+			$($(this).attr('href')).css({"z-index":"2"});
+			return false;
+		});
 	});
 </script>
 <div id="wrap">
@@ -352,15 +363,15 @@
 		<div class="main2">
 			<div class="section">
 				<div class="main2box1">
-					<div class="book tabS">
+					<div class="book tab-box">
 						<div class="title">
-							<ul class="tabMenuS">
-								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class='t-tabs'>전시회</a></li>
-								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class='t-tabs'>가족영화</a></li>
+							<ul class="tabMenuZ">
+								<li class="on" data-value="#tab1"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class='t-tabs'>전시회</a></li>
+								<li data-value="#tab2"><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class='t-tabs'>가족영화</a></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
-						<div class="box con" data-tab="tab1">
+						<div class="box con clt" id="tab1" data-tab="tab1" style="z-index:2;">
 							<div class="movieContent">
 								<ul class="book_photo">
 									<c:forEach var="i" varStatus="status" items="${exhibitionList}">
@@ -405,7 +416,7 @@
 							</div>
 						</div>
 
-						<div class="box con" data-tab="tab2" style="display:none;">
+						<div class="box con clt" id="tab2" data-tab="tab2" style="z-index:1;">
 							<div class="movieContent2">
 								<ul class="book_photo movieB">
 									<c:forEach var="i" varStatus="status" items="${movieList}" >

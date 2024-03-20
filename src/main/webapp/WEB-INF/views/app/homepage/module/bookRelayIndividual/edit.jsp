@@ -104,14 +104,14 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>대상별<b style="color: red;">(*)</b></th>
+					<th>대 상<b style="color: red;">(*)</b></th>
 					<td>
 						<form:radiobutton path="book_area" value="0" label="성인" class="new_input_btn01"/>
 						<form:radiobutton path="book_area" value="1" label="청소년" class="new_input_btn01"/>
 						<form:radiobutton path="book_area" value="2" label="어린이" class="new_input_btn01"/>
 					</td>
 				</tr>
-				<tr>
+				<!--<tr>
 					<th>독서노트 신청수량<b style="color: red;">(*)</b></th>
 					<td>
 						<form:hidden path="book_quantity" value="1"/>
@@ -126,13 +126,12 @@ $(function() {
 						<form:radiobutton path="receive_lib" value="2" label="용학도서관"/>
 						<form:radiobutton path="receive_lib" value="3" label="고산도서관"/>
 					</td>
-				</tr>
+				</tr>-->
 			</tbody>
 		</table>
 		
-		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:20px;">위와 같이 <제8회 수성인문학제> 독서릴레이에 신청합니다.</strong>
-
-		<p style="text-align:center;margin-bottom:10px;">※개인릴레이용 도서는 도서관 자료실에서 대출</p>
+		<strong style="display: block; text-align: center;font-size:18px;margin-bottom:10px;">위와 같이 <제8회 수성인문학제> 독서왕 공모를 신청합니다.</strong>
+		<p style="text-align:center;margin-bottom:10px;">도서는 도서관 자료실에서 대출</p>
 
 		<div class="rsv-info"></div>
 		<div class="auto-scroll">
@@ -156,7 +155,7 @@ $(function() {
 			  </thead>
 			  <tbody>
 				<tr>
-				  <th>일반/청소년</th>
+				  <th>성인/청소년</th>
 				  <td>종합자료실(3층)</td>
 				  <td>종합자료실(3층)</td>
 				  <td>종합자료실(2층)</td>
@@ -169,7 +168,37 @@ $(function() {
 				</tr>
 			  </tbody>
 			</table>
-		  </div>
+		</div>
+
+		<p style="text-align:center;margin-bottom:10px;">※오프라인 참가자 독서노트 수령장소</p>
+
+		<div class="rsv-info"></div>
+		<div class="auto-scroll">
+			<table class="bbs-edit tbl2" summary="수성인문학제 참여 도서관별 자료실 위치를 안내하는 표">
+			  <caption class="disnone">
+			  수성인문학제 참여 도서관별 자료실 위치
+			  </caption>
+			  <colgroup>
+			  <col width="33%">
+			  <col width="34%">
+			  <col width="33%">
+			  </colgroup>
+			  <thead>
+				<tr>
+				  <th>범어도서관</th>
+				  <th>용학도서관</th>
+				  <th>고산도서관</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td>사무실(1층)</td>
+				  <td>정보데스크(1층)</td>
+				  <td>사무실(4층)</td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
 		
 		<div class="button bbs-btn center">
 			<a href="#" id="save_btn" class="btn btn1">신청하기</a>
