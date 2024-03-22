@@ -72,7 +72,7 @@ function doOutFocus() {
 			</colgroup>
 			<tbody>
 				<tr class="first">
-				   <td colspan="2" class="first last td1">-------------------------------------------</td>
+				   <td colspan="2" class="first last td1">-----------------------------------------</td>
 				</tr>
 				<tr>
 					<td style="font-size: 15px; text-align: justify; font-weight: bold;font-family: 맑은 고딕;" class="first td1"><span style="letter-spacing:7px;">자료</span>실 : </td>
@@ -81,18 +81,18 @@ function doOutFocus() {
 				<c:choose>
 					<c:when test="${detail.SHELF_LOC_CODE eq 'AD17' or detail.SHELF_LOC_CODE eq 'AD22'}">
 						<tr>
-							<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1"><span style="letter-spacing:3px;">→ 서고 책은 직원에게 문의 해주세요.</span> </td>
+							<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 직원에게 문의</td>
 						</tr>
 					</c:when>
 
 					<c:when test="${detail.SHELF_LOC_CODE eq 'AD27'}">
 						<tr>
-							<td colspan="2"style="font-size: 15px; text-align: justify; font-weight: bold;font-family: 맑은 고딕;" class="first td1"><span style="letter-spacing:3px;">→ 서고 책은 유아실 직원에게 문의 해주세요.</span></td>
+							<td colspan="2"style="font-size: 15px; text-align: justify; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 유아실 직원에게 문의</td>
 						</tr>
 					</c:when>
 					<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' or detail.SHELF_LOC_CODE eq 'AD40'}">
 						<tr>
-							<td colspan="2" style="font-size: 15px; text-align: justify; font-weight: bold;font-family: 맑은 고딕;" class="first td1"><span style="letter-spacing:3px;">→ 스마트도서관 책은 지하철역 기기에서 대출할 수 있습니다.</span></td>
+							<td colspan="2" style="font-size: 15px; text-align: justify; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 지하철역 기기에서 대출가능</td>
 						</tr>
 					</c:when>
 				</c:choose>
@@ -121,7 +121,7 @@ function doOutFocus() {
 				    <td style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.AUTHOR}</td>
 				</tr>
 				<tr>
-				   <td colspan="2" class="first last td1">-------------------------------------------</td>
+				   <td colspan="2" class="first last td1">-----------------------------------------</td>
 				</tr>
 			</tbody>
 		</table>
