@@ -58,7 +58,7 @@ public class UntactBookReservationWorkbook {
 		// 헤더 컬럼 지정
 //		workbook.getSheet(0).addCell( new Label(column++, 1, "번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자아이디", format ) );
-		workbook.getSheet(0).addCell( new Label(column++, 0, "대출자번호", format ) );
+		workbook.getSheet(0).addCell( new Label(column++, 0, "user_key", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "등록번호", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청자명", format ) );
 		workbook.getSheet(0).addCell( new Label(column++, 0, "신청일", format ) );
