@@ -80,7 +80,11 @@ public class NeighborhoodLibrary extends PagingUtils {
 	private String search_tomorrow_type;
 	private String search_time;
 	private String reserve_status_array;
-	
+
+	private int currentDeviceCount;
+
+	private int totalDeviceCount;
+
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -465,5 +469,20 @@ public class NeighborhoodLibrary extends PagingUtils {
 	public void setUser_no(String user_no) {
 		this.user_no = user_no;
 	}
-	
+
+	public int getTotalDeviceCount() {
+		return totalDeviceCount;
+	}
+
+	public void setTotalDeviceCount(int totalDeviceCount) {
+		this.totalDeviceCount = totalDeviceCount;
+	}
+
+	public int getCurrentDeviceCount() {
+		return currentDeviceCount;
+	}
+
+	public void setCurrentDeviceCount(int currentDeviceCount) {
+		this.currentDeviceCount = currentDeviceCount;
+	}
 }

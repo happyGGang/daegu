@@ -1122,4 +1122,20 @@
 			member_id = #{member_id}
 		AND cancel_yn = 'N'
 	</select>
+
+	<select id="getNearByLibUseDevice" resultType="map">
+		SELECT
+			COUNT(*) AS currentDeviceCount, (SELECT count(*) FROM NEIGHBORHOOD_LIBRARY_LOCKER_EACH_CONFIG WHERE device_idx = #{device_idx} AND use_yn = 'Y') as totalDeviceCount
+		FROM
+			(
+				SELECT
+					member_id
+				FROM
+					NEIGHBORHOOD_LIBRARY_RESERVE
+				WHERE
+					device_idx = #{device_idx}
+				  AND reserve_status IN ('1','2','3')
+				GROUP BY member_id
+			)
+	</select>
 </mapper>

@@ -1760,4 +1760,7 @@ public class NearbyLibService extends BaseService {
 		return dao.getReserveCountNowLockerIn(nearbyLibReserveConfig);
 	}
 
+	public Map<String, Object> getNearByLibUseDevice(int deviceIdx) {
+		return dao.getNearByLibUseDevice(deviceIdx);
+	}
 }

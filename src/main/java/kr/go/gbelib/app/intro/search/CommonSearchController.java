@@ -3909,9 +3909,19 @@ public class CommonSearchController extends BaseController {
 			service.alertMessage("회원정보를 불러오는데 오류가 발생하였습니다.관리자에게 문의해주세요.", request, response);
 			return null;
 		}
-		
-		model.addAttribute("deviceList", neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(new NearbyLibDevice()));
+
+		List<NearbyLibDevice> deviceList = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceList(new NearbyLibDevice());
+
+		model.addAttribute("deviceList", deviceList);
 		model.addAttribute("neighborhoodLibrary", neighborhoodLibrary);
+
+		for(int i = 0; i < deviceList.size(); i++){
+			String device_name = deviceList.get(i).getDevice_name();
+			Map<String,Object> nowLockerList = neighborhoodLibraryService.getNearByLibUseDevice(deviceList.get(i).getDevice_idx());
+
+			model.addAttribute("currentDeviceCount" + deviceList.get(i).getDevice_idx(), nowLockerList.get("CURRENTDEVICECOUNT"));
+			model.addAttribute("totalDeviceCount" + deviceList.get(i).getDevice_idx(), nowLockerList.get("TOTALDEVICECOUNT"));
+		}
 
 		return String.format(basePath, homepage.getFolder()) + "neighborhoodLibrary/edit";
 	}

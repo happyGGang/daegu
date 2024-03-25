@@ -90,7 +90,21 @@ $(function() {
                     <form:select path="device_idx">
 						<option value="" label="- 수령장소를 선택 하세요 -"/>
 						<c:forEach var="i" items="${deviceList }">
-							<form:option value="${i.device_idx }" label="${i.device_name }"/>
+							<c:choose>
+								<c:when test="${i.device_idx eq '1'}">
+									<c:set var="currentDeviceCount" value="${currentDeviceCount1}" />
+									<c:set var="totalDeviceCount" value="${totalDeviceCount1}" />
+								</c:when>
+								<c:when test="${i.device_idx eq '2'}">
+									<c:set var="currentDeviceCount" value="${currentDeviceCount2}" />
+									<c:set var="totalDeviceCount" value="${totalDeviceCount2}" />
+								</c:when>
+								<c:when test="${i.device_idx eq '3'}">
+									<c:set var="currentDeviceCount" value="${currentDeviceCount3}" />
+									<c:set var="totalDeviceCount" value="${totalDeviceCount3}" />
+								</c:when>
+							</c:choose>
+							<form:option value="${i.device_idx }" label="${i.device_name} (${currentDeviceCount} / ${totalDeviceCount})"/>
 						</c:forEach>						
 					</form:select>
                 </td>

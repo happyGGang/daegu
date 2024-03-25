@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.cms.module.nearbyLib;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.go.gbelib.app.cms.module.nearbyLib.nearbyLibReserveConfig.NearbyLibReserveConfig;
 import kr.go.gbelib.app.cms.module.neighborhoodLibrary.NeighborhoodLibrary;
@@ -98,4 +99,5 @@ public interface NearbyLibDao {
 
 	int getReserveCountNowLockerIn(NearbyLibReserveConfig nearbyLibReserveConfig);
 
+	Map<String, Object> getNearByLibUseDevice(int deviceIdx);
 }
