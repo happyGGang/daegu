@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.12.31. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -90,35 +90,35 @@
 							<tr>
 								<th>권수</th>
                 <td>1,830</td>
-                <td>1,295</td>
-                <td>613</td>
-                <td>4,113</td>
-                <td>3,209</td>
-                <td>1,623</td>
-                <td>994</td>
-                <td>2,182</td>
-                <td>16,806</td>
-                <td>3,474</td>
-                <td>36,139</td>
+    <td>1,297</td>
+    <td>614</td>
+    <td>4,038</td>
+    <td>3,144</td>
+    <td>1,621</td>
+    <td>994</td>
+    <td>1,922</td>
+    <td>16,282</td>
+    <td>3,397</td>
+    <td>35,139</td>
 							</tr>
 							<tr>
 								<th>비율</th>
                 <td>5.1</td>
-                <td>3.5</td>
-                <td>1.6</td>
-                <td>11.5</td>
-                <td>8.7</td>
-                <td>4.4</td>
-                <td>2.8</td>
-                <td>6.2</td>
-                <td>46.4</td>
-                <td>9.8</td>
-                <td>100</td>
+    <td>3.5</td>
+    <td>1.6</td>
+    <td>11.5</td>
+    <td>8.7</td>
+    <td>4.4</td>
+    <td>2.8</td>
+    <td>6.2</td>
+    <td>46.4</td>
+    <td>9.8</td>
+    <td>100</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.12.31. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -149,26 +149,26 @@
 							<tr>
 								<th>권수</th>
                 <td>15,955</td>
-                <td>4,887</td>
-                <td>10,574</td>
-                <td>70</td>
-                <td>4,653</td>
-                <td>36,139</td>
+    <td>4,649</td>
+    <td>10,499</td>
+    <td>70</td>
+    <td>3,966</td>
+    <td>35,139</td>
 							</tr>
 							<tr>
 								<th>비율</th>
                 <td>44.6</td>
-                <td>13.2</td>
-                <td>29.0</td>
-                <td>0.2</td>
-                <td>13.0</td>
-                <td>100</td>
+    <td>13.2</td>
+    <td>29.0</td>
+    <td>0.2</td>
+    <td>13.0</td>
+    <td>100</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<p>보존서고: 6,508권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2023.12.31. 기준] (단위 : 권)</span></h3>
+				<p>보존서고: 6,506권 포함</p>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">
@@ -201,12 +201,12 @@
 							<tr>
 								<th>국내</th>
                 <td>3</td>
-                <td>0</td>
-                <td>1</td>
-                <td>10</td>
-                <td>0</td>
-                <td>0</td>
-                <td>14</td>
+    <td>0</td>
+    <td>2</td>
+    <td>13</td>
+    <td>0</td>
+    <td>0</td>
+    <td>18</td>
 							</tr>
 						</tbody>
 					</table>

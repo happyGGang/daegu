@@ -292,6 +292,11 @@ $(function(){
 		<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}">
 			<c:choose>
 				<c:when test="${fn:length(subHomepageList) eq '1'}">
+					<ul class="con">
+						<li>유아에서 초등생 어린이회원이 포함된 가족회원이 1도서관 1전집 신청 </li>
+						<li>매월 마지막 화요일~금요일(화 10:00~선착순)모집</li>
+						<li>대출연장 및 동일전집 재대출 불가하며 신청 후 미수령 또는 연체 시 2개월 신청 불가</li>
+					</ul>
 					<div class="tab_menu on">
 						<ul class="no${fn:length(dongguCategoryList)}">
 							<c:forEach items="${dongguCategoryList}" var="i" varStatus="status">
@@ -301,6 +306,11 @@ $(function(){
 					</div>
 				</c:when>
 				<c:otherwise>
+					<ul class="con">
+						<li>유아에서 초등생 어린이회원이 포함된 가족회원이 1도서관 1전집 신청 </li>
+						<li>매월 마지막 화요일~금요일(화 10:00~선착순)모집</li>
+						<li>대출연장 및 동일전집 재대출 불가하며 신청 후 미수령 또는 연체 시 2개월 신청 불가</li>
+					</ul>
 					<div class="tab_menu on">
 						<ul class="no${fn:length(dongguCategoryList)}">
 							<c:forEach items="${dongguCategoryList}" var="i" varStatus="status">
@@ -331,7 +341,7 @@ $(function(){
 		</ul>
 	</c:if>
 
-	<!-- 범어 > 글로벌문화행사 -->
+	<!-- 범어 글로벌문화행사 -->
 	<c:if test="${homepage.context_path eq 'beomeo'}">
 		<c:choose>
 			<c:when test="${param.searchCate1 eq '23'}">
@@ -443,7 +453,6 @@ $(function(){
 						<option class="all" label="선택" />
 						<option value="0" label="수강신청" />
 						<option value="1" label="대기자신청" />
-						<option value="11" label="접수중" />
 						<option value="2,10" label="신청완료" />
 						<option value="3" label="대기자신청완료" />
 						<option value="4" label="접수마감" />
@@ -729,10 +738,6 @@ ${html.html}
 												<c:when test="${i.teach_status eq '0'}">
 													<a href="" class="btn btn5 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
 													<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
-												</c:when>
-												<c:when test="${i.teach_status eq '11'}">
-													<a href="javascript:void(0);" class="btn btn5" style="cursor: default;">
-													<i class="fa fa-pencil-square-o"></i><span> 접수중 </span>
 												</c:when>
 												<c:when test="${i.teach_status eq '1'}">
 													<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">
