@@ -70,7 +70,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	         		</c:when>
 	         		<c:otherwise>
 	         		<form:hidden path="cell_phone"/>
-					${fn:substring(locker.cell_phone, 0, 3)} - ${fn:substring(locker.cell_phone, 3, 7)} - ${fn:substring(locker.cell_phone, 7, 11)}
+					${lockerReq.cell_phone}
 	         		</c:otherwise>
 					</c:choose>	         	
 	         	</td>
