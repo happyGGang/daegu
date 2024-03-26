@@ -77,9 +77,9 @@ $(function() {
 			<tr>
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
+					<form:input path="loan_start_date" cssClass="text ui-calendar" readonly="true"/>
 					<span>~</span>
-					<form:input path="loan_end_date" cssClass="text ui-calendar"/>
+					<form:input path="loan_end_date" cssClass="text ui-calendar" readonly="true"/>
 					<div class="ui-state-highlight">
 						<i class="fa fa-question-circle"></i>
 						<em>대출 기간은 택배 배송 소요일을 포합합니다. 반납일 3일전 반납 신청해주시길 바랍니다.</em>

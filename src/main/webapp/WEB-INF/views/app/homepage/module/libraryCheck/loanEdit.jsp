@@ -60,8 +60,9 @@ $(function() {
 // 날짜를 나타내기 전에(beforeShowDay) 실행할 함수
 	function disableSomeDay(date) {
 		var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-		return [ disabledDays.indexOf(string) == -1 ]
-		return [true];
+		var day = date.getDay();
+		var isWeekend = (day === 0 || day === 6);
+		return [disabledDays.indexOf(string) == -1 && !isWeekend];
 	}
 
 	$('input#loan_start_date').datepicker({

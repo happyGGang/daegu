@@ -46,11 +46,11 @@ $(function() {
 	var disabledDays = '${disableBetweenDates}';
 	var businessDate = calculateBusinessDays(new Date(), 3);
 
-// 날짜를 나타내기 전에(beforeShowDay) 실행할 함수
 	function disableSomeDay(date) {
-			var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-			return [ disabledDays.indexOf(string) == -1 ]
-		return [true];
+		var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+		var day = date.getDay();
+		var isWeekend = (day === 0 || day === 6);
+		return [disabledDays.indexOf(string) == -1 && !isWeekend];
 	}
 
 	$('input#loan_start_date').datepicker({
@@ -137,9 +137,9 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
+					<form:input path="loan_start_date" cssClass="text ui-calendar" readonly="true"/>
 					<span>~</span>
-					<form:input path="loan_end_date" cssClass="text ui-calendar" onchange="checkLoanDate('${pictureBook.picture_book_idx}');"/>
+					<form:input path="loan_end_date" cssClass="text ui-calendar" readonly="true" onchange="checkLoanDate('${pictureBook.picture_book_idx}');"/>
 				</td>
 			</tr>
 			<tr>
