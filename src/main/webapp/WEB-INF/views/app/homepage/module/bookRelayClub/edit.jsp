@@ -183,7 +183,7 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th colspan="2">독서노트 신청수량<b style="color: red;">(*)</b></th>
+					<th colspan="2">독서노트 신청수<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권
 					</td>

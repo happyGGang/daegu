@@ -134,7 +134,7 @@ $(function() {
 					</td>
 				</tr>
 				<tr>
-					<th>독서노트 신청수량<b style="color: red;">(*)</b></th>
+					<th>독서노트 신청수<b style="color: red;">(*)</b></th>
 					<td>
 						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권&nbsp;
 						<span>(※ 독서왕 공모 참여자가 있을 경우 신청)</span>

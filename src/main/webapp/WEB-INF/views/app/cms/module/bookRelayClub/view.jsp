@@ -74,7 +74,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th colspan="2">독서노트 신청수량</th>
+				<th colspan="2">독서노트 신청수</th>
 				<td>${getBookRelayClub.book_quantity}권</td>
 			</tr>
 			<tr>
