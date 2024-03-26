@@ -1189,7 +1189,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'FW'}">
 
 						</c:when>
-						<c:when test=" ${detail.SHELF_LOC_CODE eq 'BU11'}">
+						<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
 										
 						</c:when>
 						<c:otherwise>
