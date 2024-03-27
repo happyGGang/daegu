@@ -8,7 +8,7 @@
 			homepage_id, individual_idx, user_name, user_phone, user_email, 
 			user_affiliation, postcode, address_base, address_detailed, book_area, 
 			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
-			approval_status, delete_yn, add_id, add_date
+			approval_status, delete_yn, add_id, add_date,receive_yn,receive_division
 		FROM
 			BOOK_RELAY_INDIVIDUAL
 		WHERE
@@ -52,7 +52,7 @@
 			homepage_id, individual_idx, user_name, user_phone, user_email, 
 			user_affiliation, postcode, address_base, address_detailed, book_area, 
 			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
-			approval_status, delete_yn, add_id, add_date
+			approval_status, delete_yn, add_id, add_date, receive_yn,receive_division
 		FROM
 			BOOK_RELAY_INDIVIDUAL
 		WHERE
@@ -67,14 +67,14 @@
 			homepage_id, individual_idx, user_name, user_phone, user_email,
 			user_affiliation, postcode, address_base, address_detailed, book_area,
 			book_quantity, reader_contest, relay_plan, relay_personnel, receive_lib,
-			approval_status, delete_yn, add_id, add_date
+			approval_status, delete_yn, add_id, add_date, receive_division
 		)
 		VALUES
 		(
 			#{homepage_id}, (SELECT NVL(MAX(individual_idx), 0)+1 FROM BOOK_RELAY_INDIVIDUAL), #{user_name}, #{user_phone}, #{user_email},
 			#{user_affiliation}, #{postcode}, #{address_base}, #{address_detailed}, #{book_area},
 			#{book_quantity}, #{reader_contest}, #{relay_plan}, #{relay_personnel}, #{receive_lib},
-			#{approval_status}, #{delete_yn}, #{add_id}, SYSDATE
+			#{approval_status}, #{delete_yn}, #{add_id}, SYSDATE, ${receive_division}
 		)
 	</insert>
 	
@@ -125,7 +125,17 @@
 			homepage_id = #{homepage_id}
 		AND individual_idx = #{individual_idx}
 	</update>
-	
+
+	<update id="receiveYnChangeBookRelayIndividual">
+		UPDATE
+			BOOK_RELAY_INDIVIDUAL
+		SET
+			receive_yn = #{receive_yn}
+		WHERE
+			homepage_id = #{homepage_id}
+		AND individual_idx = #{individual_idx}
+	</update>
+
 	<select id="checkDupRequest" resultType="boolean">
 		SELECT
 			COUNT(*)

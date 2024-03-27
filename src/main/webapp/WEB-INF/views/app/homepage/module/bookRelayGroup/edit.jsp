@@ -128,9 +128,8 @@ $(function() {
 				<tr>
 					<th>대상별<b style="color: red;">(*)</b></th>
 					<td>
-						<form:radiobutton path="book_area" value="0" label="성인" class="new_input_btn01"/>
-						<form:radiobutton path="book_area" value="1" label="청소년" class="new_input_btn01"/>
-						<form:radiobutton path="book_area" value="2" label="어린이" class="new_input_btn01"/>
+						<form:radiobutton path="book_area" value="0" label="성인부" class="new_input_btn01" checked="checked"/>
+						<form:radiobutton path="book_area" value="1" label="학생부(초·중·고)" class="new_input_btn01"/>
 					</td>
 				</tr>
 				<tr>
@@ -155,7 +154,7 @@ $(function() {
 				<tr>
 					<th>수령도서관<b style="color: red;">(*)</b></th>
 					<td>
-						<form:radiobutton path="receive_lib" value="1" label="범어도서관"/>
+						<form:radiobutton path="receive_lib" value="1" label="범어도서관" checked="checked"/>
 						<form:radiobutton path="receive_lib" value="2" label="용학도서관"/>
 						<form:radiobutton path="receive_lib" value="3" label="고산도서관"/>
 					</td>

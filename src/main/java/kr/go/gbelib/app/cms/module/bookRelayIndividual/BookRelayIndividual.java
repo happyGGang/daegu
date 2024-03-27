@@ -28,7 +28,9 @@ public class BookRelayIndividual extends PagingUtils {
 	private String modify_id;	//수정ID
 	private Date modify_date;	//수정일
 	private String delete_id;	//삭제ID
-	
+	private String receive_division;	//삭제ID
+
+	private String receive_yn;	//수령여부
 	public String getHomepage_id() {
 		return homepage_id;
 	}
@@ -204,5 +206,19 @@ public class BookRelayIndividual extends PagingUtils {
 	public void setDelete_id(String delete_id) {
 		this.delete_id = delete_id;
 	}
-	
+
+	public String getReceive_yn() {
+		return receive_yn;
+	}
+	public void setReceive_yn(String receive_yn) {
+		this.receive_yn = receive_yn;
+	}
+
+	public String getReceive_division() {
+		return receive_division;
+	}
+
+	public void setReceive_division(String receive_division) {
+		this.receive_division = receive_division;
+	}
 }

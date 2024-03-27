@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.bookRelayIndividual.BookRelayIndividual;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -153,7 +154,24 @@ public class BookRelayGroupController extends BaseController {
 		}
 		
 		return res;
-	}	
+	}
+	@RequestMapping (value = {"/receiveYn.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse receiveYn(BookRelayGroup bookRelayGroup, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		bookRelayGroup.setHomepage_id(getAsideHomepageId(request));
+
+		if (!result.hasErrors()) {
+			service.receiveYnChangeBookRelayGroup(bookRelayGroup);
+			res.setValid(true);
+			res.setMessage("변경되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
 
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookRelayGroupSearchView excel(Model model, BookRelayGroup bookRelayGroup, HttpServletRequest request, HttpServletResponse response) throws Exception {

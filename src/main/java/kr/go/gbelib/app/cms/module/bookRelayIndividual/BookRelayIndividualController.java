@@ -138,7 +138,25 @@ public class BookRelayIndividualController extends BaseController {
 		}
 		
 		return res;
-	}	
+	}
+
+	@RequestMapping (value = {"/receiveYn.*"}, method = RequestMethod.POST)
+	public @ResponseBody JsonResponse receiveYn(BookRelayIndividual bookRelayIndividual, BindingResult result, HttpServletRequest request) {
+		JsonResponse res = new JsonResponse(request);
+
+		bookRelayIndividual.setHomepage_id(getAsideHomepageId(request));
+
+		if (!result.hasErrors()) {
+			service.receiveYnChangeBookRelayIndividual(bookRelayIndividual);
+			res.setValid(true);
+			res.setMessage("변경되었습니다.");
+		} else {
+			res.setValid(false);
+			res.setResult(result.getAllErrors());
+		}
+
+		return res;
+	}
 	
 	@RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
 	public BookRelayIndividualSearchView excel(Model model, BookRelayIndividual bookRelayIndividual, HttpServletRequest request, HttpServletResponse response) throws Exception {

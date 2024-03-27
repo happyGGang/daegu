@@ -32,7 +32,13 @@ $(function() {
 		$('#approval_status').val($(this).val());
 		doAjaxPost($('form#bookRelayGroup'));
 	});
-	
+	$('select.receive_yn').on('change', function(e) {
+		e.preventDefault();
+		$('form#bookRelayGroup').attr('action', 'receiveYn.do');
+		$('#individual_idx').val($(this).data('key'));
+		$('#receive_yn').val($(this).val());
+		doAjaxPost($('form#bookRelayGroup'));
+	});
 	$('a.delete_btn').on('click', function(e) {
 		e.preventDefault();
 		if (confirm('정말로 삭제하시겠습니까?\n\n삭제된 신청은 복구가 불가능합니다.')) {
@@ -69,6 +75,7 @@ $(function() {
 <form:hidden path="group_idx"/>
 <form:hidden path="editMode"/>
 <form:hidden path="approval_status"/>
+<form:hidden path="receive_yn"/>
 	<div class="infodesk">
 		검색 결과 : 총 ${paging.totalDataCount}건
 		
@@ -89,13 +96,15 @@ $(function() {
 		<table class="type1 center">
 			<colgroup>
 				<col width="5%" />
-				<col width=""/>
+				<col width="17%"/>
 				<col width="10%"/>
 				<col width="10%"/>
+				<col width="12%"/>
+				<col width="8%"/>
 				<col width="10%"/>
+				<col width="6%"/>
 				<col width="8%"/>
-				<col width="8%"/>
-				<col width="8%"/>
+				<col width="10%"/>
 				<col width="5%"/>
 			</colgroup>
 			<thead>
@@ -108,6 +117,8 @@ $(function() {
 					<th>대상별</th>
 					<th>등록일</th>
 					<th>상태</th>
+					<th>수령상태</th>
+					<th>수령장소</th>
 					<th>삭제</th>
 				</tr>
 			</thead>
@@ -123,9 +134,9 @@ $(function() {
 						<td>${i.user_phone}</td>
 						<td>
 							<c:choose>
-								<c:when test="${i.book_area eq '0'}">성인</c:when>
-								<c:when test="${i.book_area eq '1'}">청소년</c:when>
-								<c:when test="${i.book_area eq '2'}">어린이</c:when>
+								<c:when test="${i.book_area eq '0'}">성인부</c:when>
+								<c:when test="${i.book_area eq '1' or i.book_area eq '2'}">학생부(초·중·고)</c:when>
+<%--								<c:when test="${i.book_area eq '2'}">어린이</c:when>--%>
 							</c:choose>
 						</td>
 						<td>
@@ -137,6 +148,19 @@ $(function() {
 								<option value="1" ${i.approval_status eq '1' ? 'selected' : ''}>승인</option>
 								<option value="2" ${i.approval_status eq '2' ? 'selected' : ''}>취소</option>
 							</select>
+						</td>
+						<td>
+							<select class="receive_yn" data-key="${i.group_idx}">
+								<option value="Y" <c:if test="${i.receive_yn eq 'Y'}">selected</c:if>>수령</option>
+								<option value="N" ${i.receive_yn eq 'N' ? 'selected' : ''}>미수령</option>
+							</select>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test="${i.receive_lib eq '1'}">범어도서관</c:when>
+								<c:when test="${i.receive_lib eq '2'}">용학도서관</c:when>
+								<c:when test="${i.receive_lib eq '3'}">고산도서관</c:when>
+							</c:choose>
 						</td>
 						<td>
 							<a href="#" class="btn delete_btn" data-key="${i.group_idx}">삭제</a>

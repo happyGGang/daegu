@@ -106,27 +106,41 @@ $(function() {
 				<tr>
 					<th>대 상<b style="color: red;">(*)</b></th>
 					<td>
-						<form:radiobutton path="book_area" value="0" label="성인" class="new_input_btn01"/>
-						<form:radiobutton path="book_area" value="1" label="청소년" class="new_input_btn01"/>
-						<form:radiobutton path="book_area" value="2" label="어린이" class="new_input_btn01"/>
+						<form:radiobutton path="book_area" value="0" label="성인부" class="new_input_btn01" checked="checked"/>
+						<form:radiobutton path="book_area" value="1" label="학생부(초·중·고)" class="new_input_btn01"/>
 					</td>
 				</tr>
-				<!--<tr>
-					<th>독서노트 신청수<b style="color: red;">(*)</b></th>
+				<tr>
+					<th>구 분<b style="color: red;">(*)</b></th>
 					<td>
-						<form:hidden path="book_quantity" value="1"/>
-						1권&nbsp;
-						<span>(※ 다독자 공모 참여)</span>
+						<form:radiobutton path="receive_division" value="1" label="온라인" class="new_input_btn01" checked="checked"/>
+						<form:radiobutton path="receive_division" value="2" label="오프라인(독서노트 1권 수령)" class="new_input_btn01"/>
 					</td>
 				</tr>
 				<tr>
 					<th>수령도서관<b style="color: red;">(*)</b></th>
 					<td>
-						<form:radiobutton path="receive_lib" value="1" label="범어도서관"/>
+						<form:radiobutton path="receive_lib" value="1" label="범어도서관" checked="checked"/>
 						<form:radiobutton path="receive_lib" value="2" label="용학도서관"/>
 						<form:radiobutton path="receive_lib" value="3" label="고산도서관"/>
 					</td>
-				</tr>-->
+				</tr>
+<%--				<tr>--%>
+<%--					<th>독서노트 신청수<b style="color: red;">(*)</b></th>--%>
+<%--					<td>--%>
+<%--						<form:hidden path="book_quantity" value="1"/>--%>
+<%--						1권&nbsp;--%>
+<%--						<span>(※ 다독자 공모 참여)</span>--%>
+<%--					</td>--%>
+<%--				</tr>--%>
+<%--				<tr>--%>
+<%--					<th>수령도서관<b style="color: red;">(*)</b></th>--%>
+<%--					<td>--%>
+<%--						<form:radiobutton path="receive_lib" value="1" label="범어도서관"/>--%>
+<%--						<form:radiobutton path="receive_lib" value="2" label="용학도서관"/>--%>
+<%--						<form:radiobutton path="receive_lib" value="3" label="고산도서관"/>--%>
+<%--					</td>--%>
+<%--				</tr>--%>
 			</tbody>
 		</table>
 		

@@ -52,5 +52,8 @@ public class BookRelayGroupService extends BaseService {
 	public int statusChangeBookRelayGroup(BookRelayGroup bookRelayGroup) {
 		return dao.statusChangeBookRelayGroup(bookRelayGroup);
 	}
+	public int receiveYnChangeBookRelayGroup(BookRelayGroup bookRelayGroup) {
+		return dao.statusChangeBookRelayGroup(bookRelayGroup);
+	}
 	
 }
