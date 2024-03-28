@@ -81,7 +81,7 @@ public class BookRelayGroupController extends BaseController {
     		ValidationUtils.rejectIfEmpty(result, "address_base", "주소를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "address_detailed", "상세주소를 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "book_area", "대상별을 선택하세요.");
-    		ValidationUtils.rejectIfEmpty(result, "book_quantity", "독서노트 신청수량을 입력하세요.");
+//    		ValidationUtils.rejectIfEmpty(result, "book_quantity", "독서노트 신청수량을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "relay_plan", "릴레이 계획을 입력하세요.");
     		ValidationUtils.rejectIfEmpty(result, "relay_personnel", "릴레이 예상인원을 입력하세요.");
     		

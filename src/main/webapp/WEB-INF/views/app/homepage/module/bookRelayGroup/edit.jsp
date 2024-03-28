@@ -132,13 +132,13 @@ $(function() {
 						<form:radiobutton path="book_area" value="1" label="학생부(초·중·고)" class="new_input_btn01"/>
 					</td>
 				</tr>
-				<tr>
-					<th>독서노트 신청수<b style="color: red;">(*)</b></th>
-					<td>
-						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권&nbsp;
-						<span>(※ 독서왕 공모 참여자가 있을 경우 신청)</span>
-					</td>
-				</tr>
+<%--				<tr>--%>
+<%--					<th>독서노트 신청수<b style="color: red;">(*)</b></th>--%>
+<%--					<td>--%>
+<%--						<form:input path="book_quantity" cssClass="text new_text01" cssStyle="width:5%;" numberOnly="true" />권&nbsp;--%>
+<%--						<span>(※ 독서왕 공모 참여자가 있을 경우 신청)</span>--%>
+<%--					</td>--%>
+<%--				</tr>--%>
 				<tr>
 					<th>릴레이 계획<b style="color: red;">(*)</b></th>
 					<td>
