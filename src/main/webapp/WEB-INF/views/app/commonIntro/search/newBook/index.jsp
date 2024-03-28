@@ -35,8 +35,6 @@ $(function() {
 			$('input#search_start_date').datepicker('option', 'maxDate', selectedDate);
 		}
 	});
-	$('input#search_start_date').val(null);
-	$('input#search_end_date').val(null);
 	//이미지 목록형
 	$('.imgView').on('click', function(e) {
 		e.preventDefault();
@@ -430,7 +428,7 @@ $(function() {
 			<th>상세검색</th>
 			<td colspan="3">
 				<ul>
-					<li>
+					<li style="width: 320px;">
 						<form:input path="search_start_date" id="search_start_date" cssClass="text ui-calendar"/> ~ <form:input path="search_end_date" id="search_end_date" cssClass="text ui-calendar"/>
 					</li>
 				</ul>
