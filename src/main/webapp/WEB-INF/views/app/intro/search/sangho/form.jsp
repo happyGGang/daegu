@@ -163,7 +163,13 @@ $(function() {
 						<!-- <form:option value="727076">율하5주민도서관</form:option> -->
 					</form:select>
 					</c:when>
-
+					<c:when test="${context_path eq 'namic' || context_path eq 'namdm'}">
+					<form:select path="uselibcode">
+						<form:option value="127090">이천어울림도서관</form:option>
+						<form:option value="127091">대명어울림도서관</form:option>
+						<form:option value="127015">꿈틀 작은도서관</form:option>
+					</form:select>
+					</c:when>
 					<c:when test="${context_path eq 'seogulib' || context_path eq 'biwon' ||context_path eq 'wongogae' || context_path eq 'bisan' || context_path eq 'seoguenglish' || context_path eq 'newPyeongni'}">
 					<form:select path="uselibcode">
 						<form:option value="127011">서구어린이도서관</form:option>

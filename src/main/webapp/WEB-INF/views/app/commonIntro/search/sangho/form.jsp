@@ -246,6 +246,13 @@ $(function() {
 						<form:option value="127104">New평리도서관</form:option>
 					</form:select>
 					</c:when>
+					<c:when test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic' }">
+					<select name="uselibcode" id="uselibcode">
+								<option value="127090">이천어울림도서관</option>
+								<option value="127091">대명어울림도서관</option>
+								<option value="127015">꿈틀 작은도서관</option>
+							</select>
+					</c:when>
 					<c:when test="${homepage.context_path eq 'dgportal'}">
 						<c:choose>
 							<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE'}">

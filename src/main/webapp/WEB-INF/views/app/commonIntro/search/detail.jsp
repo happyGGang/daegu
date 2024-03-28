@@ -822,6 +822,27 @@ $(function() {
 					</c:choose>
 
 				</c:when>
+
+				<c:when test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic'}">
+					<c:choose>
+						<c:when test="${detail.MANAGE_CODE eq 'BT' || detail.MANAGE_CODE eq 'BS' || detail.MANAGE_CODE eq 'FE'}">
+							<c:choose>
+								
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<c:if test="${sessionScope.member.member_id eq 'khy9004'||sessionScope.member.member_id eq 'hades530'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+									</c:if>
+								</c:when>
+								
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+
+				</c:when>
 				
 				<c:when test="${homepage.context_path eq 'dgportal'}">
 
