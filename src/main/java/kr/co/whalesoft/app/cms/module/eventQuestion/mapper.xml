@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.eventQuestion.EventQuestionDao">
+	
+	<select id="getEventQuestionList" resultType="kr.co.whalesoft.app.cms.module.eventQuestion.EventQuestion">
+		SELECT
+			HOMEPAGE_ID, EVENT_IDX, EVENT_QUESTION_IDX, EVENT_QUESTION_TITLE, EVENT_QUESTION_TYPE, EVENT_QUESTION_ITEM, EVENT_QUESTION_ANSWER
+		FROM
+			EVENT_QUESTION
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx}
+		ORDER BY
+			EVENT_QUESTION_IDX
+	</select>
+	
+	<select id="getEventQuestionListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EVENT_QUESTION
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx}
+		ORDER BY
+			EVENT_QUESTION_IDX
+	</select>
+	
+	<select id="getEventQuestionOne" resultType="kr.co.whalesoft.app.cms.module.eventQuestion.EventQuestion">
+		SELECT
+			HOMEPAGE_ID, EVENT_IDX, EVENT_QUESTION_IDX, EVENT_QUESTION_TITLE, EVENT_QUESTION_TYPE, EVENT_QUESTION_ITEM, EVENT_QUESTION_ANSWER
+		FROM
+			EVENT_QUESTION
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND EVENT_QUESTION_IDX = #{event_question_idx}
+	</select>
+	
+	<insert id="addEventQuestion">
+		<selectKey keyProperty="EVENT_question_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(EVENT_QUESTION_IDX),0)+1 FROM EVENT_QUESTION WHERE HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx}
+		</selectKey>
+	
+		INSERT INTO EVENT_QUESTION
+		(
+			HOMEPAGE_ID, EVENT_IDX, EVENT_QUESTION_IDX, EVENT_QUESTION_TITLE, EVENT_QUESTION_TYPE, EVENT_QUESTION_ITEM, EVENT_QUESTION_ANSWER
+		) VALUES (
+			#{homepage_id}, #{event_idx}, #{event_question_idx}, #{event_question_title}, #{event_question_type}, #{event_question_item}, #{event_question_answer}
+		)
+	</insert>
+	
+	<update id="modifyEventQuestion">
+		UPDATE 
+			EVENT_QUESTION 
+		SET
+			EVENT_QUESTION_TITLE 	= #{event_question_title}, 
+			EVENT_QUESTION_TYPE 		= #{event_question_type}, 
+			EVENT_QUESTION_ITEM 		= #{event_question_item},
+			EVENT_QUESTION_ANSWER 	= #{event_question_answer}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND EVENT_QUESTION_IDX = #{event_question_idx} 
+	</update>
+	
+	<delete id="deleteEventQuestion">
+		DELETE FROM EVENT_QUESTION
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND EVENT_QUESTION_IDX = #{event_question_idx} 
+	</delete>
+	
+</mapper>

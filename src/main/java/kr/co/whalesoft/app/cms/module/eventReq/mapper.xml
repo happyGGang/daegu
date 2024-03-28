@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.whalesoft.app.cms.module.eventReq.EventReqDao">
+	
+	<select id="getEventReqList" resultType="kr.co.whalesoft.app.cms.module.eventReq.EventReq">
+		${pagingTop}
+		SELECT
+			homepage_id, event_idx, event_req_idx, event_answer, name,
+			school, hak, ban, gender, age, phone, zip_code,
+			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+			chosen_yn, applicant_id
+		FROM
+			EVENT_REQ
+		WHERE 
+			homepage_id = #{homepage_id} and event_idx = #{event_idx}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			and	${search_type} like '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			event_req_idx
+		${pagingBottom}
+	</select>
+	
+	<select id="getEventReqListAll" resultType="kr.co.whalesoft.app.cms.module.eventReq.EventReq">
+		SELECT
+			homepage_id, event_idx, event_req_idx, event_answer, name,
+			school, hak, ban, gender, age, phone, zip_code,
+			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+			chosen_yn, applicant_id
+		FROM
+			EVENT_REQ
+		WHERE 
+			homepage_id = #{homepage_id} AND EVENT_idx = #{event_idx}
+		ORDER BY
+			event_req_idx
+	</select>
+	
+	<select id="getReEventReqListAll" resultType="kr.co.whalesoft.app.cms.module.eventReq.EventReq">
+		SELECT
+			homepage_id, event_idx, event_req_idx, event_answer, name,
+			school, hak, ban, gender, age, phone, zip_code,
+			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+			chosen_yn, applicant_id
+		FROM
+			EVENT_REQ
+		WHERE 
+			homepage_id = #{homepage_id} AND EVENT_idx = #{event_idx}
+		AND chosen_yn = 'N'
+		ORDER BY
+			EVENT_req_idx
+	</select>
+	
+	<select id="getShuffledEventReqList" resultType="kr.co.whalesoft.app.cms.module.eventReq.EventReq">
+		SELECT
+			*
+		FROM (
+			SELECT
+				homepage_id, event_idx, event_req_idx, event_answer, name,
+				school, hak, ban, phone, zip_code,
+				address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+				chosen_yn, dbms_random.value as rand, applicant_id
+			FROM
+				EVENT_REQ
+			WHERE 
+				homepage_id = #{homepage_id} AND EVENT_idx = #{event_idx}
+			ORDER BY
+				EVENT_req_idx
+		)
+		ORDER BY rand
+	</select>
+	
+	<select id="getReShuffledEventReqList" resultType="kr.co.whalesoft.app.cms.module.eventReq.EventReq">
+		SELECT
+			*
+		FROM (
+			SELECT
+				homepage_id, event_idx, event_req_idx, event_answer, name,
+				school, hak, ban, phone, zip_code,
+				address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
+				chosen_yn, dbms_random.value as rand, applicant_id
+			FROM
+				EVENT_REQ
+			WHERE 
+				homepage_id = #{homepage_id}
+			AND event_idx = #{event_idx}
+			AND chosen_yn = 'N'
+			ORDER BY
+				EVENT_req_idx
+		)
+		ORDER BY rand
+	</select>
+	
+	<select id="getEventReqListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EVENT_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx}
+			<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+			AND	${search_type} LIKE '%'||#{search_text}||'%'
+			</if>
+		ORDER BY
+			EVENT_REQ_IDX
+	</select>
+	
+	<select id="getEventReqOne" resultType="kr.co.whalesoft.app.cms.module.eventReq.EventReq">
+		SELECT
+			HOMEPAGE_ID, EVENT_IDX, EVENT_REQ_IDX, EVENT_ANSWER, NAME, SCHOOL, HAK, BAN, PHONE, ZIP_CODE, ADDRESS, WINNER_YN, ADD_IP, ADD_ID, ADD_DATE, CHOSEN_YN, applicant_id
+		FROM
+			EVENT_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND EVENT_REQ_IDX = #{event_req_idx}
+	</select>
+	
+	<insert id="addEventReq">
+		<selectKey keyProperty="EVENT_req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(EVENT_REQ_IDX),0)+1 FROM EVENT_REQ WHERE HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx}
+		</selectKey>
+		INSERT INTO EVENT_REQ
+		(
+			homepage_id, event_idx, event_req_idx, event_answer, name,
+			school, hak, ban, gender, age, phone, zip_code,
+			address, add_ip, add_id, add_date, chosen_yn, applicant_id
+		) VALUES (
+			#{homepage_id}, #{event_idx}, #{event_req_idx}, #{event_answer}, #{name},
+			#{school}, #{hak}, #{ban}, #{gender}, #{age}, #{phone}, #{zip_code},
+			#{address}, #{add_ip}, #{add_id}, SYSDATE, 'N', #{applicant_id}
+		)
+	</insert>
+	
+	<update id="modifyWinner">
+		UPDATE 
+			EVENT_REQ
+		SET
+			WINNER_YN = #{winner_yn} 
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND EVENT_REQ_IDX = #{event_req_idx} 
+	</update>
+	
+	<select id="checkReqByMemberId" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			EVENT_REQ
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND ADD_ID = #{add_id}
+	</select>
+	
+	<update id="modifyChosenYn">
+		UPDATE 
+			EVENT_REQ
+		SET
+			chosen_yn = #{chosen_yn}
+		WHERE 
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} AND EVENT_REQ_IDX = #{event_req_idx}
+	</update>
+	
+	<update id="deletePersonalData">
+		UPDATE EVENT_REQ SET
+			add_id = NULL,
+			name = NULL,
+			school = NULL,
+			hak = 0,
+			ban = 0,
+			phone = NULL
+		WHERE
+			HOMEPAGE_ID = #{homepage_id} AND EVENT_IDX = #{event_idx} 
+	</update>
+	
+</mapper>
