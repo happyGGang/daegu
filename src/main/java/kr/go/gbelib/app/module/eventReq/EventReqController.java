@@ -61,7 +61,7 @@ public class EventReqController extends BaseController {
 			return null;
 		}
 */
-		List<Code> eventTypeList = codeService.getCode(homepage.getHomepage_id(), "H0003");
+		List<Code> eventTypeList = codeService.getCode(homepage.getHomepage_id(), "H0004");
 		// 등록된 퀴즈 타입이 있는지 확인
 		if ( eventTypeList.size() > 0 ) {
 			Menu menuOne = (Menu) request.getAttribute("menuOne");

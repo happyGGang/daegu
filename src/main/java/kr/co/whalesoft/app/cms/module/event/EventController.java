@@ -60,11 +60,11 @@ public class EventController extends BaseController {
 		model.addAttribute("eventListCount", count);
 		model.addAttribute("eventList", service.getEventList(event));
 //		Map<String, Code> codeRepo = new HashMap<String, Code>();
-//		for ( Code one : codeService.getCode(quiz.getHomepage_id(), "H0003") ) {
+//		for ( Code one : codeService.getCode(quiz.getHomepage_id(), "H0004") ) {
 //			codeRepo.put(one.getCode_id(), one);
 //		}
 //		model.addAttribute("quizTypeList", codeRepo);
-		model.addAttribute("eventTypeList", codeService.getCode(event.getHomepage_id(), "H0003"));
+		model.addAttribute("eventTypeList", codeService.getCode(event.getHomepage_id(), "H0004"));
 		return basePath + "index";
 	}
 	
@@ -87,7 +87,7 @@ public class EventController extends BaseController {
 			model.addAttribute("event", event);
 		}
 		
-		model.addAttribute("eventTypeList", codeService.getCode(event.getHomepage_id(), "H0003"));
+		model.addAttribute("eventTypeList", codeService.getCode(event.getHomepage_id(), "H0004"));
 		return basePath + "edit_ajax";
 	}
 	

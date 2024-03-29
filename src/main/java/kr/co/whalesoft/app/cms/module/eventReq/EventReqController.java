@@ -48,7 +48,7 @@ public class EventReqController extends BaseController {
 			model.addAttribute("event", event);
 		}
 		
-		model.addAttribute("eventTypeList", codeService.getCode(event.getHomepage_id(), "H0003"));
+		model.addAttribute("eventTypeList", codeService.getCode(event.getHomepage_id(), "H0004"));
 		return basePath + "edit_ajax";
 	}
 	
