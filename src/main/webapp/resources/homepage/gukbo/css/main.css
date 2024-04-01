@@ -29,7 +29,7 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;align-i
 #main0 .main-visual .mvBtn_wp .swiper-scrollbar-wraper .swiper-scrollbar .swiper-scrollbar-drag {background:#fff;}
 .swiper-pagination {display:none;}
 
-#main0 .main-visual .search-area {position:absolute;top:20%;left:0;width:100%;text-align:center;z-index:99999;background:transparent;}
+#main0 .main-visual .search-area {position:absolute;top:20%;left:0;width:100%;text-align:center;z-index: 1;background:transparent;}
 #main0 .main-visual .search-area .main-box {position:relative;width:1260px;margin:0 auto;text-align:center;}
 #main0 .main-visual .search-area .main-box .search-box {position:relative;width:100%;border:3px solid #fff;background:rgba(255,255,255, 1);border-radius:15px;}
 #main0 .main-visual .search-area .main-box .search-box .box0 {position:absolute;left:10px;width:190px;}

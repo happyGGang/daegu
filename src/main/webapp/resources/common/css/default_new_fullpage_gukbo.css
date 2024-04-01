@@ -1650,7 +1650,7 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 #popupLayer .popup-cont{clear:both}
 #popupLayer .popup-cont.type1{font-size:0;line-height:0}
 #popupLayer .bx-viewport{background:#fff}
-#popupLayer .popup-func{border:1px solid #e5e5e5;background:#fdfdfd;overflow:hidden}
+#popupLayer .popup-func{border:1px solid #e5e5e5;background:#fdfdfd;overflow:hidden;position: absolute;top: -38px;width: 100%;}
 #popupLayer .popup-func .checkbox{float:left;line-height:34px;margin-left:8px}
 #popupLayer .popup-func .checkbox label::before,
 #popupLayer .popup-func .checkbox label::after{top:7px}
@@ -1720,6 +1720,7 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 	.doc-body .calendar_box .fL,
 	.doc-body .calendar_box .fR{float:none;width:100%}
 	.doc-body .calendar_box .fR h4{padding-top:20px}
+	#popupLayer .popup-func{border:1px solid #e5e5e5;background:#fdfdfd;overflow:hidden;position: absolute;top:100%;width: 100%;}
 }
 
 #calendar i,
