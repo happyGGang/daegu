@@ -54,8 +54,11 @@
 			CMS_EXCURSIONS_APPLY
 		WHERE
 			homepage_id = #{homepage_id}
+		<if test="apply_id == null and member_key == null">
+			AND	apply_id is null
+		</if>
 		<if test="member_key != null and member_key != ''">
-		AND	applicant_member_id	= #{member_key}
+			AND	applicant_member_id	= #{member_key}
 		</if>
 		<if test="apply_id != null and apply_id != ''">
 			AND	applicant_member_id	= #{apply_id}
