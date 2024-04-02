@@ -81,9 +81,9 @@ public class SupportMemberController {
 		}
     	
 		if (StringUtils.isEmpty(returnUrl) || returnUrl.indexOf("/login/") > -1) {
-			returnUrl = String.format("%s/%s/index.do", homepage.getDomain(), homepagePath);
+			returnUrl = String.format("%s/%s/school/index.do", homepage.getDomain(), homepagePath);
 			if (request.getRequestURL().toString().contains("localhost")) {
-				returnUrl = String.format("%s/%s/index.do", "http://localhost", homepagePath);
+				returnUrl = String.format("%s/%s/school/index.do", "http://localhost", homepagePath);
 			}
 		}
 		
