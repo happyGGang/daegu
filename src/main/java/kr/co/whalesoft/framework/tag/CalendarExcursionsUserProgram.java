@@ -51,7 +51,8 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 				int endDay = Integer.parseInt(excursions.getEnd_date().substring(excursions.getEnd_date().lastIndexOf("-") + 1));
 
 				Date now = new Date();
-
+				List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
+				List<String> allowedDateTypes = Arrays.asList("0010", "0011");
 				// int toDay = 0;/*Integer.parseInt(toDate.substring(toDate.lastIndexOf("-")+1));*/
 
 				int maxApplyCount = excursions.getMax_apply();
@@ -72,11 +73,23 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						if (apply.getExcursions_idx() == excursions.getExcursions_idx()) {
 							if (planDay >= startReqDay && planDay <= endReqDay) {
 								if (apply.getApply_state().equals("3")) {
-									sb.append("<span class=\"type-r\"><i></i><em>승인완료(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인완료</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인완료(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								} else if (apply.getApply_state().equals("2")) {
-									sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인불가</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								} else if (apply.getApply_state().equals("1")) {
-									sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인대기</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								}
 								flag = false;
 							}
@@ -110,9 +123,18 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						if (apply.getExcursions_idx() == excursions.getExcursions_idx()) {
 							if (planDay >= startReqDay && planDay <= endReqDay) {
 								if (apply.getApply_state().equals("3")) {
-									sb.append("<span class=\"type-r\"><i></i><em>승인완료(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인완료</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인완료(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								} else if (apply.getApply_state().equals("2")) {
-									sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-e\"><i></i><em>승인불가</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+									}
+
 								} else if (apply.getApply_state().equals("1")) {
 									if ("0010".equals(excursions.getDate_type())) {
 										sb.append("<span class=\"type-h\"><i></i><em>승인대기</em></span><br>");
@@ -139,8 +161,6 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 							}
 						}
 						// 서구 통합도서관 어린이 h77,비산 h61,영어 h62,비원 h63,원고개 h64
-						List<String> allowedHomepageIds = Arrays.asList("h77", "h61", "h62", "h63", "h64");
-						List<String> allowedDateTypes = Arrays.asList("0010", "0011");
 						if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
 							if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 								if (maxApplyCount == 0) {
@@ -182,11 +202,23 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						if (apply.getExcursions_idx() == excursions.getExcursions_idx()) {
 							if (planDay >= startReqDay && planDay <= endReqDay) {
 								if (apply.getApply_state().equals("3")) {
-									sb.append("<span class=\"type-r\"><i></i><em>승인완료(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인완료</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인완료(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								} else if (apply.getApply_state().equals("2")) {
-									sb.append("<span class=\"type-e\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인불가</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인불가(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								} else if (apply.getApply_state().equals("1")) {
-									sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+										sb.append("<span class=\"type-r\"><i></i><em>승인대기</em></span><br>");
+									}else {
+										sb.append("<span class=\"type-r\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
+									}
 								}
 								flag = false;
 							}
