@@ -369,7 +369,7 @@
 				</c:when>
 				<c:when test="${context_path eq 'dalseongsmall'}">
 				<form:select path="manageCode">
-					<!-- <form:option value="GA">화원읍작은도서관</form:option>
+					<!-- <form:option value="GA">화원읍작은도서관</form:option> -->
 					<form:option value="GB">논공읍작은도서관</form:option>
 					<form:option value="GD">다사읍서재작은도서관</form:option>
 					<form:option value="HG">다사읍작은도서관</form:option>
@@ -378,7 +378,7 @@
 					<form:option value="FR">가창면참꽃작은도서관</form:option>
 					<form:option value="GE">하빈면작은도서관</form:option>
 					<form:option value="GC">구지면작은도서관</form:option>
-					<form:option value="FN">달성군청소년센터</form:option> -->
+					<form:option value="FN">달성군청소년센터</form:option>
 					<form:option value="FJ">달성군청도서관</form:option>
 				</form:select> <span style="color:#ff0000">  * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. --> </span>
 				</c:when>

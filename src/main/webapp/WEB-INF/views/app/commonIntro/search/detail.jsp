@@ -829,9 +829,7 @@ $(function() {
 							<c:choose>
 								
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-									<c:if test="${sessionScope.member.member_id eq 'khy9004'||sessionScope.member.member_id eq 'hades530'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
-									</c:if>
 								</c:when>
 								
 								<c:otherwise>
@@ -1215,14 +1213,24 @@ $(function() {
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${detail.RESERVE_CODE eq 'OK'}">
-									<a href="#" id="resve-req" class="btn btn1" style="padding:8.5px 2%">예약신청(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
+								<c:when test="${detail.MANAGE_CODE eq 'FW'}">
+
 								</c:when>
-								<c:when test="${detail.LOAN_CODE eq 'OK' and (detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BNB' || detail.SEPARATE_SHELF_CODE eq 'BNC' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMT')}">
+								<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
 
 								</c:when>
 								<c:otherwise>
-									<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
+									<c:choose>
+										<c:when test="${detail.RESERVE_CODE eq 'OK'}">
+											<a href="#" id="resve-req" class="btn btn1" style="padding:8.5px 2%">예약신청(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
+										</c:when>
+										<c:when test="${detail.LOAN_CODE eq 'OK' and (detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BNB' || detail.SEPARATE_SHELF_CODE eq 'BNC' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMT')}">
+
+										</c:when>
+										<c:otherwise>
+											<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
+										</c:otherwise>
+									</c:choose>
 								</c:otherwise>
 							</c:choose>
 						</c:otherwise>

@@ -435,9 +435,7 @@ CONTEXT_PATH : ${context_path}
 				<c:when test="${context_path eq 'namic' || context_path eq 'namdm'}">
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-							<c:if test="${sessionScope.member.member_id eq 'khy9004'||sessionScope.member.member_id eq 'hades530'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
-							</c:if>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
