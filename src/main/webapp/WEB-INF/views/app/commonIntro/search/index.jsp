@@ -1530,7 +1530,7 @@ function isFromFridayToSunday() {
 														</c:choose>
 											</p>
 											<p><font style="color:#5e5e5e">매체구분</font> : <span style="">${i.MEDIA_NAME}</span></p>
-											<c:if test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+											<c:if test="${not empty i.marc and (homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj')}">
 											<p><font style="color:#5e5e5e">영어독서 레벨</font> : <span style="">${i.marc}</span></p>
 											</c:if>
 											<c:if test="${i.SHELF_LOC_CODE eq 'BC03' || i.SHELF_LOC_CODE eq 'BC05' || i.SHELF_LOC_CODE eq 'BC06'}">
