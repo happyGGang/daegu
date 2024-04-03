@@ -332,7 +332,7 @@ $.ajax({
 					</a>
 					</li>
 					<li class="quick-3">
-					<a href="/${homepage.context_path}/html/elearning.do?menu_idx=99" title="E러닝 학습 바로가기" class="quick03">
+					<a href="/${homepage.context_path}/module/elib/asp/contents/elearning.do?menu_idx=27" title="E러닝 학습 바로가기" class="quick03">
 						<div>
 							<p>맞춤형 온라인 학습</p>
 							<h4>E-러닝</h4>
@@ -340,7 +340,7 @@ $.ajax({
 					</a>
 					</li>
 					<li class="quick-4">
-					<a href="/${homepage.context_path}/html.do?menu_idx=24" title="웹DB 홈페이지 바로가기" class="quick04">
+					<a href="/${homepage.context_path}/html/html3.do?menu_idx=24" title="웹DB 홈페이지 바로가기" class="quick04">
 						<div>
 							<p>학술논문ㆍ클래식</p>
 							<h4>웹DB</h4>
