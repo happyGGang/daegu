@@ -136,7 +136,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 									}
 
 								} else if (apply.getApply_state().equals("1")) {
-									if ("0010".equals(excursions.getDate_type())) {
+									if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
 										sb.append("<span class=\"type-h\"><i></i><em>승인대기</em></span><br>");
 									} else {
 										sb.append("<span class=\"type-h\"><i></i><em>승인대기(" + apply.getAgency_name() + ")</em></span><br>");
