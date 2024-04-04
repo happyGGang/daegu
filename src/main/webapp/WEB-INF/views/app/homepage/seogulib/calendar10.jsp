@@ -82,7 +82,7 @@ $(function() {
 	</c:if>
 </div>
 
-<div class="movie">
+<!--<div class="movie">
 	<div class="tit"><span>영화</span></div>
 	<c:forEach items="${movieList}" var="i">
 		<div><span>${i}</span></div>
@@ -92,7 +92,7 @@ $(function() {
 			<span>없음</span>
 		</div>
 	</c:if>
-</div>
+</div>-->
 
 <div class="closed">
 	<div class="tit"><span>휴관</span></div>

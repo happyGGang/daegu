@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.2.29.] (단위 : 권)</span></h3>
+				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.3.31.] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -93,13 +93,13 @@
 								<td>155</td>
 								<td>91</td>
 								<td>446</td>
-								<td>1,225</td>
+								<td>1,227</td>
 								<td>478</td>
 								<td>141</td>
-								<td>189</td>
-								<td>2,371</td>
-								<td>802</td>
-								<td>6,166</td>
+								<td>190</td>
+								<td>2,375</td>
+								<td>803</td>
+								<td>6,174</td>
 							</tr>
 							<tr>
 								<th>유아</th>
@@ -111,36 +111,36 @@
 								<td>90</td>
 								<td>90</td>
 								<td>72</td>
-								<td>2,378</td>
+								<td>2,381</td>
 								<td>83</td>
-								<td>3,867</td>
+								<td>3,870</td>
 							<tr>
 								<th>일반</th>
 								<td>272</td>
-								<td>481</td>
+								<td>485</td>
 								<td>185</td>
-								<td>1,126</td>
+								<td>1,132</td>
 								<td>622</td>
-								<td>964</td>
+								<td>965</td>
 								<td>320</td>
 								<td>161</td>
-								<td>2,440</td>
-								<td>492</td>
-								<td>7,063</td>
+								<td>2,447</td>
+								<td>496</td>
+								<td>7,085</td>
 							</tr>
 							<tr>
 								<th>합계</th>
 								<td>600</td>
-								<td>754</td>
+								<td>758</td>
 								<td>362</td>
-								<td>2,020</td>
-								<td>2,289</td>
-								<td>1,532</td>
+								<td>2,026</td>
+								<td>2,291</td>
+								<td>1,533</td>
 								<td>551</td>
-								<td>422</td>
-								<td>7,189</td>
-								<td>1,377</td>
-								<td>17,096</td>
+								<td>423</td>
+								<td>7,203</td>
+								<td>1,382</td>
+								<td>17,129</td>
 							</tr>
 						</tbody>
 					</table>
