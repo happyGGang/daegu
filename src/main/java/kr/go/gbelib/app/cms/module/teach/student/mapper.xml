@@ -113,7 +113,7 @@
 			student_neis_cd,
 			student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, student_password, agree_codes,
-			sms_service_yn, picture_use_yn, student_old, vaccines_counter, family_member
+			sms_service_yn, picture_use_yn, student_old, vaccines_counter, family_member, items_sale_name
 		FROM
 			STUDENT
 		WHERE DELETE_YN = 'N'
@@ -150,7 +150,7 @@
 			, student_ban, student_remark, student_family_count, student_family_team,
 			student_location_code,student_neis_cd,student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, student_password, agree_codes,
-			sms_service_yn, picture_use_yn, vaccines_counter, family_member
+			sms_service_yn, picture_use_yn, vaccines_counter, family_member,items_sale_name
 		) VALUES
 		(
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{student_idx}, #{member_id}, #{member_key}, #{applicant_name}, #{applicant_birth}, #{web_id}
@@ -160,7 +160,7 @@
 			, #{student_ban}, #{student_remark}, #{student_family_count}, #{student_family_team},
 			#{student_location_code}, #{student_neis_cd}, #{student_training_num},
 			#{student_organization}, #{student_organization_tel}, #{student_rank}, #{student_course_taken_yn}, #{student_password}, #{agree_codes},
-			#{sms_service_yn}, #{picture_use_yn}, #{vaccines_counter}, #{family_member}
+			#{sms_service_yn}, #{picture_use_yn}, #{vaccines_counter}, #{family_member},#{items_sale_name}
 		)
 	</insert>
 	
@@ -221,7 +221,8 @@
 			FAMILY_CONFIRM_YN		= #{family_confirm_yn},
 			FAMILY_DESC				= #{family_desc},
 			modify_id					= #{modify_id},
-			modify_date				= SYSDATE
+			modify_date				= SYSDATE,
+			items_sale_name =  #{items_sale_name}
 		WHERE
 			HOMEPAGE_ID 		= #{homepage_id}
 			AND GROUP_IDX 		= #{group_idx}
@@ -634,6 +635,7 @@
 			<if test="family_desc != null and family_desc != ''">				
 			FAMILY_DESC				= #{family_desc},
 			</if>
+			items_sale_name		= #{items_sale_name},
 			modify_id				= #{modify_id},
 			modify_date				= SYSDATE
 		WHERE

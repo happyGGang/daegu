@@ -943,6 +943,14 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					</td>
 				</tr>
 			</c:if>
+			<c:if test="${teach.items_sale_yn eq 'Y'}">
+				<tr>
+					<th>판매품</th>
+					<td>
+						<form:textarea path="items_sale_name" class="text" cssStyle="width:100%;" rows="5" placeholder="판매품명(가격) 으로 작성하여 주시고 최대 4개까지 입력 해주세요."/></td>
+					</td>
+				</tr>
+			</c:if>
 			<tr style="display: none">
 	         	<th>수강생 - 나이(<span style="color: red; font-weight: bold;">*</span>)</th>
 	         	<td><input id="student_old" name="student_old" class="text" maxlength="3" numberOnly="true" style="width:30px;" title="수강생 나이"/></td>

@@ -1471,6 +1471,16 @@
 			</td>
 		</tr>
 		<tr>
+			<th>판매품 입력 여부</th>
+			<td>
+				<form:radiobutton path="items_sale_yn" value="Y" label="사용"/>
+				<form:radiobutton path="items_sale_yn" value="N" label="미사용"/>
+				<div class="ui-state-highlight">
+					<em>* 사용 시 '판매품 입력' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<th>휴강일설정</th>
 			<td>
 				<div style="float: left; margin-right: 10px;">

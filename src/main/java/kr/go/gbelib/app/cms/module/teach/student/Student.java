@@ -132,6 +132,8 @@ public class Student extends PagingUtils {
 	
 	private String searchCate1;
 
+	private String items_sale_name; //판매품 목록
+
 	public Student() {}
 
 	public Student(String homepage_id, int group_idx, int category_idx, int teach_idx) {
@@ -934,5 +936,12 @@ public class Student extends PagingUtils {
 	public void setSearchCate1(String searchCate1) {
 		this.searchCate1 = searchCate1;
 	}
-	
+
+	public String getItems_sale_name() {
+		return items_sale_name;
+	}
+
+	public void setItems_sale_name(String items_sale_name) {
+		this.items_sale_name = items_sale_name;
+	}
 }

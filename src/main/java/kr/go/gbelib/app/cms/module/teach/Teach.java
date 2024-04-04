@@ -234,6 +234,8 @@ public class Teach extends PagingUtils {
 
 	private String student_status_name;
 
+	private String items_sale_yn = "N"; //판매품 입력 여부
+
 	public Teach() {}
 
 	public Teach(String homepage_id, int mainViewCount) {
@@ -1816,5 +1818,12 @@ public class Teach extends PagingUtils {
 	public void setStudent_ban_yn(String student_ban_yn) {
 		this.student_ban_yn = student_ban_yn;
 	}
-	
+
+	public String getItems_sale_yn() {
+		return items_sale_yn;
+	}
+
+	public void setItems_sale_yn(String items_sale_yn) {
+		this.items_sale_yn = items_sale_yn;
+	}
 }

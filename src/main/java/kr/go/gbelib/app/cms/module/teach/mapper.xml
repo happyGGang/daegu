@@ -406,7 +406,7 @@
 		FROM
 		(SELECT ',' || a.hashtag_codes || ',' AS COL FROM DUAL)
 		CONNECT BY LEVEL <![CDATA[<=]]> LENGTH (COL) - LENGTH (REPLACE (COL, ',')) - 1)
-		) AS hashtag_names,  a.age_div_codes, a.culture_view_yn
+		) AS hashtag_names,  a.age_div_codes, a.culture_view_yn, a.items_sale_yn
 		FROM
 		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 		WHERE a.homepage_id = b.homepage_id(+)
@@ -460,7 +460,7 @@
 		neis_location_yn, neis_cd_yn, neis_training_num_yn, large_category_idx, rank_yn, organization_yn, course_taken_yn, birth_yn, sex_yn,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
 		terms, apply_file_yn, teach_addr_limit, teach_addr_limit_value, age_info_yn, link_url,
-		disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar, hashtag_codes, age_div_codes, culture_view_yn, teach_img_text
+		disable_holi, teach_day_yn, teach_day_txt,disable_holi_calendar, hashtag_codes, age_div_codes, culture_view_yn, teach_img_text,items_sale_yn
 		) VALUES (
 		#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{teach_name}, #{teach_desc}, #{teach_etc}, #{teach_stage}, #{teach_target}, #{limit_hak}, #{limit_hak2}, #{calendar_view_yn},
 		#{teach_status}, #{teach_limit_count}, #{teach_join_unit}, #{teach_backup_count}, #{teach_offline_count}, #{teacher_idx}, #{start_join_date}, #{limit_hak_yn},
@@ -487,7 +487,7 @@
 		#{neis_location_yn}, #{neis_cd_yn}, #{neis_training_num_yn}, #{large_category_idx}, #{rank_yn}, #{organization_yn}, #{course_taken_yn}, #{birth_yn}, #{sex_yn},
 		#{program_classification1}, #{program_classification2}, #{program_classification3}, #{program_subject}, #{program_age_div},
 		#{terms}, #{apply_file_yn}, #{teach_addr_limit}, #{teach_addr_limit_value}, #{age_info_yn}, #{link_url},
-		#{disable_holi}, #{teach_day_yn}, #{teach_day_txt},#{disable_holi_calendar}, #{hashtag_codes}, #{age_div_codes}, #{culture_view_yn}, #{teach_img_text}
+		#{disable_holi}, #{teach_day_yn}, #{teach_day_txt},#{disable_holi_calendar}, #{hashtag_codes}, #{age_div_codes}, #{culture_view_yn}, #{teach_img_text},#{items_sale_yn}
 		)
 	</insert>
 
@@ -633,6 +633,7 @@
 			, age_div_codes = #{age_div_codes}
 		</if>
 		, culture_view_yn = #{culture_view_yn}
+		, items_sale_yn = #{items_sale_yn}
 		WHERE
 		homepage_id = #{homepage_id}
 		AND	large_category_idx = #{large_category_idx}
@@ -2544,7 +2545,7 @@
 		getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS LIMIT_HAK_STR,
 		getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
-		A.add_date
+		A.add_date,A.items_sale_yn
 		FROM
 		(
 		SELECT
@@ -2575,7 +2576,7 @@
 		a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
 		a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
-		e.add_date
+		e.add_date,a.items_sale_yn
 		FROM
 		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
 		WHERE a.homepage_id = b.homepage_id(+)
@@ -2981,7 +2982,7 @@
 					getCodeIdToCodeName('CMS', 'C0005', a.APPLY_STATUS) AS APPLY_STATUS_NAME,
 					getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS LIMIT_HAK2_STR,
 					a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
-					A.add_date, A.CANCEL_DATE,A.APPLY_STATUS
+					A.add_date, A.CANCEL_DATE,A.APPLY_STATUS, A.ITEMS_SALE_YN
 				FROM
 				(
 				SELECT
@@ -3009,7 +3010,7 @@
 				, e.student_idx, a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size,
 				a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
 				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
-				e.add_date, e.CANCEL_DATE
+				e.add_date, e.CANCEL_DATE,a.ITEMS_SALE_YN
 				FROM
 				TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d, STUDENT e
 				WHERE a.homepage_id = b.homepage_id(+)

@@ -347,7 +347,15 @@ $(function() {
 					<th>직급</th>
 					<td><form:input path="student_rank" cssClass="text" style="width:100%" maxlength="20"/></td>
 				</tr>
-			</c:if>		
+			</c:if>
+			<c:if test="${teach.items_sale_yn eq 'Y'}">
+				<tr>
+					<th>판매품</th>
+					<td>
+						<form:textarea path="items_sale_name" class="text" cssStyle="width:100%;" rows="5"/></td>
+					</td>
+				</tr>
+			</c:if>
 		</table>
 		<c:if test="${teach.family_yn eq 'Y'}">
 		</br>

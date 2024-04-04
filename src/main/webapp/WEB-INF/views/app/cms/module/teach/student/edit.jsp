@@ -711,6 +711,12 @@ $(function() {
 					<td><form:input path="student_family_team" cssClass="text"/></td>
 				</tr>
 			</c:if>
+			<c:if test="${teach.items_sale_yn eq 'Y'}">
+				<tr>
+					<th>판매품</th>
+					<td><form:textarea path="items_sale_name" class="text" cssStyle="width:100%;" rows="5"/></td>
+				</tr>
+			</c:if>
 		</table>
 		<c:if test="${teach.family_yn eq 'Y'}">
 		</br>
