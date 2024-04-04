@@ -17,14 +17,36 @@ $(function(){
 
 	$('a.add').on('click', function(e) {
 		var $this = $(this);
+		var frm = document.getElementById('editForm');
+
+		console.log(frm);
+
+		var homepage_id = $this.attr('keyValue1');
+		var group_idx = $this.attr('keyValue2');
+		var category_idx = $this.attr('keyValue3');
+		var teach_idx = $this.attr('keyValue4');
+		var large_category_idx = $this.attr('keyValue5');
+		var apply_status = $this.attr('apply_status');
+		var action_id = '${homepage.context_path}';
+		var menu_idx = $('input#menu_idx').val();
+		var service_id = '';
+
 		if(${homepage.context_path eq 'dgportal' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'dmsl' or homepage.context_path eq 'junggu'}){
-			NetFunnel_Action({action_id:'${homepage.context_path}', service_id:'service_2'},function(ev,ret){location.href='/${homepage.context_path}/module/teach/student/edit.do?editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val();});
+			var service_id = 'service_2';
 		} else {
-			NetFunnel_Action({action_id:'${homepage.context_path}', service_id:'service_1'},function(ev,ret){location.href='/${homepage.context_path}/module/teach/student/edit.do?editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val();});
+			var service_id = 'service_1';
 		}
-// 		doGetLoad('/${homepage.context_path}/module/teach/student/edit.do',
-// 				'editMode=ADD&homepage_id='+$this.attr('keyValue1')+'&group_idx='+$this.attr('keyValue2')+'&category_idx='+$this.attr('keyValue3')
-// 				+'&teach_idx='+$this.attr('keyValue4')+'&large_category_idx='+$this.attr('keyValue5')+ '&apply_status='+ $this.attr('apply_status')+'&menu_idx='+$('input#menu_idx').val());
+
+		$('#homepage_id').val(homepage_id);
+		$('#group_idx').val(group_idx);
+		$('#category_idx').val(category_idx);
+		$('#teach_idx').val(teach_idx);
+		$('#large_category_idx').val(large_category_idx);
+		$('#apply_status').val(apply_status);
+		$('#menu_idx').val(menu_idx);
+		frm.submit();
+
+		NetFunnel_Action({action_id:action_id, service_id:service_id},frm);
 
 		e.preventDefault();
 	});
@@ -162,6 +184,17 @@ $(function(){
 
 </script>
 <link rel="stylesheet" href="/resources/common/css/teach.css" />
+<form:form modelAttribute="teach" id="editForm" action="/${homepage.context_path}/module/teach/student/edit.do" method="GET" onsubmit="return false">
+	<form:hidden path="editMode" value="ADD"/>
+	<form:hidden path="homepage_id"/>
+	<form:hidden path="group_idx"/>
+	<form:hidden path="category_idx"/>
+	<form:hidden path="teach_idx"/>
+	<form:hidden path="large_category_idx"/>
+	<form:hidden path="apply_status"/>
+	<form:hidden path="menu_idx"/>
+</form:form>
+
 <form:form modelAttribute="teach" action="/${homepage.context_path}/module/teach/student/save.do" method="POST" onsubmit="return false">
 <%-- 	<form:hidden path="group_idx"/> --%>
 	<form:hidden path="teach_idx"/>
