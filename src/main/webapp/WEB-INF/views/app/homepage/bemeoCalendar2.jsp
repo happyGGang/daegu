@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,17 +89,17 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-                <td>1,830</td>
-    <td>1,297</td>
+                <td>1,832</td>
+    <td>1,300</td>
     <td>614</td>
-    <td>4,038</td>
-    <td>3,144</td>
+    <td>4,044</td>
+    <td>3,146</td>
     <td>1,621</td>
-    <td>994</td>
-    <td>1,922</td>
-    <td>16,282</td>
-    <td>3,397</td>
-    <td>35,139</td>
+    <td>995</td>
+    <td>1,924</td>
+    <td>16,304</td>
+    <td>3,402</td>
+    <td>35,182</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,12 +148,12 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-                <td>15,955</td>
-    <td>4,649</td>
-    <td>10,499</td>
+                <td>15,977</td>
+    <td>4,650</td>
+    <td>10,519</td>
     <td>70</td>
     <td>3,966</td>
-    <td>35,139</td>
+    <td>35,182</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -168,7 +168,7 @@
 					</table>
 				</div>
 				<p>보존서고: 6,506권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">

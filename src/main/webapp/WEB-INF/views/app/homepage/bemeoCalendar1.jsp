@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,17 +89,17 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-                <td>1,489</td>
-    <td>1,241</td>
+                <td>1,491</td>
+    <td>1,242</td>
     <td>474</td>
-    <td>4,738</td>
+    <td>4,739</td>
     <td>3,242</td>
     <td>2,383</td>
     <td>1,097</td>
     <td>1,877</td>
-    <td>15,904</td>
-    <td>2,801</td>
-    <td>35,246</td>
+    <td>15,930</td>
+    <td>2,803</td>
+    <td>35,278</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -150,13 +150,13 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-                <td>11,215</td>
+                <td>11,222</td>
     <td>6,204</td>
-    <td>13,751</td>
+    <td>13,776</td>
     <td>75</td>
     <td>304</td>
     <td>3,697</td>
-    <td>35,246</td>
+    <td>35,278</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -172,7 +172,7 @@
 					</table>
 				</div>
 				<p>보존서고: 5,928권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.2.29. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
