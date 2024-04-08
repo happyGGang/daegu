@@ -1,12 +1,16 @@
 package kr.go.gbelib.app.module.quizReq;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.framework.file.FileStorage;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +35,7 @@ import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller(value="userQuizReq")
 @RequestMapping(value = {"/{homepagePath}/module/quizReq"})
@@ -53,6 +58,10 @@ public class QuizReqController extends BaseController {
 	@Autowired
 	private TermsService termsService;
 
+	@Autowired
+	@Qualifier("quizReqStorage")
+	private FileStorage quizReqStorage;
+
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, QuizReq quizReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
@@ -68,11 +77,11 @@ public class QuizReqController extends BaseController {
 		// 등록된 퀴즈 타입이 있는지 확인
 		if ( quizTypeList.size() > 0 ) {
 			Menu menuOne = (Menu) request.getAttribute("menuOne");
-			
+
 			if("h1".equals(homepage.getHomepage_id())) {
 				Terms t = new Terms();
 				t.setHomepage_id(homepage.getHomepage_id());
-				
+
 				if(StringUtils.isEmpty(quizReq.getSearch_quiz_type()) || "1".equals(quizReq.getSearch_quiz_type()) || "2".equals(quizReq.getSearch_quiz_type())) {
 					t.setTerms_idx(91);
 					model.addAttribute("termsList", termsService.getTermsListOne(t));
@@ -86,7 +95,7 @@ public class QuizReqController extends BaseController {
 				t.setHomepage_id(homepage.getHomepage_id());
 				model.addAttribute("termsList", termsService.getTermsListInModule(t));
 			}
-			
+
 			model.addAttribute("quizTypeList", quizTypeList);
 			// 첫번째 퀴즈 타입의 해당하는 년,월 의 퀴즈를 가져옴.
 
@@ -137,13 +146,13 @@ public class QuizReqController extends BaseController {
 			result.reject(answer_num + "번 문항에 답하지 않으셨습니다.");
 		}
 
-		if ( !result.hasErrors() ) {
-			if ( editMode.equals("ADD") ) {
+		if (!result.hasErrors()) {
+			if (editMode.equals("ADD")) {
 				quizReq.setAdd_id(getSessionMemberId(request));
-				if(quizService.getQuizCntOfValidDate(quizReq) == 0) {
+				if (quizService.getQuizCntOfValidDate(quizReq) == 0) {
 					res.setValid(false);
 					res.setMessage("퀴즈 참여기간이 아닙니다.");
-				} else if ( quizReqService.checkReqByMemberId(quizReq) > 0 ) {
+				} else if (quizReqService.checkReqByMemberId(quizReq) > 0) {
 					res.setValid(false);
 					res.setMessage("퀴즈는 1회 참여만 가능 합니다.");
 				} else {
@@ -158,6 +167,20 @@ public class QuizReqController extends BaseController {
 						res.setUrl(addResult);
 						res.setTargetOpener(true);
 						return res;
+					}
+
+					MultipartFile mFile = quizReq.getQuizReq_file();
+					if (mFile != null) {
+						String serverFileName = Long.toString((System.currentTimeMillis()));
+						String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
+						String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
+						String filePath = "/" + quizReq.getHomepage_id();
+
+						File f = quizReqStorage.addFile(mFile, serverFileName, filePath);
+						quizReq.setServer_file_name(serverFileName);
+						quizReq.setOrigin_file_name(originFileName);
+						quizReq.setFile_extension(fileExtension);
+						quizReq.setFile_size(f.length());
 					}
 
 					quizReqService.addQuizReq(quizReq);

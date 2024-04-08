@@ -2,6 +2,7 @@ package kr.co.whalesoft.app.cms.module.quizReq;
 
 import java.util.List;
 
+import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -223,6 +224,10 @@ public class QuizReqService extends BaseService {
 	@WorkingLogger(comment="독서퀴즈 응모자  관리 개인정보 삭제", type="P")
 	public int deletePersonalData(QuizReq quizReq) {
 		return quizReqDao.deletePersonalData(quizReq);
+	}
+
+	public QuizReq getQuizReqDownOne(QuizReq quizReq) {
+        return quizReqDao.getQuizReqOne(quizReq);
 	}
 
 }

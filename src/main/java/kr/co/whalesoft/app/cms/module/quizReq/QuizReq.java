@@ -3,6 +3,7 @@ package kr.co.whalesoft.app.cms.module.quizReq;
 import java.util.Calendar;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 public class QuizReq extends PagingUtils {
 	private int search_quiz_year = Calendar.getInstance().get(Calendar.YEAR);  //퀴즈연도;
@@ -28,6 +29,14 @@ public class QuizReq extends PagingUtils {
 	private String terms_yn;	//약관동의여부
 	private String chosen_yn;	//당첨자여부
 	private String applicant_id; // 참여자ID
+
+	private MultipartFile quizReq_file;
+	private String origin_file_name; // 원본파일명
+	private String server_file_name; // 서버파일명
+	private String file_extension; // 파일확장자
+	private long file_size; // 파일크기
+
+
 	
 	public QuizReq() { }
 	
@@ -188,5 +197,45 @@ public class QuizReq extends PagingUtils {
 
 	public void setApplicant_id(String applicant_id) {
 		this.applicant_id = applicant_id;
+	}
+
+	public MultipartFile getQuizReq_file() {
+		return quizReq_file;
+	}
+
+	public void setQuizReq_file(MultipartFile quizReq_file) {
+		this.quizReq_file = quizReq_file;
+	}
+
+	public String getOrigin_file_name() {
+		return origin_file_name;
+	}
+
+	public void setOrigin_file_name(String origin_file_name) {
+		this.origin_file_name = origin_file_name;
+	}
+
+	public String getServer_file_name() {
+		return server_file_name;
+	}
+
+	public void setServer_file_name(String server_file_name) {
+		this.server_file_name = server_file_name;
+	}
+
+	public String getFile_extension() {
+		return file_extension;
+	}
+
+	public void setFile_extension(String file_extension) {
+		this.file_extension = file_extension;
+	}
+
+	public long getFile_size() {
+		return file_size;
+	}
+
+	public void setFile_size(long file_size) {
+		this.file_size = file_size;
 	}
 }

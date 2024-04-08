@@ -1,16 +1,23 @@
 package kr.co.whalesoft.app.cms.module.quizReq;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.framework.file.FileStorage;
+import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.whalesoft.app.cms.code.CodeService;
@@ -34,6 +41,10 @@ public class QuizReqController extends BaseController {
 	
 	@Autowired
 	private CodeService codeService;
+
+	@Autowired
+	@Qualifier("quizReqStorage")
+	private FileStorage quizReqStorage;
 	
 	@RequestMapping(value = {"/index.*"})
 	public String index(Model model, QuizReq quizReq, HttpServletRequest request) {
@@ -113,6 +124,46 @@ public class QuizReqController extends BaseController {
 		quizQuestionResult = quizReqService.getWinnerCheckedList(quizQuestionResult, quizQuestionsList);
 		
 		new QuizReqXlsToCsv(quizReq, quizQuestionResult, quizQuestionsList, request, response);
+	}
+
+	@RequestMapping(value = "/download/{homepage_id}/{quiz_req_idx}.*", method = RequestMethod.GET)
+	@ResponseBody
+	public byte[] getFile(@PathVariable("homepage_id") String homepage_id,@PathVariable("quiz_req_idx") int quizReq_idx,
+		@RequestParam(required=false, value="file_type") String file_type, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		QuizReq quizReq = new QuizReq();
+
+		quizReq.setQuiz_idx(quizReq_idx);
+		quizReq.setHomepage_id(homepage_id);
+		quizReq = quizReqService.getQuizReqDownOne(quizReq);
+		String serverName = "";
+		String orgName = "";
+		String extension = "";
+
+		serverName = quizReq.getServer_file_name();
+		orgName = quizReq.getOrigin_file_name();
+		extension = quizReq.getFile_extension();
+		String filePath = quizReqStorage.getRootPath()+ "/" + homepage_id + "/" + serverName;
+		File file = new File(filePath);
+
+		byte[] bytes = null;
+
+		if(file.length() > 0) {
+			bytes = FileCopyUtils.copyToByteArray(file);
+		} else {
+			response.setHeader("Content-type", "text/html");
+			quizReqService.alertMessage("파일이 존재하지 않습니다.", request, response);
+			return null;
+		}
+
+//		String fileName = "";
+		String fileName = String.format("%s.%s", orgName, extension);
+
+		response.setHeader("Content-Disposition", AttachmentUtils.getContentDisposition(fileName, request.getHeader("user-agent")));
+		response.setHeader("Content-Length", Long.toString(file.length()));
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Content-Type", "application/octet-stream");
+
+		return bytes;
 	}
 	
 }

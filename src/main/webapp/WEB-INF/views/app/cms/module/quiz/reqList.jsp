@@ -230,6 +230,7 @@ $(function() {
 			<col width="100" />
 			<c:if test="${quiz.select_cnt > 0}">
 			<col width="50" />
+			<col width="50" />
 			</c:if>
 		</colgroup>
        	<thead>
@@ -251,6 +252,7 @@ $(function() {
        			<c:if test="${quiz.select_cnt > 0}">
        			<th>당첨자 여부</th>
        			</c:if>
+				<th>첨부파일</th>
        		</tr>
        	</thead>
        	<tbody>
@@ -288,16 +290,16 @@ $(function() {
 				         	<td>${i.add_date}</td>
 				         	<td>
 				         		${i.winner_yn}
-<%--
-				         		<select class="selectmenu" name="winner_yn" keyValue="${i.quiz_req_idx}">
-				         			<option <c:if test="${winnerYn eq 'N'}">selected="selected"</c:if> value="N">N</option>
-				         			<option <c:if test="${winnerYn eq 'Y'}">selected="selected"</c:if> value="Y">Y</option>
-				         		</select>
---%>
 							</td>
 							<c:if test="${quiz.select_cnt > 0}">
 				         	<td>${i.chosen_yn}</td>
 				         	</c:if>
+							<td>
+								<a href="/cms/module/excursions/apply/download/${i.homepage_id}/${i.quiz_req_idx }.do">
+									<i class="fa fa-floppy-o"></i>
+										${i.origin_file_name}
+								</a>
+							</td>
 				        </tr>
 		       		</c:forEach>
        			</c:when>

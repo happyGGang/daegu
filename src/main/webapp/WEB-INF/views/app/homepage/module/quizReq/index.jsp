@@ -43,9 +43,18 @@ $(function() {
 		doGetLoad('index.do', serializeCustom($('#quizReq')));
 		e.preventDefault();
 	});
-	
+
 	$('a.save-btn').on('click', function(e) {
 		e.preventDefault();
+
+		if ($('#quizReq #hak').val() == '') {
+			$('#quizReq #hak').val(0);
+		}
+
+		if ($('#quizReq #ban').val() == '') {
+			$('#quizReq #ban').val(0);
+		}
+
 		if ( $('#quizReq #quiz_idx').val() == 0 ) {
 			alert('해당하는 퀴즈 정보가 없습니다.');
 			return;
@@ -79,19 +88,45 @@ $(function() {
 		});
 		$('#quizReq #quiz_answer').val(answerList.join('|'));
 
-		var $form = $('#quizReq').clone();
-		if ( $form.find('#hak').val() == '' ) {
-			$form.find('#hak').val(0);
-		}
-		if ( $form.find('#ban').val() == '' ) {
-			$form.find('#ban').val(0);
-		}
+		var formData = new FormData($('#quizReq')[0]);
 
-		if ( doAjaxPost($form) ) {
-			location.reload();
-		}
+		$.ajax({
+			url: '/${homepage.context_path}/module/quizReq/save.do',
+			type: 'POST',
+			data: formData,
+			async: false,
+			cache: false,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			success: function(data) {
+				if(data.valid) {
+					if(data.message != null && data.message.replace(/\s/g,'').length!=0) {
+						alert(data.message);
+					}
+				} else {
+					if (data.message != null && data.message.replace(/\s/g, '').length != 0) {
+						alert(data.message);
+					} else {
+						location.reload();
+					}
+				}
+			}
+		});
 	});
 });
+
+function changeFile(elementId) {
+	var fileInput = document.getElementById(elementId);
+
+	var fileName = fileInput.files[0].name;
+	var disallowedExtensions = /(\.exe|\.bat|\.cmd|\.sh|\.php|\.js|\.html|\.htm)$/i;
+
+	if (disallowedExtensions.exec(fileName)) {
+		alert('업로드가 제한된 파일 형식입니다. gif, jpeg, jpg, png 파일만 업로드 가능합니다.');
+		fileInput.value = ''; // 파일 선택 초기화
+	}
+}
 </script>
 
 <div class="tabmenu tab1">
@@ -213,7 +248,7 @@ ${quiz.top_html}
 			</c:choose>
 		</div>
 	</c:forEach>
-	<form:form id="quizReq" modelAttribute="quizReq" method="post" action="save.do">
+	<form:form id="quizReq" modelAttribute="quizReq" method="post" action="save.do" onsubmit="return false;" enctype="multipart/form-data">
 		<form:hidden path="editMode" value="ADD"/>
 		<form:hidden path="homepage_id"/>
 		<form:hidden path="quiz_idx"/>
@@ -241,7 +276,7 @@ ${quiz.top_html}
 						<th>학년</th>
 						<td>
 							<label for="hak"/>
-							<input type="text" id="hak" name="hak" class="text" title="학년 입력" cssStyle="width:30px" maxlength="1" /></td>
+							<form:input path="hak" type="text" id="hak" name="hak" class="text" title="학년 입력" cssStyle="width:30px" maxlength="1" /></td>
 					</tr>
 				</c:if>
 				<c:if test="${quiz.ban_yn eq 'Y'}">
@@ -249,7 +284,7 @@ ${quiz.top_html}
 						<th>반</th>
 						<td>
 							<label for="ban"/>
-							<input type="text" id="ban" name="ban" class="text" title="반 입력" cssStyle="width:30px" maxlength="2"/></td>
+							<form:input path="ban" type="text" id="ban" name="ban" class="text" title="반 입력" cssStyle="width:30px" maxlength="2"/></td>
 					</tr>
 				</c:if>
 				<c:if test="${quiz.gender_yn eq 'Y'}">
@@ -301,6 +336,12 @@ ${quiz.top_html}
 							<form:input path="phone" class="text" title="휴대전화번호 입력" value=""/>
 						</c:otherwise>
 					</c:choose>
+					</td>
+				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td class="applyFile">
+						<input type="file" id="quizReq_file" name="quizReq_file" class="text" accept=".gif,.jpeg,.jpg,.png" onchange="changeFile(this.id)">
 					</td>
 				</tr>
 				<c:if test="${quiz.address_yn eq 'Y'}">
