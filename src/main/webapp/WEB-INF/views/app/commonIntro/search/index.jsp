@@ -106,7 +106,9 @@ $(function() {
 	});
 
 	if ('${fn:escapeXml(homepage.context_path)}' == 'junggu') {
-		$('#checkAll').click();
+		if('${librarySearch.title}' == ''){
+			$('#checkAll').click();
+		}
 	}
 
 	$('a#addMyLib').on('click', function(e) {
