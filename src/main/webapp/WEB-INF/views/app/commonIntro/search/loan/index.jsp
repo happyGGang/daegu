@@ -103,6 +103,7 @@ $(function() {
 			<th>대출일</th>
 			<th>반납예정일</th>
 			<th>상태</th>
+			<th>구분</th>
 		</thead>
 		<tbody>
 			<c:forEach items="${loanList}" var="i">
@@ -127,6 +128,8 @@ $(function() {
 					<c:otherwise></c:otherwise>
 				</c:choose>
 				</td>
+				<c:set var="BOOK_APPENDIX_FLAG" value="${i.BOOK_APPENDIX_FLAG eq 'A' ? '부록' : '도서'}"/>
+				<td>${BOOK_APPENDIX_FLAG}</td>
 			</tr>
 			</c:forEach>
 		</tbody>
