@@ -103,6 +103,7 @@ $(function() {
 				if(data.valid) {
 					if(data.message != null && data.message.replace(/\s/g,'').length!=0) {
 						alert(data.message);
+						location.reload();
 					}
 				} else {
 					if (data.message != null && data.message.replace(/\s/g, '').length != 0) {

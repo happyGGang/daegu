@@ -295,10 +295,16 @@ $(function() {
 				         	<td>${i.chosen_yn}</td>
 				         	</c:if>
 							<td>
-								<a href="/cms/module/excursions/apply/download/${i.homepage_id}/${i.quiz_req_idx }.do">
-									<i class="fa fa-floppy-o"></i>
-										${i.origin_file_name}
-								</a>
+								<c:choose>
+									<c:when test="${empty i.origin_file_name}">
+									</c:when>
+									<c:otherwise>
+										<a href="/cms/module/quizReq/download/${i.homepage_id}/${i.quiz_idx}/${i.quiz_req_idx }.do">
+											<i class="fa fa-floppy-o"></i>
+												${i.origin_file_name}
+										</a>
+									</c:otherwise>
+								</c:choose>
 							</td>
 				        </tr>
 		       		</c:forEach>

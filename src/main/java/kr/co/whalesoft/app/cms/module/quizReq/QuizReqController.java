@@ -126,13 +126,14 @@ public class QuizReqController extends BaseController {
 		new QuizReqXlsToCsv(quizReq, quizQuestionResult, quizQuestionsList, request, response);
 	}
 
-	@RequestMapping(value = "/download/{homepage_id}/{quiz_req_idx}.*", method = RequestMethod.GET)
+	@RequestMapping(value = "/download/{homepage_id}/{quiz_idx}/{quiz_req_idx}.*", method = RequestMethod.GET)
 	@ResponseBody
-	public byte[] getFile(@PathVariable("homepage_id") String homepage_id,@PathVariable("quiz_req_idx") int quizReq_idx,
+	public byte[] getFile(@PathVariable("homepage_id") String homepage_id,@PathVariable("quiz_req_idx") int quizReq_idx,@PathVariable("quiz_idx") int quiz_idx,
 		@RequestParam(required=false, value="file_type") String file_type, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		QuizReq quizReq = new QuizReq();
 
-		quizReq.setQuiz_idx(quizReq_idx);
+		quizReq.setQuiz_req_idx(quizReq_idx);
+		quizReq.setQuiz_idx(quiz_idx);
 		quizReq.setHomepage_id(homepage_id);
 		quizReq = quizReqService.getQuizReqDownOne(quizReq);
 		String serverName = "";
