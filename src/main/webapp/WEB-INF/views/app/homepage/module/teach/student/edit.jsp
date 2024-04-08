@@ -6,11 +6,15 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/resources/common/netFunnel/test_skin.js" charset="UTF-8"></script>
 <script type="text/javascript">
-window.onload=function(){
-NetFunnel_complete();
-};
+$(document).ready(function (){
+	net_complete();
+	function net_complete(){
+		NetFunnel_Complete();
+		return true;
+	}
+});
+
 $(function() {
 	
 	$('input#self_yn1').on('click', function() {

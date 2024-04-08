@@ -19,8 +19,6 @@ $(function(){
 		var $this = $(this);
 		var frm = document.getElementById('editForm');
 
-		console.log(frm);
-
 		var homepage_id = $this.attr('keyValue1');
 		var group_idx = $this.attr('keyValue2');
 		var category_idx = $this.attr('keyValue3');
