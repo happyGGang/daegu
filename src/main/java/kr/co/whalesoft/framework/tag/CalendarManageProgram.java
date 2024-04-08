@@ -142,20 +142,33 @@ public class CalendarManageProgram extends BodyTagSupport {
     					int endDay = Integer.parseInt(apply.getEnd_date().substring(apply.getEnd_date().lastIndexOf("-")+1));
     					if(planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
     						if(planDay >= startDay && planDay <= 31) {
-    							sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getApply_id()+"\" keyValue2=\""+apply.getExcursions_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+apply.getAgency_name()+"(도서관 견학)</span></a>");
+								if ("0010".equals(apply.getDate_type())) {
+									sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getApply_id()+"\" keyValue2=\""+apply.getExcursions_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+apply.getAgency_name()+"(도서관 견학)</span></a>");
+								}else {
+									sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getApply_id()+"\" keyValue2=\""+apply.getExcursions_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">개인(도서관 견학)</span></a>");
+								}
     							sb.append("<ul class=\"schedule\">");
     							sb.append("</ul>");
     						}
     					}
     					if(!planMonth.equals(startMonth) && planMonth.equals(endMonth)) {
     						if(planDay >= 1 && planDay <= endDay) {
-    							sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getApply_id()+"\" keyValue2=\""+apply.getExcursions_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+apply.getAgency_name()+"(도서관 견학)</span></a>");
+								if ("0010".equals(apply.getDate_type())) {
+									sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getApply_id()+"\" keyValue2=\""+apply.getExcursions_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+apply.getAgency_name()+"(도서관 견학)</span></a>");
+								}else {
+									sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getApply_id()+"\" keyValue2=\""+apply.getExcursions_idx()+"\"><span style=\"margin-left : 5px; font-size:13px;\">개인(도서관 견학)</span></a>");
+								}
     							sb.append("<ul class=\"schedule\">");
     							sb.append("</ul>");
     						}
     					}
     					if (planDay >= startDay && planDay <= endDay) {
-    						sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getExcursions_idx()+"\" keyValue2=\""+apply.getStart_date()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+apply.getAgency_name()+"(도서관 견학)</span></a>");
+							if ("0010".equals(apply.getDate_type())) {
+								sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getExcursions_idx()+"\" keyValue2=\""+apply.getStart_date()+"\"><span style=\"margin-left : 5px; font-size:13px;\">"+apply.getAgency_name()+"(도서관 견학)</span></a>");
+							}else {
+								sb.append("<a href=\"#\" class=\"modify\" type=\"excursions\" keyValue=\""+apply.getExcursions_idx()+"\" keyValue2=\""+apply.getStart_date()+"\"><span style=\"margin-left : 5px; font-size:13px;\">개인(도서관 견학)</span></a>");
+							}
+
     						sb.append("<ul class=\"schedule\">");
     						sb.append("</ul>");
     					} 

@@ -138,8 +138,15 @@ public class CalendarManageUserProgram extends BodyTagSupport {
     					int planDay = Integer.parseInt(plan_date.substring(plan_date.lastIndexOf("-")+1));
     					int startDay = Integer.parseInt(apply.getStart_date().substring(apply.getStart_date().lastIndexOf("-")+1));
     					int endDay = Integer.parseInt(apply.getEnd_date().substring(apply.getEnd_date().lastIndexOf("-")+1));
-    					
-    					if(planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
+						if ("0010".equals(apply.getDate_type())) {
+							apply.setCode_name("천체투영관");
+						} else if ("0011".equals(apply.getDate_type())) {
+							apply.setCode_name("천체투영관");
+							apply.setAgency_name("개인");
+						}
+
+
+						if(planMonth.equals(startMonth) && !planMonth.equals(endMonth)) {
     						if(planDay >= startDay && planDay <= 31) {
     							sb.append("<li title=\""+apply.getAgency_name()+"\">");
     							sb.append("<span class=\"type-e\"><i></i><em>"+"["+apply.getCode_name()+"]"+apply.getAgency_name()+"<em></span>");
