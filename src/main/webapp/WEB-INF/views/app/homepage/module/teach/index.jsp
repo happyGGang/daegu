@@ -484,6 +484,7 @@ $(function(){
 						<option class="all" label="선택" />
 						<option value="0" label="수강신청" />
 						<option value="1" label="대기자신청" />
+						<option value="11" label="접수중" />
 						<option value="2,10" label="신청완료" />
 						<option value="3" label="대기자신청완료" />
 						<option value="4" label="접수마감" />
@@ -769,6 +770,10 @@ ${html.html}
 												<c:when test="${i.teach_status eq '0'}">
 													<a href="" class="btn btn5 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="1">
 													<i class="fa fa-pencil-square-o"></i><span>수강신청 </span></a>
+												</c:when>
+												<c:when test="${i.teach_status eq '11'}">
+													<a href="javascript:void(0);" class="btn btn5" style="cursor: default;">
+													<i class="fa fa-pencil-square-o"></i><span> 접수중 </span>
 												</c:when>
 												<c:when test="${i.teach_status eq '1'}">
 													<a href="" class="btn btn1 add" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.large_category_idx}" apply_status="2">

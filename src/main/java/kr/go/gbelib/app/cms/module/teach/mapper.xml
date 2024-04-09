@@ -830,14 +830,14 @@
 		WHEN A.status = 0
 		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
 		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
-		AND A.teach_offline_count > A.teach_off_join_count
-		THEN '11'
-		WHEN A.status = 0
-		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
-		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 		AND	A.teach_limit_count &lt;= A.teach_join_count
 		AND	A.teach_backup_count > A.teach_backup_join_count
 		THEN '1'
+		WHEN A.status = 0
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND A.teach_offline_count > A.teach_off_join_count
+		THEN '11'
 		WHEN A.status = 0
 		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
 		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
