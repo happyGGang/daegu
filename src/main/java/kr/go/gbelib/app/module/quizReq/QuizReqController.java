@@ -133,16 +133,17 @@ public class QuizReqController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 		String editMode = quizReq.getEditMode();
 
-		if ( !quizReq.getEditMode().equals("DELETE") ) {
-			ValidationUtils.rejectIfEmpty(result, "name", "이름을 입력하세요.");
-			ValidationUtils.rejectIfEmpty(result, "phone", "휴대전화번호를 입력하세요.");
-			ValidationUtils.rejectPhone(result, "phone", "휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다.");
-		}
+//		if ( !quizReq.getEditMode().equals("DELETE") ) {
+//			ValidationUtils.rejectIfEmpty(result, "name", "이름을 입력하세요.");
+//			ValidationUtils.rejectIfEmpty(result, "phone", "휴대전화번호를 입력하세요.");
+//			ValidationUtils.rejectPhone(result, "phone", "휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다.");
+//		}
 
 		int matchLength = StringUtils.countMatches(quizReq.getQuiz_answer(), "\\|") + 1;
 		int answer_length = quizReq.getQuiz_answer().split("\\|").length;
+		int answer_num = 0;
 		if(matchLength - answer_length > 0) {
-			int answer_num = answer_length + 1;
+			answer_num = answer_length + 1;
 			result.reject(answer_num + "번 문항에 답하지 않으셨습니다.");
 		}
 
@@ -170,7 +171,7 @@ public class QuizReqController extends BaseController {
 					}
 
 					MultipartFile mFile = quizReq.getQuizReq_file();
-					if (mFile != null) {
+					if (mFile.getSize() > 0) {
 						String serverFileName = Long.toString((System.currentTimeMillis()));
 						String originFileName = mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 						String fileExtension = FilenameUtils.getExtension(mFile.getOriginalFilename());
@@ -191,6 +192,7 @@ public class QuizReqController extends BaseController {
 		} else {
 			res.setValid(false);
 			res.setResult(result.getAllErrors());
+			res.setMessage(answer_num + "번 문항에 답하지 않으셨습니다.");
 		}
 
 		return res;

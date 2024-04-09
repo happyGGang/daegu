@@ -60,6 +60,23 @@ $(function() {
 			return;
 		}
 
+		if ( $('#name').val() == '' ) {
+			alert('이름을 입력해주세요.');
+			return;
+		}
+
+		if ( $('#phone').val() == '' ) {
+			alert('휴대전화번호를 입력하세요.');
+			return;
+		}
+
+		var phoneRegex = /^(010|011|016|017|018|019)-\d{3,4}-\d{4}$/;
+
+		if (!phoneRegex.test( $('#phone').val())) {
+			alert('휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다');
+			return;
+		}
+
 		var agreeLength = $('div.agree_codes input.agree_check').length;
 		for(var i = 1; i <= agreeLength; i++) {
 			if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
@@ -109,7 +126,7 @@ $(function() {
 					if (data.message != null && data.message.replace(/\s/g, '').length != 0) {
 						alert(data.message);
 					} else {
-						location.reload();
+						alert(data.message);
 					}
 				}
 			}
