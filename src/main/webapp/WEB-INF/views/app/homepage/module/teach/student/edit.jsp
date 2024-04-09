@@ -7,13 +7,9 @@
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js" charset="UTF-8"></script>
 <script type="text/javascript">
-$(document).ready(function (){
-	net_complete();
-	function net_complete(){
-		NetFunnel_Complete();
-		return true;
-	}
-});
+window.onload=function(){
+	NetFunnel_complete();
+};
 
 $(function() {
 	

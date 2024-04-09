@@ -42,10 +42,10 @@ $(function(){
 		$('#large_category_idx').val(large_category_idx);
 		$('#apply_status').val(apply_status);
 		$('#menu_idx').val(menu_idx);
-		frm.submit();
 
-		NetFunnel_Action({action_id:action_id, service_id:service_id},frm);
-
+		NetFunnel_Action({action_id:action_id, service_id:service_id},function(ev,ret){
+			frm.submit();
+		});
 		e.preventDefault();
 	});
 
