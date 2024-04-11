@@ -3222,7 +3222,7 @@ public class CommonSearchController extends BaseController {
 				if("BV".equals(librarySearch.getManageCode()) || "BU".equals(librarySearch.getManageCode()) || "BW".equals(librarySearch.getManageCode()) || "BX".equals(librarySearch.getManageCode()) || "BY".equals(librarySearch.getManageCode()) ||
 				   "BZ".equals(librarySearch.getManageCode()) || "FA".equals(librarySearch.getManageCode()) || "FB".equals(librarySearch.getManageCode()) || "FC".equals(librarySearch.getManageCode()) || "FX".equals(librarySearch.getManageCode()) ||
 				   "GK".equals(librarySearch.getManageCode()) || "BL".equals(librarySearch.getManageCode()) || "BQ".equals(librarySearch.getManageCode()) || "BP".equals(librarySearch.getManageCode()) || "BM".equals(librarySearch.getManageCode()) ||
-				   "BN".equals(librarySearch.getManageCode())) {
+				   "BN".equals(librarySearch.getManageCode()) || "BS".equals(librarySearch.getManageCode()) || "BT".equals(librarySearch.getManageCode()) || "FE".equals(librarySearch.getManageCode())) {
 					sanghoPossiCnt = 3;
 				}
 			}
