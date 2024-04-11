@@ -149,9 +149,23 @@ function changeFile(elementId) {
 
 <div class="tabmenu tab1">
 	<ul>
-	<c:forEach items="${quizTypeList}" var="i" varStatus="status">
-		<li <c:if test="${quizReq.search_quiz_type eq i.code_id}">class="active"</c:if>><a href="" class="quiz-type-btn" keyValue="${i.code_id}">${i.code_name}</a></li>
-	</c:forEach>
+	<c:choose>
+		<c:when test="${quizReq.search_quiz_type eq '99' }">
+			<c:forEach items="${quizTypeList}" var="i" varStatus="status">
+				<c:if test="${ i.code_id eq '99' }">
+					<li class="active"><a href="" class="quiz-type-btn" keyValue="${i.code_id}">${i.code_name}</a></li>
+				</c:if>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${quizTypeList}" var="i" varStatus="status">
+				<c:if test="${ i.code_id ne'99' }">
+				<li <c:if test="${quizReq.search_quiz_type eq i.code_id}">class="active"</c:if>><a href="" class="quiz-type-btn" keyValue="${i.code_id}">${i.code_name}</a></li>
+				</c:if>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+
 	</ul>
 </div>
 
