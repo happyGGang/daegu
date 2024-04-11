@@ -37,6 +37,8 @@ public class Quiz extends PagingUtils {
 	private int re_select_cnt;
 	private String applicant_id_yn = "N";
 
+	private String file_yn = "N"; //파일 사용여부
+
 	public Quiz() {
 	}
 
@@ -292,5 +294,12 @@ public class Quiz extends PagingUtils {
 	public void setAddress_yn(String address_yn) {
 		this.address_yn = address_yn;
 	}
-	
+
+	public String getFile_yn() {
+		return file_yn;
+	}
+
+	public void setFile_yn(String file_yn) {
+		this.file_yn = file_yn;
+	}
 }

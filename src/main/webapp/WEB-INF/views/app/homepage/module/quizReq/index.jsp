@@ -370,12 +370,14 @@ ${quiz.top_html}
 					</c:choose>
 					</td>
 				</tr>
+				<c:if test="${quiz.file_yn eq 'Y'}">
 				<tr>
 					<th>첨부파일</th>
 					<td class="applyFile">
 						<input type="file" id="quizReq_file" name="quizReq_file" class="text" accept=".gif,.jpeg,.jpg,.png" onchange="changeFile(this.id)">
 					</td>
 				</tr>
+				</c:if>
 				<c:if test="${quiz.address_yn eq 'Y'}">
 					<tr>
 						<th>주소</th>

@@ -76,7 +76,7 @@
 			call_no, book_desc, quiz_start_date, quiz_end_date, book_image,
 			top_html, bottom_html, delete_yn, add_date, add_id, modify_date, modify_id, school_yn, ban_yn, hak_yn, gender_yn, age_yn, applicant_id_yn,
 			(SELECT COUNT(*) FROM QUIZ_REQ WHERE homepage_id = a.homepage_id AND quiz_idx = a.quiz_idx) AS quiz_req_count,
-			select_cnt, re_select_cnt, address_yn
+			select_cnt, re_select_cnt, address_yn, file_yn
 		FROM
 			QUIZ a
 		WHERE
@@ -108,12 +108,12 @@
 			homepage_id, quiz_idx, quiz_type, quiz_name, quiz_year, quiz_month, book_name, book_author, book_publisher,
 			call_no, book_desc, quiz_start_date, quiz_end_date, book_image,
 			top_html, bottom_html, delete_yn, add_date, add_id, school_yn, ban_yn, hak_yn, gender_yn, age_yn, select_cnt, applicant_id_yn,
-			re_select_cnt, address_yn
+			re_select_cnt, address_yn,file_yn
 		) VALUES (
 			#{homepage_id}, #{quiz_idx}, #{quiz_type}, #{quiz_name}, #{quiz_year}, #{quiz_month}, #{book_name}, #{book_author}, #{book_publisher},
 			#{call_no}, #{book_desc}, #{quiz_start_date}, #{quiz_end_date}, #{book_image},
 			#{top_html}, #{bottom_html}, 'N', SYSDATE, #{add_id}, #{school_yn}, #{ban_yn}, #{gender_yn}, #{age_yn}, #{hak_yn}, 0, #{applicant_id_yn},
-			0, #{address_yn}
+			0, #{address_yn},#{file_yn}
 		)
 	</insert>
 	
@@ -143,7 +143,8 @@
 			gender_yn = #{gender_yn},
 			age_yn = #{age_yn},
 			applicant_id_yn = #{applicant_id_yn},
-			address_yn = #{address_yn}
+			address_yn = #{address_yn},
+			file_yn = #{file_yn}
 		WHERE 
 			homepage_id = #{homepage_id}
 		AND	quiz_idx = #{quiz_idx}
@@ -168,7 +169,7 @@
 			call_no, book_desc, quiz_start_date, quiz_end_date, book_image, address_yn,
 			top_html, bottom_html, delete_yn, add_date, add_id, modify_date, modify_id, school_yn, ban_yn, hak_yn, gender_yn, age_yn, applicant_id_yn,
 			(SELECT COUNT(*) FROM QUIZ_REQ WHERE homepage_id = a.homepage_id AND quiz_idx = a.quiz_idx) AS quiz_req_count,
-			select_cnt, re_select_cnt
+			select_cnt, re_select_cnt,file_yn
 		FROM
 			QUIZ a
 		WHERE
