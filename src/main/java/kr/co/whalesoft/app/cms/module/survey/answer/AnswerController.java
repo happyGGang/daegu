@@ -26,6 +26,8 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 
+import java.util.Arrays;
+
 @Controller
 @RequestMapping(value = {"/{homepagePath}/module/survey"})
 public class AnswerController extends BaseController {
@@ -402,12 +404,16 @@ public class AnswerController extends BaseController {
 					if (answerOne.getQuest_idx_list() == null || answerOne.getQuest_idx_list().size() != 1) {
 						if("Y".equals(questRequied)) {
 							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						} else if ("N".equals(questRequied)) {
+							answerOne.setQuest_idx_list(Arrays.asList("0",""));
 						}
 					}
 				} else if (questType.equals("MULTI")) {
 					if (answerOne.getQuest_idx_list() == null || answerOne.getQuest_idx_list().size() < 1) {
 						if("Y".equals(questRequied)) {
 							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						} else if ("N".equals(questRequied)) {
+							answerOne.setQuest_idx_list(Arrays.asList("0",""));
 						}
 					} else {
 						boolean hasAnswer = false;
@@ -430,6 +436,8 @@ public class AnswerController extends BaseController {
 						if (!hasAnswer && !result.hasErrors()) {
 							if("Y".equals(questRequied)) {
 								result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+							} else if ("N".equals(questRequied)) {
+								answerOne.setQuest_idx_list(Arrays.asList("0",""));
 							}
 						}
 					}
@@ -439,6 +447,8 @@ public class AnswerController extends BaseController {
 					if (answerOne.getQuest_idx_list() == null || (answerOne.getQuest_idx_list().size() != matrix_count)) {
 						if("Y".equals(questRequied)) {
 							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
+						} else if ("N".equals(questRequied)) {
+							answerOne.setQuest_idx_list(Arrays.asList("0",""));
 						}
 					}
 					if (!result.hasErrors()) {
@@ -454,6 +464,8 @@ public class AnswerController extends BaseController {
 						if (answerOne.getShort_answer() == null || answerOne.getShort_answer().trim().equals("")) {
 							result.reject((i+1)+"번 문항에 답하지 않으셨습니다.");
 						}
+					} else if ("N".equals(questRequied)) {
+						answerOne.setQuest_idx_list(Arrays.asList("0",""));
 					}
 				}
 			}
