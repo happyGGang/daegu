@@ -254,6 +254,25 @@ $(function() {
 			</c:when>
 		</c:choose>
 	</c:if>
+
+	<c:if test="${param.startpoint eq 'metaverse_pc'}">
+	$('.seogashow').on('click',function(e){
+		e.preventDefault();
+		console.log('pc');
+		var seoga = $(this).attr('data-keyValue');
+		console.log(seoga);
+		window.vuplex.postMessage({ message: seoga });
+	});
+	</c:if>
+	<c:if test="${param.startpoint eq 'metaverse_mobile'}">
+	$('.seogashow').on('click',function(e){
+		e.preventDefault();
+		console.log('mobile');
+		var seoga = $(this).attr('data-keyValue');
+		console.log(seoga);
+		location.href="daegulibmetaverse://lib?message"+seoga;
+	});
+	</c:if>
 });
 
 function resveReq(bookkey, booktype, editMode) {
@@ -1128,6 +1147,11 @@ function resveReq(bookkey, booktype, editMode) {
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
+												<c:if test="${context_path eq 'beomeo'}">
+												<c:if test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+												<a href="#seoga" class="seogashow" data-keyValue="${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}"><span>서가확인</span></a>
+												</c:if>
+												</c:if>
 											</div>
 										</div>
 									</div>
@@ -1384,7 +1408,12 @@ function resveReq(bookkey, booktype, editMode) {
 											</p>
 
 											<div class="stat">
-												<a href="#showSlide" class="showSlide" vLoca="747016" ><span>소장정보</span></a>
+												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
+												<c:if test="${context_path eq 'beomeo'}">
+												<c:if test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+												<a href="#seoga" class="seogashow" data-keyValue="${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}"><span>서가확인</span></a>
+												</c:if>
+												</c:if>
 											</div>
 										</div>
 									</div>

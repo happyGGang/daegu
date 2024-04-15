@@ -86,7 +86,7 @@ $(function() {
 						<form:option value="127088">태전도서관</form:option>
 						<!-- <form:option value="727033">태전1동 작은도서관</form:option> -->
 						<form:option value="727038">산격1동 작은도서관</form:option>
-						<!-- <form:option value="727040">북구영어작은도서관</form:option> -->
+						<form:option value="727040">북구영어작은도서관</form:option>
 						<form:option value="727054">침산1동 작은도서관</form:option>
 						<!-- <form:option value="727055">노원동 작은도서관(폐관)</form:option> -->
 						<form:option value="727088">서변동작은도서관</form:option>
@@ -104,7 +104,7 @@ $(function() {
 						<form:option value="127096">무학숲도서관</form:option>
 						<form:option value="127017">책숲길도서관</form:option>
 						<form:option value="127018">물망이도서관</form:option>
-						<form:option value="127021">사월역도서관</form:option>
+						<!--<form:option value="127021">사월역도서관</form:option>-->
 						<form:option value="127102">황금책문화센터</form:option>
 					</form:select>
 					</c:when>

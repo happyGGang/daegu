@@ -8,7 +8,8 @@
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js" charset="UTF-8"></script>
 <script type="text/javascript">
 window.onload=function(){
-	NetFunnel_complete();
+	NetFunnel_Complete({},function(ev, ret){
+	});
 };
 
 $(function() {
