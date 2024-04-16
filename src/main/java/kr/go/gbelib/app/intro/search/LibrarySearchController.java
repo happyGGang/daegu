@@ -1347,6 +1347,10 @@ public class LibrarySearchController extends BaseController {
 			   "HB".equals(librarySearch.getManageCode()) || "HD".equals(librarySearch.getManageCode()) || "HE".equals(librarySearch.getManageCode())) {
 				sanghoPossiCnt = 10;
 			}
+
+			if("BS".equals(librarySearch.getManageCode()) || "BT".equals(librarySearch.getManageCode()) || "FE".equals(librarySearch.getManageCode())) {
+				sanghoPossiCnt = 3;
+			}
 			
 			if (lillRequestListCount >= sanghoPossiCnt) {
 				service.alertMessage("상호대차 신청권수는 "+sanghoPossiCnt+"권까지입니다.", request, response);

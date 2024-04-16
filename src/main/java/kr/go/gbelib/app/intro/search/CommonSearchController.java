@@ -3226,7 +3226,11 @@ public class CommonSearchController extends BaseController {
 					sanghoPossiCnt = 3;
 				}
 			}
-			
+
+			if("BS".equals(librarySearch.getManageCode()) || "BT".equals(librarySearch.getManageCode()) || "FE".equals(librarySearch.getManageCode())) {
+				sanghoPossiCnt = 3;
+			}
+
 			if("BA".equals(librarySearch.getManageCode()) || "BB".equals(librarySearch.getManageCode()) || "BC".equals(librarySearch.getManageCode()) ||
 			   "GL".equals(librarySearch.getManageCode()) || "GM".equals(librarySearch.getManageCode()) || "GN".equals(librarySearch.getManageCode()) ||
 			   "HB".equals(librarySearch.getManageCode()) || "HD".equals(librarySearch.getManageCode()) || "HE".equals(librarySearch.getManageCode())) {
