@@ -1268,7 +1268,9 @@ $(function() {
 
 		<c:if test="${homepage.context_path eq '228'}">
 			<p style="font-weight:bold;text-align:center;">
-				※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.
+				<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' or detail.SHELF_LOC_CODE eq 'AA04' or detail.SHELF_LOC_CODE eq 'AA10' or detail.SHELF_LOC_CODE eq 'AA11' or detail.SHELF_LOC_CODE eq 'AA17' or detail.SHELF_LOC_CODE eq 'AA20'}">
+					※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.
+				</c:if>
 			</p>
 		</c:if>
 
