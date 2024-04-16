@@ -590,17 +590,17 @@ do {
                 <ul>
                   <li class="on"><a href="#all" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628">전체</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h77">서구어린이</a></li>
+                  <li><a href="#seoguchild" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0001">서구어린이</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h61">비산</a></li>
+                  <li><a href="#bisan" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0002">비산</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h62">영어</a></li>
+                  <li><a href="#english" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0003">영어</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h63">비원</a></li>
+                  <li><a href="#biwon" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0004">비원</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h64">원고개</a></li>
+                  <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0005">원고개</a></li>
                   <li class="bar">/</li>
-                  <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category5=h96">New평리</a></li>
+                  <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0007">New평리</a></li>
                 </ul>
               </div>
               <div class="top3wrap" id="notibox1_all" style="display:block;">

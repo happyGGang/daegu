@@ -1216,13 +1216,36 @@
 		FROM
 			CMS_BOARD
 		WHERE
-			manage_idx = #{manage_idx} AND
-			delete_yn = #{delete_yn} AND
-			group_depth = 0 AND
-			notice_yn = 'Y' AND
-			<if test='kiosk_yn == "Y"'>kiosk_yn = 'Y' AND</if>
-			(notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL) AND
-			(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
+			manage_idx = #{manage_idx}
+		AND delete_yn = #{delete_yn}
+		AND	group_depth = 0
+		AND	notice_yn = 'Y'
+		<choose>
+			<when test="manage_idx == 563 and (category1 == null or category1 == '')">
+				AND category1 != '0000'
+				AND category1 != '0040'
+			</when>
+			<otherwise>
+				<if test="category1 != null and category1 != ''">
+					AND category1 = #{category1}
+				</if>
+				<if test="category2 != null and category2 != ''">
+					AND category2 = #{category2}
+				</if>
+				<if test="category3 != null and category3 != ''">
+					AND category3 = #{category3}
+				</if>
+				<if test="category4 != null and category4 != ''">
+					AND category4 = #{category4}
+				</if>
+				<if test="category5 != null and category5 != ''">
+					AND category5 = #{category5}
+				</if>
+			</otherwise>
+		</choose>
+		<if test='kiosk_yn == "Y"'>AND kiosk_yn = 'Y'</if>
+		AND (notice_start_date <![CDATA[<=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_start_date IS NULL)
+		AND	(notice_end_date <![CDATA[>=]]> TO_CHAR(SYSDATE,'yyyy-MM-dd') OR notice_end_date IS NULL)
 		ORDER BY board_idx DESC
 	</select>
 
