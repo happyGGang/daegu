@@ -250,6 +250,10 @@ public class BookPackageController extends BaseController {
 				service.modifyReturnReq(bookPackage);
 				res.setValid(true);
 				res.setMessage("반납요청이 변경되었습니다.");
+			} else if(bookPackage.getEditMode().equals("returnReqCancel")) {
+				service.modifyReturnReq(bookPackage);
+				res.setValid(true);
+				res.setMessage("반납요청이 취소 되었습니다.");
 			} else if(bookPackage.getEditMode().equals("STATUS")) {
 				service.statusChangeAll(bookPackage);
 				res.setValid(true);

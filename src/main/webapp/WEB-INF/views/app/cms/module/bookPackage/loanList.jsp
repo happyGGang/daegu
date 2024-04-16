@@ -19,15 +19,16 @@ $(function() {
 		var return_yn = $(this).attr('keyValue2')
 		var msg = '';
 		
-		$('#editMode').val('returnReq');
 		$('form#bookPackage').attr('action', 'loanSave.do');
 		$('#book_package_loan_idx').val($(this).attr('keyValue'));
 		$('input[name="return_yn"]').val(return_yn);
 		$('input[name="return_yn"]').prop('checked', true);
 		
 		if(return_yn == 'Y') {
+			$('#editMode').val('returnReq');
 			msg = '반납요청을 하시겠습니까?';
 		} else {
+			$('#editMode').val('returnReqCancel');
 			msg = '반납요청을 취소 하시겠습니까?';
 		}
 		

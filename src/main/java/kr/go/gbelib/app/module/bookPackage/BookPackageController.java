@@ -363,7 +363,16 @@ public class BookPackageController extends BaseController {
 			} else if(bookPackage.getEditMode().equals("returnReq")) {
 				service.modifyReturnReq(bookPackage);
 				res.setValid(true);
-				res.setMessage("반납요청이 변경되었습니다.");
+				res.setMessage("반납 시, 가방 송장을 빼지 마십시오.\r\n" +
+						"원활한 택배 수거를 위해\r\n" +
+						"\"반납\" 이 적힌 포스트잇 부착 등으로\r\n" +
+						"반납자료라는 표시를 해주시면 감사하겠습니다.\r\n" +
+						"\r\n" +
+						"반납요청이 완료되었습니다.");
+			} else if(bookPackage.getEditMode().equals("returnReqCancel")) {
+				service.modifyReturnReq(bookPackage);
+				res.setValid(true);
+				res.setMessage("반납요청이 취소 되었습니다.");
 			} else if(bookPackage.getEditMode().equals("STATUS")) {
 				service.statusChangeAll(bookPackage);
 				res.setValid(true);
