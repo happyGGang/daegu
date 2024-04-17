@@ -55,49 +55,64 @@ $(function() {
 			$('#quizReq #ban').val(0);
 		}
 
-		if ( $('#quizReq #quiz_idx').val() == 0 ) {
+		if ($('#quizReq #quiz_idx').val() == 0) {
 			alert('해당하는 퀴즈 정보가 없습니다.');
 			return;
 		}
 
-		if ( $('#name').val() == '' ) {
+		if ($('#name').val() == '') {
 			alert('이름을 입력해주세요.');
 			return;
 		}
 
-		if ( $('#phone').val() == '' ) {
+		if ($('#phone').val() == '') {
 			alert('휴대전화번호를 입력하세요.');
 			return;
 		}
 
 		var phoneRegex = /^(010|011|016|017|018|019)-\d{3,4}-\d{4}$/;
 
-		if (!phoneRegex.test( $('#phone').val())) {
+		if (!phoneRegex.test($('#phone').val())) {
 			alert('휴대전화번호 형식(01x-xxxx-xxxx)이 올바르지 않습니다');
 			return;
 		}
 
 		var agreeLength = $('div.agree_codes input.agree_check').length;
-		for(var i = 1; i <= agreeLength; i++) {
-			if(!$('#terms'+i).prop('checked') && $('#terms'+i).attr('keyValue2') == 'Y') {
-				alert($('#terms'+i).attr('keyValue') + ' 동의 하지 않았습니다.');
+		for (var i = 1; i <= agreeLength; i++) {
+			if (!$('#terms' + i).prop('checked') && $('#terms' + i).attr('keyValue2') == 'Y') {
+				alert($('#terms' + i).attr('keyValue') + ' 동의 하지 않았습니다.');
 				return false;
 			}
 		}
 
+		<c:if test="${quiz.birth_yn eq 'Y'}">
+		if ($("#birth_day").val() == '') {
+			alert('생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
+			return false;
+		}
+
+		function validateDateFormat(dateString) {
+			var regex = /^\d{4}-\d{2}-\d{2}$/;
+			return regex.test(dateString);
+		}
+
+		if (!validateDateFormat($("#birth_day").val())) {
+			alert("유효하지 않은 날짜 형식입니다.");
+			return false;
+		}
+		</c:if>
+
 		var answerList = [];
-		$('div.txt-box').each(function(i, divE) {
+		$('div.txt-box').each(function (i, divE) {
 			var $this = $(this);
 			var type = $this.attr('keyValue');
-			if ( type == 'TEXT' ) {
+			if (type == 'TEXT') {
 				answerList.push($this.find('textarea').val());
-			}
-			else if ( type == 'RADIO' ) {
+			} else if (type == 'RADIO') {
 				answerList.push($this.find('input:radio:checked').val());
-			}
-			else if ( type == 'CHECK' ) {
+			} else if (type == 'CHECK') {
 				var checkAnswer = [];
-				$this.find('input:checkbox:checked').each(function(i, checkE) {
+				$this.find('input:checkbox:checked').each(function (i, checkE) {
 					checkAnswer.push($(this).val());
 				});
 				answerList.push(checkAnswer.join(','));
@@ -116,9 +131,9 @@ $(function() {
 			contentType: false,
 			processData: false,
 			dataType: 'json',
-			success: function(data) {
-				if(data.valid) {
-					if(data.message != null && data.message.replace(/\s/g,'').length!=0) {
+			success: function (data) {
+				if (data.valid) {
+					if (data.message != null && data.message.replace(/\s/g, '').length != 0) {
 						alert(data.message);
 						location.reload();
 					}
@@ -375,6 +390,22 @@ ${quiz.top_html}
 					<th>첨부파일</th>
 					<td class="applyFile">
 						<input type="file" id="quizReq_file" name="quizReq_file" class="text" accept=".gif,.jpeg,.jpg,.png" onchange="changeFile(this.id)">
+					</td>
+				</tr>
+				</c:if>
+				<c:if test="${quiz.birth_yn eq 'Y'}">
+				<tr>
+					<th>생년월일</th>
+					<td>
+						<c:choose>
+							<c:when test="${sessionScope.member.login}">
+								<form:hidden path="birth_day" value="${sessionScope.member.birth_day}" />
+								${sessionScope.member.birth_day}
+							</c:when>
+							<c:otherwise>
+								<form:input path="birth_day" value="${memberInfo.birth_day}" class="text" maxlength="10"/>
+							</c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
 				</c:if>

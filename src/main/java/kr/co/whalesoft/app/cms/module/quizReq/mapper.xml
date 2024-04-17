@@ -8,7 +8,7 @@
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 			school, hak, ban, gender, age, phone, zip_code,
 			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
-			chosen_yn, applicant_id,origin_file_name, server_file_name, file_extension, file_size
+			chosen_yn, applicant_id,origin_file_name, server_file_name, file_extension, file_size,birth_day
 		FROM
 			QUIZ_REQ
 		WHERE 
@@ -26,7 +26,7 @@
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 			school, hak, ban, gender, age, phone, zip_code,
 			address, winner_yn, add_ip, add_id, to_char(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date,
-			chosen_yn, applicant_id
+			chosen_yn, applicant_id,birth_day
 		FROM
 			QUIZ_REQ
 		WHERE 
@@ -126,12 +126,12 @@
 			homepage_id, quiz_idx, quiz_req_idx, quiz_answer, name,
 			school, hak, ban, gender, age, phone, zip_code,
 			address, add_ip, add_id, add_date, chosen_yn, applicant_id,
-			origin_file_name, server_file_name, file_extension, file_size
+			origin_file_name, server_file_name, file_extension, file_size,birth_day
 		) VALUES (
 			#{homepage_id}, #{quiz_idx}, #{quiz_req_idx}, #{quiz_answer}, #{name},
 			#{school}, #{hak}, #{ban}, #{gender}, #{age}, #{phone}, #{zip_code},
 			#{address}, #{add_ip}, #{add_id}, SYSDATE, 'N', #{applicant_id},
-			#{origin_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
+			#{origin_file_name}, #{server_file_name}, #{file_extension}, #{file_size},#{birth_day}
 		)
 	</insert>
 	

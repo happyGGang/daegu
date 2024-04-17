@@ -34,10 +34,11 @@ public class QuizReq extends PagingUtils {
 	private String origin_file_name; // 원본파일명
 	private String server_file_name; // 서버파일명
 	private String file_extension; // 파일확장자
+
 	private long file_size; // 파일크기
 
+	private String birth_day; //생년월일
 
-	
 	public QuizReq() { }
 	
 	public QuizReq(String homepage_id, int quiz_idx) {
@@ -237,5 +238,13 @@ public class QuizReq extends PagingUtils {
 
 	public void setFile_size(long file_size) {
 		this.file_size = file_size;
+	}
+
+	public String getBirth_day() {
+		return birth_day;
+	}
+
+	public void setBirth_day(String birth_day) {
+		this.birth_day = birth_day;
 	}
 }

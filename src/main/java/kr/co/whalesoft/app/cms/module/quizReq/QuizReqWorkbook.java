@@ -59,7 +59,10 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).setColumnView( i++, 20 );
 		workbook.getSheet(0).setColumnView( i++, 20 );
 		workbook.getSheet(0).setColumnView( i++, 50 );
-		
+		workbook.getSheet(0).setColumnView( i++, 50 );
+		workbook.getSheet(0).setColumnView( i++, 50 );
+
+
 		i=0;
 		// 헤더 컬럼 지정
 		workbook.getSheet(0).addCell( new Label( i++, 0, "번호", format ) );
@@ -74,9 +77,11 @@ public class QuizReqWorkbook {
 		workbook.getSheet(0).addCell( new Label( i++, 0, "전화번호", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "주소", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "등록일시", format ) );
+		workbook.getSheet(0).addCell( new Label( i++, 0, "생년월일", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "정답자 여부", format ) );
 		workbook.getSheet(0).addCell( new Label( i++, 0, "당첨자 여부", format ) );
-		
+
+
 		int row = 1;
 		for ( QuizReq org : quizReqList ) {
 			
@@ -105,16 +110,17 @@ public class QuizReqWorkbook {
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getPhone(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++,  row, org.getAddress(),format1 ) );
 			workbook.getSheet(0).addCell( new Label( i++, row, org.getAdd_date(),format1 ) );
+			workbook.getSheet(0).addCell( new Label( i++, row, org.getBirth_day(),format1 ) );
 			if ( StringUtils.isNotEmpty(org.getQuiz_answer()) ) {
 				String[] answerList = org.getQuiz_answer().trim().split("\\|");
-				
+
 				workbook.getSheet(0).addCell( new Label( i++, row, org.getWinner_yn(), format1 ) );
 				workbook.getSheet(0).addCell( new Label( i++, row, org.getChosen_yn(), format1 ) );
-				
+
 				int j=0;
 				for(int count=1; j < answerList.length; j++, count++) {
 					String answer = answerList[j];
-					
+
 					workbook.getSheet(0).setColumnView( i+j, 50 );
 					if(StringUtils.isEmpty(workbook.getSheet(0).getCell(i+j, row).getContents())) {
 						workbook.getSheet(0).addCell( new Label( i+j, 0, count + "번", format ) );
@@ -122,7 +128,8 @@ public class QuizReqWorkbook {
 					workbook.getSheet(0).addCell( new Label( i+j,  row, answer,format1 ) );
 				}
 			}
-			
+
+
 			row++;
 		}
 		

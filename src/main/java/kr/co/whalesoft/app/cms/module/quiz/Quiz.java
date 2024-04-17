@@ -39,6 +39,8 @@ public class Quiz extends PagingUtils {
 
 	private String file_yn = "N"; //파일 사용여부
 
+	private String birth_yn = "N"; //파일 사용여부
+
 	public Quiz() {
 	}
 
@@ -301,5 +303,13 @@ public class Quiz extends PagingUtils {
 
 	public void setFile_yn(String file_yn) {
 		this.file_yn = file_yn;
+	}
+
+	public String getBirth_yn() {
+		return birth_yn;
+	}
+
+	public void setBirth_yn(String birth_yn) {
+		this.birth_yn = birth_yn;
 	}
 }
