@@ -296,14 +296,30 @@
 </script>
 <script src="/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
 <h4>개인정보 수집 및 이용 동의</h4>
-<div class="warn-txt">
-    <ul class="con">
-	<li><strong>개인정보 수집.이용 목적 :</strong> 도서관 홈페이지를 이용하여 동아리방 사용을 신청하시는 분들의 본인 확인, 동아리방 신청 승인을 위해 수집하며, 수집된 정보는 관련 업무에만 이용됩니다.</li>
-	<li><strong>수집하려는 개인정보의 항목 :</strong> 필수항목 - 신청자의 이름, 휴대폰 연락처, 주소, 신청인원, 사용희망일, 사용시간, 사용목적 / 선택항목 - 신청자의 유선 연락처</li>
-	<li><strong>보유 및 이용기간 :</strong> 수집한 개인정보는 1년 동안 보유하며, 요청 시 모든 개인정보를 즉시 삭제합니다.</li>
-	<li><strong>동의거부 권리 및 불이익 :</strong> 동의를 거부할 권리가 있으며, 거부 시 동아리방 신청 서비스에 제한이 따를 수 있습니다</li>
-	</ul>
-</div>
+<c:if test="${homepage.context_path eq 'bukgs'}">
+	<c:choose>
+		<c:when test="${param.menu_idx eq '145'}">
+			<div class="warn-txt">
+				<ul class="con">
+				<li><strong>개인정보 수집.이용 목적 :</strong> 도서관 홈페이지를 이용하여 음악이 흐르는 도서관을 신청하시는 분들의 본인 확인, 재능기부 봉사 신청 승인을 위해 수집하며, 수집된 정보는 관련 업무에만 이용됩니다.</li>
+				<li><strong>수집하려는 개인정보의 항목 :</strong> 필수항목 - 신청자의 이름, 휴대폰 연락처, 주소, 연주희망일, 연주시간, 사용목적, 생년월일</li>
+				<li><strong>보유 및 이용기간 :</strong> 수집한 개인정보는 1년 동안 보유하며, 요청 시 모든 개인정보를 즉시 삭제합니다.</li>
+				<li><strong>동의거부 권리 및 불이익 :</strong> 동의를 거부할 권리가 있으며, 거부 시 재능기부 봉사 신청 서비스에 제한이 따를 수 있습니다</li>
+				</ul>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="warn-txt">
+				<ul class="con">
+				<li><strong>개인정보 수집.이용 목적 :</strong> 도서관 홈페이지를 이용하여 동아리방 사용을 신청하시는 분들의 본인 확인, 동아리방 신청 승인을 위해 수집하며, 수집된 정보는 관련 업무에만 이용됩니다.</li>
+				<li><strong>수집하려는 개인정보의 항목 :</strong> 필수항목 - 신청자의 이름, 휴대폰 연락처, 주소, 신청인원, 사용희망일, 사용시간, 사용목적 / 선택항목 - 신청자의 유선 연락처</li>
+				<li><strong>보유 및 이용기간 :</strong> 수집한 개인정보는 1년 동안 보유하며, 요청 시 모든 개인정보를 즉시 삭제합니다.</li>
+				<li><strong>동의거부 권리 및 불이익 :</strong> 동의를 거부할 권리가 있으며, 거부 시 동아리방 신청 서비스에 제한이 따를 수 있습니다</li>
+				</ul>
+			</div>
+		</c:otherwise>
+	</c:choose>
+</c:if>
 <div class="mg10t"></div>
 &nbsp;<input type="checkbox" id="agree1"><label for="agree1"> 본인은 위 내용을 숙지하였으며 이에 동의합니다.</label>
 
@@ -403,7 +419,7 @@
 			<tr>
 				<th><span class="point">*</span>일시</th>
 				<td>
-					<form:checkboxes items="${reqTimeCode}" path="visit_time_list" itemLabel="code_name" itemValue="code_id" onclick='checkOnlyOne(this)'/>
+					<form:checkboxes items="${reqTimeCode}" path="visit_time_list" itemLabel="code_name" itemValue="code_id"/>
 					<p>※한번 신청하실때 1-TIME까지만 신청이 가능합니다. </p>
 				</td>
 			</tr>
