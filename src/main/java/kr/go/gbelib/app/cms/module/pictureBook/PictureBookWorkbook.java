@@ -57,11 +57,12 @@ public class PictureBookWorkbook {
 		workbook.getSheet(0).addCell(new Label(3, 0, "신청자", format));
 		workbook.getSheet(0).addCell(new Label(4, 0, "휴대폰", format));
 		workbook.getSheet(0).addCell(new Label(5, 0, "학교 연락처", format));
-		workbook.getSheet(0).addCell(new Label(5, 0, "택배 배송장소", format));
-		workbook.getSheet(0).addCell(new Label(6, 0, "신청사유 및 기타요청사항", format));
-		workbook.getSheet(0).addCell(new Label(7, 0, "신청일자", format));
-		workbook.getSheet(0).addCell(new Label(8, 0, "진행상태", format));
-		
+		workbook.getSheet(0).addCell(new Label(6, 0, "택배 배송장소", format));
+		workbook.getSheet(0).addCell(new Label(7, 0, "신청사유 및 기타요청사항", format));
+		workbook.getSheet(0).addCell(new Label(8, 0, "신청일자", format));
+		workbook.getSheet(0).addCell(new Label(9, 0, "진행상태", format));
+		workbook.getSheet(0).addCell(new Label(10, 0, "점수", format));
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		int row = 1;
@@ -72,8 +73,9 @@ public class PictureBookWorkbook {
 			workbook.getSheet(0).addCell(new Label(3, row, one.getRequest_name()));
 			workbook.getSheet(0).addCell(new Label(4, row, one.getPhone()));
 			workbook.getSheet(0).addCell(new Label(5, row, one.getSchool_tel()));
-			workbook.getSheet(0).addCell(new Label(6, row, one.getRequest_content()));
-			workbook.getSheet(0).addCell(new Label(7, row, sdf.format(one.getAdd_date())));
+			workbook.getSheet(0).addCell(new Label(6, row, one.getDelivery_location()));
+			workbook.getSheet(0).addCell(new Label(7, row, one.getRequest_content()));
+			workbook.getSheet(0).addCell(new Label(8, row, sdf.format(one.getAdd_date())));
 			
 			String status = "";
 			switch (Integer.valueOf(one.getRequest_status())) {
@@ -94,8 +96,9 @@ public class PictureBookWorkbook {
 				default :
 					break;
 			}
-			workbook.getSheet(0).addCell(new Label(8, row, status));
-			
+			workbook.getSheet(0).addCell(new Label(9, row, status));
+			workbook.getSheet(0).addCell(new Label(10, row, String.valueOf(one.getPicture_count())));
+
 			row++;
 		}
 		
