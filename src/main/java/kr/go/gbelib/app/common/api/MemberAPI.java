@@ -357,6 +357,10 @@ public class MemberAPI {
 			param.put("department", member.getCompany_depart());//근무지 부서명
 		}
 
+		if (StringUtils.isNotBlank(member.getCard_password())) {
+			param.put("card_password", CalculateHashUtils.calculateHashSHA256(member.getCard_password()));//카드 비밀번호
+		}
+
 		/**
 		 * 대구는 DI 사용안함.
 		 * 2019.12.19

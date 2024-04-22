@@ -146,6 +146,7 @@ $(function() {
 $(document).on("keyup", "input:text[numberOnly]", function() {
 	$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 });
+
 </script>
 	<p class="blind">
 		회원가입 단계
@@ -469,6 +470,18 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					</th>
 					<td>
 						<input id="member_pw_confirm" type="password" class="text new_text01" title="신규 비밀번호 확인을 위한 입력" > <b id="pw_confirm_message"></b>
+					</td>
+				</tr>
+				<tr id="new_card_password_area1">
+					<th>
+						카드 비밀번호
+					</th>
+					<td>
+						<form:password path="card_password" class="text" maxlength="4"/>
+						<div class="ui-state-highlight">
+								<span id="cardcheck">카드비밀번호는 숫자 4자리만 가능
+								</span>
+						</div>
 					</td>
 				</tr>
 				<tr>

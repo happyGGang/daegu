@@ -426,6 +426,9 @@ public class CommonJoinController extends BaseController {
 					result.rejectValue("member_pw", "비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내로 입력하셔야 합니다.");
 				}
 			}
+			if (StringUtils.isNotEmpty(member.getCard_password())) {
+				ValidationUtils.rejectExceptNumber(result, "card_password", 4, "대출증 비밀번호 설정은 숫자 4자리로 입력해주세요.");
+			}
 			ValidationUtils.rejectIfEmpty(result, "cell_phone2", "휴대폰 번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "cell_phone3", "휴대폰 번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "zipcode", "주소를 입력해주세요.");
