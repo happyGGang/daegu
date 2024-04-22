@@ -85,6 +85,9 @@ public class QuizReqController extends BaseController {
 				if(StringUtils.isEmpty(quizReq.getSearch_quiz_type()) || "1".equals(quizReq.getSearch_quiz_type()) || "2".equals(quizReq.getSearch_quiz_type())) {
 					t.setTerms_idx(91);
 					model.addAttribute("termsList", termsService.getTermsListOne(t));
+				} else if ("9".equals(quizReq.getSearch_quiz_type())) {
+					t.setTerms_idx(95);
+					model.addAttribute("termsList", termsService.getTermsListOne(t));
 				} else {
 					t.setTerms_idx(92);
 					model.addAttribute("termsList", termsService.getTermsListOne(t));
