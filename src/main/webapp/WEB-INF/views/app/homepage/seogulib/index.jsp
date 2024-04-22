@@ -1009,6 +1009,73 @@ do {
                   </div>
                 </div>
               </div>
+              <div class="top3wrap" id="notibox1_pyeongri">
+                <div class="board_box">
+                  <c:forEach items="${noticeListh96}" var="i" varStatus="status" begin="0" end="0">
+                    <div class="board_notice01"> <a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
+                      <div class="img_box">
+                        <c:choose>
+                          <c:when test="${i.preview_img ne null}">
+                            <c:choose>
+                              <c:when test="${fn:contains(i.preview_img, 'http')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:when test="${fn:contains(i.preview_img, 'noImg2')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:otherwise> <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/> </c:otherwise>
+                            </c:choose>
+                          </c:when>
+                          <c:otherwise> <img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/> </c:otherwise>
+                        </c:choose>
+                      </div>
+                      <div class="con_box">
+                        <div class="cate">${i.category1_name}</div>
+                        <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+                        <div class="date">
+                          <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
+                        </div>
+                        <div class="txt">${i.content_summary}</div>
+                      </div>
+                    </a> </div>
+                  </c:forEach>
+                  <div class="board_notice02">
+                    <div>
+                      <ul>
+                        <c:forEach items="${noticeListh96}" var="i" varStatus="status" begin="1" end="7">
+                          <c:if test="${i.category1 eq '0001'}">
+                            <c:set var="libcode" value="child">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0002'}">
+                            <c:set var="libcode" value="bisan">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0003'}">
+                            <c:set var="libcode" value="english">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0004'}">
+                            <c:set var="libcode" value="biwon">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0005'}">
+                            <c:set var="libcode" value="wongogae">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0007'}">
+                            <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
+                          <li class="${libcode}">
+                            <div class="cate">${i.category1_name}</div>
+                            <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
+                            <div class="date">
+                              <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
+                            </div>
+                          </li>
+                        </c:forEach>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="end"></div>
             <div class="top2wrap" id="top2box_gallery">
@@ -2062,6 +2129,147 @@ do {
                 </div>
               </div>
             </div>
+            <div class="top3wrap" id="culturebox2_pyeongri">
+              <div class="board_box">
+                <div class="board_notice03 pt50">
+                  <c:if test="${fn:length(teachListh61) < 1}">
+                    <div class="empty_box"><p>등록된 행사가 없습니다.</p></div>
+                  </c:if>
+                  <div>
+                    <ul>
+                      <c:forEach items="${teachListh96}" var="i" varStatus="status" begin="0" end="7">
+                        <c:if test="${i.homepage_id eq 'h77'}">
+                          <c:set var="libcode" value="child">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h61'}">
+                          <c:set var="libcode" value="bisan">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h62'}">
+                          <c:set var="libcode" value="english">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h63'}">
+                          <c:set var="libcode" value="biwon">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h64'}">
+                          <c:set var="libcode" value="wongogae">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h77'}">
+                          <c:set var="libname" value="서구어린이">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h61'}">
+                          <c:set var="libname" value="비산">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h62'}">
+                          <c:set var="libname" value="영어">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h63'}">
+                          <c:set var="libname" value="비원">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h64'}">
+                          <c:set var="libname" value="원고개">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+                          <c:set var="libname" value="평리">
+                          </c:set>
+                        </c:if>
+                        <c:if test="${i.homepage_id eq 'h96'}">
+                          <c:set var="libcode" value="pyeongri">
+                          </c:set>
+                        </c:if>
+                        <li class="${libcode}">
+                          <div class="cate">${libname}</div>
+                          <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
+                          <c:if test="${i.teach_status eq '0'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
+                          <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
+                        </li>
+                      </c:forEach>
+                    </ul>
+                  </div>
+                </div>
+                <div class="board_notice03 m_none pt50" >
+                  <ul>
+                    <c:forEach items="${teachListh96}" var="i" varStatus="status" begin="8" end="13">
+                      <c:if test="${i.homepage_id eq 'h77'}">
+                        <c:set var="libcode" value="child">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h61'}">
+                        <c:set var="libcode" value="bisan">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h62'}">
+                        <c:set var="libcode" value="english">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h63'}">
+                        <c:set var="libcode" value="biwon">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h64'}">
+                        <c:set var="libcode" value="wongogae">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h77'}">
+                        <c:set var="libname" value="서구어린이">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h61'}">
+                        <c:set var="libname" value="비산">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h62'}">
+                        <c:set var="libname" value="영어">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h63'}">
+                        <c:set var="libname" value="비원">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h64'}">
+                        <c:set var="libname" value="원고개">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+                        <c:set var="libname" value="평리">
+                        </c:set>
+                      </c:if>
+                      <c:if test="${i.homepage_id eq 'h96'}">
+                        <c:set var="libcode" value="pyeongri">
+                        </c:set>
+                      </c:if>
+                      <li class="${libcode}">
+                        <div class="cate">${libname}</div>
+                        <div class="tit"><a href="/${homepage.context_path}/module/teach/detail.do?group_idx=${i.group_idx}&teach_idx=${i.teach_idx}&menu_idx=32&category_idx=${i.category_idx}&large_category_idx=${i.large_category_idx}&homepage_id=${i.homepage_id}"><!-- 하이퍼링크 -->${i.teach_name}</a></div>
+                        <c:if test="${i.teach_status eq '0'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
+                        <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
+                      </li>
+                    </c:forEach>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!--//도서관행사--> 
@@ -2251,6 +2459,32 @@ do {
                         <div class="tit">${i.title}</div>
                       </div>
                       </a> </div>
+                  </c:forEach>
+                </div>
+              </div>
+              <div class="top3wrap" id="recombox3_pyeongri">
+                <div class="book_box">
+                  <c:if test="${fn:length(bookListh96) < 1}">
+                    <div class="book">등록된 데이터가 없습니다.</div>
+                  </c:if>
+                  <c:forEach items="${bookListh96}" var="i" varStatus="status" begin="0" end="4">
+                    <div class="book"> <a href="/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
+                      <div class="img_box">
+                        <c:choose>
+                          <c:when test="${i.preview_img ne null}">
+                            <c:choose>
+                              <c:when test="${fn:contains(i.preview_img, 'http')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:when test="${fn:contains(i.preview_img, 'noImg2')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:otherwise> <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/> </c:otherwise>
+                            </c:choose>
+                          </c:when>
+                          <c:otherwise> <img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/> </c:otherwise>
+                        </c:choose>
+                      </div>
+                      <div class="con_box">
+                        <div class="tit">${i.title}</div>
+                      </div>
+                    </a> </div>
                   </c:forEach>
                 </div>
               </div>

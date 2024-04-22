@@ -2685,6 +2685,8 @@ public class IndexController extends BaseController {
 					b.setCategory1("0004");
 				} else if (h2.getHomepage_id().equals("h64")) {
 					b.setCategory1("0005");
+				}else if (h2.getHomepage_id().equals("h96")) {
+					b.setCategory1("0007");
 				}
 
 				final List<Board> subBoardByMainSeogu = boardService.getSubBoardByMainSeogu(b);
@@ -2698,6 +2700,8 @@ public class IndexController extends BaseController {
 				homepage_ids.add(h2.getHomepage_id());
 				t.setHomepage_id(h2.getHomepage_id());
 				model.addAttribute("teachList"+h2.getHomepage_id(), teachService.getTeachListForUser(t));
+				b.setManage_idx(625);
+				model.addAttribute("bookList"+h2.getHomepage_id(), boardService.getSubBoardByMain(b));//추천도서전체
 			}
 
 			t.setHomepage_id(null);

@@ -1179,8 +1179,7 @@ public class BoardController extends BaseController {
 	public @ResponseBody JsonResponse save(Board board, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 
-		/* 유효성 검증 >>>>> */
-		JsonResponse res = new JsonResponse(request);
+		/* 유효성 검증 >>>>> */JsonResponse res = new JsonResponse(request);
 
 		/** 불량단어 검출 **/
 		BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();
