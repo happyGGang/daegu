@@ -2873,7 +2873,6 @@
 			) AS comment_count
 			FROM
 		(
-			${pagingTop}
 			SELECT A.*
 			FROM
 			(
@@ -2899,7 +2898,6 @@
 				AND	delete_yn = 'N'
 			 ) A
 			ORDER BY A.group_idx DESC, A.board_idx DESC
-			${pagingBottom}
 		) CMS_BOARD_T
 	</select>
 </mapper>
