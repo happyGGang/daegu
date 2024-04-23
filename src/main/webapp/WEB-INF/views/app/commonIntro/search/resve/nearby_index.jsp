@@ -100,18 +100,16 @@ $(function() {
 							내집앞도서관예약	
 						</td>
 						<td>
-							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-								<c:if test="${i.STATUS eq '3'}">
-									<a href="#" class="reserveCancel2" keyValue1="${i.PK}" keyValue2="${i.BOOK_KEY }">예약취소</a>
-								</c:if>
-							</c:if>									
-						</td>						
+							<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y' && i.STATUS eq '3' && i.isReserveCancelButton}">
+								<a href="#" class="reserveCancel2" keyValue1="${i.PK}" keyValue2="${i.BOOK_KEY }">예약취소</a>
+							</c:if>
+						</td>
 					</tr>
 		</c:forEach>
 		<c:if test="${fn:length(resveList) < 1 }">
 			<tr>
 				<td colspan="9">
-					<h2 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3>
+					<h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3>
 				</td>
 			</tr>
 		</c:if>

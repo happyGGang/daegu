@@ -1763,4 +1763,8 @@ public class NearbyLibService extends BaseService {
 	public Map<String, Object> getNearByLibUseDevice(int deviceIdx) {
 		return dao.getNearByLibUseDevice(deviceIdx);
 	}
+
+	public int getNearbyOneBookReserveData(String nearbyBookKey) {
+		return dao.getNearbyOneBookReserveData(nearbyBookKey);
+	}
 }

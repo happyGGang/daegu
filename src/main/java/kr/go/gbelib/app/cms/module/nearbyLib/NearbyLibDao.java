@@ -100,4 +100,6 @@ public interface NearbyLibDao {
 	int getReserveCountNowLockerIn(NearbyLibReserveConfig nearbyLibReserveConfig);
 
 	Map<String, Object> getNearByLibUseDevice(int deviceIdx);
+
+	int getNearbyOneBookReserveData(String nearbyBookKey);
 }

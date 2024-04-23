@@ -1138,4 +1138,13 @@
 				GROUP BY member_id
 			)
 	</select>
+
+	<select id="getNearbyOneBookReserveData" resultType="int">
+		SELECT
+			RESERVE_STATUS
+		FROM
+			NEIGHBORHOOD_LIBRARY_RESERVE
+		WHERE
+			PK = #{pk}
+	</select>
 </mapper>

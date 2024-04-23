@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -2248,36 +2250,40 @@ public class CommonSearchController extends BaseController {
 			Map<String, Object> result = LibSearchAPI.getReserveList(member.getRec_key());
 			List<Map<String, Object>> list = null;
 
-			
-
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = LibSearchAPI.getListData(result);
-			}
-			
-			int check = 0;
-			for(int i = 0; i < list.size(); i++) {
-				for(int j = 0; j < deviceList.size(); j++) {
-					if(String.valueOf(list.get(i).get("L_WORKER")).equals(deviceList.get(j).getDevice_code())) {
-						check = 1;
+
+				//무인예약 API를 사용해서 DB랑 비교 후 내집앞 무인예약만 보여지도록 처리
+				Set<String> deviceCodes = deviceList.stream()
+													.map(NearbyLibDevice::getDevice_code)
+													.collect(Collectors.toSet());
+
+				list = list.stream()
+						   .filter(item -> deviceCodes.contains(String.valueOf(item.get("L_WORKER"))))
+						   .collect(Collectors.toList());
+
+				boolean isReserveCancelButton = true;
+				for (Map<String, Object> getNearbyApiList : list) {
+					String nearbyBookKey = Long.toString((Long) getNearbyApiList.get("PK"));
+					int reserveStatus = neighborhoodLibraryService.getNearbyOneBookReserveData(nearbyBookKey);
+					if (reserveStatus != 1) {
+						isReserveCancelButton = false;
 					}
+					getNearbyApiList.put("isReserveCancelButton", isReserveCancelButton);
 				}
-				if(check == 0) {
-					list.remove(i);
-				}
-				check = 0;
 			}
+
 			int count = list.size();
 			librarySearch.setTotalDataCount(count);
 			service.setPaging(model, count, librarySearch);
-			
-			
+
 			model.addAttribute("deviceList", deviceList);
 			model.addAttribute("resveList", list);
 		}
 
 		return String.format(basePath, homepage.getFolder()) + "resve/nearby_index";
 	}
-	
+
 	/**
 	 * 내집앞도서 신청 취소
 	 * @author whalesoft SeongHyeon 2022. 11. 24.
