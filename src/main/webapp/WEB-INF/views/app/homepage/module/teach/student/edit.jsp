@@ -8,7 +8,15 @@
 <script type="text/javascript" src="/resources/common/netFunnel/netfunnel.js" charset="UTF-8"></script>
 <script type="text/javascript">
 window.onload=function(){
-	NetFunnel_Complete({},function(ev, ret){
+	var action_id = '${homepage.context_path}';
+
+	if(${homepage.context_path eq 'dgportal' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'dmsl' or homepage.context_path eq 'junggu'}){
+		var service_id = 'service_2';
+	} else {
+		var service_id = 'service_1';
+	}
+
+	NetFunnel_Complete({action_id:action_id, service_id:service_id},function(ev, ret){
 	});
 };
 
