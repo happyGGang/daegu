@@ -97,6 +97,12 @@ $(function() {
 
 		<c:choose>
 		<c:when test="${context_path eq 'seogumini' || context_path eq 'buks' || context_path eq 'junggu' || context_path eq 'dalseongsmall' || context_path eq 'dssmalllib' || context_path eq 'sincheon' || context_path eq 'donggu' || context_path eq 'donggusm' || context_path eq 'seogumini' || context_path eq 'namdm' || context_path eq 'namic' || context_path eq 'bukgs' || context_path eq 'buktj' || context_path eq 'bukdh' || context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall' || context_path eq 'goldbook'}">
+			<c:choose>
+			<c:when test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+			$('input#viewPage').val('1');
+			doGetLoad('index.do', $form.serialize());
+			</c:when>
+			<c:otherwise>
 			if( $("input:checkbox[name=libraryCodes]:checked").length == '0' )
 			{
 				alert('검색을 원하는 도서관을 선택하세요.');
@@ -104,6 +110,8 @@ $(function() {
 			}
 			$('input#viewPage').val('1');
 			doGetLoad('index.do', $form.serialize());
+			</c:otherwise>
+			</c:choose>
 		</c:when>
 		<c:otherwise>
 			$('input#viewPage').val('1');
@@ -419,6 +427,11 @@ function resveReq(bookkey, booktype, editMode) {
 					<div class="end" style="padding:7px 0;"></div>
 					</c:when>
 					<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'goldbook'}">
+						<c:choose>
+						<c:when test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+					<input type="hidden" name="libraryCodes" id="libraryCodes" value="BD"/>
+						</c:when>
+						<c:otherwise>
 					<div id="libraryList" class="libraryList">
 						<div>
 							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
@@ -457,6 +470,8 @@ function resveReq(bookkey, booktype, editMode) {
 						<div class="end"></div>
 					</div>
 					<div class="end" style="padding:7px 0;"></div>
+						</c:otherwise>
+						</c:choose>
 					</c:when>
 					<c:when test="${context_path eq 'junggu'}">
 					<div id="libraryList" class="libraryList">
@@ -1147,9 +1162,11 @@ function resveReq(bookkey, booktype, editMode) {
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
-												<c:if test="${context_path eq 'beomeo'}">
+												<c:if test="${context_path eq 'beomeo' || context_path eq 'donggu'}">
 												<c:if test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+												<c:if test="${i.SHELF_LOCATION_KEY ne '' && i.SHELF_LOCATION_KEY ne null && not empty i.SHELF_LOCATION_KEY }">
 												<a href="#seoga" class="seogashow" data-keyValue="${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}"><span>서가확인</span></a>
+												</c:if>
 												</c:if>
 												</c:if>
 											</div>
@@ -1409,9 +1426,11 @@ function resveReq(bookkey, booktype, editMode) {
 
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
-												<c:if test="${context_path eq 'beomeo'}">
+												<c:if test="${context_path eq 'beomeo' || context_path eq 'donggu'}">
 												<c:if test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+												<c:if test="${i.SHELF_LOCATION_KEY ne '' && i.SHELF_LOCATION_KEY ne null && not empty i.SHELF_LOCATION_KEY }">
 												<a href="#seoga" class="seogashow" data-keyValue="${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}"><span>서가확인</span></a>
+												</c:if>
 												</c:if>
 												</c:if>
 											</div>
