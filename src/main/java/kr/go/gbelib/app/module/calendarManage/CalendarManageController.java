@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.module.calendarManage;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
+import kr.co.whalesoft.app.cms.module.excursions.apply.Apply;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,7 +101,13 @@ public class CalendarManageController extends BaseController {
 		model.addAttribute("calendarList", service.getCalendar(calendarManage));
 		model.addAttribute("calendarManage", calendarManage);
 		model.addAttribute("calendarManageList", service.getCalendarManage(calendarManage));
-		model.addAttribute("okApplyList", applyService.getOkApply(calendarManage));
+
+		// 서구통합도서관의 어린이도서관에서는 견학리스트 안나오게요청
+		List<Apply> okApplyList = new ArrayList();
+		if (!"h77".equals(calendarManage.getHomepage_id())) {
+			okApplyList = applyService.getOkApply(calendarManage);
+		}
+		model.addAttribute("okApplyList", okApplyList);
 		model.addAttribute("teachList", teachService.getTeachListForCalendar(calendarManage));
 		model.addAttribute("facilityReqList",facilityReqService.getFacilityReqCalendar(calendarManage));
 		model.addAttribute("dateTypeList", codeService.getCode(calendarManage.getHomepage_id(), "C0001"));
