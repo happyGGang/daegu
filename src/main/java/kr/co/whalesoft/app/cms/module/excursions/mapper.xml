@@ -37,6 +37,12 @@
 	 		OR	SUBSTR(A.end_date,1,7) = #{plan_date}
 	 		)
 		 </if>
+		<if test="homepage_id == 'h46' and menu_idx == '129' ">
+		AND	A.date_type != '0002'
+		</if>
+		<if test="homepage_id == 'h46' and menu_idx == '145' ">
+		AND	A.date_type = '0002'
+		</if>
 	</select>
 	
 	<select id="getExcursionsOne" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">
