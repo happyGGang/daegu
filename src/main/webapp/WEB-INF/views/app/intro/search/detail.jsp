@@ -238,7 +238,7 @@ $(function() {
 
 					<!-- 대출가능 여부 [START] -->
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'||detail.MANAGE_CODE eq 'GA'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
 						<c:when test="${detail.MANAGE_CODE eq 'BN' and detail.SHELF_LOC_CODE eq 'BN13'}">
