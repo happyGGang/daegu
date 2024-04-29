@@ -194,6 +194,7 @@ table tbody td.point{background-color:#f7f7f7; font-weight:bold;}
 @media all and (max-width:737px){
 	.rsv-info{position:relative;overflow:hidden;overflow-x:auto;padding-top:25px;text-align: center;}
 	.rsv-info:before {content:"← 좌우로 밀어서 확인하세요 →"; font-size:13px;display:block; position:absolute; top:0; right:0; color:#555;}
+	.rsv-info .button{text-align:left;}
 	}
 
 /* 탭메뉴 */
@@ -1022,6 +1023,7 @@ ul.con_ask li:last-child{margin-right:0;}
 .tab_menu ul li a{position:relative;display:block;height:53px;font-size:15px;line-height:53px;color:#444;text-align:center;border:1px solid #dfdfdf;background:#f6f6f6;}
 .tab_menu ul li.active a,
 .tab_menu ul li a:hover {border: 1px solid #22386b;background: #fff;color: #222;font-weight: 600;box-shadow: 3px 3px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
+.tab_menu ul.no1 li{width:100%;}
 .tab_menu ul.no2 li{width:50%;}
 .tab_menu ul.no3 li{width:33.3%;}
 .tab_menu ul.no3 li:first-child{width:33.4%;}

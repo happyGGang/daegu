@@ -575,43 +575,43 @@ do {
 									대구광역시 동구 동부로 6길 65<br/>053-980-2600
 								</div>
 								<div class="divbInfomationConts" id="divbInfo3">
-									대구광역시 동구 신성로 56<br/>(신암2동주민센터 2층)<br/>053-662-3633
+									대구광역시 동구 신성로 56<br/>(신암2동행정복지센터 2층)<br/>053-957-9755
 								</div>
 								<div class="divbInfomationConts" id="divbInfo4">
-									대구광역시 동구 아양로8길 10-1<br/>(동구여성문화공간 3층)<br/>070-7755-5631
+									대구광역시 동구 아양로8길 10-1<br/>(동구여성문화공간 3층)<br/>053-957-9756
 								</div>
 								<div class="divbInfomationConts" id="divbInfo5">
-									대구광역시 동구 장등로 90<br/>(신천3동주민센터 3층)<br/>053-662-3734
+									대구광역시 동구 장등로 90<br/>(신천3동행정복지센터 3층)<br/>053-957-9757
 								</div>
 								<div class="divbInfomationConts" id="divbInfo6">
 									대구광역시 동구 화랑로 3길 10-13<br/>(신천4 경로당 2층)<br/>070-4203-6859
 								</div>
 								<div class="divbInfomationConts" id="divbInfo7">
-									대구광역시 동구 화랑로 41길 46<br/>(효목1동주민센터 2층)<br/>053-662-3775
+									대구광역시 동구 화랑로 41길 46<br/>(효목1동행정복지센터 2층)<br/>053-957-9758
 								</div>
 								<div class="divbInfomationConts" id="divbInfo8">
-									대구광역시 동구 화랑로 25길 45<br/>(효목2동 주민센터 1층)<br/>053-662-3794
+									대구광역시 동구 화랑로 25길 45<br/>(효목2동행정복지센터 1층)<br/>053-957-9759
 								</div>
 								<div class="divbInfomationConts" id="divbInfo9">
-									대구광역시 동구 팔공로24길 171<br/>(도평동주민센터 3층)<br/>053-662-3810
+									대구광역시 동구 팔공로24길 171<br/>(도평동행정복지센터 3층)<br/>053-957-9760
 								</div>
 								<div class="divbInfomationConts" id="divbInfo10">
-									대구광역시 동구 팔공로24길 5<br/>(불로전통시장 상인교육관 3층)<br/>070-4214-0007
+									대구광역시 동구 팔공로24길 5<br/>(불로전통시장 상인교육관 3층)<br/>053-957-9761
 								</div>
 								<div class="divbInfomationConts" id="divbInfo11">
-									대구광역시 동구 해동로3길 80<br/>(지저동 주민센터 3층)<br/>070-7755-5633
+									대구광역시 동구 해동로3길 80<br/>(지저동 행정복지센터 3층)<br/>053-957-9762
 								</div>
 								<div class="divbInfomationConts" id="divbInfo12">
-									대구 동구 동촌역사로 3길 35<br/>070-4214-6859
+									대구 동구 동촌역사로 3길 35<br/>053-957-9763
 								</div>
 								<div class="divbInfomationConts" id="divbInfo13">
-									대구광역시 동구 동촌로 46길 2<br/>(방촌종합상가 2층)<br/>070-4251-5854
+									대구광역시 동구 동촌로 46길 2<br/>(방촌종합상가 2층)<br/>053-957-9764
 								</div>
 								<div class="divbInfomationConts" id="divbInfo14">
-									대구광역시 동구 방촌로 29길 46<br/>(해안동 주민센터 3층)<br/>070-7755-5632
+									대구광역시 동구 방촌로 29길 46<br/>(해안동 주민센터 3층)<br/>053-957-9765
 								</div>
 								<div class="divbInfomationConts" id="divbInfo15">
-									대구광역시 동구 신서로 50<br/>(대구선2공원 내 철도역사 1동)<br/>053-662-4110
+									대구광역시 동구 신서로 50<br/>(대구선2공원 내 철도역사 1동)<br/>053-957-9766
 								</div>
 								<!-- <div class="divbInfomationConts" id="divbInfo16">
 									대구광역시 동구 아양로 207<br/>(동구청1층)<br/>053-662-2489

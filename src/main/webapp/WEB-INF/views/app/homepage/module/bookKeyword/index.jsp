@@ -31,7 +31,7 @@
 	.btn-box ul li.btn2 a{color:#fff;}
 	
 	@media only screen and (max-width:550px){
-		.user_pick_info img{position:absolute;top:-30px;left:43%;}
+		.user_pick_info img{position:absolute !important; top: 0%;left: 50% !important;transform: translate(-50%,-50%)  !important;}
 		.user_pick_info h2{font-size:25px;}
 
 		.select-keyword{margin-bottom:10px;}

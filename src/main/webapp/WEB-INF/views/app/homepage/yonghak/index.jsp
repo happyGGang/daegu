@@ -305,7 +305,7 @@ do {
 									</a>
 								</li>
 								<li>
-									<a href="https://www.facebook.com/lib.yonghak/" target="_blank">
+									<a href="https://www.facebook.com/profile.php?id=61557394731709" target="_blank">
 										<img src="/resources/homepage/${homepage.context_path}/img/facebook-icon.png" alt="FACEBOOK"> <br class="br650"/>FACEBOOK
 									</a>
 								</li>

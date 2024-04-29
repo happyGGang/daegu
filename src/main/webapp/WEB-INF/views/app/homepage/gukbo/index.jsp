@@ -86,6 +86,65 @@
 		});
 		// 팝업 관련 코드 END
 
+
+
+
+
+		// 팝업 관련 코드 START
+		//$('.close-btn').on('click', function() {
+		//	var $this = $(this);
+		//	var checkInput = $this.parent().find('input[data-day="'+$this.data('day')+'"]');
+		//	var popupId = checkInput.val();
+		//	if (checkInput.prop('checked')) {
+		//		var todayDate = new Date();
+		//		todayDate = new Date(
+		//				parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+		//		if($this.data('day') == 7) {
+		//			todayDate.setDate(todayDate.getDate() + 7);
+		//		}
+		//		document.cookie = popupId + "=no"
+		//				+ "; path=/; expires="
+		//				+ todayDate.toGMTString() + ";";
+		//	}
+
+		//	$('div#' + popupId).hide();
+		//});
+
+		//$('input[id*=pop]').on('click', function(e) {
+		//	e.preventDefault();
+		//	$(this).prop('checked', true);
+		//	$(this).parent('div').next('a').data('day', $(this).data('day'));
+		//	$(this).parent('div').next('a').click();
+		//});
+
+		//$('#popupLayer > div').each(function(i, v) {
+		//	var result = '';
+		//	var name = $(v).attr('id');
+		//	var nameOfCookie = name + "=";
+		//	var x = 0;
+		//	while (x <= document.cookie.length) {
+		//		var y = (x + nameOfCookie.length);
+		//		if (document.cookie.substring(x, y) == nameOfCookie) {
+		//			if ((endOfCookie = document.cookie
+		//					.indexOf(";", y)) == -1)
+			//			endOfCookie = document.cookie.length;
+			//		result = unescape(document.cookie
+			//				.substring(y, endOfCookie));
+			//	}
+			//	x = document.cookie.indexOf(" ", x) + 1;
+			//	if (x == 0)
+			//		break;
+		//	}
+
+		//	if (result != 'no') {
+		//		if  (window.innerWidth < $(v).width() ) {
+		//			$(v).css('width', 'auto');
+		//		}
+		//		$(v).show();
+		//	}
+		//});
+		// 팝업 관련 코드 END
+
 		$('div#holiday-box').load('calendar2.do');
 		$('div#calendar-box').load('calendar3.do');
 
@@ -109,24 +168,21 @@
 <div id="wrap">
 	<c:if test="${fn:length(popupZoneTopList) > 0}">
 	<div class="popup_top">
+	<p class="close"><input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
 		<div class="popup">
+		
 			<div class="pop_contents">
 				<div class="topPopZone">
 					<homepageTag:popupZoneTop popupZoneList="${popupZoneTopList}"/>
 				</div>
-			</div>
-			<p class="close"><input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
+			</div>			
 		</div>
 	</div>
 	</c:if>
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
-	<div class="popupWrap main-section">
-		<div id="popupLayer">
-			<homepageTag:popup popupList="${popupList}" />
-		</div>
-	</div>
+	
 
 	<div id="fullpage">
 
@@ -134,6 +190,11 @@
 		<div class="section" id="main0">
 
 			<div class="main-visual">
+			<div class="popupWrap main-section">
+		<div id="popupLayer">
+			<homepageTag:popup popupList="${popupList}" />
+		</div>
+	</div>
 				<div class="swiper-container mySwiper">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide mvimg01"><div class="mvText top animate__animated animate__fadeInDown"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년</div>
@@ -592,6 +653,7 @@ function fullPage() {
 		anchors: ['firstPage', 'secondPage', '3rdPage', '4thPage', '5thPage'],
 		navigation:true,
 		showActiveTooltip: true,
+		scrollOverflow: true,
 		menu: '#menu',
 		responsiveWidth: 1025,
 		afterLoad: function(origin, destination, direction){
@@ -742,8 +804,10 @@ function slideAct(){
 		
 		//보이는 슬라이드 개수 설정
 		$(".slider").each(function(index){
-			if (window.innerWidth > 1400){ //PC 버전
-				view = 10;
+           if (window.innerWidth > 1600){ //PC 버전
+				view = 8;
+		   }else if (window.innerWidth > 1400){ //노트북 버전
+				view = 6;
 			}else  if (window.innerWidth >= 350){ //mobile 버전
 				view = 4;
 			} else{ //mobile 버전

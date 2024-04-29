@@ -446,7 +446,7 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
 	.sublink img{width:65%}
 
 	.tabMenuT {margin-bottom:-13px;}
-	.tabMenuT li a {font-size:13px;padding:5px 0;}
+	.tabMenuT li a {font-size:13px;padding:5px 2px;}
 }
 
 @media all and (max-width:768px){
@@ -455,6 +455,8 @@ span.icon.w50n {background:url('../img/50d.jpg') no-repeat 0 0;}
 	.quickMenu li {height:210px;}
 	.quickMenu li a div h4 {font-size:18px;color:#fff;/* font-weight:bold; */}
 	.quickMenu li a div p {font-size:13px;color:#fff;}
+
+	.tabMenuT li {width:32%;}
 
 	.quickMenu li a.quick01 {background-size:100px;}
 	.quickMenu li a.quick02 {background-size:100px;}

@@ -529,7 +529,7 @@ a.bBtn:hover {background:#0961ce}
 	.search-wrap .search-results .row .item p .pcBr {display:none}
 	.webGuideLine {display:none;}
 	.search_result .result-count-library li a {font-size:13px;font-weight:normal}
-
+     .search_result .result-count-library {padding:20px 10px;}
 	.sview .sinfo .thumb {float:none;width:100%;text-align:center;font-size:0;line-height:0}
 	.sview .sinfo .info {float:none;width:100%;margin-right: 0;}
 	.sview .sinfo .info ul {margin: 1%;}

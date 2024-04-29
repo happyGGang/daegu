@@ -228,7 +228,7 @@ display:inline-block;position:absolute;content:" ";width:14px;height:14px;left:9
 .txt-right{text-align:right!important}
 
 /* 컨텐츠 스타일 */
-input.text{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fafafa;line-height:27px;height:27px;padding:0 5px;vertical-align:middle}
+input.text{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fafafa;line-height:27px;height:27px;padding:0 5px;vertical-align:middle;margin:2px;}
 input.text.disabled{background:#f1f1f1;color:#aaa;cursor:not-allowed}
 input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bottom:0}
 .ui-spinner a{cursor:pointer}
@@ -391,7 +391,7 @@ margin-left:-1px}
 .btn-group .btn.right:hover{position:relative}
 .btn:hover{color:#000}
 .btn,
-.btn span{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
+.btn span{display:inline-block;zoom:1;*display:inline;vertical-align:middle;margin:2px;}
 .btn i{vertical-align:middle}
 .btn i,
 .btn span{padding-bottom:1px}
@@ -427,6 +427,7 @@ margin-left:-1px}
 .seosik .btn i{margin-left:5px}
 @media (max-width:900px){
 	.seosik li{width:100%}
+	.group-menu .button{text-align:left;}
 }
 
 /*fix other elements on the page moving (on Chrome)*/
@@ -2078,7 +2079,7 @@ input.new_text01 ::placeholder{font-size:15px;}
 .excel_btn_box_wrap{text-align:right;margin:25px 0 10px;}
 .excel_btn_box_wrap02{float:right;}
 
-.excel-btn{background:url('/resources/common/img/excel_icon.png')no-repeat 13px 8px;background-color:#0e8040;border:1px solid #0e8040;padding-left:40px;color:#fff;}
+.excel-btn{background:url('/resources/common/img/excel_icon.png')no-repeat 13px 8px;background-color:#0e8040;border:1px solid #0e8040;padding-left:40px;color:#fff;margin:2px;}
 .excel-btn:hover{background-color:#0e8040;color:#fff;}
 
 .loan_box{text-align:center;}
@@ -2133,8 +2134,7 @@ input.new_text01 ::placeholder{font-size:15px;}
 
 @media all and (max-width:564px){
 	.fl_right_btn{float:none;}
-	
-	.new_apply_box{padding:20px !important;}
+    .new_apply_box{padding: 10px !important;text-align: left;}
 }
 
 @media all and (max-width:463px){

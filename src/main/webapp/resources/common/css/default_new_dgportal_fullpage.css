@@ -43,7 +43,7 @@ a {color:#000;}
 nav,
 .Gnb .gnb-menu>li.mmode,
 .mmode{display:none}
-.mm-panels .mmode{width:100%;text-align: center;height: 106px;/* left:0; */top:-66px;background:none;overflow:hidden;background: #333333;vertical-align: middle;}
+.mm-panels .mmode{width:100%;text-align:center;height:106px;left:0;top:-66px;background:none;overflow:hidden;border:1px solid #000;background:#333;}
 .mm-panels>.mm-panel.mmode:after,
 .mm-panels>.mm-panel.mmode:before{height:12px}
 .mm-panels .mmode a{display:inline-block;padding:5px 7px;border-radius:7px;text-align:center}
@@ -54,15 +54,14 @@ nav,
 .mm-panels .mmode a span,
 .mm-panels .mmode a i{vertical-align:middle;display:block}
 .mm-panels .mmode a.btn1,
-.mm-panels .mmode a.btn4{background:#2c75cb;border:1px solid #4087db;width: 35%;}
+.mm-panels .mmode a.btn4{background:#2c75cb;border:1px solid #4087db;width:35%;}
 .mm-panels .mmode a.btn2,
-.mm-panels .mmode a.btn3{background:#707070;border:1px solid #818181;width: 35%;margin-top: 3px;}
-.mm-panels .mmode a.mobilemeberinfo{ background: #f4683c; border: 1px solid #ff9c66;width:35% }
+.mm-panels .mmode a.btn3{background:#707070;border:1px solid #818181;width:35%;margin-top:3px;}
+.mm-panels .mmode a.mobilemeberinfo{ background: #f4683c; border: 1px solid #ff9c66;width:35%;}
 @media (max-width:350px){
 	.mm-panels .mmode{text-align:center}
 	.mm-menu .mm-navbar a{font-size:0;line-height:0}
 }
-
 body,
 a,
 a:link,
@@ -228,7 +227,7 @@ display:inline-block;position:absolute;content:" ";width:14px;height:14px;left:9
 
 /* 컨텐츠 스타일 */
 select{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fff;padding:6px 5px 6px 13px !important}
-input.text{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fafafa;line-height:27px;height:27px;padding:3px 5px;vertical-align:middle}
+input.text{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fafafa;line-height:27px;height:27px;padding:3px 5px;vertical-align:middle;margin:2px;}
 input.text.disabled{background:#f1f1f1;color:#aaa;cursor:not-allowed}
 input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bottom:0}
 .ui-spinner a{cursor:pointer}
@@ -363,6 +362,10 @@ table.pno td{padding:4px 1px}
 	.doc-body .tabCon .short_box{height:auto}
 }
 
+@media (max-width:580px){
+	.dataTables_paginate a.paginate_button{padding:3px 7px;}
+}
+
 /* 테이블 버튼 */
 table .btn{padding:1px 5px;background:#fcfcfc}
 table.bbs .btn,
@@ -426,6 +429,7 @@ margin-left:-1px}
 .seosik .btn i{margin-left:5px}
 @media (max-width:900px){
 	.seosik li{width:100%}
+	.btn{margin:2px;}
 }
 
 /*fix other elements on the page moving (on Chrome)*/
@@ -440,7 +444,7 @@ transform:translatez(0);
 .bx-wrapper .bx-loading {min-height:50px;background:url('../imb/bx_loader.gif') center center no-repeat #fff;height:100%;width:100%;position:absolute;top:0;left:0;z-index:9999}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:250px;background: url('/resources/homepage/dgportal/img/sub-visual.png') no-repeat 35% 50%;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
+.sub-visual{position:relative;height:250px;background:url('/resources/homepage/dgportal/img/sub-visual.png') no-repeat 35% 50%;background-size:cover;text-align:center;color:#fff;border-bottom:1px solid #e1e1e1;}
 
 #container .sections,
 #container {clear:both;}
@@ -465,7 +469,7 @@ transform:translatez(0);
 
 .lnb {width:280px;float:left;}
 .content {box-sizing:border-box;padding-top:30px;padding-bottom:50px;}
-.doc {min-height:450px;}
+.doc {min-height:500px;}
 
 @media all and (max-width:1686px){
 	.wide-1686-sections {width:100%;margin:0;padding:0;}
@@ -2061,7 +2065,7 @@ table td.leftblank { padding-left: 18px; }
 /* 모듈수정관련 */
 .new_select_box_wrap{float:left;margin-top:25px;}
 
-.new_select_box{border:1px solid #ccc;border-radius:3px;height:38px;padding:5px 5px 8px !important;}
+.new_select_box{border:1px solid #ccc;border-radius:3px;height:38px;padding: 7px 2px 8px !important;}
 
 .new_btn01{padding:5px 13px !important;}
 
@@ -2075,7 +2079,9 @@ input.new_text01 ::placeholder{font-size:15px;}
 .m_br_box{display:none;}
 
 .excel_btn_box_wrap{text-align:right;margin:25px 0 10px;}
-.excel_btn_box_wrap02{float:right;}
+.excel_btn_box_wrap02{text-align:right;padding-bottom:5px;}
+/*.excel_btn_box_wrap02{float:right;}*/
+
 
 .excel-btn{background:url('/resources/common/img/excel_icon.png')no-repeat 13px 8px;background-color:#0e8040;border:1px solid #0e8040;padding-left:40px;color:#fff;}
 .excel-btn:hover{background-color:#0e8040;color:#fff;}
@@ -2138,12 +2144,12 @@ input.new_text01 ::placeholder{font-size:15px;}
 
 @media all and (max-width:710px){
 	.loan_box ul li{width:32%;}
+	.loan_box02{padding:8px !important;text-align:left;text-align: left;}
 }
 
 @media all and (max-width:564px){
 	.fl_right_btn{float:none;}
-	
-	.new_apply_box{padding:20px !important;}
+	.new_apply_box{padding:10px !important;}
 }
 
 @media all and (max-width:463px){

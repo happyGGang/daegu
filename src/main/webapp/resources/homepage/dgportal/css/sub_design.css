@@ -1387,7 +1387,7 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .step_box{width:100%;display:inline-block;margin-top:5px;}
 .step_box ol{margin-left:-25px;text-align:center;}
 .step_box ol li{float:left;background:url("/resources/common/img/bu_arrow.png") no-repeat 8px 45px;}
-.step_box ol li .con_box{margin-left:25px;padding:25px 0;border:1px solid #dfdfdf;color:#757575;box-sizing:border-box;font-size:13px;}
+.step_box ol li .con_box{margin-left:25px;padding:25px 0;border:1px solid #dfdfdf;color:#757575;box-sizing:border-box;font-size:12px;}
 .step_box ol li .con_box .num{margin-bottom:10px;letter-spacing:0;color:#222;font-weight:600;}
 .step_box ol li .con_box.style1{border:1px solid #222;color:#222;box-shadow: 3px 3px 0 0 rgba(0, 0, 0, .1);}
 .step_box ol.min li{height:130px;}
