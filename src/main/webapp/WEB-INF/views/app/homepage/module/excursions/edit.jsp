@@ -66,7 +66,7 @@ $(function() {
 			}
 		}
 
-		<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+		<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '145'}">
 		if ($("#birth_day").val() == '') {
 			alert('생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
 			return false;
@@ -237,7 +237,7 @@ $(function() {
 				<c:if test="${isSeoguPrivatetour eq false}">
 					<c:set var="title" value="기관"></c:set>
 					<tr>
-						<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+						<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '145'}">
 							<c:set var="title" value="대표자"></c:set>
 						</c:if>
 						<th>${title}명(<span style="color: red; font-weight: bold;">*</span>)</th>
@@ -295,7 +295,7 @@ $(function() {
 		<tr>
 			<th>
 				<c:choose>
-					<c:when test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+					<c:when test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '145'}">
 						악기
 					</c:when>
 					<c:otherwise>
@@ -308,7 +308,7 @@ $(function() {
 				<em>${excursions.remark_comment}</em>
 			</td>
 		</tr>
-			<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+			<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '145'}">
 			<tr>
 				<th>생년월일</th>
 				<td>
