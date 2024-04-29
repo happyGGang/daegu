@@ -66,9 +66,26 @@ $(function() {
 			}
 		}
 
-		$('#applicant_tel').val($('#applicant_tel_1').val()+'-'+$('#applicant_tel_2').val()+'-'+$('#applicant_tel_3').val());
-		$('#agency_tel').val($('#agency_tel_1').val()+'-'+$('#agency_tel_2').val()+'-'+$('#agency_tel_3').val());
-		
+		<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+		if ($("#birth_day").val() == '') {
+			alert('생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
+			return false;
+		}
+
+		function validateDateFormat(dateString) {
+			var regex = /^\d{4}-\d{2}-\d{2}$/;
+			return regex.test(dateString);
+		}
+
+		if (!validateDateFormat($("#birth_day").val())) {
+			alert("유효하지 않은 날짜 형식입니다.");
+			return false;
+		}
+		</c:if>
+
+		$('#applicant_tel').val($('#applicant_tel_1').val() + '-' + $('#applicant_tel_2').val() + '-' + $('#applicant_tel_3').val());
+		$('#agency_tel').val($('#agency_tel_1').val() + '-' + $('#agency_tel_2').val() + '-' + $('#agency_tel_3').val());
+
 		var formData = new FormData($('#excursionsEdit')[0]);
 
 		$.ajax({
@@ -218,14 +235,18 @@ $(function() {
 				</tr>
 
 				<c:if test="${isSeoguPrivatetour eq false}">
+					<c:set var="title" value="기관"></c:set>
 					<tr>
-						<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
+						<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+							<c:set var="title" value="대표자"></c:set>
+						</c:if>
+						<th>${title}명(<span style="color: red; font-weight: bold;">*</span>)</th>
 						<td>
 							<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
 						</td>
 					</tr>
 					<tr>
-						<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+						<th>${title} 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 						<td>
 							<form:hidden path="agency_tel"/>
 							<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
@@ -234,7 +255,7 @@ $(function() {
 						</td>
 					</tr>
 					<tr>
-						<th>기관 주소</th>
+						<th>${title} 주소</th>
 						<td>
 							<form:input path="agency_address" class="text" cssStyle="width:250px"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
 						</td>
@@ -272,12 +293,30 @@ $(function() {
 	        </tr>
 		</c:if>
 		<tr>
-			<th>비고</th>
+			<th>
+				<c:choose>
+					<c:when test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+						악기
+					</c:when>
+					<c:otherwise>
+						비고
+					</c:otherwise>
+				</c:choose>
+			</th>
 			<td>
 				<form:input path="remarks" class="text" cssStyle="width:80%"/><br />
 				<em>${excursions.remark_comment}</em>
 			</td>
 		</tr>
+			<c:if test="${apply.homepage_id eq 'h46' and apply.menu_idx eq '131'}">
+			<tr>
+				<th>생년월일</th>
+				<td>
+					<form:input path="birth_day" class="text" maxlength="10" placeholder="yyyy-mm-dd"/>
+				</td>
+			</tr>
+			</c:if>
+
 		<c:if test="${isSeoguPrivatetour eq false}">
 			<c:if test="${apply.origin_file_name != null and apply.origin_file_name != ''}">
 				<tr>

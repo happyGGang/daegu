@@ -10,7 +10,7 @@
 		end_time, personnel, apply_state, ip, remarks,
 		add_id, add_date, apply_id, applicant_member_id, self_info_yn,
 		date_type,origin_file_name, server_file_name, file_extension,
-		file_size,desired_start_time,desired_end_time,picture_use_yn
+		file_size,desired_start_time,desired_end_time,picture_use_yn,birth_day
 	</sql>
 
 	<!-- 견학신청자 list -->
@@ -135,7 +135,7 @@
 			#{end_time}, #{personnel}, '1', #{ip}, #{remarks},
 			#{add_id}, SYSDATE, #{applicant_member_id}, #{applicant_member_id}, #{self_info_yn},
 			#{date_type},#{origin_file_name}, #{server_file_name}, #{file_extension},
-			#{file_size},#{desired_start_time},#{desired_end_time},#{picture_use_yn}
+			#{file_size},#{desired_start_time},#{desired_end_time},#{picture_use_yn},#{birth_day}
 		)
 	</insert>
 
@@ -190,7 +190,8 @@
 			desired_start_time = #{desired_start_time},
 			desired_end_time = #{desired_end_time},
 			modify_id = #{modify_id},
-			modify_date = SYSDATE
+			modify_date = SYSDATE,
+			birth_day = #{birth_day}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	apply_idx = #{apply_idx}

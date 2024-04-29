@@ -87,14 +87,17 @@ $(function() {
 <div class="table-wrap">
 	<table class="type1 center">
 		<colgroup>
-			<col width="150"/>
-			<col width="90"/>
-			<col width="120"/>
-			<col width="100"/>
-			<col width="75"/>
-			<col width="75"/>
+			<col width="17%"/>
+			<col width="10%"/>
+			<col width="15%"/>
+			<col width="12%"/>
+			<col width="8%"/>
+			<c:if test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+				<col width="12%"/>
+			</c:if>
+			<col width="10%"/>
 			<c:if test="${isSeoguPrivatetour eq false}">
-			<col width="75"/>
+			<col width="10%"/>
 			</c:if>
 			<col width=""/>
 
@@ -110,6 +113,9 @@ $(function() {
 				<th>방문인원</th>
 				<c:if test="${apply.homepage_id eq 'h8'}">
 					<th>희망시간</th>
+				</c:if>
+				<c:if test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+					<th>생년월일</th>
 				</c:if>
 				<th>승인여부</th>
 				<c:if test="${apply.editMode ne 'VIEW' }">
@@ -146,6 +152,9 @@ $(function() {
 					<td>${i.personnel}</td>
 					<c:if test="${i.homepage_id eq 'h8'}">
 						<td>${i.desired_start_time} ~ ${i.desired_end_time }</td>
+					</c:if>
+					<c:if test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+						<td>${i.birth_day}</td>
 					</c:if>
 					<td>
 						<c:set var="apply_state" value="${i.apply_state}" />

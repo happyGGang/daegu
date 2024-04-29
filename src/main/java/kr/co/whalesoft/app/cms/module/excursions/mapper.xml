@@ -37,10 +37,10 @@
 	 		OR	SUBSTR(A.end_date,1,7) = #{plan_date}
 	 		)
 		 </if>
-		<if test="homepage_id == 'h46' and menu_idx == '129' ">
+		<if test="homepage_id == 'h46' and menu_idx == '40' ">
 		AND	A.date_type != '0002'
 		</if>
-		<if test="homepage_id == 'h46' and menu_idx == '145' ">
+		<if test="homepage_id == 'h46' and menu_idx == '131' ">
 		AND	A.date_type = '0002'
 		</if>
 	</select>

@@ -22,6 +22,23 @@ $(function() {
 				click: function() {
 					var formData = new FormData($('#apply_edit')[0]);
 
+					<c:if test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+					if ($("#birth_day").val() == '') {
+						alert('생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
+						return false;
+					}
+
+					function validateDateFormat(dateString) {
+						var regex = /^\d{4}-\d{2}-\d{2}$/;
+						return regex.test(dateString);
+					}
+
+					if (!validateDateFormat($("#birth_day").val())) {
+						alert("유효하지 않은 날짜 형식입니다.");
+						return false;
+					}
+					</c:if>
+
 					$.ajax({
 						url: '/cms/module/excursions/apply/save.do',
 						type: 'POST',
@@ -31,15 +48,15 @@ $(function() {
 						contentType: false,
 						processData: false,
 						dataType: 'json',
-						success: function(data) {
-							if(data.valid) {
-				                 if(data.message != null && data.message.replace(/\s/g,'').length!=0) {
-				                	 alert(data.message);
-				                 }
-				                 $('#dialog-2').dialog('destroy');
-				                 location.reload();
+						success: function (data) {
+							if (data.valid) {
+								if (data.message != null && data.message.replace(/\s/g, '').length != 0) {
+									alert(data.message);
+								}
+								$('#dialog-2').dialog('destroy');
+								location.reload();
 							} else {
-				   				if(data.targetOpener) {
+								if (data.targetOpener) {
 									window.open(data.url, '', 'width=500,height=510');
 									return false;
 								}
@@ -57,10 +74,10 @@ $(function() {
 						}
 					});
 				}
-			},{
+			}, {
 				text: "취소",
 				"class": 'btn',
-				click: function() {
+				click: function () {
 					$(this).dialog('destroy');
 				}
 			}
@@ -72,7 +89,7 @@ $(function() {
 		height: 550
 	});
 
-	if('${apply.applicant_tel}' == '') {
+	if ('${apply.applicant_tel}' == '') {
 		$('#applicant_tel_1').val("010");
 	} else {
 		var applicant_tel = '${apply.applicant_tel}'.split('-');
@@ -225,14 +242,18 @@ $(function() {
 			</td>
 		</tr>
 		<c:if test="${isSeoguPrivatetour eq false}">
+			<c:set var="title" value="기관"></c:set>
+			<c:if test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+				<c:set var="title" value="대표자"></c:set>
+			</c:if>
 			<tr>
-				<th>기관명(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<th>${title}명(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="agency_name" class="text" cssStyle="width:250px" maxlength="20"/>
 				</td>
 			</tr>
 			<tr>
-				<th>기관 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
+				<th>${title} 전화번호(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="agency_tel_1" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
 					<form:input path="agency_tel_2" cssStyle="width:40px;" cssClass="text" maxlength="4" numberonly="true"/> -
@@ -240,7 +261,7 @@ $(function() {
 				</td>
 			</tr>
 			<tr>
-				<th>기관 주소</th>
+				<th>${title} 주소</th>
 				<td>
 					<form:input path="agency_address" class="text" cssStyle="width:60%"/><button class="btn btn2 findPostCode" keyValue1="#applicant_zipcode" keyValue2="#agency_address" keyValue3="#age">주소 찾기</button>
 				</td>
@@ -285,8 +306,21 @@ $(function() {
 	       		</td>
 	        </tr>
 		</c:if>
+		<c:if test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+			<th>생년월일</th>
+			<td>
+				<form:input path="birth_day" class="text" maxlength="10" placeholder="yyyy-mm-dd" cssStyle="width:90%"/>
+			</td>
+		</c:if>
 		<tr>
-			<th>비고</th>
+			<c:choose>
+				<c:when test="${apply.homepage_id eq 'h46' and apply.date_type eq '0002'}">
+					<th>악기</th>
+				</c:when>
+				<c:otherwise>
+					<th>비고</th>
+				</c:otherwise>
+			</c:choose>
 			<td>
 				<form:input path="remarks" class="text" cssStyle="width:90%"/>
 			</td>

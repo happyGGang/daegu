@@ -82,6 +82,8 @@ public class Apply extends PagingUtils {
 	private String desired_end_time; 	// 체험희망종료시간
 	private String picture_use_yn; 	//사진 활용 동의 여부
 
+	private String birth_day; 	//사진 활용 동의 여부
+
 	private boolean isSeoguPrivatetour;
 
 	private String max_apply_count; //견학 최대 신청팀수
@@ -640,4 +642,11 @@ public class Apply extends PagingUtils {
 		this.max_apply_count = max_apply_count;
 	}
 
+	public String getBirth_day() {
+		return birth_day;
+	}
+
+	public void setBirth_day(String birth_day) {
+		this.birth_day = birth_day;
+	}
 }
