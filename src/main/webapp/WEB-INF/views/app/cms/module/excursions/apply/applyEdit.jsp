@@ -97,7 +97,7 @@ $(function() {
 			</c:if>
 			<col width="10%"/>
 			<c:if test="${isSeoguPrivatetour eq false}">
-			<col width="10%"/>
+			<col width="12%"/>
 			</c:if>
 			<col width=""/>
 
