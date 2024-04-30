@@ -145,5 +145,6 @@
 			user_name = #{user_name}
 		AND user_phone = #{user_phone}
 		AND TO_CHAR(SYSDATE, 'yyyy') = TO_CHAR(add_date, 'yyyy')
+		AND DELETE_YN = 'N'
 	</select>
 </mapper>

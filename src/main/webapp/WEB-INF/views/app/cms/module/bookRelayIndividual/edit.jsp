@@ -179,6 +179,13 @@ $(function() {
 					<form:radiobutton path="receive_lib" value="3" label="고산도서관"/>
 				</td>
 			</tr>
+			<tr>
+				<th>구분</th>
+				<td>
+					<form:radiobutton path="receive_division" value="1" label="온라인" checked="checked"/>
+					<form:radiobutton path="receive_division" value="2" label="오프라인(독서노트 1권 수령)"/>
+				</td>
+			</tr>
 		</tbody>
 	</table>
 	
