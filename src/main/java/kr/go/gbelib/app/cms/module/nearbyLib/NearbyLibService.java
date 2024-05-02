@@ -181,11 +181,7 @@ public class NearbyLibService extends BaseService {
 					}
 					
 					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
-					
-					NearbyLib sms_send = new NearbyLib();
-					sms_send.setSms_send_yn("Y");
-					sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
-					dao.updateNeighborhoodLibrarySms(sms_send);
+
 				}else {
 					res.setValid(false);
 					res.setMessage("업데이트에 실패 하였습니다.");
@@ -1001,36 +997,38 @@ public class NearbyLibService extends BaseService {
 				        		bundleList.remove(i);
 				        	}
 				        }
-				        
-				        for(int i = 0; i < bundleList.size() ; i++) {
-				        	homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
-					        librarySearch.setManageCode(bundleList.get(i).getManage_code());
-					        String book_name = bundleList.get(i).getBook_name();
-					        String lockerIdx = String.valueOf(bundleList.get(i).getLocker_idx());
-					        if(lockerIdx.length() == 1 ) {
-					        	lockerIdx = "00" + lockerIdx;	
-					        }else if(lockerIdx.length() == 2) {
-					        	lockerIdx = "0" + lockerIdx;
-					        }
-							
-							String data1 = bundleList.get(i).getLib_name();
-							String data2 = bundleList.get(i).getMember_name();
-							String data3 = book_name;
-							String data4 = bundleList.get(i).getDevice_name();
-							if(bundleList.get(i).getDevice_name().contains("이시아")) {
-								data4 = bundleList.get(i).getDevice_name() + "(2층)";
+
+						for (int i = 0; i < bundleList.size(); i++) {
+							if ("N".equals(bundleList.get(i).getSms_send_yn())) {
+								homepage = homepageService.getHomepageOne(new Homepage(bundleList.get(i).getHomepage_id()));
+								librarySearch.setManageCode(bundleList.get(i).getManage_code());
+								String book_name = bundleList.get(i).getBook_name();
+								String lockerIdx = String.valueOf(bundleList.get(i).getLocker_idx());
+								if (lockerIdx.length() == 1) {
+									lockerIdx = "00" + lockerIdx;
+								} else if (lockerIdx.length() == 2) {
+									lockerIdx = "0" + lockerIdx;
+								}
+
+								String data1 = bundleList.get(i).getLib_name();
+								String data2 = bundleList.get(i).getMember_name();
+								String data3 = book_name;
+								String data4 = bundleList.get(i).getDevice_name();
+								if (bundleList.get(i).getDevice_name().contains("이시아")) {
+									data4 = bundleList.get(i).getDevice_name() + "(2층)";
+								}
+								String data5 = String.valueOf(bundleList.get(i).getLocker_idx());
+								String data6 = String.valueOf(bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx());
+								String data7 = simpleDateFormat.format(cal.getTime());
+								String data8 = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx();
+
+								LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
+
+								status3_update.setReserve_idx(bundleList.get(i).getReserve_idx());
+								status3_update.setSms_send_yn("Y");
+								dao.updateNeighborhoodLibrarySms(status3_update);
 							}
-							String data5 = String.valueOf(bundleList.get(i).getLocker_idx());
-							String data6 = String.valueOf(bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx());
-							String data7 = simpleDateFormat.format(cal.getTime());
-							String data8 = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx();
-							
-							LibSearchAPI.sendalimtalkFurnish(librarySearch, "A10", "SJT_085943", userIp, data1, data2, data3, data4, data5, data6, data7, data8);
-							
-							status3_update.setReserve_idx(bundleList.get(i).getReserve_idx());
-							status3_update.setSms_send_yn("Y");
-							dao.updateNeighborhoodLibrarySms(status3_update);
-				        }
+						}
 					}
 				}
 				
