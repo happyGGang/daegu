@@ -142,7 +142,7 @@ public class LibrarySearchController extends BaseController {
 				Map<String, Object> result = new HashMap<String, Object>();
 				
 				// 자료실 제외 코드 : [두류]보존서고(1,2,3)
-				librarySearch.setNotShelfCode("AB08,AB09,AB10,AB38,BN13,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26,AH17,CB17,FM05,GU04,FP05,GX05,GR06,GW03,AB39,AE59,AF51,AF52");
+				librarySearch.setNotShelfCode("AB08,AB09,AB10,AB38,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26,AH17,CB17,FM05,GU04,FP05,GX05,GR06,GW03,AB39,AE59,AF51,AF52");
 
 				if ( librarySearch.getBooktype().equals("BOOK") ) {
 					result = LibSearchAPI.getBookDetail(librarySearch);
@@ -208,7 +208,7 @@ public class LibrarySearchController extends BaseController {
 			librarySearch.setLibraryCodes(libraryCodes);
 		}
 		
-		librarySearch.setNotShelfCode("AB08,AB09,AB10,AB38,BN13,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26,AH17,CB17,FM05,GU04,FP05,GX05,GR06,GW03,AB39,AE59,AF51,AF52");
+		librarySearch.setNotShelfCode("AB08,AB09,AB10,AB38,BW06,BW08,BW11,BW12,BW16,BW18,BW19,BW20,BW21,BW22,BW23,BW24,BW25,BW26,AH17,CB17,FM05,GU04,FP05,GX05,GR06,GW03,AB39,AE59,AF51,AF52");
 
 		if (StringUtils.isNotEmpty(librarySearch.getBooktype())) {
 			Map<String, Object> result = new HashMap<String, Object>();
