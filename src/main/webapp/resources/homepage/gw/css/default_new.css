@@ -245,7 +245,8 @@
 	#footer .bottom-box .info-right .site_link {margin:10px auto 0;}
 }
 
-@media all and (max-width:1024px){	
+@media all and (max-width:1024px){
+   .Gnb .mask{display: none !important;}
 	.mmode{display:block}
 	.tnb,
 	.g-menu{display:none}

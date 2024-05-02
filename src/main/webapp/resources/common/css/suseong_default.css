@@ -1558,6 +1558,8 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-box3 .banner-roll li,
 .banner-wrap .banner-box3 .banner-roll span,
 .banner-wrap .banner-box3 .banner-roll a{font-size:0;line-height:0}
+/* 배너img크기통일 */
+.banner-wrap .banner-box3 .banner-roll li a img {width: 140px;height: 42px;}
 .banner-wrap .banner-box3 .banner-roll i{display:none}
 .banner-wrap .banner-t3 .control{clear:both;font-size:0;padding:0;float:left}
 .banner-wrap .banner-t3 .control a {font-size:13px;display:inline-block;zoom:1;*display:inline;text-align:center;vertical-align:middle;width:20px;height:20px;line-height:19px;border:1px solid #d5d5d5;margin-left:-1px}
@@ -1568,6 +1570,8 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-t3 .control a i {font-weight:100;}
 .banner-wrap .banner-t3 .control a i.fa{font-size:10px}
 .banner-wrap .banner-t3 .control a i.fa-navicon{font-size:11px}
+
+
 
 .banner-wrap>.banner-t4{float:left;width:175px;padding-right:10px;padding-left:5px}
 .banner-wrap>.banner-t4 > h3{float:left;line-height:42px;height:42px;font-size:20px;font-weight:bold;letter-spacing:-1px}
@@ -2088,7 +2092,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 
 	.lnb{display:none}
 	.doc{margin-right:0;padding:30px 0;overflow:hidden}
-	.doc-head{width:160px;float:left}
+	/*.doc-head{width:160px;float:left}*/
 	.doc-title{border-top:3px solid #2a9fe8;position:relative;z-index:1}
 	.doc-title h3{/*border-top:3px solid #1f5d97;*/margin-top:-3px;padding-right:10%;position:relative;z-index:2}
 	.doc-body{margin-right:-160px;float:left;width:100%}

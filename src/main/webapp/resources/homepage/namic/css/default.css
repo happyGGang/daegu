@@ -7,15 +7,24 @@ a:hover,
 a:focus{color:#2b74c0}
 
 /* header */
-.tnb {position:relative;text-align:right;height:96px;background:#fff;}
+.tnb {position:relative;text-align:right;height:140px;background:#fff;}
 .tnb .util{position:absolute;right:0;top:0;line-height:93px;}
 .tnb a, .tnb b{vertical-align:middle;font-size:15px;color:#484848;font-weight:bold;display:inline-block}
 .tnb a img{margin-left:5px;vertical-align:middle;}
 .tnb a:hover,
 .tnb a:focus{}
 
+.tnb-top{position:relative;width:100%;height:44px;border-bottom:1px solid #e6e6e6;}
+
+.libSite {position:absolute;top:0;z-index:96;height:44px;line-height:44px;overflow:hidden;}
+.libSite ul li {display:inline-block;float:left;border-left:1px solid #ccc;padding:0;margin:0;}
+.libSite ul li a {display:block;color:#000;text-align:center;line-height:44px;padding:0 15px;}
+.libSite ul li.sns_icon img{margin-left:0;}
+.libSite ul li.on a {background:#000;color:#fff;}
+
 #header .head{position:relative;z-index:2;clear:both}
 #header h1{position:absolute;z-index:10000;top:23px;}
+#header h1 a.sns{display:none;}
 .popupWrap{z-index:6}
 
 /* Gnb */
@@ -139,15 +148,18 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 #header .search-box button{position:absolute;right:0;width:77px;text-align:center;background:url('../img/search-btn.png') no-repeat center center;font-size:0;}
 
 #header .search-box .main-box {width:100%;border:3px solid #1a3a83;background:#fff;overflow:hidden;box-sizing:border-box;border-radius:50px;}
-#header .search-box .main-box .title-box {position:absolute;left:0;background:#1a3a83;color:#fff;font-size:15px;padding:14px 0;width:125px;text-align:center;border-radius:50px;top:2px;}
+#header .search-box .main-box .title-box {position:absolute;left:0;background:#1a3a83;color:#fff;font-size:15px;padding:16px 0;width:125px;text-align:center;border-radius:50px;top:2px;}
 #header .search-box .box1{float:left;width:100%;padding-left:130px;box-sizing:border-box;}
 #header .search-box .box2{margin-right:50px}
 
 
 @media all and (max-width:1024px){
 	.tnb{height:45px;padding:10px 0}
+	.tnb-top{display:none;}
+	
 	#header h1,
 	#header h1 a {width:auto}
+	#header h1 a.sns{display:inline-block;}
 
 	#footer .bottom .section .site_link {position:static;text-align:center;padding-top:20px;}
 	#footer .info {float:none;width:1300px;margin:0 auto;text-align:center;padding:5px 0;}

@@ -366,10 +366,16 @@ CONTEXT_PATH : ${context_path}
 
 				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'goldbook'}">
 					<c:choose>
-						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
-							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+						<c:when test="${detail.MANAGE_CODE eq 'FG'}">
 						</c:when>
 						<c:otherwise>
+							<c:choose>
+								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
+									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 

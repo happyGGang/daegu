@@ -68,7 +68,6 @@ $(function() {
 			<col width="11%"/>
 			<col width="10%"/>
 			<col width="10%"/>
-			<col width="10%"/>
 		</colgroup>
 		<thead>
 			<tr>

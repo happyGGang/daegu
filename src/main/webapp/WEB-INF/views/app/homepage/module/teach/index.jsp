@@ -566,7 +566,7 @@ ${html.html}
 </c:if>
 
 <div style="text-align: right; margin-bottom: 10px; ">
-	<c:if test="${param.homepage_id eq 'h72'}"><strong>3/12(화)~3/15(금) 냉난방기 교체 및 장서점검에 따른 임시휴관으로 방문신청 불가합니다. (3/16부터 가능)</strong></c:if>
+<!--<c:if test="${param.homepage_id eq 'h72'}"><strong>3/12(화)~3/15(금) 냉난방기 교체 및 장서점검에 따른 임시휴관으로 방문신청 불가합니다. (3/16부터 가능)</strong></c:if>-->
 	<a href="anonyApplyCheck.do?homepage_id=${fn:escapeXml(teach.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 </div>
 

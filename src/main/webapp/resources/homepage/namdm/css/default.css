@@ -148,7 +148,7 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 #header .search-box button{position:absolute;right:0;width:77px;text-align:center;background:url('../img/search-btn.png') no-repeat center center;font-size:0;}
 
 #header .search-box .main-box {width:100%;border:3px solid #009456;background:#fff;overflow:hidden;box-sizing:border-box;border-radius:50px;}
-#header .search-box .main-box .title-box {position:absolute;left:0;background:#009456;color:#fff;font-size:15px;padding:14px 0;width:125px;text-align:center;border-radius:50px;top:2px;}
+#header .search-box .main-box .title-box {position:absolute;left:0;background:#009456;color:#fff;font-size:15px;padding:16px 0;width:125px;text-align:center;border-radius:50px;top:2px;}
 #header .search-box .box1{float:left;width:100%;padding-left:130px;box-sizing:border-box;}
 #header .search-box .box2{margin-right:50px}
 

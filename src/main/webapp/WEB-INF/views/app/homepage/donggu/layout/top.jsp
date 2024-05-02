@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div class="onbook_box">
-				<a href="http://donggu-lib-archive.kr/list/?u=88" target="_blank" class="onbook_btn">ON BOOK</a>
+				<a href="https://www.donggu-lib-archive.kr" target="_blank" class="onbook_btn">ON BOOK</a>
 			</div>
 
 		</div>

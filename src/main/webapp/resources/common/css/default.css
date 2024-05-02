@@ -834,7 +834,7 @@ a.baro img{display:inline-block;zoom:1;*display:inline;vertical-align:middle}
 
 /* 년,월 선택 */
 .ym_btns{padding:0 0 5px}
-.ym_btns a.btn{margin:0 1px}
+.ym_btns a.btn{margin: 2px;}
 .ym_btns a.btn i{margin:0;font-size:130%}
 .ym_btns a,
 .ym_btns select{vertical-align:middle}
@@ -1557,6 +1557,8 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-t2 .control a i.fa{font-size:10px}
 .banner-wrap .banner-t2 .control a i.fa-navicon{font-size:11px}
 .banner-wrap .banner-t2 .control a:last-child {border-top:0;}
+/* 배너img크기통일 */
+.banner-wrap .banner-roll a img {width: 140px;height: 42px;}
 
 /* 배너모음3 */
 .banner-wrap>.banner-t3{float:left;width:110px;padding-left:5px}
@@ -2102,7 +2104,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.doc-title{border-top:3px solid #2a9fe8;position:relative;z-index:1}
 	.doc-title h3{/*border-top:3px solid #1f5d97;*/margin-top:-3px;padding-right:10%;position:relative;z-index:2}
 	.doc-body{margin-right:-160px;float:left;width:100%}
-	.doc-body .body{margin-right:160px;margin-left:30px}
+	.doc-body .body{/* margin-right:160px; *//* margin-left:30px; */}
 	.shareArea {display:none;}
 
 	#footer .section{padding:0 1%;box-sizing:border-box;}
@@ -2293,7 +2295,7 @@ input.new_text01 ::placeholder{font-size:15px;}
 
 @media all and (max-width:564px){
 	.fl_right_btn{float:none;}	
-	
+	.loan_box02{background:#fafafa;border:1px solid #e1e1e1;text-align: left !important;padding: 10px !important;}
 	.new_apply_box{padding:20px !important;}
 }
 
