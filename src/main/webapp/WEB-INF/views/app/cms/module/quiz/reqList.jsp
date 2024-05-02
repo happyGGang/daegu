@@ -192,14 +192,17 @@ $(function() {
 <div>
 <h3>
 	${quiz.quiz_name}
-	<c:choose>
-	<c:when test="${quiz.select_cnt eq 0}">
-	<small>(당첨자 추첨 미시행)</small>
-	</c:when>
-	<c:otherwise>
-	<small>(당첨자 추첨 완료)</small>
-	</c:otherwise>
-	</c:choose>
+		<c:choose>
+			<c:when test="${quiz.quiz_type eq 9}">
+				<small>(당첨자 추첨 완료)</small>
+			</c:when>
+			<c:when test="${quiz.select_cnt eq 0}">
+				<small>(당첨자 추첨 미시행)</small>
+			</c:when>
+			<c:otherwise>
+				<small>(당첨자 추첨 완료)</small>
+			</c:otherwise>
+		</c:choose>
 </h3>
 [ 정답 : 
 	<c:forEach items="${quizQuestionList}" var="oneQuestion" varStatus="questionStatus">
