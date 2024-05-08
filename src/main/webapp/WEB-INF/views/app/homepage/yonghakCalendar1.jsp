@@ -46,7 +46,7 @@
             </li>
           </ul>
         </div>
-        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.3.31.] (단위 : 권)</span></h3>
+        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.4.30.] (단위 : 권)</span></h3>
         <div class="rsv-info"></div>
         <div class="auto-scroll">
           <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -97,51 +97,51 @@
 				<td>374</td>
 				<td>290</td>
 				<td>272</td>
-				<td>3,753</td>
+				<td>3,766</td>
 				<td>1,207</td>
-				<td>9,204</td>
+				<td>9,217</td>
               </tr>
               <tr>
                 <th scope="row">유아</th>
 				<td>64</td>
-				<td>87</td>
+				<td>88</td>
 				<td>42</td>
 				<td>910</td>
 				<td>402</td>
 				<td>85</td>
 				<td>80</td>
 				<td>72</td>
-				<td>2,973</td>
+				<td>2,982</td>
 				<td>34</td>
-				<td>4,749</td>
+				<td>4,759</td>
               </tr>
               <tr>
                 <th scope="row">일반</th>
-                <td>539</td>
-				<td>1,053</td>
-				<td>329</td>
-				<td>2,133</td>
-				<td>633</td>
-				<td>1,304</td>
-				<td>555</td>
-				<td>311</td>
-				<td>5,762</td>
-				<td>1,159</td>
-				<td>13,778</td>
+                <td>545</td>
+				<td>1,066</td>
+				<td>330</td>
+				<td>2,150</td>
+				<td>636</td>
+				<td>1,320</td>
+				<td>559</td>
+				<td>316</td>
+				<td>5,804</td>
+				<td>1,166</td>
+				<td>13,892</td>
               </tr>
               <tr>
                 <th scope="row">총계</th>
-                <td>1,305</td>
-				<td>1,497</td>
-				<td>529</td>
-				<td>3,889</td>
-				<td>2,280</td>
-				<td>1,763</td>
-				<td>925</td>
-				<td>655</td>
-				<td>12,488</td>
-				<td>2,400</td>
-				<td>27,731</td>
+                <td>1,311</td>
+				<td>1,511</td>
+				<td>530</td>
+				<td>3,906</td>
+				<td>2,283</td>
+				<td>1,779</td>
+				<td>929</td>
+				<td>660</td>
+				<td>12,552</td>
+				<td>2,407</td>
+				<td>27,868</td>
               </tr>
             </tbody>
           </table>
