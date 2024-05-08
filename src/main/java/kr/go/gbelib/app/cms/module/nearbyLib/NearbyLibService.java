@@ -223,11 +223,6 @@ public class NearbyLibService extends BaseService {
 					}
 					
 					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
-					
-					NearbyLib sms_send = new NearbyLib();
-					sms_send.setSms_send_yn("Y");
-					sms_send.setReserve_idx(neighborhoodLibrary.getReserve_idx());
-					dao.updateNeighborhoodLibrarySms(sms_send);
 				}else {
 					res.setValid(false);
 					res.setMessage("업데이트에 실패 하였습니다.");
