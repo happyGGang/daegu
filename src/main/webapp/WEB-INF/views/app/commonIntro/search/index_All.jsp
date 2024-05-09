@@ -632,9 +632,9 @@
 							<li>                                                         
 								<form:checkbox path="libraryCodes" class="libCheckSa lib_ND" value="ND" label="연암도서관" />
 							</li>                                                        
-							<li>                                                         
+<!-- 							<li>                                                         
 								<form:checkbox path="libraryCodes" class="libCheckSa lib_NF" value="NF" label="비전도서관" />
-							</li>                                                        
+							</li> -->                                                        
 							<li>                                                         
 								<form:checkbox path="libraryCodes" class="libCheckSa lib_NE" value="NE" label="새벗도서관" />
 							</li>                                                                                                               

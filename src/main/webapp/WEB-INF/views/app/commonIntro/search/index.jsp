@@ -1379,7 +1379,7 @@ function isFromFridayToSunday() {
 													<c:when test="${homepage.context_path eq 'yonghak' and i.droneLoanYn eq 'Y'}">
 														<span style="color:#ff0000">대출불가(드론대출중)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
+													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
 													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE eq ''}">
@@ -1537,7 +1537,7 @@ function isFromFridayToSunday() {
 											</c:if>
 											<c:if test="${i.SHELF_LOC_CODE eq 'BC03' || i.SHELF_LOC_CODE eq 'BC05' || i.SHELF_LOC_CODE eq 'BC06'}">
 												<div class="" style="font-size:14px;font-weight:bold;color:red;">
-													※ 보존서고 도서는 폐가제로 운영됩니다. &nbsp;대출 관련은 담당자에게 문의바랍니다. (☎ 053-320-5185)
+													※ 이관도서는 공동 보존서고에 보관중이므로 당일 대출 불가, 사전 신청을 통해 대출 가능합니다.<br>신청 및 문의 (☎ 053-320-5184/5188)
 												</div>
 											</c:if>
 											<c:if test="${i.SHELF_LOC_CODE eq 'BB03'}">
@@ -1574,7 +1574,7 @@ function isFromFridayToSunday() {
 												<td>
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
+													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
 													<c:otherwise>
