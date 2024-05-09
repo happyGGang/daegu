@@ -10,6 +10,14 @@
 .serial-wrap .search-results .row .item a.name{font-weight:800;font-size:140%;display:inline-block;zoom:1;*display:inline;padding: 0px 0;}
 .serial-wrap ul.con2{padding: 0px 0 2px;}
 .bif b {color:#ffa651;}
+#loading {position:fixed;left:0;top:0;width:100%;height:100%;z-index:665;background:rgba(0,0,0,0.5)}
+#loading_img {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index:667;
+}
 </style>
 <script>
 $(document).ready(function() {
@@ -25,6 +33,8 @@ $(document).ready(function() {
 
 		$('input#hopeSearchManageCode').val($('#manageCode').val());
 		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
+
+		$('#loading').show();
 	});
 
 	$('input#search_text_kakao').on('keyup', function(e) {
@@ -48,6 +58,11 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</div>
+
+	<div id="loading" class="loading">
+		<img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />
+	</div>
+
 </form:form>
 		<c:if test="${kakaoResult.totalCount < 1 and not empty librarySearch.search_text}">
 	<div class="search_result nodata">검색된 도서가 없습니다.</div>
@@ -204,5 +219,9 @@ $(document).ready(function() {
 		$(window).resize(function() {
 			$('.search-results img').height($('img#refImg').width() * 0.6);
 		}).trigger('resize');
+	});
+
+	$(document).ready(function() {
+		$('#loading').hide();
 	});
 </script>
