@@ -24,8 +24,6 @@ import kr.go.gbelib.app.cms.module.locker.Locker;
 import kr.go.gbelib.app.cms.module.locker.LockerService;
 import kr.go.gbelib.app.cms.module.lockerPre.LockerPre;
 import kr.go.gbelib.app.cms.module.lockerPre.LockerPreService;
-import kr.go.gbelib.app.common.api.MemberAPI;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller
 @RequestMapping(value = {"/cms/module/lockerReq"})
@@ -460,7 +458,7 @@ public class LockerReqController extends BaseController {
 
 					LockerReq temp = service.getLockerReqOne(lockerReq);
 					if (service.isSmsReceive("USERID", temp.getApply_id())) {
-						PushAPI.sendMessage(getHomepageOne(lockerReq.getHomepage_id()), PushAPI.SMS_TYPE_SMS, temp.getCell_phone(), "사물함 배정이 완료 되었습니다.", getHomepageOne(lockerReq.getHomepage_id()).getHomepage_send_tell(), true);
+						/*PushAPI.sendMessage(getHomepageOne(lockerReq.getHomepage_id()), PushAPI.SMS_TYPE_SMS, temp.getCell_phone(), "사물함 배정이 완료 되었습니다.", getHomepageOne(lockerReq.getHomepage_id()).getHomepage_send_tell(), true);*/
 					}
 
 				} else {
@@ -513,7 +511,7 @@ public class LockerReqController extends BaseController {
 				res.setValid(true);
 				res.setMessage("등록 되었습니다.");
 				if (service.isSmsReceive(lockerReq.getSearch_api_type(), lockerReq.getApply_id())) {
-					PushAPI.sendMessage(getHomepageOne(lockerReq.getHomepage_id()), PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함신청이 완료 되었습니다.", getHomepageOne(lockerReq.getHomepage_id()).getHomepage_send_tell(), true);
+					/*PushAPI.sendMessage(getHomepageOne(lockerReq.getHomepage_id()), PushAPI.SMS_TYPE_SMS, lockerReq.getCell_phone(), "사물함신청이 완료 되었습니다.", getHomepageOne(lockerReq.getHomepage_id()).getHomepage_send_tell(), true);*/
 				}
 			} else if (editMode.equals("MODIFY")) {
 				lockerReq.setMod_id(getSessionMemberId(request));

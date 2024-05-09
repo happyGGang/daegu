@@ -20,7 +20,6 @@ import kr.co.whalesoft.app.cms.member.MemberService;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
 import kr.co.whalesoft.framework.utils.RequestUtils;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Service
 public class BoardCommentService extends BaseService {
@@ -119,7 +118,7 @@ public class BoardCommentService extends BaseService {
 		if (StringUtils.equals(boardComment.getImsi_v_20(), "Y")) {
 			Homepage homepage = homepageService.getHomepageOne(new Homepage("c0"));
 			homepage.setHomepage_name("프로젝트사이트");
-			PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, boardComment.getImsi_v_19(), "["+boardTmp.getCategory1_name()+"] 유지보수 요청글이 등록되었습니다. 프로젝트 사이트 확인 바랍니다.", homepage.getHomepage_send_tell(), true);
+			/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, boardComment.getImsi_v_19(), "["+boardTmp.getCategory1_name()+"] 유지보수 요청글이 등록되었습니다. 프로젝트 사이트 확인 바랍니다.", homepage.getHomepage_send_tell(), true);*/
 			Board board = new Board();
 			board.setRequest_state("1");
 			board.setManage_idx(563);
@@ -145,7 +144,7 @@ public class BoardCommentService extends BaseService {
 			boardMember.setMember_id(boardOne.getAdd_id());
 			boardMember = memberService.getMemberOne(boardMember);
 			if (boardMember != null && StringUtils.isNotEmpty(boardMember.getCell_phone())) {
-				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, boardMember.getCell_phone(), "["+boardTmp.getCategory1_name()+"] 유지보수 처리가 완료되었습니다. 프로젝트 사이트 확인 바랍니다.", homepage.getHomepage_send_tell(), true);
+				/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, boardMember.getCell_phone(), "["+boardTmp.getCategory1_name()+"] 유지보수 처리가 완료되었습니다. 프로젝트 사이트 확인 바랍니다.", homepage.getHomepage_send_tell(), true);*/
 			}
 
 			boardDao.modifyQnaBoard(board);

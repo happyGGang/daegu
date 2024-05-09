@@ -15,8 +15,6 @@ import kr.co.whalesoft.app.cms.module.volunteer.Volunteer;
 import kr.co.whalesoft.app.cms.module.volunteer.VolunteerService;
 import kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApply;
 import kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApplyService;
-import kr.co.whalesoft.app.cms.module.volunteer.VolunteerService;
-import kr.co.whalesoft.app.cms.module.volunteer.apply.VolunteerApplyService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -24,7 +22,6 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.common.api.PushAPI;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -374,7 +371,7 @@ public class VolunteerController extends BaseController {
 				res.setValid(true);
 				res.setMessage("신청 되었습니다.");
 				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "미디어창작소 대관 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
+					/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "미디어창작소 대관 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);*/
 				}
 
 			}

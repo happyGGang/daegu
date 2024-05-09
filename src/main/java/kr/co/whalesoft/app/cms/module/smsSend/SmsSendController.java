@@ -32,8 +32,6 @@ import kr.co.whalesoft.app.cms.module.addressBook.AddressBookService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
-import kr.go.gbelib.app.common.api.MemberAPI;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller
 @RequestMapping(value = {"/cms/module/smsSend"})
@@ -213,11 +211,11 @@ public class SmsSendController extends BaseController{
 
 				for(int i=0; i< phone.length; i++) {
 					smsSend.setUser_phone(phone[i].replaceAll("-", ""));
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, smsSend.getUser_phone(), smsSend.getSend_msg(), smsSend.getCaller_cell_phone(), true);
+					/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, smsSend.getUser_phone(), smsSend.getSend_msg(), smsSend.getCaller_cell_phone(), true);*/
 				}
 			} else {
 				smsSend.setUser_phone(smsSend.getUser_phone().replaceAll("-", ""));
-				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, smsSend.getUser_phone(), smsSend.getSend_msg(), smsSend.getCaller_cell_phone(), true);
+				/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, smsSend.getUser_phone(), smsSend.getSend_msg(), smsSend.getCaller_cell_phone(), true);*/
 			}
 
 			res.setValid(true);

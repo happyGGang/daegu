@@ -11,7 +11,6 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -144,7 +143,7 @@ public class ApplyService extends BaseService {
 			if (isSmsReceive("USERID", apply_temp.getApply_id())) {
 				Homepage homepage = new Homepage(apply.getHomepage_id());
 				homepage = homepageService.getHomepageOne(homepage);
-				PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "["+apply_temp.getApplicant_name() + "] 도서관 견학 신청이 승인 되었습니다.", homepage.getHomepage_send_tell(), true);
+				/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "["+apply_temp.getApplicant_name() + "] 도서관 견학 신청이 승인 되었습니다.", homepage.getHomepage_send_tell(), true);*/
 			}
 		}
 		

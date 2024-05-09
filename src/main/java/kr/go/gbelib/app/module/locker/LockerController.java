@@ -27,7 +27,6 @@ import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.cms.module.blackList.BlackList;
 import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.cms.module.locker.Locker;
 import kr.go.gbelib.app.cms.module.locker.LockerService;
@@ -35,7 +34,6 @@ import kr.go.gbelib.app.cms.module.lockerPre.LockerPre;
 import kr.go.gbelib.app.cms.module.lockerPre.LockerPreService;
 import kr.go.gbelib.app.cms.module.lockerReq.LockerReq;
 import kr.go.gbelib.app.cms.module.lockerReq.LockerReqService;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userLocker")
 @RequestMapping(value = {"/{homepagePath}/module/locker"})

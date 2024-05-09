@@ -5,12 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +45,6 @@ import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userExcursions")
 @RequestMapping(value = {"/{homepagePath}/module/excursions"})
@@ -475,7 +472,7 @@ public class ExcursionsController extends BaseController {
 				res.setValid(true);
 				res.setMessage("신청 되었습니다.");
 				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "도서관 견학 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
+					/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "도서관 견학 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);*/
 				}
 
 			}

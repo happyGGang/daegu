@@ -2,7 +2,6 @@ package kr.go.gbelib.app.module.facility;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,8 +22,6 @@ import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSite;
-import kr.co.whalesoft.app.cms.recommendSite.RecommendSiteService;
 import kr.co.whalesoft.app.cms.terms.Terms;
 import kr.co.whalesoft.app.cms.terms.TermsService;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -37,8 +33,6 @@ import kr.go.gbelib.app.cms.module.facility.Facility;
 import kr.go.gbelib.app.cms.module.facility.FacilityService;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
 import kr.go.gbelib.app.cms.module.facilityReq.FacilityReqService;
-import kr.go.gbelib.app.cms.module.teach.student.Student;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userFacility")
 @RequestMapping(value = {"/{homepagePath}/module/facility"})

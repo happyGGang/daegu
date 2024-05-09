@@ -20,7 +20,6 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.menu.Menu;
-import kr.co.whalesoft.app.cms.menu.MenuService;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage;
 import kr.co.whalesoft.app.cms.module.calendarManage.CalendarManageService;
 import kr.co.whalesoft.app.cms.module.mediaFactory.MediaFactory;
@@ -34,8 +33,6 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.cms.module.facilityReq.FacilityReq;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userMediaFactory")
 @RequestMapping(value = {"/{homepagePath}/module/mediaFactory"})
@@ -392,7 +389,7 @@ public class MediaFactoryController extends BaseController {
 				res.setValid(true);
 				res.setMessage("신청 되었습니다.");
 				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "미디어창작소 대관 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
+					/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, apply.getApplicant_tel(), "미디어창작소 대관 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);*/
 				}
 
 			}

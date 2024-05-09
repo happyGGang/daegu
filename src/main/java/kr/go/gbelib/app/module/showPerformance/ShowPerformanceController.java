@@ -34,7 +34,6 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
-import kr.go.gbelib.app.common.api.PushAPI;
 
 @Controller(value="userShowPerformance")
 @RequestMapping(value = {"/{homepagePath}/module/showPerformance"})
@@ -416,7 +415,7 @@ public class ShowPerformanceController extends BaseController {
 				res.setValid(true);
 				res.setMessage("신청 되었습니다.");
 				if (StringUtils.equals(getSessionMemberInfo(request).getSms_service_yn(), "Y")) {
-					PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, showApply.getApplicant_tel(), "도서관 견학 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);
+					/*PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, showApply.getApplicant_tel(), "도서관 견학 신청이 정상 처리 되었습니다.", homepage.getHomepage_send_tell(), true);*/
 				}
 
 			}
