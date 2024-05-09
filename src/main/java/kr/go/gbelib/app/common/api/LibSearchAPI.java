@@ -3190,4 +3190,29 @@ public class LibSearchAPI {
 
 		return list;
 	}
+
+	public static ApiResponse sendSmsPhone(String manage_code,String phone, String msg, String ip, String sendPhone) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+		param.put("manage_code", manage_code);
+		param.put("phone_num", phone.replaceAll("-",""));
+		try {
+			param.put("msg", URLEncoder.encode(msg, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			log.error("@@@@@@@@@@@@@@@@ sendSmsPhone utf8 encode error : " + msg);
+		}
+		param.put("client_ip", ip);
+		param.put("worker", "HOMEPAGE");
+		param.put("send_tel", sendPhone.replaceAll("-",""));
+
+		Map<String, Object> sendKCMS = CommonAPI.sendKCMS("sendsms", param);
+
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+
+		if ("SUCCESS".equals(code)) {
+			return new ApiResponse(true);
+		} else {
+			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
 }

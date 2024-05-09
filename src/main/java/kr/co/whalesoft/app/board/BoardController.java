@@ -54,7 +54,6 @@ import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.cms.module.portalMember.PortalMember;
 import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
-import kr.go.gbelib.app.common.api.PushAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import kr.go.gbelib.app.intro.search.LibrarySearchService;
 
@@ -1430,38 +1429,17 @@ public class BoardController extends BaseController {
 				res.setMessage("등록 되었습니다.");
 
 				if ( boardManage.getCharge_sms_receive_yn().equals("Y") || boardManage.getCharge_email_receive_yn().equals("Y") ) {
-//					Member adminMember = new Member();
-//					adminMember.setMember_id(boardManage.getAdmin_id());
-//					adminMember = memberService.getMemberOne(adminMember);
 					List<Member> boardAdminList = memberService.getMemberListBoardAdmin(boardManage);
 					if (boardAdminList != null && boardAdminList.size() > 0) {
 						for ( Member m : boardAdminList ) {
-							//게시판 담당자에게 SMS, 메일을 발송한다.
 							String message = String.format("[%s] 해당 게시판에 새글이 작성되었습니다. ", boardManage.getBoard_name());
-							if (boardManage.getManage_idx() == 563 || boardManage.getManage_idx() == 592) {
-								//PMS 게시판 - 563
-								if (!StringUtils.equals(board.getCategory1(), "0000")) {
-									Code code = codeService.getCodeOne("c0", "H0001", board.getCategory1());
-									message = String.format("[프로젝트사이트]-[%s] 유지보수 요청글이 등록되었습니다. 프로젝트 사이트 확인 바랍니다.", code.getCode_name());
-								} else {
-									message = null;
-								}
-							}
+
 							if ( boardManage.getCharge_sms_receive_yn().equals("Y") && StringUtils.isNotEmpty(message)) {
 								Homepage homepage = (Homepage)request.getAttribute("homepage");
 								if (StringUtils.isNotEmpty(m.getCell_phone())) {
-									boolean isPms = !(boardManage.getManage_idx() == 563 || boardManage.getManage_idx() == 592);
-									PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_SMS, m.getCell_phone(), message, homepage.getHomepage_send_tell(), isPms);
+									LibSearchAPI.sendSmsPhone(homepage.getManage_code(), m.getCell_phone(), message, request.getRemoteAddr(), homepage.getHomepage_send_tell());
 								}
 							}
-
-							if ( boardManage.getCharge_email_receive_yn().equals("Y") ) {
-								Homepage homepage = (Homepage)request.getAttribute("homepage");
-								if (StringUtils.isNotEmpty(m.getEmail())) {
-									PushAPI.sendMessage(homepage, PushAPI.SMS_TYPE_EMAIL, m.getEmail(), null, board.getContent(), true, message);
-								}
-							}
-
 						}
 					}
 
