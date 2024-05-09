@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.teach.teachSort.TeachSortDao">
+
+	<select id="getTeachSortList" resultType="kr.go.gbelib.app.cms.module.teach.teachSort.TeachSort">
+		SELECT
+			SORT_IDX, SORT_NAME, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,SORT_COLUMN_NAME,SORT_ORDER
+		FROM
+			TEACH_SORT_LIST
+		WHERE
+			SORT_IDX NOT IN (SELECT TS.SORT_IDX FROM TEACH_SET_SORT_LIST TS WHERE TS.HOMEPAGE_ID = #{homepage_id})
+	</select>
+
+	<select id="getTeachSortOne" resultType="kr.go.gbelib.app.cms.module.teach.teachSort.TeachSort">
+		SELECT
+			SORT_IDX, SORT_NAME, ADD_DATE, ADD_ID, MODIFY_DATE, MODIFY_ID,SORT_COLUMN_NAME,SORT_ORDER
+		FROM
+			TEACH_SORT_LIST
+		WHERE
+			SORT_IDX = #{sort_idx}
+	</select>
+
+	<select id="getTeachSetSortList" resultType="kr.go.gbelib.app.cms.module.teach.teachSort.TeachSort">
+		SELECT
+			SET_SORT_IDX, SORT_IDX, HOMEPAGE_ID, SORT_NUM, SET_SORT_NAME,SORT_COLUMN_NAME,SORT_ORDER,
+			ADD_DATE,ADD_ID,MODIFY_DATE,MODIFY_ID
+		FROM
+			TEACH_SET_SORT_LIST
+		WHERE
+		    HOMEPAGE_ID = #{homepage_id}
+	</select>
+
+	<select id="getHomepageSortList" resultType="kr.go.gbelib.app.cms.module.teach.teachSort.TeachSort">
+		SELECT
+			SET_SORT_IDX, SORT_IDX, HOMEPAGE_ID, SORT_NUM, SET_SORT_NAME,SORT_COLUMN_NAME,SORT_ORDER,
+			ADD_DATE,ADD_ID,MODIFY_DATE,MODIFY_ID
+		FROM
+			TEACH_SET_SORT_LIST
+		WHERE
+		    HOMEPAGE_ID = #{homepage_id}
+	</select>
+
+	<select id="getTeachSortCheckCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			TEACH_SET_SORT_LIST
+		WHERE
+			SORT_IDX = #{sort_idx}
+		AND
+			HOMEPAGE_ID = #{homepage_id}
+	</select>
+
+	<insert id="addTeachSort">
+		INSERT INTO
+			TEACH_SET_SORT_LIST
+			(
+				SORT_IDX, SORT_COLUMN_NAME, HOMEPAGE_ID, SORT_NUM, SET_SORT_NAME, ADD_ID,SORT_ORDER
+			)
+		VALUES
+			(
+				#{sort_idx},#{sort_column_name}, #{homepage_id}, #{sort_num}, #{set_sort_name}, #{add_id},#{sort_order}
+			)
+	</insert>
+
+
+	<delete id="deleteTeachSort">
+		DELETE FROM
+			TEACH_SET_SORT_LIST
+		WHERE
+			HOMEPAGE_ID = #{homepage_id}
+	</delete>
+
+
+</mapper>

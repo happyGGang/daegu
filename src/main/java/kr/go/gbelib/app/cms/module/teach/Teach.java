@@ -3,6 +3,7 @@ package kr.go.gbelib.app.cms.module.teach;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.go.gbelib.app.cms.module.teach.teachSort.TeachSort;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
@@ -235,6 +236,8 @@ public class Teach extends PagingUtils {
 	private String student_status_name;
 
 	private String items_sale_yn = "N"; //판매품 입력 여부
+
+	private List<TeachSort> teachSortList; //정렬기준리스트
 
 	public Teach() {}
 
@@ -1825,5 +1828,13 @@ public class Teach extends PagingUtils {
 
 	public void setItems_sale_yn(String items_sale_yn) {
 		this.items_sale_yn = items_sale_yn;
+	}
+
+	public List<TeachSort> getTeachSortList() {
+		return teachSortList;
+	}
+
+	public void setTeachSortList(List<TeachSort> teachSortList) {
+		this.teachSortList = teachSortList;
 	}
 }

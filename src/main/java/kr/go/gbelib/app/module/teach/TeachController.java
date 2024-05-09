@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import kr.co.whalesoft.app.cms.homepage.HomepageService;
 import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtml;
 import kr.co.whalesoft.app.cms.menu.menuHtml.MenuHtmlService;
+import kr.go.gbelib.app.cms.module.teach.teachSort.TeachSortService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -84,6 +85,9 @@ public class TeachController extends BaseController{
 
 	@Autowired
 	private MenuHtmlService menuHtmlService;
+
+	@Autowired
+	private TeachSortService teachSortService;
 
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
@@ -257,7 +261,9 @@ public class TeachController extends BaseController{
 				
 				teach.setHomepage_id("h60");
 			}
-			
+
+			teach.setTeachSortList(teachSortService.getHomepageSortList(teach.getHomepage_id()));
+
 			model.addAttribute("teach", teach);
 			model.addAttribute("teachList", teachService.getTeachListHomepage(teach));
 			model.addAttribute("myTeachListMenuIdx", menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 93)));//수강신청내역 menu_idx

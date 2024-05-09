@@ -36,18 +36,18 @@ $(function() {
 					var studendHack = $form.find('#student_hack').val() > 0 ? $form.find('#student_hack').val() : 0;
 					$form.find('#student_hack').val(studendHack);
 
-					$form.find('input#student_old').val('0');
-					<c:if test="${teach.birth_yn eq 'Y'}">
-					if ($("#student_birth").length > 0) {
-						var selectedYear = $form.find ("#student_birth").val().split('-')[0];
-						var currentYear = new Date().getUTCFullYear();
-						$form.find('input#student_old').val((currentYear - selectedYear) + 1);
-					} else {
-						var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];
-						var currentYear = new Date().getUTCFullYear();
-						$form.find('input#student_old').val((currentYear - selectedYear) + 1);
-					}
-					</c:if>
+					<%--$form.find('input#student_old').val('0');--%>
+					<%--<c:if test="${teach.birth_yn eq 'Y'}">--%>
+					<%--if ($("#student_birth").length > 0) {--%>
+					<%--	var selectedYear = $form.find ("#student_birth").val().split('-')[0];--%>
+					<%--	var currentYear = new Date().getUTCFullYear();--%>
+					<%--	$form.find('input#student_old').val((currentYear - selectedYear) + 1);--%>
+					<%--} else {--%>
+					<%--	var selectedYear = $form.find ("#applicant_birth").val().split('-')[0];--%>
+					<%--	var currentYear = new Date().getUTCFullYear();--%>
+					<%--	$form.find('input#student_old').val((currentYear - selectedYear) + 1);--%>
+					<%--}--%>
+					<%--</c:if>--%>
 
 					var cellPhone1 = $form.find('#applicant_cell_phone_1').val();
 					if ( cellPhone1 == '' ) {
@@ -558,10 +558,10 @@ $(function() {
 					</div>
 				</td>
 			</tr>
-        	<tr style="display: none">
-	         	<th >나이(<span style="font-weight: bold;">*</span>)</th>
-	         	<td><input id="student_old" name="student_old" class="text" style="width:30px" maxlength="3" /></td>
-        	</tr>
+<%--        	<tr style="display: none">--%>
+<%--	         	<th >나이(<span style="font-weight: bold;">*</span>)</th>--%>
+<%--	         	<td><input id="student_old" name="student_old" class="text" style="width:30px" maxlength="3" /></td>--%>
+<%--        	</tr>--%>
         	<c:if test="${teach.address_yn eq 'Y' }">
 	        <tr>
 	         	<th>우편번호</th>
@@ -626,12 +626,12 @@ $(function() {
 	         	<td><form:input path="student_ban" class="text" cssStyle="width:100px;" /></td>
         	</tr>
         	</c:if>
-			<c:if test="${teach.age_info_yn eq 'Y'}">
+<%--			<c:if test="${teach.age_info_yn eq 'Y'}">
 			<tr>
 				<th>나이(<span style="color: red;font-wight: bold;">*</span>)</th>
 				<td><form:input path="student_age" cssClass="text" cssStyle="width: 80px;" title="나이 입력" numberOnly="true"/></td>
 			</tr>
-			</c:if>
+			</c:if>--%>
         	<c:if test="${teach.remark_yn eq 'Y'}">
 				<tr>
 					<th>비고</th>

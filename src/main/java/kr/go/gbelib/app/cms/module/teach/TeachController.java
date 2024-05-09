@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.whalesoft.app.cms.code.Code;
 import kr.go.gbelib.app.cms.module.teach.hashtag.Hashtag;
 import kr.go.gbelib.app.cms.module.teach.hashtag.HashtagService;
+import kr.go.gbelib.app.cms.module.teach.teachSort.TeachSortService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,6 +94,9 @@ public class TeachController extends BaseController {
 	@Autowired
 	private HashtagService hashtagService;
 
+	@Autowired
+	private TeachSortService teachSortService;
+
 	@RequestMapping(value = {"/getTeachList.*"})
 	public @ResponseBody Map<String, Object> getTeachList(Model model, Teach teach, HttpServletRequest request) {
 
@@ -132,6 +136,7 @@ public class TeachController extends BaseController {
 
 		int count = teachService.getTeachListCount(teach);
 		teachService.setPaging(model, count, teach);
+		teach.setTeachSortList(teachSortService.getHomepageSortList(teach.getHomepage_id()));
 		teach.setTotalDataCount(count);
 		model.addAttribute("teach", teach);
 		model.addAttribute("teachListCount", count);

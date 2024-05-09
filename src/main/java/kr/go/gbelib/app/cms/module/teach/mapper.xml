@@ -9,6 +9,46 @@
 		</if>
 	</sql>
 
+	<sql id="sortList">
+		<if test="!teachSortList.isEmpty()">
+			ORDER BY
+			CASE TEACH_STATUS
+			WHEN '0' THEN 1
+			WHEN '11' THEN 2
+			WHEN '1' THEN 3
+			WHEN '2' THEN 4
+			WHEN '3' THEN 5
+			WHEN '6' THEN 6
+			WHEN '5' THEN 7
+			ELSE 8
+			END,
+			<foreach item="i" collection="teachSortList" separator=",">
+				${i.sort_column_name} ${i.sort_order}
+			</foreach>
+		</if>
+	</sql>
+
+	<sql id="cmsSortList">
+		<if test="!teachSortList.isEmpty()">
+			ORDER BY
+			CASE t.TEACH_STATUS
+			WHEN '0' THEN 1
+			WHEN '11' THEN 2
+			WHEN '1' THEN 3
+			WHEN '2' THEN 4
+			WHEN '3' THEN 5
+			WHEN '6' THEN 6
+			WHEN '5' THEN 7
+			ELSE 8
+			END,
+			<foreach item="i" collection="teachSortList" separator=",">
+				${i.sort_column_name} ${i.sort_order}
+			</foreach>
+		</if>
+	</sql>
+
+
+
 	<select id="getTeachListForCalendar" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		SELECT
 		a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.start_date, a.end_date,
@@ -86,6 +126,7 @@
 
 	<select id="getTeachList" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		${pagingTop}
+		WITH teach_info as (
 		SELECT
 		a.TEACH_STATUS,
 		a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name, a.teach_desc, a.TEACH_ETC, a.teach_stage, a.teach_target, a.LIMIT_HAK,a.LIMIT_HAK2,
@@ -233,8 +274,9 @@
 				0, 1, 4, 5, 6, 9
 			</otherwise>
 		</choose>
-		)
-		<include refid="teachSort"/>
+		))
+		select * from teach_info t
+		<include refid="cmsSortList"/>
 		${pagingBottom}
 	</select>
 
@@ -818,7 +860,7 @@
 	</select>
 
 	<select id="getTeachListHomepage" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
-		SELECT
+		WITH teach_info as (SELECT
 		CASE
 		WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
 		THEN '9'
@@ -982,7 +1024,7 @@
 		AND	a.use_yn = 'Y'
 		AND	a.delete_yn = 'N'
 
-		<if test="homepage_id != 'h5' and homepage_id != 'h73'">
+		<!--<if test="homepage_id != 'h5' and homepage_id != 'h73'">
 			ORDER BY
 			(CASE WHEN a.teach_code_yn ='Y' THEN 1 ELSE 2 END),
 			<if test="sortField != null and sortField != ''">
@@ -991,10 +1033,19 @@
 			ABS(SYSDATE - (TO_DATE(a.start_join_date ||' '|| a.start_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 			ABS(SYSDATE - (TO_DATE(a.end_join_date ||' '|| a.end_join_time, 'YYYY-MM-DD HH24:MI'))) ASC,
 			a.print_seq ASC
-		</if>
-		) A
+		</if>-->
+		) A)
+		select * from teach_info
+		<choose>
+			<when test="sortField != null and sortField != ''">
+				ORDER BY ${sortField} ${sortType}
+			</when>
+			<otherwise>
+				<include refid="sortList"/>
+			</otherwise>
+		</choose>
 
-		<if test="homepage_id == 'h5'">
+		<!--<if test="homepage_id == 'h5'">
 			ORDER BY
 			print_seq ASC,
 			<if test="sortField != null and sortField != ''">
@@ -1007,12 +1058,11 @@
 			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC,
 			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC
 		</if>
-
 		<if test="homepage_id == 'h61' or homepage_id == 'h73'">
 			ORDER BY
 			CASE WHEN TO_DATE(a.end_date || ' ' || a.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE THEN 1 ELSE 0 END ASC,
 			CASE WHEN a.status = 0 AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= a.req_end_date THEN 1 ELSE 0 END ASC
-		</if>
+		</if>-->
 	</select>
 
 

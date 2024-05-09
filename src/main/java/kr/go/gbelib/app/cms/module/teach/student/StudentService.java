@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringTokenizer;
 
 import org.apache.commons.io.FilenameUtils;
@@ -177,12 +178,29 @@ public class StudentService extends BaseService {
 					if ( "SEX".equals(oneLimitUnit) ) {
 						if ( !student.getApplicant_sex().equals(limitValue[i]) ) {
 							addResult[0] = false;
+
 							addResult[1] = String.format("해당 강좌는 성별 제한이 있습니다.");
 							return addResult;
 						}
+					}else {
+						String birthCheck = "";
+						if ("Y".equals(teach.getAgent_yn())) {
+							birthCheck = student.getStudent_birth();
+						} else {
+							birthCheck = student.getApplicant_birth();
+						}
+
+						Optional<String> birth = Optional.ofNullable(birthCheck);
+						if (birth.isPresent()) {
+							String[] year = birthCheck.split("-");
+							if (!(Integer.parseInt(limitValue[0]) <= Integer.parseInt(year[0]) && Integer.parseInt(limitValue[1]) >= Integer.parseInt(year[0]))) {
+								addResult[0] = false;
+								addResult[1] = String.format("해당강좌는 %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", limitValue[0], limitValue[1]);
+							}
+						}
 					}
 					// 강의 나이 제한이 있으면 체크.
-					if ( "OLD".equals(oneLimitUnit) ) {
+/*					if ( "OLD".equals(oneLimitUnit) ) {
 						if ("infants".equals(teach.getTeach_age_type())) {
 							if ( Integer.parseInt(limitValue[i]) <= Integer.parseInt(student.getStudent_age()) && Integer.parseInt(limitValue[i+1]) >= Integer.parseInt(student.getStudent_age())) { }
 							else {
@@ -198,7 +216,7 @@ public class StudentService extends BaseService {
 								return addResult;
 							}
 						}
-					}
+					}*/
 				}
 			}
 			

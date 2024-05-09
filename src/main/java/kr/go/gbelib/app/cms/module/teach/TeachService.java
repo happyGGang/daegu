@@ -730,6 +730,10 @@ public class TeachService extends BaseService {
 		return teachListForUser;
 	}
 
+	public List<Teach> getTeachSortList(Teach teach) {
+		return dao.getTeachApiList(teach);
+	}
+
 	@XmlElement(name = "test")
 	public List<Teach> getInternationalDataRoomList(Teach teach) {
 		return dao.getInternationalDataRoomList(teach);

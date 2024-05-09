@@ -175,6 +175,20 @@ $(function() {
 		e.preventDefault();
 	});
 
+	$('a#dialog-sort').on('click', function(e) {
+		if ( $('#homepage_id_1').val() == '' ) {
+			alert('홈페이지정보가 없습니다.');
+		}
+		else {
+			$('#dialog-6').load('/cms/module/teach/teachSort/index.do?editMode=ADD&homepage_id=' + $('#homepage_id_1').val(), function( response, status, xhr ) {
+				$('#dialog-6').dialog('open')
+			});
+		}
+
+		e.preventDefault();
+	});
+
+
 });
 </script>
 <form:form id="hiddenForm" modelAttribute="teach" action="save.do">
@@ -274,6 +288,7 @@ $(function() {
 			</c:if>
 			<c:if test="${authC}">
 				<a href="#" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>등록</span></a>
+				<a href="#" class="btn btn3 left" id="dialog-sort"><i class="fa fa-plus"></i><span>정렬설정</span></a>
 				<a href="#" class="btn btn4 left" id="dialog-load"><i class="fa fa-plus"></i><span>강좌불러오기</span></a>
 				<a href="#" class="btn btn1 left" id="dialog-search-cert"><i class="fa fa-plus"></i><span>기간별 수료자 조회</span></a>
 <!-- 				<a href="#" class="btn btn4 left" id="dialog-setting"><i class="fa fa-plus"></i><span>설정</span></a> -->
@@ -417,3 +432,5 @@ $(function() {
 <div id="dialog-3" class="dialog-common" title="기간별 수료자 조회"></div>
 <div id="dialog-4" class="dialog-common" title="1인당 강좌수 설정"></div>
 <div id="dialog-5" class="dialog-common" title="강좌 검색"></div>
+<div id="dialog-6" class="dialog-common" title="강좌 정렬 설정"></div>
+<div id="dialog-7" class="dialog-common" title="강좌 정렬기준 추가"></div>

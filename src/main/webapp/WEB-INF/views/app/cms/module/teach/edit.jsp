@@ -688,6 +688,25 @@
 			$('input#day6').prop('checked', $(this).prop('checked'));
 			$('input#day7').prop('checked', $(this).prop('checked'));
 		});
+
+		$('.limit_year1').on('input', function(){
+			var regexp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+			var v = $(this).val();
+			if (regexp.test(v)) {
+				alert("숫자만 입력 가능합니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+
+		$('.limit_year2').on('input', function(){
+			var regexp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+			var v = $(this).val();
+			if (regexp.test(v)) {
+				alert("숫자만 입력 가능합니다.");
+				$(this).val(v.replace(regexp, ''));
+			}
+		});
+
 	});
 
 </script>
@@ -1137,7 +1156,9 @@
 				</div>
 				<div>
 					<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit2">나이</label>
-					<c:choose>
+					: <input class="text limit_year1" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="4" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >년생 이상</p> ~
+					<input class="text limit_year2" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="4" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">년생 이하 </p>
+<%--					<c:choose>
 						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
 							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>
 							<c:choose>
@@ -1162,7 +1183,7 @@
 							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >세 이상</p> ~
 							<input class="text" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="" maxlength="3" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">세 이하 </p>
 						</c:otherwise>
-					</c:choose>
+					</c:choose>--%>
 				</div>
 				<div class="ui-state-highlight">
 					<em>* 나이 = (현재 연도 - 수강생 생년)+1 ex) 2019 - 1990 + 1 = 30</em>
@@ -1251,7 +1272,7 @@
 				</div>
 			</td>
 		</tr>
-		<tr>
+<%--		<tr>
 			<th>나이입력여부</th>
 			<td>
 				<form:radiobutton path="age_info_yn" class="Y" value="Y" label="사용" style="cursor:pointer;"/>&nbsp;
@@ -1260,7 +1281,7 @@
 					<em>* 사용 시 '나이' 입력항목이 노출됩니다.</em>
 				</div>
 			</td>
-		</tr>
+		</tr>--%>
 		<tr>
 			<th>성별 입력여부 (<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
