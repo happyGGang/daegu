@@ -1382,8 +1382,8 @@ function isFromFridayToSunday() {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE eq ''}">
-													<span style="color:#ff0000">대출불가</span>
+													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">
+													<span style="color:#ff0000">대출불가(휴관)</span>
 													</c:when>
 													<c:otherwise>
 														<c:choose>
@@ -1576,6 +1576,9 @@ function isFromFridayToSunday() {
 												<c:choose>
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
+													</c:when>
+													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">
+													<span style="color:#ff0000">대출불가(휴관)</span>
 													</c:when>
 													<c:otherwise>
 														<c:choose>
