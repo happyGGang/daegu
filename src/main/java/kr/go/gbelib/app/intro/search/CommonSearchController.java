@@ -237,7 +237,13 @@ public class CommonSearchController extends BaseController {
 			model.addAttribute("shelfCodeList", shelfInfoList);
 		} else {
 			try {
-				Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+				String manage_code = homepage.getManage_code();
+
+				if("BL".equals(librarySearch.getManageCode()) && librarySearch.getMenu_idx() == 131){
+					manage_code = "BQ";
+				}
+
+				Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", manage_code);
 
 				if (!"h90".equals(homepage.getHomepage_id())) {
 					List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
@@ -308,7 +314,13 @@ public class CommonSearchController extends BaseController {
 	    		model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 			}
 
-			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", homepage.getManage_code());
+			String manage_code = homepage.getManage_code();
+
+			if("BL".equals(librarySearch.getManageCode()) && librarySearch.getMenu_idx() == 131){
+				manage_code = "BQ";
+			}
+
+			Map<String, Object> subLocaInfo = LibSearchAPI.getSubLocaInfo("5", manage_code);
 			List<Map<String, Object>> mediaCodeList = LibSearchAPI.getListData(subLocaInfo);
 
 			model.addAttribute("mediaCodeList", mediaCodeList);
