@@ -4,7 +4,7 @@
  * 작성일 : 2016-09-02
  * 마지막 수정일 :2016-09-07
  */
-
+.tree-menu{height: 320px;overflow-y: scroll;}
 ul.jqtree-tree{margin:2px 0 10px 6px}
 ul.jqtree-tree a,
 ul.jqtree-tree span{position:relative}
