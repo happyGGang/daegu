@@ -421,6 +421,16 @@ ${quiz.top_html}
 						</td>
 					</tr>
 				</c:if>
+				<c:if test="${quiz.family_yn eq 'Y'}">
+					<tr>
+						<th>보호자(법정대리인)</th>
+						<td>
+							<div>
+								<form:input path="family_name" cssClass="text"/>
+							</div>
+						</td>
+					</tr>
+				</c:if>
 			</tbody>
 		</table>
 

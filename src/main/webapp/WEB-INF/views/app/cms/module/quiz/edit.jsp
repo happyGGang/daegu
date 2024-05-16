@@ -171,6 +171,13 @@ function getLasData(arg) {
 					<form:radiobutton path="birth_yn"  value="Y" label="예"/>
 				</td>
 			</tr>
+			<tr>
+				<th>보호자(법정대리인) 사용여부</th>
+				<td>
+					<form:radiobutton path="family_yn"  value="N" label="아니오"/>
+					<form:radiobutton path="family_yn"  value="Y" label="예"/>
+				</td>
+			</tr>
 	        <tr>
 				<th>도서검색</th>
 				<td>

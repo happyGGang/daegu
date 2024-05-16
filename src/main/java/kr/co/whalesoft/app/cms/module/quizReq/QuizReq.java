@@ -39,6 +39,8 @@ public class QuizReq extends PagingUtils {
 
 	private String birth_day; //생년월일
 
+	private String family_name; // 보호자명
+
 	public QuizReq() { }
 	
 	public QuizReq(String homepage_id, int quiz_idx) {
@@ -246,5 +248,13 @@ public class QuizReq extends PagingUtils {
 
 	public void setBirth_day(String birth_day) {
 		this.birth_day = birth_day;
+	}
+
+	public String getFamily_name() {
+		return family_name;
+	}
+
+	public void setFamily_name(String family_name) {
+		this.family_name = family_name;
 	}
 }

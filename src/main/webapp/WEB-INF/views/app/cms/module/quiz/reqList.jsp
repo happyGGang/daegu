@@ -230,6 +230,7 @@ $(function() {
 			<col width="90" />
 			<col width="90" />
 			<col width="90" />
+			<col width="90" />
 			<col width="100" />
 			<c:if test="${quiz.select_cnt > 0}">
 			<col width="50" />
@@ -250,6 +251,7 @@ $(function() {
        			<th>연령대</th>
        			<th>전화번호</th>
        			<th>주소</th>
+       			<th>보호자</th>
        			<th>응모일시</th>
        			<th>정답자여부</th>
        			<c:if test="${quiz.select_cnt > 0}">
@@ -290,6 +292,7 @@ $(function() {
 				         	</td>
 				         	<td>${i.phone}</td>
 				         	<td>${i.address}</td>
+				         	<td>${i.family_name}</td>
 				         	<td>${i.add_date}</td>
 				         	<td>
 				         		${i.winner_yn}
