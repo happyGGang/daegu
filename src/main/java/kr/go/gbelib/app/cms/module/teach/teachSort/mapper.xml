@@ -55,11 +55,11 @@
 		INSERT INTO
 			TEACH_SET_SORT_LIST
 			(
-				SORT_IDX, SORT_COLUMN_NAME, HOMEPAGE_ID, SORT_NUM, SET_SORT_NAME, ADD_ID,SORT_ORDER
+				SET_SORT_IDX, SORT_IDX, SORT_COLUMN_NAME, HOMEPAGE_ID, SORT_NUM, SET_SORT_NAME, ADD_ID,SORT_ORDER
 			)
 		VALUES
 			(
-				#{sort_idx},#{sort_column_name}, #{homepage_id}, #{sort_num}, #{set_sort_name}, #{add_id},#{sort_order}
+				TEACH_SET_SORT_SEQ.NEXTVAL, #{sort_idx},#{sort_column_name}, #{homepage_id}, #{sort_num}, #{set_sort_name}, #{add_id},#{sort_order}
 			)
 	</insert>
 
