@@ -196,6 +196,24 @@
 							$('#attach_file').remove();
 						}
 
+						if($('.limit_year1').val().length < 4) {
+							alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
+							$('.limit_year1').focus();
+							return false;
+						}
+						if($('.limit_year2').val().length < 4) {
+							alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
+							$('.limit_year2').focus();
+							return false;
+						}
+
+						if($('.limit_year1').val() > $('.limit_year2').val()){
+							alert("나이 접수제한 시작년도가 종료년도 보다 빠릅니다.");
+							$('.limit_year1').focus();
+							return false;
+						}
+
+
 						$('select#holidays option').prop('selected', true);
 
 						var option = {
@@ -1186,7 +1204,7 @@
 					</c:choose>--%>
 				</div>
 				<div class="ui-state-highlight">
-					<em>* 나이 = (현재 연도 - 수강생 생년)+1 ex) 2019 - 1990 + 1 = 30</em>
+					<em>* 나이 : 출생 년도를 기준으로 제한 ex)1999 ~ 2010 </em>
 				</div>
 				<div>
 					<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/>

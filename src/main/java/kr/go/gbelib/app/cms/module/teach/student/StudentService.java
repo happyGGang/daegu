@@ -196,6 +196,7 @@ public class StudentService extends BaseService {
 							if (!(Integer.parseInt(limitValue[0]) <= Integer.parseInt(year[0]) && Integer.parseInt(limitValue[1]) >= Integer.parseInt(year[0]))) {
 								addResult[0] = false;
 								addResult[1] = String.format("해당강좌는 %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", limitValue[0], limitValue[1]);
+								return addResult;
 							}
 						}
 					}

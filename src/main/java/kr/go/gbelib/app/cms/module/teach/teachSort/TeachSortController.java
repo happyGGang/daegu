@@ -48,16 +48,16 @@ public class TeachSortController extends BaseController {
 
 			TeachSort teachSort = new TeachSort();
 			teachSort.setHomepage_id(teachSortList[0].getHomepage_id());
-			service.deleteTeachSort(teachSort);
-
-			for (TeachSort sort : teachSortList) {
-				TeachSort sortOne = service.getTeachSortOne(sort);
-				sort.setSort_column_name(sortOne.getSort_column_name());
-				sort.setSort_order(sortOne.getSort_order());
-				sort.setAdd_id(getSessionMemberId(request));
-				service.addTeachSort(sort);
+			if (teachSortList[0].getSort_num() > 0){
+				service.deleteTeachSort(teachSort);
+				for (TeachSort sort : teachSortList) {
+					TeachSort sortOne = service.getTeachSortOne(sort);
+					sort.setSort_column_name(sortOne.getSort_column_name());
+					sort.setSort_order(sortOne.getSort_order());
+					sort.setAdd_id(getSessionMemberId(request));
+					service.addTeachSort(sort);
+				}
 			}
-
 		}else {
 			res.setValid(true);
 			res.setMessage("등록 되었습니다.");

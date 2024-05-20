@@ -10,7 +10,6 @@
 	</sql>
 
 	<sql id="sortList">
-		<if test="!teachSortList.isEmpty()">
 			ORDER BY
 			CASE TEACH_STATUS
 			WHEN '0' THEN 1
@@ -21,15 +20,15 @@
 			WHEN '6' THEN 6
 			WHEN '5' THEN 7
 			ELSE 8
-			END,
-			<foreach item="i" collection="teachSortList" separator=",">
-				${i.sort_column_name} ${i.sort_order}
+			END
+		<if test="!teachSortList.isEmpty()">
+			<foreach item="i" collection="teachSortList">
+				,${i.sort_column_name} ${i.sort_order}
 			</foreach>
 		</if>
 	</sql>
 
 	<sql id="cmsSortList">
-		<if test="!teachSortList.isEmpty()">
 			ORDER BY
 			CASE t.TEACH_STATUS
 			WHEN '0' THEN 1
@@ -40,9 +39,10 @@
 			WHEN '6' THEN 6
 			WHEN '5' THEN 7
 			ELSE 8
-			END,
-			<foreach item="i" collection="teachSortList" separator=",">
-				${i.sort_column_name} ${i.sort_order}
+			END
+		<if test="!teachSortList.isEmpty()">
+			<foreach item="i" collection="teachSortList">
+				,${i.sort_column_name} ${i.sort_order}
 			</foreach>
 		</if>
 	</sql>
@@ -276,6 +276,7 @@
 		</choose>
 		))
 		select * from teach_info t
+
 		<include refid="cmsSortList"/>
 		${pagingBottom}
 	</select>

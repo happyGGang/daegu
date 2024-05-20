@@ -91,7 +91,7 @@ $(function(){
 	    		<th>수료여부</th>
 				<th>수강생명</th>
 				<th>생년월일</th>
-				<th>나이</th>
+				<%--<th>나이</th>--%>
 				<th>주소</th>       		
 	      	</tr>
 	    </thead>
@@ -104,7 +104,7 @@ $(function(){
 			    			<td>${i.student_status eq 1 ? '수료' : '미수료'}</td>
 			    			<td>${i.student_name}</td>
 			    			<td>${i.student_birth}</td>
-			    			<td>${i.student_old}</td>
+			    			<%--<td>${i.student_old}</td>--%>
 			    			<td class="left">${i.student_address} ${i.student_address_detail != null and i.student_address_detail != 'null' ? i.student_address_detail : ''}</td>
 			    		</tr>
 			    	</c:forEach>

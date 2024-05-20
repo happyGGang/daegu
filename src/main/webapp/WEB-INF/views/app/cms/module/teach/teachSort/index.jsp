@@ -17,7 +17,7 @@
 			resizable: false,
 			modal: true,
 			width: 1200,
-			height: 600,
+			height: 650,
 			open: function(){
 				$('.ui-widget-overlay').addClass('custom-overlay');
 			},
@@ -43,7 +43,6 @@
 			e.preventDefault();
 
 			var idx = fm.cate1.options.selectedIndex;
-			console.log(idx);
 			if(idx < 0) {
 				alert("선택된 목록이 없습니다.");
 				return;
@@ -60,18 +59,6 @@
 			if(confirm("정렬기준을 저장하시겠습니까?")) {
 				saveList();
 			}
-		});
-
-		<%-- 정렬기준 등록 --%>
-		$('a#add_code').on('click', function(e) {
-			e.preventDefault();
-			$('input#editMode').val('ADD');
-			$('input#code_name').val('');
-			$('input#large_code').val('0');
-			$('input[name=tempCode]').show();
-			$('input[name=tempCode]').val('');
-			$('span#tempCode').html('');
-			openAddDialog(addOption('select#cate1', '1'));
 		});
 
 		$('a#sort_plus').on('click', function(e) {
@@ -128,11 +115,6 @@
 	});
 
 	function moveOption(i, n, options) {
-		console.log("//////////////");
-		console.log(i);
-		console.log(n);
-		console.log(options.length-1);
-
 		if(n < 0 && i == 0) return;
 		if(n > 0 && i >= options.length-1) return;
 
@@ -149,7 +131,6 @@
 		opt2.value = value;
 
 		options.selectedIndex = i+n;
-		console.log(options.selectedIndex);
 	}
 
 	function saveList() {
@@ -173,47 +154,15 @@
 			cache: false,
 			processData: false,
 			success: function(data) {
-				alert(data.message);
+				if (data.valid) {
+					alert(data.message);
+					location.reload();
+				} else {
+					alert(data.message);
+				}
+
 			}
 		});
-	}
-
-	function openAddDialog(success) {
-		$('div#edit_cate').dialog({
-			autoOpen: false,
-			resizable: false,
-			modal: true,
-			width: 300,
-			height: 400,
-			open: function(){
-				$('.ui-widget-overlay').addClass('custom-overlay');
-			},
-			close: function(){
-				$('.ui-widget-overlay').removeClass('custom-overlay');
-			},
-			buttons: [
-				{
-					text: "추가",
-					"class": 'btn btn1',
-					click: function(){
-						var result = doAjaxPostResponse($('form#teachSort'));
-						if(result.valid) {
-							success(result);
-							$(this).dialog('close');
-						}
-					}
-				},
-				{
-					text: "취소",
-					"class": 'btn',
-					click: function(){
-						$(this).dialog('close');
-					}
-				}
-			]
-		});
-
-		$('div#edit_cate').dialog('open');
 	}
 
 	function addOption(select, div) {
@@ -225,45 +174,6 @@
 		}
 	}
 
-	function deleteOption(select) {
-		return function(data) {
-			$(select + ' option:selected').remove();
-		}
-	}
-
-	function doAjaxPostResponse(form, ajaxBody) {
-		jQuery.ajaxSettings.traditional = true;
-		var formData = serializeObject(form);
-		var result;
-
-		$.ajax({
-			type: "POST",
-			url: form.attr('action'),
-			async: false,
-			data: formData,
-			dataType:'json',
-			success: function(response) {
-				response = eval(response);
-				result = response;
-				if(response.valid) {
-					if(response.message != null && response.message.replace(/\s/g,'').length!=0) {
-						alert(response.message);
-					}
-
-				}
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-				alert('[' + textStatus + ']관리자에게 문의하세요. : ' + errorThrown);
-			}
-		});
-
-		return result;
-	}
-
-	$('input#checkAll').on('click', function(e) {
-		$('input[type = checkbox].sort_idx_arr').prop('checked', $(this).is(':checked'));
-
-	});
 
 </script>
 
@@ -271,7 +181,6 @@
 	<form name="fm" method="post" action="#">
 		<input type="hidden" name="homepage_id">
 		<input type="hidden" name="data_list">
-
 		<div class="leftBox" style="width: 390px;">
 			<div class="contentsBox">
 				<div class="categoryEdit ">
