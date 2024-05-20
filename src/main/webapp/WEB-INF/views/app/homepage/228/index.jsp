@@ -213,7 +213,7 @@
 						<div class="top-btn-box">
 							<ul>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=71">주제가 있는 책장(일반)</a></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=125&manage_idx=72">청소년, 내일을 위한 책</a></li>
+								<!--<li><a href="/${homepage.context_path}/board/index.do?menu_idx=125&manage_idx=72">청소년, 내일을 위한 책</a></li>-->
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=126&manage_idx=73">책이 나에게 말걸다(어린이)</a></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=127&manage_idx=74">초등교과연계도서</a></li>
 							</ul>

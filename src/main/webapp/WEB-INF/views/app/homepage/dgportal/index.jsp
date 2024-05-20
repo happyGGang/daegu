@@ -2003,6 +2003,16 @@ do {
 										</li>
 -->
 										<li>
+											<input id="libraryCodes610" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FV"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes610">시청작은도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/dmsl/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="/dmsl/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
 											<input id="libraryCodes46" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GL"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">작은</span>
@@ -2072,16 +2082,7 @@ do {
 												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
-										<li>
-											<input id="libraryCodes610" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FV"/>
-											<input type="hidden" name="_libraryCodes" value="on"/>
-											<span class="lib02">작은</span>
-											<label for="libraryCodes610">시청작은도서관</label>
-											<span class="go-link">
-												<a href="https://library.daegu.go.kr/intro/dmsl/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
-												<a href="/dmsl/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
-											</span>
-										</li>
+
 									</ul>
 									</div>
 								</div>

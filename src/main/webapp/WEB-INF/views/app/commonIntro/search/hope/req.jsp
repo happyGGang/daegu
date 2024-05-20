@@ -222,6 +222,7 @@
 					<form:option value="BP">서구영어도서관</form:option>
 					<form:option value="BM">비원도서관</form:option>
 					<form:option value="BN">원고개도서관</form:option>
+					<form:option value="CC">New평리도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'bisan'}">
