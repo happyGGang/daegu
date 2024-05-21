@@ -868,7 +868,9 @@ $(function() {
 
 			<c:if test="${homepage.context_path ne 'nearbylib'}">
 				<c:if test="${detail.walkingThroughTime eq true || sessionScope.member.member_id eq 'library16'|| sessionScope.member.member_id eq 'duswls0902'}">
-					<a href="#night" id="night-req" class="btn">도서예약제신청</a>
+					<c:if test="${detail.SHELF_LOC_CODE eq 'CA02'}">
+						<a href="#night" id="night-req" class="btn">도서예약제신청</a>
+					</c:if>
 				</c:if>
 			</c:if>
 
