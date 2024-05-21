@@ -453,7 +453,17 @@ $(function(){
 		<ul>
 			<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue=""style="font-size: 14px;">전체</a></li>
 			<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
-			<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" style="font-size: 14px;">${i.code_name}</a></li>
+			<%--대구북부도서관 어린이 장터만 제외요청 --%>
+				<c:choose>
+					<c:when test="${homepage.homepage_id eq 'h7'}">
+						<c:if test="${i.teach_code ne 34}">
+							<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" style="font-size: 14px;">${i.code_name}</a></li>
+						</c:if>
+					</c:when>
+					<c:otherwise>
+						<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" style="font-size: 14px;">${i.code_name}</a></li>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
 		</ul>
 	</div>
