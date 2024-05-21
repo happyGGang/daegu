@@ -3,6 +3,8 @@ package kr.go.gbelib.app.intro.search;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -836,7 +838,12 @@ public class CommonSearchController extends BaseController {
 				} catch (Exception e) {
 					log.error("내집앞 도서관 예약시간 설정 오류");
 				}
-				
+
+				if ("CA".equals(map.get("MANAGE_CODE"))) {
+					boolean walkingThroughTime = false;
+					walkingThroughTime = service.isWalkingThroughTime();
+					map.put("walkingThroughTime", walkingThroughTime);
+				}
 				model.addAttribute("detail", map);
 				
 				model.addAttribute("droneDeviceUsedCount", deviceSettingService.getDeviceUsedCount(new DeviceSetting()));
@@ -2743,7 +2750,24 @@ public class CommonSearchController extends BaseController {
 						return res;
 					}
 				}
+				if ("CA".equals(homepage.getManage_code()) && librarySearch.getEditMode().equals("ADD")) {
+					Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+					List<Map<String, Object>> list = null;
+					list = LibSearchAPI.getListData(reserveList);
+
+					int reserveCount = (int) list.stream()
+												 .filter(data -> data.get("UNMANNED_RESERVATION_LOAN").equals("N"))
+												 .count();
+
+					if (reserveCount >= 3) {
+						res.setValid(false);
+						res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+						return res;
+					}
+				}
 			}
+
+
 			
 			librarySearch.setUserkey(member.getRec_key());
 			if (librarySearch.getEditMode().equals("ADD")) {
@@ -3849,6 +3873,23 @@ public class CommonSearchController extends BaseController {
 			if (!StringUtils.equals(member.getMember_class(), "0")) {// 정회원만 가능
 				res.setValid(false);
 				res.setMessage("예약 신청 가능한 회원이 아닙니다.");
+				return res;
+			}
+
+			Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key());
+
+			List<Map<String, Object>> dataList = (List<Map<String, Object>>) reserveList.getOrDefault("LIST_DATA", new ArrayList<>());
+
+			if (!dataList.isEmpty() && dataList.get(0).containsKey("SEARCH_COUNT")) {
+				dataList.remove(0);
+			}
+
+			int nightReservationCount = (int) dataList.stream()
+                                                       .filter(nightData -> "CA".equals(nightData.get("MANAGE_CODE")) && "Y".equals(nightData.get("NIGHT_RESERVATION_LOAN")))
+                                                       .count();
+			if (nightReservationCount >= 5) {
+				res.setValid(false);
+				res.setMessage("대출 권수는 1인당 5권으로 제한 되었습니다.");
 				return res;
 			}
 

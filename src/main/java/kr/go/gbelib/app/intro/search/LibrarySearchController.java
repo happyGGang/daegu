@@ -1034,6 +1034,22 @@ public class LibrarySearchController extends BaseController {
 								return res;
 							}
 						}
+
+						if ("CA".equals(homepage.getManage_code()) && librarySearch.getEditMode().equals("ADD")) {
+							Map<String, Object> reserveList = LibSearchAPI.getReserveList(member.getRec_key(), librarySearch.getManageCode());
+							List<Map<String, Object>> list = null;
+							list = LibSearchAPI.getListData(reserveList);
+
+							int reserveCount = (int) list.stream()
+														 .filter(data -> data.get("UNMANNED_RESERVATION_LOAN").equals("N"))
+														 .count();
+
+							if (reserveCount >= 3) {
+								res.setValid(false);
+								res.setMessage("예약 가능 권수를 초과 하셨습니다.");
+								return res;
+							}
+						}
 					}
 				} catch (Exception e) {
 					System.out.println("도서관 context_path 없음 : " + e);
