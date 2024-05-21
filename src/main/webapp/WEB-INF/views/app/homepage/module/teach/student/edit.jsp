@@ -507,8 +507,7 @@ $(function() {
 // 			if (doAjaxPost($form)) {
 // 				doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
 // 			}
-		}
-	});
+		});
 
 		$('.findPostCode').on('click', function (e) {
 			e.preventDefault();

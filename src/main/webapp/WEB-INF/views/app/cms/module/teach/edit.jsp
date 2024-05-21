@@ -196,23 +196,26 @@
 							$('#attach_file').remove();
 						}
 
-						if($('.limit_year1').val().length < 4) {
-							alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
-							$('.limit_year1').focus();
-							return false;
-						}
-						if($('.limit_year2').val().length < 4) {
-							alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
-							$('.limit_year2').focus();
-							return false;
-						}
+						var ageCheck = $('input#teach_join_limit_unit2').is(':checked');
 
-						if($('.limit_year1').val() > $('.limit_year2').val()){
-							alert("나이 접수제한 시작년도가 종료년도 보다 빠릅니다.");
-							$('.limit_year1').focus();
-							return false;
-						}
+						if(ageCheck){
+							if($('.limit_year1').val().length < 4) {
+								alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
+								$('.limit_year1').focus();
+								return false;
+							}
+							if($('.limit_year2').val().length < 4) {
+								alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
+								$('.limit_year2').focus();
+								return false;
+							}
 
+							if($('.limit_year1').val() > $('.limit_year2').val()){
+								alert("나이 접수제한 시작년도가 종료년도 보다 빠릅니다.");
+								$('.limit_year1').focus();
+								return false;
+							}
+						}
 
 						$('select#holidays option').prop('selected', true);
 
