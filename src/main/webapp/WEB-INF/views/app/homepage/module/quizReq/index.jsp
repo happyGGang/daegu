@@ -91,6 +91,7 @@ $(function() {
 			return false;
 		}
 
+
 		function validateDateFormat(dateString) {
 			var regex = /^\d{4}-\d{2}-\d{2}$/;
 			return regex.test(dateString);
@@ -100,6 +101,13 @@ $(function() {
 			alert("유효하지 않은 날짜 형식입니다.");
 			return false;
 		}
+		</c:if>
+
+		<c:if test="${quiz.family_yn eq 'Y'}">
+			if ($("#family_name").val() == '') {
+				alert('보호자명을 입력해주세요.');
+				return false;
+			}
 		</c:if>
 
 		var answerList = [];
@@ -423,7 +431,7 @@ ${quiz.top_html}
 				</c:if>
 				<c:if test="${quiz.family_yn eq 'Y'}">
 					<tr>
-						<th>보호자(법정대리인)</th>
+						<th>보호자(법정대리인)성명</th>
 						<td>
 							<div>
 								<form:input path="family_name" cssClass="text"/>
