@@ -8,7 +8,7 @@ $(function() {
 
 	$('#save-btn').on('click', function(e) {
 		e.preventDefault();
-		if (!confirm('워킹스루 신청을 하시겠습니까?')) {
+		if (!confirm('도서예약 신청을 하시겠습니까?')) {
 			return false;
 		}
 
@@ -28,7 +28,7 @@ $(function() {
 
 <!-- contents-title-->
 <div id="contents-title">
-	<h2>워킹스루 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
+	<h2>도서예약 신청을 위한 신청사항<span style="font-weight:300">을 확인하세요.</span></h2>
 </div>
 <!-- /contents-title-->
 

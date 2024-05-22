@@ -116,12 +116,12 @@ $(function() {
 									</c:when>
 									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
 
-										워킹스루예약신청
+										도서예약신청
 									
 									</c:when>
 									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
 
-										워킹스루예약대기
+										도서예약대기
 									
 									</c:when>
 									<c:otherwise>
