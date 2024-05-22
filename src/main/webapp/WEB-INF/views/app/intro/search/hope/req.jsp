@@ -410,8 +410,8 @@
 
 				<c:when test="${context_path eq 'seongseo'}">
 				<form:select path="manageCode">
-					<option value="BU">성서도서관</option>
-				</form:select><!--<span style="color:#ff0000">  * 성서도서관 희망도서 신청 중지 </span>-->
+					<!--<option value="BU">성서도서관</option>-->
+				</form:select><span style="color:#ff0000">  * 성서도서관 희망도서 신청 중지 </span>
 				</c:when>
 
 				<c:when test="${context_path eq 'bolli'}">

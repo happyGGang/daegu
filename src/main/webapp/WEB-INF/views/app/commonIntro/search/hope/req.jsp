@@ -297,7 +297,7 @@
 					<option value="">선택</option>
 					<option value="BW">도원도서관</option>
 					<option value="BV">달서어린이</option>
-					<option value="BU">성서도서관</option>
+					<!--<option value="BU">성서도서관</option>-->
 					<option value="BX">본리도서관</option>
 					<option value="BY">달서가족문화도서관</option>
 					<option value="BZ">달서영어도서관</option>

@@ -4,7 +4,7 @@
 
 .main1 {position:relative;margin-top:45px;}
 .main1 .main1box1 {float:left;width:413px;height:430px;background:#005494;}
-.main1 .main1box1 .quick-btn-box {width:100%;margin:0;padding:20px 40px;box-sizing:border-box;text-align:center;}
+.main1 .main1box1 .quick-btn-box {width:100%;margin:0;padding:72px 40px;box-sizing:border-box;text-align:center;}
 .main1 .main1box1 .quick-btn-box h2 {padding:20px 0 15px 0;}
 .main1 .main1box1 .quick-btn-box h2 span {display:block;font-size:15px;color:#fff;padding-top:10px;}
 .main1 .main1box1 .quick-btn-box h2 span b {font-size:30px;}
@@ -13,11 +13,11 @@
 .main1 .main1box1 .quick-btn-box .top-btn-box li:hover {border:1px solid #ffb400;}
 .main1 .main1box1 .quick-btn-box .top-btn-box  li a {display:block;color:#fff;font-size:19px;box-sizing:border-box;padding:10px 0 10px 15px;background:url('/resources/homepage/228/img/out-arrow.png') no-repeat 96% center;text-align:left;border:2px solid transparent;}
 .main1 .main1box1 .quick-btn-box .top-btn-box  li a:hover {border:2px solid #ffb400;color:#ffb400;background:url('/resources/homepage/228/img/hover-arrow.png') no-repeat 96% center;}
-.main1 .main1box1 .quick-btn-box .bottom-btn-box {margin-top:15px;}
+.main1 .main1box1 .quick-btn-box .bottom-btn-box {margin-top:40px;}
 .main1 .main1box1 .quick-btn-box .bottom-btn-box li {display:inline-block;width:49%;}
-.main1 .main1box1 .quick-btn-box .bottom-btn-box li a {display:block;font-size:20px;color:#fff;letter-spacing:-1px;padding:18px 0 25px;}
-.main1 .main1box1 .quick-btn-box .bottom-btn-box li:first-child a {background:#ff6c33 url('/resources/homepage/228/img/bot-arrow.png') no-repeat center 84%;}
-.main1 .main1box1 .quick-btn-box .bottom-btn-box li:last-child a {background:#00ade3 url('/resources/homepage/228/img/bot-arrow.png') no-repeat center 84%;}
+.main1 .main1box1 .quick-btn-box .bottom-btn-box li a {display:block;font-size:20px;color:#fff;letter-spacing:-1px;padding:18px 0 35px;}
+.main1 .main1box1 .quick-btn-box .bottom-btn-box li:first-child a {background:#ff6c33 url('/resources/homepage/228/img/bot-arrow.png') no-repeat center 74%;}
+.main1 .main1box1 .quick-btn-box .bottom-btn-box li:last-child a {background:#00ade3 url('/resources/homepage/228/img/bot-arrow.png') no-repeat center 74%;}
 
 .main1 .main1box2 {float:right;width:840px;}
 .main1 .main1box2 .main1box2box1 {overflow:hidden;}
@@ -246,9 +246,10 @@
 
 	.main1 {margin-top:10px;}
 
-	.main1 .main1box1 {float:none;width:100%;margin-top:1px;}
-	.main1 .main1box2 {float:none;width:100%;margin-top:93px;}
+	.main1 .main1box1 {float:none;width:100%;margin-top:1px; height: 320px;}
+	.main1 .main1box1 .quick-btn-box {padding: 30px 40px;}
 
+	.main1 .main1box2 {float:none;width:100%;margin-top:93px;}
 	.main1 .main1box2 .main1box2box2 {position:absolute;width:100%;top:0;margin-top:0;}
 	.main1 .main1box2 .main1box2box1 .main1box2box1box2 .big-btn-box{background-position:95% 57%;}
 	.main1 .main1box2 .main1box2box1 .main1box2box1box2 .big-btn-box h2{padding-top:10px;}
