@@ -2756,7 +2756,8 @@ public class CommonSearchController extends BaseController {
 					list = LibSearchAPI.getListData(reserveList);
 
 					int reserveCount = (int) list.stream()
-												 .filter(data -> data.get("UNMANNED_RESERVATION_LOAN").equals("N"))
+												 .filter(data -> "CA".equals(data.get("MANAGE_CODE")) && data.get("UNMANNED_RESERVATION_LOAN").equals("N"))
+												 .filter(data -> "CA".equals(data.get("MANAGE_CODE")) && data.get("NIGHT_RESERVATION_LOAN").equals("N"))
 												 .count();
 
 					if (reserveCount >= 3) {
