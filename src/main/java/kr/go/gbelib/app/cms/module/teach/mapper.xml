@@ -31,9 +31,8 @@
 	</sql>
 
 	<sql id="cmsSortList">
-			ORDER BY
-			print_seq,
-			CASE t.TEACH_STATUS
+		ORDER BY
+		CASE t.TEACH_STATUS
 			WHEN '0' THEN 1
 			WHEN '11' THEN 2
 			WHEN '1' THEN 3
@@ -49,7 +48,9 @@
 			</foreach>
 		</if>
 	</sql>
-
+	<sql id="cmsAddSortList">
+		ORDER BY t.add_date desc
+	</sql>
 
 
 	<select id="getTeachListForCalendar" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
@@ -151,7 +152,7 @@
 		a.program_classification1_name,
 		a.program_classification2_name,
 		a.program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.hashtag_names, a.age_div_codes
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.hashtag_names, a.age_div_codes,a.add_date
 		FROM
 		(
 		SELECT
@@ -202,7 +203,7 @@
 		a.program_classification1_name,
 		a.program_classification2_name,
 		a.program_classification3_name,
-		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.hashtag_names, a.age_div_codes, a.teach_img_text
+		a.teach_day_yn, a.teach_day_txt, a.teach_code_yn, a.print_seq, a.hashtag_names, a.age_div_codes, a.teach_img_text,a.ADD_DATE
 		FROM
 		(
 		SELECT
@@ -237,7 +238,7 @@
 		FROM
 		(SELECT ',' || a.hashtag_codes || ',' AS COL FROM DUAL)
 		CONNECT BY LEVEL <![CDATA[<=]]> LENGTH (COL) - LENGTH (REPLACE (COL, ',')) - 1)
-		) AS hashtag_names,  a.age_div_codes
+		) AS hashtag_names,  a.age_div_codes,a.ADD_DATE
 		FROM
 		TEACH a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 		WHERE a.homepage_id = b.homepage_id(+)
@@ -280,7 +281,7 @@
 		))
 		select * from teach_info t
 
-		<include refid="cmsSortList"/>
+		<include refid="cmsAddSortList"/>
 		${pagingBottom}
 	</select>
 
