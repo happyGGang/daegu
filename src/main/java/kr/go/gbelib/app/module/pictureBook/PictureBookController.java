@@ -431,7 +431,7 @@ public class PictureBookController extends BaseController {
 		LocalDate startDate = getLoanDate(book,"start");
 		LocalDate endDate = getLoanDate(book,"end");
 
-		while (!startDate.isAfter(endDate.plusDays(5))) {
+		while (!startDate.isAfter(endDate.plusDays(2))) {
 			betweenDate.append("\"").append(startDate).append("\"").append(",");
 			startDate = startDate.plusDays(1);
 		}
