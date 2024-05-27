@@ -1092,7 +1092,7 @@ function isFromFridayToSunday() {
 							
 							<c:if test="${fn:length(shelfCodeList) > 0}">
 							<c:choose>
-								<c:when test="${(homepage.context_path eq '228' && param.menu_idx eq '130') or (homepage.context_path eq '228' && param.menu_idx eq '131')}">
+								<c:when test="${homepage.context_path eq '228' && (param.menu_idx eq '130' || param.menu_idx eq '131' || param.menu_idx eq '265')}">
 								<form:hidden path="shelfCode"/>
 								</c:when>
 								<c:otherwise>
