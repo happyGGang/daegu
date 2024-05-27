@@ -199,22 +199,17 @@
 						var ageCheck = $('input#teach_join_limit_unit2').is(':checked');
 
 						if(ageCheck){
-							if($('.limit_year1').val().length < 4) {
-								alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
-								$('.limit_year1').focus();
+							if($('#teach_limit_start_age1').val() == '') {
+								alert("나이 접수제한을 입력 입력 해주세요");
+								$('#teach_limit_start_age1').focus();
 								return false;
 							}
-							if($('.limit_year2').val().length < 4) {
-								alert("나이 접수제한 입력 형식은 ex)1999 입니다.");
-								$('.limit_year2').focus();
+							if($('#teach_limit_start_age2').val() == '') {
+								alert("나이 접수제한을 입력 입력 해주세요");
+								$('#teach_limit_start_age2').focus();
 								return false;
 							}
 
-							if($('.limit_year1').val() > $('.limit_year2').val()){
-								alert("나이 접수제한 시작년도가 종료년도 보다 빠릅니다.");
-								$('.limit_year1').focus();
-								return false;
-							}
 						}
 
 						$('select#holidays option').prop('selected', true);
@@ -325,6 +320,22 @@
 			minDate: $('input#start_date').val(),
 			onClose: function(selectedDate){
 				$('input#start_date').datepicker('option', 'maxDate', selectedDate);
+			}
+		});
+		$('input#teach_limit_start_age1').datepicker({
+			maxDate: $('input#teach_limit_start_age2').val(),
+			changeYear: true,
+			yearRange: "c-100:c+10",
+			onClose: function(selectedDate){
+				$('input#teach_limit_start_age2').datepicker('option', 'minDate', selectedDate);
+			}
+		});
+		$('input#teach_limit_start_age2').datepicker({
+			minDate: $('input#teach_limit_start_age1').val(),
+			changeYear: true,
+			yearRange: "c-100:c+10",
+			onClose: function(selectedDate){
+				$('input#teach_limit_start_age1').datepicker('option', 'maxDate', selectedDate);
 			}
 		});
 
@@ -618,7 +629,7 @@
 // 		$('input#agent_yn2').attr('disabled', 'true');
 		});
 
-		$('input#teach_age_type1').on('click', function() {
+/*		$('input#teach_age_type1').on('click', function() {
 			var value = $('input[name="teach_age_type"]:checked').val();
 			if (value == "infants") {
 				$('.limit_text1').text("개월 이상");
@@ -628,7 +639,7 @@
 				$('.limit_text2').text("세 이하");
 			}
 			$("input:radio[name = 'agent_yn'][value = 'Y']").prop('checked', 'true');
-		});
+		});*/
 
 		$('form#teachForm span[id^=hashtag_]').on('click', function() {
 			var hashtag_code = $(this).attr('keyValue1');
@@ -710,23 +721,6 @@
 			$('input#day7').prop('checked', $(this).prop('checked'));
 		});
 
-		$('.limit_year1').on('input', function(){
-			var regexp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-			var v = $(this).val();
-			if (regexp.test(v)) {
-				alert("숫자만 입력 가능합니다.");
-				$(this).val(v.replace(regexp, ''));
-			}
-		});
-
-		$('.limit_year2').on('input', function(){
-			var regexp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-			var v = $(this).val();
-			if (regexp.test(v)) {
-				alert("숫자만 입력 가능합니다.");
-				$(this).val(v.replace(regexp, ''));
-			}
-		});
 
 	});
 
@@ -1177,8 +1171,8 @@
 				</div>
 				<div>
 					<input type="checkbox" id="teach_join_limit_unit2" name="teach_join_limit_unit" value="OLD" class="OLD" <c:if test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">checked="checked"</c:if>/><label for="teach_join_limit_unit2">나이</label>
-					: <input class="text limit_year1" id="teach_join_limit_value1" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="4" disabled="true"/> <p class="limit_text1" style="display: inline-block;" >년생 이상</p> ~
-					<input class="text limit_year2" id="teach_join_limit_value2" name="teach_join_limit_value" style="display: inline-block; width: 50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}" maxlength="4" disabled="true"/> <p class="limit_text2"style=" display: inline-block;">년생 이하 </p>
+					: <input class="text ui-calendar" id="teach_limit_start_age1" name="teach_join_limit_value" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}"  disabled="true"/> <p class="limit_text1" style="display: inline-block;" >이상</p>
+					<input class="text ui-calendar" id="teach_limit_start_age2" name="teach_join_limit_value" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[1] : limitValues[2]}"  disabled="true"/> <p class="limit_text2"style=" display: inline-block;">이하 </p>
 <%--					<c:choose>
 						<c:when test="${fn:indexOf(teach.teach_join_limit_unit, 'OLD') ne -1}">
 							: <input class="text" id="teach_join_limit_value1" name="teach_join_limit_value" style="width:50px;" value="${fn:indexOf(teach.teach_join_limit_unit, 'SEX') == -1 ? limitValues[0] : limitValues[1]}" maxlength="3"/>

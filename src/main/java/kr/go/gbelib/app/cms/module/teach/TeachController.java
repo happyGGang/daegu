@@ -326,7 +326,7 @@ public class TeachController extends BaseController {
 									}
 								}
 
-								if ( limitUnit[i].equals("OLD") ) {
+/*								if ( limitUnit[i].equals("OLD") ) {
 									try {
 										int startOld 	= Integer.parseInt(limitValue[i]);
 										int endOld		= Integer.parseInt(limitValue[i + 1]);
@@ -340,7 +340,7 @@ public class TeachController extends BaseController {
 									catch (IndexOutOfBoundsException e2) {
 										result.reject("나이 제한 설정 값을 모두 입력 해주세요.");
 									}
-								}
+								}*/
 							}
 						}
 					}
