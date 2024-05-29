@@ -1410,3 +1410,5 @@ background:url(/nanum/site/builder/skin/library_skin01/img/common/icon_tit_bg.gi
 .doc-body h4{background:none !important;}
 .ptit{background:none !important;}
 h3.dgtit{background:none !important;padding-left:0 !important;;}
+
+.tree-menu{height: 320px;overflow-y: scroll;}
