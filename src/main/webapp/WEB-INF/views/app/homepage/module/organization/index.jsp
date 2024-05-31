@@ -137,14 +137,26 @@ $.fn.rowspan = function(colIdx, isStats) {
 		<table class="center tspan" summary="${i.organization_name}의 직원현황입니다.">
 			<colgroup>
 				<col class="col14" width="20%">
-				<col class="col15" width="15%">
+				<c:choose>
+					<c:when test="${!(homepage_id == 'h10' && organization.organization_name == '관장')}">
+					</c:when>
+					<c:otherwise>
+						<col class="col15" width="15%">
+					</c:otherwise>
+				</c:choose>
 				<col class="col16">
 				<col class="col17" width="15%">
 			</colgroup>
 			<thead>
 				<tr>
 					<th scope="col" class="th1">직  위(급)</th>
-					<th scope="col" class="th2">성 명</th>
+					<c:choose>
+						<c:when test="${!(homepage_id == 'h10' && organization.organization_name == '관장')}">
+						</c:when>
+						<c:otherwise>
+							<th scope="col" class="th2">성 명</th>
+						</c:otherwise>
+					</c:choose>
 					<th scope="col" class="th3">담   당   업   무</th>
 					<th scope="col" class="th4">전 화</th>
 				</tr>
@@ -154,7 +166,13 @@ $.fn.rowspan = function(colIdx, isStats) {
 					<c:if test="${i.organization_idx eq j.organization_idx}">
 					<tr>
 						<td>${j.position}</td>
-						<td>${j.worker}</td>
+						<c:choose>
+							<c:when test="${!(homepage_id == 'h10' && organization.organization_name == '관장')}">
+							</c:when>
+							<c:otherwise>
+								<td>${j.worker}</td>
+							</c:otherwise>
+						</c:choose>
 						<td class="left">${j.work_info}</td>
 						<td>${j.phone}</td>
 					</tr>
