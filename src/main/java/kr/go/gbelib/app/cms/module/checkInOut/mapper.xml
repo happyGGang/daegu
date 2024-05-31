@@ -6,7 +6,7 @@
 		homepage_id, checkInOut_idx, user_no, member_id, member_name,
 		member_birth, member_sex, member_area, ROUND(checkInOut_time) AS checkInOut_time, check_type,
 		TO_CHAR(checkIn_time,'yyyy-MM-dd HH24:MI:SS') AS checkIn_time, TO_CHAR(checkOut_time,'yyyy-MM-dd HH24:MI:SS') AS checkOut_time,
-		RANK() OVER (PARTITION BY member_id ORDER BY checkInOut_idx) AS gubun
+		RANK() OVER (PARTITION BY member_id ORDER BY checkInOut_idx) AS gubun,visit_status
 	</sql>
 	
 	<sql id="where">
@@ -93,13 +93,13 @@
 		(
 			homepage_id, checkInOut_idx, user_no, member_id, member_name,
 			member_birth, member_sex, member_area, checkIn_time, checkOut_time,
-			checkInOut_time, check_type, gubun
+			checkInOut_time, check_type, gubun,visit_status
 		)
 		VALUES
 		(
 			#{homepage_id}, #{checkInOut_idx}, #{user_no}, #{member_id}, #{member_name},
 			#{member_birth}, #{member_sex}, #{member_area}, SYSDATE, #{checkOut_time},
-			#{checkInOut_time}, #{check_type}, '0'
+			#{checkInOut_time}, #{check_type}, '0',#{visit_status}
 		)
 	</insert>
 	

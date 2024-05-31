@@ -27,12 +27,15 @@ public class CheckInOut extends PagingUtils{
 	private String result_count; //검색종료시간
 	
 	private String checkIn_Yn; //체크인유무
-	
+
 	private int borrowCount;
-	
+
 	private int total_count;
-	
+
 	private int cnt;
+
+	private String visit_status; //재방문여부
+
 	
 	public int getCheckInOut_idx() {
 		return checkInOut_idx;
@@ -201,5 +204,12 @@ public class CheckInOut extends PagingUtils{
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
-	
+
+	public String getVisit_status() {
+		return visit_status;
+	}
+
+	public void setVisit_status(String visit_status) {
+		this.visit_status = visit_status;
+	}
 }

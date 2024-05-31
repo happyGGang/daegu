@@ -173,7 +173,7 @@ function checkOutAll() {
 				<td>${i.checkInOut_time}<c:if test="${not empty i.checkInOut_time}">분</c:if></td>
 				<c:set var="status" value="${i.checkOut_time eq '' || empty i.checkOut_time ? '이용중' : '이용완료'}"/>
 				<td>${status}</td>
-				<c:set var="gubun" value="${i.gubun eq '1' ? '처음방문' : '재방문'}"/>
+				<c:set var="gubun" value="${i.visit_status eq 'Y' ? '처음방문' : '재방문'}"/>
 				<td>${gubun}</td>
 			</tr>
 		</c:forEach>

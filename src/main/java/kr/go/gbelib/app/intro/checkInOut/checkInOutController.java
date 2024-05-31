@@ -77,7 +77,13 @@ public class checkInOutController extends BaseController {
 		}
 		
 		int visitCheck = checkInOutService.getVisitCheck(checkInOut);
-		
+
+		if (visitCheck == 0){
+			 checkInOut.setVisit_status("Y");
+		}else {
+			 checkInOut.setVisit_status("N");
+		}
+
 		int checkInCount = checkInOutService.checkIn(checkInOut);
 		
 		if(checkInCount > 0) {

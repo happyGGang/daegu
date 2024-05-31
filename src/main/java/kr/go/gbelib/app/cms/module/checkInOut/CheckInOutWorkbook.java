@@ -94,7 +94,7 @@ public class CheckInOutWorkbook {
 				workbook.getSheet(0).addCell(new Label(column++, row, "이용완료", format1));
 			}
 			
-			if("1".equals(one.getGubun())) {
+			if("Y".equals(one.getVisit_status())) {
 				workbook.getSheet(0).addCell(new Label(column++, row, "처음방문", format1));
 			} else {
 				workbook.getSheet(0).addCell(new Label(column++, row, "재방문", format1));
@@ -181,7 +181,7 @@ public class CheckInOutWorkbook {
 				workbook.getSheet(0).addCell(new Label(column++, row, "이용완료", format1));
 			}
 			
-			if("1".equals(one.getGubun())) {
+			if("Y".equals(one.getVisit_status())) {
 				workbook.getSheet(0).addCell(new Label(column++, row, "처음방문", format1));
 			} else {
 				workbook.getSheet(0).addCell(new Label(column++, row, "재방문", format1));
