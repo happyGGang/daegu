@@ -688,12 +688,21 @@ public class NearbyLibService extends BaseService {
 					if("3".equals(neighborhoodLibrary.getReserve_status())) {
 					/* api 예약 대출기 상태 수정 ( 사물함 투입)*/
 						try {
-							int take_term = same_bundle_idx.getTake_term();
+							int take_term = same_bundle_idx.getTake_term() - 1;
 							Date nowDate = new Date();
 							SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(nowDate);
-					        cal.add(Calendar.DATE, take_term-1);
+
+							int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
+							int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+							//반야월 이마트 매주 금요일
+							if (isSecondOrFourthWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+								take_term += 1;
+							}
+
+					        cal.add(Calendar.DATE, take_term);
 					        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 							
 							apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
@@ -776,7 +785,7 @@ public class NearbyLibService extends BaseService {
 						result.put("result", "fail");
 						result.put("message", result_error_mssage);
 					}
-				}else { //같은 예약건이 존재하고 두개 한꺼번에 업데이트 해야할때
+				} else { //같은 예약건이 존재하고 두개 한꺼번에 업데이트 해야할때
 					NearbyLib neighborhoodLibrary3 = new NearbyLib();
 					neighborhoodLibrary3.setReserve_bundle_idx(sameReserveOne.getReserve_bundle_idx());		
 					List<NearbyLib> bundleList_api = dao.getSameNeighborhoodLibraryBundleList(neighborhoodLibrary3);
@@ -802,12 +811,21 @@ public class NearbyLibService extends BaseService {
 						for(int i = 0; i < bundleList_api.size(); i++) {
 							librarySearch.setLoan_key(bundleList_api.get(i).getPk());
 							try {
-								int take_term = bundleList_api.get(i).getTake_term();
+								int take_term = bundleList_api.get(i).getTake_term() - 1;
 								Date nowDate = new Date();
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
-						        cal.add(Calendar.DATE, take_term-1);
+
+								int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
+								int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+								//반야월 이마트 매주 금요일
+								if (isSecondOrFourthWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+									take_term += 1;
+								}
+
+						        cal.add(Calendar.DATE, take_term);
 						        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 								
 								apiResult = LibSearchAPI.bookreserveUpdateStatus(librarySearch);
@@ -823,12 +841,21 @@ public class NearbyLibService extends BaseService {
 								success = success + dao.updateNeighborhoodLibrary(updateData);
 								
 								neighborhoodLibrary.setReserve_idx(bundleList_api.get(i).getReserve_idx());
-								int take_term = bundleList_api.get(i).getTake_term();
+								int take_term = bundleList_api.get(i).getTake_term() - 1;
 								Date nowDate = new Date();
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
-						        cal.add(Calendar.DATE, take_term-1);
+
+								int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
+								int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+								//반야월 이마트 매주 금요일
+								if (isSecondOrFourthWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+									take_term += 1;
+								}
+
+						        cal.add(Calendar.DATE, take_term);
 								neighborhoodLibrary.setExpire_date(simpleDateFormat.format(cal.getTime()));
 								dao.updateNeighborhoodLibraryExpireDate(neighborhoodLibrary);
 								
@@ -938,7 +965,17 @@ public class NearbyLibService extends BaseService {
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(nowDate);
-			        cal.add(Calendar.DATE, resultData.getTake_term()-1);
+
+					int take_term = resultData.getTake_term() - 1;
+					int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
+					int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+					//반야월 이마트 매주 금요일
+					if (isSecondOrFourthWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+						take_term += 1;
+					}
+
+			        cal.add(Calendar.DATE, take_term);
 					
 			        if(success == 1) {
 						result.put("result", "success");
@@ -981,7 +1018,17 @@ public class NearbyLibService extends BaseService {
 						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년MM월dd일");
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(nowDate);
-				        cal.add(Calendar.DATE, +reserveOne.getTake_term()-1); 
+
+						int take_term = reserveOne.getTake_term() - 1;
+						int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
+						int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+						//반야월 이마트 매주 금요일
+						if (isSecondOrFourthWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+							take_term += 1;
+						}
+
+				        cal.add(Calendar.DATE, take_term);
 						
 				        LibrarySearch librarySearch = new LibrarySearch();
 				        librarySearch.setUserkey(reserveOne.getUser_key());
@@ -1759,5 +1806,13 @@ public class NearbyLibService extends BaseService {
 
 	public int getNearbyOneBookReserveData(String nearbyBookKey) {
 		return dao.getNearbyOneBookReserveData(nearbyBookKey);
+	}
+
+	private static boolean isSecondOrFourthWeek(int weekNumber) {
+		return weekNumber == 2 || weekNumber == 4;
+	}
+
+	private static boolean isFriday(int dayOfWeek) {
+		return dayOfWeek == Calendar.FRIDAY;
 	}
 }
