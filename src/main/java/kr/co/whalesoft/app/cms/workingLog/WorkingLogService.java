@@ -1,9 +1,12 @@
 package kr.co.whalesoft.app.cms.workingLog;
 
 import kr.co.whalesoft.framework.base.BaseService;
+import kr.co.whalesoft.framework.dataSource.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -18,6 +21,9 @@ public class WorkingLogService extends BaseService {
 	@Autowired
 	private WorkingLogDao dao;
 
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
 	/**
 	 * @author whalesoft
 	 * @date 2020.08.27
@@ -26,7 +32,19 @@ public class WorkingLogService extends BaseService {
 	 *
 	 */
 	public int addWorkingLog(WorkingLog workingLog) {
-		return dao.addWorkingLog(workingLog);
+		String sql = "";
+
+		if ("SELECT".equals(workingLog.getWork_command())) {
+			sql = workingLog.getWork_query();
+
+			workingLog.setWork_result(jdbcTemplate.queryForList(sql).toString());
+		} else if ("UPDATE".equals(workingLog.getWork_command())) {
+			sql = "SELECT * FROM CMS_MEMBER WHERE member_id = 'rudaks'";
+
+			System.out.println(jdbcTemplate.queryForList(sql).toString());
+		}
+
+        return dao.addWorkingLog(workingLog);
 	}
 
 	/**
@@ -75,6 +93,4 @@ public class WorkingLogService extends BaseService {
 	public WorkingLog getWorkingLogOne(WorkingLog workingLog) {
 		return dao.getWorkingLogOne(workingLog);
 	}
-
-
 }

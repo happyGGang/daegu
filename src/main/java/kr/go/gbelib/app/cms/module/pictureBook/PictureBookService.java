@@ -174,7 +174,7 @@ public class PictureBookService extends BaseService {
 		return dao.addPictureBookLoan(pictureBook);
 	}
 
-	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 1건 수정", type="P")
+	@WorkingLogger(comment="그림책 원화 대출신청 리스트 관리 1건 수정", type="P", tableName = "PICTURE_BOOK_LOAN")
 	public int modifyPictureBookLoan(PictureBook pictureBook) {
 		return dao.modifyPictureBookLoan(pictureBook);
 	}

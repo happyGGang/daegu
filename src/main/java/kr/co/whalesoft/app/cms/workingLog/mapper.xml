@@ -9,14 +9,18 @@
 		(
 			work_idx, site_id, work_type, work_comment, work_command,
 			work_query, work_result_count, work_date, work_ip, member_id,
-			work_reason
+			work_reason, work_result
 		)
-			VALUES
+		VALUES
 		(
 			WB_WOKING_LOG_IDX_SEQ.nextval, #{site_id}, #{work_type}, #{work_comment}, #{work_command},
 			#{work_query}, #{work_result_count}, SYSDATE, #{work_ip}, #{member_id},
-			#{work_reason}
+			#{work_reason}, #{work_result}
 		)
+
+		<selectKey keyProperty="work_idx" resultType="Integer" order="AFTER">
+			SELECT WB_WOKING_LOG_IDX_SEQ.currval FROM dual
+		</selectKey>
 	</insert>
 
 	<sql id="where">

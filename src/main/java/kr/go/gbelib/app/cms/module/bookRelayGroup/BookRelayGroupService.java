@@ -39,13 +39,14 @@ public class BookRelayGroupService extends BaseService {
 		return dao.addBookRelayGroup(bookRelayGroup);
 	}
 
-	@WorkingLogger(comment="독서릴레이-기관 1건 수정", type="P")
+	@WorkingLogger(comment="독서릴레이-기관 1건 수정", type="P", tableName = "BOOK_RELAY_GROUP")
 	public int modifyBookRelayGroup(BookRelayGroup bookRelayGroup) {
 		return dao.modifyBookRelayGroup(bookRelayGroup);
 	}
 
-	@WorkingLogger(comment="독서릴레이-기관 1건 삭제", type="P")
+	@WorkingLogger(comment="독서릴레이-기관 1건 삭제", type="P", tableName = "BOOK_RELAY_GROUP")
 	public int deleteBookRelayGroup(BookRelayGroup bookRelayGroup) {
+		bookRelayGroup.setDelete_yn("Y");
 		return dao.deleteBookRelayGroup(bookRelayGroup);
 	}
 

@@ -53,12 +53,13 @@ public class BookReportClubService extends BaseService {
 		return dao.addBookReportClub(bookReportClub);
 	}
 	
-	@WorkingLogger(comment="독서동아리경연대회 1건 삭제", type="P")
+	@WorkingLogger(comment="독서동아리경연대회 1건 삭제", type="P", tableName = "BOOK_REPORT_CLUB")
 	public int deleteBookReportClub(BookReportClub bookReportClub) {
+		bookReportClub.setDelete_yn("Y");
 		return dao.deleteBookReportClub(bookReportClub);
 	}
 	
-	@WorkingLogger(comment="독서동아리경연대회 1건 상태 수정", type="P")
+	@WorkingLogger(comment="독서동아리경연대회 1건 상태 수정", type="P", tableName = "BOOK_REPORT_CLUB")
 	public int statusChangeBookReportClub(BookReportClub bookReportClub) {
 		return dao.statusChangeBookReportClub(bookReportClub);
 	}

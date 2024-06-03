@@ -114,7 +114,7 @@
 		UPDATE 
 			BOOK_RELAY_CLUB
 		SET
-			delete_yn = 'Y',
+			delete_yn = #{delete_yn},
 			delete_id = #{delete_id}
 		WHERE
 			homepage_id = #{homepage_id}

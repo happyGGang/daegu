@@ -45,7 +45,7 @@ public class RelayLectureApplyService extends BaseService {
 		return dao.addRelayLectureApply(relayLectureApply);
 	}
 	
-	@WorkingLogger(comment="릴레리강연 1건 수정", type="P")
+	@WorkingLogger(comment="릴레리강연 1건 수정", type="P", tableName = "RELAY_LECTURE_APPLY")
 	public int modifyRelayLectureApply(RelayLectureApply relayLectureApply) {
 		return dao.modifyRelayLectureApply(relayLectureApply);
 	}

@@ -102,7 +102,7 @@
 		UPDATE
 			FACILITY_REQ
 		SET
-			delete_yn = 'Y',
+			delete_yn = #{delete_yn},
 			modify_date = SYSDATE,
 			modify_id = #{modify_id}
 		WHERE

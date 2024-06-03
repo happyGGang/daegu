@@ -1,47 +1,51 @@
 package kr.co.whalesoft.framework.mybatis.interceptor;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.app.cms.workingLog.WorkingLog;
 import kr.co.whalesoft.app.cms.workingLog.WorkingLogService;
 import kr.co.whalesoft.framework.utils.BeanFinder;
 import kr.co.whalesoft.framework.utils.StaticVariables;
 import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
-import org.apache.ibatis.mapping.BoundSql;
-import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.ParameterMapping;
-import org.apache.ibatis.mapping.ParameterMode;
+import org.apache.ibatis.mapping.*;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.apache.xmlbeans.impl.jam.mutable.MPackage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author whalesoft
  * @date 2020.08.28
  *
  */
-@Intercepts ({@Signature (type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}), @Signature (type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
+@Intercepts ({ @Signature(type = Executor.class, method = "update", args ={MappedStatement.class, Object.class}) ,
+		@Signature(type = Executor.class, method = "query", args ={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class})})
 public class QueryInterceptor implements Interceptor {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private static String WORK_REASON = "work_reason";
+
+	private Map<String, Object> afterUpdateDate = new LinkedHashMap<>();
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -95,9 +99,17 @@ public class QueryInterceptor implements Interceptor {
 	
 					try {
 						WorkingLogService bean = (WorkingLogService) BeanFinder.getBean(WorkingLogService.class);
-	
+						JdbcTemplate jdbcTemplate = (JdbcTemplate) BeanFinder.getBean(JdbcTemplate.class);
+
+						String work_result = "";
+
 						if (bean != null) {
 							int work_result_count = 0;
+
+							if ("UPDATE".equals(ms.getSqlCommandType().toString()) || "DELETE".equals(ms.getSqlCommandType().toString())) {
+								work_result = updateData(annotation, sql, jdbcTemplate);
+							}
+
 							proceed = invocation.proceed();
 							if (proceed instanceof Integer || proceed instanceof Long || proceed instanceof Float || proceed instanceof Double || proceed instanceof String) {
 								work_result_count = Integer.parseInt(proceed.toString());
@@ -109,7 +121,10 @@ public class QueryInterceptor implements Interceptor {
 							if ("NULL".equals(work_reason)) {
 								work_reason = annotation.comment();
 							}
-							bean.addWorkingLog(new WorkingLog(asideHomepage_id, annotation.type(), annotation.comment(), ms.getSqlCommandType().toString(), sql, work_result_count, work_reason, member.getMember_id(), request.getRemoteAddr()));
+
+							WorkingLog workingLog = new WorkingLog(asideHomepage_id, annotation.type(), annotation.comment(), ms.getSqlCommandType().toString(), sql, work_result_count, work_reason, member.getMember_id(), request.getRemoteAddr(), work_result);
+
+							bean.addWorkingLog(workingLog);
 						}
 					} catch (BeansException e) {
 						logger.error("Cannot Found WorkingLogService.class");
@@ -181,6 +196,9 @@ public class QueryInterceptor implements Interceptor {
 	}
 
 	private String getMappedQuery(Object param, BoundSql boundSql, String sql, MappedStatement ms) throws NoSuchFieldException, IllegalAccessException {
+		if (!afterUpdateDate.isEmpty()) {
+			afterUpdateDate = new LinkedHashMap<>();
+		}
 		if (param instanceof Integer || param instanceof Long || param instanceof Float || param instanceof Double) {
 			sql = sql.replaceFirst("\\?", param.toString());
 		} else if (param instanceof String) {
@@ -251,6 +269,7 @@ public class QueryInterceptor implements Interceptor {
 				Class<?> javaType = mapping.getJavaType();
 				if (String.class == javaType) {
 					sql = sql.replaceFirst("\\?", "'" + field.get(param) + "'");
+					afterUpdateDate.put(propValue, field.get(param));
 				} else {
 					Object valueObject = field.get(param);
 					String value = "NULL";
@@ -258,6 +277,8 @@ public class QueryInterceptor implements Interceptor {
 						value = valueObject.toString();
 					} catch (NullPointerException e) {} catch (Exception e) {}
 					sql = sql.replaceFirst("\\?", "'" + value + "'");
+
+					afterUpdateDate.put(propValue, valueObject);
 					// sql = sql.replaceFirst("\\?", field.get(param).toString());
 				}
 			}
@@ -274,5 +295,53 @@ public class QueryInterceptor implements Interceptor {
 	@Override
 	public void setProperties(Properties properties) {
 
+	}
+
+	private String updateData(WorkingLogger annotation, String sql, JdbcTemplate jdbcTemplate) {
+		String work_result = "";
+		String tableName = "NONE";
+		String where = "";
+
+		if (StringUtils.isNotEmpty(annotation.tableName()) && !"NONE".equals(annotation.tableName())) {
+			try {
+				String sqlToLowerCase = sql.toLowerCase();
+
+				tableName = annotation.tableName();
+
+				if (sqlToLowerCase.contains("where")) {
+					where = sql.substring(sqlToLowerCase.indexOf("where"));
+				}
+
+				StringBuilder fields = new StringBuilder();
+				Iterator<String> iter = afterUpdateDate.keySet().iterator();
+				while (iter.hasNext()) {
+					fields.append(iter.next()).append(iter.hasNext() == true ? "," : "");
+				}
+
+				String beforeUpdateSql = "SELECT " + fields + " FROM " + tableName + " " + where;
+
+				LinkedHashMap<String, Object> beforeUpdateData = (LinkedHashMap<String, Object>) jdbcTemplate.queryForMap(beforeUpdateSql);
+				LinkedHashMap<String, Object> LowerbeforeUpdateData = new LinkedHashMap<>();
+
+				// 소문자 변환
+				for (Map.Entry<String, Object> entry : beforeUpdateData.entrySet()) {
+					String lowerCaseKey = entry.getKey().toLowerCase();
+					LowerbeforeUpdateData.put(lowerCaseKey, entry.getValue());
+				}
+
+				List<String> dataList = new ArrayList<>();
+
+				dataList.add("befor=" + LowerbeforeUpdateData);
+				dataList.add("after=" + afterUpdateDate);
+
+				work_result = dataList.toString();
+			} catch (Exception e) {
+				return work_result;
+			}
+		} else {
+			return afterUpdateDate.toString();
+		}
+
+		return work_result;
 	}
 }

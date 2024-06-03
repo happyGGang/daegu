@@ -37,12 +37,13 @@ public class WritingContestService extends BaseService {
 		return dao.addWritingContest(writingContest);
 	}
 	
-	@WorkingLogger(comment="백일장 1건 삭제", type="P")
+	@WorkingLogger(comment="백일장 1건 삭제", type="P", tableName = "WRITING_CONTEST")
 	public int deleteWritingContest(WritingContest writingContest) {
+		writingContest.setDelete_yn("Y");
 		return dao.deleteWritingContest(writingContest);
 	}
 	
-	@WorkingLogger(comment="백일장 1건 상태 수정", type="P")
+	@WorkingLogger(comment="백일장 1건 상태 수정", type="P", tableName = "WRITING_CONTEST")
 	public int statusChangeWritingContest(WritingContest writingContest) {
 		return dao.statusChangeWritingContest(writingContest);
 	}

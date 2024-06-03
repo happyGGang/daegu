@@ -81,7 +81,7 @@ public class TeacherService extends BaseService {
 		return dao.addTeacher(teacher);
 	}
 
-	@WorkingLogger(comment="강사관리 1건 수정", type="P")
+	@WorkingLogger(comment="강사관리 1건 수정", type="P", tableName = "TEACHER")
 	public int modifyTeacher(Teacher teacher) {
 		MultipartFile mFile = teacher.getFile();
 		if ( mFile != null ) {
@@ -103,8 +103,9 @@ public class TeacherService extends BaseService {
 		return dao.modifyTeacher(teacher);
 	}
 
-	@WorkingLogger(comment="강사관리 1건 삭제", type="P")
+	@WorkingLogger(comment="강사관리 1건 삭제", type="P", tableName = "TEACHER")
 	public int deleteTeacher(Teacher teacher) {
+		teacher.setDelete_yn("Y");
 		return dao.deleteTeacher(teacher);
 	}
 

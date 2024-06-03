@@ -139,7 +139,7 @@ public class LibraryCheckService extends BaseService {
 		return dao.addLibraryCheckLoan(libraryCheck);
 	}
 
-	@WorkingLogger(comment="장서점검기 신청 리스트 관리 1건 수정", type="P")
+	@WorkingLogger(comment="장서점검기 신청 리스트 관리 1건 수정", type="P", tableName = "LIBRARY_CHECK_LOAN")
 	public int modifyLibraryCheckLoan(LibraryCheck libraryCheck) {
 		return dao.modifyLibraryCheckLoan(libraryCheck);
 	}

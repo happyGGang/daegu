@@ -11,3 +11,7 @@
 /.idea/
 /app.iml
 /src/main/webapp/META-INF/context.xml
+
+
+.DS_Store
+qodana.yaml

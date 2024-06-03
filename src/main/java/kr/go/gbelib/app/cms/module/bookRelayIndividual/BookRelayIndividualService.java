@@ -39,13 +39,14 @@ public class BookRelayIndividualService extends BaseService {
 		return dao.addBookRelayIndividual(bookRelayIndividual);
 	}
 
-	@WorkingLogger(comment="독서릴레이-개인 1건 수정", type="P")
+	@WorkingLogger(comment="독서릴레이-개인 1건 수정", type="P", tableName = "BOOK_RELAY_INDIVIDUAL")
 	public int modifyBookRelayIndividual(BookRelayIndividual bookRelayIndividual) {
 		return dao.modifyBookRelayIndividual(bookRelayIndividual);
 	}
 
-	@WorkingLogger(comment="독서릴레이-개인 1건 삭제", type="P")
+	@WorkingLogger(comment="독서릴레이-개인 1건 삭제", type="P", tableName = "BOOK_RELAY_INDIVIDUAL")
 	public int deleteBookRelayIndividual(BookRelayIndividual bookRelayIndividual) {
+		bookRelayIndividual.setDelete_yn("Y");
 		return dao.deleteBookRelayIndividual(bookRelayIndividual);
 	}
 

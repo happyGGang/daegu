@@ -222,7 +222,7 @@ public class MemberService extends BaseService {
 	 * @param member
 	 * @return
 	 */
-	@WorkingLogger(comment="사용자 관리 1건 수정", type="P")
+	@WorkingLogger(comment="사용자 관리 1건 수정", type="P", tableName = "CMS_MEMBER")
 	public int modifyMember(Member member) {
 		if ( !StringUtils.isEmpty(member.getMember_pw()) ) {
 			member.setMember_pw(CalculateHashUtils.calculateHash(member.getMember_pw()));

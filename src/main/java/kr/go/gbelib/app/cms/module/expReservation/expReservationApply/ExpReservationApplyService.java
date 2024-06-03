@@ -72,7 +72,7 @@ public class ExpReservationApplyService extends BaseService{
 		return dao.addExpApply(expApply);
 	}
 
-	@WorkingLogger(comment="체험예약관리 신청자 수정", type="P")
+	@WorkingLogger(comment="체험예약관리 신청자 수정", type="P", tableName = "EXP_RESERVATION")
 	public int modifyExpApply(ExpReservationApply expApply) {
 		return dao.modifyExpApply(expApply);
 	}

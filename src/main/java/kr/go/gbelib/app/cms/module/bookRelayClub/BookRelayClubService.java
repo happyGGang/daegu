@@ -52,7 +52,7 @@ public class BookRelayClubService extends BaseService {
 		return 1;
 	}
 	
-	@WorkingLogger(comment="독서릴레이-동아리 1건 수정", type="P")
+	@WorkingLogger(comment="독서릴레이-동아리 1건 수정", type="P", tableName = "BOOK_RELAY_CLUB")
 	public int modifyBookRelayClub(BookRelayClub bookRelayClub) {
 		dao.modifyBookRelayClub(bookRelayClub);
 		//1. 기존 명단 데이터 모두 삭제
@@ -69,8 +69,9 @@ public class BookRelayClubService extends BaseService {
 		return 1;
 	}
 	
-	@WorkingLogger(comment="독서릴레이-동아리 1건 삭제", type="P")
+	@WorkingLogger(comment="독서릴레이-동아리 1건 삭제", type="P", tableName = "BOOK_RELAY_CLUB")
 	public int deleteBookRelayClub(BookRelayClub bookRelayClub) {
+		bookRelayClub.setDelete_yn("Y");
 		return dao.deleteBookRelayClub(bookRelayClub);
 	}
 

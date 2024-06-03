@@ -32,7 +32,7 @@ public class BookRelayClubListService extends BaseService {
 		return dao.addBookRelayClubList(bookRelayClubList);
 	}
 	
-	@WorkingLogger(comment="독서릴레이-동아리 릴레이명단 수정", type="P")
+	@WorkingLogger(comment="독서릴레이-동아리 릴레이명단 수정", type="P", tableName = "BOOK_RELAY_CLUB_RELAYLIST")
 	public int modifyBookRelayClubList(BookRelayClubList bookRelayClubList) {
 		return dao.modifyBookRelayClubList(bookRelayClubList);
 	}

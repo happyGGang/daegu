@@ -38,7 +38,7 @@ public class PortalMemberService extends BaseService {
 		return dao.addPortalMember(portalMember);
 	}
 
-	@WorkingLogger(comment="대표도서관 회원관리 1건 수정", type="P")
+	@WorkingLogger(comment="대표도서관 회원관리 1건 수정", type="P", tableName = "PORTAL_MEMBER")
 	public int modifyPortalMember(PortalMember portalMember) {
 		if(StringUtils.isNotEmpty(portalMember.getAgency_password())) {
 			portalMember.setAgency_password(CalculateHashUtils.calculateHash(portalMember.getAgency_password()));

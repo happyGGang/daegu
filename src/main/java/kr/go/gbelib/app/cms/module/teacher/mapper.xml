@@ -122,7 +122,7 @@
 		UPDATE
 			TEACHER
 		SET
-			DELETE_YN = 'Y'
+			DELETE_YN = #{delete_yn}
 		WHERE
 			HOMEPAGE_ID = #{homepage_id} AND TEACHER_IDX = #{teacher_idx}
 	</delete>

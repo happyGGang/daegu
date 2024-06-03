@@ -50,7 +50,7 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getMarathonTypeList(marathonApplicant);
 	}
 
-	@WorkingLogger(comment="독서마라톤 신청자 수정", type="P")
+	@WorkingLogger(comment="독서마라톤 신청자 수정", type="P", tableName = "MARATHON_APPLICANT")
 	public int modifyMarathonApplicant(MarathonApplicant marathonApplicant) {
 		marathonApplicant.setTelephone(marathonApplicant.getTelephone_one() + "-" + marathonApplicant.getTelephone_two() + "-" + marathonApplicant.getTelephone_three());
 		marathonApplicant.setCellphone(marathonApplicant.getCellphone_one() + "-" + marathonApplicant.getCellphone_two() + "-" + marathonApplicant.getCellphone_three());
@@ -86,7 +86,7 @@ public class MarathonApplicantService extends BaseService{
 		return 1;
 	}
 
-	@WorkingLogger(comment = "독서마라톤 신청자 수정", type = "P")
+	@WorkingLogger(comment = "독서마라톤 신청자 수정", type = "P", tableName = "MARATHON_APPLICANT")
 	private void modifyApplicant(MarathonApplicant marathonApplicant) {
 		dao.modifyMarathonApplicant(marathonApplicant);
 	}
@@ -132,7 +132,7 @@ public class MarathonApplicantService extends BaseService{
 		return dao.getContestTypeIdx(marathonApplicant);
 	}
 	
-	@WorkingLogger(comment="독서마라톤 신청자 상태 변경", type="W")
+	@WorkingLogger(comment="독서마라톤 신청자 상태 변경", type="W", tableName = "MARATHON_APPLICANT")
 	@Transactional
 	public int modifyMarathonApplicantStatus(MarathonApplicant marathonApplicant) {
 		int applicant_idx_arr[] = marathonApplicant.getApplicant_idx_arr();
@@ -212,7 +212,7 @@ public class MarathonApplicantService extends BaseService{
 		return dao.modifyMarathonApplicantContestType(marathonApplicant);
 	}
 
-	@WorkingLogger(comment = "독서마라톤 신청자 수정", type = "P")
+	@WorkingLogger(comment = "독서마라톤 신청자 수정", type = "P", tableName = "MARATHON_APPLICANT")
 	public int modifyMarathonApplicantInMyInfo(MarathonApplicant marathonApplicant) {
 		marathonApplicant.setTelephone(marathonApplicant.getTelephone_one() + "-" + marathonApplicant.getTelephone_two() + "-" + marathonApplicant.getTelephone_three());
 		marathonApplicant.setCellphone(marathonApplicant.getCellphone_one() + "-" + marathonApplicant.getCellphone_two() + "-" + marathonApplicant.getCellphone_three());

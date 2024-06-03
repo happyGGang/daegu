@@ -54,12 +54,13 @@ public class BookReportContestService extends BaseService {
 		return dao.addBookReportContest(bookReportContest);
 	}
 	
-	@WorkingLogger(comment="독후감 공모 1건 삭제", type="P")
+	@WorkingLogger(comment="독후감 공모 1건 삭제", type="P", tableName = "BOOK_REPORT_CONTEST")
 	public int deleteBookReportContest(BookReportContest bookReportContest) {
+		bookReportContest.setDelete_yn("Y");
 		return dao.deleteBookReportContest(bookReportContest);
 	}
 	
-	@WorkingLogger(comment="독후감 공모 1건 상태 수정", type="P")
+	@WorkingLogger(comment="독후감 공모 1건 상태 수정", type="P", tableName = "BOOK_REPORT_CONTEST")
 	public int statusChangeBookReportContest(BookReportContest bookReportContest) {
 		return dao.statusChangeBookReportContest(bookReportContest);
 	}

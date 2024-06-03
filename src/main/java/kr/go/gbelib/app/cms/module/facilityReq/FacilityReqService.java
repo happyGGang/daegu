@@ -37,13 +37,14 @@ public class FacilityReqService extends BaseService {
 		return facilityReqDao.addFacilityReq(facilityReq);
 	}
 
-	@WorkingLogger(comment="시설물 신청 관리 1건 수정", type="P")
+	@WorkingLogger(comment="시설물 신청 관리 1건 수정", type="P", tableName = "FACILITY_REQ")
 	public int modifyFacilityReq(FacilityReq facilityReq) {
 		return facilityReqDao.modifyFacilityReq(facilityReq);
 	}
 
-	@WorkingLogger(comment="시설물 신청 관리 1건 삭제", type="P")
+	@WorkingLogger(comment="시설물 신청 관리 1건 삭제", type="P", tableName = "FACILITY_REQ")
 	public int deleteFacilityReq(FacilityReq facilityReq) {
+		facilityReq.setDelete_yn("Y");
 		return facilityReqDao.deleteFacilityReq(facilityReq);
 	}
 

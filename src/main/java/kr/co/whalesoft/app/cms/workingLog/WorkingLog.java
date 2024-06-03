@@ -25,6 +25,8 @@ public class WorkingLog extends PagingUtils {
 
 	private String siteName;
 
+	private String work_result;
+
 	public WorkingLog() {}
 
 	/**
@@ -48,7 +50,7 @@ public class WorkingLog extends PagingUtils {
 	 * @param work_reason
 	 *        작업사유
 	 */
-	public WorkingLog(String site_id, String work_type, String work_comment, String work_command, String work_query, int work_result_count, String work_reason, String member_id, String work_ip) {
+	public WorkingLog(String site_id, String work_type, String work_comment, String work_command, String work_query, int work_result_count, String work_reason, String member_id, String work_ip, String work_result) {
 		this.site_id = site_id;
 		this.work_type = work_type;
 		this.work_comment = work_comment;
@@ -58,6 +60,7 @@ public class WorkingLog extends PagingUtils {
 		this.work_reason = work_reason;
 		this.member_id = member_id;
 		this.work_ip = work_ip;
+		this.work_result = work_result;
 	}
 
 	public int getWork_idx() {
@@ -156,4 +159,12 @@ public class WorkingLog extends PagingUtils {
 		this.work_reason = work_reason;
 	}
 
+
+	public String getWork_result() {
+		return work_result;
+	}
+
+	public void setWork_result(String work_result) {
+		this.work_result = work_result;
+	}
 }

@@ -58,15 +58,16 @@ public class BestPracticesContestService extends BaseService {
 	}
 
 	@Transactional
-	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 수정", type="P")
+	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 수정", type="P", tableName = "BEST_PRACTICES_CONTEST")
 	public int modifyBestPracticesContest(BestPracticesContest bestPracticesContest, MultipartHttpServletRequest mpRequest) {
 		bestPracticesContest.setPassword(encBase64(bestPracticesContest.getPassword()));
 		multipartFile(bestPracticesContest, mpRequest);
 		return dao.modifyBestPracticesContest(bestPracticesContest);
 	}
 	
-	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 삭제", type="P")
+	@WorkingLogger(comment="독서릴레이 우수사례공모 1건 삭제", type="P", tableName = "BEST_PRACTICES_CONTEST")
 	public int deleteBestPracticesContest(BestPracticesContest bestPracticesContest) {
+		bestPracticesContest.setDelete_yn("Y");
 		return dao.deleteBestPracticesContest(bestPracticesContest);
 	}
 	

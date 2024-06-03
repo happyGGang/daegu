@@ -37,8 +37,9 @@ public class ReaderContestService extends BaseService {
 		return dao.addReaderContest(readerContest);
 	}
 	
-	@WorkingLogger(comment="다독자공모 1건 삭제", type="P")
+	@WorkingLogger(comment="다독자공모 1건 삭제", type="P", tableName = "READER_CONTEST")
 	public int deleteReaderContest(ReaderContest readerContest) {
+		readerContest.setDelete_yn("Y");
 		return dao.deleteReaderContest(readerContest);
 	}
 	

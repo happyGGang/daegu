@@ -25,4 +25,6 @@ public @interface WorkingLogger {
 	 * <p>default "일반작업"</p>
 	 */
 	public String comment() default "일반작업";
+
+	public String tableName() default "NONE";
 }

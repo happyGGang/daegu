@@ -65,7 +65,7 @@ public class SupportMemberService extends BaseService {
 		return dao.addSupportMember(supportMember);
 	}
 
-	@WorkingLogger(comment="228회원 관리 1건 수정", type="P")
+	@WorkingLogger(comment="228회원 관리 1건 수정", type="P", tableName = "SUPPORT_MEMBER")
 	public int modifySupportMember(SupportMember supportMember) {
 		if(StringUtils.isNotEmpty(supportMember.getMember_password())) {
 			supportMember.setMember_password(CalculateHashUtils.calculateHash(supportMember.getMember_password()));

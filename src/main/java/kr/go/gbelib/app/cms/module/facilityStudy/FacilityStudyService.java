@@ -148,7 +148,7 @@ public class FacilityStudyService extends BaseService{
 	 * @author whalesoft YONGJU 2020. 2. 18.
 	 * @param facilityStudy
 	 */
-	@WorkingLogger(comment="그룹스터디 신청 관리 1건 수정", type="P")
+	@WorkingLogger(comment="그룹스터디 신청 관리 1건 수정", type="P", tableName = "FACILITY_STUDY")
 	public int modifyFacilityStudy(FacilityStudy facilityStudy) {
 		return dao.modifyFacilityStudy(facilityStudy);
 	}

@@ -56,7 +56,7 @@ public class HumanBookService extends BaseService {
 		return dao.addHumanBook(humanBook);
 	}
 
-	@WorkingLogger(comment="휴먼북 신청 관리 1건 수정", type="P")
+	@WorkingLogger(comment="휴먼북 신청 관리 1건 수정", type="P", tableName = "HUMAN_BOOK")
 	public int modifyHumanBook(HumanBook humanBook) {
 		MultipartFile mFile = humanBook.getmFile();
 		
