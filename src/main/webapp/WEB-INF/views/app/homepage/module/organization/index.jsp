@@ -138,7 +138,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 			<colgroup>
 				<col class="col14" width="20%">
 				<c:choose>
-					<c:when test="${!(homepage_id == 'h10' && organization.organization_name == '관장')}">
+					<c:when test="${i.homepage_id == 'h10' && i.organization_name == '관장'}">
 					</c:when>
 					<c:otherwise>
 						<col class="col15" width="15%">
@@ -151,7 +151,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 				<tr>
 					<th scope="col" class="th1">직  위(급)</th>
 					<c:choose>
-						<c:when test="${!(homepage_id == 'h10' && organization.organization_name == '관장')}">
+						<c:when test="${i.homepage_id == 'h10' && i.organization_name == '관장'}">
 						</c:when>
 						<c:otherwise>
 							<th scope="col" class="th2">성 명</th>
@@ -167,7 +167,7 @@ $.fn.rowspan = function(colIdx, isStats) {
 					<tr>
 						<td>${j.position}</td>
 						<c:choose>
-							<c:when test="${!(homepage_id == 'h10' && organization.organization_name == '관장')}">
+							<c:when test="${i.homepage_id == 'h10' && i.organization_name == '관장'}">
 							</c:when>
 							<c:otherwise>
 								<td>${j.worker}</td>
