@@ -195,22 +195,21 @@ public class StudentService extends BaseService {
 
 						Optional<String> birth = Optional.ofNullable(birthCheck);
 						if (birth.isPresent()) {
-							String[] year = birthCheck.split("-");
+							LocalDate birthDate = LocalDate.parse(birthCheck, DateTimeFormatter.ISO_LOCAL_DATE);
+							LocalDate startDate;
+							LocalDate endDate;
+							if (teach.getTeach_join_limit_unit().contains("SEX")){
+								startDate = LocalDate.parse(limitValue[1] , DateTimeFormatter.ISO_LOCAL_DATE);
+								endDate = LocalDate.parse(limitValue[2] , DateTimeFormatter.ISO_LOCAL_DATE);
+							}else {
+								startDate = LocalDate.parse(limitValue[0] , DateTimeFormatter.ISO_LOCAL_DATE);
+								endDate = LocalDate.parse(limitValue[1] , DateTimeFormatter.ISO_LOCAL_DATE);
+							}
 
-							if (limitValue[0].contains("-") && limitValue.length > 1) {
-								String[] limitValueOne = limitValue[0].split("-");
-								String[] limitValueTwo = limitValue[1].split("-");
-								if (!(Integer.parseInt(limitValueOne[0]) <= Integer.parseInt(year[0]) && Integer.parseInt(limitValueTwo[0]) >= Integer.parseInt(year[0]))) {
-									addResult[0] = false;
-									addResult[1] = String.format("해당강좌는 %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", limitValueOne[0], limitValueTwo[0]);
-									return addResult;
-								}
-							} else {
-								if (!(Integer.parseInt(limitValue[0]) <= Integer.parseInt(year[0]) && Integer.parseInt(limitValue[1]) >= Integer.parseInt(year[0]))) {
-									addResult[0] = false;
-									addResult[1] = String.format("해당강좌는 %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", limitValue[0], limitValue[1]);
-									return addResult;
-								}
+							if (!(birthDate.isAfter(startDate.minusDays(1)) && birthDate.isBefore(endDate.plusDays(1)))) {
+								addResult[0] = false;
+								addResult[1] = String.format("해당강좌는 %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", startDate, endDate );
+								return addResult;
 							}
 						}
 					}
