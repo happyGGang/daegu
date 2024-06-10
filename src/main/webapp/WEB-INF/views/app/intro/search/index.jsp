@@ -1162,7 +1162,7 @@ function resveReq(bookkey, booktype, editMode) {
 											<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
-												<c:if test="${context_path eq 'beomeo' || context_path eq 'donggu'}">
+												<c:if test="${context_path eq 'beomeo' || (context_path eq 'donggu' && i.SHELF_LOC_CODE eq 'CA02')}">
 												<c:if test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
 												<c:if test="${i.SHELF_LOCATION_KEY ne '' && i.SHELF_LOCATION_KEY ne null && not empty i.SHELF_LOCATION_KEY }">
 												<a href="#seoga" class="seogashow" data-keyValue="${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}"><span>서가확인</span></a>
@@ -1426,7 +1426,7 @@ function resveReq(bookkey, booktype, editMode) {
 
 											<div class="stat">
 												<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
-												<c:if test="${context_path eq 'beomeo' || context_path eq 'donggu'}">
+												<c:if test="${context_path eq 'beomeo' || (context_path eq 'donggu' && i.SHELF_LOC_CODE eq 'CA02')}">
 												<c:if test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
 												<c:if test="${i.SHELF_LOCATION_KEY ne '' && i.SHELF_LOCATION_KEY ne null && not empty i.SHELF_LOCATION_KEY }">
 												<a href="#seoga" class="seogashow" data-keyValue="${fn:split(i.SHELF_LOCATION_KEY,'@^^@')[1]}"><span>서가확인</span></a>
