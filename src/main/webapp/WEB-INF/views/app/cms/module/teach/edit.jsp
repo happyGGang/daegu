@@ -125,6 +125,17 @@
 							return false;
 						}
 
+						if($('#teach_addr_limit').val() === 'Y' && $('#teach_addr_limit_value').val() == '') {
+							$('#teach_addr_limit_value').focus();
+							alert('주소접수제한 값을 입력해주세요.');
+							return false;
+						}
+
+						if($('#teach_addr_limit').val() === 'Y' && $('input:radio[name=address_yn]:checked').val() === 'N') {
+							alert('주소접수제한 설정 시 주소입력여부 미사용 선택이 불가능합니다.');
+							return false;
+						}
+
 						var st1 = $('input#start_time1').val();
 						if($('input#start_time1').val().length < 2){
 							$('input#start_time1').focus();
