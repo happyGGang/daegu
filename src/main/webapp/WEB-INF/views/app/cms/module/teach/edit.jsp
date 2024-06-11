@@ -125,13 +125,14 @@
 							return false;
 						}
 
-						if($('#teach_addr_limit').val() === 'Y' && $('#teach_addr_limit_value').val() == '') {
+						if ($('#teach_addr_limit').is(':checked') && $('#teach_addr_limit_value').val() == '') {
+							console.log($('#teach_addr_limit').is(':checked'));
 							$('#teach_addr_limit_value').focus();
 							alert('주소접수제한 값을 입력해주세요.');
 							return false;
 						}
 
-						if($('#teach_addr_limit').val() === 'Y' && $('input:radio[name=address_yn]:checked').val() === 'N') {
+						if ($('#teach_addr_limit').is(':checked') && $('input:radio[name=address_yn]:checked').val() === 'N') {
 							alert('주소접수제한 설정 시 주소입력여부 미사용 선택이 불가능합니다.');
 							return false;
 						}
