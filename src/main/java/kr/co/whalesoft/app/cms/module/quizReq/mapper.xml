@@ -169,7 +169,8 @@
 			school = NULL,
 			hak = 0,
 			ban = 0,
-			phone = NULL
+			phone = NULL,
+			family_name = NULL
 		WHERE
 			HOMEPAGE_ID = #{homepage_id} AND QUIZ_IDX = #{quiz_idx} 
 	</update>
