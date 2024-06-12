@@ -6,6 +6,20 @@
 <script type="text/javascript">
 $(function() {
 
+	$('a.certtype').on('click', function(e) {
+		e.preventDefault();
+		var parent = $(this).parent('div').find('p.success').length;
+		if (parent > 0) { return false; }
+		var wWidth = 360;
+		var wHight = 120;
+		var wX = (window.screen.width - wWidth) / 2;
+		var wY = (window.screen.height - wHight) / 2;
+		var certWindow = window.open('', "certWindow", "directories=no,toolbar=no,resizeable=yes,left="+wX+",top="+(wY-200)+",width="+wWidth+",height="+wHight);
+		$('form#certForm input[name=certType]').val($(this).attr('id'));
+		$('form#certForm')[0].submit();
+		certWindow.focus();
+	});
+
 	$('a.quiz-type-btn').on('click', function(e) {
 		$('#quizReq #search_quiz_type').val($(this).attr('keyValue'));
 		doGetLoad('index.do', serializeCustom($('#quizReq')));
@@ -85,6 +99,20 @@ $(function() {
 			}
 		}
 
+		<c:if test="${quiz.family_yn eq 'Y'}">
+
+		if($('#family_name').val() == '') {
+			alert('본인인증을 완료하셔야 신청이 가능합니다.');
+			return false;
+		}
+
+		if(!$('#parentagree').is(':checked')) {
+			alert('보호자(법정대리인) 동의를 동의 하셔야 신청이 가능합니다.');
+			return false;
+		}
+
+		</c:if>
+
 		<c:if test="${quiz.birth_yn eq 'Y'}">
 		if ($("#birth_day").val() == '') {
 			alert('생년월일이 입력되지 않았습니다. 회원정보 수정후 신청 해주세요.');
@@ -128,6 +156,7 @@ $(function() {
 		});
 		$('#quizReq #quiz_answer').val(answerList.join('|'));
 
+		$('#family_name').attr('disabled', false);
 		var formData = new FormData($('#quizReq')[0]);
 
 		$.ajax({
@@ -431,11 +460,28 @@ ${quiz.top_html}
 				</c:if>
 				<c:if test="${quiz.family_yn eq 'Y'}">
 					<tr>
-						<th>보호자(법정대리인)성명</th>
+						<th>
+							보호자(법정대리인) 본인인증
+						</th>
+						<td id="parentCert">
+							* 본인인증방법을 선택해 주세요. 본인인증을 완료 할 시 아래 빈 칸이 자동으로 채워집니다.
+						</td>
+					</tr>
+					<tr>
+						<th>
+							보호자(법정대리인) 확인
+						</th>
+						<td id="parentName">
+							<form:input path="family_name" class="text" maxlength="50" disabled="true"/>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							보호자(법정대리인) 동의
+						</th>
 						<td>
-							<div>
-								<form:input path="family_name" cssClass="text"/>
-							</div>
+							<input type="checkbox" id="parentagree" style="vertical-align: middle; cursor: pointer;" disabled/>
+							<label for="parentagree" ><strong>14세미만 어린이/아동회원의 보호자(법정대리인)임을 확인합니다.</strong></label>
 						</td>
 					</tr>
 				</c:if>
@@ -470,6 +516,46 @@ ${quiz.top_html}
 		</c:if>
 	</form:form>
 </div>
+<div class="join-wrap">
+	<div class="identi_select" style="${quiz.family_yn eq 'Y' ? '':'display:none;'}">
+		<table class="center joinSelect">
+			<colgroup>
+				<col width="50%"/>
+				<col width="50%"/>
+			</colgroup>
+			<tr>
+				<td class="yearSelect">
+					<div class="yearSelectAlign">
+						<div class="joinImages">
+							<img src="/resources/common/img/identy1.jpg" alt="휴대폰 본인인증"  class="joinAdult"/>
+						</div>
+						<div class="joinBtnTxt">
+							<div class="joinText1">${parentNameTag}<br/>휴대폰 본인인증</div>
+							<div class="joinText2">본인 명의의 휴대폰으로 본인여부를 확인합니다.</div>
+							<div><a href="#" class="certtype btn btn01" id="parentSms">인증하기</a></div>
+						</div>
+					</div>
+				</td>
+				<td class="yearSelect">
+					<div class="yearSelectAlign">
+						<div class="joinImages">
+							<img src="/resources/common/img/identy2.jpg" alt="아이핀 본인인증" class="joinChild">
+						</div>
+						<div class="joinBtnTxt">
+							<div class="joinText1">${parentNameTag}<br/>I-PIN(아이핀)인증</div>
+							<div class="joinText2">발급받은 아이핀(I-PIN)으로 본인여부를 확인합니다.</div>
+							<div><a href="#" class="certtype btn btn01" id="parentGpin">인증하기</a></div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
+	<input type="hidden" name="certType">
+	<input type="hidden" name="_csrf" value="${_csrf.token}">
+</form>
 <div class="btn-area center">
 	<a href="" class="btn save-btn">확인</a>
 </div>
