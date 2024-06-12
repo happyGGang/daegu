@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.4.30.] (단위 : 권)</span></h3>
+				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.5.31.] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -93,13 +93,13 @@
 								<td>157</td>
 								<td>93</td>
 								<td>457</td>
-								<td>1,265</td>
-								<td>483</td>
+								<td>1,277</td>
+								<td>488</td>
 								<td>143</td>
 								<td>198</td>
-								<td>2,413</td>
-								<td>817</td>
-								<td>6,301</td>
+								<td>2,418</td>
+								<td>818</td>
+								<td>6,324</td>
 							</tr>
 							<tr>
 								<th>유아</th>
@@ -111,36 +111,36 @@
 								<td>90</td>
 								<td>91</td>
 								<td>72</td>
-								<td>2,397</td>
+								<td>2,401</td>
 								<td>83</td>
-								<td>3,887</td>
+								<td>3,891</td>
 							<tr>
 								<th>일반</th>
-								<td>275</td>
-								<td>492</td>
-								<td>193</td>
-								<td>1,145</td>
-								<td>630</td>
-								<td>974</td>
-								<td>323</td>
-								<td>163</td>
-								<td>2,470</td>
+								<td>278</td>
 								<td>501</td>
-								<td>7,166</td>
+								<td>196</td>
+								<td>1,158</td>
+								<td>631</td>
+								<td>978</td>
+								<td>327</td>
+								<td>164</td>
+								<td>2,485</td>
+								<td>501</td>
+								<td>7,219</td>
 							</tr>
 							<tr>
 								<th>합계</th>
-								<td>610</td>
-								<td>767</td>
-								<td>372</td>
-								<td>2,050</td>
-								<td>2,337</td>
-								<td>1,547</td>
-								<td>557</td>
-								<td>433</td>
-								<td>7,280</td>
-								<td>1,401</td>
-								<td>17,354</td>
+								<td>613</td>
+								<td>776</td>
+								<td>375</td>
+								<td>2,063</td>
+								<td>2,350</td>
+								<td>1,556</td>
+								<td>561</td>
+								<td>434</td>
+								<td>7,304</td>
+								<td>1,402</td>
+								<td>17,434</td>
 							</tr>
 						</tbody>
 					</table>

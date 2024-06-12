@@ -404,8 +404,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
-					<form:option value="BV">달서어린이</form:option>
-				</form:select><!--<span style="color:#ff0000">  * 달서어린이도서관 희망도서 신청 중지 </span>-->
+					<!-- <form:option value="BV">달서어린이</form:option> -->
+				</form:select><span style="color:#ff0000">  * 달서어린이도서관 희망도서 신청 중지 </span>
 				</c:when>
 
 				<c:when test="${context_path eq 'seongseo'}">
