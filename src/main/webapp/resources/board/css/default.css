@@ -152,7 +152,8 @@ table.bbs .reply i.fa-reply{color:#266ac4;margin-left:10px;
 }
 @media (max-width:430px) and (min-width:0px){
 	table.bbs th,
-	table.bbs td{display:none}
+	table.bbs td{/* display:none; */text-align: center !important;}
+    table td.adddate{display: none !important;}
 	table.bbs th.dataEmpty,
 	table.bbs td.dataEmpty,
 	table.bbs th.important,

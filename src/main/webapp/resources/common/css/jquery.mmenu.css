@@ -1,7 +1,7 @@
 @charset "utf-8"; 
 
 .mm-page,
-#mm-0{background-color:#fff}
+#mm-0{/*background-color:#fff*/}
 /* .mm-page{overflow:hidden} */
 
 .mm-menu,.mm-panels,.mm-panels>.mm-panel{z-index:4;margin:0;left:0;right:0;top:0;box-sizing:border-box}

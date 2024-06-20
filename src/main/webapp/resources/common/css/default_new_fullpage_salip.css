@@ -440,12 +440,12 @@ transform:translatez(0);
 .bx-wrapper .bx-loading {min-height:50px;background:url('../imb/bx_loader.gif') center center no-repeat #fff;height:100%;width:100%;position:absolute;top:0;left:0;z-index:9999}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:160px;background:url('/resources/common/img/salip/sub-visual-salip.jpg') no-repeat center center;background-size: cover;text-align:center;color:#fff;border-top:1px solid #e5e5e5;}
+.sub-visual{position:relative;height:140px;background:url('/resources/common/img/salip/sub-visual-salip.jpg') no-repeat center center;background-size: cover;text-align:center;color:#fff;border-top:1px solid #e5e5e5;}
 
 #container .sections,
 #container{clear:both;}
 #container.subpage{background:#fff;padding-top:148px !important;}
-#container.subpage > .sections {padding-top:10px}
+#container.subpage > .sections {/*padding-top:10px*/}
 
 @media all and (max-width: 1024px){
 	#container.subpage {padding-top: 60px !important;}
@@ -507,12 +507,12 @@ transform:translatez(0);
 
 .lnb {position:relative;z-index:66660;}
 .doc,
-.lnb {padding:0 0 60px;}
+.lnb {padding:0 0 0px;}
 .lnb > h2,
 .lnb > ul{width:230px;margin-right:40px}
 .lnb > ul{overflow:hidden;border-bottom:1px solid #dddddd;}
-.lnb h2 {width:229px !important;display:block;height:160px;margin-top:-170px;border-right:1px solid rgba(255,255,255,0.1);}
-.lnb h2 b { display:block;color:#fff;font-size:27px;line-height:160px;margin:0;text-align:center;font-weight:normal;}
+.lnb h2 {width:229px !important;display:block;height:160px;margin-top:-160px;border-right:1px solid rgba(255,255,255,0.1);}
+.lnb h2 b { display:block;color:#fff;font-size:28px;line-height:160px;margin:0;text-align:center;font-weight:normal;padding-top: 15px;}
 
 .lnb li.s a{position:relative}
 .lnb li.s i{position:absolute;top:50%;right:20px;margin-top:-7px }
@@ -556,11 +556,11 @@ transform:translatez(0);
 /* 본문 */
 .doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
 .doc-title {position:relative;padding: 10px 0 15px 0;/* line-height: 150%; */}
-.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 28px;color: #fff;font-weight:600;}
+.doc-title h3{display:inline-block;zoom:1;*display:inline;word-break:break-all;font-size: 33px;color: #fff;font-weight:300;}
 .doc-title ol{margin-top:-6px;}
 
-.doc-info {position:relative;padding:0 0 0 289px;box-sizing:border-box;z-index:2;text-align:left;}
-.doc-info .doc-title {padding-top:60px;}
+.doc-info {position:relative;padding:0 0 0 289px;box-sizing:border-box;z-index:2;}
+.doc-info .doc-title {padding-top:33px;}
 .doc-info .doc-title h2 {display:block;font-size:32px;color:#333;}
 .doc-info ol li.first {padding:0;}
 .doc-info ol li.first img { margin-top: 2px; }
@@ -578,6 +578,7 @@ transform:translatez(0);
 .shareArea img { padding:0 1px;vertical-align:middle }
 .shareArea ul li, .shareArea ul li a {}
 .shareArea ul li { display: inline-block; zoom: 1; vertical-align: middle; margin:0 5px;}
+.shareArea ul li:last-child{display:none;}
 
 @media screen and (max-width:450px){
 .shareArea { margin: 0 auto;}
@@ -1038,7 +1039,7 @@ padding:20px 15px 20px 215px;margin-bottom:25px}
 @media all and (max-width:1024px){
 	.corpsIntro.intro2 .intro{background:none;padding:0 0 20px}
 	.corpsIntro.intro2 .intro img.bgImg{display:block;width:55%}
-	.shareArea{bottom:-15px;}
+	.shareArea{/*bottom:-15px;*/position: initial;}
 	.doc-info ul li{border-left:0;}
 	div#share_layer{ right: 0;}
 	.shareArea li:nth-child(4){display:none;}
@@ -1992,7 +1993,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.content{width: 100%;margin:0 auto;}
 
 	.doc-info {width:96%;margin:0 auto;padding:0;text-align:center;}
-	.doc-info .doc-title{padding-top:50px;}
+	.doc-info .doc-title{padding-top:20px;}
 
 	.lnb{display:none}
 	.doc{margin-right:0;padding: 5px 15px 0 15px;overflow:hidden;}
@@ -2020,7 +2021,7 @@ padding:20px 15px 20px 215px; margin-bottom:25px}
 	.mobileList {display:block}
 }
 @media screen and (max-width:550px){
-    .doc-info .doc-title{padding-top: 30px;}
+    .doc-info .doc-title{padding-top: 20px;}
 	.shareArea{bottom:-20px;position: initial;}
 	.shareArea ul li img{width:15px;}
 }
@@ -2257,5 +2258,6 @@ input.new_text01 ::placeholder{font-size:15px;}
 .roomicon .inner p{font-size:16px;}
 .roomicon .inner.icowrap .ico.ico17{background-position:-1130px -435px;}
 .roomicon .inner.icowrap .ico.ico18{background-position:-1310px -435px}
+.roomicon .inner.icowrap .ico.ico19{background-position:-1515px -435px}
 
 #foot_section .mFooter .middle .site_link div > div, #foot_section .mFooter .middle .site_link a.btn{cursor:pointer;}

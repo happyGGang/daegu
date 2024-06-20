@@ -405,7 +405,7 @@ table.type1 .btn{font-size:90%}
 /* 버튼 */
 .btn,button{-webkit-transition:all 150ms ease;-moz-transition:all 150ms ease;-ms-transition:all 150ms ease;-o-transition:all 150ms ease;transition:all 150ms ease}
 .btn.disabled:hover,
-.btn{padding:5px 13px;margin-left:2px;line-height:18px;background:#f9f9f9;border:1px solid #d5d5d5;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
+.btn{padding:5px 13px;margin-left:2px;line-height:18px;background:#f9f9f9;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px}
 .txt-box .btn{background:#fcfcfc}
 .txt-box .btn:hover,
 .txt-box .btn:focus{background:#fff}

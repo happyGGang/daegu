@@ -73,3 +73,9 @@ span.ca.ty8{background-color:#f0bf58;color:#fff}
 
 
 
+/* NetFunnel_Skin_Top */
+#NetFunnel_Skin_Top{width:500px;}
+
+@media all and (max-width:1024px){
+	#NetFunnel_Skin_Top{width:80%;}
+}

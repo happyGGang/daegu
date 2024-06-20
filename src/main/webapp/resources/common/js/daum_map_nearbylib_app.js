@@ -56,6 +56,7 @@ function map_app(){
 	_this.init = function (id, options, datas) {
 		// 옵션 확장
 		$.extend(_this.options, options);
+
 		//맵컨테이너 생성
 		_this.container = id;
 		
@@ -63,8 +64,8 @@ function map_app(){
 		if ( !_this.options.map ) {
 			//맵생성
 			_this.map = new daum.maps.Map(document.getElementById(id), {
-				level 	: _this.options.level,
-				center 	: new daum.maps.LatLng(_this.options.x, _this.options.y)
+				level : _this.options.level,
+				center : new daum.maps.LatLng(_this.options.x, '120')
 			});
 		} else {
 			_this.map = map;
@@ -131,7 +132,7 @@ function map_app(){
 			        image : new daum.maps.MarkerImage(
 			        		//"/tour/img/lib1cp2/list_ic_num" + (Number(i)+1) + ".png"
 			        		"/resources/common/img/map/nearbylibnum0"+ ( i > 9 ? '' : '0' ) + (i+1) + ".png"
-			        		, new daum.maps.Size(90, 100))
+			        		, new daum.maps.Size(70, 78))
 							//"https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
 							//, new daum.maps.Size(24,35))
 			    });

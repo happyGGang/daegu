@@ -83,7 +83,12 @@ div.loginBox1 .loginImg { float: left;}
 	.login-body dd.login{width:auto}
 	.login-body dd.login{width:auto;margin:0 5%!important}
 }
-@media all and (max-width:550px){
+
+@media all and (max-width:768px){
+    .login-head {padding: 10px 0 0 0;}
+	.login-head p{font-size:22px;letter-spacing:-1px;line-height:130%}
+	.login-body .login fieldset{padding: 20px 0 20px 0;}
+
 	div.loginBox1 .loginImg { float: none;}
 	.loginBox1 .login div.loginImgBox {text-align: center;}
 	.login-body .login button{clear:both;width: 100%;height: 40px;}
@@ -91,13 +96,12 @@ div.loginBox1 .loginImg { float: left;}
 	.login-body .login .form-box input.txt{width: 90%;}
 	.login-body .login .form-box p{margin-right:0;}
 }
-@media all and (max-width:768px){
-    .login-head {padding: 10px 0 0 0;}
-	.login-head p{font-size:22px;letter-spacing:-1px;line-height:130%}
-	.login-body .login fieldset{padding: 20px 0 20px 0;}
-}
+
 @media all and (max-width:660px){
 	.login-body fieldset button#save-btn i{display:none;}
+}
+
+@media all and (max-width:550px){
 
 }
 
@@ -213,13 +217,17 @@ div.loginBox1 .loginImg { float: left;}
 	.login-body2 dd.login{width:auto}
 	.login-body2 dd.login{width:auto;margin:0 5%!important}
 }
-@media all and (max-width:550px){
+@media all and (max-width:769px){
 	div.loginBox1 .loginImg { float: none;}
 	.loginBox1 .login div.loginImgBox {display:none;text-align: center;}
 }
 @media all and (max-width:660px){
 	.login-body2 fieldset button#save-btn span{display:none;}
 }
+@media all and (max-width:550px){
+
+}
+
 
 .login-info{border:1px solid #d9d9d9;border-radius:5px;padding:230px 5% 5%;margin:5% 10% 3%;text-align:center;
 background:url('/resources/homepage/dge/img/login-c.jpg') no-repeat center 0}

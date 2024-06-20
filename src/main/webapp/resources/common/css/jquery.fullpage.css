@@ -255,3 +255,5 @@ html.fp-enabled,
 .fp-viewing-5 #fp-nav ul li a.active {
 	border:1px solid #888;
 }
+
+#mm-blocker{z-index:10 !important;}

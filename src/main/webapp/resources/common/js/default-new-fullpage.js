@@ -306,6 +306,7 @@ $(function(){
 				});
 				$('ul.mm-listview a.mm-next').addClass('mm-fullsubopen');
 				$('a.mm-title').html('메뉴 전체보기<br/><a href="">로그인</a>');
+				$('a.btn1').focus();
 				/*
 				 * 닫기버튼 .after('<div class="mmenu_close"><span
 				 * class="blind">닫기</span><i class="fa fa-close"></i></div>');
