@@ -192,7 +192,7 @@ $(function() {
 		</div>
 
 		<div class="backbutton-sec">
-			<a href="javascript:history.back(-1);">< 이전</a>
+			<a href="javascript:history.back(-1);"><img src="/resources/common/img/kiosk/btn_Prev.png" alt=""></a>
 		</div>
 	</div>
 </div>

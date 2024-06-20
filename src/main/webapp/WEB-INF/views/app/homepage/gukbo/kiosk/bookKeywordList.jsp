@@ -60,20 +60,7 @@ $(function() {
 		</div>
 
 		<!-- Swiper JS -->
-		<script src="/resources/common/js/kiosk/swiper.min.js"></script>
-
-		<!-- Initialize Swiper -->
-		<script>
-		/*
-			var swiper = new Swiper('.swiper-container', {
-				pagination: '.swiper-pagination',
-				slidesPerView: 3,
-				slidesPerColumn: 3,
-				paginationClickable: true,
-				spaceBetween: 30
-			});
-		*/
-		</script>
+		<script type="text/javascript" src="/resources/common/js/jquery.swiper.min.js"></script>
 
 		<div class="backbutton-sec">
 			<a href="javascript:history.back(-1);">< 이전</a>
@@ -160,7 +147,10 @@ function slideAct(){
 				observer : true,
 				observeParents : true,
 				loop:true,
-				pagination: '.swiper-pagination',
+				pagination: {
+					el: '.swiper-pagination',
+					clickable: true
+				},
 				on: {
 					slideChange: function () {
 						realInx[index] = this.realIndex*view

@@ -71,7 +71,7 @@
 			}
 		});
 		// 팝업 관련 코드 END
-+++
+
 		$('#main-search-btn').on('click', function() {
 			if( $('input#search_text_1').val() == '' ) {
 				alert('찾으시는 도서의 정보를 입력해주세요.');

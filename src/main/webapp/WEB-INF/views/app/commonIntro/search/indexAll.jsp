@@ -1133,6 +1133,9 @@
 														<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'||i.MANAGE_CODE eq 'GA'}">
 															<span style="color:#ff0000">대출불가(임시휴관)</span>
 														</c:when>
+														<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">
+															<span style="color:#ff0000">대출불가(휴관)</span>
+														</c:when>
 														<c:otherwise>
 															<c:choose>
 																<c:when test="${i.LOAN_CODE eq 'OK'}">
@@ -1241,6 +1244,9 @@
 															<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
 																<span style="color:#ff0000">대출불가(임시휴관)</span>
 															</c:when>
+															<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">
+															<span style="color:#ff0000">대출불가(휴관)</span>
+														</c:when>
 															<c:otherwise>
 																<c:choose>
 																	<c:when test="${i.WORKING_STATUS == 'BOL112N'}">

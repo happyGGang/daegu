@@ -102,6 +102,7 @@
 		<form:option value="0006">중구</form:option>
 		<form:option value="0007">달서구</form:option>
 		<form:option value="0008">달성군</form:option>
+		<form:option value="0009">군위군</form:option>
 	</form:select>
 
 	<form:select path="search_cate" cssClass="search-form__select new_select_box left3 nsb3">

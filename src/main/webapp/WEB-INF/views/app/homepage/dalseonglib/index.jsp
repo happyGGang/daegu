@@ -495,14 +495,14 @@ do {
 		<div class="main3">
 			<div class="section">
 
-				<div class="banner-wrap type6">
-					<div class="banner-t6">
+				<div class="banner-wrap type60">
+					<div class="banner-t60">
 						<div class="control">
-							<a class="prev" href="#prev"><img src="/resources/homepage/dalseonglib/img/banner-prev.png" alt="이전" /><span class="blind">이전</span></a>
-							<a class="next" href="#next"><img src="/resources/homepage/dalseonglib/img/banner-next.png" alt="다음" /><span class="blind">다음</span></a>
+							<a class="prev" href="#prev"><img src="/resources/homepage/${homepage.context_path}/img/banner-prev.png" alt="이전" /><span class="blind">이전</span></a>
+							<a class="next" href="#next"><img src="/resources/homepage/${homepage.context_path}/img/banner-next.png" alt="다음" /><span class="blind">다음</span></a>
 						</div>
 					</div>
-					<div class="banner-box6">
+					<div class="banner-box60">
 						<homepageTag:banner bannerList="${bannerList}"/>
 					</div>
 				</div>

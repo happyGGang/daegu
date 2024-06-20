@@ -399,8 +399,8 @@
 				</c:when>
 				<c:when test="${context_path eq 'dalseolib'}">
 				<form:select path="manageCode">
-					<form:option value="BW">도원도서관</form:option>
-				</form:select><!--<span style="color:#ff0000">  * 도원도서관 희망도서 신청 중지 </span>-->
+					<!-- <form:option value="BW">도원도서관</form:option> -->
+				</form:select><span style="color:#ff0000">  * 도원도서관 희망도서 24.07.01. 오전 중 신청 재개 예정 </span>
 				</c:when>
 				<c:when test="${context_path eq 'kids'}">
 				<form:select path="manageCode">
@@ -416,8 +416,8 @@
 
 				<c:when test="${context_path eq 'bolli'}">
 				<form:select path="manageCode">
-					<form:option value="BX">본리도서관</form:option>
-				</form:select><!--<span style="color:#ff0000">  * 2023년 본리도서관 희망도서 서비스 종료(예산 소진)</span>-->
+					<!-- <form:option value="BX">본리도서관</form:option> -->
+				</form:select><span style="color:#ff0000">  * 본리도서관 희망도서 24.07.01. 오전 중 신청 재개 예정</span>
 
 				</c:when>
 				<c:when test="${context_path eq 'family'}">

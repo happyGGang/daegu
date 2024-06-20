@@ -23,6 +23,11 @@
 			</div>
 			</c:when>
 			<c:otherwise>
+			
+			<c:choose>
+			<c:when test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+			</c:when>
+			<c:otherwise>
 			<div id="lnb_hm" style="right:0px;">
 				<div class="layout">
 					<ul class="siteLink">
@@ -197,6 +202,9 @@
 
 				</div>
 			</div>
+			</c:otherwise>
+			</c:choose>
+			
 			</c:otherwise>
 			</c:choose>
 		</div>

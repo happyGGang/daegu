@@ -232,7 +232,8 @@
 							<option value="h7">대구광역시립 북부도서관</option>
 							<option value="h8">대구광역시립 서부도서관</option>
 							<option value="h9">대구광역시립 수성도서관</option>
-							<option value="h10">대구광역시립 중앙도서관</option>
+							<option value="h10">국채보상운동기념도서관</option>
+							<option value="h94">대구광역시교육청 삼국유사군위도서관</option>
 							<option value="h34">대구시청작은도서관</option>
 							<option value="h59">동구통합 신천도서관</option>
 							<option value="h73">동구통합 안심도서관</option>

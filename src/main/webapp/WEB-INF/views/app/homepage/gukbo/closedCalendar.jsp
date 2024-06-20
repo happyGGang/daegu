@@ -47,13 +47,11 @@ $(function() {
 </script>
 
 <div class="inBox1">
-	<div class="title">
-		<strong>휴관일</strong>
-	</div>
+	<div class="title">휴관일</div>
 
 	<div class="bt-controls">
 		<a id="before-btn" class="bt-prev" href="" keyValue="${calendar.plan_date}">Prev</a>
-		<b>${fn:split(calendar.plan_date, '-')[0]}.${fn:split(calendar.plan_date, '-')[1]}</b>
+		<b><span class="month">${fn:split(calendar.plan_date, '-')[1]}</span><span class="year">${fn:split(calendar.plan_date, '-')[0]}</span></b>
 		<a id="next-btn" class="bt-next" href="" keyValue="${calendar.plan_date}">Next</a>
 	</div>
 

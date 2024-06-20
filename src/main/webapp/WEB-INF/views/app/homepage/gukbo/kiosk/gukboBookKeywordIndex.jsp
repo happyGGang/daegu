@@ -102,7 +102,10 @@ $(function() {
 		if (keywordCount <= 0) {
 			if (selected_count >= 3) {
 				//alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.");
-				$.alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.",{title:'국채보상운동기념도서관',confirmButton:'확인'});
+				$.alert("검색 키워드는 최대 3개까지만 선택할 수 있습니다.",{
+					title:'국채보상운동기념도서관',
+					confirmButton:'확인'				
+				});
 				return false;
 			}	
 		}
@@ -191,7 +194,7 @@ $(function() {
 		</form:form>
 	</div>
 	<div class="backbutton-sec">
-		<a href="javascript:void(0);" onclick="history.back();">< 이전</a>
+		<a href="javascript:void(0);" onclick="history.back();"><img src="/resources/common/img/kiosk/btn_Prev.png" alt=""></a>
 	</div>
 </div>
 

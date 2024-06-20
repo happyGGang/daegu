@@ -52,7 +52,7 @@ $(document).ready(function() {
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="group_idx"/>
 	<form:hidden path="category_idx"/>
-	<form:hidden path="teach_idx"/>
+	<form:hidden path="teach_idx"/>	
 </form:form>
 <table class="type2 center" style="">
 	<colgroup>

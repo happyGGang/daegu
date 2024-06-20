@@ -45,9 +45,28 @@
 	<div class="search-form showNot01">
 		<form:select path="search_area" cssClass="search-form__select new_select_box">
 			<form:option value="">지역</form:option>
+			<form:option value="동구">동구</form:option>
+		
+			<form:option value="서구">서구</form:option>
+		
+			<form:option value="남구">남구</form:option>
+		
+			<form:option value="북구">북구</form:option>
+		
+			<form:option value="중구">중구</form:option>
+		
+			<form:option value="수성구">수성구</form:option>
+		
+			<form:option value="달서구">달서구</form:option>
+		
+			<form:option value="달성군">달성군</form:option>
+		
+			<form:option value="군위군">군위군</form:option>
+			<%--
 			<c:forEach var="i" items="${areaCodeList}">
 				<form:option value="${i.code_name}">${i.code_name}</form:option>
 			</c:forEach>
+			--%>
 		</form:select>
 
 		<form:input path="Keyword" placeholder="검색어를 입력하세요." cssClass="text new_text01 search-form__input" ></form:input>

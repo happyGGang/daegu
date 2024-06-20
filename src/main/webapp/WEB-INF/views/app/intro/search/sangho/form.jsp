@@ -124,7 +124,7 @@ $(function() {
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127005">성서도서관</form:option>
-						<form:option value="127002">달서어린이도서관</form:option>
+						<!-- <form:option value="127002">달서어린이도서관</form:option> -->
 						<form:option value="127001">도원도서관</form:option>
 						<form:option value="127012">본리도서관</form:option>
 						<form:option value="127093">달서가족문화도서관</form:option>

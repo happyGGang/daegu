@@ -92,7 +92,6 @@
 
 </head>
 <body>
-
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form id="frm_sch" action="index.do"  method="get">
 	<input type="hidden" name="is_size" value="max" />

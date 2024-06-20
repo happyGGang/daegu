@@ -77,7 +77,7 @@ $(function(){
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="reading_notes_idx"/>
 	<form:hidden path="editMode"/>
-	<form:hidden path="menu_idx"/>
+	<form:hidden path="menu_idx"/>	
 
 	<div class="wrapper-bbs">
 		<div class="infodesk">

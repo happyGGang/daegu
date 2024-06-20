@@ -8,13 +8,14 @@
 <script type="text/javascript" src="/resources/common/js/jquery-barcode.js"></script>
 <script type="text/javascript">
 $(function(){
-
 	var settings = {
-		barWidth: 2,
-		barHeight: 70,
-		fontSize : 12,
-		output : 'bmp'
-	};
+			barWidth: 2,
+			barHeight: 70,
+			fontSize : 12,
+            bgColor: "#ffffff", // [바코드 배경 색상]
+            color: "#000000", // [바코드 색상]
+			output : 'css'
+		};
 
 	$("#barcodeTarget").barcode('${sessionScope.member.user_no}', "code128", settings);
 	$("#barcodeTarget").css("margin","0 auto");
@@ -70,8 +71,10 @@ var interval = setInterval(clock, 1000);
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div style="text-align:center;padding:0 0 10px 0;font-size:27px;font-weight:bold">${sessionScope.member.member_name}</div>
 
+<div class="" style="box-sizing:border-box;padding:18px;">
 <div id="barcodeTarget" class="barcodeTarget" style="padding:0px;overflow:auto;"></div>
-<div style="text-align:center">${sessionScope.member.user_no}</div>
+</div>
+<!-- <div style="text-align:center">${sessionScope.member.user_no}</div> -->
 
 <div class="loanNum" style="padding-top:20px;text-align:center;font-size:27px;font-weight:bold;">
 <span id="years">0000</span><span>년</span>  <span id="month">00</span><span>월</span> <span id="day">00</span><span>일</span> <span id="week"></span><span>요일</span>

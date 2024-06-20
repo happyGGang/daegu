@@ -2,6 +2,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta id="_csrf" name="_csrf" th:content=""/>
+<meta id="_csrf_header" name="_csrf_header" th:content=""/>
+<title>대구통합허브시스템</title>
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<![endif]-->
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
@@ -138,6 +152,9 @@ $(document).ready(function() {
 
 });
 </script>
+</head>
+
+<body>
 <div style="padding:10px;">
 	<form:form id="addItemForm" modelAttribute="myItem" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post" onsubmit="return false;">
 		<form:hidden path="editMode" value="ADD"/>
@@ -167,3 +184,5 @@ $(document).ready(function() {
 		<a class="btn btn6 close" style="font-weight:bold;font-size:14px;">창닫기</a>
 	</div>
 </div>
+</body>
+</html>

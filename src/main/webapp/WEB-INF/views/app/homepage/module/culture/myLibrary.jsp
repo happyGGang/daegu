@@ -190,7 +190,7 @@
           <ul>
               <%--h10,대구광역시립 중앙도서관,AD--%>
             <li>
-              <form:checkbox path="manage_codes" cssClass="chkbox" value="AD" label="중앙도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'AD') ? 'checked' : ''}"></form:checkbox>
+              <form:checkbox path="manage_codes" cssClass="chkbox" value="AD" label="국채보상운동기념도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'AD') ? 'checked' : ''}"></form:checkbox>
             </li>
               <%--h2,대구2ㆍ28민주운동기념회관,AL--%>
             <li>
@@ -249,7 +249,7 @@
           </ul>
         </div>
 
-        <div class="area-box fl-right last-box">
+        <div class="area-box fl-right">
           <h3>달성군</h3>
           <ul>
               <%--h4,대구광역시립 달성도서관,AJ--%>
@@ -259,6 +259,16 @@
               <%--h44,달성군립도서관,BR--%>
             <li>
               <form:checkbox path="manage_codes" cssClass="chkbox" value="BR" label="달성군립도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'BR') ? 'checked' : ''}"></form:checkbox>
+            </li>
+          </ul>
+        </div>
+
+        <div class="area-box fl-right last-box">
+          <h3>군위군</h3>
+          <ul>
+              <%--h4,대구광역시립 달성도서관,AJ--%>
+            <li>
+              <form:checkbox path="manage_codes" cssClass="chkbox" value="AM" label="삼국유사군위도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'AM') ? 'checked' : ''}"></form:checkbox>
             </li>
           </ul>
         </div>

@@ -2865,7 +2865,7 @@ do {
 							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu20.png" alt="책 읽는 대구, 독서에 빠지다"></div>
 							<h3 class="book-title">책 읽는 대구, 독서에 빠지다</h3>
 							<p class="book-desc">책 읽는 도시, 대구와 함께 책의 매력에 빠져보세요</p>
-							<p class="reg-date">2024-01-04</p>
+							<p class="reg-date">2024-04-01</p>
 						</a>
 					</li>
 					<li>
