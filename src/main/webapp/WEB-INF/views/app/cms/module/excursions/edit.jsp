@@ -55,8 +55,8 @@ $(function() {
 
 	
 	$("#dialog-1").dialog({ //개별 모달창 띄울 시 선택자 선언 및 크기 값 설정
-		width: 600,
-		height: 520
+		width: 700,
+		height: 550
 	});
 	
 	$('input#start_date').datepicker({
@@ -100,7 +100,7 @@ $(function() {
 <div style="text-align: right">(<span style="color: red; font-weight: bold;">*</span>) 필수 항목입니다.</div>
 <table class="type2">
 	<colgroup>
-		<col width="140"/>
+		<col width="150"/>
 		<col width="*"/>
 	</colgroup>
 	<tbody>
@@ -179,9 +179,16 @@ $(function() {
 			</td>
 		</tr>
 		<tr>
-			<th>최대신청팀수(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<th>최대 신청 팀수(<span style="color: red; font-weight: bold;">*</span>)</th>
 			<td>
 				<form:input path="max_apply" class="text" cssStyle="width:30px"/>
+				<em>* 신청수에 제한이 없다면 0을 입력해주세요.</em>
+			</td>
+		</tr>
+		<tr>
+			<th>최대 신청 가능 인원(<span style="color: red; font-weight: bold;">*</span>)</th>
+			<td>
+				<form:input path="max_personnel_apply" class="text" cssStyle="width:30px"/>
 				<em>* 신청수에 제한이 없다면 0을 입력해주세요.</em>
 			</td>
 		</tr>

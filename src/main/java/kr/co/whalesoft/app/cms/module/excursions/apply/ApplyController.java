@@ -250,6 +250,20 @@ public class ApplyController extends BaseController {
 					}
 				}
 
+				if ( excursions.getMax_personnel_apply() > 0 ) {
+					if (excursions.getMax_personnel_apply() < (apply.getPersonnel() + excursions.getPersonnel_count()) ) {
+						int count = excursions.getMax_personnel_apply() - excursions.getPersonnel_count();
+
+						if(count < 0){
+							count = 0;
+						}
+
+						res.setValid(false);
+						res.setMessage("최대 신청 가능 인원이 가득찼습니다.\n현재 신청 가능 인원수는 " + count + "명 입니다.");
+						return res;
+					}
+				}
+
 				apply.setAdd_id(getSessionMemberId(request));
 				apply.setStart_date(excursions.getStart_date());
 				apply.setStart_time(excursions.getStart_time());

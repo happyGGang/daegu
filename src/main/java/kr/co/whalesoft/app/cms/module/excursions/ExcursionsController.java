@@ -105,6 +105,7 @@ public class ExcursionsController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "apply_end_date", "신청종료일자를 선택하세요.");
 			ValidationUtils.rejectIfEmpty(result, "apply_end_time", "신청종료시간을 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "max_apply", "최대신청팀수를 입력하세요.");
+			ValidationUtils.rejectIfEmpty(result, "max_personnel_apply", "최대 신청 가능 인원수를 입력하세요.");
 			
 			SimpleDateFormat sfTime = new SimpleDateFormat("HH:mm");
 			sfTime.setLenient(false);

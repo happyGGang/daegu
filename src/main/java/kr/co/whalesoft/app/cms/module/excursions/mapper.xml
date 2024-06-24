@@ -4,14 +4,17 @@
 	<!-- 견학신청 컬럼  -->
 	<sql id="field">
 		homepage_id, excursions_idx, apply_yn, start_date, start_time,
-		end_date, end_time, apply_start_date, apply_start_time, apply_end_date, apply_end_time, max_apply, add_id, add_date, date_type, remark_comment
+		end_date, end_time, apply_start_date, apply_start_time, apply_end_date,
+		apply_end_time, max_apply, add_id, add_date, date_type,
+		remark_comment, max_personnel_apply
 	</sql>
 	
 	<!-- 견학신청 list -->
 	<select id="getExcursions" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">
 		SELECT
 			A.homepage_id, A.excursions_idx, A.start_date, A.start_time,
-			A.end_date, A.end_time,A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time, A.max_apply, A.add_date, A.date_type,
+			A.end_date, A.end_time,A.apply_start_date, A.apply_start_time, A.apply_end_date, A.apply_end_time,
+			A.max_apply, A.add_date, A.date_type, A.max_personnel_apply,
 			(SELECT code_name FROM CMS_CODE B WHERE B.homepage_id = A.homepage_id AND B.code_id = A.date_type AND B.group_id = 'H0001') AS code_name,
 			(SELECT COUNT(*) FROM CMS_CALENDAR_MANAGE B WHERE A.homepage_id = B.homepage_id AND A.homepage_id = #{homepage_id} AND B.date_type = '1' AND B.delete_yn = 'N' AND A.start_date <![CDATA[<=]]> B.end_date AND A.end_date <![CDATA[>=]]> B.start_date) AS closed_day,
 			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY C WHERE A.homepage_id = C.homepage_id AND A.homepage_id = #{homepage_id} AND A.excursions_idx = C.excursions_idx) AS apply_count,
@@ -49,7 +52,8 @@
 		SELECT
 			<include refid="field" />,
 			(SELECT COUNT(*) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS apply_count,
-			(SELECT COALESCE(SUM(PERSONNEL), 0) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS personnel_count
+			(SELECT COALESCE(SUM(PERSONNEL), 0) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS personnel_count,
+			(SELECT SUM(personnel) FROM CMS_EXCURSIONS_APPLY WHERE homepage_id = A.homepage_id AND excursions_idx = A.excursions_idx) AS personnel_count
 		FROM 
 			CMS_EXCURSIONS A
 		WHERE
@@ -88,7 +92,7 @@
 		VALUES
 		(
 			#{homepage_id}, (SELECT NVL(MAX(excursions_idx),0)+1 FROM CMS_EXCURSIONS), #{apply_yn}, #{start_date}, #{start_time},
-			#{end_date}, #{end_time}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{max_apply}, #{add_id}, SYSDATE, #{date_type}, #{remark_comment}
+			#{end_date}, #{end_time}, #{apply_start_date}, #{apply_start_time}, #{apply_end_date}, #{apply_end_time}, #{max_apply}, #{add_id}, SYSDATE, #{date_type}, #{remark_comment}, #{max_personnel_apply}
 		)
 	</insert>
 	
@@ -106,6 +110,7 @@
 			apply_end_date = #{apply_end_date},
 			apply_end_time = #{apply_end_time},
 			max_apply = #{max_apply},
+			max_personnel_apply = #{max_personnel_apply},
 			date_type = #{date_type},
 			modify_id = #{modify_id},
 			remark_comment = #{remark_comment},

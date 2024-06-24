@@ -19,6 +19,7 @@ public class Excursions extends PagingUtils {
 	private String apply_end_date;
 	private String apply_end_time;
 	private int max_apply;
+	private int max_personnel_apply;
 	private String add_id;
 	private Date add_date;
 	private String modify_id;
@@ -352,5 +353,13 @@ public class Excursions extends PagingUtils {
 
 	public void setHomepage_group(String homepage_group) {
 		this.homepage_group = homepage_group;
+	}
+
+	public int getMax_personnel_apply() {
+		return max_personnel_apply;
+	}
+
+	public void setMax_personnel_apply(int max_personnel_apply) {
+		this.max_personnel_apply = max_personnel_apply;
 	}
 }
