@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.5.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,17 +89,17 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-                <td>238</td>
-    <td>236</td>
-    <td>111</td>
-    <td>723</td>
-    <td>477</td>
-    <td>442</td>
-    <td>292</td>
-    <td>291</td>
-    <td>3,825</td>
-    <td>559</td>
-    <td>7,194</td>
+                <td>249</td>
+    <td>246</td>
+    <td>114</td>
+    <td>773</td>
+    <td>501</td>
+    <td>473</td>
+    <td>295</td>
+    <td>314</td>
+    <td>4,002</td>
+    <td>583</td>
+    <td>7,550</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.5.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,12 +148,12 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-                <td>2,902</td>
-    <td>1,601</td>
-    <td>2,691</td>
+                <td>3,063</td>
+    <td>1,650</td>
+    <td>2,837</td>
     <td>-</td>
     <td>-</td>
-    <td>7,194</td>
+    <td>7,550</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -167,7 +167,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.3.31. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.5.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="황금도서관 간행물 현황을 나타내는 표">
