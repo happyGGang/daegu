@@ -3751,18 +3751,17 @@ public class CommonSearchController extends BaseController {
 							librarySearchSms.setUserkey(member.getRec_key());
 							String userIp = "0:0:0:0:0:0:0:1";
 							String user_no = String.valueOf(userMap.get("USER_NO"));
-							String mes = "http://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + user_no 
-									+ "\n[" + librarySearch.getShelf_loc_name() + "]\n" + member.getMember_name() + "님 예약이 완료 되었습니다.."
-									+ "\n도서 정보 : " + librarySearch.getBook_name();
-							LibSearchAPI.sendSms(librarySearchSms, mes, userIp);	 
-						
+							String mes =  "[" + librarySearch.getShelf_loc_name() + "]\n" + member.getMember_name() + "님 예약 신청 완료 되었습니다."
+									+ "\n도서 정보 : " + librarySearch.getBook_name() + "\n" + "https://library.daegu.go.kr/" + homepage.getContext_path() + "/module/nearLib/bacode.do?pass=" + user_no;
+
+							LibSearchAPI.sendSms(librarySearchSms, mes, userIp);
 						}
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 				res.setValid(true);
-				res.setMessage("예약 되었습니다.");
+				res.setMessage("예약 신청 되었습니다.");
 			} else {
 				res.setValid(false);
 				res.setMessage(apiResult.getMessage());
