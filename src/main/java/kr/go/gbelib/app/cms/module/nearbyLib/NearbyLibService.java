@@ -694,14 +694,6 @@ public class NearbyLibService extends BaseService {
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(nowDate);
 
-							int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-							int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-
-							//반야월 이마트 매주 금요일
-							if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-								take_term += 1;
-							}
-
 					        cal.add(Calendar.DATE, take_term);
 					        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 							
@@ -817,14 +809,6 @@ public class NearbyLibService extends BaseService {
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
 
-								int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-								int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-
-								//반야월 이마트 매주 금요일
-								if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-									take_term += 1;
-								}
-
 						        cal.add(Calendar.DATE, take_term);
 						        librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
 								
@@ -846,14 +830,6 @@ public class NearbyLibService extends BaseService {
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
-
-								int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-								int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-
-								//반야월 이마트 매주 금요일
-								if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-									take_term += 1;
-								}
 
 						        cal.add(Calendar.DATE, take_term);
 								neighborhoodLibrary.setExpire_date(simpleDateFormat.format(cal.getTime()));
@@ -967,13 +943,6 @@ public class NearbyLibService extends BaseService {
 					cal.setTime(nowDate);
 
 					int take_term = resultData.getTake_term() - 1;
-					int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-					int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-
-					//반야월 이마트 매주 금요일
-					if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-						take_term += 1;
-					}
 
 			        cal.add(Calendar.DATE, take_term);
 					
@@ -1020,13 +989,6 @@ public class NearbyLibService extends BaseService {
 						cal.setTime(nowDate);
 
 						int take_term = reserveOne.getTake_term() - 1;
-						int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-						int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-
-						//반야월 이마트 매주 금요일
-						if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-							take_term += 1;
-						}
 
 				        cal.add(Calendar.DATE, take_term);
 						
@@ -1806,13 +1768,5 @@ public class NearbyLibService extends BaseService {
 
 	public int getNearbyOneBookReserveData(String nearbyBookKey) {
 		return dao.getNearbyOneBookReserveData(nearbyBookKey);
-	}
-
-	private static boolean isFirstOrThirdWeek(int weekNumber) {
-		return weekNumber == 1 || weekNumber == 3;
-	}
-
-	private static boolean isFriday(int dayOfWeek) {
-		return dayOfWeek == Calendar.FRIDAY;
 	}
 }

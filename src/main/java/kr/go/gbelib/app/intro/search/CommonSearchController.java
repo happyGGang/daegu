@@ -4169,11 +4169,23 @@ public class CommonSearchController extends BaseController {
 				int bundleIdx = neighborhoodLibraryService.getNeighborhoodLibraryBundleIdx(neighborhoodLibrary);//예약idx처럼 +1씩 쌓이지만 1건에 두권이면 bundle_idx를 동일하게 준다
 				neighborhoodLibrary.setReserve_bundle_idx(bundleIdx);
 			}
-			
-			
+
 			NearbyLibDevice neighborhoodLibraryDevice = new NearbyLibDevice();
 			neighborhoodLibraryDevice.setDevice_idx(neighborhoodLibrary.getDevice_idx());
 			NearbyLibDevice deviceOne = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);	//장비정보 가져오기		
+
+			int take_term = 3;
+			Date nowDate = new Date();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(nowDate);
+
+			int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
+			int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+
+			//반야월 이마트 매주 금요일
+			if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
+				take_term += 1;
+			}
 
 			neighborhoodLibrary.setDevice_code(deviceOne.getDevice_code());
 			neighborhoodLibrary.setDevice_name(deviceOne.getDevice_name());			
@@ -4181,7 +4193,7 @@ public class CommonSearchController extends BaseController {
 			neighborhoodLibrary.setMember_name(member.getMember_name());
 			neighborhoodLibrary.setUser_key(member.getRec_key());
 			neighborhoodLibrary.setAdd_ip(request.getRemoteAddr());
-			neighborhoodLibrary.setTake_term(3);
+			neighborhoodLibrary.setTake_term(take_term);
 			
 			neighborhoodLibrary.setApplicant_cell_phone(member.getCell_phone());
 			
@@ -4189,9 +4201,8 @@ public class CommonSearchController extends BaseController {
 			librarySearch.setUserkey(member.getRec_key());
 			librarySearch.setBookkey(neighborhoodLibrary.getBook_key());
 			librarySearch.setBooktype(neighborhoodLibrary.getBooktype());
-			librarySearch.setExprire_date_cnt("3");
+			librarySearch.setExprire_date_cnt(Integer.toString(take_term));
 			librarySearch.setWorker(String.valueOf(deviceOne.getDevice_code()));
-			
 			
 			ApiResponse apiResult = null;
 			/*무인대출 예약 api 호출*/
@@ -4886,4 +4897,11 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "baro/index";
 	}
 
+	private static boolean isFirstOrThirdWeek(int weekNumber) {
+		return weekNumber == 1 || weekNumber == 3;
+	}
+
+	private static boolean isFriday(int dayOfWeek) {
+		return dayOfWeek == Calendar.FRIDAY;
+	}
 }
