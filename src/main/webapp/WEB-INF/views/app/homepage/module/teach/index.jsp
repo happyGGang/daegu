@@ -235,26 +235,28 @@ $(function(){
 
 		<c:when test="${homepage.context_path eq 'seogulib' and teach.searchCate1 eq '16'}">
 			<div class="tab_menu on">
-				<ul class="no6">
+				<ul class="no7">
 					<li><a href="#tabCon0" data-hid="h77">서구어린이</a></li>
 					<li><a href="#tabCon1" data-hid="h61">비산</a></li>
 					<li><a href="#tabCon2" data-hid="h62">영어</a></li>
 					<li><a href="#tabCon3" data-hid="h63">비원</a></li>
 					<li><a href="#tabCon4" data-hid="h64">원고개</a></li>
 					<li><a href="#tabCon5" data-hid="h96">NEW평리</a></li>
+					<li><a href="#tabCon6" data-hid="h65">작은도서관</a></li>
 				</ul>
 			</div>
 		</c:when>
 
 		<c:when test="${homepage.context_path eq 'seogulib' and teach.searchCate1 eq '17'}">
 			<div class="tab_menu on">
-				<ul class="no6">
+				<ul class="no7">
 					<li><a href="#tabCon0" data-hid="h77">서구어린이</a></li>
 					<li><a href="#tabCon1" data-hid="h61">비산</a></li>
 					<li><a href="#tabCon2" data-hid="h62">영어</a></li>
 					<li><a href="#tabCon3" data-hid="h63">비원</a></li>
 					<li><a href="#tabCon4" data-hid="h64">원고개</a></li>
 					<li><a href="#tabCon5" data-hid="h96">NEW평리</a></li>
+					<li><a href="#tabCon6" data-hid="h65">작은도서관</a></li>
 				</ul>
 			</div>
 		</c:when>

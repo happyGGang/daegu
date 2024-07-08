@@ -1000,7 +1000,15 @@ do {
 											<span class="">큐레이션</span>
 										</div>
 										<div class="cont">
-												<ul>
+											<ul>
+												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/193" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu21.png" alt="대구 빵지순례"></div>
+														<p class="book-title">대구 빵지순례</p>
+														<p class="book-desc">빵킷리스트 빵빵하게 채워보자!</p>
+														<p class="reg-date">2024-07-01</p>
+													</a>
+												</li>
 												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/186" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu20.png" alt="책 읽는 대구, 독서에 빠지다
@@ -2860,6 +2868,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+					<li>
+						<a href="http://www.icuration.co.kr:81/curation/w/193" target="_blank">
+							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu21.png" alt="대구 빵지순례"></div>
+							<h3 class="book-title">대구 빵지순례</h3>
+							<p class="book-desc">빵킷리스트 빵빵하게 채워보자!</p>
+							<p class="reg-date">2024-07-01</p>
+						</a>
+					</li>
 					<li>
 						<a href="http://www.icuration.co.kr:81/curation/w/186" target="_blank">
 							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu20.png" alt="책 읽는 대구, 독서에 빠지다"></div>

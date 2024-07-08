@@ -46,7 +46,7 @@
             </li>
           </ul>
         </div>
-        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.5.31.] (단위 : 권)</span></h3>
+        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.6.30.] (단위 : 권)</span></h3>
         <div class="rsv-info"></div>
         <div class="auto-scroll">
           <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -90,16 +90,16 @@
               <tr>
                 <th scope="row">어린이</th>
 				<td>702</td>
-				<td>358</td>
-				<td>158</td>
-				<td>846</td>
-				<td>1,247</td>
+				<td>359</td>
+				<td>162</td>
+				<td>848</td>
+				<td>1,251</td>
 				<td>374</td>
-				<td>290</td>
-				<td>272</td>
-				<td>3,771</td>
-				<td>1,207</td>
-				<td>9,225</td>
+				<td>291</td>
+				<td>275</td>
+				<td>3,774</td>
+				<td>1,208</td>
+				<td>9,244</td>
               </tr>
               <tr>
                 <th scope="row">유아</th>
@@ -111,37 +111,37 @@
 				<td>85</td>
 				<td>80</td>
 				<td>72</td>
-				<td>2,994</td>
+				<td>3,007</td>
 				<td>34</td>
-				<td>4,773</td>
+				<td>4,786</td>
               </tr>
               <tr>
                 <th scope="row">일반</th>
-                <td>545</td>
-				<td>1,069</td>
-				<td>330</td>
-				<td>2,156</td>
-				<td>638</td>
-				<td>1,327</td>
-				<td>560</td>
-				<td>316</td>
-				<td>5,825</td>
-				<td>1,168</td>
-				<td>13,934</td>
+                <td>546</td>
+				<td>1,070</td>
+				<td>334</td>
+				<td>2,159</td>
+				<td>640</td>
+				<td>1,333</td>
+				<td>561</td>
+				<td>317</td>
+				<td>5,841</td>
+				<td>1,171</td>
+				<td>13,972</td>
               </tr>
               <tr>
                 <th scope="row">총계</th>
-                <td>1,311</td>
-				<td>1,516</td>
-				<td>530</td>
-				<td>3,913</td>
-				<td>2,287</td>
-				<td>1,786</td>
-				<td>930</td>
-				<td>660</td>
-				<td>12,590</td>
-				<td>2,409</td>
-				<td>27,932</td>
+                <td>1,312</td>
+				<td>1,518</td>
+				<td>538</td>
+				<td>3,918</td>
+				<td>2,293</td>
+				<td>1,792</td>
+				<td>932</td>
+				<td>664</td>
+				<td>12,622</td>
+				<td>2,413</td>
+				<td>28,002</td>
               </tr>
             </tbody>
           </table>
@@ -229,8 +229,6 @@
         <link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css" />
 
         <link rel="stylesheet" href="/resources/common/css/emap/OpenLayers-6.4.3.css" type="text/css">
-        <script
-          src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
         <script type="text/javascript" src="/resources/common/js/emap/OpenLayers-6.4.3.js"></script>
         <script type="text/javascript" src="/resources/common/js/emap/proj4.js"></script>
         <script type="text/javascript"
