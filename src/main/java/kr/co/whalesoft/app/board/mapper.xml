@@ -80,14 +80,6 @@
 		<if test='search_month != null and search_month != "" and search_month != "ALL"'>
 			AND imsi_v_1 LIKE '%'||#{search_month}||'%'
 		</if>
-		/*북부도서관 전시회 일정 기준 조건 추가*/
-<!--		<if test='manage_idx == 145 and homepage_id == "h7" ' >
-			AND to_date(substring(TRIM(imsi_v_1), 12 , 10), 'yyyy-MM-dd') > TO_DATE(SYSDATE, 'yyyy-MM-dd')
-		</if>-->
-		/*북부도서관 영화상영 일정 기준 조회 조건추가*/
-		<if test='manage_idx == 157 and homepage_id == "h7" '>
-			AND to_date(CONCAT(TRIM(imsi_v_1),TRIM(imsi_v_2)), 'YYYY-MM-DD')  >  TO_DATE(SYSDATE, 'yyyy-MM-dd')
-		</if>
     </sql>
 
     <sql id="private_homepage_id_list">
@@ -2394,6 +2386,10 @@
 		</if>
 		<if test="homepage_id == 'h7' and manage_idx == 157">
 			AND imsi_v_1 = TO_CHAR(SYSDATE, 'yyyy-MM')
+		</if>
+		/*북부도서관 영화상영 일정 기준 조회 조건추가*/
+		<if test="manage_idx == 157 and homepage_id == 'h7'">
+			AND to_date((TRIM(imsi_v_1)||'-'||TRIM(imsi_v_2)), 'yyyy-MM-dd')  >=  TO_DATE(SYSDATE, 'yyyy-MM-dd')
 		</if>
 		ORDER BY
 		<choose>
