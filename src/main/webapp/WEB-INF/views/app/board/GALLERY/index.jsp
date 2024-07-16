@@ -26,6 +26,14 @@
 				return false;
 			});
 		}
+
+		if(homepage_id == "h8" && manage_idx == "1207"){
+			$(document).bind("contextmenu", function (e) {
+				alert("우측 마우스를 사용할 수 없습니다.");
+				e.preventDefault();
+				return false;
+			});
+		}
 	});	
 
 </script>

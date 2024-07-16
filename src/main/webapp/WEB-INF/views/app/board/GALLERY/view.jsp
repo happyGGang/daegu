@@ -12,9 +12,16 @@ ${boardManage.top_html}
 	$(function() {
 		var homepage_id = $("#homepage_id").val();
 		var manage_idx = ${boardManage.manage_idx};
-		console.log(homepage_id);
-		console.log(manage_idx);
-		if(homepage_id == "h10" && manage_idx == "993"){ //로컬 328
+
+		if(homepage_id == "h10" && manage_idx == "993"){
+			$(document).bind("contextmenu", function (e) {
+				alert("우측 마우스를 사용할 수 없습니다.");
+				e.preventDefault();
+				return false;
+			});
+		}
+
+		if(homepage_id == "h8" && manage_idx == "1207"){
 			$(document).bind("contextmenu", function (e) {
 				alert("우측 마우스를 사용할 수 없습니다.");
 				e.preventDefault();
