@@ -119,16 +119,25 @@ $(function() {
 		var month = sysDate.getMonth()+1;
 		//년도 초기화 (내년 일정 까지 볼수 있게 하려고 + 1함)
 		var planDate = '${board.plan_date}'.split('-');
-		for ( var i = 0; i < 15; i ++ ) {
-			var optionYear = (year + 1 - i);
-			var selectedAttr = '';
 
-			if ( optionYear == planDate[0] ) {
-				selectedAttr = 'selected="selected"';
+		var homepage_id = $("#homepage_id").val();
+		var manage_idx = ${board.manage_idx};
+
+		if(homepage_id == "h7" && manage_idx == "157"){
+			$('#plan_year').append('<option ' + 'selected="selected"' + ' value="' + planDate[0] + '">' + planDate[0] + '년</option>');
+		} else {
+			for ( var i = 0; i < 15; i ++ ) {
+				var optionYear = (year + 1 - i);
+				var selectedAttr = '';
+
+				if ( optionYear == planDate[0] ) {
+					selectedAttr = 'selected="selected"';
+				}
+
+				$('#plan_year').append('<option ' + selectedAttr + ' value="' + optionYear + '">' + optionYear + '년</option>');
 			}
-
-			$('#plan_year').append('<option ' + selectedAttr + ' value="' + optionYear + '">' + optionYear + '년</option>');
 		}
+
 		// 월 초기화
 		for ( var j = 1; j < 13; j ++ ) {
 			var valueMonth = '0'+j;
@@ -215,6 +224,7 @@ ${boardManage.top_html}
 <jsp:include page="/WEB-INF/views/app/board/common/index/script.jsp" flush="false" />
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="index.do" method="get" onsubmit="return false;">
+<input type="hidden" id ="homepage_id" value ="${homepage.homepage_id}"/>
 <form:hidden path="category1"/>
 <form:hidden path="plan_date"/>
 <jsp:include page="/WEB-INF/views/app/board/common/form_param.jsp" flush="false" />
