@@ -84,6 +84,7 @@ public class LoginAPI {
 				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
 				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
 				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
+				member.setLill_stop_date(String.valueOf(userMap.get("LILL_STOP_DATE")));
 
 				try {
 					Map<String, Object> libSettingInfoView = LibSearchAPI.getLibSettingInfoView(member.getUser_manage_code(), null, null, null, null, null);
@@ -257,6 +258,7 @@ public class LoginAPI {
 				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
 				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
 				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
+				member.setLill_stop_date(String.valueOf(userMap.get("LILL_STOP_DATE")));
 
 				return member;
 			}
@@ -316,6 +318,7 @@ public class LoginAPI {
 				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
 				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
 				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
+				member.setLill_stop_date(String.valueOf(userMap.get("LILL_STOP_DATE")));
 
 				String zipcode = String.valueOf(userMap.get("H_ZIPCODE"));
 				if (StringUtils.isNotEmpty(zipcode) && !StringUtils.equals(zipcode, "null")) {
@@ -456,6 +459,7 @@ public class LoginAPI {
 				member.setUser_manage_code(String.valueOf(userMap.get("USER_MANAGE_CODE")));
 				member.setEmail_service_yn(String.valueOf(userMap.get("MAILING_USE_YN")));
 				member.setSms_service_yn(String.valueOf(userMap.get("SMS_USE_YN")));
+				member.setLill_stop_date(String.valueOf(userMap.get("LILL_STOP_DATE")));
 
 				String zipcode = String.valueOf(userMap.get("H_ZIPCODE"));
 				if (StringUtils.isNotEmpty(zipcode) && !StringUtils.equals(zipcode, "null")) {

@@ -170,6 +170,8 @@ public class Member extends PagingUtils implements Serializable {
 	private String bringIn;
 	private int log_idx;
 
+	private String lill_stop_date; //상호대차 신청 제한일 (YYYY/MM/DD)
+
 	public boolean getPrivateMemberYn(Homepage homepage) {
 		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
 			return true;
@@ -1216,5 +1218,12 @@ public class Member extends PagingUtils implements Serializable {
 	public void setLogin_id(String login_id) {
 		this.login_id = login_id;
 	}
-	
+
+	public String getLill_stop_date() {
+		return lill_stop_date;
+	}
+
+	public void setLill_stop_date(String lill_stop_date) {
+		this.lill_stop_date = lill_stop_date;
+	}
 }

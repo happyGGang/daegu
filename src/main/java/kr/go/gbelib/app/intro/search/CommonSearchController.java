@@ -3194,7 +3194,13 @@ public class CommonSearchController extends BaseController {
 
 		String loanStopDate = member.getLoan_stop_date();
 		if (StringUtils.isNotEmpty(loanStopDate) && StringUtils.length(loanStopDate) >= 10) {
-			service.alertMessage("현재 "+loanStopDate+"까지 대출정지상태입니다. 상호대차 신청은 이후에 가능합니다.", request, response);
+			service.alertMessage("현재 "+loanStopDate+" 까지 대출정지상태입니다. 상호대차 신청은 이후에 가능합니다.", request, response);
+			return null;
+		}
+
+		String lillStopDate = member.getLill_stop_date();
+		if (StringUtils.isNotEmpty(lillStopDate)) {
+			service.alertMessage("현재 "+lillStopDate+" 까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.", request, response);
 			return null;
 		}
 
@@ -3348,6 +3354,8 @@ public class CommonSearchController extends BaseController {
 		JsonResponse res = new JsonResponse(request);
 
 		Homepage homepage = getSessionHomepage(request);
+
+		Member member = getSessionMemberInfo(request);
 		
 		if (!StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
 			ValidationUtils.rejectIfEmpty(result, "uselibcode", "제공받을 도서관을 선택해주세요.");
@@ -3368,6 +3376,11 @@ public class CommonSearchController extends BaseController {
 		
 		if (!StringUtils.equals(getSessionMemberInfo(request).getKl_member_yn(), "Y")) {
 			result.reject("책이음회원이 아니므로 상호대차 신청이 불가능합니다");
+		}
+
+		String lillStopDate = member.getLill_stop_date();
+		if (StringUtils.isNotEmpty(lillStopDate)) {
+			result.reject("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
 		}
 
 		if (!result.hasErrors()) {
