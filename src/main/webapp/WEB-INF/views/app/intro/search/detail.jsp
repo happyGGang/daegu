@@ -152,7 +152,7 @@ $(function() {
 <!-- /contents-title-->
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <c:if test="${not empty param.startpoint}">
-	<form:hidden path="startpoint"/>
+	<input type="hidden" name="startpoint" value="${fn:escapeXml(param.startpoint)}">
 </c:if>
 <div class="search-wrap">
 	<div class="sview">
