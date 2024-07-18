@@ -17,36 +17,39 @@
 	<script type="text/javascript">
 	$(function() {
 		<c:if test="${context_path eq 'beomeo'}">
-			$("#manageCode").val("BD").prop("selected", true);
+		$("#manageCode").val("BD").prop("selected", true);
 		</c:if>
 		<c:if test="${context_path eq 'yonghak'}">
-			$("#manageCode").val("BE").prop("selected", true);
+		$("#manageCode").val("BE").prop("selected", true);
 		</c:if>
 		<c:if test="${context_path eq 'gosan'}">
-			$("#manageCode").val("BF").prop("selected", true);
+		$("#manageCode").val("BF").prop("selected", true);
 		</c:if>
 		<c:if test="${context_path eq 'bookforest'}">
-			$("#manageCode").val("BJ").prop("selected", true);
+		$("#manageCode").val("BJ").prop("selected", true);
 		</c:if>
 		<c:if test="${context_path eq 'mulmangi'}">
-			$("#manageCode").val("BK").prop("selected", true);
+		$("#manageCode").val("BK").prop("selected", true);
 		</c:if>
 		<c:if test="${context_path eq 'padong'}">
-			$("#manageCode").val("BG").prop("selected", true);
+		$("#manageCode").val("BG").prop("selected", true);
 		</c:if>
 		<c:if test="${context_path eq 'muhaksup'}">
-			$("#manageCode").val("BH").prop("selected", true);
+		$("#manageCode").val("BH").prop("selected", true);
+		</c:if>
+		<c:if test="${context_path eq 'suseongLake'}">
+		$("#manageCode").val("HS").prop("selected", true);
 		</c:if>
 
-		$('#save-btn').on('click', function(e) {
-			
+		$('#save-btn').on('click', function (e) {
+
 			<c:if test="${context_path eq 'bukgs' or context_path eq 'bukdh' or context_path eq 'buktj'}">
-				var isbn = reqHopeForm.isbn.value;
-				if (isbn == '') {
-					alert('ISBN을 입력하세요.');
-					$('input#isbn').focus();
-					return false;
-				}
+			var isbn = reqHopeForm.isbn.value;
+			if (isbn == '') {
+				alert('ISBN을 입력하세요.');
+				$('input#isbn').focus();
+				return false;
+			}
 			</c:if>
 
 			if ($('input#price').val() != '') {
@@ -64,7 +67,7 @@
 				}
 			}
 
-			if ( doAjaxPost($('#reqHopeForm')) ) {
+			if (doAjaxPost($('#reqHopeForm'))) {
 				doGetLoad('index.do');
 			}
 			e.preventDefault();
@@ -72,7 +75,7 @@
 
 		doAjaxLoad('div#searchBox', 'search.do?manageCode=${context_path}');
 	});
-	$(document).on("keyup", "input:text[numberOnly]", function() {
+	$(document).on("keyup", "input:text[numberOnly]", function () {
 		$(this).val($(this).val().replace(/[^0-9]/gi, ""));
 	});
 	</script>
@@ -290,7 +293,7 @@
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
-				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol'}">
+				<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'suseongLake'}">
 				<form:select path="manageCode">
 					<form:option value="BD">범어도서관</form:option>
 					<form:option value="BE">용학도서관</form:option>
@@ -299,6 +302,7 @@
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
 					<form:option value="BH">무학숲도서관</form:option>
+					<form:option value="HS">수성못그림책도서관</form:option>
 				</form:select> <!-- * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다. * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. -->
 				</c:when>
 
@@ -312,6 +316,7 @@
 					<form:option value="BK">물망이도서관</form:option>
 					<form:option value="BG">파동도서관</form:option>
 					<form:option value="BH">무학숲도서관</form:option>
+					<form:option value="HS">수성못그림책도서관</form:option>
 				</form:select> <!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다. -->
 				</c:when>
 

@@ -179,6 +179,7 @@
 					<option value="BE">용학도서관</option>
 					<option value="BG">파동도서관</option>
 					<option value="BH">무학숲도서관</option>
+					<option value="HS">수성못그림책도서관</option>
 				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
@@ -188,7 +189,7 @@
 				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
-				<c:when test="${homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol' || homepagePath eq 'goldbook'}">
+				<c:when test="${homepagePath eq 'bookforest' || homepagePath eq 'mulmangi' || homepagePath eq 'padong' || homepagePath eq 'muhaksup' || homepagePath eq 'sawol' || homepagePath eq 'goldbook' || homepagePath eq 'suseongLake'}">
 				<select name="manageCode" id="manageCode" class="new_select_box">
 					<option value="BD">범어도서관</option>
 					<option value="BE">용학도서관</option>
@@ -198,6 +199,7 @@
 					<option value="BG">파동도서관</option>
 					<option value="BH">무학숲도서관</option>
 					<option value="HR">황금책문화센터</option>
+					<option value="HS">수성못그림책도서관</option>
 				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
 				</c:when>
 
@@ -483,7 +485,6 @@
 					<option value="NG">점자도서관</option>
 				</select>
 				</c:when>
-
 
 				<c:otherwise>
 				<form:select path="manageCode">
