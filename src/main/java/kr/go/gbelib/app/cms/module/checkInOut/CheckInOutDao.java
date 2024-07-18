@@ -48,4 +48,13 @@ public interface CheckInOutDao {
 
 	public List<CheckInOut> getCheckInUserBringIn(CheckInOut checkInOut);
 
+	public int addCheckInOutNotice(CheckInOut checkInOut);
+
+	public int modifyCheckInOutNotice(CheckInOut checkInOut);
+
+	public int deleteCheckInOutNotice(CheckInOut checkInOut);
+
+	public int checkNoticeCount(CheckInOut checkInOut);
+
+	CheckInOut getCheckInOutNotice(CheckInOut checkInOut);
 }

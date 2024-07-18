@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.whalesoft.app.board.Board;
 import kr.co.whalesoft.app.board.BoardService;
@@ -52,6 +53,13 @@ import kr.co.whalesoft.framework.utils.WebFilterCheckUtils;
 import kr.go.gbelib.app.cms.module.blackList.BlackList;
 import kr.go.gbelib.app.cms.module.blackList.BlackListService;
 import kr.go.gbelib.app.cms.module.checkInOut.CheckInOut;
+import kr.go.gbelib.app.cms.module.checkInOut.CheckInOutService;
+import kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey;
+import kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurveyService;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestion;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestionService;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReq;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReqService;
 import kr.go.gbelib.app.cms.module.culture.Culture;
 import kr.go.gbelib.app.cms.module.culture.CultureService;
 import kr.go.gbelib.app.cms.module.elib.book.Book;
@@ -173,6 +181,18 @@ public class IndexController extends BaseController {
 	
 	@Autowired
 	private BlackListService blackListService;
+
+	@Autowired
+	private CheckInOutService checkInOutService;
+
+	@Autowired
+	private CheckInOutSurveyService checkInOutSurveyService;
+
+	@Autowired
+	private CheckInOutSurveyReqService checkInOutSurveyReqService;
+
+	@Autowired
+	private CheckInOutSurveyQuestionService checkInOutSurveyQuestionService;
 
 	@RequestMapping(value = { "index.*" })
 	public String index(Model model, HttpServletRequest request) {
@@ -1694,19 +1714,27 @@ public class IndexController extends BaseController {
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
 
+		checkInOut.setHomepage_id(homepage.getHomepage_id());
+
 		String queryString = request.getQueryString();
 		if (queryString != null && queryString.contains("before_url")) {
 			queryString = queryString.replace("before_url=", "");
 			sessionMemberInfo.setBefore_url(queryString);
 		}
-		
-		model.addAttribute("member", sessionMemberInfo);
-		model.addAttribute("checkInOut", checkInOut);
+
+		int noticeUseYn = checkInOutService.checkNoticeCount(checkInOut);
 
 		String filePath = "";
-		if (homepage != null) {
+		if (homepage != null && noticeUseYn != 1) {
 			filePath = homepage.getFolder() + "/kiosk/checkInIndex";
+		} else if (noticeUseYn == 1) {
+			checkInOut = checkInOutService.getCheckInOutNotice(checkInOut);
+
+			filePath = homepage.getFolder() + "/kiosk/index";
 		}
+
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
 
 		return basePath + filePath;
 	}
@@ -1733,9 +1761,9 @@ public class IndexController extends BaseController {
 
 		return basePath + filePath;
 	}
-	
-	@RequestMapping(value = {"/{contextPath}/kiosk/checkOut.*"})
-	public String checkOut(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
+
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkInKeyboard.*"})
+	public String checkInKeyboard(Model model, Member member, CheckInOut checkInOut, CheckInOutSurvey checkInOutSurvey, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
@@ -1745,7 +1773,39 @@ public class IndexController extends BaseController {
 			queryString = queryString.replace("before_url=", "");
 			sessionMemberInfo.setBefore_url(queryString);
 		}
-		
+
+		model.addAttribute("member", sessionMemberInfo);
+		model.addAttribute("checkInOut", checkInOut);
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkInKeyboard";
+		}
+
+		return basePath + filePath;
+	}
+
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkOut.*"})
+	public String checkOut(Model model, Member member, CheckInOut checkInOut, CheckInOutSurvey checkInOutSurvey, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		Member sessionMemberInfo = getSessionMemberInfo(request);
+
+		String queryString = request.getQueryString();
+		if (queryString != null && queryString.contains("before_url")) {
+			queryString = queryString.replace("before_url=", "");
+			sessionMemberInfo.setBefore_url(queryString);
+		}
+
+		checkInOutSurvey.setHomepage_id(homepage.getHomepage_id());
+		boolean checkSurveyUseYn = checkInOutSurveyService.checkSurveyUseYn(checkInOutSurvey);
+
+		if (checkSurveyUseYn) {
+			checkInOut.setSurvey_use_yn("Y");
+		} else {
+			checkInOut.setSurvey_use_yn("N");
+		}
+
 		model.addAttribute("member", sessionMemberInfo);
 		model.addAttribute("checkInOut", checkInOut);
 
@@ -1757,31 +1817,8 @@ public class IndexController extends BaseController {
 		return basePath + filePath;
 	}
 	
-	@RequestMapping(value = {"/{contextPath}/kiosk/checkInKeyboard.*"})
-	public String checkInKeyboard(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
-		Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-		Member sessionMemberInfo = getSessionMemberInfo(request);
-
-		String queryString = request.getQueryString();
-		if (queryString != null && queryString.contains("before_url")) {
-			queryString = queryString.replace("before_url=", "");
-			sessionMemberInfo.setBefore_url(queryString);
-		}
-		
-		model.addAttribute("member", sessionMemberInfo);
-		model.addAttribute("checkInOut", checkInOut);
-
-		String filePath = "";
-		if (homepage != null) {
-			filePath = homepage.getFolder() + "/kiosk/checkInKeyboard";
-		}
-
-		return basePath + filePath;
-	}
-	
 	@RequestMapping(value = {"/{contextPath}/kiosk/checkOutKeyboard.*"})
-	public String checkOutKeyboard(Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, @PathVariable String contextPath) {
+	public String checkOutKeyboard(Model model, Member member, CheckInOut checkInOut, CheckInOutSurvey checkInOutSurvey, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		Member sessionMemberInfo = getSessionMemberInfo(request);
@@ -1790,6 +1827,15 @@ public class IndexController extends BaseController {
 		if (queryString != null && queryString.contains("before_url")) {
 			queryString = queryString.replace("before_url=", "");
 			sessionMemberInfo.setBefore_url(queryString);
+		}
+
+		checkInOutSurvey.setHomepage_id(homepage.getHomepage_id());
+		boolean checkSurveyUseYn = checkInOutSurveyService.checkSurveyUseYn(checkInOutSurvey);
+
+		if (checkSurveyUseYn) {
+			checkInOut.setSurvey_use_yn("Y");
+		} else {
+			checkInOut.setSurvey_use_yn("N");
 		}
 		
 		model.addAttribute("member", sessionMemberInfo);
@@ -1798,6 +1844,41 @@ public class IndexController extends BaseController {
 		String filePath = "";
 		if (homepage != null) {
 			filePath = homepage.getFolder() + "/kiosk/checkOutKeyboard";
+		}
+
+		return basePath + filePath;
+	}
+
+	@RequestMapping(value = {"/{contextPath}/kiosk/checkInSurveyIndex.*"})
+	public String checkInSurveyIndex(Model model, Member member, CheckInOut checkInOut, CheckInOutSurvey checkInOutSurvey, CheckInOutSurveyReq checkInOutSurveyReq, CheckInOutSurveyQuestion checkInOutSurveyQuestion, HttpServletRequest request, @PathVariable String contextPath) {
+		HttpSession session = request.getSession();
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		checkInOutSurveyReq.setHomepage_id(homepage.getHomepage_id());
+		checkInOutSurvey.setHomepage_id(homepage.getHomepage_id());
+		checkInOutSurvey = checkInOutSurveyService.getNowCheckInOutSurvey(checkInOutSurvey);
+
+		checkInOutSurveyQuestion.setHomepage_id(homepage.getHomepage_id());
+		checkInOutSurveyQuestion.setCheckinout_survey_idx(checkInOutSurvey.getCheckinout_survey_idx());
+		checkInOutSurveyReq.setCheckinout_survey_idx(checkInOutSurvey.getCheckinout_survey_idx());
+
+		String checkOut_msg = (String) session.getAttribute("checkOut_msg");
+		checkInOutSurveyReq.setCheckOut_msg(checkOut_msg);
+
+		String member_age = (String) session.getAttribute("member_age");
+		checkInOutSurveyReq.setMember_age(member_age);
+
+		String member_sex = (String) session.getAttribute("member_sex");
+		checkInOutSurveyReq.setMember_sex(member_sex);
+
+		model.addAttribute("checkInOut", checkInOut);
+		model.addAttribute("checkInOutSurvey", checkInOutSurvey);
+		model.addAttribute("checkInOutSurveyReq", checkInOutSurveyReq);
+		model.addAttribute("checkInOutSurveyQuestionList", checkInOutSurveyQuestionService.getQuizQuestionList(checkInOutSurveyQuestion));
+
+		String filePath = "";
+		if (homepage != null) {
+			filePath = homepage.getFolder() + "/kiosk/checkInSurveyIndex";
 		}
 
 		return basePath + filePath;

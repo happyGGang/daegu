@@ -50,7 +50,6 @@ $(function(){
 		$('#checkInOut').attr('action', 'csvDownload.do').submit();
 		e.preventDefault();
 	});
-	
 });
 
 function checkOutAll() {
@@ -179,7 +178,7 @@ function checkOutAll() {
 		</c:forEach>
 		<c:if test="${paging.totalDataCount <= 0}">
 				<tr>
-					<td colspan="12">조회된 자료가 없습니다.</td>
+					<td colspan="13">조회된 자료가 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

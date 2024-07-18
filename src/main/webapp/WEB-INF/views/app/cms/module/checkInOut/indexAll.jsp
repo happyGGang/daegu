@@ -75,6 +75,7 @@ $(function(){
 		<li><a href="/cms/module/checkInOut/chartIndex.do" style="font-size: 13px;">방문자수 통계</a></li>
 		<li><a href="/cms/module/checkInOut/usageRanking.do" style="font-size: 13px;">이용순위 통계</a></li>
 		<li><a href="/cms/module/checkInOut/hoursOfUse.do" style="font-size: 13px;">이용시간 통계</a></li>
+		<li><a href="/cms/module/checkInOut/checkInSurvey.do" style="font-size: 13px;">이용장소 통계</a></li>
 	</ul>
 </div>
 		

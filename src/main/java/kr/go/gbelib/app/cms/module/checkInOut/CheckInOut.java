@@ -36,7 +36,19 @@ public class CheckInOut extends PagingUtils{
 
 	private String visit_status; //재방문여부
 
-	
+	private int checkinout_notice_idx;  //공지IDX
+	private String checkinout_notice_name;  //공지제목
+	private String checkinout_notice_start_date;  //공지시작날짜
+	private String checkinout_notice_end_date;  //공지종료날짜
+	private String delete_yn;  //삭제여부
+	private String use_yn;  //사용여부
+	private String add_date;  //등록일시
+	private String add_id;  //등록ID
+	private String modify_date;  //수정일시
+	private String modify_id;  //수정ID
+
+	private String survey_use_yn;	//설문조사 사용유무
+
 	public int getCheckInOut_idx() {
 		return checkInOut_idx;
 	}
@@ -211,5 +223,93 @@ public class CheckInOut extends PagingUtils{
 
 	public void setVisit_status(String visit_status) {
 		this.visit_status = visit_status;
+	}
+
+	public int getCheckinout_notice_idx() {
+		return checkinout_notice_idx;
+	}
+
+	public void setCheckinout_notice_idx(int checkinout_notice_idx) {
+		this.checkinout_notice_idx = checkinout_notice_idx;
+	}
+
+	public String getCheckinout_notice_name() {
+		return checkinout_notice_name;
+	}
+
+	public void setCheckinout_notice_name(String checkinout_notice_name) {
+		this.checkinout_notice_name = checkinout_notice_name;
+	}
+
+	public String getCheckinout_notice_start_date() {
+		return checkinout_notice_start_date;
+	}
+
+	public void setCheckinout_notice_start_date(String checkinout_notice_start_date) {
+		this.checkinout_notice_start_date = checkinout_notice_start_date;
+	}
+
+	public String getCheckinout_notice_end_date() {
+		return checkinout_notice_end_date;
+	}
+
+	public void setCheckinout_notice_end_date(String checkinout_notice_end_date) {
+		this.checkinout_notice_end_date = checkinout_notice_end_date;
+	}
+
+	public String getDelete_yn() {
+		return delete_yn;
+	}
+
+	public void setDelete_yn(String delete_yn) {
+		this.delete_yn = delete_yn;
+	}
+
+	public String getUse_yn() {
+		return use_yn;
+	}
+
+	public void setUse_yn(String use_yn) {
+		this.use_yn = use_yn;
+	}
+
+	public String getAdd_date() {
+		return add_date;
+	}
+
+	public void setAdd_date(String add_date) {
+		this.add_date = add_date;
+	}
+
+	public String getAdd_id() {
+		return add_id;
+	}
+
+	public void setAdd_id(String add_id) {
+		this.add_id = add_id;
+	}
+
+	public String getModify_date() {
+		return modify_date;
+	}
+
+	public void setModify_date(String modify_date) {
+		this.modify_date = modify_date;
+	}
+
+	public String getModify_id() {
+		return modify_id;
+	}
+
+	public void setModify_id(String modify_id) {
+		this.modify_id = modify_id;
+	}
+
+	public String getSurvey_use_yn() {
+		return survey_use_yn;
+	}
+
+	public void setSurvey_use_yn(String survey_use_yn) {
+		this.survey_use_yn = survey_use_yn;
 	}
 }

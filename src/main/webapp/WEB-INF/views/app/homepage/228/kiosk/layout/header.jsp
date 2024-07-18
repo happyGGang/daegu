@@ -20,8 +20,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.alert.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
+
 <link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/common/default.css"  />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/default.css"  />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/kiosk/greennew.css">
 
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
@@ -31,8 +33,12 @@
 <script type="text/javascript" src="/resources/common/js/jquery.alert.js"></script>
 <script type="text/javascript" src="/resources/common/js/default.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
+
 <script type="text/javascript" src="/resources/board/js/common.js"></script>
 <script type="text/javascript" src="/resources/book/intro/js/common.js"></script>
+
+<script type="text/javascript" src="/resources/common/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/greennew.js"></script>
 </head>
 <!-- <body oncontextmenu='return false'> -->
 <body>

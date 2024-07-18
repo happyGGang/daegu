@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReqDao">
+	
+	<select id="getQuizReqList" resultType="kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReq">
+		${pagingTop}
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_req_idx, checkinout_survey_answer, member_age,
+			member_sex, TO_CHAR(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date
+		FROM
+			CHECKINOUT_SURVEY_REQ
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_idx = #{checkinout_survey_idx}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY checkinout_survey_req_idx
+		${pagingBottom}
+	</select>
+	
+	<select id="getQuizReqListAll" resultType="kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReq">
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_req_idx, checkinout_survey_answer, member_age,
+			member_sex, TO_CHAR(add_date, 'yyyy-mm-dd hh24:mi:ss') as add_date
+		FROM
+			CHECKINOUT_SURVEY_REQ
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_idx = #{checkinout_survey_idx}
+		ORDER BY checkinout_survey_req_idx
+	</select>
+	
+	<select id="getQuizReqListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CHECKINOUT_SURVEY_REQ
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_idx = #{checkinout_survey_idx}
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY
+			checkinout_survey_req_idx
+	</select>
+	
+	<insert id="addQuizReq">
+		<selectKey keyProperty="checkinout_survey_req_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(checkinout_survey_req_idx),0)+1 FROM CHECKINOUT_SURVEY_REQ WHERE HOMEPAGE_ID = #{homepage_id} AND checkinout_survey_idx = #{checkinout_survey_idx}
+		</selectKey>
+		INSERT INTO CHECKINOUT_SURVEY_REQ
+		(
+			homepage_id, checkinout_survey_idx, checkinout_survey_req_idx, checkinout_survey_answer, member_age,
+			member_sex, add_date
+		) VALUES (
+			#{homepage_id}, #{checkinout_survey_idx}, #{checkinout_survey_req_idx}, #{checkinout_survey_answer}, #{member_age},
+			#{member_sex}, SYSDATE
+		)
+	</insert>
+
+	<select id="getSurveyReqList" resultType="kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReq">
+		SELECT
+			member_age, member_sex,
+			(
+				SELECT
+					checkinout_survey_question_title
+				FROM
+					CHECKINOUT_SURVEY_QUESTION
+				WHERE
+					checkinout_survey_question_idx = checkinout_survey_answer
+				AND homepage_id = #{homepage_id}
+				<if test="checkinout_survey_idx != null and checkinout_survey_idx != ''">
+					AND checkinout_survey_idx = #{checkinout_survey_idx}
+				</if>
+			) AS checkinout_survey_answer,
+			SUM(req_count) AS req_count
+			FROM
+				(
+				SELECT
+					member_age, member_sex, checkinout_survey_answer, req_count
+				FROM
+				(
+				SELECT
+					checkinout_survey_req_idx, TO_NUMBER(SUBSTR(member_age, 1, 4)) AS member_age,
+					member_sex, REGEXP_SUBSTR(checkinout_survey_answer, '[^,]+', 1, LEVEL) AS checkinout_survey_answer, 1 AS req_count
+				FROM
+					CHECKINOUT_SURVEY_REQ
+				WHERE
+					homepage_id = #{homepage_id}
+				<if test="start_date != null and start_date != '' and end_date != null and end_date != ''">
+					AND TO_DATE(add_date,'yyyy-MM-dd') BETWEEN #{start_date} AND #{end_date}
+				</if>
+				<if test="checkinout_survey_idx != null and checkinout_survey_idx != ''">
+					AND checkinout_survey_idx = #{checkinout_survey_idx}
+				</if>
+				CONNECT BY LEVEL &lt;= LENGTH(REGEXP_REPLACE(checkinout_survey_answer, '[^,]+')) + 1
+				)
+			GROUP BY checkinout_survey_req_idx, member_age, member_sex, checkinout_survey_answer
+			ORDER BY checkinout_survey_answer
+			)
+		GROUP BY member_age, member_sex, checkinout_survey_answer
+	</select>
+</mapper>

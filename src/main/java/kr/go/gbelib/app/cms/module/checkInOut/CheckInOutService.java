@@ -2,6 +2,7 @@ package kr.go.gbelib.app.cms.module.checkInOut;
 
 import java.util.List;
 
+import kr.co.whalesoft.framework.utils.PagingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -101,4 +102,23 @@ public class CheckInOutService extends BaseService {
 		return dao.getCheckInUserBringIn(checkInOut);
 	}
 
+	public int addCheckInOutNotice(CheckInOut checkInOut) {
+		return dao.addCheckInOutNotice(checkInOut);
+	}
+
+	public int modifyCheckInOutNotice(CheckInOut checkInOut) {
+		return dao.modifyCheckInOutNotice(checkInOut);
+	}
+
+	public int deleteCheckInOutNotice(CheckInOut checkInOut) {
+		return dao.deleteCheckInOutNotice(checkInOut);
+	}
+
+	public int checkNoticeCount(CheckInOut checkInOut) {
+		return dao.checkNoticeCount(checkInOut);
+	}
+
+	public CheckInOut getCheckInOutNotice(CheckInOut checkInOut) {
+		return dao.getCheckInOutNotice(checkInOut);
+	}
 }

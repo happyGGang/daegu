@@ -1,0 +1,152 @@
+@charset 'utf-8';
+/**********************************************그린대로 메인**********************************************/
+.green-main-wrap { width: 100%; height: 3840px; text-align: center; background: url(../../img/kiosk/green_main_bg_02.png) no-repeat top center; background-size: cover; position: relative;}
+
+
+.green-main-wrap .title-box { text-align: center; padding-top: 540px; } 
+
+.green-main-wrap .title-box h2 { font-family: 'Pretendard'; font-size: 56px; font-weight: 200; letter-spacing: -0.5px; color: #fff; } 
+
+.green-main-wrap .title-box span { display: block; color: #fff; font-family: 'Pretendard'; font-size: 176px; letter-spacing: -0.025em; font-weight: 600; line-height: 115%; } 
+
+.green-main-wrap .title-box span.first-line { color: #ffffff; text-align: center; font-family: 'Pretendard'; font-size: 100px; line-height: 140%; letter-spacing: -0.025em; font-weight: 600; margin-bottom: 50px;}
+
+.green-main-wrap .title-box span b.orange { color: #ff8f5a; /* font-weight: normal; */}
+
+.green-main-wrap .img-box { } 
+
+.green-main-wrap .img-box>img { width: 1365px; height: 1273px; position: absolute; left: calc(50% - 639.96px); top: 2227.24px; object-fit: cover;}
+
+.name-bar { padding: 80px 0; width: 2160px; position: absolute; left: 0px; bottom: 0px; overflow: hidden; } 
+
+.name-bar p { color: #ffffff; text-align: center; font-family: 'Pretendard'; font-size: 32px; letter-spacing: 0.3em; font-weight: 400; text-transform: uppercase; } 
+
+
+/**********************************************그린대로 메인 반응형**********************************************/
+
+@media (max-width: 1080px){
+ .green-main-wrap { width: 100%; height: 1920px; background-size: cover; background-size: contain; } 
+
+ .green-main-wrap .title-box { padding-top: 270px; } 
+
+ .green-main-wrap .title-box h2 { font-size: 28px; letter-spacing: -0.5px; } 
+
+ .green-main-wrap .title-box span { font-size: 88px; } 
+
+ .green-main-wrap .title-box span.first-line { font-size: 50px; margin-bottom: 25px; } 
+
+
+ .green-main-wrap .img-box>img { width: 685px; height: 640px; position: absolute; left: calc(50% - 319.98px); top: 1113.62px; object-fit: contain;}
+
+ .name-bar { padding: 40px 0; width: 1080px; } 
+
+ .name-bar p { font-size: 16px; } 
+}
+
+
+/**********************************************그린대로 설문조사**********************************************/
+
+.survey-wrap { width: 100%; height: 100%; height: 3840px; background-color: #e4e4e4; text-align: center; } 
+
+.survey-wrap .header { position: relative; padding-top: 200px; box-sizing: border-box; text-align: center; } 
+.survey-wrap .header img { width: 600px; } 
+
+.survey-wrap .content { padding-top: 180px; box-sizing: border-box; text-align: center; } 
+
+.survey-wrap .check-box { } 
+
+.survey-wrap .check-box .title-box { display: flex; flex-direction: row; gap: 48px; align-items: center; /* justify-content: flex-start; */
+ justify-content: center; } 
+
+.survey-wrap .check-box .title-box .q-circle { background: #00ad95; border-radius: 100px; flex-shrink: 0; width: 128px; height: 128px; position: relative; overflow: hidden; } 
+
+.survey-wrap .check-box .title-box .q-circle .q-txt { color: var(--white, #ffffff); text-align: left; font-family: 'Pretendard'; font-size: 80px; line-height: 141%; letter-spacing: -0.025em; font-weight: 600; text-transform: uppercase; position: absolute; left: calc(50% - 30px); top: calc(50% - 56px); display: flex; align-items: center; /* justify-content: flex-start; */
+ justify-content: center; } 
+
+.survey-wrap .check-box .title-box .t-txt { color: #242424; text-align: left; font-family: 'Pretendard'; font-size: 96px; line-height: 140%; letter-spacing: -0.025em; font-weight: 600; text-transform: uppercase; position: relative; display: flex; align-items: center; justify-content: flex-start; } 
+
+
+.survey-wrap .check-box .use-list { width: 1600px; margin: 0 auto; } 
+
+.survey-wrap .check-box .use-list ul { font-size: 0; } 
+
+.survey-wrap .check-box .use-list ul li { display: inline-block; width: 50%; margin-top: 90px; } 
+
+.survey-wrap .check-box .use-list ul li span { display: block; position: relative; } 
+
+.survey-wrap .check-box .use-list ul li span.contents-box { padding-top: 40px; } 
+
+.survey-wrap .check-box .use-list ul li span.image-box img { width: 720px; border-radius: 40px; box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.1); } 
+
+.survey-wrap .check-box .use-list ul li span.image-box img.checking { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 240px; height: 240px; } 
+
+.survey-wrap .check-box .use-list ul li input { display: none; /* 필수 */}
+
+.survey-wrap .check-box .use-list ul li label { color: #242424; text-align: center; font-family: 'Pretendard'; font-size: 48px; line-height: 140%; letter-spacing: -0.025em; font-weight: 500; } 
+
+.survey-wrap .check-box .use-list ul li input+label { width: 720px; height: 120px; background: rgba(255, 255, 255, 0.7);border: 2px solid #f7f7f7; display: inline-block; cursor: pointer; border-radius: 40px; user-select: none; line-height: 250%; } 
+
+.survey-wrap .check-box .use-list ul li input:checked+label { background: rgba(0, 173, 149, 0.1); border: 2px solid #00ad95; } 
+
+.survey-wrap .check-box .use-list ul li input+label+label { font-size: 30px; position: relative; top: 6px; letter-spacing: -5px; cursor: pointer; user-select: none; } 
+
+.survey-wrap .check-box .survey-btn-box { padding-top: 100px; } 
+
+.survey-wrap .check-box .survey-btn-box a { display: block; color: var(--white, #ffffff); text-align: center; font-family: 'Pretendard'; font-size: 64px; font-weight: 600; width: 1520px; height: 200px; line-height: 200px; background: #00ad95; border-radius: 40px; margin: 0 auto; } 
+
+.name-bar.survey p { color: #acacac; text-align: center; font-family: 'Pretendard'; font-size: 32px; letter-spacing: 0.3em; font-weight: 400; text-transform: uppercase; } 
+
+.backbutton-sec img { width: 260px; } 
+
+
+
+
+
+/**********************************************그린대로 설문조사 반응형**********************************************/
+
+@media (max-width: 1080px) {.survey-wrap { height: 1920px; } 
+
+.survey-wrap .header { padding-top: 90px; } 
+.survey-wrap .header img { width: 300px; } 
+
+.survey-wrap .content { padding-top: 100px; } 
+
+.survey-wrap .check-box { } 
+
+.survey-wrap .check-box .title-box { gap: 24px; } 
+
+.survey-wrap .check-box .title-box .q-circle { width: 64px; height: 64px; } 
+
+.survey-wrap .check-box .title-box .q-circle .q-txt { font-size: 40px; position: absolute; left: calc(50% - 15px); top: calc(50% - 28px); } 
+
+.survey-wrap .check-box .title-box .t-txt { font-size: 48px; } 
+
+
+.survey-wrap .check-box .use-list { width: 800px; } 
+
+
+.survey-wrap .check-box .use-list ul li { margin-top: 45px; } 
+
+.survey-wrap .check-box .use-list ul li span { display: block; position: relative; } 
+
+.survey-wrap .check-box .use-list ul li span.contents-box { padding-top: 20px; } 
+
+.survey-wrap .check-box .use-list ul li span.image-box img { width: 360px; border-radius: 20px; box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.1); } 
+
+.survey-wrap .check-box .use-list ul li span.image-box img.checking { width: 120px; height: 120px; } 
+
+
+.survey-wrap .check-box .use-list ul li label { font-size: 24px; } 
+
+.survey-wrap .check-box .use-list ul li input+label { width: 360px; height: 60px; border-radius: 20px;border: 1px solid #f7f7f7; } 
+
+.survey-wrap .check-box .use-list ul li input:checked+label { border: 1px solid #00ad95; } 
+
+
+.survey-wrap .check-box .survey-btn-box { padding-top: 50px; } 
+
+.survey-wrap .check-box .survey-btn-box a { font-size: 32px; font-weight: 600; width: 760px; height: 100px; line-height: 100px; border-radius: 20px; } 
+
+.name-bar.survey p { font-size: 16px; } 
+.backbutton-sec img { width: 100%; } 
+ }

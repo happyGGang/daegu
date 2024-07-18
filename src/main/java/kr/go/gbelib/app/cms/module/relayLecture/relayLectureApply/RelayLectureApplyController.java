@@ -38,7 +38,7 @@ public class RelayLectureApplyController extends BaseController {
 		relayLectureApply.setHomepage_id(getAsideHomepageId(request));
 
 		@SuppressWarnings("unchecked")
-		Map<String, String> parameterMap = request.getParameterMap();
+		Map<String, String[]> parameterMap = request.getParameterMap();
 		if (parameterMap != null && !parameterMap.containsKey("reception_status")) {
 			relayLectureApply.setReception_status("");
 		}

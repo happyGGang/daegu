@@ -42,7 +42,16 @@ $(function() {
 	</div>
 	<div class="contents">
 		<div class="loginFormbox">
-			<form:form id="loginProc" modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" onsubmit="return false;">
+			<c:choose>
+				<c:when test="${checkInOut.survey_use_yn eq 'Y'}">
+					<c:set var="actionUrl" value="/intro/${homepage.context_path}/checkInOut/checkOutSurveyProc.do"/>
+				</c:when>
+				<c:otherwise>
+					<c:set var="actionUrl" value="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" />
+				</c:otherwise>
+			</c:choose>
+
+			<form:form id="loginProc" modelAttribute="member" action="${actionUrl}" onsubmit="return false;">
 				<form:hidden path="member_pw" cssStyle="display:none;" />
 				<form:hidden path="member_id"/>
 				<form:hidden path="before_url"/>

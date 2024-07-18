@@ -10,6 +10,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.framework.utils.ValidationUtils;
+import kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey;
+import kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurveyService;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestion;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestionService;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReq;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReqService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +41,15 @@ private final String basePath = "/cms/module/checkInOut/";
 	
 	@Autowired
 	private CheckInOutService service;
+
+	@Autowired
+	private CheckInOutSurveyService checkInOutSurveyService;
+
+	@Autowired
+	private CheckInOutSurveyQuestionService checkInOutSurveyQuestionService;
+
+	@Autowired
+	private CheckInOutSurveyReqService checkInOutSurveyReqService;
 	
 	@RequestMapping (value = {"/index.*"})
 	public String index(Model model, CheckInOut checkInOut, HttpServletRequest request) throws AuthException {
@@ -285,6 +301,61 @@ private final String basePath = "/cms/module/checkInOut/";
 		
 		return basePath + "hoursOfUse";
 	}
+
+	@RequestMapping (value = {"/checkInSurvey.*"})
+	public String checkInSurvey(Model model, CheckInOutSurveyReq checkInOutSurveyReq, CheckInOutSurvey checkInOutSurvey, CheckInOutSurveyQuestion checkInOutSurveyQuestion, HttpServletRequest request) throws AuthException {
+		checkAuth("R", model, request);
+
+		checkInOutSurveyReq.setHomepage_id(getAsideHomepageId(request));
+
+		if (StringUtils.isEmpty(checkInOutSurveyReq.getEnd_date())) {
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date now = new Date();
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+			cal.add(Calendar.MONTH, -1);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTime(now);
+			cal2.add(Calendar.MONTH, -1);
+			cal2.set(Calendar.DAY_OF_MONTH, cal2.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+			checkInOutSurveyReq.setStart_date(startDateFormat.format(cal.getTime()));
+			checkInOutSurveyReq.setEnd_date(endDateFormat.format(cal2.getTime()));
+		}
+
+		checkInOutSurvey.setHomepage_id(getAsideHomepageId(request));
+
+		List<CheckInOutSurvey> checkInOutSurveyList = checkInOutSurveyService.getCheckInOutSurveyList(checkInOutSurvey);
+
+		if (checkInOutSurvey.getCheckinout_survey_idx() == 0) {
+			checkInOutSurvey = checkInOutSurveyService.getNowCheckInOutSurvey(checkInOutSurvey);
+
+			checkInOutSurveyReq.setCheckinout_survey_idx(checkInOutSurvey.getCheckinout_survey_idx());
+			checkInOutSurveyQuestion.setCheckinout_survey_idx(checkInOutSurvey.getCheckinout_survey_idx());
+		}
+
+		Map<String, Integer> allUsers = new HashMap<String, Integer>();
+
+		List<CheckInOutSurveyReq> checkInUserAllList = checkInOutSurveyReqService.getSurveyReqList(checkInOutSurveyReq);
+		for(CheckInOutSurveyReq cio : checkInUserAllList) {
+			allUsers.put(cio.getCheckinout_survey_answer() + "." + cio.getMember_age() + "." + cio.getMember_sex(), cio.getReq_count());
+		}
+
+		checkInOutSurveyQuestion.setHomepage_id(getAsideHomepageId(request));
+		List<CheckInOutSurveyQuestion> questionList = checkInOutSurveyQuestionService.getQuizQuestionList(checkInOutSurveyQuestion);
+
+		//전체
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("checkInOutSurveyReq", checkInOutSurveyReq);
+		model.addAttribute("questionList", questionList);
+		model.addAttribute("checkInOutSurveyList", checkInOutSurveyList);
+
+		return basePath + "checkInSurvey";
+	}
 	
 	@RequestMapping (value = {"/checkOutAll.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse checkOutAll(CheckInOut checkInOut, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Throwable {
@@ -375,6 +446,59 @@ private final String basePath = "/cms/module/checkInOut/";
 		List<CheckInOut> cscList = service.getHourOfUseExcelList(checkInOut);
 		
 		return new HourOfUseExcelToCsv(checkInOut, cscList, request, response);
+	}
+
+	@RequestMapping (value = {"/checkInSurveyExcel.*"}, method = RequestMethod.POST)
+	public String checkInSurveyExcelDownload(Model model, CheckInOutSurveyReq checkInOutSurveyReq, CheckInOutSurvey checkInOutSurvey, CheckInOutSurveyQuestion checkInOutSurveyQuestion, HttpServletRequest request) {
+		checkInOutSurveyReq.setHomepage_id(getAsideHomepageId(request));
+
+		if (StringUtils.isEmpty(checkInOutSurveyReq.getEnd_date())) {
+			SimpleDateFormat startDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat endDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date now = new Date();
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(now);
+			cal.add(Calendar.MONTH, -1);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+
+			Calendar cal2 = Calendar.getInstance();
+			cal2.setTime(now);
+			cal2.add(Calendar.MONTH, -1);
+			cal2.set(Calendar.DAY_OF_MONTH, cal2.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+			checkInOutSurveyReq.setStart_date(startDateFormat.format(cal.getTime()));
+			checkInOutSurveyReq.setEnd_date(endDateFormat.format(cal2.getTime()));
+		}
+
+		checkInOutSurvey.setHomepage_id(getAsideHomepageId(request));
+
+		List<CheckInOutSurvey> checkInOutSurveyList = checkInOutSurveyService.getCheckInOutSurveyList(checkInOutSurvey);
+
+		if (checkInOutSurvey.getCheckinout_survey_idx() == 0) {
+			checkInOutSurvey = checkInOutSurveyService.getNowCheckInOutSurvey(checkInOutSurvey);
+
+			checkInOutSurveyReq.setCheckinout_survey_idx(checkInOutSurvey.getCheckinout_survey_idx());
+			checkInOutSurveyQuestion.setCheckinout_survey_idx(checkInOutSurvey.getCheckinout_survey_idx());
+		}
+
+		Map<String, Integer> allUsers = new HashMap<String, Integer>();
+
+		List<CheckInOutSurveyReq> checkInUserAllList = checkInOutSurveyReqService.getSurveyReqList(checkInOutSurveyReq);
+		for(CheckInOutSurveyReq cio : checkInUserAllList) {
+			allUsers.put(cio.getCheckinout_survey_answer() + "." + cio.getMember_age() + "." + cio.getMember_sex(), cio.getReq_count());
+		}
+
+		checkInOutSurveyQuestion.setHomepage_id(getAsideHomepageId(request));
+		List<CheckInOutSurveyQuestion> questionList = checkInOutSurveyQuestionService.getQuizQuestionList(checkInOutSurveyQuestion);
+
+		//전체
+		model.addAttribute("allUsers", allUsers);
+		model.addAttribute("checkInOutSurveyReq", checkInOutSurveyReq);
+		model.addAttribute("questionList", questionList);
+		model.addAttribute("checkInOutSurveyList", checkInOutSurveyList);
+
+		return basePath + "checkInSurveyExcel_ajax";
 	}
 	
 }

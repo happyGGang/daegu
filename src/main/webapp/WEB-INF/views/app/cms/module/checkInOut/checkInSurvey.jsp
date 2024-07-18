@@ -22,16 +22,16 @@ $(function(){
 	$('#searchBtn').on('click', function (e) {
 		e.preventDefault();
 		$('#viewPage').val(1);
-		doGetLoad('hoursOfUse.do', $('form#checkInOut').serialize());
+		doGetLoad('checkInSurvey.do', $('form#checkInOutSurveyReq').serialize());
 	});
 
 	$('a#excelDownload').on('click', function(e) {
-		$('#checkInOut').attr('action', 'hourOfUseExcelDownload.do').submit();
+		$('#checkInOutSurveyReq').attr('action', 'checkInSurveyExcel.do').submit();
 		e.preventDefault();
 	});
 	
 	$('a#csvDownload').on('click', function(e) {
-		$('#checkInOut').attr('action', 'hourOfUseCsvDownload.do').submit();
+		$('#checkInOutSurveyReq').attr('action', 'checkInSurveyCsvDownload.do').submit();
 		e.preventDefault();
 	});
 });
@@ -74,15 +74,21 @@ $(function(){
 		<li><a href="/cms/module/checkInOut/indexAll.do" style="font-size: 13px;">전체 통계</a></li>
 		<li><a href="/cms/module/checkInOut/chartIndex.do" style="font-size: 13px;">방문자수 통계</a></li>
 		<li><a href="/cms/module/checkInOut/usageRanking.do" style="font-size: 13px;">이용순위 통계</a></li>
-		<li><a href="/cms/module/checkInOut/hoursOfUse.do" class="active" style="font-size: 13px;">이용시간 통계</a></li>
-		<li><a href="/cms/module/checkInOut/checkInSurvey.do" style="font-size: 13px;">이용장소 통계</a></li>
+		<li><a href="/cms/module/checkInOut/hoursOfUse.do" style="font-size: 13px;">이용시간 통계</a></li>
+		<li><a href="/cms/module/checkInOut/checkInSurvey.do" class="active" style="font-size: 13px;">이용장소 통계</a></li>
 	</ul>
 </div>
-		
+
 <div class="search">
-	<form:form id="checkInOut" modelAttribute="checkInOut" action="/excelDownload.do" method="post" style="display:inline-flex">
-	<form:hidden id="homepageId" path="homepage_id" value="${asideHomepageId}"/>
+	<form:form id="checkInOutSurveyReq" modelAttribute="checkInOutSurveyReq" action="/checkInSurveyExcel.do" method="post" style="display:inline-flex">
+		<form:hidden id="homepageId" path="homepage_id" value="${asideHomepageId}"/>
 		<label class="blind">검색</label>
+		<form:select id="checkinout_survey_idx" path="checkinout_survey_idx" class="selectmenu-search" style="width:250px">
+			<option disabled >설문조사 선택</option>
+			<c:forEach var="i" varStatus="status" items="${checkInOutSurveyList}">
+				<option value="${i.checkinout_survey_idx}">${i.checkinout_survey_name}</option>
+			</c:forEach>
+		</form:select>
 		<b>
 			<form:input type="text" path="start_date" class="text ui-calendar"/>
 			<span id="tilde" style="font-size:12px">~</span>
@@ -90,42 +96,7 @@ $(function(){
 		</b>
 		<button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
 		<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
-		<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
+		<!-- 		<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a> -->
+		<jsp:include page="/WEB-INF/views/app/cms/module/checkInOut/survey_statics.jsp" flush="false"/>
 	</form:form>
 </div>
-
-<table id="accessTableData" class="chartData">
-<thead>
-	<tr>
-		<th width="200">시간</th>
-		<th>방문수</th>
-		<th>비율(%)</th>
-		<th>비고</th>
-	</tr>
-</thead>
-<tbody>
-	<c:forEach var="i" varStatus="status" items="${hoursOfUseList}">
-		<tr>
-			<td class="left">
-				${i.result_date}시
-			</td>
-			<td>${i.result_count}</td>
-			<td>
-			<c:choose>
-				<c:when test="${total_count == 0}"><em>(0%)</em></c:when>
-				<c:otherwise>
-				<em>(<fmt:formatNumber value="${i.result_count / total_count * 100}" pattern="0.00"/>%)</em>
-				</c:otherwise>
-			</c:choose>
-			</td>
-			<td></td>
-		</tr>
-	</c:forEach>
-</tbody>
-<tfoot>
-	<tr>
-		<th>합계</th>
-		<td colspan="3">${total_count}<em>(100%)</em></td>
-	</tr>
-</tfoot>
-</table>

@@ -7,6 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestion;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestionService;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReq;
+import kr.go.gbelib.app.cms.module.checkInOutSurveyReq.CheckInOutSurveyReqService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +36,12 @@ public class checkInOutController extends BaseController {
 	
 	@Autowired
 	private CheckInOutService checkInOutService;
+
+	@Autowired
+	private CheckInOutSurveyReqService checkInOutSurveyReqService;
+
+	@Autowired
+	private CheckInOutSurveyQuestionService checkInOutSurveyQuestionService;
 
 	@RequestMapping (value = {"/checkInProc.*"})
 	public String checkInProc(@PathVariable String context_path, Model model, Member member, CheckInOut checkInOut, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -128,7 +139,7 @@ public class checkInOutController extends BaseController {
 			session.invalidate();
 			return null;
 		}
-		
+
 		boolean isCheckOut = checkInOutService.isCheckOutCount(checkInOut);
 		
 		int checkOutCount = 0;
@@ -156,6 +167,76 @@ public class checkInOutController extends BaseController {
 				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), message, String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 				session.invalidate();
 				return null;
+			} else {
+				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n다시 한번 카드를 인식시켜 주세요.\\n다시 체크아웃 실패시 매니저에게 문의해주세요.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
+				session.invalidate();
+				return null;
+			}
+		} else {
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크인 기록이 없습니다.\\n체크인 해주세요.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
+			session.invalidate();
+			return null;
+		}
+	}
+
+	@RequestMapping (value = {"/checkOutSurveyProc.*"})
+	public String checkOutSurveyProc(@PathVariable String context_path, Model model, Member member, CheckInOut checkInOut, CheckInOutSurvey checkInOutSurvey, CheckInOutSurveyReq checkInOutSurveyReq, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+
+		Homepage homepage = getSessionHomepage(request);
+
+		String returnUrl = member.getBefore_url();
+
+		if (StringUtils.isEmpty(returnUrl)) {
+			returnUrl = String.format("%s/%s/checkInSurveyIndex.do", homepage.getDomain(), context_path+ "/kiosk");
+			if (request.getRequestURL().toString().contains("localhost")) {
+				returnUrl = String.format("%s/%s/checkInSurveyIndex.do", "http://localhost", context_path+ "/kiosk");
+			}
+		}
+
+		if (homepage != null && StringUtils.isNotEmpty(homepage.getManage_code())) {
+			member.setManage_code(homepage.getManage_code());
+		}
+
+		checkInOut.setHomepage_id(homepage.getHomepage_id());
+
+		checkInProc(member, checkInOut);
+
+		if(!member.isLogin()) {
+			checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n해당 정보와 일치하는 이용자가 없습니다.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
+			session.invalidate();
+			return null;
+		}
+
+		boolean isCheckOut = checkInOutService.isCheckOutCount(checkInOut);
+
+		int checkOutCount = 0;
+
+		if(isCheckOut) {
+			checkInOut = checkInOutService.isCheckIn(checkInOut);
+
+			checkOutCount = checkInOutService.checkOut(checkInOut);
+
+			if(checkOutCount > 0) {
+				checkInOut = checkInOutService.getCheckOutTime(checkInOut);
+
+				int time = Integer.parseInt(checkInOut.getCheckInOut_time());
+				int hour = (time / 60);
+				int minute = time-(hour*60);
+
+				String message = "";
+
+				if(hour > 0) {
+					message = "오늘도 "+hour+"시간 "+minute+"분 자신을 그려보았습니다. 또 만나요!";
+				} else {
+					message = "오늘도 " + minute + "분 자신을 그려보았습니다. 또 만나요!";
+				}
+
+				session.setAttribute("checkOut_msg", message);
+				session.setAttribute("member_age", checkInOut.getMember_birth());
+				session.setAttribute("member_sex", checkInOut.getMember_sex());
+
+				return "redirect:" + returnUrl;
 			} else {
 				checkInOutService.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "체크아웃에 실패하였습니다.\\n다시 한번 카드를 인식시켜 주세요.\\n다시 체크아웃 실패시 매니저에게 문의해주세요.", String.format("/%s/kiosk/checkInIndex.do", homepage.getContext_path()), request, response);
 				session.invalidate();

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurveyDao">
+
+	<select id="getQuizList" resultType="kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey">
+		${pagingTop}
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_name,
+			delete_yn, use_yn, add_id, add_date, modify_id, modify_date,
+			TO_CHAR(checkinout_survey_start_date, 'YYYY-MM-DD') as checkinout_survey_start_date,
+			TO_CHAR(checkinout_survey_end_date, 'YYYY-MM-DD') as checkinout_survey_end_date,
+			(SELECT COUNT(*) FROM CHECKINOUT_SURVEY_REQ WHERE homepage_id = a.homepage_id AND checkinout_survey_idx = a.checkinout_survey_idx) AS checkinout_survey_req_count
+		FROM
+			CHECKINOUT_SURVEY a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+		ORDER BY checkinout_survey_idx DESC
+		${pagingBottom}
+	</select>
+
+	<select id="getQuizListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CHECKINOUT_SURVEY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+		AND	${search_type} LIKE '%'||#{search_text}||'%'
+		</if>
+	</select>
+
+	<select id="getQuizOne" resultType="kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey">
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_name,
+			delete_yn, use_yn, add_id, add_date, modify_id, modify_date,
+			TO_CHAR(checkinout_survey_start_date, 'YYYY-MM-DD') as checkinout_survey_start_date,
+			TO_CHAR(checkinout_survey_end_date, 'YYYY-MM-DD') as checkinout_survey_end_date,
+			(SELECT COUNT(*) FROM CHECKINOUT_SURVEY_REQ WHERE homepage_id = a.homepage_id AND checkinout_survey_idx = a.checkinout_survey_idx) AS checkinout_survey_req_count
+		FROM
+			CHECKINOUT_SURVEY a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	checkinout_survey_idx = #{checkinout_survey_idx}
+		AND	delete_yn = 'N'
+	</select>
+
+	<insert id="addQuiz">
+		<selectKey keyProperty="checkinout_survey_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(checkinout_survey_idx),0)+1 FROM CHECKINOUT_SURVEY WHERE homepage_id = #{homepage_id}
+		</selectKey>
+
+		INSERT INTO CHECKINOUT_SURVEY
+		(
+			homepage_id, checkinout_survey_idx, checkinout_survey_name, checkinout_survey_start_date, checkinout_survey_end_date,
+			delete_yn, use_yn, add_id, add_date, modify_id, modify_date
+		) VALUES (
+			#{homepage_id}, #{checkinout_survey_idx}, #{checkinout_survey_name}, #{checkinout_survey_start_date}, #{checkinout_survey_end_date},
+			'N', #{use_yn}, #{add_id}, SYSDATE, #{modify_id}, #{modify_date}
+		)
+	</insert>
+
+	<update id="modifyQuiz">
+		UPDATE
+			CHECKINOUT_SURVEY
+		SET
+			checkinout_survey_name = #{checkinout_survey_name},
+			checkinout_survey_start_date = #{checkinout_survey_start_date},
+			checkinout_survey_end_date = #{checkinout_survey_end_date},
+			use_yn = #{use_yn},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	checkinout_survey_idx = #{checkinout_survey_idx}
+		AND	delete_yn = 'N'
+	</update>
+
+	<delete id="deleteQuiz">
+		UPDATE
+			CHECKINOUT_SURVEY
+		SET
+			delete_yn = 'Y',
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	checkinout_survey_idx = #{checkinout_survey_idx}
+	</delete>
+
+	<select id="checkSurveyUseYn" resultType="boolean">
+		SELECT
+			COUNT(*)
+		FROM
+			CHECKINOUT_SURVEY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(checkinout_survey_start_date, 'YYYY-MM-DD') AND TO_DATE(checkinout_survey_end_date, 'YYYY-MM-DD')
+	</select>
+
+	<select id="getNowCheckInOutSurvey" resultType="kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey">
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_name,
+			delete_yn, use_yn, add_id, add_date, modify_id, modify_date,
+			TO_CHAR(checkinout_survey_start_date, 'YYYY-MM-DD') as checkinout_survey_start_date,
+			TO_CHAR(checkinout_survey_end_date, 'YYYY-MM-DD') as checkinout_survey_end_date
+		FROM
+			CHECKINOUT_SURVEY a
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND	TO_DATE(SYSDATE, 'YYYY-MM-DD') BETWEEN TO_DATE(checkinout_survey_start_date, 'YYYY-MM-DD') AND TO_DATE(checkinout_survey_end_date, 'YYYY-MM-DD')
+	</select>
+
+	<select id="checkSurveyExists" resultType="boolean">
+		SELECT
+			COUNT(*)
+		FROM
+			CHECKINOUT_SURVEY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		<if test='checkinout_survey_idx != null and !checkinout_survey_idx.equals("0") and checkinout_survey_idx != "0"'>
+			AND checkinout_survey_idx != #{checkinout_survey_idx}
+		</if>
+		AND	checkinout_survey_start_date &lt; TO_DATE(#{checkinout_survey_end_date}, 'YYYY-MM-DD')
+		AND checkinout_survey_end_date > TO_DATE(#{checkinout_survey_start_date}, 'YYYY-MM-DD')
+	</select>
+
+	<select id="getCheckInOutSurveyList" resultType="kr.go.gbelib.app.cms.module.checkInOutSurvey.CheckInOutSurvey">
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_name,
+			delete_yn, use_yn, add_id, add_date, modify_id, modify_date,
+			TO_CHAR(checkinout_survey_start_date, 'YYYY-MM-DD') as checkinout_survey_start_date,
+			TO_CHAR(checkinout_survey_end_date, 'YYYY-MM-DD') as checkinout_survey_end_date
+		FROM
+			CHECKINOUT_SURVEY
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		ORDER BY checkinout_survey_idx DESC
+	</select>
+</mapper>

@@ -386,4 +386,76 @@
 		WHERE gubun = '1'
 		GROUP BY member_birth, member_sex, checkin_time
 	</select>
+
+	<insert id="addCheckInOutNotice">
+		<selectKey keyProperty="checkinout_notice_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(checkinout_notice_idx), 0)+1 FROM CHECKINOUT_SETTING
+		</selectKey>
+		INSERT INTO CHECKINOUT_SETTING
+		(
+			homepage_id, checkinout_notice_idx, checkinout_notice_name, delete_yn, use_yn,
+			checkinout_notice_start_date, checkinout_notice_end_date, add_date, add_id, modify_date,
+			modify_id
+		)
+		VALUES
+		(
+			#{homepage_id}, #{checkinout_notice_idx}, #{checkinout_notice_name}, 'N', 'Y',
+			#{checkinout_notice_start_date}, #{checkinout_notice_end_date}, SYSDATE, #{add_id}, #{modify_date},
+			#{modify_id}
+		)
+	</insert>
+
+	<update id="modifyCheckInOutNotice">
+		UPDATE
+			CHECKINOUT_SETTING
+		SET
+			checkinout_notice_name = #{checkinout_notice_name},
+			use_yn = #{use_yn},
+			checkinout_notice_start_date = #{checkinout_notice_start_date},
+			checkinout_notice_end_date = #{checkinout_notice_end_date},
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	checkinout_notice_idx = #{checkinout_notice_idx}
+	</update>
+
+	<update id="deleteCheckInOutNotice">
+		UPDATE
+			CHECKINOUT_SETTING
+		SET
+			delete_yn = 'Y',
+			use_yn = 'N',
+			modify_id = #{modify_id},
+			modify_date = SYSDATE
+		WHERE
+			homepage_id = #{homepage_id}
+		AND delete_yn = 'Y'
+		AND	checkinout_notice_idx = #{checkinout_notice_idx}
+	</update>
+
+	<select id="checkNoticeCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			CHECKINOUT_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND use_yn = 'Y'
+	</select>
+
+	<select id="getCheckInOutNotice" resultType="kr.go.gbelib.app.cms.module.checkInOut.CheckInOut">
+		SELECT
+			homepage_id, checkinout_notice_idx, checkinout_notice_name, delete_yn, use_yn,
+			TO_CHAR(checkinout_notice_start_date,'yyyy-MM-dd') as checkinout_notice_start_date,
+			TO_CHAR(checkinout_notice_end_date,'yyyy-MM-dd') as checkinout_notice_end_date,
+			add_date, add_id, modify_date, modify_id
+		FROM
+			CHECKINOUT_SETTING
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	delete_yn = 'N'
+		AND use_yn = 'Y'
+	</select>
 </mapper>

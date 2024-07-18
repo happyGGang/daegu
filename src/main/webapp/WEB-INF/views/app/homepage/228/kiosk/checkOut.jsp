@@ -185,7 +185,16 @@ function checkYn() {
 			<img src="https://library.daegu.go.kr/resources/common/img/kiosk/bc_sample.png" alt="카드 리더기">
 		</div>
 
-		<form:form modelAttribute="member" action="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" autocomplete="off" accept-charset="utf-8">
+		<c:choose>
+			<c:when test="${checkInOut.survey_use_yn eq 'Y'}">
+				<c:set var="actionUrl" value="/${homepage.context_path}/kiosk/checkOutSurveyProc.do"/>
+			</c:when>
+			<c:otherwise>
+				<c:set var="actionUrl" value="/intro/${homepage.context_path}/checkInOut/checkOutProc.do" />
+			</c:otherwise>
+		</c:choose>
+
+		<form:form modelAttribute="member" action="${actionUrl}" autocomplete="off" accept-charset="utf-8">
 			<form:hidden path="before_url"/>
 			<form:hidden path="loginType" value="card"/>
 			<div id="login-form2" style="z-index:100000;position:absolute;top:-100px;left:-150000px">
@@ -197,7 +206,7 @@ function checkYn() {
 			모바일회원증 혹은 대출증을 리더기에 인식시켜주세요
 		</div>
 		<div class="commentarea">
-			<a href="javascript:void(0);" onclick="checkYn();" return false;>아이디/패스워드로 체크인하기</a>
+			<a href="javascript:void(0);" onclick="checkYn();" return false;>아이디/패스워드로 체크아웃하기</a>
 		</div>
 		<form:form modelAttribute="checkInOut" action="/${homepage.context_path}/kiosk/checkOutKeyboard.do" autocomplete="off" accept-charset="utf-8">
 			<form:hidden path="checkIn_Yn" value="N"/>

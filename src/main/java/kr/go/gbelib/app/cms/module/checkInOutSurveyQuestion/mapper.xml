@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestionDao">
+	
+	<select id="getQuizQuestionList" resultType="kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestion">
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_question_idx, checkinout_survey_question_title, checkinout_survey_question_type,
+			checkinout_survey_question_item, origin_file_name, server_file_name, file_extension, file_size
+		FROM
+			CHECKINOUT_SURVEY_QUESTION
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_idx = #{checkinout_survey_idx}
+		ORDER BY checkinout_survey_question_idx
+	</select>
+	
+	<insert id="addQuizQuestion">
+		<selectKey keyProperty="checkinout_survey_question_idx" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(checkinout_survey_question_idx),0)+1 FROM CHECKINOUT_SURVEY_QUESTION WHERE homepage_id = #{homepage_id} AND CHECKINOUT_SURVEY_IDX = #{checkinout_survey_idx}
+		</selectKey>
+	
+		INSERT INTO CHECKINOUT_SURVEY_QUESTION
+		(
+			homepage_id, checkinout_survey_idx, checkinout_survey_question_idx, checkinout_survey_question_title, checkinout_survey_question_type,
+			checkinout_survey_question_item, origin_file_name, server_file_name, file_extension, file_size
+		) VALUES (
+			#{homepage_id}, #{checkinout_survey_idx}, #{checkinout_survey_question_idx}, #{checkinout_survey_question_title}, #{checkinout_survey_question_type},
+			#{checkinout_survey_question_item}, #{origin_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
+		)
+	</insert>
+	
+	<update id="modifyQuizQuestion">
+		UPDATE 
+			CHECKINOUT_SURVEY_QUESTION 
+		SET
+			checkinout_survey_question_title = #{checkinout_survey_question_title},
+			checkinout_survey_question_type = #{checkinout_survey_question_type},
+			<if test="origin_file_name != null and origin_file_name != ''">
+				origin_file_name = #{origin_file_name},
+			</if>
+			<if test="server_file_name != null and server_file_name != ''">
+				server_file_name = #{server_file_name},
+			</if>
+			<if test="file_extension != null and file_extension != ''">
+				file_extension = #{file_extension},
+			</if>
+			<if test="file_size != null and file_size != ''">
+				file_size = #{file_size},
+			</if>
+			checkinout_survey_question_item = #{checkinout_survey_question_item}
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_idx = #{checkinout_survey_idx}
+		AND checkinout_survey_question_idx = #{checkinout_survey_question_idx}
+	</update>
+	
+	<delete id="deleteQuizQuestion">
+		DELETE FROM CHECKINOUT_SURVEY_QUESTION
+		WHERE 
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_idx = #{checkinout_survey_idx}
+		AND checkinout_survey_question_idx = #{checkinout_survey_question_idx}
+	</delete>
+
+	<update id="deleteFile">
+		UPDATE
+			CHECKINOUT_SURVEY_QUESTION
+		SET
+			origin_file_name = '',
+			server_file_name = '',
+			file_extension = '',
+			file_size = ''
+		WHERE
+			homepage_id = #{homepage_id}
+		AND	checkinout_survey_question_idx = #{checkinout_survey_question_idx}
+	</update>
+
+	<select id="getCheckInOutSurveyQuestionOne" resultType="kr.go.gbelib.app.cms.module.checkInOutSurveyQuestion.CheckInOutSurveyQuestion">
+		SELECT
+			homepage_id, checkinout_survey_idx, checkinout_survey_question_idx, checkinout_survey_question_title, checkinout_survey_question_type,
+			checkinout_survey_question_item, origin_file_name, server_file_name, file_extension, file_size
+		FROM
+			CHECKINOUT_SURVEY_QUESTION
+		WHERE
+			homepage_id = #{homepage_id}
+		AND checkinout_survey_question_idx = #{checkinout_survey_question_idx}
+	</select>
+</mapper>
