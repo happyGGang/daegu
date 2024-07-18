@@ -426,7 +426,7 @@ function resveReq(bookkey, booktype, editMode) {
 					</div>
 					<div class="end" style="padding:7px 0;"></div>
 					</c:when>
-					<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'goldbook'}">
+					<c:when test="${context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'goldbook' || context_path eq 'suseongLake'}">
 						<c:choose>
 						<c:when test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
 					<input type="hidden" name="libraryCodes" id="libraryCodes" value="BD"/>
@@ -464,6 +464,9 @@ function resveReq(bookkey, booktype, editMode) {
 								</li>
 								<li>
 									<form:checkbox path="libraryCodes" value="HR" class="libCheck lib_HR" label="황금책문화센터"/>
+								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HS" class="libCheck lib_HS" label="수성못그림책도서관"/>
 								</li>
 							</ul>
 						</div>
