@@ -619,6 +619,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_HR" value="HR" label="황금책문화센터" />
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HS" value="HS" label="수성못그림책도서관" />
+							</li>
 
 
 
