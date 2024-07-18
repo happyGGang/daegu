@@ -682,7 +682,7 @@ function isFromFridayToSunday() {
 				<div  class="tabmenu">
 					<ul>
 						<li class="active"><a href="/228/intro/search/index.do?menu_idx=203&&shelfCode=AA55&booktype=BOOKANDNONBOOK#search_result">인물도서목록</a> </li>
-						<li><a href="/228/board/index.do?menu_idx=204&manage_idx=425">인물소개</a> </li>
+						<li><a href="/228/html.do?menu_idx=204">인물소개</a> </li>
 					</ul>
 				</div>
 				</c:if>

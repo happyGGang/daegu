@@ -32,7 +32,7 @@
 .main1 .search-box input {border:0;background:#fff;width:100%;padding-left:18px;font-size:17px;color:#000;border-radius:0;}
 .main1 .search-box input:focus{outline:none}
 .main1 .search-box input,
-.main1 .search-box button {height:52px;line-height:51px;}
+.main1 .search-box button {height:53px;line-height:51px; margin-top:-1px;}
 .main1 .search-box button {position:absolute;right:0;width:77px;text-align:center;background:#fff url('/resources/homepage/nambu/img/search-btn.png') no-repeat 55% center;font-size:0;border-top-right-radius:7px;border-bottom-right-radius:7px;}
 
 .main1 .search-box .main-box {width:100%;border:0;overflow:hidden;}
@@ -194,6 +194,13 @@
 
 .mobileBr {display:none;}
 
+#quick-slide {position:absolute;width:105px;height:auto;left:50%;top:-36px;margin-left:650px;}
+#quick-slide ul {border:1px solid #dadada;border-top:0;box-sizing:border-box;text-align:center;padding:10px;margin-top:-20px;}
+#quick-slide ul li {padding:18px 0;border-bottom:1px solid #dadada;}
+#quick-slide ul li a span {display:block;}
+#quick-slide ul li a span.txt {font-size:13px;line-height:120%;}
+#quick-slide ul li:last-child {border-bottom:0;}
+
 
 @media all and (max-width:1279px){
 
@@ -201,6 +208,8 @@
 
 @media all and (max-width:1260px){
 	.section {width:100%;}
+
+	#quick-slide {display:none;}
 
 	.main2 .main2box1 {width:66.2%;}
 	.main2 .main2box1 .main2box1box1 ul li a {padding-left:15%;}

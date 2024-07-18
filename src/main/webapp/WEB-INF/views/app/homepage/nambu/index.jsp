@@ -198,15 +198,15 @@ function searchCheck() {
 								<img src="/resources/homepage/nambu/img/m_icon04.png" class="mi"></a>
 							</li>
 							<li class="bg-white">
-								<a href="/${homepage.context_path}/html.do?menu_idx=49">
-								<span class="wt">책나래</span>
-								<span class="wc">도서관 자료<br/>무료우편 서비스</span>
+								<a href="/${homepage.context_path}/html.do?menu_idx=26">
+								<span class="wt">희망도서<br>신청</span>
+								<!--<span class="wc">도서관 자료<br/>무료우편 서비스</span>-->
 								<img src="/resources/homepage/nambu/img/m_icon05.png" class="mi"></a>
 							</li>
 							<li class="bg-background03">
-								<a href="/${homepage.context_path}/html.do?menu_idx=48">
-								<span class="wt">책바다</span>
-								<span class="wc">국가상호대차<br/>서비스</span>
+								<a href="/${homepage.context_path}/html/hopeBook.do?menu_idx=215">
+								<span class="wt">희망도서<br>바로대출</span>
+								<!--<span class="wc">국가상호대차<br/>서비스</span>-->
 								<img src="/resources/homepage/nambu/img/m_icon06.png" class="mi"></a>
 							</li>
 						</ul>
@@ -464,6 +464,15 @@ function searchCheck() {
 
 				</div>
 			</div>
+		</div>
+		<!-- 퀵메뉴 -->
+		<div id="quick-slide">
+			<h4><img src="/resources/homepage/nambu/img/quick-title.png" alt="퀵메뉴"></h4>
+			<ul>
+				<li style="padding-bottom:10px;"><a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=49" target="_blank" class="newWin" title="새창으로 열립니다."><span class="img"><img src="/resources/homepage/228/img/quick002-bg.png" alt="책나래"></span><span class="txt">책나래</span></a></li>
+				<li><a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=48" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/228/img/quick001-bg.png" alt="책바다"><span class="txt">책바다</span></a></li>
+				<li><a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=50" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/228/img/quick003-bg.png" alt="사서에게 물어보세요"><span class="txt">사서에게<br>물어보세요</span></a></li>
+			</ul>
 		</div>
 	</div>
 </div>

@@ -804,7 +804,7 @@
 
 
 							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_FG" value="FG" label="사월역도서관" />
+								<form:checkbox path="libraryCodes" class="libCheck lib_FG" value="FG" label="사월책문화센터" />
 							</li>
 
 
