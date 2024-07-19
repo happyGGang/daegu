@@ -5,15 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -3199,7 +3192,7 @@ public class CommonSearchController extends BaseController {
 		}
 
 		String lillStopDate = member.getLill_stop_date();
-		if (StringUtils.isNotEmpty(lillStopDate)) {
+		if (!Objects.equals(lillStopDate, "null")) {
 			service.alertMessage("현재 "+lillStopDate+" 까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.", request, response);
 			return null;
 		}
