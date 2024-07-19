@@ -1213,8 +1213,8 @@
 					</c:choose>--%>
 				</div>
 				<div class="ui-state-highlight">
-					<em>* 나이 : 출생 년도를 기준으로 제한 ex)1999 ~ 2010<br/>
-						ex) 초등1(2017)~초등(2012) : 2017-01-01 이상 ~ 2021-12월-31 이하</em>
+					<em>* 나이 : 출생 년도를 기준으로 제한<br/>
+						ex) 초등1(2017)~초등6(2012) : 2012-01-01 이상 ~ 2017-12-31 이하</em>
 				</div>
 				<div>
 					<form:checkbox path="limit_hak_yn" cssClass="text" value="Y" label="학년 : "/>
