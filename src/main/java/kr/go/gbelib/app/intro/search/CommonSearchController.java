@@ -3191,12 +3191,6 @@ public class CommonSearchController extends BaseController {
 			return null;
 		}
 
-		String lillStopDate = member.getLill_stop_date();
-		if (!Objects.equals(lillStopDate, "null")) {
-			service.alertMessage("현재 "+lillStopDate+" 까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.", request, response);
-			return null;
-		}
-
 		librarySearch.setUserkey(getSessionMemberInfo(request).getUser_no());
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.YEAR, -1);
@@ -3371,11 +3365,6 @@ public class CommonSearchController extends BaseController {
 			result.reject("책이음회원이 아니므로 상호대차 신청이 불가능합니다");
 		}
 
-		String lillStopDate = member.getLill_stop_date();
-		if (StringUtils.isNotEmpty(lillStopDate)) {
-			result.reject("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
-		}
-
 		if (!result.hasErrors()) {
 
 			if (StringUtils.equals(librarySearch.getEditMode(), "CANCEL")) {
@@ -3410,12 +3399,24 @@ public class CommonSearchController extends BaseController {
 							res.setValid(true);
 							res.setMessage("신청되었습니다.");
 						} else {
-							res.setValid(false);
-							res.setMessage(apiResult.getMessage());
+							String lillStopDate = member.getLill_stop_date();
+							if (!Objects.equals(lillStopDate, "null")) {
+								res.setValid(false);
+								res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+							} else {
+								res.setValid(false);
+								res.setMessage(apiResult.getMessage());
+							}
 						}
 					} else {
-						res.setValid(false);
-						res.setMessage(lillRequestCheck.getMessage());
+						String lillStopDate = member.getLill_stop_date();
+						if (!Objects.equals(lillStopDate, "null")) {
+							res.setValid(false);
+							res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+						} else {
+							res.setValid(false);
+							res.setMessage(lillRequestCheck.getMessage());
+						}
 					}
 				} else {
 					Member sessionMemberInfo = getSessionMemberInfo(request);
@@ -3428,12 +3429,24 @@ public class CommonSearchController extends BaseController {
 							res.setValid(true);
 							res.setMessage("신청되었습니다.");
 						} else {
-							res.setValid(false);
-							res.setMessage(apiResult.getMessage());
+							String lillStopDate = member.getLill_stop_date();
+							if (!Objects.equals(lillStopDate, "null")) {
+								res.setValid(false);
+								res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+							} else {
+								res.setValid(false);
+								res.setMessage(apiResult.getMessage());
+							}
 						}
 					} else {
-						res.setValid(false);
-						res.setMessage(lillRequestCheck.getMessage());
+						String lillStopDate = member.getLill_stop_date();
+						if (!Objects.equals(lillStopDate, "null")) {
+							res.setValid(false);
+							res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+						} else {
+							res.setValid(false);
+							res.setMessage(lillRequestCheck.getMessage());
+						}
 					}
 				}
 			}
