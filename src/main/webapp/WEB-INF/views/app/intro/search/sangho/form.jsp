@@ -106,7 +106,7 @@ $(function() {
 						<form:option value="127018">물망이도서관</form:option>
 						<!--<form:option value="127021">사월역도서관</form:option>-->
 						<form:option value="127102">황금책문화센터</form:option>
-						<form:option value="127106">수성못그림책도서관</form:option>
+						<!--<form:option value="127106">수성못그림책도서관</form:option>-->
 					</form:select>
 					</c:when>
 					<c:when test="${context_path eq 'junggu'}">

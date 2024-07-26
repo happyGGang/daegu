@@ -388,7 +388,7 @@
 					</c:when>
 					<c:when test="${context_path eq 'dalseongsmall'}">
 						<form:select path="manageCode">
-							<!-- <form:option value="GA">화원읍작은도서관</form:option> -->
+							<form:option value="GA">화원읍작은도서관</form:option>
 							<form:option value="GB">논공읍작은도서관</form:option>
 							<form:option value="GD">다사읍서재작은도서관</form:option>
 							<form:option value="HG">다사읍작은도서관</form:option>

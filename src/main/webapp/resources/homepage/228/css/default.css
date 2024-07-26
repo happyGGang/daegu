@@ -215,6 +215,8 @@ a.btnStyle{float: right;margin-top: 6px;}
 	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;color:#000;}
 
 	.tnb {background:#fff;height:45px;padding:10px 0}
+
+	#popupLayer{margin-top:10px !important;}
 }
 
 @media all and (max-width:850px){

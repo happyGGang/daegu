@@ -179,7 +179,7 @@ $(function() {
 						<form:option value="127018">물망이도서관</form:option>
 						<!--<form:option value="127021">사월역도서관</form:option>-->
 						<form:option value="127102">황금책문화센터</form:option>
-						<form:option value="127106">수성못그림책도서관</form:option>
+						<!--<form:option value="127106">수성못그림책도서관</form:option>-->
 					</form:select>
 					</c:when>
 					<c:when test="${homepage.context_path eq 'junggu'}">
@@ -284,7 +284,7 @@ $(function() {
 								<form:option value="127018">물망이도서관</form:option>
 								<!--<form:option value="127021">사월역도서관</form:option>-->
 								<form:option value="127102">황금책문화센터</form:option>
-								<form:option value="127106">수성못그림책도서관</form:option>
+								<!--<form:option value="127106">수성못그림책도서관</form:option>-->
 							</form:select>
 							</c:when>
 							<c:when test="${detail.MANAGE_CODE eq 'FS'  || detail.MANAGE_CODE eq 'FY' || detail.MANAGE_CODE eq 'FF' || detail.MANAGE_CODE eq 'FQ' || detail.MANAGE_CODE eq 'GG' || detail.MANAGE_CODE eq 'HA' || detail.MANAGE_CODE eq 'HF'}">

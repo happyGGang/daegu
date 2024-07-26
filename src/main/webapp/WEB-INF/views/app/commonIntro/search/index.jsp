@@ -1384,7 +1384,7 @@ function isFromFridayToSunday() {
 													<c:when test="${homepage.context_path eq 'yonghak' and i.droneLoanYn eq 'Y'}">
 														<span style="color:#ff0000">대출불가(드론대출중)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
+													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">
@@ -1579,7 +1579,7 @@ function isFromFridayToSunday() {
 												<td>
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'GA'}">
+													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">

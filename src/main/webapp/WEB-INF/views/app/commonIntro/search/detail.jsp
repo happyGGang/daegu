@@ -540,7 +540,7 @@ $(function() {
 						<c:when test="${homepage.context_path eq 'yonghak' and droneLoanYn eq 'Y'}">
 							<span style="color:#ff0000">대출불가(드론대출중)</span>
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'|| detail.MANAGE_CODE eq 'GA'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
 						<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE eq 'FG01'}">

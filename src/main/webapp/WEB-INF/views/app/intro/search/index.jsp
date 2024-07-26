@@ -1005,7 +1005,7 @@ function resveReq(bookkey, booktype, editMode) {
 											<p><font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'|| i.MANAGE_CODE eq 'GA'}">
+													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG01'}">
@@ -1203,7 +1203,7 @@ function resveReq(bookkey, booktype, editMode) {
 												<td>
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'|| i.MANAGE_CODE eq 'GA'}">
+													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
 													<c:otherwise>
