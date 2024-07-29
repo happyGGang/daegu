@@ -340,18 +340,25 @@ do {
             <div><span>영어</span></div>
             <div><span>비원</span></div>
             <div><span>원고개</span></div>
+            <div><span>New평리</span></div>
           </div>
           <div class="movie">
             <div class="tit"><span>영화</span></div>
             <div><span>어린이</span></div>
             <div><span>비산</span></div>
+            <div><span>영어</span></div>
             <div><span>비원</span></div>
+            <div><span>원고개</span></div>
+            <div><span>New평리</span></div>
           </div>
           <div class="closed">
             <div class="tit"><span>휴관</span></div>
             <div><span>어린이</span></div>
             <div><span>비산</span></div>
+            <div><span>영어</span></div>
             <div><span>비원</span></div>
+            <div><span>원고개</span></div>
+            <div><span>New평리</span></div>
           </div>
         </div>
         <!--//sec01-3--> 

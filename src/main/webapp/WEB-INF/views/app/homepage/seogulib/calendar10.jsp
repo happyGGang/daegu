@@ -71,6 +71,7 @@ $(function() {
 					<c:when test="${i eq 'h62'}">영어</c:when>
 					<c:when test="${i eq 'h63'}">비원</c:when>
 					<c:when test="${i eq 'h64'}">원고개</c:when>
+					<c:when test="${i eq 'h96'}">New평리</c:when>
 				</c:choose>
 			</span>
 		</div>
@@ -105,6 +106,7 @@ $(function() {
 					<c:when test="${i eq 'h62'}">영어</c:when>
 					<c:when test="${i eq 'h63'}">비원</c:when>
 					<c:when test="${i eq 'h64'}">원고개</c:when>
+					<c:when test="${i eq 'h96'}">New평리</c:when>
 				</c:choose>
 			</span>
 		</div>

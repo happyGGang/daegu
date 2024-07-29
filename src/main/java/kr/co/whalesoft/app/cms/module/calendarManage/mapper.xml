@@ -486,7 +486,7 @@
 		FROM
 			CMS_CALENDAR_MANAGE
 		WHERE
-			homepage_id in ('h61','h62','h63','h64','h77')
+			homepage_id in ('h61','h62','h63','h64','h77','h96')
 		AND	date_type = '2'
 		AND	delete_yn = 'N'
 		AND	#{plan_date} BETWEEN start_date AND end_date
@@ -501,7 +501,7 @@
 		FROM
 			TEACH
 		WHERE
-			homepage_id in ('h61','h62','h63','h64','h77')
+			homepage_id in ('h61','h62','h63','h64','h77','h96')
 		AND	#{plan_date} BETWEEN start_date AND end_date
 		AND	teach_day in ( select to_char(to_date(#{plan_date}, 'YYYY-MM-DD'), 'd') from dual)
 		AND	delete_yn = 'N'
@@ -532,7 +532,7 @@
 		FROM
 			CMS_CALENDAR_MANAGE
 		WHERE
-			homepage_id in ('h61','h62','h63','h64','h77')
+			homepage_id in ('h61','h62','h63','h64','h77','h96')
 		AND	date_type = '1'
 		AND	delete_yn = 'N'
 		AND	#{plan_date} BETWEEN start_date AND end_date
