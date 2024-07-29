@@ -176,7 +176,7 @@ $(document).ready(function(){
 
 <c:choose>
 	<c:when test="${param.before_url eq '/gukbo/kiosk/librarianPickBookIndex.do' || param.before_url eq '/gukbo/kiosk/bookIndex.do'}">
-		<jsp:include page="/WEB-INF/views/app/homepage/${homepage.context_path}/kiosk/bookNavigation.jsp" flush="false" />
+		<jsp:include page="/WEB-INF/views/app/homepage/gukbo/kiosk/bookNavigation.jsp" flush="false" />
 	</c:when>
 	<c:otherwise>
 		<%@ include file="/gukbo/kiosk/copyright.html" %>

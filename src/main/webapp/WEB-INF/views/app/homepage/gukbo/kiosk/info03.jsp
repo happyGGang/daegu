@@ -9,5 +9,5 @@
 iframe {margin:0;padding:0;width:100%;height:1760px;border:0;display:block;}
 </style>
 <iframe src="https://lib.daegu.go.kr/kioskY/gukbo/facility" ></iframe>
-<jsp:include page="/WEB-INF/views/app/homepage/${homepage.context_path}/kiosk/menuNavigation.jsp" flush="false" />
+<jsp:include page="/WEB-INF/views/app/homepage/gukbo/kiosk/menuNavigation.jsp" flush="false" />
 <tiles:insertAttribute name="footer" />

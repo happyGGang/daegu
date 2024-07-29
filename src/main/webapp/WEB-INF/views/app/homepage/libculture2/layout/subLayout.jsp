@@ -109,12 +109,10 @@ $(function() {
 			<div class="quick_wrap" id="contents">
 				<div class="container">
 					<ul class="snb_link">
-
 						<li class="home">
 							<a class="icon_home" href="/libculture/index.do" title="홈 화면 이동"></a>
 						</li>
-						<homepageTag:docInfoTopTag oneMenu="${menuOne}" menuList="${menuLeftList}"/>
-						<%--<li class="">
+						<li class="">
 							<a href="javascript:void(0);" class="de_menu1">자료연구</a>
 							<ul class="L2_Items">
 							<li><a href="">행사</a></li>
@@ -128,7 +126,7 @@ $(function() {
 							<li><a href="">도서</a></li>
 							<li><a href="https://uci.k-heritage.tv/" target="_blank" title="새창">문화유산콘텐츠 검색</a></li>
 							</ul>
-						</li>--%>
+						</li>
 					</ul>
 					<div class="sub_rtop">
 						<ul class="etc_area clearfix">

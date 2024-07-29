@@ -4,7 +4,6 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <tiles:insertAttribute name="header" />
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.mhportal.css"/>
@@ -12,7 +11,6 @@
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.mhportal.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/commons.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/slick_ui.js"></script>
-
 
 <c:set var="getIp" value="<%=request.getRemoteAddr()%>" />
 <c:if test="${getIp eq '218.48.151.16'}">
@@ -177,15 +175,13 @@ $(function() {
 		}
 		
 	});
-	$('div#visual-load-box').load('education.do');
+
 	// main0 - 최상단 이벤트
 	$(document).on('click', '.tabMenuT a', function(e){
 		e.preventDefault();
 		var target = this.getAttribute('href').replace('#','');
 		$(this).closest('.tabMenuT').find('li').removeClass('on');
 		$(this).parent('li').addClass('on');
-
-		$('div#visual-load-box').empty();
 
 		if(target == 'tab1')
 		{
@@ -210,58 +206,20 @@ $(function() {
 	});
 
 	/* main1 - 다 드림 부분 이벤트*/
-	var culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-	var culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
-	var area = $('#area option:selected').val();
-	var target = $('#target option:selected').val();
-	var hashtag = $('#hashtag option:selected').val();
-	var sortType = $('#sortType option:selected').val();
-
-	$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType=REQUEST');
-
-
 	$('select#area').on('change', function() {
-		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-		culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
-		area = $('#area option:selected').val();
-		target = $('#target option:selected').val();
-		hashtag = $('#hashtag option:selected').val();
-		sortType = $('#sortType option:selected').val();
-
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('div#result-sort').load('dadream.do?area=&theme=&there=&classifi=&year=&month=');
 	});
 
 	$('select#target').on('change', function() {
-		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-		culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
-		area = $('#area option:selected').val();
-		target = $('#target option:selected').val();
-		hashtag = $('#hashtag option:selected').val();
-		sortType = $('#sortType option:selected').val();
-
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('div#result-sort').load('dadream.do?area=&theme=&there=&classifi=&year=&month=');
 	});
 
-	$('select#hashtag').on('change', function() {
-		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-		culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
-		area = $('#area option:selected').val();
-		target = $('#target option:selected').val();
-		hashtag = $('#hashtag option:selected').val();
-		sortType = $('#sortType option:selected').val();
-
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+	$('select#theme').on('change', function() {
+		$('div#result-sort').load('dadream.do?area=&theme=&there=&classifi=&year=&month=');
 	});
 
-	$('select#sortType').on('change', function() {
-		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-		culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
-		area = $('#area option:selected').val();
-		target = $('#target option:selected').val();
-		hashtag = $('#hashtag option:selected').val();
-		sortType = $('#sortType option:selected').val();
-
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+	$('select#classifi').on('change', function() {
+		$('div#result-sort').load('dadream.do?area=&theme=&there=&classifi=&year=&month=');
 	});
 
 	$('.culture-search-condition-box-cal ul li a').on('click', function(e) {
@@ -269,35 +227,7 @@ $(function() {
 
 		$('.culture-search-condition-box-cal ul li').removeClass('on');
 		$(this).parent('li').addClass('on');
-
-		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-		culture_mm = $.trim($('#culture_cal .web-selector ul li[class=on]').find('a').attr('keyValue'));
-		area = $('#area option:selected').val();
-		target = $('#target option:selected').val();
-		hashtag = $('#hashtag option:selected').val();
-		sortType = $('#sortType option:selected').val();
-
-		$('.mobile-selector select').val(culture_mm).prop('selected', true);
-
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
-	});
-
-	$('.mobile-selector select').on('change', function(e){
-		e.preventDefault();
-
-		culture_yy = $.trim($('#culture_cal .web-selector ul li:eq(0)').text());
-		culture_mm = $.trim($(this).find('option:selected').val());
-
-		$('.culture-search-condition-box-cal ul li').removeClass('on');
-		$('.culture-search-condition-box-cal ul li a[keyvalue='+culture_mm+']').parent('li').addClass('on');
-
-
-		area = $('#area option:selected').val();
-		target = $('#target option:selected').val();
-		hashtag = $('#hashtag option:selected').val();
-		sortType = $('#sortType option:selected').val();
-
-		$('.main1-bottom-box').load('searchCulture.do?search_yy='+culture_yy+'&search_mm='+culture_mm+'&sortType='+sortType+'&search_area='+area+'&search_target='+target+'&search_hashtag='+hashtag);
+		$('div#result-sort').load('dadream.do?area=&theme=&there=&classifi=&year=&month=');
 	});
 
 	// 지역별 문화체험 버튼 이벤트
@@ -307,45 +237,44 @@ $(function() {
 		$(this).closest('.tabMenuA').find('li').removeClass('on');
 		$(this).parent('li').addClass('on');
 
-		var area = $('#daeguArea option:selected').val();
-
 		if(target == 'tabs01')
 		{
-			$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area='+area);
+			$('div#areaculture').load('areaexhibition.do?daeguarea=');
 		}
 		else if(target == 'tabs02')
 		{
-			$('div#areaculture .areaCultureSlideList').load('areacarnival.do?search_area='+area);
+			$('div#areaculture').load('areacarnival.do?daeguarea=');
 		}
 		else if(target == 'tabs03')
 		{
-			$('div#areaculture .areaCultureSlideList').load('areaculture.do?search_area='+area);
+			$('div#areaculture').load('areaculture.do?daeguarea=');
 		}
 		else
 		{
-			$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area='+area);
+			$('div#areaculture').load('education.do?daeguarea=');
 		}
 	});
 
-	$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area=');
+	// 지역별 문화체험 select 이벤트
+	$('select#daeguArea').on('change', function() {
 
-	$('#daeguArea').on('change',function(){
-		var area = $(this).find('option:selected').val();
-		var id = '';
+		if($('#tabs001').hasClass('on'))
+		{
+			$('div#areaculture').load('areaexhibition.do?daeguarea=');
+		}
+		else if($('#tabs002').hasClass('on'))
+		{
+			$('div#areaculture').load('areacarnival.do?daeguarea=');
+		}
+		else if($('#tabs003').hasClass('on'))
+		{
+			$('div#areaculture').load('areaculture.do?daeguarea=');
+		}
+		else
+		{
+			$('div#areaculture').load('areaexhibition.do?daeguarea=');
+		}
 
-		$('#main3 .areaculturetab .tabMenuA ul li').each(function(index, item){
-			if($(item).hasClass('on')) {
-				id = $(item).attr('id');
-
-				if (id == 'tabs001') {
-					$('div#areaculture .areaCultureSlideList').load('areaexhibition.do?search_area='+area)
-				} else if (id == 'tabs002') {
-					$('div#areaculture .areaCultureSlideList').load('areacarnival.do?search_area='+area)
-				} else if (id == 'tabs003') {
-					$('div#areaculture .areaCultureSlideList').load('areaculture.do?search_area='+area)
-				}
-			}
-		})
 	});
 });
 </script>
@@ -389,6 +318,124 @@ $(function() {
 							</div>
 							<div id="visual-load-box">
 
+								<h3>EDUCATION</h3>
+								<div class="slideList mainSec00 main0Section01">
+									<div class="innerBox">
+										<div class="arrowBtn">
+											<a href="#" class="prev">이전</a>
+											<a href="#" class="next">다음</a>
+										</div>
+
+										<div class="slickPlay">
+											<p class="status"><span>01</span> / 020</p>
+											<a href="#" class="play">시작</a>
+											<a href="#" class="pause">멈춤</a>
+										</div>
+										<div class="slickWrap" data-animation="fadeInUp">
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+											<div>
+												<a href="">
+													<img src="" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+
 							</div>
 
 						</div>
@@ -403,28 +450,52 @@ $(function() {
 								<div class="ing-slide">
 									<div class="ingSlideList">
 										<ul>
-											<c:if test="${fn:length(teachViewList) < 1}">
-												<li>
-													등록된 데이터가 없습니다
-												</li>
-											</c:if>
 
-											<c:forEach var="i" items="${teachViewList}">
-												<li>
-													<a href="/${i.context_path}/module/teach/detail.do?menu_idx=${i.menu_idx}&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" target="_blank">
-														<div class="top">
-															<h4>${i.teach_name}</h4>
-															<p class='days'>${i.start_join_date} ~ ${i.end_join_date}</p>
-															<span>${i.homepage_alias}</span>
-														</div>
-														<div class="bottom">
-															<span>모집인원<br/>${i.teach_limit_count}</span>
-															<span>신청인원<br/>${i.teach_join_count}</span>
-															<span>후보인원<br/>${i.teach_backup_join_count} / ${i.teach_backup_count}</span>
-														</div>
-													</a>
-												</li>
-											</c:forEach>
+											<li>
+												<a href="" target="_blank">
+													<div class="top">
+														<h4>앱으로 쉽게 만드는 '유튜브 영상제작'의 모든 것</h4>
+														<p class='days'>2022-10-18 ~ 2022-10-26</p>
+														<span>남부</span>
+													</div>
+													<div class="bottom">
+														<span>모집인원<br/>10</span>
+														<span>신청인원<br/>10</span>
+														<span>후보인원<br/>2 / 5</span>
+													</div>
+												</a>
+											</li>
+
+											<li>
+												<a href="" target="_blank">
+													<div class="top">
+														<h4>앱으로 쉽게 만드는 '유튜브 영상제작'의 모든 것</h4>
+														<p class='days'>2022-10-18 ~ 2022-10-26</p>
+														<span>남부</span>
+													</div>
+													<div class="bottom">
+														<span>모집인원<br/>10</span>
+														<span>신청인원<br/>10</span>
+														<span>후보인원<br/>2 / 5</span>
+													</div>
+												</a>
+											</li>
+
+											<li>
+												<a href="" target="_blank">
+													<div class="top">
+														<h4>앱으로 쉽게 만드는 '유튜브 영상제작'의 모든 것</h4>
+														<p class='days'>2022-10-18 ~ 2022-10-26</p>
+														<span>남부</span>
+													</div>
+													<div class="bottom">
+														<span>모집인원<br/>10</span>
+														<span>신청인원<br/>10</span>
+														<span>후보인원<br/>2 / 5</span>
+													</div>
+												</a>
+											</li>
+
 										</ul>
 									</div>
 								</div>
@@ -462,62 +533,75 @@ $(function() {
 											<ul>
 												<li>
 													<select name="area" id="area" class="cultureSelectBox">
-														<option value="">지역을 선택해주세요 </option>
-														<c:forEach var="i" items="${areaCodeList}">
-															<option value="${i.code_name}">${i.code_name}</option>
-														</c:forEach>
+														<option>지역을 선택해주세요 </option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
 													</select>
 												</li>
 												<li>
 													<select name="target" id="target" class="cultureSelectBox">
-														<option value="">대상을 선택해주세요 </option>
-														<c:forEach var="i" items="${ageCodeList}">
-															<option value="${i.code_id}">${i.code_name}</option>
-														</c:forEach>
+														<option>대상을 선택해주세요 </option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
 													</select>
 												</li>
 												<li>
-													<select name="hashtag" id="hashtag" class="cultureSelectBox">
-														<option value="">주제를 선택해주세요 </option>
-														<c:forEach var="i" items="${hashtagCodeList}">
-															<option value="${i.hashtag_code}">${i.hashtag_name}</option>
-														</c:forEach>
+													<select name="theme" id="theme" class="cultureSelectBox">
+														<option>주제를 선택해주세요 </option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
 													</select>
 												</li>
 												<li>
-													<select name="sortType" id="sortType" class="cultureSelectBox">
-														<option value="REQUEST">신청일</option>
-														<option value="OPERATE">운영일</option>
+													<select name="classifi" id="classifi" class="cultureSelectBox">
+														<option>분류를 선택해주세요 </option>
+														<option></option>
+														<option></option>
+														<option></option>
+														<option></option>
 													</select>
 												</li>
 											</ul>
 										</div>
-										<div id="culture_cal" class="culture-search-condition-box-cal">
+										<div class="culture-search-condition-box-cal">
 											<div class="web-selector">
 											<ul>
-												<li>
-													<!-- example -->
-													<c:set var="now" value="<%=new java.util.Date()%>" />
-													<fmt:formatDate value="${now}" pattern="yyyy" type="date"/>
-												</li>
-												<fmt:formatDate value="${now}" pattern="MM" type="date" var="mm"/>
-												<fmt:formatNumber var="mm" minIntegerDigits="2" value="${mm}" type="number"/>
-												<c:forEach var="i" begin="1" end="12">
-													<fmt:formatNumber var="no" minIntegerDigits="2" value="${i}" type="number"/>
-													<li class="${mm == no ? 'on' : ''}"><a href="#" keyValue="${no}">${no}월</a></li>
-												</c:forEach>
+												<li>2022<!--년도 함수--></li>
+												<li><a href="">01월</a></li>
+												<li><a href="">02월</a></li>
+												<li><a href="">03월</a></li>
+												<li><a href="">04월</a></li>
+												<li><a href="">05월</a></li>
+												<li><a href="">06월</a></li>
+												<li><a href="">07월</a></li>
+												<li><a href="">08월</a></li>
+												<li><a href="">09월</a></li>
+												<li><a href="">10월</a></li>
+												<li><a href="">11월</a></li>
+												<li><a href="">12월</a></li>
 											</ul>
 											</div>
 											<div class="mobile-selector">
-												<h4><c:set var="now" value="<%=new java.util.Date()%>" />
-													<fmt:formatDate value="${now}" pattern="yyyy" type="date"/><!--년도 함수--></h4>&nbsp;
-												<select name="" id="">
-													<fmt:formatDate value="${now}" pattern="MM" type="date" var="mm"/>
-													<fmt:formatNumber var="mm" minIntegerDigits="2" value="${mm}" type="number"/>
-													<c:forEach var="i" begin="1" end="12">
-														<fmt:formatNumber var="no" minIntegerDigits="2" value="${i}" type="number"/>
-														<option value="${no}" ${mm == no ? 'selected' : ''}>${no}월</option>
-													</c:forEach>
+												<h4>2022<!--년도 함수--></h4>&nbsp;
+												<select name="">
+													<option value="">01월</option>
+													<option value="">02월</option>
+													<option value="">03월</option>
+													<option value="">04월</option>
+													<option value="">05월</option>
+													<option value="">06월</option>
+													<option value="">07월</option>
+													<option value="">08월</option>
+													<option value="">09월</option>
+													<option value="">10월</option>
+													<option value="">11월</option>
+													<option value="">12월</option>
 												</select>
 											</div>
 										</div>
@@ -527,9 +611,98 @@ $(function() {
 							<div class="end"></div>
 						</div>
 					</div>
-
 					<div class="main1-bottom-box">
-
+						<div class='full-sections'>
+							<div id="result-sort">
+							<div class="culture-search-result">
+								<ul>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<div>
+											<h4>수성도서관</h4>
+											<p class="days"><b>2022.10.10. -</b> 2022.11.21</p>
+											<p class="conte">뮤지컬 플랫폼 제시카 집콕 뮤지컬 쇼!</p>
+											<p class="more">MORE <img src="/resources/homepage/${homepage.context_path}/img/more-bg.png" alt=""></p>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<div class="culture-search-result-count">
+								찾고계시는 검색 결과가 총 <b>340</b>건 이있습니다.   
+							</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="main1-empty">
@@ -839,11 +1012,16 @@ $(function() {
 							<h2>지역별 문화체험</h2>
 							<div class="areaculturetab">
 								<div class="select-box">
-									<select id="daeguArea" class="daegu-area">
-										<option value="">지역을 선택해주세요</option>
-										<c:forEach var="i" items="${areaCodeList}">
-											<option value="${i.code_name}">${i.code_name}</option>
-										</c:forEach>
+									<select name="daeguArea" id="daeguArea" class="daegu-area">
+										<option>지역을 선택해주세요</option>
+										<option>남구</option>
+										<option>달서구</option>
+										<option>달성군</option>
+										<option>동구</option>
+										<option>북구</option>
+										<option>서구</option>
+										<option>수성구</option>
+										<option>중구/option>
 									</select>
 								</div>
 								<div class="tabMenuA">
@@ -858,9 +1036,80 @@ $(function() {
 						</div>
 					</div>
 					<div id="areaculture" class="mainSec03-contents">
-						<div class="areaCultureSlideList">
 
+						<div class="areaCultureSlideList">
+							<ul>
+
+								<li>
+									<h4>대구 학생문화센터</h4>
+									<a href="/gosan/module/teach/detail.do?homepage_id=h52&group_idx=9&teach_idx=9769&menu_idx=129&category_idx=0&large_category_idx=16" class="border bgimg001" target="_blank">
+										<div class="imgae-box">
+											<img src="/resources/homepage/${homepage.context_path}/img/1.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+										</div>
+										<div class="txt-box">
+											<p class="txt-box-title">스마일 마스크 신드롬</p>
+											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<h4>대구 학생문화센터</h4>
+									<a href="/beomeo/module/teach/detail.do?homepage_id=h50&group_idx=11&teach_idx=9755&menu_idx=141&category_idx=0&large_category_idx=16" class="border bgimg002" target="_blank">
+										<div class="imgae-box">
+											<img src="/resources/homepage/${homepage.context_path}/img/2.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+										</div>
+										<div class="txt-box">
+											<p class="txt-box-title">DSAC아트 페스티벌, 피아노 위크</p>
+											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<h4>대구 학생문화센터</h4>
+									<a href="/seogulib/module/teach/detail.do?homepage_id=h49&group_idx=9&teach_idx=9775&menu_idx=132&category_idx=0&large_category_idx=16" class="border bgimg003" target="_blank">
+										<div class="imgae-box">
+											<img src="/resources/homepage/${homepage.context_path}/img/3.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+										</div>
+										<div class="txt-box">
+											<p class="txt-box-title">Once upon a time in 발레</p>
+											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<h4>대구 학생문화센터</h4>
+									<a href="/seogulib/module/teach/detail.do?homepage_id=h49&group_idx=12&teach_idx=5912&menu_idx=132&category_idx=0&large_category_idx=17" class="border bgimg004" target="_blank">
+										<div class="imgae-box">
+											<img src="/resources/homepage/${homepage.context_path}/img/4.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+										</div>
+										<div class="txt-box">
+											<p class="txt-box-title">원맨쇼 햄릿</p>
+											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<h4>대구 학생문화센터</h4>
+									<a href="/junggu/module/teach/detail.do?homepage_id=h75&group_idx=2&teach_idx=9757&menu_idx=32&category_idx=0&large_category_idx=17" class="border bgimg001" target="_blank">
+										<div class="imgae-box">
+											<img src="/resources/homepage/${homepage.context_path}/img/5.gif" alt="" onError="src='/resources/homepage/${homepage.context_path}/img/book_noimg.png';" />
+										</div>
+										<div class="txt-box">
+											<p class="txt-box-title">유앤잇</p>
+											<p class="txt-box-day">2022.10.06 ~ 2022.10.06</p>
+										</div>
+									</a>
+								</li>
+
+
+							</ul>
 						</div>
+
+
 					</div>
 				</div>
 

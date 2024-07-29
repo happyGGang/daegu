@@ -5,12 +5,12 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <div class="nav">
 	<ul class="navbox tab5">
-		<li><a href="http://218.48.151.16:8017/infoset/kiosk/boardIndex.do"><span class="kor-txt">공지사항</span><span class="eng-txt">NOTICE</span></a></li>
-		<li><a href="http://218.48.151.16:8017/infoset/kiosk/info.do"><span class="kor-txt">도서관이용안내</span><span class="eng-txt">library information</span></a></li>
-		<li><a href="http://218.48.151.16:8017/infoset/kiosk/recommandBoardIndex.do"><span class="kor-txt">도서정보</span><span class="eng-txt">Book information</span></a></li>
-		<li><a href="http://218.48.151.16:8017/infoset/kiosk/teachIndex.do"><span class="kor-txt">문화강좌</span><span class="eng-txt">Cultural Lecture</span></a></li>
-		<li><a href="http://218.48.151.16:8017/infoset/kiosk/info02.do"><span class="kor-txt">통합모니터링</span><span class="eng-txt">Monitor  System</span></a></li>
-		<!-- <li><a href="http://218.48.151.16:8017/infoset/kiosk/info03.do"><span class="kor-txt">시설물예약</span><span class="eng-txt">Facility  Reserve System</span></a></li> -->
+		<li><a href="https://library.daegu.go.kr/gukbo/kiosk/boardIndex.do"><span class="kor-txt">공지사항</span><span class="eng-txt">NOTICE</span></a></li>
+		<li><a href="https://library.daegu.go.kr/gukbo/kiosk/info.do"><span class="kor-txt">도서관이용안내</span><span class="eng-txt">library information</span></a></li>
+		<li><a href="https://library.daegu.go.kr/gukbo/kiosk/recommandBoardIndex.do"><span class="kor-txt">도서정보</span><span class="eng-txt">Book information</span></a></li>
+		<li><a href="https://library.daegu.go.kr/gukbo/kiosk/teachIndex.do"><span class="kor-txt">문화강좌</span><span class="eng-txt">Cultural Lecture</span></a></li>
+		<li><a href="https://library.daegu.go.kr/gukbo/kiosk/info02.do"><span class="kor-txt">통합모니터링</span><span class="eng-txt">Monitor  System</span></a></li>
+		<!-- <li><a href="https://library.daegu.go.kr/gukbo/kiosk/info03.do"><span class="kor-txt">시설물예약</span><span class="eng-txt">Facility  Reserve System</span></a></li> -->
 	</ul>
 </div>
 <c:choose>

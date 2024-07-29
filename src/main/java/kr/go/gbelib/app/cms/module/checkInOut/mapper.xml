@@ -422,7 +422,7 @@
 
 	<update id="deleteCheckInOutNotice">
 		UPDATE
-			CHECKINOUT_SETTING
+			CHECKINOUT_SURVEY
 		SET
 			delete_yn = 'Y',
 			use_yn = 'N',
@@ -431,7 +431,7 @@
 		WHERE
 			homepage_id = #{homepage_id}
 		AND delete_yn = 'Y'
-		AND	checkinout_notice_idx = #{checkinout_notice_idx}
+		AND	checkinout_survey_idx = #{checkinout_survey_idx}
 	</update>
 
 	<select id="checkNoticeCount" resultType="int">

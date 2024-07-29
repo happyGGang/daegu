@@ -29,7 +29,7 @@
     </div>
     <div class="culture-search-result-count">
 		<span class="">찾고계시는 검색 결과가 총 <b>${count}</b>건 이있습니다.</span>
-		<span class="more-box"><a href="javascript:alert('준비중입니다.')">더보기 +</a></span>
+		<span class="more-box"><a href="/libculture/module/culture/teach.do?menu_idx=1">더보기 +</a></span>
     </div>
   </div>
 </div>

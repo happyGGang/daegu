@@ -49,6 +49,8 @@ public class CheckInOut extends PagingUtils{
 
 	private String survey_use_yn;	//설문조사 사용유무
 
+	private int checkinout_survey_idx;  //설문조사IDX
+
 	public int getCheckInOut_idx() {
 		return checkInOut_idx;
 	}
@@ -311,5 +313,13 @@ public class CheckInOut extends PagingUtils{
 
 	public void setSurvey_use_yn(String survey_use_yn) {
 		this.survey_use_yn = survey_use_yn;
+	}
+
+	public int getCheckinout_survey_idx() {
+		return checkinout_survey_idx;
+	}
+
+	public void setCheckinout_survey_idx(int checkinout_survey_idx) {
+		this.checkinout_survey_idx = checkinout_survey_idx;
 	}
 }

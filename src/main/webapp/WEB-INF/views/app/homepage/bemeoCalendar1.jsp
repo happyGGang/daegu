@@ -265,8 +265,6 @@
 				</div>
 				<h3>위치안내</h3>
 				<link rel="stylesheet" href="/resources/common/css/emap/OpenLayers-6.4.3.css" type="text/css">
-				<script
-					src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
 				<script type="text/javascript" src="/resources/common/js/emap/OpenLayers-6.4.3.js"></script>
 				<script type="text/javascript" src="/resources/common/js/emap/proj4.js"></script>
 				<script type="text/javascript"

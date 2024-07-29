@@ -1147,5 +1147,5 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 			</div>
 		</div>
 	</div>
-<jsp:include page="/WEB-INF/views/app/homepage/${homepage.context_path}/kiosk/menuNavigation.jsp" flush="false" />
+<jsp:include page="/WEB-INF/views/app/homepage/gukbo/kiosk/menuNavigation.jsp" flush="false" />
 <tiles:insertAttribute name="footer" />
