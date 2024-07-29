@@ -170,7 +170,18 @@ $.fn.rowspan = function(colIdx, isStats) {
 							<c:when test="${i.homepage_id == 'h10' && i.organization_name == '관장'}">
 							</c:when>
 							<c:otherwise>
-								<td>${j.worker}</td>
+								<c:choose>
+									<c:when test="${i.homepage_id == 'h4' || i.homepage_id == 'h7'}">
+										<td>${j.worker}</td>
+									</c:when>
+									<c:otherwise>
+										<td>
+											<c:if test="${fn:length(j.worker) > 1}">
+												${fn:substring(j.worker,0,1)}**
+											</c:if>
+										</td>
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 						<td class="left">${j.work_info}</td>
