@@ -799,7 +799,7 @@
 		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='2' GROUP BY teach_idx), 0) AS TEACH_BACKUP_JOIN_COUNT,
 		NVL((SELECT COUNT(*) FROM STUDENT WHERE delete_yn = 'N' AND	homepage_id = a.homepage_id AND	group_idx = a.group_idx AND	category_idx = a.category_idx AND	teach_idx = a.teach_idx AND	APPLY_STATUS='1' AND	APPLY_TYPE = 'CMS' GROUP BY teach_idx), 0) AS TEACH_OFF_JOIN_COUNT,
 		a.IMAGE_org_file_name, a.image_server_file_name, a.IMAGE_file_extension, a.IMAGE_file_size, a.LIMIT_HAK_YN,
-		a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn,
+		a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn, a.remark_yn, a.email_use_yn,
 		a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn, a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn,
 		(SELECT code_name FROM TEACH_CODE2 WHERE teach_code = a.large_category_idx and homepage_id = a.homepage_id) as large_category_name,
 		program_classification1, program_classification2, program_classification3, program_subject, program_age_div,
