@@ -174,18 +174,6 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num12">
-					<p>달서아트센터도서관</p>
-				</div>
-				<div class="txt">
-					<p class="add">대구광역시 달서구 문화회관길160 (장기동 722-1)</p>
-					<p class="tel">053-584-9274</p>
-				</div>
-			</div>
-		</li>
-		<!-- -->
-		<li>
-			<div class="info-box">
-				<div class="tit num13">
 					<p>행정정보문고센터</p>
 				</div>
 				<div class="txt">
@@ -194,10 +182,10 @@
 				</div>
 			</div>
 		</li>
-		<!-- mg-->
-		<li class="mg">
+		<!-- -->
+		<li>
 			<div class="info-box">
-				<div class="tit num14">
+				<div class="tit num13">
 					<p>학산작은도서관</p>
 				</div>
 				<div class="txt">
@@ -206,10 +194,10 @@
 				</div>
 			</div>
 		</li>
-		<!-- -->
-		<li>
+		<!-- mg-->
+		<li class="mg">
 			<div class="info-box">
-				<div class="tit num15">
+				<div class="tit num14">
 					<p>대구학생문화센터</p>
 				</div>
 				<div class="txt">
@@ -221,7 +209,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num16">
+				<div class="tit num15">
 					<p>점자도서관</p>
 				</div>
 				<div class="txt">
@@ -230,10 +218,10 @@
 				</div>
 			</div>
 		</li>
-		<!-- mg-->
-		<li class="mg">
+		<!-- -->
+		<li>
 			<div class="info-box">
-				<div class="tit num17">
+				<div class="tit num16">
 					<p>새벗도서관</p>
 				</div>
 				<div class="txt">
@@ -242,10 +230,10 @@
 				</div>
 			</div>
 		</li>
-		<!-- -->
-		<li>
+		<!-- mg-->
+		<li class="mg">
 			<div class="info-box">
-				<div class="tit num18">
+				<div class="tit num17">
 					<p>푸른초장공공도서관</p>
 				</div>
 				<div class="txt">
@@ -286,13 +274,12 @@ jQuery(function($){
 	daegu_map_data.push({idx:'51',title:'용산1동작은도서관', tel : '053-667-4279', point:{x:'35.8566624983138',y:'128.531223930229'}, address:'대구광역시 달서구 용산로212-7 (용산동 934-6)',no:'9' });
 	daegu_map_data.push({idx:'49',title:'장기동작은도서관', tel : '053-667-4244', point:{x:'35.8433491694642',y:'128.529974709497'}, address:'대구광역시 달서구 장기로277 (장기동 817-2)',no:'10' });
 	daegu_map_data.push({idx:'48',title:'죽전동작은도서관', tel : '053-667-4214', point:{x:'35.8557951418932',y:'128.539806645735'}, address:'대구광역시 달서구 와룡로54길 28 (죽전동 204-12)',no:'11' });
-	daegu_map_data.push({idx:'47',title:'달서아트센터도서관', tel : '053-584-9274', point:{x:'35.843422578812',y:'128.522826730437'}, address:'대구광역시 달서구 문화회관길160 (장기동 722-1) ',no:'12' });
-	daegu_map_data.push({idx:'46',title:'행정정보문고센터', tel : '053-667-4815', point:{x:'35.8295250192427',y:'128.532293871771'}, address:'대구광역시 달서구 학산로 45 (월성동 281)',no:'13' });
-	daegu_map_data.push({idx:'45',title:'학산작은도서관', tel : '053-721-8970', point:{x:'35.8332859011084',y:'128.541804663116'}, address:'대구광역시 달서구 학산로 140(본동 804-2)',no:'14' });
-	daegu_map_data.push({idx:'44',title:'대구학생문화센터', tel : '053-231-1254', point:{x:'35.8530407',y:'128.5294985'}, address:'대구광역시 달서구 용산로 181 대구학생문화센터 2층',no:'15' });
-	daegu_map_data.push({idx:'43',title:'점자도서관', tel : '053-256-8877', point:{x:'35.831016',y:'128.552125'}, address:'대구광역시 달서구 월배로 414 (송현동)',no:'16' });
-	daegu_map_data.push({idx:'42',title:'새벗도서관', tel : '053-631-9105', point:{x:'35.8168531',y:'128.5326179'}, address:'대구광역시 달서구 월배로 170 (상인동)',no:'17' });
-	daegu_map_data.push({idx:'41',title:'푸른초장공공도서관', tel : '053-582-3394', point:{x:'35.8536579',y:'128.4738303'}, address:'대구광역시 달서구 달구벌대로 973',no:'18' });
+	daegu_map_data.push({idx:'46',title:'행정정보문고센터', tel : '053-667-4815', point:{x:'35.8295250192427',y:'128.532293871771'}, address:'대구광역시 달서구 학산로 45 (월성동 281)',no:'12' });
+	daegu_map_data.push({idx:'45',title:'학산작은도서관', tel : '053-721-8970', point:{x:'35.8332859011084',y:'128.541804663116'}, address:'대구광역시 달서구 학산로 140(본동 804-2)',no:'13' });
+	daegu_map_data.push({idx:'44',title:'대구학생문화센터', tel : '053-231-1254', point:{x:'35.8530407',y:'128.5294985'}, address:'대구광역시 달서구 용산로 181 대구학생문화센터 2층',no:'14' });
+	daegu_map_data.push({idx:'43',title:'점자도서관', tel : '053-256-8877', point:{x:'35.831016',y:'128.552125'}, address:'대구광역시 달서구 월배로 414 (송현동)',no:'15' });
+	daegu_map_data.push({idx:'42',title:'새벗도서관', tel : '053-631-9105', point:{x:'35.8168531',y:'128.5326179'}, address:'대구광역시 달서구 월배로 170 (상인동)',no:'16' });
+	daegu_map_data.push({idx:'41',title:'푸른초장공공도서관', tel : '053-582-3394', point:{x:'35.8536579',y:'128.4738303'}, address:'대구광역시 달서구 달구벌대로 973',no:'17' });
 
 	daegu_map = new map_app();
 	

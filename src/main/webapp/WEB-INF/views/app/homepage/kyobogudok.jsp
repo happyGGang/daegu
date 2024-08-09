@@ -38,6 +38,7 @@
 			</ul>
 		</form>
 
+		<!--
 		<form name="frm_kyobo_ebook" id="frm_kyobo_ebook" method="post" action="https://daegu.dkyobobook.co.kr/frontapi/mmbrLnkg.ink" accept-charset="UTF-8" target="_blank">
 		<input id="user_id" name="user_id" type="hidden" value="${sessionScope.member.member_id}"/>
 		<input type="hidden" name="user_type" value ="T1">
@@ -64,6 +65,7 @@
 				</li>
 			</ul>
 		</form>
+		-->
 
 	</div>
 </div>

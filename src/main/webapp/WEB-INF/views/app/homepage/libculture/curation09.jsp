@@ -73,6 +73,13 @@ $(function(){
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
+									<a href="http://icuration.co.kr:81/curation/w/197" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>역사</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ht_img_11.png" alt="되찾은 빛 스크린 속 역사" /></p>
+										<span class="link">되찾은 빛 스크린 속 역사<i></i></span>
+									</a>
+								</div>
+								<div>
 									<a href="http://icuration.co.kr:81/curation/w/191" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>역사</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ht_img_10.png" alt="6월 호국보훈의 달" /></p>

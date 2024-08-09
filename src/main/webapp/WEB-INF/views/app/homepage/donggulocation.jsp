@@ -57,8 +57,8 @@
 					<p>대구2ㆍ28기념학생도서관</p>
 				</div>
 				<div class="txt">
-					<p class="add">동구 금호강변로 360</p>
-					<p class="tel">053-980-2600</p>
+					<p class="add">동구 아양로41길 56</p>
+					<p class="tel">053-231-2841</p>
 				</div>
 			</div>
 		</li>
@@ -69,8 +69,8 @@
 					<p>대구안심도서관</p>
 				</div>
 				<div class="txt">
-					<p class="add">동구 아양로41길 56</p>
-					<p class="tel">053-231-2841</p>
+					<p class="add">동구 금호강변로 360</p>
+					<p class="tel">053-980-2600</p>
 				</div>
 			</div>
 		</li>
@@ -282,7 +282,7 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num21">
-					<p>율하5주민작은도서관</p>
+					<p>율하북작은도서관</p>
 				</div>
 				<div class="txt">
 					<p class="add">동구 율하서로59</p>
@@ -294,18 +294,6 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num22">
-					<p>방촌어린이작은도서관</p>
-				</div>
-				<div class="txt">
-					<p class="add">동구 동촌로 46길 17</p>
-					<p class="tel">053-981-8276</p>
-				</div>
-			</div>
-		</li>
-		<!-- -->
-		<li class="mg">
-			<div class="info-box">
-				<div class="tit num23">
 					<p>동일도서관</p>
 				</div>
 				<div class="txt">
@@ -314,10 +302,10 @@
 				</div>
 			</div>
 		</li>
-		<!-- -->
-		<li>
+		<!-- mg-->
+		<li class="mg">
 			<div class="info-box">
-				<div class="tit num24">
+				<div class="tit num23">
 					<p>한들마을도서관</p>
 				</div>
 				<div class="txt">
@@ -389,13 +377,11 @@ jQuery(function($){
 
 		daegu_map_data.push({idx:'37',title:'행복작은도서관', tel : '053-755-9392', point:{x:'35.8702091',y:'128.6213122'}, address:'대구광역시 동구 송라로2길17-6(제일기독종합사회복지관)',no:'20' });
 	
-		daegu_map_data.push({idx:'35',title:'율하5주민작은도서관', tel : '053-965-5955', point:{x:'35.8640922',y:'128.6920047'}, address:'대구광역시 동구 율하서로59(율하휴먼시아5단지 관리실)',no:'21' });
+		daegu_map_data.push({idx:'35',title:'율하북작은도서관', tel : '053-965-5955', point:{x:'35.8640922',y:'128.6920047'}, address:'대구광역시 동구 율하서로59(율하휴먼시아5단지 관리실)',no:'21' });
 	
-		daegu_map_data.push({idx:'36',title:'방촌어린이작은도서관', tel : '053-981-8276', point:{x:'35.8802839',y:'128.6638025'}, address:'대구광역시 동구 동촌로 46길 17',no:'22' });
+		daegu_map_data.push({idx:'35',title:'동일도서관', tel : '053-755-6003', point:{x:'35.8764604',y:'128.6800965'}, address:'대구광역시 동구 동촌로 374-3',no:'22' });
 	
-		daegu_map_data.push({idx:'35',title:'동일도서관', tel : '053-755-6003', point:{x:'35.8764604',y:'128.6800965'}, address:'대구광역시 동구 동촌로 374-3',no:'23' });
-	
-		daegu_map_data.push({idx:'34',title:'한들마을도서관', tel : '053-985-1513', point:{x:'35.941557',y:'128.6425066'}, address:'대구광역시 동구 팔공로101길 47',no:'24' });
+		daegu_map_data.push({idx:'34',title:'한들마을도서관', tel : '053-985-1513', point:{x:'35.941557',y:'128.6425066'}, address:'대구광역시 동구 팔공로101길 47',no:'23' });
 	
 	daegu_map = new map_app();
 	

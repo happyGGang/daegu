@@ -45,8 +45,8 @@
 					<p>대구광역시립서부도서관</p>
 				</div>
 				<div class="txt">
-					<p class="add">대구광역시 달서구 죽전1길 176 (구.죽전중) 2층</p>
-					<p class="tel">053-231-2449</p>
+					<p class="add">대구광역시 서구 국채보상로49길 12</p>
+					<p class="tel">053-231-2400<br><br></p>
 				</div>
 			</div>
 		</li>
@@ -106,7 +106,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">대구광역시 서구 달서로 43길 12</p>
-					<p class="tel">053-663-3942</p>
+					<p class="tel">053-231-3941</p>
 				</div>
 			</div>
 		</li>
@@ -114,6 +114,18 @@
 		<li>
 			<div class="info-box">
 				<div class="tit num07">
+					<p>New평리도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 서구 평리로73길 37</p>
+					<p class="tel">053-663-3881<br><br></p>
+				</div>
+			</div>
+		</li>
+		<!-- mg-->
+		<li class="mg">
+			<div class="info-box">
+				<div class="tit num08">
 					<p>내당2.3동드림도서관</p>
 				</div>
 				<div class="txt">
@@ -122,10 +134,10 @@
 				</div>
 			</div>
 		</li>
-		<!-- mg-->
-		<li class="mg">
+		<!-- -->
+		<li>
 			<div class="info-box">
-				<div class="tit num08">
+				<div class="tit num09">
 					<p>내당4동어린이도서관</p>
 				</div>
 				<div class="txt">
@@ -137,7 +149,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num09">
+				<div class="tit num10">
 					<p>비산7동작은도서관</p>
 				</div>
 				<div class="txt">
@@ -146,22 +158,22 @@
 				</div>
 			</div>
 		</li>
-		<!-- -->
-		<li>
-			<div class="info-box">
-				<div class="tit num10">
-					<p style="font-size:98%;">새마을문고대구서구지부작은도서관</p>
-				</div>
-				<div class="txt">
-					<p class="add">대구광역시 서구 평리로35길 90-6(영어도서관 2층)</p>
-					<p class="tel">053-663-3865</p>
-				</div>
-			</div>
-		</li>
 		<!-- mg-->
 		<li class="mg">
 			<div class="info-box">
 				<div class="tit num11">
+					<p style="font-size:98%;">새마을문고대구서구지부작은도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 서구 평리로35길 90-6(영어도서관 2층)</p>
+					<p class="tel">053-554-5163</p>
+				</div>
+			</div>
+		</li>
+		<!-- -->
+		<li>
+			<div class="info-box">
+				<div class="tit num12">
 					<p>서구청작은도서관</p>
 				</div>
 				<div class="txt">
@@ -173,7 +185,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num12">
+				<div class="tit num13">
 					<p>달성토성마을다락방작은도서관</p>
 				</div>
 				<div class="txt">
@@ -209,12 +221,13 @@ jQuery(function($){
 	daegu_map_data.push({idx:'56',title:'서구영어도서관', tel : '053-663-3861', point:{x:'35.867878',y:'128.544274'}, address:'대구광역시 서구 평리로 35길 90-6',no:'4' });
 	daegu_map_data.push({idx:'55',title:'비원도서관', tel : '053-663-3873', point:{x:'35.8860881575549',y:'128.569284590416'}, address:'대구광역시 서구 달서천로 61안길 10',no:'5' });
 	daegu_map_data.push({idx:'54',title:'원고개도서관', tel : '053-663-3942', point:{x:'35.8818789923792',y:'128.570797020986'}, address:'대구광역시 서구 달서로 43길 12',no:'6' });
-	daegu_map_data.push({idx:'53',title:'내당2.3동드림도서관', tel : '053-521-9100', point:{x:'35.8643313624622',y:'128.568756874411'}, address:'대구광역시 서구 달서로5길 31-1(내당2·3동)',no:'7' });
-	daegu_map_data.push({idx:'52',title:'내당4동어린이도서관', tel : '053-663-4234', point:{x:'35.8590204867088',y:'128.551843118421'}, address:'대구광역시 서구 서대구로3길46 (내당4동)(2층)',no:'8' });
-	daegu_map_data.push({idx:'51',title:'비산7동작은도서관', tel : '053-663-3649', point:{x:'35.8858973495298',y:'128.553897616805'}, address:'대구광역시 서구 서대구로63안길 30-22(비산동)',no:'9' });
-	daegu_map_data.push({idx:'49',title:'<span style="font-size:85%;">새마을문고대구서구지부작은도서관</span>', tel : '053-663-3865', point:{x:'35.867994',y:'128.544266'}, address:'대구광역시 서구 평리로35길 90-6(영어도서관 2층)',no:'10' });
-	daegu_map_data.push({idx:'48',title:'서구청작은도서관', tel : '053-663-3637', point:{x:'35.8723219470535',y:'128.559289496989'}, address:'대구광역시 서구 국채보상로 257(평리동)',no:'11' });
-	daegu_map_data.push({idx:'47',title:'<span style="font-size:95%;">달성토성마을다락방작은도서관</span>', tel : '053-663-3645', point:{x:'35.8733150060675',y:'128.575372901347'}, address:'대구광역시 서구 국채보상로83길 21(비산2.3동)',no:'12' });
+	daegu_map_data.push({idx:'53',title:'New평리도서관', tel : '053-521-9100', point:{x:'35.8678139',y:'128.5620383'}, address:'대구광역시 서구 평리로73길 37',no:'7' });
+	daegu_map_data.push({idx:'53',title:'내당2.3동드림도서관', tel : '053-521-9100', point:{x:'35.8643313624622',y:'128.568756874411'}, address:'대구광역시 서구 달서로5길 31-1(내당2·3동)',no:'8' });
+	daegu_map_data.push({idx:'52',title:'내당4동어린이도서관', tel : '053-663-4234', point:{x:'35.8590204867088',y:'128.551843118421'}, address:'대구광역시 서구 서대구로3길46 (내당4동)(2층)',no:'9' });
+	daegu_map_data.push({idx:'51',title:'비산7동작은도서관', tel : '053-663-3649', point:{x:'35.8858973495298',y:'128.553897616805'}, address:'대구광역시 서구 서대구로63안길 30-22(비산동)',no:'10' });
+	daegu_map_data.push({idx:'49',title:'<span style="font-size:85%;">새마을문고대구서구지부작은도서관</span>', tel : '053-663-3865', point:{x:'35.867994',y:'128.544266'}, address:'대구광역시 서구 평리로35길 90-6(영어도서관 2층)',no:'11' });
+	daegu_map_data.push({idx:'48',title:'서구청작은도서관', tel : '053-663-3637', point:{x:'35.8723219470535',y:'128.559289496989'}, address:'대구광역시 서구 국채보상로 257(평리동)',no:'12' });
+	daegu_map_data.push({idx:'47',title:'<span style="font-size:95%;">달성토성마을다락방작은도서관</span>', tel : '053-663-3645', point:{x:'35.8733150060675',y:'128.575372901347'}, address:'대구광역시 서구 국채보상로83길 21(비산2.3동)',no:'13' });
 
 	daegu_map = new map_app();
 	

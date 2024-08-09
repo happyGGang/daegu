@@ -74,6 +74,20 @@ $(function(){
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
 								<div>
+									<a href="http://icuration.co.kr:81/curation/w/197" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>역사</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ht_img_11.png" alt="되찾은 빛 스크린 속 역사" /></p>
+										<span class="link">되찾은 빛 스크린 속 역사<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://icuration.co.kr:81/curation/w/196" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>인문</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/im_img_10.png" alt="공간의 인문학" /></p>
+										<span class="link">공간의 인문학<i></i></span>
+									</a>
+								</div>
+								<div>
 									<a href="http://icuration.co.kr:81/curation/w/195" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>동화</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/dh_img_10.png" alt="뮤지컬이 된 동화책" /></p>

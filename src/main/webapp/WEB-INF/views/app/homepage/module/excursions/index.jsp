@@ -242,21 +242,26 @@ $(function(){
 			<c:when test="${param.homepage_id eq 'h72' || param.homepage_id eq '' || param.homepage_id eq null}">
 			<!-- 도원 -->
 			<div class="roomicon">
-			  <div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
-				<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
-				<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
-			  </div>
+				<div class="inner icowrap"><span class="ico ico6"></span> <strong>도서관 견학신청</strong>
+					<p>어린이,청소년들이 도서관에 대한 이해와 흥미를 높이고, 보다 편리하게 도서관을 이용할 수 있도록 도움을 주기 위한 견학 프로그램 운영</p>
+					<!-- <p style="color:#ff0000;">코로나-19 확산 방지를 위해 별도 공지 시까지 단체 견학신청을 받지 않습니다.</p> -->
+				</div>
 			</div>
 			<ul class="con">
-			  <li>일시: 매달 마지막 수요일 11:00~12:00
-			  <li>장소: 도원도서관 1층 유아자료실</li>
-			  <li>인원: 15명 이내</li>
-			  <li>문의: 667-4821</li>
-			  <li>주의사항
-			  	<ul class="con2">
-					<li>견학 시간 준수</li>
-				</ul>
-			  </li>
+				<li>일시
+					<ul class="con2">
+						<li>견학(8월견학없음): 매주 목요일 11:00~12:00</li>
+						<li>몸튼튼 마음튼튼: 4~8월 마지막주 수요일 11:00~12:00</li>
+					</ul>
+				</li>
+				<li>장소: 도원도서관 1층 유아자료실</li>
+				<li>인원: 15명 이내</li>
+				<li>문의: 667-4821</li>
+				<li>주의사항
+					<ul class="con2">
+						<li>견학 시간 준수</li>
+					</ul>
+				</li>
 			</ul>
 			</c:when>
 			<c:when test="${param.homepage_id eq 'h66'}">
@@ -508,124 +513,126 @@ $(function(){
 			<a href="anonyApply.do?homepage_id=${fn:escapeXml(param.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 		</div>
 	</c:if>
-
-	<div id="calendar">
-	<table class="cal-tbl">
-		<thead>
-		<tr>
-			<th class="sun">일</th>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
-			<th class="sat">토</th>
-		</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="i" varStatus="status" items="${calendarList}">
-				<tr class="week">
-					<c:choose>
-					<c:when test="${i.sun eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="sun">
-							<div>${i.sun}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.mon eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="mon">
-							<div>${i.mon}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.tue eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="tue">
-							<div>${i.tue}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.wed eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="wed">
-							<div>${i.wed}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.thu eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="thu">
-							<div>${i.thu}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.fri eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="fri">
-							<div>${i.fri}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-					<c:choose>
-					<c:when test="${i.sat eq null}">
-						<td><div>&nbsp;</div></td>
-					</c:when>
-					<c:otherwise>
-						<td class="sat">
-							<div>${i.sat}</div>
-							<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
-							<ul>
-								<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
-							</ul>
-						</td>
-					</c:otherwise>
-					</c:choose>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
+	<div class="rsv-info"></div>
+	<div class="auto-scroll">
+		<div id="calendar">
+		<table class="cal-tbl">
+			<thead>
+			<tr>
+				<th class="sun">일</th>
+				<th>월</th>
+				<th>화</th>
+				<th>수</th>
+				<th>목</th>
+				<th>금</th>
+				<th class="sat">토</th>
+			</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="i" varStatus="status" items="${calendarList}">
+					<tr class="week">
+						<c:choose>
+						<c:when test="${i.sun eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="sun">
+								<div>${i.sun}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sun) < 2? '0' : ''}${i.sun}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${i.mon eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="mon">
+								<div>${i.mon}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.mon) < 2? '0' : ''}${i.mon}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${i.tue eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="tue">
+								<div>${i.tue}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.tue) < 2? '0' : ''}${i.tue}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${i.wed eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="wed">
+								<div>${i.wed}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.wed) < 2? '0' : ''}${i.wed}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${i.thu eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="thu">
+								<div>${i.thu}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.thu) < 2? '0' : ''}${i.thu}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${i.fri eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="fri">
+								<div>${i.fri}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.fri) < 2? '0' : ''}${i.fri}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+						<c:choose>
+						<c:when test="${i.sat eq null}">
+							<td><div>&nbsp;</div></td>
+						</c:when>
+						<c:otherwise>
+							<td class="sat">
+								<div>${i.sat}</div>
+								<c:set var="plan_date" value="${excursions.plan_date}-${fn:length(i.sat) < 2? '0' : ''}${i.sat}" />
+								<ul>
+									<tag:excursionsUser plan_date="${plan_date}" excursionsList="${excursionsList}" calendarManageList="${calendarManageList}" applyList="${applyList}" mode="admin"/>
+								</ul>
+							</td>
+						</c:otherwise>
+						</c:choose>
+					</tr>
+				</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </form:form>

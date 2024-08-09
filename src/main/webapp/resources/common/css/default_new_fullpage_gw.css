@@ -236,7 +236,7 @@ display:inline-block;position:absolute;content:" ";width:14px;height:14px;left:9
 .txt-right{text-align:right!important}
 
 /* 컨텐츠 스타일 */
-input.text{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fafafa;line-height:27px;height:27px;padding:0 5px;vertical-align:middle;margin: 2px;}
+input.text{border:1px solid #ccd2dc;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;background:#fafafa;line-height:27px;height:27px;padding:0 5px;vertical-align:middle;}
 input.text.disabled{background:#f1f1f1;color:#aaa;cursor:not-allowed}
 input.text.ui-spinner-input{border:none;background:none;margin-top:0;margin-bottom:0}
 .ui-spinner a{cursor:pointer}

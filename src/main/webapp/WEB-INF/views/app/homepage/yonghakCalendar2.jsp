@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.6.30.] (단위 : 권)</span></h3>
+				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.7.31.] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -91,56 +91,56 @@
 								<th>어린이</th>
 								<td>275</td>
 								<td>158</td>
-								<td>91</td>
-								<td>457</td>
-								<td>1,278</td>
-								<td>488</td>
+								<td>93</td>
+								<td>459</td>
+								<td>1,287</td>
+								<td>489</td>
 								<td>143</td>
-								<td>194</td>
-								<td>2,413</td>
-								<td>816</td>
-								<td>6,313</td>
+								<td>198</td>
+								<td>2,428</td>
+								<td>818</td>
+								<td>6,348</td>
 							</tr>
 							<tr>
 								<th>유아</th>
 								<td>60</td>
 								<td>118</td>
 								<td>86</td>
-								<td>447</td>
-								<td>439</td>
+								<td>448</td>
+								<td>442</td>
 								<td>90</td>
 								<td>91</td>
-								<td>71</td>
-								<td>2,392</td>
+								<td>72</td>
+								<td>2,413</td>
 								<td>83</td>
-								<td>3,877</td>
+								<td>3,903</td>
 							<tr>
 								<th>일반</th>
 								<td>279</td>
-								<td>500</td>
-								<td>199</td>
-								<td>1,156</td>
-								<td>632</td>
-								<td>984</td>
+								<td>505</td>
+								<td>200</td>
+								<td>1,165</td>
+								<td>636</td>
+								<td>988</td>
 								<td>328</td>
 								<td>165</td>
-								<td>2,493</td>
+								<td>2,512</td>
 								<td>506</td>
-								<td>7,242</td>
+								<td>7,284</td>
 							</tr>
 							<tr>
 								<th>합계</th>
 								<td>614</td>
-								<td>776</td>
-								<td>376</td>
-								<td>2,060</td>
-								<td>2,349</td>
-								<td>1,552</td>
+								<td>781</td>
+								<td>379</td>
+								<td>2,072</td>
+								<td>2,365</td>
+								<td>1,567</td>
 								<td>562</td>
-								<td>430</td>
-								<td>7,298</td>
-								<td>1,405</td>
-								<td>17,432</td>
+								<td>435</td>
+								<td>7,353</td>
+								<td>1,407</td>
+								<td>17,535</td>
 							</tr>
 						</tbody>
 					</table>
