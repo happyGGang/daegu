@@ -631,7 +631,14 @@ ${html.html}
 			<thead>
 				<tr>
 					<th scope="col" class="center"><c:choose><c:when test="${param.searchCate1 eq '16'}">행사명</c:when><c:when test="${param.searchCate1 eq '17'}">강좌명</c:when><c:when test="${param.searchCate1 eq '18'}">강좌명</c:when><c:otherwise>강좌명</c:otherwise></c:choose></th>
-					<th scope="col" class="center">접수인원</th>
+					<c:choose>
+						<c:when test="${homepage.context_path eq 'gukbo' and teach.searchCate1 eq '39'}">
+
+						</c:when>
+						<c:otherwise>
+							<th scope="col" class="center">접수인원</th>
+						</c:otherwise>
+					</c:choose>
 					<c:choose>
 						<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}"></c:when>
 						<c:otherwise>
@@ -682,55 +689,71 @@ ${html.html}
 								</dt>
 								<!-- <dd class="con">장소 : ${i.teach_stage}</dd> -->
 								<dd class="con">대상 : ${i.teach_target}</dd>
-								<dd class="con mobile-view">
-								<span>온라인
-									<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}<br/>
-								</span>
-								<c:if test="${i.teach_offline_count > 0}">
-								<span>오프라인
-									<span ${i.teach_off_join_count > 0 and (i.teach_off_join_count eq i.teach_offline_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_off_join_count}</span> / ${i.teach_offline_count}<br/>
-								</span>
-								</c:if>
-								<c:if test="${i.teach_backup_count > 0}">
-								<span>(대기자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
-								</span>
-								</c:if>
-								</dd>
+
+								<c:choose>
+									<c:when test="${homepage.context_path eq 'gukbo' and teach.searchCate1 eq '39'}">
+
+									</c:when>
+									<c:otherwise>
+										<dd class="con mobile-view">
+											<span>온라인
+												<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}<br/>
+											</span>
+											<c:if test="${i.teach_offline_count > 0}">
+												<span>오프라인
+													<span ${i.teach_off_join_count > 0 and (i.teach_off_join_count eq i.teach_offline_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_off_join_count}</span> / ${i.teach_offline_count}<br/>
+												</span>
+											</c:if>
+											<c:if test="${i.teach_backup_count > 0}">
+												<span>(대기자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
+												</span>
+											</c:if>
+										</dd>
+									</c:otherwise>
+								</c:choose>
 								<c:if test="${i.server_file_name ne null and i.server_file_name ne '' }">
 								<!-- <dd class="con">강의계획서 : <a style="color:#00f" href="download/${i.homepage_id}/${i.group_idx}/${i.category_idx}/${i.teach_idx}.do"><i class="fa fa-floppy-o"></i> <%--${i.plan_file_name}--%></a>
 								</dd> -->
 								</c:if>
 							</dl>
 						</td>
-						<td data-th="정원 및 신청현황" class="visit">
-								<!--
+						<c:choose>
+							<c:when test="${homepage.context_path eq 'gukbo' and teach.searchCate1 eq '39'}">
+
+							</c:when>
+							<c:otherwise>
+								<td data-th="정원 및 신청현황" class="visit">
+									<!--
 								<span><strong>온라인</strong> ${i.teach_limit_count}명 </span>
 								<c:if test="${i.teach_offline_count > 0}"><span>, <strong>오프라인</strong> ${i.teach_offline_count}명</span></c:if>
 								<c:if test="${i.teach_backup_count > 0}"><span>, ( <strong>대기자</strong> ${i.teach_backup_count}명 )</span></c:if>
 								<br/>
 								-->
-								<span>온라인
+										<span>온라인
 									<span ${i.teach_join_count > 0 and (i.teach_join_count eq i.teach_limit_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_join_count}</span> / ${i.teach_limit_count}<br/>
 								</span>
-								<c:if test="${i.teach_offline_count > 0}">
+										<c:if test="${i.teach_offline_count > 0}">
 								<span>오프라인
 									<span ${i.teach_off_join_count > 0 and (i.teach_off_join_count eq i.teach_offline_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_off_join_count}</span> / ${i.teach_offline_count}<br/>
 								</span>
-								</c:if>
-								<c:if test="${i.teach_backup_count > 0}">
+										</c:if>
+										<c:if test="${i.teach_backup_count > 0}">
 								<span>(대기자 <span ${i.teach_backup_join_count > 0 and (i.teach_backup_join_count eq i.teach_backup_count)? 'style="color:red;"' : 'style="color:#e55832"'}>${i.teach_backup_join_count}</span> / ${i.teach_backup_count})
 								</span>
-								</c:if>
-								<!--
-								<span style="color:red;padding:0;">12</span> / 12</span><br/>
-								<span>
-									(
-									대기자 :
-									<span style="color:orange">1</span> / 5
-									)
-								</span>
-								-->
-						</td>
+										</c:if>
+										<!--
+										<span style="color:red;padding:0;">12</span> / 12</span><br/>
+										<span>
+											(
+											대기자 :
+											<span style="color:orange">1</span> / 5
+											)
+										</span>
+										-->
+								</td>
+							</c:otherwise>
+						</c:choose>
+
 						<c:choose>
 							<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}">
 							</c:when>
