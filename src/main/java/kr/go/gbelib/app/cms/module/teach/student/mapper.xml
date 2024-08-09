@@ -14,7 +14,7 @@
 			student_neis_cd,
 			student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, agree_codes,
-			sms_service_yn, picture_use_yn, student_age, vaccines_counter
+			sms_service_yn, picture_use_yn, student_age, vaccines_counter, email
 		FROM
 			STUDENT
 		WHERE DELETE_YN 		= 'N' AND
@@ -57,7 +57,7 @@
 					student_neis_cd,
 					student_training_num,
 					student_organization, student_organization_tel, student_rank, student_course_taken_yn,
-					org_file_name, server_file_name, file_extension, file_size
+					org_file_name, server_file_name, file_extension, file_size, email
 				FROM
 					STUDENT a, STUDENT_FILE b
 				WHERE
@@ -113,7 +113,7 @@
 			student_neis_cd,
 			student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, student_password, agree_codes,
-			sms_service_yn, picture_use_yn, student_old, vaccines_counter, family_member, items_sale_name
+			sms_service_yn, picture_use_yn, student_old, vaccines_counter, family_member, items_sale_name, email
 		FROM
 			STUDENT
 		WHERE DELETE_YN = 'N'
@@ -150,7 +150,7 @@
 			, student_ban, student_remark, student_family_count, student_family_team,
 			student_location_code,student_neis_cd,student_training_num,
 			student_organization, student_organization_tel, student_rank, student_course_taken_yn, student_password, agree_codes,
-			sms_service_yn, picture_use_yn, vaccines_counter, family_member,items_sale_name
+			sms_service_yn, picture_use_yn, vaccines_counter, family_member,items_sale_name, email
 		) VALUES
 		(
 			#{homepage_id}, #{group_idx}, #{category_idx}, #{teach_idx}, #{student_idx}, #{member_id}, #{member_key}, #{applicant_name}, #{applicant_birth}, #{web_id}
@@ -160,7 +160,7 @@
 			, #{student_ban}, #{student_remark}, #{student_family_count}, #{student_family_team},
 			#{student_location_code}, #{student_neis_cd}, #{student_training_num},
 			#{student_organization}, #{student_organization_tel}, #{student_rank}, #{student_course_taken_yn}, #{student_password}, #{agree_codes},
-			#{sms_service_yn}, #{picture_use_yn}, #{vaccines_counter}, #{family_member},#{items_sale_name}
+			#{sms_service_yn}, #{picture_use_yn}, #{vaccines_counter}, #{family_member},#{items_sale_name}, #{email}
 		)
 	</insert>
 	
@@ -223,6 +223,7 @@
 			modify_id					= #{modify_id},
 			modify_date				= SYSDATE,
 			items_sale_name =  #{items_sale_name}
+			email =  #{email}
 		WHERE
 			HOMEPAGE_ID 		= #{homepage_id}
 			AND GROUP_IDX 		= #{group_idx}

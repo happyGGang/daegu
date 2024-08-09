@@ -1530,6 +1530,17 @@
 			</td>
 		</tr>
 		<tr>
+			<th>이메일 입력 여부</th>
+			<td>
+				<form:radiobutton path="email_use_yn" value="Y" label="사용"/>
+				<form:radiobutton path="email_use_yn" value="N" label="미사용"/>
+				<div class="ui-state-highlight">
+					<em>* 법정대리인동의여부 사용시 보호자 이메일 입력이 노출됩니다.</em>
+					<em>* 사용 시 '이메일 입력' 입력항목이 노출됩니다.</em>
+				</div>
+			</td>
+		</tr>
+		<tr>
 			<th>휴강일설정</th>
 			<td>
 				<div style="float: left; margin-right: 10px;">

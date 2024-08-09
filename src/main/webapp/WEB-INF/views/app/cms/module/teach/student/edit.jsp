@@ -118,6 +118,11 @@ $(function() {
 						alert('보호자 관계를 입력해 주세요.');
 						return false;
 					}
+					if ($form.find('#email').val() == '') {
+						$form.find('#email').focus();
+						alert('이메일 주소를 입력해 주세요.');
+						return false;
+					}
 					if ( $form.find('#family_name').val() == ''){
 						$form.find('#family_name').focus();
 						alert('보호자 이름을 입력해 주세요.');
@@ -752,6 +757,12 @@ $(function() {
 						</div>
 					</td>
 				</tr>
+				<c:if test="${teach.email_use_yn eq 'Y' }">
+					<tr>
+						<th>이메일(<span style="color: red; font-weight: bold;">*</span>)</th>
+						<td><form:input path="email" cssClass="text" title="이메일 주소"/></td>
+					</tr>
+				</c:if>
 				<c:if test="${teach.sms_service_yn eq 'Y'}">
 				<tr>
 					<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>

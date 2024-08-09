@@ -237,6 +237,8 @@ public class Teach extends PagingUtils {
 
 	private String items_sale_yn = "N"; //판매품 입력 여부
 
+	private String email_use_yn = "N";
+
 	private List<TeachSort> teachSortList; //정렬기준리스트
 
 	public Teach() {}
@@ -1836,5 +1838,13 @@ public class Teach extends PagingUtils {
 
 	public void setTeachSortList(List<TeachSort> teachSortList) {
 		this.teachSortList = teachSortList;
+	}
+
+	public String getEmail_use_yn() {
+		return email_use_yn;
+	}
+
+	public void setEmail_use_yn(String email_use_yn) {
+		this.email_use_yn = email_use_yn;
 	}
 }

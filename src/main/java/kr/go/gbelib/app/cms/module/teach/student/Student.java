@@ -134,6 +134,8 @@ public class Student extends PagingUtils {
 
 	private String items_sale_name; //판매품 목록
 
+	private String email;
+
 	public Student() {}
 
 	public Student(String homepage_id, int group_idx, int category_idx, int teach_idx) {
@@ -943,5 +945,13 @@ public class Student extends PagingUtils {
 
 	public void setItems_sale_name(String items_sale_name) {
 		this.items_sale_name = items_sale_name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

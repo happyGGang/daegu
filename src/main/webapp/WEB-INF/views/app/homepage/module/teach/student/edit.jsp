@@ -399,6 +399,12 @@ $(function() {
 					doubleSubmit = false;
 					return false;
 				}
+				if ($form.find('#email').val() == '') {
+					$form.find('#email').focus();
+					alert('이메일 주소를 입력해 주세요.');
+					doubleSubmit = false;
+					return false;
+				}
 				cellPhone1 = $form.find('#family_cell_phone_1').val();
 				if (cellPhone1 == '') {
 					$form.find('#family_cell_phone_1').focus();
@@ -1218,6 +1224,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						<input id="family_cell_phone_3" style="width:50px;" class="text" maxlength="4" numberonly="true" title="연락처 끝자리"/>
 					</td>
 				</tr>
+				<c:if test="${teach.email_use_yn eq 'Y' }">
+					<tr>
+						<th>이메일(<span style="color: red; font-weight: bold;">*</span>)</th>
+						<td><form:input path="email" cssClass="text" title="이메일 주소"/></td>
+					</tr>
+				</c:if>
 				<c:if test="${teach.sms_service_yn eq 'Y' }">
 				<tr>
 					<th>SMS 수신동의여부(<span style="color: red; font-weight: bold;">*</span>)</th>
