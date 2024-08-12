@@ -74,7 +74,9 @@ $(function() {
 			<col width="10%"/>
 			<col width="10%"/>
 			<col width="10%"/>
+			<c:if test="${apply.homepage_id ne 'h61' and apply.homepage_id ne 'h62' and apply.homepage_id ne 'h63' and apply.homepage_id ne 'h64' and apply.homepage_id ne 'h65' and apply.homepage_id ne 'h77' and apply.homepage_id ne 'h96'}">
 			<col width="10%"/>
+			</c:if>
 			<c:if test="${apply.homepage_id eq 'h8'}">
 				<col width="10%"/>
 			</c:if>
@@ -92,7 +94,9 @@ $(function() {
 				</c:if>
 				<th>승인 여부</th>
 				<th>신청</th>
-				<th>첨부파일</th>
+				<c:if test="${apply.homepage_id ne 'h61' and apply.homepage_id ne 'h62' and apply.homepage_id ne 'h63' and apply.homepage_id ne 'h64' and apply.homepage_id ne 'h65' and apply.homepage_id ne 'h77' and apply.homepage_id ne 'h96'}">
+					<th>첨부파일</th>
+				</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -130,14 +134,19 @@ $(function() {
 						<a href="" class="btn" id="modify-btn" keyValue="${i.apply_idx}" >수정</a>
 					</c:if>
 				</td>
+				<c:if test="${apply.homepage_id ne 'h61' and apply.homepage_id ne 'h62' and apply.homepage_id ne 'h63' and apply.homepage_id ne 'h64' and apply.homepage_id ne 'h65' and apply.homepage_id ne 'h77' and apply.homepage_id ne 'h96'}">
 				<td>
 					<a href="/${homepage.context_path}/module/excursions/download/${i.homepage_id}/${i.apply_idx }.do"><i class="fa fa-floppy-o"></i>${i.origin_file_name}</a>
 				</td>
+				</c:if>
 			</tr>
 			</c:forEach>
 			<c:if test="${fn:length(applyList) < 1}">
 				<tr>
 					<c:choose>
+						<c:when test="${apply.homepage_id ne 'h61' and apply.homepage_id ne 'h62' and apply.homepage_id ne 'h63' and apply.homepage_id ne 'h64' and apply.homepage_id ne 'h65' and apply.homepage_id ne 'h77' and apply.homepage_id ne 'h96'}">
+							<td colspan="9">데이터가 존재하지 않습니다.</td>
+						</c:when>
 						<c:when test="${apply.homepage_id eq 'h8'}">
 							<td colspan="10">데이터가 존재하지 않습니다.</td>
 						</c:when>
