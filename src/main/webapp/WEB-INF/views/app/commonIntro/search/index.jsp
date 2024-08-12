@@ -1183,6 +1183,11 @@ function isFromFridayToSunday() {
 													</c:when>
 													<c:when test="${homepage.context_path eq 'gukbo'}">
 													</c:when>
+                                                    <c:when test="${(homepage.context_path eq 'dongbu') and (param.menu_idx eq '173')}">
+                                                        <c:if test="${i.CODE eq 'AH14' or i.CODE eq 'AH16'}">
+                                                            <form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+                                                        </c:if>
+                                                    </c:when>
 													<c:otherwise>
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 													</c:otherwise>
