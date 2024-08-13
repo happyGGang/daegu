@@ -3,8 +3,7 @@ package kr.go.gbelib.app.intro.search;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.Month;
+import java.time.*;
 import java.util.*;
 
 import java.util.stream.Collectors;
@@ -4194,15 +4193,15 @@ public class CommonSearchController extends BaseController {
 			NearbyLibDevice deviceOne = neighborhoodLibraryDeviceService.getNeighborhoodLibraryDeviceOne(neighborhoodLibraryDevice);	//장비정보 가져오기		
 
 			int take_term = 3;
-			Date nowDate = new Date();
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(nowDate);
 
-			int currentWeekNumber = cal.get(Calendar.WEEK_OF_YEAR);
-			int currentDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+			LocalDate today = LocalDate.now();
+			int year = today.getYear();
+			Month month = today.getMonth();
 
-			//반야월 이마트 매주 금요일
-			if (isFirstOrThirdWeek(currentWeekNumber) && isFriday(currentDayOfWeek) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
+			LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
+			LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
+
+			if(today.isEqual(firstFriday) || today.isEqual(thirdFriday) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
 				take_term += 1;
 			}
 
@@ -4916,11 +4915,25 @@ public class CommonSearchController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "baro/index";
 	}
 
-	private static boolean isFirstOrThirdWeek(int weekNumber) {
-		return weekNumber == 1 || weekNumber == 3;
+	public static LocalDate getNthFridayOfMonth(int year, Month month, int nth) {
+		YearMonth yearMonth = YearMonth.of(year, month);
+		LocalDate firstMonday = getFirstMonday(yearMonth);
+
+		// 첫 번째 월요일 기준으로 첫째 주 금요일을 찾음
+		LocalDate nthFriday = firstMonday.plusWeeks(nth - 1).with(DayOfWeek.FRIDAY);
+
+		return nthFriday;
 	}
 
-	private static boolean isFriday(int dayOfWeek) {
-		return dayOfWeek == Calendar.FRIDAY;
+	public static LocalDate getFirstMonday(YearMonth yearMonth) {
+		LocalDate firstDayOfMonth = yearMonth.atDay(1);
+
+		// 첫 번째 월요일을 찾음
+		int daysUntilFirstMonday = DayOfWeek.MONDAY.getValue() - firstDayOfMonth.getDayOfWeek().getValue();
+		if (daysUntilFirstMonday < 0) {
+			daysUntilFirstMonday += 7;
+		}
+
+		return firstDayOfMonth.plusDays(daysUntilFirstMonday);
 	}
 }
