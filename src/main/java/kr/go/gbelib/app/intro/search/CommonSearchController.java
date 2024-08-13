@@ -3401,7 +3401,7 @@ public class CommonSearchController extends BaseController {
 							String lillStopDate = member.getLill_stop_date();
 							if (!Objects.equals(lillStopDate, "null")) {
 								res.setValid(false);
-								res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+								res.setMessage("현재 "+lillStopDate.substring(0, 10)+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
 							} else {
 								res.setValid(false);
 								res.setMessage(apiResult.getMessage());
@@ -3411,7 +3411,7 @@ public class CommonSearchController extends BaseController {
 						String lillStopDate = member.getLill_stop_date();
 						if (!Objects.equals(lillStopDate, "null")) {
 							res.setValid(false);
-							res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+							res.setMessage("현재 "+lillStopDate.substring(0, 10)+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
 						} else {
 							res.setValid(false);
 							res.setMessage(lillRequestCheck.getMessage());
@@ -3431,7 +3431,7 @@ public class CommonSearchController extends BaseController {
 							String lillStopDate = member.getLill_stop_date();
 							if (!Objects.equals(lillStopDate, "null")) {
 								res.setValid(false);
-								res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+								res.setMessage("현재 "+lillStopDate.substring(0, 10)+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
 							} else {
 								res.setValid(false);
 								res.setMessage(apiResult.getMessage());
@@ -3441,7 +3441,7 @@ public class CommonSearchController extends BaseController {
 						String lillStopDate = member.getLill_stop_date();
 						if (!Objects.equals(lillStopDate, "null")) {
 							res.setValid(false);
-							res.setMessage("현재 "+lillStopDate+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
+							res.setMessage("현재 "+lillStopDate.substring(0, 10)+"까지 신청제한일 걸려있습니다. 상호대차 신청은 이후에 가능합니다.");
 						} else {
 							res.setValid(false);
 							res.setMessage(lillRequestCheck.getMessage());
