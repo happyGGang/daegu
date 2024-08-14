@@ -222,7 +222,7 @@
 			FAMILY_DESC				= #{family_desc},
 			modify_id					= #{modify_id},
 			modify_date				= SYSDATE,
-			items_sale_name =  #{items_sale_name}
+			items_sale_name =  #{items_sale_name},
 			email =  #{email}
 		WHERE
 			HOMEPAGE_ID 		= #{homepage_id}
