@@ -26,7 +26,7 @@
 .main1 .quickmenu .main-box {position: relative;width: 1300px;margin: 0 auto;}
 .main1 .quickmenu .main-box .qmenu-box {-webkit-box-sizing: border-box;box-sizing: border-box;height: 150px;text-align: center;}
 .main1 .quickmenu .main-box .qmenu-box ul {font-size: 0;display: flex;}
-.main1 .quickmenu .main-box .qmenu-box ul li {display: inline-block;text-align: center;width: 17%;margin: 0;-webkit-box-sizing: border-box;box-sizing: border-box;}	
+.main1 .quickmenu .main-box .qmenu-box ul li {display: inline-block;text-align: center;width: 12.5%;margin: 0;-webkit-box-sizing: border-box;box-sizing: border-box;}	
 .main1 .quickmenu .main-box .qmenu-box ul li a {height:100%;background: no-repeat center 38%;display:block;/* background-size: 28%; */margin:0;font-family: 'Pretendard';font-size: 17px;color:#fff;-webkit-box-sizing:border-box;box-sizing:border-box;text-align:center;-webkit-transition: -webkit-transform .5s;transition: -webkit-transform .5s;transition: transform .5s;transition: transform .5s, -webkit-transform .5s;}
 .main1 .quickmenu .main-box .qmenu-box ul li a:hover {-webkit-transform:transform:translate(0, -10px);-moz-transform:translate(0, -10px);-ms-transform:translate(0, -10px);-o-transform:translate(0, -10px);transform:translate(0, -10px);}
 .main1 .quickmenu .main-box .qmenu-box ul li a span {font-family: 'Pretendard';display: block;padding-top: 130px;position: relative;font-weight: bold;}	
@@ -36,8 +36,8 @@
 .main1 .quickmenu .main-box .qmenu-box ul li.qm4 a {background-image:url('/resources/homepage/228/img/quick__04__2.png');}
 .main1 .quickmenu .main-box .qmenu-box ul li.qm5 a {background-image:url('/resources/homepage/228/img/quick__04.png');}
 .main1 .quickmenu .main-box .qmenu-box ul li.qm6 a {background-image:url('/resources/homepage/228/img/quick__05.png');}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm7 a {background-image:url('/resources/homepage/228/img/quick__06.png');}
-.main1 .quickmenu .main-box .qmenu-box ul li.qm8 a {background-image:url('/resources/homepage/228/img/quick__07.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm7 a {background-image:url('/resources/homepage/228/img/quick__07.png');}
+.main1 .quickmenu .main-box .qmenu-box ul li.qm8 a {background-image:url('/resources/homepage/228/img/quick__06.png');}
 
 
 

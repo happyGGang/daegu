@@ -152,31 +152,30 @@
 							<div class="main-box">
 								<div class="qmenu-box">
 									<ul>
-									<li class="qm1">
-									<a href="/${homepage.context_path}/html.do?menu_idx=135" ><span>센터소개</span></a>
-									</li>
-									<li class="qm2">
-									<a href="/${homepage.context_path}/html.do?menu_idx=113" ><span>2·28책꾸러미</span></a>
-									</li>
-									<li class="qm3">
-									<a href="/${homepage.context_path}/html.do?menu_idx=143" ><span>2·28원화꾸러미</span></a>
-									</li>
-									<li class="qm4">
-									<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259" ><span>학생 추천도서 목록</span></a>
-									</li>
-									<li class="qm5">
-									<a href="/${homepage.context_path}/module/libraryCheck/index.do?menu_idx=148" ><span>장서점검기</span></a>
-									</li>
-									<li class="qm6">
-									<a href="/${homepage.context_path}/board/index.do?menu_idx=150&manage_idx=225" ><span>학교도서관 업무지원</span></a>
-									</li>
-									<li class="qm7">
-									<a href="/${homepage.context_path}/board/index.do?menu_idx=154&manage_idx=224" ><span>참고자료</span></a>
-									</li>
-									<!-- <li class="qm8">
-									<a href="/${homepage.context_path}/module/supportMember/index.do?menu_idx=175" target="_blank"><span>강사인력풀</span></a>
-									</li> -->
-									
+										<li class="qm1">
+										<a href="/${homepage.context_path}/html.do?menu_idx=135" ><span>센터소개</span></a>
+										</li>
+										<li class="qm2">
+										<a href="/${homepage.context_path}/html.do?menu_idx=113" ><span>2·28책꾸러미</span></a>
+										</li>
+										<li class="qm3">
+										<a href="/${homepage.context_path}/html.do?menu_idx=143" ><span>2·28원화꾸러미</span></a>
+										</li>
+										<li class="qm4">
+										<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259" ><span>학생 추천도서 목록</span></a>
+										</li>
+										<li class="qm5">
+										<a href="/${homepage.context_path}/module/libraryCheck/index.do?menu_idx=148" ><span>장서점검기</span></a>
+										</li>
+										<li class="qm6">
+										<a href="/${homepage.context_path}/board/index.do?menu_idx=150&manage_idx=225" ><span>학교도서관 업무지원</span></a>
+										</li>
+										<li class="qm7">
+										<a href="/${homepage.context_path}/html.do?menu_idx=267" target="_blank"><span>강사인력풀</span></a>
+										</li>
+										<li class="qm8">
+										<a href="/${homepage.context_path}/board/index.do?menu_idx=154&manage_idx=224" ><span>참고자료</span></a>
+										</li>
 									</ul>
 								</div>
 							</div>
