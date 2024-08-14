@@ -347,16 +347,17 @@ $(function() {
 								<!-- <form:option value="727076">율하5주민도서관</form:option> -->
 							</form:select>
 							</c:when>
-							<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
+							<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN' || detail.MANAGE_CODE eq 'CC'}">
 							<%-- 서구 --%>
-							<form:select path="uselibcode">
-								<form:option value="" label="-- 선택 --" />
-								<form:option value="127011">서구어린이도서관</form:option>
-								<form:option value="127086">비산도서관</form:option>
-								<form:option value="127095">서구영어도서관</form:option>
-								<form:option value="127094">비원도서관</form:option>
-								<form:option value="127098">원고개도서관</form:option>
-							</form:select>
+								<select name="uselibcode" id="uselibcode">
+									<option value=""/>-- 선택 --</option>
+									<option value="127011">서구어린이도서관</option>
+									<option value="127086">비산도서관</option>
+									<option value="127095">서구영어도서관</option>
+									<option value="127094">비원도서관</option>
+									<option value="127098">원고개도서관</option>
+									<option value="127104">New평리도서관</option>
+								</select>
 							</c:when>
 							<c:otherwise>
 							</c:otherwise>
