@@ -16,9 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.go.gbelib.app.common.api.CommonAPI;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
 import org.springframework.mobile.device.DeviceUtils;
@@ -105,6 +108,8 @@ public class ElibController extends BaseController {
 
 	@Autowired
 	private RecommendSiteService recommendSiteService;
+
+	protected final static Logger log = LoggerFactory.getLogger(CommonAPI.class);
 	
 	@ModelAttribute("recommendSiteList")
 	public List<RecommendSite> getAreaCdList(HttpServletRequest request) {
@@ -502,6 +507,7 @@ public class ElibController extends BaseController {
 							mobileList.add(apiService.view(new Book(l)));
 						} catch(Exception e) {
 							mobileList.add(null);
+							log.error("**************** KYOB MOBILE ERROR " + e);
 						}
 					} else if(StringUtils.equals(l.getCom_code(), "FXLI")) {
 						try {
@@ -509,6 +515,7 @@ public class ElibController extends BaseController {
 							mobileList.add(map);
 						} catch(Exception e) {
 							mobileList.add(null);
+							log.error("**************** FXLI MOBILE ERROR " + e);
 						}
 					} else if(StringUtils.equals(l.getCom_code(), "YESB")) {
 						try {
@@ -517,6 +524,7 @@ public class ElibController extends BaseController {
 						} catch(Exception e) {
 							e.printStackTrace();
 							mobileList.add(null);
+							log.error("**************** YESB MOBILE ERROR " + e);
 						}
 					} else if(StringUtils.equals(l.getCom_code(), "ECO")) {
 						try {
@@ -525,6 +533,7 @@ public class ElibController extends BaseController {
 						} catch(Exception e) {
 							e.printStackTrace();
 							mobileList.add(null);
+							log.error("**************** ECO MOBILE ERROR " + e);
 						}
 					} else if(StringUtils.equals(l.getCom_code(), "OPMS")) {
 						try {
@@ -533,6 +542,7 @@ public class ElibController extends BaseController {
 						} catch(Exception e) {
 							e.printStackTrace();
 							mobileList.add(null);
+							log.error("**************** OPMS MOBILE ERROR " + e);
 						}
 					}
 					
