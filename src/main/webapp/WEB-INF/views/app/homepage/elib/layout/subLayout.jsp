@@ -15,6 +15,7 @@
 <c:set var="menu_idx_category"  value="17"/>
 <c:set var="menu_idx_provider"  value="14"/>
 <c:set var="menu_idx_device"    value="49"/>
+<c:set var="menu_idx_search"    value="102"/>
 </c:when>
 <c:when test="${param.type == 'ADO'}">
 <c:set var="label"				value="오디오북"/>
@@ -24,6 +25,7 @@
 <c:set var="menu_idx_category"  value="22"/>
 <c:set var="menu_idx_provider"  value="97"/>
 <c:set var="menu_idx_device"    value="50"/>
+<c:set var="menu_idx_search"    value="103"/>
 </c:when>
 <c:when test="${param.type == 'WEB'}">
 <c:set var="label"				value="강좌"/>
@@ -136,6 +138,9 @@ $(function() {
 				<c:choose>
 				<c:when test="${param.type == 'EBK' || param.type == 'ADO' || param.type == 'WEB'}">
 				<ul class="SubMenu">
+					<c:if test="${param.type == 'EBK' || param.type == 'ADO'}">
+						<li id="menu_${menu_idx_search}"<c:if test="${param.menu_idx == menu_idx_search}"> class="active"</c:if>><a href="/elib/module/elib/search/index.do?menu_idx=${menu_idx_search}&menu=NEW&type=${fn:escapeXml(param.type)}"><span>${label} 자료검색</span></a></li>
+					</c:if>
 					<li id="menu_${menu_idx_new}"<c:if test="${param.menu_idx == menu_idx_new}"> class="active"</c:if>><a href="/elib/module/elib/book/index.do?menu_idx=${menu_idx_new}&menu=NEW&type=${fn:escapeXml(param.type)}"><span>신착${label}</span></a></li>
 					<c:choose>
 					<c:when test="${param.type == 'EBK'}">

@@ -1176,7 +1176,9 @@ public class ElibController extends BaseController {
 
 		if ( !StringUtils.isEmpty(book.getSearch_text()) ) {
 			book.setViewPage(1);
-			book.setType(null);
+			if(book.getMenu_idx() == 80){
+				book.setType(null);
+			}
 			book.setAuthor_name(null);
 			book.setBook_pubname(null);
 			book.setBook_year(null);
