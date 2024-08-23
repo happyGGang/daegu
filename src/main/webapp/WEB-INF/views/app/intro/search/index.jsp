@@ -1114,7 +1114,7 @@ function resveReq(bookkey, booktype, editMode) {
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 												<c:choose>
-													<c:when test="${(homepage.context_path eq 'bukbu' or homepage.context_path eq 'seobu' or homepage.context_path eq 'dongbu') and i.RESERVE_CODE eq 'OK'}">
+													<c:when test="${(homepage.context_path eq '' or homepage.context_path eq 'seobu' or homepage.context_path eq 'dongbu') and i.RESERVE_CODE eq 'OK'}">
 														<a href="javascript:void(0);" class="btn btn1" style="padding:3px 7px 4px 7px;background:#fe6d02;border-color:#fe6d02;font-size:12px;" onclick="resveReq('${i.BOOK_KEY}', '${fn:startsWith(i.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}', 'ADD');">예약신청</a>
 													</c:when>
 												</c:choose>
@@ -1275,7 +1275,7 @@ function resveReq(bookkey, booktype, editMode) {
 												</c:choose>
 												<!-- 대출가능 여부 [ END ] -->
 												<c:choose>
-													<c:when test="${(homepage.context_path eq 'bukbu' or homepage.context_path eq 'seobu' or homepage.context_path eq 'dongbu') and i.RESERVE_CODE eq 'OK'}">
+													<c:when test="${(homepage.context_path eq '' or homepage.context_path eq 'seobu' or homepage.context_path eq 'dongbu') and i.RESERVE_CODE eq 'OK'}">
 														<a href="javascript:void(0);" class="btn btn1" style="padding:3px 7px 4px 7px;background:#fe6d02;border-color:#fe6d02;font-size:12px;" onclick="resveReq('${i.BOOK_KEY}', '${fn:startsWith(i.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}', 'ADD');">예약신청</a>
 													</c:when>
 												</c:choose>

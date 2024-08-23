@@ -672,7 +672,14 @@ $(function() {
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
 				* 성서도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(6/3~6/19)를 안내드리오니, 양해 바랍니다.(성서도서관 소장자료만 해당)
 			</p>
-		</c:if> 
+		</c:if>
+		
+		<c:if test="${detail.MANAGE_CODE eq 'AC'}">
+			<p style="color:#ff0000;font-weight:bold;text-align:center;">
+				* 도서관 리모델링 공사에 따른 도서 예약 서비스 불가<br>
+				- 기간 : 2024.08.22.(목) ~ 개관 전까지
+			</p>
+		</c:if>
 
 		<p></p>
 
@@ -1107,6 +1114,8 @@ $(function() {
 				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10' || detail.MANAGE_CODE eq 'FW' || detail.SHELF_LOC_CODE eq 'BU11'}">
 
 				</c:when>
+				<c:when test="${detail.MANAGE_CODE eq 'AC'}">
+				</c:when>
 				<c:otherwise>
 					<c:choose>
 						<c:when test="${detail.RESERVE_CODE eq 'OK'}">
@@ -1117,6 +1126,7 @@ $(function() {
 								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BNB' || detail.SEPARATE_SHELF_CODE eq 'BNC' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMT'}">
 
 								</c:when>
+								
 								<c:otherwise>
 									<a href="#" id="resve-req-not" class="btn btn5" style="padding:8.5px 2%">예약불가(${detail.RESERVATION_CNT} / ${detail.RESERVATION_NUMBER})</a>
 								</c:otherwise>

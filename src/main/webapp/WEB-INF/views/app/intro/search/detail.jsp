@@ -598,7 +598,7 @@ AD20 종합자료실
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-					<c:when test="${detail.MANAGE_CODE eq 'FW'}">
+					<c:when test="${detail.MANAGE_CODE eq 'FW' || detail.MANAGE_CODE eq 'AC'}">
 
 					</c:when>
 					<c:otherwise>
