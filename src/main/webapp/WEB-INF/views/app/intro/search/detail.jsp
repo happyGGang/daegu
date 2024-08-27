@@ -384,7 +384,7 @@ CONTEXT_PATH : ${context_path}
 
 				</c:when>
 
-				<c:when test="${context_path eq ''}">
+				<c:when test="${context_path eq 'junggu'}"><!--중구영어도서관-->
 					<c:choose>
 						<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 							<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -413,7 +413,7 @@ CONTEXT_PATH : ${context_path}
 				<c:when test="${context_path eq 'donggu' || context_path eq 'sincheon' || context_path eq 'donggusm'}">
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'|| detail.MANAGE_CODE eq 'HP'|| detail.MANAGE_CODE eq 'FM'}">
+						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'|| detail.MANAGE_CODE eq 'HP'}">
 						</c:when>
 						<c:otherwise>
 							<c:choose>
