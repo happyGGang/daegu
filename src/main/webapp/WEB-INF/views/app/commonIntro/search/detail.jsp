@@ -662,9 +662,9 @@ $(function() {
 			</c:if>
 		</div>
 
-		 <c:if test="${detail.MANAGE_CODE eq ''}">
+		 <c:if test="${detail.MANAGE_CODE eq 'FX'}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 행정정보문고센터가 장서점검으로 인해 상호대차 신청 중지(23.06.09 ~ 23.06.16)되오니, 많은 양해 부탁드립니다.
+				* 행정정보문고센터가 휴관으로 인해 상호대차 신청 중지(24.08.28 ~ 24.08.30)되오니, 많은 양해 부탁드립니다.
 			</p>
 		</c:if> 
 
@@ -780,7 +780,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}"> <!-- 달서통합도서관 -->
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'||detail.MANAGE_CODE eq 'FX'}">
 						</c:when>
 						
 						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq ''|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
@@ -859,7 +859,7 @@ $(function() {
 
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq ''  || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ' || detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq ''  || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BZ' || detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
 
 
 							<c:if test="${detail.KBILL_LILL_YN eq 'O'}">
