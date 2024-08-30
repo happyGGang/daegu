@@ -24,7 +24,7 @@ public class PopupZone extends PagingUtils {
 	private String link_target; // 새창으로보기
 	private String content;
 	private String alt_text; //대체 텍스트
-	private String school_use_yn = "N";	//학교도서관집중지원센터 게시여부
+	private String school_use_yn;	//학교도서관집중지원센터 게시여부
 
 	public PopupZone() {
 	}
