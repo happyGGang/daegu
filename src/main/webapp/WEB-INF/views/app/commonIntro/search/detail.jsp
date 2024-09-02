@@ -664,7 +664,7 @@ $(function() {
 
 		 <c:if test="${detail.MANAGE_CODE eq 'FX'}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 행정정보문고센터가 휴관으로 인해 상호대차 신청 중지(24.08.28 ~ 24.08.30)되오니, 많은 양해 부탁드립니다.
+				<!-- * 행정정보문고센터가 휴관으로 인해 상호대차 신청 중지(24.08.28 ~ 24.08.30)되오니, 많은 양해 부탁드립니다. -->
 			</p>
 		</c:if> 
 
@@ -780,10 +780,10 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'dalseolib'}"> <!-- 달서통합도서관 -->
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'||detail.MANAGE_CODE eq 'FX'}">
+						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'||detail.MANAGE_CODE eq ''}">
 						</c:when>
 						
-						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq ''|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'FA'|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -969,7 +969,7 @@ $(function() {
 
 						<c:choose>
 							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
+								<!-- <a href="#muin" id="service-noreq" class="btn">무인예약신청</a> -->
 							</c:when>
 							<c:otherwise>
 								<jsp:useBean id="gukToDay" class="java.util.Date"></jsp:useBean>
@@ -980,7 +980,7 @@ $(function() {
 								
 								</c:when>
 								<c:otherwise>
-									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
+									<!-- <a href="#muin" id="unmanned-req" class="btn">무인예약신청</a> -->
 								</c:otherwise>
 								</c:choose>
 								

@@ -124,7 +124,7 @@
 
 <c:if test="${homepage.context_path eq 'dalseolib'  && tt  < '2024-08-31'}">
 	<p style="font-weight:bold;margin-bottom:10px;color:red;">
-		※ 본리도서관 희망도서 24.09.01. 오전 중 신청 재개 예정<br>
+		<!-- ※ 본리도서관 희망도서 24.09.01. 오전 중 신청 재개 예정<br> -->
 	</p>
 </c:if>
 
@@ -307,8 +307,8 @@
 					<option value="">선택</option>
 					<option value="BW">도원도서관</option>
 					<option value="BV">달서어린이도서관</option>
-					<!--<option value="BU">성서도서관</option>-->
-					<!--<option value="BX">본리도서관</option>-->
+					<option value="BU">성서도서관</option>
+					<option value="BX">본리도서관</option>
 					<option value="BY">달서가족문화도서관</option>
 					<option value="BZ">달서영어도서관</option>
 				</select>

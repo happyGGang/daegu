@@ -196,9 +196,9 @@
 								</c:choose>
 							</div>
 						</div>
-						<div id="holiday-box">
+						<!--<div id="holiday-box">
 
-						</div>
+						</div>-->
 						<!-- <div class="main1box1box2box2">
 							<ul>
 								<li class="bg-blue">

@@ -43,6 +43,7 @@ $(function(){
 </form:form>
 <div id="editDisable" class="disableBox" style="height:100%;">
 	<div class="table-wrap" style="height:100%;">
+		<div class="rsv-info"></div>
 		<div class="auto-scroll" style="height:100%;">
 			<table class="type1 center" style="">
 				<thead>

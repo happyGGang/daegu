@@ -217,10 +217,10 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 <a href="http://suseong.infoset.co.kr/?page_id=mypage_wish_list" target="_blank" class="btn btn2">이전 보관함 바로가기</a>
 </c:if>
 
-<div class="group-menu code-config rsv-info" style="overflow: auto;">
-	<div style="display: inline-flex;">
-		<div class="tree-area" style="width:<%=leftSize%>px; border: 1px solid #ccc;">
-			<div class="tree-box" style="height:300px;">
+<div class="group-menu code-config" style="overflow: auto;">
+	<div>
+		<div class="tree-area" style="width:100%; border: 1px solid #ccc; box-sizing: border-box;">
+			<div class="tree-box" style="height:300px; overflow-y: auto;">
 				<div class="tree-menu" id="tree1">
 				</div>
 			</div>
@@ -245,7 +245,7 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 							<tr>
 								<th>보관함 명</th>
 								<td id="storage_name_left">
-									<form:input path="storage_name" class="text" style="width:96%" title="보관함 명 입력"/>
+									<form:input path="storage_name" class="text" style="width:100%; box-sizing:border-box;" title="보관함 명 입력"/>
 								</td>
 							</tr>
 						</tbody>
@@ -253,18 +253,17 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 				</form:form>
 			</div>
 		</div>
-		<div class="set-area" style="width:calc(100% - 333px);height:373px;margin-left:20px;">
+		<div class="button" style="border-width:0px; margin-top:10px; width: 100%; display: flex; justify-content: end; flex-wrap:wrap;">
+			<a href="" class="btn btn5" id="storage_add"><i class="fa fa-plus"></i><span>보관함 신규등록</span></a>
+			<a href="" class="btn btn1" id="storage_modify"><i class="fa fa-pencil"></i><span>수정</span></a>
+			<a href="" class="btn" id="storage_delete"><i class="fa fa-minus"></i><span>삭제</span></a>
+			<a href="javascript:excelDownLoad();" class="btn btn2" id="btn_excel"><i class="fa fa-file-excel-o"></i><span>엑셀다운로드</span></a>
+		</div>
+		<div class="set-area" style="width:100%;height:373px;margin-top:30px;">
 			<div style="height:100%;" id="itemLayer">
 
 			</div>
 		</div>
-	</div>
-	<br/>
-	<div class="button" style="border-width:0px;margin-top:20px;">
-		<a href="" class="btn btn5" id="storage_add"><i class="fa fa-plus"></i><span>보관함 신규등록</span></a>
-		<a href="" class="btn btn1" id="storage_modify"><i class="fa fa-pencil"></i><span>수정</span></a>
-		<a href="" class="btn" id="storage_delete"><i class="fa fa-minus"></i><span>삭제</span></a>
-		<a href="javascript:excelDownLoad();" class="btn btn2" id="btn_excel"><i class="fa fa-file-excel-o"></i><span>엑셀다운로드</span></a>
 	</div>
 </div>
 
