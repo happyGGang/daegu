@@ -80,6 +80,8 @@ $(function() {
 					<th style="width:5%">순번</th>
 					<th style="width:18%">제목</th>
 					<th style="width:15%">저자 / 발행자</th>
+					<th style="width:15%">청구기호</th>
+					<th style="width:15%">등록번호</th>
 					<th style="width:10%">도서관명</th>
 					<th style="width:10%">예약일</th>
 					<th style="width:5%">예약순위 /<br>예약수</th>
@@ -92,6 +94,8 @@ $(function() {
 					<th style="width:5%">순번</th>
 					<th style="width:18%">제목</th>
 					<th style="width:15%">저자 / 발행자</th>
+					<th style="width:15%">청구기호</th>
+					<th style="width:15%">등록번호</th>
 					<th style="width:17%">도서관명</th>
 					<th style="width:10%">예약일</th>
 					<th style="width:8%">예약순위 /<br>예약수</th>
@@ -110,6 +114,8 @@ $(function() {
 						<td>${i.RNUM}</td>
 						<td>${i.TITLE_INFO}</td>
 						<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
+						<td>${i.CALL_NO}</td>
+						<td>${i.REG_NO}</td>
 						<td>${i.LIB_NAME}</td>
 						<td>${i.RESERVATION_DATE}</td>
 						<td>${i.RESERVE_RANK} / ${i.LS_WORK_STATUS}</td>
