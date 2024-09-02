@@ -73,207 +73,210 @@ $(function() {
 	</div>
 
 	<c:if test="${fn:length(resveList) < 1 }"> <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3></c:if>
-	<table summary="신청정보">
-		<thead>
-			<c:choose>
-				<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
-					<th style="width:5%">순번</th>
-					<th style="width:18%">제목</th>
-					<th style="width:15%">저자 / 발행자</th>
-					<th style="width:15%">청구기호</th>
-					<th style="width:15%">등록번호</th>
-					<th style="width:10%">도서관명</th>
-					<th style="width:10%">예약일</th>
-					<th style="width:5%">예약순위 /<br>예약수</th>
-					<th style="width:10%">예약만기일</th>
-					<th style="width:8%">예약형태</th>
-					<th style="width:9%">예약취소</th>
-					<th style="width:5%">수령장소</th>
-				</c:when>
-				<c:otherwise>
-					<th style="width:5%">순번</th>
-					<th style="width:18%">제목</th>
-					<th style="width:15%">저자 / 발행자</th>
-					<th style="width:15%">청구기호</th>
-					<th style="width:15%">등록번호</th>
-					<th style="width:17%">도서관명</th>
-					<th style="width:10%">예약일</th>
-					<th style="width:8%">예약순위 /<br>예약수</th>
-					<th style="width:10%">예약만기일</th>
-					<th style="width:8%">예약형태</th>
-					<th style="width:9%">예약취소</th>
-				</c:otherwise>
-			</c:choose>
-		</thead>
-		<tbody>
-		<!-- 비대면도서대출과 무인예약 구분을 위해 장비키 값으로 구분 2022-01-24 UTBA01는 북구구수산도서관 장비키값 -->
-		<c:forEach items="${resveList}" var="i">
-			<c:choose>
-				<c:when test="${fn:substring(i.L_WORKER,0,2) ne 'UT'}">
-					<tr>
-						<td>${i.RNUM}</td>
-						<td>${i.TITLE_INFO}</td>
-						<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
-						<td>${i.CALL_NO}</td>
-						<td>${i.REG_NO}</td>
-						<td>${i.LIB_NAME}</td>
-						<td>${i.RESERVATION_DATE}</td>
-						<td>${i.RESERVE_RANK} / ${i.LS_WORK_STATUS}</td>
-						<td>${i.RESERVATION_EXPIRE_DATE }</td>
-						<td>
-						<c:set var="nearLib_yn" value="0"/>
-						<c:forEach var="j" items="${deviceList}">
-							<c:if test="${j.device_code eq i.L_WORKER }">
-								<c:set var="nearLib_yn" value="1"/>
-							</c:if>
-						</c:forEach>
-						<c:choose>
-							<c:when test="${nearLib_yn eq 1 }">
-									내집앞도서관예약
-							</c:when>
-							<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-		
-								<c:choose>
-									<c:when test="${homepage.context_path eq 'dmsl'}">
-									별관 이동도서관 신청
-									</c:when>
-									<c:otherwise>
-									무인예약신청
-									</c:otherwise>
-								</c:choose>
-		
-							</c:when>
-							<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-		
-								<c:choose>
-									<c:when test="${homepage.context_path eq 'dmsl'}">
-									별관 이동도서관 신청 예약대기
-									</c:when>
-									<c:otherwise>
-									무인예약대기
-									</c:otherwise>
-								</c:choose>
-							
-							</c:when>
-							<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-		
-								도서예약신청
-							
-							</c:when>
-							<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
-		
-								도서예약대기
-							
-							</c:when>
-							<c:otherwise>
-							일반예약
-							</c:otherwise>
-						</c:choose>
-						</td>
-						<td>
-					<c:choose>
-						<c:when test="${i.MANAGE_CODE eq 'BR'}">
-		
-							<c:choose>
-								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-									<c:if test="${i.L_WORKER eq 'DSGLIB01'}">
-										<jsp:useBean id="toDay" class="java.util.Date" />
-										<c:set var="startTime" value="09:00:00"></c:set>
-										<c:set var="endTime" value="12:00:00"></c:set>
-										<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
-										<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
-										<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
-										<fmt:formatDate var="day" value="${toDay}" pattern="E"/>
-										<fmt:formatDate var="startTime" value="${dateStr1}" pattern="HH:mm:ss"/>
-										<fmt:formatDate var="endTime" value="${dateStr2}" pattern="HH:mm:ss"/>
-										<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime and (day ne '토' and day ne '일' and day ne '월')}">
-											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-										</c:if>
-									</c:if>
-								</c:when>
-								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
-								</c:when>
-								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-								</c:when>
-								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
-								</c:when>
-								<c:otherwise>
-									<c:if test="${i.STATUS eq '3'}">
-										<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-		
-						</c:when>
-						<c:otherwise>
-		
+	<div class="rsv-info" style="width: 100%;"></div>
+	<div class="auto-scroll" style="width: 100%;">
+		<table summary="신청정보">
+			<thead>
+				<c:choose>
+					<c:when test="${homepage.context_path eq 'dalseolib' || homepage.context_path eq 'kids' || homepage.context_path eq 'seongseo' || homepage.context_path eq 'bolli' || homepage.context_path eq 'family' || homepage.context_path eq 'english'}">
+						<th style="width:5%">순번</th>
+						<th style="width:18%">제목</th>
+						<th style="width:15%">저자 / 발행자</th>
+						<th style="width:15%">청구기호</th>
+						<th style="width:15%">등록번호</th>
+						<th style="width:10%">도서관명</th>
+						<th style="width:10%">예약일</th>
+						<th style="width:5%">예약순위 /<br>예약수</th>
+						<th style="width:10%">예약만기일</th>
+						<th style="width:8%">예약형태</th>
+						<th style="width:9%">예약취소</th>
+						<th style="width:5%">수령장소</th>
+					</c:when>
+					<c:otherwise>
+						<th style="width:5%">순번</th>
+						<th style="width:18%">제목</th>
+						<th style="width:15%">저자 / 발행자</th>
+						<th style="width:15%">청구기호</th>
+						<th style="width:15%">등록번호</th>
+						<th style="width:17%">도서관명</th>
+						<th style="width:10%">예약일</th>
+						<th style="width:8%">예약순위 /<br>예약수</th>
+						<th style="width:10%">예약만기일</th>
+						<th style="width:8%">예약형태</th>
+						<th style="width:9%">예약취소</th>
+					</c:otherwise>
+				</c:choose>
+			</thead>
+			<tbody>
+			<!-- 비대면도서대출과 무인예약 구분을 위해 장비키 값으로 구분 2022-01-24 UTBA01는 북구구수산도서관 장비키값 -->
+			<c:forEach items="${resveList}" var="i">
+				<c:choose>
+					<c:when test="${fn:substring(i.L_WORKER,0,2) ne 'UT'}">
+						<tr>
+							<td>${i.RNUM}</td>
+							<td>${i.TITLE_INFO}</td>
+							<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
+							<td>${i.CALL_NO}</td>
+							<td>${i.REG_NO}</td>
+							<td>${i.LIB_NAME}</td>
+							<td>${i.RESERVATION_DATE}</td>
+							<td>${i.RESERVE_RANK} / ${i.LS_WORK_STATUS}</td>
+							<td>${i.RESERVATION_EXPIRE_DATE }</td>
+							<td>
+							<c:set var="nearLib_yn" value="0"/>
+							<c:forEach var="j" items="${deviceList}">
+								<c:if test="${j.device_code eq i.L_WORKER }">
+									<c:set var="nearLib_yn" value="1"/>
+								</c:if>
+							</c:forEach>
 							<c:choose>
 								<c:when test="${nearLib_yn eq 1 }">
-									<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-										<c:if test="${i.STATUS eq '3'}">
-											<a href="#" class="reserveCancel2" keyValue1="${i.PK}" keyValue2="${i.BOOK_KEY }">예약취소</a>
-										</c:if> 											
-									</c:if>
+										내집앞도서관예약
 								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+			
 									<c:choose>
-										<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02') or (i.L_WORKER eq 'SSSUBCO01') or (i.L_WORKER eq 'BRSUBCO01')}">
-											취소불가
+										<c:when test="${homepage.context_path eq 'dmsl'}">
+										별관 이동도서관 신청
 										</c:when>
 										<c:otherwise>
-											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+										무인예약신청
 										</c:otherwise>
 									</c:choose>
+			
 								</c:when>
 								<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+			
+									<c:choose>
+										<c:when test="${homepage.context_path eq 'dmsl'}">
+										별관 이동도서관 신청 예약대기
+										</c:when>
+										<c:otherwise>
+										무인예약대기
+										</c:otherwise>
+									</c:choose>
+								
 								</c:when>
 								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
-		
-									<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-		
+			
+									도서예약신청
+								
 								</c:when>
 								<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+			
+									도서예약대기
+								
 								</c:when>
 								<c:otherwise>
-									<c:if test="${i.STATUS eq '3'}">
+								일반예약
+								</c:otherwise>
+							</c:choose>
+							</td>
+							<td>
+						<c:choose>
+							<c:when test="${i.MANAGE_CODE eq 'BR'}">
+			
+								<c:choose>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+										<c:if test="${i.L_WORKER eq 'DSGLIB01'}">
+											<jsp:useBean id="toDay" class="java.util.Date" />
+											<c:set var="startTime" value="09:00:00"></c:set>
+											<c:set var="endTime" value="12:00:00"></c:set>
+											<fmt:parseDate var="dateStr1" value="${startTime}" pattern="HH:mm:ss"/>
+											<fmt:parseDate var="dateStr2" value="${endTime}" pattern="HH:mm:ss"/>
+											<fmt:formatDate var="dateStr3" value="${toDay}" pattern="HH:mm:ss"/>
+											<fmt:formatDate var="day" value="${toDay}" pattern="E"/>
+											<fmt:formatDate var="startTime" value="${dateStr1}" pattern="HH:mm:ss"/>
+											<fmt:formatDate var="endTime" value="${dateStr2}" pattern="HH:mm:ss"/>
+											<c:if test="${startTime <= dateStr3 and dateStr3 <= endTime and (day ne '토' and day ne '일' and day ne '월')}">
+												<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+											</c:if>
+										</c:if>
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+									</c:when>
+									<c:otherwise>
+										<c:if test="${i.STATUS eq '3'}">
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+			
+							</c:when>
+							<c:otherwise>
+			
+								<c:choose>
+									<c:when test="${nearLib_yn eq 1 }">
+										<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+											<c:if test="${i.STATUS eq '3'}">
+												<a href="#" class="reserveCancel2" keyValue1="${i.PK}" keyValue2="${i.BOOK_KEY }">예약취소</a>
+											</c:if> 											
+										</c:if>
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
+										<c:choose>
+											<c:when test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02') or (i.L_WORKER eq 'SSSUBCO01') or (i.L_WORKER eq 'BRSUBCO01')}">
+												취소불가
+											</c:when>
+											<c:otherwise>
+												<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'O'}">
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'Y'}">
+			
 										<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-		
-						</c:otherwise>
-					</c:choose>
-						</td>
-						<c:if test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02') or (i.L_WORKER eq 'SSSUBCO01') or (i.L_WORKER eq 'BRSUBCO01')}">
-						<td>
-							<c:choose>
-								<c:when test="${i.L_WORKER eq 'DSSUB01'}">
-									상인역
-								</c:when>
-								<c:when test="${i.L_WORKER eq 'DSSUB02'}">
-									용산역
-								</c:when>
-								<c:when test="${i.L_WORKER eq 'SSSUBCO01'}">
-									성서도서관(무인)
-								</c:when>
-								<c:otherwise>
-									본리도서관(무인)
-								</c:otherwise>
-							</c:choose>
-						</td>
-						</c:if>
-					</tr>
-				</c:when>
-				<c:when test="${fn:substring(i.L_WORKER,0,2) eq 'UT'}">
-				
-				</c:when>
-				<c:otherwise>
-					 <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-		</tbody>
-	</table>
+			
+									</c:when>
+									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
+									</c:when>
+									<c:otherwise>
+										<c:if test="${i.STATUS eq '3'}">
+											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+			
+							</c:otherwise>
+						</c:choose>
+							</td>
+							<c:if test="${(i.L_WORKER eq 'DSSUB01') or (i.L_WORKER eq 'DSSUB02') or (i.L_WORKER eq 'SSSUBCO01') or (i.L_WORKER eq 'BRSUBCO01')}">
+							<td>
+								<c:choose>
+									<c:when test="${i.L_WORKER eq 'DSSUB01'}">
+										상인역
+									</c:when>
+									<c:when test="${i.L_WORKER eq 'DSSUB02'}">
+										용산역
+									</c:when>
+									<c:when test="${i.L_WORKER eq 'SSSUBCO01'}">
+										성서도서관(무인)
+									</c:when>
+									<c:otherwise>
+										본리도서관(무인)
+									</c:otherwise>
+								</c:choose>
+							</td>
+							</c:if>
+						</tr>
+					</c:when>
+					<c:when test="${fn:substring(i.L_WORKER,0,2) eq 'UT'}">
+					
+					</c:when>
+					<c:otherwise>
+						 <h3 style="margin-top:0;">예약중인 도서 내역이 없습니다.</h3>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	<div id="board_paging" class="dataTables_paginate">
 		<c:if test="${paging.firstPageNum > 0}">
 			<a href="" class="paginate_button previous" keyValue="${paging.firstPageNum}">처음</a>
