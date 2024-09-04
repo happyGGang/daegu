@@ -4282,7 +4282,7 @@ public class CommonSearchController extends BaseController {
 			LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
 			LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
 
-			if(today.isEqual(firstFriday) || today.isEqual(thirdFriday) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
+			if((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
 				take_term += 1;
 			}
 
