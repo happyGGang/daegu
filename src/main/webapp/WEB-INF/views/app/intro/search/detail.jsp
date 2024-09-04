@@ -244,8 +244,8 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'BN' and detail.SHELF_LOC_CODE eq 'BN13'}">
 							<span style="color:#ff0000">대출불가</span>
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE eq 'FG01'}">
-							<span style="color:#ff0000">대출불가(휴관)</span>
+						<c:when test="${detail.MANAGE_CODE eq 'FG'}">
+							<span style="color:#ff0000">대출불가</span>
 						</c:when>
 						<c:otherwise>
 							<c:choose>
