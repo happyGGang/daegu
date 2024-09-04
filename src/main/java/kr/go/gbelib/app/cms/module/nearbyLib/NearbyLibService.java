@@ -702,11 +702,11 @@ public class NearbyLibService extends BaseService {
 							int year = today.getYear();
 							Month month = today.getMonth();
 
-							LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
-							LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
+							LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
+							LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
 
 							//반야월 이마트 매주 금요일
-							if((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(String.valueOf(neighborhoodLibrary.getDevice_code()))) {
+							if((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(String.valueOf(neighborhoodLibrary.getDevice_code()))) {
 								take_term += 1;
 							}
 
@@ -828,10 +828,10 @@ public class NearbyLibService extends BaseService {
 								int year = today.getYear();
 								Month month = today.getMonth();
 
-								LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
-								LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
+								LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
+								LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
 
-								if ((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+								if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 									take_term += 1;
 								}
 
@@ -861,9 +861,9 @@ public class NearbyLibService extends BaseService {
 								int year = today.getYear();
 								Month month = today.getMonth();
 
-								LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
-								LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
-								if ((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+								LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
+								LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
+								if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 									take_term += 1;
 								}
 
@@ -984,10 +984,10 @@ public class NearbyLibService extends BaseService {
 					int year = today.getYear();
 					Month month = today.getMonth();
 
-					LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
-					LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
+					LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
+					LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
 
-					if ((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+					if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 						take_term += 1;
 					}
 
@@ -1041,10 +1041,10 @@ public class NearbyLibService extends BaseService {
 						int year = today.getYear();
 						Month month = today.getMonth();
 
-						LocalDate firstFriday = getNthFridayOfMonth(year, month, 1);
-						LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
+						LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
+						LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
 
-						if ((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
+						if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 							take_term += 1;
 						}
 
@@ -1828,14 +1828,13 @@ public class NearbyLibService extends BaseService {
 		return dao.getNearbyOneBookReserveData(nearbyBookKey);
 	}
 
-	public static LocalDate getNthFridayOfMonth(int year, Month month, int nth) {
+	public static LocalDate getNthSaturdayOfMonth(int year, Month month, int nth) {
 		YearMonth yearMonth = YearMonth.of(year, month);
 		LocalDate firstMonday = getFirstMonday(yearMonth);
 
-		// 첫 번째 월요일 기준으로 첫째 주 금요일을 찾음
-		LocalDate nthFriday = firstMonday.plusWeeks(nth - 1).with(DayOfWeek.FRIDAY);
+		LocalDate nthSaturday = firstMonday.plusWeeks(nth - 1).with(DayOfWeek.SATURDAY);
 
-		return nthFriday;
+		return nthSaturday;
 	}
 
 	public static LocalDate getFirstMonday(YearMonth yearMonth) {
