@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.util.stream.Collectors;
@@ -1840,6 +1841,47 @@ public class CommonSearchController extends BaseController {
 		h.setTemp_use_yn(null);
 		List<Homepage> subHomepageList = homepageService.getSubHomepageList(h);
 
+		if ("BY".equals(homepage.getManage_code()) || "BV".equals(homepage.getManage_code()) || "BZ".equals(homepage.getManage_code()) ||
+				"BW".equals(homepage.getManage_code()) || "BX".equals(homepage.getManage_code()) || "BU".equals(homepage.getManage_code())) {
+			List<String> libraryCodes = new ArrayList<String>();
+			libraryCodes.add("BY");
+			libraryCodes.add("BV");
+			libraryCodes.add("BZ");
+			libraryCodes.add("BW");
+			libraryCodes.add("BX");
+			libraryCodes.add("BU");
+
+			librarySearch.setLibraryCodes(libraryCodes);
+
+			LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+
+			LocalDate today = LocalDate.now();
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+			// 포맷된 날짜 출력
+			String firstDayOfMonthFormatted = firstDayOfMonth.format(formatter);
+			String todayFormatted = today.format(formatter);
+
+			librarySearch.setSearch_start_date(firstDayOfMonthFormatted);
+			librarySearch.setSearch_end_date(todayFormatted);
+
+			librarySearch.setFurnish_status("1,2,3");
+
+			librarySearch.setUserkey(member.getRec_key());
+
+			Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			if (count >= 3) {
+				service.alertMessage("희망도서는 달서구 내 통합 3권까지 신청가능합니다.\\n다음 달에 다시 신청해주세요.", request, response);
+				return null;
+			}
+		}
+
 		model.addAttribute("subHomepageList", subHomepageList);
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
@@ -2140,6 +2182,48 @@ public class CommonSearchController extends BaseController {
 						res.setMessage(hopeUserCheck.getMessage());
 					}
 				} else {
+					if ("BY".equals(h.getManage_code()) || "BV".equals(h.getManage_code()) || "BZ".equals(h.getManage_code()) ||
+							"BW".equals(h.getManage_code()) || "BX".equals(h.getManage_code()) || "BU".equals(h.getManage_code())) {
+						List<String> libraryCodes = new ArrayList<String>();
+						libraryCodes.add("BY");
+						libraryCodes.add("BV");
+						libraryCodes.add("BZ");
+						libraryCodes.add("BW");
+						libraryCodes.add("BX");
+						libraryCodes.add("BU");
+
+						librarySearch.setLibraryCodes(libraryCodes);
+
+						LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+
+						LocalDate today = LocalDate.now();
+
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+						// 포맷된 날짜 출력
+						String firstDayOfMonthFormatted = firstDayOfMonth.format(formatter);
+						String todayFormatted = today.format(formatter);
+
+						librarySearch.setSearch_start_date(firstDayOfMonthFormatted);
+						librarySearch.setSearch_end_date(todayFormatted);
+
+						librarySearch.setFurnish_status("1,2,3");
+
+						librarySearch.setUserkey(member.getRec_key());
+
+						Map<String, Object> bookFurnishResult = LibSearchAPI.getBookFurnishList(librarySearch);
+
+						List<Map<String, Object>> list = null;
+
+						int count = LibSearchAPI.getSearchCount(bookFurnishResult);
+
+						if (count >= 3) {
+							res.setValid(false);
+							res.setMessage("희망도서는 달서구 내 통합 3권까지 신청가능합니다.\n다음 달에 다시 신청해주세요.");
+							return res;
+						}
+					}
+
 					Map<String, Object> map = LibSearchAPI.getLibSettingInfoView(librarySearch.getManageCode());
 					
 					if(map.get("RESULT_INFO").equals("SUCCESS")) {
@@ -2298,11 +2382,9 @@ public class CommonSearchController extends BaseController {
 	/**
 	 * 내집앞도서 신청 취소
 	 * @author whalesoft SeongHyeon 2022. 11. 24.
-	 * @param homepagePath
 	 * @param model
 	 * @param librarySearch
 	 * @param request
-	 * @param response
 	 * @return
 	 * @throws Exception
 	 */
@@ -4011,7 +4093,6 @@ public class CommonSearchController extends BaseController {
 	 * 내집앞도서관 대출예약
 	 * @author whalesoft SEONGHYEON 2022. 11. 09.
 	 * @param model
-	 * @param librarySearch
 	 * @param result
 	 * @param request
 	 * @return

@@ -1,6 +1,8 @@
 package kr.go.gbelib.app.intro.search;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -1636,6 +1638,47 @@ public class LibrarySearchController extends BaseController {
 
 		}
 
+		if ("BY".equals(homepage.getManage_code()) || "BV".equals(homepage.getManage_code()) || "BZ".equals(homepage.getManage_code()) ||
+				"BW".equals(homepage.getManage_code()) || "BX".equals(homepage.getManage_code()) || "BU".equals(homepage.getManage_code())) {
+			List<String> libraryCodes = new ArrayList<String>();
+			libraryCodes.add("BY");
+			libraryCodes.add("BV");
+			libraryCodes.add("BZ");
+			libraryCodes.add("BW");
+			libraryCodes.add("BX");
+			libraryCodes.add("BU");
+
+			librarySearch.setLibraryCodes(libraryCodes);
+
+			LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+
+			LocalDate today = LocalDate.now();
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+			// 포맷된 날짜 출력
+			String firstDayOfMonthFormatted = firstDayOfMonth.format(formatter);
+			String todayFormatted = today.format(formatter);
+
+			librarySearch.setSearch_start_date(firstDayOfMonthFormatted);
+			librarySearch.setSearch_end_date(todayFormatted);
+
+			librarySearch.setFurnish_status("1,2,3");
+
+			librarySearch.setUserkey(member.getRec_key());
+
+			Map<String, Object> result = LibSearchAPI.getBookFurnishList(librarySearch);
+
+			List<Map<String, Object>> list = null;
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			if (count >= 3) {
+				service.alertMessage("희망도서는 달서구 내 통합 3권까지 신청가능합니다.\\n다음 달에 다시 신청해주세요.", request, response);
+				return null;
+			}
+		}
+
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
 		return basePath + "hope/req";
@@ -1847,6 +1890,48 @@ public class LibrarySearchController extends BaseController {
 						if(hopebookConfig != null) {
 							res.setValid(false);
 							res.setMessage(hopebookConfig.getRes_msg());
+							return res;
+						}
+					}
+
+					if ("BY".equals(homepage.getManage_code()) || "BV".equals(homepage.getManage_code()) || "BZ".equals(homepage.getManage_code()) ||
+							"BW".equals(homepage.getManage_code()) || "BX".equals(homepage.getManage_code()) || "BU".equals(homepage.getManage_code())) {
+						List<String> libraryCodes = new ArrayList<String>();
+						libraryCodes.add("BY");
+						libraryCodes.add("BV");
+						libraryCodes.add("BZ");
+						libraryCodes.add("BW");
+						libraryCodes.add("BX");
+						libraryCodes.add("BU");
+
+						librarySearch.setLibraryCodes(libraryCodes);
+
+						LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+
+						LocalDate today = LocalDate.now();
+
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+						// 포맷된 날짜 출력
+						String firstDayOfMonthFormatted = firstDayOfMonth.format(formatter);
+						String todayFormatted = today.format(formatter);
+
+						librarySearch.setSearch_start_date(firstDayOfMonthFormatted);
+						librarySearch.setSearch_end_date(todayFormatted);
+
+						librarySearch.setFurnish_status("1,2,3");
+
+						librarySearch.setUserkey(member.getRec_key());
+
+						Map<String, Object> bookFurnishResult = LibSearchAPI.getBookFurnishList(librarySearch);
+
+						List<Map<String, Object>> list = null;
+
+						int count = LibSearchAPI.getSearchCount(bookFurnishResult);
+
+						if (count >= 3) {
+							res.setValid(false);
+							res.setMessage("희망도서는 달서구 내 통합 3권까지 신청가능합니다.\n다음 달에 다시 신청해주세요.");
 							return res;
 						}
 					}

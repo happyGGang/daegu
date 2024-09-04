@@ -774,6 +774,12 @@ public class LibSearchAPI {
 		if (librarySearch.getFurnish_status() != null && StringUtils.isNotEmpty( librarySearch.getFurnish_status())) {
 			param.put("furnish_status", librarySearch.getFurnish_status());
 		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_start_date())) {
+			param.put("startdate", librarySearch.getSearch_start_date().replaceAll("-", ""));
+		}
+		if (StringUtils.isNotEmpty(librarySearch.getSearch_end_date())) {
+			param.put("enddate", librarySearch.getSearch_end_date().replaceAll("-", ""));
+		}
 		param.put("orderby_item", "APPLICANT_DATE");
 		param.put("orderby", "DESC");
 
