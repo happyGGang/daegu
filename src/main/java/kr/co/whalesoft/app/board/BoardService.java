@@ -920,4 +920,7 @@ public class BoardService extends BaseService {
 		return dao.getTeachGuideListTopNotice(b3);
 	}
 
+	public boolean isNotice(Board board){
+		return dao.isNotice(board);
+	}
 }

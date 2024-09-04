@@ -2896,4 +2896,15 @@
 			ORDER BY A.group_idx DESC, A.board_idx DESC
 		) CMS_BOARD_T
 	</select>
+
+	<select id="isNotice" resultType="boolean">
+		SELECT
+			COUNT(*)
+		FROM
+			CMS_BOARD
+		WHERE
+			board_idx = #{board_idx}
+		AND	notice_yn = 'Y'
+		AND delete_yn = 'N'
+	</select>
 </mapper>

@@ -200,4 +200,6 @@ public interface BoardDao {
     public List<Board> getBoardByMainTopNoticeBySeobu(Board board);
 
 	public List<Board> getOLDBOOKBoard(Board board);
+
+	public boolean isNotice(Board board);
 }

@@ -955,9 +955,13 @@ public class BoardController extends BaseController {
 		if (boardManage.getManage_idx() == 213 && "h1".equals(homepage.getHomepage_id())) {
 			String boardAddId = boardData.getAdd_id();
 			String userId = getSessionMemberId(request);
-			if (!StringUtils.equals(boardAddId, userId) && !isSiteAdmin) {
-				service.alertMessage("작성자와 관리자만 볼 수 있습니다.", request, response);
-				return null;
+
+			boolean isNotice = service.isNotice(board);
+			if (!isNotice) {
+				if (!StringUtils.equals(boardAddId, userId) && !isSiteAdmin) {
+					service.alertMessage("작성자와 관리자만 볼 수 있습니다.", request, response);
+					return null;
+				}
 			}
 		}
 		if (StringUtils.isNotEmpty(board.getModule())) {
