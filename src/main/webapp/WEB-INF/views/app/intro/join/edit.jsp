@@ -288,6 +288,9 @@ $(function() {
 						<c:when test="${context_path eq 'newPyeongni'}">
 						New평리도서관<input type="hidden" id="" name="manage_code" value="CC" />
 						</c:when>
+						<c:when test="${context_path eq 'kidsEnglish'}">
+						서구어린이영어도서관<input type="hidden" id="" name="manage_code" value="HT" />
+						</c:when>
 						<c:when test="${context_path eq 'seogumini'}">
 							<select name="manage_code">
 								<option value="FH">새마을문고대구서구지부작은도서관</option>

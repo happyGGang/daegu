@@ -743,7 +743,7 @@ function resveReq(bookkey, booktype, editMode) {
 					<div class="end" style="padding:13px 0;"></div>
 					</c:when>
 					
-					<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'biwon' || context_path eq 'bisan' || context_path eq 'wongogae' || context_path eq 'newPyeongni'}">
+					<c:when test="${context_path eq 'seogulib' || context_path eq 'seoguenglish' || context_path eq 'biwon' || context_path eq 'bisan' || context_path eq 'wongogae' || context_path eq 'newPyeongni' || context_path eq 'kidsEnglish'}">
 					<div id="libraryList" class="libraryList">
 						<div>
 							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
@@ -768,6 +768,9 @@ function resveReq(bookkey, booktype, editMode) {
 								<li>
 									<form:checkbox path="libraryCodes" value="CC" class="libCheck lib_CC" label="New평리도서관"/>
 								</li>
+								<li>
+									<form:checkbox path="libraryCodes" value="HT" class="libCheck lib_HT" label="서구어린이영어도서관"/>
+								</li>
 							</ul>
 						</div>
 						<div class="end"></div>
@@ -788,6 +791,9 @@ function resveReq(bookkey, booktype, editMode) {
 					</c:when>
 					<c:when test="${context_path eq 'seoguenglish'}">
 					<input type="hidden" name='libraryCodes' id='libraryCodes' value="BP"/>
+					</c:when>
+					<c:when test="${context_path eq 'kidsEnglish'}">
+					<input type="hidden" name='libraryCodes' id='libraryCodes' value="HT"/>
 					</c:when>
 					<c:otherwise>
 					<form:hidden path="libraryCodes" value="" />

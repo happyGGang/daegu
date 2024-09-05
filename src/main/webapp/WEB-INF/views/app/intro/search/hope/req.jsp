@@ -376,6 +376,11 @@
 							<option value="CC">New평리도서관</form>
 						</form:select>
 					</c:when>
+					<c:when test="${context_path eq 'kidsEnglish'}">
+						<form:select path="manageCode">
+							<option value="HT">서구어린이영어도서관</form>
+						</form:select>
+					</c:when>
 					<c:when test="${context_path eq 'seogumini'}">
 						<form:select path="manageCode">
 							<form:option value="FH">새마을문고대구서구지부작은도서관</form:option>
