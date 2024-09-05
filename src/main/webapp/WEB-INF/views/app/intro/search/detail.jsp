@@ -260,6 +260,12 @@ $(function() {
 								</c:when>
 								<c:otherwise>
 									<c:choose>
+										<c:when test="${detail.SHELF_LOC_CODE eq 'FG07'}">
+											대출가능
+										</c:when>
+										<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE ne 'FG07'}">
+											<span style="color:#ff0000">대출불가</span>
+										</c:when>
 										<c:when test="${detail.WORKING_STATUS == 'BOL211O'}">
 											<c:choose>
 												<c:when test="${detail.MEDIA_NAME eq 'DVD' and detail.MANAGE_CODE eq 'BR'}">
