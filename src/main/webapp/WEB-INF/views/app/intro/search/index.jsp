@@ -1014,9 +1014,6 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.SHELF_LOC_CODE eq 'FG07'}">
-														대출가능
-													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE ne 'FG07'}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
@@ -1075,9 +1072,6 @@ function resveReq(bookkey, booktype, editMode) {
 																	</c:when>
 																	<c:otherwise>
 																		<c:choose>
-																			<c:when test="${i.SHELF_LOC_CODE eq 'FG07'}">
-																				대출가능
-																			</c:when>
 																			<c:when test="${i.WORKING_STATUS == 'BOL211O'}">
 																				<c:choose>
 																					<c:when test="${i.MEDIA_NAME eq 'DVD' and i.MANAGE_CODE eq 'BR'}">
@@ -1218,9 +1212,6 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.SHELF_LOC_CODE eq 'FG07'}">
-														대출가능
-													</c:when>
 													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE ne 'FG07'}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
@@ -1350,9 +1341,6 @@ function resveReq(bookkey, booktype, editMode) {
 											<font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.SHELF_LOC_CODE eq 'FG07'}">
-														대출가능
-													</c:when>
 													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
 														<c:choose>
 															<c:when test="${i.RESERVATION_CNT > '0'}">
@@ -1487,9 +1475,6 @@ function resveReq(bookkey, booktype, editMode) {
 												<td>
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.SHELF_LOC_CODE eq 'FG07'}">
-														대출가능
-													</c:when>
 													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">
 														<c:choose>
 															<c:when test="${i.RESERVATION_CNT > '0'}">
