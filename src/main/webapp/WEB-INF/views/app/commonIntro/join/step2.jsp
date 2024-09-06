@@ -508,11 +508,10 @@ $(function() {
 			  <td rowspan="3" style="text-align:Center">필수</td>
 			  <td style="text-align:Center;width:10%">14세 이상</td>
 			  <td style="width:37%">성명, 성별, 생년월일, 연락처, 주소</td>
-			  <td rowspan="4"style="text-align:Center">
-				<strong style="color:blue;">도서대출 및 반납 등 도서관 서비스 제공</strong>
+			  <td rowspan="4"style="text-align:Center">도서대출 및 반납 등 도서관 서비스 제공
 			  </td>
 			  <td rowspan="4"style="text-align:Center">
-				회원<br>탈퇴 시까지
+				<strong style="color:blue;">회원<br>탈퇴 시까지</strong>
 			  </td>
 			</tr>
 			<tr>
@@ -568,10 +567,10 @@ $(function() {
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td class="center">대구광역시 공립 도서관</td>
+			<td class="center"><strong style="color:blue;">대구광역시 공립 도서관</strong></td>
 			<td class="center"><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
 			<td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소, 집전화번호, 이메일</td>
-			<td>회원<br>탈퇴 시까지</td>
+			<td><strong style="color:blue;">회원<br>탈퇴 시까지</strong></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 도서관 통합회원 가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -605,7 +604,7 @@ $(function() {
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td class="center">대구광역시 공립 도서관</td>
+			<td class="center"><strong style="color:blue;">대구광역시 공립 도서관</strong></td>
 			<td class="center">하나의 회원번호로 대구광역시 모든 공립 도서관 이용</td>
 			<td><b style="color:blue; font-size:17px;">아이디, 비밀번호, 도서회원번호, 성명, 생년월일, 성별, 휴대폰번호, 주소, CI값, 도서대출내역, 법정대리인 성명 및 연락처, 이메일, 전화번호(자택), 근무처(학교명), 근무지(학교)연락처, 근무지(학교)주소, 제2연락처</b></td>
 			<td><b style="color:blue; font-size:17px;"><u>회원<br>탈퇴 시까지</u></b></td>
@@ -642,10 +641,10 @@ $(function() {
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td class="center">대구광역시 공립 도서관</td>
+			<td class="center"><strong style="color:blue;">대구광역시 공립 도서관</strong></td>
 			<td class="center"><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
 			<td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소, 집전화번호, 이메일</td>
-			<td class="center">회원<br>탈퇴 시까지</td>
+			<td class="center"><strong style="color:blue;">회원<br>탈퇴 시까지</strong></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 도서관 통합회원 가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -692,19 +691,16 @@ $(function() {
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td class="center">국립중앙도서관 및 지역센터</td>
+			<td class="center"><strong style="color:blue;">국립중앙도서관 및 지역센터</strong></td>
 			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 출생년도, 성별, 연락처</td>
-			<td class="center">회원<br>탈퇴 시까지</td>
+			<td class="center"><strong style="color:blue;">회원<br>탈퇴 시까지</strong></td>
 		  </tr>
 		  <tr>
-			<td class="center">
-			  책이음서비스
-			  참여 도서관
-			</td>
+			<td class="center"><strong style="color:blue;">책이음서비스 참여 도서관</strong></td>
 			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 생년월일, 성별, 연락처, 주소, 법정대리인 성명, 이메일, 근무지주소</td>
-			<td class="center">회원<br>탈퇴 시까지</td>
+			<td class="center"><strong style="color:blue;">회원<br>탈퇴 시까지</strong></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -743,19 +739,16 @@ $(function() {
 		  </thead>
 		  <tbody>
 		  <tr>
-			<td class="center">국립중앙도서관 및 지역센터</td>
+			<td class="center"><strong style="color:blue;">국립중앙도서관 및 지역센터</strong></td>
 			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 출생년도, 성별, 연락처</td>
-			<td class="center">회원<br>탈퇴 시까지</td>
+			<td class="center"><strong style="color:blue;">회원<br>탈퇴 시까지</strong></td>
 		  </tr>
 		  <tr>
-			<td class="center">
-			  책이음서비스
-			  참여 도서관
-			</td>
+			<td class="center"><strong style="color:blue;">책이음서비스 참여 도서관</strong></td>
 			<td class="center"><strong style="color:blue;">책이음서비스 제공</strong></td>
 			<td>도서회원번호, 성명, 생년월일, 성별, 연락처, 주소, 법정대리인 성명, 이메일, 근무지주소</td>
-			<td class="center">회원<br>탈퇴 시까지</td>
+			<td class="center"><strong style="color:blue;">회원<br>탈퇴 시까지</strong></td>
 		  </tr>
 		  <tr>
 			<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>

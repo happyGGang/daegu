@@ -371,10 +371,10 @@ $(function() {
 				  </thead>
 				  <tbody>
 				  <tr>
-					<td>대구광역시 공립 도서관</td>
+					<td><strong style="color:blue;">대구광역시 공립 도서관</strong></td>
 					<td><strong style="color:blue;">대구광역시 통합도서관 서비스 제공</strong></td>
 					<td>성명, 성별, 생년월일, 연락처, 주소, 법정대리인 성명, 근무처(또는 학교명), 근무지(또는 학교)연락처, 근무지(또는 학교)주소, 집전화번호, 이메일</td>
-					<td>회원<br/>탈퇴시까지</td>
+					<td><strong style="color:blue;">회원<br/>탈퇴시까지</strong></td>
 				  </tr>
 				  <tr>
 					<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 도서관 통합회원 가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
@@ -416,19 +416,16 @@ $(function() {
 				</thead>
 				<tbody>
 				<tr>
-				<td>국립중앙도서관 및 지역센터</td>
+				<td><strong style="color:blue;">국립중앙도서관 및 지역센터</strong></td>
 				<td><strong style="color:blue;">책이음서비스 제공</strong></td>
 				<td>도서회원번호, 성명, 출생년도, 성별, 연락처</td>
-				<td>회원 탈퇴시까지</td>
+				<td><strong style="color:blue;">회원 탈퇴시까지</strong></td>
 				  </tr>
 				  <tr>
-					<td>
-					  책이음서비스
-					  참여 도서관
-					</td>
+					<td><strong style="color:blue;">책이음서비스 참여 도서관</strong></td>
 					<td><strong style="color:blue;">책이음서비스 제공</strong></td>
 					<td>도서회원번호, 성명, 생년월일, 성별, 연락처, 주소, 법정대리인 성명, 이메일, 근무지주소</td>
-					<td>회원 탈퇴시까지</td>
+					<td><strong style="color:blue;">회원 탈퇴시까지</strong></td>
 				  </tr>
 				  <tr>
 					<td colspan="4">개인정보 제3자 제공에 거부할 권리가 있습니다. 다만 동의를 거부 할 경우 책이음서비스 회원가입이 되지 않으며, 도서관에서 제공하는 서비스 이용에 제한이 있을 수 있습니다.</td>
