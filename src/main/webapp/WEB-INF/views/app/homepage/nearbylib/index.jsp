@@ -297,7 +297,12 @@ function isFromFridayToSunday() {
 }
 </script>
 <style>
+	.infoArea {max-height: 680px; overflow-y: auto;}
 
+	.nbl-list.num li {background: none !important; padding: 3px 0 !important; display: flex; margin: 5px 0;}
+	.nbl-list.num li p {background: #b4c53b; width: 36px; height: 36px; color: #fff; font-size: .938em; font-weight: 500; text-align: center; letter-spacing: 0; line-height: 36px; vertical-align: middle; position: absolute; border-radius: 50%;}
+	.nbl-list.num li:nth-child(2n) p {background: #429fd9;}
+	.nbl-list.num li span {margin: 7px 0 0 45px;}
 </style>
 <div id="wrap">
 	<tiles:insertAttribute name="top" />
@@ -614,6 +619,12 @@ function isFromFridayToSunday() {
 				<ul class="nbl-list">
 					<li>대구광역시 북구 동화천로 290</li>
 				</ul>
+				<h3 class="nbl">상세위치</h3>
+				<ul class="nbl-list num">
+					<li><p>1</p> <span>엘리베이터를 이용하여 4층으로 이동</span></li>
+					<li><p>2</p> <span>4층에서 에스컬레이터를 이용하여 5층까지 이동</span></li>
+					<li><p>3</p> <span>5층 에스컬레이터 옆(5번 상영관 근방)에서 내 집 앞 도서관 서비스 이용</span></li>
+				</ul>
 				<h3 class="nbl">주차정보</h3>
 				<ul class="nbl-list">
 					<li>건물 주차타워 이용</li>
@@ -667,6 +678,11 @@ function isFromFridayToSunday() {
 				<h3 class="nbl">주소</h3>
 				<ul class="nbl-list">
 					<li>대구광역시 동구 안심로 389-2</li>
+				</ul>
+				<h3 class="nbl">상세위치</h3>
+				<ul class="nbl-list num">
+					<li><p>1</p> <span>엘리베이터를 이용하여 2층으로 이동</span></li>
+					<li><p>2</p> <span>2층 매표소 앞에서 내 집 앞 도서관 서비스 이용</span></li>
 				</ul>
 				<h3 class="nbl">주차정보</h3>
 				<ul class="nbl-list">
@@ -727,6 +743,11 @@ function isFromFridayToSunday() {
 				<h3 class="nbl">주소</h3>
 				<ul class="nbl-list">
 					<li>대구광역시 동구 팔공로49길 51</li>
+				</ul>
+				<h3 class="nbl">상세위치</h3>
+				<ul class="nbl-list num">
+					<li><p>1</p> <span>에스컬레이터를 이용하여 3층으로 이동</span></li>
+					<li><p>2</p> <span>3층 상행 에스컬레이터 옆(3층 주차장 입구)에서 내 집 앞 도서관 서비스 이용</span></li>
 				</ul>
 				<h3 class="nbl">주차정보</h3>
 				<ul class="nbl-list">
