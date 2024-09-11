@@ -17,7 +17,10 @@ $(function(){
 			output : 'css'
 		};
 
-	$("#barcodeTarget").barcode('${sessionScope.member.user_no}', "code128", settings);
+	if (${sessionScope.member.user_no ne null || sessionScope.member.user_no ne '' || sessionScope.member.user_no ne 'null'}) {
+		$("#barcodeTarget").barcode('${sessionScope.member.user_no}', "code128", settings);
+	}
+
 	$("#barcodeTarget").css("margin","0 auto");
 
 });
@@ -70,6 +73,10 @@ var interval = setInterval(clock, 1000);
 </style>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div style="text-align:center;padding:0 0 10px 0;font-size:27px;font-weight:bold">${sessionScope.member.member_name}</div>
+<c:if test="${sessionScope.member.user_no ne null || sessionScope.member.user_no ne '' || sessionScope.member.user_no ne 'null'}">
+	비대면인증 회원 또는 웹회원은 모바일 회원증을 통한 대출이 불가능합니다.
+	도서관에 방문하셔서 정회원 등록(회원증 발급) 또는 직급수정 후 이용을 부탁드립니다.
+</c:if>
 
 <div class="" style="box-sizing:border-box;padding:18px;">
 <div id="barcodeTarget" class="barcodeTarget" style="padding:0px;overflow:auto;"></div>
