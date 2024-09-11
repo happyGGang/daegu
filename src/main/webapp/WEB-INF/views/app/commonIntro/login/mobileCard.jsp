@@ -17,12 +17,17 @@ $(function(){
 			output : 'css'
 		};
 
-	if (${sessionScope.member.user_no ne null || sessionScope.member.user_no ne '' || sessionScope.member.user_no ne 'null'}) {
-		$("#barcodeTarget").barcode('${sessionScope.member.user_no}', "code128", settings);
-	}
-
+	$("#barcodeTarget").barcode('${sessionScope.member.user_no}', "code128", settings);
 	$("#barcodeTarget").css("margin","0 auto");
 
+	var user_no = '${sessionScope.member.user_no}';
+
+	if (user_no == null || user_no == '' || user_no == 'null') {
+		$("#barcodeTarget").css("margin","0 auto");
+		$("#barcodeTarget").css("display","none");
+	} else {
+		$("#barcodeTarget").css("display","block");
+	}
 });
 
 function clock()
@@ -73,15 +78,16 @@ var interval = setInterval(clock, 1000);
 </style>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div style="text-align:center;padding:0 0 10px 0;font-size:27px;font-weight:bold">${sessionScope.member.member_name}</div>
-<c:if test="${sessionScope.member.user_no ne null || sessionScope.member.user_no ne '' || sessionScope.member.user_no ne 'null'}">
+
+<c:if test="${sessionScope.member.user_no eq null || sessionScope.member.user_no eq '' || sessionScope.member.user_no eq 'null'}">
 	비대면인증 회원 또는 웹회원은 모바일 회원증을 통한 대출이 불가능합니다.
 	도서관에 방문하셔서 정회원 등록(회원증 발급) 또는 직급수정 후 이용을 부탁드립니다.
 </c:if>
 
-<div class="" style="box-sizing:border-box;padding:18px;">
-<div id="barcodeTarget" class="barcodeTarget" style="padding:0px;overflow:auto;"></div>
-</div>
-<!-- <div style="text-align:center">${sessionScope.member.user_no}</div> -->
+	<div class="" style="box-sizing:border-box;padding:18px;">
+		<div id="barcodeTarget" class="barcodeTarget" style="padding:0px;overflow:auto;"></div>
+	</div>
+
 
 <div class="loanNum" style="padding-top:20px;text-align:center;font-size:27px;font-weight:bold;">
 <span id="years">0000</span><span>년</span>  <span id="month">00</span><span>월</span> <span id="day">00</span><span>일</span> <span id="week"></span><span>요일</span>
