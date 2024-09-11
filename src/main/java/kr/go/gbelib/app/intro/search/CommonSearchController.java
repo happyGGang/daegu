@@ -4284,6 +4284,8 @@ public class CommonSearchController extends BaseController {
 
 			if((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
 				take_term += 1;
+			} else {
+				take_term = 2;
 			}
 
 			neighborhoodLibrary.setDevice_code(deviceOne.getDevice_code());

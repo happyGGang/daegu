@@ -120,8 +120,8 @@ public class NearbyLibService extends BaseService {
 				NearbyLibLocker neighborhoodLibraryLocker = new NearbyLibLocker();
 				neighborhoodLibraryLocker.setDevice_idx(neighborhoodLibrary.getDevice_idx());
 				neighborhoodLibraryLocker.setEditMode("canUseLocker");
-				List<NearbyLibLocker> lockerOneList = lockerService.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);//사물함 번호&갯수 가져오기		
-				List<NearbyLib> usedLockerList = getNeighborhoodLibraryList(neighborhoodLibrary); //사물함을 사용하는 예약 내역만 가져오기 
+				List<NearbyLibLocker> lockerOneList = lockerService.getNeighborhoodLibraryLockerEachOneList(neighborhoodLibraryLocker);//사물함 번호&갯수 가져오기
+				List<NearbyLib> usedLockerList = getNeighborhoodLibraryList(neighborhoodLibrary); //사물함을 사용하는 예약 내역만 가져오기
 
 				if(lockerOneList.size() <= usedLockerList.size()) {
 					res.setValid(false);
@@ -180,9 +180,7 @@ public class NearbyLibService extends BaseService {
 					String data2 = reserveOne.getMember_name();
 					String data3 = book_name;
 					String data4 = reserveOne.getDevice_name();
-					if(reserveOne.getDevice_name().contains("이시아")) {
-						data4 = reserveOne.getDevice_name() + "(2층)";
-					}
+					data4 = setFindLocation(data4);
 
 					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
 
@@ -222,9 +220,7 @@ public class NearbyLibService extends BaseService {
 					String data2 = reserveOne.getMember_name();
 					String data3 = book_name;
 					String data4 = reserveOne.getDevice_name();
-					if(reserveOne.getDevice_name().contains("이시아")) {
-						data4 = reserveOne.getDevice_name() + "(2층)";
-					}
+					data4 = setFindLocation(data4);
 
 					LibSearchAPI.sendalimtalkReserve(librarySearch, "A11", "SJT_085700", userIp, data1, data2, data3, data4);
 				}else {
@@ -412,7 +408,7 @@ public class NearbyLibService extends BaseService {
 					}catch (Exception e) {
 						e.printStackTrace();
 					}
-					if (apiResult.getStatus()) { //취소 API 성공					
+					if (apiResult.getStatus()) { //취소 API 성공
 						result = dao.updateNeighborhoodLibrary(status3_update);
 					} else { //api는 정상적이나 취소처리가 되지 않음
 						res.setValid(false);
@@ -464,9 +460,9 @@ public class NearbyLibService extends BaseService {
 					String data2 = reserveOne.getMember_name();
 					String data3 = book_name;
 					String data4 = reserveOne.getDevice_name();
-					if(reserveOne.getDevice_name().contains("이시아")) {
-						data4 = reserveOne.getDevice_name() + "(2층)";
-					}
+
+					data4 = setFindLocation(data4);
+
 					String data5 = String.valueOf(reserveOne.getLocker_idx());
 					String data6 = String.valueOf(reserveOne.getDevice_password() + lockerIdx + reserveOne.getDevice_idx());
 					String data7 = simpleDateFormat.format(cal.getTime());
@@ -559,7 +555,7 @@ public class NearbyLibService extends BaseService {
 				e.printStackTrace();
 			}
 
-			if (apiResult.getStatus()) { //취소 API 성공					
+			if (apiResult.getStatus()) { //취소 API 성공
 				/*홈페이지DB 예약취소 */
 				result = dao.updateNeighborhoodLibrary(neighborhoodLibraryDelete);
 				res.setMessage("해당 예약이 취소 되었습니다.");
@@ -708,6 +704,8 @@ public class NearbyLibService extends BaseService {
 							//반야월 이마트 매주 금요일
 							if((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(String.valueOf(neighborhoodLibrary.getDevice_code()))) {
 								take_term += 1;
+							} else  {
+								take_term = 2;
 							}
 
 							cal.add(Calendar.DATE, take_term);
@@ -818,7 +816,7 @@ public class NearbyLibService extends BaseService {
 						for(int i = 0; i < bundleList_api.size(); i++) {
 							librarySearch.setLoan_key(bundleList_api.get(i).getPk());
 							try {
-								int take_term = bundleList_api.get(i).getTake_term() - 1;
+								int take_term = bundleList_api.get(i).getTake_term();
 								Date nowDate = new Date();
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
@@ -833,6 +831,8 @@ public class NearbyLibService extends BaseService {
 
 								if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 									take_term += 1;
+								} else  {
+									take_term = 2;
 								}
 
 								cal.add(Calendar.DATE, take_term);
@@ -851,7 +851,7 @@ public class NearbyLibService extends BaseService {
 								success = success + dao.updateNeighborhoodLibrary(updateData);
 
 								neighborhoodLibrary.setReserve_idx(bundleList_api.get(i).getReserve_idx());
-								int take_term = bundleList_api.get(i).getTake_term() - 1;
+								int take_term = bundleList_api.get(i).getTake_term();
 								Date nowDate = new Date();
 								SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
 								Calendar cal = Calendar.getInstance();
@@ -865,6 +865,8 @@ public class NearbyLibService extends BaseService {
 								LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
 								if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 									take_term += 1;
+								} else  {
+									take_term = 2;
 								}
 
 								cal.add(Calendar.DATE, take_term);
@@ -978,7 +980,7 @@ public class NearbyLibService extends BaseService {
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(nowDate);
 
-					int take_term = resultData.getTake_term() - 1;
+					int take_term = resultData.getTake_term();
 
 					LocalDate today = LocalDate.now();
 					int year = today.getYear();
@@ -989,6 +991,8 @@ public class NearbyLibService extends BaseService {
 
 					if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 						take_term += 1;
+					} else  {
+						take_term = 2;
 					}
 
 					cal.add(Calendar.DATE, take_term);
@@ -1046,6 +1050,8 @@ public class NearbyLibService extends BaseService {
 
 						if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
 							take_term += 1;
+						} else  {
+							take_term = 2;
 						}
 
 						cal.add(Calendar.DATE, take_term);
@@ -1076,9 +1082,9 @@ public class NearbyLibService extends BaseService {
 								String data2 = bundleList.get(i).getMember_name();
 								String data3 = book_name;
 								String data4 = bundleList.get(i).getDevice_name();
-								if (bundleList.get(i).getDevice_name().contains("이시아")) {
-									data4 = bundleList.get(i).getDevice_name() + "(2층)";
-								}
+
+								data4 = setFindLocation(data4);
+
 								String data5 = String.valueOf(bundleList.get(i).getLocker_idx());
 								String data6 = String.valueOf(bundleList.get(i).getDevice_password() + lockerIdx + bundleList.get(i).getDevice_idx());
 								String data7 = simpleDateFormat.format(cal.getTime());
@@ -1828,7 +1834,7 @@ public class NearbyLibService extends BaseService {
 		return dao.getNearbyOneBookReserveData(nearbyBookKey);
 	}
 
-	public static LocalDate getNthSaturdayOfMonth(int year, Month month, int nth) {
+	public LocalDate getNthSaturdayOfMonth(int year, Month month, int nth) {
 		YearMonth yearMonth = YearMonth.of(year, month);
 		LocalDate firstMonday = getFirstMonday(yearMonth);
 
@@ -1837,7 +1843,7 @@ public class NearbyLibService extends BaseService {
 		return nthSaturday;
 	}
 
-	public static LocalDate getFirstMonday(YearMonth yearMonth) {
+	public LocalDate getFirstMonday(YearMonth yearMonth) {
 		LocalDate firstDayOfMonth = yearMonth.atDay(1);
 
 		// 첫 번째 월요일을 찾음
@@ -1847,5 +1853,16 @@ public class NearbyLibService extends BaseService {
 		}
 
 		return firstDayOfMonth.plusDays(daysUntilFirstMonday);
+	}
+
+	private String setFindLocation(String data4) {
+		if (data4.contains("이시아")) {
+			data4 = data4 + "(2층) 매표소 앞";
+		} else if (data4.contains("연경")) {
+			data4 = data4 + "(5층) 에스컬레이터 옆";
+		} else if (data4.contains("반야월")) {
+			data4 = data4 + "(3층) 상행 에스컬레이터 옆";
+		}
+		return data4;
 	}
 }
