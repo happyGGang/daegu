@@ -342,6 +342,7 @@ public class QueryInterceptor implements Interceptor {
 			return afterUpdateDate.toString();
 		}
 
+
 		return work_result;
 	}
 }

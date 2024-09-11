@@ -38,10 +38,6 @@ public class WorkingLogService extends BaseService {
 			sql = workingLog.getWork_query();
 
 			workingLog.setWork_result(jdbcTemplate.queryForList(sql).toString());
-		} else if ("UPDATE".equals(workingLog.getWork_command())) {
-			sql = "SELECT * FROM CMS_MEMBER WHERE member_id = 'rudaks'";
-
-			System.out.println(jdbcTemplate.queryForList(sql).toString());
 		}
 
         return dao.addWorkingLog(workingLog);
