@@ -331,7 +331,7 @@ public class QueryInterceptor implements Interceptor {
 
 				List<String> dataList = new ArrayList<>();
 
-				dataList.add("befor=" + LowerbeforeUpdateData);
+				dataList.add("before=" + LowerbeforeUpdateData);
 				dataList.add("after=" + afterUpdateDate);
 
 				work_result = dataList.toString();
