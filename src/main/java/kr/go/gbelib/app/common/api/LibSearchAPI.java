@@ -771,6 +771,10 @@ public class LibSearchAPI {
 		param.put("userkey", librarySearch.getUserkey());
 		param.put("pageno", librarySearch.getViewPage());
 		param.put("display", librarySearch.getRowCount());
+		if (librarySearch.getLibraryCodes() != null) {
+			String manage_code = String.join(", ", librarySearch.getLibraryCodes());
+			param.put("manage_code", manage_code);
+		}
 		if (librarySearch.getFurnish_status() != null && StringUtils.isNotEmpty( librarySearch.getFurnish_status())) {
 			param.put("furnish_status", librarySearch.getFurnish_status());
 		}
