@@ -983,14 +983,14 @@ $(function() {
 					<c:if test="${detail.RESERVATION_CNT eq '0'}">
 					<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' || detail.SHELF_LOC_CODE eq 'AA04' || detail.SHELF_LOC_CODE eq 'AA09' || detail.SHELF_LOC_CODE eq 'AA10' || detail.SHELF_LOC_CODE eq 'AA11' || detail.SHELF_LOC_CODE eq 'AA14' || detail.SHELF_LOC_CODE eq 'AA15' || detail.SHELF_LOC_CODE eq 'AA16' || detail.SHELF_LOC_CODE eq 'AA17' || detail.SHELF_LOC_CODE eq 'AA18' || detail.SHELF_LOC_CODE eq 'AA20' || detail.SHELF_LOC_CODE eq 'AA21' || detail.SHELF_LOC_CODE eq 'AA22' || detail.SHELF_LOC_CODE eq 'AA23'}">
 
-						<c:choose>
-							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
-							</c:when>
-							<c:otherwise>
-								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
-							</c:otherwise>
-						</c:choose>
+<%--						<c:choose>--%>
+<%--							<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">--%>
+<%--								<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>--%>
+<%--							</c:when>--%>
+<%--							<c:otherwise>--%>
+<%--								<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>--%>
+<%--							</c:otherwise>--%>
+<%--						</c:choose>--%>
 
 					</c:if>
 					</c:if>
@@ -1170,9 +1170,9 @@ $(function() {
 
 		<c:if test="${homepage.context_path eq '228'}">
 			<p style="font-weight:bold;text-align:center;">
-				<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' or detail.SHELF_LOC_CODE eq 'AA04' or detail.SHELF_LOC_CODE eq 'AA10' or detail.SHELF_LOC_CODE eq 'AA11' or detail.SHELF_LOC_CODE eq 'AA17' or detail.SHELF_LOC_CODE eq 'AA20'}">
-					※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.
-				</c:if>
+<%--				<c:if test="${detail.SHELF_LOC_CODE eq 'AA03' or detail.SHELF_LOC_CODE eq 'AA04' or detail.SHELF_LOC_CODE eq 'AA10' or detail.SHELF_LOC_CODE eq 'AA11' or detail.SHELF_LOC_CODE eq 'AA17' or detail.SHELF_LOC_CODE eq 'AA20'}">--%>
+<%--					※ &lt;무인예약신청&gt; 후 1층 현관 옆 스마트도서관에서 수령바랍니다.--%>
+<%--				</c:if>--%>
 			</p>
 		</c:if>
 
