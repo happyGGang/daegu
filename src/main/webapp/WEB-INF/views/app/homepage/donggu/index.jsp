@@ -617,7 +617,7 @@ do {
 									대구광역시 동구 아양로 207<br/>(동구청1층)<br/>053-662-2489
 								</div> -->
 								<div class="divbInfomationConts" id="divbInfo17">
-									대구광역시 동구 아양로37길 92<br/>(신암5동 행정복지센터 2층)<br/>053-662-3485
+									대구광역시 동구 아양로37길 92<br/>(신암5동 행정복지센터 2층)<br/>053-951-9111
 								</div>
 								<div class="divbInfomationConts" id="divbInfo18">
 									대구광역시 동구 동촌로 46길 17<br/>053-981-8276

@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.7.31. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -90,16 +90,16 @@
 							<tr>
 								<th>권수</th>
 								<td>1,508</td>
-								<td>1,294</td>
-								<td>484</td>
-								<td>4,833</td>
-								<td>3,277</td>
-								<td>2,474</td>
+								<td>1,298</td>
+								<td>485</td>
+								<td>4,837</td>
+								<td>3,278</td>
+								<td>2,475</td>
 								<td>1,107</td>
-								<td>1,892</td>
-								<td>16,247</td>
-								<td>2,831</td>
-								<td>35,947</td>
+								<td>1,893</td>
+								<td>16,260</td>
+								<td>2,832</td>
+								<td>35,973</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.7.31. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -150,13 +150,13 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>11,380</td>
-								<td>6,271</td>
-								<td>14,149</td>
+								<td>11,386</td>
+								<td>6,274</td>
+								<td>14,166</td>
 								<td>75</td>
 								<td>304</td>
 								<td>3,768</td>
-								<td>35,947</td>
+								<td>35,973</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -171,8 +171,8 @@
 						</tbody>
 					</table>
 				</div>
-				<p>보존서고: 5,928권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.7.31. 기준] (단위 : 권)</span></h3>
+				<p>보존서고: 3,806권 포함</p>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.8.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
