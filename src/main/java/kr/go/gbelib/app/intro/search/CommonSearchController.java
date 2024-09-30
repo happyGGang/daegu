@@ -2544,6 +2544,21 @@ public class CommonSearchController extends BaseController {
 
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				list = LibSearchAPI.getListData(result);
+
+				boolean isReserveCancelButton = true;
+				for (Map<String, Object> getNearbyApiList : list) {
+					Object pkValue = getNearbyApiList.get("PK");
+					if (pkValue != null && pkValue instanceof Long) {
+						String nearbyBookKey = Long.toString((Long) pkValue);
+						int reserveStatus = neighborhoodLibraryService.getNearbyOneBookReserveData(nearbyBookKey);
+						if (reserveStatus != 1) {
+							isReserveCancelButton = false;
+						}
+						getNearbyApiList.put("isReserveCancelButton", isReserveCancelButton);
+					} else {
+						getNearbyApiList.put("isReserveCancelButton", false);
+					}
+				}
 			}
 			
 			model.addAttribute("deviceList", deviceList);

@@ -199,6 +199,9 @@ $(function() {
 									</c:when>
 									<c:when test="${i.NIGHT_RESERVATION_LOAN eq 'O'}">
 									</c:when>
+									<c:when test="${i.UNMANNED_RESERVATION_LOAN eq 'Y' && i.STATUS eq '3' && i.isReserveCancelButton}">
+										<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
+									</c:when>
 									<c:otherwise>
 										<c:if test="${i.STATUS eq '3'}">
 											<a href="#" class="btn reserveCancel" keyValue="${i.PK}">예약취소</a>
@@ -212,7 +215,7 @@ $(function() {
 								<c:choose>
 									<c:when test="${nearLib_yn eq 1 }">
 										<c:if test="${i.UNMANNED_RESERVATION_LOAN eq 'Y'}">
-											<c:if test="${i.STATUS eq '3'}">
+											<c:if test="${i.STATUS eq '3' && i.isReserveCancelButton}">
 												<a href="#" class="reserveCancel2" keyValue1="${i.PK}" keyValue2="${i.BOOK_KEY }">예약취소</a>
 											</c:if> 											
 										</c:if>
