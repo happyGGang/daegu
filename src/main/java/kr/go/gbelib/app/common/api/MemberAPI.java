@@ -595,6 +595,8 @@ public class MemberAPI {
 		param.put("birthday_day", member.getBirth_day().substring(6, 8));
 		param.put("birthday_type", "+");//+:양력, -:음력
 		param.put("h_zipcode", member.getZipcode());//집우편번호
+		param.put("user_key", member.getRec_key());
+		param.put("user_no", member.getUser_no());
 		String addr = member.getAddress1();
 		if (StringUtils.isNotBlank(member.getAddress2())) {
 			addr += " "+member.getAddress2();
