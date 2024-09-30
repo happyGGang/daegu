@@ -2,6 +2,7 @@ package kr.co.whalesoft.app.cms.member;
 
 import java.util.List;
 import kr.co.whalesoft.app.cms.boardManage.BoardManage;
+import kr.go.gbelib.app.intro.join.CertificateCitizen;
 
 public interface MemberDao {
 
@@ -47,4 +48,5 @@ public interface MemberDao {
 
 	public int addMemberLastLogin(Member member);
 
+	public int addCitizenMember(CertificateCitizen certificateCitizen);
 }

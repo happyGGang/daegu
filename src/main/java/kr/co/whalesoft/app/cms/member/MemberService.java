@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.crypto.Cipher;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.go.gbelib.app.intro.join.CertificateCitizen;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -407,5 +408,10 @@ public class MemberService extends BaseService {
 		m.setWeb_id(member.getMember_id());
 
 		return dao.addMemberLastLogin(m);
+	}
+
+	//시민인증
+	public int addCitizenMember(CertificateCitizen certificateCitizen) {
+		return dao.addCitizenMember(certificateCitizen);
 	}
 }

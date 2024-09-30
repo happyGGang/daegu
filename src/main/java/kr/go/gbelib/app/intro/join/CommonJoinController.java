@@ -1,5 +1,8 @@
 package kr.go.gbelib.app.intro.join;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -1612,6 +1615,18 @@ public class CommonJoinController extends BaseController {
 
 				String regular = String.valueOf(regularUserInfoInsert.get("RESULT_INFO"));
 				if (StringUtils.equals(regular, "SUCCESS")) {
+					//이름, ID, 신청일자, 시행 도서관, CI 내역 DB에 저장
+					CertificateCitizen certificateCitizen = new CertificateCitizen();
+
+					certificateCitizen.setUser_ci(ci);	//ci
+					certificateCitizen.setUser_name(String.valueOf(regularUserInfoInsert.get("name")));	//이름
+					certificateCitizen.setUser_id(sessionMemberInfo.getMember_id());	//id
+					certificateCitizen.setLibrary(homepage.getHomepage_name());	//도서관
+					certificateCitizen.setUser_key(String.valueOf(regularUserInfoInsert.get("user_key")));	//이용자key
+					certificateCitizen.setUser_number(String.valueOf(regularUserInfoInsert.get("user_no")));	//이용자번호
+
+					memberService.addCitizenMember(certificateCitizen);
+
 					res.setValid(true);
 					res.setMessage("인증이 완료되었습니다."+ System.lineSeparator() +"※ 재로그인 후 이용 가능하며, 현재 비대면 인증 회원은 전자도서관만 이용 가능합니다.");
 	    			res.setUrl(String.format("/%s/intro/login/logout.do", homepage.getContext_path()));

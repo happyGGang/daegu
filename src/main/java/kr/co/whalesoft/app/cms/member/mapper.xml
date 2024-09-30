@@ -332,4 +332,21 @@
 			)
 	</update>
 
+	<insert id="addCitizenMember">
+		<selectKey keyProperty="idx" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(citizen_idx),0)+1 FROM CERTIFICATE_CITIZEN
+		</selectKey>
+		INSERT INTO
+			CERTIFICATE_CITIZEN
+			(
+				USER_NAME, LIBRARY, APPLY_DATE, USER_CI, USER_ID,
+				USER_KEY, USER_NUMBER
+			)
+		VALUES
+			(
+				#{user_name}, #{library}, SYSDATE, #{user_ci}, #{user_id},
+				#{user_key}, #{user_number}
+			)
+	</insert>
+
 </mapper>
