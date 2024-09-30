@@ -668,9 +668,10 @@ $(function() {
 			</p>
 		</c:if> 
 
-		<c:if test="${detail.MANAGE_CODE eq ''}">
+		<c:if test="${detail.MANAGE_CODE eq 'BY'}">
 			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 성서도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(6/3~6/19)를 안내드리오니, 양해 바랍니다.(성서도서관 소장자료만 해당)
+				* 달서가족문화도서관 장서점검 관련 9. 30.(월)~10. 16.(수)까지 상호대차 및 무인예약 신청이 불가합니다.<br>
+				* 달서가족문화도서관 소장도서만 불가*
 			</p>
 		</c:if>
 		
@@ -783,7 +784,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'||detail.MANAGE_CODE eq ''}">
 						</c:when>
 						
-						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'FA'|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'FA'|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq '' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}"><!--9/30 달서가족문화도서관 상호대차 중지 재개시 빈칸에 BY 입력 -->
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -930,7 +931,7 @@ $(function() {
 			</c:choose>
 
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}">
+				<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq '' and detail.LOAN_CODE eq 'OK'}"><!--수성도서관 무인예약대출 일시 중지-->
 					<c:choose>
 						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
 						
@@ -1006,7 +1007,7 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}"> <!-- 달서통합도서관 무인예약 신청-->
-					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}">
+					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BZ'}"><!--달서가족문화도서관 무인예약중지처리 재개시 빈칸에 BY 넣어주세요 -->
 						<c:choose>
 							<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
 							

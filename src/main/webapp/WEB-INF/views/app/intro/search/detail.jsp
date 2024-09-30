@@ -325,6 +325,10 @@ CONTEXT_PATH : ${context_path}
 		</div>
 
 <c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
+        <div class="" style="margin:20px 0;text-align:center;font-size:14px;font-weight:bold;color:red;">
+			* 달서가족문화도서관 장서점검 관련 9. 30.(월)~10. 16.(수)까지 상호대차 및 무인예약 신청이 불가합니다.<br>
+			* 달서가족문화도서관 소장도서만 불가*
+		</div>
 
 </c:if>
 <c:if test="${detail.SHELF_LOC_CODE eq 'BN13'}">
@@ -397,7 +401,7 @@ CONTEXT_PATH : ${context_path}
 					</c:choose>
 				</c:when>
 
-				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
+				<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq '' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'FD' || detail.MANAGE_CODE eq 'FW'|| detail.MANAGE_CODE eq ''}">
 						</c:when>
