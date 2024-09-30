@@ -152,6 +152,10 @@ public class HomepageBaseInterceptor extends HandlerInterceptorAdapter {
 				menuTreeList = menuService.getMenuTreeListCache(homepage.getHomepage_id());
 				if(request.getParameter("menu_idx") != null && !request.getParameter("menu_idx").equals("")) {
 					menuOne = menuService.getMenuOne(new Menu(homepage.getHomepage_id(), Integer.parseInt(request.getParameter("menu_idx"))));
+
+					if(menuOne != null && menuOne.getUse_yn().equals("N")) {
+						menuService.alertMessageAndUrl("현재 페이지는 이용할 수 없습니다.", String.format("/%s/index.do", homepage.getFolder()), request, response);
+					}
 				}
 
 				int modifyFormMenuIdx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/modifyForm.do"));
