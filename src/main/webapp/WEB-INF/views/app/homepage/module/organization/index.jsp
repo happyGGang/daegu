@@ -136,29 +136,15 @@ $.fn.rowspan = function(colIdx, isStats) {
 		<h3>${i.organization_name}</h3>
 		<table class="center tspan" summary="${i.organization_name}의 직원현황입니다.">
 			<colgroup>
-				<col class="col14" width="20%">
-				<c:choose>
-					<c:when test="${(i.homepage_id == 'h10' || i.homepage_id == 'h4') && i.organization_name == '관장'}">
-					</c:when>
-					<c:otherwise>
-						<col class="col15" width="15%">
-					</c:otherwise>
-				</c:choose>
-				<col class="col16">
-				<col class="col17" width="15%">
+				<col class="col1" width="15%">
+				<col class="col2" width="25%">
+				<col class="col3" width="15%">
 			</colgroup>
 			<thead>
 				<tr>
 					<th scope="col" class="th1">직  위(급)</th>
-					<c:choose>
-						<c:when test="${(i.homepage_id == 'h10' || i.homepage_id == 'h4') && i.organization_name == '관장'}">
-						</c:when>
-						<c:otherwise>
-							<th scope="col" class="th2">성 명</th>
-						</c:otherwise>
-					</c:choose>
-					<th scope="col" class="th3">담   당   업   무</th>
-					<th scope="col" class="th4">전 화</th>
+					<th scope="col" class="th2">담   당   업   무</th>
+					<th scope="col" class="th3">전 화</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -169,20 +155,6 @@ $.fn.rowspan = function(colIdx, isStats) {
 						<c:choose>
 							<c:when test="${(i.homepage_id == 'h10' || i.homepage_id == 'h4') && i.organization_name == '관장'}">
 							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${i.homepage_id == 'h4' || i.homepage_id == 'h7'}">
-										<td>${j.worker}</td>
-									</c:when>
-									<c:otherwise>
-										<td>
-											<c:if test="${fn:length(j.worker) > 1}">
-												${fn:substring(j.worker,0,1)}**
-											</c:if>
-										</td>
-									</c:otherwise>
-								</c:choose>
-							</c:otherwise>
 						</c:choose>
 						<td class="left">${j.work_info}</td>
 						<td>${j.phone}</td>
