@@ -1002,6 +1002,14 @@ do {
 										<div class="cont">
 											<ul>
 												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/202" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu22.png" alt="군위 어디까지 가봤니"></div>
+														<p class="book-title">군위 어디까지 가봤니</p>
+														<p class="book-desc">올가을엔 군위 나들이</p>
+														<p class="reg-date">2024-10-02</p>
+													</a>
+												</li>
+												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/193" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu21.png" alt="대구 빵지순례"></div>
 														<p class="book-title">대구 빵지순례</p>
@@ -2858,6 +2866,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+					<li>
+						<a href="http://www.icuration.co.kr:81/curation/w/202" target="_blank">
+							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu22.png" alt="군위 어디까지 가봤니"></div>
+							<h3 class="book-title">군위 어디까지 가봤니</h3>
+							<p class="book-desc">올가을엔 군위 나들이</p>
+							<p class="reg-date">2024-10-02</p>
+						</a>
+					</li>
 					<li>
 						<a href="http://www.icuration.co.kr:81/curation/w/193" target="_blank">
 							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu21.png" alt="대구 빵지순례"></div>
