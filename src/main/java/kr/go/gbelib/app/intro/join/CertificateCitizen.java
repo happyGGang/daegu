@@ -4,7 +4,7 @@ import kr.co.whalesoft.framework.utils.PagingUtils;
 
 public class CertificateCitizen extends PagingUtils {
 
-    private String citizen_idx;         //시민인증idx
+    private int citizen_idx;         //시민인증idx
     private String user_name;           //이름
     private String user_id;             //id
     private String library;             //도서관
@@ -16,11 +16,11 @@ public class CertificateCitizen extends PagingUtils {
 
     public CertificateCitizen() {}
 
-    public String getCitizen_idx() {
+    public int getCitizen_idx() {
         return citizen_idx;
     }
 
-    public void setCitizen_idx(String citizen_idx) {
+    public void setCitizen_idx(int citizen_idx) {
         this.citizen_idx = citizen_idx;
     }
 
