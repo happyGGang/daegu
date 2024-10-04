@@ -33,7 +33,7 @@
 .fileUploader .file_attach_info p strong{color:#999;font-weight:normal}
 
 /* 분류 */
-.category span.ca{display:inline-block;padding:1px 0;border-radius:20px;background:#000;width:60px;text-align:center;font-weight:bold;color:#fff;font-size:13px;}
+.category span.ca{display:inline-block;padding:1px 0;border-radius:20px;background:#000;width:80px;text-align:center;font-weight:bold;color:#fff;font-size:13px;}
 /* .category span.ca.ty1{background-color:#8bb221;color:#fff}
 .category span.ca.ty2{background-color:#7b5b9e;color:#fff}
 .category span.ca.ty3{background-color:#f62d2d;color:#fff}

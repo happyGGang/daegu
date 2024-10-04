@@ -608,6 +608,8 @@ do {
                   <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0005">원고개</a></li>
                   <li class="bar">/</li>
                   <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0007">New평리</a></li>
+				  <li class="bar">/</li>
+                  <li><a href="#kidsEnglish" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0008">어린이영어</a></li>
                 </ul>
               </div>
               <div class="top3wrap" id="notibox1_all" style="display:block;">
@@ -666,6 +668,10 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
+						  <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -1101,6 +1107,8 @@ do {
                   <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0005">원고개</a></li>
                   <li class="bar">/</li>
                   <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0006">New평리</a></li>
+				  <li class="bar">/</li>
+                  <li><a href="#kidsEnglish" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=50&manage_idx=632&category1=0008">어린이영어</a></li>
                 </ul>
               </div>
               <div class="top3wrap" id="galbox1_all" style="display:block;">
@@ -1287,6 +1295,8 @@ do {
                 <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h64">원고개</a></li>
                 <li class="bar">/</li>
                 <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h96">New평리</a></li>
+				<li class="bar">/</li>
+				<li><a href="#kidsEnglish" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h98">어린이영어</a></li>
               </ul>
             </div>
             <div class="top3wrap" id="culturebox2_all" style="display:block;">

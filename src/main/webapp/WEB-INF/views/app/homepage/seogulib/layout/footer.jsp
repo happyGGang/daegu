@@ -34,6 +34,7 @@
 						<em><b>영어도서관</b> : (41842) <br class="mobileBr"/>대구광역시 서구 평리로35길 90-6</em><br class="mobileBr"/><em>전화 : 053-663-3861</em><em>FAX : 053-663-3869</em><br/>
 						<em><b>원고개도서관</b> : (41743) <br class="mobileBr"/>대구광역시 서구 달서로 43길 12</em><br class="mobileBr"/><em>전화 : 053-663-3941</em><em>FAX : 053-663-3949</em><br/>
 						<em><b>New평리도서관</b> : (41826) <br class="mobileBr"/>대구광역시 서구 평리로73길 37</em><br class="mobileBr"/><em>전화 : 053-663-3881</em><br/>
+						<em><b>서구어린이영어도서관</b> : (41764) <br class="mobileBr"/>대구광역시 서구 문화로 160</em><br class="mobileBr"/><em>전화 : 053-663-3951</em><em>FAX : 053-663-5649</em><br/>
 						<em style="font-size:90%;"><b>대구 서구청</b> : (41777) <br class="mobileBr"/>대구광역시 서구 국채보상로 257 (평리동)</em><br class="mobileBr"/><em style="font-size:90%;">사업자등록번호: 503-83-00220</em>
 					</p>
 					<span>Copyright ⓒ 서구통합도서관. All rights reserved.</span>
