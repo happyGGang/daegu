@@ -202,6 +202,10 @@ $(function() {
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_BU').prop('checked',true);
 			</c:when>
+			<c:when test="${context_path eq 'dalseolib'}">
+			$('div#libraryList input:checkbox').prop('checked', false);
+			$('div#libraryList input:checkbox.lib_BW').prop('checked', true);
+			</c:when>
 			<c:when test="${context_path eq 'kids'}">
 			$('div#libraryList input:checkbox').prop('checked',false);
 			$('div#libraryList input:checkbox.lib_BV').prop('checked',true);
