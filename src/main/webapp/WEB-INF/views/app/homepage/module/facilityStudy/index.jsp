@@ -64,6 +64,9 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 				<td>4~12명</td>
 				<td>
 					<c:choose>
+						<c:when test="${facilityStudy.plan_date >= '2024-11-01' and facilityStudy.homepage_id eq 'h5'}">
+							신청불가
+						</c:when>
 						<c:when test="${not empty closedDay}">
 							휴관
 						</c:when>
@@ -94,6 +97,9 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 				</td>
 				<td>
 					<c:choose>
+						<c:when test="${facilityStudy.plan_date >= '2024-11-01' and facilityStudy.homepage_id eq 'h5'}">
+							신청불가
+						</c:when>
 						<c:when test="${not empty closedDay}">
 							휴관
 						</c:when>
@@ -124,6 +130,9 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 				</td>
 				<td>
 					<c:choose>
+						<c:when test="${facilityStudy.plan_date >= '2024-11-01' and facilityStudy.homepage_id eq 'h5'}">
+							신청불가
+						</c:when>
 						<c:when test="${not empty closedDay}">
 							휴관
 						</c:when>
