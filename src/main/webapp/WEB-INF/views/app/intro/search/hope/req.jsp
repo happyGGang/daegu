@@ -451,8 +451,8 @@
 					</c:when>
 					<c:when test="${context_path eq 'english'}">
 						<form:select path="manageCode">
-							<form:option value="BZ">달서영어도서관</form:option>
-						</form:select><!--<span style="color:#ff0000">  * 달서영어도서관 희망도서신청 차후 재개시 안내드리겠습니다.</span>-->
+							<!--<form:option value="BZ">달서영어도서관</form:option>-->
+						</form:select><span style="color:#ff0000">  * 달서영어도서관 희망도서신청 차후 재개시 안내드리겠습니다.</span>
 					</c:when>
 					<c:when test="${context_path eq 'dssmalllib'}">
 						<form:select path="manageCode">
