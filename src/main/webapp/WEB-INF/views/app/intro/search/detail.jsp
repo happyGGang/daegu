@@ -19,10 +19,10 @@ $(function() {
 		}
 	});
 
-	$('a#resve-req-not').on('click', function(e) {
-		e.preventDefault();
-		alert('허용 예약인원이 다 찼습니다. 이용에 불편함을 드려 죄송합니다.');
-	});
+	// $('a#resve-req-not').on('click', function(e) {
+	// 	e.preventDefault();
+	// 	alert('허용 예약인원이 다 찼습니다. 이용에 불편함을 드려 죄송합니다.');
+	// });
 
 	$('a#service-noreq').on('click', function(e) {
 		e.preventDefault();
@@ -614,7 +614,7 @@ AD20 종합자료실
 								<a href="#" id="resve-req" class="btn">예약신청</a>
 							</c:when>
 							<c:otherwise>
-								<a href="#" id="resve-req-not" class="btn btn5">예약불가</a>
+								<a href="javascript:void(0);" id="resve-req-not" class="btn btn5">예약불가</a>
 							</c:otherwise>
 						</c:choose>
 					</c:otherwise>
