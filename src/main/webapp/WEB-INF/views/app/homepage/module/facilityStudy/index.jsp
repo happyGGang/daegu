@@ -168,4 +168,5 @@ table.cal-tbl td { text-align: center; padding: 8px 0 !important;}
 </form:form>
 <div style="text-align: center; margin-top: 20px;">
 	<button id="apply-btn" class="btn btn2">그룹스터디룸 신청 확인</button>
+	<p style="color:red; font-weight:bold; margin-top:10px;">※ 도서관 내부리모델링 공사로 인해 11.1.(금)부터 그룹스터디룸 시설이용불가</p>
 </div>
