@@ -2768,6 +2768,8 @@ public class IndexController extends BaseController {
 					b.setCategory1("0005");
 				}else if (h2.getHomepage_id().equals("h96")) {
 					b.setCategory1("0007");
+				}else if (h2.getHomepage_id().equals("h98")) {
+					b.setCategory1("0008");
 				}
 
 				final List<Board> subBoardByMainSeogu = boardService.getSubBoardByMainSeogu(b);
