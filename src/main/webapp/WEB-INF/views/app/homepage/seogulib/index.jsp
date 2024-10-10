@@ -608,7 +608,7 @@ do {
                   <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0005">원고개</a></li>
                   <li class="bar">/</li>
                   <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0007">New평리</a></li>
-				  <li class="bar">/</li>
+                  <li class="bar">/</li>
                   <li><a href="#kidsEnglish" class="tab-link3" data-link="/${homepage.context_path}/board/index.do?menu_idx=35&manage_idx=628&category1=0008">어린이영어</a></li>
                 </ul>
               </div>
@@ -670,7 +670,7 @@ do {
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
-						  <c:if test="${i.category1 eq '0008'}">
+                          <c:if test="${i.category1 eq '0008'}">
                             <c:set var="libcode" value="kidsEnglish">
                             </c:set>
                           </c:if>
@@ -741,6 +741,10 @@ do {
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
+                            </c:set>
+                          </c:if>
                           <li class="${libcode}">
                             <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
@@ -806,6 +810,10 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -875,6 +883,10 @@ do {
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
+                            </c:set>
+                          </c:if>
                           <li class="${libcode}">
                             <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
@@ -940,6 +952,10 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -1009,6 +1025,10 @@ do {
                             <c:set var="libcode" value="pyeongri">
                             </c:set>
                           </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
+                            </c:set>
+                          </c:if>
                           <li class="${libcode}">
                             <div class="cate">${i.category1_name}</div>
                             <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
@@ -1074,6 +1094,81 @@ do {
                           </c:if>
                           <c:if test="${i.category1 eq '0007'}">
                             <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
+                            </c:set>
+                          </c:if>
+                          <li class="${libcode}">
+                            <div class="cate">${i.category1_name}</div>
+                            <div class="tit"><a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->${i.title}</a></div>
+                            <div class="date">
+                              <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
+                            </div>
+                          </li>
+                        </c:forEach>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			  <div class="top3wrap" id="notibox1_kidsEnglish">
+                <div class="board_box">
+                  <c:forEach items="${noticeListh98}" var="i" varStatus="status" begin="0" end="0">
+                    <div class="board_notice01"> <a href="/${homepage.context_path}/board/view.do?menu_idx=35&manage_idx=628&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
+                      <div class="img_box">
+                        <c:choose>
+                          <c:when test="${i.preview_img ne null}">
+                            <c:choose>
+                              <c:when test="${fn:contains(i.preview_img, 'http')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:when test="${fn:contains(i.preview_img, 'noImg2')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:otherwise> <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/> </c:otherwise>
+                            </c:choose>
+                          </c:when>
+                          <c:otherwise> <img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/> </c:otherwise>
+                        </c:choose>
+                      </div>
+                      <div class="con_box">
+                        <div class="cate">${i.category1_name}</div>
+                        <div class="tit">${i.title}<img src="/resources/homepage/seogulib/img/new_icon.png"></div>
+                        <div class="date">
+                          <fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/>
+                        </div>
+                        <div class="txt">${i.content_summary}</div>
+                      </div>
+                      </a> </div>
+                  </c:forEach>
+                  <div class="board_notice02">
+                    <div>
+                      <ul>
+                        <c:forEach items="${noticeListh98}" var="i" varStatus="status" begin="1" end="7">
+                          <c:if test="${i.category1 eq '0001'}">
+                            <c:set var="libcode" value="child">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0002'}">
+                            <c:set var="libcode" value="bisan">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0003'}">
+                            <c:set var="libcode" value="english">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0004'}">
+                            <c:set var="libcode" value="biwon">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0005'}">
+                            <c:set var="libcode" value="wongogae">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0007'}">
+                            <c:set var="libcode" value="pyeongri">
+                            </c:set>
+                          </c:if>
+                          <c:if test="${i.category1 eq '0008'}">
+                            <c:set var="libcode" value="kidsEnglish">
                             </c:set>
                           </c:if>
                           <li class="${libcode}">
@@ -1295,8 +1390,6 @@ do {
                 <li><a href="#wongogye" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h64">원고개</a></li>
                 <li class="bar">/</li>
                 <li><a href="#pyeongri" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h96">New평리</a></li>
-				<li class="bar">/</li>
-				<li><a href="#kidsEnglish" class="tab-link3" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=32&homepage_id=h98">어린이영어</a></li>
               </ul>
             </div>
             <div class="top3wrap" id="culturebox2_all" style="display:block;">
