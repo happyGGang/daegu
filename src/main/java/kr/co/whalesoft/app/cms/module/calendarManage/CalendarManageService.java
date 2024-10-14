@@ -229,8 +229,11 @@ public class CalendarManageService extends BaseService {
 					calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
 
 					calendarManage.setDate_type("1");//휴관
-					addCalendarManage(calendarManage);
-					resultRow++;
+					int holidaysCheck = dao.holidaysCheck(calendarManage);
+					if (holidaysCheck == 0) {	//휴관일 중복체크
+						addCalendarManage(calendarManage);
+						resultRow++;
+					}
 				}
 			}
 		} else {
@@ -254,8 +257,11 @@ public class CalendarManageService extends BaseService {
 					calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
 
 					calendarManage.setDate_type("1");//휴관
-					addCalendarManage(calendarManage);
-					resultRow++;
+					int holidaysCheck = dao.holidaysCheck(calendarManage);
+					if (holidaysCheck == 0) {	//휴관일 중복체크
+						addCalendarManage(calendarManage);
+						resultRow++;
+					}
 				}
 			}
 		}
@@ -290,8 +296,11 @@ public class CalendarManageService extends BaseService {
 						calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
 
 						calendarManage.setDate_type("1");//휴관
-						addCalendarManage(calendarManage);
-						resultRow++;
+						int holidaysCheck = dao.holidaysCheck(calendarManage);
+						if (holidaysCheck == 0) {	//휴관일 중복체크
+							addCalendarManage(calendarManage);
+							resultRow++;
+						}
 					}
 				}
 			}
@@ -312,8 +321,11 @@ public class CalendarManageService extends BaseService {
 						calendarManage.setContents("자료시스템에서 가져온 휴관일 입니다.");
 
 						calendarManage.setDate_type("1");//휴관
-						addCalendarManage(calendarManage);
-						resultRow++;
+						int holidaysCheck = dao.holidaysCheck(calendarManage);
+						if (holidaysCheck == 0) {	//휴관일 중복체크
+							addCalendarManage(calendarManage);
+							resultRow++;
+						}
 					}
 				}
 			}

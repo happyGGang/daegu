@@ -247,6 +247,19 @@
 		)
 	</insert>
 
+	<select id="holidaysCheck" resultType="int">
+		select
+			count(*)
+		from
+			CMS_CALENDAR_MANAGE
+		where
+			HOMEPAGE_ID = #{homepage_id}
+		AND START_DATE = #{start_date}
+		AND END_DATE = #{end_date}
+		AND TITLE = '휴관일'
+		AND DELETE_YN = 'N'
+	</select>
+
 	<update id="modifyCalendarManage">
 		UPDATE
 			CMS_CALENDAR_MANAGE

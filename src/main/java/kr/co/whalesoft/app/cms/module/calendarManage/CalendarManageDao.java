@@ -54,4 +54,6 @@ public interface CalendarManageDao {
 	List<String> getMovieSeogu(CalendarManage calendarManage);
 
 	List<String> getCloseSeogu(CalendarManage calendarManage);
+
+    public int holidaysCheck(CalendarManage calendarManage);
 }
