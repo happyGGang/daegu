@@ -1141,10 +1141,14 @@
 
 	<select id="getNearbyOneBookReserveData" resultType="int">
 		SELECT
-			RESERVE_STATUS
-		FROM
-			NEIGHBORHOOD_LIBRARY_RESERVE
-		WHERE
-			PK = #{pk}
+			NVL((
+				SELECT
+				    reserve_status
+				FROM
+				    NEIGHBORHOOD_LIBRARY_RESERVE
+				WHERE
+				    pk = #{pk}
+				), TO_NUMBER(0)) AS reserve_status
+		FROM DUAL
 	</select>
 </mapper>
