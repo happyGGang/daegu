@@ -378,7 +378,7 @@
 					</c:when>
 					<c:when test="${context_path eq 'kidsEnglish'}">
 						<form:select path="manageCode">
-							<option value="HT">서구어린이영어도서관</form>
+							<!--<option value="HT">서구어린이영어도서관</form>-->
 						</form:select>
 					</c:when>
 					<c:when test="${context_path eq 'seogumini'}">
