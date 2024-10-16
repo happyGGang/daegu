@@ -511,9 +511,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AJ" value="AJ" label="대구광역시립 달성도서관" />
 							</li>
-							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />
-							</li>
+<%--							<li>--%>
+<%--								<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />--%>
+<%--							</li>--%>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AB" value="AB" label="대구광역시립 두류도서관" />
 							</li>
