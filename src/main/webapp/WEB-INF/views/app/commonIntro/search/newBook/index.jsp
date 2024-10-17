@@ -218,7 +218,8 @@ $(function() {
 							<form:radiobutton path="manageCode" value='FZ' label="비산7동 작은도서관" /><br/>
 							<form:radiobutton path="manageCode" value='GQ' label="내당2,3동 드림도서관" /><br/>
 							<form:radiobutton path="manageCode" value='HC' label="달성토성마을 다락방 작은도서관" /><br/>
-							<form:radiobutton path="manageCode" value='CC' label="New평리도서관" />
+							<form:radiobutton path="manageCode" value='CC' label="New평리도서관" /><br/>
+							<form:radiobutton path="manageCode" value='HT' label="서구어린이영어도서관" />
 						</c:when>
 						<c:when test="${homepagePath eq 'bisan'}">
 							비산도서관<form:hidden path="manageCode" value="BQ" />
