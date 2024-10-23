@@ -110,7 +110,7 @@
 						<form:option value="SUB01">반월당역 예약대출기</form:option>
 						</c:if>
 						<c:if test="${context_path eq '228'}">
-						<form:option value="DBECOBOXLIB01">예약대출기</form:option>
+						<form:option value="228ECOCHECK01">예약대출기</form:option> <!--DBECOBOXLIB01-->
 						</c:if>
 						<c:if test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english'}">
 						<form:option value="DSSUB02">용산역</form:option>
