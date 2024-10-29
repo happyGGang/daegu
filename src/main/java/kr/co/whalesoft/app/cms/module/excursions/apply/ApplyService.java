@@ -102,7 +102,7 @@ public class ApplyService extends BaseService {
 		return filterCheck;
 	}
 
-	@WorkingLogger(comment="견학/체험 신청자 관리 1건 수정", type="P")
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 수정", type="P" , tableName = "CMS_EXCURSIONS_APPLY")
 	public int modifyApply(Apply apply) {
 		if ( apply.getAgency_tel_1() != "" && apply.getAgency_tel_2() != "" && apply.getAgency_tel_3() != "" ) {
 			apply.setAgency_tel(String.format("%s-%s-%s", apply.getAgency_tel_1(), apply.getAgency_tel_2(), apply.getAgency_tel_3()));
@@ -115,7 +115,7 @@ public class ApplyService extends BaseService {
 		}
 		return Dao.modifyApply(apply);
 	}
-	@WorkingLogger(comment="견학/체험 신청자 관리 1건 수정", type="P")
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 수정", type="P", tableName = "CMS_EXCURSIONS_APPLY")
 	public int modifyApplyFile(Apply apply) {
 		if ( apply.getAgency_tel_1() != "" && apply.getAgency_tel_2() != "" && apply.getAgency_tel_3() != "" ) {
 			apply.setAgency_tel(String.format("%s-%s-%s", apply.getAgency_tel_1(), apply.getAgency_tel_2(), apply.getAgency_tel_3()));
@@ -150,7 +150,7 @@ public class ApplyService extends BaseService {
 		return result; 
 	}
 
-	@WorkingLogger(comment="견학/체험 신청자 관리 1건 삭제", type="P")
+	@WorkingLogger(comment="견학/체험 신청자 관리 1건 삭제", type="P", tableName = "CMS_EXCURSIONS_APPLY")
 	public int deleteApply(Apply apply) {
 		return Dao.deleteApply(apply);
 	}

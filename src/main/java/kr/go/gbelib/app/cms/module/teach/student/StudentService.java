@@ -435,7 +435,7 @@ public class StudentService extends BaseService {
 	}
 
 	@Transactional
-	@WorkingLogger(comment="강좌 수강생 관리 1건 수정", type="P")
+	@WorkingLogger(comment="강좌 수강생 관리 1건 수정", type="P", tableName = "STUDENT")
 	public int modifyStudent(Student student) {
 		int result = 0;
 		String applyStatus = student.getApply_status();
@@ -501,7 +501,7 @@ public class StudentService extends BaseService {
 	}
 
 	@Transactional
-	@WorkingLogger(comment="강좌 수강생 관리 1건 삭제", type="P")
+	@WorkingLogger(comment="강좌 수강생 관리 1건 삭제", type="P" , tableName = "STUDENT")
 	public int deleteStudent(Student student) {
 		if (student.getStudent_idx() < 1) {
 			Student st = dao.getStudentOne(student);

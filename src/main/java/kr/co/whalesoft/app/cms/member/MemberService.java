@@ -194,6 +194,7 @@ public class MemberService extends BaseService {
 	 * @return
 	 */
 	@Transactional
+	@WorkingLogger(comment="사용자 관리 1건 추가")
 	public int addMember(Member member) {
 		member.setMember_pw(CalculateHashUtils.calculateHash(member.getMember_pw()));
 		setMemberInfo(member);
@@ -202,18 +203,6 @@ public class MemberService extends BaseService {
 			//권한 선택한게 있다면 다 몽땅 집어넣기
 			memberGroupAuthService.addMemberGroupAuth(member);
 		}
-
-		//다중 권한 처리
-//		String[] authList = member.getAuth_id().split(",");
-//		for ( String oneAuth : authList ) {
-//			if ( oneAuth.equals("100") ) {
-//				member.setHomepage_id("CMS");
-//			}
-//			MemberAuth memberAuth = new MemberAuth();
-//			memberAuth.setMember_id(member.getMember_id());
-//			memberAuth.setAuth_id(oneAuth);
-//			memberAuthDao.addMemberAuth(memberAuth);
-//		}
 
 		return dao.addMember(member);
 	}

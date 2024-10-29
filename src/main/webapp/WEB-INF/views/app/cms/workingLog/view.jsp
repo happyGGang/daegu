@@ -33,6 +33,7 @@ $(function() {
 		height: 650
 	});
 	$('pre#queryString').text($('pre#queryString').text().trim());
+	$('pre#queryStringResult').text($('pre#queryStringResult').text().trim());
 });
 </script>
 <table class="type2">
@@ -79,11 +80,16 @@ $(function() {
 		<tr class="detailContent">
 			<th>작업쿼리</th>
 			<td>
-<!-- 				<textarea style="width:100%; height : 300px;" id="queryString"> -->
-<%-- 				${fn:trim(workingLog.work_query)} --%>
-<!-- 				</textarea> -->
 				<pre id="queryString" style="width:100%; ">
 				${fn:trim(workingLog.work_query)}
+				</pre>
+			</td>
+		</tr>
+		<tr class="detailContent">
+			<th>작업결과</th>
+			<td>
+				<pre id="queryStringResult" style="width:100%; ">
+					${fn:trim(workingLog.work_result)}
 				</pre>
 			</td>
 		</tr>

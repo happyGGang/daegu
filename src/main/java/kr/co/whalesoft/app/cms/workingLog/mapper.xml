@@ -88,7 +88,7 @@
 		SELECT
 			work_idx, site_id, work_type, work_comment, work_command,
 			work_query, work_result_count, work_date, work_ip, member_id,
-			work_reason,
+			work_reason, work_result,
 			(SELECT NVL(homepage_alias, homepage_name) FROM CMS_HOMEPAGE B where b.homepage_id = a.site_id) AS siteName
 		FROM
 			WB_WORKING_LOG A
