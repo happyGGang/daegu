@@ -37,6 +37,9 @@
 			<if test="search_text != null and search_text != ''">
 			AND	${search_type} LIKE '%' || #{search_text} || '%'
 			</if>
+			<if test="search_start_date != null and search_start_date != '' and search_end_date != null and search_end_date != ''">
+				AND TO_DATE(work_date,'yyyy-MM-dd') BETWEEN #{search_start_date} AND #{search_end_date}
+			</if>
 		</trim>
 	</sql>
 

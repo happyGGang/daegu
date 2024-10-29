@@ -1,18 +1,20 @@
 package kr.co.whalesoft.app.cms.workingLog;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import kr.co.whalesoft.framework.base.BaseController;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 작업이력
@@ -42,9 +44,38 @@ public class WorkingLogController extends BaseController {
 	@RequestMapping (value = {"/view.*"}, method = RequestMethod.GET)
 	public String view(Model model, WorkingLog workingLog, HttpServletRequest request) {
 
-		model.addAttribute("workingLog", service.copyObjectPaging(workingLog, service.getWorkingLogOne(workingLog)));
+		WorkingLog workingLogOne = service.getWorkingLogOne(workingLog);
+
+		boolean isResult = false;
+
+		List<String> result = Optional.ofNullable(workingLogOne)
+									  .map(WorkingLog::getWork_result)
+									  .filter(resultStr -> resultStr.contains("before") && resultStr.contains("after"))
+									  .map(this::parseResultStr)
+									  .orElseGet(() -> Arrays.asList(workingLogOne.getWork_result()));
+
+		if (result.size() > 1) {
+			isResult = true;
+			model.addAttribute("beforeData", result.get(0));
+			model.addAttribute("afterData", result.get(1));
+		}
+
+		model.addAttribute("isResult", isResult);
+		model.addAttribute("workingLog", service.copyObjectPaging(workingLog, workingLogOne));
 
 		return returnUrl("view_ajax", request);
+	}
+
+	private List<String> parseResultStr(String resultStr) {
+		Pattern pattern = Pattern.compile("before=\\{(.*?)\\}, after=\\{(.*?)\\}");
+		Matcher matcher = pattern.matcher(resultStr);
+		if (matcher.find()) {
+			String beforeData = matcher.group(1).replace(", ", "\n");
+			String afterData = matcher.group(2).replace(", ", "\n");
+
+			return Arrays.asList(beforeData, afterData);
+		}
+		return Collections.singletonList("");
 	}
 
 	private String returnUrl(String url, HttpServletRequest request) {

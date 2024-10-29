@@ -26,6 +26,8 @@ public class WorkingLog extends PagingUtils {
 	private String siteName;
 
 	private String work_result;
+	private String search_start_date;  //검색 시작일
+	private String search_end_date;  //검색 종료일
 
 	public WorkingLog() {}
 
@@ -166,5 +168,21 @@ public class WorkingLog extends PagingUtils {
 
 	public void setWork_result(String work_result) {
 		this.work_result = work_result;
+	}
+
+	public String getSearch_start_date() {
+		return search_start_date;
+	}
+
+	public void setSearch_start_date(String search_start_date) {
+		this.search_start_date = search_start_date;
+	}
+
+	public String getSearch_end_date() {
+		return search_end_date;
+	}
+
+	public void setSearch_end_date(String search_end_date) {
+		this.search_end_date = search_end_date;
 	}
 }

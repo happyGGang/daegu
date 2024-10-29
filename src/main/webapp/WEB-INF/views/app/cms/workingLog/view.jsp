@@ -34,6 +34,8 @@ $(function() {
 	});
 	$('pre#queryString').text($('pre#queryString').text().trim());
 	$('pre#queryStringResult').text($('pre#queryStringResult').text().trim());
+	$('pre#queryStringBefore').text($('pre#queryStringBefore').text().trim());
+	$('pre#queryStringAfter').text($('pre#queryStringAfter').text().trim());
 });
 </script>
 <table class="type2">
@@ -85,13 +87,27 @@ $(function() {
 				</pre>
 			</td>
 		</tr>
-		<tr class="detailContent">
-			<th>작업결과</th>
-			<td>
-				<pre id="queryStringResult" style="width:100%; ">
-					${fn:trim(workingLog.work_result)}
-				</pre>
-			</td>
-		</tr>
-	</tbody>
+        <tr class="detailContent">
+            <th>작업결과</th>
+            <td>
+                <c:if test="${isResult}">
+                    <div style="display: flex; justify-content: space-between; width: 100%;">
+                        <div style="width: 48%;">
+                            <h4>BEFORE</h4>
+                            <pre id="queryStringBefore" style="width:100%;">${fn:trim(beforeData)}</pre>
+                        </div>
+
+                        <div style="width: 48%;">
+                            <h4>AFTER</h4>
+                            <pre id="queryStringAfter" style="width:100%;">${fn:trim(afterData)}</pre>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${!isResult}">
+                    <pre id="queryStringResult" style="width:100%;">${fn:trim(workingLog.work_result)}</pre>
+                </c:if>
+            </td>
+        </tr>
+
+    </tbody>
 </table>

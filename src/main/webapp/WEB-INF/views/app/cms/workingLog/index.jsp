@@ -6,6 +6,20 @@
 <script type="text/javascript">
 $(function() {
 
+	$('input#search_start_date').datepicker({
+		maxDate: $('input#search_end_date').val(),
+		onClose: function(selectedDate){
+			$('input#search_end_date').datepicker('option', 'minDate', selectedDate);
+		}
+	});
+
+	$('input#search_end_date').datepicker({
+		minDate: $('input#search_start_date').val(),
+		onClose: function(selectedDate){
+			$('input#search_start_date').datepicker('option', 'maxDate', selectedDate);
+		}
+	});
+
 	$('a.dialog-view').on('click', function(e) {
 
 		$('div#dialog-1').load('view.do?work_idx='+$(this).data('idx'), function( response, status, xhr ) {
@@ -82,7 +96,12 @@ $(function() {
 				검색 : <form:select path="search_type" cssClass="selectmenu">
 					<form:option value="work_comment">작업내용</form:option>
 					<form:option value="member_id">사용자ID</form:option>
+					<form:option value="work_result">작업결과</form:option>
 				</form:select>
+				조회 기간:&nbsp;
+				<form:input path="search_start_date" cssClass="text ui-calendar" placeholder="조회시작일 선택"/>
+				<form:input path="search_end_date" cssClass="text ui-calendar" placeholder="조회종료일 선택"/>
+
 				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
 				<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
 				<div class="right" style="float: right;">

@@ -106,7 +106,7 @@ public class QueryInterceptor implements Interceptor {
 						if (bean != null) {
 							int work_result_count = 0;
 
-							if ("UPDATE".equals(ms.getSqlCommandType().toString()) || "DELETE".equals(ms.getSqlCommandType().toString())) {
+							if ("UPDATE".equals(ms.getSqlCommandType().toString()) || "DELETE".equals(ms.getSqlCommandType().toString()) || "INSERT".equals(ms.getSqlCommandType().toString())) {
 								work_result = updateData(annotation, sql, jdbcTemplate);
 							}
 
