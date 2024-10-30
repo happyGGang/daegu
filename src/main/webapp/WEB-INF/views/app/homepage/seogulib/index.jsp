@@ -1457,9 +1457,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -1524,9 +1524,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
@@ -1598,9 +1598,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -1665,9 +1665,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
@@ -1739,9 +1739,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -1806,9 +1806,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
@@ -1880,9 +1880,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -1947,9 +1947,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
@@ -2021,9 +2021,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -2088,9 +2088,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
@@ -2162,9 +2162,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -2229,9 +2229,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
@@ -2303,9 +2303,9 @@ do {
                           <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                           <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                           <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                          <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                           <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                          <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                           <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                         </li>
                       </c:forEach>
@@ -2370,9 +2370,9 @@ do {
                         <c:if test="${i.teach_status eq '1'}"> <span class="flow_02">접수대기</span> </c:if>
                         <c:if test="${i.teach_status eq '2' or i.teach_status eq '10'}"> <span class="flow_01">접수중</span> </c:if>
                         <c:if test="${i.teach_status eq '3'}"> <span class="flow_01">접수중</span> </c:if>
-                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_01">접수중</span> </c:if>
+                        <c:if test="${i.teach_status eq '9'}"> <span class="flow_03">수강종료</span> </c:if>
                         <c:if test="${i.teach_status eq '4'}"> <span class="flow_03">접수마감</span> </c:if>
-                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">접수마감</span> </c:if>
+                        <c:if test="${i.teach_status eq '5'}"> <span class="flow_03">정원마감</span> </c:if>
                         <c:if test="${i.teach_status eq '6'}"> <span class="flow_03">신청대기</span> </c:if>
                       </li>
                     </c:forEach>
