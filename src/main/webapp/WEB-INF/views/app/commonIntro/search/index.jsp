@@ -1396,7 +1396,7 @@ function isFromFridayToSunday() {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE ne 'FG07'}">
+													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE ne ''}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
@@ -1591,7 +1591,7 @@ function isFromFridayToSunday() {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE ne 'FG07'}">
+													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE ne ''}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
@@ -1711,7 +1711,7 @@ function isFromFridayToSunday() {
 												<font style="color:#5e5e5e">대출가능여부</font> :
 												<!-- 대출가능 여부 [START] -->
 												<c:choose>
-													<c:when test="${i.MANAGE_CODE eq 'FG'}">
+													<c:when test="${i.MANAGE_CODE eq ''}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>													
 													<c:when test="${i.WORKING_STATUS == 'BOL112N'}">

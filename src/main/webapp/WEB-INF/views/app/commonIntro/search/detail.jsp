@@ -543,7 +543,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE ne 'FG07'}">
+						<c:when test="${detail.MANAGE_CODE eq '' and detail.SHELF_LOC_CODE ne ''}">
 							<span style="color:#ff0000">대출불가</span>
 						</c:when>
 						<c:otherwise>
@@ -931,6 +931,7 @@ $(function() {
 			</c:choose>
 
 			<c:choose>
+				
 				<c:when test="${homepage.context_path eq 'suseong' and detail.MANAGE_CODE eq 'AE' and detail.LOAN_CODE eq 'OK'}"><!--수성도서관 무인예약대출 일시 중지-->
 					<c:choose>
 						<c:when test="${detail.SHELF_LOC_CODE eq 'BA08'||detail.SHELF_LOC_CODE eq 'BA22'||detail.SHELF_LOC_CODE eq 'BA23'}">
@@ -940,7 +941,7 @@ $(function() {
 								<jsp:useBean id="Daysu" class="java.util.Date" />
 								<fmt:formatDate var="day" value="${Daysu}" pattern="E"/>
 									<c:if test="${day ne '토' and day ne '일'}">
-									<!-- <a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span> -->
+									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
 									</c:if>
 						</c:otherwise>
 					</c:choose>

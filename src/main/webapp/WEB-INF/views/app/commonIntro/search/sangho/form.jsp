@@ -177,7 +177,7 @@ $(function() {
 						<form:option value="127096">무학숲도서관</form:option>
 						<form:option value="127017">책숲길도서관</form:option>
 						<form:option value="127018">물망이도서관</form:option>
-						<!--<form:option value="127021">사월역도서관</form:option>-->
+						<form:option value="127021">사월책문화센터</form:option>
 						<form:option value="127102">황금책문화센터</form:option>
 						<!--<form:option value="127106">수성못그림책도서관</form:option>-->
 					</form:select>
@@ -271,7 +271,7 @@ $(function() {
 								<option value="727102">한강공원부키도서관</option>
 							</select>
 							</c:when>
-							<c:when test="${detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq 'FG' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq 'HS'}">
+							<c:when test="${detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq 'HS'}">
 							<%-- 범어 --%>
 							<form:select path="uselibcode">
 								<form:option value="" label="-- 선택 --" />
@@ -282,7 +282,7 @@ $(function() {
 								<form:option value="127096">무학숲도서관</form:option>
 								<form:option value="127017">책숲길도서관</form:option>
 								<form:option value="127018">물망이도서관</form:option>
-								<!--<form:option value="127021">사월역도서관</form:option>-->
+								<form:option value="127021">사월역도서관</form:option>
 								<form:option value="127102">황금책문화센터</form:option>
 								<!--<form:option value="127106">수성못그림책도서관</form:option>-->
 							</form:select>
