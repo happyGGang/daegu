@@ -1018,7 +1018,7 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE ne ''}">
+													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG07'}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
@@ -1216,7 +1216,7 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE ne ''}">
+													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG07'}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>

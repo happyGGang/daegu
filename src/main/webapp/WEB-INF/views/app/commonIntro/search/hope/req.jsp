@@ -98,10 +98,11 @@
 </c:otherwise>
 </c:choose>
 <!-- /contents-title-->
-<c:if test="${homepage.context_path eq 'dalseolib' && tt < '2024-08-01'}">
-	<!-- <p style="font-weight:bold;margin-bottom:10px;">
-		* 본리도서관 희망도서 24.08.01. 오전 중 신청 재개 예정
-	</p> -->
+<c:if test="${homepage.context_path eq 'dalseolib'}">
+	<p style="font-weight:bold;margin-bottom:10px;">
+		* 달서가족문화도서관, 도원도서관 예산소진으로 서비스 종료(2025년 02월부터 신청 가능)<br>
+		* 성서도서관 희망도서 신청 중지
+	</p>
 </c:if>
 
 <div id="searchBox">
@@ -305,11 +306,11 @@
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
-					<option value="BW">도원도서관</option>
+					<!-- <option value="BW">도원도서관</option> -->
 					<option value="BV">달서어린이도서관</option>
-					<option value="BU">성서도서관</option>
+					<!--<option value="BU">성서도서관</option>-->
 					<option value="BX">본리도서관</option>
-					<option value="BY">달서가족문화도서관</option>
+					<!--<option value="BY">달서가족문화도서관</option>-->
 					<!--<option value="BZ">달서영어도서관</option>-->
 				</select>
         <br>
