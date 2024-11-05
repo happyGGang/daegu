@@ -41,13 +41,13 @@
 					  <li>불러오는 중...</li>
 					</ul>
 					<span>일 입니다.</span>
-					<p>일요일과 공휴일은 휴관입니다.</p>
+					<p>월요일과 공휴일은 휴관입니다.</p>
 				  </div>
 				</li>
 			</ul>
 		  </div>
 
-		  <h3>장서현황 (단위 : 권)<span class="sm_text sm_text02" style="margin-top:10px;">(2024. 8. 31. 기준)</span></h3>
+		  <h3>장서현황 (단위 : 권)<span class="sm_text sm_text02" style="margin-top:10px;">(2024. 10. 31. 기준)</span></h3>
 		  <div class="rsv-info"></div>
 		  <div class="auto-scroll">
 			<table class="tbl-type01" summary="사월역작은도서관 장서현황을 안내해 드립니다.">
@@ -103,16 +103,16 @@
 				<tr>
 				  <th>아동</th>
 				  <td>191</td>
-				  <td>70</td>
+				  <td>69</td>
 				  <td>28</td>
 				  <td>268</td>
 				  <td>130</td>
 				  <td>96</td>
 				  <td>21</td>
 				  <td>152</td>
-				  <td>738</td>
+				  <td>740</td>
 				  <td>346</td>
-				  <td>2,040</td>
+				  <td>2,041</td>
 				</tr>
 				<tr>
 				  <th colspan="2">일반</th>
@@ -131,16 +131,16 @@
 				<tr>
 				  <th colspan="2" rowspan="2">총계</th>
 				  <td>434</td>
-				  <td>621</td>
+				  <td>620</td>
 				  <td>252</td>
 				  <td>1,602</td>
 				  <td>486</td>
 				  <td>759</td>
 				  <td>309</td>
 				  <td>296</td>
-				  <td>3,596</td>
+				  <td>3,598</td>
 				  <td>1,147</td>
-				  <td>9,502</td>
+				  <td>9,503</td>
 				</tr>
 				<tr>
 				  <td>4.6%</td>
@@ -151,7 +151,7 @@
 				  <td>8.0%</td>
 				  <td>3.3%</td>
 				  <td>3.1%</td>
-				  <td>37.8%</td>
+				  <td>37.9%</td>
 				  <td>12.1%</td>
 				  <td>100%</td>
 				</tr>
