@@ -175,8 +175,9 @@
 									<span class="third-line"><b>전자도서관</b></span>
 								</h2>
 								<div class="link_box">
-									<a href="https://dgelib.dkyobobook.co.kr" target="_blank" class="link01">바로가기 &gt;</a>
-									<a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link02">이용안내 &gt;</a>
+									<a href="https://dgelib.dkyobobook.co.kr/main.ink" target="_blank" class="link01">소장형 바로가기 &gt;</a>
+									<a href="https://dgelib-r.dkyobobook.co.kr/main.ink" target="_blank" class="link02">구독형 바로가기 &gt;</a>
+									<a href="https://dgelib.dkyobobook.co.kr/board/boardList.ink?blbrSrmb=5" target="_blank" class="link03">이용안내 &gt;</a>
 								</div>
 							</div>
 						</div>

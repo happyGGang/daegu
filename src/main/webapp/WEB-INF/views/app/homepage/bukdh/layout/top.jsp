@@ -17,6 +17,7 @@
 					<li class="br"><a href="https://www.hbcf.or.kr/front/" target="_blank">행복북구문화재단</a></li>
 					<li class="sns_icon"><a href="http://instagram.com/daehyeon_library" target="_blank" title="인스타그램 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li>
 					<li class="sns_icon"><a href="https://pf.kakao.com/_fxkQuT" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li>
+					<li class="sns_icon"><a href="https://www.youtube.com/@%EB%8C%80%ED%98%84%EB%8F%84%EC%84%9C%EA%B4%80-d1d/featured" target="_blank" title="유튜브 바로가기" alt="유튜브 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_youtube.png"><i class="fa fa-external-link"></i></a></li>
 				</ul>
 			</div>
 
@@ -26,6 +27,7 @@
 				<ul class="sns-link">
 					<li><a href="http://instagram.com/daehyeon_library" target="_blank" title="인스타그램 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li>
 					<li><a href="https://pf.kakao.com/_fxkQuT" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li>
+					<li class="sns_icon"><a href="https://www.youtube.com/@%EB%8C%80%ED%98%84%EB%8F%84%EC%84%9C%EA%B4%80-d1d/featured" target="_blank" title="유튜브 바로가기" alt="유튜브 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_youtube.png"><i class="fa fa-external-link"></i></a></li>
 				</ul>
 			</div>
 
