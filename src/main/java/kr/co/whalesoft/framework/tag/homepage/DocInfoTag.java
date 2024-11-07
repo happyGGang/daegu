@@ -64,7 +64,7 @@ public class DocInfoTag extends BodyTagSupport {
 						link_url = "/" + homepageContextPath + "/html.do?menu_idx=" + childMenu.getMenu_idx();
 					} else if (childMenu.getMenu_type().equals("PROGRAM")) {
 						link_url = String.format("/%s%s?menu_idx=%s", homepageContextPath, childMenu.getMenu_url(), childMenu.getMenu_idx());
-						if (!StringUtils.isEmpty(menu.getMenu_url_param())) {
+						if (homepageContextPath.equals("elib") || !StringUtils.isEmpty(menu.getMenu_url_param())) {
 							link_url = String.format("/%s%s?menu_idx=%s&%s", homepageContextPath, childMenu.getMenu_url(), childMenu.getMenu_idx(), childMenu.getMenu_url_param());
 						}
 					} else if (childMenu.getMenu_type().equals("BOARD")) {
