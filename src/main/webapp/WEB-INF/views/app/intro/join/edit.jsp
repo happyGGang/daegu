@@ -255,7 +255,7 @@ $(function() {
 						무학숲도서관<input type="hidden" id="" name="manage_code" value="BK" />
 						</c:when>
 						<c:when test="${context_path eq 'sawol'}">
-						사월작은도서관<input type="hidden" id="" name="manage_code" value="FG" />
+							사월책문화센터<input type="hidden" id="" name="manage_code" value="FG" />
 						</c:when>
 
 						<c:when test="${context_path eq 'junggu'}">
