@@ -401,7 +401,7 @@ do {
 							</a>
 						</li>
 						<li class="quick-03">
-							<a href="/${homepage.context_path}/html.do?menu_idx=56">
+							<a href="/${homepage.context_path}/html.do?menu_idx=150">
 								<span class="txt">독서문화행사</span>
 							</a>
 						</li>
