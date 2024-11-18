@@ -299,6 +299,79 @@ public class CommonSearchController extends BaseController {
 	    					if (map.get("aladin") == null) {
 								map.put("imageUrl", service.getImageUrl(map));
 							}
+
+							//내집앞도서관 예약설정
+							String reserveAvailability = "N";
+							try {
+								if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
+									reserveAvailability = "Y";
+
+									//예약 불가능 설정이 되어있다면 예약 불가
+									if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
+										reserveAvailability = "N";
+									} else {
+										//예약가능시간 확인(count가 true이면 예약 가능)
+										boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
+
+										if(!reserveTimeCheck) {
+											reserveAvailability = "N";
+										}
+									}
+
+									NearbyLib searchBookOne = new NearbyLib();
+									searchBookOne.setBook_key(librarySearch.getBookkey());
+
+									NearbyLib neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
+									int reserveData = 0;
+									if(neighborhoodLibraryOne != null) {
+										reserveData = 1;
+									}
+
+									Member member = getSessionMemberInfo(request);
+									member.setManage_code(String.valueOf(map.get("MANAGE_CODE")));
+
+									String nearbylibRejectMessage = "";
+
+									if("017".equals(member.getUser_class_code())) {
+										nearbylibRejectMessage = "이용자님은 비대면인증회원으로 서비스 이용을 위해 신분증을 지참하여 도서관으로 방문하여 주시기 바랍니다.";
+									} else {
+										try {
+											Object data = LoginAPI.login2(member);
+
+											Member memberInfo = (Member) data;
+
+											//통합대출권수
+											int unityLoanaleCnt = Integer.parseInt(memberInfo.getUnity_loanable_cnt());
+											int unityLoanCnt = Integer.parseInt(memberInfo.getUnity_loan_cnt());
+											//자관대출권수
+											int localLoanaleCnt = Integer.parseInt(memberInfo.getLocal_loanable_cnt());
+											int localLoanCnt = Integer.parseInt(memberInfo.getLocal_loan_cnt());
+
+											//자관대출가능권수(자관대출가능권수 - (자관대출권수 + 내집앞도서예약권수))
+											int tongCnt = unityLoanaleCnt - (unityLoanCnt + 1);
+											//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
+											int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
+
+											if(jagwanCnt <= 0) {
+												nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
+											}
+											if (tongCnt <= 0) {
+												nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
+											}
+
+										} catch (Exception e) {
+											e.printStackTrace();
+											log.error("내집앞 도서관 자관,통합대출가능 권수 조회 오류" + e.getMessage());
+										}
+									}
+
+									model.addAttribute("reserveAvailability", reserveAvailability);
+									model.addAttribute("reserveData", reserveData);
+									model.addAttribute("nearbylibRejectMessage", nearbylibRejectMessage);
+								}
+							} catch (Exception e) {
+								log.error("내집앞 도서관 예약시간 설정 오류");
+							}
 	    				}
 						map.put("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
 	    				map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
@@ -388,6 +461,79 @@ public class CommonSearchController extends BaseController {
 						}
 						if (map.get("aladin") == null) {
 							map.put("imageUrl", service.getImageUrl(map));
+						}
+
+						//내집앞도서관 예약설정
+						String reserveAvailability = "N";
+						try {
+							if(StringUtils.isNotEmpty(String.valueOf(map.get("MANAGE_CODE")))) {
+								reserveAvailability = "Y";
+
+								//예약 불가능 설정이 되어있다면 예약 불가
+								if(nearbyLibManageService.checkUseYn(String.valueOf(map.get("MANAGE_CODE"))) > 0) {
+									reserveAvailability = "N";
+								} else {
+									//예약가능시간 확인(count가 true이면 예약 가능)
+									boolean reserveTimeCheck = neighborhoodLibraryReserveConfigService.checkReserveTime(String.valueOf(map.get("MANAGE_CODE")));
+
+									if(!reserveTimeCheck) {
+										reserveAvailability = "N";
+									}
+								}
+
+								NearbyLib searchBookOne = new NearbyLib();
+								searchBookOne.setBook_key(librarySearch.getBookkey());
+
+								NearbyLib neighborhoodLibraryOne = neighborhoodLibraryService.getNeighborhoodLibraryBookOne(searchBookOne);
+								int reserveData = 0;
+								if(neighborhoodLibraryOne != null) {
+									reserveData = 1;
+								}
+
+								Member member = getSessionMemberInfo(request);
+								member.setManage_code(String.valueOf(map.get("MANAGE_CODE")));
+
+								String nearbylibRejectMessage = "";
+
+								if("017".equals(member.getUser_class_code())) {
+									nearbylibRejectMessage = "이용자님은 비대면인증회원으로 서비스 이용을 위해 신분증을 지참하여 도서관으로 방문하여 주시기 바랍니다.";
+								} else {
+									try {
+										Object data = LoginAPI.login2(member);
+
+										Member memberInfo = (Member) data;
+
+										//통합대출권수
+										int unityLoanaleCnt = Integer.parseInt(memberInfo.getUnity_loanable_cnt());
+										int unityLoanCnt = Integer.parseInt(memberInfo.getUnity_loan_cnt());
+										//자관대출권수
+										int localLoanaleCnt = Integer.parseInt(memberInfo.getLocal_loanable_cnt());
+										int localLoanCnt = Integer.parseInt(memberInfo.getLocal_loan_cnt());
+
+										//자관대출가능권수(자관대출가능권수 - (자관대출권수 + 내집앞도서예약권수))
+										int tongCnt = unityLoanaleCnt - (unityLoanCnt + 1);
+										//통합대출가능권수(통합대출가능권수 - (통합대출권수 + 내집앞도서예약권수))
+										int jagwanCnt = localLoanaleCnt - (localLoanCnt + 1);
+
+										if(jagwanCnt <= 0) {
+											nearbylibRejectMessage = "현재 자관에서 대출할수 있는 대출권수를 초과하여 신청이 불가능 합니다.\\n해당 도서관에 기존에 대출한 자료를 반납 후 다시 이용 바랍니다";
+										}
+										if (tongCnt <= 0) {
+											nearbylibRejectMessage = "현재 통합 대출권수를 초과하여 신청이 불가능 합니다.\\n대출중인 자료를 반납 후 다시 이용 바랍니다.";
+										}
+
+									} catch (Exception e) {
+										e.printStackTrace();
+										log.error("내집앞 도서관 자관,통합대출가능 권수 조회 오류" + e.getMessage());
+									}
+								}
+
+								model.addAttribute("reserveAvailability", reserveAvailability);
+								model.addAttribute("reserveData", reserveData);
+								model.addAttribute("nearbylibRejectMessage", nearbylibRejectMessage);
+							}
+						} catch (Exception e) {
+							log.error("내집앞 도서관 예약시간 설정 오류");
 						}
 					}
 				}

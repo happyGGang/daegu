@@ -20,6 +20,46 @@
 			doGetLoad('indexAll.do', $('form#librarySearch').serialize());
 		});
 
+		// 상호대차 신청
+		$('a.sangho').on('click', function (e) {
+			console.log($(this).attr('isbn'));
+			e.preventDefault();
+			$('form#sanghoReqForm input[name=isbn]').val($(this).attr('isbn'));
+			$('form#sanghoReqForm input[name=manageCode]').val($(this).attr('manageCode'));
+			$('form#sanghoReqForm input[name=regNo]').val($(this).attr('regNo'));
+			$('form#sanghoReqForm').submit();
+		});
+
+		//예약신청
+		$('a.resve-req').on('click', function (e) {
+			e.preventDefault();
+			if (!confirm('예약 신청 하시겠습니까?')) {
+				return false;
+			}
+			$('#resveReqForm #editMode').val('ADD');
+			$('#resveReqForm #bookkey').val($(this).attr('bookkey'));
+			$('#resveReqForm #booktype').val($(this).attr('booktype'));
+			$('#resveReqForm #manageCode').val($(this).attr('managecode'));
+
+			if (doAjaxPost($('#resveReqForm'))) {
+				window.location.reload();
+			}
+		});
+
+		//내집앞도서관
+		$('a.neighborhoodLibrary-req').on('click',function(e){
+			e.preventDefault();
+			$('form#neighborhoodLibrary input[name=book_key]').val($(this).attr('bookkey'));
+			$('form#neighborhoodLibrary input[name=booktype]').val($(this).attr('booktype'));
+			$('form#neighborhoodLibrary input[name=book_isbn]').val($(this).attr('isbn'));
+			$('form#neighborhoodLibrary input[name=manage_code]').val($(this).attr('manageCode'));
+			$('form#neighborhoodLibrary input[name=reg_no]').val($(this).attr('regNo'));
+			$('form#neighborhoodLibrary input[name=title_info]').val($(this).attr('title_info'));
+			$('form#neighborhoodLibrary input[name=lib_name]').val($(this).attr('lib_name'));
+			$('form#neighborhoodLibrary input[name=author]').val($(this).attr('author'));
+			$('form#neighborhoodLibrary').submit();
+		});
+
 		//검색하기
 		$('a#search-btn').on('click', function(e) {
 			e.preventDefault();
@@ -364,6 +404,71 @@
 		<input type="hidden" name="editMode" value="INTERESTLIST">
 	</form>
 </c:if>
+
+	<form id="sanghoReqForm" action="sangho/form.do" method="post">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		<input type="hidden" name="isbn" value="${fn:escapeXml(param.isbn)}">
+		<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+		<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+		<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+		<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	</form>
+
+	<form:form id="resveReqForm" modelAttribute="librarySearch" action="resve/save.do">
+		<input type="hidden" id="manageCode" name="manageCode">
+		<form:hidden path="editMode"/>
+		<form:hidden path="bookkey"/>
+		<form:hidden path="booktype"/>
+		<form:hidden path="menu_idx"/>
+	</form:form>
+
+	<form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
+		<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
+		<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+		<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+		<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+		<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+		<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
+		<input type="hidden" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
+	</form>
+
+	<form id="unmannedReqForm" action="unmanned/form.do" method="post">
+		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
+		<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
+		<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
+		<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+		<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+		<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
+		<input type="hidden" name="book_name" value="${fn:escapeXml(detail.TITLE_INFO)}">
+	</form>
+
+	<form id="neighborhoodLibrary" action="neighborhoodLibrary/edit.do" method="post">
+		<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}"/>
+		<input type="hidden" id="book_isbn" name="book_isbn" value="${param.isbn}"/>
+		<input type="hidden" id="reg_no" name="reg_no" value="${detail.REG_NO}"/>
+		<input type="hidden" id="shelf_loc_name" name="shelf_loc_name" value="${detail.SHELF_LOC_NAME}"/>
+		<input type="hidden" id="ctrl_no" name="ctrl_no" value="${fn:escapeXml(param.regNo)}"/>
+		<input type="hidden" id="return_plan_date" name="return_plan_date" value="${detail.RETURN_PLAN_DATE}"/>
+		<input type="hidden" id="call_no" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
+		<input type="hidden" id="img_url" name="img_url" value="${fn:escapeXml(detail.imageUrl)}"/>
+		<input type="hidden" id="manage_code" name="manage_code" value="${detail.MANAGE_CODE}"/>
+		<input type="hidden" id="lib_name" name="lib_name" value="${detail.LIB_NAME}"/>
+		<input type="hidden" id="publer" name="publer" value="${fn:escapeXml(param.booktype)}"/>
+		<input type="hidden" id="publisher" name="publisher" value="${detail.PUBLISHER}"/>
+		<input type="hidden" id="pub_year" name="pub_year" value="${detail.PUB_YEAR}"/>
+		<input type="hidden" id="media_name" name="media_name" value="${detail.MEDIA_NAME}"/>
+		<input type="hidden" id="media_code" name="media_code" value="${detail.MEDIA_CODE}"/>
+		<input type="hidden" id="price" name="price" value="${detail.PRICE}"/>
+		<input type="hidden" id="title_info" name="title_info" value="${detail.TITLE_INFO}"/>
+		<input type="hidden" id="author" name="author" value="${detail.AUTHOR}"/>
+		<input type="hidden" id="page" name="page" value="${detail.PAGE }"/>
+		<input type="hidden" id="book_size" name="book_size" value="${detail.BOOK_SIZE }">
+		<input type="hidden" id="book_key" name="book_key" value="${fn:escapeXml(detail.BOOK_KEY)}"/>
+		<input type="hidden" id="class_no" name="class_no" value="${detail.CLASS_NO}"/>
+		<input type="hidden" id="booktype" name="booktype" value="${fn:escapeXml(param.booktype)}"/>
+		<input type="hidden" id="appendix_info" name="appendix_info" value="${detail.APPENDIX_INFO}"/>
+	</form>
 
 <form id="direct" name="direct" action="http://152.99.21.156/DG/" method="post" target="_blank">
 	<input type="hidden" name="m" value="direct">
@@ -1218,6 +1323,74 @@
 													<!-- <p><font style="color:#5e5e5e">소장위치</font> : <span style="font-weight:800;">${i.SHELF_LOC_NAME}</span></p> -->
 													<div class="stat">
 														<a href="#showSlide" class="showSlide"><span>소장정보</span></a>
+
+														<!-- 상호대차 -->
+														<c:if test="${i.LOAN_CODE eq 'OK'}">
+															<c:choose>
+																<c:when test="${homepage.context_path eq 'dgportal'}">
+																	<c:choose>
+																		<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'BD'  || i.MANAGE_CODE eq 'BE' || i.MANAGE_CODE eq 'BF' || i.MANAGE_CODE eq 'BG' || i.MANAGE_CODE eq 'BH' || i.MANAGE_CODE eq 'BJ' || i.MANAGE_CODE eq 'BK' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'HR' || i.MANAGE_CODE eq ''  || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'BX' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'FA' || i.MANAGE_CODE eq 'FB' || i.MANAGE_CODE eq 'FC' || i.MANAGE_CODE eq 'GK' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'BZ' || i.MANAGE_CODE eq 'CA' || i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'GA' || i.MANAGE_CODE eq 'GB' || i.MANAGE_CODE eq 'GC' || i.MANAGE_CODE eq 'GD' || i.MANAGE_CODE eq 'GE' || i.MANAGE_CODE eq 'GF' || i.MANAGE_CODE eq 'GH' || i.MANAGE_CODE eq 'FJ' || i.MANAGE_CODE eq 'FN' || i.MANAGE_CODE eq 'HG' || i.MANAGE_CODE eq 'GX' || i.MANAGE_CODE eq 'GY' || i.MANAGE_CODE eq 'FM' || i.MANAGE_CODE eq 'HK' || i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HN' || i.MANAGE_CODE eq 'HP' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'BL' || i.MANAGE_CODE eq 'BQ' || i.MANAGE_CODE eq 'BP' || i.MANAGE_CODE eq 'BM' || i.MANAGE_CODE eq 'BN'}">
+																			<c:if test="${i.KBILL_LILL_YN eq 'O'}">
+																				<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
+																			</c:if>
+																		</c:when>
+																		<c:otherwise>
+																		</c:otherwise>
+																	</c:choose>
+																</c:when>
+															</c:choose>
+														</c:if>
+
+														<!-- 예약 -->
+														<c:if test="${homepage.context_path ne 'nearbylib'}">
+															<c:choose>
+																<c:when test="${i.SHELF_LOC_CODE eq 'AD39' || i.SHELF_LOC_CODE eq 'AD40' || i.SHELF_LOC_CODE eq 'BA08' || i.SHELF_LOC_CODE eq 'BA01' || i.SHELF_LOC_CODE eq 'BD10' || i.MANAGE_CODE eq 'FW' || i.SHELF_LOC_CODE eq 'BU11'}">
+
+																</c:when>
+																<c:when test="${i.MANAGE_CODE eq 'AC'}">
+																</c:when>
+																<c:otherwise>
+																	<c:choose>
+																		<c:when test="${i.RESERVE_CODE eq 'OK'}">
+																			<a href="" class="btn btn1 booking resve-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">
+																				예약신청(${i.RESERVATION_CNT} / ${i.RESERVATION_NUMBER})</a>
+																		</c:when>
+																		<c:otherwise>
+																			<c:choose>
+																				<c:when test="${i.SEPARATE_SHELF_CODE eq 'BMY' || i.SEPARATE_SHELF_CODE eq 'BMZ' || i.SEPARATE_SHELF_CODE eq 'BNB' || i.SEPARATE_SHELF_CODE eq 'BNC' || i.SEPARATE_SHELF_CODE eq 'BMN' || i.SEPARATE_SHELF_CODE eq 'BMT'}">
+
+																				</c:when>
+
+																				<c:otherwise>
+																					<a href="#" id="resve-req-not" class="btn btn5">예약불가(${i.RESERVATION_CNT} / ${i.RESERVATION_NUMBER})</a>
+																				</c:otherwise>
+																			</c:choose>
+																		</c:otherwise>
+																	</c:choose>
+																</c:otherwise>
+															</c:choose>
+														</c:if>
+
+														<!--내집앞도서관-->
+														<c:if test="${i.LOAN_CODE eq 'OK'}">
+															<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'donggu' || homepage.context_path eq 'bukgs'}">
+																<c:if test="${i.MANAGE_CODE eq 'BA' || i.MANAGE_CODE eq 'AH' || i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'AA' || i.MANAGE_CODE eq 'CA'}">
+																	<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+																	<c:if test="${i.SHELF_LOC_CODE ne 'AA02' and i.SHELF_LOC_CODE ne 'AA03' and i.SHELF_LOC_CODE ne 'AA05' and i.SHELF_LOC_CODE ne 'AA07' and i.SHELF_LOC_CODE ne 'AA09' and i.SHELF_LOC_CODE ne 'AA10' and i.SHELF_LOC_CODE ne 'AA11' and i.SHELF_LOC_CODE ne 'AA14' and i.SHELF_LOC_CODE ne 'AA15' and i.SHELF_LOC_CODE ne 'AA16' and i.SHELF_LOC_CODE ne 'AA17' and i.SHELF_LOC_CODE ne 'AA18' and i.SHELF_LOC_CODE ne 'AA19' and i.SHELF_LOC_CODE ne 'AA20' and i.SHELF_LOC_CODE ne 'AA21' and i.SHELF_LOC_CODE ne 'AA22' and  i.SHELF_LOC_CODE ne 'AA23' and i.SHELF_LOC_CODE ne 'AA29' and i.SHELF_LOC_CODE ne 'AA30' and i.SHELF_LOC_CODE ne 'AA31' and i.SHELF_LOC_CODE ne 'AA36' and i.SHELF_LOC_CODE ne 'AA37' and i.SHELF_LOC_CODE ne 'AA39' and i.SHELF_LOC_CODE ne 'AA40' and i.SHELF_LOC_CODE ne 'AA41' and i.SHELF_LOC_CODE ne 'AA51' and i.SHELF_LOC_CODE ne 'AA52' and i.SHELF_LOC_CODE ne 'AA53' and i.SHELF_LOC_CODE ne 'AA56' and i.SHELF_LOC_CODE ne 'AA58' and i.SHELF_LOC_CODE ne 'AA59' and i.SHELF_LOC_CODE ne 'AA60' and i.SHELF_LOC_CODE ne 'AA62' and i.SHELF_LOC_CODE ne 'AA65' and i.SHELF_LOC_CODE ne 'AA66' and i.SHELF_LOC_CODE ne 'AH14' and i.SHELF_LOC_CODE ne 'AH16' and i.SHELF_LOC_CODE ne 'AH26' and i.SHELF_LOC_CODE ne 'AH33' and i.SHELF_LOC_CODE ne 'AH60' and i.SHELF_LOC_CODE ne 'CA08' and i.SHELF_LOC_CODE ne 'CB08' and i.SHELF_LOC_CODE ne 'CB10' and i.SHELF_LOC_CODE ne 'BA08' and i.SHELF_LOC_CODE ne 'BA22' and i.SHELF_LOC_CODE ne 'BA23' and i.SHELF_LOC_CODE ne 'CA18'}">
+																		<c:choose>
+																			<c:when test="${not empty nearbylibRejectMessage}">
+																				<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
+																			</c:when>
+																			<c:otherwise>
+																				<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
+																			</c:otherwise>
+																		</c:choose>
+																	</c:if>
+																	</c:if>
+																</c:if>
+															</c:if>
+														</c:if>
+
 													</div>
 												</div>
 											</div>
