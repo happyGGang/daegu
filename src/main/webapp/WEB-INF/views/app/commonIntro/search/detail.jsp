@@ -531,7 +531,16 @@ $(function() {
 				<td>${detail.CALL_NO}</td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
-				<td>${detail.RETURN_PLAN_DATE}</td>
+				<td>
+					<!--동촌역 스마트도서관 자료실은 반납예정일 숨김처리-->
+					<c:choose>
+						<c:when test="${(homepage.context_path eq 'donggu' || homepage.context_path eq 'dgportal') && detail.SHELF_LOC_CODE eq 'CA18'}">
+						</c:when>
+						<c:otherwise>
+							${detail.RETURN_PLAN_DATE}
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<td>
 
