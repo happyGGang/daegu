@@ -355,37 +355,44 @@
 	</select>
 
 	<select id="getBookListAll" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">
+		WITH CATEGORY AS (
+		SELECT cate_id, cate_name
+		FROM ELIB_CATEGORY
+		),
+		COMPANY AS (
+		SELECT com_code, comp_name
+		FROM ELIB_COMPANY
+		),
+		BOOK_ACCESS_COUNT AS (
+		SELECT book_idx, book_code, COUNT(*) AS access_count
+		FROM ELIB_BOOK_ACCESS
+		GROUP BY book_idx, book_code
+		)
 		SELECT
 			a.book_idx, a.book_code, a.cate_id, a.book_name, a.author_name,
-			a.book_pubname, a.isbn13, a.book_lend,
-			a.lend_total, a.max_lend, a.book_reserve, a.com_code, TO_CHAR(a.book_pubdt, 'YYYY-MM-DD') AS book_pubdt,
-			a.book_regdt, a.use_yn, a.type,
-			a.format, a.book_image, a.parent_id,
-			a.recommend_cnt, a.library_code,
-			a.approved_yn,
-			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.cate_id) AS cate_name,
+			a.book_pubname, a.isbn13, a.book_lend, a.lend_total, a.max_lend,
+			a.book_reserve, a.com_code, TO_CHAR(a.book_pubdt, 'YYYY-MM-DD') AS book_pubdt, a.book_regdt, a.use_yn,
+			a.type, a.format, a.book_image, a.parent_id, a.recommend_cnt,
+			a.library_code,a.approved_yn,c1.cate_name AS cate_name,
 			CASE WHEN a.library_code = '9999999' THEN '통합' ELSE e.homepage_name END AS library_name,
-			(SELECT z.cate_name FROM ELIB_CATEGORY z WHERE z.cate_id = a.parent_id) AS parent_name,
-<!-- 			d.book_info, d.author_info, d.book_table, -->
-			(SELECT z.comp_name FROM ELIB_COMPANY z WHERE INSTR(z.com_code, a.com_code) > 0) AS comp_name,
-			a.device,
+			c2.cate_name AS parent_name, comp.comp_name AS comp_name, a.device,
 			CASE a.device
 			WHEN '1' THEN 'PC'
 			WHEN '2' THEN 'PC, 태블릿'
 			WHEN '3' THEN 'PC, 태블릿, 스마트폰'
-			END AS label,
-			NVL((SELECT COUNT(*) FROM ELIB_BOOK_ACCESS BA WHERE BA.book_idx = a.book_idx AND BA.book_code = a.book_code),0) + a.view_count AS view_count
+			END AS label, NVL(bac.access_count, 0) + a.view_count AS view_count
 		FROM
-			ELIB_BOOK a,
-<!-- 			ELIB_BOOKINFO d, -->
-			CMS_HOMEPAGE e
+			ELIB_BOOK a
+			LEFT JOIN CATEGORY c1 ON a.cate_id = c1.cate_id
+			LEFT JOIN CATEGORY c2 ON a.parent_id = c2.cate_id
+			LEFT JOIN COMPANY comp ON INSTR(comp.com_code, a.com_code) > 0
+			LEFT JOIN BOOK_ACCESS_COUNT bac ON a.book_idx = bac.book_idx AND a.book_code = bac.book_code
+			JOIN CMS_HOMEPAGE e ON a.library_code = SUBSTR(e.lib_code, 1, 8)
 		WHERE
 			a.use_yn != 'N'
-<!-- 		AND a.book_idx = d.book_idx -->
-		AND a.library_code = SUBSTR(e.lib_code, 1, 8)
-		AND a.type = #{type}
-		<include refid="search"/>
-		<include refid="sort"/>
+			AND a.type = #{type}
+			<include refid="search"/>
+			<include refid="sort"/>
 	</select>
 	
 	<select id="getLendingBookListState" resultType="kr.go.gbelib.app.cms.module.elib.book.Book">

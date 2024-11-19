@@ -12,7 +12,7 @@ $(document).ready(function(e) {
 });
 </script>
 <form:select class="selectmenu-search" style="width:200px" id="library_code${sym}" path="library_code">
-	<option value="0">도서관 선택</option>
+	<option value="" selected="selected">도서관 선택</option>
 	<c:forEach var="i" varStatus="status" items="${homepageList}">
 		<option value="${i.lib_code}" <c:if test="${i.lib_code eq obj.library_code }">selected="selected"</c:if>>${i.homepage_name}</option>
 	</c:forEach>

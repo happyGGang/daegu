@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.elib.book;
 
+import static java.net.URLEncoder.encode;
+
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +21,12 @@ import org.apache.poi.POIXMLException;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.DateTime;
@@ -175,24 +182,28 @@ public class BookController extends BaseController {
 		
 		return res;
 	}
-	
+
 	@RequestMapping(value = {"/cms/module/elib/book/{type}/excelDownload.*"}, method = RequestMethod.POST)
-	public BookExcelView excel(Model model, Book book, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		if(book.getSortType() == null) book.setSortType("ASC");
-		
+	public void excel(Model model, Book book, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if (book.getSortType() == null) {
+			book.setSortType("ASC");
+		}
+
 		String sortField = book.getSortField();
-		if(StringUtils.equals(sortField, "TITLE") || StringUtils.equals(sortField, "book_name")) {
+		if (StringUtils.equals(sortField, "TITLE") || StringUtils.equals(sortField, "book_name")) {
 			book.setSortField("book_name");
 			book.setSortType("ASC");
-		} else if(StringUtils.equals(sortField, "lend_total")) {
+		} else if (StringUtils.equals(sortField, "lend_total")) {
 			book.setSortType("DESC");
 		}
-		
-		model.addAttribute("book", book); 
-		model.addAttribute("bookList", service.getBookListAll(book));
-		return new BookExcelView();
+
+		List<Book> bookList = service.getBookListAll(book);
+
+		BookExcelView bookExcelView = new BookExcelView();
+		bookExcelView.generateExcel(bookList, book, request, response);
 	}
-	
+
+
 	@RequestMapping(value = {"/cms/module/elib/book/{type}/csvDownload.*"}, method = RequestMethod.POST)
 	public void csv(Model model, Book book, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		if(book.getSortType() == null) book.setSortType("ASC");
