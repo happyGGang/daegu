@@ -159,6 +159,8 @@ table.bbs .reply i.fa-reply{color:#266ac4;margin-left:10px;
 	table.bbs th.important,
 	table.bbs td.important{display:table-cell}
 	table.bbs td.username{display:none !important;}
+	table.bbs td.left {width: 90%;text-align: left !important;}
+	table.bbs th:last-child {width: 11%; word-break: break-all;}
 }
 table.bbs tbody tr:hover td{background:#f8f8f8}
 

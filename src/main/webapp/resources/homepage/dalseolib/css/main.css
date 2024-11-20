@@ -48,7 +48,8 @@
 #mvisual .search_btn_wrap{width:1100px; display:inline-block;position:absolute;top:0; left:50%;margin-left:-550px;z-index:2;}
 #mvisual .search_btn_wrap .search_bar{position:absolute;top:325px; /*left:90px;*/ height:60px;display:inline-block;}
 #mvisual .search_btn_wrap .search_bar .search_m{cursor:text;font-size:16px;font-family:'Noto Sans';color:#797979;top:18px;left:27px;position:absolute;display:block;}
-#mvisual .search_btn_wrap .search_bar .search_text{cursor:text;padding:0 27px;font-size:16px;font-family:'Noto Sans';;color:#797979;width:360px;height:60px; line-height:60px;float:left;border:0;}
+#mvisual .search_btn_wrap .search_bar .search_text{cursor:text;padding:0 27px;font-size:17px;font-family:'Noto Sans';;color:#222;width:360px;height:60px; line-height:60px;float:left;border:0; font-weight:600;}
+#mvisual .search_btn_wrap .search_bar .search_text::placeholder {font-size:17px;color:#222;}
 #mvisual .search_btn_wrap .search_bar .search_btn{float:left;width:60px;height:60px;line-height:0;font-size:0;text-indent:-9999px;border:0;background:#5b7ef1 url('../img/searchicon.png') no-repeat center 50%;}
 #mvisual .search_btn_wrap .search_bar .search_btn:hover{background:#5474de url('../img/searchicon.png') no-repeat center 50%;}
 
@@ -122,9 +123,9 @@ background: url('../img/select_btn2.png') no-repeat right 50%;color:#616161;}
 .notice_text li:first-child {margin-top:0;}
 .notice_text li span {float:left;font-size:15px;margin-top:1px;font-family:'Noto Sans';}
 .notice_text li span.lib_name {float:left;text-align:center;margin-right:8px;padding:0 7px;font-size:13px;font-family:'맑은 고딕';font-weight:bold;}
-.notice_text li span.lib_txt, .notice_text li span.lib_txt1{width:220px;font-size:15px;text-overflow:ellipsis;}
-.notice_text li span.lib_date, .notice_text li span.lib_date1 {float:right;font-size:14px;color:#999;font-weight:normal;font-family:'Roboto',sans-serif;margin-top:3px;}
-.notice_text li span.lib_txt1 {width:188px; overflow:hidden; text-overflow:ellipsis;}
+.notice_text li span.lib_txt, .notice_text li span.lib_txt1{width:220px;font-size:15px;text-overflow:ellipsis; font-weight:bold;}
+.notice_text li span.lib_date, .notice_text li span.lib_date1 {float:right;font-size:14px;color:#464646;font-weight:normal;font-family:'Roboto',sans-serif;margin-top:3px;}
+.notice_text li span.lib_txt1 {width:188px; overflow:hidden; text-overflow:ellipsis; color:#464646}
 .notice_text li span.lib_txt1 {float:left;}
 .notice_text li span.lib_date1 {float:right;}
 .notice_text li.lib00 span.lib_name, .notice_text li.fes_lib00 span.lib_name{border:1px solid #7a6e61; color:#7a6e61;}
