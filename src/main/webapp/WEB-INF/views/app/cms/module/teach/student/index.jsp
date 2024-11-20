@@ -68,6 +68,7 @@ $(function(){
 							<form:option value="h51">용학</form:option>
 							<form:option value="h56">파동</form:option>
 							<form:option value="h57">무학숲</form:option>
+							<form:option value="h98">그림책</form:option>
 						</form:select>
 					</c:when>
 
