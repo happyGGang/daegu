@@ -146,6 +146,18 @@
 				</div>
 			</div>
 		</li>
+		<!-- -->
+		<li>
+			<div class="info-box">
+				<div class="tit num10">
+					<p>수성못그림책도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 수성구 무학로 112, 1층</p>
+					<p class="tel">053-668-1770</p>
+				</div>
+			</div>
+		</li>
 	</ul>
 </div>
 
@@ -176,6 +188,7 @@ jQuery(function($){
 		daegu_map_data.push({idx:'53',title:'책숲길도서관', tel : '053-668-1650', point:{x:'35.8448425307153',y:'128.612376649774'}, address:'대구광역시 수성구 수성로215(중동) 수옥빌딩 4층',no:'7' });
 		daegu_map_data.push({idx:'52',title:'물망이도서관', tel : '053-666-4390', point:{x:'35.8547657653853',y:'128.619007545444'}, address:'대구광역시 수성구 명덕로 443-2(수성동3가) 수성2,3가동 행정복지센터 4층',no:'8' });
 		daegu_map_data.push({idx:'51',title:'황금책문화센터도서관', tel : '053-792-8582', point:{x:'35.8470347',y:'128.6237032'}, address:'대구광역시 수성구 청솔로2길 64 황금2동행정복지센터 1층',no:'9' });
+		daegu_map_data.push({idx:'50',title:'수성못그림책도서관', tel : '053-668-1770', point:{x:'35.8294627',y:'128.6206166'}, address:'대구광역시 수성구 무학로 112, 1층',no:'10' });
 	
 	daegu_map = new map_app();
 	
