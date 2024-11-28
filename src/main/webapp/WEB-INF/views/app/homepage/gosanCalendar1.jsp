@@ -25,7 +25,7 @@
       </script>
 
       <div class="doc-body">
-	  <h3>이용시간</h3>
+	  <h3>이용시간 <span style="font-size: 16px;">시범운영 중(2024. 8. 28. ~ 정식개관 전)</span></h3>
 		  <div class="time_box">
 			<ul>
 			  <li class="book13 mb10" style="margin-right:20px;">
