@@ -17,7 +17,7 @@
 
 			<div class="util">
 			 <a href="https://www.facebook.com/228lib?ref=bookmarks" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"></a>
-			 <a href="https://pf.kakao.com/_xkCcls" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/kakaoch-icon-btn.png" alt="카카오톡채널" class="sitemap-img2"></a>
+			 <!-- <a href="https://pf.kakao.com/_xkCcls" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/kakaoch-icon-btn.png" alt="카카오톡채널" class="sitemap-img2"></a> -->
 			 <a href="https://www.instagram.com/grindaero_/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/insta-icon-btn.png" alt="인스타그램" class="sitemap-img2"></a>
 			 <a href="https://twitter.com/daebonglib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"></a>
 			 <a href="https://www.youtube.com/channel/UCHJiipMqeDWHgehZTp6En3Q" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/youtube-icon-btn.png" alt="트위터" class="sitemap-img2"></a>
