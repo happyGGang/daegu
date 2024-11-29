@@ -1320,17 +1320,25 @@ function isFromFridayToSunday() {
 													</c:when>
 													<c:when test="${homepage.context_path eq 'gukbo'}">
 													</c:when>
-                                                    <c:when test="${(homepage.context_path eq 'dongbu') and (param.menu_idx eq '173')}">
-                                                        <c:if test="${i.CODE eq 'AH14' or i.CODE eq 'AH16'}">
-                                                            <form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
-                                                        </c:if>
+                                                    <c:when test="${homepage.context_path eq 'dongbu'}">
+														<c:if test="${param.menu_idx eq '173'}">
+															<c:if test="${i.CODE eq 'AH14' or i.CODE eq 'AH16'}">
+																<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
+															</c:if>
+														</c:if>
                                                     </c:when>
+
 													<c:otherwise>
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 													</c:otherwise>
 												</c:choose>
 
 											</c:forEach>
+											<!--동부도서관 휴관으로 임시자료실만 노출 -->
+											<c:if test="${(homepage.context_path eq 'dongbu') and (param.menu_idx eq '13')}">
+												<form:option value="AH64">[동부]임시자료실(불로)</form:option>
+											</c:if>
+
 											<c:if test="${homepage.context_path eq 'gukbo'}">
 												<form:option value="AD01">[국보]종합자료실</form:option>
 												<form:option value="AD43">[국보]종합자료실(대구경북다시보기)</form:option>
