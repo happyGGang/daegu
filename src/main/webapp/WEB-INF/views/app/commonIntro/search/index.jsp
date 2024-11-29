@@ -1,8 +1,16 @@
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%
+	Date now = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+	String todays = sf.format(now);
+%>
+<c:set var="now" value="<%=todays %>" />
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
 <script type="text/javascript">
@@ -1144,9 +1152,18 @@ function isFromFridayToSunday() {
 									<li>
 										<form:checkbox path="libraryCodes" value="AA" class="libCheck lib_AA" label="228기념학생도서관"/>
 									</li>
-<%--									<li>--%>
-<%--										<form:checkbox path="libraryCodes" value="AH" class="libCheck lib_AH" label="동부도서관"/>--%>
-<%--									</li>--%>
+									<c:choose>
+										<c:when test="${now < 20241202000000}">
+<%--											<li>--%>
+<%--												<form:checkbox path="libraryCodes" value="AH" class="libCheck lib_AH" label="동부도서관"/>--%>
+<%--											</li>--%>
+										</c:when>
+										<c:otherwise>
+											<li>
+												<form:checkbox path="libraryCodes" value="AH" class="libCheck lib_AH" label="동부도서관"/>
+											</li>
+										</c:otherwise>
+									</c:choose>
 									<li>
 										<form:checkbox path="libraryCodes" value="CA" class="libCheck lib_CA" label="안심도서관"/>
 									</li>
@@ -1320,13 +1337,11 @@ function isFromFridayToSunday() {
 													</c:when>
 													<c:when test="${homepage.context_path eq 'gukbo'}">
 													</c:when>
-                                                    <c:when test="${homepage.context_path eq 'dongbu'}">
-														<c:if test="${param.menu_idx eq '173'}">
-															<c:if test="${i.CODE eq 'AH14' or i.CODE eq 'AH16'}">
-																<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
-															</c:if>
+													<c:when test="${(homepage.context_path eq 'dongbu') and (param.menu_idx eq '173')}">
+														<c:if test="${i.CODE eq 'AH14' or i.CODE eq 'AH16'}">
+															<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
 														</c:if>
-                                                    </c:when>
+													</c:when>
 
 													<c:otherwise>
 														<form:option value="${i.CODE}">${i.DESCRIPTION}</form:option>
@@ -1334,10 +1349,6 @@ function isFromFridayToSunday() {
 												</c:choose>
 
 											</c:forEach>
-											<!--동부도서관 휴관으로 임시자료실만 노출 -->
-											<c:if test="${(homepage.context_path eq 'dongbu') and (param.menu_idx eq '13')}">
-												<form:option value="AH64">[동부]임시자료실(불로)</form:option>
-											</c:if>
 
 											<c:if test="${homepage.context_path eq 'gukbo'}">
 												<form:option value="AD01">[국보]종합자료실</form:option>
@@ -2004,24 +2015,49 @@ function isFromFridayToSunday() {
 												</c:choose>
 
 												<!--내집앞도서관-->
-												<c:if test="${i.LOAN_CODE eq 'OK'}">
-													<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'donggu' || homepage.context_path eq 'bukgs'}">
-														<c:if test="${i.MANAGE_CODE eq 'BA' || i.MANAGE_CODE eq 'AH' || i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'AA' || i.MANAGE_CODE eq 'CA'}">
-															<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
-															<c:if test="${i.SHELF_LOC_CODE ne 'AA02' and i.SHELF_LOC_CODE ne 'AA03' and i.SHELF_LOC_CODE ne 'AA05' and i.SHELF_LOC_CODE ne 'AA07' and i.SHELF_LOC_CODE ne 'AA09' and i.SHELF_LOC_CODE ne 'AA10' and i.SHELF_LOC_CODE ne 'AA11' and i.SHELF_LOC_CODE ne 'AA14' and i.SHELF_LOC_CODE ne 'AA15' and i.SHELF_LOC_CODE ne 'AA16' and i.SHELF_LOC_CODE ne 'AA17' and i.SHELF_LOC_CODE ne 'AA18' and i.SHELF_LOC_CODE ne 'AA19' and i.SHELF_LOC_CODE ne 'AA20' and i.SHELF_LOC_CODE ne 'AA21' and i.SHELF_LOC_CODE ne 'AA22' and  i.SHELF_LOC_CODE ne 'AA23' and i.SHELF_LOC_CODE ne 'AA29' and i.SHELF_LOC_CODE ne 'AA30' and i.SHELF_LOC_CODE ne 'AA31' and i.SHELF_LOC_CODE ne 'AA36' and i.SHELF_LOC_CODE ne 'AA37' and i.SHELF_LOC_CODE ne 'AA39' and i.SHELF_LOC_CODE ne 'AA40' and i.SHELF_LOC_CODE ne 'AA41' and i.SHELF_LOC_CODE ne 'AA51' and i.SHELF_LOC_CODE ne 'AA52' and i.SHELF_LOC_CODE ne 'AA53' and i.SHELF_LOC_CODE ne 'AA56' and i.SHELF_LOC_CODE ne 'AA58' and i.SHELF_LOC_CODE ne 'AA59' and i.SHELF_LOC_CODE ne 'AA60' and i.SHELF_LOC_CODE ne 'AA62' and i.SHELF_LOC_CODE ne 'AA65' and i.SHELF_LOC_CODE ne 'AA66' and i.SHELF_LOC_CODE ne 'AH14' and i.SHELF_LOC_CODE ne 'AH16' and i.SHELF_LOC_CODE ne 'AH26' and i.SHELF_LOC_CODE ne 'AH33' and i.SHELF_LOC_CODE ne 'AH60' and i.SHELF_LOC_CODE ne 'CA08' and i.SHELF_LOC_CODE ne 'CB08' and i.SHELF_LOC_CODE ne 'CB10' and i.SHELF_LOC_CODE ne 'BA08' and i.SHELF_LOC_CODE ne 'BA22' and i.SHELF_LOC_CODE ne 'BA23' and i.SHELF_LOC_CODE ne 'CA18'}">
-																<c:choose>
-																	<c:when test="${not empty nearbylibRejectMessage}">
-																		<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
-																	</c:when>
-																	<c:otherwise>
-																		<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
-																	</c:otherwise>
-																</c:choose>
-															</c:if>
+												<c:choose>
+													<c:when test="${now le 20241202000000}">
+														<c:if test="${i.LOAN_CODE eq 'OK'}">
+															<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq '' || homepage.context_path eq 'donggu' || homepage.context_path eq 'bukgs'}">
+																<c:if test="${i.MANAGE_CODE eq 'BA' || i.MANAGE_CODE eq 'AH' || i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'AA' || i.MANAGE_CODE eq 'CA'}">
+																	<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+																		<c:if test="${i.SHELF_LOC_CODE ne 'AA02' and i.SHELF_LOC_CODE ne 'AA03' and i.SHELF_LOC_CODE ne 'AA05' and i.SHELF_LOC_CODE ne 'AA07' and i.SHELF_LOC_CODE ne 'AA09' and i.SHELF_LOC_CODE ne 'AA10' and i.SHELF_LOC_CODE ne 'AA11' and i.SHELF_LOC_CODE ne 'AA14' and i.SHELF_LOC_CODE ne 'AA15' and i.SHELF_LOC_CODE ne 'AA16' and i.SHELF_LOC_CODE ne 'AA17' and i.SHELF_LOC_CODE ne 'AA18' and i.SHELF_LOC_CODE ne 'AA19' and i.SHELF_LOC_CODE ne 'AA20' and i.SHELF_LOC_CODE ne 'AA21' and i.SHELF_LOC_CODE ne 'AA22' and  i.SHELF_LOC_CODE ne 'AA23' and i.SHELF_LOC_CODE ne 'AA29' and i.SHELF_LOC_CODE ne 'AA30' and i.SHELF_LOC_CODE ne 'AA31' and i.SHELF_LOC_CODE ne 'AA36' and i.SHELF_LOC_CODE ne 'AA37' and i.SHELF_LOC_CODE ne 'AA39' and i.SHELF_LOC_CODE ne 'AA40' and i.SHELF_LOC_CODE ne 'AA41' and i.SHELF_LOC_CODE ne 'AA51' and i.SHELF_LOC_CODE ne 'AA52' and i.SHELF_LOC_CODE ne 'AA53' and i.SHELF_LOC_CODE ne 'AA56' and i.SHELF_LOC_CODE ne 'AA58' and i.SHELF_LOC_CODE ne 'AA59' and i.SHELF_LOC_CODE ne 'AA60' and i.SHELF_LOC_CODE ne 'AA62' and i.SHELF_LOC_CODE ne 'AA65' and i.SHELF_LOC_CODE ne 'AA66' and i.SHELF_LOC_CODE ne 'AH14' and i.SHELF_LOC_CODE ne 'AH16' and i.SHELF_LOC_CODE ne 'AH26' and i.SHELF_LOC_CODE ne 'AH33' and i.SHELF_LOC_CODE ne 'AH60' and i.SHELF_LOC_CODE ne 'CA08' and i.SHELF_LOC_CODE ne 'CB08' and i.SHELF_LOC_CODE ne 'CB10' and i.SHELF_LOC_CODE ne 'BA08' and i.SHELF_LOC_CODE ne 'BA22' and i.SHELF_LOC_CODE ne 'BA23' and i.SHELF_LOC_CODE ne 'CA18'}">
+																			<c:choose>
+																				<c:when test="${not empty nearbylibRejectMessage}">
+																					<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
+																				</c:when>
+																				<c:otherwise>
+																					<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
+																				</c:otherwise>
+																			</c:choose>
+																		</c:if>
+																	</c:if>
+																</c:if>
 															</c:if>
 														</c:if>
-													</c:if>
-												</c:if>
+													</c:when>
+													<c:otherwise>
+														<c:if test="${i.LOAN_CODE eq 'OK'}">
+															<c:if test="${homepage.context_path eq 'dgportal' || homepage.context_path eq '228' || homepage.context_path eq 'dongbu' || homepage.context_path eq 'donggu' || homepage.context_path eq 'bukgs'}">
+																<c:if test="${i.MANAGE_CODE eq 'BA' || i.MANAGE_CODE eq 'AH' || i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'AA' || i.MANAGE_CODE eq 'CA'}">
+																	<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+																		<c:if test="${i.SHELF_LOC_CODE ne 'AA02' and i.SHELF_LOC_CODE ne 'AA03' and i.SHELF_LOC_CODE ne 'AA05' and i.SHELF_LOC_CODE ne 'AA07' and i.SHELF_LOC_CODE ne 'AA09' and i.SHELF_LOC_CODE ne 'AA10' and i.SHELF_LOC_CODE ne 'AA11' and i.SHELF_LOC_CODE ne 'AA14' and i.SHELF_LOC_CODE ne 'AA15' and i.SHELF_LOC_CODE ne 'AA16' and i.SHELF_LOC_CODE ne 'AA17' and i.SHELF_LOC_CODE ne 'AA18' and i.SHELF_LOC_CODE ne 'AA19' and i.SHELF_LOC_CODE ne 'AA20' and i.SHELF_LOC_CODE ne 'AA21' and i.SHELF_LOC_CODE ne 'AA22' and  i.SHELF_LOC_CODE ne 'AA23' and i.SHELF_LOC_CODE ne 'AA29' and i.SHELF_LOC_CODE ne 'AA30' and i.SHELF_LOC_CODE ne 'AA31' and i.SHELF_LOC_CODE ne 'AA36' and i.SHELF_LOC_CODE ne 'AA37' and i.SHELF_LOC_CODE ne 'AA39' and i.SHELF_LOC_CODE ne 'AA40' and i.SHELF_LOC_CODE ne 'AA41' and i.SHELF_LOC_CODE ne 'AA51' and i.SHELF_LOC_CODE ne 'AA52' and i.SHELF_LOC_CODE ne 'AA53' and i.SHELF_LOC_CODE ne 'AA56' and i.SHELF_LOC_CODE ne 'AA58' and i.SHELF_LOC_CODE ne 'AA59' and i.SHELF_LOC_CODE ne 'AA60' and i.SHELF_LOC_CODE ne 'AA62' and i.SHELF_LOC_CODE ne 'AA65' and i.SHELF_LOC_CODE ne 'AA66' and i.SHELF_LOC_CODE ne 'AH14' and i.SHELF_LOC_CODE ne 'AH16' and i.SHELF_LOC_CODE ne 'AH26' and i.SHELF_LOC_CODE ne 'AH33' and i.SHELF_LOC_CODE ne 'AH60' and i.SHELF_LOC_CODE ne 'CA08' and i.SHELF_LOC_CODE ne 'CB08' and i.SHELF_LOC_CODE ne 'CB10' and i.SHELF_LOC_CODE ne 'BA08' and i.SHELF_LOC_CODE ne 'BA22' and i.SHELF_LOC_CODE ne 'BA23' and i.SHELF_LOC_CODE ne 'CA18' and i.SHELF_LOC_CODE eq 'AH64'}">
+																			<c:choose>
+																				<c:when test="${not empty nearbylibRejectMessage}">
+																					<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
+																				</c:when>
+																				<c:otherwise>
+																					<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
+																				</c:otherwise>
+																			</c:choose>
+																		</c:if>
+																	</c:if>
+																</c:if>
+															</c:if>
+														</c:if>
+													</c:otherwise>
+												</c:choose>
+
 
 											</div>
 										</div>
