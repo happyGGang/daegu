@@ -7,6 +7,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -2192,19 +2193,21 @@ public class CommonSearchController extends BaseController {
 					int totalCount = (Integer) map.get("totalCount");
 					@SuppressWarnings ("unchecked")
 					List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-					if (itemList != null && itemList.size() > 0) {
-						for (Map<String, Object> map2 : itemList) {
-							String[] isbnArr = String.valueOf(map2.get("isbn")).split(" ");
-							for (int i = 0; i < isbnArr.length; i++) {
-								String isbn = String.valueOf(map2.get("isbn")).split(" ")[i];
-								map2.put("isbn"+isbn.length(), isbn);
-								ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
-								if (!code.getStatus()) {
-									map2.put("already"+isbn.length(), true);
-									map2.put("errorMessage", code.getMessage());
-								}
+					if (itemList != null && !itemList.isEmpty()) {
+						itemList.parallelStream().forEach(objectMap -> {
+							String[] isbnArr = String.valueOf(objectMap.get("isbn")).split(" ");
+							for (String isbn : isbnArr) {
+								objectMap.put("isbn" + isbn.length(), isbn);
+
+								CompletableFuture.supplyAsync(() -> LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode()))
+												 .thenAccept(code -> {
+													 if (!code.getStatus()) {
+														 objectMap.put("already" + isbn.length(), true);
+														 objectMap.put("errorMessage", code.getMessage());
+													 }
+												 });
 							}
-						}
+						});
 						
 						service.setPaging(model, totalCount, librarySearch);
 						model.addAttribute("kakaoResult", map);

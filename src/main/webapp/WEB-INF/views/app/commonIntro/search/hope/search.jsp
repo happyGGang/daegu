@@ -21,20 +21,28 @@
 </style>
 <script>
 $(document).ready(function() {
+	$('#loading').hide();
 
 	$('button#do-search').on('click', function(e) {
 		e.preventDefault();
 		let mgc = $('#manageCode').val();
-		if(mgc == '' || mgc == null)
-		{
-			alert('신청하고자 하는 도서관을 선택후 도서를 검색해주세요.');
+		if (!mgc) {
+			alert('신청하고자 하는 도서관을 선택 후 도서를 검색해주세요.');
 			return;
 		}
 
-		$('input#hopeSearchManageCode').val($('#manageCode').val());
-		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
-
+		$('input#hopeSearchManageCode').val(mgc);
 		$('#loading').show();
+
+		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize())
+		.done(function(response) {
+		})
+		.fail(function() {
+			alert('검색 요청 중 오류가 발생했습니다. 다시 시도해주세요.');
+		})
+		.always(function() {
+			$('#loading').hide();
+		});
 	});
 
 	$('input#search_text_kakao').on('keyup', function(e) {
@@ -191,7 +199,7 @@ $(document).ready(function() {
 			var no = $(this).attr('item_no');
 			$('.item-list .item').hide();
 			$('.item-list .item-' + no).show();
-			$('.item-list .images li').css('border-clor', '#fff');
+			$('.item-list .images li').css('border-color', '#fff');
 			$(this).css('border-color', '#ddd');
 		}).css({
 			'border-clor' : '#fff',
