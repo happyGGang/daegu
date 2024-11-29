@@ -257,7 +257,12 @@ public class BoardApiService extends BaseService {
 						resultMapList.put("call_no", list.get(i).getImsi_v_7());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
-						resultMapList.put("contents", list.get(i).getContent());
+						String content = list.get(i).getContent();
+
+						String replaceContent = content.replaceAll("<.*?>", "");
+						replaceContent.replaceAll("&nbsp;", " ");
+
+						resultMapList.put("contents", replaceContent);
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_8())) {
 						resultMapList.put("reg_no", list.get(i).getImsi_v_8());
@@ -327,6 +332,11 @@ public class BoardApiService extends BaseService {
 						resultMapList.put("pubdata", list.get(i).getImsi_v_3());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
+						String content = list.get(i).getContent();
+
+						String replaceContent = content.replaceAll("<.*?>", "");
+						replaceContent.replaceAll("&nbsp;", " ");
+
 						resultMapList.put("contents", list.get(i).getContent());
 					}
 					

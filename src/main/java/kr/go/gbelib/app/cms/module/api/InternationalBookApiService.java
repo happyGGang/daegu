@@ -57,7 +57,12 @@ public class InternationalBookApiService extends BaseService {
 						internationalBookXmlResult.setCall_no(list.get(i).getImsi_v_7());
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getContent())) {
-						internationalBookXmlResult.setContents(list.get(i).getContent());
+						String content = list.get(i).getContent();
+
+						String replaceContent = content.replaceAll("<.*?>", "");
+						replaceContent.replaceAll("&nbsp;", " ");
+
+						internationalBookXmlResult.setContents(replaceContent);
 					}
 					if(StringUtils.isNotEmpty(list.get(i).getImsi_v_8())) {
 						internationalBookXmlResult.setReg_no(list.get(i).getImsi_v_8());
