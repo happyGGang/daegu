@@ -1094,7 +1094,7 @@ function isFromFridayToSunday() {
 						<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
 						<div id="libraryList" class="libraryList">
 							<div>
-								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체  </label>
 							</div>
 							<div>
 								<ul>
