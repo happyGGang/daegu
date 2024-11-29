@@ -51,6 +51,26 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function doAjaxLoad(target, url, data) {
+	return $.ajax({
+		url: url,
+		type: 'POST',
+		data: data,
+		timeout: 5000,
+		success: function(response) {
+			$(target).html(response);
+		},
+		error: function(xhr, status, error) {
+			if (status === "timeout") {
+				alert('요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
+			} else {
+				alert('데이터 로딩 중 오류가 발생했습니다.');
+			}
+		}
+	});
+}
+
 </script>
 <form:form modelAttribute="librarySearch" id="searchForm" action="search.do" onsubmit="return false;">
 <form:hidden path="isbn"/>
