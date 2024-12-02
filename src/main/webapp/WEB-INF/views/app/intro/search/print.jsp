@@ -84,11 +84,6 @@ function doOutFocus() {
 							<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 직원에게 문의</td>
 						</tr>
 					</c:when>
-					<c:when test="${detail.SHELF_LOC_CODE eq 'AJ45'}">
-						<tr>
-							<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 직원에게 문의</td>
-						</tr>
-					</c:when>
 
 					<c:when test="${detail.SHELF_LOC_CODE eq 'AD27'}">
 						<tr>
@@ -175,6 +170,11 @@ function doOutFocus() {
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 맑은 고딕" class="first td1">영어독서 레벨 : </td>
 					<td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.marc}</td>
 				</tr>
+				</c:if>
+				<c:if test="${detail.SHELF_LOC_CODE eq 'AJ45'}">
+					<tr>
+						<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 직원에게 문의</td>
+					</tr>
 				</c:if>
 				<c:if test="${context_path eq 'gukbo'}">
 				<c:if test="${detail.SHELF_LOCATION_KEY ne null && detail.SHELF_LOCATION_KEY ne ''}">
