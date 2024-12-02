@@ -39,14 +39,14 @@ $(function(){
 				<td>${i.start_date} ~ ${i.end_date}</td>
 				<td>${i.teacher_name}</td>
 				<td>${i.teach_limit_count + i.teach_backup_count + i.teach_offline_count} / ${i.join_count}</td>
-				<td>${i.cert_ok_count} / ${i.join_count - i.cert_ok_count}</td>
+				<td>${i.join_count - i.cert_ok_count} / ${i.cert_ok_count}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 	<tfoot>
 		<tr>
 			<th>합계</th>
-			<td colspan="7">전체 모집 인원 : ${total_teach_count}, 전체 참여 인원 : ${total_join_count}, 전체 수료 인원 : ${total_cert_ok_count}, 전체 미수료 인원 : ${total_cert_fail_count}</td>
+			<td colspan="7">전체 모집 인원 : ${total_teach_count}, 전체 참여 인원 : ${total_join_count}, 전체 수료 인원 : ${total_cert_fail_count}, 전체 미수료 인원 : ${total_cert_ok_count}</td>
 			<!-- <td colspan="2">4321 <em>(100%)</em></td> -->
 		</tr>
 	</tfoot>
