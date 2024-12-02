@@ -8,6 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -2187,38 +2192,52 @@ public class CommonSearchController extends BaseController {
 				model.addAttribute("kakaoResult", map);
 			}
 		} else {
+			ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 			try {
 				if (StringUtils.isNotEmpty(librarySearch.getSearch_text())) {
-					map = LibSearchAPI.getKaKaoList(librarySearch);
-					int totalCount = (Integer) map.get("totalCount");
-					@SuppressWarnings ("unchecked")
-					List<Map<String, Object>> itemList = (List<Map<String, Object>>) map.get("list");
-					if (itemList != null && !itemList.isEmpty()) {
-						itemList.parallelStream().forEach(objectMap -> {
-							String[] isbnArr = String.valueOf(objectMap.get("isbn")).split(" ");
-							for (String isbn : isbnArr) {
-								objectMap.put("isbn" + isbn.length(), isbn);
+					Map<String, Object> searchResults = LibSearchAPI.getKaKaoList(librarySearch);
+					int totalCount = (Integer) searchResults.get("totalCount");
 
-								CompletableFuture.supplyAsync(() -> LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode()))
-												 .thenAccept(code -> {
-													 if (!code.getStatus()) {
-														 objectMap.put("already" + isbn.length(), true);
-														 objectMap.put("errorMessage", code.getMessage());
-													 }
-												 });
+					@SuppressWarnings("unchecked")
+					List<Map<String, Object>> itemList = (List<Map<String, Object>>) searchResults.get("list");
+					if (itemList != null && !itemList.isEmpty()) {
+						List<Future<Map<String, Object>>> futures = itemList.stream().map(searchDataMap -> executorService.submit(() -> {
+							String[] isbnArr = String.valueOf(searchDataMap.get("isbn")).split(" ");
+
+							for (String isbn : isbnArr) {
+								searchDataMap.put("isbn" + isbn.length(), isbn);
+								ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+
+								if (!code.getStatus()) {
+									searchDataMap.put("already" + isbn.length(), true);
+									searchDataMap.put("errorMessage", code.getMessage());
+								}
 							}
-						});
-						
+							return searchDataMap;
+						})).collect(Collectors.toList());
+
+						itemList = futures.stream().map(future -> {
+							try {
+								return future.get();
+							} catch (InterruptedException | ExecutionException e) {
+								e.printStackTrace();
+								return null;
+							}
+						}).filter(Objects::nonNull).collect(Collectors.toList());
+
+						searchResults.put("list", itemList);
 						service.setPaging(model, totalCount, librarySearch);
-						model.addAttribute("kakaoResult", map);
+						model.addAttribute("kakaoResult", searchResults);
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				model.addAttribute("kakaoResult", map);
+			} finally {
+				executorService.shutdown();
 			}
 		}
-		
+
 		return String.format(basePath, homepage.getFolder()) + "hope/search_ajax";
 	}
 
