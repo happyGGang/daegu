@@ -20,7 +20,7 @@ public class BookExcelView {
         String type = book.getType();
         String typeName = getTypeName(type);
         String countName = "EBK".equals(type) ? "대출횟수" : "이용횟수";
-        String fileName = typeName + "_목록_" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".xlsx";
+        String fileName = type + "_List_" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".xlsx";
 
         setResponseHeader(request, response, fileName);
 

@@ -59,10 +59,9 @@ $(function() {
 	});
 	
 	$('a#excelDownload').on('click', function(e) {
-		if(${fn:length(bookList)} > 0) {
+		if('${fn:length(bookList)}' > 0) {
 			$('#hidden_sortField').val($('#sortField').val());
-			$('#hiddenForm').attr('action', 'excelDownload.do').submit();
-			$('#hiddenForm').attr('action', 'save.do');
+			$('#excelDownForm').submit();
 		} else {
 			alert('해당 내역이 없습니다.');
 		}
@@ -70,7 +69,7 @@ $(function() {
 	});
 	
 	$('a#csvDownload').on('click', function(e) {
-		if(${fn:length(bookList)} > 0) {
+		if('${fn:length(bookList)}' > 0) {
 			$('#hidden_sortField').val($('#sortField').val());
 			$('#hiddenForm').attr('action', 'csvDownload.do').submit();
 			$('#hiddenForm').attr('action', 'save.do');
@@ -106,6 +105,17 @@ function submit(e) {
 <form:hidden path="type" id="hiddenForm_type"/>
 <form:hidden path="sortField" id="hidden_sortField"/>
 </form:form>
+
+<form:form id="excelDownForm" modelAttribute="book" action="excelDownload.do">
+	<form:hidden path="editMode" value="DELETE"/>
+	<form:hidden path="homepage_id"/>
+	<form:hidden path="book_idx" />
+	<form:hidden path="type"/>
+	<form:hidden path="com_code"/>
+	<form:hidden path="cate_id"/>
+	<form:hidden path="sortField"/>
+</form:form>
+
 <form:form id="bookListForm"  modelAttribute="book" action="index.do" >
 <c:if test="${!member.admin}">
 	<form:hidden id="homepage_id_1" path="homepage_id"/>
