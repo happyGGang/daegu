@@ -355,7 +355,11 @@ function resveReq(bookkey, booktype, editMode) {
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">
 	<form:hidden path="menu_idx"/>
-	<form:hidden path="viewPage"/>	
+	<form:hidden path="viewPage"/>
+	<%--동부도서관 자료실	--%>
+	<c:if test="${homepage.context_path eq 'dongbu'}">
+		<form:hidden path="shelfCodes" value ="AH64"/>
+	</c:if>
 
 	<c:if test="${not empty param.startpoint}">
 		<form:hidden path="startpoint"/>
