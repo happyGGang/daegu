@@ -84,6 +84,11 @@ function doOutFocus() {
 							<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 직원에게 문의</td>
 						</tr>
 					</c:when>
+					<c:when test="${detail.SHELF_LOC_CODE eq 'AJ45'}">
+						<tr>
+							<td colspan="2" style="font-size: 15px; font-weight: bold;font-family: 맑은 고딕;" class="first td1">&nbsp;&nbsp;→ 직원에게 문의</td>
+						</tr>
+					</c:when>
 
 					<c:when test="${detail.SHELF_LOC_CODE eq 'AD27'}">
 						<tr>
