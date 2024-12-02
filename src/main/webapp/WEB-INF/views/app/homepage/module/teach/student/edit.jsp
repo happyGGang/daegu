@@ -356,6 +356,17 @@ $(function() {
 					return false;
 				}
 				</c:if>
+				<c:if test="${teach.family_member_yn eq 'Y'}">
+				var family_member = $form.find('#family_member').val();
+				if (family_member == '') {
+					$form.find('#family_member').focus();
+					alert('가족 참여 구성원을 모두 기입해주세요.');
+					doubleSubmit = false;
+					return false;
+				}
+				</c:if>
+
+
 
 <%--				<c:if test="${teach.age_info_yn eq 'Y'}">--%>
 <%--				var student_age = $form.find('#student_age').val();--%>
@@ -513,7 +524,9 @@ $(function() {
 // 			if (doAjaxPost($form)) {
 // 				doGetLoad('/${homepage.context_path}/module/teach/index.do', 'group_idx='+$('input#group_idx').val()+'&menu_idx='+$('input#menu_idx').val());
 // 			}
-		});
+		}
+	)
+		;
 
 		$('.findPostCode').on('click', function (e) {
 			e.preventDefault();

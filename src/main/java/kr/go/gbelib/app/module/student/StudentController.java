@@ -234,9 +234,6 @@ public class StudentController extends BaseController {
     				ValidationUtils.rejectIfEmpty(result, "student_address", "수강생 주소를 입력하세요.");
 				}
 			}
-			if (StringUtils.equals(teachOne.getFamily_member_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "family_member", "가족 참여 구성원을 모두 기입해주세요.");
-			}
 
 			if (StringUtils.equals(teachOne.getFamily_count_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");
