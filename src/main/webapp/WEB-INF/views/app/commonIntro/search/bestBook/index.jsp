@@ -184,7 +184,7 @@ $(function() {
 							<form:radiobutton path="manageCode" value='FN' label="달성군청소년센터" /><br/>
 							<form:radiobutton path="manageCode" value='HG' label="다사읍작은도서관 " />
 						</c:when>
-						<c:when test="${homepagePath eq 'namdm' || context_path eq 'namic'}">
+						<c:when test="${homepagePath eq 'namdm' || homepagePath eq 'namic'}">
 							<form:radiobutton path="manageCode" value='BT' label="이천어울림도서관" /><br/>
 							<form:radiobutton path="manageCode" value='BS' label="대명어울림도서관" /><br/>
 							<form:radiobutton path="manageCode" value='FE' label="꿈틀작은도서관" />
