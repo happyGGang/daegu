@@ -235,11 +235,6 @@ public class StudentController extends BaseController {
 				}
 			}
 
-			if (StringUtils.equals(teachOne.getFamily_count_yn(), "Y")) {
-				ValidationUtils.rejectIfEmpty(result, "student_family_count", "가족인원수를 입력하세요");
-				ValidationUtils.rejectIfEmpty(result, "student_family_team", "가족구성원을 입력하세요");
-			}
-
 			if (StringUtils.equals(teachOne.getNeis_location_yn(), "Y")) {
 				ValidationUtils.rejectIfEmpty(result, "student_location_code", "나이스 지역코드를 입력하세요");
 			}
