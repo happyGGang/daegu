@@ -365,7 +365,7 @@ $(function() {
 					return false;
 				}
 				</c:if>
-				<c:if test="${teach.getFamily_count_yn eq 'Y'}">
+				<c:if test="${teach.family_count_yn eq 'Y'}">
 				var student_family_count = $form.find('#student_family_count').val();
 				if (student_family_count == '') {
 					$form.find('#student_family_count').focus();
@@ -837,10 +837,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						 &nbsp;&nbsp;- 프로그램 진행 시간 동안 참여자 대상 사진 및 사진 촬영, 인터뷰 요청 등<br>
 						 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
   						 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
-						<c:if test="${homepage.homepage_id eq 'h94'}">
+						<c:if test="${homepage.homepage_id ne 'h94'}">
 							- 미동의하여도 수강신청에 제한이 없음
 						</c:if>
-						<c:if test="${homepage.homepage_id ne 'h94'}">
+						<c:if test="${homepage.homepage_id eq 'h94'}">
 							- 미동의 시 행사 참여가 제한됨
 						</c:if>
 					</div>
@@ -1093,10 +1093,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 						 &nbsp;&nbsp;- 모든 촬영은 프로그램 진행이나 활동에 전혀 영향을 주지 않는 선에서 진행<br>
   						 &nbsp;&nbsp;- 촬영된 사진, 영상물은 비상업적 용도로만 사용됨<br>
 						 &nbsp;&nbsp;
-						<c:if test="${homepage.homepage_id eq 'h94'}">
+						<c:if test="${homepage.homepage_id ne 'h94'}">
 							- 미동의하여도 수강신청에 제한이 없음
 						</c:if>
-						<c:if test="${homepage.homepage_id ne 'h94'}">
+						<c:if test="${homepage.homepage_id eq 'h94'}">
 							- 미동의 시 행사 참여가 제한됨
 						</c:if>
 					</div>
