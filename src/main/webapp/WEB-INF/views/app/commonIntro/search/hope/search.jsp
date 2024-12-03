@@ -38,7 +38,7 @@ $(document).ready(function() {
 		.done(function(response) {
 		})
 		.fail(function() {
-			alert('요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
+			alert('검색 내용이 없습니다');
 		})
 		.always(function() {
 			$('#loading').hide();

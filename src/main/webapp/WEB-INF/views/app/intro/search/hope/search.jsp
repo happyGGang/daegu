@@ -17,7 +17,14 @@ $(document).ready(function() {
 		e.preventDefault();
 		$('input#viewPage').val('1');
 		$('input#searchManageCode').val($('select#manageCode option:selected').val());
-		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
+		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize())
+		.done(function(response) {
+		})
+		.fail(function() {
+			alert('검색 내용이 없습니다');
+		})
+		.always(function() {
+		});
 	});
 
 	$('input#search_text_kakao').on('keyup', function(e) {
@@ -26,6 +33,20 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function doAjaxLoad(target, url, data) {
+	return $.ajax({
+		url: url,
+		type: 'POST',
+		data: data,
+		success: function(response) {
+			$(target).html(response);
+		},
+		error: function(xhr, status, error) {
+			// alert('검색 내용이 없습니다');
+		}
+	});
+}
 </script>
 <form:form modelAttribute="librarySearch" id="searchForm" action="search.do" onsubmit="return false;">
 <form:hidden path="isbn"/>
