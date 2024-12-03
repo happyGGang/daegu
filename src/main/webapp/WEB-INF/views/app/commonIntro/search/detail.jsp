@@ -1090,51 +1090,40 @@ $(function() {
 				</c:otherwise>
 			</c:choose>
 
-<%
-	Date today = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
-	String todays = sf.format(today);
-%>
-<c:set var="today" value="<%=todays %>" />
-
-	<c:choose>
-		<c:when test="${today < 20241202000000}">
 			<c:if test="${detail.LOAN_CODE eq 'OK'}">
-				<c:if test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA'}">
-					<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
-						<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18'}">
-							<c:choose>
-								<c:when test="${not empty nearbylibRejectMessage}">
-									<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-								</c:when>
-								<c:otherwise>
-									<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-								</c:otherwise>
-							</c:choose>
+				<c:choose>
+					<c:when test="${detail.MANAGE_CODE eq 'AH'}">
+						<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+							<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18' and detail.SHELF_LOC_CODE eq 'AH64'}">
+								<c:choose>
+									<c:when test="${not empty nearbylibRejectMessage}">
+										<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+									</c:when>
+									<c:otherwise>
+										<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
 						</c:if>
-					</c:if>
-				</c:if>
-			</c:if>
-		</c:when>
-		<c:otherwise>
-			<c:if test="${detail.LOAN_CODE eq 'OK'}">
-				<c:if test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA'}">
-					<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
-						<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18' and detail.SHELF_LOC_CODE eq 'AH64'}">
-							<c:choose>
-								<c:when test="${not empty nearbylibRejectMessage}">
-									<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-								</c:when>
-								<c:otherwise>
-									<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-								</c:otherwise>
-							</c:choose>
+					</c:when>
+					<c:otherwise>
+						<c:if test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA'}">
+							<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+								<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18'}">
+									<c:choose>
+										<c:when test="${not empty nearbylibRejectMessage}">
+											<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+										</c:when>
+										<c:otherwise>
+											<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+							</c:if>
 						</c:if>
-					</c:if>
-				</c:if>
+					</c:otherwise>
+				</c:choose>
 			</c:if>
-		</c:otherwise>
-	</c:choose>
 
 
 <c:if test="${homepage.context_path ne 'nearbylib'}">
