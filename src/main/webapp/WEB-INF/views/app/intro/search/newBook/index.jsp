@@ -233,7 +233,8 @@ $(function() {
 				<c:when test="${context_path eq 'namdm' || context_path eq 'namic'}">
 					<form:radiobutton path="manageCode" value='BT' label="이천어울림도서관" /><br/>
 					<form:radiobutton path="manageCode" value='BS' label="대명어울림도서관" /><br/>
-					<form:radiobutton path="manageCode" value='FE' label="꿈틀작은도서관" />
+					<form:radiobutton path="manageCode" value='FE' label="꿈틀작은도서관" /><br/>
+					<form:radiobutton path="manageCode" value='HV' label="다문화어린이도서관모두" />
 				</c:when>
 				<c:when test="${context_path eq 'dalseolib'}">
 					<form:radiobutton path="manageCode" value='BW' label="도원도서관" /><br/>
