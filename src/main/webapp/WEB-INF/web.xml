@@ -30,6 +30,25 @@
 		</init-param>
 	</filter>
 
+	<filter>
+		<filter-name>CookieAttributeFilter</filter-name>
+		<filter-class>kr.co.whalesoft.framework.filter.CookieAttributeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CookieAttributeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>CSRFTokenAppenderFilter</filter-name>
+		<filter-class>kr.co.whalesoft.framework.filter.CSRFTokenAppenderFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CSRFTokenAppenderFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
    <filter>
 		<filter-name>xssEscapeServletFilter</filter-name>
 		<filter-class>com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter</filter-class>

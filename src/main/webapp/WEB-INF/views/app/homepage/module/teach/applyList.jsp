@@ -19,7 +19,15 @@ $(function(){
 			$('#teach #group_idx').val($(this).attr('keyValue1'));
 			$('#teach #category_idx').val($(this).attr('keyValue2'));
 			$('#teach #teach_idx').val($(this).attr('keyValue3'));
-			doGetLoad('/${homepage.context_path}/module/teach/detail.do', serializeCustom($('form#teach')));
+			var serializedData = $('form#teach')
+					.serializeArray()
+					.filter(function(field) {
+						return field.name !== 'csrfToken';
+					});
+
+			var queryString = $.param(serializedData);
+
+			doGetLoad('/${homepage.context_path}/module/teach/detail.do', queryString);
 		}
 		e.preventDefault();
 	});
