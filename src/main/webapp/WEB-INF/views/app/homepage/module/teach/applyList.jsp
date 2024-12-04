@@ -59,8 +59,15 @@ $(function(){
 			$('input#teach_idx').val($(this).attr('keyValue4'));
 			$('input#student_idx').val($(this).attr('keyValue5'));
 			$('input#editMode').val('MODIFY');
+			var serializedData = $('form#teach')
+					.serializeArray()
+					.filter(function(field) {
+						return field.name !== 'csrfToken';
+					});
 
-			doGetLoad('/${homepage.context_path}/module/teach/student/edit_mod.do', serializeCustom($('form#teach')));
+			var queryString = $.param(serializedData);
+
+			doGetLoad('/${homepage.context_path}/module/teach/student/edit_mod.do', queryString);
 		}
 	});
 	
