@@ -161,6 +161,12 @@ function doOutFocus() {
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 맑은 고딕" class="first td1">저　　자 : </td>
 				    <td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.AUTHOR}</td>
 				</tr>
+				<c:if test="${context_path eq 'suseong'}">
+					<tr>
+						<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 맑은 고딕" class="first td1"><span style="letter-spacing:7px;">출판</span>사 : </td>
+						<td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.PUBLISHER}</td>
+					</tr>
+				</c:if>
 				<tr>
 					<td style="font-size: 14px; text-align: justify; font-weight: bold;font-family: 맑은 고딕;" class="first td1"><span style="letter-spacing:7px;">자료</span>실 : </td>
 				    <td style="font-size: 14px; font-weight: bold;font-family: 맑은 고딕 " class="last td2">${detail.SHELF_LOC_NAME}</td>
