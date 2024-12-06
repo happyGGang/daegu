@@ -316,7 +316,7 @@
 
 				</div>
 
-				<div class="movie">
+				<div class="movie" style="display:none;">
 					<div class="title">
 						<h3>이달의 영화 상영</h3>
 						<a class="more-btn more-more" href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=121">더보기</a>

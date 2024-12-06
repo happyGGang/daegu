@@ -215,7 +215,7 @@
 .movie .movieContent .movieEx {display:inline-block;width:49%;text-align:left;}
 
 
-.quickLink {float:right;position:relative;width:25%;margin:0;}
+.quickLink {float:right;position:relative;width:50%;margin:0;}
 .quickLink ul {}
 .quickLink ul li { margin-top:6px; }
 .quickLink ul li:first-child { margin-top: 0; }
@@ -251,7 +251,7 @@
 
 	.movie {width:25%;padding-left:2%;box-sizing:border-box;}
 	.movie .movieContent .bx-controls {position:absolute;top:0;left:190px;z-index:150000000;}
-	.quickLink {width:25%;padding-right:2%;box-sizing:border-box;}
+	.quickLink {width:50%;padding-right:2%;box-sizing:border-box;}
 }
 
 @media all and (max-width:1140px){
@@ -262,7 +262,7 @@
 
 	.main4 {width:100%}
 	.movie {width:50%;padding-left:2%;margin-top:15px;box-sizing:border-box;}
-	.quickLink {width:50%;padding-right:2%;margin-top:15px;box-sizing:border-box;}
+	.quickLink {width:100%;padding:0 2%;margin-top:15px;box-sizing:border-box;}
 }
 
 @media all and (max-width:1000px){
@@ -378,7 +378,7 @@
 
 @media all and (max-width:550px){
 	.movie {width:96%;padding:2%}
-	.quickLink {float:left;width:98%;padding-left:2%;padding-right:2%}
+	.quickLink {float:left;width:100%;padding-left:2%;padding-right:2%}
 }
 
 @media all and (max-width:520px){
