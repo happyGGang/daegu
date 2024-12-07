@@ -293,10 +293,62 @@
 
 		$('#checkAllGulip').change(function(e) {
 			$('div#libraryList .gulipAll input:checkbox').prop('checked', $(this).prop('checked'));
+			$('#checkGulipDonggu, #checkGulipSeogu, #checkGulipNamgu, #checkGulipBukgu, #checkGulipJunggu, #checkGulipSuseonggu, #checkGulipDalseogu, #checkGulipDalseong').prop('checked', $(this).prop('checked'));
 		});
 
 		$('#checkAllGulipSmall').change(function(e) {
 			$('div#libraryList .gulipSmallAll input:checkbox').prop('checked', $(this).prop('checked'));
+			$('#checkGulipSmallDonggu, #checkGulipSmallSeogu, #checkGulipSmallNamgu, #checkGulipSmallBukgu, #checkGulipSmallJunggu, #checkGulipSmallSuseonggu, #checkGulipSmallDalseogu, #checkGulipSmallDalseong').prop('checked', $(this).prop('checked'));
+		});
+		<%--군립도서관 구분--%>
+		$('#checkGulipDonggu').change(function (e) {
+			$('div.gulipAll input.lib_CA, div.gulipAll input.lib_CB').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSeogu').change(function (e) {
+			$('div.gulipAll input.lib_BL, div.gulipAll input.lib_BQ, div.gulipAll input.lib_BP, div.gulipAll input.lib_BM, div.gulipAll input.lib_BN, div.gulipAll input.lib_CC, div.gulipAll input.lib_HT').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipNamgu').change(function (e) {
+			$('div.gulipAll input.lib_BT, div.gulipAll input.lib_BS').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipBukgu').change(function (e) {
+			$('div.gulipAll input.lib_BA, div.gulipAll input.lib_BB, div.gulipAll input.lib_BC').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipJunggu').change(function (e) {
+			$('div.gulipAll input.lib_FS').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSuseonggu').change(function (e) {
+			$('div.gulipAll input.lib_BD, div.gulipAll input.lib_BE, div.gulipAll input.lib_BF, div.gulipAll input.lib_BG, div.gulipAll input.lib_BH, div.gulipAll input.lib_BJ, div.gulipAll input.lib_BK, div.gulipAll input.lib_HR, div.gulipAll input.lib_HS').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipDalseogu').change(function (e) {
+			$('div.gulipAll input.lib_BU, div.gulipAll input.lib_BV, div.gulipAll input.lib_BW, div.gulipAll input.lib_BX, div.gulipAll input.lib_BY, div.gulipAll input.lib_BZ').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipDalseong').change(function (e) {
+			$('div.gulipAll input.lib_BR').prop('checked', $(this).prop('checked'));
+		});
+		<%--구군립 작은 구분--%>
+		$('#checkGulipSmallDonggu').change(function (e) {
+			$('div.gulipSmallAll input.lib_GR, div.gulipSmallAll input.lib_GS, div.gulipSmallAll input.lib_HJ, div.gulipSmallAll input.lib_FK, div.gulipSmallAll input.lib_GT, div.gulipSmallAll input.lib_FP, div.gulipSmallAll input.lib_FL, div.gulipSmallAll input.lib_GU, div.gulipSmallAll input.lib_GV, div.gulipSmallAll input.lib_GW, div.gulipSmallAll input.lib_GX, div.gulipSmallAll input.lib_GY, div.gulipSmallAll input.lib_FM, div.gulipSmallAll input.lib_HK, div.gulipSmallAll input.lib_HM, div.gulipSmallAll input.lib_HN, div.gulipSmallAll input.lib_HP').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallSeogu').change(function (e) {
+			$('div.gulipSmallAll input.lib_GQ, div.gulipSmallAll input.lib_FU, div.gulipSmallAll input.lib_FZ, div.gulipSmallAll input.lib_FH, div.gulipSmallAll input.lib_FT, div.gulipSmallAll input.lib_HC').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallNamgu').change(function (e) {
+			$('div.gulipSmallAll input.lib_FE').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallBukgu').change(function (e) {
+			$('div.gulipSmallAll input.lib_GL, div.gulipSmallAll input.lib_GM, div.gulipSmallAll input.lib_GN, div.gulipSmallAll input.lib_HB, div.gulipSmallAll input.lib_HD, div.gulipSmallAll input.lib_HE').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallJunggu').change(function (e) {
+			$('div.gulipSmallAll input.lib_FF, div.gulipSmallAll input.lib_FQ, div.gulipSmallAll input.lib_FY, div.gulipSmallAll input.lib_GG, div.gulipSmallAll input.lib_HA, div.gulipSmallAll input.lib_HF').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallSuseonggu').change(function (e) {
+			$('div.gulipSmallAll input.lib_FG').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallDalseogu').change(function (e) {
+			$('div.gulipSmallAll input.lib_FA, div.gulipSmallAll input.lib_FB, div.gulipSmallAll input.lib_FC, div.gulipSmallAll input.lib_FD, div.gulipSmallAll input.lib_FX, div.gulipSmallAll input.lib_GK').prop('checked', $(this).prop('checked'));
+		});
+		$('#checkGulipSmallDalseong').change(function (e) {
+			$('div.gulipSmallAll input.lib_GA, div.gulipSmallAll input.lib_GB, div.gulipSmallAll input.lib_HG, div.gulipSmallAll input.lib_GD, div.gulipSmallAll input.lib_GF, div.gulipSmallAll input.lib_GH, div.gulipSmallAll input.lib_FR, div.gulipSmallAll input.lib_GE, div.gulipSmallAll input.lib_GC, div.gulipSmallAll input.lib_FN, div.gulipSmallAll input.lib_FJ').prop('checked', $(this).prop('checked'));
 		});
 
 
@@ -638,6 +690,12 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AM" value="AM" label="대구광역시교육청 삼국유사군위도서관" />
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_FV" value="FV" label="시청작은도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AK" value="AK" label="학생문화센터" />
+							</li>
 						</ul>
 					</div>
 					<div class="end"></div>
@@ -649,6 +707,14 @@
 					</div>
 					<div>
 						<input id="checkAllGulip" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkAllGulip">구립전체</label>
+						<input id="checkGulipDonggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipDonggu">동구</label>
+						<input id="checkGulipSeogu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSeogu">서구</label>
+						<input id="checkGulipNamgu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipNamgu">남구</label>
+						<input id="checkGulipBukgu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipBukgu">북구</label>
+						<input id="checkGulipJunggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipJunggu">중구</label>
+						<input id="checkGulipSuseonggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSuseonggu">수성구</label>
+						<input id="checkGulipDalseogu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipDalseogu">달서구</label>
+						<input id="checkGulipDalseong" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipDalseong">달성군</label>
 					</div>
 					<div class='gulipAll'>
 						<ul>
@@ -755,6 +821,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_CC" value="CC" label="New평리도서관" />
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HT" value="HT" label="서구어린이영어도서관" />
+							</li>
 
 
 						</ul>
@@ -768,6 +837,14 @@
 					</div>
 					<div>
 						<input id="checkAllGulipSmall" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkAllGulipSmall">구립작은전체</label>
+						<input id="checkGulipSmallDonggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallDonggu">동구</label>
+						<input id="checkGulipSmallSeogu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallSeogu">서구</label>
+						<input id="checkGulipSmallNamgu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallNamgu">남구</label>
+						<input id="checkGulipSmallBukgu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallBukgu">북구</label>
+						<input id="checkGulipSmallJunggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallJunggu">중구</label>
+						<input id="checkGulipSmallSuseonggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallSuseonggu">수성구</label>
+						<input id="checkGulipSmallDalseogu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallDalseogu">달서구</label>
+						<input id="checkGulipSmallDalseong" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallDalseong">달성군</label>
 					</div>
 					<div class='gulipSmallAll'>
 						<ul>
@@ -826,9 +903,6 @@
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_HP" value="HP" label="율하5주민작은도서관" />
-							</li>
-							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_HQ" value="HQ" label="방촌어린이작은도서관" />
 							</li>
 
 
@@ -906,9 +980,7 @@
 							</li>
 
 
-							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_FV" value="FV" label="시청작은도서관" />
-							</li>
+
 
 
 
@@ -941,9 +1013,7 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_GK" value="GK" label="학산작은도서관" />
 							</li>
-							<li>
-								<form:checkbox path="libraryCodes" class="libCheck lib_AK" value="AK" label="학생문화센터" />
-							</li>
+
 
 
 
