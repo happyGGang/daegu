@@ -143,7 +143,7 @@
 									</a>
 								</li>
 								<li class="bg-lgray">
-									<a href="https://library.daegu.go.kr/228/html.do?menu_idx=114">
+									<a href="https://library.daegu.go.kr/228/html.do?menu_idx=223">
 									<span class="wt" style="letter-spacing:-2px;font-size:120%;">스마트도서관</span>
 									<span class="wc">도서관을 스마트하게<br/>이용해보세요.</span>
 									<img src="/resources/homepage/${homepage.context_path}/img/quick05-bg.png" class="mi">
