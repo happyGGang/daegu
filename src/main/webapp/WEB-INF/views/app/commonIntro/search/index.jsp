@@ -82,6 +82,7 @@ $(function() {
 		$('form#neighborhoodLibrary input[name=lib_name]').val($(this).attr('lib_name'));
 		$('form#neighborhoodLibrary input[name=call_no]').val($(this).attr('call_no'));
 		$('form#neighborhoodLibrary input[name=author]').val($(this).attr('author'));
+		$('form#neighborhoodLibrary input[name=shelf_loc_name]').val($(this).attr('shelf_loc_name'));
 		$('form#neighborhoodLibrary').submit();
 	});
 
@@ -2023,7 +2024,7 @@ function isFromFridayToSunday() {
 																				<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
 																			</c:when>
 																			<c:otherwise>
-																				<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
+																				<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}" shelf_loc_name="${i.SHELF_LOC_NAME}">내 집 앞 도서관 예약</a>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
@@ -2040,7 +2041,7 @@ function isFromFridayToSunday() {
 																					<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
 																				</c:when>
 																				<c:otherwise>
-																					<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
+																					<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}" shelf_loc_name="${i.SHELF_LOC_NAME}">내 집 앞 도서관 예약</a>
 																				</c:otherwise>
 																			</c:choose>
 																		</c:if>
