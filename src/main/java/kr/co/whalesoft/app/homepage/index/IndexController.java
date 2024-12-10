@@ -2618,7 +2618,7 @@ public class IndexController extends BaseController {
 		setBoardListToModel(homepage.getHomepage_id(), model);
 		
 		//국보도서관 강좌
-		if (homepage.getHomepage_id().equals("h10")) {
+		if (homepage.getHomepage_id().equals("h10") || homepage.getHomepage_id().equals("h100")) {
 			Teach t = new Teach();
 			t.setHomepage_id(homepage.getHomepage_id());
 			//t.setSearchCate1("16");
