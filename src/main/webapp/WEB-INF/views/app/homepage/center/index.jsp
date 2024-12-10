@@ -158,6 +158,9 @@
     });
 </script>
 
+<tiles:insertAttribute name="top" />
+<tiles:insertAttribute name="topMenu" />
+
 <div id="fullpage">
     <section class="section" id="section1">
         <div class="main_cation">시간과 공간을 넘어 새로운 상상력을 이어가는 곳</div>

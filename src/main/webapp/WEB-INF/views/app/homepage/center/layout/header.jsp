@@ -1,45 +1,76 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>${homepage.homepage_name}<c:if test="${not empty menuOne.menu_name}"> > </c:if>${menuOne.menu_full_path_name }</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.23/fullpage.min.css" />
-	<link href="/resources/homepage/center/css/reset.css" rel="stylesheet" type="text/css" />
-	<link href="/resources/homepage/center/css/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/fullpage.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/header.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/section1.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/section2.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/section3.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/section4.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/footer.css" />
-	<link rel="stylesheet" href="/resources/homepage/center/css/sub.css" />
-	<script src="/resources/homepage/center/plugin/jquery-3.7.1.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.23/fullpage.min.js"></script>
-	<script src="/resources/homepage/center/plugin/swiper-bundle.min.js"></script>
-	<script src="/resources/homepage/center/js/fullpage.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/header.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/section1.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/section2.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/section3.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/section4.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/footer.js" type="text/javascript"></script>
-	<script src="/resources/homepage/center/js/sub.js" type="text/javascript"></script>
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="${homepage.homepage_name}"/>
+<meta property="og:description" content="${homepage.homepage_name}"/>
+<meta property="og:url" content="${homepage.domain}/${homepage.context_path}/index.do"/>
+<link rel="canonical" href="${homepage.domain}/${homepage.context_path}/index.do">
+<title>${homepage.homepage_name}<c:if test="${not empty menuOne.menu_name}"> > </c:if>${menuOne.menu_full_path_name }</title>
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<![endif]-->
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
+<%--<link rel="stylesheet" type="text/css" href="/resources/common/css/default_new_fullpage.css"/>--%>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/common_toppopzone.css"/>
+    <link href="/resources/homepage/center/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="/resources/homepage/center/css/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/resources/homepage/center/css/fullpage.css" />
+    <link rel="stylesheet" href="/resources/homepage/center/css/section1.css" />
+    <link rel="stylesheet" href="/resources/homepage/center/css/section2.css" />
+    <link rel="stylesheet" href="/resources/homepage/center/css/section3.css" />
+    <link rel="stylesheet" href="/resources/homepage/center/css/section4.css" />
+<%--    <link rel="stylesheet" href="/resources/homepage/center/css/header.css" /> <!-- 여기 문제있음 > 수정해야함 -->--%>
+    <link rel="stylesheet" href="/resources/homepage/center/css/footer.css" />
+    <link rel="stylesheet" href="/resources/homepage/center/css/sub.css" />
+
+    <script src="/resources/homepage/center/plugin/jquery-3.7.1.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.23/fullpage.min.js"></script>
+    <script src="/resources/homepage/center/plugin/swiper-bundle.min.js"></script>
+    <script src="/resources/homepage/center/js/fullpage.js" type="text/javascript"></script>
+<%--    <script src="/resources/homepage/center/js/header.js" type="text/javascript"></script>--%>
+    <script src="/resources/homepage/center/js/section1.js" type="text/javascript"></script>
+    <script src="/resources/homepage/center/js/section2.js" type="text/javascript"></script>
+    <script src="/resources/homepage/center/js/section3.js" type="text/javascript"></script>
+    <script src="/resources/homepage/center/js/section4.js" type="text/javascript"></script>
+    <script src="/resources/homepage/center/js/footer.js" type="text/javascript"></script>
+    <script src="/resources/homepage/center/js/sub.js" type="text/javascript"></script>
+
+<%--<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css"/>--%>
+<%--<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css"/>--%>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default_new_fullpage.css"/>
+<%--<!--link rel="stylesheet" type="text/css" href="/resources/common/css/sub_contents.css"-->--%>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/sub_design_new.css"/>
+<!--[if lte IE 7]>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
+<![endif]-->
+<!--[if lte IE 8]>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/jungang/css/ie.css"/>
+<![endif]-->
+<script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/default-new-fullpage.js"></script>
+<%--<script type="text/javascript" src="/resources/common/js/common.js"></script>--%>
+<script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
+
+<script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
+<script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 </head>
 <body>
-	<header class="header">
-		<h1 aria-label="대구혁신도시 복합혁신센터도서관" onclick="location.href='/${homepage.context_path}/index.do'"></h1>
-		<homepageTag:topMenu menuList="${menuTreeList}" />
-		<ul class="authentication">
-			<li>로그인</li>
-			<li>통합회원인증</li>
-			<li>회원가입</li>
-			<li aria-label="메뉴 더보기"></li>
-		</ul>
-	</header>
+<a href="#container" class="skip-to">본문 바로가기</a>
+<a href="#navi" class="skip-to">메뉴 바로가기</a>
