@@ -149,7 +149,7 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 #mapWrap a:hover {}
 
 /* 도서검색 선택 */
-#libraryList {border:1px solid #dadada;padding:30px 0 30px 25px;box-sizing:border-box;}
+#libraryList {border:1px solid #dadada;padding:30px 25px;box-sizing:border-box;}
 #libraryList div.title {position:relative;margin-top:20px;box-sizing:border-box;}
 #libraryList h5 {background: url('/resources/common/img/blt_01.gif') no-repeat 0px 6px;display:block;padding:0 0 5px 25px;font-size:17px;font-weight:bold;}
 #libraryList .boxviewbtn {position:absolute;right:50px;top:0;padding-top:3px;padding-bottom:3px}
@@ -157,6 +157,7 @@ div.main-menu div.right {font-size:18px;font-weight:bold;color:#6C6C6C;vertical-
 #libraryList input,
 #libraryList label {color:#222;font-size:14px;vertical-align:middle;cursor:pointer;letter-spacing:-1.5px;}
 #libraryList li {display:inline-block;zoom:1;*display:inline;float:left;width:25%;padding:3px 0;box-sizing:border-box;letter-spacing:-1.5px;}
+#libraryList hr.line {margin: 18px auto; display: block; float: left; box-sizing: border-box;}
 
 
 /* 211231 키워드 height 추가 */

@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.10.31. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.11.30. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -89,17 +89,17 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>1,860</td>
-								<td>1,374</td>
-								<td>635</td>
-								<td>4,190</td>
-								<td>3,254</td>
-								<td>1,711</td>
-								<td>1,027</td>
-								<td>1,955</td>
-								<td>16,924</td>
-								<td>3,475</td>
-								<td>36,405</td>
+								<td>1,862</td>
+								<td>1,379</td>
+								<td>636</td>
+								<td>4,218</td>
+								<td>3,258</td>
+								<td>1,725</td>
+								<td>1,030</td>
+								<td>1,958</td>
+								<td>16,978</td>
+								<td>3,478</td>
+								<td>36,522</td>
 							</tr>
 							<tr>
 								<th>비율</th>
@@ -118,7 +118,7 @@
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.10.31. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.11.30. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -148,27 +148,27 @@
 						<tbody>
 							<tr>
 								<th>권수</th>
-								<td>16,379</td>
-								<td>4,763</td>
-								<td>11,038</td>
+								<td>16,416</td>
+								<td>4,768</td>
+								<td>11,113</td>
 								<td>70</td>
 								<td>4,155</td>
-								<td>36,405</td>
+								<td>36,522</td>
 							</tr>
 							<tr>
 								<th>비율</th>
-									<td>45.0</td>
-									<td>13.1</td>
-									<td>30.3</td>
-									<td>0.2</td>
-									<td>11.4</td>
-									<td>100</td>
+								<td>44.9</td>
+								<td>13.1</td>
+								<td>30.4</td>
+								<td>0.2</td>
+								<td>11.4</td>
+								<td>100</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<p>보존서고: 4,400권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.10.31. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.11.30. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="물망이도서관 간행물 현황을 나타내는 표">
