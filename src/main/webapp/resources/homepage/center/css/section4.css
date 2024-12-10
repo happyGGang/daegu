@@ -54,6 +54,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem
 }
 
 .calendar_navigation div {
@@ -64,19 +65,117 @@
   line-height: normal;
 }
 
-.calendar_navigation img:first-child {
+.calendar_navigation #before-btn img {
   width: 0.875rem;
   height: 0.875rem;
   margin-right: 2.5rem;
   cursor: pointer;
 }
 
-.calendar_navigation img:last-child {
+.calendar_navigation #next-btn img {
   width: 0.875rem;
   height: 0.875rem;
   cursor: pointer;
   transform: rotate(180deg);
   margin-left: 2.5rem;
+}
+
+/* 캘린더 커스텀 */
+.cal-tbl {
+	height: 21rem;
+	width:  100%;
+	padding: 0 2.31rem 0 2.31rem;
+}
+
+.cal-tbl thead {
+	margin-bottom: 1rem;
+}
+
+.cal-tbl thead tr {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+
+.cal-tbl thead tr th {
+	width: 2.5rem;
+	height: 2.5rem;
+	color: #2D2D2D;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cal-tbl tbody {
+	display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+}
+
+.cal-tbl tbody tr {
+	display: flex;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+
+.cal-tbl tbody tr td {
+	width: 2.5rem;
+	height: 2.5rem;
+	color: #717171;
+	font-size: 1rem;
+	font-weight: 700;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.calendar_caption_area {
+	display: flex;
+	gap: 0.81rem;
+	margin-top:  1rem;
+	margin-left: 3rem;
+}
+
+.library_holiday, .library_event_day {
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.library_holiday div:first-child {
+	width: 0.5rem;
+	height: 0.5rem;
+	background: #EC4746;
+	border-radius: 50%;
+}
+
+.library_holiday div:last-child {
+	color: #2D2D2D;
+	font-size: 0.9375rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+}
+
+
+.library_event_day div:first-child {
+	width: 0.5rem;
+	height: 0.5rem;
+	background: #0969DA;
+	border-radius: 50%;
+}
+
+.library_event_day div:last-child {
+	color: #2D2D2D;
+	font-size: 0.9375rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
 
 .calendar_swiper {

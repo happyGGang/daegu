@@ -16,6 +16,8 @@
 
 .badge_swiper .swiper-slide {
   background: #FFF;
+  width: 10rem !important;
+  height: 3rem !important;
 }
 
 .badge_swiper .swiper-slide img {

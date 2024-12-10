@@ -48,9 +48,8 @@
 </script>
 
 <c:if test="${empty closeDayList.dd}">
-	<div class="close_day">휴관일</div>
 	<div class="week_navigation">
-		<div class="date">등록된 휴관일이 없습니다.</div>
+		<div class="date" style='font-weight: 400 !important'>등록된 휴관일이 없습니다.</div>
 	</div>
 	<ul class="week_area">
 	</ul>

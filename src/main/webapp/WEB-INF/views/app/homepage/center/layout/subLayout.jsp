@@ -48,36 +48,12 @@ $(function() {
     </div>
 
     <div class="content_area">
-        <homepageTag:leftSubMenu menuList="${menuLeftList}"/>
-
-        <%--<ul class="sub_menu_list_box">
-            <li class="sub_menu_list_item"><div>인사말</div></li>
-            <li class="sub_menu_list_item sub_menu_list_item_active"><div>연혁</div></li>
-            <li class="sub_menu_list_item"><div>조직 및 직원현황</div></li>
-            <li class="sub_menu_list_item">
-            <div>강습안내</div>
-            <img src="/resources/homepage/center/img/sub_menu_drop.svg" alt="" />
-            </li>
-            <li class="sub_mini_menu_list">
-                <div class="sub_mini_menu_list_item">
-                    <div></div>
-                    <div class="sub_mini_menu_title">수영</div>
-                </div>
-                <div class="sub_mini_menu_list_item">
-                    <div></div>
-                    <div class="sub_mini_menu_title">아쿠아로빅</div>
-                </div>
-                <div class="sub_mini_menu_list_item">
-                    <div class="sub_mini_menu_list_item_img_active"></div>
-                    <div class="sub_mini_menu_title sub_mini_menu_title_active">GX프로그램</div>
-                </div>
-            </li>
-        </ul>--%>
+        <homepageTag:leftMenu menuList="${menuLeftList}"/>
         <div class="content_wrapper">
             <div class="legend">
                 <a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/center/img/home.svg" alt="" /></a>
                 <img src="/resources/homepage/center/img/chevron_forward.svg" alt="" />
-                <homepageTag:contentWrapper oneMenu="${menuOne}" menuList="${menuLeftList}"/>
+                 <homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
             </div>
             <div class="content">
                 <tiles:insertAttribute name="body" />

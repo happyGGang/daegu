@@ -164,7 +164,7 @@
         <div class="main_title" aria-label="대구혁신도시복합센터도서관"></div>
 
         <form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-            <input type="hidden" name="menu_idx" value="13">
+            <input type="hidden" name="menu_idx" value="10">
             <input type="hidden" name="booktype" value="BOOKANDNONBOOK">
             <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
@@ -219,21 +219,28 @@
             <div class="indicator"></div>
         </div>
         <div class="information_area">
-            <div class="left_area" id="holiday-box">
-
-            </div>
+            <div class="left_area" id="holiday-box"></div>
             <div class="right_area">
                 <img src="/resources/homepage/center/img/stop.svg" alt="정지버튼" class="notice_autoplay" role="button" />
                 <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <c:forEach items="${newsList}" var="i" varStatus="status">
-                            <div class="swiper-slide" onclick="location.href='${i.link_url}'">${i.news_name}</div>
-                        </c:forEach>
-                    </div>
-                </div>
+					<div class="swiper-wrapper">
+						<c:if test="${not empty newsList}">
+							<c:forEach items="${newsList}" var="i">
+								<div 
+									class="swiper-slide" 
+									${not empty i.link_url ? "onclick=\"location.href='" + i.link_url + "'\"" : ""}>
+									<c:out value="${i.news_name}" default="제목 없음" />
+								</div>
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty newsList}">
+							<div class="swiper-slide">등록된 공지사항이 없습니다.</div>
+						</c:if>
+					</div>
+				</div>
             </div>
         </div>
-        <div class="scroll">
+        <div class="scroll_area">
             <div>SCROLL</div>
             <img src="/resources/homepage/center/img/scroll.svg" alt="" />
         </div>
@@ -257,7 +264,6 @@
                         <c:if test="${fn:length(noticeList) < 1}">
                             <li class="board_list_item">
                                 <div class="board_list_item_title">
-                                    <img src="/resources/homepage/center/img/new.svg" alt="" />
                                     <div>등록된 공지사항이 없습니다.</div>
                                 </div>
                                 <div class="board_list_item_date">
@@ -298,7 +304,6 @@
                         <c:if test="${fn:length(noticeList) < 1}">
                             <li class="board_list_item">
                                 <div class="board_list_item_title">
-                                    <img src="/resources/homepage/center/img/new.svg" alt="" />
                                     <div>등록된 행사가 없습니다.</div>
                                 </div>
                                 <div class="board_list_item_date">
@@ -339,7 +344,6 @@
                         <c:if test="${fn:length(teachList) < 1}">
                             <li class="board_list_item">
                                 <div class="board_list_item_title">
-                                    <img src="/resources/homepage/center/img/new.svg" alt="" />
                                     <div>등록된 강좌가 없습니다.</div>
                                 </div>
                                 <div class="board_list_item_date">
@@ -378,9 +382,9 @@
                                     </c:forEach>
                                 </c:when>
                                 <c:otherwise>
+								<!-- 팝업 예외 처리 -->
                                     <div class="swiper-slide">
-                                        <!-- TODO 팝업존 no data 처리 -->
-                                        <img src="/resources/homepage/center/img/dummy.svg" alt="" />
+                                        <img src="/resources/common/img/noImg2.png" alt="" />
                                     </div>
                                 </c:otherwise>
                             </c:choose>
@@ -417,11 +421,11 @@
                             <c:if test="${fn:length(bookList1) < 1}">
                                 <div class="swiper-slide">
                                     <div>
-                                        <div class="book_title"></div>
+                                        <div class="book_title">콘텐츠가 없습니다.</div>
                                         <div class="book_writer"></div>
-                                        <div class="book_year"></div>
+                                        <div class="book_year">최대한 빠른 시일 내에<br>업데이트하도록 하겠습니다.</div>
                                     </div>
-                                    <img src="/resources/common/img/noimg-gall.png" alt="" />
+                                    <img src="/resources/common/img/noImg2.png" alt="" />
                                 </div>
                             </c:if>
                             <c:forEach var="i" varStatus="status" items="${bookList1}">
@@ -437,42 +441,42 @@
                                                 <c:when test="${fn:contains(i.preview_img, 'http')}">
                                                     <c:choose>
                                                         <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                            <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+                                                            <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+                                                            <img src="${i.preview_img}" alt="${i.title}" title="${i.title}" />
                                                         </c:otherwise>
                                                     </c:choose>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+                                                    <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
                                                 </c:otherwise>
                                             </c:choose>
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'">
+                                            <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" >
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="swiper_action_wrapper">
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                        <img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
-                        <div class="progress_container">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
+                    <c:if test="${fn:length(bookList1) > 0}">
+						<div class="swiper_action_wrapper">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+							<img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
+							<div class="progress_container">
+								<div class="progress"></div>
+							</div>
+						</div>
+					</c:if>
                 </div>
                 <div class="book_list swiper">
                     <div class="swiper-wrapper">
                         <!-- TODO 사서추천도서 no data 처리 -->
                         <c:if test="${fn:length(bookList1) < 1}">
-                            <div class="swiper-slide">
-                                <img src="/resources/common/img/noimg-gall.png" alt="" />
-                            </div>
+                            <div></div>
                         </c:if>
                         <c:forEach var="i" varStatus="status" items="${bookList1}">
                             <div class="swiper-slide">
@@ -482,20 +486,20 @@
                                             <c:when test="${fn:contains(i.preview_img, 'http')}">
                                                 <c:choose>
                                                     <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                        <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+                                                        <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+                                                        <img src="${i.preview_img}" alt="${i.title}" title="${i.title}" />
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:when>
                                             <c:otherwise>
-                                                <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'"/>
+                                                <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
                                             </c:otherwise>
                                         </c:choose>
                                     </c:when>
                                     <c:otherwise>
-                                        <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onError="this.src='/resources/common/img/noimg-gall.png'">
+                                        <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" >
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -512,12 +516,14 @@
                         <div class="swiper-wrapper">
                             <c:if test="${fn:length(bestBookList) < 1}">
                                 <!-- TODO 인기도서 no data 처리 -->
-                                <div>
-                                    <div class="book_title"></div>
-                                    <div class="book_writer"></div>
-                                    <div class="book_year"></div>
+                                <div class="swiper-slide">
+                                    <div>
+                                        <div class="book_title">콘텐츠가 없습니다.</div>
+                                        <div class="book_writer"></div>
+                                        <div class="book_year">최대한 빠른 시일 내에<br>업데이트하도록 하겠습니다.</div>
+                                    </div>
+                                    <img src="/resources/common/img/noImg2.png" alt="" />
                                 </div>
-                                <img src="/resources/common/img/noImg2.png" alt="등록된 인기도서가 없습니다."/>
                             </c:if>
                             <c:forEach var="i" varStatus="status" items="${bestBookList}">
                                 <div class="swiper-slide">
@@ -541,21 +547,21 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="swiper_action_wrapper">
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                        <img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
-                        <div class="progress_container">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
+                    <c:if test="${fn:length(bookList1) > 0}">
+						<div class="swiper_action_wrapper">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+							<img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
+							<div class="progress_container">
+								<div class="progress"></div>
+							</div>
+						</div>
+					</c:if>
                 </div>
                 <div class="book_list swiper">
                     <div class="swiper-wrapper">
                         <c:if test="${fn:length(bestBookList) < 1}">
-                            <div class="swiper-slide">
-                                <img src="/resources/common/img/noImg2.png" alt="등록된 인기도서가 없습니다."/>
-                            </div>
+                            <div class="swiper-slide"></div>
                         </c:if>
                         <c:forEach var="i" varStatus="status" items="${bestBookList}">
                             <div class="swiper-slide">
@@ -584,12 +590,14 @@
                         <div class="swiper-wrapper">
                             <c:if test="${fn:length(newBookList) < 1}">
                                 <!-- TODO null처리 -->
-                                <div>
-                                    <div class="book_title"></div>
-                                    <div class="book_writer"></div>
-                                    <div class="book_year"></div>
+                                <div class="swiper-slide">
+                                    <div>
+                                        <div class="book_title">콘텐츠가 없습니다.</div>
+                                        <div class="book_writer"></div>
+                                        <div class="book_year">최대한 빠른 시일 내에<br>업데이트하도록 하겠습니다.</div>
+                                    </div>
+                                    <img src="/resources/common/img/noImg2.png" alt="" />
                                 </div>
-                                <img src="/resources/common/img/noImg2.png" alt="등록된 신착도서가 없습니다."/>
                             </c:if>
                             <c:forEach var="i" varStatus="status" items="${newBookList}">
                                 <div class="swiper-slide">
@@ -613,22 +621,22 @@
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="swiper_action_wrapper">
-                        <div class="swiper-button-prev"></div>
-                        <div class="swiper-button-next"></div>
-                        <img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
-                        <div class="progress_container">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
+                    <c:if test="${fn:length(bookList1) > 0}">
+						<div class="swiper_action_wrapper">
+							<div class="swiper-button-prev"></div>
+							<div class="swiper-button-next"></div>
+							<img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
+							<div class="progress_container">
+								<div class="progress"></div>
+							</div>
+						</div>
+					</c:if>
                 </div>
                 <div class="book_list swiper">
                     <div class="swiper-wrapper">
                         <!-- TODO null처리 -->
                         <c:if test="${fn:length(newBookList) < 1}">
-                            <div class="swiper-slide">
-                                <img src="/resources/common/img/noImg2.png" alt="등록된 신착도서가 없습니다."/>
-                            </div>
+                            <div class="swiper-slide"></div>
                         </c:if>
                         <c:forEach var="i" varStatus="status" items="${newBookList}">
                             <div class="swiper-slide">
@@ -657,11 +665,10 @@
 
             </div>
             <ul class="link_list">
-                <!-- TODO 링크 없는부분 메뉴 추가필요-->
                 <li>
                     <div class="link_text">
                         <div>스마트한 독서생활이 시작되는 곳</div>
-                        <div>스마트도서관</div>
+                        <div>대구전자도서관</div>
                     </div>
                     <img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
                 </li>

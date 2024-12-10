@@ -4,8 +4,8 @@ $(document).ready(function () {
 		speed: 900,
 		autoplay: true,
 		loop: true,
-		slidesPerView: 5,
-		spaceBetween: 60,
+		slidesPerView: 6,
+		spaceBetween: 16,
 		loopAddBlankSlides: true,
 		navigation: {
 			nextEl: '.badge_swiper .swiper-button-next',
@@ -14,16 +14,18 @@ $(document).ready(function () {
 		breakpoints: {
 			// 노트북 & 태블릿 가로: 1024px - 1279px
 			1024: {
-				slidesPerView: 5,
-				spaceBetween: 10,
+				slidesPerView: 6,
+					spaceBetween: 16,
 			},
 			// 태블릿 가로: 768px - 1023px
 			768: {
-				slidesPerView: 5,
+				slidesPerView: 6,
+					spaceBetween: 16,
 			},
 			// 모바일 가로 & 태블릿 세로: 480px - 767px
 			480: {
-				slidesPerView: 5,
+				slidesPerView: 6,
+					spaceBetween: 16,
 			},
 			// 모바일: -479px
 			0: {

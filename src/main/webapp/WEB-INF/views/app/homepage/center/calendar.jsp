@@ -87,7 +87,7 @@ Date.prototype.format = function(f) {
 
 
 <div class="calendar">
-	<div id="calendar_header">
+	<div id="calendar_header" class='calendar_header'>
 		<div>도서관 일정</div>
 		<img src="/resources/homepage/center/img/plus.svg" alt="" onclick="location.href='/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36'"/>
 	</div>
@@ -242,6 +242,16 @@ Date.prototype.format = function(f) {
 			</c:forEach>
 		</tbody>
 	</table>
+	<div class='calendar_caption_area'>
+		<div class='library_holiday'>
+			<div></div>
+			<div>휴관</div>
+		</div>
+		<div class='library_event_day'>
+			<div></div>
+			<div>행사</div>
+		</div>
+	</div>
 </div>
 
 <div class="planViewLayer">
@@ -288,10 +298,8 @@ Date.prototype.format = function(f) {
 				</c:forEach>
 				<c:if test="${fn:length(calendarResult2[idx]) < 1}">
 					<div class="swiper-slide">
-						<div class="day_badge"></div>
 						<div class="event">
-							<div>등록된 일정이</div>
-							<div>없습니다.</div>
+							<div>등록된 일정이 없습니다.</div>
 						</div>
 					</div>
 				</c:if>
