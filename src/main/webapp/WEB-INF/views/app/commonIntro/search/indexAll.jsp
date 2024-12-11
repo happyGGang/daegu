@@ -58,6 +58,7 @@
 			$('form#neighborhoodLibrary input[name=lib_name]').val($(this).attr('lib_name'));
 			$('form#neighborhoodLibrary input[name=call_no]').val($(this).attr('call_no'));
 			$('form#neighborhoodLibrary input[name=author]').val($(this).attr('author'));
+			$('form#neighborhoodLibrary input[name=shelf_loc_name]').val($(this).attr('shelf_loc_name'));
 			$('form#neighborhoodLibrary').submit();
 		});
 
@@ -498,29 +499,29 @@
 
 	<form id="neighborhoodLibrary" action="neighborhoodLibrary/edit.do" method="post">
 		<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}"/>
-		<input type="hidden" id="book_isbn" name="book_isbn" value="${param.isbn}"/>
-		<input type="hidden" id="reg_no" name="reg_no" value="${detail.REG_NO}"/>
-		<input type="hidden" id="shelf_loc_name" name="shelf_loc_name" value="${detail.SHELF_LOC_NAME}"/>
-		<input type="hidden" id="ctrl_no" name="ctrl_no" value="${fn:escapeXml(param.regNo)}"/>
-		<input type="hidden" id="return_plan_date" name="return_plan_date" value="${detail.RETURN_PLAN_DATE}"/>
-		<input type="hidden" id="call_no" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
-		<input type="hidden" id="img_url" name="img_url" value="${fn:escapeXml(detail.imageUrl)}"/>
-		<input type="hidden" id="manage_code" name="manage_code" value="${detail.MANAGE_CODE}"/>
-		<input type="hidden" id="lib_name" name="lib_name" value="${detail.LIB_NAME}"/>
-		<input type="hidden" id="publer" name="publer" value="${fn:escapeXml(param.booktype)}"/>
-		<input type="hidden" id="publisher" name="publisher" value="${detail.PUBLISHER}"/>
-		<input type="hidden" id="pub_year" name="pub_year" value="${detail.PUB_YEAR}"/>
-		<input type="hidden" id="media_name" name="media_name" value="${detail.MEDIA_NAME}"/>
-		<input type="hidden" id="media_code" name="media_code" value="${detail.MEDIA_CODE}"/>
-		<input type="hidden" id="price" name="price" value="${detail.PRICE}"/>
-		<input type="hidden" id="title_info" name="title_info" value="${detail.TITLE_INFO}"/>
-		<input type="hidden" id="author" name="author" value="${detail.AUTHOR}"/>
-		<input type="hidden" id="page" name="page" value="${detail.PAGE }"/>
-		<input type="hidden" id="book_size" name="book_size" value="${detail.BOOK_SIZE }">
-		<input type="hidden" id="book_key" name="book_key" value="${fn:escapeXml(detail.BOOK_KEY)}"/>
-		<input type="hidden" id="class_no" name="class_no" value="${detail.CLASS_NO}"/>
-		<input type="hidden" id="booktype" name="booktype" value="${fn:escapeXml(param.booktype)}"/>
-		<input type="hidden" id="appendix_info" name="appendix_info" value="${detail.APPENDIX_INFO}"/>
+		<input type="hidden" name="book_isbn" value="${param.isbn}"/>
+		<input type="hidden" name="reg_no" value="${detail.REG_NO}"/>
+		<input type="hidden" name="shelf_loc_name" value="${detail.SHELF_LOC_NAME}"/>
+		<input type="hidden" name="ctrl_no" value="${fn:escapeXml(param.regNo)}"/>
+		<input type="hidden" name="return_plan_date" value="${detail.RETURN_PLAN_DATE}"/>
+		<input type="hidden" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
+		<input type="hidden" name="img_url" value="${fn:escapeXml(detail.imageUrl)}"/>
+		<input type="hidden" name="manage_code" value="${detail.MANAGE_CODE}"/>
+		<input type="hidden" name="lib_name" value="${detail.LIB_NAME}"/>
+		<input type="hidden" name="publer" value="${fn:escapeXml(param.booktype)}"/>
+		<input type="hidden" name="publisher" value="${detail.PUBLISHER}"/>
+		<input type="hidden" name="pub_year" value="${detail.PUB_YEAR}"/>
+		<input type="hidden" name="media_name" value="${detail.MEDIA_NAME}"/>
+		<input type="hidden" name="media_code" value="${detail.MEDIA_CODE}"/>
+		<input type="hidden" name="price" value="${detail.PRICE}"/>
+		<input type="hidden" name="title_info" value="${detail.TITLE_INFO}"/>
+		<input type="hidden" name="author" value="${detail.AUTHOR}"/>
+		<input type="hidden" name="page" value="${detail.PAGE }"/>
+		<input type="hidden" name="book_size" value="${detail.BOOK_SIZE }">
+		<input type="hidden" name="book_key" value="${fn:escapeXml(detail.BOOK_KEY)}"/>
+		<input type="hidden" name="class_no" value="${detail.CLASS_NO}"/>
+		<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}"/>
+		<input type="hidden" name="appendix_info" value="${detail.APPENDIX_INFO}"/>
 	</form>
 
 <form id="direct" name="direct" action="http://152.99.21.156/DG/" method="post" target="_blank">
@@ -1495,7 +1496,7 @@
 																				<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')">내 집 앞 도서관 예약</a>
 																			</c:when>
 																			<c:otherwise>
-																				<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}">내 집 앞 도서관 예약</a>
+																				<a href="" class="btn btn1 neighborhoodLibrary-req" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}" title_info="${i.TITLE_INFO}" lib_name="${i.LIB_NAME}" call_no="${i.CALL_NO}" author="${i.AUTHOR}" shelf_loc_name="${i.SHELF_LOC_NAME}">내 집 앞 도서관 예약</a>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
