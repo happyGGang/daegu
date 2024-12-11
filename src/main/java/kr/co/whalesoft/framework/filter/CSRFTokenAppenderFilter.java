@@ -28,6 +28,15 @@ public class CSRFTokenAppenderFilter implements Filter {
             session.setAttribute(CSRF_TOKEN_SESSION_ATTRIBUTE, csrfToken);
         }
 
+        String requestURI = httpRequest.getRequestURI();
+
+        //독서퀴즈 csrf 필터제외
+        if (requestURI.equals("/cms/module/quiz/editQuestion.do")) {
+            chain.doFilter(request, response);
+            return;
+        }
+        System.out.println("Request URI: " + requestURI);
+
         CharResponseWrapper wrappedResponse = new CharResponseWrapper(httpResponse);
 
         chain.doFilter(request, wrappedResponse);

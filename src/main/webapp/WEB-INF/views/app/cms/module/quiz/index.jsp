@@ -106,12 +106,12 @@ $(function() {
 	}
 });
 </script>
-<form:form id="hiddenForm" modelAttribute="quiz" action="save.do">
+<form:form id="hiddenForm" modelAttribute="quiz" action="save.do" method="post">
 <form:hidden path="editMode" value="DELETE"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="quiz_idx"/>
 </form:form>
-<form:form id="quizListForm"  modelAttribute="quiz" action="index.do" >
+<form:form id="quizListForm"  modelAttribute="quiz" action="index.do" method="get">
 <form:hidden id="homepage_id_1" path="homepage_id"/>
 
 	<div class="infodesk">
