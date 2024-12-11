@@ -4,13 +4,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<style>
-	.kyobo_img2 li div{border:1px solid #ddd;text-align:center;padding:30px 0;margin:10px 0;}
-	.kyobo_img2 li div img{border:1px solid #e5e5e5;}
 
-	h5{font-size:17px;margin-top:25px;font-weight:600;color:#ca0464;}
-</style>
-
+<link rel="stylesheet" type="text/css" href="/resources/common/css/gudok_common.css">
 
 <div class="kyobo_bgbox bgbox">
 	<div class="lf-txt">

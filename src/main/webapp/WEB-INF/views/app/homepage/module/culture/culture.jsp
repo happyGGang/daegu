@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
+<link rel="stylesheet" type="text/css" href="/resources/common/css/module_culture.css">
+
 <script type="text/javascript">
   $(function() {
 	$('div#board_paging a').on('click', function (e) {
@@ -44,43 +46,6 @@
   });
 </script>
 
-<style>
-	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
-	.new_select_box.wid2{min-width:150px;}
-
-	.new_select_box.left2{left:210px;}
-	.new_select_box.left3{left:370px;}
-
-	input.new_text02{padding-left:650px;}
-	.search-form__input2{min-width:calc(100% - 650px);}
-	
-	@media screen and (max-width: 1024px) { 
-		input[type="text"]{font-size:15px;}
-		input[type="text"]::placeholder{font-size:15px;}
-
-		input.new_text02{padding-left:30px;margin-top:10px;height:50px !important;}
-		.search-form__input2{min-width:calc(97% - 30px);}
-
-		.new_select_box.wid2{min-width:30%;}
-
-		.new_select_box.left2{left:0;}
-		.new_select_box.left3{left:0;}
-
-		.nsb3{position:relative;top:0;left:0;min-width:30%;border:1px solid #ddd;border-radius:100px;height:50px;line-height:50px;padding:0 15px;}
-	}
-	
-	@media screen and (max-width: 768px) { 
-		.nsb3{min-width:33%;}
-	}
-	
-	@media screen and (max-width: 550px) { 
-		.new_select_box.wid2{min-width:100%;}
-		.nsb3{min-width:100%;margin-top:8px;}
-		.mt0{margin-top:0;}
-		.top2{top:190px;}
-	}
-</style>
 
 <form:form modelAttribute="culture" action="culture.do" method="GET">
 <form:hidden path="menu_idx"></form:hidden>

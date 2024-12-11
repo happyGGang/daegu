@@ -5,7 +5,7 @@
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<link rel="stylesheet" type="text/css" href="/resources/common/css/module_culture.css">
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
@@ -27,19 +27,6 @@
   });
 </script>
 
-<style>
-	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
-
-	input.new_text01{height:80px !important;}
-	
-	@media screen and (max-width: 1024px) { 
-		input[type="text"]{font-size:15px;}
-		input[type="text"]::placeholder{font-size:15px;}
-
-		input.new_text01{height:50px !important;}
-	}
-</style>
 
 <form:form modelAttribute="specializedServices" action="specializedServices.do" method="GET">
 	<form:hidden path="menu_idx"></form:hidden>

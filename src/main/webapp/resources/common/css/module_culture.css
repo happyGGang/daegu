@@ -1,0 +1,220 @@
+@charset "utf-8";
+
+.selectmenu{min-width:12%;}
+
+.education-bg {
+	width:127px;
+	height:193px;
+	text-align:center;
+	padding:38px 15px 0;
+}
+.education-bg span {
+	font-family:'GmarketSansMedium';
+	font-size:13px;
+	color:#fff;
+	padding:6px 8px 4px;
+}
+.education-bg span.color-junggu {
+	background:#005fca;
+}
+.education-bg span.color-donggu {
+	background:#348100;
+}
+.education-bg span.color-seogu {
+	background:#ca0288;
+}
+.education-bg span.color-namgu {
+	background:#71c8d2;
+}
+.education-bg span.color-bukgu {
+	background:#2c3caf;
+}
+.education-bg span.color-suseonggu {
+	background:#cb1a59;
+}
+.education-bg span.color-dalseogu {
+	background:#e3a827;
+}
+.education-bg span.color-dalseonggun {
+	background:#7c07bf;
+}
+.education-bg span.color-etc {
+	background:#000;
+}
+.education-bg h4 {
+	font-size:17px;
+	font-family:'s-core_dream6_bold';
+	letter-spacing:-0.75px;
+	line-height:130%;
+	color:#222;
+	margin-top:10px;
+	overflow:hidden;
+	white-space:normal;
+	text-overflow:ellipsis;
+	word-wrap:break-word;
+	display:-webkit-box;
+	-webkit-line-clamp:3;
+	-webkit-box-orient:vertical;
+}
+.education-bg p {
+	font-family:'GmarketSansMedium';
+	font-size:12px;
+	line-height:140%;
+	color:#777;
+	margin-top:15px;
+}
+.edubg00 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_01.jpg')no-repeat;
+}
+.edubg01 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_01.jpg')no-repeat;
+}
+.edubg02 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_02.jpg')no-repeat;
+}
+.edubg03 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_03.jpg')no-repeat;
+}
+.edubg04 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_04.jpg')no-repeat;
+}
+.edubg05 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_05.jpg')no-repeat;
+}
+.edubg06 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_06.jpg')no-repeat;
+}
+.edubg07 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_07.jpg')no-repeat;
+}
+.edubg08 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_08.jpg')no-repeat;
+}
+.edubg09 {
+	background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_09.jpg')no-repeat;
+}
+input[type="text"] {
+	width:auto;
+	font-family:'SCoreDream';
+	font-size:19px;
+}
+input[type="text"]::placeholder {
+	font-family:'SCoreDream';
+	font-size:19px;
+}
+.new_select_box.wid2 {
+	min-width:150px;
+}
+.new_select_box.left2 {
+	left:210px;
+}
+.new_select_box.left3 {
+	left:370px;
+}
+input.new_text02 {
+	padding-left:650px;
+}
+.search-form__input2 {
+	min-width:calc(100% - 650px);
+}
+input.new_text01 {
+	height:80px !important;
+}
+@media screen and (max-width:1024px) {
+			input[type="text"] {
+			font-size:15px;
+	}
+		input[type="text"]::placeholder {
+			font-size:15px;
+	}
+		input.new_text02 {
+			padding-left:30px;
+			margin-top:10px;
+			height:50px !important;
+	}
+		.search-form__input2 {
+			min-width:calc(97% - 30px);
+	}
+		.new_select_box.wid2 {
+			min-width:30%;
+	}
+		.new_select_box.left2 {
+			left:0;
+	}
+		.new_select_box.left3 {
+			left:0;
+	}
+		.nsb3 {
+			position:relative;
+			top:0;
+			left:0;
+			min-width:30%;
+			border:1px solid #ddd;
+			border-radius:100px;
+			height:50px;
+			line-height:50px;
+			padding:0 15px;
+	}
+	input.new_text01 {
+		height:50px !important;
+	}
+}
+@media screen and (max-width:768px) {
+			.nsb3 {
+			min-width:33%;
+	}
+}
+@media screen and (max-width:550px) {
+			.new_select_box.wid2 {
+			min-width:100%;
+	}
+		.nsb3 {
+			min-width:100%;
+			margin-top:8px;
+	}
+		.mt0 {
+			margin-top:0;
+	}
+		.top2 {
+			top:190px;
+	}
+	.education-bg {
+		width:175px;
+		height:210px;
+		padding:60px 15px 0;
+		margin-bottom:5px;
+	}
+		.edubg01,.edubg02,.edubg03,.edubg04,.edubg05,.edubg06,.edubg07,.edubg08,.edubg09 {
+		background-size:cover;
+	}
+		.education-bg span {
+		font-size:11px;
+	}
+		.education-bg h4 {
+		font-size:16px;
+		letter-spacing:-0.5px;
+	}
+		.education-bg p {
+		font-size:12px;
+	}
+}
+@media all and (max-width:425px) {
+		.education-bg {
+		width:140px;
+		height:200px;
+		padding:50px 15px 0;
+	}
+		.edubg01,.edubg02,.edubg03,.edubg04,.edubg05,.edubg06,.edubg07,.edubg08,.edubg09 {
+		background-size:cover;
+	}
+}
+@media all and (max-width:380px) {
+		.education-bg {
+		width:109px;
+		height:190px;
+		padding:40px 15px 0;
+	}
+		.edubg01,.edubg02,.edubg03,.edubg04,.edubg05,.edubg06,.edubg07,.edubg08,.edubg09 {
+		background-size: cover;
+	}
+}

@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<link rel="stylesheet" type="text/css" href="/resources/common/css/education_common.css">
 <script type="text/javascript">
 	$(function() {
 		const length = $('.main0Section01 .slickWrap > div').length
@@ -57,50 +57,7 @@
 		});
 	});
 </script>
-<style>
-	.education-bg {width:127px;height:193px;text-align:center;padding:38px 15px 0;}
-	.education-bg span{font-family:'GmarketSansMedium';font-size:13px;color:#fff;padding:6px 8px 4px;}
-	.education-bg span.color-junggu{background:;}
-	.education-bg span.color-donggu{background:#348100;}
-	.education-bg span.color-seogu{background:#ca0288;}
-	.education-bg span.color-namgu{background:#71c8d2;}
-	.education-bg span.color-bukgu{background:#2c3caf;}
-	.education-bg span.color-suseonggu{background:#cb1a59;}
-	.education-bg span.color-dalseogu{background:#e3a827;}
-	.education-bg span.color-dalseonggun{background:#7c07bf;}
-	.education-bg span.color-etc{background:#000;}
-	.education-bg h4{font-size:17px;font-family:'s-core_dream6_bold';letter-spacing:-0.75px;line-height:130%;color:#222;margin-top:10px;overflow:hidden;white-space:normal;text-overflow:ellipsis;word-wrap:break-word;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;}
-	.education-bg p{font-family:'GmarketSansMedium';font-size:12px;line-height:140%;color:#777;margin-top:15px;}
-	.edubg00 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_01.jpg')no-repeat;}
-	.edubg01 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_01.jpg')no-repeat;}
-	.edubg02 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_02.jpg')no-repeat;}
-	.edubg03 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_03.jpg')no-repeat;}
-	.edubg04 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_04.jpg')no-repeat;}
-	.edubg05 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_05.jpg')no-repeat;}
-	.edubg06 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_06.jpg')no-repeat;}
-	.edubg07 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_07.jpg')no-repeat;}
-	.edubg08 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_08.jpg')no-repeat;}
-	.edubg09 {background:url('/resources/homepage/${homepage.context_path}/img/edu_bg_09.jpg')no-repeat;}
 
-	@media all and (max-width:550px){
-		.education-bg {width:175px;height:210px;padding:60px 15px 0;margin-bottom:5px;}
-		.edubg01, .edubg02, .edubg03, .edubg04, .edubg05, .edubg06, .edubg07, .edubg08, .edubg09{background-size:cover;}
-
-		.education-bg span{font-size:11px;}
-		.education-bg h4{font-size:16px;letter-spacing:-0.5px;}
-		.education-bg p{font-size:12px;}
-	}
-
-	@media all and (max-width:425px){
-		.education-bg {width:140px;height:200px;padding:50px 15px 0;}
-		.edubg01, .edubg02, .edubg03, .edubg04, .edubg05, .edubg06, .edubg07, .edubg08, .edubg09{background-size:cover;}
-	}
-
-	@media all and (max-width:380px){
-		.education-bg {width:109px;height:190px;padding:40px 15px 0;}
-		.edubg01, .edubg02, .edubg03, .edubg04, .edubg05, .edubg06, .edubg07, .edubg08, .edubg09{background-size:cover;}
-	}
-</style>
 
 <h3>EDUCATION</h3>
 <div class="slideList mainSec00 main0Section01">

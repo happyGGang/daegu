@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.kyobo_img2 li div {
+	border:1px solid #ddd;
+	text-align:center;
+	padding:30px 0;
+	margin:10px 0;
+}
+.kyobo_img2 li div img {
+	border:1px solid #e5e5e5;
+}
+h5 {
+	font-size:17px;
+	margin-top:25px;
+	font-weight:600;
+	color: #ca0464;
+}

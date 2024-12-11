@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="boardTag" uri="/WEB-INF/config/tld/boardTag.tld"%>
-
+<link rel="stylesheet" type="text/css" href="/resources/common/css/module_culture.css">
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub-form-reset.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub_libculture.css"/>
 
@@ -45,15 +45,7 @@
 
 </script>
 
-<style>
-	input[type="text"]{width:auto;font-family:'SCoreDream';font-size:19px;}
-	input[type="text"]::placeholder{font-family:'SCoreDream';font-size:19px;}
-	
-	@media screen and (max-width: 1024px) { 
-		input[type="text"]{font-size:15px;}
-		input[type="text"]::placeholder{font-size:15px;}
-	}
-</style>
+
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <form:form modelAttribute="board" action="exhibition.do" method="get" onsubmit="return false;">

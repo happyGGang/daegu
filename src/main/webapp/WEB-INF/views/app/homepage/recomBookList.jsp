@@ -3,44 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<style>
-.contestBox{clear:both;overflow:hidden;width:100%;}
-.contestBox .box{float:left;width:33.3%;text-align:center;margin-bottom:60px;}
-.contestBox .box .contest_thum{position:relative;display:inline-block;width:205px;height:280px;top:0;font-size:0;line-height:0;transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
-.contestBox .box .contest_thum img{width:205px;height:280px;}
 
-.contestBox .box .titleBox {display: flex;margin:4px 0 10px 0;width:100%;justify-content: center;align-items: center;}
-.contestBox .box .titleBox .contest_num{display:inline-block;width:90px;height:30px;line-height:30px;letter-spacing:0;font-size:14px;border:1px solid #6556e9;color:#6556e9;border-radius:20px;}
-.contestBox .box .titleBox .contest_tit{font-size:14px;color:#666;margin-left: 10px;}
-.contestBox .box .btnBox .contest_btn{display:inline-block;color:#fff;padding:10px 0; font-weight:normal;font-size:14px;line-height:normal;vertical-align:middle;text-align:center;cursor:pointer;border:0;letter-spacing:-0.05em;background-color:#0738a8;margin-bottom: 5px;width: 100px;}
+<link rel="stylesheet" type="text/css" href="/resources/common/css/recombooklist.css">
 
-.contestBox .box a:hover .contest_thum{top:-4px;box-shadow:0px 20px 30px 0px rgba(0,13,56,0.2);transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
-.contestBox .box a:hover .titleBox .contest_tit{text-decoration:underline;}
-.contestBox .box a:hover .btnBox .contest_btn{background:#cfd4de;color:#fff;cursor:pointer;}
-
-@media all and (max-width:1000px){
-	.contestBox {width: 125%;}
-}
-@media all and (max-width:850px){
-	.box{height:auto;}
-	.contestBox .box{width:50%;}
-	.contestBox .box .btnBox .contest_btn{bottom:-30px;}
-}
-@media all and (max-width:768px){
-	.contestBox {width: 100%;}
-	.contestBox .box .btnBox .contest_btn{bottom:20px;}
-}
-@media all and (max-width:480px){
-	.contestBox .box .contest_thum{width:130px; height: 180px;}
-	.contestBox .box .titleBox .contest_num{font-size:13px;}
-	.contestBox .box .titleBox .contest_tit{line-height:22px;font-size:13px;}
-	.contestBox .box .btnBox .contest_btn{font-size:13px;padding:8px 0;width: 130px;}
-}
-@media all and (max-width:450px){
-	.contestBox .box .titleBox{display: block;}
-	.contestBox .box .titleBox .contest_tit{margin: 5px 0 -4px 0px;}
-}
-</style>
 <script>
 $(function() {
 	$('.view_pdf').on('click', function(e) {

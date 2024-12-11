@@ -4,23 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<style>
-.map_bg {
-	background-position: right 0 !important;
-	height: 600px;
-}
-.info_box p {
-	padding-right: 40px;
-}
 
-@media all and (min-width: 768px) and (max-width: 1023px) {
-	.map_bg {height: auto;}
-}
-
-@media all and (max-width: 767px) {
-	.map_bg {height: auto;}
-}
-</style>
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/locationMap.css"/>
 

@@ -1,0 +1,168 @@
+@charset "utf-8";
+/* jsDiv */
+body.no_scroll {
+	overflow:hidden;
+}
+div.jsDiv,article.jsDiv {
+	display:none;
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	z-index:999990;
+	background:rgba(0,0,0,0.5);
+}
+div.jsDiv.on,article.jsDiv.on {
+	display:block;
+}
+.jsDiv_container {
+	width:90%;
+	height:85%;
+	padding:0;
+	margin:4.5% auto 0 auto;
+	background:#f9f9f9;
+	position:relative;
+	border:solid 1px rgba(0,0,0,0.7);
+	border-radius:6px;
+	overflow:hidden;
+	overflow-y:auto;
+	box-shadow:0 3px 5px rgba(0,0,0,.2)
+}
+.jsDiv_container .h4 {
+	text-align:center;
+	font-size:18px;
+	padding:15px 0;
+	border-bottom:solid 1px #ddd;
+	background:#666;
+	color:#fff
+}
+.jsDiv_container .input {
+	background:#fff
+}
+/* #map_wrap .jsDiv_container{height:80%}#map_wrap .jsDivClose{display:block;width:30px;height:30px;padding:0;border:none;position: absolute;}*/
+.jsDivClose {
+	background:url(../images/btn_navClose.png) no-repeat center center;
+	display:block;
+	width:28px;
+	height:28px;
+	padding:0;
+	position:absolute;
+	right:5%;
+	top:2.5%;
+	border:#ddd 1px solid;
+	border-radius:4px;
+	text-indent:-9999px;
+	overflow:hidden;
+	opacity:.6
+}
+.jsDivClose {
+	display:block;
+	width:30px;
+	height:30px;
+	padding:0;
+	border:none;
+	position:absolute;
+	right:5%;
+	top:2.5%;
+	text-indent:-9999px;
+	overflow:hidden;
+	opacity:.6
+}
+.jsDivClose:hover,.jsDivClose:focus {
+	opacity:1
+}
+.btn_area a.btn.jsDivClose {
+	position:static;
+}
+article.jsDiv .btn_area {
+	text-align:center;
+	border-top:solid 1px #ebebeb;
+	padding:10px 0 0 0;
+	height:44px;
+	background:#fff;
+}
+article.jsDiv .btn_area .btn {
+	float:none;
+}
+.h3_jsDiv {
+	background:#00a2c5;
+	color:#fff;
+	padding:20px 0;
+	text-align:center;
+	font-size:18px;
+	;
+	border-radius:6px 6px 0 0
+}
+.jsDiv .btn_area_C {
+	padding:20px 0;
+	background:#fff;
+	border-top:solid 1px #ededed;
+	border-radius:0 0 6px 6px
+}
+.hopeBook_box {
+	position:relative;
+	background:url('/resources/common/img/hopeBook_img.png')no-repeat;
+	padding:90px 0 60px 515px;
+	min-height:300px;
+}
+.hopeBook_box p.txt1 {
+	font-family:'s-core_dream6_bold';
+	color:#000;
+	font-size:28px;
+	margin-bottom:15px;
+}
+.hopeBook_box p.txt1 span {
+	color:#0085d9;
+}
+.hopeBook_box p.txt2 {
+	font-family:'s-core_dream4_regular';
+	color:#000;
+	font-size:16px;
+	margin-bottom:15px;
+}
+.hopeBook_box .move {
+	background:#00a0d9;
+	width:300px;
+	text-align:center;
+	padding:15px 0;
+	border-radius:50px;
+}
+.hopeBook_box .move a {
+	font-family:'s-core_dream5_medium';
+	color:#fff;
+	font-size:16px;
+}
+@media all and (max-width:780px) {
+		.hopeBook_box {
+		position:relative;
+		width:80%;
+		background-size:100%;
+		margin:0 auto;
+		text-align:center;
+		padding:60% 0 0 0;
+	}
+		.hopeBook_box p.txt1 {
+		font-size:22px;
+	}
+		.hopeBook_box p.txt2 {
+		font-size:14px;
+	}
+		.hopeBook_box .move {
+		margin:0 auto;
+	}
+		.hopeBook_box .move a {
+		font-size:14px;
+	}
+}
+@media all and (max-width:425px) {
+		.hopeBook_box p.txt1 {
+		font-size:22px;
+	}
+		.hopeBook_box p.txt2 {
+		font-size:14px;
+	}
+		.hopeBook_box .move a {
+		font-size: 14px;
+	}
+}
