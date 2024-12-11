@@ -112,7 +112,11 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 				} else if (planDay >= startDay && planDay <= endDay) {
 					sb.append("<li title=\"" + excursions.getCode_name() + "\">");
 					sb.append("[" + excursions.getCode_name() + "]<br>");
-					sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
+					if (excursions.getCode_name().equals("천체투영관(개인)")) {
+						sb.append("" + excursions.getStart_time() + "<br>");
+					} else {
+						sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
+					}
 
 					boolean flag = true;
 					for (int j = 0; j < applyList.size(); j++) {
