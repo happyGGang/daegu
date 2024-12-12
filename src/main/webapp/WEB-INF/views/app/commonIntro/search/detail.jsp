@@ -1,5 +1,4 @@
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -495,7 +494,7 @@ $(function() {
 					<c:if test="${not empty detail.marc and (homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj')}">
 					<li><strong>영어독서 레벨</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.marc}</li>
 					</c:if>
-					<c:if test="${detail.MANAGE_CODE eq 'NA' || detail.MANAGE_CODE eq 'NB' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'NJ'}">
+					<c:if test="${detail.MANAGE_CODE eq 'NA' || detail.MANAGE_CODE eq 'NB' || detail.MANAGE_CODE eq 'NE' || detail.MANAGE_CODE eq 'NJ'}">
 					<p><font style="color:#f31d1d;font-weight:bold;">★ 해당 도서는 도서관 사정에 따른 유료회원제 자료입니다.</font></p>
 					</c:if>
 				</ul>
@@ -532,16 +531,7 @@ $(function() {
 				<td>${detail.CALL_NO}</td>
 				<td>${detail.REG_NO}</td>
 				<td>${detail.SHELF_LOC_NAME}</td>
-				<td>
-					<!--동촌역 스마트도서관 자료실은 반납예정일 숨김처리-->
-					<c:choose>
-						<c:when test="${(homepage.context_path eq 'donggu' || homepage.context_path eq 'dgportal') && detail.SHELF_LOC_CODE eq 'CA18'}">
-						</c:when>
-						<c:otherwise>
-							${detail.RETURN_PLAN_DATE}
-						</c:otherwise>
-					</c:choose>
-				</td>
+				<td>${detail.RETURN_PLAN_DATE}</td>
 				<c:if test="${detail.SHELF_LOC_CODE ne 'AD36'}">
 				<td>
 
@@ -553,7 +543,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HQ'}">
 							<span style="color:#ff0000">대출불가(임시휴관)</span>
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE eq 'FG07'}">
+						<c:when test="${detail.MANAGE_CODE eq '' and detail.SHELF_LOC_CODE ne ''}">
 							<span style="color:#ff0000">대출불가</span>
 						</c:when>
 						<c:otherwise>
@@ -870,7 +860,7 @@ $(function() {
 
 
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq ''  || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BZ' || detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN' || detail.MANAGE_CODE eq 'CC'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'BD'  || detail.MANAGE_CODE eq 'BE' || detail.MANAGE_CODE eq 'BF' || detail.MANAGE_CODE eq 'BG' || detail.MANAGE_CODE eq 'BH' || detail.MANAGE_CODE eq 'BJ' || detail.MANAGE_CODE eq 'BK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'HR' || detail.MANAGE_CODE eq ''  || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'FA' || detail.MANAGE_CODE eq 'FB' || detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'BZ' || detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ' || detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN'}">
 
 
 							<c:if test="${detail.KBILL_LILL_YN eq 'O'}">
@@ -950,7 +940,7 @@ $(function() {
 								<jsp:useBean id="Daysu" class="java.util.Date" />
 								<fmt:formatDate var="day" value="${Daysu}" pattern="E"/>
 									<c:if test="${day ne '토' and day ne '일'}">
-									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
+									<!-- <a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span> -->
 									</c:if>
 						</c:otherwise>
 					</c:choose>
@@ -1091,40 +1081,21 @@ $(function() {
 			</c:choose>
 
 			<c:if test="${detail.LOAN_CODE eq 'OK'}">
-				<c:choose>
-					<c:when test="${detail.MANAGE_CODE eq 'AH'}">
-						<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
-							<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18' and detail.SHELF_LOC_CODE eq 'AH64'}">
-								<c:choose>
-									<c:when test="${not empty nearbylibRejectMessage}">
-										<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-									</c:when>
-									<c:otherwise>
-										<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-									</c:otherwise>
-								</c:choose>
-							</c:if>
+				<c:if test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'AH' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA'}">
+					<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
+						<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18'}">
+							<c:choose>
+								<c:when test="${not empty nearbylibRejectMessage}">
+									<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
+								</c:otherwise>
+							</c:choose>
 						</c:if>
-					</c:when>
-					<c:otherwise>
-						<c:if test="${detail.MANAGE_CODE eq 'BA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'AA' || detail.MANAGE_CODE eq 'CA'}">
-							<c:if test="${reserveData == 0 and reserveAvailability eq 'Y'}">
-								<c:if test="${detail.SHELF_LOC_CODE ne 'AA02' and detail.SHELF_LOC_CODE ne 'AA03' and detail.SHELF_LOC_CODE ne 'AA05' and detail.SHELF_LOC_CODE ne 'AA07' and detail.SHELF_LOC_CODE ne 'AA09' and detail.SHELF_LOC_CODE ne 'AA10' and detail.SHELF_LOC_CODE ne 'AA11' and detail.SHELF_LOC_CODE ne 'AA14' and detail.SHELF_LOC_CODE ne 'AA15' and detail.SHELF_LOC_CODE ne 'AA16' and detail.SHELF_LOC_CODE ne 'AA17' and detail.SHELF_LOC_CODE ne 'AA18' and detail.SHELF_LOC_CODE ne 'AA19' and detail.SHELF_LOC_CODE ne 'AA20' and detail.SHELF_LOC_CODE ne 'AA21' and detail.SHELF_LOC_CODE ne 'AA22' and  detail.SHELF_LOC_CODE ne 'AA23' and detail.SHELF_LOC_CODE ne 'AA29' and detail.SHELF_LOC_CODE ne 'AA30' and detail.SHELF_LOC_CODE ne 'AA31' and detail.SHELF_LOC_CODE ne 'AA36' and detail.SHELF_LOC_CODE ne 'AA37' and detail.SHELF_LOC_CODE ne 'AA39' and detail.SHELF_LOC_CODE ne 'AA40' and detail.SHELF_LOC_CODE ne 'AA41' and detail.SHELF_LOC_CODE ne 'AA51' and detail.SHELF_LOC_CODE ne 'AA52' and detail.SHELF_LOC_CODE ne 'AA53' and detail.SHELF_LOC_CODE ne 'AA56' and detail.SHELF_LOC_CODE ne 'AA58' and detail.SHELF_LOC_CODE ne 'AA59' and detail.SHELF_LOC_CODE ne 'AA60' and detail.SHELF_LOC_CODE ne 'AA62' and detail.SHELF_LOC_CODE ne 'AA65' and detail.SHELF_LOC_CODE ne 'AA66' and detail.SHELF_LOC_CODE ne 'AH14' and detail.SHELF_LOC_CODE ne 'AH16' and detail.SHELF_LOC_CODE ne 'AH26' and detail.SHELF_LOC_CODE ne 'AH33' and detail.SHELF_LOC_CODE ne 'AH60' and detail.SHELF_LOC_CODE ne 'CA08' and detail.SHELF_LOC_CODE ne 'CB08' and detail.SHELF_LOC_CODE ne 'CB10' and detail.SHELF_LOC_CODE ne 'BA08' and detail.SHELF_LOC_CODE ne 'BA22' and detail.SHELF_LOC_CODE ne 'BA23'and detail.SHELF_LOC_CODE ne 'CA18'}">
-									<c:choose>
-										<c:when test="${not empty nearbylibRejectMessage}">
-											<a href="javascript:void(0);" class="btn btn1" onclick="alert('${nearbylibRejectMessage}')" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-										</c:when>
-										<c:otherwise>
-											<a href="javascript:void(0);" id="neighborhoodLibrary-req" class="btn btn1" style="padding:8.5px 2%">내 집 앞 도서관 예약</a>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
-							</c:if>
-						</c:if>
-					</c:otherwise>
-				</c:choose>
+					</c:if>
+				</c:if>
 			</c:if>
-
 
 <c:if test="${homepage.context_path ne 'nearbylib'}">
 			<c:choose>

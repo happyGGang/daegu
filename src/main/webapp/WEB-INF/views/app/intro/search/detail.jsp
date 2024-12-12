@@ -253,7 +253,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'BN' and detail.SHELF_LOC_CODE eq 'BN13'}">
 							<span style="color:#ff0000">대출불가</span>
 						</c:when>
-						<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE eq 'FG07'}">
+						<c:when test="${detail.MANAGE_CODE eq '' and detail.SHELF_LOC_CODE eq ''}">
 							<span style="color:#ff0000">대출불가</span>
 						</c:when>
 						<c:otherwise>
@@ -266,7 +266,7 @@ $(function() {
 								</c:when>
 								<c:otherwise>
 									<c:choose>
-										<c:when test="${detail.MANAGE_CODE eq 'FG' and detail.SHELF_LOC_CODE eq 'FG07'}">
+										<c:when test="${detail.MANAGE_CODE eq '' and detail.SHELF_LOC_CODE eq ''}">
 											<span style="color:#ff0000">대출불가</span>
 										</c:when>
 										<c:when test="${detail.WORKING_STATUS == 'BOL211O'}">

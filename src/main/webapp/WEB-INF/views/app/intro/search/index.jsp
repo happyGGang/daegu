@@ -614,9 +614,6 @@ function resveReq(bookkey, booktype, editMode) {
 								<li>
 									<form:checkbox path="libraryCodes" value="FE" class="libCheck lib_FE" label="꿈틀작은도서관"/>
 								</li>
-								<li>
-									<form:checkbox path="libraryCodes" value="HV" class="libCheck lib_HV" label="다문화어린이도서관모두"/>
-								</li>
 							</ul>
 						</div>
 						<div class="end"></div>
@@ -1025,7 +1022,7 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG07'}">
+													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE eq ''}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
@@ -1223,7 +1220,7 @@ function resveReq(bookkey, booktype, editMode) {
 													<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 														<span style="color:#ff0000">대출불가(임시휴관)</span>
 													</c:when>
-													<c:when test="${i.MANAGE_CODE eq 'FG' and i.SHELF_LOC_CODE eq 'FG07'}">
+													<c:when test="${i.MANAGE_CODE eq '' and i.SHELF_LOC_CODE eq ''}">
 														<span style="color:#ff0000">대출불가</span>
 													</c:when>
 													<c:otherwise>
