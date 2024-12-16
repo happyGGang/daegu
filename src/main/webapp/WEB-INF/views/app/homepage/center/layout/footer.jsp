@@ -6,24 +6,37 @@
 <script>
 	function moveToLibrary() {
 		const librarySelect = document.getElementById("library");
+		const selectedText = librarySelect.options[librarySelect.selectedIndex].text;
 		const selectedValue = librarySelect.value;
+
+		if (selectedText === "도서관 바로가기") {
+			alert("도서관을 선택해주세요.");
+			return;
+		}
 
 		if (selectedValue) {
 			window.open(selectedValue, "_blank", "noopener,noreferrer");
 		} else {
-			alert("이동할 도서관을 선택하세요.");
+			alert("도서관을 선택해주세요.");
 		}
 	}
 	function moveToOrgan() {
-		const selectElement = document.getElementById('organ');
+		const selectElement = document.getElementById("organ");
+		const selectedText = selectElement.options[selectElement.selectedIndex].text;
 		const selectedValue = selectElement.value;
+
+		if (selectedText === "관련기관 바로가기") {
+			alert("기관을 선택해주세요.");
+			return;
+		}
 
 		if (selectedValue) {
 			window.open(selectedValue, "_blank", "noopener,noreferrer");
 		} else {
-			alert('기관을 선택해주세요.');
+			alert("기관을 선택해주세요.");
 		}
 	}
+
 </script>
 <footer class="section fp-auto-height">
 	<div class="footer">
@@ -47,19 +60,19 @@
 					<div class="select">
 						<label for="library">
 							<select id="library">
-								<option>대구광역시 공공도서관</option>
+								<option>도서관 바로가기</option>
 								<option value="http://library.daegu.go.kr/dgportal/index.do">대구광역시통합도서관</option>
-								<option value="http://library.daegu.go.kr/dgportal/index.do">대구2ㆍ28기념학생도서관</option>
-								<option value="http://library.daegu.go.kr/228/index.do">대구2ㆍ28민주운동기념회관</option>
-								<option value="http://library.daegu.go.kr/228lib/index.do">국채보상운동기념도서관</option>
-								<option value="https://library.daegu.go.kr/gukbo/index.do">남부도서관</option>
-								<option value="http://library.daegu.go.kr/nambu/index.do">달성도서관</option>
-								<option value="http://library.daegu.go.kr/dalseong/index.do">동부도서관</option>
-								<option value="http://library.daegu.go.kr/dongbu/index.do">두류도서관</option>
-								<option value="http://library.daegu.go.kr/duryu/index.do">북부도서관</option>
-								<option value="http://library.daegu.go.kr/bukbu/index.do">삼국유사군위도서관</option>
-								<option value="http://library.daegu.go.kr/gw/index.do">서부도서관</option>
-								<option value="http://library.daegu.go.kr/seobu/index.do">수성도서관</option>
+								<option value="http://library.daegu.go.kr/228/index.do">대구2ㆍ28기념학생도서관</option>
+								<option value="http://library.daegu.go.kr/228lib/index.do">대구2ㆍ28민주운동기념회관</option>
+								<option value="http://library.daegu.go.kr/gukbo/index.do">국채보상운동기념도서관</option>
+								<option value="http://library.daegu.go.kr/nambu/index.do">남부도서관</option>
+								<option value="http://library.daegu.go.kr/dalseong/index.do">달성도서관</option>
+								<option value="http://library.daegu.go.kr/dongbu/index.do">동부도서관</option>
+								<option value="http://library.daegu.go.kr/duryu/index.do">두류도서관</option>
+								<option value="http://library.daegu.go.kr/bukbu/index.do">북부도서관</option>
+								<option value="http://library.daegu.go.kr/gw/index.do">삼국유사군위도서관</option>
+								<option value="http://library.daegu.go.kr/seobu/index.do">서부도서관</option>
+								<option value="http://library.daegu.go.kr/suseong/index.do">수성도서관</option>
 
 								<option value="http://library.daegu.go.kr/namdm/index.do">남구대명어울림도서관</option>
 								<option value="http://library.daegu.go.kr/namic/index.do">남구이천어울림도서관</option>
@@ -81,7 +94,7 @@
 					<div class="select">
 						<label for="organ">
 							<select id="organ">
-								<option>교육 및 지역관련기관</option>
+								<option>관련기관 바로가기</option>
 								<c:forEach items="${recommendSiteList}" var="i">
 									<option value="${i.link_target}">${i.recommend_site_name}</option>
 								</c:forEach>

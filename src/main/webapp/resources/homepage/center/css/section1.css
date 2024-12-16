@@ -1,9 +1,8 @@
 #section1 {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/center/img/main1.svg') no-repeat top center;
+  background: url('/resources/homepage/center/img/main1_new.png') no-repeat top center;
   background-size: cover;
-  animation: backgrounds 1.5s ease-in-out forwards;
   padding: 1rem;
 }
 
@@ -62,7 +61,7 @@
   appearance: none;
   border-radius: 0.5rem 0 0 0.5rem;
   color: #2D2D2D;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -91,7 +90,7 @@
   height: 5rem;
   margin-right: 5rem;
   color: #2D2D2D;
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -334,17 +333,11 @@
 }
 
 
-/*노트북 & 태블릿 가로 : 1024px-1279px*/
-@media all and (min-width:1024px) and (max-width:1279px){
-  #section1 {
-    height: 47rem !important;
-  }
-  
-   #calendar2 .planView .inbox .planList p.datetime.event {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+/*노트북 & 태블릿 가로 : 1024px-1279px*/ @media all and (min-width:1024px) and 
+(max-width:1279px){ #section1 { height: 47rem !important; }
+
+   #calendar2 .planView .inbox .planList p.datetime.event { width: 1.9rem; 
+   height: 1.9rem; font-size: 13px; }
 
 
 #calendar2 .planView .inbox .planList p.datetime.holiday {
@@ -486,6 +479,12 @@
   .scroll_area {
     display: none;
   }
+  #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
+#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+#calendar2 .cal-calendar .calendar-info {
+ bottom: 0px
+}
 }
 
 /*태블릿 가로 : 769px-1023px*/
@@ -640,6 +639,13 @@
   .scroll_area {
     display: none;
   }
+  
+  #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
+#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+#calendar2 .cal-calendar .calendar-info {
+ bottom: 0px
+}
 }
 
 /*모바일 가로 & 태블릿 세로 : 480px-767px*/
@@ -794,6 +800,13 @@
   .scroll_area {
     display: none;
   }
+  
+  #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
+#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+#calendar2 .cal-calendar .calendar-info {
+ bottom: 0px
+}
 }
 
 /*모바일 : -479px*/
@@ -949,4 +962,13 @@
   .scroll_area {
     display: none;
   }
+  
+  #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
+#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+
+#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+
+#calendar2 .cal-calendar .calendar-info {
+ bottom: 0px
+}
 }

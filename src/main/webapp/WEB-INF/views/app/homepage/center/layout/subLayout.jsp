@@ -69,10 +69,6 @@
     });
 });
 
-	
-
-
-
 </script>
 
 <div id="wrap">

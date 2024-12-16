@@ -1,25 +1,4 @@
 $(document).ready(function () {
-	const calendarSwiper = new Swiper('.calendar_swiper .swiper', {
-		speed: 3000,
-		slidesPerView: 6,
-		slidesPerGroup: 6,
-		direction: 'vertical',
-		loopAddBlankSlides: true,
-		allowTouchMove: false,
-		navigation: {
-			nextEl: '.calendar_swiper .swiper-button-next',
-			prevEl: '.calendar_swiper .swiper-button-prev',
-		},
-	});	
-			
-	// 타이틀 액티브 처리
-	$('.book_information_item:first').addClass('menu_active');
-
-	$('.book_information_item').click(function () {
-		$('.book_information_item').removeClass('menu_active');
-		$(this).addClass('menu_active');
-	});
-
 	// 메인 스와이퍼
 	const BookSwiper = new Swiper('.book_information_swiper .swiper', {
 		speed: 200,
@@ -46,11 +25,7 @@ $(document).ready(function () {
 		loop: true,
 		slidesPerView: 4,
 		loopAddBlankSlides: true,
-		allowTouchMove: false,
-		navigation: {
-			nextEl: '.book_information_swiper .swiper-button-next',
-			prevEl: '.book_information_swiper .swiper-button-prev',
-		},
+		allowTouchMove: false
 	});
 
 	// 메인 스와이퍼 & 리스트 스와이퍼 정지 OR 재생

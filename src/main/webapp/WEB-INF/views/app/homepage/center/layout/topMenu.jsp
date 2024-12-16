@@ -25,12 +25,14 @@
 									<i class="fa fa-sign-out"></i>
 									<span>로그아웃</span>
 								</a>
+								<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 							</c:when>
 							<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
 								<a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
 									<i class="fa fa-sign-out"></i>
 									<span>관리자 로그아웃</span>
 								</a>
+								<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 							</c:when>
 							<c:otherwise>
 								<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4" class="btn1">
@@ -45,6 +47,7 @@
 									<i class="fa fa-user-plus"></i>
 									<span style='letter-spacing:-1.5px;'>통합인증</span>
 								</a>
+								<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -56,7 +59,7 @@
 							<b>${sessionScope.member.member_name}님</b>
 							<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 							
-							<div onclick="location.href='/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95'" style='cursor:pointer'>
+							<div onclick="location.href='/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=81'" style='cursor:pointer'>
 								정보수정
 							</div>
 							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
@@ -66,6 +69,7 @@
 							<div onclick="location.href='/${homepage.context_path}/intro/login/logout.do'" style='cursor:pointer'>
 								로그아웃
 							</div>
+							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 						</c:when>
 						<c:otherwise>
 							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">로그인</a>

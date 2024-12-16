@@ -62,6 +62,7 @@
 .c_box {
   text-align: center;
   width: 14.875rem;
+  max-width: 14.875rem;
   height: 9.875rem;
   border-radius: 1rem;
   border: 1px solid #D8D8D8;

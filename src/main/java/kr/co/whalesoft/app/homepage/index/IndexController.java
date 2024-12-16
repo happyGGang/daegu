@@ -2629,9 +2629,16 @@ public class IndexController extends BaseController {
 		}
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
-		
+
+		if (homepage.getHomepage_id().equals("h100")) {
+			Teach t = new Teach();
+			t.setHomepage_id(homepage.getHomepage_id());
+			//t.setSearchCate1("16");
+			model.addAttribute("teachList", teachService.getTeachListForUser(t));
+		}
+
 		//국보도서관 강좌
-		if (homepage.getHomepage_id().equals("h10") || homepage.getHomepage_id().equals("h100")) {
+		if (homepage.getHomepage_id().equals("h10")) {
 			Teach t = new Teach();
 			t.setHomepage_id(homepage.getHomepage_id());
 			//t.setSearchCate1("16");

@@ -343,7 +343,7 @@ Date.prototype.format = function(f) {
 						<div id="${i.key}" class="calAll" style="display: none;">
 							<dl>
 								<div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
-									<dt>${calendar.plan_date}-${fn:length(i.key) == 1 ? '0' : ''}${i.key}</dt>
+									<dt>${calendar.plan_date.split('-')[0]}년 ${calendar.plan_date.split('-')[1]}월 ${fn:length(i.key) == 1 ? '0' : ''}${i.key}일</dt>
 									<a href="#" class="close closePlanView"><img src="/resources/homepage/center/img/close_popup.svg" alt="" /></i></a>
 								</div>
 							</dl>

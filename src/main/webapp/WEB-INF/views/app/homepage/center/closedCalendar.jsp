@@ -68,27 +68,32 @@ prefix="form" uri="http://www.springframework.org/tags/form"%>
 </script>
 
 <c:if test="${empty closeDayList.dd}">
-	<div class="week_navigation">
-		<div class="date" style="font-weight: 400 !important">등록된 휴관일이 없습니다.</div>
+	<div style="display: flex; align-items: center">
+		<div class="close_day">휴관일</div>
+		<div class="week_navigation">
+			<img id="before-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="지난주" role="button" keyValue="${calendar.plan_date}" />
+			<div class="date">${fn:split(calendar.plan_date, '-')[0]}년 ${fn:split(calendar.plan_date, '-')[1]}월</div>
+			<img id="next-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="다음주" role="button" keyValue="${calendar.plan_date}" />
+		</div>
 	</div>
-	<ul class="week_area"></ul>
+	<ul class="week_area">
+		<div class="date" style="font-weight: 400 !important">등록된 휴관일이 없습니다.</div>
+	</ul>
 </c:if>
 <c:if test="${not empty closeDayList.dd}">
 	<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
-	
-	<div style='display:flex;align-items: center'>
-	<div class="close_day">휴관일</div>
+
+	<div style="display: flex; align-items: center">
+		<div class="close_day">휴관일</div>
 		<div class="week_navigation">
-		<img id="before-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="지난주" role="button" keyValue="${calendar.plan_date}" />
-		<div class="date">${fn:split(calendar.plan_date, '-')[0]}년 ${fn:split(calendar.plan_date, '-')[1]}월</div>
-		<img id="next-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="다음주" role="button" keyValue="${calendar.plan_date}" />
+			<img id="before-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="지난주" role="button" keyValue="${calendar.plan_date}" />
+			<div class="date">${fn:split(calendar.plan_date, '-')[0]}년 ${fn:split(calendar.plan_date, '-')[1]}월</div>
+			<img id="next-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="다음주" role="button" keyValue="${calendar.plan_date}" />
 		</div>
-	
 	</div>
 	<ul class="week_area">
 		<c:forEach items="${dd}" var="i">
 			<li>${i}</li>
 		</c:forEach>
 	</ul>
-	
 </c:if>
