@@ -4172,4 +4172,13 @@ public class IndexController extends BaseController {
 		
 		return basePath + homepage.getFolder() + "/curation" + idx + "_ajax";
 	}
+
+	@RequestMapping(value = { "/{contextPath}/centerBookList.*" })
+	public String centerRecommendBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+
+		setBoardListToModel(homepage.getHomepage_id(), model);
+
+		return basePath + homepage.getFolder() + "/recommendBook_ajax";
+	}
 }
