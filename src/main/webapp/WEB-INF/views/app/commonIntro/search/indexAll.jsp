@@ -860,31 +860,31 @@
 					<div class="all">
 						<ul>
 							<li>
-								<input id="checkAllGulip" name="libraryCodes" type="checkbox" value="ALL"><label for="checkAllGulip">구립전체</label>
+								<input id="checkAllGulipSmall" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkAllGulipSmall">구립작은전체</label>
 							</li>
 							<li>
-								<input id="checkGulipDonggu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipDonggu">동구</label>
+								<input id="checkGulipSmallDonggu" name="libraryCodes" type="checkbox" value="ALL" /><label for="checkGulipSmallDonggu">동구</label>
 							</li>
 							<li>
-								<input id="checkGulipSeogu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSeogu">서구</label>
+								<input id="checkGulipSmallSeogu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallSeogu">서구</label>
 							</li>
 							<li>
-								<input id="checkGulipNamgu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipNamgu">남구</label>
+								<input id="checkGulipSmallNamgu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallNamgu">남구</label>
 							</li>
 							<li>
-								<input id="checkGulipBukgu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipBukgu">북구</label>
+								<input id="checkGulipSmallBukgu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallBukgu">북구</label>
 							</li>
 							<li>
-								<input id="checkGulipJunggu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipJunggu">중구</label>
+								<input id="checkGulipSmallJunggu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallJunggu">중구</label>
 							</li>
 							<li>
-								<input id="checkGulipSuseonggu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSuseonggu">수성구</label>
+								<input id="checkGulipSmallSuseonggu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallSuseonggu">수성구</label>
 							</li>
 							<li>
-								<input id="checkGulipDalseogu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipDalseogu">달서구</label>
+								<input id="checkGulipSmallDalseogu" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallDalseogu">달서구</label>
 							</li>
 							<li>
-								<input id="checkGulipDalseong" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipDalseong">달성군</label>
+								<input id="checkGulipSmallDalseong" name="libraryCodes" type="checkbox" value="ALL"><label for="checkGulipSmallDalseong">달성군</label>
 							</li>
 						</ul>
 					</div>
@@ -1355,7 +1355,7 @@
 														<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 															<span style="color:#ff0000">대출불가(임시휴관)</span>
 														</c:when>
-														<c:when test="${i.MANAGE_CODE eq 'FG'}">
+														<c:when test="${i.MANAGE_CODE eq ''}">
 															<span style="color:#ff0000">대출불가</span>
 														</c:when>
 														<c:otherwise>
