@@ -835,6 +835,9 @@
 		<if test="manage_idx == 341">
 		AND (notice_yn = 'N' or notice_yn IS NULL)
 		</if>
+		<if test="manage_idx == 1274">
+			AND (notice_yn = 'N' or notice_yn IS NULL)
+		</if>
 		<choose>
 			<when test='dept_cd != null and dept_cd == "MOVIE"'>
 				ORDER BY imsi_v_1, imsi_v_2
