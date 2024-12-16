@@ -4,16 +4,11 @@
   background: url('/resources/homepage/center/img/main1.svg') no-repeat top center;
   background-size: cover;
   animation: backgrounds 1.5s ease-in-out forwards;
-  padding: 0 1rem 0 1rem;
+  padding: 1rem;
 }
 
-@keyframes backgrounds {
-  0% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 1;
-  }
+.section_1_wrapper {
+  max-width: 75rem;
 }
 
 .main_title {
@@ -51,13 +46,13 @@
   position: relative;
   display: flex;
   margin-top: 4rem;
-  width: 100%;
   padding-right: 1.81rem;
   background-color: rgba(255, 255, 255, 0.90);
   border-radius: 0.5rem;
 }
 
 #searchSelect {
+  border: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -81,11 +76,15 @@
 }
 
 .searchInput {
+  margin-right: 16px;
   width: 100%;
   margin-left: 11.625rem;
 }
 
 #searchInput {
+  border: none;
+  outline: none;
+  background-color: transparent;
   width: 100%;
   position: relative;
   padding: 0 1rem 0 1rem;
@@ -179,10 +178,6 @@
   background-color: #FFFFFF !important;
 }
 
-.scroll_area img {
-  width: 0.3125rem;
-  height: 5.4375rem;
-}
 
 .information_area {
   position: absolute;
@@ -298,7 +293,7 @@
   z-index: 999;
 }
 
-.scroll_area div {
+.scroll_area .scroll_area_text {
   color: #FFF;
   font-size: 0.625rem;
   font-style: normal;
@@ -306,23 +301,61 @@
   line-height: normal;
   letter-spacing: 0.125rem;
   transform: rotate(90deg);
-  animation: bounceUp 1.5s infinite ease-in-out;
 }
 
-@keyframes bounceUp {
-  0%, 100% {
-    transform: rotate(90deg) translateX(0);
+.scroll_area_line {
+  position: relative;
+  background: rgba(255, 255, 255, 0.40);
+  width: 0.0625rem;
+  height: 5.1875rem;
+}
+
+.scroll_area_line div {
+  position: absolute;
+  left: -0.15rem;
+  top: -0.3125rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  background: #FFF;
+  border-radius: 50%;
+  animation: moveDown 4s ease infinite;
+  box-shadow: 0 0 0.625rem rgba(255, 255, 255, 0.8),
+  0 0 1.25rem rgba(255, 255, 255, 0.6),
+  0 0 2rem rgba(255, 255, 255, 0.4);
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(0);
   }
-  50% {
-    transform: rotate(90deg) translateX(-5px);
+  100% {
+    transform: translateY(5.1875rem);
   }
 }
 
-/*ÎÖ∏Ìä∏Î∂Å & ÌÉúÎ∏îÎ¶ø Í∞ÄÎ°ú : 1024px-1279px*/
+
+/*≥Î∆Æ∫œ & ≈¬∫Ì∏¥ ∞°∑Œ : 1024px-1279px*/
 @media all and (min-width:1024px) and (max-width:1279px){
   #section1 {
     height: 47rem !important;
   }
+  
+   #calendar2 .planView .inbox .planList p.datetime.event {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+
+#calendar2 .planView .inbox .planList p.datetime.holiday {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+  .section_1_wrapper {
+    padding-bottom: 10rem;
+  }
 
   .main_title {
     width: 14.8125rem;
@@ -398,8 +431,10 @@
 
   .left_area {
     padding-left: 1rem;
-    justify-content: flex-start;
     flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .close_day {
@@ -412,7 +447,6 @@
 
   .right_area .swiper {
     height: 2.25rem;
-    margin-top: 1rem;
   }
 
   .right_area {
@@ -428,6 +462,8 @@
   .right_area .swiper .swiper-slide {
     font-size: 0.875rem;
     letter-spacing: -0.0175rem;
+    display: flex !important;
+    align-items: center;
   }
 
   .date {
@@ -452,11 +488,28 @@
   }
 }
 
-/*ÌÉúÎ∏îÎ¶ø Í∞ÄÎ°ú : 769px-1023px*/
+/*≈¬∫Ì∏¥ ∞°∑Œ : 769px-1023px*/
 @media all and (min-width:768px) and (max-width:1024px){
   #section1 {
     height: 47rem !important;
   }
+  
+   #calendar2 .planView .inbox .planList p.datetime.event {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+
+#calendar2 .planView .inbox .planList p.datetime.holiday {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+  .section_1_wrapper {
+    padding-bottom: 10rem;
+  }
 
   .main_title {
     width: 14.8125rem;
@@ -532,8 +585,10 @@
 
   .left_area {
     padding-left: 1rem;
-    justify-content: flex-start;
     flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .close_day {
@@ -546,7 +601,6 @@
 
   .right_area .swiper {
     height: 2.25rem;
-    margin-top: 1rem;
   }
 
   .right_area {
@@ -562,6 +616,8 @@
   .right_area .swiper .swiper-slide {
     font-size: 0.875rem;
     letter-spacing: -0.0175rem;
+    display: flex !important;
+    align-items: center;
   }
 
   .date {
@@ -586,11 +642,28 @@
   }
 }
 
-/*Î™®Î∞îÏùº Í∞ÄÎ°ú & ÌÉúÎ∏îÎ¶ø ÏÑ∏Î°ú : 480px-767px*/
+/*∏πŸ¿œ ∞°∑Œ & ≈¬∫Ì∏¥ ºº∑Œ : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
   #section1 {
     height: 47rem !important;
   }
+  
+   #calendar2 .planView .inbox .planList p.datetime.event {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+
+#calendar2 .planView .inbox .planList p.datetime.holiday {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+  .section_1_wrapper {
+    padding-bottom: 10rem;
+  }
 
   .main_title {
     width: 14.8125rem;
@@ -667,7 +740,9 @@
   .left_area {
     padding-left: 1rem;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .close_day {
@@ -695,6 +770,8 @@
   .right_area .swiper .swiper-slide {
     font-size: 0.875rem;
     letter-spacing: -0.0175rem;
+    display: flex !important;
+    align-items: center;
   }
 
   .date {
@@ -719,10 +796,28 @@
   }
 }
 
-/*Î™®Î∞îÏùº : -479px*/
+/*∏πŸ¿œ : -479px*/
 @media all and (max-width:479px){
+ #calendar2 .planView .inbox .planList p.datetime.event {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+
+#calendar2 .planView .inbox .planList p.datetime.holiday {
+   width: 1.9rem;
+   height: 1.9rem;
+   font-size: 13px;
+ }
+
+
   #section1 {
     height: 47rem !important;
+  }
+
+  .section_1_wrapper {
+    padding-bottom: 10rem;
   }
 
   .main_title {
@@ -800,7 +895,9 @@
   .left_area {
     padding-left: 1rem;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .close_day {
@@ -828,6 +925,8 @@
   .right_area .swiper .swiper-slide {
     font-size: 0.875rem;
     letter-spacing: -0.0175rem;
+    display: flex !important;
+    align-items: center;
   }
 
   .date {

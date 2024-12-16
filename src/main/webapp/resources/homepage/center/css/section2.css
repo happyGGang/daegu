@@ -6,8 +6,7 @@
 
 .row_wrapper {
   display: flex;
-  justify-content: center;
-  gap: 10.62rem;
+  gap: 10rem;
 }
 
 .board {
@@ -52,7 +51,7 @@
   content: "";
   position: absolute;
   bottom: 35%;
-  left: 7.65rem;
+  left: 8rem;
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
@@ -90,10 +89,9 @@
 .board_list_item {
   padding: 1rem 0 1rem 0;
   border-bottom: 1px solid #D8D8D8;
-  height: 6.25rem;
+  height: 4.2rem;
   display: flex;
   align-items: center;
-  width: 35rem;
   justify-content: space-between;
 }
 
@@ -101,6 +99,7 @@
   display: flex;
   gap: 0.5rem;
   cursor: pointer;
+  align-items: center;
 }
 
 .board_list_item_title img {
@@ -185,7 +184,6 @@
 .popup_swiper .swiper-slide {
   width: 34.375rem !important;
   height: 24.3125rem !important;
-  border-bottom: 1px solid #D8D8D8;
 }
 
 .popup_swiper .swiper-slide img {
@@ -208,6 +206,9 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1rem;
+  margin: 0 !important;
+  top: 2rem;
+  left: 1rem;
 }
 
 .popup_swiper .swiper-pagination-fraction span {
@@ -216,7 +217,7 @@
 }
 
 .popup_swiper .swiper-button-next {
-  top: 1.4rem;
+  top: 1.9rem;
   right: 4.25rem;
   width: 2.5rem;
   height: 2.5rem;
@@ -226,7 +227,7 @@
 }
 
 .popup_swiper .swiper-button-prev {
-  top: 1.4rem;
+  top: 1.9rem;
   left: 24.6275rem;
   width: 2.5rem;
   height: 2.5rem;
@@ -234,19 +235,20 @@
   background-size: cover;
 }
 
-.swiper_action_wrapper {
+.popup_swiper .swiper_action_wrapper {
   display: flex;
   justify-content: flex-end;
   padding-right: 1.25rem;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
   position: relative;
 }
 
-.swiper_action_wrapper img {
+.popup_swiper .swiper_action_wrapper img {
   width: 2.5rem;
   height: 2.5rem;
   cursor: pointer;
 }
+
 
 /*노트북 & 태블릿 가로 : 1024px-1279px*/
 @media all and (min-width:1024px) and (max-width:1279px){
@@ -259,12 +261,16 @@
   .row_wrapper {
     margin-top: 2.5rem;
     flex-direction: column;
-    gap: 5.01rem;
+    gap: 0;
     align-items: center;
   }
 
   .board {
     padding: 0 1rem 0 1rem;
+  }
+
+  .board_list {
+    height: 22rem;
   }
 
   .board_title {
@@ -290,7 +296,7 @@
     width: 0.2rem;
     height: 0.2rem;
     bottom: 0.5rem;
-    left: 4.4rem;
+    left:5rem;
   }
 
   .board_more {
@@ -301,8 +307,8 @@
 
   .board_list_item {
     width: 20rem;
-    padding: 0.54rem 0 0.54rem 0;
-    height: 3.57143rem;
+    padding: 0.2rem 0 0.2rem 0;
+    height: 3rem;
   }
 
   .board_list_item_title {
@@ -348,7 +354,6 @@
   }
 
   .popup_swiper .swiper {
-    border-radius: 0.29819rem 0 0.29819rem 0;
     width: 20.5rem;
     height: 14.49906rem;
   }
@@ -366,27 +371,28 @@
   .popup_swiper .swiper-pagination-fraction {
     margin-bottom: 0.7rem;
     font-size: 0.875rem;
+    top: 1.5rem
   }
 
   .popup_swiper .swiper-button-next {
-    top: 1.4rem;
+    top: 1.9rem;
     right: 3.7rem;
     width: 2rem;
     height: 2rem;
   }
 
   .popup_swiper .swiper-button-prev {
-    top: 1.4rem;
+    top: 1.9rem;
     left: 12.3rem;
     width: 2rem;
     height: 2rem;
   }
 
-  .swiper_action_wrapper {
-    margin-top: 0.88rem;
+  .popup_swiper .swiper_action_wrapper {
+    margin-top: -0.1rem;
   }
 
-  .swiper_action_wrapper img {
+  .popup_swiper .swiper_action_wrapper img {
     width: 2rem;
     height: 2rem;
   }
@@ -395,19 +401,24 @@
 /*태블릿 가로 : 769px-1023px*/
 @media all and (min-width:768px) and (max-width:1024px){
   #section2 {
-    height: 29rem !important;
+    height: 55.25rem !important;
     background: url(../img/section2_mobile.svg) no-repeat top center;
     background-size: cover;
   }
 
   .row_wrapper {
     margin-top: 2.5rem;
-    gap: 5.01rem;
+    flex-direction: column;
+    gap: 0;
     align-items: center;
   }
 
   .board {
     padding: 0 1rem 0 1rem;
+  }
+
+  .board_list {
+    height: 22rem;
   }
 
   .board_title {
@@ -433,7 +444,7 @@
     width: 0.2rem;
     height: 0.2rem;
     bottom: 0.5rem;
-    left: 4.4rem;
+    left:5rem;
   }
 
   .board_more {
@@ -444,8 +455,8 @@
 
   .board_list_item {
     width: 20rem;
-    padding: 0.54rem 0 0.54rem 0;
-    height: 3.57143rem;
+    padding: 0.2rem 0 0.2rem 0;
+    height: 3rem;
   }
 
   .board_list_item_title {
@@ -491,7 +502,6 @@
   }
 
   .popup_swiper .swiper {
-    border-radius: 0.29819rem 0 0.29819rem 0;
     width: 20.5rem;
     height: 14.49906rem;
   }
@@ -509,27 +519,28 @@
   .popup_swiper .swiper-pagination-fraction {
     margin-bottom: 0.7rem;
     font-size: 0.875rem;
+    top: 1.5rem
   }
 
   .popup_swiper .swiper-button-next {
-    top: 1.4rem;
+    top: 1.9rem;
     right: 3.7rem;
     width: 2rem;
     height: 2rem;
   }
 
   .popup_swiper .swiper-button-prev {
-    top: 1.4rem;
+    top: 1.9rem;
     left: 12.3rem;
     width: 2rem;
     height: 2rem;
   }
 
-  .swiper_action_wrapper {
-    margin-top: 0.88rem;
+  .popup_swiper .swiper_action_wrapper {
+    margin-top: -0.1rem;
   }
 
-  .swiper_action_wrapper img {
+  .popup_swiper .swiper_action_wrapper img {
     width: 2rem;
     height: 2rem;
   }
@@ -546,12 +557,16 @@
   .row_wrapper {
     margin-top: 2.5rem;
     flex-direction: column;
-    gap: 5.01rem;
+    gap: 0;
     align-items: center;
   }
 
   .board {
     padding: 0 1rem 0 1rem;
+  }
+
+  .board_list {
+    height: 22rem;
   }
 
   .board_title {
@@ -577,7 +592,7 @@
     width: 0.2rem;
     height: 0.2rem;
     bottom: 0.5rem;
-    left: 4.4rem;
+    left:5rem;
   }
 
   .board_more {
@@ -588,8 +603,8 @@
 
   .board_list_item {
     width: 20rem;
-    padding: 0.54rem 0 0.54rem 0;
-    height: 3.57143rem;
+    padding: 0.2rem 0 0.2rem 0;
+    height: 3rem;
   }
 
   .board_list_item_title {
@@ -635,7 +650,6 @@
   }
 
   .popup_swiper .swiper {
-    border-radius: 0.29819rem 0 0.29819rem 0;
     width: 20.5rem;
     height: 14.49906rem;
   }
@@ -653,27 +667,28 @@
   .popup_swiper .swiper-pagination-fraction {
     margin-bottom: 0.7rem;
     font-size: 0.875rem;
+    top: 1.5rem
   }
 
   .popup_swiper .swiper-button-next {
-    top: 1.4rem;
+    top: 1.9rem;
     right: 3.7rem;
     width: 2rem;
     height: 2rem;
   }
 
   .popup_swiper .swiper-button-prev {
-    top: 1.4rem;
+    top: 1.9rem;
     left: 12.3rem;
     width: 2rem;
     height: 2rem;
   }
 
-  .swiper_action_wrapper {
-    margin-top: 0.88rem;
+  .popup_swiper .swiper_action_wrapper {
+    margin-top: -0.1rem;
   }
 
-  .swiper_action_wrapper img {
+  .popup_swiper .swiper_action_wrapper img {
     width: 2rem;
     height: 2rem;
   }
@@ -690,12 +705,16 @@
   .row_wrapper {
     margin-top: 2.5rem;
     flex-direction: column;
-    gap: 5.01rem;
+    gap: 0;
     align-items: center;
   }
 
   .board {
     padding: 0 1rem 0 1rem;
+  }
+
+  .board_list {
+    height: 22rem;
   }
 
   .board_title {
@@ -721,7 +740,7 @@
     width: 0.2rem;
     height: 0.2rem;
     bottom: 0.5rem;
-    left: 4.4rem;
+    left:4.7rem;
   }
 
   .board_more {
@@ -732,8 +751,8 @@
 
   .board_list_item {
     width: 20rem;
-    padding: 0.54rem 0 0.54rem 0;
-    height: 3.57143rem;
+    padding: 0.2rem 0 0.2rem 0;
+    height: 3rem;
   }
 
   .board_list_item_title {
@@ -779,7 +798,6 @@
   }
 
   .popup_swiper .swiper {
-    border-radius: 0.29819rem 0 0.29819rem 0;
     width: 20.5rem;
     height: 14.49906rem;
   }
@@ -797,27 +815,28 @@
   .popup_swiper .swiper-pagination-fraction {
     margin-bottom: 0.7rem;
     font-size: 0.875rem;
+    top: 1.5rem
   }
 
   .popup_swiper .swiper-button-next {
-    top: 1.4rem;
+    top: 1.9rem;
     right: 3.7rem;
     width: 2rem;
     height: 2rem;
   }
 
   .popup_swiper .swiper-button-prev {
-    top: 1.4rem;
+    top: 1.9rem;
     left: 12.3rem;
     width: 2rem;
     height: 2rem;
   }
 
-  .swiper_action_wrapper {
-    margin-top: 0.88rem;
+  .popup_swiper .swiper_action_wrapper {
+    margin-top: -0.1rem;
   }
 
-  .swiper_action_wrapper img {
+  .popup_swiper .swiper_action_wrapper img {
     width: 2rem;
     height: 2rem;
   }

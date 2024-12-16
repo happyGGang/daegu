@@ -1,435 +1,176 @@
-.container {
-  width: 100%;
-  height: auto;
-  min-height: 65rem;
-  margin-top: 4.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
+@charset "utf-8";
+
+#container.subpage {position:relative;padding-top:131px;}
+html {
+    touch-action: manipulation;
+	/* Keyword values */
+-webkit-overflow-scrolling: auto;
+-webkit-overflow-scrolling: touch;
+
+/* Global values */
+-webkit-overflow-scrolling: inherit;
+-webkit-overflow-scrolling: initial;
+-webkit-overflow-scrolling: revert;
+-webkit-overflow-scrolling: revert-layer;
+-webkit-overflow-scrolling: unset;
 }
 
-.sub_header {
-  width: 100%;
-  height: 11.25rem;
-  background: url(../img/sub_bg.svg) no-repeat top center;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-}
+@media all and (max-width:1400px){
 
-.header_content {
-  width: 100%;
-  max-width: 120rem;
-  display: flex;
-  justify-content: space-between;
+	/*헤더 틀*/
+	#header{
+    max-width: 1260px;
+    width: 100%;
 }
+	.tnb {height:65px;padding:10px 0;}
+	.Gnb .gnb-menu > li{padding:0 1.6%;}
+	#header h1 {position:absolute;width:255px;height:auto;/* left:20px; */top: 10px;}
+	h1.mobile-logo {display:block;}
 
-.sub_menu_title {
-  height: 11.25rem;
-  width: 13.75rem;
-  background: rgba(0, 0, 0, 0.20);
-  backdrop-filter: blur(10px);
-  color: #FFF;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.04375rem;
-}
+  
+	.home-up.web-view {/* display:none; */}
+	.home-up.mobile-view {display:block;bottom: 240px;right:20px}
+	#container.subpage {max-width: 100%;padding-top: 80px;width: 100%;}
+	html,body{max-width:1260px;width:100%;margin:0 auto;}
+	.tnb, .Gnb {max-width:1260px;width:100%;margin:0 auto;padding: 10px;}
+	.shareArea{top:5px;right:20px;}
+	.shareArea li:first-child{display:none;}
+	.shareArea li:nth-child(3){display:none;}
+	.doc-info ul li{border-left:0;}
+	div#share_layer{ right: 0;}
 
-.page_title {
-  color: #FFF;
-  text-align: center;
-  font-size: 1.75rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.04375rem;
-  margin-top: 4.56rem;
-}
 
-.sub_menu_action_btn_wrapper {
-  display: flex;
-  gap: 0.5rem;
-  position: relative;
-  margin-top: 8rem;
-}
+	/*내용*/
+	
+	.content{max-width: 1260px;width: 100%;margin:0 auto;padding: 15px;}
+	.doc-info {width:100%;margin:0;padding:0;}
 
-.sns {
-  display: none;
-  position: absolute;
-  bottom: -4rem;
-  right: 0;
-}
+	.lnb{display:none}
+	.doc{/* margin-right:0; *//* padding: 5px 15px; */height: 100%;}
+	/*.doc-head{width:160px;float:left}*/
+	.doc-title{/* border-top:3px solid #2a9fe8; */position:relative;z-index:1;}
+	.doc-title h3{/* border-top:3px solid #1f5d97; */margin-top:-3px;position:relative;z-index:2;}
+	.doc-body{margin-right:0;float:none;width:100%;}
+	.doc-body .body{margin-right:0;margin-left:0;/* padding: 15px; */}
+	.sub-visual{}
 
-.sns img {
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
-}
+	.sections {max-width: 1260px;width:100%;margin:0 auto;}
+	.content {}
+	.doc-info {max-width: 1260px;width:100%;margin:0 auto;}
 
-.sns img:first-child {
-  margin-bottom: 0.5rem;
-}
-
-.sub_menu_action_btn_wrapper img {
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-}
-
-.content_area {
-  width: 100%;
-  max-width: 120rem;
-  display: flex;
-  gap: 2.75rem
-}
-
-.content_wrapper {
-  width: 100%;
-  padding-left: 1rem;
-  padding-bottom: 3.75rem;
-}
-
-.legend {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
-  padding: 1.25rem 0 1.25rem 0;
-}
-
-.legend img {
-  width: 1rem;
-  height: 1rem;
-}
-
-.legend div {
-  color: #717171;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.legend_active {
-  color: #2D2D2D !important;
-  font-weight: 600 !important;
-}
-
-.content {
-  padding: 0 1rem 0 0;
-  margin-top: 1.25rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.content_caption_box {
-  border-radius: 1rem;
-  background: #F8F8F8;
-  width: 100%;
-  display: flex;
-  gap: 1.5rem;
-  padding: 1.5rem 2.5rem;
-}
-
-.content_caption_box div {
-  color: #2D2D2D;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 1.5rem */
-  letter-spacing: -0.02rem;
-}
-
-.sub_menu_list_box {
-  display: flex;
-  height: fit-content;
-  flex-direction: column;
-  border-right: 1px solid #D8D8D8;
-  border-bottom: 1px solid #D8D8D8;
-  border-left: 1px solid #D8D8D8;
-}
-
-.sub_menu_list_box .sub_menu_list_item {
-  width: 13.625rem;
-  cursor: pointer;
-  height: 3.25rem;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 0.62rem 0 1rem;
-  display: flex;
-  border-top: 1px solid #D8D8D8;
-  color: #2D2D2D;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.sub_menu_list_box .sub_menu_list_item:hover {
-  background: #144492;
-  color: #FFF;
-  font-weight: 600;
-  transition: background 0.5s ease;
-}
-
-.sub_menu_list_box .sub_menu_list_item_active {
-  color: #FFF !important;
-  font-weight: 600 !important;
-  background: #144492 !important;
-}
-
-.sub_menu_list_box .sub_menu_list_item img {
-  width: 1.5rem;
-  transition: transform 0.3s ease;
-  height: 1.5rem;
-}
-
-.sub_menu_list_box .sub_menu_list_item:hover img {
-  transform: rotate(45deg);
 }
 
 
-.sub_menu_list_box .sub_menu_list_item:first-child {
-  border-top: none
+@media (max-width: 1024px){
+
+#header h1{top: 5px;}
+
+.m-menu a{top: 5px;/* right: 15px; */}
+
+#container.subpage{	
+padding-top: 65px;
 }
 
-.sub_mini_menu_list {
-  border-top: 1px solid #D8D8D8;
-  background: #F8F8F8;
-  padding: 1rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
-.sub_mini_menu_list_item {
-  display: flex;
-  gap: 0.25rem;
-  align-items: center;
+
+
+@media all and (max-width:580px){
+#header h1{width:190px;top: 10px;}
+
 }
 
-.sub_mini_menu_title {
-  color: #2D2D2D;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+
+@media all and (min-width: 1025px) and(max-width: 1260px) {
+	
 }
 
-.sub_mini_menu_list_item div:first-child {
-  background: url(../img/chevron_forward.svg) no-repeat top center;
-  background-size: cover;
-  width: 1rem;
-  height: 1rem;
-  transition: background 0.3s ease;
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/bemeoCalendar3.jsp */
+
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	.time_box ul li > div {
+		background-position: 30px 10px !important;
+	}
+
+	
 }
 
-.sub_mini_menu_list_item_img_active {
-  background: url(../img/arrow-narrow-right.svg) no-repeat top center !important;
-  background-size: cover;
-  width: 1rem;
-  height: 1rem;
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/bemeoCalendar1.jsp */
+/* homepage/bemeoCalendar2.jsp */
+/* 두개 경로 style 소스 동일 */
+
+.mb10 {
+	margin-bottom: 20px;
+}
+.time_box ul li div {
+	background-position: 40px 20px !important;
 }
 
-.sub_mini_menu_list_item:hover div:first-child {
-  background: url(../img/arrow-narrow-right.svg) no-repeat top center;
-  background-size: cover;
-  width: 1rem;
-  height: 1rem;
+@media all and (min-width: 768px) and (max-width: 1023px) {
+	.time_box ul li:first-child div, .time_box ul li:nth-child(2) div {
+		padding: 30px 20px 30px 120px
+	}
+	.time_box ul li:last-child div {
+		padding: 20px 20px 40px 120px
+	}
+	.time_box ul li.book08 div {
+		background-position: 40px 15px !important;
+	}
 }
 
-.sub_mini_menu_list_item:hover .sub_mini_menu_title {
-  color: #144492;
-  font-weight: 600;
-}
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookRelayIndividual/step2.jsp */
 
-.sub_mini_menu_title_active {
-  color: #144492 !important;
-  font-weight: 600 !important;
-}
+.tbl-type01 thead tr td{
+	background:#fafafa;
+	font-weight:bold;
+	}
+.tbl-type01 tbody tr td{
+	background:#fafafa;
+	font-size:13px;
+	text-align:left;
+	}
 
-.table_title {
-  display: flex;
-  justify-content: space-between;
-}
+.join-wrap{
+	padding: 0px !important;
+	width:100%;
+	}
+	
+@media (max-width: 1024px) {
+	.join-wrap{
+		padding:0 20px;
+		width:calc(100% - 40px);
+		}
+	}
 
-.table_title_wrapper {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-  align-items: center;
-}
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/readerContest/step2.jsp */
 
-.table_title img {
-  width: 1.5rem;
-  height: 1rem;
-}
+.tbl-type01 thead tr td{
+	background:#fafafa;
+	font-weight:bold;
+	}
+.tbl-type01 tbody tr td{
+	background:#fafafa;
+	font-size:13px;
+	text-align:left;
+	}
 
-.table_title div {
-  color: #2D2D2D;
-  font-size: 1.0625rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-  letter-spacing: -0.02125rem;
-}
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookRelayIndividual/edit.jsp */
 
-.table {
-  width: 100%;
-  border-top: 2px solid #2D2D2D;
-  border-collapse:collapse;
-}
+.bbs-edit th, .bbs-edit td{
+	font-size:14px;
+	}
 
-.table_scroll {
-  width: 100%;
-  min-width: 62.5rem;
-}
+/*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
+/* homepage/module/bookRelayGroup/edit.jsp */
+/* homepage/module/readerContest/edit.jsp */
 
-.scroll {
-  overflow-x: auto;
-}
+.bbs-edit th, .bbs-edit td{
+	font-size:14px;
+	}
 
-.table thead tr th {
-  background: #F8F8F8;
-  padding: 0.75rem 1.25rem;
-  color: #2D2D2D;
-  text-align: center;
-  font-size: 0.9375rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.01875rem;
-  border-right: 1px solid #D8D8D8;
-  border-bottom: 1px solid #D8D8D8;
-}
-
-.table thead tr th:last-child {
-  border-right: none;
-}
-
-.table tbody tr td {
-  padding: 0.75rem 1.25rem;
-  color: #2D2D2D;
-  text-align: center;
-  font-size: 0.9375rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.01875rem;
-  border-bottom: 1px solid #D8D8D8;
-  border-right: 1px solid #D8D8D8;
-}
-
-.table tbody tr td:last-child {
-  border-right: none;
-}
-
-.scroll_info {
-  display: none;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.scroll_info img {
-  width: 0.625rem;
-  height: 0.625rem;
-}
-
-.scroll_info img:last-child {
-  transform: rotate(180deg)
-}
-
-.scroll_info div {
-  color: #717171;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  letter-spacing: -0.015rem;
-}
-
-/*노트북 & 태블릿 가로 : 1024px-1279px*/
-@media all and (min-width:1024px) and (max-width:1279px){
-  .header_content {
-    padding: 0 1rem 0 1rem;
-  }
-
-  .sub_menu_title {
-    display: none;
-  }
-
-  .sub_menu_list_box {
-    display: none;
-  }
-
-  .scroll_info {
-    display: flex;
-  }
-}
-
-/*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
-  .header_content {
-    padding: 0 1rem 0 1rem;
-  }
-
-  .sub_menu_title {
-    display: none;
-  }
-
-  .sub_menu_list_box {
-    display: none;
-  }
-
-  .scroll_info {
-    display: flex;
-  }
-}
-
-/*모바일 가로 & 태블릿 세로 : 480px-767px*/
-@media all and (min-width:480px) and (max-width:767px){
-  .header_content {
-    padding: 0 1rem 0 1rem;
-  }
-
-  .sub_menu_title {
-    display: none;
-  }
-
-  .sub_menu_list_box {
-    display: none;
-  }
-
-  .scroll_info {
-    display: flex;
-  }
-}
-
-/*모바일 : -479px*/
-@media all and (max-width:479px){
-  .header_content {
-    padding: 0 1rem 0 1rem;
-  }
-
-  .sub_menu_title {
-    display: none;
-  }
-
-  .sub_menu_list_box {
-    display: none;
-  }
-
-  .scroll_info {
-    display: flex;
-  }
-}
 

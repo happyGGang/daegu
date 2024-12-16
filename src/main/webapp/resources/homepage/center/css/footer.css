@@ -1,6 +1,5 @@
 .badge_swiper {
   background-color: #FFFFFF;
-  width: 100%;
   position: relative;
   display: flex;
   justify-content: center;
@@ -9,8 +8,9 @@
 }
 
 .badge_swiper .swiper {
-  width: 65rem;
-  height: 3rem;
+  padding-left: 0.1rem !important;
+  width: 65.1rem;
+  height: 3.1rem;
   margin: 0 !important;
 }
 
@@ -46,7 +46,7 @@
 .badge_swiper .swiper-button-next {
   width: 2.5rem;
   height: 2.5rem;
-  top: 1.4rem;
+  top: 1.9rem;
   left: 3rem;
   transform: rotate(180deg);
   background: url(../img/swiper_arrow.svg) no-repeat top center;
@@ -56,7 +56,7 @@
 .badge_swiper .swiper-button-prev {
   width: 2.5rem;
   height: 2.5rem;
-  top: 1.4rem;
+  top: 1.9rem;
   left: 0 !important;
   background: url(../img/swiper_arrow.svg) no-repeat top center;
   background-size: cover;
@@ -135,7 +135,7 @@
 
 .detail_select_wrapper {
   display: flex;
-  gap: 16.62rem;
+  gap: 15.62rem;
   align-items: flex-end;
 }
 
@@ -233,7 +233,7 @@
   cursor: pointer;
   position: absolute;
   bottom: 2.56rem;
-  right: 1.25rem;
+  right: -253px;
   width: 3rem;
   height: 3rem;
   background: url(../img/scroll_top.svg) no-repeat top center;
@@ -620,7 +620,7 @@
 
   .badge_swiper .swiper {
     width: 20.5rem;
-    height: 2.92857rem;
+    height: 3.1rem;
     margin: 0 !important;
   }
 
@@ -630,6 +630,7 @@
   }
 
   .badge_action {
+	width: 9.5rem;
     margin-right:0;
     padding-right: 2rem;
   }
@@ -728,7 +729,7 @@
   .scroll_top {
     width: 2rem;
     height: 2rem;
-    bottom: 9.3rem;
+    bottom: 11.3rem;
     right: 1rem;
   }
 }

@@ -270,38 +270,4 @@
 		</attribute>
 	</tag>
 
-	<tag>
-		<description>홈페이지 ContentWrapper</description>
-		<name>contentWrapper</name>
-		<tag-class>kr.co.whalesoft.framework.tag.homepage.ContentWrapperTag</tag-class>
-		<body-content>empty</body-content>
-		<attribute>
-			<name>menuList</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>oneMenu</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-
-	<tag>
-		<description>홈페이지 왼쪽메뉴</description>
-		<name>leftSubMenu</name>
-		<tag-class>kr.co.whalesoft.framework.tag.homepage.LeftSubMenuTag</tag-class>
-		<body-content>empty</body-content>
-		<attribute>
-			<name>menuList</name>
-			<required>true</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<name>startDeps</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-	</tag>
-
 </taglib>

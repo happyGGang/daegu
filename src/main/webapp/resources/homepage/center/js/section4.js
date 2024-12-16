@@ -10,5 +10,5 @@ $(document).ready(function () {
 			nextEl: '.calendar_swiper .swiper-button-next',
 			prevEl: '.calendar_swiper .swiper-button-prev',
 		},
-	});
+	});	
 });

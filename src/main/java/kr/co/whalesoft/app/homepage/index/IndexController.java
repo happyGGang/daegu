@@ -2545,7 +2545,20 @@ public class IndexController extends BaseController {
 				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
 			}
 		}
-		
+
+		//h100 혁신센터
+		String[] teachHomepage100 = {"h100"};
+		for (String th: teachHomepage100 ) {
+			if (homepage.getHomepage_id().equals(th)) {
+				Teach t = new Teach();
+				t.setHomepage_id(homepage.getHomepage_id());
+				t.setSearchCate1("16");
+				model.addAttribute("teachList1", teachService.getTeachListForUser(t));
+				t.setSearchCate1("17");
+				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
+			}
+		}
+
 		//대표도서관
 		if (homepage.getHomepage_id().equals("h32")) {
 			Teach t = new Teach();

@@ -1,4 +1,17 @@
 $(document).ready(function () {
+	const calendarSwiper = new Swiper('.calendar_swiper .swiper', {
+		speed: 3000,
+		slidesPerView: 6,
+		slidesPerGroup: 6,
+		direction: 'vertical',
+		loopAddBlankSlides: true,
+		allowTouchMove: false,
+		navigation: {
+			nextEl: '.calendar_swiper .swiper-button-next',
+			prevEl: '.calendar_swiper .swiper-button-prev',
+		},
+	});	
+			
 	// 타이틀 액티브 처리
 	$('.book_information_item:first').addClass('menu_active');
 
@@ -9,12 +22,9 @@ $(document).ready(function () {
 
 	// 메인 스와이퍼
 	const BookSwiper = new Swiper('.book_information_swiper .swiper', {
-		speed: 3000,
+		speed: 200,
 		allowTouchMove: false,
-		autoplay: {
-			delay: 3000,
-			disableOnInteraction: false,
-		},
+		
 		loop: true,
 		slidesPerView: 1,
 		loopAddBlankSlides: true,
@@ -30,11 +40,8 @@ $(document).ready(function () {
 
 	// 리스트 스와이퍼
 	const BookListSwiper = new Swiper('.book_list', {
-		speed: 3000,
-		autoplay: {
-			delay: 3000,
-			disableOnInteraction: false,
-		},
+		speed: 200,
+		
 		spaceBetween: 10,
 		loop: true,
 		slidesPerView: 4,
@@ -65,20 +72,4 @@ $(document).ready(function () {
 		autoplayButton.src = src;
 		autoplayButton.alt = alt;
 	}
-
-	// 프로그레스바
-	const progressBar = document.querySelector('.progress');
-
-	BookSwiper.on('slideChangeTransitionStart', () => {
-		progressBar.style.transition = 'none';
-		progressBar.style.width = '0%';
-	});
-
-	BookSwiper.on('slideChangeTransitionEnd', () => {
-		progressBar.style.transition = `width ${BookSwiper.params.autoplay.delay}ms linear`;
-		progressBar.style.width = '100%';
-	});
-
-	progressBar.style.transition = `width ${BookSwiper.params.autoplay.delay}ms linear`;
-	progressBar.style.width = '100%';
 });
