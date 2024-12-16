@@ -1,13 +1,19 @@
 $(document).ready(function () {
 	// 메인 스와이퍼
-	const BookSwiper = new Swiper('.book_information_swiper .swiper', {
+	var BookSwiper;
+	var BookListSwiper;
+	
+	BookSwiper = new Swiper('.book_information_swiper .swiper', {
 		speed: 200,
 		allowTouchMove: false,
-		
 		loop: true,
 		slidesPerView: 1,
 		loopAddBlankSlides: true,
 		effect: 'fade',
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
 		fadeEffect: {
 			crossFade: true,
 		},
@@ -18,17 +24,42 @@ $(document).ready(function () {
 	});
 
 	// 리스트 스와이퍼
-	const BookListSwiper = new Swiper('.book_list', {
+	BookListSwiper = new Swiper('.book_list', {
 		speed: 200,
-		
 		spaceBetween: 10,
 		loop: true,
 		slidesPerView: 4,
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+		},
 		loopAddBlankSlides: true,
 		allowTouchMove: false
 	});
 
-	// 메인 스와이퍼 & 리스트 스와이퍼 정지 OR 재생
+
+	// 메인 스와이퍼 & 리스트 스와이퍼 정지 OR 재생 - 버튼 있을떄 없을떄 예외처리
+	var len;
+	if( $('#librarian.book_information_item').hasClass('menu_active') )
+	{
+		len = $('.librarian .swiper-slide').length;
+	}
+	else if( $('#bestBook.book_information_item').hasClass('menu_active') )
+	{
+		len = $('.bestBook .swiper-slide').length;
+	}
+	else if( $('#newBook.book_information_item').hasClass('menu_active') )
+	{
+		len = $('.newBook .swiper-slide').length;;
+	}
+	else
+	{
+		len = 0;
+	}
+
+	if(len > 1)
+	{
+		
 	const autoplayButton = document.querySelector('.book_autoplay');
 
 	autoplayButton.addEventListener('click', () => {
@@ -46,5 +77,7 @@ $(document).ready(function () {
 	function updateAutoplayButton(src, alt) {
 		autoplayButton.src = src;
 		autoplayButton.alt = alt;
+	}
+	
 	}
 });

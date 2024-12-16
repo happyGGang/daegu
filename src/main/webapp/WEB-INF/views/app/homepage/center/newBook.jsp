@@ -3,6 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/section3.js"></script>
+
 				<div class="swiper_wrapper">
 					<div class="book_information_swiper">
 						<div class="swiper">
@@ -44,7 +45,9 @@
 						<div class="swiper_action_wrapper">
 							<div class="swiper-button-prev"></div>
 							<div class="swiper-button-next"></div>
-							<img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
+							<c:if test="${fn:length(newBookList) > 1}">
+								<img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
+							</c:if>
 						</div>
 					</div>
 					<div class="book_list swiper">

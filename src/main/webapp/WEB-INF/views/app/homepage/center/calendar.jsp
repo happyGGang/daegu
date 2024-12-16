@@ -97,7 +97,7 @@ Date.prototype.format = function(f) {
 				<div class='calendar_header'>
 					<div>도서관일정</div>
 					
-						<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+						<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
 							<img src="/resources/homepage/center/img/plus.svg" alt="일정더보기">
 						</a>
 					

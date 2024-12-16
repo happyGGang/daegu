@@ -7,6 +7,8 @@ $(document).ready(function () {
 		$(this).addClass('index_active');
 	});
 
+/* ------------------------------------------------------------------------------------------------------------------- */
+
 	// 팝업 스와이퍼 페이지네이션
 	let slidesPerPage = 1;
 	const totalSlides = $('.popup_swiper .swiper-slide').length;
@@ -35,7 +37,12 @@ $(document).ready(function () {
 		},
 	});
 
+
 	// 팝업 스와이퍼 정지 OR 재생
+	var popzoneConLen = $('.popup_swiper .swiper-slide').length;
+	if(popzoneConLen > 1)
+	{
+	
 	const autoplayButton = document.querySelector('.popup_autoplay');
 
 	autoplayButton.addEventListener('click', () => {
@@ -53,7 +60,12 @@ $(document).ready(function () {
 		autoplayButton.alt = alt;
 	}
 	
-		const calendarSwiper = new Swiper('.calendar_swiper .swiper', {
+	}
+	
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+
+	const calendarSwiper = new Swiper('.calendar_swiper .swiper', {
 		speed: 3000,
 		slidesPerView: 6,
 		slidesPerGroup: 6,
