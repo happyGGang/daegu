@@ -58,7 +58,7 @@ $(document).ready(function() {
 
 		$('.' + selected).show();
 		$('div#recommandBookContents .swiper_wrapper, div#bestBookContents .swiper_wrapper, div#newBookContents .swiper_wrapper').remove();
-		$('.' + selected).append("<div><img src='https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif' alt=''></div>");
+		$('.' + selected).append("<div class='c_loading'><img src='https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif' alt=''></div>");
 		
 		const bookMore = document.querySelector('.book_more');
 	
@@ -427,7 +427,8 @@ $(function () {
 	</section>
 
 	<section class="section" id="section3">
-		<div>
+		<div style="width: 100%;
+    max-width: 75rem;">
 			<div class="book_information_title">BOOK INFORMATION</div>
 			<div class="book_information_menu">
 				<ul class="book_information_menu_list">

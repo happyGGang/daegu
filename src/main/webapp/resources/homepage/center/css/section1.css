@@ -6,6 +6,17 @@
   padding: 1rem;
 }
 
+.c_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32.5rem;
+}
+
+.c_loading  img {
+    width: 5rem !important;
+}
+
 .section_1_wrapper {
   max-width: 75rem;
 }
@@ -333,7 +344,7 @@
 }
 
 
-/*³ëÆ®ºÏ & ÅÂºí¸´ °¡·Î : 1024px-1279px*/ @media all and (min-width:1024px) and 
+/*ï¿½ï¿½Æ®ï¿½ï¿½ & ï¿½Âºï¿½ ï¿½ï¿½ï¿½ï¿½ : 1024px-1279px*/ @media all and (min-width:1024px) and 
 (max-width:1279px){ #section1 { height: 47rem !important; }
 
    #calendar2 .planView .inbox .planList p.datetime.event { width: 1.9rem; 
@@ -487,7 +498,7 @@
 }
 }
 
-/*ÅÂºí¸´ °¡·Î : 769px-1023px*/
+/*ï¿½Âºï¿½ ï¿½ï¿½ï¿½ï¿½ : 769px-1023px*/
 @media all and (min-width:768px) and (max-width:1024px){
   #section1 {
     height: 47rem !important;
@@ -648,7 +659,7 @@
 }
 }
 
-/*¸ð¹ÙÀÏ °¡·Î & ÅÂºí¸´ ¼¼·Î : 480px-767px*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ & ï¿½Âºï¿½ ï¿½ï¿½ï¿½ï¿½ : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
   #section1 {
     height: 47rem !important;
@@ -809,7 +820,7 @@
 }
 }
 
-/*¸ð¹ÙÀÏ : -479px*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ : -479px*/
 @media all and (max-width:479px){
  #calendar2 .planView .inbox .planList p.datetime.event {
    width: 1.9rem;
