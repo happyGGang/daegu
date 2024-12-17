@@ -289,9 +289,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="NH">푸른초장공공도서관</option>
 					<option value="NJ">한들마을도서관</option>
 				</select>
-				<div class="ui-state-highlight" style="margin-top:7px">
+				<!--<div class="ui-state-highlight" style="margin-top:7px">
 					<span>* 소속 도서관은 변경이 어려우니 신중하게 선택하여 주시기 바랍니다.</span>
-				</div>
+				</div>-->
 				</c:if>
 
 				<c:if test="${homepage.context_path eq 'bukgs'}">

@@ -1764,7 +1764,7 @@ function isFromFridayToSunday() {
 															<c:choose>
 																<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
 																</c:when>
-																<c:when test="${i.MANAGE_CODE eq 'CA'|| i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'GR' || i.MANAGE_CODE eq 'GS' || i.MANAGE_CODE eq 'FK' || i.MANAGE_CODE eq 'GT' || i.MANAGE_CODE eq 'FP' || i.MANAGE_CODE eq 'FL' || i.MANAGE_CODE eq 'GU' || i.MANAGE_CODE eq 'GV' || i.MANAGE_CODE eq 'GW' || i.MANAGE_CODE eq 'GX' || i.MANAGE_CODE eq 'GY' || i.MANAGE_CODE eq 'FM' || i.MANAGE_CODE eq 'FL' || i.MANAGE_CODE eq 'HJ' || i.MANAGE_CODE eq 'HK' || i.MANAGE_CODE eq 'HL' || i.MANAGE_CODE eq 'HN' || i.MANAGE_CODE eq 'HP'}">
+																<c:when test="${i.MANAGE_CODE eq 'CA'|| i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'GR' || i.MANAGE_CODE eq 'GS' || i.MANAGE_CODE eq 'FK' || i.MANAGE_CODE eq 'GT' || i.MANAGE_CODE eq 'FP' || i.MANAGE_CODE eq 'FL' || i.MANAGE_CODE eq 'GU' || i.MANAGE_CODE eq 'GV' || i.MANAGE_CODE eq 'GW' || i.MANAGE_CODE eq 'GX' || i.MANAGE_CODE eq 'GY' || i.MANAGE_CODE eq 'FM' || i.MANAGE_CODE eq 'FL' || i.MANAGE_CODE eq 'HJ' || i.MANAGE_CODE eq 'HK' || i.MANAGE_CODE eq 'HL' || i.MANAGE_CODE eq 'HN' || i.MANAGE_CODE eq ''}">
 																	<c:choose>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
