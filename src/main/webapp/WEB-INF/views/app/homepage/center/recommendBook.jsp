@@ -10,7 +10,7 @@
 						<div class="swiper">
 							<div class="swiper-wrapper">
 								<!-- TODO 사서추천도서 no data 처리 -->
-								<c:if test="${fn:length(bookList1) < 1}">
+								<c:if test="${fn:length(recommendBookList) < 1}">
 									<div class="swiper-slide">
 										<div>
 											<div class="book_title">콘텐츠가 없습니다.</div>
@@ -20,7 +20,7 @@
 										<img src="/resources/common/img/noImg2.png" alt="" onerror="this.src='/resources/common/img/noImg2.png';" />
 									</div>
 								</c:if>
-								<c:forEach var="i" varStatus="status" items="${bookList1}">
+								<c:forEach var="i" varStatus="status" items="${recommendBookList}">
 									<div class="swiper-slide">
 										<div>
 											<div class="book_title">${i.title}</div>
@@ -33,20 +33,20 @@
 													<c:when test="${fn:contains(i.preview_img, 'http')}">
 														<c:choose>
 															<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-																<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';"  />
+																<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 															</c:when>
 															<c:otherwise>
-																<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" />
+																<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 															</c:otherwise>
 														</c:choose>
 													</c:when>
 													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" />
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 													</c:otherwise>
 												</c:choose>
 											</c:when>
 											<c:otherwise>
-												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" >
+												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" >
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -57,7 +57,7 @@
 						<div class="swiper_action_wrapper">
 								<div class="swiper-button-prev"></div>
 								<div class="swiper-button-next"></div>
-								<c:if test="${fn:length(bookList1) > 1}">
+								<c:if test="${fn:length(recommendBookList) > 4}">
 									<img src="/resources/homepage/center/img/book_information_stop.svg" alt="정지버튼" class="book_autoplay" role="button" />
 								</c:if>
 						</div>
@@ -66,10 +66,10 @@
 					<div class="book_list swiper">
 						<div class="swiper-wrapper">
 							<!-- TODO 사서추천도서 no data 처리 -->
-							<c:if test="${fn:length(bookList1) < 1}">
+							<c:if test="${fn:length(recommendBookList) < 1}">
 								<div></div>
 							</c:if>
-							<c:forEach var="i" varStatus="status" items="${bookList1}" begin="1">
+							<c:forEach var="i" varStatus="status" items="${recommendBookList}" begin="1">
 								<div class="swiper-slide">
 									<c:choose>
 										<c:when test="${i.preview_img ne null}">
@@ -77,25 +77,25 @@
 												<c:when test="${fn:contains(i.preview_img, 'http')}">
 													<c:choose>
 														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-															<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';"/>
+															<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 														</c:when>
 														<c:otherwise>
-															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" />
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"onerror="this.src='/resources/common/img/noImg2.png';" />
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 												</c:otherwise>
 											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" >
+											<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" >
 										</c:otherwise>
 									</c:choose>
 								</div>
 							</c:forEach>
-							<c:forEach var="i" varStatus="status" items="${bookList1}" begin="0" end="0">
+							<c:forEach var="i" varStatus="status" items="${recommendBookList}" begin="0" end="0">
 								<div class="swiper-slide">
 									<c:choose>
 										<c:when test="${i.preview_img ne null}">
@@ -103,20 +103,20 @@
 												<c:when test="${fn:contains(i.preview_img, 'http')}">
 													<c:choose>
 														<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-															<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';"/>
+															<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 														</c:when>
 														<c:otherwise>
-															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" />
+															<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 														</c:otherwise>
 													</c:choose>
 												</c:when>
 												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"onerror="this.src='/resources/common/img/noImg2.png';" />
+													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" />
 												</c:otherwise>
 											</c:choose>
 										</c:when>
 										<c:otherwise>
-											<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';" >
+											<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/common/img/noImg2.png';" >
 										</c:otherwise>
 									</c:choose>
 								</div>
