@@ -4,17 +4,18 @@
   background: url('/resources/homepage/center/img/main1_new.png') no-repeat top center;
   background-size: cover;
   padding: 1rem;
+  align-items: center;
 }
 
 .c_loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32.5rem;
 }
 
 .c_loading  img {
-    width: 5rem !important;
+  width: 5rem !important;
 }
 
 .section_1_wrapper {
@@ -22,8 +23,8 @@
 }
 
 .main_title {
-  width: 24.9375rem;
-  height: 8rem;
+  width: 33.9375rem;
+  height: 4rem;
   background-size: cover;
   background: url('/resources/homepage/center/img/title.svg') no-repeat top center;
 }
@@ -343,19 +344,18 @@
   }
 }
 
+@media all and (min-width:1024px) and (max-width:1279px) {
+  #section1 { height: 47rem !important; }
 
-/*��Ʈ�� & �º� ���� : 1024px-1279px*/ @media all and (min-width:1024px) and 
-(max-width:1279px){ #section1 { height: 47rem !important; }
-
-   #calendar2 .planView .inbox .planList p.datetime.event { width: 1.9rem; 
-   height: 1.9rem; font-size: 13px; }
+  #calendar2 .planView .inbox .planList p.datetime.event { width: 1.9rem;
+    height: 1.9rem; font-size: 13px; }
 
 
-#calendar2 .planView .inbox .planList p.datetime.holiday {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+  #calendar2 .planView .inbox .planList p.datetime.holiday {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
   .section_1_wrapper {
     padding-bottom: 10rem;
@@ -409,7 +409,7 @@
 
   .quick_menu {
     margin-top: 2.5rem;
-    display: grid;
+    /* display: grid; */
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: 1.5rem;
     justify-items: center;
@@ -429,16 +429,18 @@
     font-size: 0.8125rem;
   }
 
-  .information_area {
+/*   .information_area {
     flex-direction: column;
-  }
+  } */
 
   .left_area {
     padding-left: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: column;
-    align-items: flex-start;
+    /* justify-content: center; */
+	justify-content: flex-start;
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
+	align-items: center
   }
 
   .close_day {
@@ -475,7 +477,7 @@
   }
 
   .pagination {
-    bottom: 9rem;
+    bottom: 5rem;
   }
 
   .week_area {
@@ -491,31 +493,31 @@
     display: none;
   }
   #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
-#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
-#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
-#calendar2 .cal-calendar .calendar-info {
- bottom: 0px
-}
+  #calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+  #calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+  #calendar2 .cal-calendar .calendar-info {
+    bottom: 0
+  }
 }
 
-/*�º� ���� : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
+
+@media all and (min-width:768px) and (max-width:1024px) {
   #section1 {
     height: 47rem !important;
   }
-  
-   #calendar2 .planView .inbox .planList p.datetime.event {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+
+  #calendar2 .planView .inbox .planList p.datetime.event {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
 
-#calendar2 .planView .inbox .planList p.datetime.holiday {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+  #calendar2 .planView .inbox .planList p.datetime.holiday {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
   .section_1_wrapper {
     padding-bottom: 10rem;
@@ -569,7 +571,7 @@
 
   .quick_menu {
     margin-top: 2.5rem;
-    display: grid;
+    /* display: grid; */
     grid-template-columns: repeat(3, 1fr);
     grid-row-gap: 1.5rem;
     justify-items: center;
@@ -589,16 +591,18 @@
     font-size: 0.8125rem;
   }
 
-  .information_area {
+ .information_area {
     flex-direction: column;
-  }
+  } 
 
   .left_area {
     padding-left: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: column;
-    align-items: flex-start;
+    /* justify-content: center; */
+	justify-content:flex-start;
+    /* flex-direction: column; */
+    /* align-items: flex-start; */
+	align-items: center;
   }
 
   .close_day {
@@ -650,33 +654,32 @@
   .scroll_area {
     display: none;
   }
-  
+
   #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
-#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
-#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
-#calendar2 .cal-calendar .calendar-info {
- bottom: 0px
-}
+  #calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+  #calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+  #calendar2 .cal-calendar .calendar-info {
+    bottom: 0
+  }
 }
 
-/*����� ���� & �º� ���� : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
   #section1 {
     height: 47rem !important;
   }
-  
-   #calendar2 .planView .inbox .planList p.datetime.event {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+
+  #calendar2 .planView .inbox .planList p.datetime.event {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
 
-#calendar2 .planView .inbox .planList p.datetime.holiday {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+  #calendar2 .planView .inbox .planList p.datetime.holiday {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
   .section_1_wrapper {
     padding-bottom: 10rem;
@@ -811,29 +814,28 @@
   .scroll_area {
     display: none;
   }
-  
+
   #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
-#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
-#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
-#calendar2 .cal-calendar .calendar-info {
- bottom: 0px
-}
+  #calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+  #calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+  #calendar2 .cal-calendar .calendar-info {
+    bottom: 0
+  }
 }
 
-/*����� : -479px*/
 @media all and (max-width:479px){
- #calendar2 .planView .inbox .planList p.datetime.event {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+  #calendar2 .planView .inbox .planList p.datetime.event {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
 
-#calendar2 .planView .inbox .planList p.datetime.holiday {
-   width: 1.9rem;
-   height: 1.9rem;
-   font-size: 13px;
- }
+  #calendar2 .planView .inbox .planList p.datetime.holiday {
+    width: 1.9rem;
+    height: 1.9rem;
+    font-size: 13px;
+  }
 
 
   #section1 {
@@ -973,13 +975,13 @@
   .scroll_area {
     display: none;
   }
-  
+
   #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 13px}
-#calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
+  #calendar2 .planView .inbox .planList p.datetime.event span {color:#3368ff;font-size: 13px}
 
-#calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
+  #calendar2 .cal-calendar .calendar-info {font-size: 0.8125rem}
 
-#calendar2 .cal-calendar .calendar-info {
- bottom: 0px
-}
+  #calendar2 .cal-calendar .calendar-info {
+    bottom: 0
+  }
 }

@@ -2,6 +2,7 @@
   height: 100vh;
   background: url(../img/section2.svg) no-repeat top center;
   background-size: cover;
+  align-items: center;
 }
 
 .row_wrapper {
@@ -254,15 +255,15 @@
 @media all and (min-width:1024px) and (max-width:1279px){
   #section2 {
     height: 55.25rem !important;
-    background: url(../img/section2_mobile.svg) no-repeat top center;
+    background: url(../img/section2.svg) no-repeat top center;
     background-size: cover;
   }
 
   .row_wrapper {
-    margin-top: 2.5rem;
-    flex-direction: column;
-    gap: 0;
-    align-items: center;
+    /* margin-top: 2.5rem; */
+    /* flex-direction: column; */
+    gap: 10.62rem;
+    /* align-items: center; */
   }
 
   .board {
@@ -399,23 +400,31 @@
 }
 
 /*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
+@media all and (min-width:768px) and (max-width:1023px){
   #section2 {
-    height: 55.25rem !important;
-    background: url(../img/section2_mobile.svg) no-repeat top center;
-    background-size: cover;
+    height: 60rem !important;
+	background: #FFFFFF;
+    /* background: url(../img/section2_m.svg) no-repeat top center;
+    background-size: cover; */
+	align-items: flex-start;
   }
 
   .row_wrapper {
-    margin-top: 2.5rem;
+    /* margin-top: 2.5rem; */
     flex-direction: column;
     gap: 0;
     align-items: center;
+	width: 100%;
   }
 
   .board {
-    padding: 0 1rem 0 1rem;
-  }
+    padding-top: 2.5rem;
+	width: 100%;
+	background: #F8F8F8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }	
 
   .board_list {
     height: 22rem;
@@ -424,9 +433,11 @@
   .board_title {
     font-size: 0.8125rem;
     margin-bottom: 1rem;
+	width: 20.5rem;
   }
 
   .board_index_wrapper {
+    width: 20.5rem;
     margin-bottom: 1.5rem;
     justify-content: space-between;
   }
@@ -443,8 +454,8 @@
   .board_index li::after {
     width: 0.2rem;
     height: 0.2rem;
-    bottom: 0.5rem;
-    left:5rem;
+    bottom: 0.6rem;
+    left: 4.6rem;
   }
 
   .board_more {
@@ -483,14 +494,25 @@
   .board_list_item_date div:last-child {
     font-size: 0.6875rem;
   }
+  
+  .popup {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5rem;
+	width: 100%;
+	align-items: center;
+  }
 
   .popup_en {
+    width: 20.5rem;
     font-weight: 600;
     font-size: 0.8125rem;
     margin-bottom: 0.5rem;
   }
 
   .popup_kr {
+    width: 20.5rem;
     font-size: 1.125rem;
     margin-bottom: 2rem;
   }
@@ -548,22 +570,30 @@
 
 /*모바일 가로 & 태블릿 세로 : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
-  #section2 {
-    height: 55.25rem !important;
-    background: url(../img/section2_mobile.svg) no-repeat top center;
-    background-size: cover;
+    #section2 {
+    height: 60rem !important;
+	background: #FFFFFF;
+    /* background: url(../img/section2_m.svg) no-repeat top center;
+    background-size: cover; */
+	align-items: flex-start;
   }
 
   .row_wrapper {
-    margin-top: 2.5rem;
+    /* margin-top: 2.5rem; */
     flex-direction: column;
     gap: 0;
     align-items: center;
+	width: 100%;
   }
 
   .board {
-    padding: 0 1rem 0 1rem;
-  }
+    padding-top: 2.5rem;
+	width: 100%;
+	background: #F8F8F8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }	
 
   .board_list {
     height: 22rem;
@@ -572,9 +602,11 @@
   .board_title {
     font-size: 0.8125rem;
     margin-bottom: 1rem;
+	width: 20.5rem;
   }
 
   .board_index_wrapper {
+    width: 20.5rem;
     margin-bottom: 1.5rem;
     justify-content: space-between;
   }
@@ -591,8 +623,8 @@
   .board_index li::after {
     width: 0.2rem;
     height: 0.2rem;
-    bottom: 0.5rem;
-    left:5rem;
+    bottom: 0.6rem;
+    left: 4.6rem;
   }
 
   .board_more {
@@ -631,14 +663,25 @@
   .board_list_item_date div:last-child {
     font-size: 0.6875rem;
   }
+  
+  .popup {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5rem;
+	width: 100%;
+	align-items: center;
+  }
 
   .popup_en {
+    width: 20.5rem;
     font-weight: 600;
     font-size: 0.8125rem;
     margin-bottom: 0.5rem;
   }
 
   .popup_kr {
+    width: 20.5rem;
     font-size: 1.125rem;
     margin-bottom: 2rem;
   }
@@ -696,22 +739,30 @@
 
 /*모바일 : -479px*/
 @media all and (max-width:479px){
-  #section2 {
-    height: 55.25rem !important;
-    background: url(../img/section2_mobile.svg) no-repeat top center;
-    background-size: cover;
+    #section2 {
+    height: 60rem !important;
+	background: #FFFFFF;
+    /* background: url(../img/section2_m.svg) no-repeat top center;
+    background-size: cover; */
+	align-items: flex-start;
   }
 
   .row_wrapper {
-    margin-top: 2.5rem;
+    /* margin-top: 2.5rem; */
     flex-direction: column;
     gap: 0;
     align-items: center;
+	width: 100%;
   }
 
   .board {
-    padding: 0 1rem 0 1rem;
-  }
+    padding-top: 2.5rem;
+	width: 100%;
+	background: #F8F8F8;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }	
 
   .board_list {
     height: 22rem;
@@ -720,9 +771,11 @@
   .board_title {
     font-size: 0.8125rem;
     margin-bottom: 1rem;
+	width: 20.5rem;
   }
 
   .board_index_wrapper {
+    width: 20.5rem;
     margin-bottom: 1.5rem;
     justify-content: space-between;
   }
@@ -739,8 +792,8 @@
   .board_index li::after {
     width: 0.2rem;
     height: 0.2rem;
-    bottom: 0.5rem;
-    left:4.7rem;
+    bottom: 0.6rem;
+    left: 4.6rem;
   }
 
   .board_more {
@@ -779,14 +832,25 @@
   .board_list_item_date div:last-child {
     font-size: 0.6875rem;
   }
+  
+  .popup {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    padding-top: 2.5rem;
+	width: 100%;
+	align-items: center;
+  }
 
   .popup_en {
+    width: 20.5rem;
     font-weight: 600;
     font-size: 0.8125rem;
     margin-bottom: 0.5rem;
   }
 
   .popup_kr {
+    width: 20.5rem;
     font-size: 1.125rem;
     margin-bottom: 2rem;
   }

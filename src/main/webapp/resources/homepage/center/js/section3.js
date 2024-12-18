@@ -10,10 +10,6 @@ $(document).ready(function () {
 		slidesPerView: 1,
 		loopAddBlankSlides: true,
 		effect: 'fade',
-		autoplay: {
-			delay: 5000,
-			disableOnInteraction: false,
-		},
 		fadeEffect: {
 			crossFade: true,
 		},
@@ -29,12 +25,12 @@ $(document).ready(function () {
 		spaceBetween: 10,
 		loop: true,
 		slidesPerView: 4,
-		autoplay: {
-			delay: 5000,
-			disableOnInteraction: false,
-		},
 		loopAddBlankSlides: true,
-		allowTouchMove: false
+		allowTouchMove: false,
+		navigation: {
+		nextEl: '.book_information_swiper .swiper-button-next',
+		prevEl: '.book_information_swiper .swiper-button-prev',
+		},
 	});
 
 

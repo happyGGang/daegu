@@ -805,6 +805,9 @@
 				<when test="manage_idx == 736">
 					manage_idx in (734, 735, 736)
 				</when>
+				<when test="manage_idx == 1272">
+					manage_idx in (1272, 1273)
+				</when>
 				<otherwise>
 					manage_idx = #{manage_idx}
 				</otherwise>

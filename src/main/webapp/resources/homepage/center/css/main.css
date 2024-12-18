@@ -1,16 +1,12 @@
 @charset "utf-8"; 
 
-#section1, #section2, #section3, #section4 {overflow:hidden;display: flex;justify-content: center;align-items: center;}
+#section1, #section2, #section3, #section4 {overflow:hidden;display: flex;justify-content: center;}
 .fp-tableCell {
 	display: flex !important;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
-
-
-
-
 
 #calendar2 {width:100%;margin:0 auto;position:relative}
 #calendar2 .calendar-wrap {overflow:hidden;display:flex;}

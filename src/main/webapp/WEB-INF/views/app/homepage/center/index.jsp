@@ -428,7 +428,7 @@ $(function () {
 
 	<section class="section" id="section3">
 		<div style="width: 100%;
-    max-width: 75rem;">
+    max-width: 78rem;">
 			<div class="book_information_title">BOOK INFORMATION</div>
 			<div class="book_information_menu">
 				<ul class="book_information_menu_list">
@@ -467,18 +467,27 @@ $(function () {
 
 	</div>
 	<div class="bottom-box">
-		<div class="badge_swiper">
-				<div class="badge_action">
+		<div class="badge_swiper banner-wrap type8">
+				<!--<div class="badge_action">
 					<div class="swiper-button-prev"></div>
 					<div class="swiper-button-next"></div>
 					<img src="/resources/homepage/center/img/more.svg" alt="더보기" class="more" role="button" onclick="location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=94'"/>
 					<img src="/resources/homepage/center/img/popup_stop.svg" alt="정지버튼" class="badge_autoplay" role="button" />
-				</div>
+				</div>-->
+				<div class="banner-t7-after">
+							<div class="control">
+							     <a class="prev" href="#prev"><span class="blind">이전</span></a>
+								<a class="next" href="#next"><span class="blind">다음</span></a>
+								<a class="stop active" href="#stop"><img src="/resources/homepage/center/img/popup_stop.svg" alt="정지"><span class="blind">정지</span></a>
+								<a class="play" href="#play"><img src="/resources/homepage/center/img/popup_play.svg" alt="정지"><span class="blind">정지</span></a>
+								<a class="more" href="/${homepage.context_path}/bannermap/index.do?menu_idx=94"><img src="/resources/homepage/center/img/more.svg" alt="더보기"><span class="blind">더보기</span></a>
+							</div>
+						</div>
 
-				<div class="swiper">
-					<div class="swiper-wrapper">
+				<div class="swiper banner-box8">
+					<!--<div class="swiper-wrapper">-->
 						<homepageTag:banner bannerList="${bannerList}"/>
-					</div>
+					<!--</div>-->
 				</div>
 			</div>
 	</div>
@@ -576,67 +585,77 @@ $(function () {
 	
 $(document).ready(function () {
 	// 기관 로고 스와이퍼 초기화
-	const $bannerRoll = $('.banner-roll');
+	//const $bannerRoll = $('.banner-roll');
 
 	// swiper-wrapper div 생성 및 모든 li 요소 이동
-	const swiperWrapper = $('<div class="swiper-wrapper"></div>');
-	$bannerRoll.children('li').appendTo(swiperWrapper);
-	$bannerRoll.append(swiperWrapper);
+	//const swiperWrapper = $('<div class="swiper-wrapper"></div>');
+	//$bannerRoll.children('li').appendTo(swiperWrapper);
+	//$bannerRoll.append(swiperWrapper);
 
 	// 모든 li 요소에 swiper-slide 클래스 추가
-	swiperWrapper.children('li').addClass('swiper-slide');
+	//swiperWrapper.children('li').addClass('swiper-slide');
 
 	// Swiper 초기화
-	const BadgeSwiper = new Swiper('ul.banner-roll', {
-		speed: 900,
-		autoplay: {
-			delay: 3000,
-			disableOnInteraction: false,
-		},
-		loop: true,
-		slidesPerView: 6,
-		spaceBetween: 16,
-		navigation: {
-			nextEl: '.badge_swiper .swiper-button-next',
-			prevEl: '.badge_swiper .swiper-button-prev',
-		},
-		breakpoints: {
-			1024: {
-				slidesPerView: 6,
-				spaceBetween: 16,
-			},
-			768: {
-				slidesPerView: 6,
-				spaceBetween: 16,
-			},
-			480: {
-				slidesPerView: 6,
-				spaceBetween: 16,
-			},
-			0: {
-				slidesPerView: 2,
-				spaceBetween: 10,
-			},
-		},
-	});
+//	const BadgeSwiper = new Swiper('ul.banner-roll', {
+//		speed: 900,
+//		autoplay: {
+//			delay: 3000,
+//			disableOnInteraction: false,
+//		},
+//		loop: true,
+//		slidesPerView: 6,
+//		spaceBetween: 16,
+//	    slidesOffsetBefore: 8, 
+ //       slidesOffsetAfter: 8, 
+//		navigation: {
+//			nextEl: '.badge_swiper .swiper-button-next',
+//			prevEl: '.badge_swiper .swiper-button-prev',
+//		},
+//		breakpoints: {
+//			1024: {
+//				slidesPerView: 6,
+//				spaceBetween: 16,
+//				slidesOffsetBefore: 8, 
+ //       slidesOffsetAfter: 8, 
+//			},
+//			768: {
+//				slidesPerView: 6,
+//				spaceBetween: 16,
+//				slidesOffsetBefore: 8, 
+ //               slidesOffsetAfter: 8, 
+//			},
+//			480: {
+//				slidesPerView: 2,
+//				spaceBetween: 16,
+//				slidesOffsetBefore: 8, 
+ //              slidesOffsetAfter: 8, 
+//			},
+//			0: {
+//				slidesPerView: 2,
+//				spaceBetween: 10,
+//				slidesOffsetBefore: 5, 
+//                slidesOffsetAfter: 5, 
+//			},
+//		},
+//	});
 
 	// 기관 로고 스와이퍼 재생 OR 정지 기능
-	const autoplayButton = document.querySelector('.badge_autoplay');
+//	const autoplayButton = document.querySelector('.badge_autoplay');
 
-	autoplayButton.addEventListener('click', () => {
-		if (BadgeSwiper.autoplay.running) {
-			BadgeSwiper.autoplay.stop();
-			updateAutoplayButton('/resources/homepage/center/img/popup_play.svg', '재생버튼');
-		} else {
-			BadgeSwiper.autoplay.start();
-			updateAutoplayButton('/resources/homepage/center/img/popup_stop.svg', '정지버튼');
-		}
-	});
-
-	function updateAutoplayButton(src, alt) {
-		autoplayButton.src = src;
-		autoplayButton.alt = alt;
-	}
+//	autoplayButton.addEventListener('click', () => {
+//		if (BadgeSwiper.autoplay.running) {
+//			BadgeSwiper.autoplay.stop();
+//			updateAutoplayButton('/resources/homepage/center/img/popup_play.svg', '재생버튼');
+//		} else {
+//			BadgeSwiper.autoplay.start();
+//			updateAutoplayButton('/resources/homepage/center/img/popup_stop.svg', '정지버튼');
+//		}
+//	});
+//
+//	function updateAutoplayButton(src, alt) {
+//		autoplayButton.src = src;
+//		autoplayButton.alt = alt;
+//	}
 
 	// 스크롤탑 클릭 시 section1으로 이동
 	$('.scroll_top').click(function (event) {
@@ -653,8 +672,81 @@ $(document).ready(function () {
 		}
 	});
 	
-	BadgeSwiper.update();
+//	BadgeSwiper.update();
 });
+
+$(function() {
+    var bannerSliders = [];
+    var autoType = !$('div.banner-wrap').hasClass('noAuto');
+
+    function initBannerSlider(selector, options) {
+        if ($(selector).length) {
+            var slider = $(selector).bxSlider(options);
+            bannerSliders.push(slider);
+            return slider;
+        }
+        return null;
+    }
+
+    var commonOptions = {
+        slideWidth: 160,
+        speed: 500,
+        moveSlides: 1,
+        maxSlides: 6,
+        slideMargin: 16,
+        auto: autoType,
+        autoHover: true,
+        pager: false,
+        controls: true,
+		 responsive: true,
+        responsiveOptions: {
+            768: {
+                maxSlides: 2,
+                slideWidth:156,
+                slideMargin: 15
+            }
+        }
+    };
+
+
+    var bannerSlider8 = initBannerSlider('div.banner-wrap.type8 ul.banner-roll', commonOptions);
+
+    function controlSlider(action) {
+        bannerSliders.forEach(function(slider) {
+            if (slider) slider[action]();
+        });
+    }
+
+    $('div.banner-wrap a.prev').on('click', function() {
+        controlSlider('goToPrevSlide');
+        return false;
+    });
+
+    $('div.banner-wrap a.next').on('click', function() {
+        controlSlider('goToNextSlide');
+        return false;
+    });
+
+    $('div.banner-wrap a.stop').on('click', function() {
+        controlSlider('stopAuto');
+        $(this).removeClass('active')
+               .find('img').attr('src', '/resources/homepage/center/img/popup_stop.svg');
+        $('div.banner-wrap a.play').addClass('active')
+               .find('img').attr('src', '/resources/homepage/center/img/popup_play.svg');
+        return false;
+    });
+
+    $('div.banner-wrap a.play').on('click', function() {
+        controlSlider('startAuto');
+        $(this).removeClass('active')
+               .find('img').attr('src', '/resources/homepage/center/img/popup_play.svg');
+        $('div.banner-wrap a.stop').addClass('active')
+               .find('img').attr('src', '/resources/homepage/center/img/popup_stop.svg');
+        return false;
+    });
+});
+
+
 
 
 </script>

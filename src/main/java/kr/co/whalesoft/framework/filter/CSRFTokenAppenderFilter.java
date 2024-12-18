@@ -35,7 +35,7 @@ public class CSRFTokenAppenderFilter implements Filter {
             chain.doFilter(request, response);
             return;
         }
-        System.out.println("Request URI: " + requestURI);
+//        System.out.println("Request URI: " + requestURI);
 
         CharResponseWrapper wrappedResponse = new CharResponseWrapper(httpResponse);
 

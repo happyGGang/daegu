@@ -7,15 +7,24 @@
   padding: 1.62rem 0 1.62rem 0;
 }
 
+.badge_swiper .banner-roll li a{
+  display:inline-block;
+}
+
 .badge_swiper .swiper {
-  width: 66.1rem;
+  width: 66rem;
   height: 3.2rem;
   margin: 0 !important;
+  /* margin: 0 10px 0 0; */
+}
+
+.badge_swiper .bx-viewport{
+  overflow: visible  !important;!i;!;
 }
 
 .badge_swiper .banner-roll{
   width: 100%;
-  margin: 0 !important;
+  box-sizing: border-box;
 }
 
 .badge_swiper .swiper-slide {
@@ -23,14 +32,15 @@
   width: 10rem !important;
   height: 3rem !important;
   flex-shrink: 0;
+  
 }
 
-.badge_swiper .swiper-wrapper {
+.banner-roll .swiper-wrapper {
   width: auto;
   padding:0 6px;
 }
 
-.badge_swiper .swiper-slide img {
+.badge_swiper .banner-roll li img {
   width: 10rem;
   border: 1px solid #D8D8D8;
   height: 3rem;
@@ -43,7 +53,7 @@
   display: none;
 }
 
-.badge_action {
+.badge_swiper .control {
   justify-content: flex-end;
   position: relative;
   display: flex;
@@ -51,25 +61,36 @@
   gap: 0.5rem;
   margin-right: 3.5rem;
   height: 2.5rem;
+  align-items: center;
 }
 
-.badge_swiper .swiper-button-next {
+
+
+.badge_swiper .control .stop.active,.badge_swiper .control .play.active{display:inline-block;width: 2.5rem;height: 2.5rem;padding: 0 !important;!i;!;}
+
+.badge_swiper .control .stop,.badge_swiper .control .play{
+display:none;
+}
+
+.badge_swiper .control .prev {
   width: 2.5rem;
   height: 2.5rem;
-  top: 1.9rem;
-  left: 3rem;
+  /* top: 1.9rem; */
+  /* left: 3rem; */
+ background: url(../img/swiper_arrow.svg) no-repeat top center;
+  background-size: cover;
+  display:inline-block;
+}
+
+.badge_swiper .control .next{
+  width: 2.5rem;
+  height: 2.5rem;
+  /* top: 1.9rem; */
+  /* left: 0 !important; */
   transform: rotate(180deg);
   background: url(../img/swiper_arrow.svg) no-repeat top center;
   background-size: cover;
-}
-
-.badge_swiper .swiper-button-prev {
-  width: 2.5rem;
-  height: 2.5rem;
-  top: 1.9rem;
-  left: 0 !important;
-  background: url(../img/swiper_arrow.svg) no-repeat top center;
-  background-size: cover;
+  display:inline-block;
 }
 
 .badge_swiper .badge_autoplay {
@@ -262,7 +283,7 @@
   }
 
   .badge_swiper .swiper {
-    width: 20.5rem;
+    /* width: 20.5rem; */
     height: 2.92857rem;
     margin: 0 !important;
   }
@@ -324,10 +345,9 @@
   }
 
   .detail_select_wrapper {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 1.5rem;
     align-items: flex-start;
-
   }
 
   .site_detail div:first-child {
@@ -385,11 +405,21 @@
   }
 
   .badge_swiper .swiper {
-    width: 20.5rem;
+    width: 65rem;
     height: 3.1rem;
     margin: 0 !important;
-	padding-right: 0.5rem !important;
+    padding-right: 0 !important;
   }
+
+  .badge_swiper .control .prev {
+  width: 2rem;
+  height: 2rem;
+}
+
+.badge_swiper .control .next{
+  width: 2rem;
+  height: 2rem;
+}
 
   .badge_swiper .swiper-slide img {
     width: 9.76188rem;
@@ -422,9 +452,12 @@
     height: 2rem;
   }
 
+  .badge_swiper .control .stop.active,.badge_swiper .control .play.active{ width: 2rem;
+    height: 2rem;}
+
   .footer {
     position: relative;
-    height: 13rem;
+    height: 18rem;
     padding: 2.5rem 1rem 0 1rem;
   }
 
@@ -492,7 +525,7 @@
   .scroll_top {
     width: 2rem;
     height: 2rem;
-    bottom: 9.3rem;
+    bottom: 11.3rem;
     right: 1rem;
   }
 }
@@ -506,13 +539,41 @@
   }
 
  .badge_swiper .swiper {
-    width: 20.5rem;
+    width: 100%;
     height: 3.1rem;
     margin: 0 !important;
-	padding-right: 0.5rem !important;
+    padding: 0 !important;
   }
 
-  .badge_swiper .swiper-slide img {
+  .badge_swiper .control{
+    justify-content:flex-start;
+    margin-bottom:8px;
+  }
+.badge_swiper .control .prev {
+ width: 2rem;
+ height: 2rem;
+}
+
+.badge_swiper .control .next{
+  width: 2rem;
+    height: 2rem;
+}
+  .badge_swiper .banner-roll{
+    margin: 0 auto !important;
+  }
+.banner-wrap .banner-t7-after .control a.stop, .banner-wrap .banner-t7-after .control a.play{
+  padding:0;
+  width: 2rem;
+    height: 2rem;
+}
+
+ .badge_swiper .banner-roll li a {
+   width: 9.76188rem;
+   height: 2.92856rem;
+   /* padding: 0.79313rem 1.83038rem 0.90825rem 1.83038rem; */
+  }
+  
+ .badge_swiper .banner-roll li img {
     width: 9.76188rem;
     height: 2.92856rem;
   }
@@ -527,6 +588,13 @@
     height: 2rem;
     left: 2.5rem;
   }
+banner-wrap  .control a.more {width: 2rem;
+    height: 2rem;}
+  .banner-wrap .banner-t7-after .control a img{
+    width: 2rem;
+    height: 2rem;
+    line-height: normal;
+  }
 
   .badge_swiper .swiper-button-prev {
     width: 2rem;
@@ -539,8 +607,8 @@
   }
 
   .badge_swiper .more {
-    width: 2rem;
-    height: 2rem;
+   width: 2rem;
+   height: 2rem;
   }
 
   .footer {
@@ -629,11 +697,22 @@
     padding: 1.5rem 1rem 1.5rem 1rem;
   }
 
+  .badge_swiper .control{
+    justify-content:flex-start;
+    margin-bottom:8px;
+  }
+
+  .banner-wrap .banner-t7-after .control a.active{
+    display:inline-block;
+    width: 2rem;
+    height: 2rem;
+  }
+
   .badge_swiper .swiper {
-    width: 20.5rem;
+    width: 21.5rem;
     height: 3.1rem;
     margin: 0 !important;
-	padding-right: 0.5rem !important;
+    /* padding-right: 0.5rem !important; */
   }
 
   .badge_swiper .swiper-slide img {
@@ -646,6 +725,9 @@
     margin-right:0;
     padding-right: 2rem;
   }
+
+  .badge_swiper .control .prev, .badge_swiper .control .next{ width: 2rem;
+    height: 2rem;}
 
   .badge_swiper .swiper-button-next {
     width: 2rem;

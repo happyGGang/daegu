@@ -4185,6 +4185,11 @@ public class IndexController extends BaseController {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
 
 		setBoardListToModel(homepage.getHomepage_id(), model);
+		int manage_idx = 1272;
+
+		Board board = new Board();
+		board.setManage_idx(manage_idx);
+		model.addAttribute("recommendBookList", boardService.getBoardByMain(board));
 
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}

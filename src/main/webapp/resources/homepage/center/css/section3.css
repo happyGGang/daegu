@@ -219,6 +219,7 @@
 @media all and (min-width:1024px) and (max-width:1279px){
   #section3 {
     height: 37.1875rem !important;
+	padding: 0 1rem;
   }
 
   .book_information_title {
@@ -342,7 +343,7 @@
   }
 
   .book_list {
-    display: none;
+    /* display: none; */
   }
 
   .progress_container {
@@ -352,7 +353,7 @@
 }
 
 /*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
+@media all and (min-width:768px) and (max-width:1023px){
   #section3 {
     height: 37.1875rem !important;
   }
