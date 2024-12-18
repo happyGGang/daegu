@@ -1762,7 +1762,7 @@ function isFromFridayToSunday() {
 
 														<c:when test="${homepage.context_path eq 'donggu'}">
 															<c:choose>
-																<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ'}">
+																<c:when test="${i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'HP'}">
 																</c:when>
 																<c:when test="${i.MANAGE_CODE eq 'CA'|| i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'GR' || i.MANAGE_CODE eq 'GS' || i.MANAGE_CODE eq 'FK' || i.MANAGE_CODE eq 'GT' || i.MANAGE_CODE eq 'FP' || i.MANAGE_CODE eq 'FL' || i.MANAGE_CODE eq 'GU' || i.MANAGE_CODE eq 'GV' || i.MANAGE_CODE eq 'GW' || i.MANAGE_CODE eq 'GX' || i.MANAGE_CODE eq 'GY' || i.MANAGE_CODE eq 'FM' || i.MANAGE_CODE eq 'FL' || i.MANAGE_CODE eq 'HJ' || i.MANAGE_CODE eq 'HK' || i.MANAGE_CODE eq 'HL' || i.MANAGE_CODE eq 'HN' || i.MANAGE_CODE eq ''}">
 																	<c:choose>

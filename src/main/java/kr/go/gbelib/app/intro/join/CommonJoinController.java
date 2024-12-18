@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.go.gbelib.app.cms.module.forcedPasswordChange.ForcedPasswordChangeService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,9 @@ public class CommonJoinController extends BaseController {
 	
 	@Autowired
 	private BringInLogService bringInLogService;
+
+	@Autowired
+	private ForcedPasswordChangeService forcedPasswordChangeService;
 
 	/**
 	 * 회원가입 step1 - 만14세이상, 만14세미만 선택
@@ -921,6 +925,14 @@ public class CommonJoinController extends BaseController {
 		return String.format(basePath, homepage.getFolder()) + "findPwForm";
 	}
 
+	@RequestMapping(value = {"/forcedPwForm.*"})
+	public String forcedPwForm(Model model, Member member, HttpServletRequest request, HttpServletResponse response, @PathVariable("homepagePath") String homepagePath) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
+		model.addAttribute("memberInfo", member);
+		return String.format(basePath, homepage.getFolder()) + "forcedPwForm";
+	}
+
 	/**
 	 * 비밀번호 변경 폼
 	 * @author whalesoft YONGJU 2019. 12. 3.
@@ -975,11 +987,13 @@ public class CommonJoinController extends BaseController {
 
 			member.setRec_key(String.valueOf(certMember.get("REC_KEY")));
 			member.setIn_ip(request.getRemoteAddr());
+			member.setMember_id(String.valueOf(certMember.get("USER_ID")));
 
 			if(member.getPrivateMemberYn(homepage)) {
 				ApiResponse apiResult = PrivateMemberAPI.updateMemberPasswd(member);
 				res.setValid(apiResult.getStatus());
 				if (apiResult.getStatus()) {
+					isForcedUserStatusChange(member);
 					res.setMessage("비밀번호가 변경되었습니다.");
 					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 					res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
@@ -990,6 +1004,7 @@ public class CommonJoinController extends BaseController {
 				ApiResponse apiResult = MemberAPI.updateMemberPasswd(member);
 				res.setValid(apiResult.getStatus());
 				if (apiResult.getStatus()) {
+					isForcedUserStatusChange(member);
 					res.setMessage("비밀번호가 변경되었습니다.");
 					int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
 					res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx));
@@ -1003,6 +1018,14 @@ public class CommonJoinController extends BaseController {
 		}
 
 		return res;
+	}
+
+	private void isForcedUserStatusChange(Member member) {
+		int getForcedUserCount = forcedPasswordChangeService.getForcedPasswordOneUser(member.getMember_id());
+
+		if (getForcedUserCount >= 1) {
+			forcedPasswordChangeService.updateForcedPasswordUserStatus(member.getMember_id());
+		}
 	}
 
 	@RequestMapping(value = {"/integration.*"})

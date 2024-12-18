@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.intro.search;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -274,6 +275,11 @@ public class CommonSearchController extends BaseController {
 	    		if("h90".equals(homepage.getHomepage_id())) {
 	    			librarySearch.setNotShelfCode("AA02,AA03,AA05,AA07,AA09,AA10,AA11,AA14,AA15,AA16,AA17,AA18,AA19,AA20,AA21,AA22,AA23,AA29,AA30,AA31,AA36,AA37,AA39,AA40,AA41,AA51,AA52,AA53,AA56,AA58,AA59,AA60,AA62,AA65,AA66,AH01,AH03,AH04,AH06,AH07,AH08,AH09,AH12,AH13,AH14,AH16,AH17,AH21,AH22,AH23,AH24,AH26,AH27,AH28,AH29,AH33,AH60,BA08,AA51,CA08,CB08,CB10,BA23,BA22,CB11,FM05,GU04,FP05,GX05,GR06,GW03,CA18");
 	    		}
+
+				if ("h5".equals(homepage.getHomepage_id())) {
+					List<String> shelfCodes = Collections.singletonList("AH64");
+					librarySearch.setShelfCodes(shelfCodes);
+				}
 
 	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
 	    			result = LibSearchAPI.getBookDetail(librarySearch);

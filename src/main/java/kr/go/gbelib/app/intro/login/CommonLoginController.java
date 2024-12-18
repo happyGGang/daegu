@@ -1,11 +1,13 @@
 package kr.go.gbelib.app.intro.login;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.go.gbelib.app.cms.module.forcedPasswordChange.ForcedPasswordChangeService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mobile.device.Device;
@@ -70,6 +72,9 @@ public class CommonLoginController extends BaseController {
 	@Autowired
 	private LoginLogService loginLogService;
 
+	@Autowired
+	private ForcedPasswordChangeService forcedPasswordChangeService;
+
 	@RequestMapping (value = {"/index.*"})
 	public String login(Model model, Member member, HttpServletRequest request, @PathVariable ("homepagePath") String homepagePath) {
 		Homepage homepage = getSessionHomepage(request);
@@ -122,7 +127,11 @@ public class CommonLoginController extends BaseController {
 		if(member.getPrivateMemberYn(homepage)) {
 			member.setManage_code(homepage.getManage_code());
 			member.setLoginType("PRIVATEHOMEPAGE");
-			
+
+			if (isForcedPasswordChangeUser(member, request, response, homepage)) {
+				return null;
+			}
+
 			Object result = PrivateLoginAPI.login(member);
 			if (result instanceof Member) {
 				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
@@ -216,10 +225,15 @@ public class CommonLoginController extends BaseController {
 					return null;
 				}
 			}
+
 		} else {
 			member.setManage_code(homepage.getManage_code());
 			member.setLoginType("HOMEPAGE");
-			
+
+			if (isForcedPasswordChangeUser(member, request, response, homepage)) {
+				return null;
+			}
+
 			Object result = LoginAPI.login(member);
 			if (result instanceof Member) {
 				accountLockService.loginSucceeded(new AccountLock(member, request.getRemoteAddr()));
@@ -290,28 +304,6 @@ public class CommonLoginController extends BaseController {
 				}
 				request.getSession().removeAttribute("certMember");
 
-				/**
-				 * 비밀번호 만료일자가 지난 경우 패스워드 변경유도 페이지로 이동.
-				 */
-				// try {
-				// if (!StringUtils.isEmpty(member.getPassword_update_date()) && !StringUtils.equalsIgnoreCase(member.getPassword_update_date(), "null")) {
-				// DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyyMMdd");
-				//
-				// DateTime updateDate = fmt.parseDateTime(member.getPassword_update_date());
-				// DateTime currentDate = DateTime.now();
-				//
-				// Days daysBetween = Days.daysBetween(updateDate, currentDate);
-				//
-				// int expiryDay = Integer.parseInt(member.getPassword_expiry_day());
-				// if (daysBetween.getDays() > expiryDay) {
-				// int menuIdx = homepageService.getMenuIdxByLinkUrl(homepage.getHomepage_id(), "/intro/join/changePwForm.do");
-				// returnUrl = String.format("https://%s/%s/intro/join/passwordExpiry.do?menu_idx=%s", homepage.getDomainWithoutProtocol(), homepagePath, menuIdx);
-				// }
-				// }
-				// } catch (Exception e) {
-				// e.printStackTrace();
-				// }
-
 				if(StringUtils.equals(member.getAgreement_yn(), "N") || StringUtils.equals(member.getAgree_yn(), "N")) {
 					int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/reAgree.do"));
 					service.alertMessageAndUrl("재동의 인증을 하셔야 합니다. 인증 페이지로 이동합니다.", "/" + homepage.getContext_path() + "/intro/join/reAgree.do?menu_idx="+url_menu_idx, request, response);
@@ -339,6 +331,18 @@ public class CommonLoginController extends BaseController {
 				}
 			}
 		}
+	}
+
+	private boolean isForcedPasswordChangeUser(Member member, HttpServletRequest request, HttpServletResponse response, Homepage homepage) throws Exception {
+		String getForcedUserId = URLEncoder.encode(member.getMember_id(), "UTF-8");
+		int getForcedUserCount = forcedPasswordChangeService.getForcedPasswordOneUser(getForcedUserId);
+		int url_menu_idx = menuService.getMenuIdxByLinkUrl(new Menu(homepage.getHomepage_id(), "/intro/join/findPwForm.do"));
+
+		if (getForcedUserCount > 0) {
+			service.alertMessageAndUrl("이용자님은 비밀번호 필수 변경대상자입니다. 단계에 따라 비밀번호를 꼭 변경해 주시기 바랍니다.","/" + homepage.getContext_path() + "/intro/join/forcedPwForm.do?menu_idx="+url_menu_idx, request, response);
+			return true;
+		}
+		return false;
 	}
 
 	@RequestMapping (value = {"/indexCi.*"})
