@@ -2904,7 +2904,7 @@ public class IndexController extends BaseController {
 							if (map.get("aladin") == null) {
 								map.put("imageUrl", librarySearchService.getImageUrl(map));
 							}
-
+/*
 							LibrarySearch kakaoSearch = new LibrarySearch();
 							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
 
@@ -2916,7 +2916,7 @@ public class IndexController extends BaseController {
 
 									map.put("contentsDetail", contents);
 								}
-							}
+							}*/
 						}
 					}
 				}
