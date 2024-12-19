@@ -1,8 +1,16 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+	String todays = sf.format(nowDate);
+%>
+<c:set var="nowDate" value="<%=todays %>" />
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default2.css"/>
 
 <script type="text/javascript">
@@ -614,7 +622,7 @@ AD20 종합자료실
 				</c:when>
 				<c:otherwise>
 					<c:choose>
-					<c:when test="${detail.MANAGE_CODE eq 'FW' || detail.MANAGE_CODE eq 'AC'}">
+					<c:when test="${detail.MANAGE_CODE eq 'FW' || (detail.MANAGE_CODE eq 'AC' && nowDate <= 20241220000000)}">
 
 					</c:when>
 					<c:otherwise>

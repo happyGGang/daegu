@@ -1,9 +1,16 @@
-
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+	String todays = sf.format(nowDate);
+%>
+<c:set var="nowDate" value="<%=todays %>" />
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <link rel="stylesheet" href="/resources/common/css/search/jqcloud.css" type="text/css">
 <script type="text/javascript" src="/resources/common/js/jqcloud.js"></script>
@@ -1102,7 +1109,7 @@ $(function() {
 				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10' || detail.MANAGE_CODE eq 'FW' || detail.SHELF_LOC_CODE eq 'BU11'}">
 
 				</c:when>
-				<c:when test="${detail.MANAGE_CODE eq 'AC'}">
+				<c:when test="${detail.MANAGE_CODE eq 'AC' && nowDate <= 20241220000000}">
 				</c:when>
 				<c:otherwise>
 					<c:choose>
