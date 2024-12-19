@@ -3143,14 +3143,14 @@ public class IndexController extends BaseController {
 		//기본값 도서 "0"
 		//0 : 단행, 1: 연속간행물, 2:비도서
 		newBook.setBooktype("0");
-
-		Map<String, Object> result = LibSearchAPI.getNewBookList(newBook);
 		List<Map<String, Object>> list = null;
 
-		int count = LibSearchAPI.getSearchCount(result);
-		newBook.setTotalDataCount(count);
-
 		try {
+			Map<String, Object> result = LibSearchAPI.getNewBookList(newBook);
+
+			int count = LibSearchAPI.getSearchCount(result);
+			newBook.setTotalDataCount(count);
+
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 
 				list = LibSearchAPI.getListData(result);
@@ -3193,17 +3193,17 @@ public class IndexController extends BaseController {
 		bestBook.setManageCode(homepage.getManage_code());
 		bestBook.setBooktype("0");
 
-		Map<String, Object> bestResult = LibSearchAPI.getBestBookList(bestBook);
 		List<Map<String, Object>> bestBookList = null;
 
-		int bestBookCount = LibSearchAPI.getSearchCount(result);
-
-		bestBook.setTotalDataCount(bestBookCount);
-		service.setPaging(model, count, bestBook);
-
 		try {
-			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+			Map<String, Object> bestResult = LibSearchAPI.getBestBookList(bestBook);
 
+			int bestBookCount = LibSearchAPI.getSearchCount(bestResult);
+
+			bestBook.setTotalDataCount(bestBookCount);
+			service.setPaging(model, bestBookCount, bestBook);
+
+			if ( bestResult != null && !bestResult.isEmpty() && bestResult.get("LIST_DATA") != null ) {
 				bestBookList = LibSearchAPI.getListData(bestResult);
 				for ( Map<String, Object> map : bestBookList ) {
 					if ( map.containsKey("ISBN") ) {
