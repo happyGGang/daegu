@@ -3150,38 +3150,42 @@ public class IndexController extends BaseController {
 		int count = LibSearchAPI.getSearchCount(result);
 		newBook.setTotalDataCount(count);
 
-		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+		try {
+			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 
-			list = LibSearchAPI.getListData(result);
-			for (Map<String, Object> map : list) {
-				if (map.containsKey("ISBN")) {
-					//알라딘 API 결과 가져오기
-					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-							map.put("aladin", aladinData.get("item"));
-						}
-						if (map.get("aladin") == null) {
-							map.put("imageUrl", librarySearchService.getImageUrl(map));
-						}
-						
-						LibrarySearch kakaoSearch = new LibrarySearch();
-						kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
-						
-						Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
-						List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
-						if (itemList != null && itemList.size() > 0) {
-							for (Map<String, Object> map3 : itemList) {
-								String contents = String.valueOf(map3.get("contents"));
-								
-								map.put("contentsDetail", contents);
+				list = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : list) {
+					if (map.containsKey("ISBN")) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", librarySearchService.getImageUrl(map));
+							}
+
+							LibrarySearch kakaoSearch = new LibrarySearch();
+							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
+
+							Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
+							List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
+							if (itemList != null && itemList.size() > 0) {
+								for (Map<String, Object> map3 : itemList) {
+									String contents = String.valueOf(map3.get("contents"));
+
+									map.put("contentsDetail", contents);
+								}
 							}
 						}
 					}
 				}
 			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		
+
 		model.addAttribute("newBookList", list);
 		
 		//국보도서관 대출베스트
@@ -3197,35 +3201,39 @@ public class IndexController extends BaseController {
 		bestBook.setTotalDataCount(bestBookCount);
 		service.setPaging(model, count, bestBook);
 
-		if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
+		try {
+			if ( result != null && !result.isEmpty() && result.get("LIST_DATA") != null ) {
 
-			bestBookList = LibSearchAPI.getListData(bestResult);
-			for ( Map<String, Object> map : bestBookList ) {
-				if ( map.containsKey("ISBN") ) {
-					//알라딘 API 결과 가져오기
-					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-							map.put("aladin", aladinData.get("item"));
-						}
-						if (map.get("aladin") == null) {
-							map.put("imageUrl", service.getImageUrl(map));
-						}
-						LibrarySearch kakaoSearch = new LibrarySearch();
-						kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
-						
-						Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
-						List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
-						if (itemList != null && itemList.size() > 0) {
-							for (Map<String, Object> map3 : itemList) {
-								String contents = String.valueOf(map3.get("contents"));
-								
-								map.put("contentsDetail", contents);
+				bestBookList = LibSearchAPI.getListData(bestResult);
+				for ( Map<String, Object> map : bestBookList ) {
+					if ( map.containsKey("ISBN") ) {
+						//알라딘 API 결과 가져오기
+						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+								map.put("aladin", aladinData.get("item"));
+							}
+							if (map.get("aladin") == null) {
+								map.put("imageUrl", service.getImageUrl(map));
+							}
+							LibrarySearch kakaoSearch = new LibrarySearch();
+							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
+
+							Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
+							List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
+							if (itemList != null && itemList.size() > 0) {
+								for (Map<String, Object> map3 : itemList) {
+									String contents = String.valueOf(map3.get("contents"));
+
+									map.put("contentsDetail", contents);
+								}
 							}
 						}
 					}
 				}
 			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
 		
 		model.addAttribute("bestBookList", bestBookList);
