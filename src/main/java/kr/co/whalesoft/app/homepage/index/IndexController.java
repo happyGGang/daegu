@@ -3122,12 +3122,12 @@ public class IndexController extends BaseController {
 		if (homepage.getHomepage_id().equals("h10")) {
 			Board b = new Board();
 			b.setManage_idx(174);
-			
+
 			List<Board> bestBookList = boardService.getSubBoardByMain(b);
-			
+
 			model.addAttribute("bookList", bestBookList);
 		}
-		
+
 		//국보도서관 신착도서
 		LibrarySearch newBook = new LibrarySearch();
 		newBook.setManageCode(homepage.getManage_code());
@@ -3143,99 +3143,73 @@ public class IndexController extends BaseController {
 		//기본값 도서 "0"
 		//0 : 단행, 1: 연속간행물, 2:비도서
 		newBook.setBooktype("0");
-		List<Map<String, Object>> list = null;
-
+		List<Map<String, Object>> newBookList = new ArrayList<>();
 		try {
 			Map<String, Object> result = LibSearchAPI.getNewBookList(newBook);
-
-			int count = LibSearchAPI.getSearchCount(result);
-			newBook.setTotalDataCount(count);
-
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+				newBookList = LibSearchAPI.getListData(result);
+				for (Map<String, Object> map : newBookList) {
+					String isbn = (String) map.get("ISBN");
+					if (isbn != null && !isbn.startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						} else {
+							map.put("imageUrl", librarySearchService.getImageUrl(map));
+						}
 
-				list = LibSearchAPI.getListData(result);
-				for (Map<String, Object> map : list) {
-					if (map.containsKey("ISBN")) {
-						//알라딘 API 결과 가져오기
-						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-								map.put("aladin", aladinData.get("item"));
-							}
-							if (map.get("aladin") == null) {
-								map.put("imageUrl", librarySearchService.getImageUrl(map));
-							}
-
-							LibrarySearch kakaoSearch = new LibrarySearch();
-							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
-
-							Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
-							List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
-							if (itemList != null && itemList.size() > 0) {
-								for (Map<String, Object> map3 : itemList) {
-									String contents = String.valueOf(map3.get("contents"));
-
-									map.put("contentsDetail", contents);
-								}
+						LibrarySearch kakaoSearch = new LibrarySearch();
+						kakaoSearch.setSearch_text(isbn);
+						Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
+						List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
+						if (itemList != null) {
+							for (Map<String, Object> map3 : itemList) {
+								map.put("contentsDetail", map3.get("contents"));
 							}
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			log.error("gukbo mediawall new book list: ", e);
 		}
+		model.addAttribute("newBookList", newBookList);
 
-		model.addAttribute("newBookList", list);
-		
 		//국보도서관 대출베스트
 		LibrarySearch bestBook = new LibrarySearch();
 		bestBook.setManageCode(homepage.getManage_code());
 		bestBook.setBooktype("0");
 
-		List<Map<String, Object>> bestBookList = null;
-
+		List<Map<String, Object>> bestBookList = new ArrayList<>();
 		try {
 			Map<String, Object> bestResult = LibSearchAPI.getBestBookList(bestBook);
-
-			int bestBookCount = LibSearchAPI.getSearchCount(bestResult);
-
-			bestBook.setTotalDataCount(bestBookCount);
-			service.setPaging(model, bestBookCount, bestBook);
-
-			if ( bestResult != null && !bestResult.isEmpty() && bestResult.get("LIST_DATA") != null ) {
+			if (bestResult != null && !bestResult.isEmpty() && bestResult.get("LIST_DATA") != null) {
 				bestBookList = LibSearchAPI.getListData(bestResult);
-				for ( Map<String, Object> map : bestBookList ) {
-					if ( map.containsKey("ISBN") ) {
-						//알라딘 API 결과 가져오기
-						if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
-							Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
-							if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
-								map.put("aladin", aladinData.get("item"));
-							}
-							if (map.get("aladin") == null) {
-								map.put("imageUrl", service.getImageUrl(map));
-							}
-							LibrarySearch kakaoSearch = new LibrarySearch();
-							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
+				for (Map<String, Object> map : bestBookList) {
+					String isbn = (String) map.get("ISBN");
+					if (isbn != null && !isbn.startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						} else {
+							map.put("imageUrl", service.getImageUrl(map));
+						}
 
-							Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
-							List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
-							if (itemList != null && itemList.size() > 0) {
-								for (Map<String, Object> map3 : itemList) {
-									String contents = String.valueOf(map3.get("contents"));
-
-									map.put("contentsDetail", contents);
-								}
+						LibrarySearch kakaoSearch = new LibrarySearch();
+						kakaoSearch.setSearch_text(isbn);
+						Map<String, Object> kakaoData = LibSearchAPI.getKaKaoList(kakaoSearch);
+						List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
+						if (itemList != null) {
+							for (Map<String, Object> map3 : itemList) {
+								map.put("contentsDetail", map3.get("contents"));
 							}
 						}
 					}
 				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			log.error("gukbo mediawall best book list: ", e);
 		}
-		
 		model.addAttribute("bestBookList", bestBookList);
 
 		log.debug("jsp Page : "+basePath + filePath);
