@@ -73,8 +73,8 @@
 						</c:when>
 						<c:otherwise>
 							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=85">로그인</a>
-							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
-							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=89">통합회원인증</a>
+							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=86">회원가입</a>
 							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 						</c:otherwise>
 					</c:choose>
