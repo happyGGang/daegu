@@ -36,11 +36,11 @@
 }
 
 #header h1.web-logo {
-	display: inline-block;
-	float: left;
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
+    display: inline-block;
+    float: left;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .sections-align {
@@ -148,7 +148,7 @@
     margin: 0;
     text-align: center;
     color: #FFF;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 28px;
     font-style: normal;
     font-weight: 400;
@@ -156,7 +156,8 @@
 }
 
 .lnb li.s a {
-    position: relative
+    position: relative;
+    display: block;
 }
 
 .lnb li.s i {
@@ -167,11 +168,14 @@
 }
 
 .lnb li.s li i.fa-external-link {
-    position: relative;
+    position: absolute;
     right: 0;
     top: 0;
     margin: 0 0 0 5px;
-    display: inline-block;
+    display: inline-block !important;
+    left: 85%;
+    top: 46%;
+    transform: translateY(-50%);
 }
 
 .lnb li.s li i {
@@ -204,7 +208,7 @@
     /* width: 100%; */
     padding: 0 0 0 20px;
     color: #717171;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -218,8 +222,8 @@
     line-height: 100%;
 }
 
-.lnb .SubMenu li.s a i{
-	display:none;
+.lnb .SubMenu li.s a i {
+    display: none;
 }
 
 .lnb > ul.SubMenu > li > ul > li.active > a span {
@@ -230,7 +234,7 @@
     padding: 0 0 0 20px;
     color: #144492;
 
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -246,7 +250,7 @@
     display: block;
     background: #fff;
     color: #2D2D2D;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -351,7 +355,7 @@
     font-weight: bold;
     background-color: #F1F7FB;
     color: #0E4092;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -366,7 +370,7 @@
 .lnb ul li.active > a {
     background-color: #F1F7FB;
     color: #0E4092;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
@@ -478,7 +482,7 @@
 .sub_location ol li a {
     color: #717171;
     text-align: center;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -489,7 +493,7 @@
 .sub_location ol li:last-child a {
     color: #2D2D2D;
     text-align: center;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -570,7 +574,7 @@ div#share_layer li a img {
     width: 32px;
     height: 32px;
     padding: 0;
-    object-fit:cover;
+    object-fit: cover;
     /* padding: 0; */
 }
 
@@ -580,7 +584,7 @@ div#share_layer li a img {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     display: block;
     /* object-fit: contain; */
 }
@@ -838,6 +842,7 @@ ul.con2.pl5 > li {
 .time_box ul li div {
     background-position: 40px 20px !important;
 }
+
 .bbs-edit th,
 .bbs-edit td {
     font-size: 14px;
@@ -1175,7 +1180,9 @@ a.baro img {
         margin: 0 auto;
         padding: 10px 16px;
     }
-.tnb{}
+
+    .tnb {}
+
     .shareArea {
         top: unset;
         right: 16px;
@@ -1325,7 +1332,7 @@ a.baro img {
     .doc-title h3 {
         color: #FFF;
         text-align: center;
-        font-family: Pretendard;
+        font-family: 'Pretendard';
         font-size: 24px;
         font-style: normal;
         font-weight: 600;
@@ -1372,8 +1379,8 @@ a.baro img {
     .time_box ul li > div {
         background-position: 30px 10px !important;
     }
-	
-	.content {
+
+    .content {
         padding: 0 3rem 40px;
     }
 
@@ -1390,8 +1397,8 @@ a.baro img {
     #container .sub-visual {
         height: 180px
     }
-	
-	
+
+
 }
 
 @media all and (max-width:650px) {}

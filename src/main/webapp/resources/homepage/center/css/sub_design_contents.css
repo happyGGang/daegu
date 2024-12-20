@@ -205,7 +205,7 @@
     background: url('/resources/homepage/center/img/title_icon.svg') no-repeat;
     background-position: left center;
     color: #2D2D2D;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 17px;
     font-style: normal;
     font-weight: 700;
@@ -218,14 +218,17 @@
     display: inline-block;
 }
 
+.doc-body .body h3:nth-of-type(1){
+margin-top:0;
+}
 .doc-body h3:first-child {
     margin-top: 0;
 }
 
 .doc-body h4 {
-    background: url('/resources/homepage/center/img/h4_icon.png') no-repeat 0px 3px;
+    background: url('/resources/homepage/center/img/h4_icon.png') no-repeat 0px 0px;
     color: #2D2D2D;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 17px;
     font-style: normal;
     font-weight: 600;
@@ -255,7 +258,7 @@
     background: unset;
     color: #2D2D2D;
 
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -681,7 +684,7 @@ table tbody td.point {
     }
 
     .rsv-info:before {
-        content: "← 좌우로 밀어서 확인하세요 →";
+        content: "← 좌우스크롤 →";
         font-size: 13px;
         display: block;
         position: absolute;
@@ -959,7 +962,7 @@ table tbody td.point {
 .txt_box .area .cont {
     width: 100%;
     color: #2D2D2D;
-font-family: Pretendard;
+font-family: 'Pretendard';
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
@@ -967,13 +970,13 @@ line-height: 150%; /* 24px */
 letter-spacing: -0.32px;
 }
 .txt_box .area .cont strong{
-    color: #2D2D2D;font-family: Pretendard;font-size: 20px;font-style: normal;font-weight: 600;line-height: 150%; letter-spacing: -0.4px;
+    color: #2D2D2D;font-family: 'Pretendard';font-size: 20px;font-style: normal;font-weight: 600;line-height: 150%; letter-spacing: -0.4px;
 }
 
 
 .txt_box .area .cont strong span{
  color: #717171;
-font-family: Pretendard;
+font-family: 'Pretendard';
 font-size: 14px;
 font-style: normal;
 font-weight: 400;

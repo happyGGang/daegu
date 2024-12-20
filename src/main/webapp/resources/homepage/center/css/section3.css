@@ -1,3 +1,7 @@
+*{
+font-family: 'Pretendard';
+}
+
 #section3 {
   background-color: #F0F5F8;
 }
@@ -57,7 +61,7 @@
   content: "";
   position: absolute;
   bottom: 35%;
-  left: 11.7rem;
+  left: 11rem;
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
@@ -68,7 +72,7 @@
   content: "";
   position: absolute;
   bottom: 35%;
-  left: 10rem;
+  left: 9.4rem;
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;

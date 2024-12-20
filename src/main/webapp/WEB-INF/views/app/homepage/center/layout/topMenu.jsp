@@ -35,7 +35,7 @@
 								<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 							</c:when>
 							<c:otherwise>
-								<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4" class="btn1">
+								<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=85" class="btn1">
 									<i class="fa fa-lock"></i>
 									<span style='letter-spacing:-1.5px;'>로그인</span>
 								</a>
@@ -72,7 +72,7 @@
 							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>
 						</c:when>
 						<c:otherwise>
-							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">로그인</a>
+							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=85">로그인</a>
 							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
 							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
 							<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=93"></a>

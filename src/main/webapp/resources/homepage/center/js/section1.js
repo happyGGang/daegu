@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	// 백그라운드 이미지 10초에 한번씩 변경
-	const images = ['/resources/homepage/center/img/main1_new.png', '/resources/homepage/center/img/main2_new.png', '/resources/homepage/center/img/main3_new.png'];
+	const images = ['/resources/homepage/center/img/main2_new.png', '/resources/homepage/center/img/main1_new.png', '/resources/homepage/center/img/main3_new.png'];
 	let currentIndex = 0;
 
 	function changeBackgroundImage() {

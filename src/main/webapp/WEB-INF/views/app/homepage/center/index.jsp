@@ -192,6 +192,13 @@ $(function () {
 });
 </script>
 <div id="wrap">
+
+<div class="popupWrap">
+		<div id="popupLayer">
+			<homepageTag:popup popupList="${popupList}" />
+		</div>
+	</div>
+
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
@@ -204,7 +211,9 @@ $(function () {
 	</form>
 
 	<div id="fullpage">
+
 		<div class="section" id="section1">
+		
 			<div class="section_1_wrapper">
 				<div class="main_cation">시간과 공간을 넘어 새로운 상상력을 이어가는 곳</div>
 				<div class="main_title"></div>
@@ -299,7 +308,7 @@ $(function () {
 				<div class="noticeList">
 					<ul class="board_list">
 						<!-- TODO noticeListTopNotice, noticeList null처리-->
-						<c:if test="${fn:length(noticeList) < 1}">
+						<c:if test="${fn:length(noticeList) < 1 && fn:length(noticeListTopNotice) < 1}">
 							<li class="board_list_item">
 								<div class="board_list_item_title">
 									<div>등록된 공지사항이 없습니다.</div>

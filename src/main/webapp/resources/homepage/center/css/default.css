@@ -1,5 +1,6 @@
 @charset "utf-8";
-@import url("/resources/common/css/font-style.css")
+
+*{font-family:'Pretendard';}
 
 /* 스타일 */
 a:hover,
@@ -28,7 +29,6 @@ a:focus {
 
 .tnb .util a {
     font-size: 14px;
-    font-family: 's-core_dream4_regular';
     color: #000;
     font-weight: normal;
     display: inline-block;
@@ -92,7 +92,14 @@ h1.mobile-logo {
 }
 
 .popupWrap {
-    z-index: 7
+    z-index:9999;
+    padding: 0 110px;
+    /* position: absolute; */
+    max-width: 1695px;
+    margin: 0 auto;
+    left: 0;
+    top: 90px;
+    height: auto;
 }
 
 .txt-bar {
@@ -132,7 +139,7 @@ h1.mobile-logo {
 .Gnb .gnb-menu > li > a {
     color: #1D1D1D;
     text-align: center;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 500;
@@ -166,7 +173,7 @@ h1.mobile-logo {
 
 .Gnb .gnb-menu > li > .SubMenu > li > a {
     color: #2D2D2D;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
@@ -177,7 +184,7 @@ h1.mobile-logo {
 .Gnb .gnb-menu > li > .SubMenu > li > a:hover,
 .Gnb .gnb-menu > li > .SubMenu > li > a:focus {
     color: #0E4092;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -206,7 +213,7 @@ h1.mobile-logo {
 .Gnb .gnb-menu > li > a:focus {
     color: #0E4092;
     text-align: center;
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     font-size: 1.25rem;
     font-style: normal;
     font-weight: 600;

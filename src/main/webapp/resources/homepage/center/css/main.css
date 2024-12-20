@@ -1,11 +1,15 @@
 @charset "utf-8"; 
+*{
+font-family: 'Pretendard';
+}
 
 #section1, #section2, #section3, #section4 {overflow:hidden;display: flex;justify-content: center;}
 .fp-tableCell {
 	display: flex !important;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	/* position: relative; */
 }
 
 #calendar2 {width:100%;margin:0 auto;position:relative}
@@ -27,7 +31,7 @@
 #calendar2 .cal-func2 {text-align:center;padding:0;}
 #calendar2 .cal-func2 .cal-btn {display: flex;align-items: center;justify-content: center;gap:2.5rem;}
 #calendar2 .cal-func2 .cal-btn-more {position:relative;padding-top:38px;font-size:15px;color:#666;}
-#calendar2 .cal-func2 .cal-btn-more a {display:block;width:69%;margin:0 auto;background:#1b215c url('../img/calendar-icon.png') no-repeat 10% center;padding:10px 0 10px 25px;border-radius:7px;color:#fff;letter-spacing:-1.5px;font-family:'s-core_dream4_regular';/* word-break: break-all; */}
+#calendar2 .cal-func2 .cal-btn-more a {display:block;width:69%;margin:0 auto;background:#1b215c url('../img/calendar-icon.png') no-repeat 10% center;padding:10px 0 10px 25px;border-radius:7px;color:#fff;letter-spacing:-1.5px;/* word-break: break-all; */}
 
 #calendar2 .cal-func2 a {}
 #calendar2 .cal-func2 b {display:inline-block;vertical-align:middle;}
@@ -36,7 +40,7 @@
 #calendar2 .cal-func2 span,
 #calendar2 .cal-func2 em {vertical-align:middle;}
 #calendar2 .cal-func2 b{vertical-align:bottom;}
-#calendar2 .cal-func2 b.date {font-family: 's-core_dream5_medium';color:#2D2D2D;font-weight:bold;}
+#calendar2 .cal-func2 b.date {color:#2D2D2D;font-weight:bold;}
 #calendar2 .cal-func2 b span {display:block;}
 #calendar2 .cal-func2 b span.years {font-size:15px;margin-top: 10px;}
 #calendar2 .cal-func2 b span.months {font-size:36px;}
@@ -102,7 +106,7 @@
 #calendar2 .planView .inbox .planList p.datetime {width:85px;font-weight:bold;text-align:center;border:1px solid #000;-webkit-box-sizing:border-box;box-sizing:border-box;padding:7px;}
 #calendar2 .planView .inbox .planList p.datetime.holiday {display: flex;align-items: center;justify-content: center;width: 2.5rem;height: 2.5rem; border-radius: 50%;background: #FFE4DD;border: none;color: #EC4746;}
 #calendar2 .planView .inbox .planList p.datetime.event {display: flex; align-items: center;justify-content: center;width: 2.5rem;height: 2.5rem; border-radius: 50%;background: #DDF4FF;border: none;color: #0969DA;}
-#calendar2 .planView .inbox .planList p.datetime span {display:block;font-family: 's-core_dream5_medium';}
+#calendar2 .planView .inbox .planList p.datetime span {display:block;}
 #calendar2 .planView .inbox .planList p.datetime span.years {font-size:14px;}
 #calendar2 .planView .inbox .planList p.datetime span.monthDays {font-size:18px;}
 #calendar2 .planView .inbox .planList p.datetime.holiday span {color:#ff4040;font-size: 0.9375rem}
@@ -113,7 +117,7 @@
 
 #calendar2 .title div {color: #2D2D2D;font-weight: 500;ine-height: normal;letter-spacing: -0.02rem;font-size: 0.9375rem;}
 
-#calendar2 .planView .inbox .planList p.title {width:calc(100% - 100px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px;letter-spacing: -1.5px;font-family: 's-core_dream4_regular';}
+#calendar2 .planView .inbox .planList p.title {width:calc(100% - 100px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:5px;letter-spacing: -1.5px;}
 #calendar2 .planView .inbox .planList p.title em {display:inline-block;font-style:normal;font-weight:bold;color:#009ae8;padding-left: 20px;}
 #calendar2 .planView .inbox .planList p.title em.cont {color:#000;font-weight:normal;}
 #calendar2 .planView .inbox .planList li {margin:2px 0;font-size:14px;color:#666;letter-spacing:-0.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
@@ -144,7 +148,7 @@
 #calendar2 .inBox1 {position:relative;width:100%;padding: 10px 0 5px 0;text-align:left;color:#000;}
 #calendar2 .inBox1 .title {float:left;position:relative;font-size:20px;padding: 0px 18px 7px 5px;}
 #calendar2 .inBox1 .bt-controls {float:left;width:175px;text-align:center;position:relative;}
-#calendar2 .inBox1 .bt-controls b {font-size:20px;font-family:'Verdana';font-weight:bold;line-height:150%;padding:0;}
+#calendar2 .inBox1 .bt-controls b {font-size:20px;font-weight:bold;line-height:150%;padding:0;}
 #calendar2 .inBox1 .info dd {float:left;position:relative;font-weight:bold;text-align:center;}
 #calendar2 .inBox1 .info dd span{display:inline-block;background:#fb8535;font-weight:bold;color:#fff;font-size:15px;text-align:center;width:30px;height:30px;line-height:30px;margin-right:3px;border-radius:25px;}
 
@@ -185,18 +189,18 @@
 #foot_section .mFooter {text-align:center;background:#212121;width:100%}
 #foot_section .mFooter .top {position:relative;border-top:1px solid #ebebeb;text-align:left;padding:40px 0;}
 #foot_section .mFooter .top .info {text-align:left;padding:15px 15px 15px 0;font-size: 13px;}
-#foot_section .mFooter .top .info a {font-family:'s-core_dream4_regular';vertical-align:middle;display:inline-block;zoom:1;*display:inline;padding:0 10px;color:#b1b1b1;font-size: 13px;}
+#foot_section .mFooter .top .info a {vertical-align:middle;display:inline-block;zoom:1;*display:inline;padding:0 10px;color:#b1b1b1;font-size: 13px;}
 #foot_section .mFooter .top .info a:first-child{padding-left:0;color:#fff;}
 #foot_section .mFooter .top .info span.bar{color:#ccc;}
 /* 푸터 sns */
 #foot_section .mFooter .top .info-right {/* position:absolute; */right:0;top:0;} 
 #foot_section .mFooter .top .info-right .site_link .sns.title {padding:5px 5px 5px 3px;}
-#foot_section .mFooter .top .info-right .site_link .sns {font-family:'s-core_dream4_regular';display:block;font-size:14px;font-weight: bold;color:#b1b1b1;text-align: right;padding:5px 0 5px 3px;}
+#foot_section .mFooter .top .info-right .site_link .sns {display:block;font-size:14px;font-weight: bold;color:#b1b1b1;text-align: right;padding:5px 0 5px 3px;}
 
 #foot_section .mFooter .top p {display:block;}
 #foot_section .mFooter .top p em {font-style:normal;color:#b1b1b1;font-size: 13px;}
 
-#foot_section .mFooter .top p.homepage-name {display:block;padding:18px 0 9px;font-family:'s-core_dream5_medium';color:#fff;}
+#foot_section .mFooter .top p.homepage-name {display:block;padding:18px 0 9px;color:#fff;}
 
 #foot_section .mFooter .bottom {position:relative;border-top:1px solid #4c4c4c;;text-align:left;padding:40px 0;}
 #foot_section .mFooter .bottom p.copyright {color:#b1b1b1;font-size:13px;display: block;/* margin: 15px; */width: 100%;}
@@ -210,7 +214,7 @@
 #foot_section .mFooter .bottom .site_link a.btn:focus{background:#7b8294}
 
 
-#foot_section .mFooter .bottom select {font-family:'s-core_dream4_regular';font-size:14px;height:45px;width: 200px;padding:0 30px 0 20px;margin-right:55px;border:0;color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:#2c2c2c url('../img/sel_arr_icon.png') no-repeat 93% 50%;}
+#foot_section .mFooter .bottom select {font-size:14px;height:45px;width: 200px;padding:0 30px 0 20px;margin-right:55px;border:0;color:#fff;-webkit-appearance:none;-moz-appearance:none;appearance:none;background:#2c2c2c url('../img/sel_arr_icon.png') no-repeat 93% 50%;}
 #foot_section .mFooter .bottom select option {color:#fff;}
 #foot_section .mFooter .bottom select::-ms-expand {display:none;}
 #foot_section .mFooter .bottom .site_link a.sel-btn {position:absolute;top:0;right:-1px;text-align:center;width:55px;height:45px;line-height:45px;color:#fff;font-size:14px;background:#2c2c2c;}
@@ -428,7 +432,7 @@ h1 img{display:none}
 	#main2 .book-box .book-contents-box .tabMenu-box ul li,
 	#main2 .book-box .book-contents-box .tabMenu-box ul li a {display:inline-block;}
 	#main2 .book-box .book-contents-box .tabMenu-box ul li {clear:both;padding:10px 20px;}
-	#main2 .book-box .book-contents-box .tabMenu-box ul li a {float:none;display:block;font-family:'GmarketSansMedium';font-size:24px;padding:15px 0;}
+	#main2 .book-box .book-contents-box .tabMenu-box ul li a {float:none;display:block;font-size:24px;padding:15px 0;}
 
 /*일정 메인3*/
 #calendar2 .cal-func2 .cal-btn-more a{

@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css" />
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/common_toppopzone.css" />
-<link rel="stylesheet" type="text/css" href="/resources/common/css/font-style.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/center/css/font-style.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/default.css" />
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/main.css" />
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/footer.css" />
@@ -61,6 +61,7 @@
  -->
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 </head>
+		
 <body>
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>

@@ -1,3 +1,7 @@
+*{
+font-family: 'Pretendard';
+}
+
 #section4 {
   height: 100vh;
   display: flex;
