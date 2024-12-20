@@ -324,6 +324,29 @@ $(function(){
 			</div>
 		</c:when>
 
+		<c:when test="${homepage.context_path eq 'center'}">
+			<div class="tabmenu tab3">
+				<ul>
+					<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue="">전체</a></li>
+					<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
+						<c:choose>
+							<c:when test="${homepage.homepage_id eq 'h7'}">
+								<c:if test="${i.teach_code ne 34}">
+									<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}">${i.code_name}</a></li>
+								</c:if>
+							</c:when>
+							<c:when test="${homepage.homepage_id eq 'h100'}">
+								<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" >${i.code_name}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" >${i.code_name}</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:when>
+
 		<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}">
 			<c:choose>
 				<c:when test="${fn:length(subHomepageList) eq '1'}">
@@ -446,7 +469,7 @@ $(function(){
 	</c:if>
 
 	<c:choose>
-	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl'}">
+	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl' || homepage.context_path eq 'center'}">
 
 	</c:when>
 	<c:when test="${homepage.context_path eq 'with' || homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' ||  homepage.context_path eq 'vision' ||  homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubl' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">
