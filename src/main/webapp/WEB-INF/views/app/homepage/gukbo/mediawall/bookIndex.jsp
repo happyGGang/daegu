@@ -149,8 +149,8 @@
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
-										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:otherwise>
 											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
@@ -176,8 +176,8 @@
 										<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
 											<img src="/resources/common/img/gukbo_noimg.png" alt="등록된 이미지가 없습니다. ${i.VOL_TITLE} 상세보기" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
-										<c:when test="${not empty detail.aladin or not empty detail.aladin.cover}">
-											<img src="${detail.aladin.cover}" alt="${detail.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
+										<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
+											<img src="${i.aladin.cover}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>
 										</c:when>
 										<c:otherwise>
 											<img src="${i.imageUrl}" alt="${i.TITLE_INFO}" onError="this.src='/resources/common/img/gukbo_noimg.png';"/>

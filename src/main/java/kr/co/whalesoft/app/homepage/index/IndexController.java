@@ -3145,6 +3145,7 @@ public class IndexController extends BaseController {
 		newBook.setBooktype("0");
 		List<Map<String, Object>> newBookList = new ArrayList<>();
 		try {
+			newBook.setRowCount(4);
 			Map<String, Object> result = LibSearchAPI.getNewBookList(newBook);
 			if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
 				newBookList = LibSearchAPI.getListData(result);
@@ -3182,6 +3183,8 @@ public class IndexController extends BaseController {
 
 		List<Map<String, Object>> bestBookList = new ArrayList<>();
 		try {
+
+			bestBook.setRowCount(4);
 			Map<String, Object> bestResult = LibSearchAPI.getBestBookList(bestBook);
 			if (bestResult != null && !bestResult.isEmpty() && bestResult.get("LIST_DATA") != null) {
 				bestBookList = LibSearchAPI.getListData(bestResult);
