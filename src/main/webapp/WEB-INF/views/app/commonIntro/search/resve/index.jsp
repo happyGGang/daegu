@@ -66,6 +66,21 @@ $(function() {
 	<form:hidden path="viewPage"/>
 </form:form>
 
+<c:choose>
+	<c:when test="${homepage.context_path eq 'dgportal'}">
+		<c:set var="menuIdx" value="7"/>
+	</c:when>
+	<c:when test="${homepage.context_path eq '228lib'}">
+		<c:set var="menuIdx" value="125"/>
+	</c:when>
+	<c:when test="${homepage.context_path eq 'dmsl' || homepage.context_path eq 'namdm' || homepage.context_path eq 'namic' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'donggu' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buks' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'junggu'}">
+		<c:set var="menuIdx" value="9"/>
+	</c:when>
+	<c:otherwise>
+		<c:set var="menuIdx" value="13"/>
+	</c:otherwise>
+</c:choose>
+
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 <div class="book-list" style="border-top:none;">
 	<div class="excel_btn_box_wrap02">
@@ -114,7 +129,11 @@ $(function() {
 					<c:when test="${fn:substring(i.L_WORKER,0,2) ne 'UT'}">
 						<tr>
 							<td>${i.RNUM}</td>
-							<td>${i.TITLE_INFO}</td>
+							<td>
+								<a href="https://library.daegu.go.kr/${homepage.context_path}/intro/search/detail.do?menu_idx=${menuIdx}&isbn=${i.ISBN}&regNo=${i.REG_NO}&manageCode=${i.MANAGE_CODE}">
+									${i.TITLE_INFO}
+								</a>
+							</td>
 							<td>${i.AUTHOR} / ${i.PUBLISHER}</td>
 							<td>${i.CALL_NO}</td>
 							<td>${i.REG_NO}</td>
