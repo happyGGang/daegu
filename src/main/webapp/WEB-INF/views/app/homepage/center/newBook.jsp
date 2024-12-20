@@ -14,7 +14,7 @@
 										<div>
 											<div class="book_title">콘텐츠가 없습니다.</div>
 											<div class="book_writer"></div>
-											<div class="book_year">최대한 빠른 시일 내에<br>업데이트하도록 하겠습니다.</div>
+											<div class="book_year">최대한 빠른 시일 내에<br> 업데이트하도록 하겠습니다.</div>
 										</div>
 										<img src="/resources/common/img/noImg2.png" alt="" onerror="this.src='/resources/common/img/noImg2.png';" />
 									</div>
