@@ -2,7 +2,14 @@
 
 .main1,.main2,.main3,.main4,.main5,.main6,.main7_banner{overflow:hidden}
 
-.main1 {position:relative;background: url('/resources/homepage/bukbu/img/main_bg_new.jpg') no-repeat center center;}
+.main1 {position:relative;}
+.main1 .mySwiper{position:relative;height:470px;}
+.main1 .mySwiper div{height:100%;background-size:cover;}
+.main1 .section{position:absolute;top: 0;left: 50%;transform: translateX(-50%);z-index:99;}
+.main1 .swiper_01{position:relative;background: url('/resources/homepage/bukbu/img/main_01.jpeg') no-repeat center center;}
+.main1 .swiper_02{position:relative;background: url('/resources/homepage/bukbu/img/main_02.jpeg') no-repeat center center;}
+.main1 .swiper_03{position:relative;background: url('/resources/homepage/bukbu/img/main_03.jpg') no-repeat center center;}
+.main1 .swiper_04{position:relative;background: url('/resources/homepage/bukbu/img/main_04.jpg') no-repeat center center;}
 .main1 .main1box1 {float:left;width: 100%;margin-top:43px;}
 .main1 .main1box2 {float:right;width:306px;height:427px;box-sizing:border-box;border:1px solid #dadada;border-top:2px solid #2e3192;}
 .main1 .main1box1 .main1box1box1 {box-sizing:border-box;padding:15px 0;/* background:#ededed; */display: flex;justify-content: space-between;}
@@ -344,7 +351,7 @@
 #quick-slide ul li a span.txt {font-size:13px;line-height:120%;color:#fff;}
 #quick-slide ul li:last-child {background:none;}
 
-/* SNS Ãß°¡ */
+/* SNS ï¿½ß°ï¿½ */
 .sns-box {display:none;}
 
 @media all and (max-width:1279px){
@@ -504,7 +511,7 @@
 	.main2 .main2box3 .notice ul.list li a  {font-size:13px;}
 	.main2 .main2box4 .culture ul.list li a {font-size:13px;}
 
-	/* SNS Ãß°¡ */
+	/* SNS ï¿½ß°ï¿½ */
 	.sns-box {display:block;width:100%;margin:25px 0 20px;}
 	.sns-box h2.title {text-align:center;}
 	.sns-box .sns-link{text-align:center;margin-top:20px;}

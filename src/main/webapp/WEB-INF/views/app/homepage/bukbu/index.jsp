@@ -23,7 +23,14 @@
 		observeParents: true,
 	});
 </script>
+<!-- Swiper CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/swiper/swiper-bundle.min.css"
+/>
 
+<!-- Swiper JavaScript -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('#homeup').click(function () {
@@ -140,6 +147,28 @@
 	<div id="container" class="main">
 		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<div class="main1">
+		<div class="mySwiper">
+		<div class="swiper-wrapper">
+		<div class="swiper-slide swiper_01"></div>
+		<div class="swiper-slide swiper_02"></div>
+		<div class="swiper-slide swiper_03"></div>
+		<div class="swiper-slide swiper_04"></div>
+		</div>
+		</div>
+		<script>
+		$(document).ready(function() {
+        // Swiper 초기화
+        var swiper = new Swiper('.mySwiper', {
+            loop: true, // 무한 반복
+            autoplay: {
+                delay: 3000, // 자동 전환 시간 (3초)
+                disableOnInteraction: false, // 사용자 상호작용 후에도 계속 자동
+            },
+            effect: 'fade', // 슬라이드 전환 효과
+            speed: 5000, // 전환 속도
+        });
+    });
+		</script>
 			<div class="section">
 
 				<div class="main1box1">

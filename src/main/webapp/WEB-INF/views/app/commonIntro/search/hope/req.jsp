@@ -183,7 +183,7 @@
 
 				<c:when test="${homepagePath eq 'center'}">
 					<select id="manageCode" name="manageCode" class="new_select_box">
-						<option value="HU">대구혁신도시복합혁신센터도서관</option>
+						<option value="HU">대구혁신도시복합문화센터</option>
 					</select>
 				</c:when>
 
