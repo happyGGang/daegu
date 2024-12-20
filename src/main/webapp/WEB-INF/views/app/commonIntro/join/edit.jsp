@@ -278,6 +278,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="CA">안심도서관</option>
 					<option value="CB">신천도서관</option>
 					<option value="FV">시청작은도서관</option>
+					<option value="HU">대구혁신도시복합혁신센터도서관</option>
 					<option value="NA">더불어숲도서관</option>
 					<option value="NB">도토리도서관</option>
 					<option value="NC">동일도서관</option>
@@ -306,6 +307,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 
 				<c:if test="${homepage.context_path eq 'beomeo'}">
 					범어도서관<input type="hidden" id="" name="manage_code" value="BD" />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'center'}">
+					대구혁신도시복합혁신센터도서관<input type="hidden" id="" name="manage_code" value="HU" />
 				</c:if>
 				<c:if test="${homepage.context_path eq 'yonghak'}">
 					용학도서관<input type="hidden" id="" name="manage_code" value="BE" />

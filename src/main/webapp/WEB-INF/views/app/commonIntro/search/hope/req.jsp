@@ -100,7 +100,7 @@
 <!-- /contents-title-->
 <c:if test="${homepage.context_path eq 'dalseolib'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
-		* 달서가족문화도서관, 도원도서관, 본리도서관 예산소진으로 서비스 종료(2025년 02월부터 신청 가능)<br>
+		* 달서가족문화도서관, 도원도서관, 본리도서관, 달서어린이도서관 예산소진으로 서비스 종료(2025년 02월부터 신청 가능)<br>
 		* 성서도서관 희망도서 신청 중지
 	</p>
 </c:if>
@@ -120,12 +120,6 @@
 <c:if test="${homepage.context_path eq 'bukbu'  && tt  < '2024-08-11'}">
 	<p style="font-weight:bold;margin-bottom:10px;color:red;">
 		※ 북부도서관 리모델링 공사로 인하여 8월 11일부터 희망도서 신청이 중지 됩니다.(자세한 내용은 공지사항 참조)<br>
-	</p>
-</c:if>
-
-<c:if test="${homepage.context_path eq 'dalseolib'  && tt  < '2024-09-31'}">
-	<p style="font-weight:bold;margin-bottom:10px;color:red;">
-		※ 달서가족문화도서관 24.10.01. 오전 중 신청 재개 예정입니다.<br>
 	</p>
 </c:if>
 
@@ -185,6 +179,12 @@
 					<option value="BK">물망이도서관</option>
 					<option value="HR">황금책문화센터</option>
 				</select>* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<!-- * 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.-->
+				</c:when>
+
+				<c:when test="${homepagePath eq 'center'}">
+					<select id="manageCode" name="manageCode" class="new_select_box">
+						<option value="HU">대구혁신도시복합혁신센터도서관</option>
+					</select>
 				</c:when>
 
 				<c:when test="${homepagePath eq 'yonghak'}">
@@ -307,7 +307,7 @@
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
 					<!-- <option value="BW">도원도서관</option> -->
-					<option value="BV">달서어린이도서관</option>
+					<!-- <option value="BV">달서어린이도서관</option> -->
 					<!--<option value="BU">성서도서관</option>-->
 					<!-- <option value="BX">본리도서관</option> -->
 					<!--<option value="BY">달서가족문화도서관</option>-->
