@@ -16,7 +16,7 @@ $(document).ready(function () {
 		navigation: {
 			nextEl: '.book_information_swiper .swiper-button-next',
 			prevEl: '.book_information_swiper .swiper-button-prev',
-		},
+		}
 	});
 
 	// 리스트 스와이퍼
@@ -30,7 +30,7 @@ $(document).ready(function () {
 		navigation: {
 		nextEl: '.book_information_swiper .swiper-button-next',
 		prevEl: '.book_information_swiper .swiper-button-prev',
-		},
+		}
 	});
 
 

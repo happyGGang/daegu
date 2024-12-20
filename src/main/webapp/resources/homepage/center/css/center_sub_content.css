@@ -51,6 +51,7 @@
 		margin-top: 2rem;
     display: flex
 ;
+justify-content: center;
     gap: 1rem;
 		}
 
@@ -59,11 +60,14 @@
   justify-content: space-between;
 }
 
+.flex_align_center  img {
+	margin-right: 2rem
+}
+
 .c_box {
   text-align: center;
-  width: 14.875rem;
+  width: 10.2rem;
   max-width: 14.875rem;
-  height: 9.875rem;
   border-radius: 1rem;
   border: 1px solid #D8D8D8;
   display: flex;
@@ -306,15 +310,14 @@ line-height: normal;
 
 
 .c_map_bottom_info {
-flex-wrap: wrap;
-  width: 100%;
+ flex-wrap: wrap;
   display: flex;
   border-bottom: 1px solid #2D2D2D;
   padding: 1.5rem 2.5rem 1.5rem 2.5rem;
   margin-top: 1.5rem;
   align-items: center;
   justify-content: center;
-  gap:4rem;
+  gap:2rem 4rem;
 }
 
 .c_map_bottom_info_item {
@@ -389,30 +392,78 @@ letter-spacing: -0.02rem;
   .c_scroll_info {
     display: flex;
   }
+  
+  .c_box {
+	width: 9.1rem;
+  }
 }
 
 /*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
+@media all and (min-width:768px) and (max-width:1023px){
 
   .c_scroll_info {
     display: flex;
+  }
+  
+  .c_box {
+	width: 5rem;
   }
 }
 
 /*모바일 가로 & 태블릿 세로 : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
 
+.flex_align_center {
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.flex_align_center  img {
+	margin-right: 0
+}
 
   .c_scroll_info {
     display: flex;
   }
+  
+  .c_map_bottom_info {
+    gap: 2rem
+  }
+    .c_box_wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-direction: column;
+	align-items: center;
+}
 }
 
 /*모바일 : -479px*/
 @media all and (max-width:479px){
+.flex_align_center {
+  flex-direction: column;
+  gap: 3rem;
+}
 
+.flex_align_center  img {
+	margin-right: 0
+}
 
   .c_scroll_info {
     display: flex;
   }
+  
+  .c_map_bottom_info {
+    gap: 2rem
+  }
+  
+  .c_box_wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-direction: column;
+	align-items: center;
+}
 }

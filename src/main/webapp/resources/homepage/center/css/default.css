@@ -529,6 +529,9 @@ h1.mobile-logo {
     #header .tnb {
         height: 3.75rem;
         padding: 10px 0;
+		position: fixed;
+        z-index: 999;
+        width: 100%;
     }
 
     #header .main-section h1 {

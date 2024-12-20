@@ -146,14 +146,14 @@ display:none;
   content: "";
   position: absolute;
   top: 20%;
-  left: 8.3rem;
+  left: 8.7rem;
   width: 0.01rem;
   height: 0.8rem;
   background-color: #555555;
 }
 
 .footer_link_list li:nth-child(3)::after {
-  left: 5rem;
+  left: 5.4rem;
 }
 
 .footer_link_list li:nth-child(4)::after {
@@ -276,15 +276,16 @@ display:none;
 
 /*노트북 & 태블릿 가로 : 1024px-1279px*/
 @media all and (min-width:1024px) and (max-width:1279px){
+
   .badge_swiper {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem 1rem 1.5rem 1rem;
+	gap: 1rem;
+    padding: 1.5rem 3rem 1.5rem 3rem;
   }
 
   .badge_swiper .swiper {
-    /* width: 20.5rem; */
-    height: 2.92857rem;
+    width: 58rem;
     margin: 0 !important;
   }
 
@@ -314,15 +315,10 @@ display:none;
     height: 2rem;
   }
 
-  .badge_swiper .more {
-    width: 2rem;
-    height: 2rem;
-  }
-
   .footer {
     position: relative;
-    height: 27.8rem;
-    padding: 2.5rem 1rem 0 1rem;
+    height: 8rem;
+    padding: 3rem;
   }
 
   .footer_content {
@@ -332,22 +328,44 @@ display:none;
   }
 
   .footer_link_list {
-    flex-direction: column;
-    gap: 0.66rem;
+    gap: 1.5rem;
   }
 
   .footer_link_list li {
     font-size: 0.8125rem;
   }
-
+  
   .footer_link_list li::after {
-    content: none
-  }
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 6.7rem;
+  width: 0.01rem;
+  height: 0.8rem;
+  background-color: #555555;
+}
+
+.footer_link_list li:nth-child(2)::after {
+  left:6.8rem;
+}
+
+.footer_link_list li:nth-child(3)::after {
+  left: 3.7rem;
+}
+
+.footer_link_list li:nth-child(4)::after {
+  left: 5.8rem;
+}
+
+.footer_link_list li:last-child::after {
+  content: none;
+}
+
 
   .detail_select_wrapper {
     /* flex-direction: column; */
-    gap: 1.5rem;
-    align-items: flex-start;
+    gap: 12rem;
+    align-items: flex-end;
   }
 
   .site_detail div:first-child {
@@ -367,7 +385,7 @@ display:none;
   }
 
   .site_detail div:nth-child(2) br {
-    display: block;
+    display: none;
   }
 
   .site_detail div:last-child {
@@ -377,7 +395,7 @@ display:none;
   }
 
   .site_detail div:last-child br {
-    display: block;
+    display: none;
   }
 
   #library, #organ {
@@ -389,23 +407,28 @@ display:none;
   }
 
   .scroll_top {
-    width: 2rem;
-    height: 2rem;
-    bottom: 9.3rem;
-    right: 1rem;
+  width: 2rem;
+        height: 2rem;
+        bottom: 9.3rem;
+        right: 3rem;
   }
 }
 
 /*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
+@media all and (min-width:768px) and (max-width:1023px){
   .badge_swiper {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem 1rem 1.5rem 1rem;
+	gap: 1rem;
+    padding: 1.5rem 3rem 1.5rem 3rem;
+  }
+  
+  .badge_swiper .control {
+	width: 72%
   }
 
   .badge_swiper .swiper {
-    width: 65rem;
+    width: 42.5rem;
     height: 3.1rem;
     margin: 0 !important;
     padding-right: 0 !important;
@@ -457,8 +480,8 @@ display:none;
 
   .footer {
     position: relative;
-    height: 18rem;
-    padding: 2.5rem 1rem 0 1rem;
+    height: 8rem;
+    padding: 3rem;
   }
 
   .footer_content {
@@ -468,7 +491,7 @@ display:none;
   }
 
   .footer_link_list {
-    gap: 0.66rem;
+    gap: 1.5rem;
   }
 
   .footer_link_list li {
@@ -476,8 +499,30 @@ display:none;
   }
 
   .footer_link_list li::after {
-    content: none
-  }
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 6.7rem;
+  width: 0.01rem;
+  height: 0.8rem;
+  background-color: #555555;
+}
+
+.footer_link_list li:nth-child(2)::after {
+  left:6.8rem;
+}
+
+.footer_link_list li:nth-child(3)::after {
+  left: 3.7rem;
+}
+
+.footer_link_list li:nth-child(4)::after {
+  left: 5.8rem;
+}
+
+.footer_link_list li:last-child::after {
+  content: none;
+}
 
   .detail_select_wrapper {
     gap: 1.5rem;
@@ -492,6 +537,7 @@ display:none;
 
   .select_wrapper {
     gap: 0.5rem;
+	flex-direction: column;
   }
 
   .site_detail div:nth-child(2) {
@@ -524,9 +570,9 @@ display:none;
 
   .scroll_top {
     width: 2rem;
-    height: 2rem;
-    bottom: 11.3rem;
-    right: 1rem;
+        height: 2rem;
+        bottom: 10rem;
+        right: 3rem;
   }
 }
 
@@ -535,7 +581,7 @@ display:none;
   .badge_swiper {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem 1rem 1.5rem 1rem;
+    padding: 1.5rem 1.3rem 1.5rem 1.3rem;
   }
 
  .badge_swiper .swiper {
@@ -613,8 +659,8 @@ banner-wrap  .control a.more {width: 2rem;
 
   .footer {
     position: relative;
-    height: 27.8rem;
-    padding: 2.5rem 1rem 0 1rem;
+    height: 25.5rem;
+    padding: 2.5rem 1.3rem 0 1.3rem;
   }
 
   .footer_content {
@@ -674,7 +720,7 @@ banner-wrap  .control a.more {width: 2rem;
   }
 
   #library, #organ {
-    width: 17.5rem;
+    width: 24.5rem;
   }
 
   .select div {
@@ -682,57 +728,77 @@ banner-wrap  .control a.more {width: 2rem;
   }
 
   .scroll_top {
-    width: 2rem;
-    height: 2rem;
-    bottom: 9.3rem;
-    right: 1rem;
+    width: 2.6rem;
+    height: 2.6rem;
+    bottom: 10rem;
+    right: 1.3rem;
   }
 }
 
 /*모바일 : -479px*/
 @media all and (max-width:479px){
-  .badge_swiper {
+    .badge_swiper {
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem 1rem 1.5rem 1rem;
+    padding: 1.5rem 1.3rem 1.5rem 1.3rem;
+  }
+
+ .badge_swiper .swiper {
+    width: 100%;
+    height: 3.1rem;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .badge_swiper .control{
     justify-content:flex-start;
     margin-bottom:8px;
   }
+.badge_swiper .control .prev {
+ width: 2rem;
+ height: 2rem;
+}
 
-  .banner-wrap .banner-t7-after .control a.active{
-    display:inline-block;
-    width: 2rem;
+.badge_swiper .control .next{
+  width: 2rem;
     height: 2rem;
+}
+  .badge_swiper .banner-roll{
+    margin: 0 auto !important;
   }
+.banner-wrap .banner-t7-after .control a.stop, .banner-wrap .banner-t7-after .control a.play{
+  padding:0;
+  width: 2rem;
+    height: 2rem;
+}
 
-  .badge_swiper .swiper {
-    width: 21.5rem;
-    height: 3.1rem;
-    margin: 0 !important;
-    /* padding-right: 0.5rem !important; */
+ .badge_swiper .banner-roll li a {
+   width: 9.3rem;
+   height: 2.92856rem;
+   /* padding: 0.79313rem 1.83038rem 0.90825rem 1.83038rem; */
   }
-
-  .badge_swiper .swiper-slide img {
-    width: 9.76188rem;
+  
+ .badge_swiper .banner-roll li img {
+    width: 9.3rem;
     height: 2.92856rem;
   }
 
   .badge_action {
-	width: 9.5rem;
     margin-right:0;
     padding-right: 2rem;
   }
-
-  .badge_swiper .control .prev, .badge_swiper .control .next{ width: 2rem;
-    height: 2rem;}
 
   .badge_swiper .swiper-button-next {
     width: 2rem;
     height: 2rem;
     left: 2.5rem;
+  }
+banner-wrap  .control a.more {width: 2rem;
+    height: 2rem;}
+  .banner-wrap .banner-t7-after .control a img{
+    width: 2rem;
+    height: 2rem;
+    line-height: normal;
   }
 
   .badge_swiper .swiper-button-prev {
@@ -746,14 +812,14 @@ banner-wrap  .control a.more {width: 2rem;
   }
 
   .badge_swiper .more {
-    width: 2rem;
-    height: 2rem;
+   width: 2rem;
+   height: 2rem;
   }
 
   .footer {
     position: relative;
-    height: 27.8rem;
-    padding: 2.5rem 1rem 0 1rem;
+    height: 25.5rem;
+    padding: 2.5rem 1.3rem 0 1.3rem;
   }
 
   .footer_content {
@@ -813,7 +879,7 @@ banner-wrap  .control a.more {width: 2rem;
   }
 
   #library, #organ {
-    width: 17.5rem;
+    width: 17rem;
   }
 
   .select div {
@@ -821,9 +887,9 @@ banner-wrap  .control a.more {width: 2rem;
   }
 
   .scroll_top {
-    width: 2rem;
-    height: 2rem;
-    bottom: 11.3rem;
-    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    bottom: 10rem;
+    right: 1.3rem;
   }
 }

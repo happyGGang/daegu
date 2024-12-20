@@ -25,7 +25,7 @@
 										<div>
 											<div class="book_title">${i.title}</div>
 											<div class="book_writer">${i.imsi_v_3}</div>
-											<div class="book_year">${i.imsi_v_4}ㆍ${i.imsi_v_2}</div>
+											<div class="book_year">${i.imsi_v_4}<span class='new_dot'>ㆍ</span><br />${i.imsi_v_2}</div>
 										</div>
 										<c:choose>
 											<c:when test="${i.preview_img ne null}">

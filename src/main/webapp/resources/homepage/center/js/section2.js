@@ -77,11 +77,11 @@ $(document).ready(function () {
 			prevEl: '.calendar_swiper .swiper-button-prev',
 		},
 	});
-
+			
 			// 메인 스와이퍼
 	var BookSwiper;
 	var BookListSwiper;
-
+	
 	BookSwiper = new Swiper('.book_information_swiper .swiper', {
 		speed: 200,
 		allowTouchMove: false,
@@ -134,7 +134,7 @@ $(document).ready(function () {
 
 	if(len > 1)
 	{
-
+		
 	const autoplayButton = document.querySelector('.book_autoplay');
 
 	autoplayButton.addEventListener('click', () => {
@@ -153,6 +153,6 @@ $(document).ready(function () {
 		autoplayButton.src = src;
 		autoplayButton.alt = alt;
 	}
-
+	
 	}
 });

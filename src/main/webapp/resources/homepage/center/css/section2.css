@@ -19,7 +19,7 @@
   color: #222;
   font-size: 1rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
   letter-spacing: 0.05rem;
   text-transform: uppercase;
@@ -146,6 +146,10 @@
   letter-spacing: -0.02188rem;
 }
 
+.popup, .board {
+  height: fit-content;
+}
+
 .popup_en {
   color: #222;
   font-size: 1rem;
@@ -183,7 +187,6 @@
 }
 
 .popup_swiper .swiper-slide {
-  width: 34.375rem !important;
   height: 24.3125rem !important;
 }
 
@@ -254,7 +257,7 @@
 /*노트북 & 태블릿 가로 : 1024px-1279px*/
 @media all and (min-width:1024px) and (max-width:1279px){
   #section2 {
-    height: 55.25rem !important;
+    height: 31.25rem !important;
     background: url(../img/section2.svg) no-repeat top center;
     background-size: cover;
   }
@@ -271,7 +274,7 @@
   }
 
   .board_list {
-    height: 22rem;
+    height: fit-content;
   }
 
   .board_title {
@@ -294,10 +297,10 @@
   }
 
   .board_index li::after {
-    width: 0.2rem;
-    height: 0.2rem;
-    bottom: 0.5rem;
-    left:5rem;
+width: 0.2rem;
+        height: 0.2rem;
+        bottom: 0.7rem;
+        left: 4.7rem;
   }
 
   .board_more {
@@ -309,7 +312,7 @@
   .board_list_item {
     width: 20rem;
     padding: 0.2rem 0 0.2rem 0;
-    height: 3rem;
+    height: 3.26rem;
   }
 
   .board_list_item_title {
@@ -402,7 +405,7 @@
 /*태블릿 가로 : 769px-1023px*/
 @media all and (min-width:768px) and (max-width:1023px){
   #section2 {
-    height: 60rem !important;
+    height: 77rem !important;
 	background: #FFFFFF;
     /* background: url(../img/section2_m.svg) no-repeat top center;
     background-size: cover; */
@@ -418,7 +421,7 @@
   }
 
   .board {
-    padding-top: 2.5rem;
+    padding-top: 4.5rem;
 	width: 100%;
 	background: #F8F8F8;
 	display: flex;
@@ -433,11 +436,11 @@
   .board_title {
     font-size: 0.8125rem;
     margin-bottom: 1rem;
-	width: 20.5rem;
+	width: 35rem;
   }
 
   .board_index_wrapper {
-    width: 20.5rem;
+    width: 35rem;
     margin-bottom: 1.5rem;
     justify-content: space-between;
   }
@@ -465,7 +468,7 @@
   }
 
   .board_list_item {
-    width: 20rem;
+    width: 35rem;
     padding: 0.2rem 0 0.2rem 0;
     height: 3rem;
   }
@@ -499,49 +502,49 @@
     flex-direction: column;
     display: flex;
     justify-content: center;
-    padding-top: 2.5rem;
+    padding-top: 4.5rem;
 	width: 100%;
 	align-items: center;
   }
 
   .popup_en {
-    width: 20.5rem;
+    width: 35rem;
     font-weight: 600;
     font-size: 0.8125rem;
     margin-bottom: 0.5rem;
   }
 
   .popup_kr {
-    width: 20.5rem;
+    width: 35rem;
     font-size: 1.125rem;
     margin-bottom: 2rem;
   }
 
   .popup_swiper {
-    width: 20.5rem;
-    height: 18.24909rem;
+    width: 35rem;
+    height: 30rem;
 
   }
 
   .popup_swiper .swiper {
-    width: 20.5rem;
-    height: 14.49906rem;
+    width: 35rem;
+    height: 25rem;
   }
 
   .popup_swiper .swiper-slide {
-    width: 20.5rem !important;
-    height: 14.49906rem !important;
+    width: 35rem !important;
+    height: 25rem !important;
   }
 
   .popup_swiper .swiper-slide img {
-    width: 20.5rem;
-    height: 14.49906rem;
+    width: 35rem;
+    height: 25rem;
   }
 
   .popup_swiper .swiper-pagination-fraction {
     margin-bottom: 0.7rem;
     font-size: 0.875rem;
-    top: 1.5rem
+    top: 2rem
   }
 
   .popup_swiper .swiper-button-next {
@@ -553,13 +556,13 @@
 
   .popup_swiper .swiper-button-prev {
     top: 1.9rem;
-    left: 12.3rem;
+    left: 26.8rem;
     width: 2rem;
     height: 2rem;
   }
 
   .popup_swiper .swiper_action_wrapper {
-    margin-top: -0.1rem;
+    margin-top: 0.5rem;
   }
 
   .popup_swiper .swiper_action_wrapper img {
@@ -571,7 +574,7 @@
 /*모바일 가로 & 태블릿 세로 : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
     #section2 {
-    height: 60rem !important;
+    height: 65rem !important;
 	background: #FFFFFF;
     /* background: url(../img/section2_m.svg) no-repeat top center;
     background-size: cover; */
@@ -602,11 +605,11 @@
   .board_title {
     font-size: 0.8125rem;
     margin-bottom: 1rem;
-	width: 20.5rem;
+	width: 27rem;
   }
 
   .board_index_wrapper {
-    width: 20.5rem;
+    width: 27rem;
     margin-bottom: 1.5rem;
     justify-content: space-between;
   }
@@ -634,15 +637,14 @@
   }
 
   .board_list_item {
-    width: 20rem;
+    width: 27rem;
     padding: 0.2rem 0 0.2rem 0;
-    height: 3rem;
+    height: 3.5rem;
   }
 
   .board_list_item_title {
     gap: 0.29rem;
     align-items: center;
-
   }
 
   .board_list_item_title img {
@@ -674,43 +676,42 @@
   }
 
   .popup_en {
-    width: 20.5rem;
+    width: 27rem;
     font-weight: 600;
     font-size: 0.8125rem;
     margin-bottom: 0.5rem;
   }
 
   .popup_kr {
-    width: 20.5rem;
+    width: 27rem;
     font-size: 1.125rem;
     margin-bottom: 2rem;
   }
 
   .popup_swiper {
-    width: 20.5rem;
-    height: 18.24909rem;
+    width: 27rem;
+    height: 24rem;
 
   }
 
   .popup_swiper .swiper {
-    width: 20.5rem;
-    height: 14.49906rem;
+   width: 27rem !important;
+    height: 19rem;
   }
 
   .popup_swiper .swiper-slide {
-    width: 20.5rem !important;
-    height: 14.49906rem !important;
+    height: 196rem !important;
   }
 
   .popup_swiper .swiper-slide img {
-    width: 20.5rem;
-    height: 14.49906rem;
+    width: 27rem;
+    height: 19rem;
   }
 
   .popup_swiper .swiper-pagination-fraction {
     margin-bottom: 0.7rem;
     font-size: 0.875rem;
-    top: 1.5rem
+    top: 2rem
   }
 
   .popup_swiper .swiper-button-next {
@@ -722,13 +723,13 @@
 
   .popup_swiper .swiper-button-prev {
     top: 1.9rem;
-    left: 12.3rem;
+    left: 19rem;
     width: 2rem;
     height: 2rem;
   }
 
   .popup_swiper .swiper_action_wrapper {
-    margin-top: -0.1rem;
+    margin-top: 0.5rem;
   }
 
   .popup_swiper .swiper_action_wrapper img {
@@ -740,7 +741,7 @@
 /*모바일 : -479px*/
 @media all and (max-width:479px){
     #section2 {
-    height: 60rem !important;
+    height: 59rem !important;
 	background: #FFFFFF;
     /* background: url(../img/section2_m.svg) no-repeat top center;
     background-size: cover; */
@@ -805,7 +806,7 @@
   .board_list_item {
     width: 20rem;
     padding: 0.2rem 0 0.2rem 0;
-    height: 3rem;
+    height: 3.4rem;
   }
 
   .board_list_item_title {

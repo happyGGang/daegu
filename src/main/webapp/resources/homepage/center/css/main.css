@@ -90,15 +90,14 @@
 #calendar2 .planView .inbox .planList {display: flex;gap: 0.75rem;align-items: center}
 #calendar2 .planView {position: relative;
     width: 23.625rem;
-    height: 30rem;
+    height: 30.5rem;
     background: #F8F8F8;
     border-radius: 0.5rem;
-	padding: 2.25rem;
-	padding-right: 1.3rem;
+	padding: 2rem;
 	}
-#calendar2 .planView .inbox {position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;padding:25px;overflow-y:scroll;height:30rem}
+#calendar2 .planView .inbox {position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;overflow-y:scroll;height:30rem;padding-right:1rem;}
 #calendar2 .planView .inbox .planList {padding:1.25rem 0;border-bottom:1px solid #ddd;}
-#calendar2 .planView .inbox .planList:first-child{padding-top:0;display: flex;gap: 0.75rem;align-items: center}
+#calendar2 .planView .inbox .planList:first-child{padding-top:0;display: flex;gap: 0.75rem;align-items: center;margin-top: 12px;}
 #calendar2 .planView .inbox .planList p {display:inline-block;font-size:15px;}
 #calendar2 .planView .inbox .planList p.datetime {width:85px;font-weight:bold;text-align:center;border:1px solid #000;-webkit-box-sizing:border-box;box-sizing:border-box;padding:7px;}
 #calendar2 .planView .inbox .planList p.datetime.holiday {display: flex;align-items: center;justify-content: center;width: 2.5rem;height: 2.5rem; border-radius: 50%;background: #FFE4DD;border: none;color: #EC4746;}
@@ -807,7 +806,7 @@ background:url('../img/quick-link-arrow.png') no-repeat 96% center;
 	.banner-wrap>.banner-box7 {width: calc(100% - 220px);padding: 5px 0px;}
 	.banner-wrap .banner-t7-after .control a img {width: 35px;height: 35px;line-height: 35px;}
 	.banner-wrap .banner-t7-after .control a.stop,
-	.banner-wrap .banner-t7-after .control a.play{display:none;padding-right:5px;}
+	.banner-wrap .banner-t7-after .control a.play{padding-right:5px;}
 	
 
     

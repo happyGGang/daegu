@@ -3,8 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
-$(function() {
-Date.prototype.format = function(f) {
+	$(function() {
+		Date.prototype.format = function(f) {
 			if (!this.valueOf())
 				return " ";
 
@@ -13,28 +13,28 @@ Date.prototype.format = function(f) {
 
 			return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
 				switch ($1) {
-				case "yyyy":
-					return d.getFullYear();
-				case "yy":
-					return (d.getFullYear() % 1000).zf(2);
-				case "MM":
-					return (d.getMonth() + 1).zf(2);
-				case "dd":
-					return d.getDate().zf(2);
-				case "E":
-					return weekName[d.getDay()];
-				case "HH":
-					return d.getHours().zf(2);
-				case "hh":
-					return ((h = d.getHours() % 12) ? h : 12).zf(2);
-				case "mm":
-					return d.getMinutes().zf(2);
-				case "ss":
-					return d.getSeconds().zf(2);
-				case "a/p":
-					return d.getHours() < 12 ? "오전" : "오후";
-				default:
-					return $1;
+					case "yyyy":
+						return d.getFullYear();
+					case "yy":
+						return (d.getFullYear() % 1000).zf(2);
+					case "MM":
+						return (d.getMonth() + 1).zf(2);
+					case "dd":
+						return d.getDate().zf(2);
+					case "E":
+						return weekName[d.getDay()];
+					case "HH":
+						return d.getHours().zf(2);
+					case "hh":
+						return ((h = d.getHours() % 12) ? h : 12).zf(2);
+					case "mm":
+						return d.getMinutes().zf(2);
+					case "ss":
+						return d.getSeconds().zf(2);
+					case "a/p":
+						return d.getHours() < 12 ? "오전" : "오후";
+					default:
+						return $1;
 				}
 			});
 		};
@@ -68,9 +68,9 @@ Date.prototype.format = function(f) {
 		});
 
 		$('a.showCal').on('click', function(e) {
-			
+
 			console.log('test');
-			
+
 			var key = $(this).attr('keyValue');
 			$(".calAll").hide();
 			$("#popup_layer").show();
@@ -84,7 +84,7 @@ Date.prototype.format = function(f) {
 			$(".calAll").hide();
 		});
 
-});
+	});
 </script>
 
 
@@ -92,28 +92,29 @@ Date.prototype.format = function(f) {
 <div id="calendar2">
 
 	<div class='calendar-wrap'>
-		<div class='cal-bord'>
-			<div class="cal-func2">
-				<div class='calendar_header'>
-					<div>도서관일정</div>
-					
+		<div class='calendar-new-wrap'>
+			<div class='cal-bord'>
+				<div class="cal-func2">
+					<div class='calendar_header'>
+						<div>도서관일정</div>
+
 						<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
 							<img src="/resources/homepage/center/img/plus.svg" alt="일정더보기">
 						</a>
-					
-				</div>
-				
-				
-				<div class="calendar_navigation">
-					<a href="#prev" class="btn prev" keyValue="${calendar.plan_date}" id="before-btn"><img src="/resources/homepage/center/img/calendar_arrow.svg" alt="이전달"></a>
-					<div>${fn:split(calendar.plan_date, '-')[0]}년 ${fn:split(calendar.plan_date, '-')[1]}월</div>
-					<a href="#next" class="btn next" keyValue="${calendar.plan_date}" id="next-btn"><img src="/resources/homepage/center/img/calendar_arrow.svg" alt="다음달"></a>
-				</div>
-			</div>
 
-			<div class="cal-calendar">
-				<table class="cal-tbl">
-					<thead>
+					</div>
+
+
+					<div class="calendar_navigation">
+						<a href="#prev" class="btn prev" keyValue="${calendar.plan_date}" id="before-btn"><img src="/resources/homepage/center/img/calendar_arrow.svg" alt="이전달"></a>
+						<div>${fn:split(calendar.plan_date, '-')[0]}년 ${fn:split(calendar.plan_date, '-')[1]}월</div>
+						<a href="#next" class="btn next" keyValue="${calendar.plan_date}" id="next-btn"><img src="/resources/homepage/center/img/calendar_arrow.svg" alt="다음달"></a>
+					</div>
+				</div>
+
+				<div class="cal-calendar">
+					<table class="cal-tbl">
+						<thead>
 						<tr>
 							<th class="sun">일</th>
 							<th>월</th>
@@ -123,8 +124,8 @@ Date.prototype.format = function(f) {
 							<th>금</th>
 							<th class="sat">토</th>
 						</tr>
-					</thead>
-					<tbody>
+						</thead>
+						<tbody>
 						<c:forEach items="${calendarList}" var="i">
 							<tr>
 								<td class="sun">
@@ -255,100 +256,103 @@ Date.prototype.format = function(f) {
 								</td>
 							</tr>
 						</c:forEach>
-					</tbody>
-				</table>
-				<div class="calendar-info">
-					<span class="hu">휴관</span>
-					<span class="ev">행사</span>
+						</tbody>
+					</table>
+					<div class="calendar-info">
+						<span class="hu">휴관</span>
+						<span class="ev">행사</span>
+					</div>
 				</div>
 			</div>
+
+
+
+			<div class="planView">
+				<div class="inbox">
+					<c:forEach var="i" begin="1" end="31" varStatus="status">
+						<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
+						<c:set var="idx" value="${i < 10 ? '':''}${i}"></c:set>
+						<c:forEach var="j" items="${calendarResult[idx]}">
+							<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
+							<div class="planList">
+								<c:choose>
+									<c:when test="${fn:indexOf(closeDayList.dd, key) > -1 }">
+										<p class="datetime holiday">
+											<span class="monthDays">${key}</span>
+										</p>
+									</c:when>
+									<c:otherwise>
+										<p class="datetime event">
+											<span class="monthDays">${key}</span>
+										</p>
+									</c:otherwise>
+								</c:choose>
+								<div class="title">
+									<div>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</div>
+									<div>
+										${ty[1]}${fn:length(ty) > 1 ? (fn:startsWith(ty[1], '[') ? ']' : '') : ''}${ty[2]}${fn:length(ty) > 1 ? (fn:startsWith(ty[2], '[') ? ']' : '') : ''}
+									</div>
+
+								</div>
+							</div>
+						</c:forEach>
+					</c:forEach>
+				</div>
+			</div>
+			
 		</div>
 		
-						
 
-		<div class="planView">
-			<div class="inbox">
-				<c:forEach var="i" begin="1" end="31" varStatus="status">
-					<c:set var="key" value="${i < 10 ? '0':''}${i}"></c:set>
-					<c:set var="idx" value="${i < 10 ? '':''}${i}"></c:set>
-					<c:forEach var="j" items="${calendarResult[idx]}">
-						<c:set var="ty" value="${fn:split(j, ']')}"></c:set>
-						<div class="planList">
-							<c:choose>
-								<c:when test="${fn:indexOf(closeDayList.dd, key) > -1 }">
-									<p class="datetime holiday">
-										<span class="monthDays">${key}</span>
-									</p>
-								</c:when>
-								<c:otherwise>
-									<p class="datetime event">
-										<span class="monthDays">${key}</span>
-									</p>
-								</c:otherwise>
-							</c:choose>
-							<div class="title">
-								<div>${ty[0]}${fn:length(ty) > 1 ? ']' : (fn:startsWith(ty[0], '[') ? ']' : '')}</div>
-								<div>
-									${ty[1]}${fn:length(ty) > 1 ? (fn:startsWith(ty[1], '[') ? ']' : '') : ''}${ty[2]}${fn:length(ty) > 1 ? (fn:startsWith(ty[2], '[') ? ']' : '') : ''}
-								</div>
-
-							</div>
-						</div>
-					</c:forEach>
-				</c:forEach>
-			</div>
-		</div> 
-		
 		<ul class="link_list">
-                <li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=28'">
-                    <div class="link_text">
-                        <div>스마트한 독서생활이 시작되는 곳</div>
-                        <div>대구전자도서관</div>
-                    </div>
-                    <img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
-                </li>
-                <li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=24'">
-                    <div class="link_text">
-                        <div>협력형 온라인 지식정보서비스</div>
-                        <div>책이음</div>
-                    </div>
-                    <img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
-                </li>
-                <li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=25'">
-                    <div class="link_text">
-                        <div>장애인 무료 택배 서비스</div>
-                        <div>책나래</div>
-                    </div>
-                    <img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
-                </li>
-                <li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=26'">
-                    <div class="link_text">
-                        <div>국가상호대차 서비스</div>
-                        <div>책바다</div>
-                    </div>
-                    <img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
-                </li>
-                <li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=27'">
-                    <div class="link_text">
-                        <div>협력형 온라인 지식정보서비스</div>
-                        <div>사서에게물어보세요</div>
-                    </div>
-                    <img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
-                </li>
-            </ul>
+			<li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=28'">
+				<div class="link_text">
+					<div>스마트한 독서생활이 시작되는 곳</div>
+					<div>대구전자도서관</div>
+				</div>
+				<img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
+			</li>
+			<li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=24'">
+				<div class="link_text">
+					<div>협력형 온라인 지식정보서비스</div>
+					<div>책이음</div>
+				</div>
+				<img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
+			</li>
+			<li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=25'">
+				<div class="link_text">
+					<div>장애인 무료 택배 서비스</div>
+					<div>책나래</div>
+				</div>
+				<img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
+			</li>
+			<li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=26'">
+				<div class="link_text">
+					<div>국가상호대차 서비스</div>
+					<div>책바다</div>
+				</div>
+				<img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
+			</li>
+			<li onclick="location.href='/${homepage.context_path}/html.do?menu_idx=27'">
+				<div class="link_text">
+					<div>협력형 온라인 지식정보서비스</div>
+					<div>사서에게물어보세요</div>
+				</div>
+				<img src="/resources/homepage/center/img/link_arrow.svg" alt="" />
+			</li>
+		</ul>
 
 		<div class="planViewLayer">
 			<div class="inbox" id="popup_layer" style="display:none;">
-					<c:forEach var="i" items="${calendarResult}" varStatus="status">
-						<div id="${i.key}" class="calAll" style="display: none;">
-							<dl>
-								<div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
-									<dt>${calendar.plan_date.split('-')[0]}년 ${calendar.plan_date.split('-')[1]}월 ${fn:length(i.key) == 1 ? '0' : ''}${i.key}일</dt>
-									<a href="#" class="close closePlanView"><img src="/resources/homepage/center/img/close_popup.svg" alt="" /></i></a>
-								</div>
-							</dl>
-							<div style='color: #2D2D2D;font-weight: 500;font-size: 0.9375rem;padding: 1rem'>
-								<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
+				<c:forEach var="i" items="${calendarResult}" varStatus="status">
+					<div id="${i.key}" class="calAll" style="display: none;">
+						<dl>
+							<div style="display: flex;align-items: center;justify-content: space-between;width: 100%;">
+								<dt>${calendar.plan_date.split('-')[0]}년 ${calendar.plan_date.split('-')[1]}월 ${fn:length(i.key) == 1 ? '0' : ''}${i.key}일</dt>
+								<a href="#" class="close closePlanView"><img src="/resources/homepage/center/img/close_popup.svg" alt="" /></i></a>
+							</div>
+						</dl>
+						<div style='color: #2D2D2D;font-weight: 500;font-size: 0.9375rem;padding: 1rem'>
+							<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
 								<c:choose>
 									<c:when test="${fn:length(i.value[count]) > 30}">
 										<c:out value="${fn:substring(i.value[count], 0, 30)}"/>...
@@ -361,10 +365,10 @@ Date.prototype.format = function(f) {
 									</br>
 								</c:if>
 							</c:forEach>
-							</div>
 						</div>
-					</c:forEach>
-				
+					</div>
+				</c:forEach>
+
 			</div>
 		</div>
 	</div>

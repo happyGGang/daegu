@@ -214,6 +214,8 @@
     letter-spacing: -0.34px;
     padding: 0 0 0 34px;
     margin: 32px 0 12px 0;
+    /* height: 76px; */
+    display: inline-block;
 }
 
 .doc-body h3:first-child {
@@ -231,6 +233,8 @@
     letter-spacing: -0.34px;
     padding-top: 13px;
     margin: 20px 0 10px;
+    display:block;
+    clear: both;
 }
 
 .doc-body h4 span {
@@ -863,8 +867,6 @@ table tbody td.point {
     }
 
     .tabmenu li a {
-        padding-left: 15px;
-        padding-right: 15px
     }
 
     .tab-menu.tab2 li,
@@ -874,7 +876,13 @@ table tbody td.point {
 }
 
 @media all and (max-width:425px) {
-    .tabmenu li {}
+    .tabmenu li a {
+		font-size: 0.75rem;
+	}
+	
+	.tab-menu li.active a, .tabmenu li.active a {
+	font-size: 0.75rem;
+	}
 }
 
 .tabCon {
@@ -993,7 +1001,6 @@ letter-spacing: -0.28px;
     .txt_box {}
 
     .txt_box .area {
-        padding: 25px 35px 25px 20px;
         box-sizing: border-box;
     }
 
@@ -4186,13 +4193,14 @@ ul.con_ask li:last-child {
 
 .txt_box {
     position: relative;
-  display: flex;
-padding: 24px 40px;
-align-items: center;
-gap: 24px;
-align-self: stretch;
+    display: flex;
+    padding: 24px 40px;
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
     border-radius: 16px;
-background: #F8F8F8;
+    background: #F8F8F8;
+    /* display: block; */
 }
 
 .txt_box02 {
@@ -4211,22 +4219,34 @@ background: #F8F8F8;
         position: relative;
         width: 100%;
         float: left;
+        margin: 0 0 20px 0;
+        display: block;
+        box-sizing: border-box;
+        padding: 10px;
     }
 
     .txt_box02 {
         margin-bottom: 0;
     }
+	
+		.txt_box {
+		padding: 19px;
+		border-radius: 8px;
+	}
 }
 
 @media all and (max-width: 767px) {
     .img_box {
         display: none;
     }
+	
 
     .txt_box {
         position: relative;
         /* width: 100%; */
         /* float: left; */
+		border-radius: 8px;
+        padding: 25px;
     }
 
     .txt_box02 {
@@ -7985,6 +8005,10 @@ div.inputWrap input {width:49%;height:30px;padding:3px;}
 	.check-btn-box {text-align:right;margin-bottom:5px;}
 	.check-btn-box  li input {font-size:13px;}
 	.check-btn-box  li a.btn {font-size:13px;}
+	.content {
+        padding: 0 1rem 40px;
+    }
+
 }
 @media all and (max-width:599px) {
 	.dpt-intro-type02 .role-head .role-head-tit {line-height:1.2}

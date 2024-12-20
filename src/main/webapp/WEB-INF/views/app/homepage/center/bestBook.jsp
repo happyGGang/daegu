@@ -24,7 +24,7 @@
 										<div>
 											<div class="book_title">${i.TITLE}</div>
 											<div class="book_writer">${i.AUTHOR}</div>
-											<div class="book_year">${i.PUBLISHER}ㆍ${i.PUBLISH_YEAR}</div>
+											<div class="book_year">${i.PUBLISHER}<span class='new_dot'>ㆍ</span><br />${i.PUBLISH_YEAR}</div>
 										</div>
 										<c:choose>
 											<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">

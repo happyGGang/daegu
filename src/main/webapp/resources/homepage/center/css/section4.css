@@ -4,6 +4,11 @@
   background: url(../img/section4.svg) no-repeat top center;
   background-size: cover;
   padding: 1rem;
+  align-items: center;
+}
+
+.calendar-new-wrap {
+	display:  flex;
 }
 
 .wrapper {
@@ -268,601 +273,58 @@
 /*노트북 & 태블릿 가로 : 1024px-1279px*/
 @media all and (min-width:1024px) and (max-width:1279px){
   #section4 {
-    height: 86.625rem !important;
+    height: 46rem !important;
   }
-
-  .wrapper {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-    margin-top: 2.5rem;
-    padding: 0 1rem 0 1rem;
+  
+  .calendar-new-wrap {
+	width: 100%;
+	max-width: 52rem;
   }
-
-  .schedule_wrapper {
-    flex-direction: column;
-  }
-
-  .calendar {
-    width: 20.5rem;
-    height: 26.5625rem;
-    border-radius: 0.385rem;
-  }
-
-  .calendar_header {
-    margin-bottom: 1.35rem;
-    padding: 1.81rem 1.75rem 0 1.75rem;
-  }
-
-  .calendar_header div {
-    font-size: 1.125rem;
-  }
-
-  .calendar_header img {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .calendar_navigation div {
-    font-size: 0.81806rem;
-  }
-
-  .calendar_navigation img {
-    width: 1.15494rem;
-    height: 1.15494rem;
-  }
-
-  .calendar_swiper {
-    width: 20.5rem;
-    height: 26.5625rem;
-    padding-top: 1.74rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  .calendar_swiper .swiper {
-    width: 18rem;
-    height: 23.09859rem;
-  }
-
-  .calendar_swiper .swiper-slide {
-    height: 3.84975rem !important;
-    gap: 0.58rem;
-  }
-
-  .day_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .week_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .event div:first-child {
-    width: 12.3rem;
-    font-size: 0.75rem;
-    margin-bottom: 0.19rem;
-  }
-
-  .event div:last-child {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .week {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .calendar_swiper .swiper-button-next {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    top: 15.6rem;
-    right: 0.5rem;
-  }
-
-  .calendar_swiper .swiper-button-prev {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    left: 19.25rem;
-    top: 13rem;
-  }
-
-  .link_list {
-    width: 100%;
-  }
-
-  .link_list li {
-    height: 5rem;
-  }
-
-  .link_text {
-    margin-left: 2rem;
-  }
-
-  .link_text div:first-child {
-    font-size: 0.8125rem;
-    letter-spacing: -0.01625rem;
-  }
-
-  .link_text div:last-child {
-    font-size: 0.875rem;
-  }
-
-  .link_list img {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-/*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
-  #section4 {
-    height: 32.625rem !important;
-  }
-
-  .wrapper {
-    gap: 1.5rem;
-    align-items: center;
-    margin-top: 2.5rem;
-    padding: 0 1rem 0 1rem;
-  }
-
-  .calendar {
-    width: 20.5rem;
-    height: 26.5625rem;
-    border-radius: 0.385rem;
-  }
-
-  .calendar_header {
-    margin-bottom: 1.35rem;
-    padding: 1.81rem 1.75rem 0 1.75rem;
-  }
-
-  .calendar_header div {
-    font-size: 1.125rem;
-  }
-
-  .calendar_header img {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .calendar_navigation div {
-    font-size: 0.81806rem;
-  }
-
-  .calendar_navigation img {
-    width: 1.15494rem;
-    height: 1.15494rem;
-  }
-
-  .calendar_swiper {
-    width: 20.5rem;
-    height: 26.5625rem;
-    padding-top: 1.74rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  .calendar_swiper .swiper {
-    width: 18rem;
-    height: 23.09859rem;
-  }
-
-  .calendar_swiper .swiper-slide {
-    height: 3.84975rem !important;
-    gap: 0.58rem;
-  }
-
-  .day_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .week_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .event div:first-child {
-    width: 12.3rem;
-    font-size: 0.75rem;
-    margin-bottom: 0.19rem;
-  }
-
-  .event div:last-child {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .week {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .calendar_swiper .swiper-button-next {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    top: 15.6rem;
-    right: 0.5rem;
-  }
-
-  .calendar_swiper .swiper-button-prev {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    left: 19.25rem;
-    top: 13rem;
-  }
-
-  .link_list {
-    width: 100%;
-  }
-
-  .link_list li {
-    height: 5rem;
-  }
-
-  .link_text {
-    margin-left: 2rem;
-  }
-
-  .link_text div:first-child {
-    font-size: 0.8125rem;
-    letter-spacing: -0.01625rem;
-  }
-
-  .link_text div:last-child {
-    font-size: 0.875rem;
-  }
-
-  .link_list img {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-/*모바일 가로 & 태블릿 세로 : 480px-767px*/
-@media all and (min-width:480px) and (max-width:767px){
-  #section4 {
-    height: 86.625rem !important;
-  }
-
-  .wrapper {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-    margin-top: 2.5rem;
-    padding: 0 1rem 0 1rem;
-  }
-
-  .schedule_wrapper {
-    flex-direction: column;
-  }
-
-  .calendar {
-    width: 20.5rem;
-    height: 26.5625rem;
-    border-radius: 0.385rem;
-  }
-
-  .calendar_header {
-    margin-bottom: 1.35rem;
-    padding: 1.81rem 1.75rem 0 1.75rem;
-  }
-
-  .calendar_header div {
-    font-size: 1.125rem;
-  }
-
-  .calendar_header img {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .calendar_navigation div {
-    font-size: 0.81806rem;
-  }
-
-  .calendar_navigation img {
-    width: 1.15494rem;
-    height: 1.15494rem;
-  }
-
-  .calendar_swiper {
-    width: 20.5rem;
-    height: 26.5625rem;
-    padding-top: 1.74rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  .calendar_swiper .swiper {
-    width: 18rem;
-    height: 23.09859rem;
-  }
-
-  .calendar_swiper .swiper-slide {
-    height: 3.84975rem !important;
-    gap: 0.58rem;
-  }
-
-  .day_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .week_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .event div:first-child {
-    width: 12.3rem;
-    font-size: 0.75rem;
-    margin-bottom: 0.19rem;
-  }
-
-  .event div:last-child {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .week {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .calendar_swiper .swiper-button-next {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    top: 15.6rem;
-    right: 0.5rem;
-  }
-
-  .calendar_swiper .swiper-button-prev {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    left: 19.25rem;
-    top: 13rem;
-  }
-
-  .link_list {
-    width: 100%;
-  }
-
-  .link_list li {
-    height: 5rem;
-  }
-
-  .link_text {
-    margin-left: 2rem;
-  }
-
-  .link_text div:first-child {
-    font-size: 0.8125rem;
-    letter-spacing: -0.01625rem;
-  }
-
-  .link_text div:last-child {
-    font-size: 0.875rem;
-  }
-
-  .link_list img {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-/*모바일 : -479px*/
-@media all and (max-width:479px){
-  #section4 {
-    height: 86.625rem !important;
-  }
-
+  
   #calendar2 .calendar-wrap {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+   flex-direction: column;
+   align-items: center;
   }
-
-  #calendar2 .cal-calendar {
-    margin: 0;
-    width: 20rem;
+  
+  .main1-box {
+	display: flex;
+	align-items: center;
+	width: 100%;
+    max-width: 52rem;
+	justify-content: center;
   }
-
-  .link_list {
-    margin-left: 0;
-    margin-top: 1rem
+  
+  #calendar2 .cal-bord  {
+	height: 505px;
+	width: 50%
   }
-
-  #calendar2 .cal-calendar .calendar-info {
-    margin-top: 1.5rem;
+	  
+  #calendar2 .cal-bord   {
+	margin-left: 0
   }
-
+  
   #calendar2 .cal-tbl thead tr {
-    display: flex;
-    gap: 0.1rem;
-    margin-bottom: 1rem;
-    justify-content: center;
+    gap: 0.55rem;
   }
-
-  #calendar2 .cal-bord {
-    height: 30rem;
+  
+  #calendar2 .cal-tbl tbody tr  {
+    gap: 0.55rem;
+	margin-bottom: 0
   }
-
-  #calendar2 .cal-tbl tbody tr {
-    display: flex;
-    gap: 0.1rem;
-    justify-content: center;
-  }
-
-
-  #calendar2 .cal-tbl td a.type-e  {
-    width: 1.9rem;
-    height: 1.9rem;
-  }
-
-  #calendar2 .cal-tbl td a.type-r {
-    width: 1.9rem;
-    height: 1.9rem;
-  }
-
-  #calendar2 .cal-calendar .calendar-info {
-    margin-left: 18px;
-  }
-
+  
   #calendar2 .planView {
-    width: 17rem;
+    height: 467px;
+	padding: 1rem 1.3rem 1.3rem 0;
+	width: 50%
   }
-
+  
   #calendar2 .planView .inbox {
-    padding: 0 1rem 0.5rem 0;
-    height: 24rem;
+    padding: 0 0 25px 25px;
+	height: 29rem;
   }
-
-
-  .wrapper {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-    margin-top: 2.5rem;
-    padding: 0 1rem 0 1rem;
-  }
-
-  .schedule_wrapper {
-    flex-direction: column;
-  }
-
-  .calendar {
-    width: 20.5rem;
-    height: 26.5625rem;
-    border-radius: 0.385rem;
-  }
-
-  .calendar_header {
-    margin-bottom: 1.35rem;
-    padding: 1.81rem 1.75rem 0 1.75rem;
-  }
-
-  .calendar_header div {
-    font-size: 1.125rem;
-  }
-
-  .calendar_header img {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  .calendar_navigation div {
-    font-size: 0.81806rem;
-  }
-
-  .calendar_navigation img {
-    width: 1.15494rem;
-    height: 1.15494rem;
-  }
-
-  .calendar_swiper {
-    width: 20.5rem;
-    height: 26.5625rem;
-    padding-top: 1.74rem;
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-
-  .calendar_swiper .swiper {
-    width: 18rem;
-    height: 23.09859rem;
-  }
-
-  .calendar_swiper .swiper-slide {
-    height: 3.84975rem !important;
-    gap: 0.58rem;
-  }
-
-  .day_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .week_badge {
-    width: 1.92488rem;
-    height: 1.92488rem;
-    font-size: 0.72181rem;
-  }
-
-  .event div:first-child {
-    width: 12.3rem;
-    font-size: 0.75rem;
-    margin-bottom: 0.19rem;
-  }
-
-  .event div:last-child {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .week {
-    width: 12.3rem;
-    font-size: 0.8125rem;
-  }
-
-  .calendar_swiper .swiper-button-next {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    top: 15.6rem;
-    right: 0.5rem;
-  }
-
-  .calendar_swiper .swiper-button-prev {
-    width: 0.76994rem;
-    height: 0.76994rem;
-    left: 19.25rem;
-    top: 13rem;
-  }
-
-  .link_list {
-    width: 100%;
-  }
-
-  .link_list li {
-    height: 5rem;
-  }
-
-  .link_text {
-    margin-left: 2rem;
-  }
-
-  .link_text div:first-child {
-    font-size: 0.8125rem;
-    letter-spacing: -0.01625rem;
-  }
-
-  .link_text div:last-child {
-    font-size: 0.875rem;
-  }
-
-  .link_list img {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-
-/*노트북 & 태블릿 가로 : 1024px-1279px*/
-@media all and (min-width:1024px) and (max-width:1279px){
-  #section4 {
-    height: 86.625rem !important;
+  
+  #calendar2 .planView .inbox .planList:first-child {
+	padding-top: 0.2rem
   }
 
   .wrapper {
@@ -968,19 +430,30 @@
 
   .link_list {
     width: 100%;
+	flex-direction: row;
+	margin-left: 0;
+	margin-top: 1rem;
+	
   }
 
   .link_list li {
-    height: 5rem;
+    height: 6rem;
+        padding: 1.5rem 1rem 1.2rem 1rem;
+	flex-direction: column;
   }
+  
+   
 
   .link_text {
-    margin-left: 2rem;
+    margin-left: 0;
+	align-items: center;
+	flex-direction: column-reverse;
   }
 
   .link_text div:first-child {
     font-size: 0.8125rem;
     letter-spacing: -0.01625rem;
+	text-align: center;
   }
 
   .link_text div:last-child {
@@ -990,14 +463,73 @@
   .link_list img {
     width: 1.25rem;
     height: 1.25rem;
+	margin-right: 0;
   }
 }
 
 /*태블릿 가로 : 769px-1023px*/
-@media all and (min-width:768px) and (max-width:1024px){
+@media all and (min-width:768px) and (max-width:1023px){
   #section4 {
-    height: 86.625rem !important;
+    height: 95rem !important;
+	align-items: center;
   }
+  
+  
+  #calendar2 .cal-calendar {
+	margin-left: 1.5rem
+  }
+  
+  .calendar-new-wrap {
+    flex-direction: column;
+}
+
+#calendar2 .cal-tbl tbody tr {
+    display: flex;
+    gap: 2.5rem;
+}
+
+#calendar2 .cal-tbl thead tr {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 1rem;
+}
+  
+  #calendar2 .calendar-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .link_list li {
+	max-width: 38rem;
+  }
+  
+  #calendar2 .cal-bord  {
+  padding: 0 1rem 0 1rem;
+	height: 524px;
+  }
+  
+  #calendar2 .planView {
+	padding: 1.75rem 0.5rem 1.75rem 1.75rem;
+	width: 35rem;
+  }
+  
+  #calendar2 .planView .inbox  {
+	padding: 0 0.75rem 0 0;
+	height: 23rem;
+  }
+  
+  #calendar2 .cal-calendar .calendar-info {
+        bottom: -35px;
+    }
+  
+/*   #calendar2 .cal-tbl thead tr {
+    gap: 0.5rem
+  }
+  
+  #calendar2 .cal-tbl tbody tr  {
+    gap: 0.5rem
+  } */
+ 
 
   .wrapper {
     flex-direction: column;
@@ -1102,6 +634,8 @@
 
   .link_list {
     width: 100%;
+	margin-left: 0;
+	margin-top: 1.75rem
   }
 
   .link_list li {
@@ -1130,8 +664,48 @@
 /*모바일 가로 & 태블릿 세로 : 480px-767px*/
 @media all and (min-width:480px) and (max-width:767px){
   #section4 {
-    height: 86.625rem !important;
+    height:92rem !important;
+	align-items: center;
   }
+  
+  
+  .calendar-new-wrap {
+	flex-direction: column;
+  }
+  
+ #calendar2 .calendar-wrap {
+ flex-direction: column
+ }
+ 
+ #calendar2 .cal-calendar {
+   margin-left: 0
+ }
+ 
+     #calendar2 .cal-bord {
+		height: 518px;
+	 }
+	 
+	 #calendar2 .cal-tbl thead tr {
+	   gap: 1.3rem
+	 }
+	 
+	 #calendar2 .cal-tbl tbody tr  {
+		gap: 1.3rem
+	 }
+	 
+	     #calendar2 .planView  {
+			width: 24.5rem;
+			padding:  1.75rem 1rem 1.75rem 1.75rem;
+		 }
+		 
+		 #calendar2 .planView .inbox {
+			padding: 0;
+			height: 23rem;
+		 }
+		 
+		 #calendar2 .cal-tbl {
+			margin-left: 1rem
+		 }
 
   .wrapper {
     flex-direction: column;
@@ -1153,7 +727,7 @@
 
   .calendar_header {
     margin-bottom: 1.35rem;
-    padding: 1.81rem 1.75rem 0 1.75rem;
+    padding: 1.81rem 1.5rem 0 1.5rem;
   }
 
   .calendar_header div {
@@ -1236,10 +810,13 @@
 
   .link_list {
     width: 100%;
+	margin-left:  0;
+	margin-top: 1rem;
   }
 
   .link_list li {
     height: 5rem;
+	max-width: 27rem;
   }
 
   .link_text {
@@ -1261,11 +838,69 @@
   }
 }
 
+
 /*모바일 : -479px*/
 @media all and (max-width:479px){
   #section4 {
-    height: 86.625rem !important;
+    height: 91rem !important;
   }
+  
+  #calendar2 .cal-calendar {
+	margin-left: 1.1rem;
+  }
+  
+  
+  .calendar-new-wrap {
+	flex-direction: column;
+	width: 20.5rem;
+  }
+  
+  
+  #calendar2 .calendar-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #calendar2 .cal-bord  {
+	height: 506px;
+  }
+  
+  #calendar2 .planView {
+	padding: 1.75rem 0.5rem 1.75rem 1.75rem;
+	width: 292px
+  }
+  
+  #calendar2 .planView .inbox  {
+	padding: 0 0.75rem 0 0;
+	height: 23rem;
+  }
+  
+  #calendar2 .cal-tbl td a.type-r ,
+  #calendar2 .cal-tbl td a.type-e {
+   width: 1.9rem;
+   height: 1.9rem;
+  }
+  
+      #calendar2 .cal-tbl td div {
+        font-size: 0.7rem;
+    }
+  
+  #calendar2 .cal-tbl thead th {
+	font-size: 0.7rem;
+  }
+  
+#calendar2 .cal-tbl thead tr {
+    gap: 0
+  }
+  
+  #calendar2 .cal-tbl tbody tr  {
+    gap: 0
+  } 
+  
+  #calendar2 .planView .inbox .planList {
+    padding: 0.6rem 0;
+}
+ 
 
   .wrapper {
     flex-direction: column;
@@ -1370,6 +1005,8 @@
 
   .link_list {
     width: 100%;
+	margin-left: 0;
+	margin-top: 1.75rem
   }
 
   .link_list li {

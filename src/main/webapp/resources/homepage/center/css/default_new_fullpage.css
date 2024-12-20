@@ -43,7 +43,7 @@ a {color:#000;}
 nav,
 .Gnb .gnb-menu>li.mmode,
 .mmode{display:none}
-.mm-panels .mmode{width:100%;text-align:center;height:106px;left:0;top:-66px;background:none;overflow:hidden;border:1px solid #000;background:#333;}
+.mm-panels .mmode{width:100%;padding-left: 87px;height:106px;left:0;top:-66px;background:none;overflow:hidden;border:1px solid #000;background:#333;}
 .mm-panels>.mm-panel.mmode:after,
 .mm-panels>.mm-panel.mmode:before{height:12px}
 .mm-panels .mmode a{display:inline-block;padding:5px 7px;border-radius:7px;text-align:center}

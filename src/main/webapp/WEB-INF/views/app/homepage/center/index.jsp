@@ -8,6 +8,7 @@
 <tiles:insertAttribute name="header" />
 
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.fullpage.css" />
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.swiper.css" />
 <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/animate.min.css" />
 
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
@@ -206,7 +207,7 @@ $(function () {
 		<div class="section" id="section1">
 			<div class="section_1_wrapper">
 				<div class="main_cation">시간과 공간을 넘어 새로운 상상력을 이어가는 곳</div>
-				<div class="main_title" aria-label="대구혁신도시복합센터도서관"></div>
+				<div class="main_title"></div>
 				<div class="search_area">
 					<label for="searchSelect">
 						<select id="searchSelect">
@@ -427,8 +428,7 @@ $(function () {
 	</section>
 
 	<section class="section" id="section3">
-		<div style="width: 100%;
-    max-width: 78rem;">
+		<div class='section3_wrapper'>
 			<div class="book_information_title">BOOK INFORMATION</div>
 			<div class="book_information_menu">
 				<ul class="book_information_menu_list">
@@ -584,79 +584,6 @@ $(function () {
 	});
 	
 $(document).ready(function () {
-	// 기관 로고 스와이퍼 초기화
-	//const $bannerRoll = $('.banner-roll');
-
-	// swiper-wrapper div 생성 및 모든 li 요소 이동
-	//const swiperWrapper = $('<div class="swiper-wrapper"></div>');
-	//$bannerRoll.children('li').appendTo(swiperWrapper);
-	//$bannerRoll.append(swiperWrapper);
-
-	// 모든 li 요소에 swiper-slide 클래스 추가
-	//swiperWrapper.children('li').addClass('swiper-slide');
-
-	// Swiper 초기화
-//	const BadgeSwiper = new Swiper('ul.banner-roll', {
-//		speed: 900,
-//		autoplay: {
-//			delay: 3000,
-//			disableOnInteraction: false,
-//		},
-//		loop: true,
-//		slidesPerView: 6,
-//		spaceBetween: 16,
-//	    slidesOffsetBefore: 8, 
- //       slidesOffsetAfter: 8, 
-//		navigation: {
-//			nextEl: '.badge_swiper .swiper-button-next',
-//			prevEl: '.badge_swiper .swiper-button-prev',
-//		},
-//		breakpoints: {
-//			1024: {
-//				slidesPerView: 6,
-//				spaceBetween: 16,
-//				slidesOffsetBefore: 8, 
- //       slidesOffsetAfter: 8, 
-//			},
-//			768: {
-//				slidesPerView: 6,
-//				spaceBetween: 16,
-//				slidesOffsetBefore: 8, 
- //               slidesOffsetAfter: 8, 
-//			},
-//			480: {
-//				slidesPerView: 2,
-//				spaceBetween: 16,
-//				slidesOffsetBefore: 8, 
- //              slidesOffsetAfter: 8, 
-//			},
-//			0: {
-//				slidesPerView: 2,
-//				spaceBetween: 10,
-//				slidesOffsetBefore: 5, 
-//                slidesOffsetAfter: 5, 
-//			},
-//		},
-//	});
-
-	// 기관 로고 스와이퍼 재생 OR 정지 기능
-//	const autoplayButton = document.querySelector('.badge_autoplay');
-
-//	autoplayButton.addEventListener('click', () => {
-//		if (BadgeSwiper.autoplay.running) {
-//			BadgeSwiper.autoplay.stop();
-//			updateAutoplayButton('/resources/homepage/center/img/popup_play.svg', '재생버튼');
-//		} else {
-//			BadgeSwiper.autoplay.start();
-//			updateAutoplayButton('/resources/homepage/center/img/popup_stop.svg', '정지버튼');
-//		}
-//	});
-//
-//	function updateAutoplayButton(src, alt) {
-//		autoplayButton.src = src;
-//		autoplayButton.alt = alt;
-//	}
-
 	// 스크롤탑 클릭 시 section1으로 이동
 	$('.scroll_top').click(function (event) {
 		event.preventDefault();
@@ -672,7 +599,7 @@ $(document).ready(function () {
 		}
 	});
 	
-//	BadgeSwiper.update();
+
 });
 
 $(function() {
