@@ -70,6 +70,7 @@
 							<option value="http://library.daegu.go.kr/namic/index.do">남구이천어울림도서관</option>
 							<option value="http://library.daegu.go.kr/dalseolib/index.do">달서구통합도서관</option>
 							<option value="http://library.daegu.go.kr/dalseonglib/index.do">달성군립도서관</option>
+							<option value="http://library.daegu.go.kr/center/index.do">대구혁신도시복합문화센터</option>
 							<option value="http://library.daegu.go.kr/donggu/index.do">동구통합도서관</option>
 							<option value="http://library.daegu.go.kr/bukgs/index.do">북구구수산도서관</option>
 							<option value="http://library.daegu.go.kr/bukdh/index.do">북구대현도서관</option>
@@ -79,7 +80,6 @@
 							<option value="http://library.daegu.go.kr/yonghak/index.do">수성구용학도서관</option>
 							<option value="http://library.daegu.go.kr/gosan/index.do">수성구고산도서관</option>
 							<option value="http://library.daegu.go.kr/junggu/index.do">중구통합도서관</option>
-							<option value="http://library.daegu.go.kr/center/index.do">대구혁신도시복합문화센터</option>
 						</select>
 						<a href="#" class="btn sel-btn" id="library-link-btn">이동</a>
 					</div>

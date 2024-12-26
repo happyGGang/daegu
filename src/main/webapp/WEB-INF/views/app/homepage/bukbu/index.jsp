@@ -537,12 +537,12 @@
 					<div class="book tabS">
 						<div class="title">
 							<ul class="tabMenuS">
-								<li><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class='t-tabs'>강좌·행사안내</a></li>
-								<li class="on"><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1" class='t-tabs'>공지사항</a></li>
+								<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class='t-tabs'>강좌·행사안내</a></li>
+								<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1" class='t-tabs'>공지사항</a></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
-						<div class="culture box con" data-tab="tab1" style="display:none;">
+						<div class="culture box con" data-tab="tab1">
 							<div class="cont">
 								<ul class="list">
 									<c:if test="${fn:length(teachGuideListTopNotice) < 1}">
@@ -588,7 +588,7 @@
 							</div>
 						</div>
 
-						<div class="notice box con" data-tab="tab2">
+						<div class="notice box con" data-tab="tab2" style="display:none;">
 							<div class="cont">
 								<ul class="list">
 									<%--공지사항 상단--%>

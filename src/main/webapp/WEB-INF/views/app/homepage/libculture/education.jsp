@@ -84,7 +84,7 @@
 										<c:when test="${i.homepage_id eq 'h10' || i.homepage_id eq 'h2' || i.homepage_id eq 'h34' || i.homepage_id eq 'h74' || i.homepage_id eq 'h75' || i.homepage_id eq 'h76' || i.homepage_id eq 'h53'}"><!-- 중구 -->
 										<span class="color-junggu">${i.homepage_alias}</span>
 										</c:when>
-										<c:when test="${i.homepage_id eq 'h1' || i.homepage_id eq 'h45' || i.homepage_id eq 'h59' || i.homepage_id eq 'h73' || i.homepage_id eq 'h60' || i.homepage_id eq 'h5'}"><!-- 동구 -->
+										<c:when test="${i.homepage_id eq 'h1' || i.homepage_id eq 'h45' || i.homepage_id eq 'h59' || i.homepage_id eq 'h73' || i.homepage_id eq 'h60' || i.homepage_id eq 'h5' || i.homepage_id eq 'h100'}"><!-- 동구 -->
 										<span class="color-donggu">${i.homepage_alias}</span>
 										</c:when>
 										<c:when test="${i.homepage_id eq 'h49' || i.homepage_id eq 'h61' || i.homepage_id eq 'h62' || i.homepage_id eq 'h63' || i.homepage_id eq 'h64' || i.homepage_id eq 'h65' || i.homepage_id eq 'h77' || i.homepage_id eq 'h8'}"><!-- 서구 -->

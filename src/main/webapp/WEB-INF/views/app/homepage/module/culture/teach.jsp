@@ -178,6 +178,7 @@
 							<option value="h68">달서구립 본리도서관</option>
 							<option value="h67">달서구립 성서도서관</option>
 							<option value="h44">달성군립도서관</option>
+							<option value="h100">대구혁신도시 복합문화센터</option>
 							<option value="h1">대구2ㆍ28기념학생도서관</option>
 							<option value="h2">대구2ㆍ28민주운동기념회관</option>
 							<option value="h3">대구광역시립 남부도서관</option>
@@ -257,7 +258,7 @@
 									<c:when test="${i.homepage_id eq 'h10' || i.homepage_id eq 'h2' || i.homepage_id eq 'h34' || i.homepage_id eq 'h74' || i.homepage_id eq 'h75' || i.homepage_id eq 'h76' || i.homepage_id eq 'h53'}"><!-- 중구 -->
 									<span class="color-junggu">${i.homepage_alias}</span>
 									</c:when>
-									<c:when test="${i.homepage_id eq 'h1' || i.homepage_id eq 'h45' || i.homepage_id eq 'h59' || i.homepage_id eq 'h73' || i.homepage_id eq 'h60' || i.homepage_id eq 'h5'}"><!-- 동구 -->
+									<c:when test="${i.homepage_id eq 'h1' || i.homepage_id eq 'h45' || i.homepage_id eq 'h59' || i.homepage_id eq 'h73' || i.homepage_id eq 'h60' || i.homepage_id eq 'h5' || i.homepage_id eq 'h100'}"><!-- 동구 -->
 									<span class="color-donggu">${i.homepage_alias}</span>
 									</c:when>
 									<c:when test="${i.homepage_id eq 'h49' || i.homepage_id eq 'h61' || i.homepage_id eq 'h62' || i.homepage_id eq 'h63' || i.homepage_id eq 'h64' || i.homepage_id eq 'h65' || i.homepage_id eq 'h77' || i.homepage_id eq 'h8'}"><!-- 서구 -->
