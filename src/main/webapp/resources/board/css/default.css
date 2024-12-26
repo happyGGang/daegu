@@ -33,7 +33,7 @@
 .fileUploader .file_attach_info p strong{color:#999;font-weight:normal}
 
 /* 분류 */
-.category span.ca{display:inline-block;padding:1px 0;border-radius:20px;background:#000;width:80px;text-align:center;font-weight:bold;color:#fff;font-size:13px;}
+.category span.ca{display:inline-block;padding:1px 0;border-radius:20px;background:#000;width:90px;text-align:center;font-weight:bold;color:#fff;font-size:13px;}
 /* .category span.ca.ty1{background-color:#8bb221;color:#fff}
 .category span.ca.ty2{background-color:#7b5b9e;color:#fff}
 .category span.ca.ty3{background-color:#f62d2d;color:#fff}
@@ -65,7 +65,7 @@
 .category span.ca.bg-gukbo, .category span.ca.bg-jungang, .category span.ca.bg-228lib, .category span.ca.bg-junggu { background:#005fca;color:#fff; }
 .category span.ca.bg-suseong, .category span.ca.bg-beomeo, .category span.ca.bg-gosan, .category span.ca.bg-yonghak { background:#cb1a59;color:#fff; }
 .category span.ca.bg-duryu, .category span.ca.bg-dalseolib { background:#e3a827;color:#fff; }
-.category span.ca.bg-dalseong, .category span.ca.bg-dalseonglib { background:#7c07bf;color:#fff; }
+.category span.ca.bg-dalseong, .category span.ca.bg-dalseonglib, .category span.ca.bg-center { background:#7c07bf;color:#fff; }
 .category span.ca.bg-gw { background:#21b563;color:#fff; }
 
 .category span.ca.ty2{font-size: 12px;padding: 2px 10px;}
