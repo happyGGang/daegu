@@ -42,6 +42,7 @@
 									<li class="disabled"><a title="수성구용학도서관" href="http://library.daegu.go.kr/yonghak/index.do">수성구용학도서관</a></li>
 									<li class="disabled"><a title="수성구고산도서관" href="http://library.daegu.go.kr/gosan/index.do">수성구고산도서관</a></li>
 									<li class="disabled"><a title="중구통합도서관" href="http://library.daegu.go.kr/junggu/index.do">중구통합도서관</a></li>
+									<li class="disabled"><a title="대구혁신도시복합문화센터" href="http://library.daegu.go.kr/center/index.do">대구혁신도시복합문화센터</a></li>
 									</ul>
 								</div>
 								<a href="#" class="btn">이동</a>

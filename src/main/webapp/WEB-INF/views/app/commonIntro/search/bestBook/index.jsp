@@ -334,6 +334,9 @@ $(function() {
 						<c:when test="${homepagePath eq 'handle'}">
 						한들마을도서관<input type="hidden" id="" name="manage_code" value="NJ" />
 						</c:when>
+						<c:when test="${homepagePath eq 'center'}">
+						대구혁신도시복합문화센터<input type="hidden" id="" name="manage_code" value="HU" />
+						</c:when>
 						<c:otherwise>
 							<form:hidden path="manageCode" value="" />
 						</c:otherwise>

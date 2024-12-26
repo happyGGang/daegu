@@ -248,12 +248,12 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="AF">대구광역시립 서부도서관</option>
 					<option value="AE">대구광역시립 수성도서관</option>
 					<option value="AM">대구광역시교육청 삼국유사군위도서관</option>
-					<option value="BA" >구수산도서관</option>
-					<option value="BB" >대현도서관</option>
-					<option value="BC" >태전도서관</option>
-					<option value="BD" >범어도서관</option>
-					<option value="BE" >용학도서관</option>
-					<option value="BF" >고산도서관</option>
+					<option value="BA">구수산도서관</option>
+					<option value="BB">대현도서관</option>
+					<option value="BC">태전도서관</option>
+					<option value="BD">범어도서관</option>
+					<option value="BE">용학도서관</option>
+					<option value="BF">고산도서관</option>
 					<option value="FF">남산4동작은도서관</option>
 					<option value="FQ">동인 느티나무 도서관</option>
 					<option value="FS">대구중구영어도서관</option>
@@ -278,7 +278,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="CA">안심도서관</option>
 					<option value="CB">신천도서관</option>
 					<option value="FV">시청작은도서관</option>
-					<option value="HU">대구혁신도시복합혁신센터도서관</option>
+					<option value="HU">대구혁신도시복합문화센터</option>
 					<option value="NA">더불어숲도서관</option>
 					<option value="NB">도토리도서관</option>
 					<option value="NC">동일도서관</option>
@@ -309,7 +309,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					범어도서관<input type="hidden" id="" name="manage_code" value="BD" />
 				</c:if>
 				<c:if test="${homepage.context_path eq 'center'}">
-					대구혁신도시복합혁신센터도서관<input type="hidden" id="" name="manage_code" value="HU" />
+					대구혁신도시복합문화센터<input type="hidden" id="" name="manage_code" value="HU" />
 				</c:if>
 				<c:if test="${homepage.context_path eq 'yonghak'}">
 					용학도서관<input type="hidden" id="" name="manage_code" value="BE" />
