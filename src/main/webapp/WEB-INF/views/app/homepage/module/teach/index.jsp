@@ -324,29 +324,6 @@ $(function(){
 			</div>
 		</c:when>
 
-		<c:when test="${homepage.context_path eq 'center'}">
-			<div class="tabmenu tab3">
-				<ul>
-					<li class="${empty teach.searchCate1 ? 'active':''}"><a href="" keyValue="">전체</a></li>
-					<c:forEach items="${teachLargeCategoryList}" var="i" varStatus="status">
-						<c:choose>
-							<c:when test="${homepage.homepage_id eq 'h7'}">
-								<c:if test="${i.teach_code ne 34}">
-									<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}">${i.code_name}</a></li>
-								</c:if>
-							</c:when>
-							<c:when test="${homepage.homepage_id eq 'h100'}">
-								<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" >${i.code_name}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="${teach.searchCate1 eq i.teach_code ? 'active':''}"><a href="" keyValue="${i.teach_code}" >${i.code_name}</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</ul>
-			</div>
-		</c:when>
-
 		<c:when test="${homepage.context_path eq 'donggu' and teach.searchCate1 eq '31'}">
 			<c:choose>
 				<c:when test="${fn:length(subHomepageList) eq '1'}">
