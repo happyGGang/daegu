@@ -298,6 +298,18 @@
 				</div>
 			</div>
 		</li>
+		<!-- -->
+		<li>
+			<div class="info-box">
+				<div class="tit num24">
+					<p>대구혁신도시 복합문화센터</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구 동구 이노밸리로 180</p>
+					<p class="tel">053-962-7600</p>
+				</div>
+			</div>
+		</li>
 	</ul>
 </div>
 
@@ -363,9 +375,11 @@ jQuery(function($){
 	
 		daegu_map_data.push({idx:'35',title:'율하북작은도서관', tel : '053-965-5955', point:{x:'35.8640922',y:'128.6920047'}, address:'대구광역시 동구 율하서로59(율하휴먼시아5단지 관리실)',no:'21' });
 	
-		daegu_map_data.push({idx:'35',title:'동일도서관', tel : '053-755-6003', point:{x:'35.8764604',y:'128.6800965'}, address:'대구광역시 동구 동촌로 374-3',no:'22' });
+		daegu_map_data.push({idx:'36',title:'동일도서관', tel : '053-755-6003', point:{x:'35.8764604',y:'128.6800965'}, address:'대구광역시 동구 동촌로 374-3',no:'22' });
 	
 		daegu_map_data.push({idx:'34',title:'한들마을도서관', tel : '053-985-1513', point:{x:'35.941557',y:'128.6425066'}, address:'대구광역시 동구 팔공로101길 47',no:'23' });
+
+		daegu_map_data.push({idx:'37',title:'대구혁신도시 복합문화센터', tel : '053-962-7600', point:{x:'35.878260',y:'128.716815'}, address:'대구 동구 이노밸리로 180',no:'24' });
 	
 	daegu_map = new map_app();
 	

@@ -807,6 +807,7 @@ do {
 												<input type="hidden" name="libraryCodes" class="libCheck lib_FN" value="FN"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_FJ" value="FJ"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_CC" value="CC"/>
+												<input type="hidden" name="libraryCodes" class="libCheck lib_HU" value="HU"/>
 												<div class="box1">
 													<div class="box2">
 														<label for="search_text_2" class="blind">통합자료검색</label>
@@ -1398,6 +1399,16 @@ do {
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/228/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="https://library.daegu.go.kr/228/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes127" name="libraryCodes" class="libraryCodesSiCheck" type="checkbox" value="HU"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib01">시립</span>
+											<label for="libraryCodes12">대구혁신도시 복합문화센터</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/center/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/center/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 										<li>

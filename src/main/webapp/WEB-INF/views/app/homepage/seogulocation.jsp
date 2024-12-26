@@ -161,7 +161,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">대구광역시 서구 국채보상로 257(평리동)</p>
-					<p class="tel">053-663-3637</p>
+					<p class="tel">053-663-3637</p><br>
 				</div>
 			</div>
 		</li>
@@ -174,6 +174,18 @@
 				<div class="txt">
 					<p class="add">대구광역시 서구 국채보상로83길 21(비산2.3동)</p>
 					<p class="tel">053-663-3645</p>
+				</div>
+			</div>
+		</li>
+		<!-- mg-->
+		<li class="mg">
+			<div class="info-box">
+				<div class="tit num14">
+					<p style="font-size:98%;">서구어린이영어도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 서구 문화로 160</p>
+					<p class="tel">053-663-3951</p><br>
 				</div>
 			</div>
 		</li>
@@ -210,7 +222,8 @@ jQuery(function($){
 	daegu_map_data.push({idx:'51',title:'비산7동작은도서관', tel : '053-663-3649', point:{x:'35.8858973495298',y:'128.553897616805'}, address:'대구광역시 서구 서대구로63안길 30-22(비산동)',no:'10' });
 	daegu_map_data.push({idx:'49',title:'<span style="font-size:85%;">새마을문고대구서구지부작은도서관</span>', tel : '053-663-3865', point:{x:'35.867994',y:'128.544266'}, address:'대구광역시 서구 평리로35길 90-6(영어도서관 2층)',no:'11' });
 	daegu_map_data.push({idx:'48',title:'서구청작은도서관', tel : '053-663-3637', point:{x:'35.8723219470535',y:'128.559289496989'}, address:'대구광역시 서구 국채보상로 257(평리동)',no:'12' });
-	daegu_map_data.push({idx:'47',title:'<span style="font-size:95%;">달성토성마을다락방작은도서관</span>', tel : '053-663-3645', point:{x:'35.8733150060675',y:'128.575372901347'}, address:'대구광역시 서구 국채보상로83길 21(비산2.3동)',no:'13' });
+	daegu_map_data.push({idx:'50',title:'<span style="font-size:95%;">달성토성마을다락방작은도서관</span>', tel : '053-663-3645', point:{x:'35.8733150060675',y:'128.575372901347'}, address:'대구광역시 서구 국채보상로83길 21(비산2.3동)',no:'13' });
+	daegu_map_data.push({idx:'60',title:'<span style="font-size:95%;">서구어린이영어도서관</span>', tel : '053-663-3951', point:{x:'35.874317',y:'128.550486'}, address:'대구광역시 서구 문화로 160',no:'14' });
 
 	daegu_map = new map_app();
 	
