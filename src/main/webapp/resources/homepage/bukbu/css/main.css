@@ -3,7 +3,7 @@
 .main1,.main2,.main3,.main4,.main5,.main6,.main7_banner{overflow:hidden}
 
 .main1 {position:relative;}
-.main1 .mySwiper{position:relative;height:470px;}
+.main1 .mySwiper{position:relative;height: 556px;}
 .main1 .mySwiper div{height:100%;background-size:cover;}
 .main1 .section{position:absolute;top: 0;left: 50%;transform: translateX(-50%);z-index:99;}
 .main1 .swiper_01{position:relative;background: url('/resources/homepage/bukbu/img/main_01.jpeg') no-repeat center center;}
@@ -11,7 +11,7 @@
 .main1 .swiper_03{position:relative;background: url('/resources/homepage/bukbu/img/main_03.jpg') no-repeat center center;}
 .main1 .swiper_04{position:relative;background: url('/resources/homepage/bukbu/img/main_04.jpg') no-repeat center center;}
 .main1 .main1box1 {float:left;width: 100%;margin-top:43px;}
-.main1 .main1box2 {float:right;width:306px;height:427px;box-sizing:border-box;border:1px solid #dadada;border-top:2px solid #2e3192;}
+.main1 .main1box2 {float:right;width:306px;height:427px;box-sizing:border-box;border:1px solid #dadada;border-top:2px solid #2e3192;position: absolute;z-index: 999;background: #fff;right: 0;top: 134px;}
 .main1 .main1box1 .main1box1box1 {box-sizing:border-box;padding:15px 0;/* background:#ededed; */display: flex;justify-content: space-between;}
 .main1 .main1box1 .main1box1box1 .search-box {position:relative;width:83%;}
 .main1 .main1box1 .main1box1box1 .search-box fieldset{position:relative;overflow:hidden}
@@ -35,7 +35,7 @@
 .main1 .main1box1 .main1box1box1 .instagram-icon {margin-top: 6px;margin-left: -13px;}
 .main1 .main1box1 .main1box1box1 .emblem-icon{margin-top: 5px;}
 
-.main1 .main1box1 .main1box1box2 {position: relative;margin-top:7px;overflow:hidden;}
+.main1 .main1box1 .main1box1box2 {position: relative;margin-top: 92px;overflow:hidden;}
 .main1 .main1box1 .main1box1box2 .main1box1box2box1 {float:left;width:413px;height:328px;/* border:1px solid #dadada; */}
 .main1 .main1box1 .main1box1box2 .main1box1box2box2 {float:right;width:525px;overflow:hidden;}
 
@@ -389,19 +389,19 @@
 @media all and (max-width:1000px){
 	.main2,.main3,.main4,.main5,.main6{height:auto}
 
-	.main1 {background-size: cover;}
+	.main1 {background-size: cover;height: 819px;}
 	.main1 #holiday-box {position: unset;background: rgba(16,21,55,1);height: 55px;}
 	.qmenu li{width:25%}
 	.qmenu .bx-wrapper{margin:0 40px!important}
-
-	.main1 .main1box1 {float:none;width:100%;}
+.main1 .mySwiper{height: 100vh;}
+	.main1 .main1box1 {float:none;width:100%;margin-top: 0;}
 	.main1 .main1box1 .main1box1box1 .search-box {width: 100%;padding: 0 15px;}
-	.main1 .main1box2 {float:none;width:98%;margin:5px auto;height:auto;}
+	.main1 .main1box2 {float: unset;width:98%;margin: 0px auto;height: auto;/* position: unset; */display: block;left: 50%;transform: translateX(-50%);top: 71px;}
 	.main1 .main1box2 .calendar-box .cal-box {height:auto;}
 	.main1 .main1box2 .library-infomation {margin:20px auto;}
 	
-	.main1 .main1box1 .main1box1box2 {display: flex;flex-direction: column;}
-	.main1 .main1box1 .main1box1box2 .main1box1box2box1 {width:40%;}
+	.main1 .main1box1 .main1box1box2 {display: flex;flex-direction: column;margin-top: 420px;}
+	.main1 .main1box1 .main1box1box2 .main1box1box2box1 {width:40%;height: 314px;}
 	.main1 .main1box1 .main1box1box2 .main1box1box2box2 {width:59%;}
 	.main1 .main1box1 .main1box1box1 span {display:none;}
 	
@@ -425,6 +425,7 @@
 	.main2 .main2box2 .popZone li{text-align:center;padding:0;margin:0;}
 	.main2 .main2box2 .popZone li a {display:block;}
 	.main2 .main2box2 .popZone li a img {border:0;}
+	.main1 .main1box1 .main1box1box2 .main1box1box2box1 .popZone .bx-controls{bottom: 53px;}
 }
 
 @media all and (max-width:767px){
@@ -457,7 +458,7 @@
 }
 
 @media all and (max-width:580px){
-
+.main1 {background-size: cover;height: 819px;}
 	.main1 #holiday-box .inBox1 {padding: 13px 0 5px 0;}
 	.main1 #holiday-box .inBox1 .inBox1Box1 .title {padding: 3px 0 0 20px; font-size: 16px;}
 	.main1 #holiday-box .inBox1 .inBox1Box1 .bt-controls {width: 130px;}
