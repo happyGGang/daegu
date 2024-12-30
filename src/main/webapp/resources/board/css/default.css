@@ -58,14 +58,14 @@
 /*.category span.ca.bg-228 { background:#e83e30;color:#fff; }*/		/*228기념*/
 /*.category span.ca.bg-228lib{ background:#006958;color:#fff; }*/		/*228민주*/
 
-.category span.ca.bg-dongbu, .category span.ca.bg-228, .category span.ca.bg-donggu { background:#348100;color:#fff; }
+.category span.ca.bg-dongbu, .category span.ca.bg-228, .category span.ca.bg-donggu, .category span.ca.bg-center { background:#348100;color:#fff; }
 .category span.ca.bg-seobu, .category span.ca.bg-seogulib { background:#ca0288;color:#ccc }
 .category span.ca.bg-nambu, .category span.ca.bg-namdm, .category span.ca.bg-namic { background:#71c8d2;color:#fff; }
 .category span.ca.bg-bukbu, .category span.ca.bg-bukgs, .category span.ca.bg-buktj, .category span.ca.bg-bukdh { background:#2c3caf;color:#fff; }
 .category span.ca.bg-gukbo, .category span.ca.bg-jungang, .category span.ca.bg-228lib, .category span.ca.bg-junggu { background:#005fca;color:#fff; }
 .category span.ca.bg-suseong, .category span.ca.bg-beomeo, .category span.ca.bg-gosan, .category span.ca.bg-yonghak { background:#cb1a59;color:#fff; }
 .category span.ca.bg-duryu, .category span.ca.bg-dalseolib { background:#e3a827;color:#fff; }
-.category span.ca.bg-dalseong, .category span.ca.bg-dalseonglib, .category span.ca.bg-center { background:#7c07bf;color:#fff; }
+.category span.ca.bg-dalseong, .category span.ca.bg-dalseonglib { background:#7c07bf;color:#fff; }
 .category span.ca.bg-gw { background:#21b563;color:#fff; }
 
 .category span.ca.ty2{font-size: 12px;padding: 2px 10px;}
