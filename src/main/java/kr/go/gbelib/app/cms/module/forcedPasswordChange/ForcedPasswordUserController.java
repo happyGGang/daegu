@@ -56,8 +56,6 @@ public class ForcedPasswordUserController extends BaseController {
 
         JsonResponse res = new JsonResponse(request);
 
-		ValidationUtils.rejectIfEmpty(result, "member_id", "아이디를 입력해 주세요.");
-
         if (!result.hasErrors()) {
             forcedPasswordChange.setAdd_id(getSessionMemberId(request));
             forcedPasswordChange.setModify_id(getSessionMemberId(request));
