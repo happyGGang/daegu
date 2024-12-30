@@ -1363,6 +1363,7 @@ function isFromFridayToSunday() {
 												<form:option value="AD39">[국보]스마트도서관(중앙로역)</form:option>
 												<form:option value="AD40">[국보]스마트도서관(두류역)</form:option>
 												<form:option value="AD36">[국보]대구전자도서관</form:option>
+												<form:option value="AD131">[국보]유아실(영어원서-아동)(3층)</form:option>
 											</c:if>
 										</form:select>
 									</dd>
@@ -1996,7 +1997,7 @@ function isFromFridayToSunday() {
 													<c:when test="${homepage.context_path eq 'gukbo'}">
 														<c:if test="${i.WORKING_STATUS eq 'BOL112N' and param.booktype ne 'NONBOOK'}">
 															<c:if test="${i.RESERVATION_CNT eq '0'}">
-																<c:if test="${i.SHELF_LOC_CODE eq 'AD01' || i.SHELF_LOC_CODE eq 'AD05' || i.SHELF_LOC_CODE eq 'AD07' || i.SHELF_LOC_CODE eq 'AD08' || i.SHELF_LOC_CODE eq 'AD09' || i.SHELF_LOC_CODE eq 'AD11' || i.SHELF_LOC_CODE eq 'AD13' || i.SHELF_LOC_CODE eq 'AD17' || i.SHELF_LOC_CODE eq 'AD18' || i.SHELF_LOC_CODE eq 'AD21' || i.SHELF_LOC_CODE eq 'AD22' || i.SHELF_LOC_CODE eq 'AD27' || i.SHELF_LOC_CODE eq 'AD28' || i.SHELF_LOC_CODE eq 'AD43' || i.SHELF_LOC_CODE eq 'AD49' || i.SHELF_LOC_CODE eq 'AD67'}">
+																<c:if test="${i.SHELF_LOC_CODE eq 'AD01' || i.SHELF_LOC_CODE eq 'AD05' || i.SHELF_LOC_CODE eq 'AD07' || i.SHELF_LOC_CODE eq 'AD08' || i.SHELF_LOC_CODE eq 'AD09' || i.SHELF_LOC_CODE eq 'AD11' || i.SHELF_LOC_CODE eq 'AD13' || i.SHELF_LOC_CODE eq 'AD17' || i.SHELF_LOC_CODE eq 'AD18' || i.SHELF_LOC_CODE eq 'AD21' || i.SHELF_LOC_CODE eq 'AD22' || i.SHELF_LOC_CODE eq 'AD27' || i.SHELF_LOC_CODE eq 'AD28' || i.SHELF_LOC_CODE eq 'AD43' || i.SHELF_LOC_CODE eq 'AD49' || i.SHELF_LOC_CODE eq 'AD67' || i.SHELF_LOC_CODE eq 'AD131'}">
 																	<c:choose>
 																		<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
 																			<!-- <a href="#muin" id="service-noreq" class="btn">무인예약신청</a> -->
