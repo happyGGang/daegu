@@ -388,7 +388,9 @@ $(function() {
 						</select>
 						</c:when>
 
-
+						<c:when test="${context_path eq 'center'}">
+						대구혁신도시복합문화센터<input type="hidden" id="" name="manage_code" value="HU" />
+						</c:when>
 						<c:when test="${context_path eq 'gukbo'}">
 						국채보상운동기념도서관<input type="hidden" id="" name="manage_code" value="AD" />
 						</c:when>
