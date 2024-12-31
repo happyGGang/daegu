@@ -22,6 +22,11 @@ public class LibrarySearch extends PagingUtils {
 	private boolean sub_search;
 	private int menu_idx;
 
+	//카카오 희망도서도서 API용
+	private String[] jsonData;
+	private String thumbnail;
+	private String bookValue;
+
 	// 희망 도서 관련 변수
 	private String select_no;
 	private String title;
@@ -1413,4 +1418,27 @@ public class LibrarySearch extends PagingUtils {
 		this.numOfRows = numOfRows;
 	}
 
+	public String[] getJsonData() {
+		return jsonData;
+	}
+
+	public void setJsonData(String[] jsonData) {
+		this.jsonData = jsonData;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public String getBookValue() {
+		return bookValue;
+	}
+
+	public void setBookValue(String bookValue) {
+		this.bookValue = bookValue;
+	}
 }

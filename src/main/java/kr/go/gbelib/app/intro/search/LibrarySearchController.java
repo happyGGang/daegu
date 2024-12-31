@@ -4,12 +4,20 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +27,7 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.aspectj.weaver.ast.Not;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -1682,6 +1691,119 @@ public class LibrarySearchController extends BaseController {
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
 		return basePath + "hope/req";
+	}
+
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = {"/hope/searchKakao.*"}, method = RequestMethod.POST)
+	public String hopeSearchKakao(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		int totalDataCount = librarySearch.getTotalDataCount();
+		Map<String, Object> jsonData = new HashMap<>();
+		List<Map<String, Object>> itemList = new ArrayList<>();
+		List<Map<String, Object>> jArray = new ArrayList<>();
+		Object kakaoList = null;
+		String errorMessage = null;
+		int errorCode = 0;
+		Member member = getSessionMemberInfo(request);
+
+		ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+		try {
+			if (librarySearch.getJsonData() != null && librarySearch.getJsonData().length > 0) {
+				// 멀티스레드 작업 생성
+				List<Callable<Map<String, Object>>> tasks = Arrays.stream(librarySearch.getJsonData())
+												  .map(jsonDataStr -> (Callable<Map<String, Object>>) () -> {
+												  Map<String, Object> sMap = new HashMap<>();
+												  try {
+													  String str = jsonDataStr.replaceAll("&quot;", "\\\"").replace("^^^^", ",");
+													  JSONObject jsonString = new JSONObject(str);
+
+													  sMap.put("authors", jsonString.get("authors"));
+													  sMap.put("contents", jsonString.get("contents"));
+													  sMap.put("datetime", jsonString.get("datetime"));
+													  sMap.put("isbn", jsonString.get("isbn"));
+													  sMap.put("price", jsonString.get("price"));
+													  sMap.put("publisher", jsonString.get("publisher"));
+													  sMap.put("sale_price", jsonString.get("sale_price"));
+													  sMap.put("status", jsonString.get("status"));
+													  sMap.put("thumbnail", jsonString.get("thumbnail"));
+													  sMap.put("title", jsonString.get("title"));
+													  sMap.put("translators", jsonString.get("translators"));
+													  sMap.put("url", jsonString.get("url"));
+
+													  String[] isbnArr = String.valueOf(jsonString.get("isbn")).split(" ");
+
+													  for (String isbn : isbnArr) {
+														  sMap.put("isbn" + isbn.length(), isbn);
+														  ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+
+														  if (!code.getStatus()) {
+															  sMap.put("already" + isbn.length(), true);
+															  sMap.put("errorMessage", code.getMessage());
+														  }
+													  }
+												  } catch (Exception e) {
+													  throw new RuntimeException("데이터 처리 실패", e);
+												  }
+												  return sMap;
+											  })
+											  .collect(Collectors.toList());
+
+				// 모든 작업을 실행하고 결과를 대기
+				List<Future<Map<String, Object>>> futures = executorService.invokeAll(tasks);
+
+				// 결과 수집
+				for (Future<Map<String, Object>> future : futures) {
+					try {
+						Map<String, Object> result = future.get();
+						if (result != null) {
+							jArray.add(result);
+						}
+					} catch (InterruptedException | ExecutionException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+			jsonData.put("documents", jArray);
+
+			kakaoList = jsonData.get("documents");
+
+			if (kakaoList instanceof List) {
+				itemList = (List<Map<String, Object>>) kakaoList;
+			} else if (kakaoList instanceof Map) {
+				itemList.add((Map<String, Object>) kakaoList);
+			}
+
+			if ("AJAX".equals(librarySearch.getEditMode())) {
+				String[] value = String.valueOf(librarySearch.getBookValue()).split("\\^\\^\\^");
+				librarySearch.setTitle(value[0]);
+				librarySearch.setAuthor(value[1]);
+				librarySearch.setPubler(value[2]);
+				librarySearch.setPubler_year(value[3]);
+				librarySearch.setIsbn(value[4]);
+				librarySearch.setPrice(value[5]);
+			}
+
+			System.out.println("@@@@@@@@@@@@@@@@@@@ jsonData : " + jsonData.get("documents"));
+			service.setPaging(model, totalDataCount, librarySearch);
+
+			model.addAttribute("errorMessage", errorMessage);
+			model.addAttribute("errorCode", errorCode);
+			model.addAttribute("kakaoResult", itemList);
+			model.addAttribute("totalDataCount", totalDataCount);
+			model.addAttribute("librarySearch", librarySearch);
+		} finally {
+			executorService.shutdown();
+			executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS); // 모든 스레드 작업 완료 대기
+		}
+
+		if ("AJAX".equals(librarySearch.getEditMode())) {
+			return String.format(basePath, homepage.getFolder()) + "hope/req";
+		} else {
+			return String.format(basePath, homepage.getFolder()) + "hope/search_ajax";
+		}
 	}
 
 	/**

@@ -5,6 +5,7 @@
 <%@ taglib prefix="homepageTag"	uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="java.util.ResourceBundle" %>
 <link rel="stylesheet" type="text/css" href="/resources/book/css/serial.css">
 <style>
 .serial-wrap .search-results .row .item a.name{font-weight:800;font-size:140%;display:inline-block;zoom:1;*display:inline;padding: 0px 0;}
@@ -19,63 +20,19 @@
 	z-index:667;
 }
 </style>
-<script>
-$(document).ready(function() {
-	$('#loading').hide();
+<%!
+	public final String API_KEY = ResourceBundle.getBundle("api").getString("kakao.api.key");
+%>
 
-	$('button#do-search').on('click', function(e) {
-		e.preventDefault();
-		let mgc = $('#manageCode').val();
-		if (!mgc) {
-			alert('신청하고자 하는 도서관을 선택 후 도서를 검색해주세요.');
-			return;
-		}
-
-		$('input#hopeSearchManageCode').val(mgc);
-		$('#loading').show();
-
-		doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize())
-		.done(function(response) {
-		})
-		.fail(function() {
-			alert('검색 내용이 없습니다');
-		})
-		.always(function() {
-			$('#loading').hide();
-		});
-	});
-
-	$('input#search_text_kakao').on('keyup', function(e) {
-		if (e.keyCode == '13') {
-			$('button#do-search').click();
-		}
-	});
-});
-
-function doAjaxLoad(target, url, data) {
-	return $.ajax({
-		url: url,
-		type: 'POST',
-		data: data,
-		timeout: 15000,
-		success: function(response) {
-			$(target).html(response);
-		},
-		error: function(xhr, status, error) {
-			if (status === "timeout") {
-				// alert('요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
-			} else {
-				// alert('데이터 로딩 중 오류가 발생했습니다.');
-			}
-		}
-	});
-}
-
-</script>
-<form:form modelAttribute="librarySearch" id="searchForm" action="search.do" onsubmit="return false;">
+<form:form modelAttribute="librarySearch" id="searchForm" action="searchKakao.do" onsubmit="return false;">
 <form:hidden path="isbn"/>
 <form:hidden path="viewPage"/>
+<form:hidden path="editMode" value="NOAJAX"/>
+<form:hidden path="menu_idx"/>
 <form:hidden path="manageCode" id="hopeSearchManageCode"/>
+<form:hidden path="jsonData" id="jsonData"/>
+<form:hidden path="totalDataCount" id="totalDataCount"/>
+
 	<div class="search-form" style="padding-bottom: 20px;">
 		<div class="box">
 			<div class="b1">
@@ -92,21 +49,23 @@ function doAjaxLoad(target, url, data) {
 	</div>
 
 </form:form>
-		<c:if test="${kakaoResult.totalCount < 1 and not empty librarySearch.search_text}">
-	<div class="search_result nodata">검색된 도서가 없습니다.</div>
+		<c:if test="${fn:length(kakaoResult) < 1 and not empty librarySearch.search_text}">
+			<div class="search_result nodata">검색된 도서가 없습니다.</div>
 		</c:if>
-		<c:if test="${kakaoResult.totalCount > 0 and not empty librarySearch.search_text}">
-	<p class="search_result">
-		<span class="red fb">"${librarySearch.search_text}"</span>에 대한 <span class="fb"><fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/> </span>개의
-		검색 결과입니다.
-	</p>
+		<c:if test="${fn:length(kakaoResult) > 0 and not empty librarySearch.search_text}">
+			<p class="search_result">
+			<span class="red fb">"${librarySearch.search_text}"</span>에 대한
+				<span class="fb">
+					<fmt:formatNumber value="${paging.totalDataCount}" pattern="#,###"/>
+				</span>개의 검색 결과입니다.
+			</p>
 		</c:if>
 		<c:if test="${not empty librarySearch.search_text}">
 	<div class="serial-wrap">
 		<div class="smain">
 			<div class="box">
 				<div class="search-results">
-					<c:forEach items="${kakaoResult.list}" var="i" varStatus="status">
+					<c:forEach items="${kakaoResult}" var="i" varStatus="status">
 					<div class="row">
 						<div class="thumb">
 							<c:choose>
@@ -227,10 +186,21 @@ function doAjaxLoad(target, url, data) {
 		});
 		$('.item-list .images li').eq(0).mouseover();
 
-		$('div#board_paging a').on('click', function(e) {
+		$('div#board_paging a').on('click', async function (e) {
 			e.preventDefault();
 			$('input#viewPage').val($(this).attr('keyValue'));
-			doAjaxLoad('div#searchBox', 'search.do', $('form#searchForm').serialize());
+			$('#loading').show();
+
+			await fetchKakaoApiData();
+			await doAjaxLoad('div#searchBox', 'searchKakao.do', $('form#searchForm').serialize())
+			.done(function (response) {
+			})
+			.fail(function () {
+				alert('검색 내용이 없습니다');
+			})
+			.always(function () {
+				$('#loading').hide();
+			});
 		});
 
 		$('a.request').on('click', function(e) {
@@ -252,4 +222,122 @@ function doAjaxLoad(target, url, data) {
 	$(document).ready(function() {
 		$('#loading').hide();
 	});
+</script>
+
+<script>
+	$(document).ready(function() {
+		$('#loading').hide();
+
+		$('button#do-search').on('click', async function (e) {
+			e.preventDefault();
+			let mgc = $('#manageCode').val();
+			if (!mgc) {
+				alert('신청하고자 하는 도서관을 선택 후 도서를 검색해주세요.');
+				return;
+			}
+
+			$('input#hopeSearchManageCode').val(mgc);
+			$('#loading').show();
+
+			await fetchKakaoApiData();
+
+			await doAjaxLoad('div#searchBox', 'searchKakao.do', $('form#searchForm').serialize())
+			.done(function (response) {
+			})
+			.fail(function () {
+				alert('검색 내용이 없습니다');
+			})
+			.always(function () {
+				$('#loading').hide();
+			});
+		});
+
+		$('input#search_text_kakao').on('keyup', function(e) {
+			if (e.keyCode == '13') {
+				$('button#do-search').click();
+			}
+		});
+	});
+
+	async function fetchKakaoApiData() {
+		var query = $('#search_text_kakao').val();
+		var page = $('#viewPage').val();
+		var url = 'https://dapi.kakao.com/v3/search/book?query=' + query + '&page=' + page;
+		var jsonData = [];
+
+		// 데이터 요청
+		try {
+			const response = await fetch(url, {
+				method: 'GET', // *GET, POST, PUT, DELETE 등
+				mode: 'cors', // no-cors, *cors, same-origin
+				cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+				credentials: 'same-origin', // include, *same-origin, omit
+				headers: {
+					'Content-Type': 'application/json; charset=UTF-8', // Java의 헤더와 동일
+					'Accept-Charset': 'UTF-8',
+					// 'Content-Type': 'application/x-www-form-urlencoded',
+					'Authorization': <%= API_KEY%>
+				},
+				redirect: 'follow', // manual, *follow, error
+				referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+			});
+
+			if (!response.ok) {
+				throw new Error('Kakao API 요청 실패: ' + response.statusText);
+			}
+
+			const data = await response.json();
+
+			// 결과 데이터 처리
+			data.documents.forEach(doc => {
+				let jsonString = "{" +
+						'"authors":' + JSON.stringify(doc.authors.join(', ')) + ',' + // 배열 처리
+						'"contents":' + JSON.stringify(doc.contents) + ',' +
+						'"datetime":' + JSON.stringify(doc.datetime) + ',' +
+						'"isbn":' + JSON.stringify(doc.isbn) + ',' +
+						'"price":' + JSON.stringify(doc.price) + ',' +
+						'"publisher":' + JSON.stringify(doc.publisher) + ',' +
+						'"sale_price":' + JSON.stringify(doc.sale_price) + ',' +
+						'"status":' + JSON.stringify(doc.status) + ',' +
+						'"thumbnail":' + JSON.stringify(doc.thumbnail) + ',' +
+						'"title":' + JSON.stringify(doc.title) + ',' +
+						'"translators":' + JSON.stringify(doc.translators.join(', ')) + ',' + // 배열 처리
+						'"url":' + JSON.stringify(doc.url) +
+						"}";
+				jsonData.push(jsonString.replaceAll(',', '^^^^')); // 쉼표 변환
+				console.log(jsonString);
+			});
+
+
+
+			// DOM 업데이트
+			$('#totalDataCount').val(data.meta.pageable_count);
+			$('#jsonData').val(jsonData);
+		} catch (error) {
+			console.error('fetchKakaoApiData 오류:', error);
+			alert('데이터를 불러오는 중 문제가 발생했습니다.');
+		}
+	}
+
+
+
+	function doAjaxLoad(target, url, data) {
+		return $.ajax({
+			url: url,
+			type: 'POST',
+			data: data,
+			timeout: 15000,
+			success: function(response) {
+				$(target).html(response);
+			},
+			error: function(xhr, status, error) {
+				if (status === "timeout") {
+					// alert('요청 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
+				} else {
+					// alert('데이터 로딩 중 오류가 발생했습니다.');
+				}
+			}
+		});
+	}
+
 </script>
