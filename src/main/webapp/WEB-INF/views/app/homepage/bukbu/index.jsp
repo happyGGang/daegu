@@ -147,6 +147,7 @@
 	<div id="container" class="main">
 		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 		<div class="main1">
+		<div class="swiper_back"></div>
 		<div class="mySwiper">
 		<div class="swiper-wrapper">
 		<div class="swiper-slide swiper_01"></div>
@@ -225,9 +226,9 @@
 								</c:choose>
 							</div>
 						</div>
-						<!--<div id="holiday-box">
+						<div id="holiday-box">
 
-						</div>-->
+						</div>
 						<!-- <div class="main1box1box2box2">
 							<ul>
 								<li class="bg-blue">
@@ -277,7 +278,7 @@
 					</div>
 				</div>
 
-				 <div class="main1box2">
+				 <!--<div class="main1box2">
 					<div class="calendar-box">
 						<div class="title">
 							<ul>
@@ -313,7 +314,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="qmenu">
@@ -751,7 +752,7 @@
 			<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1"><span class="txt">공지사항</span></a></li>
 			<!-- <li><a href="http://dgelib.dkyobobook.co.kr" target="_blank"><span class="txt">대구학생<br/>전자도서관</span></a></li> -->
 			<!--<li><a href="/${homepage.context_path}/bukbu/html.do?menu_idx=78"><span class="txt">행정정보공개</span></a></li>-->
-			<li><a href="https://app.gather.town/app/Tc6o9JwG6OsRys5r/Daegu_Bukbu_library_2" target="_blank"><span class="txt">메타북스</span></a></li>
+			<!--<li><a href="https://app.gather.town/app/Tc6o9JwG6OsRys5r/Daegu_Bukbu_library_2" target="_blank"><span class="txt"></span></a></li>-->
 		</ul>
 	</div>
 

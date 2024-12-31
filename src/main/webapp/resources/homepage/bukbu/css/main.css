@@ -4,6 +4,7 @@
 
 .main1 {position:relative;}
 .main1 .mySwiper{position:relative;height: 556px;}
+.main1 .swiper_back{position:absolute;top: 0;left: 50%;transform: translateX(-50%);z-index:99;height:556px;background:#3333333d;width:100%;}
 .main1 .mySwiper div{height:100%;background-size:cover;}
 .main1 .section{position:absolute;top: 0;left: 50%;transform: translateX(-50%);z-index:99;}
 .main1 .swiper_01{position:relative;background: url('/resources/homepage/bukbu/img/main_01.jpeg') no-repeat center center;}
