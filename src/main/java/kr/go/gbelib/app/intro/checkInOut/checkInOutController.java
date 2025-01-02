@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.intro.checkInOut;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -331,12 +332,11 @@ public class checkInOutController extends BaseController {
 	private boolean checkGreens(Member member) {
 		String birth = member.getBirth_day();
 		birth = birth.substring(0, 4);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-		String format = sdf.format(new Date());
-		
-		//2024-2009 = 15 2024-2013 = 11
-		boolean isChild = ((Integer.parseInt(format) - Integer.parseInt(birth)) <= 15 && (Integer.parseInt(format) - Integer.parseInt(birth)) >= 11);
-		
-		return isChild;
+
+		int currentYear = LocalDate.now().getYear();
+
+		int age = currentYear - Integer.parseInt(birth);
+
+        return (age <= 14 && age >= 10);
 	}
 }
