@@ -105,10 +105,10 @@ $(function() {
 			<td>일, 화, 수<br />(범어)</td>
 		  </tr>
 		  <tr>
-			<td>토, 일, 화<br />(용학, 고산, 무학숲)</td>
+			<td>토, 일, 화<br />(용학, 고산, 무학숲, <br />황금책문화센터, 사월책문화센터)</td>
 		  </tr>
 		  <tr>
-			<td>토, 월, 화<br />(책숲길, 물망이, 파동, 사월역)</td>
+			<td>토, 월, 화<br />(책숲길, 물망이, 파동)</td>
 		  </tr>
 		  </tbody>
 		</table>
@@ -206,7 +206,7 @@ $(function() {
 						<form:option value="127066">이곡2동공립작은도서관</form:option>
 						<form:option value="127006">용산1동작은도서관</form:option>
 						<form:option value="127007">장기동작은도서관</form:option>
-						<!-- <form:option value="127008">죽전동공립작은도서관</form:option> -->
+						<form:option value="127008">죽전동작은도서관</form:option>
 						<!-- <form:option value="327002">달서아트센터 도서관</form:option> -->
 						<form:option value="327003">행정정보문고센터</form:option>
 						<form:option value="727036">학산작은도서관</form:option>
@@ -245,6 +245,7 @@ $(function() {
 						<form:option value="127094">비원도서관</form:option>
 						<form:option value="127098">원고개도서관</form:option>
 						<form:option value="127104">New평리도서관</form:option>
+						<form:option value="127107">서구어린이영어도서관</form:option>
 					</form:select>
 					</c:when>
 					<c:when test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic' }">
@@ -320,7 +321,7 @@ $(function() {
 							</form:select>
 							</c:when>
 							<%--c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GR' || detail.MANAGE_CODE eq 'GS' || detail.MANAGE_CODE eq 'FK' || detail.MANAGE_CODE eq 'GT' || detail.MANAGE_CODE eq 'FP' || detail.MANAGE_CODE eq 'FL' || detail.MANAGE_CODE eq 'GU' || detail.MANAGE_CODE eq 'GV' || detail.MANAGE_CODE eq 'GW' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'FL' || detail.MANAGE_CODE eq 'HJ' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HL' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP'}"--%>
-							<c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq 'HP' || detail.MANAGE_CODE eq 'HQ'}">
+							<c:when test="${detail.MANAGE_CODE eq 'CA' || detail.MANAGE_CODE eq 'CB' || detail.MANAGE_CODE eq 'GA' || detail.MANAGE_CODE eq 'GB' || detail.MANAGE_CODE eq 'GC' || detail.MANAGE_CODE eq 'GD' || detail.MANAGE_CODE eq 'GE' || detail.MANAGE_CODE eq 'GF' || detail.MANAGE_CODE eq 'GH' || detail.MANAGE_CODE eq 'FJ' || detail.MANAGE_CODE eq 'FN' || detail.MANAGE_CODE eq 'HG' || detail.MANAGE_CODE eq 'GX' || detail.MANAGE_CODE eq 'GY' || detail.MANAGE_CODE eq 'FM' || detail.MANAGE_CODE eq 'HK' || detail.MANAGE_CODE eq 'HM' || detail.MANAGE_CODE eq 'HN' || detail.MANAGE_CODE eq '' || detail.MANAGE_CODE eq 'HQ'}">
 							<%-- 동구 --%>
 							<form:select path="uselibcode">
 								<form:option value="" label="-- 선택 --" />

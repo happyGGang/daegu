@@ -791,7 +791,7 @@ $(function() {
 						<c:when test="${detail.MANAGE_CODE eq 'FD'||detail.MANAGE_CODE eq 'FW'||detail.MANAGE_CODE eq ''}">
 						</c:when>
 						
-						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'FA'|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ'}"><!--9/30 달서가족문화도서관 상호대차 중지 재개시 빈칸에 BY 입력 -->
+						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'FA'|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FD'}"><!--9/30 달서가족문화도서관 상호대차 중지 재개시 빈칸에 BY 입력 -->
 							<c:choose>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
@@ -826,7 +826,7 @@ $(function() {
 				<c:when test="${homepage.context_path eq 'seogulib'}">
 				
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN' || detail.MANAGE_CODE eq 'CC'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BL' || detail.MANAGE_CODE eq 'BQ' || detail.MANAGE_CODE eq 'BP' || detail.MANAGE_CODE eq 'BM' || detail.MANAGE_CODE eq 'BN' || detail.MANAGE_CODE eq 'CC' || detail.MANAGE_CODE eq 'HT'}">
 							<c:choose>
 								
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
