@@ -11,63 +11,62 @@ $(function() {
 	var $form = $('form#librarySearch');
 
 	//정렬, N개씩보기
-	$('select#rowCount, select#sortType, select#sortField').on('change', function() {
+	$('select#rowCount, select#sortType, select#sortField').on('change', function () {
 		$('a#search-btn').click();
 	});
 
 	//소장정보 펼치기/접기
-	$('a.showSlide').on('click', function(e) {
+	$('a.showSlide').on('click', function (e) {
 		e.preventDefault();
 
 		var bci = $(this).parents('div.box').next('div.bci');
 		var toggleState = $(bci).is(':hidden');
-		if (toggleState)
-		{
-			$(this).css('background','#758194');
+		if (toggleState) {
+			$(this).css('background', '#758194');
 			$(this).text('소장정보');
 			$(bci).slideToggle();
 		} else {
-			$(this).css('background','#a5856d');
+			$(this).css('background', '#a5856d');
 			$(this).text('소장정보');
 			$(bci).slideToggle();
 		}
 	});
 
 	//이미지 목록형
-	$('.imgView').on('click', function(e) {
+	$('.imgView').on('click', function (e) {
 		e.preventDefault();
 		$(this).addClass('on');
 		$('.listView').removeClass('on');
 		$('.search-results .cont ul').removeClass();
-		if($(this).hasClass('on')){
-			$('.search-results .textType').css('display','none');
-			$('.search-results .imageType').css('display','block');
+		if ($(this).hasClass('on')) {
+			$('.search-results .textType').css('display', 'none');
+			$('.search-results .imageType').css('display', 'block');
 		}
 	});
 
 	//텍스트 목록형
-	$('.listView').on('click', function(e) {
+	$('.listView').on('click', function (e) {
 		e.preventDefault();
 		$(this).addClass('on');
 		$('.imgView').removeClass('on');
 		$('.search-results .cont ul').removeClass();
-		if($(this).hasClass('on')){
-			$('.search-results .imageType').css('display','none');
-			$('.search-results .textType').css('display','block');
+		if ($(this).hasClass('on')) {
+			$('.search-results .imageType').css('display', 'none');
+			$('.search-results .textType').css('display', 'block');
 		}
 	});
 
 	//외국어 입력기
-	$('#vk-popup').on('click', function(e) {
-		PopupVirtualKeyboard.toggle('title','vk');
+	$('#vk-popup').on('click', function (e) {
+		PopupVirtualKeyboard.toggle('title', 'vk');
 	});
 
 	//전체 선택
-	$('#checkAll').change(function(e) {
+	$('#checkAll').change(function (e) {
 		$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
 	});
 
-	$('a#addMyLib').on('click', function(e) {
+	$('a#addMyLib').on('click', function (e) {
 		e.preventDefault();
 		var len = $('input.checkBook:checked').length;
 		if (len < 1) {
@@ -83,7 +82,7 @@ $(function() {
 	$('div#hotTrend').load('hotTrend.do');
 
 	//청구기호 인쇄
-	$('a.btn_print').on('click', function(e) {
+	$('a.btn_print').on('click', function (e) {
 		e.preventDefault();
 		var url = $(this).data('param').replace('detail', 'print');
 
@@ -92,98 +91,94 @@ $(function() {
 	});
 
 	//검색하기
-	$('a#search-btn').on('click', function(e) {
+	$('a#search-btn').on('click', function (e) {
 		e.preventDefault();
 
 		<c:choose>
 		<c:when test="${context_path eq 'seogumini' || context_path eq 'buks' || context_path eq 'junggu' || context_path eq 'dalseongsmall' || context_path eq 'dssmalllib' || context_path eq 'sincheon' || context_path eq 'donggu' || context_path eq 'donggusm' || context_path eq 'seogumini' || context_path eq 'namdm' || context_path eq 'namic' || context_path eq 'bukgs' || context_path eq 'buktj' || context_path eq 'bukdh' || context_path eq 'beomeo' || context_path eq 'yonghak' || context_path eq 'gosan' || context_path eq 'bookforest' || context_path eq 'mulmangi' || context_path eq 'padong' || context_path eq 'muhaksup' || context_path eq 'sawol' || context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib' || context_path eq 'dalseonglib' || context_path eq 'dalseongsmall' || context_path eq 'goldbook'}">
-			<c:choose>
-			<c:when test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
-			$('input#viewPage').val('1');
-			doGetLoad('index.do', $form.serialize());
-			</c:when>
-			<c:otherwise>
-			if( $("input:checkbox[name=libraryCodes]:checked").length == '0' )
-			{
-				alert('검색을 원하는 도서관을 선택하세요.');
-				return false;
-			}
-			$('input#viewPage').val('1');
-			doGetLoad('index.do', $form.serialize());
-			</c:otherwise>
-			</c:choose>
+		<c:choose>
+		<c:when test="${param.startpoint eq 'metaverse_pc' || param.startpoint eq 'metaverse_mobile'}">
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
 		</c:when>
 		<c:otherwise>
-			$('input#viewPage').val('1');
-			doGetLoad('index.do', $form.serialize());
+		if ($("input:checkbox[name=libraryCodes]:checked").length == '0') {
+			alert('검색을 원하는 도서관을 선택하세요.');
+			return false;
+		}
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
+		</c:otherwise>
+		</c:choose>
+		</c:when>
+		<c:otherwise>
+		$('input#viewPage').val('1');
+		doGetLoad('index.do', $form.serialize());
 		</c:otherwise>
 		</c:choose>
 
 	});
 
-
-	$('input#title').on('keyup', function(e) {
+	$('input#title').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
 		}
 	});
 
-	$('input#author').on('keyup', function(e) {
+	$('input#author').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
 		}
 	});
 
-	$('input#publer').on('keyup', function(e) {
+	$('input#publer').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
 		}
 	});
 
-	$('input#keyword').on('keyup', function(e) {
+	$('input#keyword').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
 		}
 	});
 
-	$('input#search_start_date').on('keyup', function(e) {
+	$('input#search_start_date').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
 		}
 	});
 
-	$('input#search_end_date').on('keyup', function(e) {
+	$('input#search_end_date').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#search-btn').click();
 		}
 	});
 
 	//결과 내 재검색
-	$('a#subSearch').on('click', function(e) {
+	$('a#subSearch').on('click', function (e) {
 		e.preventDefault();
 		var type = $('select#subSearchType').val();
-		var beforeText = $('input#'+type).val();
-		var newText = (beforeText == '') ? newText = $('input#subSearchText').val() : $('input#'+type).val()+ ' ' +$('input#subSearchText').val();
-		$('input#'+type).val(newText);
+		var beforeText = $('input#' + type).val();
+		var newText = (beforeText == '') ? newText = $('input#subSearchText').val() : $('input#' + type).val() + ' ' + $('input#subSearchText').val();
+		$('input#' + type).val(newText);
 		$('input#viewPage').val('1');
 		doGetLoad('index.do', $form.serialize());
 	});
 
 	//결과 내 재검색
-	$('input#subSearchText').on('keyup', function(e) {
+	$('input#subSearchText').on('keyup', function (e) {
 		if (e.keyCode == 13 && $(this).val() != '') {
 			$('a#subSearch').click();
 		}
 	});
 
 	//검색초기화
-	$('a#reset-btn').on('click', function(e) {
+	$('a#reset-btn').on('click', function (e) {
 		e.preventDefault();
-		location.href='/intro/${context_path}/search/index.do';
+		location.href = '/intro/${context_path}/search/index.do';
 		$('#title').focus();
 	});
-
-
 
 	<c:if test="${librarySearch.totalDataCount > 0}">
 	location.href = '#search-btn';
@@ -194,95 +189,98 @@ $(function() {
 
 	<c:if test="${empty librarySearch.title}">
 		<c:choose>
+			<c:when test="${fn:contains(librarySearch.libraryCodes, 'ALL')}">
+				$('div#libraryList input:checkbox').prop('checked', true);
+			</c:when>
 			<c:when test="${context_path eq 'bolli'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BX').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BX').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'seongseo'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BU').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BU').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'dalseolib'}">
-			$('div#libraryList input:checkbox').prop('checked', false);
-			$('div#libraryList input:checkbox.lib_BW').prop('checked', true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BW').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'kids'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BV').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BV').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'english'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BZ').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BZ').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'family'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BY').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BY').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'buks'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_GJ').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GL').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GM').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GN').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GP').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HB').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HD').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HE').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_GJ').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_GL').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_GM').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_GN').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_GP').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_HB').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_HD').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_HE').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'junggu'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_FS').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FF').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FQ').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FY').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GG').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HA').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_HF').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_FS').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FF').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FQ').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FY').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_GG').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_HA').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_HF').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'dalseongsmall'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
+				$('div#libraryList input:checkbox').prop('checked', false);
 			</c:when>
 			<c:when test="${context_path eq 'dssmalllib'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_FA').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FB').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FC').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FD').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FW').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_FX').prop('checked',true);
-			$('div#libraryList input:checkbox.lib_GK').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_FA').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FB').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FC').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FD').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FW').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_FX').prop('checked', true);
+				$('div#libraryList input:checkbox.lib_GK').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'sincheon'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_CB').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_CB').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'muhaksup'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BH').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BH').prop('checked', true);
 			</c:when>
 			<c:when test="${context_path eq 'padong'}">
-			$('div#libraryList input:checkbox').prop('checked',false);
-			$('div#libraryList input:checkbox.lib_BG').prop('checked',true);
+				$('div#libraryList input:checkbox').prop('checked', false);
+				$('div#libraryList input:checkbox.lib_BG').prop('checked', true);
 			</c:when>
 		</c:choose>
 	</c:if>
 
 	<c:if test="${param.startpoint eq 'metaverse_pc'}">
-	$('.seogashow').on('click',function(e){
+	$('.seogashow').on('click', function (e) {
 		e.preventDefault();
 		console.log('pc');
 		var seoga = $(this).attr('data-keyValue');
 		console.log(seoga);
-		window.vuplex.postMessage({ message: seoga });
+		window.vuplex.postMessage({message: seoga});
 	});
 	</c:if>
 	<c:if test="${param.startpoint eq 'metaverse_mobile'}">
-	$('.seogashow').on('click',function(e){
+	$('.seogashow').on('click', function (e) {
 		e.preventDefault();
 		console.log('mobile');
 		var seoga = $(this).attr('data-keyValue');
 		console.log(seoga);
-		location.href="daegulibmetaverse://lib?message"+seoga;
+		location.href = "daegulibmetaverse://lib?message" + seoga;
 	});
 	</c:if>
 });
@@ -290,9 +288,9 @@ $(function() {
 function resveReq(bookkey, booktype, editMode) {
 	<c:choose>
 	<c:when test="${sessionScope.member.login and sessionScope.member.loginType eq 'HOMEPAGE'}">
-	if(confirm('예약 신청 하시겠습니까?')) {
+	if (confirm('예약 신청 하시겠습니까?')) {
 		var ajaxData = {
-				'bookkey' : bookkey,
+			'bookkey' : bookkey,
 				'booktype' : booktype,
 				'editMode' : editMode
 		};
