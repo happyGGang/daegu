@@ -1,26 +1,27 @@
-<%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div class="swiper-wrap-box">
 	<div class='top_swiper'>
 		<div class='swiper'>
 			<diV class='swiper-wrapper'>
-				<c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="5">
+				<c:forEach items="${bookList1}" var="i" varStatus="status">
 					<div class='swiper-slide'>
-						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
-							<div>${i.TITLE_INFO}</div>
+						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'">
+							<div>${i.title}</div>
 							<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png' alt='${i.title}' />
 						</div>
-						<img class='book_img' src='${i.i.aladin.cover}' alt='${i.TITLE_INFO}' onerror="this.src='/resources/common/img/noImg2.png';"/>
+						<img class='book_img' src='${i.preview_img}' alt='${i.title}' onerror="this.src='/resources/common/img/noImg2.png';"/>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
 		<div class='swiper-pagination'></div>
 		<div class='book_list_more'>
-			<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">
+			<a href="/${homepage.context_path}/board/index.do?menu_idx=14&manage_idx=1284">
 				<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/black_plus.png' alt='' />
 			</a>
 		</div>
@@ -29,13 +30,13 @@
 	<div class='bottom_swiper'>
 		<div class='swiper' dir="rtl">
 			<diV class='swiper-wrapper'>
-				<c:forEach items="${newBookList}" var="i" varStatus="status" begin="6" end="11">
+				<c:forEach items="${bookList2}" var="i" varStatus="status">
 					<div class='swiper-slide'>
-						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
-							<div>${i.TITLE_INFO}</div>
+						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'">
+							<div>${i.title}</div>
 							<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png' alt='' />
 						</div>
-						<img class='book_img' src='${i.i.aladin.cover}' alt='${i.TITLE_INFO}' onerror="this.src='/resources/common/img/noImg2.png';"/>
+						<img class='book_img' src='${i.preview_img}' alt='${i.title}' onerror="this.src='/resources/common/img/noImg2.png';"/>
 					</div>
 				</c:forEach>
 			</div>

@@ -2327,20 +2327,30 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/recommendBook.*" })
 	public String recommendBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
+		if (homepage.getHomepage_id().equals("h101")) {
+			setBoardListToModel(homepage.getHomepage_id(), model);
+			int manage_idx = 1284;
 
-		String category2 = request.getParameter("category2");
-		int manage_idx = 299;
+			Board board = new Board();
+			board.setManage_idx(manage_idx);
+			model.addAttribute("recommendBookList", boardService.getBoardByMain(board));
+		} else {
+			String category2 = request.getParameter("category2");
+			int manage_idx = 299;
 
-		model.addAttribute("recommendBookMenuIdx", 67);
-		model.addAttribute("recommendBookContextPath", homepage.getContext_path());
+			model.addAttribute("recommendBookMenuIdx", 67);
+			model.addAttribute("recommendBookContextPath", homepage.getContext_path());
 
-		Board board = new Board();
-		board.setManage_idx(manage_idx);
-		board.setRowCount(2);
-		board.setTotalDataCount(2);
-		board.setDept_cd("PORTAL");
-		board.setCategory2(category2);
-		model.addAttribute("recommendBookList", boardService.getBoardByMain(board));
+			Board board = new Board();
+			board.setManage_idx(manage_idx);
+			board.setRowCount(2);
+			board.setTotalDataCount(2);
+			board.setDept_cd("PORTAL");
+			board.setCategory2(category2);
+			model.addAttribute("recommendBookList", boardService.getBoardByMain(board));
+		}
+
+
 
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
 	}
@@ -2481,7 +2491,7 @@ public class IndexController extends BaseController {
 		//h50 수성 범어
 		//h51 수성 용학
 		//h52 수성 고산
-		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52"};
+		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h101"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
@@ -2515,6 +2525,11 @@ public class IndexController extends BaseController {
 					b.setHomepage_id(homepage.getHomepage_id());
 					model.addAttribute("boardList", boardService.getSubBoardByMain(b));//영화도서전체
 				}
+
+				// 서변숲 문화행사만 조회
+				if(th.equals("h101")) t.setSearchCate1("16");
+
+				model.addAttribute("teachList", teachService.getTeachListForUser(t));
 			}
 		}
 
@@ -2753,6 +2768,15 @@ public class IndexController extends BaseController {
 			model.addAttribute("teachGuideList", boardService.getSubBoardByMain(b3));//강좌행사안내
 			
 			model.addAttribute("teachGuideListTopNotice", boardService.getTeachGuideListTopNotice(b3));
+		}
+
+		//서변숲
+		if (homepage.getHomepage_id().equals("h101")) {
+			Board b = new Board();
+			b.setManage_idx(1284);
+			model.addAttribute("bookList1", boardService.getSubBoardByMain(b));//추천도서전체
+			b.setManage_idx(1285);
+			model.addAttribute("bookList2", boardService.getSubBoardByMain(b));//추천도서전체
 		}
 
 		//서구도서관
