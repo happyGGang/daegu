@@ -142,7 +142,14 @@ $.fn.rowspan = function(colIdx, isStats) {
 			</colgroup>
 			<thead>
 				<tr>
-					<th scope="col" class="th1">직  위(급)</th>
+					<c:choose>
+						<c:when test="${homepage.context_path eq 'duryu'}">
+							<th scope="col" class="th1">구  분</th>
+						</c:when>
+						<c:otherwise>
+							<th scope="col" class="th1">직  위(급)</th>
+						</c:otherwise>
+					</c:choose>
 					<th scope="col" class="th2">담   당   업   무</th>
 					<th scope="col" class="th3">전 화</th>
 				</tr>
