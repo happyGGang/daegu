@@ -19,6 +19,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/common/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/common/select2.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/common/jquery.mmenu.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/common/default_new_fullpage.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/common/login.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/board/default.css"/>

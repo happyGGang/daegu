@@ -24,13 +24,13 @@
 
 			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">서변숲 도서관</a></h1>
 
-			<!-- <div class="sns-box">
-				<ul class="sns-link">
-					<li><a href="https://www.youtube.com/channel/UCrU93GSooFE7YPnoXu4NPTA" target="_blank" title="유튜브 바로가기" alt="유튜브 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_youtube.png"><i class="fa fa-external-link"></i></a></li>
-					<li><a href="https://www.instagram.com/gususan.library" target="_blank" title="인스타그램 바로가기" alt="인스타그램 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li>
-					<li><a href="https://pf.kakao.com/_xiRxeIxb" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li>
-				</ul>
-			</div> -->
+			<div class="sns-box">
+<!-- 				<ul class="sns-link"> -->
+<!-- 					<li><a href="https://www.youtube.com/channel/UCrU93GSooFE7YPnoXu4NPTA" target="_blank" title="유튜브 바로가기" alt="유튜브 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_youtube.png"><i class="fa fa-external-link"></i></a></li> -->
+<!-- 					<li><a href="https://www.instagram.com/gususan.library" target="_blank" title="인스타그램 바로가기" alt="인스타그램 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li> -->
+<!-- 					<li><a href="https://pf.kakao.com/_xiRxeIxb" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li> -->
+<!-- 				</ul> -->
+			</div>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>

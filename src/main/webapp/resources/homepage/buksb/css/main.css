@@ -8,6 +8,43 @@
 
 #main3 .banner-box {position:absolute;bottom:0;width:100%;border-top:1px solid #eaeaea;background:#fff;}
 
+@media (max-width: 1024px) {
+  #header {
+    top: 0;
+  }
+
+  .tnb .util, .tnb .libSite, .Gnb, .main7_banner {
+    display: none;
+  }
+
+  #header h1 {
+    position: relative;
+    height: auto;
+    position: absolute;
+    left: 0;
+  }
+
+  .mmode {
+    display: block;
+  }
+
+  .m-menu a {
+    position: absolute;
+    right: 10px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+  }
+
+  .m-menu a i {
+    font-size: 30px;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+  }
+}
+
 .Gnb .gnb-menu>li:nth-child(2)>.SubMenu{width:1300px !important;}
 
 .mFooter {
@@ -94,11 +131,11 @@
 
 .select_box {
   display: flex;
-  height: 45px;
 }
 
 .select_box select {
   width: 200px;
+  height: 45px;
   border: 1px solid #676767;
   color: #FFFFFF;
   font-family: Pretendard, serif;
@@ -111,10 +148,6 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   background: #464646 url('../img/select_box_arrow.png') no-repeat right 9px center;
-}
-
-.select_box select:focus {
-  outline: none;
 }
 
 .move {
@@ -137,3 +170,14 @@
 .move:hover {
   opacity: 0.7;
 }
+
+@media all and (min-width:1024px) and (max-width:1279px) {}
+
+@media all and (min-width:768px) and (max-width:1023px) {}
+
+@media all and (min-width:480px) and (max-width:767px) {}
+
+@media all and (max-width:479px) {}
+
+
+

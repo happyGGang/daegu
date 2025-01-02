@@ -10,7 +10,7 @@
 				<c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="5">
 					<div class='swiper-slide'>
 						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
-							<div>${i.TITLE_INFO}</div>
+							<div>${fn:length(i.TITLE_INFO) > 11 ? fn:substring(i.TITLE_INFO, 0, 12) : i.TITLE_INFO}<c:if test="${fn:length(i.TITLE_INFO) > 11 }">...</c:if></div>
 							<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png' alt='${i.title}' />
 						</div>
 						<img class='book_img' src='${i.i.aladin.cover}' alt='${i.TITLE_INFO}' onerror="this.src='/resources/common/img/noImg2.png';"/>
