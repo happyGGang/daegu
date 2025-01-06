@@ -1800,7 +1800,7 @@ function isFromFridayToSunday() {
 
 														<c:when test="${homepage.context_path eq 'seogulib'}">
 															<c:choose>
-																<c:when test="${i.MANAGE_CODE eq 'BL' || i.MANAGE_CODE eq 'BQ' || i.MANAGE_CODE eq 'BP' || i.MANAGE_CODE eq 'BM' || i.MANAGE_CODE eq 'BN' || i.MANAGE_CODE eq 'CC'}">
+																<c:when test="${i.MANAGE_CODE eq 'BL' || i.MANAGE_CODE eq 'BQ' || i.MANAGE_CODE eq 'BP' || i.MANAGE_CODE eq 'BM' || i.MANAGE_CODE eq 'BN' || i.MANAGE_CODE eq 'CC' || i.MANAGE_CODE eq 'HT'}">
 																	<c:choose>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
