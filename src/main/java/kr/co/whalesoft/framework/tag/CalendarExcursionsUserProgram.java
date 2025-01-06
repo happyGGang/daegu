@@ -112,7 +112,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 				} else if (planDay >= startDay && planDay <= endDay) {
 					sb.append("<li title=\"" + excursions.getCode_name() + "\">");
 					sb.append("[" + excursions.getCode_name() + "]<br>");
-					if (excursions.getCode_name().equals("천체투영관(개인)")) {
+					if (("h77").equals(excursions.getHomepage_id())) {
 						sb.append("" + excursions.getStart_time() + "<br>");
 					} else {
 						sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
@@ -164,8 +164,20 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 								}
 							}
 						}
-						// 서구 통합도서관 어린이 h77,비산 h61,영어 h62,비원 h63,원고개 h64
-						if (allowedHomepageIds.contains(excursions.getHomepage_id()) &&	allowedDateTypes.contains(excursions.getDate_type())) {
+						// 비산 h61,영어 h62,비원 h63,원고개 h64
+						if ((("h61").equals(excursions.getHomepage_id()) || ("h62").equals(excursions.getHomepage_id()) || ("h63").equals(excursions.getHomepage_id()) || ("h64").equals(excursions.getHomepage_id())) && allowedDateTypes.contains(excursions.getDate_type())) {
+							if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
+								if (maxApplyCount == 0) {
+									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기(무제한)</em></span></a><br>");
+								} else {
+									if (maxApplyCount > personnelCount) {
+										sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기(" + personnelCount + "/" + maxApplyCount + ")</em></span></a><br>");
+									} else {
+										sb.append("<a href=\"#\">신청 정원 마감</a>");
+									}
+								}
+							}
+						} else if ("h77".equals(excursions.getHomepage_id())) {	//서구어린이 h77
 							if (excursions.getApply_yn().equals("Y") && excursions.getClosed_day() == 0 && (now.compareTo(planDate) <= 0 || DateUtils.isSameDay(now, planDate))) {
 								if (maxApplyCount == 0) {
 									sb.append("<a href=\"\" class=\"\" id=\"apply\" keyValue=\"" + excursions.getExcursions_idx() + "\" keyValue2=\"" + plan_date + "\" keyValue3=\"" + excursions.getDate_type() + "\"><span style=\"type-r\"><i></i><em>신청하기(무제한)</em></span></a><br>");
