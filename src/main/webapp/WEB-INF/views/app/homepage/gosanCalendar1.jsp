@@ -29,7 +29,7 @@
 		  <div class="time_box">
 			<ul>
 			  <li class="book13 mb10" style="margin-right:20px;">
-				<div> <span>평일 09:00 ~ 18:00</span> </div>
+				<div> <span>평일 09:00 ~ 20:00</span> </div>
 			  </li>
 			  <li class="book11 mb10">
 				<div> <span>주말 09:00 ~ 17:00</span> </div>

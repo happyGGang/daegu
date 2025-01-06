@@ -128,9 +128,7 @@ padding-top: 65px;
 	font-weight:bold;
 	}
 .tbl-type01 tbody tr td{
-	background:#fafafa;
 	font-size:13px;
-	text-align:left;
 	}
 
 .join-wrap{
@@ -153,9 +151,7 @@ padding-top: 65px;
 	font-weight:bold;
 	}
 .tbl-type01 tbody tr td{
-	background:#fafafa;
 	font-size:13px;
-	text-align:left;
 	}
 
 /*웹취약점 XSS-나이트메어 (jsp 상에 style작성시 취약점 발생하여, style시트로 다옮김 - 2022-01-17*/
