@@ -446,7 +446,7 @@ $(function(){
 	</c:if>
 
 	<c:choose>
-	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl' || homepage.context_path eq 'center'}">
+	<c:when test="${homepage.context_path eq 'donggu' || homepage.context_path eq 'seogulib' || homepage.context_path eq 'namdm' ||  homepage.context_path eq 'namic' ||  homepage.context_path eq 'namic' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'beomeo' || homepage.context_path eq 'yonghak' || homepage.context_path eq 'gosan' || homepage.context_path eq 'dalseolib' || homepage.context_path eq 'dalseonglib' || homepage.context_path eq 'junggu' || homepage.context_path eq 'dmsl' || homepage.context_path eq 'center' || homepage.context_path eq 'buksb'}">
 
 	</c:when>
 	<c:when test="${homepage.context_path eq 'with' || homepage.context_path eq 'dotory' || homepage.context_path eq 'dongil' ||  homepage.context_path eq 'vision' ||  homepage.context_path eq 'saebut' || homepage.context_path eq 'art' || homepage.context_path eq 'yeonam' || homepage.context_path eq 'daegubl' || homepage.context_path eq 'wasabi' || homepage.context_path eq 'handle'}">

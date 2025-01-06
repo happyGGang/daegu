@@ -4,78 +4,98 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div class="swiper-wrap-box">
-	<div class='top_swiper'>
-		<div class='swiper'>
-			<diV class='swiper-wrapper'>
-				<c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="5">
-					<div class='swiper-slide'>
-						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
-							<div>${fn:length(i.TITLE_INFO) > 11 ? fn:substring(i.TITLE_INFO, 0, 12) : i.TITLE_INFO}<c:if test="${fn:length(i.TITLE_INFO) > 11 }">...</c:if></div>
-							<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png' alt='${i.title}' />
-						</div>
-						<img class='book_img' src='${i.i.aladin.cover}' alt='${i.TITLE_INFO}' onerror="this.src='/resources/common/img/noImg2.png';"/>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-		<div class='swiper-pagination'></div>
-		<div class='book_list_more'>
-			<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">
-				<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/black_plus.png' alt='' />
-			</a>
-		</div>
-	</div>
+    <div class="top_swiper">
+        <div class="swiper">
+            <diV class="swiper-wrapper">
+                <c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="5">
+                    <div class="swiper-slide">
+                        <div class="book_thumbnail" onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
+                            <div>${fn:length(i.TITLE_INFO) > 11 ? fn:substring(i.TITLE_INFO, 0, 12) : i.TITLE_INFO}<c:if test="${fn:length(i.TITLE_INFO) > 11 }">...</c:if></div>
+                            <img class="book_thumbnail_arrow" src="/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png" alt="${i.title}"/>
+                        </div>
+                        <img class="book_img" src="${i.i.aladin.cover}" alt="${i.TITLE_INFO}" onerror="this.src='/resources/common/img/noImg2.png';"/>
+                    </div>
+                </c:forEach>
+            </diV>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="book_list_more">
+            <a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=10">
+                <img class="book_thumbnail_arrow" src="/resources/homepage/${homepage.context_path}/img/black_plus.png" alt=""/>
+            </a>
+        </div>
+    </div>
 
-	<div class='bottom_swiper'>
-		<div class='swiper' dir="rtl">
-			<diV class='swiper-wrapper'>
-				<c:forEach items="${newBookList}" var="i" varStatus="status" begin="6" end="11">
-					<div class='swiper-slide'>
-						<div class='book_thumbnail' onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
-							<div>${i.TITLE_INFO}</div>
-							<img class='book_thumbnail_arrow' src='/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png' alt='' />
-						</div>
-						<img class='book_img' src='${i.i.aladin.cover}' alt='${i.TITLE_INFO}' onerror="this.src='/resources/common/img/noImg2.png';"/>
-					</div>
-				</c:forEach>
-			</div>
-		</div>
-	</div>
+    <div class="bottom_swiper">
+        <div class="swiper">
+            <diV class="swiper-wrapper">
+                <c:forEach items="${newBookList}" var="i" varStatus="status" begin="6" end="11">
+                    <div class="swiper-slide">
+                        <div class="book_thumbnail" onclick="location.href='/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO'">
+                            <div>${i.TITLE_INFO}</div>
+                            <img class="book_thumbnail_arrow" src="/resources/homepage/${homepage.context_path}/img/book_thumbnail_arrow.png" alt=""/>
+                        </div>
+                        <img class="book_img" src="${i.i.aladin.cover}" alt="${i.TITLE_INFO}" onerror="this.src='/resources/common/img/noImg2.png';"/>
+                    </div>
+                </c:forEach>
+            </diV>
+        </div>
+    </div>
 </div>
 
 <script>
-	$(function() {
-		// 추천, 신착도서 상단 슬라이더
-		var topSwiper = new Swiper('.top_swiper .swiper', {
-			spaceBetween: 15,
-			slidesPerView: 3,
-			slidesPerGroup: 3,
-			arrowTouchMove: true,
-			loop: true,
-			pagination: {
-				el: '.top_swiper .swiper-pagination',
-			},
-			autoplay: {
-				delay: 5000,
-			},
-		});
+    $(document).ready(function () {
+        // 추천, 신착도서 상단 슬라이더
+        var topSwiper = new Swiper(".top_swiper .swiper", {
+            spaceBetween: 35,
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+            loop: true,
+            pagination: {
+                el: ".top_swiper .swiper-pagination",
+            },
+            autoplay: {
+                delay: 5000,
+            },
+            breakpoints: {
+                768: {
+                    // 768px 이상
+                    spaceBetween: 35, // spaceBetween 값을 명시적으로 설정
+                },
+                767: {
+                    // 767px 이하
+                    spaceBetween: 14,
+                },
+            },
+        });
 
-		// 추천, 신착도서 하단 슬라이더
-		var bottomZoneSwiper = new Swiper('.bottom_swiper .swiper', {
-			spaceBetween: 35,
-			slidesPerView: 3,
-			arrowTouchMove: true,
-			slidesPerGroup: 3,
-			loop: true,
-		});
+        var bottomZoneSwiper = new Swiper(".bottom_swiper .swiper", {
+            spaceBetween: 35,
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            breakpoints: {
+                768: {
+                    // 768px 이상
+                    spaceBetween: 35, // spaceBetween 값을 명시적으로 설정
+                },
+                767: {
+                    // 767px 이하
+                    spaceBetween: 14,
+                },
+            },
+        });
 
-		// 슬라이더 동기화
-		topSwiper.on('slideChange', function () {
-			bottomZoneSwiper.slideToLoop(topSwiper.realIndex);
-		});
+        // 슬라이더 동기화
+        topSwiper.on("slideChange", function () {
+            bottomZoneSwiper.slideToLoop(topSwiper.realIndex); // 동기화
+        });
 
-		bottomZoneSwiper.on('slideChange', function () {
-			topSwiper.slideToLoop(bottomZoneSwiper.realIndex);
-		});
-	});
+        bottomZoneSwiper.on("slideChange", function () {
+            topSwiper.slideToLoop(bottomZoneSwiper.realIndex); // 동기화
+        });
+    });
 </script>

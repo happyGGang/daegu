@@ -4,14 +4,14 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="${homepage.homepage_name}"/>
 <meta property="og:description" content="${homepage.homepage_name}"/>
 <meta property="og:url" content="${homepage.domain}/${homepage.context_path}/index.do"/>
-<link rel="canonical" href="${homepage.domain}/${homepage.context_path}/index.do">
+<link rel="canonical" href="${homepage.domain}/${homepage.context_path}/index.do"/>
 <title>${homepage.homepage_name}<c:if test="${not empty menuOne.menu_name}"> > </c:if>${menuOne.menu_full_path_name }</title>
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
@@ -53,3 +53,5 @@
 <body>
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>
+</body>
+</html>
