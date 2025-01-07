@@ -230,7 +230,7 @@
 			</div>
 		</div>
 	</c:when>
-	<c:when test="${context_path eq 'std'}">
+	<c:when test="${context_path eq ''}">
 		<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
 		예산소진으로 2024년 희망도서 서비스를 종료합니다. 2025년에도 많은 이용 바랍니다. 2025년 서비스 시작일 : 2025.2.3(월)
 		</div>
@@ -562,7 +562,7 @@
 					</c:when>
 					<c:when test="${context_path eq 'std'}">
 						<form:select path="manageCode">
-							<!-- <form:option value="AK">대구학생문화센터</form:option> -->
+							<form:option value="AK">대구학생문화센터</form:option>
 						</form:select>
 					</c:when>
 					<c:when test="${context_path eq 'dmsl'}">
