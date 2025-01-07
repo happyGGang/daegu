@@ -44,7 +44,7 @@ $(document).ready(function() {
 				</li>
 			</ul>
 		</div>
-		<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.10.31] (단위 : 권)</span></h3>
+		<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.12.31] (단위 : 권)</span></h3>
 		<div class="rsv-info"></div>
 		<div class="auto-scroll">
 			<table class="tbl-type01" summary="수성못그림책도서관의 장서현황을 안내해 드립니다.">
@@ -53,11 +53,13 @@ $(document).ready(function() {
 				</caption>
 				<colgroup>
 					<col width="">
-					<col width="16.6%">
-					<col width="16.6%">
-					<col width="16.6%">
-					<col width="16.6%">
-					<col width="16.6%">
+					<col width="14%">
+					<col width="14%">
+					<col width="14%">
+					<col width="14%">
+					<col width="14%">
+					<col width="14%">
+					<col width="14%">
 				</colgroup>
 				<thead>
 					<tr>
@@ -65,23 +67,27 @@ $(document).ready(function() {
 						<th>그림책<br>(국내작가)</th>
 						<th>그림책<br>(국외작가)</th>
 						<th>빅북</th>
+						<th>팝업북</th>
 						<th>이론서</th>
+						<th>점자도서</th>
 						<th>총 계</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<th>수성못그림책도서관</th>
-						<td>2,126</td>
-						<td>2,839</td>
+						<td>3,266</td>
+						<td>3,796</td>
 						<td>119</td>
-						<td>58</td>
-						<td>5,142</td>
+						<td>15</td>
+						<td>66</td>
+						<td>30</td>
+						<td>7,292</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.10.31] (단위 : 종)</span></h3>
+		<h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.12.31] (단위 : 종)</span></h3>
 		<div class="rsv-info"></div>
 		<div class="auto-scroll">
 			<table class="tbl-type01" summary="수성못그림책도서관의 정기간행물현황을 안내해 드립니다.">
