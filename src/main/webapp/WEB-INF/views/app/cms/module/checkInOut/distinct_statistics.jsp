@@ -12,11 +12,11 @@
 			<th colspan="2">합계</th>
 		</tr>
 		<tr>
-			<th colspan="2">2009</th>
 			<th colspan="2">2010</th>
 			<th colspan="2">2011</th>
 			<th colspan="2">2012</th>
 			<th colspan="2">2013</th>
+			<th colspan="2">2014</th>
 			<th rowspan="2">이용자수<br>(명)</th>
 			<th rowspan="2">이용시간<br>(분)</th>
 		</tr>
@@ -33,139 +33,97 @@
 			<th>이용시간<br>(분)</th>
 		</tr>
 	</thead>
+
+	<c:set var="years" value="2010,2011,2012,2013,2014"/>
+	<c:set var="timePeriods" value="평일,주말"/>
+	<c:set var="genders" value="남,여"/>
+
 	<tbody>
+	<c:forEach var="timePeriod" items="${fn:split(timePeriods, ',')}">
 		<tr>
-			<td rowspan="3">평일</td>
-			<td>남</td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2009.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2009_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2010.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2010_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2011.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2011_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2012.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2012_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2013.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2013_남']}" pattern="#,###"/></td>
+		<td rowspan="3">${timePeriod}</td>
+		<c:forEach var="gender" items="${fn:split(genders, ',')}">
+			<td>${gender}</td>
+			<c:set var="totalUsers" value="0"/>
+			<c:set var="totalHours" value="0"/>
+			<c:forEach var="year" items="${fn:split(years, ',')}">
+				<c:set var="keyUsers" value="${timePeriod}.${year}.${gender}"/>
+				<c:set var="keyUsageHours" value="${timePeriod}_${year}_${gender}"/>
+				<td>
+					<fmt:formatNumber value="${0 + distinctUsers[keyUsers]}" pattern="#,###"/></td>
+				<td>
+					<fmt:formatNumber value="${0 + distinctUsageHours[keyUsageHours]}" pattern="#,###"/>
+				</td>
+				<c:set var="totalUsers" value="${totalUsers + distinctUsers[keyUsers]}"/>
+				<c:set var="totalHours" value="${totalHours + distinctUsageHours[keyUsageHours]}"/>
+			</c:forEach>
 			<td>
-				<c:set var="m_week_distinct_user_count_all" value="${0 + distinctUsers['평일.2009.남'] + distinctUsers['평일.2010.남'] + distinctUsers['평일.2011.남'] + distinctUsers['평일.2012.남'] + distinctUsers['평일.2013.남']}"/>
-				<fmt:formatNumber value="${m_week_distinct_user_count_all}" pattern="#,###"/>
+				<fmt:formatNumber value="${totalUsers}" pattern="#,###"/>
 			</td>
 			<td>
-				<c:set var="m_week_distinct_usage_hours_all" value="${0 + distinctUsageHours['평일_2009_남'] + distinctUsageHours['평일_2010_남'] + distinctUsageHours['평일_2011_남'] + distinctUsageHours['평일_2012_남'] + distinctUsageHours['평일_2013_남']}"/>
-				<fmt:formatNumber value="${m_week_distinct_usage_hours_all}" pattern="#,###"/>
+				<fmt:formatNumber value="${totalHours}" pattern="#,###"/>
 			</td>
-		</tr>
-		<tr>
-			<td>여</td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2009.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2009_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2010.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2010_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2011.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2011_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2012.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2012_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2013.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2013_여']}" pattern="#,###"/></td>
-			<td>
-				<c:set var="w_week_distinct_user_count_all" value="${0 + distinctUsers['평일.2009.여'] + distinctUsers['평일.2010.여'] + distinctUsers['평일.2011.여'] + distinctUsers['평일.2012.여'] + distinctUsers['평일.2013.여']}"/>
-				<fmt:formatNumber value="${w_week_distinct_user_count_all}" pattern="#,###"/>		
-			</td>
-			<td>
-				<c:set var="w_week_distinct_usage_hours_all" value="${0 + distinctUsageHours['평일_2009_여'] + distinctUsageHours['평일_2010_여'] + distinctUsageHours['평일_2011_여'] + distinctUsageHours['평일_2012_여'] + distinctUsageHours['평일_2013_여']}"/>
-				<fmt:formatNumber value="${w_week_distinct_usage_hours_all}" pattern="#,###"/>
-			</td>
-		</tr>
+			</tr>
+		</c:forEach>
 		<tr>
 			<td>합계</td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2009.남'] + distinctUsers['평일.2009.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2009_남'] + distinctUsageHours['평일_2009_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2010.남'] + distinctUsers['평일.2010.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2010_남'] + distinctUsageHours['평일_2010_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2011.남'] + distinctUsers['평일.2011.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2011_남'] + distinctUsageHours['평일_2011_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2012.남'] + distinctUsers['평일.2012.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2012_남'] + distinctUsageHours['평일_2012_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2013.남'] + distinctUsers['평일.2013.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2013_남'] + distinctUsageHours['평일_2013_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${m_week_distinct_user_count_all + w_week_distinct_user_count_all}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${m_week_distinct_usage_hours_all + w_week_distinct_usage_hours_all}" pattern="#,###"/></td>
-		</tr>
-		<tr>
-			<td rowspan="3">주말</td>
-			<td>남</td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2009.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2009_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2010.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2010_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2011.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2011_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2012.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2012_남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2013.남']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2013_남']}" pattern="#,###"/></td>
+			<c:set var="timePeriodTotalUsers" value="0"/>
+			<c:set var="timePeriodTotalHours" value="0"/>
+			<c:forEach var="year" items="${fn:split(years, ',')}">
+				<c:set var="maleUsers" value="${timePeriod}.${year}.남"/>
+				<c:set var="femaleUsers" value="${timePeriod}.${year}.여"/>
+				<c:set var="maleUsageHours" value="${timePeriod}_${year}_남"/>
+				<c:set var="femaleUsageHours" value="${timePeriod}_${year}_여"/>
+				<td>
+					<fmt:formatNumber value="${0 + distinctUsers[maleUsers] + distinctUsers[femaleUsers]}" pattern="#,###"/>
+				</td>
+				<td>
+					<fmt:formatNumber value="${0 + distinctUsageHours[maleUsageHours] + distinctUsageHours[femaleUsageHours]}" pattern="#,###"/>
+				</td>
+				<c:set var="timePeriodTotalUsers" value="${timePeriodTotalUsers + distinctUsers[maleUsers] + distinctUsers[femaleUsers]}"/>
+				<c:set var="timePeriodTotalHours" value="${timePeriodTotalHours + distinctUsageHours[maleUsageHours] + distinctUsageHours[femaleUsageHours]}"/>
+			</c:forEach>
 			<td>
-				<c:set var="m_weekend_distinct_user_count_all" value="${0 + distinctUsers['주말.2009.남'] + distinctUsers['주말.2010.남'] + distinctUsers['주말.2011.남'] + distinctUsers['주말.2012.남'] + distinctUsers['주말.2013.남']}"/>
-				<fmt:formatNumber value="${m_weekend_distinct_user_count_all}" pattern="#,###"/>
+				<fmt:formatNumber value="${timePeriodTotalUsers}" pattern="#,###"/>
 			</td>
 			<td>
-				<c:set var="m_weekend_distinct_usage_hours_all" value="${0 + distinctUsageHours['주말_2009_남'] + distinctUsageHours['주말_2010_남'] + distinctUsageHours['주말_2011_남'] + distinctUsageHours['주말_2012_남'] + distinctUsageHours['주말_2013_남']}"/>
-				<fmt:formatNumber value="${m_weekend_distinct_usage_hours_all}" pattern="#,###"/>
+				<fmt:formatNumber value="${timePeriodTotalHours}" pattern="#,###"/>
 			</td>
 		</tr>
-		<tr>
-			<td>여</td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2009.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2009_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2010.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2010_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2011.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2011_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2012.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2012_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2013.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2013_여']}" pattern="#,###"/></td>
-			<td>
-				<c:set var="w_weekend_distinct_user_count_all" value="${0 + distinctUsers['주말.2009.여'] + distinctUsers['주말.2010.여'] + distinctUsers['주말.2011.여'] + distinctUsers['주말.2012.여'] + distinctUsers['주말.2013.여']}"/>
-				<fmt:formatNumber value="${w_weekend_distinct_user_count_all}" pattern="#,###"/>		
-			</td>
-			<td>
-				<c:set var="w_weekend_distinct_usage_hours_all" value="${0 + distinctUsageHours['주말_2009_여'] + distinctUsageHours['주말_2010_여'] + distinctUsageHours['주말_2011_여'] + distinctUsageHours['주말_2012_여'] + distinctUsageHours['주말_2013_여']}"/>
-				<fmt:formatNumber value="${w_weekend_distinct_usage_hours_all}" pattern="#,###"/>
-			</td>
-		</tr>
-		<tr>
-			<td>합계</td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2009.남'] + distinctUsers['주말.2009.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2009_남'] + distinctUsageHours['주말_2009_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2010.남'] + distinctUsers['주말.2010.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2010_남'] + distinctUsageHours['주말_2010_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2011.남'] + distinctUsers['주말.2011.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2011_남'] + distinctUsageHours['주말_2011_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2012.남'] + distinctUsers['주말.2012.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2012_남'] + distinctUsageHours['주말_2012_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['주말.2013.남'] + distinctUsers['주말.2013.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['주말_2013_남'] + distinctUsageHours['주말_2013_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${m_weekend_distinct_user_count_all + w_weekend_distinct_user_count_all}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${m_weekend_distinct_usage_hours_all + w_weekend_distinct_usage_hours_all}" pattern="#,###"/></td>
-		</tr>
+	</c:forEach>
 	</tbody>
+
 	<tfoot>
-		<tr>
-			<th colspan="2">전체합계</th>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2009.남'] + distinctUsers['평일.2009.여'] + distinctUsers['주말.2009.남'] + distinctUsers['주말.2009.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2009_남'] + distinctUsageHours['평일_2009_여'] + distinctUsageHours['주말_2009_남'] + distinctUsageHours['주말_2009_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2010.남'] + distinctUsers['평일.2010.여'] + distinctUsers['주말.2010.남'] + distinctUsers['주말.2010.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2010_남'] + distinctUsageHours['평일_2010_여'] + distinctUsageHours['주말_2010_남'] + distinctUsageHours['주말_2010_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2011.남'] + distinctUsers['평일.2011.여'] + distinctUsers['주말.2011.남'] + distinctUsers['주말.2011.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2011_남'] + distinctUsageHours['평일_2011_여'] + distinctUsageHours['주말_2011_남'] + distinctUsageHours['주말_2011_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2012.남'] + distinctUsers['평일.2012.여'] + distinctUsers['주말.2012.남'] + distinctUsers['주말.2012.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2012_남'] + distinctUsageHours['평일_2012_여'] + distinctUsageHours['주말_2012_남'] + distinctUsageHours['주말_2012_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsers['평일.2013.남'] + distinctUsers['평일.2013.여'] + distinctUsers['주말.2013.남'] + distinctUsers['주말.2013.여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${0 + distinctUsageHours['평일_2013_남'] + distinctUsageHours['평일_2013_여'] + distinctUsageHours['주말_2013_남'] + distinctUsageHours['주말_2013_여']}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${m_week_distinct_user_count_all + w_week_distinct_user_count_all + m_weekend_distinct_user_count_all + w_weekend_distinct_user_count_all}" pattern="#,###"/></td>
-			<td><fmt:formatNumber value="${m_week_distinct_usage_hours_all + w_week_distinct_usage_hours_all + m_weekend_distinct_usage_hours_all + w_weekend_distinct_usage_hours_all}" pattern="#,###"/></td>
-		</tr>
+	<tr>
+		<th colspan="2">전체합계</th>
+		<c:set var="grandTotalUsers" value="0"/>
+		<c:set var="grandTotalHours" value="0"/>
+		<c:forEach var="year" items="${fn:split(years, ',')}">
+			<c:set var="totalWeekDaysMaleUsers" value="평일.${year}.남"/>
+			<c:set var="totalWeekDaysFemaleUsers" value="평일.${year}.여"/>
+			<c:set var="totalWeekDaysMaleUsageHours" value="평일_${year}_남"/>
+			<c:set var="totalWeekDaysFemaleUsageHours" value="평일_${year}_여"/>
+
+			<c:set var="totalWeekEndsMaleUsers" value="주말.${year}.남"/>
+			<c:set var="totalWeekEndsFemaleUsers" value="주말.${year}.여"/>
+			<c:set var="totalWeekEndsMaleUsageHours" value="주말_${year}_남"/>
+			<c:set var="totalWeekEndsFemaleUsageHours" value="주말_${year}_여"/>
+
+			<td>
+				<fmt:formatNumber value="${0 + distinctUsers[totalWeekDaysMaleUsers] + distinctUsers[totalWeekDaysFemaleUsers] + distinctUsers[totalWeekEndsMaleUsers] + distinctUsers[totalWeekEndsFemaleUsers]}" pattern="#,###"/>
+			</td>
+			<td>
+				<fmt:formatNumber value="${0 + distinctUsageHours[totalWeekDaysMaleUsageHours] + distinctUsageHours[totalWeekDaysFemaleUsageHours] + distinctUsageHours[totalWeekEndsMaleUsageHours] + distinctUsageHours[totalWeekEndsFemaleUsageHours]}" pattern="#,###"/>
+			</td>
+			<c:set var="grandTotalUsers" value="${grandTotalUsers + distinctUsers[totalWeekDaysMaleUsers] + distinctUsers[totalWeekDaysFemaleUsers] + distinctUsers[totalWeekEndsMaleUsers] + distinctUsers[totalWeekEndsFemaleUsers]}"/>
+			<c:set var="grandTotalHours" value="${grandTotalHours + distinctUsageHours[totalWeekDaysMaleUsageHours] + distinctUsageHours[totalWeekDaysFemaleUsageHours] + distinctUsageHours[totalWeekEndsMaleUsageHours] + distinctUsageHours[totalWeekEndsFemaleUsageHours]}"/>
+		</c:forEach>
+		<td>
+			<fmt:formatNumber value="${grandTotalUsers}" pattern="#,###"/>
+		</td>
+		<td>
+			<fmt:formatNumber value="${grandTotalHours}" pattern="#,###"/>
+		</td>
+	</tr>
 	</tfoot>
 </table>
