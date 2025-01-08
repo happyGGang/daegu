@@ -61,10 +61,6 @@ $(function() {
 		PopupVirtualKeyboard.toggle('title', 'vk');
 	});
 
-	//전체 선택
-	$('#checkAll').change(function (e) {
-		$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
-	});
 
 	$('a#addMyLib').on('click', function (e) {
 		e.preventDefault();
@@ -182,87 +178,6 @@ $(function() {
 
 	<c:if test="${librarySearch.totalDataCount > 0}">
 	location.href = '#search-btn';
-	</c:if>
-
-	<c:if test="${empty librarySearch.title}">
-	</c:if>
-
-	<c:if test="${empty librarySearch.title}">
-		<c:choose>
-			<c:when test="${fn:contains(librarySearch.libraryCodes, 'ALL')}">
-				$('div#libraryList input:checkbox').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'bolli'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BX').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'seongseo'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BU').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'dalseolib'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BW').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'kids'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BV').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'english'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BZ').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'family'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BY').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'buks'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_GJ').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_GL').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_GM').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_GN').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_GP').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_HB').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_HD').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_HE').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'junggu'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_FS').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FF').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FQ').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FY').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_GG').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_HA').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_HF').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'dalseongsmall'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-			</c:when>
-			<c:when test="${context_path eq 'dssmalllib'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_FA').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FB').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FC').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FD').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FW').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_FX').prop('checked', true);
-				$('div#libraryList input:checkbox.lib_GK').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'sincheon'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_CB').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'muhaksup'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BH').prop('checked', true);
-			</c:when>
-			<c:when test="${context_path eq 'padong'}">
-				$('div#libraryList input:checkbox').prop('checked', false);
-				$('div#libraryList input:checkbox.lib_BG').prop('checked', true);
-			</c:when>
-		</c:choose>
 	</c:if>
 
 	<c:if test="${param.startpoint eq 'metaverse_pc'}">
