@@ -6,16 +6,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="java.util.Random"%>
 <%
-Random rnd = new Random();
-int listNum1 = rnd.nextInt(10);
-int listNum2 = 0;
-int listNum3 = 0;
-do {
-listNum2 = rnd.nextInt(10);
-} while (listNum1 == listNum2);
-do {
-listNum3 = rnd.nextInt(10);
-} while (listNum1 == listNum3 || listNum2 == listNum3);
+    Random rnd = new Random();
+    int listNum1 = rnd.nextInt(10);
+    int listNum2 = 0;
+    int listNum3 = 0;
+
+    // Ensure listNum2 is unique from listNum1
+    do {
+        listNum2 = rnd.nextInt(10);
+    } while (listNum1 == listNum2);
+
+    // Ensure listNum3 is unique from listNum1 and listNum2
+    do {
+        listNum3 = rnd.nextInt(10);
+    } while (listNum1 == listNum3 || listNum2 == listNum3);
 %>
 <html lang="ko">
 <body>
@@ -28,29 +32,38 @@ listNum3 = rnd.nextInt(10);
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common/jquery.fullpage.js"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common/jquery.swiper.min.js"></script>
 <script type="text/javascript">
-	$(function() {
-		$("#homeup").click(function () {
-			$("body,html").animate({
-				scrollTop: 0
-			}, 800);
-			return false;
-		});
+    $(function () {
+        $("#homeup").click(function () {
+            $("body,html").animate(
+                {
+                    scrollTop: 0,
+                },
+                800
+            );
+            return false;
+        });
 
         // 팝업 관련 코드 START
         $(".close-btn").on("click", function () {
             var $this = $(this);
-            var checkInput = $this.parent().find('input[data-day="' + $this.data("day") + '"]');
+            var checkInput = $this
+                .parent()
+                .find('input[data-day="' + $this.data("day") + '"]');
             var popupId = checkInput.val();
             if (checkInput.prop("checked")) {
                 var todayDate = new Date();
                 todayDate = new Date(
-                    parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+                    parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000
+                );
                 if ($this.data("day") == 7) {
                     todayDate.setDate(todayDate.getDate() + 7);
                 }
-                document.cookie = popupId + "=no"
-                    + "; path=/; expires="
-                    + todayDate.toGMTString() + ";";
+                document.cookie =
+                    popupId +
+                    "=no" +
+                    "; path=/; expires=" +
+                    todayDate.toGMTString() +
+                    ";";
             }
 
             $("div#" + popupId).hide();
@@ -76,8 +89,7 @@ listNum3 = rnd.nextInt(10);
                     result = unescape(document.cookie.substring(y, endOfCookie));
                 }
                 x = document.cookie.indexOf(" ", x) + 1;
-                if (x == 0)
-                    break;
+                if (x == 0) break;
             }
 
             if (result != "no") {
@@ -123,22 +135,22 @@ listNum3 = rnd.nextInt(10);
         </div>
     </c:if>
 
-	<tiles:insertAttribute name="top" />
-	<tiles:insertAttribute name="topMenu" />
+    <tiles:insertAttribute name="top"/>
+    <tiles:insertAttribute name="topMenu"/>
 
-	<div class="popupWrap main-section">
-		<div id="popupLayer">
-			<homepageTag:popup popupList="${popupList}" />
-		</div>
-	</div>
+    <div class="popupWrap main-section">
+        <div id="popupLayer">
+            <homepageTag:popup popupList="${popupList}"/>
+        </div>
+    </div>
 
-	<form name="mainSearchForm" id="mainSearchForm" method="get" action="/${homepage.context_path}/intro/search/index.do">
-		<input type="hidden" name="menu_idx" id="menu_idx" value="9" />
-		<input type="hidden" name="booktype" id="booktype" value="BOOKANDNONBOOK">
-		<input type="hidden" name="search_type" id="search_type" value="">
-		<input type="hidden" name="title" id="search_text" value="">
-		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
-	</form>
+    <form name="mainSearchForm" id="mainSearchForm" method="get" action="/${homepage.context_path}/intro/search/index.do">
+        <input type="hidden" name="menu_idx" id="menu_idx" value="9"/>
+        <input type="hidden" name="booktype" id="booktype" value="BOOKANDNONBOOK"/>
+        <input type="hidden" name="search_type" id="search_type" value=""/>
+        <input type="hidden" name="title" id="search_text" value=""/>
+        <input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
+    </form>
 
     <div id="fullpage">
         <!-- main0 -->
@@ -234,7 +246,9 @@ listNum3 = rnd.nextInt(10);
                     <div class="board_header">
                         <div class="board_title" id="board_title">NOTICE</div>
                         <div class="board_navigation">
-                            <div class="board_navigation_menu board_navigation_menu_active">공지사항</div>
+                            <div class="board_navigation_menu board_navigation_menu_active">
+                                공지사항
+                            </div>
                             <div class="board_navigation_menu">행사안내</div>
                             <div>
                                 <a id="more_link" href="/${homepage.context_path}/board/index.do?menu_idx=46&manage_idx=1283" style="width: 40px; height: 40px; display: block">
@@ -321,6 +335,7 @@ listNum3 = rnd.nextInt(10);
 
         <!-- main2 -->
         <div class="section" id="main3">
+            <div class="gradient"></div>
             <div class="main2_wrapper">
                 <div class="book_list_header">
                     <div class="book_list_title" id="book_title">LIBRARY BOOK</div>
@@ -333,20 +348,20 @@ listNum3 = rnd.nextInt(10);
                 <!-- 신착도서-->
                 <div class="book_list_wrapper" id="newBook_list" data-tab="tab2" style="display: none"></div>
             </div>
+        </div>
 
-            <div class="banner-box">
-                <div class="main-section">
-                    <div class="main7_banner">
-                        <div class="banner-wrap type4">
-                            <div class="banner-t4">
-                                <div class="control">
-                                    <a class="prev" href="#prev"><img src="/resources/homepage/${homepage.context_path}/img/banner-prev.png" alt="이전"/><span class="blind">이전</span></a>
-                                    <a class="next" href="#next"><img src="/resources/homepage/${homepage.context_path}/img/banner-next.png" alt="다음"/><span class="blind">다음</span></a>
-                                </div>
+        <div class="banner-box">
+            <div class="main-section">
+                <div class="main7_banner">
+                    <div class="banner-wrap type4">
+                        <div class="banner-t4">
+                            <div class="control">
+                                <a class="prev" href="#prev"><img src="/resources/homepage/${homepage.context_path}/img/banner-prev.png" alt="이전"/><span class="blind">이전</span></a>
+                                <a class="next" href="#next"><img src="/resources/homepage/${homepage.context_path}/img/banner-next.png" alt="다음"/><span class="blind">다음</span></a>
                             </div>
-                            <div class="banner-box4">
-                                <homepageTag:banner bannerList="${bannerList}"/>
-                            </div>
+                        </div>
+                        <div class="banner-box4">
+                            <homepageTag:banner bannerList="${bannerList}"/>
                         </div>
                     </div>
                 </div>
@@ -503,8 +518,7 @@ listNum3 = rnd.nextInt(10);
             $(this).removeClass("book_list_navigation_active");
         }
     });
-
-    let isLoading = false; // 로딩 상태 플래그
+    let isLoading = false; // 로딩 상태
 
     $(".book_list_navigation").click(function () {
         if (isLoading) return; // 로딩 중이면 실행 중단
@@ -516,36 +530,33 @@ listNum3 = rnd.nextInt(10);
         $(".book_list_navigation").removeClass("book_list_navigation_active");
         $(this).addClass("book_list_navigation_active");
 
-        // 기존 콘텐츠 제거
         $("div#recommendBook_list .swiper-wrap-box, div#newBook_list .swiper-wrap-box").remove();
 
         // 로딩 이미지 및 감싸는 div 생성
-        const loadingDiv = `
-          <div id="loadingWrapper" style="text-align: center; margin: 20px 0;">
-            <img id="loadingImage" src="https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif" alt="로딩 중" style="width: 100px; height: 100px;">
-          </div>`;
+        var loadingDiv = `
+            <div id="loadingWrapper" style="text-align: center;margin-top: 100px">
+                <img id="loadingImage" src="https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif" alt="로딩 중" style="width: 100px; height: 100px;">
+            </div>`;
         $(".book_list_wrapper").hide(); // 기존 콘텐츠 숨김
         $("#recommendBook_list").after(loadingDiv);
 
         // 클릭한 메뉴에 따라 콘텐츠 표시/숨기기
-        const menuText = $(this).text().trim();
-        if (menuText === "추천도서") {
+        if ($(this).text().trim() === "추천도서") {
             $("#recommendBook_list").show();
             $("#book_title").text("LIBRARY BOOK");
             $("#recommendBook_list").load("recommendBook.do", function () {
-                $("#loadingWrapper").remove(); // 로딩 div 제거
+            $("#loadingWrapper").remove(); // 로딩 div 제거
                 isLoading = false; // 로딩 완료
             });
-        } else if (menuText === "신착도서") {
+        } else if ($(this).text().trim() === "신착도서") {
             $("#newBook_list").show();
             $("#book_title").text("NEW BOOK");
             $("#newBook_list").load("newBook.do", function () {
-                $("#loadingWrapper").remove(); // 로딩 div 제거
-                isLoading = false; // 로딩 완료
+              $("#loadingWrapper").remove(); // 로딩 div 제거
+              isLoading = false; // 로딩 완료
             });
         }
     });
-
 </script>
 </body>
 </html>

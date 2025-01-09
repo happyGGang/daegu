@@ -1,7 +1,7 @@
-<%@ page language="java" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <div class="swiper-wrap-box">
     <div class="top_swiper">
@@ -45,7 +45,6 @@
 
 <script>
     $(document).ready(function () {
-        // 추천, 신착도서 상단 슬라이더
         var topSwiper = new Swiper(".top_swiper .swiper", {
             spaceBetween: 35,
             slidesPerView: 3,
@@ -58,13 +57,13 @@
                 delay: 5000,
             },
             breakpoints: {
-                768: {
-                    // 768px 이상
-                    spaceBetween: 35, // spaceBetween 값을 명시적으로 설정
+                0: {
+                    spaceBetween: 2, // 0px ~ 767px
+                }, 479: {
+                    spaceBetween: 4,
                 },
-                767: {
-                    // 767px 이하
-                    spaceBetween: 14,
+                768: {
+                    spaceBetween: 35, // 768px 이상
                 },
             },
         });
@@ -78,18 +77,17 @@
                 delay: 5000,
             },
             breakpoints: {
-                768: {
-                    // 768px 이상
-                    spaceBetween: 35, // spaceBetween 값을 명시적으로 설정
+                0: {
+                    spaceBetween: 2, // 0px ~ 767px
+                }, 479: {
+                    spaceBetween: 4,
                 },
-                767: {
-                    // 767px 이하
-                    spaceBetween: 14,
+                768: {
+                    spaceBetween: 35, // 768px 이상
                 },
             },
         });
 
-        // 슬라이더 동기화
         topSwiper.on("slideChange", function () {
             bottomZoneSwiper.slideToLoop(topSwiper.realIndex); // 동기화
         });
@@ -97,5 +95,12 @@
         bottomZoneSwiper.on("slideChange", function () {
             topSwiper.slideToLoop(bottomZoneSwiper.realIndex); // 동기화
         });
+
+        // Window resize 시 업데이트
+        $(window).resize(function () {
+            topSwiper.update();
+            bottomZoneSwiper.update();
+        });
     });
+
 </script>

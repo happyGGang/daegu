@@ -29,7 +29,7 @@
 
     <div class="bottom_swiper">
         <div class="swiper">
-            <div class="swiper-wrapper">
+            <diV class="swiper-wrapper">
                 <c:forEach items="${bookList2}" var="i" varStatus="status">
                     <div class="swiper-slide">
                         <div class="book_thumbnail" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=15&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'">
@@ -39,14 +39,13 @@
                         <img class="book_img" src="${i.preview_img}" alt="${i.title}" onerror="this.src='/resources/common/img/noImg2.png';"/>
                     </div>
                 </c:forEach>
-            </div>
+            </diV>
         </div>
     </div>
 </div>
 
 <script>
     $(document).ready(function () {
-        // 추천, 신착도서 상단 슬라이더
         var topSwiper = new Swiper(".top_swiper .swiper", {
             spaceBetween: 35,
             slidesPerView: 3,
@@ -59,13 +58,13 @@
                 delay: 5000,
             },
             breakpoints: {
-                768: {
-                    // 768px 이상
-                    spaceBetween: 35, // spaceBetween 값을 명시적으로 설정
+                0: {
+                    spaceBetween: 2, // 0px ~ 767px
+                }, 479: {
+                    spaceBetween: 4, // 768px 이상
                 },
-                767: {
-                    // 767px 이하
-                    spaceBetween: 14,
+                768: {
+                    spaceBetween: 35, // 768px 이상
                 },
             },
         });
@@ -79,18 +78,18 @@
                 delay: 5000,
             },
             breakpoints: {
-                768: {
-                    // 768px 이상
-                    spaceBetween: 35, // spaceBetween 값을 명시적으로 설정
+                0: {
+                    spaceBetween: 2, // 0px ~ 767px
                 },
-                767: {
-                    // 767px 이하
-                    spaceBetween: 14,
+                479: {
+                    spaceBetween: 4, // 768px 이상
+                },
+                768: {
+                    spaceBetween: 35, // 768px 이상
                 },
             },
         });
 
-        // 슬라이더 동기화
         topSwiper.on("slideChange", function () {
             bottomZoneSwiper.slideToLoop(topSwiper.realIndex); // 동기화
         });
@@ -98,5 +97,12 @@
         bottomZoneSwiper.on("slideChange", function () {
             topSwiper.slideToLoop(bottomZoneSwiper.realIndex); // 동기화
         });
+
+        // Window resize 시 업데이트
+        $(window).resize(function () {
+            topSwiper.update();
+            bottomZoneSwiper.update();
+        });
     });
+
 </script>

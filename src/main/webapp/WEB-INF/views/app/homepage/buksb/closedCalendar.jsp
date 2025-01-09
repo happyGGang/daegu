@@ -73,17 +73,26 @@
         });
     });
 </script>
-
+<c:set var="calendarMonth" value="${fn:split(calendar.plan_date, '-')[1]}" />
 <!--휴관일 없을 때 -->
 <c:if test="${empty closeDayList.dd}">
     <div class="holiday_header">
-        <div class="holiday__title">${fn:split(calendar.plan_date, '-')[1]}월 휴관일</div>
+        <div class="holiday__title">
+            <c:choose>
+                <c:when test="${fn:substring(calendarMonth, 0, 1) == '0'}">
+                    ${fn:substring(calendarMonth, 1, fn:length(calendarMonth))}월 휴관일
+                </c:when>
+                <c:otherwise>
+                    ${calendarMonth}월 휴관일
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div class="week_navigation holiday__navigation">
             <div>
-                <img id="before-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="지난주" role="button" keyValue="${calendar.plan_date}"/>
+                <img id="before-btns" src="/resources/homepage/buksb/img/green_arrow.png" alt="지난주" role="button" keyValue="${calendar.plan_date}"/>
             </div>
             <div>
-                <img id="next-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="다음주" role="button" keyValue="${calendar.plan_date}"/>
+                <img id="next-btns" src="/resources/homepage/buksb/img/green_arrow.png" alt="다음주" role="button" keyValue="${calendar.plan_date}"/>
             </div>
             <div>
                 <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
@@ -93,9 +102,9 @@
         </div>
     </div>
 
-    <div id="holiday-box" class="holiday-section date">
-        등록된 휴관일이 없습니다.
-    </div>
+       <div id="holiday-box" class="holiday-section date" style="color: #FFFFFF;height:38px">
+         등록된 휴관일이 없습니다.
+       </div>
 
     <div class="holiday_caption">
         서변숲도서관은 1·3째 월요일과 법정 공휴일에 휴관합니다.
@@ -106,13 +115,22 @@
     <c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
 
     <div class="holiday_header">
-        <div class="holiday__title">${fn:split(calendar.plan_date, '-')[1]}월 휴관일</div>
+        <div class="holiday__title">
+            <c:choose>
+                <c:when test="${fn:substring(calendarMonth, 0, 1) == '0'}">
+                    ${fn:substring(calendarMonth, 1, fn:length(calendarMonth))}월 휴관일
+                </c:when>
+                <c:otherwise>
+                    ${calendarMonth}월 휴관일
+                </c:otherwise>
+            </c:choose>
+        </div>
         <div class="week_navigation holiday__navigation">
             <div>
-                <img id="before-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="지난주" role="button" keyValue="${calendar.plan_date}"/>
+                <img id="before-btns" src="/resources/homepage/buksb/img/green_arrow.png" alt="지난주" role="button" keyValue="${calendar.plan_date}"/>
             </div>
             <div>
-                <img id="next-btns" src="/resources/homepage/center/img/closed_day_arrow.svg" alt="다음주" role="button" keyValue="${calendar.plan_date}"/>
+                <img id="next-btns" src="/resources/homepage/buksb/img/green_arrow.png" alt="다음주" role="button" keyValue="${calendar.plan_date}"/>
             </div>
             <div>
                 <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=36">
@@ -122,16 +140,9 @@
         </div>
     </div>
     <ul id="holiday-box" class="holiday-section week_area">
-        <c:forEach items="${dd}" var="i">
+        <c:forEach items="${dd}" var="i" begin="0" end="5">
             <li>
-                <c:choose>
-                    <c:when test="${fn:substring(i, 0, 1) == '0'}">
-                        ${fn:substring(i, 1, fn:length(i))}
-                    </c:when>
-                    <c:otherwise>
-                        ${i}
-                    </c:otherwise>
-                </c:choose>
+                ${i}
             </li>
         </c:forEach>
     </ul>
