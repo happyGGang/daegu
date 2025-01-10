@@ -388,7 +388,19 @@
 				</ul>
 			</div>
 		</div>
+<script>
+    $(document).ready(function () {
+    // 탭 메뉴 클릭 이벤트
+    $('.tabMenuZ .t-tabs').on('click', function (e) {
+      e.preventDefault(); // 기본 클릭 동작 방지
+      const link = $(this).data('link'); // 클릭된 탭의 data-link 값을 가져옴
 
+      // 더보기 버튼의 href 속성 변경
+      $('.more-btn').attr('href', link);
+    });
+  });
+
+</script>
 
 		<div class="main2">
 			<div class="section">
@@ -396,12 +408,14 @@
 					<div class="book tab-box">
 						<div class="title">
 							<ul class="tabMenuZ">
-								<li class="on" data-value="#tab1"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class='t-tabs'>전시회</a></li>
-								<li data-value="#tab2"><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class='t-tabs'>가족영화</a></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+							<li class="on" data-value="#tab2"><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class='t-tabs'>가족영화</a></li>
+								<li data-value="#tab1"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=189&manage_idx=145" class='t-tabs'>전시회</a></li>
+								
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157" class="more-btn more-more"><img src="/resources/homepage/${homepage.context_path}/img/more_bt.png" alt="더보기"/></a></li>
+
 							</ul>
 						</div>
-						<div class="box con clt" id="tab1" data-tab="tab1" style="z-index:2;">
+						<div class="box con clt" id="tab1" data-tab="tab1" style="z-index:1;">
 							<div class="movieContent">
 								<ul class="book_photo">
 									<c:forEach var="i" varStatus="status" items="${exhibitionList}">
@@ -435,10 +449,15 @@
 										</li>
 									</c:forEach>
 									<c:if test="${fn:length(exhibitionList) < 1}">
+
 										<li>
 											<a href="javascript:alert('등록된 전시가 없습니다.'); return false;">
+											<span class="movieImg">
 												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}">
+												</span>
+												<span class="movieEx" style="text-align:center;">
 												<strong class="title">등록된 전시가 없습니다.</strong>
+												</span>
 											</a>
 										</li>
 									</c:if>
@@ -446,7 +465,7 @@
 							</div>
 						</div>
 
-						<div class="box con clt" id="tab2" data-tab="tab2" style="z-index:1;">
+						<div class="box con clt" id="tab2" data-tab="tab2" style="z-index:2;">
 							<div class="movieContent2">
 								<ul class="book_photo movieB">
 									<c:forEach var="i" varStatus="status" items="${movieList}" >

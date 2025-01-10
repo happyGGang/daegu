@@ -107,9 +107,9 @@ function link()
 							
 							</h3>
 							<!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
-							<c:if test="${param.menu_idx eq '138' || param.menu_idx eq '148' || param.menu_idx eq '144' || param.menu_idx eq '145' || param.menu_idx eq '152'}">
-								<div style="box-sizing:border-box;padding:3px 7px;position:absolute;right:0;top:2px;font-size:12px;"><p style="font-size:12px;text-align:right;">회계연도 업무 마감에 따라 <span style="color:red;font-weight:bolder;">2024.12.6.(금)까지 대출 반납 배송 요청 가능</span>, 이후 요청건은 2025.1.2.(목)부터 택배 진행</p><!--<a href="/228/board/view.do?menu_idx=136&manage_idx=210&board_idx=505401&viewPage=1&category1" class="btn btn4" style="padding:1px 7px;">자세히보기</a>--></div>
-							</c:if>
+							<!--<c:if test="${param.menu_idx eq '138' || param.menu_idx eq '148' || param.menu_idx eq '144' || param.menu_idx eq '145' || param.menu_idx eq '152'}">
+								<div style="box-sizing:border-box;padding:3px 7px;position:absolute;right:0;top:2px;font-size:12px;"><p style="font-size:12px;text-align:right;">회계연도 업무 마감에 따라 <span style="color:red;font-weight:bolder;">2024.12.6.(금)까지 대출 반납 배송 요청 가능</span>, 이후 요청건은 2025.1.2.(목)부터 택배 진행</p><!--<a href="/228/board/view.do?menu_idx=136&manage_idx=210&board_idx=505401&viewPage=1&category1" class="btn btn4" style="padding:1px 7px;">자세히보기</a>--><!--</div>
+							</c:if>-->
 						</div>
 					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">

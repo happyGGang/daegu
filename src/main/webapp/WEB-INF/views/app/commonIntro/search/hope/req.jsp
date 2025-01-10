@@ -101,8 +101,7 @@
 <!-- /contents-title-->
 <c:if test="${homepage.context_path eq 'dalseolib'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
-		* 달서가족문화도서관, 도원도서관, 본리도서관, 달서어린이도서관 예산소진으로 서비스 종료(2025년 02월부터 신청 가능)<br>
-		* 성서도서관 희망도서 신청 중지
+		* 달서가족문화도서관, 도원도서관, 본리도서관, 달서어린이도서관, 달서영어도서관, 성서도서관 예산소진으로 서비스 종료<br> (2025년 02월부터 신청 가능)
 	</p>
 </c:if>
 
