@@ -95,11 +95,18 @@ ${boardManage.top_html}
 <!-- 				</dd> -->
 <!-- 			</dl> -->
 		</div>
-		<div class="bbs-view-header">
-			<dl>
-				<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
-			</dl>
-		</div>
+		<c:choose>
+			<c:when test="${boardManage.manage_idx eq '170'}">
+
+			</c:when>
+			<c:otherwise>
+				<div class="bbs-view-header">
+					<dl>
+						<jsp:include page="/WEB-INF/views/app/board/common/view/file.jsp" flush="false" />
+					</dl>
+				</div>
+			</c:otherwise>
+		</c:choose>
 		<div class="bbs-comment" id="bbs-comment">
 			
 		</div>
