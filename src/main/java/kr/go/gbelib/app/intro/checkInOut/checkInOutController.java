@@ -328,7 +328,7 @@ public class checkInOutController extends BaseController {
 			}
 		}
 	}
-	
+
 	private boolean checkGreens(Member member) {
 		String birth = member.getBirth_day();
 		birth = birth.substring(0, 4);
@@ -337,6 +337,6 @@ public class checkInOutController extends BaseController {
 
 		int age = currentYear - Integer.parseInt(birth);
 
-        return (age <= 14 && age >= 10);
+		return (age <= 15 && age >= 10);
 	}
 }
