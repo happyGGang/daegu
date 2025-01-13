@@ -44,6 +44,11 @@ $(function() {
 		}
 	});
 
+	//전체 선택
+	$('#checkAll').change(function (e) {
+		$('div#libraryList input:checkbox, div#mapWrap input:checkbox').prop('checked', $(this).prop('checked'));
+	});
+
 	//텍스트 목록형
 	$('.listView').on('click', function (e) {
 		e.preventDefault();
