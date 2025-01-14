@@ -263,6 +263,8 @@ do {
                   <span>원고개</span> </a> </li>
 				<li> <a href="https://band.us/@newpeongri" target="_blank"> <img src="/resources/homepage/seogulib/img/naver_band_newpeongri.png"><br/>
                   <span>New평리</span> </a> </li>
+				<li> <a href="https://band.us/band/96284517" target="_blank"> <img src="/resources/homepage/seogulib/img/naver_band_kidsEnglish.png"><br/>
+                  <span>어린이영어</span> </a> </li>
               </ul>
             </div>
             <!--//naver band--> 
@@ -311,7 +313,7 @@ do {
               <h5><span>네이버</span> 밴드 ON</h5>
               <ul>
                 <li> <a href="https://band.us/@seoguchildlib"> <img src="/resources/homepage/seogulib/img/naver_band_child.png"><br/>
-                  <span class="m_none">서구어린이</span> <span class="pc_none">어린이</span> </a> </li>
+                  <span class="m_none">서구어린이</span> <span class="pc_none">서구어린이</span> </a> </li>
                 <li> <a href="https://band.us/@bisanlib"> <img src="/resources/homepage/seogulib/img/naver_band_bisan.png"><br/>
                   <span>비산</span> </a> </li>
                 <li> <a href="https://band.us/@selibrary"> <img src="/resources/homepage/seogulib/img/naver_band_english.png"><br/>
@@ -322,6 +324,8 @@ do {
                   <span>원고개</span> </a> </li>
 				<li> <a href="https://band.us/@newpeongri"> <img src="/resources/homepage/seogulib/img/naver_band_newpeongri.png"><br/>
                   <span>New평리</span> </a> </li>
+				<li> <a href="https://band.us/band/96284517" target="_blank"> <img src="/resources/homepage/seogulib/img/naver_band_kidsEnglish.png"><br/>
+                  <span>어린이영어</span> </a> </li>
               </ul>
             </div>
             <!--//naver band--> 

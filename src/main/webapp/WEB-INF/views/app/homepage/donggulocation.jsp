@@ -29,7 +29,7 @@
 					<p>대구광역시립동부도서관</p>
 				</div>
 				<div class="txt">
-					<p class="add">동구 신암북로 11길 54</p>
+					<p class="add">동구 도평로 30(임시도서관)</p>
 					<p class="tel">053-231-2200</p>
 				</div>
 			</div>
@@ -331,7 +331,7 @@ jQuery(function($){
 		optionss.x='35.8901537';
 		optionss.y='128.6216009';
 
-		daegu_map_data.push({idx:'59',title:'대구광역시립동부도서관', tel : '053-231-2200', point:{x:'35.8901537',y:'128.6216009'}, address:'대구광역시 동구 신암북로 11길 54',no:'1' });
+		daegu_map_data.push({idx:'59',title:'대구광역시립동부도서관', tel : '053-231-2200', point:{x:'35.9076983',y:'128.6443884'}, address:'동구 도평로 30(임시도서관)',no:'1' });
 	
 		daegu_map_data.push({idx:'58',title:'대구2ㆍ28기념학생도서관', tel : '053-980-2600', point:{x:'35.8905698',y:'128.6337372'}, address:'대구광역시 동구 금호강변로 360',no:'2' });
 	

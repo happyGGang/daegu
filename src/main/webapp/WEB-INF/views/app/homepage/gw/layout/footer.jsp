@@ -47,6 +47,7 @@
 					<div class="info-right">
 						<div class="site_link">
 							<select name="select" id="library-location-select" title="새창열림">
+								<option value="#">대구광역시 공공도서관</option>
 								<option value="http://library.daegu.go.kr/dgportal/index.do">대구광역시통합도서관</option>
 								<option value="http://library.daegu.go.kr/228/index.do">대구2ㆍ28기념학생도서관</option>
 								<option value="http://library.daegu.go.kr/228lib/index.do">대구2ㆍ28민주운동기념회관</option>

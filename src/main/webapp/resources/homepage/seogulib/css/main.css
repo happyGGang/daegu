@@ -81,9 +81,9 @@
 .section01 .sec01-2 .sec01-2-2 .naver_band{position:relative;width:252px;height:252px;background:#fff;text-align:center;}
 .section01 .sec01-2 .sec01-2-2 .naver_band h5{padding-top:30px;font-size:20px;font-weight:bold;letter-spacing:-0.5px;}
 .section01 .sec01-2 .sec01-2-2 .naver_band h5 span{color:#19ce21;}
-.section01 .sec01-2 .sec01-2-2 .naver_band ul{position:relative;margin:0 auto;width:210px;}
-.section01 .sec01-2 .sec01-2-2 .naver_band ul li{float:left;width:70px;text-align:center;padding:14px 0;}
-.section01 .sec01-2 .sec01-2-2 .naver_band ul li span{font-size:14px;color:#222;letter-spacing:-0.5px;font-weight:bold;padding-top:8px;}
+.section01 .sec01-2 .sec01-2-2 .naver_band ul{position:relative;margin:0 auto;padding:0 10px;}
+.section01 .sec01-2 .sec01-2-2 .naver_band ul li{float:left;width:25%;text-align:center;padding:14px 0;}
+.section01 .sec01-2 .sec01-2-2 .naver_band ul li span{font-size:13px;color:#222;letter-spacing:-1px;font-weight:bold;padding-top:8px;}
 
 .section01 .sec01-2-tab{display:none;}
 
@@ -301,9 +301,9 @@
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band{float:left;position:relative;width:66.7%;height:230px !important;background:#fff;text-align:center;}
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band h5{padding-top:50px;font-size:22px;font-weight:bold;letter-spacing:-0.5px;}
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band h5 span{color:#19ce21;}
-	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul{position:relative;margin:0 auto;width:90%;padding-top:25px;}
-	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li{float:left;width:16.6%;text-align:center;}
-	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li span{display:table-cell;font-size:15px;color:#222;letter-spacing:-0.5px;font-weight:bold;padding-top:10px;}
+	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul{position:relative;margin:0 auto;width:90%;padding-top:25px; display:flex; justify-content: space-between;}
+	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li{float:left;width:14%;text-align:center;}
+	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li span{display:table-cell;font-size:14px;color:#222;letter-spacing:-1px;font-weight:bold;padding-top:10px;}
 
 	.section01 .sec01-3{width:100%;}
 	.section01 .sec01-3 .title{float:left;}
@@ -461,10 +461,10 @@
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band{float:left;position:relative;width:66.7%;height:50px;background:#fff;text-align:center;}
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band h5{display:none;padding-top:50px;font-size:22px;font-weight:bold;letter-spacing:-0.5px;}
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band h5 span{color:#19ce21;}
-	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul{position:relative;margin:0 auto;width:90%;padding-top:18px;}
-	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li{float:left;width:16.6%;text-align:center;position:relative;line-height:0;}
+	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul{position:relative;margin:0 auto;width:90%;padding-top:18px; display:flex; justify-content: space-between;}
+	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li{float:left;width:14%;text-align:center;position:relative;line-height:0;}
 	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li a img{width:18px;margin-top:-10px;}
-	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li span{font-size:11px;color:#222;letter-spacing:-0.5px;font-weight:bold;line-height:20px;}
+	.section01 .sec01-2-tab .sec01-2-2 .naver_band ul li span{font-size:11px;color:#222;letter-spacing:-1px;font-weight:bold;line-height:20px;}
 
 	.section01 .sec01-3{width:100%;padding-top:20px;}
 	.section01 .sec01-3 .title{float:right;margin-bottom:15px;}
