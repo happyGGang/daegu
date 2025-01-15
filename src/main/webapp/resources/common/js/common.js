@@ -349,15 +349,15 @@ $(document).ready(function() {
 			} else if ( url.indexOf('elib') != -1) {
 				$('div#sub-container div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			} else if ( url.indexOf('libculture') != -1 || url.indexOf('nearbylib') != -1 ) {
-
 			} else {
 				$('div#container > div.section > div.content > div.doc').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			}
 
+			$('div#container > div.sub-visual ').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			$('div#qrcodeView').html('');
 
 			url = encodeURIComponent(url);
-			var src = 'http://chart.apis.google.com/chart?cht=qr&chof=gif&chl='+url+'&choe=UTF-8&chld=H|0&chs=' + size + 'x' + size;
+			var src = 'https://api.qrserver.com/v1/create-qr-code/?size='+size+'x'+size+'&data='+url;
 
 			if (url.indexOf('libculture') != -1 || url.indexOf('nearbylib') != -1 ) {
 				$('div#qrcodeView').html('<img style="max-width:'+size+'px; max-height:'+size+'px; width:'+size+'px; height:'+size+'px;" alt="QR코드" src="' + src + '">');
