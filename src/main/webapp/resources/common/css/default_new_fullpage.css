@@ -557,7 +557,7 @@ transform:translatez(0);
 
 /* 서브페이지 공유버튼 */
 div#share_layer {display:none;position:absolute;top:55px;right:0;background:#fff;overflow:hidden;height:63px;z-index:7}
-div.shareAllBtns ul.shareBox {position:relative;width:180px;}
+div.shareAllBtns ul.shareBox {position:relative;width:max-content;}
 div.shareAllBtns ul.shareBox > li {border:0;padding:0;width:32px;height:32px;margin:5px;display:inline-block;}
 div.shareAllBtn ul.shareBox li:last-child {padding:0;margin:0;}
 div.shareAllBtn ul.shareBox li > img.shareIcon {padding:0;margin:0}
