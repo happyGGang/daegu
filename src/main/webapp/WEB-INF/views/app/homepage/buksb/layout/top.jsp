@@ -32,8 +32,20 @@
 <!-- 				</ul> -->
 			</div>
 
+<!-- 			<div class="mmode m-menu"> -->
+<!-- 				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a> -->
+<!-- 			</div> -->
+
+
+<!-- 			<div class="mmode m-menu"> -->
+<!-- 				<a href="#menu"><img src="/resources/homepage/buksb/img/sitemap_icon_white.png" alt="menu"  style='margin-top:11px'><span class="blind">메뉴</span></a> -->
+<!-- 			</div> -->
+
 			<div class="mmode m-menu">
-				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
+				<a href="#menu">
+					<div style="background: url('/resources/homepage/buksb/img/sitemap_icon_black.png') center center no-repeat;width:24px;height:18px;margin-top:11px"></div>
+					<span class="blind">메뉴</span>
+				</a>
 			</div>
 
 			<div class="util">

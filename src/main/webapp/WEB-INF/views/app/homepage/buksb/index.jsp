@@ -521,42 +521,47 @@
     let isLoading = false; // 로딩 상태
 
     $(".book_list_navigation").click(function () {
-        if (isLoading) return; // 로딩 중이면 실행 중단
+      if (isLoading) return; // 로딩 중이면 실행 중단
 
-        // 로딩 상태 시작
-        isLoading = true;
+      // 로딩 상태 시작
+      isLoading = true;
 
-        // 메뉴 상태 초기화
-        $(".book_list_navigation").removeClass("book_list_navigation_active");
-        $(this).addClass("book_list_navigation_active");
+      // 메뉴 상태 초기화
+      $(".book_list_navigation").removeClass("book_list_navigation_active");
+      $(this).addClass("book_list_navigation_active");
 
-        $("div#recommendBook_list .swiper-wrap-box, div#newBook_list .swiper-wrap-box").remove();
+      $("div#recommendBook_list .swiper-wrap-box, div#newBook_list .swiper-wrap-box").remove();
 
-        // 로딩 이미지 및 감싸는 div 생성
-        var loadingDiv = `
-            <div id="loadingWrapper" style="text-align: center;margin-top: 100px">
-                <img id="loadingImage" src="https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif" alt="로딩 중" style="width: 100px; height: 100px;">
-            </div>`;
-        $(".book_list_wrapper").hide(); // 기존 콘텐츠 숨김
-        $("#recommendBook_list").after(loadingDiv);
+      // 로딩 이미지 및 감싸는 div 생성
+      var loadingDiv = `
+        <div id="loadingWrapper" style="text-align: center;">
+            <img id="loadingImage" src="https://cdn.pixabay.com/animation/2023/08/11/21/18/21-18-05-265_512.gif"
+                alt="로딩 중" style="width: 100px; height: 100px;">
+        </div>`;
+      $(".book_list_wrapper").hide(); // 기존 콘텐츠 숨김
+      $("#recommendBook_list").after(loadingDiv);
 
-        // 클릭한 메뉴에 따라 콘텐츠 표시/숨기기
-        if ($(this).text().trim() === "추천도서") {
-            $("#recommendBook_list").show();
-            $("#book_title").text("LIBRARY BOOK");
-            $("#recommendBook_list").load("recommendBook.do", function () {
-            $("#loadingWrapper").remove(); // 로딩 div 제거
-                isLoading = false; // 로딩 완료
-            });
-        } else if ($(this).text().trim() === "신착도서") {
-            $("#newBook_list").show();
-            $("#book_title").text("NEW BOOK");
-            $("#newBook_list").load("newBook.do", function () {
-              $("#loadingWrapper").remove(); // 로딩 div 제거
-              isLoading = false; // 로딩 완료
-            });
-        }
+      // 클릭한 메뉴에 따라 콘텐츠 표시/숨기기
+      if ($(this).text().trim() === "추천도서") {
+        $("#recommendBook_list").show();
+        $("#book_title").text("LIBRARY BOOK");
+        $("#recommendBook_list").load("recommendBook.do", function () {
+          $("#loadingWrapper").remove(); // 로딩 div 제거
+          isLoading = false; // 로딩 완료
+        });
+      } else if ($(this).text().trim() === "신착도서") {
+        $("#newBook_list").show();
+        $("#book_title").text("LIBRARY BOOK");
+        $("#newBook_list").load("newBook.do", function () {
+          $("#loadingWrapper").remove(); // 로딩 div 제거
+          isLoading = false; // 로딩 완료
+        });
+      }
     });
+	
+	
+	
 </script>
+
 </body>
 </html>

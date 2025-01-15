@@ -117,10 +117,11 @@ input[type="radio"][disabled],input[type="checkbox"][disabled],input[type="radio
 {cursor:not-allowed}
 
 @media (max-width:767px){/* 태블릿 */
-	.mmm1{display:none!important}
+	.mmm1{display:none!important;}
+	.col4,.col5,.col6{display:none!important;}
 }
 @media (max-width:500px){/* 모바일 */
-	.mmm2{display:none!important}
+	.mmm2{display:none!important;}
 }
 
 .txt-bar{width:1px;height:9px;margin:0 5px;background:#e2e2e2;display:inline-block;zoom:1;*display:inline}
@@ -467,6 +468,10 @@ transform:translatez(0);
 
 @media all and (max-width:1024px){
 	#container.subpage > .sections {padding-top:0px;}
+	div.shareAllBtns ul.shareBox {
+		position: relative;
+		width: 126px !important;
+	}
 }
 
 @media all and (min-width:1025px) {
@@ -550,14 +555,14 @@ transform:translatez(0);
 .doc-info li { display: inline-block; zoom: 1; vertical-align: middle; }
 .doc-info ul li {float:left;padding:0;}
 
-.shareArea { position:absolute;right:0;bottom:10px;height:auto;display:inline-block;text-align:right;}
+.shareArea { position:absolute;right:-24px;bottom:10px;height:auto;display:inline-block;text-align:right;}
 .shareArea img { padding:0 1px;vertical-align:middle }
 .shareArea ul li, .shareArea ul li a {}
 .shareArea ul li { display: inline-block; zoom: 1; vertical-align: middle; }
 
 /* 서브페이지 공유버튼 */
-div#share_layer {display:none;position:absolute;top:55px;right:0;background:#fff;overflow:hidden;height:63px;z-index:7}
-div.shareAllBtns ul.shareBox {position:relative;width:180px;}
+div#share_layer {display:none;position:absolute;top:55px;right:0;overflow:hidden;height:63px;z-index:7}
+div.shareAllBtns ul.shareBox {position:relative;width:155px;}
 div.shareAllBtns ul.shareBox > li {border:0;padding:0;width:32px;height:32px;margin:5px;display:inline-block;}
 div.shareAllBtn ul.shareBox li:last-child {padding:0;margin:0;}
 div.shareAllBtn ul.shareBox li > img.shareIcon {padding:0;margin:0}
@@ -1702,14 +1707,14 @@ box-shadow:0px 3px 5px 0px rgba(0,0,0,0.4);
 #calendar label{font-style:normal;vertical-align:middle;font-size:13px;}
 #calendar table.cal-tbl td li span i,
 #calendar .calendar-view span i,
-#calendar .date-type span i{display:inline-block;zoom:1;*display:inline;background:url('../img/icon_schedule_r.gif') no-repeat 0 center;width:15px;height:20px}
+#calendar .date-type span i{display:inline-block;zoom:1;*display:inline;background:url('/resources/common/img/icon_schedule_r.gif') no-repeat 0 center;width:15px;height:20px}
 #calendar .date-type span{height:30px;margin-left:6px}
-#calendar span.type-r i{background-image:url('../img/icon_schedule_r.gif')!important}
-#calendar span.type-e i{background-image:url('../img/icon_schedule_e.gif')!important}
-#calendar span.type-m i{background-image:url('../img/icon_schedule_m.gif')!important}
+#calendar span.type-r i{background-image:url('/resources/common/img/icon_schedule_r.gif')!important}
+#calendar span.type-e i{background-image:url('/resources/common/img/icon_schedule_e.gif')!important}
+#calendar span.type-m i{background-image:url('/resources/common/img/icon_schedule_m.gif')!important}
 
 #calendar .calendar-view{border-bottom:1px solid #ddd;margin-bottom:10px}
-#calendar .calendar-view h2{background:url('../img/calendar_bg.jpg') no-repeat right bottom;margin-top:-50px;padding-top:50px}
+#calendar .calendar-view h2{background:url('/resources/common/img/calendar_bg.jpg') no-repeat right bottom;margin-top:-50px;padding-top:50px}
 @media all and (max-width:1000px){
 	#calendar .calendar-view h2{background-size:180px auto}
 }

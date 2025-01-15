@@ -41,8 +41,9 @@ $(function() {
 		}
 	});
 
-	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukgs/img/bukgs_logo_b.png')"); 
-	$('.m-menu a').css('color','#000');
+	$('h1.mobile-logo a').css('background',"url('/resources/homepage/buksb/img/buksb_logo_b.png') no-repeat  center center");
+	$('.m-menu a div').css('background', "url('/resources/homepage/buksb/img/sitemap_icon_white.png') no-repeat  center center");
+
 
 });
 </script>
@@ -77,7 +78,7 @@ $(function() {
 
 												<li><a href="" class="sub-twitter" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_twitter_btn.png" alt="${homepage.homepage_name} 트위터로 공유하기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
 
-												<li class="last"><a href="" class="sub-kakao" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_kakaostory_btn.png" alt="${homepage.homepage_name} 카카오스토리 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li>
+<!-- 												<li class="last"><a href="" class="sub-kakao" keyValue1="${homepage.homepage_id}" keyValue2="${menuOne.menu_idx}" keyValue3="${menuOne.menu_name}" keyValue4="${homepage.homepage_name}"><img src="/resources/common/img/sns_kakaostory_btn.png" alt="${homepage.homepage_name} 카카오스토리 바로가기" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"></a></li> -->
 
 												<li><a href="#" id="closeshareBox" class="close shareIconArea" title="닫기" ><img src="/resources/common/img/sns-close.png" alt="sns-close" class="shareIcon" style="padding-left:3px;padding-right:3px;margin:0"/></a></li>
 											</ul>

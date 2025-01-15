@@ -928,7 +928,7 @@ dt,dd{;word-break:keep-all}
 @media all and (max-width: 767px) {
 	.book_festival{width:100%;border:1px solid #e5e5e5;border-bottom:none;}
 	.book_festival .txt{width:80%;margin-left:30px;}
-	.book_festival .bg01{background:#fff3ed;border:1px solid transparent;}
+	.book_festival .bg01{background:#fff3ed;border:1px solid transparent;height: auto;}
 	.book_festival .bg02{background:#f4fcff;border:1px solid transparent;}
 	.book_festival .bg03{background:#fffee3;border:1px solid transparent;}
 	.book_festival h2{font-size:27px;color:#000;}
@@ -938,9 +938,9 @@ dt,dd{;word-break:keep-all}
 	.festival_box ul li.twin_left div, .festival_box ul li.twin_right div{height:auto !important;padding:25px 20px !important;}
 	.festival_box ul li:last-child{border:1px solid #e5e5e5;}
 	.festival_box ul li.bt_none{border-top:none;}
-
+    .festival_box_short ul li:first-child{border-bottom: none;}
 	.festival_box_short ul li{width:100%;}
-	.festival_box_short ul li.twin_left{border-right:1px solid #e5e5e5;border-bottom:none;}
+	.festival_box_short ul li.twin_left{border-right:1px solid #e5e5e5;}
 	.festival_box_short ul li.twin_left div, .festival_box_short ul li.twin_right div{height:auto !important;padding:25px 20px !important;}
 	.festival_box_short ul li:last-child{border:1px solid #e5e5e5;}
 	.festival_box_short ul li.bt_none{border-top:none;}

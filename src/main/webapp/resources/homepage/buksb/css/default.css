@@ -103,21 +103,21 @@ h1.mobile-logo {
 }
 
 #header.background-white .libSite ul li a {
-	color: #fff;
+	color: #EFEFEF;
 }
 
 #header.background-white .libSite ul li.on a {
-	background: #fff;
+	background: #EFEFEF;
 	color: #000;
 	font-weight: bold;
 }
 
 #header.background-white .tnb .util a {
-	color: #fff;
+	color: #EFEFEF;
 }
 
 #header.background-white .tnb .util b {
-	color: #fff;
+	color: #EFEFEF;
 }
 
 #header.background-white h1.web-logo a {
@@ -184,7 +184,7 @@ h1.mobile-logo {
 }
 
 .Gnb .gnb-menu>li {
-	padding: 0 1.8%;
+	padding: 0 2.3%;
 	text-align: right;
 	position: static
 }
@@ -233,7 +233,7 @@ h1.mobile-logo {
 .Gnb .gnb-menu>li>.SubMenu>li>a:hover,
 .Gnb .gnb-menu>li>.SubMenu>li>a:focus {
 	background: none;
-	color: #ff8d12;
+	color: #FFDC42;
 }
 
 .Gnb .mask,
@@ -254,13 +254,13 @@ h1.mobile-logo {
 
 .Gnb .mask,
 .Gnb .gnb-menu>li>ul {
-	background: #333;
+	background: #464F56;
 }
 
 .Gnb .gnb-menu>li.on>a,
 .Gnb .gnb-menu>li>a:hover,
 .Gnb .gnb-menu>li>a:focus {
-	color: #333;
+	color: #464F56;
 }
 
 

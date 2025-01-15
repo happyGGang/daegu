@@ -33,7 +33,7 @@
   letter-spacing: -0.7px;
   opacity: 0;
   transform: translateY(25px);
-  animation: slideIn 4s ease-in-out infinite;
+  animation: slideIn 2s ease-in forwards;
 }
 
 @keyframes slideIn {
@@ -106,7 +106,7 @@
 
 #search_text_1 {
   height: 80px;
-  padding: 0 40px 0 32px;
+  padding: 0 40px 0 20px;;
   color: #000000;
   font-family: Pretendard, serif;
   font-size: 20px;
@@ -155,8 +155,9 @@
 }
 
 .holiday_area {
+  z-index: 1;
   padding: 0 40px 0 40px;
-  width: 40%;
+  width: 37%;
   height: 200px;
   background: #009643;
   box-shadow: 8px 4px 20px 0 rgba(0, 0, 0, 0.25);
@@ -178,7 +179,7 @@
 .holiday_header {
   margin-top: 40px;
   display: flex;
-  width: 380px;
+  width: 360px;
   justify-content: space-between;
   align-items: center;
 }
@@ -195,7 +196,7 @@
 
 .holiday__navigation {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -214,12 +215,12 @@
 
 #holiday-box {
   display: flex;
-  width: 380px;
+  width: 360px;
   align-items: center;
   justify-content: left;
   margin-bottom: 20px;
   margin-top: 20px;
-  gap: 26px;
+  gap: 29px;
 }
 
 #holiday-box div {
@@ -249,19 +250,19 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  width: 380px;
+  width: 360px;
   text-align: left;
 }
 
 .quick_menu_area {
-  width: 60%;
+  width: 63%;
   display: flex;
   height: 160px;
   background: rgba(255, 255, 255, 0.90);
   backdrop-filter: blur(2.5px);
   padding: 0 30px 0 48px;
   align-items: center;
-  gap: 54px;
+  gap: 62px;
 }
 
 .quick_menu_area li a {
@@ -270,6 +271,12 @@
   gap: 6px;
   align-items: center;
   transition: all 0.3s ease;
+}
+
+.quick_menu_area li a img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
 }
 
 .quick_menu_area li a:hover {
@@ -300,7 +307,7 @@
 
 @media all and (min-width:1024px) and (max-width:1279px) {
   #main0 {
-    background: url('../img/section0-bg-01.jpg') no-repeat center top;
+    background: url('../img/section0-bg-02.png') no-repeat center top;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -315,6 +322,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
   }
 
   .main0_title_wrapper {
@@ -335,7 +345,7 @@
     letter-spacing: -0.7px;
     opacity: 0;
     transform: translateY(25px);
-    animation: slideIn 4s ease-in-out infinite;
+    animation: slideIn 4s ease-in-out forwards;
   }
 
   @keyframes slideIn {
@@ -362,10 +372,10 @@
   .search-area {
     display: flex;
     width: 100%;
-    max-width: 650px;
+    max-width: 100%;
     align-content: center;
     background: rgba(255, 255, 255, 0.90);
-    border-radius: 20px;
+    border-radius: 16px;
     margin-bottom: 150px;
     /* padding: 0 60px; */
   }
@@ -389,7 +399,7 @@
     color: #000;
     padding: 0 40px;
     border: none;
-    border-radius: 20px 0 0 20px;
+    border-radius: 16px 0 0 16px;
     background: transparent url('../img/search-arrow.png') no-repeat 90% 50%;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -427,7 +437,7 @@
     justify-content: center;
     gap: 8px;
     background: #000000;
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   #main-search-btn:hover {
@@ -457,14 +467,15 @@
   }
 
   .holiday_area {
-    padding: 0 36px 0 36px;
-    width: 48%;
+    padding: 78px 42px 78px 150px;
+    width: 60%;
     height: 260px;
     background: #009643;
     box-shadow: 8px 4px 20px 0 rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   }
 
   #holiday-box li {
@@ -482,7 +493,7 @@
   }
 
   .holiday_header {
-    margin-top: 40px;
+    margin-top: 0;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -546,27 +557,31 @@
   .quick_menu_area {
     width: 63%;
     display: flex;
-    height: 200px;
+    height: 240px;
     background: rgba(255, 255, 255, 0.90);
     backdrop-filter: blur(2.5px);
-    padding: 20px 24px;
+    padding: 31px 146px 31px 36px;
     align-items: center;
-    gap: 10px;
+    column-gap: 29px;
+    row-gap: 22px;
     flex-wrap: wrap;
     justify-content: space-around;
+    box-sizing: border-box;
   }
 
   .quick_menu_area li {
-    flex: 1 1 calc(33.33% - 10px);
+    flex: 1 1 calc(33.33% - 29px);
   }
 
   .quick_menu_area li a {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4.8px;
     align-items: center;
     transition: all 0.3s ease;
   }
+
+  .quick_menu_area li a img{width:48px;height: 48px;}
 
   .quick_menu_area li a:hover {
     animation: bounce 0.8s ease;
@@ -597,7 +612,7 @@
 
 @media all and (min-width:768px) and (max-width:1023px) {
   #main0 {
-    background: url('../img/section0-bg-01.jpg') no-repeat center top;
+    background: url('../img/section0-bg-03.png') no-repeat center top;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -612,6 +627,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    max-width: 649px;
+    width: 100%;
   }
 
   .main0_title_wrapper {
@@ -632,7 +649,7 @@
     letter-spacing: -0.7px;
     opacity: 0;
     transform: translateY(25px);
-    animation: slideIn 4s ease-in-out infinite;
+    animation: slideIn 4s ease-in-out forwards;
   }
 
   @keyframes slideIn {
@@ -662,7 +679,7 @@
     max-width: 650px;
     align-content: center;
     background: rgba(255, 255, 255, 0.90);
-    border-radius: 20px;
+    border-radius: 16px;
     margin-bottom: 150px;
     /* padding: 0 60px; */
   }
@@ -686,7 +703,7 @@
     color: #000;
     padding: 0 40px;
     border: none;
-    border-radius: 20px 0 0 20px;
+    border-radius: 16px 0 0 16px;
     background: transparent url('../img/search-arrow.png') no-repeat 90% 50%;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -724,7 +741,7 @@
     justify-content: center;
     gap: 8px;
     background: #000000;
-    border-radius: 20px;
+    border-radius: 16px;
   }
 
   #main-search-btn:hover {
@@ -754,14 +771,15 @@
   }
 
   .holiday_area {
-    padding: 0 36px 0 36px;
-    width: 48%;
+    padding: 78px 36px 78px 36px;
+    width: 62%;
     height: 260px;
     background: #009643;
     box-shadow: 8px 4px 20px 0 rgba(0, 0, 0, 0.25);
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
   }
 
   #holiday-box li {
@@ -779,7 +797,7 @@
   }
 
   .holiday_header {
-    margin-top: 40px;
+    margin-top: 0;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -813,7 +831,7 @@
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: left;
     margin-bottom: 20px;
     margin-top: 20px;
     gap: 26px;
@@ -843,24 +861,26 @@
   .quick_menu_area {
     width: 63%;
     display: flex;
-    height: 200px;
+    height: 240px;
     background: rgba(255, 255, 255, 0.90);
     backdrop-filter: blur(2.5px);
-    padding: 20px 24px;
+    padding: 31px 36px 31px 36px;
     align-items: center;
-    gap: 10px;
+    column-gap: 29px;
+    row-gap: 22px;
     flex-wrap: wrap;
     justify-content: space-around;
+    box-sizing: border-box;
   }
 
   .quick_menu_area li {
-    flex: 1 1 calc(33.33% - 10px);
+    flex: 1 1 calc(33.33% - 29px);
   }
 
   .quick_menu_area li a {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4.8px;
     align-items: center;
     transition: all 0.3s ease;
   }
@@ -868,6 +888,12 @@
   .quick_menu_area li a:hover {
     animation: bounce 0.8s ease;
   }
+
+  .quick_menu_area li a img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
 
   @keyframes bounce {
     0% {
@@ -892,9 +918,9 @@
   }
 }
 
-
 @media all and (min-width:480px) and (max-width:767px) {
   #main0 {
+    background: url('../img/section0-bg-03.png') no-repeat center top;
     height: 800px;
     position: relative;
   }
@@ -915,7 +941,7 @@
   .search-area {
     /* padding: 0 0 0 16px; */
     width: 100%;
-    /* max-width: 100%; */
+    max-width: 100%;
     border-radius: 10px;
     margin-bottom: 242px;
     box-sizing: border-box;
@@ -923,7 +949,7 @@
   }
 
   .search_box select {
-    width: 64px;
+    width: 90px;
     height: 54px;
     padding: 0 16px;
   }
@@ -963,12 +989,14 @@
 
   .main-visual {
     height: 800px;
+    width: 100%;
+    padding: 0 16px;
   }
 
   .holiday_area {
     width: 100%;
     height: 140px;
-    padding: 25px 30px;
+    padding: 25px 52px;
     align-items: center;
     box-sizing: border-box;
     justify-content: center;
@@ -988,150 +1016,7 @@
     gap: 30px;
     justify-content: flex-start;
   }
-
-  #holiday-box li {
-    font-size: 20px;
-  }
-
-  .holiday_caption {
-    width: 100%;
-    font-size: 13px;
-  }
-
-  .holiday__title {
-    font-size: 14px;
-  }
-
-  .quick_menu_area {
-    width: auto;
-    flex-wrap: wrap;
-    height: 192px;
-    position: absolute;
-    bottom: 140px;
-    padding: 16px 16px;
-    gap: 10px;
-    justify-content: space-around;
-  }
-
-  .quick_menu_area li {
-    flex: 1 1 calc(33.33% - 10px);
-    display: flex;
-    justify-content: center;
-  }
-
-  .quick_menu_area li a div {
-    font-size: 13px;
-  }
-
-  .quick_menu_area li a {
-    width: 77px;
-    padding: 0px 9px;
-  }
-
-  .quick_menu_area li a img {
-    width: 48px;
-    height: 48px;
-    object-fit: cover
-  }
-
-}
-
-@media all and (max-width:479px) {
-  #main0 {
-    height: 800px;
-    position: relative;
-  }
-
-  .main0_title_wrapper {
-    position: absolute;
-    top: 152px
-  }
-
-  .main0_title_wrapper div:first-child {
-    font-size: 14px;
-  }
-
-  .main0_title_wrapper div:last-child {
-    font-size: 40px;
-  }
-
-  .search-area {
-    /* padding: 0 0 0 16px; */
-    width: 100%;
-    /* max-width: 100%; */
-    border-radius: 10px;
-    margin-bottom: 242px;
-    box-sizing: border-box;
-    margin: 0 16px 242px 16px;
-  }
-
-  .search_box select {
-    width: 64px;
-    height: 54px;
-    padding: 0 16px;
-  }
-
-  #search_text_1 {
-    height: 54px;
-    font-size: 14px;
-    padding: 0 4px 0 10px;
-  }
-
-  .search_box select {
-    font-size: 14px;
-    padding: 0 16px;
-  }
-
-  .search_box {
-    position: relative;
-  }
-
-  #main-search-btn {
-    width: 54px;
-    border-radius: 10px;
-    position: absolute;
-    height: 54px;
-    right: 0;
-  }
-
-  #main-search-btn div {
-    display: none;
-  }
-
-  .main0_bottom_box {
-    align-items: center;
-    flex-direction: column;
-    height: 140px;
-  }
-
-  .main-visual {
-    height: 800px;
-  }
-
-  .holiday_area {
-    width: 100%;
-    height: 140px;
-    padding: 25px 30px;
-    align-items: center;
-    box-sizing: border-box;
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-  }
-
-  .holiday_header {
-    margin-top: 0;
-    width: 100%;
-    height: 18px;
-  }
-
-  #holiday-box {
-    width: 100%;
-    margin: 16px 0;
-    gap: 30px;
-    justify-content: flex-start;
-  }
-
+ .holiday__navigation div{width:14px;height:14px;}
   .holiday_caption {
     width: 100%;
     font-size: 13px;
@@ -1153,7 +1038,13 @@
     bottom: 140px;
     padding: 16px 16px;
     gap: 19px;
-    justify-content: space-around;
+    justify-content: center;
+  }
+
+    .quick_menu_area li {
+    flex: 1 1 calc(33.33% - 29px);
+    display: flex;
+    justify-content: center;
   }
 
   .quick_menu_area li a div {
@@ -1163,6 +1054,151 @@
   .quick_menu_area li a {
     width: 77px;
     padding: 0px 9px;
+  }
+
+  .quick_menu_area li a img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover
+  }
+}
+
+@media all and (max-width:479px) {
+  #main0 {
+  background: url('../img/section0-bg-04.png') no-repeat center top;
+  height: 800px;
+  position: relative;
+  background-size: cover;
+  }
+
+  .main0_title_wrapper {
+    position: absolute;
+    top: 152px
+  }
+
+  .main0_title_wrapper div:first-child {
+    font-size: 14px;
+  }
+
+  .main0_title_wrapper div:last-child {
+    font-size: 40px;
+  }
+
+  .search-area {
+    /* padding: 0 0 0 16px; */
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 242px;
+    box-sizing: border-box;
+    margin: 0 16px 242px 16px;
+  }
+
+  .search_box select {
+    width: 75px;
+    height: 54px;
+    padding: 0 16px;
+    background: transparent url('../img/search-arrow.png') no-repeat 100% 50%;
+    background-size: 10px;
+  }
+
+  #search_text_1 {
+    height: 54px;
+    font-size: 14px;
+    padding: 0 4px 0 16px;
+  }
+
+  .search_box select {
+    font-size: 14px;
+    padding: 0 16px;
+  }
+
+  .search_box {
+    position: relative;
+  }
+
+  #main-search-btn {
+    width: 54px;
+    border-radius: 10px;
+    position: absolute;
+    height: 54px;
+    right: 0;
+  }
+
+  #main-search-btn div {
+    display: none;
+  }
+
+  .main0_bottom_box {
+    align-items: center;
+    flex-direction: column;
+    height: 140px;
+  }
+
+  .main-visual {
+    height: 800px;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .holiday_area {
+    width: 100%;
+    height: 140px;
+    padding: 25px 30px;
+    align-items: center;
+    box-sizing: border-box;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .holiday__navigation div{width:14px;height:14px;}
+
+  .holiday_header {
+    margin-top: 0;
+    width: 100%;
+    height: 18px;
+  }
+
+  #holiday-box {
+    width: 100%;
+    margin: 16px 0;
+    gap: 30px;
+    justify-content: flex-start;
+  }
+
+  .holiday_caption {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .holiday__title {
+    font-size: 14px;
+  }
+
+  #holiday-box li {
+    font-size: 20px;
+  }
+
+  .quick_menu_area {
+    width: auto;
+    flex-wrap: wrap;
+    height: 192px;
+    position: absolute;
+    bottom: 140px;
+    padding: 16px 26px;
+    column-gap: 19px;
+    row-gap: 0;
+    justify-content: space-between;
+  }
+
+  .quick_menu_area li a div {
+    font-size: 13px;
+  }
+
+  .quick_menu_area li a {
+    width: 77px;
+    gap: 4.8px;
   }
 
   .quick_menu_area li a img {

@@ -1,42 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script>
-	function moveToLibrary() {
-		const librarySelect = document.getElementById("selectLang");
-		const selectedText = librarySelect.options[librarySelect.selectedIndex].text;
-		const selectedValue = librarySelect.value;
+    function moveToLibrary() {
+        const librarySelect = document.getElementById('selectLang');
+        const selectedText = librarySelect.options[librarySelect.selectedIndex].text;
+        const selectedValue = librarySelect.value;
 
-		if (selectedText === '도서관 바로가기') {
-			alert('도서관을 선택해주세요.');
-			return;
-		}
+        if (selectedText === '도서관 바로가기') {
+            alert('도서관을 선택해주세요.');
+            return;
+        }
 
-		if (selectedValue) {
-			window.open(selectedValue, '_blank', 'noopener,noreferrer');
-		} else {
-			alert('도서관을 선택해주세요.');
-		}
-	}
-	function moveToOrgan() {
-		const selectElement = document.getElementById('organ');
-		const selectedText = selectElement.options[selectElement.selectedIndex].text;
-		const selectedValue = selectElement.value;
+        if (selectedValue) {
+            window.open(selectedValue, '_blank', 'noopener,noreferrer');
+        } else {
+            alert('도서관을 선택해주세요.');
+        }
+    }
 
-		if (selectedText === '관련기관 바로가기') {
-			alert('기관을 선택해주세요.');
-			return;
-		}
+    function moveToOrgan() {
+        const selectElement = document.getElementById('organ');
+        const selectedText = selectElement.options[selectElement.selectedIndex].text;
+        const selectedValue = selectElement.value;
 
-		if (selectedValue) {
-			window.open(selectedValue, '_blank', 'noopener,noreferrer');
-		} else {
-			alert('기관을 선택해주세요.');
-		}
-	}
+        if (selectedText === '관련기관 바로가기') {
+            alert('기관을 선택해주세요.');
+            return;
+        }
+
+        if (selectedValue) {
+            window.open(selectedValue, '_blank', 'noopener,noreferrer');
+        } else {
+            alert('기관을 선택해주세요.');
+        }
+    }
 </script>
+
+<script>
+    $(document).ready(function () {
+        $('.scroll_top').click(function (event) {
+            event.preventDefault();
+
+            if ($(window).width() < 1025) {
+                $('html, body').animate({scrollTop: 0}, 500);
+            } else {
+                if (typeof fullpage_api !== 'undefined' && typeof fullpage_api.moveTo === 'function') {
+                    fullpage_api.moveTo(1);
+                } else {
+                    console.warn('fullpage_api.moveTo 함수가 정의되지 않았습니다.');
+                }
+            }
+        });
+    });
+</script>
+
+
 <div class="mFooter">
+    <div class="scroll_top">
+        <img alt="scroll-top" src="/resources/homepage/${homepage.context_path}/img/arrow-up.png"/>
+    </div>
     <div class="footer_top">
         <div class="info">
             <div>
@@ -54,7 +78,8 @@
     <div class="footer_bottom">
         <div class="footer_bottom_text_wrapper">
             <div>
-                41447 대구 북구 서변로3길 54 (서변동, 무태조야동 복합문화시설)&nbsp;&nbsp;&nbsp;전화&nbsp;&nbsp;&nbsp;<span>053-320-5120</span>&nbsp;&nbsp;&nbsp;팩스&nbsp;&nbsp;&nbsp;<span>053-327-1553</span>
+                41447 대구 북구 서변로3길 54 (서변동, 무태조야동
+                복합문화시설)&nbsp;&nbsp;&nbsp;<br>전화&nbsp;&nbsp;&nbsp;<span>053-320-5120</span>&nbsp;&nbsp;&nbsp;팩스&nbsp;&nbsp;&nbsp;<span>053-327-1553</span>
             </div>
             <div>Copyright © 대구서변숲도서관.All rights reserved.</div>
         </div>
