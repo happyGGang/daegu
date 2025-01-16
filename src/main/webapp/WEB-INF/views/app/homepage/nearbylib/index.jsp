@@ -681,8 +681,8 @@ function isFromFridayToSunday() {
 				</ul>
 				<h3 class="nbl">상세위치</h3>
 				<ul class="nbl-list num">
-					<li><p>1</p> <span>엘리베이터를 이용하여 2층으로 이동</span></li>
-					<li><p>2</p> <span>2층 매표소 앞에서 내 집 앞 도서관 서비스 이용</span></li>
+					<li><p>1</p> <span>에스컬레이터를 이용하여 3층으로 이동</span></li>
+					<li><p>2</p> <span>3층 상행 에스컬레이터 옆(3층 주차장 입구)에서 내 집 앞 도서관 서비스 이용</span></li>
 				</ul>
 				<h3 class="nbl">주차정보</h3>
 				<ul class="nbl-list">
@@ -746,8 +746,9 @@ function isFromFridayToSunday() {
 				</ul>
 				<h3 class="nbl">상세위치</h3>
 				<ul class="nbl-list num">
-					<li><p>1</p> <span>에스컬레이터를 이용하여 3층으로 이동</span></li>
-					<li><p>2</p> <span>3층 상행 에스컬레이터 옆(3층 주차장 입구)에서 내 집 앞 도서관 서비스 이용</span></li>
+				    <li><p>1</p> <span>엘리베이터를 이용하여 2층으로 이동</span></li>
+					<li><p>2</p> <span>2층 매표소 앞에서 내 집 앞 도서관 서비스 이용</span></li>
+					
 				</ul>
 				<h3 class="nbl">주차정보</h3>
 				<ul class="nbl-list">
