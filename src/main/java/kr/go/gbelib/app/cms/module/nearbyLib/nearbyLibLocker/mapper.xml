@@ -24,7 +24,7 @@
 	
 	<select id="getNeighborhoodLibraryLockerCount" resultType="int">
 		SELECT
-			total_count
+			NVL(MAX(TOTAL_COUNT), 0) AS TOTAL_COUNT
 		FROM
 			NEIGHBORHOOD_LIBRARY_LOCKER_CONFIG
 		WHERE 
