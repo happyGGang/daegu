@@ -1350,12 +1350,12 @@ function isFromFridayToSunday() {
 
 											<c:if test="${homepage.context_path eq 'gukbo'}">
 												<form:option value="AD01">[국보]종합자료실</form:option>
-												<form:option value="AD43">[국보]종합자료실(대구경북다시보기)</form:option>
+												<form:option value="AD05">[국보]종합자료실(청소년도서)</form:option>
 												<form:option value="AD08">[국보]종합자료실(세종도서)</form:option>
 												<form:option value="AD49">[국보]종합자료실(다문화도서)</form:option>
 												<form:option value="AD18">[국보]종합자료실(치매도서)</form:option>
 												<form:option value="AD07">[국보]인문자료실</form:option>
-												<form:option value="AD05">[국보]인문자료실(청소년도서)</form:option>
+												<form:option value="AD43">[국보]인문자료실(대구경북다시보기)</form:option>
 												<form:option value="AD14">[국보]인문자료실(큰글자도서)</form:option>
 												<form:option value="AD50">[국보]인문자료실(DVD)</form:option>
 												<form:option value="AD11">[국보]유아자료실</form:option>
