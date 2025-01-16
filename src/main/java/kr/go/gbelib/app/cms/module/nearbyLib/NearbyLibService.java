@@ -694,19 +694,7 @@ public class NearbyLibService extends BaseService {
 							Calendar cal = Calendar.getInstance();
 							cal.setTime(nowDate);
 
-							LocalDate today = LocalDate.now();
-							int year = today.getYear();
-							Month month = today.getMonth();
-
-							LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
-							LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
-
-							//반야월 이마트 매주 금요일
-							if((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(String.valueOf(neighborhoodLibrary.getDevice_code()))) {
-								take_term += 1;
-							} else  {
-								take_term = 2;
-							}
+							take_term = getTakeTerm(String.valueOf(neighborhoodLibrary.getDevice_code()),take_term);
 
 							cal.add(Calendar.DATE, take_term);
 							librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
@@ -822,18 +810,7 @@ public class NearbyLibService extends BaseService {
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
 
-								LocalDate today = LocalDate.now();
-								int year = today.getYear();
-								Month month = today.getMonth();
-
-								LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
-								LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
-
-								if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-									take_term += 1;
-								} else  {
-									take_term = 2;
-								}
+								take_term = getTakeTerm(neighborhoodLibrary.getDevice_code(), take_term);
 
 								cal.add(Calendar.DATE, take_term);
 								librarySearch.setExprire_date_cnt(simpleDateFormat.format(cal.getTime()));
@@ -857,17 +834,7 @@ public class NearbyLibService extends BaseService {
 								Calendar cal = Calendar.getInstance();
 								cal.setTime(nowDate);
 
-								LocalDate today = LocalDate.now();
-								int year = today.getYear();
-								Month month = today.getMonth();
-
-								LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
-								LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
-								if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-									take_term += 1;
-								} else  {
-									take_term = 2;
-								}
+								take_term = getTakeTerm(neighborhoodLibrary.getDevice_code(), take_term);
 
 								cal.add(Calendar.DATE, take_term);
 								neighborhoodLibrary.setExpire_date(simpleDateFormat.format(cal.getTime()));
@@ -982,18 +949,7 @@ public class NearbyLibService extends BaseService {
 
 					int take_term = resultData.getTake_term();
 
-					LocalDate today = LocalDate.now();
-					int year = today.getYear();
-					Month month = today.getMonth();
-
-					LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
-					LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
-
-					if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-						take_term += 1;
-					} else  {
-						take_term = 2;
-					}
+					take_term = getTakeTerm(neighborhoodLibrary.getDevice_code(), take_term);
 
 					cal.add(Calendar.DATE, take_term);
 
@@ -1041,18 +997,7 @@ public class NearbyLibService extends BaseService {
 
 						int take_term = reserveOne.getTake_term();
 
-						LocalDate today = LocalDate.now();
-						int year = today.getYear();
-						Month month = today.getMonth();
-
-						LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
-						LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
-
-						if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary.getDevice_code())) {
-							take_term += 1;
-						} else  {
-							take_term = 2;
-						}
+						take_term = getTakeTerm(neighborhoodLibrary.getDevice_code(), take_term);
 
 						cal.add(Calendar.DATE, take_term);
 
@@ -1167,6 +1112,21 @@ public class NearbyLibService extends BaseService {
 			}
 		}
 		return result;
+	}
+
+	private int getTakeTerm(String neighborhoodLibrary, int take_term) {
+		LocalDate today = LocalDate.now();
+		int year = today.getYear();
+		Month month = today.getMonth();
+
+		LocalDate firstSaturday = getNthSaturdayOfMonth(year, month, 1);
+		LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
+
+		if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary)) {
+		} else {
+			take_term = 2;
+		}
+		return take_term;
 	}
 
 	/**

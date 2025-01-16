@@ -4586,7 +4586,7 @@ public class CommonSearchController extends BaseController {
 			LocalDate thirdFriday = getNthFridayOfMonth(year, month, 3);
 
 			if((today.isEqual(firstFriday) || today.isEqual(thirdFriday)) && "NEARBY_EMART01".equals(String.valueOf(deviceOne.getDevice_code()))) {
-				take_term += 1;
+				
 			} else {
 				take_term = 2;
 			}
