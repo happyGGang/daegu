@@ -896,13 +896,6 @@ $(function() {
 				</c:if>
 			</c:if>
 
-<!--
-			<%
-				org.joda.time.DateTime now = new org.joda.time.DateTime();
-				int dayOfWeek = now.getDayOfWeek(); /* dayOfWeek 월 1 화 2 수 3 목 4 금 5 토 6 일 7 */
-				int hour = now.getHourOfDay();
-			%>
-			 -->
 			<!--비대면도서대출 버튼-->
 			<c:choose>
 				<c:when test="${homepage.context_path eq 'bukgs' and detail.MANAGE_CODE eq 'BA' and detail.LOAN_CODE eq 'OK'}">
@@ -1014,25 +1007,31 @@ $(function() {
 					</c:if>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseolib'}"> <!-- 달서통합도서관 무인예약 신청-->
-					<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}"><!--달서가족문화도서관 무인예약중지처리 재개시 빈칸에 BY 넣어주세요 -->
-						<c:choose>
-							<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
-							
-							</c:when>
-							<c:otherwise>
-								<c:if test="${detail.MEDIA_CODE eq 'PR'}">
-									<c:choose>
-										<c:when test="${detail.LOAN_CODE eq 'OK'}">
-											<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
-											<!--<a href="#" class="btn btn1" onclick="alert('상인/용산역 도서 투입이 지연되는 관계로 2024.01.04(목)~2024.01.06(일)까지 일시 중단됩니다.');">무인예약신청</a>-->
-										</c:when>
-										<c:otherwise>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
+					<c:choose>
+						<c:when test="${20250125120000 <= nowDate && nowDate <= 20250131085900}">
+						</c:when>
+						<c:otherwise>
+							<c:if test="${detail.MANAGE_CODE eq 'BU'||detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'BW' || detail.MANAGE_CODE eq 'BX' || detail.MANAGE_CODE eq 'BY' || detail.MANAGE_CODE eq 'BZ'}"><!--달서가족문화도서관 무인예약중지처리 재개시 빈칸에 BY 넣어주세요 -->
+								<c:choose>
+									<c:when test="${detail.SHELF_LOC_CODE eq 'BU11'}">
+
+									</c:when>
+									<c:otherwise>
+										<c:if test="${detail.MEDIA_CODE eq 'PR'}">
+											<c:choose>
+												<c:when test="${detail.LOAN_CODE eq 'OK'}">
+													<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
+													<!--<a href="#" class="btn btn1" onclick="alert('상인/용산역 도서 투입이 지연되는 관계로 2024.01.04(목)~2024.01.06(일)까지 일시 중단됩니다.');">무인예약신청</a>-->
+												</c:when>
+												<c:otherwise>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+							</c:if>
+						</c:otherwise>
+					</c:choose>
 				</c:when>
 				<c:when test="${homepage.context_path eq 'dalseonglib'}">
 				<!-- 달성군립 무인예약 버튼은 토,일,월 제외한 09:00~12:00 까지만 활성화 -->
