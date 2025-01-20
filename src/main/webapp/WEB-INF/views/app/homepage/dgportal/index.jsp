@@ -1267,7 +1267,7 @@ do {
 								</li>
 								<c:forEach items="${noticeBoardList}" var="i" varStatus="status" begin='0' end='3'>
 								<li>
-									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_3}" class="wrap" target="_blank">
+									<a href="/${i.imsi_v_19}/board/view.do?manage_idx=${i.manage_idx}&board_idx=${i.board_idx}&menu_idx=${i.imsi_n_2}" class="wrap" target="_blank">
 										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy."/><br class="webList"/><b><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></b></span>
 										<span class="link library${i.imsi_v_19}"><c:if test="${i.imsi_v_19 eq 'nearbylib'}">통합</c:if>${i.imsi_v_20}</span>
 										<span class="tit title${i.imsi_v_19}">${i.title}</span>
