@@ -1123,6 +1123,7 @@ public class NearbyLibService extends BaseService {
 		LocalDate thirdSaturday = getNthSaturdayOfMonth(year, month, 3);
 
 		if ((today.isEqual(firstSaturday) || today.isEqual(thirdSaturday)) && "NEARBY_EMART01".equals(neighborhoodLibrary)) {
+			take_term = 3;
 		} else {
 			take_term = 2;
 		}
