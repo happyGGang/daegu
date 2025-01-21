@@ -326,11 +326,11 @@ function isFromFridayToSunday() {
 					<img src="/resources/homepage/${homepage.context_path}/img/bayawol.png" alt="">
 				</a>
 			</span>
-			<span class="isia">
+			<!--<span class="isia">
 				<a href="#isia" class="info03-btn-open">
 					<img src="/resources/homepage/${homepage.context_path}/img/isia.png" alt="">
 				</a>
-			</span>
+			</span>-->
 			<span class="lib01">
 				<a href="/${homepage.context_path}/html.do?menu_idx=32">
 					<img src="/resources/homepage/${homepage.context_path}/img/lib01.png" alt="">
@@ -417,10 +417,10 @@ function isFromFridayToSunday() {
 					<div class="video-box">
 						<div class="container">
 							<div class="tab_menu main on" style="margin-top:20px;">
-								<ul class="no5">
+								<ul class="no4">
 								  <li class="active"><a href="#tabCon0">퀵가이드</a></li>
 								  <li><a href="#tabCon1">연경지구 CGV</a></li>
-								  <li><a href="#tabCon2">이시아폴리스 메가박스</a></li>
+								  <!--<li><a href="#tabCon2">이시아폴리스 메가박스</a></li>-->
 								  <li><a href="#tabCon3">반야월 이마트</a></li>
 								  <li><a href="#tabCon4">내 집 앞 도서관 홍보영상</a></li>
 								</ul>
@@ -506,7 +506,7 @@ function isFromFridayToSunday() {
 									<span>연경</span>
 								</a>
 							</li>
-							<li class="video-megabox">
+							<li class="video-megabox" style="display: none;">
 								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" title="이시아폴리스 메가박스 이용방법"> -->
 								<a href="#mo-esia-view" id='mo-esia-btn' title="이시아폴리스 메가박스 이용방법">
 									<span>이시아폴리스</span>
