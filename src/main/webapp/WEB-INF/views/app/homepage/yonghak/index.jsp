@@ -108,6 +108,21 @@ do {
 		$('.menu-search-box').on('click', function() {
 			alert('준비중');
 		});
+
+		$('.qmenu .qm6').on('click', function(event) {
+			const now = new Date();
+			const currentHour = now.getHours();
+			const currentMinute = now.getMinutes();
+
+			const isRestrictedTime =  (currentHour >= 22) || (currentHour < 8) || (currentHour === 8 && currentMinute < 30);
+
+			if (isRestrictedTime) {
+				alert('예약 가능 시간은 08:30부터입니다.');
+				event.preventDefault();
+				return false;
+			}
+
+		});
 });
 </script>
 <div id="wrap">
