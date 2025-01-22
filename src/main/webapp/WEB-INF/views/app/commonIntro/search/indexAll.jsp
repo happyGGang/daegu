@@ -700,6 +700,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AK" value="AK" label="학생문화센터" />
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />
+							</li>
 						</ul>
 					</div>
 					<div class="end"></div>
