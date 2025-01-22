@@ -350,10 +350,10 @@ $(document).ready(function() {
 				$('div#sub-container div.section > div.content > div.doc > div.doc-body').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			} else if ( url.indexOf('libculture') != -1 || url.indexOf('nearbylib') != -1 ) {
 			} else {
-				$('div#container > div.section > div.content > div.doc').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
+				$('div#container').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			}
 
-			$('div#container > div.sub-visual ').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
+			// $('div#container > div.sub-visual ').prepend('<div id="qrcodeView" style="position:relative ;z-index: 99999; display:none;"></div>');
 			$('div#qrcodeView').html('');
 
 			url = encodeURIComponent(url);
