@@ -88,13 +88,13 @@ $(function() {
 			<tr>
 				<td class="yearSelect">
 					<a href="#" class="year_a next" val="more" title="만 14세 이상의 일반회원,General members of Aged 14 and over ">
-						<span class="joinText1"><c:if test="${homepage.context_path ne 'gukbo'}">만</c:if> 14세 이상</span><br/><span class="joinText2">일반회원</span><br/>
+						<span class="joinText1"><c:if test="${homepage.context_path ne 'gukbo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'beomeo' and homepage.context_path ne 'gosan'}">만</c:if> 14세 이상</span><br/><span class="joinText2">일반회원</span><br/>
 						<img src="/resources/common/img/mem_adult.png" class="joinAdult" alt="">
 					</a>
 				</td>
 				<td class="yearSelect">
 					<a href="#" class="year_b next" val="under" title="만 14세 미만의 어린이 또는 학생회원, Children or Student member of Aged 14 and under">
-						<span class="joinText1"><c:if test="${homepage.context_path ne 'gukbo'}">만</c:if> 14세 미만</span><br/><span class="joinText2">어린이, 학생회원</span><br/>
+						<span class="joinText1"><c:if test="${homepage.context_path ne 'gukbo' and homepage.context_path ne 'yonghak' and homepage.context_path ne 'beomeo' and homepage.context_path ne 'gosan'}">만</c:if> 14세 미만</span><br/><span class="joinText2">어린이, 학생회원</span><br/>
 						<img src="/resources/common/img/mem_child.png" class="joinChild" alt="">
 					</a>
 				</td>
