@@ -3952,10 +3952,10 @@ public class CommonSearchController extends BaseController {
 
 			if (Arrays.asList("DSSUB01", "DSSUB02", "SSSUBCO01", "BRSUBCO01").contains(librarySearch.getWorker())) {
 
-				LibrarySearch l = new LibrarySearch();
-
 				SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 				String sdate = sf.format(DateUtils.addDays(new Date(), -90));
+
+				LibrarySearch l = new LibrarySearch();
 				l.setSearch_start_date(sdate + "000000");
 				List<String> workers = Arrays.asList("DSSUB01", "DSSUB02", "SSSUBCO01", "BRSUBCO01");
 
@@ -4004,7 +4004,11 @@ public class CommonSearchController extends BaseController {
 
 			//반월당 무인기계
 			if (StringUtils.equals(librarySearch.getWorker(), "SUB01")) {
+
 				LibrarySearch librarySubSearch = new LibrarySearch();
+				librarySubSearch.setWorker("SUB01");
+				librarySubSearch.setSearch_start_date("20230101000000");
+				librarySubSearch.setRowCount(10000);
 				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(librarySubSearch, null);
 				int sub01Count = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
 
