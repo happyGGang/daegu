@@ -1887,7 +1887,7 @@ function isFromFridayToSunday() {
 												<!-- 예약 -->
 												<c:if test="${homepage.context_path ne 'nearbylib'}">
 													<c:choose>
-														<c:when test="${i.SHELF_LOC_CODE eq 'AD39' || i.SHELF_LOC_CODE eq 'AD40' || i.SHELF_LOC_CODE eq 'BA08' || i.SHELF_LOC_CODE eq 'BA01' || i.SHELF_LOC_CODE eq 'BD10' || i.MANAGE_CODE eq 'FW' || i.SHELF_LOC_CODE eq 'BU11'}">
+														<c:when test="${i.SHELF_LOC_CODE eq 'AD39' || i.SHELF_LOC_CODE eq 'AD40' || i.SHELF_LOC_CODE eq 'BA08' || i.SHELF_LOC_CODE eq 'BD10' || i.MANAGE_CODE eq 'FW' || i.SHELF_LOC_CODE eq 'BU11'}">
 
 														</c:when>
 														<c:when test="${i.MANAGE_CODE eq 'AC' && now <= 20241220000000}">
@@ -1900,7 +1900,7 @@ function isFromFridayToSunday() {
 																</c:when>
 																<c:otherwise>
 																	<c:choose>
-																		<c:when test="${i.SEPARATE_SHELF_CODE eq 'BMY' || i.SEPARATE_SHELF_CODE eq 'BMZ' || i.SEPARATE_SHELF_CODE eq 'BNB' || i.SEPARATE_SHELF_CODE eq 'BNC' || i.SEPARATE_SHELF_CODE eq 'BMN' || i.SEPARATE_SHELF_CODE eq 'BMT'}">
+																		<c:when test="${i.SEPARATE_SHELF_CODE eq 'BMY' || i.SEPARATE_SHELF_CODE eq 'BMZ' || i.SEPARATE_SHELF_CODE eq 'BMN' || i.SEPARATE_SHELF_CODE eq 'BMT'}">
 
 																		</c:when>
 

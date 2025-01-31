@@ -1111,7 +1111,7 @@ $(function() {
 
 <c:if test="${homepage.context_path ne 'nearbylib'}">
 			<c:choose>
-				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BA01' || detail.SHELF_LOC_CODE eq 'BD10' || detail.MANAGE_CODE eq 'FW' || detail.SHELF_LOC_CODE eq 'BU11'}">
+				<c:when test="${detail.SHELF_LOC_CODE eq 'AD39' || detail.SHELF_LOC_CODE eq 'AD40' || detail.SHELF_LOC_CODE eq 'BA08' || detail.SHELF_LOC_CODE eq 'BD10' || detail.MANAGE_CODE eq 'FW' || detail.SHELF_LOC_CODE eq 'BU11'}">
 
 				</c:when>
 				<c:when test="${detail.MANAGE_CODE eq 'AC' && nowDate <= 20241220000000}">
@@ -1123,7 +1123,7 @@ $(function() {
 						</c:when>
 						<c:otherwise>
 							<c:choose>
-								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BNB' || detail.SEPARATE_SHELF_CODE eq 'BNC' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMT'}">
+								<c:when test="${detail.SEPARATE_SHELF_CODE eq 'BMY' || detail.SEPARATE_SHELF_CODE eq 'BMZ' || detail.SEPARATE_SHELF_CODE eq 'BMN' || detail.SEPARATE_SHELF_CODE eq 'BMT'}">
 
 								</c:when>
 								
