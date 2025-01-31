@@ -503,11 +503,9 @@ public class StudentService extends BaseService {
 	@Transactional
 	@WorkingLogger(comment="강좌 수강생 관리 1건 삭제", type="P" , tableName = "STUDENT")
 	public int deleteStudent(Student student) {
-		if (student.getStudent_idx() < 1) {
-			Student st = dao.getStudentOne(student);
-			student.setStudent_idx(st.getStudent_idx());
-		}
-		int result = dao.deleteStudent(student);
+		Student st = dao.getStudentOne(student);
+		student.setStudent_idx(st.getStudent_idx());
+		int result = dao.deleteStudent(st);
 
 		if ( result > 0 ) {
 			Teach teach = new Teach(student.getHomepage_id(), student.getGroup_idx(), student.getCategory_idx(), student.getTeach_idx());

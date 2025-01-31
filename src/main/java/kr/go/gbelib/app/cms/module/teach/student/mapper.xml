@@ -259,27 +259,21 @@
 		UPDATE STUDENT
 		SET DELETE_YN 					= 'Y'
 			,APPLY_STATUS				= '99'
-			<!-- , MEMBER_KEY				= ''
-			, APPLICANT_NAME 			= ''
-			, APPLICANT_ZIPCODE 		= ''
-			, APPLICANT_ADDRESS 		= ''
-			, APPLICANT_ADDRESS_DETAIL 	= ''
-			, APPLICANT_PHONE 			= ''
-			, APPLICANT_CELL_PHONE 		= ''
-			, STUDENT_NAME 				= ''
-			, STUDENT_BIRTH				= ''
-			, STUDENT_ZIPCODE			= ''
-			, STUDENT_ADDRESS			= ''
-			, STUDENT_ADDRESS_DETAIL	= ''
-			, STUDENT_SCHOOL 			= ''
-			, STUDENT_BAN 				= ''
-			, STUDENT_BUN 				= ''  -->
 			, modify_id					= #{modify_id}
 			, modify_date					= SYSDATE
 		WHERE
 			HOMEPAGE_ID = #{homepage_id} AND GROUP_IDX = #{group_idx} AND CATEGORY_IDX = #{category_idx} AND TEACH_IDX = #{teach_idx}
 			<if test="student_idx != null and student_idx > 0">
 			AND STUDENT_IDX = #{student_idx}
+			</if>
+			<if test="member_id != null and member_id != ''">
+				AND MEMBER_ID = #{member_id}
+			</if>
+			<if test="applicant_name != null and applicant_name != ''">
+				AND	APPLICANT_NAME = #{applicant_name}
+			</if>
+			<if test="applicant_name != null and applicant_name != ''">
+				AND	STUDENT_NAME = #{student_name}
 			</if>
 	</delete>
 
