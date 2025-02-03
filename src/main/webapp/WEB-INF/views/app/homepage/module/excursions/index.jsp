@@ -509,7 +509,7 @@ $(function(){
 	</div>
 
 	<c:if test="${not sessionScope.member.login}">
-		<c:if test="${excursions.homepage_id ne 'h77'}">
+		<c:if test="${excursions.homepage_id ne 'h77' and excursions.homepage_id ne 'h66' and excursions.homepage_id ne 'h67' and excursions.homepage_id ne 'h68' and excursions.homepage_id ne 'h69' and excursions.homepage_id ne 'h70' and excursions.homepage_id ne 'h72'}">
 			<div style="text-align: right; margin-bottom: 10px; ">
 				<a href="anonyApply.do?homepage_id=${fn:escapeXml(param.homepage_id)}&menu_idx=${fn:escapeXml(param.menu_idx)}" class="btn btn1" style="font-size:14px;">비회원 신청확인</a>
 			</div>
