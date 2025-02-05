@@ -682,13 +682,6 @@ $(function() {
 			</p>
 		</c:if>-->
 		
-		<c:if test="${detail.MANAGE_CODE eq 'AC'}">
-			<p style="color:#ff0000;font-weight:bold;text-align:center;">
-				* 도서관 리모델링 공사에 따른 도서 예약 서비스 불가<br>
-				- 기간 : 2024.08.22.(목) ~ 개관 전까지
-			</p>
-		</c:if>
-
 		<p></p>
 
 
