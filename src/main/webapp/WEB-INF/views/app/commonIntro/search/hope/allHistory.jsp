@@ -350,7 +350,7 @@ function compactTrim(str) {
 	</div>
 	<div class="end" style="padding:7px 0;"></div>
 	</c:when>
-	<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+	<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
 	<div id="libraryList" class="libraryList">
 		<div>
 			<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
@@ -389,6 +389,9 @@ function compactTrim(str) {
 				</li>
 				<li>
 					<form:checkbox path="libraryCodes" value="HE" class="libCheck lib_HE" label="한강공원부키도서관"/>
+				</li>
+				<li>
+					<form:checkbox path="libraryCodes" value="HW" class="libCheck lib_HW" label="서변숲도서관"/>
 				</li>
 			</ul>
 		</div>

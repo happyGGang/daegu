@@ -158,6 +158,11 @@
 					<form:option value="BC">태전도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
+				<c:when test="${homepagePath eq 'buksb'}">
+					<form:select path="manageCode" cssClass="new_select_box">
+						<form:option value="HW">서변숲도서관</form:option>
+					</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
+				</c:when>
 
 				<c:when test="${homepagePath eq 'buks'}">
 				<form:select path="manageCode">
