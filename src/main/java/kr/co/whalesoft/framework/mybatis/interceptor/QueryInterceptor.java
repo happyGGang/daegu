@@ -37,8 +37,23 @@ import java.util.*;
  * @date 2020.08.28
  *
  */
-@Intercepts ({ @Signature(type = Executor.class, method = "update", args ={MappedStatement.class, Object.class}) ,
-		@Signature(type = Executor.class, method = "query", args ={MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class})})
+@Intercepts({
+		@Signature(
+				type = Executor.class,
+				method = "update",
+				args = {MappedStatement.class, Object.class}
+		),
+		@Signature(
+				type = Executor.class,
+				method = "query",
+				args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
+		),
+		@Signature(
+				type = Executor.class,
+				method = "query",
+				args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}
+		)
+})
 public class QueryInterceptor implements Interceptor {
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
