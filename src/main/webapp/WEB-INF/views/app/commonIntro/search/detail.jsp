@@ -933,7 +933,7 @@ $(function() {
 								<jsp:useBean id="Daysu" class="java.util.Date" />
 								<fmt:formatDate var="day" value="${Daysu}" pattern="E"/>
 									<c:if test="${day ne '토' and day ne '일'}">
-									<!-- <a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span> -->
+									<a href="#untact" id="untactBook-req" class="btn btn2"><span>무인예약대출</span>
 									</c:if>
 						</c:otherwise>
 					</c:choose>
