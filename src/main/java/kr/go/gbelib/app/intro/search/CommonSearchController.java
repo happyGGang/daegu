@@ -4010,7 +4010,20 @@ public class CommonSearchController extends BaseController {
 				librarySubSearch.setSearch_start_date("20230101000000");
 				librarySubSearch.setRowCount(10000);
 				Map<String, Object> unmannedLoanReserveList = LibSearchAPI.getUnmannedLoanReserveList(librarySubSearch, null);
-				int sub01Count = LibSearchAPI.getSearchCount(unmannedLoanReserveList);
+				int sub01Count = 0;
+
+				if (unmannedLoanReserveList != null && "SUCCESS".equals(unmannedLoanReserveList.get("RESULT_INFO"))) {
+					List<Map<String, Object>> userRedundantRemoveList = (List<Map<String, Object>>) unmannedLoanReserveList.get("LIST_DATA");
+					if (userRedundantRemoveList != null) {
+						sub01Count = userRedundantRemoveList.stream()
+								.skip(1)
+								.map(userNo -> String.valueOf(userNo.get("USER_NO")))
+								.peek(userNoValue -> System.out.println("USER_NO value: " + userNoValue)) // 각 USER_NO 값 출력
+								.filter(Objects::nonNull)
+								.collect(Collectors.toSet())
+								.size();
+					}
+				}
 
 				if (sub01Count >= 50) {
 					res.setValid(false);
