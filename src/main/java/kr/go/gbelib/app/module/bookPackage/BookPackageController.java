@@ -412,7 +412,6 @@ public class BookPackageController extends BaseController {
 	public ResponseEntity<byte[]> getFile(@PathVariable("book_package_idx") int book_package_idx, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		if(sessionLoginSupport(request) == null && !getSessionIsAdmin(request)) {
-//			responseHeaders.setContentType(MediaType.valueOf("text/html"));
 			service.alertMessage("학교도서관 회원인증 후 이용가능합니다.", request, response);
 			return null;
 		}

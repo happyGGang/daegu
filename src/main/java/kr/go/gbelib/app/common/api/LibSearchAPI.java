@@ -6,7 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
@@ -21,7 +23,8 @@ import kr.go.gbelib.app.intro.search.LibrarySearch;
 public class LibSearchAPI {
 
 	protected final static Logger log = LoggerFactory.getLogger(LibSearchAPI.class);
-
+	public static final Pattern ISBN13_PATTERN = Pattern.compile("^\\s*(?:ISBN(?:-13)?:?)?\\s*(?=[0-9]{13}$)([0-9]{13})\\s*$");
+	public static final Pattern ISBN10_PATTERN = Pattern.compile("^\\s*(?:ISBN(?:-10)?:?)?\\s*(?=[0-9]{10}$)([0-9]{10}|[0-9]{9}[0-9X])\\s*$");
 	
 	/**
 	 * 도서추천 API
@@ -3223,6 +3226,68 @@ public class LibSearchAPI {
 			return new ApiResponse(true);
 		} else {
 			return new ApiResponse(false, String.valueOf(sendKCMS.get("RESULT_MESSAGE")));
+		}
+	}
+
+	public static void getSameIsbnCheck(List<Map<String, Object>> itemList) {
+		Map<String, Boolean> isbnCache = new HashMap<>();
+
+		for (Map<String, Object> item : itemList) {
+			String isbnStr = String.valueOf(item.get("isbn"));
+
+			if (isbnStr != null) {
+				String[] isbnArr = isbnStr.split("\\s+");
+				for (String isbn : isbnArr) {
+					if (StringUtils.isNotEmpty(isbn) && (ISBN10_PATTERN.matcher(isbn).matches() || ISBN13_PATTERN.matcher(isbn).matches())) {
+						processISBN(item, isbn, isbnCache);
+					}
+				}
+			}
+		}
+	}
+
+	private static void processISBN(Map<String, Object> item, String isbn, Map<String, Boolean> isbnCache) {
+		item.put("isbn" + isbn.length(), isbn);
+
+		boolean alreadyFlag = isbnCache.computeIfAbsent(isbn, key -> {
+			try {
+				LibrarySearch bookSearch = new LibrarySearch();
+				bookSearch.setIsbn(key);
+				Map<String, Object> bookDetailResult = getBookDetail(bookSearch);
+				int sameBookCount = getSearchCount(bookDetailResult);
+				return sameBookCount > 0;
+			} catch (Exception e) {
+				log.error("ISBN 검색 API 호출 중 오류 발생" + isbn, e);
+				return false;
+			}
+		});
+
+		if (alreadyFlag) {
+			item.put("already" + isbn.length(), true);
+		}
+	}
+
+	public static void sendNotificationThinkPocketToUser(ThinkPocketPackage thinkPocketPackage, String... data) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
+		param.put("talk_code", data[0]);
+		param.put("manage_code", data[1]);
+		param.put("template_code", data[2]);
+		param.put("userkey", thinkPocketPackage.getUser_key());
+		param.put("client_ip", thinkPocketPackage.getAdd_ip());
+		param.put("worker", "HOMEPAGE");
+
+    try {
+      param.put("data1", URLEncoder.encode(thinkPocketPackage.getHomepage_name(), "UTF-8"));
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
+    }
+
+    Map<String, Object> sendKCMS = CommonAPI.sendKCMS("sendalimtalk", param);
+		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
+		if ("SUCCESS".equals(code)) {
+		} else {
+			log.error("알림톡 발송 실패 : " + sendKCMS.get("RESULT_MESSAGE"));
 		}
 	}
 }

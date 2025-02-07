@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackageDao">
+
+  <!-- 조회 필드 정의 -->
+  <sql id="fields">
+    <![CDATA[
+      a.think_pocket_package_idx, a.think_pocket_package_name, a.think_pocket_package_subject, a.author, a.publisher,
+      a.publish_year, a.isbn,a.book_price, a.book_pages, a.purpose, a.loan_count,
+      a.quantity, a.grade, a.category, a.keyword, a.doc_org_file_name,
+      a.doc_server_file_name, a.doc_file_extension, a.doc_file_size, a.org_file_name, a.server_file_name,
+      a.file_extension, a.file_size, a.desc_link, a.image_link, REGEXP_REPLACE(a.content, '<[^>]*>', '') AS content,
+      a.add_id, a.add_date, TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date,
+      TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+      NVL(b.lender_count, 0) AS lender_count
+    ]]>
+  </sql>
+
+  <!-- 대출 정보 집계 서브쿼리와 LEFT JOIN -->
+  <sql id="joinLoan">
+    <![CDATA[
+    LEFT JOIN (
+    SELECT think_pocket_package_idx,
+           COUNT(request_status) AS lender_count,
+           MAX(loan_start_date)  AS loan_start_date,
+           MAX(loan_end_date)    AS loan_end_date
+    FROM THINK_POCKET_PACKAGE_LOAN
+    WHERE request_status IN (0, 1, 2, 6)
+    GROUP BY think_pocket_package_idx) b
+    ON a.think_pocket_package_idx = b.think_pocket_package_idx
+    ]]>
+  </sql>
+
+  <!-- 동적 조건 처리 -->
+  <sql id="dynamicWhere">
+    <trim prefix="WHERE" prefixOverrides="AND">
+        AND a.homepage_id = #{homepage_id}
+      <if test="search_type != null and search_type != '' and search_text != null and search_text != ''">
+        AND ${search_type} LIKE '%' || #{search_text} || '%'
+      </if>
+      <if test="category != null and category != '' and category != 'all'">
+        AND REGEXP_LIKE(a.category, REPLACE(#{category}, ',', '|'))
+      </if>
+      <if test="grade != null and grade != ''">
+        AND a.grade = #{grade}
+      </if>
+      <if test="lender_count != -1">
+        <choose>
+          <when test="lender_count == 0">
+            AND NVL(b.lender_count, 0) = 0
+          </when>
+          <when test="lender_count == 1">
+            AND NVL(b.lender_count, 0) >= 1
+          </when>
+        </choose>
+      </if>
+    </trim>
+  </sql>
+
+  <!-- 전체 건수 조회 (카운트) -->
+  <select id="getThinkPocketPackageCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM THINK_POCKET_PACKAGE a
+    <include refid="joinLoan"/>
+    <include refid="dynamicWhere"/>
+  </select>
+
+  <!-- 리스트 조회 (페이징 포함) -->
+  <select id="getThinkPocketPackageList" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    ${pagingTop}
+    SELECT
+    <include refid="fields"/>
+    FROM
+    THINK_POCKET_PACKAGE a
+    <include refid="joinLoan"/>
+    <include refid="dynamicWhere"/>
+    ORDER BY
+    a.think_pocket_package_idx DESC
+    ${pagingBottom}
+  </select>
+
+  <!-- 단일 조회 -->
+  <select id="getThinkPocketPackageOne" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    SELECT
+    <include refid="fields"/>
+    FROM
+    THINK_POCKET_PACKAGE a
+    <include refid="joinLoan"/>
+    WHERE
+    a.think_pocket_package_idx = #{think_pocket_package_idx}
+    AND a.homepage_id = #{homepage_id}
+  </select>
+
+  <!-- 등록 (ThinkPocketPackage) -->
+  <insert id="addThinkPocketPackage">
+    <selectKey keyProperty="think_pocket_package_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(think_pocket_package_idx), 0) + 1 FROM THINK_POCKET_PACKAGE
+    </selectKey>
+    INSERT INTO
+    THINK_POCKET_PACKAGE
+    (
+    think_pocket_package_idx, think_pocket_package_name, think_pocket_package_subject, author, publisher,
+    publish_year, isbn, book_price, book_pages, purpose,
+    loan_count, quantity, grade, category, keyword,
+    desc_link, image_link, homepage_id, content,
+    <if test="doc_org_file_name != null and doc_org_file_name != ''">
+      doc_org_file_name, doc_server_file_name, doc_file_extension, doc_file_size,
+    </if>
+    <if test="org_file_name != null and org_file_name != ''">
+      org_file_name, server_file_name, file_extension, file_size,
+    </if>
+    add_id, add_date
+    )
+    VALUES
+    (
+    #{think_pocket_package_idx}, #{think_pocket_package_name}, #{think_pocket_package_subject}, #{author}, #{publisher},
+    #{publish_year}, #{isbn}, #{book_price}, #{book_pages}, #{purpose},
+    #{loan_count}, #{quantity}, #{grade}, #{category}, REPLACE(#{keyword}, ' ', ''),
+    #{desc_link}, #{image_link}, #{homepage_id}, #{content},
+    <if test="doc_org_file_name != null and doc_org_file_name != ''">
+      #{doc_org_file_name}, #{doc_server_file_name}, #{doc_file_extension}, #{doc_file_size},
+    </if>
+    <if test="org_file_name != null and org_file_name != ''">
+      #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size},
+    </if>
+    #{add_id}, SYSDATE
+    )
+  </insert>
+
+  <!-- 수정 (ThinkPocketPackage) -->
+  <update id="modifyThinkPocketPackage">
+    UPDATE
+    THINK_POCKET_PACKAGE
+    SET
+    think_pocket_package_name = #{think_pocket_package_name},
+    think_pocket_package_subject = #{think_pocket_package_subject},
+    author = #{author},
+    publisher = #{publisher},
+    publish_year = #{publish_year},
+    isbn = #{isbn},
+    book_price = #{book_price},
+    book_pages = #{book_pages},
+    purpose = #{purpose},
+    loan_count = #{loan_count},
+    quantity = #{quantity},
+    grade = #{grade},
+    category = #{category},
+    keyword = #{keyword},
+    desc_link = #{desc_link},
+    image_link = #{image_link},
+    content = #{content},
+    <if test="doc_org_file_name != null and doc_org_file_name != ''">
+      doc_org_file_name = #{doc_org_file_name},
+      doc_server_file_name = #{doc_server_file_name},
+      doc_file_extension = #{doc_file_extension},
+      doc_file_size = #{doc_file_size},
+    </if>
+    <if test="org_file_name != null and org_file_name != ''">
+      org_file_name = #{org_file_name},
+      server_file_name = #{server_file_name},
+      file_extension = #{file_extension},
+      file_size = #{file_size},
+    </if>
+    modify_id = #{modify_id},
+    modify_date = SYSDATE
+    WHERE
+    think_pocket_package_idx = #{think_pocket_package_idx}
+    AND homepage_id = #{homepage_id}
+  </update>
+
+  <!-- 삭제 (ThinkPocketPackage) -->
+  <delete id="deleteThinkPocketPackage">
+    DELETE FROM
+      THINK_POCKET_PACKAGE
+    WHERE
+      think_pocket_package_idx = #{think_pocket_package_idx}
+    AND homepage_id = #{homepage_id}
+  </delete>
+
+  <!-- 다중 삭제 (ThinkPocketPackage) -->
+  <delete id="deleteCheckThinkPocketPackage">
+
+    DELETE FROM
+        THINK_POCKET_PACKAGE
+    WHERE
+    think_pocket_package_idx IN
+    <foreach collection="think_pocket_package_idx_arr" open="(" close=")" separator="," item="i">
+      #{i}
+    </foreach>
+    AND homepage_id = #{homepage_id}
+  </delete>
+
+  <!-- 대출 건수 조회 -->
+  <select id="getThinkPocketPackageLoanCount" resultType="java.lang.Integer">
+    SELECT
+        COUNT(*)
+    FROM
+        THINK_POCKET_PACKAGE a, THINK_POCKET_PACKAGE_LOAN b
+    WHERE
+    a.think_pocket_package_idx = b.think_pocket_package_idx
+      AND a.homepage_id = #{homepage_id}
+    <if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+      AND	${search_type} LIKE '%'||#{search_text}||'%'
+    </if>
+    <choose>
+      <when test="return_yn != null and return_yn != ''">
+        AND	return_yn = #{return_yn}
+        AND	request_status = '2'
+      </when>
+      <when test="request_status != null and request_status != ''">
+        AND	request_status = #{request_status}
+      </when>
+    </choose>
+    <if test="loan_start_date != null and loan_start_date != ''">
+      AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
+    </if>
+    <if test="add_id != null and add_id != ''">
+      AND b.add_id = #{add_id}
+    </if>
+    <if test="category != null and category != '' and category != 'all'">
+      AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+    </if>
+  </select>
+
+  <!-- 대출 리스트 조회 (페이징 포함) -->
+  <select id="getThinkPocketPackageLoanList" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    ${pagingTop}
+    SELECT
+      b.think_pocket_package_idx, b.think_pocket_package_loan_idx, a.think_pocket_package_subject, b.request_name, b.phone,
+      a.quantity, a.loan_count, a.grade, b.phone, b.request_content,
+      TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+      b.request_status, b.return_yn, b.add_id, b.add_date, a.category,
+      b.loan_place, b.user_key, b.homepage_name
+    FROM
+        THINK_POCKET_PACKAGE a, THINK_POCKET_PACKAGE_LOAN b
+    WHERE
+        a.think_pocket_package_idx = b.think_pocket_package_idx
+      AND a.homepage_id = #{homepage_id}
+    <if test="(search_type != null and search_type != '') and (search_text != '' and search_text != '')">
+      AND	${search_type} LIKE '%'||#{search_text}||'%'
+    </if>
+    <choose>
+      <when test="return_yn != null and return_yn != ''">
+        AND	return_yn = #{return_yn}
+        AND	request_status = '2'
+      </when>
+      <when test="request_status != null and request_status != ''">
+        AND	request_status = #{request_status}
+      </when>
+    </choose>
+    <if test="loan_start_date != null and loan_start_date != ''">
+      AND	TO_CHAR(loan_start_date, 'yyyy') = #{loan_start_date}
+    </if>
+    <if test="add_id != null and add_id != ''">
+      AND b.add_id = #{add_id}
+    </if>
+    <if test="category != null and category != '' and category != 'all'">
+      AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+    </if>
+    ORDER BY b.think_pocket_package_loan_idx DESC
+    ${pagingBottom}
+  </select>
+
+  <!-- 단일 대출 조회 -->
+  <select id="getThinkPocketPackageLoanOne" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    SELECT
+      b.think_pocket_package_idx, b.think_pocket_package_loan_idx, a.think_pocket_package_subject, b.request_name, a.quantity,
+      TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+      b.phone, b.request_content, b.request_status, b.return_yn, a.grade,
+      b.add_id, b.add_date, b.loan_place, b.user_key, b.homepage_name, b.add_ip
+    FROM
+      THINK_POCKET_PACKAGE a, THINK_POCKET_PACKAGE_LOAN b
+    WHERE
+      a.think_pocket_package_idx = b.think_pocket_package_idx
+      AND	think_pocket_package_loan_idx = #{think_pocket_package_loan_idx}
+      AND a.homepage_id = #{homepage_id}
+  </select>
+
+  <!-- 등록 (ThinkPocketPackageLoan) -->
+  <insert id="addThinkPocketPackageLoan">
+    <selectKey keyProperty="think_pocket_package_loan_idx" resultType="int" order="BEFORE">
+      SELECT NVL(MAX(think_pocket_package_loan_idx), 0) + 1 FROM THINK_POCKET_PACKAGE_LOAN
+    </selectKey>
+    INSERT INTO
+    THINK_POCKET_PACKAGE_LOAN
+    (
+    think_pocket_package_idx, think_pocket_package_loan_idx, request_name,
+    loan_start_date, loan_end_date, phone, request_content,
+    request_status, return_yn, add_id, add_date, loan_place,
+    user_key, homepage_id, homepage_name, add_ip
+
+    )
+    VALUES
+    (
+    #{think_pocket_package_idx}, #{think_pocket_package_loan_idx}, #{request_name},
+    #{loan_start_date}, #{loan_end_date}, #{phone},#{request_content},
+    #{request_status}, 'N', #{add_id}, SYSDATE, #{loan_place},
+    #{user_key}, #{homepage_id}, #{homepage_name}, #{add_ip}
+    )
+  </insert>
+
+  <!-- 대출 수정 -->
+  <update id="modifyThinkPocketPackageLoan">
+    UPDATE
+      THINK_POCKET_PACKAGE_LOAN
+    SET
+      request_name = #{request_name},
+      loan_start_date = #{loan_start_date},
+      loan_end_date = #{loan_end_date},
+      phone = #{phone},
+      request_content = #{request_content},
+      request_status = #{request_status},
+      modify_id = #{modify_id},
+      modify_date = SYSDATE
+    WHERE
+      think_pocket_package_loan_idx = #{think_pocket_package_loan_idx}
+  </update>
+
+  <!-- 대출 반납 요청 수정 -->
+  <update id="modifyReturnReq">
+    UPDATE
+      THINK_POCKET_PACKAGE_LOAN
+    SET
+      return_yn = #{return_yn}
+    WHERE
+      think_pocket_package_loan_idx = #{think_pocket_package_loan_idx}
+    AND homepage_id = #{homepage_id}
+  </update>
+
+  <!-- 상태 변경 (여러 건) -->
+  <update id="statusChangeAll">
+      UPDATE
+      THINK_POCKET_PACKAGE_LOAN
+      SET
+        request_status = #{request_status}
+      WHERE
+        think_pocket_package_loan_idx IN
+      <foreach collection="think_pocket_package_loan_arr" open="(" close=")" separator="," item="i">
+        #{i}
+      </foreach>
+    </update>
+
+  <!-- 대출 삭제 -->
+  <delete id="deleteThinkPocketPackageLoan">
+    DELETE FROM
+      THINK_POCKET_PACKAGE_LOAN
+    WHERE
+      think_pocket_package_loan_idx = #{think_pocket_package_loan_idx}
+    AND homepage_id = #{homepage_id}
+  </delete>
+
+  <!-- 엑셀용 ThinkPocketPackage 리스트 -->
+  <select id="getThinkPocketPackageExcelList" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    SELECT
+      think_pocket_package_idx, think_pocket_package_name, think_pocket_package_subject, author, publisher,
+      publish_year, loan_count, quantity, grade, category,
+      (SELECT COUNT(*) FROM THINK_POCKET_PACKAGE_LOAN WHERE think_pocket_package_idx = a.think_pocket_package_idx AND request_status = 2) AS lender_count
+    FROM
+      THINK_POCKET_PACKAGE a
+    WHERE
+      homepage_id = #{homepage_id}
+    ORDER BY think_pocket_package_idx DESC
+  </select>
+
+  <!-- 엑셀용 ThinkPocketPackageLoan 리스트 -->
+  <select id="getThinkPocketPackageLoanExcelList" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    SELECT
+    b.think_pocket_package_idx, b.think_pocket_package_loan_idx, a.think_pocket_package_subject, b.request_name,
+    a.quantity, a.loan_count,
+    TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+    b.phone, b.request_content, b.request_status, b.return_yn,
+    b.add_id, b.add_date, a.category, b.loan_place
+    FROM
+    THINK_POCKET_PACKAGE a, THINK_POCKET_PACKAGE_LOAN b
+    WHERE
+    a.think_pocket_package_idx = b.think_pocket_package_idx
+    AND a.homepage_id = #{homepage_id}
+    <if test="add_id != null and add_id != ''">
+      AND	b.add_id = #{add_id}
+    </if>
+    <if test="category != null and category != '' and category != 'all'">
+      AND	REGEXP_LIKE(category, REPLACE(#{category}, ',', '|'))
+    </if>
+    ORDER BY b.think_pocket_package_loan_idx DESC
+  </select>
+
+  <select id="getThinkPocketPackageLoanDate" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
+    SELECT
+      TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date
+    FROM
+      THINK_POCKET_PACKAGE a, THINK_POCKET_PACKAGE_LOAN b
+    WHERE
+      a.think_pocket_package_idx = b.think_pocket_package_idx
+      AND	b.think_pocket_package_idx = #{think_pocket_package_idx}
+      AND a.homepage_id = #{homepage_id}
+      AND	request_status IN ('0', '1', '2', '6')
+      AND	(
+      loan_start_date > SYSDATE OR
+      loan_end_date > SYSDATE
+      )
+  </select>
+
+  <select id="getThinkPocketPackageLoanDateList" resultType="java.lang.String">
+    		<![CDATA[
+    SELECT
+      TO_CHAR(TO_DATE(#{start_date}, 'YYYY-MM-DD') + LEVEL - 1, 'YYYY-MM-DD') AS IN_DATE
+    FROM
+      DUAL
+    CONNECT BY LEVEL <= TO_DATE(#{end_date}, 'YYYY-MM-DD') - TO_DATE(#{start_date}, 'YYYY-MM-DD') + 1
+    ]]>
+  </select>
+
+  <select id="getDuplicateLoanCount" resultType="java.lang.Integer">
+    SELECT
+        count(*)
+    FROM
+        THINK_POCKET_PACKAGE_LOAN
+    WHERE add_id = #{add_id}
+      AND	request_status IN ('0', '1', '2', '6')
+    AND homepage_id = #{homepage_id}
+  </select>
+
+</mapper>
