@@ -173,6 +173,7 @@
 			STUDENT
 		SET
 			APPLICANT_NAME 			= #{applicant_name},
+			MEMBER_KEY 					= #{member_key},
 			APPLICANT_BIRTH 		= #{applicant_birth},
 			APPLICANT_OLD 			= #{applicant_old},
 			APPLICANT_SEX 			= #{applicant_sex},
