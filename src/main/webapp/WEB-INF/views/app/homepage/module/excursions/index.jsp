@@ -466,38 +466,58 @@ $(function(){
 	</c:if>
 
 	<c:if test="${homepage.context_path eq 'bukbu'}">
-		<div class="summaryDesc">
-			<div class="innerBox">
-				<div class="img ticon_05"></div>
-				<div class="desc">
-					<h3>북부도서관 도서관체험학습</h3>
-					<p>올바른 도서관 이용법 교육하고, 자라나는 어린이들에게 책 읽는 즐거움과 흥미를 심어주고자 도서관체험학습을 운영합니다.</p>
-				</div>
-			</div>
-		</div>
-		<h3>도서관체험학습안내</h3>
-		<ul class="con">
-			<li><strong>운영대상</strong> : 대구 서부교육지원청 관내 유치원 및 북구청 관내 어린이집(만2세~만5세(4~7세))</li>
-			<li><strong>운영기간</strong> : 3~7월 매주 수,목요일</li>
-			<li><strong>운영방법</strong> : 1일 1회 20명 내외, 기관별 4회 이내(20명 초과 시 장소 협소할 수 있음)</li>
-			<li><strong>운영내용</strong> : 도서관 이용교육 및 봉사단이 읽어주는 그림책 이야기, 자율독서 등</li>
-			<li><strong>참가신청</strong> : 로그인 → ‘신청’ 버튼이 활성화되어 있는 날짜 선택 후 신청 → 신청 양식 작성 → 견학 신청 후 ‘승인완료’ 처리 여부를 반드시 확인</li>
-			<li><strong>유의사항</strong>
-				<ul class="con2">
-					<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관사정에 따라 변경될 수 있습니다.</li>
-					<li>신청은 온라인을 통해서만 가능합니다.</li>
+		<c:choose>
+			<c:when test="${excursions.date_type eq '3'}">
+				<h3>단체 체험 프로그램</h3>
+				<p class="btn_wd_p p_btn_ml10"> <a href="" class="ct-btn" title="학교 단체 체험 프로그램 신청서 다운로드">
+					<span class="down">학교 단체 체험 프로그램 신청서 다운로드(차후예정)</span>
+				</a>
+				</p>
+
+				<ul class="con">
+					<li>중학생 대상 학기중 화~금요일 오전만 가능 (30명 이내)</li>
+					<li>도서관 시설 견학(보존서고 등) 및 조별활동(방탈출게임 등)</li>
+					<li>담당자와 일정 확인 후 신청서 제출</li>
+					<li>담당자: 053-231-2626</li>
 				</ul>
-			<li>
-			<li><strong>문 의 처</strong> : 053-231-2635</li>
-		</ul>
-		<strong style="color:red;">※ 도서관체험학습 신청이 마감되었습니다.</strong>
-		<ul class="btns_wrap_tac">
-			<li>
-			<a href="/board/boardFile/download/3/511758/342930/2024%EB%85%84%20%EB%8F%84%EC%84%9C%EA%B4%80%20%EC%B2%B4%ED%97%98%ED%95%99%EC%8A%B5%20%EC%B0%B8%EA%B0%80%EC%8B%A0%EC%B2%AD%EC%84%9C(%EC%84%9C%EC%8B%9D).hwp.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
-				<span>신청서 다운로드</span><span class="ico ico_link"></span>
-			</a>
-			</li>
-		</ul>
+
+			</c:when>
+			<c:otherwise>
+				<div class="summaryDesc">
+					<div class="innerBox">
+						<div class="img ticon_05"></div>
+						<div class="desc">
+							<h3>북부도서관 도서관체험학습</h3>
+							<p>올바른 도서관 이용법 교육하고, 자라나는 어린이들에게 책 읽는 즐거움과 흥미를 심어주고자 도서관체험학습을 운영합니다.</p>
+						</div>
+					</div>
+				</div>
+				<h3>도서관체험학습안내</h3>
+				<ul class="con">
+					<li><strong>운영대상</strong> : 대구 서부교육지원청 관내 유치원 및 북구청 관내 어린이집(만2세~만5세(4~7세))</li>
+					<li><strong>운영기간</strong> : 3~7월 매주 수,목요일</li>
+					<li><strong>운영방법</strong> : 1일 1회 20명 내외, 기관별 4회 이내(20명 초과 시 장소 협소할 수 있음)</li>
+					<li><strong>운영내용</strong> : 도서관 이용교육 및 봉사단이 읽어주는 그림책 이야기, 자율독서 등</li>
+					<li><strong>참가신청</strong> : 로그인 → ‘신청’ 버튼이 활성화되어 있는 날짜 선택 후 신청 → 신청 양식 작성 → 견학 신청 후 ‘승인완료’ 처리 여부를 반드시 확인</li>
+					<li><strong>유의사항</strong>
+						<ul class="con2">
+							<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관사정에 따라 변경될 수 있습니다.</li>
+							<li>신청은 온라인을 통해서만 가능합니다.</li>
+						</ul>
+					<li>
+					<li><strong>문 의 처</strong> : 053-231-2635</li>
+				</ul>
+				<strong style="color:red;">※ 도서관체험학습 신청이 마감되었습니다.</strong>
+				<ul class="btns_wrap_tac">
+					<li>
+						<a href="/board/boardFile/download/3/511758/342930/2024%EB%85%84%20%EB%8F%84%EC%84%9C%EA%B4%80%20%EC%B2%B4%ED%97%98%ED%95%99%EC%8A%B5%20%EC%B0%B8%EA%B0%80%EC%8B%A0%EC%B2%AD%EC%84%9C(%EC%84%9C%EC%8B%9D).hwp.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+							<span>신청서 다운로드</span><span class="ico ico_link"></span>
+						</a>
+					</li>
+				</ul>
+			</c:otherwise>
+		</c:choose>
+
 	</c:if>
 
 	<div class="ym_btns">
