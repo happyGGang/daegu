@@ -380,7 +380,7 @@ span.text2{font-style: normal;color: #888;font-size: 90%;margin: 0 5px;}
 <script>
 	function checkDate() {
 		const currentDate = new Date();
-		const targetDate = new Date(2024, 7, 31);
+		const targetDate = new Date(2025, 7, 31);
 
 		if (currentDate <= targetDate) {
 			document.getElementById("save-btn").style.display = "inline-block";
