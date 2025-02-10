@@ -28,6 +28,7 @@
 			<td style="width:120px;text-align:left;">이름</th>
 			<td style="width:120px;text-align:left;">학교</th>
 			<td style="width:90px;text-align:left;">학년</th>
+			<td style="width:90px;text-align:left;">분류</th>
 			<th colspan="2" style="width:280px;text-align:left;">참가종목</th>
 			<th style="width:90px;text-align:left;">달성률</th>
 			<th colspan="2" style="width:200px;text-align:left;">달성일</th>
@@ -37,6 +38,27 @@
 			<td rowspan="2">${marathonApplicant.member_name}</td>
 			<td rowspan="2">${marathonApplicant.school_name}</td>
 			<td rowspan="2">${marathonApplicant.school_class_one}</td>
+			<c:choose>
+				<c:when test="${marathonApplicant.age_type eq 'ele_low'}">
+					<td rowspan="2">초등(1~3)저학년</td>
+				</c:when>
+				<c:when test="${marathonApplicant.age_type eq 'ele_high'}">
+					<td rowspan="2">초등(4~6)고학년</td>
+				</c:when>
+				<c:when test="${marathonApplicant.age_type eq 'middle'}">
+					<td rowspan="2">중학생</td>
+				</c:when>
+				<c:when test="${marathonApplicant.age_type eq 'high'}">
+					<td rowspan="2">고등학생</td>
+				</c:when>
+				<c:when test="${marathonApplicant.age_type eq 'adult'}">
+					<td rowspan="2">일반인</td>
+				</c:when>
+				<c:otherwise>
+					<td rowspan="2">분류값없음</td>
+				</c:otherwise>
+			</c:choose>
+
 			<td rowspan="2">${marathonApplicant.contest_type} (<fmt:formatNumber value="${marathonApplicant.page_count}" pattern="#,###"/>쪽)</td>
 			<td>목표치 : <fmt:formatNumber value="${marathonApplicant.page_count}" pattern="#,###"/></td>
 			<td rowspan="2" style="color:red;font-weight:bold;"><fmt:formatNumber value="${(read_page_count_total / marathonApplicant.page_count) * 100}" pattern="####.##"/>%</td>

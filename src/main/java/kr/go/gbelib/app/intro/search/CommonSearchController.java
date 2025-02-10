@@ -4018,7 +4018,6 @@ public class CommonSearchController extends BaseController {
 						sub01Count = userRedundantRemoveList.stream()
 								.skip(1)
 								.map(userNo -> String.valueOf(userNo.get("USER_NO")))
-								.peek(userNoValue -> System.out.println("USER_NO value: " + userNoValue)) // 각 USER_NO 값 출력
 								.filter(Objects::nonNull)
 								.collect(Collectors.toSet())
 								.size();

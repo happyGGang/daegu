@@ -105,7 +105,7 @@
 			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
 			A.contest_type, C.page_count, B.read_page_count, A.finish_date,
 			B.book_name, B.book_author, B.book_type, B.publisher, B.record_date,
-			B.book_resources, B.book_journals, B.loan_choice,
+			B.book_resources, B.book_journals, B.loan_choice, A.age_type,
 			(
 				SELECT
 					NVL(SUM(read_page_count), 0)
@@ -150,7 +150,7 @@
 			B.applicant_idx, B.member_id, B.member_name, A.school_name, A.school_class,
 			A.contest_type, C.page_count, B.read_page_count, A.finish_date, B.book_name,
 			B.book_author, B.book_type, B.publisher, B.record_date, B.book_resources,
-			B.book_journals, B.loan_choice,
+			B.book_journals, B.loan_choice, A.age_type,
 			(
 				SELECT
 					NVL(SUM(read_page_count), 0)

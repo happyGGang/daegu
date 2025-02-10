@@ -27,6 +27,7 @@
 			<th style="width:100px;">아이디</th>
 			<th style="width:60px;">이름</th>
 			<th style="width:100px;">학교</th>
+			<th style="width:50px;">분류</th>
 			<th style="width:50px;">학년</th>
 			<th style="width:40px;">반</th>
 			<th style="width:250px;">주소</th>
@@ -49,6 +50,26 @@
 				<td>${i.member_id}</td>
 				<td>${i.member_name}</td>
 				<td>${i.school_name}</td>
+				<c:choose>
+					<c:when test="${i.age_type eq 'ele_low'}">
+						<td>초등(1~3)저학년</td>
+					</c:when>
+					<c:when test="${i.age_type eq 'ele_high'}">
+						<td>초등(4~6)고학년</td>
+					</c:when>
+					<c:when test="${i.age_type eq 'middle'}">
+						<td>중학생</td>
+					</c:when>
+					<c:when test="${i.age_type eq 'high'}">
+						<td>고등학생</td>
+					</c:when>
+					<c:when test="${i.age_type eq 'adult'}">
+						<td>일반인</td>
+					</c:when>
+					<c:otherwise>
+						<td>분류값없음</td>
+					</c:otherwise>
+				</c:choose>
 				<td>${i.school_class_one}</td>
 				<td>${i.school_class_two}</td>
 				<td>${i.address_one} ${i.address_two}</td>
