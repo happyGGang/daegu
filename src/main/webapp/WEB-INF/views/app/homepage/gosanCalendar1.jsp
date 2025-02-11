@@ -47,7 +47,7 @@
 			</ul>
 		  </div>
 
-		  <h3>장서현황 (단위 : 권)<span class="sm_text sm_text02" style="margin-top:10px;">(2024. 12. 31. 기준)</span></h3>
+		  <h3>장서현황 (단위 : 권)<span class="sm_text sm_text02" style="margin-top:10px;">(2025. 1. 31. 기준)</span></h3>
 		  <div class="rsv-info"></div>
 		  <div class="auto-scroll">
 			<table class="tbl-type01" summary="사월역작은도서관 장서현황을 안내해 드립니다.">
@@ -91,28 +91,28 @@
 					<td>40</td>
 					<td>59</td>
 					<td>65</td>
-					<td>449</td>
+					<td>447</td>
 					<td>168</td>
 					<td>23</td>
 					<td>29</td>
 					<td>23</td>
-					<td>969</td>
+					<td>981</td>
 					<td>229</td>
-					<td>2,054</td>
+					<td>2,063</td>
 				</tr>
 				<tr>
 					<th>아동</th>
 					<td>232</td>
-					<td>86</td>
+					<td>88</td>
 					<td>33</td>
-					<td>378</td>
-					<td>188</td>
+					<td>380</td>
+					<td>187</td>
 					<td>125</td>
 					<td>28</td>
-					<td>158</td>
-					<td>1,185</td>
-					<td>405</td>
-					<td>2,818</td>
+					<td>159</td>
+					<td>1,176</td>
+					<td>407</td>
+					<td>2,815</td>
 				</tr>
 				<tr>
 					<th colspan="2">일반</th>
@@ -120,11 +120,11 @@
 					<td>536</td>
 					<td>165</td>
 					<td>1,043</td>
-					<td>247</td>
+					<td>248</td>
 					<td>695</td>
 					<td>284</td>
 					<td>136</td>
-					<td>2,246</td>
+					<td>2,245</td>
 					<td>654</td>
 					<td>6,223</td>
 				</tr>
@@ -138,15 +138,15 @@
 					<td>843</td>
 					<td>341</td>
 					<td>317</td>
-					<td>4,400</td>
-					<td>1,288</td>
-					<td>11,095</td>
+					<td>4,402</td>
+					<td>1,290</td>
+					<td>11,101</td>
 				</tr>
 				<tr>
 					<td>4.4%</td>
-					<td>6.1%</td>
+					<td>6.2%</td>
 					<td>2.4%</td>
-					<td>16.9%</td>
+					<td>16.8%</td>
 					<td>5.4%</td>
 					<td>7.6%</td>
 					<td>3.1%</td>
