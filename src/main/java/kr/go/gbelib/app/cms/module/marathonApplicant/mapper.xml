@@ -172,6 +172,7 @@
 		AND	A.del_yn = 'N'
 		AND	B.del_yn = 'N'
 		AND	C.del_yn = 'N'
+		ORDER BY B.ADD_DATE DESC, B.CONTEST_TYPE_IDX, B.APPLICANT_IDX
 	</select>
 	
 	<select id="getMarathonApplicantOneById" resultType="kr.go.gbelib.app.cms.module.marathonApplicant.MarathonApplicant">
@@ -394,7 +395,7 @@
 		AND	B.contest_type_idx = #{contest_type_idx}
 		</if>
 		AND	B.homepage_id = #{homepage_id}
-		ORDER BY B.applicant_idx
+		ORDER BY B.ADD_DATE DESC, B.CONTEST_TYPE_IDX, B.APPLICANT_IDX
 	</select>
 	
 	<insert id="addMarathonApplicant">
