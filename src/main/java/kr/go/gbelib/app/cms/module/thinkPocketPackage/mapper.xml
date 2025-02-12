@@ -183,7 +183,7 @@
         THINK_POCKET_PACKAGE
     WHERE
     think_pocket_package_idx IN
-    <foreach collection="think_pocket_package_idx_arr" open="(" close=")" separator="," item="i">
+    <foreach collection="think_pocket_package_arr" open="(" close=")" separator="," item="i">
       #{i}
     </foreach>
     AND homepage_id = #{homepage_id}
