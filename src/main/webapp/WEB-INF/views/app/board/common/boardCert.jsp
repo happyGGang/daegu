@@ -236,6 +236,44 @@ $(function() {
 		</div>
 		<br>
 		</c:when>
+		<c:when test="${param.manage_idx eq '1307'}">
+		<div class="Box" style="height:200px">
+			개인정보 수집·이용 및 제3자 제공 동의
+
+			1. 개인정보 수집·이용 주체
+			- 독서문화실
+
+			2. 개인정보 수집·이용 목적
+			- 행사 참여 확인 및 상품 추첨 확인
+
+			3. 수집 항목
+			- 필수: 이름, 연락처, 음성 (예: 음성 녹음 파일 등)
+
+			4. 보유 및 이용 기간 (수집 목적)
+			- 목적 달성 시까지
+
+			5. 개인정보 제3자 제공 대상
+			- 도서관 홈페이지 이용자 외 다수
+
+			6. 개인정보 제3자 제공 목적
+			- 도서관 홈페이지 게시물 열람·관람
+
+			7. 개인정보 제3자 제공 항목
+			- 음성 (예: 음성 녹음 파일 등)
+
+			8. 보유 및 이용 기간 (제3자 제공 목적)
+			- 제3자 제공 목적 달성 시까지
+
+			9. 동의 거부 및 불이익 안내
+			- 귀하는 동의를 거부할 권리가 있으며, 동의하지 않으면 행사 참여가 제한될 수 있습니다.
+		</div>
+			<div class="agree_codes">
+				<div class="checkbox">
+					<input id="agree_codes" name="agree_codes" req="0001" type="checkbox" value="2">
+					<label for="agree_codes">위 내용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
+				</div>
+			</div>
+		</c:when>
 		<c:otherwise>
 		<div class="Box" style="height:200px">
 			<h5>♣ 개인정보 수집 및 이용 주체</h5>
