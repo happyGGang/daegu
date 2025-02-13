@@ -124,15 +124,25 @@ input[type="checkbox"]:focus {outline: 1px solid red;}
 			<tr>
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
-					<form:input path="loan_start_date" cssClass="text ui-calendar"/>
+					<fmt:parseDate value="${pictureBook.loan_start_date}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" var="loanStartDate" />
+					<form:input path="loan_start_date" cssClass="text ui-calendar" value="${loanStartDate}"/>
 					<span>~</span>
-					<form:input path="loan_end_date" cssClass="text ui-calendar" onchange="checkLoanDate('${pictureBook.picture_book_idx}');"/>
+					<fmt:parseDate value="${pictureBook.loan_end_date}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" />
+					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" var="loanEndDate" />
+					<form:input path="loan_end_date" cssClass="text ui-calendar" vvalue="${loanEndDate}" onchange="checkLoanDate('${pictureBook.picture_book_idx}');"/>
 				</td>
 			</tr>
 			<tr>
 				<th>신청자(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="request_name" cssClass="text" cssStyle="width:100px;"/>
+				</td>
+			</tr>
+			<tr>
+				<th>학교명(<span style="color: red;font-weight: bold;">*</span>)</th>
+				<td>
+					<form:input path="school_name" cssClass="text" cssStyle="width:100px;"/>
 				</td>
 			</tr>
 			<tr>

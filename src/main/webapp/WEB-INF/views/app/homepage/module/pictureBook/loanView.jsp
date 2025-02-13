@@ -11,12 +11,33 @@ $(function() {
 		e.preventDefault();
 		doGetLoad('loanList.do', $('#pictureBook').serialize());
 	});
+
+	$('#return-btn').on('click', function (e) {
+		$('#editMode').val('STATUS');
+		$('#request_status').val($(this).attr('data-status'));
+		$('#pictureBook').attr('action', 'loanSave.do');
+		$('#pictureBook').attr('method', 'POST');
+
+		let currentArr = $('#picture_book_loan_arr').val();
+		let loanIdx = $('#picture_book_loan_idx').val();
+
+		if (currentArr) {
+			$('#picture_book_loan_arr').val(currentArr + ',' + loanIdx);
+		} else {
+			$('#picture_book_loan_arr').val(loanIdx);
+		}
+		doAjaxPost($('#pictureBook'));
+	});
 });
 </script>
 <form:form modelAttribute="pictureBook" action="index.do" method="GET">
 <form:hidden path="menu_idx"/>
 <form:hidden path="viewPage"/>
 <form:hidden path="pay_yn"/>
+<form:hidden path="picture_book_loan_idx"/>
+<form:hidden path="request_status"/>
+<form:hidden path="editMode"/>
+<form:hidden path="picture_book_loan_arr"/>
 </form:form>
 <div>
 	<table class="type1">
@@ -69,4 +90,5 @@ $(function() {
 <br>
 <div>
 	<a href="#" id="list-btn" class="btn btn3">목록으로</a>
+	<a href="#" id="return-btn" class="btn btn3" data-status="3">반납신청</a>
 </div>
