@@ -172,6 +172,15 @@ public class Member extends PagingUtils implements Serializable {
 
 	private String lill_stop_date; //상호대차 신청 제한일 (YYYY/MM/DD)
 
+	//본인인증 로그 관련
+	private String auth_remote_ip; //본인인증 요청 IP
+	private String auth_remote_agent; //본인인증 요청 Agent
+	private String auth_browser_type; //본인인증 요청 브라우저
+	private String auth_homepage_id; // 본인인증 요청 홈페이지 ID
+	private String auth_message; //권한메시지
+	private String auth_cell_phone; //본인인증 휴대폰번호
+	private int auth_homepage_type; //본인인증 요청 홈페이지 타입
+
 	public boolean getPrivateMemberYn(Homepage homepage) {
 		if("h79".equals(homepage.getHomepage_id()) || "h80".equals(homepage.getHomepage_id()) || "h81".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id()) || "h83".equals(homepage.getHomepage_id()) || "h84".equals(homepage.getHomepage_id()) || "h85".equals(homepage.getHomepage_id()) || "h86".equals(homepage.getHomepage_id()) || "h87".equals(homepage.getHomepage_id()) || "h88".equals(homepage.getHomepage_id())) {
 			return true;
@@ -1225,5 +1234,61 @@ public class Member extends PagingUtils implements Serializable {
 
 	public void setLill_stop_date(String lill_stop_date) {
 		this.lill_stop_date = lill_stop_date;
+	}
+
+	public String getAuth_remote_ip() {
+		return auth_remote_ip;
+	}
+
+	public void setAuth_remote_ip(String auth_remote_ip) {
+		this.auth_remote_ip = auth_remote_ip;
+	}
+
+	public String getAuth_remote_agent() {
+		return auth_remote_agent;
+	}
+
+	public void setAuth_remote_agent(String auth_remote_agent) {
+		this.auth_remote_agent = auth_remote_agent;
+	}
+
+	public String getAuth_browser_type() {
+		return auth_browser_type;
+	}
+
+	public void setAuth_browser_type(String auth_browser_type) {
+		this.auth_browser_type = auth_browser_type;
+	}
+
+	public String getAuth_homepage_id() {
+		return auth_homepage_id;
+	}
+
+	public void setAuth_homepage_id(String auth_homepage_id) {
+		this.auth_homepage_id = auth_homepage_id;
+	}
+
+	public String getAuth_message() {
+		return auth_message;
+	}
+
+	public void setAuth_message(String auth_message) {
+		this.auth_message = auth_message;
+	}
+
+	public String getAuth_cell_phone() {
+		return auth_cell_phone;
+	}
+
+	public void setAuth_cell_phone(String auth_cell_phone) {
+		this.auth_cell_phone = auth_cell_phone;
+	}
+
+	public int getAuth_homepage_type() {
+		return auth_homepage_type;
+	}
+
+	public void setAuth_homepage_type(int auth_homepage_type) {
+		this.auth_homepage_type = auth_homepage_type;
 	}
 }

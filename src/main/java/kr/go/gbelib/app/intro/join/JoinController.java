@@ -1,14 +1,20 @@
 package kr.go.gbelib.app.intro.join;
 
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.go.gbelib.app.cms.module.authenticationLog.AuthenticationLog;
+import kr.go.gbelib.app.cms.module.authenticationLog.AuthenticationLogService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +62,9 @@ public class JoinController extends BaseController {
 
 	@Autowired
 	private CertLogService certLogService;
+
+	@Autowired
+	private AuthenticationLogService authenticationLogService;
 
 	/**
 	 * 회원가입 화면 만14세이상, 만14세미만 선택
@@ -120,7 +129,8 @@ public class JoinController extends BaseController {
 	@RequestMapping (value = {"/cert.*"}, method = RequestMethod.POST)
 	public String cert(Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String certType = request.getParameter("certType");
-		
+		String authHomePageType = request.getParameter("auth_homepage_type");
+
 		Homepage homepage = getSessionHomepage(request);
 		
 		if (StringUtils.isEmpty(certType)) {
@@ -142,6 +152,7 @@ public class JoinController extends BaseController {
 		}
 
 		request.getSession().setAttribute("certType", certType);
+		request.getSession().setAttribute("auth_homepage_type", authHomePageType);
 		String mode = String.valueOf(request.getParameter("mode"));
 		request.getSession().setAttribute("certMode", mode);
 		if (StringUtils.equals(mode, "findpw")) {
@@ -224,12 +235,17 @@ public class JoinController extends BaseController {
 
 		String certType = String.valueOf(request.getSession().getAttribute("certType")).toLowerCase();
 		String mode = String.valueOf(request.getSession().getAttribute("certMode")).toLowerCase();
+		String authHomepageType = String.valueOf(request.getSession().getAttribute("auth_homepage_type")).toLowerCase();
 		boolean certResult = false;
 
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
 			member = joinService.smsCertProc(request, member);
 		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {
 			member = joinService.ipinCertProc(request, member);
+		}
+
+		if (member.isCertComplete()) {
+			setMemberAndHomepageInfo(member, homepage, authHomepageType, request);
 		}
 
 		// 본인인증 실패
@@ -1676,5 +1692,52 @@ public class JoinController extends BaseController {
 		return basePath + "integration4";
 
 	}
+	private void setMemberAndHomepageInfo(Member member, Homepage homepage,String authHomepageType, HttpServletRequest request) {
+
+		if (homepage != null) {
+			member.setAuth_homepage_id(homepage.getHomepage_id());
+		}
+
+		String userAgent = request.getHeader("user-agent");
+		member.setAuth_remote_ip(request.getRemoteAddr());
+		member.setAuth_remote_agent(userAgent);
+		member.setAuth_homepage_type(Integer.parseInt(authHomepageType));
+
+		if (StringUtils.isNotEmpty(member.getCell_phone())) {
+			member.setAuth_cell_phone(maskPhoneNumber(member.getCell_phone()));
+		}
+
+		member.setAuth_browser_type(getBrowserType(userAgent));
+
+		authenticationLogService.insertAuthenticationLog(member);
+	}
+
+	private String maskPhoneNumber(String phone) {
+		if (StringUtils.isNotEmpty(phone) && phone.length() >= 7) {
+			return phone.replaceAll("(\\d{3})(\\d{4})(\\d+)", "$1****$3");
+		}
+		return phone;
+	}
+
+	private String getBrowserType(String userAgent) {
+		if (userAgent == null) {
+			return "Other";
+		}
+		String ua = userAgent.toLowerCase();
+
+		if (ua.contains("chrome")) {
+			return "Chrome";
+		} else if (ua.contains("firefox")) {
+			return "Firefox";
+		} else if (ua.contains("safari") && !ua.contains("chrome")) {
+			return "Safari";
+		} else if (ua.contains("msie") || ua.contains("trident")) {
+			return "Internet Explorer";
+		} else if (ua.contains("edg")) {
+			return "Edge";
+		}
+		return "Other";
+	}
+
 
 }

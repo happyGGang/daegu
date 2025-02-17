@@ -239,13 +239,14 @@ public class JoinService extends BaseService {
 
 			session.setAttribute("certMember", member);
 			session.setAttribute("certType", sAuthType);
+			member.setAuth_message(sMessage);
 		} catch (Exception ex) {
 //			ex.printStackTrace();
 			member.setCertComplete(false);
 			member.setSci_result("N");
+			member.setAuth_message("본인인증에 실패하였습니다.");
 			return member;
 		}
-
 		return member;
 	}
 	

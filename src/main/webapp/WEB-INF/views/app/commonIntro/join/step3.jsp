@@ -110,6 +110,7 @@ function daeguIdLogin(){
 		<input type="hidden" name="certType">
 		<input type="hidden" name="menu_idx" value="${param.menu_idx}">
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
+		<input type="hidden" name="auth_homepage_type" value="1">
 	</form>
 	<form:form id="memberJoinForm" modelAttribute="newMember" action="edit.do">
 		<form:hidden path="member_id" id="newMemberId"/>

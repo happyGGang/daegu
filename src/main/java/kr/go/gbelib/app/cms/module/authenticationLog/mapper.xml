@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.authenticationLog.AuthenticationLogDao">
+
+  <sql id="columns">
+    AUTHENTICATION_LOG_IDX, HOMEPAGE_ID, USER_NAME, USER_IP, USER_PHONE,
+    HOMEPAGE_TYPE, SUCCESS_TYPE, RESULT_CODE, USER_AGENT, BROWSER_TYPE,
+    ADD_DATE
+  </sql>
+
+  <insert id="insertAuthenticationLog">
+    INSERT INTO AUTHENTICATION_LOG(
+                                  AUTHENTICATION_LOG_IDX, HOMEPAGE_ID, USER_NAME, USER_BIRTH, USER_IP,
+                                  USER_PHONE, HOMEPAGE_TYPE, SUCCESS_TYPE, RESULT_MESSAGE, CERT_TYPE,
+                                  USER_AGENT, BROWSER_TYPE, ADD_DATE)
+    VALUES (
+                                  AUTHENTICATIONLOG_SEQ.NEXTVAL, #{auth_homepage_id}, #{member_name}, #{birth_day}, #{auth_remote_ip},
+                                  #{auth_cell_phone}, #{auth_homepage_type}, #{sci_result}, #{auth_message}, #{certType},
+                                  #{auth_remote_agent}, #{auth_browser_type}, CURRENT_TIMESTAMP)
+  </insert>
+
+
+</mapper>
