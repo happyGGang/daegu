@@ -99,9 +99,9 @@
 </c:otherwise>
 </c:choose>
 <!-- /contents-title-->
-<c:if test="${homepage.context_path eq 'dalseolib'}">
+<c:if test="${homepage.context_path eq 'dalseolib' && tt < '2025-02-17'}">
 	<p style="font-weight:bold;margin-bottom:10px;">
-		* 달서가족문화도서관, 도원도서관, 본리도서관, 달서어린이도서관, 달서영어도서관, 성서도서관 예산소진으로 서비스 종료<br> (2025년 02월부터 신청 가능)
+		* 달서가족문화도서관, 도원도서관, 본리도서관, 달서어린이도서관, 달서영어도서관, 성서도서관 예산소진으로 서비스 종료<br> (2025년 02월 17일부터 신청 가능)
 	</p>
 </c:if>
 
@@ -157,11 +157,6 @@
 				<form:select path="manageCode" cssClass="new_select_box">
 					<form:option value="BC">태전도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
-				</c:when>
-				<c:when test="${homepagePath eq 'buksb'}">
-					<form:select path="manageCode" cssClass="new_select_box">
-						<form:option value="HW">서변숲도서관</form:option>
-					</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
 				<c:when test="${homepagePath eq 'buks'}">
@@ -312,17 +307,17 @@
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
-					<!-- <option value="BW">도원도서관</option> -->
-					<!-- <option value="BV">달서어린이도서관</option> -->
-					<!--<option value="BU">성서도서관</option>-->
-					<!-- <option value="BX">본리도서관</option> -->
-					<!--<option value="BY">달서가족문화도서관</option>-->
-					<!--<option value="BZ">달서영어도서관</option>-->
+							<option value="BW">도원도서관</option> 
+							<option value="BV">달서어린이도서관</option> 
+							<option value="BU">성서도서관</option>
+							<option value="BX">본리도서관</option>
+							<option value="BY">달서가족문화도서관</option>
+							<option value="BZ">달서영어도서관</option>
 				</select>
-        <br>
-        * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
-        * 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.<br>
-		* 달서영어도서관 : 영어원서(서양서) 및 영어학습 관련(국내서)만 신청가능합니다.
+					<br>
+					* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
+					* 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.<br>
+					* 달서영어도서관 : 영어원서(서양서) 및 영어학습 관련(국내서)만 신청가능합니다.
 				</c:when>
 				<c:when test="${homepagePath eq 'dssmalllib'}">
 				<form:select path="manageCode">

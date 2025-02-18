@@ -393,7 +393,7 @@ $(function(){
 			<li><strong>운영기간</strong> : 상반기(3~6월) / 하반기(9~11월) 매주 수,목요일</li>
 			<li><strong>운영방법</strong> : 1일 1회 15명 내외, 기관별 4회 이내(20명 초과 시 장소 협소할 수 있음)</li>
 			<li><strong>운영내용</strong> : 도서관 이용교육 및 자율독서 등</li>
-			<li><strong>참가신청</strong> : 로그인 → ‘신청’ 버튼이 활성화되어 있는 날짜 선택 후 신청 → 신청 양식 작성 → 견학 신청 후 ‘승인완료’ 처리 여부를 반드시 확인</li>
+			<li><strong>참가신청</strong> : 로그인 -> '신청'버튼이 활성화되어 있는 날짜 선택 후 신청 -> 신청양식작성(신청서 파일첨부)-> 신청기간 끝난 후 접수현황 확인</li>
 			<li><strong>유의사항</strong>
 				<ul class="con2">
 					<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관사정에 따라 변경될 수 있습니다.</li>
@@ -404,7 +404,7 @@ $(function(){
 		</ul>
 		<ul class="btns_wrap_tac">
 			<li>
-			<a href="/board/boardFile/download/19/510110/340144.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+			<a href="https://library.daegu.go.kr/board/boardFile/download/19/528573/373235/%EB%B6%99%EC%9E%842_%EB%8F%84%EC%84%9C%EA%B4%80%20%EC%B2%B4%ED%97%98%ED%95%99%EC%8A%B5%20%EC%B0%B8%EA%B0%80%EC%8B%A0%EC%B2%AD%EC%84%9C(%EC%96%91%EC%8B%9D).hwp.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
 				<span>신청서 다운로드</span><span class="ico ico_link"></span>
 			</a>
 			</li>
@@ -468,18 +468,45 @@ $(function(){
 	<c:if test="${homepage.context_path eq 'bukbu'}">
 		<c:choose>
 			<c:when test="${excursions.date_type eq '3'}">
-				<h3>단체 체험 프로그램</h3>
-				<p class="btn_wd_p p_btn_ml10"> <a href="" class="ct-btn" title="학교 단체 체험 프로그램 신청서 다운로드">
-					<span class="down">학교 단체 체험 프로그램 신청서 다운로드(차후예정)</span>
+				<div class="txt-box center">
+					<strong>청소년 북아지트 체험 프로그램</strong><br>
+					도서관의 다양한 자원을 활용한 또래집단과의 협동 활동으로 중학생들에게 소통 및 협력의 기회를 제공하고자 청소년 북아지트 체험 프로그램을 운영합니다.
+				</div>
+
+			
+				<h3>청소년 북아지트 체험 프로그램 안내</h3>
+				
+
+				<ul class="con">
+					<li>프로그램명: 협동 방탈출! 북아지트의 비밀</li>
+					<li>운영대상 : 대구 중학교 1~3학년 학급 및 동아리(30명 내외)</li>
+					<li>운영기간 : 2025. 4. 8.(화) ~ 12. 19.(금) ※ 단, 방학기간 제외 (화, 수, 목) 오전 09:00~12:00, 오후 13:00~16:00
+						<ul class="con2">
+							<li>※ 시간 내에서 조정 가능</li>
+						</ul>
+		            </li>
+					<li>운영내용 : 방탈출 게임, 협동 캘리그라피 그리기 등</li>
+					<li>참가신청
+						<ul class="con2">
+							<li>기간: 2025. 3. 20.(목) ~ 3. 28.(금)(예정)</li>
+							<li>방법: 로그인 → ‘신청’ 버튼이 활성화되어 있는 날짜 선택 후 신청 → 신청 양식 작성 →  신청 후 ‘승인완료’ 처리 여부를 반드시 확인 </li>
+						</ul>
+		            </li>
+					<li>유의사항
+						<ul class="con2">
+							<li>체험 일정은 도서관 사정에 따라 변경될 수 있습니다.</li>
+							<li>신청은 온라인을 통해서만 가능합니다.</li>
+						</ul>
+		            </li>
+					<li>문 의 처 : 053-231-2626</li>
+				</ul>
+                <br>
+				<p class="btn_wd_p p_btn_ml10"> <a href="/board/boardFile/download/3/528377/372750/%EC%8B%A0%EC%B2%AD%EC%84%9C%20%EC%84%9C%EC%8B%9D.hwp.do" class="ct-btn" title="학교 단체 체험 프로그램 신청서 다운로드">
+					<span class="down">학교 단체 체험 프로그램 신청서 다운로드</span>
 				</a>
 				</p>
 
-				<ul class="con">
-					<li>중학생 대상 학기중 화~금요일 오전만 가능 (30명 이내)</li>
-					<li>도서관 시설 견학(보존서고 등) 및 조별활동(방탈출게임 등)</li>
-					<li>담당자와 일정 확인 후 신청서 제출</li>
-					<li>담당자: 053-231-2626</li>
-				</ul>
+				<br><br>
 
 			</c:when>
 			<c:otherwise>
@@ -494,6 +521,29 @@ $(function(){
 				</div>
 				<h3>도서관체험학습안내</h3>
 				<ul class="con">
+					<li><strong>신청 기간</strong> :  2025. 3. 4.(화) 10:00 ~ 3. 28.(금) 선착순 ※ 신청기간 종료 후 미신청일자는 수시 모집</li>
+					<li><strong>신청 방법</strong> :도서관 홈페이지 로그인(library.daegu.go.kr/bukbu) → 독서문화행사 → 도서관체험학습 → 신청가능 날짜 선택 후 신청하기 및 참가신청서 파일 업로드 → 도서관에서 '승인완료' 처리 → 최종 신청 완료</li>
+					<li><strong>신청 인원</strong> : 1일 1회 20명 이내, 기관별 4회 이내</li>
+					<li><strong>운영 기간</strong> :2025. 3.. 11.(화)~12. 11.(목) (초등학생 방학 기간 제외)</li>
+					<li><strong>운영 대상</strong> : 대구 서부교육지원청 관내 유치원 및 북구 관내 어린이집(만2세~만5세(4~7세))</li>
+					<li><strong>운영 내용</strong> : 도서관 이용교육 및 증강현실 그림책 체험, 그림책 읽어주기, 실감형 동화구연 체험 등</li>
+					<li><strong>유의사항</strong>
+						<ul class="con2">
+							<li>견학 취소 시 사전에 미리 알려주셔야 하며, 견학 일정은 도서관사정에 따라 변경될 수 있습니다.</li>
+							<li>신청은 온라인을 통해서만 가능합니다.</li>
+						</ul>
+					<li>
+					<li><strong>문 의 처</strong> : 053-231-2636</li>
+				</ul>
+				<strong style="color:red;"></strong>
+				<ul class="btns_wrap_tac">
+					<li>
+						<a href="https://library.daegu.go.kr/board/boardFile/download/3/528518/373075/2025%EB%85%84%20%EC%9C%A0%EC%95%84%EA%B5%90%EC%9C%A1%EA%B8%B0%EA%B4%80%20%EB%8F%84%EC%84%9C%EA%B4%80%20%EC%B2%B4%ED%97%98%ED%95%99%EC%8A%B5%20%EC%B0%B8%EA%B0%80%EC%8B%A0%EC%B2%AD%EC%84%9C(%EC%84%9C%EC%8B%9D).hwp.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+							<span>신청서 다운로드</span><span class="ico ico_link"></span>
+						</a>
+					</li>
+				</ul>
+				<!--<ul class="con">
 					<li><strong>운영대상</strong> : 대구 서부교육지원청 관내 유치원 및 북구청 관내 어린이집(만2세~만5세(4~7세))</li>
 					<li><strong>운영기간</strong> : 3~7월 매주 수,목요일</li>
 					<li><strong>운영방법</strong> : 1일 1회 20명 내외, 기관별 4회 이내(20명 초과 시 장소 협소할 수 있음)</li>
@@ -514,7 +564,7 @@ $(function(){
 							<span>신청서 다운로드</span><span class="ico ico_link"></span>
 						</a>
 					</li>
-				</ul>
+				</ul>-->
 			</c:otherwise>
 		</c:choose>
 
