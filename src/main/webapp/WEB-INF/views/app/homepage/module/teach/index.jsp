@@ -274,6 +274,15 @@ $(function(){
 			</div>
 		</c:when>
 
+		<c:when test="${homepage.context_path eq 'gosan' and teach.searchCate1 eq '17'}">
+			<div class="tab_menu on">
+				<ul class="no2">
+					<li><a href="#tabCon0" data-hid="h52">고산도서관</a></li>
+					<li onclick="location.href='${homepage.domain}/gosan/module/teach/index.do?menu_idx=90&searchCate1=16&group_idx=33'"><a href="#">사월책문화센터</a></li>
+				</ul>
+			</div>
+		</c:when>
+
 		<c:when test="${homepage.context_path eq 'yonghak' and teach.searchCate1 eq '17'}">
 			<div class="tab_menu on">
 				<ul class="no3">
