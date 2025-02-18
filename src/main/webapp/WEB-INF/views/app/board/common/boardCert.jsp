@@ -225,7 +225,7 @@ $(function() {
 
 		<div class="notice" style="margin-top: 20px; padding: 1.5%; border: 2px solid navy; background: #f3f3f3;">
 			<p>
-				<c:if test="${param.manage_idx eq '1242' || param.manage_idx eq '1215'}"><strong><span class="blue">도서관 행사 참여를 위한 게시물</span>을 올리는 곳으로 회원 로그인을 하거나 </c:if><span class="color5">(휴대폰 본인인증</span> 또는 <span class="color5">공공아이핀)</span>을 사용하여 본인 확인 후 글을 쓰시면 됩니다.</strong>
+				<c:if test="${param.manage_idx eq '1242' || param.manage_idx eq '1215' }"><strong><span class="blue">도서관 행사 참여를 위한 게시물</span>을 올리는 곳으로 회원 로그인을 하거나 </c:if><span class="color5">(휴대폰 본인인증</span> 또는 <span class="color5">공공아이핀)</span>을 사용하여 본인 확인 후 글을 쓰시면 됩니다.</strong>
 				<br>
 				<span style="font-size:13px;">※ 게시되는 글의 본문이나 첨부파일에 자신 혹은 타인의 개인정보(주민등록번호, 휴대폰번호, 은행계좌번호, 신용카드번호 등 개인이 식별할 수 있는 모든 정보)를 포함시키지 않도록 주의하시기 바랍니다.
 				<span class="blue">개인정보를 포함</span>한 글이 등록되었을 경우 <span class="blue">부분 또는 전체 삭제함</span>을 알려드립니다.
@@ -238,34 +238,27 @@ $(function() {
 		</c:when>
 		<c:when test="${param.manage_idx eq '1307'}">
 		<div class="Box" style="height:200px">
-			개인정보 수집·이용 및 제3자 제공 동의
 
-			1. 개인정보 수집·이용 주체
-			- 독서문화실
 
-			2. 개인정보 수집·이용 목적
-			- 행사 참여 확인 및 상품 추첨 확인
-
-			3. 수집 항목
-			- 필수: 이름, 연락처, 음성 (예: 음성 녹음 파일 등)
-
-			4. 보유 및 이용 기간 (수집 목적)
-			- 목적 달성 시까지
-
-			5. 개인정보 제3자 제공 대상
-			- 도서관 홈페이지 이용자 외 다수
-
-			6. 개인정보 제3자 제공 목적
-			- 도서관 홈페이지 게시물 열람·관람
-
-			7. 개인정보 제3자 제공 항목
-			- 음성 (예: 음성 녹음 파일 등)
-
-			8. 보유 및 이용 기간 (제3자 제공 목적)
-			- 제3자 제공 목적 달성 시까지
-
-			9. 동의 거부 및 불이익 안내
-			- 귀하는 동의를 거부할 권리가 있으며, 동의하지 않으면 행사 참여가 제한될 수 있습니다.
+<strong>개인정보 수집·이용 및 제3자 제공 동의</strong>
+<br><br>
+1. 개인정보 수집·이용 주체 : 독서문화실
+<br><br>
+2. 개인정보 수집·이용 목적 : 행사 참여 확인 및 상품 추첨 확인
+<br><br>
+3. 수집 항목 : 필수: 이름, 연락처, 음성 (예: 음성 녹음 파일 등)
+<br><br>
+4. 보유 및 이용 기간 (수집 목적) : 목적 달성 시까지
+<br><br>
+5. 개인정보 제3자 제공 대상 : 도서관 홈페이지 이용자 외 다수
+<br><br>
+6. 개인정보 제3자 제공 목적 : 도서관 홈페이지 게시물 열람·관람
+<br><br>
+7. 개인정보 제3자 제공 항목 : 음성 (예: 음성 녹음 파일 등)
+<br><br>
+8. 보유 및 이용 기간 (제3자 제공 목적) : 제3자 제공 목적 달성 시까지
+<br><br>
+9. 귀하는 동의를 거부할 권리가 있으며, 동의하지 않으면 행사 참여가 제한될 수 있습니다.
 		</div>
 			<div class="agree_codes">
 				<div class="checkbox">
@@ -273,6 +266,19 @@ $(function() {
 					<label for="agree_codes">위 내용에 동의합니다.</label><input type="hidden" name="_agree_codes" value="on"><br>
 				</div>
 			</div>
+			<br>
+			<div class="notice" style="margin-top: 20px; padding: 1.5%; border: 2px solid navy; background: #f3f3f3;">
+			<p>
+				<strong><span class="blue">도서관 행사 참여를 위한 게시물</span>을 올리는 곳으로 회원 로그인을 하거나 <span class="color5">(휴대폰 본인인증</span> 또는 <span class="color5">공공아이핀)</span>을 사용하여 본인 확인 후 글을 쓰시면 됩니다.</strong>
+				<br>
+				<span style="font-size:13px;">※ 게시되는 글의 본문이나 첨부파일에 자신 혹은 타인의 개인정보(주민등록번호, 휴대폰번호, 은행계좌번호, 신용카드번호 등 개인이 식별할 수 있는 모든 정보)를 포함시키지 않도록 주의하시기 바랍니다.
+				<span class="blue">개인정보를 포함</span>한 글이 등록되었을 경우 <span class="blue">부분 또는 전체 삭제함</span>을 알려드립니다.
+
+				정보통신 윤리위원회의 네티즌 윤리강령 및 심의규정에 의거하여 <span class="blue">개인불만, 욕설, 비방 등의 게시물</span>은 <span class="blue">
+				 사전 안내없이 삭제함</span>을 알려드립니다.</span>
+			</p>
+		</div>
+<br>
 		</c:when>
 		<c:otherwise>
 		<div class="Box" style="height:200px">
