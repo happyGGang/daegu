@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.cms.module.authenticationLog;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,25 +21,33 @@ public class AuthenticationLogController extends BaseController {
   @Autowired
   private AuthenticationLogService service;
 
-  @RequestMapping(value = {"/index.*"})
+  @RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
   public String index(Model model, AuthenticationLog authenticationLog, HttpServletRequest request, HttpServletResponse response) {
-    authenticationLog.setHomepage_id(getAsideHomepageId(request));
+    setDefaultSetting(authenticationLog, request);
+
+    //테이블 데이터
+    service.setPaging(model, service.getAuthenticationLogCount(authenticationLog), authenticationLog);
+    List<AuthenticationLog> authenticationLogList = service.getAuthenticationLogList(authenticationLog);
+    model.addAttribute("authenticationLogList", authenticationLogList);
+
+    //차트 데이터
+    List<AuthenticationLog> chartData = service.getAuthenticationLogChartData(authenticationLog);
+    model.addAttribute("chartData", chartData);
+    model.addAttribute("authenticationLog", authenticationLog);
+
     return basePath + "index";
   }
 
-/*  @RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)
-  public AuthenticationLogSearchView excel(Model model, AuthenticationLog authenticationLog, HttpServletRequest request, HttpServletResponse response) throws Exception {
-    model.addAttribute("authenticationLog", authenticationLog);
-    model.addAttribute("authenticationLogResult", service.getExcelList(authenticationLog));
+  private void setDefaultSetting(AuthenticationLog authenticationLog, HttpServletRequest request) {
 
-    return new AuthenticationLogSearchView();
+    authenticationLog.setStartDate(getOrDefaultDate(authenticationLog.getStartDate()));
+    authenticationLog.setEndDate(getOrDefaultDate(authenticationLog.getEndDate()));
   }
 
-  @RequestMapping(value = {"/csvDownload.*"}, method = RequestMethod.POST)
-  public void csv(Model model, AuthenticationLog authenticationLog, HttpServletRequest request, HttpServletResponse response) {
-    List<AuthenticationLog> authenticationLogList = service.getExcelList(authenticationLog);
-
-    new AuthenticationLogXlsToCsv(authenticationLogList, "독서릴레이 우수 사례 공모 리스트.csv", request, response);
-  }*/
-
+  private String getOrDefaultDate(String date) {
+    if (date == null || date.isEmpty()) {
+      return LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+    return date;
+  }
 }

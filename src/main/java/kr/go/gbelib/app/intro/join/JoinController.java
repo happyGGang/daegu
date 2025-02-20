@@ -240,12 +240,11 @@ public class JoinController extends BaseController {
 
 		if (!StringUtils.isEmpty(certType) && certType.contains("sms")) {
 			member = joinService.smsCertProc(request, member);
+			if (member.isCertComplete()) {
+				setMemberAndHomepageInfo(member, homepage, authHomepageType, request);
+			}
 		} else if (!StringUtils.isEmpty(certType) && certType.contains("gpin")) {
 			member = joinService.ipinCertProc(request, member);
-		}
-
-		if (member.isCertComplete()) {
-			setMemberAndHomepageInfo(member, homepage, authHomepageType, request);
 		}
 
 		// 본인인증 실패

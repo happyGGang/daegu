@@ -3,21 +3,144 @@
 <mapper namespace="kr.go.gbelib.app.cms.module.authenticationLog.AuthenticationLogDao">
 
   <sql id="columns">
-    AUTHENTICATION_LOG_IDX, HOMEPAGE_ID, USER_NAME, USER_IP, USER_PHONE,
-    HOMEPAGE_TYPE, SUCCESS_TYPE, RESULT_CODE, USER_AGENT, BROWSER_TYPE,
-    ADD_DATE
+    AUTHENTICATION_LOG_IDX, HOMEPAGE_ID, USER_NAME, USER_BIRTH, USER_IP,
+    (SELECT HOMEPAGE_NAME FROM CMS_HOMEPAGE WHERE HOMEPAGE_ID = AUTHENTICATION_LOG.HOMEPAGE_ID) as HOMEPAGE_NAME,
+    CASE
+           WHEN HOMEPAGE_TYPE = 1 THEN '홈페이지'
+           WHEN HOMEPAGE_TYPE = 2 THEN '검색대'
+    ELSE '기타'
+    END AS HOMEPAGE_TYPE_NAME,
+    USER_PHONE, HOMEPAGE_TYPE, SUCCESS_TYPE, RESULT_MESSAGE, CERT_TYPE,
+    USER_AGENT, BROWSER_TYPE, ADD_DATE
+  </sql>
+
+  <sql id="commonWhere">
+    <trim prefix="WHERE" prefixOverrides="AND">
+      <if test="homepage_id != null and homepage_id != 'ALL'">
+        AND homepage_id = #{homepage_id}
+      </if>
+      <if test="homepage_type != null and homepage_type != 0">
+        AND homepage_type = #{homepage_type}
+      </if>
+      <choose>
+        <when test="dateType == 'DAY'">
+          AND ADD_DATE BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1 - INTERVAL '1' SECOND
+        </when>
+        <when test="dateType == 'MONTH'">
+          AND ADD_DATE BETWEEN TRUNC(TO_DATE(#{startMonthYear}, 'YYYY'), 'YYYY') AND LAST_DAY(TRUNC(TO_DATE(#{startMonthYear}, 'YYYY'), 'YYYY') + INTERVAL '11' MONTH)
+        </when>
+        <when test="dateType == 'YEAR'">
+          AND ADD_DATE BETWEEN TRUNC(TO_DATE(#{startYear}, 'YYYY'), 'YYYY') AND TRUNC(TO_DATE(#{endYear}, 'YYYY'), 'YYYY') + INTERVAL '1' YEAR - INTERVAL '1' DAY
+        </when>
+        <otherwise>
+          AND ADD_DATE BETWEEN TRUNC(SYSDATE) AND TRUNC(SYSDATE) + 1
+        </otherwise>
+      </choose>
+    </trim>
   </sql>
 
   <insert id="insertAuthenticationLog">
-    INSERT INTO AUTHENTICATION_LOG(
-                                  AUTHENTICATION_LOG_IDX, HOMEPAGE_ID, USER_NAME, USER_BIRTH, USER_IP,
-                                  USER_PHONE, HOMEPAGE_TYPE, SUCCESS_TYPE, RESULT_MESSAGE, CERT_TYPE,
-                                  USER_AGENT, BROWSER_TYPE, ADD_DATE)
-    VALUES (
-                                  AUTHENTICATIONLOG_SEQ.NEXTVAL, #{auth_homepage_id}, #{member_name}, #{birth_day}, #{auth_remote_ip},
-                                  #{auth_cell_phone}, #{auth_homepage_type}, #{sci_result}, #{auth_message}, #{certType},
-                                  #{auth_remote_agent}, #{auth_browser_type}, CURRENT_TIMESTAMP)
+    INSERT INTO AUTHENTICATION_LOG(AUTHENTICATION_LOG_IDX, HOMEPAGE_ID, USER_NAME, USER_BIRTH, USER_IP,
+                                   USER_PHONE, HOMEPAGE_TYPE, SUCCESS_TYPE, RESULT_MESSAGE, CERT_TYPE,
+                                   USER_AGENT, BROWSER_TYPE, ADD_DATE)
+    VALUES (AUTHENTICATIONLOG_SEQ.NEXTVAL, #{auth_homepage_id}, #{member_name}, #{birth_day}, #{auth_remote_ip},
+            #{auth_cell_phone}, #{auth_homepage_type}, #{sci_result}, #{auth_message}, #{certType},
+            #{auth_remote_agent}, #{auth_browser_type}, CURRENT_TIMESTAMP)
   </insert>
 
+  <select id="getAuthenticationLogCount" resultType="int">
+    SELECT
+        COUNT(*)
+    FROM
+        AUTHENTICATION_LOG
+    <include refid="commonWhere"/>
+  </select>
 
+  <select id="getAuthenticationLogList" resultType="kr.go.gbelib.app.cms.module.authenticationLog.AuthenticationLog">
+    ${pagingTop}
+      SELECT
+        <include refid="columns"/>
+      FROM
+        AUTHENTICATION_LOG
+        <include refid="commonWhere"/>
+      ORDER BY ADD_DATE DESC
+    ${pagingBottom}
+  </select>
+
+  <select id="getAuthenticationLogChartData" resultType="kr.go.gbelib.app.cms.module.authenticationLog.AuthenticationLog">
+    WITH date_series AS (
+    SELECT
+    <choose>
+      <when test="dateType == 'DAY'">
+        TO_CHAR(TO_DATE(#{startDate}, 'YYYY-MM-DD') + LEVEL - 1, 'YYYY-MM-DD')
+      </when>
+      <when test="dateType == 'MONTH'">
+        TO_CHAR(ADD_MONTHS(TO_DATE(#{startMonthYear} || '-01', 'YYYY-MM'), LEVEL - 1), 'YYYY-MM')
+      </when>
+      <when test="dateType == 'YEAR'">
+        TO_CHAR(ADD_MONTHS(TO_DATE(#{startYear}, 'YYYY'), (LEVEL - 1) * 12), 'YYYY')
+      </when>
+      <otherwise>
+        TO_CHAR(TO_DATE(#{startDate}, 'YYYY-MM-DD') + LEVEL - 1, 'YYYY-MM-DD')
+      </otherwise>
+    </choose>
+    AS chart_label
+    FROM DUAL
+    CONNECT BY LEVEL <![CDATA[<=]]>
+    <choose>
+      <when test="dateType == 'DAY'">
+        TO_DATE(#{endDate}, 'YYYY-MM-DD') - TO_DATE(#{startDate}, 'YYYY-MM-DD') + 1
+      </when>
+      <when test="dateType == 'MONTH'">
+        12
+      </when>
+      <when test="dateType == 'YEAR'">
+        TO_NUMBER(#{endYear}) - TO_NUMBER(#{startYear}) + 1
+      </when>
+      <otherwise>
+        TO_DATE(#{endDate}, 'YYYY-MM-DD') - TO_DATE(#{startDate}, 'YYYY-MM-DD') + 1
+      </otherwise>
+    </choose>
+    )
+    SELECT
+    ds.chart_label,
+    <choose>
+      <when test="homepage_type != null and homepage_type == 0">
+        NVL(SUM(CASE WHEN al.HOMEPAGE_TYPE = 1 AND (#{homepage_id} IS NULL OR #{homepage_id} = 'ALL' OR al.HOMEPAGE_ID = #{homepage_id}) THEN 1 ELSE 0 END), 0) AS homepage_chart_count,
+        NVL(SUM(CASE WHEN al.HOMEPAGE_TYPE = 2 AND (#{homepage_id} IS NULL OR #{homepage_id} = 'ALL' OR al.HOMEPAGE_ID = #{homepage_id}) THEN 1 ELSE 0 END), 0) AS search_chart_count
+      </when>
+      <when test="homepage_type != null and homepage_type == 1">
+        NVL(SUM(CASE WHEN al.HOMEPAGE_TYPE = 1 AND (#{homepage_id} IS NULL OR #{homepage_id} = 'ALL' OR al.HOMEPAGE_ID = #{homepage_id}) THEN 1 ELSE 0 END), 0) AS homepage_chart_count,
+        NVL(SUM(0), 0) AS search_chart_count
+      </when>
+      <when test="homepage_type != null and homepage_type == 2">
+        NVL(SUM(0), 0) AS homepage_chart_count,
+        NVL(SUM(CASE WHEN al.HOMEPAGE_TYPE = 2 AND (#{homepage_id} IS NULL OR #{homepage_id} = 'ALL' OR al.HOMEPAGE_ID = #{homepage_id}) THEN 1 ELSE 0 END), 0) AS search_chart_count
+      </when>
+      <otherwise>
+        NVL(SUM(CASE WHEN al.HOMEPAGE_TYPE = 1 AND (#{homepage_id} IS NULL OR #{homepage_id} = 'ALL' OR al.HOMEPAGE_ID = #{homepage_id}) THEN 1 ELSE 0 END), 0) AS homepage_chart_count,
+        NVL(SUM(CASE WHEN al.HOMEPAGE_TYPE = 2 AND (#{homepage_id} IS NULL OR #{homepage_id} = 'ALL' OR al.HOMEPAGE_ID = #{homepage_id}) THEN 1 ELSE 0 END), 0) AS search_chart_count
+      </otherwise>
+    </choose>
+    FROM date_series ds
+    LEFT JOIN AUTHENTICATION_LOG al
+    ON (
+    <choose>
+      <when test="dateType == 'DAY'">
+        TRUNC(al.ADD_DATE) = TO_DATE(ds.chart_label, 'YYYY-MM-DD')
+      </when>
+      <when test="dateType == 'MONTH'">
+        TO_CHAR(al.ADD_DATE, 'YYYY-MM') = ds.chart_label
+      </when>
+      <when test="dateType == 'YEAR'">
+        TO_CHAR(al.ADD_DATE, 'YYYY') = ds.chart_label
+      </when>
+      <otherwise>
+        TO_CHAR(al.ADD_DATE, 'YYYY-MM-DD') = ds.chart_label
+      </otherwise>
+    </choose>
+    )
+    GROUP BY ds.chart_label
+    ORDER BY ds.chart_label
+  </select>
 </mapper>
