@@ -46,6 +46,7 @@
 		<if test="homepage_id == 'h46' and menu_idx == '145' ">
 		AND	A.date_type = '0002'
 		</if>
+		ORDER BY START_TIME ASC, EXCURSIONS_IDX
 	</select>
 	
 	<select id="getExcursionsOne" resultType="kr.co.whalesoft.app.cms.module.excursions.Excursions">

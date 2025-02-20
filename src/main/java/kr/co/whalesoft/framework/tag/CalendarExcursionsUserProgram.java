@@ -63,7 +63,6 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 					sb.append("<li title=\"" + excursions.getCode_name() + "\">");
 					sb.append("[" + excursions.getCode_name() + "]<br>");
 					sb.append("" + excursions.getStart_time() + "" + "~" + "" + excursions.getEnd_time() + "<br>");
-
 					boolean flag = true;
 					for (int j = 0; j < applyList.size(); j++) {
 						Apply apply = applyList.get(j);
@@ -109,6 +108,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						}
 					}
 					sb.append("</li>");
+					sb.append("<div style=\"border-bottom: 2px solid black; margin-top: 5px; margin-bottom: 5px;\"></div>");
 				} else if (planDay >= startDay && planDay <= endDay) {
 					sb.append("<li title=\"" + excursions.getCode_name() + "\">");
 					sb.append("[" + excursions.getCode_name() + "]<br>");
@@ -204,6 +204,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						}
 					}
 					sb.append("</li>");
+					sb.append("<div style=\"border-bottom: 2px solid black; margin-top: 5px; margin-bottom: 5px;\"></div>");
 				} else if (!planMonth.equals(startMonth) && planMonth.equals(endMonth)) {
 					sb.append("<li title=\"" + excursions.getCode_name() + "\">");
 					sb.append("[" + excursions.getCode_name() + "]<br>");
@@ -254,6 +255,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						}
 					}
 					sb.append("</li>");
+
 				}
 			}
 
@@ -291,6 +293,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 							sb.append("</li>");
 						}
 					}
+					sb.append("<div style=\"border-bottom: 2px solid black; margin-top: 5px; margin-bottom: 5px;\"></div>");
 				}
 				if (planDay >= startDay && planDay <= endDay) {
 					if (cm.getDate_type().equals("1")) {
@@ -302,6 +305,7 @@ public class CalendarExcursionsUserProgram extends BodyTagSupport {
 						sb.append("<span class=\"type-e\"><i></i><em>" + cm.getTitle() + "</em></span>");
 						sb.append("</li>");
 					}
+					sb.append("<div style=\"border-bottom: 2px solid black; margin-top: 5px; margin-bottom: 5px;\"></div>");
 				}
 
 			}
