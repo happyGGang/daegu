@@ -233,7 +233,7 @@
 							success: function(response) {
 								if(response.valid) {
 									alert(response.message);
-									window.location.href = window.location.href.split('?')[0];
+									$("#dialog-1").dialog("destroy");
 								} else {
 									$('tr.limit_value').html('').append(limitChlidren);
 									$('td.planFile').append(planFile);
