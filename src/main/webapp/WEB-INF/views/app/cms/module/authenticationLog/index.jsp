@@ -49,6 +49,22 @@
 
     $('#dateType').trigger('change');
 
+    $('a#excelDownload').on('click', function (e) {
+      if ($('#homepageId').val() && $('#dateType').val()) {
+        $('#authenticationLog').attr('action', '/cms/module/authenticationLog/downloadExcel.do');
+        $('#authenticationLog').submit();
+      }
+      e.preventDefault();
+    });
+
+    $('a#csvDownload').on('click', function (e) {
+      if ($('#homepageId').val() && $('#dateType').val()) {
+        $('#authenticationLog').attr('action', '/cms/module/authenticationLog/downloadCSV.do');
+        $('#authenticationLog').submit();
+      }
+      e.preventDefault();
+    });
+
   })
 </script>
 <form:form id="authenticationLog" name="authenticationLog" modelAttribute="authenticationLog" action="index.do" method="get">
@@ -108,6 +124,13 @@
         </div>
     </div>
     <button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
+    <br><br><br>
+    <a href="javascript:void(0);" id="excelDownload" class="btn btn2">
+        <i class="fa fa-file-excel-o"></i><span>엑셀저장</span>
+    </a>
+    <a href="javascript:void(0);" id="csvDownload" class="btn btn2">
+        <i class="fa fa-file-excel-o"></i><span>csv저장</span>
+    </a>
     <span>총 건수 : ${paging.totalDataCount}건</span>
 
     <div id="chartData">
@@ -125,7 +148,7 @@
                 <th>접근IP</th>
                 <th>홈페이지타입(홈페이지/검색대)</th>
                 <th>브라우저타입</th>
-                <th>접속일시</th>
+                <th>인증일시</th>
             </tr>
             </thead>
             <tbody>
