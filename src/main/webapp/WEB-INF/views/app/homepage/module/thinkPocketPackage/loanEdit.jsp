@@ -116,8 +116,8 @@
 <div class="title-info">
     <h3>꼭 읽어주세요!</h3>
     <ul>
-        <li style="font-weight:bold;color:blue;">많은 학교가 이용 할 수 있도록, 필요한 기간만큼만 대출기간을 설정해주세요.</li>
-        <li style="font-weight:bold;color:blue;">반납일자가 남았더라도, 활동이 끝나면 반납요청이 가능하니 일찍 반납해주세요.</li>
+        <li style="font-weight:bold;color:blue;">1가정당 1꾸러미 신청 가능합니다.</li>
+        <li style="font-weight:bold;color:blue;">신청 후 대출 승인 안내 문자를 받으면 승인날짜 포함하여 3일 내로 대출해 가시면 됩니다.</li>
         <li>대출 기간은 배송 기간 포함입니다.</li>
         <li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
     </ul>
@@ -139,7 +139,7 @@
             <th> 생각주머니명</th>
             <td>${thinkPocketPackage.think_pocket_package_subject}</td>
         </tr>
-        <tr>
+        <!--<tr>
             <th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
             <td>
                 <form:input path="loan_start_date" cssClass="text ui-calendar" readonly="true"/>
@@ -150,7 +150,7 @@
                     <em>대출 기간은 30일로 고정 됩니다. </em>
                 </div>
             </td>
-        </tr>
+        </tr>-->
         <tr>
             <th>신청자(<span style="color: red;font-weight: bold;">*</span>)</th>
             <td>
@@ -182,12 +182,12 @@
                 </form:select>
             </td>
         </tr>
-        <tr>
+         <!--<tr>
             <th>신청사유(<span style="color: red;font-weight: bold;">*</span>)</th>
             <td>
                 <form:textarea path="request_content" cols="60" rows="5" cssStyle="width:95%;"/>
             </td>
-        </tr>
+        </tr>-->
         <tr>
             <th>진행상태</th>
             <td>
@@ -222,10 +222,10 @@
     <div>
         <h3>개인정보 수집 및 이용 안내</h3>
         <ul>
-            <li>기재해주신 개인정보(학교명,이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
+            <li>기재해주신 개인정보(이름, 연락처 등)는 도서관 서비스 제공을 위한 목적으로만 사용합니다.</li>
         </ul>
         <div class="agree_box">
-            <input type="checkbox" id="agree"><label for="agree">도서관 서비스를 제공 받기 위해 상기 개인정보(학교명, 이름, 연락처 등) 제공 및 이용에 동의합니다.</label>
+            <input type="checkbox" id="agree"><label for="agree">도서관 서비스를 제공 받기 위해 상기 개인정보(이름, 연락처 등) 제공 및 이용에 동의합니다.</label>
         </div>
     </div>
 </c:if>

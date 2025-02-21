@@ -115,13 +115,14 @@
 
 </script>
 <link rel="stylesheet" href="/resources/common/css/thinkPocketPackage.css"/>
-
+<div class="tab_wrap">
 <div class="tabmenu on tab1">
     <ul>
         <li class="active"><a title="대출신청(책·미니·주제)" href="#tabCon1" keyvalue="tabCon1">대출신청(책·미니·주제)</a></li>
     </ul>
 </div>
-
+<div class="phone_num" style="float:right;">문의 : 독서문화과(☎231-2059)</div>
+</div>
 <div class="tabCon active" id="tabCon1">
     <form:form modelAttribute="thinkPocketPackage" id="thinkPocketPackageDel" action="save.do" method="POST">
         <form:hidden path="editMode" id="editMode_d" value="DELETE"/>

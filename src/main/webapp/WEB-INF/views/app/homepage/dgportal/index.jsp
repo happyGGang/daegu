@@ -808,6 +808,7 @@ do {
 												<input type="hidden" name="libraryCodes" class="libCheck lib_FJ" value="FJ"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_CC" value="CC"/>
 												<input type="hidden" name="libraryCodes" class="libCheck lib_HU" value="HU"/>
+												<input type="hidden" name="libraryCodes" class="libCheck lib_HS" value="HS"/>
 												<div class="box1">
 													<div class="box2">
 														<label for="search_text_2" class="blind">통합자료검색</label>
@@ -2160,14 +2161,38 @@ do {
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
+
+
 										<li>
-											<input id="libraryCodes59" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FG"/>
+											<input id="libraryCodes59" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="FG"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">구군립</span>
 											<label for="libraryCodes59">황금책문화센터도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/goldbook/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/beomeo/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+
+
+										<li>
+											<input id="libraryCodes60" name="libraryCodes" class="libraryCodesGuCheck" type="checkbox" value="HS"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">구군립</span>
+											<label for="libraryCodes60">수성못그림책도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/suseongLake/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href=" https://library.daegu.go.kr/yonghak/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
+											</span>
+										</li>
+										<li>
+											<input id="libraryCodes61" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="FG"/>
+											<input type="hidden" name="_libraryCodes" value="on"/>
+											<span class="lib02">작은</span>
+											<label for="libraryCodes61">사월책문화센터도서관</label>
+											<span class="go-link">
+												<a href="https://library.daegu.go.kr/intro/sawol/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
+												<a href="https://library.daegu.go.kr/gosan/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>
 											</span>
 										</li>
 									</ul>

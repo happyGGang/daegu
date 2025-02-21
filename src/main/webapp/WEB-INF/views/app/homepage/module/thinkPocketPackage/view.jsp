@@ -27,6 +27,9 @@
     display: inline-block;
     margin-right: 15px;
   }
+
+ table tbody tr td.view_wrap{
+  white-space: pre-line;}
 </style>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
 <form:form modelAttribute="thinkPocketPackage" action="index.do" method="GET">
@@ -78,7 +81,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="view_wrap">
                     <c:choose>
                         <c:when test="${not empty thinkPocketPackage.image_link}">
                             <a href="${i.desc_link}" target="_blank">
