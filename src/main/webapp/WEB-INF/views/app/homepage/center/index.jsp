@@ -412,7 +412,19 @@ $(function () {
 								<c:when test="${fn:length(popupZoneList) > 0}">
 									<c:forEach var="i" items="${popupZoneList}">
 										<div class="swiper-slide">
-											<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}" />
+											<c:choose>
+												<c:when test="${i.link_target eq 'BLANK'}">
+													<a href="${i.link_url}" target="_blank">
+														<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}" />
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a href="${i.link_url}">
+														<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}" />
+													</a>
+												</c:otherwise>
+											</c:choose>
+
 										</div>
 									</c:forEach>
 								</c:when>
