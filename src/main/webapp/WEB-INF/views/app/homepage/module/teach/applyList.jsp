@@ -286,34 +286,14 @@ $(function(){
 				<div class="stat">
 					<c:choose>
 						<c:when test="${i.teach_status eq '2'}">
-<!-- 							<a href="javascript:void(0);" class="btn btn2" style="cursor: default;"> -->
-<!-- 							<i class="fa fa-circle-o"></i><span>신청완료</span></a> -->
-							<c:choose>
-                                <c:when test="${fn:contains(fn:replace(fn:join([i.school_info_yn, i.school_grade_yn, i.remark_yn, i.organization_yn, i.rank_yn, i.items_sale_yn], ','), ' ', ''), 'Y')}">
-                                	<a style="top:40%;" href="" class="btn btn3 modify" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
-									<i class="fa fa-pencil"></i><span>신청수정</span></a>
-								</c:when>
-								<c:otherwise>
-									<a style="top:40%;" href="" class="btn btn3" onclick="alert('수정 가능한 정보가 없습니다.');">
-									<i class="fa fa-pencil"></i><span>신청수정</span></a>
-								</c:otherwise>
-							</c:choose>
+							<a style="top:40%;" href="" class="btn btn3 modify" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
+								<i class="fa fa-pencil"></i><span>신청수정</span></a>
 							<a href="" class="btn btn5 cancel" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">							
 							<i class="fa fa-times"></i><span>신청취소</span></a>							
 						</c:when>
 						<c:when test="${i.teach_status eq '3'}">
-<!-- 							<a href="javascript:void(0);" class="btn btn3" style="cursor: default;"> -->
-<!-- 							<i class="fa fa-sign-in"></i><span>대기자</span></a> -->
-							<c:choose>
-								<c:when test="${fn:contains(fn:replace(fn:join([i.school_info_yn, i.school_grade_yn, i.remark_yn, i.organization_yn, i.rank_yn, i.items_sale_yn], ','), ' ', ''), 'Y')}">
-									<a style="top:40%;" href="" class="btn btn3 modify" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
-									<i class="fa fa-pencil"></i><span>신청수정</span></a>
-								</c:when>
-								<c:otherwise>
-									<a style="top:40%;" href="" class="btn btn3" onclick="alert('수정 가능한 정보가 없습니다.');">
-									<i class="fa fa-pencil"></i><span>신청수정</span></a>
-								</c:otherwise>
-							</c:choose>
+							<a style="top:40%;" href="" class="btn btn3 modify" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
+								<i class="fa fa-pencil"></i><span>신청수정</span></a>
 							<a href="" class="btn btn5 cancel" keyValue1="${i.homepage_id}" keyValue2="${i.group_idx}" keyValue3="${i.category_idx}" keyValue4="${i.teach_idx}" keyValue5="${i.student_idx}">
 							<i class="fa fa-times"></i><span>대기자 신청취소</span></a>
 						</c:when>
