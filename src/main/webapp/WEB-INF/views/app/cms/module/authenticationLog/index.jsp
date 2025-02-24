@@ -67,71 +67,80 @@
 
   })
 </script>
-<form:form id="authenticationLog" name="authenticationLog" modelAttribute="authenticationLog" action="index.do" method="get">
-    <c:choose>
-        <c:when test="${member.admin}">
-            <form:select id="homepageId" path="homepage_id" class="selectmenu-search" style="width:250px">
-                <option disabled>홈페이지 선택</option>
-                <option value="ALL" ${authenticationLog.homepage_id == 'ALL' ? 'selected' : ''}>전체</option>
-                <c:forEach var="i" varStatus="status" items="${homepageList}">
-                    <option value="${i.homepage_id}" ${authenticationLog.homepage_id == i.homepage_id ? 'selected' : ''}>${i.homepage_name}</option>
-                </c:forEach>
+<div>
+    <div class="search">
+    <form:form id="authenticationLog" name="authenticationLog" modelAttribute="authenticationLog" action="index.do" method="get">
+        <div style="display: flex">
+            <c:choose>
+                <c:when test="${member.admin}">
+                    <form:select id="homepageId" path="homepage_id" class="selectmenu-search">
+                        <option disabled>홈페이지 선택</option>
+                        <option value="ALL" ${authenticationLog.homepage_id == 'ALL' ? 'selected' : ''}>전체</option>
+                        <c:forEach var="i" varStatus="status" items="${homepageList}">
+                            <option value="${i.homepage_id}" ${authenticationLog.homepage_id == i.homepage_id ? 'selected' : ''}>${i.homepage_name}</option>
+                        </c:forEach>
+                    </form:select>
+                </c:when>
+
+                <c:otherwise>
+                    <form:hidden id="homepageId" path="homepage_id" value="${asideHomepageId}"/>
+                </c:otherwise>
+            </c:choose>
+            <form:select path="dateType" class="selectmenu-search">
+                <option disabled>날짜 분류 선택</option>
+                <form:option value="DAY" label="일간별"/>
+                <form:option value="MONTH" label="월간별"/>
+                <form:option value="YEAR" label="연간별"/>
             </form:select>
-        </c:when>
-        <c:otherwise>
-            <form:hidden id="homepageId" path="homepage_id" value="${asideHomepageId}"/>
-        </c:otherwise>
-    </c:choose>
-    <form:select path="dateType" class="selectmenu-search" style="width:200px">
-        <option disabled>날짜 분류 선택</option>
-        <form:option value="DAY" label="일간별"/>
-        <form:option value="MONTH" label="월간별"/>
-        <form:option value="YEAR" label="연간별"/>
-    </form:select>
-    <form:select path="homepage_type" class="selectmenu-search" style="width:200px">
-        <option disabled>홈페이지 분류 선택</option>
-        <form:option value="0" label="전체"/>
-        <form:option value="1" label="홈페이지"/>
-        <form:option value="2" label="검색대"/>
-    </form:select>
-    <div id="dateInputs">
-        <div id="dayInput">
-            <form:input type="text" path="startDate" id="startDate" class="text ui-calendar"/>
-            <span id="tilde" style="font-size:12px">~</span>
-            <form:input type="text" path="endDate" id="endDate" class="text ui-calendar"/>
+            <form:select path="homepage_type" class="selectmenu-search">
+                <option disabled>홈페이지 분류 선택</option>
+                <form:option value="0" label="전체"/>
+                <form:option value="1" label="홈페이지"/>
+                <form:option value="2" label="검색대"/>
+            </form:select>
+            <div style="display:flex; gap: 10px">
+                <div id="dateInputs">
+                    <div id="dayInput">
+                        <form:input type="text" path="startDate" id="startDate" class="text ui-calendar"/>
+                        <span id="tilde" style="font-size:12px">~</span>
+                        <form:input type="text" path="endDate" id="endDate" class="text ui-calendar"/>
+                    </div>
+
+                    <div id="monthInput" style="display:none;">
+                        <form:select path="startMonthYear" id="startMonthYear" class="selectmenu-search">
+                            <c:forEach var="year" begin="2025" end="2030">
+                                <form:option value="${year}" label="${year}"/>
+                            </c:forEach>
+                        </form:select>
+                    </div>
+
+                    <div id="yearInput" style="display:none;">
+                        <form:select path="startYear" id="startYear" class="selectmenu-search">
+                            <c:forEach var="year" begin="2025" end="2030">
+                                <form:option value="${year}" label="${year}"/>
+                            </c:forEach>
+                        </form:select>
+                        <span id="tilde" style="font-size:12px">~</span>
+                        <form:select path="endYear" id="endYear" class="selectmenu-search">
+                            <c:forEach var="year" begin="2025" end="2030">
+                                <form:option value="${year}" label="${year}"/>
+                            </c:forEach>
+                        </form:select>
+                    </div>
+                </div>
+                <button id="searchBtn" style="height:30px"><i class="fa fa-search"></i><span>검색</span></button>
+                <a href="javascript:void(0);" id="excelDownload" class="btn btn2" style="height:19px">
+                    <i class="fa fa-file-excel-o"></i><span>엑셀저장</span>
+                </a>
+                <a href="javascript:void(0);" id="csvDownload" class="btn btn2" style="height:19px">
+                    <i class="fa fa-file-excel-o"></i><span>csv저장</span>
+                </a>
+            </div>
         </div>
 
-        <div id="monthInput" style="display:none;">
-            <form:select path="startMonthYear" id="startMonthYear" class="selectmenu-search" style="width:100px">
-                <c:forEach var="year" begin="2025" end="2030">
-                    <form:option value="${year}" label="${year}"/>
-                </c:forEach>
-            </form:select>
-        </div>
-
-        <div id="yearInput" style="display:none;">
-            <form:select path="startYear" id="startYear" class="selectmenu-search" style="width:100px">
-                <c:forEach var="year" begin="2025" end="2030">
-                    <form:option value="${year}" label="${year}"/>
-                </c:forEach>
-            </form:select>
-            <span id="tilde" style="font-size:12px">~</span>
-            <form:select path="endYear" id="endYear" class="selectmenu-search" style="width:100px;">
-                <c:forEach var="year" begin="2025" end="2030">
-                    <form:option value="${year}" label="${year}"/>
-                </c:forEach>
-            </form:select>
+        <span>총 건수 : ${paging.totalDataCount}건</span>
         </div>
     </div>
-    <button id="searchBtn"><i class="fa fa-search"></i><span>검색</span></button>
-    <br><br><br>
-    <a href="javascript:void(0);" id="excelDownload" class="btn btn2">
-        <i class="fa fa-file-excel-o"></i><span>엑셀저장</span>
-    </a>
-    <a href="javascript:void(0);" id="csvDownload" class="btn btn2">
-        <i class="fa fa-file-excel-o"></i><span>csv저장</span>
-    </a>
-    <span>총 건수 : ${paging.totalDataCount}건</span>
 
     <div id="chartData">
         <canvas id="myChart" width="50" height="50"></canvas>
