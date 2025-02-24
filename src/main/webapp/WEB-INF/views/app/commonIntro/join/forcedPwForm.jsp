@@ -44,6 +44,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 	<input type="hidden" name="mode" value="findpw">
 	<input type="hidden" name="member_id">
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	<input type="hidden" name="auth_homepage_type" value="1">
 </form>
 
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />

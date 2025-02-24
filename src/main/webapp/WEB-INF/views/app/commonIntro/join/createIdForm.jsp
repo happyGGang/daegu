@@ -91,6 +91,7 @@ $(function() {
 <form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
 	<input type="hidden" name="certType">
+	<input type="hidden" name="auth_homepage_type" value="1">
 </form>
 <form:form id="checkForm" modelAttribute="newMember" action="check.do" onsubmit="return false;">
 	<form:hidden path="member_id" id="newMemberId"/>

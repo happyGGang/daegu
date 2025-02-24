@@ -93,6 +93,7 @@ $(function() {
 		<input type="hidden" name="certType">
 		<input type="hidden" name="mode" value="integration">
 		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		<input type="hidden" name="auth_homepage_type" value="2">
 	</form>
 	<form:form id="memberInfo" modelAttribute="newMember" action="integration4.do">
 		<form:hidden path="editMode"/>

@@ -179,6 +179,7 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 	<input type="hidden" name="mode" value="changeTel">
 	<input type="hidden" name="menu_idx" value="${param.menu_idx}">
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+	<input type="hidden" name="auth_homepage_type" value="1">
 </form>
 <c:if test="${homepage.context_path eq 'dalseolib'}">
 <strong style="color:red;">※ 주소 변경은 도서관으로 신분증 지참 후 방문하여 변경 가능합니다. (미성년자의 경우 보호자 신분증, 주민등록등본 지참)</strong>

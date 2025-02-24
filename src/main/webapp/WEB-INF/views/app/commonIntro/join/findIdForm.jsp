@@ -31,6 +31,7 @@ $(function() {
 		<input type="hidden" name="certType">
 		<input type="hidden" name="_csrf" value="${_csrf.token}">
 		<input type="hidden" name="mode" value="findId">
+		<input type="hidden" name="auth_homepage_type" value="1">
 	</form>
 	<form:form id="memberInfo" modelAttribute="memberInfo" action="findId.do">
 		<form:hidden path="editMode"/>
