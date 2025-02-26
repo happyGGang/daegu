@@ -191,7 +191,6 @@ public class LibrarySearchController extends BaseController {
 						map.put("marc", marc_view(model, String.valueOf(map.get("REG_NO")), request));
 					}
 				}
-				
 				model.addAttribute("bookSearch", list);
 				model.addAttribute("facetGroup", LibSearchAPI.getFacetGroup(result));
 			}
@@ -202,6 +201,15 @@ public class LibrarySearchController extends BaseController {
 
 		return basePath + "index";
 	}
+
+	private List<Map<String, Object>> getShelfInfoList(Map<String, Object> shelfInfo) {
+		List<Map<String, Object>> shelfInfoList = LibSearchAPI.getShelfInfoList(shelfInfo);
+		String[] noUseShelfCodes = {"BW06", "BW08", "BW11", "BW12", "BW16", "BW18", "BW19", "BW20", "BW21", "BW22", "BW23", "BW24", "BW25", "BW26", "AB38", "CB17", "FM05"};
+		shelfInfoList.removeIf(map -> Arrays.asList(noUseShelfCodes)
+				.contains(map.get("CODE")));
+		return shelfInfoList;
+	}
+
 
 	@RequestMapping(value = {"/indexAll.*"})
 	public String indexAll(@PathVariable String context_path, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -456,6 +464,13 @@ public class LibrarySearchController extends BaseController {
 		//0 : 단행, 1: 연속간행물, 2:비도서
 		if (StringUtils.isEmpty(librarySearch.getBooktype())) {
 			librarySearch.setBooktype("0");
+		}
+
+		Map<String, Object> shelfInfo = LibSearchAPI.getSubLocaInfo("19", homepage.getManage_code());
+
+		if (!"h90".equals(homepage.getHomepage_id())) {
+			List<Map<String, Object>> shelfInfoList = getShelfInfoList(shelfInfo);
+			model.addAttribute("shelfCodeList", shelfInfoList);
 		}
 		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
