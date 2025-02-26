@@ -81,7 +81,14 @@
   <!-- 단일 조회 -->
   <select id="getThinkPocketPackageOne" resultType="kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage">
     SELECT
-    <include refid="fields"/>
+      a.think_pocket_package_idx, a.think_pocket_package_name, a.think_pocket_package_subject, a.author, a.publisher,
+      a.publish_year, a.isbn,a.book_price, a.book_pages, a.purpose, a.loan_count,
+      a.quantity, a.grade, a.category, a.keyword, a.doc_org_file_name,
+      a.doc_server_file_name, a.doc_file_extension, a.doc_file_size, a.org_file_name, a.server_file_name,
+      a.file_extension, a.file_size, a.desc_link, a.image_link, a.content,
+      a.add_id, a.add_date, TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, a.output_order,
+      TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
+      NVL(b.lender_count, 0) AS lender_count
     FROM
     THINK_POCKET_PACKAGE a
     <include refid="joinLoan"/>
