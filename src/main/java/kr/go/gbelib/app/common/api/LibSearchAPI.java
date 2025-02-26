@@ -3267,27 +3267,30 @@ public class LibSearchAPI {
 		}
 	}
 
-	public static void sendNotificationThinkPocketToUser(ThinkPocketPackage thinkPocketPackage, String... data) {
+	public static void sendNotificationThinkPocketToUser(ThinkPocketPackage thinkPocketPackage, Map<String, Object> dataMap) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("api_key", "79724C6D73152DC1035B16B6198665D34A640D5D11E8ACD60083FA80FE417E58");
-		param.put("talk_code", data[0]);
-		param.put("manage_code", data[1]);
-		param.put("template_code", data[2]);
 		param.put("userkey", thinkPocketPackage.getUser_key());
 		param.put("client_ip", thinkPocketPackage.getAdd_ip());
 		param.put("worker", "HOMEPAGE");
 
-    try {
-      param.put("data1", URLEncoder.encode(thinkPocketPackage.getHomepage_name(), "UTF-8"));
-    } catch (UnsupportedEncodingException e) {
-      throw new RuntimeException(e);
-    }
+		param.putAll(dataMap);
+
+		dataMap.forEach((key, value) -> {
+			if (key.startsWith("data")) {
+				try {
+					param.put(key, URLEncoder.encode(String.valueOf(value), "UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
 
     Map<String, Object> sendKCMS = CommonAPI.sendKCMS("sendalimtalk", param);
+
 		String code = String.valueOf(sendKCMS.get("RESULT_INFO"));
-		if ("SUCCESS".equals(code)) {
-		} else {
-			log.error("알림톡 발송 실패 : " + sendKCMS.get("RESULT_MESSAGE"));
+		if (!"SUCCESS".equals(code)) {
+      log.error("알림톡 발송 실패 : {}", sendKCMS.get("RESULT_MESSAGE"));
 		}
 	}
 }

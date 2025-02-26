@@ -34,11 +34,6 @@
         $('#phone_3').focus();
         return false;
       }
-      if ($('#request_content').val() == '') {
-        alert('신청사유를 입력하세요.');
-        $('#request_content').focus();
-        return false;
-      }
 
       if ($('#agree').prop('checked') == false && $('#editMode').val() == 'ADD') {
         alert('개인정보 수집 및 이용에 동의를 하셔야 합니다.');
@@ -129,6 +124,7 @@
     <form:hidden path="rowCount"/>
     <form:hidden path="think_pocket_package_idx"/>
     <form:hidden path="think_pocket_package_loan_idx"/>
+    <form:hidden path="think_pocket_package_subject"/>
     <table class="type2">
         <colgroup>
             <col width="130"/>
@@ -139,7 +135,7 @@
             <th> 생각주머니명</th>
             <td>${thinkPocketPackage.think_pocket_package_subject}</td>
         </tr>
-        <!--<tr>
+        <tr style="display: none">
             <th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
             <td>
                 <form:input path="loan_start_date" cssClass="text ui-calendar" readonly="true"/>
@@ -150,7 +146,7 @@
                     <em>대출 기간은 30일로 고정 됩니다. </em>
                 </div>
             </td>
-        </tr>-->
+        </tr>
         <tr>
             <th>신청자(<span style="color: red;font-weight: bold;">*</span>)</th>
             <td>
@@ -182,12 +178,6 @@
                 </form:select>
             </td>
         </tr>
-         <!--<tr>
-            <th>신청사유(<span style="color: red;font-weight: bold;">*</span>)</th>
-            <td>
-                <form:textarea path="request_content" cols="60" rows="5" cssStyle="width:95%;"/>
-            </td>
-        </tr>-->
         <tr>
             <th>진행상태</th>
             <td>

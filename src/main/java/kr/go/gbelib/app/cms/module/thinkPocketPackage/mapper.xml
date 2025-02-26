@@ -10,7 +10,7 @@
       a.quantity, a.grade, a.category, a.keyword, a.doc_org_file_name,
       a.doc_server_file_name, a.doc_file_extension, a.doc_file_size, a.org_file_name, a.server_file_name,
       a.file_extension, a.file_size, a.desc_link, a.image_link, REGEXP_REPLACE(a.content, '<[^>]*>', '') AS content,
-      a.add_id, a.add_date, TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date,
+      a.add_id, a.add_date, TO_CHAR(b.loan_start_date, 'yyyy-MM-dd') AS loan_start_date, a.output_order,
       TO_CHAR(b.loan_end_date, 'yyyy-MM-dd') AS loan_end_date,
       NVL(b.lender_count, 0) AS lender_count
     ]]>
@@ -74,7 +74,7 @@
     <include refid="joinLoan"/>
     <include refid="dynamicWhere"/>
     ORDER BY
-    a.think_pocket_package_idx DESC
+    a.output_order DESC
     ${pagingBottom}
   </select>
 
@@ -101,7 +101,7 @@
     think_pocket_package_idx, think_pocket_package_name, think_pocket_package_subject, author, publisher,
     publish_year, isbn, book_price, book_pages, purpose,
     loan_count, quantity, grade, category, keyword,
-    desc_link, image_link, homepage_id, content,
+    desc_link, image_link, homepage_id, content, output_order,
     <if test="doc_org_file_name != null and doc_org_file_name != ''">
       doc_org_file_name, doc_server_file_name, doc_file_extension, doc_file_size,
     </if>
@@ -115,7 +115,7 @@
     #{think_pocket_package_idx}, #{think_pocket_package_name}, #{think_pocket_package_subject}, #{author}, #{publisher},
     #{publish_year}, #{isbn}, #{book_price}, #{book_pages}, #{purpose},
     #{loan_count}, #{quantity}, #{grade}, #{category}, REPLACE(#{keyword}, ' ', ''),
-    #{desc_link}, #{image_link}, #{homepage_id}, #{content},
+    #{desc_link}, #{image_link}, #{homepage_id}, #{content}, #{output_order},
     <if test="doc_org_file_name != null and doc_org_file_name != ''">
       #{doc_org_file_name}, #{doc_server_file_name}, #{doc_file_extension}, #{doc_file_size},
     </if>
@@ -148,6 +148,7 @@
     desc_link = #{desc_link},
     image_link = #{image_link},
     content = #{content},
+    output_order = #{output_order},
     <if test="doc_org_file_name != null and doc_org_file_name != ''">
       doc_org_file_name = #{doc_org_file_name},
       doc_server_file_name = #{doc_server_file_name},
@@ -338,6 +339,15 @@
         #{i}
       </foreach>
     </update>
+
+  <select id="setOutputOrder" resultType="int">
+    SELECT
+      NVL(MAX(output_order), 0) + 10
+    FROM
+      THINK_POCKET_PACKAGE
+    WHERE
+      homepage_id = #{homepage_id}
+  </select>
 
   <!-- 대출 삭제 -->
   <delete id="deleteThinkPocketPackageLoan">

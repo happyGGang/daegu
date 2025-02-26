@@ -44,4 +44,6 @@ public interface ThinkPocketPackageDao {
   List<String> getThinkPocketPackageLoanDateList(Map<String, String> loanRequestData);
 
   int getDuplicateLoanCount(ThinkPocketPackage thinkPocketPackage);
+
+  int setOutputOrder(ThinkPocketPackage thinkPocketPackage);
 }

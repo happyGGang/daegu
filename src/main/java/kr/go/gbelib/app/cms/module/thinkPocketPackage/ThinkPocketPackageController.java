@@ -2,7 +2,10 @@ package kr.go.gbelib.app.cms.module.thinkPocketPackage;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -65,6 +68,7 @@ public class ThinkPocketPackageController extends BaseController {
       model.addAttribute("thinkPocketPackage", service.copyObjectPaging(thinkPocketPackage, service.getThinkPocketPackageOne(thinkPocketPackage)));
     } else {
       checkAuth("C", model, request);
+      thinkPocketPackage.setOutput_order(service.setOutputOrder(thinkPocketPackage));
       model.addAttribute("thinkPocketPackage", thinkPocketPackage);
     }
     return basePath + "edit_ajax";
@@ -179,7 +183,6 @@ public class ThinkPocketPackageController extends BaseController {
       ValidationUtils.rejectIfEmpty(result, "request_name", "이름을 입력하세요.");
       ValidationUtils.rejectIfEmpty(result, "phone_2", "휴대폰을 입력하세요.");
       ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
-      ValidationUtils.rejectIfEmpty(result, "request_content", "신청사유를 입력하세요.");
 
       String phone = concatenatePhone(thinkPocketPackage.getPhone_1(), thinkPocketPackage.getPhone_2(), thinkPocketPackage.getPhone_3());
       thinkPocketPackage.setPhone(phone);
@@ -201,7 +204,8 @@ public class ThinkPocketPackageController extends BaseController {
           thinkPocketPackage.setModify_id(getSessionMemberId(request));
           service.modifyThinkPocketPackageLoan(thinkPocketPackage);
           if ("6".equals(thinkPocketPackage.getRequest_status())) {
-            LibSearchAPI.sendNotificationThinkPocketToUser(thinkPocketPackage, "A15", homepage.getManage_code(), "SJB_085577&");
+            Map<String, Object> notificationParam = setNotificationParams(thinkPocketPackage, homepage);
+            LibSearchAPI.sendNotificationThinkPocketToUser(thinkPocketPackage, notificationParam);
           }
           res.setValid(true);
           res.setMessage("수정되었습니다.");
@@ -232,6 +236,34 @@ public class ThinkPocketPackageController extends BaseController {
       res.setResult(result.getAllErrors());
     }
     return res;
+  }
+
+  private Map<String, Object> setNotificationParams(ThinkPocketPackage thinkPocketPackage, Homepage homepage) {
+    LocalDate today = LocalDate.now();
+    LocalDate returnDate = today.plusDays(3);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+    LibrarySearch librarySearch = new LibrarySearch();
+    librarySearch.setSearch_start_date(returnDate.format(formatter));
+    librarySearch.setManageCode(homepage.getManage_code());
+
+    Map<String, Object> holidays = LibSearchAPI.getCheckHoliday(librarySearch);
+    if ("1".equals(holidays.get("RESULT_CODE"))) {
+      returnDate = returnDate.plusDays(1);
+    }
+
+    Map<String , Object> notificationParam = new HashMap<>();
+    notificationParam.put("talk_code", "A15");
+    notificationParam.put("manage_code", homepage.getManage_code());
+    notificationParam.put("template_code", "SJB_086173");
+
+    notificationParam.put("data1", "신청하신 책꾸러미가 대출 승인되었으니 3층 유아자료실로 오셔서 대출해가시기 바랍니다.");
+    notificationParam.put("data2", thinkPocketPackage.getHomepage_name());
+    notificationParam.put("data3", returnDate.format(formatter));
+    notificationParam.put("data4", thinkPocketPackage.getThink_pocket_package_subject());
+    notificationParam.put("data5", "053-231-2059");
+
+    return notificationParam;
   }
 
   @RequestMapping(value = {"/excelDownload.*"}, method = RequestMethod.POST)

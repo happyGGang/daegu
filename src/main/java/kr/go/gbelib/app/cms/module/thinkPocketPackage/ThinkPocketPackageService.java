@@ -8,7 +8,6 @@ import java.util.function.Consumer;
 import kr.co.whalesoft.framework.base.BaseService;
 import kr.co.whalesoft.framework.file.FileStorage;
 import kr.co.whalesoft.framework.mybatis.interceptor.WorkingLogger;
-import kr.co.whalesoft.framework.utils.PagingUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,5 +158,9 @@ public class ThinkPocketPackageService extends BaseService {
 
   public int getDuplicateLoanCount(ThinkPocketPackage thinkPocketPackage) {
     return dao.getDuplicateLoanCount(thinkPocketPackage);
+  }
+
+  public int setOutputOrder(ThinkPocketPackage thinkPocketPackage) {
+    return dao.setOutputOrder(thinkPocketPackage);
   }
 }

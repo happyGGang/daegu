@@ -322,7 +322,7 @@
                 <form:checkbox path="think_pocket_package_arr" cssClass="book_check" value="${i.think_pocket_package_idx}"/>
                 <div class="img-box">
                     <c:choose>
-                        <c:when test="${not empty i.image_link}">
+                        <c:when test="${not empty i.image_link and empty i.server_file_name}">
                             <a href="${i.desc_link}" target="_blank">
                                 <img src="${i.image_link}" alt="${i.think_pocket_package_subject}" width="100%" height="100%">
                             </a>

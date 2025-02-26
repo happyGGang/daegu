@@ -1,13 +1,8 @@
 package kr.go.gbelib.app.module.thinkPocketPackage;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +20,12 @@ import kr.co.whalesoft.framework.exception.AuthException;
 import kr.co.whalesoft.framework.utils.AttachmentUtils;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
-import kr.go.gbelib.app.cms.module.supportMember.SupportMember;
 import kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackage;
 import kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackageService;
 import kr.go.gbelib.app.cms.module.thinkPocketPackage.ThinkPocketPackageView;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -309,7 +302,6 @@ public class ThinkPocketPackageController extends BaseController {
       ValidationUtils.rejectIfEmpty(result, "request_name", "이름을 입력하세요.");
       ValidationUtils.rejectIfEmpty(result, "phone_2", "휴대폰을 입력하세요.");
       ValidationUtils.rejectIfEmpty(result, "phone_3", "휴대폰을 입력하세요.");
-      ValidationUtils.rejectIfEmpty(result, "request_content", "신청사유를 입력하세요.");
 
       String phone = thinkPocketPackage.getPhone_1() + "-" + thinkPocketPackage.getPhone_2() + "-" + thinkPocketPackage.getPhone_3();
       thinkPocketPackage.setPhone(phone);

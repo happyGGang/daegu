@@ -68,6 +68,7 @@ $(function() {
 	<form:hidden path="homepage_name"/>
 	<form:hidden path="add_ip"/>
 	<form:hidden path="user_key"/>
+	<form:hidden path="think_pocket_package_subject"/>
 	<table class="type2">
 		<colgroup>
 			<col width="130" />
@@ -78,7 +79,7 @@ $(function() {
 				<th>생각 주머니명</th>
 				<td>${thinkPocketPackage.think_pocket_package_subject}</td>
 			</tr>
-			<tr>
+			<tr style="display: none">
 				<th>대출기간(<span style="color: red;font-weight: bold;">*</span>)</th>
 				<td>
 					<form:input path="loan_start_date" cssClass="text ui-calendar" readonly="true"/>
@@ -107,12 +108,6 @@ $(function() {
 					<form:input path="phone_2" cssClass="text" cssStyle="width:50px;"/>
 					<span>-</span>
 					<form:input path="phone_3" cssClass="text" cssStyle="width:50px;"/>
-				</td>
-			</tr>
-			<tr>
-				<th>신청사유</th>
-				<td>
-					<form:textarea path="request_content" cols="60" rows="5" cssStyle="width:95%;"/>
 				</td>
 			</tr>
 			<tr>

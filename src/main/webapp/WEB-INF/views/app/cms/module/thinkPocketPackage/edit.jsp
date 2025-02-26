@@ -94,9 +94,28 @@ $(function() {
 		e.preventDefault();
 		var lasList = window.open('search.do', 'searchBook', 'width=1000 height=600,scrollbars=yes');
 	});
-	
-	$('#thumbnail').hide();
 
+	$('#mfile').on('change', function () {
+		var file = this.files[0];
+		if (!file) {
+			return;
+		}
+
+		if (!file.type.match('image.*')) {
+			alert('이미지 파일만 선택해주세요.');
+			$(this).val('');
+			return;
+		}
+
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			var imageData = e.target.result;
+			$('#thumbnail td').empty();
+			$('#thumbnail').show();
+			$('#thumbnail td').html('<img src="' + imageData + '" alt="도서 이미지 미리보기" style="max-width:200px;">');
+		};
+		reader.readAsDataURL(file);
+	});
 });
 
 function getNaverData(arg) {
@@ -193,6 +212,12 @@ function getNaverData(arg) {
 	        		</form:select>
 	        	</td>
 	        </tr>
+			<tr>
+				<th>출력순서</th>
+				<td>
+					<form:input path="output_order" type="number" cssClass="number"/>
+				</td>
+			</tr>
 	        <tr>
 	        	<th>키워드</th>
 	        	<td>
@@ -205,6 +230,12 @@ function getNaverData(arg) {
 	        		<form:input path="desc_link" cssClass="text" cssStyle="width:300px;"/> * http://부터 입력해주세요.
 	        	</td>
 	        </tr>
+			<tr>
+				<th>도서이미지</th>
+				<td class="fileTd">
+					<input type="file" id="mfile" name="mfile" class="text" title="파일선택" />
+				</td>
+			</tr>
 	        <tr id="thumbnail">
 	        	<th>썸네일 이미지</th>
 	        	<td></td>
@@ -214,18 +245,6 @@ function getNaverData(arg) {
 	        		<form:textarea path="content" rows="10" cols="100" cssStyle="width:95%;"/>
 	        	</td>
 	        </tr>
-<%--	        <tr>
-	        	<th>도서이미지</th>
-	        	<td class="fileTd">
-        			<input type="file" id="mfile" name="mfile" class="text" title="파일선택" />
-        		</td>
-	        </tr>
-	        <tr>
-	        	<th>문서파일</th>
-	        	<td class="fileTd" id="doc_file_td">
-	        		<input type="file" id="doc_file" name="doc_file" class="text" title="파일선택">
-	        	</td>
-	        </tr>--%>
 		</tbody>
 	</table>
 </form:form>

@@ -68,6 +68,7 @@ public class ThinkPocketPackage extends PagingUtils {
   private String modify_id; // 수정ID
   private Date modify_date; // 수정일시
   private String loan_place; // 대출장소
+  private int output_order; // 출력순서
 
   public int getThink_pocket_package_idx() {
     return think_pocket_package_idx;
@@ -507,5 +508,13 @@ public class ThinkPocketPackage extends PagingUtils {
 
   public void setAdd_ip(String add_ip) {
     this.add_ip = add_ip;
+  }
+
+  public int getOutput_order() {
+    return output_order;
+  }
+
+  public void setOutput_order(int output_order) {
+    this.output_order = output_order;
   }
 }
