@@ -168,14 +168,14 @@
 				<div class="main3">
 					<div class="tabS">
 						<ul class="tabMenuS">
-							<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class='t-tabs'>공지사항</a></li>
+							<li><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class='t-tabs'>공지사항</a></li>
 							<li><span style="font-size:13px;color:#aaa;padding:0 5px;">│</span></li>
-							<li><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474" class='t-tabs'>강좌·행사안내</a></li>
+							<li class="on"><a href="#tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474" class='t-tabs'>강좌·행사안내</a></li>
 							
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=123" class="more-btn more-more">더보기</a>
 						</ul>
 
-						<div class="con" data-tab="tab1">
+						<div class="con" data-tab="tab1" style="display:none;">
 							<div class="news">
 								<div class="box">
 									<ul>
@@ -206,7 +206,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="con" data-tab="tab2" style="display:none;">
+						<div class="con" data-tab="tab2" >
 							<div class="news">
 								<div class="box">
 

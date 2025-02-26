@@ -113,8 +113,8 @@
     <ul>
         <li style="font-weight:bold;color:blue;">1가정당 1꾸러미 신청 가능합니다.</li>
         <li style="font-weight:bold;color:blue;">신청 후 대출 승인 안내 문자를 받으면 승인날짜 포함하여 3일 내로 대출해 가시면 됩니다.</li>
-        <li>대출 기간은 배송 기간 포함입니다.</li>
-        <li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
+        <li>대출 기간은 30일입니다.</li>
+        <li>다음 이용자를 위해 대출 기간을 반드시 지켜주십시오.</li>
     </ul>
 </div>
 <form:form id="thinkPocketPackageLoan" modelAttribute="thinkPocketPackage" action="loanSave.do" method="POST">
@@ -124,7 +124,6 @@
     <form:hidden path="rowCount"/>
     <form:hidden path="think_pocket_package_idx"/>
     <form:hidden path="think_pocket_package_loan_idx"/>
-    <form:hidden path="think_pocket_package_subject"/>
     <table class="type2">
         <colgroup>
             <col width="130"/>
