@@ -84,7 +84,17 @@
 		</ul>
 	</div>
 </c:when>
-
+	<c:when test="${homepage.context_path eq 'gukbo'}">
+		<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
+			<ul>
+				<li>희망도서 구입 방법 안내</li>
+				<li>도서 구입 방법이 변경되어 희망도서 비치가 지연될 수 있음(기존 대비 5일 정도)을 알려드립니다.</li>
+				<li>○ 시행 : 2025. 3. 1.부터</li>
+				<li>○ 사유 : 대구광역시교육청의 집행예산기준 개정에 따라 도서 구입방법 변경</li>
+				<li>(1회 2백만원 초과 시 입찰)</li>
+			</ul>
+		</div>
+	</c:when>
 
 <c:when test="${homepage.context_path eq 'gosan' && tt eq '2022-11-21'}">
 	<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
