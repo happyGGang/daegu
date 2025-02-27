@@ -52,7 +52,7 @@
 							<i class="fa fa-user-plus"></i>
 							<span>JOIN</span>
 						</a>
-							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=82" class="btn2">
+							<a href="https://library.daegu.go.kr/dgportal/intro/join/integration.do?menu_idx=45" class="btn2">
 								<i class="fa fa-user-plus"></i>
 								<span>통합인증</span>
 							</a>

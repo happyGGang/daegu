@@ -2005,7 +2005,7 @@ do {
 											<input id="libraryCodes46" name="libraryCodes" class="libraryCodesSmCheck" type="checkbox" value="GL"/>
 											<input type="hidden" name="_libraryCodes" value="on"/>
 											<span class="lib02">작은</span>
-											<label for="libraryCodes46">산격1동 작은도서</label>
+											<label for="libraryCodes46">산격1동 작은도서관</label>
 											<span class="go-link">
 												<a href="https://library.daegu.go.kr/intro/buksm/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/books-icon.png" alt="검색대바로가기"></a>
 												<a href="/bukgs/index.do" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/homepage-icon.png" alt="홈페이지바로가기"></a>

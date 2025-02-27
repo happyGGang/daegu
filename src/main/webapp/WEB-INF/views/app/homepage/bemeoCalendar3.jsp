@@ -60,29 +60,24 @@ $(document).ready(function() {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">어린이자료실</th>
-          <td>09:00 ~ 18:00</td>
-          <td rowspan="3">09:00 ~ 17:00</td>
-        </tr>
-        <tr>
-          <th scope="row">국제자료실</th>
-          <td>09:00 ~ 20:00</td>
-        </tr>
-        <tr>
-          <th scope="row">종합자료실 1, 2, 3</th>
-          <td>09:00 ~ 22:00</td>
-        </tr>
-        <tr>
-          <th scope="row">크리에이티브팩토리 범어</th>
-          <td>10:00 ~ 19:00</td>
-          <td>휴관</td>
-        </tr>
-        <tr>
-          <th scope="row">카페 더 로즈 범어</th>
-          <td>09:00 ~ 18:00</td>
-          <td>09:00 ~ 17:00</td>
-        </tr>
+          <tr>
+    <td>어린이자료실</td>
+    <td>09:00    ~ 18:00</td>
+    <td rowspan="4">09:00 ~ 17:00</td>
+  </tr>
+  <tr>
+    <td>국제자료실</td>
+    <td>09:00 ~ 20:00</td>
+  </tr>
+  <tr>
+    <td>종합자료실 1, 2, 3</td>
+    <td>09:00 ~ 22:00</td>
+  </tr>
+  <tr>
+    <td>카페</td>
+    <td>09:00 ~ 18:00
+      <div data-hjsonver="1.0" data-jsonlen="14687"></div></td>
+  </tr>
       </tbody>
     </table>
   </div>
