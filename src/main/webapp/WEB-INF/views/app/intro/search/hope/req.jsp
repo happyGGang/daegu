@@ -440,14 +440,14 @@
 
 					<c:when test="${context_path eq 'bolli'}">
 						<form:select path="manageCode">
-							<form:option value="BX">본리도서관</form:option>
-						</form:select><!-- <span style="color:#ff0000">  * 본리도서관 희망도서 25.02. 신청 재개 예정</span> -->
+							<!-- <form:option value="BX">본리도서관</form:option> -->
+						</form:select><span style="color:#ff0000">  * 본리도서관 희망도서 25.03.02 신청 재개 예정</span>
 
 					</c:when>
 					<c:when test="${context_path eq 'family'}">
 						<form:select path="manageCode">
-							<form:option value="BY">달서가족문화도서관</form:option>
-						</form:select><!-- <span style="color:#ff0000">  * 달서가족문화도서관 예산소진으로 서비스 종료(2025년 02월 신청 가능 예정)</span> -->
+							<!--<form:option value="BY">달서가족문화도서관</form:option>-->
+						</form:select><span style="color:#ff0000">  * 달서가족문화도서관 희망도서 25.3.2 오전 10시 재개 예정</span>
 					</c:when>
 					<c:when test="${context_path eq 'english'}">
 						<form:select path="manageCode">
