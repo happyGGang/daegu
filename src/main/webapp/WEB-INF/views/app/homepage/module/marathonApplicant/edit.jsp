@@ -437,13 +437,14 @@ $(function(){
 </style>
 <div id="cont_wrap">
 	<div class="bookrun">
-		<h3 class="tit">제 16회 달서독서마라톤 대회 참가자 완주기준체크!</h3>
+		<h3 class="tit">제 17회 달서독서마라톤 대회 참가자 완주기준체크!</h3>
 		<ul class="con">
 			<li>동일한 내용 반복 기재, 의미 없는 감탄사나 자 · 모음 나열로 작성된 일지는 기록 제외</li>
 			<li>도서(원서 포함)의 <strong>일지 작성언어가 한국어</strong>인지 여부</li>
 			<li><strong>책 제목, 쪽수</strong>등 도서정보의 <strong>정확한 기재</strong> 여부</li>
 			<li>대회기간 내에 대구시 공공도서관, 달서구 관내 도서관(대학·학교·사립작은도서관)에서 대출한 도서</li>
-			<li class="no_book"><strong>제외도서로 작성된 일지는 기록에서 제외</strong><a class="no_book_list" href="/board/boardFile/download/764/510713/340964.do" target="_blank" alt="제외도서목록표">제외도서 보기</a></li>
+			<li class="no_book"><strong>제외도서로 작성된 일지는 기록에서 제외</strong><a class="no_book_list" href="/board/boardFile/download/980/529137/374123/2025%EB%85%84%20%EC%A0%9C17%ED%9A%8C%20%EB%8B%AC%EC%84%9C%EB%8F%85%EC%84%9C%EB%A7%88%EB%9D%BC%ED%86%A4%EB%8C%80%ED%9A%8C%20%EC%A0%9C%EC%99%B8%EB%8F%84%EC%84%9C%20%EB%AA%A9%EB%A1%9D.hwp.do
+" target="_blank" alt="제외도서목록표">제외도서 보기</a></li>
 			<li class="blue">본인 이외 대출 · 구입 도서로 작성한 경우 기록에서 제외
 				<ul class="list2">
 					<li><strong>초등학생에 한하여 가족(부모·형제)가 대출한 도서도 완주기록으로 인정</strong>됩니다</li>
