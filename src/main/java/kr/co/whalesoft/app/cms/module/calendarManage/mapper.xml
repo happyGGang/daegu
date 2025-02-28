@@ -327,29 +327,25 @@
 	</delete>
 
 	<select id="getCalendar" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
-		SELECT
-			MIN( DECODE( TO_CHAR(days, 'D'), 1, TO_CHAR(days, 'FMDD'))) as sun,
-			MIN( DECODE( TO_CHAR(days, 'D'), 2, TO_CHAR(days, 'FMDD'))) as mon,
-			MIN( DECODE( TO_CHAR(days, 'D'), 3, TO_CHAR(days, 'FMDD'))) as tue,
-			MIN( DECODE( TO_CHAR(days, 'D'), 4, TO_CHAR(days, 'FMDD'))) as wed,
-			MIN( DECODE( TO_CHAR(days, 'D'), 5, TO_CHAR(days, 'FMDD'))) as thu,
-			MIN( DECODE( TO_CHAR(days, 'D'), 6, TO_CHAR(days, 'FMDD'))) as fri,
-			MIN( DECODE( TO_CHAR(days, 'D'), 7, TO_CHAR(days, 'FMDD'))) as sat,
-			#{plan_date} AS plan_date
-   		FROM
-			(
-			SELECT
-				(A.base_mon + ROWNUM -1) AS days, A.base_mon,
-				((TRUNC(base_mon + ROWNUM - 1, 'D') - TRUNC(TRUNC(base_mon + ROWNUM - 1, 'Y'), 'D')) / 7 + 1) AS WEEK_NUM
-			FROM
-				(
-				SELECT TO_DATE (#{plan_date}, 'yyyy-MM') base_mon FROM DUAL
-				) A, DICTIONARY B
-			) C
-
-		WHERE C.DAYS <![CDATA[ <= ]]> LAST_DAY(base_mon)
-  		GROUP BY WEEK_NUM
-  		ORDER BY WEEK_NUM
+        SELECT
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 1, TO_CHAR(DAYS, 'DD'))) as SUN,
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 2, TO_CHAR(DAYS, 'DD'))) as MON,
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 3, TO_CHAR(DAYS, 'DD'))) as TUE,
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 4, TO_CHAR(DAYS, 'DD'))) as WED,
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 5, TO_CHAR(DAYS, 'DD'))) as THU,
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 6, TO_CHAR(DAYS, 'DD'))) as FRI,
+            MIN( DECODE( TO_CHAR(DAYS, 'D'), 7, TO_CHAR(DAYS, 'DD'))) as SAT,
+            #{plan_date} AS PLAN_DATE
+        FROM
+            (
+                SELECT
+                    TO_DATE(#{plan_date}, 'yyyy-MM') + LEVEL - 1 AS DAYS,
+                    TRUNC(TO_DATE(#{plan_date}, 'yyyy-MM') + LEVEL - 1, 'D') - TRUNC(TO_DATE(#{plan_date}, 'yyyy-MM'), 'D') + 1 AS WEEK_NUM
+                FROM DUAL
+                CONNECT BY LEVEL <![CDATA[ <= ]]> LAST_DAY(TO_DATE(#{plan_date}, 'yyyy-MM')) - TO_DATE(#{plan_date}, 'yyyy-MM') + 1
+            )
+        GROUP BY WEEK_NUM
+        ORDER BY WEEK_NUM
 	</select>
 
 	<select id="getCalendarListType" resultType="kr.co.whalesoft.app.cms.module.calendarManage.CalendarManage">
