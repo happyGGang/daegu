@@ -255,7 +255,7 @@ $(function() {
         <tr>
           <td colspan="5" style="text-align:center;"><div style="width:90%;line-height:50px;margin:0 auto;">
               <h1 style="font-family:'HY견명조';display:inline-block;line-height:150%;font-size:26px;text-align:left;font-weight:bold;letter-spacing:-3px;">
-                         위의 학생(분)은 제16회 달서독서마라톤 대회<br/>
+                         위의 학생(분)은 ${certificateInfo.contest_name}<br/>
               <span style="word-spacing:10px;">상기종목에 참가하여 성실한 독서활동으로</span><br/>
                          완주하였기에 이 증서를 드립니다.
               </h1>
