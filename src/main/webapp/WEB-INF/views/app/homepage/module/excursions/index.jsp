@@ -520,6 +520,7 @@ $(function(){
 					</div>
 				</div>
 				<h3>도서관체험학습안내</h3>
+				<p><strong style="font-size: 16px">도서관 홈페이지 로그인 후 신청 가능합니다</strong></p><br>
 				<ul class="con">
 					<li><strong>신청 기간</strong> :  2025. 3. 4.(화) 10:00 ~ 3. 28.(금) 선착순 ※ 신청기간 종료 후 미신청일자는 수시 모집</li>
 					<li><strong>신청 방법</strong> :도서관 홈페이지 로그인(library.daegu.go.kr/bukbu) → 독서문화행사 → 도서관체험학습 → 신청가능 날짜 선택 후 신청하기 및 참가신청서 파일 업로드 → 도서관에서 '승인완료' 처리 → 최종 신청 완료</li>
