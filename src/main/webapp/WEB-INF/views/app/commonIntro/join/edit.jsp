@@ -206,6 +206,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 		<input type="hidden" name="certType">
 		<input type="hidden" name="menu_idx" value="${param.menu_idx}">
 		<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
+		<input type="hidden" name="auth_homepage_type" value="1">
 	</form>
 	<form:form id="memberJoinForm" modelAttribute="newMember" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode"/>

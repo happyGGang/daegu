@@ -555,6 +555,7 @@ ${quiz.top_html}
 <form id="certForm" name="certForm" action="/intro/join/cert.do" method="post" target="certWindow">
 	<input type="hidden" name="certType">
 	<input type="hidden" name="_csrf" value="${_csrf.token}">
+	<input type="hidden" name="auth_homepage_type" value="1">
 </form>
 <div class="btn-area center">
 	<a href="" class="btn save-btn">확인</a>
