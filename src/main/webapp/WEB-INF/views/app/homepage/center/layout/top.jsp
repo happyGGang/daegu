@@ -7,7 +7,10 @@
 
 	<div class="tnb mobile_tnb">
 		<div class="main-section">
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo-w.svg" alt="대구혁신도시복합혁신센터도서관"/></a></h1>
+			<h1 class="mobile-logo">
+			  <a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo-w.svg" alt="대구혁신도시복합혁신센터도서관"/></a>
+			  <img src="/resources/homepage/${homepage.context_path}/img/new_logo.svg" alt="대구혁신도시복합혁신센터도서관" style="width:80px; position: absolute; top: 5px; right: -53px "/>
+			</h1>
 
 			<div class="mmode m-menu">
 				<a href="#menu"><img src="/resources/homepage/center/img/hamburger.svg" alt="메뉴"><span class="blind">메뉴</span></a>

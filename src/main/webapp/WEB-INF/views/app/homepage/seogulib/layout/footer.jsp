@@ -28,7 +28,7 @@
 			<div class="section" style="position:relative;">
 				<address>
 					<p>
-						<em><b>서구어린이도서관</b> : (41758) <br class="mobileBr"/>대구광역시 서구 문화로 123</em><br class="mobileBr"/><em>전화 : 053-663-3701</em><em>FAX : 053-663-3709</em><br/>
+						<em><b>서구어린이도서관</b> : (41758) <br class="mobileBr"/>대구광역시 서구 문화로 123</em><br class="mobileBr"/><em>전화 : 053-663-3701</em><em>FAX : 053-663-5646</em><br/>
 						<em><b>비산도서관</b> : (41809) <br class="mobileBr"/>대구광역시 서구 달서로 14길 13</em><br class="mobileBr"/><em>전화 : 053-663-3721</em><em>FAX : 053-663-3729</em><br/>
 						<em><b>비원도서관</b> : (41718) <br class="mobileBr"/>대구광역시 서구 달서천로 61안길 10</em><br class="mobileBr"/><em>전화 : 053-663-3871</em><em>FAX : 053-663-3879</em><br/>
 						<em><b>영어도서관</b> : (41842) <br class="mobileBr"/>대구광역시 서구 평리로35길 90-6</em><br class="mobileBr"/><em>전화 : 053-663-3861</em><em>FAX : 053-663-3869</em><br/>

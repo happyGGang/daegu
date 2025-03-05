@@ -1,11 +1,19 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<style>
+		.new_logo {
+		   width:166px; position: absolute; top: 18px; left: 209px
+		}
+	</style>
+
 	<div class="head">
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
 			<div class="main-section">
 				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">대구혁신도시복합혁신센터도서관</a></h1>
+				<img class="new_logo" src="/resources/homepage/${homepage.context_path}/img/new_logo.svg" alt="대구혁신도시복합혁신센터도서관"/>
+
 
 				<!-- menu S -->
 				<div class="g-menu">

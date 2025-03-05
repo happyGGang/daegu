@@ -49,10 +49,10 @@
 			</ul>
 			<div class="detail_select_wrapper">
 				<div class="site_detail">
-					<div>대구혁신도시 복합문화센터</div>
+					<div>대구혁신도시 복합문화센터 물빛서원</div>
 					<div>(41067) 대구 동구 이노밸리로 180 &nbsp;&nbsp;<br/>TEL. 053-962-7600&nbsp;&nbsp;FAX. 053-962-7603</div>
 					<div>
-						Copyright ⓒ 대구혁신도시 복합문화센터.<br/>
+						Copyright ⓒ 대구혁신도시 복합문화센터 물빛서원.<br/>
 						All rights reserved.
 					</div>
 				</div>

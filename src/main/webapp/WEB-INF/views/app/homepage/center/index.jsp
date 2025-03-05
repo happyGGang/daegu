@@ -191,6 +191,38 @@ $(function () {
 	});
 });
 </script>
+
+
+<style>
+  .main_new_logo {
+    position: absolute; height: 90px; top: 0; right: -259px
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) {
+	.main_new_logo {
+		position: absolute; height: 90px; top: 0; right: -138px
+	}
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+	.main_new_logo {
+		position: absolute; height: 90px; top: 0; right: -41px
+	}
+  }
+
+  @media (min-width: 480px) and (max-width: 767px) {
+  .main_new_logo {
+		position: absolute; height: 90px; top:11px; right: -229px
+	}
+  }
+
+	@media (max-width: 479px) {
+	.main_new_logo {
+		position: absolute; height: 48px; top:22px; right: -148px
+	}
+	}
+</style>
+
 <div id="wrap">
 
 <div class="popupWrap">
@@ -216,7 +248,9 @@ $(function () {
 		
 			<div class="section_1_wrapper">
 				<div class="main_cation">시간과 공간을 넘어 새로운 상상력을 이어가는 곳</div>
-				<div class="main_title"></div>
+				<div class="main_title" style="position: relative">
+					<img class="main_new_logo" src="/resources/homepage/center/img/new_logo.svg" alt="" />
+				</div>
 				<div class="search_area">
 					<label for="searchSelect">
 						<select id="searchSelect">
