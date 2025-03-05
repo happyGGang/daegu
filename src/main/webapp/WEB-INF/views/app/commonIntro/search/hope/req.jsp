@@ -86,12 +86,13 @@
 </c:when>
 	<c:when test="${homepage.context_path eq 'gukbo'}">
 		<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:blue;font-weight:bold;'>
-			<ul>
-				<li style="color: rgb(252 128 162); text-align:left">희망도서 구입 방법 안내</li>
-				<li style="color: rgb(252 128 162); text-align:left">도서 구입 방법이 변경되어 희망도서 비치가 지연될 수 있음(기존 대비 5일 정도)을 알려드립니다.</li>
-				<li style="color: rgb(252 128 162); text-align:left">○ 시행 : 2025. 3. 1.부터</li>
-				<li style="color: rgb(252 128 162); text-align:left">○ 사유 : 대구광역시교육청의 집행예산기준 개정에 따라 도서 구입방법 변경</li>
-				<li style="color: rgb(252 128 162); text-align:left">(1회 2백만원 초과 시 입찰)</li>
+			<h3 style="color: blue; text-align:left">희망도서 구입 방법 안내</li>
+
+			<br>
+			<ul class="con" style="margin-top: 10px">
+				<li style="color: blue; text-align:left">도서 구입 방법이 변경되어 <b>희망도서 비치가 지연될 수 있음(기존 대비 5일 정도)</b>을 알려드립니다.</li>
+				<li style="color: blue; text-align:left">시행 : 2025. 3. 1.부터</li>
+				<li style="color: blue; text-align:left">사유 : 대구광역시교육청의 집행예산기준 개정에 따라 도서 구입방법 변경(1회 2백만원 초과 시 입찰)</li>
 			</ul>
 		</div>
 	</c:when>
@@ -319,13 +320,12 @@
 					<option value="">선택</option>
 							<option value="BW">도원도서관</option> 
 							<option value="BV">달서어린이도서관</option> 
-							<!--<option value="BU">성서도서관</option>-->
+							<option value="BU">성서도서관</option>
 							<option value="BX">본리도서관</option>
-							<!--<option value="BY">달서가족문화도서관</option>-->
+							<option value="BY">달서가족문화도서관</option>
 							<option value="BZ">달서영어도서관</option>
 				</select>
 					<br>
-					* 달서가족문화도서관 희망도서 25.3.2 오전 10시 재개 예정<br>
 					* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
 					* 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.<br>
 					* 달서영어도서관 : 영어원서(서양서) 및 영어학습 관련(국내서)만 신청가능합니다.
