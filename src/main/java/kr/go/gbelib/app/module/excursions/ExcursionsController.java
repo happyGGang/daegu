@@ -147,7 +147,7 @@ public class ExcursionsController extends BaseController {
 
 		if ( !isLogin(request) && request.getSession().getAttribute("certMember") == null) {
 			if ("h94".equals(homepage.getHomepage_id())) {
-				service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("module/excursions/cert.do?menu_idx=%s&editMode=ADD&excursions_idx=%d&homepage_id=%s", apply.getMenu_idx(), apply.getExcursions_idx(), apply.getHomepage_id()), request, response);
+				service.alertMessageAndUrl("본인인증 후 신청가능합니다.", String.format("/%s/module/excursions/cert.do?menu_idx=%s&editMode=ADD&excursions_idx=%d&homepage_id=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getExcursions_idx(), apply.getHomepage_id()), request, response);
 			} else if ("h77".equals(apply.getHomepage_id()) || "h37".equals(homepage.getHomepage_id())) {
 				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), apply.getMenu_idx(), apply.getBefore_url()), request, response);
 			} else {
