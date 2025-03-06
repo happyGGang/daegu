@@ -185,7 +185,7 @@
                         <div class="subject">
                             <c:if test="${i.lender_count > 0}">
 
-                                <span class="ing">대출중 ${request_status}</span>(${i.loan_start_date}~${i.loan_end_date})
+                                <span class="ing">대출중 ${request_status}</span>
                             </c:if>
                             <a href="#" class="view-btn" keyValue="${i.think_pocket_package_idx}">${i.think_pocket_package_subject}</a>
                         </div>
