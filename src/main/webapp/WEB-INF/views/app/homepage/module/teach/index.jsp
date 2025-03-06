@@ -588,6 +588,16 @@ ${html.html}
 	</c:if>
 </c:if>
 
+<c:if test="${homepage.context_path eq 'dalseolib'}">
+	<c:if test="${param.menu_idx eq '32'}">
+		<c:if test="${param.homepage_id eq 'h67'}">
+			<p style="color:blue;font-weight:bold;text-align:center;font-size:17px;padding-top:10px;">
+				창의력 쑥쑥 재밌는 책읽기 수업 봄학기(4~6월) 전체 휴강<br>*홈페이지 공지사항 참조*
+			</p>
+		</c:if>
+	</c:if>
+</c:if>
+
 <div style="text-align: right; margin-bottom: 10px; ">
 <!--<c:if test="${param.homepage_id eq 'h72'}"><strong>3/12(화)~3/15(금) 냉난방기 교체 및 장서점검에 따른 임시휴관으로 방문신청 불가합니다. (3/16부터 가능)</strong></c:if>-->
 	<c:if test="${teach.homepage_id ne 'h77'}">
