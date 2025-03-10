@@ -166,6 +166,16 @@ $(function(){
 <form:hidden path="date_type"/>
 <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 
+	<c:if test="${homepage.context_path eq 'daegubl'}">
+		<h3>시설물(회의, 녹음) 사용 신청 안내</h3>
+		<ul class="con">
+			<li>사용 가능 대상: 시각장애인 이용자만 신청 가능합니다.</li>
+			<li>예약 시기: 사용일 기준 최소 한 달 전 사전 예약 필수</li>
+			<li>예약 확인: 신청 후 반드시 도서관으로 전화하여 예약 완료 여부를 확인해주세요.</li>
+			<li>문의: [053-256-8877]</li>
+		</ul>
+	</c:if>
+
 	<c:if test="${homepage.context_path eq 'yonghak'}">
 		<c:if test="${param.menu_idx eq '143'}">
 			<h3 style="margin-top:0;">이용방법</h3>
