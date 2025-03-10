@@ -237,6 +237,14 @@ $(function(){
 		<div class="mg30t"></div>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'daegubl'}">
+		<ul class="con">
+			<li>예약 시기: 사용일 기준 최소 한 달 전 사전 예약 필수</li>
+			<li>예약 확인: 신청 후 반드시 도서관으로 전화하여 예약 완료 여부를 확인해주세요.</li>
+			<li>문의: 053-256-8877</li>
+		</ul>
+    </c:if>
+
 	<c:if test="${homepage.context_path eq 'dalseolib'}">
 		<c:choose>
 			<c:when test="${param.homepage_id eq 'h72' || param.homepage_id eq '' || param.homepage_id eq null}">
