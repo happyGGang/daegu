@@ -1129,13 +1129,13 @@
 		FROM
 			(
 				SELECT
-					member_id
+					RESERVE_BUNDLE_IDX
 				FROM
 					NEIGHBORHOOD_LIBRARY_RESERVE
 				WHERE
 					device_idx = #{device_idx}
 				  AND reserve_status IN ('1','2','3')
-				GROUP BY member_id
+				GROUP BY RESERVE_BUNDLE_IDX
 			)
 	</select>
 
