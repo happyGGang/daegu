@@ -43,7 +43,7 @@
 
 				$('#save-btn').on('click', function (e) {
 
-					<c:if test="${context_path eq 'bukgs' or context_path eq 'bukdh' or context_path eq 'buktj'}">
+					<c:if test="${context_path eq 'bukgs' or context_path eq 'bukdh' or context_path eq 'buktj' or homepage.context_path eq 'donggu' or homepage.context_path eq 'sincheon' or homepage.context_path eq 'donggusm'}">
 					var isbn = reqHopeForm.isbn.value;
 					if (isbn == '') {
 						alert('ISBN을 입력하세요.');
@@ -607,7 +607,14 @@
 			<td><form:input path="publer_year" style="width:40%" class="text" type="text" numberOnly="true" maxlength="4" readonly="${readonly}"/></td>
 		</tr>
 		<tr>
-			<th>ISBN<c:if test="${readonly}"><em><font color="red">(*)</font></em></c:if></th>
+			<c:choose>
+				<c:when test="${homepage.context_path eq 'donggu' or homepage.context_path eq 'bukgs' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buktj' or homepage.context_path eq 'gw' or homepage.context_path eq 'sincheon' or homepage.context_path eq 'donggusm'}">
+					<th>ISBN <em><font color="red">(*)</font></em></th>
+				</c:when>
+				<c:otherwise>
+					<th>ISBN<c:if test="${readonly}"><em><font color="red">(*)</font></em></c:if></th>
+				</c:otherwise>
+			</c:choose>
 			<td><form:input path="isbn" style="width:40%" class="text" type="text" maxlength="13" readonly="${readonly}"/></td>
 		</tr>
 		<tr>
