@@ -17,6 +17,14 @@ $(function() {
 	$('a#save-btn').on('click', function(e) {
 		e.preventDefault();
 
+		var address2 = $('#address2');
+
+		if (!address2.val().trim()) {
+			alert("상세주소를 입력해주세요.");
+			address2.focus();
+			return false;
+		}
+
 		if ($("#new_password_area1").is(':visible')) {
 			if (!pwCheck2) {
 				alert('비밀번호는 영문, 숫자, 특수문자 조합으로 9자이상 20자이내로 입력하셔야 합니다.');
@@ -292,13 +300,25 @@ $(function() {
 				</th>
 				<td>
 					<div class="line2">
-						<p>
-							<form:input path="zipcode" class="text new_text01" title="우편번호" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn btn2" title="새창열림">우편번호 찾기</a>
-						</p>
-						<p>
-							<form:input path="address1" class="text new_text01" style="width:80%;margin-bottom:5px;" title="상세 주소 입력" />
-							<form:input path="address2" class="text new_text01" style="width:80%;" title="동이하 주소 입력"/>
-						</p>
+						<c:choose>
+							<c:when test="${memberInfo.user_class eq '0'}">
+								<p>
+									<form:input path="zipcode" class="text new_text01" title="우편번호" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn btn2" title="새창열림">우편번호 찾기</a>
+								</p>
+								<p>
+									<form:input path="address1" class="text new_text01" style="width:80%;margin-bottom:5px;" title="상세 주소 입력" />
+									<form:input path="address2" class="text new_text01" style="width:80%;" title="동이하 주소 입력"/>
+								</p>
+							</c:when>
+							<c:otherwise>
+								<p>
+									${memberInfo.zipcode}
+								</p>
+								<p>
+									${memberInfo.address1}
+								</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</td>
 			</tr>
