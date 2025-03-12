@@ -1331,6 +1331,9 @@ public class JoinController extends BaseController {
 					member.setEmail_service_yn("");
 					if (PrivateMemberAPI.updateMember(member)) {
 						Member sessionMember = getSessionMemberInfo(request);
+						sessionMember.setAddress1(member.getAddress1());
+						sessionMember.setAddress2(member.getAddress2());
+						sessionMember.setZipcode(member.getZipcode());
 						sessionMember.setPhone1(member.getPhone1());
 						sessionMember.setPhone2(member.getPhone2());
 						sessionMember.setPhone3(member.getPhone3());
@@ -1357,6 +1360,9 @@ public class JoinController extends BaseController {
 					member.setEmail_service_yn("");
 					if (MemberAPI.updateMember(member)) {
 						Member sessionMember = getSessionMemberInfo(request);
+						sessionMember.setAddress1(member.getAddress1());
+						sessionMember.setAddress2(member.getAddress2());
+						sessionMember.setZipcode(member.getZipcode());
 						sessionMember.setPhone1(member.getPhone1());
 						sessionMember.setPhone2(member.getPhone2());
 						sessionMember.setPhone3(member.getPhone3());

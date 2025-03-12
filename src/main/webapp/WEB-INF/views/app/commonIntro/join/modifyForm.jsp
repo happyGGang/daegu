@@ -181,9 +181,6 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
 	<input type="hidden" name="auth_homepage_type" value="1">
 </form>
-<c:if test="${homepage.context_path eq 'dalseolib'}">
-<strong style="color:red;">※ 주소 변경은 도서관으로 신분증 지참 후 방문하여 변경 가능합니다. (미성년자의 경우 보호자 신분증, 주민등록등본 지참)</strong>
-</c:if>
 <div class="join-wrap" style="padding: 0;">
 	<form:form modelAttribute="memberInfo" id="memberInfoForm" action="save.do" onsubmit="return false;">
 		<form:hidden path="editMode" value="MODIFY"/>
@@ -304,10 +301,11 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 					<td>
 						<div class="line2">
 							<p>
-								${memberInfo.zipcode}
+								<form:input path="zipcode" class="text new_text01" title="우편번호" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn btn2" title="새창열림">우편번호 찾기</a>
 							</p>
 							<p>
-								${memberInfo.address1}
+								<form:input path="address1" class="text new_text01" style="width:80%;margin-bottom:5px;" title="상세 주소 입력" />
+								<form:input path="address2" class="text new_text01" style="width:80%;" title="동이하 주소 입력"/>
 							</p>
 						</div>
 					</td>
@@ -350,9 +348,6 @@ $(document).on("keyup change", "input:text[numberOnly]", function() {
 			</tbody>
 		</table>
 	</form:form>
-	<div class="ui-state-error" style="margin:5px 0;box-sizing:border-box;padding:5px 10px;font-size:95%;letter-spacing:-1.2px;">
-	 * 주소 변경은 신분증 지참 후 도서관을 방문하여 수정하시기 바랍니다.
-	</div>
 	<div class="btn-wrap">
 		<a href="#" id="save-btn" class="btn btn1" title="저장">저장</a>
 		<a href="/${homepage.context_path}/index.do" id="cancel-btn" class="btn" title="취소" >취소</a>

@@ -6,6 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/join/join.css"/>
 <script language="JavaScript" type="text/javascript" src="/resources/common/js/encrypt.js?now=<%=System.currentTimeMillis()%>"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 var pwCheck = false;
 var pwCheck2 = false;
@@ -38,6 +39,28 @@ $(function() {
 		}
 
 		doAjaxPost($('#memberInfo'));
+	});
+
+	<%--주소 변경--%>
+	$('a#findPostCode').on('click', function(e){
+		e.preventDefault();
+		new daum.Postcode({
+			oncomplete: function(data) {
+				var fullAddr = ''; // 최종 주소 변수
+				var extraAddr = ''; // 조합형 주소 변수
+				fullAddr = data.roadAddress;
+				if(data.bname !== ''){
+					extraAddr += data.bname;
+				}
+				if(data.buildingName !== ''){
+					extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+				$('#zipcode').val(data.zonecode);//5자리 새우편번호 사용
+				$('#address1').val(fullAddr);
+				$('#address1').focus();
+			}
+		}).open();
 	});
 
 	<%--이메일선택--%>
@@ -270,10 +293,11 @@ $(function() {
 				<td>
 					<div class="line2">
 						<p>
-							${memberInfo.zipcode}
+							<form:input path="zipcode" class="text new_text01" title="우편번호" readonly="true" cssStyle="width: 80px;"/> <a href="#" id="findPostCode" class="btn btn2" title="새창열림">우편번호 찾기</a>
 						</p>
 						<p>
-							${memberInfo.address1}
+							<form:input path="address1" class="text new_text01" style="width:80%;margin-bottom:5px;" title="상세 주소 입력" />
+							<form:input path="address2" class="text new_text01" style="width:80%;" title="동이하 주소 입력"/>
 						</p>
 					</div>
 				</td>
