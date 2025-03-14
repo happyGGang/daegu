@@ -237,7 +237,7 @@
 	</c:when>
 	<c:when test="${context_path eq 'bukbu'}">
 		<div style='border:1px solid #ddd;box-sizing:border-box;border-radius:3px;padding:18px;margin-bottom:15px;text-align:center;color:red;font-weight:bold;'>
-		※ 북부도서관 리모델링 공사로 인하여 8월 11일부터 희망도서 신청이 중지 됩니다.
+		<!--※ 북부도서관 리모델링 공사로 인하여 8월 11일부터 희망도서 신청이 중지 됩니다.-->
 		</div>
 	</c:when>
 	<c:otherwise>
