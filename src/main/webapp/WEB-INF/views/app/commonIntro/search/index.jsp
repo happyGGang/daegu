@@ -1106,7 +1106,7 @@ function isFromFridayToSunday() {
 						</div>
 						<div class="end" style="padding:7px 0;"></div>
 						</c:when>
-						<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+						<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
 						<div id="libraryList" class="libraryList">
 							<div>
 								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체  </label>
@@ -1121,6 +1121,9 @@ function isFromFridayToSunday() {
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="HW" class="libCheck lib_HW" label="서변숲도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="GL" class="libCheck lib_GL" label="산격1동 작은도서관"/>
@@ -1779,12 +1782,12 @@ function isFromFridayToSunday() {
 															</c:choose>
 														</c:when>
 
-														<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj'}">
+														<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
 															<c:choose>
 																<c:when test="${i.MANAGE_CODE eq 'GJ'}">
 																	<!--   제외 -->
 																</c:when>
-																<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'GP' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM'}">
+																<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'GP' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'HW'}">
 																	<c:choose>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
