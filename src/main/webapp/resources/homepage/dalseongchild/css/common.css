@@ -21,13 +21,13 @@ a:focus {
 .libSite ul li {
     display: inline-block;
     float: left;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #e5e5e5;
     padding: 0;
     margin: 0;
 }
 
 .libSite ul li.br {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #e5e5e5;
     margin-right: 7px;
 }
 
@@ -73,6 +73,9 @@ a:focus {
     float: right;
     height: 44px;
     line-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .tnb .util a {
@@ -112,7 +115,7 @@ h1.mobile-logo {
 }
 
 .Gnb .g-menu a.last-box_b {
-    display: block;
+    display:flex;
 }
 
 #header.background-white .libSite ul li a {
@@ -136,19 +139,22 @@ h1.mobile-logo {
 }
 
 #header.background-white h1.web-logo a {
-    display: block;
+    display: flex;
     background: url('../img/common/logo.svg') no-repeat center center;
 }
+.Gnb .g-menu a.last-box_b, .Gnb .g-menu a.last-box_w{display: flex;width: 1.5rem;flex-direction: column;align-items: flex-start;gap: 0.375rem;flex-shrink: 0;}
+
+.Gnb .g-menu a.last-box_b span, .Gnb .g-menu a.last-box_w span{height: 2px;border-radius: 6px;background: #000;width: 1.5rem;display:block;}
 
 #header.background-white .Gnb .g-menu a.last-box_w {
-    display: block;
+    display: flex;
 }
 
 #header.background-white .Gnb .g-menu a.last-box_b {
     display: none;
 }
 
-#header.background-white .Gnb .gnb-menu>li>a {
+#header.background-white .Gnb .gnb-menu > li > a {
     color: #000;
 
 }
@@ -179,7 +185,7 @@ h1.mobile-logo {
     /* padding-bottom: 20px; */
     overflow: inherit;
     position: relative;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #e5e5e5;
 }
 
 .Gnb .g-menu {
@@ -191,9 +197,9 @@ h1.mobile-logo {
     position: absolute;
     right: 0;
     top: 1.9rem;
-    display: flex;
-    width: 1.5rem;
-    padding: 0.15625rem 0rem 0.21875rem 0rem;
+    /* display: flex; */
+    width: 2.2rem;
+    padding: 0.15625rem 0.2rem 0.21875rem 0.2rem;
     justify-content: center;
     align-items: center;
 }
@@ -204,17 +210,17 @@ h1.mobile-logo {
     margin-right: 30px;
 }
 
-.Gnb .gnb-menu>li {
+.Gnb .gnb-menu > li {
     padding: 0 1.8%;
     text-align: right;
     position: static
 }
 
-.Gnb .gnb-menu>li:last-child {
+.Gnb .gnb-menu > li:last-child {
     padding-right: 50px;
 }
 
-.Gnb .gnb-menu>li>a {
+.Gnb .gnb-menu > li > a {
     /* padding: 10px 0; */
     line-height: 5.625rem;
     height: 5.625rem;
@@ -224,7 +230,7 @@ h1.mobile-logo {
     font-weight: 500;
 }
 
-.Gnb .gnb-menu>li>ul {
+.Gnb .gnb-menu > li > ul {
     display: none;
     background: #666;
     border: 0;
@@ -233,56 +239,57 @@ h1.mobile-logo {
     text-align: right
 }
 
-.Gnb .gnb-menu>li.active>ul {
+.Gnb .gnb-menu > li.active > ul {
     display: block
 }
 
-.Gnb .gnb-menu>li>.SubMenu>li {
+.Gnb .gnb-menu > li > .SubMenu > li {
     width: auto;
     padding: 0 1px;
 }
 
-.Gnb .gnb-menu>li>.SubMenu>li {
+.Gnb .gnb-menu > li > .SubMenu > li {
     display: inline-block
 }
 
-.Gnb .gnb-menu>li>.SubMenu>li>a {
+.Gnb .gnb-menu > li > .SubMenu > li > a {
     font-size: 14px;
     padding: 0 5px;
     color: #eee;
 }
 
-.Gnb .gnb-menu>li>.SubMenu>li>a:hover,
-.Gnb .gnb-menu>li>.SubMenu>li>a:focus {
+.Gnb .gnb-menu > li > .SubMenu > li > a:hover,
+.Gnb .gnb-menu > li > .SubMenu > li > a:focus {
     background: none;
-    color: #ff8d12;
+    color: #FFDC42;
 }
 
 .Gnb .mask,
-.Gnb .gnb-menu>li>ul {
+.Gnb .gnb-menu > li > ul {
     width: 100%;
     background: #333;
 }
 
-.Gnb .gnb-menu>li.menu1>ul,
-.Gnb .gnb-menu>li.menu2>ul,
-.Gnb .gnb-menu>li.menu3>ul {
+.Gnb .gnb-menu > li.menu1 > ul,
+.Gnb .gnb-menu > li.menu2 > ul,
+.Gnb .gnb-menu > li.menu3 > ul {
     text-align: center
 }
 
-.Gnb .gnb-menu>li.menu3>ul {
+.Gnb .gnb-menu > li.menu3 > ul {
     margin-left: 150px;
 }
 
 .Gnb .mask,
-.Gnb .gnb-menu>li>ul {
-    background: #333;
+.Gnb .gnb-menu > li > ul {
+    background: #464F56;
 }
 
-.Gnb .gnb-menu>li.on>a,
-.Gnb .gnb-menu>li>a:hover,
-.Gnb .gnb-menu>li>a:focus {
+.Gnb .gnb-menu > li.on > a,
+.Gnb .gnb-menu > li > a:hover,
+.Gnb .gnb-menu > li > a:focus {
     color: #333;
+
 }
 
 
@@ -311,11 +318,11 @@ h1.mobile-logo {
     top: 0;
 }
 
-#footer .bottom .section .site_link div>div {
+#footer .bottom .section .site_link div > div {
     width: 200px
 }
 
-#footer .bottom .section .site_link div>div,
+#footer .bottom .section .site_link div > div,
 #footer .bottom .section .site_link a.btn {
     margin-bottom: 5px
 }
@@ -389,8 +396,8 @@ h1.mobile-logo {
     color: #2b74c0
 }
 
-.footer .site_link>div>div,
-#footer .site_link>div>div {
+.footer .site_link > div > div,
+#footer .site_link > div > div {
     position: relative;
     display: inline-block;
     zoom: 1;
@@ -400,8 +407,8 @@ h1.mobile-logo {
     margin-right: -5px;
 }
 
-.footer .site_link>div>div>a.fsite,
-#footer .site_link>div>div>a.fsite {
+.footer .site_link > div > div > a.fsite,
+#footer .site_link > div > div > a.fsite {
     display: block;
     padding: 3px 8px;
     border-right-width: 0;
@@ -409,8 +416,8 @@ h1.mobile-logo {
     background: #e3e3e3;
 }
 
-.footer .site_link>div>div>ul,
-#footer .site_link>div>div>ul {
+.footer .site_link > div > div > ul,
+#footer .site_link > div > div > ul {
     position: absolute;
     bottom: 30px;
     left: 0;
@@ -420,20 +427,20 @@ h1.mobile-logo {
     background: #fff
 }
 
-.footer .site_link>div>div>ul,
-#footer .site_link>div>div>ul {
+.footer .site_link > div > div > ul,
+#footer .site_link > div > div > ul {
     overflow-y: auto;
     border-right: 1px solid #ccc
 }
 
-.footer .site_link>div>div>ul>li,
-#footer .site_link>div>div>ul>li {
+.footer .site_link > div > div > ul > li,
+#footer .site_link > div > div > ul > li {
     line-height: 25px;
     border-left: 1px solid #ccc
 }
 
-.footer .site_link>div>div>ul>li>a,
-#footer .site_link>div>div>ul>li>a {
+.footer .site_link > div > div > ul > li > a,
+#footer .site_link > div > div > ul > li > a {
     color: #666;
     display: block;
     padding: 3px 6px;
@@ -442,8 +449,8 @@ h1.mobile-logo {
     text-overflow: ellipsis;
 }
 
-.footer .site_link>div>div>a>span,
-#footer .site_link>div>div>a>span {
+.footer .site_link > div > div > a > span,
+#footer .site_link > div > div > a > span {
     display: inline-block;
     zoom: 1;
     *display: inline;
@@ -452,8 +459,8 @@ h1.mobile-logo {
     height: 28px
 }
 
-.footer .site_link>div>div>a>span.f1,
-#footer .site_link>div>div>a>span.f1 {
+.footer .site_link > div > div > a > span.f1,
+#footer .site_link > div > div > a > span.f1 {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -461,16 +468,16 @@ h1.mobile-logo {
     text-overflow: ellipsis
 }
 
-.footer .site_link>div>div>a>span.f2,
-#footer .site_link>div>div>a>span.f2 {
+.footer .site_link > div > div > a > span.f2,
+#footer .site_link > div > div > a > span.f2 {
     position: absolute;
     right: 7px;
     top: 0;
     width: 20px
 }
 
-.footer .site_link>div>div>a>span>i,
-#footer .site_link>div>div>a>span>i {
+.footer .site_link > div > div > a > span > i,
+#footer .site_link > div > div > a > span > i {
     border-color: #888 transparent transparent transparent;
     border-style: solid;
     border-width: 5px 4px 0 4px;
@@ -481,26 +488,26 @@ h1.mobile-logo {
     top: 50%
 }
 
-.footer .site_link>div>div>a>span>i,
-.footer .site_link>div>div>a:hover>span>i,
-#footer .site_link>div>div>a>span>i,
-#footer .site_link>div>div>a:hover>span>i {
+.footer .site_link > div > div > a > span > i,
+.footer .site_link > div > div > a:hover > span > i,
+#footer .site_link > div > div > a > span > i,
+#footer .site_link > div > div > a:hover > span > i {
     margin-top: -2px
 }
 
-.footer .site_link>div>div>a.active>span>i,
-#footer .site_link>div>div>a.active>span>i {
+.footer .site_link > div > div > a.active > span > i,
+#footer .site_link > div > div > a.active > span > i {
     border-color: transparent transparent #888 transparent;
     border-width: 0 4px 5px 4px
 }
 
-.footer .site_link>div>div>ul>li>a.disabled,
-#footer .site_link>div>div>ul>li>a.disabled {
+.footer .site_link > div > div > ul > li > a.disabled,
+#footer .site_link > div > div > ul > li > a.disabled {
     color: #999
 }
 
-.footer .site_link>div>div>ul>li>a:hover,
-#footer .site_link>div>div>ul>li>a:hover {
+.footer .site_link > div > div > ul > li > a:hover,
+#footer .site_link > div > div > ul > li > a:hover {
     background: #5897fb;
     color: #fff;
 }
@@ -587,8 +594,8 @@ h2.tit07 {
 
 @media (max-width:550px) {
 
-    table.color-set>tbody>tr,
-    table.color-set>tbody>tr>td {
+    table.color-set > tbody > tr,
+    table.color-set > tbody > tr > td {
         display: block
     }
 }
@@ -596,31 +603,31 @@ h2.tit07 {
 @media all and (max-width:1024px) {
 
     nav,
-    .Gnb .gnb-menu>li.mmode,
+    .Gnb .gnb-menu > li.mmode,
     .mmode {
         display: block;
     }
 
     .tnb {
-        height: 65px;
-        padding: 10px 0;
+        height: 3.75rem;
+        /* padding: 10px 0; */
     }
 
     h1.mobile-logo {
         display: block;
-        width: 200px;
-        height: 40px;
-        margin-top: 2px;
-        padding: 0 0 0 10px;
+        width: 9.375rem;
+        height: 2.5rem;
+        /* margin-top: 2px; */
+        /* padding: 0 0 0 10px; */
         background: url('../img/common/logo.svg') no-repeat center center;
+        background-size: cover;
     }
 
     h1.mobile-logo a {
         display: block;
-
         background-size: 100% !important;
-        width: 200px;
-        height: 40px;
+        width: 9.375rem;
+        height: 2.5rem;
         font-size: 0;
     }
 
@@ -642,9 +649,19 @@ h2.tit07 {
     }
 }
 
-@media all and (max-width:767px) {
+@media all and (max-width:769px) {
     .home-up {
         display: block;
+    }
+
+    h1.mobile-logo a {
+        width: 9.375rem;
+        height: 2.5rem;
+    }
+
+    h1.mobile-logo {
+        width: 9.375rem;
+        height: 2.5rem;
     }
 }
 
@@ -652,7 +669,22 @@ h2.tit07 {
 
 @media all and (max-width:500px) {}
 
-@media all and (max-width:425px) {}
+@media all and (max-width:425px) {
+    h1.mobile-logo a {
+        width: 7.5rem;
+        height: 2rem;
+    }
+
+    h1.mobile-logo {
+        width: 7.5rem;
+        height: 2rem;
+    }
+
+    .m-menu a {
+        width: 1.05rem;
+        height: 1.05rem;
+    }
+}
 
 @media all and (max-width:375px) {}
 

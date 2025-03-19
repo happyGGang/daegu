@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
 <tiles:insertAttribute name="header" />
-<link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/sub.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/homepage/dalseongchild/css/sub.css"/>
 <script type="text/javascript">
 $(function() {
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
@@ -41,7 +41,7 @@ $(function() {
 		}
 	});
 
-	$('h1.mobile-logo a').css('background',"url('/resources/homepage/bukgs/img/bukgs_logo_b.png')"); 
+	
 	$('.m-menu a').css('color','#000');
 
 });
@@ -132,3 +132,7 @@ $(function() {
 
 
 
+<style>
+
+#foot_section{position:relative;}
+</style>

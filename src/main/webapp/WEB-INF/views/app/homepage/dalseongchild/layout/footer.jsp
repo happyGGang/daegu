@@ -110,6 +110,3 @@
     </div>
 <!-- //footer_section -->
 
-<div class="home-up">
-    <img src="/resources/homepage/${homepage.context_path}/img/m-top-btn.png" alt="위로" id="homeup">
-</div>
