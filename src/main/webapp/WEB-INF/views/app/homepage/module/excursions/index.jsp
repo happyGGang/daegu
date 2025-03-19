@@ -513,9 +513,7 @@ $(function(){
 					<span class="down">학교 단체 체험 프로그램 신청서 다운로드</span>
 				</a>
 				</p>
-
-				<br><br>
-
+				<div style="color:red; font-weight: 600; font-size: 0.85rem;">(신청서 생략 우선 신청후, 신청서 별도 제출 가능)</div>
 			</c:when>
 			<c:otherwise>
 				<div class="summaryDesc">
