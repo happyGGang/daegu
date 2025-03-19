@@ -127,9 +127,11 @@
                 </div>
                 <p class="close">
                     <input type="checkbox" name=""/> 오늘 하루 열지 않기
-                    <a href="#" onclick="return false;">
-                        <img src="/resources/common/img/close_popup_btn.png" alt="닫기"/>
-                    </a>
+                    <a href="#" onclick="return false;"
+                    ><img
+                            src="/resources/common/img/close_popup_btn.png"
+                            alt="닫기"
+                    /></a>
                 </p>
             </div>
         </div>
@@ -144,9 +146,19 @@
         </div>
     </div>
 
-    <form name="mainSearchForm" id="mainSearchForm" method="get" action="/${homepage.context_path}/intro/search/index.do">
+    <form
+            name="mainSearchForm"
+            id="mainSearchForm"
+            method="get"
+            action="/${homepage.context_path}/intro/search/index.do"
+    >
         <input type="hidden" name="menu_idx" id="menu_idx" value="9"/>
-        <input type="hidden" name="booktype" id="booktype" value="BOOKANDNONBOOK"/>
+        <input
+                type="hidden"
+                name="booktype"
+                id="booktype"
+                value="BOOKANDNONBOOK"
+        />
         <input type="hidden" name="search_type" id="search_type" value=""/>
         <input type="hidden" name="title" id="search_text" value=""/>
         <input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
@@ -162,7 +174,10 @@
                 </div>
                 <!-- 메인 검색 -->
                 <div class="search-area" id="main_search">
-                    <form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+                    <form
+                            id="mainSearchForm"
+                            action="/${homepage.context_path}/intro/search/index.do"
+                    >
                         <input type="hidden" name="menu_idx" value="9"/>
                         <input type="hidden" name="booktype" value="BOOKANDNONBOOK"/>
                         <input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
@@ -180,12 +195,21 @@
                                     </label>
                                     <div class="search_input_wrapper">
                                         <label for="search_text_1">
-                                            <input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요."/>
+                                            <input
+                                                    name="title"
+                                                    id="search_text_1"
+                                                    type="text"
+                                                    class="text"
+                                                    placeholder="검색어를 입력하세요."
+                                            />
                                         </label>
                                     </div>
                                 </div>
                                 <button id="main-search-btn">
-                                    <img src="/resources/homepage/${homepage.context_path}/img/search-btn-w.png" alt="검색"/>
+                                    <img
+                                            src="/resources/homepage/${homepage.context_path}/img/search-btn-w.png"
+                                            alt="검색"
+                                    />
                                     <div>검색</div>
                                 </button>
                             </div>
@@ -199,37 +223,63 @@
                     <ul class="quick_menu_area">
                         <li>
                             <a href="/${homepage.context_path}/html.do?menu_idx=22">
-                                <img src="/resources/homepage/${homepage.context_path}/img/quick1.png" alt=""/>
+                                <img
+                                        src="/resources/homepage/${homepage.context_path}/img/quick1.png"
+                                        alt=""
+                                />
                                 <div>자료이용안내</div>
                             </a>
                         </li>
                         <li>
-                            <a href="/${homepage.context_path}/module/teach/index.do?menu_idx=40&searchCate1=17">
-                                <img src="/resources/homepage/${homepage.context_path}/img/quick2.png" alt=""/>
+                            <a
+                                    href="/${homepage.context_path}/module/teach/index.do?menu_idx=40&searchCate1=17"
+                            >
+                                <img
+                                        src="/resources/homepage/${homepage.context_path}/img/quick2.png"
+                                        alt=""
+                                />
                                 <div>평생학습프로그램</div>
                             </a>
                         </li>
                         <li>
-                            <a href="/${homepage.context_path}/module/teach/index.do?menu_idx=33&searchCate1=16">
-                                <img src="/resources/homepage/${homepage.context_path}/img/quick3.png" alt=""/>
+                            <a
+                                    href="/${homepage.context_path}/module/teach/index.do?menu_idx=33&searchCate1=16"
+                            >
+                                <img
+                                        src="/resources/homepage/${homepage.context_path}/img/quick3.png"
+                                        alt=""
+                                />
                                 <div>문화행사</div>
                             </a>
                         </li>
                         <li>
-                            <a href="/${homepage.context_path}/intro/search/hope/req.do?menu_idx=18">
-                                <img src="/resources/homepage/${homepage.context_path}/img/quick4.png" alt=""/>
+                            <a
+                                    href="/${homepage.context_path}/intro/search/hope/req.do?menu_idx=18"
+                            >
+                                <img
+                                        src="/resources/homepage/${homepage.context_path}/img/quick4.png"
+                                        alt=""
+                                />
                                 <div>희망도서신청</div>
                             </a>
                         </li>
                         <li>
-                            <a href="/${homepage.context_path}/board/index.do?menu_idx=48&manage_idx=1287">
-                                <img src="/resources/homepage/${homepage.context_path}/img/quick5.png" alt=""/>
+                            <a
+                                    href="/${homepage.context_path}/board/index.do?menu_idx=48&manage_idx=1287"
+                            >
+                                <img
+                                        src="/resources/homepage/${homepage.context_path}/img/quick5.png"
+                                        alt=""
+                                />
                                 <div>자주묻는질문</div>
                             </a>
                         </li>
                         <li>
                             <a href="/${homepage.context_path}/html.do?menu_idx=58">
-                                <img src="/resources/homepage/${homepage.context_path}/img/quick6.png" alt=""/>
+                                <img
+                                        src="/resources/homepage/${homepage.context_path}/img/quick6.png"
+                                        alt=""
+                                />
                                 <div>찾아오시는길</div>
                             </a>
                         </li>
@@ -246,13 +296,23 @@
                     <div class="board_header">
                         <div class="board_title" id="board_title">NOTICE</div>
                         <div class="board_navigation">
-                            <div class="board_navigation_menu board_navigation_menu_active">
+                            <div
+                                    class="board_navigation_menu board_navigation_menu_active"
+                            >
                                 공지사항
                             </div>
                             <div class="board_navigation_menu">행사안내</div>
                             <div>
-                                <a id="more_link" href="/${homepage.context_path}/board/index.do?menu_idx=46&manage_idx=1283" style="width: 40px; height: 40px; display: block">
-                                    <img src="/resources/homepage/${homepage.context_path}/img/black_plus.png" alt="더보기" style="width: 40px; height: 40px"/>
+                                <a
+                                        id="more_link"
+                                        href="/${homepage.context_path}/board/index.do?menu_idx=46&manage_idx=1283"
+                                        style="width: 40px; height: 40px; display: block"
+                                >
+                                    <img
+                                            src="/resources/homepage/${homepage.context_path}/img/black_plus.png"
+                                            alt="더보기"
+                                            style="width: 40px; height: 40px"
+                                    />
                                 </a>
                             </div>
                         </div>
@@ -261,12 +321,17 @@
                         <c:forEach items="${noticeList}" var="i" varStatus="status">
                             <li>
                                 <div class="board_content_title">
-                                    <a href="/${homepage.context_path}/board/view.do?menu_idx=46&manage_idx=1283&board_idx=${i.board_idx}">
+                                    <a
+                                            href="/${homepage.context_path}/board/view.do?menu_idx=46&manage_idx=1283&board_idx=${i.board_idx}"
+                                    >
                                         <div class="board_content_title">${i.title}</div>
                                     </a>
                                 </div>
                                 <div class="board_content_update_date">
-                                    <fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/>
+                                    <fmt:formatDate
+                                            value="${i.add_date}"
+                                            pattern="yyyy.MM.dd"
+                                    />
                                 </div>
                             </li>
                         </c:forEach>
@@ -286,12 +351,19 @@
                         <c:forEach items="${teachList}" var="i" varStatus="status">
                             <li>
                                 <div class="board_content_title">
-                                    <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+                                    <a
+                                            href="/${homepage.context_path}/module/teach/detail.do?menu_idx=32&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}"
+                                    >
                                         <div class="board_content_title">${i.teach_name}</div>
                                     </a>
                                 </div>
-                                <c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
-                                <div class="board_content_update_date">${teachDate[0]}.${teachDate[1]}.${teachDate[2]}</div>
+                                <c:set
+                                        var="teachDate"
+                                        value="${fn:split(i.start_date, '-')}"
+                                ></c:set>
+                                <div class="board_content_update_date">
+                                        ${teachDate[0]}.${teachDate[1]}.${teachDate[2]}
+                                </div>
                             </li>
                         </c:forEach>
                         <c:if test="${fn:length(teachList) < 1}">
@@ -314,7 +386,11 @@
                                 <c:when test="${fn:length(popupZoneList) > 0}">
                                     <c:forEach var="i" items="${popupZoneList}">
                                         <div class="swiper-slide">
-                                            <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}" onerror="this.src='/resources/common/img/noImg2.png';"/>
+                                            <img
+                                                    src="/data/popupZone/${i.homepage_id}/${i.server_file_name}"
+                                                    alt="${i.popup_zone_name}"
+                                                    onerror="this.src='/resources/common/img/noImg2.png';"
+                                            />
                                         </div>
                                     </c:forEach>
                                 </c:when>
@@ -339,14 +415,24 @@
             <div class="main2_wrapper">
                 <div class="book_list_header">
                     <div class="book_list_title" id="book_title">LIBRARY BOOK</div>
-                    <div class="book_list_navigation book_list_navigation_active" style="margin-bottom: 8px">추천도서</div>
+                    <div
+                            class="book_list_navigation book_list_navigation_active"
+                            style="margin-bottom: 8px"
+                    >
+                        추천도서
+                    </div>
                     <div class="book_list_navigation">신착도서</div>
                 </div>
                 <!-- 추천도서-->
                 <div class="book_list_wrapper" id="recommendBook_list"></div>
 
                 <!-- 신착도서-->
-                <div class="book_list_wrapper" id="newBook_list" data-tab="tab2" style="display: none"></div>
+                <div
+                        class="book_list_wrapper"
+                        id="newBook_list"
+                        data-tab="tab2"
+                        style="display: none"
+                ></div>
             </div>
         </div>
 
@@ -356,8 +442,18 @@
                     <div class="banner-wrap type4">
                         <div class="banner-t4">
                             <div class="control">
-                                <a class="prev" href="#prev"><img src="/resources/homepage/${homepage.context_path}/img/banner-prev.png" alt="이전"/><span class="blind">이전</span></a>
-                                <a class="next" href="#next"><img src="/resources/homepage/${homepage.context_path}/img/banner-next.png" alt="다음"/><span class="blind">다음</span></a>
+                                <a class="prev" href="#prev"
+                                ><img
+                                        src="/resources/homepage/${homepage.context_path}/img/banner-prev.png"
+                                        alt="이전"
+                                /><span class="blind">이전</span></a
+                                >
+                                <a class="next" href="#next"
+                                ><img
+                                        src="/resources/homepage/${homepage.context_path}/img/banner-next.png"
+                                        alt="다음"
+                                /><span class="blind">다음</span></a
+                                >
                             </div>
                         </div>
                         <div class="banner-box4">

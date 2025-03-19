@@ -199,7 +199,7 @@ h1.mobile-logo {
 	height: 43px;
 	font-size: 18px;
 	color: #000;
-	font-weight: bold;
+	font-weight: 600;
 }
 
 .Gnb .gnb-menu>li>ul {
@@ -574,7 +574,7 @@ h2.tit07 {
 @media all and (max-width:1024px) {
 	.tnb {
 		height: 65px;
-		padding: 10px 0;
+		padding: 10px 10px;
 		background: none !important;
 	}
 

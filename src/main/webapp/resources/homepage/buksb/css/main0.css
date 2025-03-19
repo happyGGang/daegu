@@ -1,9 +1,9 @@
 #main0 {
-  background: url('../img/section0-bg-01.png') no-repeat center top;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background: url(../img/section0-bg-01.png) no-repeat center 50%;
+    background-size: 157%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .main-visual {
@@ -307,8 +307,8 @@
 
 @media all and (min-width:1024px) and (max-width:1279px) {
   #main0 {
-    background: url('../img/section0-bg-02.png') no-repeat center top;
-    background-size: cover;
+    background: url('../img/section0-bg-02.png') no-repeat center 48%;
+    background-size: 128%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -612,8 +612,8 @@
 
 @media all and (min-width:768px) and (max-width:1023px) {
   #main0 {
-    background: url('../img/section0-bg-03.png') no-repeat center top;
-    background-size: cover;
+    background: url('../img/section0-bg-03.png') no-repeat center 89%;
+    background-size: 108%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -919,11 +919,12 @@
 }
 
 @media all and (min-width:480px) and (max-width:767px) {
-  #main0 {
-    background: url('../img/section0-bg-03.png') no-repeat center top;
-    height: 800px;
-    position: relative;
-  }
+#main0 {
+	background: url('../img/section0-bg-04.png') no-repeat center 60%;
+	height: 800px;
+	position: relative;
+	background-size: cover;
+	}
 
   .main0_title_wrapper {
     position: absolute;
@@ -1065,11 +1066,11 @@
 
 @media all and (max-width:479px) {
   #main0 {
-  background: url('../img/section0-bg-04.png') no-repeat center top;
-  height: 800px;
-  position: relative;
-  background-size: cover;
-  }
+	background: url('../img/section0-bg-04.png') no-repeat center top;
+	height: 800px;
+	position: relative;
+	background-size: contain;
+	}
 
   .main0_title_wrapper {
     position: absolute;
@@ -1207,3 +1208,21 @@
     object-fit: cover
   }
 }
+
+@media all and (max-width:450px) {
+	#main0 {
+	background: url('../img/section0-bg-04.png') no-repeat center 0%;
+	height: 800px;
+	position: relative;
+	background-size: contain;
+	}
+  }
+
+@media all and (max-width:360px) {
+	#main0 {
+	background: url('../img/section0-bg-04.png') no-repeat center 0%;
+	height: 800px;
+	position: relative;
+	background-size: contain;
+	}
+  }

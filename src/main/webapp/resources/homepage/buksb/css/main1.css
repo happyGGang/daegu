@@ -78,6 +78,7 @@
     display: flex;
     width: 100%;
     flex-direction: column;
+    height: 465px;
 }
 
 .board_content li {
@@ -203,9 +204,13 @@
         gap: 27px;
         height: 600px;
     }
+	
+	.board_content {
+		height: auto;
+	}
 
     .board_zone {
-        width: 392px;
+        width: 400px;
         padding-top: 0;
         height: 400px;
         box-sizing: border-box;
@@ -312,6 +317,12 @@
         gap: 27px;
         height: 600px;
     }
+	
+		.board_content {
+		height: auto;
+	}
+
+	
   .board_navigation{gap:16px;}
     .board_zone {
         width: 392px;
@@ -422,6 +433,11 @@
         box-sizing: border-box;
         clear: both;
     }
+	
+		.board_content {
+		height: auto;
+	}
+
 
     .board_navigation_menu::after {
         left: 59px;
@@ -534,6 +550,11 @@
         box-sizing: border-box;
         clear: both;
     }
+	
+		.board_content {
+		height: auto;
+	}
+
 
     .board_title {
         font-size: 26px;
