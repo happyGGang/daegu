@@ -591,9 +591,9 @@ ${html.html}
 <c:if test="${homepage.context_path eq 'dalseolib'}">
 	<c:if test="${param.menu_idx eq '32'}">
 		<c:if test="${param.homepage_id eq 'h67'}">
-			<p style="color:blue;font-weight:bold;text-align:center;font-size:17px;padding-top:10px;">
+			<!-- <p style="color:blue;font-weight:bold;text-align:center;font-size:17px;padding-top:10px;">
 				창의력 쑥쑥 재밌는 책읽기 수업 봄학기(4~6월) 전체 휴강<br>*홈페이지 공지사항 참조*
-			</p>
+			</p> -->
 		</c:if>
 	</c:if>
 </c:if>
