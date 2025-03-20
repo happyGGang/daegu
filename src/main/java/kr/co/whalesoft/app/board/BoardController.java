@@ -7,12 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.whalesoft.app.cms.limitedIp.LimitedIp;
+import kr.co.whalesoft.app.cms.limitedIp.LimitedIpService;
 import kr.go.gbelib.app.common.api.PointApi;
 import kr.go.gbelib.app.common.api.PointReqeust;
 import org.apache.commons.lang.StringUtils;
@@ -89,6 +92,8 @@ public class BoardController extends BaseController {
 	private TermsService termsService;
 	@Autowired
 	private LibrarySearchService librarySearchService;
+	@Autowired
+	private LimitedIpService limitedIpService;
 
 	private String getBoardContext(HttpServletRequest request) {
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
@@ -99,6 +104,12 @@ public class BoardController extends BaseController {
 			return "";
 		}
 	}
+
+	private static final int BLOCK_THRESHOLD = 3;
+	private static final long TIME_WINDOW_MS = 5000;
+
+	private static final ConcurrentHashMap<String, Integer> requestCounts = new ConcurrentHashMap<>();
+	private static final ConcurrentHashMap<String, Long> lastRequestTime = new ConcurrentHashMap<>();
 
 	/** 공통 **/
 	private String attributeInit(HttpServletRequest request, Model model, Board board, String mode) {
@@ -116,7 +127,6 @@ public class BoardController extends BaseController {
 
 		// CMS -> 게시판 관리
 		String homepage_id = request.getParameter("homepage_id");
-
 
 		if(homepage != null) {
 			homepageFolder = "/homepage/" + homepage.getFolder();
@@ -205,14 +215,11 @@ public class BoardController extends BaseController {
 		log.debug("sortField : " + board.getSortField());
 		log.debug("sortType : " + board.getSortType());
 
-
-
 		String basePath = attributeInit(request, model, board, null);
 		String returnPath = basePath + "index";
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 		Homepage homepage = (Homepage)request.getAttribute("homepage");
 
-		//System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + PointApi.rule(PointReqeust.formApikey(homepage.getPoint_api_key())));
 		if (homepage == null) {
 			//cms에서는 homepage 객체가 없어서 따로 가져옴.
 			Homepage homepageOne = homepageService.getHomepageOne(new Homepage(board.getHomepage_id()));
@@ -309,10 +316,6 @@ public class BoardController extends BaseController {
 		if (boardManage.getBoard_type().equals("NOTICE") && board.getManage_idx() != 282) {
 			model.addAttribute("boardNoticeList2", service.getBoardNotice2(board));
 		}
-//		if (boardManage.getBoard_type().equals("NEWS") && board.getManage_idx() != 523) {
-//			model.addAttribute("boardNoticeList2", service.getBoardNews2(board));
-//		}
-
 
 		if (boardManage.getBoard_type().equals("NOTICE")  && StringUtils.isEmpty(board.getStart_date())) {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
@@ -331,7 +334,6 @@ public class BoardController extends BaseController {
 			h.setTemp_use_yn("Y");
 			model.addAttribute("subHomepageList",homepageService.getSubHomepageList(h));
 		}
-
 
 		//영화게시판
 		if (boardManage.getBoard_type().equals("MOVIE")){
@@ -399,28 +401,12 @@ public class BoardController extends BaseController {
 			model.addAttribute("requestCount", service.getRequestBoardStateCount(board));
 		}
 
-
 		model.addAttribute("board", board);
 		model.addAttribute("boardManage", boardManage);
-		
-
 
 		log.debug("retrunPath : " + returnPath);
 
 		return returnPath;
-//		if(boardManage.getAdd_only_yn().equals("Y") && !boardManage.isAdmin_auth_check()) {
-//			redirectAttributes.addAttribute("menu_idx", board.getMenu_idx());
-//			redirectAttributes.addAttribute("manage_idx", board.getManage_idx());
-//			return "redirect:edit.do";
-//		} else {
-//			service.setPaging(model, service.getBoardCount(boardManage, board), board);
-//
-//			if(boardManage.isAdmin_auth_check()) {
-//				return basePath + "index";
-//			} else {
-
-//			}
-//		}
 	}
 	
 	/**
@@ -1086,19 +1072,7 @@ public class BoardController extends BaseController {
 			}
 		}
 
-		/**
-		 * 유지보수게시판
-		 */
-//		if (boardManage.getManage_idx() == 563) {
-//			model.addAttribute("moveCategoryList", codeService.getCode("c0", "H0001"));
-//		}
-//
-//		if(boardManage.isAdmin_auth_check()) {
-//			return basePath + "view";
-//		} else {
-//			return basePath + "view";
-//		}
-			return basePath + "view";
+		return basePath + "view";
 	}
 	
 	@RequestMapping(value = {"/themeDetail.*"}, method = RequestMethod.GET)
@@ -1180,9 +1154,27 @@ public class BoardController extends BaseController {
 
 	@RequestMapping(value = {"/save.*"}, method = RequestMethod.POST)
 	public @ResponseBody JsonResponse save(Board board, BindingResult result, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		Homepage homepage = getSessionHomepage(request);
+
 		BoardManage boardManage = (BoardManage)request.getAttribute("boardManage");
 
-		/* 유효성 검증 >>>>> */JsonResponse res = new JsonResponse(request);
+		JsonResponse res = new JsonResponse(request);
+
+		if(isBlocked(request.getRemoteAddr())){
+			res.setValid(true);
+			res.setUrl(getBoardContext(request) + "/board/index.do");
+			res.setData(board.getUrlParam(boardManage, "index"));
+			res.setMessage("비정상적 접근이 감지되어 해당 IP의 접근을 제한합니다.\n관리자에게 문의해주세요.");
+
+			LimitedIp limitedIp = new LimitedIp();
+			limitedIp.setLimited_ip(request.getRemoteAddr());
+			limitedIp.setUse_yn("Y");
+			limitedIp.setRemark("자동화 공격 게시판 글작성 의심 IP");
+			limitedIp.setAdd_id("dgadmin");
+			limitedIpService.addLimitedIp(limitedIp);
+
+			return res;
+		}
 
 		/** 불량단어 검출 **/
 		BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();
@@ -1295,7 +1287,6 @@ public class BoardController extends BaseController {
 
 
 			if(board.getEditMode().equals("MODIFY")) {
-				Homepage homepage = getSessionHomepage(request);
 				checkAuth("U", model, request);
 				if ( StringUtils.isEmpty(board.getNotice_yn()) ) {
 					board.setNotice_yn("N"); // 수정시 체크 해제 하고 저장하면 notice_yn = null 이된다.
@@ -1405,8 +1396,6 @@ public class BoardController extends BaseController {
 
 				// 비회원
 				if (!"ANONYMOUS".equals(board.getAdd_id()) && !isBoardAdmin) {
-					Homepage homepage = getSessionHomepage(request);
-
 					if (StringUtils.isNotEmpty(homepage.getPoint_api_key())) {
 						// 묻고 답하기 에만 적용
 						if ("QNA".equals(boardManage.getBoard_type())) {
@@ -1439,9 +1428,9 @@ public class BoardController extends BaseController {
 							String message = String.format("[%s] 해당 게시판에 새글이 작성되었습니다. ", boardManage.getBoard_name());
 
 							if ( boardManage.getCharge_sms_receive_yn().equals("Y") && StringUtils.isNotEmpty(message)) {
-								Homepage homepage = (Homepage)request.getAttribute("homepage");
+								Homepage homepageSms = (Homepage)request.getAttribute("homepage");
 								if (StringUtils.isNotEmpty(m.getCell_phone())) {
-									LibSearchAPI.sendSmsPhone(homepage.getManage_code(), m.getCell_phone(), message, request.getRemoteAddr(), homepage.getHomepage_send_tell());
+									LibSearchAPI.sendSmsPhone(homepageSms.getManage_code(), m.getCell_phone(), message, request.getRemoteAddr(), homepageSms.getHomepage_send_tell());
 								}
 							}
 						}
@@ -1931,4 +1920,28 @@ public class BoardController extends BaseController {
 		return res;
 	}
 
+	public static boolean isBlocked(String ip) {
+		long currentTime = System.currentTimeMillis();
+
+		synchronized (ip.intern()) {
+			lastRequestTime.putIfAbsent(ip, currentTime);
+			requestCounts.putIfAbsent(ip, 0);
+
+			long lastTime = lastRequestTime.get(ip);
+			int count = requestCounts.get(ip);
+
+			if (currentTime - lastTime > TIME_WINDOW_MS) {
+				lastRequestTime.put(ip, currentTime);
+				requestCounts.put(ip, 1);
+				return false;
+			} else {
+				requestCounts.put(ip, count + 1);
+
+				if (count + 1 >= BLOCK_THRESHOLD) {
+					return true;
+				}
+				return false;
+			}
+		}
+	}
 }
