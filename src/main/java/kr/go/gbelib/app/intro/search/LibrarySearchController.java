@@ -1703,6 +1703,33 @@ public class LibrarySearchController extends BaseController {
 			}
 		}
 
+		if ("HU".equals(homepage.getManage_code())) {
+			librarySearch.setManageCode(homepage.getManage_code());
+
+			LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+
+			LocalDate today = LocalDate.now();
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+			String firstDayOfMonthFormatted = firstDayOfMonth.format(formatter);
+			String todayFormatted = today.format(formatter);
+
+			librarySearch.setSearch_start_date(firstDayOfMonthFormatted);
+			librarySearch.setSearch_end_date(todayFormatted);
+
+			librarySearch.setFurnish_status("1,2,3");
+
+			Map<String, Object> result = LibSearchAPI.getAllBookFurnishList(librarySearch);
+
+			int count = LibSearchAPI.getSearchCount(result);
+
+			if (count >= 100) {
+				service.alertMessage("월별 신청가능 권수를 초과하였습니다.\\n다음 달에 다시 신청해주세요.", request, response);
+				return null;
+			}
+		}
+
 		model.addAttribute("member", member);
 		model.addAttribute("librarySearch", librarySearch);
 		return basePath + "hope/req";
@@ -1801,7 +1828,7 @@ public class LibrarySearchController extends BaseController {
 				librarySearch.setPrice(value[5]);
 			}
 
-			System.out.println("@@@@@@@@@@@@@@@@@@@ jsonData : " + jsonData.get("documents"));
+			/*System.out.println("@@@@@@@@@@@@@@@@@@@ jsonData : " + jsonData.get("documents"));*/
 			service.setPaging(model, totalDataCount, librarySearch);
 
 			model.addAttribute("errorMessage", errorMessage);
