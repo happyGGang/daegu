@@ -2195,15 +2195,28 @@ public class CommonSearchController extends BaseController {
 
 							  String[] isbnArr = String.valueOf(jsonString.get("isbn")).split(" ");
 
-							  for (String isbn : isbnArr) {
-								  sMap.put("isbn" + isbn.length(), isbn);
-								  ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+							  if(librarySearch.getPrivateLibraryYn(homepage)) {
+								  for (String isbn : isbnArr) {
+									  sMap.put("isbn" + isbn.length(), isbn);
+									  ApiResponse code = PrivateLibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
 
-								  if (!code.getStatus()) {
-									  sMap.put("already" + isbn.length(), true);
-									  sMap.put("errorMessage", code.getMessage());
+									  if (!code.getStatus()) {
+										  sMap.put("already" + isbn.length(), true);
+										  sMap.put("errorMessage", code.getMessage());
+									  }
+								  }
+							  } else {
+								  for (String isbn : isbnArr) {
+									  sMap.put("isbn" + isbn.length(), isbn);
+									  ApiResponse code = LibSearchAPI.hopeUserCheck(member.getRec_key(), isbn, librarySearch.getManageCode());
+
+									  if (!code.getStatus()) {
+										  sMap.put("already" + isbn.length(), true);
+										  sMap.put("errorMessage", code.getMessage());
+									  }
 								  }
 							  }
+
 						  } catch (Exception e) {
 							  throw new RuntimeException("데이터 처리 실패", e);
 						  }
