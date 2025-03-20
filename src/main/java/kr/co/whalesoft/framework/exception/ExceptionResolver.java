@@ -55,15 +55,24 @@ public class ExceptionResolver implements HandlerExceptionResolver {
 				return null;
 			} else {
 				if (view == null) {
-					response.setContentType("text/html; charset=" + request.getCharacterEncoding());
-					PrintWriter writer;
+					String encoding = request.getCharacterEncoding();
+					if (encoding == null) {
+						encoding = "UTF-8";
+					}
+
+					response.setContentType("text/html; charset=" + encoding);
 					try {
-						writer = response.getWriter();
-						writer.println("<script>");
-						writer.println("alert('" + exception.getMessage() + "');");
-						writer.println("history.back();");
-						writer.println("</script>");
-						writer.flush();
+						String errorMessage = exception.getMessage()
+								.replace("'", "\\'")
+								.replace("\n", " ");
+
+						String script = "<script>"
+								+ "alert('" + errorMessage + "');"
+								+ "history.back();"
+								+ "</script>";
+
+						response.getOutputStream().write(script.getBytes("UTF-8"));
+						response.getOutputStream().flush();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
