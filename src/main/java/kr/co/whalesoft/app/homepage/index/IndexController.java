@@ -2491,7 +2491,7 @@ public class IndexController extends BaseController {
 		//h50 수성 범어
 		//h51 수성 용학
 		//h52 수성 고산
-		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h101"};
+		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h99", "h101"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
@@ -3011,6 +3011,16 @@ public class IndexController extends BaseController {
 				}
 			}
 			model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(teach, "N"));
+		}
+
+		//달성이린이숲
+		if (homepage.getHomepage_id().equals("h99")) {
+			Board b = new Board();
+			b.setManage_idx(1263);
+			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
+			b.setManage_idx(1270);
+			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
+
 		}
 
 		log.debug("jsp Page : "+basePath + filePath);

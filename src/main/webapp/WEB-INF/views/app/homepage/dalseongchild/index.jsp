@@ -89,12 +89,26 @@
         $('ul.bestBookUl').load('bestBook.do');
 
         $('#main-search-btn').on('click', function() {
-            if ($('input#search_text_1').val() == '') {
+            if ($('input#searchInput').val() == '') {
                 alert('검색어를 입력하세요.');
-                $('input#search_text_1').focus();
+                $('input#searchInput').focus();
                 return false;
             }
+            var searchType = $('#searchSelect option:selected').val();
+            var searchText = $('#searchInput').val();
+
+            $('input#search_type').val(searchType);
+            $('input#search_text_1').attr('name',searchType);
+            $('input#search_text_1').val(searchText);
             $('#mainSearchForm').submit();
+        });
+
+        //신착도서
+        $('div.swiper-wrapper').eq(2).load('newBook.do');
+
+
+        $('a.newWin').on('click', function() {
+            window.open($(this).attr('href'), '_blank');
         });
 
     });
@@ -128,10 +142,10 @@
         <div class="section" id="main0">
             <div class="swiper_main">
                 <div class="main-slide1">
-                    <div class="img_wrapper"><img src="/resources/homepage/dalseongchild/img/common/ob_01.png" alt="" /><img src="/resources/homepage/dalseongchild/img/common/ob_01_02.png" alt="" /></div>
+                    <div class="img_wrapper"><img src="/resources/homepage/${homepage.context_path}/img/common/ob_01.png" alt="" /><img src="/resources/homepage/${homepage.context_path}/img/common/ob_01_02.png" alt="" /></div>
                 </div>
                 <div class="main-slide2">
-                    <div class="img_wrapper_02"><img src="/resources/homepage/dalseongchild/img/common/ob_02_02.png" alt="" /><img src="/resources/homepage/dalseongchild/img/common/ob_02.png" alt="" /></div>
+                    <div class="img_wrapper_02"><img src="/resources/homepage/${homepage.context_path}/img/common/ob_02_02.png" alt="" /><img src="/resources/homepage/${homepage.context_path}/img/common/ob_02.png" alt="" /></div>
                 </div>
             </div>
             <div class="main-visual">
@@ -141,23 +155,25 @@
                 </div>
                 <!-- main_search -->
                 <div class="search-area" id="main_search">
-                    <form id="mainSearchForm" action="/bukgs/intro/search/index.do">
-                        <input type="hidden" name="menu_idx" value="9" />
-                        <input type="hidden" name="booktype" value="BOOKANDNONBOOK" />
-                        <input type="hidden" name="_csrf" value="1fb5d19a-e79f-40b9-b9a7-330460effb42" />
+                    <form id="mainSearchForm" method="get" action="/${homepage.context_path}/intro/search/index.do">
+                        <input type="hidden" name="menu_idx" id="menu_idx" value="7" />
+                        <input type="hidden" name="booktype" id="booktype" value="BOOKANDNONBOOK" />
+                        <input type="hidden" name="search_type" id="search_type" value="">
+                        <input type="hidden" name="title" id="search_text_1" value="">
+                        <input type="hidden" name="_csrf" value="${CSRF_TOKEN}" />
                         <fieldset>
                             <legend class="blind">통합검색</legend>
                             <div class="main-box">
-                                <select id="search_type" name="search_type" class="search_type">
-                                    <option value="L_TITLE">도서명</option>
-                                    <option value="L_AUTHOR">저자</option>
-                                    <option value="L_PUBLISHER">발행처</option>
-                                    <option value="L_KEYWORD">키워드</option>
+                                <select id="searchSelect" name="search_type" class="search_type">
+                                    <option value="title">서명</option>
+                                    <option value="author">저자</option>
+                                    <option value="publer">발행자</option>
+                                    <option value="keyword">키워드</option>
                                 </select>
                                 <div class="box1">
                                     <div class="box2">
-                                        <label for="search_text_1" class="blind">통합자료검색</label>
-                                        <input name="title" id="search_text_1" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode: active" />
+                                        <label for="searchInput" class="blind">통합자료검색</label>
+                                        <input id="searchInput" type="text" class="text" placeholder="검색어를 입력하세요." style="ime-mode: active" />
                                     </div>
                                 </div>
                                 <button id="main-search-btn">검색하기</button>
@@ -169,33 +185,33 @@
                 <div class="mIcon">
                     <ul>
                         <li>
-                            <a href="#this" class="q01">
-                                <span><img src="/resources/homepage/dalseongchild/img/common/q01.png" alt="자료이용안내" />자료이용안내</span>
+                            <a href="/${homepage.context_path}/html.do?menu_idx=19" class="q01">
+                                <span><img src="/resources/homepage/${homepage.context_path}/img/common/q01.png" alt="자료이용안내" />자료이용안내</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#this" class="q02">
-                                <span><img src="/resources/homepage/dalseongchild/img/common/q02.png" alt="평생학습프로그램" />평생학습프로그램</span>
+                            <a href="/${homepage.context_path}/html.do?menu_idx=29" class="q02">
+                                <span><img src="/resources/homepage/${homepage.context_path}/img/common/q02.png" alt="평생학습프로그램" />평생학습프로그램</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#this" class="q03">
-                                <span><img src="/resources/homepage/dalseongchild/img/common/q03.png" alt="문화행사신청" />문화행사신청</span>
+                            <a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16" class="q03">
+                                <span><img src="/resources/homepage/${homepage.context_path}/img/common/q03.png" alt="문화행사신청" />문화행사신청</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#this" class="q04">
-                                <span><img src="/resources/homepage/dalseongchild/img/common/q04.png" alt="희망도서신청" />희망도서신청</span>
+                            <a href="/${homepage.context_path}/intro/search/hope/req.do?menu_idx=15" class="q04">
+                                <span><img src="/resources/homepage/${homepage.context_path}/img/common/q04.png" alt="희망도서신청" />희망도서신청</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#this" class="q05">
-                                <span><img src="/resources/homepage/dalseongchild/img/common/q05.png" alt="자주묻는질문" />자주묻는질문</span>
+                            <a href="/${homepage.context_path}/board/index.do?menu_idx=34&manage_idx=1264" class="q05">
+                                <span><img src="/resources/homepage/${homepage.context_path}/img/common/q05.png" alt="자주묻는질문" />자주묻는질문</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#this" class="q06" target="_blank">
-                                <span><img src="/resources/homepage/dalseongchild/img/common/q06.png" alt="찾아오시는길" />찾아오시는길</span>
+                            <a href="/${homepage.context_path}/html.do?menu_idx=50" class="q06" target="_blank">
+                                <span><img src="/resources/homepage/${homepage.context_path}/img/common/q06.png" alt="찾아오시는길" />찾아오시는길</span>
                             </a>
                         </li>
                     </ul>
@@ -221,7 +237,7 @@
                                 <div class="swiper_action_wrapper">
                                     <div class="swiper-button-prev"></div>
 
-                                    <img src="/resources/homepage/dalseongchild/img/common/stop.svg" alt="정지 버튼" class="popup_autoplay stop" role="button" />
+                                    <img src="/resources/homepage/${homepage.context_path}/img/common/stop.svg" alt="정지 버튼" class="popup_autoplay stop" role="button" />
 
                                     <div class="swiper-button-next"></div>
                                 </div>
@@ -229,68 +245,66 @@
                         </div>
                         <div class="swiper mySwiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <img src="/resources/homepage/dalseongchild/img/common/Rectangle6.png" alt="${i.popup_zone_name}" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/resources/homepage/dalseongchild/img/common/Rectangle6.png" alt="${i.popup_zone_name}" />
-                                </div>
-                                <div class="swiper-slide">
-                                    <img src="/resources/homepage/dalseongchild/img/common/Rectangle6.png" alt="${i.popup_zone_name}" />
-                                </div>
-
-                                <!-- 팝업 예외 처리 -->
-                                <!-- <div class="swiper-slide">
+                                <c:choose>
+                                    <c:when test="${fn:length(popupZoneList) > 0}">
+                                        <c:forEach var="i" items="${popupZoneList}">
+                                            <div class="swiper-slide">
+                                                <a href="${i.link_url}" target="_blank">
+                                                    <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}" />
+                                                </a>
+                                            </div>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="swiper-slide">
                                             <img src="/resources/common/img/noImg2.png" alt="" />
-                                        </div>-->
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="notice-box tabS">
                     <ul class="tabMenuS">
-                        <li class="on"><a href="#tab1" data-link="/bukgs/board/index.do?menu_idx=35&manage_idx=699" class="t-tabs">공지사항</a></li>
-                        <li><a href="#tab2" data-link="/bukgs/module/teach/index.do?menu_idx=32" class="t-tabs">프로그램접수</a></li>
-                        <a href="/bukgs/board/index.do?menu_idx=35&manage_idx=699" class="btn-more2 more-more">더보기</a>
+                        <li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=1263" class="t-tabs">공지사항</a></li>
+                        <li><a href="#tab2" data-link="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16" class="t-tabs">프로그램접수</a></li>
+                        <a href="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=1263" class="btn-more2 more-more">더보기</a>
                     </ul>
 
                     <div class="news con" data-tab="tab1">
                         <div class="box">
                             <ul>
-                                <li class="important">
-                                    <a href="/bukgs/board/view.do?menu_idx=35&manage_idx=699&board_idx=525227">
-                                        <span class="time"><b>29</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">[채용] (재)행복북구문화재단 도서관운영본부 기간제 근로자 채용 공고</em>
-                                    </a>
-                                </li>
+                                <c:if test="${fn:length(noticeList) < 1 && fn:length(noticeListTopNotice) < 1}">
+                                    <li class="board_list_item">
+                                        <div class="board_list_item_title">
+                                            <div>등록된 공지사항이 없습니다.</div>
+                                        </div>
+                                        <div class="board_list_item_date">
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </li>
+                                </c:if>
 
-                                <li class="important">
-                                    <a href="/bukgs/board/view.do?menu_idx=35&manage_idx=699&board_idx=525226">
-                                        <span class="time"><b>29</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">[채용] (재)행복북구문화재단 구수산도서관 개관시간 연장지원 사업 기간제 근로자 채용 공고</em>
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a href="/bukgs/board/view.do?menu_idx=35&manage_idx=699&board_idx=525097">
-                                        <span class="time"><b>29</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">[안내] 구수산도서관 12월 영화상영 안내</em>
-                                    </a>
-                                </li>
 
-                                <li>
-                                    <a href="/bukgs/board/view.do?menu_idx=35&manage_idx=699&board_idx=525084">
-                                        <span class="time"><b>28</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">[안내] 2024년 &lt음악이 흐르는 도서관&gt 음악적 재능나눔형 프로그램 봉사자 모집</em>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/bukgs/board/view.do?menu_idx=35&manage_idx=699&board_idx=525030">
-                                        <span class="time"><b>28</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">[안내] 2024년 구수산도서관 &lt12월 연말 행사&gt 안내</em>
-                                    </a>
-                                </li>
+                                <c:forEach items="${noticeListTopNotice}" var="i" varStatus="status" begin='0' end='1'>
+                                    <li class="important">
+                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=32&manage_idx=1263&board_idx=${i.board_idx}">
+                                            <span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b> <em><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></em></span>
+                                            <em class="notice_txt">${i.title}</em>
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                                <c:forEach items="${noticeList}" var="i" varStatus="status" begin='0' end='2'>
+                                    <li>
+                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=32&manage_idx=1263&board_idx=${i.board_idx}">
+                                            <span class="time"><b><fmt:formatDate value="${i.add_date}" pattern="dd" /></b> <em><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM" /></em></span>
+                                            <em class="notice_txt">${i.title}</em>
+                                        </a>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -298,46 +312,26 @@
                     <div class="news con" data-tab="tab2" style="display: none">
                         <div class="box">
                             <ul>
-                                <li>
-                                    <a href="/bukgs/module/teach/detail.do?menu_idx=95&searchCate1=16&group_idx=174&category_idx=0&teach_idx=21461&homepage_id=h46">
-                                        <span class="time"><b>21</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">
-                                            <가족과 함께 해피 크리스마스>
-                                        </em>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/bukgs/module/teach/detail.do?menu_idx=95&searchCate1=16&group_idx=174&category_idx=0&teach_idx=21462&homepage_id=h46">
-                                        <span class="time"><b>26</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">
-                                            <김재인 철학자와의 만남>
-                                        </em>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/bukgs/module/teach/detail.do?menu_idx=95&searchCate1=16&group_idx=174&category_idx=0&teach_idx=21463&homepage_id=h46">
-                                        <span class="time"><b>28</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">
-                                            <명지쌤의 행복 Talk 콘서트>
-                                        </em>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/bukgs/module/teach/detail.do?menu_idx=95&searchCate1=16&group_idx=173&category_idx=0&teach_idx=21215&homepage_id=h46">
-                                        <span class="time"><b>26</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">명지현과 함께하는 심리 상담소</em>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/bukgs/module/teach/detail.do?menu_idx=95&searchCate1=29&group_idx=132&category_idx=0&teach_idx=16145&homepage_id=h46">
-                                        <span class="time"><b>29</b> <em>2024.11</em></span>
-                                        <em class="notice_txt">Winter Season Theme</em>
-                                    </a>
-                                </li>
+                                <c:if test="${fn:length(teachList) < 1}">
+                                    <li class="board_list_item">
+                                        <div class="board_list_item_title">
+                                            <div>등록된 행사가 없습니다.</div>
+                                        </div>
+                                        <div class="board_list_item_date">
+                                            <div></div>
+                                            <div></div>
+                                        </div>
+                                    </li>
+                                </c:if>
+                                <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='4'>
+                                    <li>
+                                        <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+                                            <c:set var="teachDate" value="${fn:split(i.start_date, '-')}"></c:set>
+                                            <span class="time"><b>${teachDate[2]}</b> <em>${teachDate[0]}.${teachDate[1]}</em></span>
+                                            <em class="notice_txt">${i.teach_name}</em>
+                                        </a>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                     </div>
@@ -356,47 +350,41 @@
             <div class="main-section wid1450">
                 <div class="book-box tabS">
                     <ul class="tabMenuS">
-                        <li class="on"><a href="#tab1" class="t-tabs" data-link="/bukgs/board/index.do?menu_idx=85&manage_idx=697">추천도서</a></li>
-                        <li><a href="#tab2" class="t-tabs" data-link="/bukgs/intro/search/newBook/index.do?menu_idx=10">신착도서</a></li>
-                        <a href="/bukgs/board/index.do?menu_idx=85&manage_idx=697" class="btn-more2 more-more">더보기</a>
+                        <li class="on"><a href="#tab1" class="t-tabs" data-link="/${homepage.context_path}/board/index.do?menu_idx=85&manage_idx=697">추천도서</a></li>
+                        <li><a href="#tab2" class="t-tabs" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=9">신착도서</a></li>
+                        <a href="/${homepage.context_path}/board/index.do?menu_idx=12&manage_idx=1270" class="btn-more2 more-more" id="moreLink">더보기</a>
                     </ul>
-
 
                     <div class="box con" data-tab="tab1">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 1" /></a>
-                                    <div class="hover-text">Book 1</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 2" /></a>
-                                    <div class="hover-text">Book 2</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 3" /></a>
-                                    <div class="hover-text">Book 3</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 4" /></a>
-                                    <div class="hover-text">Book 4</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 5" /></a>
-                                    <div class="hover-text">Book 5</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 6" /></a>
-                                    <div class="hover-text">Book 6</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 7" /></a>
-                                    <div class="hover-text">Book 7</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 8" /></a>
-                                    <div class="hover-text">Book 8</div>
-                                </div>
+                                <c:if test="${fn:length(bookList) < 1}">
+                                    <li>등록된 데이터가 없습니다.</li>
+                                </c:if>
+
+                                <c:forEach items="${bookList}" var="i" varStatus="status">
+                                    <div class="swiper-slide" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=${i.imsi_n_2}&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" style="cursor:pointer;">
+                                        <c:choose>
+                                            <c:when test="${i.preview_img ne null}">
+                                                <c:choose>
+                                                    <c:when test="${fn:contains(i.preview_img, 'http')}">
+                                                        <img src="${i.preview_img}" alt="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/book_noimg.png'"/>
+                                                    </c:when>
+                                                    <c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+                                                        <img src="${i.preview_img}" alt="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/book_noimg.png'"/>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/book_noimg.png'"/>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="hover-text">${i.title}</div>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -404,38 +392,13 @@
                     <div class="box con" data-tab="tab2" style="display: none">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 1" /></a>
-                                    <div class="hover-text">Book 1</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 2" /></a>
-                                    <div class="hover-text">Book 2</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 3" /></a>
-                                    <div class="hover-text">Book 3</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 4" /></a>
-                                    <div class="hover-text">Book 4</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 5" /></a>
-                                    <div class="hover-text">Book 5</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 6" /></a>
-                                    <div class="hover-text">Book 6</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 7" /></a>
-                                    <div class="hover-text">Book 7</div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <a href="#this"><img src="/resources/homepage/dalseongchild/img/common/book_noimg.png" alt="Book 8" /></a>
-                                    <div class="hover-text">Book 8</div>
-                                </div>
+
+<%--                                <div class="swiper-slide">--%>
+<%--                                    <a href="#this"><img src="/resources/homepage/${homepage.context_path}/img/common/book_noimg.png" alt="Book 1" /></a>--%>
+<%--                                    <div class="hover-text">Book 1</div>--%>
+<%--                                </div>--%>
+
+
                             </div>
                         </div>
                     </div>
@@ -449,113 +412,12 @@
                         <div class="banner-wrap type4">
                             <div class="banner-t4">
                                 <div class="control">
-                                    <a class="prev" href="#prev"><img src="/resources/homepage/dalseongchild/img/common/left.svg" alt="이전" /><span class="blind">이전</span></a>
-                                    <a class="next" href="#next"><img src="/resources/homepage/dalseongchild/img/common/right.svg" alt="다음" /><span class="blind">다음</span></a>
+                                    <a class="prev" href="#prev"><img src="/resources/homepage/${homepage.context_path}/img/common/left.svg" alt="이전" /><span class="blind">이전</span></a>
+                                    <a class="next" href="#next"><img src="/resources/homepage/${homepage.context_path}/img/common/right.svg" alt="다음" /><span class="blind">다음</span></a>
                                 </div>
                             </div>
                             <div class="banner-box4">
-                                <ul class="banner-roll">
-                                    <li>
-                                        <span>
-                                            <a href=" http://www.daegu.go.kr/index.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600297086.jpg" alt="대구시청" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.dge.go.kr/main/main.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600310521.jpg" alt="대구광역시교육청" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.edunavi.kr/portal/main.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600323458.jpg" alt="대구교육포털" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.nanet.go.kr/main.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600343261.jpg" alt="국회도서관" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.nl.go.kr" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600355774.jpg" alt="국립중앙도서관" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.nlcy.go.kr/NLCY/main/index.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600374688.jpg" alt="국립어린이청소년도서관" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://books.nl.go.kr/PU/contents/P20700000000.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600411198.jpg" alt="책이음서비스" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://books.nl.go.kr/PU/contents/P10400000000.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600426677.jpg" alt="책바다" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://cn.nld.go.kr/index.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600446600.jpg" alt="책나래" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.nl.go.kr/NL/contents/N30502000000.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600463181.jpg" alt="사서에게물어보세요" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.data4library.kr/" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600481652.jpg" alt="도서관정보나루" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.1365.go.kr/vols/main.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600495052.jpg" alt="1365청소년자원봉사포털" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.youth.go.kr/youth/" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600515566.jpg" alt="청소년활동정보서비스" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.nlcy.go.kr/NLCY/contents/C10503010000.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600538397.jpg" alt="다국어동화구연" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://info.edunet.net" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600554188.jpg" alt="에듀넷" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.safetyreport.go.kr/#main" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600568622.jpg" alt="안전신문고" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.mcst.go.kr/kor/main.jsp" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600585216.jpg" alt="문화체육관광부" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.keris.or.kr/main/main.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600611710.jpg" alt="한국교육학술정보원" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.data.go.kr/index.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600628325.jpg" alt="공공데이터포털" /></a></span>
-                                    </li>
-                                    <li>
-                                        <span>
-                                            <a href="https://www.nl.go.kr/kolisnet/index.do" target="_blank">
-                                                <img src="/resources/homepage/dalseongchild/img/common/1734600641272.jpg" alt="코리스넷 국가자료종합목록" /></a></span>
-                                    </li>
-                                </ul>
+                                <homepageTag:banner bannerList="${bannerList}"/>
                             </div>
                         </div>
                     </div>
@@ -676,7 +538,7 @@
                 mySwiper.autoplay.stop();
                 console.log('🔴 자동재생 멈춤');
 
-                $(this).attr('src', '/resources/homepage/dalseongchild/img/common/start.svg')
+                $(this).attr('src', '/resources/homepage/${homepage.context_path}/img/common/start.svg')
                     .attr('alt', '재생 버튼')
                     .removeClass('stop')
                     .addClass('start');
@@ -684,7 +546,7 @@
                 mySwiper.autoplay.start();
                 console.log('🟢 자동재생 시작');
 
-                $(this).attr('src', '/resources/homepage/dalseongchild/img/common/stop.svg')
+                $(this).attr('src', '/resources/homepage/${homepage.context_path}/img/common/stop.svg')
                     .attr('alt', '정지 버튼')
                     .removeClass('start')
                     .addClass('stop');
