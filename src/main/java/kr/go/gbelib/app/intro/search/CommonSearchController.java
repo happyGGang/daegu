@@ -2063,7 +2063,7 @@ public class CommonSearchController extends BaseController {
 			int count = LibSearchAPI.getSearchCount(result);
 
 			if (count >= 100) {
-				service.alertMessage("월별 신청가능 권수를 초과하였습니다.\\n다음 달에 다시 신청해주세요.", request, response);
+				service.alertMessage("접수 마감입니다.\\n(월 100권까지 접수)", request, response);
 				return null;
 			}
 		}
