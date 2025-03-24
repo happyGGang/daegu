@@ -1,6 +1,6 @@
 #main0 {
-    background: url(../img/section0-bg-01.png) no-repeat center 50%;
-    background-size: 157%;
+    background: url(../img/section0-bg-01.png) no-repeat center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1072,6 +1072,8 @@
 	background-size: contain;
 	}
 
+	.quick_menu_area {background: #fff;}
+
   .main0_title_wrapper {
     position: absolute;
     top: 152px
@@ -1182,8 +1184,10 @@
   }
 
   .quick_menu_area {
-    width: auto;
-    flex-wrap: wrap;
+   display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    justify-items: center;
     height: 192px;
     position: absolute;
     bottom: 140px;
@@ -1211,18 +1215,22 @@
 
 @media all and (max-width:450px) {
 	#main0 {
-	background: url('../img/section0-bg-04.png') no-repeat center 0%;
+	background: url('../img/section0-bg-04.png') no-repeat center -58%;
 	height: 800px;
 	position: relative;
 	background-size: contain;
 	}
+
+	.quick_menu_area {background: #fff;}
   }
 
 @media all and (max-width:360px) {
 	#main0 {
-	background: url('../img/section0-bg-04.png') no-repeat center 0%;
-	height: 800px;
-	position: relative;
-	background-size: contain;
+		background: url(../img/section0-bg-04.png) no-repeat center -210px;
+        height: 800px;
+        position: relative;
+        background-size: cover;
 	}
+
+	.quick_menu_area {background: #fff;}
   }

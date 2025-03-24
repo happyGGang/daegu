@@ -46,7 +46,7 @@
             </li>
           </ul>
         </div>
-        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2024.12.31.] (단위 : 권)</span></h3>
+        <h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.2.28.] (단위 : 권)</span></h3>
         <div class="rsv-info"></div>
         <div class="auto-scroll">
           <table class="tbl-type01" summary="파동도서관 장서현황을 안내해 드립니다.">
@@ -91,58 +91,58 @@
                 <th scope="row">어린이</th>
 				<td>700</td>
 				<td>362</td>
-				<td>168</td>
+				<td>169</td>
 				<td>844</td>
-				<td>1,467</td>
-				<td>383</td>
+				<td>1,468</td>
+				<td>389</td>
 				<td>282</td>
-				<td>329</td>
-				<td>3,800</td>
-				<td>1,170</td>
-				<td>9,505</td>
+				<td>330</td>
+				<td>3,803</td>
+				<td>1,171</td>
+				<td>9,518</td>
               </tr>
               <tr>
                 <th scope="row">유아</th>
 				<td>63</td>
 				<td>98</td>
 				<td>42</td>
-				<td>917</td>
-				<td>404</td>
+				<td>918</td>
+				<td>405</td>
 				<td>84</td>
 				<td>80</td>
 				<td>72</td>
-				<td>3,093</td>
+				<td>3,098</td>
 				<td>34</td>
-				<td>4,887</td>
+				<td>4,894</td>
               </tr>
               <tr>
                 <th scope="row">일반</th>
                 <td>505</td>
 				<td>1,010</td>
 				<td>316</td>
-				<td>1,599</td>
-				<td>431</td>
-				<td>1,344</td>
+				<td>1,600</td>
+				<td>432</td>
+				<td>1,346</td>
 				<td>550</td>
 				<td>309</td>
-				<td>5,651</td>
+				<td>5,657</td>
 				<td>1,164</td>
-				<td>12,879</td>
+				<td>12,889</td>
               </tr>
               <tr>
                 <th scope="row">총계</th>
-                <td>1,268</td>
+               <td>1,268</td>
 				<td>1,470</td>
-				<td>526</td>
-				<td>3,360</td>
-				<td>2,302</td>
-				<td>1,811</td>
+				<td>527 </td>
+				<td>3,362 </td>
+				<td>2,305</td>
+				<td>1,819 </td>
 				<td>912</td>
-				<td>710</td>
-				<td>12,544</td>
-				<td>2,368</td>
-				<td>27,271</td>
-              </tr>
+				<td>711 </td>
+				<td>12,558</td>
+				<td>2,369</td>
+				<td>27,301</td>
+               </tr>
             </tbody>
           </table>
         </div>
