@@ -2042,6 +2042,10 @@ public class CommonSearchController extends BaseController {
 		}
 
 		if ("HU".equals(homepage.getManage_code())) {
+			List<String> libraryCodes = new ArrayList<String>();
+			libraryCodes.add("HU");
+
+			librarySearch.setLibraryCodes(libraryCodes);
 			librarySearch.setManageCode(homepage.getManage_code());
 
 			LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);

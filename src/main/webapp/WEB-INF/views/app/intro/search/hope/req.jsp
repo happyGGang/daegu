@@ -586,6 +586,11 @@
 							<form:option value="NH">푸른초장공공도서관</form:option>
 						</form:select>
 					</c:when>
+					<c:when test="${context_path eq 'center'}">
+						<form:select path="manageCode">
+							<form:option value="HU">대구혁신도시복합문화센터</form:option>
+						</form:select>
+					</c:when>
 					<c:otherwise>
 						<form:select path="manageCode">
 							<form:option value="AD">중앙도서관</form:option>
