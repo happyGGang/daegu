@@ -33,16 +33,16 @@ nxKeyConfig.version = {
 	},
 		
 	/** 키보드보안 설정 */
-		tkappiver			:	"1.0.0.79",
-		tkappmver			:	"1.0.0.68",
-		exWinVer			:	"1.0.0.83",
-		exWin64Ver			:	"1.0.0.83",
-		exWinProtocolVer	:	"1.0.1.1545",
-		daemonVer			:   "1.0.2.11",
-		macDaemonVer		:   "1.0.1.8",
-		linuxDaemonVer		:   "1.0.0.1",
+		tkappiver           :	"1.0.0.78",
+		tkappmver			:	"1.0.0.67",
+		exWinVer			:	"1.0.0.90",
+		exWin64Ver			:	"1.0.0.90",
+		exWinProtocolVer	:	"1.0.1.1529",
+		daemonVer			:	"1.0.2.10",
+		macDaemonVer		:	"1.0.1.8",
+		linuxDaemonVer		:	"1.0.0.1",
 		exMacVer			:	"1.0.0.16",
-		exMacProtocolVer	:	"1.0.1.1545"
+		exMacProtocolVer	:	"1.0.1.1529"
 };
 
 
