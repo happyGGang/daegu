@@ -305,6 +305,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				<c:if test="${homepage.context_path eq 'buktj'}">
 					태전도서관<input type="hidden" id="" name="manage_code" value="BC" />
 				</c:if>
+				<c:if test="${homepage.context_path eq 'buksb'}">
+					서변숲도서관<input type="hidden" id="" name="manage_code" value="HW" />
+				</c:if>
 
 				<c:if test="${homepage.context_path eq 'beomeo'}">
 					범어도서관<input type="hidden" id="" name="manage_code" value="BD" />

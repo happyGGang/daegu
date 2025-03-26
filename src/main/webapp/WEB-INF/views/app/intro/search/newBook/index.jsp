@@ -133,6 +133,9 @@ $(function() {
 					<c:when test="${context_path eq 'buktj'}">
 					태전도서관<form:hidden path="manageCode" value="BC" />
 					</c:when>
+					<c:when test="${context_path eq 'buksb'}">
+					서변숲도서관<form:hidden path="manageCode" value="HW" />
+					</c:when>
 					<c:when test="${context_path eq 'buks'}">
 						<form:radiobutton path="manageCode" value='GJ' label="태전1동 작은도서관" />
 						<form:radiobutton path="manageCode" value='GL' label="산격1동 작은도서관" />

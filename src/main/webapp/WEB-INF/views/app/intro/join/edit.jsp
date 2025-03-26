@@ -232,7 +232,9 @@ $(function() {
 								<option value="HE">한강공원부키도서관</option>
 							</select>
 						</c:when>
-
+						<c:when test="${context_path eq 'buksb'}">
+						서변숲도서관<input type="hidden" id="" name="manage_code" value="HW" />
+						</c:when>
 						<c:when test="${context_path eq 'beomeo'}">
 						범어도서관<input type="hidden" id="" name="manage_code" value="BD" />
 						</c:when>

@@ -51,6 +51,9 @@ $(function() {
 						<c:when test="${homepagePath eq 'buktj'}">
 							태전도서관<form:hidden path="manageCode" value="BC" />
 						</c:when>
+						<c:when test="${homepagePath eq 'buksb'}">
+							서변숲도서관<form:hidden path="manageCode" value="HW" />
+						</c:when>
 						<c:when test="${homepagePath eq 'buks'}">
 							<form:radiobutton path="manageCode" value='GP' label="노원동 작은도서관" /><br/>
 							<form:radiobutton path="manageCode" value='HD' label="노원행복도서관" /><br/>
