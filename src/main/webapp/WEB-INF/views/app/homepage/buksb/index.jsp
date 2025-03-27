@@ -386,11 +386,13 @@
                                 <c:when test="${fn:length(popupZoneList) > 0}">
                                     <c:forEach var="i" items="${popupZoneList}">
                                         <div class="swiper-slide">
+                                            <a href="${i.link_url}">
                                             <img
                                                     src="/data/popupZone/${i.homepage_id}/${i.server_file_name}"
                                                     alt="${i.popup_zone_name}"
                                                     onerror="this.src='/resources/common/img/noImg2.png';"
                                             />
+                                            </a>
                                         </div>
                                     </c:forEach>
                                 </c:when>
