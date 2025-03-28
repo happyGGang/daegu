@@ -158,7 +158,8 @@
                 <form:option value="0">대출가능</form:option>
             </form:select>
             <div class="button">
-                <a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
+			 <!--<a href="https://library.daegu.go.kr/board/boardFile/download/28/530508/376117/%EC%B1%85%EA%BE%B8%EB%9F%AC%EB%AF%B8%20%EB%82%B4%EB%A0%A4%EB%B0%9B%EA%B8%B0%20%EB%AA%A9%EB%A1%9D.xls.do" id="excelDownload" class="btn btn2" download>-->
+                <a href="https://library.daegu.go.kr/board/boardFile/download/28/530508/376117/%EC%B1%85%EA%BE%B8%EB%9F%AC%EB%AF%B8%20%EB%82%B4%EB%A0%A4%EB%B0%9B%EA%B8%B0%20%EB%AA%A9%EB%A1%9D.xls.do" class="btn btn2" download title="책꾸러미 도서목록 다운로드"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
             </div>
         </div>
         <div>
