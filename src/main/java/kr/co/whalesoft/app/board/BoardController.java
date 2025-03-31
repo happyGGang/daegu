@@ -362,7 +362,7 @@ public class BoardController extends BaseController {
 		}
 
 		//QNA 질의및 응답게시판
-		if (boardManage.getBoard_type().equals("QNA")){
+		if (boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POERTY")){
 			request.setAttribute("request_state_list", codeService.getCode("CMS",boardManage.getRequest_code()));
 		}
 
@@ -506,7 +506,7 @@ public class BoardController extends BaseController {
 		model.addAttribute("portalAuth", portal_auth);
 
 		//질의응답게시판
-		if (boardManage.getBoard_type().equals("QNA")){
+		if (boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")){
 			request.setAttribute("request_state_list", codeService.getCode("CMS",boardManage.getRequest_code()));
 		}
 		// 분실 게시판
@@ -959,7 +959,7 @@ public class BoardController extends BaseController {
 //
 		model.addAttribute("board", boardData);
 //
-		if(boardManage.getBoard_type().equals("QNA") && boardData.getNotice_yn().equals("N")) {
+		if((boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")) && boardData.getNotice_yn().equals("N")) {
 			List<Board> qnaReplyList = service.getQnABoardOne(boardData);
 			for(Board qnaBoard:qnaReplyList){
 				qnaBoard.setBoardFile(boardFileService.getBoardFile(qnaBoard.getBoard_idx()));
@@ -1119,7 +1119,7 @@ public class BoardController extends BaseController {
 		checkAuth("C", model, request);
 
 		//질의응답게시판
-		if (boardManage.getBoard_type().equals("QNA")){
+		if (boardManage.getBoard_type().equals("QNA")|| boardManage.getBoard_type().equals("POETRY")){
 			request.setAttribute("request_state_list", codeService.getCode("CMS",boardManage.getRequest_code()));
 		}
 
@@ -1131,7 +1131,7 @@ public class BoardController extends BaseController {
 			} catch (Exception e) {}
 		}
 
-		if (boardManage.getBoard_type().equals("QNA")){
+		if (boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")){
 			board.setRequest_state("4");
 		}
 
@@ -1255,7 +1255,7 @@ public class BoardController extends BaseController {
 		}
 
 		Member member = getSessionMemberInfo(request);
-		if (member.isAnonymous() && boardManage.getBoard_type().equals("QNA") && board.getEditMode().equals("ADD")) {
+		if (member.isAnonymous() && (boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")) && board.getEditMode().equals("ADD")) {
 			ValidationUtils.rejectIfEmpty(result, "user_password", "비밀번호를 입력하세요.");
 			
 			ValidationUtils.rejectPasswordSpecieal(result, "user_password", "비밀번호는 8~16자의 길이로 영문/숫자/특수문자가 모두 포함되어야 합니다.");
@@ -1445,7 +1445,7 @@ public class BoardController extends BaseController {
 				service.addReplyBoard(boardManage, board, request);
 				//service.addReplyBoardToParentUpdate(boardManage, board, request);
 				res.setValid(true);
-				if(boardManage.getBoard_type().equals("QNA")){
+				if(boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")){
 					res.setUrl(getBoardContext(request) + "/board/view.do");
 					board.setBoard_idx(board.getGroup_idx());
 					res.setData(board.getUrlParam(boardManage, "view"));
@@ -1455,13 +1455,7 @@ public class BoardController extends BaseController {
 					adminMember.setMember_id(parentBoard.getAdd_id());
 					adminMember = memberService.getMemberOne(adminMember);
 
-//					try {
-//						PushAPI.sendMessage((Homepage)request.getAttribute("homepage"), PushAPI.SMS_TYPE_SMS, adminMember.getCell_phone(), board.getRequest_state(), null, true);
-//						res.setMessage("요청자 에게 알림을 보내고 등록 되었습니다.");
-//					}
-//					catch ( Exception e ) {
-						res.setMessage("등록 되었습니다.");
-//					}
+					res.setMessage("등록 되었습니다.");
 				}else{
 					res.setUrl(getBoardContext(request) + "/board/index.do");
 					res.setData(board.getUrlParam(boardManage, "index"));

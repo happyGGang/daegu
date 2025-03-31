@@ -100,7 +100,7 @@ public class BoardService extends BaseService {
 				return dao.getCustomBoard(board);
 			}
 		} else {
-			if(boardManage.getBoard_type().equals("QNA")) {
+			if(boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")) {
 				return dao.getQnABoard(board);
 			} else if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("THEMEBOOK")
 					|| boardManage.getBoard_type().equals("BOOK_PORTAL")) {
@@ -277,7 +277,7 @@ public class BoardService extends BaseService {
 
 		board.setReply_list_yn(boardManage.getReply_list_yn());
 
-		if(boardManage.getBoard_type().equals("QNA")) {
+		if(boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")) {
 			return dao.getQnABoardCount(board);
 		} else if(boardManage.getBoard_type().equals("BOOK") || boardManage.getBoard_type().equals("MOVIE") || boardManage.getBoard_type().equals("THEMEBOOK")
 				|| boardManage.getBoard_type().equals("BOOK_PORTAL")) {
@@ -467,7 +467,7 @@ public class BoardService extends BaseService {
 				dao.modifyBoardFileCount(board);
 				
 			}
-			if(boardManage.getBoard_type().equals("QNA")){
+			if(boardManage.getBoard_type().equals("QNA") || boardManage.getBoard_type().equals("POETRY")){
 				dao.modifyQnaBoard(board);
 			}
 		}
