@@ -109,7 +109,7 @@ $(document).ready(function() {
             alert('연락처를 형식에 맞춰 입력해주세요.');
             return false;
         }
-        if ($('input#imsi_v_1_1_man').val() == null || $('input#imsi_v_1_1_woman').val() == null) {
+        if (!$('input#imsi_v_1_man').is(":checked") && !$('input#imsi_v_1_woman').is(":checked")) {
             alert('성별을 선택해주세요.');
             return false;
         }
