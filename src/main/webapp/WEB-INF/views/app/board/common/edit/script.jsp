@@ -100,6 +100,19 @@ $(document).ready(function() {
 
 	$('a#board_save_btn').on('click', function(e) {
 		e.preventDefault();
+        let phoneRegix = /^(01[016789]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+        if ($('input#user_phone').val() == null || $('input#user_phone').val() === '') {
+            alert('연락처를 입력해주세요.');
+            return false;
+        }
+        if (!phoneRegix.test($('input#user_phone').val())) {
+            alert('연락처를 형식에 맞춰 입력해주세요.');
+            return false;
+        }
+        if (!$('input#imsi_v_1_man').is(":checked") && !$('input#imsi_v_1_woman').is(":checked")) {
+            alert('성별을 선택해주세요.');
+            return false;
+        }
 
 		var agreeLength = $('div.agree_codes input[name="agree_codes"]').length;
 		for(var i = 1; i <= agreeLength; i++) {
@@ -110,19 +123,19 @@ $(document).ready(function() {
 		}
 
 		$('#boardFileArray > option').prop('selected', true);
-		
+
 		//$('#content').val($('#content').val().replace(/onE|onM|alert|EMBED|onerror|error/g, ''));
-		
+
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		if(isEditorOn()) {
 			//유튜브 업로드시 iframe 사용시 사용가능하게
 			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED|onerror|error|onF|onf|onm|onC|Script|script/gi, '');
-			
+
 			oEditors.getById["content"].exec("SET_IR", ['']);
 		 	oEditors.getById["content"].exec("PASTE_HTML", [text]);
 		 	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
 		}
-		</c:if>	
+		</c:if>
 		doAjaxPostBoard($('#board'));
 	});
 
