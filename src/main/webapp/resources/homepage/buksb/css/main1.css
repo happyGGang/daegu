@@ -11,12 +11,12 @@
     padding-top: 100px;
     display: flex;
     flex-direction: column;
-    width: 780px;
+    width: 800px;
 }
 
 .board_header {
     display: flex;
-    width: 788px;
+    width: 800px;
     justify-content: space-between;
     padding-bottom: 32px;
     border-bottom: 2px solid #000;
@@ -25,7 +25,7 @@
 
 .board_title {
     color: #000;
-    font-family: Pretendard, serif;
+    font-family: 'Pretendard';
     font-size: 36px;
     font-style: normal;
     font-weight: 600;
@@ -41,7 +41,7 @@
 .board_navigation_menu {
     position: relative;
     color: #767676;
-    font-family: Pretendard, serif;
+    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -88,11 +88,12 @@
     justify-content: space-between;
     padding: 34px 4px 34px 4px;
     border-bottom: 1px solid #DDDDDD;
+    box-sizing: border-box;
 }
 
 .board_content_title a div {
     color: #000;
-    font-family: Pretendard, serif;
+    font-family: 'Pretendard';
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -105,7 +106,7 @@
 
 .board_content_update_date {
     color: #767676;
-    font-family: Pretendard, serif;
+    font-family: Pretendard;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -114,20 +115,20 @@
 
 .popup_zone {
     padding-top: 100px;
-    width: 396px;
+    width: 382px;
     height: 540px;
     border-radius: 20px;
     position: relative;
 }
 
 .popup_zone .swiper {
-    width: 396px;
+    width: 382px;
     height: 540px;
     border-radius: 20px;
 }
 
 .popup_zone .swiper-slide img {
-    width: 396px;
+    width: 382px;
     height: 540px;
     border-radius: 20px;
     object-fit: cover;
@@ -178,7 +179,7 @@
 .popup_zone .swiper-pagination-fraction .swiper-pagination-current {
     color: #000;
     text-align: center;
-    font-family: Pretendard, serif;
+    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 800;
@@ -189,7 +190,7 @@
 
 .popup_zone .swiper-pagination-fraction .swiper-pagination-total {
     color: #767676;
-    font-family: Pretendard, serif;
+    font-family: Pretendard;
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
@@ -544,7 +545,7 @@
 
 @media all and (max-width:479px) {
     #main1 {
-        height: 840px;
+        height: auto;
         margin: 40px 0 0;
         padding: 0 16px;
         box-sizing: border-box;
