@@ -42,6 +42,7 @@
 							<li class="disabled"><a title="삼국유사군위도서관" href="http://library.daegu.go.kr/gw/index.do">삼국유사군위도서관</a></li>
 							<li class="disabled"><a title="북부도서관" href="http://library.daegu.go.kr/seobu/index.do">서부도서관</a></li>
 							<li class="disabled"><a title="수성도서관" href="http://library.daegu.go.kr/suseong/index.do">수성도서관</a></li>
+							<li class="disabled"><a title="서변숲도서관" href="https://library.daegu.go.kr/buksb/index.do">서변숲도서관</a></li>
 
 							<!-- <li class="disabled"><a href="#">대구광역시 공공도서관</a></li> -->
 							<li class="disabled"><a title="남구대명어울림도서관" href="http://library.daegu.go.kr/namdm/index.do">남구대명어울림도서관</a></li>
