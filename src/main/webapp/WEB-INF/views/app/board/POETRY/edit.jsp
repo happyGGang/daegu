@@ -46,12 +46,12 @@ ${boardManage.top_html}
 					<th>낭송 시 제목</th>
 					<td>
 						<form:select path="title" cssClass="selectmenu">
-							<form:option value="박인환">박인환</form:option>
-							<form:option value="기형도">기형도</form:option>
-							<form:option value="윤동주">윤동주</form:option>
-							<form:option value="이상">이상</form:option>
-							<form:option value="이육사">이육사</form:option>
-							<form:option value="김소월">김소월</form:option>
+							<form:option value="박인환<목마와 숙녀>">박인환<목마와 숙녀></form:option>
+							<form:option value="기형도<빈집>">기형도<빈집></form:option>
+							<form:option value="윤동주<서시>">윤동주<서시></form:option>
+							<form:option value="이상<이런시>">이상<이런시></form:option>
+							<form:option value="이육사<광야>">이육사<광야></form:option>
+							<form:option value="김소월<첫사랑>">김소월<첫사랑></form:option>
 						</form:select>
 					</td>
 					<th>작성자</th>
