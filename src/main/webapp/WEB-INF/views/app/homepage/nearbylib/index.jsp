@@ -212,6 +212,15 @@ $(function() {
 		$('.nearbylibinfo04').show();
 	});
 
+	$('.nearbylibinfo05').find('.btn-close').click(function(e){
+		$('.nearbylibinfo05').hide();
+	});
+
+	$('a.info05-btn-open').click(function(e){
+		e.preventDefault();
+		$('.nearbylibinfo05').show();
+	});
+
 	$('a#mo-cgv-btn').click(function(e){
 		e.preventDefault();
 		var activeUrl = $(this).attr('href');
@@ -331,6 +340,11 @@ function isFromFridayToSunday() {
 					<img src="/resources/homepage/${homepage.context_path}/img/isia.png" alt="">
 				</a>
 			</span>-->
+			<span class="dtc">
+				<a href="#dtc" class="info05-btn-open">
+					<img src="/resources/homepage/${homepage.context_path}/img/dtc.png" alt="">
+				</a>
+			</span>
 			<span class="lib01">
 				<a href="/${homepage.context_path}/html.do?menu_idx=32">
 					<img src="/resources/homepage/${homepage.context_path}/img/lib01.png" alt="">
@@ -421,6 +435,7 @@ function isFromFridayToSunday() {
 								  <li class="active"><a href="#tabCon0">퀵가이드</a></li>
 								  <li><a href="#tabCon1">연경지구 CGV</a></li>
 								  <!--<li><a href="#tabCon2">이시아폴리스 메가박스</a></li>-->
+								  <li><a href="#tabCon2">대구섬유 박물관</a></li>
 								  <li><a href="#tabCon3">반야월 이마트</a></li>
 								  <li><a href="#tabCon4">내 집 앞 도서관 홍보영상</a></li>
 								</ul>
@@ -791,6 +806,67 @@ function isFromFridayToSunday() {
 			</div>
 		</div>
 	</div>
+
+	<!--<div class="nearbylibinfo05" style="display:none;">
+		<div class="nearbylibinfo05-shadow"></div>
+		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
+		<div class="infoArea">
+			<div class="nbl-info-box4">
+				<div class="nbl-position">
+					<p>정문 앞</p>
+					<h5>좌측</h5>
+				</div>
+				<h3 class="nbl">주소</h3>
+				<ul class="nbl-list">
+					<li>대구광역시 동구 팔공로 227</li>
+				</ul>
+				<h3 class="nbl">상세위치</h3>
+				<ul class="nbl-list num">
+				    <li><p>1</p> <span>정문 입구 좌측에서 내 집 앞 도서관 서비스 이용</span></li>
+					
+				</ul>
+				<h3 class="nbl">주차정보</h3>
+				<ul class="nbl-list">
+					<li>지하 1~2층 주차장 이용(대형버스는 지상 주차장 이용)</li>
+					<li>무료주차 가능</li>
+				</ul>
+				<h3 class="nbl">교통정보</h3>
+				<ul class="bus_list">
+					<li><span class="ico_bus_m">간선<span class="num">101</span></span></li>
+					<li><span class="ico_bus_m">간선<span class="num">101-1</span></span></li>
+					<li><span class="ico_bus_m">간선<span class="num">401</span></span></li>
+					<li><span class="ico_bus_j">지선<span class="num">팔공1</span></span></li>
+					<li><span class="ico_bus_j">지선<span class="num">팔공2</span></span></li>
+					<li><span class="ico_bus_j">지선<span class="num">동구8</span></span></li>
+				</ul>
+				<div class="end"></div>
+				<h3 class="nbl">건물 내 편의시설</h3>
+				<ul class="add-fac">
+					<li>
+						<img src="/resources/homepage/nearbylib/img/nbl-info-ico5-1.png">
+						<p>주차장</p>
+					</li>
+					<li>
+						<img src="/resources/homepage/nearbylib/img/nbl-info-ico5-2.png">
+						<p>무선인터넷</p>
+					</li>
+					<li>
+						<img src="/resources/homepage/nearbylib/img/nbl-info-ico5-3.png">
+						<p>화장실</p>
+					</li>
+					<li>
+						<img src="/resources/homepage/nearbylib/img/nbl-info-ico5-4.png">
+						<p>식당</p>
+					</li>
+					<li>
+						<img src="/resources/homepage/nearbylib/img/nbl-info-ico5-5.png">
+						<p>장애인편의</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	-->
 
 	<div class="nearbylibinfo04" style="display:none;">
 		<div class="nearbylibinfo03-shadow"></div>

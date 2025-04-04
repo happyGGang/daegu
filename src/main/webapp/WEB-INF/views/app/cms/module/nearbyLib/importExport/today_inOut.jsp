@@ -215,6 +215,7 @@ table thead th, table tbody td {font-size:12px;}
 				<form:option value="1">연경CGV</form:option>
 				<form:option value="2">이시아MEGABOX</form:option>
 				<form:option value="3">반야월이마트</form:option>
+				<form:option value="5">대구섬유박물관</form:option>
 			</form:select>
 		</div>
 		<c:if test="${not empty start_time}">
