@@ -254,6 +254,7 @@ $(function() {
 								<option value="127090">이천어울림도서관</option>
 								<option value="127091">대명어울림도서관</option>
 								<option value="127015">꿈틀 작은도서관</option>
+								<option value="127074">다문화어린이도서관모두</option>
 							</select>
 					</c:when>
 					<c:when test="${homepage.context_path eq 'dgportal'}">

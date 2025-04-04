@@ -839,7 +839,7 @@ $(function() {
 
 				<c:when test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic'}">
 					<c:choose>
-						<c:when test="${detail.MANAGE_CODE eq 'BT' || detail.MANAGE_CODE eq 'BS' || detail.MANAGE_CODE eq 'FE'}">
+						<c:when test="${detail.MANAGE_CODE eq 'BT' || detail.MANAGE_CODE eq 'BS' || detail.MANAGE_CODE eq 'FE' || detail.MANAGE_CODE eq 'HV'}">
 							<c:choose>
 								
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">

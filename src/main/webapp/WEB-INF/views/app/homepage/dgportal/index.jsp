@@ -957,6 +957,14 @@ do {
 										<div class="cont">
 											<ul>
 												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/217" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu24.png" alt="이육사"></div>
+														<p class="book-title">이육사</p>
+														<p class="book-desc">독립을 노래하다</p>
+														<p class="reg-date">2025-04-02</p>
+													</a>
+												</li>
+												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/209" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu23.png" alt="그린대로"></div>
 														<p class="book-title">그린대로</p>
@@ -2863,6 +2871,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+					<li>
+						<a href="http://www.icuration.co.kr:81/curation/w/217" target="_blank">
+							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu24.png" alt="이육사"></div>
+							<h3 class="book-title">이육사</h3>
+							<p class="book-desc">독립을 노래하다</p>
+							<p class="reg-date">2025-04-02</p>
+						</a>
+					</li>
 					<li>
 						<a href="http://www.icuration.co.kr:81/curation/w/209" target="_blank">
 							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu23.png" alt="그린대로"></div>

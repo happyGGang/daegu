@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.12.31. 기준] (단위 : 권)</span></h3>
+				<h3>주제별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2025.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="주제별 자료현황을 나타내는 표">
@@ -87,38 +87,38 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+				            <tr>
 								<th>권수</th>
-								<td>1,476</td>
-								<td>1,305</td>
-								<td>469</td>
-								<td>4,513</td>
-								<td>2,969</td>
-								<td>2,483</td>
-								<td>1,048</td>
-								<td>1,795</td>
-								<td>15,580</td>
-								<td>2,784</td>
-								<td>34,422</td>
-							</tr>
-							<tr>
+								<td>1,478</td>
+								<td>1,317</td>
+								<td>471</td>
+								<td>4,533</td>
+								<td>2,979</td>
+								<td>2,488</td>
+								<td>1,049</td>
+								<td>1,798</td>
+								<td>15,639</td>
+								<td>2,790</td>
+								<td>34,542</td>
+							  </tr>
+							  <tr>
 								<th>비율</th>
-								<td>4.3</td>
-								<td>3.8</td>
-								<td>1.4</td>
-								<td>13.1</td>
-								<td>8.6</td>
-								<td>7.2</td>
-								<td>3.0</td>
-								<td>5.2</td>
-								<td>45.3</td>
-								<td>8.1</td>
+								<td>4</td>
+								<td>4</td>
+								<td>1</td>
+								<td>13</td>
+								<td>9</td>
+								<td>7</td>
+								<td>3</td>
+								<td>5</td>
+								<td>45</td>
+								<td>8</td>
 								<td>100</td>
-							</tr>
+							  </tr>
 						</tbody>
 					</table>
 				</div>
-				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.12.31. 기준] (단위 : 권)</span></h3>
+				<h3>별치기호별 자료현황<span class="sm_text sm_text02" style="margin-top:10px;">[2025.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="별치기호별 자료현황을 나타내는 표">
@@ -136,43 +136,43 @@
 							<col width="12.5%">
 						</colgroup>
 						<thead>
-							<tr>
-								<th>구 분</th>
-								<th>아동</th>
-								<th>유아</th>
-								<th>일반</th>
-								<th>큰글</th>
-								<th>참고</th>
-								<th>영어</th>
-								<th>총계</th>
-							</tr>
+						<tr>
+							<th>구분</th>
+							<th>아동</th>
+							<th>유아</th>
+							<th>일반</th>
+							<th>큰글</th>
+							<th>참고</th>
+							<th>영어</th>
+							<th>총계</th>
+						  </tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th>권수</th>
-								<td>10,643</td>
-								<td>5,808</td>
-								<td>14,185</td>
-								<td>76</td>
-								<td>234</td>
-								<td>3,476</td>
-								<td>34,422</td>
-							</tr>
-							<tr>
-								<th>비율</th>
-								<td>30.9</td>
-								<td>16.9</td>
-								<td>41.2</td>
-								<td>0.2</td>
-								<td>0.7</td>
-								<td>10.1</td>
-								<td>100</td>
-							</tr>
-						</tbody>
+						 <tr>
+							<th>권수</th>
+							<td>10,681</td>
+							<td>5,809</td>
+							<td>14,265</td>
+							<td>77</td>
+							<td>234</td>
+							<td>3,476</td>
+							<td>34,542</td>
+						  </tr>
+						  <tr>
+							<th>비율</th>
+							<td>31</td>
+							<td>17</td>
+							<td>41</td>
+							<td>-</td>
+							<td>1</td>
+							<td>10</td>
+							<td>100</td>
+						  </tr>
+							</tbody>
 					</table>
 				</div>
 				<p>보존서고: 3,806권 포함</p>
-				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2024.12.31. 기준] (단위 : 권)</span></h3>
+				<h3>간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[2025.3.31. 기준] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="책숲길도서관 간행물 현황을 나타내는 표">
@@ -205,12 +205,12 @@
 							<tr>
 								<th>국내</th>
 								<td>2</td>
-								<td>2</td>
-								<td>2</td>
-								<td>11</td>
+								<td>-</td>
 								<td>1</td>
-								<td>0</td>
-								<td>18</td>
+								<td>8</td>
+								<td>-</td>
+								<td>1</td>
+								<td>12</td>
 							</tr>
 						</tbody>
 					</table>
