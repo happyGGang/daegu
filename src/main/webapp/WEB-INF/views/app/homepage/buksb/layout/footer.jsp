@@ -153,9 +153,7 @@
           <option value="http://library.daegu.go.kr/donggu/index.do">
             동구통합도서관
           </option>
-		  <option value="https://library.daegu.go.kr/buksb/index.do">
-            북구서변숲도서관
-          </option>
+		  
           <option value="http://library.daegu.go.kr/bukgs/index.do">
             북구구수산도서관
           </option>
@@ -164,6 +162,9 @@
           </option>
           <option value="http://library.daegu.go.kr/buktj/index.do">
             북구태전도서관
+          </option>
+		  <option value="https://library.daegu.go.kr/buksb/index.do">
+            북구서변숲도서관
           </option>
           <option value="http://library.daegu.go.kr/seogulib/index.do">
             서구통합도서관
