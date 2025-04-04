@@ -431,12 +431,12 @@ function isFromFridayToSunday() {
 					<div class="video-box">
 						<div class="container">
 							<div class="tab_menu main on" style="margin-top:20px;">
-								<ul class="no4">
+								<ul class="no5">
 								  <li class="active"><a href="#tabCon0">퀵가이드</a></li>
 								  <li><a href="#tabCon1">연경지구 CGV</a></li>
 								  <!--<li><a href="#tabCon2">이시아폴리스 메가박스</a></li>-->
-								  <li><a href="#tabCon2">대구섬유 박물관</a></li>
 								  <li><a href="#tabCon3">반야월 이마트</a></li>
+								  <li><a href="#tabCon5">대구섬유박물관</a></li>
 								  <li><a href="#tabCon4">내 집 앞 도서관 홍보영상</a></li>
 								</ul>
 							</div>
@@ -477,6 +477,11 @@ function isFromFridayToSunday() {
 									<div class="inner">
 										<iframe class="youtube-video" id='youtube-video-03' width="90%" height="708" src="https://www.youtube.com/embed/zC85gj2o9JU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>										<!-- <video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video> -->
 									</div>
+								</div>
+							</div>
+							<div class="tabConts" id="tabCon5">
+								<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 660px;">
+									<p style="font-size: 24px; font-weight: 500;">준비중입니다.</p>
 								</div>
 							</div>
 							<div class="tabConts" id="tabCon4">
@@ -521,16 +526,21 @@ function isFromFridayToSunday() {
 									<span>연경</span>
 								</a>
 							</li>
-							<li class="video-megabox" style="display: none;">
-								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" title="이시아폴리스 메가박스 이용방법"> -->
+							<!--<li class="video-megabox" style="display: none;">
+								<a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_ESIA.mp4" title="이시아폴리스 메가박스 이용방법">
 								<a href="#mo-esia-view" id='mo-esia-btn' title="이시아폴리스 메가박스 이용방법">
 									<span>이시아폴리스</span>
 								</a>
-							</li>
+							</li>-->
 							<li class="video-emart">
 								<!-- <a href="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" title="반야월 이마트 이용방법"> -->
 								<a href="#mo-emart-view" id='mo-emart-btn' title="반야월 이마트 이용방법">
 									<span>반야월</span>
+								</a>
+							</li>
+							<li class="video-dtc">
+								<a href="#mo-dtc-view" id='mo-emart-btn' title="대구섬유박물관 이용방법">
+									<span>대구섬유박물관</span>
 								</a>
 							</li>
 						</ul>
@@ -807,7 +817,7 @@ function isFromFridayToSunday() {
 		</div>
 	</div>
 
-	<!--<div class="nearbylibinfo05" style="display:none;">
+	<div class="nearbylibinfo05" style="display:none;">
 		<div class="nearbylibinfo05-shadow"></div>
 		<div class="closeBtn"><button class="btn btn-close"><span class="blind">닫기</span></button></div>
 		<div class="infoArea">
@@ -866,7 +876,6 @@ function isFromFridayToSunday() {
 			</div>
 		</div>
 	</div>
-	-->
 
 	<div class="nearbylibinfo04" style="display:none;">
 		<div class="nearbylibinfo03-shadow"></div>

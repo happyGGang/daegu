@@ -103,16 +103,16 @@
 							  </tr>
 							  <tr>
 								<th>비율</th>
-								<td>5</td>
-								<td>4</td>
-								<td>2</td>
-								<td>12</td>
-								<td>9</td>
-								<td>5</td>
-								<td>3</td>
-								<td>5</td>
-								<td>47</td>
-								<td>9</td>
+								 <td>4.6</td>
+								<td>3.9</td>
+								<td>1.8</td>
+								<td>11.8</td>
+								<td>8.8</td>
+								<td>4.8</td>
+								<td>2.8</td>
+								<td>5.4</td>
+								<td>46.7</td>
+								<td>9.4</td>
 								<td>100</td>
 							  </tr>
 						</tbody>
@@ -157,11 +157,11 @@
 						  </tr>
 						  <tr>
 							<th>비율</th>
-							<td>44</td>
-							<td>13</td>
-							<td>31</td>
-							<td>0</td>
-							<td>12</td>
+							<td>44.0</td>
+							<td>13.4</td>
+							<td>30.9</td>
+							<td>0.2</td>
+							<td>11.5</td>
 							<td>100</td>
 						  </tr>
 						</tbody>

@@ -10,18 +10,20 @@
 .yeongyeong {position:absolute;left:43%;top:19.5%;transition:all .3s ease;}
 .isia {position:absolute;left:49%;top:38%;transition:all .3s ease;}
 .bayawol {position:absolute;left:75.5%;top:58%;transition:all .3s ease;}
+.dtc {position:absolute;left:59.8%;top:48.5%;transition:all .3s ease;}
 .lib01 {position:absolute;left:11.2%;top:72.3%;transition:all .3s ease;}
 .lib02 {position:absolute;left:19.5%;top:50%;transition:all .3s ease;}
 .lib03 {position:absolute;left:27.8%;top:51.5%;transition:all .3s ease;}
 .lib04 {position:absolute;left:18.3%;top:26%;transition:all .3s ease;}
 .lib05 {position:absolute;left:65.7%;top:74%;transition:all .3s ease;}
 .bal01 {position:absolute;left:56.7%;top:75%;transition:all .3s ease;}
-.bal02 {position:absolute;left:64.2%;top:43%;transition:all .3s ease;}
+.bal02 {position:absolute;left:31.5%;top:35.5%;transition:all .3s ease;}
 .bal03 {position:absolute;left:87%;top:50%;transition:all .3s ease;}
 
 .yeongyeong a img,
 .isia a img,
 .bayawol a img,
+.dtc a img,
 .lib01 a img,
 .lib02 a img,
 .lib03 a img,
@@ -34,6 +36,7 @@
 .yeongyeong a,
 .isia a,
 .bayawol a,
+.dtc a,
 .lib01 a,
 .lib02 a,
 .lib03 a,
@@ -47,6 +50,7 @@
 .yeongyeong a:hover,
 .isia a:hover,
 .bayawol a:hover,
+.dtc a:hover,
 .lib01 a:hover,
 .lib02 a:hover,
 .lib03 a:hover,
@@ -151,6 +155,9 @@
 .nearbylibinfo03 {display: none;position: fixed;top:0;left:0;width: 100%;height: 100%;z-index: 12;}
 .nearbylibinfo03-shadow {position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8);}
 
+.nearbylibinfo05 {display: none;position: fixed;top:0;left:0;width: 100%;height: 100%;z-index: 12;}
+.nearbylibinfo05-shadow {position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8);}
+
 .mo-video-view {display: none;position: fixed;top:0;left:0;width: 100%;height: 100%;z-index: 12;}
 .mo-nearby-shadow {position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8);}
 
@@ -193,6 +200,7 @@
 	.yeongyeong a img,
 	.isia a img,
 	.bayawol a img,
+	.dtc a img,
 	.lib01 a img,
 	.lib02 a img,
 	.lib03 a img,
@@ -209,6 +217,7 @@
 	.yeongyeong a img,
 	.isia a img,
 	.bayawol a img,
+	.dtc a img,
 	.lib01 a img,
 	.lib02 a img,
 	.lib03 a img,
@@ -234,6 +243,7 @@
 	.yeongyeong a img,
 	.isia a img,
 	.bayawol a img,
+	.dtc a img,
 	.lib01 a img,
 	.lib02 a img,
 	.lib03 a img,
@@ -254,6 +264,7 @@
 	.yeongyeong a img,
 	.isia a img,
 	.bayawol a img,
+	.dtc a img,
 	.lib01 a img,
 	.lib02 a img,
 	.lib03 a img,
@@ -273,6 +284,7 @@
 	.yeongyeong a img,
 	.isia a img,
 	.bayawol a img,
+	.dtc a img,
 	.lib01 a img,
 	.lib02 a img,
 	.lib03 a img,
@@ -294,6 +306,7 @@
 	.yeongyeong a img,
 	.isia a img,
 	.bayawol a img,
+	.dtc a img,
 	.lib01 a img,
 	.lib02 a img,
 	.lib03 a img,
@@ -438,11 +451,13 @@ ul.bus_list span.num{display:block;background:#f1f1f1;height:30px;line-height:30
 
 .nbl-info-box1,
 .nbl-info-box2,
-.nbl-info-box3{position:relative;padding-left:750px;min-height:580px;}
+.nbl-info-box3,
+.nbl-info-box4{position:relative;padding-left:750px;min-height:580px;}
 
 .nbl-info-box1{background:url('/resources/homepage/nearbylib/img/nbl-info-img3-1.png')no-repeat;}
 .nbl-info-box2{background:url('/resources/homepage/nearbylib/img/nbl-info-img3-2.png')no-repeat;}
 .nbl-info-box3{background:url('/resources/homepage/nearbylib/img/nbl-info-img3-3.png')no-repeat;}
+.nbl-info-box4{background:url('/resources/homepage/nearbylib/img/nbl-info-img3-4.png')no-repeat;}
 
 .nbl-position{position:absolute;top:20px;left:20px;width:130px;height:130px;text-align:center;background:rgba(0,0,0,0.85);border-top-right-radius:100px;border-bottom-left-radius:100px;border-bottom-right-radius:100px;}
 .nbl-position p{font-size:17px;letter-spacing:-0.25px;color:#fff;padding-top:30px;}
@@ -493,7 +508,7 @@ ul.bus_list span.num{display:block;background:#f1f1f1;height:30px;line-height:30
 .quickGuide-box .quickGuide.fl-left{float:left;}
 .quickGuide-box .quickGuide.fl-right{float:right;}
 .quickGuide-box .quickGuide h5{margin-top:-30px;text-align:center;}
-.quickGuide-box .quickGuide.fl-left p, .quickGuide-box .quickGuide.fl-right p{margin-top:55px;}
+.quickGuide-box .quickGuide.fl-left p, .quickGuide-box .quickGuide.fl-right p{margin-top:20px;}
 
 @media all and (max-width: 1600px) {
 	.quickGuide-box{width:80%;}
