@@ -374,13 +374,13 @@ $(function() {
 					return false;
 				}
 
-				var student_family_team = $form.find('#student_family_team').val();
-				if (student_family_team == '') {
-					$form.find('#student_family_team').focus();
-					alert('가족구성원을 입력해주세요.');
-					doubleSubmit = false;
-					return false;
-				}
+				// var student_family_team = $form.find('#student_family_team').val();
+				// if (student_family_team == '') {
+				// 	$form.find('#student_family_team').focus();
+				// 	alert('가족구성원을 입력해주세요.');
+				// 	doubleSubmit = false;
+				// 	return false;
+				// }
 				</c:if>
 
 				<%--				<c:if test="${teach.age_info_yn eq 'Y'}">--%>
@@ -866,10 +866,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<th>참여가족 인원 수(<span style="color: red; font-weight: bold;">*</span>)</th>
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
 				</tr>
-				<tr>
-					<th>참여가족 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>
-					<td><form:input path="student_family_team" cssClass="text" cssStyle="width: 300px;"/></td>
-				</tr>
+<%--				<tr>--%>
+<%--					<th>참여가족 구성원(<span style="color: red; font-weight: bold;">*</span>)</th>--%>
+<%--					<td><form:input path="student_family_team" cssClass="text" cssStyle="width: 300px;"/></td>--%>
+<%--				</tr>--%>
 			</c:if>
         	<c:if test="${teach.school_info_yn eq 'Y'}">
         	<tr>
@@ -1219,10 +1219,10 @@ $(document).on("keyup", "input:text[numberOnly]", function() {$(this).val( $(thi
 					<th>참여가족 인원 수</th>
 					<td><form:input path="student_family_count" cssClass="text" numberOnly="true" title="참여가족인원수"/></td>
 				</tr>
-				<tr>
-					<th>참여가족 구성원</th>
-					<td><form:input path="student_family_team" cssClass="text"/></td>
-				</tr>
+<%--				<tr>--%>
+<%--					<th>참여가족 구성원</th>--%>
+<%--					<td><form:input path="student_family_team" cssClass="text"/></td>--%>
+<%--				</tr>--%>
 			</c:if>
 		</tbody>
 	</table>
