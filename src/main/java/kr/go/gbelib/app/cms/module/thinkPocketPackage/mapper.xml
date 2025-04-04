@@ -375,7 +375,7 @@
       THINK_POCKET_PACKAGE a
     WHERE
       homepage_id = #{homepage_id}
-    ORDER BY think_pocket_package_idx DESC
+    ORDER BY a.output_order ASC
   </select>
 
   <!-- 엑셀용 ThinkPocketPackageLoan 리스트 -->

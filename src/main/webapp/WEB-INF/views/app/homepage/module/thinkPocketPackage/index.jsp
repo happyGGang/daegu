@@ -4,124 +4,137 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script type="text/javascript">
-  $(function () {
+    $(function () {
 
-    $('.view-btn').on('click', function (e) {
-      e.preventDefault();
-      var formData = 'menu_idx=' + $('#menu_idx').val() + '&viewPage=' + $('#viewPage').val() + '&think_pocket_package_idx=' + $(this).attr('keyValue');
-      doGetLoad('view.do', formData);
+        $('.view-btn').on('click', function (e) {
+            e.preventDefault();
+            var formData = 'menu_idx=' + $('#menu_idx').val() + '&viewPage=' + $('#viewPage').val() + '&think_pocket_package_idx=' + $(this).attr('keyValue');
+            doGetLoad('view.do', formData);
+        });
+
+        $('.delete-btn').on('click', function (e) {
+            e.preventDefault();
+            if (confirm('삭제하시겠습니까?')) {
+                $('#think_pocket_package_idx_d').val($(this).attr('keyValue'));
+                if (doAjaxPost($('form#thinkPocketPackageDel'))) {
+                    location.reload();
+                }
+
+            }
+        });
+
+        // 책 꾸러미 대출 신청
+        $('.request-btn').on('click', function (e) {
+            e.preventDefault();
+            var formData = 'editMode=ADD&menu_idx=' + $('#menu_idx').val() + '&think_pocket_package_idx=' + $(this).attr('keyValue');
+            doGetLoad('loanEdit.do', formData);
+        });
+
+        $('input#chkAll').on('click', function () {
+            $('.categoryChk').prop('checked', false);
+            $('#viewPage').val(1);
+            doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
+        });
+
+        $('.categoryChk').on('click', function () {
+            $('input#chkAll').prop('checked', false);
+            $('#viewPage').val(1);
+            doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
+        });
+
+        $('select#grade, select#lender_count, select#category').on('change', function () {
+            $('#viewPage').val(1);
+            doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
+        });
+
+        $('button#search_btn').on('click', function (e) {
+            $('#viewPage').val(1);
+            doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
+        });
+
+        $('a#excelDownload').on('click', function (e) {
+            e.preventDefault();
+            if ('${fn:length(thinkPocketPackageList)}' > 0) {
+                $('#editMode').val('thinkPocketPackage');
+                $('#thinkPocketPackage').attr('method', 'POST');
+                $('#thinkPocketPackage').attr('action', 'excelDownload.do').submit();
+                $('form#thinkPocketPackage').submit();
+
+                $('#thinkPocketPackage').attr('method', 'GET');
+                $('#thinkPocketPackage').attr('action', 'index.do');
+            } else {
+                alert('해당 내역이 없습니다.');
+            }
+        });
+
+        $('#all-check').on('click', function (e) {
+            e.preventDefault();
+            if ($(this).attr('keyValue') == 'N') {
+                $(this).attr('keyValue', 'Y');
+                $('.book_check').prop('checked', true);
+            } else {
+                $(this).attr('keyValue', 'N');
+                $('.book_check').prop('checked', false);
+            }
+        });
+
+        $('#delete-check').on('click', function (e) {
+            e.preventDefault();
+            if ($('.book_check:checked').length == 0) {
+                alert('삭제할 리스트를 선택하세요.');
+                return false;
+            }
+            if (confirm('선택 항목들을 삭제하시겠습니까?')) {
+                $('form#thinkPocketPackage').attr('action', 'save.do');
+                $('form#thinkPocketPackage').attr('method', 'POST');
+                $('#editMode').val('DELETE_CHECK');
+                if (doAjaxPost($('form#thinkPocketPackage'))) {
+                    location.reload();
+                }
+            }
+        });
+
+        $('a.tit-search-btn').on('click', function (e) {
+            e.preventDefault();
+            var title = $(this).parent('div.btn-box').siblings('div.content-box').find('div.subject a').text();
+            var data = 'menu_idx=140&manage_idx=212&search_type=title%2Bcontent&search_text=' + title.replace(/ ([(][A-Z][)])| [A-Z]$/g, '');
+            doGetLoad('/${homepage.context_path}/board/index.do', data);
+        });
+
     });
 
-    $('.delete-btn').on('click', function (e) {
-      e.preventDefault();
-      if (confirm('삭제하시겠습니까?')) {
-        $('#think_pocket_package_idx_d').val($(this).attr('keyValue'));
-        if (doAjaxPost($('form#thinkPocketPackageDel'))) {
-          location.reload();
-        }
+    $(function () {
+        $('.tabmenu a').on('click', function () {
+            let key = $(this).attr('keyValue');
 
-      }
+            let grade = $(this).attr("gradeVal");
+
+            let data = $('form#thinkPocketPackage')
+                .find(':input[name!=grade]')
+                .serialize();
+            let url = 'index.do?grade=' + encodeURIComponent(grade) + '&' + data;
+
+            if (key === 'tabCon1') {
+                doGetLoad('../thinkPocketPackage/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}');
+            } else if (key === 'tabCon2') {
+                doGetLoad(url);
+            } else if (key === 'tabCon3') {
+                doGetLoad(url);
+            }
+        });
     });
-
-    // 책 꾸러미 대출 신청
-    $('.request-btn').on('click', function (e) {
-      e.preventDefault();
-      var formData = 'editMode=ADD&menu_idx=' + $('#menu_idx').val() + '&think_pocket_package_idx=' + $(this).attr('keyValue');
-      doGetLoad('loanEdit.do', formData);
-    });
-
-    $('input#chkAll').on('click', function () {
-      $('.categoryChk').prop('checked', false);
-      $('#viewPage').val(1);
-      doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
-    });
-
-    $('.categoryChk').on('click', function () {
-      $('input#chkAll').prop('checked', false);
-      $('#viewPage').val(1);
-      doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
-    });
-
-    $('select#grade, select#lender_count').on('change', function () {
-      $('#viewPage').val(1);
-      doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
-    });
-
-    $('button#search_btn').on('click', function (e) {
-      $('#viewPage').val(1);
-      doGetLoad('index.do', $('form#thinkPocketPackage').serialize());
-    });
-
-    $('a#excelDownload').on('click', function (e) {
-      e.preventDefault();
-      if ('${fn:length(thinkPocketPackageList)}' > 0) {
-        $('#editMode').val('thinkPocketPackage');
-        $('#thinkPocketPackage').attr('method', 'POST');
-        $('#thinkPocketPackage').attr('action', 'excelDownload.do').submit();
-        $('form#thinkPocketPackage').submit();
-
-        $('#thinkPocketPackage').attr('method', 'GET');
-        $('#thinkPocketPackage').attr('action', 'index.do');
-      } else {
-        alert('해당 내역이 없습니다.');
-      }
-    });
-
-    $('#all-check').on('click', function (e) {
-      e.preventDefault();
-      if ($(this).attr('keyValue') == 'N') {
-        $(this).attr('keyValue', 'Y');
-        $('.book_check').prop('checked', true);
-      } else {
-        $(this).attr('keyValue', 'N');
-        $('.book_check').prop('checked', false);
-      }
-    });
-
-    $('#delete-check').on('click', function (e) {
-      e.preventDefault();
-      if ($('.book_check:checked').length == 0) {
-        alert('삭제할 리스트를 선택하세요.');
-        return false;
-      }
-      if (confirm('선택 항목들을 삭제하시겠습니까?')) {
-        $('form#thinkPocketPackage').attr('action', 'save.do');
-        $('form#thinkPocketPackage').attr('method', 'POST');
-        $('#editMode').val('DELETE_CHECK');
-        if (doAjaxPost($('form#thinkPocketPackage'))) {
-          location.reload();
-        }
-      }
-    });
-
-    $('a.tit-search-btn').on('click', function (e) {
-      e.preventDefault();
-      var title = $(this).parent('div.btn-box').siblings('div.content-box').find('div.subject a').text();
-      var data = 'menu_idx=140&manage_idx=212&search_type=title%2Bcontent&search_text=' + title.replace(/ ([(][A-Z][)])| [A-Z]$/g, '');
-      doGetLoad('/${homepage.context_path}/board/index.do', data);
-    });
-
-  });
-
-  $(function () {
-    $('.tabmenu a').on('click', function () {
-      var key = $(this).attr('keyValue');
-      if (key == 'tabCon1') {
-      } else if (key == 'tabCon2') {
-        doGetLoad('../thinkPocketPackageBundle/index.do?menu_idx=${fn:escapeXml(param.menu_idx)}');
-      }
-    });
-  });
 
 </script>
 <link rel="stylesheet" href="/resources/common/css/thinkPocketPackage.css"/>
 <div class="tab_wrap">
-<div class="tabmenu on tab1">
-    <ul>
-        <li class="active"><a title="대출신청(책·미니·주제)" href="#tabCon1" keyvalue="tabCon1">대출신청(책·미니·주제)</a></li>
-    </ul>
-</div>
-<div class="phone_num" style="float:right;">문의 : 독서문화과(☎231-2059)</div>
+    <div class="tabmenu on tab1">
+        <ul>
+            <li class=${param.grade == null || param.grade == "" ? 'active' : ''}><a title="대출신청(책·미니·주제)" href="#tabCon1" keyvalue="tabCon1">대출신청(책·미니·주제)</a></li>
+            <li class=${param.grade == "1" ? 'active' : ''}><a title="유아" gradeVal="1" href="#tabCon2" keyvalue="tabCon2">유아</a></li>
+            <li class=${param.grade == "2" ? 'active' : ''}><a title="초등" gradeVal="2" href="#tabCon3" keyvalue="tabCon3">초등</a></li>
+        </ul>
+    </div>
+    <div class="phone_num" style="float:right;">문의 : 독서문화과(☎231-2059)</div>
 </div>
 <div class="tabCon active" id="tabCon1">
     <form:form modelAttribute="thinkPocketPackage" id="thinkPocketPackageDel" action="save.do" method="POST">
@@ -157,6 +170,29 @@
                 <form:option value="1">대출중</form:option>
                 <form:option value="0">대출가능</form:option>
             </form:select>
+<%--            <form:select path="category" cssClass="selectmenu new_select_box">--%>
+<%--                <form:option value="">주제별보기</form:option>--%>
+<%--                <form:option value="000">총류</form:option>--%>
+<%--                <form:option value="100">철학</form:option>--%>
+<%--                <form:option value="200">종교</form:option>--%>
+<%--                <form:option value="300">사회과학</form:option>--%>
+<%--                <form:option value="400">순수과학</form:option>--%>
+<%--                <form:option value="500">기술과학</form:option>--%>
+<%--                <form:option value="600">예술</form:option>--%>
+<%--                <form:option value="700">언어</form:option>--%>
+<%--                <form:option value="800">문학</form:option>--%>
+<%--                <form:option value="900">역사</form:option>--%>
+<%--            </form:select>--%>
+
+
+                <%--		국채보상운동 도서관만 활성화 --%>
+            <c:if test="${not empty categoryList and homepage.homepage_id eq 'h10'}">
+                <form:select path="category" cssClass="selectmenu new_select_box" >
+                    <form:options items="${categoryList}" itemLabel="code_name" itemValue="code_id"/>
+                </form:select>
+            </c:if>
+
+
             <div class="button">
 			 <!--<a href="https://library.daegu.go.kr/board/boardFile/download/28/530508/376117/%EC%B1%85%EA%BE%B8%EB%9F%AC%EB%AF%B8%20%EB%82%B4%EB%A0%A4%EB%B0%9B%EA%B8%B0%20%EB%AA%A9%EB%A1%9D.xls.do" id="excelDownload" class="btn btn2" download>-->
                 <a href="https://library.daegu.go.kr/board/boardFile/download/28/530508/376117/%EC%B1%85%EA%BE%B8%EB%9F%AC%EB%AF%B8%20%EB%82%B4%EB%A0%A4%EB%B0%9B%EA%B8%B0%20%EB%AA%A9%EB%A1%9D.xls.do" class="btn btn2" download title="책꾸러미 도서목록 다운로드"><i class="fa fa-file-excel-o"></i><span>도서목록 다운받기</span></a>
@@ -207,6 +243,23 @@
                                 <li>${i.publisher}</li>
                                 <li>|</li>
                                 <li>${i.publish_year}</li>
+                                <li>|</li>
+                                <li>
+                                    <c:forTokens items="${i.category}" delims="," var="category">
+                                        <c:choose>
+                                            <c:when test="${category eq '000'}">총류</c:when>
+                                            <c:when test="${category eq '100'}">철학</c:when>
+                                            <c:when test="${category eq '200'}">종교</c:when>
+                                            <c:when test="${category eq '300'}">사회과학</c:when>
+                                            <c:when test="${category eq '400'}">자연과학</c:when>
+                                            <c:when test="${category eq '500'}">기술과학</c:when>
+                                            <c:when test="${category eq '600'}">예술</c:when>
+                                            <c:when test="${category eq '700'}">언어</c:when>
+                                            <c:when test="${category eq '800'}">문학</c:when>
+                                            <c:when test="${category eq '900'}">역사</c:when>
+                                        </c:choose>
+                                    </c:forTokens>
+                                </li>
                             </ul>
                         </div>
                         <div class="book-desc">

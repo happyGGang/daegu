@@ -13,6 +13,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.co.whalesoft.app.cms.code.Code;
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
@@ -53,6 +56,9 @@ public class ThinkPocketPackageController extends BaseController {
 
   @Autowired
   private ThinkPocketPackageService service;
+  @Autowired
+  private CodeService codeService;
+
 
   @RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
   public String index(Model model, ThinkPocketPackage thinkPocketPackage, HttpServletRequest request) throws AuthException {
@@ -63,6 +69,12 @@ public class ThinkPocketPackageController extends BaseController {
 
     model.addAttribute("thinkPocketPackage", thinkPocketPackage);
     model.addAttribute("thinkPocketPackageList", service.getThinkPocketPackageList(thinkPocketPackage));
+
+    List<Code> categoryList = codeService.getCode(thinkPocketPackage.getHomepage_id(), "H0004");
+    // 없는 경우 비활성화
+    if (!categoryList.isEmpty()) {
+      model.addAttribute("categoryList", codeService.getCode(thinkPocketPackage.getHomepage_id(), "H0004"));
+    }
 
     return String.format(basePath, homepage.getFolder()) + "index";
   }
@@ -226,12 +238,14 @@ public class ThinkPocketPackageController extends BaseController {
     }
 
     thinkPocketPackage.setAdd_id(member.getMember_id());
+    /*
     int getDuplicateLoanCount = service.getDuplicateLoanCount(thinkPocketPackage);
 
     if (getDuplicateLoanCount > 0) {
       service.alertMessage("이미 대출신청 또는 예약신청 하셨습니다. 계정당 1건만 신청 가능합니다.", request, response);
       return null;
     }
+*/
 
     int menu_idx = thinkPocketPackage.getMenu_idx();
 

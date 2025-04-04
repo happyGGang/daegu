@@ -12,6 +12,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.co.whalesoft.app.cms.code.Code;
+import kr.co.whalesoft.app.cms.code.CodeService;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
@@ -48,6 +51,10 @@ public class ThinkPocketPackageController extends BaseController {
   private static final Pattern PHONE_PATTERN = Pattern.compile("^01[0|1|6|7|8|9]-?[\\d]{3,4}-?[\\d]{4}$");
 
   @Autowired
+  private CodeService codeService;
+
+
+  @Autowired
   private ThinkPocketPackageService service;
 
   @RequestMapping(value = {"/index.*"}, method = RequestMethod.GET)
@@ -71,6 +78,13 @@ public class ThinkPocketPackageController extends BaseController {
       thinkPocketPackage.setOutput_order(service.setOutputOrder(thinkPocketPackage));
       model.addAttribute("thinkPocketPackage", thinkPocketPackage);
     }
+
+    List<Code> categoryList = codeService.getCode(thinkPocketPackage.getHomepage_id(), "H0004");
+    if (!categoryList.isEmpty()) {
+      model.addAttribute("categoryList", codeService.getCode(thinkPocketPackage.getHomepage_id(), "H0004"));
+    }
+    
+
     return basePath + "edit_ajax";
   }
 

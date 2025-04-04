@@ -212,6 +212,21 @@ function getNaverData(arg) {
 	        		</form:select>
 	        	</td>
 	        </tr>
+			<c:if test="${not empty categoryList and thinkPocketPackage.homepage_id eq 'h10' }">
+				<tr>
+					<th>주제별</th>
+					<td>
+				<%--		국채보상운동 도서관만 활성화 --%>
+
+						<form:select path="category">
+							<form:options items="${categoryList}" itemLabel="code_name" itemValue="code_id"/>
+						</form:select>
+					</td>
+				</tr>
+			</c:if>
+
+
+
 			<tr>
 				<th>출력순서</th>
 				<td>
