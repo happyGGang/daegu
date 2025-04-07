@@ -261,18 +261,18 @@
 			<div class="main6 section" style="overflow:hidden;">
 				<div class="main4 tabS">
 					<ul class="tabMenuS">
-						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=157&manage_idx=378" class='t-tabs'>사서&북큐레이션</a></li>
+						<li class="on"><a href="#tab1" data-link="/${homepage.context_path}/board/index.do?menu_idx=215&manage_idx=1297" class='t-tabs'>사서&북큐레이션</a></li>
 						<li><a href="#tab2" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" class='t-tabs'>신착자료</a></li>
 						<li><a href="#tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" class='t-tabs'>대출베스트</a></li>
 						
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=157&manage_idx=378" class="more-btn more-more">더보기</a>
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=215&manage_idx=1297" class="more-btn more-more">더보기</a>
 					</ul>
 
 					<div class="box con" data-tab="tab1">
 						<ul class="lt_photo bookQuration">
 							<c:forEach items="${bookCuration1}" var="curation1">
 							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=130&manage_idx=${curation1.manage_idx}&board_idx=${curation1.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
+								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=215&manage_idx=${curation1.manage_idx}&board_idx=${curation1.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
 									<c:choose>
 									<c:when test="${empty curation1.preview_img}">
 									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
@@ -285,21 +285,21 @@
 								</a>
 							</li>
 							</c:forEach>
-							<c:forEach items="${bookCuration2}" var="curation2">
-							<li>
-								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=132&manage_idx=${curation2.manage_idx}&board_idx=${curation2.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">
-									<c:choose>
-									<c:when test="${empty curation2.preview_img}">
-									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
-									</c:when>
-									<c:otherwise>
-									<img src="/data/board/${curation2.manage_idx}/${curation2.board_idx}/${curation2.preview_img}" alt="${curation2.title}" width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>
-									</c:otherwise>
-									</c:choose>
-									<span class="title">${curation2.title}</span>
-								</a>
-							</li>
-							</c:forEach>
+<%--							<c:forEach items="${bookCuration2}" var="curation2">--%>
+<%--							<li>--%>
+<%--								<a class="goDetail" href="/${homepage.context_path}/board/view.do?menu_idx=132&manage_idx=${curation2.manage_idx}&board_idx=${curation2.board_idx}&group_idx=0&viewPage=1&search_type=title%2Bcontent">--%>
+<%--									<c:choose>--%>
+<%--									<c:when test="${empty curation2.preview_img}">--%>
+<%--									<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다." width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>--%>
+<%--									</c:when>--%>
+<%--									<c:otherwise>--%>
+<%--									<img src="/data/board/${curation2.manage_idx}/${curation2.board_idx}/${curation2.preview_img}" alt="${curation2.title}" width="100px" height="150px" onError="this.src='/resources/common/img/noImg2.png'"/>--%>
+<%--									</c:otherwise>--%>
+<%--									</c:choose>--%>
+<%--									<span class="title">${curation2.title}</span>--%>
+<%--								</a>--%>
+<%--							</li>--%>
+<%--							</c:forEach>--%>
 						</ul>
 					</div>
 
