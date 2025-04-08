@@ -190,9 +190,20 @@ public class BookPackageBundleController extends BaseController {
 			model.addAttribute("bookPackageBundle", bookPackageBundle);
 		} else {
 			checkAuth("C", model, request);
+
 			bookPackageBundle = (BookPackageBundle) bookPackageBundleService.copyObjectPaging(bookPackageBundle, bookPackageBundleService.getBookPackageOne(bookPackageBundle));
 
 			bookPackageBundleService.setBookPackageDefaultDate(bookPackageBundle);
+
+			boolean isManageCodeEq = homepage.getManage_code().equals("AA");
+
+			if(isManageCodeEq && bookPackageBundle.getLender_count() > 1) {
+				bookPackageBundleService.alertMessage("해당 도서에 이미 예약자가 있습니다.\\n예약기간 : " + bookPackageBundle.getLoan_start_date() + "~" + bookPackageBundle.getLoan_end_date(), request, response);
+				return null;
+			} else if(isManageCodeEq && bookPackageBundle.getLender_count() > 0) {
+				bookPackageBundle.setRequest_status("1");
+			}
+
 			StringBuilder getDisableBetweenDate = setDisableBetweenDate(bookPackageBundle);
 			model.addAttribute("disableBetweenDates", getDisableBetweenDate);
 			model.addAttribute("bookPackageBundle", bookPackageBundle);
