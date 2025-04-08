@@ -322,7 +322,7 @@
 				LEFT JOIN
 			BOOK_PACKAGE_BUNDLE_LOAN L
 			ON
-			B.book_package_bundle_idx = L.book_package_bundle_idx AND L.request_status IN (0, 1, 2)
+			B.book_package_bundle_idx = L.book_package_bundle_idx AND L.request_status IN (0, 1, 2, 6)
 		WHERE
 			B.homepage_id = 'h1'
 			and B.book_package_bundle_idx = #{book_package_bundle_idx}
