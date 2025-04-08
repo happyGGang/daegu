@@ -1732,7 +1732,7 @@ function isFromFridayToSunday() {
 
 														<c:when test="${homepage.context_path eq 'namdm' || homepage.context_path eq 'namic'}">
 															<c:choose>
-																<c:when test="${i.MANAGE_CODE eq 'BT' || i.MANAGE_CODE eq 'BS' || i.MANAGE_CODE eq 'FE'}">
+																<c:when test="${i.MANAGE_CODE eq 'BT' || i.MANAGE_CODE eq 'BS' || i.MANAGE_CODE eq 'FE' || i.MANAGE_CODE eq 'HV'}">
 																	<c:choose>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
