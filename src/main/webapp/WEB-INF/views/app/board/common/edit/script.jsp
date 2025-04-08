@@ -131,7 +131,7 @@ $(document).ready(function() {
 		<c:if test="${boardManage.editor_use_yn eq 'Y'}">
 		if(isEditorOn()) {
 			//유튜브 업로드시 iframe 사용시 사용가능하게
-			var text = oEditors.getById["content"].getIR().replace(/onE|onM|alert|EMBED|onerror|error|onF|onf|onm|onC|Script|script/gi, '');
+			var text = oEditors.getById["content"].getIR().replace(/onM|alert|EMBED|onerror|error|onF|onf|onm|onC|Script|script/gi, '');
 
 			oEditors.getById["content"].exec("SET_IR", ['']);
 		 	oEditors.getById["content"].exec("PASTE_HTML", [text]);
