@@ -169,7 +169,7 @@
         <div class="section" id="main0">
             <div class="main-visual">
                 <div class="main0_title_wrapper">
-                    <div>함께 자라는 지식의 숲</div>
+                    <div>세대를 잇는 지혜의 숲, 함께 여는 미래의 문</div>
                     <div>서변숲도서관</div>
                 </div>
                 <!-- 메인 검색 -->
