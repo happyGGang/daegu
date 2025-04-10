@@ -188,6 +188,7 @@
                 <%--		국채보상운동 도서관만 활성화 --%>
             <c:if test="${not empty categoryList and homepage.homepage_id eq 'h10'}">
                 <form:select path="category" cssClass="selectmenu new_select_box" >
+                    <form:option value="">주제전체</form:option>
                     <form:options items="${categoryList}" itemLabel="code_name" itemValue="code_id"/>
                 </form:select>
             </c:if>

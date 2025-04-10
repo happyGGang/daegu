@@ -275,7 +275,7 @@
             </c:if>
             <col width="6%"/>
             <col width="20%"/>
-            <col width="12%"/>
+<%--            <col width="12%"/>--%>
             <col width="15%"/>
             <col width="12%"/>
             <col width="11%"/>
@@ -290,7 +290,7 @@
             </c:if>
             <th>번호</th>
             <th>생각 주머니명</th>
-            <th>대출기간</th>
+<%--            <th>대출기간</th>--%>
             <th>신청자</th>
             <th>신청일자</th>
             <th>상태</th>
@@ -318,12 +318,12 @@
                         <span>(예약일: ${i.loan_start_date}~${fn:substring(i.loan_end_date, 5, 10)})</span>
                     </c:if>
                 </td>
-                <td class="center">
-                    <c:if test="${i.request_status ne '1'}">
-                        ${i.loan_start_date}<br/>
-                        <span>~</span>${i.loan_end_date}
-                    </c:if>
-                </td>
+<%--                <td class="center">--%>
+<%--                    <c:if test="${i.request_status ne '1'}">--%>
+<%--                        ${i.loan_start_date}<br/>--%>
+<%--                        <span>~</span>${i.loan_end_date}--%>
+<%--                    </c:if>--%>
+<%--                </td>--%>
                 <td>
                         ${i.request_name}
                 </td>

@@ -93,6 +93,9 @@ public class PagingUtils extends BeanUtils {
 		this.search_type = pagingUtils.search_type;
 		this.search_text = pagingUtils.search_text;
 
+		if(!isEmpty(pagingUtils.getHomepage_id())) {
+			this.setHomepage_id(pagingUtils.getHomepage_id());
+		}
 		if(!isEmpty(pagingUtils.getMenu_url())) {
 			this.setMenu_url(pagingUtils.getMenu_url());
 		}
