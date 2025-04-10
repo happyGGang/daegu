@@ -1558,7 +1558,7 @@
 										AND a.category_idx = c.category_idx(+)
 										AND a.homepage_id = d.homepage_id(+)
 										AND a.group_idx = d.group_idx(+)
-										--AND a.culture_view_yn = 'Y'
+										AND a.culture_view_yn = 'Y'
 										AND a.homepage_id NOT IN ('h79','h80','h81','h82','h83','h84','h85','h86','h87','h88') -- 사립도서관 제외
 										<if test=" search_type != null and search_type != '' and search_text != '' and search_text != '' ">
 											AND	${search_type} LIKE '%'||#{search_text}||'%'

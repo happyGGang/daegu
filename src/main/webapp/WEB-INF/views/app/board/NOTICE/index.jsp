@@ -227,7 +227,14 @@ table.bbs tr.notice{background:#f5f6f7}
 					<td class="num">${paging.listRowNum - status.index}</td>
 					<c:if test="${boardManage.manage_idx eq '282'}">
 					<td class="category important td2">
-						<span class="ca bg-${i.imsi_v_19}">${i.imsi_v_20}</span>
+						<c:choose>
+							<c:when test="${i.imsi_v_19 eq 'buksb'}">
+								<span class="ca bg-bukdh">${i.imsi_v_20}</span>
+							</c:when>
+							<c:otherwise>
+								<span class="ca bg-${i.imsi_v_19}">${i.imsi_v_20}</span>
+							</c:otherwise>
+						</c:choose>
 					</td>
 					</c:if>
 					<c:if test="${ boardManage.manage_idx eq '614'}">

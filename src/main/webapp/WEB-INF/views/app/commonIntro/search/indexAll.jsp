@@ -312,7 +312,7 @@
 			$('div.gulipAll input.lib_BT, div.gulipAll input.lib_BS').prop('checked', $(this).prop('checked'));
 		});
 		$('#checkGulipBukgu').change(function (e) {
-			$('div.gulipAll input.lib_BA, div.gulipAll input.lib_BB, div.gulipAll input.lib_BC').prop('checked', $(this).prop('checked'));
+			$('div.gulipAll input.lib_BA, div.gulipAll input.lib_BB, div.gulipAll input.lib_BC, div.gulipAll input.lib_HW').prop('checked', $(this).prop('checked'));
 		});
 		$('#checkGulipJunggu').change(function (e) {
 			$('div.gulipAll input.lib_FS').prop('checked', $(this).prop('checked'));
@@ -786,6 +786,9 @@
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_BC" value="BC" label="태전도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HW" value="HW" label="서변숲도서관" />
 							</li>
 
 

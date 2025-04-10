@@ -70,6 +70,7 @@
 		<form:option value="h46">구수산도서관</form:option>
 		<form:option value="h47">대현도서관</form:option>
 		<form:option value="h48">태전도서관</form:option>
+		<form:option value="h101">서변숲도서관</form:option>
 		<form:option value="h74">중구영어도서관</form:option>
 		<form:option value="h51">용학도서관</form:option>
 		<form:option value="h37">달서구통합도서관</form:option>
