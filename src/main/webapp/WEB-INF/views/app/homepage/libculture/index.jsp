@@ -763,7 +763,7 @@ $(function() {
 									<ul>
 										<li class="on" id="tabs002"><a href="#tabs02" class='areacluturetab' keyValue="02">행사축제</a></li>
 										<!--<li id="tabs003"><a href="#tabs03" class='areacluturetab' keyValue="03">문화공간</a></li>-->
-										<li id="tabs001"><a href="#tabs01" class='areacluturetab'>공연전시</a></li>
+										<!-- <li id="tabs001"><a href="#tabs01" class='areacluturetab'>공연전시</a></li> -->
 									</ul>
 								</div>
 							</div>
