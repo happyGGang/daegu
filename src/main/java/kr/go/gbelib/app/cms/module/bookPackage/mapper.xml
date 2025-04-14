@@ -27,7 +27,7 @@
 			FROM
 				BOOK_PACKAGE_LOAN
 			WHERE
-				request_status IN (0, 1, 2)
+				request_status IN (0, 1, 2, 6)
 			GROUP BY book_package_idx
 			) b
 		WHERE
@@ -47,7 +47,7 @@
 			<when test="lender_count == 0"><![CDATA[=]]></when>
 			<when test="lender_count == 1"><![CDATA[<=]]></when>
 		</choose>
-		(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2))
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2, 6))
 		</if>
 		ORDER BY book_package_idx DESC
 		${pagingBottom}
@@ -75,7 +75,7 @@
 				<when test="lender_count == 0"><![CDATA[=]]></when>
 				<when test="lender_count == 1"><![CDATA[<=]]></when>
 			</choose>
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2))
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_LOAN WHERE book_package_idx = a.book_package_idx AND request_status IN (0, 1, 2, 6))
 			</if>
 		</trim>
 	</select>
@@ -416,7 +416,7 @@
 		WHERE
 			a.book_package_idx = b.book_package_idx
 		AND	b.book_package_idx = #{book_package_idx}
-		AND	request_status IN ('0', '1', '2')
+		AND	request_status IN ('0', '1', '2', '6')
 	</select>
 
 	<select id="getBookPackageLoanDateList" resultType="string">

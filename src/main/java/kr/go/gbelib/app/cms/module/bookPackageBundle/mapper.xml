@@ -39,7 +39,7 @@
 		FROM
 			BOOK_PACKAGE_BUNDLE_LOAN
 		WHERE
-			request_status IN (0, 1, 2)
+			request_status IN (0, 1, 2, 6)
 		GROUP BY book_package_bundle_idx
 	</select>
 
@@ -188,7 +188,7 @@
 			FROM
 				BOOK_PACKAGE_BUNDLE_LOAN
 			WHERE
-				request_status IN (0, 1, 2)
+				request_status IN (0, 1, 2, 6)
 			GROUP BY book_package_bundle_idx
 			) d
 		WHERE 
@@ -211,7 +211,7 @@
 				<when test="lender_count == 0"><![CDATA[=]]></when>
 				<when test="lender_count == 1"><![CDATA[<=]]></when>
 			</choose>
-			(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+			(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2, 6))
 			</if>
 		GROUP BY c.book_package_bundle_idx, a.homepage_id, a.book_package_bundle_idx, a.book_package_bundle_title, a.loan_count,
 				 a.quantity, a.grade, d.loan_start_date, d.loan_end_date, c.bundle_idx,
@@ -501,7 +501,7 @@
 			<when test="lender_count == 0"><![CDATA[=]]></when>
 			<when test="lender_count == 1"><![CDATA[<=]]></when>
 		</choose>
-		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2, 6))
 		</if>
 		ORDER BY book_package_bundle_idx DESC
 	</select>
@@ -538,7 +538,7 @@
 			<when test="lender_count == 0"><![CDATA[=]]></when>
 			<when test="lender_count == 1"><![CDATA[<=]]></when>
 		</choose>
-		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2, 6))
 		</if>
 		ORDER BY c.book_package_bundle_loan_idx DESC
 	</select>
@@ -577,7 +577,7 @@
 			<when test="lender_count == 0"><![CDATA[=]]></when>
 			<when test="lender_count == 1"><![CDATA[<=]]></when>
 		</choose>
-		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2))
+		(SELECT COUNT(*) FROM BOOK_PACKAGE_BUNDLE_LOAN WHERE book_package_bundle_idx = a.book_package_bundle_idx AND request_status IN (0, 1, 2, 6))
 		</if>
 		ORDER BY c.book_package_bundle_loan_idx DESC
 	</select>
