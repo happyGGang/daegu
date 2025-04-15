@@ -163,7 +163,7 @@ $(function() {
 
 		<div class="notice" style="margin-top: 20px; padding: 1.5%; border: 2px solid navy; background: #f3f3f3;">
 			<p>
-				<c:if test="${param.menu_idx ne '226'}">도서관을 이용하시면서 <span class="blue">불편한 사항, 개선할 사항, 건의할 사항</span>을 올리는 곳으로 </c:if><span class="color5">휴대폰 본인인증</span> 또는
+				<c:if test="${param.menu_idx ne '226' and param.menu_idx ne '272'}">도서관을 이용하시면서 <span class="blue">불편한 사항, 개선할 사항, 건의할 사항</span>을 올리는 곳으로 </c:if><span class="color5">휴대폰 본인인증</span> 또는
 				<span class="color5">공공아이핀</span>을 사용하여 본인 확인 후 글을 쓰시면 됩니다.
 
 				<br>
