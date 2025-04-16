@@ -528,6 +528,7 @@ do {
 						<area shape="rect" coords="388,459,394,464" href="#lib-selector" alt="금강역스마트도서관" class="maps" data-value="24"/>
 						<area shape="rect" coords="94,361,100,367" href="#lib-selector" alt="동대구역스마트도서관" class="maps" data-value="25"/>
 						<area shape="rect" coords="62,371,67,376" href="#lib-selector" alt="동구청스마트도서관" class="maps" data-value="26"/>
+						<area shape="rect" coords="150,351,161,364" href="#lib-selector" alt="동촌역스마트도서관" class="maps" data-value="27"/>
 						</map>
 					</div>
 					<div class="map-info">
@@ -565,6 +566,7 @@ do {
 									<option value="24">금강역스마트도서관</option>
 									<option value="25">동대구역스마트도서관</option>
 									<option value="26">동구청스마트도서관</option>
+									<option value="27">동촌역스마트도서관</option>
 								</select>
 							</li>
 							<li>
@@ -645,6 +647,9 @@ do {
 								</div>
 								<div class="divbInfomationConts" id="divbInfo26">
 									대구광역시 동구 아양로 207 구청입구
+								</div>
+								<div class="divbInfomationConts" id="divbInfo27" style="padding: 32px 35px;">
+									대구광역시 동구 해동로 197
 								</div>
 							</li>
 						</ul>
@@ -999,6 +1004,18 @@ do {
 								<li>
 									<dt>이용시간</dt>
 									<dd>평일 : 24시간</dd>
+								</li>
+								<li>
+									<dt>휴관일</dt>
+									<dd>연중 무휴</dd>
+								</li>
+							</ul>
+						</div>
+						<div class="divbInfomationContsDetail" id="divbInfoDetail27">
+							<ul>
+								<li>
+									<dt>이용시간</dt>
+									<dd>평일 : 05:30~23:30</dd>
 								</li>
 								<li>
 									<dt>휴관일</dt>
