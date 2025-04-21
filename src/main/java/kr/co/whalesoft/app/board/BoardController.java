@@ -105,7 +105,7 @@ public class BoardController extends BaseController {
 		}
 	}
 
-	private static final int BLOCK_THRESHOLD = 3;
+	private static final int BLOCK_THRESHOLD = 5;
 	private static final long TIME_WINDOW_MS = 5000;
 
 	private static final ConcurrentHashMap<String, Integer> requestCounts = new ConcurrentHashMap<>();
