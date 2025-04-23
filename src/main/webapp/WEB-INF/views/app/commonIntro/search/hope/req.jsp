@@ -528,7 +528,7 @@
 			</td>
 		</tr>
 		<!-- 신청도서관 부분 추가 -->
-		<c:set var="readonly" value="${homepage.context_path eq '' or homepage.context_path eq '' or homepage.context_path eq '' or homepage.context_path eq 'gw' ? 'true' : 'false'}" />
+		<c:set var="readonly" value="${homepage.context_path eq 'gw' or homepage.context_path eq 'bukgs' or homepage.context_path eq 'buktj' or homepage.context_path eq 'bukdh' or homepage.context_path eq 'buksb' ? 'true' : 'false'}" />
 		<tr>
 			<th>제목 <em><font color="red">(*)</font></em></th>
 			<td><form:input path="title" style="width:90%" class="text" type="text" readonly="${readonly}"/></td>
