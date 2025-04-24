@@ -140,6 +140,10 @@
             <li>
               <form:checkbox path="manage_codes" cssClass="chkbox" value="BC" label="북구태전도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'BC') ? 'checked' : ''}"></form:checkbox>
             </li>
+              <%--h101 // HW--%>
+            <li>
+              <form:checkbox path="manage_codes" cssClass="chkbox" value="HW" label="북구서변숲도서관" checked="${fn:contains(myLibraryOne.manage_codes, 'HW') ? 'checked' : ''}"></form:checkbox>
+            </li>
           </ul>
         </div>
 

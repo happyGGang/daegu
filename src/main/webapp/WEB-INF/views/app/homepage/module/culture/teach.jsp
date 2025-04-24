@@ -197,6 +197,7 @@
 							<option value="h46">북구구수산도서관</option>
 							<option value="h47">북구대현도서관</option>
 							<option value="h48">북구태전도서관</option>
+							<option value="h101">북구서변숲도서관</option>
 							<option value="h61">서구통합 비산도서관</option>
 							<option value="h63">서구통합 비원도서관</option>
 							<option value="h77">서구통합 서구어린이도서관</option>
@@ -267,7 +268,7 @@
 									<c:when test="${i.homepage_id eq 'h3' || i.homepage_id eq 'h35' || i.homepage_id eq 'h36'}"><!-- 남구 -->
 									<span class="color-namgu">${i.homepage_alias}</span>
 									</c:when>
-									<c:when test="${i.homepage_id eq 'h7' || i.homepage_id eq 'h46' || i.homepage_id eq 'h47' || i.homepage_id eq 'h48'}"><!-- 북구 -->
+									<c:when test="${i.homepage_id eq 'h7' || i.homepage_id eq 'h46' || i.homepage_id eq 'h47' || i.homepage_id eq 'h48' || i.homepage_id eq 'h101'}"><!-- 북구 -->
 									<span class="color-bukgu">${i.homepage_alias}</span>
 									</c:when>
 									<c:when test="${i.homepage_id eq 'h9' || i.homepage_id eq 'h50' || i.homepage_id eq 'h51' || i.homepage_id eq 'h52' || i.homepage_id eq 'h54' || i.homepage_id eq 'h55' || i.homepage_id eq 'h56' || i.homepage_id eq 'h57' || i.homepage_id eq 'h58'}"><!-- 수성구 -->

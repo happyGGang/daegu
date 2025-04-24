@@ -429,8 +429,8 @@
 					</c:when>
 					<c:when test="${context_path eq 'dalseolib'}">
 						<form:select path="manageCode">
-							<form:option value="BW">도원도서관</form:option>
-						</form:select><!-- <span style="color:#ff0000">  *   도원도서관 예산소진으로 서비스 종료(2025년 02월부터 신청 가능) </span> -->
+							<!-- <form:option value="BW">도원도서관</form:option> -->
+						</form:select><span style="color:#ff0000">  *   도원도서관 희망도서 25. 5. 01. 오전 10시 재개 예정 </span>
 					</c:when>
 					<c:when test="${context_path eq 'kids'}">
 						<form:select path="manageCode">
@@ -440,8 +440,8 @@
 
 					<c:when test="${context_path eq 'seongseo'}">
 						<form:select path="manageCode">
-							<option value="BU">성서도서관</option>
-						</form:select> <!--<span style="color:#ff0000">  * 성서도서관 희망도서 신청 재개 시 안내드리겠습니다. </span>-->
+							<!-- <option value="BU">성서도서관</option> -->
+						</form:select> <span style="color:#ff0000">  * 성서도서관 희망도서 25.05.01. 신청 재개 예정입니다. </span>
 					</c:when>
 
 					<c:when test="${context_path eq 'bolli'}">
@@ -452,8 +452,8 @@
 					</c:when>
 					<c:when test="${context_path eq 'family'}">
 						<form:select path="manageCode">
-							<form:option value="BY">달서가족문화도서관</form:option>
-						</form:select> <!-- <span style="color:#ff0000">  * 달서가족문화도서관 희망도서 25. 04. 01. 오전 10시 재개 예정</span>  -->
+							<!-- <form:option value="BY">달서가족문화도서관</form:option> -->
+						</form:select> <span style="color:#ff0000">  * 달서가족문화도서관 희망도서 25. 05. 01. 오전 10시 재개 예정</span> 
 					</c:when>
 					<c:when test="${context_path eq 'english'}">
 						<form:select path="manageCode">
