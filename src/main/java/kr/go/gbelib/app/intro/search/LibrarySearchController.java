@@ -94,6 +94,12 @@ public class LibrarySearchController extends BaseController {
 //			librarySearch.setManageCode(homepage.getManage_code());
 //		}
 
+		if (homepage.getHomepage_id().equals("h71") && librarySearch.getLibraryCodes() == null) {
+			List<String> libraryCodes = new ArrayList<String>();
+			libraryCodes.add("FX");
+			librarySearch.setLibraryCodes(libraryCodes);
+		}
+
 		if ( librarySearch.getLibraryCodes() == null ) {
 			List<String> libraryCodes = new ArrayList<String>();
 			if ( homepage != null && !StringUtils.isEmpty(homepage.getManage_code()) ) {
