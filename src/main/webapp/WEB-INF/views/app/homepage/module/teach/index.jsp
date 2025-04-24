@@ -274,11 +274,22 @@ $(function(){
 			</div>
 		</c:when>
 
-		<c:when test="${homepage.context_path eq 'gosan' and teach.searchCate1 eq '17'}">
+		<c:when test="${homepage.context_path eq 'gosan' and teach.searchCate1 eq '17' or teach.searchCate1 eq '32'}">
+			<c:set var="cate" value="${param.searchCate1}" />
 			<div class="tab_menu on">
 				<ul class="no2">
-					<li><a href="#tabCon0" data-hid="h52">고산도서관</a></li>
-					<li onclick="location.href='${homepage.domain}/gosan/module/teach/index.do?menu_idx=90&searchCate1=16&group_idx=33'"><a href="#">사월책문화센터</a></li>
+					<li class="${cate eq '17' ? 'active' : ''}" onclick="location.href='${homepage.domain}/gosan/module/teach/index.do?menu_idx=32&searchCate1=17'"><a href="#tabCon0" data-hid="h52">고산도서관</a></li>
+					<li class="${cate eq '32' ? 'active' : ''}" onclick="location.href='${homepage.domain}/gosan/module/teach/index.do?menu_idx=32&searchCate1=32'"><a href="#tabCon1">사월책문화센터</a></li>
+				</ul>
+			</div>
+		</c:when>
+
+		<c:when test="${homepage.context_path eq 'gosan' and teach.searchCate1 eq '16' or teach.searchCate1 eq '31'}">
+			<c:set var="cate" value="${param.searchCate1}" />
+			<div class="tab_menu on">
+				<ul class="no2">
+					<li class="${cate eq '16' ? 'active' : ''}" onclick="location.href='${homepage.domain}/gosan/module/teach/index.do?menu_idx=90&searchCate1=16'" ><a href="#tabCon0" data-hid="h52">고산도서관</a></li>
+					<li class="${cate eq '31' ? 'active' : ''}" onclick="location.href='${homepage.domain}/gosan/module/teach/index.do?menu_idx=90&searchCate1=31'" ><a href="#tabCon1">사월책문화센터</a></li>
 				</ul>
 			</div>
 		</c:when>
