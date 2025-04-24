@@ -274,7 +274,7 @@ $(function(){
 			</div>
 		</c:when>
 
-		<c:when test="${homepage.context_path eq 'gosan' and teach.searchCate1 eq '17' or teach.searchCate1 eq '32'}">
+		<c:when test="${homepage.context_path eq 'gosan' and (teach.searchCate1 eq '17' or teach.searchCate1 eq '32')}">
 			<c:set var="cate" value="${param.searchCate1}" />
 			<div class="tab_menu on">
 				<ul class="no2">
@@ -284,7 +284,7 @@ $(function(){
 			</div>
 		</c:when>
 
-		<c:when test="${homepage.context_path eq 'gosan' and teach.searchCate1 eq '16' or teach.searchCate1 eq '31'}">
+		<c:when test="${homepage.context_path eq 'gosan' and (teach.searchCate1 eq '16' or teach.searchCate1 eq '31')}">
 			<c:set var="cate" value="${param.searchCate1}" />
 			<div class="tab_menu on">
 				<ul class="no2">
