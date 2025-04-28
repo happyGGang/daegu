@@ -31,8 +31,7 @@
 				<div class="thumb">
 					<a href="/${homepage.context_path}/intro/search/indexAll.do?menu_idx=${searchMenuIdx}&booktype=BOOKANDNONBOOK&title=${i.TITLE_INFO}#search_result" class="cover" target="_blank">
 						<span class="img">
-
-							<img src="${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}" alt="${i.bookname}" onError="src='/resources/common/img/noImg2.png'"/>
+							<img src="${empty i.imageUrl ? '/resources/common/img/noImg2.png' : i.imageUrl}" alt="${i.bookname}" >
 						</span>
 					</a>
 				</div>

@@ -70,10 +70,24 @@
 				</div>
 			</div>
 		</li>
+
+
+		<li>
+			<div class="info-box">
+				<div class="tit num05">
+					<p>서변숲도서관</p>
+				</div>
+				<div class="txt">
+					<p class="add">대구광역시 북구 서변로3길 54<br />(서변동)</p>
+					<p class="tel">053-320-3800</p>
+				</div>
+			</div>
+		</li>
+
 		<!-- mg-->
 		<li class="mg">
 			<div class="info-box">
-				<div class="tit num05">
+				<div class="tit num06">
 					<p>산격1동작은도서관</p>
 				</div>
 				<div class="txt">
@@ -85,7 +99,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num06">
+				<div class="tit num07">
 					<p>북구영어작은도서관</p>
 				</div>
 				<div class="txt">
@@ -97,7 +111,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num07">
+				<div class="tit num08">
 					<p>침산1동작은도서관</p>
 				</div>
 				<div class="txt">
@@ -109,7 +123,7 @@
 		<!-- mg-->
 		<li class="mg">
 			<div class="info-box">
-				<div class="tit num08">
+				<div class="tit num09">
 					<p>서변동작은도서관</p>
 				</div>
 				<div class="txt">
@@ -121,7 +135,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num09">
+				<div class="tit num10">
 					<p>노원행복도서관</p>
 				</div>
 				<div class="txt">
@@ -133,7 +147,7 @@
 		<!---->
 		<li>
 			<div class="info-box">
-				<div class="tit num10">
+				<div class="tit num11">
 					<p>한강공원부키도서관</p>
 				</div>
 				<div class="txt">
@@ -145,7 +159,7 @@
 		<!-- mg-->
 		<li class="mg">
 			<div class="info-box">
-				<div class="tit num11">
+				<div class="tit num12">
 					<p>시청작은도서관</p>
 				</div>
 				<div class="txt">
@@ -157,7 +171,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num12">
+				<div class="tit num13">
 					<p>꿈꾸는마을도서관도토리</p>
 				</div>
 				<div class="txt">
@@ -169,7 +183,7 @@
 		<!-- -->
 		<li>
 			<div class="info-box">
-				<div class="tit num13">
+				<div class="tit num14">
 					<p>더불어숲도서관</p>
 				</div>
 				<div class="txt">
@@ -181,7 +195,7 @@
 		<!-- mg-->
 		<li class="mg">
 			<div class="info-box">
-				<div class="tit num14">
+				<div class="tit num1">
 					<p>연암공공도서관</p>
 				</div>
 				<div class="txt">
@@ -215,16 +229,19 @@ jQuery(function($){
 	daegu_map_data.push({idx:'58',title:'구수산도서관', tel:'053-320-5150', point:{x:'35.9387440917381',y:'128.55240517489'}, address:'대구광역시 북구 대천로 21 (읍내동)',no:'2' });
 	daegu_map_data.push({idx:'57',title:'태전도서관', tel:'053-320-5180', point:{x:'35.9285577192463',y:'128.54620122749'}, address:'대구광역시 북구 영송로 36-16(태전동)',no:'3' });
 	daegu_map_data.push({idx:'56',title:'대현도서관', tel:'053-320-5170', point:{x:'35.8818931927918',y:'128.607389999937'}, address:'대구광역시 북구 대현남로 43(대현동)',no:'4' });
-	daegu_map_data.push({idx:'55',title:'산격1동작은도서관', tel:'053-320-5193', point:{x:'35.8980510664456',y:'128.601242343899'}, address:'대구광역시 북구 연암공원로 89, 연암서당골 문화센터 3층',no:'5' });
-	daegu_map_data.push({idx:'54',title:'북구영어작은도서관', tel:'053-320-5190', point:{x:'35.8818550927522',y:'128.583514539572'}, address:'대구광역시 북구 고성로 31길 21(고성동 3가), 고성동행정복지센터 1층',no:'6' });
-	daegu_map_data.push({idx:'53',title:'침산1동작은도서관', tel:'053-320-5191', point:{x:'35.8903255867369',y:'128.581357220285'}, address:'대구광역시 북구 침산남로13길 16(침산동), 침산1동주민센터 2층',no:'7' });
-	daegu_map_data.push({idx:'51',title:'서변동작은도서관', tel:'053-320-5194', point:{x:'35.9279987494581',y:'128.597948326757'}, address:'대구광역시 북구 호국로57길 6, 유니버시아드레포츠센터 1층',no:'8' });
-	daegu_map_data.push({idx:'49',title:'노원행복도서관', tel:'053-320-5198', point:{x:'35.8969492969157',y:'128.575761642876'}, address:'대구광역시 북구 노원로 134',no:'9' });
-	daegu_map_data.push({idx:'48',title:'한강공원부키도서관', tel:'053-320-5199', point:{x:'35.898698373371',y:'128.51362596382'}, address:'대구광역시 북구 사수동 811',no:'10' });
-	daegu_map_data.push({idx:'48',title:'시청작은도서관', tel:'053-320-5199', point:{x:'35.8941995',y:'128.6024372'}, address:'대구광역시 북구 연암로 40(산격청사 별관3동)',no:'11' });
-	daegu_map_data.push({idx:'47',title:'꿈꾸는마을도서관도토리', tel:'053-327-0645', point:{x:'35.9315271',y:'128.5564402'}, address:'대구광역시 북구 구암로 146',no:'12' });
-	daegu_map_data.push({idx:'46',title:'더불어숲도서관', tel:'053-326-0937', point:{x:'35.944734',y:'128.5698923'}, address:'대구광역시 북구 학남로17길 2 ',no:'13' });
-	daegu_map_data.push({idx:'45',title:'연암공공도서관', tel:'053-956-4422', point:{x:'35.8995862',y:'128.6055034'}, address:'대구광역시 북구 동북로26길 25-1',no:'14' });
+	daegu_map_data.push({idx:'44',title:'서변숲도서관', tel:'053-320-3800', point:{x:'35.9214334',y:'128.5948453'}, address:'대구광역시 북구 서변로3길 54(서변동)',no:'5' });
+	daegu_map_data.push({idx:'55',title:'산격1동작은도서관', tel:'053-320-5193', point:{x:'35.8980510664456',y:'128.601242343899'}, address:'대구광역시 북구 연암공원로 89, 연암서당골 문화센터 3층',no:'6' });
+	daegu_map_data.push({idx:'54',title:'북구영어작은도서관', tel:'053-320-5190', point:{x:'35.8818550927522',y:'128.583514539572'}, address:'대구광역시 북구 고성로 31길 21(고성동 3가), 고성동행정복지센터 1층',no:'7' });
+	daegu_map_data.push({idx:'53',title:'침산1동작은도서관', tel:'053-320-5191', point:{x:'35.8903255867369',y:'128.581357220285'}, address:'대구광역시 북구 침산남로13길 16(침산동), 침산1동주민센터 2층',no:'8' });
+	daegu_map_data.push({idx:'51',title:'서변동작은도서관', tel:'053-320-5194', point:{x:'35.9279987494581',y:'128.597948326757'}, address:'대구광역시 북구 호국로57길 6, 유니버시아드레포츠센터 1층',no:'9' });
+	daegu_map_data.push({idx:'49',title:'노원행복도서관', tel:'053-320-5198', point:{x:'35.8969492969157',y:'128.575761642876'}, address:'대구광역시 북구 노원로 134',no:'10' });
+	daegu_map_data.push({idx:'48',title:'한강공원부키도서관', tel:'053-320-5199', point:{x:'35.898698373371',y:'128.51362596382'}, address:'대구광역시 북구 사수동 811',no:'11' });
+	daegu_map_data.push({idx:'48',title:'시청작은도서관', tel:'053-320-5199', point:{x:'35.8941995',y:'128.6024372'}, address:'대구광역시 북구 연암로 40(산격청사 별관3동)',no:'12' });
+	daegu_map_data.push({idx:'47',title:'꿈꾸는마을도서관도토리', tel:'053-327-0645', point:{x:'35.9315271',y:'128.5564402'}, address:'대구광역시 북구 구암로 146',no:'13' });
+	daegu_map_data.push({idx:'46',title:'더불어숲도서관', tel:'053-326-0937', point:{x:'35.944734',y:'128.5698923'}, address:'대구광역시 북구 학남로17길 2 ',no:'14' });
+	daegu_map_data.push({idx:'45',title:'연암공공도서관', tel:'053-956-4422', point:{x:'35.8995862',y:'128.6055034'}, address:'대구광역시 북구 동북로26길 25-1',no:'15' });
+
+	
 
 	daegu_map = new map_app();
 	

@@ -7,32 +7,50 @@
 <link rel="stylesheet" type="text/css" href="/resources/common/css/recombooklist.css">
 
 <script>
-$(function() {
-	$('.view_pdf').on('click', function(e) {
-		e.preventDefault();
-		var link = $(this).attr('data-keyValue');
-		window.open(link, '_blank','fullscreen=yes');
-	});
+	$(function() {
+		$('.view_pdf').on('click', function(e) {
+			e.preventDefault();
+			var link = $(this).attr('data-keyValue');
+			window.open(link, '_blank','fullscreen=yes');
+		});
 
-	<c:choose>
-	<c:when test="${not empty sessionScope.loginSupport and sessionScope.loginSupport.login}">
-	$('.view_pdf2').on('click', function(e) {
-		e.preventDefault();
-		var link = $(this).attr('data-keyValue');
-		window.open(link, '_blank','fullscreen=yes');
+		<c:choose>
+			<c:when test="${not empty sessionScope.loginSupport and sessionScope.loginSupport.login}">
+				$('.view_pdf2').on('click', function(e) {
+				e.preventDefault();
+				var link = $(this).attr('data-keyValue');
+				window.open(link, '_blank','fullscreen=yes');
+			});
+			</c:when>
+			<c:otherwise>
+				$('.view_pdf2').on('click', function(e) {
+				e.preventDefault();
+				alert('학교 도서관 회원 로그인후 이용바랍니다.');
+				location.href="/228/module/supportMember/index.do?menu_idx=175&before_url=/228/html/recomBookList.do?menu_idx=259";
+			});
+			</c:otherwise>
+		</c:choose>
 	});
-	</c:when>
-	<c:otherwise>
-	$('.view_pdf2').on('click', function(e) {
-		e.preventDefault();
-		alert('학교 도서관 회원 로그인후 이용바랍니다.'); 
-		location.href="/228/module/supportMember/index.do?menu_idx=175&before_url=/228/html/recomBookList.do?menu_idx=259";
-	});
-	</c:otherwise>
-	</c:choose>
-});
 </script>
 <div class="contestBox">
+
+
+
+	<div class="box">
+		<a href="#" onclick="open_magazine('/resources/common/pdf/bookList_04.pdf');">
+			<p class="contest_thum"><img src="/data/menuResources/h1/259/1738566519344.jpg" alt="4집 표지"></p>
+			<div class="titleBox">
+				<p class="contest_num">목록 4집</p>
+				<p class="contest_tit">발행년 : 2024</p>
+			</div>
+		</a>
+		<div class="btnBox">
+			<span class="contest_btn view_pdf" data-keyvalue="/resources/common/pdf/bookList_04.pdf">도서 목록</span>
+			<span class="contest_btn view_pdf2" <c:if test="${not empty sessionScope.loginSupport and sessionScope.loginSupport.login}">data-keyvalue='/resources/common/pdf/bookList_all_04.pdf'</c:if>>전문 (PDF)</span>
+		</div>
+	</div>
+
+
 	<div class="box">
 		<a href="#" onclick="open_magazine('/resources/common/pdf/bookList_03.pdf');">
 			<p class="contest_thum"><img src="/data/menuResources/h1/259/1707785301607.jpg" alt="3집 표지"></p>

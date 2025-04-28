@@ -9,26 +9,30 @@
 		<div class="main-section">
 			<div class="libSite">
 				<ul>
-					<li class="on"><a href="/${homepage.context_path}/index.do">달성어린이숲</a></li>
-					<li><a href="https://library.daegu.go.kr/dalseonglib/index.do">달성군립</a></li>
-					<li><a href="#this">작은</a></li>
-					<li><a href="/${homepage.context_path}/html.do?menu_idx=24">전자도서관</a></li>
-					<li class="br"><a href="https://dsef.or.kr/" target="_blank">달성교육재단</a></li>
+					<li class="on"><a href="/bukgs/index.do">구수산</a></li>
+					<li><a href="/bukdh/index.do">대현</a></li>
+					<li><a href="/buktj/index.do">태전</a></li>
+					<li><a href="/bukgs/html.do?menu_idx=98" target="_blank">작은</a></li>
+					<li><a href="/bukgs/html.do?menu_idx=25">전자도서관</a></li>
+					<li class="br"><a href="https://www.hbcf.or.kr/front/" target="_blank">행복북구문화재단</a></li>
+					<li class="sns_icon"><a href="https://www.youtube.com/channel/UCrU93GSooFE7YPnoXu4NPTA" target="_blank" title="유튜브 바로가기" alt="유튜브 바로가기"><img src="/resources/homepage/bukgs/img/sns_icon_youtube.png"></a></li>
+					<li class="sns_icon"><a href="https://www.instagram.com/gususan.library" target="_blank" title="인스타그램 바로가기" alt="인스타그램 바로가기"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"></a></li>
+					<li class="sns_icon"><a href="https://pf.kakao.com/_xiRxeIxb" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"></a></li>
 				</ul>
 			</div>
 
-			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do" style="background:none;">달성어린이숲도서관</a></h1>
+			<h1 class="mobile-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
 
-			<!--<div class="sns-box">
+			<div class="sns-box">
 				<ul class="sns-link">
 					<li><a href="https://www.youtube.com/channel/UCrU93GSooFE7YPnoXu4NPTA" target="_blank" title="유튜브 바로가기" alt="유튜브 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_youtube.png"><i class="fa fa-external-link"></i></a></li>
 					<li><a href="https://www.instagram.com/gususan.library" target="_blank" title="인스타그램 바로가기" alt="인스타그램 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"><i class="fa fa-external-link"></i></a></li>
 					<li><a href="https://pf.kakao.com/_xiRxeIxb" target="_blank" title="카카오톡 바로가기" alt="카카오톡 바로가기" class="newWin"><img src="/resources/homepage/bukgs/img/sns_icon_kakaotalk.png"><i class="fa fa-external-link"></i></a></li>
 				</ul>
-			</div>-->
+			</div>
 
 			<div class="mmode m-menu">
-				<a href="#menu"><img src="/resources/homepage/dalseongchild/img/common/hamberger.svg" alt="사이트맵"/><span class="blind">메뉴</span></a>
+				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
 			</div>
 
 			<div class="util">
@@ -46,11 +50,17 @@
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=70">통합허브시스템 로그인</a>
+						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69">통합허브시스템 로그인</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=74">통합회원인증</a>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73">통합회원인증</a>
 						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=71">회원가입</a>
+						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
+						<!-- <span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=6">아이디찾기</a>
+						<span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7">비밀번호찾기</a>
+						<span class="txt-bar"></span>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a> -->
 					</c:otherwise>
 				</c:choose>
 			</div>
