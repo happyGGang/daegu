@@ -49,7 +49,14 @@ ${boardManage.top_html}
 					<th class="important state_wid">처리상태</th>
 					<th class="important mmm2" style="width:11%">작성자</th>
 					<th class="mmm1" style="width:8%">작성일</th>
-					<th class="mmm1" style="width:10%">조회수</th>
+
+				<c:choose>
+					<c:when test="${boardManage.manage_idx eq '148' and boardManage.homepage_id eq 'h7'}">
+					</c:when>
+					<c:otherwise>
+						<th class="mmm1" style="width:10%">조회수</th>
+					</c:otherwise>
+				</c:choose>
 					<th class="mmm1" style="width:7%">파일</th>
 				</tr>
 			</thead>
@@ -127,7 +134,13 @@ ${boardManage.top_html}
 					</c:choose>
 					<td class="important mmm2">${i.secret_yn ne 'Y'? user_name : (authMBA or (not empty loginSupport and loginSupport.admin) ? i.user_name : '비공개')}</td>
 					<td class="num mmm1"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd" /></td>
-					<td class="num mmm1">${i.view_count}</td>
+					<c:choose>
+						<c:when test="${boardManage.manage_idx eq '148' and boardManage.homepage_id eq 'h7'}">
+						</c:when>
+						<c:otherwise>
+							<td class="num mmm1">${i.view_count}</td>
+						</c:otherwise>
+					</c:choose>
 					<td class="file mmm1">
 					<c:if test="${i.file_count > 0}">
 						<i class="fa fa-floppy-o"></i>

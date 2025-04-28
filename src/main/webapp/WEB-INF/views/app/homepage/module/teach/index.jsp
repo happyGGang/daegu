@@ -369,7 +369,7 @@ $(function(){
 					<div class="tab_menu on">
 						<ul class="no${fn:length(dongguCategoryList)}">
 							<c:forEach items="${dongguCategoryList}" var="i" varStatus="status">
-								<li style="width:100%;"><a href="#tabCon${status.index}" data-hid="${i.category_idx}">${i.category_name}</a></li>
+								<li ><a href="#tabCon${status.index}" data-hid="${i.category_idx}">${i.category_name}</a></li>
 							</c:forEach>
 						</ul>
 					</div>
