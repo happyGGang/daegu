@@ -71,18 +71,120 @@ $(function(){
 		});
 	}
 
+	var _width = $(window).width();
+	var bannerLength60 = $('div.banner-wrap.type60 ul.banner-roll').length;
+	var bannerSlider60;
+	var bannerWrap = $('div.banner-wrap');
 
-	// 상단팝업존
-	if ($('.topPopZone ul').length > 0) {
-		$('.topPopZone ul').bxSlider({
-			mode:'fade',
-			pause: 7000,
-			speed: 1000,
-			pager: true,
-			auto: true,
-			autoHover : true,
-			autoControls: true,
-			autoControlsCombine: true
-		});
-	}
+	var bannerZone = function(){
+		try {
+			if( bannerSlider60 ) bannerSlider60.destroySlider();
+		} catch (e) {
+			// TODO: handle exception
+		}
+
+		if( _width <= 500 )
+		{
+			if (bannerLength60 > 0) {
+				bannerSlider60 = $('div.banner-wrap.type60 ul.banner-roll').bxSlider({
+					slideWidth:170,
+					speed:500,
+					moveSlides:1,
+					maxSlides:1,
+					slideMargin:0,
+					auto:true,
+					autoHover:true,
+					pager:false,
+					controls:false
+				});
+			}
+		}
+		else if( _width <= 768 && _width > 500 )
+		{
+			if (bannerLength60 > 0) {
+				bannerSlider60 = $('div.banner-wrap.type60 ul.banner-roll').bxSlider({
+					slideWidth:170,
+					speed:500,
+					moveSlides:1,
+					maxSlides:3,
+					slideMargin:10,
+					auto:true,
+					autoHover:true,
+					pager:false,
+					controls:false
+				});
+			}
+		}
+		else if( _width <= 1024 && _width > 768 )
+		{
+			if (bannerLength60 > 0) {
+				bannerSlider60 = $('div.banner-wrap.type60 ul.banner-roll').bxSlider({
+					slideWidth:170,
+					speed:500,
+					moveSlides:1,
+					maxSlides:5,
+					slideMargin:10,
+					auto:true,
+					autoHover:true,
+					pager:false,
+					controls:false
+				});
+			}
+		}
+		else if( _width <= 1260 && _width > 1024 )
+		{
+			if (bannerLength60 > 0) {
+				bannerSlider60 = $('div.banner-wrap.type60 ul.banner-roll').bxSlider({
+					slideWidth:170,
+					speed:500,
+					moveSlides:1,
+					maxSlides:7,
+					slideMargin:10,
+					auto:true,
+					autoHover:true,
+					pager:false,
+					controls:false
+				});
+			}
+		}
+		else {
+			if (bannerLength60 > 0) {
+				bannerSlider60 = $('div.banner-wrap.type60 ul.banner-roll').bxSlider({
+					slideWidth:170,
+					speed:500,
+					moveSlides:1,
+					maxSlides:8,
+					slideMargin:20,
+					auto:true,
+					autoHover:true,
+					pager:false,
+					controls:false
+				});
+			}
+		}
+	};
+
+	bannerZone();
+
+	$(window).on('resize', function(e){
+		e.preventDefault();
+		_width = $(window).width();
+		
+		bannerZone();
+	});
+/*
+	$('div.banner-wrap a.prev').on('click',function(){
+		if(bannerSlider60 != null ){
+			bannerSlider60.goToPrevSlide();
+		}
+		return false;
+	});
+
+	$('div.banner-wrap a.next').on('click',function(){
+		if(bannerSlider60 != null ){
+			bannerSlider60.goToNextSlide();
+		}
+		return false;
+	});
+*/
 });

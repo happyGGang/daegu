@@ -168,9 +168,15 @@ display:none;
   content: none;
 }
 
+.footer_logo {
+	width: 163px;
+    height: 36px;
+	margin-bottom: 22px;
+}
+
 .detail_select_wrapper {
   display: flex;
-  gap: 15.62rem;
+  justify-content: space-between;
   align-items: flex-end;
 }
 
@@ -367,8 +373,6 @@ display:none;
 
 
   .detail_select_wrapper {
-    /* flex-direction: column; */
-    gap: 12rem;
     align-items: flex-end;
   }
 
@@ -822,7 +826,7 @@ banner-wrap  .control a.more {width: 2rem;
 
   .footer {
     position: relative;
-    height: 25.5rem;
+    height: 28.5rem;
     padding: 2.5rem 1.3rem 0 1.3rem;
   }
 

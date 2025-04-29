@@ -831,6 +831,7 @@
         height: 620px;
         background: linear-gradient(180deg, #F4F8EB 1.72%, #FCFCFC 100%);
         position: relative;
+        margin-top: 60px;
     }
 
     #loadingWrapper {

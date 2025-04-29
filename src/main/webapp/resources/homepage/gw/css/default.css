@@ -28,7 +28,7 @@
 .tnb .util{line-height:70px;height:60px}
 .Gnb{height:53px;/* background:#ffdf99;border-color:#f2c973 */}
 .Gnb .gnb-menu{text-align:center}
-.Gnb .gnb-menu>li{padding:0;width:16.6%}
+.Gnb .gnb-menu>li{padding:0;width:13%}
 .Gnb .gnb-menu>li>a{font-size:17px;padding:5px 0}
 .Gnb .gnb-menu>li.menu1>ul,
 .Gnb .gnb-menu>li.menu2>ul{text-align:left}

@@ -107,7 +107,7 @@
 .info div::after {
     content: "";
     position: absolute;
-    bottom: 16%;
+    bottom: 21%;
     left: 121px;
     width: 1px;
     height: 12px;
@@ -343,8 +343,12 @@
 @media all and (max-width:479px) {
     .footer_bottom {
         flex-direction: column;
-        gap: 24px;
+        gap: 20px;
     }
+
+	.footer_bottom_text_wrapper div {
+		line-height: 21px;
+	}
 
     .info div::after {
         display: none;
@@ -364,7 +368,7 @@
     }
 
     .footer_bottom {
-        padding: 40px 16px;
+        padding: 20px 16px;
         box-sizing: border-box;
     }
 

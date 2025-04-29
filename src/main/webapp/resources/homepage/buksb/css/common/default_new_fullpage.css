@@ -1531,7 +1531,7 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap > .banner-t4 {width:100%;padding:0;}
 .banner-wrap > .banner-t4 > h3 {float:left;font-size:20px;font-weight:bold;letter-spacing:-1px}
 .banner-wrap > .banner-box4 {float:left;width:100%;padding:20px 0;}
-.banner-wrap .banner-box4 > div {margin-left:50px!important;margin-right:50px!important;}
+.banner-wrap .banner-box4 > div {margin-left:40px!important;margin-right:40px!important;}
 .banner-wrap .banner-box4 .banner-roll li{height:50px;}
 .banner-wrap .banner-box4 .banner-roll li,
 .banner-wrap .banner-box4 .banner-roll span,
@@ -1540,8 +1540,8 @@ filter:alpha(opacity = 0.3*100);
 .banner-wrap .banner-box4 .banner-roll i{display:none}
 .banner-wrap .banner-t4 .control{font-size:0;padding:0;float:right}
 .banner-wrap .banner-t4 .control a {font-size:13px;zoom:1;text-align:center;vertical-align:middle;width:40px;height:40px;padding:25px 0;}
-.banner-wrap .banner-t4 .control a.prev {position:absolute;left:0;}
-.banner-wrap .banner-t4 .control a.next {position:absolute;right:5px;}
+.banner-wrap .banner-t4 .control a.prev {position:absolute;left:-15px;}
+.banner-wrap .banner-t4 .control a.next {position:absolute;right:-10px;}
 .banner-wrap .banner-t4 .control a.stop,
 .banner-wrap .banner-t4 .control a.play{display:none}
 .banner-wrap .banner-t4 .control a.stop.active,

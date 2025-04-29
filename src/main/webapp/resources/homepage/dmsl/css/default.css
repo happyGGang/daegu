@@ -80,7 +80,7 @@ a:focus{color:#2b74c0}
 .footer .site_link > div > div > a.fsite,
 #footer .site_link > div > div > a.fsite{display:block;padding:3px 8px;border-right-width:0;text-align:left;background:#babec9;color:#fff;}
 .footer .site_link > div > div > ul,
-#footer .site_link > div > div > ul{position:absolute;bottom:30px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
+#footer .site_link > div > div > ul{position:absolute;bottom:34px;left:0;width:100%;text-align:left;border-top:1px solid #ccc;background:#fff}
 .footer .site_link > div > div > ul,
 #footer .site_link > div > div > ul{overflow-y:auto;border-right:1px solid #ccc}
 .footer .site_link > div > div > ul > li,

@@ -51,6 +51,7 @@ $(function(){
 	$('.movieContent ul').bxSlider({
 		auto: true,
 		pager:false,
+		moveSlides: 1,
 		autoControls:true,
 		autoControlsCombine:true
 	});
@@ -58,6 +59,7 @@ $(function(){
 	$('.movieContent2 ul').bxSlider({
 		auto: true,
 		pager:false,
+		moveSlides: 1,
 		autoControls:true,
 		autoControlsCombine:true
 	});

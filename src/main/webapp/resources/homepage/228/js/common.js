@@ -13,6 +13,7 @@ var pageMain = (function(){
 	bindEvent = function(){
 
 		// TAB
+		/*
 		$(document).on('click', '.tabMenuS a', function(){
 			var target = this.getAttribute('href').replace('#','');
 			var $box = $(this).closest('.tabS');
@@ -26,6 +27,20 @@ var pageMain = (function(){
 			$box.find('.more-more').attr('href', moreUrl);
 
 		});
+		*/
+
+		$(document).on('click', '.tabMenuS a.t-tabs', function(){
+			var target = this.getAttribute('href').replace('#','');
+			var $box = $(this).closest('.tabS');
+			var moreUrl = $(this).data('link');
+
+			$(this).closest('.tabMenuS').find('li').removeClass('on');
+			$(this).parent('li').addClass('on');
+
+			$box.find('.con').hide();
+			$box.find('[data-tab="'+target+'"]').show();
+			$box.find('.more-more').attr('href', moreUrl);
+		});
 
 	};
 
@@ -35,6 +50,7 @@ var pageMain = (function(){
 })();
 
 $(function(){
+	
 	// 팝업존(중앙도서관)
 	if ($('.popZone ul').length > 0) {
 		$('.popZone ul').bxSlider({
