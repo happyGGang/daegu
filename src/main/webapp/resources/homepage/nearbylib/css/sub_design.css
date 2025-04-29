@@ -79,7 +79,7 @@
 .doc-body ul.nbl-list > li strong{ color : #323232; }
 
 @media all and (max-width: 767px) {
-	.doc-body h3.nbl{font-size:21px;margin:30px 0 15px 0;}
+	.doc-body h3.nbl{font-size:19px;margin:30px 0 10px 0;background:url('/resources/homepage/nearbylib/img/nbl-h3.png') no-repeat 0 6px;}
 
 	.doc-body ul.nbl-list > li {font-size:14px;}
 }
