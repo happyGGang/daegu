@@ -47,7 +47,7 @@
 			</ul>
 		  </div>
 
-		  <h3>장서현황 (단위 : 권)<span class="sm_text sm_text02" style="margin-top:10px;">(2025. 3. 31. 기준)</span></h3>
+		  <h3>장서현황 (단위 : 권)<span class="sm_text sm_text02" style="margin-top:10px;">(2025. 4. 30. 기준)</span></h3>
 		  <div class="rsv-info"></div>
 		  <div class="auto-scroll">
 			<table class="tbl-type01" summary="사월역작은도서관 장서현황을 안내해 드립니다.">
@@ -89,70 +89,70 @@
           <th rowspan="2">어린이</th>
           <th>유아</th>
           <td>40</td>
-          <td>59</td>
+          <td>60</td>
           <td>65</td>
-          <td>448</td>
-          <td>168</td>
-          <td>23</td>
+          <td>450</td>
+          <td>170</td>
+          <td>24</td>
           <td>29</td>
-          <td>22</td>
-          <td>983</td>
-          <td>229</td>
-          <td>2,066</td>
+          <td>23</td>
+          <td>1,014</td>
+          <td>230</td>
+          <td>2,105</td>
         </tr>
 				<tr>
           <th>아동</th>
-          <td>232</td>
-          <td>88</td>
-          <td>33</td>
-          <td>379</td>
-          <td>187</td>
-          <td>125</td>
-          <td>28</td>
-          <td>159</td>
-          <td>1,179</td>
-          <td>408</td>
-          <td>2,818</td>
+          <td>235</td>
+          <td>90</td>
+          <td>37</td>
+          <td>386</td>
+          <td>218</td>
+          <td>128</td>
+          <td>29</td>
+          <td>164</td>
+          <td>1,394</td>
+          <td>431</td>
+          <td>3,123</td>
         </tr>
 				<tr>
           <th colspan="2">일반</th>
-          <td>217</td>
-          <td>536</td>
-          <td>165</td>
-          <td>1,043</td>
-          <td>248</td>
-          <td>695</td>
-          <td>284</td>
-          <td>136</td>
-          <td>2,253</td>
-          <td>644</td>
-          <td>6,231</td>
+          <td>221</td>
+          <td>543</td>
+          <td>167</td>
+          <td>1,052</td>
+          <td>250</td>
+          <td>725</td>
+          <td>327</td>
+          <td>139</td>
+          <td>2,326</td>
+          <td>674</td>
+          <td>6,424</td>
         </tr>
 				<tr>
           <th colspan="2" rowspan="2">총계</th>
-          <td>489</td>
-          <td>683</td>
-          <td>263</td>
-          <td>1,870</td>
-          <td>603</td>
-          <td>843</td>
-          <td>341</td>
-          <td>317</td>
-          <td>4,415</td>
-          <td>1,291</td>
-          <td>11,115</td>
+          <td>496</td>
+          <td>693</td>
+          <td>269</td>
+          <td>1,888</td>
+          <td>638</td>
+          <td>888</td>
+          <td>385</td>
+          <td>326</td>
+          <td>4,734</td>
+          <td>1,335</td>
+          <td>11,652</td>
         </tr>
 				<tr>
-          <td>4.4%</td>
-          <td>6.1%</td>
-          <td>2.4%</td>
-          <td>16.8%</td>
-          <td>5.4%</td>
+          <td>4.3%</td>
+          <td>5.9%</td>
+          <td>2.3%</td>
+          <td>16.2%</td>
+          <td>5.5%</td>
           <td>7.6%</td>
-          <td>3.1%</td>
-          <td>2.9%</td>
-          <td>39.7%</td>
-          <td>11.6%</td>
+          <td>3.3%</td>
+          <td>2.8%</td>
+          <td>40.6%</td>
+          <td>11.5%</td>
           <td>100%</td>
         </tr>
 			  </tbody>
