@@ -86,7 +86,7 @@
   <div class="footer_bottom">
     <div class="footer_bottom_text_wrapper">
       <div>
-        41447 대구 북구 서변로3길 54 (서변동, 무태조야동
+        41477 대구 북구 서변로3길 54 (서변동, 무태조야동
         복합문화시설)&nbsp;&nbsp;&nbsp;<br>전화 <span>053-320-3800</span>&nbsp;&nbsp;&nbsp;팩스 <span
           >053-945-0979</span
         >

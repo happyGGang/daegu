@@ -68,11 +68,25 @@ $(function(){
 							</div>
 
 							<div class="slickPlay">
-								<p class="status"><span>1</span> / 96</p>
+								<p class="status"><span>1</span> / 98</p>
 								<a href="#" class="play">시작</a>
 								<a href="#" class="pause">멈춤</a>
 							</div>
 							<div class="slickWrap" data-animation="fadeInUp">
+								<div>
+									<a href="http://icuration.co.kr:81/curation/w/221" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>문화예술</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/ct_img_13.png" alt="이달의 클래식" /></p>
+										<span class="link">이달의 클래식<i></i></span>
+									</a>
+								</div>
+								<div>
+									<a href="http://icuration.co.kr:81/curation/w/220" target="_blank" class="newWin" title="새창으로 열립니다.">
+										<h2>독서</h2>
+										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_12.png" alt="별이 속삭이는 이야기" /></p>
+										<span class="link"별이 속삭이는 이야기<i></i></span>
+									</a>
+								</div>
 								<div>
 									<a href="http://icuration.co.kr:81/curation/w/219" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>동화</h2>
