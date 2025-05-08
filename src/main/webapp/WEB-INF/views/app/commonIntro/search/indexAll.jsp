@@ -1,9 +1,16 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%
+	Date nowDate = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+	String todays = sf.format(nowDate);
+%>
+<c:set var="nowDate" value="<%=todays %>"/>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 
 <script src="/resources/cms/js/vk/vk_popup.js?vk_skin=flat_gray&vk_layout=ZW Shona"></script>
@@ -1452,6 +1459,9 @@
 															<c:choose>
 																<c:when test="${homepage.context_path eq 'dgportal'}">
 																	<c:choose>
+																		<c:when test="${i.MANAGE_CODE eq 'BX' && (20250512000000 <= nowDate && nowDate <= 20250523180000)}">
+
+																		</c:when>
 																		<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'BD'  || i.MANAGE_CODE eq 'BE' || i.MANAGE_CODE eq 'BF' || i.MANAGE_CODE eq 'BG' || i.MANAGE_CODE eq 'BH' || i.MANAGE_CODE eq 'BJ' || i.MANAGE_CODE eq 'BK' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'HR' || i.MANAGE_CODE eq ''  || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'BX' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'FA' || i.MANAGE_CODE eq 'FB' || i.MANAGE_CODE eq 'FC' || i.MANAGE_CODE eq 'GK' || i.MANAGE_CODE eq '' || i.MANAGE_CODE eq 'BZ' || i.MANAGE_CODE eq 'CA' || i.MANAGE_CODE eq 'CB' || i.MANAGE_CODE eq 'GA' || i.MANAGE_CODE eq 'GB' || i.MANAGE_CODE eq 'GC' || i.MANAGE_CODE eq 'GD' || i.MANAGE_CODE eq 'GE' || i.MANAGE_CODE eq 'GF' || i.MANAGE_CODE eq 'GH' || i.MANAGE_CODE eq 'FJ' || i.MANAGE_CODE eq 'FN' || i.MANAGE_CODE eq 'HG' || i.MANAGE_CODE eq 'GX' || i.MANAGE_CODE eq 'GY' || i.MANAGE_CODE eq 'FM' || i.MANAGE_CODE eq 'HK' || i.MANAGE_CODE eq 'HM' || i.MANAGE_CODE eq 'HN' || i.MANAGE_CODE eq 'HP' || i.MANAGE_CODE eq 'HQ' || i.MANAGE_CODE eq 'BL' || i.MANAGE_CODE eq 'BQ' || i.MANAGE_CODE eq 'BP' || i.MANAGE_CODE eq 'BM' || i.MANAGE_CODE eq 'BN'  || i.MANAGE_CODE eq 'CC'}">
 																			<c:if test="${i.KBILL_LILL_YN eq 'O'}">
 																				<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
