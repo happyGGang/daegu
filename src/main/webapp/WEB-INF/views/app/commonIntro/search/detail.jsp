@@ -786,6 +786,9 @@ $(function() {
 						
 						<c:when test="${detail.MANAGE_CODE eq 'BV'||detail.MANAGE_CODE eq 'FA'|| detail.MANAGE_CODE eq 'BW'|| detail.MANAGE_CODE eq 'BU'|| detail.MANAGE_CODE eq 'BX' ||detail.MANAGE_CODE eq 'BY' ||detail.MANAGE_CODE eq 'FA' ||detail.MANAGE_CODE eq 'FB' ||detail.MANAGE_CODE eq 'FC' || detail.MANAGE_CODE eq 'GK' || detail.MANAGE_CODE eq 'FX' || detail.MANAGE_CODE eq 'BZ' ||detail.MANAGE_CODE eq 'FD'}"><!--9/30 달서가족문화도서관 상호대차 중지 재개시 빈칸에 BY 입력 -->
 							<c:choose>
+								<c:when test="${detail.MANAGE_CODE eq 'BX' && (20250512000000 <= nowDate && nowDate <= 20250523180000)}">
+
+								</c:when>
 								<c:when test="${detail.KBILL_LILL_YN eq 'O'}">
 									<a href="" class="btn btn3 sangho"><span>상호대차 신청</span></a>
 								</c:when>
@@ -1018,6 +1021,9 @@ $(function() {
 									<c:otherwise>
 										<c:if test="${detail.MEDIA_CODE eq 'PR'}">
 											<c:choose>
+												<c:when test="${detail.MANAGE_CODE eq 'BX' && (20250512000000 <= nowDate && nowDate <= 20250523180000)}">
+
+												</c:when>
 												<c:when test="${detail.LOAN_CODE eq 'OK'}">
 													<a href="#muin" id="dalseo-unmanned-req" class="btn">무인예약신청</a>
 													<!--<a href="#" class="btn btn1" onclick="alert('상인/용산역 도서 투입이 지연되는 관계로 2024.01.04(목)~2024.01.06(일)까지 일시 중단됩니다.');">무인예약신청</a>-->
