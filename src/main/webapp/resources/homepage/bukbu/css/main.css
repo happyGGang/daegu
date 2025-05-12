@@ -401,7 +401,7 @@
 	.main1 .main1box2 .calendar-box .cal-box {height:auto;}
 	.main1 .main1box2 .library-infomation {margin:20px auto;}
 	
-	.main1 .main1box1 .main1box1box2 {display: flex;flex-direction: column;margin-top: 420px;}
+	.main1 .main1box1 .main1box1box2 {display: flex;flex-direction: column;margin-top: 364px;}
 	.main1 .main1box1 .main1box1box2 .main1box1box2box1 {width:40%;height: 314px;}
 	.main1 .main1box1 .main1box1box2 .main1box1box2box2 {width:59%;}
 	.main1 .main1box1 .main1box1box1 span {display:none;}
@@ -426,7 +426,7 @@
 	.main2 .main2box2 .popZone li{text-align:center;padding:0;margin:0;}
 	.main2 .main2box2 .popZone li a {display:block;}
 	.main2 .main2box2 .popZone li a img {border:0;}
-	.main1 .main1box1 .main1box1box2 .main1box1box2box1 .popZone .bx-controls{bottom: 53px;}
+	.main1 .main1box1 .main1box1box2 .main1box1box2box1 .popZone .bx-controls{bottom: 41px;}
 }
 
 @media all and (max-width:767px){
