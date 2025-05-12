@@ -434,6 +434,8 @@ function resveReq(bookkey, booktype, editMode) {
 	</c:choose>
 }
 
+	
+
 function searchIndex() {
 	$('input#viewPage').val('1');
 	$('input#reSearchTitle').val('');
@@ -569,6 +571,10 @@ function isFromFridayToSunday() {
 		<!-- <h2>어떤 도서<span style="font-weight:300">를 찾고 싶으세요?</span></h2> -->
 	</div>
 	<!-- /contents-title-->
+
+		<c:if test="${homepage.context_path eq 'dalseolib'}">
+		<p style="text-align:right;margin:10px 0;font-weight:bold;color:blue;font-size:13px;">* 본리도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(5/12~5/23)를 안내드리오니, 양해 바랍니다.(본리도서관 소장자료만 해당)</p>
+	</c:if>
 
 	<div class="search-wrap">
 

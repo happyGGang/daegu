@@ -44,7 +44,7 @@ $(document).ready(function() {
 				</li>
 			</ul>
 		</div>
-		<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.3.31] (단위 : 권)</span></h3>
+		<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.4.30] (단위 : 권)</span></h3>
 		<div class="rsv-info"></div>
 		<div class="auto-scroll">
 			<table class="tbl-type01" summary="수성못그림책도서관의 장서현황을 안내해 드립니다.">
@@ -76,37 +76,33 @@ $(document).ready(function() {
 				<tbody>
 					<tr>
 						<th>수성못그림책도서관</th>
-						<td>3,266</td>
-						<td>3,796</td>
-						<td>119</td>
-						<td>15</td>
-						<td>66</td>
-						<td>30</td>
-						<td>7,292</td>
-					</tr>
+						<td >3,366</td>
+						<td >3,871</td>
+						<td >119</td>
+						<td >15</td>
+						<td >77</td>
+						<td >30</td>
+						<td >7,478</td>
 				</tbody>
 			</table>
 		</div>
-		<h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.3.31] (단위 : 종)</span></h3>
+		<h3>정기간행물 현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.4.30] (단위 : 종)</span></h3>
 		<div class="rsv-info"></div>
 		<div class="auto-scroll">
 			<table class="tbl-type01" summary="수성못그림책도서관의 정기간행물현황을 안내해 드립니다.">
 				<caption class="disnone">
 					수성못그림책도서관의 정기간행물현황
 				</caption>
-				<colgroup>
-					<col width="20%">
-					<col width="20%">
-					<col width="20%">
-					<col width="20%">
-					<col width="20%">
-				</colgroup>
+			
 				<thead>
 					<tr>
 					<th>구분</th>
 					<th>신문</th>
-					<th>계간지</th>
+					<th>주간지</th>
+					<th>격주간지</th>
 					<th>월간지</th>
+					<th>격월간지</th>
+					<th>계간지</th>
 					<th>총 계</th>
 					</tr>
 				</thead>
@@ -114,9 +110,12 @@ $(document).ready(function() {
 					<tr>
 					<th>수성못그림책도서관</th>
 					<td>4</td>
+					<td>1</td>
+					<td>1</td>
+					<td>10</td>
+					<td>2</td>
 					<td>4</td>
-					<td>9</td>
-					<td>17</td>
+					<td>22</td>
 					</tr>
 				</tbody>
 			</table>
