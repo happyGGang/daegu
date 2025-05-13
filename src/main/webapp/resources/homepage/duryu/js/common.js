@@ -33,35 +33,3 @@ var pageMain = (function(){
 		init: init
 	}
 })();
-
-$(function(){
-	
-	// 팝업존(중앙도서관)
-	if ($('.popZone ul').length > 0) {
-		$('.popZone ul').bxSlider({
-			mode:'fade',
-			pager: true,
-			pagerType: 'short',
-			auto: true,
-			autoControls: true,
-			autoControlsCombine: true
-		});
-	}
-
-	$('.movieContent ul').bxSlider({
-		auto: true,
-		pager:true,
-		controls:false,
-		autoControls:false
-	});
-
-	$('.event-box > ul').bxSlider({
-		mode:'vertical',
-		pager:false
-	});
-
-	$('.holiday-box > ul').bxSlider({
-		mode:'vertical',
-		pager:false
-	});
-});

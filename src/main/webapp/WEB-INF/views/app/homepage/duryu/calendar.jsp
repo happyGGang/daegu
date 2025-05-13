@@ -3,8 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <script type="text/javascript">
-$(function() {
-Date.prototype.format = function(f) {
+	$(function() {
+		Date.prototype.format = function(f) {
 			if (!this.valueOf())
 				return " ";
 
@@ -13,28 +13,28 @@ Date.prototype.format = function(f) {
 
 			return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
 				switch ($1) {
-				case "yyyy":
-					return d.getFullYear();
-				case "yy":
-					return (d.getFullYear() % 1000).zf(2);
-				case "MM":
-					return (d.getMonth() + 1).zf(2);
-				case "dd":
-					return d.getDate().zf(2);
-				case "E":
-					return weekName[d.getDay()];
-				case "HH":
-					return d.getHours().zf(2);
-				case "hh":
-					return ((h = d.getHours() % 12) ? h : 12).zf(2);
-				case "mm":
-					return d.getMinutes().zf(2);
-				case "ss":
-					return d.getSeconds().zf(2);
-				case "a/p":
-					return d.getHours() < 12 ? "오전" : "오후";
-				default:
-					return $1;
+					case "yyyy":
+						return d.getFullYear();
+					case "yy":
+						return (d.getFullYear() % 1000).zf(2);
+					case "MM":
+						return (d.getMonth() + 1).zf(2);
+					case "dd":
+						return d.getDate().zf(2);
+					case "E":
+						return weekName[d.getDay()];
+					case "HH":
+						return d.getHours().zf(2);
+					case "hh":
+						return ((h = d.getHours() % 12) ? h : 12).zf(2);
+					case "mm":
+						return d.getMinutes().zf(2);
+					case "ss":
+						return d.getSeconds().zf(2);
+					case "a/p":
+						return d.getHours() < 12 ? "오전" : "오후";
+					default:
+						return $1;
 				}
 			});
 		};
@@ -52,173 +52,225 @@ Date.prototype.format = function(f) {
 		Number.prototype.zf = function(len) {
 			return this.toString().zf(len);
 		};
-/*
-	$('a#before-btn').on('click', function(e) {
-		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() - 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
-		e.preventDefault();
-	});
-	$('a#next-btn').on('click', function(e) {
-		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() + 1);
-		$('div.lt1').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
-		e.preventDefault();
-	});
-*/
-	$('#before-btn').on(
-			'click',
-			function(e) {
-				var plan_date = new Date($(this).attr('keyValue'));
-				plan_date.setMonth(plan_date.getMonth() - 1);
-				//plan_date.format('yyyy-MM')
-				$('div.cal-box').load('calendar3.do',
-						'plan_date=' + plan_date.format('yyyy-MM'));
-				e.preventDefault();
-			});
-	$('#next-btn').on(
-			'click',
-			function(e) {
-				var plan_date = new Date($(this).attr('keyValue'));
-				plan_date.setMonth(plan_date.getMonth() + 1);
-				$('div.cal-box').load('calendar3.do',
-						'plan_date=' + plan_date.format('yyyy-MM'));
-				e.preventDefault();
-			});
 
-	$('a.showCal').on('click', function(e) {
-		var key = $(this).attr('keyValue');
-// 		$(".calAll").hide();
-// 		$("#popup_layer").show();
-		if ($('div#eventDescription'+key).length > 0) {
-			$('span.eventDescription').html($('div#eventDescription'+key).html());
-		} else {
-			$('span.eventDescription').text('등록된 행사가 없습니다.');
-		}
-		$('a.showCal').removeClass('today');
-		$(this).addClass('today');
-		e.preventDefault();
-	});
+		$('a#before-btn').on('click',function(e) {
+			var plan_date = new Date($(this).attr('keyValue'));
+			plan_date.setMonth(plan_date.getMonth() - 1);
+			$('div.calendar').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			e.preventDefault();
+		});
 
-	$('.close').on('click', function(e) {
-		$("#popup_layer").hide();
-		$(".calAll").hide();
-	});
+		$('a#next-btn').on('click',function(e) {
+			var plan_date = new Date($(this).attr('keyValue'));
+			plan_date.setMonth(plan_date.getMonth() + 1);
+			$('div.calendar').load('calendar3.do','plan_date=' + plan_date.format('yyyy-MM'));
+			e.preventDefault();
+		});
 
-	var currDate = '${currDate}';
-	var today = parseInt(currDate.split('.')[2])+'';
-	$('a.showCal').each(function() {
-		if ($(this).text() == today) {
-			$(this).click();
-			$(this).addClass('today');
-			$(this).closest('ul').show();
-		}
-	});
+		$('a.showCal').on('click', function(e) {
+			var key = $(this).attr('keyValue');
+			$(".calAll").hide();
+			$("#popup_layer").show();
+			$("#"+key).show();
+			e.preventDefault();
+		});
 
-});
+		$('a.closePlanView').on('click', function(e) {
+			e.preventDefault();
+			$("#popup_layer").hide();
+			$(".calAll").hide();
+		});
+
+	});
 </script>
 
 <div id="calendar2">
-	<div class="cal-func2">
-		<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/prev-cal-btn.png" alt=""><span class="blind">이전달</span></a>
-		<b class="date"><span>${fn:split(calendar.plan_date, '-')[0]}.</span> <em>${fn:split(calendar.plan_date, '-')[1]}</em></b>
-		<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/next-cal-btn.png" alt=""><span class="blind">다음달</span></a>
-	</div>
-
-
-	<div class="inBox0">
-		<div class="week-box">
-			<ul>
-				<c:forEach items="${calendarList}" var="i">
-				<ul style="display: none;">
-					<li class="sun">
-						<a class="showCal" keyValue="${i.sun}">${i.sun}</a>
-					</li>
-					<li>
-						<a class="showCal" keyValue="${i.mon}">${i.mon}</a>
-					</li>
-					<li>
-						<a class="showCal" keyValue="${i.tue}">${i.tue}</a>
-					</li>
-					<li>
-						<a class="showCal" keyValue="${i.wed}">${i.wed}</a>
-					</li>
-					<li>
-						<a class="showCal" keyValue="${i.thu}">${i.thu}</a>
-					</li>
-					<li>
-						<a class="showCal" keyValue="${i.fri}">${i.fri}</a>
-					</li>
-					<li class="sat">
-						<a class="showCal" keyValue="${i.sat}">${i.sat}</a>
-					</li>
-				</ul>
-			</c:forEach>
-			</ul>
+	<a class="go-to-calendar" href="https://library.daegu.go.kr/duryu/module/calendarManage/index.do?menu_idx=63">
+		<img src="/resources/homepage/duryu/img/culture/calendar-more.svg" alt="">
+	</a>
+	<div class="calendar-controller">
+		<a id="before-btn" href="#prev" keyValue="${calendar.plan_date}">
+			<img src="/resources/homepage/duryu/img/culture/calendar-left-arrow.svg" alt="">
+		</a>
+		<div class="current-month">
+			<div>${fn:split(calendar.plan_date, '-')[0]}</div>
+			<div>${fn:split(calendar.plan_date, '-')[1] + 0}</div>
 		</div>
-		<div class="event-box">
-			<span><h3 class="">오늘의<Br/>행&nbsp;&nbsp;&nbsp;사</h3></span>
-			<span class="eventDescription">
-				<ul>
-					<li>등록된 행사가 없습니다.</li>
-				</ul>
-			</span>
-		</div>
+		<a id="next-btn" href="#next" keyValue="${calendar.plan_date}">
+			<img src="/resources/homepage/duryu/img/culture/calendar-right-arrow.svg" alt="">
+		</a>
 	</div>
-
-	<div class="planView" style="display: none;">
-	<div class="inbox" id="popup_layer" style="display:none;">
-			<c:forEach var="i" items="${calendarResult}" varStatus="status">
-				<div id="eventDescription${i.key}" class="calAll" style="display: none;">
-
-					<c:set var="l" value="${fn:length(i.value)}"></c:set>
+	<table>
+		<thead>
+			<tr>
+				<th class="day">SUN</th>
+				<th class="day">MON</th>
+				<th class="day">TUE</th>
+				<th class="day">WED</th>
+				<th class="day">THU</th>
+				<th class="day">FRI</th>
+				<th class="day">SAT</th>
+			</tr>
+		</thead>
+		<tbody>
+		<c:forEach items="${calendarList}" var="i">
+			<tr>
+				<td class="sun">
 					<c:choose>
-						<c:when test="${l == 0}">
-						<ul>
-							<li>
-								등록된 행사가 없습니다.
-							</li>
-							<li>
-							</li>
-						</ul>
-						</c:when>
+						<c:when test="${calendarResult[i.sun] eq null}">${i.sun}</c:when>
 						<c:otherwise>
-						<ul>
-						<c:if test="${l == 1}">
-						<li><c:out value="${i.value[0]}"/></li>
-						<li></li>
-						</c:if>
-						<c:if test="${l > 1}">
-						<li><c:out value="${i.value[0]}"/></li>
-						<li><c:out value="${i.value[1]}"/></li>
-						</c:if>
-						</ul>
+							<c:set var="one" value="${fn:length(i.sun) < 2 ? '0' : '' }${i.sun}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.sun}">${i.sun}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.sun}">${i.sun}</a>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${calendarResult[i.mon] eq null}">${i.mon}</c:when>
+						<c:otherwise>
+							<c:set var="one" value="${fn:length(i.mon) < 2 ? '0' : '' }${i.mon}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.mon}">${i.mon}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.mon}">${i.mon}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${calendarResult[i.tue] eq null}">${i.tue}</c:when>
+						<c:otherwise>
+							<c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.tue}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.tue}">${i.tue}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.tue}">${i.tue}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${calendarResult[i.wed] eq null}">${i.wed}</c:when>
+						<c:otherwise>
+							<c:set var="one" value="${fn:length(i.wed) < 2 ? '0' : '' }${i.wed}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.wed}">${i.wed}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.wed}">${i.wed}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${calendarResult[i.thu] eq null}">${i.thu}</c:when>
+						<c:otherwise>
+							<c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${i.thu}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.thu}">${i.thu}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.thu}">${i.thu}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${calendarResult[i.fri] eq null}">${i.fri}</c:when>
+						<c:otherwise>
+							<c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${i.fri}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.fri}">${i.fri}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.fri}">${i.fri}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</td>
+				<td class="sat">
+					<c:choose>
+						<c:when test="${calendarResult[i.sat] eq null}">${i.sat}</c:when>
+						<c:otherwise>
+							<c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${i.sat}"></c:set>
+							<c:choose>
+								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+									<a class="type-e showCal" keyValue="${i.sat}">${i.sat}</a>
+								</c:when>
+								<c:otherwise>
+									<a class="type-r showCal" keyValue="${i.sat}">${i.sat}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
+		</c:forEach>
+		</tbody>
+	</table>
+
+
+	<div class="planView">
+		<div class="inbox" id="popup_layer" style="display:none;">
+			<c:forEach var="i" items="${calendarResult}" varStatus="status">
+				<div id="${i.key}" class="calAll">
+					<div class="calendar-header">
+						<c:set var="year" value="${fn:split(calendar.plan_date, '-')[0]}" />
+						<c:set var="monthStr" value="${fn:split(calendar.plan_date, '-')[1]}" />
+						<c:set var="month" value="${monthStr + 0}" />
+						<c:set var="day" value="${i.key + 0}" />
+						<div>
+							${year}년 ${month}월 ${day}일
+						</div>
+						<a href="#" class="close closePlanView">
+							<img src="/resources/homepage/duryu/img/culture/calendar-popup-close.svg" alt="">
+						</a>
+					</div>
+					<div class="calendar-content">
+						<c:forEach var="count" begin="0" end="${fn:length(i.value)}">
+							<c:choose>
+								<c:when test="${fn:length(i.value[count]) > 19}">
+									<c:out value="${fn:substring(i.value[count], 0, 19)}"/>...
+								</c:when>
+								<c:otherwise>
+									<c:out value="${i.value[count]}"/>
+								</c:otherwise>
+							</c:choose>
+							<c:if test="${count < fn:length(i.value)}">
+								<br>
+							</c:if>
+						</c:forEach>
+					</div>
 				</div>
 			</c:forEach>
-		<a href="#" class="close closePlanView"><i class="fa fa-close"></i></a>
-	</div>
-	</div>
-
-	<div class="inBox1">
-		<div class="title">
-			<strong>이달의 휴관일</strong>
 		</div>
+	</div>
 
-		<dl class="info">
-			<c:if test="${empty closeDayList.dd}">
-				<dd>등록된 휴일이 없습니다.</dd>
-			</c:if>
-			<c:if test="${not empty closeDayList.dd}">
-				<dd>
-					<c:forTokens items="${closeDayList.dd}" delims="," var="dd">
-					<span style="width: auto; height: auto;padding: 2px 6px;">${dd}</span>
-					</c:forTokens>
-				</dd>
-			</c:if>
-		</dl>
+	<div class="calendar-caption">
+		<div>휴관</div>
+		<div>행사</div>
 	</div>
 </div>
-
-

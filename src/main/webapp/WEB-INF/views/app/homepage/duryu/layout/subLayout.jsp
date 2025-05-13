@@ -2,7 +2,20 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/reset.css" />
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/subLayout.css" />
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/footer.css" />
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/header.css" />
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/slick.css" />
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/slick-theme.css" />
+<script src="/resources/homepage/duryu/plugin/jquery-3.7.1.min.js"></script>
+<script src="/resources/homepage/duryu/js/common/common.js"></script>
+<script src="/resources/homepage/duryu/plugin/slick.min.js"></script>
+
+
 <tiles:insertAttribute name="header" />
+
 <script type="text/javascript">
 $(function() {
 	$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
@@ -109,4 +122,6 @@ function link()
 
 </div>
 
-<tiles:insertAttribute name="footer" />
+<div class="footer section-wrapper fp-auto-height" data-anchor="section5">
+	<tiles:insertAttribute name="footer" />
+</div>
