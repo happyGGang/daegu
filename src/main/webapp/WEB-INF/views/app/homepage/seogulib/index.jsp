@@ -1366,6 +1366,58 @@ do {
                   </c:forEach>
                 </div>
               </div>
+              <div class="top3wrap" id="galbox1_pyeongri">
+                <div class="gallery_box">
+                  <c:if test="${fn:length(galleryListh96) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
+                  <c:forEach items="${galleryListh96}" var="i" varStatus="status" begin="0" end="2">
+                    <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
+                      <div class="img_box">
+                        <c:choose>
+                          <c:when test="${i.preview_img ne null}">
+                            <c:choose>
+                              <c:when test="${fn:contains(i.preview_img, 'http')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:when test="${fn:contains(i.preview_img, 'noImg2')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:otherwise> <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/> </c:otherwise>
+                            </c:choose>
+                          </c:when>
+                          <c:otherwise> <img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/> </c:otherwise>
+                        </c:choose>
+                      </div>
+                      <div class="con_box">
+                        <div class="tit">${i.title}</div>
+                      </div>
+                    </a> </div>
+                  </c:forEach>
+                </div>
+              </div>
+              <div class="top3wrap" id="galbox1_kidsEnglish">
+                <div class="gallery_box">
+                  <c:if test="${fn:length(galleryListh98) < 1}">
+                    <div class="gallery">등록된 데이터가 없습니다.</div>
+                  </c:if>
+                  <c:forEach items="${galleryListh98}" var="i" varStatus="status" begin="0" end="2">
+                    <div class="gallery"> <a href="/${homepage.context_path}/board/view.do?menu_idx=50&manage_idx=632&board_idx=${i.board_idx}"><!-- 하이퍼링크 -->
+                      <div class="img_box">
+                        <c:choose>
+                          <c:when test="${i.preview_img ne null}">
+                            <c:choose>
+                              <c:when test="${fn:contains(i.preview_img, 'http')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:when test="${fn:contains(i.preview_img, 'noImg2')}"> <img src="${i.preview_img}" alt="${i.title}" /> </c:when>
+                              <c:otherwise> <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}"/> </c:otherwise>
+                            </c:choose>
+                          </c:when>
+                          <c:otherwise> <img src="/resources/common/img/noImg2.png" alt="${i.title}  상세보기"/> </c:otherwise>
+                        </c:choose>
+                      </div>
+                      <div class="con_box">
+                        <div class="tit">${i.title}</div>
+                      </div>
+                    </a> </div>
+                  </c:forEach>
+                </div>
+              </div>
             </div>
           </div>
         </div>
