@@ -30,6 +30,28 @@
 	</tag>
 
 	<tag>
+		<description>홈페이지 상단 신메뉴</description>
+		<name>newTopMenu</name>
+		<tag-class>kr.co.whalesoft.framework.tag.homepage.NewTopMenuTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>menuList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>isAddTitle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>isSoloMenu</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
 		<description>홈페이지 왼쪽메뉴</description>
 		<name>leftMenu</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.LeftMenuTag</tag-class>
@@ -238,6 +260,18 @@
 		<description>홈페이지 베너</description>
 		<name>banner</name>
 		<tag-class>kr.co.whalesoft.framework.tag.homepage.BannerTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>bannerList</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>홈페이지 새로운 베너</description>
+		<name>newBanner</name>
+		<tag-class>kr.co.whalesoft.framework.tag.homepage.NewBannerTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>bannerList</name>

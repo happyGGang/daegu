@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,7 +12,9 @@
     <meta property="og:description" content="${homepage.homepage_name}"/>
     <meta property="og:url" content="${homepage.domain}/${homepage.context_path}/index.do"/>
     <link rel="canonical" href="${homepage.domain}/${homepage.context_path}/index.do">
-    <title>${homepage.homepage_name}<c:if test="${not empty menuOne.menu_name}"> > </c:if>${menuOne.menu_full_path_name }</title>
+    <title>${homepage.homepage_name}
+    <c:if test="${not empty menuOne.menu_name}"> > </c:if>
+    ${menuOne.menu_full_path_name }</title>
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <![endif]-->
@@ -49,27 +51,28 @@
     <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
     <script>
 
-        $(document).ready(function(){
+      $(document).ready(function () {
 
-            $(document).bind("contextmenu", function(e) {
-                return false;
-            });
-
+        $(document).bind("contextmenu", function (e) {
+          return false;
         });
 
-        $(document)[0].oncontextmenu = function() { return false; }
+      });
 
-        $(document).mousedown(function(e) {
+      $(document)[0].oncontextmenu = function () {
+        return false;
+      }
 
-            if( e.button == 2 )
-            {
-                //alert('우측 마우스를 사용할 수 없습니다.');
-                return false;
-            } else {
-                return true;
-            }
+      $(document).mousedown(function (e) {
 
-        });
+        if (e.button == 2) {
+          //alert('우측 마우스를 사용할 수 없습니다.');
+          return false;
+        } else {
+          return true;
+        }
+
+      });
 
     </script>
 </head>

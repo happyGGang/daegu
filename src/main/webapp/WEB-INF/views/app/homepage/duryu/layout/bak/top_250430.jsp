@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8" %>
-<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="header">
@@ -42,13 +42,13 @@
                 <a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
 
                 <a href="https://pf.kakao.com/_xbIxlJb" target="_blank" class="sitemap-img2" style="padding-left:18px;" title="카카오톡채널 바로가기(새창열림)">
-                    <img src="/resources/homepage/${homepage.context_path}/img/kakaoch-btn.jpg" alt="카카오톡채널" /></a>
+                    <img src="/resources/homepage/${homepage.context_path}/img/kakaoch-btn.jpg" alt="카카오톡채널"/></a>
 
                 <a href="https://www.instagram.com/duryulib/" target="_blank" class="sitemap-img2" title="인스타그램 바로가기(새창열림)">
-                    <img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램" /></a>
+                    <img src="/resources/homepage/${homepage.context_path}/img/instagram-btn.png" alt="인스타그램"/></a>
 
                 <a href="https://www.youtube.com/channel/UCLIjzSfEz4vRczvr02hMy2w/featured" target="_blank" class="sitemap-img2" title="유튜브 바로가기(새창열림)">
-                    <img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브" /></a>
+                    <img src="/resources/homepage/${homepage.context_path}/img/youtube-btn.png" alt="유튜브"/></a>
 
                 <!-- <a href="https://twitter.com/duryulibrary" target="_blank" class="sitemap-img2" title="트위터 바로가기(새창열림)">
                 <img src="/resources/homepage/${homepage.context_path}/img/twitter-btn.png" alt="트위터" /></a>

@@ -1,5 +1,5 @@
 <%@ page language="java" pageEncoding="utf-8" %>
-<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="head">
     <div class="Gnb">
@@ -7,9 +7,9 @@
         <div class="section">
             <!-- menu S -->
             <div class="g-menu">
-                <homepageTag:topMenu menuList="${menuTreeList}" />
+                <homepageTag:topMenu menuList="${menuTreeList}"/>
 
-                <a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵" /></a>
+                <a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="last-box"><img src="/resources/homepage/${homepage.context_path}/img/sitemap-btn.png" alt="사이트맵"/></a>
 
                 <div class="mmode">
                     <a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=125" class="btn4">
@@ -23,8 +23,8 @@
                                 <span>${sessionScope.member.member_name}님</span>
                             </a>
                             <!-- <a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="btn4">
-                                <i class="fa fa-bookmark"></i>
-                                <span>나의도서관</span>
+                            <i class="fa fa-bookmark"></i>
+                            <span>나의도서관</span>
                             </a> -->
                             <a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
                                 <i class="fa fa-sign-out"></i>

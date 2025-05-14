@@ -1996,8 +1996,7 @@ public class IndexController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/{contextPath}/calendar3.*" }) // 1개월 가져오기
-	public String calendar3(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request,
-			@PathVariable String contextPath) throws ParseException {
+	public String calendar3(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		String filePath = "";
@@ -2491,7 +2490,7 @@ public class IndexController extends BaseController {
 		//h50 수성 범어
 		//h51 수성 용학
 		//h52 수성 고산
-		String[] teachHomepage = {"h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h99", "h101"};
+		String[] teachHomepage = {"h6","h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h99", "h101"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
@@ -4211,5 +4210,12 @@ public class IndexController extends BaseController {
 		model.addAttribute("recommendBookList", boardService.getBoardByMain(board));
 
 		return basePath + homepage.getFolder() + "/recommendBook_ajax";
+	}
+
+	@RequestMapping(value = { "/{contextPath}/popupAll.*" })
+	public String popupAll(Model model, Popup Popup, HttpServletRequest request, @PathVariable String contextPath) {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+		model.addAttribute("popupFullList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
+		return basePath + homepage.getFolder() + "/popupAll_ajax";
 	}
 }

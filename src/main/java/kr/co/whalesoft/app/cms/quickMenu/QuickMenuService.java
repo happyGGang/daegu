@@ -48,8 +48,8 @@ public class QuickMenuService extends BaseService {
 			String fileName 		= mFile.getOriginalFilename().substring(0, mFile.getOriginalFilename().lastIndexOf("."));
 			String fileExtension 	= FilenameUtils.getExtension(mFile.getOriginalFilename());
 			String filePath 		= "/" + quickMenu.getHomepage_id();
-			
-			File f = quickMenuStorage.addFile(mFile, realFileName, filePath);
+
+			File f = quickMenuStorage.addFile(mFile, realFileName + "." + fileExtension, filePath);
 			quickMenu.setOrg_file_name(fileName);
 			quickMenu.setServer_file_name(realFileName);
 			quickMenu.setFile_extension(fileExtension);
