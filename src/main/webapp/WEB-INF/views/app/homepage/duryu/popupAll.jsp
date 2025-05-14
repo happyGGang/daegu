@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<script src="/resources/homepage/duryu/js/common/common.js"></script>
 <c:if test="${fn:length(popupFullList) > 0}">
   <div class="total-popup-controller">
     <div class="total-popup-controller-btn popup-today-close">
