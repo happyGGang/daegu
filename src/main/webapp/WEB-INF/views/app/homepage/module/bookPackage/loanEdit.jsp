@@ -153,7 +153,15 @@ $(function() {
 		<li style="font-weight:bold;color:blue;">많은 학교가 이용 할 수 있도록, 필요한 기간만큼만 대출기간을 설정해주세요.</li>
 		<li style="font-weight:bold;color:blue;">반납일자가 남았더라도, 활동이 끝나면 반납요청이 가능하니 일찍 반납해주세요.</li>
 		<li>대출 기간은 배송 기간 포함입니다.</li>
-		<li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
+		<c:choose>
+			<c:when test="${homepage.context_path eq '228'}">
+				<li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주세요.</li>
+				<li>학교급별(초, 중, 고) 대상에 맞는 꾸러미로 신청해주세요.</li>
+			</c:when>
+			<c:otherwise>
+				<li>다음 학교가 희망하는 일자부터 사용할 수 있도록 대출 기간을 반드시 지켜주십시오.</li>
+			</c:otherwise>
+		</c:choose>
 		<!-- <li>원화는 액자에 부착되어 있습니다. 원화 전시 중 학생들의 안전에 더욱 신경 써주십시오.</li> -->
 	</ul>
 </div>
