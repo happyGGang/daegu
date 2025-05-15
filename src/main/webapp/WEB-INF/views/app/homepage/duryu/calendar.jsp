@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
   $(function () {
     Date.prototype.format = function (f) {
@@ -113,36 +114,129 @@
         </tr>
         </thead>
         <tbody>
-        <c:set var="dayKeys" value="${['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']}"/>
-        <c:forEach items="${calendarList}" var="row">
+        <c:forEach items="${calendarList}" var="i">
             <tr>
-                <c:forEach items="${dayKeys}" var="dayKey">
-                    <c:set var="dayValue" value="${row[dayKey]}"/>
-
-                    <c:set var="tdClass" value=""/>
-                    <c:if test="${dayKey eq 'sun'}"><c:set var="tdClass" value="sun"/></c:if>
-                    <c:if test="${dayKey eq 'sat'}"><c:set var="tdClass" value="sat"/></c:if>
-
-                    <td <c:if test="${not empty tdClass}">class="${tdClass}"</c:if>>
-                        <c:choose>
-                            <c:when test="${empty dayValue or calendarResult[dayValue] eq null}">
-                                ${dayValue}
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="paddedDay" value="${fn:length(dayValue) < 2 ? '0' : ''}${dayValue}"/>
-
-                                <c:choose>
-                                    <c:when test="${fn:indexOf(closeDayList.dd, paddedDay) > -1 }">
-                                        <a class="type-e showCal" keyValue="${dayValue}">${dayValue}</a>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <a class="type-r showCal" keyValue="${dayValue}">${dayValue}</a>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                </c:forEach>
+                <td class="sun">
+                    <fmt:formatNumber value="${i.sun}" pattern="#" var="daySun"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.sun] eq null}">
+                            ${daySun}
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${(i.sun.length() < 2 ? '0' : '')}${i.sun}"/>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1}">
+                                    <a class="type-e showCal" keyValue="${i.sun}">${daySun}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.sun}">${daySun}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <fmt:formatNumber value="${i.mon}" pattern="#" var="dayMon"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.mon] eq null}">${dayMon}</c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${fn:length(i.mon) < 2 ? '0' : '' }${i.mon}"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+                                    <a class="type-e showCal" keyValue="${i.mon}">${dayMon}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.mon}">${dayMon}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <fmt:formatNumber value="${i.tue}" pattern="#" var="dayTue"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.tue] eq null}">${dayTue}</c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${fn:length(i.tue) < 2 ? '0' : '' }${i.tue}"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+                                    <a class="type-e showCal" keyValue="${i.tue}">${dayTue}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.tue}">${dayTue}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <fmt:formatNumber value="${i.wed}" pattern="#" var="dayWed"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.wed] eq null}">${dayWed}</c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${fn:length(i.wed) < 2 ? '0' : '' }${i.wed}"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+                                    <a class="type-e showCal" keyValue="${i.wed}">${dayWed}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.wed}">${dayWed}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <fmt:formatNumber value="${i.thu}" pattern="#" var="dayThu"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.thu] eq null}">${dayThu}</c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${dayThu}"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+                                    <a class="type-e showCal" keyValue="${i.thu}">${dayThu}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.thu}">${dayThu}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td>
+                    <fmt:formatNumber value="${i.fri}" pattern="#" var="dayFri"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.fri] eq null}">${dayFri}</c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${dayFri}"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+                                    <a class="type-e showCal" keyValue="${i.fri}">${dayFri}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.fri}">${dayFri}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
+                <td class="sat">
+                    <fmt:formatNumber value="${i.sat}" pattern="#" var="daySat"/>
+                    <c:choose>
+                        <c:when test="${calendarResult[i.sat] eq null}">${daySat}</c:when>
+                        <c:otherwise>
+                            <c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${daySat}"></c:set>
+                            <c:choose>
+                                <c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
+                                    <a class="type-e showCal" keyValue="${i.sat}">${daySat}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="type-r showCal" keyValue="${i.sat}">${daySat}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

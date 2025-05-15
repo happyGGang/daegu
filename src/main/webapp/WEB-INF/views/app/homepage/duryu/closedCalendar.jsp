@@ -58,14 +58,14 @@
     $('#before-btns').on('click', function (e) {
       var plan_date = new Date($(this).attr('keyValue'));
       plan_date.setMonth(plan_date.getMonth() - 1);
-      $('div#holiday-box').load('calendar2.do', 'plan_date=' + plan_date.format('yyyy-MM'));
+      $('div#holiday-area').load('calendar2.do', 'plan_date=' + plan_date.format('yyyy-MM'));
       e.preventDefault();
     });
 
     $('#next-btns').on('click', function (e) {
       var plan_date = new Date($(this).attr('keyValue'));
       plan_date.setMonth(plan_date.getMonth() + 1);
-      $('div#holiday-box').load('calendar2.do', 'plan_date=' + plan_date.format('yyyy-MM'));
+      $('div#holiday-area').load('calendar2.do', 'plan_date=' + plan_date.format('yyyy-MM'));
       e.preventDefault();
     });
   });

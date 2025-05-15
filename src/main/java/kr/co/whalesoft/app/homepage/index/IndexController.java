@@ -1996,7 +1996,8 @@ public class IndexController extends BaseController {
 	}
 
 	@RequestMapping(value = { "/{contextPath}/calendar3.*" }) // 1개월 가져오기
-	public String calendar3(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+	public String calendar3(Model model, CalendarManage calendarManage, Board board, HttpServletRequest request,
+		@PathVariable String contextPath) throws ParseException {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
 
 		String filePath = "";
