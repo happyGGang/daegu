@@ -1272,38 +1272,33 @@
 					THEN '9'
 					WHEN A.status = 0
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_date
-					AND A.teach_limit_count > A.teach_join_count
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
 					THEN '0'
 					WHEN A.status = 0
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_date
-					AND A.teach_limit_count &lt;= A.teach_join_count
-					AND A.teach_backup_count > A.teach_backup_join_count
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
 					THEN '1'
 					WHEN A.status = 0
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_date
-					AND A.teach_limit_count &lt;= A.teach_join_count
-					AND A.teach_backup_count &lt;= A.teach_backup_join_count
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
 					THEN '5'
 					WHEN A.status = 0
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.start_date
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.start_date
 					THEN '6'
 					WHEN A.status = 0
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
 					THEN '4'
 					WHEN A.status = 1 AND A.apply_status = '1'
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_date
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
 					THEN '2'
 					WHEN A.status = 1 AND A.apply_status = '2'
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_date
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
 					THEN '3'
 					WHEN A.status = 1 AND A.apply_status = '99'
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.end_date
+					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
 					THEN '7'
 					WHEN A.status = 1
 					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date

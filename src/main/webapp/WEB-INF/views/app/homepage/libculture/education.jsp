@@ -14,7 +14,7 @@
 			arrows:false,
 			infinite: true,
 			speed: 300,
-			slidesToShow: ${teachCount},
+			slidesToShow: 3,
 			variableWidth: true,
 			autoplay: true,
 			autoplaySpeed: 5000,
