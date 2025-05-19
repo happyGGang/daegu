@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import javafx.scene.control.Alert;
 import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSetting;
 import kr.go.gbelib.app.cms.module.drone.deviceSetting.DeviceSettingService;
 import kr.go.gbelib.app.cms.module.drone.loanRequest.LoanRequest;
@@ -638,7 +639,7 @@ public class CommonSearchController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/detail.*"})
-	public String detail(@PathVariable("homepagePath") String homepagePath, Model model, UntactLockerSetting untactLockerSetting, LibrarySearch librarySearch, HttpServletRequest request) {
+	public String detail(@PathVariable("homepagePath") String homepagePath, Model model, UntactLockerSetting untactLockerSetting, LibrarySearch librarySearch, HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 		Map<String, Object> result = new HashMap<String, Object>();
 		
@@ -1002,6 +1003,9 @@ public class CommonSearchController extends BaseController {
 				model.addAttribute("droneLoanYn", loanRequestService.getBookLoanYn(LoanRequest.ofManageCodeAndMemberIdAndRegNo(homepage.getManage_code(), "" , (String) map.get("REG_NO"))));
 				model.addAttribute("droneDayLoanCount", loanRequestService.getDayLoanCount(LoanRequest.fromManageCode(homepage.getManage_code())));
 				model.addAttribute("dronePersonalLoanCount", loanRequestService.getPersonalLoanCount(LoanRequest.ofManageCodeAndMemberId(homepage.getManage_code(), getSessionMemberId(request))));
+			} else {
+				service.alertMessageAndHistoryBack("해당 도서는 존재하지 않습니다",-4,request, response);
+				return null;
 			}
 		}
 		

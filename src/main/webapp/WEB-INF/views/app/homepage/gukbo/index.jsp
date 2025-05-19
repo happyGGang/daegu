@@ -449,7 +449,8 @@
 											</c:if>
 											<c:forEach var="i" items="${recommendBookList}">
 											<div class="list">
-												<a href="/${homepage.context_path}/board/view.do?menu_idx=115&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=13&isbn=${i.imsi_v_5}&regNo=${fn:escapeXml(i.imsi_v_8)}&manageCode=${fn:escapeXml('AD')}">
+
 												<span class="images-box">
 													<c:choose>
 													<c:when test="${i.preview_img ne null}">
