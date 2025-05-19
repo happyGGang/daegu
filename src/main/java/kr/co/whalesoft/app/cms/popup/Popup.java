@@ -30,6 +30,7 @@ public class Popup extends PagingUtils {
 	private String file_extension;
 	private long file_size;
 	private String link_target; // 새창으로보기
+	private String link_type; // 링크타입
 
 	private String common_yn = "N";
 
@@ -244,4 +245,11 @@ public class Popup extends PagingUtils {
 		this.alt_text = alt_text;
 	}
 
+	public String getLink_type() {
+		return link_type;
+	}
+
+	public void setLink_type(String link_type) {
+		this.link_type = link_type;
+	}
 }

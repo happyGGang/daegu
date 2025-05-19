@@ -10,7 +10,7 @@
 			use_yn, print_seq, width, height, x_position,
 			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
 			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn,
-			alt_text
+			alt_text, link_type
 		FROM
 			CMS_POPUP
 		WHERE
@@ -36,7 +36,7 @@
 			use_yn, print_seq, width, height, x_position,
 			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
 			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn,
-			alt_text
+			alt_text, link_type
 		FROM
 			CMS_POPUP
 		WHERE
@@ -72,7 +72,7 @@
 			use_yn, print_seq, width, height, x_position,
 			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
 			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn,
-			alt_text
+			alt_text, link_type
 		FROM
 			CMS_POPUP
 		WHERE
@@ -90,7 +90,7 @@
 			popup_idx, popup_name, html, html_use_yn, popup_type, link_url,
 			use_yn, print_seq, width, height, x_position,
 			y_position, add_id, add_date, link_target, start_date, end_date, common_yn,
-			alt_text
+			alt_text, link_type
 			<if test="server_file_name != null and server_file_name != ''">
 			, org_file_name, server_file_name, file_extension, file_size
 			</if>
@@ -101,7 +101,7 @@
 			#{popup_idx}, #{popup_name}, #{html}, #{html_use_yn}, #{popup_type}, #{link_url},
 			#{use_yn}, #{print_seq}, #{width}, #{height}, #{x_position},
 			#{y_position}, #{add_id}, SYSDATE, #{link_target}, #{start_date}, #{end_date}, #{common_yn},
-			#{alt_text}
+			#{alt_text}, #{link_type}
 			<if test="server_file_name != null and server_file_name != ''">
 			, #{org_file_name}, #{server_file_name}, #{file_extension}, #{file_size}
 			</if>
@@ -115,6 +115,7 @@
 			html_use_yn = #{html_use_yn},
 			popup_type = #{popup_type},
 			link_url = #{link_url},
+			link_type = #{link_type},
 			use_yn = #{use_yn},
 			print_seq = #{print_seq},
 			width = #{width},

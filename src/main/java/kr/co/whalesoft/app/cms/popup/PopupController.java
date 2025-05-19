@@ -79,8 +79,7 @@ public class PopupController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "popup_name", "팝업명을 입력해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "start_date", "게시 시작일을 지정해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "end_date", "게시 종료일을 지정해주세요");
-		ValidationUtils.rejectIfEmpty(result, "link_url", "링크URL을 지정해주세요");
-		
+
 		if(!result.hasErrors()) {
 			if(popup.getEditMode().equals("ADD")) {
 				popup.setAdd_id(getSessionMemberId(request));

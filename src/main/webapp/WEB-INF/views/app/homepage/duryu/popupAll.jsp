@@ -22,9 +22,16 @@
             <div class="total-popup-slide">
             <c:forEach items="${popupFullList}" var="i" varStatus="status">
                 <div class="total-popup-slide-item">
-                    <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
-                    <c:if test="${i.link_url ne '#'}">
-                        <a href="${i.link_url}">자세히보기</a>
+                    <c:choose>
+                        <c:when test="${not empty i.server_file_name}">
+                            <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
+                        </c:when>
+                        <c:otherwise>
+                            <img src="/resources/homepage/duryu/img/common/dummy.png" alt="${i.alt_text}">
+                        </c:otherwise>
+                    </c:choose>
+                    <c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
+                        <a href="${i.link_url}"> ${i.link_type eq 'APPLY' ? '신청하기' : '자세히보기'} </a>
                     </c:if>
                 </div>
             </c:forEach>

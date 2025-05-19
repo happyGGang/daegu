@@ -294,12 +294,22 @@ function pasteHTML(filepath){
 			</td>
 		</tr>
 		<tr>
-			<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
+			<th>링크 URL</th>
 			<td>
 				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
 				<div class="ui-state-highlight">
 					<em>* 팝업 클릭시 이동 할 URL 입니다.</em>
 				</div>
+			</td>
+		</tr>
+		<tr>
+			<th>링크종류</th>
+			<td>
+				<form:select path="link_type" cssStyle="width:160px;" cssClass="selectmenu">
+					<form:option value="NONE">링크없음</form:option>
+					<form:option value="APPLY">신청하기</form:option>
+					<form:option value="VIEW">자세히보기</form:option>
+				</form:select>
 			</td>
 		</tr>
 		<tr>
