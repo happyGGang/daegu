@@ -91,14 +91,17 @@ public interface TeachDao  {
 	public List<Teach> getTeachListForAllCulture(Teach teach);
 
 	public List<Teach> getTeachListForAllSearchCulture(Teach teach);
+	public List<Teach> getTeachListForAllSearchCultureByStartDate(Teach teach);
 
 	public int getTeachListForAllSearchCultureCount(Teach teach);
+	public int getTeachListForAllSearchCultureCountByStartDate(Teach teach);
 
 	public List<Teach> getApplyListAll(Teach teach);
 
 	public int getApplyListAllCount(Teach teach);
 
 	public int getCultureViewCount(Teach teach);
+	public List<Teach> getCultureViewList(Teach teach);
 
 	public List<Teach> getKioskTeachListForUser(Teach teach);
 

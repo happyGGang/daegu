@@ -471,6 +471,39 @@ public class TeachService extends BaseService {
 
 		return dao.getTeachListForAllSearchCultureCount(teach);
 	}
+	public int getTeachListForAllSearchCultureCountByStartDate(Teach teach) {
+		teach = getSearchDate(teach);
+
+		return dao.getTeachListForAllSearchCultureCountByStartDate(teach);
+	}
+
+	public List<Teach> getTeachListForAllSearchCultureByStartDate(Teach teach) {
+
+		teach = getSearchDate(teach);
+
+		List<Teach> list = dao.getTeachListForAllSearchCultureByStartDate(teach);
+
+		if (list != null && list.size() > 0) {
+			for (Teach result : list) {
+				Homepage homepage = homepageService.getHomepageOne2(new Homepage(result.getHomepage_id()));
+				result.setContext_path(homepage.getContext_path());
+				result.setTeach_day_arr(result.getTeach_day().split(","));
+				result.setHolidays(dao.getHolidays(result));
+				Menu m = new Menu();
+				m.setHomepage_id(homepage.getHomepage_id());
+				m.setMenu_idx(97);
+				m.setMenu_url_param("searchCate1="+result.getLarge_category_idx());
+				result.setMenu_idx(menuService.getMenuIdxByProgramIdx3(m));
+				if (StringUtils.isNotEmpty(result.getProgram_age_div())) {
+					result.setProgram_age_div_arr(Arrays.asList(result.getProgram_age_div().split(",")));
+				}
+				if (StringUtils.isEmpty(result.getTeacher_name())) {
+					result.setTeacher_name(dao.getTeacherName(result));
+				}
+			}
+		}
+		return list;
+	}
 
 	public List<Teach> getTeachListForAllHomepageRamdom(Teach teach) {
 		List<Teach> list = dao.getTeachListForAllHomepageRamdom(teach);
@@ -695,6 +728,9 @@ public class TeachService extends BaseService {
 
 	public int getCultureViewCount(Teach teach) {
 		return dao.getCultureViewCount(teach);
+	}
+	public List<Teach> getCultureViewList(Teach teach) {
+		return dao.getCultureViewList(teach);
 	}
 
 	public List<Teach> getKioskTeachListForUser(Teach teach) {

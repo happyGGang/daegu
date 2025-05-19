@@ -4075,9 +4075,10 @@ public class IndexController extends BaseController {
 		teach.setSearch_end_date(yy+mm+cal.getActualMaximum(Calendar.DAY_OF_MONTH));
 
 		teach.setRowCount(8);
-		teachService.setPaging(model, teachService.getTeachListForAllSearchCultureCount(teach), teach);
-		model.addAttribute("searchTeachList",teachService.getTeachListForAllSearchCulture(teach));
-		model.addAttribute("count", teachService.getTeachListForAllSearchCultureCount(teach));
+		teach.setSortType("OPERATE");
+		teachService.setPaging(model, teachService.getTeachListForAllSearchCultureCountByStartDate(teach), teach);
+		model.addAttribute("searchTeachList",teachService.getTeachListForAllSearchCultureByStartDate(teach));
+		model.addAttribute("count", teachService.getTeachListForAllSearchCultureCountByStartDate(teach));
 		return basePath + homepage.getFolder() + "/searchCulture_ajax";
 	}
 
@@ -4103,8 +4104,9 @@ public class IndexController extends BaseController {
 			}
 
 		}
-
-		model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(teach, "Y"));
+		List<Teach> teachViewList = teachService.getTeachListForAllCulture(teach, "Y");
+		model.addAttribute("teachViewList", teachViewList);
+		model.addAttribute("teachCount", teachViewList.size());
 		return basePath + homepage.getFolder() + "/education_ajax";
 	}
 

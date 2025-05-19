@@ -227,7 +227,7 @@ $(function() {
 		var txt = $(this).data('roll');
 		$('input#search_text_2').val(txt);
 		$('form#dgportalSearchForm').submit();
-	});
+	})
 });
 
 </script>

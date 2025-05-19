@@ -105,8 +105,9 @@ public class CultureController extends BaseController {
         model.addAttribute("hashtagCodeList", hashtagService.getHashtagUsedList(new Hashtag()));
 
         teach.setRowCount(8);
-        teachService.setPaging(model, teachService.getTeachListForAllSearchCultureCount(teach), teach);
-        model.addAttribute("teachList", teachService.getTeachListForAllSearchCulture(teach));
+        teach.setSortType("OPERATE");
+        teachService.setPaging(model, teachService.getTeachListForAllSearchCultureCountByStartDate(teach), teach);
+        model.addAttribute("teachList", teachService.getTeachListForAllSearchCultureByStartDate(teach));
 
         model.addAttribute("teach", teach);
         return String.format(basePath, homepage.getFolder()) + "teach";

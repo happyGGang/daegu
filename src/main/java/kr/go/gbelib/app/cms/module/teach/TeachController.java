@@ -283,12 +283,31 @@ public class TeachController extends BaseController {
 			ValidationUtils.rejectIfStringLength(result, "teach_etc", 100, "준비물 및 재료비");
 			ValidationUtils.rejectIfStringLength(result, "teach_stage", 50, "강의장소");
 			ValidationUtils.rejectIfStringLength(result, "teach_target", 200, "강의대상");
-			
+
 			if("Y".equals(teach.getCulture_view_yn())){
-				int cultureViewCount = teachService.getCultureViewCount(teach);
-				
-				if(cultureViewCount > 1) {
-					result.reject("홈페이지별 문화포털 게시는 최대 2개까지 입니다.");
+				List<Teach> cultureViewList = teachService.getCultureViewList(teach);
+				int count = cultureViewList.size();
+				boolean isCultureLimit = false;
+
+				if(editMode.equals("ADD") && count >= 2) {
+					isCultureLimit = true;
+				} else if (editMode.equals("MODIFY")) {
+					// cultureViewList에 본인이 포함돼 있으면 count 유지
+					boolean containsSelf = false;
+					for (Teach findTeach : cultureViewList) {
+						if (findTeach.getTeach_idx() == teach.getTeach_idx()) {
+							containsSelf = true;
+							break;
+						}
+					}
+					// 포함 안돼 있고 이미 2개 있으면 제한
+					if (!containsSelf && count >= 2) {
+						isCultureLimit = true;
+					}
+				}
+
+				if (isCultureLimit) {
+					result.reject("홈페이지별 문화포털 게시는 최대 2개까지입니다.");
 				}
 			}
 			
