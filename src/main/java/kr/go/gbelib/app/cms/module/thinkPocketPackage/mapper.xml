@@ -436,4 +436,15 @@
     AND homepage_id = #{homepage_id}
   </select>
 
+  <select id="getDuplicateLoanCountByReserve" resultType="java.lang.Integer">
+    SELECT
+      count(*)
+    FROM
+      THINK_POCKET_PACKAGE_LOAN
+    WHERE add_id = #{add_id}
+      AND	request_status IN ('1')
+      AND homepage_id = #{homepage_id}
+  </select>
+
+
 </mapper>

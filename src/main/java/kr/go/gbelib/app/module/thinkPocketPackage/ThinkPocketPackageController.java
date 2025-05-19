@@ -238,16 +238,10 @@ public class ThinkPocketPackageController extends BaseController {
     }
 
     thinkPocketPackage.setAdd_id(member.getMember_id());
-    /*
-    int getDuplicateLoanCount = service.getDuplicateLoanCount(thinkPocketPackage);
-
-    if (getDuplicateLoanCount > 0) {
-      service.alertMessage("이미 대출신청 또는 예약신청 하셨습니다. 계정당 1건만 신청 가능합니다.", request, response);
-      return null;
-    }
-*/
 
     int menu_idx = thinkPocketPackage.getMenu_idx();
+    // 예약횟수 조회
+    int getDuplicateLoanCount = service.getDuplicateLoanCountByReserve(thinkPocketPackage);
 
     if (thinkPocketPackage.getEditMode().equals("MODIFY")) {
       checkAuth("U", model, request);
@@ -260,6 +254,12 @@ public class ThinkPocketPackageController extends BaseController {
           });
     } else {
       thinkPocketPackage = (ThinkPocketPackage) service.copyObjectPaging(thinkPocketPackage, service.getThinkPocketPackageOne(thinkPocketPackage));
+
+      int lenderCount = thinkPocketPackage.getLender_count();
+      if (lenderCount > 0 && getDuplicateLoanCount > 0) {
+        service.alertMessage("이미 예약신청 하셨습니다. 계정당 1건만 신청 가능합니다.", request, response);
+        return null;
+      }
 
       DateTimeFormatter displayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
       DateTimeFormatter searchFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -306,7 +306,7 @@ public class ThinkPocketPackageController extends BaseController {
   }
 
   @RequestMapping(value = {"/loanSave.*"}, method = RequestMethod.POST)
-  public @ResponseBody JsonResponse thinkPocketPackageReqSave(ThinkPocketPackage thinkPocketPackage, BindingResult result, HttpServletRequest request) {
+  public @ResponseBody JsonResponse thinkPocketPackageReqSave(ThinkPocketPackage thinkPocketPackage, BindingResult result, HttpServletRequest request,HttpServletResponse response) throws Exception {
     Homepage homepage = getHomepage(thinkPocketPackage, request);
     /* 유효성 검증 >>>>> */
     JsonResponse res = new JsonResponse(request);

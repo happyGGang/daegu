@@ -159,6 +159,9 @@ public class ThinkPocketPackageService extends BaseService {
   public int getDuplicateLoanCount(ThinkPocketPackage thinkPocketPackage) {
     return dao.getDuplicateLoanCount(thinkPocketPackage);
   }
+  public int getDuplicateLoanCountByReserve(ThinkPocketPackage thinkPocketPackage) {
+    return dao.getDuplicateLoanCountByReserve(thinkPocketPackage);
+  }
 
   public int setOutputOrder(ThinkPocketPackage thinkPocketPackage) {
     return dao.setOutputOrder(thinkPocketPackage);
