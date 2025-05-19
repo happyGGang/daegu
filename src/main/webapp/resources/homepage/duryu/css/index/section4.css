@@ -1,7 +1,7 @@
 #fullpage .section-wrapper:nth-child(4) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/duryu/img/book/bg.svg') no-repeat center center fixed;
+  background: url('/resources/homepage/duryu/img/book/bg.svg') no-repeat center center;
   background-size: cover;
 }
 
@@ -168,5 +168,192 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1440px) {
+  #fullpage .section-wrapper:nth-child(4) {
+    height: 780px;
+  }
+
+  #fullpage .section-wrapper:nth-child(4)::after {
+    top: 47%;
+  }
+
+  #tab-link {
+    top: 0;
+    width: 24px;
+    height: 24px;
+  }
+
+  .tab-list {
+    width: 1260px;
+  }
+
+  .tab-list-item {
+    margin-right: 28px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .tab-list {
+    width: 1170px;
+  }
+
+  .tab-list-item {
+    margin-right: 84px;
+  }
+}
+
+@media (max-width: 1170px) {
+  #fullpage .section-wrapper:nth-child(4) {
+    height: 549px;
+  }
+
+  #fullpage .section-wrapper:nth-child(4)::after {
+    top: 50%;
+    height: 168px;
+  }
+
+  .tab-link {
+    width: 24px;
+    height: 24px;
+  }
+
+  .book-tab-wrapper {
+    gap: 64px;
+  }
+
+  .tab-button {
+    font-size: 24px;
+  }
+
+  .tab-button::after {
+    right: -33px;
+    height: 22px;
+    width: 1px;
+  }
+
+  #tab-link img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tab-list {
+    padding-top: 40px;
+    width: 864px;
+  }
+
+  .tab-list-item {
+    margin-right: 41px;
+    gap: 14px;
+  }
+
+  .tab-list-item a img {
+    width: 140px;
+    height: 201px;
+  }
+
+  .title {
+    width: 140px;
+    font-size: 14px;
+    letter-spacing: -0.35px;
+  }
+
+  .tab-content {
+    gap: 64px;
+    height: 321px;
+  }
+
+  .book-controller {
+    gap: 16px;
+  }
+
+  .book-controller img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 865px) {
+  .tab-list {
+    width: 488px;
+  }
+
+  .tab-list-item {
+    margin-right: 34px;
+  }
+
+  .tab-list-item img {
+    width: 140px;
+    height: 200px;
+  }
+
+  .tab-content {
+    gap: 65px;
+    height: 337px;
+  }
+}
+
+@media (max-width: 490px) {
+  #fullpage .section-wrapper:nth-child(4) {
+    height: 404px;
+  }
+
+  #fullpage .section-wrapper:nth-child(4)::after {
+    top: 52%;
+    height: 120px;
+  }
+
+  .book-tab-wrapper {
+    gap: 41px;
+  }
+
+  .tab-button {
+    font-size: 20px;
+  }
+
+  .tab-button::after {
+    right: -21px;
+    width: 1px;
+    height: 18px;
+  }
+
+  #tab-link {
+    position: absolute;
+    top: 0;
+    right: 26px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .tab-content {
+    gap: 52px;
+    height: 229px;
+  }
+
+  .tab-list {
+    width: 308px;
+  }
+
+  .tab-list-item {
+    margin-right: 16px;
+    gap: 10px;
+  }
+
+  .tab-list-item a img {
+    width: 92px;
+    height: 130px;
+  }
+
+  .title {
+    width: 92px;
+    font-size: 13px;
+    letter-spacing: -0.325px;
+  }
+
+  .book-controller img {
+    width: 20px;
+    height: 20px;
   }
 }

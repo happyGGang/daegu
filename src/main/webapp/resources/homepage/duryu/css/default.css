@@ -55,7 +55,7 @@
 .util div,
 .util a {
 	position: relative !important;
-	padding: 0 20px !important;
+	padding: 0 20px;
 	border: none !important;
 	font-size: 14px !important;
 	font-weight: 400 !important;
@@ -124,17 +124,51 @@
 	font-style: normal;
 }
 
-@media screen and (max-width: 1024px) {
-	.total-popup-trigger {
-		display: none;
+@media screen and (max-width: 1800px) {
+	.tnb {
+		height: 32px;
+		position: relative;
 	}
 
 	.tnb div:first-child a {
-		padding: 10px 32px;
+		font-size: 12px;
+		height: 32px;
 	}
 
-	.footer .wrapper {
-		padding: 40px 30px;
+	.total-popup-trigger {
+		height: 32px;
+	}
+
+	.total-popup-trigger div:first-child {
+		font-size: 12px;
+	}
+
+	.total-popup-trigger div:last-child {
+		font-size: 12px;
+	}
+
+	.util-wrapper {
+		display: flex;
+	}
+
+	.util {
+		display: flex;
+	}
+
+	.util div,
+	.util a {
+		font-size: 12px !important;
+
+	}
+
+	.util a::after {
+		height: 10px;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.total-popup-trigger {
+		display: none;
 	}
 }
 
@@ -143,39 +177,12 @@
 		display: none;
 	}
 
+	.util a {
+		padding: 0 16px;
+	}
+
 	.tnb div:first-child a {
 		padding: 10px 32px;
-	}
-
-	.link_list {
-		flex-wrap: wrap;
-		row-gap: 12px;
-	}
-
-	.footer .wrapper {
-		padding: 40px 30px;
-	}
-}
-
-@media screen and (max-width: 768px) {
-	.footer div:nth-of-type(1) .wrapper {
-		align-items: flex-start !important;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	.sns-wrapper {
-		align-items: flex-start;
-	}
-
-	.footer div:nth-of-type(2) .wrapper {
-		align-items: flex-start !important;
-		flex-direction: column;
-		gap: 20px;
-	}
-
-	.library-detail-wrapper {
-		flex-wrap: wrap;
 	}
 }
 
@@ -185,8 +192,29 @@
 	}
 }
 
-@media screen and (max-width: 580px) {
-	.move-select {
-		flex-direction: column;
+@media (max-width: 490px) {
+	.tnb div:first-child a {
+		padding: 10px 33px;
+	}
+
+	.library-logo {
+		left: 12px;
+		width: 179px;
+		height: 40px;
+	}
+
+	.library-logo a img {
+		width: 179px;
+		height: 40px;
+		object-fit: cover;
+	}
+
+	.mobile-menu-trigger {
+		right: 12px;
+	}
+
+	.mobile-menu-trigger img {
+		width: 20px;
+		height: 20px;
 	}
 }

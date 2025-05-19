@@ -16,7 +16,6 @@
 
     <div class="mobile-menu" id="mobile-menu">
         <homepageTag:topMenu menuList="${menuTreeList}"/>
-
     </div>
 </div>
 

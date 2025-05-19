@@ -4,85 +4,84 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-  $(function () {
+$(function () {
     Date.prototype.format = function (f) {
-      if (!this.valueOf())
-        return " ";
+    if (!this.valueOf())
+    return " ";
 
-      var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-      var d = this;
+    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+    var d = this;
 
-      return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function ($1) {
+    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function ($1) {
         switch ($1) {
-          case "yyyy":
+            case "yyyy":
             return d.getFullYear();
-          case "yy":
+            case "yy":
             return (d.getFullYear() % 1000).zf(2);
-          case "MM":
+            case "MM":
             return (d.getMonth() + 1).zf(2);
-          case "dd":
+            case "dd":
             return d.getDate().zf(2);
-          case "E":
+            case "E":
             return weekName[d.getDay()];
-          case "HH":
+            case "HH":
             return d.getHours().zf(2);
-          case "hh":
+            case "hh":
             return ((h = d.getHours() % 12) ? h : 12).zf(2);
-          case "mm":
+            case "mm":
             return d.getMinutes().zf(2);
-          case "ss":
+            case "ss":
             return d.getSeconds().zf(2);
-          case "a/p":
+            case "a/p":
             return d.getHours() < 12 ? "오전" : "오후";
-          default:
+            default:
             return $1;
-        }
-      });
+            }
+        });
     };
 
     String.prototype.string = function (len) {
-      var s = '', i = 0;
-      while (i++ < len) {
-        s += this;
-      }
-      return s;
-    };
-    String.prototype.zf = function (len) {
-      return "0".string(len - this.length) + this;
-    };
-    Number.prototype.zf = function (len) {
-      return this.toString().zf(len);
-    };
+        var s = '', i = 0;
+        while (i++ < len) {
+            s += this;
+        }
+            return s;
+        };
+        String.prototype.zf = function (len) {
+            return "0".string(len - this.length) + this;
+        };
+        Number.prototype.zf = function (len) {
+            return this.toString().zf(len);
+        };
 
-    $('a#before-btn').on('click', function (e) {
-      var plan_date = new Date($(this).attr('keyValue'));
-      plan_date.setMonth(plan_date.getMonth() - 1);
-      $('div.calendar').load('calendar3.do', 'plan_date=' + plan_date.format('yyyy-MM'));
-      e.preventDefault();
+        $('a#before-btn').on('click', function (e) {
+            var plan_date = new Date($(this).attr('keyValue'));
+            plan_date.setMonth(plan_date.getMonth() - 1);
+            $('div.calendar').load('calendar3.do', 'plan_date=' + plan_date.format('yyyy-MM'));
+            e.preventDefault();
+        });
+
+        $('a#next-btn').on('click', function (e) {
+            var plan_date = new Date($(this).attr('keyValue'));
+            plan_date.setMonth(plan_date.getMonth() + 1);
+            $('div.calendar').load('calendar3.do', 'plan_date=' + plan_date.format('yyyy-MM'));
+            e.preventDefault();
+        });
+
+        $('a.showCal').on('click', function (e) {
+            var key = $(this).attr('keyValue');
+            $(".calAll").hide();
+            $("#popup_layer").show();
+            $("#" + key).show();
+            e.preventDefault();
+        });
+
+        $('a.closePlanView').on('click', function (e) {
+            e.preventDefault();
+            $("#popup_layer").hide();
+            $(".calAll").hide();
     });
-
-    $('a#next-btn').on('click', function (e) {
-      var plan_date = new Date($(this).attr('keyValue'));
-      plan_date.setMonth(plan_date.getMonth() + 1);
-      $('div.calendar').load('calendar3.do', 'plan_date=' + plan_date.format('yyyy-MM'));
-      e.preventDefault();
-    });
-
-    $('a.showCal').on('click', function (e) {
-      var key = $(this).attr('keyValue');
-      $(".calAll").hide();
-      $("#popup_layer").show();
-      $("#" + key).show();
-      e.preventDefault();
-    });
-
-    $('a.closePlanView').on('click', function (e) {
-      e.preventDefault();
-      $("#popup_layer").hide();
-      $(".calAll").hide();
-    });
-
-  });
+});
 </script>
 
 <div id="calendar2">

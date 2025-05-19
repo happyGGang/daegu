@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .wrapper {
@@ -51,6 +52,31 @@
 @media (max-width: 1600px) {
     #fullpage-indicator {
         display: none;
+    }
+}
+
+@media (max-width: 1440px) {
+    .wrapper {
+        width: 1260px;
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 1260px) {
+    .wrapper {
+        width: 1170px;
+    }
+}
+
+@media (max-width: 1170px) {
+    .wrapper {
+        width: 864px;
+    }
+}
+
+@media (max-width: 865px) {
+    .wrapper {
+        width: 488px;
     }
 }
 

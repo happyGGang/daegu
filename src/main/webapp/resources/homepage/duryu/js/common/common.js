@@ -63,6 +63,22 @@ $(document).ready(function () {
         autoplaySpeed: 3000,
         speed: 300,
         variableWidth: true,
+        responsive: [
+            {
+                breakpoint: 1385,
+                settings: {
+                    slidesToShow: 2,
+                    variableWidth: true,
+                },
+            },
+            {
+                breakpoint: 980,
+                settings: {
+                    slidesToShow: 1,
+                    variableWidth: true,
+                },
+            },
+        ],
     });
 
     $('.total-popup-slide-prev').click(function () {
@@ -138,28 +154,35 @@ $(document).ready(function () {
             {
                 breakpoint: 1600,
                 settings: {
+                    slidesToShow: 7,
+                    variableWidth: true,
+                },
+            },
+            {
+                breakpoint: 1440,
+                settings: {
                     slidesToShow: 6,
                     variableWidth: true,
                 },
             },
             {
-                breakpoint: 1024,
+                breakpoint: 1260,
                 settings: {
                     slidesToShow: 5,
                     variableWidth: true,
                 },
             },
             {
-                breakpoint: 900,
+                breakpoint: 1170,
                 settings: {
                     slidesToShow: 4,
                     variableWidth: true,
                 },
             },
             {
-                breakpoint: 680,
+                breakpoint: 865,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 2,
                     variableWidth: true,
                 },
             },

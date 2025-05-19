@@ -124,3 +124,77 @@
 .total-popup-slide-item a:hover {
   color: var(--white);
 }
+
+@media (max-width: 1420px) {
+  .total-popup-content {
+    position: absolute;
+    top: 105px;
+  }
+}
+
+@media (max-width: 1385px) {
+  .total-popup-slide {
+    width: 820px;
+  }
+}
+
+@media (max-width: 980px) {
+  .total-popup-slide {
+    width: 400px;
+  }
+
+  .total-popup-slide-item {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 544px) {
+  .total-popup-controller {
+    top: 20px;
+    right: 20px;
+    gap: 24px;
+  }
+
+  .total-popup-controller-btn {
+    gap: 8px;
+  }
+
+  .total-popup-controller-btn div {
+    font-size: 11px;
+  }
+
+  .total-popup-controller-btn img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .total-popup-content {
+    position: absolute;
+    top: 80px;
+    gap: 25px;
+  }
+
+  .total-popup-slide {
+    width: 220px;
+  }
+
+  .total-popup-title {
+    font-size: 30px;
+  }
+
+  .total-popup-slide-wrapper {
+    gap: 15px;
+  }
+
+  .total-popup-slide-prev, .total-popup-slide-next {
+    width: 32px;
+    height: 32px;
+    margin-top: 149px;
+  }
+
+  .total-popup-slide-item img {
+    width: 220px;
+    height: 311px;
+    object-fit: cover;
+  }
+}

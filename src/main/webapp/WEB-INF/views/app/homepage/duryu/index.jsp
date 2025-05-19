@@ -6,23 +6,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.Random" %>
 <%
-    Random rnd = new Random();
-    int[] listNums = new int[10];
-    for (int i = 0; i < 10; i++) {
-        int num;
-        boolean unique;
-        do {
-            unique = true;
-            num = rnd.nextInt(10);
-            for (int j = 0; j < i; j++) {
-                if (listNums[j] == num) {
-                    unique = false;
-                    break;
-                }
-            }
-        } while (!unique);
-        listNums[i] = num;
-    }
+Random rnd = new Random();
+int[] listNums = new int[10];
+for (int i = 0; i < 10; i++) {
+int num;
+boolean unique;
+do {
+unique = true;
+num = rnd.nextInt(10);
+for (int j = 0; j < i; j++) {
+if (listNums[j] == num) {
+unique = false;
+break;
+}
+}
+} while (!unique);
+listNums[i] = num;
+}
 %>
 <!-- 공통 -->
 <link rel="stylesheet" href="/resources/homepage/duryu/css/common/reset.css"/>
@@ -54,43 +54,59 @@
 <tiles:insertAttribute name="header"/>
 
 <script type="text/javascript">
-  $(function () {
-    $('div.calendar').load('calendar3.do');
-    $('div#holiday-area').load('calendar2.do');
-    $('div#total_popup_area').load('popupAll.do');
+    $(function () {
+        $('div.calendar').load('calendar3.do');
+        $('div#holiday-area').load('calendar2.do');
+        $('div#total_popup_area').load('popupAll.do');
 
-    $('.tab1').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
+        $('.tab1').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
 
-    $('div.tab1').load('newBook.do', function () {
+        $('div.tab1').load('newBook.do', function () {
 
-      const $bookSlide = $('.tab-list');
-      if ($bookSlide.length && !$bookSlide.hasClass('slick-initialized')) {
-        $bookSlide.slick({
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          autoplay: false,
-          arrows: false,
-          dots: false,
-          variableWidth: true,
+            const $bookSlide = $('.tab-list');
+            if ($bookSlide.length && !$bookSlide.hasClass('slick-initialized')) {
+                $bookSlide.slick({
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    autoplay: false,
+                    arrows: false,
+                    dots: false,
+                    variableWidth: true,
+                    responsive: [
+                        {
+                            breakpoint: 1260,
+                            settings: {
+                                slidesToShow: 4,
+                                variableWidth: true,
+                            },
+                        },
+                        {
+                            breakpoint: 865,
+                            settings: {
+                                slidesToShow: 3,
+                                variableWidth: true,
+                            },
+                        },
+                    ],
+                });
+            }
+
+            $('.book-slide-prev, .book-slide-next').off('click').on('click', function () {
+                if ($bookSlide.hasClass('slick-initialized')) {
+                    $bookSlide.slick($(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext');
+                }
+            });
         });
-      }
 
-      $('.book-slide-prev, .book-slide-next').off('click').on('click', function () {
-        if ($bookSlide.hasClass('slick-initialized')) {
-          $bookSlide.slick($(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext');
-        }
-      });
+        $('#main-search-btn').on('click', function () {
+            if ($('input#book-search').val() == '') {
+                alert('검색어를 입력하세요.');
+                $('input#book-search').focus();
+                return false;
+            }
+            $('#main-search-btn').submit();
+        });
     });
-
-    $('#main-search-btn').on('click', function () {
-      if ($('input#book-search').val() == '') {
-        alert('검색어를 입력하세요.');
-        $('input#book-search').focus();
-        return false;
-      }
-      $('#main-search-btn').submit();
-    });
-  });
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -102,9 +118,7 @@
 
     <!-- 통합팝업 -->
     <div class="total-popup-overlay"></div>
-    <div class="total_popup_area" id="total_popup_area">
-
-    </div>
+    <div class="total_popup_area" id="total_popup_area"></div>
 
     <div id="fullpage">
         <!-- 섹션1 -->
@@ -136,13 +150,13 @@
                 <div class="quick-menu">
                     <c:forEach var="i" varStatus="status" items="${quickMenuList}">
                         <c:if test="${i.link_target eq 'BLANK' }">
-                            <a class="quick-menu-item" href="${i.link_url}" alt="${i.menu_name}" target="_blank">
+                            <a class="quick-menu-item" href="${i.link_url}" target="_blank">
                                 <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
                                 <div>${i.menu_name}</div>
                             </a>
                         </c:if>
                         <c:if test="${i.link_target ne 'BLANK' }">
-                            <a class="quick-menu-item" href="${i.link_url}" alt="${i.menu_name}" target="_blank">
+                            <a class="quick-menu-item" href="${i.link_url}" target="_blank">
                                 <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
                                 <div>${i.menu_name}</div>
                             </a>
@@ -158,12 +172,7 @@
                     <div class="notice-slide">
                         <c:if test="${not empty newsList}">
                             <c:forEach items="${newsList}" var="i">
-                                <div
-                                     <c:choose>
-                                         <c:when test="${not empty i.link_url}">onclick="location.href='${i.link_url}'"</c:when>
-                                         <c:otherwise></c:otherwise>
-                                     </c:choose>
-                                >
+                                <div>
                                     <c:out value="${i.news_name}" default="제목 없음" />
                                 </div>
                             </c:forEach>
