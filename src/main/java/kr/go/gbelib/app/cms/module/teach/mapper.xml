@@ -2097,12 +2097,12 @@
 		<if test="search_start_date != null and search_start_date != '' and search_end_date != null and search_end_date != ''">
 			<choose>
 				<when test='sortType == "OPERATE"'>
-					AND TO_DATE(#{search_start_date},'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(start_date, 'YYYY-MM-DD')
-					AND TO_DATE(end_date,'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{search_end_date},'YYYY-MM-DD')
+					AND TO_DATE(end_date, 'YYYY-MM-DD') <![CDATA[ >= ]]>  TO_DATE(#{search_start_date}, 'YYYY-MM-DD')
+					AND TO_DATE(start_date, 'YYYY-MM-DD') <![CDATA[ <= ]]>  TO_DATE(#{search_end_date}, 'YYYY-MM-DD')
 				</when>
 				<otherwise>
-					AND TO_DATE(#{search_start_date},'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(start_join_date, 'YYYY-MM-DD')
-					AND TO_DATE(end_join_date,'YYYY-MM-DD') <![CDATA[ <= ]]> TO_DATE(#{search_end_date},'YYYY-MM-DD')
+					AND TO_DATE(end_join_date, 'YYYY-MM-DD') <![CDATA[ >= ]]>  TO_DATE(#{search_start_date}, 'YYYY-MM-DD')
+					AND TO_DATE(start_join_date, 'YYYY-MM-DD') <![CDATA[ <= ]]>  TO_DATE(#{search_end_date}, 'YYYY-MM-DD')
 				</otherwise>
 			</choose>
 		</if>
