@@ -1,0 +1,83 @@
+.section-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding-top: 130px;
+}
+
+/* 풀페이지 */
+#fullpage-indicator {
+    position: absolute;
+    top: 50%;
+    right: 23px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transform: translateY(-50%);
+}
+
+#fullpage-indicator div {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: url('/resources/homepage/seobu/img/common/indicator.svg') no-repeat center center;
+}
+
+#fullpage-indicator div.active {
+    background: url('/resources/homepage/seobu/img/common/active-indicator.svg') no-repeat center center;
+}
+
+#fullpage-indicator div:last-child {
+    display: none;
+}
+
+.fp-watermark {
+    display: none;
+}
+
+.fp-overflow {
+    width: 100%;
+}
+
+@media (max-width: 1600px) {
+    #fullpage-indicator {
+        display: none;
+    }
+}
+
+@media (max-width: 1440px) {
+    .wrapper {
+        width: 1260px;
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 1260px) {
+    .wrapper {
+        width: 1170px;
+    }
+}
+
+@media (max-width: 1170px) {
+    .wrapper {
+        width: 864px;
+    }
+}
+
+@media (max-width: 865px) {
+    .wrapper {
+        width: 488px;
+    }
+}
+
+
