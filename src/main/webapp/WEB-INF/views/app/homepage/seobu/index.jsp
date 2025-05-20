@@ -57,46 +57,11 @@
 <script type="text/javascript">
   $(function () {
     $('div#holiday-area').load('calendar2.do');
+    $('div#event-area').load('calendar3.do');
     $('div#total_popup_area').load('popupAll.do');
+      loadTabContent('div.tab2', 'bestBook.do');
+      loadTabContent('div.tab3', 'newBook.do');
 
-    $('div.tab3').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
-
-    $('div.tab3').load('newBook.do', function () {
-
-      const $bookSlide = $('.tab-list');
-      if ($bookSlide.length && !$bookSlide.hasClass('slick-initialized')) {
-        $bookSlide.slick({
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          autoplay: false,
-          arrows: false,
-          dots: false,
-          variableWidth: true,
-          responsive: [
-            {
-              breakpoint: 1260,
-              settings: {
-                slidesToShow: 4,
-                variableWidth: true,
-              },
-            },
-            {
-              breakpoint: 865,
-              settings: {
-                slidesToShow: 3,
-                variableWidth: true,
-              },
-            },
-          ],
-        });
-      }
-
-      $('.book-slide-prev, .book-slide-next').off('click').on('click', function () {
-        if ($bookSlide.hasClass('slick-initialized')) {
-          $bookSlide.slick($(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext');
-        }
-      });
-    });
 
     $('#main-search-btn').on('click', function () {
       if ($('input#book-search').val() == '') {
@@ -268,56 +233,36 @@
                     </a>
                 </div>
                 <div class="course-list">
-                    <c:if test="${fn:length(teachList) < 1}">
-                        <div class="course-no-data">등록된 강좌 및 행사가 없습니다.</div>
-                    </c:if>
-                    <c:if test="${fn:length(teachList) >= 1}">
-                        <img class="img1" src="/resources/homepage/seobu/img/culture/img1.svg" alt="">
-                        <img class="img2" src="/resources/homepage/seobu/img/culture/img2.svg" alt="">
-                        <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='3'>
-                            <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}"
-                               class="course-list-item">
-                                <div class="course-list-item-title">
-                                    <div>${i.teach_name}</div>
-                                </div>
-                                <div class="course-list-item-date">
-                                    <div><span>강좌기간</span>${i.start_date} ~ ${i.end_date}</div>
-                                    <div><span>접수기간</span>${i.start_join_date} ~ ${i.start_join_date}</div>
-                                </div>
-                            </a>
-                        </c:forEach>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${fn:length(teachList) > 0}">
+                            <img class="img1" src="/resources/homepage/seobu/img/culture/img1.svg" alt="">
+                            <img class="img2" src="/resources/homepage/seobu/img/culture/img2.svg" alt="">
+                            <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='3'>
+                                <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}"
+                                   class="course-list-item">
+                                    <div class="course-list-item-title">
+                                        <div>${i.teach_name}</div>
+                                    </div>
+                                    <div class="course-list-item-date">
+                                        <div><span>강좌기간</span>${i.start_date} ~ ${i.end_date}</div>
+                                        <div><span>접수기간</span>${i.start_join_date} ~ ${i.start_join_date}</div>
+                                    </div>
+                                </a>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="course-no-data">등록된 강좌 및 행사가 없습니다.</div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
-            <div class="event-area">
-                <div class="event-area-wrapper">
-                    <div class="event-area-header">
-                        <div>이달의 행사일을 확인해보세요</div>
-                        <a href="https://library.daegu.go.kr/seobu/module/calendarManage/index.do?menu_idx=63">
-                            <div>더보기</div>
-                            <img src="/resources/homepage/seobu/img/culture/more-black.svg" alt="">
-                        </a>
-                    </div>
-                    <div class="event-slide-wrapper">
-                        <img class="event-slide-prev" src="/resources/homepage/seobu/img/culture/event-left-arrow.svg" alt="">
-                        <div class="event-slide">
-                            <div class="event-slide-item">01</div>
-                            <div class="event-slide-item">02</div>
-                            <div class="event-slide-item">03</div>
-                            <div class="event-slide-item">04</div>
-                            <div class="event-slide-item">05</div>
-                            <div class="event-slide-item">06</div>
-                            <div class="event-slide-item">07</div>
-                        </div>
-                        <img class="event-slide-next" src="/resources/homepage/seobu/img/culture/event-right-arrow.svg" alt="">
-                    </div>
-                </div>
+            <div class="event-area" id="event-area">
             </div>
         </div>
         <!-- 섹션4 -->
         <div class="section-wrapper" data-anchor="section4">
             <div class="wrapper">
-                <a id="tab-link" href="https://library.daegu.go.kr/seobu/intro/search/newBook/index.do?menu_idx=14">
+                <a id="tab-link" href="/seobu/intro/search/newBook/index.do?menu_idx=14">
                     <img src="/resources/homepage/seobu/img/book/more.svg" alt="">
                 </a>
                 <div class="book-tab-wrapper">
@@ -325,75 +270,44 @@
                     <div class="tab-button" data-target="tab2">대출베스트</div>
                     <div class="tab-button" data-target="tab3">신착도서</div>
                 </div>
+
                 <div class="tab-content tab1">
-                    <c:if test="${fn:length(recommendBookList) >= 1}">
-                        <img class="book-slide-prev" src="/resources/homepage/seobu/img/book/arrow-left.svg" alt="">
-                    </c:if>
-                    <c:if test="${fn:length(recommendBookList) < 1}">
-                        <div class="book-nodata">등록된 북큐레이션이 없습니다.</div>
-                    </c:if>
-                    <c:if test="${fn:length(recommendBookList) >= 1}">
-                        <div class="tab-list">
-                            <c:forEach var="i" varStatus="status" items="${recommendBookList}">
-                                <div class="tab-list-item">
-                                    <a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-                                        <c:choose>
-                                            <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}"
-                                                     onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'"
-                                                     onerror="this.src='/resources/homepage/seobu/img/common/dummy.png';"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="${i.preview_img}" alt="${i.title}" title="${i.title}"
-                                                     onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'"
-                                                     onerror="this.src='/resources/homepage/seobu/img/common/dummy.png';"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </a>
-                                    <div class="title">${i.title}</div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                    <c:if test="${fn:length(recommendBookList) >= 1}">
-                        <img class="book-slide-next" src="/resources/homepage/seobu/img/book/arrow-right.svg" alt="">
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${fn:length(curationList) > 0}">
+                            <img class="book-slide-prev" src="/resources/homepage/seobu/img/book/arrow-left.svg" alt="이전" />
+                            <!-- 북 큐레이션 리스트 -->
+                            <div class="tab-list">
+                                <c:forEach var="i" items="${curationList}">
+                                    <div class="tab-list-item">
+                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                            <c:choose>
+                                                <c:when test="${fn:contains(i.preview_img, 'noimg')}">
+                                                    <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </a>
+                                        <div class="title">${i.title}</div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <img class="book-slide-next" src="/resources/homepage/seobu/img/book/arrow-right.svg" alt="다음" />
+                        </c:when>
+
+                        <c:otherwise>
+                            <div class="book-nodata">등록된 북큐레이션이 없습니다.</div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
+
                 <div class="tab-content tab2" style="display: none;">
-                    <c:if test="${fn:length(recommendBookList) >= 1}">
-                        <img class="book-slide-prev" src="/resources/homepage/seobu/img/book/arrow-left.svg" alt="">
-                    </c:if>
-                    <c:if test="${fn:length(recommendBookList) < 1}">
-                        <div class="book-nodata">등록된 대출베스트가 없습니다.</div>
-                    </c:if>
-                    <c:if test="${fn:length(recommendBookList) >= 1}">
-                        <div class="tab-list">
-                            <c:forEach var="i" varStatus="status" items="${recommendBookList}">
-                                <div class="tab-list-item">
-                                    <a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-                                        <c:choose>
-                                            <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}"
-                                                     onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'"
-                                                     onerror="this.src='/resources/homepage/seobu/img/common/dummy.png';"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <img src="${i.preview_img}" alt="${i.title}" title="${i.title}"
-                                                     onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'"
-                                                     onerror="this.src='/resources/homepage/seobu/img/common/dummy.png';"/>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </a>
-                                    <div class="title">${i.title}</div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                    <c:if test="${fn:length(recommendBookList) >= 1}">
-                        <img class="book-slide-next" src="/resources/homepage/seobu/img/book/arrow-right.svg" alt="">
-                    </c:if>
+
                 </div>
-                <div class="tab-content tab3" style="display: none;"></div>
+                <div class="tab-content tab3" style="display: none;">
+
+                </div>
             </div>
         </div>
 

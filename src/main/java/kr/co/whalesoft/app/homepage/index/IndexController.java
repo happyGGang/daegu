@@ -2051,6 +2051,7 @@ public class IndexController extends BaseController {
 		if("h80".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id())) {
 			model.addAttribute("calendarResult2", getCalendarMarkPrivate(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay));
 		}
+		model.addAttribute("eventDates", eventDay);
 		model.addAttribute("closeDayList", closedDay);
 		return basePath + filePath + "_ajax";
 	}
@@ -2277,7 +2278,7 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/bestBook.*" })
 	public String bestBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
-		
+
 		if (homepage.getHomepage_id().equals("h94")) {
 			Board b = new Board();
 			b.setManage_idx(1183);
@@ -2315,12 +2316,15 @@ public class IndexController extends BaseController {
 						}
 					}
 				}
+
+				Collections.shuffle(list);
+				int limit = Math.min(list.size(), 10);
+				List<Map<String, Object>> randomBooks =list.isEmpty() ? Collections.<Map<String,Object>>emptyList()	: list.subList(0, limit);
+				model.addAttribute("randomBooks", randomBooks);
 			}
-
-
 			model.addAttribute("bestBookList", list);
 		}
-		
+
 		return basePath + homepage.getFolder() + "/bestBook_ajax";
 	}
 

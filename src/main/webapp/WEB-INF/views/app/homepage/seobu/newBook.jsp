@@ -24,32 +24,30 @@
     }
 %>
 <c:set var="listNums" value="<%=listNums%>"/>
-<c:if test="${fn:length(newBookList) >= 1}">
-    <img class="book-slide-prev" src="/resources/homepage/seobu/img/book/arrow-left.svg" alt="">
-</c:if>
-<c:if test="${fn:length(newBookList) < 1}">
-    <div class="book-nodata">등록된 신착도서가 없습니다.</div>
-</c:if>
-<c:if test="${fn:length(newBookList) >= 1}">
-    <div class="tab-list">
-        <c:set var="loopCount" value="${fn:length(newBookList) > 10 ? 10 : fn:length(newBookList)}"/>
-        <c:forEach var="i" begin="0" end="${loopCount - 1}">
-            <div class="tab-list-item">
-                <a href="https://library.daegu.go.kr/seobu/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNums[i]].ST_CODE}®No=${fn:escapeXml(newBookList[listNums[i]].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNums[i]].MANAGE_CODE)}&booktype=BO">
-                    <c:choose>
-                        <c:when test="${(empty newBookList[listNums[i]].aladin or empty newBookList[listNums[i]].aladin.cover) and empty newBookList[listNums[i]].imageUrl}">
-                            <img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
-                        </c:when>
-                        <c:otherwise>
-                            <img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
-                        </c:otherwise>
-                    </c:choose>
-                </a>
-                <div class="title">${newBookList[listNums[i]].TITLE_INFO}</div>
-            </div>
-        </c:forEach>
-    </div>
-</c:if>
-<c:if test="${fn:length(newBookList) >= 1}">
-    <img class="book-slide-next" src="/resources/homepage/seobu/img/book/arrow-right.svg" alt="">
-</c:if>
+<c:choose>
+    <c:when test="${fn:length(newBookList) > 0}">
+        <img class="book-slide-prev" src="/resources/homepage/seobu/img/book/arrow-left.svg" alt="">
+        <div class="tab-list">
+            <c:set var="loopCount" value="${fn:length(newBookList) > 10 ? 10 : fn:length(newBookList)}"/>
+            <c:forEach var="i" begin="0" end="${loopCount - 1}">
+                <div class="tab-list-item">
+                    <a href="/${homepage.context_path}intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNums[i]].ST_CODE}regNo=${fn:escapeXml(newBookList[listNums[i]].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNums[i]].MANAGE_CODE)}&booktype=BO">
+                        <c:choose>
+                            <c:when test="${(empty newBookList[listNums[i]].aladin or empty newBookList[listNums[i]].aladin.cover) and empty newBookList[listNums[i]].imageUrl}">
+                                <img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </a>
+                    <div class="title">${newBookList[listNums[i]].TITLE_INFO}</div>
+                </div>
+            </c:forEach>
+        </div>
+        <img class="book-slide-next" src="/resources/homepage/seobu/img/book/arrow-right.svg" alt="">
+    </c:when>
+    <c:otherwise>
+        <div class="book-nodata">등록된 신착도서가 없습니다.</div>
+    </c:otherwise>
+</c:choose>
