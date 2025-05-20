@@ -5,6 +5,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<style>
+	.close-course {
+		position: absolute;
+		top: 30px;
+		right: 35px;
+		display: flex;
+		width: 66px;
+		height: 28px;
+		justify-content: center;
+		align-items: center;
+		border-radius: 3px;
+		background: #DDD;
+		color: #333;
+		font-family: "S-Core Dream";
+		font-size: 13px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: normal;
+		letter-spacing: -0.26px;
+	}
+</style>
+
 <div class='full-sections'>
   <div id="result-sort">
     <div class="culture-search-result">
@@ -17,6 +39,13 @@
             <a href="/${i.context_path}/module/teach/detail.do?menu_idx=${i.menu_idx}&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
               <div>
                 <h4>${i.homepage_alias}</h4>
+				 <c:choose>
+					  <c:when test="${i.teach_status eq 0}">
+						<p class="close-course">접수마감</p>
+					  </c:when>
+					  <c:otherwise></c:otherwise>
+				 </c:choose>
+				
                 <p class="days"><span>신청일 </span><b>${i.start_join_date} -</b> ${i.end_join_date}</p>
                 <p class="days"><span>운영일 </span><b>${i.start_date} -</b> ${i.end_date}</p>
                 <p class="conte">${i.teach_name}</p>
