@@ -13,9 +13,11 @@ do {
 	listNum2 = rnd.nextInt(10);
 } while (listNum1 == listNum2);
 %>
+
 <c:set var="listNum1" value="<%=listNum1%>"></c:set>
 <c:set var="listNum2" value="<%=listNum2%>"></c:set>
 <tiles:insertAttribute name="header" />
+
 <script type="text/javascript">
 	$(function() {
 		$('#homeup').click(function () {
@@ -23,6 +25,17 @@ do {
 				scrollTop: 0
 			}, 800);
 			return false;
+		});
+
+
+		$('.tab_menu li[data-tab]').click(function() {
+			const tabId = $(this).data('tab');
+
+			$('.tab_menu li[data-tab]').removeClass('active_tab');
+			$(this).addClass('active_tab');
+
+			$('.tab_content').removeClass('active_tab_content');
+			$('#' + tabId).addClass('active_tab_content');
 		});
 
 		// 팝업 관련 코드 START
@@ -248,12 +261,13 @@ function searchCheck() {
 
 					<div class="notice">
 						<div class="title">
-							<ul>
-								<li><h2>공지사항</h2></li>
+							<ul class="tab_menu">
+								<li class="active_tab" data-tab="notice"><h2>공지사항</h2></li>
+								<li data-tab="event"><h2>강좌 및 행사</h2></li>
 								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=109"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
-						<div class="cont">
+						<div class="cont active_tab_content tab_content" id="notice">
 							<ul class="list">
 								<%--공지사항 상단--%>
 								<c:if test="${fn:length(noticeListTopNotice) < 1}">
@@ -294,6 +308,54 @@ function searchCheck() {
 								<c:if test="${fn:length(noticeList) < 1}">
 								<li>
 									<em>등록된 공지사항이 없습니다.</em>
+								</li>
+								</c:if>
+								<%--공지사항 목록--%>
+							</ul>
+						</div>
+
+						<%--강좌및행사--%>
+						<div class="cont tab_content" id="event">
+							<ul class="list">
+								<%--공지사항 상단--%>
+								<c:if test="${fn:length(noticeListTopNotice) < 1}">
+								<li class="on-cont">
+									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+									<a href="#">
+										<span class="title">등록된 강좌 및 행사가 없습니다.</span>
+										<p class="date"></p>
+										<span class="content">
+										</span>
+									</a>
+								</li>
+								</c:if>
+								<c:if test="${fn:length(noticeListTopNotice) > 0}">
+								<li class="on-cont">
+									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
+										<span class="title">${noticeListTopNotice[0].title}!!!!</span>
+										<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
+										<span class="content">
+											${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
+										</span>
+									</a>
+								</li>
+								</c:if>
+ 								<%--공지사항 상단--%>
+								<div class="end"></div>
+ 								<%--공지사항 목록--%>
+ 								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+								<li>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<em>${i.title}</em>
+										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
+									</a>
+								</li>
+								</c:forEach>
+
+								<c:if test="${fn:length(noticeList) < 1}">
+								<li>
+									<em>등록된 강좌 및 행사가 없습니다.</em>
 								</li>
 								</c:if>
 								<%--공지사항 목록--%>
