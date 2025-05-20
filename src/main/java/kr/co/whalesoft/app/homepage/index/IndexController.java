@@ -2491,7 +2491,8 @@ public class IndexController extends BaseController {
 		//h50 수성 범어
 		//h51 수성 용학
 		//h52 수성 고산
-		String[] teachHomepage = {"h6","h7", "h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h99", "h101"};
+		String[] teachHomepage = {"h1", "h3", "h4", "h5", "h6", "h7", "h8", "h9",
+			"h45", "h35", "h36", "h46", "h47", "h48", "h50", "h51", "h52", "h99", "h101"};
 		for (String th: teachHomepage ) {
 			if (homepage.getHomepage_id().equals(th)) {
 				Teach t = new Teach();
