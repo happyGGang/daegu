@@ -429,8 +429,8 @@
 					</c:when>
 					<c:when test="${context_path eq 'dalseolib'}">
 						<form:select path="manageCode">
-							<form:option value="BW">도원도서관</form:option>
-						</form:select><!--<span style="color:#ff0000">  *   도원도서관 희망도서 25. 5. 01. 오전 10시 재개 예정 </span>-->
+							<!-- <form:option value="BW">도원도서관</form:option> -->
+						</form:select><span style="color:#ff0000">  *   도원도서관 희망도서 25. 6. 01. 오전 10시 재개 예정 </span>
 					</c:when>
 					<c:when test="${context_path eq 'kids'}">
 						<form:select path="manageCode">
