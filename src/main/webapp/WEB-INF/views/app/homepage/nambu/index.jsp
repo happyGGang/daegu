@@ -351,7 +351,7 @@ function searchCheck() {
  								<%--공지사항 목록--%>
  								<c:forEach var="i" varStatus="status" items="${boardList2}" >
 								<li>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=227&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 										<em>${i.title}</em>
 										<span class="date"><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM.dd"/></span>
 									</a>
