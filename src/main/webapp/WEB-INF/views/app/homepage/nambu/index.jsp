@@ -34,6 +34,11 @@ do {
 			$('.tab_menu li[data-tab]').removeClass('active_tab');
 			$(this).addClass('active_tab');
 
+			let linkUrl = $(this).find("h2").data('link');
+
+			// 더보기 링크 변경
+			$(this).parent().find("a").attr("href",linkUrl);
+
 			$('.tab_content').removeClass('active_tab_content');
 			$('#' + tabId).addClass('active_tab_content');
 		});
@@ -179,7 +184,7 @@ function searchCheck() {
 				<div class="main2box1">
 					<div class="main2box1box1">
 						<ul>
-							<li class="bg-blue w40"">
+							<li class="bg-blue w40">
 								<a href="/${homepage.context_path}/html.do?menu_idx=104">
 								<span class="wt">이용안내</span>
 								<span class="wc">남부도서관 이렇게 이용하세요!</span>
@@ -262,9 +267,9 @@ function searchCheck() {
 					<div class="notice">
 						<div class="title">
 							<ul class="tab_menu">
-								<li class="active_tab" data-tab="notice"><h2>공지사항</h2></li>
-								<li data-tab="event"><h2>강좌 및 행사</h2></li>
-								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=109"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
+								<li class="active_tab" data-tab="notice"><h2 data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=109">공지사항</h2></li>
+								<li data-tab="event"><h2 data-link="/${homepage.context_path}/board/index.do?menu_idx=227&manage_idx=1331">강좌 및 행사</h2></li>
+								<li><a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=109" class="more-btn more-more"><img src="/resources/homepage/nambu/img/more_btbt.png" alt="더보기"/></a></li>
 							</ul>
 						</div>
 						<div class="cont active_tab_content tab_content" id="notice">
@@ -317,34 +322,34 @@ function searchCheck() {
 						<%--강좌및행사--%>
 						<div class="cont tab_content" id="event">
 							<ul class="list">
-								<%--공지사항 상단--%>
-								<c:if test="${fn:length(noticeListTopNotice) < 1}">
-								<li class="on-cont">
-									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="#">
-										<span class="title">등록된 강좌 및 행사가 없습니다.</span>
-										<p class="date"></p>
-										<span class="content">
-										</span>
-									</a>
-								</li>
-								</c:if>
-								<c:if test="${fn:length(noticeListTopNotice) > 0}">
-								<li class="on-cont">
-									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${noticeListTopNotice[0].manage_idx}&board_idx=${noticeListTopNotice[0].board_idx}">
-										<span class="title">${noticeListTopNotice[0].title}!!!!</span>
-										<p class="date"><fmt:formatDate value="${noticeListTopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>
-										<span class="content">
-											${fn:substring(fn:trim(noticeListTopNotice[0].content_summary), 0, 30)}...
-										</span>
-									</a>
-								</li>
-								</c:if>
+								<%--강좌 및 행사 상단--%>
+<%--								<c:if test="${fn:length(boardList2TopNotice) < 1}">--%>
+<%--								<li class="on-cont">--%>
+<%--									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">--%>
+<%--									<a href="#">--%>
+<%--										<span class="title">등록된 강좌 및 행사가 없습니다.</span>--%>
+<%--										<p class="date"></p>--%>
+<%--										<span class="content">--%>
+<%--										</span>--%>
+<%--									</a>--%>
+<%--								</li>--%>
+<%--								</c:if>--%>
+<%--								<c:if test="${fn:length(boardList2TopNotice) > 0}">--%>
+<%--								<li class="on-cont">--%>
+<%--									<img src="/resources/homepage/${homepage.context_path}/img/main_notice_img.png">--%>
+<%--									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${boardList2TopNotice[0].manage_idx}&board_idx=${boardList2TopNotice[0].board_idx}">--%>
+<%--										<span class="title">${boardList2TopNotice[0].title}!!!!</span>--%>
+<%--										<p class="date"><fmt:formatDate value="${boardList2TopNotice[0].add_date}" pattern="yyyy-MM-dd"/></p>--%>
+<%--										<span class="content">--%>
+<%--											${fn:substring(fn:trim(boardList2TopNotice[0].content_summary), 0, 30)}...--%>
+<%--										</span>--%>
+<%--									</a>--%>
+<%--								</li>--%>
+<%--								</c:if>--%>
  								<%--공지사항 상단--%>
 								<div class="end"></div>
  								<%--공지사항 목록--%>
- 								<c:forEach var="i" varStatus="status" items="${noticeList}" >
+ 								<c:forEach var="i" varStatus="status" items="${boardList2}" >
 								<li>
 									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 										<em>${i.title}</em>
@@ -353,7 +358,7 @@ function searchCheck() {
 								</li>
 								</c:forEach>
 
-								<c:if test="${fn:length(noticeList) < 1}">
+								<c:if test="${fn:length(boardList2) < 1}">
 								<li>
 									<em>등록된 강좌 및 행사가 없습니다.</em>
 								</li>
