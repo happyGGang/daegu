@@ -314,7 +314,11 @@ ${boardManage.top_html}
 									<li class="${i.imsi_v_19}" style="font-weight: bold; font-size: 18px;">${i.imsi_v_18}</li>
 									</c:if>
 									<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
-									<li style="font-size: 15px;">상영일시 : <strong>${i.imsi_v_1}-${i.imsi_v_2}</strong>
+
+										<fmt:parseDate var="screeningDate" value="${i.imsi_v_1}-${i.imsi_v_2}" pattern="yyyy-MM-dd" />
+										<fmt:formatDate var="dayOfWeek" value="${screeningDate}" pattern="E" />
+
+										<li style="font-size: 15px;">상영일시 : <strong>${i.imsi_v_1}-${i.imsi_v_2}</strong> <strong>${dayOfWeek}요일</strong>
 										<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}"><strong>${i.imsi_v_3}:${i.imsi_v_4}</strong></c:if>
 									</li>
 									</c:if>
