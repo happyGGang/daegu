@@ -5,32 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<style>
-	.close-course {
-		position: absolute;
-		top: 30px;
-		right: 35px;
-		display: flex;
-		width: 66px;
-		height: 28px;
-		justify-content: center;
-		align-items: center;
-		border-radius: 3px;
-		background: #DDD;
-		color: #333;
-		font-family: "S-Core Dream";
-		font-size: 13px;
-		font-style: normal;
-		font-weight: 500;
-		line-height: normal;
-		letter-spacing: -0.26px;
-	}
-</style>
-
 <div class='full-sections'>
   <div id="result-sort">
     <div class="culture-search-result">
-      <ul>
+      <ul class="culture-search-slider">
         <c:if test="${fn:length(searchTeachList) < 1}">
           <li><a><div><h4>등록된 데이터가 없습니다.</h4></div></a></li>
         </c:if>
@@ -40,12 +18,11 @@
               <div>
                 <h4>${i.homepage_alias}</h4>
 				 <c:choose>
-					  <c:when test="${i.teach_status eq 0}">
+					  <c:when test="${i.teach_status eq 4}">
 						<p class="close-course">접수마감</p>
 					  </c:when>
 					  <c:otherwise></c:otherwise>
 				 </c:choose>
-				
                 <p class="days"><span>신청일 </span><b>${i.start_join_date} -</b> ${i.end_join_date}</p>
                 <p class="days"><span>운영일 </span><b>${i.start_date} -</b> ${i.end_date}</p>
                 <p class="conte">${i.teach_name}</p>
@@ -61,3 +38,30 @@
     </div>
   </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        // li 요소를 8개씩 grid로 묶기
+        const $slider = $('.culture-search-slider');
+        const $items = $slider.find('li');
+        const itemsPerGrid = 8;
+
+        if ($items.length > 0) {
+            // li를 8개씩 그룹화
+            for (let i = 0; i < $items.length; i += itemsPerGrid) {
+                $items.slice(i, i + itemsPerGrid).wrapAll('<div class="grid"></div>');
+            }
+
+            // Slick 슬라이더 초기화
+            $slider.slick({
+                slidesToShow: 1,
+                arrows: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                dots: false,
+                swipe: true,
+                infinite: true,
+            });
+        }
+    });
+</script>
