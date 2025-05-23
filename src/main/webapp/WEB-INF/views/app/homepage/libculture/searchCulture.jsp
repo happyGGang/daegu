@@ -40,12 +40,11 @@
               <div>
                 <h4>${i.homepage_alias}</h4>
 				 <c:choose>
-					  <c:when test="${i.teach_status eq 0}">
+					  <c:when test="${i.teach_status eq 4}">
 						<p class="close-course">접수마감</p>
 					  </c:when>
 					  <c:otherwise></c:otherwise>
 				 </c:choose>
-				
                 <p class="days"><span>신청일 </span><b>${i.start_join_date} -</b> ${i.end_join_date}</p>
                 <p class="days"><span>운영일 </span><b>${i.start_date} -</b> ${i.end_date}</p>
                 <p class="conte">${i.teach_name}</p>

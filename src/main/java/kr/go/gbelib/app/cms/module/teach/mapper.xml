@@ -1271,40 +1271,44 @@
 					WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
 					THEN '9'
 					WHEN A.status = 0
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count > A.teach_join_count
 					THEN '0'
 					WHEN A.status = 0
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count &lt;= A.teach_join_count
+					AND	A.teach_backup_count > A.teach_backup_join_count
 					THEN '1'
 					WHEN A.status = 0
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+					AND	A.teach_limit_count &lt;= A.teach_join_count
+					AND	A.teach_backup_count &lt;= A.teach_backup_join_count
 					THEN '5'
 					WHEN A.status = 0
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_start_date
 					THEN '6'
 					WHEN A.status = 0
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
 					THEN '4'
-					WHEN A.status = 1 AND A.apply_status = '1'
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+					WHEN A.status = 1 AND	A.apply_status = '1'
 					THEN '2'
-					WHEN A.status = 1 AND A.apply_status = '2'
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+					WHEN A.status = 1 AND	A.apply_status = '2'
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 					THEN '3'
-					WHEN A.status = 1 AND A.apply_status = '99'
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+					WHEN A.status = 1 AND	A.apply_status = '99'
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 					THEN '7'
 					WHEN A.status = 1
-					AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
+					AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
 					THEN '4'
 					END
-					as TEACH_STATUS, A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name,
+					as TEACH_STATUS,
+						A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name,
 					A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
 					A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT,
 					A.start_join_date,
@@ -1381,6 +1385,9 @@
 					AND use_yn = 'Y'
 					AND delete_yn = 'N'
 					AND homepage_id != 'h32'
+					AND SYSDATE
+					BETWEEN TO_DATE(start_date || ' ' || start_time, 'YYYY-MM-DD HH24:MI')
+					AND TO_DATE(end_date   || ' ' || end_time,   'YYYY-MM-DD HH24:MI')
 					) a, TEACHER b, TEACH_CATEGORY c, TEACH_CATEGORY_GROUP d
 					WHERE a.homepage_id = b.homepage_id(+)
 					AND a.teacher_idx = b.teacher_idx(+)
@@ -1600,7 +1607,6 @@
 	</select>
 
 	<select id="getTeachListForAllSearchCultureByStartDate" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
-		${pagingTop}
 		SELECT
 		*
 		FROM (
@@ -1609,44 +1615,43 @@
 		WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
 		THEN '9'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
-		AND A.teach_limit_count > A.teach_join_count
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count > A.teach_join_count
 		THEN '0'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
-		AND A.teach_limit_count &lt;= A.teach_join_count
-		AND A.teach_backup_count > A.teach_backup_join_count
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count &lt;= A.teach_join_count
+		AND	A.teach_backup_count > A.teach_backup_join_count
 		THEN '1'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
-		AND A.teach_limit_count &lt;= A.teach_join_count
-		AND A.teach_backup_count &lt;= A.teach_backup_join_count
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count &lt;= A.teach_join_count
+		AND	A.teach_backup_count &lt;= A.teach_backup_join_count
 		THEN '5'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_start_date
 		THEN '6'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
 		THEN '4'
-		WHEN A.status = 1 AND A.apply_status = '1'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+		WHEN A.status = 1 AND	A.apply_status = '1'
 		THEN '2'
-		WHEN A.status = 1 AND A.apply_status = '2'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+		WHEN A.status = 1 AND	A.apply_status = '2'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 		THEN '3'
-		WHEN A.status = 1 AND A.apply_status = '99'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+		WHEN A.status = 1 AND	A.apply_status = '99'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 		THEN '7'
 		WHEN A.status = 1
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
 		THEN '4'
-		END as TEACH_STATUS,
+		END
+		as TEACH_STATUS,
 		A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name,
 		A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
 		A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT,
@@ -1762,7 +1767,7 @@
 		</choose>
 		) A
 		) A
-		WHERE TEACH_STATUS IN (0,1,6)
+		WHERE TEACH_STATUS IN (0,1,4,6)
 		<if test="search_area != null and search_area != ''">
 			AND address LIKE '%'||#{search_area}||'%'
 		</if>
@@ -1775,7 +1780,6 @@
 		<if test="search_libraryid != null and search_libraryid !=''">
 			AND a.homepage_id = #{search_libraryid}
 		</if>
-		${pagingBottom}
 	</select>
 
 
@@ -1966,44 +1970,43 @@
 		WHEN TO_DATE(A.end_date || ' ' || A.end_time, 'YYYY-MM-DD HH24:MI') &lt; SYSDATE
 		THEN '9'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
-		AND A.teach_limit_count > A.teach_join_count
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count > A.teach_join_count
 		THEN '0'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
-		AND A.teach_limit_count &lt;= A.teach_join_count
-		AND A.teach_backup_count > A.teach_backup_join_count
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count &lt;= A.teach_join_count
+		AND	A.teach_backup_count > A.teach_backup_join_count
 		THEN '1'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
-		AND A.teach_limit_count &lt;= A.teach_join_count
-		AND A.teach_backup_count &lt;= A.teach_backup_join_count
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
+		AND	A.teach_limit_count &lt;= A.teach_join_count
+		AND	A.teach_backup_count &lt;= A.teach_backup_join_count
 		THEN '5'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_start_date
 		THEN '6'
 		WHEN A.status = 0
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
 		THEN '4'
-		WHEN A.status = 1 AND A.apply_status = '1'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+		WHEN A.status = 1 AND	A.apply_status = '1'
 		THEN '2'
-		WHEN A.status = 1 AND A.apply_status = '2'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+		WHEN A.status = 1 AND	A.apply_status = '2'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 		THEN '3'
-		WHEN A.status = 1 AND A.apply_status = '99'
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.start_date
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt;= A.end_date
+		WHEN A.status = 1 AND	A.apply_status = '99'
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_start_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') &lt; A.req_end_date
 		THEN '7'
 		WHEN A.status = 1
-		AND TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.end_date
+		AND	TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') >= A.req_end_date
 		THEN '4'
-		END as TEACH_STATUS,
+		END
+		as TEACH_STATUS,
 		A.homepage_id, A.group_idx, A.category_idx, A.teach_idx, A.teach_name,
 		A.teach_desc, A.TEACH_ETC, A.teach_stage, A.teach_target, A.LIMIT_HAK, a.LIMIT_HAK2,
 		A.TEACH_LIMIT_COUNT, A.TEACH_JOIN_UNIT, A.TEACH_BACKUP_COUNT, A.TEACH_OFFLINE_COUNT,
@@ -2119,7 +2122,7 @@
 		</choose>
 		) A
 		)
-		WHERE TEACH_STATUS IN (0,1,6)
+		WHERE TEACH_STATUS IN (0,1,4,6)
 		<if test="search_area != null and search_area != ''">
 			AND address LIKE '%'||#{search_area}||'%'
 		</if>
