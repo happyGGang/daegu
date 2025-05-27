@@ -314,7 +314,14 @@
 
 		</dl>
 		<div class="product__buttons">
-			<a href="/${i.context_path}/module/teach/detail.do?menu_idx=${i.menu_idx}&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}"" target="_blank" class="product__button product__button--ticket">신청하기</a>
+			<c:choose>
+				<c:when test="${i.teach_status eq 4}">
+					<a href="javascript:void(0);" class="product__button product__button--ticket">접수마감</a>
+				</c:when>
+				<c:otherwise>
+					<a href="/${i.context_path}/module/teach/detail.do?menu_idx=${i.menu_idx}&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" target="_blank" class="product__button product__button--ticket">신청하기</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 	</c:forEach>
