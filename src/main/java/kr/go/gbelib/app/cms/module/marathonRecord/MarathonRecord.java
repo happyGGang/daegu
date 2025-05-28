@@ -14,7 +14,7 @@ public class MarathonRecord extends PagingUtils{
 	private String member_id; //회원 ID
 	private String member_name; //회원명
 	private String book_name; //도서명
-	private long read_page_count; //읽은 쪽수
+	private int read_page_count; //읽은 쪽수
 	private int read_page_count_acc; //누적 쪽수
 	private String book_resources; //대출/구입처
 	private String book_get_date; //대출/구입 날짜
@@ -92,10 +92,10 @@ public class MarathonRecord extends PagingUtils{
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
-	public long getRead_page_count() {
+	public int getRead_page_count() {
 		return read_page_count;
 	}
-	public void setRead_page_count(long read_page_count) {
+	public void setRead_page_count(int read_page_count) {
 		this.read_page_count = read_page_count;
 	}
 	public String getBook_resources() {

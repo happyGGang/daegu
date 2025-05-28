@@ -44,7 +44,7 @@ public class MarathonApplicant extends PagingUtils{
 	private Date modify_date; //수정일자
 	private String modify_id; //수정인
 	private Date finish_date; //완주일
-	private long read_page_count_total; //누적 쪽수
+	private int read_page_count_total; //누적 쪽수
 	private int applicant_idx_modify; //신청자 번호 변경용
 	private String del_yn = "N"; //삭제 여부
 	private String finish_day; //완주확정일
@@ -319,10 +319,10 @@ public class MarathonApplicant extends PagingUtils{
 	public void setContest_type_idx_before(int contest_type_idx_before) {
 		this.contest_type_idx_before = contest_type_idx_before;
 	}
-	public long getRead_page_count_total() {
+	public int getRead_page_count_total() {
 		return read_page_count_total;
 	}
-	public void setRead_page_count_total(long read_page_count_total) {
+	public void setRead_page_count_total(int read_page_count_total) {
 		this.read_page_count_total = read_page_count_total;
 	}
 	public Date getFinish_date() {

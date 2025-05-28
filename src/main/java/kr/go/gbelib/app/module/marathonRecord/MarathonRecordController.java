@@ -371,7 +371,7 @@ public class MarathonRecordController extends BaseController{
 			marathonApplicant.setContest_idx(marathonRecord.getContest_idx());
 			marathonApplicant.setContest_type_idx(marathonRecord.getContest_type_idx());
 			marathonApplicant.setApplicant_idx(marathonRecord.getApplicant_idx());
-			long read_page_count_total = marathonApplicantService.getReadPageCountTotal(marathonApplicant);
+			int read_page_count_total = marathonApplicantService.getReadPageCountTotal(marathonApplicant);
 
 			if(marathonRecord.getEditMode().equals("ADD")) {
 				marathonApplicant.setMember_id(getSessionMemberId(request));
