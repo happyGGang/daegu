@@ -160,7 +160,8 @@ do {
 					<homepageTag:popupZoneTop popupZoneList="${popupZoneTopList}"/>
 				</div>
 			</div>
-			<p class="close"><input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
+			<p class="close">
+				<input type="checkbox" name=""/> 오늘 하루 열지 않기 <a href="#" onclick="return false;"><img src="/resources/common/img/close_popup_btn.png" alt="닫기"/></a></p>
 		</div>
 	</div>
 	</c:if>
@@ -254,23 +255,61 @@ do {
 							</div>
 						</div>
 					</div>
-					<div class="popup-slide">
-						<a href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-						</a>
-					</div>
+					<c:choose>
+						<c:when test="${fn:length(popupZoneList) > 0}">
+							<c:forEach var="i" items="${popupZoneList}">
+								<div class="popup-slide">
+									<c:choose>
+										<c:when test="${i.link_target eq 'BLANK'}">
+											<a href="${i.link_url}" target="_blank">
+												<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}" />
+											</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${i.link_url}">
+												<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}" />
+											</a>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="popup-slide">
+								<img src="/resources/homepage/duryu/img/common/dummy.png" alt="" />
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 				<div class="notice-board">
 					<div class="notice-board-header">
 						<div class="notice-board-title">공지사항</div>
-						<a href="https://library.daegu.go.kr/dalseongchild/board/index.do?menu_idx=36&manage_idx=132">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=132">
 							<img src="/resources/homepage/dalseongchild/img/notice/more.svg" alt="">
 						</a>
 					</div>
 					<div class="notice-list">
-						<c:if test="${fn:length(noticeList) >= 1}">
-							<c:forEach var="i" varStatus="status" items="${noticeList}">
+						<c:if test="${fn:length(noticeListTopNotice) < 1}">
+							<div class="notice-no-data">등록된 상단 공지사항이 없습니다.</div>
+						</c:if>
+
+						<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" begin='0' end='1'>
+							<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+								<div class="notice-list-item-date">
+									<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
+									<div><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></div>
+								</div>
+								<div class="notice-list-item-title">${i.title}</div>
+							</a>
+						</c:forEach>
+
+						<c:if test="${fn:length(noticeList) < 1}">
+							<div class="notice-no-data">등록된 공지사항이 없습니다.</div>
+						</c:if>
+
+						<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='2'>
+							<c:if test="${i.notice_yn eq 'N' or null}">
 								<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<div class="notice-list-item-date">
 										<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
@@ -278,11 +317,8 @@ do {
 									</div>
 									<div class="notice-list-item-title">${i.title}</div>
 								</a>
-							</c:forEach>
-						</c:if>
-						<c:if test="${fn:length(noticeList) < 1}">
-							<div class="notice-no-data">등록된 공지사항이 없습니다.</div>
-						</c:if>
+							</c:if>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -309,24 +345,46 @@ do {
 
 					<!--         문화행사           -->
 					<div class="tab-content1">
-						<a href="">
-							<div class="label">인문학아카데미</div>
-							<div class="tab-content-detail">
-								<div>예술, 도서관에서 만나다</div>
-								<div>2025-06-29 ~ 2025-06-30</div>
-							</div>
-						</a>
+						<c:if test="${fn:length(teachList1) < 1}">
+							<a href="">
+								<div class="label">등록된 행사가 없습니다</div>
+								<div class="tab-content-detail">
+									<div>등록된 행사가 없습니다.</div>
+									<div>등록된 행사가 없습니다.</div>
+								</div>
+							</a>
+						</c:if>
+						<c:forEach var="i" varStatus="status" items="${teachList1}" begin='0' end='4'>
+							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+								<div class="label">${i.large_category_name}</div>
+								<div class="tab-content-detail">
+									<div>${i.teach_name}</div>
+									<div>${i.start_date} ~ ${i.end_date}</div>
+								</div>
+							</a>
+						</c:forEach>
 					</div>
 
 					<!--         평생학습프로그램           -->
 					<div class="tab-content2" style="display: none">
-						<a href="">
-							<div class="label">인문학아카데미</div>
-							<div class="tab-content-detail">
-								<div>예술, 도서관에서 만나다</div>
-								<div>2025-06-29 ~ 2025-06-30</div>
-							</div>
-						</a>
+						<c:if test="${fn:length(teachList2) < 1}">
+							<a href="">
+								<div class="label">등록된 행사가 없습니다</div>
+								<div class="tab-content-detail">
+									<div>등록된 행사가 없습니다.</div>
+									<div>등록된 행사가 없습니다.</div>
+								</div>
+							</a>
+						</c:if>
+						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='4'>
+							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+								<div class="label">${i.large_category_name}</div>
+								<div class="tab-content-detail">
+									<div>${i.teach_name}</div>
+									<div>${i.start_date} ~ ${i.end_date}</div>
+								</div>
+							</a>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -350,34 +408,44 @@ do {
 					</a>
 				</div>
 
-
 				<div class="recommended">
-					<c:if test="${fn:length(recommendBookList) < 1}">
+					<c:if test="${fn:length(bookList) < 1}">
 						<div class="book-nodata">등록된 추천도서가 없습니다.</div>
 					</c:if>
-					<c:if test="${fn:length(recommendBookList) >= 1}">
-						<div class="book-slide">
-							<c:forEach var="i" varStatus="status" items="${recommendBookList}">
-								<div class="book-slide-item">
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+					<c:if test="${fn:length(bookList) >= 1}">
+					<div class="book-slide">
+						<c:forEach var="i" varStatus="status" items="${bookList}">
+						<div class="book-slide-item">
+							<a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+								<c:choose>
+									<c:when test="${i.preview_img ne null}">
 										<c:choose>
-											<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/dalseongchild/img/common/dummy.png';" />
+											<c:when test="${fn:contains(i.preview_img, 'http')}">
+												<img src="${i.preview_img}" alt="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/book_noimg.png'"/>
+											</c:when>
+											<c:when test="${fn:contains(i.preview_img, 'noImg2')}">
+												<img src="${i.preview_img}" alt="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/book_noimg.png'"/>
 											</c:when>
 											<c:otherwise>
-												<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/dalseongchild/img/common/dummy.png';" />
+												<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/book_noimg.png'"/>
 											</c:otherwise>
 										</c:choose>
-									</a>
-									<a href="" class="title">
-										<div>${i.title}</div>
-										<img src="/resources/homepage/dalseongchild/img/book/arrow.svg" alt="">
-									</a>
-								</div>
-							</c:forEach>
+									</c:when>
+									<c:otherwise>
+										<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
+									</c:otherwise>
+								</c:choose>
+							</a>
+							<a href="" class="title">
+								<div>${i.title}</div>
+								<img src="/resources/homepage/dalseongchild/img/book/arrow.svg" alt="">
+							</a>
 						</div>
+						</c:forEach>
+					</div>
 					</c:if>
 				</div>
+
 				<div class="new" style="display: none;"></div>
 			</div>
 		</div>
