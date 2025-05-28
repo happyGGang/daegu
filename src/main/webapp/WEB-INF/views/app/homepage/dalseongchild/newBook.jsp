@@ -1,24 +1,55 @@
-<%@ page language="java" pageEncoding="utf-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<c:forEach items="${newBookList}" var="i" varStatus="status" begin="0" end="3">
-	<li>
-		<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=9&isbn=${i.ST_CODE}&regNo=${fn:escapeXml(i.REG_NO)}&manageCode=${fn:escapeXml(i.MANAGE_CODE)}&booktype=BO" >
-			<span class="con-image">
-				<c:choose>
-					<c:when test="${(empty i.aladin or empty i.aladin.cover) and empty i.imageUrl}">
-						<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다.  상세보기"/>
-					</c:when>
-					<c:when test="${not empty i.aladin or not empty i.aladin.cover}">
-						<img src="${i.aladin.cover}" alt="${i.TITLE_INFO} 상세보기"/>
-					</c:when>
-					<c:otherwise>
-						<img src="${i.imageUrl}" alt="${i.TITLE_INFO} 상세보기"/>
-					</c:otherwise>
-				</c:choose>
-			</span>
-			<span class="con-title">${fn:length(i.TITLE_INFO) > 11 ? fn:substring(i.TITLE_INFO, 0, 12) : i.TITLE_INFO}<c:if test="${fn:length(i.TITLE_INFO) > 11 }">...</c:if></span>
-		</a>
-	</li>
-</c:forEach>
+<%@ page language="java" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@page import="java.util.Random" %>
+<%
+Random rnd = new Random();
+int[] listNums = new int[10];
+int maxIndex = 10; // Default to 10, will adjust based on newBookList size
+for (int i = 0; i < maxIndex; i++) {
+int num;
+boolean unique;
+do {
+unique = true;
+num = rnd.nextInt(maxIndex);
+for (int j = 0; j < i; j++) {
+if (listNums[j] == num) {
+unique = false;
+break;
+}
+}
+} while (!unique);
+listNums[i] = num;
+}
+%>
+<c:set var="listNums" value="<%=listNums%>"/>
+<c:choose>
+	<c:when test="${fn:length(newBookList) > 0}">
+		<div class="book-slide">
+			<c:set var="loopCount" value="${fn:length(newBookList) > 10 ? 10 : fn:length(newBookList)}"/>
+			<c:forEach var="i" begin="0" end="${loopCount - 1}">
+				<div class="book-slide-item">
+					<a href="/${homepage.context_path}intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNums[i]].ST_CODE}regNo=${fn:escapeXml(newBookList[listNums[i]].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNums[i]].MANAGE_CODE)}&booktype=BO">
+						<c:choose>
+							<c:when test="${(empty newBookList[listNums[i]].aladin or empty newBookList[listNums[i]].aladin.cover) and empty newBookList[listNums[i]].imageUrl}">
+								<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/duryu/img/common/dummy.png'"/>
+							</c:when>
+							<c:otherwise>
+								<img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+							</c:otherwise>
+						</c:choose>
+					</a>
+					<div class="title">
+						<div>${newBookList[listNums[i]].TITLE_INFO}</div>
+						<img src="/resources/homepage/dalseongchild/img/book/arrow.svg" alt="">
+					</div>
+				</div>
+			</c:forEach>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="book-nodata">등록된 신착도서가 없습니다.</div>
+	</c:otherwise>
+</c:choose>
+
