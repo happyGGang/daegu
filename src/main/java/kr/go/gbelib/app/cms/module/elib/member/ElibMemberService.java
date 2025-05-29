@@ -61,6 +61,9 @@ public class ElibMemberService extends BaseService {
 				return 1;
 			}
 		} else if(StringUtils.isEmpty(member1.getBirth_day()) || StringUtils.isEmpty(member1.getSex()) || StringUtils.isEmpty(member1.getSeq_no())) {
+			if (StringUtils.isNotEmpty(member.getBirth_day())) {
+				member.setBirth_day(StringUtils.defaultString(member.getBirth_day()).replaceAll("[^0-9]", ""));
+			}
 			dao.modifyMember(member);
 			return 1;
 		} else {
