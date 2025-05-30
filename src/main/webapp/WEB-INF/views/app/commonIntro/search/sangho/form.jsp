@@ -157,6 +157,7 @@ $(function() {
 						<form:option value="127009">구수산도서관</form:option>
 						<form:option value="127084">대현도서관</form:option>
 						<form:option value="127088">태전도서관</form:option>
+						<!--<form:option value="322013">시청작은도서관</form:option>-->
 						<form:option value="127110">서변숲도서관</form:option>
 						<!-- <form:option value="727033">태전1동 작은도서관</form:option> -->
 						<form:option value="727038">산격1동 작은도서관</form:option>
