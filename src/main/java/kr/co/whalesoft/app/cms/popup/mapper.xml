@@ -42,6 +42,7 @@
 		WHERE
 			(homepage_id = #{homepage_id} OR (homepage_id = 'h32' AND common_yn = 'Y'))
 		AND use_yn = 'Y'
+		AND popup_type = 'LAYER'
 		AND start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
 		ORDER BY
 			print_seq ASC, add_date DESC
@@ -155,6 +156,25 @@
 			CMS_POPUP
 		WHERE
 			homepage_id = #{homepage_id}
+	</select>
+
+	<select id="getPopupFullLayerList" resultType="kr.co.whalesoft.app.cms.popup.Popup">
+		SELECT
+			homepage_id,
+			popup_idx, popup_name, html, html_use_yn, popup_type, link_url,
+			use_yn, print_seq, width, height, x_position,
+			y_position, org_file_name, server_file_name, file_extension, file_size, add_date, link_target,
+			TO_CHAR(start_date, 'yyyy-MM-dd') AS start_date, TO_CHAR(end_date, 'yyyy-MM-dd') AS end_date, common_yn,
+			alt_text, link_type
+		FROM
+			CMS_POPUP
+		WHERE
+			(homepage_id = #{homepage_id} OR (homepage_id = 'h32' AND common_yn = 'Y'))
+			AND use_yn = 'Y'
+		  AND popup_type = 'FULL_LAYER'
+			AND start_date <![CDATA[<=]]> TO_CHAR(SYSDATE, 'yyyy-mm-dd') AND end_date >= TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		ORDER BY
+			print_seq ASC, add_date DESC
 	</select>
 
 </mapper>

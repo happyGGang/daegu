@@ -57,7 +57,63 @@ listNums[i] = num;
     $(function () {
         $('div.calendar').load('calendar3.do');
         $('div#holiday-area').load('calendar2.do');
-        $('div#total_popup_area').load('popupAll.do');
+        // $('div#total_popup_area').load('popupAll.do');
+
+      // 팝업 관련 코드 START
+        $('.close-btn').on('click', function () {
+          const $this = $(this);
+          const day = $this.data('day');
+          const checkInput = $this.siblings('input[data-day="' + day + '"]');
+          const popupId = checkInput.val();
+
+          if (checkInput.prop('checked')) {
+            const now = new Date();
+            const expireDate = new Date(Math.floor(now.getTime() / 86400000) * 86400000 + 54000000);
+            if (day == 7) {
+              expireDate.setDate(expireDate.getDate() + 7);
+            }
+
+            document.cookie = `${popupId}=no; path=/; expires=${expireDate.toGMTString()};`;
+          }
+
+          $('#' + popupId).hide();
+        });
+
+        $('input[id*=pop]').on('click', function (e) {
+          e.preventDefault();
+          const $input = $(this);
+          $input.prop('checked', true);
+          $input.closest('div').next('a').data('day', $input.data('day')).trigger('click');
+        });
+
+        $('#popupLayer > div').each(function () {
+          const $popup = $(this);
+          const name = $popup.attr('id');
+          const cookieValue = getCookie(name);
+
+          if (cookieValue !== 'no') {
+            if (window.innerWidth < $popup.width()) {
+              $popup.css('width', 'auto');
+            }
+            $popup.show();
+          }
+        });
+
+        function getCookie(name) {
+          const cookieStr = document.cookie;
+          const nameEQ = name + "=";
+          const cookies = cookieStr.split(';');
+
+          for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(nameEQ)) {
+              return decodeURIComponent(cookie.substring(nameEQ.length));
+            }
+          }
+          return '';
+        }
+      // 팝업 관련 코드 END
+
 
         $('.tab1').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
 
@@ -116,9 +172,53 @@ listNums[i] = num;
     <tiles:insertAttribute name="top"/>
     <tiles:insertAttribute name="topMenu"/>
 
+    <div class="popupWrap section">
+        <div id="popupLayer">
+            <homepageTag:popup popupList="${popupList}" />
+        </div>
+    </div>
+
     <!-- 통합팝업 -->
-    <div class="total-popup-overlay"></div>
-    <div class="total_popup_area" id="total_popup_area"></div>
+    <c:if test="${not empty popupFullList}">
+        <div class="total-popup-overlay"></div>
+        <div class="total_popup_area" id="total_popup_area">
+            <div class="total-popup-controller">
+                <div class="total-popup-controller-btn popup-today-close">
+                    <div>오늘 하루 열지 않기</div>
+                    <img src="/resources/homepage/duryu/img/common/total-popup-close.svg" alt="">
+                </div>
+                <div class="total-popup-controller-btn popup-close">
+                    <div>창 닫기</div>
+                    <img src="/resources/homepage/duryu/img/common/total-popup-close.svg" alt="">
+                </div>
+            </div>
+
+            <div class="total-popup-content">
+                <div class="total-popup-title">POPUP LIST</div>
+                <div class="total-popup-slide-wrapper">
+                    <img class="total-popup-slide-prev" src="/resources/homepage/duryu/img/common/total-popup-left-arrow.svg" alt="">
+                    <div class="total-popup-slide">
+                        <c:forEach items="${popupFullList}" var="i" varStatus="status">
+                            <div class="total-popup-slide-item">
+                                <c:choose>
+                                    <c:when test="${not empty i.server_file_name}">
+                                        <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="/resources/homepage/duryu/img/common/dummy.png" alt="${i.alt_text}">
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
+                                    <a href="${i.link_url}"> ${i.link_type eq 'APPLY' ? '신청하기' : '자세히보기'} </a>
+                                </c:if>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <img class="total-popup-slide-next" src="/resources/homepage/duryu/img/common/total-popup-right-arrow.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </c:if>
 
     <div id="fullpage">
         <!-- 섹션1 -->

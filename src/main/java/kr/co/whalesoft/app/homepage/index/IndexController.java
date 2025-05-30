@@ -2463,6 +2463,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("bannerList", bannerService.getBannerAll(new Banner(homepage.getHomepage_id())));
 		model.addAttribute("mainImgList", mainImgService.getMainImgListAll(new MainImg(homepage.getHomepage_id())));
 		model.addAttribute("popupList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
+		model.addAttribute("popupFullList", popupService.getPopupFullLayerList(new Popup(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneTopList", popupZoneTopService.getPopupZoneTopAll(new PopupZoneTop(homepage.getHomepage_id())));
@@ -4223,7 +4224,7 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/popupAll.*" })
 	public String popupAll(Model model, Popup Popup, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		model.addAttribute("popupFullList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
+		model.addAttribute("popupFullList", popupService.getPopupFullLayerList(new Popup(homepage.getHomepage_id())));
 		return basePath + homepage.getFolder() + "/popupAll_ajax";
 	}
 }
