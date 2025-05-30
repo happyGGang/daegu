@@ -261,9 +261,15 @@ public class ThinkPocketPackageController extends BaseController {
     librarySearch.setSearch_start_date(returnDate.format(formatter));
     librarySearch.setManageCode(homepage.getManage_code());
 
-    Map<String, Object> holidays = LibSearchAPI.getCheckHoliday(librarySearch);
-    if ("1".equals(holidays.get("RESULT_CODE"))) {
-      returnDate = returnDate.plusDays(1);
+    // 휴일인 경우 계속 조회
+    while (true) {
+      Map<String, Object> holidays = LibSearchAPI.getCheckHoliday(librarySearch);
+      if ("1".equals(holidays.get("RESULT_CODE"))) {
+        returnDate = returnDate.plusDays(1);
+        librarySearch.setSearch_start_date(returnDate.format(formatter));
+      } else {
+        break;
+      }
     }
 
     Map<String , Object> notificationParam = new HashMap<>();

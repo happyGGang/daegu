@@ -18,21 +18,22 @@
 			ELIB_MEMBER_SEQ.NEXTVAL, SYSDATE, #{seq_no}, #{member_id}, #{library_code}, #{sex}, #{birth_day}
 		)
 	</insert>
-	
+
 	<update id="modifyMember">
-		UPDATE ELIB_MEMBER SET
+		UPDATE ELIB_MEMBER
+		<trim prefix="SET" suffixOverrides=",">
 			library_code = #{library_code},
 			<if test="seq_no != null and seq_no != ''">
-			seq_no = #{seq_no},
+				seq_no = #{seq_no},
 			</if>
 			<if test="sex != null and sex != ''">
-			sex = #{sex},
+				sex = #{sex},
 			</if>
 			<if test="birth_day != null and birth_day != ''">
-			birth_day = #{birth_day}
+				birth_day = #{birth_day},
 			</if>
-		WHERE
-			member_id = #{member_id}
+		</trim>
+		WHERE member_id = #{member_id}
 	</update>
 	
 	<select id="getMemberList" resultType="kr.go.gbelib.app.cms.module.elib.member.ElibMember">

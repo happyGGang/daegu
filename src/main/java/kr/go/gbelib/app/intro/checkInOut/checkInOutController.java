@@ -337,6 +337,6 @@ public class checkInOutController extends BaseController {
 
 		int age = currentYear - Integer.parseInt(birth);
 
-		return (age <= 15 && age >= 10);
+		return (age <= 15 && age >= 11);
 	}
 }

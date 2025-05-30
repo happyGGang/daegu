@@ -159,6 +159,30 @@ $(function() {
 				$('textarea#book_journals').focus();
 				return false;
 			}
+
+			let page_count = ${marathonApplicant.page_count};
+
+
+			let $readPageCount = $('input#read_page_count');
+			if(!$readPageCount.val()){
+				alert('읽은 쪽수를 입력해 주세요.');
+				$readPageCount.focus();
+				return false;
+			}
+			let read_page_count = Number($readPageCount.val());
+
+			if (!Number.isInteger(read_page_count)) {
+				alert('숫자만 입력해주세요.');
+				$readPageCount.focus();
+				return false;
+			}
+
+			if (read_page_count > page_count) {
+				alert('입력 할수 있는 페이지는 총 '+ page_count + '쪽 입니다.');
+				$readPageCount.focus();
+				return false;
+			}
+
 			<c:choose>
 				<c:when test="${marathonApplicant.contest_type_idx eq 1}">
 					if($('textarea#book_journals').val().length < 30){

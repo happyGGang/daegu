@@ -8,10 +8,9 @@
 $(function() {
 	$('a.delay-btn').on('click', function(e) {
 		e.preventDefault();
-
+		let loan_key = $(this).data("loankey");
 		$('input#editMode').val('RENEW');
-		$('input#loan_key').val($(this).attr('keyValue1'));
-
+		$('input#loan_key').val(loan_key);
 		if ( doAjaxPost($('form#renewForm')) ) {
 			location.reload();
 		}
@@ -104,6 +103,9 @@ $(function() {
 			<th>반납예정일</th>
 			<th>상태</th>
 			<th>구분</th>
+			<c:if test="${librarySearch.homepage_id eq 'h87'}">
+				<th>대출연장</th>
+			</c:if>
 		</thead>
 		<tbody>
 			<c:forEach items="${loanList}" var="i">
@@ -120,9 +122,13 @@ $(function() {
 				<fmt:formatDate value="${rpd}" pattern="yyyyMMdd" var="endDate"/>
 				<c:choose>
 					<c:when test="${(nowDate - endDate) > 0}">연체</c:when>
-					<c:when test="${i.STATUS eq '0'}">대출</c:when>
+					<c:when test="${i.STATUS eq '0'}">
+						대출
+					</c:when>
 					<c:when test="${i.STATUS eq '1'}">반납</c:when>
-					<c:when test="${i.STATUS eq '2'}">반납연기</c:when>
+					<c:when test="${i.STATUS eq '2'}">
+						반납연기
+					</c:when>
 					<c:when test="${i.STATUS eq '3'}">예약</c:when>
 					<c:when test="${i.STATUS eq '4'}">예약취소</c:when>
 					<c:otherwise></c:otherwise>
@@ -130,6 +136,17 @@ $(function() {
 				</td>
 				<c:set var="BOOK_APPENDIX_FLAG" value="${i.BOOK_APPENDIX_FLAG eq 'A' ? '부록' : '도서'}"/>
 				<td>${BOOK_APPENDIX_FLAG}</td>
+				<c:if test="${i.MANAGE_CODE eq 'NH'}">
+					<td>
+						<c:choose>
+							<c:when test="${i.RETURN_DEALY_CODE eq '100'}">
+								<a href="#" data-loankey="${i.PK}" class="btn btn1 delay-btn">대출연장하기</a>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</c:if>
 			</tr>
 			</c:forEach>
 		</tbody>

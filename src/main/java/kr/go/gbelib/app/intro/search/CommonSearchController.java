@@ -3260,6 +3260,7 @@ public class CommonSearchController extends BaseController {
 	public String myLoan(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Homepage homepage = getSessionHomepage(request);
 
+		librarySearch.setHomepage_id(homepage.getHomepage_id());
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
@@ -3357,7 +3358,7 @@ public class CommonSearchController extends BaseController {
 
 				model.addAttribute("loanList", list);
 			}
-			
+
 			return String.format(basePath, homepage.getFolder()) + "loan/index";
 		}
 
@@ -3384,7 +3385,7 @@ public class CommonSearchController extends BaseController {
 					ApiResponse apiResult = PrivateLibSearchAPI.renewLoan(librarySearch);
 					if (apiResult.getStatus()) {
 						res.setValid(true);
-						res.setMessage("반납 연기 되었습니다.");
+						res.setMessage("대출 연장 되었습니다.");
 					} else {
 						res.setValid(false);
 						res.setMessage(apiResult.getMessage());
@@ -3393,7 +3394,7 @@ public class CommonSearchController extends BaseController {
 					ApiResponse apiResult = LibSearchAPI.renewLoan(librarySearch);
 					if (apiResult.getStatus()) {
 						res.setValid(true);
-						res.setMessage("반납 연기 되었습니다.");
+						res.setMessage("대출 연장 되었습니다.");
 					} else {
 						res.setValid(false);
 						res.setMessage(apiResult.getMessage());
