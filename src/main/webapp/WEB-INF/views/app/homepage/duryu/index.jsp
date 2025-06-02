@@ -57,61 +57,56 @@ listNums[i] = num;
     $(function () {
         $('div.calendar').load('calendar3.do');
         $('div#holiday-area').load('calendar2.do');
-        // $('div#total_popup_area').load('popupAll.do');
 
       // 팝업 관련 코드 START
-        $('.close-btn').on('click', function () {
-          const $this = $(this);
-          const day = $this.data('day');
-          const checkInput = $this.siblings('input[data-day="' + day + '"]');
-          const popupId = checkInput.val();
-
-          if (checkInput.prop('checked')) {
-            const now = new Date();
-            const expireDate = new Date(Math.floor(now.getTime() / 86400000) * 86400000 + 54000000);
-            if (day == 7) {
-              expireDate.setDate(expireDate.getDate() + 7);
-            }
-
-            document.cookie = `${popupId}=no; path=/; expires=${expireDate.toGMTString()};`;
+      $('.close-btn').on('click', function() {
+        let $this = $(this);
+        let checkInput = $this.parent().find('input[data-day="'+$this.data('day')+'"]');
+        let popupId = checkInput.val();
+        if (checkInput.prop('checked')) {
+          let todayDate = new Date();
+          todayDate = new Date(parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+          if($this.data('day') == 7) {
+            todayDate.setDate(todayDate.getDate() + 7);
           }
-
-          $('#' + popupId).hide();
-        });
-
-        $('input[id*=pop]').on('click', function (e) {
-          e.preventDefault();
-          const $input = $(this);
-          $input.prop('checked', true);
-          $input.closest('div').next('a').data('day', $input.data('day')).trigger('click');
-        });
-
-        $('#popupLayer > div').each(function () {
-          const $popup = $(this);
-          const name = $popup.attr('id');
-          const cookieValue = getCookie(name);
-
-          if (cookieValue !== 'no') {
-            if (window.innerWidth < $popup.width()) {
-              $popup.css('width', 'auto');
-            }
-            $popup.show();
-          }
-        });
-
-        function getCookie(name) {
-          const cookieStr = document.cookie;
-          const nameEQ = name + "=";
-          const cookies = cookieStr.split(';');
-
-          for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.startsWith(nameEQ)) {
-              return decodeURIComponent(cookie.substring(nameEQ.length));
-            }
-          }
-          return '';
+          document.cookie = popupId + "=no" + "; path=/; expires=" + todayDate.toGMTString() + ";";
         }
+
+        $('div#' + popupId).hide();
+      });
+
+      $('input[id*=pop]').on('click', function(e) {
+        e.preventDefault();
+        $(this).prop('checked', true);
+        $(this).parent('div').next('a').data('day', $(this).data('day'));
+        $(this).parent('div').next('a').click();
+      });
+
+      $('#popupLayer > div').each(function(i, v) {
+        let result = '';
+        let name = $(v).attr('id');
+        let nameOfCookie = name + "=";
+        let x = 0;
+        while (x <= document.cookie.length) {
+          var y = (x + nameOfCookie.length);
+          if (document.cookie.substring(x, y) == nameOfCookie) {
+            if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+              endOfCookie = document.cookie.length;
+            result = unescape(document.cookie
+            .substring(y, endOfCookie));
+          }
+          x = document.cookie.indexOf(" ", x) + 1;
+          if (x == 0)
+            break;
+        }
+
+        if (result != 'no') {
+          if  (window.innerWidth < $(v).width() ) {
+            $(v).css('width', 'auto');
+          }
+          $(v).show();
+        }
+      });
       // 팝업 관련 코드 END
 
 
