@@ -573,7 +573,7 @@ function isFromFridayToSunday() {
 	<!-- /contents-title-->
 
 		<c:if test="${homepage.context_path eq 'dalseolib'}">
-		<p style="text-align:right;margin:10px 0;font-weight:bold;color:blue;font-size:13px;">* 본리도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(5/12~5/23)를 안내드리오니, 양해 바랍니다.(본리도서관 소장자료만 해당)</p>
+		<!-- <p style="text-align:right;margin:10px 0;font-weight:bold;color:blue;font-size:13px;">* 본리도서관 장서점검으로 인한 상호대차 및 무인예약 신청 중지(5/12~5/23)를 안내드리오니, 양해 바랍니다.(본리도서관 소장자료만 해당)</p> -->
 	</c:if>
 
 	<div class="search-wrap">
@@ -1127,6 +1127,9 @@ function isFromFridayToSunday() {
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FV" class="libCheck lib_BC" label="대구시청작은도서관"/>
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="HW" class="libCheck lib_HW" label="서변숲도서관"/>
@@ -1795,7 +1798,7 @@ function isFromFridayToSunday() {
 																<c:when test="${i.MANAGE_CODE eq 'GJ'}">
 																	<!--   제외 -->
 																</c:when>
-																<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'GP' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'HW'}">
+																<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'GP' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'HW' || i.MANAGE_CODE eq 'FV'}">
 																	<c:choose>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
