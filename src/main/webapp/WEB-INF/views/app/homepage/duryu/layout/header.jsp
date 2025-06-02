@@ -45,6 +45,20 @@
     <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
     <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 
+    <!-- 공통 -->
+    <link rel="stylesheet" href="/resources/homepage/duryu/css/common/common.css"/>
+    <link rel="stylesheet" href="/resources/homepage/duryu/css/common/footer.css"/>
+    <link rel="stylesheet" href="/resources/homepage/duryu/css/common/header.css"/>
+    <link rel="stylesheet" href="/resources/homepage/duryu/css/common/total-popup.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.17/fullpage.css"/>
+    <link rel="stylesheet" href="/resources/homepage/duryu/css/common/slick.css"/>
+    <link rel="stylesheet" href="/resources/homepage/duryu/css/common/slick-theme.css"/>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/ungveloper/web-fonts/GmarketSans/font-face.css"/>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/ungveloper/web-fonts/GmarketSans/font-family.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.17/fullpage.js"></script>
+    <script src="/resources/homepage/duryu/js/common/common.js"></script>
+    <script src="/resources/homepage/duryu/js/common/fullpage.js"></script>
+    <script src="/resources/homepage/duryu/plugin/slick.min.js"></script>
 </head>
 
 

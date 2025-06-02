@@ -2,6 +2,7 @@
     width: 100vw;
     border-top: 1px solid #ececec;
     background: #fff;
+    flex-direction: column;
 }
 
 .banner-area {

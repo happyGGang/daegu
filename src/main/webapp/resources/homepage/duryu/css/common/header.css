@@ -84,14 +84,18 @@
 }
 
 .two-depth-menu:hover {
-  background: #464f56;
+  background: var(--white);
 }
 
 .two-depth-menu:hover a {
-  color: var(--white);
+  color: #777;
 }
 
 .two-depth-menu a {
+  width: 150px;
+  word-wrap: break-word;
+  padding: 0 10px;
+  word-break: break-word;
   text-align: center;
   font-size: 14px;
   font-weight: 500;
@@ -276,6 +280,23 @@
 
   #container.subpage {
     margin-top: 17px !important;
+  }
+}
+
+@media (max-width: 490px) {
+  .library-logo {
+    left: 12px;
+    width: 179px;
+    height: 40px
+  }
+
+  .mobile-menu-trigger {;
+    right: 20px;
+  }
+
+  .mobile-menu-trigger img {
+    width: 20px;
+    height: 20px;
   }
 }
 

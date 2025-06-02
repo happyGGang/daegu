@@ -148,7 +148,7 @@
   overflow: hidden;
   font-family: Pretendard-Medium, sans-serif;
   font-style: normal;
-  margin-top: 250px;
+  margin-top: 100px;
 }
 
 .book-loading {
@@ -251,7 +251,7 @@
 
   .tab-list-item a img {
     width: 140px;
-    height: 201px;
+    height: 200px;
   }
 
   .title {

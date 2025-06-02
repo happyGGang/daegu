@@ -31,7 +31,6 @@ $(document).ready(function () {
     });
 
 
-
     // 페이지 진입 시 쿠키 확인
     if (getCookie('hideTodayPopup') !== 'Y') {
         $('.total-popup-overlay, .total_popup_area').css('display', 'flex');

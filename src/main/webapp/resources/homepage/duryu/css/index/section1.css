@@ -158,8 +158,8 @@
   width: 100%;
   max-width: 540px;
   margin-top: 60px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 32px 80px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 32px 5px;
   margin-bottom: 70px;
 }
 
@@ -292,6 +292,7 @@
   font-family: GmarketSans, sans-serif;
   font-style: normal;
   padding-top: 5px;
+  width: 27px;
 }
 
 .notice-slide-wrapper {
@@ -312,7 +313,6 @@
   display: flex;
   align-items: center;
   width: 600px;
-  height: 100%;
 }
 
 .notice-slide div {
@@ -341,6 +341,10 @@
 .go-to-holiday img {
   width: 26px;
   height: 26px;
+}
+
+.no-data {
+  white-space: nowrap;
 }
 
 @media (max-width: 1440px) {
@@ -447,7 +451,7 @@
     margin-bottom: 56px;
     margin-top: 32px;
     max-width: 360px;
-    grid-gap: 22px 30px;
+    grid-gap: 22px 5px;
   }
 
   .quick-menu-item {
@@ -519,6 +523,7 @@
   .holiday-list div {
     font-size: 16px;
     white-space: nowrap;
+    width: 22px;
   }
 
   .notice-slide-wrapper {
@@ -598,15 +603,20 @@
   .holiday-area {
     width: 100%;
     height: 56px;
-    justify-content: flex-start;
-    padding-left: 140px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
     z-index: 1;
   }
 
   .holiday-list {
-    width: 228px;
+    width: fit-content;
     margin-right: 0;
     column-gap: 21px
+  }
+
+  .holiday-list div {
+    width: fit-content;
   }
 
   .holiday-area-controller {
@@ -621,15 +631,18 @@
   }
 
   .notice-slide {
-    width: 464px;
+    width: 445px;
   }
 
   .notice-slide div {
-    width: 464px;
+    width: 445px;
   }
 
   .go-to-holiday {
-    right: 140px;
+    position: relative;
+    top: 0;
+    transform: translateY(0);
+    right: 0;
   }
 }
 
@@ -655,7 +668,7 @@
   }
 
   .slogan div:first-child {
-    font-size: 40px;
+    font-size: 38px;
     letter-spacing: -0.8px;
   }
 
@@ -671,8 +684,8 @@
   .quick-menu {
     margin-bottom: 110px;
     margin-top: 28px;
-    max-width: 360px;
-    grid-gap: 10px 20px;
+    max-width: 320px;
+    grid-gap: 22px 0;
   }
 
   .quick-menu-item img {
@@ -686,6 +699,7 @@
 
   .holiday-area {
     padding-left: 20px;
+    justify-content: flex-start;
   }
 
   .holiday-area-title {
@@ -694,7 +708,7 @@
   }
 
   .holiday-area-controller {
-    margin: 0 15px;
+    margin: 0 16px;
   }
 
   .holiday-area-controller a img {
@@ -710,12 +724,16 @@
   .holiday-area-controller div span {
     font-size: 18px;
     letter-spacing: -0.45px;
+    margin-left: 4px;
   }
 
   .go-to-holiday {
+    position: absolute;
     right: 20px;
     width: 22px;
     height: 22px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .go-to-holiday img {
@@ -737,6 +755,9 @@
     width: 20px;
     height: 18px;
     padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .notice-slide {

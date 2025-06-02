@@ -302,7 +302,7 @@ input.ui-calendar{width:110px;background:#fff url('/resources/common/img/calenda
 h1{z-index:6}
 .tnb{position:relative;z-index:4}
 .Gnb{z-index:5}
-.popupWrap{position:relative;z-index:999999}
+.popupWrap{position:relative;z-index:99999}
 
 .Gnb{top:0;left:0;width:100%;overflow:hidden}
 .Gnb::after{content:'';display:block;clear:both}
@@ -1705,11 +1705,11 @@ table.joinSelect .joinText2 { font-size: 130%;}
 #popupLayer .popup-func .checkbox label::after{top:7px}
 #popupLayer .popup-func a{float:right}
 #popupLayer .popup-func a i{margin:0;font-size:130%;line-height:28px}
-#popupLayer .popup-func a{width:34px;height:35px;padding:0;line-height:34px;text-align:center}
+#popupLayer .popup-func a{width:34px;height:35px;padding: 5px;line-height:34px;text-align:center; cursor: pointer}
 
 #popupLayer .popup-func a,
 #popupLayer .popup-func a:hover,
-#popupLayer .popup-func a:focus{border:0;border-radius:0;border-left:1px solid #e5e5e5}
+#popupLayer .popup-func a:focus{border:0;border-radius:0;}
 
 /* 달력 */
 .main #calendar{position:relative}
