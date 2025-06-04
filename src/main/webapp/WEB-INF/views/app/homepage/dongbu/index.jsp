@@ -335,18 +335,18 @@
                 <div class="tab-content tab2" style="display: none;"></div>
                 <div class="tab-content tab3" style="display: none;">
                     <c:choose>
-                        <c:when test="${fn:length(curationList) > 0}">
+                        <c:when test="${fn:length(bookCuration1) > 0}">
+                            <c:set var="totalCount" value="${fn:length(bookCuration1)}"/>
                             <div class="main-book-slide slider-for">
-                                <c:set var="loopCount" value="${fn:length(newBookList) > 10 ? 10 : fn:length(newBookList)}"/>
-                                <c:forEach var="i" begin="0" end="${loopCount - 1}">
+                                <c:forEach var="book" items="${bookCuration1}" varStatus="status">
                                     <div class="main-book-slide-item">
-                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${book.manage_idx}&board_idx=${book.board_idx}">
                                             <c:choose>
-                                                <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                    <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
+                                                <c:when test="${fn:contains(book.preview_img, 'noimg')}">
+                                                    <img src="/resources/common/img/noimg-gall.png" alt="${book.title}" title="${book.title}" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
+                                                    <img src="/data/board/${book.manage_idx}/${book.board_idx}/${book.preview_img}" alt="${book.title}" title="${book.title}" />
                                                 </c:otherwise>
                                             </c:choose>
                                         </a>
@@ -357,15 +357,18 @@
                             <div class="book-slide-wrapper">
                                 <img class="book-slide-prev" src="/resources/homepage/dongbu/img/book/arrow-left.svg" alt="이전" />
                                 <div class="book-slide slider-nav">
-                                    <c:forEach var="i" items="${curationList}">
+                                    <c:forEach var="j" begin="0" end="${totalCount - 1}">
+                                        <c:set var="idx" value="${(j + 1) % totalCount}"/>
+                                        <c:set var="navBook" value="${bookCuration1[idx]}"/>
+
                                         <div class="book-slide-item">
-                                            <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                            <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${book.manage_idx}&board_idx=${book.board_idx}">
                                                 <c:choose>
-                                                    <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                        <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
+                                                    <c:when test="${fn:contains(book.preview_img, 'noimg')}">
+                                                        <img src="/resources/common/img/noimg-gall.png" alt="${book.title}" title="${book.title}" />
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
+                                                        <img src="/data/board/${book.manage_idx}/${book.board_idx}/${book.preview_img}" alt="${book.title}" title="${book.title}" />
                                                     </c:otherwise>
                                                 </c:choose>
                                             </a>
