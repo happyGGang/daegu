@@ -84,7 +84,7 @@ $(function(){
 									<a href="http://icuration.co.kr:81/curation/w/227" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>인문</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/im_img_13.png" alt="한 장의 그림, 한 편의 철학" /></p>
-										<span class="link"한 장의 그림, 한 편의 철학<i></i></span>
+										<span class="link">한 장의 그림, 한 편의 철학<i></i></span>
 									</a>
 								</div>
 								<div>
@@ -98,7 +98,7 @@ $(function(){
 									<a href="http://icuration.co.kr:81/curation/w/220" target="_blank" class="newWin" title="새창으로 열립니다.">
 										<h2>독서</h2>
 										<p class="img"><img src="/resources/homepage/${homepage.context_path}/img/bo_img_12.png" alt="별이 속삭이는 이야기" /></p>
-										<span class="link"별이 속삭이는 이야기<i></i></span>
+										<span class="link">별이 속삭이는 이야기<i></i></span>
 									</a>
 								</div>
 								<div>
