@@ -1128,9 +1128,9 @@ function isFromFridayToSunday() {
 									<li>
 										<form:checkbox path="libraryCodes" value="BC" class="libCheck lib_BC" label="태전도서관"/>
 									</li>
-									<li>
+									<!--<li>
 										<form:checkbox path="libraryCodes" value="FV" class="libCheck lib_BC" label="대구시청작은도서관"/>
-									</li>
+									</li>-->
 									<li>
 										<form:checkbox path="libraryCodes" value="HW" class="libCheck lib_HW" label="서변숲도서관"/>
 									</li>
