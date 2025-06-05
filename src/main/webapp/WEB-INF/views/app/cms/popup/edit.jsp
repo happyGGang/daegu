@@ -296,7 +296,7 @@ function pasteHTML(filepath){
 		<tr>
 			<th>링크 URL</th>
 			<td>
-				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
+				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="500"/>
 				<div class="ui-state-highlight">
 					<em>* 팝업 클릭시 이동 할 URL 입니다.</em>
 				</div>

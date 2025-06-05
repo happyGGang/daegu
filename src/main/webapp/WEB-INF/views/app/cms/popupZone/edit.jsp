@@ -242,7 +242,7 @@ function getFileData(fileData) {
 		<tr>
 			<th>링크URL(<span style="color: red;font-weight: bold;">*</span>)</th>
 			<td>
-				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="200"/>
+				<form:input path="link_url" cssClass="text" cssStyle="width:300px;" maxlength="500"/>
 				<div class="ui-state-highlight">
 					<em>* 팝업존 클릭시 이동 할 URL 입니다.</em>
 				</div>
