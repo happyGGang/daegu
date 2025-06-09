@@ -149,6 +149,27 @@ do {
 			}
 				$('#mainSearchForm').submit();
 		});
+
+
+		$('.book-content-tab').click(function() {
+			// 탭 활성화 클래스 처리
+			$('.book-content-tab').removeClass('active');
+			$(this).addClass('active');
+
+			// target 읽기
+			var target = $(this).data('target');
+
+			// 링크 URL 결정
+			var newUrl = '';
+			if (target === 'recommended') {
+				newUrl = '/${homepage.context_path}/board/index.do?menu_idx=12&manage_idx=1270';
+			} else if (target === 'new') {
+				newUrl = '/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=9';
+			}
+
+			// 링크 변경
+			$('.go-to-book-detail').attr('href', newUrl);
+		});
 });
 </script>
 <div id="wrap">
@@ -276,7 +297,7 @@ do {
 						</c:when>
 						<c:otherwise>
 							<div class="popup-slide">
-								<img src="/resources/homepage/duryu/img/common/dummy.png" alt="" />
+								<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="" />
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -285,7 +306,7 @@ do {
 				<div class="notice-board">
 					<div class="notice-board-header">
 						<div class="notice-board-title">공지사항</div>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=132">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=32&manage_idx=1263">
 							<img src="/resources/homepage/dalseongchild/img/notice/more.svg" alt="">
 						</a>
 					</div>
@@ -335,11 +356,11 @@ do {
 					<div class="tab-wrapper">
 						<div class="tab active" data-content="culture">
 							<div>문화행사</div>
-							<a href="#"><img src="/resources/homepage/dalseongchild/img/culture/active-more.svg" alt="More"></a>
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16"><img src="/resources/homepage/dalseongchild/img/culture/active-more.svg" alt="More"></a>
 						</div>
 						<div class="tab" data-content="program">
 							<div>평생학습프로그램</div>
-							<a href="#"><img src="/resources/homepage/dalseongchild/img/culture/more.svg" alt="More"></a>
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30&searchCate1=17"><img src="/resources/homepage/dalseongchild/img/culture/more.svg" alt="More"></a>
 						</div>
 					</div>
 
@@ -403,7 +424,7 @@ do {
 							<div>신착도서</div>
 						</div>
 					</div>
-					<a href="" class="go-to-book-detail">
+					<a href="/${homepage.context_path}/board/index.do?menu_idx=12&manage_idx=1270" class="go-to-book-detail">
 						<img src="/resources/homepage/dalseongchild/img/book/more.svg" alt="">
 					</a>
 				</div>

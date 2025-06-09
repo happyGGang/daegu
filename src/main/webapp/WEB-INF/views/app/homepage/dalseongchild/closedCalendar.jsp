@@ -85,7 +85,7 @@
 				<div class="holiday-list-item">${day}</div>
 			</c:forEach>
 			<c:if test="${fn:length(dd) > 7}">
-				<a href="https://library.daegu.go.kr/duryu/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
+				<a href="https://library.daegu.go.kr/dalseongchild/module/calendarManage/index.do?menu_idx=33" class="go-to-holiday">
 					<img src="/resources/homepage/dalseongchild/img/notice/more_white.svg" alt="">
 				</a>
 			</c:if>
