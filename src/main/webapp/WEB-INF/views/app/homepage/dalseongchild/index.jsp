@@ -476,26 +476,65 @@ do {
 				<div class="banner-area">
 					<img class="banner-prev" src="/resources/homepage/dalseongchild/img/common/banner-prev.svg" alt=""/>
 					<div class="banner-slide">
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://www.daegu.go.kr/index.do">
+							<img src="/resources/homepage/dalseongchild/img/common/01.jpg" alt="">
 						</a>
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://www.dge.go.kr/main/main.do">
+							<img src="/resources/homepage/dalseongchild/img/common/02.jpg" alt="">
 						</a>
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://www.edunavi.kr/portal/main.do">
+							<img src="/resources/homepage/dalseongchild/img/common/03.jpg" alt="">
 						</a>
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://www.nanet.go.kr/main.do">
+							<img src="/resources/homepage/dalseongchild/img/common/04.jpg" alt="">
 						</a>
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://www.nl.go.kr/">
+							<img src="/resources/homepage/dalseongchild/img/common/05.jpg" alt="">
 						</a>
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://nlcy.go.kr/NLCY/main/index.do">
+							<img src="/resources/homepage/dalseongchild/img/common/06.jpg" alt="">
 						</a>
-						<a class="banner-slide-item" href="">
-							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						<a class="banner-slide-item" href="https://books.nl.go.kr/PU/contents/P20700000000.do">
+							<img src="/resources/homepage/dalseongchild/img/common/07.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://books.nl.go.kr/PU/contents/P10400000000.do">
+							<img src="/resources/homepage/dalseongchild/img/common/08.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://cn.nld.go.kr/index.do">
+							<img src="/resources/homepage/dalseongchild/img/common/09.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.nl.go.kr/NL/contents/N30502000000.do">
+							<img src="/resources/homepage/dalseongchild/img/common/10.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.data4library.kr/">
+							<img src="/resources/homepage/dalseongchild/img/common/11.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.1365.go.kr/vols/main.do">
+							<img src="/resources/homepage/dalseongchild/img/common/12.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.youth.go.kr/youth/">
+							<img src="/resources/homepage/dalseongchild/img/common/13.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.nlcy.go.kr/NLCY/contents/C10503010000.do">
+							<img src="/resources/homepage/dalseongchild/img/common/14.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://info.edunet.net/">
+							<img src="/resources/homepage/dalseongchild/img/common/15.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.safetyreport.go.kr/#main">
+							<img src="/resources/homepage/dalseongchild/img/common/16.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.mcst.go.kr/kor/main.jsp">
+							<img src="/resources/homepage/dalseongchild/img/common/17.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.keris.or.kr/main/main.do">
+							<img src="/resources/homepage/dalseongchild/img/common/18.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.data.go.kr/index.do">
+							<img src="/resources/homepage/dalseongchild/img/common/19.jpg" alt="">
+						</a>
+						<a class="banner-slide-item" href="https://www.nl.go.kr/kolisnet/index.do">
+							<img src="/resources/homepage/dalseongchild/img/common/20.jpg" alt="">
 						</a>
 					</div>
 					<img class="banner-next" src="/resources/homepage/dalseongchild/img/common/banner-next.svg" alt=""/>

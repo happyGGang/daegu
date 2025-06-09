@@ -9,11 +9,11 @@
 		<div class="main-section">
 			<div class="libSite">
 				<ul>
-					<li class="on"><a href="/bukgs/index.do">달성어린이숲</a></li>
-					<li><a href="/bukdh/index.do">달성군립</a></li>
-					<li><a href="/bukgs/html.do?menu_idx=98" target="_blank">작은</a></li>
-					<li><a href="/bukgs/html.do?menu_idx=25">전자도서관</a></li>
-					<li class="br"><a href="https://www.hbcf.or.kr/front/" target="_blank">달성교육재단</a></li>
+					<li class="on"><a href="https://library.daegu.go.kr/dalseongchild/index.do">달성어린이숲</a></li>
+					<li><a href="https://library.daegu.go.kr/dalseonglib/index.do">달성군립</a></li>
+					<li><a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=88">작은</a></li>
+					<li><a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=24">전자도서관</a></li>
+					<li class="br"><a href="https://dsef.or.kr/">달성교육재단</a></li>
 					<li class="sns_icon"><a href="https://www.instagram.com/gususan.library" target="_blank" title="인스타그램 바로가기" alt="인스타그램 바로가기"><img src="/resources/homepage/bukgs/img/sns_icon_instagram.png"></a></li>
 				</ul>
 			</div>
