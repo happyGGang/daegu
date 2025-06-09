@@ -243,13 +243,13 @@ do {
 					<c:forEach var="i" varStatus="status" items="${quickMenuList}">
 						<c:if test="${i.link_target eq 'BLANK' }">
 							<a class="quick-menu-item" href="${i.link_url}" target="_blank">
-								<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
+								<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}" alt="${i.menu_name}">
 								<div>${i.menu_name}</div>
 							</a>
 						</c:if>
 						<c:if test="${i.link_target ne 'BLANK' }">
 							<a class="quick-menu-item" href="${i.link_url}" target="_blank">
-								<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
+								<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}" alt="${i.menu_name}">
 								<div>${i.menu_name}</div>
 							</a>
 						</c:if>
