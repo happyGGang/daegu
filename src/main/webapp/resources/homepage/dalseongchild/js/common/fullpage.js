@@ -7,7 +7,7 @@ $(document).ready(function () {
             autoScrolling: true,
             sectionSelector: ".section-wrapper",
             navigation: false, // 기본 내비게이션을 비활성화
-            anchors: ['section1', 'section2', 'section3', 'section4', 'section5'],
+            anchors: ['section1', 'section2', 'section3', 'section4'],
             afterLoad: function(origin, destination, direction){
                 updateIndicator(destination.index);
 

@@ -58,3 +58,29 @@
     width: 100%;
 }
 
+@media (max-width: 1600px) {
+    #fullpage-indicator {
+        display: none;
+    }
+}
+
+@media (max-width: 1260px) {
+    .wrapper {
+        width: 100%;
+        max-width: 864px;
+        margin: 0 auto;
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 840px) {
+    .wrapper {
+        max-width: 440px;
+    }
+}
+
+@media (max-width: 440px) {
+    .wrapper {
+        max-width: 280px;
+    }
+}

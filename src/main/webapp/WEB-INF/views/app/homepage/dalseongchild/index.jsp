@@ -316,7 +316,7 @@ do {
 						</c:if>
 
 						<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" begin='0' end='1'>
-							<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+							<a class="notice-list-item fixed" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 								<div class="notice-list-item-date">
 									<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
 									<div><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></div>
@@ -375,7 +375,7 @@ do {
 								</div>
 							</a>
 						</c:if>
-						<c:forEach var="i" varStatus="status" items="${teachList1}" begin='0' end='4'>
+						<c:forEach var="i" varStatus="status" items="${teachList1}" begin='0' end='3'>
 							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
 								<div class="label">${i.large_category_name}</div>
 								<div class="tab-content-detail">
@@ -397,7 +397,7 @@ do {
 								</div>
 							</a>
 						</c:if>
-						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='4'>
+						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='3'>
 							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
 								<div class="label">${i.large_category_name}</div>
 								<div class="tab-content-detail">
@@ -469,40 +469,40 @@ do {
 
 				<div class="new" style="display: none;"></div>
 			</div>
-		</div>
 
-		<!-- footer -->
-		<div class="footer section-wrapper fp-auto-height" data-anchor="section5">
-			<!-- banner -->
-			<div class="banner-area">
-				<img class="banner-prev" src="/resources/homepage/dalseongchild/img/common/banner-prev.svg" alt=""/>
-				<div class="banner-slide">
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
-					<a class="banner-slide-item" href="">
-						<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
-					</a>
+			<!-- footer -->
+			<div class="footer">
+				<!-- banner -->
+				<div class="banner-area">
+					<img class="banner-prev" src="/resources/homepage/dalseongchild/img/common/banner-prev.svg" alt=""/>
+					<div class="banner-slide">
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+						<a class="banner-slide-item" href="">
+							<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="">
+						</a>
+					</div>
+					<img class="banner-next" src="/resources/homepage/dalseongchild/img/common/banner-next.svg" alt=""/>
 				</div>
-				<img class="banner-next" src="/resources/homepage/dalseongchild/img/common/banner-next.svg" alt=""/>
-			</div>
 
-			<tiles:insertAttribute name="footer"/>
+				<tiles:insertAttribute name="footer"/>
+			</div>
 		</div>
 	</div>
 

@@ -218,3 +218,281 @@
   font-family: Pretendard-SemiBold, sans-serif;
 }
 
+@media (max-width: 1260px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 640px;
+  }
+
+  .main-bg-slide div:nth-child(1) {
+    height: 640px;
+    background-size: cover !important;
+    background: url('/resources/homepage/dalseongchild/img/main/1024_1.png') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(2) {
+    height: 640px;
+    background-size: cover !important;
+    background: url('/resources/homepage/dalseongchild/img/main/1024_2.png') no-repeat center center fixed;
+  }
+
+  .slogan {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .slogan div:first-child {
+    font-size: 24px;
+    letter-spacing: -0.6px;
+  }
+
+  .slogan div:last-child {
+    font-size: 60px;
+    letter-spacing: -1.5px;
+  }
+
+  .search-area {
+    display: flex;
+    justify-content: center;
+  }
+
+  #mainSearchForm {
+    max-width: 620px;
+    height: 60px;
+  }
+
+  #search_type {
+    width: 118px;
+    font-size: 16px;
+    padding-right: 34px;
+    padding-left: 32px;
+  }
+
+  #search_text_1 {
+    width: 350px;
+    font-size: 16px;
+    padding: 0 28px;
+  }
+
+  #main-search-btn {
+    width: 152px;
+  }
+
+  #main-search-btn div {
+    font-size: 16px;
+  }
+
+  .quick-menu {
+    margin: 32px auto 0 auto;
+    height: 226px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 20px;
+    align-items: center;
+    width: 480px;
+    justify-content: space-between;
+    justify-items: center;
+  }
+
+  .quick-menu-item {
+    width: 120px;
+    gap: 4px;
+  }
+
+  .quick-menu-item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .quick-menu-item div {
+    font-size: 16px;
+  }
+
+  .quick-menu-item:hover div {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 840px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 480px;
+  }
+
+  .main-bg-slide div:nth-child(1) {
+    height: 480px;
+    background: url('/resources/homepage/dalseongchild/img/main/768_1.png') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(2) {
+    height: 480px;
+    background: url('/resources/homepage/dalseongchild/img/main/768_2.png') no-repeat center center fixed;
+  }
+
+  .slogan {
+    margin-top: 20px;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .slogan div:first-child {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+  }
+
+  .slogan div:last-child {
+    font-size: 44px;
+    letter-spacing: -1.1px;
+  }
+
+  #mainSearchForm {
+    max-width: 440px;
+    height: 52px;
+  }
+
+  #mainSearchForm fieldset {
+    border-radius: 50px;
+  }
+
+  #search_type {
+    width: 97px;
+    font-size: 14px;
+    padding-right: 30px;
+    padding-left: 34px;
+  }
+
+  #search_text_1 {
+    width: 291px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  #main-search-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    gap: 0;
+  }
+
+  #main-search-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  #main-search-btn div {
+    display: none;
+  }
+
+  .quick-menu {
+    margin: 24px auto 0 auto;
+    height: 174px;
+    grid-row-gap: 12px;
+    width: 400px;
+  }
+
+  .quick-menu-item {
+    width: 120px;
+    gap: 3px;
+  }
+
+  .quick-menu-item img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .quick-menu-item div {
+    font-size: 14px;
+  }
+
+  .quick-menu-item:hover div {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 440px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 558px;
+  }
+
+  .main-bg-slide div:nth-child(1) {
+    height: 558px;
+    background: url('/resources/homepage/dalseongchild/img/main/360_1.png') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(2) {
+    height: 558px;
+    background: url('/resources/homepage/dalseongchild/img/main/360_2.png') no-repeat center center fixed;
+  }
+
+  .slogan {
+    margin-top: 36px;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .slogan div:first-child {
+    font-size: 16px;
+    letter-spacing: -0.4px
+  }
+
+  .slogan div:last-child {
+    font-size: 30px;
+    letter-spacing: -0.75px;
+  }
+
+  #mainSearchForm {
+    max-width: 280px;
+    height: 48px;
+  }
+
+  #mainSearchForm fieldset {
+    border-radius: 35px;
+  }
+
+  #search_type {
+    width: 77px;
+    border-radius: 35px 0 0 35px;
+    background-size: 17px;
+    font-size: 12px;
+    padding-right: 25px;
+    padding-left: 20px;
+  }
+
+  #search_text_1 {
+    width: 155px;
+    font-size: 12px;
+    padding: 0 16px;
+  }
+
+  #main-search-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  #main-search-btn img {
+    width: 17px;
+    height: 17px;
+  }
+
+  .quick-menu {
+    margin: 36px auto 0 auto;
+    height: 167px;
+    width: 290px;
+  }
+
+  .quick-menu-item {
+    width: 90px;
+    gap: 8px;
+  }
+
+  .quick-menu-item img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .quick-menu-item div {
+    font-size: 12px;
+  }
+
+  .quick-menu-item:hover div {
+    font-size: 14px;
+  }
+}

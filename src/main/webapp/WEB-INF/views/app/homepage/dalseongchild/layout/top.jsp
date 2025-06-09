@@ -27,7 +27,7 @@
 			</div>
 
 			<div class="mmode m-menu">
-				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
+				<a href="#menu"><img src="/resources/homepage/dalseongchild/img/common/site-map.svg"></a>
 			</div>
 
 			<div class="util">

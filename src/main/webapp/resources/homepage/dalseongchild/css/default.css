@@ -175,11 +175,11 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 @media all and (max-width:1024px){
 	.tnb {height:65px;padding:10px 0;}
 
-	h1.mobile-logo {display:block;width:200px;height:40px;margin-top:2px;padding:0 0 0 10px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/bukgs/img/bukgs_logo.png') no-repeat center center;background-size:100% !important;width:200px;height:40px;font-size:0;}
+	h1.mobile-logo {display:block;width:206px;height:32px;margin-top:24px;padding:0 0 0 40px;}
+	h1.mobile-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;background-size:100% !important;width:206px;height:32px;font-size:0;}
 
 	/* SNS 추가 */
-	.sns-box {position:absolute;display:block;left:220px;top:7px;}
+	.sns-box {position:absolute;display:none;left:220px;top:7px;}
 	.sns-box li {display:inline-block;margin-right:2px;}
 	.sns-box li a img {vertical-align:middle;}
 }
@@ -188,22 +188,14 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 	.home-up {display:block;}
 }
 
-@media all and (max-width:550px){
+@media all and (max-width:440px){
+	h1.mobile-logo {
+		margin-top: 14px;
+		padding: 0 0 0 20px;
+	}
 
+	.m-menu a {
+		right: 20px !important;
+		top: 14px !important;
+	}
 }
-
-@media all and (max-width:500px){
-
-}
-
-@media all and (max-width:425px){
-}
-
-@media all and (max-width:375px){
-
-}
-
-@media all and (max-width:330px){
-
-}
-
