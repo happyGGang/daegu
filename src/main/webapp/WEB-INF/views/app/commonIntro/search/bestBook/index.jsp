@@ -95,7 +95,7 @@ $(function() {
 							달성도서관<form:hidden path="manageCode" value="AJ" />
 						</c:when>
 						<c:when test="${homepagePath eq 'dalseongchild'}">
-							달성어린이숲도서관<form:hidden path="manageCode" value="BA" />
+							달성어린이숲도서관<form:hidden path="manageCode" value="CD" />
 						</c:when>
 						<c:when test="${homepagePath eq 'std'}">
 							대구학생문화센터<form:hidden path="manageCode" value="AK" />

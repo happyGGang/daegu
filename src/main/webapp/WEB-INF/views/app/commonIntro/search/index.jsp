@@ -897,7 +897,7 @@ function isFromFridayToSunday() {
 										<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
 									</li>
 									<li>
-										<form:checkbox path="libraryCodes" value="BA" class="libCheck lib_BA" label="달성어린이숲도서관"/>
+										<form:checkbox path="libraryCodes" value="CD" class="libCheck lib_CD" label="달성어린이숲도서관"/>
 									</li>
 								</ul>
 							</div>
@@ -914,7 +914,7 @@ function isFromFridayToSunday() {
 									<div>
 										<ul>
 											<li>
-												<form:checkbox path="libraryCodes" value="BA" class="libCheck lib_BA" label="달성어린이숲도서관"/>
+												<form:checkbox path="libraryCodes" value="CD" class="libCheck lib_CD" label="달성어린이숲도서관"/>
 											</li>
 											<li>
 												<form:checkbox path="libraryCodes" value="BR" class="libCheck lib_BR" label="달성군립도서관"/>

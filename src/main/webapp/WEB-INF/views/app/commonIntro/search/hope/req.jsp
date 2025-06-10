@@ -294,7 +294,7 @@
 					<form:option value="GC">구지면작은도서관</form:option>
 					<form:option value="FN">달성군청소년센터</form:option>
 					<form:option value="FJ">달성군청도서관</form:option>
-					<form:option value="BA">달성어린이숲도서관</form:option>
+					<form:option value="CD">달성어린이숲도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
 
@@ -524,7 +524,7 @@
 
 				<c:when test="${homepagePath eq 'dalseongchild'}">
 					<form:select path="manageCode" cssClass="new_select_box">
-						<form:option value="BA">달성어린이숲도서관</form:option>
+						<form:option value="CD">달성어린이숲도서관</form:option>
 						<form:option value="BR">달성군립도서관</form:option>
 						<form:option value="GA">화원읍작은도서관</form:option>
 						<form:option value="GB">논공읍작은도서관</form:option>
