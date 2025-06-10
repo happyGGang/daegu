@@ -340,12 +340,14 @@
 	.quickMenu li.quick-00 > div.btn-box ul li{width:100%;display:inline-block;background:#000;height:66px;}
 	.quickMenu li.quick-00 > div.btn-box ul li a{display:block;box-sizing:border-box;}
 	.quickMenu li.quick-00 > div.btn-box ul li a span{display:block;font-size:15px;color:#fff;font-family:'SCoreDream';font-weight:500;margin-top:20px;}
-	.quickMenu li.quick-00 > div.btn-box ul li.video-cgv{width:49%;background:#000 url("../img/video-cgv.png") no-repeat center 75%;background-size:50px;}
+	.quickMenu li.quick-00 > div.btn-box ul li.video-cgv{width:32%;background:#000 url("../img/video-cgv.png") no-repeat center 75%;background-size:50px;}
 	.quickMenu li.quick-00 > div.btn-box ul li.video-megabox{width:32%;background:#000 url("../img/video-megabox.png") no-repeat center 76%;background-size:80px;}
-	.quickMenu li.quick-00 > div.btn-box ul li.video-emart{width:49%;background:#000 url("../img/video-emart.png") no-repeat center 76%;background-size:50px;}
+	.quickMenu li.quick-00 > div.btn-box ul li.video-emart{width:32%;background:#000 url("../img/video-emart.png") no-repeat center 76%;background-size:50px;}
+	.quickMenu li.quick-00 > div.btn-box ul li.video-dtc{width:32%;background:#000 url("../img/video-dtc.png") no-repeat center 76%;background-size:50px;}
 	.quickMenu li.quick-00 > div.btn-box ul li.video-cgv a span,
 	.quickMenu li.quick-00 > div.btn-box ul li.video-megabox a span,
-	.quickMenu li.quick-00 > div.btn-box ul li.video-emart a span{margin-top:10px;}
+	.quickMenu li.quick-00 > div.btn-box ul li.video-emart a span,
+	.quickMenu li.quick-00 > div.btn-box ul li.video-dtc a span{margin-top:10px;}
 
 	.quickMenu li.quick-0{width:99%;height:70px;}
 	.quickMenu li.quick-0 a div{bottom:33%;}
@@ -412,7 +414,8 @@
 	.quickMenu li.quick-00 > div.btn-box ul li a span{font-size:12px;margin-top:22px;}
 	.quickMenu li.quick-00 > div.btn-box ul li.video-cgv a span,
 	.quickMenu li.quick-00 > div.btn-box ul li.video-megabox a span,
-	.quickMenu li.quick-00 > div.btn-box ul li.video-emart a span{margin-top:12px;}
+	.quickMenu li.quick-00 > div.btn-box ul li.video-emart a span,
+	.quickMenu li.quick-00 > div.btn-box ul li.video-dtc a span{margin-top:12px;}
 
 	.quickMenu li a.quick00 {background:#004299 url("../img/nbl-m-icon00.png") no-repeat 23% 50%;background-size:40px;}
 	.quickMenu li a.quick01 {background:url("../img/nbl-m-icon01.png") no-repeat 50% 40%;transition:all 0.3s;background-size:40px;}
@@ -493,7 +496,7 @@ ul.bus_list span.num{display:block;background:#f1f1f1;height:30px;line-height:30
 .tab_menu.main ul li:first-child.active a, .tab_menu.main ul li:first-child a:hover{border: 1px solid #00a080;background: #effffc;color: #008d71;font-weight: 600;box-shadow: 2px 2px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
 .tab_menu.main ul li:nth-child(2).active a, .tab_menu.main ul li:nth-child(2) a:hover{border: 1px solid #fbc0c3;background: #fff2f3;color: #e54c49;font-weight: 600;box-shadow: 2px 2px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
 .tab_menu.main ul li:nth-child(3).active a, .tab_menu.main ul li:nth-child(3) a:hover{border: 1px solid #bfb9f8;background: #edebff;color: #665bc8;font-weight: 600;box-shadow: 2px 2px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
-.tab_menu.main ul li:nth-child(4).active a, .tab_menu.main ul li:nth-child(4) a:hover{border: 1px solid #f4d181;background: #fffaea;color: #e1af37;font-weight: 600;box-shadow: 2px 2px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
+.tab_menu.main ul li:nth-child(4).active a, .tab_menu.main ul li:nth-child(4) a:hover{border: 1px solid #ffc0db;background: #fff1f7;color: #cf0d61;font-weight: 600;box-shadow: 2px 2px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
 .tab_menu.main ul li:last-child.active a, .tab_menu.main ul li:last-child a:hover{border: 1px solid #addae2;background: #ecfafc;color: #009fbc;font-weight: 600;box-shadow: 2px 2px 0 0 rgba(0, 0, 0, .1);z-index: 1;}
 
 @media all and (max-width: 1600px) {

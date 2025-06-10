@@ -248,6 +248,15 @@ $(function() {
 		$('#m-youtube-video-03').attr('src','https://www.youtube.com/embed/zC85gj2o9JU');
 	});
 
+	$('a#mo-dtc-btn').click(function(e){
+		e.preventDefault();
+		var activeUrl = $(this).attr('href');
+		$('.m-youtube-video').attr('src','');
+		$('.mo-video-view').hide();
+		$(activeUrl).show();
+		$('#m-youtube-video-05').attr('src','https://www.youtube.com/embed/OK7yHBRZLJM?si=Bf47BiRKjClw9oLG');
+	});
+
 	$('a#mo-nearby-btn').click(function(e){
 		e.preventDefault();
 		var activeUrl = $(this).attr('href');
@@ -412,6 +421,10 @@ function isFromFridayToSunday() {
 						{
 							$('#youtube-video-04').attr('src','https://www.youtube.com/embed/9xoswEzhPIM');
 						}
+						else if(activeTab == '#tabCon5')
+						{
+							$('#youtube-video-05').attr('src','https://www.youtube.com/embed/OK7yHBRZLJM?si=Bf47BiRKjClw9oLG');
+						}
 
 						$('.tabConts').hide();
 						$(activeTab).show();
@@ -475,13 +488,16 @@ function isFromFridayToSunday() {
 							<div class="tabConts" id="tabCon3">
 								<div class="outer">
 									<div class="inner">
-										<iframe class="youtube-video" id='youtube-video-03' width="90%" height="708" src="https://www.youtube.com/embed/zC85gj2o9JU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>										<!-- <video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video> -->
+										<iframe class="youtube-video" id='youtube-video-03' width="90%" height="708" src="https://www.youtube.com/embed/zC85gj2o9JU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+										<!-- <video id="video-box_3" class="video_box" src="/resources/homepage/${homepage.context_path}/movie/NEARBYLIB_EMART.mp4" controls muted loop playinline></video> -->
 									</div>
 								</div>
 							</div>
 							<div class="tabConts" id="tabCon5">
-								<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 660px;">
-									<p style="font-size: 24px; font-weight: 500;">준비중입니다.</p>
+								<div class="outer">
+									<div class="inner">
+										<iframe class="youtube-video" id='youtube-video-05' width="90%" height="708" src="https://www.youtube.com/embed/OK7yHBRZLJM?si=7zbiJYXT1FpGKyfp" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+									</div>
 								</div>
 							</div>
 							<div class="tabConts" id="tabCon4">
@@ -539,7 +555,7 @@ function isFromFridayToSunday() {
 								</a>
 							</li>
 							<li class="video-dtc">
-								<a href="#mo-dtc-view" id='mo-emart-btn' title="대구섬유박물관 이용방법">
+								<a href="#mo-dtc-view" id='mo-dtc-btn' title="대구섬유박물관 이용방법">
 									<span>대구섬유박물관</span>
 								</a>
 							</li>
@@ -931,6 +947,20 @@ function isFromFridayToSunday() {
 				<div class="inner">
 					<div class="video-container">
 						<iframe class="m-youtube-video" id='m-youtube-video-03' width="90%" height="67.5%" src="https://www.youtube.com/embed/zC85gj2o9JU" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="mo-dtc-view" class="mo-video-view" style="display:none;">
+		<div class="mo-nearby-shadow"></div>
+		<div class="closeBtn"><button class="btn btn-close mo-close"><span class="blind">닫기</span></button></div>
+		<div class="" style='position:relative;height:100%;z-index:999993;'>
+			<div class="outer">
+				<div class="inner">
+					<div class="video-container">
+						<iframe class="m-youtube-video" id='m-youtube-video-05' width="90%" height="67.5%" src="https://www.youtube.com/embed/OK7yHBRZLJM?si=Bf47BiRKjClw9oLG" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 					</div>
 				</div>
 			</div>
