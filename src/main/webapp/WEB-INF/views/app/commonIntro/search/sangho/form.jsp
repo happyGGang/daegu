@@ -157,13 +157,13 @@ $(function() {
 						<form:option value="127009">구수산도서관</form:option>
 						<form:option value="127084">대현도서관</form:option>
 						<form:option value="127088">태전도서관</form:option>
-						<!--<form:option value="322013">시청작은도서관</form:option>-->
+						<%--<form:option value="322013">시청작은도서관</form:option>--%>
 						<form:option value="127110">서변숲도서관</form:option>
-						<!-- <form:option value="727033">태전1동 작은도서관</form:option> -->
+						<%-- <form:option value="727033">태전1동 작은도서관</form:option> --%>
 						<form:option value="727038">산격1동 작은도서관</form:option>
 						<form:option value="727040">북구영어작은도서관</form:option>
 						<form:option value="727054">침산1동 작은도서관</form:option>
-						<!-- <form:option value="727055">노원동 작은도서관(폐관)</form:option> -->
+						<%-- <form:option value="727055">노원동 작은도서관(폐관)</form:option> --%>
 						<form:option value="727088">서변동작은도서관</form:option>
 						<form:option value="727098">노원행복도서관</form:option>
 						<form:option value="727102">한강공원부키도서관</form:option>
@@ -267,7 +267,7 @@ $(function() {
 								<option value="127009">구수산도서관</option>
 								<option value="127084">대현도서관</option>
 								<option value="127088">태전도서관</option>
-								<option value="322013">시청작은도서관</option>
+<%--								<option value="322013">시청작은도서관</option>--%>
 								<option value="727038">산격1동 작은도서관</option>
 								<option value="727040">북구영어작은도서관</option>
 								<option value="727054">침산1동 작은도서관</option>
