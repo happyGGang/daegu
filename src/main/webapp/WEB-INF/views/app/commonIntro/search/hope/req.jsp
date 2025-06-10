@@ -297,6 +297,9 @@
 					<form:option value="BA">달성어린이숲도서관</form:option>
 				</form:select> * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.
 				</c:when>
+
+
+
 				<c:when test="${homepagePath eq 'dalseongsmall'}">
 				<form:select path="manageCode">
 					<form:option value="FR">가창면 참꽃작은도서관</form:option>
@@ -325,19 +328,18 @@
 				<c:when test="${homepagePath eq 'dalseolib'}">
 				<select id="manageCode" name="manageCode" class="new_select_box">
 					<option value="">선택</option>
-							<%-- <option value="BW">도원도서관</option> --%>
+							<option value="BW">도원도서관</option>
 							<%--<option value="BV">달서어린이도서관</option> --%>
-							<%--<option value="BU">성서도서관</option>--%>
+							<option value="BU">성서도서관</option>
 							<option value="BX">본리도서관</option>
-							<%-- <option value="BY">달서가족문화도서관</option> --%>
+							<option value="BY">달서가족문화도서관</option>
 							<option value="BZ">달서영어도서관</option>
 				</select>
 					<br>
 					* 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.<br>
 					* 어린이도서관은 어린이도서 및 육아·교육 관련 도서만 신청 가능합니다.<br>
 					* 달서영어도서관 : 영어원서(서양서) 및 영어학습 관련(국내서)만 신청가능합니다.<br>
-					<!--* 성서도서관 희망도서신청 예산 소진으로 4월 신청을 마감합니다.<br>-->
-					<!-- * 도원도서관, 달서가족문화도서관, 본리도서관 희망도서 25. 6. 01. 오전 10시 재개 예정<br> -->
+					<!-- * 도원도서관, 달서가족문화도서관 희망도서 25. 6. 01. 오전 10시 재개 예정<br> -->
 					* 달서어린이도서관 희망도서는 7.1.부터 신청 가능합니다.<br>
 
 				</c:when>
