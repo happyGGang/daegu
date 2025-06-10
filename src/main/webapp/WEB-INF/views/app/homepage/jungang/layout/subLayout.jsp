@@ -68,7 +68,7 @@ function link()
 						<li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
-					<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
+					<jsp:include page="/WEB-INF/views/app/homepage/${homepage.context_path}/snsShareBox.jsp" flush="false" />
 					<div class="end"></div>
 				</div>
 			</div>

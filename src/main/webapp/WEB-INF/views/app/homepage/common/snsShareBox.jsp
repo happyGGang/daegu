@@ -33,8 +33,8 @@ $(document).ready(function() {
 
 					<div class="shareArea">
 						<ul>
-							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/pr_icon.png" alt="현재페이지 인쇄"></a></li>
-							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sns_icon.png" alt="sns 바로가기"></a>
+							<li><a href="#" onclick="contentPrint();"><img src="/resources/common/img/sub-icon02.png" alt="현재페이지 인쇄"></a></li>
+							<li><a href="#" class="shareBtn snsBtn"><img src="/resources/common/img/sub-icon01.png" alt="sns 바로가기"></a>
 
 									<div id="share_layer">
 										<div class="shareAllBtns" >
@@ -51,6 +51,6 @@ $(document).ready(function() {
 									</div>
 
 							</li>
-							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/qr_icon.png" alt="qr코드 보기"></a></li>
+							<li class="last"><a href="" class="sub-qrcode" keyValue="true"><img src="/resources/common/img/sub-icon03.png" alt="qr코드 보기"></a></li>
 						</ul>
 					</div>
