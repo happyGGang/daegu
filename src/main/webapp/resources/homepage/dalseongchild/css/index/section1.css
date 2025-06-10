@@ -1,0 +1,498 @@
+.main-bg-slide {
+  width: 100%;
+  height: 100%;
+}
+
+.main-bg-slide div:nth-child(1) {
+  position: relative;
+  height: 100vh;
+  background: url('/resources/homepage/dalseongchild/img/main/main_bg01.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.main-bg-slide div:nth-child(2) {
+  position: relative;
+  height: 100vh;
+  background: url('/resources/homepage/dalseongchild/img/main/main_bg02.png') no-repeat center center fixed;
+  background-size: cover;
+}
+
+#fullpage .section-wrapper:nth-child(1) .wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slogan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 52px;
+  opacity: 0;
+  animation: fade-in-up 0.8s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+.slogan div:first-child {
+  color: #000;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.95px;
+}
+
+.slogan div:last-child {
+  color: #0B856F;
+  font-family: HAKGYOANSIMRIKODEOR, sans-serif;
+  font-size: 80px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -2px;
+}
+
+#mainSearchForm {
+  display: flex;
+  width: 100%;
+  max-width: 1260px;
+  height: 80px;
+}
+
+#mainSearchForm fieldset {
+  height: 100%;
+  width: 100%;
+  background: #fff;
+  border-radius: 50px;
+}
+
+.main-box {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#search_type {
+  width: 176px;
+  height: 100%;
+  border-radius: 50px 0 0 50px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url('/resources/homepage/dalseongchild/img/main/select-arrow.svg') no-repeat right 0 center;
+  background-size: 24px;
+  color: #000;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-right: 30px;
+  padding-left: 40px;
+}
+
+#search_type:focus,
+#search_type:hover,
+#search_text_1:focus,
+#search_text_1:hover {
+  border: none;
+  outline: none;
+}
+
+#search_text_1 {
+  width: 862px;
+  height: 100%;
+  color: #000;
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0 32px;
+  background: #fff;
+  border: none;
+  outline: none;
+}
+
+#search_text_1::placeholder {
+  color: #767676;
+}
+
+#main-search-btn {
+  width: 220px;
+  height: 100%;
+  border-radius: 50px;
+  background: #0B856F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+#main-search-btn:hover {
+  background: #0e5d4e;
+}
+
+#main-search-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+#main-search-btn div {
+  color: #FFF;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.quick-menu {
+  height: 158px;
+  margin-top: 71px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.quick-menu-item {
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.quick-menu-item img {
+  width: 100px;
+  height: 100px;
+  transition: transform 0.3s ease;
+}
+
+.quick-menu-item div {
+  color: #000;
+  text-align: center;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  transition: font-size 0.3s ease, font-weight 0.3s ease;
+}
+
+@keyframes bounce-scale-up {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.quick-menu-item:hover img {
+  animation: bounce-scale-up 0.6s ease forwards;
+}
+
+.quick-menu-item:hover div {
+  font-size: 22px;
+  font-weight: 600;
+  font-family: Pretendard-SemiBold, sans-serif;
+}
+
+@media (max-width: 1260px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 640px;
+  }
+
+  .main-bg-slide div:nth-child(1) {
+    height: 640px;
+    background-size: cover !important;
+    background: url('/resources/homepage/dalseongchild/img/main/1024_1.png') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(2) {
+    height: 640px;
+    background-size: cover !important;
+    background: url('/resources/homepage/dalseongchild/img/main/1024_2.png') no-repeat center center fixed;
+  }
+
+  .slogan {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .slogan div:first-child {
+    font-size: 24px;
+    letter-spacing: -0.6px;
+  }
+
+  .slogan div:last-child {
+    font-size: 60px;
+    letter-spacing: -1.5px;
+  }
+
+  .search-area {
+    display: flex;
+    justify-content: center;
+  }
+
+  #mainSearchForm {
+    max-width: 620px;
+    height: 60px;
+  }
+
+  #search_type {
+    width: 118px;
+    font-size: 16px;
+    padding-right: 34px;
+    padding-left: 32px;
+  }
+
+  #search_text_1 {
+    width: 350px;
+    font-size: 16px;
+    padding: 0 28px;
+  }
+
+  #main-search-btn {
+    width: 152px;
+  }
+
+  #main-search-btn div {
+    font-size: 16px;
+  }
+
+  .quick-menu {
+    margin: 32px auto 0 auto;
+    height: 226px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-row-gap: 20px;
+    align-items: center;
+    width: 480px;
+    justify-content: space-between;
+    justify-items: center;
+  }
+
+  .quick-menu-item {
+    width: 120px;
+    gap: 4px;
+  }
+
+  .quick-menu-item img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .quick-menu-item div {
+    font-size: 16px;
+  }
+
+  .quick-menu-item:hover div {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 840px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 480px;
+  }
+
+  .main-bg-slide div:nth-child(1) {
+    height: 480px;
+    background: url('/resources/homepage/dalseongchild/img/main/768_1.png') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(2) {
+    height: 480px;
+    background: url('/resources/homepage/dalseongchild/img/main/768_2.png') no-repeat center center fixed;
+  }
+
+  .slogan {
+    margin-top: 20px;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .slogan div:first-child {
+    font-size: 18px;
+    letter-spacing: -0.45px;
+  }
+
+  .slogan div:last-child {
+    font-size: 44px;
+    letter-spacing: -1.1px;
+  }
+
+  #mainSearchForm {
+    max-width: 440px;
+    height: 52px;
+  }
+
+  #mainSearchForm fieldset {
+    border-radius: 50px;
+  }
+
+  #search_type {
+    width: 97px;
+    font-size: 14px;
+    padding-right: 30px;
+    padding-left: 34px;
+  }
+
+  #search_text_1 {
+    width: 291px;
+    font-size: 14px;
+    padding: 0 20px;
+  }
+
+  #main-search-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 100%;
+    gap: 0;
+  }
+
+  #main-search-btn img {
+    width: 20px;
+    height: 20px;
+  }
+
+  #main-search-btn div {
+    display: none;
+  }
+
+  .quick-menu {
+    margin: 24px auto 0 auto;
+    height: 174px;
+    grid-row-gap: 12px;
+    width: 400px;
+  }
+
+  .quick-menu-item {
+    width: 120px;
+    gap: 3px;
+  }
+
+  .quick-menu-item img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .quick-menu-item div {
+    font-size: 14px;
+  }
+
+  .quick-menu-item:hover div {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 440px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 558px;
+  }
+
+  .main-bg-slide div:nth-child(1) {
+    height: 558px;
+    background: url('/resources/homepage/dalseongchild/img/main/360_1.png') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(2) {
+    height: 558px;
+    background: url('/resources/homepage/dalseongchild/img/main/360_2.png') no-repeat center center fixed;
+  }
+
+  .slogan {
+    margin-top: 36px;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .slogan div:first-child {
+    font-size: 16px;
+    letter-spacing: -0.4px
+  }
+
+  .slogan div:last-child {
+    font-size: 30px;
+    letter-spacing: -0.75px;
+  }
+
+  #mainSearchForm {
+    max-width: 280px;
+    height: 48px;
+  }
+
+  #mainSearchForm fieldset {
+    border-radius: 35px;
+  }
+
+  #search_type {
+    width: 77px;
+    border-radius: 35px 0 0 35px;
+    background-size: 17px;
+    font-size: 12px;
+    padding-right: 25px;
+    padding-left: 20px;
+  }
+
+  #search_text_1 {
+    width: 155px;
+    font-size: 12px;
+    padding: 0 16px;
+  }
+
+  #main-search-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  #main-search-btn img {
+    width: 17px;
+    height: 17px;
+  }
+
+  .quick-menu {
+    margin: 36px auto 0 auto;
+    height: 167px;
+    width: 290px;
+  }
+
+  .quick-menu-item {
+    width: 90px;
+    gap: 8px;
+  }
+
+  .quick-menu-item img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .quick-menu-item div {
+    font-size: 12px;
+  }
+
+  .quick-menu-item:hover div {
+    font-size: 14px;
+  }
+}

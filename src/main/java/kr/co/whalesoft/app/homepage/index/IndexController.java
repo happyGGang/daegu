@@ -2548,6 +2548,18 @@ public class IndexController extends BaseController {
 			}
 		}
 
+		String[] teachHomepage99 = {"h99"};
+		for (String th: teachHomepage99 ) {
+			if (homepage.getHomepage_id().equals(th)) {
+				Teach t = new Teach();
+				t.setHomepage_id(homepage.getHomepage_id());
+				t.setSearchCate1("16");
+				model.addAttribute("teachList1", teachService.getTeachListForUser(t));
+				t.setSearchCate1("17");
+				model.addAttribute("teachList2", teachService.getTeachListForUser(t));
+			}
+		}
+
 		//강좌목록3
 		//h82 비전공공도서관
 		String[] teachHomepage3 = {"h82"};
@@ -3012,16 +3024,6 @@ public class IndexController extends BaseController {
 				}
 			}
 			model.addAttribute("teachViewList", teachService.getTeachListForAllCulture(teach, "N"));
-		}
-
-		//달성이린이숲
-		if (homepage.getHomepage_id().equals("h99")) {
-			Board b = new Board();
-			b.setManage_idx(1263);
-			model.addAttribute("noticeList", boardService.getSubBoardByMain(b));//공지사항전체
-			b.setManage_idx(1270);
-			model.addAttribute("bookList", boardService.getSubBoardByMain(b));//추천도서전체
-
 		}
 
 		log.debug("jsp Page : "+basePath + filePath);

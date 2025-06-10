@@ -1,0 +1,14 @@
+.section3_container {
+  background: #FDF5E9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section3_content {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1260px;
+  display: flex;
+  border: 1px solid red;
+}

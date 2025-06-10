@@ -47,33 +47,17 @@
 
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
-<!-- <script>
 
-$(document).ready(function(){
-
-	$(document).bind("contextmenu", function(e) {
-		return false;
-	});
-
-});
-
-$(document)[0].oncontextmenu = function() { return false; }
-
-$(document).mousedown(function(e) {
-
-	if( e.button == 2 ) 
-	{
-		alert('우측 마우스를 사용할 수 없습니다.');
-		return false;
-	} else {
-		return true;
-	}
-
-});
-
-</script> -->
+<link rel="stylesheet" href="/resources/homepage/dalseongchild/css/common/common.css"/>
+<link rel="stylesheet" href="/resources/homepage/dalseongchild/css/common/font.css"/>
+<link rel="stylesheet" href="/resources/homepage/dalseongchild/css/common/footer.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.17/fullpage.css"/>
+<link rel="stylesheet" href="/resources/homepage/dalseongchild/css/common/slick.css"/>
+<link rel="stylesheet" href="/resources/homepage/dalseongchild/css/common/slick-theme.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.17/fullpage.js"></script>
+<script src="/resources/homepage/dalseongchild/js/common/fullpage.js"></script>
+<script src="/resources/homepage/dalseongchild/plugin/slick.min.js"></script>
 </head>
-<!-- <body oncontextmenu='return false'> -->
 <body>
 <a href="#container" class="skip-to">본문 바로가기</a>
 <a href="#navi" class="skip-to">메뉴 바로가기</a>

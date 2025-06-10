@@ -59,6 +59,15 @@ ${boardManage.top_html}
 					<c:choose>
 					<c:when test="${i.preview_img ne null}">
 						<c:choose>
+
+<%--							<c:set var="previewImg" value="${i.preview_img}" />--%>
+
+<%--							<c:choose>--%>
+<%--								<c:when test="${fn:endsWith(previewImg, '.mp4')}">--%>
+<%--									<c:set var="previewImg" value="${fn:replace(previewImg, '.mp4', '.png')}" />--%>
+<%--								</c:when>--%>
+<%--							</c:choose>--%>
+
 							<c:when test="${fn:contains(i.preview_img, 'http')}">
 						<a href="view.do?menu_idx=${board.menu_idx}&manage_idx=${i.manage_idx}&board_idx=${boardIdx}&viewPage=${board.viewPage}" keyValue="${i.board_idx}">
 							<img src="${i.preview_img}" alt="${i.title}"/>
