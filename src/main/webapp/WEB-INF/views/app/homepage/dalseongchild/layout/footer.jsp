@@ -6,10 +6,11 @@
 	<div class="wrapper">
 		<div class="library-info">
 			<div class="link_list">
-				<a href="https://library.daegu.go.kr/duryu/html.do?menu_idx=86">개인정보처리방침</a>
-				<a href="https://library.daegu.go.kr/duryu/html.do?menu_idx=89">영상정보처리방침</a>
-				<a href="https://library.daegu.go.kr/duryu/html.do?menu_idx=88">도서관서비스헌장</a>
-				<a href="https://library.daegu.go.kr/duryu/html.do?menu_idx=90">저작권보호정책</a>
+				<a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=76">개인정보처리방침</a>
+				<a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=78">영상정보처리방침</a>
+				<a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=79">운영조례</a>
+				<a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=80">저작권보호정책</a>
+				<a href="https://library.daegu.go.kr/dalseongchild/html.do?menu_idx=81">뷰어다운로드</a>
 			</div>
 		</div>
 	</div>
@@ -18,9 +19,9 @@
 	<div class="wrapper">
 		<div class="library-detail">
 			<div class="library-detail-wrapper">
-				<div>(42998) 대구 달성군 현풍읍 현풍동로19길</div>
-				<div><span>전화</span>053-231-2150</div>
-				<div><span>팩스</span> 053-615-7975</div>
+				<div>대구광역시 달성군 현풍읍 테크노중앙대로 231 달성어린이숲도서관</div>
+				<div><span>전화</span>053-615-0011</div>
+				<div><span>팩스</span> 053-615-1695</div>
 			</div>
 			<div class="library-name">Copyright © 대구달성어린이숲도서관. All rights reserved.</div>
 		</div>
@@ -83,5 +84,28 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		$(".move-select .select-wrapper").eq(0).find("button").click(function(){
+			var url = $(".move-select .select-wrapper").eq(0).find("select").val();
+			if(url) {
+				window.open(url, "_blank"); 
+			} else {
+				alert("도서관을 선택해주세요.");
+			}
+		});
+
+		
+		$(".move-select .select-wrapper").eq(1).find("button").click(function(){
+			var url = $(".move-select .select-wrapper").eq(1).find("select").val();
+			if(url) {
+				window.open(url, "_blank"); 
+			} else {
+				alert("기관을 선택해주세요.");
+			}
+		});
+	});
+</script>
 
 
