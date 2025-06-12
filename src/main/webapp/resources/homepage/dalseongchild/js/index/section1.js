@@ -9,6 +9,5 @@ $(document).ready(function () {
         swipe: true,
         infinite: true,
         fade: true,
-        cssEase: 'linear',
     });
 });

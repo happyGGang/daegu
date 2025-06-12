@@ -249,11 +249,15 @@
   .book-slide-item {
     margin-right: 22px;
   }
+
+  .book-nodata {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 440px) {
   #fullpage .section-wrapper:nth-child(4) {
-    height: 677px;
+    height: 550px;
   }
 
   .book-content-header {
@@ -293,7 +297,7 @@
   .recommended, .new {
     height: 124px;
     width: 100%;
-    margin-bottom: 433px;
+    margin-bottom: 299px;
   }
 
   .book-slide {

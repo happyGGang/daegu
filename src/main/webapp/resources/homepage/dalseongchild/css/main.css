@@ -296,8 +296,8 @@ justify-content: center;-webkit-box-align: center;-ms-flex-align: center;-webkit
 	#header h1 {position:relative;height:auto;position:absolute;left:0;}
 	#header h1 img {display:block}
 
-	.m-menu a {position:absolute;right:40px;top:27px;display:inline-block;text-align:center;vertical-align:middle;color:#fff;}
-	.m-menu a img {width: 24px;height: 24px;}
+	.m-menu a {position:absolute;right:36px;top:24px;display:inline-block;text-align:center;vertical-align:middle;color:#fff;}
+	.m-menu a img {width: 20px;height: 20px;}
 	.m-menu a i{font-size:30px;width:45px;height:45px;line-height:45px;}
 
 	.main .section{margin:0}

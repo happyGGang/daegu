@@ -6,20 +6,20 @@ a:hover,
 a:focus{color:#2b74c0}
 
 /* header */
-.libSite {position:absolute;top:0;z-index:96;height:44px;line-height:44px;overflow:hidden;}
+.libSite {position:absolute;top:0;z-index:96;height:40px;line-height:44px;overflow:hidden;}
 .libSite ul li {display:inline-block;float:left;border-left:1px solid #E5E5E5;padding:0;margin:0;}
 .libSite ul li.br {border-right:1px solid #E5E5E5;margin-right:7px;}
 .libSite ul li.sns_icon{border:none;}
-.libSite ul li a {display:block;color:#000;text-align:center;line-height:44px;padding:0 15px;font-size: 14px;font-family: Pretendard-Regular, sans-serif; font-weight: 400}
-.libSite ul li.sns_icon a {padding:7px 5px;}
+.libSite ul li a {display:block;color:#000;text-align:center;line-height:40px;padding:0 15px;font-size: 14px;font-family: Pretendard-Regular, sans-serif; font-weight: 400}
+.libSite ul li.sns_icon a {padding:5px 0;}
 .libSite ul li.on a {color:#00853E;font-weight:600;}
 
 .tnb {position:relative;margin:0 auto;overflow:hidden;box-sizing:border-box;z-index:999999;}
-.tnb .util {float:right;height:44px;line-height:44px;}
+.tnb .util {float:right;height:40px;line-height:40px;font-size:14px;font-family: Pretendard-Regular, sans-serif;}
 .tnb .util a {font-size:14px;color:#545454;font-weight:400;display:inline-block;margin-top:0;font-family: Pretendard-Regular, sans-serif;}
 .tnb .l-util ul li.mobile-version {display:none;}
 
-h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:290px;height:45px;font-size:0;background-size: contain}
+h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:260px;height:40px;font-size:0;background-size: contain}
 h1.mobile-logo {display:none;width:230px;height:45px;}
 .Gnb .g-menu a.last-box_w{display:none;}
 .Gnb .g-menu a.last-box_b{display:block;}
@@ -27,11 +27,11 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 #header.background-white .libSite ul li a {color:#000;}
 #header.background-white .libSite ul li.on a {color:#00853E;font-weight:600;}
 #header.background-white .tnb .util a {color:#545454;}
-#header.background-white .tnb .util b {color:#000;}
-#header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:290px;height:45px;font-size:0;background-size: contain}
+#header.background-white .tnb .util b {color:#000;font-size: 14px;}
+#header.background-white h1.web-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;width:260px;height:40px;font-size:0;background-size: contain}
 #header.background-white .Gnb .g-menu a.last-box_w{display:block;}
 #header.background-white .Gnb .g-menu a.last-box_b{display:none;}
-#header.background-white .Gnb .gnb-menu > li > a{color:#000;font-size: 20px; font-weight: 500;font-family: Pretendard-Medium, sans-serif}
+#header.background-white .Gnb .gnb-menu > li > a{color: #000;font-size: 20px;font-weight: 500;font-family: Pretendard-Medium, sans-serif;padding: 10px 0;line-height: 43px;height: 43px;}
 
 #header .head {position:relative;z-index:20;clear:both}
 #header h1.web-logo {position:absolute;z-index:10000;top:10px;}
@@ -45,7 +45,7 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 .Gnb .gnb-menu {position:relative;text-align:right;margin-right: 30px;margin-top: 15px;}
 .Gnb .gnb-menu > li{padding:0 1.8%;text-align:right;position:static}
 .Gnb .gnb-menu>li:last-child{padding-right:50px;}
-.Gnb .gnb-menu>li>a{padding:10px 0;line-height:43px;height:43px;font-size:18px;color:#000;font-weight:bold;}
+.Gnb .gnb-menu>li>a{color: #000;font-size: 20px;font-weight: 500;font-family: Pretendard-Medium, sans-serif;padding: 10px 0;line-height: 43px;height: 43px;}
 .Gnb .gnb-menu>li>ul{display:none;background:#666;border:0;left:0;white-space:nowrap;text-align:right}
 .Gnb .gnb-menu>li.active>ul{display:block}
 .Gnb .gnb-menu>li>.SubMenu>li{width:auto;padding:0 1px;}
@@ -76,8 +76,8 @@ h1.mobile-logo {display:none;width:230px;height:45px;}
 
 
 .Gnb .mask, .Gnb .gnb-menu>li>.SubMenu {
-	height: 44px;
-	line-height: 44px;
+	height: 40px;
+	line-height: 40px;
 	margin-top: 30px;
 }
 
@@ -173,10 +173,10 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 }
 
 @media all and (max-width:1024px){
-	.tnb {height:65px;padding:10px 0;}
+	.tnb {height:68px;padding:0;}
 
-	h1.mobile-logo {display:block;width:206px;height:32px;margin-top:24px;padding:0 0 0 40px;}
-	h1.mobile-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center;background-size:100% !important;width:206px;height:32px;font-size:0;}
+	h1.mobile-logo {display:block;width: fit-content;height: 28px;margin-top:20px;padding:0 0 0 36px;}
+	h1.mobile-logo a {display:block;background:url('/resources/homepage/dalseongchild/img/common/dalseong_logo.png') no-repeat center center !important;background-size:100% !important;width: 180px;height: 28px;font-size:0;}
 
 	/* SNS 추가 */
 	.sns-box {position:absolute;display:none;left:220px;top:7px;}
