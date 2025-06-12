@@ -387,7 +387,7 @@
   }
 
   .no-data {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .holiday-list {
@@ -419,7 +419,7 @@
 
   #fullpage .section-wrapper:nth-child(2) .wrapper {
     display: flex;
-    gap: 20px;
+    gap: 40px;
     flex-direction: column;
     padding-bottom: 130px;
   }
@@ -504,7 +504,7 @@
   }
 
   #fullpage .section-wrapper:nth-child(2) .wrapper {
-    gap: 12px;
+    gap: 32px;
     padding-bottom: 82px;
   }
 
@@ -629,5 +629,9 @@
 
   .holiday-list :nth-last-child(4) {
     display: none;
+  }
+
+  .popup-slide a img {
+    border-radius: 14px;
   }
 }
