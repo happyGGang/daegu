@@ -2073,10 +2073,10 @@ function isFromFridayToSunday() {
 																			<c:choose>
 																				<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
 																				</c:when>
-																				<c:otherwise>
-																					<a href="#muin" id="unmanned-req" class="btn" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">
-																						<span>무인예약신청</span></a>
-																				</c:otherwise>
+<%--																				<c:otherwise>--%>
+<%--																					<a href="#muin" id="unmanned-req" class="btn" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">--%>
+<%--																						<span>무인예약신청</span></a>--%>
+<%--																				</c:otherwise>--%>
 																			</c:choose>
 																		</c:if>
 																	</c:if>
