@@ -440,7 +440,7 @@
 
 					<c:when test="${context_path eq 'seongseo'}">
 						<form:select path="manageCode">
-							<option value="BU">성서도서관</option>
+							<!--<option value="BU">성서도서관</option>-->
 						</form:select><!-- <span style="color:#ff0000">  * 성서도서관 희망도서 25.06.01. 신청 재개 예정입니다. </span> -->
 					</c:when>
 
