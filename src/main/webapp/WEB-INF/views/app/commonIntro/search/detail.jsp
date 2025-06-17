@@ -972,7 +972,7 @@ $(function() {
 											<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
 											</c:when>
 											<c:otherwise>
-<%--												<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>--%>
+												<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 											</c:otherwise>
 										</c:choose>
 									</c:if>
