@@ -21,17 +21,44 @@ public class BlackListService extends BaseService{
 		return dao.getBlackListOne(blackList);
 	}
 
-	public boolean checkBlackList(BlackList blackList, String black_type) {
+	public boolean checkBlackList(BlackList blackList, String black_type, String teachCode) {
 		BlackList one = dao.checkBlackList(blackList);
-		if ( one != null ) {
-			String[] list = one.getBlack_type().split(",");
-			for ( String oneType : list ) {
-				if ( black_type.equals(oneType) ) {
-					return true;
-				}
+
+		// 블랙리스트에 존재하지 않음
+		if (one == null) {
+			return false;
+		}
+		// 대분류 확인
+		String teachCodes = one.getTeach_code();
+
+		// 블랙리스트 타입
+		String[] list = one.getBlack_type().split(",");
+
+		boolean isBlack = false;
+
+		// 차단 타입 체크
+		for ( String oneType : list ) {
+			if ( black_type.equals(oneType) ) {
+				isBlack = true;
 			}
 		}
-		return false;
+		// 기존에 있던 블랙리스트는 teachCode가 null 이므로 전체 차단으로 판단 (기존 블랙리스트 기능은 무조건 전체 차단이였기 때문에)
+		if (teachCodes == null) {
+			return isBlack;
+		}
+
+		String[] teachCodeList = teachCodes.split(",");
+		// 블랙을 당한 대분류 카테고리 체크
+		if (isBlack) {
+			for ( String code : teachCodeList) {
+				if (teachCode.equals(code)) {
+					return isBlack;
+				}
+			}
+			return false;
+		}
+		return isBlack;
+
 	}
 
 	public int checkSaveBlackList(BlackList blackList) {

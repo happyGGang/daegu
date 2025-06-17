@@ -120,7 +120,7 @@ public class StudentController extends BaseController {
 		}
 
 		//블랙리스트 체크
-		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10")) {
+		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10", String.valueOf(teachOne.getLarge_category_idx()))) {
 			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 			return null;
 		}
