@@ -6,21 +6,7 @@
 .main-bg-slide div:nth-child(1) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg1.svg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.main-bg-slide div:nth-child(2) {
-  position: relative;
-  height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg2.svg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.main-bg-slide div:nth-child(3) {
-  position: relative;
-  height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg3.svg') no-repeat center center fixed;
+  background: url('/resources/homepage/duryu/img/main/bg.svg') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -157,7 +143,7 @@
   display: grid;
   width: 100%;
   max-width: 540px;
-  margin-top: 60px;
+  margin-top: 40px;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 32px 5px;
   margin-bottom: 70px;
@@ -220,11 +206,11 @@
 .holiday-area {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   width: 50%;
   height: 100%;
   background: var(--primary-color-blue1);
   position: relative;
+  padding-left: 240px;
 }
 
 .notice-slide-wrapper {
@@ -280,8 +266,7 @@
 .holiday-list {
   display: flex;
   gap: 32px;
-  width: 310px;
-  margin-right: 127px;
+  align-items: center;
 }
 
 .holiday-list div {
@@ -292,7 +277,6 @@
   font-family: GmarketSans, sans-serif;
   font-style: normal;
   padding-top: 5px;
-  width: 27px;
 }
 
 .notice-slide-wrapper {
@@ -332,10 +316,6 @@
 .go-to-holiday {
   width: 26px;
   height: 26px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 69px
 }
 
 .go-to-holiday img {
@@ -364,27 +344,12 @@
     height: 850px;
   }
 
-  .holiday-list {
-    margin-right: 100px;
-  }
-
-  .go-to-holiday {
-    right: 50px;
+  .holiday-area {
+    padding-left: 42px;
   }
 }
 
 @media (max-width: 1260px) {
-  .holiday-list {
-    flex-wrap: wrap;
-    margin-right: 20px;
-    row-gap: 2px;
-    column-gap: 20px;
-  }
-
-  .go-to-holiday {
-    right: 40px;
-  }
-
   .notice-slide {
     width: 500px;
   }
@@ -427,7 +392,6 @@
   }
 
   #mainSearchForm {
-    border: 1px solid var(--primary-color-blue2, #34AAF4);
     height: 52px;
     width: 360px;
   }
@@ -449,7 +413,7 @@
 
   .quick-menu {
     margin-bottom: 56px;
-    margin-top: 32px;
+    margin-top: 40px;
     max-width: 360px;
     grid-gap: 22px 5px;
   }
@@ -459,12 +423,12 @@
   }
 
   .quick-menu-item div {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .quick-menu-item img {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
   }
 
   .main-bottom-area {
@@ -472,13 +436,13 @@
   }
 
   .holiday-area {
-    padding-right: 0;
+    padding-left: 80px;
   }
 
   .go-to-holiday {
     width: 24px;
     height: 24px;
-    right: 24px;
+    margin-left: 4px;
   }
 
   .go-to-holiday img {
@@ -512,18 +476,11 @@
   }
 
   .holiday-list {
-    width: 174px;
     gap: 8px;
-    margin-right: 60px;
-    flex-wrap: nowrap;
-    column-gap: 10px;
-    row-gap: 0;
   }
 
   .holiday-list div {
     font-size: 16px;
-    white-space: nowrap;
-    width: 22px;
   }
 
   .notice-slide-wrapper {
@@ -588,6 +545,7 @@
 
   #book-search {
     padding: 0 19px;
+    width: 88%;
   }
 
   .quick-menu {
@@ -610,9 +568,8 @@
   }
 
   .holiday-list {
-    width: fit-content;
-    margin-right: 0;
-    column-gap: 21px
+    width: 273px;
+    gap: 21px
   }
 
   .holiday-list div {
@@ -631,18 +588,15 @@
   }
 
   .notice-slide {
-    width: 445px;
+    width: 458px;
   }
 
   .notice-slide div {
-    width: 445px;
+    width: 458px;
   }
 
   .go-to-holiday {
-    position: relative;
-    top: 0;
-    transform: translateY(0);
-    right: 0;
+    margin-left: 0;
   }
 }
 
@@ -682,19 +636,19 @@
   }
 
   .quick-menu {
-    margin-bottom: 110px;
-    margin-top: 28px;
+    margin-bottom: 112px;
+    margin-top: 32px;
     max-width: 320px;
     grid-gap: 22px 0;
   }
 
   .quick-menu-item img {
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
   }
 
   .quick-menu-item div {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .holiday-area {
@@ -751,8 +705,6 @@
 
   .holiday-list div {
     font-size: 14px;
-    white-space: nowrap;
-    width: 20px;
     height: 18px;
     padding-top: 0;
     display: flex;
@@ -773,5 +725,9 @@
     text-overflow: ellipsis;
     white-space: normal;
     line-height: 140%;
+  }
+
+  .no-data {
+    margin-left: -9px;
   }
 }

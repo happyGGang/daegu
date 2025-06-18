@@ -4,25 +4,88 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-  $(document).ready(function () {
-    // 행사일 슬라이더
-    $('.event-slide').slick({
-      slidesToShow: 12,
-      slidesToScroll: 1,
-      autoplay: false,
-      arrows: false,
-      dots: false,
-      variableWidth: true,
-    });
+    $(document).ready(function () {
+        var itemCount = $('.event-slide-item').length;
+        var itemWidth;
+        var maxSlides;
 
-    // 이전/다음 버튼
-    $('.event-slide-prev, .event-slide-next').click(function () {
-      if ($('.event-slide').hasClass('slick-initialized')) {
-        $('.event-slide').slick($(this).hasClass('event-slide-prev') ? 'slickPrev' : 'slickNext');
-      }
-    });
-  });
+        function getItemWidth() {
+            if (window.innerWidth <= 490) {
+                return 54;
+            } else if (window.innerWidth <= 865) {
+                return 60;
+            } else if (window.innerWidth <= 1170) {
+                return 64;
+            } else {
+                return 72;
+            }
+        }
 
+        function maxSlidesToShow() {
+            if (window.innerWidth <= 490) {
+                return 5;
+            } else if (window.innerWidth <= 865) {
+                return 9;
+            } else if (window.innerWidth <= 1170) {
+                return 7;
+            } else {
+                return 12;
+            }
+        }
+
+        itemWidth = getItemWidth();
+        maxSlides = maxSlidesToShow();
+        var totalWidth = Math.min(itemCount, maxSlides) * itemWidth;
+
+        $('.event-slide').css('max-width', totalWidth + 'px');
+
+        $('.event-slide').slick({
+            slidesToShow: Math.min(itemCount, maxSlides),
+            slidesToScroll: 1,
+            autoplay: false,
+            arrows: false,
+            dots: false,
+            variableWidth: false,
+            responsive: [
+                {
+                    breakpoint: 1170,
+                    settings: {
+                        slidesToShow: Math.min(itemCount, maxSlides),
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 865,
+                    settings: {
+                        slidesToShow: Math.min(itemCount, maxSlides),
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 490,
+                    settings: {
+                        slidesToShow: Math.min(itemCount, maxSlides),
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+        $(window).resize(function () {
+            maxSlides = maxSlidesToShow();
+            itemWidth = getItemWidth();
+            totalWidth = Math.min(itemCount, maxSlides) * itemWidth;
+            $('.event-slide').css('max-width', totalWidth + 'px');
+
+            $('.event-slide').slick('setPosition');
+        });
+
+        $('.event-slide-prev, .event-slide-next').click(function () {
+            if ($('.event-slide').hasClass('slick-initialized')) {
+                $('.event-slide').slick($(this).hasClass('event-slide-prev') ? 'slickPrev' : 'slickNext');
+            }
+        });
+    });
 </script>
 <div class="event-area-wrapper">
     <div class="event-area-header">
@@ -46,7 +109,7 @@
             </c:when>
 
             <c:otherwise>
-                <div class="book-nodata">행사가 없습니다.</div>
+                <div class="event-nodata">이달의 행사가 없습니다.</div>
             </c:otherwise>
         </c:choose>
     </div>

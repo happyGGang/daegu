@@ -72,13 +72,14 @@
 
 <c:set var="dd" value="${not empty closeDayList.dd ? fn:split(closeDayList.dd, ',') : null}"/>
 
-<div class="holiday-area-title">휴관일</div>
 <div class="holiday-area-controller">
+	<div class="holiday-title">휴관일 안내</div>
     <a href="#" id="before-btns" role="button" keyValue="${calendar.plan_date}">
         <img src="/resources/homepage/seobu/img/main/holiday-left-arrow.svg" alt="지난달"/>
     </a>
-    <div>
-        ${fn:split(calendar.plan_date, '-')[0]}.<span>${fn:split(calendar.plan_date, '-')[1]}</span>
+    <div class="current_month">
+        ${fn:split(calendar.plan_date, '-')[0]}.
+		${fn:split(calendar.plan_date, '-')[1]}
     </div>
     <a href="#" id="next-btns" role="button" keyValue="${calendar.plan_date}">
         <img src="/resources/homepage/seobu/img/main/holiday-right-arrow.svg" alt="다음달"/>
@@ -86,20 +87,20 @@
 </div>
 
 <div class="holiday-list">
-    <c:choose>
-        <c:when test="${empty dd}">
-            <div class="no-data">등록된 휴관일이 없습니다.</div>
-        </c:when>
-        <c:otherwise>
-            <c:forEach items="${dd}" var="day" end="5">
-                <div>${day}</div>
-            </c:forEach>
-            <c:if test="${fn:length(dd) > 6}">
-                <a href="https://library.daegu.go.kr/seobu/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
-                    <img src="/resources/homepage/seobu/img/main/go-to-holiday.svg" alt="">
-                </a>
-            </c:if>
-        </c:otherwise>
-    </c:choose>
+	<c:choose>
+		<c:when test="${empty dd}">
+			<div class="no-data">등록된 휴관일이 없습니다.</div>
+		</c:when>
+		<c:otherwise>
+			<c:forEach items="${dd}" var="day" varStatus="status">
+				<c:if test="${status.index < 5}">
+					<div>${day}</div>
+				</c:if>
+			</c:forEach>
+			<a href="https://library.daegu.go.kr/seobu/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
+				<img src="/resources/homepage/seobu/img/main/go-to-holiday.svg" alt="">
+			</a>
+		</c:otherwise>
+	</c:choose>
 </div>
 

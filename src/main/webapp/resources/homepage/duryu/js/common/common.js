@@ -31,6 +31,29 @@ $(document).ready(function () {
     });
 
 
+    let zoomLevel = 1; // 초기 줌 레벨
+
+    $('#plus').on('click', function() {
+        zoomLevel += 0.1; // 10% 증가
+        applyZoom();
+    });
+
+    $('#minus').on('click', function() {
+        zoomLevel = Math.max(0.1, zoomLevel - 0.1); // 10% 감소, 최소 10% 유지
+        applyZoom();
+    });
+
+    function applyZoom() {
+        // CSS zoom 속성 적용
+        $('body').css('zoom', zoomLevel);
+
+        // 브라우저 호환성을 위해 transform 사용 (Safari 등에서 더 나은 결과)
+        $('body').css({
+            'transform': `scale(${zoomLevel})`,
+            'transform-origin': '0 0' // 왼쪽 상단 기준으로 확대/축소
+        });
+    }
+
     // 페이지 진입 시 쿠키 확인
     if (getCookie('hideTodayPopup') !== 'Y') {
         $('.total-popup-overlay, .total_popup_area').css('display', 'flex');

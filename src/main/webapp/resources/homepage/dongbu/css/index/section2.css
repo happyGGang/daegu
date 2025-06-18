@@ -274,12 +274,22 @@
     height: 596px;
   }
 
+  .notice-board-header {
+    gap: 33px
+  }
+
+  .notice-board-title:after {
+    right: -17px;
+    width: 1px;
+    height: 22px;
+  }
+
   .notice-board {
     width: 520px;
     gap: 24px;
   }
 
-  .notice-list {
+  .notice-list, .event-list {
     height: 385px;
   }
 
@@ -293,27 +303,27 @@
     height: 24px;
   }
 
-  .notice-list-item {
+  .notice-list-item, .event-list-item {
     gap: 20px;
     padding: 8px;
     height: 64px;
   }
 
-  .notice-list-item-title {
+  .notice-list-item-title, .event-list-item-title {
     font-size: 16px;
     width: 416px;
   }
 
-  .notice-list-item-date {
+  .notice-list-item-date, .event-list-item-date {
     width: 68px;
     height: 48px;
   }
 
-  .notice-list-item-date div:first-child {
+  .notice-list-item-date div:first-child, .event-list-item-date div:first-child {
     font-size: 14px;
   }
 
-  .notice-list-item-date div:nth-child(2) {
+  .notice-list-item-date div:nth-child(2), .event-list-item-date div:nth-child(2) {
     font-size: 10px;
   }
 
@@ -366,11 +376,11 @@
     width: 488px;
   }
 
-  .notice-list {
+  .notice-list, .event-list {
     height: auto;
   }
 
-  .notice-list-item-title {
+  .notice-list-item-title, .event-list-item-title {
     width: 384px;
   }
 
@@ -416,8 +426,18 @@
     gap: 24px;
   }
 
+  .notice-board-header {
+    gap: 25px;
+  }
+
+  .notice-board-title:after {
+    right: -13px;
+    height: 18px;
+  }
+
   .notice-board {
     width: 336px;
+    gap: 18px;
   }
 
   .popup-slide-wrapper {
@@ -441,23 +461,23 @@
     border-radius: 8px;
   }
 
-  .notice-list-item-title {
+  .notice-list-item-title, .event-list-item-title {
     width: 254px;
     font-size: 14px;
   }
 
-  .notice-list-item {
+  .notice-list-item, .event-list-item {
     gap: 14px;
     padding: 8px 4px 8px 4px;
     height: 58px;
   }
 
-  .notice-list-item-date {
+  .notice-list-item-date, .event-list-item-date {
     width: 60px;
     height: 42px;
   }
 
-  .notice-list-item-date div:first-child {
+  .notice-list-item-date div:first-child, .event-list-item-date div:first-child {
     font-size: 13px;
   }
 

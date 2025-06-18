@@ -6,7 +6,7 @@
 <div class="g-menu">
     <homepageTag:newTopMenu menuList="${menuTreeList}"/>
 
-    <a href="https://library.daegu.go.kr/dongbu/sitemap/index.do?menu_idx=92" class="site-map">
+    <a href="https://library.daegu.go.kr/duryu/sitemap/index.do?menu_idx=92" class="site-map">
         <img src="/resources/homepage/dongbu/img/common/site-map.svg" alt=""/>
     </a>
 

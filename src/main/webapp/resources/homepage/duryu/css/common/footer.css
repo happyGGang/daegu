@@ -49,7 +49,7 @@
     justify-content: center;
     width: 100%;
     background: #212121;
-    border-bottom: 1px solid var(--gray700);
+    border-bottom: 1px solid #454545;
 }
 
 .footer .wrapper {
@@ -86,13 +86,13 @@
     font-weight: 400;
     line-height: 130%;
     letter-spacing: -0.325px;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
 }
 
 .link_list a:hover {
-    color: var(--gray400) !important;
+    color: #B8B8B8 !important;
 }
 
 .link_list a:first-child {
@@ -112,7 +112,7 @@
     right: -19px;
     width: 1px;
     height: 12px;
-    background-color: var(--gray300);
+    background-color: #D6D6D6;
     transform: translateY(-50%);
 }
 
@@ -144,7 +144,7 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 130%;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
     margin-right: 20px;
@@ -160,7 +160,7 @@
     font-weight: 700;
     line-height: 130%;
     letter-spacing: -0.325px;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Bold, sans-serif;
     font-style: normal;
 }
@@ -184,7 +184,7 @@
     font-weight: 700;
     line-height: 130%;
     text-align: right;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Bold, sans-serif;
     font-style: normal;
 }
@@ -228,7 +228,7 @@
     font-weight: 400;
     line-height: 130%;
     letter-spacing: -0.325px;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
     text-transform: uppercase;
@@ -281,7 +281,7 @@
     color: #fff;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
-    background: var(--gray800);
+    background: #292929;
 }
 
 @media (max-width: 1600px) {
@@ -347,7 +347,7 @@
         width: 160px;
         height: 44px !important;
     }
-    .slick-slide img {
+    .banner-slide .slick-slide img {
         width: 160px;
         height: 44px;
     }
@@ -386,7 +386,7 @@
         width: 150px;
         height: 45px !important;
     }
-    .slick-slide img {
+    .banner-slide .slick-slide img {
         width: 150px;
         height: 45px;
     }
@@ -446,7 +446,7 @@
         height: 32px !important;
     }
 
-    .slick-slide img {
+    .banner-slide .slick-slide img {
         width: 84px;
         height: 32px;
     }

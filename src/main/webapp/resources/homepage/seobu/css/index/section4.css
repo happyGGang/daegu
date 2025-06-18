@@ -140,7 +140,7 @@
   overflow: hidden;
   font-family: Pretendard-Medium, sans-serif;
   font-style: normal;
-  margin-top: 250px;
+  margin-top: 100px;
 }
 
 .book-loading {
@@ -169,7 +169,7 @@
   }
 
   #fullpage .section-wrapper:nth-child(4)::after {
-    top: 47%;
+    top: 54%;
   }
 
   #tab-link {
@@ -179,21 +179,21 @@
   }
 
   .tab-list {
-    width: 1260px;
+    width: 1120px;
   }
 
   .tab-list-item {
-    margin-right: 28px;
+    margin-right: 65px;
   }
 }
 
 @media (max-width: 1260px) {
   .tab-list {
-    width: 1170px;
+    width: 1028px;
   }
 
   .tab-list-item {
-    margin-right: 84px;
+    margin-right: 35px;
   }
 }
 
@@ -203,7 +203,7 @@
   }
 
   #fullpage .section-wrapper:nth-child(4)::after {
-    top: 50%;
+    top: 53.3%;
     height: 168px;
   }
 
@@ -233,11 +233,11 @@
 
   .tab-list {
     padding-top: 40px;
-    width: 864px;
+    width: 780px;
   }
 
   .tab-list-item {
-    margin-right: 41px;
+    margin-right: 20px;
     gap: 14px;
   }
 
@@ -257,17 +257,23 @@
     height: 321px;
   }
 
-  .book-controller {
-    gap: 16px;
+  .tab-content {
+    gap: 18px;
+    height: 272px;
   }
 
-  .book-controller img {
+  .book-slide-prev, .book-slide-next {
     width: 24px;
     height: 24px;
+    margin-top: 129px;
   }
 }
 
 @media (max-width: 865px) {
+  #fullpage .section-wrapper:nth-child(4) .wrapper {
+    width: 600px;
+  }
+
   .tab-list {
     width: 488px;
   }
@@ -282,23 +288,31 @@
   }
 
   .tab-content {
-    gap: 65px;
-    height: 337px;
+    gap: 32px;
+    height: 272px;
   }
 }
 
 @media (max-width: 490px) {
   #fullpage .section-wrapper:nth-child(4) {
-    height: 404px;
+    height: 388px;
+  }
+
+  #fullpage .section-wrapper:nth-child(4) .wrapper {
+    width: 340px;
   }
 
   #fullpage .section-wrapper:nth-child(4)::after {
-    top: 52%;
+    top: 60%;
     height: 120px;
   }
 
   .book-tab-wrapper {
     gap: 41px;
+    width: 235px;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    margin: 0 auto;
   }
 
   .tab-button {
@@ -314,38 +328,49 @@
   #tab-link {
     position: absolute;
     top: 0;
-    right: 26px;
+    right: 0;
     width: 20px;
     height: 20px;
   }
 
   .tab-content {
-    gap: 52px;
-    height: 229px;
+    gap: 10px;
+    height: 185px;
   }
 
   .tab-list {
-    width: 308px;
+    padding-top: 32px;
+    width: 280px;
   }
 
   .tab-list-item {
-    margin-right: 16px;
+    margin-right: 8px;
     gap: 10px;
   }
 
   .tab-list-item a img {
-    width: 92px;
-    height: 130px;
+    width: 88px;
+    height: 126px;
   }
 
   .title {
-    width: 92px;
+    width: 88px;
     font-size: 13px;
     letter-spacing: -0.325px;
   }
 
-  .book-controller img {
+  .tab-button:nth-child(2)::after {
+    display: none;
+  }
+
+  .tab-button:last-child::after {
+    display: block;
+    left: -21px;
+  }
+
+  .book-slide-prev, .book-slide-next {
     width: 20px;
     height: 20px;
+    margin-top: 97px;
   }
 }

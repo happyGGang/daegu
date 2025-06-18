@@ -8,12 +8,22 @@
 
     <div class="tnb">
         <div>
-            <a href="https://cn.nld.go.kr/index.do">책나래</a>
             <a href="https://books.nl.go.kr/">책바다</a>
+            <a href="https://cn.nld.go.kr/index.do">책나래</a>
             <a href="https://www.nl.go.kr/NL/contents/N30502000000.do">사서에게물어보세요</a>
         </div>
         <div class="util-wrapper">
             <div class="util">
+                <div class="sns-box">
+                    <a href="https://pf.kakao.com/_xbIxlJb"><img src="/resources/homepage/duryu/img/common/kakaotalk-color.svg" alt=""></a>
+                    <a href="https://www.instagram.com/duryulib/"><img src="/resources/homepage/duryu/img/common/instagram-color.svg" alt=""></a>
+                    <a href="https://www.youtube.com/channel/UCLIjzSfEz4vRczvr02hMy2w/featured"><img src="/resources/homepage/duryu/img/common/youtube-color.svg" alt=""></a>
+                </div>
+                <div class="screen-control">
+                    <div>화면크기</div>
+                    <img id="plus" src="/resources/homepage/duryu/img/common/plus.svg" alt="">
+                    <img id="minus" src="/resources/homepage/duryu/img/common/minus.svg" alt="">
+                </div>
                 <c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
                     <div>${sessionScope.member.member_name}님</div>
                 </c:if>
@@ -37,11 +47,10 @@
             <c:set var="pageUrl" value="${homepage.context_path}/index" />
             <c:if test="${fn:contains(url,pageUrl) }">
                 <div class="total-popup-trigger">
-                    <div>통합팝업열기</div>
+                    <div>통합팝업</div>
                     <div>${fn:length(popupFullList)}</div>
                 </div>
             </c:if>
-
         </div>
     </div>
 </div>

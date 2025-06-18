@@ -60,7 +60,8 @@
 .tab-button::after {
   content: '';
   position: absolute;
-  top: 1px;
+  top: 50%;
+  transform: translateY(-50%);
   right: -42px;
   width: 2px;
   height: 32px;

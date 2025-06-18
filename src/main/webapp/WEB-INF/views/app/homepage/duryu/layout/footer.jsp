@@ -24,14 +24,6 @@
                 </div>
             </div>
         </div>
-        <div class="sns-wrapper">
-            <div class="sns-title">SNS</div>
-            <div class="sns-list">
-                <a class="instagram sns-icon" href="https://www.instagram.com/duryulib/"></a>
-                <a class="kakao sns-icon" href="https://pf.kakao.com/_xbIxlJb"></a>
-                <a class="youtube sns-icon" href="https://www.youtube.com/channel/UCLIjzSfEz4vRczvr02hMy2w/featured"></a>
-            </div>
-        </div>
     </div>
 </div>
 <div class="footer-wrapper footer-bottom">

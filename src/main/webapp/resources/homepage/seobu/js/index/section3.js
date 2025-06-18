@@ -16,14 +16,14 @@ function initBookSlider($tab) {
     }
 
     $tab.find('.book-slide-prev, .book-slide-next')
-    .off('click')
-    .on('click', function () {
-        if ($bookSlide.hasClass('slick-initialized')) {
-            $bookSlide.slick(
-                $(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext'
-            );
-        }
-    });
+            .off('click')
+            .on('click', function () {
+                if ($bookSlide.hasClass('slick-initialized')) {
+                    $bookSlide.slick(
+                            $(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext'
+                    );
+                }
+            });
 }
 
 function loadTabContent(selector, url) {
@@ -35,3 +35,26 @@ function loadTabContent(selector, url) {
         initBookSlider($tab);
     });
 }
+
+
+$(document).ready(function () {
+    $('.tab-list').slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: false,
+        arrows: false,
+        dots: false,
+        variableWidth: true,
+        responsive: [
+            { breakpoint: 1260, settings: { slidesToShow: 4, variableWidth: true } },
+            { breakpoint: 865,  settings: { slidesToShow: 3, variableWidth: true } },
+        ],
+    });
+
+    // 이전/다음 버튼
+    $('.book-slide-prev, .book-slide-next').click(function () {
+        if ($('.tab-list').hasClass('slick-initialized')) {
+            $('.tab-list').slick($(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext');
+        }
+    });
+});

@@ -25,11 +25,13 @@
     }
 %>
 
-<script src="/resources/homepage/dongbu/plugin/jquery-3.7.1.min.js"></script>
+<!-- 메인 -->
+<link rel="stylesheet" href="/resources/homepage/dongbu/css/common/reset.css"/>
 <link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section1.css"/>
 <link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section2.css"/>
 <link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section3.css"/>
 <link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section4.css"/>
+<script src="/resources/homepage/dongbu/plugin/jquery-3.7.1.min.js"></script>
 <script src="/resources/homepage/dongbu/js/index/section1.js"></script>
 <script src="/resources/homepage/dongbu/js/index/section2.js"></script>
 <script src="/resources/homepage/dongbu/js/index/section3.js"></script>
@@ -222,10 +224,8 @@
                     <div class="box-header">
                         <div class="box-title">강좌 및 행사</div>
                         <div class="box-action">
-                            <img class="course-slide-prev"
-                                    src="/resources/homepage/dongbu/img/culture/slide-left-arrow.svg" alt="">
-                            <img class="course-slide-next"
-                                    src="/resources/homepage/dongbu/img/culture/slide-right-arrow.svg" alt="">
+                            <img class="course-slide-prev" src="/resources/homepage/dongbu/img/culture/slide-left-arrow.svg" alt="">
+                            <img class="course-slide-next" src="/resources/homepage/dongbu/img/culture/slide-right-arrow.svg" alt="">
                             <a href="https://library.daegu.go.kr/dongbu/board/index.do?menu_idx=170&manage_idx=474">
                                 <img src="/resources/homepage/dongbu/img/culture/more.svg" alt="">
                             </a>
@@ -259,10 +259,8 @@
 					<div class="box-header">
 						<div class="box-title">이달의 영화 상영</div>
 						<div class="box-action">
-							<img class="movie-slide-prev"
-								 src="/resources/homepage/dongbu/img/culture/slide-left-arrow.svg" alt="">
-							<img class="movie-slide-next"
-								 src="/resources/homepage/dongbu/img/culture/slide-right-arrow.svg" alt="">
+							<img class="movie-slide-prev" src="/resources/homepage/dongbu/img/culture/slide-left-arrow.svg" alt="">
+							<img class="movie-slide-next" src="/resources/homepage/dongbu/img/culture/slide-right-arrow.svg" alt="">
 							<a href="https://library.daegu.go.kr/dongbu/module/calendarManage/index.do?menu_idx=63">
 								<img src="/resources/homepage/dongbu/img/culture/more.svg" alt="">
 							</a>

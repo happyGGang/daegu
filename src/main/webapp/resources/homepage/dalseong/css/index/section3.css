@@ -1,0 +1,973 @@
+#fullpage .section-wrapper:nth-child(3) {
+  background: var(--primary-color-green3);
+}
+
+#fullpage .section-wrapper:nth-child(3) .wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  padding-bottom: 40px;
+}
+
+.course-board {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 916px;
+  gap: 31px;
+}
+
+.course-board-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.course-board-header div {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.72px;
+  text-align: center;
+  color: var(--black);
+  font-family: GmarketSans, sans-serif;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.course-board-header a {
+  position: absolute;
+  bottom: -585px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-board-header a:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  background-color: var(--primary-color-green2);
+}
+
+.course-board-header a div {
+  color: var(--black);
+  text-align: center;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.course-board-header a img {
+  width: 30px;
+  height: 14px;
+  z-index: 1;
+}
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 516px;
+  gap: 12px;
+}
+
+.course-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 120px;
+  padding: 0 50px;
+  border-radius: 12px;
+  background: var(--white);
+}
+
+.course-list-item-title {
+  width: 500px;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--black);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.course-list-item-date {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.course-list-item-date div {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: var(--primary-color-green1);
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+}
+
+.course-list-item-date div span {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: #6c6c6c;
+  font-family: Pretendard-Medium, sans-serif;
+  font-style: normal;
+  margin-right: 16px;
+}
+
+.course-no-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--black);
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+}
+
+/* 캘린더 */
+.calendar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 31px;
+}
+
+.calendar-title {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.72px;
+  text-align: center;
+  color: var(--black);
+  font-family: GmarketSans, sans-serif;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+#calendar2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 504px !important;
+  height: 516px;
+  margin: 0;
+  border-radius: 12px;
+  background: var(--primary-color-green1);
+}
+
+.go-to-calendar {
+  position: absolute;
+  bottom: -38px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.go-to-calendar:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  background-color: var(--primary-color-green2);
+}
+
+.go-to-calendar div {
+  color: var(--black);
+  text-align: center;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.go-to-calendar img {
+  width: 30px;
+  height: 14px;
+  z-index: 1;
+}
+
+.calendar-controller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 16px;
+  margin-bottom: 30px;
+  padding-top: 46px;
+}
+
+.calendar-controller a img {
+  width: 36px;
+  height: 36px;
+}
+
+.current-month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-month div:first-child {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: #fff;
+  font-family: Pretendard-Regular, sans-serif;
+  font-style: normal;
+}
+
+.current-month div:last-child {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: -1.2px;
+  color: #fff;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+}
+
+#calendar2 table {
+  width: 440px;
+  margin: 0 52px;
+}
+
+.day {
+  width: 33px;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: normal;
+  letter-spacing: -0.4px !important;
+  text-align: center;
+  color: #fff;
+  font-family: Pretendard-Medium, sans-serif !important;
+  font-style: normal;
+  padding-bottom: 20px !important;
+}
+
+#calendar2 table tbody tr td {
+  position: relative;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 48px !important;
+  letter-spacing: -0.45px;
+  text-align: center;
+  color: #fff;
+  font-family: Pretendard-Bold, sans-serif !important;
+  font-style: normal;
+  cursor: pointer !important;
+}
+
+.type-e {
+  position: relative !important;
+  color: #fff !important;
+}
+
+.type-r {
+  position: relative !important;
+  color: #fff !important;
+}
+
+.type-e::before {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #fffc01;
+  transform: translateX(-50%);
+  content: '';
+}
+
+.type-r::before {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #00fff1;
+  transform: translateX(-50%);
+  content: '';
+}
+
+.calendar-caption {
+  position: absolute;
+  right: 50px;
+  bottom: 38px;
+  display: flex;
+  gap: 12px;
+}
+
+.calendar-caption div {
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: #fff;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+  padding-left: 14px;
+}
+
+.calendar-caption div:first-child::before {
+  position: absolute;
+  top: 11px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #fffc01;
+  content: '';
+}
+
+.calendar-caption div:last-child::before {
+  position: absolute;
+  top: 11px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00fff1;
+  content: '';
+}
+
+.calAll {
+  display: none;
+}
+
+#calendar2 .planView {
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  width: 340px !important;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none !important;
+  transform: translate(-50%, -50%);
+  margin-left: 0 !important;
+}
+
+#calendar2 .planView .inbox {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 10px 0 20px;
+  border-radius: 8px 8px 0 0;
+  background: #f0f0f0;
+}
+
+.calendar-header div {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.28px;
+  color: #2d2d2d;
+  font-family: Pretendard-Medium, sans-serif;
+  font-style: normal;
+}
+
+#calendar2 .planView .inbox a.close {
+  position: relative !important;
+}
+
+.calendar-content {
+  padding: 16px 20px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.3px;
+  color: #2d2d2d;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+}
+
+.calendar-header a img {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1440px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 750px;
+  }
+
+  .course-list-item-title {
+    width: 340px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .course-list-item-title {
+    width: 270px;
+  }
+}
+
+@media (max-width: 1170px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 586px;
+  }
+
+  #fullpage .section-wrapper:nth-child(3) .wrapper {
+    gap: 16px;
+  }
+
+  .course-board {
+    gap: 24px;
+    width: 528px;
+  }
+
+  .course-board-header div {
+    font-size: 24px;
+    letter-spacing: -0.48px;
+  }
+
+  .course-board-header a {
+    bottom: -397px;
+    gap: 9px;
+  }
+
+  .course-board-header a div {
+    font-size: 10px;
+  }
+
+  .course-board-header a img {
+    width: 26px;
+    height: 12px;
+  }
+
+  .course-board-header a:after {
+    width: 22px;
+    height: 22px;
+  }
+
+  .course-list {
+    height: 338px;
+    gap: 6px;
+  }
+
+  .course-list-item {
+    padding: 0 20px;
+    border-radius: 8px;
+    height: 80px;
+  }
+
+  .course-list-item-title {
+    font-size: 16px;
+    width: 260px;
+  }
+
+  .course-list-item-date {
+    gap: 6px;
+  }
+
+  .course-list-item-date div {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .course-list-item-date div span {
+    margin-right: 8px;
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .calendar {
+    gap: 24px;
+  }
+
+  .calendar-title {
+    font-size: 24px;
+    letter-spacing: -0.48px;
+  }
+
+  #calendar2 {
+    width: 320px !important;
+    height: 338px;
+    border-radius: 8px;
+  }
+
+  #calendar2 table {
+    width: 286px;
+    margin: 0;
+  }
+
+  .go-to-calendar {
+    bottom: -34px;
+    right: 8px;
+    gap: 9px;
+  }
+
+  .go-to-calendar div {
+    font-size: 10px;
+  }
+
+  .go-to-calendar img {
+    width: 26px;
+    height: 12px;
+    z-index: 1;
+  }
+
+  .go-to-calendar:after {
+    width: 22px;
+    height: 22px;
+  }
+
+  .calendar-controller {
+    gap: 10px;
+    padding-top: 22px;
+    margin-bottom: 10px;
+  }
+
+  .calendar-controller a img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .current-month div:first-child {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .current-month div:last-child {
+    font-size: 36px;
+    letter-spacing: -0.9px;
+  }
+
+  .day {
+    width: 24px;
+    font-size: 12px !important;
+    letter-spacing: -0.3px !important;
+    padding-bottom: 12px !important;
+  }
+
+  #calendar2 table tbody tr td {
+    font-size: 14px !important;
+    line-height: 32px !important;
+    letter-spacing: -0.35px;
+  }
+
+  .calendar-caption {
+    position: absolute;
+    right: 30px;
+    bottom: 24px;
+  }
+
+  .calendar-caption div {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+    padding-left: 11px;
+  }
+
+  .calendar-caption div:first-child::before {
+    top: 8px;
+    width: 5px;
+    height: 5px;
+  }
+
+  .calendar-caption div:last-child::before {
+    top: 8px;
+    width: 5px;
+    height: 5px;
+  }
+
+  .type-e::before {
+    top: -6px;
+  }
+
+  .type-r::before {
+    top: -6px;
+  }
+
+  #calendar2 .planView {
+    width: 220px !important;
+    border-radius: 5px;
+  }
+
+  .calendar-header {
+    height: 28px;
+    padding: 0 6px 0 16px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .calendar-header div {
+    font-size: 11px;
+    letter-spacing: -0.22px;
+    line-height: 8.4px;
+  }
+
+  .calendar-header a img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .calendar-content {
+    padding: 12px 16px 16px;
+    font-size: 12px;
+    letter-spacing: -0.24px;
+  }
+}
+
+@media (max-width: 865px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 1080px;
+  }
+
+  #fullpage .section-wrapper:nth-child(3) .wrapper {
+    gap: 40px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .course-board {
+    width: 488px;
+  }
+
+  .course-list {
+    height: auto;
+  }
+
+  .course-list-item-title {
+    width: 220px;
+  }
+
+  #calendar2 {
+    width: 488px !important;
+    height: 480px;
+    border-radius: 8px;
+  }
+
+  .calendar-controller {
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+
+  .current-month div:first-child {
+    font-size: 13px;
+    letter-spacing: -0.325px;
+  }
+
+  .current-month div:last-child {
+    font-size: 44px;
+    letter-spacing: -1.1px;
+  }
+
+  .day {
+    font-size: 14px !important;
+    letter-spacing: -0.35px !important;
+    width: 28px;
+  }
+
+  #calendar2 table tbody tr td {
+    font-size: 16px !important;
+    line-height: 48px !important;
+    letter-spacing: -0.4px;
+  }
+
+  #calendar2 .planView {
+    width: 300px !important;
+    border-radius: 5px;
+  }
+
+  .calendar-header {
+    height: 36px;
+    padding: 0 10px 0 20px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .calendar-header div {
+    font-size: 13px;
+    letter-spacing: -0.26px;
+    line-height: 8.4px;
+  }
+
+  .calendar-header a img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .calendar-content {
+    padding: 16px 20px;
+    font-size: 14px;
+    letter-spacing: -0.28px;
+  }
+
+  #calendar2 table {
+    width: 424px;
+  }
+
+  .calendar-caption {
+    position: absolute;
+    right: 50px;
+    bottom: 32px;
+    gap: 12px;
+  }
+
+  .calendar-caption div {
+    font-size: 14px;
+    letter-spacing: -0.35px;
+    padding-left: 10px;
+  }
+
+  .calendar-caption div:first-child::before {
+    top: 9px;
+    width: 4px;
+    height: 4px;
+  }
+
+  .calendar-caption div:last-child::before {
+    top: 9px;
+    width: 4px;
+    height: 4px;
+  }
+
+  .type-r::before {
+    top: -9px;
+  }
+
+  .type-e::before {
+    top: -9px;
+  }
+}
+
+@media (max-width: 490px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 1002px;
+  }
+
+  #fullpage .section-wrapper:nth-child(3) .wrapper {
+    gap: 50px;
+  }
+
+  .course-board-header a {
+    bottom: -415px;
+    gap: 6px;
+  }
+
+  .course-board-header a div {
+    font-size: 8px;
+  }
+
+  .course-board {
+    width: 336px;
+    gap: 18px;
+  }
+
+  #calendar2 {
+    width: 336px !important;
+    height: 390px;
+    border-radius: 8px;
+  }
+
+  .course-board-header div {
+    font-size: 20px;
+    letter-spacing: -0.4px;
+  }
+
+  .course-board-header a img {
+    width: 21px;
+    height: 10px;
+  }
+
+  .course-board-header a:after {
+    width: 18px;
+    height: 18px;
+    right: -6px;
+  }
+
+  .course-list {
+    gap: 6px;
+  }
+
+  .course-list-item {
+    padding: 0 20px;
+    height: 89px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .course-list-item-title {
+    width: 301px;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .course-list-item-date {
+    gap: 4px;
+  }
+
+  .course-list-item-date div {
+    font-size: 11px;
+    letter-spacing: -0.275px;
+  }
+
+  .course-list-item-date div span {
+    font-size: 11px;
+    letter-spacing: -0.275px;
+  }
+
+  .calendar-controller {
+    margin-bottom: 16px;
+    gap: 8px;
+    padding-top: 32px;
+  }
+
+  .current-month div:first-child {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .current-month div:last-child {
+    font-size: 36px;
+    letter-spacing: -0.9px;
+  }
+
+  .go-to-calendar {
+    bottom: -24px;
+    gap: 6px;
+    right: 6px;
+  }
+
+  .go-to-calendar div {
+    font-size: 8px;
+  }
+
+  .go-to-calendar img {
+    width: 21px;
+    height: 10px;
+  }
+
+  .go-to-calendar:after {
+    width: 18px;
+    height: 18px;
+    right: -6px;
+  }
+
+  .calendar {
+    gap: 18px;
+  }
+
+  .calendar-title {
+    font-size: 20px;
+    letter-spacing: -0.4px;
+  }
+
+  #calendar2 table {
+    width: 290px;
+  }
+
+  .day {
+    width: 24px;
+    font-size: 12px !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  #calendar2 table tbody tr td {
+    font-size: 14px !important;
+    line-height: 38px !important;
+    letter-spacing: -0.35px;
+  }
+
+  .type-r::before {
+    top: -8px;
+  }
+
+  .type-e::before {
+    top: -8px;
+  }
+
+  .calendar-caption {
+    position: absolute;
+    right: 28px;
+    bottom: 24px;
+    gap: 12px;
+  }
+
+  .calendar-caption div {
+    font-size: 12px;
+    padding-left: 11px;
+    letter-spacing: -0.3px;
+  }
+
+  #calendar2 .planView {
+    width: 220px !important;
+    border-radius: 5px;
+  }
+
+  .calendar-header {
+    height: 28px;
+    padding: 0 6px 0 16px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .calendar-header a img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .calendar-header div {
+    font-size: 11px;
+    line-height: 8.4px;
+  }
+
+  .calendar-content {
+    padding: 12px 60px 60px 60px;
+    font-size: 12px;
+    letter-spacing: -0.24px;
+  }
+
+  .calendar-caption div:last-child::before {
+    top: 8px;
+    width: 5px;
+    height: 5px;
+  }
+
+  .calendar-caption div:first-child::before {
+    top: 8px;
+    width: 5px;
+    height: 5px;
+  }
+}

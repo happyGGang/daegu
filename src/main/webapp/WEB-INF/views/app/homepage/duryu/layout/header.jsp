@@ -36,6 +36,8 @@
     <!--[if lte IE 8]>
 <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/ie.css"/>
 <![endif]-->
+    <script src="/resources/homepage/duryu/plugin/jquery-3.7.1.min.js"></script>
+
     <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
     <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
     <script type="text/javascript" src="/resources/common/js/jquery.mmenu.min.js"></script>

@@ -5,7 +5,7 @@
 
 <div id="header">
 	<nav id="menu"></nav>
-	
+
 	<div class="tnb">
 		<div>
 			<a href="https://cn.nld.go.kr/index.do">책나래</a>
@@ -14,6 +14,11 @@
 		</div>
 		<div class="util-wrapper">
 			<div class="util">
+				<div class="screen-control">
+					<div>화면크기</div>
+					<img id="plus" src="/resources/homepage/dongbu/img/common/plus.svg" alt="">
+					<img id="minus" src="/resources/homepage/dongbu/img/common/minus.svg" alt="">
+				</div>
 				<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 					<div>${sessionScope.member.member_name}님</div>
 				</c:if>
@@ -37,11 +42,10 @@
 			<c:set var="pageUrl" value="${homepage.context_path}/index" />
 			<c:if test="${fn:contains(url,pageUrl) }">
 				<div class="total-popup-trigger">
-					<div>통합팝업열기</div>
+					<div>통합팝업</div>
 					<div>${fn:length(popupFullList)}</div>
 				</div>
 			</c:if>
-		
 		</div>
 	</div>
 </div>

@@ -302,7 +302,7 @@ input.ui-calendar{width:110px;background:#fff url('/resources/common/img/calenda
 h1{z-index:6}
 .tnb{position:relative;z-index:4}
 .Gnb{z-index:5}
-.popupWrap{position:relative;z-index:999999}
+.popupWrap{position:relative;z-index:99999}
 
 .Gnb{top:0;left:0;width:100%;overflow:hidden}
 .Gnb::after{content:'';display:block;clear:both}
@@ -353,7 +353,7 @@ nav#menu a:not(.mm-next):hover{color:#e32b31}
 .mm-search,
 .mm-btn,
 .mm-listview>li.mm-vertical>.mm-next,
-.mm-vertical .mm-listview>li>.mm-next{height:50px}
+.mm-vertical .mm-listview>li>.mm-next{height:50px;}
 
 .mm-listview>li>a,
 .mm-listview>li>span{padding:15px 10px 15px 20px}
@@ -545,7 +545,7 @@ transform:translateZ(0);
 .bx-wrapper .bx-loading{position:absolute;top:0;left:0;z-index:9999;width:100%;height:100%;background:url('/resources/common/img/bx_loader.gif') center center no-repeat #fff;min-height:50px}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:185px;text-align:center;color:#fff;background:url('/resources/common/img/subBg.jpg') no-repeat center center;background-size:cover}
+.sub-visual{position:relative;height:151px;text-align:center;color:#fff;background:url('/resources/homepage/dongbu/img/common/sub_bg.svg') no-repeat center center;background-size:cover}
 .sub-visual p.sv1{padding-top:35px}
 .sub-visual p.sv2{padding-top:1px;padding-bottom:30px}
 .sub-visual p.sv1{font-size:250%;font-weight:bold}
@@ -557,7 +557,7 @@ transform:translateZ(0);
 
 #container .section,
 #container{clear:both;}
-#container.subpage{background:#fff; margin-top: 90px}
+#container.subpage{background:#fff; margin-top: 130px}
 #container.subpage > .section{padding-top:8px}
 
 @media (width <=1000px){
@@ -590,17 +590,17 @@ transform:translateZ(0);
 .lnb li.s li a:focus i{color:#2b74c0}
 .lnb a{display:block;color:#4c4c4c}
 .lnb a span{zoom:1;*display:inline}
-.lnb>ul>li{border-bottom:1px solid #d9d9d9}
-.lnb>ul>li>a{font-size:14px;font-weight:bold}
+.lnb>ul>li{border-bottom:1px solid #d9d9d9;border-right:1px solid #d9d9d9;border-left:1px solid #d9d9d9}
+.lnb>ul>li>a{font-size:16px;font-weight:bold}
 .lnb>ul>li>a i.fa-angle-right{position:absolute;top:50%;right:5%;height:14px;margin:0 5px 0 0;font-size:14px;font-weight:800;line-height:14px;color:#aaa;margin-top:-7px}
 .lnb>ul>li>ul{padding:5px 0 10px}
 .lnb>ul>li>ul>li>ul{padding:0 0 10px}
-.lnb>ul>li>a{position:relative;padding:12px 20px 10px 15px}
-.lnb>ul>li>ul>li>a{padding:5px 20px 5px 30px;background:url('/resources/common/img/lnb-arr.gif') no-repeat 20px 13px}
+.lnb>ul>li>a{position:relative;padding:17px 40px 17px 20px;}
+.lnb>ul>li>ul>li>a{padding:10px 20px 10px 30px;background:url('/resources/common/img/lnb-bg-depth2-off.png') no-repeat 14px 15px}
 
 .lnb>ul>li>ul>li>ul>li>a{padding:5px 20px 5px 30px;background:url('/resources/common/img/lnb-arr01.gif') no-repeat 20px 13px}
 
-.lnb>ul>li>ul>li.active>a{background-image:url('/resources/common/img/lnb-arr-white.gif')}
+.lnb>ul>li>ul>li.active>a{background-image:url('/resources/common/img/lnb-bg-depth2-on.png')}
 .lnb>ul>li>ul>li>ul>li>a{padding:5px 20px 4px 35px}
 .lnb>ul>li>ul{display:none}
 .lnb>ul>li.active>ul{display:block}
@@ -608,41 +608,55 @@ transform:translateZ(0);
 .lnb li li.active ul{display:block}
 .lnb a.newWin>span{zoom:1;*display:inline;padding-right:15px}
 .lnb>ul>li.s>a>i.fa-angle-right{display:none}
-.lnb>ul>li>ul{padding:5px 0 10px;background:#f7f7f7}
+.lnb>ul>li>ul{padding:0;background:#f7f7f7}
 
 .lnb ul li.active > a,
 .lnb ul li > a:hover{font-weight:bold}
 .lnb ul li.active > a{position:relative;color:#fff;background-color:#6c6c6c}
-.lnb ul li.active > a:hover{color:#fff}
-.lnb ul ul li.active > a{color:#fff;background-color:#2b74c0}
+.lnb ul ul li.active > a{color:#464f56;background-color:#fafafa}
 
 .lnb ul li > a:hover,
 .lnb ul ul ul li.active > a,
-.lnb ul ul ul li.active > a:hover{color:#2b74c0}
-.lnb ul ul ul li.active > a{font-weight:bold;background-color:#ddd}
+.lnb ul ul ul li.active > a{font-weight:bold;}
 
 /* 본문 */
 .doc-head{overflow:hidden;border-bottom: 1px dashed #ccc;margin-bottom:30px;}
 .doc-title {position:relative;padding: 10px 0 15px;}
 .doc-title h3{display:inline-block;*display:inline;font-size:30px;font-weight:bold; letter-spacing:-1px; color:#222;zoom:1;word-break:break-all;}
 
-.doc-info-bg {position:absolute;bottom:0;width:100%;background-color:rgb(0 0 0 / 35%);}
-.doc-info {position:relative;z-index:2;box-sizing:border-box;width:1260px;margin:0 auto;padding:0 0 0 270px;}
+.doc-info-bg {position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);width:100%;}
+.doc-info {position:relative;z-index:2;box-sizing:border-box;width:1260px;margin:0 auto; flex-direction: column; display:flex;justify-content: center; align-items: center;padding-left: 240px}
 .doc-info ol { float:left;}
-.doc-info ol li.first {padding:10px 0 10px 10px;}
+.doc-info ol li.first {padding:0}
 .doc-info ol li.second { background:none; }
-.doc-info ol li {font-size:14px;padding-left:25px;margin-left:0;background:url("/resources/common/img/sub_con2.png") no-repeat 0 50%;}
+.menu-title {
+  display: inline-block;
+  zoom: 1;
+  word-break: break-all;
+  font-size: 28px;
+  color: #fff;
+  letter-spacing: -1px;
+  font-weight: bold;
+}
+.doc-info ol li {font-size:14px;padding-left:12px;margin-left:0;background:url("/resources/common/img/sub_con4.png") no-repeat 0 50%;}
 .doc-info ol li:first-child {background:none;}
 .doc-info ul {}
 .doc-info ul { width: 100%; }
-.doc-info li.first img { margin-top: 10px; }
+.doc-info li.first img { width: 15px; height: 15px}
 .doc-info li, .doc-info ol li .fa-home, .doc-info li a { height: 33px; font-size: 12px; line-height: 33px; }
 .doc-info li { display: inline-block; zoom: 1; vertical-align: middle; }
-.doc-info ol li a {font-size:13px;text-decoration:none; color:#fff; }
+.doc-info ol li a {color: #aeaeae;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;}
 .doc-info ol li.on a {font-weight:bold;text-decoration:none; color:#fff; }
 .doc-info ul li {float:left;padding: 10px 0 5px 0;}
-.shareArea img { padding:0 11px;vertical-align:middle }
-.shareArea { position:absolute;right:0;display:inline-block;height:auto;text-align:right; }
+.shareArea img { width: 26px; height: 26px; }
+.shareArea {position: absolute; bottom: -30px; right: 0}
+.shareArea ul { display: flex; gap: 5px; border-radius: 20px; }
+.shareArea ul li a { height: 33px; width: 33px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  background: #818181;}
+
 
 .doc-info-bg-suseong {position:absolute;bottom:0;width:100%;background-color:rgb(0 79 210 / 90%);}
 .doc-info-suseong {position:relative;z-index:2;box-sizing:border-box;width:1260px;margin:0 auto;padding:0 0 0 270px;}
@@ -1705,11 +1719,11 @@ table.joinSelect .joinText2 { font-size: 130%;}
 #popupLayer .popup-func .checkbox label::after{top:7px}
 #popupLayer .popup-func a{float:right}
 #popupLayer .popup-func a i{margin:0;font-size:130%;line-height:28px}
-#popupLayer .popup-func a{width:34px;height:35px;padding:0;line-height:34px;text-align:center}
+#popupLayer .popup-func a{width:34px;height:35px;padding: 5px;line-height:34px;text-align:center; cursor: pointer}
 
 #popupLayer .popup-func a,
 #popupLayer .popup-func a:hover,
-#popupLayer .popup-func a:focus{border:0;border-radius:0;border-left:1px solid #e5e5e5}
+#popupLayer .popup-func a:focus{border:0;border-radius:0;}
 
 /* 달력 */
 .main #calendar{position:relative}
@@ -2159,7 +2173,7 @@ table.service-step{border:0}
   .doc{margin-right:0;padding:30px 0;overflow:hidden}
   .doc-head{float:none;width:100%}
   .doc-head h3{font-size:25px;text-align:left;padding-left:0;padding-right:40%;padding-top:10px/* border-top:3px solid #1f5d97; */}
-  .doc-title{border-top:3px solid #2a9fe8;position:relative;z-index:1}
+  .doc-title{position:relative;z-index:1}
   .doc-title h3{/* border-top:3px solid #1f5d97; */margin-top:-3px;padding-right:10%;position:relative;z-index:2}
   .doc-body{margin-right:-160px;float:left;width:100%}
   .doc-body .body{/* margin-right:160px; *//* margin-left:30px; */}
@@ -2191,8 +2205,8 @@ table.service-step{border:0}
   .doc-body .body{float:none;margin:0}
 
   /* .sub-visual{display:none} */
-  .sub-visual{position:relative;height:auto;background:none;padding-top:60px;}
-  .doc-info {border-top:0;background:rgb(0 0 0 / 75%);}
+  .sub-visual{position:relative;height:auto;background:none;padding-top:60px;background:rgb(0 0 0 / 75%);height: 100px}
+  .doc-info {border-top:0;}
   .doc-info-suseong {}
   .doc{margin-right:0;padding:0;overflow:hidden}
   .doc-title{border-top:0;position:relative;z-index:1}

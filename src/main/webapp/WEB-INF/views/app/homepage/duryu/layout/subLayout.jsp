@@ -3,18 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
 
-<link rel="stylesheet" href="/resources/homepage/duryu/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/duryu/css/common/subLayout.css"/>
-<link rel="stylesheet" href="/resources/homepage/duryu/css/common/footer.css"/>
-<link rel="stylesheet" href="/resources/homepage/duryu/css/common/header.css"/>
-<link rel="stylesheet" href="/resources/homepage/duryu/css/common/slick.css"/>
-<link rel="stylesheet" href="/resources/homepage/duryu/css/common/slick-theme.css"/>
-<script src="/resources/homepage/duryu/plugin/jquery-3.7.1.min.js"></script>
-<script src="/resources/homepage/duryu/js/common/common.js"></script>
-<script src="/resources/homepage/duryu/plugin/slick.min.js"></script>
-
-
 <tiles:insertAttribute name="header"/>
+
+<link rel="stylesheet" href="/resources/homepage/duryu/css/common/common.css"/>
+<script src="/resources/homepage/duryu/js/common/common.js"></script>
 
 <script type="text/javascript">
   $(function () {
@@ -25,29 +17,25 @@
       $(halbaeNode).addClass('active');
     }
 
-    if (location.href.indexOf('html.do?') > -1) {
-// 		$('div#menuRatingDiv').load('/${homepage.context_path}/module/menuRating/index.do?menu_idx=${param.menu_idx}');
-    }
-
     <c:choose>
-    <c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-    $('li#menu_4').remove();
-    $('li#menu_5').remove();
-    $('li#menu_6').remove();
-    $('li#menu_7').remove();
-    $('li#menu_8').remove();
-    </c:when>
-    <c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-    $('li#menu_4').remove();
-    $('li#menu_5').remove();
-    $('li#menu_6').remove();
-    $('li#menu_7').remove();
-    $('li#menu_8').remove();
-    </c:when>
-    <c:otherwise>
-    $('li#menu_95').remove();
-    $('li#menu_96').remove();
-    </c:otherwise>
+        <c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+            $('li#menu_4').remove();
+            $('li#menu_5').remove();
+            $('li#menu_6').remove();
+            $('li#menu_7').remove();
+            $('li#menu_8').remove();
+        </c:when>
+        <c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+            $('li#menu_4').remove();
+            $('li#menu_5').remove();
+            $('li#menu_6').remove();
+            $('li#menu_7').remove();
+            $('li#menu_8').remove();
+        </c:when>
+        <c:otherwise>
+            $('li#menu_95').remove();
+            $('li#menu_96').remove();
+        </c:otherwise>
     </c:choose>
   });
 </script>
@@ -74,12 +62,15 @@
         <div class="sub-visual">
             <div class="doc-info-bg">
                 <div class="doc-info">
+                    <div class="menu-title">${menuLeftList[0].menu_name}</div>
                     <ol>
-                        <li class="first"><a href="/${homepage.context_path}/index.do"><i class="fa fa-home"></i></a></li>
+                        <li class="first"><a href="/${homepage.context_path}/index.do">
+                            <img src="/resources/common/img/navi_home_icon.gif" alt="">
+                        </a></li>
                         <homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
                     </ol>
-                    <jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false"/>
                     <div class="end"></div>
+                    <jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false"/>
                 </div>
             </div>
         </div>
@@ -96,7 +87,6 @@
                     <div class="doc-head">
                         <div class="doc-title">
                             <h3>${menuOne.menu_name}</h3>
-                            <!-- <div class="v-img" <c:if test="${not empty menuOne.menu_img}">style="background: url('/data/menu/${menuOne.homepage_id}/${menuOne.menu_img}') no-repeat 100% 0"</c:if>></div> -->
                         </div>
                     </div>
                     <div class="doc-body con${menuOne.menu_idx}" id="contentArea">

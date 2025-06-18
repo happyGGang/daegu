@@ -33,10 +33,14 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <div class="total-popup-trigger">
-                <div>통합팝업열기</div>
-                <div>${fn:length(popupList)}</div>
-            </div>
+			<c:set var="url" value="${pageContext.request.requestURL}" />
+			<c:set var="pageUrl" value="${homepage.context_path}/index" />
+			<c:if test="${fn:contains(url,pageUrl) }">
+				<div class="total-popup-trigger">
+					<div>통합팝업</div>
+					<div>${fn:length(popupFullList)}</div>
+				</div>
+			</c:if>
         </div>
     </div>
 </div>

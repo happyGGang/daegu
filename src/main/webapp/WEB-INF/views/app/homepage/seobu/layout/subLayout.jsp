@@ -4,15 +4,8 @@
 <%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
 
 
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/subLayout.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/footer.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/header.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/slick.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/slick-theme.css"/>
-<script src="/resources/homepage/seobu/plugin/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="/resources/homepage/seobu/css/common/common.css"/>
 <script src="/resources/homepage/seobu/js/common/common.js"></script>
-<script src="/resources/homepage/seobu/plugin/slick.min.js"></script>
 
 
 <tiles:insertAttribute name="header"/>
@@ -26,24 +19,24 @@
     }
 
     <c:choose>
-    <c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-    $('li#menu_4').remove();
-    $('li#menu_5').remove();
-    $('li#menu_6').remove();
-    $('li#menu_7').remove();
-    $('li#menu_8').remove();
-    </c:when>
-    <c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-    $('li#menu_4').remove();
-    $('li#menu_5').remove();
-    $('li#menu_6').remove();
-    $('li#menu_7').remove();
-    $('li#menu_8').remove();
-    </c:when>
-    <c:otherwise>
-    $('li#menu_95').remove();
-    $('li#menu_96').remove();
-    </c:otherwise>
+        <c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+            $('li#menu_4').remove();
+            $('li#menu_5').remove();
+            $('li#menu_6').remove();
+            $('li#menu_7').remove();
+            $('li#menu_8').remove();
+        </c:when>
+        <c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+            $('li#menu_4').remove();
+            $('li#menu_5').remove();
+            $('li#menu_6').remove();
+            $('li#menu_7').remove();
+            $('li#menu_8').remove();
+        </c:when>
+        <c:otherwise>
+            $('li#menu_95').remove();
+            $('li#menu_96').remove();
+        </c:otherwise>
     </c:choose>
   });
 </script>

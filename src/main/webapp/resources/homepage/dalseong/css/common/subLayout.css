@@ -1,0 +1,23 @@
+.lnb>ul>li.active>ul {
+  padding: 0 !important;
+}
+
+.doc-info ol li:first-child {
+  margin-top: 4px;
+}
+
+.doc-info ol li.first {
+  padding: 0 !important;
+}
+
+.search-form .detail_search .section dl dd input.text-area {
+  width: 100% !important;
+}
+
+.footer div:nth-of-type(1) .wrapper {
+  align-items: flex-end !important;
+}
+
+.footer div:nth-of-type(2) .wrapper {
+  align-items: center !important;
+}

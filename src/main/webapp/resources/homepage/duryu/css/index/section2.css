@@ -315,6 +315,10 @@
   .popup-next {
     border-radius: 0 0 6px;
   }
+
+  .notice-no-data {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 865px) {
@@ -441,6 +445,10 @@
   .popup-pagination {
     width: 54px;
     height: 32px;
+    font-size: 14px;
+  }
+
+  .notice-no-data {
     font-size: 14px;
   }
 }

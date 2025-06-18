@@ -30,7 +30,7 @@
         <div class="main-book-slide slider-for">
             <c:forEach var="i" begin="0" end="${loopCount - 1}" varStatus="status">
                 <div class="main-book-slide-item">
-                    <a href="/${homepage.context_path}intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNums[i]].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNums[i]].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNums[i]].MANAGE_CODE)}&booktype=BO">
+                    <a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNums[i]].ST_CODE}&regNo=${fn:escapeXml(newBookList[listNums[i]].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNums[i]].MANAGE_CODE)}&booktype=BO">
                         <c:choose>
                             <c:when test="${(empty newBookList[listNums[i]].aladin or
                                             empty newBookList[listNums[i]].aladin.cover)

@@ -129,6 +129,11 @@
   width: 840px;
 }
 
+.book-slide .slick-slide {
+  width: 180px;
+  height: 258px !important;
+}
+
 .book-slide-item {
   width: 180px;
   height: 258px;
@@ -190,5 +195,288 @@
 
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1440px) {
+  #fullpage .section-wrapper:nth-child(4) {
+    height: 484px;
+  }
+
+  .tab-header-wrapper {
+    top: 33px;
+    width: 606px;
+  }
+
+  .book-tab-wrapper {
+    gap: 33px;
+  }
+
+  .tab-button {
+    font-size: 22px;
+  }
+
+  .tab-button:after {
+    width: 1px;
+    height: 20px;
+    right: -17px;
+  }
+
+  #tab-link {
+    gap: 4px;
+  }
+
+  #tab-link div {
+    font-size: 12px;
+  }
+
+  #tab-link img {
+    width: 10px;
+    height: 10px;
+  }
+
+  .main-book-slide {
+    width: 226px;
+    height: 324px;
+    box-shadow: 6px 6px 18px 0px rgba(0, 0, 0, 0.16);
+  }
+
+  .main-book-slide-item {
+    width: 226px;
+    height: 324px;
+  }
+
+  .book-slide-wrapper {
+    width: 1200px;
+    height: 246px;
+    gap: 13px;
+  }
+
+  .book-slide {
+    width: 900px;
+  }
+
+  .book-slide .slick-slide {
+    width: 108px;
+    height: 154px !important;
+  }
+
+  .book-slide-item {
+    width: 108px;
+    height: 154px;
+    margin-right: 24px;
+  }
+
+  .book-slide-prev, .book-slide-next {
+    width: 24px;
+    height: 24px;
+  }
+
+  .book-loading-wrapper {
+    height: 246px;
+    margin-top: 78px;
+  }
+
+  .book-nodata {
+    height: 246px;
+    margin-top: 78px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 1170px) {
+  .book-slide-wrapper {
+    width: 638px;
+  }
+
+  .book-slide {
+    width: 504px;
+  }
+}
+
+@media (max-width: 865px) {
+  #fullpage .section-wrapper:nth-child(4) {
+    height: 413px;
+  }
+
+  #fullpage .section-wrapper:nth-child(4) .wrapper {
+    margin-top: 100px;
+  }
+
+  .tab-header-wrapper {
+    top: -52px;
+    width: 488px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 42px;
+  }
+
+  .book-tab-wrapper {
+    gap: 66px;
+  }
+
+  .tab-button {
+    font-size: 22px;
+    white-space: nowrap;
+  }
+
+  .tab-button:after {
+    width: 1px;
+    height: 20px;
+    right: -33px;
+  }
+
+  #tab-link {
+    gap: 4px;
+  }
+
+  #tab-link div {
+    font-size: 12px;
+  }
+
+  #tab-link img {
+    width: 10px;
+    height: 10px;
+  }
+
+  .main-book-slide {
+    width: 167px;
+    height: 240px;
+    box-shadow: 6px 6px 18px 0px rgba(0, 0, 0, 0.16);
+  }
+
+  .main-book-slide-item {
+    width: 167px;
+    height: 240px;
+  }
+
+  .book-slide-wrapper {
+    width: 321px;
+    height: 196px;
+    gap: 8px;
+  }
+
+  .book-slide {
+    width: 196px;
+  }
+
+  .book-slide .slick-slide {
+    width: 88px;
+    height: 128px !important;
+  }
+
+  .book-slide-item {
+    width: 88px;
+    height: 128px;
+    margin-right: 20px;
+  }
+
+  .book-slide-prev, .book-slide-next {
+    width: 24px;
+    height: 24px;
+  }
+
+  .book-loading-wrapper {
+    height: 196px;
+    margin-top: 44px;
+  }
+
+  .book-nodata {
+    height: 196px;
+    margin-top: 44px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 490px) {
+  #fullpage .section-wrapper:nth-child(4) {
+    height: 281px;
+  }
+
+  .tab-header-wrapper {
+    top: -44px;
+    width: 360px;
+    gap: 38px;
+    right: 12px;
+  }
+
+  .book-tab-wrapper {
+    gap: 22px;
+  }
+
+  .tab-button {
+    font-size: 18px;
+  }
+
+  .tab-button:after {
+    height: 18px;
+    right: -12px;
+  }
+
+  .tab-content {
+    justify-content: center;
+  }
+
+  #tab-link {
+    gap: 4px;
+  }
+
+  #tab-link div {
+    font-size: 8px;
+  }
+
+  #tab-link img {
+    width: 7px;
+    height: 7px;
+  }
+
+  .main-book-slide {
+    width: 110px;
+    height: 158px;
+    box-shadow: 4.8px 4.8px 14.4px 0px rgba(0, 0, 0, 0.16);
+  }
+
+  .main-book-slide-item {
+    width: 110px;
+    height: 158px;
+  }
+
+  .book-slide-wrapper {
+    width: 226px;
+    height: 120px;
+    gap: 0;
+  }
+
+  .book-slide {
+    width: 136px;
+  }
+
+  .book-slide .slick-slide {
+    width: 60px;
+    height: 86px !important;
+  }
+
+  .book-slide-item {
+    width: 60px;
+    height: 86px;
+    margin-right: 16px;
+  }
+
+  .book-slide-prev, .book-slide-next {
+    width: 20px;
+    height: 20px;
+  }
+
+  .book-loading-wrapper {
+    height: 120px;
+    width: 336px;
+    margin-top: 38px;
+  }
+
+  .book-nodata {
+    height: 120px;
+    width: 336px;
+    margin-top: 38px;
+    font-size: 18px;
   }
 }
