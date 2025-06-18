@@ -17,7 +17,7 @@ public class BlackList extends PagingUtils {
 	private Date modify_date; // 수정일
 	private String modify_id; // 수정ID
 	private String delete_yn; // 삭제여부
-
+	private String teach_code;
 	private String homepage_name;
 
 	private String after_click_btn;
@@ -31,6 +31,10 @@ public class BlackList extends PagingUtils {
 		this.homepage_id = homepage_id;
 		this.member_id = member_id;
 	}
+
+	public String getTeach_code() {return teach_code;}
+
+	public void setTeach_code(String teach_code) {this.teach_code = teach_code;}
 
 	public String getHomepage_id() {
 		return homepage_id;

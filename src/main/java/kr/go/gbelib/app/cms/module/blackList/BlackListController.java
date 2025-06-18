@@ -3,8 +3,12 @@ package kr.go.gbelib.app.cms.module.blackList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2;
+import kr.go.gbelib.app.cms.module.teach.teachCode2.TeachCode2Service;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter.Black;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +44,9 @@ public class BlackListController extends BaseController{
 	@Autowired
 	private CodeService codeService;
 
+	@Autowired
+	private TeachCode2Service teachCode2Service;
+
 	@RequestMapping(value = { "/index.*" })
 	public String index(Model model, BlackList blackList, HttpServletRequest request) throws AuthException {
 		checkAuth("R", model, request);
@@ -74,15 +81,46 @@ public class BlackListController extends BaseController{
 
 	@RequestMapping(value = { "/edit.*" }, method = RequestMethod.GET)
 	public String edit(Model model, BlackList blackList, HttpServletRequest request) throws AuthException {
+		// 대분류 카테고리 추가
+		TeachCode2 teachCode2 = new TeachCode2();
+		teachCode2.setTeach_code(15);
+		teachCode2.setHomepage_id(blackList.getHomepage_id());
+		List<TeachCode2> teachCodeList = teachCode2Service.getSubcategories(teachCode2);
+		model.addAttribute("teachCodeList",teachCodeList);
+
+		// 대분류 차단 전체 체크 값
+		boolean teachAllChecked = false;
+
 		if (blackList.getEditMode().equals("ADD")) {
 			checkAuth("C", model, request);
 			model.addAttribute("blackListOne", blackList);
 		} else if (blackList.getEditMode().equals("MODIFY")) {
 			checkAuth("U", model, request);
 			BlackList result = service.getBlackListOne(blackList);
+
+			// 전부 체크되어 있는지 확인
+			if (result.getTeach_code() != null) {
+				teachAllChecked = teachCodeList.stream().allMatch(i -> result.getTeach_code().contains(String.valueOf(i.getTeach_code())));
+			}
+
+			// 기존에 존재하던 블랙리스트의 teach_code는 null 값으로 존재하기 때문에 teachAllChecked를 true,teach_code 전부 넣어서
+			// 전체 차단으로 판단 (기존의 블랙리스트 기능이 전체차단이였기 때문에 계속 유지)
+			if (result.getTeach_code() == null) {
+				StringBuilder teachAllStr = new StringBuilder();
+				for (TeachCode2 t : teachCodeList) {
+					teachAllStr.append(t.getTeach_code()).append(",");
+				}
+				if (teachAllStr.length() > 0) {
+					teachAllStr.deleteCharAt(teachAllStr.length() - 1);
+				};
+				result.setTeach_code(teachAllStr.toString());
+				teachAllChecked = true;
+			}
+
 			model.addAttribute("blackListOne", service.copyObjectPaging(blackList, result));
 		}
 
+		model.addAttribute("teachAllChecked", teachAllChecked);
 		model.addAttribute("blackTypeList", codeService.getCode("CMS", "C0017"));
 
 		return basePath + "edit_ajax";
