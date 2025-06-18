@@ -93,7 +93,7 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${dd}" var="day" varStatus="status">
-				<c:if test="${status.index < 5}">
+				<c:if test="${status.index < 10}">
 					<div>${day}</div>
 				</c:if>
 			</c:forEach>

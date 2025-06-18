@@ -264,21 +264,12 @@
                 <div class="popup-slide-wrapper">
                     <div class="popup-slide">
                         <c:choose>
-                            <c:when test="${fn:length(popupZoneList) > 0}">
-                                <c:forEach var="i" items="${popupZoneList}">
+                            <c:when test="${fn:length(galleryList) > 0}">
+                                <c:forEach var="i" items="${galleryList}">
                                     <div class="popup-slide-item">
-                                        <c:choose>
-                                            <c:when test="${i.link_target eq 'BLANK'}">
-                                                <a href="${i.link_url}" target="_blank">
-                                                    <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
-                                                </a>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <a href="${i.link_url}">
-                                                    <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
-                                                </a>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=143&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" target="_blank">
+                                            <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"  alt="${i.title}" title="${i.title}" onError="this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+                                        </a>
                                     </div>
                                 </c:forEach>
                             </c:when>
