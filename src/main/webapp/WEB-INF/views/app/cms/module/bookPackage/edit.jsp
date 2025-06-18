@@ -116,7 +116,12 @@ function getNaverData(arg) {
 	$('input#publisher').val(arg[2]);
 	$('input#publish_year').val(arg[3]);
 	$('input#isbn').val(arg[4]);
-	$('input#book_price').val(arg[5]);
+
+	let bookPrice = arg[5];
+	if (!bookPrice) {
+		bookPrice = 0;
+	}
+	$('input#book_price').val(bookPrice);
 // 	$('textarea#content').val(arg[6]);
 	oEditors.getById["content"].exec("SET_IR", [arg[6]]);
 	$('input#desc_link').val(arg[7] + '//' + arg[8]);

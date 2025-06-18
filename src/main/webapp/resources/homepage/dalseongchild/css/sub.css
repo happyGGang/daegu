@@ -1,12 +1,25 @@
 @charset "utf-8";
 
-#container.subpage {position:relative;padding-top:150px;}
+#container.subpage {position:relative;padding-top:130px;}
+
+.Gnb .mask, .Gnb .gnb-menu>li>.SubMenu {
+	height: 40px;
+	line-height: 40px;
+	margin-top: 12px;
+}
 
 @media all and (max-width:1024px){
-	#container.subpage {padding-top:60px;}
+	#container.subpage {padding-top:68px;}
 }
 
 @media all and (min-width: 1025px) and (max-width: 1260px) {
 	html,body{width:1260px;margin:0 auto;}
 	.tnb, .Gnb {width:1260px;margin:0 auto;}
 }
+
+@media all and (max-width:440px){
+	#container.subpage {
+		padding-top: 54px;
+	}
+}
+

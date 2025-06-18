@@ -237,6 +237,46 @@ $(function(){
 		<div class="mg30t"></div>
 	</c:if>
 
+	<c:if test="${homepage.context_path eq 'center'}">
+		<h3>도서관 견학안내</h3>
+		<ul class="con">
+			<li>운영시간 : 월~금, 오전 10시~12시</li>
+			<li>운영대상 : 대구광역시 동구 관내 어린이집 및 유치원, 학교 등 기관의 유아, 어린이, 청소년 및 성인단체</li>
+			<li>운영방법 : 1일 1회 최대 25명 이내</li>
+			<li>운영내용 : 자율독서, 단체열람</li>
+			<li>운영기간 : 상,하반기(방학기간 1~2월, 7~8월 제외)</li>
+			<li>운영장소 : 복합문화센터도서관(3층)</li>
+		</ul>
+
+		<h3>신청방법</h3>
+		<ul class="con">
+			<li>견학신청은 희망일 기준 한 달 전부터 전화로 가능합니다.</li>
+			<li>담당자와 사전 협의하여 방문일 조정 및 첨부된 신청서를 작성하여 팩스(053-962-7603) 발송</li>
+		</ul>
+
+		<ul class="btns_wrap_tac">
+			<li>
+			<a href="https://library.daegu.go.kr/board/boardFile/download/986/534335/383170/%EA%B2%AC%ED%95%99%EC%8B%A0%EC%B2%AD%EC%84%9C.hwpx.do" class="btn_link02" title="도서관 체험학습 신청서" target="_blank">
+				<span>견학신청서 다운로드</span><span class="ico ico_link"></span>
+			</a>
+			</li>
+		</ul>
+
+		<h3>이용안내</h3>
+		<ul class="con">
+			<li>자료실의 효율적인 운영을 위해 1일 1기관으로 제한 운영합니다.</li>
+			<li>대상인원과 연령을 반드시 지켜주시기 바랍니다.</li>
+			<li>미리 신청하지 않고 방문할 경우 견학이 불가하오니, 사전신청 후 방문바랍니다.</li>
+			<li>취소 시에는 다른 기관에 피해가 없도록 사전에 연락주시기 바랍니다.</li>
+			<li>단체 견학시 안전사고 예방 및 다른 이용자들의 도서관 이용에 방해가 되지 않도록 지도 바랍니다.</li>
+		</ul>
+
+		<h3>신청 및 문의</h3>
+		<ul class="con">
+			<li>대구혁신도시 복합문화센터도서관 : 053-962-7600</li>
+		</ul>
+    </c:if>
+
 	<c:if test="${homepage.context_path eq 'daegubl'}">
 		<ul class="con">
 			<li>예약 시기: 사용일 기준 최소 한 달 전 사전 예약 필수</li>

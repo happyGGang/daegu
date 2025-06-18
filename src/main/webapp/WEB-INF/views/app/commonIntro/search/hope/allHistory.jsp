@@ -146,11 +146,66 @@ function compactTrim(str) {
 				<li>
 					<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
 				</li>
+				<li>
+					<form:checkbox path="libraryCodes" value="CD" class="libCheck lib_CD" label="달성어린이숲도서관"/>
+				</li>
 			</ul>
 		</div>
 		<div class="end"></div>
 	</div>
 	<div class="end" style="padding:7px 0;"></div>
+	</c:when>
+	<c:when test="${homepage.context_path eq 'dalseongchild'}">
+		<div id="libraryList" class="libraryList">
+			<div>
+				<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>
+			</div>
+			<div>
+				<ul>
+					<li>
+						<form:checkbox path="libraryCodes" value="CD" class="libCheck lib_CD" label="달성어린이숲도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="BR" class="libCheck lib_BR" label="달성군립도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GA" class="libCheck lib_GA" label="화원읍작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GB" class="libCheck lib_GB" label="논공읍작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="HG" class="libCheck lib_HG" label="다사읍작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GD" class="libCheck lib_GD" label="다사읍서재작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GF" class="libCheck lib_GF" label="유가읍작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GH" class="libCheck lib_GH" label="옥포읍작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="FR" class="libCheck lib_FR" label="가창면참꽃작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GE" class="libCheck lib_GE" label="하빈면작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="GC" class="libCheck lib_GC" label="구지면작은도서관"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="FN" class="libCheck lib_FN" label="달성군청소년센터"/>
+					</li>
+					<li>
+						<form:checkbox path="libraryCodes" value="FJ" class="libCheck lib_FJ" label="달성군청도서관"/>
+					</li>
+				</ul>
+			</div>
+			<div class="end"></div>
+		</div>
+		<div class="end" style="padding:7px 0;"></div>
 	</c:when>
 	<c:when test="${homepage.context_path eq 'seogulib'}">
 	<div id="libraryList" class="libraryList">

@@ -56,7 +56,7 @@ $(function() {
 						<homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
 					</ol>
 					<div class="sns-box">
-						<jsp:include page="/WEB-INF/views/app/homepage/common/snsShareBox.jsp" flush="false" />
+						<jsp:include page="/WEB-INF/views/app/homepage/${homepage.context_path}/snsShareBox.jsp" flush="false" />
 					</div>
 				</div>
 				<div class="end"></div>

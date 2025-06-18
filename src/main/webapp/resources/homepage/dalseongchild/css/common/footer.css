@@ -1,0 +1,533 @@
+.footer {
+    width: 100vw;
+    border-top: 1px solid #ececec;
+    background: #fff;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-bottom {
+    border-bottom: none !important;
+}
+
+.banner-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 90px;
+    justify-content: center;
+    margin: 0 auto;
+    background: #FBFBFB;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.banner-prev, .banner-next {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.banner-slide {
+    width: 1160px;
+}
+
+.banner-slide-item {
+    width: 170px;
+    height: 50px !important;
+    border: 1px solid #E3E3E3;
+    margin-right: 28px;
+}
+
+.banner-slide-item img {
+    width: 170px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.footer-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: #FBFBFB;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.footer .wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1260px;
+}
+
+.footer-top .wrapper {
+    align-items: flex-end;
+    padding: 0;
+}
+
+.footer-bottom .wrapper {
+    display: flex;
+    align-items: center;
+    padding: 20px 0 46px 0;
+    justify-content: space-between;
+}
+
+.library-info {
+    padding: 19px 0;
+}
+
+.link_list {
+    display: flex;
+    gap: 37px;
+}
+
+.link_list a {
+    position: relative;
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+    color:  #000;
+    font-family: Pretendard-Regular, sans-serif;
+    font-style: normal;
+}
+
+.link_list a:hover {
+    color: #000 !important;
+}
+
+.link_list a:first-child {
+    font-weight: 600;
+    color: #0B856F;
+    font-family: Pretendard-SemiBold, sans-serif;
+}
+
+.link_list a:first-child:hover {
+    color: #0B856F !important;
+}
+
+.link_list a::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -19px;
+    width: 1px;
+    height: 12px;
+    background-color: #D9D9D9;
+    transform: translateY(-50%);
+}
+
+.link_list a:last-child::after {
+    display: none;
+}
+
+.library-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.library-name {
+    color: #999;
+    font-family: Pretendard-Regular, sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.library-detail-wrapper {
+    display: flex;
+}
+
+.library-detail-wrapper div:first-child {
+    color: #000;
+    font-family: Pretendard-Regular, sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-right: 10px;
+}
+
+.library-detail-wrapper div:nth-child(2) {
+    margin-right: 8px;
+}
+
+.library-detail-wrapper div:nth-child(2),
+.library-detail-wrapper div:nth-child(3) {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 130%;
+    letter-spacing: -0.325px;
+    color: #000;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-style: normal;
+}
+
+.library-detail-wrapper div:nth-child(2) span,
+.library-detail-wrapper div:nth-child(3) span {
+    font-family: Pretendard-Regular, sans-serif;
+    font-weight: 400;
+    margin-right: 4px;
+}
+
+.sns-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.sns-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 130%;
+    text-align: right;
+    color: var(--gray400);
+    font-family: Pretendard-Bold, sans-serif;
+    font-style: normal;
+}
+
+.sns-list {
+    display: flex;
+    gap: 4px;
+}
+
+.sns-icon {
+    width: 34px;
+    height: 34px;
+}
+
+.blog {
+    background: url('/resources/homepage/dalseongchild/img/common/blog.svg') no-repeat center center;
+}
+
+.instagram {
+    background: url('/resources/homepage/dalseongchild/img/common/instagram.svg') no-repeat center center;
+}
+
+.kakao {
+    background: url('/resources/homepage/dalseongchild/img/common/kakao.svg') no-repeat center center;
+}
+
+.facebook {
+    background: url('/resources/homepage/dalseongchild/img/common/facebook.svg') no-repeat center center;
+}
+
+.x {
+    background: url('/resources/homepage/dalseongchild/img/common/x.svg') no-repeat center center;
+}
+
+.youtube {
+    background: url('/resources/homepage/dalseongchild/img/common/youtube.svg') no-repeat center center;
+}
+
+.copyright {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 130%;
+    letter-spacing: -0.325px;
+    color: var(--gray400);
+    font-family: Pretendard-Regular, sans-serif;
+    font-style: normal;
+    text-transform: uppercase;
+}
+
+.move-select {
+    display: flex;
+    gap: 8px;
+}
+
+.select-wrapper {
+    display: flex;
+    gap: 2px;
+}
+
+.select-wrapper select {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    height: 58px;
+    padding: 0 35px 0 12px;
+    color: #000;
+    font-family: Pretendard-Regular, sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    background: #fff url('/resources/homepage/dalseongchild/img/common/select-arrow.svg') no-repeat right 10px center;
+    appearance: none;
+    background-size: 14px;
+    border: 1px solid #E3E3E3;
+}
+
+.select-wrapper select:focus,
+.select-wrapper select:hover {
+    outline: none;
+}
+
+.select-wrapper button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    font-family: Pretendard-Medium, sans-serif;
+    font-style: normal;
+    background: #7B8294;
+}
+
+@media (max-width: 1260px) {
+    .banner-area {
+        width: 100%;
+        gap: 0;
+        height: 80px;
+    }
+
+    .footer .wrapper {
+        padding: 10px 0;
+    }
+
+    .banner-slide-controller {
+        gap: 4px;
+    }
+
+    .banner-slide-controller img {
+        width: 36px;
+        height: 36px;
+    }
+
+    .banner-slide {
+        width: 872px;
+    }
+
+    .banner-slide-item {
+        margin-right: 20px;
+        width: 143px;
+        height: 42px !important;
+    }
+
+    .banner-slide .slick-slide img {
+        width: 143px;
+        height: 42px;
+    }
+
+    .footer .wrapper {
+        width: 952px;
+    }
+
+    .link_list {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+
+    .footer .wrapper {
+        padding: 19px 0;
+    }
+
+    .link_list a {
+        font-size: 14px;
+    }
+
+    .link_list {
+        gap: 25px;
+    }
+
+    .link_list a::after {
+        right: -13px;
+    }
+
+    .library-info {
+        padding: 0;
+    }
+
+    .footer-bottom .wrapper {
+        align-items: flex-start;
+        padding: 20px 0 20px 0;
+        gap: 20px;
+    }
+
+    .library-detail-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        width: 387px;
+        row-gap: 4px;
+    }
+
+    .library-detail-wrapper div:first-child {
+        font-size: 14px;
+        margin-right: 0;
+    }
+
+    .library-detail-wrapper div:nth-child(2), .library-detail-wrapper div:nth-child(3) {
+        font-size: 14px;
+    }
+
+    .move-select {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .library-detail {
+        gap: 12px;
+    }
+
+    .library-name {
+        font-size: 14px;
+    }
+
+    .select-wrapper button {
+        width: 48px;
+        height: 48px;
+        font-size: 14px;
+    }
+
+    .select-wrapper select {
+        width: 200px;
+        height: 48px;
+        padding: 0 35px 0 12px;
+        font-size: 14px;
+        background: #fff url(/resources/homepage/dalseongchild/img/common/select-arrow.svg) no-repeat right 17px center;
+        background-size: 14px;
+    }
+
+    .footer-top {
+        height: 48px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+@media (max-width: 865px) {
+    .banner-area {
+        width: 100%;
+    }
+
+    .banner-slide {
+        width: 616px;
+    }
+
+    .footer .wrapper {
+        width: 696px;
+    }
+
+    .banner-slide-item {
+        margin-right: 12px;
+        width: 143px;
+        height: 42px !important;
+    }
+
+    .banner-slide .slick-slide img {
+        width: 150px;
+        height: 45px;
+    }
+}
+
+
+@media screen and (max-width: 580px) {
+    .move-select {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 490px) {
+    .banner-area {
+        width: 100%;
+        gap: 2px;
+        height: 52px;
+    }
+
+    .library-detail-wrapper {
+        display: flex;
+    }
+
+    .banner-slide-controller {
+        gap: 2px;
+    }
+
+    .banner-prev, .banner-next {
+        width: 32px;
+        height: 32px;
+    }
+
+    .banner-slide {
+        width: 228px;
+    }
+
+    .banner-slide-item {
+        margin-right: 10px;
+        width: 109px;
+        height: 32px !important;
+    }
+
+    .banner-slide .slick-slide img {
+        width: 109px;
+        height: 32px;
+    }
+
+    .footer .wrapper {
+        padding: 12px;
+    }
+
+    .link_list {
+        column-gap: 17px;
+        row-gap: 0;
+    }
+
+    .link_list a {
+        font-size: 12px;
+    }
+
+    .link_list a::after {
+        right: -9px;
+        width: 1px;
+        height: 10px;
+    }
+
+    .footer .wrapper {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .library-detail-wrapper {
+        width: 296px;
+        row-gap: 4px;
+    }
+
+    .library-detail-wrapper div:first-child {
+        font-size: 12px;
+    }
+
+    .library-detail-wrapper div:nth-child(2), .library-detail-wrapper div:nth-child(3) {
+        font-size: 12px;
+    }
+
+    .library-name {
+        font-size: 12px;
+    }
+
+    .select-wrapper button {
+        width: 40px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .select-wrapper select {
+        width: 254px;
+        height: 40px;
+        padding: 0 35px 0 12px;
+        font-size: 12px;
+        background: #fff url(/resources/homepage/dalseongchild/img/common/select-arrow.svg) no-repeat right 10px center;
+        background-size: 12px;
+    }
+
+    .footer-top {
+        height: 58px;
+    }
+}

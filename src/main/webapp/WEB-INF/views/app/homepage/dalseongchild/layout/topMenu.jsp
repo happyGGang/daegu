@@ -5,14 +5,14 @@
 		<div class="Gnb">
 			<h2 class="blind">주메뉴</h2>
 			<div class="main-section">
-				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">구수산 도서관</a></h1>
+				<h1 class="web-logo"><a href="/${homepage.context_path}/index.do">달성어린이도서관</a></h1>
 
 				<!-- menu S -->
 				<div class="g-menu">
 					<homepageTag:topMenu menuList="${menuTreeList}" />
 					
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box_w"><img src="/resources/common/img/sitemap_icon_white.png" alt="사이트맵" /></a>
-					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box_b"><img src="/resources/common/img/sitemap_icon_black.png" alt="사이트맵" /></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box_w"><img src="/resources/homepage/dalseongchild/img/common/site-map.svg" alt="사이트맵" /></a>
+					<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=82" class="last-box_b"><img src="/resources/homepage/dalseongchild/img/common/site-map.svg" alt="사이트맵" /></a>
 					<div class="mmode">
 							<a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=68" class="btn4">
 								<i class="fa fa-bookmark"></i>
@@ -24,10 +24,6 @@
 								<i class="fa fa-user"></i>
 									<span>${sessionScope.member.member_name}님</span>
 							</a>
-							<!-- <a href="/${homepage.context_path}/intro/search/loan/index.do?menu_idx=16" class="btn4">
-								<i class="fa fa-bookmark"></i>
-								<span>나의도서관</span>
-							</a> -->
 							<a href="/${homepage.context_path}/intro/login/logout.do" class="btn3">
 								<i class="fa fa-sign-out"></i>
 								<span>로그아웃</span>
@@ -56,11 +52,8 @@
 					</c:choose>
 					</div>
 				</div>
-				<!-- menu E -->
 			</div>
 			<div class="mask">&nbsp;</div>
 		</div>
 	</div>
-
-
 </div>
