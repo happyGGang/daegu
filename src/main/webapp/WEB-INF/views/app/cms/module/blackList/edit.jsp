@@ -36,6 +36,11 @@ $(function() {
 						return false;
 					}
 
+					if ($('input[name="teach_code"]:checked').length == 0) {
+						alert('강좌 구분을 1개 이상 선택하셔야 합니다. 블랙리스트 해제는 해당 아이디 삭제를 해주세요.');
+						return false;
+					}
+
 					if ($('input#member_name').val() == '') {
 						alert('이름을 입력해주세요.');
 						return false;
@@ -61,6 +66,24 @@ $(function() {
 			}
 		]
 	});
+
+	$("#teach_code_all").click(function (){
+		let checked = $(this).prop("checked");
+		$("input[name='teach_code']").prop("checked",checked);
+	});
+	// 개별 teach_code 클릭시 teach_code_all 상태 갱신
+	$('input[name="teach_code"]').on('change', function() {
+		let total = $('input[name="teach_code"]').length;
+		let checked = $('input[name="teach_code"]:checked').length;
+
+		if (total === checked) {
+			$('#teach_code_all').prop('checked', true);
+		} else {
+			$('#teach_code_all').prop('checked', false);
+		}
+	});
+
+
 });
 </script>
 <form:form modelAttribute="blackListOne" id="blackListEdit" method="post" action="/cms/module/blackList/save.do">
@@ -104,6 +127,25 @@ $(function() {
 						</c:when>
 						<c:otherwise>
 							<form:checkboxes items="${blackTypeList}" path="black_type" itemLabel="code_name" itemValue="code_id"/>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
+
+			<tr>
+				<th>강좌 구분</th>
+				<td>
+					<input id="teach_code_all" name="teach_code_all" type="checkbox" value="ALL" <c:if test="${teachAllChecked}">checked</c:if> >
+					<label for="teach_code_all">전체</label>
+					<c:choose>
+						<c:when test="${blackListOne.teach_code ne null and blackListOne.teach_code ne ''}">
+							<c:forEach items="${teachCodeList}" var="i">
+								<c:set var="checkStr" value="${fn:indexOf(blackListOne.teach_code, i.teach_code) != -1 ? 'checked' : '' }"/>
+								<form:checkbox path="teach_code" label="${i.code_name}" value="${i.teach_code}" checked="${checkStr}" cssStyle="margin-left:5px;" />
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<form:checkboxes items="${teachCodeList}" path="teach_code" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:5px;"/>
 						</c:otherwise>
 					</c:choose>
 				</td>
