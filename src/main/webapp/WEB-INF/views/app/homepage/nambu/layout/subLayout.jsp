@@ -53,8 +53,8 @@
   function link()
   {
     document.form1.action = "https://www.nl.go.kr/NL/contents/N30502000000.do";
-    document.form1.lib_name.value = "대구광역시립 동부도서관";
-    document.form1.lib_id.value = "122010";
+    document.form1.lib_name.value = "대구광역시립 남부도서관";
+    document.form1.lib_id.value = "122009";
     document.form1.target="mashup";
     document.form1.submit();
   }

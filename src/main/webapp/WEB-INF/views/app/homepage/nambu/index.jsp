@@ -96,44 +96,6 @@ listNums[i] = num;
 		});
 		// 팝업 관련 코드 END
 
-		$('#new_book_wrapper').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
-
-		$('#new_book_wrapper').load('newBook.do', function () {
-			const $bookSlide = $('.book-slide');
-			if ($bookSlide.length && !$bookSlide.hasClass('slick-initialized')) {
-				$bookSlide.slick({
-					slidesToShow: 5,
-					slidesToScroll: 1,
-					autoplay: false,
-					arrows: false,
-					dots: false,
-					variableWidth: true,
-					responsive: [
-						{
-							breakpoint: 1260,
-							settings: {
-								slidesToShow: 4,
-								variableWidth: true,
-							},
-						},
-						{
-							breakpoint: 865,
-							settings: {
-								slidesToShow: 3,
-								variableWidth: true,
-							},
-						},
-					],
-				});
-			}
-
-			$('.book-slide-prev, .book-slide-next').off('click').on('click', function () {
-				if ($bookSlide.hasClass('slick-initialized')) {
-					$bookSlide.slick($(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext');
-				}
-			});
-		});
-
 		$('#main-search-btn').on('click', function () {
 			if ($('input#book-search').val() == '') {
 				alert('검색어를 입력하세요.');
@@ -279,7 +241,7 @@ listNums[i] = num;
 				<div class="notice-board">
 					<div class="notice-board-header">
 						<div class="notice-board-title">공지사항</div>
-						<a href="https://library.daegu.go.kr/duryu/board/index.do?menu_idx=36&manage_idx=132">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=132">
 							<img src="/resources/homepage/nambu/img/notice/more.svg" alt="">
 						</a>
 					</div>
@@ -302,13 +264,13 @@ listNums[i] = num;
 				<div class="notice-board">
 					<div class="notice-board-header">
 						<div class="notice-board-title">강좌 및 행사안내</div>
-						<a href="https://library.daegu.go.kr/duryu/board/index.do?menu_idx=36&manage_idx=132">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=227&manage_idx=1331">
 							<img src="/resources/homepage/nambu/img/notice/more.svg" alt="">
 						</a>
 					</div>
 					<div class="notice-list">
-						<c:forEach var="i" varStatus="status" items="${noticeList}">
-							<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+						<c:forEach var="i" varStatus="status" items="${boardList2}">
+							<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=227&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 								<div class="notice-list-item-date">
 									<div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
 									<div><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></div>
@@ -316,7 +278,7 @@ listNums[i] = num;
 								<div class="notice-list-item-title">${i.title}</div>
 							</a>
 						</c:forEach>
-						<c:if test="${fn:length(noticeList) < 1}">
+						<c:if test="${fn:length(boardList2) < 1}">
 							<div class="notice-no-data">등록된 강좌 및 행사 없습니다.</div>
 						</c:if>
 					</div>
@@ -330,8 +292,8 @@ listNums[i] = num;
 					<div class="box-header">
 						<div class="box-title">일정</div>
 						<div class="box-action">
-							<a href="https://library.daegu.go.kr/nambu/module/calendarManage/index.do?menu_idx=63">
-								<img src="/resources/homepage/nambu/img/culture/more.svg" alt="">
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+								<img src="${pageContext.request.contextPath}/resources/homepage/nambu/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
@@ -343,32 +305,30 @@ listNums[i] = num;
 						<div class="box-action">
 							<img class="course-slide-prev" src="/resources/homepage/nambu/img/culture/slide-left-arrow.svg" alt="">
 							<img class="course-slide-next" src="/resources/homepage/nambu/img/culture/slide-right-arrow.svg" alt="">
-							<a href="https://library.daegu.go.kr/nambu/board/index.do?menu_idx=170&manage_idx=474">
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474">
 								<img src="/resources/homepage/nambu/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
 					<div class="course-slide">
+						<c:forEach var="i" varStatus="status" items="${teachList}">
+							<a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+								<img src="/resources/homepage/nambu/img/culture/course.svg" alt="">
+								<div class="course-title">${i.teach_name}</div>
+								<div class="course-description">
+									${i.teach_desc}
+								</div>
+								<div class="course-date">
+									<div>강좌기간<span>${i.start_date} ~ ${i.end_date}</span></div>
+									<div>접수기간<span>${i.start_join_date} ~ ${i.start_join_date}</span></div>
+								</div>
+							</a>
+						</c:forEach>
 						<c:if test="${fn:length(teachList) < 1}">
 							<div class="course-slide-item">
 								<img src="/resources/homepage/nambu/img/culture/course.svg" alt="">
 								<div class="course-title">등록된 강좌가 없습니다.</div>
 							</div>
-						</c:if>
-						<c:if test="${fn:length(teachList) >= 1}">
-							<c:forEach var="i" varStatus="status" items="${teachList}">
-								<a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
-									<img src="/resources/homepage/nambu/img/culture/course.svg" alt="">
-									<div class="course-title">${i.teach_name}</div>
-									<div class="course-description">
-										${i.teach_desc}
-									</div>
-									<div class="course-date">
-										<div>강좌기간<span>${i.start_date} ~ ${i.end_date}</span></div>
-										<div>접수기간<span>${i.start_join_date} ~ ${i.start_join_date}</span></div>
-									</div>
-								</a>
-							</c:forEach>
 						</c:if>
 					</div>
 				</div>
@@ -378,52 +338,50 @@ listNums[i] = num;
 						<div class="box-action">
 							<img class="movie-slide-prev" src="/resources/homepage/nambu/img/culture/slide-left-arrow.svg" alt="">
 							<img class="movie-slide-next" src="/resources/homepage/nambu/img/culture/slide-right-arrow.svg" alt="">
-							<a href="https://library.daegu.go.kr/dongbu/module/calendarManage/index.do?menu_idx=63">
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
 								<img src="/resources/homepage/nambu/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
 					<div class="movie-slide">
+						<c:forEach var="i" varStatus="status" items="${movieList}" >
+							<a class="movie-slide-item" href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+								<c:choose>
+									<c:when test="${i.preview_img ne null}">
+										<c:choose>
+											<c:when test="${fn:contains(i.preview_img, 'http')}">
+												<img src="${i.preview_img}" alt="${i.title}"/>
+											</c:when>
+											<c:otherwise>
+												<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:otherwise>
+										<img src="/resources/homepage/nambu/img/common/dummy.png" alt="${i.title}">
+									</c:otherwise>
+								</c:choose>
+								<div class="movie-title">${i.title}</div>
+								<div class="movie-detail">
+									<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
+										<div>날짜<span>${fn:replace(i.imsi_v_1, '-', '-')}-${i.imsi_v_2}</span></div>
+									</c:if>
+									<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
+										<div>시간<span>${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}</span></div>
+									</c:if>
+									<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
+										<div>장소<span>${i.imsi_v_6}</span></div>
+									</c:if>
+									<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
+										<div>장르<span>${fn:substring(i.imsi_v_9, 0, 15)}</span></div>
+									</c:if>
+								</div>
+							</a>
+						</c:forEach>
 						<c:if test="${fn:length(movieList) < 1}">
 							<div class="movie-slide-item">
 								<div class="movie-title">등록된 영화가 없습니다.</div>
 							</div>
-						</c:if>
-						<c:if test="${fn:length(movieList) >= 1}">
-							<c:forEach var="i" varStatus="status" items="${movieList}" >
-								<a class="movie-slide-item" href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-									<c:choose>
-										<c:when test="${i.preview_img ne null}">
-											<c:choose>
-												<c:when test="${fn:contains(i.preview_img, 'http')}">
-													<img src="${i.preview_img}" alt="${i.title}"/>
-												</c:when>
-												<c:otherwise>
-													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
-												</c:otherwise>
-											</c:choose>
-										</c:when>
-										<c:otherwise>
-											<img src="/resources/homepage/nambu/img/common/dummy.png" alt="${i.title}">
-										</c:otherwise>
-									</c:choose>
-									<div class="movie-title">${i.title}</div>
-									<div class="movie-detail">
-										<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
-											<div>날짜<span>${fn:replace(i.imsi_v_1, '-', '-')}-${i.imsi_v_2}</span></div>
-										</c:if>
-										<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
-											<div>시간<span>${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}</span></div>
-										</c:if>
-										<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
-											<div>장소<span>${i.imsi_v_6}</span></div>
-										</c:if>
-										<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
-											<div>장르<span>${fn:substring(i.imsi_v_9, 0, 15)}</span></div>
-										</c:if>
-									</div>
-								</a>
-							</c:forEach>
 						</c:if>
 					</div>
 				</div>
@@ -435,17 +393,41 @@ listNums[i] = num;
 				<div class="book-content">
 					<div class="book-content-header">
 						<div class="move-to-detail">
-							<div class="white">신착도서</div>
+							<div>신착도서</div>
 						</div>
-						<a href="https://library.daegu.go.kr/nambu/intro/search/newBook/index.do?menu_idx=14">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=384">
 							<div>더보기</div>
-							<img
-									src="/resources/homepage/nambu/img/book/more-black.svg" alt="">
+							<img src="/resources/homepage/nambu/img/book/more-black.svg" alt="">
 						</a>
 					</div>
-
-
-					<div class="book-slide-wrapper" id="new_book_wrapper"></div>
+					<div class="book-slide-wrapper" id="new_book_wrapper">
+						<c:choose>
+							<c:when test="${fn:length(boardList1) < 1}">
+								<div class="book-nodata">등록된 신착도서가 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<img class="book-slide-prev" src="/resources/homepage/nambu/img/book/arrow-left.svg" alt="">
+								<div class="book-slide">
+									<c:forEach var="i" varStatus="status" items="${boardList1}">
+										<div class="book-slide-item">
+											<a href="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=${i.manage_idx}">
+												<c:choose>
+													<c:when test="${empty i.preview_img}">
+														<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/nambu/img/common/dummy.png'"/>
+													</c:when>
+													<c:otherwise>
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/nambu/img/common/dummy.png'"/>
+													</c:otherwise>
+												</c:choose>
+											</a>
+											<div class="title">${i.title}</div>
+										</div>
+									</c:forEach>
+								</div>
+								<img class="book-slide-next" src="/resources/homepage/nambu/img/book/arrow-right.svg" alt="">
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
 
 				<div class="book-content">
@@ -453,39 +435,39 @@ listNums[i] = num;
 						<div class="move-to-detail">
 							<div>북큐레이션</div>
 						</div>
-						<a class="flex-end" href="https://library.daegu.go.kr/nambu/board/index.do?menu_idx=41&manage_idx=31">
+						<a class="flex-end" href="/${homepage.context_path}/board/index.do?menu_idx=145&manage_idx=345">
 							<div>더보기</div>
 							<img src="/resources/homepage/nambu/img/book/more-black.svg" alt="">
 						</a>
 					</div>
 
 					<div class="book-slide-wrapper">
-						<c:if test="${fn:length(recommendBookList) < 1}">
-							<div class="book-nodata">등록된 북큐레이션이 없습니다.</div>
-						</c:if>
-						<c:if test="${fn:length(recommendBookList) >= 1}">
-							<img class="recommended-book-slide-prev" src="/resources/homepage/nambu/img/book/arrow-left.svg" alt="">
-							<div class="recommended-book-slide">
-								<c:forEach var="i" varStatus="status" items="${recommendBookList}">
-									<div class="book-slide-item">
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<c:choose>
-												<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/nambu/img/common/dummy.png';" />
-												</c:when>
-												<c:otherwise>
-													<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/nambu/img/common/dummy.png';" />
-												</c:otherwise>
-											</c:choose>
-										</a>
-										<div class="title">${i.title}</div>
-									</div>
-								</c:forEach>
-							</div>
-							<c:if test="${fn:length(recommendBookList) >= 1}">
+						<c:choose>
+							<c:when test="${fn:length(bookCuration1) < 1}">
+								<div class="book-nodata">등록된 북큐레이션이 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<img class="recommended-book-slide-prev" src="/resources/homepage/nambu/img/book/arrow-left.svg" alt="">
+								<div class="recommended-book-slide">
+									<c:forEach var="i" varStatus="status" items="${bookCuration1}">
+										<div class="book-slide-item">
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<c:choose>
+													<c:when test="${fn:contains(i.preview_img, 'noimg')}">
+														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/nambu/img/common/dummy.png';" />
+													</c:when>
+													<c:otherwise>
+														<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/nambu/img/common/dummy.png';" />
+													</c:otherwise>
+												</c:choose>
+											</a>
+											<div class="title">${i.title}</div>
+										</div>
+									</c:forEach>
+								</div>
 								<img class="recommended-book-slide-next" src="/resources/homepage/nambu/img/book/arrow-right.svg" alt="">
-							</c:if>
-						</c:if>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
