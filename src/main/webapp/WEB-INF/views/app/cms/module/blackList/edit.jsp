@@ -149,7 +149,7 @@ $(function() {
 						<c:when test="${blackListOne.teach_code ne null and blackListOne.teach_code ne ''}">
 							<c:forEach items="${teachCodeList}" var="i">
 								<c:set var="checkStr" value="${fn:indexOf(blackListOne.teach_code, i.teach_code) != -1 ? 'checked' : '' }"/>
-								<form:checkbox path="teach_code" label="${i.code_name}" value="${i.teach_code}" checked="${checkStr}" cssStyle="margin-left:5px;" />
+								<span><form:checkbox path="teach_code" label="${i.code_name}" value="${i.teach_code}" checked="${checkStr}"/></span>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
