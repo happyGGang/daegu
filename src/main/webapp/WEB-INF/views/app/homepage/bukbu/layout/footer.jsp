@@ -11,11 +11,9 @@
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=88">고정형 영상정보처리방침</a>
 					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
+					<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권정책</a>
 					<span class="bar">|</span>
 					<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
-					<span class="bar">|</span>
-					<a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창구</a>
 				</div>
 			</div>
 		</div>
