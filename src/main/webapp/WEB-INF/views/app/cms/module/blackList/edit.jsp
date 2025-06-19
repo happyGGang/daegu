@@ -3,6 +3,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<style>
+	.teach_code_td > span {
+		display: block;
+		margin-bottom: 5px;
+	}
+</style>
 <script type="text/javascript">
 if (!String.prototype.startsWith) {
     Object.defineProperty(String.prototype, 'startsWith', {
@@ -36,7 +42,8 @@ $(function() {
 						return false;
 					}
 
-					if ($('input[name="teach_code"]:checked').length == 0) {
+					const $teachInputs = $('input[name="teach_code"]');
+					if ($teachInputs.length > 0 && !$teachInputs.is(':checked')) {
 						alert('강좌 구분을 1개 이상 선택하셔야 합니다. 블랙리스트 해제는 해당 아이디 삭제를 해주세요.');
 						return false;
 					}
@@ -86,6 +93,7 @@ $(function() {
 
 });
 </script>
+
 <form:form modelAttribute="blackListOne" id="blackListEdit" method="post" action="/cms/module/blackList/save.do">
 	<form:hidden path="homepage_id"/>
 	<form:hidden path="black_idx"/>
@@ -134,9 +142,9 @@ $(function() {
 
 			<tr>
 				<th>강좌 구분</th>
-				<td>
-					<input id="teach_code_all" name="teach_code_all" type="checkbox" value="ALL" <c:if test="${teachAllChecked}">checked</c:if> >
-					<label for="teach_code_all">전체</label>
+				<td class="teach_code_td">
+					<span> <input id="teach_code_all" name="teach_code_all" type="checkbox" value="ALL" <c:if test="${teachAllChecked}">checked</c:if> >
+						<label for="teach_code_all">전체</label> </span>
 					<c:choose>
 						<c:when test="${blackListOne.teach_code ne null and blackListOne.teach_code ne ''}">
 							<c:forEach items="${teachCodeList}" var="i">
@@ -145,11 +153,12 @@ $(function() {
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
-							<form:checkboxes items="${teachCodeList}" path="teach_code" itemLabel="code_name" itemValue="teach_code" cssStyle="margin-left:5px;"/>
+							<form:checkboxes items="${teachCodeList}" path="teach_code" itemLabel="code_name" itemValue="teach_code"/>
 						</c:otherwise>
 					</c:choose>
 				</td>
 			</tr>
+
         	<tr>
 	         	<th>사유</th>
 	         	<td><form:input path="reason" class="text" style="width:100%"/></td>
