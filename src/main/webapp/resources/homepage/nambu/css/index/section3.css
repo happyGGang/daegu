@@ -1,0 +1,930 @@
+#fullpage .section-wrapper:nth-child(3) {
+  position: relative;
+  height: 100vh;
+  background: url('/resources/homepage/nambu/img/culture/bg.svg') no-repeat center center;
+  background-size: cover;
+}
+
+#fullpage .section-wrapper:nth-child(3) .wrapper {
+  display: flex;
+  align-content: flex-end;
+  justify-content: center;
+  gap: 50px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 29px;
+}
+
+.box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.box-title {
+  color: var(--black);
+  text-align: center;
+  font-family: GmarketSans, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.72px;
+  text-transform: uppercase;
+}
+
+.box-action {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.box-action img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+#event-area {
+  width: 540px;
+  height: 500px;
+  background: var(--white);
+  position: relative;
+}
+
+.calendar-controller {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 36px;
+  margin-bottom: 28px;
+}
+
+.calendar-controller a img {
+  width: 36px;
+  height: 36px;
+}
+
+.current-month {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-month div:first-child {
+  color: var(--black);
+  text-align: center;
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: -0.4px;
+}
+
+.current-month div:last-child {
+  color: var(--black);
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: -1.2px;
+}
+
+#calendar2 table {
+  width: 420px;
+  margin: 0 60px;
+  border: none;
+}
+
+.day {
+  width: 40px;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: normal;
+  letter-spacing: -0.4px !important;
+  text-align: center;
+  color: var(--black);
+  font-family: Pretendard-Medium, sans-serif !important;
+  font-style: normal;
+  padding-bottom: 20px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+#calendar2 table thead tr  {
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 420px;
+}
+
+#calendar2 table thead tr th {
+  border: none;
+  padding: 0;
+}
+
+#calendar2 table tbody tr  {
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  width: 420px;
+  justify-content: space-between;
+}
+
+#calendar2 table tbody tr td {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 48px !important;
+  letter-spacing: -0.45px;
+  text-align: center;
+  color: var(--black);
+  font-family: Pretendard-Bold, sans-serif !important;
+  font-style: normal;
+  cursor: pointer !important;
+  border: none;
+  margin-bottom: 8px;
+}
+
+.type-e, .type-r {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.type-e {
+  color: #EC4746 !important;
+  background: #FFE4DD;
+}
+
+.type-r {
+  color: #0969DA !important;
+  background: #DDF4FF;
+}
+
+.calendar-caption {
+  position: absolute;
+  right: 40px;
+  bottom: 24px;
+  display: flex;
+  gap: 12px;
+}
+
+.calendar-caption div {
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: center;
+  color: var(--black);
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+  padding-left: 14px;
+}
+
+.calendar-caption div:first-child::before {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #EC4746;
+  content: '';
+}
+
+.calendar-caption div:last-child::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #0969DA;
+  content: '';
+}
+
+.calAll {
+  display: none;
+}
+
+#calendar2 .planView {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  width: 340px !important;
+  border-radius: 8px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  margin-left: 0 !important;
+}
+
+#calendar2 .planView .inbox {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 10px 0 20px;
+  border-radius: 8px 8px 0 0;
+  background: #f0f0f0;
+}
+
+.calendar-header div {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: -0.28px;
+  color: #2d2d2d;
+  font-family: Pretendard-Medium, sans-serif;
+  font-style: normal;
+}
+
+#calendar2 .planView .inbox a.close {
+  position: relative !important;
+}
+
+.calendar-content {
+  padding: 16px 20px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.3px;
+  color: #2d2d2d;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+}
+
+.calendar-header a img {
+  width: 24px;
+  height: 24px;
+}
+
+.course-slide {
+  width: 400px;
+  height: 500px;
+}
+
+.course-slide-item {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 400px;
+  height: 500px;
+  background: var(--white);
+}
+
+.course-slide-item img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 32px;
+}
+
+.course-title {
+  width: 280px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  color: var(--black);
+  text-align: center;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.course-description {
+  overflow: hidden;
+  width: 280px;
+  color: var(--gray600);
+  text-align: center;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+  margin-bottom: 44px;
+}
+
+.course-date {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.course-date div {
+  color: var(--gray600);
+  text-align: center;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.35px;
+}
+
+.course-date div span {
+  margin-left: 16px;
+  color: var(--primary-color-green1);
+  text-align: center;
+  font-family: Pretendar-SemiBold, sans-serif;
+  font-weight: 600;
+}
+
+.movie-slide {
+  width: 400px;
+  height: 500px;
+}
+
+.movie-slide-item {
+  width: 400px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--white);
+}
+
+.movie-slide-item img {
+  width: 180px;
+  height: 240px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.06);
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.movie-title {
+  padding: 21px 0 12px 0;
+  width: 280px;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--black);
+  margin: 0 auto;
+  text-align: center;
+  text-overflow: ellipsis;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.movie-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0 auto;
+}
+
+.movie-detail div {
+  width: 280px;
+  overflow: hidden;
+  color: var(--gray500);
+  text-overflow: ellipsis;
+  font-family: Pretendard-Medium, sans-serif;
+  white-space: nowrap;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%;
+}
+
+.movie-detail div span {
+  margin-left: 12px;
+  color: var(--gray600,);
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-weight: 600;
+}
+
+@media (max-width: 1440px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 750px;
+  }
+
+  .course-list-item-title {
+    width: 340px;
+  }
+}
+
+@media (max-width: 1260px) {
+  .course-list-item-title {
+    width: 270px;
+  }
+}
+
+@media (max-width: 1170px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 502px;
+  }
+
+  #fullpage .section-wrapper:nth-child(3) .wrapper {
+    gap: 22px;
+  }
+
+  .box {
+    gap: 14px;
+  }
+
+  .box-title {
+    font-size: 24px;
+  }
+
+  .box-action {
+    gap: 6px;
+  }
+
+  .box-action img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  .course-slide, .movie-slide {
+    width: 260px;
+    height: 300px;
+  }
+
+  .course-slide-item, .movie-slide-item {
+    width: 260px;
+    height: 300px;
+  }
+
+  #event-area {
+    width: 300px !important;
+    height: 300px;
+    background: var(--white);
+    position: relative;
+  }
+
+  #calendar2 table {
+    width: 240px;
+    margin: 0 auto;
+  }
+
+  .calendar-controller {
+    gap: 10px;
+    margin-top: 16px;
+    margin-bottom: 12px;
+  }
+
+  .calendar-controller a img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .current-month div:first-child {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .current-month div:last-child {
+    font-size: 36px;
+    letter-spacing: -0.9px;
+  }
+
+  #calendar2 table thead tr {
+    width: 240px;
+  }
+
+  .day {
+    width: 24px;
+    font-size: 12px !important;
+    letter-spacing: -0.3px !important;
+    padding-bottom: 6px !important;
+  }
+
+  #calendar2 table tbody tr {
+    width: 240px;
+  }
+
+  #calendar2 table tbody tr td {
+    width: 24px;
+    height: 24px;
+    font-size: 12px !important;
+    line-height: 32px !important;
+    letter-spacing: -0.35px;
+    margin-bottom: 5px;
+  }
+
+  .calendar-caption {
+    position: absolute;
+    right: 22px;
+    bottom: 14px;
+  }
+
+  .calendar-caption div {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+    padding-left: 9px;
+  }
+
+  .calendar-caption div:first-child::before {
+    top: 62%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+  }
+
+  .calendar-caption div:last-child::before {
+    top: 62%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+  }
+
+  .type-e, .type-r {
+    width: 24px;
+    height: 24px;
+  }
+
+  #calendar2 .planView {
+    width: 220px !important;
+    border-radius: 5px;
+  }
+
+  .calendar-header {
+    height: 28px;
+    padding: 0 6px 0 16px;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .calendar-header div {
+    font-size: 11px;
+    letter-spacing: -0.22px;
+    line-height: 8.4px;
+  }
+
+  .calendar-header a img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .calendar-content {
+    padding: 12px 16px 16px;
+    font-size: 12px;
+    letter-spacing: -0.24px;
+  }
+
+  .course-slide-item img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 19px;
+  }
+
+  .course-title {
+    width: 182px;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+
+  .course-description {
+    width: 182px;
+    font-size: 12px;
+    margin-bottom: 26px;
+  }
+
+  .course-date {
+    gap: 7px;
+  }
+
+  .course-date div {
+    font-size: 10px
+  }
+
+  .course-date div span {
+    margin-left: 10px;
+  }
+
+  .movie-title {
+    padding: 10px 0 7px 0;
+    width: 182px;
+    font-size: 16px;
+  }
+
+  .movie-slide-item img {
+    width: 110px;
+    height: 147px;
+    box-shadow: 0px 2.4px 12px 0px rgba(0, 0, 0, 0.06);
+  }
+
+  .movie-detail {
+    gap: 4px;
+  }
+
+  .movie-detail div {
+    width: 182px;
+    font-size: 12px;
+  }
+
+  .movie-detail div span {
+    margin-left: 7px;
+  }
+}
+
+@media (max-width: 865px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 1406px;
+  }
+
+  #fullpage .section-wrapper:nth-child(3) .wrapper {
+    gap: 40px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #event-area {
+    width: 488px !important;
+    height: 480px;
+  }
+
+  #calendar2 table thead tr {
+    width: 360px;
+  }
+
+  .current-month div:first-child {
+    font-size: 13px;
+    letter-spacing: -0.325px;
+  }
+
+  .current-month div:last-child {
+    font-size: 44px;
+    letter-spacing: -1.1px;
+  }
+
+  .day {
+    width: 32px;
+    font-size: 14px !important;
+    letter-spacing: -0.35px;
+    padding-bottom: 18px !important;
+  }
+
+  #calendar2 table tbody tr {
+    width: 360px;
+  }
+
+  #calendar2 table tbody tr td {
+    width: 32px;
+    height: 32px;
+    font-size: 14px !important;
+    line-height: 44px !important;
+    letter-spacing: -0.35px;
+    margin-bottom: 12px;
+  }
+
+  .type-e, .type-r {
+    width: 32px;
+    height: 32px;
+  }
+
+  .calendar-controller {
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 28px;
+  }
+
+  .calendar-caption {
+    position: absolute;
+    right: 40px;
+    bottom: 36px;
+    gap: 7px;
+  }
+
+  .calendar-caption div {
+    font-size: 14px;
+    letter-spacing: -0.35px;
+    padding-left: 9px;
+  }
+
+  .course-slide, .movie-slide {
+    width: 488px;
+    height: 300px;
+  }
+
+  .course-slide-item, .movie-slide-item {
+    width: 488px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 490px) {
+  #fullpage .section-wrapper:nth-child(3) {
+    height: 1107px;
+  }
+
+  #fullpage .section-wrapper:nth-child(3) .wrapper {
+    gap: 24px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #event-area {
+    width: 336px !important;
+    height: 384px;
+  }
+
+  #calendar2 table thead tr {
+    width: 248px;
+  }
+
+  .current-month div:first-child {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .current-month div:last-child {
+    font-size: 36px;
+    letter-spacing: -0.9px;
+  }
+
+  .day {
+    width: 26px;
+    font-size: 12px !important;
+    letter-spacing: -0.3 px;
+    padding-bottom: 10px !important;
+  }
+
+  #calendar2 table tbody tr {
+    width: 248px;
+  }
+
+  #calendar2 table tbody tr td {
+    width: 26px;
+    height: 26px;
+    font-size: 12px !important;
+    line-height: 35px !important;
+    letter-spacing: -0.3px;
+    margin-bottom: 10px;
+  }
+
+  .type-e, .type-r {
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+  }
+
+  #calendar2 table {
+    width: 248px;
+    margin: 0 auto;
+  }
+
+  .calendar-caption div:first-child::before {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+  }
+
+  .calendar-caption div:last-child::before {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+  }
+
+  .calendar-controller {
+    gap: 8px;
+    margin-top: 32px;
+    margin-bottom: 20px;
+  }
+
+  .calendar-caption {
+    position: absolute;
+    right: 17px;
+    bottom: 28px;
+    gap: 6px;
+  }
+
+  .calendar-caption div {
+    font-size: 12px;
+    letter-spacing: -0.3px;
+    padding-left: 7px;
+  }
+
+  .course-slide {
+    width: 336px;
+    height: 240px;
+  }
+
+  .movie-slide {
+    width: 336px;
+    height: 250px;
+  }
+
+  .course-slide-item {
+    width: 336px;
+    height: 240px;
+  }
+
+  .movie-slide-item {
+    width: 336px;
+    height: 250px;
+  }
+
+  .course-slide-item img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 14px;
+  }
+
+  .course-title {
+    width: 200px;
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+
+  .course-description {
+    width: 200px;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .course-date {
+    gap: 6px;
+  }
+
+  .course-date div {
+    font-size: 9px;
+  }
+
+  .course-date div span {
+    margin-left: 8px;
+  }
+
+  .box {
+    gap: 12px;
+  }
+
+  .box-title {
+    font-size: 20px;
+  }
+
+  .box-action {
+    gap: 5px;
+  }
+
+  .box-action img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .movie-slide-item img {
+    width: 88px;
+    height: 118px;
+    box-shadow: 0px 1.92px 9.6px 0px rgba(0, 0, 0, 0.06);
+  }
+
+  .movie-title {
+    padding: 8px 0 8px 0;
+    width: 126px;
+    font-size: 13px;
+  }
+
+  .movie-detail div {
+    width: 126px;
+    font-size: 10px;
+  }
+
+  .movie-detail div span {
+    margin-left: 6px;
+  }
+}
