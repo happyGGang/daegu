@@ -177,6 +177,9 @@ $(function() {
 				<c:when test="${context_path eq 'dalseonglib'}">
 				달성군립도서관<form:hidden path="manageCode" value="BR" />
 				</c:when>
+				<c:when test="${context_path eq 'dalseongchild'}">
+				달성어린이숲도서관<form:hidden path="manageCode" value="CD" />
+				</c:when>
 				<c:when test="${context_path eq 'dalseongsmall'}">
 					<form:radiobutton path="manageCode" value='FR' label="가창면 참꽃작은도서관" /><br/>
 					<form:radiobutton path="manageCode" value='GA' label="화원읍작은도서관" /><br/>
