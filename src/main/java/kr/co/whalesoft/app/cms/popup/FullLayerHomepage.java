@@ -12,7 +12,8 @@ public enum FullLayerHomepage {
     H6("h6"), //두류
     H7("h7"), //북부
     H8("h8"), //서부
-    H9("h9"); //수성
+    H9("h9"), //수성
+    H10("h10"); //수성
 
     private final String code;
 
