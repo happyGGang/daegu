@@ -2051,7 +2051,7 @@ function isFromFridayToSunday() {
 <%--																				<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>--%>
 																			</c:when>
 																			<c:otherwise>
-																				<a href="#muin" id="unmanned-req" class="btn btn2" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">
+<%--																				<a href="#muin" id="unmanned-req" class="btn btn2" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">--%>
 <%--																					<span>무인예약대출 신청</span></a>--%>
 																			</c:otherwise>
 																		</c:choose>
