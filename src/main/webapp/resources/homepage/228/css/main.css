@@ -138,7 +138,7 @@
 #calendar2 .calendar-info span.ev {background:url('/resources/homepage/228/img/blue-dot.png') no-repeat left center;}
 
 #calendar2 {width:86%;margin:0 auto;position:relative}
-.calendar {position:absolute;top:0px;z-index:800;width:1000px}
+/*.calendar {position:absolute;top:0px;z-index:800;width:1000px}*/
 .calendar .section{position:relative;overflow:hidden;text-align:center;margin:20px 20px;width:315px;float:right}
 .calendar .box{width:310px;margin-right:20px}
 .calendar h3{font-size:16px;color:#323232;font-weight:bold;line-height:36px;height:36px;text-align:left;float:left;padding-top:13px;}
