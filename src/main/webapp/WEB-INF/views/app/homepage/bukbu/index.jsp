@@ -6,23 +6,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.Random" %>
 <%
-Random rnd = new Random();
-int[] listNums = new int[10];
-for (int i = 0; i < 10; i++) {
-int num;
-boolean unique;
-do {
-unique = true;
-num = rnd.nextInt(10);
-for (int j = 0; j < i; j++) {
-if (listNums[j] == num) {
-unique = false;
-break;
-}
-}
-} while (!unique);
-listNums[i] = num;
-}
+    Random rnd = new Random();
+    int[] listNums = new int[10];
+    for (int i = 0; i < 10; i++) {
+        int num;
+        boolean unique;
+        do {
+            unique = true;
+            num = rnd.nextInt(10);
+            for (int j = 0; j < i; j++) {
+                if (listNums[j] == num) {
+                    unique = false;
+                    break;
+                }
+            }
+        } while (!unique);
+        listNums[i] = num;
+    }
 %>
 
 <!-- 메인 -->
@@ -41,645 +41,770 @@ listNums[i] = num;
 <tiles:insertAttribute name="header"/>
 
 <script type="text/javascript">
-	$(function () {
-		$('div#holiday-area').load('calendar2.do');
+  $(function () {
+    $('div#holiday-area').load('calendar2.do');
 
-		// 팝업 관련 코드 START
-		$('.close-btn').on('click', function() {
-			let $this = $(this);
-			let checkInput = $this.parent().find('input[data-day="'+$this.data('day')+'"]');
-			let popupId = checkInput.val();
-			if (checkInput.prop('checked')) {
-				let todayDate = new Date();
-				todayDate = new Date(parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
-				if($this.data('day') == 7) {
-					todayDate.setDate(todayDate.getDate() + 7);
-				}
-				document.cookie = popupId + "=no" + "; path=/; expires=" + todayDate.toGMTString() + ";";
-			}
+    // 팝업 관련 코드 START
+    $('.close-btn').on('click', function () {
+      let $this = $(this);
+      let checkInput = $this.parent().find('input[data-day="' + $this.data('day') + '"]');
+      let popupId = checkInput.val();
+      if (checkInput.prop('checked')) {
+        let todayDate = new Date();
+        todayDate = new Date(parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+        if ($this.data('day') == 7) {
+          todayDate.setDate(todayDate.getDate() + 7);
+        }
+        document.cookie = popupId + "=no" + "; path=/; expires=" + todayDate.toGMTString() + ";";
+      }
 
-			$('div#' + popupId).hide();
-		});
+      $('div#' + popupId).hide();
+    });
 
-		$('input[id*=pop]').on('click', function(e) {
-			e.preventDefault();
-			$(this).prop('checked', true);
-			$(this).parent('div').next('a').data('day', $(this).data('day'));
-			$(this).parent('div').next('a').click();
-		});
+    $('input[id*=pop]').on('click', function (e) {
+      e.preventDefault();
+      $(this).prop('checked', true);
+      $(this).parent('div').next('a').data('day', $(this).data('day'));
+      $(this).parent('div').next('a').click();
+    });
 
-		$('#popupLayer > div').each(function(i, v) {
-			let result = '';
-			let name = $(v).attr('id');
-			let nameOfCookie = name + "=";
-			let x = 0;
-			while (x <= document.cookie.length) {
-				var y = (x + nameOfCookie.length);
-				if (document.cookie.substring(x, y) == nameOfCookie) {
-					if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
-						endOfCookie = document.cookie.length;
-					result = unescape(document.cookie
-							.substring(y, endOfCookie));
-				}
-				x = document.cookie.indexOf(" ", x) + 1;
-				if (x == 0)
-					break;
-			}
+    $('#popupLayer > div').each(function (i, v) {
+      let result = '';
+      let name = $(v).attr('id');
+      let nameOfCookie = name + "=";
+      let x = 0;
+      while (x <= document.cookie.length) {
+        var y = (x + nameOfCookie.length);
+        if (document.cookie.substring(x, y) == nameOfCookie) {
+          if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+            endOfCookie = document.cookie.length;
+          result = unescape(document.cookie
+          .substring(y, endOfCookie));
+        }
+        x = document.cookie.indexOf(" ", x) + 1;
+        if (x == 0)
+          break;
+      }
 
-			if (result != 'no') {
-				if  (window.innerWidth < $(v).width() ) {
-					$(v).css('width', 'auto');
-				}
-				$(v).show();
-			}
-		});
-		// 팝업 관련 코드 END
+      if (result != 'no') {
+        if (window.innerWidth < $(v).width()) {
+          $(v).css('width', 'auto');
+        }
+        $(v).show();
+      }
+    });
+    // 팝업 관련 코드 END
 
-		$('.section3-content4').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
+    $('.section3-content4').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
 
-		$('.section3-content4').load('newBook.do', function () {
-			if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
-				$('.section3-slide').slick({
-					slidesToShow: 5,
-					slidesToScroll: 1,
-					autoplay: false,
-					arrows: false,
-					dots: false,
-					variableWidth: true,
-					responsive: [
-						{
-							breakpoint: 1260,
-							settings: {
-								slidesToShow: 4,
-								variableWidth: true,
-							},
-						},
-						{
-							breakpoint: 865,
-							settings: {
-								slidesToShow: 3,
-								variableWidth: true,
-							},
-						},
-					],
-				});
-			}
+    $('.section3-content4').load('newBook.do', function () {
+      if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
+        $('.section3-slide').slick({
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          autoplay: false,
+          arrows: false,
+          dots: false,
+          variableWidth: true,
+          responsive: [
+            {
+              breakpoint: 1260,
+              settings: {
+                slidesToShow: 4,
+                variableWidth: true,
+              },
+            },
+            {
+              breakpoint: 865,
+              settings: {
+                slidesToShow: 3,
+                variableWidth: true,
+              },
+            },
+          ],
+        });
+      }
 
-			$('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
-				if ($('.section3-slide').hasClass('slick-initialized')) {
-					$('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
-				}
-			});
-		});
+      $('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
+        if ($('.section3-slide').hasClass('slick-initialized')) {
+          $('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
+        }
+      });
+    });
 
-		$('#main-search-btn').on('click', function () {
-			if ($('input#book-search').val() == '') {
-				alert('검색어를 입력하세요.');
-				$('input#book-search').focus();
-				return false;
-			}
-			$('#main-search-btn').submit();
-		});
-	});
+    $('.section3-content5').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
+
+    $('.section3-content5').load('bestBook.do', function () {
+      if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
+        $('.section3-slide').slick({
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          autoplay: false,
+          arrows: false,
+          dots: false,
+          variableWidth: true,
+          responsive: [
+            {
+              breakpoint: 1260,
+              settings: {
+                slidesToShow: 4,
+                variableWidth: true,
+              },
+            },
+            {
+              breakpoint: 865,
+              settings: {
+                slidesToShow: 3,
+                variableWidth: true,
+              },
+            },
+          ],
+        });
+      }
+
+      $('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
+        if ($('.section3-slide').hasClass('slick-initialized')) {
+          $('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
+        }
+      });
+    });
+
+    $('.section3-content6').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
+
+    $('.section3-content6').load('bestBook.do', function () {
+      if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
+        $('.section3-slide').slick({
+          slidesToShow: 5,
+          slidesToScroll: 1,
+          autoplay: false,
+          arrows: false,
+          dots: false,
+          variableWidth: true,
+          responsive: [
+            {
+              breakpoint: 1260,
+              settings: {
+                slidesToShow: 4,
+                variableWidth: true,
+              },
+            },
+            {
+              breakpoint: 865,
+              settings: {
+                slidesToShow: 3,
+                variableWidth: true,
+              },
+            },
+          ],
+        });
+      }
+
+      $('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
+        if ($('.section3-slide').hasClass('slick-initialized')) {
+          $('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
+        }
+      });
+    });
+    $('#main-search-btn').on('click', function () {
+      if ($('input#book-search').val() == '') {
+        alert('검색어를 입력하세요.');
+        $('input#book-search').focus();
+        return false;
+      }
+      $('#main-search-btn').submit();
+    });
+  });
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
 <div id="wrap" class="main_container">
-	<input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
+    <input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
 
-	<tiles:insertAttribute name="top"/>
-	<tiles:insertAttribute name="topMenu"/>
+    <tiles:insertAttribute name="top"/>
+    <tiles:insertAttribute name="topMenu"/>
 
-	<div class="popupWrap section">
-		<div id="popupLayer">
-			<homepageTag:popup popupList="${popupList}" />
-		</div>
-	</div>
+    <div class="popupWrap section">
+        <div id="popupLayer">
+            <homepageTag:popup popupList="${popupList}"/>
+        </div>
+    </div>
 
-	<!-- 통합팝업 -->
-	<c:if test="${not empty popupFullList}">
-		<div class="total-popup-overlay"></div>
-		<div class="total_popup_area" id="total_popup_area">
-			<div class="total-popup-controller">
-				<div class="total-popup-controller-btn popup-today-close">
-					<div>오늘 하루 열지 않기</div>
-					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
-				</div>
-				<div class="total-popup-controller-btn popup-close">
-					<div>창 닫기</div>
-					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
-				</div>
-			</div>
+    <!-- 통합팝업 -->
+    <c:if test="${not empty popupFullList}">
+        <div class="total-popup-overlay"></div>
+        <div class="total_popup_area" id="total_popup_area">
+            <div class="total-popup-controller">
+                <div class="total-popup-controller-btn popup-today-close">
+                    <div>오늘 하루 열지 않기</div>
+                    <img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
+                </div>
+                <div class="total-popup-controller-btn popup-close">
+                    <div>창 닫기</div>
+                    <img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
+                </div>
+            </div>
 
-			<div class="total-popup-content">
-				<div class="total-popup-title">POPUP LIST</div>
-				<div class="total-popup-slide-wrapper">
-					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
-					<div class="total-popup-slide">
-						<c:forEach items="${popupFullList}" var="i" varStatus="status">
-							<div class="total-popup-slide-item">
-								<c:choose>
-									<c:when test="${not empty i.server_file_name}">
-										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
-									</c:when>
-									<c:otherwise>
-										<img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.alt_text}">
-									</c:otherwise>
-								</c:choose>
-								<c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
-									<a href="${i.link_url}"> ${i.link_type eq 'APPLY' ? '신청하기' : '자세히보기'} </a>
-								</c:if>
-							</div>
-						</c:forEach>
-					</div>
-					<img class="total-popup-slide-next" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-right-arrow.svg" alt="">
-				</div>
-			</div>
-		</div>
-	</c:if>
+            <div class="total-popup-content">
+                <div class="total-popup-title">POPUP LIST</div>
+                <div class="total-popup-slide-wrapper">
+                    <img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
+                    <div class="total-popup-slide">
+                        <c:forEach items="${popupFullList}" var="i" varStatus="status">
+                            <div class="total-popup-slide-item">
+                                <c:choose>
+                                    <c:when test="${not empty i.server_file_name}">
+                                        <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.alt_text}">
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
+                                    <a href="${i.link_url}"> ${i.link_type eq 'APPLY' ? '신청하기' : '자세히보기'} </a>
+                                </c:if>
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <img class="total-popup-slide-next" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-right-arrow.svg" alt="">
+                </div>
+            </div>
+        </div>
+    </c:if>
 
-	<div id="fullpage">
-		<!-- 섹션1 -->
-		<div class="section-wrapper" data-anchor="section1">
-			<div class="main-bg-slide slider-for">
-				<c:forEach var="i" items="${popupZoneList}">
-					<div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');">></div>
-				</c:forEach>
-			</div>
-			<div class="wrapper">
-				<div class="search-bar-wrapper">
-					<form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
-						<input type="hidden" name="_csrf" value="d09d3db2-6fbd-477b-b232-5f589c4e40b9">
-							<label for="search_type" class="search_type">
-								<select id="search_type" name="search_type">
-									<option value="title">서명</option>
-									<option value="author">저자</option>
-									<option value="publer">발행자</option>
-									<option value="keyword">키워드</option>
-								</select>
-							</label>
-						<input type="hidden" name="menu_idx" value="13">
-						<input type="hidden" name="booktype" value="BOOKANDNONBOOK">
-							<input name="search_text" id="search_text_1" type="text" placeholder="검색어를 입력해주세요.">
-							<button id="main-search-btn">
-								자료검색
-								<img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt="">
-							</button>
-					</form>
+    <div id="fullpage">
+        <!-- 섹션1 -->
+        <div class="section-wrapper" data-anchor="section1">
+            <div class="main-bg-slide slider-for">
+                <c:forEach var="i" items="${popupZoneList}">
+                    <div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');">></div>
+                </c:forEach>
+            </div>
+            <div class="wrapper">
+                <div class="search-bar-wrapper">
+                    <form id="mainSearchForm" action="/${homepage.context_path}/intro/search/index.do">
+                        <input type="hidden" name="_csrf" value="d09d3db2-6fbd-477b-b232-5f589c4e40b9">
+                        <label for="search_type" class="search_type">
+                            <select id="search_type" name="search_type">
+                                <option value="title">서명</option>
+                                <option value="author">저자</option>
+                                <option value="publer">발행자</option>
+                                <option value="keyword">키워드</option>
+                            </select>
+                        </label>
+                        <input type="hidden" name="menu_idx" value="13">
+                        <input type="hidden" name="booktype" value="BOOKANDNONBOOK">
+                        <input name="search_text" id="search_text_1" type="text" placeholder="검색어를 입력해주세요.">
+                        <button id="main-search-btn">
+                            <span>자료검색</span>
+                            <img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt="">
+                        </button>
+                    </form>
 
-					<a class="kakao" href="https://pf.kakao.com/_xhxiyDxj"><img src="/resources/homepage/${homepage.context_path}/img/common/kakaotalk-color.svg" alt=""></a>
-					<a href="https://www.instagram.com/lib${homepage.context_path}/"><img src="/resources/homepage/${homepage.context_path}/img/common/instagram-color.svg" alt=""></a>
-				</div>
-				<div class="main-popup-wrapper">
-					<img class="main-popup-prev" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-prev.svg" alt="">
-					<img class="main-popup-next" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-next.svg" alt="">
-					<div class="popup-pagination"></div>
-					<div class="main-popup slider-nav">
-						<c:forEach var="i" items="${popupZoneList}">
-							<div class="main-popup-item">
-								<c:choose>
-									<c:when test="${i.link_target eq 'BLANK'}">
-										<a href="${i.link_url}" target="_blank">
-											<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
-										</a>
-									</c:when>
-									<c:otherwise>
-										<a href="${i.link_url}">
-											<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
-										</a>
-									</c:otherwise>
-								</c:choose>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-			</div>
-			<div class="main-bottom-area">
-				<div class="main-bottom-area-wrapper">
-					<div class="quick-menu">
-						<c:forEach var="i" varStatus="status" items="${quickMenuList}">
-							<c:if test="${i.link_target eq 'BLANK' }">
-								<a class="quick-menu-item" href="${i.link_url}" target="_blank">
-									<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
-									<div>${i.menu_name}</div>
-								</a>
-							</c:if>
-							<c:if test="${i.link_target ne 'BLANK' }">
-								<a class="quick-menu-item" href="${i.link_url}" target="_blank">
-									<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
-									<div>${i.menu_name}</div>
-								</a>
-							</c:if>
-						</c:forEach>
-					</div>
-					<div class="holiday-notice-wrapper">
-						<div class="holiday-area" id="holiday-area"></div>
-						<div class="notice-slide-wrapper">
-							<img src="/resources/homepage/dalseong/img/main/notice-slide-pause.svg" alt="">
-							<div class="notice-slide">
-								<c:if test="${not empty newsList}">
-									<c:forEach items="${newsList}" var="i">
-										<div>
-											<c:out value="${i.news_name}" default="제목 없음" />
+                    <a class="kakao" href="https://pf.kakao.com/_xhxiyDxj">
+						<img src="/resources/homepage/${homepage.context_path}/img/common/kakaotalk-color.svg" alt="">
+					</a>
+                    <a href="https://www.instagram.com/lib${homepage.context_path}/">
+						<img src="/resources/homepage/${homepage.context_path}/img/common/instagram-color.svg" alt="">
+					</a>
+                </div>
+
+                <div class="main-popup-wrapper">
+                    <img class="main-popup-prev" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-prev.svg" alt="">
+                    <img class="main-popup-next" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-next.svg" alt="">
+                    <div class="popup-pagination"></div>
+                    <div class="main-popup slider-nav">
+                        <c:forEach var="i" items="${popupZoneList}">
+                            <div class="main-popup-item">
+                                <c:choose>
+                                    <c:when test="${i.link_target eq 'BLANK'}">
+                                        <a href="${i.link_url}" target="_blank">
+                                            <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="${i.link_url}">
+                                            <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+            <div class="main-bottom-area">
+                <div class="main-bottom-area-wrapper">
+                    <div class="quick-menu">
+                        <c:forEach var="i" varStatus="status" items="${quickMenuList}">
+                            <c:if test="${i.link_target eq 'BLANK' }">
+                                <a class="quick-menu-item" href="${i.link_url}" target="_blank">
+                                    <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
+                                    <div>${i.menu_name}</div>
+                                </a>
+                            </c:if>
+                            <c:if test="${i.link_target ne 'BLANK' }">
+                                <a class="quick-menu-item" href="${i.link_url}" target="_blank">
+                                    <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
+                                    <div>${i.menu_name}</div>
+                                </a>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                    <div class="holiday-notice-wrapper">
+                        <div class="holiday-area" id="holiday-area"></div>
+                        <div class="notice-slide-wrapper">
+                            <img src="/resources/homepage/dalseong/img/main/notice-slide-pause.svg" alt="">
+                            <div class="notice-slide">
+                                <c:if test="${not empty newsList}">
+                                    <c:forEach items="${newsList}" var="i">
+                                        <div>
+                                            <c:out value="${i.news_name}" default="제목 없음"/>
+                                        </div>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${empty newsList}">
+                                    <div>등록된 알림이 없습니다.</div>
+                                </c:if>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 섹션2 -->
+        <div class="section-wrapper" data-anchor="section2">
+            <div class="wrapper">
+                <div class="section2-header">
+                    <div class="section2-title">
+                        <div class="section2-title-text">도서관 소식</div>
+                        <div class="section2-tab">
+                            <div class="section2-tab-active" data-target="1" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">행사프로그램</div>
+                            <div data-target="2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1">공지사항</div>
+                            <div data-target="3" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">가족영화</div>
+                        </div>
+                    </div>
+
+                    <div class="section2-action-wrapper">
+                        <img class="section2-slide-prev" src="/resources/homepage/${homepage.context_path}/img/notice/left-arrow.svg" alt="">
+                        <img class="section2-slide-next" src="/resources/homepage/${homepage.context_path}/img/notice/right-arrow.svg" alt="">
+                        <a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="tab-link">
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="section2-content1">
+					<c:choose>
+						<c:when test="${fn:length(teachGuideList) > 0}">
+							<div class="section2-slide">
+								<c:forEach var="i" varStatus="status" items="${teachGuideList}">
+									<div class="section2-slide-item">
+										<div class="section2-slide-item-top">
+											<div class="section2-slide-item-top-header">
+												<div>행사프로그램</div>
+												<div>
+													<fmt:formatDate value="${i.add_date}" pattern="MM"/><span> <fmt:formatDate value="${i.add_date}" pattern="dd"/></span>
+												</div>
+											</div>
+											<div class="section2-slide-item-title">${i.title}</div>
 										</div>
-									</c:forEach>
-								</c:if>
-								<c:if test="${empty newsList}">
-									<div>등록된 알림이 없습니다.</div>
-								</c:if>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 섹션2 -->
-		<div class="section-wrapper" data-anchor="section2">
-			<div class="wrapper">
-				<div class="section2-header">
-					<div class="section2-title">
-						<div class="section2-title-text">도서관 소식</div>
-						<div class="section2-tab">
-							<div class="section2-tab-active" data-target="1" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">행사프로그램</div>
-							<div data-target="2" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1">공지사항</div>
-							<div data-target="3" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">가족영화</div>
-						</div>
-					</div>
-
-					<div class="section2-action-wrapper">
-						<img class="section2-slide-prev" src="/resources/homepage/${homepage.context_path}/img/notice/left-arrow.svg" alt="">
-						<img class="section2-slide-next" src="/resources/homepage/${homepage.context_path}/img/notice/right-arrow.svg" alt="">
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="tab-link">
-							<img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
-						</a>
-					</div>
-				</div>
-
-				<div class="section2-content1">
-					<c:if test="${fn:length(boardList1) > 0}">
-						<div class="section2-slide">
-							<c:forEach var="i" varStatus="status" items="${boardList1}">
-								<div class="section2-slide-item">
-									<div class="section2-slide-item-top">
-										<div class="section2-slide-item-top-header">
-											<div>행사프로그램</div>
-											<div>05<span> 07</span></div>
+										<div class="section2-slide-item-bottom">
+											<div>${i.content_summary}</div>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+											</a>
 										</div>
-										<div class="section2-slide-item-title">행사프로그램 제목 들어갈 자리</div>
 									</div>
-									<div class="section2-slide-item-bottom">
-										<div>행사프로그램 설명 들어갈 자리</div>
-										<a href="">
-											<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
-										</a>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-					</c:if>
-					<c:if test="${fn:length(boardList1) < 1}">
-						<div class="event-no-data">등록된 행사프로그램이 없습니다.</div>
-					</c:if>
-				</div>
-				<div class="section2-content2" style="display: none;">
-					<c:if test="${fn:length(noticeList) > 0}">
-						<div class="section2-slide">
-							<c:forEach var="i" varStatus="status" items="${noticeList}">
-								<div class="section2-slide-item">
-									<div class="section2-slide-item-top">
-										<div class="section2-slide-item-top-header">
-											<div>공지사항</div>
-											<div>05<span> 07</span></div>
+								</c:forEach>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="event-no-data">등록된 행사프로그램이 없습니다.</div>
+						</c:otherwise>
+					</c:choose>
+                </div>
+                <div class="section2-content2" style="display: none;">
+					<c:choose>
+						<c:when test="${fn:length(noticeList) > 0}">
+							<div class="section2-slide">
+								<c:forEach var="i" varStatus="status" items="${noticeList}">
+									<div class="section2-slide-item">
+										<div class="section2-slide-item-top">
+											<div class="section2-slide-item-top-header">
+												<div>공지사항</div>
+												<div>
+													<fmt:formatDate value="${i.add_date}" pattern="MM"/><span> <fmt:formatDate value="${i.add_date}" pattern="dd"/></span>
+												</div>
+											</div>
+											<div class="section2-slide-item-title">${i.title}</div>
 										</div>
-										<div class="section2-slide-item-title">${i.title}</div>
-									</div>
-									<div class="section2-slide-item-bottom">
-										<div>공지사항 내용 들어갈 자리</div>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
-										</a>
-									</div>
-								</div>
-							</c:forEach>
-						</div>
-					</c:if>
-					<c:if test="${fn:length(noticeList) < 1}">
-						<div class="event-no-data">등록된 공지사항이 없습니다.</div>
-					</c:if>
-				</div>
-				<div class="section2-content3" style="display: none;">
-					<c:if test="${fn:length(movieList) > 0}">
-						<div class="section2-slide">
-							<c:forEach var="i" varStatus="status" items="${movieList}">
-								<div class="section2-slide-item">
-									<div class="section2-slide-item-top">
-										<div class="section2-slide-item-top-header">
-											<div>가족영화</div>
-											<div>05<span> 07</span></div>
+										<div class="section2-slide-item-bottom">
+											<div>${i.content_summary}</div>
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+											</a>
 										</div>
-										<div class="section2-slide-item-title">${i.title}</div>
 									</div>
-									<div class="section2-slide-item-bottom">
-										<div>영화 설명 들어갈 자리</div>
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-											<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
-										</a>
+								</c:forEach>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="event-no-data">등록된 공지사항이 없습니다.</div>
+						</c:otherwise>
+					</c:choose>
+                </div>
+
+                <div class="section2-content3" style="display: none;">
+					<c:choose>
+						<c:when test="${fn:length(movieList) > 0}">
+							<div class="section2-slide">
+								<c:forEach var="i" varStatus="status" items="${movieList}">
+									<div class="section2-slide-item">
+										<div class="section2-slide-item-top">
+											<div class="section2-slide-item-top-header">
+												<div>가족영화</div>
+												<div>05<span> 07</span></div>
+											</div>
+											<div class="section2-slide-item-title">${i.title}</div>
+										</div>
+										<div class="section2-slide-item-bottom">
+											<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
+												<div>날짜 : ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}</div>
+											</c:if>
+											<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
+												<div>시간 : ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}</div>
+											</c:if>
+											<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
+												<div>장소 : ${i.imsi_v_6}</div>
+											</c:if>
+											<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
+												<div>장르 : ${fn:substring(i.imsi_v_9, 0, 6)}</div>
+											</c:if>
+
+											<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+												<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+											</a>
+										</div>
 									</div>
-								</div>
-							</c:forEach>
-						</div>
-					</c:if>
-					<c:if test="${fn:length(movieList) < 1}">
-						<div class="event-no-data">등록된 영화가 없습니다.</div>
-					</c:if>
-				</div>
-			</div>
-		</div>
-		<!-- 섹션3 -->
-		<div class="section-wrapper" data-anchor="section3">
-			<div class="wrapper">
-				<div class="section3-top">
-					<div class="section3-title">도서서비스</div>
-					<div class="section3-wrapper">
-						<div class="section3-header">
-							<div class="section3-tab">
-								<div class="section3-tab-active"
-									 data-target="4" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">신착도서</div>
-								<div data-target="5" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1">대출베스트</div>
-								<div data-target="6" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">교과연계도서</div>
-								<div data-target="7" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">북큐레이션</div>
+								</c:forEach>
 							</div>
-							
-							<div class="section3-action-wrapper">
-								<img class="section3-slide-prev" src="/resources/homepage/${homepage.context_path}/img/notice/left-arrow.svg" alt="">
-								<img class="section3-slide-next" src="/resources/homepage/${homepage.context_path}/img/notice/right-arrow.svg" alt="">
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="tab-link2">
-									<img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
-								</a>
-							</div>
-						</div>
-					
-						<div class="section3-content4"></div>
-						<div class="section3-content5" style="display: none;">
-						
-						</div>
-						<div class="section3-content6" style="display: none;">
-						
-						</div>
-						<div class="section3-content7" style="display: none;">
-							
-						</div>
-					</div>
-				</div>
-				
-				<div class="section3-bottom">
-					<a href="/${homepage.context_path}/html.do?menu_idx=48">
-						<img src="/resources/homepage/${homepage.context_path}/img/book/icon1.svg" alt="">
-						<div class="link-name">
-							<div>책바다</div>
-							<div>
-								전국도서관 소장자료<br>
-								공유·공동 활용
-							</div>
-						</div>
-					</a>
-					<a href="/${homepage.context_path}/html.do?menu_idx=49">
-						<img src="/resources/homepage/${homepage.context_path}/img/book/icon2.svg" alt="">
-						<div class="link-name">
-							<div>책나래</div>
-							<div>
-								장애인을 위한 도서관 자료<br>
-								무료 택배 서비스
-							</div>
-						</div>
-					</a>
-					<a href="/${homepage.context_path}/html.do?menu_idx=110">
-						<img src="/resources/homepage/${homepage.context_path}/img/book/icon3.svg" alt="">
-						<div class="link-name">
-							<div>경북대상호대차</div>
-							<div>
-								경북대학교 도서관 자료<br>
-								상호 대출 서비스
-							</div>
-						</div>
-					</a>
-					<a href="/${homepage.context_path}/html.do?menu_idx=50	">
-						<img src="/resources/homepage/${homepage.context_path}/img/book/icon4.svg" alt="">
-						<div class="link-name">
-							<div>사서에게 물어보세요</div>
-							<div>
-								협력형 온라인 지식 정보<br>
-								서비스
-							</div>
-						</div>
-					</a>
-					<a href="/dgportal/index.do">
-						<img src="/resources/homepage/${homepage.context_path}/img/book/icon5.svg" alt="">
-						<div class="link-name">
-							<div>대구통합도서관</div>
-							<div>
-								대구 지역 공공도서관의<br>
-								소식을 한 번에 확인
-							</div>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-		<!-- 섹션4 -->
-		<div class="section-wrapper" data-anchor="section4">
-			<div class="section4-slide">
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>어린이자료실</div>
-								<div>어린이자료실 소개</div>
-							</div>
-							<div class="index">01</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>종합자료실</div>
-								<div>종합자료실 소개</div>
-							</div>
-							<div class="index">02</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>청소년북아지트</div>
-								<div>청소년북아지트 소개</div>
-							</div>
-							<div class="index">03</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>북마루</div>
-								<div>북마루 소개</div>
-							</div>
-							<div class="index">04</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>북담</div>
-								<div>북담 소개</div>
-							</div>
-							<div class="index">05</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>시청각실</div>
-								<div>시청각실 소개</div>
-							</div>
-							<div class="index">06</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-				<div class="section4-slide-item">
-					<div class="content-title">공간소개</div>
-					<div class="section4-slide-item-content">
-						<div class="section4-slide-item-content-top">
-							<div class="place-name">
-								<div>카페</div>
-								<div>카페 소개</div>
-							</div>
-							<div class="index">07</div>
-						</div>
-						<div class="section4-slide-item-content-bottom">
-							<div class="slide-controller">
-								<img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
-								<img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
-							</div>
-							<img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="section4-pagination">
-				<div class="section4-pagination-item">
-					<div>01</div>
-					<div>어린이자료실</div>
-				</div>
-				<div class="section4-pagination-item">
-					<div>02</div>
-					<div>종합자료실</div>
-				</div>
-				<div class="section4-pagination-item">
-					<div>03</div>
-					<div>청소년북아지트</div>
-				</div>
-				<div class="section4-pagination-item">
-					<div>04</div>
-					<div>북마루</div>
-				</div>
-				<div class="section4-pagination-item">
-					<div>05</div>
-					<div>북담</div>
-				</div>
-				<div class="section4-pagination-item">
-					<div>06</div>
-					<div>시청각실</div>
-				</div>
-				<div class="section4-pagination-item">
-					<div>07</div>
-					<div>카페</div>
-				</div>
-			</div>
-		</div>
+						</c:when>
+						<c:otherwise>
+							<div class="event-no-data">등록된 영화가 없습니다.</div>
+						</c:otherwise>
+					</c:choose>
+                </div>
+            </div>
+        </div>
+        <!-- 섹션3 -->
+        <div class="section-wrapper" data-anchor="section3">
+            <div class="wrapper">
+                <div class="section3-top">
+                    <div class="section3-title">도서서비스</div>
+                    <div class="section3-wrapper">
+                        <div class="section3-header">
+                            <div class="section3-tab">
+                                <div class="section3-tab-active"
+                                     data-target="4" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">신착도서
+                                </div>
+                                <div data-target="5" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1">대출베스트</div>
+                                <div data-target="6" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">교과연계도서</div>
+                                <div data-target="7" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">북큐레이션</div>
+                            </div>
 
-		<!-- footer -->
-		<div class="footer section-wrapper fp-auto-height" data-anchor="section5">
-			<!-- banner -->
-			<div class="banner-area">
-				<div class="banner-slide-controller">
-					<img class="banner-prev" src="/resources/homepage/${homepage.context_path}/img/common/banner-prev.svg" alt=""/>
-					<img class="banner-next" src="/resources/homepage/${homepage.context_path}/img/common/banner-next.svg" alt=""/>
-					<img class="banner-play-and-pause" src="/resources/homepage/${homepage.context_path}/img/common/banner-pause.svg" alt="">
-					<img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/${homepage.context_path}/img/common/banner-more.svg" alt="">
-				</div>
-				<homepageTag:newBanner bannerList="${bannerList}"/>
-			</div>
+                            <div class="section3-action-wrapper">
+                                <img class="section3-slide-prev" src="/resources/homepage/${homepage.context_path}/img/notice/left-arrow.svg" alt="">
+                                <img class="section3-slide-next" src="/resources/homepage/${homepage.context_path}/img/notice/right-arrow.svg" alt="">
+                                <a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="tab-link2">
+                                    <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
 
-			<tiles:insertAttribute name="footer"/>
-		</div>
-	</div>
+                        <div class="section3-content4"></div>
+                        <div class="section3-content5" style="display: none;">
 
-	<!-- indicator -->
-	<div id="fullpage-indicator">
-		<div data-menuanchor="section1"></div>
-		<div data-menuanchor="section2"></div>
-		<div data-menuanchor="section3"></div>
-		<div data-menuanchor="section4"></div>
-		<div data-menuanchor="section5"></div>
-	</div>
+                        </div>
+                        <div class="section3-content6" style="display: none;">
+
+                        </div>
+                        <div class="section3-content7" style="display: none;">
+                            <c:choose>
+                                <c:when test="${fn:length(curationList) > 0}">
+                                    <div class="section3-slide">
+                                        <c:forEach var="i" items="${curationList}">
+                                            <div class="section3-slide-item">
+                                                <a href="/${homepage.context_path}/board/view.do?menu_idx=165&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                                    <c:choose>
+                                                        <c:when test="${fn:contains(i.preview_img, 'noimg')}">
+                                                            <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </a>
+                                                <div class="section3-slide-title">${i.title}</div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="book-nodata">등록된 큐레이션이 없습니다.</div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section3-bottom">
+                    <a href="/${homepage.context_path}/html.do?menu_idx=48">
+                        <img src="/resources/homepage/${homepage.context_path}/img/book/icon1.svg" alt="">
+                        <div class="link-name">
+                            <div>책바다</div>
+                            <div>
+                                전국도서관 소장자료<br>
+                                공유·공동 활용
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/${homepage.context_path}/html.do?menu_idx=49">
+                        <img src="/resources/homepage/${homepage.context_path}/img/book/icon2.svg" alt="">
+                        <div class="link-name">
+                            <div>책나래</div>
+                            <div>
+                                장애인을 위한 도서관 자료<br>
+                                무료 택배 서비스
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/${homepage.context_path}/html.do?menu_idx=110">
+                        <img src="/resources/homepage/${homepage.context_path}/img/book/icon3.svg" alt="">
+                        <div class="link-name">
+                            <div>경북대상호대차</div>
+                            <div>
+                                경북대학교 도서관 자료<br>
+                                상호 대출 서비스
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/${homepage.context_path}/html.do?menu_idx=50	">
+                        <img src="/resources/homepage/${homepage.context_path}/img/book/icon4.svg" alt="">
+                        <div class="link-name">
+                            <div>사서에게 물어보세요</div>
+                            <div>
+                                협력형 온라인 지식 정보<br>
+                                서비스
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/dgportal/index.do">
+                        <img src="/resources/homepage/${homepage.context_path}/img/book/icon5.svg" alt="">
+                        <div class="link-name">
+                            <div>대구통합도서관</div>
+                            <div>
+                                대구 지역 공공도서관의<br>
+                                소식을 한 번에 확인
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 섹션4 -->
+        <div class="section-wrapper" data-anchor="section4">
+            <div class="section4-slide">
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>어린이자료실</div>
+                                <div>어린이자료실 소개</div>
+                            </div>
+                            <div class="index">01</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>종합자료실</div>
+                                <div>종합자료실 소개</div>
+                            </div>
+                            <div class="index">02</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>청소년북아지트</div>
+                                <div>청소년북아지트 소개</div>
+                            </div>
+                            <div class="index">03</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>북마루</div>
+                                <div>북마루 소개</div>
+                            </div>
+                            <div class="index">04</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>북담</div>
+                                <div>북담 소개</div>
+                            </div>
+                            <div class="index">05</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>시청각실</div>
+                                <div>시청각실 소개</div>
+                            </div>
+                            <div class="index">06</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="section4-slide-item">
+                    <div class="content-title">공간소개</div>
+                    <div class="section4-slide-item-content">
+                        <div class="section4-slide-item-content-top">
+                            <div class="place-name">
+                                <div>카페</div>
+                                <div>카페 소개</div>
+                            </div>
+                            <div class="index">07</div>
+                        </div>
+                        <div class="section4-slide-item-content-bottom">
+                            <div class="slide-controller">
+                                <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
+                                <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
+                            </div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section4-pagination">
+                <div class="section4-pagination-item">
+                    <div>01</div>
+                    <div>어린이자료실</div>
+                </div>
+                <div class="section4-pagination-item">
+                    <div>02</div>
+                    <div>종합자료실</div>
+                </div>
+                <div class="section4-pagination-item">
+                    <div>03</div>
+                    <div>청소년북아지트</div>
+                </div>
+                <div class="section4-pagination-item">
+                    <div>04</div>
+                    <div>북마루</div>
+                </div>
+                <div class="section4-pagination-item">
+                    <div>05</div>
+                    <div>북담</div>
+                </div>
+                <div class="section4-pagination-item">
+                    <div>06</div>
+                    <div>시청각실</div>
+                </div>
+                <div class="section4-pagination-item">
+                    <div>07</div>
+                    <div>카페</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="footer section-wrapper fp-auto-height" data-anchor="section5">
+            <!-- banner -->
+            <div class="banner-area">
+                <div class="banner-slide-controller">
+                    <img class="banner-prev" src="/resources/homepage/${homepage.context_path}/img/common/banner-prev.svg" alt=""/>
+                    <img class="banner-next" src="/resources/homepage/${homepage.context_path}/img/common/banner-next.svg" alt=""/>
+                    <img class="banner-play-and-pause" src="/resources/homepage/${homepage.context_path}/img/common/banner-pause.svg" alt="">
+                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/${homepage.context_path}/img/common/banner-more.svg" alt="">
+                </div>
+                <homepageTag:newBanner bannerList="${bannerList}"/>
+            </div>
+
+            <tiles:insertAttribute name="footer"/>
+        </div>
+    </div>
+
+    <!-- indicator -->
+    <div id="fullpage-indicator">
+        <div data-menuanchor="section1"></div>
+        <div data-menuanchor="section2"></div>
+        <div data-menuanchor="section3"></div>
+        <div data-menuanchor="section4"></div>
+        <div data-menuanchor="section5"></div>
+    </div>
 </div>
 </body>
