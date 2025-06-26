@@ -356,7 +356,7 @@ do {
 					<div class="tab-wrapper">
 						<div class="tab active" data-content="culture">
 							<div>문화행사</div>
-							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16"><img src="/resources/homepage/dalseongchild/img/culture/active-more.svg" alt="More"></a>
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=114&searchCate1=16&searchCate2=6"><img src="/resources/homepage/dalseongchild/img/culture/active-more.svg" alt="More"></a>
 						</div>
 						<div class="tab" data-content="program">
 							<div>평생학습프로그램</div>
