@@ -402,6 +402,11 @@
 							<form:option value="BR">달성군립도서관</form:option>
 						</form:select><!--<span style="color:#ff0000"> * 2021년 희망도서 예산소진으로 인해서 희망도서 신청을 마감합니다. </span>-->
 					</c:when>
+					<c:when test="${context_path eq 'dalseongchild'}">
+						<form:select path="manageCode">
+							<form:option value="CD">달성어린이숲도서관</form:option>
+						</form:select>
+					</c:when>
 					<c:when test="${context_path eq 'dalseongsmall'}">
 						<form:select path="manageCode">
 							<form:option value="GA">화원읍작은도서관</form:option>
@@ -446,8 +451,8 @@
 
 					<c:when test="${context_path eq 'bolli'}">
 						<form:select path="manageCode">
-							<form:option value="BX">본리도서관</form:option>
-						</form:select><!-- <span style="color:#ff0000">  * 본리도서관 희망도서 신청 재개 시 안내드리겠습니다. </span> -->
+							<!--<form:option value="BX">본리도서관</form:option>-->
+						</form:select><span style="color:#ff0000">  * 본리도서관 희망도서 신청 재개 시 안내드리겠습니다. </span>
 
 					</c:when>
 					<c:when test="${context_path eq 'family'}">

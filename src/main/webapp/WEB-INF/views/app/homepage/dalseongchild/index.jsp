@@ -278,8 +278,8 @@ do {
 					</div>
 					<c:choose>
 						<c:when test="${fn:length(popupZoneList) > 0}">
-							<c:forEach var="i" items="${popupZoneList}">
-								<div class="popup-slide">
+							<div class="popup-slide">
+								<c:forEach var="i" items="${popupZoneList}">
 									<c:choose>
 										<c:when test="${i.link_target eq 'BLANK'}">
 											<a href="${i.link_url}" target="_blank">
@@ -292,12 +292,14 @@ do {
 											</a>
 										</c:otherwise>
 									</c:choose>
-								</div>
-							</c:forEach>
+								</c:forEach>
+							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="popup-slide">
-								<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="" />
+								<a href="">
+									<img src="/resources/homepage/dalseongchild/img/common/dummy.png" alt="" />
+								</a>
 							</div>
 						</c:otherwise>
 					</c:choose>
@@ -311,21 +313,19 @@ do {
 						</a>
 					</div>
 					<div class="notice-list">
-						<c:if test="${fn:length(noticeListTopNotice) < 1}">
-							<div class="notice-no-data">등록된 상단 공지사항이 없습니다.</div>
+						<c:if test="${fn:length(noticeListTopNotice) >= 1}">
+							<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" begin='0' end='1'>
+								<a class="notice-list-item fixed" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+									<div class="notice-list-item-date">
+										<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
+										<div><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></div>
+									</div>
+									<div class="notice-list-item-title">${i.title}</div>
+								</a>
+							</c:forEach>
 						</c:if>
 
-						<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" begin='0' end='1'>
-							<a class="notice-list-item fixed" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-								<div class="notice-list-item-date">
-									<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
-									<div><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></div>
-								</div>
-								<div class="notice-list-item-title">${i.title}</div>
-							</a>
-						</c:forEach>
-
-						<c:if test="${fn:length(noticeList) < 1}">
+						<c:if test="${fn:length(noticeList) < 1 && fn:length(noticeListTopNotice) < 1}">
 							<div class="notice-no-data">등록된 공지사항이 없습니다.</div>
 						</c:if>
 
@@ -367,13 +367,7 @@ do {
 					<!--         문화행사           -->
 					<div class="tab-content1">
 						<c:if test="${fn:length(teachList1) < 1}">
-							<a href="">
-								<div class="label">등록된 행사가 없습니다</div>
-								<div class="tab-content-detail">
-									<div>등록된 행사가 없습니다.</div>
-									<div>등록된 행사가 없습니다.</div>
-								</div>
-							</a>
+							<div class="no-culture">등록된 행사가 없습니다.</div>
 						</c:if>
 						<c:forEach var="i" varStatus="status" items="${teachList1}" begin='0' end='3'>
 							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
@@ -389,13 +383,7 @@ do {
 					<!--         평생학습프로그램           -->
 					<div class="tab-content2" style="display: none">
 						<c:if test="${fn:length(teachList2) < 1}">
-							<a href="">
-								<div class="label">등록된 행사가 없습니다</div>
-								<div class="tab-content-detail">
-									<div>등록된 행사가 없습니다.</div>
-									<div>등록된 행사가 없습니다.</div>
-								</div>
-							</a>
+							<div class="no-culture">등록된 프로그램이 없습니다.</div>
 						</c:if>
 						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='3'>
 							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
