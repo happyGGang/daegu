@@ -2328,6 +2328,50 @@ public class IndexController extends BaseController {
 		return basePath + homepage.getFolder() + "/bestBook_ajax";
 	}
 
+	@RequestMapping(value = {"/{contextPath}/curriculumBook.*"})
+	public String curriculumBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		LibrarySearch librarySearch = new LibrarySearch();
+		librarySearch.setManageCode(homepage.getManage_code());
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		librarySearch.setBooktype("0");
+		librarySearch.setSeparateShelfCode("ABH");
+
+		Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			List<Map<String, Object>> resultList = LibSearchAPI.getListData(result);
+			for (Map<String, Object> map : resultList) {
+				if (map.containsKey("ISBN")) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
+						}
+					}
+				}
+			}
+
+			Collections.shuffle(resultList);
+			int limit = Math.min(resultList.size(), 10);
+			List<Map<String, Object>> curriculumBookList = resultList.isEmpty() ? Collections.<Map<String, Object>>emptyList() : resultList.subList(0, limit);
+			model.addAttribute("curriculumBookList", curriculumBookList);
+		}
+		return basePath + homepage.getFolder() + "/curriculumBook_ajax";
+	}
+
+
 	@RequestMapping(value = { "/{contextPath}/recommendBook.*" })
 	public String recommendBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");

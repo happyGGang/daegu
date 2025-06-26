@@ -142,7 +142,7 @@
 
       initializeSection('.section3-content4', 'newBook.do');
       initializeSection('.section3-content5', 'bestBook.do');
-      initializeSection('.section3-content6', 'bestBook.do');
+      initializeSection('.section3-content6', 'curriculumBook.do');
 
     $('#main-search-btn').on('click', function () {
       if ($('input#book-search').val() == '') {
