@@ -4,6 +4,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@page import="java.util.Random" %>
 <%
     Random rnd = new Random();
@@ -95,116 +96,54 @@
     });
     // 팝업 관련 코드 END
 
-    $('.section3-content4').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
+      function initializeSection(selector, url) {
+          $(selector).html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
 
-    $('.section3-content4').load('newBook.do', function () {
-      if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
-        $('.section3-slide').slick({
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          autoplay: false,
-          arrows: false,
-          dots: false,
-          variableWidth: true,
-          responsive: [
-            {
-              breakpoint: 1260,
-              settings: {
-                slidesToShow: 4,
-                variableWidth: true,
-              },
-            },
-            {
-              breakpoint: 865,
-              settings: {
-                slidesToShow: 3,
-                variableWidth: true,
-              },
-            },
-          ],
-        });
+          $(selector).load(url, function (response, status) {
+              if (status === 'error') {
+                  return;
+              }
+
+              const $slide = $(selector).find('.section3-slide');
+              if ($slide.length && !$slide.hasClass('slick-initialized')) {
+                  $slide.slick({
+                      slidesToShow: 5,
+                      slidesToScroll: 1,
+                      autoplay: false,
+                      arrows: false,
+                      dots: false,
+                      variableWidth: true,
+                      responsive: [
+                          {
+                              breakpoint: 1260,
+                              settings: {
+                                  slidesToShow: 4,
+                                  variableWidth: true,
+                              },
+                          },
+                          {
+                              breakpoint: 865,
+                              settings: {
+                                  slidesToShow: 3,
+                                  variableWidth: true,
+                              },
+                          },
+                      ],
+                  });
+              }
+
+              $(selector).find('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
+                  if ($slide.hasClass('slick-initialized')) {
+                      $slide.slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
+                  }
+              });
+          });
       }
 
-      $('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
-        if ($('.section3-slide').hasClass('slick-initialized')) {
-          $('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
-        }
-      });
-    });
+      initializeSection('.section3-content4', 'newBook.do');
+      initializeSection('.section3-content5', 'bestBook.do');
+      initializeSection('.section3-content6', 'bestBook.do');
 
-    $('.section3-content5').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
-
-    $('.section3-content5').load('bestBook.do', function () {
-      if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
-        $('.section3-slide').slick({
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          autoplay: false,
-          arrows: false,
-          dots: false,
-          variableWidth: true,
-          responsive: [
-            {
-              breakpoint: 1260,
-              settings: {
-                slidesToShow: 4,
-                variableWidth: true,
-              },
-            },
-            {
-              breakpoint: 865,
-              settings: {
-                slidesToShow: 3,
-                variableWidth: true,
-              },
-            },
-          ],
-        });
-      }
-
-      $('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
-        if ($('.section3-slide').hasClass('slick-initialized')) {
-          $('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
-        }
-      });
-    });
-
-    $('.section3-content6').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
-
-    $('.section3-content6').load('bestBook.do', function () {
-      if ($('.section3-slide').length && !$('.section3-slide').hasClass('slick-initialized')) {
-        $('.section3-slide').slick({
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          autoplay: false,
-          arrows: false,
-          dots: false,
-          variableWidth: true,
-          responsive: [
-            {
-              breakpoint: 1260,
-              settings: {
-                slidesToShow: 4,
-                variableWidth: true,
-              },
-            },
-            {
-              breakpoint: 865,
-              settings: {
-                slidesToShow: 3,
-                variableWidth: true,
-              },
-            },
-          ],
-        });
-      }
-
-      $('.section3-slide-prev, .section3-slide-next').off('click').on('click', function () {
-        if ($('.section3-slide').hasClass('slick-initialized')) {
-          $('.section3-slide').slick($(this).hasClass('section3-slide-prev') ? 'slickPrev' : 'slickNext');
-        }
-      });
-    });
     $('#main-search-btn').on('click', function () {
       if ($('input#book-search').val() == '') {
         alert('검색어를 입력하세요.');
@@ -276,7 +215,7 @@
         <div class="section-wrapper" data-anchor="section1">
             <div class="main-bg-slide slider-for">
                 <c:forEach var="i" items="${popupZoneList}">
-                    <div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');">></div>
+                    <div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');"></div>
                 </c:forEach>
             </div>
             <div class="wrapper">
@@ -460,31 +399,39 @@
 							<div class="section2-slide">
 								<c:forEach var="i" varStatus="status" items="${movieList}">
 									<div class="section2-slide-item">
-										<div class="section2-slide-item-top">
-											<div class="section2-slide-item-top-header">
-												<div>가족영화</div>
-												<div>05<span> 07</span></div>
-											</div>
-											<div class="section2-slide-item-title">${i.title}</div>
-										</div>
-										<div class="section2-slide-item-bottom">
-											<c:if test="${i.imsi_v_1 ne '' and i.imsi_v_2 ne ''}">
-												<div>날짜 : ${fn:replace(i.imsi_v_1, '-', '.')}.${i.imsi_v_2}</div>
-											</c:if>
-											<c:if test="${i.imsi_v_3 ne null and i.imsi_v_4 ne null}">
-												<div>시간 : ${i.imsi_v_3}:${fn:length(i.imsi_v_4) == 1 ? '0' : ''}${i.imsi_v_4}</div>
-											</c:if>
-											<c:if test="${i.imsi_v_6 ne null and i.imsi_v_6 ne '0'}">
-												<div>장소 : ${i.imsi_v_6}</div>
-											</c:if>
-											<c:if test="${i.imsi_v_9 ne null and i.imsi_v_9 ne '0'}">
-												<div>장르 : ${fn:substring(i.imsi_v_9, 0, 6)}</div>
-											</c:if>
+                                        <div class="movie-content">
+                                            <c:choose>
+                                                <c:when test="${i.preview_img ne null}">
+                                                    <c:choose>
+                                                        <c:when test="${fn:contains(i.preview_img, 'http')}">
+                                                            <img class="movie-thumbnail" src="${i.preview_img}" alt="${i.title}"/>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img class="movie-thumbnail" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <img class="movie-thumbnail" src="/resources/homepage/nambu/img/common/dummy.png" alt="${i.title}">
+                                                </c:otherwise>
+                                            </c:choose>
 
-											<a href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-												<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
-											</a>
-										</div>
+                                            <div class="movie-detail">
+                                                <div class="movie-title">${i.title}</div>
+
+                                                <div class="movie-info">
+                                                    <t:movieField label="날짜" condition="${not empty i.imsi_v_1 and not empty i.imsi_v_2}" value="${fn:replace(i.imsi_v_1,'-','.')}.${i.imsi_v_2}" />
+                                                    <t:movieField label="시간" condition="${not empty i.imsi_v_3 and not empty i.imsi_v_4}" value="${i.imsi_v_3}:${(fn:length(i.imsi_v_4)==1?'0':'')}${i.imsi_v_4}" />
+                                                    <t:movieField label="장소" condition="${not empty i.imsi_v_6 and i.imsi_v_6 != '0'}" value="${i.imsi_v_6}" />
+                                                    <t:movieField label="장르" condition="${not empty i.imsi_v_9 and i.imsi_v_9 != '0'}" value="${fn:substring(i.imsi_v_9,0,6)}" />
+                                                    <t:movieField label="등급" condition="${not empty i.imsi_v_12 and i.imsi_v_12 != '0'}" value="${i.imsi_v_12}" />
+                                                </div>
+
+                                                <a class="go-to-movie" href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                                    <img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+                                                </a>
+                                            </div>
+                                        </div>
 									</div>
 								</c:forEach>
 							</div>

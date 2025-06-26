@@ -314,4 +314,87 @@
     }
 }
 
+@media (max-width: 865px) {
+    .section4-slide {
+        height: 600px;
+    }
+
+    .section4-slide-item {
+        height: 600px;
+    }
+
+    .section4-slide-item-content {
+        width: 100%;
+        height: 200px;
+        padding: 40px;
+        gap: 31px;
+    }
+
+    .section4-slide-item {
+        background-position: 0 0, center top -200px;
+    }
+
+    .content-title {
+
+    }
+
+    .place-name {
+        width: 364px;
+    }
+
+    .place-name div:first-child {
+        font-size: 18px;
+        letter-spacing: -0.36px;
+    }
+
+    .section4-pagination {
+        display: none;
+    }
+}
+
+@media (max-width: 490px) {
+    #fullpage .section-wrapper:nth-child(4) {
+        height: 370px;
+    }
+
+    .section4-slide {
+        height: 370px;
+    }
+
+    .section4-slide-item {
+        height: 370px;
+    }
+
+    .section4-slide-item-content {
+        width: 100%;
+        height: 170px;
+        padding: 24px;
+        gap: 23px;
+    }
+
+    .place-name {
+        width: 249px;
+    }
+
+    .place-name div:first-child {
+        font-size: 16px;
+        letter-spacing: -0.32px;
+    }
+
+    .section4-pagination {
+        display: none;
+    }
+
+    .section4-slide-item {
+        background-position: 0 0, center top -200px;
+    }
+
+    .content-title {
+        top: 24px;
+        left: 24px;
+        font-size: 24px;
+        letter-spacing: -0.48px;
+    }
+}
+
 
