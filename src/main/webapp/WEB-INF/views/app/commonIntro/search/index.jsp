@@ -2048,11 +2048,11 @@ function isFromFridayToSunday() {
 																	<c:if test="${i.SHELF_LOC_CODE eq 'BR01' || i.SHELF_LOC_CODE eq 'BR02' || i.SHELF_LOC_CODE eq 'BR03' || i.SHELF_LOC_CODE eq 'BR05' || i.SHELF_LOC_CODE eq 'BR06' || i.SHELF_LOC_CODE eq 'BR07' || i.SHELF_LOC_CODE eq 'BR10'}">
 																		<c:choose>
 																			<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-<%--																				<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>--%>
+																				<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
 																			</c:when>
 																			<c:otherwise>
-<%--																				<a href="#muin" id="unmanned-req" class="btn btn2" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">--%>
-<%--																					<span>무인예약대출 신청</span></a>--%>
+																				<a href="#muin" id="unmanned-req" class="btn btn2" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">
+																					<span>무인예약대출 신청</span></a>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>
