@@ -419,7 +419,7 @@
 							<form:option value="GE">하빈면작은도서관</form:option>
 							<form:option value="GC">구지면작은도서관</form:option>
 							<form:option value="FN">달성군청소년센터</form:option>
-							<form:option value="FJ">달성군청도서관</form:option>
+							<!--<form:option value="FJ">달성군청도서관</form:option>-->
 						</form:select> <span style="color:#ff0000">  * 신청하실 도서관을 먼저 선택 후 검색하시기 바랍니다.  <!--* 희망도서 신청이 마감되어 희망도서 신청을 중지합니다.--> </span>
 					</c:when>
 					<c:when test="${context_path eq 'namic'}">
@@ -434,30 +434,30 @@
 					</c:when>
 					<c:when test="${context_path eq 'dalseolib'}">
 						<form:select path="manageCode">
-							<!-- <form:option value="BW">도원도서관</form:option> -->
-						</form:select><span style="color:#ff0000">  *   도원도서관 희망도서 25. 07. 01. 오전 10시 재개 예정 </span>
+							<form:option value="BW">도원도서관</form:option>
+						<!--</form:select><span style="color:#ff0000">  *   도원도서관 희망도서 25. 07. 01. 오전 10시 재개 예정 </span>-->
 					</c:when>
 					<c:when test="${context_path eq 'kids'}">
 						<form:select path="manageCode">
-							<!--<form:option value="BV">달서어린이</form:option>-->
+							<form:option value="BV">달서어린이</form:option>
 						</form:select><span style="color:#ff0000">  * 달서어린이도서관 희망도서 25.07.01. 신청 재개 예정입니다. </span>
 					</c:when>
 
 					<c:when test="${context_path eq 'seongseo'}">
 						<form:select path="manageCode">
-							<!--<option value="BU">성서도서관</option>-->
+							<option value="BU">성서도서관</option>
 						</form:select><!-- <span style="color:#ff0000">  * 성서도서관 희망도서 25.06.01. 신청 재개 예정입니다. </span> -->
 					</c:when>
 
 					<c:when test="${context_path eq 'bolli'}">
 						<form:select path="manageCode">
-							<!--<form:option value="BX">본리도서관</form:option>-->
-						</form:select><span style="color:#ff0000">  * 본리도서관 희망도서 신청 재개 시 안내드리겠습니다. </span>
+							<form:option value="BX">본리도서관</form:option>
+						</form:select><!-- <span style="color:#ff0000">  * 본리도서관 희망도서 신청 재개 시 안내드리겠습니다. </span> -->
 
 					</c:when>
 					<c:when test="${context_path eq 'family'}">
 						<form:select path="manageCode">
-							<!-- <form:option value="BY">달서가족문화도서관</form:option> -->
+							<form:option value="BY">달서가족문화도서관</form:option>
 						</form:select><span style="color:#ff0000">  * 달서가족문화도서관 희망도서 25. 07. 01. 오전 10시 재개 예정</span>
 					</c:when>
 					<c:when test="${context_path eq 'english'}">
