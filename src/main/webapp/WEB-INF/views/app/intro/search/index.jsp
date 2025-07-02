@@ -309,7 +309,7 @@ function resveReq(bookkey, booktype, editMode) {
 
 <!-- 도서관 선택 분기처리 시작 -->
 					<c:choose>
-					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'buksb'}">
+					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'buksb' || context_path eq 'dmsl'}">
 					<div id="libraryList" class="libraryList">
 						<div>
 							<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체</label>

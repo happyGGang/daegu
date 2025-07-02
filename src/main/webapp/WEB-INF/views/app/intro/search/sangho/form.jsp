@@ -78,7 +78,7 @@ $(function() {
 			 	<td>
 <!-- 도서관 선택 분기처리 시작 -->
 					<c:choose>
-					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || homepage.context_path eq 'buksb'}">
+					<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || homepage.context_path eq 'buksb' || context_path eq 'dmsl'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127009">구수산도서관</form:option>

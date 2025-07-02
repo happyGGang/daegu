@@ -693,7 +693,7 @@ $(function() {
 			<c:if test="${detail.LOAN_CODE eq 'OK'}">
 			<!-- 북구통합도서관 상호대차 설정시작-->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
+				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb' || homepage.context_path eq 'dmsl'}">
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'GJ'}">
 						<!--   제외 -->
