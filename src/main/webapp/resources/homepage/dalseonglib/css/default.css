@@ -13,18 +13,23 @@ a:focus{color:#2b74c0}
 	justify-content: space-between;
 }
 
-.left {
+.left-side {
 	display: flex;
 	align-items: center;
 	gap: 20px;
 }
 
-.left a {
+.left-side a {
 	position: relative;
 	line-height: normal !important;
+	font-weight: 300 !important;
 }
 
-.left a::after {
+.left-side a:first-child {
+	font-weight: 700 !important;
+}
+
+.left-side a::after {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -35,7 +40,7 @@ a:focus{color:#2b74c0}
 	transform: translateY(-50%);
 }
 
-.left a:last-child::after {
+.left-side a:last-child::after {
 	display: none;
 }
 

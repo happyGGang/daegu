@@ -14,40 +14,41 @@
 			</div>
 
 			<div class="util">
-				<a href="https://www.facebook.com/dalseonglib" class="sns_icon" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook_icon.png" title="페이스북 아이콘" alt="페이스북 아이콘"></a>
-				<a href="http://pf.kakao.com/_YxnJxjj" class="sns_icon" target="_blank" style="margin-right:5px;"><img src="/resources/homepage/${homepage.context_path}/img/kakao_ch_icon.png" title="카카오톡 채널 아이콘" alt="카카오톡 채널 아이콘"></a>
-				<c:choose>
-					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<b style="font-weight:200;font-size:15px;color:#fff;">${sessionScope.member.member_name}님</b>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66">정보수정</a>
-					</c:when>
-					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-						<b style="font-weight:200;font-size:15px;color:#fff;">관리자 로그인 중</b>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
-					</c:when>
-					<c:otherwise>
-						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69">통합허브시스템 로그인</a>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73">통합회원인증</a>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
-						<!-- <span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/findIdForm.do?menu_idx=6">아이디찾기</a>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/findPwForm.do?menu_idx=7">비밀번호찾기</a>
-						<span class="txt-bar"></span>
-						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
-						<a href="https://twitter.com/tglnetlib" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/twitter.png" alt="트위터"></a>
-						<span></span>
-						<a href="https://www.facebook.com/tglnet/?ref=aymt_homepage_panel&eid=ARBF0x7CH2csV2V7L0aXEdhh4dIYs4K1IKdQSBAXVHW3pZ0IPcMg2ZCwYG5kNNr48Acmj11-YLdHKykL" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/facebook.png" alt="페이스북"></a>
-						<span></span>
-						<a href="https://www.instagram.com/tglnetlib/" target="_blank"><img src="/resources/homepage/${homepage.context_path}/img/instagram.png" alt="인스타그램"></a> -->
-					</c:otherwise>
-				</c:choose>
+				<div class="left-side">
+					<a href="https://library.daegu.go.kr/dalseonglib/index.do"><b style="color: #ffdb00">달성군립</b></a>
+					<a href="https://library.daegu.go.kr/dalseongchild/index.do">달성어린이숲</a>
+					<a href="https://library.daegu.go.kr/dalseonglib/html.do?menu_idx=93">작은</a>
+					<a href="https://library.daegu.go.kr/elib/index.do">전자도서관</a>
+					<a href="https://dsef.or.kr/index.do">달성교육재단</a>
+					<a href="https://www.instagram.com/dalseonglib/" target="_blank"><img src="/resources/homepage/bukbu/img/common/instagram-color.svg" title="" alt=""></a>
+					<a href="https://www.youtube.com/channel/UCEjC8gsgHQj4c5pt4XARYlA" target="_blank"><img src="/resources/homepage/bukbu/img/common/youtube-color.svg" title="" alt=""></a>
+					<a href="https://www.facebook.com/dalseonglib" target="_blank"><img src="/resources/homepage/bukbu/img/common/facebook-color.svg" title="" alt=""></a>
+					<a href="https://pf.kakao.com/_YxnJxjj"  target="_blank"><img src="/resources/homepage/bukbu/img/common/kakaotalk-color.svg" title="" alt=""></a>
+				</div>
+
+				<div>
+					<c:choose>
+						<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+							<b style="font-weight:200;font-size:15px;color:#fff;">${sessionScope.member.member_name}님</b>
+							<span class="txt-bar"></span>
+							<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
+							<span class="txt-bar"></span>
+							<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=66">정보수정</a>
+						</c:when>
+						<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+							<b style="font-weight:200;font-size:15px;color:#fff;">관리자 로그인 중</b>
+							<span class="txt-bar"></span>
+							<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=69">통합허브시스템 로그인</a>
+							<span class="txt-bar"></span>
+							<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=73">통합회원인증</a>
+							<span class="txt-bar"></span>
+							<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=70">회원가입</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 			<div>
 
