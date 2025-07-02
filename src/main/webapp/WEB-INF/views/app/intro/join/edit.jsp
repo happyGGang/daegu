@@ -438,7 +438,9 @@ $(function() {
 						<c:when test="${context_path eq 'gw'}">
 						대구광역시교육청 삼국유사군위도서관<input type="hidden" id="" name="manage_code" value="AM" />
 						</c:when>
-
+						<c:when test="${homepage.context_path eq 'dalseongchild'}">
+							달성어린이숲도서관<input type="hidden" name="manage_code" value='CD' />
+						</c:when>
 						<c:when test="${context_path eq 'with'}">
 						더불어숲도서관<input type="hidden" id="" name="manage_code" value="NA" />
 						</c:when>
