@@ -2,6 +2,7 @@
   position: relative;
   height: 100vh;
   background: var(--white);
+  padding-top: 130px;
 }
 
 #fullpage .section-wrapper:nth-child(3) .wrapper {
@@ -130,8 +131,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 79px;
-  padding-top: 0 40px;
 }
 
 .section3-slide {
@@ -223,6 +222,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  width: 320px;
 }
 
 .section3-bottom a img {
@@ -257,20 +257,14 @@
 }
 
 @media (max-width: 1440px) {
-
-}
-
-@media (max-width: 1260px) {
-
-}
-
-@media (max-width: 1170px) {
   #fullpage .section-wrapper:nth-child(3) {
     height: 707px;
+    padding-top: 0;
   }
 
   #fullpage .section-wrapper:nth-child(3) .wrapper {
     gap: 20px;
+    padding-top: 60px;
   }
 
   .section3-top {
@@ -409,7 +403,7 @@
 
 @media (max-width: 865px) {
   #fullpage .section-wrapper:nth-child(3) {
-    height: 968px;
+    height: 886px;
   }
 
   #fullpage .section-wrapper:nth-child(3) .wrapper {
@@ -468,7 +462,7 @@
   }
 
   .section3-bottom {
-    height: 440px;
+    height: 358px;
     gap: 30px;
     padding: 30px 40px;
     flex-direction: column;
@@ -553,7 +547,7 @@
 
 @media (max-width: 490px) {
   #fullpage .section-wrapper:nth-child(3) {
-    height: 758px;
+    height: 586px;
   }
 
   #fullpage .section-wrapper:nth-child(3) .wrapper {
@@ -597,10 +591,13 @@
   }
 
   .section3-bottom {
-    height: 356px;
-    gap: 24px;
-    padding: 20px;
+    height: auto;
+    gap: 4px;
+    padding: 0;
     width: 336px;
+    border: none;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .section3-slide {
@@ -661,12 +658,16 @@
   }
 
   .section3-bottom a {
-    gap: 8px;
+    width: 166px;
+    height: 86px;
+    border-radius: 12px;
+    border: 1px solid var(--primary-color-blue1);
+    padding: 16px;
+    gap: 4px;
   }
 
   .section3-bottom a img {
-    width: 44px;
-    height: 44px;
+    display: none;
   }
 
   .link-name div:first-child {

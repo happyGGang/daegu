@@ -42,7 +42,7 @@
   justify-content: center;
   width: 100%;
   gap: 74px;
-  border-radius: 36px;
+  border-radius: 40px;
   background: var(--primary-color-blue1);
   height: 80px;
   position: relative;
@@ -211,39 +211,6 @@
 
 @media (max-width: 1440px) {
   #fullpage .section-wrapper:nth-child(4) {
-    height: 780px;
-  }
-
-  #fullpage .section-wrapper:nth-child(4)::after {
-    top: 54%;
-  }
-
-  #tab-link {
-    width: 24px;
-    height: 24px;
-  }
-
-  .tab-list {
-    width: 1120px;
-  }
-
-  .tab-list-item {
-    margin-right: 65px;
-  }
-}
-
-@media (max-width: 1260px) {
-  .tab-list {
-    width: 1028px;
-  }
-
-  .tab-list-item {
-    margin-right: 35px;
-  }
-}
-
-@media (max-width: 1170px) {
-  #fullpage .section-wrapper:nth-child(4) {
     height: 614px ;
   }
 
@@ -306,16 +273,17 @@
 
   .tab-content {
     height: 239px;
-    width: 944px;
+    width: 864px;
     margin-top: 44px;
+    gap: 16px;
   }
 
   .tab-list {
-    width: 804px;
+    width: 764px;
   }
 
   .tab-list-item {
-    margin-right: 26px;
+    margin-right: 16px;
   }
 
   .tab-list-item a img {
@@ -355,6 +323,10 @@
 
   .tab-button::after {
     right: -26px;
+  }
+
+  .section5-title {
+    align-items: center;
   }
 
   #tab-link {

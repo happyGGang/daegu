@@ -34,10 +34,10 @@ listNums[i] = num;
 					<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${newBookList[listNums[i]].ST_CODE}regNo=${fn:escapeXml(newBookList[listNums[i]].REG_NO)}&manageCode=${fn:escapeXml(newBookList[listNums[i]].MANAGE_CODE)}&booktype=BO">
 						<c:choose>
 							<c:when test="${(empty newBookList[listNums[i]].aladin or empty newBookList[listNums[i]].aladin.cover) and empty newBookList[listNums[i]].imageUrl}">
-								<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+								<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
 							</c:when>
 							<c:otherwise>
-								<img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+								<img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
 							</c:otherwise>
 						</c:choose>
 					</a>

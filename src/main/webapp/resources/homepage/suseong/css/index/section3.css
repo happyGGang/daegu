@@ -6,7 +6,7 @@
   display: flex;
   gap: 20px;
   align-items: flex-end;
-  padding-bottom: 40px;
+  padding-bottom: 42px;
 }
 
 .course-board {
@@ -39,39 +39,13 @@
 
 .course-board-header a {
   position: absolute;
-  bottom: -585px;
-  right: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.course-board-header a:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -8px;
-  border-radius: 50%;
-  transform: translateY(-50%);
-  width: 26px;
-  height: 26px;
-  background-color: var(--primary-color-blue2);
-}
-
-.course-board-header a div {
-  color: var(--black);
-  text-align: center;
-  font-family: Pretendard-Medium, sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  top: 0;
+  right: 0;
 }
 
 .course-board-header a img {
-  width: 30px;
-  height: 14px;
-  z-index: 1;
+  width: 36px;
+  height: 36px;
 }
 
 .course-list {
@@ -94,7 +68,7 @@
 
 .course-list-item-title {
   width: 500px;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   line-height: normal;
   color: var(--black);
@@ -103,6 +77,20 @@
   font-family: Pretendard-SemiBold, sans-serif;
   font-style: normal;
   white-space: nowrap;
+}
+
+.course-list-item-detail {
+  width: 500px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--gray600);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-style: normal;
+  white-space: nowrap;
+  margin-top: 4px;
 }
 
 .course-list-item-date {
@@ -166,6 +154,8 @@
   font-family: GmarketSans, sans-serif;
   font-style: normal;
   text-transform: uppercase;
+  width: 100%;
+  position: relative;
 }
 
 #calendar2 {
@@ -182,39 +172,13 @@
 
 .go-to-calendar {
   position: absolute;
-  bottom: -38px;
-  right: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.go-to-calendar:after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -8px;
-  border-radius: 50%;
-  transform: translateY(-50%);
-  width: 26px;
-  height: 26px;
-  background-color: var(--primary-color-blue2);
-}
-
-.go-to-calendar div {
-  color: var(--black);
-  text-align: center;
-  font-family: Pretendard-Medium, sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
+  top: 0;
+  right: 0;
 }
 
 .go-to-calendar img {
-  width: 30px;
-  height: 14px;
-  z-index: 1;
+  width: 36px;
+  height: 36px;
 }
 
 .calendar-controller {
@@ -292,20 +256,20 @@
 
 .type-e {
   position: relative !important;
-  color: #fff !important;
+  color: #FF6262 !important;
 }
 
 .type-r {
   position: relative !important;
-  color: #fff !important;
+  color: #FFFC01 !important;
 }
 
 .type-e::before {
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
-  width: 4px;
-  height: 4px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background-color: #FF6262;
   transform: translateX(-50%);
@@ -314,10 +278,10 @@
 
 .type-r::before {
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
-  width: 4px;
-  height: 4px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background-color: #FFFC01;
   transform: translateX(-50%);
@@ -347,7 +311,7 @@
 
 .calendar-caption div:first-child::before {
   position: absolute;
-  top: 11px;
+  top: 9px;
   left: 0;
   width: 6px;
   height: 6px;
@@ -358,7 +322,7 @@
 
 .calendar-caption div:last-child::before {
   position: absolute;
-  top: 11px;
+  top: 9px;
   left: 0;
   width: 6px;
   height: 6px;
@@ -446,7 +410,8 @@
 
 @media (max-width: 1170px) {
   #fullpage .section-wrapper:nth-child(3) {
-    height: 586px;
+    height: auto;
+    padding: 60px 0;
   }
 
   #fullpage .section-wrapper:nth-child(3) .wrapper {
@@ -463,23 +428,9 @@
     letter-spacing: -0.48px;
   }
 
-  .course-board-header a {
-    bottom: -397px;
-    gap: 9px;
-  }
-
-  .course-board-header a div {
-    font-size: 10px;
-  }
-
   .course-board-header a img {
-    width: 26px;
-    height: 12px;
-  }
-
-  .course-board-header a:after {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 
   .course-list {
@@ -496,6 +447,11 @@
   .course-list-item-title {
     font-size: 16px;
     width: 260px;
+  }
+
+  .course-list-item-detail {
+    width: 260px;
+    font-size: 12px;
   }
 
   .course-list-item-date {
@@ -533,20 +489,9 @@
     margin: 0;
   }
 
-  .go-to-calendar {
-    bottom: -34px;
-    right: 8px;
-    gap: 9px;
-  }
-
-  .go-to-calendar div {
-    font-size: 10px;
-  }
-
   .go-to-calendar img {
-    width: 26px;
-    height: 12px;
-    z-index: 1;
+    width: 24px;
+    height: 24px;
   }
 
   .go-to-calendar:after {
@@ -601,23 +546,27 @@
   }
 
   .calendar-caption div:first-child::before {
-    top: 8px;
+    top: 6px;
     width: 5px;
     height: 5px;
   }
 
   .calendar-caption div:last-child::before {
-    top: 8px;
+    top: 6px;
     width: 5px;
     height: 5px;
   }
 
   .type-e::before {
     top: -6px;
+    width: 5px;
+    height: 5px;
   }
 
   .type-r::before {
     top: -6px;
+    width: 5px;
+    height: 5px;
   }
 
   #calendar2 .planView {
@@ -651,7 +600,8 @@
 
 @media (max-width: 865px) {
   #fullpage .section-wrapper:nth-child(3) {
-    height: 1080px;
+    height: auto;
+    padding: 60px 0;
   }
 
   #fullpage .section-wrapper:nth-child(3) .wrapper {
@@ -671,6 +621,12 @@
 
   .course-list-item-title {
     width: 220px;
+  }
+
+
+  .course-list-item-detail {
+    width: 220px;
+    font-size: 12px;
   }
 
   #calendar2 {
@@ -774,20 +730,11 @@
 
 @media (max-width: 490px) {
   #fullpage .section-wrapper:nth-child(3) {
-    height: 1002px;
+    padding: 40px 0;
   }
 
   #fullpage .section-wrapper:nth-child(3) .wrapper {
     gap: 50px;
-  }
-
-  .course-board-header a {
-    bottom: -415px;
-    gap: 6px;
-  }
-
-  .course-board-header a div {
-    font-size: 8px;
   }
 
   .course-board {
@@ -801,14 +748,9 @@
     border-radius: 8px;
   }
 
-  .course-board-header div {
-    font-size: 20px;
-    letter-spacing: -0.4px;
-  }
-
   .course-board-header a img {
-    width: 21px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
   }
 
   .course-board-header a:after {
@@ -823,7 +765,7 @@
 
   .course-list-item {
     padding: 0 20px;
-    height: 89px;
+    height: 105px;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
@@ -832,6 +774,12 @@
   .course-list-item-title {
     width: 301px;
     font-size: 14px;
+
+  }
+
+  .course-list-item-detail {
+    width: 301px;
+    font-size: 12px;
     margin-bottom: 12px;
   }
 
@@ -865,19 +813,9 @@
     letter-spacing: -0.9px;
   }
 
-  .go-to-calendar {
-    bottom: -24px;
-    gap: 6px;
-    right: 6px;
-  }
-
-  .go-to-calendar div {
-    font-size: 8px;
-  }
-
   .go-to-calendar img {
-    width: 21px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
   }
 
   .go-to-calendar:after {
@@ -960,13 +898,13 @@
   }
 
   .calendar-caption div:last-child::before {
-    top: 8px;
+    top: 6px;
     width: 5px;
     height: 5px;
   }
 
   .calendar-caption div:first-child::before {
-    top: 8px;
+    top: 6px;
     width: 5px;
     height: 5px;
   }

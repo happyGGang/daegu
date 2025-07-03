@@ -249,6 +249,18 @@
 		padding: 10px 33px;
 	}
 
+	.tnb div:first-child a {
+		padding: 10px 33px;
+		width: 100%;
+	}
+
+	.tnb div:first-child {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+	}
+
 	.library-logo {
 		left: 12px;
 		width: 179px;

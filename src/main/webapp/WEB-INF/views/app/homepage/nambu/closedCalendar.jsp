@@ -75,14 +75,14 @@
 <div class="holiday-area-controller">
 	<div class="holiday-title">휴관일 안내</div>
 	<a href="#" id="before-btns" role="button" keyValue="${calendar.plan_date}">
-		<img src="/resources/homepage/nambu/img/main/holiday-left-arrow.svg" alt="지난달"/>
+		<img src="/resources/homepage/${homepage.context_path}/img/main/holiday-left-arrow.svg" alt="지난달"/>
 	</a>
 	<div class="current_month">
 		${fn:split(calendar.plan_date, '-')[0]}.
 		${fn:split(calendar.plan_date, '-')[1]}
 	</div>
 	<a href="#" id="next-btns" role="button" keyValue="${calendar.plan_date}">
-		<img src="/resources/homepage/nambu/img/main/holiday-right-arrow.svg" alt="다음달"/>
+		<img src="/resources/homepage/${homepage.context_path}/img/main/holiday-right-arrow.svg" alt="다음달"/>
 	</a>
 </div>
 
@@ -97,8 +97,8 @@
 					<div>${day}</div>
 				</c:if>
 			</c:forEach>
-			<a href="https://library.daegu.go.kr/nambu/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
-				<img src="/resources/homepage/nambu/img/main/go-to-holiday.svg" alt="">
+			<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
+				<img src="/resources/homepage/${homepage.context_path}/img/main/go-to-holiday.svg" alt="">
 			</a>
 		</c:otherwise>
 	</c:choose>

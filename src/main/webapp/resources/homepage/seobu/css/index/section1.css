@@ -141,7 +141,7 @@
   background: #fff;
   width: 360px;
   height: 60px;
-  display: flex !important;
+  display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -206,7 +206,7 @@
   height: 100%;
   justify-content: center;
   align-items: center;
-  gap: 35px;
+  gap: 15px;
 }
 
 .quick-menu-item {
@@ -278,6 +278,7 @@
   line-height: normal;
   letter-spacing: -0.36px;
   margin-right: 44px;
+  white-space: nowrap;
 }
 
 .holiday-area-controller a {
@@ -299,6 +300,7 @@
   font-weight: 700;
   line-height: normal;
   letter-spacing: -0.52px;
+  white-space: nowrap;
 }
 
 .holiday-list {
@@ -334,10 +336,466 @@
 .holiday-list a img {
   width: 100%;
   height: 100%;
+  object-fit: none;
 }
 
 .no-data {
   background: none !important;
   color: var(--white) !important;
   width: fit-content !important;
+}
+
+.holiday-list div:nth-child(6),
+.holiday-list div:nth-child(7),
+.holiday-list div:nth-child(8),
+.holiday-list div:nth-child(9),
+.holiday-list div:nth-child(10) {
+  display: none;
+}
+
+
+@media (max-width: 1440px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 594px;
+  }
+
+  .main-bg-slide div {
+    height: 594px;
+  }
+
+  #fullpage .section-wrapper:nth-child(1) .wrapper {
+    padding-bottom: 166px;
+  }
+
+  .search-bar-wrapper {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  #mainSearchForm {
+    height: 60px;
+  }
+
+  #book-search {
+    width: 640px;
+    font-size: 16px;
+  }
+
+  .book-search-btn {
+    width: 60px;
+    height: 60px;
+  }
+
+  .book-search-btn img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .main-popup-prev {
+    width: 32px;
+    height: 32px;
+    top: 113px;
+    left: 12px;
+  }
+
+  .main-popup-next {
+    width: 32px;
+    height: 32px;
+    top: 113px;
+    right: 12px;
+  }
+
+  .main-popup {
+    width: 864px;
+    height: 258px;
+  }
+
+  .main-popup-item, .main-popup-item a {
+    width: 864px;
+    height: 258px;
+  }
+
+  .main-popup-pagination {
+    width: 864px;
+    height: 40px;
+  }
+
+  .main-popup-pagination .main-popup-pagination-item {
+    width: 216px;
+    height: 40px;
+  }
+
+  .main-popup-pagination-item span {
+    font-size: 14px;
+    width: 155px;
+  }
+
+  .main-bottom-area {
+    height: 166px;
+  }
+
+  .main-bottom-area-wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 100%;
+  }
+
+  .quick-menu {
+    gap: 17px;
+    margin: 0 auto;
+    height: 110px;
+  }
+
+  .quick-menu-item {
+    width: 130px;
+    gap: 8px;
+  }
+
+  .quick-menu-item img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .quick-menu-item div {
+    font-size: 14px;
+    letter-spacing: -0.28px;
+  }
+
+  #holiday-area {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    height: 56px;
+    padding: 0 105px;
+    width: 100%;
+  }
+
+  .holiday-title {
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: -0.45px;
+    margin-right: 20px;
+  }
+
+  .holiday-area-controller a {
+    width: 20px;
+    height: 20px;
+  }
+
+  .holiday-area-controller a img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .current_month {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: -0.4px;
+  }
+
+  .holiday-list {
+    gap: 16px;
+    width: 524px;
+    margin-left: 20px;
+  }
+
+  .holiday-list div {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+    letter-spacing: -0.375px;
+  }
+
+  .holiday-list a {
+    width: 24px;
+    height: 24px;
+  }
+
+  .holiday-list div:nth-child(6),
+  .holiday-list div:nth-child(7),
+  .holiday-list div:nth-child(8),
+  .holiday-list div:nth-child(9),
+  .holiday-list div:nth-child(10) {
+    display: flex;
+  }
+}
+
+@media (max-width: 865px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 596px;
+  }
+
+  .main-bg-slide div {
+    height: 596px;
+  }
+
+  #fullpage .section-wrapper:nth-child(1) .wrapper {
+    padding-bottom: 276px;
+  }
+
+  .search-bar-wrapper {
+    margin-bottom: 16px;
+  }
+
+  #mainSearchForm {
+    width: 488px;
+    height: 52px;
+  }
+
+  #book-search {
+    width: 436px;
+    font-size: 15px;
+  }
+
+  .book-search-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .book-search-btn img {
+    width: 21px;
+    height: 21px;
+  }
+
+  .main-popup-prev {
+    width: 30px;
+    height: 30px;
+    top: 70px;
+    left: 8px;
+  }
+
+  .main-popup-next {
+    width: 30px;
+    height: 30px;
+    top: 70px;
+    right: 8px;
+  }
+
+  .main-popup {
+    width: 488px;
+    height: 170px;
+  }
+
+  .main-popup-item, .main-popup-item a {
+    width: 488px;
+    height: 170px;
+  }
+
+  .main-popup-pagination {
+    width: 488px;
+    height: 36px;
+  }
+
+  .main-popup-pagination .main-popup-pagination-item {
+    width: 488px;
+    height: 36px;
+  }
+
+  .main-popup-pagination-item span {
+    font-size: 13px;
+    width: 145px;
+  }
+
+  .main-bottom-area {
+    height: 276px;
+  }
+
+  .quick-menu {
+    width: 488px;
+    gap: 0;
+    height: 173px;
+    margin: 24px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 8px;
+    column-gap: 19px;
+  }
+
+  .quick-menu-item {
+    width: 150px;
+  }
+
+  #holiday-area {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    height: 56px;
+    padding: 0 140px;
+    width: 100%;
+  }
+
+  .holiday-list {
+    gap: 11px;
+    width: 249px;
+  }
+
+  .holiday-list div:nth-child(6),
+  .holiday-list div:nth-child(7),
+  .holiday-list div:nth-child(8),
+  .holiday-list div:nth-child(9),
+  .holiday-list div:nth-child(10) {
+    display: none;
+  }
+
+  .current_month, .holiday-title {
+    white-space: nowrap;
+  }
+
+  .main-popup-pagination div:nth-child(2) {
+    border-radius: 0 0 8px 0;
+  }
+
+  .main-popup-pagination div:nth-child(3) {
+    border-radius: 0 0 0 8px;
+  }
+}
+
+@media (max-width: 490px) {
+  #fullpage .section-wrapper:nth-child(1) {
+    height: 559px;
+  }
+
+  .main-bg-slide div {
+    height: 559px;
+  }
+
+  #fullpage .section-wrapper:nth-child(1) .wrapper {
+    padding-bottom: 297px;
+  }
+
+  .search-bar-wrapper {
+    margin-bottom: 12px;
+  }
+
+  #mainSearchForm {
+    width: 336px;
+    height: 48px;
+  }
+
+  #book-search {
+    width: 288px;
+    font-size: 14px;
+  }
+
+  .book-search-btn {
+    width: 48px;
+    height: 48px
+  }
+
+  .book-search-btn img {
+    width: 19px;
+    height: 19px;
+  }
+
+  .main-popup-wrapper {
+    max-width: 336px;
+  }
+
+  .main-popup-prev {
+    width: 26px;
+    height: 26px;
+    top: 52px;
+    left: 8px;
+  }
+
+  .main-popup-next {
+    width: 26px;
+    height: 26px;
+    top: 52px;
+    right: 8px;
+  }
+
+  .main-popup {
+    width: 336px;
+    height: 130px;
+  }
+
+  .main-popup-item, .main-popup-item a {
+    width: 336px;
+    height: 130px;
+  }
+
+  .main-popup-pagination {
+    width: 336px;
+  }
+
+  .main-popup-pagination .main-popup-pagination-item {
+    width: 168px;
+  }
+
+  .main-popup-pagination-item span {
+    font-size: 12px;
+    width: 130px;
+  }
+
+  .main-bottom-area {
+    height: 297px;
+  }
+
+  .quick-menu {
+    width: 336px;
+    height: 162px;
+    margin: 21px 0;
+    row-gap: 4px;
+    column-gap: 0;
+  }
+
+  .quick-menu-item {
+    width: 112px;
+  }
+
+  #holiday-area {
+    flex-direction: column;
+    gap: 12px;
+    height: 93px;
+    padding: 0 12px;
+  }
+
+  .quick-menu-item img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .quick-menu-item div {
+    font-size: 13px;
+    letter-spacing: -0.26px;
+  }
+
+  .holiday-list {
+    gap: 12px;
+    width: fit-content;
+    margin-left: 0;
+  }
+
+  .current_month, .holiday-title {
+    font-size: 15px;
+    letter-spacing: -0.375px;
+  }
+
+  .current_month, .holiday-title {
+    font-size: 18px;
+    letter-spacing: -0.36px;
+  }
+
+  .holiday-list div {
+    width: 28px;
+    height: 28px;
+    font-size: 13px;
+    letter-spacing: -0.325px;
+  }
+
+  .current_month, .holiday-title {
+    white-space: nowrap;
+  }
+
+  .main-popup-pagination div:nth-child(2) {
+    border-radius: 0 0 8px 0;
+  }
+
+  .main-popup-pagination div:nth-child(3) {
+    border-radius: 0 0 0 8px;
+  }
 }

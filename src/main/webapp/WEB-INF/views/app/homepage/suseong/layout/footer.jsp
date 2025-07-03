@@ -6,30 +6,19 @@
 	<div class="wrapper">
 		<div class="library-info">
 			<div class="link_list">
-				<a href="https://library.daegu.go.kr/suseong/html.do?menu_idx=86">개인정보처리방침</a>
-				<a href="https://library.daegu.go.kr/suseong/html.do?menu_idx=88">영상정보처리방침</a>
-				<a href="https://library.daegu.go.kr/suseong/html.do?menu_idx=91">저작권보호정책</a>
-				<a href="https://library.daegu.go.kr/suseong/html.do?menu_idx=109">찾아오시는길</a>
-				<a href="https://library.daegu.go.kr/suseong/html.do?menu_idx=94">성고충상담창구</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=86">개인정보처리방침</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권보호정책</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창구</a>
 			</div>
 			<div class="library-detail">
-				<div class="library-name">수성도서관</div>
+				<div class="library-name">대구광역시립수성도서관</div>
 				<div class="library-detail-wrapper">
 					<div>(42037) 대구 수성구 만촌로 151 (만촌동, 대구광역시립수성도서관)</div>
 					<div><span>대표전화</span>053-231-2500</div>
 					<div><span>팩스</span>053-231-2519</div>
 				</div>
-			</div>
-		</div>
-		<div class="sns-wrapper">
-			<div class="sns-title">SNS</div>
-			<div class="sns-list">
-				<a class="blog sns-icon" href="https://blog.naver.com/suseonglib"></a>
-				<a class="instagram sns-icon" href="https://www.instagram.com/suseonglib/?hl=ko"></a>
-				<a class="kakao sns-icon" href="https://pf.kakao.com/_UxjxgLb"></a>
-				<a class="facebook sns-icon" href="https://www.facebook.com/suseonglibrary"></a>
-				<a class="x sns-icon" href="https://x.com/suseonglib2500"></a>
-				<a class="youtube sns-icon" href="https://www.youtube.com/channel/UCcsjxHtIVulortb8xu6bnCQ"></a>
 			</div>
 		</div>
 	</div>

@@ -12,7 +12,7 @@
 
 #fullpage .section-wrapper:nth-child(1) .wrapper {
   position: absolute;
-  top: 50%;
+  top: 48%;
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
@@ -38,7 +38,7 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   opacity: 0;
   animation: fade-in-up 0.8s ease-out forwards;
   animation-delay: 0.3s;
@@ -50,7 +50,7 @@
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 120%;
   letter-spacing: 4px;
 }
 
@@ -65,7 +65,7 @@
   font-size: 60px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
+  line-height: 120%;
   letter-spacing: -1.2px;
   text-transform: uppercase;
 }
@@ -163,10 +163,10 @@
 .quick-menu-item div {
   color: var(--white);
   text-align: center;
-  font-family: Pretendard-Semibold, sans-serif;
+  font-family: Pretendard-Regular, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 400;
   line-height: normal;
 }
 
@@ -291,6 +291,10 @@
 
   .main-bg-slide div:nth-child(1) {
     height: 555px;
+  }
+
+  #fullpage .section-wrapper:nth-child(1) .wrapper {
+    top: 46%;
   }
 
   .slogan {
@@ -425,6 +429,10 @@
 @media (max-width: 865px) {
   #fullpage .section-wrapper:nth-child(2) {
     height: 736px;
+  }
+
+  #fullpage .section-wrapper:nth-child(1) .wrapper {
+    top: 50%;
   }
 
   .main-bg-slide div:nth-child(1) {

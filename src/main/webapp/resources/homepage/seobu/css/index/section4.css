@@ -165,40 +165,6 @@
 
 @media (max-width: 1440px) {
   #fullpage .section-wrapper:nth-child(4) {
-    height: 780px;
-  }
-
-  #fullpage .section-wrapper:nth-child(4)::after {
-    top: 54%;
-  }
-
-  #tab-link {
-    top: 0;
-    width: 24px;
-    height: 24px;
-  }
-
-  .tab-list {
-    width: 1120px;
-  }
-
-  .tab-list-item {
-    margin-right: 65px;
-  }
-}
-
-@media (max-width: 1260px) {
-  .tab-list {
-    width: 1028px;
-  }
-
-  .tab-list-item {
-    margin-right: 35px;
-  }
-}
-
-@media (max-width: 1170px) {
-  #fullpage .section-wrapper:nth-child(4) {
     height: 549px;
   }
 
@@ -207,7 +173,8 @@
     height: 168px;
   }
 
-  .tab-link {
+  #tab-link {
+    top: 0;
     width: 24px;
     height: 24px;
   }

@@ -28,6 +28,14 @@
 .search-bar-wrapper {
   display: flex;
   margin-bottom: 32px;
+  align-items: center;
+  gap: 20px;
+}
+
+.go-to-kakao {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 #mainSearchForm {
@@ -352,64 +360,6 @@
 }
 
 @media (max-width: 1440px) {
-  .main-popup {
-    width: 1260px;
-  }
-
-  .main-popup-item, .main-popup-item a {
-    width: 1260px;
-  }
-
-  .main-popup-pagination {
-    width: 1260px;
-  }
-
-  .main-popup-pagination .main-popup-pagination-item {
-    width: 315px;
-  }
-
-  .main-bottom-area-wrapper {
-    max-width: 1260px;
-  }
-
-  .quick-menu {
-    justify-content: space-between;
-    gap: 0;
-  }
-}
-
-@media (max-width: 1260px) {
-  .main-popup {
-    width: 1170px;
-  }
-
-  .main-popup-item, .main-popup-item a {
-    width: 1170px;
-  }
-
-  .main-popup-pagination {
-    width: 1170px;
-  }
-
-  .main-popup-pagination .main-popup-pagination-item {
-    width: 293px;
-  }
-
-  .main-bottom-area-wrapper {
-    max-width: 1170px;
-  }
-
-  .quick-menu {
-    justify-content: space-between;
-    gap: 0;
-  }
-
-  .quick-menu-item {
-    width: 165px;
-  }
-}
-
-@media (max-width: 1170px) {
   #fullpage .section-wrapper:nth-child(1) {
     height: 594px;
   }
@@ -425,6 +375,12 @@
   .search-bar-wrapper {
     display: flex;
     margin-bottom: 20px;
+    gap: 16px;
+  }
+
+  .go-to-kakao {
+    width: 40px;
+    height: 40px;
   }
 
   #mainSearchForm {
@@ -594,13 +550,18 @@
     margin-bottom: 16px;
   }
 
+  .go-to-kakao {
+    width: 34px;
+    height: 34px;
+  }
+
   #mainSearchForm {
-    width: 488px;
+    width: 400px;
     height: 52px;
   }
 
   #book-search {
-    width: 436px;
+    width: 348px;
     font-size: 15px;
   }
 
@@ -711,6 +672,10 @@
 @media (max-width: 490px) {
   #fullpage .section-wrapper:nth-child(1) {
     height: 559px;
+  }
+
+  .go-to-kakao {
+    display: none;
   }
 
   .main-bg-slide div {

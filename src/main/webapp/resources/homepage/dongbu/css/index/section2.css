@@ -4,6 +4,7 @@
 
 #fullpage .section-wrapper:nth-child(2) .wrapper {
   display: flex;
+  align-items: flex-end;
   gap: 66px;
 }
 
@@ -362,7 +363,8 @@
 
 @media (max-width: 865px) {
   #fullpage .section-wrapper:nth-child(2) {
-    height: 1282px;
+    height: auto;
+    padding: 60px 0;
   }
 
   #fullpage .section-wrapper:nth-child(2) .wrapper {
@@ -419,7 +421,7 @@
 
 @media (max-width: 490px) {
   #fullpage .section-wrapper:nth-child(2) {
-    height: 965px;
+    padding: 40px 0;
   }
 
   #fullpage .section-wrapper:nth-child(2) .wrapper {

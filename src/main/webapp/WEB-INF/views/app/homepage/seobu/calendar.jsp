@@ -90,22 +90,22 @@
 <div class="event-area-wrapper">
     <div class="event-area-header">
         <div>이달의 행사일을 확인해보세요</div>
-        <a href="/seobu/module/calendarManage/index.do?menu_idx=63">
+        <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
             <div>더보기</div>
-            <img src="/resources/homepage/seobu/img/culture/more-black.svg" alt="">
+            <img src="/resources/homepage/${homepage.context_path}/img/culture/more-black.svg" alt="">
         </a>
     </div>
     <div class="event-slide-wrapper">
         <c:choose>
             <c:when test="${fn:length(eventDates) > 0}">
-                <img class="event-slide-prev" src="/resources/homepage/seobu/img/culture/event-left-arrow.svg" alt="이전"/>
+                <img class="event-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/event-left-arrow.svg" alt="이전"/>
                 <div class="event-slide">
                     <c:forEach var="i" items="${eventDates}">
                         <fmt:parseDate var="day" value="${i.start_date}" pattern="yyyy-MM-dd" />
                         <div class="event-slide-item"><fmt:formatDate value="${day}" pattern="dd" /></div>
                     </c:forEach>
                 </div>
-                <img class="event-slide-next" src="/resources/homepage/seobu/img/culture/event-right-arrow.svg" alt="다음"/>
+                <img class="event-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/event-right-arrow.svg" alt="다음"/>
             </c:when>
 
             <c:otherwise>

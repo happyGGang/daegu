@@ -8,11 +8,11 @@
 <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/common.css"/>
 <script src="/resources/homepage/${homepage.context_path}/js/common/common.js"></script>
 <script type="text/javascript">
-	$(function () {
+	$(function() {
 		$('li#menu_${menuOne.parent_menu_idx }').addClass('active');
 		$('li#menu_${menuOne.menu_idx}').addClass('active');
 		var halbaeNode = $('li#menu_${menuOne.parent_menu_idx }').parent().parent()[0];
-		if (halbaeNode != null && halbaeNode.nodeName == 'LI') {
+		if ( halbaeNode != null && halbaeNode.nodeName == 'LI' ) {
 			$(halbaeNode).addClass('active');
 		}
 
@@ -36,6 +36,17 @@
 				$('li#menu_96').remove();
 			</c:otherwise>
 		</c:choose>
+
+		<c:choose>
+			<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
+
+			</c:when>
+			<c:otherwise>
+				$('li#menu_149').remove();
+				$('li.menu_149').remove();
+			</c:otherwise>
+		</c:choose>
+
 	});
 </script>
 <script>
@@ -62,7 +73,11 @@
 		<div class="sub-visual">
 			<div class="doc-info-bg">
 				<div class="doc-info">
-					<div class="menu-title">${menuLeftList[0].menu_name}</div>
+					<div class="menu-title">
+						<c:if test="${menuOne.include_menu_name_yn eq 'Y'}">
+							${menuOne.menu_name}
+						</c:if>
+					</div>
 					<ol>
 						<li class="first"><a href="/${homepage.context_path}/index.do">
 							<img src="/resources/common/img/navi_home_icon.gif" alt="">
@@ -78,17 +93,12 @@
 		<div class="section">
 			<c:if test="${menuOne ne null}">
 				<div class="lnb">
-					<h2 style="margin-top:-159px;"><b>${menuLeftList[0].menu_name}</b></h2>
+					<h2 style="margin-top:-151px;"><b>${menuLeftList[0].menu_name}</b></h2>
 					<homepageTag:leftMenu menuList="${menuLeftList}"/>
 				</div>
 			</c:if>
 			<div class="content">
 				<div class="doc">
-					<div class="doc-head">
-						<div class="doc-title">
-							<h3>${menuOne.menu_name}</h3>
-						</div>
-					</div>
 					<div class="doc-body con${menuOne.menu_idx}" id="contentArea">
 						<div class="body">
 							<tiles:insertAttribute name="body"/>

@@ -248,6 +248,18 @@
 		padding: 10px 9px;
 	}
 
+	.tnb div:first-child a {
+		padding: 0 11px;
+		width: 100%;
+	}
+
+	.tnb div:first-child {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+	}
+
 	.library-logo {
 		left: 12px;
 		width: 179px;

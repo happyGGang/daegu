@@ -95,7 +95,7 @@
 				<div>${day}</div>
 			</c:forEach>
 			<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
-				<img src="/resources/homepage/${homepage.context_path}/img/main/go-to-holiday.svg" alt="">
+				행사달력
 			</a>
 		</c:otherwise>
 	</c:choose>

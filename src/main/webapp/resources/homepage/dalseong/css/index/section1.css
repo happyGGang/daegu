@@ -6,14 +6,14 @@
 .main-bg-slide div:nth-child(1) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/dalseong/img/main/bg1.svg') no-repeat center center fixed;
+  background: url('/resources/homepage/dalseong/img/main/bg.svg') no-repeat fixed center calc(50% + 100px);
   background-size: cover;
 }
 
 .main-bg-slide div:nth-child(2) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/dalseong/img/main/bg2.svg') no-repeat center center fixed;
+  background: url('/resources/homepage/dalseong/img/main/bg2.svg') no-repeat fixed 93% center;
   background-size: cover;
 }
 
@@ -24,9 +24,17 @@
   background-size: cover;
 }
 
+.main-bg-slide div:nth-child(4) {
+  position: relative;
+  height: 100vh;
+  background: url('/resources/homepage/dalseong/img/main/bg4.JPG') no-repeat center calc(50% - 40px) fixed;
+  background-size: cover;
+}
+
 .main-bg-slide div:nth-child(1)::after,
 .main-bg-slide div:nth-child(2)::after,
-.main-bg-slide div:nth-child(3)::after {
+.main-bg-slide div:nth-child(3)::after,
+.main-bg-slide div:nth-child(4)::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -71,7 +79,7 @@
 .slogan div:first-child {
   font-size: 62px;
   font-weight: 500;
-  line-height: normal;
+  line-height: 120%;
   letter-spacing: -1.24px;
   color: var(--white);
   font-family: GmarketSans, sans-serif;
@@ -85,8 +93,8 @@
 
 .slogan div:last-child {
   font-size: 32px;
-  font-weight: 300;
-  line-height: normal;
+  font-weight: 500;
+  line-height: 120%;
   letter-spacing: -0.64px;
   color: var(--white);
   font-family: GmarketSans, sans-serif;
@@ -157,7 +165,7 @@
   display: grid;
   width: 100%;
   max-width: 540px;
-  margin-top: 60px;
+  margin-top: 40px;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 32px 80px;
   margin-bottom: 70px;
@@ -364,6 +372,10 @@
     height: 850px;
   }
 
+  .main-bg-slide div:nth-child(4) {
+    height: 850px;
+  }
+
   .holiday-list {
     margin-right: 100px;
   }
@@ -401,14 +413,22 @@
 
   .main-bg-slide div:nth-child(1) {
     height: 608px;
+    background: url('/resources/homepage/dalseong/img/main/bg.svg') no-repeat center center fixed;
   }
 
   .main-bg-slide div:nth-child(2) {
     height: 608px;
+    background: url('/resources/homepage/dalseong/img/main/bg2.svg') no-repeat center center fixed;
   }
 
   .main-bg-slide div:nth-child(3) {
     height: 608px;
+    background: url('/resources/homepage/dalseong/img/main/bg3.svg') no-repeat center center fixed;
+  }
+
+  .main-bg-slide div:nth-child(4) {
+    height: 608px;
+    background: url('/resources/homepage/dalseong/img/main/bg4.JPG') no-repeat center center fixed;
   }
 
   .slogan {
@@ -561,9 +581,14 @@
     height: 653px;
   }
 
+  .main-bg-slide div:nth-child(4) {
+    height: 653px;
+  }
+
   .main-bg-slide div:nth-child(1)::after,
   .main-bg-slide div:nth-child(2)::after,
-  .main-bg-slide div:nth-child(3)::after {
+  .main-bg-slide div:nth-child(3)::after,
+  .main-bg-slide div:nth-child(4)::after {
     width: 100%;
   }
 
@@ -659,6 +684,10 @@
   }
 
   .main-bg-slide div:nth-child(3) {
+    height: 621px;
+  }
+
+  .main-bg-slide div:nth-child(4) {
     height: 621px;
   }
 

@@ -84,18 +84,25 @@
   padding: 20px 0;
   border-right: 1px solid #ddd;
   gap: 12px;
+  border-top: 2px solid transparent;
+}
+
+.two-depth-menu.active {
+  background: #f4f5f6;
+  border-top: 2px solid #006bc2;
 }
 
 .two-depth-menu:hover {
-  background: #fff;
+  background: #f4f5f6;
+  border-top: 2px solid #006bc2;
 }
 
 .two-depth-menu:hover a {
-  color: #777;
+  color: #4f4e4e;
 }
 
 .two-depth-menu a {
-  width: 150px;
+  width: 130px;
   word-wrap: break-word;
   padding: 0 10px;
   word-break: break-word;
@@ -110,7 +117,6 @@
 
 .two-depth-menu a:hover {
   text-decoration: underline;
-  color: #34AAF4;
   text-underline-offset: 4px;
 }
 
@@ -153,6 +159,10 @@
   height: 30px !important;
 }
 
+.sns-box a::after {
+  display: none;
+}
+
 .util div:nth-child(2)::after {
   position: absolute;
   top: 50%;
@@ -178,7 +188,7 @@
   #container.subpage {
     margin-top: 0 !important;
   }
-  
+
   .sns-box {
     display: none !important;
   }
@@ -203,6 +213,7 @@
   .library-logo a img {
     width: 198px;
     height: 44px;
+    object-fit: contain;
   }
 
   .gnb-menu li {
@@ -262,31 +273,31 @@
   }
 }
 
-  .mobile-menu-header a:nth-child(1), .mobile-menu-header a:nth-child(2){
-    background: #2c75cb;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-    border-radius: 8px;
-  }
+.mobile-menu-header a:nth-child(1), .mobile-menu-header a:nth-child(2){
+  background: #2c75cb;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 8px;
+}
 
-  .mobile-menu-header a:nth-child(3), .mobile-menu-header a:nth-child(4){
-    background: #707070;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 5px;
-    border-radius: 8px;
-  }
+.mobile-menu-header a:nth-child(3), .mobile-menu-header a:nth-child(4){
+  background: #707070;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 8px;
+}
 
-  .mobile-menu-header a i,  .mobile-menu-header a span {
-    display: block;
-    margin-top: 5px;
+.mobile-menu-header a i,  .mobile-menu-header a span {
+  display: block;
+  margin-top: 5px;
 
   .gnb-menu li .SubMenu {
     display: block;

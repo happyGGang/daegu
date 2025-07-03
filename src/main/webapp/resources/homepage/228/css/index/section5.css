@@ -215,7 +215,7 @@
   line-height: normal;
 }
 
-@media (max-width: 1170px) {
+@media (max-width: 1440px) {
   #fullpage .section-wrapper:nth-child(5) {
     height: 565px;
   }

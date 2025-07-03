@@ -1,4 +1,4 @@
-@charset "utf-8";
+	@charset "utf-8";
 
 #header .head {
 	position: fixed;
@@ -247,6 +247,14 @@
 @media (max-width: 490px) {
 	.tnb div:first-child a {
 		padding: 10px 33px;
+		width: 100%;
+	}
+
+	.tnb div:first-child {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
 	}
 
 	.library-logo {

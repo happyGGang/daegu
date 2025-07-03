@@ -100,9 +100,9 @@ Date.prototype.format = function(f) {
 
 <div id="calendar2">
 	<div class="cal-func2">
-		<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukbu/img/prev-btn.png" alt=""><span class="blind">이전달</span></a>
+		<a id="before-btn" href="#prev" class="btn prev" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/prev-btn.png" alt=""><span class="blind">이전달</span></a>
 		<b class="date"><span>${fn:split(calendar.plan_date, '-')[0]}.</span><em>${fn:split(calendar.plan_date, '-')[1]}</em></b>
-		<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/bukbu/img/next-btn.png" alt=""><span class="blind">다음달</span></a>
+		<a id="next-btn" href="#next" class="btn next" keyValue="${calendar.plan_date}"><img src="/resources/homepage/${homepage.context_path}/img/next-btn.png" alt=""><span class="blind">다음달</span></a>
 	</div>
 
 	<table class="cal-tbl">

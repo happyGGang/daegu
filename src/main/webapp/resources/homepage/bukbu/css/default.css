@@ -91,6 +91,10 @@
 	content: '';
 }
 
+.util a:last-child {
+	margin-right: 25px;
+}
+
 .screen-control div:first-child::after {
 	content: none;
 	display: none;
@@ -172,6 +176,10 @@
 		display: none !important;
 	}
 
+	.util a:last-child {
+		margin-right: 0;
+	}
+
 	.tnb {
 		height: 32px;
 		position: relative;
@@ -247,6 +255,10 @@
 @media (max-width: 490px) {
 	.tnb div:first-child a {
 		padding: 10px 33px;
+	}
+
+	.tnb {
+		display: none;
 	}
 
 	.library-logo {

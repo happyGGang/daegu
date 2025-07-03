@@ -24,8 +24,26 @@ $(document).ready(function () {
     });
 
 
-    // 팝업 슬라이더
     const $popupSlide = $('.popup-slide');
+    const $popupPagination = $('.popup-pagination');
+
+    // 슬라이더 초기화 전 이벤트 바인딩
+    $popupSlide.on('init', function (event, slick) {
+        const slideCount = slick.slideCount || 1;
+        $popupPagination.text(`1 / ${slideCount}`);
+    });
+
+    $popupSlide.on('afterChange', function (event, slick, currentSlide) {
+        const slideCount = slick.slideCount || 1;
+        $popupPagination.text(`${currentSlide + 1} / ${slideCount}`);
+    });
+
+    $popupSlide.on('reInit', function (event, slick) {
+        const slideCount = slick.slideCount || 1;
+        $popupPagination.text(`1 / ${slideCount}`);
+    });
+
+    // 슬라이더 초기화
     $popupSlide.slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -33,20 +51,11 @@ $(document).ready(function () {
         autoplaySpeed: 5000,
         arrows: false,
         dots: false,
-    });
-
-    // 초기 페이징 설정
-    $popupSlide.on('init', function (event, slick) {
-        $('.popup-pagination').text(`1 / ${slick.slideCount}`);
-    });
-
-    // 슬라이드 변경 시 페이징 업데이트
-    $popupSlide.on('afterChange', function (event, slick, currentSlide) {
-        $('.popup-pagination').text(`${currentSlide + 1} / ${slick.slideCount}`);
+        speed: 300,
     });
 
     // 이전/다음 버튼
-    $('.popup-prev, .popup-next').click(function () {
+    $('.popup-prev, .popup-next').on('click', function () {
         if ($popupSlide.hasClass('slick-initialized')) {
             $popupSlide.slick($(this).hasClass('popup-prev') ? 'slickPrev' : 'slickNext');
         }
@@ -56,7 +65,7 @@ $(document).ready(function () {
     const $playPauseBtn = $('.popup-play-and-pause img');
     let isPlaying = true;
 
-    $playPauseBtn.click(function () {
+    $playPauseBtn.on('click', function () {
         if (isPlaying) {
             $popupSlide.slick('slickPause');
             $(this).attr('src', '/resources/homepage/dongbu/img/notice/play.svg');
@@ -65,13 +74,5 @@ $(document).ready(function () {
             $(this).attr('src', '/resources/homepage/dongbu/img/notice/pause.svg');
         }
         isPlaying = !isPlaying;
-    });
-
-    // 슬라이더 위치 재설정
-    $popupSlide.slick('setPosition');
-
-    // 슬라이더 재초기화 시 페이징 업데이트
-    $popupSlide.on('reInit', function (event, slick) {
-        $('.popup-pagination').text(`1 / ${slick.slideCount}`);
     });
 });

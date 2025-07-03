@@ -288,7 +288,7 @@ listNums[i] = num;
 							<div class="quick-menu-icon"></div>
 							<div class="quick-menu-title">대구학생전자도서관</div>
 							<button class="collection-type" onclick="location.href='https://dgelib.dkyobobook.co.kr/main.ink'">소장형 바로가기</button>
-							<button class="active-type" onclick="location.href='https://dgelib-r.dkyobobook.co.kr/main.ink'">능동형 바로가기</button>
+							<button class="active-type" onclick="location.href='https://dgelib-r.dkyobobook.co.kr/main.ink'">구독형 바로가기</button>
 						</div>
 					</div>
 					<img class="quick-next" src="/resources/homepage/${homepage.context_path}/img/main/right-arrow.svg" alt="">
@@ -305,7 +305,7 @@ listNums[i] = num;
 				<div class="notice-board">
 					<div class="notice-board-header">
 						<div class="notice-board-title">공지사항</div>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=56">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=88">
 							<img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
 						</a>
 					</div>
@@ -377,7 +377,7 @@ listNums[i] = num;
 				<div class="course-board">
 					<div class="course-board-header">
 						<div class="course-board-title">행사안내</div>
-						<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=198&manage_idx=394">
 							<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 						</a>
 					</div>
@@ -418,12 +418,12 @@ listNums[i] = num;
 				<div class="tab-content tab1"></div>
 				<div class="tab-content tab2" style="display: none;">
 					<c:choose>
-						<c:when test="${fn:length(recommendBookList) > 0}">
+						<c:when test="${fn:length(curationList) > 0}">
 							<img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/left-arrow.svg" alt="이전" />
 							<div class="tab-list">
-								<c:forEach var="i" items="${recommendBookList}">
+								<c:forEach var="i" items="${curationList}">
 									<div class="tab-list-item">
-										<a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+										<a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<c:choose>
 												<c:when test="${fn:contains(i.preview_img, 'noimg')}">
 													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
@@ -455,7 +455,7 @@ listNums[i] = num;
 					<div>학교도서관<br>집중지원센터</div>
 				</div>
 				<div class="search-bar-wrapper">
-					<form id="mainSearchForm" action="/${homepage.context_path}/module/bookPackage/index.do" class="school-input">
+					<form id="mainSearchForm" action="/228/module/bookPackage/index.do" class="school-input">
 						<input type="hidden" name="menu_idx" value="138">
 						<input type="hidden" name="search_type" value="book_package_subject">
 						<fieldset>

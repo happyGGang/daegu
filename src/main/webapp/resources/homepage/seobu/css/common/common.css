@@ -37,10 +37,6 @@
     background: url('/resources/homepage/suseong/img/common/active-indicator.svg') no-repeat center center;
 }
 
-#fullpage-indicator div:last-child {
-    display: none;
-}
-
 .fp-watermark {
     display: none;
 }

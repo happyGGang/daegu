@@ -200,27 +200,27 @@
 }
 
 .blog {
-    background: url('/resources/homepage/suseong/img/common/blog.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/blog.svg') no-repeat center center;
 }
 
 .instagram {
-    background: url('/resources/homepage/suseong/img/common/instagram.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/instagram.svg') no-repeat center center;
 }
 
 .kakao {
-    background: url('/resources/homepage/suseong/img/common/kakao.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/kakao.svg') no-repeat center center;
 }
 
 .facebook {
-    background: url('/resources/homepage/suseong/img/common/facebook.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/facebook.svg') no-repeat center center;
 }
 
 .x {
-    background: url('/resources/homepage/suseong/img/common/x.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/x.svg') no-repeat center center;
 }
 
 .youtube {
-    background: url('/resources/homepage/suseong/img/common/youtube.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/youtube.svg') no-repeat center center;
 }
 
 .copyright {
@@ -255,7 +255,7 @@
     font-weight: 400;
     line-height: 130%;
     color: #fff;
-    background: #292929 url('/resources/homepage/suseong/img/common/select-arrow.svg') no-repeat right 16px center;
+    background: #292929 url('/resources/homepage/seobu/img/common/select-arrow.svg') no-repeat right 16px center;
     appearance: none;
     background-size: 13px;
     font-family: Pretendard-Regular, sans-serif;

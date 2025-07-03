@@ -35,10 +35,10 @@
                             <c:when test="${(empty newBookList[listNums[i]].aladin or
                                             empty newBookList[listNums[i]].aladin.cover)
                                             and empty newBookList[listNums[i]].imageUrl}">
-                                <img src="/resources/homepage/dongbu/img/common/dummy.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/dongbu/img/common/dummy.png'"/>
+                                <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                             </c:when>
                             <c:otherwise>
-                                <img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/dongbu/img/common/dummy.png'"/>
+                                <img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                             </c:otherwise>
                         </c:choose>
                     </a>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="book-slide-wrapper">
-            <img class="book-slide-prev" src="/resources/homepage/dongbu/img/book/arrow-left.svg" alt="Previous">
+            <img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="Previous">
             <div class="book-slide slider-nav">
                 <c:forEach var="j" begin="0" end="${loopCount - 1}" varStatus="status">
                     <c:set var="i" value="${(j + 1) % loopCount}"/>
@@ -57,17 +57,17 @@
                                 <c:when test="${(empty newBookList[listNums[i]].aladin or
                                                 empty newBookList[listNums[i]].aladin.cover)
                                                 and empty newBookList[listNums[i]].imageUrl}">
-                                    <img src="/resources/homepage/dongbu/img/common/dummy.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/dongbu/img/common/dummy.png'"/>
+                                    <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/dongbu/img/common/dummy.png'"/>
+                                    <img src="${newBookList[listNums[i]].imageUrl}" alt="${newBookList[listNums[i]].TITLE_INFO} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                                 </c:otherwise>
                             </c:choose>
                         </a>
                     </div>
                 </c:forEach>
             </div>
-            <img class="book-slide-next" src="/resources/homepage/dongbu/img/book/arrow-right.svg" alt="Next">
+            <img class="book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="Next">
         </div>
     </c:when>
     <c:otherwise>

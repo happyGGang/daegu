@@ -26,16 +26,16 @@
 %>
 
 <!-- 메인 -->
-<link rel="stylesheet" href="/resources/homepage/dongbu/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section1.css"/>
-<link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section2.css"/>
-<link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section3.css"/>
-<link rel="stylesheet" href="/resources/homepage/dongbu/css/index/section4.css"/>
-<script src="/resources/homepage/dongbu/plugin/jquery-3.7.1.min.js"></script>
-<script src="/resources/homepage/dongbu/js/index/section1.js"></script>
-<script src="/resources/homepage/dongbu/js/index/section2.js"></script>
-<script src="/resources/homepage/dongbu/js/index/section3.js"></script>
-<script src="/resources/homepage/dongbu/js/index/section4.js"></script>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/reset.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section1.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section2.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section3.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section4.css"/>
+<script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section3.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
 
 <c:set var="listNums" value="<%=listNums%>"/>
 <tiles:insertAttribute name="header"/>
@@ -56,7 +56,59 @@
                 }
             $('#main-search-btn').submit();
         });
-    });
+		
+		// 팝업 관련 코드 START
+		$('.close-btn').on('click', function() {
+			let $this = $(this);
+			let checkInput = $this.parent().find('input[data-day="'+$this.data('day')+'"]');
+			let popupId = checkInput.val();
+			if (checkInput.prop('checked')) {
+				let todayDate = new Date();
+				todayDate = new Date(parseInt(todayDate.getTime() / 86400000) * 86400000 + 54000000);
+				if($this.data('day') == 7) {
+					todayDate.setDate(todayDate.getDate() + 7);
+				}
+				document.cookie = popupId + "=no" + "; path=/; expires=" + todayDate.toGMTString() + ";";
+			}
+			
+			$('div#' + popupId).hide();
+		});
+		
+		$('input[id*=pop]').on('click', function(e) {
+			e.preventDefault();
+			$(this).prop('checked', true);
+			$(this).parent('div').next('a').data('day', $(this).data('day'));
+			$(this).parent('div').next('a').click();
+		});
+		
+		$('#popupLayer > div').each(function(i, v) {
+			let result = '';
+			let name = $(v).attr('id');
+			let nameOfCookie = name + "=";
+			let x = 0;
+			while (x <= document.cookie.length) {
+				var y = (x + nameOfCookie.length);
+				if (document.cookie.substring(x, y) == nameOfCookie) {
+					if ((endOfCookie = document.cookie.indexOf(";", y)) == -1)
+						endOfCookie = document.cookie.length;
+					result = unescape(document.cookie
+							.substring(y, endOfCookie));
+				}
+				x = document.cookie.indexOf(" ", x) + 1;
+				if (x == 0)
+					break;
+			}
+			
+			if (result != 'no') {
+				if  (window.innerWidth < $(v).width() ) {
+					$(v).css('width', 'auto');
+				}
+				$(v).show();
+			}
+		});
+		// 팝업 관련 코드 END
+		
+	});
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -65,10 +117,53 @@
 
     <tiles:insertAttribute name="top"/>
     <tiles:insertAttribute name="topMenu"/>
-
-    <!-- 통합팝업 -->
-<!--    <div class="total-popup-overlay"></div>-->
-<!--    <div class="total_popup_area" id="total_popup_area"></div>-->
+	
+	<div class="popupWrap section">
+		<div id="popupLayer">
+			<homepageTag:popup popupList="${popupList}" />
+		</div>
+	</div>
+	
+	<c:if test="${not empty popupFullList}">
+		<div class="total-popup-overlay"></div>
+		<div class="total_popup_area" id="total_popup_area">
+			<div class="total-popup-controller">
+				<div class="total-popup-controller-btn popup-today-close">
+					<div>오늘 하루 열지 않기</div>
+					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
+				</div>
+				<div class="total-popup-controller-btn popup-close">
+					<div>창 닫기</div>
+					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
+				</div>
+			</div>
+			
+			<div class="total-popup-content">
+				<div class="total-popup-title">POPUP LIST</div>
+				<div class="total-popup-slide-wrapper">
+					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
+					<div class="total-popup-slide">
+						<c:forEach items="${popupFullList}" var="i" varStatus="status">
+							<div class="total-popup-slide-item">
+								<c:choose>
+									<c:when test="${not empty i.server_file_name}">
+										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
+									</c:when>
+									<c:otherwise>
+										<img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.alt_text}">
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
+									<a href="${i.link_url}"> ${i.link_type eq 'APPLY' ? '신청하기' : '자세히보기'} </a>
+								</c:if>
+							</div>
+						</c:forEach>
+					</div>
+					<img class="total-popup-slide-next" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-right-arrow.svg" alt="">
+				</div>
+			</div>
+		</div>
+	</c:if>
 
     <div id="fullpage">
         <!-- 섹션1 -->
@@ -90,13 +185,13 @@
                         <input name="title" id="book-search" type="text" placeholder="찾으시는 도서 정보를 입력하세요"/>
 
                         <button class="book-search-btn" id="main-search-btn">
-                            <img src="/resources/homepage/dongbu/img/main/search.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt=""/>
                         </button>
                     </form>
                 </div>
                 <!-- 퀵메뉴 -->
                 <div class="quick-menu">
-                    <img class="quick-menu-slide-prev" src="/resources/homepage/dongbu/img/main/quick-menu-left-arrow.svg" alt="">
+                    <img class="quick-menu-slide-prev" src="/resources/homepage/${homepage.context_path}/img/main/quick-menu-left-arrow.svg" alt="">
                     <div class="quick-menu-slide">
                         <c:forEach var="i" varStatus="status" items="${quickMenuList}">
                             <c:if test="${i.link_target eq 'BLANK' }">
@@ -113,7 +208,7 @@
                             </c:if>
                         </c:forEach>
                     </div>
-                    <img class="quick-menu-slide-next" src="/resources/homepage/dongbu/img/main/quick-menu-right-arrow.svg" alt="">
+                    <img class="quick-menu-slide-next" src="/resources/homepage/${homepage.context_path}/img/main/quick-menu-right-arrow.svg" alt="">
                 </div>
             </div>
             <!-- 휴관일 & 공지사항 -->
@@ -128,8 +223,8 @@
                     <div class="notice-board-header">
                         <div class="notice-board-title">공지사항</div>
                         <div class="notice-board-title">강좌·행사안내</div>
-                        <a href="https://library.daegu.go.kr/dongbu/board/index.do?menu_idx=36&manage_idx=161">
-                            <img src="/resources/homepage/dongbu/img/notice/more.svg" alt="">
+                        <a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=161">
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
                         </a>
                     </div>
                     <div class="notice-list">
@@ -186,21 +281,21 @@
                             </c:when>
                             <c:otherwise>
                                 <div class="popup-slide-item">
-                                    <img src="/resources/homepage/dongbu/img/common/dummy.png" alt=""/>
+                                    <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt=""/>
                                 </div>
                             </c:otherwise>
                         </c:choose>
                     </div>
                     <div class="popup-control">
                         <div class="popup-prev">
-                            <img src="/resources/homepage/dongbu/img/notice/popup-prev.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/popup-prev.svg" alt=""/>
                         </div>
                         <div class="popup-pagination"></div>
                         <div class="popup-play-and-pause">
-                            <img src="/resources/homepage/dongbu/img/notice/pause.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/pause.svg" alt=""/>
                         </div>
                         <div class="popup-next">
-                            <img src="/resources/homepage/dongbu/img/notice/popup-next.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/popup-next.svg" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -213,8 +308,8 @@
                     <div class="box-header">
                         <div class="box-title">도서관일정</div>
                         <div class="box-action">
-                            <a href="https://library.daegu.go.kr/dongbu/module/calendarManage/index.do?menu_idx=63">
-                                <img src="/resources/homepage/dongbu/img/culture/more.svg" alt="">
+                            <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+                                <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
                             </a>
                         </div>
                     </div>
@@ -224,24 +319,24 @@
                     <div class="box-header">
                         <div class="box-title">강좌 및 행사</div>
                         <div class="box-action">
-                            <img class="course-slide-prev" src="/resources/homepage/dongbu/img/culture/slide-left-arrow.svg" alt="">
-                            <img class="course-slide-next" src="/resources/homepage/dongbu/img/culture/slide-right-arrow.svg" alt="">
-                            <a href="https://library.daegu.go.kr/dongbu/board/index.do?menu_idx=170&manage_idx=474">
-                                <img src="/resources/homepage/dongbu/img/culture/more.svg" alt="">
+                            <img class="course-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
+                            <img class="course-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
+                            <a href="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474">
+                                <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="course-slide">
                         <c:if test="${fn:length(teachList) < 1}">
                             <div class="course-slide-item">
-                                <img src="/resources/homepage/dongbu/img/culture/course.svg" alt="">
+                                <img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
                                 <div class="course-title">등록된 강좌가 없습니다.</div>
                             </div>
                         </c:if>
                         <c:if test="${fn:length(teachList) >= 1}">
                             <c:forEach var="i" varStatus="status" items="${teachList}">
                                 <a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
-                                    <img src="/resources/homepage/dongbu/img/culture/course.svg" alt="">
+                                    <img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
                                     <div class="course-title">${i.teach_name}</div>
                                     <div class="course-description">
                                         ${i.teach_desc}
@@ -259,10 +354,10 @@
 					<div class="box-header">
 						<div class="box-title">이달의 영화 상영</div>
 						<div class="box-action">
-							<img class="movie-slide-prev" src="/resources/homepage/dongbu/img/culture/slide-left-arrow.svg" alt="">
-							<img class="movie-slide-next" src="/resources/homepage/dongbu/img/culture/slide-right-arrow.svg" alt="">
-							<a href="https://library.daegu.go.kr/dongbu/module/calendarManage/index.do?menu_idx=63">
-								<img src="/resources/homepage/dongbu/img/culture/more.svg" alt="">
+							<img class="movie-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
+							<img class="movie-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
+							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+								<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
@@ -287,7 +382,7 @@
                                             </c:choose>
                                         </c:when>
                                         <c:otherwise>
-                                            <img src="/resources/homepage/dongbu/img/common/dummy.png" alt="${i.title}">
+                                            <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.title}">
                                         </c:otherwise>
                                     </c:choose>
                                     <div class="movie-title">${i.title}</div>
@@ -322,9 +417,9 @@
                         <div class="tab-button" data-target="tab3">사서&북큐레이션</div>
                     </div>
 
-                    <a id="tab-link" href="/dongbu/intro/search/newBook/index.do?menu_idx=14">
+                    <a id="tab-link" href="">
                         <div>신착도서 더보기</div>
-                        <img src="/resources/homepage/dongbu/img/book/more.svg" alt="">
+                        <img src="/resources/homepage/${homepage.context_path}/img/book/more.svg" alt="">
                     </a>
                 </div>
 
@@ -353,7 +448,7 @@
                             </div>
 
                             <div class="book-slide-wrapper">
-                                <img class="book-slide-prev" src="/resources/homepage/dongbu/img/book/arrow-left.svg" alt="이전" />
+                                <img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="이전" />
                                 <div class="book-slide slider-nav">
                                     <c:forEach var="j" begin="0" end="${totalCount - 1}">
                                         <c:set var="idx" value="${(j + 1) % totalCount}"/>
@@ -373,7 +468,7 @@
                                         </div>
                                     </c:forEach>
                                 </div>
-                                <img class="book-slide-next" src="/resources/homepage/dongbu/img/book/arrow-right.svg" alt="다음" />
+                                <img class="book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="다음" />
                             </div>
                         </c:when>
 
@@ -390,10 +485,10 @@
             <!-- banner -->
             <div class="banner-area">
                 <div class="banner-slide-controller">
-                    <img class="banner-prev" src="/resources/homepage/dongbu/img/common/banner-prev.svg" alt=""/>
-                    <img class="banner-next" src="/resources/homepage/dongbu/img/common/banner-next.svg" alt=""/>
-                    <img class="banner-play-and-pause" src="/resources/homepage/dongbu/img/common/banner-pause.svg" alt="">
-                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/dongbu/img/common/banner-more.svg" alt="">
+                    <img class="banner-prev" src="/resources/homepage/${homepage.context_path}/img/common/banner-prev.svg" alt=""/>
+                    <img class="banner-next" src="/resources/homepage/${homepage.context_path}/img/common/banner-next.svg" alt=""/>
+                    <img class="banner-play-and-pause" src="/resources/homepage/${homepage.context_path}/img/common/banner-pause.svg" alt="">
+                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/${homepage.context_path}/img/common/banner-more.svg" alt="">
                 </div>
                 <homepageTag:newBanner bannerList="${bannerList}"/>
             </div>

@@ -18,7 +18,7 @@
 }
 
 .section4-slide-item:nth-child(2) {
-    background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.60) 80%), url("/resources/homepage/bukbu/img/place/bg2.svg");
+    background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.60) 80%), url("/resources/homepage/bukbu/img/place/bg2.jpg");
 }
 
 .section4-slide-item:nth-child(3) {
@@ -30,7 +30,7 @@
 }
 
 .section4-slide-item:nth-child(5) {
-    background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.60) 80%), url("/resources/homepage/bukbu/img/place/bg5.svg");
+    background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.60) 80%), url("/resources/homepage/bukbu/img/place/bg5.jpg");
 }
 
 .section4-slide-item:nth-child(6) {
@@ -38,7 +38,7 @@
 }
 
 .section4-slide-item:nth-child(7) {
-    background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.60) 80%), url("/resources/homepage/bukbu/img/place/bg7.svg");
+    background-image: linear-gradient(270deg, rgba(0, 0, 0, 0.00) 50%, rgba(0, 0, 0, 0.60) 80%), url("/resources/homepage/bukbu/img/place/bg7.jpg");
 }
 
 .section4-slide-item-content {
@@ -46,12 +46,12 @@
     bottom: 0;
     left: 0;
     display: flex;
-    width: 640px;
-    height: 375px;
-    padding: 80px;
+    width: 420px;
+    height: 200px;
+    padding: 30px;
     flex-direction: column;
-    gap: 78px;
-    background: var(--primary-color-blue1);
+    justify-content: space-between;
+    background: rgba(0, 72, 126, 0.2);
 }
 
 .content-title {
@@ -77,7 +77,7 @@
 .place-name {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 10px;
     width: 300px;
 }
 
@@ -135,9 +135,11 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
+    z-index: 999;
 }
 
 .section4-pagination {
+    padding-top: 130px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -183,7 +185,7 @@
 }
 
 .section4-pagination-item:nth-child(2) {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/resources/homepage/bukbu/img/place/bg2.svg") lightgray 50% / cover no-repeat;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/resources/homepage/bukbu/img/place/bg2.jpg") lightgray 50% / cover no-repeat;
 }
 
 .section4-pagination-item:nth-child(3) {
@@ -195,7 +197,7 @@
 }
 
 .section4-pagination-item:nth-child(5) {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/resources/homepage/bukbu/img/place/bg5.svg") lightgray 50% / cover no-repeat;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/resources/homepage/bukbu/img/place/bg5.jpg") lightgray 50% / cover no-repeat;
 }
 
 .section4-pagination-item:nth-child(6) {
@@ -203,7 +205,7 @@
 }
 
 .section4-pagination-item:nth-child(7) {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/resources/homepage/bukbu/img/place/bg7.svg") lightgray 50% / cover no-repeat;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.60) 100%), url("/resources/homepage/bukbu/img/place/bg7.jpg") lightgray 50% / cover no-repeat;
 }
 
 
@@ -214,7 +216,7 @@
 }
 
 .section4-pagination-item:nth-child(2).active {
-    background: linear-gradient(0deg, rgba(0, 72, 126, 0.80) 0%, rgba(0, 72, 126, 0.80) 100%), url("/resources/homepage/bukbu/img/place/bg2.svg") lightgray 50% / cover no-repeat !important;
+    background: linear-gradient(0deg, rgba(0, 72, 126, 0.80) 0%, rgba(0, 72, 126, 0.80) 100%), url("/resources/homepage/bukbu/img/place/bg2.jpg") lightgray 50% / cover no-repeat !important;
 }
 
 .section4-pagination-item:nth-child(3).active {
@@ -226,7 +228,7 @@
 }
 
 .section4-pagination-item:nth-child(5).active {
-    background: linear-gradient(0deg, rgba(0, 72, 126, 0.80) 0%, rgba(0, 72, 126, 0.80) 100%), url("/resources/homepage/bukbu/img/place/bg5.svg") lightgray 50% / cover no-repeat !important;
+    background: linear-gradient(0deg, rgba(0, 72, 126, 0.80) 0%, rgba(0, 72, 126, 0.80) 100%), url("/resources/homepage/bukbu/img/place/bg5.jpg") lightgray 50% / cover no-repeat !important;
 }
 
 .section4-pagination-item:nth-child(6).active {
@@ -234,10 +236,10 @@
 }
 
 .section4-pagination-item:nth-child(7).active {
-    background: linear-gradient(0deg, rgba(0, 72, 126, 0.80) 0%, rgba(0, 72, 126, 0.80) 100%), url("/resources/homepage/bukbu/img/place/bg7.svg") lightgray 50% / cover no-repeat !important;
+    background: linear-gradient(0deg, rgba(0, 72, 126, 0.80) 0%, rgba(0, 72, 126, 0.80) 100%), url("/resources/homepage/bukbu/img/place/bg7.jpg") lightgray 50% / cover no-repeat !important;
 }
 
-@media (max-width: 1170px) {
+@media (max-width: 1440px) {
     .section4-slide {
         height: 680px;
     }
@@ -247,10 +249,9 @@
     }
 
     .section4-slide-item-content {
-        width: 500px;
-        height: 280px;
-        padding: 60px;
-        gap: 50px;
+        width: 340px;
+        height: 188px;
+        padding: 30px;
     }
 
     .content-title {
@@ -296,6 +297,7 @@
 
     .section4-pagination {
         right: 60px;
+        padding-top: 0;
     }
 
     .section4-pagination-item {
@@ -325,13 +327,8 @@
 
     .section4-slide-item-content {
         width: 100%;
-        height: 200px;
-        padding: 40px;
-        gap: 31px;
-    }
-
-    .section4-slide-item {
-        background-position: 0 0, center top -200px;
+        height: 140px;
+        padding: 20px;
     }
 
     .content-title {
@@ -339,7 +336,8 @@
     }
 
     .place-name {
-        width: 364px;
+        gap: 10px;
+        width: 450px;
     }
 
     .place-name div:first-child {
@@ -354,22 +352,25 @@
 
 @media (max-width: 490px) {
     #fullpage .section-wrapper:nth-child(4) {
-        height: 370px;
+        height: 420px;
     }
 
     .section4-slide {
-        height: 370px;
+        height: 420px;
+    }
+
+    .place-name {
+        gap: 10px;
     }
 
     .section4-slide-item {
-        height: 370px;
+        height: 420px !important;
     }
 
     .section4-slide-item-content {
         width: 100%;
-        height: 170px;
-        padding: 24px;
-        gap: 23px;
+        height: 130px;
+        padding: 10px;
     }
 
     .place-name {
@@ -383,10 +384,6 @@
 
     .section4-pagination {
         display: none;
-    }
-
-    .section4-slide-item {
-        background-position: 0 0, center top -200px;
     }
 
     .content-title {

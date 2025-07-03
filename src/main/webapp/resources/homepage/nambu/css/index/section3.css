@@ -438,22 +438,6 @@
 
 @media (max-width: 1440px) {
   #fullpage .section-wrapper:nth-child(3) {
-    height: 750px;
-  }
-
-  .course-list-item-title {
-    width: 340px;
-  }
-}
-
-@media (max-width: 1260px) {
-  .course-list-item-title {
-    width: 270px;
-  }
-}
-
-@media (max-width: 1170px) {
-  #fullpage .section-wrapper:nth-child(3) {
     height: 502px;
   }
 

@@ -6,17 +6,17 @@
     <div class="wrapper">
         <div class="library-info">
             <div class="link_list">
-                <a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=86">개인정보처리방침</a>
-                <a href="https://library.daegu.go.kr/nambu/board/index.do?menu_idx=87&manage_idx=249">이전개인정보처리방침</a>
-                <a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=89">이용약관</a>
-                <a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=88">영상정보처리방침</a>
-                <a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=90">도서관서비스헌장</a>
-                <a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=91">저작권신고</a>
-                <a href="https://library.daegu.go.kr/nambu/sitemap/index.do?menu_idx=92">사이트맵</a>
-                <a href="https://library.daegu.go.kr/nambu/html.do?menu_idx=94">성고충상담창고</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=86">개인정보처리방침</a>
+                <a href="/${homepage.context_path}/board/index.do?menu_idx=87&manage_idx=249">이전개인정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=89">이용약관</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
+                <a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창고</a>
             </div>
             <div class="library-detail">
-                <div class="library-name">남부도서관</div>
+                <div class="library-name">대구광역시립남부도서관</div>
                 <div class="library-detail-wrapper">
                     <div>(42501) 대구 남구 앞산순환로 512 (대명동, 대구광역시립남부도서관)</div>
                     <div><span>전화</span> 053-231-2300</div>

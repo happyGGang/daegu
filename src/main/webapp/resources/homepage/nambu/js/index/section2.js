@@ -34,10 +34,10 @@ $(document).ready(function () {
     $playPauseBtn.click(function () {
         if (isPlaying) {
             $popupSlide.slick('slickPause');
-            $(this).attr('src', '/resources/homepage/duryu/img/notice/play.svg');
+            $(this).attr('src', '/resources/homepage/nambu/img/notice/play.svg');
         } else {
             $popupSlide.slick('slickPlay');
-            $(this).attr('src', '/resources/homepage/duryu/img/notice/pause.svg');
+            $(this).attr('src', '/resources/homepage/nambu/img/notice/pause.svg');
         }
         isPlaying = !isPlaying;
     });

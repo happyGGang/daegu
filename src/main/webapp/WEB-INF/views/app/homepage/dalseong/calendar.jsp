@@ -86,20 +86,20 @@
 
 <div class="calendar-title">행사 일정</div>
 <div id="calendar2">
-	<a class="go-to-calendar" href="https://library.daegu.go.kr/dalseong/module/calendarManage/index.do?menu_idx=63">
+	<a class="go-to-calendar" href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
 		<div>VIEW MORE</div>
-		<img src="/resources/homepage/dalseong/img/culture/more.svg" alt="">
+		<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 	</a>
 	<div class="calendar-controller">
 		<a id="before-btn" href="#prev" keyValue="${calendar.plan_date}">
-			<img src="/resources/homepage/dalseong/img/culture/calendar-left-arrow.svg" alt="">
+			<img src="/resources/homepage/${homepage.context_path}/img/culture/calendar-left-arrow.svg" alt="">
 		</a>
 		<div class="current-month">
 			<div>${fn:split(calendar.plan_date, '-')[0]}</div>
 			<div>${fn:split(calendar.plan_date, '-')[1] + 0}</div>
 		</div>
 		<a id="next-btn" href="#next" keyValue="${calendar.plan_date}">
-			<img src="/resources/homepage/dalseong/img/culture/calendar-right-arrow.svg" alt="">
+			<img src="/resources/homepage/${homepage.context_path}/img/culture/calendar-right-arrow.svg" alt="">
 		</a>
 	</div>
 	<table>
@@ -257,7 +257,7 @@
 							${year}년 ${month}월 ${day}일
 						</div>
 						<a href="#" class="close closePlanView">
-							<img src="/resources/homepage/dalseong/img/culture/calendar-popup-close.svg" alt="">
+							<img src="/resources/homepage/${homepage.context_path}/img/culture/calendar-popup-close.svg" alt="">
 						</a>
 					</div>
 					<div class="calendar-content">

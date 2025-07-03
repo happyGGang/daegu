@@ -6,14 +6,14 @@
     <div class="wrapper">
         <div class="library-info">
             <div class="link_list">
-                <a href="https://library.daegu.go.kr/dongbu/html.do?menu_idx=86">개인정보처리방침</a>
-                <a href="https://library.daegu.go.kr/dongbu/html.do?menu_idx=88">영상정보처리방침</a>
-                <a href="https://library.daegu.go.kr/dongbu/html.do?menu_idx=90">도서관서비스헌장</a>
-                <a href="https://library.daegu.go.kr/dongbu/html.do?menu_idx=145">도서관이용규정</a>
-                <a href="https://library.daegu.go.kr/dongbu/html.do?menu_idx=109">찾아오시는길</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=86">개인정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=145">도서관이용규정</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
             </div>
             <div class="library-detail">
-                <div class="library-name">동부도서관</div>
+                <div class="library-name">대구광역시립동부도서관</div>
                 <div class="library-detail-wrapper">
                     <div>(41037) 대구 동구 도평로 30 (지저동), 동부도서관 임시자료실</div>
                     <div><span>전화</span> 053-231-2200</div>

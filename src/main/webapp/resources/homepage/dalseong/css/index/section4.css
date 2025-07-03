@@ -62,7 +62,7 @@
   content: '';
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 3px;
   border-radius: 50%;
   transform: translateY(-50%);
   width: 26px;
@@ -216,6 +216,7 @@
   .book-content-header a:after {
     width: 22px;
     height: 22px;
+    right: 0;
   }
 
   .book-slide-wrapper {

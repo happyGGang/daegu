@@ -26,15 +26,15 @@ listNums[i] = num;
 %>
 
 <!-- 메인 -->
-<link rel="stylesheet" href="/resources/homepage/suseong/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/suseong/css/index/section1.css"/>
-<link rel="stylesheet" href="/resources/homepage/suseong/css/index/section2.css"/>
-<link rel="stylesheet" href="/resources/homepage/suseong/css/index/section3.css"/>
-<link rel="stylesheet" href="/resources/homepage/suseong/css/index/section4.css"/>
-<script src="/resources/homepage/suseong/plugin/jquery-3.7.1.min.js"></script>
-<script src="/resources/homepage/suseong/js/index/section1.js"></script>
-<script src="/resources/homepage/suseong/js/index/section2.js"></script>
-<script src="/resources/homepage/suseong/js/index/section4.js"></script>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/reset.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section1.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section2.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section3.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section4.css"/>
+<script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
 
 <c:set var="listNums" value="<%=listNums%>"/>
 <tiles:insertAttribute name="header"/>
@@ -164,18 +164,18 @@ listNums[i] = num;
             <div class="total-popup-controller">
                 <div class="total-popup-controller-btn popup-today-close">
                     <div>오늘 하루 열지 않기</div>
-                    <img src="/resources/homepage/suseong/img/common/total-popup-close.svg" alt="">
+                    <img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
                 </div>
                 <div class="total-popup-controller-btn popup-close">
                     <div>창 닫기</div>
-                    <img src="/resources/homepage/suseong/img/common/total-popup-close.svg" alt="">
+                    <img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
                 </div>
             </div>
 
             <div class="total-popup-content">
                 <div class="total-popup-title">POPUP LIST</div>
                 <div class="total-popup-slide-wrapper">
-                    <img class="total-popup-slide-prev" src="/resources/homepage/suseong/img/common/total-popup-left-arrow.svg" alt="">
+                    <img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
                     <div class="total-popup-slide">
                         <c:forEach items="${popupFullList}" var="i" varStatus="status">
                             <div class="total-popup-slide-item">
@@ -184,7 +184,7 @@ listNums[i] = num;
                                         <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
                                     </c:when>
                                     <c:otherwise>
-                                        <img src="/resources/homepage/suseong/img/common/dummy.png" alt="${i.alt_text}">
+                                        <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.alt_text}">
                                     </c:otherwise>
                                 </c:choose>
                                 <c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
@@ -193,7 +193,7 @@ listNums[i] = num;
                             </div>
                         </c:forEach>
                     </div>
-                    <img class="total-popup-slide-next" src="/resources/homepage/suseong/img/common/total-popup-right-arrow.svg" alt="">
+                    <img class="total-popup-slide-next" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-right-arrow.svg" alt="">
                 </div>
             </div>
         </div>
@@ -207,7 +207,6 @@ listNums[i] = num;
             </div>
             <div class="wrapper">
                 <div class="slogan">
-                    <div>DAEGU METROPOLITAN SUSEONG LIBRARY</div>
                     <div>공원 속 지식 정원, <span>수성도서관</span></div>
                 </div>
                 <!-- 검색 -->
@@ -219,14 +218,14 @@ listNums[i] = num;
                         <input name="title" id="book-search" type="text" placeholder="찾으시는 도서 정보를 입력하세요"/>
 
                         <button class="book-search-btn" id="main-search-btn">
-                            <img src="/resources/homepage/suseong/img/main/search.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt=""/>
                         </button>
                     </form>
                 </div>
                 <!-- 퀵메뉴 -->
 
                 <div class="quick-menu">
-                    <img class="quick-prev" src="/resources/homepage/suseong/img/main/left-arrow.svg" alt="">
+                    <img class="quick-prev" src="/resources/homepage/${homepage.context_path}/img/main/left-arrow.svg" alt="">
                     <div class="quick-menu-slide">
                         <c:forEach var="i" varStatus="status" items="${quickMenuList}">
                             <c:if test="${i.link_target eq 'BLANK' }">
@@ -243,7 +242,7 @@ listNums[i] = num;
                             </c:if>
                         </c:forEach>
                     </div>
-                    <img class="quick-next" src="/resources/homepage/suseong/img/main/right-arrow.svg" alt="">
+                    <img class="quick-next" src="/resources/homepage/${homepage.context_path}/img/main/right-arrow.svg" alt="">
                 </div>
             </div>
             <!-- 휴관일 & 공지사항 -->
@@ -257,15 +256,15 @@ listNums[i] = num;
                 <div class="notice-board">
                     <div class="notice-board-header">
                         <div class="notice-board-title">공지사항</div>
-                        <a href="https://library.daegu.go.kr/suseong/board/index.do?menu_idx=36&manage_idx=56">
-                            <img src="/resources/homepage/suseong/img/notice/more.svg" alt="">
+                        <a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=56">
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
                         </a>
                     </div>
                     <div class="notice-list">
-                        <c:if test="${fn:length(noticeList) >= 1}">
-                            <c:forEach var="i" varStatus="status" items="${noticeList}">
+                        <c:if test="${fn:length(noticeListTopNotice) >= 1}">
+                            <c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" begin='0' end='1'>
                                 <a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-                                    <div class="notice-list-item-date">
+                                    <div class="notice-list-item-date fixed">
                                         <div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
                                         <div><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></div>
                                     </div>
@@ -273,7 +272,21 @@ listNums[i] = num;
                                 </a>
                             </c:forEach>
                         </c:if>
-                        <c:if test="${fn:length(noticeList) < 1}">
+
+                        <c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='3'>
+                            <c:if test="${i.notice_yn eq 'N' or null}">
+                                <a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                    <div class="notice-list-item-date">
+                                        <div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
+                                        <div><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></div>
+                                    </div>
+                                    <div class="notice-list-item-title">${i.title}</div>
+                                </a>
+                            </c:if>
+                        </c:forEach>
+
+
+                        <c:if test="${fn:length(noticeList) < 1 && fn:length(noticeListTopNotice) < 1}">
                             <div class="notice-no-data">등록된 공지사항이 없습니다.</div>
                         </c:if>
                     </div>
@@ -303,7 +316,7 @@ listNums[i] = num;
                             <c:otherwise>
                                 <div class="popup-slide-item">
                                     <a href="">
-                                        <img src="/resources/homepage/suseong/img/common/dummy.png" alt="" />
+                                        <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="" />
                                     </a>
                                 </div>
                             </c:otherwise>
@@ -311,14 +324,14 @@ listNums[i] = num;
                     </div>
                     <div class="popup-control">
                         <div class="popup-prev">
-                            <img src="/resources/homepage/suseong/img/notice/popup-prev.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/popup-prev.svg" alt=""/>
                         </div>
                         <div class="popup-pagination"></div>
                         <div class="popup-play-and-pause">
-                            <img src="/resources/homepage/suseong/img/notice/pause.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/pause.svg" alt=""/>
                         </div>
                         <div class="popup-next">
-                            <img src="/resources/homepage/suseong/img/notice/popup-next.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/popup-next.svg" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -330,9 +343,8 @@ listNums[i] = num;
                 <div class="course-board">
                     <div class="course-board-header">
                         <div class="course-board-title">강좌 및 행사</div>
-                        <a href="https://library.daegu.go.kr/suseong/module/teach/index.do?menu_idx=30">
-                            <div>VIEW MORE</div>
-                            <img src="/resources/homepage/suseong/img/culture/more.svg" alt="">
+                        <a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
+                            <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
                         </a>
                     </div>
                     <div class="course-list">
@@ -342,7 +354,11 @@ listNums[i] = num;
                         <c:if test="${fn:length(teachList) >= 1}">
                             <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='3'>
                                 <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" class="course-list-item">
-                                    <div class="course-list-item-title">${i.teach_name}</div>
+                                    <div>
+                                        <div class="course-list-item-title">${i.teach_name}</div>
+                                        <div class="course-list-item-detail">강좌내용입니다.</div>
+                                    </div>
+
                                     <div class="course-list-item-date">
                                         <div><span>강좌기간</span>${i.start_date} ~ ${i.end_date}</div>
                                         <div><span>접수기간</span>${i.start_join_date} ~ ${i.start_join_date}</div>
@@ -363,9 +379,9 @@ listNums[i] = num;
                         <div class="move-to-detail">
                             <div class="white">신착도서</div>
                         </div>
-                        <a href="https://library.daegu.go.kr/suseong/intro/search/newBook/index.do?menu_idx=14">
+                        <a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">
                             <div class="white">더보기</div>
-                            <img src="/resources/homepage/suseong/img/book/more.svg" alt="">
+                            <img src="/resources/homepage/${homepage.context_path}/img/book/more.svg" alt="">
                         </a>
                     </div>
 
@@ -378,9 +394,9 @@ listNums[i] = num;
                         <div class="move-to-detail">
                             <div>추천도서</div>
                         </div>
-                        <a class="flex-end" href="https://library.daegu.go.kr/suseong/board/index.do?menu_idx=41&manage_idx=31">
+                        <a class="flex-end" href="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=31">
                             <div>더보기</div>
-                            <img src="/resources/homepage/suseong/img/book/more-black.svg" alt="">
+                            <img src="/resources/homepage/${homepage.context_path}/img/book/more-black.svg" alt="">
                         </a>
                     </div>
 
@@ -389,17 +405,17 @@ listNums[i] = num;
                             <div class="book-nodata">등록된 추천도서가 없습니다.</div>
                         </c:if>
                         <c:if test="${fn:length(recommendBookList) >= 1}">
-                            <img class="recommended-book-slide-prev" src="/resources/homepage/suseong/img/book/arrow-left.svg" alt="">
+                            <img class="recommended-book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="">
                             <div class="recommended-book-slide">
                                 <c:forEach var="i" varStatus="status" items="${recommendBookList}">
                                     <div class="book-slide-item">
                                         <a href="/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
                                             <c:choose>
                                                 <c:when test="${fn:contains(i.preview_img, 'noimg')}">
-                                                    <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/suseong/img/common/dummy.png';" />
+                                                    <img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/suseong/img/common/dummy.png';" />
+                                                    <img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
                                                 </c:otherwise>
                                             </c:choose>
                                         </a>
@@ -408,7 +424,7 @@ listNums[i] = num;
                                 </c:forEach>
                             </div>
                             <c:if test="${fn:length(recommendBookList) >= 1}">
-                                <img class="recommended-book-slide-next" src="/resources/homepage/suseong/img/book/arrow-right.svg" alt="">
+                                <img class="recommended-book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="">
                             </c:if>
                         </c:if>
                     </div>
@@ -421,10 +437,10 @@ listNums[i] = num;
             <!-- banner -->
             <div class="banner-area">
                 <div class="banner-slide-controller">
-                    <img class="banner-prev" src="/resources/homepage/suseong/img/common/banner-prev.svg" alt=""/>
-                    <img class="banner-next" src="/resources/homepage/suseong/img/common/banner-next.svg" alt=""/>
-                    <img class="banner-play-and-pause" src="/resources/homepage/suseong/img/common/banner-pause.svg" alt="">
-                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/suseong/img/common/banner-more.svg" alt="">
+                    <img class="banner-prev" src="/resources/homepage/${homepage.context_path}/img/common/banner-prev.svg" alt=""/>
+                    <img class="banner-next" src="/resources/homepage/${homepage.context_path}/img/common/banner-next.svg" alt=""/>
+                    <img class="banner-play-and-pause" src="/resources/homepage/${homepage.context_path}/img/common/banner-pause.svg" alt="">
+                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/${homepage.context_path}/img/common/banner-more.svg" alt="">
                 </div>
                 <homepageTag:newBanner bannerList="${bannerList}"/>
             </div>

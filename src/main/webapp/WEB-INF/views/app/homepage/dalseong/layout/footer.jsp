@@ -6,14 +6,14 @@
 	<div class="wrapper">
 		<div class="library-info">
 			<div class="link_list">
-				<a href="https://library.daegu.go.kr/dalseong/html.do?menu_idx=86">개인정보처리방침</a>
-				<a href="https://library.daegu.go.kr/dalseong/html.do?menu_idx=88">영상정보처리방침</a>
-				<a href="https://library.daegu.go.kr/dalseong/html.do?menu_idx=90">도서관서비스헌장</a>
-				<a href="https://library.daegu.go.kr/dalseong/html.do?menu_idx=91">저작권신고</a>
-				<a href="https://library.daegu.go.kr/dalseong/html.do?menu_idx=94">성고충상담창구</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=86">개인정보처리방침</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창구</a>
 			</div>
 			<div class="library-detail">
-				<div class="library-name">달성도서관</div>
+				<div class="library-name">대구광역시립달성도서관</div>
 				<div class="library-detail-wrapper">
 					<div>(42998) 대구 달성군 현풍읍 현풍동로19길 26 (대구광역시립달성도서관)</div>
 					<div><span>대표전화</span>053-231-2150</div>
@@ -32,7 +32,7 @@
 </div>
 <div class="footer-wrapper footer-bottom">
 	<div class="wrapper">
-		<div class="copyright">Copyright © 2020 DAEGU METROPOLITAN DALSUNG LIBRARY</div>
+		<div class="copyright">Copyright © DAEGU METROPOLITAN DALSUNG LIBRARY</div>
 		<div class="move-select">
 			<div class="select-wrapper">
 				<select>

@@ -14,13 +14,14 @@
 		</div>
 		<div class="util-wrapper">
 			<div class="util">
-				<div class="screen-control">
-					<div>화면크기</div>
-					<img id="plus" src="/resources/homepage/suseong/img/common/plus.svg" alt="">
-					<img id="minus" src="/resources/homepage/suseong/img/common/minus.svg" alt="">
+				<div class="sns-box">
+					<a href="https://pf.kakao.com/_UxjxgLb"><img src="/resources/homepage/${homepage.context_path}/img/common/kakaotalk-color.svg" alt=""></a>
+					<a href="https://www.youtube.com/channel/UCcsjxHtIVulortb8xu6bnCQ"><img src="/resources/homepage/${homepage.context_path}/img/common/youtube-color.svg" alt=""></a>
+					<a href="https://www.instagram.com/suseonglib/?hl=ko"><img src="/resources/homepage/${homepage.context_path}/img/common/instagram-color.svg" alt=""></a>
+					<a href="https://blog.naver.com/suseonglib"><img src="/resources/homepage/${homepage.context_path}/img/common/blog-color.svg" alt=""></a>
 				</div>
 				<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-					<div>${sessionScope.member.member_name}님</div>
+					<a><b>${sessionScope.member.member_name}님</b></a>
 				</c:if>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
@@ -28,7 +29,7 @@
 						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-						<div>관리자 로그인 중</div>
+						<a>관리자 로그인 중</a>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
@@ -42,7 +43,7 @@
 			<c:set var="pageUrl" value="${homepage.context_path}/index" />
 			<c:if test="${fn:contains(url,pageUrl) }">
 				<div class="total-popup-trigger">
-					<div>통합팝업</div>
+					<div>팝업 다시보기</div>
 					<div>${fn:length(popupFullList)}</div>
 				</div>
 			</c:if>

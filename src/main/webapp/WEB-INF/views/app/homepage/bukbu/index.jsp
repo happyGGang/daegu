@@ -292,7 +292,7 @@
                     <div class="holiday-notice-wrapper">
                         <div class="holiday-area" id="holiday-area"></div>
                         <div class="notice-slide-wrapper">
-                            <img src="/resources/homepage/dalseong/img/main/notice-slide-pause.svg" alt="">
+                            <img src="/resources/homepage/bukbu/img/main/notice-slide-pause.svg" alt="">
                             <div class="notice-slide">
                                 <c:if test="${not empty newsList}">
                                     <c:forEach items="${newsList}" var="i">
@@ -350,7 +350,7 @@
 										<div class="section2-slide-item-bottom">
 											<div>${i.content_summary}</div>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=124&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-												<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+												더보기
 											</a>
 										</div>
 									</div>
@@ -380,7 +380,7 @@
 										<div class="section2-slide-item-bottom">
 											<div>${i.content_summary}</div>
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-												<img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+												더보기
 											</a>
 										</div>
 									</div>
@@ -428,7 +428,7 @@
                                                 </div>
 
                                                 <a class="go-to-movie" href="/${homepage.context_path}/board/view.do?menu_idx=60&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
-                                                    <img src="/resources/homepage/${homepage.context_path}/img/notice/go.svg" alt="">
+                                                    더보기
                                                 </a>
                                             </div>
                                         </div>
@@ -452,17 +452,17 @@
                         <div class="section3-header">
                             <div class="section3-tab">
                                 <div class="section3-tab-active"
-                                     data-target="4" data-link="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146">신착도서
+                                     data-target="4" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신착도서
                                 </div>
-                                <div data-target="5" data-link="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=1">대출베스트</div>
-                                <div data-target="6" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">교과연계도서</div>
-                                <div data-target="7" data-link="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=157">북큐레이션</div>
+                                <div data-target="5" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</div>
+                                <div data-target="6" data-link="/${homepage.context_path}/intro/search/index.do?menu_idx=120&booktype=BOOK&separateShelfCode=ABH#search_result">교과연계도서</div>
+                                <div data-target="7" data-link="/${homepage.context_path}/board/index.do?menu_idx=165&manage_idx=921">북큐레이션</div>
                             </div>
 
                             <div class="section3-action-wrapper">
                                 <img class="section3-slide-prev" src="/resources/homepage/${homepage.context_path}/img/notice/left-arrow.svg" alt="">
                                 <img class="section3-slide-next" src="/resources/homepage/${homepage.context_path}/img/notice/right-arrow.svg" alt="">
-                                <a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=146" class="tab-link2">
+                                <a href="" class="tab-link2">
                                     <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
                                 </a>
                             </div>
@@ -540,18 +540,7 @@
                         <div class="link-name">
                             <div>사서에게 물어보세요</div>
                             <div>
-                                협력형 온라인 지식 정보<br>
-                                서비스
-                            </div>
-                        </div>
-                    </a>
-                    <a href="/dgportal/index.do">
-                        <img src="/resources/homepage/${homepage.context_path}/img/book/icon5.svg" alt="">
-                        <div class="link-name">
-                            <div>대구통합도서관</div>
-                            <div>
-                                대구 지역 공공도서관의<br>
-                                소식을 한 번에 확인
+                                협력형 온라인 지식 정보 <br>서비스
                             </div>
                         </div>
                     </a>
@@ -567,7 +556,7 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>어린이자료실</div>
-                                <div>어린이자료실 소개</div>
+                                <div>영유아 및 어린이 자료, 학년별 교과연계자료 등을 비치하고 있습니다.</div>
                             </div>
                             <div class="index">01</div>
                         </div>
@@ -576,7 +565,7 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                            <img onclick="window.location.href='/${homepage.context_path}/html.do?menu_idx=117'" src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -586,7 +575,7 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>종합자료실</div>
-                                <div>종합자료실 소개</div>
+                                <div>전 주제분야(총류~역사)의 일반도서, 큰글자도서 등을 소장하고 있습니다.</div>
                             </div>
                             <div class="index">02</div>
                         </div>
@@ -595,7 +584,7 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                            <img onclick="window.location.href='/${homepage.context_path}/bukbu/html.do?menu_idx=116'" src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -605,7 +594,8 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>청소년북아지트</div>
-                                <div>청소년북아지트 소개</div>
+                                <div>청소년북아지트는 청소년 전용 공간입니다.
+                                    (중학생 1~3학년, 연나이 13~15세)</div>
                             </div>
                             <div class="index">03</div>
                         </div>
@@ -614,7 +604,7 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                            <img onclick="window.location.href='/${homepage.context_path}/html.do?menu_idx=210'" src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -624,7 +614,7 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>북마루</div>
-                                <div>북마루 소개</div>
+                                <div>다목적실</div>
                             </div>
                             <div class="index">04</div>
                         </div>
@@ -633,7 +623,6 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -643,7 +632,7 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>북담</div>
-                                <div>북담 소개</div>
+                                <div>이용자 휴게실</div>
                             </div>
                             <div class="index">05</div>
                         </div>
@@ -652,7 +641,6 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -662,7 +650,7 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>시청각실</div>
-                                <div>시청각실 소개</div>
+                                <div></div>
                             </div>
                             <div class="index">06</div>
                         </div>
@@ -671,7 +659,6 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -681,7 +668,7 @@
                         <div class="section4-slide-item-content-top">
                             <div class="place-name">
                                 <div>카페</div>
-                                <div>카페 소개</div>
+                                <div></div>
                             </div>
                             <div class="index">07</div>
                         </div>
@@ -690,7 +677,6 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>

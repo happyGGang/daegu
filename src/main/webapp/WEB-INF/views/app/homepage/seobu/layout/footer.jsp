@@ -6,13 +6,13 @@
     <div class="wrapper">
         <div class="library-info">
             <div class="link_list">
-                <a href="https://library.daegu.go.kr/seobu/html.do?menu_idx=86">개인정보처리방침</a>
-                <a href="https://library.daegu.go.kr/seobu/html.do?menu_idx=88">영상정보처리방침</a>
-                <a href="https://library.daegu.go.kr/seobu/html.do?menu_idx=90">도서관헌장</a>
-                <a href="https://library.daegu.go.kr/seobu/html.do?menu_idx=109">찾아오시는길</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=86">개인정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=88">영상정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=90">도서관헌장</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
             </div>
             <div class="library-detail">
-                <div class="library-name">서부도서관</div>
+                <div class="library-name">대구광역시립서부도서관</div>
                 <div class="library-detail-wrapper">
                     <div>(41777) 대구 서구 국채보상로49길 12 (평리동, 서부도서관)</div>
                     <div><span>전화(주)</span> 053)231-2400</div>

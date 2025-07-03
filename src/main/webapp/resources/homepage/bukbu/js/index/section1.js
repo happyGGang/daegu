@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    // 초기 페이징 설정 이벤트 바인딩
+    $('.main-popup')
+            .on('init', function (event, slick) {
+                $('.popup-pagination').text(`1 / ${slick.slideCount}`);
+            })
+            .on('afterChange', function (event, slick, currentSlide) {
+                $('.popup-pagination').text(`${currentSlide + 1} / ${slick.slideCount}`);
+            })
+            .on('reInit', function (event, slick) {
+                $('.popup-pagination').text(`1 / ${slick.slideCount}`);
+            });
+
     // 메인 팝업 슬라이더 초기화
     $('.main-popup').slick({
         slidesToShow: 1,
@@ -28,36 +40,15 @@ $(document).ready(function () {
         speed: 300
     });
 
-    // 이전 버튼
+    // 이전/다음 버튼
     $('.main-popup-prev').click(function () {
         $('.main-popup').slick('slickPrev');
     });
-
-    // 다음 버튼
     $('.main-popup-next').click(function () {
         $('.main-popup').slick('slickNext');
     });
 
-
-    // 초기 페이징 설정
-    $('.main-popup').on('init', function (event, slick) {
-        $('.popup-pagination').text(`1 / ${slick.slideCount}`);
-    });
-
-    // 슬라이드 변경 시 페이징 업데이트
-    $('.main-popup').on('afterChange', function (event, slick, currentSlide) {
-        $('.popup-pagination').text(`${currentSlide + 1} / ${slick.slideCount}`);
-    });
-
-    // 슬라이더 위치 재설정
-    $('.main-popup').slick('setPosition');
-
-    // 슬라이더 재초기화 시 페이징 업데이트
-    $('.main-popup').on('reInit', function (event, slick) {
-        $('.popup-pagination').text(`1 / ${slick.slideCount}`);
-    });
-
-    // Slick Slider 초기화
+    // 공지사항 슬라이더 초기화
     $('.notice-slide').slick({
         slidesToShow: 1,
         arrows: false,
@@ -77,11 +68,11 @@ $(document).ready(function () {
     $playPauseBtn.on('click', function () {
         if (isPlaying) {
             $('.notice-slide').slick('slickPause');
-            $(this).attr('src', '/resources/homepage/dalseong/img/main/notice-slide-play.svg');
+            $(this).attr('src', '/resources/homepage/bukbu/img/main/notice-slide-play.svg');
             $(this).attr('alt', 'Play');
         } else {
             $('.notice-slide').slick('slickPlay');
-            $(this).attr('src', '/resources/homepage/dalseong/img/main/notice-slide-pause.svg');
+            $(this).attr('src', '/resources/homepage/bukbu/img/main/notice-slide-pause.svg');
             $(this).attr('alt', 'Pause');
         }
         isPlaying = !isPlaying;

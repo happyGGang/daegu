@@ -25,16 +25,16 @@
     }
 %>
 
-<link rel="stylesheet" href="/resources/homepage/seobu/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/index/section1.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/index/section2.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/index/section3.css"/>
-<link rel="stylesheet" href="/resources/homepage/seobu/css/index/section4.css"/>
-<script src="/resources/homepage/suseong/plugin/jquery-3.7.1.min.js"></script>
-<script src="/resources/homepage/seobu/js/index/section1.js"></script>
-<script src="/resources/homepage/seobu/js/index/section2.js"></script>
-<script src="/resources/homepage/seobu/js/index/section3.js"></script>
-<script src="/resources/homepage/seobu/js/index/section4.js"></script>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/reset.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section1.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section2.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section3.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section4.css"/>
+<script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section3.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
 
 <c:set var="listNums" value="<%=listNums%>"/>
 <tiles:insertAttribute name="header"/>
@@ -127,18 +127,18 @@
 			<div class="total-popup-controller">
 				<div class="total-popup-controller-btn popup-today-close">
 					<div>오늘 하루 열지 않기</div>
-					<img src="/resources/homepage/suseong/img/common/total-popup-close.svg" alt="">
+					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
 				</div>
 				<div class="total-popup-controller-btn popup-close">
 					<div>창 닫기</div>
-					<img src="/resources/homepage/suseong/img/common/total-popup-close.svg" alt="">
+					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
 				</div>
 			</div>
 			
 			<div class="total-popup-content">
 				<div class="total-popup-title">POPUP LIST</div>
 				<div class="total-popup-slide-wrapper">
-					<img class="total-popup-slide-prev" src="/resources/homepage/suseong/img/common/total-popup-left-arrow.svg" alt="">
+					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
 					<div class="total-popup-slide">
 						<c:forEach items="${popupFullList}" var="i" varStatus="status">
 							<div class="total-popup-slide-item">
@@ -147,7 +147,7 @@
 										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
 									</c:when>
 									<c:otherwise>
-										<img src="/resources/homepage/suseong/img/common/dummy.png" alt="${i.alt_text}">
+										<img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.alt_text}">
 									</c:otherwise>
 								</c:choose>
 								<c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
@@ -156,7 +156,7 @@
 							</div>
 						</c:forEach>
 					</div>
-					<img class="total-popup-slide-next" src="/resources/homepage/suseong/img/common/total-popup-right-arrow.svg" alt="">
+					<img class="total-popup-slide-next" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-right-arrow.svg" alt="">
 				</div>
 			</div>
 		</div>
@@ -167,7 +167,7 @@
         <div class="section-wrapper" data-anchor="section1">
             <div class="main-bg-slide slider-for">
 				<c:forEach var="i" items="${popupZoneList}">
-					<div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');">></div>
+					<div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');"></div>
 				</c:forEach>
             </div>
             <div class="wrapper">
@@ -179,13 +179,13 @@
 						<input name="title" id="book-search" type="text" placeholder="찾으시는 도서 정보를 입력하세요"/>
 						
 						<button class="book-search-btn" id="main-search-btn">
-							<img src="/resources/homepage/seobu/img/main/search.svg" alt=""/>
+							<img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt=""/>
 						</button>
 					</form>
 				</div>
 				<div class="main-popup-wrapper">
-					<img class="main-popup-prev" src="/resources/homepage/seobu/img/main/main-popup-prev.svg" alt="">
-					<img class="main-popup-next" src="/resources/homepage/seobu/img/main/main-popup-next.svg" alt="">
+					<img class="main-popup-prev" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-prev.svg" alt="">
+					<img class="main-popup-next" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-next.svg" alt="">
 					
 					<div class="main-popup slider-nav">
 						<c:forEach var="i" items="${popupZoneList}">
@@ -241,8 +241,8 @@
                 <div class="notice-board">
                     <div class="notice-board-header">
                         <div class="notice-board-title">공지사항</div>
-                        <a href="https://library.daegu.go.kr/seobu/board/index.do?menu_idx=36&manage_idx=161">
-                            <img src="/resources/homepage/seobu/img/notice/more.svg" alt="">
+                        <a href="https://library.daegu.go.kr/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=161">
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
                         </a>
                     </div>
                     <div class="notice-list">
@@ -268,28 +268,28 @@
                                 <c:forEach var="i" items="${galleryList}">
                                     <div class="popup-slide-item">
                                         <a href="/${homepage.context_path}/board/view.do?menu_idx=143&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" target="_blank">
-                                            <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"  alt="${i.title}" title="${i.title}" onError="this.src='/resources/homepage/seobu/img/common/dummy.png'"/>
+                                            <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"  alt="${i.title}" title="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                                         </a>
                                     </div>
                                 </c:forEach>
                             </c:when>
                             <c:otherwise>
                                 <div class="popup-slide-item">
-                                    <img src="/resources/homepage/seobu/img/common/dummy.png" alt=""/>
+                                    <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt=""/>
                                 </div>
                             </c:otherwise>
                         </c:choose>
                     </div>
                     <div class="popup-control">
                         <div class="popup-prev">
-                            <img src="/resources/homepage/seobu/img/notice/popup-prev.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/popup-prev.svg" alt=""/>
                         </div>
                         <div class="popup-pagination"></div>
                         <div class="popup-play-and-pause">
-                            <img src="/resources/homepage/seobu/img/notice/pause.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/pause.svg" alt=""/>
                         </div>
                         <div class="popup-next">
-                            <img src="/resources/homepage/seobu/img/notice/popup-next.svg" alt=""/>
+                            <img src="/resources/homepage/${homepage.context_path}/img/notice/popup-next.svg" alt=""/>
                         </div>
                     </div>
                 </div>
@@ -300,16 +300,16 @@
             <div class="wrapper">
                 <div class="course-list-header">
                     <div class="course-list-header-title">문화강좌 및 행사</div>
-                    <a href="https://library.daegu.go.kr/seobu/module/teach/index.do?menu_idx=30" class="go-to-course">
+                    <a href="https://library.daegu.go.kr/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="go-to-course">
                         <div>더보기</div>
-                        <img src="/resources/homepage/seobu/img/culture/more.svg" alt="">
+                        <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
                     </a>
                 </div>
                 <div class="course-list">
                     <c:choose>
                         <c:when test="${fn:length(teachList) > 0}">
-                            <img class="img1" src="/resources/homepage/seobu/img/culture/img1.svg" alt="">
-                            <img class="img2" src="/resources/homepage/seobu/img/culture/img2.svg" alt="">
+                            <img class="img1" src="/resources/homepage/${homepage.context_path}/img/culture/img1.svg" alt="">
+                            <img class="img2" src="/resources/homepage/${homepage.context_path}/img/culture/img2.svg" alt="">
                             <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='3'>
                                 <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" class="course-list-item">
                                     <div class="course-list-item-title">
@@ -333,8 +333,8 @@
         <!-- 섹션4 -->
         <div class="section-wrapper" data-anchor="section4">
             <div class="wrapper">
-                <a id="tab-link" href="/seobu/intro/search/newBook/index.do?menu_idx=14">
-                    <img src="/resources/homepage/seobu/img/book/more.svg" alt="">
+                <a id="tab-link" href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">
+                    <img src="/resources/homepage/${homepage.context_path}/img/book/more.svg" alt="">
                 </a>
                 <div class="book-tab-wrapper">
                     <div class="tab-button active-tab" data-target="tab1">북큐레이션</div>
@@ -345,7 +345,7 @@
                 <div class="tab-content tab1">
                     <c:choose>
                         <c:when test="${fn:length(curationList) > 0}">
-                            <img class="book-slide-prev" src="/resources/homepage/seobu/img/book/arrow-left.svg" alt="이전" />
+                            <img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="이전" />
                             <!-- 북 큐레이션 리스트 -->
                             <div class="tab-list">
                                 <c:forEach var="i" items="${curationList}">
@@ -364,7 +364,7 @@
                                     </div>
                                 </c:forEach>
                             </div>
-                            <img class="book-slide-next" src="/resources/homepage/seobu/img/book/arrow-right.svg" alt="다음" />
+                            <img class="book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="다음" />
                         </c:when>
 
                         <c:otherwise>
@@ -383,10 +383,10 @@
             <!-- banner -->
             <div class="banner-area">
                 <div class="banner-slide-controller">
-                    <img class="banner-prev" src="/resources/homepage/seobu/img/common/banner-prev.svg" alt=""/>
-                    <img class="banner-next" src="/resources/homepage/seobu/img/common/banner-next.svg" alt=""/>
-                    <img class="banner-play-and-pause" src="/resources/homepage/seobu/img/common/banner-pause.svg" alt="">
-                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/seobu/img/common/banner-more.svg" alt="">
+                    <img class="banner-prev" src="/resources/homepage/${homepage.context_path}/img/common/banner-prev.svg" alt=""/>
+                    <img class="banner-next" src="/resources/homepage/${homepage.context_path}/img/common/banner-next.svg" alt=""/>
+                    <img class="banner-play-and-pause" src="/resources/homepage/${homepage.context_path}/img/common/banner-pause.svg" alt="">
+                    <img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/${homepage.context_path}/img/common/banner-more.svg" alt="">
                 </div>
                 <homepageTag:newBanner bannerList="${bannerList}"/>
             </div>

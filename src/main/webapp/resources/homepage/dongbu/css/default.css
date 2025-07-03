@@ -230,7 +230,7 @@
 	}
 
 	.tnb div:first-child a {
-		padding: 10px 32px;
+		padding: 10px 27px;
 	}
 
 	.util-wrapper {
@@ -245,8 +245,17 @@
 }
 
 @media (max-width: 490px) {
+
 	.tnb div:first-child a {
-		padding: 10px 33px;
+		padding: 10px 17px;
+		width: 100%;
+	}
+
+	.tnb div:first-child {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
 	}
 
 	.library-logo {

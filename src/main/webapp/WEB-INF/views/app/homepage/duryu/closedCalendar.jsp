@@ -75,13 +75,13 @@
 <div class="holiday-area-title">휴관일</div>
 <div class="holiday-area-controller">
     <a href="#" id="before-btns" role="button" keyValue="${calendar.plan_date}">
-        <img src="/resources/homepage/duryu/img/main/holiday-left-arrow.svg" alt="지난달"/>
+        <img src="/resources/homepage/${homepage.context_path}/img/main/holiday-left-arrow.svg" alt="지난달"/>
     </a>
     <div>
         ${fn:split(calendar.plan_date, '-')[0]}.<span>${fn:split(calendar.plan_date, '-')[1]}</span>
     </div>
     <a href="#" id="next-btns" role="button" keyValue="${calendar.plan_date}">
-        <img src="/resources/homepage/duryu/img/main/holiday-right-arrow.svg" alt="다음달"/>
+        <img src="/resources/homepage/${homepage.context_path}/img/main/holiday-right-arrow.svg" alt="다음달"/>
     </a>
 </div>
 
@@ -95,8 +95,8 @@
                 <div>${day}</div>
             </c:forEach>
             <c:if test="${fn:length(dd) > 6}">
-                <a href="https://library.daegu.go.kr/duryu/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
-                    <img src="/resources/homepage/duryu/img/main/go-to-holiday.svg" alt="">
+                <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
+                    <img src="/resources/homepage/${homepage.context_path}/img/main/go-to-holiday.svg" alt="">
                 </a>
             </c:if>
         </c:otherwise>

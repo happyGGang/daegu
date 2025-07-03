@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.mmenu.css"/>
-    <link rel="stylesheet" type="text/css" href="/resources/homepage/suseong/css/common/default.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/common/default.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/common/css/login.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/board/css/default.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/book/css/common.css"/>
@@ -36,7 +36,7 @@
     <!--[if lte IE 8]>
     <link rel="stylesheet" type="text/css" href="/resources/homepage/${homepage.context_path}/css/ie.css"/>
     <![endif]-->
-    <script src="/resources/homepage/suseong/plugin/jquery-3.7.1.min.js"></script>
+    <script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
 
     <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
     <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
@@ -48,19 +48,20 @@
     <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
 
     <!-- 공통 -->
-    <link rel="stylesheet" href="/resources/homepage/suseong/css/common/common.css"/>
-    <link rel="stylesheet" href="/resources/homepage/suseong/css/common/footer.css"/>
-    <link rel="stylesheet" href="/resources/homepage/suseong/css/common/header.css"/>
-    <link rel="stylesheet" href="/resources/homepage/suseong/css/common/total-popup.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/common.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/font.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/footer.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/header.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/total-popup.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.17/fullpage.css"/>
-    <link rel="stylesheet" href="/resources/homepage/suseong/css/common/slick.css"/>
-    <link rel="stylesheet" href="/resources/homepage/suseong/css/common/slick-theme.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/slick.css"/>
+    <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/slick-theme.css"/>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/ungveloper/web-fonts/GmarketSans/font-face.css"/>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/ungveloper/web-fonts/GmarketSans/font-family.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.17/fullpage.js"></script>
-    <script src="/resources/homepage/suseong/js/common/common.js"></script>
-    <script src="/resources/homepage/suseong/js/common/fullpage.js"></script>
-    <script src="/resources/homepage/suseong/plugin/slick.min.js"></script>
+    <script src="/resources/homepage/${homepage.context_path}/js/common/common.js"></script>
+    <script src="/resources/homepage/${homepage.context_path}/js/common/fullpage.js"></script>
+    <script src="/resources/homepage/${homepage.context_path}/plugin/slick.min.js"></script>
 </head>
 
 

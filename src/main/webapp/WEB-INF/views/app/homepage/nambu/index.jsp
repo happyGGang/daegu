@@ -26,16 +26,16 @@ listNums[i] = num;
 %>
 
 <!-- 메인 -->
-<link rel="stylesheet" href="/resources/homepage/nambu/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/nambu/css/index/section1.css"/>
-<link rel="stylesheet" href="/resources/homepage/nambu/css/index/section2.css"/>
-<link rel="stylesheet" href="/resources/homepage/nambu/css/index/section3.css"/>
-<link rel="stylesheet" href="/resources/homepage/nambu/css/index/section4.css"/>
-<script src="/resources/homepage/nambu/plugin/jquery-3.7.1.min.js"></script>
-<script src="/resources/homepage/nambu/js/index/section1.js"></script>
-<script src="/resources/homepage/nambu/js/index/section2.js"></script>
-<script src="/resources/homepage/nambu/js/index/section3.js"></script>
-<script src="/resources/homepage/nambu/js/index/section4.js"></script>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/reset.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section1.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section2.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section3.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section4.css"/>
+<script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section3.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
 
 <c:set var="listNums" value="<%=listNums%>"/>
 <tiles:insertAttribute name="header"/>
@@ -96,6 +96,44 @@ listNums[i] = num;
 		});
 		// 팝업 관련 코드 END
 
+		$('#new_book_wrapper').html('<div class="book-loading-wrapper"><div class="book-loading"></div></div>');
+
+		$('#new_book_wrapper').load('newBook.do', function () {
+			const $bookSlide = $('.book-slide');
+			if ($bookSlide.length && !$bookSlide.hasClass('slick-initialized')) {
+				$bookSlide.slick({
+					slidesToShow: 5,
+					slidesToScroll: 1,
+					autoplay: false,
+					arrows: false,
+					dots: false,
+					variableWidth: true,
+					responsive: [
+						{
+							breakpoint: 1260,
+							settings: {
+								slidesToShow: 4,
+								variableWidth: true,
+							},
+						},
+						{
+							breakpoint: 865,
+							settings: {
+								slidesToShow: 3,
+								variableWidth: true,
+							},
+						},
+					],
+				});
+			}
+
+			$('.book-slide-prev, .book-slide-next').off('click').on('click', function () {
+				if ($bookSlide.hasClass('slick-initialized')) {
+					$bookSlide.slick($(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext');
+				}
+			});
+		});
+
 		$('#main-search-btn').on('click', function () {
 			if ($('input#book-search').val() == '') {
 				alert('검색어를 입력하세요.');
@@ -127,18 +165,18 @@ listNums[i] = num;
 			<div class="total-popup-controller">
 				<div class="total-popup-controller-btn popup-today-close">
 					<div>오늘 하루 열지 않기</div>
-					<img src="/resources/homepage/nambu/img/common/total-popup-close.svg" alt="">
+					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
 				</div>
 				<div class="total-popup-controller-btn popup-close">
 					<div>창 닫기</div>
-					<img src="/resources/homepage/nambu/img/common/total-popup-close.svg" alt="">
+					<img src="/resources/homepage/${homepage.context_path}/img/common/total-popup-close.svg" alt="">
 				</div>
 			</div>
 
 			<div class="total-popup-content">
 				<div class="total-popup-title">POPUP LIST</div>
 				<div class="total-popup-slide-wrapper">
-					<img class="total-popup-slide-prev" src="/resources/homepage/nambu/img/common/total-popup-left-arrow.svg" alt="">
+					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
 					<div class="total-popup-slide">
 						<c:forEach items="${popupFullList}" var="i" varStatus="status">
 							<div class="total-popup-slide-item">
@@ -147,7 +185,7 @@ listNums[i] = num;
 										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
 									</c:when>
 									<c:otherwise>
-										<img src="/resources/homepage/nambu/img/common/dummy.png" alt="${i.alt_text}">
+										<img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.alt_text}">
 									</c:otherwise>
 								</c:choose>
 								<c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
@@ -156,7 +194,7 @@ listNums[i] = num;
 							</div>
 						</c:forEach>
 					</div>
-					<img class="total-popup-slide-next" src="/resources/homepage/nambu/img/common/total-popup-right-arrow.svg" alt="">
+					<img class="total-popup-slide-next" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-right-arrow.svg" alt="">
 				</div>
 			</div>
 		</div>
@@ -167,7 +205,7 @@ listNums[i] = num;
 			<div class="section-wrapper" data-anchor="section1">
 			<div class="main-bg-slide slider-for">
 				<c:forEach var="i" items="${popupZoneList}">
-					<div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');">></div>
+					<div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');"></div>
 				</c:forEach>
 			</div>
 			<div class="wrapper">
@@ -179,13 +217,14 @@ listNums[i] = num;
 						<input name="title" id="book-search" type="text" placeholder="찾으시는 도서 정보를 입력하세요"/>
 
 						<button class="book-search-btn" id="main-search-btn">
-							<img src="/resources/homepage/nambu/img/main/search.svg" alt=""/>
+							<img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt=""/>
 						</button>
 					</form>
+					<img class="go-to-kakao" onclick="window.location.href='https://pf.kakao.com/_WPCfb';" src="/resources/homepage/nambu/img/common/kakaotalk-color.svg" alt="">
 				</div>
 				<div class="main-popup-wrapper">
-					<img class="main-popup-prev" src="/resources/homepage/nambu/img/main/main-popup-prev.svg" alt="">
-					<img class="main-popup-next" src="/resources/homepage/nambu/img/main/main-popup-next.svg" alt="">
+					<img class="main-popup-prev" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-prev.svg" alt="">
+					<img class="main-popup-next" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-next.svg" alt="">
 
 					<div class="main-popup slider-nav">
 						<c:forEach var="i" items="${popupZoneList}">
@@ -242,7 +281,7 @@ listNums[i] = num;
 					<div class="notice-board-header">
 						<div class="notice-board-title">공지사항</div>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=132">
-							<img src="/resources/homepage/nambu/img/notice/more.svg" alt="">
+							<img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
 						</a>
 					</div>
 					<div class="notice-list">
@@ -265,7 +304,7 @@ listNums[i] = num;
 					<div class="notice-board-header">
 						<div class="notice-board-title">강좌 및 행사안내</div>
 						<a href="/${homepage.context_path}/board/index.do?menu_idx=227&manage_idx=1331">
-							<img src="/resources/homepage/nambu/img/notice/more.svg" alt="">
+							<img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
 						</a>
 					</div>
 					<div class="notice-list">
@@ -293,7 +332,7 @@ listNums[i] = num;
 						<div class="box-title">일정</div>
 						<div class="box-action">
 							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
-								<img src="${pageContext.request.contextPath}/resources/homepage/nambu/img/culture/more.svg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
@@ -303,17 +342,17 @@ listNums[i] = num;
 					<div class="box-header">
 						<div class="box-title">강좌 및 행사</div>
 						<div class="box-action">
-							<img class="course-slide-prev" src="/resources/homepage/nambu/img/culture/slide-left-arrow.svg" alt="">
-							<img class="course-slide-next" src="/resources/homepage/nambu/img/culture/slide-right-arrow.svg" alt="">
+							<img class="course-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
+							<img class="course-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
 							<a href="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474">
-								<img src="/resources/homepage/nambu/img/culture/more.svg" alt="">
+								<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
 					<div class="course-slide">
 						<c:forEach var="i" varStatus="status" items="${teachList}">
 							<a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
-								<img src="/resources/homepage/nambu/img/culture/course.svg" alt="">
+								<img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
 								<div class="course-title">${i.teach_name}</div>
 								<div class="course-description">
 									${i.teach_desc}
@@ -326,7 +365,7 @@ listNums[i] = num;
 						</c:forEach>
 						<c:if test="${fn:length(teachList) < 1}">
 							<div class="course-slide-item">
-								<img src="/resources/homepage/nambu/img/culture/course.svg" alt="">
+								<img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
 								<div class="course-title">등록된 강좌가 없습니다.</div>
 							</div>
 						</c:if>
@@ -336,10 +375,10 @@ listNums[i] = num;
 					<div class="box-header">
 						<div class="box-title">영화상영</div>
 						<div class="box-action">
-							<img class="movie-slide-prev" src="/resources/homepage/nambu/img/culture/slide-left-arrow.svg" alt="">
-							<img class="movie-slide-next" src="/resources/homepage/nambu/img/culture/slide-right-arrow.svg" alt="">
+							<img class="movie-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
+							<img class="movie-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
 							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
-								<img src="/resources/homepage/nambu/img/culture/more.svg" alt="">
+								<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 							</a>
 						</div>
 					</div>
@@ -358,7 +397,7 @@ listNums[i] = num;
 										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<img src="/resources/homepage/nambu/img/common/dummy.png" alt="${i.title}">
+										<img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="${i.title}">
 									</c:otherwise>
 								</c:choose>
 								<div class="movie-title">${i.title}</div>
@@ -393,41 +432,15 @@ listNums[i] = num;
 				<div class="book-content">
 					<div class="book-content-header">
 						<div class="move-to-detail">
-							<div>신착도서</div>
+							<div class="white">신착도서</div>
 						</div>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=384">
+						<a href="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">
 							<div>더보기</div>
-							<img src="/resources/homepage/nambu/img/book/more-black.svg" alt="">
+							<img src="/resources/homepage/${homepage.context_path}/img/book/more-black.svg" alt="">
 						</a>
 					</div>
-					<div class="book-slide-wrapper" id="new_book_wrapper">
-						<c:choose>
-							<c:when test="${fn:length(boardList1) < 1}">
-								<div class="book-nodata">등록된 신착도서가 없습니다.</div>
-							</c:when>
-							<c:otherwise>
-								<img class="book-slide-prev" src="/resources/homepage/nambu/img/book/arrow-left.svg" alt="">
-								<div class="book-slide">
-									<c:forEach var="i" varStatus="status" items="${boardList1}">
-										<div class="book-slide-item">
-											<a href="/${homepage.context_path}/board/index.do?menu_idx=155&manage_idx=${i.manage_idx}">
-												<c:choose>
-													<c:when test="${empty i.preview_img}">
-														<img src="/resources/common/img/noImg2.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/nambu/img/common/dummy.png'"/>
-													</c:when>
-													<c:otherwise>
-														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/nambu/img/common/dummy.png'"/>
-													</c:otherwise>
-												</c:choose>
-											</a>
-											<div class="title">${i.title}</div>
-										</div>
-									</c:forEach>
-								</div>
-								<img class="book-slide-next" src="/resources/homepage/nambu/img/book/arrow-right.svg" alt="">
-							</c:otherwise>
-						</c:choose>
-					</div>
+
+					<div class="book-slide-wrapper" id="new_book_wrapper"></div>
 				</div>
 
 				<div class="book-content">
@@ -437,7 +450,7 @@ listNums[i] = num;
 						</div>
 						<a class="flex-end" href="/${homepage.context_path}/board/index.do?menu_idx=145&manage_idx=345">
 							<div>더보기</div>
-							<img src="/resources/homepage/nambu/img/book/more-black.svg" alt="">
+							<img src="/resources/homepage/${homepage.context_path}/img/book/more-black.svg" alt="">
 						</a>
 					</div>
 
@@ -447,17 +460,17 @@ listNums[i] = num;
 								<div class="book-nodata">등록된 북큐레이션이 없습니다.</div>
 							</c:when>
 							<c:otherwise>
-								<img class="recommended-book-slide-prev" src="/resources/homepage/nambu/img/book/arrow-left.svg" alt="">
+								<img class="recommended-book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="">
 								<div class="recommended-book-slide">
 									<c:forEach var="i" varStatus="status" items="${bookCuration1}">
 										<div class="book-slide-item">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<c:choose>
 													<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/nambu/img/common/dummy.png';" />
+														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
 													</c:when>
 													<c:otherwise>
-														<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/nambu/img/common/dummy.png';" />
+														<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
 													</c:otherwise>
 												</c:choose>
 											</a>
@@ -465,7 +478,7 @@ listNums[i] = num;
 										</div>
 									</c:forEach>
 								</div>
-								<img class="recommended-book-slide-next" src="/resources/homepage/nambu/img/book/arrow-right.svg" alt="">
+								<img class="recommended-book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="">
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -478,10 +491,10 @@ listNums[i] = num;
 			<!-- banner -->
 			<div class="banner-area">
 				<div class="banner-slide-controller">
-					<img class="banner-prev" src="/resources/homepage/nambu/img/common/banner-prev.svg" alt=""/>
-					<img class="banner-next" src="/resources/homepage/nambu/img/common/banner-next.svg" alt=""/>
-					<img class="banner-play-and-pause" src="/resources/homepage/nambu/img/common/banner-pause.svg" alt="">
-					<img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/nambu/img/common/banner-more.svg" alt="">
+					<img class="banner-prev" src="/resources/homepage/${homepage.context_path}/img/common/banner-prev.svg" alt=""/>
+					<img class="banner-next" src="/resources/homepage/${homepage.context_path}/img/common/banner-next.svg" alt=""/>
+					<img class="banner-play-and-pause" src="/resources/homepage/${homepage.context_path}/img/common/banner-pause.svg" alt="">
+					<img onclick="window.location.href='/${homepage.context_path}/bannermap/index.do?menu_idx=93';" src="/resources/homepage/${homepage.context_path}/img/common/banner-more.svg" alt="">
 				</div>
 				<homepageTag:newBanner bannerList="${bannerList}"/>
 			</div>

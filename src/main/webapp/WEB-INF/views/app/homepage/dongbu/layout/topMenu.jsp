@@ -6,12 +6,12 @@
 <div class="g-menu">
     <homepageTag:newTopMenu menuList="${menuTreeList}"/>
 
-    <a href="https://library.daegu.go.kr/duryu/sitemap/index.do?menu_idx=92" class="site-map">
-        <img src="/resources/homepage/dongbu/img/common/site-map.svg" alt=""/>
+    <a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="site-map">
+        <img src="/resources/homepage/${homepage.context_path}/img/common/site-map.svg" alt=""/>
     </a>
 
     <div class="mobile-menu-trigger">
-        <img src="/resources/homepage/dongbu/img/common/site-map.svg" alt="my-menu"/>
+        <img src="/resources/homepage/${homepage.context_path}/img/common/site-map.svg" alt="my-menu"/>
     </div>
 
     <div class="mobile-menu" id="mobile-menu">
