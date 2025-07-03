@@ -315,7 +315,7 @@ do {
 					<div class="notice-list">
 						<c:if test="${fn:length(noticeListTopNotice) >= 1}">
 							<c:forEach var="i" varStatus="status" items="${noticeListTopNotice}" begin='0' end='1'>
-								<a class="notice-list-item fixed" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+								<a class="notice-list-item fixed" href="/${homepage.context_path}/board/view.do?menu_idx=32&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<div class="notice-list-item-date">
 										<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
 										<div><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></div>
@@ -331,7 +331,7 @@ do {
 
 						<c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='2'>
 							<c:if test="${i.notice_yn eq 'N' or null}">
-								<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+								<a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=32&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 									<div class="notice-list-item-date">
 										<div><fmt:formatDate value="${i.add_date}" pattern="dd"/></div>
 										<div><fmt:formatDate value="${i.add_date}" pattern="yyyy.MM"/></div>
@@ -356,7 +356,7 @@ do {
 					<div class="tab-wrapper">
 						<div class="tab active" data-content="culture">
 							<div>문화행사</div>
-							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=26&searchCate1=16"><img src="/resources/homepage/dalseongchild/img/culture/active-more.svg" alt="More"></a>
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=114&searchCate1=16&searchCate2=6"><img src="/resources/homepage/dalseongchild/img/culture/active-more.svg" alt="More"></a>
 						</div>
 						<div class="tab" data-content="program">
 							<div>평생학습프로그램</div>
@@ -370,7 +370,7 @@ do {
 							<div class="no-culture">등록된 행사가 없습니다.</div>
 						</c:if>
 						<c:forEach var="i" varStatus="status" items="${teachList1}" begin='0' end='3'>
-							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=114&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
 								<div class="label">${i.large_category_name}</div>
 								<div class="tab-content-detail">
 									<div>${i.teach_name}</div>
@@ -386,7 +386,7 @@ do {
 							<div class="no-culture">등록된 프로그램이 없습니다.</div>
 						</c:if>
 						<c:forEach var="i" varStatus="status" items="${teachList2}" begin='0' end='3'>
-							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=26&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+							<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
 								<div class="label">${i.large_category_name}</div>
 								<div class="tab-content-detail">
 									<div>${i.teach_name}</div>

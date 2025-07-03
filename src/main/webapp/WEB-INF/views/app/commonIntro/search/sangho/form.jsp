@@ -151,13 +151,13 @@ $(function() {
 			 	<td>
 					<!-- 도서관 선택 분기처리 시작 -->
 					<c:choose>
-					<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
+					<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb' || homepage.context_path eq 'dmsl'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
 						<form:option value="127009">구수산도서관</form:option>
 						<form:option value="127084">대현도서관</form:option>
 						<form:option value="127088">태전도서관</form:option>
-						<%--<form:option value="322013">시청작은도서관</form:option>--%>
+						<form:option value="322013">시청작은도서관</form:option>
 						<form:option value="127110">서변숲도서관</form:option>
 						<%-- <form:option value="727033">태전1동 작은도서관</form:option> --%>
 						<form:option value="727038">산격1동 작은도서관</form:option>
@@ -260,14 +260,14 @@ $(function() {
 					</c:when>
 					<c:when test="${homepage.context_path eq 'dgportal'}">
 						<c:choose>
-							<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE'}">
+							<c:when test="${detail.MANAGE_CODE eq 'BA'  || detail.MANAGE_CODE eq 'BB' || detail.MANAGE_CODE eq 'BC' || detail.MANAGE_CODE eq 'GL' || detail.MANAGE_CODE eq 'GM' || detail.MANAGE_CODE eq 'GN' || detail.MANAGE_CODE eq 'HB' || detail.MANAGE_CODE eq 'HD' || detail.MANAGE_CODE eq 'HE' || detail.MANAGE_CODE eq 'FV'}">
 							<%-- 북구 --%>
 							<select name="uselibcode" id="uselibcode">
 								<option value=""/>-- 선택 --</option>
 								<option value="127009">구수산도서관</option>
 								<option value="127084">대현도서관</option>
 								<option value="127088">태전도서관</option>
-<%--								<option value="322013">시청작은도서관</option>--%>
+								<option value="322013">시청작은도서관</option>
 								<option value="727038">산격1동 작은도서관</option>
 								<option value="727040">북구영어작은도서관</option>
 								<option value="727054">침산1동 작은도서관</option>

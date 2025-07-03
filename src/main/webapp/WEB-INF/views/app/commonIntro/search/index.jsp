@@ -1168,7 +1168,7 @@ function isFromFridayToSunday() {
 						</div>
 						<div class="end" style="padding:7px 0;"></div>
 						</c:when>
-						<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
+						<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb' || homepage.context_path eq 'dmsl'}">
 						<div id="libraryList" class="libraryList">
 							<div>
 								<input id="checkAll" name="libraryCodes" type="checkbox" value="ALL"/><label for="checkAll">전체  </label>
@@ -1207,6 +1207,9 @@ function isFromFridayToSunday() {
 									</li>
 									<li>
 										<form:checkbox path="libraryCodes" value="HE" class="libCheck lib_HE" label="한강공원부키도서관"/>
+									</li>
+									<li>
+										<form:checkbox path="libraryCodes" value="FV" class="libCheck lib_HE" label="대구시청작은도서관"/>
 									</li>
 								</ul>
 							</div>
@@ -1846,12 +1849,12 @@ function isFromFridayToSunday() {
 															</c:choose>
 														</c:when>
 
-														<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
+														<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb' || homepage.context_path eq 'dmsl'}">
 															<c:choose>
 																<c:when test="${i.MANAGE_CODE eq 'GJ'}">
 																	<!--   제외 -->
 																</c:when>
-																<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'GP' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'HW'}">
+																<c:when test="${i.MANAGE_CODE eq 'BA'  || i.MANAGE_CODE eq 'BB' || i.MANAGE_CODE eq 'BC' || i.MANAGE_CODE eq 'GN' || i.MANAGE_CODE eq 'GP' || i.MANAGE_CODE eq 'HB' || i.MANAGE_CODE eq 'HD' || i.MANAGE_CODE eq 'HE' || i.MANAGE_CODE eq 'GL' || i.MANAGE_CODE eq 'GM' || i.MANAGE_CODE eq 'HW' || i.MANAGE_CODE eq 'FV'}">
 																	<c:choose>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>
@@ -2048,11 +2051,11 @@ function isFromFridayToSunday() {
 																	<c:if test="${i.SHELF_LOC_CODE eq 'BR01' || i.SHELF_LOC_CODE eq 'BR02' || i.SHELF_LOC_CODE eq 'BR03' || i.SHELF_LOC_CODE eq 'BR05' || i.SHELF_LOC_CODE eq 'BR06' || i.SHELF_LOC_CODE eq 'BR07' || i.SHELF_LOC_CODE eq 'BR10'}">
 																		<c:choose>
 																			<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-<%--																				<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>--%>
+																				<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
 																			</c:when>
 																			<c:otherwise>
-<%--																				<a href="#muin" id="unmanned-req" class="btn btn2" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">--%>
-<%--																					<span>무인예약대출 신청</span></a>--%>
+																				<a href="#muin" id="unmanned-req" class="btn btn2" bookkey="${i.BOOK_KEY}" booktype="BO" regNo="${i.REG_NO}" managecode="${i.MANAGE_CODE}" isbn="${i.ISBN}">
+																					<span>무인예약대출 신청</span></a>
 																			</c:otherwise>
 																		</c:choose>
 																	</c:if>

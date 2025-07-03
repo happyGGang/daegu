@@ -278,6 +278,7 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 					<option value="BZ">달서영어도서관</option>
 					<option value="CA">안심도서관</option>
 					<option value="CB">신천도서관</option>
+					<option value="CD">달성어린이숲도서관</option>
 					<option value="FV">시청작은도서관</option>
 					<option value="HU">대구혁신도시복합문화센터</option>
 					<option value="NA">더불어숲도서관</option>
@@ -416,6 +417,9 @@ $(document).on("keyup", "input:text[numberOnly]", function() {
 				</c:if>
 				<c:if test="${homepage.context_path eq 'gw'}">
 				대구광역시교육청 삼국유사군위도서관<input type="hidden" name="manage_code" value='AM' />
+				</c:if>
+				<c:if test="${homepage.context_path eq 'dalseongchild'}">
+					달성어린이숲도서관<input type="hidden" name="manage_code" value='CD' />
 				</c:if>
 				<!-- 대구사립도서관 -->
 				<c:if test="${homepage.context_path eq 'with'}">

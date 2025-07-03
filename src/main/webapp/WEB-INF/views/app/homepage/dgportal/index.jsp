@@ -957,6 +957,14 @@ do {
 										<div class="cont">
 											<ul>
 												<li>
+													<a href="http://www.icuration.co.kr:81/curation/w/231" target="_blank">
+														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu25.png" alt="대구 이색도서관"></div>
+														<p class="book-title">대구 이색도서관</p>
+														<p class="book-desc">읽고, 보고, 머물고 싶은 대구의 이색 도서관</p>
+														<p class="reg-date">2025-07-01</p>
+													</a>
+												</li>
+												<li>
 													<a href="http://www.icuration.co.kr:81/curation/w/217" target="_blank">
 														<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu24.png" alt="이육사"></div>
 														<p class="book-title">이육사</p>
@@ -2882,6 +2890,14 @@ do {
 			<div class='wide-1686-sections'>
 				<div class="cont curationList">
 					<ul>
+					<li>
+						<a href="http://www.icuration.co.kr:81/curation/w/231" target="_blank">
+							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu25.png" alt="대구 이색도서관"></div>
+							<h3 class="book-title">대구 이색도서관</h3>
+							<p class="book-desc">읽고, 보고, 머물고 싶은 대구의 이색 도서관</p>
+							<p class="reg-date">2025-07-01</p>
+						</a>
+					</li>
 					<li>
 						<a href="http://www.icuration.co.kr:81/curation/w/217" target="_blank">
 							<div class="thumbnail"><img src="/resources/homepage/${homepage.context_path}/img/cu24.png" alt="이육사"></div>

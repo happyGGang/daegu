@@ -693,7 +693,7 @@ $(function() {
 			<c:if test="${detail.LOAN_CODE eq 'OK'}">
 			<!-- 북구통합도서관 상호대차 설정시작-->
 			<c:choose>
-				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb'}">
+				<c:when test="${homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj' || homepage.context_path eq 'buksb' || homepage.context_path eq 'dmsl'}">
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'GJ'}">
 						<!--   제외 -->
@@ -1055,10 +1055,10 @@ $(function() {
 							<c:if test="${detail.SHELF_LOC_CODE eq 'BR01' || detail.SHELF_LOC_CODE eq 'BR02' || detail.SHELF_LOC_CODE eq 'BR03' || detail.SHELF_LOC_CODE eq 'BR05' || detail.SHELF_LOC_CODE eq 'BR06' || detail.SHELF_LOC_CODE eq 'BR07' || detail.SHELF_LOC_CODE eq 'BR10'}">
 							<c:choose>
 								<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
-<%--									<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>--%>
+									<a href="#muin" id="service-noreq" class="btn">무인예약신청</a>
 								</c:when>
 								<c:otherwise>
-<%--									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>--%>
+									<a href="#muin" id="unmanned-req" class="btn">무인예약신청</a>
 								</c:otherwise>
 							</c:choose>
 							</c:if>

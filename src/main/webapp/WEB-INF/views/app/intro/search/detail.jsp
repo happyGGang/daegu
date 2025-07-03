@@ -372,7 +372,7 @@ CONTEXT_PATH : ${context_path}
 			<c:if test="${detail.WORKING_STATUS eq 'BOL112N'}">
 			<!-- 북구통합도서관 상호대차 설정시작-->
 			<c:choose>
-				<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'buksb'}">
+				<c:when test="${context_path eq 'bukgs' || context_path eq 'bukdh' || context_path eq 'buktj' || context_path eq 'buks' || context_path eq 'buksb' || context_path eq 'dmsl'}">
 					<c:choose>
 						<c:when test="${detail.MANAGE_CODE eq 'GJ'}">
 						<!-- 태전1동작은도서관 제외 -->
