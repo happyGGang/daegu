@@ -718,3 +718,21 @@ $(function(){
 	}//end if
 
 });
+
+$(document).ready(function() {
+	$('.one-depth-menu > a').on('click', function(e) {
+		e.preventDefault();
+		let menuData = $(this).attr('data-menu');
+		let subMenuContainer = $('.two-depth-menu[data-menu="' + menuData + '"]');
+		if (subMenuContainer.length > 0) {
+			let firstSubMenuLink = subMenuContainer.find('a').first();
+			if (firstSubMenuLink.length > 0) {
+				window.location.href = firstSubMenuLink.attr('href');
+			} else {
+				window.location.href = $(this).attr('href');
+			}
+		} else {
+			window.location.href = $(this).attr('href');
+		}
+	});
+});

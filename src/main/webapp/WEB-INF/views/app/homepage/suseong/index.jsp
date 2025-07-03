@@ -356,7 +356,7 @@ listNums[i] = num;
                                 <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" class="course-list-item">
                                     <div>
                                         <div class="course-list-item-title">${i.teach_name}</div>
-                                        <div class="course-list-item-detail">강좌내용입니다.</div>
+                                        <div class="course-list-item-detail">${i.teach_desc}</div>
                                     </div>
 
                                     <div class="course-list-item-date">
