@@ -54,7 +54,7 @@
 				</div>
 				<!-- menu E -->
 			</div>
-			<div class="mask">&nbsp;</div>
+			<div class="mask" style="display: none">&nbsp;</div>
 		</div>
 	</div>
 
