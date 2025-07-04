@@ -46,7 +46,7 @@
 						</li>
 					</ul>
 				</div>
-				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.5.31.] (단위 : 권)</span></h3>
+				<h3>장서현황<span class="sm_text sm_text02" style="margin-top:10px;">[기준 : 2025.6.30.] (단위 : 권)</span></h3>
 				<div class="rsv-info"></div>
 				<div class="auto-scroll">
 					<table class="tbl-type01" summary="무학숲도서관 장서현황을 안내해 드립니다.">
@@ -87,62 +87,63 @@
 							</tr>
 						</thead>
 						<tbody>
-							  <tr>
-								<th>어린이</th>
-								<td>289 </td>
-								<td>173 </td>
-								<td>96 </td>
-								<td>493 </td>
-								<td>1,366 </td>
-								<td>521 </td>
-								<td>153 </td>
-								<td>211 </td>
-								<td>2,575 </td>
-								<td>863 </td>
-								<td>6,740 </td>
-							  </tr>
-							  <tr>
-								<th>유아</th>
-								<td>60 </td>
-								<td>120 </td>
-								<td>86 </td>
-								<td>448 </td>
-								<td>441 </td>
-								<td>90 </td>
-								<td>91 </td>
-								<td>72 </td>
-								<td>2,496 </td>
-								<td>84 </td>
-								<td>3,988 </td>
-							  </tr>
-							  <tr>
-								<th>일반</th>
-								<td>297 </td>
-								<td>549 </td>
-								<td>215 </td>
-								<td>1,268 </td>
-								<td>676 </td>
-								<td>1,052 </td>
-								<td>344 </td>
-								<td>179 </td>
-								<td>2,712 </td>
-								<td>594 </td>
-								<td>7,886 </td>
-							  </tr>
-							  <tr>
-								<th>합계</th>
-								<td>646 </td>
-								<td>842 </td>
-								<td>397 </td>
-								<td>2,209 </td>
-								<td>2,483 </td>
-								<td>1,663 </td>
-								<td>588 </td>
-								<td>462 </td>
-								<td>7,783 </td>
-								<td>1,541 </td>
-								<td>18,614 </td>
-							  </tr>
+							<tr>
+							  <th>어린이</th>
+							  <td>289</td>
+							  <td>175</td>
+							  <td>96</td>
+							  <td>493</td>
+							  <td>1,367</td>
+							  <td>521</td>
+							  <td>153</td>
+							  <td>211</td>
+							  <td>2,587</td>
+							  <td>863</td>
+							  <td>6,755</td>
+							</tr>
+							<tr>
+							  <th>유아</th>
+							  <td>60</td>
+							  <td>120</td>
+							  <td>86</td>
+							  <td>448</td>
+							  <td>443</td>
+							  <td>90</td>
+							  <td>91</td>
+							  <td>72</td>
+							  <td>2,499</td>
+							  <td>84</td>
+							  <td>3,993</td>
+							</tr>
+							<tr>
+							  <th>일반</th>
+							  <td>302</td>
+							  <td>555</td>
+							  <td>216</td>
+							  <td>1,276</td>
+							  <td>678</td>
+							  <td>1,054</td>
+							  <td>346</td>
+							  <td>180</td>
+							  <td>2,741</td>
+							  <td>594</td>
+							  <td>7,942</td>
+							</tr>
+							<tr>
+							  <th>합계</th>
+							  <td>651</td>
+							  <td>850</td>
+							  <td>398</td>
+							  <td>2,217</td>
+							  <td>2,488</td>
+							  <td>1,665</td>
+							  <td>590</td>
+							  <td>463</td>
+							  <td>7,827</td>
+							  <td>1,541</td>
+							  <td>18,690</td>
+							</tr>				
+
 						</tbody>
 					</table>
 				</div>
