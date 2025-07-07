@@ -102,7 +102,7 @@ a.underline,
 .fb{font-weight:bold}
 
 .search-form .detail_search .section dl dd input.text-area {
-  width: 100% !important;
+  /*width: 100% !important;*/
 }
 
 .ct-btn span.down {
@@ -2653,6 +2653,11 @@ span.dts{display:block;width:30%;margin:20px auto;padding:10px;border-radius:30p
   .book-wr .book-box {padding-bottom: 20px;}
 }
 h3.byear { background: none;}
+
+.banner_list li, .banner_list li a {
+  zoom: 1;
+  display: inline-block;
+}
 
 
 

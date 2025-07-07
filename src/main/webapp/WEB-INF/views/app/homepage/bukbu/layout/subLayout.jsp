@@ -79,9 +79,9 @@
                         </c:if>
                     </div>
                     <ol>
-                        <li class="first"><a href="/${homepage.context_path}/index.do">
-                            <img src="/resources/common/img/navi_home_icon.gif" alt="">
-                        </a></li>
+                        <li class="first">
+                            <a href="/${homepage.context_path}/index.do"> <img src="/resources/common/img/navi_home_icon.gif" alt=""></a>
+                        </li>
                         <homepageTag:docInfo oneMenu="${menuOne}" menuList="${menuLeftList}"/>
                     </ol>
                     <div class="end"></div>

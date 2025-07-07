@@ -26,7 +26,6 @@
   font-family: Pretendard-Bold, sans-serif;
   font-size: 40px;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.8px;
 }
@@ -43,14 +42,12 @@
   font-family: Pretendard-SemiBold, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 600;
   line-height: 130%;
   letter-spacing: -0.4px;
   position: relative;
 }
 
 .section2-tab-active {
-  font-weight: 700 !important;
   color: var(--black) !important;
   font-family: Pretendard-Bold, sans-serif !important;
 }
@@ -88,7 +85,6 @@
   font-family: Pretendard-Bold, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.48px;
 }
@@ -146,16 +142,15 @@
   font-family: Pretendard-Medium , sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
 }
 
 .section2-slide-item-top-header div:last-child {
   color: #D4E6F4;
   font-family: GmarketSans, sans-serif;
+  font-weight: bold;
   font-size: 40px;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%;
 }
 
@@ -170,7 +165,6 @@
   font-family: Pretendard-Bold, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%;
   white-space: nowrap;
   letter-spacing: -0.48px;
@@ -184,7 +178,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 15px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.3px;
   display: -webkit-box;
@@ -204,7 +197,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 13px;
   font-style: normal;
-  font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.26px;
   width: 65px;
@@ -240,7 +232,6 @@
   font-size: 24px;
   white-space: nowrap;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.48px;
   margin-bottom: 16px;
@@ -261,7 +252,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 15px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.3px;
   width: 200px;
@@ -283,7 +273,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 13px;
   font-style: normal;
-  font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.26px;
   width: 65px;

@@ -232,7 +232,7 @@
                         </label>
                         <input type="hidden" name="menu_idx" value="13">
                         <input type="hidden" name="booktype" value="BOOKANDNONBOOK">
-                        <input name="search_text" id="search_text_1" type="text" placeholder="검색어를 입력해주세요.">
+                        <input name="title" id="search_text_1" type="text" placeholder="검색어를 입력해주세요.">
                         <button id="main-search-btn">
                             <span>자료검색</span>
                             <img src="/resources/homepage/${homepage.context_path}/img/main/search.svg" alt="">
@@ -282,7 +282,7 @@
                                 </a>
                             </c:if>
                             <c:if test="${i.link_target ne 'BLANK' }">
-                                <a class="quick-menu-item" href="${i.link_url}" target="_blank">
+                                <a class="quick-menu-item" href="${i.link_url}">
                                     <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
                                     <div>${i.menu_name}</div>
                                 </a>
@@ -584,7 +584,7 @@
                                 <img class="section4-slide-prev" src="/resources/homepage/${homepage.context_path}/img/place/arrow-left.svg" alt="">
                                 <img class="section4-slide-next" src="/resources/homepage/${homepage.context_path}/img/place/arrow-right.svg" alt="">
                             </div>
-                            <img onclick="window.location.href='/${homepage.context_path}/bukbu/html.do?menu_idx=116'" src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
+                            <img onclick="window.location.href='/${homepage.context_path}/html.do?menu_idx=116'" src="/resources/homepage/${homepage.context_path}/img/place/more.svg" alt="">
                         </div>
                     </div>
                 </div>

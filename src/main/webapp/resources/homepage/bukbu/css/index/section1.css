@@ -62,7 +62,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 17px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.34px;
   appearance: none;
@@ -88,7 +87,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 18px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   height: 100%;
   padding: 0 35px;
@@ -111,7 +109,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 18px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
 }
 
@@ -180,7 +177,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 14px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   z-index: 999;
   position: absolute;
@@ -257,7 +253,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.32px;
 }
@@ -277,7 +272,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.6px;
 }
@@ -298,13 +292,11 @@
   font-family: GmarketSans, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.6px;
 }
 
 .holiday-area-controller div span {
-  font-weight: 700;
   margin-left: 8px;
 }
 
@@ -327,7 +319,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
 }
 
@@ -344,7 +335,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
   line-height: 100%;
   padding-top: 5px;
   letter-spacing: -0.32px;
@@ -375,7 +365,6 @@
 
 .notice-slide div {
   font-size: 17px;
-  font-weight: 500;
   line-height: 100%;
   color: var(--black);
   font-family: GmarketSans, sans-serif;
