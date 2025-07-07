@@ -359,7 +359,7 @@ nav#menu a:not(.mm-next):hover{color:#e32b31}
 .mm-listview>li>span{padding:15px 10px 15px 20px}
 
 .mm-listview>li.mm-vertical>.mm-next::after,
-.mm-vertical .mm-listview>li>.mm-next::after{top:20px}
+.mm-vertical .mm-listview>li>.mm-next::after{top:20px;border-left: 1px solid #5e6062;border-top: 1px solid #5e6062;}
 
 .mm-listview>li.mm-vertical.mm-opened>.mm-next::after,
 .mm-vertical .mm-listview>li.mm-opened>.mm-next::after{top:18px}
@@ -2213,7 +2213,7 @@ table.service-step{border:0}
   .doc-body .body{float:none;margin:0}
 
   /* .sub-visual{display:none} */
-  .sub-visual{position:relative;height:auto;background:none;padding-top:60px;background:rgb(0 0 0 / 75%);height: 100px}
+  .sub-visual{position:relative;height:auto;padding-top:60px;height: 100px}
   .doc-info {border-top:0;}
   .doc-info-suseong {}
   .doc{margin-right:0;padding:0;overflow:hidden}

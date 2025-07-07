@@ -74,12 +74,12 @@ $(function(){
 		pager:false
 	});
 
-	$('div.lnb li').on('mouseenter', function() {
-		$(this).find('ul').show(300);
-	});
-	$('div.lnb li').on('mouseleave', function() {
-		$(this).find('ul').hide(300);
-	});
+	// $('div.lnb li').on('mouseenter', function() {
+	// 	$(this).find('ul').show(300);
+	// });
+	// $('div.lnb li').on('mouseleave', function() {
+	// 	$(this).find('ul').hide(300);
+	// });
 
 });
 

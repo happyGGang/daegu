@@ -7,24 +7,31 @@
         <div class="library-info">
             <div class="link_list">
                 <a href="/${homepage.context_path}/html.do?menu_idx=86">개인정보처리방침</a>
-                <a href="/${homepage.context_path}/html.do?menu_idx=88">고정형 정보처리방침</a>
-                <a href="/${homepage.context_path}/html.do?menu_idx=91">저작권정책</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=88">고정형 영상정보처리방침</a>
+                <a href="/${homepage.context_path}/html.do?menu_idx=90">도서관헌장</a>
                 <a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
             </div>
             <div class="library-detail">
-                <div class="library-name">대구광역시립북부도서관</div>
+                <div class="library-name">대구광역시립서부도서관</div>
                 <div class="library-detail-wrapper">
-                    <div>(41590) 대구 북구 옥산로 75 (침산동, 북부도서관)</div>
-                    <div><span>전화</span> 053-231-2600</div>
-                    <div><span>팩스</span> 053-355-1505</div>
+                    <div>(41777) 대구 서구 국채보상로49길 12 (평리동, 서부도서관)</div>
+                    <div><span>전화(주)</span> 053)231-2400</div>
+                    <div><span>전화(야)</span> 053)231-2400, 053)231-2419</div>
                 </div>
+            </div>
+        </div>
+        <div class="sns-wrapper">
+            <div class="sns-title">SNS</div>
+            <div class="sns-list">
+                <a class="instagram sns-icon" href="https://www.instagram.com/seobulib/"></a>
+                <a class="facebook sns-icon" href="https://www.facebook.com/seobulibrary"></a>
             </div>
         </div>
     </div>
 </div>
 <div class="footer-wrapper footer-bottom">
     <div class="wrapper">
-        <div class="copyright">Copyright © 2020 DAEGU METROPOLITAN BUKBU LIBRARY</div>
+        <div class="copyright">Copyright © 2020 DAEGU METROPOLITAN SEOBU LIBRARY</div>
         <div class="move-select">
             <div class="select-wrapper">
                 <select>
@@ -84,3 +91,16 @@
         </div>
     </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('.move-select button').on('click', function () {
+      const selectedUrl = $(this).siblings('select').val();
+      if (selectedUrl) {
+        window.open(selectedUrl, '_blank');
+      } else {
+        alert('이동할 기관을 선택해주세요.');
+      }
+    });
+  });
+</script>
