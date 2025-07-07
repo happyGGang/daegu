@@ -202,7 +202,6 @@ do {
 		<div class="section-wrapper" data-anchor="section1">
 			<div class="main-bg-slide">
 				<div></div>
-				<div></div>
 			</div>
 			<div class="wrapper">
 				<div class="slogan">
