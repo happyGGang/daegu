@@ -238,11 +238,11 @@
 		<div class="section" id="main0">
 
 			<div class="main-visual">
-			<div class="popupWrap main-section">
-		<div id="popupLayer">
-			<homepageTag:popup popupList="${popupList}" />
-		</div>
-	</div>
+<%--			<div class="popupWrap main-section">--%>
+<%--		<div id="popupLayer">--%>
+<%--			<homepageTag:popup popupList="${popupList}" />--%>
+<%--		</div>--%>
+<%--	</div>--%>
 				<div class="swiper-container mySwiper">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide mvimg01"><div class="mvText top animate__animated animate__fadeInDown"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년</div>
