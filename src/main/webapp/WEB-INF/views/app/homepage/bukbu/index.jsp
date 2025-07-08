@@ -297,12 +297,14 @@
                                 <c:if test="${not empty newsList}">
                                     <c:forEach items="${newsList}" var="i">
                                         <div>
-                                            <c:out value="${i.news_name}" default="제목 없음"/>
+											<span>
+												<c:out value="${i.news_name}" default="제목 없음"/>
+											</span>
                                         </div>
                                     </c:forEach>
                                 </c:if>
                                 <c:if test="${empty newsList}">
-                                    <div>등록된 알림이 없습니다.</div>
+                                    <div><span>등록된 알림이 없습니다.</span></div>
                                 </c:if>
                             </div>
                         </div>
