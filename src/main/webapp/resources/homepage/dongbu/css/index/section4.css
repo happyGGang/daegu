@@ -33,7 +33,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 32px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
   cursor: pointer;
@@ -42,7 +41,6 @@
 
 .tab-button.active-tab {
   color: var(--primary-color-blue1);
-  font-weight: 700;
 }
 
 .tab-button:after {
@@ -72,7 +70,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
 }
 
@@ -183,7 +180,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   margin-top: 130px;
 }

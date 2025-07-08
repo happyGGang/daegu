@@ -26,7 +26,6 @@
 
 .notice-board-title {
   font-size: 36px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.72px;
   text-align: center;
@@ -107,7 +106,6 @@
 
 .fixed div:first-child {
   font-size: 20px;
-  font-weight: 600;
   line-height: 140%;
   text-align: center;
   color: #fff !important;
@@ -117,7 +115,6 @@
 
 .fixed div:nth-child(2) {
   font-size: 14px;
-  font-weight: 500;
   line-height: 140%;
   color: #fff !important;
   font-family: Pretendard-Medium, sans-serif;
@@ -139,7 +136,6 @@
 
 .notice-list-item-date div:first-child {
   font-size: 20px;
-  font-weight: 600;
   line-height: 140%;
   text-align: center;
   color: var(--primary-color-blue1);
@@ -149,7 +145,6 @@
 
 .notice-list-item-date div:nth-child(2) {
   font-size: 14px;
-  font-weight: 500;
   line-height: 140%;
   color: var(--primary-color-blue1);
   font-family: Pretendard-Medium, sans-serif;
@@ -159,7 +154,6 @@
 .notice-list-item-title {
   width: 610px;
   font-size: 24px;
-  font-weight: 500;
   line-height: normal;
   color: #000;
   overflow: hidden;
@@ -176,7 +170,6 @@
   width: 100%;
   height: 100%;
   font-size: 24px;
-  font-weight: 500;
   line-height: normal;
   color: #000;
   font-family: Pretendard-Medium, sans-serif;
@@ -238,7 +231,6 @@
   width: 60px;
   height: 40px;
   font-size: 14px;
-  font-weight: 500;
   line-height: normal;
   text-align: center;
   color: var(--white);

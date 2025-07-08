@@ -463,7 +463,7 @@ listNums[i] = num;
 							<div class="main-box">
 								<div class="box1">
 									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="search_text" id="search_text_1" type="text" class="text" placeholder="책꾸러미 서명을 입력하세요." style="ime-mode:active;">
+									<input name="title" id="search_text_1" type="text" class="text" placeholder="책꾸러미 서명을 입력하세요." style="ime-mode:active;">
 								</div>
 								<button id="main-search-btn" class="school-search-btn">
 									<img src="/resources/homepage/${homepage.context_path}/img/school/search.svg" alt="">
@@ -482,7 +482,7 @@ listNums[i] = num;
 				<div class="menu-slide-wrapper">
 					<img class="menu-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/left-arrow.svg" alt="이전" />
 					<div class="menu-slide">
-						<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259	" class="menu-slide-item">
+						<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259" class="menu-slide-item">
 							<div class="menu-slide-item-img">
 								<img src="/resources/homepage/${homepage.context_path}/img/school/menu1.svg" alt="">
 							</div>

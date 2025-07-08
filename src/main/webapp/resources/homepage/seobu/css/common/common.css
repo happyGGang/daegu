@@ -30,11 +30,11 @@
     width: 16px;
     height: 16px;
     border-radius: 50%;
-    background: url('/resources/homepage/suseong/img/common/indicator.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/indicator.svg') no-repeat center center;
 }
 
 #fullpage-indicator div.active {
-    background: url('/resources/homepage/suseong/img/common/active-indicator.svg') no-repeat center center;
+    background: url('/resources/homepage/seobu/img/common/active-indicator.svg') no-repeat center center;
 }
 
 .fp-watermark {

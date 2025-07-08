@@ -101,37 +101,6 @@ a.underline,
 .text-indent p{text-indent:10px}
 .fb{font-weight:bold}
 
-.search-form .detail_search .section dl dd input.text-area {
-  width: 100% !important;
-}
-
-.ct-btn span.down {
-  height: 29px !important;
-}
-
-.search input.text.ui-calendar {
-  width: 114px !important;
-}
-
-.login-body .login .form-box input.txt {
-  background: #fff;
-  width: 97% !important;
-}
-
-.selectmenu {
-  padding: 0 !important;
-  height: 31px !important;
-}
-
-.search a.btn {
-  display: inline-block;
-  padding: 5px 12px !important;
-}
-
-.login-body .login button {
-  height: 87px !important;
-}
-
 a.orange,
 .orange{color:#fe2a00}  /* #f88900 */
 a.green,
@@ -359,7 +328,7 @@ nav#menu a:not(.mm-next):hover{color:#e32b31}
 .mm-listview>li>span{padding:15px 10px 15px 20px}
 
 .mm-listview>li.mm-vertical>.mm-next::after,
-.mm-vertical .mm-listview>li>.mm-next::after{top:20px}
+.mm-vertical .mm-listview>li>.mm-next::after{top:20px;border-left: 1px solid #5e6062;border-top: 1px solid #5e6062;}
 
 .mm-listview>li.mm-vertical.mm-opened>.mm-next::after,
 .mm-vertical .mm-listview>li.mm-opened>.mm-next::after{top:18px}
@@ -545,7 +514,7 @@ transform:translateZ(0);
 .bx-wrapper .bx-loading{position:absolute;top:0;left:0;z-index:9999;width:100%;height:100%;background:url('/resources/common/img/bx_loader.gif') center center no-repeat #fff;min-height:50px}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:143px;text-align:center;color:#fff;background:url('/resources/homepage/duryu/img/common/sub_bg.svg') no-repeat center center;background-size:cover}
+.sub-visual{position:relative;height:143px;text-align:center;color:#fff;background:url('/resources/homepage/bukbu/img/common/sub_bg.svg') no-repeat center center;background-size:cover}
 .sub-visual p.sv1{padding-top:35px}
 .sub-visual p.sv2{padding-top:1px;padding-bottom:30px}
 .sub-visual p.sv1{font-size:250%;font-weight:bold}
@@ -2213,7 +2182,7 @@ table.service-step{border:0}
   .doc-body .body{float:none;margin:0}
 
   /* .sub-visual{display:none} */
-  .sub-visual{position:relative;height:auto;background:none;padding-top:60px;background:rgb(0 0 0 / 75%);height: 100px}
+  .sub-visual{position:relative;height:auto;padding-top:60px;height: 100px}
   .doc-info {border-top:0;}
   .doc-info-suseong {}
   .doc{margin-right:0;padding:0;overflow:hidden}
@@ -2653,6 +2622,11 @@ span.dts{display:block;width:30%;margin:20px auto;padding:10px;border-radius:30p
   .book-wr .book-box {padding-bottom: 20px;}
 }
 h3.byear { background: none;}
+
+.banner_list li, .banner_list li a {
+  zoom: 1;
+  display: inline-block;
+}
 
 
 

@@ -33,7 +33,6 @@
 
 .total-popup-controller-btn div {
   font-size: 13px;
-  font-weight: 500;
   line-height: 130%;
   text-align: center;
   color: var(--white);
@@ -64,7 +63,6 @@
 
 .total-popup-title {
   font-size: 50px;
-  font-weight: 500;
   line-height: 120%;
   text-align: center;
   color: var(--white);
@@ -111,7 +109,6 @@
   width: 160px;
   height: 40px;
   font-size: 15px;
-  font-weight: 500;
   line-height: 130%;
   text-align: center;
   color: var(--white);

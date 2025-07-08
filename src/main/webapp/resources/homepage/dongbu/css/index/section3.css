@@ -29,7 +29,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 36px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.72px;
   text-transform: uppercase;
@@ -81,7 +80,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.4px;
 }
@@ -91,7 +89,6 @@
   font-family: Pretendard-SemiBold, sans-serif;
   font-size: 48px;
   font-style: normal;
-  font-weight: 600;
   line-height: 100%;
   letter-spacing: -1.2px;
 }
@@ -105,7 +102,6 @@
 .day {
   width: 40px;
   font-size: 16px !important;
-  font-weight: 500 !important;
   line-height: normal;
   letter-spacing: -0.4px !important;
   text-align: center;
@@ -151,7 +147,6 @@
   justify-content: center;
   position: relative;
   font-size: 18px !important;
-  font-weight: 700 !important;
   line-height: 48px !important;
   letter-spacing: -0.45px;
   text-align: center;
@@ -194,7 +189,6 @@
 .calendar-caption div {
   position: relative;
   font-size: 16px;
-  font-weight: 600;
   line-height: normal;
   letter-spacing: -0.4px;
   text-align: center;
@@ -261,7 +255,6 @@
 
 .calendar-header div {
   font-size: 14px;
-  font-weight: 500;
   line-height: 14px;
   letter-spacing: -0.28px;
   color: #2d2d2d;
@@ -276,7 +269,6 @@
 .calendar-content {
   padding: 16px 20px 20px;
   font-size: 15px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.3px;
   color: #2d2d2d;
@@ -323,7 +315,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
 }
 
@@ -339,7 +330,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
   line-height: 140%;
   margin-bottom: 44px;
 }
@@ -357,7 +347,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 14px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.35px;
 }
@@ -367,7 +356,6 @@
   color: var(--primary-color-blue1);
   text-align: center;
   font-family: Pretendar-SemiBold, sans-serif;
-  font-weight: 600;
 }
 
 .movie-slide {
@@ -404,7 +392,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
 }
 
@@ -424,7 +411,6 @@
   white-space: nowrap;
   font-size: 16px;
   font-style: normal;
-  font-weight: 500;
   line-height: 140%;
 }
 
@@ -432,7 +418,6 @@
   margin-left: 12px;
   color: var(--gray600,);
   font-family: Pretendard-SemiBold, sans-serif;
-  font-weight: 600;
 }
 
 @media (max-width: 1440px) {

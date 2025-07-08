@@ -56,7 +56,6 @@
 
 .slogan div:first-child {
   font-size: 62px;
-  font-weight: 500;
   line-height: 120%;
   letter-spacing: -1.24px;
   color: var(--white);
@@ -66,12 +65,10 @@
 }
 
 .slogan div:first-child span {
-  font-weight: 700;
 }
 
 .slogan div:last-child {
   font-size: 32px;
-  font-weight: 300;
   line-height: 120%;
   letter-spacing: -0.64px;
   color: var(--white);
@@ -102,7 +99,6 @@
   height: 100%;
   padding: 0 30px;
   font-size: 18px;
-  font-weight: 500;
   line-height: normal;
   color: var(--black);
   font-family: Pretendard-Medium, sans-serif;
@@ -126,7 +122,6 @@
   width: 64px;
   height: 64px;
   border: 2px solid var(--primary-color-blue2);
-  font-weight: 500;
   line-height: normal;
   color: var(--black);
   background: var(--primary-color-blue2);
@@ -164,7 +159,6 @@
 
 .quick-menu-item div {
   font-size: 15px;
-  font-weight: 500;
   line-height: normal;
   text-align: center;
   color: var(--white);
@@ -223,7 +217,6 @@
 
 .holiday-area-title {
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
   color: #fff;
@@ -244,7 +237,6 @@
 
 .holiday-area-controller div {
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
   color: #fff;
@@ -254,7 +246,6 @@
 
 .holiday-area-controller div span {
   font-size: 26px;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.65px;
   color: #fff;
@@ -271,7 +262,6 @@
 
 .holiday-list div {
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   color: #fff;
   font-family: GmarketSans, sans-serif;
@@ -301,7 +291,6 @@
 
 .notice-slide div {
   font-size: 17px;
-  font-weight: 500;
   line-height: 100%;
   color: var(--black);
   font-family: GmarketSans, sans-serif;

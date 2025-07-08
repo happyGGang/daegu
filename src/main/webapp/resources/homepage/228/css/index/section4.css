@@ -18,7 +18,6 @@
   font-family: Pretendard-Medium, sans-serif;
   font-size: 44px;
   font-style: normal;
-  font-weight: 500;
   line-height: 140%;
   text-transform: uppercase;
 }
@@ -29,7 +28,6 @@
   font-family: Pretendard-Thin, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 300;
   line-height: 130%;
   letter-spacing: -0.5px;
   text-transform: uppercase;
@@ -88,7 +86,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 24px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   text-transform: uppercase;
   cursor: pointer;
@@ -96,7 +93,6 @@
 }
 
 .tab-button.active-tab {
-  font-weight: 700 !important;
   color: var(--white) !important;
 }
 
@@ -144,7 +140,6 @@
 .title {
   width: 224px;
   font-size: 18px;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.45px;
   text-align: center;
@@ -179,7 +174,6 @@
   align-items: center;
   width: 100%;
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
   text-align: center;

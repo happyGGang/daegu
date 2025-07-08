@@ -30,7 +30,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -43,14 +42,12 @@
   font-family: GmarketSans, sans-serif;
   font-size: 60px;
   font-style: normal;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -1.2px;
   text-transform: uppercase;
 }
 
 .main-bg-slide-item div span {
-  font-weight: 700;
 }
 
 #fullpage .section-wrapper:nth-child(1) .wrapper {
@@ -88,7 +85,6 @@
   height: 100%;
   padding: 0 40px;
   font-size: 18px;
-  font-weight: 500;
   line-height: normal;
   color: var(--black);
   font-family: Pretendard-Medium, sans-serif;
@@ -195,7 +191,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
 }
 
@@ -265,7 +260,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.32px;
 }
@@ -284,7 +278,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.32px;
 }
@@ -294,7 +287,6 @@
   font-family: Pretendard-SemiBold, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 600;
   line-height: normal;
 }
 
@@ -305,7 +297,6 @@
   font-family: Pretendard-Regular, sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: normal;
   letter-spacing: -0.32px;
 }
@@ -339,7 +330,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
   margin-right: 32px;
@@ -361,7 +351,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
 }
@@ -372,7 +361,6 @@
   font-family: GmarketSans, sans-serif;
   font-size: 26px;
   font-style: normal;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.65px;
 }
@@ -393,13 +381,17 @@
   font-family: GmarketSans, sans-serif;
   font-size: 20px;
   font-style: normal;
-  font-weight: 500;
   line-height: 130%;
 }
 
 .holiday-list a  img {
   width: 26px;
   height: 26px;
+}
+
+
+.main-bg-slide-item br {
+  display: none;
 }
 
 /*@media (max-width: 1440px) {*/

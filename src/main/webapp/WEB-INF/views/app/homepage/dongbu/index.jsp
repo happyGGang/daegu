@@ -315,16 +315,10 @@
                     </div>
                     <div id="event-area"></div>
                 </div>
+
                 <div class="box">
                     <div class="box-header">
                         <div class="box-title">강좌 및 행사</div>
-                        <div class="box-action">
-                            <img class="course-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
-                            <img class="course-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
-                            <a href="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474">
-                                <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
-                            </a>
-                        </div>
                     </div>
                     <div class="course-slide">
                         <c:if test="${fn:length(teachList) < 1}">
@@ -334,23 +328,49 @@
                             </div>
                         </c:if>
                         <c:if test="${fn:length(teachList) >= 1}">
-                            <c:forEach var="i" varStatus="status" items="${teachList}">
-                                <a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
-                                    <img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
-                                    <div class="course-title">${i.teach_name}</div>
-                                    <div class="course-description">
+                            <c:set var="i" value="${teachList[0]}" />
+                            <a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+                                <img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
+                                <div class="course-title">${i.teach_name}</div>
+                                <div class="course-description">
                                         ${i.teach_desc}
-                                    </div>
-                                    <div class="course-date">
-                                        <div>강좌기간<span>${i.start_date} ~ ${i.end_date}</span></div>
-                                        <div>접수기간<span>${i.start_join_date} ~ ${i.start_join_date}</span></div>
-                                    </div>
-                                </a>
-                            </c:forEach>
+                                </div>
+                                <div class="course-date">
+                                    <div>강좌기간<span>${i.start_date} ~ ${i.end_date}</span></div>
+                                    <div>접수기간<span>${i.start_join_date} ~ ${i.end_join_date}</span></div>
+                                </div>
+                            </a>
                         </c:if>
-					</div>
-				</div>
-				<div class="box">
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="box-header">
+                        <div class="box-title">강좌 및 행사</div>
+                    </div>
+                    <div class="course-slide">
+                        <c:if test="${fn:length(teachList) < 2}">
+                            <div class="course-slide-item">
+                                <img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
+                                <div class="course-title">등록된 강좌가 없습니다.</div>
+                            </div>
+                        </c:if>
+                        <c:if test="${fn:length(teachList) >= 2}">
+                            <c:set var="i" value="${teachList[1]}" />
+                            <a class="course-slide-item" href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}">
+                                <img src="/resources/homepage/${homepage.context_path}/img/culture/course.svg" alt="">
+                                <div class="course-title">${i.teach_name}</div>
+                                <div class="course-description">
+                                        ${i.teach_desc}
+                                </div>
+                                <div class="course-date">
+                                    <div>강좌기간<span>${i.start_date} ~ ${i.end_date}</span></div>
+                                    <div>접수기간<span>${i.start_join_date} ~ ${i.end_join_date}</span></div>
+                                </div>
+                            </a>
+                        </c:if>
+                    </div>
+                </div>
+<%--				<div class="box">
 					<div class="box-header">
 						<div class="box-title">이달의 영화 상영</div>
 						<div class="box-action">
@@ -404,7 +424,7 @@
                             </c:forEach>
                         </c:if>
 					</div>
-				</div>
+				</div>--%>
             </div>
         </div>
         <!-- 섹션4 -->

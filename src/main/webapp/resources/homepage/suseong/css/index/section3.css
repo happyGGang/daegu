@@ -27,7 +27,6 @@
 
 .course-board-header div {
   font-size: 36px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.72px;
   text-align: center;
@@ -69,7 +68,6 @@
 .course-list-item-title {
   width: 500px;
   font-size: 22px;
-  font-weight: 600;
   line-height: normal;
   color: var(--black);
   overflow: hidden;
@@ -82,7 +80,6 @@
 .course-list-item-detail {
   width: 500px;
   font-size: 16px;
-  font-weight: 600;
   line-height: normal;
   color: var(--gray600);
   overflow: hidden;
@@ -101,7 +98,6 @@
 
 .course-list-item-date div {
   font-size: 16px;
-  font-weight: 600;
   line-height: normal;
   letter-spacing: -0.4px;
   text-align: center;
@@ -112,7 +108,6 @@
 
 .course-list-item-date div span {
   font-size: 16px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.4px;
   text-align: center;
@@ -129,7 +124,6 @@
   width: 100%;
   height: 100%;
   font-size: 24px;
-  font-weight: 600;
   line-height: normal;
   color: var(--black);
   font-family: Pretendard-SemiBold, sans-serif;
@@ -146,7 +140,6 @@
 
 .calendar-title {
   font-size: 36px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.72px;
   text-align: center;
@@ -204,7 +197,6 @@
 
 .current-month div:first-child {
   font-size: 16px;
-  font-weight: 400;
   line-height: 100%;
   letter-spacing: -0.4px;
   text-align: center;
@@ -215,7 +207,6 @@
 
 .current-month div:last-child {
   font-size: 48px;
-  font-weight: 600;
   line-height: 100%;
   letter-spacing: -1.2px;
   color: #fff;
@@ -231,7 +222,6 @@
 .day {
   width: 33px;
   font-size: 16px !important;
-  font-weight: 500 !important;
   line-height: normal;
   letter-spacing: -0.4px !important;
   text-align: center;
@@ -244,7 +234,6 @@
 #calendar2 table tbody tr td {
   position: relative;
   font-size: 18px !important;
-  font-weight: 700 !important;
   line-height: 48px !important;
   letter-spacing: -0.45px;
   text-align: center;
@@ -299,7 +288,6 @@
 .calendar-caption div {
   position: relative;
   font-size: 16px;
-  font-weight: 600;
   line-height: normal;
   letter-spacing: -0.4px;
   text-align: center;
@@ -364,7 +352,6 @@
 
 .calendar-header div {
   font-size: 14px;
-  font-weight: 500;
   line-height: 14px;
   letter-spacing: -0.28px;
   color: #2d2d2d;
@@ -379,7 +366,6 @@
 .calendar-content {
   padding: 16px 20px 20px;
   font-size: 15px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.3px;
   color: #2d2d2d;

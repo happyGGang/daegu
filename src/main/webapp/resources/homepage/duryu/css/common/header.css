@@ -54,7 +54,6 @@
   width: 150px;
   height: 90px;
   font-size: 18px;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.45px;
   text-align: center;
@@ -108,7 +107,6 @@
   word-break: break-word;
   text-align: center;
   font-size: 14px;
-  font-weight: 500;
   line-height: normal;
   color: #777;
   font-family: Pretendard-Medium, sans-serif;
@@ -219,7 +217,6 @@
   .gnb-menu li {
     border-bottom: 1px solid #e9e9e9;
     font-size: 14px;
-    font-weight: 500;
     line-height: 130%;
     letter-spacing: -0.35px;
     color: #000;
