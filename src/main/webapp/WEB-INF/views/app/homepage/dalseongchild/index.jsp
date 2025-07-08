@@ -205,7 +205,7 @@ do {
 			</div>
 			<div class="wrapper">
 				<div class="slogan">
-					<div>엄마와 아이가 모두 행복한 도서관</div>
+					<div>아이가 모두 행복한 도서관</div>
 					<div>달성어린이숲도서관</div>
 				</div>
 				<!-- 검색 -->
