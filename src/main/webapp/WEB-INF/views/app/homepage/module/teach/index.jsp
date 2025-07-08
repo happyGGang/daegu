@@ -510,6 +510,8 @@ $(function(){
 					</form:select>
 					<p class="m_br"></p>
 					<form:input path="search_text" cssClass="text new_text01"/>
+					<p class="m_br"></p>
+					<a href="#" class="btn btn1" id="search_btn" style="padding:4px 10px 7px !important;margin-top:-1px !important;"><i class="fa fa-search"></i><span>검색</span></a>
 				</div>
 				<div class="srch_category_box">
 					<p style="height:2px;"></p>
@@ -542,8 +544,6 @@ $(function(){
 							</c:forEach>
 						</form:select>
 					</span>
-					<p class="m_br"></p>
-					<a href="#" class="btn btn1" id="search_btn"><i class="fa fa-search"></i><span>검색</span></a>
 				</div>
 
 				<div class="srch_category_box" >
