@@ -6,14 +6,7 @@
 .main-bg-slide div:nth-child(1) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/dalseongchild/img/main/main_bg01.png') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.main-bg-slide div:nth-child(2) {
-  position: relative;
-  height: 100vh;
-  background: url('/resources/homepage/dalseongchild/img/main/main_bg02.png') no-repeat center center fixed;
+  background: url('/resources/homepage/dalseongchild/img/common/1p.svg') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -226,13 +219,7 @@
   .main-bg-slide div:nth-child(1) {
     height: 640px;
     background-size: cover !important;
-    background: url('/resources/homepage/dalseongchild/img/main/1024_1.png') no-repeat center center fixed;
-  }
-
-  .main-bg-slide div:nth-child(2) {
-    height: 640px;
-    background-size: cover !important;
-    background: url('/resources/homepage/dalseongchild/img/main/1024_2.png') no-repeat center center fixed;
+    background: url('/resources/homepage/dalseongchild/img/common/1p.svg') no-repeat center center fixed;
   }
 
   .slogan {
@@ -320,12 +307,7 @@
 
   .main-bg-slide div:nth-child(1) {
     height: 480px;
-    background: url('/resources/homepage/dalseongchild/img/main/768_1.png') no-repeat center center fixed;
-  }
-
-  .main-bg-slide div:nth-child(2) {
-    height: 480px;
-    background: url('/resources/homepage/dalseongchild/img/main/768_2.png') no-repeat center center fixed;
+    background: url('/resources/homepage/dalseongchild/img/common/1p.svg') no-repeat center center fixed;
   }
 
   .slogan {
@@ -416,12 +398,7 @@
 
   .main-bg-slide div:nth-child(1) {
     height: 558px;
-    background: url('/resources/homepage/dalseongchild/img/main/360_1.png') no-repeat center center fixed;
-  }
-
-  .main-bg-slide div:nth-child(2) {
-    height: 558px;
-    background: url('/resources/homepage/dalseongchild/img/main/360_2.png') no-repeat center center fixed;
+    background: url('/resources/homepage/dalseongchild/img/common/1p.svg') no-repeat center center fixed;
   }
 
   .slogan {

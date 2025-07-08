@@ -393,7 +393,6 @@ do {
 							<ul>
 								<li><a href="board/index.do?menu_idx=137&manage_idx=772">이주의 책</a></li>
 								<li><a href="board/index.do?menu_idx=136&manage_idx=771">이주의 시</a></li>
-								<li><a href="html.do?menu_idx=138">사람도서관</a></li>
 								<li><a href="html.do?menu_idx=25">대구전자도서관</a></li>
 								<li><a href="html.do?menu_idx=94">원문제공서비스</a></li>
 								<li><a href="html.do?menu_idx=22">책나래서비스</a></li>
