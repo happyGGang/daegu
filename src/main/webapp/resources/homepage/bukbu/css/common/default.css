@@ -101,37 +101,6 @@ a.underline,
 .text-indent p{text-indent:10px}
 .fb{font-weight:bold}
 
-.search-form .detail_search .section dl dd input.text-area {
-  /*width: 100% !important;*/
-}
-
-.ct-btn span.down {
-  height: 29px !important;
-}
-
-.search input.text.ui-calendar {
-  width: 114px !important;
-}
-
-.login-body .login .form-box input.txt {
-  background: #fff;
-  width: 97% !important;
-}
-
-.selectmenu {
-  padding: 0 !important;
-  height: 31px !important;
-}
-
-.search a.btn {
-  display: inline-block;
-  padding: 5px 12px !important;
-}
-
-.login-body .login button {
-  height: 87px !important;
-}
-
 a.orange,
 .orange{color:#fe2a00}  /* #f88900 */
 a.green,

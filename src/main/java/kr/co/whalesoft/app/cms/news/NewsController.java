@@ -71,15 +71,15 @@ public class NewsController extends BaseController {
 			ValidationUtils.rejectIfStringLength(result, "contents", 200, null);
 		}
 
-		if(editMode.equals("ADD")) {
-			// 뉴스관리 사용여부 3개 지정
-			int use_cnt = service.getUseCnt(news);
-			if(use_cnt >= 3 && news.getUse_yn().equals("Y")) {
-				res.setValid(false);
-				res.setMessage("3개 이상 사용할 수 없습니다.");
-				return res;
-			}
-		}
+//		if(editMode.equals("ADD")) {
+//			// 뉴스관리 사용여부 3개 지정
+//			int use_cnt = service.getUseCnt(news);
+//			if(use_cnt >= 3 && news.getUse_yn().equals("Y")) {
+//				res.setValid(false);
+//				res.setMessage("3개 이상 사용할 수 없습니다.");
+//				return res;
+//			}
+//		}
 
 		if(!result.hasErrors()) {
 			if(editMode.equals("ADD")) {

@@ -280,7 +280,7 @@ listNums[i] = num;
 				<div class="notice-board">
 					<div class="notice-board-header">
 						<div class="notice-board-title">공지사항</div>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=132">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=109">
 							<img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
 						</a>
 					</div>
@@ -344,7 +344,7 @@ listNums[i] = num;
 						<div class="box-action">
 							<img class="course-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
 							<img class="course-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
-							<a href="/${homepage.context_path}/board/index.do?menu_idx=170&manage_idx=474">
+							<a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
 								<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 							</a>
 						</div>
@@ -377,7 +377,7 @@ listNums[i] = num;
 						<div class="box-action">
 							<img class="movie-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/slide-left-arrow.svg" alt="">
 							<img class="movie-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/slide-right-arrow.svg" alt="">
-							<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+							<a href="/${homepage.context_path}/board/index.do?menu_idx=60&manage_idx=104">
 								<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 							</a>
 						</div>
@@ -466,11 +466,11 @@ listNums[i] = num;
 										<div class="book-slide-item">
 											<a href="/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<c:choose>
-													<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-														<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
+													<c:when test="${fn:contains(i.preview_img, 'http')}">
+														<img src="${i.preview_img}" alt="${i.title}"/>
 													</c:when>
 													<c:otherwise>
-														<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=204&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
+														<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}"/>
 													</c:otherwise>
 												</c:choose>
 											</a>

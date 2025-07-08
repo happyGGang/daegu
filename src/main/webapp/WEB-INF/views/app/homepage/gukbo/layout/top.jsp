@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="utf-8" %>
-<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div id="header">
 	<nav id="menu"></nav>
@@ -41,6 +42,14 @@
 						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a> -->
 					</c:otherwise>
 				</c:choose>
+				<span class="txt-bar"></span>
+				<c:set var="url" value="${pageContext.request.requestURL}" />
+				<c:set var="pageUrl" value="${homepage.context_path}/index" />
+				<c:if test="${fn:contains(url,pageUrl) }">
+					<a class="total-popup-trigger">
+						<b>팝업 다시보기 (${fn:length(popupFullList)})</b>
+					</a>
+				</c:if>
 			</div>
 
 		</div>

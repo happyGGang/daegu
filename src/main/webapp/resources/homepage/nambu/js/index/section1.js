@@ -1,10 +1,69 @@
 $(document).ready(function () {
-    // 메인 팝업 슬라이더 초기화
+    const $paginationWrapper = $('.main-popup-pagination');
+    let $paginationItems = $('.main-popup-pagination-item');
+    const totalSlides = $('.main-popup .main-popup-item').length;
+
+    let groupSize = getGroupSize();
+
+    function getGroupSize() {
+        return window.innerWidth <= 865 ? 2 : 4;
+    }
+
+    // ✅ 그룹핑 처리 함수 (처음 + 리사이즈 때도 실행됨)
+    function groupPaginationItems() {
+        // 기존 그룹 래퍼 제거
+        $('.pagination-border-wrapper').children().unwrap();
+
+        groupSize = getGroupSize(); // 최신 groupSize 다시 계산
+
+        // 새롭게 $paginationItems 갱신
+        $paginationItems = $('.main-popup-pagination-item');
+
+        // 인덱스 재설정
+        $paginationItems.each(function (idx) {
+            $(this).attr('data-index', idx);
+        });
+
+        for (let i = 0; i < $paginationItems.length; i += groupSize) {
+            const $group = $paginationItems.slice(i, i + groupSize);
+            $group.wrapAll('<div class="pagination-border-wrapper"></div>');
+        }
+    }
+
+    // ✅ 페이지네이션 그룹 계산
+    function getPaginationGroup(currentIndex) {
+        if (totalSlides <= groupSize) {
+            return Array.from({ length: totalSlides }, (_, i) => i);
+        }
+
+        const groupIndex = Math.floor(currentIndex / groupSize);
+        const startIndex = groupIndex * groupSize;
+        const endIndex = Math.min(startIndex + groupSize, totalSlides);
+
+        return Array.from({ length: endIndex - startIndex }, (_, i) => startIndex + i);
+    }
+
+    // ✅ 페이지네이션 표시 처리
+    function updatePagination(currentIndex) {
+        const indicesToShow = getPaginationGroup(currentIndex);
+        $paginationItems.hide();
+        indicesToShow.forEach(index => {
+            $paginationItems.eq(index).css('display', 'inline-flex');
+        });
+
+        $paginationItems.removeClass('active');
+        $paginationItems.eq(currentIndex).addClass('active');
+    }
+
+    // ✅ 초기 그룹핑 실행
+    groupPaginationItems();
+
+    // ✅ 메인 슬라이더 초기화
     $('.main-popup').slick({
         slidesToShow: 1,
         arrows: false,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 8000,
         dots: false,
         swipe: true,
         infinite: true,
@@ -13,12 +72,11 @@ $(document).ready(function () {
         initialSlide: 0
     });
 
-    // 메인 배경 슬라이더 초기화
     $('.main-bg-slide').slick({
         slidesToShow: 1,
         arrows: false,
         autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: 8000,
         dots: false,
         swipe: false,
         infinite: true,
@@ -28,60 +86,36 @@ $(document).ready(function () {
         speed: 300
     });
 
-    // 페이지네이션 UI 업데이트 함수
-    function updatePagination(currentSlide) {
-        $('.main-popup-pagination-item').removeClass('active').show();
+    // ✅ 초기 렌더
+    updatePagination(0);
 
-        if ($(window).width() <= 768) {
-            // 768px 이하일 때
-            if (currentSlide === 0 || currentSlide === 1) {
-                // 슬라이드 1, 2일 때 페이지네이션 3, 4번 숨기기
-                $('.main-popup-pagination-item').eq(2).hide();
-                $('.main-popup-pagination-item').eq(3).hide();
-                $('.main-popup-pagination-item').eq(currentSlide).addClass('active');
-            } else if (currentSlide === 2 || currentSlide === 3) {
-                // 슬라이드 3, 4일 때 페이지네이션 1, 2번 숨기기
-                $('.main-popup-pagination-item').eq(0).hide();
-                $('.main-popup-pagination-item').eq(1).hide();
-                $('.main-popup-pagination-item').eq(currentSlide).addClass('active');
-            }
-        } else {
-            // 768px 초과일 때: 현재 슬라이드에 해당하는 페이지네이션만 활성화
-            $('.main-popup-pagination-item').eq(currentSlide).addClass('active');
-        }
-    }
-
-    // 슬라이더 변경 시 페이지네이션 UI 업데이트
-    $('.main-popup').on('afterChange', function (event, slick, currentSlide) {
-        updatePagination(currentSlide);
+    // ✅ 슬라이드 변경 시
+    $('.main-popup').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        updatePagination(nextSlide);
     });
 
-    // 페이지네이션 클릭 이벤트 처리
-    $('.main-popup-pagination-item').click(function () {
-        var index = $(this).index();
-
-        // 슬라이더 이동
+    // ✅ 페이지네이션 클릭 (이벤트 위임 방식)
+    $paginationWrapper.on('click', '.main-popup-pagination-item', function () {
+        const index = $(this).data('index');
         $('.main-popup').slick('slickGoTo', index);
-
-        // 페이지네이션 업데이트
-        updatePagination(index);
     });
 
-    // 이전 버튼
+    // ✅ 이전/다음 버튼
     $('.main-popup-prev').click(function () {
         $('.main-popup').slick('slickPrev');
     });
 
-    // 다음 버튼
     $('.main-popup-next').click(function () {
         $('.main-popup').slick('slickNext');
     });
 
-    // 페이지 진입 시 초기 페이지네이션 활성화
-    updatePagination(0);
-
-    // 창 크기 변경 시 페이지네이션 업데이트!
-    $(window).resize(function () {
-        updatePagination($('.main-popup').slick('slickCurrentSlide'));
+    // ✅ 해상도 변경 시 그룹 다시 적용
+    let resizeTimer;
+    $(window).on('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            groupPaginationItems();
+            updatePagination($('.main-popup').slick('slickCurrentSlide'));
+        }, 200);
     });
 });

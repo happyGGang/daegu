@@ -46,8 +46,16 @@
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
 
+
+<link rel="stylesheet" type="text/css" href="/resources/homepage/gukbo/css/total-popup.css"/>
+<script type="text/javascript" src="/resources/homepage/gukbo/js/popupAll.js"></script>
+
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
+<link rel="stylesheet" href="/resources/homepage/nambu/css/common/slick.css"/>
+<link rel="stylesheet" href="/resources/homepage/nambu/css/common/slick-theme.css"/>
+<script src="/resources/homepage/nambu/plugin/slick.min.js"></script>
+
 <!--
 <script>
 

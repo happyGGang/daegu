@@ -225,3 +225,25 @@ h2.tit07{background-image:url('/resources/homepage/cs/img/contents/text07.jpg')}
 .category span.ca.bg-001 {background-color:#f3bb00 !important;color:#fff;}
 .category span.ca.bg-002 {background-color:#3db2b6 !important;color:#fff;}
 .category span.ca.bg-003 {background-color:#8194b4 !important;color:#fff;}
+
+:root {
+	--primary-color-blue1: #006bc2;
+	--primary-color-blue2: #34aaf4;
+	--primary-color-blue3: #edf7ff;
+	--primary-color-green1: #00784e;
+	--primary-color-green2: #55c47e;
+	--primary-color-green3: #f1f8e8;
+	--primary-color-purple1: #6f3f95;
+	--primary-color-purple2: #a974e5;
+	--primary-color-purple3: #f1efff;
+	--black: #000;
+	--gray900: #121212;
+	--gray800: #292929;
+	--gray700: #454545;
+	--gray600: #7a7a7a;
+	--gray500: #a6a6a6;
+	--gray400: #b8b8b8;
+	--gray300: #d6d6d6;
+	--gray200: #d6d6d6;
+	--white: #fff;
+}
