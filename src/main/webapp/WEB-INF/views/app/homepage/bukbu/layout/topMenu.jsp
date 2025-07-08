@@ -21,7 +21,7 @@
 
 <div id="mobile-menu-header" style="display:none;">
     <div class="mobile-menu-header">
-        <a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=125" class="btn4">
+        <a href="/${homepage.context_path}/intro/login/mobileCard.do?menu_idx=130" class="btn4">
             <i class="fa fa-bookmark"></i><span>모바일회원증</span>
         </a>
         <c:choose>
