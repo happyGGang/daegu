@@ -63,11 +63,11 @@ $(function(){
 	});
 
 	// 갤러리 게시판 이미지
-	$("#board_tbody.bbs_gallery li img")
-	.error(function(){
-		$(this).parent().addClass('noImg');
-	    $(this).unbind("error").attr("src", "/resources/common/img/blank.gif");
-	});
+	// $("#board_tbody.bbs_gallery li img")
+	// .error(function(){
+	// 	$(this).parent().addClass('noImg');
+	//     $(this).unbind("error").attr("src", "/resources/common/img/blank.gif");
+	// });
 
 	// 댓글
 	$('div.bbs-comment-textarea').on('click',function(){
@@ -717,4 +717,25 @@ $(function(){
 
 	}//end if
 
+});
+
+$(document).ready(function() {
+	$('.one-depth-menu > a').on('click', function(e) {
+		e.preventDefault();
+
+		var index = $(this).index();
+
+		var subMenuContainer = $('.two-depth-menu').eq(index);
+
+		if (subMenuContainer.length > 0) {
+			var firstSubMenuLink = subMenuContainer.find('a').first();
+			if (firstSubMenuLink.length > 0) {
+				window.location.href = firstSubMenuLink.attr('href');
+			} else {
+				window.location.href = $(this).attr('href');
+			}
+		} else {
+			window.location.href = $(this).attr('href');
+		}
+	});
 });

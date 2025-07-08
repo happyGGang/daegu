@@ -266,7 +266,6 @@
 }
 
 @media all and (max-width:1000px){
-	h1 img{display:none}
 	.main .qmenu .bx-controls{display:block}
 
 	#header h1 {position:relative;height:auto;position:absolute;top:5px;left:0;width:50px}

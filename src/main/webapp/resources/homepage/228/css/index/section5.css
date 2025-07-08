@@ -1,0 +1,491 @@
+#fullpage .section-wrapper:nth-child(5) {
+  position: relative;
+  height: 100vh;
+  background: url('/resources/homepage/228/img/school/bg.svg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.section5-title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section5-title div:first-child {
+  color: var(--gray800);
+  font-family: 'Cafe24Dongdong', sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  line-height: 120%;
+  letter-spacing: -0.96px;
+  text-transform: uppercase;
+}
+
+.section5-title div:last-child br {
+  display: none;
+}
+
+.section5-title div:first-child span:nth-child(1) {
+  color: #008852
+}
+
+.section5-title div:first-child span:nth-child(2) {
+  color: #006EFF
+}
+
+.section5-title div:first-child span:nth-child(3) {
+  color: #FF571D
+}
+
+.section5-title div:last-child {
+  color: var(--gray800);
+  font-family: GmarketSans, sans-serif;
+  font-size: 50px;
+  font-style: normal;
+  line-height: 120%;
+}
+
+.search-bar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.school-input {
+  width: 640px;
+  height: 70px;
+  border-radius: 40px !important;
+  background: #FFF;
+  position: relative;
+}
+
+#search_text_1 {
+  width: 575px;
+  height: 100%;
+  border-radius: 40px;
+  background: #fff;
+  padding: 0 40px;
+  color: var(--black) !important;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  line-height: normal;
+  border: none;
+  outline: none;
+}
+
+#search_text_1::placeholder {
+  color: var(--black);
+}
+
+.search_text_1:hover,
+.search_text_1:focus {
+  outline: none;
+  border: none;
+}
+
+.school-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 30px;
+}
+
+.school-search-btn img {
+  width: 36px;
+  height: 36px;
+}
+
+.go-to-login {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.school-img {
+  width: 74px;
+  height: 74px;
+  z-index: 1;
+}
+
+.go-to-login-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.go-to-login:after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  right: -38px;
+  width: 270px;
+  height: 13px;
+  border-radius: 10px;
+  background: linear-gradient(110deg, rgba(52, 170, 244, 0.20) -63.08%, rgba(0, 217, 255, 0.20) 82.45%);
+}
+
+.go-to-login-text div {
+  color: #000;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.go-to-login-text img {
+  width: 28px;
+  height: 28px;
+}
+
+.menu-slide-wrapper {
+  display: flex;
+  gap: 36px;
+  justify-content: center;
+  margin-top: 64px;
+}
+
+.menu-slide {
+  width: 1280px;
+}
+
+.menu-slide-item {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  width: 230px;
+  margin-right: 32.5px;
+}
+
+.menu-slide-item-img {
+  width: 230px;
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--primary-color-blue2);
+  background: #FFF;
+}
+
+.menu-slide-item:nth-child(even) .menu-slide-item-img {
+  background: var(--primary-color-blue2);
+}
+
+.menu-slide-item:nth-child(odd) .menu-slide-item-img {
+  background: var(--white);
+}
+
+.menu-slide-item-img img {
+  width: 100px;
+  height: 100px;
+}
+
+.menu-slide-next, .menu-slide-prev {
+  width: 44px;
+  height: 44px;
+  border-radius: 50px;
+  background: var(--white);
+  box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.10);
+  cursor: pointer;
+  margin-top: 93px;
+}
+
+.menu-slide-item-text {
+  color: var(--gray700);
+  text-align: center;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  line-height: normal;
+}
+
+@media (max-width: 1440px) {
+  #fullpage .section-wrapper:nth-child(5) {
+    height: 565px;
+  }
+
+  .section5-title {
+    gap: 19px;
+  }
+
+  .section5-title div:first-child {
+    font-size: 26px;
+    letter-spacing: -0.78px;
+  }
+
+  .section5-title div:last-child {
+    font-size: 42px;
+  }
+
+  .search-bar-wrapper {
+    margin-top: 30px;
+  }
+
+  .school-input {
+    width: 460px;
+    height: 60px;
+  }
+
+  #search_text_1 {
+    width: 400px;
+    padding: 0 32px;
+    font-size: 16px;
+  }
+
+  .school-search-btn {
+    right: 22px;
+  }
+
+  .school-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .go-to-login-text {
+    gap: 8px;
+  }
+
+  .go-to-login:after {
+    left: 0;
+    right: -38px;
+    width: 220px;
+    height: 12px;
+  }
+
+  .go-to-login-text div {
+    font-size: 16px;
+  }
+
+  .go-to-login-text img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .menu-slide-wrapper {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    margin-top: 64px;
+  }
+
+  .menu-slide {
+    width: 820px;
+  }
+
+  .menu-slide-item {
+    gap: 16px;
+    width: 164px;
+    margin-right: 0;
+  }
+
+  .menu-slide-item-img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .menu-slide-item-img img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .menu-slide-next, .menu-slide-prev {
+    width: 34px;
+    height: 34px;
+    margin-top: 73px;
+  }
+
+  .menu-slide-item-text {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 865px) {
+  #fullpage .section-wrapper:nth-child(5) {
+    height: 542px;
+  }
+
+  .school-input {
+    width: 488px;
+  }
+
+  #search_text_1 {
+    width: 430px;
+  }
+
+  .school-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .go-to-login-text {
+    gap: 6px;
+  }
+
+  .go-to-login:after {
+    bottom: -3px;
+    left: -8px;
+    width: 190px;
+    height: 10px;
+  }
+
+  .go-to-login-text div {
+    font-size: 14px;
+  }
+
+  .go-to-login-text img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .search-bar-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .menu-slide-wrapper {
+    gap: 21px;
+    margin-top: 32px;
+  }
+
+  .menu-slide {
+    width: 390px;
+  }
+
+  .menu-slide-item {
+    width: 130px;
+  }
+
+  .menu-slide-item-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .menu-slide-item-img img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .menu-slide-next, .menu-slide-prev {
+    width: 34px;
+    height: 34px;
+    margin-top: 43px;
+  }
+
+  .menu-slide-item-text {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 490px) {
+  #fullpage .section-wrapper:nth-child(5) {
+    height: 464px;
+  }
+
+  .section5-title {
+    gap: 20px;
+  }
+
+  .section5-title div:first-child {
+    font-size: 16px;
+    letter-spacing: -0.48px;
+    text-align: center;
+  }
+
+  .section5-title div:last-child {
+    font-size: 36px;
+    text-align: center  ;
+  }
+
+  .section5-title div:last-child br {
+    display: block;
+  }
+
+  .school-input {
+    width: 336px;
+    height: 48px;
+  }
+
+  #search_text_1 {
+    width: 292px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .school-search-btn {
+    right: 8px;
+  }
+
+  .school-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .go-to-login-text {
+    gap: 6px;
+  }
+
+  .go-to-login:after {
+    bottom: -3px;
+    left: -7px;
+    width: 170px;
+    height: 8px;
+  }
+
+  .go-to-login-text div {
+    font-size: 13px;
+  }
+
+  .go-to-login-text img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .menu-slide-wrapper {
+    gap: 3px;
+    margin-top: 22px;
+  }
+
+  .menu-slide {
+    width: 270px;
+  }
+
+  .menu-slide-item {
+    gap: 10px;
+    width: 90px;
+    margin-right: 0;
+  }
+
+  .menu-slide-item-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .menu-slide-item-img img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .menu-slide-next, .menu-slide-prev {
+    width: 30px;
+    height: 30px;
+    margin-top: 25px;
+  }
+
+  .menu-slide-item-text {
+    font: ;ont-size: 13px;
+    width: 90px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

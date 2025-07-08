@@ -65,7 +65,9 @@ public class PopupController extends BaseController {
 				popup.setLink_target("CURRENT");
 			}
 		}
-		
+
+		boolean isVisible = FullLayerHomepage.isExcluded(popup.getHomepage_id());
+		model.addAttribute("isVisiblePopupSection", isVisible);
 		model.addAttribute("popup", popup);
 		
 		return basePath + "edit_ajax";
@@ -79,6 +81,11 @@ public class PopupController extends BaseController {
 		ValidationUtils.rejectIfEmpty(result, "popup_name", "팝업명을 입력해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "start_date", "게시 시작일을 지정해주세요.");
 		ValidationUtils.rejectIfEmpty(result, "end_date", "게시 종료일을 지정해주세요");
+
+		boolean isVisible = FullLayerHomepage.isExcluded(popup.getHomepage_id());
+		if (!isVisible) {
+			popup.setPopup_type("LAYER");
+		}
 
 		if(!result.hasErrors()) {
 			if(popup.getEditMode().equals("ADD")) {

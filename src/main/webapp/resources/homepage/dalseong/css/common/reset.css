@@ -1,0 +1,127 @@
+@charset "utf-8";
+
+a,
+button,
+input,
+select,
+h1,
+h2,
+h3,
+h4,
+h5,
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-decoration: none;
+    background: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+menu,
+ol,
+ul {
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    text-size-adjust: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    -webkit-margin-after: 0;
+    margin-block-end: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+    line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    text-wrap: balance;
+}
+
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: currentcolor;
+}
+
+img,
+picture {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+textarea:not([rows]) {
+    min-height: 10em;
+}
+
+:target {
+    scroll-margin-block: 5ex;
+}
+
+:root {
+    --primary-color-blue1: #006bc2;
+    --primary-color-blue2: #34aaf4;
+    --primary-color-blue3: #edf7ff;
+    --primary-color-green1: #00784e;
+    --primary-color-green2: #55c47e;
+    --primary-color-green3: #f1f8e8;
+    --primary-color-purple1: #6f3f95;
+    --primary-color-purple2: #a974e5;
+    --primary-color-purple3: #f1efff;
+    --black: #000;
+    --gray900: #121212;
+    --gray800: #292929;
+    --gray700: #454545;
+    --gray600: #7a7a7a;
+    --gray500: #a6a6a6;
+    --gray400: #b8b8b8;
+    --gray300: #d6d6d6;
+    --gray200: #d6d6d6;
+    --white: #fff;
+}

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="/resources/cms/smart_editor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
@@ -246,7 +247,6 @@ function pasteHTML(filepath){
 <form:hidden path="editMode"/>
 <form:hidden path="homepage_id"/>
 <form:hidden path="popup_idx"/>
-<form:hidden path="popup_type" value="LAYER"/>
 <div id="imgFileTemp" hidden="hidden"></div>
 <table class="type2">
 	<colgroup>
@@ -266,13 +266,16 @@ function pasteHTML(filepath){
 				<form:input path="start_date" cssClass="text ui-calendar"/> ~ <form:input path="end_date" cssClass="text ui-calendar"/>
 			</td>
 		</tr>
-		<%-- <tr>
-			<th>팝업종류</th>
-			<td>
-				<form:radiobutton path="popup_type" value="LAYER"/> <label for="popup_type1" style="cursor:pointer;">레이어</label>&nbsp;
-				<form:radiobutton path="popup_type" value="WINDOW"/> <label for="popup_type2" style="cursor:pointer;">윈도우</label>
-			</td>
-		</tr> --%>
+		<%--228, 남부, 달성, 동부, 두류, 북부, 서부 ,수성 --%>
+		<c:if test="${isVisiblePopupSection}">
+			<tr>
+				<th>팝업종류</th>
+				<td>
+					<form:radiobutton path="popup_type" value="LAYER"/> <label for="popup_type1" style="cursor:pointer;">레이어</label>&nbsp;
+					<form:radiobutton path="popup_type" value="FULL_LAYER"/> <label for="popup_type2" style="cursor:pointer;">전체 화면</label>
+				</td>
+			</tr>
+		</c:if>
 		<tr>
 			<th>창크기</th>
 			<td>

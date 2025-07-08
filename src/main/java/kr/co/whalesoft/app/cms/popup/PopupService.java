@@ -113,4 +113,8 @@ public class PopupService extends BaseService {
 	public int getNextPrintSeq(String homepage_id) {
 		return dao.getNextPrintSeq(homepage_id);
 	}
+
+	public List<Popup> getPopupFullLayerList(Popup popup) {
+		return dao.getPopupFullLayerList(popup);
+	}
 }

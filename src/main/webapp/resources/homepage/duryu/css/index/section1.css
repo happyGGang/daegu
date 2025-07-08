@@ -6,21 +6,7 @@
 .main-bg-slide div:nth-child(1) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg1.svg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.main-bg-slide div:nth-child(2) {
-  position: relative;
-  height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg2.svg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-.main-bg-slide div:nth-child(3) {
-  position: relative;
-  height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg3.svg') no-repeat center center fixed;
+  background: url('/resources/homepage/duryu/img/main/bg.svg') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -33,7 +19,7 @@
   z-index: 1;
   width: 50%;
   height: 100%;
-  background: rgb(0 0 0 / 40%);
+  background: rgb(0 0 0 / 20%);
   content: '';
   backdrop-filter: blur(10px);
 }
@@ -70,8 +56,7 @@
 
 .slogan div:first-child {
   font-size: 62px;
-  font-weight: 500;
-  line-height: normal;
+  line-height: 120%;
   letter-spacing: -1.24px;
   color: var(--white);
   font-family: GmarketSans, sans-serif;
@@ -80,13 +65,11 @@
 }
 
 .slogan div:first-child span {
-  font-weight: 700;
 }
 
 .slogan div:last-child {
   font-size: 32px;
-  font-weight: 300;
-  line-height: normal;
+  line-height: 120%;
   letter-spacing: -0.64px;
   color: var(--white);
   font-family: GmarketSans, sans-serif;
@@ -116,7 +99,6 @@
   height: 100%;
   padding: 0 30px;
   font-size: 18px;
-  font-weight: 500;
   line-height: normal;
   color: var(--black);
   font-family: Pretendard-Medium, sans-serif;
@@ -140,7 +122,6 @@
   width: 64px;
   height: 64px;
   border: 2px solid var(--primary-color-blue2);
-  font-weight: 500;
   line-height: normal;
   color: var(--black);
   background: var(--primary-color-blue2);
@@ -157,9 +138,9 @@
   display: grid;
   width: 100%;
   max-width: 540px;
-  margin-top: 60px;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 32px 80px;
+  margin-top: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 32px 5px;
   margin-bottom: 70px;
 }
 
@@ -177,8 +158,7 @@
 }
 
 .quick-menu-item div {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 15px;
   line-height: normal;
   text-align: center;
   color: var(--white);
@@ -220,11 +200,11 @@
 .holiday-area {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   width: 50%;
   height: 100%;
   background: var(--primary-color-blue1);
   position: relative;
+  padding-left: 240px;
 }
 
 .notice-slide-wrapper {
@@ -237,7 +217,6 @@
 
 .holiday-area-title {
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
   color: #fff;
@@ -258,7 +237,6 @@
 
 .holiday-area-controller div {
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   letter-spacing: -0.5px;
   color: #fff;
@@ -268,7 +246,6 @@
 
 .holiday-area-controller div span {
   font-size: 26px;
-  font-weight: 700;
   line-height: 130%;
   letter-spacing: -0.65px;
   color: #fff;
@@ -280,13 +257,11 @@
 .holiday-list {
   display: flex;
   gap: 32px;
-  width: 310px;
-  margin-right: 127px;
+  align-items: center;
 }
 
 .holiday-list div {
   font-size: 20px;
-  font-weight: 500;
   line-height: 130%;
   color: #fff;
   font-family: GmarketSans, sans-serif;
@@ -312,12 +287,10 @@
   display: flex;
   align-items: center;
   width: 600px;
-  height: 100%;
 }
 
 .notice-slide div {
   font-size: 17px;
-  font-weight: 500;
   line-height: 100%;
   color: var(--black);
   font-family: GmarketSans, sans-serif;
@@ -332,15 +305,15 @@
 .go-to-holiday {
   width: 26px;
   height: 26px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 69px
 }
 
 .go-to-holiday img {
   width: 26px;
   height: 26px;
+}
+
+.no-data {
+  white-space: nowrap;
 }
 
 @media (max-width: 1440px) {
@@ -360,27 +333,12 @@
     height: 850px;
   }
 
-  .holiday-list {
-    margin-right: 100px;
-  }
-
-  .go-to-holiday {
-    right: 50px;
+  .holiday-area {
+    padding-left: 42px;
   }
 }
 
 @media (max-width: 1260px) {
-  .holiday-list {
-    flex-wrap: wrap;
-    margin-right: 20px;
-    row-gap: 2px;
-    column-gap: 20px;
-  }
-
-  .go-to-holiday {
-    right: 40px;
-  }
-
   .notice-slide {
     width: 500px;
   }
@@ -423,7 +381,6 @@
   }
 
   #mainSearchForm {
-    border: 1px solid var(--primary-color-blue2, #34AAF4);
     height: 52px;
     width: 360px;
   }
@@ -445,9 +402,9 @@
 
   .quick-menu {
     margin-bottom: 56px;
-    margin-top: 32px;
+    margin-top: 40px;
     max-width: 360px;
-    grid-gap: 22px 30px;
+    grid-gap: 22px 5px;
   }
 
   .quick-menu-item {
@@ -455,12 +412,12 @@
   }
 
   .quick-menu-item div {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .quick-menu-item img {
-    width: 64px;
-    height: 64px;
+    width: 60px;
+    height: 60px;
   }
 
   .main-bottom-area {
@@ -468,13 +425,13 @@
   }
 
   .holiday-area {
-    padding-right: 0;
+    padding-left: 80px;
   }
 
   .go-to-holiday {
     width: 24px;
     height: 24px;
-    right: 24px;
+    margin-left: 4px;
   }
 
   .go-to-holiday img {
@@ -508,17 +465,11 @@
   }
 
   .holiday-list {
-    width: 174px;
     gap: 8px;
-    margin-right: 60px;
-    flex-wrap: nowrap;
-    column-gap: 10px;
-    row-gap: 0;
   }
 
   .holiday-list div {
     font-size: 16px;
-    white-space: nowrap;
   }
 
   .notice-slide-wrapper {
@@ -583,6 +534,7 @@
 
   #book-search {
     padding: 0 19px;
+    width: 88%;
   }
 
   .quick-menu {
@@ -598,15 +550,19 @@
   .holiday-area {
     width: 100%;
     height: 56px;
-    justify-content: flex-start;
-    padding-left: 140px;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
     z-index: 1;
   }
 
   .holiday-list {
-    width: 228px;
-    margin-right: 0;
-    column-gap: 21px
+    width: 273px;
+    gap: 21px
+  }
+
+  .holiday-list div {
+    width: fit-content;
   }
 
   .holiday-area-controller {
@@ -621,15 +577,15 @@
   }
 
   .notice-slide {
-    width: 464px;
+    width: 458px;
   }
 
   .notice-slide div {
-    width: 464px;
+    width: 458px;
   }
 
   .go-to-holiday {
-    right: 140px;
+    margin-left: 0;
   }
 }
 
@@ -655,7 +611,7 @@
   }
 
   .slogan div:first-child {
-    font-size: 40px;
+    font-size: 38px;
     letter-spacing: -0.8px;
   }
 
@@ -669,23 +625,24 @@
   }
 
   .quick-menu {
-    margin-bottom: 110px;
-    margin-top: 28px;
-    max-width: 360px;
-    grid-gap: 10px 20px;
+    margin-bottom: 112px;
+    margin-top: 32px;
+    max-width: 320px;
+    grid-gap: 22px 0;
   }
 
   .quick-menu-item img {
-    width: 60px;
-    height: 60px;
+    width: 52px;
+    height: 52px;
   }
 
   .quick-menu-item div {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .holiday-area {
     padding-left: 20px;
+    justify-content: flex-start;
   }
 
   .holiday-area-title {
@@ -694,7 +651,7 @@
   }
 
   .holiday-area-controller {
-    margin: 0 15px;
+    margin: 0 16px;
   }
 
   .holiday-area-controller a img {
@@ -710,12 +667,16 @@
   .holiday-area-controller div span {
     font-size: 18px;
     letter-spacing: -0.45px;
+    margin-left: 4px;
   }
 
   .go-to-holiday {
+    position: absolute;
     right: 20px;
     width: 22px;
     height: 22px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .go-to-holiday img {
@@ -733,10 +694,11 @@
 
   .holiday-list div {
     font-size: 14px;
-    white-space: nowrap;
-    width: 20px;
     height: 18px;
     padding-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .notice-slide {
@@ -752,5 +714,9 @@
     text-overflow: ellipsis;
     white-space: normal;
     line-height: 140%;
+  }
+
+  .no-data {
+    margin-left: -9px;
   }
 }

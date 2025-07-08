@@ -2051,6 +2051,7 @@ public class IndexController extends BaseController {
 		if("h80".equals(homepage.getHomepage_id()) || "h82".equals(homepage.getHomepage_id())) {
 			model.addAttribute("calendarResult2", getCalendarMarkPrivate(calendarManage.getPlan_date(), closedDay, eventDay, movieDay, applyDay, teachDay, facilityDay));
 		}
+		model.addAttribute("eventDates", eventDay);
 		model.addAttribute("closeDayList", closedDay);
 		return basePath + filePath + "_ajax";
 	}
@@ -2277,7 +2278,7 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/bestBook.*" })
 	public String bestBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
 		Homepage homepage 	= (Homepage) request.getAttribute("homepage");
-		
+
 		if (homepage.getHomepage_id().equals("h94")) {
 			Board b = new Board();
 			b.setManage_idx(1183);
@@ -2315,14 +2316,61 @@ public class IndexController extends BaseController {
 						}
 					}
 				}
+
+				Collections.shuffle(list);
+				int limit = Math.min(list.size(), 10);
+				List<Map<String, Object>> randomBooks =list.isEmpty() ? Collections.<Map<String,Object>>emptyList()	: list.subList(0, limit);
+				model.addAttribute("randomBooks", randomBooks);
 			}
-
-
 			model.addAttribute("bestBookList", list);
 		}
-		
+
 		return basePath + homepage.getFolder() + "/bestBook_ajax";
 	}
+
+	@RequestMapping(value = {"/{contextPath}/curriculumBook.*"})
+	public String curriculumBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
+		Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+		LibrarySearch librarySearch = new LibrarySearch();
+		librarySearch.setManageCode(homepage.getManage_code());
+
+		//서지형태 분류코드 설정.
+		//기본값 도서 "0"
+		//0 : 단행, 1: 연속간행물, 2:비도서
+		librarySearch.setBooktype("0");
+		librarySearch.setSeparateShelfCode("ABH");
+
+		Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
+
+		int count = LibSearchAPI.getSearchCount(result);
+
+		librarySearch.setTotalDataCount(count);
+
+		if (result != null && !result.isEmpty() && result.get("LIST_DATA") != null) {
+			List<Map<String, Object>> resultList = LibSearchAPI.getListData(result);
+			for (Map<String, Object> map : resultList) {
+				if (map.containsKey("ISBN")) {
+					if (map.get("ISBN") != null && !String.valueOf(map.get("ISBN")).startsWith("KEY")) {
+						Map<String, Object> aladinData = LibSearchAPI.getAladinDetail(map);
+						if (aladinData != null && !aladinData.isEmpty() && aladinData.containsKey("item")) {
+							map.put("aladin", aladinData.get("item"));
+						}
+						if (map.get("aladin") == null) {
+							map.put("imageUrl", service.getImageUrl(map));
+						}
+					}
+				}
+			}
+
+			Collections.shuffle(resultList);
+			int limit = Math.min(resultList.size(), 10);
+			List<Map<String, Object>> curriculumBookList = resultList.isEmpty() ? Collections.<Map<String, Object>>emptyList() : resultList.subList(0, limit);
+			model.addAttribute("curriculumBookList", curriculumBookList);
+		}
+		return basePath + homepage.getFolder() + "/curriculumBook_ajax";
+	}
+
 
 	@RequestMapping(value = { "/{contextPath}/recommendBook.*" })
 	public String recommendBook(Model model, HttpServletRequest request, @PathVariable String contextPath) throws ParseException {
@@ -2459,6 +2507,7 @@ public class IndexController extends BaseController {
 		model.addAttribute("bannerList", bannerService.getBannerAll(new Banner(homepage.getHomepage_id())));
 		model.addAttribute("mainImgList", mainImgService.getMainImgListAll(new MainImg(homepage.getHomepage_id())));
 		model.addAttribute("popupList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
+		model.addAttribute("popupFullList", popupService.getPopupFullLayerList(new Popup(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneList", popupZoneService.getPopupZoneAll(new PopupZone(homepage.getHomepage_id())));
 		model.addAttribute("quickMenuList", quickMenuService.getQuickMenuListAll(new QuickMenu(homepage.getHomepage_id())));
 		model.addAttribute("popupZoneTopList", popupZoneTopService.getPopupZoneTopAll(new PopupZoneTop(homepage.getHomepage_id())));
@@ -4221,7 +4270,7 @@ public class IndexController extends BaseController {
 	@RequestMapping(value = { "/{contextPath}/popupAll.*" })
 	public String popupAll(Model model, Popup Popup, HttpServletRequest request, @PathVariable String contextPath) {
 		Homepage homepage = (Homepage) request.getAttribute("homepage");
-		model.addAttribute("popupFullList", popupService.getPopupAll(new Popup(homepage.getHomepage_id())));
+		model.addAttribute("popupFullList", popupService.getPopupFullLayerList(new Popup(homepage.getHomepage_id())));
 		return basePath + homepage.getFolder() + "/popupAll_ajax";
 	}
 }

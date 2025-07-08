@@ -182,6 +182,54 @@
 	<tiles:insertAttribute name="top" />
 	<tiles:insertAttribute name="topMenu" />
 
+	<div class="popupWrap section">
+		<div id="popupLayer">
+			<homepageTag:popup popupList="${popupList}" />
+		</div>
+	</div>
+
+	<!-- 통합팝업 -->
+	<c:if test="${not empty popupFullList}">
+		<div class="total-popup-overlay"></div>
+		<div class="total_popup_area" id="total_popup_area">
+			<div class="total-popup-controller">
+				<div class="total-popup-controller-btn popup-today-close">
+					<div>오늘 하루 열지 않기</div>
+					<img src="/resources/homepage/duryu/img/common/total-popup-close.svg" alt="">
+				</div>
+				<div class="total-popup-controller-btn popup-close">
+					<div>창 닫기</div>
+					<img src="/resources/homepage/duryu/img/common/total-popup-close.svg" alt="">
+				</div>
+			</div>
+
+			<div class="total-popup-content">
+				<div class="total-popup-title">POPUP LIST</div>
+				<div class="total-popup-slide-wrapper">
+					<img class="total-popup-slide-prev" src="/resources/homepage/duryu/img/common/total-popup-left-arrow.svg" alt="">
+					<div class="total-popup-slide">
+						<c:forEach items="${popupFullList}" var="i" varStatus="status">
+							<div class="total-popup-slide-item">
+								<c:choose>
+									<c:when test="${not empty i.server_file_name}">
+										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
+									</c:when>
+									<c:otherwise>
+										<img src="/resources/homepage/duryu/img/common/dummy.png" alt="${i.alt_text}">
+									</c:otherwise>
+								</c:choose>
+								<c:if test="${not empty i.link_type and i.link_type ne 'NONE'}">
+									<a href="${i.link_url}"> ${i.link_type eq 'APPLY' ? '신청하기' : '자세히보기'} </a>
+								</c:if>
+							</div>
+						</c:forEach>
+					</div>
+					<img class="total-popup-slide-next" src="/resources/homepage/duryu/img/common/total-popup-right-arrow.svg" alt="">
+				</div>
+			</div>
+		</div>
+	</c:if>
+
 	
 
 	<div id="fullpage">
@@ -190,11 +238,11 @@
 		<div class="section" id="main0">
 
 			<div class="main-visual">
-			<div class="popupWrap main-section">
-		<div id="popupLayer">
-			<homepageTag:popup popupList="${popupList}" />
-		</div>
-	</div>
+<%--			<div class="popupWrap main-section">--%>
+<%--		<div id="popupLayer">--%>
+<%--			<homepageTag:popup popupList="${popupList}" />--%>
+<%--		</div>--%>
+<%--	</div>--%>
 				<div class="swiper-container mySwiper">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide mvimg01"><div class="mvText top animate__animated animate__fadeInDown"><b>시민과 함께</b>한 100년, <b>새로운 도약</b>의 100년</div>
@@ -449,8 +497,7 @@
 											</c:if>
 											<c:forEach var="i" items="${recommendBookList}">
 											<div class="list">
-												<a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=13&isbn=${i.imsi_v_5}&regNo=${fn:escapeXml(i.imsi_v_8)}&manageCode=${fn:escapeXml('AD')}">
-
+												<a href="/${homepage.context_path}/board/view.do?menu_idx=115&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 												<span class="images-box">
 													<c:choose>
 													<c:when test="${i.preview_img ne null}">

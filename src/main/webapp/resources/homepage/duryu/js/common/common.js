@@ -31,6 +31,28 @@ $(document).ready(function () {
     });
 
 
+    let zoomLevel = 1; // 초기 줌 레벨
+
+    $('#plus').on('click', function() {
+        zoomLevel += 0.1; // 10% 증가
+        applyZoom();
+    });
+
+    $('#minus').on('click', function() {
+        zoomLevel = Math.max(0.1, zoomLevel - 0.1); // 10% 감소, 최소 10% 유지
+        applyZoom();
+    });
+
+    function applyZoom() {
+        // CSS zoom 속성 적용
+        $('body').css('zoom', zoomLevel);
+
+        // 브라우저 호환성을 위해 transform 사용 (Safari 등에서 더 나은 결과)
+        $('body').css({
+            'transform': `scale(${zoomLevel})`,
+            'transform-origin': '0 0' // 왼쪽 상단 기준으로 확대/축소
+        });
+    }
 
     // 페이지 진입 시 쿠키 확인
     if (getCookie('hideTodayPopup') !== 'Y') {
@@ -94,19 +116,53 @@ $(document).ready(function () {
 
 
     // 메인 메뉴
-    $('.two-depth-menu-wrapper').css('display', 'none');
+    // 1. data-menu 속성 동적으로 부여
+    $('.one-depth-menu a').each(function (index) {
+        $(this).attr('data-menu', 'menu' + index);
+    });
 
+    $('.two-depth-menu').each(function (index) {
+        $(this).attr('data-menu', 'menu' + index);
+    });
+
+    // 전역 변수로 현재 활성화된 menuKey 기억
+    let currentMenuKey = null;
+
+    // 2. 원뎁스 메뉴 호버 시
     $('.one-depth-menu a').on('mouseenter', function () {
+        currentMenuKey = $(this).data('menu');
+
         $('.two-depth-menu-wrapper').css('display', 'flex');
+
+        $('.two-depth-menu').removeClass('active');
+        $('.two-depth-menu[data-menu="' + currentMenuKey + '"]').addClass('active');
     });
 
+    // ✅ 3. 투뎁스 메뉴 영역에서도 a 태그 hover 시 active 전환
+    $('.two-depth-menu-wrapper .two-depth-menu').on('mouseenter', function () {
+        const thisKey = $(this).data('menu');
+
+        if (thisKey !== currentMenuKey) {
+            currentMenuKey = thisKey;
+            $('.two-depth-menu').removeClass('active');
+            $('.two-depth-menu[data-menu="' + currentMenuKey + '"]').addClass('active');
+        }
+    });
+
+    // 4. 투뎁스 메뉴 위에 마우스가 있을 때 유지
     $('.two-depth-menu-wrapper').on('mouseenter', function () {
-        $('.two-depth-menu-wrapper').css('display', 'flex');
+        $(this).css('display', 'flex');
     });
 
-    $('.one-depth-menu, .two-depth-menu-wrapper').on('mouseleave', function (e) {
-        if (!$(e.relatedTarget).closest('.one-depth-menu, .two-depth-menu-wrapper').length) {
+    // 5. 영역 밖으로 벗어나면 숨기기
+    $(document).on('mousemove', function (e) {
+        const $target = $(e.target);
+        const isOutside = !$target.closest('.one-depth-menu').length && !$target.closest('.two-depth-menu-wrapper').length;
+
+        if (isOutside) {
             $('.two-depth-menu-wrapper').css('display', 'none');
+            $('.two-depth-menu').removeClass('active');
+            currentMenuKey = null;
         }
     });
 

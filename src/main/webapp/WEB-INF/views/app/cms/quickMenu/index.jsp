@@ -117,7 +117,7 @@ $(function() {
 					<td>${quickMenu.listRowNum - status.index}</td>
 					<td>
 						<div class="item">
-							<a href="${i.link_url}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/quickMenu/${quickMenu.homepage_id}/${i.server_file_name}" alt="${i.menu_name}"></a>
+							<a href="${i.link_url}" target="_blank"><img width="135" height="42" src="${getContextPath}/data/quickMenu/${quickMenu.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}"></a>
 						</div>
 					</td>
 					<td>${i.menu_name}</td>

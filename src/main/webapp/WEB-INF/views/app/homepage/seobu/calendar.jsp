@@ -1,75 +1,118 @@
 <%@ page language="java" pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
-$(function() {
-	Date.prototype.format = function(f) {
-	    if (!this.valueOf()) return " ";
+    $(document).ready(function () {
+        var itemCount = $('.event-slide-item').length;
+        var itemWidth;
+        var maxSlides;
 
-	    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-	    var d = this;
+        function getItemWidth() {
+            if (window.innerWidth <= 490) {
+                return 54;
+            } else if (window.innerWidth <= 865) {
+                return 60;
+            } else if (window.innerWidth <= 1170) {
+                return 64;
+            } else {
+                return 72;
+            }
+        }
 
-	    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {
-	        switch ($1) {
-	            case "yyyy": return d.getFullYear();
-	            case "yy": return (d.getFullYear() % 1000).zf(2);
-	            case "MM": return (d.getMonth() + 1).zf(2);
-	            case "dd": return d.getDate().zf(2);
-	            case "E": return weekName[d.getDay()];
-	            case "HH": return d.getHours().zf(2);
-	            case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);
-	            case "mm": return d.getMinutes().zf(2);
-	            case "ss": return d.getSeconds().zf(2);
-	            case "a/p": return d.getHours() < 12 ? "오전" : "오후";
-	            default: return $1;
-	        }
-	    });
-	};
+        function maxSlidesToShow() {
+            if (window.innerWidth <= 490) {
+                return 5;
+            } else if (window.innerWidth <= 865) {
+                return 9;
+            } else if (window.innerWidth <= 1170) {
+                return 7;
+            } else {
+                return 12;
+            }
+        }
 
-	String.prototype.string = function(len){var s = '', i = 0; while (i++ < len) { s += this; } return s;};
-	String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
-	Number.prototype.zf = function(len){return this.toString().zf(len);};
+        itemWidth = getItemWidth();
+        maxSlides = maxSlidesToShow();
+        var totalWidth = Math.min(itemCount, maxSlides) * itemWidth;
 
-	$('a#before-btn').on('click', function(e) {
-		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() - 1);
-		$('div#holiday-box').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
-		e.preventDefault();
-	});
-	$('a#next-btn').on('click', function(e) {
-		var plan_date = new Date($(this).attr('keyValue'));
-		plan_date.setMonth(plan_date.getMonth() + 1);
-		$('div#holiday-box').load('calendar2.do', 'plan_date='+plan_date.format('yyyy-MM'));
-		e.preventDefault();
-	});
-});
+        $('.event-slide').css('max-width', totalWidth + 'px');
+
+        $('.event-slide').slick({
+            slidesToShow: Math.min(itemCount, maxSlides),
+            slidesToScroll: 1,
+            autoplay: false,
+            arrows: false,
+            dots: false,
+            variableWidth: false,
+            responsive: [
+                {
+                    breakpoint: 1170,
+                    settings: {
+                        slidesToShow: Math.min(itemCount, maxSlides),
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 865,
+                    settings: {
+                        slidesToShow: Math.min(itemCount, maxSlides),
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 490,
+                    settings: {
+                        slidesToShow: Math.min(itemCount, maxSlides),
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+
+        $(window).resize(function () {
+            maxSlides = maxSlidesToShow();
+            itemWidth = getItemWidth();
+            totalWidth = Math.min(itemCount, maxSlides) * itemWidth;
+            $('.event-slide').css('max-width', totalWidth + 'px');
+
+            $('.event-slide').slick('setPosition');
+        });
+
+        $('.event-slide-prev, .event-slide-next').click(function () {
+            if ($('.event-slide').hasClass('slick-initialized')) {
+                $('.event-slide').slick($(this).hasClass('event-slide-prev') ? 'slickPrev' : 'slickNext');
+            }
+        });
+    });
 </script>
+<div class="event-area-wrapper">
+    <div class="event-area-header">
+        <div>이달의 행사일을 확인해보세요</div>
+        <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+            <div>더보기</div>
+            <img src="/resources/homepage/${homepage.context_path}/img/culture/more-black.svg" alt="">
+        </a>
+    </div>
+    <div class="event-slide-wrapper">
+        <c:choose>
+            <c:when test="${fn:length(eventDates) > 0}">
+                <img class="event-slide-prev" src="/resources/homepage/${homepage.context_path}/img/culture/event-left-arrow.svg" alt="이전"/>
+                <div class="event-slide">
+                    <c:forEach var="i" items="${eventDates}">
+                        <fmt:parseDate var="day" value="${i.start_date}" pattern="yyyy-MM-dd" />
+                        <div class="event-slide-item"><fmt:formatDate value="${day}" pattern="dd" /></div>
+                    </c:forEach>
+                </div>
+                <img class="event-slide-next" src="/resources/homepage/${homepage.context_path}/img/culture/event-right-arrow.svg" alt="다음"/>
+            </c:when>
 
-<div class="inBox1">
-	<div class="inBox1Box1">
-		<div class="title">
-			이달의 <strong>휴관일</strong>
-		</div>
-		<div class="bt-controls">
-
-			<a id="before-btn" class="bt-prev" href="" keyValue="${calendar.plan_date}">Prev</a>
-			<b><span class="year">${fn:split(calendar.plan_date, '-')[0]}</span>.<span class="month">${fn:split(calendar.plan_date, '-')[1]}</span></b>
-			<a id="next-btn" class="bt-next" href="" keyValue="${calendar.plan_date}">Next</a>
-		</div>
-	</div>
-	<dl class="info">
-		<c:if test="${closeDayList.dd eq ''}">
-			<dd>등록된 휴일이 없습니다.</dd>
-		</c:if>
-		<c:if test="${closeDayList.dd ne ''}">
-			<c:set var="dd" value="${fn:split(closeDayList.dd, ',')}"></c:set>
-			<dd>
-				<c:forEach items="${dd}" var="i">
-				<span>${i}</span>
-				</c:forEach>
-			</dd>
-		</c:if>
-	</dl>
+            <c:otherwise>
+                <div class="event-nodata">이달의 행사가 없습니다.</div>
+            </c:otherwise>
+        </c:choose>
+    </div>
 </div>
+
 

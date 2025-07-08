@@ -118,7 +118,7 @@
 #calendar2 .calendar-info span.ev {background:url('/resources/homepage/suseong/img/blue-dot.png') no-repeat left center;}
 
 #calendar2 {width:90%;margin:0 auto;position:relative}
-.calendar {position:absolute;top:0px;z-index:800;width:1000px}
+/*.calendar {position:absolute;top:0px;z-index:800;width:1000px}*/
 .calendar .section{position:relative;overflow:hidden;text-align:center;margin:20px 20px;width:315px;float:right}
 .calendar .box{width:310px;margin-right:20px}
 .calendar h3{font-size:16px;color:#323232;font-weight:bold;line-height:36px;height:36px;text-align:left;float:left;padding-top:13px;}
@@ -178,7 +178,7 @@
 #quick-slide ul li a span.txt {font-size:13px;line-height:120%;}
 #quick-slide ul li:last-child {border-bottom:0;}
 
-/* SNS Ãß°¡ */
+/* SNS ï¿½ß°ï¿½ */
 .sns-box {display:none;}
 
 @media all and (max-width:1279px){
@@ -293,7 +293,7 @@
 }
 
 @media all and (max-width:425px){
-	/* SNS Ãß°¡ */
+	/* SNS ï¿½ß°ï¿½ */
 	.sns-box {display:block;width:100%;margin:25px 0 15px;}
 	.sns-box h2.title {text-align:center;}
 	.sns-box .sns-link{text-align:center;margin-top:20px;}
@@ -319,5 +319,5 @@
 }
 
 
-/*°ø°øµµ¼­°ü z-index*/
+/*ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ z-index*/
 #footer{z-index:5 !important;}

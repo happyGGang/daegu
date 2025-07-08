@@ -1,50 +1,46 @@
 <%@ page language="java" pageEncoding="utf-8" %>
-<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld"%>
+<%@ taglib prefix="homepageTag" uri="/WEB-INF/config/tld/homepageTag.tld" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <div id="header">
 	<nav id="menu"></nav>
 
 	<div class="tnb">
-		<div class="section">
-			<h1><a href="/${homepage.context_path}/index.do"><img src="/resources/homepage/${homepage.context_path}/img/logo.png" alt="${homepage.homepage_name}"/></a></h1>
-
-			<div class="mmode m-menu">
-				<a href="#menu"><i class="fa fa-navicon"></i><span class="blind">메뉴</span></a>
-			</div>
-
+		<div>
+			<a href="https://cn.nld.go.kr/index.do">책나래</a>
+			<a href="https://books.nl.go.kr/">책바다</a>
+			<a href="https://www.nl.go.kr/NL/contents/N30502000000.do">사서에게물어보세요</a>
+		</div>
+		<div class="util-wrapper">
 			<div class="util">
-					<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
-						<b style="font-weight:200;font-size:15px;">${sessionScope.member.member_name}님</b>
-						<span class="txt-bar"></span>
-					</c:if>
-				<a href="/${homepage.context_path}/index.do">홈으로</a>
-				<span class="txt-bar"></span>
+				<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
+					<a><b>${sessionScope.member.member_name}님</b></a>
+				</c:if>
 				<c:choose>
 					<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
-						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/modifyCheck.do?menu_idx=95">정보수정</a>
 					</c:when>
 					<c:when test="${sessionScope.member.loginType eq 'CMS' and sessionScope.member.login}">
-						<font color="gray">관리자 로그인 중</font>
-						<span class="txt-bar"></span>
+						<a>관리자 로그인 중</a>
 						<a href="/${homepage.context_path}/intro/login/logout.do">로그아웃</a>
 					</c:when>
 					<c:otherwise>
 						<a href="/${homepage.context_path}/intro/login/index.do?menu_idx=4">통합허브시스템 로그인</a>
-						<span class="txt-bar"></span>
 						<a href="/${homepage.context_path}/intro/join/index.do?menu_idx=5">회원가입</a>
+						<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
 					</c:otherwise>
 				</c:choose>
-				<span class="txt-bar"></span>
-				<a href="/${homepage.context_path}/intro/join/integration.do?menu_idx=8">통합회원인증</a>
-				<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92" class="more-btbtbt"><img src="/resources/homepage/${homepage.context_path}/img/more_btbtbt.png" alt="사이트맵"/></a>
-				<!--SNS-->
-				<a href="http://pf.kakao.com/_WPCfb" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/kakaoch-icon-btn.png" alt="카카오톡채널" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
-				<a href="https://twitter.com/nbl5539" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/twitter-icon-btn.png" alt="트위터" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
-				<a href="https://www.facebook.com/nbl5539/" target="_blank" class="newWin" title="새창으로 열립니다."><img src="/resources/homepage/nambu/img/facebook-icon-btn.png" alt="페이스북" class="sitemap-img2"><i class="fa fa-external-link"></i></a>
 			</div>
+			<c:set var="url" value="${pageContext.request.requestURL}" />
+			<c:set var="pageUrl" value="${homepage.context_path}/index" />
+			<c:if test="${fn:contains(url,pageUrl) }">
+				<div class="total-popup-trigger">
+					<div>팝업 다시보기</div>
+					<div>${fn:length(popupFullList)}</div>
+				</div>
+			</c:if>
 		</div>
 	</div>
-
+</div>

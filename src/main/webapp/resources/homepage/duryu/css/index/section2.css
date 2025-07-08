@@ -5,6 +5,7 @@
 #fullpage .section-wrapper:nth-child(2) .wrapper {
   display: flex;
   gap: 66px;
+  align-items: flex-end;
 }
 
 .notice-board {
@@ -25,7 +26,6 @@
 
 .notice-board-title {
   font-size: 36px;
-  font-weight: 500;
   line-height: normal;
   letter-spacing: -0.72px;
   text-align: center;
@@ -93,7 +93,6 @@
 
 .notice-list-item-date div:first-child {
   font-size: 20px;
-  font-weight: 600;
   line-height: 140%;
   text-align: center;
   color: #fff;
@@ -103,7 +102,6 @@
 
 .notice-list-item-date div:nth-child(2) {
   font-size: 14px;
-  font-weight: 500;
   line-height: 140%;
   color: #fff;
   font-family: Pretendard-Medium, sans-serif;
@@ -113,7 +111,6 @@
 .notice-list-item-title {
   width: 610px;
   font-size: 24px;
-  font-weight: 500;
   line-height: normal;
   color: #000;
   overflow: hidden;
@@ -130,7 +127,6 @@
   width: 100%;
   height: 100%;
   font-size: 24px;
-  font-weight: 500;
   line-height: normal;
   color: #000;
   font-family: Pretendard-Medium, sans-serif;
@@ -192,7 +188,6 @@
   width: 60px;
   height: 40px;
   font-size: 14px;
-  font-weight: 500;
   line-height: normal;
   text-align: center;
   color: var(--white);
@@ -315,11 +310,16 @@
   .popup-next {
     border-radius: 0 0 6px;
   }
+
+  .notice-no-data {
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 865px) {
   #fullpage .section-wrapper:nth-child(2) {
-    height: 1282px;
+    height: auto;
+    padding: 60px 0;
   }
 
   #fullpage .section-wrapper:nth-child(2) .wrapper {
@@ -376,7 +376,7 @@
 
 @media (max-width: 490px) {
   #fullpage .section-wrapper:nth-child(2) {
-    height: 965px;
+    padding: 40px 0;
   }
 
   #fullpage .section-wrapper:nth-child(2) .wrapper {
@@ -441,6 +441,10 @@
   .popup-pagination {
     width: 54px;
     height: 32px;
+    font-size: 14px;
+  }
+
+  .notice-no-data {
     font-size: 14px;
   }
 }

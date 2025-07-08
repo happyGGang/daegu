@@ -19,5 +19,6 @@ public interface PopupDao {
 	public int deletePopup(Popup popup);
 
 	public int getNextPrintSeq(String homepage_id);
-	
+
+	List<Popup> getPopupFullLayerList(Popup popup);
 }

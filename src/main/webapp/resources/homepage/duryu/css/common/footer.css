@@ -2,6 +2,7 @@
     width: 100vw;
     border-top: 1px solid #ececec;
     background: #fff;
+    flex-direction: column;
 }
 
 .banner-area {
@@ -48,7 +49,7 @@
     justify-content: center;
     width: 100%;
     background: #212121;
-    border-bottom: 1px solid var(--gray700);
+    border-bottom: 1px solid #454545;
 }
 
 .footer .wrapper {
@@ -82,20 +83,18 @@
     position: relative;
     display: block;
     font-size: 13px;
-    font-weight: 400;
     line-height: 130%;
     letter-spacing: -0.325px;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
 }
 
 .link_list a:hover {
-    color: var(--gray400) !important;
+    color: #B8B8B8 !important;
 }
 
 .link_list a:first-child {
-    font-weight: 700;
     color: #fff;
     font-family: Pretendard-Bold, sans-serif;
 }
@@ -111,7 +110,7 @@
     right: -19px;
     width: 1px;
     height: 12px;
-    background-color: var(--gray300);
+    background-color: #D6D6D6;
     transform: translateY(-50%);
 }
 
@@ -127,7 +126,6 @@
 
 .library-name {
     font-size: 15px;
-    font-weight: 500;
     line-height: 130%;
     letter-spacing: -0.375px;
     color: #fff;
@@ -141,9 +139,8 @@
 
 .library-detail-wrapper div:first-child {
     font-size: 13px;
-    font-weight: 400;
     line-height: 130%;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
     margin-right: 20px;
@@ -156,10 +153,9 @@
 .library-detail-wrapper div:nth-child(2),
 .library-detail-wrapper div:nth-child(3) {
     font-size: 13px;
-    font-weight: 700;
     line-height: 130%;
     letter-spacing: -0.325px;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Bold, sans-serif;
     font-style: normal;
 }
@@ -167,7 +163,6 @@
 .library-detail-wrapper div:nth-child(2) span,
 .library-detail-wrapper div:nth-child(3) span {
     font-family: Pretendard-Regular, sans-serif;
-    font-weight: 400;
     margin-right: 4px;
 }
 
@@ -180,10 +175,9 @@
 
 .sns-title {
     font-size: 14px;
-    font-weight: 700;
     line-height: 130%;
     text-align: right;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Bold, sans-serif;
     font-style: normal;
 }
@@ -224,10 +218,9 @@
 
 .copyright {
     font-size: 13px;
-    font-weight: 400;
     line-height: 130%;
     letter-spacing: -0.325px;
-    color: var(--gray400);
+    color: #B8B8B8;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
     text-transform: uppercase;
@@ -251,7 +244,6 @@
     padding: 0 35px 0 20px;
     border: none;
     font-size: 14px;
-    font-weight: 400;
     line-height: 130%;
     color: #fff;
     background: #292929 url('/resources/homepage/duryu/img/common/select-arrow.svg') no-repeat right 16px center;
@@ -274,13 +266,12 @@
     width: 55px;
     height: 45px;
     font-size: 14px;
-    font-weight: 400;
     line-height: 130%;
     text-align: center;
     color: #fff;
     font-family: Pretendard-Regular, sans-serif;
     font-style: normal;
-    background: var(--gray800);
+    background: #292929;
 }
 
 @media (max-width: 1600px) {
@@ -346,7 +337,7 @@
         width: 160px;
         height: 44px !important;
     }
-    .slick-slide img {
+    .banner-slide .slick-slide img {
         width: 160px;
         height: 44px;
     }
@@ -385,7 +376,7 @@
         width: 150px;
         height: 45px !important;
     }
-    .slick-slide img {
+    .banner-slide .slick-slide img {
         width: 150px;
         height: 45px;
     }
@@ -445,7 +436,7 @@
         height: 32px !important;
     }
 
-    .slick-slide img {
+    .banner-slide .slick-slide img {
         width: 84px;
         height: 32px;
     }
