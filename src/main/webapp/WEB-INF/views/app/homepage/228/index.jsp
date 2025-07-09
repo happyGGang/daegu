@@ -35,8 +35,8 @@ listNums[i] = num;
 <script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
-<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
-<script src="/resources/homepage/${homepage.context_path}/js/index/section5.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js?v=1.0.2"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section5.js?v=1.0.6"></script>
 
 <c:set var="listNums" value="<%=listNums%>"/>
 <tiles:insertAttribute name="header"/>
@@ -377,22 +377,24 @@ listNums[i] = num;
 				<div class="course-board">
 					<div class="course-board-header">
 						<div class="course-board-title">행사안내</div>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=198&manage_idx=394">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=71">
 							<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 						</a>
 					</div>
 					<div class="course-list">
-						<c:if test="${fn:length(teachList) < 1}">
-							<div class="course-no-data">등록된 행사가 없습니다.</div>
-						</c:if>
-						<c:if test="${fn:length(teachList) >= 1}">
-							<c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='4'>
-								<a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" class="course-list-item">
-									<div class="course-list-item-title">${i.teach_name}</div>
-									<div class="course-list-item-date">${i.start_date}</div>
-								</a>
-							</c:forEach>
-						</c:if>
+						<c:choose>
+							<c:when test="${fn:length(curationList) < 1}">
+								<div class="course-no-data">등록된 행사가 없습니다.</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" varStatus="status" items="${curationList}" begin='0' end='4'>
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" class="course-list-item">
+										<div class="course-list-item-title">${i.title}</div>
+										<div class="course-list-item-date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
+									</a>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 				<div class="calendar"></div>
@@ -406,9 +408,9 @@ listNums[i] = num;
 					<div>새로 들어온 도서와 사서가  추천하는  도서를 알려드립니다.</div>
 				</div>
 				<div class="book-tab-wrapper">
-					<div class="tab-button active-tab" data-target="tab1">신착도서</div>
-					<div class="tab-button" data-target="tab2">추천도서</div>
-					<div class="tab-button" data-target="tab3">대출베스트</div>
+					<div class="tab-button active-tab" data-target="tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14">신착도서</div>
+					<div class="tab-button" data-target="tab2" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=75">추천도서</div>
+					<div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15">대출베스트</div>
 					<a id="tab-link" href="">
 						<img src="/resources/homepage/${homepage.context_path}/img/book/more.svg" alt="">
 					</a>
@@ -418,15 +420,15 @@ listNums[i] = num;
 				<div class="tab-content tab1"></div>
 				<div class="tab-content tab2" style="display: none;">
 					<c:choose>
-						<c:when test="${fn:length(curationList) > 0}">
+						<c:when test="${fn:length(recommendBookList) > 0}">
 							<img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/left-arrow.svg" alt="이전" />
 							<div class="tab-list">
-								<c:forEach var="i" items="${curationList}">
+								<c:forEach var="i" items="${recommendBookList}">
 									<div class="tab-list-item">
 										<a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
 											<c:choose>
-												<c:when test="${fn:contains(i.preview_img, 'noimg')}">
-													<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" />
+												<c:when test="${fn:contains(i.preview_img, 'http')}">
+													<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onerror="this.src='/resources/common/img/noimg-gall.png';" />
 												</c:when>
 												<c:otherwise>
 													<img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" />
@@ -450,7 +452,7 @@ listNums[i] = num;
 		<!-- 섹션5 -->
 		<div class="section-wrapper" data-anchor="section5">
 			<div class="wrapper">
-				<div class="section5-title">
+				<div class="section5-title" onclick="window.location.href='/${homepage.context_path}/school/index.do';" >
 					<div>학교도서관, <span>지혜</span>를 담고 <span>생각</span>을 키우고 <span>꿈</span>을 펼치다!</div>
 					<div>학교도서관<br>집중지원센터</div>
 				</div>
@@ -510,7 +512,7 @@ listNums[i] = num;
 							<div class="menu-slide-item-img">
 								<img src="/resources/homepage/${homepage.context_path}/img/school/menu5.svg" alt="">
 							</div>
-							<div class="menu-slide-item-text">참고차료</div>
+							<div class="menu-slide-item-text">참고자료</div>
 						</a>
 						<a href="/${homepage.context_path}/html.do?menu_idx=135" class="menu-slide-item">
 							<div class="menu-slide-item-img">

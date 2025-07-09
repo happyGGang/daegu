@@ -63,20 +63,20 @@ $(function(){
 		});
 	}
 
-	$('.movieContent ul').bxSlider({
-		auto: true,
-		pager:false,
-		autoControls:true,
-		autoControlsCombine:true
-	});
+	// $('.movieContent ul').bxSlider({
+	// 	auto: true,
+	// 	pager:false,
+	// 	autoControls:true,
+	// 	autoControlsCombine:true
+	// });
 
-	$('.event-box > ul').bxSlider({
-		mode:'vertical',
-		pager:false
-	});
-
-	$('.holiday-box > ul').bxSlider({
-		mode:'vertical',
-		pager:false
-	});
+	// $('.event-box > ul').bxSlider({
+	// 	mode:'vertical',
+	// 	pager:false
+	// });
+	//
+	// $('.holiday-box > ul').bxSlider({
+	// 	mode:'vertical',
+	// 	pager:false
+	// });
 });

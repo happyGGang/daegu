@@ -110,146 +110,151 @@
 		</div>
 	</div>
 
-	<div id="container" class="main">
 
-		<div class="main1">
-			<div class="section">
-				<div class="main-visual">
-					<div class="title-box">
-						<h2>
-							<span>학교도서관,<b class="green">지혜</b>를 담고 <b class="blue">생각</b>을 키우고 <b class="red">꿈</b>을 펼치다!</span>
-							<span class="second-line">학교도서관집중지원센터</span>
-						</h2>
-					</div>
-					<div class="main1box1">
-						<!-- Main_search -->
-						<div class="search-box">
-							<form id="mainSearchForm" action="/${homepage.context_path}/module/bookPackage/index.do">
-								<input type="hidden" name="menu_idx" value="138">
-								<input type="hidden" name="search_type" value="book_package_subject">
-								<fieldset>
-									<legend class="blind">통합검색</legend>
-									<div class="main-box">
-										<div class="box1">
-											<label for="search_text_1" class="blind">통합자료검색</label>
-											<input name="search_text" id="search_text_1" type="text" class="text" placeholder="책꾸러미 서명을 입력하세요." style="ime-mode:active;"/>
-										</div>
-										<button id="main-search-btn">검색</button>
-									</div>
-								</fieldset>
-							</form>
+		<div id="container" class="main">
+
+			<div class="main1">
+				<div class="section">
+					<div class="main-visual">
+						<div class="title-box">
+							<h2>
+								<span>학교도서관,<b class="green">지혜</b>를 담고 <b class="blue">생각</b>을 키우고 <b class="red">꿈</b>을 펼치다!</span>
+								<span class="second-line">학교도서관집중지원센터</span>
+							</h2>
 						</div>
-						<!-- //Main_search -->	
-						<div class="quick-btn-box">
-							<div class="btn-box">
-								<a href="/${homepage.context_path}/module/supportMember/index.do?menu_idx=175"><span class="txt">학교(기관)로그인</span></a>
-								<span class="icon"></span>
+						<div class="main1box1">
+							<!-- Main_search -->
+							<div class="search-box">
+								<form id="mainSearchForm" action="/${homepage.context_path}/module/bookPackage/index.do">
+									<input type="hidden" name="menu_idx" value="138">
+									<input type="hidden" name="search_type" value="book_package_subject">
+									<fieldset>
+										<legend class="blind">통합검색</legend>
+										<div class="main-box">
+											<div class="box1">
+												<label for="search_text_1" class="blind">통합자료검색</label>
+												<input name="search_text" id="search_text_1" type="text" class="text" placeholder="책꾸러미 서명을 입력하세요." style="ime-mode:active;"/>
+											</div>
+											<button id="main-search-btn">검색</button>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+							<!-- //Main_search -->
+							<div class="quick-btn-box">
+								<div class="btn-box">
+									<a href="/${homepage.context_path}/module/supportMember/index.do?menu_idx=175"><span class="txt">학교(기관)로그인</span></a>
+									<span class="icon"></span>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="main1box2">
-						<div class="quickmenu">
-							<div class="main-box">
-								<div class="qmenu-box">
-									<ul>
-										<li class="qm1">
-										<a href="/${homepage.context_path}/html.do?menu_idx=135" ><span>센터소개</span></a>
-										</li>
-										<li class="qm2">
-										<a href="/${homepage.context_path}/html.do?menu_idx=113" ><span>2·28책꾸러미</span></a>
-										</li>
-										<li class="qm3">
-										<a href="/${homepage.context_path}/html.do?menu_idx=143" ><span>2·28원화꾸러미</span></a>
-										</li>
-										<li class="qm4">
-										<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259" ><span>학생 추천도서 목록</span></a>
-										</li>
-										<li class="qm5">
-										<a href="/${homepage.context_path}/module/libraryCheck/index.do?menu_idx=148" ><span>장서점검기</span></a>
-										</li>
-										<li class="qm6">
-										<a href="/${homepage.context_path}/board/index.do?menu_idx=150&manage_idx=225" ><span>학교도서관 업무지원</span></a>
-										</li>
-										<li class="qm7">
-										<a href="/${homepage.context_path}/html.do?menu_idx=267" target="_blank"><span>강사인력풀</span></a>
-										</li>
-										<li class="qm8">
-										<a href="/${homepage.context_path}/board/index.do?menu_idx=154&manage_idx=224" ><span>참고자료</span></a>
-										</li>
-									</ul>
+						<div class="main1box2">
+							<div class="quickmenu">
+								<div class="main-box">
+									<div class="qmenu-box">
+										<ul>
+											<li class="qm1">
+												<a href="/${homepage.context_path}/html.do?menu_idx=135" ><span>센터소개</span></a>
+											</li>
+											<li class="qm2">
+												<a href="/${homepage.context_path}/html.do?menu_idx=113" ><span>2·28책꾸러미</span></a>
+											</li>
+											<li class="qm3">
+												<a href="/${homepage.context_path}/html.do?menu_idx=143" ><span>2·28원화꾸러미</span></a>
+											</li>
+											<li class="qm4">
+												<a href="/${homepage.context_path}/html/recomBookList.do?menu_idx=259" ><span>학생 추천도서 목록</span></a>
+											</li>
+											<li class="qm5">
+												<a href="/${homepage.context_path}/module/libraryCheck/index.do?menu_idx=148" ><span>장서점검기</span></a>
+											</li>
+											<li class="qm6">
+												<a href="/${homepage.context_path}/board/index.do?menu_idx=150&manage_idx=225" ><span>학교도서관 업무지원</span></a>
+											</li>
+											<li class="qm7">
+												<a href="/${homepage.context_path}/html.do?menu_idx=267" target="_blank"><span>강사인력풀</span></a>
+											</li>
+											<li class="qm8">
+												<a href="/${homepage.context_path}/board/index.do?menu_idx=154&manage_idx=224" ><span>참고자료</span></a>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
-
 			</div>
-		</div>
 
-		<div class="main2">
-			<div class="section">
-				<div class="main2box">
-					<div class="main2box1">
-						<div class="notice-box">
-							<h2 class="title">공지사항</h2>
-							<div class="list" id="notice-list">
-								<ul>
-									<c:forEach var="i" varStatus="status" items="${noticeList}" begin="0" end="2">
-										<c:choose>
-											<c:when test="${status.first}">
-												<li>
-													<a href="/${homepage.context_path}/board/view.do?menu_idx=136&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" title="게시글 자세히 보기">
-														<div class="date"><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/><p><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></p></div>
-														<div class="con">
-															<h3>${i.title}</h3>
-															<span>${fn:substring(fn:trim(i.content_summary), 0, 25)}<c:if test="${fn:length(i.content_summary) > 26}">...</c:if></span>
-														</div>
-													</a>
-												</li>
-											</c:when>
-											<c:otherwise>
-												<li>
-													<a href="/${homepage.context_path}/board/view.do?menu_idx=136&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" title="게시글 자세히 보기">
-														${i.title}
-													</a>
-													<span><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></span>
-												</li>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${fn:length(noticeList) < 1}">
-										<div>등록된 공지사항이 없습니다.</div>
-									</c:if>
-								</ul>
-							</div>
-							<div class="more-btn" id="board-more-btn">
-								<a href="/${homepage.context_path}/board/index.do?menu_idx=136&manage_idx=210" title="공지사항 더보기">
-									<img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="공지사항 더보기 이미지" title="공지사항 더보기 이미지">
-								</a>
+			<div class="main2">
+				<div class="section">
+					<div class="main2box">
+						<div class="main2box1">
+							<div class="notice-box">
+								<h2 class="title">공지사항</h2>
+								<div class="list" id="notice-list">
+									<ul>
+										<c:forEach var="i" varStatus="status" items="${noticeList}" begin="0" end="2">
+											<c:choose>
+												<c:when test="${status.first}">
+													<li>
+														<a href="/${homepage.context_path}/board/view.do?menu_idx=136&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" title="게시글 자세히 보기">
+															<div class="date"><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/><p><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></p></div>
+															<div class="con">
+																<h3>${i.title}</h3>
+																<span>${fn:substring(fn:trim(i.content_summary), 0, 25)}<c:if test="${fn:length(i.content_summary) > 26}">...</c:if></span>
+															</div>
+														</a>
+													</li>
+												</c:when>
+												<c:otherwise>
+													<li>
+														<a href="/${homepage.context_path}/board/view.do?menu_idx=136&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" title="게시글 자세히 보기">
+															${i.title}
+														</a>
+														<span><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></span>
+													</li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${fn:length(noticeList) < 1}">
+											<div>등록된 공지사항이 없습니다.</div>
+										</c:if>
+									</ul>
+								</div>
+								<div class="more-btn" id="board-more-btn">
+									<a href="/${homepage.context_path}/board/index.do?menu_idx=136&manage_idx=210" title="공지사항 더보기">
+										<img src="/resources/homepage/${homepage.context_path}/img/notice_more.png" alt="공지사항 더보기 이미지" title="공지사항 더보기 이미지">
+									</a>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="main2box2">
-						<h2 class="title">팝업존</h2>
-						<div class="popZone">
-						<c:choose>
-							<c:when test="${fn:length(popupZoneList) > 0}">
-								<homepageTag:popupZone popupZoneList="${popupZoneList}" />
-							</c:when>
-							<c:otherwise>
-								<ul>
-									<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/newpopup.png" alt="등록된 팝업이 없습니다." /></a></li>
-								</ul>
-							</c:otherwise>
-						</c:choose>
-						</div>	
-					</div>
+						<div class="main2box2">
+							<h2 class="title">팝업존</h2>
+							<div class="popZone">
+								<c:choose>
+									<c:when test="${fn:length(popupZoneList) > 0}">
+										<homepageTag:popupZone popupZoneList="${popupZoneList}" />
+									</c:when>
+									<c:otherwise>
+										<ul>
+											<li><a href="#"><img src="/resources/homepage/${homepage.context_path}/img/newpopup.png" alt="등록된 팝업이 없습니다." /></a></li>
+										</ul>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
 
-				</div>	 
+					</div>
+				</div>
 			</div>
 		</div>
+
+
+
+
+	<div class="footer section-wrapper fp-auto-height" data-anchor="section6">
+		<tiles:insertAttribute name="footer" />
 	</div>
-
-
-<tiles:insertAttribute name="footer" />

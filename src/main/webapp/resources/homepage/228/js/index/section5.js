@@ -2,7 +2,8 @@ $(document).ready(function () {
     $('.menu-slide').slick({
         slidesToShow: 5,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: true,
+        autoplaySpeed: 3000,
         arrows: false,
         dots: false,
         variableWidth: true,

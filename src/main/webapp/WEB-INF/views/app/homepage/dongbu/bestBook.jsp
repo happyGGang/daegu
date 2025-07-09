@@ -33,14 +33,14 @@
                     <c:set var="navBook" value="${randomBooks[idx]}"/>
 
                     <div class="book-slide-item">
-                        <a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${book.ISBN}&regNo=${book.REG_NO}&manageCode=${book.MANAGE_CODE}&booktype=BO">
+                        <a href="/${homepage.context_path}/intro/search/detail.do?menu_idx=14&isbn=${navBook.ISBN}&regNo=${navBook.REG_NO}&manageCode=${navBook.MANAGE_CODE}&booktype=BO">
                             <c:choose>
-                                <c:when test="${(empty book.aladin or empty book.aladin.cover)
-                                           and empty book.imageUrl}">
+                                <c:when test="${(empty navBook.aladin or empty navBook.aladin.cover)
+                                           and empty navBook.imageUrl}">
                                     <img src="/resources/homepage/${homepage.context_path}/img/common/dummy.png" alt="등록된 이미지가 없습니다. 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${book.imageUrl}" alt="${book.TITLE} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
+                                    <img src="${navBook.imageUrl}" alt="${navBook.TITLE} 상세보기" onerror="this.onerror=null; this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
                                 </c:otherwise>
                             </c:choose>
                         </a>

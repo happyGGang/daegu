@@ -551,7 +551,14 @@ transform:translateZ(0);
 .lnb>h2,
 .lnb>ul{margin-right:40px}
 .lnb>ul{overflow:hidden}
-.lnb h2 {display:block;background:#124ea2 url("/resources/common/img/lnb-bg-new.gif") no-repeat center center;background-size:cover;margin-top:-162px;}
+.lnb h2 {
+  background: #124ea2 url(/resources/common/img/lnb-bg-new.gif) no-repeat center center;
+  background-size: cover;
+  margin-top: -162px;
+  max-height: 143px;
+  display: flex;
+  align-items: center;
+  justify-content: center;}
 .lnb h2 b {display:block;margin:0;padding: 56px 0;font-size:24px;font-weight:bold;line-height: 130%;text-align:center;color:#fff;}
 
 .lnb li.s a{position:relative}

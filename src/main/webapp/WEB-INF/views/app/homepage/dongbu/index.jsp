@@ -35,7 +35,7 @@
 <script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section3.js"></script>
-<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section4.js?v=1.0.5"></script>
 
 <c:set var="listNums" value="<%=listNums%>"/>
 <tiles:insertAttribute name="header"/>
@@ -345,7 +345,7 @@
                 </div>
                 <div class="box">
                     <div class="box-header">
-                        <div class="box-title">강좌 및 행사</div>
+                        <div class="box-title">&ensp;</div>
                     </div>
                     <div class="course-slide">
                         <c:if test="${fn:length(teachList) < 2}">
@@ -432,13 +432,13 @@
             <div class="wrapper">
                 <div class="tab-header-wrapper">
                     <div class="book-tab-wrapper">
-                        <div class="tab-button active-tab" data-target="tab1">신착도서</div>
-                        <div class="tab-button" data-target="tab2">대출베스트</div>
-                        <div class="tab-button" data-target="tab3">사서&북큐레이션</div>
+                        <div class="tab-button active-tab" data-target="tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" data-text="신착도서 더보기">신착도서</div>
+                        <div class="tab-button" data-target="tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" data-text="대출베스트 더보기">대출베스트</div>
+                        <div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=254"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
                     </div>
 
                     <a id="tab-link" href="">
-                        <div>신착도서 더보기</div>
+                        <div></div>
                         <img src="/resources/homepage/${homepage.context_path}/img/book/more.svg" alt="">
                     </a>
                 </div>
@@ -475,13 +475,13 @@
                                         <c:set var="navBook" value="${bookCuration1[idx]}"/>
 
                                         <div class="book-slide-item">
-                                            <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${book.manage_idx}&board_idx=${book.board_idx}">
+                                            <a href="/${homepage.context_path}/board/view.do?menu_idx=215&manage_idx=${navBook.manage_idx}&board_idx=${navBook.board_idx}">
                                                 <c:choose>
-                                                    <c:when test="${fn:contains(book.preview_img, 'noimg')}">
-                                                        <img src="/resources/common/img/noimg-gall.png" alt="${book.title}" title="${book.title}" />
+                                                    <c:when test="${fn:contains(navBook.preview_img, 'noimg')}">
+                                                        <img src="/resources/common/img/noimg-gall.png" alt="${navBook.title}" title="${navBook.title}" />
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img src="/data/board/${book.manage_idx}/${book.board_idx}/${book.preview_img}" alt="${book.title}" title="${book.title}" />
+                                                        <img src="/data/board/${navBook.manage_idx}/${navBook.board_idx}/${navBook.preview_img}" alt="${navBook.title}" title="${navBook.title}" />
                                                     </c:otherwise>
                                                 </c:choose>
                                             </a>
