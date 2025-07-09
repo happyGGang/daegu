@@ -434,7 +434,7 @@
                     <div class="book-tab-wrapper">
                         <div class="tab-button active-tab" data-target="tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" data-text="신착도서 더보기">신착도서</div>
                         <div class="tab-button" data-target="tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" data-text="대출베스트 더보기">대출베스트</div>
-                        <div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=254"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
+                        <div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=1297"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
                     </div>
 
                     <a id="tab-link" href="">
@@ -449,17 +449,19 @@
                 <div class="tab-content tab3" style="display: none;">
                     <c:choose>
                         <c:when test="${fn:length(bookCuration1) > 0}">
-                            <c:set var="totalCount" value="${fn:length(bookCuration1)}"/>
+                            <c:set var="loopCount" value="${fn:length(bookCuration1) > 10 ? 10 : fn:length(bookCuration1)}"/>
+
                             <div class="main-book-slide slider-for">
-                                <c:forEach var="book" items="${bookCuration1}" varStatus="status">
+                                <c:forEach var="idx" begin="0" end="${loopCount - 1}" varStatus="status">
+                                    <c:set var="currentCuration" value="${bookCuration1[idx]}"/>
                                     <div class="main-book-slide-item">
-                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${book.manage_idx}&board_idx=${book.board_idx}">
+                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=138&manage_idx=${currentCuration.manage_idx}&board_idx=${currentCuration.board_idx}">
                                             <c:choose>
-                                                <c:when test="${fn:contains(book.preview_img, 'noimg')}">
-                                                    <img src="/resources/common/img/noimg-gall.png" alt="${book.title}" title="${book.title}" />
+                                                <c:when test="${fn:contains(currentCuration.preview_img, 'noimg')}">
+                                                    <img src="/resources/common/img/noimg-gall.png" alt="${currentCuration.title}" title="${currentCuration.title}" />
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img src="/data/board/${book.manage_idx}/${book.board_idx}/${book.preview_img}" alt="${book.title}" title="${book.title}" />
+                                                    <img src="/data/board/${currentCuration.manage_idx}/${currentCuration.board_idx}/${currentCuration.preview_img}" alt="${currentCuration.title}" title="${currentCuration.title}" />
                                                 </c:otherwise>
                                             </c:choose>
                                         </a>
@@ -468,30 +470,28 @@
                             </div>
 
                             <div class="book-slide-wrapper">
-                                <img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="이전" />
+                                <img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="이전">
                                 <div class="book-slide slider-nav">
-                                    <c:forEach var="j" begin="0" end="${totalCount - 1}">
-                                        <c:set var="idx" value="${(j + 1) % totalCount}"/>
-                                        <c:set var="navBook" value="${bookCuration1[idx]}"/>
-
+                                    <c:forEach var="j" begin="0" end="${loopCount - 1}" varStatus="status">
+                                        <c:set var="navIndex" value="${(j + 1) % loopCount}"/>
+                                        <c:set var="navCuration" value="${bookCuration1[navIndex]}"/>
                                         <div class="book-slide-item">
-                                            <a href="/${homepage.context_path}/board/view.do?menu_idx=215&manage_idx=${navBook.manage_idx}&board_idx=${navBook.board_idx}">
+                                            <a href="/${homepage.context_path}/board/view.do?menu_idx=215&manage_idx=${navCuration.manage_idx}&board_idx=${navCuration.board_idx}">
                                                 <c:choose>
-                                                    <c:when test="${fn:contains(navBook.preview_img, 'noimg')}">
-                                                        <img src="/resources/common/img/noimg-gall.png" alt="${navBook.title}" title="${navBook.title}" />
+                                                    <c:when test="${fn:contains(navCuration.preview_img, 'noimg')}">
+                                                        <img src="/resources/common/img/noimg-gall.png" alt="${navCuration.title}" title="${navCuration.title}" />
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <img src="/data/board/${navBook.manage_idx}/${navBook.board_idx}/${navBook.preview_img}" alt="${navBook.title}" title="${navBook.title}" />
+                                                        <img src="/data/board/${navCuration.manage_idx}/${navCuration.board_idx}/${navCuration.preview_img}" alt="${navCuration.title}" title="${navCuration.title}" />
                                                     </c:otherwise>
                                                 </c:choose>
                                             </a>
                                         </div>
                                     </c:forEach>
                                 </div>
-                                <img class="book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="다음" />
+                                <img class="book-slide-next" src="/resources/homepage/${homepage.context_path}/img/book/arrow-right.svg" alt="다음">
                             </div>
                         </c:when>
-
                         <c:otherwise>
                             <div class="book-nodata">등록된 북큐레이션이 없습니다.</div>
                         </c:otherwise>

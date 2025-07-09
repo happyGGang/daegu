@@ -26,7 +26,6 @@ function initBookSlider($tab) {
     // 슬릭 슬라이더 재초기화
     if ($bookSlide.length) {
         $bookSlide.slick({
-            slidesToShow: 5,
             slidesToScroll: 1,
             autoplay: false,
             arrows: false,
@@ -74,9 +73,9 @@ $(document).ready(function () {
         $('#tab-link > div').text(text);
 
         if (target === 'tab3') {
-            const $tab2 = $('.tab3');
-            if (!$tab2.find('.tab-list').hasClass('slick-initialized')) {
-                initBookSlider($tab2);
+            const $tab3 = $('.tab3');
+            if (!$tab3.find('.tab-list').hasClass('slick-initialized')) {
+                initBookSlider($tab3);
             }
         }
     });

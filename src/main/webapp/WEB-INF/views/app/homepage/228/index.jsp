@@ -465,7 +465,7 @@ listNums[i] = num;
 							<div class="main-box">
 								<div class="box1">
 									<label for="search_text_1" class="blind">통합자료검색</label>
-									<input name="title" id="search_text_1" type="text" class="text" placeholder="책꾸러미 서명을 입력하세요." style="ime-mode:active;">
+									<input name="search_text" id="search_text_1" type="text" class="text" placeholder="책꾸러미 서명을 입력하세요." style="ime-mode:active;">
 								</div>
 								<button id="main-search-btn" class="school-search-btn">
 									<img src="/resources/homepage/${homepage.context_path}/img/school/search.svg" alt="">
