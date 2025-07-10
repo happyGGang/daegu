@@ -26,12 +26,12 @@
 %>
 
 <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/common/reset.css"/>
-<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section1.css"/>
+<link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section1.css?v=1.0.5"/>
 <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section2.css"/>
 <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section3.css"/>
 <link rel="stylesheet" href="/resources/homepage/${homepage.context_path}/css/index/section4.css"/>
 <script src="/resources/homepage/${homepage.context_path}/plugin/jquery-3.7.1.min.js"></script>
-<script src="/resources/homepage/${homepage.context_path}/js/index/section1.js"></script>
+<script src="/resources/homepage/${homepage.context_path}/js/index/section1.js?v=1.0.6"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section2.js"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section3.js"></script>
 <script src="/resources/homepage/${homepage.context_path}/js/index/section4.js"></script>
@@ -166,9 +166,9 @@
         <!-- 섹션1 -->
         <div class="section-wrapper" data-anchor="section1">
             <div class="main-bg-slide slider-for">
-				<c:forEach var="i" items="${popupZoneList}">
-					<div class="" style="background-image: url('/data/popupZone/${i.homepage_id}/${i.server_file_name}');"></div>
-				</c:forEach>
+                <c:forEach var="i" items="${popupZoneTopList}">
+                    <div class="" style="background-image: url('/data/popupZoneTop/${i.homepage_id}/${i.server_file_name}');"></div>
+                </c:forEach>
             </div>
             <div class="wrapper">
 				<div class="search-bar-wrapper">
@@ -186,29 +186,29 @@
 				<div class="main-popup-wrapper">
 					<img class="main-popup-prev" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-prev.svg" alt="">
 					<img class="main-popup-next" src="/resources/homepage/${homepage.context_path}/img/main/main-popup-next.svg" alt="">
-					
+
 					<div class="main-popup slider-nav">
-						<c:forEach var="i" items="${popupZoneList}">
+						<c:forEach var="i" items="${popupZoneTopList}">
 							<div class="main-popup-item">
 								<c:choose>
 									<c:when test="${i.link_target eq 'BLANK'}">
 										<a href="${i.link_url}" target="_blank">
-											<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
+											<img src="/data/popupZoneTop/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
 										</a>
 									</c:when>
 									<c:otherwise>
 										<a href="${i.link_url}">
-											<img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
+											<img src="/data/popupZoneTop/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
 										</a>
 									</c:otherwise>
 								</c:choose>
 							</div>
 						</c:forEach>
 					</div>
-					
+
 					<div class="main-popup-pagination">
-						<c:forEach var="i" items="${popupZoneList}">
-							<div class="main-popup-pagination-item"><span>${i.popup_zone_name}</span></div>
+						<c:forEach var="i" items="${popupZoneTopList}">
+                            <div class="main-popup-pagination-item"><span>${i.popup_zone_name}</span></div>
 						</c:forEach>
 					</div>
 				</div>
@@ -264,12 +264,21 @@
                 <div class="popup-slide-wrapper">
                     <div class="popup-slide">
                         <c:choose>
-                            <c:when test="${fn:length(galleryList) > 0}">
-                                <c:forEach var="i" items="${galleryList}">
+                            <c:when test="${fn:length(popupZoneList) > 0}">
+                                <c:forEach var="i" items="${popupZoneList}">
                                     <div class="popup-slide-item">
-                                        <a href="/${homepage.context_path}/board/view.do?menu_idx=143&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" target="_blank">
-                                            <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"  alt="${i.title}" title="${i.title}" onError="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png'"/>
-                                        </a>
+                                        <c:choose>
+                                            <c:when test="${i.link_target eq 'BLANK'}">
+                                                <a href="${i.link_url}" target="_blank">
+                                                    <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${i.link_url}">
+                                                    <img src="/data/popupZone/${i.homepage_id}/${i.server_file_name}" alt="${i.popup_zone_name}"/>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </c:forEach>
                             </c:when>
@@ -310,7 +319,7 @@
                         <c:when test="${fn:length(teachList) > 0}">
                             <img class="img1" src="/resources/homepage/${homepage.context_path}/img/culture/img1.svg" alt="">
                             <img class="img2" src="/resources/homepage/${homepage.context_path}/img/culture/img2.svg" alt="">
-                            <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='3'>
+                            <c:forEach var="i" varStatus="status" items="${teachList}" begin='0' end='2'>
                                 <a href="/${homepage.context_path}/module/teach/detail.do?menu_idx=30&homepage_id=${i.homepage_id}&group_idx=${i.group_idx}&category_idx=${i.category_idx}&teach_idx=${i.teach_idx}&searchCate1=${i.large_category_idx}" class="course-list-item">
                                     <div class="course-list-item-title">
                                         <div>${i.teach_name}</div>

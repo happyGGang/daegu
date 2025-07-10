@@ -62,6 +62,7 @@
     <script src="/resources/homepage/${homepage.context_path}/js/common/common.js"></script>
     <script src="/resources/homepage/${homepage.context_path}/js/common/fullpage.js"></script>
     <script src="/resources/homepage/${homepage.context_path}/plugin/slick.min.js"></script>
+    <script type="text/javascript" src="/resources/common/js/jquery.bxslider.min.js"></script>
 </head>
 
 

@@ -91,3 +91,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('.move-select button').on('click', function () {
+            const selectedUrl = $(this).siblings('select').val();
+            if (selectedUrl) {
+                window.open(selectedUrl, '_blank');
+            } else {
+                alert('이동할 기관을 선택해주세요.');
+            }
+        });
+    });
+</script>

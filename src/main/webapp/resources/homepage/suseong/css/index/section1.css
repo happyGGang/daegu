@@ -54,6 +54,7 @@
 }
 
 .slogan div:last-child span {
+  font-weight: 700;
 }
 
 .slogan div:last-child {
@@ -249,6 +250,7 @@
   font-style: normal;
   line-height: 130%;
   letter-spacing: -0.65px;
+  font-weight: 700;
 }
 
 .holiday-list {

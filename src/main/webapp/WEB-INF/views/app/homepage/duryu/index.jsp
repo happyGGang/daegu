@@ -386,9 +386,9 @@ listNums[i] = num;
 											<c:when test="${fn:contains(i.preview_img, 'noimg')}">
 												<img src="/resources/common/img/noimg-gall.png" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
 											</c:when>
-											<c:otherwise>
-												<img src="${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
-											</c:otherwise>
+                                            <c:otherwise>
+                                                <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt="${i.title}" title="${i.title}" onclick="location.href='/${homepage.context_path}/board/view.do?menu_idx=41&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}'" onerror="this.src='/resources/homepage/${homepage.context_path}/img/common/dummy.png';" />
+                                            </c:otherwise>
 										</c:choose>
 									</a>
 									<div class="title">${i.title}</div>

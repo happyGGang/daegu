@@ -65,6 +65,7 @@
 }
 
 .slogan div:first-child span {
+  font-weight: 700 !important;
 }
 
 .slogan div:last-child {
@@ -252,6 +253,7 @@
   font-family: GmarketSans, sans-serif;
   font-style: normal;
   margin-left: 4px;
+  font-weight: 700;
 }
 
 .holiday-list {
