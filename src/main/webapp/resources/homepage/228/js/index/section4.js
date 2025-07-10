@@ -21,7 +21,7 @@ function initBookSlider($tab) {
     // 슬릭 슬라이더 재초기화
     if ($bookSlide.length) {
         $bookSlide.slick({
-            slidesToShow: 10,
+            slidesToShow: 5,
             slidesToScroll: 1,
             autoplay: false,
             arrows: false,

@@ -58,6 +58,7 @@
 
 .notice-board-title.active {
   color: var(--primary-color-blue1) !important;
+  font-weight: 700 !important;
 }
 
 .notice-board-header a {
@@ -180,7 +181,7 @@
 .popup-slide-item img {
   width: 474px;
   height: 670px;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 8px;
 }
 

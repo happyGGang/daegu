@@ -15,6 +15,10 @@
   box-sizing: border-box;
 }
 
+.one-depth-menu a br {
+  display: none;
+}
+
 .library-logo {
   position: absolute;
   top: 50%;
@@ -261,7 +265,7 @@
   }
 
   .mm-hasnavbar-top-1 .mm-panels {
-    top: 125px !important;
+    top: 100px !important;
   }
 }
 

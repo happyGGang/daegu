@@ -6,7 +6,7 @@
 .main-bg-slide div:nth-child(1) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/duryu/img/main/bg.svg') no-repeat center center fixed;
+  background: url('/resources/homepage/duryu/img/main/bg.png') no-repeat center center fixed;
   background-size: cover;
 }
 

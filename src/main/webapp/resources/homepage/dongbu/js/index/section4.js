@@ -26,6 +26,7 @@ function initBookSlider($tab) {
     // 슬릭 슬라이더 재초기화
     if ($bookSlide.length) {
         $bookSlide.slick({
+            slidesToShow: 1,
             slidesToScroll: 1,
             autoplay: false,
             arrows: false,
@@ -41,20 +42,20 @@ function initBookSlider($tab) {
             arrows: false,
             dots: false,
             variableWidth: true,
-            asNavFor: $bookSlide
+            asNavFor: $bookSlide,
         });
     }
 
     // 이전/다음 버튼 이벤트 재연결
     $tab.find('.book-slide-prev, .book-slide-next')
-            .off('click')
-            .on('click', function () {
-                if ($bookSlide.hasClass('slick-initialized')) {
-                    $bookSlide.slick(
-                            $(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext'
-                    );
-                }
-            });
+        .off('click')
+        .on('click', function () {
+            if ($bookSlide.hasClass('slick-initialized')) {
+                $bookSlide.slick(
+                    $(this).hasClass('book-slide-prev') ? 'slickPrev' : 'slickNext'
+                );
+            }
+        });
 }
 
 $(document).ready(function () {
@@ -74,7 +75,7 @@ $(document).ready(function () {
 
         if (target === 'tab3') {
             const $tab3 = $('.tab3');
-            if (!$tab3.find('.tab-list').hasClass('slick-initialized')) {
+            if (!$tab3.find('.main-book-slide').hasClass('slick-initialized')) {
                 initBookSlider($tab3);
             }
         }

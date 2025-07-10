@@ -5,6 +5,7 @@
 #fullpage .section-wrapper:nth-child(3) .wrapper {
   display: flex;
   gap: 20px;
+  justify-content: center;
   align-items: flex-end;
   padding-bottom: 42px;
 }
@@ -93,6 +94,7 @@
 .course-list-item-date {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -250,7 +252,7 @@
 
 .type-r {
   position: relative !important;
-  color: #FFFC01 !important;
+  color: #fff !important;
 }
 
 .type-e::before {
@@ -378,23 +380,8 @@
   height: 24px;
 }
 
+
 @media (max-width: 1440px) {
-  #fullpage .section-wrapper:nth-child(3) {
-    height: 750px;
-  }
-
-  .course-list-item-title {
-    width: 340px;
-  }
-}
-
-@media (max-width: 1260px) {
-  .course-list-item-title {
-    width: 270px;
-  }
-}
-
-@media (max-width: 1170px) {
   #fullpage .section-wrapper:nth-child(3) {
     height: auto;
     padding: 60px 0;

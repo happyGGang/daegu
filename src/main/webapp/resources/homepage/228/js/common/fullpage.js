@@ -1,91 +1,71 @@
 $(document).ready(function () {
-    let fpInstance = null; // fpInstance를 전역으로 선언
+    let fpInstance = null;
 
-    // FullPage.js 초기화 함수
+    // FullPage.js 초기화
     function initializeFullpage() {
+        if (!document.querySelector('#fullpage')) return;
+
         fpInstance = new fullpage('#fullpage', {
             autoScrolling: true,
             sectionSelector: ".section-wrapper",
-            navigation: false, // 기본 내비게이션을 비활성화
-            anchors: ['section1', 'section2', 'section3', 'section4', 'section5', 'sectoin6'],
+            navigation: false,
+            anchors: ['section1', 'section2', 'section3', 'section4', 'section5'],
             afterLoad: function (origin, destination, direction) {
-                // 섹션이 로드될 때마다 커스텀 네비게이션에서 active 클래스 추가
                 updateIndicator(destination.index);
             },
         });
     }
 
-    // FullPage.js 활성화 / 비활성화 체크 함수
+    // FullPage.js 활성화 / 비활성화
     function checkFullpageStatus() {
-        const mediaQuery = window.matchMedia('(max-width: 1600px)');
+        const isMobile = window.matchMedia('(max-width: 1600px)').matches;
 
-        if (mediaQuery.matches) {
-            // 1600px 이하일 때 FullPage.js 비활성화
-            if (fpInstance) {
-                fullpage_api.destroy('all');
-                fpInstance = null;
-                document.querySelector('#fullpage').style.height = 'auto';
-            }
-        } else {
-            // 1600px 초과일 때 FullPage.js 활성화
-            if (!fpInstance) {
-                initializeFullpage();
-            }
+        if (isMobile && fpInstance) {
+            fullpage_api.destroy('all');
+            fpInstance = null;
+            document.querySelector('#fullpage').style.height = 'auto';
+        } else if (!isMobile && !fpInstance) {
+            initializeFullpage();
         }
     }
 
-    // 커스텀 네비게이션 클릭 처리
-    document.querySelectorAll('#fullpage-indicator div').forEach((navItem) => {
-        navItem.addEventListener('click', function (e) {
-            e.preventDefault();
-            const sectionAnchor = this.getAttribute('data-menuanchor');
-
-            if (fpInstance) {
-                // FullPage.js가 활성화된 경우
-                fullpage_api.moveTo(sectionAnchor);
-            } else {
-                // 일반 스크롤인 경우
-                const targetSection = document.querySelector(`.section-wrapper[data-anchor="${sectionAnchor}"]`);
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-    });
-
-    // 섹션이 이동할 때마다 커스텀 네비게이션에 active 클래스를 업데이트
+    // 인디케이터 활성화 표시
     function updateIndicator(index) {
-        // 모든 인디케이터 div에서 active 클래스 제거
         const navItems = document.querySelectorAll('#fullpage-indicator div');
-        navItems.forEach((navItem) => {
-            navItem.classList.remove('active');
+        navItems.forEach((item, i) => {
+            item.classList.toggle('active', i === index);
         });
-
-        // 해당 index의 div에 active 클래스 추가
-        const activeNavItem = navItems[index];
-        if (activeNavItem) {
-            activeNavItem.classList.add('active');
-        }
     }
 
-    // 페이지 로드 후 초기화
-    window.addEventListener('load', function () {
-        checkFullpageStatus();
+    // 커스텀 내비게이션 클릭 이벤트 설정
+    function setupCustomNav() {
+        document.querySelectorAll('#fullpage-indicator div').forEach((navItem) => {
+            navItem.addEventListener('click', function (e) {
+                e.preventDefault();
+                const sectionAnchor = this.getAttribute('data-menuanchor');
 
-        let customNav = document.querySelector('#fullpage-indicator');
-        if (document.querySelector('.section-wrapper[data-anchor="section1"]')) {
-            customNav.classList.add('section1');
-        }
-    });
-
-    // 화면 크기 변경 시 FullPage.js 체크
-    window.addEventListener('resize', checkFullpageStatus);
-
-    // 커스텀 네비게이션 클릭 처리 (중복 제거)
-    document.querySelectorAll('#fullpage-indicator div').forEach((navItem) => {
-        navItem.addEventListener('click', function () {
-            const sectionAnchor = this.getAttribute('data-menuanchor');
-            fullpage_api.moveTo(sectionAnchor);
+                if (fpInstance) {
+                    fullpage_api.moveTo(sectionAnchor);
+                } else {
+                    const targetSection = document.querySelector(`.section-wrapper[data-anchor="${sectionAnchor}"]`);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
         });
-    });
+    }
+
+    // 초기 실행
+    checkFullpageStatus(); // ✅ DOM ready 되자마자 실행
+    setupCustomNav();      // ✅ 클릭 이벤트도 즉시 바인딩
+
+    // section1 클래스 붙이기
+    const customNav = document.querySelector('#fullpage-indicator');
+    if (document.querySelector('.section-wrapper[data-anchor="section1"]')) {
+        customNav.classList.add('section1');
+    }
+
+    // 리사이즈 대응
+    window.addEventListener('resize', checkFullpageStatus);
 });

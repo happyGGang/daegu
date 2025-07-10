@@ -74,7 +74,7 @@ $(function(){
 	// 	mode:'vertical',
 	// 	pager:false
 	// });
-	//
+
 	// $('.holiday-box > ul').bxSlider({
 	// 	mode:'vertical',
 	// 	pager:false

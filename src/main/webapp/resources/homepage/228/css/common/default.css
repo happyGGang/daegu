@@ -1,6 +1,9 @@
 @charset "utf-8";
 *{font-style:normal}
 
+.doc-info ol li a br {
+    display: none;
+}
 
 /*! jQuery UI - v1.12.0 - 2016-08-28
 * http://jqueryui.com
@@ -310,6 +313,10 @@ nav#menu a:not(.mm-title):hover,
 nav#menu a:not(.mm-next):hover{color:#e32b31}
 .mm-navbar .mm-btn{display:none;height:65px}
 
+.mm-vertical a span br {
+  display: none;
+}
+
 .mm-navbar,
 .mm-title{height:65px}
 .mm-title{line-height:65px;cursor:default!important}
@@ -317,7 +324,7 @@ nav#menu a:not(.mm-next):hover{color:#e32b31}
 .mm-hasnavbar-top-1
 .mm-panels,
 .mm-navbar-top-2{top:65px}
-.mm-navbar{background:#333!important;border-color:#111}
+.mm-navbar{background:#333!important;border-color:#111;z-index: 999 !important;}
 
 .mm-search,
 .mm-btn,
@@ -514,7 +521,7 @@ transform:translateZ(0);
 .bx-wrapper .bx-loading{position:absolute;top:0;left:0;z-index:9999;width:100%;height:100%;background:url('/resources/common/img/bx_loader.gif') center center no-repeat #fff;min-height:50px}
 
 /* 서브페이지 */
-.sub-visual{position:relative;height:143px;text-align:center;color:#fff;background:url('/resources/homepage/bukbu/img/common/sub_bg.svg') no-repeat center center;background-size:cover}
+.sub-visual{position:relative;height:143px;text-align:center;color:#fff;background:url('/resources/homepage/228/img/common/sub_bg.png') no-repeat center center;background-size:cover}
 .sub-visual p.sv1{padding-top:35px}
 .sub-visual p.sv2{padding-top:1px;padding-bottom:30px}
 .sub-visual p.sv1{font-size:250%;font-weight:bold}
@@ -2192,7 +2199,7 @@ table.service-step{border:0}
   .sub-visual{position:relative;height:auto;padding-top:60px;height: 100px}
   .doc-info {border-top:0;}
   .doc-info-suseong {}
-  .doc{margin-right:0;padding:0;overflow:hidden}
+  .doc{margin-right:0;padding:30px 0;overflow:hidden}
   .doc-title{border-top:0;position:relative;z-index:1}
 }
 

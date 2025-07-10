@@ -148,7 +148,6 @@
 .section2-slide-item-top-header div:last-child {
   color: #D4E6F4;
   font-family: GmarketSans, sans-serif;
-  font-weight: bold;
   font-size: 40px;
   font-style: normal;
   line-height: 130%;
@@ -515,6 +514,12 @@
 
   .section2-title {
     gap: 8px;
+  }
+
+  .section2-slide-item-title {
+        font-size: 18px;
+        width: 298px;
+        letter-spacing: -0.36px;
   }
 
   .section2-action-wrapper img, .section2-action-wrapper a {

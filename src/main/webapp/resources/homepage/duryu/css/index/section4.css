@@ -1,7 +1,7 @@
 #fullpage .section-wrapper:nth-child(4) {
   position: relative;
   height: 100vh;
-  background: url('/resources/homepage/duryu/img/book/bg.svg') no-repeat center center;
+  background: url('/resources/homepage/duryu/img/book/bg.png') no-repeat center center;
   background-size: cover;
 }
 

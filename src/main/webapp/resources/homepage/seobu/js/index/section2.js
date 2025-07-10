@@ -1,4 +1,29 @@
 $(document).ready(function () {
+    // Set default state to show notices
+    $('.notice-list').show();
+    $('.event-list').hide();
+    $('.notice-board-title:contains("공지사항")').addClass('active');
+    $('.notice-board-header a').attr('href', 'https://library.daegu.go.kr/seobu/board/index.do?menu_idx=36&manage_idx=161');
+
+    // Click handler for notice title
+    $('.notice-board-title:contains("공지사항")').click(function() {
+        $('.notice-list').show();
+        $('.event-list').hide();
+        $('.notice-board-title').removeClass('active');
+        $(this).addClass('active');
+        $('.notice-board-header a').attr('href', 'https://library.daegu.go.kr/seobu/board/index.do?menu_idx=36&manage_idx=161');
+    });
+
+    // Click handler for event title
+    $('.notice-board-title:contains("강좌·행사안내")').click(function() {
+        $('.notice-list').hide();
+        $('.event-list').show();
+        $('.notice-board-title').removeClass('active');
+        $(this).addClass('active');
+        $('.notice-board-header a').attr('href', 'https://library.daegu.go.kr/seobu/board/index.do?menu_idx=151&manage_idx=341');
+    });
+
+
     const $popupSlide = $('.popup-slide');
     const $popupPagination = $('.popup-pagination');
 
@@ -43,10 +68,10 @@ $(document).ready(function () {
     $playPauseBtn.on('click', function () {
         if (isPlaying) {
             $popupSlide.slick('slickPause');
-            $(this).attr('src', '/resources/homepage/seobu/img/notice/play.svg');
+            $(this).attr('src', '/resources/homepage/dongbu/img/notice/play.svg');
         } else {
             $popupSlide.slick('slickPlay');
-            $(this).attr('src', '/resources/homepage/seobu/img/notice/pause.svg');
+            $(this).attr('src', '/resources/homepage/dongbu/img/notice/pause.svg');
         }
         isPlaying = !isPlaying;
     });

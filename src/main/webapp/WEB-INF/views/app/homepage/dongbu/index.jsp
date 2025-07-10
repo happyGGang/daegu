@@ -109,6 +109,12 @@
 		// 팝업 관련 코드 END
 		
 	});
+
+	function handleClick(url) {
+      if (url && url.trim() !== '') {
+        location.href = url;
+      }
+    }
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -144,7 +150,7 @@
 					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
 					<div class="total-popup-slide">
 						<c:forEach items="${popupFullList}" var="i" varStatus="status">
-							<div class="total-popup-slide-item">
+							 <div class="total-popup-slide-item" onclick="handleClick('${i.link_url}')">
 								<c:choose>
 									<c:when test="${not empty i.server_file_name}">
 										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
@@ -434,7 +440,7 @@
                     <div class="book-tab-wrapper">
                         <div class="tab-button active-tab" data-target="tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" data-text="신착도서 더보기">신착도서</div>
                         <div class="tab-button" data-target="tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" data-text="대출베스트 더보기">대출베스트</div>
-                        <div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=41&manage_idx=1297"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
+                        <div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=215&manage_idx=1297"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
                     </div>
 
                     <a id="tab-link" href="">
@@ -472,7 +478,7 @@
                             <div class="book-slide-wrapper">
                                 <img class="book-slide-prev" src="/resources/homepage/${homepage.context_path}/img/book/arrow-left.svg" alt="이전">
                                 <div class="book-slide slider-nav">
-                                    <c:forEach var="j" begin="0" end="${loopCount - 1}" varStatus="status">
+                                    <c:forEach var="j" begin="0" end="${loopCount - 0}" varStatus="status">
                                         <c:set var="navIndex" value="${(j + 1) % loopCount}"/>
                                         <c:set var="navCuration" value="${bookCuration1[navIndex]}"/>
                                         <div class="book-slide-item">
