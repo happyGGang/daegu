@@ -93,7 +93,7 @@
 		// 팝업 관련 코드 END
 		
         $('div#holiday-area').load('calendar2.do');
-        $('div#event-area').load('calendar3.do');
+        // $('div#event-area').load('calendar3.do');
         loadTabContent('div.tab2', 'bestBook.do');
         loadTabContent('div.tab3', 'newBook.do');
 
@@ -106,6 +106,12 @@
             $('#main-search-btn').submit();
         });
     });
+
+	function handleClick(url) {
+      if (url && url.trim() !== '') {
+        location.href = url;
+      }
+    }
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -141,7 +147,7 @@
 					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
 					<div class="total-popup-slide">
 						<c:forEach items="${popupFullList}" var="i" varStatus="status">
-							<div class="total-popup-slide-item">
+							 <div class="total-popup-slide-item" onclick="handleClick('${i.link_url}')">
 								<c:choose>
 									<c:when test="${not empty i.server_file_name}">
 										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
@@ -224,7 +230,7 @@
 								</a>
 							</c:if>
 							<c:if test="${i.link_target ne 'BLANK' }">
-								<a class="quick-menu-item" href="${i.link_url}" target="_blank">
+								<a class="quick-menu-item" href="${i.link_url}">
 									<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
 									<div>${i.menu_name}</div>
 								</a>
@@ -241,12 +247,13 @@
                 <div class="notice-board">
                     <div class="notice-board-header">
                         <div class="notice-board-title">공지사항</div>
-                        <a href="https://library.daegu.go.kr/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=161">
+                        <div class="notice-board-title">강좌·행사안내</div>
+                        <a href="/${homepage.context_path}/board/index.do?menu_idx=36&manage_idx=161">
                             <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
                         </a>
                     </div>
                     <div class="notice-list">
-                        <c:forEach var="i" varStatus="status" items="${noticeList}">
+                        <c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='5'>
                             <a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
                                 <div class="notice-list-item-date">
                                     <div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
@@ -257,6 +264,21 @@
                         </c:forEach>
                         <c:if test="${fn:length(noticeList) < 1}">
                             <div class="notice-no-data">등록된 공지사항이 없습니다.</div>
+                        </c:if>
+                    </div>
+
+                    <div class="event-list" style="display: none">
+                        <c:forEach var="i" varStatus="status" items="${boardList1}" begin='0' end='5'>
+                            <a class="event-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=161&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                                <div class="event-list-item-date">
+                                    <div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
+                                    <div><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></div>
+                                </div>
+                                <div class="event-list-item-title">${i.title}</div>
+                            </a>
+                        </c:forEach>
+                        <c:if test="${fn:length(boardList1) < 1}">
+                            <div class="event-no-data">등록된 강좌·행사안내가 없습니다.</div>
                         </c:if>
                     </div>
                 </div>
@@ -308,7 +330,7 @@
         <div class="section-wrapper" data-anchor="section3">
             <div class="wrapper">
                 <div class="course-list-header">
-                    <div class="course-list-header-title">문화강좌 및 행사</div>
+                    <div class="course-list-header-title">문화강좌 및 행사 신청</div>
                     <a href="https://library.daegu.go.kr/${homepage.context_path}/module/teach/index.do?menu_idx=30" class="go-to-course">
                         <div>더보기</div>
                         <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
@@ -337,7 +359,17 @@
                     </c:choose>
                 </div>
             </div>
-            <div class="event-area" id="event-area"></div>
+            <div class="event-area" id="event-area">
+                <div class="event-area-wrapper">
+                    <div class="event-area-header">
+                        <div>이달의 강좌를 확인해보세요</div>
+                        <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+                            <div>더보기</div>
+                            <img src="/resources/homepage/${homepage.context_path}/img/culture/more-black.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- 섹션4 -->
         <div class="section-wrapper" data-anchor="section4">

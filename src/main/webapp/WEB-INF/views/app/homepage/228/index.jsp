@@ -147,6 +147,12 @@ listNums[i] = num;
 			$('#main-search-btn').submit();
 		});
 	});
+
+	function handleClick(url) {
+      if (url && url.trim() !== '') {
+        location.href = url;
+      }
+    }
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -182,7 +188,7 @@ listNums[i] = num;
 					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
 					<div class="total-popup-slide">
 						<c:forEach items="${popupFullList}" var="i" varStatus="status">
-							<div class="total-popup-slide-item">
+							 <div class="total-popup-slide-item" onclick="handleClick('${i.link_url}')">
 								<c:choose>
 									<c:when test="${not empty i.server_file_name}">
 										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
@@ -296,7 +302,28 @@ listNums[i] = num;
 			</div>
 			<!-- 휴관일 & 공지사항 -->
 			<div class="main-bottom-area">
-				<div class="holiday-area" id="holiday-area"></div>
+				<div class="main-bottom-area-wrapper">
+					<div class="holiday-notice-wrapper">
+						<div class="holiday-area" id="holiday-area"></div>
+						<div class="notice-slide-wrapper">
+							<img src="/resources/homepage/bukbu/img/main/notice-slide-pause.svg" alt="">
+							<div class="notice-slide">
+								<c:if test="${not empty newsList}">
+									<c:forEach items="${newsList}" var="i">
+										<div>
+											<span>
+												<c:out value="${i.news_name}" default="제목 없음"/>
+											</span>
+										</div>
+									</c:forEach>
+								</c:if>
+								<c:if test="${empty newsList}">
+									<div><span>등록된 알림이 없습니다.</span></div>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- 섹션2 -->

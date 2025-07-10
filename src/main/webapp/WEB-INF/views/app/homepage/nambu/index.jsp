@@ -143,6 +143,12 @@ listNums[i] = num;
 			$('#main-search-btn').submit();
 		});
 	});
+
+	function handleClick(url) {
+      if (url && url.trim() !== '') {
+        location.href = url;
+      }
+    }
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -179,7 +185,7 @@ listNums[i] = num;
 					<img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
 					<div class="total-popup-slide">
 						<c:forEach items="${popupFullList}" var="i" varStatus="status">
-							<div class="total-popup-slide-item">
+							<div class="total-popup-slide-item" onclick="handleClick('${i.link_url}')">
 								<c:choose>
 									<c:when test="${not empty i.server_file_name}">
 										<img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">

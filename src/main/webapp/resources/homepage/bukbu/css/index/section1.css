@@ -297,6 +297,7 @@
 
 .holiday-area-controller div span {
   margin-left: 8px;
+  font-weight: 700;
 }
 
 .holiday-notice-wrapper {
@@ -359,17 +360,17 @@
 .notice-slide {
   display: flex;
   align-items: center;
-  width: 600px;
+  width: 800px;
 }
 
 .notice-slide div {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 100%;
   color: var(--black);
   font-family: GmarketSans, sans-serif;
   font-style: normal;
   padding-top: 1px;
-  width: 600px;
+  width: 800px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -378,6 +379,7 @@
 .no-data {
   white-space: nowrap;
 }
+
 
 .holiday-list div:nth-child(5),
 .holiday-list div:nth-child(6) {
@@ -962,17 +964,34 @@
   .notice-slide {
     width: 296px;
   }
+.notice-slide div {
+  width: 296px;
+  height: 41px;
+  min-height: 41px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 
-  .notice-slide div {
-    width: 296px;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: normal;
-    line-height: 140%;
-  }
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.notice-slide div span {
+  width: 296px;
+  height: 41px;
+  min-height: 41px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 140%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: flex;
+  align-items: center;
+}
+
 
   .no-data {
     white-space: nowrap;

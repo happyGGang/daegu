@@ -175,6 +175,10 @@
   width: 200px;
 }
 
+.pagination-border-wrapper div:first-child:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
 .pagination-border-wrapper div:first-child {
   border-radius: 0 0 0 8px;
 }

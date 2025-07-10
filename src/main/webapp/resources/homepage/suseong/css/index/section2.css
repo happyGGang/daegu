@@ -5,6 +5,7 @@
 #fullpage .section-wrapper:nth-child(2) .wrapper {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 66px;
 }
 
@@ -249,32 +250,8 @@
   cursor: pointer;
 }
 
+
 @media (max-width: 1440px) {
-  #fullpage .section-wrapper:nth-child(2) {
-    height: 850px;
-  }
-
-  #fullpage .section-wrapper:nth-child(2) .wrapper {
-    gap: 0;
-    justify-content: space-between;
-  }
-
-  .notice-board {
-    width: 700px;
-  }
-
-  .notice-list-item-title {
-    width: 490px;
-  }
-}
-
-@media (max-width: 1260px) {
-  .notice-board {
-    width: 650px;
-  }
-}
-
-@media (max-width: 1170px) {
   #fullpage .section-wrapper:nth-child(2) {
     height: 596px;
   }

@@ -142,6 +142,12 @@ listNums[i] = num;
             $('#main-search-btn').submit();
         });
     });
+
+	function handleClick(url) {
+      if (url && url.trim() !== '') {
+        location.href = url;
+      }
+    }
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -178,7 +184,7 @@ listNums[i] = num;
                     <img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
                     <div class="total-popup-slide">
                         <c:forEach items="${popupFullList}" var="i" varStatus="status">
-                            <div class="total-popup-slide-item">
+                           <div class="total-popup-slide-item" onclick="handleClick('${i.link_url}')">
                                 <c:choose>
                                     <c:when test="${not empty i.server_file_name}">
                                         <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
@@ -235,7 +241,7 @@ listNums[i] = num;
                                 </a>
                             </c:if>
                             <c:if test="${i.link_target ne 'BLANK' }">
-                                <a class="quick-menu-item" href="${i.link_url}" target="_blank">
+                                <a class="quick-menu-item" href="${i.link_url}">
                                     <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
                                     <div>${i.menu_name}</div>
                                 </a>
@@ -273,15 +279,20 @@ listNums[i] = num;
                             </c:forEach>
                         </c:if>
 
-                        <c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='3'>
-                            <c:if test="${i.notice_yn eq 'N' or null}">
-                                <a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                        <c:set var="count" value="0" />
+                        <c:forEach var="item" items="${noticeList}">
+                            <c:if test="${item.notice_yn ne 'Y' and count lt 4}">
+                                <a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${item.manage_idx}&board_idx=${item.board_idx}">
                                     <div class="notice-list-item-date">
-                                        <div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
-                                        <div><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></div>
+                                        <div><fmt:formatDate value="${item.add_date}" pattern="MM.dd"/></div>
+                                        <div><fmt:formatDate value="${item.add_date}" pattern="yyyy"/></div>
                                     </div>
-                                    <div class="notice-list-item-title">${i.title}</div>
+                                    <div class="notice-list-item-title">${item.title}</div>
                                 </a>
+
+                                <c:set var="count" value="${count + 1}" />
+                            </c:if>
+                            <c:if test="${count eq 4}">
                             </c:if>
                         </c:forEach>
 

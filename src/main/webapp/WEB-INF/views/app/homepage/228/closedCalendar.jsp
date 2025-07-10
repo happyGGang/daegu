@@ -72,21 +72,18 @@
 
 <c:set var="dd" value="${not empty closeDayList.dd ? fn:split(closeDayList.dd, ',') : null}"/>
 
-<div class="holiday-area-controller-wrapper">
-    <div class="holiday-area-title">휴관일</div>
-    <div class="holiday-area-controller">
-        <a href="#" id="before-btns" role="button" keyValue="${calendar.plan_date}">
-            <img src="/resources/homepage/${homepage.context_path}/img/main/holiday-left-arrow.svg" alt="지난달"/>
-        </a>
-        <div>
-            ${fn:split(calendar.plan_date, '-')[0]}.<span>${fn:split(calendar.plan_date, '-')[1]}</span>
-        </div>
-        <a href="#" id="next-btns" role="button" keyValue="${calendar.plan_date}">
-            <img src="/resources/homepage/${homepage.context_path}/img/main/holiday-right-arrow.svg" alt="다음달"/>
-        </a>
+<div class="holiday-area-title">휴관일</div>
+<div class="holiday-area-controller">
+    <a href="#" id="before-btns" role="button" keyValue="${calendar.plan_date}">
+        <img src="/resources/homepage/${homepage.context_path}/img/main/holiday-left-arrow.svg" alt="지난달"/>
+    </a>
+    <div>
+        ${fn:split(calendar.plan_date, '-')[0]}년 <span>${fn:split(calendar.plan_date, '-')[1]}월</span>
     </div>
+    <a href="#" id="next-btns" role="button" keyValue="${calendar.plan_date}">
+        <img src="/resources/homepage/${homepage.context_path}/img/main/holiday-right-arrow.svg" alt="다음달"/>
+    </a>
 </div>
-
 
 <div class="holiday-list">
     <c:choose>
@@ -94,14 +91,12 @@
             <div class="no-data">등록된 휴관일이 없습니다.</div>
         </c:when>
         <c:otherwise>
-            <c:forEach items="${dd}" var="day" end="17">
+            <c:forEach items="${dd}" var="day" end="5">
                 <div>${day}</div>
             </c:forEach>
-            <c:if test="${fn:length(dd) > 18}">
-                <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
-                    <img src="/resources/homepage/${homepage.context_path}/img/main/go-to-holiday.svg" alt="">
-                </a>
-            </c:if>
+            <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63" class="go-to-holiday">
+                행사달력
+            </a>
         </c:otherwise>
     </c:choose>
 </div>

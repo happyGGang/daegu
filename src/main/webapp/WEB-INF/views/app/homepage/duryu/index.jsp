@@ -144,6 +144,12 @@ listNums[i] = num;
             $('#main-search-btn').submit();
         });
     });
+
+	 function handleClick(url) {
+      if (url && url.trim() !== '') {
+        location.href = url;
+      }
+    }
 </script>
 
 <body oncontextmenu='return false' onselectstart='return false' ondragstart='return false'>
@@ -180,7 +186,7 @@ listNums[i] = num;
                     <img class="total-popup-slide-prev" src="/resources/homepage/${homepage.context_path}/img/common/total-popup-left-arrow.svg" alt="">
                     <div class="total-popup-slide">
                         <c:forEach items="${popupFullList}" var="i" varStatus="status">
-                            <div class="total-popup-slide-item">
+                             <div class="total-popup-slide-item" onclick="handleClick('${i.link_url}')">
                                 <c:choose>
                                     <c:when test="${not empty i.server_file_name}">
                                         <img src="${pageContext.request.contextPath}/data/popup/${i.homepage_id}/${i.server_file_name}" alt="${i.alt_text}">
@@ -235,7 +241,7 @@ listNums[i] = num;
                             </a>
                         </c:if>
                         <c:if test="${i.link_target ne 'BLANK' }">
-                            <a class="quick-menu-item" href="${i.link_url}" target="_blank">
+                            <a class="quick-menu-item" href="${i.link_url}">
                                 <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
                                 <div>${i.menu_name}</div>
                             </a>
@@ -338,7 +344,7 @@ listNums[i] = num;
                 <div class="course-board">
                     <div class="course-board-header">
                         <div class="course-board-title">강좌 및 행사</div>
-                        <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
+                        <a href="/${homepage.context_path}/module/teach/index.do?menu_idx=30">
                             <img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
                         </a>
                     </div>
@@ -352,7 +358,7 @@ listNums[i] = num;
 									<div class="course-list-item-title">${i.teach_name}</div>
 									<div class="course-list-item-date">
 										<div><span>강좌기간</span>${i.start_date} ~ ${i.end_date}</div>
-										<div><span>접수기간</span>${i.start_join_date} ~ ${i.start_join_date}</div>
+										<div><span>접수기간</span>${i.start_join_date} ~ ${i.end_join_date}</div>
 									</div>
 								</a>
 							</c:forEach>

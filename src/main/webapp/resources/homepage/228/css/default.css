@@ -239,13 +239,10 @@
 }
 
 @media (max-width: 490px) {
-	.tnb div:first-child a {
-		padding: 10px 9px;
-	}
+
 
 	.tnb div:first-child a {
-		padding: 0 11px;
-		width: 100%;
+		padding: 0 9px;
 	}
 
 	.tnb div:first-child {

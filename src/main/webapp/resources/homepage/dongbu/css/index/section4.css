@@ -40,7 +40,8 @@
 }
 
 .tab-button.active-tab {
-  color: var(--primary-color-blue1);
+  color: var(--primary-color-blue1) !important;
+  font-weight: 700 !important;
 }
 
 .tab-button:after {
