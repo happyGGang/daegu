@@ -26,15 +26,18 @@
 	.search{text-align:left;}
 	.new_search_box{padding:30px !important;}
 	.srch_category_box{margin-top:3px;}
-	.srch_name_box .new_text01{width:100%;}
+	.srch_name_box .new_text01{width:76%;}
 	.m_br{height:4px;display:block;}
 	.ml10{margin-left:0;}
-	#search_btn{position:absolute;bottom:30px;}
+	#search_btn{position:absolute;top:68px;right:10px;}
 	.srch_day_box{text-align:left;margin-bottom:50px;}
 }
 
-@media all and (max-width:768px){
-	.td1, .td2, .td3, .td4, .td5{width:100%;}
+@media all and (max-width:768px) {
+	.td1, .td2, .td3, .td4, .td5 {
+		width: 100%;
+	}
+}
 
 @media all and (max-width:425px){
 	.srch_category_box select{width:150px !important;margin-bottom:0;}
