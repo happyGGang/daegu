@@ -625,7 +625,7 @@ do {
 									대구광역시 동구 동촌로 46길 17<br/>053-981-8276
 								</div>
 								<div class="divbInfomationConts" id="divbInfo19">
-									대구광역시 동구 율하서로59<br/>(율하휴먼시아5단지 관리실)<br/>053-965-5955
+									대구광역시 동구 율하서로59<br/>(율하휴먼시아5단지 관리실)<br/>070-4119-0158
 								</div>
 								<div class="divbInfomationConts" id="divbInfo20">
 									대구광역시 동구 안심로73길 22<br/>(롯데캐슬 레전드관리사무소)<br/>053-247-0755
