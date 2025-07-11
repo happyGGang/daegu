@@ -404,7 +404,7 @@ listNums[i] = num;
 				<div class="course-board">
 					<div class="course-board-header">
 						<div class="course-board-title">행사안내</div>
-						<a href="/${homepage.context_path}/board/index.do?menu_idx=124&manage_idx=71">
+						<a href="/${homepage.context_path}/board/index.do?menu_idx=198&manage_idx=394">
 							<img src="/resources/homepage/${homepage.context_path}/img/culture/more.svg" alt="">
 						</a>
 					</div>
