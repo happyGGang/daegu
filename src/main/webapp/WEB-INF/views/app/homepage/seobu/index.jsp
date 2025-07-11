@@ -269,7 +269,7 @@
 
                     <div class="event-list" style="display: none">
                         <c:forEach var="i" varStatus="status" items="${boardList1}" begin='0' end='5'>
-                            <a class="event-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=161&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
+                            <a class="event-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=151&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
                                 <div class="event-list-item-date">
                                     <div><fmt:formatDate value="${i.add_date}" pattern="MM.dd"/></div>
                                     <div><fmt:formatDate value="${i.add_date}" pattern="yyyy"/></div>
@@ -362,7 +362,7 @@
             <div class="event-area" id="event-area">
                 <div class="event-area-wrapper">
                     <div class="event-area-header">
-                        <div>이달의 강좌를 확인해보세요</div>
+                        <div>이달의 강좌·행사를 확인해보세요</div>
                         <a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=63">
                             <div>더보기</div>
                             <img src="/resources/homepage/${homepage.context_path}/img/culture/more-black.svg" alt="">

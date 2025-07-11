@@ -177,7 +177,7 @@
     font-size: 14px;
     line-height: 130%;
     text-align: right;
-    color: #B8B8B8;
+    color: #FFF;
     font-family: Pretendard-Bold, sans-serif;
     font-style: normal;
 }
@@ -197,7 +197,7 @@
 }
 
 .instagram {
-    background: url('/resources/homepage/seobu/img/common/instagram.svg') no-repeat center center;
+    background: url('/resources/homepage/228/img/common/instagram-color.svg') no-repeat center center;
 }
 
 .kakao {
@@ -205,7 +205,7 @@
 }
 
 .facebook {
-    background: url('/resources/homepage/seobu/img/common/facebook.svg') no-repeat center center;
+    background: url('/resources/homepage/228/img/common/facebook-color.svg') no-repeat center center;
 }
 
 .x {
@@ -213,7 +213,7 @@
 }
 
 .youtube {
-    background: url('/resources/homepage/seobu/img/common/youtube.svg') no-repeat center center;
+    background: url('/resources/homepage/228/img/common/youtube-color.svg') no-repeat center center;
 }
 
 .copyright {

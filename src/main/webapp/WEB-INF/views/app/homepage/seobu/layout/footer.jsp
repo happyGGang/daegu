@@ -25,6 +25,7 @@
             <div class="sns-list">
                 <a class="instagram sns-icon" href="https://www.instagram.com/seobulib/"></a>
                 <a class="facebook sns-icon" href="https://www.facebook.com/seobulibrary"></a>
+                <a class="youtube sns-icon" href="https://www.youtube.com/@%EB%8C%80%EA%B5%AC%EA%B4%91%EC%97%AD%EC%8B%9C%EB%A6%BD%EC%84%9C%EB%B6%80%EB%8F%84%EC%84%9C"></a>
             </div>
         </div>
     </div>

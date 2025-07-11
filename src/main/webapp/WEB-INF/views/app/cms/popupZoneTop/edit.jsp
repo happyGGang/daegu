@@ -162,7 +162,7 @@ function getFileData(fileData) {
 					</c:when>
 					<c:when test="${popupZoneTop.homepage_id eq 'h8' }"><!-- 서부 -->
 					<div class="ui-state-highlight">
-						<em>* 팝업존 최적 이미지 사이즈는 가로 600 X 세로 220 입니다(픽셀단위)</em>
+						<em>* 팝업존 최적 이미지 사이즈는 가로 1440 X 세로 430 입니다(픽셀단위)</em>
 					</div>
 					</c:when>
 					<c:when test="${popupZoneTop.homepage_id eq 'h9' }"><!-- 수성 -->
