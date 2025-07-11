@@ -72,6 +72,7 @@ $(function() {
 					<c:when test="${i eq 'h63'}">비원</c:when>
 					<c:when test="${i eq 'h64'}">원고개</c:when>
 					<c:when test="${i eq 'h96'}">New평리</c:when>
+					<c:when test="${i eq 'h98'}">어린이영어</c:when>
 				</c:choose>
 			</span>
 		</div>
@@ -99,7 +100,7 @@ $(function() {
 	<div class="tit"><span>휴관</span></div>
 	<c:forEach items="${closeList}" var="i">
 		<div>
-			<span>
+			<span >
 				<c:choose>
 					<c:when test="${i eq 'h77'}">어린이</c:when>
 					<c:when test="${i eq 'h61'}">비산</c:when>
@@ -107,6 +108,7 @@ $(function() {
 					<c:when test="${i eq 'h63'}">비원</c:when>
 					<c:when test="${i eq 'h64'}">원고개</c:when>
 					<c:when test="${i eq 'h96'}">New평리</c:when>
+					<c:when test="${i eq 'h98'}">어린이영어</c:when>
 				</c:choose>
 			</span>
 		</div>
