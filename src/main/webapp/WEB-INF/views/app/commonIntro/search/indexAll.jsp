@@ -331,7 +331,7 @@
 			$('div.gulipAll input.lib_BU, div.gulipAll input.lib_BV, div.gulipAll input.lib_BW, div.gulipAll input.lib_BX, div.gulipAll input.lib_BY, div.gulipAll input.lib_BZ').prop('checked', $(this).prop('checked'));
 		});
 		$('#checkGulipDalseong').change(function (e) {
-			$('div.gulipAll input.lib_BR').prop('checked', $(this).prop('checked'));
+			$('div.gulipAll input.lib_BR, div.gulipAll input.lib_CD').prop('checked', $(this).prop('checked'));
 		});
 		<%--구군립 작은 구분--%>
 		$('#checkGulipSmallDonggu').change(function (e) {
@@ -680,9 +680,6 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AJ" value="AJ" label="대구광역시립 달성도서관" />
 							</li>
-<%--							<li>--%>
-<%--								<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />--%>
-<%--							</li>--%>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AB" value="AB" label="대구광역시립 두류도서관" />
 							</li>
@@ -855,6 +852,9 @@
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_BR" value="BR" label="달성군립도서관" />
+							</li>
+							<li>
+								<form:checkbox path="libraryCodes" value="CD" class="libCheck lib_CD" label="달성어린이숲도서관"/>
 							</li>
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_CC" value="CC" label="New평리도서관" />
