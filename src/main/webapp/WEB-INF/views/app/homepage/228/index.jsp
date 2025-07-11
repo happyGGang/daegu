@@ -415,7 +415,7 @@ listNums[i] = num;
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="i" varStatus="status" items="${curationList}" begin='0' end='4'>
-									<a href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" class="course-list-item">
+									<a href="/${homepage.context_path}/board/view.do?menu_idx=198&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}" class="course-list-item">
 										<div class="course-list-item-title">${i.title}</div>
 										<div class="course-list-item-date"><fmt:formatDate value="${i.add_date}" pattern="yyyy-MM-dd"/></div>
 									</a>
