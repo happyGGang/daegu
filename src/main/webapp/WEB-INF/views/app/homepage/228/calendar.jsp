@@ -190,7 +190,7 @@
 					<c:choose>
 						<c:when test="${calendarResult[i.thu] eq null}">${dayThu}</c:when>
 						<c:otherwise>
-							<c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${dayThu}"></c:set>
+							<c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${i.thu}"></c:set>
 							<c:choose>
 								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 									<a class="type-e showCal" keyValue="${i.thu}">${dayThu}</a>
@@ -207,7 +207,7 @@
 					<c:choose>
 						<c:when test="${calendarResult[i.fri] eq null}">${dayFri}</c:when>
 						<c:otherwise>
-							<c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${dayFri}"></c:set>
+							<c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${i.fri}"></c:set>
 							<c:choose>
 								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 									<a class="type-e showCal" keyValue="${i.fri}">${dayFri}</a>
@@ -224,7 +224,7 @@
 					<c:choose>
 						<c:when test="${calendarResult[i.sat] eq null}">${daySat}</c:when>
 						<c:otherwise>
-							<c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${daySat}"></c:set>
+							<c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${i.sat}"></c:set>
 							<c:choose>
 								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 									<a class="type-e showCal" keyValue="${i.sat}">${daySat}</a>
