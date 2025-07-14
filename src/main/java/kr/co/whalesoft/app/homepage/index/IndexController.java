@@ -2563,11 +2563,6 @@ public class IndexController extends BaseController {
 
 				}
 
-				// 고산 문화행사만 조회
-				if(th.equals("h52")) t.setSearchCate1("16");
-
-				model.addAttribute("teachList", teachService.getTeachListForUser(t));
-
 				// 고산 특성화프로그램
 				if(th.equals("h52")) {
 					Board b = new Board();
@@ -2576,10 +2571,16 @@ public class IndexController extends BaseController {
 					model.addAttribute("boardList", boardService.getSubBoardByMain(b));//영화도서전체
 				}
 
-				// 서변숲 문화행사만 조회
-				if(th.equals("h101")) t.setSearchCate1("16");
+				// 고산, 서변숲 문화행사만 조회
+				if(th.equals("h52") || th.equals("h101")) {
+					t.setSearchCate1("16");
+				}
+				if (!"h8".equals(th)) {
+					model.addAttribute("teachList", teachService.getTeachListForUser(t));
+				} else {
 
-				model.addAttribute("teachList", teachService.getTeachListForUser(t));
+					model.addAttribute("teachList", teachService.getTeachListForActiveUser(t));
+				}
 			}
 		}
 
@@ -2990,19 +2991,6 @@ public class IndexController extends BaseController {
 							if (map.get("aladin") == null) {
 								map.put("imageUrl", librarySearchService.getImageUrl(map));
 							}
-/*
-							LibrarySearch kakaoSearch = new LibrarySearch();
-							kakaoSearch.setSearch_text(String.valueOf(map.get("ISBN")));
-
-							Map<String, Object> kakaoData = PrivateLibSearchAPI.getKaKaoList(kakaoSearch);
-							List<Map<String, Object>> itemList = (List<Map<String, Object>>) kakaoData.get("list");
-							if (itemList != null && itemList.size() > 0) {
-								for (Map<String, Object> map3 : itemList) {
-									String contents = String.valueOf(map3.get("contents"));
-
-									map.put("contentsDetail", contents);
-								}
-							}*/
 						}
 					}
 				}

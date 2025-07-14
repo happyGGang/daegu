@@ -865,6 +865,171 @@
 		</if>
 	</select>
 
+	<select id="getTeachListForActiveUser" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
+		SELECT * FROM (
+			WITH CURRENT_TIME AS (
+				SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI') AS NOW_STR,
+				       SYSDATE AS NOW_DATE
+				FROM DUAL
+			),
+			STUDENT_COUNTS AS (
+				SELECT
+					homepage_id, group_idx, category_idx, teach_idx,
+					COUNT(CASE WHEN apply_status = '1' AND apply_type != 'CMS' THEN 1 END) AS teach_join_count,
+					COUNT(CASE WHEN apply_status = '2' THEN 1 END) AS teach_backup_join_count,
+					COUNT(CASE WHEN apply_status = '1' AND apply_type = 'CMS' THEN 1 END) AS teach_off_join_count
+				FROM STUDENT
+				WHERE delete_yn = 'N'
+				GROUP BY homepage_id, group_idx, category_idx, teach_idx
+			),
+			USER_STATUS AS (
+				SELECT
+					homepage_id, group_idx, category_idx, teach_idx,
+					COUNT(*) AS status_count,
+					MAX(apply_status) AS apply_status
+				FROM STUDENT
+				WHERE member_key = #{member_key}
+				  AND apply_status != '99'
+				  AND delete_yn != 'Y'
+				GROUP BY homepage_id, group_idx, category_idx, teach_idx
+			)
+			SELECT
+				-- TEACH_STATUS 계산 (개선된 CASE WHEN)
+				CASE
+					WHEN a.end_datetime &lt; ct.NOW_DATE THEN '9'
+					WHEN NVL(us.status_count, 0) = 0 THEN
+						CASE
+							WHEN ct.NOW_STR &lt; a.req_start_date THEN '6'
+							WHEN ct.NOW_STR >= a.req_end_date THEN '4'
+							WHEN a.teach_limit_count > NVL(sc.teach_join_count, 0) THEN '0'
+							WHEN a.teach_backup_count > NVL(sc.teach_backup_join_count, 0) THEN '1'
+							ELSE '5'
+						END
+					WHEN us.status_count = 1 THEN
+						CASE
+							WHEN ct.NOW_STR >= a.req_end_date THEN '4'
+							WHEN us.apply_status = '1' THEN
+								CASE
+									WHEN a.cancle_use_yn != 'Y' AND ct.NOW_STR >= a.req_start_date AND ct.NOW_STR &lt; a.req_end_date THEN '2'
+									WHEN a.cancle_use_yn = 'Y' AND ct.NOW_STR >= a.cancle_start_datetime AND ct.NOW_STR &lt; a.cancle_end_datetime AND ct.NOW_STR &lt; a.start_datetime THEN '2'
+									WHEN a.cancle_use_yn = 'Y' AND ct.NOW_STR >= a.req_start_date AND ct.NOW_STR &lt; a.req_end_date THEN '10'
+									ELSE '4'
+								END
+							WHEN us.apply_status = '2' AND ct.NOW_STR >= a.req_start_date AND ct.NOW_STR &lt; a.req_end_date THEN '3'
+							WHEN us.apply_status = '99' AND ct.NOW_STR >= a.req_start_date AND ct.NOW_STR &lt; a.req_end_date THEN '7'
+							ELSE '4'
+						END
+				END AS TEACH_STATUS,
+
+				-- 기본 필드들
+				a.homepage_id, a.group_idx, a.category_idx, a.teach_idx, a.teach_name,
+				a.teach_desc, a.teach_etc, a.teach_stage, a.teach_target, a.limit_hak,
+				a.limit_hak2, a.teach_limit_count, a.teach_join_unit, a.teach_backup_count, a.teach_offline_count,
+				a.start_join_date, a.start_join_time, a.end_join_date, a.end_join_time, a.teach_day,
+				a.start_date, a.start_time, a.end_date, a.end_time, a.cancle_use_yn,
+				a.start_cancle_date, a.start_cancle_time, a.end_cancle_date, a.end_cancle_time, a.cancle_guid,
+				a.org_file_name, a.server_file_name, a.file_extension, a.file_size, a.member_yn,
+				a.teach_age_type, a.sms_service_yn, a.picture_use_yn, a.certificate_yn, a.teacher_name,
+				a.member_key, a.category_name,
+
+				-- COUNT 값들
+				NVL(sc.teach_join_count, 0) AS teach_join_count,
+				NVL(sc.teach_backup_join_count, 0) AS teach_backup_join_count,
+				NVL(sc.teach_off_join_count, 0) AS teach_off_join_count,
+
+				a.group_name, a.image_org_file_name, a.image_server_file_name, a.image_file_extension, a.image_file_size,
+				a.limit_hak_yn, a.family_count_yn, a.agent_yn, a.school_info_yn, a.school_grade_yn,
+				a.remark_yn, a.email_use_yn,
+
+				-- getCodeIdToCodeName 함수 호출 유지
+				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak) AS limit_hak_str,
+				getCodeIdToCodeName('CMS', 'C0020', a.limit_hak2) AS limit_hak2_str,
+
+				a.neis_location_yn, a.neis_cd_yn, a.neis_training_num_yn, a.large_category_idx, a.rank_yn,
+				a.organization_yn, a.course_taken_yn, a.birth_yn, a.sex_yn, a.large_category_name,
+				a.program_classification1, a.program_classification2, a.program_classification3, a.program_subject, a.program_age_div,
+				a.program_subject_name, a.program_classification1_name, a.program_classification2_name, a.program_classification3_name, a.teach_day_yn,
+				a.teach_day_txt, a.teach_img_text, a.teach_code_yn,
+
+				-- ORDER BY를 위한 추가 컬럼
+				ct.NOW_DATE, a.end_datetime, a.print_seq
+			FROM (
+				SELECT
+					t.*,
+					tr.member_key,
+					tc.category_name,
+					tcg.group_name,
+					t.start_join_date || ' ' || t.start_join_time AS req_start_date,
+					t.end_join_date || ' ' || t.end_join_time AS req_end_date,
+					TO_DATE(t.end_date || ' ' || t.end_time, 'YYYY-MM-DD HH24:MI') AS end_datetime,
+					t.start_cancle_date || ' ' || t.start_cancle_time AS cancle_start_datetime,
+					t.end_cancle_date || ' ' || t.end_cancle_time AS cancle_end_datetime,
+					t.start_date || ' ' || t.start_time AS start_datetime,
+					tc2_large.code_name AS large_category_name,
+					tc2_subject.code_name AS program_subject_name,
+					pc1.code_name AS program_classification1_name,
+					pc2.code_name AS program_classification2_name,
+					pc3.code_name AS program_classification3_name
+				FROM TEACH t
+				LEFT JOIN TEACHER tr ON t.homepage_id = tr.homepage_id AND t.teacher_idx = tr.teacher_idx
+				LEFT JOIN TEACH_CATEGORY tc ON t.homepage_id = tc.homepage_id AND t.group_idx = tc.group_idx AND t.category_idx = tc.category_idx
+				LEFT JOIN TEACH_CATEGORY_GROUP tcg ON t.homepage_id = tcg.homepage_id AND t.group_idx = tcg.group_idx
+				LEFT JOIN TEACH_CODE2 tc2_large ON tc2_large.teach_code = t.large_category_idx AND tc2_large.homepage_id = t.homepage_id
+				LEFT JOIN TEACH_CODE2 tc2_subject ON tc2_subject.teach_code = t.program_subject AND tc2_subject.homepage_id = t.homepage_id
+				LEFT JOIN TEACH_CODE pc1 ON pc1.large_code = t.program_classification1 AND pc1.mid_code = '--' AND pc1.small_code = '--'
+				LEFT JOIN TEACH_CODE pc2 ON pc2.large_code = t.program_classification1 AND pc2.mid_code = t.program_classification2 AND pc2.small_code = '--'
+				LEFT JOIN TEACH_CODE pc3 ON pc3.large_code = t.program_classification1 AND pc3.mid_code = t.program_classification2 AND pc3.small_code = t.program_classification3
+				WHERE t.use_yn = 'Y'
+				  AND t.delete_yn = 'N'
+		<if test="homepage_id != null">
+			AND t.homepage_id = #{homepage_id}
+		</if>
+		<if test="homepage_id == null">
+			AND t.homepage_id IN
+			<foreach collection="homepage_ids" item="i" open="(" close=")" separator=",">
+				#{i}
+			</foreach>
+		</if>
+		<if test="search_type != null and search_type != '' and search_text != '' and search_text != ''">
+			AND ${search_type} LIKE '%' || #{search_text} || '%'
+		</if>
+		<if test="searchCate1 != null and searchCate1 != ''">
+			AND t.large_category_idx IN (${searchCate1})
+		</if>
+		<if test="searchCate2 != null and searchCate2 != ''">
+			AND t.group_idx IN (${searchCate2})
+		</if>
+		<if test="searchCate3 != null and searchCate3 != ''">
+			AND t.category_idx IN (${searchCate3})
+		</if>
+		<if test="searchAge != null and searchAge != ''">
+			AND REGEXP_LIKE(t.program_age_div, #{searchAge})
+		</if>
+		<if test="group_idx_list != null and group_idx_list != ''">
+			AND t.group_idx IN (${group_idx_list})
+		</if>
+		<if test="group_idx != null and group_idx > 0">
+			AND t.group_idx = #{group_idx}
+		</if>
+		<if test="category_idx != null and category_idx > 0">
+			AND t.category_idx = #{category_idx}
+		</if>
+		<if test="teach_day != null and teach_day != ''">
+			AND REGEXP_LIKE(t.teach_day, REPLACE(#{teach_day}, ',', '|'))
+		</if>
+			) a
+			CROSS JOIN CURRENT_TIME ct
+			LEFT JOIN STUDENT_COUNTS sc ON a.homepage_id = sc.homepage_id
+			                            AND a.group_idx = sc.group_idx
+			                            AND a.category_idx = sc.category_idx
+			                            AND a.teach_idx = sc.teach_idx
+			LEFT JOIN USER_STATUS us ON a.homepage_id = us.homepage_id
+			                        AND a.group_idx = us.group_idx
+			                        AND a.category_idx = us.category_idx
+			                        AND a.teach_idx = us.teach_idx
+		) WHERE TEACH_STATUS not in ('4', '5', '9')
+	</select>
+
 	<select id="getTeachListHomepage" resultType="kr.go.gbelib.app.cms.module.teach.Teach">
 		WITH teach_info as (SELECT
 		CASE
