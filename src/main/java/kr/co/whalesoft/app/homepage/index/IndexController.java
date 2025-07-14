@@ -3401,9 +3401,9 @@ public class IndexController extends BaseController {
 			for ( String oneClose : closedDayList ) {
 				List<String> closedList = null;
 				String key = oneClose.trim();
-				if ( key.startsWith("0") ) {
-					key = key.replace("0", "");
-				}
+//				if ( key.startsWith("0") ) {
+//					key = key.replace("0", "");
+//				}
 				if ( planRepo.containsKey(key) ) {
 					closedList = planRepo.get(key);
 				}
@@ -3434,9 +3434,9 @@ public class IndexController extends BaseController {
 				}
 			    if ( sf.format(startDate).startsWith(planDate) ) {
 			      startKey = sf.format(startDate).substring(8, 10);
-				    if ( startKey.startsWith("0") ) {
-				  	  startKey = startKey.replace("0", "");
-				    }
+//				    if ( startKey.startsWith("0") ) {
+//				  	  startKey = startKey.replace("0", "");
+//				    }
 				    if ( planRepo.containsKey(startKey) ) {
 				  	  eventList = planRepo.get(startKey);
 				    }
@@ -3451,9 +3451,9 @@ public class IndexController extends BaseController {
 
 			    startDate = DateUtils.addDays(startDate, 1);
 			}
-			if ( endKey.startsWith("0") ) {
-				endKey = endKey.replace("0", "");
-		    }
+//			if ( endKey.startsWith("0") ) {
+//				endKey = endKey.replace("0", "");
+//		    }
 			if ( planRepo.containsKey(endKey) ) {
 				eventList = planRepo.get(endKey);
 			}
@@ -3469,9 +3469,9 @@ public class IndexController extends BaseController {
 
 		for (Board movie : movieDay) {
 			String key = movie.getImsi_v_2().trim();
-			if ( key.startsWith("0") ) {
-				key = key.replace("0", "");
-			}
+//			if ( key.startsWith("0") ) {
+//				key = key.replace("0", "");
+//			}
 			List<String> planList = null;
 			if ( planRepo.containsKey(key) ) {
 				planList = planRepo.get(key);
@@ -3507,9 +3507,9 @@ public class IndexController extends BaseController {
 
 				if ( sf.format(startDate).startsWith(planDate) ) {
 			      startKey = sf.format(startDate).substring(8, 10);
-				    if ( startKey.startsWith("0") ) {
-				  	  startKey = startKey.replace("0", "");
-				    }
+//				    if ( startKey.startsWith("0") ) {
+//				  	  startKey = startKey.replace("0", "");
+//				    }
 				    if ( planRepo.containsKey(startKey) ) {
 				  	  excursionsList = planRepo.get(startKey);
 				    }
@@ -3523,9 +3523,9 @@ public class IndexController extends BaseController {
 			    }
 			    startDate = DateUtils.addDays(startDate, 1);
 			}
-			if ( endKey.startsWith("0") ) {
-				endKey = endKey.replace("0", "");
-		    }
+//			if ( endKey.startsWith("0") ) {
+//				endKey = endKey.replace("0", "");
+//		    }
 			if ( planRepo.containsKey(endKey) ) {
 				excursionsList = planRepo.get(endKey);
 			}
@@ -3562,9 +3562,9 @@ public class IndexController extends BaseController {
 					     for ( String one : teachDays ) {
 					    	  if ( dayNum == Integer.parseInt(one) ) {
 					    		  startKey = sf.format(startDate).substring(8, 10);
-					    		  if ( startKey.startsWith("0") ) {
-					    			  startKey = startKey.replace("0", "");
-						  		  }
+//					    		  if ( startKey.startsWith("0") ) {
+//					    			  startKey = startKey.replace("0", "");
+//						  		  }
 					    		  if ( planRepo.containsKey(startKey) ) {
 					    			  teachList = planRepo.get(startKey);
 					    		  }
@@ -3607,9 +3607,9 @@ public class IndexController extends BaseController {
 				    int dayNum = cal.get(Calendar.DAY_OF_WEEK) ;
 				    for ( String one : teachDays ) {
 				    	if ( dayNum == Integer.parseInt(one) ) {
-				    		if ( endKey.startsWith("0") ) {
-				    			endKey = endKey.replace("0", "");
-					  		}
+//				    		if ( endKey.startsWith("0") ) {
+//				    			endKey = endKey.replace("0", "");
+//					  		}
 				    		if ( planRepo.containsKey(endKey) ) {
 								teachList = planRepo.get(endKey);
 							}
@@ -3643,9 +3643,9 @@ public class IndexController extends BaseController {
 			List<String> facilityList = null;
 			String key 	= facility.getUse_date().substring(8, 10);
 
-		    if ( key.startsWith("0") ) {
-		    	key = key.replace("0", "");
-	  		}
+//		    if ( key.startsWith("0") ) {
+//		    	key = key.replace("0", "");
+//	  		}
 		    if ( planRepo.containsKey(key) ) {
 		    	facilityList = planRepo.get(key);
 		    }
