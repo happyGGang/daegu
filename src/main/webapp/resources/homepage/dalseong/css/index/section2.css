@@ -172,7 +172,7 @@
 .popup-slide-item img {
   width: 474px;
   height: 670px;
-  object-fit: cover;
+  object-fit: fill;
   border-radius: 8px;
 }
 

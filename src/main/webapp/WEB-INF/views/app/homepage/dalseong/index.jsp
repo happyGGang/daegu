@@ -208,8 +208,6 @@ listNums[i] = num;
 			<div class="main-bg-slide">
 				<div></div>
 				<div></div>
-				<div></div>
-				<div></div>
 			</div>
 			<div class="wrapper">
 				<div class="slogan">
@@ -239,7 +237,7 @@ listNums[i] = num;
 							</a>
 						</c:if>
 						<c:if test="${i.link_target ne 'BLANK' }">
-							<a class="quick-menu-item" href="${i.link_url}" target="_blank">
+							<a class="quick-menu-item" href="${i.link_url}">
 								<img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
 								<div>${i.menu_name}</div>
 							</a>

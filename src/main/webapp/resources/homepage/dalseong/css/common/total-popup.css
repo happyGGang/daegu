@@ -112,7 +112,7 @@
 .total-popup-slide-item img {
   width: 400px;
   height: 566px;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .total-popup-slide-item a {

@@ -105,6 +105,7 @@
 .course-list-item-date {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -334,7 +335,8 @@
 
 .calendar-caption div:first-child::before {
   position: absolute;
-  top: 11px;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   width: 6px;
   height: 6px;
@@ -345,7 +347,8 @@
 
 .calendar-caption div:last-child::before {
   position: absolute;
-  top: 11px;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   width: 6px;
   height: 6px;
@@ -592,7 +595,6 @@
   }
 
   .calendar-caption div:last-child::before {
-    top: 8px;
     width: 5px;
     height: 5px;
   }
@@ -743,7 +745,6 @@
   }
 
   .calendar-caption div:last-child::before {
-    top: 9px;
     width: 4px;
     height: 4px;
   }
@@ -945,7 +946,6 @@
   }
 
   .calendar-caption div:last-child::before {
-    top: 8px;
     width: 5px;
     height: 5px;
   }
