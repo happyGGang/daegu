@@ -10,6 +10,13 @@ $(function() {
 
 	var $form = $('form#librarySearch');
 
+	let homepage_id = "${homepage.homepage_id}";
+	let codes = "${param.libraryCodes}";
+	if (homepage_id === "h43" && !codes) {
+		$(".lib_BR").prop("checked", false);
+		$(".lib_CD").prop("checked", false);
+	}
+
 	//정렬, N개씩보기
 	$('select#rowCount, select#sortType, select#sortField').on('change', function () {
 		$('a#search-btn').click();
