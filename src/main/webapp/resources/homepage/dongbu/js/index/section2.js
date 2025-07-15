@@ -2,8 +2,8 @@ $(document).ready(function () {
     // Set default state to show notices
     $('.notice-list').show();
     $('.event-list').hide();
-    $('.notice-board-title:contains("공지사항")').addClass('active');
-    $('.notice-board-header a').attr('href', 'https://library.daegu.go.kr/dongbu/board/index.do?menu_idx=36&manage_idx=123');
+    $('.notice-board-title:contains("강좌·행사안내")').addClass('active');
+    $('.notice-board-header a').attr('href', 'https://library.daegu.go.kr/dongbu/module/teach/index.do?menu_idx=30');
 
     // Click handler for notice title
     $('.notice-board-title:contains("공지사항")').click(function() {
