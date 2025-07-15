@@ -195,7 +195,7 @@ function boardComment_delete(comment_idx, user_id, member_id){
 		<form:textarea path="comment_content" placeholder="댓글을 입력하세요."/>
 	</c:when>
 	<c:otherwise>
-		<textarea id="comment_content" disabled="disabled" placeholder="로그인 후 사용가능합니다." />
+		<textarea id="comment_content" disabled="disabled" placeholder="로그인 후 사용가능합니다."></textarea>
 	</c:otherwise>
 	</c:choose>
 	</div>
