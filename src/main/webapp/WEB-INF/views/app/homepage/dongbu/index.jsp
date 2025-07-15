@@ -233,7 +233,7 @@
                             <img src="/resources/homepage/${homepage.context_path}/img/notice/more.svg" alt="">
                         </a>
                     </div>
-                    <div class="notice-list">
+                    <div class="notice-list" style="display: none">
                         <c:forEach var="i" varStatus="status" items="${noticeList}" begin='0' end='5'>
                             <a class="notice-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=36&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
                                 <div class="notice-list-item-date">
@@ -248,7 +248,7 @@
                         </c:if>
                     </div>
 
-                    <div class="event-list" style="display: none">
+                    <div class="event-list">
                         <c:forEach var="i" varStatus="status" items="${boardList1}" begin='0' end='5'>
                             <a class="event-list-item" href="/${homepage.context_path}/board/view.do?menu_idx=170&manage_idx=${i.manage_idx}&board_idx=${i.board_idx}">
                                 <div class="event-list-item-date">
