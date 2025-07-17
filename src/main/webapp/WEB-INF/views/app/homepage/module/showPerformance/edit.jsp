@@ -127,8 +127,9 @@ $(function() {
 		            var sum6 = parseInt($("#five").val() || 0);
 		            var sum7 = parseInt($("#six").val() || 0);
 		            var sum8 = parseInt($("#seven").val() || 0);
-		
-		            var sum = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7 + sum8;
+		            var sum9 = parseInt($("#age_over_eight").val() || 0);
+
+		            var sum = sum1 + sum2 + sum3 + sum4 + sum5 + sum6 + sum7 + sum8 + sum9;
 		            console.log(sum);
 		            $("#total").val(sum);
 		        });
@@ -310,7 +311,8 @@ $(function() {
 				4세<form:input path="age_four" type="text" 	class="form-control num_only num_comma num_sum"	id="four" name="four" cssStyle="width:25px" maxlength="2"/>명/
 				5세<form:input path="age_five" type="text" 	class="form-control num_only num_comma num_sum"	id="five" name="five" cssStyle="width:25px" maxlength="2"/>명/
 				6세<form:input path="age_six" type="text" 	class="form-control num_only num_comma num_sum"	id="six" name="six" cssStyle="width:25px" maxlength="2"/>명/
-				7세<form:input path="age_seven" type="text"	class="form-control num_only num_comma num_sum"	id="seven" name="seven" cssStyle="width:25px" maxlength="2"/>명)<br>
+				7세<form:input path="age_seven" type="text"	class="form-control num_only num_comma num_sum"	id="seven" name="seven" cssStyle="width:25px" maxlength="2"/>명/<br>
+				8세 이상<form:input path="age_over_eight" type="text"	class="form-control num_only num_comma num_sum"	id="age_over_eight" name="age_over_eight" cssStyle="width:25px" maxlength="3"/>명)<br>
 				총인원<form:input path="total_peple" type="text"  class="form-control num_only num_comma num_sum" id="total" name="total" cssStyle="width:50px" readonly="true"/>명
 			 </td>
 		</tr>

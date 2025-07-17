@@ -10,7 +10,7 @@
 		ip, remarks, add_date, add_id, apply_id,
 		applicant_member_id, self_info_yn, show_name, 
 		age_zero, age_one, age_two, age_three, age_four, 
-		age_five, age_six, age_seven, total_peple, member_check
+		age_five, age_six, age_seven, age_over_eight ,total_peple, member_check
 	</sql>
 	
 	<!-- 견학신청자 list -->
@@ -138,7 +138,7 @@
 			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{apply_id}, 
 			#{applicant_member_id}, #{self_info_yn}, #{code_name},
 			#{age_zero}, #{age_one}, #{age_two}, #{age_three}, #{age_four}, 
-			#{age_five}, #{age_six}, #{age_seven}, #{total_peple}, #{member_check}
+			#{age_five}, #{age_six}, #{age_seven},#{age_over_eight} ,#{total_peple}, #{member_check}
 		)
 	</insert>
 	<insert id="addNoMemberApply">
@@ -150,7 +150,7 @@
 			start_date, start_time, end_date, end_time, apply_state, 
 			ip, remarks, add_date, add_id, self_info_yn, password, show_name,
 			age_zero, age_one, age_two, age_three, age_four,
-			age_five, age_six, age_seven, total_peple, member_check
+			age_five, age_six, age_seven, age_over_eight,total_peple, member_check
 		)
 		VALUES
 		(
@@ -159,7 +159,7 @@
 			#{start_date}, #{start_time}, #{end_date}, #{end_time}, '1',
 			#{ip}, #{remarks}, SYSDATE, #{add_id}, #{self_info_yn}, #{password}, #{code_name},
 			#{age_zero}, #{age_one}, #{age_two}, #{age_three}, #{age_four}, 
-			#{age_five}, #{age_six}, #{age_seven}, #{total_peple}, #{member_check}
+			#{age_five}, #{age_six}, #{age_seven}, #{age_over_eight} , #{total_peple}, #{member_check}
 		)
 	</insert>
 	
@@ -184,6 +184,7 @@
 			age_five = #{age_five},
 			age_six = #{age_six}, 
 			age_seven = #{age_seven},
+			age_over_eight = #{age_over_eight},
 			total_peple = #{total_peple},
 			member_check = #{member_check},
 			show_name = #{code_name}

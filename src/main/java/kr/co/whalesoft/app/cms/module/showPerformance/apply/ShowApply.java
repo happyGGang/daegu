@@ -53,7 +53,8 @@ public class ShowApply extends PagingUtils {
 	private int age_five;
 	private int age_six;
 	private int age_seven;
-	private int total_peple; 
+	private int age_over_eight;
+	private int total_peple;
 	private String applicant_agency_name;
 	private String applicant_agency_tel;
 	private String applicant_agency_tel_1;
@@ -182,6 +183,14 @@ public class ShowApply extends PagingUtils {
 
 	public int getTotal_peple() {
 		return total_peple;
+	}
+
+	public int getAge_over_eight() {
+		return age_over_eight;
+	}
+
+	public void setAge_over_eight(int age_over_eight) {
+		this.age_over_eight = age_over_eight;
 	}
 
 	public void setTotal_peple(int total_peple) {
