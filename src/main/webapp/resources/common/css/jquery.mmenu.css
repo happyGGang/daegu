@@ -506,7 +506,7 @@ nav#menu>div>a.mm-prev:before{border:none}
 .mm-listview .mm-listview>li>span{padding-top:10px;padding-bottom:10px}
 
 .mm-listview .mm-listview>li.mm-vertical>.mm-next,
-.mm-listview .mm-vertical .mm-listview>li>.mm-next{height:20px}
+.mm-listview .mm-vertical .mm-listview>li>.mm-next{height:50px;}
 
 .mm-menu.mm-theme-white .mm-btn:after,
 .mm-menu.mm-theme-white .mm-btn:before,
