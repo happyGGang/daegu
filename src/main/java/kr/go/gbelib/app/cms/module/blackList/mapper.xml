@@ -19,7 +19,7 @@
 			SELECT
 				(select a.homepage_name from cms_homepage a where a.homepage_id = blacklist.homepage_id) as homepage_name,
 				homepage_id, black_idx, member_id, member_name, black_type,
-				reason, delete_yn, add_date, add_id, modify_date, modify_id,teach_code
+				reason, delete_yn, add_date, add_id, modify_date, modify_id
 			FROM
 				BLACKLIST
 			WHERE
@@ -33,8 +33,7 @@
 	<select id="getBlackListOne" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
 		SELECT
 			homepage_id, black_idx, member_id, member_name, black_type,
-			reason, delete_yn, add_date, add_id, modify_date, modify_id,teach_code
-		FROM
+			reason, delete_yn, add_date, add_id, modify_date, modify_id
 			BLACKLIST
 		WHERE
 			homepage_id = #{homepage_id}
@@ -78,12 +77,12 @@
 		(
 			homepage_id, black_idx, member_id, member_name, reason,
 			black_type, delete_yn, add_date, add_id, modify_date,
-			modify_id,teach_code
+			modify_id
 		) VALUES
 		(
 			#{homepage_id}, #{black_idx}, #{member_id}, #{member_name}, #{reason},
 			#{black_type}, 'N', SYSDATE, #{add_id}, SYSDATE,
-			#{modify_id}, #{teach_code}
+			#{modify_id}
 		)
 	</insert>
 
