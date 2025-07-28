@@ -34,6 +34,18 @@ public class AsideMenuTag extends BodyTagSupport {
 		HtmlTag liTag_lvl3 = null;
 		boolean check_lvl3 = false;
 
+		HtmlTag ulTag_lvl4 = null;
+		HtmlTag liTag_lvl4 = null;
+		boolean check_lvl4 = false;
+
+		HtmlTag ulTag_lvl5 = null;
+		HtmlTag liTag_lvl5 = null;
+		boolean check_lvl5 = false;
+
+		HtmlTag ulTag_lvl6 = null;
+		HtmlTag liTag_lvl6 = null;
+		boolean check_lvl6 = false;
+
 		Set<Integer> access_set = new HashSet<Integer>();
 
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
@@ -55,8 +67,6 @@ public class AsideMenuTag extends BodyTagSupport {
 					access_set.add(adminMenu.getMenu_idx());
 					continue;
 				}
-
-
 
 				if(adminMenu.getMenu_level() == 1) {
 					check_lvl2 = false;
@@ -81,7 +91,7 @@ public class AsideMenuTag extends BodyTagSupport {
 					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
 						liTag_lvl2.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
 					} else {
-						liTag_lvl2.setContent("<a href='" + url + "' target='container'>" + adminMenu.getMenu_name() + "</a>");
+						liTag_lvl2.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
 					}
 					ulTag_lvl2.addSubTag(liTag_lvl2);
 				} else if(adminMenu.getMenu_level() == 3) {
@@ -100,9 +110,66 @@ public class AsideMenuTag extends BodyTagSupport {
 					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
 						liTag_lvl3.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
 					} else {
-						liTag_lvl3.setContent("<a href='" + url + "' target='container'>" + adminMenu.getMenu_name() + "</a>");
+						liTag_lvl3.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
 					}
 					ulTag_lvl3.addSubTag(liTag_lvl3);
+				} else if(adminMenu.getMenu_level() == 4) {
+					if(!check_lvl4) {
+						check_lvl4 = true;
+						ulTag_lvl4 = new HtmlTag("ul");
+						liTag_lvl3.addSubTag(ulTag_lvl4);
+					}
+					ulTag_lvl4 = new HtmlTag("li");
+					String url = adminMenu.getMenu_url();
+					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
+						url = adminMenu.getLink_url();
+					}
+					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
+						ulTag_lvl4.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
+					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
+						ulTag_lvl4.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
+					} else {
+						ulTag_lvl4.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
+					}
+					ulTag_lvl4.addSubTag(ulTag_lvl4);
+				} else if(adminMenu.getMenu_level() == 5) {
+					if(!check_lvl5) {
+						check_lvl5 = true;
+						ulTag_lvl5 = new HtmlTag("ul");
+						liTag_lvl4.addSubTag(ulTag_lvl5);
+					}
+					ulTag_lvl5 = new HtmlTag("li");
+					String url = adminMenu.getMenu_url();
+					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
+						url = adminMenu.getLink_url();
+					}
+					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
+						ulTag_lvl5.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
+					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
+						ulTag_lvl5.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
+					} else {
+						ulTag_lvl5.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
+					}
+					ulTag_lvl5.addSubTag(ulTag_lvl5);
+				} else if(adminMenu.getMenu_level() == 5) {
+					if(!check_lvl6) {
+						check_lvl6 = true;
+						ulTag_lvl6 = new HtmlTag("ul");
+						liTag_lvl5.addSubTag(ulTag_lvl6);
+					}
+					ulTag_lvl6 = new HtmlTag("li");
+					String url = adminMenu.getMenu_url();
+					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
+						url = adminMenu.getLink_url();
+					}
+					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
+						ulTag_lvl6.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
+					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
+						ulTag_lvl6.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
+					} else {
+						ulTag_lvl6.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
+					}
+					ulTag_lvl6.addSubTag(ulTag_lvl6);
 				}
 			}
 		}

@@ -41,9 +41,7 @@ public class IndexController extends BaseController {
 
 	@RequestMapping(value = {"/aside.*"})
 	public String aside(Model model, AdminMenu adminMenu, HttpServletRequest request) {
-
 		List<Homepage> homepageList = getSessionMemberInfo(request).getAuthorityHomepageList();
-
 
 		if (StringUtils.isEmpty(adminMenu.getHomepage_id())) {
 			if (homepageList != null && homepageList.size() > 0) {
@@ -54,41 +52,40 @@ public class IndexController extends BaseController {
 		request.getSession().setAttribute("asideHomepageId", adminMenu.getHomepage_id());
 
 		if (getSessionMemberInfo(request).isAdmin()) {
-			//CMS 최고관리자는 전자도서관 메뉴를 노출한다.
-			// adminMenu.setIncludeElib(true);
 			adminMenu.setAdmin_access_yn("Y");
 			model.addAttribute("adminMenuList", adminMenuService.getAdminMenuListNew(adminMenu));
-
 		} else {
-
 			//사이트관리자 여부 확인
 			if (getSessionMemberInfo(request).getAuthMap().containsKey(adminMenu.getHomepage_id()+"_A")) {
-//				adminMenu.set
-				//최고관리자전용 메뉴 가져오기로 바꾸기.
-				if (StringUtils.equals(adminMenu.getHomepage_id(), "h28")) {
-					//정보센터 최고관리자는 전자도서관 메뉴를 노출한다.
-					// adminMenu.setIncludeElib(true);
-					adminMenu.setAdmin_access_yn("Y");
-				}
+				adminMenu.setAdmin_access_yn("Y");
 				model.addAttribute("adminMenuList", adminMenuService.getAdminMenuListNew(adminMenu));
 			} else {
-				//사이트가 관리권한이 없는 경우 가진 권한에 대한 메뉴만 불러온다.
 				adminMenu.setAuthgroupIdxList(memberGroupAuthService.getAuthGroupIdxList(adminMenu));
 				if (adminMenu.getAuthgroupIdxList() != null && adminMenu.getAuthgroupIdxList().size() > 0) {
 					model.addAttribute("adminMenuList", adminMenuService.getAdminMenuListNew(adminMenu));
 				}
 			}
-
 		}
 
 		model.addAttribute("adminMenu", adminMenu);
+
 		return basePath + "aside";
 	}
 
 	@RequestMapping(value = {"/bside.*"})
 	public String bside(Model model, AdminMenu adminMenu, HttpServletRequest request) {
-
 		return basePath + "bside";
+	}
+
+	@RequestMapping("/asideHomepage.*")
+	public String asideHomepage(AdminMenu adminMenu, HttpServletRequest request) {
+		request.getSession().setAttribute("adminMenu", adminMenu);
+		request.setAttribute("adminMenu", adminMenu);
+		request.getSession().setAttribute("asideHomepageId", adminMenu.getHomepage_id());
+		
+		//TODO 해당 홈페이지에서 사용하지 않는 메뉴를 클릭하였을때 main페이지인 /cms/index.jsp로 보내야함.
+
+		return basePath + "index";
 	}
 
 }

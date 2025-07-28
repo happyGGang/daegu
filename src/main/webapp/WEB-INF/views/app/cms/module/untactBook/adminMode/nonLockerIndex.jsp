@@ -15,18 +15,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/fontawesome.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/jquery-ui-1.12.0.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/common/css/select2.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://www.gbelib.kr/resources/cms/survey/css/container.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/survey/css/container.css"/>
 
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-ui-1.12.0.min.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/common/js/common.js"></script>
-<script type="text/javascript" src="https://www.gbelib.kr/resources/cms/js/design.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
+<script type="text/javascript" src="/resources/common/js/common.js"></script>
+<script type="text/javascript" src="/resources/cms/js/design.js"></script>
 
 <script type="text/javascript">
 $(function() {

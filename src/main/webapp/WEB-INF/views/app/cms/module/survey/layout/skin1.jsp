@@ -9,7 +9,6 @@
 <!--[if IE]>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>

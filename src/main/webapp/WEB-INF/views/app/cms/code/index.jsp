@@ -229,14 +229,6 @@ int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 		</div>
 		<div class="table-wrap">
 			<table class="border-all">
-				<colgroup>
-					<col width="120"/>
-					<col/>
-					<col width="120"/>
-					<col/>
-					<col width="120"/>
-					<col/>
-				</colgroup>
 				<thead>
 					<tr>
 						<th colspan="2">코드그룹 정보</th>

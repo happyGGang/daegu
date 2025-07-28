@@ -13,7 +13,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10"/>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <!--[if lte IE 7]>

@@ -68,17 +68,9 @@ public class LoginController extends BaseController {
 			redirectURL += ":"+redirectPort;
 		}
 
-//		if(result.hasErrors()){
-//			System.out.println(result);
-//			for(ObjectError error: result.getAllErrors()){
-//				System.out.println(msg.getMessage(this,error.getDefaultMessage()));
-//			}
-//			return basePath + "index";
-//		}
-
 		Member member = new Member();
-		member.setMember_id(login.getMember_id());
-		member.setMember_pw(login.getMember_pw());
+		member.setMember_id(login.getMember_id() != null ? login.getMember_id().trim() : "");
+		member.setMember_pw(login.getMember_pw() != null ? login.getMember_pw().trim() : "");
 
 		request.getSession().removeAttribute("loginSupport");
 		request.getSession().removeAttribute("loginPortal");
@@ -101,13 +93,13 @@ public class LoginController extends BaseController {
 
 					if (daysBetween.getDays() > expiryDay) {
 						Homepage homepage = new Homepage();
-						//TODO
+
 						homepage.setManage_code(member.getLoca());
 						Homepage getHomepage = homepageService.getHomepageOneByCode(homepage);
 
 						int menuIdx = homepageService.getMenuIdxByLinkUrl(getHomepage.getHomepage_id(), "/intro/join/changePwForm.do");
 
-						String passwordExpiry = String.format("https://gbelib.kr/%s/intro/join/passwordExpiry.do?menu_idx=%s", getHomepage.getContext_path(), menuIdx);
+						String passwordExpiry = String.format("https://library.daegu.go.kr/%s/intro/join/passwordExpiry.do?menu_idx=%s", getHomepage.getContext_path(), menuIdx);
 
 						request.getSession().setAttribute("passwordExpiry", passwordExpiry);
 
@@ -122,7 +114,6 @@ public class LoginController extends BaseController {
 				if (returnUrl.contains("/cms/")) {
 					redirectURL = "redirect:" + redirectURL + "/cms/index.do";
 				} else {
-//					redirectURL = "redirect:" + request.getSession().getAttribute("returnUrl");
 					redirectURL = "redirect:" + redirectURL + getPath(request.getRequestURI()) + "/index.do";
 				}
 			}else{
@@ -147,11 +138,8 @@ public class LoginController extends BaseController {
 	 */
 	@RequestMapping(value="/logout.*", method=RequestMethod.GET)
 	public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-//		String redirectURL = request.getServerName() + ":" + request.getServerPort();
-		String redirectURL = request.getServerName();
 		service.logout(request);
 		return "redirect:/cms/login/index.do";
-
 	}
 
 

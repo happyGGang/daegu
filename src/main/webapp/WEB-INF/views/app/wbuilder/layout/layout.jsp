@@ -6,12 +6,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8"/>
-<meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
-<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>WBuilder - 더블유빌더</title>
-<!--[if IE]>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-<![endif]-->
+<meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+<title>SJS - 도서관통합관리프로그램</title>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/cms/css/aside.css"/>
@@ -24,19 +21,12 @@
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript" src="/resources/cms/js/design.js"></script>
-
-<!--[if IE 7]>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
-<![endif]-->
-<!--[if lte IE 8]>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/ie-old.css"/>
-<![endif]-->
 </head>
 <body style="background: #fff; ">
-<div id="wrap" style="width: 300px; float: left; height: 100%; background: #293649">
+<div id="wrap" class="left-sidebar">
 	<div class="aside">
 		<div id="header">
-			<h1><b>W</b>Builder</h1>
+			<h1><a href="/wbuilder/index.do">SJS</a></h1>
 			<div>
 				<p><b>(${sessionScope.member.member_name})</b>님 로그인 중입니다.</p>
 				<p>
@@ -50,14 +40,11 @@
 						<em>사이트관리 이동</em>
 					</a>
 				</p>
-				<p>
-					
-				</p>
 			</div>
 		</div>
 		<ul>
 			<li id="memberGroup">
-				<a href="" class="code2"><i class="fa fa-desktop"></i><span>사용자 관리</span></a>
+				<a href="javascript:void(0);" class="code2"><i class="fa fa-desktop"></i><span>사용자 관리</span></a>
 				<ul>
 					<li><a href="/wbuilder/memberGroup/index.do" >그룹관리</a></li>
 					<li><a href="/wbuilder/member/index.do" >사용자관리</a></li>
@@ -66,13 +53,13 @@
 				</ul>
 			</li>
 			<li id="memberGroupAuth">
-				<a href="" class="code2"><i class="fa fa-desktop"></i><span>권한 관리</span></a>
+				<a href="javascript:void(0);" class="code2"><i class="fa fa-desktop"></i><span>권한 관리</span></a>
 				<ul>
 					<li><a href="/wbuilder/memberGroupAuth/index.do" >그룹권한 관리</a></li>
 				</ul>
 			</li>
 			<li id="cmsManage">
-				<a href="" class="code2"><i class="fa fa-desktop"></i><span>CMS 관리</span></a>
+				<a href="javascript:void(0);" class="code2"><i class="fa fa-desktop"></i><span>CMS 관리</span></a>
 				<ul>
 					<li><a href="/wbuilder/accessIp/index.do" >접근가능 IP</a></li>
 					<li><a href="/wbuilder/limitedIp/index.do" >홈페이지 접근불가능 IP</a></li>
@@ -85,181 +72,107 @@
 			</li>
 		</ul>
 	</div>
-
 </div>
+
 <div id="container"style="float: left; clear: none; width: 80%;">
-	<div class="page-subtitle">
-		<h3>
-			${topMenuName}
-<!-- 			<a href="#" class="help" title="도움말"><i class="fa fa-question-circle"></i><span class="sr-only">안내</span></a> -->
-		</h3>
-		<p>${topMenuDesc}</p>
-		<div class="location">
-			<c:forEach var="i" varStatus="status" items="${topMenuFullPathName}">
-				<c:if test="${!status.last}">
-					<span>${i}</span>
-					<em>&gt;</em>
-				</c:if>
-				<c:if test="${status.last}">
-					<strong>${i}</strong>
-				</c:if>
-			</c:forEach>
-		</div>
-	</div>
 	<div class="wrapper wrapper-white" >
 		<tiles:insertAttribute name="body" />
 	</div>
 </div>
 
-
-
-
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	if (location.href.indexOf('memberGroupAuth') > 0) {
-		$('li#memberGroupAuth').addClass('active');
-	} else if (location.href.indexOf('member') > 0 || location.href.indexOf('accountLock') > 0 || location.href.indexOf('loginLog') > 0) {
-		$('li#memberGroup').addClass('active');
-	} else if (location.href.indexOf('adminMenu') == -1) {
-		$('li#cmsManage').addClass('active');
-	} 
-	
-	var loading = $('<div id="loading" class="loading"></div><img id="loading_img" alt="loading" src="/resources/common/img/viewLoading.gif" />').appendTo(document.body).hide();
-	
-	$(window).ajaxStart(function(){
-		loading.show();
-	}).ajaxStop(function(){
-		loading.hide();
-	}).ajaxComplete(function(){
-		loading.hide();
-	});
+	$(document).ready(function() {
+		const currentPath = window.location.pathname;
 
-	//테이블 공통 (tr,th,td 처음과 끝 요소 클래스명 부여)
-	$('table tr:first-child').addClass('first');
-	$('table tr').each(function(){
-		$(this).children('th:first-child,td:first-child').addClass('first');
-		$(this).children('th:last-child,td:last-child').addClass('last');
-	});
-
-	//달력
-	
-	//셀렉트 메뉴
-	$('.selectmenu-search').select2({
-		//셀렉트 메뉴에 검색 기능 사용
-	});
-	$('.selectmenu').select2({
-		//셀렉트 메뉴에 검색 기능 사용 안함
-		minimumResultsForSearch: Infinity
-	});
-
-	//type1 테이블에서 체크박스 체크 시 highlight
-	$('table.type1 tbody tr').each(function(){
-		$(this).on('click',function(){
-			if($(this).find('input[type="checkbox"]').is(':checked')){
-				$(this).addClass('highlight');
-			}else{
-				$(this).removeClass('highlight');
+		// 현재 경로에 해당하는 메뉴 활성화
+		$('.aside a').each(function () {
+			const linkPath = $(this).attr('href');
+			if (linkPath && currentPath === linkPath) {
+				const $li = $(this).closest('li');
+				$li.addClass('active');
+				$li.parents('ul').show();
+				$li.parents('li').addClass('active');
 			}
 		});
-	});
-	
-	//메뉴 유형 선택 시 추가 옵션 (cont2.jsp)
-	$('.menuType').each(function(i){
-		var i = i+1;
-		$(this).attr('id','menuType'+i);
-	});
-	$('.menuTypeBox .radio input').each(function(i){
-		var i = i+1;
-		$(this).on('click',function(){
-			$('.menuType').hide();
-			$('#menuType'+i).show();
-		});
-		if($(this).prop('checked')){
-			$('.menuType').hide();
-			$('#menuType'+i).show();
-		}
-	});
-	
-	//왼쪽메뉴
-	$('.aside > ul > li').each(function(){
-		if($(this).find('ul').length > 0){
-			$(this).children('a').on('click',function(){
-				if($(this).parent().hasClass('active')){
-					$('.aside > ul > li > ul').slideUp(80);
-					$('.aside > ul > li').removeClass('active');
-					$(this).parent().removeClass('active');
-				}else{
-					$('.aside > ul > li > ul').slideUp(80);
-					$('.aside > ul > li').removeClass('active');
-					$(this).parent().children('ul').slideDown(80);
-					$(this).parent().addClass('active');
-				}
-				return false;
-			});
-			if($(this).find('li').hasClass('active')){
-				$(this).addClass('active');
+
+		function activateMenu() {
+			const href = location.href;
+
+			if (href.indexOf('memberGroupAuth') >= 0) {
+				$('li#memberGroupAuth').addClass('active');
+			} else if (href.indexOf('member') >= 0 || href.indexOf('accountLock') >= 0 || href.indexOf('loginLog') >= 0) {
+				$('li#memberGroup').addClass('active');
+			} else if (href.indexOf('adminMenu') === -1 && !href.includes('/wbuilder/index.do')) {
+				$('li#cmsManage').addClass('active');
 			}
-		}else{
-			$(this).addClass('s');
 		}
-	});
-	$('.aside > ul > li > ul > li').each(function(){
-		if($(this).find('ul').length > 0){
-			$(this).children('a').on('click',function(){
-				if($(this).parent().hasClass('active')){
-					$('.aside > ul > li > ul > li > ul').slideUp(80);
-					$('.aside > ul > li > ul > li').removeClass('active');
-					$(this).parent().removeClass('active');
-				}else{
-					$('.aside > ul > li > ul > li > ul').slideUp(80);
-					$('.aside > ul > li > ul > li').removeClass('active');
-					$(this).parent().children('ul').slideDown(80);
-					$(this).parent().addClass('active');
-				}
-				return false;
+
+		// 테이블 셀 첫/마지막에 클래스 부여
+		function applyTableClass() {
+			$('table tr:first-child').addClass('first');
+			$('table tr').each(function() {
+				$(this).children('th:first-child, td:first-child').addClass('first');
+				$(this).children('th:last-child, td:last-child').addClass('last');
 			});
-		}else{
-			$(this).addClass('s');
 		}
+
+		// 체크박스 클릭 시 행 하이라이팅
+		function highlightRowOnCheckbox() {
+			$('table.type1 tbody tr').on('click', function() {
+				$(this).toggleClass('highlight', $(this).find('input[type="checkbox"]').is(':checked'));
+			});
+		}
+
+		// 사이드 메뉴 토글 처리
+		function setupAsideMenuToggle() {
+			$('.aside > ul > li').each(function() {
+				const $li = $(this);
+
+				if ($li.find('ul').length > 0) {
+					$li.children('a').on('click', function(e) {
+						e.preventDefault();
+						const isActive = $li.hasClass('active');
+						$('.aside > ul > li > ul').slideUp(80);
+						$('.aside > ul > li').removeClass('active');
+						if (!isActive) {
+						$li.children('ul').slideDown(80);
+						$li.addClass('active');
+						}
+					});
+					if ($li.find('li.active').length > 0) $li.addClass('active');
+				} else {
+					$li.addClass('s');
+				}
+			});
+
+			$('.aside > ul > li > ul > li').each(function() {
+				const $li = $(this);
+				if ($li.find('ul').length > 0) {
+					$li.children('a').on('click', function(e) {
+						e.preventDefault();
+
+						const isActive = $li.hasClass('active');
+
+						$('.aside > ul > li > ul > li > ul').slideUp(80);
+						$('.aside > ul > li > ul > li').removeClass('active');
+
+						if (!isActive) {
+							$li.children('ul').slideDown(80);
+							$li.addClass('active');
+						}
+					});
+				} else {
+					$li.addClass('s');
+				}
+			});
+		}
+
+		activateMenu();
+		applyTableClass();
+		highlightRowOnCheckbox();
+		setupAsideMenuToggle();
 	});
-	
-	$('.selectmenu').select2({
-		//셀렉트 메뉴에 검색 기능 사용 안함
-		minimumResultsForSearch: Infinity
-	});
-});
 </script>
-
-
-
-<style>
-/* 로딩*/
-#loading {
-	height: 100%;
-	left: 0px;
-	position: fixed;
-	_position: absolute;
-	top: 0px;
-	width: 100%;
-	filter: alpha(opacity = 50);
-	-moz-opacity: 0.5;
-	opacity: 0.5;
-}
-.loading {
-	background-color: white;
-	z-index: 9999;
-}
-#loading_img {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	height: 35px;
-	margin-top: -75px; 
-	margin-left: -75px;
-	z-index: 200;
-}
-</style>
 </body>
 </html>
 

@@ -2,6 +2,7 @@ package kr.co.whalesoft.app.cms.adminMenu;
 
 import java.util.List;
 
+import com.googlecode.ehcache.annotations.Cacheable;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class AdminMenuService extends BaseService {
 		return dao.getAdminMenuList(adminMenu);
 	}
 
+	@Cacheable(cacheName="cmsMenuCache")
 	public List<AdminMenu> getAdminMenuListNew(AdminMenu adminMenu) {
 		List<AdminMenu> adminMenuListNew = dao.getAdminMenuListNew(adminMenu);
 		for (AdminMenu adminMenu2 : adminMenuListNew) {
