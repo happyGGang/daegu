@@ -120,7 +120,7 @@ public class StudentController extends BaseController {
 		}
 
 		//블랙리스트 체크
-		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10", String.valueOf(teachOne.getLarge_category_idx()))) {
+		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10", teachOne.getLarge_category_idx(),teachOne.getGroup_idx(),teachOne.getCategory_idx())) {
 			service.alertMessage("신청이 불가능합니다.\\n도서관에 문의해주세요.", request, response);
 			return null;
 		}
@@ -192,7 +192,7 @@ public class StudentController extends BaseController {
 			}
 		}
 
-		if(student.getEditMode().equals("ADD")) {
+		if(student.getEditMode().equals("ADD") && !student.getHomepage_id().equals("h1") && student.getLarge_category_idx() != 16 || student.getEditMode().equals("ADD") && !student.getHomepage_id().equals("h1") && student.getLarge_category_idx() != 18) {
 //			ValidationUtils.rejectIfEmpty(result, "member_id", "신청자ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_name", "신청자명을 입력하세요.");
 			ValidationUtils.rejectNumbers(result, "applicant_name", "신청자명에는 숫자를 입력할 수 없습니다.");
@@ -309,30 +309,55 @@ public class StudentController extends BaseController {
 			}
 
 			if(student.getEditMode().equals("ADD")) {
-				String memberId = getSessionMemberId(request);
-				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
-					memberId = "ANONYMOUS";
-					student.setStudent_password(CalculateHashUtils.calculateHash(student.getStudent_password()));
-					student.setApplicant_name(student.getApplicant_name().trim());
-				}
-
-				if (StringUtils.isNotEmpty(memberId)) {
-					student.setAdd_id(getSessionMemberId(request));
+				if (!student.getHomepage_id().equals("h1") && student.getLarge_category_idx() != 16 || !student.getHomepage_id().equals("h1") && student.getLarge_category_idx() != 18) {
+					String memberId = getSessionMemberId(request);
 					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
-						student.setAdd_id(memberId);
+						memberId = "ANONYMOUS";
+						student.setStudent_password(CalculateHashUtils.calculateHash(student.getStudent_password()));
+						student.setApplicant_name(student.getApplicant_name().trim());
 					}
+
+					if (StringUtils.isNotEmpty(memberId)) {
+						student.setAdd_id(getSessionMemberId(request));
+						if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+							student.setAdd_id(memberId);
+						}
+					} else {
+						student.setAdd_id(getSessionMemberId(request));
+					}
+					student.setWeb_id(student.getMember_id());
+					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+						student.setWeb_id(memberId);
+					}
+					if (!"ANONYMOUS".equals(memberId)) {
+						student.setMember_key(student.getMember_id());
+					}
+					student.setApi_user_id(student.getMember_id());
+					student.setSearch_api_type("USER_ID");
 				} else {
-					student.setAdd_id(getSessionMemberId(request));
+					String memberId = getSessionMemberId(request);
+					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+						memberId = "ANONYMOUS";
+					}
+
+					if (StringUtils.isNotEmpty(memberId)) {
+						student.setAdd_id(getSessionMemberId(request));
+						if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+							student.setAdd_id(memberId);
+						}
+					} else {
+						student.setAdd_id(getSessionMemberId(request));
+					}
+					student.setWeb_id(student.getMember_id());
+					if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
+						student.setWeb_id(memberId);
+					}
+					if (!"ANONYMOUS".equals(memberId)) {
+						student.setMember_key(student.getMember_id());
+					}
+					student.setApi_user_id(student.getMember_id());
+					student.setSearch_api_type("USER_ID");
 				}
-				student.setWeb_id(student.getMember_id());
-				if (StringUtils.equals(teachOne.getMember_yn(), "Y") && !isLogin(request)) {
-					student.setWeb_id(memberId);
-				}
-				if (!"ANONYMOUS".equals(memberId)) {
-					student.setMember_key(student.getMember_id());
-				}
-				student.setApi_user_id(student.getMember_id());
-				student.setSearch_api_type("USER_ID");
 
 //				String writer = quizReq.getName() + "/" + quizReq.getSchool() + "/" + quizReq.getBan();
 //				String addResult = WebFilterCheckUtils.webFilterCheck(writer, "강좌 신청", );

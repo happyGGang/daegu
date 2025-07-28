@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.go.gbelib.app.cms.module.blackListDetail.BlackListDetailDao">
+    <insert id="addBlackListDetail">
+        INSERT INTO
+        BLACK_LIST_DETAIL
+        (
+        detail_idx,homepage_id, black_idx, member_id, member_name,
+        black_type, add_date, add_id, modify_date,
+        modify_id,teach_code, group_idx, category_idx
+        ) VALUES
+        (
+        BLACK_LIST_DETAIL_SEQ.NEXTVAL,#{homepage_id}, #{black_idx}, #{member_id}, #{member_name},
+        #{black_type}, SYSDATE, #{add_id}, SYSDATE,
+        #{modify_id}, #{teach_code}, #{group_idx}, #{category_idx}
+        )
+    </insert>
+
+    <select id="checkBlackListCode" resultType="kr.go.gbelib.app.cms.module.blackListDetail.BlackListDetail">
+        SELECT *
+        FROM BLACK_LIST_DETAIL
+        WHERE BLACK_IDX = #{black_idx}
+          AND HOMEPAGE_ID = #{homepage_id}
+          AND BLACK_TYPE = #{black_type}
+          AND teach_code = #{teach_code}
+          AND (
+            (   group_idx = 0 AND category_idx = 0)
+                <if test="group_idx != 0">
+                OR (group_idx = #{group_idx} AND category_idx = 0)
+                </if>
+                <if test="category_idx != 0">
+                    OR (group_idx = #{group_idx} AND category_idx = #{category_idx})
+                </if>
+            );
+    </select>
+
+    <select id="getTeachCodeLists" resultType="kr.go.gbelib.app.cms.module.blackListDetail.BlackListDetail">
+        WITH base AS (
+            SELECT *
+            FROM BLACK_LIST_DETAIL
+            WHERE homepage_id = #{homepage_id}
+              AND BLACK_IDX = #{black_idx}
+        )
+        SELECT
+            -- teach_code 모두 포함 (group_idx=0, category_idx=0)
+            (SELECT LISTAGG(teach_code, ',')
+                        WITHIN GROUP (ORDER BY detail_idx)
+        FROM base
+        WHERE category_idx = 0 AND group_idx = 0
+            ) AS teach_codes,
+
+            (SELECT LISTAGG(teach_code || '_' || group_idx, ',')
+            WITHIN GROUP (ORDER BY detail_idx)
+        FROM base
+        WHERE group_idx != 0 AND category_idx = 0
+            ) AS group_ids,
+            (SELECT LISTAGG(teach_code || '_' || group_idx || '_' || category_idx, ',')
+            WITHIN GROUP (ORDER BY detail_idx)
+        FROM base
+        WHERE category_idx != 0
+            ) AS category_ids
+        FROM dual
+    </select>
+
+    <insert id="addBlackListDetailBatch" parameterType="java.util.List">
+        INSERT INTO BLACK_LIST_DETAIL (
+        detail_idx, homepage_id, black_idx, member_id, member_name,
+        black_type, add_date, add_id, modify_date,
+        modify_id, teach_code, group_idx, category_idx
+        )
+        <foreach collection="list" item="item" separator="UNION ALL">
+            SELECT
+            BLACK_LIST_DETAIL_SEQ.NEXTVAL,
+            #{item.homepage_id}, #{item.black_idx}, #{item.member_id}, #{item.member_name},
+            #{item.black_type}, SYSDATE, #{item.add_id}, SYSDATE,
+            #{item.modify_id}, #{item.teach_code}, #{item.group_idx}, #{item.category_idx}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <delete id="deleteBlackListDetails">
+        DELETE FROM
+        BLACK_LIST_DETAIL
+        WHERE
+        homepage_id = #{homepage_id}
+        <choose>
+            <when test="black_idx > 0">
+                AND black_idx = #{black_idx}
+            </when>
+            <otherwise>
+                AND member_id = #{member_id}
+            </otherwise>
+        </choose>
+    </delete>
+
+</mapper>

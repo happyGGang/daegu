@@ -369,7 +369,7 @@ public class IndexController extends BaseController {
 		}
 
 		//블랙리스트 체크
-		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10", String.valueOf(teachOne.getLarge_category_idx()))) {
+		if ( blackListService.checkBlackList(new BlackList(student.getHomepage_id(), getSessionMemberId(request)), "10",teachOne.getLarge_category_idx(),teachOne.getGroup_idx(),teachOne.getCategory_idx())) {
 			service.alertMessageAndUrlKiosk(homepage.getHomepage_name(), "신청이 불가능합니다.\\n도서관에 문의해주세요.", String.format("/%s/kiosk/teachIndex.do", homepage.getContext_path()) , request, response);
 			return null;
 		}
