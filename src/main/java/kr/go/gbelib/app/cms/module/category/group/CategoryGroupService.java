@@ -28,7 +28,12 @@ public class CategoryGroupService extends BaseService {
 	public CategoryGroup getCategoryGroupOne(CategoryGroup categoryGroup) {
 		return categoryGroupDao.getCategoryGroupOne(categoryGroup);
 	}
-	
+
+	// 중분류
+	public List<CategoryGroup> getMiddleTeachCategoryGroupByLargeIdx(CategoryGroup categoryGroup) {
+		return categoryGroupDao.getMiddleTeachCategoryGroupByLargeIdx(categoryGroup);
+	}
+
 	public int addCategoryGroup(CategoryGroup categoryGroup) {
 		if (StringUtils.equals(categoryGroup.getReq_limit_yn(), "N")) {
 			categoryGroup.setReq_limit_count(0);

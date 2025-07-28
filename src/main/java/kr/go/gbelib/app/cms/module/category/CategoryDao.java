@@ -7,7 +7,8 @@ public interface CategoryDao  {
 	public List<Category> getCategoryList(Category category);
 	
 	public List<Category> getCategoryListAll(Category category);
-	
+	public List<Category> getSmallCategoryListInLargeCode(Category category);
+
 	public int getCategoryListCount(Category category);
 	
 	public Category getCategoryOne(Category category);

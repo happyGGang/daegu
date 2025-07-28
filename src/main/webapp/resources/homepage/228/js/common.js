@@ -50,7 +50,6 @@ var pageMain = (function(){
 })();
 
 $(function(){
-	
 	// 팝업존(중앙도서관)
 	if ($('.popZone ul').length > 0) {
 		$('.popZone ul').bxSlider({
@@ -59,24 +58,8 @@ $(function(){
 			pagerType: 'short',
 			auto: true,
 			autoControls: true,
-			autoControlsCombine: true
+			autoControlsCombine: true,
+			pause: 8000  // 8초마다 슬라이드 전환
 		});
 	}
-
-	// $('.movieContent ul').bxSlider({
-	// 	auto: true,
-	// 	pager:false,
-	// 	autoControls:true,
-	// 	autoControlsCombine:true
-	// });
-
-	// $('.event-box > ul').bxSlider({
-	// 	mode:'vertical',
-	// 	pager:false
-	// });
-
-	// $('.holiday-box > ul').bxSlider({
-	// 	mode:'vertical',
-	// 	pager:false
-	// });
 });

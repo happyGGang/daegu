@@ -21,6 +21,21 @@
 			PRINT_SEQ DESC, add_date desc
 	</select>
 
+	<select id="getSmallCategoryListInLargeCode" resultType="kr.go.gbelib.app.cms.module.category.Category">
+		SELECT
+			homepage_id, category_name, category_idx ,group_idx, print_seq, use_yn,
+			add_date, add_id, modify_date, modify_id, req_limit_yn,
+			req_limit_type, req_limit_count, large_category_idx, homepage_view_yn
+		FROM
+			TEACH_CATEGORY
+		WHERE
+			homepage_id = #{homepage_id}
+		  AND	large_category_idx in (SELECT TEACH_CODE FROM TEACH_CODE2 WHERE PARENT_ID = 15 and HOMEPAGE_ID='h1' AND DELETE_YN='N')
+		  AND	delete_yn = 'N'
+		ORDER BY
+			group_idx DESC
+	</select>
+
 	<select id="getCategoryList" resultType="kr.go.gbelib.app.cms.module.category.Category">
 		${pagingTop}
 			SELECT

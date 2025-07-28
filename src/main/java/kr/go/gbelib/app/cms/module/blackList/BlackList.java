@@ -18,6 +18,8 @@ public class BlackList extends PagingUtils {
 	private String modify_id; // 수정ID
 	private String delete_yn; // 삭제여부
 	private String teach_code;
+	private String group_idx;
+	private String category_idx;
 	private String homepage_name;
 
 	private String after_click_btn;
@@ -25,6 +27,22 @@ public class BlackList extends PagingUtils {
 	private String search_api_type = "WEBID";
 
 	public BlackList() {
+	}
+
+	public String getGroup_idx() {
+		return group_idx;
+	}
+
+	public void setGroup_idx(String group_idx) {
+		this.group_idx = group_idx;
+	}
+
+	public String getCategory_idx() {
+		return category_idx;
+	}
+
+	public void setCategory_idx(String category_idx) {
+		this.category_idx = category_idx;
 	}
 
 	public BlackList(String homepage_id, String member_id) {

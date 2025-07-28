@@ -11,6 +11,8 @@
 				<a href="/${homepage.context_path}/html.do?menu_idx=90">도서관서비스헌장</a>
 				<a href="/${homepage.context_path}/html.do?menu_idx=91">저작권신고</a>
 				<a href="/${homepage.context_path}/html.do?menu_idx=94">성고충상담창구</a>
+				<a href="/${homepage.context_path}/sitemap/index.do?menu_idx=92">사이트맵</a>
+				<a href="/${homepage.context_path}/html.do?menu_idx=109">찾아오시는길</a>
 			</div>
 			<div class="library-detail">
 				<div class="library-name">대구광역시립달성도서관</div>
@@ -19,13 +21,6 @@
 					<div><span>대표전화</span>053-231-2150</div>
 					<div><span>팩스</span>053-615-7975</div>
 				</div>
-			</div>
-		</div>
-		<div class="sns-wrapper">
-			<div class="sns-title">SNS</div>
-			<div class="sns-list">
-				<a class="x sns-icon" href="https://x.com/dalseonglib"></a>
-				<a class="facebook sns-icon" href="https://www.facebook.com/dalseonglibrary"></a>
 			</div>
 		</div>
 	</div>

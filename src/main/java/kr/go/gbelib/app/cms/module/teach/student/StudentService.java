@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -181,8 +182,8 @@ public class StudentService extends BaseService {
 					if ( "SEX".equals(oneLimitUnit) ) {
 						if ( !student.getApplicant_sex().equals(limitValue[i]) ) {
 							addResult[0] = false;
-
 							addResult[1] = String.format("해당 강좌는 성별 제한이 있습니다.");
+							teachLog(student, student.getApplicant_birth(), teach);
 							return addResult;
 						}
 					}else {
@@ -192,7 +193,6 @@ public class StudentService extends BaseService {
 						} else {
 							birthCheck = student.getApplicant_birth();
 						}
-
 						Optional<String> birth = Optional.ofNullable(birthCheck);
 						if (birth.isPresent()) {
 							LocalDate birthDate = LocalDate.parse(birthCheck, DateTimeFormatter.ISO_LOCAL_DATE);
@@ -207,6 +207,7 @@ public class StudentService extends BaseService {
 							}
 
 							if (!(birthDate.isAfter(startDate.minusDays(1)) && birthDate.isBefore(endDate.plusDays(1)))) {
+								teachLog(student, birthCheck, teach);
 								addResult[0] = false;
 								addResult[1] = String.format("해당강좌는 %s 년생 이상 %s 년생 이하 만 신청 가능합니다.", startDate, endDate );
 								return addResult;
@@ -260,6 +261,7 @@ public class StudentService extends BaseService {
 					String toHakStr = codeService.getCodeOne("CMS", "C0020", teach.getLimit_hak2()).getCode_name();
 					addResult[0] = false;
 					addResult[1] = String.format("해당강좌는 %s 이상 %s 이하 만 신청 가능합니다.", formHakStr, toHakStr);
+					teachLog(student, fromHak + " : " + toHak, teach);
 					return addResult;
 				}
 			}
@@ -432,6 +434,14 @@ public class StudentService extends BaseService {
 			addResult[1] = "해당 강의 정보가 없습니다.";
 			return addResult;
 		}
+	}
+
+	private void teachLog(Student student, String birthCheck, Teach teach) {
+		System.out.println("@@@@@@@ StudentController birthCheck: " + birthCheck);
+		System.out.println("@@@@@@@ StudentController Homepage_id: " + student.getHomepage_id());
+		System.out.println("@@@@@@@ StudentController Teach_name: " + teach.getTeach_name());
+		System.out.println("@@@@@@@ StudentController LocalDateTime: " + LocalDateTime.now());
+		System.out.println("@@@@@@@ StudentController Member_id : " + student.getMember_id());
 	}
 
 	@Transactional

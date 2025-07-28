@@ -195,8 +195,7 @@ $(function() {
 				return false;
 			}
 			</c:if>
-
-			<c:if test="${teach.birth_yn eq 'Y'}">
+			<c:if test="${teach.birth_yn eq 'Y' and homepage.context_path ne '228' and param.large_category_idx ne '16' or teach.birth_yn eq 'Y' and homepage.context_path ne '228' and param.large_category_idx ne '18'}">
 			if ($form.find("#applicant_birth").val() == '') {
 				$form.find('#applicant_birth').focus();
 				alert('신청자 생년월일을 입력해 주세요.');

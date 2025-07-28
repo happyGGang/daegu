@@ -1604,6 +1604,7 @@ public class JoinController extends BaseController {
 			}
 
 			Member integrationMember = new Member();
+			integrationMember.setUser_no(String.valueOf(checkDupUser.get(0).get("USER_NO")));
 			integrationMember.setMember_name(String.valueOf(checkDupUser.get(0).get("NAME")));
 			integrationMember.setCell_phone(String.valueOf(checkDupUser.get(0).get("HANDPHONE")).replaceAll("-", ""));
 			String birthday = String.valueOf(checkDupUser.get(0).get("BIRTHDAY"));
@@ -1614,7 +1615,7 @@ public class JoinController extends BaseController {
 				integrationMember.setBirth_day(String.valueOf(checkDupUser.get(0).get("BIRTHDAY")).replaceAll("/", ""));
 			}
 
-			List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("4", integrationMember);
+			List<Map<String, Object>> integrationMemberList = MemberAPI.checkDupUser("2", integrationMember);
 			for (Map<String, Object> map : integrationMemberList) {
 				map.put("ORDER2", "N");
 				String ipin_hash = String.valueOf(map.get("IPIN_HASH"));

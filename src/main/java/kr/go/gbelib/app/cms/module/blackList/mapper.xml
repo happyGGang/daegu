@@ -50,7 +50,7 @@
 
 	<select id="checkBlackList" resultType="kr.go.gbelib.app.cms.module.blackList.BlackList">
 		SELECT
-			black_type, teach_code
+			homepage_id,black_idx ,black_type, teach_code
 		FROM
 			BLACKLIST
 		WHERE
@@ -94,8 +94,7 @@
 			black_type = #{black_type},
 			reason = #{reason},
 			modify_date = SYSDATE,
-			modify_id = #{modify_id},
-			teach_code = #{teach_code}
+			modify_id = #{modify_id}
 		WHERE
 			homepage_id = #{homepage_id}
 		AND	black_idx = #{black_idx}

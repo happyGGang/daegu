@@ -15,6 +15,9 @@ public class CategoryService extends BaseService {
 	public List<Category> getCategoryListAll(Category category) {
 		return categoryDao.getCategoryListAll(category);
 	}
+	public List<Category> getSmallCategoryListInLargeCode(Category category) {
+		return categoryDao.getSmallCategoryListInLargeCode(category);
+	}
 	 
 	public List<Category> getCategoryList(Category category) {
 		return categoryDao.getCategoryList(category);

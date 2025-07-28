@@ -1,6 +1,10 @@
 package kr.go.gbelib.app.cms.module.teach.teachCode2;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
+import kr.go.gbelib.app.cms.module.category.Category;
+import kr.go.gbelib.app.cms.module.category.group.CategoryGroup;
+
+import java.util.List;
 
 public class TeachCode2 extends PagingUtils {
 
@@ -16,6 +20,16 @@ public class TeachCode2 extends PagingUtils {
 	private String modify_id;
 	private String delete_yn;
 	private int cnt;
+	private List<CategoryGroup> groupList;
+
+
+	public List<CategoryGroup> getGroupList() {
+		return groupList;
+	}
+
+	public void setGroupList(List<CategoryGroup> groupList) {
+		this.groupList = groupList;
+	}
 
 	public TeachCode2() {
 	}

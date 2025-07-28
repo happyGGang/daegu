@@ -491,7 +491,7 @@ $(function(){
 		<h3>운영안내</h3>
 		<ul class="con">
 			<li>운영대상: 서부교육지원청 관내 유치원 및 서구지역 어린이집(만3세~만6세(5~7세))</li>
-			<li>운영기간: 상반기(3~6월) / 하반기(9~11월) 매주 화~목 10:00~11:30 중 선택</li>
+			<li>운영기간: 상반기(3~6월) / 하반기(9~11월) 매주 화~목 10:30~11:30 중 선택</li>
 			<li>운영방법: 1일 1회 20명 내외</li>
 			<li>운영내용: 도서관 이용교육 및 자율독서 등</li>
 		</ul>
@@ -507,7 +507,7 @@ $(function(){
 			<li>문의처: 어린이자료실(☎053-231-2451)</li>
 		</ul>
 		<div><br>
-		<p class="btn_wd_p p_btn_ml10"><a href="/board/boardFile/download/37/510624/340830.do" class="ct-btn" title="책소풍 참가신청서(새창열림)"><span class="down">1일 책소풍 참가신청서</span></a></p>
+		<p class="btn_wd_p p_btn_ml10"><a href="/board/boardFile/download/37/536414/387197/서부도서관 책소풍 참가신청서.hwp.do" class="ct-btn" title="책소풍 참가신청서(새창열림)"><span class="down">1일 책소풍 참가신청서</span></a></p>
 		</div>
 	</div>
 	<br>

@@ -160,13 +160,13 @@ function upload_tempfile(dialog) {
 		alert('파일을 선택해주세요.');
 		return;
 	}
-	
 	var option = {
 		url: 'add_temp_file.do',
 		type: "POST",
 		data: { homepage_id: '${menuHtml.homepage_id}', menu_idx: '${menuHtml.menu_idx}' },
 		dataType: 'json',
 		success: function(data) {
+			console.log(data);
 			if(data.isValid == false) {
 				alert('오류가 발생했습니다. 다시 시도해주세요.');
 			} else {

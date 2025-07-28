@@ -41,6 +41,10 @@ do {
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery.swiper.css"/>
 <script type="text/javascript" src="/resources/common/js/jquery.fullpage.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery.swiper.min.js"></script>
+<style>
+	.mm-listview .mm-listview>li.mm-vertical>.mm-next,
+	.mm-listview .mm-vertical .mm-listview>li>.mm-next{height:40px !important;}
+</style>
 <script type="text/javascript">
 	$(function() {
 		$('#homeup').click(function () {

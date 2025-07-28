@@ -14,6 +14,10 @@
 		</div>
 		<div class="util-wrapper">
 			<div class="util">
+				<div class="sns-box">
+					<a href="https://pf.kakao.com/_ZQLVG"><img src="/resources/homepage/${homepage.context_path}/img/common/kakaotalk-color.svg" alt=""></a>
+					<a href="https://www.facebook.com/dalseonglibrary"><img src="/resources/homepage/${homepage.context_path}/img/common/facebook-color.svg" alt=""></a>
+				</div>
 				<c:if test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 					<a><b>${sessionScope.member.member_name}님</b></a>
 				</c:if>

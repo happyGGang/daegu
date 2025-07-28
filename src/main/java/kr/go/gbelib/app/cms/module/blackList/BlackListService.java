@@ -2,6 +2,9 @@ package kr.go.gbelib.app.cms.module.blackList;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import kr.go.gbelib.app.cms.module.blackListDetail.BlackListDetail;
+import kr.go.gbelib.app.cms.module.blackListDetail.BlackListDetailService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,9 @@ public class BlackListService extends BaseService{
 	@Autowired
 	private BlackListDao dao;
 
+	@Autowired
+	private BlackListDetailService blackListDetailService;
+
 	public List<BlackList> getBlackListList(BlackList blackList) {
 		return dao.getBlackListList(blackList);
 	}
@@ -21,44 +27,40 @@ public class BlackListService extends BaseService{
 		return dao.getBlackListOne(blackList);
 	}
 
-	public boolean checkBlackList(BlackList blackList, String black_type, String teachCode) {
+	public boolean checkBlackList(BlackList blackList, String black_type, int teachCode, int group_idx, int category_idx) {
 		BlackList one = dao.checkBlackList(blackList);
+		System.out.println("@@@@@@@ teachCode " + teachCode);
+		System.out.println("@@@@@@@ group_idx " + group_idx);
+		System.out.println("@@@@@@@ category_idx " + category_idx);
 
+		System.out.println("@@@@@@ one = " + (one == null) );
 		// 블랙리스트에 존재하지 않음
 		if (one == null) {
 			return false;
 		}
-		// 대분류 확인
-		String teachCodes = one.getTeach_code();
-
 		// 블랙리스트 타입
 		String[] list = one.getBlack_type().split(",");
-
 		boolean isBlack = false;
-
 		// 차단 타입 체크
 		for ( String oneType : list ) {
 			if ( black_type.equals(oneType) ) {
 				isBlack = true;
 			}
 		}
-		// 기존에 있던 블랙리스트는 teachCode가 null 이므로 전체 차단으로 판단 (기존 블랙리스트 기능은 무조건 전체 차단이였기 때문에)
-		if (teachCodes == null) {
-			return isBlack;
-		}
-
-		String[] teachCodeList = teachCodes.split(",");
-		// 블랙을 당한 대분류 카테고리 체크
 		if (isBlack) {
-			for ( String code : teachCodeList) {
-				if (teachCode.equals(code)) {
-					return isBlack;
-				}
-			}
-			return false;
+			BlackListDetail blackListDetail = new BlackListDetail();
+			blackListDetail.setBlack_idx(one.getBlack_idx());
+			blackListDetail.setBlack_type(one.getBlack_type());
+			blackListDetail.setHomepage_id(one.getHomepage_id());
+			blackListDetail.setTeach_code(teachCode);
+			blackListDetail.setGroup_idx(group_idx);
+			blackListDetail.setCategory_idx(category_idx);
+			BlackListDetail detail = blackListDetailService.checkBlackListCode(blackListDetail);
+			System.out.println("@@@@@@ detail!= null " + (detail != null) );
+            return detail != null;
 		}
-		return isBlack;
 
+		return false;
 	}
 
 	public int checkSaveBlackList(BlackList blackList) {

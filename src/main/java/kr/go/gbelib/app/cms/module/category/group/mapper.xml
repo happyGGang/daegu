@@ -64,6 +64,17 @@
 		AND	delete_yn = 'N'
 	</select>
 
+
+	<select id="getMiddleTeachCategoryGroupByLargeIdx" resultType="kr.go.gbelib.app.cms.module.category.group.CategoryGroup">
+		SELECT
+			GROUP_IDX, GROUP_NAME, LARGE_CATEGORY_IDX
+		FROM
+			TEACH_CATEGORY_GROUP
+		WHERE LARGE_CATEGORY_IDX in (SELECT TEACH_CODE FROM TEACH_CODE2 WHERE PARENT_ID = 15 AND HOMEPAGE_ID = #{homepage_id} AND DELETE_YN = 'N')
+		  AND HOMEPAGE_ID = #{homepage_id}
+		  AND DELETE_YN = 'N';
+	</select>
+
 	<insert id="addCategoryGroup">
 		<selectKey keyProperty="group_idx" resultType="int" order="BEFORE">
 			SELECT NVL(MAX(group_idx),0)+1 FROM TEACH_CATEGORY_GROUP WHERE homepage_id = #{homepage_id}

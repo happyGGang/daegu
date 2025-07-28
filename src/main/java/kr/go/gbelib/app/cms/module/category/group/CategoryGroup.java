@@ -1,6 +1,9 @@
 package kr.go.gbelib.app.cms.module.category.group;
 
 import kr.co.whalesoft.framework.utils.PagingUtils;
+import kr.go.gbelib.app.cms.module.category.Category;
+
+import java.util.List;
 
 public class CategoryGroup extends PagingUtils {
 
@@ -21,9 +24,19 @@ public class CategoryGroup extends PagingUtils {
 	private int req_limit_count;  //신청제한수
 	
 	private int cnt;
-	
+
 	private String homepage_view_yn = "Y"; //홈페이지 노출 여부 설정
-	
+
+	private List<Category> categoryList;
+
+	public List<Category> getCategoryList() {
+		return categoryList;
+	}
+
+	public void setCategoryList(List<Category> categoryList) {
+		this.categoryList = categoryList;
+	}
+
 	public CategoryGroup() {}
 
 	public CategoryGroup(String homepage_id){

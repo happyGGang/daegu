@@ -11,7 +11,9 @@ public interface CategoryGroupDao  {
 	public int getCategoryGroupListCount(CategoryGroup categoryGroup);
 	
 	public CategoryGroup getCategoryGroupOne(CategoryGroup categoryGroup);
-	
+
+	public List<CategoryGroup> getMiddleTeachCategoryGroupByLargeIdx(CategoryGroup categoryGroup);
+
 	public int addCategoryGroup(CategoryGroup categoryGroup);
 	
 	public int modifyCategoryGroup(CategoryGroup categoryGroup);

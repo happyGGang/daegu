@@ -296,7 +296,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #fffc01;
+  background-color: #FF6262;
   transform: translateX(-50%);
   content: '';
 }
@@ -341,7 +341,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #fffc01;
+  background-color: #FF6262;
   content: '';
 }
 
