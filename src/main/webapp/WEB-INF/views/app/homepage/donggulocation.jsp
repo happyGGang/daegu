@@ -78,7 +78,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 신성로 56</p>
-					<p class="tel">053-662-3633</p>
+					<p class="tel">053-957-9755</p>
 				</div>
 			</div>
 		</li>
@@ -90,7 +90,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 아양로8길 10-1</p>
-					<p class="tel">070-7755-5631</p>
+					<p class="tel">053-957-9756</p>
 				</div>
 			</div>
 		</li>
@@ -114,7 +114,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 장등로 90</p>
-					<p class="tel">053-662-3734</p>
+					<p class="tel">053-957-9757</p>
 				</div>
 			</div>
 		</li>
@@ -126,7 +126,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 화랑로41길 46</p>
-					<p class="tel">053-662-3775</p>
+					<p class="tel">053-957-9758</p>
 				</div>
 			</div>
 		</li>
@@ -138,7 +138,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 화랑로 25길 45</p>
-					<p class="tel">053-662-3794</p>
+					<p class="tel">053-957-9759</p>
 				</div>
 			</div>
 		</li>
@@ -150,7 +150,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 팔공로24길 171</p>
-					<p class="tel">053-662-3810</p>
+					<p class="tel">053-957-9760</p>
 				</div>
 			</div>
 		</li>
@@ -162,7 +162,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 팔공로24길 5</p>
-					<p class="tel">070-4214-0007</p>
+					<p class="tel">053-957-9761</p>
 				</div>
 			</div>
 		</li>
@@ -174,7 +174,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 해동로3길 80</p>
-					<p class="tel">070-7755-5633</p>
+					<p class="tel">053-957-9762</p>
 				</div>
 			</div>
 		</li>
@@ -186,7 +186,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 동촌역사로 3길 35</p>
-					<p class="tel">070-4214-6859</p>
+					<p class="tel">053-957-9763</p>
 				</div>
 			</div>
 		</li>
@@ -198,7 +198,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 동촌로46길 2</p>
-					<p class="tel">070-4251-5854</p>
+					<p class="tel">053-957-9764</p>
 				</div>
 			</div>
 		</li>
@@ -210,7 +210,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 방촌로 29길 46</p>
-					<p class="tel">070-7755-5632</p>
+					<p class="tel">053-957-9765</p>
 				</div>
 			</div>
 		</li>
@@ -222,7 +222,7 @@
 				</div>
 				<div class="txt">
 					<p class="add">동구 신서로 50</p>
-					<p class="tel">053-662-4110</p>
+					<p class="tel">053-957-9766</p>
 				</div>
 			</div>
 		</li>
@@ -339,31 +339,31 @@ jQuery(function($){
 	
 		daegu_map_data.push({idx:'56',title:'대구신천도서관', tel : '053-980-2600', point:{x:'35.871436',y:'128.617776'}, address:'대구광역시 동구 동부로6길 65',no:'4' });
 	
-		daegu_map_data.push({idx:'55',title:'신암2동작은도서관', tel : '053-662-3633', point:{x:'35.8799695',y:'128.6127068'}, address:'대구광역시 동구 신성로 56(신암2동행정복지센터 2층)',no:'5' });
+		daegu_map_data.push({idx:'55',title:'신암2동작은도서관', tel : '053-957-9755', point:{x:'35.8799695',y:'128.6127068'}, address:'대구광역시 동구 신성로 56(신암2동행정복지센터 2층)',no:'5' });
 	
-		daegu_map_data.push({idx:'54',title:'신암3동작은도서관', tel : '070-7755-5631', point:{x:'35.8810491',y:'128.6188883'}, address:'대구광역시 동구 아양로8길 10-1 (동구여성문화공간 3층)',no:'6' });
+		daegu_map_data.push({idx:'54',title:'신암3동작은도서관', tel : '053-957-9756', point:{x:'35.8810491',y:'128.6188883'}, address:'대구광역시 동구 아양로8길 10-1 (동구여성문화공간 3층)',no:'6' });
 
 		daegu_map_data.push({idx:'42',title:'신암5동작은도서관', tel : '053-662-3485', point:{x:'35.8897559',y:'128.6330629'}, address:'대구광역시 동구 아양로37길 92(신암5동주민센터 2층)',no:'7' });
 	
-		daegu_map_data.push({idx:'53',title:'신천3동작은도서관', tel : '053-662-3734', point:{x:'35.8753917',y:'128.6237458'}, address:'대구광역시 동구 장등로 90(신천3동 행정복지센터 3층)',no:'8' });
+		daegu_map_data.push({idx:'53',title:'신천3동작은도서관', tel : '053-957-9757', point:{x:'35.8753917',y:'128.6237458'}, address:'대구광역시 동구 장등로 90(신천3동 행정복지센터 3층)',no:'8' });
 	
-		daegu_map_data.push({idx:'52',title:'효목1동작은도서관', tel : '053-662-3775', point:{x:'35.8816142',y:'128.6449448'}, address:'대구광역시 동구 화랑로41길 46(효목1동 행정복지센터 2층)',no:'9' });
+		daegu_map_data.push({idx:'52',title:'효목1동작은도서관', tel : '053-957-9758', point:{x:'35.8816142',y:'128.6449448'}, address:'대구광역시 동구 화랑로41길 46(효목1동 행정복지센터 2층)',no:'9' });
 	
-		daegu_map_data.push({idx:'51',title:'효목2동작은도서관', tel : '053-662-3794', point:{x:'35.8781522',y:'128.6412466'}, address:'대구광역시 동구 화랑로 25길 45(효목2동 행정복지센터 1층)',no:'10' });
+		daegu_map_data.push({idx:'51',title:'효목2동작은도서관', tel : '053-957-9759', point:{x:'35.8781522',y:'128.6412466'}, address:'대구광역시 동구 화랑로 25길 45(효목2동 행정복지센터 1층)',no:'10' });
 	
-		daegu_map_data.push({idx:'49',title:'도평동작은도서관', tel : '053-662-3810', point:{x:'35.9100034',y:'128.6500078'}, address:'대구광역시 동구 팔공로24길 171(도평동 행정복지센터 3층)',no:'11' });
+		daegu_map_data.push({idx:'49',title:'도평동작은도서관', tel : '053-957-9760', point:{x:'35.9100034',y:'128.6500078'}, address:'대구광역시 동구 팔공로24길 171(도평동 행정복지센터 3층)',no:'11' });
 	
-		daegu_map_data.push({idx:'48',title:'불로어울림작은도서관', tel : '070-4214-0007', point:{x:'35.909725',y:'128.6415999'}, address:'대구광역시 동구 팔공로24길 5(불로전통시장 상인교육관 3층)',no:'12' });
+		daegu_map_data.push({idx:'48',title:'불로어울림작은도서관', tel : '053-957-9761', point:{x:'35.909725',y:'128.6415999'}, address:'대구광역시 동구 팔공로24길 5(불로전통시장 상인교육관 3층)',no:'12' });
 	
-		daegu_map_data.push({idx:'47',title:'지저동작은도서관', tel : '070-7755-5633', point:{x:'35.8934142',y:'128.6383092'}, address:'대구광역시 동구 해동로3길 80(지저동 행정복지센터 3층)',no:'13' });
+		daegu_map_data.push({idx:'47',title:'지저동작은도서관', tel : '053-957-9762', point:{x:'35.8934142',y:'128.6383092'}, address:'대구광역시 동구 해동로3길 80(지저동 행정복지센터 3층)',no:'13' });
 
-		daegu_map_data.push({idx:'46',title:'동촌역사작은도서관', tel : '070-4214-6859', point:{x:'35.8903035',y:'128.6501713'}, address:'대구 동구 동촌역사로 3길 35',no:'14' });
+		daegu_map_data.push({idx:'46',title:'동촌역사작은도서관', tel : '053-957-9763', point:{x:'35.8903035',y:'128.6501713'}, address:'대구 동구 동촌역사로 3길 35',no:'14' });
 	
-		daegu_map_data.push({idx:'45',title:'방촌동작은도서관', tel : '070-4251-5854', point:{x:'35.8813411',y:'128.664457'}, address:'대구 동구 동촌로46길 2(방촌종합상가 2층)',no:'15' });
+		daegu_map_data.push({idx:'45',title:'방촌동작은도서관', tel : '053-957-9764', point:{x:'35.8813411',y:'128.664457'}, address:'대구 동구 동촌로46길 2(방촌종합상가 2층)',no:'15' });
 	
-		daegu_map_data.push({idx:'44',title:'해안동작은도서관', tel : '070-7755-5632', point:{x:'35.8820761',y:'128.6716797'}, address:'대구광역시 동구 방촌로 29길 46 (해안동 행정복지센터 3층)',no:'16' });
+		daegu_map_data.push({idx:'44',title:'해안동작은도서관', tel : '053-957-9765', point:{x:'35.8820761',y:'128.6716797'}, address:'대구광역시 동구 방촌로 29길 46 (해안동 행정복지센터 3층)',no:'16' });
 	
-		daegu_map_data.push({idx:'43',title:'반야월역사작은도서관', tel : '053-662-4110', point:{x:'35.8724796',y:'128.7254918'}, address:'대구광역시 동구 신서로 50(대구선2공원 내 철도역사 1동)',no:'17' });
+		daegu_map_data.push({idx:'43',title:'반야월역사작은도서관', tel : '053-957-9766', point:{x:'35.8724796',y:'128.7254918'}, address:'대구광역시 동구 신서로 50(대구선2공원 내 철도역사 1동)',no:'17' });
 	
 		//daegu_map_data.push({idx:'39',title:'초록우산 도서관', tel : '053-964-3335', point:{x:'35.8698335',y:'128.709637'}, address:'대구광역시 동구 율하동로 26길 67(대구종합사회복지관)',no:'18' });
 	
