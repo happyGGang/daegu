@@ -188,7 +188,7 @@ $(function() {
 			<tr class="group first">
 				<th>메뉴명</th>
 				<td>
-          <form:input path="menu_name" cssClass="custom-input" maxlength="20" cssStyle="width:100%"/>
+          <form:input path="menu_name" cssClass="custom-input" maxlength="20" cssStyle="width:98%"/>
           <div class="caption">※ 최대 20자까지 입력할 수 있습니다.</div>
         </td>
 			</tr>
@@ -276,14 +276,14 @@ $(function() {
 			<tr id="menuTypeContainer">
 				<th>링크 주소</th>
 				<td>
-					<form:input path="menu_url" cssClass="custom-input" cssStyle="width:100%" maxlength="200"/>
+					<form:input path="menu_url" cssClass="custom-input" cssStyle="width:98%" maxlength="200"/>
           <div class="caption">※ 예) /cms/homepage/index.do</div>
 				</td>
 			</tr>
 			<tr id="menuTypeModule" style="display: none;">
 				<th>모듈선택</th>
 				<td>
-					<form:select path="module_idx" cssClass="selectmenu-search" items="${moduleList}" itemLabel="module_name" cssStyle="width:100%" itemValue="module_idx">
+					<form:select path="module_idx" cssClass="selectmenu-search" items="${moduleList}" itemLabel="module_name" cssStyle="width:98%" itemValue="module_idx">
 					</form:select>
 				</td>
 			</tr>
@@ -297,7 +297,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>메뉴설명</th>
-				<td><form:input path="menu_desc" cssClass="custom-input" cssStyle="width:100%;" maxlength="200"/></td>
+				<td><form:input path="menu_desc" cssClass="custom-input" cssStyle="width:98%;" maxlength="200"/></td>
 			</tr>
 			<tr style="display: none;">
 				<th>메뉴 접근 권한</th>
