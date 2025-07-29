@@ -108,6 +108,11 @@ form button {
     line-height: normal;
     letter-spacing: -0.32px;
     cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+form button:hover {
+    background: #111748;
 }
 
 .password {

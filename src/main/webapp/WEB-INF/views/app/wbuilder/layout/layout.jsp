@@ -72,7 +72,7 @@
       <div id="cmsManage" class="one-depth">
         <div class="one-depth-btn">
           <div>
-            <img src="" alt="">
+            <img src="/resources/cms/img/sideMenu/cms-manage.svg" alt="">
             <div>CMS 관리</div>
           </div>
           <img src="/resources/cms/img/sideMenu/expansion.svg" alt="">
@@ -87,7 +87,7 @@
       <div class="one-depth" onclick="location.href='/wbuilder/adminMenu/index.do'">
         <div class="one-depth-btn">
           <div>
-            <img src="" alt="">
+            <img src="/resources/cms/img/sideMenu/cms-admin.svg" alt="">
             <div>CMS 관리자 메뉴</div>
           </div>
           <img src="" alt="" style="display: none">
