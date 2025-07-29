@@ -87,7 +87,7 @@
 <div id="calendar2">
 	<div class="calendar-title">
 		<div>도서관일정</div>
-		<a href="">
+		<a href="/${homepage.context_path}/module/calendarManage/index.do?menu_idx=33">
 			<img src="/resources/homepage/dalseongchild/img/culture/calendar-more.svg" alt="">
 		</a>
 	</div>
@@ -194,7 +194,7 @@
 					<c:choose>
 						<c:when test="${calendarResult[i.thu] eq null}">${dayThu}</c:when>
 						<c:otherwise>
-							<c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${dayThu}"></c:set>
+							<c:set var="one" value="${fn:length(i.thu) < 2 ? '0' : '' }${i.thu}"></c:set>
 							<c:choose>
 								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 									<a class="type-e showCal" keyValue="${i.thu}">${dayThu}</a>
@@ -211,7 +211,7 @@
 					<c:choose>
 						<c:when test="${calendarResult[i.fri] eq null}">${dayFri}</c:when>
 						<c:otherwise>
-							<c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${dayFri}"></c:set>
+							<c:set var="one" value="${fn:length(i.fri) < 2 ? '0' : '' }${i.fri}"></c:set>
 							<c:choose>
 								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 									<a class="type-e showCal" keyValue="${i.fri}">${dayFri}</a>
@@ -228,7 +228,7 @@
 					<c:choose>
 						<c:when test="${calendarResult[i.sat] eq null}">${daySat}</c:when>
 						<c:otherwise>
-							<c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${daySat}"></c:set>
+							<c:set var="one" value="${fn:length(i.sat) < 2 ? '0' : '' }${i.sat}"></c:set>
 							<c:choose>
 								<c:when test="${fn:indexOf(closeDayList.dd, one) > -1 }">
 									<a class="type-e showCal" keyValue="${i.sat}">${daySat}</a>
@@ -259,7 +259,7 @@
 							${year}년 ${month}월 ${day}일
 						</div>
 						<a href="#" class="close closePlanView">
-							<img src="/resources/homepage/duryu/img/culture/calendar-popup-close.svg" alt="">
+							<img src="/resources/homepage/dalseongchild/img/culture/calendar-popup-close.svg" alt="">
 						</a>
 					</div>
 					<div class="calendar-content">
