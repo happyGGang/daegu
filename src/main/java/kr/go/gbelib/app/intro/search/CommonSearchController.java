@@ -283,6 +283,13 @@ public class CommonSearchController extends BaseController {
 					librarySearch.setShelfCodes(shelfCodes);
 				}
 
+				if ("h7".equals(homepage.getHomepage_id())) {
+					if (librarySearch.getMenu_idx() == 120 || librarySearch.getMenu_idx() == 121 || librarySearch.getMenu_idx() == 122) {
+						librarySearch.setSortField("SHELF_DATE");
+						librarySearch.setSortType("DESC");
+					}
+				}
+
 	    		if ( librarySearch.getBooktype().equals("BOOK") ) {
 	    			result = LibSearchAPI.getBookDetail(librarySearch);
 	    		} else if (librarySearch.getBooktype().equals("NONBOOK")) {
