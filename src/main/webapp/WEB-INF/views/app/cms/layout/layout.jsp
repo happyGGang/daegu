@@ -148,7 +148,7 @@
                 <div id="header">
                     <h1><a href="/cms/index.do">SJS</a></h1>
                     <div>
-                        <p><b>(${sessionScope.member.member_name})</b>님 로그인 중입니다.</p>
+                        <p><b>(${sessionScope.member.member_name})</b>님 로그인 중입니다.ㄶㄴㅇㅎㄴㅇㅎ</p>
                         <p>
                             <a href="/cms/login/logout.do" target="_parent">
                                 <i class="fa fa-sign-out"></i>

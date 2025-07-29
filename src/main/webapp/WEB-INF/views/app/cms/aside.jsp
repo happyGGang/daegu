@@ -11,18 +11,18 @@
 <!--[if IE]>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/aside.css"/>
+<!--<link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="/resources/cms/css/aside.css"/>-->
 
 <!--[if IE 7]>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>
+<!--<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome-ie7.min.css"/>-->
 <![endif]-->
 <!--[if lte IE 8]>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/ie-old.css"/>
+<!--<link rel="stylesheet" type="text/css" href="/resources/cms/css/ie-old.css"/>-->
 <![endif]-->
 <script src="/resources/common/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="/resources/cms/js/design.js"></script>
+<!--<script type="text/javascript" src="/resources/cms/js/design.js"></script>-->
 <script>
 $(function(){
 	
@@ -40,15 +40,13 @@ $(function(){
 		<div id="header">
 			<h1><b>W</b>Builder</h1>
 			<div>
-				<p><b>(${member.member_name})</b>님 로그인 중입니다.</p>
+				<p><b>(${member.member_name})</b>님 로그인 중입니다ㄴㅇㅎㄶㅇㄴㅇㅎ.</p>
 				<p>
 					<a href="/cms/login/logout.do" target="_parent">
-						<i class="fa fa-sign-out"></i>
 						<em>로그아웃</em>
 					</a>
 					<span>|</span>
 					<a class="pass-change-btn" href="">
-						<i class="fa fa-gear"></i>
 						<em>비밀번호 변경</em>
 					</a>
 				</p>
@@ -71,6 +69,8 @@ $(function(){
 		<cmsTag:asideMenu adminMenuList="${adminMenuList}"/>
 	</div>
 </div>
+
+
 <script type="text/javascript">
 $(document).ready(function(){
 	//왼쪽메뉴
