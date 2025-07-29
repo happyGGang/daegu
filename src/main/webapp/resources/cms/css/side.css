@@ -1,21 +1,17 @@
 .cms-container {
     width: 100%;
-    height: 100vh;
     display: flex;
     background: #FFF;
+    height: 100%;
 }
 
 .side-menu {
-    width: 20%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
     background: #EFF0F4;
-}
-
-.main-content {
-    width: 80%;
 }
 
 .side-menu-toggle-btn {
@@ -154,6 +150,10 @@
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.26px;
+}
+
+.one-depth ul li:hover {
+    color: #222;
 }
 
 .one-depth ul li.active {

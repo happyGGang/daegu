@@ -81,5 +81,4 @@ input:-webkit-autofill {
 input:focus,
 input:hover {
     outline: none;
-    border: none;
 }

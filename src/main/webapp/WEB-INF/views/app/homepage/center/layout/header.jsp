@@ -56,7 +56,7 @@
 <script type="text/javascript" src="/resources/common/js/common_toppopzone.js"></script>
 
 <!--
-<script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.js"></script>
+<script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/common.css"></script>
 <script type="text/javascript" src="/resources/homepage/${homepage.context_path}/js/default-new-fullpage.js"></script>
  -->
 <script type="text/javascript" src="/resources/common/js/kakao.min.js"></script>
