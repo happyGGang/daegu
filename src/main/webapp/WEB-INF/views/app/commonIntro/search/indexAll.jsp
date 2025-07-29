@@ -707,6 +707,9 @@
 							<li>
 								<form:checkbox path="libraryCodes" class="libCheck lib_AH" value="AH" label="대구광역시립 동부도서관" />
 							</li>
+							<li>
+								<form:checkbox path="libraryCodes" class="libCheck lib_HX" value="HX" label="와글와글아이세상 어린이도서관" />
+							</li>
 						</ul>
 					</div>
 					<div class="end"></div>
