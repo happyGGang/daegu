@@ -201,23 +201,21 @@ $(document).ready(function() {
 <form:hidden id="menu_idx_1" path="menu_idx" />
 <form:hidden id="editMode_1" path="editMode" />
 </form:form>
-<div class="group-menu">
+
+<div class="main-content">
 	<div class="tree-area">
 		<div class="group-menu-header">
-			<div class="title"><i class="fa fa-navicon"></i><span>메뉴목록</span></div>
+			<div class="title">메뉴목록</div>
 			<div class="button">
 				<c:if test="${member.admin}">
-					<a href="" class="btn btn5" id="add"><i class="fa fa-plus"></i><span>추가</span></a>
-					<a href="" class="btn" id="delete"><i class="fa fa-minus"></i><span>삭제</span></a>
+					<a href="" class="btn btn5" id="add">추가</a>
+					<a href="" class="btn" id="delete">삭제</a>
 				</c:if>
 			</div>
 		</div>
 		<div class="tree-box">
-			<div class="tree-menu" id="tree1">
-			</div>
+			<div class="tree-menu" id="tree1"></div>
 		</div>
 	</div>
-	<div class="set-area" id="editLayer">
-		
-	</div>
+	<div class="set-area" id="editLayer"></div>
 </div>
