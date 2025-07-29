@@ -1,8 +1,8 @@
 .cms-container {
     width: 100%;
-    height: 100vh;
     display: flex;
     background: #FFF;
+    height: 100%;
 }
 
 .side-menu {
@@ -12,10 +12,6 @@
     align-items: center;
     padding: 20px;
     background: #EFF0F4;
-}
-
-.main-content {
-    width: 85%;
 }
 
 .side-menu-toggle-btn {

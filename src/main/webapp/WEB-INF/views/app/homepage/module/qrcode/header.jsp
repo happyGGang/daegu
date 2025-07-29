@@ -37,7 +37,7 @@
 <script type="text/javascript" src="/resources/common/js/gnb.js"></script>
 <script type="text/javascript" src="/resources/board/js/common.js"></script>
 
-<!-- <script type="text/javascript" src="/resources/homepage/dge/js/common.js"></script> -->
+<!-- <script type="text/javascript" src="/resources/homepage/dge/js/common.css"></script> -->
 </head>
 
 <!--[if lte IE 7]><body class="lte7"><![endif]-->

@@ -5,6 +5,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tag" uri="/WEB-INF/config/tld/customTag.tld" %>
 <script src="${getContextPath}/resources/cms/js/malsup.jquery.form.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
+
 <script type="text/javascript">
 $(function() {
 	//input change (메뉴명 입력 시 메뉴 경로에 자동으로 출력 됨)
@@ -134,32 +139,37 @@ $(function() {
 <div id="editDisable" class="disableBox">
 	<%-- disable 상태로 변경 --%>
 	<c:if test="${adminMenu.editMode eq 'FIRST'}">
-	<div class="mask"></div>
+	  <div class="mask"></div>
 	</c:if>
-	<div class="set-info">
-		<strong>메뉴 상세정보</strong>
-	</div>
+
+  <div class="tree-area-title">
+    <img src="/resources/cms/img/main/tag.png" alt="">
+    <div>메뉴 상세정보</div>
+  </div>
+
 	<form:form id="menuEdit" modelAttribute="adminMenu" action="save.do" method="post" onsubmit="return false;">
 	<form:hidden path="menu_idx" />
 	<form:hidden path="manage_idx" />
 	<form:hidden path="parent_menu_idx" />
 	<form:hidden path="group_idx" />
 	<form:hidden path="editMode" />
-	<table class="type3">
-		<colgroup>
-			<col width="120"/>
-			<col width="*"/>
-		</colgroup>
+	<table class="menu-detail-table">
+		<thead></thead>
 		<tbody>
 			<tr>
 				<th>메뉴 경로</th>
 				<td>
 				<c:choose>
 					<c:when test="${adminMenu.parent_menu_idx eq 0}">
-					최상위 > <span class="menuName"></span>
+            <div class="path">
+              최상위 <img src="/resources/cms/img/main/arrow.svg" alt=""> <span class="menuName"></span>
+            </div>
+
 					</c:when>
 					<c:otherwise>
-					최상위 > ${parentAdminMenu.menu_full_path_name} > <span class="menuName"></span>
+            <div class="path">
+              최상위 <img src="/resources/cms/img/main/arrow.svg" alt=""> ${parentAdminMenu.menu_full_path_name} <img src="/resources/cms/img/main/arrow.svg" alt=""> <span class="menuName"></span>
+            </div>
 					</c:otherwise>
 				</c:choose>
 				</td>
@@ -177,22 +187,32 @@ $(function() {
 			</tr>
 			<tr class="group first">
 				<th>메뉴명</th>
-				<td><form:input path="menu_name" cssClass="text menuName" cssStyle="font-size:14px;font-weight:800;" maxlength="20"/></td>
+				<td>
+          <form:input path="menu_name" cssClass="custom-input" maxlength="20" cssStyle="width:100%"/>
+          <div class="caption">※ 최대 20자까지 입력할 수 있습니다.</div>
+        </td>
 			</tr>
 			<tr>
 				<th>사용 홈페이지</th>
 				<td>
-					<input type="checkbox" id="access_homepage_all" ${(adminMenu.editMode eq 'ADD' or fn:length(adminMenu.access_homepage_id_arr) < 1) ? 'checked' : ''} style="margin-left: 10px;"><label for="access_homepage_all">전체</label>
-					<br />
+          <div class="custom-checkbox">
+            <input type="checkbox" id="access_homepage_all" ${(adminMenu.editMode eq 'ADD' or fn:length(adminMenu.access_homepage_id_arr) < 1) ? 'checked' : ''}>
+            <label for="access_homepage_all">전체</label>
+          </div>
+
 					<c:forEach items="${homepageList}" var="i" varStatus="status">
 						<c:if test="${not empty i.homepage_alias}">
-							<form:checkbox path="access_homepage_id_arr" label="${i.homepage_alias}" value="${i.homepage_id}" cssStyle="margin-left: 10px;"/>
+              <div class="custom-checkbox">
+							  <form:checkbox path="access_homepage_id_arr" label="${i.homepage_alias}" value="${i.homepage_id}"/>
+              </div>
 						</c:if>
 						<c:if test="${empty i.homepage_alias}">
-							<form:checkbox path="access_homepage_id_arr" label="${i.homepage_name}" value="${i.homepage_id}"/>
+              <div class="custom-checkbox">
+							  <form:checkbox path="access_homepage_id_arr" label="${i.homepage_name}" value="${i.homepage_id}"/>
+              </div>
 						</c:if>
 						<c:if test="${status.count % 8 eq 0}">
-							<br />
+              <br>
 						</c:if>
 					</c:forEach>
 				</td>
@@ -200,37 +220,37 @@ $(function() {
 			<tr>
 				<th>메뉴명 표시</th>
 				<td>
-					<div class="checkbox">
+          <div class="custom-checkbox">
 						<input type="checkbox" id="check_0" checked="checked"/>
 						<label for="check_0">사용함</label>
-						<p class="info">체크 해제 시 홈페이지에서 콘텐츠 상단의 메뉴명이 출력되지 않습니다.</p>
 					</div>
+          <div class="caption">※ 체크 해제 시 홈페이지에서 콘텐츠 상단의 메뉴명이 출력되지 않습니다.</div>
 				</td>
 			</tr>
 			<tr class="group">
 				<th>메뉴 노출</th>
 				<td>
-					<form:select path="view_yn" cssClass="selectmenu">
+					<form:select path="view_yn" cssClass="custom-select">
 						<form:option value="Y">YES</form:option>
 						<form:option value="N">NO</form:option>
 					</form:select>
-					<p class="info">NO 선택 시 홈페이지 메뉴 목록에서 출력되지 않습니다.(URL로 직접 접근은 가능합니다.)</p>
+          <div class="caption">※ NO 선택 시 홈페이지 메뉴 목록에서 출력되지 않습니다. (URL로 직접 접근은 가능합니다.)</div>
 				</td>
 			</tr>
 			<tr class="group last">
 				<th>사용 여부</th>
 				<td>
-					<form:select path="use_yn" cssClass="selectmenu">
+					<form:select path="use_yn" cssClass="custom-select">
 						<form:option value="Y">YES</form:option>
 						<form:option value="N">NO</form:option>
 					</form:select>
-					<p class="info">NO 선택 시 메뉴에 접근이 불가능합니다.</p>
+          <div class="caption">※ NO 선택 시 메뉴에 접근이 불가능합니다.</div>
 				</td>
 			</tr>
 			<tr>
 				<th>최고관리자 전용</th>
 				<td>
-					<form:select path="admin_access_yn" cssClass="selectmenu">
+					<form:select path="admin_access_yn" cssClass="custom-select">
 						<form:option value="Y">YES</form:option>
 						<form:option value="N">NO</form:option>
 					</form:select>
@@ -239,31 +259,31 @@ $(function() {
 			<tr>
 				<th>출력 순서</th>
 				<td>
-					<form:input path="print_seq" cssStyle="width:30px;" cssClass="text spinner"/>
+					<form:input path="print_seq" cssClass="custom-input" cssStyle="width:4%" type="number"/>
 				</td>
 			</tr>
 			<tr>
 				<th>메뉴 유형</th>
 				<td>
-					<form:select path="menu_type" cssClass="selectmenu">
+					<form:select path="menu_type" cssClass="custom-select">
 						<form:option value="container">내부링크</form:option>
 						<form:option value="module">모듈</form:option>
  						<form:option value="_blank">외부링크</form:option>
 					</form:select>
-					<p class="info">외부 링크의 경우 새창으로 연결됩니다.</p>
+          <div class="caption">※ 외부 링크의 경우 새창으로 연결됩니다.</div>
 				</td>
 			</tr>
 			<tr id="menuTypeContainer">
 				<th>링크 주소</th>
 				<td>
-					<form:input path="menu_url" cssClass="text" cssStyle="width:90%" maxlength="200"/>
-					<p class="info">예) /cms/homepage/index.do</p>
+					<form:input path="menu_url" cssClass="custom-input" cssStyle="width:100%" maxlength="200"/>
+          <div class="caption">※ 예) /cms/homepage/index.do</div>
 				</td>
 			</tr>
 			<tr id="menuTypeModule" style="display: none;">
 				<th>모듈선택</th>
 				<td>
-					<form:select path="module_idx" cssClass="selectmenu-search" items="${moduleList}" itemLabel="module_name" cssStyle="width:90%" itemValue="module_idx">
+					<form:select path="module_idx" cssClass="selectmenu-search" items="${moduleList}" itemLabel="module_name" cssStyle="width:100%" itemValue="module_idx">
 					</form:select>
 				</td>
 			</tr>
@@ -277,7 +297,7 @@ $(function() {
 			</tr>
 			<tr>
 				<th>메뉴설명</th>
-				<td><form:input path="menu_desc" cssClass="text" cssStyle="width:90%;" maxlength="200"/></td>
+				<td><form:input path="menu_desc" cssClass="custom-input" cssStyle="width:100%;" maxlength="200"/></td>
 			</tr>
 			<tr style="display: none;">
 				<th>메뉴 접근 권한</th>
@@ -310,24 +330,29 @@ $(function() {
 		</tbody>
 	</table>
 	</form:form>
-	<br/><br/>
-	<div class="set-info">
-		<strong>메뉴 설정 안내</strong>
-		<ul>
-			<li>메뉴 권한은 수정시에만 반영이 됩니다. 신규메뉴일 경우 생성후 권한 설정 하시기 바랍니다.</li>
-			<li>메뉴별 상세설정 변경은 메뉴명을 클릭하여 오른쪽 화면에서 변경할 수 있습니다.</li>
-			<li><span style="color:#2e9901;!important">메뉴를 편집한 후에 저장하기 버튼을 클릭해야 변경된 내용이 반영됩니다.</span></li>
-		</ul>
-	</div>
-	
-	<div class="txt-center">
-		<c:if test="${member.admin}">
-			<a href="" class="btn">취소</a>
-			<a href="" class="btn btn1" id="save">저장하기</a>
-		</c:if>
-	</div>
-	
-	<div id="dialog_editAuth" class="dialog-common" title="그룹관리">
-	</div>
-	
+
+  <div class="btn-wrapper">
+    <c:if test="${member.admin}">
+      <a href="" class="icon-btn gray">
+        <img src="/resources/cms/img/main/cancel.svg" alt="">
+        <div>취소</div>
+      </a>
+      <a href="" class="icon-btn navy" id="save">
+        <img src="/resources/cms/img/main/save.svg" alt="">
+        <div>저장하기</div>
+      </a>
+    </c:if>
+  </div>
+
+  <br/><br/>
+  <div class="tree-area-title">
+    <img src="/resources/cms/img/main/tag.png" alt="">
+    <div>메뉴 설정 안내</div>
+  </div>
+  <ul class="guide-line">
+    <li>메뉴 권한은 수정시에만 반영이 됩니다. 신규메뉴일 경우 생성후 권한 설정 하시기 바랍니다.</li>
+    <li>메뉴별 상세설정 변경은 메뉴명을 클릭하여 오른쪽 화면에서 변경할 수 있습니다.</li>
+    <li><span style="color:#E4302A;!important">메뉴를 편집한 후에 저장하기 버튼을 클릭해야 변경된 내용이 반영됩니다.</span></li>
+  </ul>
+	<div id="dialog_editAuth" class="dialog-common" title="그룹관리"></div>
 </div>

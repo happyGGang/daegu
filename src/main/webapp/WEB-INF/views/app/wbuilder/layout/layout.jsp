@@ -10,8 +10,8 @@
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>SJS - 도서관통합관리프로그램</title>
 <link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
-  <link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
-  <link rel="stylesheet" type="text/css" href="/resources/cms/css/side.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/side.css"/>
 <!--<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>-->
 <!--<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>-->
 <!--<link rel="stylesheet" type="text/css" href="/resources/cms/survey/css/container.css"/>-->
@@ -19,7 +19,7 @@
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/cms/js/cms/side.js"></script>
 <!--<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>-->
-<!--<script type="text/javascript" src="/resources/common/js/common.js"></script>-->
+<!--<script type="text/javascript" src="/resources/common/js/common.css"></script>-->
 <!--<script type="text/javascript" src="/resources/cms/js/design.js"></script>-->
 </head>
 <body>
@@ -95,9 +95,8 @@
       </div>
     </div>
   </div>
-  <div class="main-content">
-    <tiles:insertAttribute name="body" />
-  </div>
+
+  <tiles:insertAttribute name="body" />
 </div>
 </body>
 </html>

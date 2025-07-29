@@ -2,6 +2,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="${getContextPath}/resources/cms/jqTree/css/jqtree.css">
+
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/cms/css/mainContent.css"/>
+
 <script src="${getContextPath}/resources/cms/jqTree/js/tree.jquery.js" type="text/javascript"></script>
 <script src="${getContextPath}/resources/cms/js/jq_plugin/jquery.cookie.js" type="text/javascript"></script>
 
@@ -202,20 +208,32 @@ $(document).ready(function() {
 <form:hidden id="editMode_1" path="editMode" />
 </form:form>
 
-<div class="main-content">
-	<div class="tree-area">
-		<div class="group-menu-header">
-			<div class="title">메뉴목록</div>
-			<div class="button">
-				<c:if test="${member.admin}">
-					<a href="" class="btn btn5" id="add">추가</a>
-					<a href="" class="btn" id="delete">삭제</a>
-				</c:if>
-			</div>
-		</div>
-		<div class="tree-box">
-			<div class="tree-menu" id="tree1"></div>
-		</div>
-	</div>
-	<div class="set-area" id="editLayer"></div>
+<div class="container-box">
+  <div class="page-header">
+    <div>CMS관리자 메뉴</div>
+  </div>
+  <div class="main-content">
+    <div class="tree-area">
+      <div class="tree-area-header">
+        <div class="tree-area-title">
+          <img src="/resources/cms/img/main/tag.png" alt="">
+          <div>메뉴목록</div>
+        </div>
+        <div class="tree-action">
+          <c:if test="${member.admin}">
+            <a href="" id="add" class="icon-btn navy">
+              <img src="/resources/cms/img/main/plus.svg" alt="">
+              <div>추가</div>
+            </a>
+            <a href="" id="delete" class="icon-btn red">
+              <img src="/resources/cms/img/main/delete.svg" alt="">
+              <div>삭제</div>
+            </a>
+          </c:if>
+        </div>
+      </div>
+      <div class="tree-menu" id="tree1"></div>
+    </div>
+    <div class="set-area" id="editLayer"></div>
+  </div>
 </div>
