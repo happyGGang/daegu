@@ -223,27 +223,6 @@ e.preventDefault();
     <form:form modelAttribute="memberGroup" method="POST" action="saveRelation.do">
         <form:hidden path="member_group_idx"/>
         <div class="table-wrap" id="table1" title="기본정보">
-            <table class="custom-table">
-                <colgroup>
-                    <col width="33%"/>
-                    <col width="33%"/>
-                    <col width="33%"/>
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th>상위그룹명</th>
-                        <th>그룹명</th>
-                        <th>설명</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>${parentMemberGroup.member_group_name eq null ? (memberGroup.member_group_idx eq 0 ? '-':'CMS') : parentMemberGroup.member_group_name}</td>
-                        <td>${memberGroup.member_group_name eq null ? 'CMS' : memberGroup.member_group_name}</td>
-                        <td>${memberGroup.remark eq null ? 'CMS' : memberGroup.remark}</td>
-                    </tr>
-                </tbody>
-            </table>
             <div class="btn-wrapper left">
                 <c:if test="${memberGroup.admin_group_yn eq 'N' and memberGroup.user_group_yn eq 'N' and memberGroup.guest_group_yn eq 'N'}">
                     <a href="" class="icon-btn green" id="editGroup_add">
@@ -265,8 +244,35 @@ e.preventDefault();
                     </a>
                 </c:if>
             </div>
+            <table class="custom-table">
+                <colgroup>
+                    <col width="33%"/>
+                    <col width="33%"/>
+                    <col width="33%"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>상위그룹명</th>
+                        <th>그룹명</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${parentMemberGroup.member_group_name eq null ? (memberGroup.member_group_idx eq 0 ? '-':'CMS') : parentMemberGroup.member_group_name}</td>
+                        <td>${memberGroup.member_group_name eq null ? 'CMS' : memberGroup.member_group_name}</td>
+                        <td>${memberGroup.remark eq null ? 'CMS' : memberGroup.remark}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="table-wrap" id="table2" title="그룹관계설정" style="display: none;">
+            <div class="btn-wrapper left">
+                <a href="#" class="icon-btn navy" id="saveAuthority" style="display: none">
+                    <img src="/resources/cms/img/main/save.svg" alt="">
+                    <div>저장</div>
+                </a>
+            </div>
             <div class="table-scroll">
                 <table class="custom-table">
                     <colgroup>
@@ -326,12 +332,6 @@ e.preventDefault();
                         </c:forEach>
                     </tbody>
                 </table>
-            </div>
-            <div class="btn-wrapper left">
-                <a href="#" class="icon-btn navy" id="saveAuthority" style="display: none">
-                    <img src="/resources/cms/img/main/save.svg" alt="">
-                    <div>저장</div>
-                </a>
             </div>
         </div>
     </form:form>

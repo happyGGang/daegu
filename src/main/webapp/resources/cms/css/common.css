@@ -440,3 +440,7 @@ tr.table-left td, tr.table-left th {
     display: flex;
     align-items: center;
 }
+
+.table-wrap {
+    padding-top: 10px;
+}
