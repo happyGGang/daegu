@@ -3,6 +3,7 @@
     display: flex;
     background: #FFF;
     height: 100%;
+    min-height: 100vh;
 }
 
 .side-menu {
