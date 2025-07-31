@@ -21,6 +21,9 @@
     <!--<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>-->
     <!--<script type="text/javascript" src="/resources/common/js/common.css"></script>-->
     <!--<script type="text/javascript" src="/resources/cms/js/design.js"></script>-->
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 </head>
 <body>
 <div class="cms-container">
