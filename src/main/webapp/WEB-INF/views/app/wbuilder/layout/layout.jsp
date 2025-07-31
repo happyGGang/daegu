@@ -54,7 +54,7 @@
                 </div>
                 <ul>
                     <li><a href="/wbuilder/memberGroup/index.do">· 그룹관리</a></li>
-                    <li><a href="/wbuilder/member/index.do">· 사용자관리</a></li>
+                    <li><a href="/wbuilder/member/index.do">· 사용자 관리</a></li>
                     <li><a href="/wbuilder/accountLock/index.do">· 계정 잠금 관리</a></li>
                     <li><a href="/wbuilder/loginLog/index.do">· 로그인 기록 관리</a></li>
                 </ul>

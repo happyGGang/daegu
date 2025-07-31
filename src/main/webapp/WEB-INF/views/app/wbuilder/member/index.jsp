@@ -63,7 +63,7 @@
 
 <div class="container-box">
     <div class="page-header">
-        <div>CMS관리자 메뉴</div>
+        <div>사용자 관리</div>
     </div>
     <div class="main-content">
         <form:form id="member_index" modelAttribute="member" action="save.do" method="post" onsubmit="return false;" style="width:100%;">
