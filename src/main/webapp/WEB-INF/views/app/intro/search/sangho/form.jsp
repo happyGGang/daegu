@@ -1,3 +1,5 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -5,6 +7,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <script type="text/javascript">
+<%
+Date nowDate = new Date();
+SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+String todays = sf.format(nowDate);
+%>
+<c:set var="nowDate" value="<%=todays %>" />
 $(function() {
 
 	$('#save-btn').on('click', function(e) {
@@ -126,7 +134,9 @@ $(function() {
 					<c:when test="${context_path eq 'dalseolib' || context_path eq 'kids' || context_path eq 'seongseo' || context_path eq 'bolli' || context_path eq 'family' || context_path eq 'english' || context_path eq 'dssmalllib'}">
 			 		<form:select path="uselibcode">
 			 			<form:option value="" label="-- 선택 --" />
-						<form:option value="127005">성서도서관</form:option>
+						<c:if test="${20250801000000 >= nowDate}">
+							<form:option value="127005">성서도서관</form:option>
+						</c:if>
 						<form:option value="127002">달서어린이도서관</form:option>
 						<form:option value="127001">도원도서관</form:option>
 						<form:option value="127012">본리도서관</form:option>

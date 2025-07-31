@@ -231,7 +231,7 @@ $(function() {
 				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
 				<td>
 					<form:radiobutton path="age" value="성인" id="adult" onchange="hideDisplay()"/>만18세 이상
-					<form:radiobutton path="age" value="미성년자" id="minor" onchange="showDisplay()"/>만18 이하
+					<form:radiobutton path="age" value="미성년자" id="minor" onchange="showDisplay()"/>만 18세 이하
 				</td>
 			</tr>
 			<tr id="hide1">
@@ -284,12 +284,12 @@ $(function() {
 					</form:select> *최대 4명까지 가능합니다.
 				</td>
 			</tr>
-			<tr>
-				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>
-				<td>
-					<form:input path="age" class="text" cssStyle="width:50px" />
-				</td>
-			</tr>
+<%--			<tr>--%>
+<%--				<th>연령대(<span style="color: red; font-weight: bold;">*</span>)</th>--%>
+<%--				<td>--%>
+<%--					<form:input path="age" class="text" cssStyle="width:50px" />--%>
+<%--				</td>--%>
+<%--			</tr>--%>
 		</c:when>
 		<c:otherwise>
 			<tr>

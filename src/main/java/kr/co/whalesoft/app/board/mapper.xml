@@ -275,8 +275,9 @@
 					view_count, notice_yn, title, add_id, content,
 					user_name, user_ip, delete_yn, add_date, modify_date,
 					file_count, preview_img, secret_yn, content_summary,
-					category1, category2, category3, category4, category5,request_state
-
+					category1, category2, category3, category4, category5,request_state,
+					imsi_v_1, imsi_v_2, imsi_v_3, imsi_v_4, imsi_v_5, imsi_v_6, imsi_v_7,
+					imsi_v_8, imsi_v_9, imsi_v_10, imsi_v_11, imsi_v_12
 				FROM
 					CMS_BOARD
 				WHERE

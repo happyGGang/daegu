@@ -58,6 +58,7 @@ $(function() {
 		e.preventDefault();
 	});
 
+	let isClicked = false;
 	$('a.save-btn').on('click', function(e) {
 		e.preventDefault();
 
@@ -158,6 +159,14 @@ $(function() {
 
 		$('#family_name').attr('disabled', false);
 		var formData = new FormData($('#quizReq')[0]);
+
+		if (isClicked) return; // 클릭 잠금 중일 때 무시
+		isClicked = true;
+
+		// 2초 후 다시 클릭 가능하게
+		setTimeout(() => {
+			isClicked = false;
+		}, 2000); // 2000ms = 2초
 
 		$.ajax({
 			url: '/${homepage.context_path}/module/quizReq/save.do',

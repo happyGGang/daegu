@@ -1817,7 +1817,7 @@ function isFromFridayToSunday() {
 																</c:when>
 																<c:when test="${i.MANAGE_CODE eq 'BV'||i.MANAGE_CODE eq 'FA'|| i.MANAGE_CODE eq 'BW'|| i.MANAGE_CODE eq 'BU'|| i.MANAGE_CODE eq 'BX' ||i.MANAGE_CODE eq 'BY' ||i.MANAGE_CODE eq 'FB' ||i.MANAGE_CODE eq 'FC' || i.MANAGE_CODE eq 'GK' || i.MANAGE_CODE eq 'FX' || i.MANAGE_CODE eq 'BZ'||i.MANAGE_CODE eq 'FD'}"><!--9/30 달서가족문화도서관 상호대차 중지 재개시 빈칸에 BY 입력 -->
 																	<c:choose>
-																		<c:when test="${i.MANAGE_CODE eq 'BX' && (20250512000000 <= now && now <= 20250523180000)}">
+																		<c:when test="${i.MANAGE_CODE eq 'BU' && now >= 20250801000000}">
 																		</c:when>
 																		<c:when test="${i.KBILL_LILL_YN eq 'O'}">
 																			<a href="" class="btn btn3 sangho" bookkey="${i.BOOK_KEY}" booktype="BO" isbn="${i.ISBN}" regNo="${i.REG_NO}" manageCode="${i.MANAGE_CODE}"><span>상호대차 신청</span></a>

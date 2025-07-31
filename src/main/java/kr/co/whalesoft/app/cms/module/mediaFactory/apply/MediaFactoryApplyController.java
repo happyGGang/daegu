@@ -15,6 +15,7 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 import kr.go.gbelib.app.common.api.MemberAPI;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -138,10 +139,11 @@ public class MediaFactoryApplyController extends BaseController {
 			ValidationUtils.rejectIfEmpty(result, "applicant_member_id", "신청자 ID를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_2", "신청자 전화번호를 입력하세요.");
 			ValidationUtils.rejectIfEmpty(result, "applicant_tel_3", "신청자 전화번호를 입력하세요.");
-			if(!apply.getHomepage_id().equals("h50")) {
+			if(!apply.getHomepage_id().equals("h50") && StringUtils.isEmpty(apply.getAge())) {
 				ValidationUtils.rejectIfEmpty(result, "age", "연령대를 선택해주세요.");
 			}
-			if("h45".equals(apply.getHomepage_id()) || "h73".equals(apply.getHomepage_id()) || "h59".equals(apply.getHomepage_id()) || "h60".equals(apply.getHomepage_id())) {
+
+			if((!StringUtils.isEmpty(apply.getAge()) && apply.getAge().equals("미성년자")) && ("h45".equals(apply.getHomepage_id()) || "h73".equals(apply.getHomepage_id()) || "h59".equals(apply.getHomepage_id()) || "h60".equals(apply.getHomepage_id()))) {
 				ValidationUtils.rejectIfEmpty(result, "protector_name", "보호자동의서에 보호자이름을 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "protector_relation", "신청인과의 관계를 입력하세요.");
 				ValidationUtils.rejectIfEmpty(result, "protector_address", "보호자 주소를 입력하세요.");
