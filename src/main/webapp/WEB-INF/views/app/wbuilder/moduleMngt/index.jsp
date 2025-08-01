@@ -78,7 +78,7 @@
                         <form:option value="${moduleMngtListCount}">전체 보기</form:option>
                     </form:select>
 
-                    <p class="total-count" style="margin-right: 6px">구분 :</p>
+                    <p class="total-count" style="margin-right: 6px">구분</p>
                     <form:select class="custom-filter" path="module_type">
                         <form:option value="CMS" label="CMS"/>
                         <form:option value="SITE" label="SITE"/>

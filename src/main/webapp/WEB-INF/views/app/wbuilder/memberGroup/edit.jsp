@@ -8,7 +8,7 @@
             resizable: false,
             modal: true,
             width: 400,
-            height: 300,
+            height: 350,
             open: function () {
                 $('.ui-widget-overlay').addClass('custom-overlay');
             },
@@ -19,7 +19,7 @@
             buttons: [
                 {
                     text: "저장",
-                    class: 'btn btn1',
+                    class: 'icon-btn navy',
                     click: function () {
                         if (doAjaxPost($('#memberGroupOne'))) {
                             $(this).dialog('destroy');
@@ -30,7 +30,7 @@
                 },
                 {
                     text: "취소",
-                    class: 'btn',
+                    class: 'icon-btn gary',
                     click: function () {
                         $(this).dialog('destroy');
                     }
@@ -44,28 +44,24 @@
     <form:hidden path="parent_member_group_idx"/>
     <form:hidden path="member_group_idx"/>
     <form:hidden path="editMode"/>
-    <table class="type2">
-        <colgroup>
-            <col width="130"/>
-            <col width="*"/>
-        </colgroup>
+    <table class="popup-table">
         <tbody>
-        <tr>
+        <tr >
             <th>상위권한그룹</th>
             <td>
                 ${parentMemberGroup.member_group_name}
             </td>
         </tr>
         <tr>
-            <th>권한그룹명 <em>*</em></th>
+            <th>권한그룹명 <span style="color: red">*</span></th>
             <td>
-                <form:input cssClass="text" cssStyle="width:178px;" path="member_group_name"/>
+                <form:input cssClass="custom-input" path="member_group_name"/>
             </td>
         </tr>
         <tr>
             <th>설명</th>
             <td>
-                <form:input cssClass="text" cssStyle="width:178px;" path="remark"/>
+                <form:input cssClass="custom-input" path="remark"/>
             </td>
         </tr>
         </tbody>
