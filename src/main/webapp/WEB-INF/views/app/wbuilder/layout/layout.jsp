@@ -13,15 +13,9 @@
     <link href="/resources/cms/css/font.css" rel="stylesheet" type="text/css"/>
     <link href="/resources/cms/css/side.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
-    <!--<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>-->
-    <!--<link rel="stylesheet" type="text/css" href="/resources/cms/survey/css/container.css"/>-->
 
     <script src="/resources/common/js/jquery-1.12.4.min.js" type="text/javascript"></script>
     <script src="/resources/cms/js/cms/side.js" type="text/javascript"></script>
-    <!--<script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>-->
-    <!--<script type="text/javascript" src="/resources/common/js/common.css"></script>-->
-    <!--<script type="text/javascript" src="/resources/cms/js/design.js"></script>-->
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
@@ -100,6 +94,7 @@
     </div>
     <tiles:insertAttribute name="body"/>
 </div>
+
 </body>
 </html>
 
