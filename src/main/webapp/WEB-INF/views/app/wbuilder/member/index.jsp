@@ -4,20 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
-
-
 <script type="text/javascript">
     $(function(){
-        <%--검색--%>
         $('button#search_btn').on('click', function(e) {
             $('#viewPage').val(1);
             doGetLoad('index.do', $('form#member_index').serialize());
         });
 
-        <%--사용자등록--%>
         $('a#dialog-add').on('click', function(e) {
             e.preventDefault();
             $('#dialog-1').load('edit.do?editMode=ADD', function( response, status, xhr ) {
@@ -25,7 +18,6 @@
             });
         });
 
-        <%--사용자수정--%>
         $('a.dialog-modify').on('click', function(e) {
             e.preventDefault();
             $('#dialog-1').load('edit.do?editMode=MODIFY&member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
@@ -33,7 +25,6 @@
             });
         });
 
-        <%--사용자삭제--%>
         $('a.delete').on('click', function(e) {
             e.preventDefault();
             if(confirm('해당 사용자(' + $(this).attr('keyValue') + ')를 정보를 삭제 하시겠습니까?')) {
@@ -45,7 +36,6 @@
             }
         });
 
-        <%--그룹설정--%>
         $('a.grouping').on('click', function(e) {
             e.preventDefault();
             $('#dialog-3').load('grouping_ajax.do?member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
@@ -53,7 +43,6 @@
             });
         });
 
-        <%--10개씩보기--%>
         $('select#rowCount').change(function(e) {
             $('#viewPage').val(1);
             doGetLoad('index.do', $('form#member_index').serialize());
@@ -63,7 +52,7 @@
 
 <div class="container-box">
     <div class="page-header">
-        <div>CMS관리자 메뉴</div>
+        <div>사용자 관리</div>
     </div>
     <div class="main-content">
         <form:form id="member_index" modelAttribute="member" action="save.do" method="post" onsubmit="return false;" style="width:100%;">

@@ -2,15 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${getContextPath}/resources/cms/jqTree/css/jqtree.css" rel="stylesheet">
-
-<link href="/resources/cms/css/reset.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/font.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/common.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/mainContent.css" rel="stylesheet" type="text/css"/>
-
 <script src="${getContextPath}/resources/cms/jqTree/js/tree.jquery.js" type="text/javascript"></script>
 <script src="${getContextPath}/resources/cms/js/jq_plugin/jquery.cookie.js" type="text/javascript"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         var beforeSelected_node = '';
@@ -133,12 +126,6 @@
 
                     $("#form_1").ajaxSubmit(option);
 
-                    <%--
-                    console.log('moved_node', event.move_info.moved_node);
-                    console.log('target_node', event.move_info.target_node);
-                    console.log('position', event.move_info.position);
-                    console.log('previous_parent', event.move_info.previous_parent);
-                    --%>
                 }
                 }
 
@@ -149,7 +136,6 @@
             }
         });
 
-        <%--메뉴삭제-- % >
         $('a#delete').on('click', function (e) {
             e.preventDefault();
             if (confirm('삭제 하시겠습니까?')) {
@@ -179,7 +165,6 @@
             }
         });
 
-        <%--메뉴추가-- % >
         $('a#add').on('click', function (e) {
             var node_id;
             if (beforeSelected_node.id == undefined || beforeSelected_node.id == '') {
@@ -190,19 +175,15 @@
             $('input#parent_menu_idx_1').val(node_id);
             $('input#editMode_1').val('ADD');
 
-            //열려있는 다이얼로그를 삭제한다.(중복방지)
             $('.dialog-common').remove();
             $('div#editLayer').load('edit.do?' + $('#form_1').serialize());
             e.preventDefault();
         });
 
-        <%--처음
-        disable
-        화면
-        처리-- % >
         $('div#editLayer').load('edit.do?editMode=FIRST');
     });
 </script>
+
 <form:form id="form_1" modelAttribute="adminMenu" onsubmit="return false;">
     <form:hidden id="parent_menu_idx_1" path="parent_menu_idx"/>
     <form:hidden id="move_target_menu_idx_1" path="move_target_menu_idx"/>
