@@ -59,7 +59,7 @@
                 <tr>
                     <th width="5%"> 순번</th>
                     <th>로그인 타입</th>
-                    <th>사용자ID</th>
+                    <th>사용자 ID</th>
                     <th>실패 횟수</th>
                     <th>일시</th>
                     <th>IP</th>
@@ -81,7 +81,7 @@
                         <td>${i.last_fail_date}</td>
                         <td>${i.last_fail_ip}</td>
                         <td>
-                            <a href="#" class="custom-btn sky grouping" keyValue="${i.member_id}">삭제</a>
+                            <a href="#" class="custom-btn delete" keyValue="${i.member_id}">삭제</a>
                         </td>
                     </tr>
                 </c:forEach>
