@@ -4,11 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
-
-
 <script type="text/javascript">
     $(function(){
         <%--검색--%>

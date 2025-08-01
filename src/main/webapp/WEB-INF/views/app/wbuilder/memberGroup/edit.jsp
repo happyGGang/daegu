@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
-
 <script>
     $(function () {
         $('#dialog-1').dialog({

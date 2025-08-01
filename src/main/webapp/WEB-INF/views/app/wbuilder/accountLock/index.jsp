@@ -4,37 +4,32 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/reset.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/font.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
-
 <script type="text/javascript">
-$(function(){
-	
-	<%--검색--%>
-	$('button#search_btn').on('click', function(e) {
-		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#member_index').serialize());
-	});
-	
-	<%--사용자삭제--%>
-	$('a.delete').on('click', function(e) {
-		e.preventDefault();
-		if(confirm('해당 사용자(' + $(this).attr('keyValue') + ')의 계정 잠금을 해제하시겠습니까?')) {
-			$('input#editMode_index').val('DELETE');
-			$('input#member_id_index').val($(this).attr('keyValue'));
-			if(doAjaxPost($('#member_index'))) {
-				location.reload();
-			}	
-		}
-	});
+    $(function(){
+        <%--검색--%>
+        $('button#search_btn').on('click', function(e) {
+            $('#viewPage').val(1);
+            doGetLoad('index.do', $('form#member_index').serialize());
+        });
 
-	<%--10개씩보기--%>
-	$('select#rowCount').change(function(e) {
-		$('#viewPage').val(1);
-		doGetLoad('index.do', $('form#member_index').serialize());
-	});
-});	
+        <%--사용자삭제--%>
+        $('a.delete').on('click', function(e) {
+            e.preventDefault();
+            if(confirm('해당 사용자(' + $(this).attr('keyValue') + ')의 계정 잠금을 해제하시겠습니까?')) {
+                $('input#editMode_index').val('DELETE');
+                $('input#member_id_index').val($(this).attr('keyValue'));
+                if(doAjaxPost($('#member_index'))) {
+                    location.reload();
+                }
+            }
+        });
+
+        <%--10개씩보기--%>
+        $('select#rowCount').change(function(e) {
+            $('#viewPage').val(1);
+            doGetLoad('index.do', $('form#member_index').serialize());
+        });
+    });
 </script>
 
 <div class="container-box">
@@ -55,13 +50,10 @@ $(function(){
                     </form:select>
                 </div>
             </div>
-
             <form:hidden id="member_id_index" path="member_id"/>
             <form:hidden id="editMode_index" path="editMode"/>
             <form:hidden path="search_auth"/>
             <form:hidden path="search_auth_name"/>
-
-
             <table class="custom-table">
                 <thead>
                 <tr>
@@ -95,12 +87,10 @@ $(function(){
                 </c:forEach>
                 </tbody>
             </table>
-
             <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
                 <jsp:param name="formId" value="#member_index"/>
                 <jsp:param name="pagingUrl" value="index.do"/>
             </jsp:include>
-
             <div class="table-search-bar">
                 <fieldset class="search-bar">
                     <form:select path="search_type" cssClass="custom-filter">

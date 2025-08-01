@@ -2,15 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${getContextPath}/resources/cms/jqTree/css/jqtree.css" rel="stylesheet">
-
-<link href="/resources/cms/css/reset.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/font.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/common.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/mainContent.css" rel="stylesheet" type="text/css"/>
-
 <script src="${getContextPath}/resources/cms/jqTree/js/tree.jquery.js" type="text/javascript"></script>
 <script src="${getContextPath}/resources/cms/js/jq_plugin/jquery.cookie.js" type="text/javascript"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         var beforeSelected_node = '';
@@ -203,6 +196,7 @@
         $('div#editLayer').load('edit.do?editMode=FIRST');
     });
 </script>
+
 <form:form id="form_1" modelAttribute="adminMenu" onsubmit="return false;">
     <form:hidden id="parent_menu_idx_1" path="parent_menu_idx"/>
     <form:hidden id="move_target_menu_idx_1" path="move_target_menu_idx"/>

@@ -3,11 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="${getContextPath}/resources/cms/jqTree/css/jqtree.css" rel="stylesheet">
-
-<link href="/resources/cms/css/reset.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/font.css" rel="stylesheet" type="text/css"/>
-<link href="/resources/cms/css/common.css" rel="stylesheet" type="text/css"/>
-
 <script src="${getContextPath}/resources/cms/jqTree/js/tree.jquery.js" type="text/javascript"></script>
 <script src="${getContextPath}/resources/cms/js/jq_plugin/jquery.cookie.js" type="text/javascript"></script>
 <script type="text/javascript">
