@@ -81,7 +81,7 @@
                     <li><a href="/wbuilder/moduleMngt/index.do">· 모듈관리</a></li>
                 </ul>
             </div>
-            <div class="one-depth" onclick="location.href='/wbuilder/adminMenu/index.do'">
+            <div class="one-depth" onclick="location.href='/wbuilder/adminMenu/index.do'" id="cmsAdminManage">
                 <div class="one-depth-btn">
                     <div>
                         <img alt="" src="/resources/cms/img/sideMenu/cms-admin.svg">
