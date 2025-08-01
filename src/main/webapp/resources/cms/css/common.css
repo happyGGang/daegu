@@ -340,11 +340,15 @@ tr.table-left td, tr.table-left th {
     border-right: 1px solid rgba(195, 198, 211, 0.50);
 }
 
-.custom-table thead tr th:first-child {
+.custom-table thead tr th:first-child:last-child {
+    border-radius: 4px;
+}
+
+.custom-table thead tr th:first-child:not(:last-child) {
     border-radius: 4px 0 0 4px;
 }
 
-.custom-table thead tr th:last-child {
+.custom-table thead tr th:last-child:not(:first-child) {
     border-radius: 0 4px 4px 0;
     border-right: none;
 }
