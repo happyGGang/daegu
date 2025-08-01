@@ -979,3 +979,17 @@ tr.table-left td, tr.table-left th {
 .txt-left {
     text-align: left !important;
 }
+
+@media (max-width: 1024px) {
+    .side-menu {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+
+    .container-box {
+        width: 100%;
+    }
+}
