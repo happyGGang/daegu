@@ -51,13 +51,11 @@
     }
 
     $(document).ready(function () {
-        <%--검색-- % >
         $('button#search_btn').on('click', function (e) {
             $('#viewPage').val(1);
             doGetLoad('index.do', $('form#loginLog').serialize());
         });
 
-        <%--10개씩보기-- % >
         $('select#rowCount').change(function (e) {
             $('#viewPage').val(1);
             doGetLoad('index.do', $('form#loginLog').serialize());
@@ -77,7 +75,7 @@
         <div>로그인 기록 관리</div>
     </div>
     <div class="main-content">
-        <form:form action="index.do" method="POST" modelAttribute="loginLog">
+        <form:form action="index.do" method="POST" modelAttribute="loginLog" style="width:100%;">
             <div class="table-action-wrapper">
                 <div class="center">
                     <p class="total-count">총 <fmt:formatNumber pattern="#,###" value="${loginLogCnt}"/>건</p>
@@ -90,12 +88,11 @@
                     </form:select>
                 </div>
 
-                <div class="search">
+                <div class="btn-wrapper">
                     <fieldset>
-                        <label class="blind">검색</label>
-                        <form:input cssClass="text ui-calendar" path="search_sdt" placeholder="조회일 선택"/>
-                        <form:input cssClass="text ui-calendar" path="search_edt" placeholder="조회종료일 선택"/>
-                        <a class="btn" href="#" id="search"><span>조회</span></a>
+                        <form:input cssClass="custom-date ui-calendar" path="search_sdt" placeholder="조회일 선택"/>
+                        <form:input cssClass="custom-date ui-calendar" path="search_edt" placeholder="조회종료일 선택"/>
+                        <a class="icon-btn navy" href="#" id="search">조회</a>
                     </fieldset>
                 </div>
             </div>
@@ -106,7 +103,7 @@
             <table class="custom-table">
                 <thead>
                     <tr>
-                        <th>번호</th>
+                        <th style="width: 5%">번호</th>
                         <th>ID</th>
                         <th>접속 위치</th>
                         <th>기기</th>

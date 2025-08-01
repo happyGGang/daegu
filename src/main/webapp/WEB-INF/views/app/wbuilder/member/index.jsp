@@ -6,13 +6,11 @@
 
 <script type="text/javascript">
     $(function(){
-        <%--검색--%>
         $('button#search_btn').on('click', function(e) {
             $('#viewPage').val(1);
             doGetLoad('index.do', $('form#member_index').serialize());
         });
 
-        <%--사용자등록--%>
         $('a#dialog-add').on('click', function(e) {
             e.preventDefault();
             $('#dialog-1').load('edit.do?editMode=ADD', function( response, status, xhr ) {
@@ -20,7 +18,6 @@
             });
         });
 
-        <%--사용자수정--%>
         $('a.dialog-modify').on('click', function(e) {
             e.preventDefault();
             $('#dialog-1').load('edit.do?editMode=MODIFY&member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
@@ -28,7 +25,6 @@
             });
         });
 
-        <%--사용자삭제--%>
         $('a.delete').on('click', function(e) {
             e.preventDefault();
             if(confirm('해당 사용자(' + $(this).attr('keyValue') + ')를 정보를 삭제 하시겠습니까?')) {
@@ -40,7 +36,6 @@
             }
         });
 
-        <%--그룹설정--%>
         $('a.grouping').on('click', function(e) {
             e.preventDefault();
             $('#dialog-3').load('grouping_ajax.do?member_id=' + $(this).attr('keyValue'), function( response, status, xhr ) {
@@ -48,7 +43,6 @@
             });
         });
 
-        <%--10개씩보기--%>
         $('select#rowCount').change(function(e) {
             $('#viewPage').val(1);
             doGetLoad('index.do', $('form#member_index').serialize());

@@ -6,19 +6,16 @@
 <script type="text/javascript">
     var list = $('tbody#authGroupList tr');
     $(document).ready(function () {
-
-        <%--저장-- % >
         $('a#saveAuthority').on('click', function (e) {
             e.preventDefault();
             doAjaxPost($('form#memberGroup'));
         });
 
         $('a#dialog-modify').on('click', function (e) {
+            e.preventDefault();
             $('#dialog-2').load('edit_ajax.do?editMode=MODIFY&member_group_idx=${memberGroup.member_group_idx}&auth_id=' + $(this).attr('keyValue'), function (response, status, xhr) {
                 $('#dialog-2').dialog('open');
             });
-
-            e.preventDefault();
         });
 
         $('a#auth_delete').on('click', function (e) {
@@ -37,11 +34,7 @@
             }
         });
 
-        <%--체크박스선택-- % >
         $('input[name=relationList]').on('click', function () {
-            <%--하위그룹
-            전체
-            선택-- % >
             var $myTr = $(this).parents('tr');
             var myLevel = parseInt($($myTr).data('level'));
             var currIdx = $(list).index($($myTr));
@@ -54,17 +47,10 @@
                     $($el).find('input:checkbox').prop('checked', $(this).is(':checked'));
                 }
             }
-            <%--하위그룹
-            전체
-            선택
-            끝-- % >
 
-            < % --상위그룹
-            선택
-            시작-- % >
             var checkAll = true;
-
             var parentGroupidx = $(this).data('parentgroupidx');
+
             $('input[name=relationList][data-parentGroupIdx=' + parentGroupidx + ']').each(function () {
                 if (!$(this).is(':checked')) {
                     $('input:checkbox[value=' + parentGroupidx + ']').prop('checked', false);
@@ -82,34 +68,29 @@
                 var myParent = $('input:checkbox[value=' + parentGroupidx + ']');
                 var parentGroupidxTmp = $(myParent).data('parentgroupidx');
                 var myParentTmp = $('input:checkbox[value=' + parentGroupidxTmp + ']');
-                var myParentTmpLength = $('input:checkbox[value=' + parentGroupidxTmp + ']').length;
+                var myParentTmpLength = myParentTmp.length;
+
                 if (myParentTmpLength > 0) {
                     hasParent = true;
-                    $(myParentTmp).prop('checked', false);
+                    myParentTmp.prop('checked', false);
                 }
 
                 while (hasParent) {
                     myParent = $('input:checkbox[value=' + parentGroupidxTmp + ']');
-                    parentGroupidxTmp = $(myParent).data('parentgroupidx');
+                    parentGroupidxTmp = myParent.data('parentgroupidx');
                     myParentTmp = $('input:checkbox[value=' + parentGroupidxTmp + ']');
-                    myParentTmpLength = $('input:checkbox[value=' + parentGroupidxTmp + ']').length;
+                    myParentTmpLength = myParentTmp.length;
+
                     if (myParentTmpLength > 0) {
                         hasParent = true;
-                        $(myParentTmp).prop('checked', false);
+                        myParentTmp.prop('checked', false);
                     } else {
                         hasParent = false;
                     }
                 }
             }
-            <%--상위그룹
-            선택
-            끝-- % >
         });
 
-
-        <%--탭
-        선택
-        시작-- % >
         $('.custom-tab > li > a').on('click', function (e) {
             selectedTab = $(this).data('tab');
             $('.custom-tab > li').removeClass('active');
@@ -117,30 +98,20 @@
 
             $('div.table-wrap').toggle();
             $('a#saveAuthority').toggle();
-// 		$('div#member-layer').load('memberList.do', serializeCustom($('form#smsSendForm')));
         });
-        <%--탭
-        선택
-        끝-- % >
 
         if (selectedTab == 'R') {
             $('a#tabLi2').click();
         }
 
-
-        <%--권한그룹
-        신규등록-- % >
         $('a#editGroup_add').on('click', function (e) {
             e.preventDefault();
-//열려있는 다이얼로그를 삭제한다.(중복방지)
-//$('.dialog-common').remove();
             <c:choose>
                 <c:when test="${memberGroup.admin_group_yn eq 'Y' or memberGroup.user_group_yn eq 'Y' or memberGroup.guest_group_yn eq 'Y'}">
                     alert('기본 그룹에는 하위그룹을 생성할 수 없습니다. 사이트명을 클릭 후 하위그룹 생성이 가능합니다.');
                 </c:when>
                 <c:otherwise>
-                    $('#dialog-1').load('edit_ajax.do?editMode=ADD&parent_member_group_idx=${memberGroup.member_group_idx}',
-                    function( response, status, xhr ) {
+                    $('#dialog-1').load('edit_ajax.do?editMode=ADD&parent_member_group_idx=${memberGroup.member_group_idx}', function (response, status, xhr) {
                     try {
                     $('#dialog-1').attr('title', '권한그룹 등록');
                     $('#dialog-1').dialog('open');
@@ -151,21 +122,20 @@
             </c:choose>
         });
 
-        <%--권한그룹
-        수정-- % >
         $('a#editGroup_modify').on('click', function (e) {
+            e.preventDefault();
             <c:choose>
                 <c:when test="${memberGroup.default_group_yn eq 'Y'}">
                     alert('기본그룹은 수정할 수 없습니다.');
                 </c:when>
                 <c:otherwise>
-                    if(beforeSelected_node.id == null) {
+                    if (beforeSelected_node.id == null) {
                     alert('수정할 권한그룹을 선택하세요.');
-                } else{
-                    if(beforeSelected_node.id == 'ROOT') {
+                } else {
+                    if (beforeSelected_node.id == 'ROOT') {
                     alert('최상위 그룹은 수정할 수 없습니다.');
                 } else {
-                    $('#dialog-1').load('edit_ajax.do?editMode=MODIFY&member_group_idx=${memberGroup.member_group_idx}', function( response, status, xhr ) {
+                    $('#dialog-1').load('edit_ajax.do?editMode=MODIFY&member_group_idx=${memberGroup.member_group_idx}', function (response, status, xhr) {
                     $('#dialog-1').attr('title', '권한그룹 수정');
                     $('#dialog-1').dialog('open');
                 });
@@ -173,48 +143,42 @@
                 }
                 </c:otherwise>
             </c:choose>
-
-
-            e.preventDefault();
         });
 
-        <%--권한그룹
-        삭제-- % >
         $('a#editGroup_delete').on('click', function (e) {
+            e.preventDefault();
             <c:choose>
                 <c:when test="${memberGroup.default_group_yn eq 'Y'}">
                     alert('기본그룹은 삭제할 수 없습니다.');
                 </c:when>
                 <c:otherwise>
-                    if(beforeSelected_node.id == null) {
-                    alert('삭제할 권한그룹을 선택하세요.');
-                } else{
-                    if(beforeSelected_node.id == 'ROOT') {
-                    alert('권한그룹 모음은 삭제할 수 없습니다.');
-                } else {
-                    if(confirm('삭제 하시겠습니까?')) {
-                    $.ajax({
-                    url : 'save.do?editMode=DELETE&member_group_idx=${memberGroup.member_group_idx}',
-                    async : true ,
-                    method : 'POST',
-                    success : function(data) {
-                    alert(data.message);
-                    if(data.valid) {
-                    location.reload();
-                }
-                }
+                    if (beforeSelected_node.id == null) {
+                        alert('삭제할 권한그룹을 선택하세요.');
+                    } else {
+                        if (beforeSelected_node.id == 'ROOT') {
+                        alert('권한그룹 모음은 삭제할 수 없습니다.');
+                    } else {
+                        if (confirm('삭제 하시겠습니까?')) {
+                        $.ajax({
+                        url: 'save.do?editMode=DELETE&member_group_idx=${memberGroup.member_group_idx}',
+                        async: true,
+                        method: 'POST',
+                        success: function (data) {
+                            alert(data.message);
+                        if (data.valid) {
+                            location.reload();
+                        }
+                    }
                 });
                 }
                 }
                 }
                 </c:otherwise>
             </c:choose>
-
-
-            e.preventDefault();
         });
     });
 </script>
+
 
 <style>
     #authGroupList tr td:last-child, #authGroupList tr th:last-child {display: none;}

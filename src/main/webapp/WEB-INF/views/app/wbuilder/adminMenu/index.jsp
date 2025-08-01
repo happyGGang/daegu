@@ -126,12 +126,6 @@
 
                     $("#form_1").ajaxSubmit(option);
 
-                    <%--
-                    console.log('moved_node', event.move_info.moved_node);
-                    console.log('target_node', event.move_info.target_node);
-                    console.log('position', event.move_info.position);
-                    console.log('previous_parent', event.move_info.previous_parent);
-                    --%>
                 }
                 }
 
@@ -142,7 +136,6 @@
             }
         });
 
-        <%--메뉴삭제-- % >
         $('a#delete').on('click', function (e) {
             e.preventDefault();
             if (confirm('삭제 하시겠습니까?')) {
@@ -172,7 +165,6 @@
             }
         });
 
-        <%--메뉴추가-- % >
         $('a#add').on('click', function (e) {
             var node_id;
             if (beforeSelected_node.id == undefined || beforeSelected_node.id == '') {
@@ -183,16 +175,11 @@
             $('input#parent_menu_idx_1').val(node_id);
             $('input#editMode_1').val('ADD');
 
-            //열려있는 다이얼로그를 삭제한다.(중복방지)
             $('.dialog-common').remove();
             $('div#editLayer').load('edit.do?' + $('#form_1').serialize());
             e.preventDefault();
         });
 
-        <%--처음
-        disable
-        화면
-        처리-- % >
         $('div#editLayer').load('edit.do?editMode=FIRST');
     });
 </script>
