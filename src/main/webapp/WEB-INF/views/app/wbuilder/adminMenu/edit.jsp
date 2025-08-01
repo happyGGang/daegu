@@ -250,7 +250,7 @@
                 <tr>
                     <th>출력 순서</th>
                     <td>
-                        <form:input cssClass="custom-input" cssStyle="width:4%" path="print_seq" type="number"/>
+                        <form:input cssClass="custom-input" cssStyle="width:4%" path="print_seq"/>
                     </td>
                 </tr>
                 <tr>

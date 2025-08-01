@@ -115,6 +115,7 @@
 
 .black {
     background: #222;
+    color: #FFF !important;
 }
 
 .black:hover {
@@ -758,4 +759,8 @@ tr.table-left td, tr.table-left th {
 .ui-dialog {
     border-radius: 16px !important;
     padding: 0 !important;
+}
+
+.txt-left {
+    text-align: left !important;
 }

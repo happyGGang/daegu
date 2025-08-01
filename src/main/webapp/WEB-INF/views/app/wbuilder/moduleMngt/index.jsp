@@ -115,14 +115,14 @@
                         <td>${i.link_url}</td>
                         <td>
                             <c:if test="${moduleMngt.module_type eq 'SITE'}">
-                                <%-- <a class="btn btn1 dialog-terms" href="" keyValue="${i.module_idx}">약관등록</a> --%>
+                                <%-- <a class="custom-btn dialog-terms" href="" keyValue="${i.module_idx}">약관등록</a> --%>
                             </c:if>
-                            <%-- <a class="btn btn2 dialog-auth" href="" keyValue="${i.module_idx}">권한설정</a> --%>
+                            <%-- <a class="custom-btn dialog-auth" href="" keyValue="${i.module_idx}">권한설정</a> --%>
                             <c:if test="${authU}">
-                                <a class="btn dialog-modify" href="" keyValue="${i.module_idx}">수정</a>
+                                <a class="custom-btn dialog-modify" href="" keyValue="${i.module_idx}">수정</a>
                             </c:if>
                             <c:if test="${authD}">
-                                <a class="btn delete-btn" href="" keyValue="${i.module_idx}">삭제</a>
+                                <a class="custom-btn delete-btn" href="" keyValue="${i.module_idx}">삭제</a>
                             </c:if>
                         </td>
                     </tr>
