@@ -52,11 +52,7 @@ $(function() {
 <form:hidden path="module_type" value="MODULE"/>
 <form:hidden path="site_id"/>
 <table class="type2">
-	<colgroup>
-		<col width="30"/>
-		<col width="150"/>
-		<col width="*"/>
-	</colgroup>
+
 	<thead>
 		<tr>
 			<th><input type="checkbox" id="checkAllModuleAuth"/></th>

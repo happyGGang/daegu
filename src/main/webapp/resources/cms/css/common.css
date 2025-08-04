@@ -993,3 +993,65 @@ tr.table-left td, tr.table-left th {
         width: 100%;
     }
 }
+
+
+.site-list{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #DDD;
+    padding: 10px 43px 10px 12px;
+    font-family: Pretendard-Regular, serif;
+    font-size: 14px;
+    letter-spacing: -0.28px;
+    color: #222;
+    background: #FFF url(../img/main/select-arrow.svg) no-repeat right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.custom-selector {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 8px;
+    border: 1px solid #DDD;
+    padding: 16px 28px 16px 16px;
+    font-family: Pretendard-Medium, serif;
+    font-size: 14px;
+    color: #222;
+    background: #FFF url("../img/main/select-arrow.svg") no-repeat right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+}
+
+.custom-scroll-bar {
+    height: 100vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* WebKit 스크롤바 스타일 */
+.custom-scroll-bar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: #878B96;
+    border-radius: 4px;
+}
+
+/* Firefox 스타일 */
+.custom-scroll-bar {
+    scrollbar-width: thin;
+    scrollbar-color: #878B96 #DADBE0;
+}
+/* 화살표 제거 */
+::-webkit-scrollbar-button {
+    display: none;
+}
