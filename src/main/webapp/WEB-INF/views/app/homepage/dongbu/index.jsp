@@ -179,8 +179,7 @@
             </div>
             <div class="wrapper">
                 <div class="slogan">
-                    <div><span>미래</span>를 보는 눈,<br><span>희망</span>을 키우는 곳</div>
-                    <div>대구광역시립동부도서관</div>
+                    <div><span>미래</span>를 보는 눈, <span>희망</span>을 키우는 곳 <span>동부도서관</span></div>
                 </div>
                 <!-- 검색 -->
                 <div class="search-bar-wrapper">
@@ -196,8 +195,9 @@
                     </form>
                 </div>
                 <!-- 퀵메뉴 -->
+
                 <div class="quick-menu">
-                    <img class="quick-menu-slide-prev" src="/resources/homepage/${homepage.context_path}/img/main/quick-menu-left-arrow.svg" alt="">
+                    <img class="quick-prev" src="/resources/homepage/suseong/img/main/left-arrow.svg" alt="">
                     <div class="quick-menu-slide">
                         <c:forEach var="i" varStatus="status" items="${quickMenuList}">
                             <c:if test="${i.link_target eq 'BLANK' }">
@@ -207,19 +207,34 @@
                                 </a>
                             </c:if>
                             <c:if test="${i.link_target ne 'BLANK' }">
-                                <a class="quick-menu-item" href="${i.link_url}" target="_blank">
+                                <a class="quick-menu-item" href="${i.link_url}">
                                     <img src="/data/quickMenu/${homepage.homepage_id}/${i.server_file_name}.${i.file_extension}" alt="${i.menu_name}">
                                     <div>${i.menu_name}</div>
                                 </a>
                             </c:if>
                         </c:forEach>
                     </div>
-                    <img class="quick-menu-slide-next" src="/resources/homepage/${homepage.context_path}/img/main/quick-menu-right-arrow.svg" alt="">
+                    <img class="quick-next" src="/resources/homepage/suseong/img/main/right-arrow.svg" alt="">
                 </div>
             </div>
             <!-- 휴관일 & 공지사항 -->
             <div class="main-bottom-area">
                 <div class="holiday-area" id="holiday-area"></div>
+                <div class="notice-slide-wrapper">
+                    <img src="/resources/homepage/duryu/img/main/notice-slide-pause.svg" alt="">
+                    <div class="notice-slide">
+                        <c:if test="${not empty newsList}">
+                            <c:forEach items="${newsList}" var="i">
+                                <div>
+                                    <c:out value="${i.news_name}" default="제목 없음" />
+                                </div>
+                            </c:forEach>
+                        </c:if>
+                        <c:if test="${empty newsList}">
+                            <div>등록된 알림이 없습니다.</div>
+                        </c:if>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- 섹션2 -->
@@ -438,9 +453,9 @@
             <div class="wrapper">
                 <div class="tab-header-wrapper">
                     <div class="book-tab-wrapper">
-                        <div class="tab-button active-tab" data-target="tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" data-text="신착도서 더보기">신착도서</div>
+                        <div class="tab-button active-tab" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=215&manage_idx=1297"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
+                        <div class="tab-button" data-target="tab1" data-link="/${homepage.context_path}/intro/search/newBook/index.do?menu_idx=14" data-text="신착도서 더보기">신착도서</div>
                         <div class="tab-button" data-target="tab2" data-link="/${homepage.context_path}/intro/search/bestBook/index.do?menu_idx=15" data-text="대출베스트 더보기">대출베스트</div>
-                        <div class="tab-button" data-target="tab3" data-link="/${homepage.context_path}/board/index.do?menu_idx=215&manage_idx=1297"  data-text="사서&북큐레이션 더보기">사서&북큐레이션</div>
                     </div>
 
                     <a id="tab-link" href="">
