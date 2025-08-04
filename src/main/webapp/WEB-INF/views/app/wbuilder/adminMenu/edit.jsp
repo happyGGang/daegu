@@ -59,8 +59,6 @@
                 $('#menuType' + i).show();
             }
         });
-        $('.selectmenu').select2({minimumResultsForSearch: Infinity});
-        $('.selectmenu-search').select2({});
 
         $('a#save').on('click', function (e) {
             if (confirm('저장 하시겠습니까?')) {

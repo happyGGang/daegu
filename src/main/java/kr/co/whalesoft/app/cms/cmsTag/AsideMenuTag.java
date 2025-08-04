@@ -2,202 +2,128 @@ package kr.co.whalesoft.app.cms.cmsTag;
 
 import java.io.IOException;
 import java.util.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
 import kr.co.whalesoft.app.cms.adminMenu.AdminMenu;
 import kr.co.whalesoft.framework.tag.HtmlTag;
 
 public class AsideMenuTag extends BodyTagSupport {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private List<AdminMenu> adminMenuList;
 
-	private List<AdminMenu> adminMenuList;
+    @Override
+    public int doEndTag() throws JspException {
+        StringBuilder sb = new StringBuilder();
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String asideHomepageId = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
 
-	@Override
-	public int doEndTag() throws JspException {
+        Set<Integer> access_set = new HashSet<>();
 
-		HtmlTag ulTag = new HtmlTag("ul");
-		HtmlTag liTag_lvl1 = null;
+        if (adminMenuList != null && !adminMenuList.isEmpty()) {
+            Map<Integer, HtmlTag> tagMap = new HashMap<>();
+            Map<Integer, HtmlTag> contentMap = new HashMap<>();
 
-		HtmlTag ulTag_lvl2 = null;
-		HtmlTag liTag_lvl2 = null;
-		boolean check_lvl2 = false;
+            for (AdminMenu menu : adminMenuList) {
+                if (menu.getAccess_homepage_id_arr() != null) {
+                    String[] ids = menu.getAccess_homepage_id_arr();
+                    Arrays.sort(ids);
+                    if (Arrays.binarySearch(ids, asideHomepageId) < 0) {
+                        access_set.add(menu.getMenu_idx());
+                        continue;
+                    }
+                }
+                if (access_set.contains(menu.getParent_menu_idx())) {
+                    access_set.add(menu.getMenu_idx());
+                    continue;
+                }
 
-		HtmlTag ulTag_lvl3 = null;
-		HtmlTag liTag_lvl3 = null;
-		boolean check_lvl3 = false;
+                int level = menu.getMenu_level();
+                String url = StringUtils.equals(menu.getMenu_type(), "module") ? menu.getLink_url() : menu.getMenu_url();
+                String anchor = buildAnchor(menu, url);
 
-		HtmlTag ulTag_lvl4 = null;
-		HtmlTag liTag_lvl4 = null;
-		boolean check_lvl4 = false;
+                if (level == 1) {
+                    HtmlTag container = new HtmlTag("div");
+                    container.setAttribute("class", "one-depth");
+                    container.setAttribute("id", menu.getMenu_name());
 
-		HtmlTag ulTag_lvl5 = null;
-		HtmlTag liTag_lvl5 = null;
-		boolean check_lvl5 = false;
+                    HtmlTag btn = new HtmlTag("div");
+                    btn.setAttribute("class", "one-depth-btn");
 
-		HtmlTag ulTag_lvl6 = null;
-		HtmlTag liTag_lvl6 = null;
-		boolean check_lvl6 = false;
+                    HtmlTag iconDiv = new HtmlTag("div");
+                    iconDiv.setContent("<img src='/resources/cms/img/sideMenu/cms-manage.svg' alt=''><div>" + menu.getMenu_name() + "</div>");
 
-		Set<Integer> access_set = new HashSet<Integer>();
+                    HtmlTag expandIcon = new HtmlTag("img");
+                    expandIcon.setAttribute("src", "/resources/cms/img/sideMenu/expansion.svg");
+                    expandIcon.setAttribute("alt", "");
 
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+                    btn.addSubTag(iconDiv);
+                    btn.addSubTag(expandIcon);
+                    container.addSubTag(btn);
 
-		String asideHomepageId = String.valueOf(request.getSession().getAttribute("asideHomepageId"));
-		if(adminMenuList != null && adminMenuList.size() > 0) {
-			for(AdminMenu adminMenu : adminMenuList) {
-				if (adminMenu.getAccess_homepage_id_arr() != null && adminMenu.getAccess_homepage_id_arr().length > 0) {
-					String[] access_homepage_id_arr = adminMenu.getAccess_homepage_id_arr();
-					Arrays.sort(access_homepage_id_arr);
-					int indexHomepageId = Arrays.binarySearch(access_homepage_id_arr, asideHomepageId);
-					if (indexHomepageId < 0) {
-						access_set.add(adminMenu.getMenu_idx());
-						continue;
-					}
-				}
+                    tagMap.put(menu.getMenu_idx(), container);
+                    contentMap.put(menu.getMenu_idx(), container);
+                } else {
+                    HtmlTag parent = contentMap.get(menu.getParent_menu_idx());
+                    if (parent != null) {
+                        HtmlTag ul = getOrCreateUlTag(parent);
+                        HtmlTag li = new HtmlTag("li");
+                        li.setContent(anchor);
+                        ul.addSubTag(li);
 
-				if (access_set.contains(adminMenu.getParent_menu_idx())) {
-					access_set.add(adminMenu.getMenu_idx());
-					continue;
-				}
+                        // 다음 레벨을 위한 저장
+                        tagMap.put(menu.getMenu_idx(), li);
+                        contentMap.put(menu.getMenu_idx(), li);
+                    }
+                }
+            }
 
-				if(adminMenu.getMenu_level() == 1) {
-					check_lvl2 = false;
-					check_lvl3 = false;
-					liTag_lvl1 = new HtmlTag("li");
-					liTag_lvl1.setContent("<a href=\"\" class='code2'>" + "<i class=\"fa fa-desktop\"></i><span>" + adminMenu.getMenu_name() + "</span></a>");
-					ulTag.addSubTag(liTag_lvl1);
-				} else if(adminMenu.getMenu_level() == 2) {
-					check_lvl3 = false;
-					if(!check_lvl2) {
-						check_lvl2 = true;
-						ulTag_lvl2 = new HtmlTag("ul");
-						liTag_lvl1.addSubTag(ulTag_lvl2);
-					}
-					liTag_lvl2 = new HtmlTag("li");
-					String url = adminMenu.getMenu_url();
-					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
-						url = adminMenu.getLink_url();
-					}
-					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
-						liTag_lvl2.setContent("<a href='#' onclick='javascript:parent.location.href=\""+url+"\"; return false;'>" + adminMenu.getMenu_name() + "</a>");
-					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
-						liTag_lvl2.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
-					} else {
-						liTag_lvl2.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
-					}
-					ulTag_lvl2.addSubTag(liTag_lvl2);
-				} else if(adminMenu.getMenu_level() == 3) {
-					if(!check_lvl3) {
-						check_lvl3 = true;
-						ulTag_lvl3 = new HtmlTag("ul");
-						liTag_lvl2.addSubTag(ulTag_lvl3);
-					}
-					liTag_lvl3 = new HtmlTag("li");
-					String url = adminMenu.getMenu_url();
-					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
-						url = adminMenu.getLink_url();
-					}
-					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
-						liTag_lvl3.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
-					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
-						liTag_lvl3.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
-					} else {
-						liTag_lvl3.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
-					}
-					ulTag_lvl3.addSubTag(liTag_lvl3);
-				} else if(adminMenu.getMenu_level() == 4) {
-					if(!check_lvl4) {
-						check_lvl4 = true;
-						ulTag_lvl4 = new HtmlTag("ul");
-						liTag_lvl3.addSubTag(ulTag_lvl4);
-					}
-					ulTag_lvl4 = new HtmlTag("li");
-					String url = adminMenu.getMenu_url();
-					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
-						url = adminMenu.getLink_url();
-					}
-					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
-						ulTag_lvl4.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
-					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
-						ulTag_lvl4.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
-					} else {
-						ulTag_lvl4.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
-					}
-					ulTag_lvl4.addSubTag(ulTag_lvl4);
-				} else if(adminMenu.getMenu_level() == 5) {
-					if(!check_lvl5) {
-						check_lvl5 = true;
-						ulTag_lvl5 = new HtmlTag("ul");
-						liTag_lvl4.addSubTag(ulTag_lvl5);
-					}
-					ulTag_lvl5 = new HtmlTag("li");
-					String url = adminMenu.getMenu_url();
-					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
-						url = adminMenu.getLink_url();
-					}
-					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
-						ulTag_lvl5.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
-					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
-						ulTag_lvl5.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
-					} else {
-						ulTag_lvl5.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
-					}
-					ulTag_lvl5.addSubTag(ulTag_lvl5);
-				} else if(adminMenu.getMenu_level() == 5) {
-					if(!check_lvl6) {
-						check_lvl6 = true;
-						ulTag_lvl6 = new HtmlTag("ul");
-						liTag_lvl5.addSubTag(ulTag_lvl6);
-					}
-					ulTag_lvl6 = new HtmlTag("li");
-					String url = adminMenu.getMenu_url();
-					if (StringUtils.equals(adminMenu.getMenu_type(), "module")) {
-						url = adminMenu.getLink_url();
-					}
-					if (StringUtils.equals(adminMenu.getMenu_type(), "changePage")) {
-						ulTag_lvl6.setContent("<a href='#' onclick='javascript:parent.location.href='"+url+"'; return false;'>" + adminMenu.getMenu_name() + "</a>");
-					} else if(StringUtils.equals(adminMenu.getMenu_type(), "_blank")) {
-						ulTag_lvl6.setContent("<a href='" + url + "' target='_blank'>" + adminMenu.getMenu_name() + "</a>");
-					} else {
-						ulTag_lvl6.setContent("<a href='" + url + "'>" + adminMenu.getMenu_name() + "</a>");
-					}
-					ulTag_lvl6.addSubTag(ulTag_lvl6);
-				}
-			}
-		}
+            // 출력 순서를 유지하려면 adminMenuList를 기준으로 depth=1만 출력
+            for (AdminMenu menu : adminMenuList) {
+                if (menu.getMenu_level() == 1 && tagMap.containsKey(menu.getMenu_idx())) {
+                    sb.append(tagMap.get(menu.getMenu_idx()).toString());
+                }
+            }
+        }
 
-		try {
-			pageContext.getOut().println(ulTag.toString());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return EVAL_PAGE;
-	}
+        try {
+            pageContext.getOut().println(sb.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return EVAL_PAGE;
+    }
 
-	public List<AdminMenu> getAdminMenuList() {
-		if(adminMenuList != null) {
-			List<AdminMenu> arrayList = new ArrayList<AdminMenu>();
-			arrayList.addAll(this.adminMenuList);
-			return arrayList;
-		} else {
-			return null;
-		}
-	}
+    private String buildAnchor(AdminMenu menu, String url) {
+        if (StringUtils.equals(menu.getMenu_type(), "changePage")) {
+            return "<a href='#' onclick=\"javascript:parent.location.href='" + url + "'; return false;\">" + menu.getMenu_name() + "</a>";
+        } else if (StringUtils.equals(menu.getMenu_type(), "_blank")) {
+            return "<a href='" + url + "' target='_blank'>" + menu.getMenu_name() + "</a>";
+        } else {
+            return "<a href='" + url + "'>" + menu.getMenu_name() + "</a>";
+        }
+    }
 
-	public void setAdminMenuList(List<AdminMenu> adminMenuList) {
-		if(adminMenuList != null) {
-			this.adminMenuList = new ArrayList<AdminMenu>();
-			this.adminMenuList.addAll(adminMenuList);
-		}
-	}
+    private HtmlTag getOrCreateUlTag(HtmlTag parent) {
+        for (HtmlTag child : parent.getSubTags()) {
+            if ("ul".equals(child.getName())) {
+                return child;
+            }
+        }
+        HtmlTag ul = new HtmlTag("ul");
+        parent.addSubTag(ul);
+        return ul;
+    }
 
+    public List<AdminMenu> getAdminMenuList() {
+        return adminMenuList != null ? new ArrayList<>(adminMenuList) : null;
+    }
+
+    public void setAdminMenuList(List<AdminMenu> adminMenuList) {
+        this.adminMenuList = adminMenuList != null ? new ArrayList<>(adminMenuList) : null;
+    }
 }

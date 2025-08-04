@@ -9,42 +9,22 @@
 <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
 <title>도서관통합관리프로그램</title>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/css/aside.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/common/css/select2.min.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/cms/survey/css/container.css"/>
+
+<link href="/resources/cms/css/reset.css" rel="stylesheet" type="text/css"/>
+<link href="/resources/cms/css/font.css" rel="stylesheet" type="text/css"/>
+<link href="/resources/cms/css/side.css" rel="stylesheet" type="text/css"/>
+<link href="/resources/cms/css/common.css" rel="stylesheet" type="text/css"/>
 
 <script type="text/javascript" src="/resources/common/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/jquery-ui-1.12.0-datepicker.min.js"></script>
 <script type="text/javascript" src="/resources/common/js/common.js"></script>
-<script type="text/javascript" src="/resources/cms/js/design.js"></script>
+<script src="/resources/cms/js/cms/side.js" type="text/javascript"></script>
 </head>
-    <style>
-#menuSearchResults {
-    position: absolute;
-    background: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 9999;
-    display: none;
-    width: 200px;
-}
 
-#menuSearchResults li {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-#menuSearchResults li:hover {
-    background-color: #eee;
-}
-</style>
 <body>
-    <script type="text/javascript">
+    <!-- 로그인세션 관련 모달 스크립트 -->
+    <%--<script type="text/javascript">
         let idleTimeout, logoutTimeout, countdownInterval;
         const warningTime = 60 * 60 * 1000;
         const logoutTime = 61 * 60 * 1000;
@@ -140,51 +120,43 @@
                 }
             });
         });
-    </script>
+    </script>--%>
 
-    <div>
-        <div id="wrap" class="left-sidebar">
-            <div class="aside">
-                <div id="header">
-                    <h1><a href="/cms/index.do">SJS</a></h1>
-                    <div>
-                        <p><b>(${sessionScope.member.member_name})</b>님 로그인 중입니다.ㄶㄴㅇㅎㄴㅇㅎ</p>
-                        <p>
-                            <a href="/cms/login/logout.do" target="_parent">
-                                <i class="fa fa-sign-out"></i>
-                                <em>로그아웃</em>
-                            </a>
-                            <span>|</span>
-                            <a class="pass-change-btn" href="">
-                                <i class="fa fa-gear"></i>
-                                <em>비밀번호 변경</em>
-                            </a>
-                        </p>
-                        <p>
-                            <tiles:insertAttribute name="asideHomepage" />
-                        </p>
-                        <c:if test="${member.admin}">
-                            <p>
-                                <a href="" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
-                            </p>
-                        </c:if>
-                        <p>
-                            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>
-                            <ul id="menuSearchResults" class="search-autocomplete"></ul>
-                        </p>
-                    </div>
-                </div>
+    <div class="cms-container">
+        <div class="side-menu">
+            <div class="side-menu-toggle-btn">
+                <img alt="" src="/resources/cms/img/sideMenu/toggle.svg">
+            </div>
+            <img alt="" class="logo" src="/resources/cms/img/sideMenu/logo.png">
+            <div class="user-name"><span>${sessionScope.member.member_name}</span>님 반갑습니다.</div>
+            <div class="action-wrapper">
+                <a href="/cms/login/logout.do" target="_parent">
+                    <img alt="" src="/resources/cms/img/sideMenu/logout.svg">
+                    <div>로그아웃</div>
+                </a>
+                <a href="/cms/member/index.do">
+                    <img alt="" src="/resources/cms/img/sideMenu/setting.svg">
+                    <div>비밀번호 변경</div>
+                </a>
+
+                <tiles:insertAttribute name="asideHomepage" />
+
+                <c:if test="${member.admin}">
+                    <a href="" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
+                </c:if>
+
+                <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>
+                <ul id="menuSearchResults" class="search-autocomplete"></ul>
+            </div>
+
+            <div class="menu-list">
                 <cmsTag:asideMenu adminMenuList="${adminMenuList}"/>
             </div>
         </div>
+        <tiles:insertAttribute name="body"/>
 
-        <div id="container"style="float: left; clear: none; width: 80%;">
-            <div class="wrapper wrapper-white" >
-                <tiles:insertAttribute name="body" />
-            </div>
-        </div>
-
-        <div id="sessionTimeoutModal" class="session-timeout-modal">
+        <!-- 로그인세션 관련 모달 -->
+        <%--<div id="sessionTimeoutModal" class="session-timeout-modal">
             <h3 class="session-timeout-title">자동로그아웃안내</h3>
             <p class="session-timeout-timer">남은시간 <span id="countdown" class="countdown-number">360</span>초</p>
             <p class="session-timeout-message">
@@ -193,75 +165,12 @@
             </p>
             <button onclick="extendSession();" class="btn btn-extend">연장하기</button>
             <button onclick="logout();" class="btn btn-logout">로그아웃</button>
-        </div>
+        </div>--%>
     </div>
 </body>
 
 <script>
 $(document).ready(function () {
-    const currentPath = window.location.pathname;
-
-    // 현재 경로에 해당하는 메뉴 활성화
-    $('.aside a').each(function () {
-        const linkPath = $(this).attr('href');
-        if (linkPath && currentPath === linkPath) {
-            const $li = $(this).closest('li');
-            $li.addClass('active');
-            $li.parents('ul').show();
-            $li.parents('li').addClass('active');
-        }
-    });
-
-    // 재귀적 메뉴 토글 처리 함수
-    function setupMenuToggle($rootSelector) {
-        $rootSelector.children('li').each(function () {
-            const $li = $(this);
-            const $a = $li.children('a');
-            const $submenu = $li.children('ul');
-
-            if ($submenu.length > 0) {
-                // 하위 메뉴가 있을 경우, 클릭 이벤트 설정
-                $a.on('click', function (e) {
-                    e.preventDefault();
-                    const isActive = $li.hasClass('active');
-
-                    // 동일 뎁스 내 다른 메뉴 닫기
-                    $li.siblings('li').removeClass('active').children('ul').slideUp(80);
-
-                    // 현재 메뉴 toggle
-                    if (!isActive) {
-                        $submenu.slideDown(80);
-                        $li.addClass('active');
-                    } else {
-                        $submenu.slideUp(80);
-                        $li.removeClass('active');
-                    }
-                });
-
-                // 초기 로딩 시 하위 active 처리
-                if ($submenu.find('li.active').length > 0) {
-                    $li.addClass('active');
-                    $submenu.show();
-                }
-
-                // 재귀 호출로 하위 뎁스 처리
-                setupMenuToggle($submenu);
-            } else {
-                $li.addClass('s'); // 서브 없음 표시
-            }
-        });
-    }
-
-    // 최상위 aside > ul 에서부터 시작
-    setupMenuToggle($('.aside > ul'));
-
-    // 비밀번호 변경
-    $('a.pass-change-btn').on('click', function (e) {
-        e.preventDefault();
-        $('input#passChangeEvent').val(true);
-        location.href = "/cms/member/index.do";
-    });
-
     // 홈페이지 선택 변경
     $('#siteList').on('change', function () {
         const selectedHomepageId = $(this).val();
