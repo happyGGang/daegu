@@ -1,9 +1,19 @@
 <%@ page language="java" pageEncoding="utf-8" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
+
+<%
+	Date now = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+	String todays = sf.format(now);
+%>
+<c:set var="now" value="<%=todays %>" />
+
 <c:choose>
 	<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
 	<script type="text/javascript">
@@ -248,7 +258,14 @@
 					<form:option value="BL">서구어린이도서관</form:option>
 					<form:option value="BQ">비산도서관</form:option>
 					<form:option value="BP">서구영어도서관</form:option>
-					<form:option value="BM">비원도서관</form:option>
+					<c:choose>
+						<c:when test="${20250802000000 <= now and now <= 20250930235959}">
+
+						</c:when>
+						<c:otherwise>
+							<form:option value="BM">비원도서관</form:option>
+						</c:otherwise>
+					</c:choose>
 					<form:option value="BN">원고개도서관</form:option>
 					<form:option value="CC">New평리도서관</form:option>
 					<form:option value="HT">서구어린이영어도서관</form:option>
