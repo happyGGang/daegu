@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript">
     $(function () {
         $('button#search_btn').on('click', function (e) {

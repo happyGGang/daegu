@@ -29,6 +29,7 @@ pageEncoding="UTF-8"%>
                     text: "취소",
                     "class": 'icon-btn gary',
                     click: function () {
+                        $(this).empty();
                         $(this).dialog('destroy');
                     }
                 }

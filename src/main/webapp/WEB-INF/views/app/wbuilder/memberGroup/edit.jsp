@@ -14,6 +14,7 @@
             },
             close: function () {
                 $('.ui-widget-overlay').removeClass('custom-overlay');
+                $(this).empty();
                 $('#dialog-1').dialog('destroy');
             },
             buttons: [
@@ -32,6 +33,7 @@
                     text: "취소",
                     class: 'icon-btn gary',
                     click: function () {
+                        $(this).empty();
                         $(this).dialog('destroy');
                     }
                 }
