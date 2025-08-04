@@ -12,10 +12,10 @@
     <link href="/resources/cms/css/reset.css" rel="stylesheet" type="text/css"/>
     <link href="/resources/cms/css/font.css" rel="stylesheet" type="text/css"/>
     <link href="/resources/cms/css/side.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="/resources/cms/css/common.css"/>
+    <link href="/resources/cms/css/common.css" rel="stylesheet" type="text/css"/>
 
     <script src="/resources/common/js/jquery-1.12.4.min.js" type="text/javascript"></script>
-    <script src="/resources/cms/js/cms/side.js" type="text/javascript"></script>
+    <script src="/resources/cms/js/wbuilder/side.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>

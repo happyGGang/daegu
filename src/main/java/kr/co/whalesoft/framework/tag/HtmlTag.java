@@ -48,6 +48,14 @@ public class HtmlTag {
 		this.subTagPrintType = subTagPrintType;
 	}
 
+	public List<HtmlTag> getSubTags() {
+        return this.subTags;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
 	@Override
 	public String toString() {
 		

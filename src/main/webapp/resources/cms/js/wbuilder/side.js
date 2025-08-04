@@ -33,7 +33,7 @@ $(function () {
     });
 
     // Activate top-level menu based on path
-   /* const activeMenu = path.includes('memberGroupAuth')
+    const activeMenu = path.includes('memberGroupAuth')
         ? '#memberGroupAuth'
         : /member|accountLock|loginLog/.test(path)
             ? '#memberGroup'
@@ -42,7 +42,7 @@ $(function () {
                 : !path.includes('/wbuilder/index.do')
                     ? '#cmsManage'
                     : null;
-    $(activeMenu).addClass('active');*/
+    $(activeMenu).addClass('active');
   }
 
   // Toggle side menu open/closed state
