@@ -1132,9 +1132,9 @@ function resveReq(bookkey, booktype, editMode) {
 												</c:choose>
 											</p>
 											<c:if test="${not empty i.APPENDIX_INFO}">
-											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'} ">
-											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
-											</c:if>
+<%--											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">--%>
+												<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
+<%--											</c:if>--%>
 											</c:if>
 											<!--
 											JU : 아동, MS : 중학생, AD : 성인, PU : 일반, ES : 초등, HS : 고등, SP : 특수, TE : 청소년, 기타 : 

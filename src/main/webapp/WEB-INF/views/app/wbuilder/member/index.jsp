@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript" src="/resources/common/js/common.js"></script>
 <script type="text/javascript">
     $(function(){
         $('button#search_btn').on('click', function(e) {

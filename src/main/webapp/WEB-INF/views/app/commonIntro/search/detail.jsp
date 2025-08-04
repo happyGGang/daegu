@@ -494,9 +494,9 @@ $(function() {
 					</c:if>
 					<li><strong>분류기호</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;한국십진분류법 : ${detail.CLASS_NO}</li>
 					<c:if test="${not empty detail.APPENDIX_INFO}">
-					<c:if test="${detail.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">
+<%--					<c:if test="${detail.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">--%>
 					<li><strong>부록여부</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.APPENDIX_INFO[0].DESCRIPTION} (${detail.APPENDIX_INFO[0].APPENDIX_CNT}개)</li>
-					</c:if>
+<%--					</c:if>--%>
 					</c:if>
 					<c:if test="${not empty detail.marc and (homepage.context_path eq 'dalseolib' || homepage.context_path eq 'bukgs' || homepage.context_path eq 'bukdh' || homepage.context_path eq 'buktj')}">
 					<li><strong>영어독서 레벨</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${detail.marc}</li>

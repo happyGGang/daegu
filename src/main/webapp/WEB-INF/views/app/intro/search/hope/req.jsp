@@ -1,7 +1,17 @@
 <%@ page language="java" pageEncoding="utf-8" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<%
+	Date now = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss");
+	String todays = sf.format(now);
+%>
+<c:set var="now" value="<%=todays %>" />
+
 <link rel="stylesheet" type="text/css" href="/resources/book/search/css/default.css"/>
 <c:choose>
 	<c:when test="${sessionScope.member.user_class_code eq '016' || sessionScope.member.user_class_code eq '017'}">
@@ -42,6 +52,10 @@
 				</c:if>
 
 				$('#save-btn').on('click', function (e) {
+					<c:if test="${context_path eq 'biwon' and 20250802000000 <= now and now <= 20250930235959}">
+						alert('2025년 9월 30일까지 희망도서신청이 제한되어 있습니다.');
+						return false;
+					</c:if>
 
 					<c:if test="${context_path eq 'bukgs' or context_path eq 'bukdh' or context_path eq 'buktj' or homepage.context_path eq 'donggu' or homepage.context_path eq 'sincheon' or homepage.context_path eq 'donggusm'}">
 					var isbn = reqHopeForm.isbn.value;
