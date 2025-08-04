@@ -60,12 +60,12 @@
     <form:hidden id="homepage_id_index" path="homepage_id"/>
 
 
-
+    <div class="container-box">
         <div class="page-header">
             <div>홈페이지 기본설정</div>
         </div>
         <div class="main-content">
-            <div class="table-action-wrapper" style="width: 100%">
+            <div class="table-action-wrapper">
                 <div class="center">
                     <p class="total-count">총 ${homepageListCount}건</p>
                 <form:select path="rowCount" class="custom-filter" style="width:150px;">
@@ -82,7 +82,7 @@
                     </a>
                 </c:if>
             </div>
-        </div>
+
 
             <table class="custom-table">
                 <thead>
@@ -176,7 +176,8 @@
             <jsp:include page="/WEB-INF/views/app/cms/common/paging.jsp" flush="false">
                 <jsp:param name="formId" value="#homepage_index"/>
             </jsp:include>
-
+        </div>
+    </div>
 
 </form:form>
 <div id="dialog-1" class="dialog-common" title="홈페이지 정보">
