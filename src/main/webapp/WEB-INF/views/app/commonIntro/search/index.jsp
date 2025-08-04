@@ -1728,9 +1728,9 @@ function isFromFridayToSunday() {
 
 </c:if>
 											<c:if test="${not empty i.APPENDIX_INFO}">
-											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">
+<%--											<c:if test="${i.APPENDIX_LIST[0].LOAN_CODE eq 'OK'}">--%>
 											<p><font style="color:#5e5e5e">부록여부</font> : ${i.APPENDIX_INFO[0].DESCRIPTION} (${i.APPENDIX_INFO[0].APPENDIX_CNT}개)</p>
-											</c:if>
+<%--											</c:if>--%>
 											</c:if>
 											<p>
 											<font style="color:#5e5e5e">이용대상</font> :
