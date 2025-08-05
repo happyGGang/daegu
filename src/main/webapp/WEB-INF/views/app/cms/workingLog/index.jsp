@@ -61,70 +61,75 @@ $(function() {
 
 });
 </script>
-<form:form modelAttribute="workingLog" method="get" action="index.do">
-<c:if test="${asideHomepageId ne 'CMS'}">
-<form:hidden path="site_id"/>
-</c:if>
 
-	<div class="infodesk">
-		검색 결과 : 총 ${paging.totalDataCount}건
-		<form:select path="rowCount" class="selectmenu" style="width:150px;">
-			<form:option value="10">10개씩 보기</form:option>
-			<form:option value="50">50개씩 보기</form:option>
-			<form:option value="100">100개씩 보기</form:option>
-			<form:option value="150">150개씩 보기</form:option>
-			<form:option value="300">300개씩 보기</form:option>
-			<form:option value="500">500개씩 보기</form:option>
-		</form:select>
-		작업구분 : <form:select path="work_type" cssClass="selectmenu">
+<div class="container-box">
+    <div class="page-header">
+        <div>작업 이력 관리</div>
+    </div>
+
+    <div class="main-content">
+        <form:form modelAttribute="workingLog" method="get" action="index.do" style="width: 100%">
+        <c:if test="${asideHomepageId ne 'CMS'}">
+        <form:hidden path="site_id"/>
+        </c:if>
+
+        <div class="center">
+            <p class="total-count">총 ${paging.totalDataCount}건</p>
+            <form:select path="rowCount" class="custom-filter" style="width:150px;">
+                <form:option value="10">10개씩 보기</form:option>
+                <form:option value="50">50개씩 보기</form:option>
+                <form:option value="100">100개씩 보기</form:option>
+                <form:option value="150">150개씩 보기</form:option>
+                <form:option value="300">300개씩 보기</form:option>
+                <form:option value="500">500개씩 보기</form:option>
+            </form:select>
+            <p class="total-count">작업구분</p>
+		 <form:select path="work_type" cssClass="custom-filter">
 			<form:option value="">전체</form:option>
 			<form:option value="W">일반작업</form:option>
 			<form:option value="P">개인정보</form:option>
 		</form:select>
 		<c:if test="${asideHomepageId eq 'CMS'}">
-		사이트 : <form:select path="site_id" cssClass="selectmenu">
+            <p class="total-count">사이트</p>
+		 <form:select path="site_id" cssClass="custom-filter">
 			<form:option value="">전체</form:option>
 			<c:forEach items="${homepageList}" var="i" varStatus="status">
 			<form:option value="${i.homepage_id}">${empty i.homepage_alias ? i.homepage_name : i.homepage_name}</form:option>
 			</c:forEach>
 		</form:select>
 		</c:if>
+        </div>
 
-
-		<div class="search">
-			<fieldset>
-				검색 : <form:select path="search_type" cssClass="selectmenu">
+		<div class="search" style="margin-top: 4px">
+			<fieldset class="btn-wrapper">
+                <p class="total-count">검색</p>
+				 <form:select path="search_type" cssClass="custom-filter">
 					<form:option value="work_comment">작업내용</form:option>
 					<form:option value="member_id">사용자ID</form:option>
 					<form:option value="work_result">작업결과</form:option>
 				</form:select>
-				조회 기간:&nbsp;
-				<form:input path="search_start_date" cssClass="text ui-calendar" placeholder="조회시작일 선택"/>
-				<form:input path="search_end_date" cssClass="text ui-calendar" placeholder="조회종료일 선택"/>
+                <p class="total-count">조회 기간</p>
+				<form:input path="search_start_date" cssClass="custom-date ui-calendar" placeholder="조회시작일 선택"/>
+				<form:input path="search_end_date" cssClass="custom-date ui-calendar" placeholder="조회종료일 선택"/>
+                <a id="search_btn" class="icon-btn navy" href="#" id="search">조회</a>
 
-				<form:input path="search_text" cssClass="text" cssStyle="width:200px;"/>
-				<button id="search_btn"><i class="fa fa-search"></i><span>검색</span></button>
-				<div class="right" style="float: right;">
-					<a href="#" id="excelDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>엑셀저장</span></a>
-					<a href="#" id="csvDownload" class="btn btn2"><i class="fa fa-file-excel-o"></i><span>CSV저장</span></a>
+				<div>
+					<a href="#" id="excelDownload" class="icon-btn green">
+                        <img src="/resources/cms/img/main/excel.svg" alt="">
+                        <div>엑셀저장</div>
+                    </a>
+					<a href="#" id="csvDownload" class="icon-btn green">
+                        <img src="/resources/cms/img/main/csv.svg" alt="">
+                        <div>CSV저장</div>
+                    </a>
 				</div>
 			</fieldset>
 		</div>
-	</div>
+
+
 
 	<!-- 이용약관 table -->
-	<table class="type1 center">
-		<colgroup>
-			<col width="100" />
-			<col width="150" />
-			<col width="100" />
-			<col width="" />
-			<col width="150" />
-			<col width="120" />
-			<col width="200" />
-			<col width="150" />
-			<col width="150" />
-		</colgroup>
+	<table class="custom-table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -164,5 +169,7 @@ $(function() {
 	</jsp:include>
 
 </form:form>
+    </div>
+</div>
 
 <div id="dialog-1" class="dialog-common" title="작업 내용 상세"></div>

@@ -115,6 +115,12 @@ $.fn.rowspan = function(colIdx, isStats) {
 	});
 }
 </script>
+<div class="container-box">
+    <div class="page-header">
+        <div>조직/업무관리</div>
+    </div>
+
+    <div style="padding: 20px 40px 40px 40px">
 <form:form modelAttribute="organization" id="statusDelete" action="statusDelete.do" method="POST">
 	<form:hidden path="homepage_id" id="homepage_id_d"/>
 	<form:hidden path="status_idx" id="status_idx_d"/>
@@ -122,84 +128,98 @@ $.fn.rowspan = function(colIdx, isStats) {
 </form:form>
 <form:form modelAttribute="organization" action="index.do" method="GET">
 	<form:hidden path="homepage_id"/>
-	<div class="infodesk">
-		<div class="button">
-			<c:if test="${authC}">
-				<a href="" class="btn btn1 left" id="sample-btn"><span>미리보기</span></a>&nbsp;
-				<a href="" class="btn btn3 left" id="dialog-division"><i class="fa fa-plus"></i><span>직렬관리</span></a>&nbsp;
-				<a href="" class="btn btn5 left" id="dialog-status"><i class="fa fa-plus"></i><span>조직현황등록</span></a>&nbsp;
-				<a href="" class="btn btn3 left" id="dialog-organization"><i class="fa fa-plus"></i><span>부서관리</span></a>&nbsp;
-				<a href="" class="btn btn5 left" id="dialog-add"><i class="fa fa-plus"></i><span>업무등록</span></a>
-			</c:if>
-		</div>
-	</div>
-	<c:choose>
-		<c:when test="${fn:length(statusList) > 0}">
-		<table class="center">
-			<thead>
-				<tr>
-					<th rowspan="2" width="80">구분</th>
-					<c:forEach items="${divisionList}" var="i">
-					<th colspan="${i.column_cnt}">${i.division_name}</th>
-					</c:forEach>
-					<th rowspan="2" width="80">계</th>
-				</tr>
-				<tr>
-					<c:forEach items="${statusList}" var="i">
-					<th scope="col" class="btw">
-						<span>${i.rating}</span>
-						<div>
-							<a href="#" class="btn dialog-status-mod" keyValue="${i.status_idx}">수정</a>
-							<a href="#" class="btn status-del" keyValue="${i.status_idx}" keyValue2="${i.division_idx}">삭제</a>
-						</div>
-					</th>
-					</c:forEach>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>정원</td>
-					<c:forEach items="${statusList}" var="i">
-					<td>${i.max_cnt}</td>
-					</c:forEach>
-					<td>${totalCnt.max_cnt}</td>
-				</tr>
-				<tr>
-					<td>현원</td>
-					<c:forEach items="${statusList}" var="i">
-					<td>${i.current_cnt}</td>
-					</c:forEach>
-					<td>${totalCnt.current_cnt}</td>
-				</tr>
-			</tbody>
-		</table>
-		</c:when>
-		<c:otherwise>
-		<table class="center">
-			<thead>
-				<tr>
-					<th rowspan="2" width="120">구분</th>
-					<th></th>
-					<th rowspan="2" width="120">계</th>
-				</tr>
-				<tr>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>정원</td>
-					<td rowspan="2">등록된 데이터가 없습니다.</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>현원</td>
-					<td>0</td>
-				</tr>
-			</tbody>
-		</table>
-		</c:otherwise>
-	</c:choose>
+
+
+            <div class="btn-wrapper" style="justify-content: flex-end; margin-top: 10px; display: flex">
+                <c:if test="${authC}">
+                    <a class="icon-btn black" href="" id="sample-btn">
+                        <img src="/resources/cms/img/main/plus.svg" alt="">
+                        <div>미리보기</div>
+                    </a>
+                    <a class="icon-btn navy" href="" id="dialog-division">
+                        <img src="/resources/cms/img/main/plus.svg" alt="">
+                        <div>직렬관리</div>
+                    </a>
+                    <a class="icon-btn navy" href="" id="dialog-status">
+                        <img src="/resources/cms/img/main/plus.svg" alt="">
+                        <div>조직현황등록</div>
+                    </a>
+                    <a class="icon-btn navy" href="" id="dialog-organization">
+                        <img src="/resources/cms/img/main/plus.svg" alt="">
+                        <div>부서관리</div>
+                    </a>
+                    <a class="icon-btn navy" href="" id="dialog-add">
+                        <img src="/resources/cms/img/main/plus.svg" alt="">
+                        <div>업무등록</div>
+                    </a>
+                </c:if>
+            </div>
+
+            <c:choose>
+                <c:when test="${fn:length(statusList) > 0}">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">구분</th>
+                            <c:forEach items="${divisionList}" var="i">
+                            <th colspan="${i.column_cnt}">${i.division_name}</th>
+                            </c:forEach>
+                            <th rowspan="2">계</th>
+                        </tr>
+                        <tr>
+                            <c:forEach items="${statusList}" var="i">
+                            <th scope="col" class="btw">
+                                <span>${i.rating}</span>
+                                <div>
+                                    <a href="#" class="btn dialog-status-mod" keyValue="${i.status_idx}">수정</a>
+                                    <a href="#" class="btn status-del" keyValue="${i.status_idx}" keyValue2="${i.division_idx}">삭제</a>
+                                </div>
+                            </th>
+                            </c:forEach>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>정원</td>
+                            <c:forEach items="${statusList}" var="i">
+                            <td>${i.max_cnt}</td>
+                            </c:forEach>
+                            <td>${totalCnt.max_cnt}</td>
+                        </tr>
+                        <tr>
+                            <td>현원</td>
+                            <c:forEach items="${statusList}" var="i">
+                            <td>${i.current_cnt}</td>
+                            </c:forEach>
+                            <td>${totalCnt.current_cnt}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </c:when>
+                <c:otherwise>
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" width="120">구분</th>
+                            <th rowspan="2"></th>
+                            <th rowspan="2" width="120">계</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>정원</td>
+                            <td rowspan="2">등록된 데이터가 없습니다.</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>현원</td>
+                            <td>0</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </c:otherwise>
+            </c:choose>
+
 </form:form>
 
 <form:form modelAttribute="organization" id="organizationWorkDel" action="delete.do" method="POST">
@@ -210,15 +230,8 @@ $.fn.rowspan = function(colIdx, isStats) {
 	<form:hidden path="homepage_id"/>
 
 	<c:forEach items="${organizationList}" var="i">
-		<h3>${i.organization_name}</h3>
-		<table class="center tspan" summary="${i.organization_name}의 직원현황입니다.">
-			<colgroup>
-				<col width="180">
-				<col width="120">
-				<col width="">
-				<col width="180">
-				<col width="120">
-			</colgroup>
+		<h3 class="total-count">${i.organization_name}</h3>
+		<table class="custom-table" summary="${i.organization_name}의 직원현황입니다.">
 			<thead>
 				<tr>
 					<th scope="col" class="th1">직  위(급)</th>
@@ -234,11 +247,11 @@ $.fn.rowspan = function(colIdx, isStats) {
 				<tr>
 					<td>${j.position}</td>
 					<td>${j.worker}</td>
-					<td class="left">${j.work_info}</td>
+					<td>${j.work_info}</td>
 					<td>${j.phone}</td>
 					<td>
-						<a href="#" class="btn dialog-mod" keyValue="${j.organization_work_idx}">수정</a>
-						<a href="#" class="btn dialog-del" keyValue="${j.organization_work_idx}">삭제</a>
+						<a href="#" class="custom-btn" id="dialog-modify" keyValue="${j.organization_work_idx}">수정</a>
+						<a href="#" class="custom-btn" id="delete" keyValue="${j.organization_work_idx}">삭제</a>
 					</td>
 				</tr>
 				</c:if>
@@ -253,6 +266,8 @@ $.fn.rowspan = function(colIdx, isStats) {
 		<br>
 		</c:forEach>
 </form:form>
+</div>
+</div>
 
 <div id="dialog-1" class="dialog-common" title="직렬관리"></div>
 <div id="dialog-2" class="dialog-common" title="조직현황관리"></div>

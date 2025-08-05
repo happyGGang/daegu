@@ -52,17 +52,20 @@ $(function(){
 	<c:if test="${code.editMode eq 'FIRST'}">
 	<div class="mask"></div>
 	</c:if>
-	<div class="infodesk">
-		검색 결과 : ${fn:length(codeList)}건
-		<div class="button">
+	<div class="table-action-wrapper">
+        <div class="center">
+            <p class="total-count">총 ${fn:length(codeList)}건</p>
+        </div>
+
 			<c:if test="${authC}">
-				<a href="" class="btn btn5" id="addCode"><i class="fa fa-plus"></i><span>추가</span></a>
+                <a href="" class="icon-btn navy" id="addCode" >
+                    <img src="/resources/cms/img/main/plus.svg" alt="">
+                    <div>추가</div>
+                </a>
 			</c:if>
-		</div>
+
 	</div>
-	<div class="table-wrap">
-		<div class="table-scroll">
-			<table class="type1 center">
+            <table class="custom-table">
 				<thead>
 					<tr>
 						<th>코드ID</th>
@@ -77,7 +80,7 @@ $(function(){
 				<form:form id="codeIndex" modelAttribute="code" method="POST">
 					<c:if test="${fn:length(codeList) < 1}">
 					<tr style="height:100%">
-						<td style="background:#f8fafb">데이터가 존재하지 않습니다.</td>
+						<td colspan="6" style="background:#f8fafb">데이터가 존재하지 않습니다.</td>
 					</tr>
 					</c:if>
 					<c:forEach var="i" varStatus="status" items="${codeList}">
@@ -100,8 +103,7 @@ $(function(){
 				</form:form>
 				</tbody>
 			</table>
-		</div>
-	</div>
+
 	<div id="dialog-2" class="dialog-common" title="코드정보">
 	</div>
 </div>	

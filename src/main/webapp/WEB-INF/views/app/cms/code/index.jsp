@@ -209,68 +209,86 @@ $(document).ready(function() {
 int leftSize = 400; //왼쪽 컨텐츠 사이즈
 int leftSizeInput = leftSize-125; //왼쪽 컨텐츠 검색 input 사이즈
 %>
+
 <form:form id="form_1" modelAttribute="code" onsubmit="return false;">
 	<form:hidden id="editMode_1" path="editMode" />
 	<form:hidden id="homepage_id_1" path="homepage_id" />
 	<form:hidden path="group_id"/>
 </form:form>
-<div class="group-menu code-config">
-	<div class="tree-area" style="width:<%=leftSize%>px">
-		<div class="search">
-			<fieldset>
-				<label class="blind">검색</label>
-				<input id="search_text" type="text" class="text" style="width:<%=leftSizeInput%>px"/>
-				<button id="search-btn"><i class="fa fa-search"></i><span>검색</span></button>
-			</fieldset>
-		</div>
-		<div class="tree-box" style="height:450px;">
-			<div class="tree-menu" id="tree1">
-			</div>
-		</div>
-		<div class="table-wrap">
-			<table class="border-all">
-				<thead>
-					<tr>
-						<th colspan="2">코드그룹 정보</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>코드그룹명</th>
-						<td id="group_name_left">${code.group_name}</td>
-					</tr>
-					<tr>
-						<th>코드그룹ID</th>
-						<td id="group_id_left">${code.group_id}</td>
-					</tr>
-					<tr>
-						<th>홈페이지 사용</th>
-						<td id="homepage_yn_left"></td>
-					</tr>
-					<tr>
-						<th>설명</th>
-						<td id="remark_left">${code.remark}</td>
-					</tr>
-				</tbody>
-			</table> 
-			<div class="button">
-			<c:if test="${authC}">
-				<a href="" class="btn btn5" id="editGroup_add"><i class="fa fa-plus"></i><span>코드그룹 신규등록</span></a>
-			</c:if>
-			<c:if test="${authU}">
-				<a href="" class="btn btn1" id="editGroup_modify"><i class="fa fa-pencil"></i><span>수정</span></a>
-			</c:if>
-			<c:if test="${authD}">
-				<a href="" class="btn" id="editGroup_delete"><i class="fa fa-minus"></i><span>삭제</span></a>
-			</c:if>
-			</div>
-		</div>
-	</div>
-	<div class="set-area" style="margin-right:-<%=leftSize%>px">
-		<div style="margin-right:<%=leftSize%>px" id="codeLayer">
-		
-		</div>
-	</div>
+<div class="container-box">
+    <div class="page-header">
+        <div>코드관리</div>
+    </div>
+    <div class="main-content">
+        <div class="tree-area" style="width:<%=leftSize%>px">
+            <div class="tree-area-header">
+                <div >
+                    <fieldset class="search-bar">
+                        <input id="search_text" class="custom-search" type="text" style="width:-webkit-fill-available"/>
+                        <div class="icon-btn black" id="search-btn">
+                            <img alt="" src="/resources/cms/img/main/search.svg">
+                            <div>검색</div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div>
+                <div class="tree-menu" id="tree1">
+                </div>
+            </div>
+            <div class="table-wrap">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">코드그룹 정보</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>코드그룹명</th>
+                            <td id="group_name_left">${code.group_name}</td>
+                        </tr>
+                        <tr>
+                            <th>코드그룹ID</th>
+                            <td id="group_id_left">${code.group_id}</td>
+                        </tr>
+                        <tr>
+                            <th>홈페이지 사용</th>
+                            <td id="homepage_yn_left"></td>
+                        </tr>
+                        <tr>
+                            <th>설명</th>
+                            <td id="remark_left">${code.remark}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn-wrapper" style="justify-content: flex-end; margin-top: 10px; display: flex">
+                <c:if test="${authC}">
+                    <a class="icon-btn navy" href="" id="editGroup_add">
+                        <img src="/resources/cms/img/main/plus.svg" alt="">
+                        <div>코드그룹 신규등록</div>
+                    </a>
+                </c:if>
+                <c:if test="${authU}">
+                    <a class="icon-btn gray" href="" id="editGroup_modify">
+                        <div>수정</div>
+                    </a>
+                </c:if>
+                <c:if test="${authD}">
+                    <a class="icon-btn red" href="" id="editGroup_delete">
+                        <img src="/resources/cms/img/main/delete.svg" alt="">
+                        <div>삭제</div>
+                    </a>
+                </c:if>
+                </div>
+            </div>
+        </div>
+        <div class="set-area">
+            <div id="codeLayer">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="dialog-1" class="dialog-common" title="코드그룹">
