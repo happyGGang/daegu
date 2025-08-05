@@ -25,6 +25,7 @@ $(function() {
 		$('form#sanghoReqForm input[name=isbn]').val($(this).attr('isbn'));
 		$('form#sanghoReqForm input[name=manageCode]').val($(this).attr('manageCode'));
 		$('form#sanghoReqForm input[name=regNo]').val($(this).attr('regNo'));
+		$('form#sanghoReqForm input[name=before_url]').val(window.location.href);
 		$('form#sanghoReqForm').submit();
 	});
 
@@ -38,6 +39,7 @@ $(function() {
 		$('#resveReqForm #bookkey').val($(this).attr('bookkey'));
 		$('#resveReqForm #booktype').val($(this).attr('booktype'));
 		$('#resveReqForm #manageCode').val($(this).attr('managecode'));
+		$('#resveReqForm #before_url').val(window.location.href);
 
 		if (doAjaxPost($('#resveReqForm'))) {
 			window.location.reload();
@@ -51,6 +53,7 @@ $(function() {
 		$('form#untactBookReqForm input[name=manageCode]').val($(this).attr('manageCode'));
 		$('form#untactBookReqForm input[name=regNo]').val($(this).attr('regNo'));
 		$('form#untactBookReqForm input[name=bookkey]').val($(this).attr('bookkey'));
+		$('form#untactBookReqForm input[name=before_url]').val(window.location.href);
 		$('form#untactBookReqForm').submit();
 	});
 
@@ -61,6 +64,7 @@ $(function() {
 		$('form#unmannedReqForm input[name=isbn]').val($(this).attr('isbn'));
 		$('form#unmannedReqForm input[name=manageCode]').val($(this).attr('manageCode'));
 		$('form#unmannedReqForm input[name=regNo]').val($(this).attr('regNo'));
+		$('form#unmannedReqForm input[name=before_url]').val(window.location.href);
 		$('form#unmannedReqForm').submit();
 	});
 
@@ -83,6 +87,7 @@ $(function() {
 		$('form#neighborhoodLibrary input[name=call_no]').val($(this).attr('call_no'));
 		$('form#neighborhoodLibrary input[name=author]').val($(this).attr('author'));
 		$('form#neighborhoodLibrary input[name=shelf_loc_name]').val($(this).attr('shelf_loc_name'));
+		$('form#neighborhoodLibrary input[name=before_url]').val(window.location.href);
 		$('form#neighborhoodLibrary').submit();
 	});
 
@@ -486,6 +491,7 @@ function isFromFridayToSunday() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form:form id="resveReqForm" modelAttribute="librarySearch" action="resve/save.do">
@@ -494,6 +500,7 @@ function isFromFridayToSunday() {
 	<form:hidden path="bookkey"/>
 	<form:hidden path="booktype"/>
 	<form:hidden path="menu_idx"/>
+	<form:hidden path="before_url"/>
 </form:form>
 
 <form id="untactBookReqForm" action="/${homepage.context_path}/module/untactBook/form.do" method="post">
@@ -504,6 +511,7 @@ function isFromFridayToSunday() {
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 	<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
 	<input type="hidden" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
@@ -515,6 +523,7 @@ function isFromFridayToSunday() {
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 	<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
 	<input type="hidden" name="book_name" value="${fn:escapeXml(detail.TITLE_INFO)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="neighborhoodLibrary" action="neighborhoodLibrary/edit.do" method="post">
@@ -542,6 +551,7 @@ function isFromFridayToSunday() {
 	<input type="hidden" id="class_no" name="class_no" value="${detail.CLASS_NO}"/>
 	<input type="hidden" id="booktype" name="booktype" value="${fn:escapeXml(param.booktype)}"/>
 	<input type="hidden" id="appendix_info" name="appendix_info" value="${detail.APPENDIX_INFO}"/>
+	<input type="hidden" name="before_url">
 </form>
 
 <form:form modelAttribute="librarySearch" action="index.do" method="get">

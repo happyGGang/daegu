@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.module.walkingThru;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +59,18 @@ public class WalkingThruController extends BaseController {
 	
 	@Autowired
 	private WalkingThruPenaltyService walkingThruPenaltyService;
+
+	private String encodeURL(String url) {
+		if(url == null) {
+			return null;
+		} else {
+			try {
+				return URLEncoder.encode(url, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return url;
+			}
+		}
+	}
 
 	@RequestMapping(value = {"/index.*"})
 	public String myUntactBookResve(@PathVariable("homepagePath") String homepagePath, Model model, LibrarySearch librarySearch, WalkingThruRecord walkingThruRecord, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -138,7 +152,7 @@ public class WalkingThruController extends BaseController {
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 			return null;
 		}
 

@@ -2,6 +2,7 @@ package kr.go.gbelib.app.intro.search;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -111,7 +112,19 @@ public class CommonSearchController extends BaseController {
 	private NearbyLibLockerService neighborhoodLibraryLockerService;
 	
 	@Autowired
-	private NearbyLibManageService nearbyLibManageService; 
+	private NearbyLibManageService nearbyLibManageService;
+
+	private String encodeURL(String url) {
+		if(url == null) {
+			return null;
+		} else {
+			try {
+				return URLEncoder.encode(url, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return url;
+			}
+		}
+	}
 	
 	/**
 	 * 자료검색
@@ -2929,12 +2942,14 @@ public class CommonSearchController extends BaseController {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				res.setValid(false);
 				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), encodeURL(librarySearch.getBefore_url())));
 				return res;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				res.setValid(false);
 				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/%s/intro/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), encodeURL(librarySearch.getBefore_url())));
 				return res;
 			}
 		}
@@ -3598,13 +3613,13 @@ public class CommonSearchController extends BaseController {
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		}
@@ -3917,13 +3932,13 @@ public class CommonSearchController extends BaseController {
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		}
@@ -4223,13 +4238,13 @@ public class CommonSearchController extends BaseController {
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		}
@@ -4380,7 +4395,7 @@ public class CommonSearchController extends BaseController {
 
 		if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 			int loginMenuIdx = menuService.getMenuIdxByProgramIdx(new Menu(homepage.getHomepage_id(), 5));
-			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d", homepage.getContext_path(), loginMenuIdx), request, response);
+			service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/%s/intro/login/index.do?menu_idx=%d&before_url=%s", homepage.getContext_path(), loginMenuIdx, encodeURL(neighborhoodLibrary.getBefore_url())), request, response);
 			return null;
 		}
 

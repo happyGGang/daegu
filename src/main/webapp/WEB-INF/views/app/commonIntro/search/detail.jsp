@@ -47,24 +47,28 @@ $(function() {
 	<%-- 내집앞도서관 대출 신청 --%>	
 	$('a#neighborhoodLibrary-req').on('click',function(e){
 		e.preventDefault();
+		$('form#neighborhoodLibrary input[name=before_url]').val(window.location.href);
 		$('form#neighborhoodLibrary').submit();
 	});
 
 	<%-- 비대면 도서대출 신청 --%>
 	$('a#untactBook-req').on('click', function(e) {
 		e.preventDefault();
+		$('form#untactBookReqForm input[name=before_url]').val(window.location.href);
 		$('form#untactBookReqForm').submit();
 	});
 
 	<%-- 워킹스루 도서대출 신청 --%>
 	$('a#walkingThru-req').on('click', function(e) {
 		e.preventDefault();
+		$('form#walkingThruReqForm input[name=before_url]').val(window.location.href);
 		$('form#walkingThruReqForm').submit();
 	});
 
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
+		$('form#unmannedReqForm input[name=before_url]').val(window.location.href);
 		$('form#unmannedReqForm').submit();
 	});
 
@@ -97,6 +101,7 @@ $(function() {
 					text : '예',
 					'class' : 'btn btn1',
 					click : function() {
+						$('form#unmannedReqForm input[name=before_url]').val(window.location.href);
 						$('form#unmannedReqForm').submit();
 					}
 				},
@@ -120,6 +125,7 @@ $(function() {
 	<%-- 야간대출예약 신청 --%>
 	$('a#night-req').on('click', function(e) {
 		e.preventDefault();
+		$('form#nightReqForm input[name=before_url]').val(window.location.href);
 		$('form#nightReqForm').submit();
 	});
 
@@ -169,6 +175,7 @@ $(function() {
 		alert('대출중인도서는 상호대차 신청이 불가능합니다.');
 		</c:if>
 		<c:if test="${detail.BOOK_STATUS ne '0'}">
+		$('form#sanghoReqForm input[name=before_url]').val(window.location.href);
 		$('form#sanghoReqForm').submit();
 		</c:if>
 	});
@@ -256,7 +263,8 @@ $(function() {
 	<input type="hidden" id="book_key" name="book_key" value="${fn:escapeXml(detail.BOOK_KEY)}"/>
 	<input type="hidden" id="class_no" name="class_no" value="${detail.CLASS_NO}"/>
 	<input type="hidden" id="booktype" name="booktype" value="${fn:escapeXml(param.booktype)}"/>
-	<input type="hidden" id="appendix_info" name="appendix_info" value="${detail.APPENDIX_INFO}"/>		
+	<input type="hidden" id="appendix_info" name="appendix_info" value="${detail.APPENDIX_INFO}"/>
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="storageReqForm" action="/${homepage.context_path}/module/myStorage/saveItem.do" method="post">
@@ -287,6 +295,7 @@ $(function() {
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 	<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
 	<input type="hidden" name="call_no" value="${fn:escapeXml(detail.CALL_NO)}"/>
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
@@ -298,6 +307,7 @@ $(function() {
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
 	<input type="hidden" name="shelf_loc_name" value="${fn:escapeXml(detail.SHELF_LOC_NAME)}">
 	<input type="hidden" name="book_name" value="${fn:escapeXml(detail.TITLE_INFO)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
@@ -307,6 +317,7 @@ $(function() {
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="basketReqForm" action="/${homepage.context_path}/intro/search/saveDeliveryBasket.do">
@@ -333,6 +344,7 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="walkingThruReqForm" action="/${homepage.context_path}/module/walkingThru/form.do" method="post">
@@ -341,6 +353,7 @@ $(function() {
 	<input type="hidden" name="regNo" value="${detail.REG_NO}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
 	<input type="hidden" name="menu_idx" value="${fn:escapeXml(param.menu_idx)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <c:if test="${not empty loginPortal and loginPortal.login}">

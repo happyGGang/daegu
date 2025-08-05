@@ -22,6 +22,7 @@ $(function() {
 			return false;
 		}
 
+		$('#resveReqForm input[name=before_url]').val(window.location.href);
 		if ( doAjaxPost($('#resveReqForm')) ) {
 			location.reload();
 		}
@@ -41,12 +42,14 @@ $(function() {
 	<%-- 무인대출예약 신청 --%>
 	$('a#unmanned-req').on('click', function(e) {
 		e.preventDefault();
+		$('form#unmannedReqForm input[name=before_url]').val(window.location.href);
 		$('form#unmannedReqForm').submit();
 	});
 
 	<%-- 야간대출예약 신청 --%>
 	$('a#night-req').on('click', function(e) {
 		e.preventDefault();
+		$('form#nightReqForm input[name=before_url]').val(window.location.href);
 		$('form#nightReqForm').submit();
 	});
 
@@ -86,6 +89,7 @@ $(function() {
 		alert('대출중인도서는 상호대차 신청이 불가능합니다.');
 		</c:if>
 		<c:if test="${detail.BOOK_STATUS ne '0'}">
+		$('form#sanghoReqForm input[name=before_url]').val(window.location.href);
 		$('form#sanghoReqForm').submit();
 		</c:if>
 	});
@@ -121,6 +125,7 @@ $(function() {
 	<input type="hidden" name="bookkey" value="${fn:escapeXml(detail.BOOK_KEY)}">
 	<input type="hidden" name="booktype" value="${fn:startsWith(detail.WORKING_STATUS, 'BO') ? 'BO' : 'SE'}">	
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(detail.MANAGE_CODE)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="unmannedReqForm" action="unmanned/form.do" method="post">
@@ -129,6 +134,7 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="nightReqForm" action="night/form.do" method="post">
@@ -137,6 +143,7 @@ $(function() {
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <form id="basketReqForm" action="/${context_path}/intro/search/saveDeliveryBasket.do">
@@ -151,6 +158,7 @@ $(function() {
 	<input type="hidden" name="regNo" value="${fn:escapeXml(param.regNo)}">
 	<input type="hidden" name="booktype" value="${fn:escapeXml(param.booktype)}">
 	<input type="hidden" name="manageCode" value="${fn:escapeXml(param.manageCode)}">
+	<input type="hidden" name="before_url">
 </form>
 
 <!-- contents-title-->

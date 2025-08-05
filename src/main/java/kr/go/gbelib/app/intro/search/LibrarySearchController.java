@@ -1,5 +1,7 @@
 package kr.go.gbelib.app.intro.search;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -73,6 +75,18 @@ public class LibrarySearchController extends BaseController {
 
 	@Autowired
 	private UntactBookReservationService untactBookReservationService;
+
+	private String encodeURL(String url) {
+		if(url == null) {
+			return null;
+		} else {
+			try {
+				return URLEncoder.encode(url, "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				return url;
+			}
+		}
+	}
 
 	/**
 	 * 검색
@@ -911,12 +925,14 @@ public class LibrarySearchController extends BaseController {
 			if ( !isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
 				res.setValid(false);
 				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/intro/%s/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), encodeURL(librarySearch.getBefore_url())));
 				return res;
 			}
 		} else {
 			if ( !isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request)) ) {
 				res.setValid(false);
 				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/intro/%s/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), encodeURL(librarySearch.getBefore_url())));
 				return res;
 			}
 		}
@@ -1298,12 +1314,12 @@ public class LibrarySearchController extends BaseController {
 
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/" + context_path + "/login/index.do?&before_url=%s", encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/" + context_path + "/login/index.do?&before_url=%s", encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		}
@@ -2302,12 +2318,12 @@ public class LibrarySearchController extends BaseController {
 		
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/" + context_path + "/login/index.do?&before_url=%s", encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/" + context_path + "/login/index.do?&before_url=%s", encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		}
@@ -2508,12 +2524,12 @@ public class LibrarySearchController extends BaseController {
 
 		if(librarySearch.getPrivateLibraryYn(homepage)) {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/" + context_path + "/login/index.do?&before_url=%s", encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
-				service.alertMessageAndUrl("로그인 후 이용가능합니다.", "/intro/" + context_path + "/login/index.do", request, response);
+				service.alertMessageAndUrl("로그인 후 이용가능합니다.", String.format("/intro/" + context_path + "/login/index.do?&before_url=%s", encodeURL(librarySearch.getBefore_url())), request, response);
 				return null;
 			}
 		}
@@ -2574,12 +2590,14 @@ public class LibrarySearchController extends BaseController {
 			if (!isLogin(request) || !"PRIVATEHOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				res.setValid(false);
 				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/intro/%s/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), encodeURL(librarySearch.getBefore_url())));
 				return res;
 			}
 		} else {
 			if (!isLogin(request) || !"HOMEPAGE".equals(getSessionMemberLoginType(request))) {
 				res.setValid(false);
 				res.setMessage("로그인 후 이용가능합니다.");
+				res.setUrl(String.format("/intro/%s/login/index.do?menu_idx=%s&before_url=%s", homepage.getContext_path(), librarySearch.getMenu_idx(), encodeURL(librarySearch.getBefore_url())));
 				return res;
 			}
 		}
