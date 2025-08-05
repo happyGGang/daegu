@@ -171,15 +171,24 @@
         });
 
         $('#search-btn').on('click', function (e) {
-            var search_text = $('#search_text').val();
-            $('.tree-box span').each(function (i, element) {
-                element = $(element);
-                if (element.text().indexOf(search_text) != -1) {
-                    element.css('background', 'yellow');
+            var search_text = $('#search_text').val().trim().toLowerCase();
 
-                    element[0].scrollIntoView(true);
+            if (search_text === '') return;
+
+            var found = false;
+
+            $('.jqtree-title').each(function () {
+                var $el = $(this);
+                var text = $el.text().toLowerCase();
+
+                if (text.indexOf(search_text) !== -1) {
+                    $el.css('background', 'yellow');
+                    if (!found) {
+                        $el[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    }
                 } else {
-                    element.css('background', 'white');
+                    $el.css('background', '');
                 }
             });
         });
