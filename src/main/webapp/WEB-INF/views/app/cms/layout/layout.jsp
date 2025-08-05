@@ -24,7 +24,7 @@
 
 <body>
     <!-- 로그인세션 관련 모달 스크립트 -->
-    <%--<script type="text/javascript">
+    <script type="text/javascript">
         let idleTimeout, logoutTimeout, countdownInterval;
         const warningTime = 60 * 60 * 1000;
         const logoutTime = 61 * 60 * 1000;
@@ -81,7 +81,7 @@
 
             // 모든 메뉴 수집
             const menuList = [];
-            $('.aside a').each(function () {
+            $('.menu-list a').each(function () {
                 const $a = $(this);
                 const name = $a.text().trim();
                 const href = $a.attr('href');
@@ -120,15 +120,18 @@
                 }
             });
         });
-    </script>--%>
+    </script>
 
     <div class="cms-container">
         <div class="side-menu">
             <div class="side-menu-toggle-btn">
                 <img alt="" src="/resources/cms/img/sideMenu/toggle.svg">
             </div>
+
             <img alt="" class="logo" src="/resources/cms/img/sideMenu/logo.png">
+
             <div class="user-name"><span>${sessionScope.member.member_name}</span>님 반갑습니다.</div>
+
             <div class="action-wrapper">
                 <a href="/cms/login/logout.do" target="_parent">
                     <img alt="" src="/resources/cms/img/sideMenu/logout.svg">
@@ -139,24 +142,24 @@
                     <div>비밀번호 변경</div>
                 </a>
             </div>
-                <tiles:insertAttribute name="asideHomepage" />
 
-                <c:if test="${member.admin}">
-                    <a href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
-                </c:if>
+            <tiles:insertAttribute name="asideHomepage" />
 
-                <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>
-                <ul id="menuSearchResults" class="search-autocomplete"></ul>
+            <c:if test="${member.admin}">
+                <a href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
+            </c:if>
 
+            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>
+            <ul id="menuSearchResults" class="search-autocomplete"></ul>
 
             <div class="menu-list">
                 <cmsTag:asideMenu adminMenuList="${adminMenuList}"/>
             </div>
         </div>
+
         <tiles:insertAttribute name="body"/>
 
-        <!-- 로그인세션 관련 모달 -->
-        <%--<div id="sessionTimeoutModal" class="session-timeout-modal">
+        <div id="sessionTimeoutModal" class="session-timeout-modal">
             <h3 class="session-timeout-title">자동로그아웃안내</h3>
             <p class="session-timeout-timer">남은시간 <span id="countdown" class="countdown-number">360</span>초</p>
             <p class="session-timeout-message">
@@ -165,7 +168,7 @@
             </p>
             <button onclick="extendSession();" class="btn btn-extend">연장하기</button>
             <button onclick="logout();" class="btn btn-logout">로그아웃</button>
-        </div>--%>
+        </div>
     </div>
 </body>
 
