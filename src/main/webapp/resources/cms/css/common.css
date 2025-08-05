@@ -1058,3 +1058,13 @@ tr.table-left td, tr.table-left th {
 ::-webkit-scrollbar-button {
     display: none;
 }
+
+
+.session-message-title{
+    margin: 20px 0;
+    font-size: 20px;
+}
+.session-message-desc{
+    line-height: 22px;
+    color: #555;
+}
