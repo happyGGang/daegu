@@ -153,7 +153,7 @@
             <tiles:insertAttribute name="asideHomepage" />
 
             <c:if test="${member.admin}">
-                <a class="caption" href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/sjs/adminMenu/index.do'; return false;">[SJS 관리 이동]</a>
+                <a class="caption" href="" style="margin: 24px 0" onclick="javascript:parent.location.href='/sjs/adminMenu/index.do'; return false;">[ SJS 관리 이동 ]</a>
             </c:if>
 
 <%--            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>--%>
@@ -188,7 +188,6 @@ $(document).ready(function () {
     // 홈페이지 선택 변경
     $('#siteList').on('change', function () {
         const selectedHomepageId = $(this).val();
-
         $.ajax({
             type: 'POST',
             url: '/cms/asideHomepage.do',
