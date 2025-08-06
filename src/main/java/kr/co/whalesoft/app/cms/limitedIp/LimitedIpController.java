@@ -14,10 +14,10 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping (value = {"/wbuilder/limitedIp"})
+@RequestMapping (value = {"/sjs/limitedIp"})
 public class LimitedIpController extends BaseController {
 
-	private final String basePath = "/wbuilder/limitedIp/";
+	private final String basePath = "/sjs/limitedIp/";
 
 	@Autowired
 	private LimitedIpService service;

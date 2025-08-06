@@ -28,11 +28,11 @@ import kr.co.whalesoft.framework.utils.ValidationUtils;
  *
  */
 @Controller
-@RequestMapping(value={"/cms/memberGroup", "/wbuilder/memberGroup"})
+@RequestMapping(value={"/cms/memberGroup", "/sjs/memberGroup"})
 public class MemberGroupController extends BaseController {
 
 	private final String basePath = "/cms/memberGroup/";
-	private final String wbuilderPath = "/wbuilder/memberGroup/";
+	private final String sjsPath = "/sjs/memberGroup/";
 
 	@Autowired
 	private MemberGroupService service;
@@ -51,9 +51,9 @@ public class MemberGroupController extends BaseController {
 	@RequestMapping (value = { "/index{url}.*" }, method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, @PathVariable ("url") String url) throws AuthException {
 		checkAuth("R", model, request);
-		boolean isWbuilder = request.getHeader("referer").toString().contains("wbuilder");
-		if (isWbuilder) {
-			return wbuilderPath + "index" + url;
+		boolean isSJS = request.getHeader("referer").toString().contains("sjs");
+		if (isSJS) {
+			return sjsPath + "index" + url;
 		} else {
 			return basePath + "index" + url;
 		}
@@ -88,9 +88,9 @@ public class MemberGroupController extends BaseController {
 		model.addAttribute("memberGroup", memberGroup);
 		model.addAttribute("parentMemberGroup", service.getMemberGroupOne(new MemberGroup(memberGroup.getParent_member_group_idx())));
 
-		boolean isWbuilder = request.getHeader("referer").toString().contains("wbuilder");
-		if (isWbuilder) {
-			return wbuilderPath + "memberGroup" + url;
+		boolean isSJS = request.getHeader("referer").toString().contains("sjs");
+		if (isSJS) {
+			return sjsPath + "memberGroup" + url;
 		} else {
 			return basePath + "memberGroup" + url;
 		}
@@ -140,9 +140,9 @@ public class MemberGroupController extends BaseController {
 			model.addAttribute("memberGroup", memberGroup);
 			model.addAttribute("parentMemberGroup", service.getMemberGroupOne(new MemberGroup(memberGroup.getParent_member_group_idx())));
 		}
-		boolean isWbuilder = request.getHeader("referer").toString().contains("wbuilder");
-		if (isWbuilder) {
-			return wbuilderPath + "edit" + url;
+		boolean isSJS = request.getHeader("referer").toString().contains("sjs");
+		if (isSJS) {
+			return sjsPath + "edit" + url;
 		} else {
 			return basePath + "edit" + url;
 		}

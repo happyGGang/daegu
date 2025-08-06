@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @since 2020.11.13
  */
 @Controller
-@RequestMapping(value={"/cms/workingLog", "/wbuilder/workingLog"})
+@RequestMapping(value={"/cms/workingLog", "/sjs/workingLog"})
 public class WorkingLogController extends BaseController {
 
 	@Autowired
@@ -79,9 +79,9 @@ public class WorkingLogController extends BaseController {
 	}
 
 	private String returnUrl(String url, HttpServletRequest request) {
-		if (request.getHeader("referer").contains("wbuilder")) {
-			String wbuilderPath = "/wbuilder/workingLog/";
-			return wbuilderPath + url;
+		if (request.getHeader("referer").contains("sjs")) {
+			String sjsPath = "/sjs/workingLog/";
+			return sjsPath + url;
 		} else {
 			String basePath = "/cms/workingLog/";
 			return basePath + url;

@@ -71,7 +71,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 
 
 		//관리자페이지 접속에 대한 처리
-		if ((getUri.startsWith("/cms/") || getUri.startsWith("/pms/") || getUri.startsWith("/dms/") || getUri.startsWith("/wbuilder/"))){
+		if ((getUri.startsWith("/cms/") || getUri.startsWith("/pms/") || getUri.startsWith("/dms/") || getUri.startsWith("/sjs/"))){
 
 			//관리자 페이지에 접속가능한 IP인지 확인
 			if (!accessIpController.isUserCMSAccessIp(request)) {
@@ -124,7 +124,7 @@ public class MemberAuthInterceptor extends HandlerInterceptorAdapter {
 			siteType = "/pms";
 		}else if(getUri.startsWith("/dms/")){
 			siteType = "/dms";
-		}else if(getUri.startsWith("/wbuilder/")){
+		}else if(getUri.startsWith("/sjs/")){
 			siteType = "/cms";
 		}
 

@@ -19,10 +19,10 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping(value = {"/wbuilder/adminMenu"})
+@RequestMapping(value = {"/sjs/adminMenu"})
 public class AdminMenuController extends BaseController {
 
-	private final String basePath = "/wbuilder/adminMenu/";
+	private final String basePath = "/sjs/adminMenu/";
 
 	@Autowired
 	private AdminMenuService service;

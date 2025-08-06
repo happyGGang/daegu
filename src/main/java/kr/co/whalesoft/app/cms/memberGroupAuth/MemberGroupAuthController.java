@@ -29,11 +29,11 @@ import java.util.List;
  *
  */
 @Controller
-@RequestMapping(value={"/cms/memberGroupAuth", "/wbuilder/memberGroupAuth"})
+@RequestMapping(value={"/cms/memberGroupAuth", "/sjs/memberGroupAuth"})
 public class MemberGroupAuthController extends BaseController {
 
 	private final String basePath = "/cms/memberGroupAuth/";
-	private final String wbuilderPath = "/wbuilder/memberGroupAuth/";
+	private final String sjsPath = "/sjs/memberGroupAuth/";
 
 	@Autowired
 	private MemberGroupService memberGroupService;
@@ -207,8 +207,8 @@ public class MemberGroupAuthController extends BaseController {
 	}
 
 	private String returnUrl(String url, HttpServletRequest request) {
-		if (request.getHeader("referer").toString().contains("wbuilder")) {
-			return wbuilderPath + url;
+		if (request.getHeader("referer").toString().contains("sjs")) {
+			return sjsPath + url;
 		} else {
 			return basePath + url;
 		}

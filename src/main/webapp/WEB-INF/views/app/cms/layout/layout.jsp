@@ -146,7 +146,7 @@
             <tiles:insertAttribute name="asideHomepage" />
 
             <c:if test="${member.admin}">
-                <a href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
+                <a href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/sjs/adminMenu/index.do'; return false;">[SJS 관리 이동]</a>
             </c:if>
 
             <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>

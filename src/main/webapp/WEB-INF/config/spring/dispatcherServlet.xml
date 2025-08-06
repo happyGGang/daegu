@@ -47,7 +47,7 @@
 		<bean class="kr.co.whalesoft.framework.interceptor.HomepageBaseInterceptor"/>
 		<mvc:interceptor>
 			<mvc:mapping path="/cms/**"/>
-			<mvc:mapping path="/wbuilder/**"/>
+			<mvc:mapping path="/sjs/**"/>
 			<mvc:mapping path="/pms/**"/>
 			<mvc:mapping path="/dms/**"/>
 			<bean class="kr.co.whalesoft.framework.interceptor.CMSBaseInterceptor"/>

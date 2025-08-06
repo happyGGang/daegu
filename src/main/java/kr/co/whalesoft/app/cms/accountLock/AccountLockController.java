@@ -16,11 +16,11 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping(value = {"/cms/accountLock", "/wbuilder/accountLock"})
+@RequestMapping(value = {"/cms/accountLock", "/sjs/accountLock"})
 public class AccountLockController extends BaseController {
 	
 	private final String basePath = "/cms/accountLock/";
-	private final String wbuilderPath = "/wbuilder/accountLock/";
+	private final String sjsPath = "/sjs/accountLock/";
 	
 	@Autowired
 	private AccountLockService service;
@@ -96,8 +96,8 @@ public class AccountLockController extends BaseController {
 	}
 	
 	private String returnUrl(String url, HttpServletRequest request) {
-		if (request.getHeader("referer").toString().contains("wbuilder")) {
-			return wbuilderPath + url;
+		if (request.getHeader("referer").toString().contains("sjs")) {
+			return sjsPath + url;
 		} else {
 			return basePath + url;
 		}
