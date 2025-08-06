@@ -100,11 +100,11 @@ public class AsideMenuTag extends BodyTagSupport {
 
     private String buildAnchor(AdminMenu menu, String url) {
         if (StringUtils.equals(menu.getMenu_type(), "changePage")) {
-            return "<a href='#' onclick=\"javascript:parent.location.href='" + url + "'; return false;\">" + menu.getMenu_name() + "</a>";
+            return "<a href='#' onclick=\"javascript:parent.location.href='" + url + "'; return false;\">" + "· " + menu.getMenu_name() + "</a>";
         } else if (StringUtils.equals(menu.getMenu_type(), "_blank")) {
-            return "<a href='" + url + "' target='_blank'>" + menu.getMenu_name() + "</a>";
+            return "<a href='" + url + "' target='_blank'>" + "· " + menu.getMenu_name() + "</a>";
         } else {
-            return "<a href='" + url + "'>" + menu.getMenu_name() + "</a>";
+            return "<a href='" + url + "'>" + "· " + menu.getMenu_name() + "</a>";
         }
     }
 
