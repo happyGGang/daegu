@@ -282,55 +282,57 @@
             </tr>
             <tr>
                 <th>메뉴 유형</th>
-                <td>
+                <td class="menuTypeBox">
                     <div class="btn-wrapper">
                         <div class="radio btn-wrapper">
                             <form:radiobutton id="menu_type_NONE" path="menu_type" value="NONE"/>
                             <label for="menu_type_NONE">기능 없음</label>
                         </div>
-                        <div class="radio wrapper">
+                        <div class="radio wrapper btn-wrapper">
                             <form:radiobutton id="menu_type_HTML" path="menu_type" value="HTML"/>
                             <label for="menu_type_HTML" class="html">HTML</label>
                         </div>
-                        <div class="radio wrapper">
+                        <div class="radio wrapper btn-wrapper">
                             <form:radiobutton id="menu_type_BOARD" path="menu_type" value="BOARD"/>
                             <label for="menu_type_BOARD" class="bbs">게시판</label>
                         </div>
-                        <div class="radio wrapper">
+                        <div class="radio wrapper btn-wrapper">
                             <form:radiobutton id="menu_type_PROGRAM" path="menu_type" value="PROGRAM"/>
                             <label for="menu_type_PROGRAM" class="module">프로그램 모듈 선택</label>
                         </div>
-                        <div class="radio wrapper">
+                        <div class="radio wrapper btn-wrapper">
                             <form:radiobutton id="menu_type_LINK" path="menu_type" value="LINK"/>
                             <label for="menu_type_LINK" class="link">내부 링크</label>
                         </div>
-                        <div class="radio wrapper">
+                        <div class="radio wrapper btn-wrapper">
                             <form:radiobutton id="menu_type_LINK_OUTER" path="menu_type" value="LINK_OUTER"/>
                             <label for="menu_type_LINK_OUTER" class="link">외부 링크</label>
                         </div>
                     </div>
 
-                        <div class="menuType none">
-                            &nbsp;
-                        </div>
-                        <div class="menuType html">
-                            <c:choose>
-                                <c:when test="${menu.editMode eq 'MODIFY'}">
-                                    <a href="" class="btn btn1" id="modal_HTML">HTML 등록/수정</a>
-                                    <div id="dialog_HTML" class="dialog-common" title="HTML 등록/수정">
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <p class="caption">※ 메뉴를 먼저 등록 후 HTML 편집이 가능합니다.</p>
-                                </c:otherwise>
-                            </c:choose>
-
-                        </div>
-                        <div class="menuType bbs">
-                            <a href="" class="btn btn1" id="modal_BOARD">게시판 종류 선택</a>
-                            <div id="dialog_BOARD" class="dialog-common" title="게시판 선택">
-                            </div>
-                            <table>
+                    <div class="menuType none"></div>
+                    <div class="menuType html">
+                        <c:choose>
+                            <c:when test="${menu.editMode eq 'MODIFY'}">
+                                <a href="" class="custom-btn sky" id="modal_HTML">HTML 등록/수정</a>
+                                <div id="dialog_HTML" class="dialog-common" title="HTML 등록/수정"></div>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="caption">※ 메뉴를 먼저 등록 후 HTML 편집이 가능합니다.</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                    <div class="menuType bbs">
+                        <a href="" class="custom-btn sky" id="modal_BOARD" style="margin: 5px 0">
+                            <div>게시판 종류 선택</div>
+                        </a>
+                        <div id="dialog_BOARD" class="dialog-common" title="게시판 선택"></div>
+                        <div class="guide-line" style="background:#f6f9ff;">
+                            <table class="popup-table">
+                                <colgroup>
+                                    <col width="15%"/>
+                                    <col />
+                                </colgroup>
                                 <tr>
                                     <th>게시판번호</th>
                                     <td id="edit_manageIdx">${boardManage.manage_idx}</td>
@@ -345,10 +347,19 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="menuType module">
-                            <a href="" class="btn btn1" id="modal_MODULE">모듈 선택</a>
-                            <div id="dialog_MODULE" class="dialog-common" title="모듈 선택"></div>
-                            <table>
+
+                    </div>
+                    <div class="menuType module">
+                        <a href="" class="custom-btn sky" id="modal_MODULE" style="margin: 5px 0">
+                            <div>모듈 선택</div>
+                        </a>
+                        <div id="dialog_MODULE" class="dialog-common" title="모듈 선택"></div>
+                        <div class="guide-line" style="background:#f6f9ff;">
+                            <table class="popup-table">
+                                <colgroup>
+                                    <col width="15%"/>
+                                    <col />
+                                </colgroup>
                                 <tr>
                                     <th>모듈번호</th>
                                     <td id="edit_moduleIdx">${moduleMngt.module_idx}</td>
@@ -374,26 +385,20 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="menuType link1">
-                            <table>
-                                <tr>
-                                    <th>URL</th>
-                                    <td><input id="input_link" type="text" class="text"
-                                               value="${menu.menu_type eq 'LINK'? menu.link_url : ''}"/></td>
-                                </tr>
-                            </table>
+                    </div>
+                    <div class="menuType link1">
+                        <div class="btn-wrapper" style="margin-top: 5px">
+                            <div>URL</div>
+                            <input id="input_link" type="text" class="custom-input" value="${menu.menu_type eq 'LINK'? menu.link_url : ''}"/>
                         </div>
-                        <div class="menuType link2">
-                            <p class="info">링크 URL주소를 입력합니다. 외부 링크는 새창으로 열립니다.</p>
-                            <table>
-                                <tr>
-                                    <th>URL</th>
-                                    <td><input id="input_link_outer" type="text" class="text"
-                                               value="${menu.menu_type eq 'LINK_OUTER'? menu.link_url : ''}"/></td>
-                                </tr>
-                            </table>
+                    </div>
+                    <div class="menuType link2">
+                        <p class="caption" style="margin-top: 5px">※ 링크 URL주소를 입력합니다. 외부 링크는 새창으로 열립니다.</p>
+                        <div class="btn-wrapper" style="margin-top: 5px">
+                            <div>URL</div>
+                            <input id="input_link_outer" type="text" class="custom-input" value="${menu.menu_type eq 'LINK_OUTER'? menu.link_url : ''}"/>
                         </div>
-
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -413,17 +418,32 @@
             <tr class="group last">
                 <th>담당자 정보</th>
                 <td colspan="3">
-                    <label>부서 : <form:input path="manager_dept" maxlength="20" size="20" cssclass="text"
-                                            readonly="true"/></label>
-                    <label>이름 : <form:input path="manager_name" maxlength="10" size="10" cssclass="text"
-                                            readonly="true"/></label>
-                    <label>전화번호 : <form:input path="manager_phone" maxlength="13" size="13" cssclass="text"
-                                              readonly="true"/></label>
-                    <form:hidden path="manager_idx"/>
-                    <a class="btn btn4 select-manager-btn">담당자선택</a>
-                    <c:if test="${menu.manager_idx > 0}">
-                        <a class="btn btn4 delete-manager-btn">담당자제외</a>
-                    </c:if>
+                    <div class="btn-wrapper">
+                        <div class="btn-wrapper">
+                            <label>부서</label>
+                            <form:input path="manager_dept" maxlength="20" size="20" cssClass="custom-input" readonly="true"/>
+                        </div>
+
+                        <div class="btn-wrapper">
+                            <label>이름</label>
+                            <form:input path="manager_name" maxlength="10" size="10" cssClass="custom-input" readonly="true"/>
+                        </div>
+
+                        <div>
+                            <label>전화번호</label>
+                            <form:input path="manager_phone" maxlength="13" size="13" cssClass="custom-input" readonly="true"/>
+                        </div>
+
+                        <form:hidden path="manager_idx"/>
+                        <a class="custom-btn select-manager-btn">담당자선택</a>
+                        <c:if test="${menu.manager_idx > 0}">
+                            <a class="icon-btn">
+                                <img src="/resources/cms/img/main/delete.svg" alt="">
+                                <div>담당자 제외</div>
+                            </a>
+                        </c:if>
+                    </div>
+
                     <div id="dialog_manager" class="dialog-common" title="담당자 선택"></div>
                 </td>
             </tr>
@@ -440,7 +460,6 @@
             </div>
         </div>
     </c:if>
-    <br/><br/>
     <div class="btn-wrapper  left">
         <c:if test="${authC or authU}">
             <a class="icon-btn gray" href="">
