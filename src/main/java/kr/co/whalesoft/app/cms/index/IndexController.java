@@ -94,7 +94,7 @@ public class IndexController extends BaseController {
 	@ResponseBody
 	public String extend(HttpSession session) {
 
-		session.setMaxInactiveInterval(60 * 60);
+		session.setMaxInactiveInterval(10 * 60);
 
 		return "extend";
 	}

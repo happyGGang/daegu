@@ -23,28 +23,34 @@
 </head>
 
 <body>
-    <!-- 로그인세션 관련 모달 스크립트 -->
     <script type="text/javascript">
         let idleTimeout, logoutTimeout, countdownInterval;
-        const warningTime = 60 * 60 * 1000;
-        const logoutTime = 61 * 60 * 1000;
+        let isWarningActive = false;
+
+        const warningTime = 10 * 60 * 1000;
+        const logoutTime = 11 * 60 * 1000;
 
         function resetSessionTimers() {
             clearTimeout(idleTimeout);
             clearTimeout(logoutTimeout);
-            clearInterval(countdownInterval); // 기존 카운트다운 제거
+            clearInterval(countdownInterval);
+
             idleTimeout = setTimeout(showTimeoutWarning, warningTime);
             logoutTimeout = setTimeout(logout, logoutTime);
+
+            isWarningActive = false;
         }
 
         function showTimeoutWarning() {
             document.getElementById("sessionTimeoutModal").style.display = "block";
             startCountdown((logoutTime - warningTime) / 1000);
+            isWarningActive = true;
         }
 
         function startCountdown(seconds) {
             let remaining = seconds;
             document.getElementById("countdown").innerText = remaining;
+
             countdownInterval = setInterval(() => {
                 remaining--;
                 document.getElementById("countdown").innerText = remaining;
@@ -56,7 +62,7 @@
         }
 
         function extendSession() {
-            $.post("/cms/session/extend.do", function() {
+            $.post("/cms/session/extend.do", function () {
                 document.getElementById("sessionTimeoutModal").style.display = "none";
                 clearInterval(countdownInterval);
                 resetSessionTimers();
@@ -71,6 +77,7 @@
             resetSessionTimers();
 
             $(document).on("mousemove keydown click", function () {
+                if (isWarningActive) return;
                 resetSessionTimers();
             });
         });
