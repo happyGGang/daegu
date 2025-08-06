@@ -88,7 +88,7 @@ $(function(){
 
         <div id="editDisable" class="disableBox">
             <div class="page-header">
-                <div>모듈관리</div>
+                <div>팝업 관리</div>
             </div>
             <div class="main-content" style="flex-direction: column">
                 <div class="table-action-wrapper">
