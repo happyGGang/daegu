@@ -49,10 +49,10 @@
                 $('#menuType' + i).show();
             }
         });
-        $('.selectmenu').select2({
-            //셀렉트 메뉴에 검색 기능 사용 안함
-            minimumResultsForSearch: Infinity
-        });
+        // $('.selectmenu').select2({
+        //     //셀렉트 메뉴에 검색 기능 사용 안함
+        //     minimumResultsForSearch: Infinity
+        // });
 
         //HTML 등록/수정 dialog
         $('a#modal_HTML, a#module-html').on('click', function (event) {
