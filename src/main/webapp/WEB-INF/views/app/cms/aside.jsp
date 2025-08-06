@@ -7,7 +7,7 @@
 <meta charset="UTF-8"/>
 <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
-<title>WBuilder - 더블유빌더</title>
+<title>SJS</title>
 <!--[if IE]>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->
@@ -61,7 +61,7 @@ $(function(){
 				</p>
 				<c:if test="${member.admin}">
 				<p>
-					<a class="caption" href="" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
+					<a href="" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
 				</p>
 				</c:if>
 			</div>

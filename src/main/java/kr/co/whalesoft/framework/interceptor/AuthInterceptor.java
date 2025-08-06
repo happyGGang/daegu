@@ -118,11 +118,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 				adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 				if(adminMenuOne == null) {
-					if(getUri.startsWith("/wbuilder")) {
-						adminMenu.setMenu_url(getUri.replaceFirst("^/wbuilder", "/cms"));
+					if(getUri.startsWith("/sjs")) {
+						adminMenu.setMenu_url(getUri.replaceFirst("^/sjs", "/cms"));
 						adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 					} else if(getUri.startsWith("/cms")) {
-						adminMenu.setMenu_url(getUri.replaceFirst("^/cms", "/wbuilder"));
+						adminMenu.setMenu_url(getUri.replaceFirst("^/cms", "/sjs"));
 						adminMenuOne = adminMenuService.getAdminMenuOneByUrl(adminMenu);
 					}
 
@@ -157,6 +157,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
 
 	public boolean homepageUrl(String uri) {
-		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/wbuilder/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/") && !uri.startsWith("/kiosk/"));
+		return (!uri.equals("") && !uri.startsWith("/cms/") && !uri.startsWith("/sjs/") && !uri.startsWith("/board/") && !uri.startsWith("/boardDelete/") && !uri.startsWith("/intro/") && !uri.startsWith("/api/") && !uri.startsWith("/sns/") && !uri.startsWith("/kiosk/"));
 	}
 }

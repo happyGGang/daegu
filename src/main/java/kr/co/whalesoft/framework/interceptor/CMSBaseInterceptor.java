@@ -66,13 +66,13 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 			}
 
 			if (sessionMember.isAdmin()) {
-				if (getUri.contains("/wbuilder")) {
+				if (getUri.contains("/sjs")) {
 					request.getSession().setAttribute("asideHomepageId", "CMS");
 				}
 				if (request.getHeader("referer").contains("/login/")) {
-					// wbuilder에서는 선택한 사이트가 없다. CMS로 설정하여 모든 관리가 가능하도록 한다.
+					// sjs에서는 선택한 사이트가 없다. CMS로 설정하여 모든 관리가 가능하도록 한다.
 					// cms로 이동하게 되면 별도로 asdieHomepageId가 설정된다.
-					JavaScriptUtils.redirectUrl("/wbuilder/adminMenu/index.do", request, response);
+					JavaScriptUtils.redirectUrl("/sjs/adminMenu/index.do", request, response);
 					return false;
 				}
 
@@ -80,7 +80,7 @@ public class CMSBaseInterceptor extends HandlerInterceptorAdapter {
 			}
 
 			if (!sessionMember.isAdmin()) {
-				if (getUri.contains("/wbuilder")) {
+				if (getUri.contains("/sjs")) {
 					JavaScriptUtils.redirectUrl("/cms/index.do", request, response);
 					return false;
 				}

@@ -5,7 +5,7 @@
 <meta charset="UTF-8"/>
 <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
-<title>WBuilder - 더블유빌더</title>
+<title>SJS</title>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/default.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/fontawesome.min.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/common/css/jquery-ui-1.12.0.min.css"/>

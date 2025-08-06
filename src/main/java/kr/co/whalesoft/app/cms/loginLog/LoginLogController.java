@@ -19,10 +19,10 @@ import kr.go.gbelib.app.module.loginLog.LoginLog;
 import kr.go.gbelib.app.module.loginLog.LoginLogService;
 
 @Controller(value = "cmsLoginLogController")
-@RequestMapping(value = {"/cms/loginLog", "/wbuilder/loginLog"})
+@RequestMapping(value = {"/cms/loginLog", "/sjs/loginLog"})
 public class LoginLogController extends BaseController {
 
-	private final String basePath = "/wbuilder/loginLog/";
+	private final String basePath = "/sjs/loginLog/";
 
 	@Autowired
 	private LoginLogService service;

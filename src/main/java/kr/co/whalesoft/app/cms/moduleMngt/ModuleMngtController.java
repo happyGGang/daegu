@@ -18,10 +18,10 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping(value = {"/wbuilder/moduleMngt"})
+@RequestMapping(value = {"/sjs/moduleMngt"})
 public class ModuleMngtController extends BaseController {
 
-	private final String basePath = "/wbuilder/moduleMngt/";
+	private final String basePath = "/sjs/moduleMngt/";
 
 	@Autowired
 	private ModuleMngtService service;

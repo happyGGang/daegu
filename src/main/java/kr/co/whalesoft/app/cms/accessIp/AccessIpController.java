@@ -16,10 +16,10 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping (value = {"/wbuilder/accessIp"})
+@RequestMapping (value = {"/sjs/accessIp"})
 public class AccessIpController extends BaseController {
 
-	private final String basePath = "/wbuilder/accessIp/";
+	private final String basePath = "/sjs/accessIp/";
 
 	@Autowired
 	private AccessIpService service;

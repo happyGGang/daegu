@@ -39,7 +39,7 @@ $(function () {
             ? '#memberGroup'
             : path.includes('adminMenu')
                 ? '#cmsAdminManage'
-                : !path.includes('/wbuilder/index.do')
+                : !path.includes('/sjs/index.do')
                     ? '#cmsManage'
                     : null;
     $(activeMenu).addClass('active');*/

@@ -14,7 +14,7 @@
             	<value>/WEB-INF/config/tiles/dms-definition.xml</value>
             	<value>/WEB-INF/config/tiles/homepage-definition.xml</value>
             	<value>/WEB-INF/config/tiles/intro-definition.xml</value>
-            	<value>/WEB-INF/config/tiles/wbuilder-definition.xml</value>
+            	<value>/WEB-INF/config/tiles/sjs-definition.xml</value>
             </list>
         </property>
 	</bean>

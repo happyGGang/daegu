@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<definition name="/sjs/*/*/*/*_ajax" templateExpression="/WEB-INF/views/app/sjs/{1}/{2}/{3}/{4}.jsp" />
+	
+	<definition name="/sjs/*/*/*_ajax" templateExpression="/WEB-INF/views/app/sjs/{1}/{2}/{3}.jsp" />
+	
+	<definition name="/sjs/*/*_ajax" templateExpression="/WEB-INF/views/app/sjs/{1}/{2}.jsp" />
+
+	<definition name="sjsLayout" templateExpression="/WEB-INF/views/app/sjs/layout/layout.jsp">
+	</definition>
+	
+	<definition name="/sjs/*/*/*/*" extends="sjsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/sjs/{1}/{2}/{3}/{4}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/sjs/*/*/*" extends="sjsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/sjs/{1}/{2}/{3}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/sjs/*/*" extends="sjsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/sjs/{1}/{2}.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="/sjs/*" extends="sjsLayout">
+ 		<put-attribute name="body" expression="/WEB-INF/views/app/sjs/{1}.jsp"></put-attribute>
+	</definition>
+	
+</tiles-definitions>

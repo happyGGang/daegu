@@ -10,7 +10,7 @@
 <meta charset="UTF-8"/>
 <meta id="_csrf" name="_csrf" th:content=""/>
 <meta id="_csrf_header" name="_csrf_header" th:content=""/>
-<title>WBuilder - 더블유빌더</title>
+<title>SJS</title>
 <!--[if IE]>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <![endif]-->

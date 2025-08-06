@@ -23,28 +23,34 @@
 </head>
 
 <body>
-    <!-- 로그인세션 관련 모달 스크립트 -->
     <script type="text/javascript">
         let idleTimeout, logoutTimeout, countdownInterval;
-        const warningTime = 60 * 60 * 1000;
-        const logoutTime = 61 * 60 * 1000;
+        let isWarningActive = false;
+
+        const warningTime = 10 * 60 * 1000;
+        const logoutTime = 11 * 60 * 1000;
 
         function resetSessionTimers() {
             clearTimeout(idleTimeout);
             clearTimeout(logoutTimeout);
-            clearInterval(countdownInterval); // 기존 카운트다운 제거
+            clearInterval(countdownInterval);
+
             idleTimeout = setTimeout(showTimeoutWarning, warningTime);
             logoutTimeout = setTimeout(logout, logoutTime);
+
+            isWarningActive = false;
         }
 
         function showTimeoutWarning() {
             document.getElementById("sessionTimeoutModal").style.display = "block";
             startCountdown((logoutTime - warningTime) / 1000);
+            isWarningActive = true;
         }
 
         function startCountdown(seconds) {
             let remaining = seconds;
             document.getElementById("countdown").innerText = remaining;
+
             countdownInterval = setInterval(() => {
                 remaining--;
                 document.getElementById("countdown").innerText = remaining;
@@ -56,7 +62,7 @@
         }
 
         function extendSession() {
-            $.post("/cms/session/extend.do", function() {
+            $.post("/cms/session/extend.do", function () {
                 document.getElementById("sessionTimeoutModal").style.display = "none";
                 clearInterval(countdownInterval);
                 resetSessionTimers();
@@ -71,6 +77,7 @@
             resetSessionTimers();
 
             $(document).on("mousemove keydown click", function () {
+                if (isWarningActive) return;
                 resetSessionTimers();
             });
         });
@@ -146,7 +153,7 @@
             <tiles:insertAttribute name="asideHomepage" />
 
             <c:if test="${member.admin}">
-                <a class="caption" href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[ WBuilder관리 이동 ]</a>
+                <a class="caption" href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/sjs/adminMenu/index.do'; return false;">[SJS 관리 이동]</a>
             </c:if>
 
 <%--            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>--%>
@@ -167,7 +174,6 @@
                     고객님의 안전한 개인정보 보호를 위해 자동로그아웃을 합니다.<br>
                     로그인 시간을 연장하시겠습니까?
                 </p>
-
             </div>
             <div class="ui-dialog-buttonpane">
                 <button onclick="extendSession();" class="icon-btn navy btn-extend" style="margin:.5em .4em">연장하기</button>

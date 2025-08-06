@@ -17,7 +17,7 @@ import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.co.whalesoft.framework.utils.ValidationUtils;
 
 @Controller
-@RequestMapping(value = {"/cms/code/{mode}", "/wbuilder/code/{mode}"})
+@RequestMapping(value = {"/cms/code/{mode}", "/sjs/code/{mode}"})
 public class CodeController extends BaseController {
 	
 	@ModelAttribute
@@ -30,7 +30,7 @@ public class CodeController extends BaseController {
 	
 	private final String basePath = "/cms/code/"; 
 	
-	private final String wbuilderPath = "/wbuilder/code/"; 
+	private final String sjsPath = "/sjs/code/";
 
 	@Autowired
 	private CodeService service;
@@ -48,7 +48,7 @@ public class CodeController extends BaseController {
 
 		
 		if (mode.equals("CMS")) {
-			return wbuilderPath + "index";
+			return sjsPath + "index";
 		} else {
 			return basePath + "index";
 		}
@@ -93,7 +93,7 @@ public class CodeController extends BaseController {
 		}
 		
 		if (mode.equals("CMS")) {
-			return wbuilderPath + "codeGroup/editCodeGroup_ajax";
+			return sjsPath + "codeGroup/editCodeGroup_ajax";
 		} else {
 			return basePath + "codeGroup/editCodeGroup_ajax";
 		}
@@ -148,7 +148,7 @@ public class CodeController extends BaseController {
 		model.addAttribute("code", code);
 		
 		if (mode.equals("CMS")) {
-			return wbuilderPath + "code/code_ajax"; 
+			return sjsPath + "code/code_ajax";
 		} else {
 			return basePath + "code/code_ajax"; 
 		}
@@ -169,7 +169,7 @@ public class CodeController extends BaseController {
 		}
 		
 		if (mode.equals("CMS")) {
-			return wbuilderPath + "code/editCode_ajax";
+			return sjsPath + "code/editCode_ajax";
 		} else {
 			return basePath + "code/editCode_ajax";
 		}

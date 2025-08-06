@@ -25,11 +25,11 @@ import kr.go.gbelib.app.common.api.MemberAPI;
 import kr.go.gbelib.app.common.api.PrivateMemberAPI;
 
 @Controller
-@RequestMapping(value = {"/cms/member", "/wbuilder/member"})
+@RequestMapping(value = {"/cms/member", "/sjs/member"})
 public class MemberController extends BaseController {
 
 	private final String basePath = "/cms/member/";
-	private final String wbuilderPath = "/wbuilder/member/";
+	private final String sjsPath = "/sjs/member/";
 
 	@Autowired
 	private AuthService authService;
@@ -195,8 +195,8 @@ public class MemberController extends BaseController {
 	}
 
 	private String returnUrl(String url, HttpServletRequest request) {
-		if (request.getHeader("referer").toString().contains("wbuilder")) {
-			return wbuilderPath + url;
+		if (request.getHeader("referer").toString().contains("sjs")) {
+			return sjsPath + url;
 		} else {
 			return basePath + url;
 		}
