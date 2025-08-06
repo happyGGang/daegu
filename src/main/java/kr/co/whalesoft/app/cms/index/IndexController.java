@@ -3,6 +3,7 @@ package kr.co.whalesoft.app.cms.index;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.memberGroupAuth.MemberGroupAuthService;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.exception.AuthException;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller(value = "cmsIndexController")
 @RequestMapping(value = {"/cms"})
@@ -86,6 +88,15 @@ public class IndexController extends BaseController {
 		//TODO 해당 홈페이지에서 사용하지 않는 메뉴를 클릭하였을때 main페이지인 /cms/index.jsp로 보내야함.
 
 		return basePath + "index";
+	}
+
+	@RequestMapping("/session/extend.*")
+	@ResponseBody
+	public String extend(HttpSession session) {
+
+		session.setMaxInactiveInterval(60 * 60);
+
+		return "extend";
 	}
 
 }

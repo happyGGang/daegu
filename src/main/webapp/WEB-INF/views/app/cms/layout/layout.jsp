@@ -159,7 +159,7 @@
 
         <tiles:insertAttribute name="body"/>
 
-        <div id="sessionTimeoutModal" class="session-timeout-modal ui-dialog ui-corner-all" style="height: 300px; position: fixed; left: 50%; transform: translate(-50%, -50%); top: 50%" >
+        <div id="sessionTimeoutModal" class="session-timeout-modal ui-dialog ui-corner-all" style="display: none; height: 300px; position: fixed; left: 50%; transform: translate(-50%, -50%); top: 50%" >
             <h3 class="session-timeout-title ui-widget-header">자동로그아웃안내</h3>
             <div class="ui-dialog-content" style="text-align: center">
                 <p class="session-timeout-timer session-message-title" >남은시간 <span id="countdown" class="countdown-number">360</span>초</p>
@@ -167,7 +167,6 @@
                     고객님의 안전한 개인정보 보호를 위해 자동로그아웃을 합니다.<br>
                     로그인 시간을 연장하시겠습니까?
                 </p>
-
             </div>
             <div class="ui-dialog-buttonpane">
                 <button onclick="extendSession();" class="icon-btn navy btn-extend" style="margin:.5em .4em">연장하기</button>
