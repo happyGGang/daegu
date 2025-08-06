@@ -333,7 +333,7 @@
 <!-- 여기까지 줄정리 필요 -->
 
 
-<div class="btn-wrapper">
+<div class="btn-wrapper left">
     <c:if test="${member.admin}">
         <a class="icon-btn gray" href="">
             <img alt="" src="/resources/cms/img/main/cancel.svg">
