@@ -146,10 +146,10 @@
             <tiles:insertAttribute name="asideHomepage" />
 
             <c:if test="${member.admin}">
-                <a href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
+                <a class="caption" href=""  style="margin: 24px 0" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[ WBuilder관리 이동 ]</a>
             </c:if>
 
-            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>
+<%--            <input type="text" id="menuSearchInput" placeholder="메뉴명 검색" autocomplete="off"/>--%>
             <ul id="menuSearchResults" class="search-autocomplete"></ul>
 
             <div class="menu-list">
@@ -159,7 +159,7 @@
 
         <tiles:insertAttribute name="body"/>
 
-        <div id="sessionTimeoutModal" class="session-timeout-modal ui-dialog ui-corner-all" style="height: 300px; position: fixed; left: 50%; transform: translate(-50%, -50%); top: 50%" >
+        <div id="sessionTimeoutModal" class="session-timeout-modal ui-dialog ui-corner-all" style="height: 300px; position: fixed; left: 50%; transform: translate(-50%, -50%); top: 50%; display: none" >
             <h3 class="session-timeout-title ui-widget-header">자동로그아웃안내</h3>
             <div class="ui-dialog-content" style="text-align: center">
                 <p class="session-timeout-timer session-message-title" >남은시간 <span id="countdown" class="countdown-number">360</span>초</p>

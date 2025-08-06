@@ -61,7 +61,7 @@ $(function(){
 				</p>
 				<c:if test="${member.admin}">
 				<p>
-					<a href="" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
+					<a class="caption" href="" onclick="javascript:parent.location.href='/wbuilder/adminMenu/index.do'; return false;">[WBuilder관리 이동]</a>
 				</p>
 				</c:if>
 			</div>
