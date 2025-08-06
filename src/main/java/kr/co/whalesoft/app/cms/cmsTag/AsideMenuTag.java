@@ -44,7 +44,8 @@ public class AsideMenuTag extends BodyTagSupport {
 
                 int level = menu.getMenu_level();
                 String url = StringUtils.equals(menu.getMenu_type(), "module") ? menu.getLink_url() : menu.getMenu_url();
-                String anchor = buildAnchor(menu, url);
+                boolean hasChildren = adminMenuList.stream().anyMatch(child -> Objects.equals(child.getParent_menu_idx(), menu.getMenu_idx()));
+                String anchor = buildAnchor(menu, url, hasChildren);
 
                 if (level == 1) {
                     HtmlTag container = new HtmlTag("div");
@@ -98,14 +99,23 @@ public class AsideMenuTag extends BodyTagSupport {
         return EVAL_PAGE;
     }
 
-    private String buildAnchor(AdminMenu menu, String url) {
-        if (StringUtils.equals(menu.getMenu_type(), "changePage")) {
-            return "<a href='#' onclick=\"javascript:parent.location.href='" + url + "'; return false;\">" + "· " + menu.getMenu_name() + "</a>";
-        } else if (StringUtils.equals(menu.getMenu_type(), "_blank")) {
-            return "<a href='" + url + "' target='_blank'>" + "· " + menu.getMenu_name() + "</a>";
-        } else {
-            return "<a href='" + url + "'>" + "· " + menu.getMenu_name() + "</a>";
+    private String buildAnchor(AdminMenu menu, String url, boolean hasChildren) {
+        String name = "· " + menu.getMenu_name();
+
+        String anchor = "<a href='" + url + "'";
+
+        if (hasChildren) {
+            anchor += " class='has-sub' data-has-children='true'";
         }
+
+        if (StringUtils.equals(menu.getMenu_type(), "changePage")) {
+            anchor += " onclick=\"javascript:parent.location.href='" + url + "'; return false;\"";
+        } else if (StringUtils.equals(menu.getMenu_type(), "_blank")) {
+            anchor += " target='_blank'";
+        }
+        anchor += ">" + name + "</a>";
+
+        return anchor;
     }
 
     private HtmlTag getOrCreateUlTag(HtmlTag parent) {

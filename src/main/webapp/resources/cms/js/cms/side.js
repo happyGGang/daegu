@@ -90,6 +90,31 @@ $(function () {
     }
   });
 
+  $('.menu-list a.has-sub').each(function () {
+    const $li = $(this).closest('li');
+    if ($(this).attr('data-has-children') === 'true') {
+      $li.children('ul').hide();
+    }
+  });
+
+  $('.menu-list').on('click', 'a.has-sub', function (e) {
+    e.preventDefault();
+
+    const $a = $(this);
+    const $li = $a.closest('li');
+    const $ul = $li.children('ul');
+
+    if ($ul.length) {
+      if ($ul.is(':visible')) {
+        $ul.slideUp(150);
+        $li.removeClass('active');
+      } else {
+        $ul.slideDown(150);
+        $li.addClass('active');
+      }
+    }
+  });
+
   // Initialize menu on page load
   resetMenuState();
   activateMenu();
