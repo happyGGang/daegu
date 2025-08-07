@@ -67,7 +67,7 @@
             <div class="table-action-wrapper">
                 <div class="center">
                     <p class="total-count">총 ${memberListCount}건</p>
-                    <form:select path="rowCount" class="scustom-filter" style="width:150px;">
+                    <form:select path="rowCount" class="custom-filter" style="width:150px;">
                         <form:option value="10">10개씩 보기</form:option>
                         <form:option value="20">20개씩 보기</form:option>
                         <form:option value="30">30개씩 보기</form:option>
