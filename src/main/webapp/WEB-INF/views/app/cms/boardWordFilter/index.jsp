@@ -47,7 +47,7 @@ $(function() {
                 </a>
             </c:if>
         </div>
-        <form:textarea path="word" cssStyle="height:200px;width: -webkit-fill-available; margin-top: 10px" cssClass="custom-input"/>
+        <form:textarea path="word" cssStyle="height:200px;width: -webkit-fill-available; margin-top: 10px; padding: 10px" cssClass="custom-input"/>
         <ul class="guide-line" style="margin-top: 10px">
             <li>단어와 단어를 , 로 구분하여 주세요. (예 : 개나리, 십장생)</li>
         </ul>
